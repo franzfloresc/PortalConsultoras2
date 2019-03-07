@@ -1455,6 +1455,8 @@
     <Content Include="Content\Css\Site\Ficha\SeleccionarTipo.css" />
     <Content Include="Content\Css\Site\Images\carrusel_next_blanco_dorado.png" />
     <Content Include="Content\Css\Site\Images\carrusel_prev_blanco_dorado.png" />
+    <Content Include="Content\Images\checkBuroSAC.svg" />
+    <Content Include="Content\Images\exclamationBuroSAC.svg" />
     <Content Include="Content\Images\icono_party_popper.png" />
     <Content Include="Content\Images\flecha_despliegue_opcion_mi_perfil.svg" />
     <Content Include="Content\Images\Esika\icono_campos_select_mi_perfil.svg" />
@@ -3663,6 +3665,7 @@
     <Content Include="Content\Images\prod_grilla_vacio.png" />
     <Content Include="Content\Images\Question.png" />
     <Content Include="Content\Images\quote.png" />
+    <Content Include="Content\Images\rechazadaBuroSAC.svg" />
     <Content Include="Content\Images\regalo_microefecto_esika.png" />
     <Content Include="Content\Images\regalo_microefecto_lbel.png" />
     <Content Include="Content\Images\remove.png" />
@@ -5637,7 +5640,6 @@
     <Content Include="Views\ProductoRecomendado\_template_producto.cshtml" />
     <Content Include="Views\Pedido\_vpPedidoGrilla-Template.cshtml" />
     <Content Include="Views\Bonificaciones\Index.cshtml" />
-    <Content Include="Views\MisCatalogosRevistas\MisCatalogosYRevistas.cshtml" />
     <Content Include="Views\MisCatalogosRevistas\Index.cshtml" />
     <Content Include="Views\MisCatalogosRevistas\template-revista-slide.cshtml" />
     <Content Include="Views\Unete\_MensajeRespuestaBuro.cshtml" />
@@ -5663,6 +5665,9 @@
     <Content Include="Views\TusClientes\PanelMantener.cshtml" />
     <Content Include="Views\TusClientes\PanelTest.cshtml" />
     <Content Include="Views\TusClientes\_Mantener.cshtml" />
+    <Content Include="Views\Unete\ReporteTipoConsultora.cshtml" />
+    <Content Include="Views\DetalleEstrategia\FichaTemplate.cshtml" />
+    <Content Include="Views\DetalleEstrategia\ProductoTemplate.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
