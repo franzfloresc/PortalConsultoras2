@@ -107,12 +107,11 @@ function Modificar(idConfiguracionPais, event) {
             }
             
             /*INIT Agana 159*/
-            //var esATP = $.trim($("#Codigo").val()) === "ATP";
             
-            var criterioCss = $.trim($("#Codigo").val()) === "ATP" ? 'none' : 'block';
+            var criterioATP = $.trim($("#Codigo").val()) === "ATP" ? 'none' : 'block';
           
-            $("#divUrlMenu").css("display", criterioCss);
-            $("#divUrlMenuTxt").css("display", criterioCss);
+            $("#divUrlMenu").css("display", criterioATP);
+            $("#divUrlMenuTxt").css("display", criterioATP);
         
             /*END Agana 159*/
         },
@@ -170,7 +169,7 @@ function IniDialogs() {
         closeOnEscape: true,
         width: 830,
         draggable: false,
-        title: "Configurar Contenedor Menú",
+        title: "Menú",
         open: function (event, ui) {
             //(".ui-dialog-titlebar-close", ui.dialog).hide(); //eaar tiene bug
         },
