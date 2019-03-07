@@ -290,7 +290,7 @@
     <div class="clear-fix"></div>
     <div class="fontColorAdm">
         <div class="sideLeft">
-            <div class="div-3" style="margin-bottom:20px">
+            <div class="div-3" style="margin-bottom:45px">
                 <div class="titG">¿Activar?</div>
                 <div class="titG">
                     @Html.CheckBoxFor(m => m.AdministrarOfertasHomeAppModel.AppActivo)
@@ -328,7 +328,7 @@
             <div class="div-3" style="display: inline-block; text-align: left; margin-bottom: 15px;">
                 <div class="titG" style="width:155px">
                     Banner Informativo (jpg):
-                    <h6>(@ViewBag.AppOfertasHomeImgAncho x @ViewBag.AppOfertasHomeImgAlto pixeles)</h6>
+                    <h6 id="lblMedidasBannerApp"></h6>
                 </div>
                 <div style="display: inline-block;">
                     @Html.HiddenFor(m => m.AdministrarOfertasHomeAppModel.AppBannerInformativo, new { id = "nombre-fondo-app", imageextension = "jpg", imagewidth = "380", imageheight = "860", messageSize = "Las medidas no son correctas. Vuelve a intentar, por favor.", messageFormat = "El formato no es correcto. Vuelve a intentar, por favor." })
@@ -358,18 +358,3 @@
         </div>
     </div>
 </div>
-<script>
-    var appOfertasHomeActivo = "@ViewBag.AppOfertasHomeActivo";
-    var appOfertasHomeImgExtension = "@ViewBag.AppOfertasHomeImgExtension";
-    var appOfertasHomeImgAncho = "@ViewBag.AppOfertasHomeImgAncho";
-    var appOfertasHomeImgAlto = "@ViewBag.AppOfertasHomeImgAlto";
-    var appOfertasHomeMsjMedida = "@ViewBag.AppOfertasHomeMsjMedida";
-    var appOfertasHomeMsjFormato = "@ViewBag.AppOfertasHomeMsjFormato";
-
-    if (appOfertasHomeActivo != "1") $("#divMantApp").hide();
-    if (appOfertasHomeImgExtension != "") $("#nombre-fondo-app").attr("imageextension", appOfertasHomeImgExtension);
-    if (appOfertasHomeImgAncho != "") $("#nombre-fondo-app").attr("imagewidth", appOfertasHomeImgAncho);
-    if (appOfertasHomeImgAlto != "") $("#nombre-fondo-app").attr("imageheight", appOfertasHomeImgAlto);
-    if (appOfertasHomeMsjMedida != "") $("#nombre-fondo-app").attr("messageSize", appOfertasHomeMsjMedida);
-    if (appOfertasHomeMsjFormato != "") $("#nombre-fondo-app").attr("messageFormat", appOfertasHomeMsjFormato);
-</script>

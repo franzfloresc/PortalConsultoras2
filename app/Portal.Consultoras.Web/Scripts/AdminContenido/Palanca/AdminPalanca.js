@@ -13,6 +13,7 @@ var _tipopresentacion = {
     odd: "6",
     banner: "4"
 }
+
 jQuery(document).ready(function () {
     admPalancaDatos.ini();
 
@@ -69,7 +70,6 @@ jQuery(document).ready(function () {
     });
 
     $("body").on("change", "#ddlConfiguracionIdOfertas", function () {
-
         if (_listPalanca.indexOf($(this).find("option:selected").attr("data-codigo")) > -1) {
             $(".hide-configuration").show();
         } else {
@@ -81,8 +81,69 @@ jQuery(document).ready(function () {
         } else {
             $(".hide-config-image-odd").hide();
         }
+
+        ConfigSeccionApp($(this).val());
     });
 });
+
+function ConfigSeccionApp(configuracionPaisID) {
+    if (configuracionPaisID == "") {
+        $("#divMantApp").hide();
+        return;
+    }
+
+    waitingDialog({});
+
+    $.ajax({
+        url: baseUrl + "AdministrarPalanca/ConfiguracionSeccionApp",
+        type: "GET",
+        dataType: "json",
+        data: { configuracionPaisID: configuracionPaisID },
+        contentType: "application/json; charset=utf-8",
+        success: function (result) {
+            closeWaitingDialog();
+
+            if (!result.success) {
+                _toastHelper.error("Error al procesar la Solicitud.");
+                return;
+            }
+
+            if (result.data.AppOfertasHomeActivo == "1") $("#divMantApp").show();
+            else $("#divMantApp").hide();
+
+            if (result.data.AppOfertasHomeImgExtension != "") $("#nombre-fondo-app").attr("imageextension", result.data.AppOfertasHomeImgExtension);
+            if (result.data.AppOfertasHomeImgAncho != "") $("#nombre-fondo-app").attr("imagewidth", result.data.AppOfertasHomeImgAncho);
+            if (result.data.AppOfertasHomeImgAlto != "") $("#nombre-fondo-app").attr("imageheight", result.data.AppOfertasHomeImgAlto);
+            if (result.data.AppOfertasHomeMsjMedida != "") $("#nombre-fondo-app").attr("messageSize", result.data.AppOfertasHomeMsjMedida);
+            if (result.data.AppOfertasHomeMsjFormato != "") $("#nombre-fondo-app").attr("messageFormat", result.data.AppOfertasHomeMsjFormato);
+
+            var palanca = $("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo");
+            if (palanca == _palanca.pn || palanca == _palanca.dp) {
+                $("#AdministrarOfertasHomeAppModel_AppColorFondo").parent().parent().hide();
+                $("#AdministrarOfertasHomeAppModel_AppColorTexto").parent().parent().hide();
+                $("#AdministrarOfertasHomeAppModel_AppCantidadProductos").parent().parent().hide();
+
+                $("#AdministrarOfertasHomeAppModel_AppColorFondo").val("");
+                $("#AdministrarOfertasHomeAppModel_AppColorTexto").val("");
+                $("#AdministrarOfertasHomeAppModel_AppCantidadProductos").val("");
+            }
+            else {
+                $("#AdministrarOfertasHomeAppModel_AppColorFondo").parent().parent().show();
+                $("#AdministrarOfertasHomeAppModel_AppColorTexto").parent().parent().show();
+                $("#AdministrarOfertasHomeAppModel_AppCantidadProductos").parent().parent().show();
+
+                if ($("#AdministrarOfertasHomeAppModel_AppColorFondo").val() === "") $("#AdministrarOfertasHomeAppModel_AppColorFondo").val("#000000");
+                if ($("#AdministrarOfertasHomeAppModel_AppColorTexto").val() === "") $("#AdministrarOfertasHomeAppModel_AppColorTexto").val("#ffffff");
+            }
+
+            $("#lblMedidasBannerApp").html("(" + result.data.AppOfertasHomeImgAncho + " x " + result.data.AppOfertasHomeImgAlto + " pixeles)");
+        },
+        error: function (request, status, error) {
+            closeWaitingDialog();
+            _toastHelper.error("Error al procesar la Solicitud.");
+        }
+    });
+}
 
 function Modificar(idConfiguracionPais, event) {
     $.ajax({
@@ -129,13 +190,6 @@ function ModificarOfertas(idOfertasHome) {
                 UploadFilePalanca("fondo-mobile");
                 UploadFilePalanca("fondo-desktop");
                 UploadFilePalancaApp("fondo-app");
-
-                var palanca = $("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo");
-                if (palanca == _palanca.pn || palanca == _palanca.dp) {
-                    $("#AdministrarOfertasHomeAppModel_AppColorFondo").parent().parent().hide();
-                    $("#AdministrarOfertasHomeAppModel_AppColorTexto").parent().parent().hide();
-                    $("#AdministrarOfertasHomeAppModel_AppCantidadProductos").parent().parent().hide();
-                }
             });
 
             showDialog("DialogMantenimientoOfertasHome");
@@ -272,22 +326,19 @@ function IniDialogs() {
             if ($("#MobileColorFondo").val() === "") {
                 $("#MobileColorFondo").val("#000000");
             }
-            if ($("#AdministrarOfertasHomeAppModel_AppColorFondo").val() === "") {
-                $("#AdministrarOfertasHomeAppModel_AppColorFondo").val("#000000");
-            }
+            
             if ($("#DesktopColorTexto").val() === "") {
                 $("#DesktopColorTexto").val("#ffffff");
             }
             if ($("#MobileColorTexto").val() === "") {
                 $("#MobileColorTexto").val("#ffffff");
             }
-            if ($("#AdministrarOfertasHomeAppModel_AppColorTexto").val() === "") {
-                $("#AdministrarOfertasHomeAppModel_AppColorTexto").val("#ffffff");
-            }
 
             if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") !== _palanca.odd) {
                 $(".hide-config-image-odd").hide();
             }
+
+            $("#ddlConfiguracionIdOfertas").change();
         },
         buttons:
         {

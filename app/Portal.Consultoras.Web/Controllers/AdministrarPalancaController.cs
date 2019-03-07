@@ -1,13 +1,17 @@
 ﻿using AutoMapper;
+
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceSAC;
+using Portal.Consultoras.Web.ServiceUsuario;
+
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
+using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -66,6 +70,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult GetOfertasHome(int idOfertasHome)
         {
             var model = new AdministrarOfertasHomeModel();
+
             if (idOfertasHome > 0)
             {
                 using (var sv = new SACServiceClient())
@@ -74,19 +79,60 @@ namespace Portal.Consultoras.Web.Controllers
                     model = Mapper.Map<AdministrarOfertasHomeModel>(beConfiguracionOfertas);
                 }
             }
+
             model.DesktopTipoEstrategia = model.DesktopTipoEstrategia ?? string.Empty;
             model.MobileTipoEstrategia = model.MobileTipoEstrategia ?? string.Empty;
             model.ListaCampanias = _zonificacionProvider.GetCampanias(userData.PaisID);
             model.ListaTipoPresentacion = ListTipoPresentacion();
             model.ListaConfiguracionPais = ListarConfiguracionPais();
             model.ListaTipoEstrategia = ListTipoEstrategia();
-            ViewBag.AppOfertasHomeActivo = (model.ConfiguracionPaisDatos.Where(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeActivo).FirstOrDefault() ?? new ConfiguracionPaisDatosModel()).Valor1 ?? "0";
-            ViewBag.AppOfertasHomeImgExtension = (model.ConfiguracionPaisDatos.Where(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeImgExtension).FirstOrDefault() ?? new ConfiguracionPaisDatosModel()).Valor1 ?? string.Empty;
-            ViewBag.AppOfertasHomeImgAncho = (model.ConfiguracionPaisDatos.Where(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeImgAncho).FirstOrDefault() ?? new ConfiguracionPaisDatosModel()).Valor1 ?? string.Empty;
-            ViewBag.AppOfertasHomeImgAlto = (model.ConfiguracionPaisDatos.Where(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeImgAlto).FirstOrDefault() ?? new ConfiguracionPaisDatosModel()).Valor1 ?? string.Empty;
-            ViewBag.AppOfertasHomeMsjMedida = (model.ConfiguracionPaisDatos.Where(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeMsjMedida).FirstOrDefault() ?? new ConfiguracionPaisDatosModel()).Valor1 ?? string.Empty;
-            ViewBag.AppOfertasHomeMsjFormato = (model.ConfiguracionPaisDatos.Where(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeMsjFormato).FirstOrDefault() ?? new ConfiguracionPaisDatosModel()).Valor1 ?? string.Empty;
+            
             return PartialView("Partials/MantenimientoOfertasHome", model);
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> ConfiguracionSeccionApp(int configuracionPaisID)
+        {
+            var lst = new List<ConfiguracionPaisDatosModel>();
+
+            try
+            {
+                using (var svc = new UsuarioServiceClient())
+                {
+                    var result = await svc.GetConfiguracionPaisDatosAllAsync(new ServiceUsuario.BEConfiguracionPaisDatos()
+                    {
+                        PaisID = userData.PaisID,
+                        ConfiguracionPaisID = configuracionPaisID
+                    });
+
+                    lst = Mapper.Map<List<ConfiguracionPaisDatosModel>>(result);
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    message = string.Empty,
+                    data = new
+                    {
+                        AppOfertasHomeActivo = (lst.Where(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeActivo).FirstOrDefault() ?? new ConfiguracionPaisDatosModel()).Valor1 ?? "0",
+                        AppOfertasHomeImgExtension = (lst.Where(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeImgExtension).FirstOrDefault() ?? new ConfiguracionPaisDatosModel()).Valor1 ?? string.Empty,
+                        AppOfertasHomeImgAncho = (lst.Where(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeImgAncho).FirstOrDefault() ?? new ConfiguracionPaisDatosModel()).Valor1 ?? string.Empty,
+                        AppOfertasHomeImgAlto = (lst.Where(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeImgAlto).FirstOrDefault() ?? new ConfiguracionPaisDatosModel()).Valor1 ?? string.Empty,
+                        AppOfertasHomeMsjMedida = (lst.Where(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeMsjMedida).FirstOrDefault() ?? new ConfiguracionPaisDatosModel()).Valor1 ?? string.Empty,
+                        AppOfertasHomeMsjFormato = (lst.Where(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeMsjFormato).FirstOrDefault() ?? new ConfiguracionPaisDatosModel()).Valor1 ?? string.Empty
+                    }
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+
+                return Json(new
+                {
+                    success = false,
+                    message = ex.StackTrace
+                }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         public JsonResult ListPalanca(string sidx, string sord, int page, int rows)
