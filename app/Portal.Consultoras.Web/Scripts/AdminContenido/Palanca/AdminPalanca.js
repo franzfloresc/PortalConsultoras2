@@ -1,6 +1,8 @@
 ﻿
 var _toastHelper = ToastHelper();
 var _listPalanca = ["LAN", "RDR", "RD", "OPT"];
+var _listaPalancaModificaDisenio = ["ATP"];
+var _codigoPalancaATP = "ATP";
 var _palanca = {
     showroom: "SR",
     odd: "ODD"
@@ -73,11 +75,23 @@ jQuery(document).ready(function () {
         } else {
             $(".hide-configuration").hide();
         }
-
+        
         if ($(this).find("option:selected").attr("data-codigo") === _palanca.odd) {
             $(".hide-config-image-odd").show();
         } else {
             $(".hide-config-image-odd").hide();
+        }
+
+        if (_listaPalancaModificaDisenio.indexOf($(this).find("option:selected").attr("data-codigo")) > -1) {
+            if ($(this).find("option:selected").attr("data-codigo") == _codigoPalancaATP) {
+                $(".div-disenio-atp-visible").show();
+                $(".div-disenio-atp-oculto").hide();
+                $("#tituloSeccionDesktop").html("Desktop/Mobile");
+            }
+        } else {
+            $(".div-disenio-atp-visible").hide();
+            $(".div-disenio-atp-oculto").show();
+            $("#tituloSeccionDesktop").html("Desktop");
         }
     });
 });
@@ -245,7 +259,7 @@ function IniDialogs() {
         closeOnEscape: true,
         width: 830,
         draggable: false,
-        title: "Configurar Contenedor Home",
+        title: "Home",
         close: function () {
             $('div[id^="collorpicker_"]').hide();
             HideDialog("DialogMantenimientoOfertasHome");
