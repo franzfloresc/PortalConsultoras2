@@ -18,11 +18,11 @@
             .fail(function (data, error) {
                 _PackComponents = {};
             });
-    }
+    };
 
     var _init = function () {
         _getModelo();
-    }
+    };
 
     return {
         init: _init,
