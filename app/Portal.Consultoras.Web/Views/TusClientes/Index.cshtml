@@ -16,7 +16,7 @@
 </div>
 
 <div id="fitros_fixed">
-    <div class="container">
+    <div class="container container_filtros_fixed">
         <div class="row" style="margin-bottom:15px;">
             <div class="col-md-6 col-xs-12">
                 <input id="txtNombreCliente" class="buscar_cliente" type="text" placeholder="Buscar" value="" />
@@ -31,7 +31,7 @@
 </div>
 
 <div class="container container_clientes">
-    <div class="col-12">
+    <div class="col-12 pl-0 pr-0">
         <div id="divClientes" style="margin-bottom:15px;">
 
         </div>
@@ -46,54 +46,54 @@
 </div>
 
 <script id="hbsClientes" type="text/x-handlebars-template">
-    <div class="row tabla_cabecera">
-        <div class="col-2">
+    <div class="row ml-0 mr-0 tabla_cabecera">
+        <div class="row align-items-center ml-0 mr-0 col-2">
             Nombres
         </div>
-        <div class="col-2">
+        <div class="row align-items-center ml-0 mr-0 col-2">
             Apellidos
         </div>
-        <div class="col-2">
+        <div class="row align-items-center ml-0 mr-0 col-2">
             Teléfono  Fijo
         </div>
-        <div class="col-2">
+        <div class="row align-items-center ml-0 mr-0 col-2">
             Celular
         </div>
-        <div class="col-2">
+        <div class="row align-items-center ml-0 mr-0 col-2">
             Correo
         </div>
-        <div class="col-1">
+        <div class="row align-items-center ml-0 mr-0 col-1">
             Editar
         </div>
-        <div class="col-1">
+        <div class="row align-items-center ml-0 mr-0 col-1">
             Eliminar
         </div>
     </div>
     {{# each this.miData as |cliente|}}
-    <div class="row  tabla_item">
-        <div class="col-md-2 col-8">
+    <div class="row ml-0 mr-0 tabla_item">
+        <div class="row ml-0 mr-0 align-items-center col-md-2 col-8">
             {{NombreCliente}}
         </div>
-        <div class="col-md-2 col-8">
+        <div class="row ml-0 mr-0 align-items-center col-md-2 col-8">
             {{ApellidoCliente}}
         </div>
-        <div class="col-md-2 col-8">
+        <div class="row ml-0 mr-0 align-items-center col-md-2 col-8">
             {{Telefono}}
         </div>
-        <div class="col-md-2 col-8">
+        <div class="row ml-0 mr-0 align-items-center col-md-2 col-8">
             {{Celular}}
         </div>
-        <div class="col-md-2 col-8">
+        <div class="row ml-0 mr-0 align-items-center col-md-2 col-8">
             {{eMail}}
         </div>
-        <div class="col-md-1 col-2 editar">
+        <div class="row ml-0 mr-0 justify-content-center align-items-center col-md-1 col-2 editar">
             <input type="button"
                    class="btn_editar"
                    title="Editar Cliente"
                    value=""
                    onclick="tusClientesModule.editarCliente({{JSON2string cliente}})" />
         </div>
-        <div class="col-md-1 col-2">
+        <div class="row ml-0 mr-0 justify-content-center align-items-center col-md-1 col-2 eliminar">
             <input type="button"
                    class="btn_eliminar"
                    title="Eliminar Cliente"
@@ -105,7 +105,7 @@
         <div class="arrow"></div>
         <div class="row">
             <div class="col-lg-8 col-12 d-flex align-items-center">
-                <p style="margin-bottom:10px">¿Quieres eliminar a {{Nombre}}?</p>
+                <p>¿Quieres eliminar a {{Nombre}}?</p>
             </div>
             <div class="col-lg-4 col-12 flex-row-reverse d-flex align-items-center">
                 <div class="boton-primaria">

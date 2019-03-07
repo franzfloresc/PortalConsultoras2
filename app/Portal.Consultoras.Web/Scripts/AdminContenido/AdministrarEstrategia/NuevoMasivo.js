@@ -21,19 +21,7 @@
         CantidadCuv: 0
     }
 
-    var _codigoEstrategia = {
-        OfertaParaTi: "001",
-        PackNuevas: "002",
-        OfertaWeb: "003",
-        Lanzamiento: "005",
-        OfertasParaMi: "007",
-        PackAltoDesembolso: "008",
-        OfertaDelDia: "009",
-        GuiaDeNegocio: "010",
-        LosMasVendidos: "020",
-        HerramientaVenta: "011",
-        ShowRoom: "030"
-    }
+    var _codigoEstrategia = ConstantesModule.ConstantesPalanca;
 
 
     var _showActionsVer1 = function (cellvalue, options, rowObject) {
@@ -393,15 +381,15 @@
         var estrategiaCodigo = $("#ddlTipoEstrategia option:selected").data("codigo") || "";
         if (!estrategiaCodigo.in(
             _codigoEstrategia.OfertaParaTi,
-            _codigoEstrategia.GuiaDeNegocio,
+            _codigoEstrategia.GuiaDeNegocioDigitalizada,
             _codigoEstrategia.LosMasVendidos,
             _codigoEstrategia.Lanzamiento,
             _codigoEstrategia.OfertasParaMi,
             _codigoEstrategia.PackAltoDesembolso,
             _codigoEstrategia.OfertaDelDia,
             _codigoEstrategia.ShowRoom,
-            _codigoEstrategia.HerramientaVenta,
-            ConstantesModule.ConstantesPalanca.ArmaTuPack)) {
+            _codigoEstrategia.HerramientasVenta,
+            _codigoEstrategia.ArmaTuPack)) {
 
             _toastHelper.error("Debe seleccionar el tipo de Estrategia que permita esta funcionalidad.");
             return false;
