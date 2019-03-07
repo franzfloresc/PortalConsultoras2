@@ -1,8 +1,9 @@
 ﻿var ArmaTuPackProvider = function () {
 
-    var getPackComponents = function () {
+    var _getPackComponentsPromise = function () {
+        var dfd = jQuery.Deferred();
 
-        return {
+        dfd.resolve({
             "success": true,
             "esMultimarca": true,
             "componentes": [
@@ -1543,14 +1544,12 @@
                 }
             ],
             "mensaje": "SiMongo|GetEstrategiaProductos = 57|GetEstrategiaDetalleCompuesta = 4|OrdenarComponentesPorMarca = 4|"
-        };
-    }
+        });
 
-    var _config = {
-
+        return dfd.promise();
     };
 
     return {
-        getPackComponents: getPackComponents
+        getPackComponentsPromise : _getPackComponentsPromise
     };
 };
