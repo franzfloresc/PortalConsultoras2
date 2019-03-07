@@ -1,6 +1,6 @@
 ﻿var ArmaTuPackProvider = function () {
 
-    var _getPackComponentsPromise = function () {
+    var _getPackComponentsPromise = function (cuv) {
         var dfd = jQuery.Deferred();
 
         dfd.resolve({

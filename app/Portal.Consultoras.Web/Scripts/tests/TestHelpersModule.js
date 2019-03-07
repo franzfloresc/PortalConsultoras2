@@ -8,7 +8,7 @@ var TestHelpersModule = function(){
 
     var _getRejectedPromiseWithData = function (data) {
         var dfd = $.Deferred();
-        dfd.reject(data);
+        dfd.reject(data,"Error");
         return dfd.promise();
     };
 

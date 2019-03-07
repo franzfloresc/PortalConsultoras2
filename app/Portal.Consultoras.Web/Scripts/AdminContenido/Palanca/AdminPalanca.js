@@ -1,6 +1,8 @@
 ﻿
 var _toastHelper = ToastHelper();
 var _listPalanca = ["LAN", "RDR", "RD", "OPT"];
+var _listaPalancaModificaDisenio = ["ATP"];
+var _codigoPalancaATP = "ATP";
 var _palanca = {
     showroom: "SR",
     odd: "ODD"
@@ -73,11 +75,23 @@ jQuery(document).ready(function () {
         } else {
             $(".hide-configuration").hide();
         }
-
+        
         if ($(this).find("option:selected").attr("data-codigo") === _palanca.odd) {
             $(".hide-config-image-odd").show();
         } else {
             $(".hide-config-image-odd").hide();
+        }
+
+        if (_listaPalancaModificaDisenio.indexOf($(this).find("option:selected").attr("data-codigo")) > -1) {
+            if ($(this).find("option:selected").attr("data-codigo") == _codigoPalancaATP) {
+                $(".div-disenio-atp-visible").show();
+                $(".div-disenio-atp-oculto").hide();
+                $("#tituloSeccionDesktop").html("Desktop/Mobile");
+            }
+        } else {
+            $(".div-disenio-atp-visible").hide();
+            $(".div-disenio-atp-oculto").show();
+            $("#tituloSeccionDesktop").html("Desktop");
         }
     });
 });
@@ -96,23 +110,54 @@ function Modificar(idConfiguracionPais, event) {
                 UploadFilePalanca("mobile-fondo-banner"), UploadFilePalanca("mobile-logo-banner")
             );
 
-          
+
             showDialog("DialogMantenimientoPalanca");
 
             var esTrueAncla = $.trim($("#UrlMenu").val()) == "#";
-        
+
             if (esTrueAncla) {
                 $("#cbAncla").prop("checked", true);
                 $("#UrlMenu").attr("disabled", "disabled");
             }
-            
+
             /*INIT Agana 159*/
-            
-            var criterioATP = $.trim($("#Codigo").val()) === "ATP" ? 'none' : 'block';
-          
-            $("#divUrlMenu").css("display", criterioATP);
-            $("#divUrlMenuTxt").css("display", criterioATP);
-        
+             
+            var esATP = $.trim($("#Codigo").val()) === ConstantesModule.TipoEstrategia.ATP;
+           
+            if (esATP) {
+                $("#lblDesktop").html('Desktop/Mobile');
+
+                $("#divUrlMenu").hide();
+                $("#divUrlMenuTxt").hide();
+
+                $("#divDesktopFondo").hide();
+                $("#divDesktopLogo").hide();
+
+                $("#divSeccionMobileTitulo").hide();
+                $("#divSeccionMobile").hide();
+
+                $("#divOrdenBPT").hide();
+                $("#divDesktopSubTituloMenu").hide();
+                $("#divDesktopTituloBanner").hide();
+                $("#divDesktopSubTituloBanner").hide();
+                 
+            } else {
+                $("#lblDesktop").html('Desktop');//Default
+                $("#divUrlMenu").show();
+                $("#divUrlMenuTxt").show();
+
+                $("#divDesktopFondo").show();
+                $("#divDesktopLogo").show();
+
+                $("#divSeccionMobileTitulo").show();
+                $("#divSeccionMobile").show();
+
+                $("#divOrdenBPT").show();
+                $("#divDesktopSubTituloMenu").show();
+                $("#divDesktopTituloBanner").show();
+                $("#divDesktopSubTituloBanner").show();
+            }
+
             /*END Agana 159*/
         },
         error: function (request, status, error) { }
@@ -184,6 +229,19 @@ function IniDialogs() {
                     _toastHelper.error("El valor del orden tiene que ser numerico.");
                     return false;
                 }
+
+                /*INIT AGANA 159 */
+                var esATP = $.trim($("#Codigo").val()) === ConstantesModule.TipoEstrategia.ATP;
+
+                if (esATP) {
+                    //valores a replicar
+                    $("#OrdenBpt").val($("#Orden").val());
+                    $("#DialogMantenimientoPalanca #MobileOrden").val($("#Orden").val());
+                    $("#DialogMantenimientoPalanca #MobileOrdenBpt").val($("#Orden").val());
+                    $("#MobileTituloMenu").val($("#DesktopTituloMenu").val());
+                }
+                /*END AGANA 159 */
+
                 var params = {
                     ConfiguracionPaisID: $("#ConfiguracionPaisID").val(),
                     Codigo: $("#ddlConfiguracionPais").val(),
@@ -218,15 +276,18 @@ function IniDialogs() {
                     async: true,
                     success: function (data) {
                         if (data.success) {
-                            HideDialog("DialogMantenimientoPalanca");
-                            _toastHelper.success("Solicitud realizada sin problemas.");
+                            HideDialog("DialogMantenimientoPalanca"); 
+                             //_toastHelper.error("Solicitud realizada sin problemas.");
+                            showDialogMensaje("Solicitud realizada sin problemas.", '');
                             UpdateGrillaPalanca();
                         } else {
-                            _toastHelper.error("Error al procesar la Solicitud.");
+                            //_toastHelper.error("Error al procesar la Solicitud.");
+                            showDialogMensaje("Error al procesar la Solicitud.", '');
                         }
                     },
                     error: function (data, error) {
-                        _toastHelper.error("Error al procesar la Solicitud.");
+                        //_toastHelper.error("Error al procesar la Solicitud.");
+                        showDialogMensaje("Error al procesar la Solicitud.", '');
                     }
                 });
 
@@ -245,7 +306,7 @@ function IniDialogs() {
         closeOnEscape: true,
         width: 830,
         draggable: false,
-        title: "Configurar Contenedor Home",
+        title: "Home",
         close: function () {
             $('div[id^="collorpicker_"]').hide();
             HideDialog("DialogMantenimientoOfertasHome");
