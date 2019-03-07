@@ -4,6 +4,7 @@
 }
 
 @Html.HiddenFor(m => m.ConfiguracionPaisID)
+@Html.HiddenFor(m => m.Codigo)
 <div class="div-3">
     <div class="titG">Palanca:</div>
     <div class="borde_redondeado">
@@ -44,8 +45,8 @@
     </div>
 </div>
 <div class="div-3">
-    <div class="titG">URL Menu:</div>
-    <div class="titG selectP2 borde_redondeado">
+    <div id="divUrlMenu" class="titG">URL Menu:</div>
+    <div id="divUrlMenuTxt" class="titG selectP2 borde_redondeado">
         @Html.TextBoxFor(m => m.UrlMenu, false)
     </div>
     <div class="titG" style="width: 100px; display: inline-block;">
@@ -102,25 +103,25 @@
                 </div>
             </div>
 
-			<div class="div-3">
-                <div class="titG" style="padding-bottom: 0;">Orden:</div>    
-                <br />  
+            <div class="div-3">
+                <div class="titG" style="padding-bottom: 0;">Orden:</div>
+                <br />
                 <div class="titG selectP2 borde_redondeado" style="width: 312px;">
                     @Html.TextBoxFor(m => m.Orden, new { @style = "width: 312px;" })
                 </div>
             </div>
 
-			<div class="div-3">
-                <div class="titG" style="padding-bottom: 0;">OrdenBPT:</div>    
-                <br />  
+            <div class="div-3">
+                <div class="titG" style="padding-bottom: 0;">OrdenBPT:</div>
+                <br />
                 <div class="titG selectP2 borde_redondeado" style="width: 312px;">
                     @Html.TextBoxFor(m => m.OrdenBpt, new { @style = "width: 312px;" })
                 </div>
             </div>
 
             <div class="div-3">
-                <div class="titG" style="padding-bottom: 0;">Título Menu:</div>    
-                <br />  
+                <div class="titG" style="padding-bottom: 0;">Título Menu:</div>
+                <br />
                 <div class="titG selectP2 borde_redondeado" style="width: 312px;">
                     @Html.TextBoxFor(m => m.DesktopTituloMenu, new { @style = "width: 312px;" })
                 </div>
@@ -170,17 +171,17 @@
                 </div>
             </div>
 
-			<div class="div-3">
-                <div class="titG" style="padding-bottom: 0;">Orden:</div>    
-                <br />  
+            <div class="div-3">
+                <div class="titG" style="padding-bottom: 0;">Orden:</div>
+                <br />
                 <div class="titG selectP2 borde_redondeado" style="width: 312px;">
                     @Html.TextBoxFor(m => m.MobileOrden, new { @style = "width: 312px;" })
                 </div>
             </div>
 
-			<div class="div-3">
-                <div class="titG" style="padding-bottom: 0;">OrdenBPT:</div>    
-                <br />  
+            <div class="div-3">
+                <div class="titG" style="padding-bottom: 0;">OrdenBPT:</div>
+                <br />
                 <div class="titG selectP2 borde_redondeado" style="width: 312px;">
                     @Html.TextBoxFor(m => m.MobileOrdenBpt, new { @style = "width: 312px;" })
                 </div>
