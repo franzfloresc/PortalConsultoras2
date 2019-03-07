@@ -96,24 +96,54 @@ function Modificar(idConfiguracionPais, event) {
                 UploadFilePalanca("mobile-fondo-banner"), UploadFilePalanca("mobile-logo-banner")
             );
 
-          
+
             showDialog("DialogMantenimientoPalanca");
 
             var esTrueAncla = $.trim($("#UrlMenu").val()) == "#";
-        
+
             if (esTrueAncla) {
                 $("#cbAncla").prop("checked", true);
                 $("#UrlMenu").attr("disabled", "disabled");
             }
-            
+
             /*INIT Agana 159*/
-            
+             
             var esATP = $.trim($("#Codigo").val()) === ConstantesModule.TipoEstrategia.ATP;
-            var criterioATP = esATP ? 'none' : 'block';
-          
-            $("#divUrlMenu").css("display", criterioATP);
-            $("#divUrlMenuTxt").css("display", criterioATP);
-        
+           
+            if (esATP) {
+                $("#lblDesktop").html('Desktop/Mobile');
+
+                $("#divUrlMenu").hide();
+                $("#divUrlMenuTxt").hide();
+
+                $("#divDesktopFondo").hide();
+                $("#divDesktopLogo").hide();
+
+                $("#divSeccionMobileTitulo").hide();
+                $("#divSeccionMobile").hide();
+
+                $("#divOrdenBPT").hide();
+                $("#divDesktopSubTituloMenu").hide();
+                $("#divDesktopTituloBanner").hide();
+                $("#divDesktopSubTituloBanner").hide();
+                 
+            } else {
+                $("#lblDesktop").html('Desktop');//Default
+                $("#divUrlMenu").show();
+                $("#divUrlMenuTxt").show();
+
+                $("#divDesktopFondo").show();
+                $("#divDesktopLogo").show();
+
+                $("#divSeccionMobileTitulo").show();
+                $("#divSeccionMobile").show();
+
+                $("#divOrdenBPT").show();
+                $("#divDesktopSubTituloMenu").show();
+                $("#divDesktopTituloBanner").show();
+                $("#divDesktopSubTituloBanner").show();
+            }
+
             /*END Agana 159*/
         },
         error: function (request, status, error) { }
