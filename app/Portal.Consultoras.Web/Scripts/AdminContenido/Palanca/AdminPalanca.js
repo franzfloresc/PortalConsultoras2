@@ -2,7 +2,7 @@
 var _toastHelper = ToastHelper();
 var _listPalanca = ["LAN", "RDR", "RD", "OPT"];
 var _listaPalancaModificaDisenio = ["ATP"];
-var _codigoPalancaATP = "ATP";
+var _codigoPalancaATP = "ATP"; 
 var _palanca = {
     showroom: "SR",
     odd: "ODD"
