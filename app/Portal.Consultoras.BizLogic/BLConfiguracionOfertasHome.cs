@@ -54,12 +54,6 @@ namespace Portal.Consultoras.BizLogic
 
                 configuracionOfertasHome = task1.Result;
                 configuracionOfertasHome.ConfiguracionOfertasHomeApp = task2.Result;
-
-                configuracionOfertasHome.ConfiguracionPaisDatos = _configuracionPaisDatosBusinessLogic.GetListAll(new BEConfiguracionPaisDatos()
-                {
-                    PaisID = paisId,
-                    ConfiguracionPaisID = configuracionOfertasHome.ConfiguracionPaisID
-                }).Where(x => x.Estado).ToList();
             }
             catch (Exception ex)
             {

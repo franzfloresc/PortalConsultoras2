@@ -38,7 +38,6 @@ namespace Portal.Consultoras.Web.Models
 
         public int PaisID { get; set; }
         public ConfiguracionPaisModel ConfiguracionPais { get; set; }
-        public List<ConfiguracionPaisDatosModel> ConfiguracionPaisDatos { get; set; }
         public IEnumerable<PaisModel> ListaPaises { set; get; }
         public IEnumerable<CampaniaModel> ListaCampanias { set; get; }
         public IEnumerable<TipoEstrategiaModel> ListaTipoEstrategia { get; set; }
@@ -51,7 +50,6 @@ namespace Portal.Consultoras.Web.Models
             DesktopTipoEstrategia = "";
             MobileTipoEstrategia = "";
             AdministrarOfertasHomeAppModel = new AdministrarOfertasHomeAppModel();
-            ConfiguracionPaisDatos = new List<ConfiguracionPaisDatosModel>();
         }
     }
 

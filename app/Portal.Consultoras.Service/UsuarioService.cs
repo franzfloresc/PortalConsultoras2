@@ -17,15 +17,18 @@ namespace Portal.Consultoras.Service
     {
         private readonly IUsuarioBusinessLogic _usuarioBusinessLogic;
         private readonly IDireccionEntregaBusinessLogic _direccionEntregaBusinessLogic;
-        public UsuarioService() : this(new BLUsuario() , new BLDireccionEntrega())
+        private readonly IConfiguracionPaisDatosBusinessLogic _configuracionPaisDatosBusinessLogic;
+
+        public UsuarioService() : this(new BLUsuario() , new BLDireccionEntrega(), new BLConfiguracionPaisDatos())
         {
 
         }
 
-        public UsuarioService(IUsuarioBusinessLogic usuarioBusinessLogic , IDireccionEntregaBusinessLogic direccionEntregaBusinessLogic)
+        public UsuarioService(IUsuarioBusinessLogic usuarioBusinessLogic , IDireccionEntregaBusinessLogic direccionEntregaBusinessLogic, IConfiguracionPaisDatosBusinessLogic configuracionPaisDatosBusinessLogic)
         {
             _usuarioBusinessLogic =          usuarioBusinessLogic;
             _direccionEntregaBusinessLogic = direccionEntregaBusinessLogic;
+            _configuracionPaisDatosBusinessLogic = configuracionPaisDatosBusinessLogic;
         }
 
         public BEUsuario Select(int paisID, string codigoUsuario)
@@ -659,6 +662,11 @@ namespace Portal.Consultoras.Service
         {
             var bl = new BLConfiguracionPaisDatos();
             return bl.GetList(entidad);
+        }
+
+        public List<BEConfiguracionPaisDatos> GetConfiguracionPaisDatosAll(BEConfiguracionPaisDatos entidad)
+        {
+            return _configuracionPaisDatosBusinessLogic.GetListAll(entidad);
         }
 
         public List<BEConfiguracionPaisDatos> GetConfiguracionPaisComponente(BEConfiguracionPaisDatos entidad)
