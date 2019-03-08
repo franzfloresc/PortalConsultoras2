@@ -1,10 +1,9 @@
 ﻿var SeleccionadosView = function () {
-
-    var _config = {
+    var _renderSeleccionados = function(packComponents){
 
     };
 
     return {
-
+        renderSeleccionados : _renderSeleccionados
     };
 };

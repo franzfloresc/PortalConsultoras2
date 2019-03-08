@@ -86,7 +86,7 @@ module.exports = function (config) {
         reporters: [
             //'progress',
             'mocha',
-            'coverage',
+            //'coverage',
         ],
 
         coverageReporter: {
@@ -112,9 +112,9 @@ module.exports = function (config) {
         // start these browsers
         // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
         browsers: [
-            'ChromeDebugging'
+            //'ChromeDebugging'
             //'Chrome'
-            //'PhantomJS'
+            'PhantomJS'
         ],
 
         customLaunchers: {

@@ -15,7 +15,7 @@
 
     var _onGruposLoaded = function (PackComponents) {
         _config.grupoView.renderGrupos(PackComponents);
-    }
+    };
 
     return {
         onGruposLoaded: _onGruposLoaded
