@@ -256,10 +256,10 @@ namespace Portal.Consultoras.Common
             public const string GuiaDeNegocioDigitalizada = "010";
             public const string Incentivos = "022";
             public const string ShowRoom = "030";
+            public const string ArmaTuPack = "004";
             public const string HerramientasVenta = "011";
             public const string NotParticipaProgramaNuevas = "0";
             public const string MasGanadoras = "201"; // No tiene referecia con BD, es un grupo de estrategias
-            public const string ArmaTuPack = "031";
         }
 
         public static class TipoPersonalizacion
