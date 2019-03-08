@@ -1758,5 +1758,29 @@ describe("ArmaTuPack - Detalle - DetallePresenter", function () {
             
             expect(generalModule.redirectTo.calledOnce).to.equals(true);
         });
+
+        it("should fire an event when client get a data object", function () {
+            armaTuPackProvider
+            .getPackComponentsPromise
+            .returns(
+                TestHelpersModule
+                    .getResolvedPromiseWithData({
+                        Grupos : [
+                            {},
+                            {}
+                        ]
+                    })
+            );
+
+            detallePresenter.init();
+            
+            var firstCall = 0;
+            var firstParam = 0;
+            var secondParam = 1;
+            expect(armaTuPackDetalleEvents.applyChanges.calledOnce).to.equals(true);
+            expect(armaTuPackDetalleEvents.applyChanges.args[firstCall][firstParam]).to.equals(armaTuPackDetalleEvents.eventName.onGruposLoaded);
+            expect(armaTuPackDetalleEvents.applyChanges.args[firstCall][secondParam]).to.not.equal(null);
+            
+        });
     });
 });

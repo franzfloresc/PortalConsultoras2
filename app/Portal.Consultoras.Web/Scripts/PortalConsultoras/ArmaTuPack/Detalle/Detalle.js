@@ -54,7 +54,7 @@ var seleccionadosPresenter = SeleccionadosPresenter({
 });
 
 $(document).ready(function () {
-    detallePresenter.init();
+    //detallePresenter.init();
 });
 
 
