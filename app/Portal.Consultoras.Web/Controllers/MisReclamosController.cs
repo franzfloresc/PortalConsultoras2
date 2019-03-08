@@ -53,7 +53,7 @@ namespace Portal.Consultoras.Web.Controllers
                 SessionManager.SetListaCDRWebCargaInicial(null);//HD-3412 EINCA
                 SessionManager.SetCDRPedidoFacturado(null); //HD-3412 EINCA
                 listaCdrWebModel = ObtenerCDRWebCargaInicial();//HD-3412 EINCA
-                var ObtenerCampaniaPedidos = _cdrProvider.CDRObtenerPedidoFacturadoCargaInicial(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);//HD-3412 EINCA
+                var ObtenerCampaniaPedidosFacturados = _cdrProvider.CDRObtenerPedidoFacturadoCargaInicial(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);//HD-3412 EINCA
 
 
                 string urlPoliticaCdr = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlPoliticasCDR) ?? "{0}";
@@ -62,7 +62,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.CantidadReclamosPorPedido = GetNroSolicitudesReclamoPorPedido();
                 if (listaCdrWebModel.Any())
                 {   
-                    var resultado = ValidarCantidadSolicitudesPerPedido(model.ListaCDRWeb, ObtenerCampaniaPedidos, model.CantidadReclamosPorPedido);
+                    var resultado = ValidarCantidadSolicitudesPerPedido(model.ListaCDRWeb, ObtenerCampaniaPedidosFacturados, model.CantidadReclamosPorPedido);
                     if (resultado)
                     {
                         model.MensajeGestionCdrInhabilitada = Constantes.CdrWebMensajes.ExcedioLimiteReclamo;
@@ -121,8 +121,14 @@ namespace Portal.Consultoras.Web.Controllers
             //Si no hay PedidoCDR
             if (!listaCampaniaPedido.Any()) { result = false; return result; }
 
+            //filtrar ListaCDRWeb solo los pedidos facturados
+            var ListaCDRWebFiltrado = (from c in ListaCDRWeb
+                                       join d in ListaCampaniaPedido on c.PedidoID equals d.PedidoID 
+                                       select c).ToList();
+
+
             //Obtenemos el nro de PedidosCDRWeb que contabilizan
-            var pedidoscdrestados = ListaCDRWeb.Where(a => arrEstadosConteo.Contains(a.Estado))
+            var pedidoscdrestados = ListaCDRWebFiltrado.Where(a => arrEstadosConteo.Contains(a.Estado))
                 .GroupBy(a => new { a.CampaniaID, a.PedidoID })
                 .Select(a => new PedidosEstadoCDRWeb
                 {
