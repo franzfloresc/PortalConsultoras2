@@ -243,7 +243,7 @@ $("#btnGuardar").click(function (e) {
         NumeroPedido: "0",
         Activo: $("#Activo").attr("checked") ? "1" : "0",
         ImagenURL: imagenSeleccionada,
-        LimiteVenta: "0",
+        LimiteVenta: "1",
         DescripcionCUV2: DescripcionCUV2,
         FlagDescripcion: (DescripcionCUV2 != "") ? "1" : "0",
         CUV: "",

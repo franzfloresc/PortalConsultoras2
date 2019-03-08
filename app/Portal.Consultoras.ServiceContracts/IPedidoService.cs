@@ -3,18 +3,17 @@ using Portal.Consultoras.Entities.Cupon;
 using Portal.Consultoras.Entities.Estrategia;
 using Portal.Consultoras.Entities.PagoEnLinea;
 using Portal.Consultoras.Entities.Pedido;
-using Producto = Portal.Consultoras.Entities.Producto;
 using Portal.Consultoras.Entities.ProgramaNuevas;
 using Portal.Consultoras.Entities.ReservaProl;
 using Portal.Consultoras.Entities.RevistaDigital;
 using Portal.Consultoras.Entities.ShowRoom;
-using Estrategia = Portal.Consultoras.Entities.Estrategia;
-
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.ServiceModel;
 using System.Threading.Tasks;
+using Estrategia = Portal.Consultoras.Entities.Estrategia;
+using Producto = Portal.Consultoras.Entities.Producto;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -996,7 +995,10 @@ namespace Portal.Consultoras.ServiceContracts
         int InsIndicadorPedidoAutentico(int paisID, BEIndicadorPedidoAutentico entidad);
 
         [OperationContract]
-        BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoConsultora, int consecutivoNueva);
+        BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoPrograma, string codigoNivel);
+
+        [OperationContract]
+        List<BEConsultoraRegaloProgramaNuevas> GetListPremioElecProgNuevas(int paisID, int campaniaId, string codigoPrograma, string codigoNivel);
 
         [OperationContract]
         Task<BEResultadoReservaProl> CargarSesionAndEjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil, bool enviarCorreo);
@@ -1174,21 +1176,26 @@ namespace Portal.Consultoras.ServiceContracts
 
         #endregion
 
+        #region Pedido Registro Insertar-Actualizar-Eliminar
+
+        [OperationContract]
+        BEPedidoDetalleResult InsertPedidoDetalle(BEPedidoDetalle pedidoDetalle);
+        [OperationContract]
+        BEPedidoDetalleResult UpdatePedidoDetalle(BEPedidoDetalle pedidoDetalle);
+        [OperationContract]
+        Task<BEPedidoDetalleResult> DeletePedido(BEPedidoDetalle pedidoDetalle);
+
+        #endregion
+
         #region PedidoNativo
         [OperationContract]
         BEPedidoProducto GetCUV(BEPedidoProductoBuscar productoBuscar);
-        [OperationContract]
-        BEPedidoDetalleResult InsertPedidoDetalle(BEPedidoDetalle pedidoDetalle);
         [OperationContract]
         BEPedidoWeb GetPedido(BEUsuario usuario);
         [OperationContract]
         bool InsertKitInicio(BEUsuario usuario);
         [OperationContract]
-        BEPedidoDetalleResult UpdatePedidoDetalle(BEPedidoDetalle pedidoDetalle);
-        [OperationContract]
         BEConfiguracionPedido GetConfiguracionPedido(int paisID, string codigoUsuario, int campaniaID, string region, string zona);
-        [OperationContract]
-        Task<BEPedidoDetalleResult> DeletePedido(BEPedidoDetalle pedidoDetalle);
         [OperationContract]
         Task<BEPedidoReservaResult> ReservaPedido(BEUsuario usuario);
         [OperationContract]
@@ -1306,6 +1313,9 @@ namespace Portal.Consultoras.ServiceContracts
         BEEstrategia GetEstrategiaPremiosTippingPoint(int paisID, string codigoPrograma, int anioCampana, string codigoNivel);
 
         [OperationContract]
+        List<BEEstrategia> GetEstrategiaPremiosElectivos(int paisId, string codigoPrograma, int anioCampana, string codigoNivel);
+
+        [OperationContract]
         BEActivarPremioNuevas GetActivarPremioNuevas(int paisID, string codigoPrograma, int anioCampana, string codigoNivel);
 
         [OperationContract]
@@ -1313,6 +1323,6 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEEscalaDescuento> ListarEscalaDescuentoZona(int paisID, int campaniaID, string region, string zona);
-
+        
     }
 }

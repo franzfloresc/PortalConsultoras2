@@ -50,7 +50,7 @@ namespace Portal.Consultoras.Web.UnitTest.Providers
         [TestInitialize]
         public void Initialize()
         {
-            _tablaLogicaProvider.Setup(t => t.ObtenerConfiguracion(It.IsAny<int>(), Pl50Key)).Returns(_tablaLogicaModels);
+            //_tablaLogicaProvider.Setup(t => t.ObtenerConfiguracion(It.IsAny<int>(), Pl50Key)).Returns(_tablaLogicaModels);
             _showRoomProvider = new ShowRoomProvider(_tablaLogicaProvider.Object);
 
         }

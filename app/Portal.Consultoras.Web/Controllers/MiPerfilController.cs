@@ -14,27 +14,31 @@ using Portal.Consultoras.Web.Infraestructure.Validator.Phone;
 using AutoMapper;
 using System.ServiceModel;
 using Portal.Consultoras.Web.Infraestructure.Sms;
+using System.Collections.Generic;
+using Portal.Consultoras.Web.ServiceUnete;
 using Portal.Consultoras.Web.Providers;
 
 namespace Portal.Consultoras.Web.Controllers
 {
     public class MiPerfilController : BaseController
     {
-        private readonly ZonificacionProvider _zonificacionProvider;
+        protected MiPerfilProvider _miperfil;
+		private readonly ZonificacionProvider _zonificacionProvider;
 
         public MiPerfilController()
         {
             _zonificacionProvider = new ZonificacionProvider();
         }
 
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             BEUsuario beusuario;
             var model = new MisDatosModel();
+            _miperfil = new MiPerfilProvider();
 
             using (var sv = new UsuarioServiceClient())
             {
-                beusuario = sv.Select(userData.PaisID, userData.CodigoUsuario);
+                beusuario = sv.Select(userData.PaisID, userData.CodigoUsuario);                
             }
 
             if (beusuario == null)
@@ -43,7 +47,8 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             model.PaisISO = userData.CodigoISO;
-
+                ViewBag.LocationCountry = userData.CodigoISO;
+                ViewBag.EsMobile = IsMobile();
             model.NombreCompleto = beusuario.Nombre;
             model.NombreGerenteZonal = userData.NombreGerenteZonal;
             model.EMail = beusuario.EMail;
@@ -101,10 +106,48 @@ namespace Portal.Consultoras.Web.Controllers
             bool valida;
             Util.ObtenerIniciaNumeroCelular(userData.PaisID, out valida, out numero);
             model.IniciaNumeroCelular = valida ? numero : -1;
-            
+
+            var objMenu = ((List<PermisoModel>)ViewBag.Permiso).Where(p => 
+                p.Posicion.Trim().ToLower().Equals(Constantes.MenuPosicion.Body) && 
+                p.Codigo.Trim().ToLower().Equals(Constantes.MenuCodigo.MiPerfil.ToLower())
+            ).ToList();
+            model.DireccionEntrega = await _miPerfilProvider.ObtenerDireccionPorConsultoraAsync(new DireccionEntregaModel { ConsultoraID = (int)userData.ConsultoraID , PaisID = userData.PaisID });
+            await BinderAsync(model.DireccionEntrega);
+            model.PermisoMenu = new List<string>();
+            foreach (var item in objMenu)
+            {
+                foreach(var subitem in item.SubMenus)
+                {
+                    model.PermisoMenu.Add(subitem.Descripcion);
+                }                    
+            }
+
+            model.UsuarioOpciones = _miperfil.GetUsuarioOpciones(userData.PaisID, userData.CodigoUsuario, true);
+            model.TieneDireccionEntrega = userData.TieneDireccionEntrega;
+            model.TienePermisosCuenta = model.UsuarioOpciones.Count > 0;
+            model.CodigoConsultoraAsociada = userData.CodigoConsultora;
+
             return View(model);
         }
 
+        private async Task BinderAsync(DireccionEntregaModel record)
+        {
+       
+            record.DropDownUbigeo1 = await _miPerfilProvider.ObtenerUbigeoPrincipalAsync(userData.CodigoISO);
+        }
+
+        private  async Task<List<ParametroUneteBE>>DropDownUbigeoPrincipalAsync()
+        {
+            return  await _miPerfilProvider.ObtenerUbigeoPrincipalAsync(userData.CodigoISO);
+        }
+       
+        [HttpGet]
+        public async Task<JsonResult> ObtenerUbigeoDependiente(int Nivel, int IdPadre)
+        {
+            var records = await _miPerfilProvider.ObtenerUbigeoDependiente(userData.CodigoISO,Nivel,IdPadre);
+            return Json(records, JsonRequestBehavior.AllowGet);
+
+        }
         public ActionResult CambiarContrasenia()
         {
             return View();
@@ -390,7 +433,6 @@ namespace Portal.Consultoras.Web.Controllers
                 entidad.PaisID = userData.PaisID;
                 entidad.PrimerNombre = userData.PrimerNombre;
                 entidad.CodigoISO = userData.CodigoISO;
-
                 using (UsuarioServiceClient svr = new UsuarioServiceClient())
                 {
                     var resultado = svr.ActualizarMisDatos(entidad, correoAnterior);
@@ -448,6 +490,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return vRetorno;
         }
+      
 
         [HttpPost]
         public JsonResult CambiarConsultoraPass(string OldPassword, string NewPassword)
@@ -614,6 +657,75 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        [Authorize]
+        [HttpPost]
+        public async Task<JsonResult> RegistrarPerfil(MisDatosModel model)
+        {
+            string resultado = string.Empty;
+            JsonResult response;
+
+            try
+            {
+                model.DatosExtra = new
+                {
+                    userData.ZonaID,
+                    userData.RegionID,
+                    userData.CodigoUsuario,
+                    userData.ConsultoraID,
+                    userData.PaisID,
+                    userData.PrimerNombre,
+                    userData.CodigoISO,
+                };
+
+                model.CodigoConsultoraAsociada = userData.CodigoConsultora;
+                if (model.DireccionEntrega != null) {
+                    model.DireccionEntrega.PaisID = userData.PaisID;
+                    model.DireccionEntrega.CodigoConsultora = userData.CodigoConsultora;
+                    model.DireccionEntrega.CampaniaID = userData.CampaniaID;
+                    model.DireccionEntrega.ConsultoraID = (int)userData.ConsultoraID;
+                }
+
+                resultado = await _miPerfilProvider.RegistrarAsync(model);
+                ActualizarDatosLogDynamoDB(model, "MI PERFIL", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Modificacion");
+                var lst = resultado.Split('|');
+
+                if ( lst[0] == "0")
+                {
+                    response = Json(new
+                    {
+                        Cantidad = lst[3],
+                        success = false,
+                        message = lst[2],
+                        extra = ""
+                    });
+                }
+                else
+                {
+                    response = Json(new
+                    {
+                        Cantidad = 0,
+                        success = true,
+                        message = lst[2],
+                        extra = ""
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                response = Json(new
+                {
+                    Cantidad = 6,
+                    success = false,
+                    message = "Ocurrio un problema al registrar los datos, por favor vuelva a intentarlo.",
+                    extra = ""
+                });
+            }
+
+
+            return response;
+
+        }
 
 
 

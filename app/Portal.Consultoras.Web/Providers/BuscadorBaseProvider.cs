@@ -125,8 +125,8 @@ namespace Portal.Consultoras.Web.Providers
         {
             var path = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerPersonalizacion,
                 usuario.CodigoISO,
-                usuario.CodigoConsultora,
-                usuario.CampaniaID);
+                usuario.CampaniaID,
+                usuario.CodigoConsultora);
 
             var httpResponse = await httpClientMicroserviceSearch.GetAsync(path);
 
