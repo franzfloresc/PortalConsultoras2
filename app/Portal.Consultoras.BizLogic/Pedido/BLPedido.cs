@@ -330,21 +330,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
             else
             {
                 var lstDetalleAgrupado = ObtenerPedidoWebSetDetalleAgrupado(usuario, out pedidoID);
-                if (lstDetalleAgrupado.Any(x => x.CUV == estrategia.CUV2))
-                {
-                    var cantidadActual = lstDetalleAgrupado.Where(x => x.CUV == estrategia.CUV2).Sum(x => x.Cantidad);
-                    if (cantidadActual + estrategia.Cantidad > estrategia.LimiteVenta)
-                    {
-                        return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_CANTIDAD_LIMITE, null, estrategia.LimiteVenta);
-                    }
-                }
-                else
-                {
-                    if (estrategia.Cantidad > estrategia.LimiteVenta)
-                    {
-                        return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_CANTIDAD_LIMITE, null, estrategia.LimiteVenta);
-                    }
-                }
+                var validacionLimiteVenta = ValidarLimiteVenta(estrategia, lstDetalleAgrupado);
+                if (validacionLimiteVenta != null) return validacionLimiteVenta;
 
                 if (!pedidoDetalle.EsCuponNuevas)
                 {
@@ -793,7 +780,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             {
                 pedidoDetalle.Estrategia = new BEEstrategia();
                 pedidoDetalle.Estrategia.Cantidad = Convert.ToInt32(pedidoDetalle.Cantidad);
-                pedidoDetalle.Estrategia.LimiteVenta = pedidoDetalle.LimiteVenta == 0 ? 99 : pedidoDetalle.LimiteVenta;
+                pedidoDetalle.Estrategia.LimiteVenta = pedidoDetalle.LimiteVenta;
                 pedidoDetalle.Estrategia.DescripcionCUV2 = Util.Trim(pedidoDetalle.Producto.DescripcionProducto);
                 pedidoDetalle.Estrategia.FlagNueva = string.IsNullOrEmpty(pedidoDetalle.Producto.FlagNueva) ? 0 : Convert.ToInt32(pedidoDetalle.Producto.FlagNueva);
                 pedidoDetalle.Estrategia.Precio2 = pedidoDetalle.Producto.PrecioCatalogo;
@@ -1413,24 +1400,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                 var pedidoID = 0;
                 var lstDetalleSets = ObtenerPedidoWebSetDetalleAgrupado(usuario, out pedidoID);
-                lstDetalleSets = lstDetalleSets.Where(x => x.CUV == estrategia.CUV2 && x.SetID != 0).ToList();
-
-                if (lstDetalleSets.Any())
-                {
-                    int CantidadActual = lstDetalleSets.Sum(x => x.Cantidad);
-
-                    if (CantidadActual + pedidoDetalle.Cantidad > estrategia.LimiteVenta)
-                    {
-                        return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_CANTIDAD_LIMITE, null, estrategia.LimiteVenta);
-                    }
-                }
-                else
-                {
-                    if (estrategia.Cantidad > estrategia.LimiteVenta)
-                    {
-                        return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_CANTIDAD_LIMITE, null, estrategia.LimiteVenta);
-                    }
-                }
+                var validacionLimiteVenta = ValidarLimiteVenta(estrategia, lstDetalleSets, x => x.CUV == estrategia.CUV2 && x.SetID != 0);
+                if (validacionLimiteVenta != null) return validacionLimiteVenta;
 
                 //Obtener Detalle
                 var pedidoDetalleBuscar = new BEPedidoBuscar()
@@ -3360,20 +3331,14 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
             //Validacion unidades permitidas
             var lstDetalleGrp = ObtenerPedidoWebSetDetalleAgrupado(usuario, out pedidoID);
-            var pedidoAgregado = lstDetalleGrp.Where(x => x.CUV == pedidoDetalle.Producto.CUV);
-            var cantidadesAgregadas = 0;
-
-            if (pedidoDetalle.LimiteVenta > 0)
+            var estrategia = new BEEstrategia
             {
-                if (pedidoAgregado.Any()) cantidadesAgregadas = pedidoAgregado.FirstOrDefault().Cantidad;
-
-                cantidadesAgregadas += pedidoDetalle.Cantidad;
-
-                if (cantidadesAgregadas > pedidoDetalle.LimiteVenta)
-                {
-                    return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_CANTIDAD_LIMITE, null, pedidoDetalle.LimiteVenta);
-                }
-            }
+                CUV2 = pedidoDetalle.Producto.CUV,
+                Cantidad = pedidoDetalle.Cantidad,
+                LimiteVenta = pedidoDetalle.LimiteVenta
+            };
+            var validacionLimiteVenta = ValidarLimiteVenta(estrategia, lstDetalleGrp);
+            if (validacionLimiteVenta != null) return validacionLimiteVenta;
 
             //Validar stock
             mensaje = ValidarStockEstrategiaMensaje(usuario, pedidoDetalle);
@@ -3476,21 +3441,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
             //UnidadesPermitidas
             estrategia.Cantidad = pedidoDetalle.Cantidad;
             var lstDetalleAgrupado = ObtenerPedidoWebSetDetalleAgrupado(usuario, out pedidoID);
-            if (lstDetalleAgrupado.Any(x => x.CUV == estrategia.CUV2))
-            {
-                var cantidadActual = lstDetalleAgrupado.Where(x => x.CUV == estrategia.CUV2).Sum(x => x.Cantidad);
-                if (cantidadActual + estrategia.Cantidad > estrategia.LimiteVenta)
-                {
-                    return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_CANTIDAD_LIMITE, null, estrategia.LimiteVenta);
-                }
-            }
-            else
-            {
-                if (estrategia.Cantidad > estrategia.LimiteVenta)
-                {
-                    return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_CANTIDAD_LIMITE, null, estrategia.LimiteVenta);
-                }
-            }
+            var validacionLimiteVenta = ValidarLimiteVenta(estrategia, lstDetalleAgrupado);
+            if (validacionLimiteVenta != null) return validacionLimiteVenta;
 
             var listCuvTonos = pedidoDetalle.Producto.CUV;
             if (string.IsNullOrEmpty(listCuvTonos)) listCuvTonos = estrategia.CUV2;
@@ -3543,6 +3495,18 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
         #endregion
 
-     
+        private BEPedidoDetalleResult ValidarLimiteVenta(BEEstrategia estrategia, List<BEPedidoWebDetalle> listDetalle)
+        {
+            return ValidarLimiteVenta(estrategia, listDetalle, d => d.CUV == estrategia.CUV2);
+        }
+        private BEPedidoDetalleResult ValidarLimiteVenta(BEEstrategia estrategia, List<BEPedidoWebDetalle> listDetalle, Func<BEPedidoWebDetalle, bool> filtro) {
+            if (estrategia.LimiteVenta == 0) return null;
+
+            var listDetalleFiltro = listDetalle.Where(filtro).ToList();
+            int cantidadActual = listDetalleFiltro.Any() ? listDetalleFiltro.Sum(x => x.Cantidad) : 0;
+            if (cantidadActual + estrategia.Cantidad <= estrategia.LimiteVenta) return null;
+
+            return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_CANTIDAD_LIMITE, null, estrategia.LimiteVenta);
+        }
     }
 } 
