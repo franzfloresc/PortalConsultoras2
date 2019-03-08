@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class CaminoBrillanteController : Controller
+    public class CaminoBrillanteController : BaseController
     {
         // GET: CaminoBrillante
         public ActionResult Index()

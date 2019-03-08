@@ -74,6 +74,11 @@
         margin: 17px auto;
         margin-top: 17px;
         margin-bottom: 10px;
+        transition: all 0.3s ease;
+        -moz-transition: all 0.3s ease;
+        -o-transition: all 0.3s ease;
+        -ms-transition: all 0.3s ease;
+        -webkit-transition: all 0.3s ease;
     }
         .cam-exito a:hover {
             background: black;
