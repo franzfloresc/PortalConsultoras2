@@ -19,7 +19,7 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
         it("throw an exception when config is undefined", function () {
 
             try {
-                GrupoPresenter(undefined);
+                GruposPresenter(undefined);
             } catch (error) {
                 errorMsg = error;
             }
@@ -30,7 +30,7 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
         it("throw an exception when config is null", function () {
 
             try {
-                GrupoPresenter(null);
+                GruposPresenter(null);
             } catch (error) {
                 errorMsg = error;
             }
@@ -38,37 +38,37 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
             expect(errorMsg).to.have.string("config is null or undefined");
         });
 
-        it("throw an exception when config.GruposView is undefined", function () {
+        it("throw an exception when config.gruposView is undefined", function () {
 
             try {
-                GrupoPresenter({
-                    grupoView : undefined
+                GruposPresenter({
+                    gruposView : undefined
                 });
             } catch (error) {
                 errorMsg = error;
             }
 
-            expect(errorMsg).to.have.string("config.grupoView is null or undefined");
+            expect(errorMsg).to.have.string("config.gruposView is null or undefined");
         });
 
-        it("throw an exception when config.grupoView is null", function () {
+        it("throw an exception when config.gruposView is null", function () {
 
             try {
-                GrupoPresenter({
-                    grupoView : null
+                GruposPresenter({
+                    gruposView : null
                 });
             } catch (error) {
                 errorMsg = error;
             }
 
-            expect(errorMsg).to.have.string("config.grupoView is null or undefined");
+            expect(errorMsg).to.have.string("config.gruposView is null or undefined");
         });
 
         it("throw an exception when config.generalModule is undefined", function () {
 
             try {
-                GrupoPresenter({
-                    grupoView : {},
+                GruposPresenter({
+                    gruposView : {},
                     armaTuPackProvider : {},
                     generalModule: undefined
                 });
@@ -82,8 +82,8 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
         it("throw an exception when config.generalModule is null", function () {
 
             try {
-                GrupoPresenter({
-                    grupoView : {},
+                GruposPresenter({
+                    gruposView : {},
                     armaTuPackProvider : {},
                     generalModule: null
                 });
