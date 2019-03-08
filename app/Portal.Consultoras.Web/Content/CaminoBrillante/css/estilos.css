@@ -1,0 +1,549 @@
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+    margin:0;
+    padding:0;
+    border:0;
+}
+article,aside,details,figcaption,figure,
+footer,header,hgroup,menu,nav,section {
+    display:block;
+}
+a{
+    margin:0;
+    padding:0;
+    text-decoration: underline;
+}
+ul{
+    list-style: none;
+}
+p{
+    color: black;
+    font-size: 14px;
+    margin-bottom: 0:;
+}
+strong{
+    color: black;
+}
+.clear{
+    clear: both;
+}
+
+
+.container{
+	display: block;
+	margin: 0 auto;
+	width: 92%;
+	max-width: 1000px;
+}
+.title{
+	display: block;
+	font-size: 24px;
+	color: black;
+	margin-bottom: 15px;
+}
+.cont-benf{
+	margin-top: 30px;
+}
+.text{
+    display: block;
+    font-size: 15px;
+    color: #000000;
+    line-height: 20px;
+}
+.box-beneficios{
+	display: block;
+	margin-top: 20px;
+}
+.box-beneficios:after, .box-beneficios:after, .list-crec:after, .cont-logros:after, .boxcenter:after, .cont-ganancias:after, .list-ganacias:after{
+	content: "";
+	display: block;
+	clear: both;
+}
+.box-beneficios li{
+width: 32%;
+    display: block;
+    float: left;
+    margin: 20px 1%;
+    margin-left: 0;
+}
+.box-beneficios li img{
+	display: block;
+	float: left;
+	max-width: 35px;
+}
+.box-beneficios li .txt-benf{
+	display: block;
+	float: left;
+	margin-left: 10px;
+	    margin-top: 6px;
+}
+.text-bold{
+	color: black;
+	font-size: 14px;
+	text-align: left;
+	font-weight: bold;
+	line-height: 17px;
+}
+.text-down{
+    font-size: 13px;
+    color: #000000;
+    display: block;
+}
+.box-beneficios li span{
+	color: gray;
+	display: block;
+	font-size: 13px;
+	font-weight: normal;
+}
+.btn-principal{
+	display: block;
+	color: white;
+	border-radius: 5px;
+	border: 0;
+	padding: 10px 30px;
+	max-width: 210px;
+	text-align: center;
+	margin: 25px auto;
+	text-decoration: none;
+    background: rgba(97,60,135,1);
+    background: -moz-linear-gradient(left,rgba(97,60,135,1) 0,rgba(232,28,54,1) 100%);
+    background: -webkit-gradient(left top,right top,color-stop(0,rgba(97,60,135,1)),color-stop(100%,rgba(232,28,54,1)));
+    background: -webkit-linear-gradient(left,rgba(97,60,135,1) 0,rgba(232,28,54,1) 100%);
+    background: -o-linear-gradient(left,rgba(97,60,135,1) 0,rgba(232,28,54,1) 100%);
+    background: -ms-linear-gradient(left,rgba(97,60,135,1) 0,rgba(232,28,54,1) 100%);
+    background: linear-gradient(to right,rgba(97,60,135,1) 0,rgba(232,28,54,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#613c87',endColorstr='#e81c36',GradientType=1);
+
+}
+.shad{
+	background: white;
+    border: 1px solid #efefef;
+    padding: 20px 30px;
+    border-radius: 12px;
+    box-sizing: border-box;
+    width: 100%;
+ /*   margin: 0 2%;*/
+    box-shadow: 0px 8px 18px 2px rgba(0,0,0,0.1);
+
+}
+.list-crec{
+	display: block;
+	margin-top: 10px;
+}
+.list-crec li{
+	float: left;
+    display: block;
+    width: 30%;
+    margin: 10px 1.5%;
+}
+.list-crec li img{
+	display: block;
+	margin: 0 auto;
+	margin-bottom: 5px;
+}
+.list-crec li p{
+	font-size: 12px;
+	font-weight: bold;
+	text-align: center;
+}
+.btn-link {
+    display: block;
+    color: black;
+    text-decoration: underline;
+    text-align: center;
+    font-size: 13px;
+    border: 0;
+    margin: 10px auto;
+    background: transparent;
+}
+.btn-link:hover{
+	color: black;
+}
+.box-crecimiento, .box-compromiso{
+	display: block;
+	float: left;
+	
+}
+
+.boxcenter{
+margin: 40px auto;
+    max-width: 850px;
+    width: 100%;
+}
+.cont-ganancias{
+	display: block;
+	margin: 30px 0;
+}
+.left-ganancias, .right-ganancias{
+	display: block;
+	float: left;
+}
+.left-ganancias{
+	width: 40%;
+}
+ .right-ganancias{
+	width: 52%;
+	margin: 0 4%
+ }
+
+ .list-ganacias{
+ 	display: block;
+ 	margin-top: 25px;
+ }
+ .list-ganacias li{
+    display: block;
+    float: left;
+    margin-bottom: 15px;
+    padding: 20px 15px;
+    width: 46%;
+    margin-right: 4%;
+ }
+/*#demos .owl-carousel .item {
+    height: 10rem;
+    background: #4DC7A0;
+}*/
+#demos .owl-carousel .item h4 {
+    color: #FFF;
+    font-weight: 400;
+    margin-top: 0rem;
+}
+#demos .owl-carousel {
+    margin: 2rem 0;
+}
+.owl-carousel .owl-stage-outer{
+	padding-bottom: 30px;
+}
+/*.owl-carousel .owl-stage{
+	padding: 0 !important;
+}*/
+.owl-carousel .owl-item img{
+	display: block;
+	max-width: 60px;
+}
+.owl-nav{
+	display: none;
+}
+/*.owl-mont .owl-stage{
+	padding: 0 !important;
+}
+*/
+/*.owl-mont .item {
+	display: block;
+	max-width: 70px;
+}
+*/
+
+
+/*.owl-mont.owl-drag .owl-item{
+	float: none;
+}
+.owl-mont .owl-item:nth-of-type(1){
+	float: left;
+}
+.owl-mont .owl-item:nth-of-type(2){
+	float: left;
+}
+.owl-mont .owl-item:nth-of-type(3){
+	clear: both;
+	float: left;
+}
+.owl-mont .owl-item:nth-of-type(4){
+	float: left;
+}
+*/
+#mov-mont, .owl-dots{
+	display: none;
+}
+
+
+
+
+/*	BARRA DE NIVELES EN LA PARTE DE ARRIBA*/
+
+#box-niveles{
+    display: block;
+    max-width: 700px;
+    width: 94%;
+    margin: 50px auto;
+    margin-bottom: 100px;
+}
+
+#ProgressBar {
+  width: 94%;
+  height: 9px;
+/*  border: 1px solid black;*/
+  border-radius: 7px;
+  /*padding: 4px;*/
+      background: #dedede;
+  position: relative;
+}
+
+.Progress {
+  width: 15%;
+  position: relative;
+background: rgba(97,60,135,1);
+    background: -moz-linear-gradient(left,rgba(97,60,135,1) 0,rgba(232,28,54,1) 100%);
+    background: -webkit-gradient(left top,right top,color-stop(0,rgba(97,60,135,1)),color-stop(100%,rgba(232,28,54,1)));
+    background: -webkit-linear-gradient(left,rgba(97,60,135,1) 0,rgba(232,28,54,1) 100%);
+    background: -o-linear-gradient(left,rgba(97,60,135,1) 0,rgba(232,28,54,1) 100%);
+    background: -ms-linear-gradient(left,rgba(97,60,135,1) 0,rgba(232,28,54,1) 100%);
+    background: linear-gradient(to right,rgba(97,60,135,1) 0,rgba(232,28,54,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#613c87',endColorstr='#e81c36',GradientType=1);
+  	height: 100%;
+	border-radius: 15px;
+  	border-color: #4A90E2;
+  	animation-name: progressUno;
+  	animation-iteration-count: 1;
+  	animation-duration: 2s;
+}
+.medal-1{
+	width: 15%;
+	animation-name: progressUno;
+}
+.medal-2{
+	width: 33%;
+	animation-name: progressDos;
+}
+.medal-3{
+	width: 54%;
+	animation-name: progressTres;
+}
+.medal-4{
+	width: 74%;
+	animation-name: progressCuatro;
+}
+.medal-5{
+	width: 100%;
+	animation-name: progressCinco;
+}
+
+
+@keyframes progressUno {
+  0% {width: 0%;} 100% {width: 15%;}
+}
+@keyframes progressDos {
+  0% {width: 0%;} 100% {width: 33%;}
+}
+@keyframes progressTres {
+  0% {width: 0%;} 100% {width: 54%;}
+}
+@keyframes progressCuatro {
+  0% {width: 0%;} 100% {width: 74%;}
+}
+@keyframes progressCinco {
+  0% {width: 0%;} 100% {width: 100%;}
+}
+
+
+
+
+.Progress:after{
+position: absolute;
+    top: -3px;
+    right: 0;
+    content: "";
+    display: block;
+    width: 14px;
+    height: 14px;
+    background: #ad001b;
+    border-radius: 16px;
+    z-index:100;
+}
+#ProgressBar span{
+	display: block;
+	position: absolute;
+	top: -20px;
+	background: red;
+	width: 55px;
+	height:55px;
+}
+
+
+
+#ProgressBar .pt1{
+	display: block;
+	left: -1%;
+	background: url(../imgs/image-1@2x.png) no-repeat center center;
+	background-size: cover;
+}
+#ProgressBar .pt2{
+	display: block;
+	left: 19%;
+	background: url(../imgs/recurso-36-3-x@2x.png) no-repeat center center;
+	background-size: cover;
+}
+#ProgressBar .pt3{
+	display: block;
+	left: 38%;
+	background: url(../imgs/recurso-35-3-x@2x.png) no-repeat center center;
+	background-size: cover;
+}
+#ProgressBar .pt4{
+	display: block;
+	left: 58%;
+	background: url(../imgs/recurso-34-3-x@2x.png) no-repeat center center;
+	background-size: cover;
+}
+#ProgressBar .pt5{
+	display: block;
+	left: 78%;
+	background: url(../imgs/recurso-33-3-x@2x.png) no-repeat center center;
+	background-size: cover;
+}
+#ProgressBar .pt6{
+	display: block;
+	left: 97%;
+	background: url(../imgs/recurso-32-3-x@2x.png) no-repeat center center;
+	background-size: cover;
+}
+
+
+#ProgressBar .pt1.activo{
+	background: url(../imgs/image-1@2x.png) no-repeat center center;
+	background-size: cover;
+}
+#ProgressBar .pt2.activo{
+	background: url(../imgs/recurso-31-3-x-copy-5@2x.png) no-repeat center center;
+	background-size: cover;
+}
+#ProgressBar .pt3.activo{
+	background: url(../imgs/recurso-30-3-x-copy-4@2x.png) no-repeat center center;
+	background-size: cover;
+}
+#ProgressBar .pt4.activo{
+	background: url(../imgs/recurso-29-3-x-copy-3@2x.png) no-repeat center center;
+	background-size: cover;
+}
+#ProgressBar .pt5.activo{
+	background: url(../imgs/recurso-28-3-x-copy-2@2x.png) no-repeat center center;
+	background-size: cover;
+}
+#ProgressBar .pt6.activo{
+	background: url(../imgs/recurso-27-3-x@2x.png) no-repeat center center;
+	background-size: cover;
+}
+
+
+#ProgressBar span em{
+	display: block;
+	font-size: 13px;
+	text-align: center;
+	margin-top: 65px;
+	font-style: normal;
+	color: gray;
+}
+#chart-montos{
+	margin-top:20px;
+	display: block;
+
+}
+#chart-montos img{
+	display: block;
+	max-width: 376px;
+	width: 100%;
+}
+.new_menu_a {
+    border:0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* MEDIASQUERY CAMINO BRILLANTE */
+@media screen and (max-width: 930px) {
+
+	}
+
+@media screen and (max-width: 860px) {
+	.box-beneficios li{
+	width: 46%;
+    margin: 20px 2%;
+	}
+
+}
+
+@media screen and (max-width: 700px) {
+	.list-ganacias li{
+	width: 98%;
+    margin: 0 1%;
+    margin-bottom: 15px;
+	}
+}
+
+@media screen and (max-width: 620px) {
+	#ProgressBar span{
+		width: 38px;
+    	height: 38px;
+	}
+	#ProgressBar{
+		    height: 6px;
+	}
+	.Progress:after{
+		top: -3px;
+		width: 12px;
+    	height: 12px;
+	}
+	#ProgressBar span em{
+		margin-top: 48px;
+		font-size: 12px;
+	}
+	#box-niveles{
+		margin: 55px auto;
+		margin-bottom: 80px;
+	}
+	.owl-carousel .owl-stage{
+		padding-left: 15px !important;
+	}
+	.shad{
+		    padding: 20px 20px;
+	}
+
+}
+
+
+@media screen and (max-width: 600px) {
+	.left-ganancias, .right-ganancias{
+	width: 100%;
+    margin: 0;
+    float: none;
+	}
+	#mov-mont{
+		display: block;
+		margin-top: 20px;
+	}
+	.list-ganacias{
+		display: none;
+	}
+	
+}
+
+@media screen and (max-width: 530px) {
+	.box-beneficios li{
+	width: 96%;
+    margin: 10px 2%;
+	}
+}
+
+
+
+
+
