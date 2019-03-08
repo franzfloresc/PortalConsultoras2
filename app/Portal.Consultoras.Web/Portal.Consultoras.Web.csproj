@@ -5707,6 +5707,9 @@
     <Content Include="Views\TusClientes\_Mantener.cshtml" />
     <Content Include="Views\ArmaTuPack\Detalle.cshtml" />
     <Content Include="Views\AdministrarEstrategia\EstrategiaGrupoDialog.cshtml" />
+    <Content Include="Views\ArmaTuPack\GrupoTemplate.cshtml" />
+    <Content Include="Views\ArmaTuPack\SeleccionadoTemplate.cshtml" />
+    <Content Include="Views\ArmaTuPack\CabeceraTemplate.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
