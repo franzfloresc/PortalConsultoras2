@@ -79,10 +79,15 @@ var EstrategiaAgregarModule = (function () {
 
     var getEstrategia = function ($btnAgregar, origenPedidoWebEstrategia) {
 
-        var estrategia = JSON.parse($btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataEstrategia).attr("data-estrategia"))
-                || JSON.parse($btnAgregar.parents("div.content_btn_agregar").siblings("#contenedor-showroom-subcampanias-mobile")
-                        .find(".slick-active").find(dataProperties.dataEstrategia).attr("data-estrategia"))
-                || {};
+        var estrategiaTxt = $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataEstrategia).attr("data-estrategia")
+                || $btnAgregar.parents("div.content_btn_agregar").siblings("#contenedor-showroom-subcampanias-mobile")
+                        .find(".slick-active").find(dataProperties.dataEstrategia).attr("data-estrategia")
+                || "";
+
+        var estrategia = {};
+        if (estrategiaTxt != "") {
+            estrategia = JSON.parse(estrategiaTxt);
+        }
 
         return estrategia;
     };
