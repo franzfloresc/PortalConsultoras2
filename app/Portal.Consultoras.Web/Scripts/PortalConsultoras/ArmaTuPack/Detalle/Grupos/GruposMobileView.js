@@ -1,4 +1,4 @@
-﻿var GrupoMobileView = function () {
+﻿var GruposMobileView = function () {
 
     var _config = {
 

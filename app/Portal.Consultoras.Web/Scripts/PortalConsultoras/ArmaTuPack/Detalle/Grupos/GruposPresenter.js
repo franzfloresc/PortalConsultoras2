@@ -1,4 +1,4 @@
-﻿var GrupoPresenter = function (config) {
+﻿var GruposPresenter = function (config) {
     if (typeof config === "undefined" || config === null) throw "config is null or undefined";
     //
     if (typeof config.grupoView === "undefined" || config.grupoView === null) throw "config.grupoView is null or undefined";

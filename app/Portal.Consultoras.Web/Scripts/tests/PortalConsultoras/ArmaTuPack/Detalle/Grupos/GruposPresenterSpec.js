@@ -4,9 +4,9 @@
 /// <reference path="../../../../../PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js" />
 /// <reference path="../../../../../PortalConsultoras/DetalleEstrategia/DetalleEstrategiaProvider.js" />
 
-/// <reference path="../../../../../PortalConsultoras/ArmaTuPack/Detalle/Grupo/GrupoMobileView.js" />
-/// <reference path="../../../../../PortalConsultoras/ArmaTuPack/Detalle/Grupo/GrupoDesktopView.js" />
-/// <reference path="../../../../../PortalConsultoras/ArmaTuPack/Detalle/Grupo/GrupoPresenter.js" />
+/// <reference path="../../../../../PortalConsultoras/ArmaTuPack/Detalle/Grupos/GruposMobileView.js" />
+/// <reference path="../../../../../PortalConsultoras/ArmaTuPack/Detalle/Grupos/GruposDesktopView.js" />
+/// <reference path="../../../../../PortalConsultoras/ArmaTuPack/Detalle/Grupos/GruposPresenter.js" />
 
 describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
     describe("Constructor", function () {
@@ -38,7 +38,7 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
             expect(errorMsg).to.have.string("config is null or undefined");
         });
 
-        it("throw an exception when config.grupoView is undefined", function () {
+        it("throw an exception when config.GruposView is undefined", function () {
 
             try {
                 GrupoPresenter({

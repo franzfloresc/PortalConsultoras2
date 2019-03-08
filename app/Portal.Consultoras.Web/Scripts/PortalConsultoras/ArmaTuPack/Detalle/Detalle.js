@@ -7,9 +7,9 @@
 /// <reference path="cabecera/cabeceraview.js" />
 /// <reference path="cabecera/cabecerapresenter.js" />
 
-/// <reference path="grupo/grupodesktopview.js" />
-/// <reference path="grupo/grupomobileview.js" />
-/// <reference path="grupo/grupopresenter.js" />
+/// <reference path="grupos/gruposdesktopview.js" />
+/// <reference path="grupos/gruposmobileview.js" />
+/// <reference path="grupos/grupospresenter.js" />
 
 /// <reference path="seleccionados/seleccionadosview.js" />
 /// <reference path="seleccionados/seleccionadospresenter.js" />
@@ -23,23 +23,22 @@ var armaTuPackProvider = ArmaTuPackProvider();
 var generalModule = GeneralModule;
 
 var detallePresenter = DetallePresenter({
-    grupoView: grupoDesktopView,
     armaTuPackProvider: armaTuPackProvider,
     generalModule: generalModule,
     armaTuPackDetalleEvents: armaTuPackDetalleEvents
 });
 
-var grupoDesktopView = GrupoDesktopView();
-var grupoDesktopPresenter = GrupoPresenter({
-    grupoView: grupoDesktopView,
+var gruposDesktopView = GruposDesktopView();
+var gruposDesktopPresenter = GruposPresenter({
+    gruposView: grupoDesktopView,
     armaTuPackProvider: armaTuPackProvider,
     generalModule: generalModule,
     armaTuPackDetalleEvents: armaTuPackDetalleEvents
 });
 //
-var grupoMobileView = GrupoMobileView();
-var grupoMobilePresenter = GrupoPresenter({
-    grupoView: grupoMobileView,
+var gruposMobileView = GruposMobileView();
+var gruposMobilePresenter = GruposPresenter({
+    gruposView: gruposMobileView,
     armaTuPackProvider: armaTuPackProvider,
     generalModule: generalModule,
     armaTuPackDetalleEvents: armaTuPackDetalleEvents
@@ -59,7 +58,7 @@ $(document).ready(function () {
 
 
 armaTuPackDetalleEvents.subscribe(armaTuPackDetalleEvents.eventName.onGruposLoaded, function (PackComponents) {
-    grupoDesktopPresenter.onGruposLoaded(PackComponents);
+    gruposDesktopPresenter.onGruposLoaded(PackComponents);
     //grupoMobilePresenter.renderGrupos(PackComponents);
     //TODO :
 });

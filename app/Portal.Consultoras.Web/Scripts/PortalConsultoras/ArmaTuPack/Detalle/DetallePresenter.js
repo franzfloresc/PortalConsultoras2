@@ -6,7 +6,6 @@
     if (typeof config.armaTuPackDetalleEvents === "undefined" || config.armaTuPackDetalleEvents === null) throw "config.armaTuPackDetalleEvents is null or undefined";
 
     var _config = {
-        grupoView: config.grupoView,
         armaTuPackProvider: config.armaTuPackProvider,
         generalModule: config.generalModule,
         armaTuPackDetalleEvents: config.armaTuPackDetalleEvents

@@ -1,4 +1,4 @@
-﻿var GrupoDesktopView = function () {
+﻿var GruposDesktopView = function () {
 
     var _config = {
 
