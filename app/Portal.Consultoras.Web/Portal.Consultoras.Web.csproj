@@ -832,7 +832,7 @@
     <Compile Include="Providers\EventoFestivoProvider.cs" />
     <Compile Include="Providers\GuiaNegocioProvider.cs" />
     <Compile Include="Providers\BaseProvider.cs" />
-    <Compile Include="Providers\EstrategiaGrupoProvide.cs" />
+    <Compile Include="Providers\EstrategiaGrupoProvider.cs" />
     <Compile Include="Providers\MiPerfilProvider.cs" />
     <Compile Include="Providers\ProgramaNuevasProvider.cs" />
     <Compile Include="Providers\IssuuProvider.cs" />
@@ -4079,6 +4079,17 @@
     <Content Include="Scripts\MultiSelect\js\plugins\scrollTo\README.txt" />
     <Content Include="Scripts\MultiSelect\js\ui.multiselect.js" />
     <Content Include="Scripts\nieve.js" />
+    <Content Include="Scripts\PortalConsultoras\ArmaTuPack\Detalle\ArmaTuPackDetalleEvents.js" />
+    <Content Include="Scripts\PortalConsultoras\ArmaTuPack\Detalle\Detalle.js" />
+    <Content Include="Scripts\PortalConsultoras\ArmaTuPack\ArmaTuPackProvider.js" />
+    <Content Include="Scripts\PortalConsultoras\ArmaTuPack\Detalle\Cabecera\CabeceraPresenter.js" />
+    <Content Include="Scripts\PortalConsultoras\ArmaTuPack\Detalle\Cabecera\CabeceraView.js" />
+    <Content Include="Scripts\PortalConsultoras\ArmaTuPack\Detalle\DetallePresenter.js" />
+    <Content Include="Scripts\PortalConsultoras\ArmaTuPack\Detalle\Grupo\GrupoDesktopView.js" />
+    <Content Include="Scripts\PortalConsultoras\ArmaTuPack\Detalle\Grupo\GrupoMobileView.js" />
+    <Content Include="Scripts\PortalConsultoras\ArmaTuPack\Detalle\Grupo\GrupoPresenter.js" />
+    <Content Include="Scripts\PortalConsultoras\ArmaTuPack\Detalle\Seleccionados\SeleccionadosPresenter.js" />
+    <Content Include="Scripts\PortalConsultoras\ArmaTuPack\Detalle\Seleccionados\SeleccionadosView.js" />
     <Content Include="Scripts\PortalConsultoras\AsesoraOnline\AsesoraOnline.js" />
     <Content Include="Scripts\PortalConsultoras\AsesoraOnline\CancelarSuscripcionJS.js" />
     <Content Include="Scripts\PortalConsultoras\AsesoraOnline\Index.js" />
@@ -4241,6 +4252,10 @@
     <Content Include="Scripts\PortalConsultoras\Shared\MainLayout.js" />
     <Content Include="Scripts\slick-vertical.min.js" />
     <Content Include="Scripts\Spectrum\spectrum.js" />
+    <Content Include="Scripts\tests\PortalConsultoras\ArmaTuPack\Detalle\Cabecera\CabeceraPresenterSpec.js" />
+    <Content Include="Scripts\tests\PortalConsultoras\ArmaTuPack\Detalle\DetallePresenterSpec.js" />
+    <Content Include="Scripts\tests\PortalConsultoras\ArmaTuPack\Detalle\Grupo\GrupoPresenterSpec.js" />
+    <Content Include="Scripts\tests\PortalConsultoras\ArmaTuPack\Detalle\Seleccionados\SeleccionadosPresenterSpec.js" />
     <Content Include="Scripts\tests\PortalConsultoras\DetalleEstrategia\FichaModuleSpec.js" />
     <Content Include="Scripts\tests\PortalConsultoras\TusClientes\TusClientesModuleSpec.js" />
     <Content Include="Scripts\tests\TestHelpersModule.js" />
@@ -5692,8 +5707,11 @@
     <Content Include="Views\TusClientes\PanelMantener.cshtml" />
     <Content Include="Views\TusClientes\PanelTest.cshtml" />
     <Content Include="Views\TusClientes\_Mantener.cshtml" />
-    <Content Include="Views\ArmaTuPack\Index.cshtml" />
+    <Content Include="Views\ArmaTuPack\Detalle.cshtml" />
     <Content Include="Views\AdministrarEstrategia\EstrategiaGrupoDialog.cshtml" />
+    <Content Include="Views\ArmaTuPack\GrupoTemplate.cshtml" />
+    <Content Include="Views\ArmaTuPack\SeleccionadoTemplate.cshtml" />
+    <Content Include="Views\ArmaTuPack\CabeceraTemplate.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

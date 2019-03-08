@@ -1,4 +1,5 @@
 /// <reference path="../../../PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js" />
+/// <reference path="../../../PortalConsultoras/DetalleEstrategia/DetalleEstrategiaProvider.js" />
 /// <reference path="../../../PortalConsultoras/DetalleEstrategia/FichaModule.js" />
 
 describe("FichaModule", function () {
@@ -116,20 +117,36 @@ describe("FichaModule", function () {
         });
     });
 
-    describe("Inicializar", function () {
-        var fichaModule = null;
+    // describe("Inicializar", function () {
+    //     var fichaModule = null;
 
-        beforeEach(function () {
-            fichaModule = null;
-        });
+    //     beforeEach(function () {
+    //         fichaModule = null;
+    //     });
 
-        it("", function () {
-            //var localStorage = sinon.mock(LocalStorageModule());
-            //fichaModule = FichaModule({
-            //    localStorageModule: localStorage
-            //});
+    //     it("", function () {
+    //         //var localStorage = sinon.mock(LocalStorageModule());
+    //         //fichaModule = FichaModule({
+    //         //    localStorageModule: localStorage
+    //         //});
 
-            //fichaModule.Inicializar();
-        });
-    });
+    //         //fichaModule.Inicializar();
+    //     });
+    // });
+    // describe("Inicializar", function () {
+    //     var fichaModule = null;
+
+    //     beforeEach(function () {
+    //         fichaModule = null;
+    //     });
+
+    //     it("", function () {
+    //         //var localStorage = sinon.mock(LocalStorageModule());
+    //         //fichaModule = FichaModule({
+    //         //    localStorageModule: localStorage
+    //         //});
+
+    //         //fichaModule.Inicializar();
+    //     });
+    // });
 });
