@@ -52,6 +52,7 @@ module.exports = function (config) {
             'Scripts/PortalConsultoras/ArmaTuPack/Detalle/Grupo/GrupoDesktopView.js',
             'Scripts/PortalConsultoras/ArmaTuPack/Detalle/Seleccionados/SeleccionadosPresenter.js',
             'Scripts/PortalConsultoras/ArmaTuPack/Detalle/Seleccionados/SeleccionadosView.js',
+            'Scripts/PortalConsultoras/ArmaTuPack/Detalle/ArmaTuPackDetalleEvents.js',
             'Scripts/PortalConsultoras/ArmaTuPack/Detalle/DetallePresenter.js',
             'Scripts/PortalConsultoras/ArmaTuPack/ArmaTuPackProvider.js',
 

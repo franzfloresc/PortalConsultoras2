@@ -1008,14 +1008,16 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mixto/ArmaTuPack").Include(
                  "~/Scripts/PortalConsultoras/ArmaTuPack/ArmaTuPackProvider.js",
-                 "~/Scripts/PortalConsultoras/ArmaTuPack/Detalle/DetallePresenter.js",
-                 "~/Scripts/PortalConsultoras/ArmaTuPack/Detalle/Cabecera/CabeceraPresenter.js",
                  "~/Scripts/PortalConsultoras/ArmaTuPack/Detalle/Cabecera/CabeceraView.js",
+                 "~/Scripts/PortalConsultoras/ArmaTuPack/Detalle/Cabecera/CabeceraPresenter.js",
                  "~/Scripts/PortalConsultoras/ArmaTuPack/Detalle/Grupo/GrupoDesktopView.js",
                  "~/Scripts/PortalConsultoras/ArmaTuPack/Detalle/Grupo/GrupoMobileView.js",
                  "~/Scripts/PortalConsultoras/ArmaTuPack/Detalle/Grupo/GrupoPresenter.js",
+                 "~/Scripts/PortalConsultoras/ArmaTuPack/Detalle/Seleccionados/SeleccionadosView.js",
                  "~/Scripts/PortalConsultoras/ArmaTuPack/Detalle/Seleccionados/SeleccionadosPresenter.js",
-                 "~/Scripts/PortalConsultoras/ArmaTuPack/Detalle/Seleccionados/SeleccionadosView.js"
+                 "~/Scripts/PortalConsultoras/ArmaTuPack/Detalle/ArmaTuPackDetalleEvents.js",
+                 "~/Scripts/PortalConsultoras/ArmaTuPack/Detalle/DetallePresenter.js",
+                 "~/Scripts/PortalConsultoras/ArmaTuPack/Detalle/Detalle.js"
               ));
             #endregion
 

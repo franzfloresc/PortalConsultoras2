@@ -12,7 +12,7 @@ go
 
 
 
-CREATE PROCEDURE [ConfiguracionOfertasHomeUpdate] 
+ALTER PROCEDURE [ConfiguracionOfertasHomeUpdate] 
 @ConfiguracionOfertasHomeID int,
 @ConfiguracionPaisID int,
 @CampaniaID int,
@@ -40,12 +40,7 @@ CREATE PROCEDURE [ConfiguracionOfertasHomeUpdate]
 @DesktopUsarImagenFondo bit,
 @MobileUsarImagenFondo bit,
 @DesktopColorTexto varchar(10),
-@MobileColorTexto varchar(10),
-
-@BotonTexto1 varchar(100),
-@BotonTexto2 varchar(100),
-@BotonColor varchar(10),
-@BotonColorTexto varchar(10)
+@MobileColorTexto varchar(10) 
 AS 
 BEGIN
 	SET NOCOUNT ON
@@ -82,12 +77,7 @@ BEGIN
 			DesktopUsarImagenFondo,
 			MobileUsarImagenFondo, 
 			DesktopColorTexto,
-			MobileColorTexto,
-
-			BotonTexto1,
-			BotonTexto2,
-			BotonColor,
-			BotonColorTexto
+			MobileColorTexto 
 		)
 		VALUES 
 		(
@@ -117,12 +107,7 @@ BEGIN
 			@DesktopUsarImagenFondo,
 			@MobileUsarImagenFondo, 
 			@DesktopColorTexto,
-			@MobileColorTexto,
-
-			@BotonTexto1,
-			@BotonTexto2,
-			@BotonColor,
-			@BotonColorTexto  
+			@MobileColorTexto 
 		)
 
 		SET @insertedId = SCOPE_IDENTITY();

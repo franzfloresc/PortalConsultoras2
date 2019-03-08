@@ -4079,10 +4079,12 @@
     <Content Include="Scripts\MultiSelect\js\plugins\scrollTo\README.txt" />
     <Content Include="Scripts\MultiSelect\js\ui.multiselect.js" />
     <Content Include="Scripts\nieve.js" />
-    <Content Include="Scripts\PortalConsultoras\ArmaTuPack\Detalle\DetallePresenter.js" />
+    <Content Include="Scripts\PortalConsultoras\ArmaTuPack\Detalle\ArmaTuPackDetalleEvents.js" />
+    <Content Include="Scripts\PortalConsultoras\ArmaTuPack\Detalle\Detalle.js" />
     <Content Include="Scripts\PortalConsultoras\ArmaTuPack\ArmaTuPackProvider.js" />
     <Content Include="Scripts\PortalConsultoras\ArmaTuPack\Detalle\Cabecera\CabeceraPresenter.js" />
     <Content Include="Scripts\PortalConsultoras\ArmaTuPack\Detalle\Cabecera\CabeceraView.js" />
+    <Content Include="Scripts\PortalConsultoras\ArmaTuPack\Detalle\DetallePresenter.js" />
     <Content Include="Scripts\PortalConsultoras\ArmaTuPack\Detalle\Grupo\GrupoDesktopView.js" />
     <Content Include="Scripts\PortalConsultoras\ArmaTuPack\Detalle\Grupo\GrupoMobileView.js" />
     <Content Include="Scripts\PortalConsultoras\ArmaTuPack\Detalle\Grupo\GrupoPresenter.js" />
@@ -5707,6 +5709,9 @@
     <Content Include="Views\TusClientes\_Mantener.cshtml" />
     <Content Include="Views\ArmaTuPack\Detalle.cshtml" />
     <Content Include="Views\AdministrarEstrategia\EstrategiaGrupoDialog.cshtml" />
+    <Content Include="Views\ArmaTuPack\GrupoTemplate.cshtml" />
+    <Content Include="Views\ArmaTuPack\SeleccionadoTemplate.cshtml" />
+    <Content Include="Views\ArmaTuPack\CabeceraTemplate.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

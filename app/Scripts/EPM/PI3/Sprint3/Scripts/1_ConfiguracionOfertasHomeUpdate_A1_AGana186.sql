@@ -12,7 +12,7 @@ go
 
 
 
-CREATE PROCEDURE [ConfiguracionOfertasHomeUpdate] 
+ALTER PROCEDURE [ConfiguracionOfertasHomeUpdate] 
 @ConfiguracionOfertasHomeID int,
 @ConfiguracionPaisID int,
 @CampaniaID int,
