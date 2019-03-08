@@ -560,7 +560,7 @@ function AsignarCUV(pedido) {
     //Nueva solicitud de reclamo
     var cantidad = CantidadReclamosPorPedidoConfig != null && CantidadReclamosPorPedidoConfig != '' ? parseInt(CantidadReclamosPorPedidoConfig) : 0;
     if (cantidad === EstadosConteo && EstadosConteo > 0) {
-        alert_msg("Lo sentimos, usted a excedido el límite de reclamos por pedido");
+        alert_msg("Lo sentimos, usted ha excedido el límite de reclamos por pedido");
     } else {
         pedido.olstBEPedidoWebDetalle = pedido.olstBEPedidoWebDetalle || new Array();
         var detalle = pedido.olstBEPedidoWebDetalle.Find("CUV", $.trim($("#ddlCuv").val()) || "");
