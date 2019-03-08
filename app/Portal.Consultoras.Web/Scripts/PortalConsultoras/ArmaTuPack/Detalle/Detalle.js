@@ -58,7 +58,14 @@ $(document).ready(function () {
 });
 
 
-armaTuPackDetalleEvents.subscribe(armaTuPackDetalleEvents.eventName.onGruposLoaded, function (grupos) {
+armaTuPackDetalleEvents.subscribe(armaTuPackDetalleEvents.eventName.onGruposLoaded, function (PackComponents) {
+    grupoDesktopPresenter.renderGrupos(PackComponents);
+    //TODO :
+});
+
+armaTuPackDetalleEvents.subscribe(armaTuPackDetalleEvents.eventName.onGruposViewLoaded, function (PackComponents) {
+    grupoDesktopView.renderGrupos(PackComponents);
+    //grupoMobileView.renderGrupos(PackComponents);
     //TODO :
 });
 

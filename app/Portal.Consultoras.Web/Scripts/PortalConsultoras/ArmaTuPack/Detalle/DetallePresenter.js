@@ -12,7 +12,7 @@
         armaTuPackDetalleEvents: config.armaTuPackDetalleEvents
     };
 
-    var _init = function () {
+    var getPackComponents = function () {
         _config.armaTuPackProvider
             .getPackComponentsPromise()
             .done(function (data) {
@@ -25,6 +25,10 @@
             .fail(function (data, error) {
                 _config.generalModule.redirectTo("/ofertas");
             });
+    };
+
+    var _init = function () {
+        getPackComponents();
     };
 
     return {

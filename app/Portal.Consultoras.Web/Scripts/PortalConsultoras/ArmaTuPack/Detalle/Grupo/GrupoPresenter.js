@@ -11,6 +11,12 @@
         generalModule: config.generalModule,
     };
 
+
+    var _renderGrupos = function (PackComponents) {
+        _config.armaTuPackDetalleEvents.applyChanges(_config.armaTuPackDetalleEvents.eventName.onGruposViewLoaded, PackComponents);
+    }
+
     return {
+        renderGrupos: _renderGrupos
     };
 };
