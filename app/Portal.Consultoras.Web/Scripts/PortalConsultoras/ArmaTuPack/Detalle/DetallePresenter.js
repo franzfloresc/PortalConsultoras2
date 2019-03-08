@@ -1,53 +1,33 @@
-﻿var ArmaTuPackDetalleEvents = ArmaTuPackDetalleEvents || {};
-
-registerEvent.call(ArmaTuPackDetalleEvents, "onGruposLoaded");
-registerEvent.call(ArmaTuPackDetalleEvents, "onSelectedProductsChanged");
-
-var DetallePresenter = function (config) {
+﻿var DetallePresenter = function (config) {
     if (typeof config === "undefined" || config === null) throw "config is null or undefined";
-    
+    //
     if (typeof config.armaTuPackProvider === "undefined" || config.armaTuPackProvider === null) throw "config.armaTuPackProvider is null or undefined";
     if (typeof config.generalModule === "undefined" || config.generalModule === null) throw "config.generalModule is null or undefined";
-
-    var _packComponents = {};
+    if (typeof config.armaTuPackDetalleEvents === "undefined" || config.armaTuPackDetalleEvents === null) throw "config.armaTuPackDetalleEvents is null or undefined";
 
     var _config = {
+        grupoView: config.grupoView,
         armaTuPackProvider: config.armaTuPackProvider,
         generalModule: config.generalModule,
-        cuv: config.cuv
+        armaTuPackDetalleEvents: config.armaTuPackDetalleEvents
     };
 
-    var _getModelo = function () {
+    var _init = function () {
         _config.armaTuPackProvider
             .getPackComponentsPromise()
             .done(function (data) {
                 if (typeof data === "undefined" || data === null ||
-                    !Array.isArray(data.Grupos) || data.Grupos.length === 0)
+                    !Array.isArray(data.Grupos) || data.Grupos.length === 0) {
                     _config.generalModule.redirectTo("/ofertas");
-
-                _packComponents = data;
-                opcionesEvents.applyChanges("onGruposLoaded", _packComponents);
+                }
+                _config.armaTuPackDetalleEvents.applyChanges(_config.armaTuPackDetalleEvents.eventName.onGruposLoaded, data);
             })
             .fail(function (data, error) {
-                _packComponents = {};
                 _config.generalModule.redirectTo("/ofertas");
             });
     };
 
-    var _init = function () {
-        _getModelo();
-    };
-
     return {
-        init: _init,
-        packComponents: _packComponents
+        init : _init
     };
 };
-
-ArmaTuPackDetalleEvents.subscribe("onGruposLoaded", function (grupos) {
-    //TODO :
-});
-
-ArmaTuPackDetalleEvents.subscribe("onSelectedProductsChanged", function (grupos) {
-    //TODO :
-});

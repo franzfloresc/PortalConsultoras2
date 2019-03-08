@@ -40,37 +40,37 @@ describe("ArmaTuPack - Detalle - DetallePresenter", function () {
             expect(errorMsg).to.have.string("config is null or undefined");
         });
 
-        // it("throw an exception when config.grupoView is undefined", function () {
+        it("throw an exception when config.armaTuPackProvider is undefined", function () {
 
-        //     try {
-        //         DetallePresenter({
-        //             grupoView : undefined
-        //         });
-        //     } catch (error) {
-        //         errorMsg = error;
-        //     }
+            try {
+                DetallePresenter({
+                    armaTuPackProvider: undefined
+                });
+            } catch (error) {
+                errorMsg = error;
+            }
 
-        //     expect(errorMsg).to.have.string("config.grupoView is null or undefined");
-        // });
+            expect(errorMsg).to.have.string("config.armaTuPackProvider is null or undefined");
+        });
 
-        // it("throw an exception when config.grupoView is null", function () {
+        it("throw an exception when config.armaTuPackProvider is null", function () {
 
-        //     try {
-        //         DetallePresenter({
-        //             grupoView : null
-        //         });
-        //     } catch (error) {
-        //         errorMsg = error;
-        //     }
+            try {
+                DetallePresenter({
+                    armaTuPackProvider: null
+                });
+            } catch (error) {
+                errorMsg = error;
+            }
 
-        //     expect(errorMsg).to.have.string("config.grupoView is null or undefined");
-        // });
+                    // grupoView : {},
+            expect(errorMsg).to.have.string("config.armaTuPackProvider is null or undefined");
+        });
 
         it("throw an exception when config.generalModule is undefined", function () {
 
             try {
                 DetallePresenter({
-                    // grupoView : {},
                     armaTuPackProvider : {},
                     generalModule: undefined
                 });
@@ -85,7 +85,6 @@ describe("ArmaTuPack - Detalle - DetallePresenter", function () {
 
             try {
                 DetallePresenter({
-                    // grupoView : {},
                     armaTuPackProvider : {},
                     generalModule: null
                 });
@@ -95,14 +94,44 @@ describe("ArmaTuPack - Detalle - DetallePresenter", function () {
 
             expect(errorMsg).to.have.string("config.generalModule is null or undefined");
         });
+
+        it("throw an exception when config.armaTuPackDetalleEvents is undefined", function () {
+
+            try {
+                DetallePresenter({
+                    armaTuPackProvider : {},
+                    generalModule: {},
+                    armaTuPackDetalleEvents : undefined
+                });
+            } catch (error) {
+                errorMsg = error;
+            }
+
+            expect(errorMsg).to.have.string("config.armaTuPackDetalleEvents is null or undefined");
+        });
+
+        it("throw an exception when config.armaTuPackDetalleEvents is null", function () {
+
+            try {
+                DetallePresenter({
+                    armaTuPackProvider : {},
+                    generalModule: {},
+                    armaTuPackDetalleEvents: null
+                });
+            } catch (error) {
+                errorMsg = error;
+            }
+
+            expect(errorMsg).to.have.string("config.armaTuPackDetalleEvents is null or undefined");
+        });
     });
 
     describe("init", function () {
         var errorMsg = '';
         //
+        var armaTuPackDetalleEvents = null;
         var detallePresenter = null;
         var armaTuPackProvider = null;
-        //var grupoView = null;
         var generalModule = null;
 
         var fakeData = function(){
@@ -1653,20 +1682,19 @@ describe("ArmaTuPack - Detalle - DetallePresenter", function () {
         beforeEach(function () {
             errorMsg = '';
             //
-            //grupoView = sinon.stub(GrupoMobileView());
             armaTuPackProvider = sinon.stub(ArmaTuPackProvider());
-            generalModule = sinon.stub(GeneralModule);
-
             armaTuPackProvider
                 .getPackComponentsPromise
                 .returns(
                     TestHelpersModule.getResolvedPromiseWithData(fakeData())
                 );
+            generalModule = sinon.stub(GeneralModule);
+            armaTuPackDetalleEvents = sinon.stub(ArmaTuPackDetalleEvents());
             //
             detallePresenter = DetallePresenter({
-                //grupoView: grupoView,
                 armaTuPackProvider: armaTuPackProvider,
-                generalModule: generalModule
+                generalModule: generalModule,
+                armaTuPackDetalleEvents:armaTuPackDetalleEvents
             });
         });
 
