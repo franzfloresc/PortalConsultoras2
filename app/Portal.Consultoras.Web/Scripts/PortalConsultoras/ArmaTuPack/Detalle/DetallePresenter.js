@@ -25,11 +25,11 @@ var DetallePresenter = function (config) {
                     !Array.isArray(data.Grupos) || data.Grupos.length === 0)
                     _config.generalModule.redirectTo("/ofertas");
 
-                _PackComponents = data;
-                opcionesEvents.applyChanges("onGruposLoaded", _PackComponents);
+                _packComponents = data;
+                opcionesEvents.applyChanges("onGruposLoaded", _packComponents);
             })
             .fail(function (data, error) {
-                _PackComponents = {};
+                _packComponents = {};
                 _config.generalModule.redirectTo("/ofertas");
             });
     };
