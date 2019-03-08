@@ -46,7 +46,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
         private readonly ILimiteVentaBusinessLogic _limiteVentaBusinessLogic;
         private readonly IArmaTuPackBusinessLogic _BLArmaTuPack;
         private readonly IActivarPremioNuevasBusinessLogic _bLActivarPremioNuevas;
-        private readonly IEstrategiaBusinessLogic _blEstrategia;
 
         public BLPedido() : this(new BLProducto(),
                                     new BLPedidoWeb(),
@@ -67,8 +66,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                                     new BLProgramaNuevas(),
                                     new BLLimiteVenta(),
                                     new BLArmaTuPack(),
-                                    new BLActivarPremioNuevas(),
-                                    new BLEstrategia())
+                                    new BLActivarPremioNuevas())
         { }
 
         public BLPedido(IProductoBusinessLogic productoBusinessLogic,
@@ -90,8 +88,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                             IProgramaNuevasBusinessLogic programaNuevasBusinessLogic,
                             ILimiteVentaBusinessLogic limiteVentaBusinessLogic,
                             IArmaTuPackBusinessLogic BLArmaTuPack,
-                            IActivarPremioNuevasBusinessLogic bLActivarPremioNuevas,
-                            IEstrategiaBusinessLogic blEstrategia)
+                            IActivarPremioNuevasBusinessLogic bLActivarPremioNuevas)
         {
             _productoBusinessLogic = productoBusinessLogic;
             _pedidoWebBusinessLogic = pedidoWebBusinessLogic;
@@ -113,7 +110,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
             _limiteVentaBusinessLogic = limiteVentaBusinessLogic;
             _BLArmaTuPack = BLArmaTuPack;
             _bLActivarPremioNuevas = bLActivarPremioNuevas;
-            _blEstrategia = blEstrategia;
         }
 
         #region Pedido Registro Insertar-Actualizar-Eliminar
@@ -1558,7 +1554,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             var ProductoRegalo = new BEProducto();
             try
             {
-                List<BEEstrategia> LstEstrategia = _blEstrategia.GetEstrategiaPremiosElectivos(usuario.PaisID, usuario.CodigoPrograma, usuario.CampaniaID, usuario.Nivel);
+                List<BEEstrategia> LstEstrategia = _estrategiaBusinessLogic.GetEstrategiaPremiosElectivos(usuario.PaisID, usuario.CodigoPrograma, usuario.CampaniaID, usuario.Nivel);
                 BEPedidoWeb objPedidoDetalle = Get(usuario);
 
                 if (objPedidoDetalle.olstBEPedidoWebDetalle == null) objPedidoDetalle.olstBEPedidoWebDetalle = new List<BEPedidoWebDetalle>();
@@ -2634,7 +2630,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
         public BEPedidoDetalleResult ValidaRegaloPedido(BEPedidoDetalle pedidoDetalle)
         {
             BEPedidoDetalleResult objRerun = null;
-            var LstRealo = _blEstrategia.GetEstrategiaPremiosElectivos(pedidoDetalle.Usuario.PaisID, pedidoDetalle.Usuario.CodigoPrograma, pedidoDetalle.Usuario.CampaniaID, pedidoDetalle.Usuario.Nivel).ToList();
+            var LstRealo = _estrategiaBusinessLogic.GetEstrategiaPremiosElectivos(pedidoDetalle.Usuario.PaisID, pedidoDetalle.Usuario.CodigoPrograma, pedidoDetalle.Usuario.CampaniaID, pedidoDetalle.Usuario.Nivel).ToList();
             var reqPedidoDetalle = Get(pedidoDetalle.Usuario);
             if (reqPedidoDetalle.olstBEPedidoWebDetalle == null)
             {
@@ -2677,7 +2673,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
         public BEPedidoDetalleResult AgregaRegaloDefault(BEPedidoDetalle pedidoDetalle)
         {
             BEPedidoDetalleResult objRerun = null;
-            var lisRegalos = _blEstrategia.GetEstrategiaPremiosElectivos(pedidoDetalle.Usuario.PaisID, pedidoDetalle.Usuario.CodigoPrograma, pedidoDetalle.Usuario.CampaniaID, pedidoDetalle.Usuario.Nivel).ToList();
+            var lisRegalos = _estrategiaBusinessLogic.GetEstrategiaPremiosElectivos(pedidoDetalle.Usuario.PaisID, pedidoDetalle.Usuario.CodigoPrograma, pedidoDetalle.Usuario.CampaniaID, pedidoDetalle.Usuario.Nivel).ToList();
             var reqPedidoDetalle = Get(pedidoDetalle.Usuario);
 
             if (reqPedidoDetalle.olstBEPedidoWebDetalle == null) reqPedidoDetalle.olstBEPedidoWebDetalle = new List<BEPedidoWebDetalle>();
@@ -2719,7 +2715,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
         {
             List<BEEstrategia> lstReturn = null;
 
-            lstReturn = _blEstrategia.GetEstrategiaPremiosElectivos(usuario.PaisID, usuario.CodigoPrograma, usuario.CampaniaID, usuario.Nivel);
+            lstReturn = _estrategiaBusinessLogic.GetEstrategiaPremiosElectivos(usuario.PaisID, usuario.CodigoPrograma, usuario.CampaniaID, usuario.Nivel);
             var objPedidoDetalle = Get(usuario);
 
             if (objPedidoDetalle.olstBEPedidoWebDetalle == null) objPedidoDetalle.olstBEPedidoWebDetalle = new List<BEPedidoWebDetalle>();
