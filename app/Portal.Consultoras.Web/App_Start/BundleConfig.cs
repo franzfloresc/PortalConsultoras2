@@ -393,7 +393,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js",
-                "~/Scripts/PortalConsultoras/Pedido/tooltip.js",                
+                "~/Scripts/PortalConsultoras/Pedido/tooltip.js",
                 "~/Scripts/PortalConsultoras/Pedido/KitNuevas.js",
                 "~/Scripts/PortalConsultoras/ProductoRecomendado/ProductoRecomendadoModule.js"
             ));
@@ -964,6 +964,10 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/Shared/footer-responsive.css",
                 "~/Content/Css/Site/Lbel/marca-pais-responsive.css"
             ));
+
+
+
+
 
 #if DEBUG
             BundleTable.EnableOptimizations = false;
