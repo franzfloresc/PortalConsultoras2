@@ -4,12 +4,20 @@
 
     };
 
-    var _grupos = null;
-    var _renderGrupos = function(grupos) {
-        if(typeof grupos === undefined){
-            return _grupos;
-        }else{
+    var _elements = {
+        grupoDesktop: {
+            templateId: "#grupo-template",
+            id: "#grupo"
+        }
+    };
+
+    var _packComponents = null;
+    var _renderGrupos = function (packComponents) {
+        if (typeof packComponents === undefined) {
+            return _packComponents;
+        } else {
             //todo:implement render method.
+            SetHandlebars(_elements.grupoDesktop.templateId, packComponents, _elements.grupoDesktop.id);
         }
     };
 

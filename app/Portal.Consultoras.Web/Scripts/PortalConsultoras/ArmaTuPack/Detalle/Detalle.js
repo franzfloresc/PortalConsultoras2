@@ -54,18 +54,13 @@ var seleccionadosPresenter = SeleccionadosPresenter({
 });
 
 $(document).ready(function () {
-    //detallePresenter.init();
+    detallePresenter.init();
 });
 
 
 armaTuPackDetalleEvents.subscribe(armaTuPackDetalleEvents.eventName.onGruposLoaded, function (PackComponents) {
-    grupoDesktopPresenter.renderGrupos(PackComponents);
-    //TODO :
-});
-
-armaTuPackDetalleEvents.subscribe(armaTuPackDetalleEvents.eventName.onGruposViewLoaded, function (PackComponents) {
-    grupoDesktopView.renderGrupos(PackComponents);
-    //grupoMobileView.renderGrupos(PackComponents);
+    grupoDesktopPresenter.onGruposLoaded(PackComponents);
+    //grupoMobilePresenter.renderGrupos(PackComponents);
     //TODO :
 });
 

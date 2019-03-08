@@ -17,7 +17,7 @@
             .getPackComponentsPromise()
             .done(function (data) {
                 if (typeof data === "undefined" || data === null ||
-                    !Array.isArray(data.Grupos) || data.Grupos.length === 0) {
+                    !Array.isArray(data.componentes) || data.componentes.length === 0) {
                     _config.generalModule.redirectTo("/ofertas");
                 }
                 _config.armaTuPackDetalleEvents.applyChanges(_config.armaTuPackDetalleEvents.eventName.onGruposLoaded, data);

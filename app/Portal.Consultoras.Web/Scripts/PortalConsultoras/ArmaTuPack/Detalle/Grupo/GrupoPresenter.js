@@ -9,14 +9,15 @@
         grupoView: config.grupoView,
         armaTuPackProvider: config.armaTuPackProvider,
         generalModule: config.generalModule,
+        armaTuPackDetalleEvents: config.armaTuPackDetalleEvents
     };
 
 
-    var _renderGrupos = function (PackComponents) {
-        _config.armaTuPackDetalleEvents.applyChanges(_config.armaTuPackDetalleEvents.eventName.onGruposViewLoaded, PackComponents);
+    var _onGruposLoaded = function (PackComponents) {
+        _config.grupoView.renderGrupos(PackComponents);
     }
 
     return {
-        renderGrupos: _renderGrupos
+        onGruposLoaded: _onGruposLoaded
     };
 };

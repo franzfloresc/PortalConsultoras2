@@ -727,6 +727,8 @@
                     "ImagenProductoSugerido": null,
                     "NombreBulk": "Rojo carmin",
                     "NombreComercial": "Hidracolor Mate.   6 ml / .21 fl.oz.",
+                    "DescripcionPlural": "Maquillaje",
+                    "DescripcionSingular": "Maquillaje",
                     "Orden": 54,
                     "PrecioCatalogo": 3308,
                     "PrecioCatalogoString": "3.308",
