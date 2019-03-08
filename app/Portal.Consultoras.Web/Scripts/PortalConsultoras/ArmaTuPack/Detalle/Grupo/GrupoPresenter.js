@@ -1,9 +1,4 @@
-﻿var ArmaTuPackDetalleEvents = ArmaTuPackDetalleEvents || {};
-
-registerEvent.call(ArmaTuPackDetalleEvents, "onGruposLoaded");
-registerEvent.call(ArmaTuPackDetalleEvents, "onSelectedProductsChanged");
-
-var GrupoPresenter = function (config) {
+﻿var GrupoPresenter = function (config) {
     if (typeof config === "undefined" || config === null) throw "config is null or undefined";
     //
     if (typeof config.grupoView === "undefined" || config.grupoView === null) throw "config.grupoView is null or undefined";
@@ -16,32 +11,6 @@ var GrupoPresenter = function (config) {
         generalModule: config.generalModule,
     };
 
-    var _init = function () {
-        // var cuv = '9999';
-        // _config
-        //     .armaTuPackProvider
-        //     .getPackComponentsPromise(cuv)
-        //     .done(function (data) {
-        //         if (typeof data === "undefined" || data === null ||
-        //             !Array.isArray(data.Grupos) || data.Grupos.length === 0)
-        //             _config.generalModule.redirectTo("/ofertas");
-
-        //         _config.grupoView.renderGrupos(data);
-        //     })
-        //     .fail(function(data,error){
-        //         _config.generalModule.redirectTo("/ofertas");
-        //     });
-    };
-
     return {
-        init : _init
     };
 };
-
-ArmaTuPackDetalleEvents.subscribe("onGruposLoaded", function (grupos) {
-    //TODO :
-});
-
-ArmaTuPackDetalleEvents.subscribe("onSelectedProductsChanged", function (grupos) {
-    //TODO :
-});

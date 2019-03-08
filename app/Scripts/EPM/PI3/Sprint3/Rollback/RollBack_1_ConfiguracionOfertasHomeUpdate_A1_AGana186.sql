@@ -40,12 +40,7 @@ ALTER PROCEDURE [ConfiguracionOfertasHomeUpdate]
 @DesktopUsarImagenFondo bit,
 @MobileUsarImagenFondo bit,
 @DesktopColorTexto varchar(10),
-@MobileColorTexto varchar(10),
-
-@BotonTexto1 varchar(100),
-@BotonTexto2 varchar(100),
-@BotonColor varchar(10),
-@BotonColorTexto varchar(10)
+@MobileColorTexto varchar(10) 
 AS 
 BEGIN
 	SET NOCOUNT ON
