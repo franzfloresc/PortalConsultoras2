@@ -14,12 +14,16 @@
     function ObtenerEstrategiaGrupo() {
         var mydata = [];
 
+        var objParam = {
+            EstrategiaId: $("#hdEstrategiaIDMongo").val(),
+            codigoTipoEstrategia: $("#ddlTipoEstrategia").find(":selected").data("codigo")
+        }
         jQuery.ajax({
             type: "POST",
             url: _url.ConsultarDetalleEstrategiaGrupo,
             dataType: "json",
             contentType: "application/json; charset=utf-8",
-            data: JSON.stringify({ EstrategiaId: $("#hdEstrategiaIDMongo").val() }),
+            data: JSON.stringify(objParam),
             async: false,
             success: function (data) {
 
@@ -39,10 +43,15 @@
 
     function AbrirGrupoEstrategia() {
 
-        showDialog('DialogGrupoEstrategia');
-        //waitingDialog();
+        AbrirLoad();
 
         _EstrategiaGrupoData = ObtenerEstrategiaGrupo();
+
+        if (_EstrategiaGrupoData == null) {
+            CerrarLoad();
+            return;
+        }
+        showDialog('DialogGrupoEstrategia');
 
         //$("#listGrupoEstrategia").jqGrid("clearGridData");
 
@@ -97,6 +106,8 @@
 
             $("#listGrupoEstrategia").setGridParam({ data: _EstrategiaGrupoData }).trigger("reloadGrid", [{ page: 1 }]);
         }
+
+        CerrarLoad();
     }
 
 
