@@ -1490,6 +1490,8 @@
         }
 
         $("<span style=\"position: absolute;margin-top: 10px;\">(*)</span>").prependTo("#jqgh_list_cb");
+
+        $("#list").setGridWidth($("#divGridEstrategia").width());
     }
 
     var _buscarNemotecnico = function () {
