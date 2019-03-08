@@ -138,6 +138,8 @@ function ConfigSeccionApp(configuracionPaisID) {
 
             $("#lblBannerApp").html("Banner&nbsp;Informativo&nbsp;(" + result.data.AppOfertasHomeImgExtension + "):");
             $("#lblMedidasBannerApp").html("(" + result.data.AppOfertasHomeImgAncho + " x " + result.data.AppOfertasHomeImgAlto + " pixeles)");
+
+            UploadFilePalancaApp("fondo-app");
         },
         error: function (request, status, error) {
             closeWaitingDialog();
@@ -190,7 +192,6 @@ function ModificarOfertas(idOfertasHome) {
             $("#dialog-content-ofertas-home").html(result).ready(function () {
                 UploadFilePalanca("fondo-mobile");
                 UploadFilePalanca("fondo-desktop");
-                UploadFilePalancaApp("fondo-app");
             });
 
             showDialog("DialogMantenimientoOfertasHome");
