@@ -30,7 +30,7 @@ var detallePresenter = DetallePresenter({
 
 var gruposDesktopView = GruposDesktopView();
 var gruposDesktopPresenter = GruposPresenter({
-    gruposView: grupoDesktopView,
+    gruposView: gruposDesktopView,
     armaTuPackProvider: armaTuPackProvider,
     generalModule: generalModule,
     armaTuPackDetalleEvents: armaTuPackDetalleEvents
