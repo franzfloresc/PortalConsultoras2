@@ -318,6 +318,8 @@ namespace Portal.Consultoras.Entities
         public string AppOfertasHomeMsjMedida { get; set; }
         [DataMember]
         public string AppOfertasHomeMsjFormato { get; set; }
+        [DataMember]
+        public int FlagSeleccionado { get; set; }
 
         public BEEstrategia()
         { }
