@@ -1,0 +1,4 @@
+			
+2.SB2 WCF
+	Agregar:
+		<add key="SetIdentifierNumberFlag" value="1"/>
