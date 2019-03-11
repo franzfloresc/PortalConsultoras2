@@ -35,6 +35,7 @@ var gruposDesktopPresenter = GruposPresenter({
     generalModule: generalModule,
     armaTuPackDetalleEvents: armaTuPackDetalleEvents
 });
+gruposDesktopView.setPresenter(gruposDesktopPresenter);
 //
 var gruposMobileView = GruposMobileView();
 var gruposMobilePresenter = GruposPresenter({
