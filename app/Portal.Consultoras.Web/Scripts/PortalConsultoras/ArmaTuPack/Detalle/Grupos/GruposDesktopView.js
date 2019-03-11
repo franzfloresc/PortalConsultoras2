@@ -3,9 +3,9 @@
     var _presenter = null;
 
     var _elements = {
-        grupoDesktop: {
-            templateId: "#grupo-template",
-            id: "#grupo"
+        gruposDesktop: {
+            templateId: "#grupos-template",
+            id: "#grupos"
         }
     };
 
@@ -14,8 +14,8 @@
     };
 
     var _renderGrupos = function(packComponents) {
-        SetHandlebars(_elements.grupoDesktop.templateId, packComponents, _elements.grupoDesktop.id);
-        $(_elements.grupoDesktop.id).on("click","[data-add-component]",function(e){
+        SetHandlebars(_elements.gruposDesktop.templateId, packComponents, _elements.gruposDesktop.id);
+        $(_elements.gruposDesktop.id).on("click","[data-add-component]",function(e){
             var $btn = $(e.target);
             var cuvGrupo = $btn.data("cuv-grupo");
             var cuvComponente = $btn.data("cuv-componente");
