@@ -6,6 +6,9 @@
         gruposDesktop: {
             templateId: "#grupos-template",
             id: "#grupos"
+        },
+        seleccionadosDesktop: {
+            id: "#seleccionados"
         }
     };
 
@@ -20,6 +23,13 @@
             var cuvGrupo = $btn.data("cuv-grupo");
             var cuvComponente = $btn.data("cuv-componente");
             _presenter.addComponente(cuvGrupo,cuvComponente);
+        });
+
+        $(document).on("click", "[data-delete-component]", function (e) {
+            var $btn = $(e.target);
+            var grupo = $btn.data("grupo");
+            var cuvComponente = $btn.data("cuv-componente");
+            _presenter.deleteComponente(grupo, cuvComponente);
         });
     };
 
