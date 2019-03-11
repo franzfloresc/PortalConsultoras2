@@ -96,9 +96,11 @@ jQuery(document).ready(function () {
             $("#BotonColor").val("#000000");
             $("#BotonColorTexto").val("#ffffff");
             $("#DesktopCantidadProductos").val("0");
+            $("#DesktopOrden").val("1");            
             $("#cbDesktopCantidadTodos").prop("checked", true);
             $("#DesktopCantidadProductos").attr("disabled", "disabled");
-            $("#ddlDesktopTipoPresentacionOfertas").val(_tipopresentacion.bannerInterativo);           
+            $("#ddlDesktopTipoPresentacionOfertas").val(_tipopresentacion.bannerInterativo);   
+            $("#titTamanioImagenFondo").html("(Ancho: 1920 px x Alto: 300 px)");
         }else {
             $(".div-disenio-atp-visible").hide();
             $(".div-disenio-atp-oculto").show();
@@ -178,6 +180,7 @@ function Modificar(idConfiguracionPais, event) {
                 $(".div-disenio-atp-oculto").hide();
                 $("#tituloSeccionDesktop").html("Desktop/Mobile");
                 $("#titColorTexto").html("Color de títulos");
+                $("#titTamanioImagenFondo").html("(Ancho: 1920 px x Alto: 300 px)");
             }
 
              /*Fin Agana 186*/
@@ -480,16 +483,27 @@ function IniDialogs() {
                     mobileUsarImagenFondo = false;
                 }
 
+                /*Inicio Agana 186 - Setear valores por defecto*/
 
                 if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") == ConstantesModule.TipoEstrategia.ATP) {
                     desktopColorFondo = $("#DesktopColorFondo").val();
-                    mobileColorFondo = $("#MobileColorFondo").val();
+                    mobileColorFondo = desktopColorFondo;
                     desktopColorTexto = $("#DesktopColorTexto").val();
-                    mobileColorTexto = $("#MobileColorTexto").val();
+                    mobileColorTexto = desktopColorTexto;
                     desktopUsarImagenFondo = $("#DesktopUsarImagenFondo").prop("checked");
-                    mobileUsarImagenFondo = $("#MobileUsarImagenFondo").prop("checked");
+                    mobileUsarImagenFondo = desktopUsarImagenFondo;
+
+                    $("#DesktopOrdenBpt").val($("#DesktopOrden").val());
+                    $("#MobileOrden").val($("#DesktopOrden").val());
+                    $("#MobileOrdenBpt").val($("#DesktopOrden").val());
+                    $("#nombre-fondo-mobile").val($("#nombre-fondo-desktop").val());
+                    $("#src-fondo-mobile").attr("src", $("#src-fondo-desktop").attr("src"));
+                    $("#MobileTitulo").val($("#DesktopTitulo").val());
+                    $("#MobileSubTitulo").val($("#DesktopSubTitulo").val());
+
                 }
 
+                /*Fin Agana 186*/
 
                 if (isNaN($("#AdministrarOfertasHomeAppModel_AppOrden").val())) {
                     _toastHelper.error("El valor del orden app tiene que ser numérico.");
@@ -509,15 +523,6 @@ function IniDialogs() {
                     _toastHelper.error("El color de texto para app debe tener un código hexadecimal válido.");
                     return false;
                 }
-
-                /*Ini Agana 186*/
-
-                if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") == ConstantesModule.TipoEstrategia.ATP) {
-                    $("#DesktopOrdenBpt").val($("#DesktopOrden").val());
-                    $("#MobileOrden").val($("#DesktopOrden").val());
-                    $("#MobileOrdenBpt").val($("#DesktopOrden").val());
-                }
-                /*Fin Agana 186*/
 
                 var params = {
                     ConfiguracionOfertasHomeID: $("#ConfiguracionOfertasHomeID").val(),
@@ -562,9 +567,10 @@ function IniDialogs() {
                     BotonTexto1 : $("#BotonTexto1").val(),
                     BotonTexto2 : $("#BotonTexto2").val(),
                     BotonColor : $("#BotonColor").val(),
-                    BotonColorTexto : $("#BotonColorTexto").val(),
+                    BotonColorTexto: $("#BotonColorTexto").val(),
+                    Codigo: $("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") 
                 };
-
+                
                 waitingDialog({});
 
                 jQuery.ajax({
@@ -580,15 +586,16 @@ function IniDialogs() {
                         if (data.success) {
                             HideDialog("DialogMantenimientoOfertasHome");
                             //_toastHelper.success("Solicitud realizada sin problemas.");
-                            showDialogMensaje("Se actualizó la información satisfactoriamente.", '');
+                            showDialogMensaje(data.message, '');
                             UpdateGrillaOfertas();
                         } else {
-                            _toastHelper.error("Error al procesar la Solicitud.");
+                            showDialogMensaje(data.message, '');
+                            //_toastHelper.error("Error al procesar la Solicitud.");
                         }
                     },
                     error: function (data, error) {
                         closeWaitingDialog();
-
+                        console.log(data);
                         _toastHelper.error("Error al procesar la Solicitud.");
                     }
                 });
