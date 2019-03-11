@@ -234,7 +234,7 @@
 /*Boton cantidad*/
 .contenedor_rangos {
     border: solid 1px #000;
-    height: 37px;
+    height: 34px;
     float: left;
     position: relative;
     border-radius: 4px;
@@ -242,7 +242,7 @@
 }
 
 .txt_cantidad_pedido {
-    height: 36px;
+    height: 33px;
     background: none;
     border: none;
     color: #000;
@@ -260,56 +260,28 @@
 .txt_menos {
     display: flex;
     float: left;
-    height: 37px;
+    height: 34px;
     padding-top: 0;
     width: 30%;
-}
-
-.dibujar_menos {
-    margin-top: 17.5px;
-    top: -1px;
-    margin: auto;
-    position: relative;
-    width: 7px;
 }
 
 .txt_mas {
     display: flex;
     float: right;
     width: 30%;
-    height: 36px;
+    height: 34px;
 }
 
-.dibujar_mas, .dibujar_menos {
-    margin: auto;
-    position: relative;
-    width: 7px;
-}
-.dibujar_mas::after {
-    -webkit-transform: rotate(90deg);
-    -moz-transform: rotate(90deg);
-    -ms-transform: rotate(90deg);
-    -o-transform: rotate(90deg);
-    transform: rotate(90deg);
+.txt_mas img, .txt_menos img{
+    width: 8px;
+    height: 8px;
 }
 
-.dibujar_mas, .dibujar_menos {
-    margin: auto;
-    position: relative;
-    width: 7px;
+.txt_mas, .txt_menos{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-
-
-.dibujar_linea::before, .dibujar_linea::after {
-    content: '';
-    border-bottom: solid 2px #000;
-    position: absolute;
-    -webkit-transition: initial;
-    transition: initial;
-    width: 100%;
-    z-index: 1;
-}
-
 
 .contenedor_rangos.disabled {
     background-color: rgba(216, 216, 216, 0.5) !important;
@@ -318,6 +290,16 @@
     pointer-events: none;
     border-color: rgba(128, 128, 128, 0.5) !important;
     border-radius: 5px;
+}
+
+.disable .txt_cantidad_pedido {
+    border-color: #808080;
+    color: #808080;
+}
+
+
+.disable .txt_mas img, .disable .txt_menos img {
+    opacity: .4;
 }
 
 @media screen and (min-width:768px) {
