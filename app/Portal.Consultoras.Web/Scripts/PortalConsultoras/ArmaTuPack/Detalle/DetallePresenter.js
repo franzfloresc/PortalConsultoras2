@@ -11,7 +11,7 @@
         armaTuPackDetalleEvents: config.armaTuPackDetalleEvents
     };
 
-    var getPackComponents = function () {
+    var _getPackComponents = function () {
         _config.armaTuPackProvider
             .getPackComponentsPromise()
             .done(function (data) {
@@ -27,7 +27,7 @@
     };
 
     var _init = function () {
-        getPackComponents();
+        _getPackComponents();
     };
 
     return {
