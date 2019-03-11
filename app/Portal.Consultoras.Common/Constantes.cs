@@ -1372,8 +1372,14 @@ namespace Portal.Consultoras.Common
         {
             public const string UrlBase = "https://catalogodigital.somosbelcorp.com/";
             public const string UrlBaseQA = "http://ecatalogoqa.somosbelcorp.com/";
+            public const string UrlCatalogoPiloto = "UrlCatalogoPiloto";
             public const string UrlParamEncrip = "iso={0}&consultant={1}";
             public const string UrlCatalogo = "{0}?cod={1}";
+        }
+
+        public static class Facebook
+        {
+            public const string FB_AppId = "FB_AppId";
         }
 
         public static class RevistaNombre
