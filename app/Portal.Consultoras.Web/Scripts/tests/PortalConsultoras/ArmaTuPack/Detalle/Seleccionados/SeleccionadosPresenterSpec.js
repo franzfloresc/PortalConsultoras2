@@ -1,4 +1,12 @@
-﻿describe("ArmaTuPack - Detalle - Seleccionados", function () {
+﻿/// <reference path="../../../../../tests/TestHelpersModule.js" />
+
+/// <reference path="../../../../../General.js" />
+
+///  <reference path="../../../../../PortalConsultoras/ArmaTuPack/Detalle/Seleccionados/SeleccionadosView.js" />
+///  <reference path="../../../../../PortalConsultoras/ArmaTuPack/Detalle/Seleccionados/SeleccionadosPresenter.js" />
+///  <reference path="../../../../../PortalConsultoras/ArmaTuPack/Detalle/ArmaTuPackDetalleEvents.js" />
+
+describe("ArmaTuPack - Detalle - SeleccionadosPresenter", function () {
     describe("Constructor", function () {
         var errorMsg = '';
 
@@ -116,22 +124,24 @@
     describe("OnGruposLoaded", function () {
         var errorMsg = '';
         //
-        var generalModule = null;
-        var armaTuPackDetalleEvents = null;
         var seleccionadosView = null;
         var seleccionadosPresenter = null;
+
+        var generalModule = null;
+        var armaTuPackDetalleEvents = null;
 
         beforeEach(function () {
             errorMsg = '';
             //
+            seleccionadosView = sinon.stub(SeleccionadosView());
+            //
             generalModule = sinon.stub(GeneralModule);
             armaTuPackDetalleEvents = sinon.stub(ArmaTuPackDetalleEvents());
-            seleccionadosView = sinon.stub(SeleccionadosView());
             //
             seleccionadosPresenter = SeleccionadosPresenter({
                 seleccionadosView: seleccionadosView,
-                armaTuPackDetalleEvents: armaTuPackDetalleEvents,
-                generalModule: generalModule
+                generalModule: generalModule,
+                armaTuPackDetalleEvents: armaTuPackDetalleEvents
             });
         });
 
@@ -139,22 +149,73 @@
             sinon.restore();
         });
 
-        it("should return to /Ofertas when data object is undefined", function () {
-            seleccionadosPresenter.onGruposLoaded(undefined);
+        it("throw an exception when data object is undefined", function () {
 
-            expect(generalModule.redirectTo.calledOnce).to.equals(true);
+            try {
+                seleccionadosPresenter.onGruposLoaded(undefined);
+            } catch (error) {
+                errorMsg = error;
+            }
+
+            expect(errorMsg).to.have.string("packComponents is null or undefined");
         });
 
-        it("should return to /Ofertas when data object is null", function () {
-            seleccionadosPresenter.onGruposLoaded(null);
+        it("throw an exception when data object is null", function () {
 
-            expect(generalModule.redirectTo.calledOnce).to.equals(true);
+            try {
+                seleccionadosPresenter.onGruposLoaded(null);
+            } catch (error) {
+                errorMsg = error;
+            }
+
+            expect(errorMsg).to.have.string("packComponents is null or undefined");
         });
 
-        it("should call renderSeleccionados when data object is valid", function () {
-            seleccionadosPresenter.onGruposLoaded({});
+        it("throw an exception when componentes property is null or undefined", function () {
 
-            expect(seleccionadosView.renderSeleccionados.calledOnce).to.equals(true);
+            try {
+                seleccionadosPresenter.onGruposLoaded({
+                    componentes: null
+                });
+            } catch (error) {
+                errorMsg = error;
+            }
+
+            expect(errorMsg).to.have.string("packComponents has no components");
+        });
+
+        it("throw an exception when componentes property is null or undefined", function () {
+
+            try {
+                seleccionadosPresenter.onGruposLoaded({
+                    componentes: null
+                });
+            } catch (error) {
+                errorMsg = error;
+            }
+
+            expect(errorMsg).to.have.string("packComponents has no components");
+        });
+
+        it("throw an exception when data object has no components", function () {
+
+            try {
+                seleccionadosPresenter.onGruposLoaded({
+                    componentes: []
+                });
+            } catch (error) {
+                errorMsg = error;
+            }
+
+            expect(errorMsg).to.have.string("packComponents has no components");
+        });
+
+        it("render seleccionados when data object has components", function () {
+            seleccionadosPresenter.onGruposLoaded({
+                componentes: [{}]
+            });
+
+            expect(seleccionadosView.renderSeleccionados.calledOnce).to.be.equals(true);
         });
     });
 });
