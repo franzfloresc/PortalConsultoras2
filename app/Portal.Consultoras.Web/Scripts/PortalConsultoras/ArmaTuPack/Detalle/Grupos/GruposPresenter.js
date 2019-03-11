@@ -2,7 +2,7 @@
     if (typeof config === "undefined" || config === null) throw "config is null or undefined";
     //
     if (typeof config.gruposView === "undefined" || config.gruposView === null) throw "config.gruposView is null or undefined";
-    if (typeof config.armaTuPackProvider === "undefined" || config.armaTuPackProvider === null) throw "config.armaTuPackProvider is null or undefined";
+    //if (typeof config.armaTuPackProvider === "undefined" || config.armaTuPackProvider === null) throw "config.armaTuPackProvider is null or undefined";
     if (typeof config.generalModule === "undefined" || config.generalModule === null) throw "config.generalModule is null or undefined";
     if (typeof config.armaTuPackDetalleEvents === "undefined" || config.armaTuPackDetalleEvents === null) throw "config.armaTuPackDetalleEvents is null or undefined";
 
@@ -24,12 +24,20 @@
     };
 
     var _onGruposLoaded = function (packComponents) {
+        if (typeof packComponents === "undefined" || packComponents === null) {
+            throw "packComponents is null or undefined";
+        }
+
+        if (!Array.isArray(packComponents.componentes) || packComponents.componentes.length === 0) {
+            throw "packComponents has no components";
+        }
         _packComponents(packComponents);
         _config.gruposView.renderGrupos(packComponents);
     };
 
     var _addComponente = function (cuvGrupo, cuvComponente) {
-
+        console.log(cuvGrupo);
+        console.log(cuvComponente);
     };
 
     return {
