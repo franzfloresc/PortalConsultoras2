@@ -19,22 +19,26 @@ namespace Portal.Consultoras.BizLogic
         private readonly IMovimientoBusinessLogic _movimientoBusinessLogic;
         private readonly IRecordatorioBusinessLogic _recordatorioBusinessLogic;
         private readonly IClienteDBBusinessLogic _clienteDBBusinessLogic;
-
+        private readonly ITablaLogicaDatosBusinessLogic _tablaLogicaDatosBusinessLogic;
         public BLCliente() : this(new BLNotas(),
             new BLMovimiento(),
             new BLRecordatorio(),
-            new BLClienteDB())
+            new BLClienteDB(),
+            new BLTablaLogicaDatos()
+            )
         { }
 
         public BLCliente(INotasBusinessLogic notasBusinessLogic,
             IMovimientoBusinessLogic movimientoBusinessLogic,
             IRecordatorioBusinessLogic recordatorioBusinessLogic,
-            IClienteDBBusinessLogic clienteDBBusinessLogic)
+            IClienteDBBusinessLogic clienteDBBusinessLogic,
+             ITablaLogicaDatosBusinessLogic tablaLogicaDatosBusinessLogic)
         {
             _notasBusinessLogic = notasBusinessLogic;
             _movimientoBusinessLogic = movimientoBusinessLogic;
             _recordatorioBusinessLogic = recordatorioBusinessLogic;
             _clienteDBBusinessLogic = clienteDBBusinessLogic;
+            _tablaLogicaDatosBusinessLogic = tablaLogicaDatosBusinessLogic;
         }
 
         public int Insert(BECliente cliente)
@@ -378,17 +382,35 @@ namespace Portal.Consultoras.BizLogic
 
             try
             {
+                var inicioEjecucion = DateTime.Now;
                 using (var reader = new DACliente(paisID).GetClienteByConsultoraDetalle(consultoraID, campaniaID, clienteID))
                 {
                     clientes = reader.MapToCollection<BECliente>();
                 }
+
+                var finEjecucion = DateTime.Now;
+                TimeSpan diff = finEjecucion - inicioEjecucion;
+                RegistrarLogDemoraSP(paisID, consultoraID, campaniaID, diff);
             }
             catch (Exception ex)
             {
                 LogManager.SaveLog(ex, consultoraID, paisID);
             }
-
             return clientes ?? new List<BECliente>();
+        }
+
+        private void RegistrarLogDemoraSP(int paisID, long consultoraID, int campaniaID, TimeSpan diff)
+        {
+            var tablaLogicaDatos = _tablaLogicaDatosBusinessLogic.GetListCache(paisID, Constantes.TablaLogica.TiempoMaximoSP).FirstOrDefault(a => a.Codigo == "01");
+            if (tablaLogicaDatos == null) return;
+
+            var valor = tablaLogicaDatos.Valor;
+            if (valor.IsNullOrEmptyTrim()) return;
+
+            int tiempoConfigurado;
+            int.TryParse(valor, out tiempoConfigurado);
+            if (diff.Seconds >= tiempoConfigurado && tiempoConfigurado != 0)
+                LogManager.SaveLog(new Exception(string.Format("Demora en el sp GetClienteByConsultoraDetalle Consultora: {0} Pais: {1} Campania: {2} ", consultoraID, paisID, campaniaID)), consultoraID, paisID);
         }
 
         /// <summary>

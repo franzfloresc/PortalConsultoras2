@@ -641,12 +641,12 @@
         var urlPedidoUpdate = '@Url.Action("Update", "PedidoFIC", new {area = "Mobile" })';
         var urlPedidoDelete = '@Url.Action("Delete", "PedidoFIC", new {area = "Mobile" })';
         var urlPedidoDeleteAll = '@Url.Action("DeleteAll", "PedidoFIC", new { area = "Mobile" })';
-        var urlInsertarDesglose = '@Url.Action("InsertarDesglose", "Pedido", new {area = ""})';
+        @*var urlInsertarDesglose = '@Url.Action("InsertarDesglose", "Pedido", new {area = ""})';*@
         var urlDeshacerReservaPedidoReservado = '@Url.Action("PedidoValidadoDeshacerReserva", "", new { area = "" })';
         var urlPedidoAceptarBackOrder = '@Url.Action("AceptarBackOrder", "Pedido", new { area = "" })';
 
         var urlDetallePedido = '@Url.Action("CargarDetallePedido", "PedidoFIC", new { area = "Mobile" })';
-        var urlValidarKitNuevas = '@Url.Action("ValidarKitNuevas", "Pedido", new { area = "" })';
+        @*var urlValidarKitNuevas = '@Url.Action("ValidarKitNuevas", "Pedido", new { area = "" })';*@
         var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "", new { area = "" })';
         var fnEliminarProducto = null;
 
@@ -656,7 +656,7 @@
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
         var viewBagPaisID = '@Model.PaisID';
         var viewBagNombrePais = '@ViewBag.NombrePais';
-        var urlPedidoInsert = '@Url.Action("PedidoInsertar", "Pedido", new {area = ""})';
+        @*var urlPedidoInsert = '@Url.Action("PedidoInsertar", "Pedido", new {area = ""})';*@
 
         var origenPagina = 2;
         var cuvOfertaProl = '@ViewBag.CUVOfertaProl';
@@ -670,7 +670,6 @@
         var correo = '@Model.EMail';
         var celular = '@Model.Celular';
 
-        var consultoraRegaloPN = '@ViewBag.ConsultoraTieneRegaloPN';
         var ofertaFinalEstado = '@ViewBag.OfertaFinalEstado';
         var ofertaFinalAlgoritmo = '@ViewBag.OfertaFinalAlgoritmo';
         var nombreConsultora = '@ViewBag.NombreConsultora';

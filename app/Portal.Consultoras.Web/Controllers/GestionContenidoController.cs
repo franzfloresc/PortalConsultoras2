@@ -4,7 +4,6 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceContenido;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceUsuario;
-using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -185,7 +184,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var pedidoWeb = ObtenerPedidoWeb();
-                var pedidoWebDetalle =  ObtenerPedidoWebDetalle();
+                var pedidoWebDetalle = ObtenerPedidoWebDetalle();
                 var ultimosTresPedidos = ObtenerUltimosDetallesPedido(soloCantidad, pedidoWebDetalle);
 
                 return Json(new ResumenCampaniaModel
@@ -291,7 +290,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-        
+
         [HttpPost]
         public JsonResult Mantener(FormularioInformativoModel model)
         {
@@ -858,17 +857,6 @@ namespace Portal.Consultoras.Web.Controllers
             };
             return View(contenidoDatoModel);
         }
-
-        //movido a BaseAdm/ObtenerCampaniasPeru
-        //public JsonResult ObtenterCampaniasPorPais(int PaisID)
-        //{
-        //    PaisID = Constantes.PaisID.Peru;
-        //    IEnumerable<CampaniaModel> lista = _zonificacionProvider.GetCampanias(PaisID);
-        //    return Json(new
-        //    {
-        //        lista = lista
-        //    }, JsonRequestBehavior.AllowGet);
-        //}
 
         [HttpPost]
         public ActionResult MantenerFondo(ContenidoDatoModel form)

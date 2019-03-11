@@ -161,7 +161,7 @@ $(document).ready(function () {
                     $(me.Variables.txtNumPedido).val("N° " + $(me.Variables.hdNumeroPedido).val());
                     $(me.Variables.txtNumPedido).show();
                     $(me.Variables.txtNumPedido).attr("readonly", "readonly");
-                    $(me.Variables.hdCuvCodigo).val(""); //$(me.Variables.txtCuvMobile).val("");
+                    $(me.Variables.hdCuvCodigo).val("");
                     $(me.Variables.txtDescripcionCuv).html("");
                     $(me.Variables.txtCantidad1).val("1");
                     $(me.Variables.txtCuvMobile2).val("");
@@ -310,9 +310,6 @@ $(document).ready(function () {
                 });                
 
                 setInterval(function () {
-                    //if (cuvKeyUp) cuvKeyUp = false;
-                    //else me.Funciones.EvaluarCUV();
-
                     if (cuv2KeyUp) cuv2KeyUp = false;
                     else me.Funciones.EvaluarCUV2();
                 }, 1000)
@@ -402,7 +399,7 @@ $(document).ready(function () {
                     $(me.Variables.pasodos).show();
                     $(me.Variables.pasotres).show();
 
-                    $(me.Variables.hdCuvCodigo).val("");//$(me.Variables.txtCuvMobile).val("");
+                    $(me.Variables.hdCuvCodigo).val("");
                     $(me.Variables.txtCantidad1).val("1");
                     $(me.Variables.txtCuvMobile2).val("");
                     $(me.Variables.txtPrecioCuv2).html("");
@@ -471,7 +468,7 @@ $(document).ready(function () {
                         $(me.Variables.btnCambioProducto).hide();
                         $(me.Variables.btnAceptarSolucion).show();
 
-                        $(me.Variables.spnCuv1).html($(me.Variables.hdCuvCodigo).val()); //($(me.Variables.txtCuvMobile).val());
+                        $(me.Variables.spnCuv1).html($(me.Variables.hdCuvCodigo).val());
                         $(me.Variables.spnDescripcionCuv1).html($(me.Variables.txtDescripcionCuv).html());
                         $(me.Variables.spnCantidadCuv1).html($(me.Variables.txtCantidad1).val());
 
@@ -545,7 +542,6 @@ $(document).ready(function () {
                 $(me.Variables.hdPedidoID).val("");
                 $(me.Variables.hdNumeroPedido).val("");
                 $(me.Variables.ddlnumPedido).html("");
-                //$(me.Variables.DescripcionCuv).val("");
 
                 var CampaniaId = $.trim($(me.Variables.ComboCampania).val());
                 var item = {
@@ -573,6 +569,7 @@ $(document).ready(function () {
                         if (data.datos.length == 1) {                            
                             $(me.Variables.ddlnumPedido).hide();
                             $(me.Variables.hdPedidoID).val(data.datos[0].PedidoID);
+                            $(me.Variables.hdNumeroPedido).val(data.datos[0].NumeroPedido);
                             $(me.Variables.txtNumPedido).val("N° " + data.datos[0].NumeroPedido);
                             me.Funciones.BuscarCUV();
                         }
@@ -1716,12 +1713,10 @@ $(document).ready(function () {
 
             PopupPedido: function (pedidos) {
 
-                //$("#divPopupPedido").hide();
                 pedidos = pedidos || new Array();
                 SetHandlebars("#template-pedido", pedidos, "#divPedido");
                 if (pedidos.length > 0) {
                     listaPedidos = pedidos;
-                    //$("#divPopupPedido").show();
                 }
             },
 

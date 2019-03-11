@@ -1,4 +1,4 @@
-﻿var AdministrarEstrategia = (function (config) {
+﻿ var AdministrarEstrategia = (function (config) {
 
     var _config = {
         actualizarMatrizComercialAction: config.actualizarMatrizComercialAction || "",
@@ -92,7 +92,7 @@
         HerramientaVenta: 13,
         ShowRoom: 30
     }
-
+ 
     var _editData = {};
     var _idImagen = 0;
 
@@ -671,7 +671,7 @@
         return msj;
     };
 
-    var _uploadFileLanzamineto = function (divId) {
+     var _uploadFileLanzamineto = function (divId) {
         var uploader = new qq.FileUploader({
             allowedExtensions: ["jpg", "png", "jpeg"],
             element: document.getElementById(divId),

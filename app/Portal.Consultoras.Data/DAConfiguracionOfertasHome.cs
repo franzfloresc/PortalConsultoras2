@@ -1,4 +1,7 @@
 ﻿using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.Oferta;
+
+using System;
 using System.Data;
 using System.Data.Common;
 
@@ -26,9 +29,9 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        public IDataReader Update(BEConfiguracionOfertasHome entity)
+        public int Update(BEConfiguracionOfertasHome entity)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ConfiguracionOfertasHomeUpdate");
+            var command = Context.Database.GetStoredProcCommand("dbo.ConfiguracionOfertasHomeUpdate");
             Context.Database.AddInParameter(command, "ConfiguracionOfertasHomeID", DbType.Int32, entity.ConfiguracionOfertasHomeID);
             Context.Database.AddInParameter(command, "ConfiguracionPaisID", DbType.Int32, entity.ConfiguracionPaisID);
             Context.Database.AddInParameter(command, "CampaniaID", DbType.Int32, entity.CampaniaID);
@@ -57,7 +60,8 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "MobileUsarImagenFondo", DbType.Boolean, entity.MobileUsarImagenFondo);
             Context.Database.AddInParameter(command, "DesktopColorTexto", DbType.String, entity.DesktopColorTexto);
             Context.Database.AddInParameter(command, "MobileColorTexto", DbType.String, entity.MobileColorTexto);
-            return Context.ExecuteReader(command);
+
+            return Convert.ToInt32(Context.ExecuteScalar(command));
         }
 
         public IDataReader GetListarSeccion(int campaniaId)
@@ -66,5 +70,38 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "CampaniaId", DbType.Int32, campaniaId);
             return Context.ExecuteReader(command);
         }
+
+        
+        #region App
+        public IDataReader GetApp(int configuracionOfertasHomeID)
+        {
+            var command = Context.Database.GetStoredProcCommand("dbo.GetConfiguracionOfertasHomeApp");
+            Context.Database.AddInParameter(command, "ConfiguracionOfertasHomeID", DbType.Int32, configuracionOfertasHomeID);
+            return Context.ExecuteReader(command);
+        }
+
+        public void InsertApp(BEConfiguracionOfertasHomeApp entity)
+        {
+            var command = Context.Database.GetStoredProcCommand("dbo.InsConfiguracionOfertasHomeApp");
+            Context.Database.AddInParameter(command, "ConfiguracionOfertasHomeAppID", DbType.Int32, entity.ConfiguracionOfertasHomeAppID);
+            Context.Database.AddInParameter(command, "ConfiguracionOfertasHomeID", DbType.Int32, entity.ConfiguracionOfertasHomeID);
+            Context.Database.AddInParameter(command, "AppActivo", DbType.Boolean, entity.AppActivo);
+            Context.Database.AddInParameter(command, "AppTitulo", DbType.String, entity.AppTitulo);
+            Context.Database.AddInParameter(command, "AppColorFondo", DbType.String, entity.AppColorFondo);
+            Context.Database.AddInParameter(command, "AppColorTexto", DbType.String, entity.AppColorTexto);
+            Context.Database.AddInParameter(command, "AppBannerInformativo", DbType.String, entity.AppBannerInformativo);
+            Context.Database.AddInParameter(command, "AppOrden", DbType.Int32, entity.AppOrden);
+            Context.Database.AddInParameter(command, "AppCantidadProductos", DbType.Int32, entity.AppCantidadProductos);
+            Context.ExecuteNonQuery(command);
+        }
+
+        public IDataReader GetListarSeccionAPP(int campaniaId)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ConfiguracionOfertasHomeAppListarSecciones");
+            Context.Database.AddInParameter(command, "CampaniaId", DbType.Int32, campaniaId);
+            return Context.ExecuteReader(command);
+        }
+        
+        #endregion
     }
 }

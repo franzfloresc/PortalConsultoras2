@@ -3,6 +3,7 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Layout;
 using Portal.Consultoras.Web.Models.MisCertificados;
 using Portal.Consultoras.Web.Models.PagoEnLinea;
+using Portal.Consultoras.Web.Models.ProgramaNuevas;
 using Portal.Consultoras.Web.ServiceCDR;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
@@ -14,6 +15,7 @@ using Portal.Consultoras.Web.SessionManager.ShowRoom;
 using System;
 using System.Collections.Generic;
 using Portal.Consultoras.Web.Models.Recomendaciones;
+using Portal.Consultoras.Web.Models.Estrategia;
 
 namespace Portal.Consultoras.Web.SessionManager
 {
@@ -260,10 +262,17 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetMensajeKitNuevas(string mensajeKit);
         int GetLimElectivosProgNuevas();
         void SetLimElectivosProgNuevas(int limElectivos);
+        List<PremioElectivoModel> GetListPremioElectivo();
+        void SetListPremioElectivo(List<PremioElectivoModel> listPremioElectivo);
+        Dictionary<string, PremioProgNuevasOFModel> GetDictPremioProgNuevasOF();
+        void SetDictPremioProgNuevasOF(Dictionary<string, PremioProgNuevasOFModel> listPremioProgNuevasOF);
 
         void SetBuscadorYFiltrosConfig(BuscadorYFiltrosConfiguracionModel buscadorYFiltrosModel);
 
         BuscadorYFiltrosConfiguracionModel GetBuscadorYFiltrosConfig();
+
+        void SetConfigMicroserviciosPersonalizacion(MSPersonalizacionConfiguracionModel msPersonalizacionModel);
+        MSPersonalizacionConfiguracionModel GetConfigMicroserviciosPersonalizacion();
 
         void SetRecomendacionesConfig(RecomendacionesConfiguracionModel recomendacionesConfiguracionModel);
 
@@ -496,6 +505,7 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetJwtApiSomosBelcorp(string token);
         
         string GetJwtApiSomosBelcorp();
-
+        void SetUsuarioOpciones(List<UsuarioOpcionesModel> val);
+        List<UsuarioOpcionesModel> GetUsuarioOpciones();
     }
 }

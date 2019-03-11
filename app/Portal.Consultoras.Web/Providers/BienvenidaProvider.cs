@@ -386,7 +386,8 @@ namespace Portal.Consultoras.Web.Providers
             {
                 if (showRoomProvider.PaisTieneShowRoom(userData.CodigoISO))
                 {
-                    if (!configEstrategiaSR.CargoEntidadesShowRoom) return false;
+                    showRoomProvider.CargarEventoConsultora(userData);
+                    if (!configEstrategiaSR.CargoEntidadEventoConsultora) return false;
                     var beShowRoomConsultora = configEstrategiaSR.BeShowRoomConsultora;
                     var beShowRoom = configEstrategiaSR.BeShowRoom;
 

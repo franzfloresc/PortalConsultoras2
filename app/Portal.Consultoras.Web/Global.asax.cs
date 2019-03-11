@@ -9,7 +9,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 
 
-[assembly: PreApplicationStartMethod(typeof(Portal.Consultoras.Web.PreApplicationStart), "Start")]
+//[assembly: PreApplicationStartMethod(typeof(Portal.Consultoras.Web.PreApplicationStart), "Start")]
 namespace Portal.Consultoras.Web
 {
 
@@ -54,16 +54,11 @@ namespace Portal.Consultoras.Web
             Globals.UrlOfertasFic = ConfigurationManager.AppSettings["OfertasFic"];
             Globals.UrlNavidadConsultora = ConfigurationManager.AppSettings["NavidadConsultora"];
 
-
             JwtContext.Instance.Application = "SomosBelcorp";
-            
-
-
-            //Globals.JwtToken = JwtAutentication.getWebToken();
 
             AutoMapperConfiguration.Configure();
         }
-        
+
         protected void Session_Start(object sender, EventArgs e)
         {
         }
@@ -92,12 +87,12 @@ namespace Portal.Consultoras.Web
         }
     }
 
-    public class PreApplicationStart
-    {
-        public static void Start()
-        {
-         
-            Microsoft.Web.Infrastructure.DynamicModuleHelper.DynamicModuleUtility.RegisterModule(typeof(Portal.Consultoras.Common.JwtModule));
-        }
-    }
+    //public class PreApplicationStart
+    //{
+    //    public static void Start()
+    //    {
+
+    //        Microsoft.Web.Infrastructure.DynamicModuleHelper.DynamicModuleUtility.RegisterModule(typeof(Portal.Consultoras.Common.JwtModule));
+    //    }
+    //}
 }

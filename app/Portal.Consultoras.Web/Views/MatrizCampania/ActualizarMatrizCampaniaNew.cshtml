@@ -83,7 +83,7 @@
                                 <div class="div-3">
                                     <div class="titI">Descripción:</div>
                                     <div class="selectA borde_redondeado">
-                                        <input id="txtDescripcionNueva" onpaste="return false" onkeypress="return FuncionesGenerales.ValidarSoloNumerosLetrasAndSpecialCharater(event, this, true);" type="text" maxlength="250" /><img alt="Buscar Cod. Venta" src="" style="display: none" />
+                                        <input id="txtDescripcionNueva"  onkeypress="return FuncionesGenerales.ValidarSpecialCharater(event, this, true);" type="text" maxlength="250" /><img alt="Buscar Cod. Venta" src="" style="display: none" />
                                     </div>
                                     <div class="titC">Precio:</div>
                                     <div class="selectP2 borde_redondeado">
@@ -175,7 +175,16 @@
     </div>
 </div>
 <input id="hdfUrlRaiz" type="hidden" value='@Url.Content("~")' />
+<input id="hdBlur" type="hidden" />
 @section scripts{
+    <script type="text/javascript">
+        $("#txtDescripcionNueva").blur(function () {
+            var valor = $(this).val().split("  ")[0];
+            $(this).val(valor);
+        });
+    </script>
+
+
     <script type="text/javascript">
         var urlExcelMatrizCampania = '@Constantes.PlantillaExcel.UrlExcelMatrizCampania';
     </script>

@@ -9,10 +9,6 @@ describe("FichaModule", function () {
             errorMsg = ''
         });
 
-        //afterEach(function () {
-        //    // runs after each test in this block
-        //});
-
         it("throw an exception when config is undefined", function () {
 
             try {
@@ -68,13 +64,5 @@ describe("FichaModule", function () {
         beforeEach(function () {
             fichaModule = null;
         });
-
-        //it("should return to /ofertas when estrategia is null", function () {
-
-        //    fichaModule = FichaModule({});
-        //    fichaModule.Inicializar();
-
-        //    expect(errorMsg).to.have.string("config is null or undefined");
-        //});
     });
 });

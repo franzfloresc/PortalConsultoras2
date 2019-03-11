@@ -144,6 +144,14 @@ namespace Portal.Consultoras.Common
                 return ConfigurationManager.AppSettings["RutaServiceBuscadorAPI"] ?? string.Empty;
             }
         }
+        public static string RutaServiceConsultaPROL
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["RutaServiceConsultaPROL"] ?? string.Empty;
+            }
+        }
+
         #endregion
 
         public static string GetByTagName(string tagName)
@@ -151,6 +159,20 @@ namespace Portal.Consultoras.Common
             return ConfigurationManager.AppSettings[tagName] ?? string.Empty;
         }
 
-    
+        public static string ServicioDireccionEntregaSicc
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["ServicioDireccionEntregaSicc"] ?? string.Empty;
+            }
+        }
+
+        public static string ServicioActualizarBoletaImp
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["ServicioActualizarBoletaImp"] ?? string.Empty;
+            }
+        }
     }
 }
