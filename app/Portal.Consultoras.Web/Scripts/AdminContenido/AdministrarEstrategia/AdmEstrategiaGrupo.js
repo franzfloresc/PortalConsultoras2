@@ -166,7 +166,7 @@
             closeOnEscape: true,
             width: 830,
             draggable: false,
-            title: "Configurar grupo de estrategia",
+            title: "Edición de grupos",
             close: function (event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).show(); },
             open: function (event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).hide(); },
             buttons:

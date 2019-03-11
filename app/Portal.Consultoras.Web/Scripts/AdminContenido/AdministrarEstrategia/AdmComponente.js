@@ -110,7 +110,7 @@
         var newTitulo = "Edición de Productos"
 
         if (codigoEstrategia == _codigoEstrategia.ArmaTuPack) {
-            newTitulo = "Edición de grupos";
+            newTitulo = "Edición de componentes";
             $("#divbtnGrupoEstrategia").show();
         }
         $('#DialogRegistroOfertaShowRoomDetalle').dialog('option', 'title', newTitulo);
