@@ -4806,7 +4806,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
 
-        public async Task<JsonResult> ObtenerOfertaByCUVSet( string campaniaId, int set, string cuv)
+        public async Task<JsonResult> ObtenerOfertaByCUVSet( string campaniaId, int set, string cuv)    
         {
             try
             {
@@ -4834,8 +4834,6 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
-
-
                 return Json(new
                 {
                     success = true,
@@ -4851,9 +4849,5 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-         
-
-
-
     }
 }
