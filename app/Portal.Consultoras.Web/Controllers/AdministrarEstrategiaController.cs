@@ -991,10 +991,10 @@ namespace Portal.Consultoras.Web.Controllers
                         extra = ""
                     }, JsonRequestBehavior.AllowGet);
 
-                entidad = lst[0].BEEstrategia;
-                entidad.ImagenMiniaturaURL = ConfigS3.GetUrlFileS3Matriz(userData.CodigoISO, entidad.ImagenMiniaturaURL);
+                var entidadServ = lst[0].BEEstrategia;
+                entidadServ.ImagenMiniaturaURL = ConfigS3.GetUrlFileS3Matriz(userData.CodigoISO, entidadServ.ImagenMiniaturaURL);
 
-                return Json(entidad, JsonRequestBehavior.AllowGet);
+                return Json(entidadServ, JsonRequestBehavior.AllowGet);
             }
             catch (FaultException ex)
             {
