@@ -40,13 +40,14 @@
         };
         if (!_config.generalModule.isMobile()) {
             slickSettings.arrows = true;
-            slickSettings.prevArrow = '<a id="opciones-seleccionadas-prev" class="flecha_ofertas-tipo prev" style="left:-5%; text-align:left;display:none;"><img src="' +
-                baseUrl +
-                'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>';
+            slickSettings.prevArrow =
+                "<a id=\"opciones-seleccionadas-prev\" class=\"flecha_ofertas-tipo prev\" style=\"left:-5%; text-align:left;display:none;\">" +
+                    "<img src=\"" + baseUrl + "Content/Images/Esika/previous_ofertas_home.png\")\" alt=\"\" />" +
+                "</a>";
             slickSettings.nextArrow =
-                '<a id="opciones-seleccionadas-next" class="flecha_ofertas-tipo" style="display: block; right:-5%; text-align:right;display:none;"><img src="' +
-                baseUrl +
-                'Content/Images/Esika/next.png")" alt="" /></a>';
+                "<a id=\"opciones-seleccionadas-next\" class=\"flecha_ofertas-tipo\" style=\"display: block; right:-5%; text-align:right;display:none;\">" +
+                    "<img src=\"" + baseUrl + "Content/Images/Esika/next.png\")\" alt=\"\" />" +
+                "</a>";
         } else {
             slickSettings.slidesToShow = 5;
         }
