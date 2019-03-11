@@ -4,9 +4,9 @@
 /// <reference path="../../../../PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js" />
 /// <reference path="../../../../PortalConsultoras/DetalleEstrategia/DetalleEstrategiaProvider.js" />
 
-/// <reference path="../../../../PortalConsultoras/ArmaTuPack/Detalle/Grupo/GrupoMobileView.js" />
-/// <reference path="../../../../PortalConsultoras/ArmaTuPack/Detalle/Grupo/GrupoDesktopView.js" />
-/// <reference path="../../../../PortalConsultoras/ArmaTuPack/Detalle/Grupo/GrupoPresenter.js" />
+/// <reference path="../../../../PortalConsultoras/ArmaTuPack/Detalle/Grupos/GruposMobileView.js" />
+/// <reference path="../../../../PortalConsultoras/ArmaTuPack/Detalle/Grupos/GruposDesktopView.js" />
+/// <reference path="../../../../PortalConsultoras/ArmaTuPack/Detalle/Grupos/GruposPresenter.js" />
 
 /// <reference path="../../../../PortalConsultoras/ArmaTuPack/Detalle/DetallePresenter.js" />
 
