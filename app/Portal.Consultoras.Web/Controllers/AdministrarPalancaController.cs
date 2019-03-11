@@ -201,6 +201,24 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                if (model.ConfiguracionOfertasHomeID == 0) {
+                    var list = ListarConfiguracionOfertasHome(model.CampaniaID).ToList();
+
+                    foreach (var listOferta in list)
+                    {
+                        var objConfiguracionHome = listOferta.ConfiguracionPais;
+                        
+                        if (objConfiguracionHome.Codigo == model.Codigo) {
+                            return Json(new
+                            {
+                                success = false,
+                                message = "No se puede tener más de una palanca configurada para una misma campaña.",
+                            });
+                        }
+
+                    }
+                }
+
                 model.AdministrarOfertasHomeAppModel.AppBannerInformativo = model.AdministrarOfertasHomeAppModel.AppBannerInformativo ?? string.Empty;
                 model.AdministrarOfertasHomeAppModel.AppColorFondo = model.AdministrarOfertasHomeAppModel.AppColorFondo ?? string.Empty;
                 model.AdministrarOfertasHomeAppModel.AppColorTexto = model.AdministrarOfertasHomeAppModel.AppColorTexto ?? string.Empty;
@@ -208,15 +226,20 @@ namespace Portal.Consultoras.Web.Controllers
 
                 model.PaisID = userData.PaisID;
                 model = UpdateFilesOfertas(model);
+
+                if (model.Codigo == Constantes.TipoPersonalizacion.ArmaTuPack)
+                    model.MobileImagenFondo = model.DesktopImagenFondo;
+
                 using (var sv = new SACServiceClient())
                 {
                     var entidad = Mapper.Map<BEConfiguracionOfertasHome>(model);
                     sv.UpdateConfiguracionOfertasHome(entidad);
                 }
+                
                 return Json(new
                 {
                     success = true,
-                    message = "Se grabó con éxito.",
+                    message = "Se actualizó la información satisfactoriamente",
                 });
             }
             catch (Exception ex)

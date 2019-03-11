@@ -5,7 +5,10 @@
             {{#each this.componentesSeleccionados as |seleccionado|}}
             <li class="Select_Item active">
                 <div class="product-select">
-                    <button class="product_select_close"><img src="/Content/Images/mobile/Esika/close-button-white.svg"></button>
+                    <button class="product_select_close" data-delete-component data-grupo="{{seleccionado.Grupo}}" 
+                            data-cuv-componente="{{seleccionado.Cuv}}"><img 
+                            data-grupo="{{seleccionado.Grupo}}" 
+                            data-cuv-componente="{{seleccionado.Cuv}}" src="/Content/Images/mobile/Esika/close-button-white.svg"></button>
                     <img src="{{seleccionado.ImagenBulk}}" />
                 </div>
             </li>

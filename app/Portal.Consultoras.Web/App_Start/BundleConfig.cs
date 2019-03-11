@@ -580,7 +580,8 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/Ficha/Carrusel.css",
                 "~/Content/Css/Site/Ficha/RedesSociales.css",
                 "~/Content/Css/Site/ProductoListado/CajaProducto.css",
-                "~/Content/Css/Site/MasGanadoras/banner_ofertas_masGanadoras.css"
+                "~/Content/Css/Site/MasGanadoras/banner_ofertas_masGanadoras.css",
+                "~/Content/Css/Site/ArmaTuPack/ArmaTuPack_BannerShowRoom.css"
             ));
 
 

@@ -53,6 +53,13 @@
         }
 
         $(_elements.gruposDesktop.attrCarruselContainer).slick(slickSettings);
+
+        $(document).on("click", "[data-delete-component]", function (e) {
+            var $btn = $(e.target);
+            var grupo = $btn.data("grupo");
+            var cuvComponente = $btn.data("cuv-componente");
+            _presenter.deleteComponente(grupo, cuvComponente);
+        });
     };
 
     return {
