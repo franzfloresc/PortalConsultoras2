@@ -1166,34 +1166,86 @@ function closeDialogObservacionesProl() {
     $('#popup-observaciones-prol').hide();
 }
 
-function AbrirPopupArmaTuPack(campania, set) {
-    var param = {
-        campaniaId: campania,
-        set: set
-    }
-    var dfd = $.Deferred();
-    var datos;
-    try {
-        jQuery.ajax({
-            type: 'POST',
-            url: baseUrl + "Pedido/ObtenerPedidoWebSetDetalle",
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(param),
-            async: true,
-            cache: false,
-            success: function (data) {
-                $.each(data.pedidoSet.Detalles, function (i, o) {
-                    datos = "<p>" + o.SetDetalleId + "</p>";
-                }),
-                AbrirMensaje(datos, 'El pack que armaste contiene');
-            },
-            error: function (data, error) {
-                dfd.reject(data, error);
+//function AbrirPopupArmaTuPack(campania, set) {
+//    var param = {
+//        campaniaId: campania,
+//        set: set
+//    }
+//    var dfd = $.Deferred();
+//    var datos;
+//    try {
+//        jQuery.ajax({
+//            type: 'POST',
+//            url: baseUrl + "Pedido/ObtenerPedidoWebSetDetalle",
+//            dataType: 'json',
+//            contentType: 'application/json; charset=utf-8',
+//            data: JSON.stringify(param),
+//            async: true,
+//            cache: false,
+//            success: function (data) {
+//                $.each(data.pedidoSet.Detalles, function (i, o) {
+//                    datos = "<p>" + o.SetDetalleId + "</p>";
+//                }),
+//                AbrirMensaje(datos, 'El pack que armaste contiene');
+//            },
+//            error: function (data, error) {
+//                dfd.reject(data, error);
+//            }
+//        })
+//    } catch (e) {
+//        dfd.reject({}, {});
+//    }
+//    return dfd.promise();    
+//}
+
+function AbrirPopupArmaTuPack(campaniaId, setid, cuv) {
+
+    ShowLoading();
+    var params =
+        {
+            campaniaId: campaniaId,
+            set: setid,
+            cuv: cuv
+        };
+
+    jQuery.ajax({
+        type: "POST",
+        url: 'ObtenerOfertaByCUVSet',
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(params),
+        async: true,
+        success: function (data) {
+            if (checkTimeout(data)) {
+                if (data.success) {
+                    if (data.pedidoSet) {
+                        if (data.pedidoSet.Detalles) {
+                            var strComponentes = '<ul>';
+
+                            $(data.pedidoSet.Detalles).each(function (i, v) {
+
+                                strComponentes = strComponentes + '<li style="list-style:none;text-align:left">- ' + v.NombreProducto + '</li>';
+                            });
+
+                            strComponentes = strComponentes + '</ul>';
+
+                            CloseLoading();
+                            AbrirMensaje(strComponentes, "El pack que armaste contiene:");
+                        }
+                    }
+                }
+                else CloseLoading();
             }
-        })
-    } catch (e) {
-        dfd.reject({}, {});
-    }
-    return dfd.promise();    
+            else {
+                CloseLoading();
+                messageInfoError(data.message);
+            }
+        },
+        error: function (data, error) {
+            closeWaitingDialog();
+            if (checkTimeout(data)) {
+                alert("Ocurrió un error al ejecutar la acción. Por favor inténtelo de nuevo.");
+            }
+        }
+    });
 }

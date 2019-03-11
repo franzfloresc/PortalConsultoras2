@@ -329,7 +329,7 @@
              data-tipoestrategia="{{TipoEstrategiaCodigo}}"
              data-OrigenPedidoWeb="{{OrigenPedidoWeb}}">
             <div class="bloque_descripcion_items_ingresados">
-                <div onclick="javascript:{{#iff TipoEstrategiaCodigo '==' @Constantes.TipoEstrategiaCodigo.ArmaTuPack}}AbrirPopupArmaTuPack({{CampaniaID}}, {{SetID}}){{else}}FichaPartialModule.ConstruirFicha(this, '{{TipoAccion}}'){{/iff}}"
+                <div onclick="javascript:{{#iff TipoEstrategiaCodigo '==' @Constantes.TipoEstrategiaCodigo.ArmaTuPack}}AbrirPopupArmaTuPack({{CampaniaID}}, {{SetID}}, {{CUV}}){{else}}FichaPartialModule.ConstruirFicha(this, '{{TipoAccion}}'){{/iff}}"
                      class="descripcion_item_pedido">
                     <div class="cod_prod text-regular">
                         {{#if detalle.EstadoSimplificacionCuv}}
