@@ -2,11 +2,12 @@
 {
     using Portal.Consultoras.Web.Models.Search.Response;
     using Portal.Consultoras.Web.Models.Search.ResponseOferta.Estructura;
+    using System.Collections.Generic;
 
-    public class OutputOferta : ResponseStatus
+    public class OutputOfertaLista: ResponseStatus
     {
-        public Estrategia Result { get; set; }
+        public IList<Estrategia> Result { get; set; }
     }
 
-
+ 
 }
