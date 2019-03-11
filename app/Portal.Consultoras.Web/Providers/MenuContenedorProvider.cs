@@ -169,9 +169,9 @@ namespace Portal.Consultoras.Web.Providers
                         ? Constantes.OrigenPantallaWeb.MMasGanadoras
                         : Constantes.OrigenPantallaWeb.DMasGanadoras;
                     break;
-                case Constantes.UrlMenuContenedor.ArmaTuPackDetalle:
-                    menuActivo.Codigo = Constantes.ConfiguracionPais.ArmaTuPack;
-                    break;
+                //case Constantes.UrlMenuContenedor.ArmaTuPackDetalle:
+                //    menuActivo.Codigo = Constantes.ConfiguracionPais.ArmaTuPack;
+                //    break;
             }
 
             return menuActivo;

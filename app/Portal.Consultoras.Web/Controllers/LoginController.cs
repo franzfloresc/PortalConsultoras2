@@ -1894,6 +1894,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var masGanadorasModel = new MasGanadorasModel();
                 var recomendacionesConfiguacionModel = new RecomendacionesConfiguracionModel();
                 var showroomConfigModel = new ConfigModel();
+                var armaTuPackModel = new ArmaTuPackModel();
 
                 if (configuracionesPaisModels.Any())
                 {
@@ -1906,7 +1907,7 @@ namespace Portal.Consultoras.Web.Controllers
                         {
 
                             case Constantes.ConfiguracionPais.ArmaTuPack:
-                                armaTuPackModel = ConfiguracionPaisArmaTuPack(usuarioModel);
+                                armaTuPackModel = ConfiguracionPaisArmaTuPack(armaTuPackModel,usuarioModel);
                                 break;
 
                             case Constantes.ConfiguracionPais.RevistaDigital:
@@ -2020,7 +2021,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         armaTuPackModel.TieneAtp = false;
                     }
-                    sessionManager.SetArmaTuPAck(showroomConfigModel);
+                    sessionManager.SetArmaTuPAck(armaTuPackModel);
 
                 }
 
@@ -2296,6 +2297,15 @@ namespace Portal.Consultoras.Web.Controllers
             #endregion
 
             return revistaDigitalModel;
+        }
+
+        public virtual ArmaTuPackModel ConfiguracionPaisArmaTuPack   (ArmaTuPackModel armaTuPackModel,  UsuarioModel usuarioModel)
+        {
+            armaTuPackModel.TieneAtp = true;
+            armaTuPackModel.TieneAtp = true;
+            #endregion
+
+            return armaTuPackModel;
         }
 
         protected virtual void ActualizarSubscripciones(RevistaDigitalModel revistaDigitalModel, UsuarioModel usuarioModel)
@@ -2778,8 +2788,7 @@ namespace Portal.Consultoras.Web.Controllers
             return name;
         }
 
-        #endregion
-
+  
         private RedirectToRouteResult RedirectToUniqueRoute(string controller, string action, object routeData = null, string anchor = null)
         {
             var route = new RouteValueDictionary(new
