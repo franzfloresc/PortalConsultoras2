@@ -19,6 +19,11 @@
         if (typeof value === "undefined") {
             return _packComponentsModel;
         } else if (value !== null) {
+            value.componentesSeleccionados = value.componentesSeleccionados || [];
+            value.componentes = value.componentes || [];
+            $.each(value.componentes, function (idx, grupo) {
+                grupo.cantidadSeleccionados = grupo.cantidadSeleccionados || 0;
+            });
             _packComponentsModel = value;
         }
     };
@@ -36,12 +41,34 @@
     };
 
     var _addComponente = function (cuvGrupo, cuvComponente) {
-        console.log(cuvGrupo);
-        console.log(cuvComponente);
+        if (typeof cuvGrupo === "undefined" || cuvGrupo === null) throw "cuvGrupo is null or undefined";
+        if (typeof cuvComponente === "undefined" || cuvComponente === null) throw "cuvComponente is null or undefined";
+
+        var model =_packComponents();
+        var compSelCounter = model.componentesSeleccionados.length;
+        
+        $.each(model.componentes,function(idx,grupo){
+            if(grupo.Cuv == cuvGrupo){
+                $.each(grupo.Hermanos,function(idx,componente){
+                    //grupo.HermanosSeleccionados = grupo.HermanosSeleccionados || [];
+                    if(componente.Cuv == cuvComponente && grupo.cantidadSeleccionados < componente.FactorCuadre){
+                        model.componentesSeleccionados.push(componente);
+                        grupo.cantidadSeleccionados++;
+                        //grupo.HermanosSeleccionados.push(componente);
+                    }
+                });
+            }
+        });
+        
+        if (compSelCounter < model.componentesSeleccionados.length) {
+            _packComponents(model);
+            _config.armaTuPackDetalleEvents.applyChanges(_config.armaTuPackDetalleEvents.eventName.onSelectedComponentsChanged, model);
+        }
     };
 
     return {
         onGruposLoaded: _onGruposLoaded,
-        addComponente: _addComponente
+        addComponente: _addComponente,
+        packComponents: _packComponents
     };
 };

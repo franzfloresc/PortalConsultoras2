@@ -136,6 +136,104 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
         var generalModule = null;
         var armaTuPackDetalleEvents = null;
 
+        beforeEach(function () {
+            errorMsg = '';
+            //
+            gruposView = sinon.stub(GruposDesktopView());
+            //
+            generalModule = sinon.stub(GeneralModule);
+            armaTuPackDetalleEvents = sinon.stub(ArmaTuPackDetalleEvents());
+            //
+            gruposPresenter = GruposPresenter({
+                gruposView:gruposView,
+                generalModule: generalModule,
+                armaTuPackDetalleEvents: armaTuPackDetalleEvents
+            });
+        });
+
+        afterEach(function () {
+            sinon.restore();
+        });
+
+        it("throw an exception when data object is undefined", function () {
+
+            try {
+                gruposPresenter.onGruposLoaded(undefined);
+            } catch (error) {
+                errorMsg = error;
+            }
+
+            expect(errorMsg).to.have.string("packComponents is null or undefined");
+        });
+
+        it("throw an exception when data object is null", function () {
+
+            try {
+                gruposPresenter.onGruposLoaded(null);
+            } catch (error) {
+                errorMsg = error;
+            }
+
+            expect(errorMsg).to.have.string("packComponents is null or undefined");
+        });
+
+        it("throw an exception when componentes property is null or undefined", function () {
+
+            try {
+                gruposPresenter.onGruposLoaded({
+                    componentes: null
+                });
+            } catch (error) {
+                errorMsg = error;
+            }
+
+            expect(errorMsg).to.have.string("packComponents has no components");
+        });
+
+        it("throw an exception when componentes property is null or undefined", function () {
+
+            try {
+                gruposPresenter.onGruposLoaded({
+                    componentes: null
+                });
+            } catch (error) {
+                errorMsg = error;
+            }
+
+            expect(errorMsg).to.have.string("packComponents has no components");
+        });
+
+        it("throw an exception when data object has no components", function () {
+
+            try {
+                gruposPresenter.onGruposLoaded({
+                    componentes: []
+                });
+            } catch (error) {
+                errorMsg = error;
+            }
+
+            expect(errorMsg).to.have.string("packComponents has no components");
+        });
+
+        it("render groups when data object has components", function () {
+            gruposPresenter.onGruposLoaded({
+                componentes: [{}]
+            });
+
+            expect(gruposView.renderGrupos.calledOnce).to.be.equals(true);
+        });
+    });
+
+    describe("addComponente", function () {
+        var errorMsg = '';
+        //
+        var gruposView = null;
+        var gruposPresenter = null;
+
+        var generalModule = null;
+        var armaTuPackDetalleEvents = null;
+
         var fakeData = function () {
             return {
                 "success": true,
@@ -861,6 +959,8 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
                         "ImagenProductoSugerido": null,
                         "NombreBulk": "Rojo carmin",
                         "NombreComercial": "Hidracolor Mate.   6 ml / .21 fl.oz.",
+                        "DescripcionPlural": "Maquillaje",
+                        "DescripcionSingular": "Maquillaje",
                         "Orden": 54,
                         "PrecioCatalogo": 3308,
                         "PrecioCatalogoString": "3.308",
@@ -1694,79 +1794,106 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
                 generalModule: generalModule,
                 armaTuPackDetalleEvents: armaTuPackDetalleEvents
             });
+            gruposPresenter.onGruposLoaded(fakeData());
         });
 
         afterEach(function () {
             sinon.restore();
         });
 
-        it("throw an exception when data object is undefined", function () {
+        it("should throw an exception when cuvGrupo is undefined", function () {
 
             try {
-                gruposPresenter.onGruposLoaded(undefined);
+                gruposPresenter.addComponente(undefined);
             } catch (error) {
                 errorMsg = error;
             }
 
-            expect(errorMsg).to.have.string("packComponents is null or undefined");
+            expect(errorMsg).to.have.string("cuvGrupo is null or undefined");
         });
 
-        it("throw an exception when data object is null", function () {
+        it("should throw an exception when cuvGrupo is null", function () {
 
             try {
-                gruposPresenter.onGruposLoaded(null);
+                gruposPresenter.addComponente(null);
             } catch (error) {
                 errorMsg = error;
             }
 
-            expect(errorMsg).to.have.string("packComponents is null or undefined");
+            expect(errorMsg).to.have.string("cuvGrupo is null or undefined");
         });
 
-        it("throw an exception when componentes property is null or undefined", function () {
+        it("should throw an exception when cuvComponente is undefined", function () {
 
             try {
-                gruposPresenter.onGruposLoaded({
-                    componentes: null
-                });
+                gruposPresenter.addComponente(0,undefined);
             } catch (error) {
                 errorMsg = error;
             }
 
-            expect(errorMsg).to.have.string("packComponents has no components");
+            expect(errorMsg).to.have.string("cuvComponente is null or undefined");
         });
 
-        it("throw an exception when componentes property is null or undefined", function () {
+        it("should throw an exception when cuvComponente is null", function () {
 
             try {
-                gruposPresenter.onGruposLoaded({
-                    componentes: null
-                });
+                gruposPresenter.addComponente(0,null);
             } catch (error) {
                 errorMsg = error;
             }
 
-            expect(errorMsg).to.have.string("packComponents has no components");
+            expect(errorMsg).to.have.string("cuvComponente is null or undefined");
         });
 
-        it("throw an exception when data object has no components", function () {
+        it("should not add component when grupo do not exists", function () {
+            gruposPresenter.addComponente(303790,304050);
 
-            try {
-                gruposPresenter.onGruposLoaded({
-                    componentes: []
-                });
-            } catch (error) {
-                errorMsg = error;
-            }
-
-            expect(errorMsg).to.have.string("packComponents has no components");
+            var model = gruposPresenter.packComponents();
+            expect(model.componentesSeleccionados.length).to.be.equals(0);
         });
 
-        it("render groups when data object has components", function () {
-            gruposPresenter.onGruposLoaded({
-                componentes: [{}]
+        it("should not add component when component do not exists", function () {
+            gruposPresenter.addComponente(303790,304050);
+
+            var model = gruposPresenter.packComponents();
+            expect(model.componentesSeleccionados.length).to.be.equals(0);
+        });
+
+        describe("Component exists at group", function () {
+            beforeEach("add componente with cuv 30405", function () {
+                gruposPresenter.addComponente(30379, 30405);
             });
 
-            expect(gruposView.renderGrupos.calledOnce).to.be.equals(true);
+            it("should have one item at componenteSeleccionado", function () {
+                var model = gruposPresenter.packComponents();
+                console.log(model);
+                expect(model.componentesSeleccionados.length).to.be.equals(1);
+            });
+
+            it("should have component with cuv 30405 at componenteSeleccionado", function () {
+                var model = gruposPresenter.packComponents();
+                expect(model.componentesSeleccionados[0].Cuv).to.be.equals("30405");
+            });
+
+            it("should fire an event onSelectedComponentsChanged with not null data object", function () {
+                var firstCall = 0;
+                var firstParam = 0;
+                var secondParam = 1;
+                expect(armaTuPackDetalleEvents.applyChanges.args[firstCall][firstParam]).to.equals(armaTuPackDetalleEvents.eventName.onSelectedComponentsChanged);
+                expect(armaTuPackDetalleEvents.applyChanges.args[firstCall][secondParam]).to.not.equal(null);
+            });
+        });
+
+        it("do not add component when component exits in group and quantity selected is upper equal than FactorCuadre", function () {
+            gruposPresenter.addComponente(30379,30405);
+            gruposPresenter.addComponente(30379,30405);
+            gruposPresenter.addComponente(30379,30405);
+            gruposPresenter.addComponente(30379,30405);
+
+            gruposPresenter.addComponente(30379,30405);
+
+            var model = gruposPresenter.packComponents();
+            expect(model.componentesSeleccionados.length).to.be.equals(4);
         });
     });
 });

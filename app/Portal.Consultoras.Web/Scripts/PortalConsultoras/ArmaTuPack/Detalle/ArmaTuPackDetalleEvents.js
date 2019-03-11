@@ -3,11 +3,11 @@
     
     self.eventName = {
         onGruposLoaded: "onGruposLoaded",
-        onSelectedProductsChanged: "onSelectedProductsChanged"
+        onSelectedComponentsChanged: "onSelectedComponentsChanged"
     };
 
     registerEvent.call(self, self.eventName.onGruposLoaded);
-    registerEvent.call(self, self.eventName.onSelectedProductsChanged);
+    registerEvent.call(self, self.eventName.onSelectedComponentsChanged);
 
     return self;
 };
