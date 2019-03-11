@@ -223,7 +223,6 @@
       <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
       <xs:element minOccurs="0" name="CantidadOriginal" type="xs:int" />
       <xs:element minOccurs="0" name="CuvProducto" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Digitable" type="xs:int" />
       <xs:element minOccurs="0" name="FactorRepeticion" type="xs:int" />
       <xs:element minOccurs="0" name="Grupo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NombreProducto" nillable="true" type="xs:string" />
@@ -231,6 +230,7 @@
       <xs:element minOccurs="0" name="PrecioUnidad" type="xs:decimal" />
       <xs:element minOccurs="0" name="SetDetalleId" type="xs:int" />
       <xs:element minOccurs="0" name="SetId" type="xs:int" />
+      <xs:element minOccurs="0" name="SetIdentifierNumber" type="xs:int" />
       <xs:element minOccurs="0" name="TipoOfertaSisId" type="xs:int" />
     </xs:sequence>
   </xs:complexType>

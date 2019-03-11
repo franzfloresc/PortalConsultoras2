@@ -338,6 +338,8 @@ namespace Portal.Consultoras.Entities
         public bool QuitoCantBackOrder { get; set; }
         [DataMember]
         public bool EsDuoPerfecto { get; set; }
+        [DataMember]
+        public int SetIdentifierNumber { get; set; }
     }
 
 }

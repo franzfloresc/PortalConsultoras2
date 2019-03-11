@@ -778,7 +778,6 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     font-size: 16px;
     font-weight: 400;
     line-height: 42px;
-    text-transform: uppercase;
     position: relative;
 }
 
@@ -786,7 +785,6 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     position: relative;
     font-size: 16px;
     font-weight: normal;
-    text-transform: uppercase;
 }
 
 .tabla_pedidos, .tabla_productos_agotados {

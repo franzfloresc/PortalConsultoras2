@@ -340,7 +340,6 @@ h4.re3 {
     font-family: 'Lato';
     position: relative;
     font-size: 14px;
-    text-transform: uppercase;
     margin-bottom: 0;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -1043,7 +1042,6 @@ h4.re3 {
 .sub_titulo_noti span {
     font-weight: 900;
     color: #e81c36;
-    text-transform: uppercase;
 }
 
 .firma_notificaciones {
@@ -4706,8 +4704,7 @@ body {
 
 .mi_ganancia {
     color: #e81c36;
-    font-weight: 700;
-    text-transform: uppercase;
+    font-weight: 700; 
 }
 
 .textos_resumen span, .montos_resumen span {
@@ -4803,7 +4800,7 @@ body {
         line-height: 15px;
         -webkit-border-radius: 0;
         -webkit-appearance: none !important;
-        text-transform: uppercase;
+ 
     }
 
 .btn_agregarPedido input, .btn_guardarPedido input {
@@ -6166,8 +6163,7 @@ input[type='checkbox']:checked + span:after {
     font-size: 13px;
     color: #606061;
     margin-top: 20px;
-    margin-bottom: 5px;
-    text-transform: uppercase;
+    margin-bottom: 5px; 
 }
 
 .monto_reservado_mobile {
@@ -6184,7 +6180,6 @@ input[type='checkbox']:checked + span:after {
     font-weight: 700;
     color: #e81c36;
     margin-bottom: 5px;
-    text-transform: uppercase;
 }
 
 .btn_ver_pedido_reservado {
@@ -6200,7 +6195,6 @@ input[type='checkbox']:checked + span:after {
     display: block;
     margin-top: 25px;
     cursor: pointer;
-    text-transform: uppercase;
 }
 
 .tooltip_validado {
@@ -6243,8 +6237,7 @@ input[type='checkbox']:checked + span:after {
     text-align: center;
     display: block;
     margin-top: 30px;
-    background: #e81c36;
-    text-transform: uppercase;
+    background: #e81c36; 
 }
 
 .icono_tooltip_validado {
@@ -7151,7 +7144,6 @@ input[type='checkbox']:checked + span:after {
 
 .color_marca {
     color: #e81c36;
-    text-transform: uppercase;
 }
 
 .btn_borde_black {
@@ -13291,6 +13283,13 @@ a {
     bottom: 0;
     z-index: 1001;
 }
+    .app-footer-pedidos{
+        height: auto;
+        line-height:16px;
+    }
+    .app-footer-section {
+        margin: 10px 0;
+    }
 
     .app-footer .sections-1 {
         width: 50%;
@@ -13299,8 +13298,8 @@ a {
         margin-right: -2px;
         vertical-align: middle;
         text-align: right;
-        font-size: 17px;
-    }
+        font-size: 14px;
+    }    
 
     .app-footer .sections-2 {
         width: 50%;
@@ -13308,9 +13307,13 @@ a {
         margin-left: -2px;
         margin-right: -2px;
         vertical-align: middle;
-        text-align: center;
-        font-size: 19px;
+        text-align: right;
+        font-size: 14px;
+        padding-right: 16px;
     }
+        .fz-19 {
+            font-size: 19px !important;
+        }
 /*FIN ESTILOS EMBEBER APP (APPCONS-1099)*/
 
 /* APPCONS-1098 */
