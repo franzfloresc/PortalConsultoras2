@@ -1,7 +1,10 @@
-﻿namespace Portal.Consultoras.Web.Models.Search.ResponseOferta.Estructura
+﻿using System.Collections.Generic;
+
+namespace Portal.Consultoras.Web.Models.Search.ResponseOferta.Estructura
 {
     public class Componente
     {
+        public List<Componente> Hermanos { get; set; }
         public string _id { get; set; }
         public string CuvPadre { get; set; }
         public string CampaniaId { get; set; }
