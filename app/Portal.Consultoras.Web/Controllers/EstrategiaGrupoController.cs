@@ -27,15 +27,7 @@ namespace Portal.Consultoras.Web.Controllers
             bool respuesta = false;
             if (ModelState.IsValid)
             {
-                //var userData = SessionManager.GetUserData();
-
-                Task<bool> taskapi = null;
-                if (datos.Count > 0)
-                {
-                    taskapi = Task.Run(() => estrategiaGrupoProvider.InsertarGrupoEstrategiaApi(Constantes.PersonalizacionOfertasService.UrlGuardarEstrategiaGrupo, datos, userData));
-                    Task.WhenAll(taskapi);
-                }
-                respuesta = taskapi.Result;
+                estrategiaGrupoProvider.Guardar(datos, userData.CodigoISO);
             }
 
             return Json(new { mensaje = "ok", estado = respuesta }, JsonRequestBehavior.AllowGet);
