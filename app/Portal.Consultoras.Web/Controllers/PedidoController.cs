@@ -41,21 +41,23 @@ namespace Portal.Consultoras.Web.Controllers
         private readonly int CUV_NO_TIENE_CREDITO = 2;
 
         private readonly PedidoSetProvider _pedidoSetProvider;
+        private readonly OfertaBaseProvider _ofertaBaseProvider;
         protected ProductoFaltanteProvider _productoFaltanteProvider;
         private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatosProvider;
 
         public PedidoController()
             : this(new PedidoSetProvider(),
                   new ProductoFaltanteProvider(),
-                  new ConfiguracionPaisDatosProvider())
+                  new ConfiguracionPaisDatosProvider(), new OfertaBaseProvider())
         {
         }
 
         public PedidoController(PedidoSetProvider pedidoSetProvider,
             ProductoFaltanteProvider productoFaltanteProvider,
-            ConfiguracionPaisDatosProvider configuracionPaisDatosProvider)
+            ConfiguracionPaisDatosProvider configuracionPaisDatosProvider, OfertaBaseProvider ofertaBaseProvider)
         {
             _pedidoSetProvider = pedidoSetProvider;
+            _ofertaBaseProvider = ofertaBaseProvider;
             _productoFaltanteProvider = productoFaltanteProvider;
             _configuracionPaisDatosProvider = configuracionPaisDatosProvider;
         }
@@ -4804,13 +4806,35 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
 
-        public async Task<JsonResult> ObtenerOfertaByCUVSet( int campaniaId, int set, string cuv)
+        public async Task<JsonResult> ObtenerOfertaByCUVSet( string campaniaId, int set, string cuv)
         {
             try
             {
                 var pedidoSet = _pedidoSetProvider.ObtenerPorId(userData.PaisID, set);
 
-                await ObtenerComponentesPedidoWebSet(campaniaId, cuv, pedidoSet);
+                var estrategia = await _ofertaBaseProvider.ObtenerOfertaDesdeApi(cuv, campaniaId, Constantes.TipoPersonalizacion.ShowRoom);
+
+                if (estrategia.Grupos.Any())
+                {
+                    var componentes = new List<Componente>();
+
+                    estrategia.Grupos.Each(x =>
+                    {
+                        if (x.Componentes.Any())
+                        {
+                            componentes.AddRange(x.Componentes);
+                        }
+
+                    });
+
+                    pedidoSet.Detalles.Update(x =>
+                    {
+                        var item = componentes.FirstOrDefault(i => i.Cuv == x.CUV);
+                        x.NombreProducto = item != null ? item.NombreProducto : string.Empty;
+                    });
+                }
+
+
 
                 return Json(new
                 {
@@ -4828,46 +4852,46 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private async Task ObtenerComponentesPedidoWebSet(int campaniaId, string cuv, Models.Pedido.PedidoWebSetModel pedidoSet)
-        {
-            using (var httpClient = new HttpClient())
-            {
-                httpClient.BaseAddress = new Uri(WebConfig.UrlMicroservicioPersonalizacionSearch);
-                httpClient.DefaultRequestHeaders.Accept.Clear();
-                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                string path = string.Format("/Oferta/ByCuv/{0}/{1}/{2}/{3}", userData.CodigoISO, Constantes.TipoPersonalizacion.ShowRoom, campaniaId, cuv);
-                HttpResponseMessage httpResponse = await httpClient.GetAsync(path);
-                if (httpResponse.IsSuccessStatusCode)
-                {
-                    string json = await httpResponse.Content.ReadAsStringAsync();
+        //private async Task ObtenerComponentesPedidoWebSet(int campaniaId, string cuv, Models.Pedido.PedidoWebSetModel pedidoSet)
+        //{
+        //    using (var httpClient = new HttpClient())
+        //    {
+        //        httpClient.BaseAddress = new Uri(WebConfig.UrlMicroservicioPersonalizacionSearch);
+        //        httpClient.DefaultRequestHeaders.Accept.Clear();
+        //        httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        //        string path = string.Format("/Oferta/ByCuv/{0}/{1}/{2}/{3}", userData.CodigoISO, Constantes.TipoPersonalizacion.ShowRoom, campaniaId, cuv);
+        //        HttpResponseMessage httpResponse = await httpClient.GetAsync(path);
+        //        if (httpResponse.IsSuccessStatusCode)
+        //        {
+        //            string json = await httpResponse.Content.ReadAsStringAsync();
 
-                    OutputOferta respuesta = Newtonsoft.Json.JsonConvert.DeserializeObject<OutputOferta>(json);
+        //            OutputOferta respuesta = Newtonsoft.Json.JsonConvert.DeserializeObject<OutputOferta>(json);
 
-                    if (respuesta.Result != null)
-                    {
-                        if (respuesta.Result.Grupos.Any())
-                        {
-                            var componentes = new List<Componente>();
+        //            if (respuesta.Result != null)
+        //            {
+        //                if (respuesta.Result.Grupos.Any())
+        //                {
+        //                    var componentes = new List<Componente>();
 
-                            respuesta.Result.Grupos.Each(x =>
-                            {
-                                if (x.Componentes.Any())
-                                {
-                                    componentes.AddRange(x.Componentes);
-                                }
+        //                    respuesta.Result.Grupos.Each(x =>
+        //                    {
+        //                        if (x.Componentes.Any())
+        //                        {
+        //                            componentes.AddRange(x.Componentes);
+        //                        }
 
-                            });
+        //                    });
 
-                            pedidoSet.Detalles.Update(x =>
-                            {
-                                var item = componentes.FirstOrDefault(i => i.Cuv == x.CUV);
-                                x.NombreProducto = item != null ? item.NombreProducto : string.Empty;
-                            });
-                        }
-                    }
-                }
-            }
-        }
+        //                    pedidoSet.Detalles.Update(x =>
+        //                    {
+        //                        var item = componentes.FirstOrDefault(i => i.Cuv == x.CUV);
+        //                        x.NombreProducto = item != null ? item.NombreProducto : string.Empty;
+        //                    });
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
 
 
 

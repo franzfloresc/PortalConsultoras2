@@ -11,6 +11,8 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.Search.ResponseOferta.Estructura;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -26,6 +28,46 @@ namespace Portal.Consultoras.Web.Providers
             httpClient.BaseAddress = new Uri(WebConfig.UrlMicroservicioPersonalizacionSearch);
             httpClient.DefaultRequestHeaders.Accept.Clear();
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        }
+
+        public async Task<Estrategia> ObtenerOfertaDesdeApi(string cuv, string campaniaId, string tipoPersonalizacion)
+        {
+            Estrategia estrategia = new Estrategia();
+           var  userData = _sessionManager.GetUserData() ?? new UsuarioModel();             
+
+            string pathMS = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertasByCuv,
+              userData.CodigoISO,
+              tipoPersonalizacion,
+              campaniaId,
+              cuv
+              );         
+
+            HttpResponseMessage httpResponse = await httpClient.GetAsync(pathMS);
+
+            if (!httpResponse.IsSuccessStatusCode)
+            {
+                return estrategia;
+            }
+
+            string jsonString = await httpResponse.Content.ReadAsStringAsync();
+            if (Util.Trim(jsonString) == string.Empty)
+            {
+                return estrategia;
+            }
+
+            OutputOferta respuesta = new OutputOferta(); 
+            try
+            {
+                respuesta = JsonConvert.DeserializeObject<OutputOferta>(jsonString);
+                estrategia = respuesta.Result;
+            }
+            catch (Exception ex)
+            {
+                Common.LogManager.SaveLog(ex, string.Empty, userData.CodigoISO);
+                return estrategia;
+            }
+             
+            return estrategia;
         }
 
         public static async Task<List<ServiceOferta.BEEstrategia>> ObtenerOfertasDesdeApi(string path, string codigoISO)

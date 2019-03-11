@@ -3069,6 +3069,9 @@ namespace Portal.Consultoras.Common
             /// Oferta/{pais}/{tipo}/{codigoCampania}/{codigoConsultora}/{materialGanancia}/{diaInicio}/{codigoRegion}/{codigoZona}
             /// </summary>
             public const string UrlObtenerOfertas = "Oferta/{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}";
+            public const string UrlObtenerOfertasByCuv = "Oferta/ByCuv/{0}/{1}/{2}/{3}";
+
+            
 
             /// <summary>
             /// Evento/Get/{pais}/{campania}
