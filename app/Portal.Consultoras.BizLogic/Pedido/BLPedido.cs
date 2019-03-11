@@ -367,7 +367,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_GUARDAR_MONTO_MAX, mensajeMMax);
             }
             #endregion
-                       
+                        
+
 
             #region PrepararPedidoDetalle
             //Preparar Pedido Detalle
@@ -3495,7 +3496,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
         }
 
         #endregion
-
+     
         private BEPedidoDetalleResult ValidarLimiteVenta(BEEstrategia estrategia, List<BEPedidoWebDetalle> listDetalle)
         {
             return ValidarLimiteVenta(estrategia, listDetalle, d => d.CUV == estrategia.CUV2);

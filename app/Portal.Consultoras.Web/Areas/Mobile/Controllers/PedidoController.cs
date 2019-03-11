@@ -251,7 +251,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (!userData.DiaPROL)  // Periodo de venta
             {
                 ViewBag.AccionBoton = "guardar";
-                model.Prol = "Guarda tu pedido";
+                //model.Prol = "GUARDA TU PEDIDO";
+                model.Prol = "Guardar tu pedido";
                 model.ProlTooltip = "Es importante que guardes tu pedido";
                 model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
 
@@ -264,7 +265,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             else // Periodo de facturacion
             {
                 ViewBag.AccionBoton = "validar";
-                model.Prol = "Reserva tu pedido";
+                model.Prol = "RESERVA TU PEDIDO";
                 model.ProlTooltip = "Haz click aqui para reservar tu pedido";
 
                 if (diaActual <= userData.FechaInicioCampania)
@@ -334,7 +335,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             ViewBag.NombreConsultora = userData.Sobrenombre;
             if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
-                model.Prol = "GUARDA TU PEDIDO";
+                //model.Prol = "GUARDA TU PEDIDO";
+                model.Prol = "GUARDAR TU PEDIDO";
             var ofertaFinalModel = SessionManager.GetOfertaFinalModel();
             ViewBag.OfertaFinalEstado = ofertaFinalModel.Estado;
             ViewBag.OfertaFinalAlgoritmo = ofertaFinalModel.Algoritmo;
@@ -396,9 +398,25 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             var pedidoWeb = ObtenerPedidoWeb();
 
-           
+            int result = 0;
+
+            using (var sv = new PedidoServiceClient())
+            {
+
+                DateTime? fechaInicioSetAgrupado = sv.ObtenerFechaInicioSets(userData.PaisID);
+
+                if (fechaInicioSetAgrupado.HasValue)
+                    result = DateTime.Compare(fechaInicioSetAgrupado.Value.Date, pedidoWeb.FechaRegistro.Date);
+            }
+
+            if (result >= 0)
+            {
+                model.SetDetalleMobileFromDetalleWeb(PedidoJerarquico(lstPedidoWebDetalle));
+            }
+            else
+            {
                 model.SetDetalleMobileFromDetalleWeb(lstPedidoWebDetalle);
-            
+            }
             model.Detalle.Update(detalle => { if (string.IsNullOrEmpty(detalle.Nombre)) detalle.Nombre = userData.NombreConsultora; });
             model.Detalle.Update(item => item.DescripcionPrecioUnidad = Util.DecimalToStringFormat(item.PrecioUnidad, model.CodigoISO));
             model.Detalle.Update(item => item.DescripcionImporteTotal = Util.DecimalToStringFormat(item.ImporteTotal, model.CodigoISO));
@@ -443,7 +461,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             if (!userData.DiaPROL)  // Periodo de venta
             {
-                model.Prol = "GUARDA TU PEDIDO";
+                //model.Prol = "GUARDA TU PEDIDO";
+                model.Prol = "GUARDAR TU PEDIDO";
                 model.ProlTooltip = "Es importante que guardes tu pedido";
                 model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
 
@@ -516,7 +535,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.ModificacionPedidoProl = 0;
 
             if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
-                model.Prol = "GUARDA TU PEDIDO";
+                //model.Prol = "GUARDA TU PEDIDO";
+                model.Prol = "GUARDAR TU PEDIDO";
 
             return View(model);
         }

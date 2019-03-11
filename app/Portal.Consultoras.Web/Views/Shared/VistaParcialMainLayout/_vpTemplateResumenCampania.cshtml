@@ -1,13 +1,13 @@
 ﻿<script id="resumenCampania-template" type="text/x-handlebars-template">
     <div class="info_productos_carrito">
-        Has agregado <span>{{cantidadProductos}}</span> unidades.<br />
+        Hay <span>{{cantidadProductos}}</span> unidades en tu carrito<br />
         Últimos agregados:
     </div>
     {{#each this.ultimosTresPedidos}}
     <div class="productos_agregado_carrito">
         <div class="marca_belcorp">{{DescripcionLarga}}</div>
         <hr class="clear" />
-        <div class="descripcion_producto_carrito">{{Split DescripcionProd '|' 0}}</div>
+        <div class="descripcion_producto_carrito">{{#iff SetIdentifierNumber '>' '0'}} #{{SetIdentifierNumber}} - {{/iff}} {{Split DescripcionProd '|' 0}}</div>
         <div class="marca_belcorp" style="font-size: 13px;">x{{Cantidad}}</div>
         <div class="precio_carrito">{{SimboloMoneda}} {{ImporteTotal}}</div>
     </div>
@@ -18,8 +18,8 @@
             <div class="tooltip_importe">
                 <div class="left_reservado">
                     <div class="datos_Reservado">
-                        <span>Total sin Dscto. </span>
-                        <span>Dscto por niveles</span>
+                        <span>Subtotal: </span>
+                        <span>Descuento por niveles:</span>
                     </div>
                 </div>
                 <div class="right_reservado">
@@ -29,10 +29,10 @@
                     </div>
                 </div>
             </div>
-        </div>
-        PEDIDO TOTAL
+        </div> 
+        Total:
         <span>{{SimboloMoneda}} <span data-pedidocondescuento="">{{montoWebConDescuentoStr}}</span></span>
     </div>
     <hr class="clear" />
-    <a href="javascript:;" onclick="RedirectIngresaTuPedido(this);" class="ver_pedido" role="menu" region="Superior" title="Ver mi pedido" id="lnk-sup-ver-mi-pedido">VER TODO MI PEDIDO</a>
+    <a href="javascript:;" onclick="RedirectIngresaTuPedido(this);" class="ver_pedido" role="menu" region="Superior" title="Ver mi pedido" id="lnk-sup-ver-mi-pedido">Ver mi carrito</a>
 </script>

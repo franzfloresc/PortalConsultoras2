@@ -21,6 +21,7 @@ namespace Portal.Consultoras.Web.Providers
         protected TablaLogicaProvider _tablaLogica;
         protected OfertaPersonalizadaProvider _ofertaPersonalizada;
         protected ConsultaProlProvider _consultaProlProvider;
+        protected TablaLogicaProvider _tablaLogicaProvider;
 
         public OfertaDelDiaProvider()
         {
@@ -29,6 +30,7 @@ namespace Portal.Consultoras.Web.Providers
             _tablaLogica = new TablaLogicaProvider();
             _ofertaPersonalizada = new OfertaPersonalizadaProvider();
             _consultaProlProvider = new ConsultaProlProvider();
+            _tablaLogicaProvider = new TablaLogicaProvider();
         }
 
         public List<ServiceOferta.BEEstrategia> GetOfertas(UsuarioModel model)
@@ -84,7 +86,13 @@ namespace Portal.Consultoras.Web.Providers
                 ofertasDelDia = new List<ServiceOferta.BEEstrategia>();
             }
 
-            ofertasDelDia = _consultaProlProvider.ActualizarEstrategiaStockPROL(ofertasDelDia, model.CodigoISO, model.CampaniaID, model.CodigoConsultora);
+            ofertasDelDia.ForEach(x => x.TieneStock = true);
+            // validar por fecha de facturacion el stock
+            if (GetValidarDiasAntesStock(model))
+            {
+                ofertasDelDia = _consultaProlProvider.ActualizarEstrategiaStockPROL(ofertasDelDia, model.CodigoISO, model.CampaniaID, model.CodigoConsultora);
+            }
+
             return ofertasDelDia;
         }
 
@@ -301,6 +309,25 @@ namespace Portal.Consultoras.Web.Providers
             }
 
             return result;
+        }
+
+        private bool GetValidarDiasAntesStock(UsuarioModel userData)
+        {
+            var validar = false;
+            var lstTablaLogicaDatos = _tablaLogicaProvider.GetTablaLogicaDatos(userData.PaisID, Constantes.TablaLogica.StockDiasAntes, true);
+            if (lstTablaLogicaDatos.Any())
+            {
+                var diasAntesStock = lstTablaLogicaDatos.FirstOrDefault().Valor;
+                if (!string.IsNullOrEmpty(diasAntesStock))
+                {
+                    var iDiasAntesStock = int.Parse(diasAntesStock);
+                    if (DateTime.Now.Date >= userData.FechaInicioCampania.AddDays(iDiasAntesStock))
+                    {
+                        validar = true;
+                    }
+                }
+            }
+            return validar;
         }
     }
 }
