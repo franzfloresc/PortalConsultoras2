@@ -1,17 +1,9 @@
 ﻿@using Portal.Consultoras.Common
 @model Portal.Consultoras.Web.Models.NotificacionesModel
-@{
-    decimal totalPRol = 0;
-    decimal totalPedido = 0;
-    decimal descuento = 0;
-    string simboloMoneda = Model.simbolo;
-}
+
 @if (Model.Origen != 3)
 {
     var isEsika = System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisIso == null ? "" : ViewBag.PaisIso);
-    decimal MontoSinDescuento = Model.ListaNotificacionesDetallePedido.Sum(p => p.ImporteTotal);
-    descuento = Model.ListaNotificacionesDetallePedido[0].DescuentoProl;
-    totalPedido = (MontoSinDescuento - descuento);
 
     <div class="wrapper">
         <div class="webkit" style="margin-left:90px">
@@ -70,7 +62,7 @@
                         MONTO TOTAL:
                     </td>
                     <td style="width: 50%; font-family: 'Arial'; font-size: 16px; font-weight: 700; color: #000;padding-right:14%; text-align:right;">
-                        @simboloMoneda <span id="sMontoTotal">@string.Format("{0:N2}", totalPedido)</span>
+                        @Model.simbolo <span id="sMontoTotal">@Model.TotalString</span>
                     </td>
                 </tr>
                 <tr>
@@ -78,7 +70,7 @@
                         GANANCIA ESTIMADA:
                     </td>
                     <td class="color_marca" style="width: 50%; font-family: 'Arial'; font-size: 13px; font-weight: 700; padding-right:14%; text-align:right;padding-bottom: 20px; padding-top: 5px">
-                        @simboloMoneda @Model.mGanancia
+                        @Model.simbolo @Model.mGanancia
                     </td>
                 </tr>
                 <tr>
@@ -102,17 +94,13 @@
                                 <tr>
                                     <td style="text-align: left; color: #000; font-family: 'Arial'; font-size: 14px; font-weight:700;">@item.Descripcion</td>
                                     <td style="text-align: right; color: #000; font-family: 'Arial'; font-size: 14px; font-weight:700;">
-                                        @simboloMoneda @string.Format("{0:N2}", item.ImporteTotal)
+                                        @Model.simbolo @item.ImporteTotalString
                                     </td>
                                 </tr>
 
                                 @if (!string.IsNullOrEmpty(@item.ObservacionPROL))
                                 {
-
-
                                     string[] obser = item.ObservacionPROL.Split('|');
-
-
                                     if (obser != null)
                                     {
                                         int total = obser.Length - 1;
@@ -153,10 +141,9 @@
                                 </tr>
                                 <tr>
                                     <td colspan="2" style="text-align: left; color: #4d4d4e; font-family: 'Arial'; font-size: 13px; padding-top: 2px;">
-                                        Precio Unit.: @simboloMoneda @string.Format("{0:N2}", item.PrecioUnidad)
+                                        Precio Unit.: @Model.simbolo @item.PrecioUnidadString
                                     </td>
                                 </tr>
-
                             </table>
                         }
                     </td>
@@ -164,13 +151,13 @@
                 <tr>
                     <td style="text-align: left; color: #000; font-family: 'Arial'; font-size: 13px; padding-top: 15px; padding-left: 10px;">TOTAL SIN DSCTO.</td>
                     <td style="text-align: right; color: #000; font-family: 'Arial'; font-size: 13px; padding-top: 15px; padding-right: 10px; font-weight: 700;">
-                        @simboloMoneda @string.Format("{0:N2}", MontoSinDescuento)
+                        @Model.simbolo @Model.SubTotalString
                     </td>
                 </tr>
                 <tr>
                     <td style="text-align: left; color: #000; font-family: 'Arial'; font-size: 13px; padding-top:3px; padding-left: 10px; border-bottom: 1px solid #000; padding-bottom: 13px;">DSCTO. OFERTAS POR NIVELES</td>
                     <td style="text-align: right; color: #000; font-family: 'Arial'; font-size: 13px; padding-top:3px; padding-right: 10px; font-weight: 700; padding-bottom: 13px; border-bottom: 1px solid #000;">
-                        @simboloMoneda @string.Format("{0:N2}", descuento)
+                        @Model.simbolo @Model.DescuentoString
                     </td>
                 </tr>
                 <tr>
@@ -178,7 +165,7 @@
                         MONTO TOTAL:
                     </td>
                     <td style="width: 50%; font-family: 'Arial'; font-size: 16px; font-weight: 700; color: #000;padding-right:10px; padding-top: 15px; text-align:right;">
-                        @simboloMoneda <span id="sMontoTotal2">@string.Format("{0:N2}", totalPedido)</span>
+                        @Model.simbolo <span id="sMontoTotal2">@Model.TotalString</span>
                     </td>
                 </tr>
                 <tr>
@@ -186,7 +173,7 @@
                         GANANCIA ESTIMADA:
                     </td>
                     <td class="color_marca" style="width: 50%; font-family: 'Arial'; font-size: 13px; font-weight: 700; padding-right:10px; text-align:right; padding-bottom: 13px; padding-top: 5px;">
-                        @simboloMoneda @Model.mGanancia
+                        @Model.simbolo @Model.mGanancia
                     </td>
                 </tr>
                 <tr>

@@ -318,12 +318,29 @@ namespace Portal.Consultoras.Web.Controllers
                 ListaNotificacionesDetallePedido = Mapper.Map<List<NotificacionesModelDetallePedido>>(lstObservacionesPedido),
                 NombreConsultora = userData.NombreConsultora,
                 simbolo = userData.Simbolo,
+                Origen = TipoOrigen,
                 mGanancia = Util.DecimalToStringFormat(
                     lstObservacionesPedido[0].MontoAhorroCatalogo + lstObservacionesPedido[0].MontoAhorroRevista,
-                    userData.CodigoISO),
-                Origen = TipoOrigen
+                    userData.CodigoISO)
             };
             ViewBag.PaisIso = userData.CodigoISO;
+
+            if (model.Origen != 3)
+            {
+                model.SubTotal = model.ListaNotificacionesDetallePedido.Sum(p => p.ImporteTotal);
+                model.Descuento = model.ListaNotificacionesDetallePedido[0].DescuentoProl;
+                model.Total = model.SubTotal - model.Descuento;
+
+                model.SubTotalString = Util.DecimalToStringFormat(model.SubTotal, userData.CodigoISO);
+                model.DescuentoString = Util.DecimalToStringFormat(model.Descuento, userData.CodigoISO);
+                model.TotalString = Util.DecimalToStringFormat(model.Total, userData.CodigoISO);
+
+                foreach (var notificacion in model.ListaNotificacionesDetallePedido)
+                {
+                    notificacion.ImporteTotalString = Util.DecimalToStringFormat(notificacion.ImporteTotal, userData.CodigoISO);
+                    notificacion.PrecioUnidadString = Util.DecimalToStringFormat(notificacion.PrecioUnidad, userData.CodigoISO);
+                }
+            }
 
             return PartialView("DetalleNotificacionesPedido", model);
         }
