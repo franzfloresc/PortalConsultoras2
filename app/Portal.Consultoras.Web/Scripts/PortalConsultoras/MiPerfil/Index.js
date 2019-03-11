@@ -352,7 +352,7 @@ function CambiarContrasenia() {
     var newPassword01 = $("#txtNuevaContrasenia01").val();
     var newPassword02 = $("#txtNuevaContrasenia02").val();
     var vMessage = "";
-    var patt = new RegExp("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$");
+    var patt = new RegExp(patronRegex);
 
     if (oldPassword == "")
         vMessage += "- Debe ingresar la Contraseña Anterior.\n";
@@ -362,9 +362,6 @@ function CambiarContrasenia() {
 
     if (newPassword02 == "")
         vMessage += "- Debe repetir la Nueva Contraseña.\n";
-
-    //if (newPassword01.length <= 7)
-    //    vMessage += "- La Nueva Contraseña debe de tener más de 7 caracteres.\n";    
 
     if (newPassword01 != "" && newPassword02 != "") {
         if (newPassword01 != newPassword02)
