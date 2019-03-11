@@ -68,5 +68,5 @@ armaTuPackDetalleEvents.subscribe(armaTuPackDetalleEvents.eventName.onGruposLoad
 });
 
 armaTuPackDetalleEvents.subscribe(armaTuPackDetalleEvents.eventName.onSelectedComponentsChanged, function (packComponents) {
-    seleccionadosPresenter._onSelectedComponentsChanged(packComponents);
+    seleccionadosPresenter.onSelectedComponentsChanged(packComponents);
 });
