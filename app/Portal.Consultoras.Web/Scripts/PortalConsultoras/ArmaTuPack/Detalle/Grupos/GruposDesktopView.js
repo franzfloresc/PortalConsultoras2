@@ -40,18 +40,26 @@
         };
         if (!_config.generalModule.isMobile()) {
             slickSettings.arrows = true;
-            slickSettings.prevArrow = '<a id="opciones-seleccionadas-prev" class="flecha_ofertas-tipo prev" style="left:-5%; text-align:left;display:none;"><img src="' +
-                baseUrl +
-                'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>';
+            slickSettings.prevArrow =
+                "<a id=\"opciones-seleccionadas-prev\" class=\"flecha_ofertas-tipo prev\" style=\"left:-5%; text-align:left;display:none;\">" +
+                    "<img src=\"" + baseUrl + "Content/Images/Esika/previous_ofertas_home.png\")\" alt=\"\" />" +
+                "</a>";
             slickSettings.nextArrow =
-                '<a id="opciones-seleccionadas-next" class="flecha_ofertas-tipo" style="display: block; right:-5%; text-align:right;display:none;"><img src="' +
-                baseUrl +
-                'Content/Images/Esika/next.png")" alt="" /></a>';
+                "<a id=\"opciones-seleccionadas-next\" class=\"flecha_ofertas-tipo\" style=\"display: block; right:-5%; text-align:right;display:none;\">" +
+                    "<img src=\"" + baseUrl + "Content/Images/Esika/next.png\")\" alt=\"\" />" +
+                "</a>";
         } else {
             slickSettings.slidesToShow = 5;
         }
 
         $(_elements.gruposDesktop.attrCarruselContainer).slick(slickSettings);
+
+        $(document).on("click", "[data-delete-component]", function (e) {
+            var $btn = $(e.target);
+            var grupo = $btn.data("grupo");
+            var cuvComponente = $btn.data("cuv-componente");
+            _presenter.deleteComponente(grupo, cuvComponente);
+        });
     };
 
     return {

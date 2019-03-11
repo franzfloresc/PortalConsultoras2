@@ -51,6 +51,6 @@
 
     return {
         onGruposLoaded : _onGruposLoaded,
-        _onSelectedComponentsChanged : _onSelectedComponentsChanged,
+        onSelectedComponentsChanged : _onSelectedComponentsChanged,
     };
 };

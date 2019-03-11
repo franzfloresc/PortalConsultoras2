@@ -56,11 +56,36 @@
                         grupo.cantidadSeleccionados++;
                         //grupo.HermanosSeleccionados.push(componente);
                     }
+                    });
+                }
+            });
+        
+            if (compSelCounter < model.componentesSeleccionados.length) {
+                _packComponents(model);
+                _config.armaTuPackDetalleEvents.applyChanges(_config.armaTuPackDetalleEvents.eventName.onSelectedComponentsChanged, model);
+            }
+        };
+
+    var _deleteComponente = function (grupoCuv, cuvComponente) {
+        if (typeof grupoCuv === "undefined" || grupoCuv === null) throw "Grupo is null or undefined";
+        if (typeof cuvComponente === "undefined" || cuvComponente === null) throw "cuvComponente is null or undefined";
+
+        var model = _packComponents();
+        var componenteSeleccionadoIndex = -1;
+
+        $.each(model.componentes, function (idx, grupo) {
+            if (grupo.Grupo == grupoCuv) {
+                $.each(model.componentesSeleccionados, function (idx, componenteSeleccionado) {
+                    if (componenteSeleccionado.Cuv == cuvComponente) {
+                        componenteSeleccionadoIndex = idx;
+                        grupo.cantidadSeleccionados = grupo.cantidadSeleccionados > 0 ? (grupo.cantidadSeleccionados - 1) : 0;
+                    }
                 });
             }
         });
-        
-        if (compSelCounter < model.componentesSeleccionados.length) {
+
+        if (componenteSeleccionadoIndex != -1) {
+            model.componentesSeleccionados.splice(componenteSeleccionadoIndex, 1);
             _packComponents(model);
             _config.armaTuPackDetalleEvents.applyChanges(_config.armaTuPackDetalleEvents.eventName.onSelectedComponentsChanged, model);
         }
@@ -69,6 +94,7 @@
     return {
         onGruposLoaded: _onGruposLoaded,
         addComponente: _addComponente,
-        packComponents: _packComponents
+        packComponents: _packComponents,
+        deleteComponente: _deleteComponente
     };
 };
