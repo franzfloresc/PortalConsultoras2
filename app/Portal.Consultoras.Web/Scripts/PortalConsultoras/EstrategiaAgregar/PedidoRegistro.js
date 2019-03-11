@@ -681,6 +681,7 @@ var PedidoRegistroModule = function () {
             var OrigenPedidoWeb = model.OrigenPedidoWeb;
             var posicion = model.posicion;
             var tipoEstrategiaId = tipoOfertaSisID;
+            var codigoEstrategia = model.CodigoTipoEstrategia;
             var LimiteVenta = model.LimiteVenta;
             var CantidadesAgregadas = model.CantidadesAgregadas;
             var EstrategiaID = model.EstrategiaID;
@@ -697,6 +698,7 @@ var PedidoRegistroModule = function () {
                 Cantidad: cantidad,
                 PrecioUnidad: precioUnidad,
                 TipoEstrategiaID: parseInt(tipoEstrategiaId),
+                CodigoEstrategia: codigoEstrategia,                
                 OrigenPedidoWeb: OrigenPedidoWeb,
                 MarcaID: marcaID,
                 DescripcionProd: descripcionProd,
@@ -757,7 +759,8 @@ var PedidoRegistroModule = function () {
                         'CUV': modelFinal.CUV,
                         'Precio': modelFinal.PrecioUnidad,
                         'DescripcionMarca': modelFinal.CUV,
-                        'CodigoTipoEstrategia': modelFinal.EstrategiaID,
+                        //'CodigoTipoEstrategia': modelFinal.EstrategiaID,
+                        'CodigoTipoEstrategia': modelFinal.CodigoEstrategia,
                         'MarcaId': modelFinal.MarcaID,
                         'Cantidad': modelFinal.Cantidad,
                         'DescripcionEstrategia': modelFinal.DescripcionEstrategia,
