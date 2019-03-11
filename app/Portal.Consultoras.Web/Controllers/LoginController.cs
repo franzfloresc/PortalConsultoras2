@@ -230,7 +230,8 @@ namespace Portal.Consultoras.Web.Controllers
                     model.PaisID = Util.GetPaisID(model.CodigoISO);
 
                 #region DesencriptarClaveSecreta
-                model.ClaveSecreta = Util.DecryptCryptoJs(model.ClaveSecreta, model.PasswordCjs, model.Salt, model.Key, model.Iv);
+                var PasswordCjs = ConfigurationManager.AppSettings.Get("CryptoJSPassword");
+                model.ClaveSecreta = Util.DecryptCryptoJs(model.ClaveSecreta, PasswordCjs, model.Salt, model.Key, model.Iv);
                 #endregion
 
                 var resultadoInicioSesion = await ObtenerResultadoInicioSesion(model);

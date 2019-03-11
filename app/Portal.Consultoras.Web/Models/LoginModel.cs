@@ -13,7 +13,6 @@ namespace Portal.Consultoras.Web.Models
         public string NombreClase { get; set; }
         public string RutaEventoEsika { get; set; }
         public string RutaEventoLBel { get; set; }
-        public string PasswordCjs { get; set; }
         public string Salt { get; set; }
         public string Key { get; set; }
         public string Iv { get; set; }

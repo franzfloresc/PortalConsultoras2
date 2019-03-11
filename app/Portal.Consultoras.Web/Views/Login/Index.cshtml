@@ -933,7 +933,6 @@
                         <input type="hidden" id="hdeCodigoISO" name="hdeCodigoISO" />
 
                         <input type="hidden" id="HdePaisID" name="PaisID" />
-                        <input type="hidden" id="hdePasswordCjs" name="PasswordCjs" />
                         <input type="hidden" id="hdeSalt" name="Salt" />
                         <input type="hidden" id="hdeCiphertext" name="ClaveSecreta" />
                         <input type="hidden" id="hdeKey" name="Key" />
@@ -1124,7 +1123,7 @@
     var urlChatBelCorp = '@Url.Action("ChatBelcorp", "Login")';
     var urlIniciarLogin = '@Url.Action("Login", "Login")';
     var habilitarChatEmtelco = '@ViewBag.HabilitarChatEmtelco';
-    var cadena = '@Html.Raw(Constantes.CryptoJS.Password)';
+    var cadena = '@System.Configuration.ConfigurationManager.AppSettings.Get("CryptoJSPassword")';
 </script>
 
 @if (TempData["errorLogin"] != null)

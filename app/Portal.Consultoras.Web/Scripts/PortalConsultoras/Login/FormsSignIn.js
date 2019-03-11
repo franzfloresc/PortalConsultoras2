@@ -209,7 +209,6 @@ $(document).ready(function () {
         limpiar_local_storage();
 
         var dataToSend = encriptarCryptoJS(Contrasenia, cadena);
-        $('#hdePasswordCjs').val(dataToSend.password);
         $('#hdeSalt').val(dataToSend.salt);
         $('#hdeCiphertext').val(dataToSend.ciphertext);
         $('#hdeKey').val(dataToSend.key);
@@ -409,9 +408,8 @@ function encriptarCryptoJS(password, cadena) {
     var bytesInSalt = 128 / 8;
     var salt = CryptoJS.lib.WordArray.random(bytesInSalt);
     var skey = getKeyAndIV(cadena, salt);
-    var data = CryptoJS.AES.encrypt(password, skey.key, { iv: skey.iv, padding: CryptoJS.pad.Pkcs7 }); // , format: JsonFormatter
+    var data = CryptoJS.AES.encrypt(password, skey.key, { iv: skey.iv, padding: CryptoJS.pad.Pkcs7 });
     var dataToSend = {
-        password: cadena,
         salt: salt.toString(CryptoJS.enc.Base64),
         ciphertext: data.ciphertext.toString(CryptoJS.enc.Base64),
         key: data.key.toString(CryptoJS.enc.Base64),
