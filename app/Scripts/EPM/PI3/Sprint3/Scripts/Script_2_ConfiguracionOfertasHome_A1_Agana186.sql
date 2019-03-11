@@ -8,7 +8,7 @@ GO
 print db_name()
 
 declare @Codigo varchar(100) = 'ATP'
-declare @DesdeCampania int = 0
+declare @DesdeCampania int = 201905
 
 -- Verificar si existe la configuracion con Codigo ATP
 if not exists (select 1 
@@ -28,8 +28,6 @@ begin
 	where cp.Codigo = @Codigo 
 	and cp.DesdeCampania = @DesdeCampania
 	
-	print 'Valores: @ConfiguracionPaisID ('+str(@ConfiguracionPaisID)+') - '+'@CampaniaID('+str(@CampaniaID)+') - '+'@Orden('+str(@Orden)+')'
-
 	print 'Empieza insert into [dbo].[ConfiguracionOfertasHome]: Codigo ATP'
 
 	begin try 
@@ -42,16 +40,16 @@ begin
 		DesktopTipoPresentacion, MobileTipoPresentacion, DesktopTipoEstrategia, MobileTipoEstrategia, DesktopCantidadProductos,
 		MobileCantidadProductos, DesktopActivo, MobileActivo, UrlSeccion, DesktopOrdenBpt,
 		MobileOrdenBpt, DesktopColorFondo, MobileColorFondo, DesktopUsarImagenFondo, MobileUsarImagenFondo,
-		DesktopColorTexto, MobileColorTexto
+		DesktopColorTexto, MobileColorTexto,BotonTexto1,BotonTexto2,BotonColor,	BotonColorTexto
 	)
 	values
 	(
 		@ConfiguracionPaisID, @CampaniaID, @Orden, @Orden, null,
-		null,'Lo nuevo','Lo nuevo',null,null,
-		2,2,'005','005',0,
-		0,1,1,null,@Orden,
-		@Orden,null,null,0,0,
-		null,null
+		null,'ARMA TU PACK','','Elige #Cantidad y llévatelos al #PrecioTotal','',
+		10,10,'004','004',0,
+		0,1,1,'ArmaTuPack',@Orden,
+		@Orden,'#fa1702','#fa1702',0,0,
+		null,null,'Comenzar','Modificar','#000000','#ffffff'
 	)
 
 	IF (@@TRANCOUNT > 0)  commit transaction InsertCOHCodigoATP; 

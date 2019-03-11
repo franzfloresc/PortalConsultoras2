@@ -9,8 +9,10 @@ var _palanca = {
 var _tipopresentacion = {
     showroom: "5",
     odd: "6",
-    banner: "4"
+    banner: "4",
+    bannerInterativo: "10"
 }
+
 jQuery(document).ready(function () {
     admPalancaDatos.ini();
 
@@ -73,11 +75,35 @@ jQuery(document).ready(function () {
         } else {
             $(".hide-configuration").hide();
         }
-
+        
         if ($(this).find("option:selected").attr("data-codigo") === _palanca.odd) {
             $(".hide-config-image-odd").show();
         } else {
             $(".hide-config-image-odd").hide();
+        }
+
+        if ($(this).find("option:selected").attr("data-codigo") == ConstantesModule.TipoEstrategia.ATP) {
+            $(".div-disenio-atp-visible").show();
+            $(".div-disenio-atp-oculto").hide();
+            $("#tituloSeccionDesktop").html("Desktop/Mobile");
+            $("#titColorTexto").html("Color de títulos");
+            $("#DesktopTitulo").val("ARMA TU PACK");
+            $("#DesktopColorFondo").val("#fa1702");
+            $("#DesktopSubTitulo").val("Elige #Cantidad y llevátelos al #PrecioTotal");
+            $("#DesktopColorTexto").val("#ffffff");
+            $("#BotonTexto1").val("Comenzar");
+            $("#BotonTexto2").val("Modificar");
+            $("#BotonColor").val("#000000");
+            $("#BotonColorTexto").val("#ffffff");
+            $("#DesktopCantidadProductos").val("0");
+            $("#cbDesktopCantidadTodos").prop("checked", true);
+            $("#DesktopCantidadProductos").attr("disabled", "disabled");
+            $("#ddlDesktopTipoPresentacionOfertas").val(_tipopresentacion.bannerInterativo);           
+        }else {
+            $(".div-disenio-atp-visible").hide();
+            $(".div-disenio-atp-oculto").show();
+            $("#tituloSeccionDesktop").html("Desktop");
+            $("#titColorTexto").html("Color Texto:");
         }
     });
 });
@@ -95,13 +121,66 @@ function Modificar(idConfiguracionPais, event) {
                 UploadFilePalanca("icono"), UploadFilePalanca("desktop-fondo-banner"), UploadFilePalanca("desktop-logo-banner"),
                 UploadFilePalanca("mobile-fondo-banner"), UploadFilePalanca("mobile-logo-banner")
             );
+
+
             showDialog("DialogMantenimientoPalanca");
 
             var esTrueAncla = $.trim($("#UrlMenu").val()) == "#";
+
             if (esTrueAncla) {
                 $("#cbAncla").prop("checked", true);
                 $("#UrlMenu").attr("disabled", "disabled");
             }
+
+            /*INIT Agana 159*/
+             
+            var esATP = $.trim($("#Codigo").val()) === ConstantesModule.TipoEstrategia.ATP;
+           
+            if (esATP) {
+                $("#lblDesktop").html('Desktop/Mobile');
+
+                $("#divUrlMenu").hide();
+                $("#divUrlMenuTxt").hide();
+
+                $("#divDesktopFondo").hide();
+                $("#divDesktopLogo").hide();
+
+                $("#divSeccionMobileTitulo").hide();
+                $("#divSeccionMobile").hide();
+
+                $("#divOrdenBPT").hide();
+                $("#divDesktopSubTituloMenu").hide();
+                $("#divDesktopTituloBanner").hide();
+                $("#divDesktopSubTituloBanner").hide();       
+            } else {
+                $("#lblDesktop").html('Desktop');//Default
+                $("#divUrlMenu").show();
+                $("#divUrlMenuTxt").show();
+
+                $("#divDesktopFondo").show();
+                $("#divDesktopLogo").show();
+
+                $("#divSeccionMobileTitulo").show();
+                $("#divSeccionMobile").show();
+
+                $("#divOrdenBPT").show();
+                $("#divDesktopSubTituloMenu").show();
+                $("#divDesktopTituloBanner").show();
+                $("#divDesktopSubTituloBanner").show();
+            }
+
+            /*END Agana 159*/
+
+             /*Ini Agana 186*/
+
+            if ($(this).find("option:selected").attr("data-codigo") == ConstantesModule.TipoEstrategia.ATP) {
+                $(".div-disenio-atp-visible").show();
+                $(".div-disenio-atp-oculto").hide();
+                $("#tituloSeccionDesktop").html("Desktop/Mobile");
+                $("#titColorTexto").html("Color de títulos");
+            }
+
+             /*Fin Agana 186*/
         },
         error: function (request, status, error) { }
     });
@@ -145,6 +224,16 @@ function ModificarOfertas(idOfertasHome) {
             } else {
                 $(".hide-configuration").hide();
             }
+
+            /*Inicia Agana 186 */
+            if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") == ConstantesModule.TipoEstrategia.ATP) {               
+                $(".div-disenio-atp-visible").show();
+                $(".div-disenio-atp-oculto").hide();
+                $("#tituloSeccionDesktop").html("Desktop/Mobile");
+                $("#titColorTexto").html("Color de títulos");                
+            }
+            /*Fin Agana 186 */
+
         },
         error: function (request, status, error) { }
     });
@@ -157,9 +246,9 @@ function IniDialogs() {
         closeOnEscape: true,
         width: 830,
         draggable: false,
-        title: "Configurar Contenedor Menú",
+        title: "Menú",
         open: function (event, ui) {
-            (".ui-dialog-titlebar-close", ui.dialog).hide();
+            //(".ui-dialog-titlebar-close", ui.dialog).hide(); //eaar tiene bug
         },
         close: function () {
             HideDialog("DialogMantenimientoPalanca");
@@ -172,6 +261,19 @@ function IniDialogs() {
                     _toastHelper.error("El valor del orden tiene que ser numerico.");
                     return false;
                 }
+
+                /*INIT AGANA 159 */
+                var esATP = $.trim($("#Codigo").val()) === ConstantesModule.TipoEstrategia.ATP;
+
+                if (esATP) {
+                    //valores a replicar
+                    $("#OrdenBpt").val($("#Orden").val());
+                    $("#DialogMantenimientoPalanca #MobileOrden").val($("#Orden").val());
+                    $("#DialogMantenimientoPalanca #MobileOrdenBpt").val($("#Orden").val());
+                    $("#MobileTituloMenu").val($("#DesktopTituloMenu").val());
+                }
+                /*END AGANA 159 */
+
                 var params = {
                     ConfiguracionPaisID: $("#ConfiguracionPaisID").val(),
                     Codigo: $("#ddlConfiguracionPais").val(),
@@ -206,15 +308,18 @@ function IniDialogs() {
                     async: true,
                     success: function (data) {
                         if (data.success) {
-                            HideDialog("DialogMantenimientoPalanca");
-                            _toastHelper.success("Solicitud realizada sin problemas.");
+                            HideDialog("DialogMantenimientoPalanca"); 
+                             //_toastHelper.error("Solicitud realizada sin problemas.");
+                            showDialogMensaje("Solicitud realizada sin problemas.", '');
                             UpdateGrillaPalanca();
                         } else {
-                            _toastHelper.error("Error al procesar la Solicitud.");
+                            //_toastHelper.error("Error al procesar la Solicitud.");
+                            showDialogMensaje("Error al procesar la Solicitud.", '');
                         }
                     },
                     error: function (data, error) {
-                        _toastHelper.error("Error al procesar la Solicitud.");
+                        //_toastHelper.error("Error al procesar la Solicitud.");
+                        showDialogMensaje("Error al procesar la Solicitud.", '');
                     }
                 });
 
@@ -233,7 +338,7 @@ function IniDialogs() {
         closeOnEscape: true,
         width: 830,
         draggable: false,
-        title: "Configurar Contenedor Home",
+        title: "Home",
         close: function () {
             $('div[id^="collorpicker_"]').hide();
             HideDialog("DialogMantenimientoOfertasHome");
@@ -241,7 +346,7 @@ function IniDialogs() {
         open: function (event, ui) {
             $(".ui-dialog-titlebar-close", ui.dialog).hide();
             $("#colorpickerHolder").ColorPicker({ flat: true });
-            $("#DesktopColorFondo, #DesktopColorTexto, #MobileColorFondo, #MobileColorTexto, #AdministrarOfertasHomeAppModel_AppColorFondo, #AdministrarOfertasHomeAppModel_AppColorTexto").ColorPicker({
+            $("#DesktopColorFondo, #DesktopColorTexto, #MobileColorFondo, #MobileColorTexto, #AdministrarOfertasHomeAppModel_AppColorFondo, #AdministrarOfertasHomeAppModel_AppColorTexto, #BotonColor, #BotonColorTexto").ColorPicker({
                 onSubmit: function (hsb, hex, rgb, el) {
                     var newValue = "#" + hex;
                     $(el).val(newValue);
@@ -251,9 +356,9 @@ function IniDialogs() {
                     $(this).ColorPickerSetColor(this.value);
                 }
             })
-            .bind("keyup", function () {
-                $(this).ColorPickerSetColor(this.value);
-            });
+                .bind("keyup", function () {
+                    $(this).ColorPickerSetColor(this.value);
+                });
 
             if ($("#DesktopColorFondo").val() === "") {
                 $("#DesktopColorFondo").val("#000000");
@@ -324,6 +429,8 @@ function IniDialogs() {
                 var mobileColorTexto = $("#MobileColorTexto").val();
                 var desktopUsarImagenFondo = $("#DesktopUsarImagenFondo").prop("checked");
                 var mobileUsarImagenFondo = $("#MobileUsarImagenFondo").prop("checked");
+                var botonColor = $("#BotonColor").val();
+                var botonColorTexto = $("#BotonColorTexto").val();
 
                 var regExpColorHex = /^#+([a-fA-F0-9]{6})/;
                 if (!regExpColorHex.test(desktopColorFondo) && desktopColorFondo !== "") {
@@ -346,6 +453,21 @@ function IniDialogs() {
                     return false;
                 }
 
+                var esATP = $.trim($("#Codigo").val()) === ConstantesModule.TipoEstrategia.ATP;
+
+                if (esATP) {
+                    if (!regExpColorHex.test(botonColor) && botonColor !== "") {
+                        _toastHelper.error("El color del botón debe tener un código hexadecimal válido.");
+                        return false;
+                    }
+
+                    if (!regExpColorHex.test(botonColorTexto) && botonColorTexto !== "") {
+                        _toastHelper.error("El color del mensaje del botón debe tener un código hexadecimal válido.");
+                        return false;
+                    }
+                }
+
+
                 if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") === _palanca.odd) {
                     desktopTipoPresentacion = _tipopresentacion.odd;
                     mobileTipoPresentacion = _tipopresentacion.odd;
@@ -357,6 +479,17 @@ function IniDialogs() {
                     desktopUsarImagenFondo = false;
                     mobileUsarImagenFondo = false;
                 }
+
+
+                if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") == ConstantesModule.TipoEstrategia.ATP) {
+                    desktopColorFondo = $("#DesktopColorFondo").val();
+                    mobileColorFondo = $("#MobileColorFondo").val();
+                    desktopColorTexto = $("#DesktopColorTexto").val();
+                    mobileColorTexto = $("#MobileColorTexto").val();
+                    desktopUsarImagenFondo = $("#DesktopUsarImagenFondo").prop("checked");
+                    mobileUsarImagenFondo = $("#MobileUsarImagenFondo").prop("checked");
+                }
+
 
                 if (isNaN($("#AdministrarOfertasHomeAppModel_AppOrden").val())) {
                     _toastHelper.error("El valor del orden app tiene que ser numérico.");
@@ -376,6 +509,15 @@ function IniDialogs() {
                     _toastHelper.error("El color de texto para app debe tener un código hexadecimal válido.");
                     return false;
                 }
+
+                /*Ini Agana 186*/
+
+                if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") == ConstantesModule.TipoEstrategia.ATP) {
+                    $("#DesktopOrdenBpt").val($("#DesktopOrden").val());
+                    $("#MobileOrden").val($("#DesktopOrden").val());
+                    $("#MobileOrdenBpt").val($("#DesktopOrden").val());
+                }
+                /*Fin Agana 186*/
 
                 var params = {
                     ConfiguracionOfertasHomeID: $("#ConfiguracionOfertasHomeID").val(),
@@ -416,7 +558,11 @@ function IniDialogs() {
                         AppBannerInformativo: $("#nombre-fondo-app").val(),
                         AppOrden: $("#AdministrarOfertasHomeAppModel_AppOrden").val(),
                         AppCantidadProductos: $("#AdministrarOfertasHomeAppModel_AppCantidadProductos").val(),
-                    }
+                    },
+                    BotonTexto1 : $("#BotonTexto1").val(),
+                    BotonTexto2 : $("#BotonTexto2").val(),
+                    BotonColor : $("#BotonColor").val(),
+                    BotonColorTexto : $("#BotonColorTexto").val(),
                 };
 
                 waitingDialog({});
@@ -433,7 +579,8 @@ function IniDialogs() {
 
                         if (data.success) {
                             HideDialog("DialogMantenimientoOfertasHome");
-                            _toastHelper.success("Solicitud realizada sin problemas.");
+                            //_toastHelper.success("Solicitud realizada sin problemas.");
+                            showDialogMensaje("Se actualizó la información satisfactoriamente.", '');
                             UpdateGrillaOfertas();
                         } else {
                             _toastHelper.error("Error al procesar la Solicitud.");
@@ -581,7 +728,7 @@ function UpdateGrillaOfertas() {
         rowNum: 10,
         scrollOffset: 0,
         rowList: [10, 20, 30, 40, 50],
-        sortname: "Orden",
+        sortname: "DesktopOrden",
         sortorder: "asc",
         viewrecords: true,
         height: "auto",

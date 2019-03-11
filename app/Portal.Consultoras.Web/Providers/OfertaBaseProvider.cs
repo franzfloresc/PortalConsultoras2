@@ -44,11 +44,11 @@ namespace Portal.Consultoras.Web.Providers
                 return estrategias;
             }
 
-            OutputOferta respuesta = new OutputOferta();
+            OutputOfertaLista respuesta = new OutputOfertaLista();
             var listaSinPrecio2 = new List<string>();
             try
             {
-                respuesta = JsonConvert.DeserializeObject<OutputOferta>(jsonString);
+                respuesta = JsonConvert.DeserializeObject<OutputOfertaLista>(jsonString);
             }
             catch (Exception ex)
             {
