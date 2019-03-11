@@ -952,6 +952,7 @@ namespace Portal.Consultoras.Common
             public const int DesktopPedidoProductoRecomendadoOpmFicha = 1020009;
             public const int DesktopPedidoProductoRecomendadoShowRoomFicha = 1020109;
             public const int AppConsultoraContenedorShowroomFicha = 4080102;
+            public const int DesktopPedidoProductoRecomendadoLanFicha = 1020209;
             public const int DesktopPedidoProductoRecomendadoOddFicha = 1020309;
             public const int DesktopPedidoProductoRecomendadoHvFicha = 1020809;
             public const int DesktopPedidoProductoRecomendadoGanadorasFicha = 1021409;
@@ -1664,6 +1665,13 @@ namespace Portal.Consultoras.Common
                 public const string MPopupBloqueado = "MPopupBloqueado";
                 #endregion
             }
+
+            public const string AppOfertasHomeActivo = "AppOfertasHomeActivo";
+            public const string AppOfertasHomeImgExtension = "AppOfertasHomeImgExtension";
+            public const string AppOfertasHomeImgAncho = "AppOfertasHomeImgAncho";
+            public const string AppOfertasHomeImgAlto = "AppOfertasHomeImgAlto";
+            public const string AppOfertasHomeMsjMedida = "AppOfertasHomeMsjMedida";
+            public const string AppOfertasHomeMsjFormato = "AppOfertasHomeMsjFormato";
         }
 
         public static class ConfiguracionSeccion
@@ -1803,6 +1811,7 @@ namespace Portal.Consultoras.Common
             public const short ArmaTuPack = 14;
             public const short PilotoCatalogoDigital = 155;
             public const short GanaMasNativo = 159;
+            public const short ResizeImagenesAppGanaMas = 162;
             public const short TiempoMaximoSP = 180;
         }
 
@@ -2035,6 +2044,7 @@ namespace Portal.Consultoras.Common
             public const string MontoPremiacion = "Pasa pedido de {0} {1} esta campaña para entregarte tu premio.";
             public const string CalculoPuntos = "X;K";
             public const string CalculoProgramaNuevas = "P";
+            public const string OfertaFinalTippingPoint = "AGREGA {Monto} PARA GANAR UN {Producto} Y ACCEDER A PACKS EXCLUSIVOS NUEVAS";
         }
 
         public static class ComunicadoTipoDispositivo
@@ -2176,57 +2186,6 @@ namespace Portal.Consultoras.Common
             public const string TipoImagenSmall = "SMALL";
             public const string TipoImagenMedium = "MEDIUM";
             public const string ValorTextoDefaultAppCatalogo = "appcatalogo";
-
-            public class App
-            {
-                public static List<AppConfiguracion> Configuracion
-                {
-                    get
-                    {
-                        var lst = new List<AppConfiguracion>();
-
-                        lst.Add(new AppConfiguracion()
-                        {
-                            Tipo = "_mdpi",
-                            Alto = 215,
-                            Ancho = 95
-                        });
-                        lst.Add(new AppConfiguracion()
-                        {
-                            Tipo = "_hdpi",
-                            Alto = 322,
-                            Ancho = 142
-                        });
-                        lst.Add(new AppConfiguracion()
-                        {
-                            Tipo = "_xhdpi",
-                            Alto = 430,
-                            Ancho = 190
-                        });
-                        lst.Add(new AppConfiguracion()
-                        {
-                            Tipo = "_xxhdpi",
-                            Alto = 645,
-                            Ancho = 285
-                        });
-                        lst.Add(new AppConfiguracion()
-                        {
-                            Tipo = "_xxxhdpi",
-                            Alto = 860,
-                            Ancho = 380
-                        });
-
-                        return lst;
-                    }
-                }
-
-                public class AppConfiguracion
-                {
-                    public string Tipo { get; set; }
-                    public int Alto { get; set; }
-                    public int Ancho { get; set; }
-                }
-            }
         }
 
         public static class RecuperacionPedido
@@ -3407,6 +3366,8 @@ namespace Portal.Consultoras.Common
             public const int ImgFichaFondoMobile = 10209;
             public const int UrlVideoDesktop = 10204;
             public const int UrlVideoMobile = 10207;
+            public const int ImgFondoApp = 10214;
+            public const int ColorTextoApp = 10215;
         }
 
         public static class Formatos {
