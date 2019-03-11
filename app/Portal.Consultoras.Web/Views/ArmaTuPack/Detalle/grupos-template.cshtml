@@ -30,11 +30,27 @@
                                 <div class="contenedor_rangos" data-cantidad-contenedor="">
                                     <input class="txt_cantidad_pedido ValidaNumeral ValidaPasteNumeral" type="text" value="1" size="2" maxlength="2" data-input="cantidad" data-cantidad-input="-" disabled="">
                                     <div>
-                                        <a class="txt_menos" data-cantidad-agregar="-" onclick="javascript:ListaOpcionesModule.EliminarOpcion('30476',event)">
-                                            <img src="/Content/Images/menos.svg" alt="" />
+                                        <a class="txt_menos" 
+                                            data-cantidad-agregar="-" 
+                                            data-delete-component
+                                            data-cuv-grupo="{{grupo.Cuv}}" 
+                                            data-cuv-componente="{{componente.Cuv}}" >
+                                            <img src="/Content/Images/menos.svg" 
+                                                alt="" 
+                                                data-cuv-grupo="{{grupo.Cuv}}" 
+                                                data-cuv-componente="{{componente.Cuv}}"
+                                                />
                                         </a>
-                                        <a class="txt_mas" data-cantidad-agregar="+" onclick="javascript:ListaOpcionesModule.SeleccionarOpcion('30476',event)">
-                                            <img src="/Content/Images/mas.svg" alt="" />
+                                        <a class="txt_mas" 
+                                            data-cantidad-agregar="+"
+                                            data-add-component
+                                            data-cuv-grupo="{{grupo.Cuv}}" 
+                                            data-cuv-componente="{{componente.Cuv}}" >
+                                            <img src="/Content/Images/mas.svg" 
+                                                alt=""
+                                                data-cuv-grupo="{{grupo.Cuv}}" 
+                                                data-cuv-componente="{{componente.Cuv}}"
+                                                />
                                         </a>
                                     </div>
                                 </div>

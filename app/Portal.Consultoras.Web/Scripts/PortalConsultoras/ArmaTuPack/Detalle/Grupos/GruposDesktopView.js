@@ -30,6 +30,13 @@
             _presenter.addComponente(cuvGrupo,cuvComponente);
         });
 
+        $(_elements.gruposDesktop.id).on("click","[data-delete-component]",function(e){
+            var $btn = $(e.target);
+            var cuvGrupo = $btn.data("cuv-grupo");
+            var cuvComponente = $btn.data("cuv-componente");
+            _presenter.deleteComponente(cuvGrupo,cuvComponente);
+        });
+
         var slickSettings = {
             slidesToShow: 5,
             slidesToScroll: 1,
@@ -53,13 +60,6 @@
         }
 
         $(_elements.gruposDesktop.attrCarruselContainer).slick(slickSettings);
-
-        $(document).on("click", "[data-delete-component]", function (e) {
-            var $btn = $(e.target);
-            var grupo = $btn.data("grupo");
-            var cuvComponente = $btn.data("cuv-componente");
-            _presenter.deleteComponente(grupo, cuvComponente);
-        });
     };
 
     return {
