@@ -477,7 +477,24 @@ function ObtenerEstadoCatalogo(campana, defered) {
 function CopiarEnlaceActual(catalogo, campania) {
 
     var copyText = $('#txtUrlActual');
-    copyText.select();
+
+    if (isMobileNative.iOS()) {
+        var el = copyText.get(0);
+        var editable = el.contentEditable;
+        var readOnly = el.readOnly;
+        el.contentEditable = true;
+        el.readOnly = false;
+        var range = document.createRange();
+        range.selectNodeContents(el);
+        var sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+        el.setSelectionRange(0, 999999);
+        el.contentEditable = editable;
+        el.readOnly = readOnly;
+    }
+    else
+        copyText.select();
 
     try {
         var successful = document.execCommand('copy');
@@ -756,7 +773,7 @@ function CatalogoEnviarEmail() {
         async: true,
         success: function (data) {
             closeWaitingDialog();
-            $('#CompartirCorreo').hide();
+            $('#CompartirCorreo').fadeOut(100);
             if (checkTimeout(data)) {
                 if (data.success) {
                     MonstrarAlerta(data.message);
@@ -771,7 +788,7 @@ function CatalogoEnviarEmail() {
         },
         error: function (data, error) {
             closeWaitingDialog();
-            $('#CompartirCorreo').hide();
+            $('#CompartirCorreo').fadeOut(100);
             if (checkTimeout(data)) {
                 MonstrarExclamacion("ERROR");
             }
@@ -820,7 +837,7 @@ function CatalogoEnviarEmailPiloto() {
         async: true,
         success: function (data) {
             closeWaitingDialog();
-            $('#CompartirCorreo').hide();
+            $('#CompartirCorreo').fadeOut(100);
             if (checkTimeout(data)) {
                 if (data.success) {
                     MonstrarAlerta(data.message);
@@ -835,7 +852,7 @@ function CatalogoEnviarEmailPiloto() {
         },
         error: function (data, error) {
             closeWaitingDialog();
-            $('#CompartirCorreo').hide();
+            $('#CompartirCorreo').fadeOut(100);
             if (checkTimeout(data)) {
                 MonstrarExclamacion("ERROR");
             }
@@ -974,10 +991,10 @@ function ocultarTooltipCompartirCatalogoMobile() {
 
 function MonstrarExclamacion(texto) {
     $("#mensaje_exclamacion #mensaje_exclamacion_texto").html(texto);
-    $("#mensaje_exclamacion").show();
+    $("#mensaje_exclamacion").fadeIn(100);
 }
 
 function MonstrarAlerta(texto) {
     $("#mensaje_alerta #mensaje_alerta_texto").html(texto);
-    $("#mensaje_alerta").show();
+    $("#mensaje_alerta").fadeIn(100);
 }
