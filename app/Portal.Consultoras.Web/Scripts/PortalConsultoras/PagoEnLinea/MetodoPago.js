@@ -20,20 +20,6 @@ $(document).ready(function () {
                 $(document).on('click', '.opcionPagoMobile', me.Eventos.MostrarDetalleTipoPago);
                 $(document).on('click', '.opcionPagoDesktop', me.Eventos.MostrarDetalleTipoPago);
             },
-            InicializarAcciones: function () {
-                me.Funciones.listarBancos();
-            },
-            listarBancos: function () {
-
-                if (bancos == '1') {
-                    document.getElementById('divOpciones').style.display = 'block';
-                    return false;
-                }
-
-                document.getElementById('divIcono').innerHTML = "<img src='" + $("#hdfRutaIcono").val() + "' alt= 'Pagos Banca por Internet' /> ";
-                document.getElementById('divBancaPorInternet').style.display = 'block';
-                document.getElementById('divOpciones').style.display = 'block';
-            },
             GuardarMetodoPago: function (parametros) {
 
                 jQuery.ajax({
@@ -106,7 +92,6 @@ $(document).ready(function () {
         };
         me.Inicializar = function () {
             me.Funciones.InicializarEventos();
-            me.Funciones.InicializarAcciones();
         };
     }
 
