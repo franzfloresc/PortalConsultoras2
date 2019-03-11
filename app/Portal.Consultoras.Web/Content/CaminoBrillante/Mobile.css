@@ -1,0 +1,25 @@
+﻿
+@media screen and (max-width: 530px) {
+    .mb-left {
+        display: block;
+        float: left;
+    }
+
+    .cam-exito img {
+        display: block;
+        float: left;
+        margin-right: 10px;
+    }
+
+    .cam-exito p {
+        text-align: left;
+    }
+
+    .cam-exito .toptext {
+        margin-bottom: 10px;
+    }
+
+    .cam-exito a {
+        margin-top: 11px;
+    }
+}

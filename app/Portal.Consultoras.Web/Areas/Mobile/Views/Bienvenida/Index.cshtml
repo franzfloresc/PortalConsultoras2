@@ -20,8 +20,14 @@
 
 }
 
+
+<link href="~/Content/CaminoBrillante/Mobile.css" rel="stylesheet" />
+
+
+
 @section styles{
     <style type="text/css">
+
         body {
             background: #FFF !important;
         }
@@ -107,6 +113,7 @@
                         <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width:100%; height:auto;" />
                     }
                 </div>
+
             }
         </div>
         <div class="content_resumen_dato_mobile" style="text-align:left">
@@ -246,6 +253,32 @@
         <div class="linea_separadora_mobile" style="margin-top:4px;"></div>
     }
     <!-- FIN - ENLACE CAMINO AL ÉXITO -->
+
+
+    <div class="content_320">
+        <div class="item1_mobile">
+
+
+
+            <div class="items_belcorp cam-exito">
+                <img src="~/Content/Images/CaminoBrillante/medalla.PNG">
+                <p class="toptext">Camino al &eacute;xito</p>
+                <p>
+                    Conoce todos tus beneficios por ser <br><strong>Consultora Especialista</strong>
+                </p>
+                <a href="@Url.Action("Index", "CaminoBrillante")">Ver Beneficios</a>
+            </div>
+
+
+
+
+
+        </div>
+    </div>
+
+    <div class="linea_separadora_mobile" style="margin-top:16px"></div>
+
+
 
     <div class="content_320">
         <div class="item1_mobile">
@@ -487,7 +520,7 @@
     </div>
 
 </div>
-</div>
+    </div>
 <input type="hidden" id="hdTipoEstrategiaID" value="0" />
 <input type="hidden" id="hdPosicion" value="0" />
 <div id="divVistaPrevia" class="Content_modal_ZE" style="display: none; background-color: #fff; overflow: hidden;">
@@ -863,7 +896,7 @@
         var urlCatalogoPersonalizado = '@Url.Action("Index", "CatalogoPersonalizado", new { area = "Mobile" })';
         var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "Estrategia", new { area = "" })';
 
-        var tipoOrigenEstrategia = 2; 
+        var tipoOrigenEstrategia = 2;
         var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.MobileHomeOfertaDelDiaCarrusel';
         var noMostrarPopUpRevistaDig = '@Model.RevistaDigital.NoVolverMostrar';
 
