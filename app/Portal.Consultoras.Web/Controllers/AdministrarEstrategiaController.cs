@@ -955,23 +955,24 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 bool dbdefault = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
                 List<EstrategiaMDbAdapterModel> lst = new List<EstrategiaMDbAdapterModel>();
-                var entidad = new ServicePedido.BEEstrategia
-                {
-                    PaisID = userData.PaisID,
-                    EstrategiaID = Convert.ToInt32(EstrategiaID),
-                    CampaniaID = Convert.ToInt32(CampaniaID),
-                    TipoEstrategiaID = Convert.ToInt32(TipoEstrategiaID),
-                    CUV2 = cuv2,
-                    AgregarEnMatriz = true,
-                    UsuarioRegistro = userData.CodigoConsultora
-                };
-
+                
                 if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, tipoEstrategiaCodigo, dbdefault))
                 {
                     lst.AddRange(administrarEstrategiaProvider.FiltrarEstrategia(mongoIdVal, userData.CodigoISO).ToList());
                 }
                 else
                 {
+                    var entidad = new ServicePedido.BEEstrategia
+                    {
+                        PaisID = userData.PaisID,
+                        EstrategiaID = Convert.ToInt32(EstrategiaID),
+                        CampaniaID = Convert.ToInt32(CampaniaID),
+                        TipoEstrategiaID = Convert.ToInt32(TipoEstrategiaID),
+                        CUV2 = cuv2,
+                        AgregarEnMatriz = true,
+                        UsuarioRegistro = userData.CodigoConsultora
+                    };
+
                     using (var sv = new PedidoServiceClient())
                     {
                         var tmpList = sv.FiltrarEstrategia(entidad).ToList();
