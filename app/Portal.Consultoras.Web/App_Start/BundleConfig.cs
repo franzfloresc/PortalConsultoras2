@@ -773,7 +773,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Shared/AnalyticsPortal.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js",
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/CarruselModule.js",
-            "~/Scripts/PortalConsultoras/DetalleEstrategia/FichaModule.js"
+                "~/Scripts/PortalConsultoras/DetalleEstrategia/DetalleEstrategiaProvider.js",
+                "~/Scripts/PortalConsultoras/DetalleEstrategia/FichaModule.js"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/Ficha").Include(
@@ -1006,6 +1007,17 @@ namespace Portal.Consultoras.Web
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mixto/ArmaTuPack").Include(
+                 "~/Scripts/PortalConsultoras/ArmaTuPack/ArmaTuPackProvider.js",
+                 "~/Scripts/PortalConsultoras/ArmaTuPack/Detalle/Cabecera/CabeceraView.js",
+                 "~/Scripts/PortalConsultoras/ArmaTuPack/Detalle/Cabecera/CabeceraPresenter.js",
+                 "~/Scripts/PortalConsultoras/ArmaTuPack/Detalle/Grupos/GruposDesktopView.js",
+                 "~/Scripts/PortalConsultoras/ArmaTuPack/Detalle/Grupos/GruposMobileView.js",
+                 "~/Scripts/PortalConsultoras/ArmaTuPack/Detalle/Grupos/GruposPresenter.js",
+                 "~/Scripts/PortalConsultoras/ArmaTuPack/Detalle/Seleccionados/SeleccionadosView.js",
+                 "~/Scripts/PortalConsultoras/ArmaTuPack/Detalle/Seleccionados/SeleccionadosPresenter.js",
+                 "~/Scripts/PortalConsultoras/ArmaTuPack/Detalle/ArmaTuPackDetalleEvents.js",
+                 "~/Scripts/PortalConsultoras/ArmaTuPack/Detalle/DetallePresenter.js",
+                 "~/Scripts/PortalConsultoras/ArmaTuPack/Detalle/Detalle.js"
               ));
             #endregion
 

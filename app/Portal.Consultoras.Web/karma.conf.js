@@ -37,15 +37,34 @@ module.exports = function (config) {
             'Scripts/PortalConsultoras/TusClientes/PanelListaModule.js',
             'Scripts/PortalConsultoras/TusClientes/PanelMantenerModule.js',
             'Scripts/PortalConsultoras/TusClientes/ClientePanelModule.js',
+            'Scripts/PortalConsultoras/DetalleEstrategia/DetalleEstrategiaProvider.js',
             'Scripts/PortalConsultoras/DetalleEstrategia/FichaModule.js',
 
             // TusClientes
             'Scripts/PortalConsultoras/TusClientes/TusClientesView.js',
             'Scripts/PortalConsultoras/TusClientes/TusClientesModule.js',
 
+            // ArmaTuPack
+            'Scripts/PortalConsultoras/ArmaTuPack/Detalle/Cabecera/CabeceraPresenter.js',
+            'Scripts/PortalConsultoras/ArmaTuPack/Detalle/Cabecera/CabeceraView.js',
+            'Scripts/PortalConsultoras/ArmaTuPack/Detalle/Grupos/GruposPresenter.js',
+            'Scripts/PortalConsultoras/ArmaTuPack/Detalle/Grupos/GruposMobileView.js',
+            'Scripts/PortalConsultoras/ArmaTuPack/Detalle/Grupos/GruposDesktopView.js',
+            'Scripts/PortalConsultoras/ArmaTuPack/Detalle/Seleccionados/SeleccionadosPresenter.js',
+            'Scripts/PortalConsultoras/ArmaTuPack/Detalle/Seleccionados/SeleccionadosView.js',
+            'Scripts/PortalConsultoras/ArmaTuPack/Detalle/ArmaTuPackDetalleEvents.js',
+            'Scripts/PortalConsultoras/ArmaTuPack/Detalle/DetallePresenter.js',
+            'Scripts/PortalConsultoras/ArmaTuPack/ArmaTuPackProvider.js',
+
             // Specs
             'Scripts/tests/PortalConsultoras/DetalleEstrategia/FichaModuleSpec.js',
-            'Scripts/tests/PortalConsultoras/TusClientes/TusClientesModuleSpec.js'
+            //
+            'Scripts/tests/PortalConsultoras/TusClientes/TusClientesModuleSpec.js',
+            //
+            'Scripts/tests/PortalConsultoras/ArmaTuPack/Detalle/Cabecera/CabeceraPresenterSpec.js',
+            'Scripts/tests/PortalConsultoras/ArmaTuPack/Detalle/Grupos/GruposPresenterSpec.js',
+            'Scripts/tests/PortalConsultoras/ArmaTuPack/Detalle/Seleccionados/SeleccionadosPresenterSpec.js',
+            'Scripts/tests/PortalConsultoras/ArmaTuPack/Detalle/DetallePresenterSpec.js'
         ],
 
 
@@ -67,7 +86,7 @@ module.exports = function (config) {
         reporters: [
             //'progress',
             'mocha',
-            'coverage',
+            //'coverage',
         ],
 
         coverageReporter: {
@@ -93,9 +112,9 @@ module.exports = function (config) {
         // start these browsers
         // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
         browsers: [
-            'ChromeDebugging'
+            //'ChromeDebugging'
             //'Chrome'
-            //'PhantomJS'
+            'PhantomJS'
         ],
 
         customLaunchers: {

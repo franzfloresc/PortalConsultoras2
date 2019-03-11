@@ -26,27 +26,33 @@ h1, h2, h3, h4, h5, h6 {
     font-family: 'Lato', sans-serif !important;
 }
 
+.tabla_cabecera,
+.tabla_item
+{
+    min-height:60px;
+}
+
+.tabla_item{
+    border-bottom: 1px solid #d8d8d8;
+}
 
 .tabla_cabecera div {
     color: #000;
     font-weight: 600;
     font-size: 13px;
     letter-spacing: 0.3px;
-    padding-top: 17px;
-    padding-bottom: 17px;
-    line-height: normal;
     text-transform: uppercase;
     border-bottom: 1px solid #000;
     border-top: 1px solid #000;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .tabla_item div {
     font-size: 13px;
-    line-height: 60px;
-    border-bottom: 1px solid #d8d8d8;
-    height: 60px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
-
 
 .btn_editar {
     background: url('/Content/Images/editar_tu_clientes.svg') center center no-repeat;
@@ -63,6 +69,7 @@ h1, h2, h3, h4, h5, h6 {
     border: none;
     width: 24px;
     cursor: pointer;
+    background-size:22px;
 }
 
 .layout__view__lista__breadcrumbs {
@@ -193,10 +200,17 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom:60px;
 }
 
+@media screen and (min-width:768px) and (max-width:991px){
 
+    .container_clientes,
+    .container_filtros_fixed
+    {
+        max-width:98%;
+    }
 
+}
 
-@media screen and (max-width:768px) {
+@media screen and (max-width:767px) {
 
     .show_PopupEditarCliente {
         width: 100% !important;
@@ -205,6 +219,7 @@ h1, h2, h3, h4, h5, h6 {
     .tabla_cabecera{
         display:none;
     }
+
     .titulo_bloque {
         margin-top: 60px;
         margin-bottom: 15px;
@@ -232,7 +247,7 @@ h1, h2, h3, h4, h5, h6 {
 
         }
 
-    le.content_boton_agregar {
+    .content_boton_agregar {
         position: fixed;
         bottom: 0;
         z-index: 10;
@@ -245,6 +260,7 @@ h1, h2, h3, h4, h5, h6 {
     .botton_export_xls{
         display: none;
     }
+
     .buscar_cliente{
         width: 100% !important;
     }
@@ -256,6 +272,7 @@ h1, h2, h3, h4, h5, h6 {
     .tabla_item {
         border-bottom: 1px solid #d8d8d8;
         align-items: center;
+        min-height:60px;
     }
 
         .tabla_item div {
@@ -272,6 +289,12 @@ h1, h2, h3, h4, h5, h6 {
         padding: 0;
     }
 
+    .editar,
+    .eliminar
+    {
+        padding:0!important;
+    }
+
     .editar {
         border-right: 1px solid #979797 !important;
         height: 35px !important;
@@ -281,6 +304,7 @@ h1, h2, h3, h4, h5, h6 {
     .btn_editar {
         height: 38px;
     }
+
     .d-none{
         display:none !important;
     }

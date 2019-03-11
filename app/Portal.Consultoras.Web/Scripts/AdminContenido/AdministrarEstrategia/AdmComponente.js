@@ -218,13 +218,15 @@
             event.stopPropagation();
         }
 
+        var idFila = $($(event.target).parents("[id]")[0]).attr("id");
+
         _limpiarDatosShowRoomDetalle();
 
         $("#txtPaisDetalle").val(admConfig.Variable.paisNombre);
         $("#txtCampaniaDetalle").val(CampaniaID);
         $("#txtCUVDetalle").val(CUV);
-        $("#txtDescripcionDetalle").val(jQuery("#list").jqGrid("getCell", ID, "DescripcionCUV2"));
-        $("#txtPrecioValorizadoDetalle").val(jQuery("#list").jqGrid("getCell", ID, "Precio2"));
+        $("#txtDescripcionDetalle").val(jQuery("#list").jqGrid("getCell", idFila, "DescripcionCUV2"));
+        $("#txtPrecioValorizadoDetalle").val(jQuery("#list").jqGrid("getCell", idFila, "Precio2"));
 
         /*INI ATP*/
         $("#hdEstrategiaIDMongo").val(ID);
