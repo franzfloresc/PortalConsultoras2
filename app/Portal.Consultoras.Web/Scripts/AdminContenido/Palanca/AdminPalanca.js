@@ -20,9 +20,9 @@ jQuery(document).ready(function () {
     UpdateGrillaPalanca();
     IniDialogs();
 
-    $("#btnBuscar").click(function () {
-        UpdateGrillaOfertas();
-    });
+    //$("#btnBuscar").click(function () {
+    //    UpdateGrillaOfertas();
+    //});
 
 
     $("#ddlTipoEstrategia").change(function () {

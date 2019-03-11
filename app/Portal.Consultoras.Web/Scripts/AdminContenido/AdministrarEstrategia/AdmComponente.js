@@ -104,8 +104,18 @@
         $("#txtCUVDetalle").val("");
         $("#txtDescripcionDetalle").val("");
         $("#txtPrecioValorizadoDetalle").val("");
-    }
+        $("#divbtnGrupoEstrategia").hide();
 
+        var codigoEstrategia = $("#ddlTipoEstrategia").find(":selected").data("codigo");
+        var newTitulo = "Edición de Productos"
+
+        if (codigoEstrategia == _codigoEstrategia.ArmaTuPack) {
+            newTitulo = "Edición de componentes";
+            $("#divbtnGrupoEstrategia").show();
+        }
+        $('#DialogRegistroOfertaShowRoomDetalle').dialog('option', 'title', newTitulo);
+
+    }
 
     var _showImageDetalle = function (cellvalue, options, rowObject) {
         var image = "";
@@ -139,11 +149,13 @@
 
         $("#listShowRoomDetalle").jqGrid("clearGridData");
 
-        var ocultarGrupoEstrategia = $("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ArmaTuPack ? false : true;
+        var codigo = $("#ddlTipoEstrategia").find(":selected").data("codigo");
+
+        var ocultarGrupoEstrategia = codigo != _codigoEstrategia.ArmaTuPack;
         console.log('ocultarGrupoEstrategia', ocultarGrupoEstrategia);
         var parametros = {
             estrategiaId: estrategiaId,
-            codigoTipoEstrategia: $("#ddlTipoEstrategia").find(":selected").data("codigo")
+            codigoTipoEstrategia: codigo
         };
 
         $("#listShowRoomDetalle").setGridParam({ postData: parametros });
@@ -156,7 +168,8 @@
             postData: (parametros),
             mtype: "GET",
             contentType: "application/json; charset=utf-8",
-            colNames: ["EstrategiaProductoId", "EstrategiaId", "CampaniaID", "CUV", "Nombre", "Descripcion Catalogo", "Foto", "Marca","Grupo de estrategia" ,"", "", "", "Acciones"],
+            colNames: ["EstrategiaProductoId", "EstrategiaId", "CampaniaID", "CUV", "Nombre", "Descripcion Catalogo", "Foto", "Marca"
+                , "Nro Grupo", "Nombre Singular", "Nombre Plural", "", "", "", "Acciones"],
             colModel: [
                 { name: "EstrategiaProductoId", index: "EstrategiaProductoId", width: 50, editable: true, resizable: false, hidden: true },
                 { name: "EstrategiaId", index: "Estrategia", width: 50, editable: true, resizable: false, hidden: true },
@@ -168,12 +181,14 @@
                 { name: "ImagenProducto", index: "ImagenProducto", width: 60, editable: true, resizable: false, sortable: false, align: "center", formatter: _showImageDetalle },
                 { name: "IdMarca", index: "IdMarca", width: 50, editable: true, resizable: false, hidden: true },
 
-                { name: "DescripcionGrupo", index: "DescripcionGrupo", width: 50, editable: true, resizable: false, hidden: ocultarGrupoEstrategia },
+                { name: "Grupo", index: "Grupo", width: 50, editable: false, resizable: false, hidden: ocultarGrupoEstrategia },
+                { name: "DescripcionSingular", index: "DescripcionSingular", width: 50, editable: false, resizable: false, hidden: ocultarGrupoEstrategia },
+                { name: "DescripcionPlural", index: "DescripcionPlural", width: 50, editable: false, resizable: false, hidden: ocultarGrupoEstrategia },
 
                 { name: "Precio", index: "Precio", width: 50, editable: true, resizable: false, hidden: true },
                 { name: "PrecioValorizado", index: "PrecioValorizado", width: 50, editable: true, resizable: false, hidden: true },
                 { name: "Activo", index: "Activo", width: 50, editable: true, resizable: false, hidden: true },
-                { name: "Options", index: "Options", width: 40, editable: true, sortable: false, align: "center", resizable: false, formatter: _showActionsDetalle }
+                { name: "Options", index: "Options", width: 40, editable: true, sortable: false, align: "center", resizable: false, formatter: _showActionsDetalle, hidden: !ocultarGrupoEstrategia }
             ],
             jsonReader:
             {
@@ -208,6 +223,7 @@
         });
         jQuery("#listShowRoomDetalle").jqGrid("navGrid", "#pagerShowRoomDetalle", { edit: false, add: false, refresh: false, del: false, search: false });
         jQuery("#listShowRoomDetalle").setGridParam({ datatype: "json", page: 1 }).trigger("reloadGrid");
+
     }
 
 
@@ -222,22 +238,17 @@
 
         _limpiarDatosShowRoomDetalle();
 
+        $("#hdEstrategiaIDMongo").val(ID);
         $("#txtPaisDetalle").val(admConfig.Variable.paisNombre);
         $("#txtCampaniaDetalle").val(CampaniaID);
         $("#txtCUVDetalle").val(CUV);
         $("#txtDescripcionDetalle").val(jQuery("#list").jqGrid("getCell", idFila, "DescripcionCUV2"));
         $("#txtPrecioValorizadoDetalle").val(jQuery("#list").jqGrid("getCell", idFila, "Precio2"));
 
-        /*INI ATP*/
-        $("#hdEstrategiaIDMongo").val(ID);
-        var newTitulo = $("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ArmaTuPack ? "Edición de grupos" : "Edición de Productos"
-        $('#DialogRegistroOfertaShowRoomDetalle').dialog('option', 'title', newTitulo);
-        /*END ATP*/
-
         showDialog("DialogRegistroOfertaShowRoomDetalle");
 
         // obtener de AdmComponente
-        admComponente.FnGrillaOfertaShowRoomDetalle(CampaniaID, CUV, ID);
+        fnGrillaOfertaShowRoomDetalle(CampaniaID, CUV, ID);
         return false;
     }
 
