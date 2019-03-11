@@ -37,7 +37,20 @@
         _config.seleccionadosView.renderSeleccionados(packComponents);
     };
 
+    var _onSelectedComponentsChanged = function (packComponents) {
+        if (typeof packComponents === "undefined" || packComponents === null) {
+            throw "packComponents is null or undefined";
+        }
+
+        if (!Array.isArray(packComponents.componentes) || packComponents.componentes.length === 0) {
+            throw "packComponents has no components";
+        }
+        _packComponents(packComponents);
+        _config.seleccionadosView.renderSeleccionados(packComponents);
+    };
+
     return {
-        onGruposLoaded : _onGruposLoaded
+        onGruposLoaded : _onGruposLoaded,
+        _onSelectedComponentsChanged : _onSelectedComponentsChanged,
     };
 };
