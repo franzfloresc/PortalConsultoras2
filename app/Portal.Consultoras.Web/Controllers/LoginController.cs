@@ -1989,6 +1989,11 @@ namespace Portal.Consultoras.Web.Controllers
                             case Constantes.ConfiguracionPais.DireccionEntrega:
                                 usuarioModel.TieneDireccionEntrega = c.Estado;
                                 break;
+                            case Constantes.ConfiguracionPais.CaminoBrillante:
+                                usuarioModel.CaminoBrillante = c.Estado;
+                                break;
+
+
                         }
 
                         listaConfiPaisModel.Add(c);
