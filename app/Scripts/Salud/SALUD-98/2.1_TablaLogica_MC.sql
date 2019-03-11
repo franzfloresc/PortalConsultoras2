@@ -1,15 +1,9 @@
-
 USE BelcorpPeru
 GO
 
 if not exists(select 1 from TablaLogica where TablaLogicaID = 163)
 begin
-	insert into TablaLogica values(163, '# intentos logueo de usuario')
-end
-
-if not exists(select 1 from TablaLogica where TablaLogicaID = 164)
-begin
-	insert into TablaLogica values(164, 'Tiempo espera de logueo')
+	insert into TablaLogica values(163, 'Políticas de bloqueo')
 end
 go
 
@@ -18,12 +12,7 @@ GO
 
 if not exists(select 1 from TablaLogica where TablaLogicaID = 163)
 begin
-	insert into TablaLogica values(163, '# intentos logueo de usuario')
-end
-
-if not exists(select 1 from TablaLogica where TablaLogicaID = 164)
-begin
-	insert into TablaLogica values(164, 'Tiempo espera de logueo')
+	insert into TablaLogica values(163, 'Políticas de bloqueo')
 end
 go
 
@@ -32,12 +21,7 @@ GO
 
 if not exists(select 1 from TablaLogica where TablaLogicaID = 163)
 begin
-	insert into TablaLogica values(163, '# intentos logueo de usuario')
-end
-
-if not exists(select 1 from TablaLogica where TablaLogicaID = 164)
-begin
-	insert into TablaLogica values(164, 'Tiempo espera de logueo')
+	insert into TablaLogica values(163, 'Políticas de bloqueo')
 end
 go
 
@@ -46,12 +30,7 @@ GO
 
 if not exists(select 1 from TablaLogica where TablaLogicaID = 163)
 begin
-	insert into TablaLogica values(163, '# intentos logueo de usuario')
-end
-
-if not exists(select 1 from TablaLogica where TablaLogicaID = 164)
-begin
-	insert into TablaLogica values(164, 'Tiempo espera de logueo')
+	insert into TablaLogica values(163, 'Políticas de bloqueo')
 end
 go
 
@@ -60,12 +39,7 @@ GO
 
 if not exists(select 1 from TablaLogica where TablaLogicaID = 163)
 begin
-	insert into TablaLogica values(163, '# intentos logueo de usuario')
-end
-
-if not exists(select 1 from TablaLogica where TablaLogicaID = 164)
-begin
-	insert into TablaLogica values(164, 'Tiempo espera de logueo')
+	insert into TablaLogica values(163, 'Políticas de bloqueo')
 end
 go
 
@@ -74,12 +48,7 @@ GO
 
 if not exists(select 1 from TablaLogica where TablaLogicaID = 163)
 begin
-	insert into TablaLogica values(163, '# intentos logueo de usuario')
-end
-
-if not exists(select 1 from TablaLogica where TablaLogicaID = 164)
-begin
-	insert into TablaLogica values(164, 'Tiempo espera de logueo')
+	insert into TablaLogica values(163, 'Políticas de bloqueo')
 end
 go
 
@@ -88,12 +57,7 @@ GO
 
 if not exists(select 1 from TablaLogica where TablaLogicaID = 163)
 begin
-	insert into TablaLogica values(163, '# intentos logueo de usuario')
-end
-
-if not exists(select 1 from TablaLogica where TablaLogicaID = 164)
-begin
-	insert into TablaLogica values(164, 'Tiempo espera de logueo')
+	insert into TablaLogica values(163, 'Políticas de bloqueo')
 end
 go
 
@@ -102,12 +66,7 @@ GO
 
 if not exists(select 1 from TablaLogica where TablaLogicaID = 163)
 begin
-	insert into TablaLogica values(163, '# intentos logueo de usuario')
-end
-
-if not exists(select 1 from TablaLogica where TablaLogicaID = 164)
-begin
-	insert into TablaLogica values(164, 'Tiempo espera de logueo')
+	insert into TablaLogica values(163, 'Políticas de bloqueo')
 end
 go
 
@@ -116,12 +75,7 @@ GO
 
 if not exists(select 1 from TablaLogica where TablaLogicaID = 163)
 begin
-	insert into TablaLogica values(163, '# intentos logueo de usuario')
-end
-
-if not exists(select 1 from TablaLogica where TablaLogicaID = 164)
-begin
-	insert into TablaLogica values(164, 'Tiempo espera de logueo')
+	insert into TablaLogica values(163, 'Políticas de bloqueo')
 end
 go
 
@@ -130,12 +84,7 @@ GO
 
 if not exists(select 1 from TablaLogica where TablaLogicaID = 163)
 begin
-	insert into TablaLogica values(163, '# intentos logueo de usuario')
-end
-
-if not exists(select 1 from TablaLogica where TablaLogicaID = 164)
-begin
-	insert into TablaLogica values(164, 'Tiempo espera de logueo')
+	insert into TablaLogica values(163, 'Políticas de bloqueo')
 end
 go
 
@@ -144,12 +93,7 @@ GO
 
 if not exists(select 1 from TablaLogica where TablaLogicaID = 163)
 begin
-	insert into TablaLogica values(163, '# intentos logueo de usuario')
-end
-
-if not exists(select 1 from TablaLogica where TablaLogicaID = 164)
-begin
-	insert into TablaLogica values(164, 'Tiempo espera de logueo')
+	insert into TablaLogica values(163, 'Políticas de bloqueo')
 end
 go
 
@@ -158,12 +102,6 @@ GO
 
 if not exists(select 1 from TablaLogica where TablaLogicaID = 163)
 begin
-	insert into TablaLogica values(163, '# intentos logueo de usuario')
-end
-
-if not exists(select 1 from TablaLogica where TablaLogicaID = 164)
-begin
-	insert into TablaLogica values(164, 'Tiempo espera de logueo')
+	insert into TablaLogica values(163, 'Políticas de bloqueo')
 end
 go
-

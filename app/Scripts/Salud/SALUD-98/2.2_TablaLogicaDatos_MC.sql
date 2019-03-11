@@ -9,7 +9,7 @@ end
 
 if not exists(select 1 from TablaLogicaDatos where TablaLogicaDatosID = 15304)
 begin
-	insert into TablaLogicaDatos values(15304, 164, 'TiempoLogueo', 'valor tiempo de logueo en seg', '3600')
+	insert into TablaLogicaDatos values(15304, 163, 'TiempoLogueo', 'valor tiempo de logueo en seg', '3600')
 end
 go
 
@@ -23,7 +23,7 @@ end
 
 if not exists(select 1 from TablaLogicaDatos where TablaLogicaDatosID = 15304)
 begin
-	insert into TablaLogicaDatos values(15304, 164, 'TiempoLogueo', 'valor tiempo de logueo en seg', '3600')
+	insert into TablaLogicaDatos values(15304, 163, 'TiempoLogueo', 'valor tiempo de logueo en seg', '3600')
 end
 go
 
@@ -37,7 +37,7 @@ end
 
 if not exists(select 1 from TablaLogicaDatos where TablaLogicaDatosID = 15304)
 begin
-	insert into TablaLogicaDatos values(15304, 164, 'TiempoLogueo', 'valor tiempo de logueo en seg', '3600')
+	insert into TablaLogicaDatos values(15304, 163, 'TiempoLogueo', 'valor tiempo de logueo en seg', '3600')
 end
 go
 
@@ -51,7 +51,7 @@ end
 
 if not exists(select 1 from TablaLogicaDatos where TablaLogicaDatosID = 15304)
 begin
-	insert into TablaLogicaDatos values(15304, 164, 'TiempoLogueo', 'valor tiempo de logueo en seg', '3600')
+	insert into TablaLogicaDatos values(15304, 163, 'TiempoLogueo', 'valor tiempo de logueo en seg', '3600')
 end
 go
 
@@ -65,7 +65,7 @@ end
 
 if not exists(select 1 from TablaLogicaDatos where TablaLogicaDatosID = 15304)
 begin
-	insert into TablaLogicaDatos values(15304, 164, 'TiempoLogueo', 'valor tiempo de logueo en seg', '3600')
+	insert into TablaLogicaDatos values(15304, 163, 'TiempoLogueo', 'valor tiempo de logueo en seg', '3600')
 end
 go
 
@@ -79,7 +79,7 @@ end
 
 if not exists(select 1 from TablaLogicaDatos where TablaLogicaDatosID = 15304)
 begin
-	insert into TablaLogicaDatos values(15304, 164, 'TiempoLogueo', 'valor tiempo de logueo en seg', '3600')
+	insert into TablaLogicaDatos values(15304, 163, 'TiempoLogueo', 'valor tiempo de logueo en seg', '3600')
 end
 go
 
@@ -93,7 +93,7 @@ end
 
 if not exists(select 1 from TablaLogicaDatos where TablaLogicaDatosID = 15304)
 begin
-	insert into TablaLogicaDatos values(15304, 164, 'TiempoLogueo', 'valor tiempo de logueo en seg', '3600')
+	insert into TablaLogicaDatos values(15304, 163, 'TiempoLogueo', 'valor tiempo de logueo en seg', '3600')
 end
 go
 
@@ -107,7 +107,7 @@ end
 
 if not exists(select 1 from TablaLogicaDatos where TablaLogicaDatosID = 15304)
 begin
-	insert into TablaLogicaDatos values(15304, 164, 'TiempoLogueo', 'valor tiempo de logueo en seg', '3600')
+	insert into TablaLogicaDatos values(15304, 163, 'TiempoLogueo', 'valor tiempo de logueo en seg', '3600')
 end
 go
 
@@ -121,7 +121,7 @@ end
 
 if not exists(select 1 from TablaLogicaDatos where TablaLogicaDatosID = 15304)
 begin
-	insert into TablaLogicaDatos values(15304, 164, 'TiempoLogueo', 'valor tiempo de logueo en seg', '3600')
+	insert into TablaLogicaDatos values(15304, 163, 'TiempoLogueo', 'valor tiempo de logueo en seg', '3600')
 end
 go
 
@@ -135,7 +135,7 @@ end
 
 if not exists(select 1 from TablaLogicaDatos where TablaLogicaDatosID = 15304)
 begin
-	insert into TablaLogicaDatos values(15304, 164, 'TiempoLogueo', 'valor tiempo de logueo en seg', '3600')
+	insert into TablaLogicaDatos values(15304, 163, 'TiempoLogueo', 'valor tiempo de logueo en seg', '3600')
 end
 go
 
@@ -149,7 +149,7 @@ end
 
 if not exists(select 1 from TablaLogicaDatos where TablaLogicaDatosID = 15304)
 begin
-	insert into TablaLogicaDatos values(15304, 164, 'TiempoLogueo', 'valor tiempo de logueo en seg', '3600')
+	insert into TablaLogicaDatos values(15304, 163, 'TiempoLogueo', 'valor tiempo de logueo en seg', '3600')
 end
 go
 
@@ -163,6 +163,6 @@ end
 
 if not exists(select 1 from TablaLogicaDatos where TablaLogicaDatosID = 15304)
 begin
-	insert into TablaLogicaDatos values(15304, 164, 'TiempoLogueo', 'valor tiempo de logueo en seg', '3600')
+	insert into TablaLogicaDatos values(15304, 163, 'TiempoLogueo', 'valor tiempo de logueo en seg', '3600')
 end
 go
