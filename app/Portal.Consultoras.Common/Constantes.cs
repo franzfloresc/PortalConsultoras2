@@ -3075,6 +3075,12 @@ namespace Portal.Consultoras.Common
             /// </summary>
             public const string UrlObtenerEvento = "Evento/Get/{0}/{1}";
 
+            //Oferta ByCuv
+            /// <summary>
+            /// Oferta/ByCuv/{pais}/{tipo}/{codigoCampania}/{cuv}
+            /// </summary>
+            public const string UrlObtenerOfertasCuv = "Oferta/ByCuv/{0}/{1}/{2}/{3}";
+
             /// <summary>
             /// Nivel/listar/{pais}
             /// </summary>
