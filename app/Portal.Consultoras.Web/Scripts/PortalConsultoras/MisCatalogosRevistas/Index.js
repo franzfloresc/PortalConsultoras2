@@ -316,6 +316,8 @@ function CargarCarruselCatalogo() {
                 xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{tipoCatalogoTodo}/g, tagTodo);
                 xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{campania}/g, anio + nro);
                 xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{textourl}/g, urlCatalogoPiloto);
+                //xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{isMovil}/g, isMovil);
+                //xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{FBAppId}/g, FBAppId);
 
                 $("#idSection" + i).append(xHtmlItemCatalogoPasosActual);                
                 $("#txtUrlActual").val(urlCatalogoPiloto);
@@ -577,6 +579,15 @@ function GetCatalogosLinksByCampania(data, campania) {
             $(idCat).find(elemItem).find("[data-accion='face']").attr("title", 'FB-' + tagCat + ' C' + n + a);
             $(idCat).find(elemItem).find("[data-tipo='img']").attr("title", 'Ver-' + tagCat + ' C' + n + a);
             $(idCat).find(elemItem).find("[data-accion='whatsapp']").attr("href", "https://api.whatsapp.com/send?text=" + urlCatWS);
+
+            if (piloto == '1' && contDiv == 1) {
+                if (isMovil == "True")
+                    $("[data-accion='ms']").attr("href", "fb-messenger://share?link=" + encodeURIComponent(urlCatalogoPiloto) + "&app_id=" + encodeURIComponent(FBAppId));
+                else {
+                    $("[data-accion='ms']").attr("href", "https://www.facebook.com/dialog/send?app_id=" + encodeURIComponent(FBAppId) + "&link=" + encodeURIComponent(urlCatalogoPiloto) + "&redirect_uri=" + encodeURIComponent(urlCatalogoPiloto));
+                    $("[data-accion='ms']").attr("target", "_blank");
+                }
+            }
         }
     }
     FinRenderCatalogo();
