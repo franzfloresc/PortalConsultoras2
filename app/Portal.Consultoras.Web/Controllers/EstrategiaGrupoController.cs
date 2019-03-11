@@ -27,7 +27,7 @@ namespace Portal.Consultoras.Web.Controllers
             bool respuesta = false;
             if (ModelState.IsValid)
             {
-                estrategiaGrupoProvider.Guardar(datos, userData.CodigoISO);
+                respuesta = estrategiaGrupoProvider.Guardar(datos, userData.CodigoISO);
             }
 
             return Json(new { mensaje = "ok", estado = respuesta }, JsonRequestBehavior.AllowGet);
