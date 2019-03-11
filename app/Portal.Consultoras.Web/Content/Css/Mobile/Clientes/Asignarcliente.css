@@ -302,3 +302,28 @@
     padding-bottom: 0px !important;
     border: none;
 }
+
+.noti_message {
+    position: relative;
+    top: -13px;
+}
+
+.noti_message span {
+    color: red;
+    font-size: 12px;
+}
+
+
+.icono_advertencia_notificacion {
+    position: relative;
+    display: block;
+    float: left;
+    width: 15px;
+    height: 15px;
+    top: 4px;
+    margin-right: 7px;
+    background: url('/Content/Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') center center no-repeat;
+}
+
+
+

@@ -595,7 +595,7 @@
 
         function ShowActions(cellvalue, options, rowObject) {
             var cellValueInt = parseInt(cellvalue);
-            var Edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + options.rowId + "','" + rowObject[3] + "','" + rowObject[11] + "','" + rowObject[15] + "','" + rowObject[16] + "','" + rowObject[17] + "','" + rowObject[14] + "','" + rowObject[18] + "','" + rowObject[19] + "','" + rowObject[12] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Edit.png")' alt='Editar Oferta Liquidación' title='Editar Oferta Liquidación' border='0' /></a>";
+            var Edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + options.rowId + "','" + rowObject[3] + "','" + rowObject[11] + "','" + rowObject[15] + "','" + rowObject[16] + "','" + rowObject[17] + "','" + rowObject[14] + "','" + rowObject[18] + "','" + rowObject[19] + "','" + rowObject[12] + "','" + rowObject[8] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Edit.png")' alt='Editar Oferta Liquidación' title='Editar Oferta Liquidación' border='0' /></a>";
             var Del = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + options.rowId + "','" + rowObject[3] + "','" + rowObject[11] + "','" + rowObject[15] + "','" + rowObject[16] + "','" + rowObject[17] + "','" + rowObject[14] + "','" + rowObject[18] + "');\" >" + "<img src='@Url.Content("~/Content/Images/NotAllowed.png")' alt='Deshabilitar Oferta Liquidación' title='Deshabilitar Oferta Liquidación' border='0' /></a>";
             var Remove = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Remover('" + options.rowId + "','" + rowObject[3] + "','" + rowObject[11] + "','" + rowObject[15] + "','" + rowObject[16] + "','" + rowObject[17] + "','" + rowObject[14] + "','" + rowObject[18] + "');\" >" + "<img src='@Url.Content("~/Content/Images/delete.png")' alt='Eliminar Oferta Liquidación' title='Eliminar Oferta Liquidación' border='0' /></a>";
 
@@ -622,7 +622,7 @@
         };
     }
 
-    function llenarDatosFormulario(ID, CUV, CampaniaID, Flag, CodigoOferta, ISO, FlagCheck, FlagOrden, CodigoSAP, Stock) {
+    function llenarDatosFormulario(ID, CUV, CampaniaID, Flag, CodigoOferta, ISO, FlagCheck, FlagOrden, CodigoSAP, Stock, StockInicial) {
         if (Flag != "0")
             $("#FlagTransaccion").val("1");
 
@@ -639,7 +639,7 @@
         }
 
         $('#hdCampaniaID').val(CampaniaID);
-        $('#hdStockProducto').val(Stock);
+        $('#hdStockProducto').val(StockInicial);
         $("#txtPaisModal").val(paisNombre);
         $('#txtCampaniaModal').val(jQuery("#list").jqGrid('getCell', ID, 'CodigoCampania'));
 
@@ -664,7 +664,7 @@
     }
 
     $.jgrid.extend({
-        Editar: function (ID, CUV, CampaniaID, Flag, CodigoOferta, ISO, FlagCheck, FlagOrden, CodigoSAP, Stock) {
+        Editar: function (ID, CUV, CampaniaID, Flag, CodigoOferta, ISO, FlagCheck, FlagOrden, CodigoSAP, Stock, StockInicial) {
             if (!ID) {
                 alert("Debe seleccionar un Producto, verifique");
                 return false;
@@ -677,7 +677,7 @@
             ofertaLiquidacionObj.limpiarFiltrosNemotecnico();
 
             ofertaLiquidacionObj.obtenerImagenes(CodigoSAP, 1, true).done(function (data) {
-                llenarDatosFormulario(ID, CUV, CampaniaID, Flag, CodigoOferta, ISO, FlagCheck, FlagOrden, CodigoSAP, Stock);
+                llenarDatosFormulario(ID, CUV, CampaniaID, Flag, CodigoOferta, ISO, FlagCheck, FlagOrden, CodigoSAP, Stock, StockInicial);
 
                 ofertaLiquidacionObj.actualizarPais(paisID);
 

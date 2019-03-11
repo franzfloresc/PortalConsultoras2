@@ -128,7 +128,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.ConsultoraNuevaBannerAppMostrar = SessionManager.GetConsultoraNuevaBannerAppMostrar();
                 model.MostrarPagoEnLinea = (userData.MontoDeuda > 0);
 
-
                 #region Camino al Exito
 
                 var LogicaCaminoExisto = _tablaLogica.GetTablaLogicaDatos(userData.PaisID, Constantes.TablaLogica.EscalaDescuentoMobile);

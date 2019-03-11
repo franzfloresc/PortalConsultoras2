@@ -79,10 +79,15 @@ var EstrategiaAgregarModule = (function () {
 
     var getEstrategia = function ($btnAgregar, origenPedidoWebEstrategia) {
 
-        var estrategia = JSON.parse($btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataEstrategia).attr("data-estrategia"))
-                || JSON.parse($btnAgregar.parents("div.content_btn_agregar").siblings("#contenedor-showroom-subcampanias-mobile")
-                        .find(".slick-active").find(dataProperties.dataEstrategia).attr("data-estrategia"))
-                || {};
+        var estrategiaTxt = $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataEstrategia).attr("data-estrategia")
+                || $btnAgregar.parents("div.content_btn_agregar").siblings("#contenedor-showroom-subcampanias-mobile")
+                        .find(".slick-active").find(dataProperties.dataEstrategia).attr("data-estrategia")
+                || "";
+
+        var estrategia = {};
+        if (estrategiaTxt != "") {
+            estrategia = JSON.parse(estrategiaTxt);
+        }
 
         return estrategia;
     };
@@ -332,7 +337,7 @@ var EstrategiaAgregarModule = (function () {
             FlagNueva: $.trim(estrategia.FlagNueva),
             EsEditable: estrategia.esEditable,
             SetId: estrategia.setId,
-            ClienteID: estrategia.MostrarCliente ? _getClienteIdSelected() : 0
+            ClienteID: _getClienteIdSelected()
         };
 
         EstrategiaAgregarProvider
@@ -344,7 +349,9 @@ var EstrategiaAgregarModule = (function () {
                 }
 
                 if (data.success === false) {
-                    abrirMensajeEstrategia(data.message, esFicha);
+                    if (!IsNullOrEmpty(data.mensajeAviso)) AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
+                    else abrirMensajeEstrategia(data.message, esFicha);
+
                     CerrarLoad();
                     return false;
                 }
@@ -390,11 +397,32 @@ var EstrategiaAgregarModule = (function () {
                     }
 
                 }
+                var barraJsLoaded = typeof MostrarBarra === 'function';
+
+                if (barraJsLoaded) {
+                    var destino = isPagina('pedido') ? '2': '1';
+                    var prevTotal = mtoLogroBarra || 0;
+                    var issetPopupPremio = $("#popupPremio").length > 0;
+
+                    if ($("#divBarra").length > 0) {
+                        MostrarBarra(data, destino); //OG
+
+                        if (issetPopupPremio) {
+                            showPopupNivelSuperado(data.DataBarra, prevTotal);
+                        } else {
+                            addPremioDefaultSuperado(data.DataBarra, prevTotal);
+                        }
+                    } else {
+                        ActualizarGanancia(data.DataBarra);
+                        calcMtoLogro(data, destino);
+                        addPremioDefaultSuperado(data.DataBarra, prevTotal);
+                    }
+                }
 
                 if (isMobile()) {
-                    ActualizarGanancia(data.DataBarra);
                     CargarCantidadProductosPedidos(true);
                     microefectoPedidoGuardado();
+
                 } else {
                     CargarResumenCampaniaHeader(true);
                 }
@@ -410,8 +438,9 @@ var EstrategiaAgregarModule = (function () {
                 }
 
                 if (tipoOrigenEstrategiaAux == 1) {
-                    if (typeof MostrarBarra != constantes.undefined())
+                    if (typeof MostrarBarra != constantes.undefined()) {
                         MostrarBarra(data, "1");
+                    }
 
                     if (estrategia.CodigoEstrategia == ConstantesModule.ConstantesPalanca.PackNuevas) {
                         if (typeof CargarCarouselEstrategias != constantes.undefined())
@@ -424,7 +453,8 @@ var EstrategiaAgregarModule = (function () {
                                 CargarCarouselMasVendidos("desktop");
                         }
                     }
-                } else if (tipoOrigenEstrategiaAux == 11) {
+                }
+                else if (tipoOrigenEstrategiaAux == 11) {
 
                     $(elementosDiv.hdErrorInsertarProducto).val(data.errorInsertarProducto);
 
@@ -435,8 +465,9 @@ var EstrategiaAgregarModule = (function () {
                     }
                     HideDialog(elementosDiv.divVistaPrevia.substring(1));
                     CargarDetallePedido();
+                    var previousTotal = mtoLogroBarra || 0;
                     MostrarBarra(data);
-
+                    showPopupNivelSuperado(data.DataBarra, previousTotal);
                 } else if (tipoOrigenEstrategiaAux == 2 ||
                     tipoOrigenEstrategiaAux == 21 ||
                     tipoOrigenEstrategiaAux == 22 ||
@@ -530,7 +561,7 @@ var EstrategiaAgregarModule = (function () {
             .fail(function (data, error) {
                 CerrarLoad();
             });
-
+        
         return false;
     };
 

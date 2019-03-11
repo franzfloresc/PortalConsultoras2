@@ -1308,11 +1308,11 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     List<string> estrategiasActivasList = new List<string>();
                     List<string> estrategiasInactivasList = new List<string>();
-                    if (!string.IsNullOrEmpty(EstrategiasActivas))
+                    if (EstrategiasActivas != "")
                     {
                         estrategiasActivasList.AddRange(EstrategiasActivas.Split(',').ToList());
                     }
-                    if (!string.IsNullOrEmpty(EstrategiasDesactivas))
+                    if (EstrategiasDesactivas != "")
                     {
                         estrategiasInactivasList.AddRange(EstrategiasDesactivas.Split(',').ToList());
                     }
@@ -1330,8 +1330,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                if (tipoEstrategiaCod == Constantes.TipoEstrategiaCodigo.OfertaParaTi &&
-                    !string.IsNullOrEmpty(EstrategiasDesactivas))
+                if (tipoEstrategiaCod == Constantes.TipoEstrategiaCodigo.OfertaParaTi && EstrategiasDesactivas != "")
                     UpdateCacheListaOfertaFinal(campaniaID);
 
                 return Json(new

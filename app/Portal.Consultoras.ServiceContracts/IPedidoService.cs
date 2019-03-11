@@ -49,6 +49,9 @@ namespace Portal.Consultoras.ServiceContracts
         void DelPedidoWebDetalle(BEPedidoWebDetalle pedidowebdetalle);
 
         [OperationContract]
+        IList<BEPedidoWebDetalle> SelectByCampaniaWithLabelProgNuevas(BEPedidoWebDetalleParametros bePedidoWebDetalleParametros);
+
+        [OperationContract]
         IList<BEPedidoWebDetalle> SelectByCampania(BEPedidoWebDetalleParametros bePedidoWebDetalleParametros);
 
         [OperationContract]
@@ -992,7 +995,10 @@ namespace Portal.Consultoras.ServiceContracts
         int InsIndicadorPedidoAutentico(int paisID, BEIndicadorPedidoAutentico entidad);
 
         [OperationContract]
-        BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoConsultora, int consecutivoNueva);
+        BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoPrograma, string codigoNivel);
+
+        [OperationContract]
+        List<BEConsultoraRegaloProgramaNuevas> GetListPremioElecProgNuevas(int paisID, int campaniaId, string codigoPrograma, string codigoNivel);
 
         [OperationContract]
         Task<BEResultadoReservaProl> CargarSesionAndEjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil, bool enviarCorreo);
@@ -1305,6 +1311,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         BEEstrategia GetEstrategiaPremiosTippingPoint(int paisID, string codigoPrograma, int anioCampana, string codigoNivel);
+
+        [OperationContract]
+        List<BEEstrategia> GetEstrategiaPremiosElectivos(int paisId, string codigoPrograma, int anioCampana, string codigoNivel);
 
         [OperationContract]
         BEActivarPremioNuevas GetActivarPremioNuevas(int paisID, string codigoPrograma, int anioCampana, string codigoNivel);

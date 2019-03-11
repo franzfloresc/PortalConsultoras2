@@ -950,7 +950,7 @@ namespace Portal.Consultoras.Web.Providers
             catch (Exception ex)
             {
                 Common.LogManager.SaveLog(ex, string.Empty, pais);
-                throw ex;
+                throw;
             }
         }
 

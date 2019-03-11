@@ -24,6 +24,8 @@
         </div>
     }
 
+    <input type="hidden" id="hdfSimbolo" value="@Model.Simbolo" />
+    <input type="hidden" id="hdfTotal" value="@Model.Total" />
     <div class="banner_ingresoPedido nuevaAlturaBanner" style="background: #000 url(@ViewBag.UrlFranjaNegra) no-repeat center center;">
         <div class="content_320 ingresoPedido">
             <form>
@@ -41,9 +43,7 @@
             </form>
         </div>
     </div>
-
     <div class="franja_inferior_banner_pedido"></div>
-
     <div style="display:none;" class="mensaje_ingreso_cuvs" id="divMensajeCUV">
         <a id="btnCerrarMensaje" class="cerrar_mensajeMobile" style="display:none;" href="javascript:;" onclick="javascript: CerrarMensajeCuv();">
             <img src="@Url.Content("~/Content/Images/mobile/Esika/cerrar_04.png")" alt="-" />
@@ -52,9 +52,9 @@
         <span id="divMensaje" class="mensaje_productoCUV">
         </span>
     </div>
-
     <div class="contenedor_producto">
-        <div class="content_320 ingresoPedidom">
+        <div class="content_320 ingresoPedidom quitarPaddingSuperior" id="divContentBarra">
+            @*@Html.Partial("~/Areas/Mobile/Views/Util/_barra.cshtml")*@
             <div class="producto_por_agregar_wrapper" id="divProductoMantenedor" style="display: none;">
                 <div style="display: none;">
                     <input type="hidden" id="hdfCUV" />
@@ -415,12 +415,31 @@
     {{/each}}
 </script>
 
+<div id="popupLimiteLineaCredito" class="popup_limite_lineaCredito w-100 text-center" style="display:none;">
+    <div class="popup_limite_lineaCredito_header w-100">
+        <a class="icono_cerrar_popup_eleccion_regalo_programaNuevas" title="Cerrar" href="javascript:;" onclick="javascript: $('#popupLimiteLineaCredito').fadeOut(200);">
+            <img src="@Url.Content("~/Content/Images/btn_cerrar_popup_color_negro.svg")" alt="Cerrar" />
+        </a>
+    </div>
+    <div class="popup_limite_lineaCredito_contenido w-100">
+        <div class="icono_popup_limite_lineaCredito">
+            <img src="@Url.Content("~/Content/Images/icono_popup_limite_credito.svg")" alt="Límite Línea de crédito" />
+        </div>
+        <div class="mensaje_popup_limite_lineaCredito">
+            <h4 class="titulo_mensaje_popup text-center">No puedes agregar más productos</h4>
+            <p class="descripcion_mensaje_popup text-center">El límite de tu línea de crédito es S/ 500</p>
+        </div>
+    </div>
+</div>
 
 <div class="PopMobile1" id="popupDetalleCarousel_lanzamiento" data-popup-main=""></div>
 
 @Html.Partial("~/Views/Shared/Cupon/popupCuponGanaMobile.cshtml")
 @Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmarMobile.cshtml")
 @Html.Partial("~/Views/Shared/Cupon/popupCuponGanasteMobile.cshtml")
+@{ Html.RenderPartial("_PopupEleccionRegalo");}
+@{ Html.RenderPartial("_PopupPremio");}
+@{ Html.RenderPartial("_PopupDescuento");}
 
 <div id="DivPopupFichaResumida" class="Modal_Editar_Producto" style="display: none">
     @Html.Partial("~/Areas/Mobile/Views/DetalleEstrategia/FichaTemplate.cshtml")
@@ -506,6 +525,15 @@
         var urlInsertarDemandaTotalReemplazoSugerido = '@Url.Action("InsertarDemandaTotalReemplazoSugerido", "Pedido", new { area = "" })';
         var activarRecomendaciones = '@ViewBag.ActivarRecomendaciones';
         var maxCaracteresRecomendaciones = '@ViewBag.MaxCaracteresRecomendaciones';
+        var listaIconoLluvia = [
+            '@Url.Content("~/Content/Images/lluvia/ov-d.svg")',
+            '@Url.Content("~/Content/Images/lluvia/ov-r.svg")',
+            '@Url.Content("~/Content/Images/lluvia/sq-d.svg")',
+            '@Url.Content("~/Content/Images/lluvia/sq-r.svg")',
+            '@Url.Content("~/Content/Images/lluvia/trg-d.svg")',
+            '@Url.Content("~/Content/Images/lluvia/trg-r.svg")',
+        ];
+        var noIniciarLluvia = true;
     </script>
 
     @if (mobileConfiguracion.EsAppMobile)
@@ -532,4 +560,5 @@
             $(document).ready(function () { messageInfoValidado('@Html.Raw(Constantes.RecuperacionPedido.Mensaje)'); });
         </script>
     }
+    <script type="text/javascript" src="@Url.Content("~/Scripts/nieve.js")?v=2"></script>
 }

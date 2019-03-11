@@ -176,3 +176,23 @@
 #PanelClienteRegistro {
     transition: all 400ms;
 }
+
+.noti_message {
+    position: relative;
+    top: -13px;
+}
+
+    .noti_message span {
+        color: red;
+        font-size: 12px;
+    }
+
+
+
+
+.Formulario-AgregarCliente .icono_advertencia_notificacion {
+    width: 16px;
+    height: 17px;
+    top: 3px;
+}
+

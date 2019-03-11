@@ -19,8 +19,10 @@
         btnGuardarCliente: "#btnPanelMantenerAgregar",
         //
         divErrorNombre: "#divNotiNombre",
+        divErrorApellido: "#divNotiApellido",
+        divErrorTelefono: "#divNotiTelefono",
+        divErrorCelular: "#divNotiCelular",
         divErrorCorreo: "#divNotiCorreo",
-        divErrorTelefonos: "#divValidationSummary",
         //
         hdnId: "#ClienteID",
         hdnCodigo: "#CodigoCliente",
@@ -33,8 +35,10 @@
 
     var _ocultarMensajesError = function () {
         $(_elements.divErrorNombre).hide();
+        $(_elements.divErrorApellido).hide();
+        $(_elements.divErrorTelefono).hide();
+        $(_elements.divErrorCelular).hide();
         $(_elements.divErrorCorreo).hide();
-        $(_elements.divErrorTelefonos).hide();
     };
 
     var _getCliente = function () {
@@ -62,25 +66,39 @@
     };
 
     var _btnGuardarClienteOnClick = function (e) {
-
+        console.log('_btnGuardarClienteOnClick');
         _ocultarMensajesError();
         
         var cliente = _getCliente();
-
+        var errorDatos = false;
         if (cliente.NombreCliente === "") {
             $(_elements.divErrorNombre).show();
+            var errorDatos = true;
+        }
+
+        if (cliente.ApellidoCliente === "") {
+            $(_elements.divErrorApellido).show();
+            var errorDatos = true;
+        }
+        
+        if (cliente.Telefono === "") {
+            $(_elements.divErrorTelefono).show();
+            var errorDatos = true;
+        }
+
+        if (cliente.Celular === "") {
+            $(_elements.divErrorCelular).show();
+            var errorDatos = true;
+        }
+
+        if (cliente.eMail !== "" && !validateEmail(cliente.eMail)) {
+            $(_elements.divErrorCorreo).show();
             return;
         }
 
-        if (cliente.Telefono === "" && cliente.Celular === "") {
-            $(_elements.divErrorTelefonos).show();
+        if (errorDatos) {
             return;
         }
-
-        //if (cliente.Correo !== "" && !validateEmail(correo)) {
-        //    $(_elements.divErrorCorreo).show();
-        //    return;
-        //}
 
         $(_elements.btnGuardarCliente).hide();
 
@@ -90,9 +108,8 @@
             .tusClientesProvider
             .mantenerPromise(cliente)
             .done(function (data) {
-                //if (checkTimeout(data)) {
 
-                alert(data.message);
+                //alert(data.message);
 
                 if (data.success == true) {
                     if (typeof _config.setNombreClienteCallback === "function") {
@@ -109,7 +126,7 @@
                 }
             })
             .fail(function (data, error) {
-                //
+                console.log(data, error);
             })
             .then(function () {
                 CerrarLoad();

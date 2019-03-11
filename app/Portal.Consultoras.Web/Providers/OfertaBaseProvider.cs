@@ -116,7 +116,7 @@ namespace Portal.Consultoras.Web.Providers
                             switch (tablaLogicaDatosID)
                             {
                                 case Constantes.EstrategiaDetalleCamposID.FlagIndividual:
-                                    estrategia.EstrategiaDetalle.FlagIndividual = (itemED.Valor == "1" ? true : false);
+                                    estrategia.EstrategiaDetalle.FlagIndividual = itemED.Valor == "1";
                                     break;
                                 case Constantes.EstrategiaDetalleCamposID.ImgFichaDesktop:
                                     estrategia.EstrategiaDetalle.ImgFichaDesktop = itemED.Valor;

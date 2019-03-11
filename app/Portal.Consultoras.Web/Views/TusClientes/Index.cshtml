@@ -2,11 +2,8 @@
 
 @{
     ViewBag.Title = "Mis clientes";
-    Layout = null;
     Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
 }
-
-
 
 <div class="titulo_bloque">
     <div class="container">
@@ -28,130 +25,108 @@
             <div class="col-md-6 col-xs-12 d-flex flex-row-reverse content_boton_agregar d-none">
                 <button id="btnBuscarClientes" class="boton_agregar float-md-right" onclick="tusClientesModule.editarCliente(null)"> <img src="/Content/Images/nuevo_tuclientes.svg" alt="Alternate Text" />AGREGAR CLIENTE</button>
                 <button id="btnExportarClientes" class="botton_export_xls"><img src="/Content/Images/icon_xls.svg" /></button>
-                @*<input id="btnBuscarClientes"
-                    type="button"
-                    class="boton_agregar float-md-right"
-                    title="Agregar Cliente +"
-                    value="Agregar Cliente +"
-                    onclick="tusClientesModule.editarCliente(null)"
-                    />*@
             </div>
         </div>
     </div>
 </div>
 
-<div class="container container_clientes" >
+<div class="container container_clientes">
     <div class="col-12">
         <div id="divClientes" style="margin-bottom:15px;">
 
         </div>
     </div>
 
-    <script id="hbsClientes" type="text/x-handlebars-template">
-        <div class="row tabla_cabecera">
-            <div class="col-2">
-                Nombres
-            </div>
-            <div class="col-2">
-                Apellidos
-            </div>
-            <div class="col-2">
-                Teléfono  Fijo
-            </div>
-            <div class="col-2">
-                Celular
-            </div>
-            <div class="col-2">
-                Correo
-            </div>
-            <div class="col-1">
-                Editar
-            </div>
-            <div class="col-1">
-                Eliminar
-            </div>
-        </div>
-        {{# each this.miData as |cliente|}}
-        <div class="row  tabla_item">
-            <div class="col-md-2 col-8">
-                {{NombreCliente}}
-            </div>
-            <div class="col-md-2 col-8">
-                {{ApellidoCliente}}
-            </div>
-            <div class="col-md-2 col-8">
-                {{Telefono}}
-            </div>
-            <div class="col-md-2 col-8">
-                {{Celular}}
-            </div>
-            <div class="col-md-2 col-8">
-                {{eMail}}
-            </div>
-            <div class="col-md-1 col-2 editar">
-                <input type="button"
-                       class="btn_editar"
-                       title="Agregar Cliente"
-                       value=""
-                       onclick="tusClientesModule.editarCliente({{JSON2string cliente}})" />
-            </div>
-            <div class="col-md-1 col-2">
-                <input type="button"
-                       class="btn_eliminar"
-                       title="Agregar Cliente"
-                       value=""
-                       onclick="tusClientesModule.mostarConfirmarEliminarCliente({{ClienteID}})" />
-            </div>
-        </div>
-        <div id="divConfirmarEliminarCliente-{{ClienteID}}" style="display:none" class="popover_pedido bottom">
-            <div class="arrow"></div>
-            <div class="row">
-                <div class="col-lg-8 col-12 d-flex align-items-center">
-                    <p style="margin-bottom:10px">¿Quieres eliminar a {{Nombre}}?</p>
-                </div>
-                <div class="col-lg-4 col-12 flex-row-reverse d-flex align-items-center">
-                    <div class="boton-primaria">
-                        <button class="default-background" onclick="tusClientesModule.eliminarCliente({{ClienteID}});">
-                            SÍ, ELIMINAR
-                        </button>
-                    </div>
-                    <div class="boton-secundario" style="margin-right:15px;">
-                        <button onclick="tusClientesModule.ocultarConfirmarEliminarCliente({{ClienteID}});">
-                            No Gracias
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {{/each}}
-    </script>
-
-
-
-    @*<div class="row">
-            <div class="col-2">
-
-            </div>
-            <div class="col-10">
-                <input type="button"
-                       class="boton_agregar float-md-right"
-                       title="Agregar Cliente +"
-                       value="Agregar Cliente +"
-                       onclick="tusClientesModule.editarCliente(null)" />
-            </div>
-        </div>*@
-
-    <div id="divPopupEditarCliente" style="" class="Form-AgregarCliente">
-        @Html.Partial("_Mantener", new ClienteModel())
-    </div>
-
-    
     <div id="content_boton_agregar_ancla"></div>
-    <div class="row d-md-none" >
+    <div class="row d-md-none">
         <div id="content_boton_agregar" class="col-12 content_boton_agregar">
             <button id="btnBuscarClientes" class="boton_agregar float-md-right" onclick="tusClientesModule.editarCliente(null)"> <img src="/Content/Images/nuevo_tuclientes.svg" alt="Alternate Text" />AGREGAR CLIENTE</button>
         </div>
     </div>
+</div>
+
+<script id="hbsClientes" type="text/x-handlebars-template">
+    <div class="row tabla_cabecera">
+        <div class="col-2">
+            Nombres
+        </div>
+        <div class="col-2">
+            Apellidos
+        </div>
+        <div class="col-2">
+            Teléfono  Fijo
+        </div>
+        <div class="col-2">
+            Celular
+        </div>
+        <div class="col-2">
+            Correo
+        </div>
+        <div class="col-1">
+            Editar
+        </div>
+        <div class="col-1">
+            Eliminar
+        </div>
+    </div>
+    {{# each this.miData as |cliente|}}
+    <div class="row  tabla_item">
+        <div class="col-md-2 col-8">
+            {{NombreCliente}}
+        </div>
+        <div class="col-md-2 col-8">
+            {{ApellidoCliente}}
+        </div>
+        <div class="col-md-2 col-8">
+            {{Telefono}}
+        </div>
+        <div class="col-md-2 col-8">
+            {{Celular}}
+        </div>
+        <div class="col-md-2 col-8">
+            {{eMail}}
+        </div>
+        <div class="col-md-1 col-2 editar">
+            <input type="button"
+                   class="btn_editar"
+                   title="Editar Cliente"
+                   value=""
+                   onclick="tusClientesModule.editarCliente({{JSON2string cliente}})" />
+        </div>
+        <div class="col-md-1 col-2">
+            <input type="button"
+                   class="btn_eliminar"
+                   title="Eliminar Cliente"
+                   value=""
+                   onclick="tusClientesModule.mostarConfirmarEliminarCliente({{ClienteID}})" />
+        </div>
+    </div>
+    <div id="divConfirmarEliminarCliente-{{ClienteID}}" style="display:none" class="popover_pedido bottom">
+        <div class="arrow"></div>
+        <div class="row">
+            <div class="col-lg-8 col-12 d-flex align-items-center">
+                <p style="margin-bottom:10px">¿Quieres eliminar a {{Nombre}}?</p>
+            </div>
+            <div class="col-lg-4 col-12 flex-row-reverse d-flex align-items-center">
+                <div class="boton-primaria">
+                    <button class="default-background" onclick="tusClientesModule.eliminarCliente({{ClienteID}});">
+                        SÍ, ELIMINAR
+                    </button>
+                </div>
+                <div class="boton-secundario" style="margin-right:15px;">
+                    <button onclick="tusClientesModule.ocultarConfirmarEliminarCliente({{ClienteID}});">
+                        No Gracias
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</script>
+
+<div id="divPopupEditarCliente" style="" class="Form-AgregarCliente">
+    @*@Html.Partial("_Mantener", new ClienteModel())*@
+    @Html.Partial("PanelMantener", new ClienteModel() { FlagValidate = 1 })
 </div>
 
 <div id="modal-fondo-form" style="opacity: 0.7; display:none;" class="modal-fondo"></div>
@@ -170,15 +145,9 @@
             tusClientesProvider: tusClientesProvider,
             checkTimeout: checkTimeout
         });
-        //var panelMantenerModule = PanelMantenerModule({
-        //    tusClientesProvider,
-        //    setNombreClienteCallback: tusClientesModule.setNombreCliente(),
-        //    mostrarTusClientesCallback: tusClientesModule.buscarClientes,
-        //    panelRegistroHideCallback: tusClientesModule.ocultarEditarCliente()
-        //});
+
         $(document).ready(function () {
             tusClientesModule.init();
-            //panelMantenerModule.init();
         });
     </script>
 }

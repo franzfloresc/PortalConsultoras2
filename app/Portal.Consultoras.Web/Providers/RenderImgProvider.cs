@@ -1,6 +1,7 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Common.MagickNet;
 using Portal.Consultoras.Web.Models;
+
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -17,6 +18,38 @@ namespace Portal.Consultoras.Web.Providers
         public RenderImgProvider()
         {
             _tablaLogicaProvider = new TablaLogicaProvider();
+        }
+
+        public static string ImagenesResizeProcesoApp(string urlImagen, string codigoIso)
+        {
+            var mensajeErrorImagenResize = string.Empty;
+            var lstImagenResize = Constantes.ConfiguracionImagenResize.App.Configuracion;
+
+            if (lstImagenResize.Any())
+            {
+                var lstFinal = lstImagenResize.Select(x =>
+                {
+                    var soloImagen = Path.GetFileNameWithoutExtension(urlImagen);
+                    var soloExtension = Path.GetExtension(urlImagen);
+                    var fileName = string.Concat(soloImagen, x.Tipo, soloExtension);
+                    var rutaImagenResize = ConfigS3.GetUrlFileS3Matriz(codigoIso, fileName);
+
+                    var entidad = new EntidadMagickResize
+                    {
+                        RutaImagenOriginal = urlImagen,
+                        RutaImagenResize = rutaImagenResize,
+                        Width = x.Ancho,
+                        Height = x.Alto,
+                        TipoImagen = x.Tipo,
+                        CodigoIso = codigoIso
+                    };
+
+                    return entidad;
+                }).ToList();
+
+                MagickNetLibrary.GuardarImagenesResizeParalelo(lstFinal, true);
+            }
+            return mensajeErrorImagenResize;
         }
 
         public string ImagenesResizeProceso(string urlImagen, string codigoIso, bool esAppCalatogo = false)

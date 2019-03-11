@@ -776,7 +776,7 @@ function EstrategiaVerDetalle(id, origen) {
 //        TipoEstrategiaImagen: tipoEstrategiaImagen || 0,
 //        Descripcion: descripcion,
 //        TipoOferta: datosEst.TipoEstrategiaID || $("#hdTipoEstrategiaID").val(),
-//        enRangoProgNuevas: datosEst.FlagNueva == "1"
+//        esCuponNuevas: datosEst.FlagNueva == "1"
 //    };
 
 //    jQuery.ajax({
