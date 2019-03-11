@@ -39,5 +39,7 @@
         public int FlagRevista { get; set; }
         public int TipoEstrategiaImagenMostrar { get; set; }
         public string Niveles { get; set; }
+
+        public IList<Grupo> Grupos { get; set; }
     }
 }

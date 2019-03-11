@@ -2,6 +2,7 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.PublicService.Cryptography;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.Oferta.ResponseOfertaGenerico;
 using Portal.Consultoras.Web.Models.ProgramaNuevas;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceCliente;
@@ -15,6 +16,8 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.ServiceModel;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -4798,5 +4801,61 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
+
+        public async Task<JsonResult> ObtenerOfertaByCUVSet(string path, int campaniaId, int set)
+        {
+            try
+            {
+                var pedidoSet = _pedidoSetProvider.ObtenerPorId(userData.PaisID, set);
+
+                using (var httpClient = new HttpClient())
+                {
+                    httpClient.BaseAddress = new Uri(WebConfig.UrlMicroservicioPersonalizacionSearch);
+                    httpClient.DefaultRequestHeaders.Accept.Clear();
+                    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    HttpResponseMessage httpResponse = await httpClient.GetAsync(path);
+                    if (httpResponse.IsSuccessStatusCode)
+                    {
+                        string json = await httpResponse.Content.ReadAsStringAsync();
+
+                        OutputOfertaLista respuesta = Newtonsoft.Json.JsonConvert.DeserializeObject<OutputOfertaLista>(json);
+                      
+                    }
+                }
+
+
+
+
+                return Json(new
+                {
+                    success = true,
+                    pedidoSet
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
+
+        //public static async Task<ShowRoomEventoModel> ObtenerEventoShowroomDesdeApi(string path, string codigoISO)
+        //{
+        //    ShowRoomEventoModel modelo = new ShowRoomEventoModel();
+
+          
+        //    return modelo;
+        //}
+
+
+
+
     }
 }

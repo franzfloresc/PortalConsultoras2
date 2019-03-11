@@ -1,0 +1,40 @@
+﻿
+<script id="grupos-template" type="text/x-handlebars-template">
+    {{#each this.componentes as |grupo|}}
+    <section class="Sections_Pack">
+        <div class="Title_pack d-flex">
+            <h3>{{grupo.DescripcionSingular}}</h3>
+            <span class="listo">¡Listo!</span>
+        </div>
+
+        <div id="Select_Items" class="row">
+            <div id="Pack_Items" class="col-12 d-md-flex justify-content-between" data-carrusel-container>
+
+                {{#each grupo.Hermanos as |componente|}}
+                <article class="product_pack">
+                    <div class="row">
+                        <div class="col-md-12 col-7 flex-row align-items-center ">
+                            <div class="product_img_Pack">
+                                <img src="{{componente.ImagenBulk}}">
+                            </div>
+                            <div class="product_descripcion_Pack">
+                                <h3>{{componente.NombreBulk}}</h3>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-5 flex-row-reverse align-items-center ">
+                            <div class="product_descripcion_Pack">
+                                <button class="active" 
+                                        data-add-component
+                                        data-cuv-grupo="{{grupo.Cuv}}" 
+                                        data-cuv-componente="{{componente.Cuv}}" >Elígelo</button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                {{/each}}
+            </div>
+
+        </div>
+    </section>
+    {{/each}}
+</script>

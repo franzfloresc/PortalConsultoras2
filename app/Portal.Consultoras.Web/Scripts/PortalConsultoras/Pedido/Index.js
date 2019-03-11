@@ -3714,3 +3714,46 @@ function CargarProductosRecomendados(item) {
     }
 
 }
+
+
+function AbrirPopupArmaTuPack(campaniaId,setid) {
+  
+    waitingDialog({});
+    var params =
+        {
+            path: 'http://localhost:5010/Oferta/ByCuv/PE/ATP/201904/30127',
+            campaniaId: campaniaId,
+            set: setid
+        };
+ 
+    jQuery.ajax({
+        type: "POST",
+        url: 'ObtenerOfertaByCUVSet',
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(params),
+        async: true,
+        success: function (data) {
+            if (checkTimeout(data)) {
+                if (data.success) {
+
+                    debugger;
+                 
+
+
+                }
+                else closeWaitingDialog();
+            }
+            else {
+                closeWaitingDialog();
+                messageInfoError(data.message);
+            }
+        },
+        error: function (data, error) {
+            closeWaitingDialog();
+            if (checkTimeout(data)) {
+                alert("Ocurrió un error al ejecutar la acción. Por favor inténtelo de nuevo.");
+            }
+        }
+    });
+}

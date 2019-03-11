@@ -1165,3 +1165,35 @@ function closeDialogObservacionesProl() {
 
     $('#popup-observaciones-prol').hide();
 }
+
+function AbrirPopupArmaTuPack(campania, set) {
+    var param = {
+        campaniaId: campania,
+        set: set
+    }
+    var dfd = $.Deferred();
+    var datos;
+    try {
+        jQuery.ajax({
+            type: 'POST',
+            url: baseUrl + "Pedido/ObtenerPedidoWebSetDetalle",
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(param),
+            async: true,
+            cache: false,
+            success: function (data) {
+                $.each(data.pedidoSet.Detalles, function (i, o) {
+                    datos = "<p>" + o.SetDetalleId + "</p>";
+                }),
+                AbrirMensaje(datos, 'El pack que armaste contiene');
+            },
+            error: function (data, error) {
+                dfd.reject(data, error);
+            }
+        })
+    } catch (e) {
+        dfd.reject({}, {});
+    }
+    return dfd.promise();    
+}

@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Common.Response;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.AdministrarEstrategia;
 using Portal.Consultoras.Web.Models.Config.ResponseReporte;
 using Portal.Consultoras.Web.Models.Config.ResponseReporte.Estructura;
 using Portal.Consultoras.Web.Models.Estrategia;
@@ -25,9 +26,14 @@ namespace Portal.Consultoras.Web.Providers
         private readonly static HttpClient httpClientMicroservicioSync = new HttpClient();
 
         private readonly ISessionManager sessionManager = SessionManager.SessionManager.Instance;
+        protected OfertaBaseProvider _ofertaBaseProvider;
+        protected readonly EstrategiaGrupoProvider _estrategiaGrupoProvider;
 
-        static AdministrarEstrategiaProvider()
+        public AdministrarEstrategiaProvider()
         {
+            _ofertaBaseProvider = new OfertaBaseProvider();
+            _estrategiaGrupoProvider = new EstrategiaGrupoProvider();
+
             if (!string.IsNullOrEmpty(WebConfig.UrlMicroservicioPersonalizacionSync))
             {
                 httpClientMicroservicioSync.BaseAddress = new Uri(WebConfig.UrlMicroservicioPersonalizacionSync);
@@ -316,6 +322,47 @@ namespace Portal.Consultoras.Web.Providers
                 listaEstrategias.AddRange(mapList);
             }
             return listaEstrategias;
+        }
+
+        public virtual List<ServicePedido.BEEstrategiaProducto> GetEstrategiaProductoService(string isoPais, string estrategiaId, string codigoTipoEstrategia)
+        {
+            List<ServicePedido.BEEstrategiaProducto> lst;
+            codigoTipoEstrategia = Util.Trim(codigoTipoEstrategia);
+            var palancaMongoPrueba = codigoTipoEstrategia != ""
+                && Constantes.TipoEstrategiaCodigo.ArmaTuPack == codigoTipoEstrategia;
+
+            if (palancaMongoPrueba && _ofertaBaseProvider.UsarMsPersonalizacion(isoPais, codigoTipoEstrategia, false))
+            {
+                lst = FiltrarEstrategia(estrategiaId, isoPais)
+                    .Select(x => x.Componentes)
+                    .FirstOrDefault();
+            }
+            else
+            {
+                int paisId = Util.GetPaisID(isoPais);
+                var estrategiaX = new ServicePedido.BEEstrategia() { PaisID = paisId, EstrategiaID = Int32.Parse(estrategiaId) };
+
+                using (var sv = new PedidoServiceClient())
+                {
+                    lst = sv.GetEstrategiaProducto(estrategiaX).ToList();
+                }
+            }
+            return lst;
+        }
+
+
+        public virtual List<EstrategiaGrupoModel> GetEstrategiaGrupoService(string isoPais, string estrategiaId, string codigoTipoEstrategia)
+        {
+            var estrategiaGrupoLista = new List<EstrategiaGrupoModel>();
+            codigoTipoEstrategia = Util.Trim(codigoTipoEstrategia);
+
+            var palancaMongoPrueba = codigoTipoEstrategia != ""
+                && Constantes.TipoEstrategiaCodigo.ArmaTuPack == codigoTipoEstrategia;
+            if (palancaMongoPrueba && _ofertaBaseProvider.UsarMsPersonalizacion(isoPais, codigoTipoEstrategia, false))
+            {
+                estrategiaGrupoLista = _estrategiaGrupoProvider.ObtenerEstrategiaGrupo(estrategiaId, isoPais);
+            }
+            return estrategiaGrupoLista;
         }
 
         public void RegistrarEstrategia(ServicePedido.BEEstrategia entidad, string pais)

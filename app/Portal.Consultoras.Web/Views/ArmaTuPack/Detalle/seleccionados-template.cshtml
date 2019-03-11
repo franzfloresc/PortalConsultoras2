@@ -1,0 +1,20 @@
+﻿
+<script id="seleccionados-template" type="text/x-handlebars-template">
+    <div class="container d-flex align-items-center justify-content-center ">
+        <ul class="Select_Group">
+            {{#each this.componentesSeleccionados as |seleccionado|}}
+            <li class="Select_Item active">
+                <div class="product-select">
+                    <button class="product_select_close"><img src="/Content/Images/mobile/Esika/close-button-white.svg"></button>
+                    <img src="{{seleccionado.ImagenBulk}}" />
+                </div>
+            </li>
+            
+            <li>+</li>
+            {{/each}}
+        </ul>
+        <div class="Agregar_ArmaTuPack_fixed">
+            <button class="Agregar_ArmaTuPack">Agregar</button>
+        </div>
+    </div>
+</script>
