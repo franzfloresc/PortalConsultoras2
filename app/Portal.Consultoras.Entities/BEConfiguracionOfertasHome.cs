@@ -3,7 +3,6 @@ using Portal.Consultoras.Entities.Oferta;
 
 using System.Data;
 using System.Runtime.Serialization;
-using System.Collections.Generic;
 
 namespace Portal.Consultoras.Entities
 {
@@ -97,9 +96,6 @@ namespace Portal.Consultoras.Entities
         public BEConfiguracionPais ConfiguracionPais { get; set; }
 
         [DataMember]
-        public List<BEConfiguracionPaisDatos> ConfiguracionPaisDatos { get; set; }
-
-        [DataMember]
         public BEConfiguracionOfertasHomeApp ConfiguracionOfertasHomeApp { get; set; }
 
         public BEConfiguracionOfertasHome(IDataRecord row)
@@ -136,12 +132,11 @@ namespace Portal.Consultoras.Entities
             UrlSeccion = row.ToString("UrlSeccion");
             ConfiguracionPais = new BEConfiguracionPais();
             ConfiguracionPais.Codigo = row.ToString("Codigo", string.Empty);
-            ConfiguracionPaisDatos = new List<BEConfiguracionPaisDatos>();
         }
 
         public BEConfiguracionOfertasHome()
         {
-            ConfiguracionPaisDatos = new List<BEConfiguracionPaisDatos>();
+
         }
     }
 }
