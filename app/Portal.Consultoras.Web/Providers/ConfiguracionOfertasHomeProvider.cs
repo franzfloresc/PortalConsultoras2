@@ -280,7 +280,7 @@ namespace Portal.Consultoras.Web.Providers
                             seccion.TemplateProducto =
                                 isMobile ? "#template-producto-v2" : "#producto-landing-template";
                             break;
-                        case Constantes.ConfiguracionSeccion.TipoPresentacion.ArmaTuPack:
+                        case Constantes.ConfiguracionSeccion.TipoPresentacion.BannerInteractivo:
                             seccion.TemplatePresentacion = isMobile ? "seccion-carrusel-individuales-v2" : "seccion-simple-centrado";
                             seccion.TemplateProducto = isMobile ? "#template-producto-v2" : "#producto-landing-template";
                             break;

@@ -1661,7 +1661,7 @@ namespace Portal.Consultoras.Common
                 public const int DescagablesNavidenos = 7;
                 public const int CarruselIndividuales = 8; // Ejm LAN
                 public const int CarruselIndividualesV2 = 9; // Ejm GM
-                public const int ArmaTuPack = 10; 
+                public const int BannerInteractivo = 10; 
             }
         }
 
