@@ -998,10 +998,6 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/TusClientes/TusClientes_Responsive.css"
             ));
 
-
-
-
-
 #if DEBUG
             BundleTable.EnableOptimizations = false;
 #else
