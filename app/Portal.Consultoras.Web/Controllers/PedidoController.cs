@@ -4,6 +4,7 @@ using Portal.Consultoras.PublicService.Cryptography;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Oferta.ResponseOfertaGenerico;
 using Portal.Consultoras.Web.Models.ProgramaNuevas;
+using Portal.Consultoras.Web.Models.Search.ResponseOferta.Estructura;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceCliente;
 using Portal.Consultoras.Web.ServiceContenido;
@@ -4803,30 +4804,13 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
 
-        public async Task<JsonResult> ObtenerOfertaByCUVSet(string path, int campaniaId, int set)
+        public async Task<JsonResult> ObtenerOfertaByCUVSet( int campaniaId, int set, string cuv)
         {
             try
             {
                 var pedidoSet = _pedidoSetProvider.ObtenerPorId(userData.PaisID, set);
 
-                using (var httpClient = new HttpClient())
-                {
-                    httpClient.BaseAddress = new Uri(WebConfig.UrlMicroservicioPersonalizacionSearch);
-                    httpClient.DefaultRequestHeaders.Accept.Clear();
-                    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                    HttpResponseMessage httpResponse = await httpClient.GetAsync(path);
-                    if (httpResponse.IsSuccessStatusCode)
-                    {
-                        string json = await httpResponse.Content.ReadAsStringAsync();
-
-                        OutputOfertaLista respuesta = Newtonsoft.Json.JsonConvert.DeserializeObject<OutputOfertaLista>(json);
-                      
-                    }
-                }
-
-
-
+                await ObtenerComponentesPedidoWebSet(campaniaId, cuv, pedidoSet);
 
                 return Json(new
                 {
@@ -4844,15 +4828,46 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        private async Task ObtenerComponentesPedidoWebSet(int campaniaId, string cuv, Models.Pedido.PedidoWebSetModel pedidoSet)
+        {
+            using (var httpClient = new HttpClient())
+            {
+                httpClient.BaseAddress = new Uri(WebConfig.UrlMicroservicioPersonalizacionSearch);
+                httpClient.DefaultRequestHeaders.Accept.Clear();
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                string path = string.Format("/Oferta/ByCuv/{0}/{1}/{2}/{3}", userData.CodigoISO, Constantes.TipoPersonalizacion.ShowRoom, campaniaId, cuv);
+                HttpResponseMessage httpResponse = await httpClient.GetAsync(path);
+                if (httpResponse.IsSuccessStatusCode)
+                {
+                    string json = await httpResponse.Content.ReadAsStringAsync();
 
+                    OutputOferta respuesta = Newtonsoft.Json.JsonConvert.DeserializeObject<OutputOferta>(json);
 
-        //public static async Task<ShowRoomEventoModel> ObtenerEventoShowroomDesdeApi(string path, string codigoISO)
-        //{
-        //    ShowRoomEventoModel modelo = new ShowRoomEventoModel();
+                    if (respuesta.Result != null)
+                    {
+                        if (respuesta.Result.Grupos.Any())
+                        {
+                            var componentes = new List<Componente>();
 
-          
-        //    return modelo;
-        //}
+                            respuesta.Result.Grupos.Each(x =>
+                            {
+                                if (x.Componentes.Any())
+                                {
+                                    componentes.AddRange(x.Componentes);
+                                }
+
+                            });
+
+                            pedidoSet.Detalles.Update(x =>
+                            {
+                                var item = componentes.FirstOrDefault(i => i.Cuv == x.CUV);
+                                x.NombreProducto = item != null ? item.NombreProducto : string.Empty;
+                            });
+                        }
+                    }
+                }
+            }
+        }
 
 
 
