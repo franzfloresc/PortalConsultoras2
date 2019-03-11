@@ -1866,7 +1866,7 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
 
             it("should have one item at componenteSeleccionado", function () {
                 var model = gruposPresenter.packComponents();
-                console.log(model);
+                
                 expect(model.componentesSeleccionados.length).to.be.equals(1);
             });
 

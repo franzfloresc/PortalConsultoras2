@@ -10,14 +10,47 @@
         generalModule: config.generalModule
     };
 
-    var _onGruposLoaded = function (packComponents) {
-        if (typeof packComponents === "undefined" || packComponents === null)
-            _config.generalModule.redirectTo("/ofertas");
+    var _packComponentsModel = null;
 
+    var _packComponents = function (value) {
+        if (typeof value === "undefined") {
+            return _packComponentsModel;
+        } else if (value !== null) {
+            value.componentesSeleccionados = value.componentesSeleccionados || [];
+            value.componentes = value.componentes || [];
+            $.each(value.componentes, function (idx, grupo) {
+                grupo.cantidadSeleccionados = grupo.cantidadSeleccionados || 0;
+            });
+            _packComponentsModel = value;
+        }
+    };
+
+    var _onGruposLoaded = function (packComponents) {
+        if (typeof packComponents === "undefined" || packComponents === null) {
+            throw "packComponents is null or undefined";
+        }
+
+        if (!Array.isArray(packComponents.componentes) || packComponents.componentes.length === 0) {
+            throw "packComponents has no components";
+        }
+        _packComponents(packComponents);
+        _config.seleccionadosView.renderSeleccionados(packComponents);
+    };
+
+    var _onSelectedComponentsChanged = function (packComponents) {
+        if (typeof packComponents === "undefined" || packComponents === null) {
+            throw "packComponents is null or undefined";
+        }
+
+        if (!Array.isArray(packComponents.componentes) || packComponents.componentes.length === 0) {
+            throw "packComponents has no components";
+        }
+        _packComponents(packComponents);
         _config.seleccionadosView.renderSeleccionados(packComponents);
     };
 
     return {
-        onGruposLoaded : _onGruposLoaded
+        onGruposLoaded : _onGruposLoaded,
+        _onSelectedComponentsChanged : _onSelectedComponentsChanged,
     };
 };

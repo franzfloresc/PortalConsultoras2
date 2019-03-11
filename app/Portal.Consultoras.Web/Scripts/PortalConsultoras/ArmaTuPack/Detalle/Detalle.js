@@ -52,18 +52,19 @@ var seleccionadosPresenter = SeleccionadosPresenter({
     generalModule: generalModule,
     armaTuPackDetalleEvents: armaTuPackDetalleEvents
 });
+seleccionadosView.setPresenter(seleccionadosPresenter);
 
 $(document).ready(function () {
     detallePresenter.init();
 });
 
 
-armaTuPackDetalleEvents.subscribe(armaTuPackDetalleEvents.eventName.onGruposLoaded, function (PackComponents) {
-    gruposDesktopPresenter.onGruposLoaded(PackComponents);
-    //grupoMobilePresenter.renderGrupos(PackComponents);
+armaTuPackDetalleEvents.subscribe(armaTuPackDetalleEvents.eventName.onGruposLoaded, function (packComponents) {
+    gruposDesktopPresenter.onGruposLoaded(packComponents);
+    //grupoMobilePresenter.renderGrupos(packComponents);
     //TODO :
 });
 
-armaTuPackDetalleEvents.subscribe(armaTuPackDetalleEvents.eventName.onSelectedProductsChanged, function (grupos) {
-    //TODO :
+armaTuPackDetalleEvents.subscribe(armaTuPackDetalleEvents.eventName.onSelectedComponentsChanged, function (packComponents) {
+    seleccionadosPresenter._onSelectedComponentsChanged(packComponents);
 });
