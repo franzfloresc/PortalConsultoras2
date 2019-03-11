@@ -1,12 +1,13 @@
 ﻿using OpenSource.Library.DataAccess;
 
 using Portal.Consultoras.Common;
-
+using Portal.Consultoras.Entities.Pedido;
+using Portal.Consultoras.Entities.Usuario;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Runtime.Serialization;
-using System.Collections.Generic;
 
 namespace Portal.Consultoras.Entities
 {
@@ -929,11 +930,18 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool TieneMG { get; set; }
         [DataMember]
+        public BEDireccionEntrega DireccionEntrega { get; set; }
         public bool TieneChatbot { get; set; }
         [DataMember]
         public List<BEConfiguracionPaisDatos> RecomendacionesConfiguracion { get; set; }
         [DataMember]
         public string SegmentoDatami { get; set; }
+	    [DataMember]
+        public string CorreoAnterior { get; set; }
+        [DataMember]
+        public List<BEUsuarioOpciones> UsuarioOpciones { get; set; }
+        [DataMember]
+        public bool GanaMasNativo { get; set; }
 
         public BEUsuario(IDataRecord row, bool Tipo, bool ValidaHorario)
         {
