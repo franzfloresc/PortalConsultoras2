@@ -1006,7 +1006,8 @@ namespace Portal.Consultoras.Web
             #region ArmaTuPack
             
             bundles.Add(new StyleBundle("~/Bundle/Css/Responsive/ArmaTuPack").Include(
-                "~/Content/Css/Site/ArmaTuPack/ArmaTuPack_Responsive.css"
+                "~/Content/Css/Site/ArmaTuPack/ArmaTuPack_Responsive.css",
+                "~/Content/Css/Site/ficha/SeleccionarTipo.css"
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mixto/ArmaTuPack").Include(
