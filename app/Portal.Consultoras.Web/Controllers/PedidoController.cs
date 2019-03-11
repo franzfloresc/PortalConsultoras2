@@ -4851,48 +4851,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-
-        //private async Task ObtenerComponentesPedidoWebSet(int campaniaId, string cuv, Models.Pedido.PedidoWebSetModel pedidoSet)
-        //{
-        //    using (var httpClient = new HttpClient())
-        //    {
-        //        httpClient.BaseAddress = new Uri(WebConfig.UrlMicroservicioPersonalizacionSearch);
-        //        httpClient.DefaultRequestHeaders.Accept.Clear();
-        //        httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-        //        string path = string.Format("/Oferta/ByCuv/{0}/{1}/{2}/{3}", userData.CodigoISO, Constantes.TipoPersonalizacion.ShowRoom, campaniaId, cuv);
-        //        HttpResponseMessage httpResponse = await httpClient.GetAsync(path);
-        //        if (httpResponse.IsSuccessStatusCode)
-        //        {
-        //            string json = await httpResponse.Content.ReadAsStringAsync();
-
-        //            OutputOferta respuesta = Newtonsoft.Json.JsonConvert.DeserializeObject<OutputOferta>(json);
-
-        //            if (respuesta.Result != null)
-        //            {
-        //                if (respuesta.Result.Grupos.Any())
-        //                {
-        //                    var componentes = new List<Componente>();
-
-        //                    respuesta.Result.Grupos.Each(x =>
-        //                    {
-        //                        if (x.Componentes.Any())
-        //                        {
-        //                            componentes.AddRange(x.Componentes);
-        //                        }
-
-        //                    });
-
-        //                    pedidoSet.Detalles.Update(x =>
-        //                    {
-        //                        var item = componentes.FirstOrDefault(i => i.Cuv == x.CUV);
-        //                        x.NombreProducto = item != null ? item.NombreProducto : string.Empty;
-        //                    });
-        //                }
-        //            }
-        //        }
-        //    }
-        //}
-
+         
 
 
 
