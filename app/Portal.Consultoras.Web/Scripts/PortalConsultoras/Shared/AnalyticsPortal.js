@@ -935,7 +935,7 @@ var AnalyticsPortalModule = (function () {
             dataLayer.push({
                 'event': _evento.virtualEvent,
                 'category': 'Buscador SB',
-                'action': 'Ver todos los resultados',
+                'action': 'Ver más los resultados',
                 'label': busqueda
             });
         } catch (e) {
