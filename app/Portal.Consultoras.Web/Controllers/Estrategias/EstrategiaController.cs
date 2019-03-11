@@ -575,6 +575,11 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             return listaTieneStock;
         }
 
+        [HttpPost]
+        public JsonResult ATPObtenerProductos(BusquedaProductoModel model)
+        {
+            return PreparListaModel(model, Constantes.TipoConsultaOfertaPersonalizadas.ATPObtenerProductos);
+        }
         #endregion
 
         [HttpPost]

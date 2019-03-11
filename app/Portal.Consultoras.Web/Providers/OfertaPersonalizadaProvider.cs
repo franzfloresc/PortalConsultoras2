@@ -111,6 +111,9 @@ namespace Portal.Consultoras.Web.Providers
                 case Constantes.TipoConsultaOfertaPersonalizadas.SRObtenerProductos:
                     palanca = Constantes.TipoEstrategiaCodigo.ShowRoom;
                     break;
+                case Constantes.TipoConsultaOfertaPersonalizadas.ATPObtenerProductos:
+                    palanca = Constantes.TipoEstrategiaCodigo.ArmaTuPack;
+                    break;
             }
 
             return palanca;
@@ -143,6 +146,10 @@ namespace Portal.Consultoras.Web.Providers
             else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.OPTObtenerProductos)
             {
                 retorno = 0;
+            }
+            else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.ATPObtenerProductos)
+            {
+                retorno = model.CampaniaID;
             }
 
             return retorno;
@@ -421,6 +428,9 @@ namespace Portal.Consultoras.Web.Providers
                     listEstrategia.AddRange(lstTmp.Where(x => x.FlagRevista != Constantes.FlagRevista.Valor2).OrderBy(x => x.Orden));
                     listEstrategia = listEstrategia.OrderBy(x => x.TieneStock, false).ToList();
                     break;
+                case Constantes.TipoEstrategiaCodigo.ArmaTuPack:
+                    listEstrategia.AddRange(ConsultarEstrategiasPorTipo(esMobile, Constantes.TipoEstrategiaCodigo.ArmaTuPack, campaniaId));
+                    break;
             }
 
             return listEstrategia;
@@ -515,6 +525,7 @@ namespace Portal.Consultoras.Web.Providers
                     case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada: tipoPersonalizacion = Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada; break;
                     case Constantes.TipoEstrategiaCodigo.ShowRoom: tipoPersonalizacion = Constantes.ConfiguracionPais.ShowRoom; break;
                     case Constantes.TipoEstrategiaCodigo.HerramientasVenta: tipoPersonalizacion = Constantes.ConfiguracionPais.HerramientasVenta; break;
+                    case Constantes.TipoEstrategiaCodigo.ArmaTuPack: tipoPersonalizacion = Constantes.ConfiguracionPais.ArmaTuPack; break;
                 }
 
                 string pathMS = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertas,

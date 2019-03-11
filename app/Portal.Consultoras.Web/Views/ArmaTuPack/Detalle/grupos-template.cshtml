@@ -1,16 +1,14 @@
 ﻿
-<script id="grupo-template" type="text/x-handlebars-template">
-
+<script id="grupos-template" type="text/x-handlebars-template">
     {{#each this.componentes as |grupo|}}
     <section class="Sections_Pack">
         <div class="Title_pack d-flex">
             <h3>{{grupo.DescripcionSingular}}</h3>
-            @*<span>Elige 2 opciones</span>*@
             <span class="listo">¡Listo!</span>
         </div>
 
         <div id="Select_Items" class="row">
-            <div id="Pack_Items" class="col-12 d-md-flex justify-content-between">
+            <div id="Pack_Items" class="col-12 d-md-flex justify-content-between" data-carrusel-container>
 
                 {{#each grupo.Hermanos as |componente|}}
                 <article class="product_pack">
