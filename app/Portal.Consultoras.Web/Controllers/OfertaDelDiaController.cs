@@ -10,6 +10,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                var x = HttpContext.CurrentHandler;
                 var oddModel = _ofertaDelDiaProvider.GetOfertaDelDiaConfiguracion(userData);
 
                 if (oddModel != null)
