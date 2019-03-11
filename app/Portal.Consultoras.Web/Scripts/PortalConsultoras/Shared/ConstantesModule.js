@@ -57,7 +57,7 @@ var ConstantesModule = (function () {
         ProgramaNuevasRegalo: "044",
         ParticipaProgramaNuevas: "1",
         NotParticipaProgramaNuevas: "0",
-        ArmaTuPack: "031"
+        ArmaTuPack: "004"
     }
 
     var _configuracionOferta = {

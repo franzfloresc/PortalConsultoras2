@@ -77,7 +77,7 @@
         LosMasVendidos: "020",
         HerramientaVenta: "011",
         ShowRoom: "030",
-        ArmaTuPack: "031"
+        ArmaTuPack: "004"
 
     }
 

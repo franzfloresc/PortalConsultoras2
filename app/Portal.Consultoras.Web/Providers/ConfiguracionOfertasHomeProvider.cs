@@ -95,14 +95,12 @@ namespace Portal.Consultoras.Web.Providers
                     entConf.ConfiguracionPais.Codigo = Util.Trim(entConf.ConfiguracionPais.Codigo).ToUpper();
 
                     #region Pre Validacion
-
                     var conforme = SeccionesPreValidar(ref entConf, revistaDigital);
 
                     if (!conforme)
                     {
                         continue;
                     }
-
                     #endregion
 
                     ConfiguracionPais.RemplazarTagNombreConfiguracionOferta(
@@ -113,7 +111,6 @@ namespace Portal.Consultoras.Web.Providers
                     var seccion = SeccionModelo(entConf, revistaDigital, isMobile);
 
                     #region ConfiguracionPais.Codigo
-
                     switch (entConf.ConfiguracionPais.Codigo)
                     {
                         case Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada:
@@ -231,12 +228,17 @@ namespace Portal.Consultoras.Web.Providers
                                     : Constantes.OrigenPedidoWeb.DesktopContenedorGanadorasFicha;
                             seccion.VerMas = SessionManager.MasGanadoras.GetModel().TieneLanding;
                             break;
-                    }
+                        case Constantes.ConfiguracionPais.ArmaTuPack:
+                            seccion.UrlObtenerProductos = "Estrategia/ATPObtenerProductos";
+                            seccion.UrlLandig = "ArmaTuPack";
 
+                            seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.MobileContenedorArmaTuPack : Constantes.OrigenPedidoWeb.DesktopContenedorArmaTuPack;
+                            seccion.VerMas = false;
+                            break;
+                    }
                     #endregion
 
                     #region TipoPresentacion
-
                     seccion.TemplatePresentacion = "";
                     seccion.TemplateProducto = "";
                     switch (seccion.TipoPresentacion)
@@ -278,10 +280,13 @@ namespace Portal.Consultoras.Web.Providers
                             seccion.TemplateProducto =
                                 isMobile ? "#template-producto-v2" : "#producto-landing-template";
                             break;
+                        case Constantes.ConfiguracionSeccion.TipoPresentacion.ArmaTuPack:
+                            seccion.TemplatePresentacion = isMobile ? "seccion-carrusel-individuales-v2" : "seccion-simple-centrado";
+                            seccion.TemplateProducto = isMobile ? "#template-producto-v2" : "#producto-landing-template";
+                            break;
                     }
 
                     if (seccion.TemplatePresentacion == "") continue;
-
                     #endregion
 
                     seccionesContenedorModel.Add(seccion);

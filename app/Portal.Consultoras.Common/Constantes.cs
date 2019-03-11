@@ -259,7 +259,7 @@ namespace Portal.Consultoras.Common
             public const string HerramientasVenta = "011";
             public const string NotParticipaProgramaNuevas = "0";
             public const string MasGanadoras = "201"; // No tiene referecia con BD, es un grupo de estrategias
-            public const string ArmaTuPack = "031";
+            public const string ArmaTuPack = "004";
         }
 
         public static class TipoPersonalizacion
@@ -943,7 +943,9 @@ namespace Portal.Consultoras.Common
             public const int MobileContenedorShowroomFicha = 2080102;
             public const int AppConsultoraContenedorShowroomFicha = 4080102;
             public const int MobileContenedorLanzamientosCarrusel = 2080201; // Esta en duro en rdAnalyticsModule
-            
+
+            public const int MobileContenedorArmaTuPack = 2131502;
+            public const int DesktopContenedorArmaTuPack = 1131502;
             #endregion
 
             #region Producto Recomendado
@@ -2723,6 +2725,7 @@ namespace Portal.Consultoras.Common
             public const int NuevasObtenerProductos = 6;
             public const int MGObtenerProductos = 7;
             public const int SRObtenerProductos = 8;
+            public const int ATPObtenerProductos = 9;
         };
 
         #region PagoEnLinea
