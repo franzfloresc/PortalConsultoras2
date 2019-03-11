@@ -177,7 +177,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Buscador/BuscadorProvider.js",
                 "~/Scripts/PortalConsultoras/Buscador/BuscadorModule.js",
                 "~/Scripts/PortalConsultoras/Shared/ConstantesModule.js",
-                "~/Scripts/PortalConsultoras/EstrategiaAgregar/PedidoRegistro.js"
+                "~/Scripts/PortalConsultoras/EstrategiaAgregar/PedidoRegistro.js",
+                "~/Scripts/slick.js"
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mixto/BusquedaProducto").Include(
@@ -979,7 +980,8 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/Shared/menu-secundario-responsive.css",
                 "~/Content/Css/Site/Shared/footer-responsive.css",
                 "~/Content/Css/Site/Esika/marca-pais-responsive.css",
-                "~/Content/Css/Site/Esika/styleDefault.css"
+                "~/Content/Css/Site/Esika/styleDefault.css",
+                "~/Content/Css/Site/slick.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/LebelPageResponsive").Include(
@@ -991,7 +993,8 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/Shared/menu-secundario-responsive.css",
                 "~/Content/Css/Site/Shared/footer-responsive.css",
                 "~/Content/Css/Site/Lbel/marca-pais-responsive.css",
-                "~/Content/Css/Site/Lbel/styleDefault.css"
+                "~/Content/Css/Site/Lbel/styleDefault.css",
+                "~/Content/Css/Site/slick.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Responsive/TusClientes").Include(

@@ -8,6 +8,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Portal.Consultoras.Web.Models.ConsultaProl;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -64,33 +67,58 @@ namespace Portal.Consultoras.Web.Providers
             mensaje = "";
 
             var userData = SessionManager.GetUserData();
-            List<EstrategiaComponenteModel> listaEstrategiaComponente;
-            if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, codigoTipoEstrategia))
+            List<EstrategiaComponenteModel> listaEstrategiaComponente = null;
+            if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.ArmaTuPack)
             {
-                mensaje += "SiMongo|";
+                //trae del servicio de mongo - Arma tu Pack
+                string pathMs = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertasCuv,
+                    userData.CodigoISO,
+                    Constantes.TipoPersonalizacion.ArmaTuPack,
+                    estrategiaModelo.CampaniaID,
+                    estrategiaModelo.CUV2,
+                    "0",
+                    0, //diaInicio
+                    userData.CodigorRegion,
+                    userData.CodigoZona
+                );
+                var taskApi = Task.Run(() => OfertaBaseProvider.ObtenerOfertasDesdeApi(pathMs, userData.CodigoISO));
+                Task.WhenAll(taskApi);
+                var result = taskApi.Result;
+                
 
-                listaBeEstrategiaProductos = GetEstrategiaProductos(estrategiaModelo);
+                listaEstrategiaComponente = new List<EstrategiaComponenteModel>();
 
-                if (!listaBeEstrategiaProductos.Any()) return new List<EstrategiaComponenteModel>();
-
-                mensaje += "GetEstrategiaProductos = " + listaBeEstrategiaProductos.Count + "|";
-
-                listaEstrategiaComponente = GetEstrategiaDetalleCompuesta(estrategiaModelo, listaBeEstrategiaProductos);
-                mensaje += "GetEstrategiaDetalleCompuesta = " + listaEstrategiaComponente.Count + "|";
             }
             else
             {
-                mensaje += "NoMongo|";
+                if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, codigoTipoEstrategia))
+                {
+                    mensaje += "SiMongo|";
 
-                listaBeEstrategiaProductos = GetEstrategiaProductos(estrategiaModelo);
+                    listaBeEstrategiaProductos = GetEstrategiaProductos(estrategiaModelo);
 
-                if (!listaBeEstrategiaProductos.Any()) return new List<EstrategiaComponenteModel>();
+                    if (!listaBeEstrategiaProductos.Any()) return new List<EstrategiaComponenteModel>();
 
-                mensaje += "GetEstrategiaProductos = " + listaBeEstrategiaProductos.Count + "|";
+                    mensaje += "GetEstrategiaProductos = " + listaBeEstrategiaProductos.Count + "|";
 
-                listaEstrategiaComponente = GetEstrategiaDetalleCompuesta(estrategiaModelo, listaBeEstrategiaProductos);
-                mensaje += "GetEstrategiaDetalleCompuesta = " + listaEstrategiaComponente.Count + "|";
+                    listaEstrategiaComponente = GetEstrategiaDetalleCompuesta(estrategiaModelo, listaBeEstrategiaProductos);
+                    mensaje += "GetEstrategiaDetalleCompuesta = " + listaEstrategiaComponente.Count + "|";
+                }
+                else
+                {
+                    mensaje += "NoMongo|";
+
+                    listaBeEstrategiaProductos = GetEstrategiaProductos(estrategiaModelo);
+
+                    if (!listaBeEstrategiaProductos.Any()) return new List<EstrategiaComponenteModel>();
+
+                    mensaje += "GetEstrategiaProductos = " + listaBeEstrategiaProductos.Count + "|";
+
+                    listaEstrategiaComponente = GetEstrategiaDetalleCompuesta(estrategiaModelo, listaBeEstrategiaProductos);
+                    mensaje += "GetEstrategiaDetalleCompuesta = " + listaEstrategiaComponente.Count + "|";
+                }
             }
+                     
 
             listaEstrategiaComponente = OrdenarComponentesPorMarca(listaEstrategiaComponente, out esMultimarca);
             mensaje += "OrdenarComponentesPorMarca = " + listaEstrategiaComponente.Count + "|";

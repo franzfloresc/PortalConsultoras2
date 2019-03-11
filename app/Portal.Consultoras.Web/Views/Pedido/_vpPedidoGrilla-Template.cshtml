@@ -51,7 +51,7 @@
          data-tipoestrategia="{{TipoEstrategiaCodigo}}"
          data-OrigenPedidoWeb="{{OrigenPedidoWeb}}">
         <div class="texto_pedidos celda_producto pedidoPadreToolTip"
-             onclick="javascript:{{#iff TipoEstrategiaCodigo '=='  '004'}}AbrirPopupArmaTuPack('{{CampaniaID}}','{{SetID}}'){{else}}FichaPartialModule.ConstruirFicha(this, '{{TipoAccion}}'){{/iff}}"
+             onclick="javascript:{{#iff TipoEstrategiaCodigo '=='  '@Constantes.TipoEstrategiaCodigo.ArmaTuPack'}}AbrirPopupArmaTuPack('{{CampaniaID}}','{{SetID}}','{{CUV}}'){{else}}FichaPartialModule.ConstruirFicha(this, '{{TipoAccion}}'){{/iff}}"
              style="position:relative">
             <span class="producto-codigo">{{CUV}}</span>
             {{#if_eq TipoPedido 'M'}}
@@ -90,7 +90,7 @@
         </div>
         <div class="celda_cantidad_pedidos">
             <div data-SetID="{{SetID}}"></div>
-            {{#iff TipoEstrategiaCodigo '=='  '004'}}
+            {{#iff TipoEstrategiaCodigo '=='  '@Constantes.TipoEstrategiaCodigo.ArmaTuPack'}}
             <div class="texto_pedidos texto_cantidad_pedidos">{{Cantidad}}</div>
             {{else EsKitNueva}}
             <div class="texto_pedidos texto_cantidad_pedidos">{{Cantidad}}</div>
@@ -135,7 +135,7 @@
             </span>
         </div>
         <div class="texto_pedidos clientePedido">
-            {{#iff TipoEstrategiaCodigo '=='  '004'}}
+            {{#iff TipoEstrategiaCodigo '=='  '@Constantes.TipoEstrategiaCodigo.ArmaTuPack'}}
             <input type="text" name="{{Nombre}}" value="{{Nombre}}" maxlength="50" class="classClienteNombre ValidaAlfanumerico txtLPCli"
                    readonly="readOnly" onkeydown="return false;" style="width:90%; padding:4px;" />
             {{else EsKitNueva}}

@@ -146,6 +146,8 @@
                 </section>
                 @Html.Partial("~/Views/Shared/_MenuSecundarioResponsive.cshtml")
             </div>
+
+            @Html.Partial("~/Views/Shared/VistaParcialResponisve/_MenuContenedorResponsive.cshtml")
         </header>
 
         @if (!string.IsNullOrEmpty(ViewBag.Title))
@@ -163,7 +165,6 @@
                 </div>
             </section>
         }
-
 
         @RenderBody()
 

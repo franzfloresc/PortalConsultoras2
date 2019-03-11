@@ -4570,6 +4570,7 @@
     <Content Include="Areas\Mobile\Views\Pedido\_PopupEleccionRegalo.cshtml" />
     <Content Include="Areas\Mobile\Views\Pedido\_PopupPremio.cshtml" />
     <Content Include="Areas\Mobile\Views\Pedido\_PopupDescuento.cshtml" />
+    <Content Include="Views\Shared\VistaParcialResponisve\_MenuContenedorResponsive.cshtml" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>
