@@ -20,10 +20,20 @@
             return _packComponentsModel;
         } else if (value !== null) {
             value.componentesSeleccionados = value.componentesSeleccionados || [];
+            value.componentesNoSeleccionados = value.componentesNoSeleccionados || [];
             value.componentes = value.componentes || [];
+            //var GrupoFactorCuadre = 0;
             $.each(value.componentes, function (idx, grupo) {
                 grupo.cantidadSeleccionados = grupo.cantidadSeleccionados || 0;
+                //GrupoFactorCuadre = GrupoFactorCuadre + grupo.FactorCuadre;
             });
+
+            //if (value.componentesSeleccionados.length == 0) {
+            //    for (var i = 0; i < GrupoFactorCuadre; i++) {
+            //        value.componentesNoSeleccionados.push({ ImagenBulk: ""});
+            //    }
+            //}
+
             _packComponentsModel = value;
         }
     };
@@ -53,6 +63,7 @@
                     //grupo.HermanosSeleccionados = grupo.HermanosSeleccionados || [];
                     if(componente.Cuv == cuvComponente && grupo.cantidadSeleccionados < componente.FactorCuadre){
                         model.componentesSeleccionados.push(componente);
+                        model.componentesNoSeleccionados.splice(0, 1);
                         grupo.cantidadSeleccionados++;
                         //grupo.HermanosSeleccionados.push(componente);
                     }
@@ -86,6 +97,7 @@
 
         if (componenteSeleccionadoIndex != -1) {
             model.componentesSeleccionados.splice(componenteSeleccionadoIndex, 1);
+            model.componentesNoSeleccionados.push({ ImagenBulk: ""});
             _packComponents(model);
             _config.armaTuPackDetalleEvents.applyChanges(_config.armaTuPackDetalleEvents.eventName.onSelectedComponentsChanged, model);
         }

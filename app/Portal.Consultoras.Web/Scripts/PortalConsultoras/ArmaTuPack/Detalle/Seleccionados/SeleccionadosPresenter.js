@@ -17,10 +17,22 @@
             return _packComponentsModel;
         } else if (value !== null) {
             value.componentesSeleccionados = value.componentesSeleccionados || [];
+            value.componentesNoSeleccionados = value.componentesNoSeleccionados || [];
             value.componentes = value.componentes || [];
+            var GrupoFactorCuadre = 0;
             $.each(value.componentes, function (idx, grupo) {
                 grupo.cantidadSeleccionados = grupo.cantidadSeleccionados || 0;
+                GrupoFactorCuadre = GrupoFactorCuadre + grupo.FactorCuadre;
             });
+
+            if (value.componentesSeleccionados.length == 0) {
+                if (value.componentesNoSeleccionados.length == 0) {
+                    for (var i = 0; i < GrupoFactorCuadre; i++) {
+                        value.componentesNoSeleccionados.push({ ImagenBulk: "" });
+                    }
+                }
+            }
+
             _packComponentsModel = value;
         }
     };
@@ -34,7 +46,7 @@
             throw "packComponents has no components";
         }
         _packComponents(packComponents);
-        _config.seleccionadosView.renderSeleccionados(packComponents);
+        _config.seleccionadosView.renderSeleccionados(_packComponentsModel);
     };
 
     var _onSelectedComponentsChanged = function (packComponents) {
