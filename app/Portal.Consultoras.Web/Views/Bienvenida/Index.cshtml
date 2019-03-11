@@ -203,15 +203,8 @@
         @{  
             var marginTopFacturaE = "";
             marginTopFacturaE = verUltmPagos == "1" ? "margin-top: 0px" : marginTopFacturaE;
-            var marginTopPagoLinea = Model.TieneFacturacionElectronica == true ? "margin-top: 10px;" : "";
-            if (Model.TienePagoEnLinea && Model.MostrarPagoEnLinea)
-            {
-                <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Paga en línea"
-                    href="@Url.Action("MetodoPago","PagoEnLinea")" class="btn_paga_online btn_100_paga"
-                    style="margin-top: 12px;">PAGA EN L&Iacute;NEA</a><!-- AGREGAR LA CLASES="btn_100_paga"-->
-                marginTopFacturaE = "margin-top: 10px";
-            }
-            else
+            var marginTopPagoLinea = Model.TieneFacturacionElectronica ? "margin-top: 10px;" : "";
+            if (Model.MostrarPagoEnLinea)
             {
                 if (Model.PaisID == Constantes.PaisID.Chile)
                 {
@@ -228,8 +221,15 @@
                     <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Paga en línea" class="btn_paga_online btn_100_paga" href="@Url.Action("Index", "Paypal")" style="@marginTopPagoLinea"> PAGA EN L&Iacute;NEA</a>
                     marginTopFacturaE = "margin-top: 10px";
                 }
+                else if (Model.TienePagoEnLinea)
+                {
+                    <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Paga en línea"
+                       href="@Url.Action("MetodoPago","PagoEnLinea")" class="btn_paga_online btn_100_paga"
+                       style="margin-top: 12px;">PAGA EN L&Iacute;NEA</a>
+                    marginTopFacturaE = "margin-top: 10px";
+                }
             }
-
+            
             if (Model.TieneFacturacionElectronica)
             {
                 <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Facturación Electrónica" class="boton_facturacion_e btn_100_facturacion" href="@Url.Action("Index", "FacturaElectronica")" target="_blank" style="@marginTopFacturaE"> FACTURACI&Oacute;N ELECTR&Oacute;NICA</a>
