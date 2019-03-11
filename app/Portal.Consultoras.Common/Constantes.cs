@@ -1661,7 +1661,7 @@ namespace Portal.Consultoras.Common
                 public const int DescagablesNavidenos = 7;
                 public const int CarruselIndividuales = 8; // Ejm LAN
                 public const int CarruselIndividualesV2 = 9; // Ejm GM
-                public const int ArmaTuPack = 10; 
+                public const int BannerInteractivo = 10; 
             }
         }
 
@@ -3069,11 +3069,20 @@ namespace Portal.Consultoras.Common
             /// Oferta/{pais}/{tipo}/{codigoCampania}/{codigoConsultora}/{materialGanancia}/{diaInicio}/{codigoRegion}/{codigoZona}
             /// </summary>
             public const string UrlObtenerOfertas = "Oferta/{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}";
+            public const string UrlObtenerOfertasByCuv = "Oferta/ByCuv/{0}/{1}/{2}/{3}";
+
+            
 
             /// <summary>
             /// Evento/Get/{pais}/{campania}
             /// </summary>
             public const string UrlObtenerEvento = "Evento/Get/{0}/{1}";
+
+            //Oferta ByCuv
+            /// <summary>
+            /// Oferta/ByCuv/{pais}/{tipo}/{codigoCampania}/{cuv}
+            /// </summary>
+            public const string UrlObtenerOfertasCuv = "Oferta/ByCuv/{0}/{1}/{2}/{3}";
 
             /// <summary>
             /// Nivel/listar/{pais}

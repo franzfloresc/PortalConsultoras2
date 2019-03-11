@@ -4,6 +4,7 @@ using Portal.Consultoras.PublicService.Cryptography;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Oferta.ResponseOfertaGenerico;
 using Portal.Consultoras.Web.Models.ProgramaNuevas;
+using Portal.Consultoras.Web.Models.Search.ResponseOferta.Estructura;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceCliente;
 using Portal.Consultoras.Web.ServiceContenido;
@@ -40,21 +41,23 @@ namespace Portal.Consultoras.Web.Controllers
         private readonly int CUV_NO_TIENE_CREDITO = 2;
 
         private readonly PedidoSetProvider _pedidoSetProvider;
+        private readonly OfertaBaseProvider _ofertaBaseProvider;
         protected ProductoFaltanteProvider _productoFaltanteProvider;
         private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatosProvider;
 
         public PedidoController()
             : this(new PedidoSetProvider(),
                   new ProductoFaltanteProvider(),
-                  new ConfiguracionPaisDatosProvider())
+                  new ConfiguracionPaisDatosProvider(), new OfertaBaseProvider())
         {
         }
 
         public PedidoController(PedidoSetProvider pedidoSetProvider,
             ProductoFaltanteProvider productoFaltanteProvider,
-            ConfiguracionPaisDatosProvider configuracionPaisDatosProvider)
+            ConfiguracionPaisDatosProvider configuracionPaisDatosProvider, OfertaBaseProvider ofertaBaseProvider)
         {
             _pedidoSetProvider = pedidoSetProvider;
+            _ofertaBaseProvider = ofertaBaseProvider;
             _productoFaltanteProvider = productoFaltanteProvider;
             _configuracionPaisDatosProvider = configuracionPaisDatosProvider;
         }
@@ -4803,28 +4806,33 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
 
-        public async Task<JsonResult> ObtenerOfertaByCUVSet(string path, int campaniaId, int set)
+        public async Task<JsonResult> ObtenerOfertaByCUVSet( string campaniaId, int set, string cuv)
         {
             try
             {
                 var pedidoSet = _pedidoSetProvider.ObtenerPorId(userData.PaisID, set);
 
-                using (var httpClient = new HttpClient())
+                var estrategia = await _ofertaBaseProvider.ObtenerOfertaDesdeApi(cuv, campaniaId, Constantes.TipoPersonalizacion.ShowRoom);
+
+                if (estrategia.Grupos.Any())
                 {
-                    httpClient.BaseAddress = new Uri(WebConfig.UrlMicroservicioPersonalizacionSearch);
-                    httpClient.DefaultRequestHeaders.Accept.Clear();
-                    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    var componentes = new List<Componente>();
 
-                    HttpResponseMessage httpResponse = await httpClient.GetAsync(path);
-                    if (httpResponse.IsSuccessStatusCode)
+                    estrategia.Grupos.Each(x =>
                     {
-                        string json = await httpResponse.Content.ReadAsStringAsync();
+                        if (x.Componentes.Any())
+                        {
+                            componentes.AddRange(x.Componentes);
+                        }
 
-                        OutputOfertaLista respuesta = Newtonsoft.Json.JsonConvert.DeserializeObject<OutputOfertaLista>(json);
-                      
-                    }
+                    });
+
+                    pedidoSet.Detalles.Update(x =>
+                    {
+                        var item = componentes.FirstOrDefault(i => i.Cuv == x.CUV);
+                        x.NombreProducto = item != null ? item.NombreProducto : string.Empty;
+                    });
                 }
-
 
 
 
@@ -4843,17 +4851,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-
-
-
-        //public static async Task<ShowRoomEventoModel> ObtenerEventoShowroomDesdeApi(string path, string codigoISO)
-        //{
-        //    ShowRoomEventoModel modelo = new ShowRoomEventoModel();
-
-          
-        //    return modelo;
-        //}
-
+         
 
 
 

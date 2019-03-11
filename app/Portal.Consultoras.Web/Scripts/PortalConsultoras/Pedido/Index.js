@@ -3716,14 +3716,14 @@ function CargarProductosRecomendados(item) {
 }
 
 
-function AbrirPopupArmaTuPack(campaniaId,setid) {
+function AbrirPopupArmaTuPack(campaniaId, setid, cuv) {
   
     waitingDialog({});
     var params =
         {
-            path: 'http://localhost:5010/Oferta/ByCuv/PE/ATP/201904/30127',
             campaniaId: campaniaId,
-            set: setid
+            set: setid,
+            cuv: cuv
         };
  
     jQuery.ajax({
@@ -3737,8 +3737,27 @@ function AbrirPopupArmaTuPack(campaniaId,setid) {
             if (checkTimeout(data)) {
                 if (data.success) {
 
-                    debugger;
+                   
                  
+
+                    if(data.pedidoSet)
+                    {
+                        if (data.pedidoSet.Detalles)
+                        {
+                            var strComponentes = '<ul>';
+
+                            $(data.pedidoSet.Detalles).each(function (i, v) {
+                                
+                                strComponentes = strComponentes+  '<li>-' + v.NombreProducto + '</li>';
+                            });
+
+                            strComponentes = strComponentes + '</ul>';
+                           
+                            closeWaitingDialog();
+                            AbrirMensaje(strComponentes,"El pack que armaste contiene:"); 
+
+                        }
+                    }
 
 
                 }
