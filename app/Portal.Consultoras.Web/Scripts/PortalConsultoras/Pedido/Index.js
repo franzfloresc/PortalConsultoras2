@@ -3736,10 +3736,6 @@ function AbrirPopupArmaTuPack(campaniaId, setid, cuv) {
         success: function (data) {
             if (checkTimeout(data)) {
                 if (data.success) {
-
-                   
-                 
-
                     if(data.pedidoSet)
                     {
                         if (data.pedidoSet.Detalles)
@@ -3755,11 +3751,8 @@ function AbrirPopupArmaTuPack(campaniaId, setid, cuv) {
                            
                             closeWaitingDialog();
                             AbrirMensaje(strComponentes,"El pack que armaste contiene:"); 
-
                         }
                     }
-
-
                 }
                 else closeWaitingDialog();
             }

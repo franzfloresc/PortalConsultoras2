@@ -1,0 +1,80 @@
+﻿.atp_main {
+    background-color: #e70002;
+    color: white;
+    font-family: 'lato';
+    text-align: center;
+    height: auto;
+    padding: 20px 0;
+}
+
+.atp_title {
+    letter-spacing: 2px;
+    font-size: 22px;
+    font-weight: 900;
+    margin: 0;
+    padding: 0;
+}
+
+.atp_content {
+    line-height: 1em;
+    font-size: 14px;
+    font-weight: 900;
+    margin: 30px 0;
+}
+
+    .atp_content p {
+        line-height: 16px;
+        margin: 0;
+    }
+
+        .atp_content p > span {
+            font-size: 18px;
+        }
+
+.atp_button {
+    background-color: black;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+    .atp_button:hover {
+        cursor: pointer;
+    }
+
+.atp_button_center {
+    text-align: center;
+    padding: 14px;
+    min-width: 100px;
+    width: 30%;
+    border-radius: 4px;
+    font-size: 11px;
+}
+
+.text-upper {
+    text-transform: uppercase;
+}
+
+@media (min-width: 600px) {
+    .atp_main {
+        background-color: #e70002;
+        color: white;
+        font-family: 'lato';
+        text-align: center;
+        height: auto;
+        padding: 70px 0;
+    }
+
+    .atp_button_center {
+        width: 25%;
+    }
+
+    .atp_title {
+        letter-spacing: 2.7px;
+        font-size: 30px;
+    }
+
+    .atp_content {
+        font-size: 17px;
+    }
+}

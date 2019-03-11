@@ -1443,6 +1443,7 @@
     <Content Include="Content\Css\Mobile\RevistaDigital\RedimensionLandingRD.css" />
     <Content Include="Content\Css\Site\Admin\Estrategias\UpSelling.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\index.css" />
+    <Content Include="Content\Css\Site\ArmaTuPack\ArmaTuPack_BannerShowRoom.css" />
     <Content Include="Content\Css\Site\ArmaTuPack\ArmaTuPack_Responsive.css" />
     <Content Include="Content\Css\Site\bootstrap\bootstrap-chosen.css" />
     <Content Include="Content\Css\Site\bootstrap\bootstrap.css" />
@@ -5715,6 +5716,7 @@
     <Content Include="Views\ArmaTuPack\Detalle\cabecera-template.cshtml" />
     <Content Include="Views\ArmaTuPack\Detalle\grupos-template.cshtml" />
     <Content Include="Views\ArmaTuPack\Detalle\seleccionados-template.cshtml" />
+    <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-banner-armatupack.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
