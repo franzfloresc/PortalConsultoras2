@@ -14,6 +14,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -40,12 +41,22 @@ namespace Portal.Consultoras.Web.Providers
         protected OfertaBaseProvider _ofertaBaseProvider;
         protected ShowRoomProvider _showRoomProvider;
         protected ConsultaProlProvider _consultaProlProvider;
+        private TempDataDictionary _tempData;
 
         public OfertaPersonalizadaProvider() : this(Web.SessionManager.SessionManager.Instance,
             new ConfiguracionManagerProvider(),
             new PedidoWebProvider(),
             new OfertaBaseProvider(),
-            new ConsultaProlProvider())
+            new ConsultaProlProvider(), null)
+        {
+        }
+
+        public OfertaPersonalizadaProvider(TempDataDictionary objTempData) : this(Web.SessionManager.SessionManager.Instance,
+            new ConfiguracionManagerProvider(),
+            new PedidoWebProvider(),
+            new OfertaBaseProvider(),
+            new ConsultaProlProvider(),
+            objTempData)
         {
         }
 
@@ -54,7 +65,8 @@ namespace Portal.Consultoras.Web.Providers
             ConfiguracionManagerProvider configuracionManagerProvider,
             PedidoWebProvider pedidoWebProvider,
             OfertaBaseProvider ofertaBaseProvider,
-            ConsultaProlProvider consultaProlProvider)
+            ConsultaProlProvider consultaProlProvider,
+            TempDataDictionary objTempData)
         {
             this.SessionManager = sessionManager;
             _configuracionManager = configuracionManagerProvider;
@@ -62,6 +74,7 @@ namespace Portal.Consultoras.Web.Providers
             _ofertaBaseProvider = ofertaBaseProvider;
             _showRoomProvider = new ShowRoomProvider();
             _consultaProlProvider = consultaProlProvider;
+            _tempData = objTempData;
         }
 
         #region Metodos de Estrategia Controller
@@ -1217,7 +1230,7 @@ namespace Portal.Consultoras.Web.Providers
                     return ObtenerListaProductoShowRoom(usuarioModel, campaniaId, codigoConsultora, esDiasFacturacion, 1)
                         .FirstOrDefault(x => x.CUV2 == cuv);
                 case Constantes.NombrePalanca.OfertaDelDia:
-                    var listaProductoODD = RevisarCamposParaMostrar(ObtenerListaProductoODD(), true);
+                    var listaProductoODD = RevisarCamposParaMostrar(ObtenerListaProductoODD(true), true);
                     return listaProductoODD.FirstOrDefault(x => x.CUV2 == cuv);
                 case Constantes.NombrePalanca.PackNuevas:
                     var varSession = Constantes.ConstSession.ListaEstrategia + Constantes.TipoEstrategiaCodigo.PackNuevas;
@@ -1234,8 +1247,14 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
-        public List<EstrategiaPersonalizadaProductoModel> ObtenerListaProductoODD()
+        public List<EstrategiaPersonalizadaProductoModel> ObtenerListaProductoODD(bool persistenciaLista = false)
         {
+            var xxx = _tempData["xxx1"];
+            if(persistenciaLista)
+            {
+                _tempData.Keep("xxx1");
+            }
+
             if (SessionManager.OfertaDelDia.Estrategia != null)
             {
                 if (SessionManager.OfertaDelDia.Estrategia.ListaOferta != null)
