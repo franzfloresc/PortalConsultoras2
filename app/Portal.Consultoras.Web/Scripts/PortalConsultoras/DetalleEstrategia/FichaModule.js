@@ -880,6 +880,13 @@ var FichaModule = (function (config) {
     ////// Fin - Construir Seccion Estrategia
 
     ////// Ini - Construir Estructura Ficha
+    var _validarAbrirFichaResumida = function () {
+        if (_config.origen.slice(-2).in("09", "08")) {
+            return true;
+        }
+        return _config.esEditable;
+    }
+
     var _construirSeccionFicha = function () {
         _config.esMobile = isMobile();
         _getModelo();
@@ -910,10 +917,7 @@ var FichaModule = (function (config) {
 
     };
 
-    var _validarAbrirFichaResumida = function () {
-        // agregar logica para recomendados
-        return _config.esEditable;
-    }
+   
 
     var _getModelo = function () {
 
