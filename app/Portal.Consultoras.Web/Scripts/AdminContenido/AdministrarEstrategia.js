@@ -346,33 +346,6 @@
             else
                 $("#divPrecioValorizado").html("Precio Valorizado");
 
-            /*INI ATP*/
-            if (TipoEstrategiaCodigo == _codigoEstrategia.ArmaTuPack) {
-                $('#tabControl1').hide();
-                $('#divSeccionImagenes').hide();
-                $("#txtCUV2").prop('disabled', true);
-                $("#txtPrecio2").prop('disabled', true);
-                $("#txtGanancia").prop('disabled', true);
-                $("#txtPrecio").prop('disabled', true);
-                $("#spanCampania").prop('disabled', true);
-                $("#spanTipoEstrategia").prop('disabled', true);
-
-                $('#DialogAdministracionEstrategia').dialog('option', 'title', 'Edición de Tácticas');
-            }
-            else {
-                $('#tabControl1').show();
-                $('#divSeccionImagenes').show();
-                $("#txtCUV2").prop('disabled', false);
-                $("#txtPrecio2").prop('disabled', false);
-                $("#txtGanancia").prop('disabled', false);
-                $("#txtPrecio").prop('disabled', false);
-                $("#spanCampania").prop('disabled', false);
-                $("#spanTipoEstrategia").prop('disabled', false);
-
-                $('#DialogAdministracionEstrategia').dialog('option', 'title', 'Registro de Estrategias');
-            }
-            /*END ATP*/
-
             showDialog("DialogAdministracionEstrategia");
             _ActualizarFlagIndividual(data);
 
@@ -519,6 +492,35 @@
             $("#txtCantidad").val(data.Cantidad);
             $("#hdZonas").val(data.Zona);
             $("#hdNiveles").val(data.Niveles);
+
+            /*INI ATP*/
+            if (TipoEstrategiaCodigo == _codigoEstrategia.ArmaTuPack) {
+                $('#tabControl1').hide();
+                $('#divSeccionImagenes').hide();
+                $("#txtCUV2").prop('disabled', true);
+                $("#txtPrecio2").prop('disabled', true);
+                $("#txtGanancia").prop('disabled', true);
+                $("#txtPrecio").prop('disabled', true);
+                $("#spanCampania").prop('disabled', true);
+                $("#spanTipoEstrategia").prop('disabled', true);
+
+                $('#DialogAdministracionEstrategia').dialog('option', 'title', 'Edición de Tácticas');
+                $('#seccionTallaColor').hide();
+            }
+            else {
+                $('#tabControl1').show();
+                $('#divSeccionImagenes').show();
+                $("#txtCUV2").prop('disabled', false);
+                $("#txtPrecio2").prop('disabled', false);
+                $("#txtGanancia").prop('disabled', false);
+                $("#txtPrecio").prop('disabled', false);
+                $("#spanCampania").prop('disabled', false);
+                $("#spanTipoEstrategia").prop('disabled', false);
+
+                $('#DialogAdministracionEstrategia').dialog('option', 'title', 'Registro de Estrategias');
+                $('#seccionTallaColor').show();
+            }
+            /*END ATP*/
 
             var aux1 = $("#ddlTipoEstrategia").find(":selected").data("id");
             var aux2 = $("#hdEstrategiaCodigo").val();
