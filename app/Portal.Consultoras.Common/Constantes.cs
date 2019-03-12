@@ -2102,6 +2102,7 @@ namespace Portal.Consultoras.Common
             public const string HerramientasVentaComprar = "/herramientasventa/comprar";
             public const string MasGanadorasIndex = "/masganadoras/index";
             public const string MasGanadoras = "/masganadoras";
+            public const string ArmaTuPackDetalle = "/ArmaTuPack/index";
             // Url Ficha
             public const string DetalleHerramientasVenta = "/detalle/demostradores";
             public const string DetalleLanzamiento = "/detalle/lonuevonuevo";
