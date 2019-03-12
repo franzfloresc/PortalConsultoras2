@@ -25,7 +25,7 @@
 
 .Select_ArmaTuPack {
     background-color: #f5f5f5;
-    padding: 20px 0px;
+    padding: 11px 0px;
     margin:0;
 }
 
@@ -324,7 +324,7 @@
 }
 
 .Select_Group > button {
-    height: 55px;
+    height: 100%;
     background-position: center center;
     border: none;
     font-size: 0px;
@@ -347,14 +347,28 @@
 }
 
 
-#seleccionados .Select_Group {
-    width: 309px;
+
+
+#seleccionados .slick-list.draggable {
+    padding: 9px 0px;
 }
 
 
 
 
 @media screen and (min-width:768px) {
+    #seleccionados .Select_Group {
+        width: 472px;
+    }
+
+    #opciones-seleccionadas-next {
+        right: -7% !important; 
+    }
+
+    #opciones-seleccionadas-prev {
+        left: -7% !important;
+    }
+
     .Select_ArmaTuPack {
         position: fixed;
         width: 100%;
@@ -397,6 +411,9 @@
 
 
 @media screen and (max-width:768px) {
+    #seleccionados .Select_Group {
+        width: 309px;
+    }
 
     body {
         margin-top: 60px;
@@ -496,6 +513,15 @@
         margin-left: auto;
         float: none;
     }
+
+    .slick-track > div {
+        width: 100% !important;
+        border-bottom: 1px solid #ebebeb;
+    }
+
+    .slick-track > div:last-child {
+        border: none;
+    }
 }
 
 
@@ -503,6 +529,10 @@
     .Select_Group li {
         margin: 0px 1px;
         font-size: 16px;
+    }
+
+    #seleccionados .Select_Group {
+        width: 261px;
     }
 }
 
