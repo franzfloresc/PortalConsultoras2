@@ -2288,7 +2288,7 @@ var AnalyticsPortalModule = (function () {
         var jsonData = jQuery.parseJSON(strData);
 
         var _localEvent = _evento.productClick;
-        var _currencyCode = AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais);
+        var _currencyCode = _getCurrencyCodes();
         var _productName = jsonData.Descripcion;
         var _id = jsonData.CUV;
         var _price = jsonData.Precio;
