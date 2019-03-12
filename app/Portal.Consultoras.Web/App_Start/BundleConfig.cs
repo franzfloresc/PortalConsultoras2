@@ -574,14 +574,14 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/flexslider.css",
                 "~/Content/Css/Site/Contenedor/carrusel.individual.css",
                 "~/Content/Css/Site/Contenedor/producto.simple.css",
-                "~/Content/Css/Mobile/ProductoListado/CajaProducto.css",
                 "~/Content/Css/Site/Contenedor/OfertaDelDia.css",
+                "~/Content/Css/Site/Contenedor/BannerInteractivo.css",
+                "~/Content/Css/Site/MasGanadoras/banner_ofertas_masGanadoras.css",
+                "~/Content/Css/Mobile/ProductoListado/CajaProducto.css",
+                "~/Content/Css/Site/ProductoListado/CajaProducto.css",
                 "~/Content/Css/Site/Ficha/Ficha.css",
                 "~/Content/Css/Site/Ficha/Carrusel.css",
-                "~/Content/Css/Site/Ficha/RedesSociales.css",
-                "~/Content/Css/Site/ProductoListado/CajaProducto.css",
-                "~/Content/Css/Site/MasGanadoras/banner_ofertas_masGanadoras.css",
-                "~/Content/Css/Site/ArmaTuPack/ArmaTuPack_BannerShowRoom.css"
+                "~/Content/Css/Site/Ficha/RedesSociales.css"
             ));
 
 

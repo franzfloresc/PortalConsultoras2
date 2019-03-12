@@ -151,10 +151,6 @@ namespace Portal.Consultoras.Web.Providers
             {
                 retorno = 0;
             }
-            else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.ATPObtenerProductos)
-            {
-                retorno = model.CampaniaID;
-            }
 
             return retorno;
         }
@@ -551,7 +547,7 @@ namespace Portal.Consultoras.Web.Providers
                     case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada: tipoPersonalizacion = Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada; break;
                     case Constantes.TipoEstrategiaCodigo.ShowRoom: tipoPersonalizacion = Constantes.ConfiguracionPais.ShowRoom; break;
                     case Constantes.TipoEstrategiaCodigo.HerramientasVenta: tipoPersonalizacion = Constantes.ConfiguracionPais.HerramientasVenta; break;
-                    case Constantes.TipoEstrategiaCodigo.ArmaTuPack: tipoPersonalizacion = Constantes.ConfiguracionPais.ArmaTuPack; break;
+                    case Constantes.TipoEstrategiaCodigo.ArmaTuPack: tipoPersonalizacion = Constantes.TipoPersonalizacion.ArmaTuPack; break;
                 }
 
                 string pathMS = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertas,

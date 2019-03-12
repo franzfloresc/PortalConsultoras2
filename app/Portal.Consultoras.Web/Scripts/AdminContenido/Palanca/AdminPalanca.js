@@ -124,11 +124,9 @@ function Modificar(idConfiguracionPais, event) {
                 UploadFilePalanca("mobile-fondo-banner"), UploadFilePalanca("mobile-logo-banner")
             );
 
-
             showDialog("DialogMantenimientoPalanca");
 
             var esTrueAncla = $.trim($("#UrlMenu").val()) == "#";
-
             if (esTrueAncla) {
                 $("#cbAncla").prop("checked", true);
                 $("#UrlMenu").attr("disabled", "disabled");
@@ -469,7 +467,6 @@ function IniDialogs() {
                         return false;
                     }
                 }
-
 
                 if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") === _palanca.odd) {
                     desktopTipoPresentacion = _tipopresentacion.odd;

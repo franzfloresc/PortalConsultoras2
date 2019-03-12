@@ -35,7 +35,7 @@ namespace Portal.Consultoras.Web.Providers
             Estrategia estrategia = new Estrategia();
            var  userData = _sessionManager.GetUserData() ?? new UsuarioModel();             
 
-            string pathMS = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertasByCuv,
+            string pathMS = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertaByCuv,
               userData.CodigoISO,
               tipoPersonalizacion,
               campaniaId,

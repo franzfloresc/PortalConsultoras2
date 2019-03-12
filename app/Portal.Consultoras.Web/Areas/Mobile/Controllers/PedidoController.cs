@@ -15,9 +15,6 @@ using Portal.Consultoras.Web.Providers;
 using BEPedidoWeb = Portal.Consultoras.Web.ServicePedido.BEPedidoWeb;
 using BEPedidoWebDetalle = Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
-using System.Threading.Tasks;
-using Portal.Consultoras.Web.Models.Search.ResponseOferta.Estructura;
-using AutoMapper;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -694,52 +691,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return resultado;
         }
 
-        //public async Task<JsonResult> ObtenerOfertaByCUVSet(string campaniaId, int set, string cuv)
-        //{
-        //    try
-        //    {
-        //        var _pedidoSetProvider = new PedidoSetProvider();
-        //        var _ofertaBaseProvider = new OfertaBaseProvider();
-
-        //        var pedidoSet = _pedidoSetProvider.ObtenerPorId(userData.PaisID, set);
-
-        //        var estrategia = await _ofertaBaseProvider.ObtenerOfertaDesdeApi(cuv, campaniaId, Constantes.TipoPersonalizacion.ShowRoom);
-
-        //        if (estrategia.Componentes.Any())
-        //        {
-        //            var componentesNivel01 = new List<Componente>();
-
-        //            estrategia.Componentes.Each(x =>
-        //            {
-        //                if (x.Hermanos.Any())
-        //                {
-        //                    componentesNivel01.AddRange(x.Hermanos);
-        //                }
-
-        //            });
-
-        //            pedidoSet.Detalles.Update(x =>
-        //            {
-        //                var item = componentesNivel01.FirstOrDefault(i => i.Cuv == x.CUV);
-        //                x.NombreProducto = item != null ? item.NombreProducto : string.Empty;
-        //            });
-        //        }
-
-        //        return Json(new
-        //        {
-        //            success = true,
-        //            pedidoSet
-        //        }, JsonRequestBehavior.AllowGet);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-        //        return Json(new
-        //        {
-        //            success = false
-        //        }, JsonRequestBehavior.AllowGet);
-        //    }
-        //}
 
     }
 }

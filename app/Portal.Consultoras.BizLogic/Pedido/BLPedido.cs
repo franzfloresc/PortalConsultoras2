@@ -369,6 +369,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             #endregion
                        
 
+
             #region PrepararPedidoDetalle
             //Preparar Pedido Detalle
             pedidoDetalle.Producto.TipoEstrategiaID = string.IsNullOrEmpty(pedidoDetalle.Producto.TipoEstrategiaID) ? "0" : pedidoDetalle.Producto.TipoEstrategiaID;

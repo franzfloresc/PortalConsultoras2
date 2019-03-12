@@ -506,7 +506,13 @@ namespace Portal.Consultoras.Web.Providers
                         break;
 
                     case Constantes.ConfiguracionPais.ArmaTuPack:
-                        confiModel.UrlMenu = "ArmaTuPack/Detalle/0000";
+
+                        var sessionAtp = sessionManager.GetArmaTuPack();
+                        if (!sessionAtp.TieneAtp || !sessionAtp.TieneLanding)
+                        {
+                            continue;
+                        }
+                        confiModel.UrlMenu = "ArmaTuPack/Index";
                         break;
                 }
 

@@ -98,7 +98,6 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public BEConfiguracionOfertasHomeApp ConfiguracionOfertasHomeApp { get; set; }
 
-
         [DataMember]
         public string BotonTexto1 { get; set; }
         [DataMember]
@@ -140,15 +139,12 @@ namespace Portal.Consultoras.Entities
             DesktopActivo = row.ToBoolean("DesktopActivo");
             MobileActivo = row.ToBoolean("MobileActivo");
             UrlSeccion = row.ToString("UrlSeccion");
-
             BotonTexto1 = row.ToString("BotonTexto1");
             BotonTexto2 = row.ToString("BotonTexto2");
             BotonColor = row.ToString("BotonColor");
             BotonColorTexto = row.ToString("BotonColorTexto");
-             
             ConfiguracionPais = new BEConfiguracionPais();
             ConfiguracionPais.Codigo = row.ToString("Codigo", "");
-             
         }
 
         public BEConfiguracionOfertasHome()

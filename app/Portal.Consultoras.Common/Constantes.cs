@@ -246,20 +246,22 @@ namespace Portal.Consultoras.Common
             public const string OfertaParaTi = "001";
             public const string PackNuevas = "002"; // Oferta Nueva Esika
             public const string OfertaWeb = "003";
+            public const string ArmaTuPack = "004";
             public const string Lanzamiento = "005";
             public const string OfertasParaMi = "007";
             public const string PackAltoDesembolso = "008";
-            public const string RevistaDigital = "101"; // No tiene referecia con BD, es un grupo de estrategias
-            public const string LosMasVendidos = "020";
-            public const string IncentivosProgramaNuevas = "021";
             public const string OfertaDelDia = "009";
             public const string GuiaDeNegocioDigitalizada = "010";
+            public const string HerramientasVenta = "011";
+            public const string LosMasVendidos = "020";
+            public const string IncentivosProgramaNuevas = "021";
             public const string Incentivos = "022";
             public const string ShowRoom = "030";
-            public const string HerramientasVenta = "011";
+
+            public const string RevistaDigital = "101"; // No tiene referecia con BD, es un grupo de estrategias
+            public const string MasGanadoras = "201"; // No tiene referecia con BD, caso particular de OfertasParaMi 007
+
             public const string NotParticipaProgramaNuevas = "0";
-            public const string MasGanadoras = "201"; // No tiene referecia con BD, es un grupo de estrategias
-            public const string ArmaTuPack = "004";
         }
 
         public static class TipoPersonalizacion
@@ -643,7 +645,7 @@ namespace Portal.Consultoras.Common
             public const string DGuiaNegocio = "1I0";
             public const string MGuiaNegocio = "2I0";
             public const string DHerramientaVenta = "1J0";
-            public const string MHerramientaVenta = "2J0";  
+            public const string MHerramientaVenta = "2J0";
             public const string DMasGanadoras = "1K0";
             public const string MMasGanadoras = "2K0";
             public const string DDuoPerfecto = "1L0";
@@ -940,7 +942,7 @@ namespace Portal.Consultoras.Common
             public const int MobilePedidoProductoRecomendadoOdd = 2020308;
             public const int MobilePedidoProductoRecomendadoHv = 2020808;
             public const int MobilePedidoProductoRecomendadoGanadoras = 2021408;
-                                            
+
             public const int MobileContenedorShowroomCarrusel = 2080101;
             public const int MobileContenedorShowroomFicha = 2080102;
             public const int AppConsultoraContenedorShowroomFicha = 4080102;
@@ -1664,7 +1666,7 @@ namespace Portal.Consultoras.Common
                 public const int DescagablesNavidenos = 7;
                 public const int CarruselIndividuales = 8; // Ejm LAN
                 public const int CarruselIndividualesV2 = 9; // Ejm GM
-                public const int BannerInteractivo = 10; 
+                public const int BannerInteractivo = 10;
             }
         }
 
@@ -2402,7 +2404,7 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_UNIDAD_SOBREPASA_PERMITIDO = "2116";
                 public const string ERROR_UNIDAD_SINSALDO = "2117";
                 public const string ERROR_UNIDAD_CONSALDO = "2118";
-                public const string ERROR_UNIDAD_SOBREPASA_STOCK = "2119";               
+                public const string ERROR_UNIDAD_SOBREPASA_STOCK = "2119";
 
                 public const string ERROR_RESERVA_NINGUNO = "2010";
                 public const string SUCCESS_RESERVA = "2011";
@@ -3073,20 +3075,16 @@ namespace Portal.Consultoras.Common
             /// Oferta/{pais}/{tipo}/{codigoCampania}/{codigoConsultora}/{materialGanancia}/{diaInicio}/{codigoRegion}/{codigoZona}
             /// </summary>
             public const string UrlObtenerOfertas = "Oferta/{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}";
-            public const string UrlObtenerOfertasByCuv = "Oferta/ByCuv/{0}/{1}/{2}/{3}";
 
+            /// <summary>
+            /// Oferta/ByCuv/{pais}/{tipoPersonalizacion}/{codigoCampania}/{cuv}
+            /// </summary>
+            public const string UrlObtenerOfertaByCuv = "Oferta/ByCuv/{0}/{1}/{2}/{3}";
             
-
             /// <summary>
             /// Evento/Get/{pais}/{campania}
             /// </summary>
             public const string UrlObtenerEvento = "Evento/Get/{0}/{1}";
-
-            //Oferta ByCuv
-            /// <summary>
-            /// Oferta/ByCuv/{pais}/{tipo}/{codigoCampania}/{cuv}
-            /// </summary>
-            public const string UrlObtenerOfertasCuv = "Oferta/ByCuv/{0}/{1}/{2}/{3}";
 
             /// <summary>
             /// Nivel/listar/{pais}
@@ -3103,9 +3101,9 @@ namespace Portal.Consultoras.Common
             /// <summary>
             /// api/Evento/listarConsultora/{isoPais}/{codigoConsultora}/{codigoCampania}
             /// </summary>
-            public const string UrlObtenerPersonalizacion= "api/Personalizacion/{0}/{1}/{2}";
+            public const string UrlObtenerPersonalizacion = "api/Personalizacion/{0}/{1}/{2}";
             #endregion
-            
+
             #region Reporte
             /// <summary>
             /// /api/Reporte/ReporteValidacion/{pais}/{tipo}/{campania}
@@ -3164,7 +3162,7 @@ namespace Portal.Consultoras.Common
             public const string FlagBuscarPorCategoria = "BuscarPorCategoria";
             public const string FlagBuscarPorCategoriaTotalProductos = "BuscarPorCategoriaTotalProductos";
         }
-        
+
         public static class CodigoConfiguracionMSPersonalizacion
         {
             public const string EstrategiaDisponible = "EstrategiaDisponible";
@@ -3429,7 +3427,8 @@ namespace Portal.Consultoras.Common
             public const int UrlVideoMobile = 10207;
         }
 
-        public static class Formatos {
+        public static class Formatos
+        {
             public const string Fecha = "dd/MM/yyyy";
             public const string FechaHora = "dd/MM/yyyy HH:mm";
         }
@@ -3464,7 +3463,7 @@ namespace Portal.Consultoras.Common
                 public const string MaquilladorVirtual = "04";
             }
         }
-        
+
         public static class OpcionesUsuario
         {
             public const int BoletaImpresa = 1;
