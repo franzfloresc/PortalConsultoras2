@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
@@ -30,25 +31,25 @@ namespace Portal.Consultoras.Web.Controllers
 
             return View();
         }
-
-        public JsonResult GetComponentes(string Cuv2)
+        [HttpGet()]
+        [Route("Componentes/{cuv:int}")]
+        public async Task<JsonResult> GetComponentes(string Cuv)
         {
             try
             {
                 var estrategiaModelo = new EstrategiaPersonalizadaProductoModel
                 {
                     CampaniaID = userData.CampaniaID,
-                    CUV2 = Cuv2
+                    CUV2 = Cuv
                 };
                 bool esMultimarca = false;
                 string mensaje = "";
-                var componentes = _estrategiaComponenteProvider.GetListaComponentes(estrategiaModelo,
-                    Constantes.TipoEstrategiaCodigo.ArmaTuPack, out esMultimarca, out mensaje);
+                var estrategia = await _estrategiaComponenteProvider.GetListaComponenteArmaTuPack(estrategiaModelo, Constantes.TipoEstrategiaCodigo.ArmaTuPack);
                 return Json(new
                 {
                     success = true,
                     esMultimarca,
-                    componentes,
+                    componentes = estrategia.Componentes,
                     mensaje
                 }, JsonRequestBehavior.AllowGet);
             }

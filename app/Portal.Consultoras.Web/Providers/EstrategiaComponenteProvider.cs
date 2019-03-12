@@ -11,6 +11,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Portal.Consultoras.Web.Models.ConsultaProl;
+using Portal.Consultoras.Web.Models.Search.ResponseOferta.Estructura;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -60,6 +61,19 @@ namespace Portal.Consultoras.Web.Providers
             _consultaProlProvider = consultaProlProvider;
         }
 
+        public async Task<Estrategia> GetListaComponenteArmaTuPack(EstrategiaPersonalizadaProductoModel estrategiaModelo,
+            string codigoTipoEstrategia)
+        {
+            var estrategias = new Estrategia();
+            if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.ArmaTuPack)
+            {                
+                var estrategia = await _ofertaBaseProvider.ObtenerOfertaDesdeApi(estrategiaModelo.CUV2,
+                    estrategiaModelo.CampaniaID.ToString(), Constantes.TipoPersonalizacion.ArmaTuPack);
+                estrategias = estrategia;
+            }
+            return estrategias;
+        }
+
         public List<EstrategiaComponenteModel> GetListaComponentes(EstrategiaPersonalizadaProductoModel estrategiaModelo, string codigoTipoEstrategia, out bool esMultimarca, out string mensaje)
         {
             List<BEEstrategiaProducto> listaBeEstrategiaProductos;
@@ -68,29 +82,7 @@ namespace Portal.Consultoras.Web.Providers
 
             var userData = SessionManager.GetUserData();
             List<EstrategiaComponenteModel> listaEstrategiaComponente = null;
-            if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.ArmaTuPack)
-            {
-                //trae del servicio de mongo - Arma tu Pack
-                string pathMs = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertasCuv,
-                    userData.CodigoISO,
-                    Constantes.TipoPersonalizacion.ArmaTuPack,
-                    estrategiaModelo.CampaniaID,
-                    estrategiaModelo.CUV2,
-                    "0",
-                    0, //diaInicio
-                    userData.CodigorRegion,
-                    userData.CodigoZona
-                );
-                var taskApi = Task.Run(() => OfertaBaseProvider.ObtenerOfertasDesdeApi(pathMs, userData.CodigoISO));
-                Task.WhenAll(taskApi);
-                var result = taskApi.Result;
-                
-
-                listaEstrategiaComponente = new List<EstrategiaComponenteModel>();
-
-            }
-            else
-            {
+            
                 if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, codigoTipoEstrategia))
                 {
                     mensaje += "SiMongo|";
@@ -117,7 +109,7 @@ namespace Portal.Consultoras.Web.Providers
                     listaEstrategiaComponente = GetEstrategiaDetalleCompuesta(estrategiaModelo, listaBeEstrategiaProductos);
                     mensaje += "GetEstrategiaDetalleCompuesta = " + listaEstrategiaComponente.Count + "|";
                 }
-            }
+            
                      
 
             listaEstrategiaComponente = OrdenarComponentesPorMarca(listaEstrategiaComponente, out esMultimarca);

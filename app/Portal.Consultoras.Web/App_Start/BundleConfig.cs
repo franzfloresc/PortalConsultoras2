@@ -1007,7 +1007,8 @@ namespace Portal.Consultoras.Web
             #region ArmaTuPack
             
             bundles.Add(new StyleBundle("~/Bundle/Css/Responsive/ArmaTuPack").Include(
-                "~/Content/Css/Site/ArmaTuPack/ArmaTuPack_Responsive.css"
+                "~/Content/Css/Site/ArmaTuPack/ArmaTuPack_Responsive.css",
+                "~/Content/Css/Site/ficha/SeleccionarTipo.css"
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mixto/ArmaTuPack").Include(
@@ -1021,7 +1022,8 @@ namespace Portal.Consultoras.Web
                  "~/Scripts/PortalConsultoras/ArmaTuPack/Detalle/Seleccionados/SeleccionadosPresenter.js",
                  "~/Scripts/PortalConsultoras/ArmaTuPack/Detalle/ArmaTuPackDetalleEvents.js",
                  "~/Scripts/PortalConsultoras/ArmaTuPack/Detalle/DetallePresenter.js",
-                 "~/Scripts/PortalConsultoras/ArmaTuPack/Detalle/Detalle.js"
+                 "~/Scripts/PortalConsultoras/ArmaTuPack/Detalle/Detalle.js",
+                 "~/Scripts/PortalConsultoras/ArmaTuPack/ArmaTuPack.js"
               ));
             #endregion
 

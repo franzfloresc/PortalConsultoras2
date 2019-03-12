@@ -30,17 +30,29 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
-        public async Task<bool> InsertarGrupoEstrategiaApi(string path, List<EstrategiaGrupoModel> datos, UsuarioModel userData)
+        public bool Guardar(List<EstrategiaGrupoModel> datos, string codigoIso)
+        {
+            if (!datos.Any())
+            {
+                return true;
+            }
+
+            Task<bool> taskapi = Task.Run(() => InsertarGrupoEstrategiaApi(Constantes.PersonalizacionOfertasService.UrlGuardarEstrategiaGrupo, datos, codigoIso));
+            Task.WhenAll(taskapi);
+
+            return taskapi.Result;
+        }
+
+        private async Task<bool> InsertarGrupoEstrategiaApi(string path, List<EstrategiaGrupoModel> datos, string codigoIso)
         {
             OutputEstrategiaGrupo respuesta = new OutputEstrategiaGrupo { Success = false };
 
             EstrategiaGrupoRequest prm = new EstrategiaGrupoRequest();
-            /*prm.pais = userData.PaisID.ToString();
-            prm.estrategiaId = datos[0].EstrategiaId.ToString();*/
+
             prm.lstEstrategiaGrupo = datos;
             string prmfinal = Newtonsoft.Json.JsonConvert.SerializeObject(prm.lstEstrategiaGrupo).ToString();
             HttpResponseMessage httpResponse = await httpClient.PostAsync(
-                path + "/" + userData.CodigoISO + "/" + datos[0]._idEstrategia.ToString(),
+                path + "/" + codigoIso + "/" + datos[0]._idEstrategia.ToString(),
                 new StringContent(prmfinal,
                 Encoding.UTF8,
                 "application/json"));
@@ -58,24 +70,24 @@ namespace Portal.Consultoras.Web.Providers
             }
             catch (Exception ex)
             {
-                Common.LogManager.SaveLog(ex, string.Empty, userData.CodigoISO);
+                Common.LogManager.SaveLog(ex, string.Empty, codigoIso);
             }
 
             if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
             {
-                Common.LogManager.SaveLog(new Exception(respuesta.Message), string.Empty, userData.CodigoISO);
+                Common.LogManager.SaveLog(new Exception(respuesta.Message), string.Empty, codigoIso);
             }
 
             return respuesta.Success;
         }
 
-        public List<EstrategiaGrupoModel> ObtenerEstrategiaGrupo(string estrategiaId, string codigoISO)
+        public List<EstrategiaGrupoModel> ObtenerEstrategiaGrupo(string estrategiaId, string codigoIso)
         {
             var estrategiaGrupoLista = new List<EstrategiaGrupoModel>();
             try
             {
 
-                var taskApi = Task.Run(() => ObtenerEstrategiaGrupoApi(estrategiaId, codigoISO));
+                var taskApi = Task.Run(() => ObtenerEstrategiaGrupoApi(estrategiaId, codigoIso));
                 Task.WhenAll(taskApi);
                 var grupoListatask = taskApi.Result;
                 if (grupoListatask != null && grupoListatask.Result != null)
@@ -85,15 +97,15 @@ namespace Portal.Consultoras.Web.Providers
             }
             catch (Exception ex)
             {
-                Common.LogManager.SaveLog(ex, string.Empty, codigoISO);
+                Common.LogManager.SaveLog(ex, string.Empty, codigoIso);
                 estrategiaGrupoLista = new List<EstrategiaGrupoModel>();
             }
             return estrategiaGrupoLista;
         }
 
-        private async Task<OutputEstrategiaGrupo> ObtenerEstrategiaGrupoApi(string estrategiaId, string codigoISO)
+        private async Task<OutputEstrategiaGrupo> ObtenerEstrategiaGrupoApi(string estrategiaId, string codigoIso)
         {
-            var path = string.Format(Constantes.PersonalizacionOfertasService.UrlGetEstrategiaGrupoByEstrategiaId, codigoISO, estrategiaId);
+            var path = string.Format(Constantes.PersonalizacionOfertasService.UrlGetEstrategiaGrupoByEstrategiaId, codigoIso, estrategiaId);
             OutputEstrategiaGrupo respuesta = new OutputEstrategiaGrupo();
             HttpResponseMessage httpResponse = await httpClient.GetAsync(path);
 
@@ -117,13 +129,13 @@ namespace Portal.Consultoras.Web.Providers
             }
             catch (Exception ex)
             {
-                Common.LogManager.SaveLog(ex, string.Empty, codigoISO);
+                Common.LogManager.SaveLog(ex, string.Empty, codigoIso);
                 return respuesta;
             }
 
             if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
             {
-                Common.LogManager.SaveLog(new Exception(respuesta.Message), string.Empty, codigoISO);
+                Common.LogManager.SaveLog(new Exception(respuesta.Message), string.Empty, codigoIso);
                 return respuesta;
             }
 

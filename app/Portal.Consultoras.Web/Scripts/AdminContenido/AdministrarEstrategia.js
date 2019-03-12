@@ -339,39 +339,12 @@
 
             $("#_id").val(_editData.mongoIdVal);
 
-            var TipoEstrategiaCodigo = $("#ddlTipoEstrategia").find(":selected").data("codigo");
+            var TipoEstrategiaCodigo = _editData.tipoEstrategiaCodigo; //$("#ddlTipoEstrategia").find(":selected").data("codigo");
 
             if (TipoEstrategiaCodigo == _config.tipoEstrategiaIncentivosProgramaNuevas)
                 $("#divPrecioValorizado").html("Ganancia");
             else
                 $("#divPrecioValorizado").html("Precio Valorizado");
-
-            /*INI ATP*/
-            if (TipoEstrategiaCodigo == _codigoEstrategia.ArmaTuPack) {
-                $('#tabControl1').hide();
-                $('#divSeccionImagenes').hide();
-                $("#txtCUV2").prop('disabled', true);
-                $("#txtPrecio2").prop('disabled', true);
-                $("#txtGanancia").prop('disabled', true);
-                $("#txtPrecio").prop('disabled', true);
-                $("#spanCampania").prop('disabled', true);
-                $("#spanTipoEstrategia").prop('disabled', true);
-
-                $('#DialogAdministracionEstrategia').dialog('option', 'title', 'Edición de Tácticas');
-            }
-            else {
-                $('#tabControl1').show();
-                $('#divSeccionImagenes').show();
-                $("#txtCUV2").prop('disabled', false);
-                $("#txtPrecio2").prop('disabled', false);
-                $("#txtGanancia").prop('disabled', false);
-                $("#txtPrecio").prop('disabled', false);
-                $("#spanCampania").prop('disabled', false);
-                $("#spanTipoEstrategia").prop('disabled', false);
-
-                $('#DialogAdministracionEstrategia').dialog('option', 'title', 'Registro de Estrategias');
-            }
-            /*END ATP*/
 
             showDialog("DialogAdministracionEstrategia");
             _ActualizarFlagIndividual(data);
@@ -407,7 +380,10 @@
             mongoIdVal: data.mongoIdVal,
             tipoEstrategiaCodigo: data.tipoEstrategiaCodigo
         };
-        return $.post(_config.getFiltrarEstrategiaAction, params).done(_obtenerFiltrarEstrategiaSuccess(data, id));
+        return $.post(_config.getFiltrarEstrategiaAction, params)
+            .done(
+                _obtenerFiltrarEstrategiaSuccess(data, id)
+            );
     };
 
     var _obtenerFiltrarEstrategiaSuccess = function (editData, id) {
@@ -456,6 +432,7 @@
             _activarDesactivarChecks();
 
             $("#hdCampania").val($("#ddlCampania").val());
+            console.log("_obtenerFiltrarEstrategiaSuccess", data);
             $("#hdTipoEstrategiaID").val(data.TipoEstrategiaID);
             $("#ddlTipoEstrategia").val(data.TipoEstrategiaID);
             $("#hdnCodigoSAP").val(data.CodigoSAP);
@@ -515,6 +492,35 @@
             $("#txtCantidad").val(data.Cantidad);
             $("#hdZonas").val(data.Zona);
             $("#hdNiveles").val(data.Niveles);
+
+            /*INI ATP*/
+            if (data.CodigoTipoEstrategia == _codigoEstrategia.ArmaTuPack) {
+                $('#tabControl1').hide();
+                $('#divSeccionImagenes').hide();
+                $("#txtCUV2").prop('disabled', true);
+                $("#txtPrecio2").prop('disabled', true);
+                $("#txtGanancia").prop('disabled', true);
+                $("#txtPrecio").prop('disabled', true);
+                $("#spanCampania").prop('disabled', true);
+                $("#spanTipoEstrategia").prop('disabled', true);
+
+                $('#DialogAdministracionEstrategia').dialog('option', 'title', 'Edición de Tácticas');
+                $('#seccionTallaColor').hide();
+            }
+            else {
+                $('#tabControl1').show();
+                $('#divSeccionImagenes').show();
+                $("#txtCUV2").prop('disabled', false);
+                $("#txtPrecio2").prop('disabled', false);
+                $("#txtGanancia").prop('disabled', false);
+                $("#txtPrecio").prop('disabled', false);
+                $("#spanCampania").prop('disabled', false);
+                $("#spanTipoEstrategia").prop('disabled', false);
+
+                $('#DialogAdministracionEstrategia').dialog('option', 'title', 'Registro de Estrategias');
+                $('#seccionTallaColor').show();
+            }
+            /*END ATP*/
 
             var aux1 = $("#ddlTipoEstrategia").find(":selected").data("id");
             var aux2 = $("#hdEstrategiaCodigo").val();
@@ -693,7 +699,7 @@
         return msj;
     };
 
-     var _uploadFileLanzamineto = function (divId) {
+    var _uploadFileLanzamineto = function (divId) {
         var uploader = new qq.FileUploader({
             allowedExtensions: ["jpg", "png", "jpeg"],
             element: document.getElementById(divId),
@@ -1490,6 +1496,8 @@
         }
 
         $("<span style=\"position: absolute;margin-top: 10px;\">(*)</span>").prependTo("#jqgh_list_cb");
+
+        $("#list").setGridWidth($("#divGridEstrategia").width());
     }
 
     var _buscarNemotecnico = function () {
@@ -3721,7 +3729,7 @@
         changeTipoEstrategia: function () {
             var aux2 = $("#ddlTipoEstrategia").find(":selected").data("codigo") || "";
             $("#btnActivarDesactivar").hide();
-           
+
             $("#btnNuevoMasivo").hide();
             $("#btnDescripcionMasivo").hide();
             $("#btnActualizarTonos").hide();

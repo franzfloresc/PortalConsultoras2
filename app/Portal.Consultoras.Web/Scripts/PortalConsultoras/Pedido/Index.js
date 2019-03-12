@@ -423,6 +423,11 @@ $(document).ready(function () {
             }
         }
 
+        if ($("#hdTipoOfertaSisID").val() == constConfiguracionOfertaLiquidacion) {
+            AbrirMensaje(mensajeNoAgregarLiquidacion);
+            return false;
+        }
+
         //var validarEstrategia = ValidarStockEstrategia();
 
         //if (validarEstrategia.success) {
@@ -834,7 +839,7 @@ function ValidarStockEstrategia() {
     if ($("#hdTipoOfertaSisID").val() == constConfiguracionOfertaLiquidacion) {
         resultado = {
             success: false,
-            message: "No se puede agregar una Oferta Liquidacion por este medio."
+            message: mensajeNoAgregarLiquidacion
         };
         return resultado;
     }
@@ -3716,63 +3721,3 @@ function CargarProductosRecomendados(item) {
 }
 
 
-function AbrirPopupArmaTuPack(campaniaId, setid, cuv) {
-  
-    waitingDialog({});
-    var params =
-        {
-            campaniaId: campaniaId,
-            set: setid,
-            cuv: cuv
-        };
- 
-    jQuery.ajax({
-        type: "POST",
-        url: 'ObtenerOfertaByCUVSet',
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        data: JSON.stringify(params),
-        async: true,
-        success: function (data) {
-            if (checkTimeout(data)) {
-                if (data.success) {
-
-                   
-                 
-
-                    if(data.pedidoSet)
-                    {
-                        if (data.pedidoSet.Detalles)
-                        {
-                            var strComponentes = '<ul>';
-
-                            $(data.pedidoSet.Detalles).each(function (i, v) {
-                                
-                                strComponentes = strComponentes+  '<li>-' + v.NombreProducto + '</li>';
-                            });
-
-                            strComponentes = strComponentes + '</ul>';
-                           
-                            closeWaitingDialog();
-                            AbrirMensaje(strComponentes,"El pack que armaste contiene:"); 
-
-                        }
-                    }
-
-
-                }
-                else closeWaitingDialog();
-            }
-            else {
-                closeWaitingDialog();
-                messageInfoError(data.message);
-            }
-        },
-        error: function (data, error) {
-            closeWaitingDialog();
-            if (checkTimeout(data)) {
-                alert("Ocurrió un error al ejecutar la acción. Por favor inténtelo de nuevo.");
-            }
-        }
-    });
-}

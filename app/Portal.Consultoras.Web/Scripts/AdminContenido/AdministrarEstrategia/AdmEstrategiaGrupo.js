@@ -14,12 +14,16 @@
     function ObtenerEstrategiaGrupo() {
         var mydata = [];
 
+        var objParam = {
+            EstrategiaId: $("#hdEstrategiaIDMongo").val(),
+            codigoTipoEstrategia: $("#ddlTipoEstrategia").find(":selected").data("codigo")
+        }
         jQuery.ajax({
             type: "POST",
             url: _url.ConsultarDetalleEstrategiaGrupo,
             dataType: "json",
             contentType: "application/json; charset=utf-8",
-            data: JSON.stringify({ EstrategiaId: $("#hdEstrategiaIDMongo").val() }),
+            data: JSON.stringify(objParam),
             async: false,
             success: function (data) {
 
@@ -39,12 +43,17 @@
 
     function AbrirGrupoEstrategia() {
 
-        showDialog('DialogGrupoEstrategia');
-        //waitingDialog();
+        AbrirLoad();
 
         _EstrategiaGrupoData = ObtenerEstrategiaGrupo();
 
-        //$("#listGrupoEstrategia").jqGrid("clearGridData");
+        if (_EstrategiaGrupoData == null) {
+            CerrarLoad();
+            return;
+        }
+        showDialog('DialogGrupoEstrategia');
+
+        $("#listGrupoEstrategia").jqGrid("clearGridData");
 
         if (!_Valida1raCarga) {
             _Valida1raCarga = true;
@@ -79,8 +88,7 @@
                 loadtext: "Cargando datos...",
                 recordtext: "{0} - {1} de {2} Registros",
                 emptyrecords: "No hay resultados",
-
-
+                 
                 afterSaveCell: function (rowid, name, val, iRow, iCol) {
 
                     //console.log(rowid, name, val, iRow, iCol);
@@ -91,12 +99,25 @@
                         _EstrategiaGrupoData[rowid - 1].DescripcionPlural = val;
                     }
                     console.log(_EstrategiaGrupoData);
-                }
+                } 
             });
+
+            //INI AGANA 244: Terminar la edición al perder el foco de la celda
+            $('#listGrupoEstrategia').setGridParam({
+                afterEditCell: function (id, name, val, iRow, iCol) {
+                     
+                    $("#" + iRow + "_" + name, "#listGrupoEstrategia").bind('blur', function () {
+                        $('#listGrupoEstrategia').saveCell(iRow, iCol);
+                    });
+                }
+            }); 
+            //END AGANA 244
         } else {
 
             $("#listGrupoEstrategia").setGridParam({ data: _EstrategiaGrupoData }).trigger("reloadGrid", [{ page: 1 }]);
         }
+
+        CerrarLoad();
     }
 
 
@@ -145,7 +166,7 @@
             closeOnEscape: true,
             width: 830,
             draggable: false,
-            title: "Configurar grupo de estrategia",
+            title: "Edición de grupos",
             close: function (event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).show(); },
             open: function (event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).hide(); },
             buttons:
