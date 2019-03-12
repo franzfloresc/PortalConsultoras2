@@ -4,8 +4,6 @@ var PedidoProvider = function () {
     
     _cargarDetallePedidoPromise = function (pageParams) {
         if (typeof pageParams === "undefined" || pageParams === null) throw "pageParams is null or indefined. PedidoProvider._cargarDetallePedidoPromise]";
-
-        debugger;
         var _pageParams = {
             sidx: pageParams.sidx || "",
             sord: pageParams.sord || "",
@@ -23,8 +21,7 @@ var PedidoProvider = function () {
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(_pageParams),
-            success: function (data) {
-                debugger;
+            success: function (data) {             
                 dfd.resolve(data);
             },
             error: function (data, error) {
