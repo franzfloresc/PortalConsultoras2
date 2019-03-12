@@ -380,16 +380,6 @@ namespace Portal.Consultoras.Web.SessionManager
             return (bool)(HttpContext.Current.Session[Constantes.ConstSession.TieneOpt] ?? false);
         }
 
-        void ISessionManager.SetTieneAPT(bool tieneAPT)
-        {
-            HttpContext.Current.Session[Constantes.ConstSession.TieneOpt] = tieneAPT;
-        }
-
-        bool ISessionManager.GetTieneATP()
-        {
-            return (bool)(HttpContext.Current.Session[Constantes.ConstSession.TieneAPT] ?? false);
-        }
-
         void ISessionManager.SetTieneOpm(bool tieneOpm)
         {
             HttpContext.Current.Session[Constantes.ConstSession.TieneOpm] = tieneOpm;

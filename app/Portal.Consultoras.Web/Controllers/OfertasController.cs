@@ -121,8 +121,6 @@ namespace Portal.Consultoras.Web.Controllers
                     SessionManager.SetTieneHvX1(false);
                 else if (campaniaId == userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.MasGanadoras))
                     SessionManager.SetTieneMg(false);
-                else if (campaniaId == userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.ArmaTuPack))
-                    SessionManager.SetTieneAPT(false);
 
                 return Json(new
                 {
