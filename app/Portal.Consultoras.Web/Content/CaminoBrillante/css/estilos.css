@@ -203,7 +203,7 @@ strong {
     text-align: center;
     font-size: 13px;
     margin: 10px auto;
-    border:0;
+    border: 0;
 }
 
     .btn-link:hover {
@@ -443,7 +443,7 @@ strong {
     height: 14px;
     background: #ad001b;
     border-radius: 16px;
-    z-index:5;
+    z-index: 5;
 }
 
 #ProgressBar span {
@@ -738,7 +738,7 @@ strong {
     }
 
     .shad {
-        padding: 20px 10px;
+        padding: 20px 25px;
     }
 
     .pad-center {
