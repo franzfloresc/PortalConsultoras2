@@ -694,52 +694,52 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return resultado;
         }
 
-        public async Task<JsonResult> ObtenerOfertaByCUVSet(string campaniaId, int set, string cuv)
-        {
-            try
-            {
-                var _pedidoSetProvider = new PedidoSetProvider();
-                var _ofertaBaseProvider = new OfertaBaseProvider();
+        //public async Task<JsonResult> ObtenerOfertaByCUVSet(string campaniaId, int set, string cuv)
+        //{
+        //    try
+        //    {
+        //        var _pedidoSetProvider = new PedidoSetProvider();
+        //        var _ofertaBaseProvider = new OfertaBaseProvider();
 
-                var pedidoSet = _pedidoSetProvider.ObtenerPorId(userData.PaisID, set);
+        //        var pedidoSet = _pedidoSetProvider.ObtenerPorId(userData.PaisID, set);
 
-                var estrategia = await _ofertaBaseProvider.ObtenerOfertaDesdeApi(cuv, campaniaId, Constantes.TipoPersonalizacion.ShowRoom);
+        //        var estrategia = await _ofertaBaseProvider.ObtenerOfertaDesdeApi(cuv, campaniaId, Constantes.TipoPersonalizacion.ShowRoom);
 
-                if (estrategia.Grupos.Any())
-                {
-                    var componentes = new List<Componente>();
+        //        if (estrategia.Componentes.Any())
+        //        {
+        //            var componentesNivel01 = new List<Componente>();
 
-                    estrategia.Grupos.Each(x =>
-                    {
-                        if (x.Componentes.Any())
-                        {
-                            componentes.AddRange(x.Componentes);
-                        }
+        //            estrategia.Componentes.Each(x =>
+        //            {
+        //                if (x.Hermanos.Any())
+        //                {
+        //                    componentesNivel01.AddRange(x.Hermanos);
+        //                }
 
-                    });
+        //            });
 
-                    pedidoSet.Detalles.Update(x =>
-                    {
-                        var item = componentes.FirstOrDefault(i => i.Cuv == x.CUV);
-                        x.NombreProducto = item != null ? item.NombreProducto : string.Empty;
-                    });
-                }
+        //            pedidoSet.Detalles.Update(x =>
+        //            {
+        //                var item = componentesNivel01.FirstOrDefault(i => i.Cuv == x.CUV);
+        //                x.NombreProducto = item != null ? item.NombreProducto : string.Empty;
+        //            });
+        //        }
 
-                return Json(new
-                {
-                    success = true,
-                    pedidoSet
-                }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false
-                }, JsonRequestBehavior.AllowGet);
-            }
-        }
+        //        return Json(new
+        //        {
+        //            success = true,
+        //            pedidoSet
+        //        }, JsonRequestBehavior.AllowGet);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+        //        return Json(new
+        //        {
+        //            success = false
+        //        }, JsonRequestBehavior.AllowGet);
+        //    }
+        //}
 
     }
 }

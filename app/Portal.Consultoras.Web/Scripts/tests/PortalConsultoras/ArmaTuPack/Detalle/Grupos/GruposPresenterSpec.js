@@ -1887,7 +1887,7 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
                 expect(armaTuPackDetalleEvents.applyChanges.args[firstCall][secondParam]).to.not.equal(null);
             });
 
-            it("should show quantity selector quantity is less than factorCuadre", function () {
+            it("should show quantity selector when quantity is less than factorCuadre", function () {
                 var model = gruposPresenter.packComponents();
                 var quantitySelected = 0;
                 var factorCuadre = 0;
@@ -1897,9 +1897,22 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
                         factorCuadre = componente.FactorCuadre;
                     }
                 });
-
                 expect(quantitySelected).to.be.lessThan(factorCuadre);
                 expect(gruposView.showQuantitySelector.calledOnce).to.be.equals(true);
+            });
+
+            it("should show options label when quantity is less than factorCuadre", function () {
+                var model = gruposPresenter.packComponents();
+                var quantitySelected = 0;
+                var factorCuadre = 0;
+                $.each(model.componentes,function(idx,componente){
+                    if(componente.Cuv == cuvGrupo){
+                        quantitySelected = componente.cantidadSeleccionados;
+                        factorCuadre = componente.FactorCuadre;
+                    }
+                });
+                expect(quantitySelected).to.be.lessThan(factorCuadre);
+                expect(gruposView.showGroupOptions.calledOnce).to.be.equals(true);
             });
 
             it("should hide ready label when quantity is less than factorCuadre", function () {
@@ -1912,12 +1925,11 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
                         factorCuadre = componente.FactorCuadre;
                     }
                 });
-
                 expect(quantitySelected).to.be.lessThan(factorCuadre);
                 expect(gruposView.hideGroupReady.calledOnce).to.be.equals(true);
             });
 
-            it("should show ready label when quantity is equal factorCuadre", function () {
+            it("should hide options label and show ready label when quantity is equal factorCuadre", function () {
                 gruposPresenter.addComponente(cuvGrupo, cuvComponente);
                 gruposPresenter.addComponente(cuvGrupo, cuvComponente);
                 gruposPresenter.addComponente(cuvGrupo, cuvComponente);
@@ -1932,6 +1944,7 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
                     }
                 });
                 expect(quantitySelected).to.be.equal(factorCuadre);
+                expect(gruposView.hideGroupOptions.calledOnce).to.be.equals(true);
                 expect(gruposView.showGroupReady.calledOnce).to.be.equals(true);
             });
 
@@ -1949,7 +1962,6 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
                         factorCuadre = componente.FactorCuadre;
                     }
                 });
-
                 expect(quantitySelected).to.be.equal(factorCuadre);
                 expect(gruposView.blockGroup.calledOnce).to.be.equals(true);
             });
@@ -3603,23 +3615,90 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
         });
 
         describe("Component exists at group", function () {
+            var cuvGrupo = "30379";
+            var cuvComponente = "30405";
+
             beforeEach("add componente with cuv 30405", function () {
-                gruposPresenter.addComponente(30379, 30405);
+                gruposPresenter.addComponente(cuvGrupo, cuvComponente);
             });
 
             it("should have no one item at componenteSeleccionado", function () {
-                gruposPresenter.deleteComponente(30379, 30405);
+                gruposPresenter.deleteComponente(cuvGrupo, cuvComponente);
                 
                 var model = gruposPresenter.packComponents();
                 expect(model.componentesSeleccionados.length).to.be.equals(0);
             });
 
             it("should fire an event onSelectedComponentsChanged with not null data object", function () {
+                gruposPresenter.deleteComponente(cuvGrupo, cuvComponente);
+                
                 var firstCall = 0;
                 var firstParam = 0;
                 var secondParam = 1;
                 expect(armaTuPackDetalleEvents.applyChanges.args[firstCall][firstParam]).to.equals(armaTuPackDetalleEvents.eventName.onSelectedComponentsChanged);
                 expect(armaTuPackDetalleEvents.applyChanges.args[firstCall][secondParam]).to.not.equal(null);
+            });
+
+            it("should show chooseIt when selectect quantity is equal to zero", function () {
+                gruposPresenter.deleteComponente(cuvGrupo, cuvComponente);
+
+                var model = gruposPresenter.packComponents();
+                var quantitySelected = 0;
+                $.each(model.componentes,function(idx,componente){
+                    if(componente.Cuv == cuvGrupo){
+                        quantitySelected = componente.cantidadSeleccionados;
+                    }
+                });
+                expect(quantitySelected).to.be.equals(0);
+                expect(gruposView.showChooseIt.calledOnce).to.be.equals(true);
+            });
+
+            it("should show options label when selectect quantity is less than factorCuadre", function () {
+                gruposPresenter.deleteComponente(cuvGrupo, cuvComponente);
+                
+                var model = gruposPresenter.packComponents();
+                var quantitySelected = 0;
+                var factorCuadre = 0;
+                $.each(model.componentes,function(idx,componente){
+                    if(componente.Cuv == cuvGrupo){
+                        quantitySelected = componente.cantidadSeleccionados;
+                        factorCuadre = componente.FactorCuadre;
+                    }
+                });
+                expect(quantitySelected).to.be.lessThan(factorCuadre);
+                expect(gruposView.showGroupOptions.called).to.be.equals(true);
+            });
+
+            it("should hide ready label when selectect quantity is less than factorCuadre", function () {
+                gruposPresenter.deleteComponente(cuvGrupo, cuvComponente);
+                
+                var model = gruposPresenter.packComponents();
+                var quantitySelected = 0;
+                var factorCuadre = 0;
+                $.each(model.componentes,function(idx,componente){
+                    if(componente.Cuv == cuvGrupo){
+                        quantitySelected = componente.cantidadSeleccionados;
+                        factorCuadre = componente.FactorCuadre;
+                    }
+                });
+                expect(quantitySelected).to.be.lessThan(factorCuadre);
+                expect(gruposView.hideGroupReady.called).to.be.equals(true);
+            });
+
+            it("should unblock components when when quantity is equal factorCuadre", function () {
+                gruposPresenter.deleteComponente(cuvGrupo, cuvComponente);
+
+                var model = gruposPresenter.packComponents();
+                var quantitySelected = 0;
+                var factorCuadre = 0;
+                $.each(model.componentes,function(idx,componente){
+                    if(componente.Cuv == cuvGrupo){
+                        quantitySelected = componente.cantidadSeleccionados;
+                        factorCuadre = componente.FactorCuadre;
+                    }
+                });
+                expect(quantitySelected).to.be.lessThan(factorCuadre);
+                expect(gruposView.unblockGroup.called).to.be.equals(true);
             });
         });
     });
