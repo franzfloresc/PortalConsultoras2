@@ -54,6 +54,9 @@
         if (typeof cuvGrupo === "undefined" || cuvGrupo === null) throw "cuvGrupo is null or undefined";
         if (typeof cuvComponente === "undefined" || cuvComponente === null) throw "cuvComponente is null or undefined";
 
+        cuvGrupo = $.trim(cuvGrupo);
+        cuvComponente = $.trim(cuvComponente);
+
         var model = _packComponents();
         var compSelCounter = model.componentesSeleccionados.length;
 
@@ -64,6 +67,21 @@
                         model.componentesSeleccionados.push(componente);
                         model.componentesNoSeleccionados.splice(0, 1);
                         grupo.cantidadSeleccionados++;
+                        if (grupo.cantidadSeleccionados == 0) {
+                            _config.gruposView.showChooseIt(cuvComponente);
+                            _config.gruposView.hideGroupReady(cuvGrupo);
+                            _config.gruposView.unblockGroup(cuvGrupo);
+                        }
+                        if (grupo.cantidadSeleccionados < grupo.FactorCuadre) {
+                            _config.gruposView.showQuantitySelector(cuvComponente);
+                            _config.gruposView.hideGroupReady(cuvGrupo);
+                            _config.gruposView.unblockGroup(cuvGrupo);
+                        }
+                        if (grupo.cantidadSeleccionados == grupo.FactorCuadre) {
+                            _config.gruposView.showQuantitySelector(cuvComponente);
+                            _config.gruposView.showGroupReady(cuvGrupo);
+                            _config.gruposView.blockGroup(cuvGrupo);
+                        }
                         return;
                     }
                 });

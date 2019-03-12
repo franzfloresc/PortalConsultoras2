@@ -99,7 +99,8 @@
     border: 1px solid #ebebeb;
     border-radius: 4px;
     max-width: 154px;
-    margin: 0 20px 20px;
+    margin: 0 10px 20px;
+    width: 154px !important;
 }
 
 .product_img_Pack, .product_img_Pack img {
@@ -302,6 +303,22 @@
     opacity: .4;
 }
 
+
+/*Flechas*/
+.flecha_ofertas-tipo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+    .flecha_ofertas-tipo img{
+        width: 15px;
+        height: auto;
+    }
+
+
+
+
 @media screen and (min-width:768px) {
     .Select_ArmaTuPack {
         position: fixed;
@@ -313,6 +330,26 @@
     .product_img_Pack {
         margin-bottom: 10px;
     }
+
+    #Select_Items {
+        padding: 0px 20px;
+    }
+
+    .slick-track article:first-child {
+        margin-left: 0px;
+    }
+
+    .slick-disabled {
+        opacity: .2;
+    }
+
+    #grupos {
+        max-width: 922px !important;
+    }
+
+    .slick-track {
+        width: 3000% !important;
+    }
 }
 
 
@@ -321,8 +358,8 @@
     body {
         margin-top: 60px;
     }
-    
-    .Sections_Pack{
+
+    .Sections_Pack {
         border-color: #d8d8d8;
     }
 
@@ -341,13 +378,14 @@
     }
 
     .product_pack {
-        max-width: 100%;
+        max-width: 100% !important;
+        width: 100% !important;
         border-radius: 0px;
         padding: 14px;
         border-top: none;
         border-left: none;
         border-right: none;
-        margin:0;
+        margin: 0;
     }
 
     .product_img_Pack, .product_img_Pack img {
@@ -369,10 +407,10 @@
     .product_descripcion_Pack button {
         margin-top: 0px;
         width: 98px;
-    }    
+    }
 
     .Title_pack {
-        margin-bottom: 0px;        
+        margin-bottom: 0px;
         border: none;
         justify-content: space-between !important;
         background-image: url('/Content/Images/General/Icons/arrow_down.svg');
@@ -399,6 +437,21 @@
             margin: 0px;
             width: 100%
         }
+
+    .flecha_ofertas-tipo {
+        display: none !important;
+    }
+
+    .slick-list .slick-track {
+        width: 100% !important;
+        transform: translate3d(0px, 0px, 0px) !important;
+    }
+
+    .contenedor_rangos {
+        width: 98px;
+        margin-left: auto;
+        float: none;
+    }
 }
 
 
