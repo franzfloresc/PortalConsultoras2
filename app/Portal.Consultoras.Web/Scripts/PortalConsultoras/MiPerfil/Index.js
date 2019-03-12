@@ -352,8 +352,6 @@ function CambiarContrasenia() {
     var newPassword01 = $("#txtNuevaContrasenia01").val();
     var newPassword02 = $("#txtNuevaContrasenia02").val();
     var vMessage = "";
-    var patt = new RegExp("^([A-Z])$"); //(patronRegex);
-    //"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!¡@$%^&/*-+]).{8,}$";
 
     if (oldPassword == "")
         vMessage += "- Debe ingresar la Contraseña Anterior.\n";
@@ -372,29 +370,23 @@ function CambiarContrasenia() {
     if (newPassword01.length <= 7)
         vMessage += "- La Nueva Contraseña debe de tener mínimo 8 caracteres.\n";
 
-    var pMayus = newPassword01.match("[A-Z]");
-    if (pMayus == null) {
+    var pMayus = patronRegex.split('¦')[0];
+    if (newPassword01.match(pMayus) == null) {
         vMessage += "- La Nueva Contraseña debe de tener al menos una letra en mayúscula.\n";
-        //vMessage += "- La Nueva Contraseña debe de tener al menos una letra en minúscula.\n";
-        //vMessage += "- La Nueva Contraseña debe de tener al menos un dígito.\n";
-        //vMessage += "- La Nueva Contraseña debe de tener al menos un carácter especial.\n";
     }
 
-    var pMinu = newPassword01.match("[a-z]");
-    if (pMinu == null) {
+    var pMinu = patronRegex.split('¦')[1];
+    if (newPassword01.match(pMinu) == null) {
         vMessage += "- La Nueva Contraseña debe de tener al menos una letra en minúscula.\n";
-        //vMessage += "- La Nueva Contraseña debe de tener al menos un dígito.\n";
-        //vMessage += "- La Nueva Contraseña debe de tener al menos un carácter especial.\n";
     }
 
-    var pDigi = newPassword01.match("[a-z]");
-    if (pDigi == null) {
+    var pDigi = patronRegex.split('¦')[2];
+    if (newPassword01.match(pDigi) == null) {
         vMessage += "- La Nueva Contraseña debe de tener al menos un dígito.\n";
-        //vMessage += "- La Nueva Contraseña debe de tener al menos un carácter especial.\n";
     }
 
-    var pEspe = newPassword01.match("[a-z]");
-    if (pEspe == null) {
+    var pEspe = patronRegex.split('¦')[3];
+    if (newPassword01.match(pEspe) == null) {
         vMessage += "- La Nueva Contraseña debe de tener al menos un carácter especial.\n";
     }
 
@@ -425,25 +417,35 @@ function CambiarContrasenia() {
                 if (checkTimeout(data)) {
                     CerrarLoad();
                     if (data.success == true) {
-                        if (data.message == "0") {
-                            $("#txtContraseniaAnterior").val('');
-                            $("#txtNuevaContrasenia01").val('');
-                            $("#txtNuevaContrasenia02").val('');
-                            alert("La contraseña anterior ingresada es inválida");
-                        } else if (data.message == "1") {
-                            $("#txtContraseniaAnterior").val('');
-                            $("#txtNuevaContrasenia01").val('');
-                            $("#txtNuevaContrasenia02").val('');
-                            alert("Hubo un error al intentar cambiar la contraseña, por favor intente nuevamente.");
-                        } else if (data.message == "2") {
-                            $("#txtContraseniaAnterior").val('');
-                            $("#txtNuevaContrasenia01").val('');
-                            $("#txtNuevaContrasenia02").val('');
+                        //if (data.message == "0") {
+                        //    $("#txtContraseniaAnterior").val('');
+                        //    $("#txtNuevaContrasenia01").val('');
+                        //    $("#txtNuevaContrasenia02").val('');
+                        //    alert("La contraseña anterior ingresada es inválida");
+                        //} else if (data.message == "1") {
+                        //    $("#txtContraseniaAnterior").val('');
+                        //    $("#txtNuevaContrasenia01").val('');
+                        //    $("#txtNuevaContrasenia02").val('');
+                        //    alert("Hubo un error al intentar cambiar la contraseña, por favor intente nuevamente.");
+                        //} else if (data.message == "2") {
+                        //    $("#txtContraseniaAnterior").val('');
+                        //    $("#txtNuevaContrasenia01").val('');
+                        //    $("#txtNuevaContrasenia02").val('');
 
+                        //    $("#contentPass").fadeOut(200);
+                        //    $("#contentPassChange").delay(200);
+                        //    $("#contentPassChange").fadeIn(200);
+                        //}
+                        $("#txtContraseniaAnterior").val('');
+                        $("#txtNuevaContrasenia01").val('');
+                        $("#txtNuevaContrasenia02").val('');
+                        if (data.message == "") {
                             $("#contentPass").fadeOut(200);
                             $("#contentPassChange").delay(200);
                             $("#contentPassChange").fadeIn(200);
                         }
+                        else alert(data.message);
+
                         return false;
                     }
                 }

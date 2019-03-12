@@ -1783,37 +1783,45 @@ namespace Portal.Consultoras.BizLogic
             return daUsuario.UpdateUsuarioEmailTelefono(ConsultoraID, Email, Telefono);
         }
 
-        public bool CambiarClaveUsuario(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, EAplicacionOrigen origen)
+        public string CambiarClaveUsuario(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, EAplicacionOrigen origen)
         {
-            bool resultado = false;
+            string resultado = string.Empty;
 
             try
             {
                 var daUsuario = new DAUsuario(paisId);
-                if (ValidarReglasClave(nuevacontrasena))
+                resultado = ValidarReglasClave(nuevacontrasena);
+                if (string.IsNullOrEmpty(resultado))
                 {
                     daUsuario.CambiarClaveUsuario(codigoUsuario, nuevacontrasena, correo);
                     daUsuario.InsLogCambioContrasenia(codigoUsuarioAutenticado, paisIso + codigoUsuario, nuevacontrasena,
                         correo, Enum.GetName(typeof(EAplicacionOrigen), origen));
                     daUsuario.InsMetaConsultora(codigoUsuario, Constantes.MetaConsultora.VerificacionCambioClave, "0");
-                    resultado = true;
                 }
             }
             catch (Exception ex)
             {
                 LogManager.SaveLog(ex, codigoUsuario, paisIso);
-                resultado = false;
+                resultado = ex.Message;
             }
 
             return resultado;
         }
 
-        public bool ValidarReglasClave(string contrasena)
+        public string ValidarReglasClave(string contrasena)
         {            
-            string pattern = Constantes.Regex.ContrasenaUsuario;
-            Regex rgx = new Regex(pattern);
+            string pattern = Constantes.Regex.CadenaRegexPassword;
+            string message = string.Empty;
+            if (!Regex.IsMatch(contrasena, pattern.Split('¦')[0]))
+                message += Constantes.MensajesError.AlMenosLetraMayuscula;
+            if (!Regex.IsMatch(contrasena, pattern.Split('¦')[1]))
+                message += Constantes.MensajesError.AlMenosLetraMinuscula;
+            if (!Regex.IsMatch(contrasena, pattern.Split('¦')[2]))
+                message += Constantes.MensajesError.AlMenosDigito;
+            if (!Regex.IsMatch(contrasena, pattern.Split('¦')[3]))
+                message += Constantes.MensajesError.AlMenosCaracterEspecial;
 
-            return rgx.IsMatch(contrasena);
+            return message;
         }
 
         public int ExisteUsuario(int paisId, string codigoUsuario, string clave)
