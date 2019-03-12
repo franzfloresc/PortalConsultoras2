@@ -1501,7 +1501,8 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     margin-bottom: 10px;
     text-align: center;
     margin-top: 20px !important;
-    margin: 0 auto; 
+    text-transform: uppercase;
+    margin: 0 auto;
     font-size: 20px !Important;
     font-family: 'lato';
     color: black;
