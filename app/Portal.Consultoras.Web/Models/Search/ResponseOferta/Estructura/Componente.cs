@@ -1,4 +1,6 @@
-﻿namespace Portal.Consultoras.Web.Models.Search.ResponseOferta.Estructura
+﻿using System.Collections.Generic;
+
+namespace Portal.Consultoras.Web.Models.Search.ResponseOferta.Estructura
 {
     public class Componente
     {
@@ -31,5 +33,6 @@
         public string Volumen { get; set; }
         public string ImagenBulk { get; set; }
         public string NombreBulk { get; set; }
+        public List<Componente> Hermanos { get; set; }
     }
 }
