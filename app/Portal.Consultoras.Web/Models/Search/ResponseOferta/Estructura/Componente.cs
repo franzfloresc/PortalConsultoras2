@@ -34,6 +34,5 @@ namespace Portal.Consultoras.Web.Models.Search.ResponseOferta.Estructura
         public string Volumen { get; set; }
         public string ImagenBulk { get; set; }
         public string NombreBulk { get; set; }
-        public List<Componente> Hermanos { get; set; }
     }
 }
