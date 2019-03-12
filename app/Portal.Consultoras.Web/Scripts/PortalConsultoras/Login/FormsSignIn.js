@@ -843,10 +843,15 @@ function login2() {
     $('#ddlPais').val(CodigoISO);
     $('#txtUsuario').val(CodigoUsuario);
     $('#txtContrasenia').val(Contrasenia);
-
     $('#HdePaisID').val(PaisID);
 
-    waitingDialog();
+    var dataToSend = encriptarCryptoJS(Contrasenia, cadena);
+    $('#hdeSalt').val(dataToSend.salt);
+    $('#hdeCiphertext').val(dataToSend.ciphertext);
+    $('#hdeKey').val(dataToSend.key);
+    $('#hdeIv').val(dataToSend.iv);
+
+    waitingDialog();    
 
     var form = $('#frmLogin');
     var postData = form.serialize() + "&returlUrl=" + $('#returnUrl').val();
