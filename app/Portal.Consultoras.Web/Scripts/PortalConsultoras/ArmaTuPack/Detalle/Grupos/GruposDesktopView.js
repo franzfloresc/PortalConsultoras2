@@ -23,6 +23,9 @@
             }
         },
         grupo: {
+            optionsLabel : function(cuv){ 
+                return "[data-options-label-" + cuv + "]";
+            },
             readyLabel : function(cuv){ 
                 return "[data-ready-label-" + cuv + "]";
             },
@@ -99,6 +102,22 @@
         $(_elements.componente.chooseIt(cuvComponent)).show();
     };
 
+    var _showGroupOptions = function (cuvGroup) {
+        if (cuvGroup === undefined ||
+            cuvGroup === null ||
+            $.trim(cuvGroup) === "") return;
+
+        $(_elements.grupo.optionsLabel(cuvGroup)).show();
+    };
+
+    var _hideGroupOptions = function (cuvGroup) {
+        if (cuvGroup === undefined ||
+            cuvGroup === null ||
+            $.trim(cuvGroup) === "") return;
+
+        $(_elements.grupo.optionsLabel(cuvGroup)).hide();
+    };
+
     var _showGroupReady = function (cuvGroup) {
         if (cuvGroup === undefined ||
             cuvGroup === null ||
@@ -141,6 +160,8 @@
         setPresenter : _setPresenter,
         showQuantitySelector : _showQuantitySelector,
         showChooseIt : _showChooseIt,
+        showGroupOptions: _showGroupOptions,
+        hideGroupOptions: _hideGroupOptions,
         showGroupReady: _showGroupReady,
         hideGroupReady: _hideGroupReady,
         blockGroup: _blockGroup,
