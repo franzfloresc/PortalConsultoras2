@@ -659,7 +659,7 @@ var PedidoRegistroModule = function () {
         });
     }
 
-    var RegistroProductoBuscador = function (divPadre, valueJSON) {
+    var RegistroProductoBuscador = function (divPadre, valueJSON, origenSeccion) {
 
         var model = JSON.parse($(divPadre).find(valueJSON).val());
         var divCantidad = $(divPadre).find("[data-input='cantidad']");
@@ -771,7 +771,7 @@ var PedidoRegistroModule = function () {
                     var _vRecomendaciones = localStorage.getItem('vRecomendaciones');
 
                     if (!(typeof AnalyticsPortalModule === 'undefined') && (_vRecomendaciones === 'undefined' || _vRecomendaciones === 'null' || _vRecomendaciones === null)) {
-                        AnalyticsPortalModule.MarcaAnadirCarritoBuscador(modelCarrito, 'Resultados', _textoBusqueda);
+                        AnalyticsPortalModule.MarcaAnadirCarritoBuscador(modelCarrito, origenSeccion, _textoBusqueda);
                     }
 
                     TrackingJetloreAdd(modelFinal.Cantidad, $("#hdCampaniaCodigo").val(), modelFinal.CUV);
