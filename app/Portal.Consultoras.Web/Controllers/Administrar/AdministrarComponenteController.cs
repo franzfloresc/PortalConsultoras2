@@ -26,88 +26,105 @@ namespace Portal.Consultoras.Web.Controllers
             estrategiaGrupoProvider = new EstrategiaGrupoProvider();
         }
 
-        public ActionResult ConsultarSegunEstrategia(string sidx, string sord, int page, int rows, string estrategiaId,
-            string codigoTipoEstrategia = null)
+        public ActionResult ConsultarSegunEstrategia(string sidx, string sord, int page, int rows, string estrategiaId, string codigoTipoEstrategia = null)
         {
-
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                List<ServicePedido.BEEstrategiaProducto> lst = administrarEstrategiaProvider.GetEstrategiaProductoService(userData.CodigoISO, estrategiaId, codigoTipoEstrategia);
-                var estrategiaGrupoLista = administrarEstrategiaProvider.GetEstrategiaGrupoService(userData.CodigoISO, estrategiaId, codigoTipoEstrategia);
-
-                var grid = new BEGrid
-                {
-                    PageSize = rows,
-                    CurrentPage = page,
-                    SortColumn = sidx,
-                    SortOrder = sord
-                };
-
-                IEnumerable<ServicePedido.BEEstrategiaProducto> items = lst;
-
-                #region Sort Section
-                if (sord == "asc")
-                {
-                    switch (sidx)
-                    {
-                        case "NombreProducto":
-                            items = lst.OrderBy(x => x.NombreProducto);
-                            break;
-                        case "Descripcion1":
-                            items = lst.OrderBy(x => x.Descripcion1);
-                            break;
-                    }
-                }
-                else
-                {
-                    switch (sidx)
-                    {
-                        case "NombreProducto":
-                            items = lst.OrderBy(x => x.NombreProducto);
-                            break;
-                        case "Descripcion1":
-                            items = lst.OrderBy(x => x.Descripcion1);
-                            break;
-                    }
-                }
-                #endregion
-
-                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-
-                BEPager pag = Util.PaginadorGenerico(grid, lst);
-                string iso = Util.GetPaisISO(userData.PaisID);
-
-                lst.Update(x => x.ImagenProducto = ConfigCdn.GetUrlFileCdnMatriz(iso, x.ImagenProducto));
-
-                var data = new
-                {
-                    total = pag.PageCount,
-                    page = pag.CurrentPage,
-                    records = pag.RecordCount,
-                    rows = from a in items
-                           select new
-                           {
-                               id = a.EstrategiaProductoID,
-                               cell = new[]
-                                {
-                                    a.EstrategiaProductoID.ToString(),
-                                    a.EstrategiaID.ToString(),
-                                    a.Campania.ToString(),
-                                    a.CUV,
-                                    a.NombreProducto,
-                                    a.Descripcion1,
-                                    a.ImagenProducto,
-                                    a.IdMarca.ToString(),
-                                    a.DescripcionGrupo,
-                                    a.Precio.ToString(),
-                                    a.PrecioValorizado.ToString(),
-                                    a.Activo.ToString()
-                                }
-                           }
-                };
-                return Json(data, JsonRequestBehavior.AllowGet);
+                return RedirectToAction("Index", "Bienvenida");
             }
-            return RedirectToAction("Index", "Bienvenida");
+
+            List<ServicePedido.BEEstrategiaProducto> lst = administrarEstrategiaProvider.GetEstrategiaProductoService(userData.CodigoISO, estrategiaId, codigoTipoEstrategia);
+            var estrategiaGrupoLista = administrarEstrategiaProvider.GetEstrategiaGrupoService(userData.CodigoISO, estrategiaId, codigoTipoEstrategia);
+
+            foreach (var item in lst)
+            {
+                item.DescripcionGrupo = "-";
+                if (!estrategiaGrupoLista.Any()) continue;
+
+                item.Grupo = Util.Trim(item.Grupo);
+                if (item.Grupo == "") continue;
+
+                var find = estrategiaGrupoLista.FirstOrDefault(x => Util.Trim(x.Grupo).Equals(item.Grupo));
+                if (find != null)
+                {
+                    item.DescripcionGrupo = Util.Trim(find.DescripcionSingular) + " - " + Util.Trim(find.DescripcionPlural);
+                }
+            }
+
+            var grid = new BEGrid
+            {
+                PageSize = rows,
+                CurrentPage = page,
+                SortColumn = sidx,
+                SortOrder = sord
+            };
+
+            IEnumerable<ServicePedido.BEEstrategiaProducto> items = lst;
+
+            #region Sort Section
+            if (sord == "asc")
+            {
+                switch (sidx)
+                {
+                    case "NombreProducto":
+                        items = lst.OrderBy(x => x.NombreProducto);
+                        break;
+                    case "Descripcion1":
+                        items = lst.OrderBy(x => x.Descripcion1);
+                        break;
+                }
+            }
+            else
+            {
+                switch (sidx)
+                {
+                    case "NombreProducto":
+                        items = lst.OrderBy(x => x.NombreProducto);
+                        break;
+                    case "Descripcion1":
+                        items = lst.OrderBy(x => x.Descripcion1);
+                        break;
+                }
+            }
+            #endregion
+
+            items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+
+            BEPager pag = Util.PaginadorGenerico(grid, lst);
+            string iso = Util.GetPaisISO(userData.PaisID);
+
+            lst.Update(x => x.ImagenProducto = ConfigCdn.GetUrlFileCdnMatriz(iso, x.ImagenProducto));
+
+            var data = new
+            {
+                total = pag.PageCount,
+                page = pag.CurrentPage,
+                records = pag.RecordCount,
+                rows = from a in items
+                       select new
+                       {
+                           id = a.EstrategiaProductoID,
+                           cell = new[]
+                            {
+                                a.EstrategiaProductoID.ToString(),
+                                a.EstrategiaID.ToString(),
+                                a.Campania.ToString(),
+                                a.CUV,
+                                a.NombreProducto,
+                                a.Descripcion1,
+                                a.ImagenProducto,
+                                a.IdMarca.ToString(),
+                                a.Grupo,
+                                a.DescripcionGrupo.Split('-')[0],
+                                a.DescripcionGrupo.Split('-')[1],
+                                a.Precio.ToString(),
+                                a.PrecioValorizado.ToString(),
+                                a.Activo.ToString()
+                            }
+                       }
+            };
+            return Json(data, JsonRequestBehavior.AllowGet);
+
         }
 
         [HttpPost]

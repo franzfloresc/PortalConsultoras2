@@ -423,6 +423,11 @@ $(document).ready(function () {
             }
         }
 
+        if ($("#hdTipoOfertaSisID").val() == constConfiguracionOfertaLiquidacion) {
+            AbrirMensaje(mensajeNoAgregarLiquidacion);
+            return false;
+        }
+
         //var validarEstrategia = ValidarStockEstrategia();
 
         //if (validarEstrategia.success) {
@@ -834,7 +839,7 @@ function ValidarStockEstrategia() {
     if ($("#hdTipoOfertaSisID").val() == constConfiguracionOfertaLiquidacion) {
         resultado = {
             success: false,
-            message: "No se puede agregar una Oferta Liquidacion por este medio."
+            message: mensajeNoAgregarLiquidacion
         };
         return resultado;
     }
@@ -3736,10 +3741,6 @@ function AbrirPopupArmaTuPack(campaniaId, setid, cuv) {
         success: function (data) {
             if (checkTimeout(data)) {
                 if (data.success) {
-
-                   
-                 
-
                     if(data.pedidoSet)
                     {
                         if (data.pedidoSet.Detalles)
@@ -3755,11 +3756,8 @@ function AbrirPopupArmaTuPack(campaniaId, setid, cuv) {
                            
                             closeWaitingDialog();
                             AbrirMensaje(strComponentes,"El pack que armaste contiene:"); 
-
                         }
                     }
-
-
                 }
                 else closeWaitingDialog();
             }
