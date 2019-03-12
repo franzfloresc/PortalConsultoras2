@@ -51,7 +51,7 @@ $(document).ready((function (cerrarRechazado) {
                         var _CantidadRechazados = $(parent).find(me.Variables.cdrweb_CantidadRechazados).val();
 
                         if (_Estado === "1") {
-                            window.location.href = urlReclamo + "?pedidoId=" + _PedidoID;
+                            window.location.href = urlReclamo + "?p=" + _PedidoID + "&c=" + _CDRWebID;
                         } else {
                             var obj = {
                                 OrigenCDRDetalle: _OrigenDetalle,

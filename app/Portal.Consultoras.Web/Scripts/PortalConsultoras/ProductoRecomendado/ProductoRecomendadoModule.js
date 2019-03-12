@@ -9,7 +9,8 @@
         next: ".next",
         previous: ".previous",
         divImagenProductoPedido: "div.producto_por_agregar_imagen",
-        divDescripcionProductoPedido: "div.producto_por_agregar_nombre"
+        divDescripcionProductoPedido: "div.producto_por_agregar_nombre",
+        botonVerDetalle: "div.producto_recomendado_info_wrapper, div.producto_recomendado_elegir_tonos"
     };
     var _config = {
         isMobile: window.matchMedia("(max-width:991px)").matches,
@@ -44,6 +45,7 @@
         InicializarEventos: function () {
             $(document).on("click", _elementos.noMostrarProductosRecomendados, _eventos.OcultarProductosRecomendados);
             $(document).on("click", _elementos.botonAgregar, _eventos.AgregarProductoRecomendado);
+            $(document).on("click", _elementos.botonVerDetalle, _eventos.VerDetalleProductoRecomendado);
         },
 
         ArmarCarruselProductosRecomendados: function () {
@@ -239,9 +241,20 @@
             if (!(typeof AnalyticsPortalModule === 'undefined'))
                 AnalyticsPortalModule.MarcaAnadirCarritoRecomendaciones(divPadre, _elementos.valueJSON);
 
-            BuscadorProvider.RegistroProductoBuscador(divPadre, _elementos.valueJSON);
+            PedidoRegistroModule.RegistroProductoBuscador(divPadre, _elementos.valueJSON);     
+        },
 
+        VerDetalleProductoRecomendado: function (e) {
 
+            var _this = $(this);
+            var divPadre = _this.parents("[data-item='ProductoRecomendadoBuscador']").eq(0);
+            var strData = $(divPadre).find('.hdRecomendadoJSON').val();
+            var position = $("[data-item='ProductoRecomendadoBuscador']").index(divPadre) + 1;
+
+            if (!(typeof AnalyticsPortalModule === 'undefined'))
+                AnalyticsPortalModule.MarcaFichaDetalleRecomendado(strData, position);
+
+            FichaPartialModule.ConstruirFicha(_this, 1, false);
         }
 
     };

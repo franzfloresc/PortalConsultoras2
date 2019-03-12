@@ -38,5 +38,6 @@ namespace Portal.Consultoras.BizLogic
         string ValidarStockEstrategia(BEEstrategia entidad);
         BEEstrategia GetEstrategiaProgramaNuevas(BEEstrategia entidad);
         BEEstrategia GetEstrategiaPremiosTippingPoint(int paisID, string codigoPrograma, int anioCampana, string codigoNivel);
+        List<BEEstrategia> GetEstrategiaPremiosElectivos(int paisId, string codigoPrograma, int anioCampana, string codigoNivel);
     }
 }
