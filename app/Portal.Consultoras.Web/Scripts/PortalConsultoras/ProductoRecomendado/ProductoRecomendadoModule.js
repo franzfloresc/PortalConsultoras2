@@ -254,7 +254,7 @@
             if (!(typeof AnalyticsPortalModule === 'undefined'))
                 AnalyticsPortalModule.MarcaAnadirCarritoRecomendaciones(divPadre, _elementos.valueJSON);
 
-            PedidoRegistroModule.RegistroProductoBuscador(divPadre, _elementos.valueJSON);     
+            PedidoRegistroModule.RegistroProductoBuscador(divPadre, _elementos.valueJSON, "");
         },
         VerDetalleProductoRecomendado: function (e) {
 
