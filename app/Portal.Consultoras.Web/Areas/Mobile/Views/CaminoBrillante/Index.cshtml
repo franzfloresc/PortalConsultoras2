@@ -27,7 +27,7 @@
 <br />
 
 
-<div class="container">
+<div class="container ">
     <h2 class="title">AVANCE NIVEL</h2>
     <div id="box-niveles">
         <div id="ProgressBar">
@@ -38,7 +38,7 @@
             <span class="point pt2 activo">
                 <em>Coral</em>
             </span>
-            <span class="point pt3 activo">
+            <span class="point pt3 activo brillante">
                 <em>Ámbar</em>
             </span>
             <span class="point pt4">
@@ -47,9 +47,55 @@
             <span class="point pt5">
                 <em>Topacio</em>
             </span>
-            <span class="point pt6">
+            <span type="button" class="point pt6" data-toggle="modal" data-target="#BenefNivel">
                 <em>Brillante</em>
             </span>
+        </div>
+    </div>
+    <div class="modal fade" id="BenefNivel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="modal-body pad-center">
+                    <div class="indicador-nivel">
+                        <img src="~/Content/CaminoBrillante/imgs/recurso-31-3-x-copy-5@2x.png">
+                        <div class="left-mod">
+                            <h2>Ambar</h2>
+                            <p>Monto mínimo: S./ 500,00</p>
+                        </div>
+                    </div>
+                    <h4 class="subtitle text-center">MIS BENEFICIOS DE NIVEL</h4>
+                    <ul class="box-beneficios two-colums">
+                        <li>
+                            <img src="~/Content/CaminoBrillante/imgs/group-14.svg">
+                            <div class="txt-benf"><p class="text-bold">Revista mi negocio L’Bel</p></div>
+                        </li>
+                        <li>
+                            <img src="~/Content/CaminoBrillante/imgs/group-24.svg">
+                            <div class="txt-benf"><p class="text-bold">Servicio callcenter</p></div>
+                        </li>
+                        <li>
+                            <img src="~/Content/CaminoBrillante/imgs/group-17.svg">
+                            <div class="txt-benf"><p class="text-bold">Regalo por pedido y constancia</p></div>
+                        </li>
+                        <li>
+                            <img src="~/Content/CaminoBrillante/imgs/group-68-copy.svg">
+                            <div class="txt-benf"><p class="text-bold">1 catálogo gratis de Ésika, L’Bel, Cyzone</p></div>
+                        </li>
+                        <li>
+                            <img src="~/Content/CaminoBrillante/imgs/group-43.svg">
+                            <div class="txt-benf"><p class="text-bold">Acompañamiento presencial y virtual</p></div>
+                        </li>
+                        <li>
+                            <img src="~/Content/CaminoBrillante/imgs/group-23.svg">
+                            <div class="txt-benf"><p class="text-bold">Descuentos especiales <span>Las mejores ofertas según tu nivel</span></p></div>
+                        </li>
+                    </ul>
+                    <a href="" class="btn-principal"><em class="icon-niv"></em>Como subir de nivel <span>1</span></a>
+                </div>
+            </div>
         </div>
     </div>
     <div class="cont-benf">
@@ -59,7 +105,6 @@
             <li>
                 <img src="~/Content/CaminoBrillante/imgs/group-14.svg">
                 <div class="txt-benf"><p class="text-bold">Revista mi negocio L’Bel</p></div>
-
             </li>
             <li>
                 <img src="~/Content/CaminoBrillante/imgs/group-24.svg">
@@ -83,13 +128,7 @@
             </li>
         </ul>
     </div>
-
-    <button type="button" class="btn-principal">
-        @*data-target="#exampleModal"*@
-        @*data-toggle="modal"*@
-        Ofertas especiales
-    </button>
-
+    <a href="" class="btn-principal">Ofertas especiales</a>
     <div class="cont-logros">
         <h2 class="title">MIS LOGROS</h2>
         <p class="text">Mira los logros que has obtenido por ventas y pasar pedidos <br>de forma constante, tu esfuerzo tiene recompensas.</p>

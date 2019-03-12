@@ -1,5 +1,4 @@
-﻿
-@media screen and (max-width: 530px) {
+﻿@media screen and (max-width: 530px) {
     .mb-left {
         display: block;
         float: left;
@@ -20,6 +19,31 @@
     }
 
     .cam-exito a {
+        text-align: center;
+        display: block;
+        text-transform: uppercase;
+        color: black;
+        border: 1px solid #000;
+        background: white;
+        max-width: 260px;
+        clear: both;
+        padding: 11px 20px;
+        font-weight: bold;
+        font-size: 14px;
+        font-family: 'lato';
+        text-decoration: none;
+        margin: 17px auto;
+        margin-top: 17px;
+        margin-bottom: 10px;
+        max-width: 190px;
+    }
+
+    .cam-exito a {
         margin-top: 11px;
     }
+
+        .cam-exito a:hover {
+            background: black;
+            color: white;
+        }
 }
