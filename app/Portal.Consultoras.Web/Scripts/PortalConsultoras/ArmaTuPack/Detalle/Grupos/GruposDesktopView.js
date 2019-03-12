@@ -9,10 +9,32 @@
     var _presenter = null;
 
     var _elements = {
-        gruposDesktop: {
+        grupos: {
             templateId: "#grupos-template",
             id: "#grupos",
             attrCarruselContainer: "[data-carrusel-container]"
+        },
+        componente: {
+            quantitySelector : function(cuv){ 
+                return "[data-selector-cantidad-" + cuv + "]";
+            },
+            chooseIt : function(cuv){
+                return "[data-eligelo-" + cuv + "]"; 
+            }
+        },
+        grupo: {
+            optionsLabel : function(cuv){ 
+                return "[data-options-label-" + cuv + "]";
+            },
+            readyLabel : function(cuv){ 
+                return "[data-ready-label-" + cuv + "]";
+            },
+            blockChooseIt : function(cuv){ 
+                return "[data-block-eligelo-" + cuv + "]";
+            },
+            blockQuantitySelector : function(cuv){ 
+                return "[data-block-selector-cantidad-" + cuv + "]";
+            }
         }
     };
 
@@ -21,16 +43,16 @@
     };
 
     var _renderGrupos = function(packComponents) {
-        SetHandlebars(_elements.gruposDesktop.templateId, packComponents, _elements.gruposDesktop.id);
+        SetHandlebars(_elements.grupos.templateId, packComponents, _elements.grupos.id);
 
-        $(_elements.gruposDesktop.id).on("click","[data-add-component]",function(e){
+        $(_elements.grupos.id).on("click","[data-add-component]",function(e){
             var $btn = $(e.target);
             var cuvGrupo = $btn.data("cuv-grupo");
             var cuvComponente = $btn.data("cuv-componente");
             _presenter.addComponente(cuvGrupo,cuvComponente);
         });
 
-        $(_elements.gruposDesktop.id).on("click","[data-delete-component]",function(e){
+        $(_elements.grupos.id).on("click","[data-delete-component]",function(e){
             var $btn = $(e.target);
             var cuvGrupo = $btn.data("cuv-grupo");
             var cuvComponente = $btn.data("cuv-componente");
@@ -59,11 +81,90 @@
             slickSettings.slidesToShow = 5;
         }
 
-        $(_elements.gruposDesktop.attrCarruselContainer).slick(slickSettings);
+        $(_elements.grupos.attrCarruselContainer).slick(slickSettings);
+    };
+
+    var _showQuantitySelector = function (cuvComponent) {
+        if (cuvComponent === undefined ||
+            cuvComponent === null ||
+            $.trim(cuvComponent) === "") return;
+
+        $(_elements.componente.chooseIt(cuvComponent)).hide();
+        $(_elements.componente.quantitySelector(cuvComponent)).show();
+    };
+
+    var _showChooseIt = function (cuvComponent) {
+        if (cuvComponent === undefined ||
+            cuvComponent === null ||
+            $.trim(cuvComponent) === "") return;
+
+        $(_elements.componente.quantitySelector(cuvComponent)).hide();
+        $(_elements.componente.chooseIt(cuvComponent)).show();
+    };
+
+    var _showGroupOptions = function (cuvGroup) {
+        if (cuvGroup === undefined ||
+            cuvGroup === null ||
+            $.trim(cuvGroup) === "") return;
+
+        $(_elements.grupo.optionsLabel(cuvGroup)).show();
+    };
+
+    var _hideGroupOptions = function (cuvGroup) {
+        if (cuvGroup === undefined ||
+            cuvGroup === null ||
+            $.trim(cuvGroup) === "") return;
+
+        $(_elements.grupo.optionsLabel(cuvGroup)).hide();
+    };
+
+    var _showGroupReady = function (cuvGroup) {
+        if (cuvGroup === undefined ||
+            cuvGroup === null ||
+            $.trim(cuvGroup) === "") return;
+
+        $(_elements.grupo.readyLabel(cuvGroup)).show();
+
+    };
+
+    var _hideGroupReady = function (cuvGroup) {
+        if (cuvGroup === undefined ||
+            cuvGroup === null ||
+            $.trim(cuvGroup) === "") return;
+
+        $(_elements.grupo.readyLabel(cuvGroup)).hide();
+
+    };
+
+    var _blockGroup = function (cuvGroup) {
+        if (cuvGroup === undefined ||
+            cuvGroup === null ||
+            $.trim(cuvGroup) === "") return;
+
+        $(_elements.grupo.blockChooseIt(cuvGroup)).removeClass("active").addClass("disable");
+        $(_elements.grupo.blockQuantitySelector(cuvGroup)).addClass("disable");
+    };
+
+    var _unblockGroup = function (cuvGroup) {
+        if (cuvGroup === undefined ||
+            cuvGroup === null ||
+            $.trim(cuvGroup) === "") return;
+
+
+        $(_elements.grupo.blockChooseIt(cuvGroup)).removeClass("disable").addClass("active");
+        $(_elements.grupo.blockQuantitySelector(cuvGroup)).removeClass("disable");
     };
 
     return {
         renderGrupos: _renderGrupos,
-        setPresenter : _setPresenter
+        setPresenter : _setPresenter,
+        showQuantitySelector : _showQuantitySelector,
+        showChooseIt : _showChooseIt,
+        showGroupOptions: _showGroupOptions,
+        hideGroupOptions: _hideGroupOptions,
+        showGroupReady: _showGroupReady,
+        hideGroupReady: _hideGroupReady,
+        blockGroup: _blockGroup,
+        unblockGroup: _unblockGroup
     };
 };

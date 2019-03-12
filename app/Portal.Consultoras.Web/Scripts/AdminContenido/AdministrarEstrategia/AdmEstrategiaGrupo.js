@@ -53,7 +53,7 @@
         }
         showDialog('DialogGrupoEstrategia');
 
-        //$("#listGrupoEstrategia").jqGrid("clearGridData");
+        $("#listGrupoEstrategia").jqGrid("clearGridData");
 
         if (!_Valida1raCarga) {
             _Valida1raCarga = true;

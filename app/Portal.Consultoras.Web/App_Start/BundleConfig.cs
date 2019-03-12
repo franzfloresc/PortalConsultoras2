@@ -1023,7 +1023,8 @@ namespace Portal.Consultoras.Web
                  "~/Scripts/PortalConsultoras/ArmaTuPack/Detalle/Seleccionados/SeleccionadosPresenter.js",
                  "~/Scripts/PortalConsultoras/ArmaTuPack/Detalle/ArmaTuPackDetalleEvents.js",
                  "~/Scripts/PortalConsultoras/ArmaTuPack/Detalle/DetallePresenter.js",
-                 "~/Scripts/PortalConsultoras/ArmaTuPack/Detalle/Detalle.js"
+                 "~/Scripts/PortalConsultoras/ArmaTuPack/Detalle/Detalle.js",
+                 "~/Scripts/PortalConsultoras/ArmaTuPack/ArmaTuPack.js"
               ));
             #endregion
 

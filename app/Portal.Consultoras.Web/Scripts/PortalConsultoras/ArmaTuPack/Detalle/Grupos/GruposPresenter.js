@@ -22,17 +22,21 @@
             value.componentesSeleccionados = value.componentesSeleccionados || [];
             value.componentesNoSeleccionados = value.componentesNoSeleccionados || [];
             value.componentes = value.componentes || [];
-            //var GrupoFactorCuadre = 0;
+
             $.each(value.componentes, function (idx, grupo) {
                 grupo.cantidadSeleccionados = grupo.cantidadSeleccionados || 0;
-                //GrupoFactorCuadre = GrupoFactorCuadre + grupo.FactorCuadre;
+                if(grupo.mensajeEligeopciones === undefined){
+                    if (grupo.FactorCuadre == 1) {
+                        grupo.mensajeEligeopciones = "Elige 1 opción";
+                    }
+                    else {
+                        grupo.mensajeEligeopciones = "Elige " + grupo.FactorCuadre + " opciones";
+                    }
+                }
+                $.each(grupo.Hermanos, function (idxHx, componente) {
+                    componente.cantidadSeleccionados = componente.cantidadSeleccionados || 0;
+                });
             });
-
-            //if (value.componentesSeleccionados.length == 0) {
-            //    for (var i = 0; i < GrupoFactorCuadre; i++) {
-            //        value.componentesNoSeleccionados.push({ ImagenBulk: ""});
-            //    }
-            //}
 
             _packComponentsModel = value;
         }
@@ -50,9 +54,33 @@
         _config.gruposView.renderGrupos(packComponents);
     };
 
+    var _updateGroupView = function(cantidadSeleccionados,factorCuadre,cuvGrupo,cuvComponente){
+        if (cantidadSeleccionados == 0) {
+            _config.gruposView.showChooseIt(cuvComponente);
+            _config.gruposView.showGroupOptions(cuvGrupo);
+            _config.gruposView.hideGroupReady(cuvGrupo);
+            _config.gruposView.unblockGroup(cuvGrupo);
+        }
+        else if (cantidadSeleccionados < factorCuadre) {
+            _config.gruposView.showQuantitySelector(cuvComponente);
+            _config.gruposView.showGroupOptions(cuvGrupo);
+            _config.gruposView.hideGroupReady(cuvGrupo);
+            _config.gruposView.unblockGroup(cuvGrupo);
+        }
+        else if (cantidadSeleccionados == factorCuadre) {
+            _config.gruposView.showQuantitySelector(cuvComponente);
+            _config.gruposView.hideGroupOptions(cuvGrupo);
+            _config.gruposView.showGroupReady(cuvGrupo);
+            _config.gruposView.blockGroup(cuvGrupo);
+        }
+    };
+
     var _addComponente = function (cuvGrupo, cuvComponente) {
         if (typeof cuvGrupo === "undefined" || cuvGrupo === null) throw "cuvGrupo is null or undefined";
         if (typeof cuvComponente === "undefined" || cuvComponente === null) throw "cuvComponente is null or undefined";
+
+        cuvGrupo = $.trim(cuvGrupo);
+        cuvComponente = $.trim(cuvComponente);
 
         var model = _packComponents();
         var compSelCounter = model.componentesSeleccionados.length;
@@ -64,6 +92,11 @@
                         model.componentesSeleccionados.push(componente);
                         model.componentesNoSeleccionados.splice(0, 1);
                         grupo.cantidadSeleccionados++;
+                        componente.cantidadSeleccionados++;
+                        _updateGroupView(componente.cantidadSeleccionados,
+                            grupo.FactorCuadre,
+                            cuvGrupo,
+                            cuvComponente);
                         return;
                     }
                 });
@@ -96,15 +129,19 @@
         $.each(model.componentes, function (idxGrupo, grupo) {
             if (grupo.Cuv == cuvGrupo) {
                 $.each(grupo.Hermanos, function (idxComponente, componente) {
-                    if (componente.Cuv == cuvComponente && grupo.cantidadSeleccionados > 0) {
+                    if (componente.Cuv == cuvComponente && componente.cantidadSeleccionados > 0) {
                         grupo.cantidadSeleccionados--;
+                        componente.cantidadSeleccionados--;
+                        _updateGroupView(componente.cantidadSeleccionados,
+                            grupo.FactorCuadre,
+                            cuvGrupo,
+                            cuvComponente);
                         return false;
                     }
                 });
                 return false;
             }
         });
-
 
         if (componenteSeleccionadoIndex != -1) {
             model.componentesSeleccionados.splice(componenteSeleccionadoIndex, 1);
