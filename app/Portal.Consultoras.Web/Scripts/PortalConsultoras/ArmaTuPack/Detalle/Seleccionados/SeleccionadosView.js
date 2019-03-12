@@ -26,9 +26,12 @@
         //$('#seleccionados .Select_Group li:last').hide();
 
         var slickSettings = {
-            slidesToShow: 10,
+            slidesToShow: 5,
             slidesToScroll: 1,
-            autoplaySpeed: 2000
+            autoplaySpeed: 2000,
+            fade: false,
+            arrows: true,
+            infinite: false
         };
 
         $(_elements.seleccionados.attrCarruselContainer).slick(slickSettings);

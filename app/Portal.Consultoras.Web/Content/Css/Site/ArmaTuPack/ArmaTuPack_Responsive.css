@@ -43,7 +43,7 @@
 
 .Select_Item {
     height: 55px;
-    width: 55px;
+    width: 55px !important;
     background-color: #fff;
     border: dashed 1px #d8d8d8;
 }
@@ -316,6 +316,41 @@
         height: auto;
     }
 
+.sym_mas {
+    width: auto !important;
+    height: 55px;
+    display: flex !important;
+    align-items: center;
+}
+
+.Select_Group > button {
+    height: 55px;
+    background-position: center center;
+    border: none;
+    font-size: 0px;
+    mix-blend-mode: multiply;
+    width: 13px;
+    background-size: 15px;
+    padding: 0px;
+}
+
+    .Select_Group .slick-next {
+        right: -20px;
+    }
+
+    .Select_Group .slick-prev {
+        left: -20px;
+    }
+
+.slick-track li:last-child {
+    display: none !important;
+}
+
+
+#seleccionados .Select_Group {
+    width: 309px;
+}
+
 
 
 
@@ -324,7 +359,7 @@
         position: fixed;
         width: 100%;
         bottom: 0;
-        z-index: 1;
+        z-index: 6;
     }
 
     .product_img_Pack {
@@ -349,6 +384,14 @@
 
     .slick-track {
         width: 3000% !important;
+    }
+
+    .Title_pack{
+        pointer-events: none;
+    }
+
+    .contenedor_rangos {
+        margin-top: 10px;
     }
 }
 
@@ -418,6 +461,7 @@
         background-position: center right 11px;
         background-size: 23px;
         padding: 20px 45px 20px 0;
+        margin-right: 0px;
     }
 
     #Pack_Items article:last-child {
@@ -442,7 +486,7 @@
         display: none !important;
     }
 
-    .slick-list .slick-track {
+    #Pack_Items .slick-list .slick-track {
         width: 100% !important;
         transform: translate3d(0px, 0px, 0px) !important;
     }
