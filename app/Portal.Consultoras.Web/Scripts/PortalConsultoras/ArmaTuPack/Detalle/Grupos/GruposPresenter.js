@@ -54,6 +54,9 @@
         if (typeof cuvGrupo === "undefined" || cuvGrupo === null) throw "cuvGrupo is null or undefined";
         if (typeof cuvComponente === "undefined" || cuvComponente === null) throw "cuvComponente is null or undefined";
 
+        cuvGrupo = $.trim(cuvGrupo);
+        cuvComponente = $.trim(cuvComponente);
+
         var model = _packComponents();
         var compSelCounter = model.componentesSeleccionados.length;
 
@@ -64,6 +67,9 @@
                         model.componentesSeleccionados.push(componente);
                         model.componentesNoSeleccionados.splice(0, 1);
                         grupo.cantidadSeleccionados++;
+                        if (grupo.cantidadSeleccionados <= grupo.FactorCuadre) {
+                            _config.gruposView.showQuantitySelector(cuvComponente);
+                        }
                         return;
                     }
                 });

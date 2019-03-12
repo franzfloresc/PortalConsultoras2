@@ -1861,8 +1861,11 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
         });
 
         describe("Component exists at group", function () {
+            var cuvGrupo = "30379";
+            var cuvComponente = "30405";
+
             beforeEach("add componente with cuv 30405", function () {
-                gruposPresenter.addComponente(30379, 30405);
+                gruposPresenter.addComponente(cuvGrupo, cuvComponente);
             });
 
             it("should have one item at componenteSeleccionado", function () {
@@ -1873,7 +1876,7 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
 
             it("should have component with cuv 30405 at componenteSeleccionado", function () {
                 var model = gruposPresenter.packComponents();
-                expect(model.componentesSeleccionados[0].Cuv).to.be.equals("30405");
+                expect(model.componentesSeleccionados[0].Cuv).to.be.equals(cuvComponente);
             });
 
             it("should fire an event onSelectedComponentsChanged with not null data object", function () {
@@ -1883,9 +1886,24 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
                 expect(armaTuPackDetalleEvents.applyChanges.args[firstCall][firstParam]).to.equals(armaTuPackDetalleEvents.eventName.onSelectedComponentsChanged);
                 expect(armaTuPackDetalleEvents.applyChanges.args[firstCall][secondParam]).to.not.equal(null);
             });
+
+            it("should show quantity selector quantity is less than factorCuadre", function () {
+                var model = gruposPresenter.packComponents();
+                var quantitySelected = 0;
+                var factorCuadre = 0;
+                $.each(model.componentes,function(idx,componente){
+                    if(componente.Cuv == cuvGrupo){
+                        quantitySelected = componente.cantidadSeleccionados;
+                        factorCuadre = componente.FactorCuadre;
+                    }
+                });
+
+                expect(quantitySelected).to.be.lessThan(factorCuadre);
+                expect(gruposView.showQuantitySelector.calledOnce).to.be.equals(true);
+            });
         });
 
-        it("do not add component when component exits in group and quantity selected is upper equal than FactorCuadre", function () {
+        it("should not add component when component exits in group and quantity selected is upper equal than FactorCuadre", function () {
             gruposPresenter.addComponente(30379, 30405);
             gruposPresenter.addComponente(30379, 30405);
             gruposPresenter.addComponente(30379, 30405);

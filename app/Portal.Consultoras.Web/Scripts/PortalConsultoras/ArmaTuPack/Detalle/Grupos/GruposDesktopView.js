@@ -9,10 +9,18 @@
     var _presenter = null;
 
     var _elements = {
-        gruposDesktop: {
+        grupos: {
             templateId: "#grupos-template",
             id: "#grupos",
             attrCarruselContainer: "[data-carrusel-container]"
+        },
+        componente: {
+            quantitySelector : function(cuv){ 
+                return "[data-selector-cantidad-" + cuv + "]";
+            },
+            chooseIt : function(cuv){
+                return "[data-eligelo-" + cuv + "]"; 
+            }
         }
     };
 
@@ -21,16 +29,16 @@
     };
 
     var _renderGrupos = function(packComponents) {
-        SetHandlebars(_elements.gruposDesktop.templateId, packComponents, _elements.gruposDesktop.id);
+        SetHandlebars(_elements.grupos.templateId, packComponents, _elements.grupos.id);
 
-        $(_elements.gruposDesktop.id).on("click","[data-add-component]",function(e){
+        $(_elements.grupos.id).on("click","[data-add-component]",function(e){
             var $btn = $(e.target);
             var cuvGrupo = $btn.data("cuv-grupo");
             var cuvComponente = $btn.data("cuv-componente");
             _presenter.addComponente(cuvGrupo,cuvComponente);
         });
 
-        $(_elements.gruposDesktop.id).on("click","[data-delete-component]",function(e){
+        $(_elements.grupos.id).on("click","[data-delete-component]",function(e){
             var $btn = $(e.target);
             var cuvGrupo = $btn.data("cuv-grupo");
             var cuvComponente = $btn.data("cuv-componente");
@@ -59,11 +67,35 @@
             slickSettings.slidesToShow = 5;
         }
 
-        $(_elements.gruposDesktop.attrCarruselContainer).slick(slickSettings);
+        $(_elements.grupos.attrCarruselContainer).slick(slickSettings);
+    };
+
+    var _showQuantitySelector = function(cuvComponent){
+        if(cuvComponent === undefined || 
+            cuvComponent === null || 
+            $.trim(cuvComponent) ==="" ) return;
+
+        $(_elements.componente.chooseIt(cuvComponent)).hide();
+        $(_elements.componente.quantitySelector(cuvComponent)).show();
+
+    };
+
+    var _showChooseIt = function(cuvComponent){
+        if(cuvComponent === undefined || 
+            cuvComponent === null || 
+            $.trim(cuvComponent) ==="" ) return;
+
+
+            alert($(_elements.componente.quantitySelector(cuvComponent)).length);
+            alert($(_elements.componente.chooseIt(cuvComponent)).length);
+        $(_elements.componente.quantitySelector(cuvComponent)).hide();
+        $(_elements.componente.chooseIt(cuvComponent)).show();
     };
 
     return {
         renderGrupos: _renderGrupos,
-        setPresenter : _setPresenter
+        setPresenter : _setPresenter,
+        showQuantitySelector : _showQuantitySelector,
+        showChooseIt : _showChooseIt,
     };
 };
