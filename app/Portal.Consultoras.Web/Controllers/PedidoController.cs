@@ -4814,22 +4814,22 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var estrategia = await _ofertaBaseProvider.ObtenerOfertaDesdeApi(cuv, campaniaId, Constantes.TipoPersonalizacion.ShowRoom);
 
-                if (estrategia.Grupos.Any())
+                if (estrategia.Componentes.Any())
                 {
-                    var componentes = new List<Componente>();
+                    var componentesNivel01 = new List<Componente>();
 
-                    estrategia.Grupos.Each(x =>
+                    estrategia.Componentes.Each(x =>
                     {
-                        if (x.Componentes.Any())
+                        if (x.Hermanos.Any())
                         {
-                            componentes.AddRange(x.Componentes);
+                            componentesNivel01.AddRange(x.Hermanos);
                         }
 
                     });
 
                     pedidoSet.Detalles.Update(x =>
                     {
-                        var item = componentes.FirstOrDefault(i => i.Cuv == x.CUV);
+                        var item = componentesNivel01.FirstOrDefault(i => i.Cuv == x.CUV);
                         x.NombreProducto = item != null ? item.NombreProducto : string.Empty;
                     });
                 }
