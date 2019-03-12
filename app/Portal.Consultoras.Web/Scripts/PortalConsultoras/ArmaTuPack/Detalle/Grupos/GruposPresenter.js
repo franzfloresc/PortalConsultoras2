@@ -33,6 +33,9 @@
                         grupo.mensajeEligeopciones = "Elige " + grupo.FactorCuadre + " opciones";
                     }
                 }
+                $.each(grupo.Hermanos, function (idxHx, componente) {
+                    componente.cantidadSeleccionados = componente.cantidadSeleccionados || 0;
+                });
             });
 
             _packComponentsModel = value;
@@ -89,7 +92,8 @@
                         model.componentesSeleccionados.push(componente);
                         model.componentesNoSeleccionados.splice(0, 1);
                         grupo.cantidadSeleccionados++;
-                        _updateGroupView(grupo.cantidadSeleccionados,
+                        componente.cantidadSeleccionados++;
+                        _updateGroupView(componente.cantidadSeleccionados,
                             grupo.FactorCuadre,
                             cuvGrupo,
                             cuvComponente);
@@ -125,9 +129,10 @@
         $.each(model.componentes, function (idxGrupo, grupo) {
             if (grupo.Cuv == cuvGrupo) {
                 $.each(grupo.Hermanos, function (idxComponente, componente) {
-                    if (componente.Cuv == cuvComponente && grupo.cantidadSeleccionados > 0) {
+                    if (componente.Cuv == cuvComponente && componente.cantidadSeleccionados > 0) {
                         grupo.cantidadSeleccionados--;
-                        _updateGroupView(grupo.cantidadSeleccionados,
+                        componente.cantidadSeleccionados--;
+                        _updateGroupView(componente.cantidadSeleccionados,
                             grupo.FactorCuadre,
                             cuvGrupo,
                             cuvComponente);
