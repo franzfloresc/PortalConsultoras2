@@ -3699,17 +3699,17 @@ function BloquearPantallaPedidoByPopupSugerido(valor) {
 }
 
 function CargarProductosRecomendados(item) {
+    ProductoRecomendadoModule.ObtenerProductos(item.CodigoCatalago, item.EstrategiaIDSicc, item.CUV, item.CodigoProducto);
+    //if (activarRecomendaciones == 1) {
+    //    if ((item.CodigoCatalago == 9 || item.CodigoCatalago == 10 || item.CodigoCatalago == 13) &&
+    //        (item.EstrategiaIDSicc == 2001)) {
 
-    if (activarRecomendaciones == 1) {
-        if ((item.CodigoCatalago == 9 || item.CodigoCatalago == 10 || item.CodigoCatalago == 13) &&
-            (item.EstrategiaIDSicc == 2001)) {
+    //        var ocultar_recomendados = get_local_storage('ocultar_productos_recomendados');
 
-            var ocultar_recomendados = get_local_storage('ocultar_productos_recomendados');
-
-            if (!ocultar_recomendados) {
-                ProductoRecomendadoModule.ObtenerProductos(item.CUV, item.CodigoProducto);
-            }
-        }
-    }
+    //        if (!ocultar_recomendados) {
+    //            ProductoRecomendadoModule.ObtenerProductos(item.CUV, item.CodigoProducto);
+    //        }
+    //    }
+    //}
 
 }
