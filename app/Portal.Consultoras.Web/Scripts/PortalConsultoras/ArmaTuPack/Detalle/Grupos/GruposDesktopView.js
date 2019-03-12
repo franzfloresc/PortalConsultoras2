@@ -21,6 +21,17 @@
             chooseIt : function(cuv){
                 return "[data-eligelo-" + cuv + "]"; 
             }
+        },
+        grupo: {
+            readyLabel : function(cuv){ 
+                return "[data-ready-label-" + cuv + "]";
+            },
+            blockChooseIt : function(cuv){ 
+                return "[data-block-eligelo-" + cuv + "]";
+            },
+            blockQuantitySelector : function(cuv){ 
+                return "[data-block-selector-cantidad-" + cuv + "]";
+            }
         }
     };
 
@@ -70,26 +81,59 @@
         $(_elements.grupos.attrCarruselContainer).slick(slickSettings);
     };
 
-    var _showQuantitySelector = function(cuvComponent){
-        if(cuvComponent === undefined || 
-            cuvComponent === null || 
-            $.trim(cuvComponent) ==="" ) return;
+    var _showQuantitySelector = function (cuvComponent) {
+        if (cuvComponent === undefined ||
+            cuvComponent === null ||
+            $.trim(cuvComponent) === "") return;
 
         $(_elements.componente.chooseIt(cuvComponent)).hide();
         $(_elements.componente.quantitySelector(cuvComponent)).show();
+    };
+
+    var _showChooseIt = function (cuvComponent) {
+        if (cuvComponent === undefined ||
+            cuvComponent === null ||
+            $.trim(cuvComponent) === "") return;
+
+        $(_elements.componente.quantitySelector(cuvComponent)).hide();
+        $(_elements.componente.chooseIt(cuvComponent)).show();
+    };
+
+    var _showGroupReady = function (cuvGroup) {
+        if (cuvGroup === undefined ||
+            cuvGroup === null ||
+            $.trim(cuvGroup) === "") return;
+
+        $(_elements.grupo.readyLabel(cuvGroup)).show();
 
     };
 
-    var _showChooseIt = function(cuvComponent){
-        if(cuvComponent === undefined || 
-            cuvComponent === null || 
-            $.trim(cuvComponent) ==="" ) return;
+    var _hideGroupReady = function (cuvGroup) {
+        if (cuvGroup === undefined ||
+            cuvGroup === null ||
+            $.trim(cuvGroup) === "") return;
+
+        $(_elements.grupo.readyLabel(cuvGroup)).hide();
+
+    };
+
+    var _blockGroup = function (cuvGroup) {
+        if (cuvGroup === undefined ||
+            cuvGroup === null ||
+            $.trim(cuvGroup) === "") return;
+
+        $(_elements.grupo.blockChooseIt(cuvGroup)).removeClass("active").addClass("disable");
+        $(_elements.grupo.blockQuantitySelector(cuvGroup)).addClass("disable");
+    };
+
+    var _unblockGroup = function (cuvGroup) {
+        if (cuvGroup === undefined ||
+            cuvGroup === null ||
+            $.trim(cuvGroup) === "") return;
 
 
-            alert($(_elements.componente.quantitySelector(cuvComponent)).length);
-            alert($(_elements.componente.chooseIt(cuvComponent)).length);
-        $(_elements.componente.quantitySelector(cuvComponent)).hide();
-        $(_elements.componente.chooseIt(cuvComponent)).show();
+        $(_elements.grupo.blockChooseIt(cuvGroup)).removeClass("disable").addClass("active");
+        $(_elements.grupo.blockQuantitySelector(cuvGroup)).removeClass("disable");
     };
 
     return {
@@ -97,5 +141,9 @@
         setPresenter : _setPresenter,
         showQuantitySelector : _showQuantitySelector,
         showChooseIt : _showChooseIt,
+        showGroupReady: _showGroupReady,
+        hideGroupReady: _hideGroupReady,
+        blockGroup: _blockGroup,
+        unblockGroup: _unblockGroup
     };
 };

@@ -1901,6 +1901,58 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
                 expect(quantitySelected).to.be.lessThan(factorCuadre);
                 expect(gruposView.showQuantitySelector.calledOnce).to.be.equals(true);
             });
+
+            it("should hide ready label when quantity is less than factorCuadre", function () {
+                var model = gruposPresenter.packComponents();
+                var quantitySelected = 0;
+                var factorCuadre = 0;
+                $.each(model.componentes,function(idx,componente){
+                    if(componente.Cuv == cuvGrupo){
+                        quantitySelected = componente.cantidadSeleccionados;
+                        factorCuadre = componente.FactorCuadre;
+                    }
+                });
+
+                expect(quantitySelected).to.be.lessThan(factorCuadre);
+                expect(gruposView.hideGroupReady.calledOnce).to.be.equals(true);
+            });
+
+            it("should show ready label when quantity is equal factorCuadre", function () {
+                gruposPresenter.addComponente(cuvGrupo, cuvComponente);
+                gruposPresenter.addComponente(cuvGrupo, cuvComponente);
+                gruposPresenter.addComponente(cuvGrupo, cuvComponente);
+
+                var model = gruposPresenter.packComponents();
+                var quantitySelected = 0;
+                var factorCuadre = 0;
+                $.each(model.componentes,function(idx,componente){
+                    if(componente.Cuv == cuvGrupo){
+                        quantitySelected = componente.cantidadSeleccionados;
+                        factorCuadre = componente.FactorCuadre;
+                    }
+                });
+                expect(quantitySelected).to.be.equal(factorCuadre);
+                expect(gruposView.showGroupReady.calledOnce).to.be.equals(true);
+            });
+
+            it("should block components when when quantity is equal factorCuadre", function () {
+                gruposPresenter.addComponente(cuvGrupo, cuvComponente);
+                gruposPresenter.addComponente(cuvGrupo, cuvComponente);
+                gruposPresenter.addComponente(cuvGrupo, cuvComponente);
+
+                var model = gruposPresenter.packComponents();
+                var quantitySelected = 0;
+                var factorCuadre = 0;
+                $.each(model.componentes,function(idx,componente){
+                    if(componente.Cuv == cuvGrupo){
+                        quantitySelected = componente.cantidadSeleccionados;
+                        factorCuadre = componente.FactorCuadre;
+                    }
+                });
+
+                expect(quantitySelected).to.be.equal(factorCuadre);
+                expect(gruposView.blockGroup.calledOnce).to.be.equals(true);
+            });
         });
 
         it("should not add component when component exits in group and quantity selected is upper equal than FactorCuadre", function () {

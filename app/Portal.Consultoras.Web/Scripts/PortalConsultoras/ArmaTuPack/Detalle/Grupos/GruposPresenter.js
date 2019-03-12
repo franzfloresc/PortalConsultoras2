@@ -67,8 +67,20 @@
                         model.componentesSeleccionados.push(componente);
                         model.componentesNoSeleccionados.splice(0, 1);
                         grupo.cantidadSeleccionados++;
-                        if (grupo.cantidadSeleccionados <= grupo.FactorCuadre) {
+                        if (grupo.cantidadSeleccionados == 0) {
+                            _config.gruposView.showChooseIt(cuvComponente);
+                            _config.gruposView.hideGroupReady(cuvGrupo);
+                            _config.gruposView.unblockGroup(cuvGrupo);
+                        }
+                        if (grupo.cantidadSeleccionados < grupo.FactorCuadre) {
                             _config.gruposView.showQuantitySelector(cuvComponente);
+                            _config.gruposView.hideGroupReady(cuvGrupo);
+                            _config.gruposView.unblockGroup(cuvGrupo);
+                        }
+                        if (grupo.cantidadSeleccionados == grupo.FactorCuadre) {
+                            _config.gruposView.showQuantitySelector(cuvComponente);
+                            _config.gruposView.showGroupReady(cuvGrupo);
+                            _config.gruposView.blockGroup(cuvGrupo);
                         }
                         return;
                     }
