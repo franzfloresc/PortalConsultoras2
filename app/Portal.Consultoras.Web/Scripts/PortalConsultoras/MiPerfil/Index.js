@@ -352,7 +352,8 @@ function CambiarContrasenia() {
     var newPassword01 = $("#txtNuevaContrasenia01").val();
     var newPassword02 = $("#txtNuevaContrasenia02").val();
     var vMessage = "";
-    var patt = new RegExp(patronRegex);
+    var patt = new RegExp("^([A-Z])$"); //(patronRegex);
+    //"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!¡@$%^&/*-+]).{8,}$";
 
     if (oldPassword == "")
         vMessage += "- Debe ingresar la Contraseña Anterior.\n";
@@ -361,19 +362,40 @@ function CambiarContrasenia() {
         vMessage += "- Debe ingresar la Nueva Contraseña.\n";
 
     if (newPassword02 == "")
-        vMessage += "- Debe repetir la Nueva Contraseña.\n";
+        vMessage += "- Debe repetir la Nueva Contraseña.\n";    
 
     if (newPassword01 != "" && newPassword02 != "") {
         if (newPassword01 != newPassword02)
             vMessage += "- Los campos de la nueva contraseña deben ser iguales, verifique.\n";
     }
 
-    if (!patt.test(newPassword01)) {
-        vMessage += "- La Nueva Contraseña debe de tener al menos una letra en mayúscula.\n";
-        vMessage += "- La Nueva Contraseña debe de tener al menos una letra en minúscula.\n";
-        vMessage += "- La Nueva Contraseña debe de tener al menos un dígito.\n";
-        vMessage += "- La Nueva Contraseña debe de tener al menos un carácter especial.\n";
+    if (newPassword01.length <= 7)
         vMessage += "- La Nueva Contraseña debe de tener mínimo 8 caracteres.\n";
+
+    var pMayus = newPassword01.match("[A-Z]");
+    if (pMayus == null) {
+        vMessage += "- La Nueva Contraseña debe de tener al menos una letra en mayúscula.\n";
+        //vMessage += "- La Nueva Contraseña debe de tener al menos una letra en minúscula.\n";
+        //vMessage += "- La Nueva Contraseña debe de tener al menos un dígito.\n";
+        //vMessage += "- La Nueva Contraseña debe de tener al menos un carácter especial.\n";
+    }
+
+    var pMinu = newPassword01.match("[a-z]");
+    if (pMinu == null) {
+        vMessage += "- La Nueva Contraseña debe de tener al menos una letra en minúscula.\n";
+        //vMessage += "- La Nueva Contraseña debe de tener al menos un dígito.\n";
+        //vMessage += "- La Nueva Contraseña debe de tener al menos un carácter especial.\n";
+    }
+
+    var pDigi = newPassword01.match("[a-z]");
+    if (pDigi == null) {
+        vMessage += "- La Nueva Contraseña debe de tener al menos un dígito.\n";
+        //vMessage += "- La Nueva Contraseña debe de tener al menos un carácter especial.\n";
+    }
+
+    var pEspe = newPassword01.match("[a-z]");
+    if (pEspe == null) {
+        vMessage += "- La Nueva Contraseña debe de tener al menos un carácter especial.\n";
     }
 
     if (oldPassword != "" && newPassword01 != "" && newPassword02 != "") {
