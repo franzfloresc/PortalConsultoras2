@@ -777,14 +777,11 @@ namespace Portal.Consultoras.Web.Controllers
                 Nombre = cliente == -1 ? "" : itm.Nombre,
                 CampaniaId,
                 userData.NombreConsultora,
-
                 pag.PageCount,
                 pag.CurrentPage,
                 pag.RecordCount,
                 grid.PageSize,
-
                 userData.Simbolo,
-
                 CantidadProducto = itemCliente.Sum(p => p.Cantidad),
                 ImporteTotal = importeTotal,
                 ImporteFlete = Util.DecimalToStringFormat(0, userData.CodigoISO),
