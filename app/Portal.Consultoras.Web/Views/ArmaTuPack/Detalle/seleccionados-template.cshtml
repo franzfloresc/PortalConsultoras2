@@ -13,8 +13,8 @@
             </div>
         </li>
 
-        @*<li>+</li>*@
-        {{/each}}
+            <li class="sym_mas">+</li>
+            {{/each}}
 
         {{#each this.componentesNoSeleccionados as |noSeleccionado|}}
         <li class="Select_Item">
@@ -23,7 +23,7 @@
             </div>
         </li>
 
-        @*<li>+</li>*@
+        <li class="sym_mas">+</li>
         {{/each}}
     </ul>
     {{#iff this.componentesSeleccionados.length '>' 0}}

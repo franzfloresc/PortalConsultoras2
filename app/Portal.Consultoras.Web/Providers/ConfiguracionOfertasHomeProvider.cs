@@ -281,7 +281,7 @@ namespace Portal.Consultoras.Web.Providers
                                 isMobile ? "#template-producto-v2" : "#producto-landing-template";
                             break;
                         case Constantes.ConfiguracionSeccion.TipoPresentacion.BannerInteractivo:
-                            seccion.TemplatePresentacion = isMobile ? "seccion-carrusel-individuales-v2" : "seccion-simple-centrado";
+                            seccion.TemplatePresentacion = "seccion-banner-armatupack";
                             seccion.TemplateProducto = isMobile ? "#template-producto-v2" : "#producto-landing-template";
                             break;
                     }
@@ -413,7 +413,12 @@ namespace Portal.Consultoras.Web.Providers
                             ? entConf.MobileCantidadProductos
                             : entConf.DesktopCantidadProductos,
                 UrlLandig = "/" + (isMobile ? "Mobile/" : "") + entConf.UrlSeccion,
-                VerMas = true
+                VerMas = true,
+
+                BotonColor = entConf.BotonColor,
+                BotonColorTexto = entConf.BotonColorTexto,
+                BotonTexto1 = entConf.BotonTexto1,
+                BotonTexto2 = entConf.BotonTexto2
             };
 
             seccion.TituloBtnAnalytics = seccion.Titulo.Replace("'", "");

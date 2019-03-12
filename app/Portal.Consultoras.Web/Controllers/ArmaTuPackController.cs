@@ -31,15 +31,16 @@ namespace Portal.Consultoras.Web.Controllers
 
             return View();
         }
-
-        public async Task<JsonResult> GetComponentes(string Cuv2)
+        [HttpGet()]
+        [Route("Componentes/{cuv:int}")]
+        public async Task<JsonResult> GetComponentes(string Cuv)
         {
             try
             {
                 var estrategiaModelo = new EstrategiaPersonalizadaProductoModel
                 {
                     CampaniaID = userData.CampaniaID,
-                    CUV2 = Cuv2
+                    CUV2 = Cuv
                 };
                 bool esMultimarca = false;
                 string mensaje = "";

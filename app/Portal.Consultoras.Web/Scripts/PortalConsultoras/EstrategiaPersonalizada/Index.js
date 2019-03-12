@@ -16,7 +16,8 @@ var CONS_TIPO_PRESENTACION = {
     ShowRoom: 5,
     OfertaDelDia: 6,
     CarruselIndividuales: 8,
-    carruselIndividualesv2: 9
+    carruselIndividualesv2: 9,
+    BannerInteractivo: 10
 };
 
 var CONS_CODIGO_SECCION = {
@@ -28,7 +29,8 @@ var CONS_CODIGO_SECCION = {
     OPT: "OPT",
     DES: "DES-NAV",
     HV: "HV",
-    MG: 'MG'
+    MG: 'MG',
+    ATP: 'ATP'
 };
 
 var listaSeccion = {};
@@ -188,6 +190,20 @@ function SeccionCargarProductos(objConsulta) {
         return false;
     }
 
+    //if (objConsulta.Codigo === CONS_CODIGO_SECCION.ATP) {
+    ////    if (paisHabilitado && tipoEstrategiaHabilitado) {
+    ////        guardaEnLS = false;
+    ////    }
+
+    ////    OfertaCargarProductos({
+    ////        VarListaStorage: 'ATPLista',
+    ////        UrlCargarProductos: baseUrl + objConsulta.UrlObtenerProductos,
+    ////        guardaEnLocalStorage: guardaEnLS,
+    ////        Palanca: objConsulta.Codigo
+    ////    }, false, objConsulta);
+    //    debugger;
+    //}
+
     var param = {
         codigo: objConsulta.Codigo,
         campaniaId: objConsulta.CampaniaId,
@@ -237,6 +253,7 @@ function SeccionCargarProductos(objConsulta) {
 }
 
 function SeccionMostrarProductos(data) {
+    debugger;
     //console.log(data.Seccion.Codigo, data);
     var CarruselCiclico = true;
 
@@ -257,7 +274,7 @@ function SeccionMostrarProductos(data) {
     }
 
     var divListadoProductos = htmlSeccion.find(sElementos.listadoProductos);
-    if (divListadoProductos.length !== 1) {
+    if (data.Seccion.TipoPresentacion !== CONS_TIPO_PRESENTACION.BannerInteractivo.toString() && divListadoProductos.length !== 1) {
         if (data.Seccion !== undefined &&
             (data.Seccion.TipoPresentacion === CONS_TIPO_PRESENTACION.Banners.toString() ||
                 data.Seccion.TipoPresentacion === CONS_TIPO_PRESENTACION.ShowRoom.toString() ||
@@ -323,6 +340,9 @@ function SeccionMostrarProductos(data) {
             $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeOut();
             UpdateSessionState(data.Seccion.Codigo, data.campaniaId);
         }
+    }
+    else if (data.Seccion.Codigo === CONS_CODIGO_SECCION.ATP) {
+        $('#' + data.Seccion.Codigo).find('.seccion-content-contenedor').fadeIn();
     }
     else if (data.Seccion.Codigo === CONS_CODIGO_SECCION.HV
         || data.Seccion.Codigo === CONS_CODIGO_SECCION.MG
