@@ -557,9 +557,14 @@ namespace Portal.Consultoras.Web.SessionManager
             HttpContext.Current.Session["ConfigEstrategiaSR"] = data;
         }
 
-        public void SetArmaTuPAck(ArmaTuPackModel data)
+        public void SetArmaTuPack(ArmaTuPackModel data)
         {
             HttpContext.Current.Session["ConfigEstrategiaATP"] = data;
+        }
+
+        ArmaTuPackModel ISessionManager.GetArmaTuPack()
+        {
+            return ((ArmaTuPackModel)HttpContext.Current.Session[Constantes.ConstSession.ArmaTuPack]) ?? new ArmaTuPackModel();
         }
 
         public Portal.Consultoras.Web.Models.Estrategia.ShowRoom.ConfigModel GetEstrategiaSR()

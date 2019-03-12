@@ -2021,7 +2021,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         armaTuPackModel.TieneAtp = false;
                     }
-                    sessionManager.SetArmaTuPAck(armaTuPackModel);
+                    sessionManager.SetArmaTuPack(armaTuPackModel);
 
                 }
 

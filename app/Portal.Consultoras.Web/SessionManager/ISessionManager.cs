@@ -214,7 +214,9 @@ namespace Portal.Consultoras.Web.SessionManager
 
         Models.Estrategia.ShowRoom.ConfigModel GetEstrategiaSR();
 
-        void SetArmaTuPAck(ArmaTuPackModel data);
+        void SetArmaTuPack(ArmaTuPackModel data);
+
+        ArmaTuPackModel GetArmaTuPack();
 
         void SetBEEstrategia(string key, List<ServiceOferta.BEEstrategia> data);
 
