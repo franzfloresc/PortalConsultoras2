@@ -1429,7 +1429,8 @@ namespace Portal.Consultoras.Web.Controllers
                     sessionManager.SetTieneHvX1(true);
                     sessionManager.SetJwtApiSomosBelcorp(usuarioModel.JwtToken);
                     sessionManager.SetTieneMg(true);
-                                                         
+                    sessionManager.SetTieneAPT(true);
+
                     usuarioModel.FotoPerfil = usuario.FotoPerfil;
                     usuarioModel.FotoOriginalSinModificar = usuario.FotoOriginalSinModificar;
                     usuarioModel.DiaFacturacion = GetDiaFacturacion(usuarioModel.PaisID, usuarioModel.CampaniaID, usuarioModel.ConsultoraID, usuarioModel.ZonaID, usuarioModel.RegionID);

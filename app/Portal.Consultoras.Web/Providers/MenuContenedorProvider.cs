@@ -301,6 +301,10 @@ namespace Portal.Consultoras.Web.Providers
             {
                 menuContenedor = menuContenedor.Where(e => e.Codigo != Constantes.ConfiguracionPais.MasGanadoras).ToList();
             }
+            //if (campaniaIdMenuActivo == campaniaIdUsuario && !sessionManager.GetTieneATP())
+            //{
+            //    menuContenedor = menuContenedor.Where(e => e.Codigo != Constantes.ConfiguracionPais.ArmaTuPack).ToList();
+            //}
 
             return menuContenedor;
         }

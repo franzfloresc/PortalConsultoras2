@@ -421,6 +421,7 @@ namespace Portal.Consultoras.Common
             public const string TieneHv = "TieneHv";
             public const string TieneHvX1 = "TieneHvX1";
             public const string TieneMg = "TieneMg";
+            public const string TieneAPT = "TieneAPT";
 
             public const string MisCertificados = "MisCertificados";
             public const string MisCertificadosData = "MisCertificadosData";

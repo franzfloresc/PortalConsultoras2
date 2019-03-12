@@ -136,6 +136,10 @@ namespace Portal.Consultoras.Web.SessionManager
 
         bool GetTieneOpt();
 
+        void SetTieneAPT(bool tieneAPT);
+
+        bool GetTieneATP();
+
         void SetTieneOpm(bool tieneOpm);
 
         bool GetTieneOpm();
