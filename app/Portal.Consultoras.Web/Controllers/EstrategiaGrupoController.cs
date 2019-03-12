@@ -60,32 +60,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
 
-            //var grupos = new List<EstrategiaGrupoModel>();
-
-            //var estrategiaGrupoLista = estrategiaGrupoProvider.ObtenerEstrategiaGrupo(estrategiaId, userData.CodigoISO);
-
-            ////mapear campos
-            //if (estrategiaGrupoLista.Any())
-            //{
-            //    List<ServicePedido.BEEstrategiaProducto> lstComponentes = administrarEstrategiaProvider.FiltrarEstrategia(estrategiaId.ToString(), userData.CodigoISO).ToList().Select(x => x.Componentes).FirstOrDefault();
-
-            //    var distinct = (from item in lstComponentes select new { EstrategiaId = estrategiaId, Grupo = item.Grupo }).Distinct();
-            //    grupos = (from item in distinct
-            //              select new EstrategiaGrupoModel
-            //              { _idEstrategia = estrategiaId, EstrategiaGrupoId = 0, Grupo = item.Grupo, DescripcionSingular = string.Empty, DescripcionPlural = string.Empty }).ToList();
-
-            //    foreach (var item in grupos)
-            //    {
-            //        int index = estrategiaGrupoLista.FindIndex(x => x.Grupo.Equals(item.Grupo));
-            //        if (index != -1)
-            //        {
-            //            item._id = estrategiaGrupoLista[index]._id;
-            //            item.DescripcionSingular = estrategiaGrupoLista[index].DescripcionSingular;
-            //            item.DescripcionPlural = estrategiaGrupoLista[index].DescripcionPlural;
-            //        }
-            //    }
-            //}
-
             return Json(grupos, JsonRequestBehavior.AllowGet);
         }
     }
