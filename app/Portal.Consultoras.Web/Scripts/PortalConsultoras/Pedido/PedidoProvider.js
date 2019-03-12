@@ -5,13 +5,14 @@ var PedidoProvider = function () {
     _cargarDetallePedidoPromise = function (pageParams) {
         if (typeof pageParams === "undefined" || pageParams === null) throw "pageParams is null or indefined. PedidoProvider._cargarDetallePedidoPromise]";
 
+        debugger;
         var _pageParams = {
             sidx: pageParams.sidx || "",
             sord: pageParams.sord || "",
             page: pageParams.page || 1,
             rows: pageParams.rows || -1,
             clienteId: pageParams.clienteId || -1,
-            mobil: pageParams || false
+            mobil: pageParams.mobil || false
         };
 
         var dfd = jQuery.Deferred();
@@ -23,6 +24,7 @@ var PedidoProvider = function () {
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(_pageParams),
             success: function (data) {
+                debugger;
                 dfd.resolve(data);
             },
             error: function (data, error) {
