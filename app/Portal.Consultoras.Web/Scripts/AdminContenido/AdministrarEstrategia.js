@@ -494,7 +494,7 @@
             $("#hdNiveles").val(data.Niveles);
 
             /*INI ATP*/
-            if (TipoEstrategiaCodigo == _codigoEstrategia.ArmaTuPack) {
+            if (data.CodigoTipoEstrategia == _codigoEstrategia.ArmaTuPack) {
                 $('#tabControl1').hide();
                 $('#divSeccionImagenes').hide();
                 $("#txtCUV2").prop('disabled', true);
