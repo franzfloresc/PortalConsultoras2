@@ -56,6 +56,8 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
             ViewBag.MensajeImportante = msj;
+            ViewData["PaisID"] = userData.PaisID;
+
 
             return View(model);
         }

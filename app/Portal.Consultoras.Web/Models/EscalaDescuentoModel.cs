@@ -9,6 +9,6 @@ namespace Portal.Consultoras.Web.Models
     {
         public string MontoMinimo { get; set; }
         public string MontoMaximo { get; set; }
-        public string PorcentajeDescuento { get; set; }
+        public string PorcentajeDescuento { get; set; }        
     }
 }

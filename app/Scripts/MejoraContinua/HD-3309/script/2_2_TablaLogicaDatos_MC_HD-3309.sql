@@ -20,7 +20,7 @@ BEGIN
 		,160
 		,'01'
 		,'Mensaje importante escala descuento'
-		,'Todo pedido tendrá recargo por flete dependiendo del monto del pedido, peso y distancia. En Lima entre S/9.50 y S16.00 en Provincias entre S/13.50 y S/19.00 Amazonas, San Martín, Ucayali y Loreto entre S16.50 y S/24.00. Evita el cobro de flete adicional pasando tu pedido en fecha.
+		,'Todo pedido tendrá recargo por flete dependiendo del monto del pedido, peso y distancia. En Lima entre S/9.50 y S/16.00 en Provincias entre S/13.50 y S/19.00 Amazonas, San Martín, Ucayali y Loreto entre S16.50 y S/24.00. Evita el cobro de flete adicional pasando tu pedido en fecha.
 Si pasa tu pedido en fecha extemporánea de facturación se cobrará un adicional de S/5.00 en Lima S/7.00 en Provincias y S/10 .00 en Zonas Alejadas.'
 		);
 END
@@ -48,7 +48,7 @@ BEGIN
 		,160
 		,'01'
 		,'Mensaje importante escala descuento'
-		,'Todo pedido tendrá un recargo por flete.'
+		,'Todo pedido tendrá un recargo por flete.fecha'
 		);
 END
 GO
@@ -264,7 +264,7 @@ BEGIN
 		,160
 		,'01'
 		,'Mensaje importante escala descuento'
-		,''
+		,'No se aceptarán pedidos por un monto menor de B/. 110.00. Todo pedido tendrá un recargo por flete, en la capital será  de B/. 6.54 y Afuera B/. 5.55.'
 		);
 END
 GO
@@ -291,7 +291,7 @@ BEGIN
 		,160
 		,'01'
 		,'Mensaje importante escala descuento'
-		,''
+		,'No se aceptarán pedidos por un monto menor de $ 120.00. Todo pedido tendrá un recargo por flete de $6.98. NINGÚN PRECIO INCLUYE EL IMPUESTO A LA VENTA Y EL USO, NI EL IMPUESTO MUNICIPAL CORRESPONDIENTE.'
 		);
 END
 GO
@@ -318,6 +318,6 @@ BEGIN
 		,160
 		,'01'
 		,'Mensaje importante escala descuento'
-		,''
+		,'No se aceptarán pedidos por un monto menor de DR$. 3,100.00 y todos tendrán un flete de RD$. 160.00.'
 		);
 END
