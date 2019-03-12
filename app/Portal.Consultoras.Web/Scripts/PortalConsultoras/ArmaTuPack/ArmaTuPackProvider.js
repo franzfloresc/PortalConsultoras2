@@ -6,30 +6,34 @@
         dfd.resolve({
             "success": true,
             "esMultimarca": true,
+            "TipoEstrategiaID": 3018,
+            "EstrategiaID": 41497,
+            "CUV2": "31575",
+            "FlagNueva": 0,
             "componentes": [
                 {
                     "Cantidad": 1,
-                    "CodigoProducto": null,
-                    "Cuv": "30379",
-                    "Descripcion": "Color intenso y suavidad por mucho más tiempo con acabado perlado.",
-                    "DescripcionComercial": null,
+                    //"CodigoProducto": null,
+                    //"Cuv": "30379",
+                    //"Descripcion": "Color intenso y suavidad por mucho más tiempo con acabado perlado.",
+                    //"DescripcionComercial": null,
                     "DescripcionMarca": "Ésika",
                     "Digitable": 1,
                     "FactorCuadre": 4,
                     "Grupo": "1",
-                    "Id": 0,
+                    //"Id": 0,
                     "IdMarca": 2,
-                    "Imagen": null,
-                    "ImagenBulk": "https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201904/E/productos/bulk/CL_200084550_B.jpg",
-                    "ImagenProductoSugerido": null,
-                    "NombreBulk": "Miel glacé",
+                    //"Imagen": null,
+                    //"ImagenBulk": "https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201904/E/productos/bulk/CL_200084550_B.jpg",
+                    //"ImagenProductoSugerido": null,
+                    //"NombreBulk": "Miel glacé",
                     "NombreComercial": "Labial de Máxima duración.   2 g / .07 oz.",
                     "DescripcionPlural": "Labiales",
                     "DescripcionSingular": "Labial",
-                    "Orden": 26,
-                    "PrecioCatalogo": 2975,
-                    "PrecioCatalogoString": "2.975",
-                    "Volumen": "2 g / .07 oz.",
+                    //"Orden": 26,
+                    //"PrecioCatalogo": 2975,
+                    //"PrecioCatalogoString": "2.975",
+                    //"Volumen": "2 g / .07 oz.",
                     "Hermanos": [
                         {
                             "Cantidad": 1,
@@ -708,7 +712,7 @@
                         }
                     ],
                     "TieneStock": true,
-                    "EstrategiaGrupoId": 0
+                    //"EstrategiaGrupoId": 0
                 },
                 {
                     "Cantidad": 1,

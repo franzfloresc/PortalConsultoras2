@@ -15,8 +15,11 @@
     <p>ELIGE: 2 Fragancias + 1 Maquillaje + 1 Tratamiento Corporal</p>
 </div>
 
-<div id="seleccionados" class="Select_ArmaTuPack">
-    <div class="container d-flex align-items-center justify-content-center ">
+<div class="Select_ArmaTuPack" data-item="">
+    <div style="display:none;">
+        <div id="data-estrategia" data-estrategia=""></div>
+    </div>
+    <div id="seleccionados" class="container d-flex align-items-center justify-content-center ">
         <ul class="Select_Group">
             <li class="Select_Item active">
                 <!-- Colocar la clase active cuando se ha selecionado un porducto  -->
@@ -40,13 +43,13 @@
         </ul>
         <div class="Agregar_ArmaTuPack_fixed">
             <div data-agregado='tooltip' class="popover bottom tooltip_bloqueo" role="tooltip" id="" style="display: block;">
-                    <div class="arrow"></div>
-                    <div class="popover-content">
-                        <span data-agregado="mensaje1"></span>
-                        <!-- <img class="tooltop-emoji" src="/Content/Images/Mobile/Esika/1f44d.png" /> -->
-                        <span data-agregado="mensaje2">Debes elegir tus opciones para poder agregar la oferta.</span>
-                    </div>
+                <div class="arrow"></div>
+                <div class="popover-content">
+                    <span data-agregado="mensaje1"></span>
+                    <!-- <img class="tooltop-emoji" src="/Content/Images/Mobile/Esika/1f44d.png" /> -->
+                    <span data-agregado="mensaje2">Debes elegir tus opciones para poder agregar la oferta.</span>
                 </div>
+            </div>
             <button class="Agregar_ArmaTuPack">Agregar</button>
         </div>
     </div>

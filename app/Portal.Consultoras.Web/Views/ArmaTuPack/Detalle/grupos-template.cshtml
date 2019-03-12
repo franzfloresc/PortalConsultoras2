@@ -44,7 +44,7 @@
                                             data-cantidad-agregar="-" 
                                             data-delete-component
                                             data-cuv-grupo="{{grupo.Cuv}}" 
-                                            data-cuv-componente="{{componente.Cuv}}" >
+                                            data-cuv-componente="{{componente.Cuv}}" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
                                             <img src="/Content/Images/menos.svg" 
                                                 alt="" 
                                                 data-cuv-grupo="{{grupo.Cuv}}" 
@@ -55,7 +55,7 @@
                                             data-cantidad-agregar="+"
                                             data-add-component
                                             data-cuv-grupo="{{grupo.Cuv}}" 
-                                            data-cuv-componente="{{componente.Cuv}}" >
+                                            data-cuv-componente="{{componente.Cuv}}" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
                                             <img src="/Content/Images/mas.svg" 
                                                 alt=""
                                                 data-cuv-grupo="{{grupo.Cuv}}" 
