@@ -58,32 +58,32 @@
             throw "packComponents has no components";
         }
         _packComponents(packComponents);
-        _config.seleccionadosView.renderSeleccionados(packComponents);
+        _config.seleccionadosView.refreshSeleccionados(packComponents);
     };
 
-    var _deleteComponente = function (grupoCuv, cuvComponente) {
-        if (typeof grupoCuv === "undefined" || grupoCuv === null) throw "Grupo is null or undefined";
+    var _deleteComponente = function (grupoComponente, cuvComponente, indiceComponente) {
+        if (typeof grupoComponente === "undefined" || grupoComponente === null) throw "grupoComponente is null or undefined";
         if (typeof cuvComponente === "undefined" || cuvComponente === null) throw "cuvComponente is null or undefined";
+        if (typeof indiceComponente === "undefined" || indiceComponente === null) throw "indiceComponente is null or undefined";
 
         var model = _packComponents();
-        var componenteSeleccionadoIndex = -1;
 
         $.each(model.componentes, function (idx, grupo) {
-            if (grupo.Grupo == grupoCuv) {
-                $.each(model.componentesSeleccionados, function (idx, componenteSeleccionado) {
-                    if (componenteSeleccionado.Cuv == cuvComponente) {
-                        componenteSeleccionadoIndex = idx;
-                        grupo.cantidadSeleccionados = grupo.cantidadSeleccionados > 0 ? (grupo.cantidadSeleccionados - 1) : 0;
+            if (grupo.Grupo == grupoComponente) {
+                $.each(grupo.Hermanos, function (idxComponente, componente) {
+                    if (componente.Cuv == cuvComponente && componente.cantidadSeleccionados > 0) {
+                        grupo.cantidadSeleccionados--;
+                        componente.cantidadSeleccionados--;
+                        model.componentesSeleccionados.splice(indiceComponente, 1);
+                        model.componentesNoSeleccionados.push({ ImagenBulk: "" });
+                        return false;
                     }
                 });
             }
         });
 
-        if (componenteSeleccionadoIndex != -1) {
-            model.componentesSeleccionados.splice(componenteSeleccionadoIndex, 1);
-            _packComponents(model);
-            _config.armaTuPackDetalleEvents.applyChanges(_config.armaTuPackDetalleEvents.eventName.onSelectedComponentsChanged, model);
-        }
+        _packComponents(model);
+        _config.armaTuPackDetalleEvents.applyChanges(_config.armaTuPackDetalleEvents.eventName.onSelectedComponentsChanged, model);
     };
 
     return {

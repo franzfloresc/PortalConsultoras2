@@ -14,14 +14,8 @@
         _presenter = presenter;
     };
 
-    var _renderSeleccionados = function (packComponents) {
+    var _refreshSeleccionados = function (packComponents) {
         SetHandlebars(_elements.seleccionados.templateId, packComponents, _elements.seleccionados.id);
-        // $(_elements.grupoDesktop.id).on("click","[data-add-component]",function(e){
-        //     var $btn = $(e.target);
-        //     var cuvGrupo = $btn.data("cuv-grupo");
-        //     var cuvComponente = $btn.data("cuv-componente");
-        //     _presenter.addComponente(cuvGrupo,cuvComponente);
-        // });
 
         //$('#seleccionados .Select_Group li:last').hide();
 
@@ -37,8 +31,22 @@
         $(_elements.seleccionados.attrCarruselContainer).slick(slickSettings);
     };
 
+    var _renderSeleccionados = function (packComponents) {
+
+        _refreshSeleccionados(packComponents);
+
+        $(_elements.seleccionados.id).on("click", "[data-delete-component]", function (e) {
+            var $btn = $(e.target);
+            var grupoComponente = $btn.data("grupo-componente");
+            var cuvComponente = $btn.data("cuv-componente");
+            var indiceComponente = $btn.data("indice-componente");
+            _presenter.deleteComponente(grupoComponente, cuvComponente, indiceComponente);
+        });
+    };
+
     return {
         renderSeleccionados: _renderSeleccionados,
+        refreshSeleccionados: _refreshSeleccionados,
         setPresenter: _setPresenter
     };
 };
