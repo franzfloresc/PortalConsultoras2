@@ -275,7 +275,7 @@ strong {
 }*/
 .owl-carousel .owl-item img {
     display: block;
-    max-width: 60px;
+    max-width: 60px !important;
 }
 
 .owl-nav {
@@ -894,3 +894,5 @@ strong {
         margin: 10px 0;
     }
 }
+
+
