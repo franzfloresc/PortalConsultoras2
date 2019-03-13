@@ -38,16 +38,6 @@ var gruposDesktopPresenter = GruposPresenter({
     armaTuPackDetalleEvents: armaTuPackDetalleEvents
 });
 gruposDesktopView.setPresenter(gruposDesktopPresenter);
-//
-var gruposMobileView = GruposMobileView({
-    generalModule: generalModule
-});
-var gruposMobilePresenter = GruposPresenter({
-    gruposView: gruposMobileView,
-    armaTuPackProvider: armaTuPackProvider,
-    generalModule: generalModule,
-    armaTuPackDetalleEvents: armaTuPackDetalleEvents
-});
 
 var seleccionadosView = SeleccionadosView();
 var seleccionadosPresenter = SeleccionadosPresenter({
@@ -69,5 +59,6 @@ armaTuPackDetalleEvents.subscribe(armaTuPackDetalleEvents.eventName.onGruposLoad
 });
 
 armaTuPackDetalleEvents.subscribe(armaTuPackDetalleEvents.eventName.onSelectedComponentsChanged, function (packComponents) {
+    gruposDesktopPresenter.onSelectedComponentsChanged(packComponents);
     seleccionadosPresenter.onSelectedComponentsChanged(packComponents);
 });
