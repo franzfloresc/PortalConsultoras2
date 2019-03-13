@@ -11,6 +11,13 @@
         armaTuPackDetalleEvents: config.armaTuPackDetalleEvents
     };
 
+    var _elementos = {
+        dataEstrategia: {
+            id: "#data-estrategia",
+            dataEstrategia: "data-estrategia"
+        }
+    };
+
     var _getPackComponents = function () {
         _config.armaTuPackProvider
             .getPackComponentsPromise()
@@ -19,6 +26,8 @@
                     !Array.isArray(data.componentes) || data.componentes.length === 0) {
                     _config.generalModule.redirectTo("/ofertas");
                 }
+
+                $(_elementos.dataEstrategia.id).attr(_elementos.dataEstrategia.dataEstrategia, JSON.stringify(data));
                 _config.armaTuPackDetalleEvents.applyChanges(_config.armaTuPackDetalleEvents.eventName.onGruposLoaded, data);
             })
             .fail(function (data, error) {

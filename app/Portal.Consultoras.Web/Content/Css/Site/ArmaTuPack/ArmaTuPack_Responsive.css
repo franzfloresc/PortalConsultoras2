@@ -2,7 +2,7 @@
     background-color: #e70002;
     padding: 30px;
     text-align: center;
-    margin-top:60px;
+    margin-top:109px;
 }
 
     .banner_armaTuPack h1 {
@@ -25,7 +25,7 @@
 
 .Select_ArmaTuPack {
     background-color: #f5f5f5;
-    padding: 20px 0px;
+    padding: 11px 0px;
     margin:0;
 }
 
@@ -43,7 +43,7 @@
 
 .Select_Item {
     height: 55px;
-    width: 55px;
+    width: 55px !important;
     background-color: #fff;
     border: dashed 1px #d8d8d8;
 }
@@ -316,15 +316,64 @@
         height: auto;
     }
 
+.sym_mas {
+    width: auto !important;
+    height: 55px;
+    display: flex !important;
+    align-items: center;
+}
+
+.Select_Group > button {
+    height: 100%;
+    background-position: center center;
+    border: none;
+    font-size: 0px;
+    mix-blend-mode: multiply;
+    width: 13px;
+    background-size: 15px;
+    padding: 0px;
+}
+
+    .Select_Group .slick-next {
+        right: -20px;
+    }
+
+    .Select_Group .slick-prev {
+        left: -20px;
+    }
+
+.slick-track li:last-child {
+    display: none !important;
+}
+
+
+
+
+#seleccionados .slick-list.draggable {
+    padding: 9px 0px;
+}
+
 
 
 
 @media screen and (min-width:768px) {
+    #seleccionados .Select_Group {
+        width: 472px;
+    }
+
+    #opciones-seleccionadas-next {
+        right: -7% !important; 
+    }
+
+    #opciones-seleccionadas-prev {
+        left: -7% !important;
+    }
+
     .Select_ArmaTuPack {
         position: fixed;
         width: 100%;
         bottom: 0;
-        z-index: 1;
+        z-index: 6;
     }
 
     .product_img_Pack {
@@ -350,10 +399,21 @@
     .slick-track {
         width: 3000% !important;
     }
+
+    .Title_pack{
+        pointer-events: none;
+    }
+
+    .contenedor_rangos {
+        margin-top: 10px;
+    }
 }
 
 
 @media screen and (max-width:768px) {
+    #seleccionados .Select_Group {
+        width: 309px;
+    }
 
     body {
         margin-top: 60px;
@@ -418,6 +478,7 @@
         background-position: center right 11px;
         background-size: 23px;
         padding: 20px 45px 20px 0;
+        margin-right: 0px;
     }
 
     #Pack_Items article:last-child {
@@ -442,7 +503,7 @@
         display: none !important;
     }
 
-    .slick-list .slick-track {
+    #Pack_Items .slick-list .slick-track {
         width: 100% !important;
         transform: translate3d(0px, 0px, 0px) !important;
     }
@@ -452,6 +513,15 @@
         margin-left: auto;
         float: none;
     }
+
+    .slick-track > div {
+        width: 100% !important;
+        border-bottom: 1px solid #ebebeb;
+    }
+
+    .slick-track > div:last-child {
+        border: none;
+    }
 }
 
 
@@ -460,8 +530,11 @@
         margin: 0px 1px;
         font-size: 16px;
     }
-}
 
+    #seleccionados .Select_Group {
+        width: 261px;
+    }
+}
 
 
 

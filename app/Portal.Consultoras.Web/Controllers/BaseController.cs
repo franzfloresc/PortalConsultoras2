@@ -45,6 +45,14 @@ namespace Portal.Consultoras.Web.Controllers
                 return SessionManager.GetRevistaDigital();
             }
         }
+
+        protected ArmaTuPackModel armaTuPack
+        {
+            get
+            {
+                return SessionManager.GetArmaTuPack();
+            }
+        }
         protected HerramientasVentaModel herramientasVenta;
         protected GuiaNegocioModel guiaNegocio;
         protected DataModel estrategiaODD;

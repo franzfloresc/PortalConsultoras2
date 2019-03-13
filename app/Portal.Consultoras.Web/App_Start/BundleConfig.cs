@@ -1008,7 +1008,8 @@ namespace Portal.Consultoras.Web
             
             bundles.Add(new StyleBundle("~/Bundle/Css/Responsive/ArmaTuPack").Include(
                 "~/Content/Css/Site/ArmaTuPack/ArmaTuPack_Responsive.css",
-                "~/Content/Css/Site/ficha/SeleccionarTipo.css"
+                "~/Content/Css/Site/ficha/SeleccionarTipo.css",
+                "~/Content/Css/Site/Menu/MenuContenedorResponsive.css"
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mixto/ArmaTuPack").Include(
