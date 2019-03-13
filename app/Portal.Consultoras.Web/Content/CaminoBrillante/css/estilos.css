@@ -203,7 +203,7 @@ strong {
     text-align: center;
     font-size: 13px;
     margin: 10px auto;
-    border:0;
+    border: 0;
 }
 
     .btn-link:hover {
@@ -275,7 +275,7 @@ strong {
 }*/
 .owl-carousel .owl-item img {
     display: block;
-    max-width: 60px !important;
+    max-width: 60px;
 }
 
 .owl-nav {
@@ -443,15 +443,15 @@ strong {
     height: 14px;
     background: #ad001b;
     border-radius: 16px;
-    z-index:5;
+    z-index: 5;
 }
 
 #ProgressBar span {
     display: block;
-    cursor: pointer;
     position: absolute;
     top: -20px;
     background: #b3b3b3;
+    z-index: 8;
     width: 55px;
     height: 55px;
     -webkit-transition: all 0.2s ease;
@@ -462,6 +462,7 @@ strong {
 
     #ProgressBar span:not(.activo):hover {
         top: -24px;
+        cursor: pointer;
     }
 
 .brillante:before {
@@ -733,12 +734,12 @@ strong {
         margin-bottom: 80px;
     }
 
-    .owl-carousel .owl-stage {
-        padding-left: 15px !important;
-    }
+    /*    .owl-carousel .owl-stage {
+        padding-left: 7px !important;
+    }*/
 
     .shad {
-        padding: 20px 10px;
+        padding: 20px 20px;
     }
 
     .pad-center {
@@ -775,6 +776,93 @@ strong {
 
     #ProgressBar span:not(.activo):hover {
         top: -19px;
+    }
+
+    .list-crec li p {
+        font-size: 11px;
+    }
+
+    .cont-logros .owl-item ul li img {
+        max-width: 45px !important;
+    }
+
+    .cont-logros .owl-carousel .owl-stage-outer {
+        padding-bottom: 15px;
+    }
+
+    .left-ganancias .owl-carousel .owl-stage-outer {
+        margin-bottom: 8px;
+    }
+
+
+    .medal-1 {
+        width: 17%;
+    }
+
+    .medal-2 {
+        width: 35%;
+    }
+
+    .medal-3 {
+        width: 56%;
+    }
+
+    .medal-4 {
+        width: 76%;
+    }
+
+    .medal-5 {
+        width: 100%;
+    }
+
+    @keyframes progressUno {
+        0% {
+            width: 0%;
+        }
+
+        100% {
+            width: 17%;
+        }
+    }
+
+    @keyframes progressDos {
+        0% {
+            width: 0%;
+        }
+
+        100% {
+            width: 35%;
+        }
+    }
+
+    @keyframes progressTres {
+        0% {
+            width: 0%;
+        }
+
+        100% {
+            width: 56%;
+        }
+    }
+
+    @keyframes progressCuatro {
+        0% {
+            width: 0%;
+        }
+
+        100% {
+            width: 76%;
+        }
+    }
+
+    @keyframes progressCinco {
+        0% {
+            width: 0%;
+        }
+
+        100% {
+            width: 100%;
+        }
     }
 }
 
