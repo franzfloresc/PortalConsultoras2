@@ -65,5 +65,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public bool MostrarPagoEnLinea { get; set; }
         public bool TieneCaminoExito { get; set; }
         public string urlCaminoExito { get; set; }
+        public bool TieneCaminoBrillante { get; set; }
     }
 }

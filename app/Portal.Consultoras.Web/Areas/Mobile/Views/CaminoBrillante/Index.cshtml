@@ -1,16 +1,31 @@
 ﻿
+@using System.Configuration
+@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Areas.Mobile.Models
+@using Portal.Consultoras.Web.CustomHelpers
+@using Portal.Consultoras.Web.Models
+
+@model BienvenidaModel
+
 @{
-    ViewBag.Title = "Index";
+    var layout = ViewContext.MobileLayout();
+    Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
+  
 
 }
 
+@*@{
+    ViewBag.Title = "Index";
+
+}*@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 <link href="~/Content/CaminoBrillante/css/estilos.css" rel="stylesheet" />
-
 <link href="~/Content/CaminoBrillante/assets/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet" />
 
 
+
 <br />
+
 
 <div class="container ">
     <h2 class="title">AVANCE NIVEL</h2>

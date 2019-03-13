@@ -190,6 +190,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Areas\Mobile\Controllers\BuscadorController.cs" />
+    <Compile Include="Areas\Mobile\Controllers\CaminoBrillanteController.cs" />
     <Compile Include="Areas\Mobile\Controllers\DetalleEstrategiaController.cs" />
     <Compile Include="Areas\Mobile\Controllers\MasGanadorasController.cs" />
     <Compile Include="Areas\Mobile\Controllers\MiPerfilController.cs" />
@@ -1433,6 +1434,7 @@
     <Content Include="Content\CaminoBrillante\Content.css" />
     <Content Include="Content\CaminoBrillante\css\estilos.css" />
     <Content Include="Content\CaminoBrillante\imgs\barchar.PNG" />
+    <Content Include="Content\CaminoBrillante\imgs\brillo.svg" />
     <Content Include="Content\CaminoBrillante\imgs\group-14.svg" />
     <Content Include="Content\CaminoBrillante\imgs\group-17.svg" />
     <Content Include="Content\CaminoBrillante\imgs\group-23.svg" />
@@ -1441,6 +1443,7 @@
     <Content Include="Content\CaminoBrillante\imgs\group-43.svg" />
     <Content Include="Content\CaminoBrillante\imgs\group-68-copy.svg" />
     <Content Include="Content\CaminoBrillante\imgs\group-70-copy.svg" />
+    <Content Include="Content\CaminoBrillante\imgs\icon-s.svg" />
     <Content Include="Content\CaminoBrillante\imgs\icono-2.PNG" />
     <Content Include="Content\CaminoBrillante\imgs\icono.png" />
     <Content Include="Content\CaminoBrillante\imgs\image-1%402x.png" />
@@ -1457,6 +1460,7 @@
     <Content Include="Content\CaminoBrillante\imgs\recurso-34-3-x%402x.png" />
     <Content Include="Content\CaminoBrillante\imgs\recurso-35-3-x%402x.png" />
     <Content Include="Content\CaminoBrillante\imgs\recurso-36-3-x%402x.png" />
+    <Content Include="Content\CaminoBrillante\Mobile.css" />
     <Content Include="Content\Images\CaminoBrillante\medalla.PNG" />
     <Content Include="Content\Css\Button\style.css" />
     <Content Include="Content\Css\colorpicker\colorpicker.css" />
@@ -4588,6 +4592,7 @@
     <Content Include="Areas\Mobile\Views\Pedido\_PopupEleccionRegalo.cshtml" />
     <Content Include="Areas\Mobile\Views\Pedido\_PopupPremio.cshtml" />
     <Content Include="Areas\Mobile\Views\Pedido\_PopupDescuento.cshtml" />
+    <Content Include="Areas\Mobile\Views\CaminoBrillante\Index.cshtml" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>

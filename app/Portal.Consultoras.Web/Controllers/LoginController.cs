@@ -1996,8 +1996,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 {
                                     usuarioModel.CaminoBrillanteMsg = listas[0].Valor1;
                                 }
-
-
+ 
                                 break;
 
 
