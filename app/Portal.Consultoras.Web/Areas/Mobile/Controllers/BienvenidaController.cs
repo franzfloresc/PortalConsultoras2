@@ -127,6 +127,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.TienePagoEnLinea = userData.TienePagoEnLinea;
                 model.ConsultoraNuevaBannerAppMostrar = SessionManager.GetConsultoraNuevaBannerAppMostrar();
                 model.MostrarPagoEnLinea = (userData.MontoDeuda > 0);
+                model.TieneCaminoBrillante = userData.CaminoBrillante;
 
                 #region Camino al Exito
 

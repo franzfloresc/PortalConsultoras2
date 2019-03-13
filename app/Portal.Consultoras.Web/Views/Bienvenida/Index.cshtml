@@ -57,7 +57,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="foto_perfil_home"> 
+                <div class="foto_perfil_home">
                     @if (ViewBag.FotoPerfilAncha)
                     {
                         <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width: auto; height: 100%;" />
@@ -174,14 +174,22 @@
     </div>
     <hr class="clear" />
 
-    <div class="items_belcorp cam-exito">
-        <img src="~/Content/Images/CaminoBrillante/medalla.PNG">
-        <p class="toptext">Camino Brillante</p>
-        <p>
-            Conoce todos tus beneficios por ser <br><strong>Consultora Ambar</strong>
-        </p>
-        <a href="@Url.Action("Index", "CaminoBrillante")">Ver Beneficios</a>
-    </div>
+
+    @{
+        if (Model.TieneCaminoBrillante)
+        {
+            <div class="items_belcorp cam-exito">
+                <img src="~/Content/Images/CaminoBrillante/medalla.PNG">
+                <p class="toptext">Camino Brillante</p>
+                <p>
+                    Conoce todos tus beneficios por ser <br><strong>Consultora Ambar</strong>
+                </p>
+                <a href="@Url.Action("Index", "CaminoBrillante")">Ver Beneficios</a>
+            </div>
+        }
+    }
+
+
 
     <div class="items_belcorp">
         @{

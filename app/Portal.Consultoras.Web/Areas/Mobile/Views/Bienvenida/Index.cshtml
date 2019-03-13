@@ -255,30 +255,25 @@
     <!-- FIN - ENLACE CAMINO AL ÉXITO -->
 
 
-    <div class="content_320">
-        <div class="item1_mobile">
-
-
-
-            <div class="items_belcorp cam-exito">
-                <img src="~/Content/Images/CaminoBrillante/medalla.PNG">
-                <p class="toptext">Camino Brillante</p>
-                <p>
-                    Conoce todos tus beneficios por ser <br><strong>Consultora Ambar</strong>
-                </p>
-                <a href="@Url.Action("Index", "CaminoBrillante")">Ver Beneficios</a>
+    @{
+        if (Model.TieneCaminoBrillante)
+        {
+            <div class="content_320">
+                <div class="item1_mobile">
+                    <div class="items_belcorp cam-exito">
+                        <img src="~/Content/Images/CaminoBrillante/medalla.PNG">
+                        <p class="toptext">Camino Brillante</p>
+                        <p>
+                            Conoce todos tus beneficios por ser <br><strong>Consultora Ambar</strong>
+                        </p>
+                        <a href="@Url.Action("Index", "CaminoBrillante")">Ver Beneficios</a>
+                    </div>
+                </div>
             </div>
-
-
-
-
-
-        </div>
-    </div>
+        }
+    }
 
     <div class="linea_separadora_mobile" style="margin-top:16px"></div>
-
-
 
     <div class="content_320">
         <div class="item1_mobile">

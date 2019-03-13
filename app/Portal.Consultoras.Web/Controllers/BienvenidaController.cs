@@ -233,6 +233,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 model.TienePagoEnLinea = userData.TienePagoEnLinea;
                 model.MostrarPagoEnLinea = (userData.MontoDeuda > 0);
+                model.TieneCaminoBrillante = userData.CaminoBrillante;
 
                 #region Camino al Éxito
 

@@ -134,6 +134,7 @@ namespace Portal.Consultoras.Web.Models
         public bool TieneCaminoExito { get; set; }
         public string urlCaminoExito { get; set; }
         public string MensajeToolTipPerfil{ get; set; }
+        public bool TieneCaminoBrillante { get; set; }
 
         public BienvenidaHomeModel()
         {
