@@ -12,7 +12,8 @@
         grupos: {
             templateId: "#grupos-template",
             id: "#grupos",
-            attrCarruselContainer: "[data-carrusel-container]"
+            attrCarruselContainer: "[data-carrusel-container]",
+            headers: "[data-group-header]",
         },
         componente: {
             quantity : function(cuvComponente){ 
@@ -38,8 +39,10 @@
             blockQuantitySelector : function(grupo){ 
                 return "[data-block-selector-cantidad-" + grupo + "]";
             },
-            header: "[data-group-header]",
-            body: function(grupo){ 
+            header: function (grupo) {
+                return "[data-group-header][data-grupo=" + grupo + "]";
+            },
+            body: function (grupo) {
                 return "[data-group-body][data-grupo=" + grupo + "]";
             }
         }
@@ -52,7 +55,7 @@
     var _renderGrupos = function(packComponents) {
         SetHandlebars(_elements.grupos.templateId, packComponents, _elements.grupos.id);
 
-        $(_elements.grupos.id).on("click", _elements.grupos.header, function (e) {
+        $(_elements.grupos.id).on("click", _elements.grupos.headers, function (e) {
             var $header = $(e.target);
             var codigoGrupo = $header.data("grupo");
             if ($(_elements.grupo.body(codigoGrupo)).is(":visible") == true) {
@@ -95,6 +98,8 @@
                 "</a>"
         };
         $(_elements.grupos.attrCarruselContainer).slick(slickSettings);
+
+        if (packComponents.componentes.length > 1) $(_elements.grupos.headers).click();
     };
 
     var _showQuantitySelector = function (cuvComponent,quantity) {
