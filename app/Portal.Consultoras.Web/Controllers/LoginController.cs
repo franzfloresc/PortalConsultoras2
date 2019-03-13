@@ -1429,7 +1429,7 @@ namespace Portal.Consultoras.Web.Controllers
                     sessionManager.SetTieneHvX1(true);
                     sessionManager.SetJwtApiSomosBelcorp(usuarioModel.JwtToken);
                     sessionManager.SetTieneMg(true);
-                                                         
+
                     usuarioModel.FotoPerfil = usuario.FotoPerfil;
                     usuarioModel.FotoOriginalSinModificar = usuario.FotoOriginalSinModificar;
                     usuarioModel.DiaFacturacion = GetDiaFacturacion(usuarioModel.PaisID, usuarioModel.CampaniaID, usuarioModel.ConsultoraID, usuarioModel.ZonaID, usuarioModel.RegionID);
@@ -1894,6 +1894,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var masGanadorasModel = new MasGanadorasModel();
                 var recomendacionesConfiguacionModel = new RecomendacionesConfiguracionModel();
                 var showroomConfigModel = new ConfigModel();
+                var armaTuPackModel = new ArmaTuPackModel();
 
                 if (configuracionesPaisModels.Any())
                 {
@@ -1904,6 +1905,11 @@ namespace Portal.Consultoras.Web.Controllers
                         var configuracionPaisDatos = configuracionPaisDatosAll.Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID).ToList();
                         switch (c.Codigo)
                         {
+
+                            case Constantes.ConfiguracionPais.ArmaTuPack:
+                                armaTuPackModel = ConfiguracionPaisArmaTuPack(armaTuPackModel,usuarioModel);
+                                break;
+
                             case Constantes.ConfiguracionPais.RevistaDigital:
                                 revistaDigitalModel = ConfiguracionPaisDatosRevistaDigital(revistaDigitalModel, configuracionPaisDatos, usuarioModel.CodigoISO);
                                 revistaDigitalModel = ConfiguracionPaisRevistaDigital(revistaDigitalModel, usuarioModel);
@@ -2010,6 +2016,13 @@ namespace Portal.Consultoras.Web.Controllers
                     sessionManager.SetRecomendacionesConfig(recomendacionesConfiguacionModel);
                     sessionManager.MasGanadoras.SetModel(masGanadorasModel);
                     sessionManager.SetEstrategiaSR(showroomConfigModel);
+
+                    if (!(revistaDigitalModel.TieneRDC && revistaDigitalModel.EsActiva) && armaTuPackModel.TieneAtp)
+                    {
+                        armaTuPackModel.TieneAtp = false;
+                    }
+                    sessionManager.SetArmaTuPack(armaTuPackModel);
+
                 }
 
                 usuarioModel.CodigosRevistaImpresa = await ObtenerCodigoRevistaFisica(usuarioModel.PaisID);
@@ -2284,6 +2297,15 @@ namespace Portal.Consultoras.Web.Controllers
             #endregion
 
             return revistaDigitalModel;
+        }
+
+        public virtual ArmaTuPackModel ConfiguracionPaisArmaTuPack   (ArmaTuPackModel armaTuPackModel,  UsuarioModel usuarioModel)
+        {
+            armaTuPackModel.TieneAtp = true;
+            armaTuPackModel.TieneAtp = true;
+            #endregion
+
+            return armaTuPackModel;
         }
 
         protected virtual void ActualizarSubscripciones(RevistaDigitalModel revistaDigitalModel, UsuarioModel usuarioModel)
@@ -2766,8 +2788,7 @@ namespace Portal.Consultoras.Web.Controllers
             return name;
         }
 
-        #endregion
-
+  
         private RedirectToRouteResult RedirectToUniqueRoute(string controller, string action, object routeData = null, string anchor = null)
         {
             var route = new RouteValueDictionary(new

@@ -409,6 +409,7 @@ namespace Portal.Consultoras.Common
             public const string RevistaDigital = "RevistaDigital";
             public const string HerramientasVenta = "HerramientasVenta";
             public const string ConfiguracionPaises = "ConfiguracionPaises";
+            public const string ArmaTuPack = "ArmaTuPack";
 
             public const string EventoFestivo = "EventoFestivo";
 
@@ -421,6 +422,7 @@ namespace Portal.Consultoras.Common
             public const string TieneHv = "TieneHv";
             public const string TieneHvX1 = "TieneHvX1";
             public const string TieneMg = "TieneMg";
+            public const string TieneAPT = "TieneAPT";
 
             public const string MisCertificados = "MisCertificados";
             public const string MisCertificadosData = "MisCertificadosData";
@@ -2102,6 +2104,7 @@ namespace Portal.Consultoras.Common
             public const string HerramientasVentaComprar = "/herramientasventa/comprar";
             public const string MasGanadorasIndex = "/masganadoras/index";
             public const string MasGanadoras = "/masganadoras";
+            public const string ArmaTuPackDetalle = "/ArmaTuPack/index";
             // Url Ficha
             public const string DetalleHerramientasVenta = "/detalle/demostradores";
             public const string DetalleLanzamiento = "/detalle/lonuevonuevo";

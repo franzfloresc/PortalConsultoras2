@@ -4,14 +4,15 @@
     <section class="Sections_Pack">
         <div class="Title_pack d-flex">
             <h3>{{grupo.DescripcionSingular}}</h3>
-            <span data-options-label-{{grupo.Cuv}} >{{grupo.mensajeEligeopciones}}</span>
-            <span class="listo" style="display:none;" data-ready-label-{{grupo.Cuv}} >¡Listo!</span>
+            <span data-options-label-{{grupo.Grupo}} >{{grupo.mensajeEligeopciones}}</span>
+            <span class="listo" style="display:none;" data-ready-label-{{grupo.Grupo}} >¡Listo!</span>
         </div>
 
         <div id="Select_Items" class="row">
             <div id="Pack_Items" class="col-12 d-md-flex justify-content-between" data-carrusel-container>
 
                 {{#each grupo.Hermanos as |componente|}}
+                <div class="contend-item">
                 <article class="product_pack">
                     <div class="row">
                         <div class="col-md-12 col-7 flex-row align-items-center ">
@@ -26,40 +27,43 @@
                             <div class="product_descripcion_Pack">
                                 <button class="active" 
                                         data-add-component
-                                        data-cuv-grupo="{{grupo.Cuv}}" 
+                                        data-grupo="{{grupo.Grupo}}" 
                                         data-cuv-componente="{{componente.Cuv}}"
 
                                         data-eligelo-{{componente.Cuv}}
-                                        data-block-eligelo-{{grupo.Cuv}}
+                                        data-block-eligelo-{{grupo.Grupo}}
 
                                         >Elígelo</button>
                                 <div class="contenedor_rangos" style="display:none;" 
-                                    data-cantidad-contenedor="" 
-                                    
                                     data-selector-cantidad-{{componente.Cuv}} 
-                                    data-block-selector-cantidad-{{grupo.Cuv}}
+                                    data-block-selector-cantidad-{{grupo.Grupo}}
                                     >
-                                    <input class="txt_cantidad_pedido ValidaNumeral ValidaPasteNumeral" type="text" value="1" size="2" maxlength="2" data-input="cantidad" data-cantidad-input="-" disabled="">
+                                    <input class="txt_cantidad_pedido ValidaNumeral ValidaPasteNumeral" 
+                                        type="text" 
+                                        value="1" 
+                                        size="2" 
+                                        maxlength="2"  
+                                        disabled 
+                                        data-quantity-{{componente.Cuv}} 
+                                        >
                                     <div>
                                         <a class="txt_menos" 
-                                            data-cantidad-agregar="-" 
                                             data-delete-component
-                                            data-cuv-grupo="{{grupo.Cuv}}" 
+                                            data-grupo="{{grupo.Grupo}}" 
                                             data-cuv-componente="{{componente.Cuv}}" >
                                             <img src="/Content/Images/menos.svg" 
                                                 alt="" 
-                                                data-cuv-grupo="{{grupo.Cuv}}" 
+                                                data-grupo="{{grupo.Grupo}}" 
                                                 data-cuv-componente="{{componente.Cuv}}"
                                                 />
                                         </a>
                                         <a class="txt_mas" 
-                                            data-cantidad-agregar="+"
                                             data-add-component
-                                            data-cuv-grupo="{{grupo.Cuv}}" 
+                                            data-grupo="{{grupo.Grupo}}" 
                                             data-cuv-componente="{{componente.Cuv}}" >
                                             <img src="/Content/Images/mas.svg" 
                                                 alt=""
-                                                data-cuv-grupo="{{grupo.Cuv}}" 
+                                                data-grupo="{{grupo.Grupo}}" 
                                                 data-cuv-componente="{{componente.Cuv}}"
                                                 />
                                         </a>
@@ -69,6 +73,7 @@
                         </div>
                     </div>
                 </article>
+                </div>
                 {{/each}}
             </div>
 
