@@ -1812,6 +1812,10 @@ namespace Portal.Consultoras.BizLogic
         {            
             string pattern = Constantes.Regex.CadenaRegexPassword;
             string message = string.Empty;
+            if (string.IsNullOrEmpty(Common.Util.Trim(contrasena)))
+                message += Constantes.MensajesError.IngreseLaContrasenia;
+            if (Common.Util.Trim(contrasena).Length <= 7)
+                message += Constantes.MensajesError.AlMenosOchoCaracteres;
             if (!Regex.IsMatch(contrasena, pattern.Split('¦')[0]))
                 message += Constantes.MensajesError.AlMenosLetraMayuscula;
             if (!Regex.IsMatch(contrasena, pattern.Split('¦')[1]))

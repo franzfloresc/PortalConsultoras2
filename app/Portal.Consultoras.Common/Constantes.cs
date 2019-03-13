@@ -1400,6 +1400,8 @@ namespace Portal.Consultoras.Common
             public const string ValidarAgregarProgNuevas = "Sucedió un error al validar el programa de nuevas. Inténtenlo más tarde.";
             public const string ExcedioLimiteVenta = "Las unidades ingresadas exceden el máximo permitido ({0}) en esta campaña.";
             public const string StockLimiteVenta = "En esta campaña nuestro producto <b>{0} – {1}</b> ha tenido una gran acogida. Sin embargo hemos reservado una ({2}) unidad(es) para ti. Por favor modifica las unidades ingresadas.";
+            public const string IngreseLaContrasenia = "- Debe ingresar la Nueva Contraseña.\n";
+            public const string AlMenosOchoCaracteres = "- La Nueva Contraseña debe de tener mínimo 8 caracteres.\n";
             public const string AlMenosLetraMayuscula = "- La Nueva Contraseña debe de tener al menos una letra en mayúscula.\n";
             public const string AlMenosLetraMinuscula = "- La Nueva Contraseña debe de tener al menos una letra en minúscula.\n";
             public const string AlMenosDigito = "- La Nueva Contraseña debe de tener al menos un dígito.\n";

@@ -480,7 +480,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = true,
-                    message = rslt
+                    message = string.IsNullOrEmpty(rslt) ? Constantes.MensajesError.CambioSatisfactorioContrasenia : rslt
                 });
             }
             catch (FaultException ex)
