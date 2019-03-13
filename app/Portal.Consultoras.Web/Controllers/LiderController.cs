@@ -22,15 +22,18 @@ namespace Portal.Consultoras.Web.Controllers
                 strCodigoUsuario = userData.CodigoUsuario;
             }
 
-            string[] parametros = new string[] { userData.PaisID.ToString() + "|" + strCodigoUsuario };
-            string str = Util.EncriptarQueryString(parametros);
-            string url = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.URL_LIDER) + "?p=" + str;
+            //string[] parametros = new string[] { userData.PaisID.ToString() + "|" + strCodigoUsuario };
+            //string str = Util.EncriptarQueryString(parametros);
+            //string url = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.URL_LIDER) + "?p=" + str;
 
-            if (!SessionManager.GetIngresoPortalLideres())
-            {
-                RegistrarLogDynamoDB(Constantes.LogDynamoDB.AplicacionPortalLideres, Constantes.LogDynamoDB.RolSociaEmpresaria, "HOME", "INGRESAR");
-                SessionManager.SetIngresoPortalLideres(true);
-            }
+            //if (!SessionManager.GetIngresoPortalLideres())
+            //{
+            //    RegistrarLogDynamoDB(Constantes.LogDynamoDB.AplicacionPortalLideres, Constantes.LogDynamoDB.RolSociaEmpresaria, "HOME", "INGRESAR");
+            //    SessionManager.SetIngresoPortalLideres(true);
+            //}
+
+
+            string url = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.URL_LIDER);
 
             return Redirect(url);
         }
