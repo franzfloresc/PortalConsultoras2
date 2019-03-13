@@ -35,41 +35,45 @@ namespace Portal.Consultoras.Web.Controllers
 
             return View();
         }
-        //[HttpGet()]
-        //[Route("Componentes/{cuv:int}")]
-        //public async Task<JsonResult> GetComponentes(string Cuv)
-        //{
-        //    try
-        //    {
-        //        var estrategiaModelo = new EstrategiaPersonalizadaProductoModel
-        //        {
-        //            CampaniaID = userData.CampaniaID,
-        //            CUV2 = Cuv
-        //        };
-        //        bool esMultimarca = false;
-        //        string mensaje = "";
-        //        var estrategia = await _estrategiaComponenteProvider.GetListaComponenteArmaTuPack(estrategiaModelo, Constantes.TipoEstrategiaCodigo.ArmaTuPack);
-        //        //var componentes = Mapper.Map<IList<Componente>, IList<EstrategiaComponenteModel>>(estrategia.Componentes);
-        //        var componentes = Mapper.Map<Componente, EstrategiaComponenteModel>(estrategia.Componentes.First());
-        //        return Json(new
-        //        {
-        //            success = true,
-        //            esMultimarca,
-        //            TipoEstrategiaID = estrategia.TipoEstrategiaId,
-        //            EstrategiaID = estrategia.EstrategiaId,
-                    CUV2 = estrategia.CUV2,
-                    FlagNueva = estrategia.FlagNueva,
-        //            mensaje
-        //        }, JsonRequestBehavior.AllowGet);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-        //        return Json(new
-        //        {
-        //            success = false
-        //        } , JsonRequestBehavior.AllowGet);
-        //    }
-        //}
-    }
+        [HttpGet()]
+        [Route("Componentes/{cuv:int}")]
+        public JsonResult GetComponentes(string Cuv)
+        {
+            try
+            {
+                var estrategiaModelo = new EstrategiaPersonalizadaProductoModel
+                {
+                    CampaniaID = userData.CampaniaID,
+                    CUV2 = Cuv
+                };
+                bool esMultimarca = false;
+                string mensaje = "";
+
+                var estrategia =  _estrategiaComponenteProvider.GetListaComponentes(estrategiaModelo, 
+                    Constantes.TipoEstrategiaCodigo.ArmaTuPack, out esMultimarca, out mensaje);
+                //var componentes = Mapper.Map<IList<Componente>, IList<EstrategiaComponenteModel>>(estrategia.Componentes);
+                //var componentes = Mapper.Map<Componente, EstrategiaComponenteModel>(estrategia);
+                var componentes = estrategia;
+                return Json(new
+                {
+                    success = true,
+                    esMultimarca,
+                    TipoEstrategiaID = "",
+                    EstrategiaID = "",
+                    CUV2 = Cuv,
+                    FlagNueva = "",
+                    componentes = componentes,
+                    mensaje
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false
+                }, JsonRequestBehavior.AllowGet);
+            }
+            }
+        }
 }

@@ -72,8 +72,9 @@ namespace Portal.Consultoras.Web.Providers
                 && codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.ArmaTuPack)
             {
                 mensaje += "SiMongo|";
-                estrategiaModelo.CodigoEstrategia = codigoTipoEstrategia;
-                EstrategiaPersonalizadaProductoModel estrategia = _ofertaBaseProvider.ObtenerModeloOfertaDesdeApi(estrategiaModelo);
+                estrategiaModelo.CodigoEstrategia = Util.GetTipoPersonalizacionByCodigoEstrategia(codigoTipoEstrategia);
+                EstrategiaPersonalizadaProductoModel estrategia = _ofertaBaseProvider.ObtenerModeloOfertaDesdeApi(estrategiaModelo, userData.CodigoISO);
+
                 listaEstrategiaComponente = estrategia.Hermanos;
                 mensaje += "ObtenerModeloOfertaDesdeApi = " + listaEstrategiaComponente.Count + "|";
             }

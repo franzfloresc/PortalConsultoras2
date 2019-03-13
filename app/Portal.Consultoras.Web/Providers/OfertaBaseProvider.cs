@@ -29,29 +29,28 @@ namespace Portal.Consultoras.Web.Providers
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
         
-        public EstrategiaPersonalizadaProductoModel ObtenerModeloOfertaDesdeApi(EstrategiaPersonalizadaProductoModel estrategiaModelo)
-        {
-            var taskApi = Task.Run(() => ObtenerOfertaDesdeApi(estrategiaModelo.CUV2, estrategiaModelo.CampaniaID.ToString(), estrategiaModelo.CodigoEstrategia));
+        public EstrategiaPersonalizadaProductoModel ObtenerModeloOfertaDesdeApi(EstrategiaPersonalizadaProductoModel estrategiaModelo, string codigoIso)
+        {                                                                       
+            var taskApi = Task.Run(() => ObtenerOfertaDesdeApi(estrategiaModelo.CUV2, estrategiaModelo.CampaniaID.ToString(), estrategiaModelo.CodigoEstrategia, codigoIso));
             Task.WhenAll(taskApi);
             Estrategia estrategia = taskApi.Result ?? new Estrategia();
-            var modeloEstrategia = Mapper.Map<Estrategia, EstrategiaPersonalizadaProductoModel>(estrategia);
+            var modeloEstrategia = new EstrategiaPersonalizadaProductoModel();
             modeloEstrategia.Hermanos = Mapper.Map<IList<Componente>, List<EstrategiaComponenteModel>>(estrategia.Componentes ?? new List<Componente>());
             return modeloEstrategia;
         }
 
-        private async Task<Estrategia> ObtenerOfertaDesdeApi(string cuv, string campaniaId, string tipoPersonalizacion)
+        private async Task<Estrategia> ObtenerOfertaDesdeApi(string cuv, string campaniaId, string tipoPersonalizacion, string codigoIso)
         {
-            Estrategia estrategia = new Estrategia();
-            var userData = _sessionManager.GetUserData() ?? new UsuarioModel();
+            var estrategia = new Estrategia();
 
-            string pathMS = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertaByCuv,
-              userData.CodigoISO,
+            string pathMs = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertaByCuv,
+              codigoIso,
               tipoPersonalizacion,
               campaniaId,
               cuv
               );
 
-            HttpResponseMessage httpResponse = await httpClient.GetAsync(pathMS);
+            HttpResponseMessage httpResponse = await httpClient.GetAsync(pathMs);
 
             if (!httpResponse.IsSuccessStatusCode)
             {
@@ -72,7 +71,7 @@ namespace Portal.Consultoras.Web.Providers
             }
             catch (Exception ex)
             {
-                Common.LogManager.SaveLog(ex, string.Empty, userData.CodigoISO);
+                Common.LogManager.SaveLog(ex, string.Empty, codigoIso);
                 return estrategia;
             }
 

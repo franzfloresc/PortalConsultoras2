@@ -4820,7 +4820,7 @@ namespace Portal.Consultoras.Web.Controllers
                     CodigoEstrategia = Constantes.TipoPersonalizacion.ShowRoom
                 };
 
-                var estrategia = _ofertaBaseProvider.ObtenerModeloOfertaDesdeApi(estrategiaModelo);
+                var estrategia = _ofertaBaseProvider.ObtenerModeloOfertaDesdeApi(estrategiaModelo, userData.CodigoISO);
 
                 if (estrategia.Hermanos.Any())
                 {

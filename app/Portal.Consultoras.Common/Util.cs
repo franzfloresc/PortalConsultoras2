@@ -3933,6 +3933,9 @@ namespace Portal.Consultoras.Common
                     break;
                 case Constantes.TipoEstrategiaCodigo.OfertaDelDia:
                     tipoPersonalizacion = Constantes.TipoPersonalizacion.OfertaDelDia;
+                    break; 
+                case Constantes.TipoEstrategiaCodigo.ArmaTuPack:
+                    tipoPersonalizacion = Constantes.TipoPersonalizacion.ArmaTuPack;
                     break;
                 default:
                     break;
