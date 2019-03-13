@@ -74,6 +74,8 @@
                     if (componente.Cuv == cuvComponente && componente.cantidadSeleccionados > 0) {
                         grupo.cantidadSeleccionados--;
                         componente.cantidadSeleccionados--;
+                        grupo.editado = true;
+                        componente.editado  =true;
                         model.componentesSeleccionados.splice(indiceComponente, 1);
                         model.componentesNoSeleccionados.push({ ImagenBulk: "" });
                         return false;
