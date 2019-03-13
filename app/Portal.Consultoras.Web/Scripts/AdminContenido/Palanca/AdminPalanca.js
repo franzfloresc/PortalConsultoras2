@@ -362,19 +362,27 @@ function IniDialogs() {
                 });
 
             if ($("#DesktopColorFondo").val() === "") {
-                $("#DesktopColorFondo").val("#000000");
+                if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") != ConstantesModule.TipoEstrategia.ATP) {
+                    $("#DesktopColorFondo").val("#000000");
+                }
             }
             if ($("#MobileColorFondo").val() === "") {
-                $("#MobileColorFondo").val("#000000");
+                if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") != ConstantesModule.TipoEstrategia.ATP) {
+                    $("#MobileColorFondo").val("#000000");
+                }
             }
             if ($("#AdministrarOfertasHomeAppModel_AppColorFondo").val() === "") {
                 $("#AdministrarOfertasHomeAppModel_AppColorFondo").val("#000000");
             }
             if ($("#DesktopColorTexto").val() === "") {
-                $("#DesktopColorTexto").val("#ffffff");
+                if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") != ConstantesModule.TipoEstrategia.ATP) {
+                    $("#DesktopColorTexto").val("#ffffff");
+                }
             }
             if ($("#MobileColorTexto").val() === "") {
-                $("#MobileColorTexto").val("#ffffff");
+                if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") != ConstantesModule.TipoEstrategia.ATP) {
+                    $("#MobileColorTexto").val("#ffffff");
+                }
             }
             if ($("#AdministrarOfertasHomeAppModel_AppColorTexto").val() === "") {
                 $("#AdministrarOfertasHomeAppModel_AppColorTexto").val("#ffffff");
@@ -498,6 +506,15 @@ function IniDialogs() {
                     $("#MobileTitulo").val($("#DesktopTitulo").val());
                     $("#MobileSubTitulo").val($("#DesktopSubTitulo").val());
 
+                    if (!regExpColorHex.test(botonColor) && botonColor !== "") {
+                        _toastHelper.error("El color del botón debe tener un código hexadecimal válido.");
+                        return false;
+                    }
+
+                    if (!regExpColorHex.test(botonColorTexto) && botonColorTexto !== "") {
+                        _toastHelper.error("El color del mensaje del botón debe tener un código hexadecimal válido.");
+                        return false;
+                    }
                 }
 
                 /*Fin Agana 186*/

@@ -7,6 +7,4 @@
     {
         public Estrategia Result { get; set; }
     }
-
-
 }

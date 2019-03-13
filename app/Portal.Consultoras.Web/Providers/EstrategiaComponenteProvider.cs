@@ -61,44 +61,27 @@ namespace Portal.Consultoras.Web.Providers
             _consultaProlProvider = consultaProlProvider;
         }
 
-        public async Task<Estrategia> GetListaComponenteArmaTuPack(EstrategiaPersonalizadaProductoModel estrategiaModelo,
-            string codigoTipoEstrategia)
-        {
-            var estrategias = new Estrategia();
-            if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.ArmaTuPack)
-            {
-                var estrategia = await _ofertaBaseProvider.ObtenerOfertaDesdeApi(estrategiaModelo.CUV2,
-                    estrategiaModelo.CampaniaID.ToString(), Constantes.TipoPersonalizacion.ArmaTuPack);
-                estrategias = estrategia;
-            }
-            return estrategias;
-        }
-
         public List<EstrategiaComponenteModel> GetListaComponentes(EstrategiaPersonalizadaProductoModel estrategiaModelo, string codigoTipoEstrategia, out bool esMultimarca, out string mensaje)
         {
-            List<BEEstrategiaProducto> listaBeEstrategiaProductos;
             esMultimarca = false;
             mensaje = "";
 
             var userData = SessionManager.GetUserData();
             List<EstrategiaComponenteModel> listaEstrategiaComponente;
-            if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, codigoTipoEstrategia))
+            if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, codigoTipoEstrategia)
+                && codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.ArmaTuPack)
             {
                 mensaje += "SiMongo|";
-
-                listaBeEstrategiaProductos = GetEstrategiaProductos(estrategiaModelo);
-
-                if (!listaBeEstrategiaProductos.Any()) return new List<EstrategiaComponenteModel>();
-
-                mensaje += "GetEstrategiaProductos = " + listaBeEstrategiaProductos.Count + "|";
-
-                listaEstrategiaComponente = GetEstrategiaDetalleCompuesta(estrategiaModelo, listaBeEstrategiaProductos);
-                mensaje += "GetEstrategiaDetalleCompuesta = " + listaEstrategiaComponente.Count + "|";
+                estrategiaModelo.CodigoEstrategia = codigoTipoEstrategia;
+                EstrategiaPersonalizadaProductoModel estrategia = _ofertaBaseProvider.ObtenerModeloOfertaDesdeApi(estrategiaModelo);
+                listaEstrategiaComponente = estrategia.Hermanos;
+                mensaje += "ObtenerModeloOfertaDesdeApi = " + listaEstrategiaComponente.Count + "|";
             }
             else
             {
                 mensaje += "NoMongo|";
 
+                List<BEEstrategiaProducto> listaBeEstrategiaProductos;
                 listaBeEstrategiaProductos = GetEstrategiaProductos(estrategiaModelo);
 
                 if (!listaBeEstrategiaProductos.Any()) return new List<EstrategiaComponenteModel>();
@@ -107,10 +90,10 @@ namespace Portal.Consultoras.Web.Providers
 
                 listaEstrategiaComponente = GetEstrategiaDetalleCompuesta(estrategiaModelo, listaBeEstrategiaProductos);
                 mensaje += "GetEstrategiaDetalleCompuesta = " + listaEstrategiaComponente.Count + "|";
-            }
 
-            listaEstrategiaComponente = OrdenarComponentesPorMarca(listaEstrategiaComponente, out esMultimarca);
-            mensaje += "OrdenarComponentesPorMarca = " + listaEstrategiaComponente.Count + "|";
+                listaEstrategiaComponente = OrdenarComponentesPorMarca(listaEstrategiaComponente, out esMultimarca);
+                mensaje += "OrdenarComponentesPorMarca = " + listaEstrategiaComponente.Count + "|";
+            }
 
             return _consultaProlProvider.ActualizarComponenteStockPROL(listaEstrategiaComponente, estrategiaModelo.CUV2, userData.CodigoISO, estrategiaModelo.CampaniaID, userData.GetCodigoConsultora());
         }

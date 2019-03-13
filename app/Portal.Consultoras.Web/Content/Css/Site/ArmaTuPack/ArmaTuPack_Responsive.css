@@ -407,6 +407,10 @@
     .contenedor_rangos {
         margin-top: 10px;
     }
+
+    #Select_Items{
+        display: block !important;
+    }
 }
 
 
