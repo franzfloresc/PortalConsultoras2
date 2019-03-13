@@ -49,11 +49,11 @@ namespace Portal.Consultoras.Web.Controllers
                 bool esMultimarca = false;
                 string mensaje = "";
 
-                var estrategia =  _estrategiaComponenteProvider.GetListaComponentes(estrategiaModelo, 
+                var componentes =  _estrategiaComponenteProvider.GetListaComponentes(estrategiaModelo, 
                     Constantes.TipoEstrategiaCodigo.ArmaTuPack, out esMultimarca, out mensaje);
                 //var componentes = Mapper.Map<IList<Componente>, IList<EstrategiaComponenteModel>>(estrategia.Componentes);
                 //var componentes = Mapper.Map<Componente, EstrategiaComponenteModel>(estrategia);
-                var componentes = estrategia;
+                //var componentes = estrategia;
                 return Json(new
                 {
                     success = true,
@@ -61,7 +61,8 @@ namespace Portal.Consultoras.Web.Controllers
                     TipoEstrategiaID = "",
                     EstrategiaID = "",
                     CUV2 = Cuv,
-                    FlagNueva = "",
+                    FlagNueva = 0,
+                    CodigoVariante = "2003",
                     componentes = componentes,
                     mensaje
                 }, JsonRequestBehavior.AllowGet);
