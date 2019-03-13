@@ -12,6 +12,9 @@
             id: "#btnAgregalo",
             claseBloqueada: "btn_desactivado_general",
             deshabilitado: "disable"
+        },
+        tooltip : {
+            id: "[data-tooltip-component]",
         }
     };
 
@@ -19,10 +22,18 @@
         _presenter = presenter;
     };
 
+    var _disableAgregar = function () {
+        $(_elements.btnAgregar.id).removeClass(_elements.btnAgregar.claseBloqueada);
+        $(_elements.btnAgregar.id).removeClass(_elements.btnAgregar.deshabilitado);
+    };
+
+    var _enableAgregar = function () {
+        $(_elements.btnAgregar.id).addClass(_elements.btnAgregar.claseBloqueada);
+        $(_elements.btnAgregar.id).addClass(_elements.btnAgregar.deshabilitado);
+    };
+
     var _refreshSeleccionados = function (packComponents) {
         SetHandlebars(_elements.seleccionados.templateId, packComponents, _elements.seleccionados.id);
-
-        //$('#seleccionados .Select_Group li:last').hide();
 
         var slickSettings = {
             slidesToShow: 5,
@@ -35,12 +46,9 @@
 
         $(_elements.seleccionados.attrCarruselContainer).slick(slickSettings);
 
-        if (packComponents.componentesNoSeleccionados.length == 0) {
-            $(_elements.btnAgregar.id).removeClass(_elements.btnAgregar.claseBloqueada);
-            $(_elements.btnAgregar.id).removeClass(_elements.btnAgregar.deshabilitado);
-        } else {
-            $(_elements.btnAgregar.id).addClass(_elements.btnAgregar.claseBloqueada);
-            $(_elements.btnAgregar.id).addClass(_elements.btnAgregar.deshabilitado);
+        if (packComponents.componentesSeleccionados.length > slickSettings.slidesToShow) {
+            var lastSlideIndex = cantidadSeleccionados - slickSettings.slidesToShow;
+            $(_elements.divOpcionesSeleccionadas.id).slick("slickGoTo", lastSlideIndex);
         }
     };
 
@@ -57,9 +65,18 @@
         });
     };
 
+    var _hideTooltip = function () {
+        $(_elements.tooltip.id).hide();
+    };
+
     return {
         renderSeleccionados: _renderSeleccionados,
         refreshSeleccionados: _refreshSeleccionados,
-        setPresenter: _setPresenter
+        setPresenter: _setPresenter,
+        disableAgregar: _disableAgregar,
+        enableAgregar: _enableAgregar,
+        hideTooltip: _hideTooltip,
     };
 };
+
+

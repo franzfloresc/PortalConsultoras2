@@ -19,15 +19,15 @@
             value.componentesSeleccionados = value.componentesSeleccionados || [];
             value.componentesNoSeleccionados = value.componentesNoSeleccionados || [];
             value.componentes = value.componentes || [];
-            var grupoFactorCuadre = 0;
+            value.FactorCuadre = value.FactorCuadre || 0;
             $.each(value.componentes, function (idx, grupo) {
                 grupo.cantidadSeleccionados = grupo.cantidadSeleccionados || 0;
-                grupoFactorCuadre = grupoFactorCuadre + grupo.FactorCuadre;
+                value.FactorCuadre = value.FactorCuadre + grupo.FactorCuadre;
             });
 
             if (value.componentesSeleccionados.length == 0) {
                 if (value.componentesNoSeleccionados.length == 0) {
-                    for (var i = 0; i < grupoFactorCuadre; i++) {
+                    for (var i = 0; i < value.FactorCuadre; i++) {
                         value.componentesNoSeleccionados.push({ ImagenBulk: "" });
                     }
                 }
@@ -46,7 +46,16 @@
             throw "packComponents has no components";
         }
         _packComponents(packComponents);
+
         _config.seleccionadosView.renderSeleccionados(_packComponentsModel);
+
+        if (_packComponentsModel.componentesNoSeleccionados.length == 0) {
+            _config.seleccionadosView.disableAgregar();
+        } else {
+            _config.seleccionadosView.enableAgregar();
+        }
+
+        _config.seleccionadosView.hideTooltip();
     };
 
     var _onSelectedComponentsChanged = function (packComponents) {
@@ -89,6 +98,7 @@
     };
 
     return {
+        packComponents: _packComponents,
         onGruposLoaded: _onGruposLoaded,
         onSelectedComponentsChanged: _onSelectedComponentsChanged,
         deleteComponente: _deleteComponente
