@@ -20,7 +20,7 @@ BEGIN
 		,160
 		,'01'
 		,'Mensaje importante escala descuento'
-		,'Todo pedido tendrá recargo por flete dependiendo del monto del pedido, peso y distancia. En Lima entre S/9.50 y S/16.00 en Provincias entre S/13.50 y S/19.00 Amazonas, San Martín, Ucayali y Loreto entre S16.50 y S/24.00. Evita el cobro de flete adicional pasando tu pedido en fecha.
+		,'Todo pedido tendrá recargo por flete dependiendo del monto del pedido, peso y distancia. En Lima entre S/9.50 y S/16.00 en Provincias entre S/13.50 y S/19.00 Amazonas, San Martín, Ucayali y Loreto entre S/16.50 y S/24.00. Evita el cobro de flete adicional pasando tu pedido en fecha.
 Si pasa tu pedido en fecha extemporánea de facturación se cobrará un adicional de S/5.00 en Lima S/7.00 en Provincias y S/10 .00 en Zonas Alejadas.'
 		);
 END
