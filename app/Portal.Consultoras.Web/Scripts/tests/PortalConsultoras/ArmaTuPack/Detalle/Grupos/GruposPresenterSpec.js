@@ -3326,6 +3326,9 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
             };
         };
 
+        var codigoGrupo = "1";
+        var cuvComponente = "30405";
+
         beforeEach(function () {
             errorMsg = '';
             //
@@ -3346,7 +3349,7 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
             sinon.restore();
         });
 
-        it("should throw an exception when cuvGrupo is undefined", function () {
+        it("should throw an exception when codigoGrupo is undefined", function () {
 
             try {
                 gruposPresenter.addComponente(undefined);
@@ -3354,10 +3357,10 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
                 errorMsg = error;
             }
 
-            expect(errorMsg).to.have.string("cuvGrupo is null or undefined");
+            expect(errorMsg).to.have.string("codigoGrupo is null or undefined");
         });
 
-        it("should throw an exception when cuvGrupo is null", function () {
+        it("should throw an exception when codigoGrupo is null", function () {
 
             try {
                 gruposPresenter.addComponente(null);
@@ -3365,7 +3368,7 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
                 errorMsg = error;
             }
 
-            expect(errorMsg).to.have.string("cuvGrupo is null or undefined");
+            expect(errorMsg).to.have.string("codigoGrupo is null or undefined");
         });
 
         it("should throw an exception when cuvComponente is undefined", function () {
@@ -3391,25 +3394,24 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
         });
 
         it("should not add component when grupo do not exists", function () {
-            gruposPresenter.addComponente(303790, 304050);
+            gruposPresenter.addComponente("0", cuvComponente);
 
             var model = gruposPresenter.packComponents();
             expect(model.componentesSeleccionados.length).to.be.equals(0);
         });
 
         it("should not add component when component do not exists", function () {
-            gruposPresenter.addComponente(303790, 304050);
+            gruposPresenter.addComponente(codigoGrupo, "30405xx");
 
             var model = gruposPresenter.packComponents();
             expect(model.componentesSeleccionados.length).to.be.equals(0);
         });
 
         describe("Component exists at group", function () {
-            var cuvGrupo = "30379";
-            var cuvComponente = "30405";
+            
 
             beforeEach("add componente with cuv 30405", function () {
-                gruposPresenter.addComponente(cuvGrupo, cuvComponente);
+                gruposPresenter.addComponente(codigoGrupo, cuvComponente);
             });
 
             it("should have one item at componenteSeleccionado", function () {
@@ -3435,10 +3437,10 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
                 var model = gruposPresenter.packComponents();
                 var quantitySelected = 0;
                 var factorCuadre = 0;
-                $.each(model.componentes,function(idx,componente){
-                    if(componente.Cuv == cuvGrupo){
-                        quantitySelected = componente.cantidadSeleccionados;
-                        factorCuadre = componente.FactorCuadre;
+                $.each(model.componentes,function(idx,grupo){
+                    if(grupo.Grupo == codigoGrupo){
+                        quantitySelected = grupo.cantidadSeleccionados;
+                        factorCuadre = grupo.FactorCuadre;
                     }
                 });
                 expect(quantitySelected).to.be.lessThan(factorCuadre);
@@ -3449,10 +3451,10 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
                 var model = gruposPresenter.packComponents();
                 var quantitySelected = 0;
                 var factorCuadre = 0;
-                $.each(model.componentes,function(idx,componente){
-                    if(componente.Cuv == cuvGrupo){
-                        quantitySelected = componente.cantidadSeleccionados;
-                        factorCuadre = componente.FactorCuadre;
+                $.each(model.componentes,function(idx,grupo){
+                    if(grupo.Grupo == codigoGrupo){
+                        quantitySelected = grupo.cantidadSeleccionados;
+                        factorCuadre = grupo.FactorCuadre;
                     }
                 });
                 expect(quantitySelected).to.be.lessThan(factorCuadre);
@@ -3463,10 +3465,10 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
                 var model = gruposPresenter.packComponents();
                 var quantitySelected = 0;
                 var factorCuadre = 0;
-                $.each(model.componentes,function(idx,componente){
-                    if(componente.Cuv == cuvGrupo){
-                        quantitySelected = componente.cantidadSeleccionados;
-                        factorCuadre = componente.FactorCuadre;
+                $.each(model.componentes,function(idx,grupo){
+                    if(grupo.Grupo == codigoGrupo){
+                        quantitySelected = grupo.cantidadSeleccionados;
+                        factorCuadre = grupo.FactorCuadre;
                     }
                 });
                 expect(quantitySelected).to.be.lessThan(factorCuadre);
@@ -3474,17 +3476,17 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
             });
 
             it("should hide options label and show ready label when quantity is equal factorCuadre", function () {
-                gruposPresenter.addComponente(cuvGrupo, cuvComponente);
-                gruposPresenter.addComponente(cuvGrupo, cuvComponente);
-                gruposPresenter.addComponente(cuvGrupo, cuvComponente);
+                gruposPresenter.addComponente(codigoGrupo, cuvComponente);
+                gruposPresenter.addComponente(codigoGrupo, cuvComponente);
+                gruposPresenter.addComponente(codigoGrupo, cuvComponente);
 
                 var model = gruposPresenter.packComponents();
                 var quantitySelected = 0;
                 var factorCuadre = 0;
-                $.each(model.componentes,function(idx,componente){
-                    if(componente.Cuv == cuvGrupo){
-                        quantitySelected = componente.cantidadSeleccionados;
-                        factorCuadre = componente.FactorCuadre;
+                $.each(model.componentes,function(idx,grupo){
+                    if(grupo.Cuv == codigoGrupo){
+                        quantitySelected = grupo.cantidadSeleccionados;
+                        factorCuadre = grupo.FactorCuadre;
                     }
                 });
                 expect(quantitySelected).to.be.equal(factorCuadre);
@@ -3493,17 +3495,17 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
             });
 
             it("should block components when when quantity is equal factorCuadre", function () {
-                gruposPresenter.addComponente(cuvGrupo, cuvComponente);
-                gruposPresenter.addComponente(cuvGrupo, cuvComponente);
-                gruposPresenter.addComponente(cuvGrupo, cuvComponente);
+                gruposPresenter.addComponente(codigoGrupo, cuvComponente);
+                gruposPresenter.addComponente(codigoGrupo, cuvComponente);
+                gruposPresenter.addComponente(codigoGrupo, cuvComponente);
 
                 var model = gruposPresenter.packComponents();
                 var quantitySelected = 0;
                 var factorCuadre = 0;
-                $.each(model.componentes,function(idx,componente){
-                    if(componente.Cuv == cuvGrupo){
-                        quantitySelected = componente.cantidadSeleccionados;
-                        factorCuadre = componente.FactorCuadre;
+                $.each(model.componentes,function(idx,grupo){
+                    if(grupo.Cuv == codigoGrupo){
+                        quantitySelected = grupo.cantidadSeleccionados;
+                        factorCuadre = grupo.FactorCuadre;
                     }
                 });
                 expect(quantitySelected).to.be.equal(factorCuadre);
@@ -3512,12 +3514,12 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
         });
 
         it("should not add component when component exits in group and quantity selected is upper equal than FactorCuadre", function () {
-            gruposPresenter.addComponente(30379, 30405);
-            gruposPresenter.addComponente(30379, 30405);
-            gruposPresenter.addComponente(30379, 30405);
-            gruposPresenter.addComponente(30379, 30405);
+            gruposPresenter.addComponente(codigoGrupo, cuvComponente);
+            gruposPresenter.addComponente(codigoGrupo, cuvComponente);
+            gruposPresenter.addComponente(codigoGrupo, cuvComponente);
+            gruposPresenter.addComponente(codigoGrupo, cuvComponente);
 
-            gruposPresenter.addComponente(30379, 30405);
+            gruposPresenter.addComponente(codigoGrupo, cuvComponente);
 
             var model = gruposPresenter.packComponents();
             expect(model.componentesSeleccionados.length).to.be.equals(4);
@@ -5080,6 +5082,9 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
             };
         };
 
+        var codigoGrupo = "1";
+        var cuvComponente = "30405";
+
         beforeEach(function () {
             errorMsg = '';
             //
@@ -5100,7 +5105,7 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
             sinon.restore();
         });
 
-        it("should throw an exception when cuvGrupo is undefined", function () {
+        it("should throw an exception when codigoGrupo is undefined", function () {
 
             try {
                 gruposPresenter.deleteComponente(undefined);
@@ -5108,10 +5113,10 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
                 errorMsg = error;
             }
 
-            expect(errorMsg).to.have.string("cuvGrupo is null or undefined");
+            expect(errorMsg).to.have.string("codigoGrupo is null or undefined");
         });
 
-        it("should throw an exception when cuvGrupo is null", function () {
+        it("should throw an exception when codigoGrupo is null", function () {
 
             try {
                 gruposPresenter.deleteComponente(null);
@@ -5119,7 +5124,7 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
                 errorMsg = error;
             }
 
-            expect(errorMsg).to.have.string("cuvGrupo is null or undefined");
+            expect(errorMsg).to.have.string("codigoGrupo is null or undefined");
         });
 
         it("should throw an exception when cuvComponente is undefined", function () {
@@ -5159,22 +5164,20 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
         });
 
         describe("Component exists at group", function () {
-            var cuvGrupo = "30379";
-            var cuvComponente = "30405";
 
             beforeEach("add componente with cuv 30405", function () {
-                gruposPresenter.addComponente(cuvGrupo, cuvComponente);
+                gruposPresenter.addComponente(codigoGrupo, cuvComponente);
             });
 
             it("should have no one item at componenteSeleccionado", function () {
-                gruposPresenter.deleteComponente(cuvGrupo, cuvComponente);
+                gruposPresenter.deleteComponente(codigoGrupo, cuvComponente);
                 
                 var model = gruposPresenter.packComponents();
                 expect(model.componentesSeleccionados.length).to.be.equals(0);
             });
 
             it("should fire an event onSelectedComponentsChanged with not null data object", function () {
-                gruposPresenter.deleteComponente(cuvGrupo, cuvComponente);
+                gruposPresenter.deleteComponente(codigoGrupo, cuvComponente);
                 
                 var firstCall = 0;
                 var firstParam = 0;
@@ -5184,13 +5187,13 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
             });
 
             it("should show chooseIt when selectect quantity is equal to zero", function () {
-                gruposPresenter.deleteComponente(cuvGrupo, cuvComponente);
+                gruposPresenter.deleteComponente(codigoGrupo, cuvComponente);
 
                 var model = gruposPresenter.packComponents();
                 var quantitySelected = 0;
-                $.each(model.componentes,function(idx,componente){
-                    if(componente.Cuv == cuvGrupo){
-                        quantitySelected = componente.cantidadSeleccionados;
+                $.each(model.componentes,function(idx,grupo){
+                    if(grupo.Cuv == codigoGrupo){
+                        quantitySelected = grupo.cantidadSeleccionados;
                     }
                 });
                 expect(quantitySelected).to.be.equals(0);
@@ -5198,15 +5201,15 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
             });
 
             it("should show options label when selectect quantity is less than factorCuadre", function () {
-                gruposPresenter.deleteComponente(cuvGrupo, cuvComponente);
+                gruposPresenter.deleteComponente(codigoGrupo, cuvComponente);
                 
                 var model = gruposPresenter.packComponents();
                 var quantitySelected = 0;
                 var factorCuadre = 0;
-                $.each(model.componentes,function(idx,componente){
-                    if(componente.Cuv == cuvGrupo){
-                        quantitySelected = componente.cantidadSeleccionados;
-                        factorCuadre = componente.FactorCuadre;
+                $.each(model.componentes,function(idx,grupo){
+                    if(grupo.Grupo == codigoGrupo){
+                        quantitySelected = grupo.cantidadSeleccionados;
+                        factorCuadre = grupo.FactorCuadre;
                     }
                 });
                 expect(quantitySelected).to.be.lessThan(factorCuadre);
@@ -5214,15 +5217,15 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
             });
 
             it("should hide ready label when selectect quantity is less than factorCuadre", function () {
-                gruposPresenter.deleteComponente(cuvGrupo, cuvComponente);
+                gruposPresenter.deleteComponente(codigoGrupo, cuvComponente);
                 
                 var model = gruposPresenter.packComponents();
                 var quantitySelected = 0;
                 var factorCuadre = 0;
-                $.each(model.componentes,function(idx,componente){
-                    if(componente.Cuv == cuvGrupo){
-                        quantitySelected = componente.cantidadSeleccionados;
-                        factorCuadre = componente.FactorCuadre;
+                $.each(model.componentes,function(idx,grupo){
+                    if(grupo.Grupo == codigoGrupo){
+                        quantitySelected = grupo.cantidadSeleccionados;
+                        factorCuadre = grupo.FactorCuadre;
                     }
                 });
                 expect(quantitySelected).to.be.lessThan(factorCuadre);
@@ -5230,15 +5233,15 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
             });
 
             it("should unblock components when when quantity is equal factorCuadre", function () {
-                gruposPresenter.deleteComponente(cuvGrupo, cuvComponente);
+                gruposPresenter.deleteComponente(codigoGrupo, cuvComponente);
 
                 var model = gruposPresenter.packComponents();
                 var quantitySelected = 0;
                 var factorCuadre = 0;
-                $.each(model.componentes,function(idx,componente){
-                    if(componente.Cuv == cuvGrupo){
-                        quantitySelected = componente.cantidadSeleccionados;
-                        factorCuadre = componente.FactorCuadre;
+                $.each(model.componentes,function(idx,grupo){
+                    if(grupo.Grupo == codigoGrupo){
+                        quantitySelected = grupo.cantidadSeleccionados;
+                        factorCuadre = grupo.FactorCuadre;
                     }
                 });
                 expect(quantitySelected).to.be.lessThan(factorCuadre);
