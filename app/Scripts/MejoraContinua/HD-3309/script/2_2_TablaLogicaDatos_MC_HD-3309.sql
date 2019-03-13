@@ -264,7 +264,7 @@ BEGIN
 		,160
 		,'01'
 		,'Mensaje importante escala descuento'
-		,'No se aceptarán pedidos por un monto menor de B/. 110.00. Todo pedido tendrá un recargo por flete, en la capital será  de B/. 6.54 y Afuera B/. 5.55.'
+		,'No se aceptarán pedidos por un monto menor de B/. 110.00. Todo pedido tendrá un recargo por flete, en la Capital será  de B/. 6.54 y Afuera B/. 5.55.'
 		);
 END
 GO
@@ -318,6 +318,6 @@ BEGIN
 		,160
 		,'01'
 		,'Mensaje importante escala descuento'
-		,'No se aceptarán pedidos por un monto menor de DR$. 3,100.00 y todos tendrán un flete de RD$. 160.00.'
+		,'No se aceptarán pedidos por un monto menor de RD$. 3,100.00 y todos tendrán un flete de RD$. 160.00.'
 		);
 END
