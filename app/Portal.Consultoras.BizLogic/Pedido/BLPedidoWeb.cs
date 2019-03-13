@@ -1824,6 +1824,7 @@ namespace Portal.Consultoras.BizLogic
                         if (pedidoIngresadoAgrupado.Any())
                         {
                             item.ImporteTotal = pedidoIngresadoAgrupado.Sum(x => x.ImporteTotal);
+                            item.CantidadProductos = pedidoIngresadoAgrupado.Sum(x => x.Cantidad);
                         }
                         break;
                     }
