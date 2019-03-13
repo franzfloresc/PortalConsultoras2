@@ -4,7 +4,7 @@
     using Portal.Consultoras.Web.Models.Search.ResponseOferta.Estructura;
     using System.Collections.Generic;
 
-    public class OutputOferta: ResponseStatus
+    public class OutputOfertaLista : ResponseStatus
     {
         public IList<Estrategia> Result { get; set; }
     }

@@ -44,11 +44,11 @@ namespace Portal.Consultoras.Web.Providers
                 return estrategias;
             }
 
-            OutputOferta respuesta = new OutputOferta();
+            var respuesta = new OutputOfertaLista();
             var listaSinPrecio2 = new List<string>();
             try
             {
-                respuesta = JsonConvert.DeserializeObject<OutputOferta>(jsonString);
+                respuesta = JsonConvert.DeserializeObject<OutputOfertaLista>(jsonString);
             }
             catch (Exception ex)
             {
@@ -101,7 +101,7 @@ namespace Portal.Consultoras.Web.Providers
                         Niveles = item.Niveles
                     };
                     estrategia.TipoEstrategia = new ServiceOferta.BETipoEstrategia { Codigo = item.CodigoTipoEstrategia };
-                    
+
                     if (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento && item.EstrategiaDetalle != null)
                     {
                         estrategia.EstrategiaDetalle = new ServiceOferta.BEEstrategiaDetalle();
