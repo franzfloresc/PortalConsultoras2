@@ -57,8 +57,8 @@ namespace Portal.Consultoras.Web.Controllers
         //            esMultimarca,
         //            TipoEstrategiaID = estrategia.TipoEstrategiaId,
         //            EstrategiaID = estrategia.EstrategiaId,
-                    CUV2 = estrategia.CUV2,
-                    FlagNueva = estrategia.FlagNueva,
+        //            CUV2 = estrategia.CUV2,
+        //            FlagNueva = estrategia.FlagNueva,
         //            mensaje
         //        }, JsonRequestBehavior.AllowGet);
         //    }
