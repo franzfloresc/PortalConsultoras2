@@ -21,7 +21,7 @@
         public int Orden { get; set; }
         public bool FlagEstrella { get; set; }
         public bool TieneVariedad { get; set; }
-        public IList<Componente> Componentes { get; set; }
+        public List<Componente> Componentes { get; set; }
         public int TipoEstrategiaId { get; set; }
         public string DescripcionTipoEstrategia { get; set; }
         public string CodigoTipoEstrategia { get; set; }
@@ -39,7 +39,5 @@
         public int FlagRevista { get; set; }
         public int TipoEstrategiaImagenMostrar { get; set; }
         public string Niveles { get; set; }
-
-        public IList<Grupo> Grupos { get; set; }
     }
 }

@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.Search.ResponseOferta.Estructura;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -45,11 +49,16 @@ namespace Portal.Consultoras.Web.Controllers
                 bool esMultimarca = false;
                 string mensaje = "";
                 var estrategia = await _estrategiaComponenteProvider.GetListaComponenteArmaTuPack(estrategiaModelo, Constantes.TipoEstrategiaCodigo.ArmaTuPack);
+                //var componentes = Mapper.Map<IList<Componente>, IList<EstrategiaComponenteModel>>(estrategia.Componentes);
+                var componentes = Mapper.Map<Componente, EstrategiaComponenteModel>(estrategia.Componentes.First());
                 return Json(new
                 {
                     success = true,
                     esMultimarca,
-                    componentes = estrategia.Componentes,
+                    TipoEstrategiaID = estrategia.TipoEstrategiaId,
+                    EstrategiaID = estrategia.EstrategiaId,
+                    Cuv = estrategia.CUV2,
+                    componentes = componentes,
                     mensaje
                 }, JsonRequestBehavior.AllowGet);
             }

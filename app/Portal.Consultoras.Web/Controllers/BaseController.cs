@@ -53,6 +53,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return SessionManager.GetArmaTuPack();
             }
         }
+
         protected HerramientasVentaModel herramientasVenta;
         protected GuiaNegocioModel guiaNegocio;
         protected DataModel estrategiaODD;

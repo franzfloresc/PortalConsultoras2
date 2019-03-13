@@ -472,7 +472,7 @@ namespace Portal.Consultoras.Web.Controllers
                 revistaDigital.EstadoSuscripcion = revistaDigital.SuscripcionModel.EstadoRegistro;
                 revistaDigital.EsSuscrita = revistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo;
                 revistaDigital.EsActiva = revistaDigital.SuscripcionEfectiva.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo;
-                armaTuPack.TieneAtp = revistaDigital.SuscripcionEfectiva.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo;
+                armaTuPack.TieneAtp = revistaDigital.EsActiva;
                 revistaDigital.NoVolverMostrar = true; // se puede copiar la logica del login
 
                 SessionManager.SetRevistaDigital(revistaDigital);

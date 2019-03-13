@@ -190,6 +190,7 @@ function OfertaObtenerFiltro(filtro, clear) {
 }
 
 function OfertaCargarProductos(busquedaModel, clear, objSeccion) {
+
     busquedaModel = busquedaModel || Clone(filtroIni);
     objSeccion = objSeccion || {};
     busquedaModel.CampaniaID = busquedaModel.CampaniaID || objSeccion.CampaniaId || campaniaId || campaniaCodigo || 0;

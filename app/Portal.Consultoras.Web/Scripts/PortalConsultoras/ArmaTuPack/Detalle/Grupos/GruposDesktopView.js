@@ -15,25 +15,28 @@
             attrCarruselContainer: "[data-carrusel-container]"
         },
         componente: {
-            quantitySelector : function(cuv){ 
-                return "[data-selector-cantidad-" + cuv + "]";
+            quantity : function(cuvComponente){ 
+                return "[data-quantity-" + cuvComponente + "]";
             },
-            chooseIt : function(cuv){
-                return "[data-eligelo-" + cuv + "]"; 
+            quantitySelector : function(cuvComponente){ 
+                return "[data-selector-cantidad-" + cuvComponente + "]";
+            },
+            chooseIt : function(cuvComponente){
+                return "[data-eligelo-" + cuvComponente + "]"; 
             }
         },
         grupo: {
-            optionsLabel : function(cuv){ 
-                return "[data-options-label-" + cuv + "]";
+            optionsLabel : function(grupo){ 
+                return "[data-options-label-" + grupo + "]";
             },
-            readyLabel : function(cuv){ 
-                return "[data-ready-label-" + cuv + "]";
+            readyLabel : function(grupo){ 
+                return "[data-ready-label-" + grupo + "]";
             },
-            blockChooseIt : function(cuv){ 
-                return "[data-block-eligelo-" + cuv + "]";
+            blockChooseIt : function(grupo){ 
+                return "[data-block-eligelo-" + grupo + "]";
             },
-            blockQuantitySelector : function(cuv){ 
-                return "[data-block-selector-cantidad-" + cuv + "]";
+            blockQuantitySelector : function(grupo){ 
+                return "[data-block-selector-cantidad-" + grupo + "]";
             }
         }
     };
@@ -47,16 +50,16 @@
 
         $(_elements.grupos.id).on("click","[data-add-component]",function(e){
             var $btn = $(e.target);
-            var cuvGrupo = $btn.data("cuv-grupo");
+            var codigoGrupo = $btn.data("grupo");
             var cuvComponente = $btn.data("cuv-componente");
-            _presenter.addComponente(cuvGrupo,cuvComponente);
+            _presenter.addComponente(codigoGrupo,cuvComponente);
         });
 
         $(_elements.grupos.id).on("click","[data-delete-component]",function(e){
             var $btn = $(e.target);
-            var cuvGrupo = $btn.data("cuv-grupo");
+            var codigoGrupo = $btn.data("grupo");
             var cuvComponente = $btn.data("cuv-componente");
-            _presenter.deleteComponente(cuvGrupo,cuvComponente);
+            _presenter.deleteComponente(codigoGrupo,cuvComponente);
         });
 
         var slickSettings = {
@@ -84,13 +87,14 @@
         $(_elements.grupos.attrCarruselContainer).slick(slickSettings);
     };
 
-    var _showQuantitySelector = function (cuvComponent) {
+    var _showQuantitySelector = function (cuvComponent,quantity) {
         if (cuvComponent === undefined ||
             cuvComponent === null ||
             $.trim(cuvComponent) === "") return;
 
         $(_elements.componente.chooseIt(cuvComponent)).hide();
         $(_elements.componente.quantitySelector(cuvComponent)).show();
+        $(_elements.componente.quantity(cuvComponent)).val(quantity);
     };
 
     var _showChooseIt = function (cuvComponent) {
@@ -100,59 +104,60 @@
 
         $(_elements.componente.quantitySelector(cuvComponent)).hide();
         $(_elements.componente.chooseIt(cuvComponent)).show();
+        $(_elements.componente.quantity(cuvComponent)).val(1);
     };
 
-    var _showGroupOptions = function (cuvGroup) {
-        if (cuvGroup === undefined ||
-            cuvGroup === null ||
-            $.trim(cuvGroup) === "") return;
+    var _showGroupOptions = function (codigoGrupo) {
+        if (codigoGrupo === undefined ||
+            codigoGrupo === null ||
+            $.trim(codigoGrupo) === "") return;
 
-        $(_elements.grupo.optionsLabel(cuvGroup)).show();
+        $(_elements.grupo.optionsLabel(codigoGrupo)).show();
     };
 
-    var _hideGroupOptions = function (cuvGroup) {
-        if (cuvGroup === undefined ||
-            cuvGroup === null ||
-            $.trim(cuvGroup) === "") return;
+    var _hideGroupOptions = function (codigoGrupo) {
+        if (codigoGrupo === undefined ||
+            codigoGrupo === null ||
+            $.trim(codigoGrupo) === "") return;
 
-        $(_elements.grupo.optionsLabel(cuvGroup)).hide();
+        $(_elements.grupo.optionsLabel(codigoGrupo)).hide();
     };
 
-    var _showGroupReady = function (cuvGroup) {
-        if (cuvGroup === undefined ||
-            cuvGroup === null ||
-            $.trim(cuvGroup) === "") return;
+    var _showGroupReady = function (codigoGrupo) {
+        if (codigoGrupo === undefined ||
+            codigoGrupo === null ||
+            $.trim(codigoGrupo) === "") return;
 
-        $(_elements.grupo.readyLabel(cuvGroup)).show();
-
-    };
-
-    var _hideGroupReady = function (cuvGroup) {
-        if (cuvGroup === undefined ||
-            cuvGroup === null ||
-            $.trim(cuvGroup) === "") return;
-
-        $(_elements.grupo.readyLabel(cuvGroup)).hide();
+        $(_elements.grupo.readyLabel(codigoGrupo)).show();
 
     };
 
-    var _blockGroup = function (cuvGroup) {
-        if (cuvGroup === undefined ||
-            cuvGroup === null ||
-            $.trim(cuvGroup) === "") return;
+    var _hideGroupReady = function (codigoGrupo) {
+        if (codigoGrupo === undefined ||
+            codigoGrupo === null ||
+            $.trim(codigoGrupo) === "") return;
 
-        $(_elements.grupo.blockChooseIt(cuvGroup)).removeClass("active").addClass("disable");
-        $(_elements.grupo.blockQuantitySelector(cuvGroup)).addClass("disable");
+        $(_elements.grupo.readyLabel(codigoGrupo)).hide();
+
     };
 
-    var _unblockGroup = function (cuvGroup) {
-        if (cuvGroup === undefined ||
-            cuvGroup === null ||
-            $.trim(cuvGroup) === "") return;
+    var _blockGroup = function (codigoGrupo) {
+        if (codigoGrupo === undefined ||
+            codigoGrupo === null ||
+            $.trim(codigoGrupo) === "") return;
+
+        $(_elements.grupo.blockChooseIt(codigoGrupo)).removeClass("active").addClass("disable");
+        $(_elements.grupo.blockQuantitySelector(codigoGrupo)).addClass("disable");
+    };
+
+    var _unblockGroup = function (codigoGrupo) {
+        if (codigoGrupo === undefined ||
+            codigoGrupo === null ||
+            $.trim(codigoGrupo) === "") return;
 
 
-        $(_elements.grupo.blockChooseIt(cuvGroup)).removeClass("disable").addClass("active");
-        $(_elements.grupo.blockQuantitySelector(cuvGroup)).removeClass("disable");
+        $(_elements.grupo.blockChooseIt(codigoGrupo)).removeClass("disable").addClass("active");
+        $(_elements.grupo.blockQuantitySelector(codigoGrupo)).removeClass("disable");
     };
 
     return {

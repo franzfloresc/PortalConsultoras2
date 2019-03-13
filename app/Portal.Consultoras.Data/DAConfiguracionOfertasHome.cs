@@ -30,8 +30,7 @@ namespace Portal.Consultoras.Data
         }
 
         public int Update(BEConfiguracionOfertasHome entity)
-        {
-           
+        { 
             var command = Context.Database.GetStoredProcCommand("dbo.ConfiguracionOfertasHomeUpdate");
             Context.Database.AddInParameter(command, "ConfiguracionOfertasHomeID", DbType.Int32, entity.ConfiguracionOfertasHomeID);
             Context.Database.AddInParameter(command, "ConfiguracionPaisID", DbType.Int32, entity.ConfiguracionPaisID);

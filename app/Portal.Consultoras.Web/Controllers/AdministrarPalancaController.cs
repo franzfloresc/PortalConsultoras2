@@ -201,24 +201,16 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (model.ConfiguracionOfertasHomeID == 0) {
-                    var list = ListarConfiguracionOfertasHome(model.CampaniaID).ToList();
-
-                    foreach (var listOferta in list)
+                var mensaje = ValidarExistente(model);
+                if (mensaje != "")
+                {
+                    return Json(new
                     {
-                        var objConfiguracionHome = listOferta.ConfiguracionPais;
-                        
-                        if (objConfiguracionHome.Codigo == model.Codigo) {
-                            return Json(new
-                            {
-                                success = false,
-                                message = "No se puede tener más de una palanca configurada para una misma campaña.",
-                            });
-                        }
-
-                    }
+                        success = false,
+                        message = mensaje
+                    });
                 }
-
+               
                 model.AdministrarOfertasHomeAppModel.AppBannerInformativo = model.AdministrarOfertasHomeAppModel.AppBannerInformativo ?? string.Empty;
                 model.AdministrarOfertasHomeAppModel.AppColorFondo = model.AdministrarOfertasHomeAppModel.AppColorFondo ?? string.Empty;
                 model.AdministrarOfertasHomeAppModel.AppColorTexto = model.AdministrarOfertasHomeAppModel.AppColorTexto ?? string.Empty;
@@ -251,6 +243,28 @@ namespace Portal.Consultoras.Web.Controllers
                     message = ex.StackTrace,
                 });
             }
+        }
+
+        private string ValidarExistente(AdministrarOfertasHomeModel model)
+        {
+            var mensaje = "";
+            if (model.ConfiguracionOfertasHomeID == 0)
+            {
+                var list = ListarConfiguracionOfertasHome(model.CampaniaID).ToList();
+
+                foreach (var listOferta in list)
+                {
+                    var objConfiguracionHome = listOferta.ConfiguracionPais;
+
+                    if (objConfiguracionHome.Codigo == model.Codigo)
+                    {
+                        mensaje = "No se puede tener más de una palanca configurada para una misma campaña.";
+                    }
+
+                }
+            }
+            return mensaje;
+
         }
 
         private IEnumerable<ConfiguracionPaisModel> ListarConfiguracionPais()

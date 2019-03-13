@@ -95,12 +95,14 @@ namespace Portal.Consultoras.Web.Providers
                     entConf.ConfiguracionPais.Codigo = Util.Trim(entConf.ConfiguracionPais.Codigo).ToUpper();
 
                     #region Pre Validacion
+
                     var conforme = SeccionesPreValidar(ref entConf, revistaDigital);
 
                     if (!conforme)
                     {
                         continue;
                     }
+
                     #endregion
 
                     ConfiguracionPais.RemplazarTagNombreConfiguracionOferta(
@@ -111,6 +113,7 @@ namespace Portal.Consultoras.Web.Providers
                     var seccion = SeccionModelo(entConf, revistaDigital, isMobile);
 
                     #region ConfiguracionPais.Codigo
+
                     switch (entConf.ConfiguracionPais.Codigo)
                     {
                         case Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada:
@@ -229,16 +232,24 @@ namespace Portal.Consultoras.Web.Providers
                             seccion.VerMas = SessionManager.MasGanadoras.GetModel().TieneLanding;
                             break;
                         case Constantes.ConfiguracionPais.ArmaTuPack:
+
+                            var sessionAtp = SessionManager.GetArmaTuPack();
+                            if (!sessionAtp.TieneAtp || !sessionAtp.TieneLanding)
+                            {
+                                continue;
+                            }
+
                             seccion.UrlObtenerProductos = "Estrategia/ATPObtenerProductos";
                             seccion.UrlLandig = "ArmaTuPack";
-
                             seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.MobileContenedorArmaTuPack : Constantes.OrigenPedidoWeb.DesktopContenedorArmaTuPack;
                             seccion.VerMas = false;
                             break;
                     }
+
                     #endregion
 
                     #region TipoPresentacion
+
                     seccion.TemplatePresentacion = "";
                     seccion.TemplateProducto = "";
                     switch (seccion.TipoPresentacion)
@@ -282,11 +293,11 @@ namespace Portal.Consultoras.Web.Providers
                             break;
                         case Constantes.ConfiguracionSeccion.TipoPresentacion.BannerInteractivo:
                             seccion.TemplatePresentacion = "seccion-banner-armatupack";
-                            seccion.TemplateProducto = isMobile ? "#template-producto-v2" : "#producto-landing-template";
                             break;
                     }
 
                     if (seccion.TemplatePresentacion == "") continue;
+
                     #endregion
 
                     seccionesContenedorModel.Add(seccion);

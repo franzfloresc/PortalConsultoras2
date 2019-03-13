@@ -54,39 +54,39 @@
         _config.gruposView.renderGrupos(packComponents);
     };
 
-    var _updateGroupView = function(cantidadSeleccionados,factorCuadre,cuvGrupo,cuvComponente){
+    var _updateGroupView = function(cantidadSeleccionados,factorCuadre,codigoGrupo,cuvComponente){
         if (cantidadSeleccionados == 0) {
             _config.gruposView.showChooseIt(cuvComponente);
-            _config.gruposView.showGroupOptions(cuvGrupo);
-            _config.gruposView.hideGroupReady(cuvGrupo);
-            _config.gruposView.unblockGroup(cuvGrupo);
+            _config.gruposView.showGroupOptions(codigoGrupo);
+            _config.gruposView.hideGroupReady(codigoGrupo);
+            _config.gruposView.unblockGroup(codigoGrupo);
         }
         else if (cantidadSeleccionados < factorCuadre) {
-            _config.gruposView.showQuantitySelector(cuvComponente);
-            _config.gruposView.showGroupOptions(cuvGrupo);
-            _config.gruposView.hideGroupReady(cuvGrupo);
-            _config.gruposView.unblockGroup(cuvGrupo);
+            _config.gruposView.showQuantitySelector(cuvComponente,cantidadSeleccionados);
+            _config.gruposView.showGroupOptions(codigoGrupo);
+            _config.gruposView.hideGroupReady(codigoGrupo);
+            _config.gruposView.unblockGroup(codigoGrupo);
         }
         else if (cantidadSeleccionados == factorCuadre) {
-            _config.gruposView.showQuantitySelector(cuvComponente);
-            _config.gruposView.hideGroupOptions(cuvGrupo);
-            _config.gruposView.showGroupReady(cuvGrupo);
-            _config.gruposView.blockGroup(cuvGrupo);
+            _config.gruposView.showQuantitySelector(cuvComponente,cantidadSeleccionados);
+            _config.gruposView.hideGroupOptions(codigoGrupo);
+            _config.gruposView.showGroupReady(codigoGrupo);
+            _config.gruposView.blockGroup(codigoGrupo);
         }
     };
 
-    var _addComponente = function (cuvGrupo, cuvComponente) {
-        if (typeof cuvGrupo === "undefined" || cuvGrupo === null) throw "cuvGrupo is null or undefined";
+    var _addComponente = function (codigoGrupo, cuvComponente) {
+        if (typeof codigoGrupo === "undefined" || codigoGrupo === null) throw "codigoGrupo is null or undefined";
         if (typeof cuvComponente === "undefined" || cuvComponente === null) throw "cuvComponente is null or undefined";
 
-        cuvGrupo = $.trim(cuvGrupo);
+        codigoGrupo = $.trim(codigoGrupo);
         cuvComponente = $.trim(cuvComponente);
 
         var model = _packComponents();
         var compSelCounter = model.componentesSeleccionados.length;
 
         $.each(model.componentes, function (idx, grupo) {
-            if (grupo.Cuv == cuvGrupo) {
+            if (grupo.Grupo == codigoGrupo) {
                 $.each(grupo.Hermanos, function (idx, componente) {
                     if (componente.Cuv == cuvComponente && grupo.cantidadSeleccionados < componente.FactorCuadre) {
                         model.componentesSeleccionados.push(componente);
@@ -95,7 +95,7 @@
                         componente.cantidadSeleccionados++;
                         _updateGroupView(componente.cantidadSeleccionados,
                             grupo.FactorCuadre,
-                            cuvGrupo,
+                            codigoGrupo,
                             cuvComponente);
                         return;
                     }
@@ -110,8 +110,8 @@
         }
     };
 
-    var _deleteComponente = function (cuvGrupo, cuvComponente) {
-        if (typeof cuvGrupo === "undefined" || cuvGrupo === null) throw "cuvGrupo is null or undefined";
+    var _deleteComponente = function (codigoGrupo, cuvComponente) {
+        if (typeof codigoGrupo === "undefined" || codigoGrupo === null) throw "codigoGrupo is null or undefined";
         if (typeof cuvComponente === "undefined" || cuvComponente === null) throw "cuvComponente is null or undefined";
 
         var model = _packComponents();
@@ -127,14 +127,14 @@
         }
 
         $.each(model.componentes, function (idxGrupo, grupo) {
-            if (grupo.Cuv == cuvGrupo) {
+            if (grupo.Grupo == codigoGrupo) {
                 $.each(grupo.Hermanos, function (idxComponente, componente) {
                     if (componente.Cuv == cuvComponente && componente.cantidadSeleccionados > 0) {
                         grupo.cantidadSeleccionados--;
                         componente.cantidadSeleccionados--;
                         _updateGroupView(componente.cantidadSeleccionados,
                             grupo.FactorCuadre,
-                            cuvGrupo,
+                            codigoGrupo,
                             cuvComponente);
                         return false;
                     }
