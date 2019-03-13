@@ -210,12 +210,220 @@ describe("ArmaTuPack - Detalle - SeleccionadosPresenter", function () {
             expect(errorMsg).to.have.string("packComponents has no components");
         });
 
-        it("render seleccionados when data object has components", function () {
-            seleccionadosPresenter.onGruposLoaded({
-                componentes: [{}]
+        describe("data object has components", function () {
+            var fakeComponents = function () {
+                return {
+                    "success": true,
+                    "esMultimarca": true,
+                    "TipoEstrategiaID": 3018,
+                    "EstrategiaID": 41497,
+                    "CUV2": "31575",
+                    "CodigoVariante": "2003",
+                    "FlagNueva": 0,
+                    "componentes": [
+                        {
+                            "Cantidad": 1,
+                            //"CodigoProducto": null,
+                            //"Cuv": "30379",
+                            //"Descripcion": "Color intenso y suavidad por mucho más tiempo con acabado perlado.",
+                            //"DescripcionComercial": null,
+                            "DescripcionMarca": "Ésika",
+                            "Digitable": 1,
+                            "FactorCuadre": 2,
+                            "Grupo": "1",
+                            //"Id": 0,
+                            "IdMarca": 2,
+                            //"Imagen": null,
+                            //"ImagenBulk": "https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201904/E/productos/bulk/CL_200084550_B.jpg",
+                            //"ImagenProductoSugerido": null,
+                            //"NombreBulk": "Miel glacé",
+                            "NombreComercial": "Labial de Máxima duración.   2 g / .07 oz.",
+                            "DescripcionPlural": "Labiales",
+                            "DescripcionSingular": "Labial",
+                            //"Orden": 26,
+                            //"PrecioCatalogo": 2975,
+                            //"PrecioCatalogoString": "2.975",
+                            //"Volumen": "2 g / .07 oz.",
+                            "Hermanos": [
+                                {
+                                    "Cantidad": 1,
+                                    "CodigoProducto": null,
+                                    "Cuv": "30405",
+                                    "Descripcion": "Color intenso y suavidad por mucho más tiempo con acabado mate.",
+                                    "DescripcionComercial": null,
+                                    "DescripcionMarca": "Ésika",
+                                    "Digitable": 1,
+                                    "FactorCuadre": 4,
+                                    "Grupo": "1",
+                                    "Id": 0,
+                                    "IdMarca": 2,
+                                    "Imagen": null,
+                                    "ImagenBulk": "https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201904/E/productos/bulk/CL_200085007_B.jpg",
+                                    "ImagenProductoSugerido": null,
+                                    "NombreBulk": "Rosado nude",
+                                    "NombreComercial": "Labial de Máxima duración. Rosado nude 2 g / .07 oz.",
+                                    "Orden": 7,
+                                    "PrecioCatalogo": 2975,
+                                    "PrecioCatalogoString": "2.975",
+                                    "Volumen": "2 g / .07 oz.",
+                                    "Hermanos": null,
+                                    "TieneStock": true,
+                                    "EstrategiaGrupoId": 0
+                                },
+                                {
+                                    "Cantidad": 1,
+                                    "CodigoProducto": null,
+                                    "Cuv": "30387",
+                                    "Descripcion": "Color intenso y suavidad por mucho más tiempo con acabado perlado.",
+                                    "DescripcionComercial": null,
+                                    "DescripcionMarca": "Ésika",
+                                    "Digitable": 1,
+                                    "FactorCuadre": 4,
+                                    "Grupo": "1",
+                                    "Id": 0,
+                                    "IdMarca": 2,
+                                    "Imagen": null,
+                                    "ImagenBulk": "https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201904/E/productos/bulk/CL_200084554_B.jpg",
+                                    "ImagenProductoSugerido": null,
+                                    "NombreBulk": "Rosa light",
+                                    "NombreComercial": "Labial de Máxima duración. Rosa light 2 g / .07 oz.",
+                                    "Orden": 8,
+                                    "PrecioCatalogo": 2975,
+                                    "PrecioCatalogoString": "2.975",
+                                    "Volumen": "2 g / .07 oz.",
+                                    "Hermanos": null,
+                                    "TieneStock": true,
+                                    "EstrategiaGrupoId": 0
+                                }
+                            ],
+                            "TieneStock": true,
+                            //"EstrategiaGrupoId": 0
+                        },
+                        {
+                            "Cantidad": 1,
+                            "CodigoProducto": null,
+                            "Cuv": "30577",
+                            "Descripcion": "Labial liquido hidratante mate.",
+                            "DescripcionComercial": null,
+                            "DescripcionMarca": "Ésika",
+                            "Digitable": 1,
+                            "FactorCuadre": 2,
+                            "Grupo": "3",
+                            "Id": 0,
+                            "IdMarca": 2,
+                            "Imagen": null,
+                            "ImagenBulk": "https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201904/E/productos/bulk/CL_200093966_B.jpg",
+                            "ImagenProductoSugerido": null,
+                            "NombreBulk": "Rojo carmin",
+                            "NombreComercial": "Hidracolor Mate.   6 ml / .21 fl.oz.",
+                            "DescripcionPlural": "Maquillaje",
+                            "DescripcionSingular": "Maquillaje",
+                            "Orden": 54,
+                            "PrecioCatalogo": 3308,
+                            "PrecioCatalogoString": "3.308",
+                            "Volumen": "6 ml / .21 fl.oz.",
+                            "Hermanos": [
+                                {
+                                    "Cantidad": 1,
+                                    "CodigoProducto": null,
+                                    "Cuv": "30583",
+                                    "Descripcion": "Labial liquido hidratante mate.",
+                                    "DescripcionComercial": null,
+                                    "DescripcionMarca": "Ésika",
+                                    "Digitable": 1,
+                                    "FactorCuadre": 2,
+                                    "Grupo": "3",
+                                    "Id": 0,
+                                    "IdMarca": 2,
+                                    "Imagen": null,
+                                    "ImagenBulk": "https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201903/E/productos/bulk/CL_200093969_B.jpg",
+                                    "ImagenProductoSugerido": null,
+                                    "NombreBulk": "Chocolate intenso",
+                                    "NombreComercial": "Hidracolor Mate. Chocolate intenso 6 ml / .21 fl.oz.",
+                                    "Orden": 46,
+                                    "PrecioCatalogo": 3308,
+                                    "PrecioCatalogoString": "3.308",
+                                    "Volumen": "6 ml / .21 fl.oz.",
+                                    "Hermanos": null,
+                                    "TieneStock": true,
+                                    "EstrategiaGrupoId": 0
+                                },
+                                {
+                                    "Cantidad": 1,
+                                    "CodigoProducto": null,
+                                    "Cuv": "30571",
+                                    "Descripcion": "Labial liquido hidratante mate.",
+                                    "DescripcionComercial": null,
+                                    "DescripcionMarca": "Ésika",
+                                    "Digitable": 1,
+                                    "FactorCuadre": 2,
+                                    "Grupo": "3",
+                                    "Id": 0,
+                                    "IdMarca": 2,
+                                    "Imagen": null,
+                                    "ImagenBulk": "https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201904/E/productos/bulk/CL_200093963_B.jpg",
+                                    "ImagenProductoSugerido": null,
+                                    "NombreBulk": "Vino misterio",
+                                    "NombreComercial": "Hidracolor Mate. Vino misterio 6 ml / .21 fl.oz.",
+                                    "Orden": 47,
+                                    "PrecioCatalogo": 3308,
+                                    "PrecioCatalogoString": "3.308",
+                                    "Volumen": "6 ml / .21 fl.oz.",
+                                    "Hermanos": null,
+                                    "TieneStock": true,
+                                    "EstrategiaGrupoId": 0
+                                }
+                            ],
+                            "TieneStock": true,
+                            "EstrategiaGrupoId": 0
+                        }
+                    ],
+                    "mensaje": "SiMongo|GetEstrategiaProductos = 57|GetEstrategiaDetalleCompuesta = 4|OrdenarComponentesPorMarca = 4|"
+                };
+            };
+
+            beforeEach(function () {
+                seleccionadosPresenter.onGruposLoaded(fakeComponents());
             });
 
-            expect(seleccionadosView.renderSeleccionados.calledOnce).to.be.equals(true);
+            it("Should not have a null model", function () {
+                // Act
+
+                // Arrange
+                
+                // Assert
+                expect(seleccionadosPresenter.packComponents).to.not.be.equals(null);
+            });
+
+            it("Should render componentesSeleccionados When model has components", function () {
+                // Act
+
+                // Arrange
+
+                // Assert
+                expect(seleccionadosView.renderSeleccionados.calledOnce).to.be.equals(true);
+            });
+
+            it("Should not disable add button When cantidadSeleccionados is less than FactorCuadre", function () {
+                // Act
+
+                // Arrange
+                
+                // Assert
+                var cantidadSeleccionados = seleccionadosPresenter.packComponents().componentesSeleccionados.length;
+                var factorCuadre = seleccionadosPresenter.packComponents().FactorCuadre;
+                expect(cantidadSeleccionados).to.be.lessThan(factorCuadre);
+                expect(seleccionadosView.disableAgregar.callCount).to.be.equals(0);
+            });
+
+            it("Should hide tooltip", function () {
+                // Act
+
+                // Arrange
+                
+                // Assert
+                expect(seleccionadosView.hideTooltip.callCount).to.be.equals(1);
+            });
         });
     });
 });

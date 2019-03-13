@@ -39,7 +39,20 @@
     {{/each}}
     {{/iff}}
     <div class="Agregar_ArmaTuPack_fixed">
+        <div data-agregado='tooltip' class="popover bottom tooltip_bloqueo" role="tooltip" id="" style="display: none;"  data-tooltip-component >
+            <div class="arrow"></div>
+            <div class="popover-content">
+                <span data-agregado="mensaje1"></span>
+                <!-- <img class="tooltop-emoji" src="/Content/Images/Mobile/Esika/1f44d.png" /> -->
+                <span data-agregado="mensaje2">Debes elegir tus opciones para poder agregar la oferta.</span>
+            </div>
+        </div>
         <input type="hidden" data-input='cantidad' value="1" />
-        <button id="btnAgregalo" class="Agregar_ArmaTuPack btn_desactivado_general" data-bloqueada="" onclick="javascript: EstrategiaAgregarModule.EstrategiaAgregar(event, false, 0, false)">Agregar</button>
+        <button id="btnAgregalo" 
+            class="Agregar_ArmaTuPack btn_desactivado_general"
+            data-bloqueada="" 
+            onclick="javascript: EstrategiaAgregarModule.EstrategiaAgregar(event, false, 0, false)" >
+            Agregar
+        </button>
     </div>
 </script>
