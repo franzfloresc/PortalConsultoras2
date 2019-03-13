@@ -43,7 +43,8 @@ var AnalyticsPortalModule = (function () {
         contenedorfichaProducto: "Contenedor - Ficha de producto",
         CarritoCompras: "Carrito de compras",
         siguiente: "Ver siguiente",
-        anterior: "Ver anterior"
+        anterior: "Ver anterior",
+        palancaLasMasGandoras: "Más Ganadoras"
         // Fin - Analytics Ofertas (Miguel)
     };
 
@@ -645,7 +646,8 @@ var AnalyticsPortalModule = (function () {
                 'DescripcionMarca': estrategia.CUV2,
                 'CodigoTipoEstrategia': estrategia.CodigoEstrategia,
                 'MarcaId': estrategia.MarcaID,
-                'Cantidad': estrategia.Cantidad
+                'Cantidad': estrategia.Cantidad,
+                'Palanca': estrategia.Palanca
             };
 
             var _pagina = pagina.Pagina;
@@ -730,6 +732,9 @@ var AnalyticsPortalModule = (function () {
             var palanca;
             if (model.CodigoTipoEstrategia === "0") palanca = model.DescripcionEstrategia;
             else palanca = _obtenerNombrePalanca(model.CodigoTipoEstrategia);
+
+            if (model.MaterialGanancia || model.Palanca == 'Ganadoras') palanca = _texto.palancaLasMasGandoras;
+
             var lista = "Buscador - " + palanca + " - " + origen + desplegable;
             dataLayer.push({
                 'event': _evento.addToCart,
@@ -2288,7 +2293,7 @@ var AnalyticsPortalModule = (function () {
         var jsonData = jQuery.parseJSON(strData);
 
         var _localEvent = _evento.productClick;
-        var _currencyCode = AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais);
+        var _currencyCode = _getCurrencyCodes();
         var _productName = jsonData.Descripcion;
         var _id = jsonData.CUV;
         var _price = jsonData.Precio;

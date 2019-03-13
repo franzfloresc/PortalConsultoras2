@@ -523,8 +523,10 @@
         var dataBarra = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(ViewBag.DataBarra).ToString().Replace("'", @"\'"))');
         var listaMensajeMeta = dataBarra == null ? null : dataBarra.ListaMensajeMeta;
         var urlInsertarDemandaTotalReemplazoSugerido = '@Url.Action("InsertarDemandaTotalReemplazoSugerido", "Pedido", new { area = "" })';
+
         var activarRecomendaciones = '@ViewBag.ActivarRecomendaciones';
         var maxCaracteresRecomendaciones = '@ViewBag.MaxCaracteresRecomendaciones';
+
         var listaIconoLluvia = [
             '@Url.Content("~/Content/Images/lluvia/ov-d.svg")',
             '@Url.Content("~/Content/Images/lluvia/ov-r.svg")',
@@ -552,7 +554,6 @@
     @Scripts.Render("~/Bundle/Js/Mixto/EstrategiaAgregar")
     @Scripts.Render("~/Bundle/Js/Mixto/TusClientes")
     @Scripts.Render("~/Bundle/Js/Mixto/Ficha")
-
 
     @if (Model.MostrarPopupPrecargados)
     {
