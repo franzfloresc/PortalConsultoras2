@@ -956,7 +956,7 @@ namespace Portal.Consultoras.Common
             public const int DesktopPedidoProductoRecomendadoLanFicha = 1020209;
             public const int DesktopPedidoProductoRecomendadoOddFicha = 1020309;
             public const int DesktopPedidoProductoRecomendadoHvFicha = 1020809;
-            public const int DesktopPedidoProductoRecomendadoLanFicha = 1020209;
+            //public const int DesktopPedidoProductoRecomendadoLanFicha = 1020209;
             public const int DesktopPedidoProductoRecomendadoGanadorasFicha = 1021409;
             public const int MobilePedidoProductoRecomendadoOpmFicha = 2020009;
             public const int MobilePedidoProductoRecomendadoShowRoomFicha = 2020109;
