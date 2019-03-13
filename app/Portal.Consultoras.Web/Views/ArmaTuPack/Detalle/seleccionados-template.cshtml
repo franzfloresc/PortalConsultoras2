@@ -39,6 +39,7 @@
     {{/each}}
     {{/iff}}
     <div class="Agregar_ArmaTuPack_fixed">
-        <button class="Agregar_ArmaTuPack" onclick="javascript: EstrategiaAgregarModule.EstrategiaAgregar(event, false, 0, false">Agregar</button>
+        <input type="hidden" data-input='cantidad' value="1" />
+        <button id="btnAgregalo" class="Agregar_ArmaTuPack btn_desactivado_general" data-bloqueada="" onclick="javascript: EstrategiaAgregarModule.EstrategiaAgregar(event, false, 0, false)">Agregar</button>
     </div>
 </script>

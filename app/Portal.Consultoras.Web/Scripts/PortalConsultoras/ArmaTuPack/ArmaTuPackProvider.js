@@ -9,6 +9,7 @@
             "TipoEstrategiaID": 3018,
             "EstrategiaID": 41497,
             "CUV2": "31575",
+            "CodigoVariante": "2003",
             "FlagNueva": 0,
             "componentes": [
                 {

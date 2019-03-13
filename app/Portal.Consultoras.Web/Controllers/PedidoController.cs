@@ -1682,10 +1682,11 @@ namespace Portal.Consultoras.Web.Controllers
             var cuv = productos.First().CUV.Trim();
             var mensajeByCuv = GetMensajeByCUV(userData, cuv);
             var tieneRdc = ValidarTieneRDoRDR();
-            
+
             var listEstadosNuevasValidas = new List<Enumeradores.ValidacionProgramaNuevas> { Enumeradores.ValidacionProgramaNuevas.CuvPerteneceProgramaNuevas };
             var listCuvNuevasValidas = dicValidacionCuv.Where(vc => listEstadosNuevasValidas.Contains(vc.Value)).Select(vc => vc.Key).ToList();
-            productosModel.AddRange(productos.Select(prod => new ProductoModel() {
+            productosModel.AddRange(productos.Select(prod => new ProductoModel()
+            {
                 CUV = prod.CUV.Trim(),
                 Descripcion = prod.Descripcion.Trim(),
                 PrecioCatalogo = prod.PrecioCatalogo,
@@ -3684,7 +3685,8 @@ namespace Portal.Consultoras.Web.Controllers
                             true
                             );
 
-            pedidoWebDetalleModel.ForEach(p => {
+            pedidoWebDetalleModel.ForEach(p =>
+            {
                 p.Simbolo = userData.Simbolo;
                 p.CodigoIso = userData.CodigoISO;
                 p.DescripcionCortadaProd = Util.SubStrCortarNombre(p.DescripcionProd, 73);
@@ -3704,8 +3706,8 @@ namespace Portal.Consultoras.Web.Controllers
             if (!valorConfi) return 0;
 
             if ((producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoProductoSugeridoCarrusel ||
-                producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoProductoSugeridoCarrusel) ||  
-                (producto.OrigenPedidoWeb  == Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalCarrusel ||
+                producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoProductoSugeridoCarrusel) ||
+                (producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalCarrusel ||
                  producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalFicha ||
                  producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalCarrusel ||
                  producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalFicha ||
@@ -3714,7 +3716,7 @@ namespace Portal.Consultoras.Web.Controllers
                 || (producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppConsultoraLandingShowroomShowroomSubCampania
                     || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopLandingShowroomShowroomSubCampania
                     || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobileLandingShowroomShowroomSubCampania)
-                || producto.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.PackNuevas )
+                || producto.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.PackNuevas)
                 return 0;
 
             switch (producto.TipoEstrategiaCodigo)
@@ -3727,12 +3729,12 @@ namespace Portal.Consultoras.Web.Controllers
                 case Constantes.TipoEstrategiaCodigo.OfertaDelDia:
                 case Constantes.TipoEstrategiaCodigo.HerramientasVenta:
                 case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
-                    return 1; 
+                    return 1;
                 default:
                     return 0;
             }
         }
-        
+
         private List<BEPedidoWebDetalle> GetPedidoWebDetalle(bool isMobile)
         {
             var listaDetalle = ObtenerPedidoWebSetDetalleAgrupado() ?? new List<BEPedidoWebDetalle>();
@@ -4805,32 +4807,37 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-
-        public async Task<JsonResult> ObtenerOfertaByCUVSet( string campaniaId, int set, string cuv)    
+        public JsonResult ObtenerOfertaByCUVSet(string campaniaId, int set, string cuv)
         {
             try
             {
                 var pedidoSet = _pedidoSetProvider.ObtenerPorId(userData.PaisID, set);
 
-                var estrategia = await _ofertaBaseProvider.ObtenerOfertaDesdeApi(cuv, campaniaId, Constantes.TipoPersonalizacion.ShowRoom);
-
-                if (estrategia.Componentes.Any())
+                var estrategiaModelo = new EstrategiaPersonalizadaProductoModel
                 {
-                    var componentesNivel01 = new List<Componente>();
+                    CUV2 = cuv,
+                    CampaniaID = campaniaId.ToInt(),
+                    CodigoEstrategia = Constantes.TipoPersonalizacion.ShowRoom
+                };
 
-                    estrategia.Componentes.Each(x =>
+                var estrategia = _ofertaBaseProvider.ObtenerModeloOfertaDesdeApi(estrategiaModelo);
+
+                if (estrategia.Hermanos.Any())
+                {
+                    var componentesNivel01 = new List<EstrategiaComponenteModel>();
+
+                    estrategia.Hermanos.Each(x =>
                     {
                         if (x.Hermanos.Any())
                         {
                             componentesNivel01.AddRange(x.Hermanos);
                         }
-
                     });
 
                     pedidoSet.Detalles.Update(x =>
                     {
                         var item = componentesNivel01.FirstOrDefault(i => i.Cuv == x.CUV);
-                        x.NombreProducto = item != null ? item.NombreProducto : string.Empty;
+                        x.NombreProducto = item != null ? item.NombreComercial : string.Empty;
                     });
                 }
 

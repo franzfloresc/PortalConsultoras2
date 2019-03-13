@@ -1,18 +1,17 @@
-﻿using Newtonsoft.Json;
+﻿using AutoMapper;
+using Newtonsoft.Json;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Oferta.ResponseOfertaGenerico;
+using Portal.Consultoras.Web.Models.Search.ResponseOferta.Estructura;
 using Portal.Consultoras.Web.SessionManager;
-using Portal.Consultoras.Web.ServicePROLConsultas;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.Models.Search.ResponseOferta.Estructura;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -29,18 +28,28 @@ namespace Portal.Consultoras.Web.Providers
             httpClient.DefaultRequestHeaders.Accept.Clear();
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
+        
+        public EstrategiaPersonalizadaProductoModel ObtenerModeloOfertaDesdeApi(EstrategiaPersonalizadaProductoModel estrategiaModelo)
+        {
+            var taskApi = Task.Run(() => ObtenerOfertaDesdeApi(estrategiaModelo.CUV2, estrategiaModelo.CampaniaID.ToString(), estrategiaModelo.CodigoEstrategia));
+            Task.WhenAll(taskApi);
+            Estrategia estrategia = taskApi.Result ?? new Estrategia();
+            var modeloEstrategia = Mapper.Map<Estrategia, EstrategiaPersonalizadaProductoModel>(estrategia);
+            modeloEstrategia.Hermanos = Mapper.Map<IList<Componente>, List<EstrategiaComponenteModel>>(estrategia.Componentes ?? new List<Componente>());
+            return modeloEstrategia;
+        }
 
-        public async Task<Estrategia> ObtenerOfertaDesdeApi(string cuv, string campaniaId, string tipoPersonalizacion)
+        private async Task<Estrategia> ObtenerOfertaDesdeApi(string cuv, string campaniaId, string tipoPersonalizacion)
         {
             Estrategia estrategia = new Estrategia();
-           var  userData = _sessionManager.GetUserData() ?? new UsuarioModel();             
+            var userData = _sessionManager.GetUserData() ?? new UsuarioModel();
 
             string pathMS = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertaByCuv,
               userData.CodigoISO,
               tipoPersonalizacion,
               campaniaId,
               cuv
-              );         
+              );
 
             HttpResponseMessage httpResponse = await httpClient.GetAsync(pathMS);
 
@@ -55,7 +64,7 @@ namespace Portal.Consultoras.Web.Providers
                 return estrategia;
             }
 
-            OutputOferta respuesta = new OutputOferta(); 
+            OutputOferta respuesta = new OutputOferta();
             try
             {
                 respuesta = JsonConvert.DeserializeObject<OutputOferta>(jsonString);
@@ -66,7 +75,7 @@ namespace Portal.Consultoras.Web.Providers
                 Common.LogManager.SaveLog(ex, string.Empty, userData.CodigoISO);
                 return estrategia;
             }
-             
+
             return estrategia;
         }
 
@@ -86,7 +95,7 @@ namespace Portal.Consultoras.Web.Providers
                 return estrategias;
             }
 
-            OutputOfertaLista respuesta = new OutputOfertaLista();
+            var respuesta = new OutputOfertaLista();
             var listaSinPrecio2 = new List<string>();
             try
             {
@@ -143,7 +152,7 @@ namespace Portal.Consultoras.Web.Providers
                         Niveles = item.Niveles
                     };
                     estrategia.TipoEstrategia = new ServiceOferta.BETipoEstrategia { Codigo = item.CodigoTipoEstrategia };
-                    
+
                     if (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento && item.EstrategiaDetalle != null)
                     {
                         estrategia.EstrategiaDetalle = new ServiceOferta.BEEstrategiaDetalle();
