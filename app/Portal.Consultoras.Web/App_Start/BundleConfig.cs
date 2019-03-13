@@ -1025,6 +1025,11 @@ namespace Portal.Consultoras.Web
                  "~/Scripts/PortalConsultoras/ArmaTuPack/Detalle/Detalle.js",
                  "~/Scripts/PortalConsultoras/ArmaTuPack/ArmaTuPack.js"
               ));
+
+
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Pedido/ArmaTuPack").Include(
+                "~/Scripts/PortalConsultoras/ArmaTuPack/ArmaTuPack.js"
+             ));
             #endregion
 
 
