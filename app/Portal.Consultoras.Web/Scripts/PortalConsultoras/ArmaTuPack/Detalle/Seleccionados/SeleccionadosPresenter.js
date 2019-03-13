@@ -19,15 +19,15 @@
             value.componentesSeleccionados = value.componentesSeleccionados || [];
             value.componentesNoSeleccionados = value.componentesNoSeleccionados || [];
             value.componentes = value.componentes || [];
-            var GrupoFactorCuadre = 0;
+            var grupoFactorCuadre = 0;
             $.each(value.componentes, function (idx, grupo) {
                 grupo.cantidadSeleccionados = grupo.cantidadSeleccionados || 0;
-                GrupoFactorCuadre = GrupoFactorCuadre + grupo.FactorCuadre;
+                grupoFactorCuadre = grupoFactorCuadre + grupo.FactorCuadre;
             });
 
             if (value.componentesSeleccionados.length == 0) {
                 if (value.componentesNoSeleccionados.length == 0) {
-                    for (var i = 0; i < GrupoFactorCuadre; i++) {
+                    for (var i = 0; i < grupoFactorCuadre; i++) {
                         value.componentesNoSeleccionados.push({ ImagenBulk: "" });
                     }
                 }

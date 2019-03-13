@@ -99,7 +99,7 @@
         };
         $(_elements.grupos.attrCarruselContainer).slick(slickSettings);
 
-        if (packComponents.componentes.length > 1) $(_elements.grupos.headers).click();
+        //if (packComponents.componentes.length > 1) $(_elements.grupos.headers).click();
     };
 
     var _showQuantitySelector = function (cuvComponent,quantity) {
