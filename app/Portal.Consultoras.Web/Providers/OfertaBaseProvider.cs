@@ -94,7 +94,7 @@ namespace Portal.Consultoras.Web.Providers
                 return estrategias;
             }
 
-            OutputOfertaLista respuesta = new OutputOfertaLista();
+            var respuesta = new OutputOfertaLista();
             var listaSinPrecio2 = new List<string>();
             try
             {

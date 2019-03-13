@@ -7,6 +7,11 @@
             templateId: "#seleccionados-template",
             id: "#seleccionados",
             attrCarruselContainer: "[data-carruselseleccionados-container]"
+        },
+        btnAgregar: {
+            id: "#btnAgregalo",
+            claseBloqueada: "btn_desactivado_general",
+            deshabilitado: "disable"
         }
     };
 
@@ -29,6 +34,14 @@
         };
 
         $(_elements.seleccionados.attrCarruselContainer).slick(slickSettings);
+
+        if (packComponents.componentesNoSeleccionados.length == 0) {
+            $(_elements.btnAgregar.id).removeClass(_elements.btnAgregar.claseBloqueada);
+            $(_elements.btnAgregar.id).removeClass(_elements.btnAgregar.deshabilitado);
+        } else {
+            $(_elements.btnAgregar.id).addClass(_elements.btnAgregar.claseBloqueada);
+            $(_elements.btnAgregar.id).addClass(_elements.btnAgregar.deshabilitado);
+        }
     };
 
     var _renderSeleccionados = function (packComponents) {

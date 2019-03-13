@@ -1444,7 +1444,6 @@
     <Content Include="Content\Css\Mobile\RevistaDigital\RedimensionLandingRD.css" />
     <Content Include="Content\Css\Site\Admin\Estrategias\UpSelling.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\index.css" />
-    <Content Include="Content\Css\Site\ArmaTuPack\ArmaTuPack_BannerShowRoom.css" />
     <Content Include="Content\Css\Site\ArmaTuPack\ArmaTuPack_Responsive.css" />
     <Content Include="Content\Css\Site\bootstrap\bootstrap-chosen.css" />
     <Content Include="Content\Css\Site\bootstrap\bootstrap.css" />
@@ -4563,6 +4562,11 @@
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileMenu\_MobileMenu.cshtml" />
     <Content Include="Areas\Mobile\Views\ProgramaNuevas\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\Pedido\_PopupEleccionRegalo.cshtml" />
+
+    <Content Include="Content\Css\owl\docs.theme.min.css" />
+    <Content Include="Content\Css\owl\owl.carousel.min.css" />
+    <Content Include="Content\Css\owl\owl.theme.default.min.css" />
+
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Areas\Mobile\Views\MasGanadoras\template-landing.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-carrusel-individuales-v2.cshtml" />
