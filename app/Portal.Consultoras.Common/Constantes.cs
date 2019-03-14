@@ -2416,7 +2416,7 @@ namespace Portal.Consultoras.Common
                             {Code.ERROR_ELIMINAR_SET, new PedidoValidacionConfiguracion(){ Mensaje ="Ocurrió un error al eliminar el detalle del set."} },
                             {Code.ERROR_ELIMINAR_TODO, new PedidoValidacionConfiguracion(){ Mensaje ="Ocurrió un error al eliminar el pedido." } },
                             {Code.ERROR_ELIMINAR_TODO_SET, new PedidoValidacionConfiguracion(){ Mensaje ="Ocurrió un error al eliminar el set." } },
-                            {Code.ERROR_CANTIDAD_LIMITE, new PedidoValidacionConfiguracion(){ Mensaje ="La cantidad no debe ser mayor que la cantidad limite ( {0} )." } },
+                            {Code.ERROR_CANTIDAD_LIMITE, new PedidoValidacionConfiguracion(){ Mensaje ="Excediste el límite de compras de este producto. (Máx.: {0} unidades)" } },
 
                             {Code.ERROR_RESERVA_NINGUNO, new PedidoValidacionConfiguracion(){ Mensaje ="El pedido no se reservó." } },
                             {Code.SUCCESS_RESERVA, new PedidoValidacionConfiguracion(){ Mensaje ="Pedido reservado." } },
