@@ -304,7 +304,11 @@ describe("ArmaTuPack - Detalle - SeleccionadosPresenter", function () {
         beforeEach(function () {
             errorMsg = '';
             //
-            seleccionadosView = sinon.stub(SeleccionadosView());
+            seleccionadosView = sinon.stub(
+                SeleccionadosView({
+                    seleccionadosContainerId: "#seleccionados"
+                })
+            );
             //
             generalModule = sinon.stub(GeneralModule);
             armaTuPackDetalleEvents = sinon.stub(ArmaTuPackDetalleEvents());
@@ -404,7 +408,7 @@ describe("ArmaTuPack - Detalle - SeleccionadosPresenter", function () {
                 expect(seleccionadosView.renderSeleccionados.calledOnce).to.be.equals(true);
             });
 
-            it("Should not disable add button When cantidadSeleccionados is less than FactorCuadre", function () {
+            it("Should disable add button When cantidadSeleccionados is less than FactorCuadre", function () {
                 // Act
 
                 // Arrange
@@ -413,7 +417,7 @@ describe("ArmaTuPack - Detalle - SeleccionadosPresenter", function () {
                 var cantidadSeleccionados = seleccionadosPresenter.packComponents().componentesSeleccionados.length;
                 var factorCuadre = seleccionadosPresenter.packComponents().FactorCuadre;
                 expect(cantidadSeleccionados).to.be.lessThan(factorCuadre);
-                expect(seleccionadosView.disableAgregar.callCount).to.be.equals(0);
+                expect(seleccionadosView.disableAgregar.callCount).to.be.equals(1);
             });
 
             it("Should hide tooltip", function () {
@@ -425,6 +429,137 @@ describe("ArmaTuPack - Detalle - SeleccionadosPresenter", function () {
                 expect(seleccionadosView.hideTooltip.callCount).to.be.equals(1);
             });
         });
+    });
+
+    describe("onSelectedComponentsChanged", function () {
+        var errorMsg = '';
+        //
+        var seleccionadosView = null;
+        var seleccionadosPresenter = null;
+
+        var generalModule = null;
+        var armaTuPackDetalleEvents = null;
+
+        beforeEach(function () {
+            errorMsg = '';
+            //
+            seleccionadosView = sinon.stub(
+                SeleccionadosView({
+                    seleccionadosContainerId: "#seleccionados"
+                })
+            );
+            //
+            generalModule = sinon.stub(GeneralModule);
+            armaTuPackDetalleEvents = sinon.stub(ArmaTuPackDetalleEvents());
+            //
+            seleccionadosPresenter = SeleccionadosPresenter({
+                seleccionadosView: seleccionadosView,
+                generalModule: generalModule,
+                armaTuPackDetalleEvents: armaTuPackDetalleEvents
+            });
+        });
+
+        afterEach(function () {
+            sinon.restore();
+        });
+
+        it("throw an exception when data object is undefined", function () {
+
+            try {
+                seleccionadosPresenter.onGruposLoaded(undefined);
+            } catch (error) {
+                errorMsg = error;
+            }
+
+            expect(errorMsg).to.have.string("packComponents is null or undefined");
+        });
+
+        it("throw an exception when data object is null", function () {
+
+            try {
+                seleccionadosPresenter.onGruposLoaded(null);
+            } catch (error) {
+                errorMsg = error;
+            }
+
+            expect(errorMsg).to.have.string("packComponents is null or undefined");
+        });
+
+        it("throw an exception when componentes property is null or undefined", function () {
+
+            try {
+                seleccionadosPresenter.onGruposLoaded({
+                    componentes: null
+                });
+            } catch (error) {
+                errorMsg = error;
+            }
+
+            expect(errorMsg).to.have.string("packComponents has no components");
+        });
+
+        it("throw an exception when componentes property is null or undefined", function () {
+
+            try {
+                seleccionadosPresenter.onGruposLoaded({
+                    componentes: null
+                });
+            } catch (error) {
+                errorMsg = error;
+            }
+
+            expect(errorMsg).to.have.string("packComponents has no components");
+        });
+
+        it("throw an exception when data object has no components", function () {
+
+            try {
+                seleccionadosPresenter.onGruposLoaded({
+                    componentes: []
+                });
+            } catch (error) {
+                errorMsg = error;
+            }
+
+            expect(errorMsg).to.have.string("packComponents has no components");
+        });
+
+        // describe("Given the quantity of selected components is lower than FactorCuadre When we add the pack", function () {
+        //     it("Should show tooltip ", function () {
+        //         // Arrange
+        //         seleccionadosPresenter.onSelectedComponentsChanged(fakeComponentsWithNoSelected());
+                
+        //         // Act
+        //         seleccionadosPresenter.addPack();
+
+        //         // Assert
+        //         seleccionadosView.showTooltip();
+        //     });
+
+        //     it("Should show tooltip ", function () {
+        //         // Arrange
+        //         seleccionadosPresenter.onSelectedComponentsChanged(fakeComponentsWithNoSelected());
+                
+        //         // Act
+        //         seleccionadosPresenter.addPack();
+
+        //         // Assert
+        //         expect(seleccionadosView.showTooltip.callCount).to.be.equals(1);
+        //     });
+
+        //     it("Should fire onShowWarnings event ", function () {
+        //         // Arrange
+        //         seleccionadosPresenter.onSelectedComponentsChanged(fakeComponentsWithNoSelected());
+                
+        //         // Act
+        //         seleccionadosPresenter.addPack();
+
+        //         // Assert
+        //         expect(armaTuPackDetalleEvents.applyChanges.callCount).to.be.equals(1);
+        //         var firstCall = 0; var firstParam = 0;
+        //         expect(armaTuPackDetalleEvents.applyChanges.args[firstCall][firstParam]).to.equals(armaTuPackDetalleEvents.eventName.onShowWarnings);
+        //     });
+        // });
     });
 
     describe("addPack", function () {
@@ -439,7 +574,11 @@ describe("ArmaTuPack - Detalle - SeleccionadosPresenter", function () {
         beforeEach(function () {
             errorMsg = '';
             //
-            seleccionadosView = sinon.stub(SeleccionadosView());
+            seleccionadosView = sinon.stub(
+                SeleccionadosView({
+                    seleccionadosContainerId: "#seleccionados"
+                })
+            );
             //
             generalModule = sinon.stub(GeneralModule);
             armaTuPackDetalleEvents = sinon.stub(ArmaTuPackDetalleEvents());

@@ -1,11 +1,13 @@
-﻿var SeleccionadosView = function () {
+﻿var SeleccionadosView = function (config) {
+    if (typeof config === "undefined" || config === null) throw "config is null or undefined";
+    if (typeof config.seleccionadosContainerId === "undefined" || config.seleccionadosContainerId === null) throw "config.seleccionadosContainerId is null or undefined";
 
     var _presenter = null;
 
     var _elements = {
         seleccionados: {
             templateId: "#seleccionados-template",
-            id: "#seleccionados",
+            id: config.seleccionadosContainerId || "",
             attrCarruselContainer: "[data-carruselseleccionados-container]"
         },
         btnAgregar: {
@@ -23,13 +25,13 @@
     };
 
     var _disableAgregar = function () {
-        $(_elements.btnAgregar.id).removeClass(_elements.btnAgregar.claseBloqueada);
-        $(_elements.btnAgregar.id).removeClass(_elements.btnAgregar.deshabilitado);
+        $(_elements.btnAgregar.id).addClass(_elements.btnAgregar.claseBloqueada);
+        $(_elements.btnAgregar.id).addClass(_elements.btnAgregar.deshabilitado);
     };
 
     var _enableAgregar = function () {
-        $(_elements.btnAgregar.id).addClass(_elements.btnAgregar.claseBloqueada);
-        $(_elements.btnAgregar.id).addClass(_elements.btnAgregar.deshabilitado);
+        $(_elements.btnAgregar.id).removeClass(_elements.btnAgregar.claseBloqueada);
+        $(_elements.btnAgregar.id).removeClass(_elements.btnAgregar.deshabilitado);
     };
 
     var _refreshSeleccionados = function (packComponents) {
@@ -53,7 +55,6 @@
     };
 
     var _renderSeleccionados = function (packComponents) {
-
         _refreshSeleccionados(packComponents);
 
         $(_elements.seleccionados.id).on("click", "[data-delete-component]", function (e) {
@@ -64,7 +65,7 @@
             _presenter.deleteComponente(grupoComponente, cuvComponente, indiceComponente);
         });
 
-        $(_elements.btnAgregar.id).on("click", function (e) {
+        $(_elements.seleccionados.id).on("click",_elements.btnAgregar.id, function (e) {
             _presenter.addPack();
         });
     };

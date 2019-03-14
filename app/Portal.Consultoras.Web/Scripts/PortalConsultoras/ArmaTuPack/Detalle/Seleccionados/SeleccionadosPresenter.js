@@ -49,7 +49,7 @@
 
         _config.seleccionadosView.renderSeleccionados(_packComponentsModel);
 
-        if (_packComponentsModel.componentesNoSeleccionados.length == 0) {
+        if (_packComponentsModel.componentesNoSeleccionados.length !== 0) {
             _config.seleccionadosView.disableAgregar();
         } else {
             _config.seleccionadosView.enableAgregar();
@@ -67,7 +67,16 @@
             throw "packComponents has no components";
         }
         _packComponents(packComponents);
-        _config.seleccionadosView.refreshSeleccionados(packComponents);
+
+        var model = _packComponents();
+
+        _config.seleccionadosView.refreshSeleccionados(model);
+
+        if(model.componentesSeleccionados.length < model.FactorCuadre){
+            _config.seleccionadosView.disableAgregar();
+        }else{
+            _config.seleccionadosView.enableAgregar();
+        }
     };
 
     var _deleteComponente = function (grupoComponente, cuvComponente, indiceComponente) {
@@ -99,7 +108,6 @@
 
     var _addPack = function () {
         var model = _packComponents();
-
         if(model.componentesSeleccionados.length < model.FactorCuadre){
             _config.seleccionadosView.showTooltip();
             _config.armaTuPackDetalleEvents.applyChanges(_config.armaTuPackDetalleEvents.eventName.onShowWarnings, model);
