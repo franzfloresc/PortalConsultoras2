@@ -421,6 +421,14 @@
     #Select_Items{
         display: block !important;
     }
+
+    #Pack_Items .contend-item {
+        width: 171px !important;
+    }
+
+    .arrow_acordeon {
+        display: none !important;
+    }
 }
 
 
