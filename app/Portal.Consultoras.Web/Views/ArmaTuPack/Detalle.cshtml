@@ -7,7 +7,7 @@
 
 @section css{
     @System.Web.Optimization.Styles.Render("~/Bundle/Css/Responsive/ArmaTuPack")
-    @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/owl")
+ 
 }
 
 
@@ -590,32 +590,54 @@
 @section scripts{
 
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/ArmaTuPack")
-    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/owl")
+ 
 
     <script>
         $(document).ready(function () {
-            $('.owl-carousel').owlCarousel({
-                loop: true,
-                margin: 10,
-                responsiveClass: true,
-                responsive: {
-                    0: {
-                        items: 1,
-                        nav: true
+              
+            $('#divCarruselMenuRes').slick({
+                infinite: true,
+                vertical: false,
+               
+                autoplay: false,
+                speed: 300,
+
+                
+                slidesToShow: 4,
+                slidesToScroll: 4,
+                responsive: [
+                    {
+                        breakpoint: 1024,
+                        settings: {
+                            slidesToShow: 3,
+                            slidesToScroll: 3,
+                            infinite: true,
+                            dots: true
+                        }
                     },
-                    600: {
-                        items: 3,
-                        nav: false
+                    {
+                        breakpoint: 600,
+                        settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 2
+                        }
                     },
-                    1000: {
-                        items: 5,
-                        nav: true,
-                        loop: false,
-                        margin: 20
+                    {
+                        breakpoint: 480,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1
+                        }
                     }
-                }
+                    // You can unslick at a given breakpoint now by adding:
+                    // settings: "unslick"
+                    // instead of a settings object
+                ],
+
+                prevArrow: '<a class="previous_ofertas_mobile js-slick-prev-h" style="left: -13%;"><img src="/Content/Images/mobile/Esika/previous_ofertas_home.png"></a>',
+                nextArrow: '<a class="previous_ofertas_mobile js-slick-next-h" style="right: -13%;"><img src="/Content/Images/mobile/Esika/next.png")"/></a>'
             });
-            
+          
         });
     </script>
 }

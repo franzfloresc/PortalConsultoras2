@@ -31,20 +31,7 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/ui.jqgrid/ui.jqgrid.css"
 
             ));
-
              
-            bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/owl").Include(
-
-          "~/Content/Css/owl/docs.theme.min.css",
-           "~/Content/Css/owl/owl.carousel.min.css",
-           "~/Content/Css/owl/owl.theme.default.min.css"
-            ));
-
-
-            bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/owl").Include(
-
-               "~/Scripts/owl.carousel.js"
-            ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/JQueryJs").Include(
                "~/Scripts/jquery-1.11.2.js",
