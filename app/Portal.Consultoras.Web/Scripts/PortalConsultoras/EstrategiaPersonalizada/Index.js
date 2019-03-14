@@ -221,7 +221,10 @@ function SeccionCargarProductos(objConsulta) {
         cache: false
     });
 
+    //console.log(objConsulta);
     //console.log('SeccionCargarProductos - ajax', objConsulta.Codigo, objConsulta);
+    //console.log(param);
+    //console.log(baseUrl + objConsulta.UrlObtenerProductos);
 
     $.ajax({
         type: 'post',
@@ -253,8 +256,15 @@ function SeccionCargarProductos(objConsulta) {
 }
 
 function SeccionMostrarProductos(data) {
-    debugger;
-    //console.log(data.Seccion.Codigo, data);
+    /**************************************************
+     * TODO: quitar
+     *************************************************/
+    //if (data.Seccion.Codigo == CONS_CODIGO_SECCION.ATP) {
+    //    //console.log(data);
+    //    debugger;
+    //}
+    /*************************************************/
+
     var CarruselCiclico = true;
 
     if (isMobile()) {
@@ -290,8 +300,9 @@ function SeccionMostrarProductos(data) {
         return false;
 
     data.Seccion.TemplateProducto = $.trim(data.Seccion.TemplateProducto);
-    if (data.Seccion.TemplateProducto === ""
-        || data.Seccion.Codigo === undefined) {
+    if ((data.Seccion.TemplateProducto === "" ||
+         data.Seccion.Codigo === undefined) && 
+        data.Seccion.Codigo != CONS_CODIGO_SECCION.ATP) {
         return false;
     }
 
@@ -342,7 +353,25 @@ function SeccionMostrarProductos(data) {
         }
     }
     else if (data.Seccion.Codigo === CONS_CODIGO_SECCION.ATP) {
-        $('#' + data.Seccion.Codigo).find('.seccion-content-contenedor').fadeIn();
+        if (data.lista.length > 0) {
+            var btnRedirect = htmlSeccion.find('button.atp_button');
+
+            //btnRedirect.attr('data-cuv', data.lista[0].CUV2);
+
+            if (data.estaEnPedido) {
+                btnRedirect.attr('data-popup', true);
+                btnRedirect.html(btnRedirect.data('modifica'));
+            }
+            else {
+                btnRedirect.attr('data-popup', false);
+                btnRedirect.html(btnRedirect.data('crea'));
+            }
+            $('#' + data.Seccion.Codigo).find('.seccion-content-contenedor').fadeIn();
+        }
+        else {
+            $('.subnavegador').find('[data-codigo=' + data.Seccion.Codigo + ']').fadeOut();
+            UpdateSessionState(data.Seccion.Codigo, data.campaniaId);
+        }
     }
     else if (data.Seccion.Codigo === CONS_CODIGO_SECCION.HV
         || data.Seccion.Codigo === CONS_CODIGO_SECCION.MG
