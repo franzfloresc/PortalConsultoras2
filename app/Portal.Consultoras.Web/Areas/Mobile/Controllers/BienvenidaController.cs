@@ -128,6 +128,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.ConsultoraNuevaBannerAppMostrar = SessionManager.GetConsultoraNuevaBannerAppMostrar();
                 model.MostrarPagoEnLinea = (userData.MontoDeuda > 0);
                 model.TieneCaminoBrillante = userData.CaminoBrillante;
+                model.CaminoBrillanteMsg = userData.CaminoBrillanteMsg.Replace("{0}", "Consultora Ámbar");
+
 
                 #region Camino al Exito
 

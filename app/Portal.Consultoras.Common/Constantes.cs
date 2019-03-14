@@ -177,6 +177,7 @@ namespace Portal.Consultoras.Common
             public const int MensajeActualizarEmailSms = 1001;
             public const int MensajeActualizarSms = 1002;
             public const int MensajeActualizarEmail = 1003;
+            public const int CaminoBrillanteTablaLogica = 165;
 
             public static class PersonalizacionOdd
             {
@@ -196,6 +197,15 @@ namespace Portal.Consultoras.Common
             public static class ArmaTuPack
             {
                 public const string ListCuv = "ListCuv";
+            }
+
+
+
+            public static class CaminoBrillante
+            {
+                public static readonly string Url = "01";
+                public static readonly string Usuario = "02";
+                public static readonly string Clave = "03";
             }
 
         }
