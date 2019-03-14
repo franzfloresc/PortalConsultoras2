@@ -20,7 +20,7 @@ namespace Portal.Consultoras.Web.Providers
         private string Token { get; set; }
 
         /// <summary>
-        /// Obtiene información de los niveles de la Consultora.
+        /// Obtiene información de los niveles de la Consultora. 
         /// </summary>
         public async Task<List<NivelConsultoraCaminoBrillanteModel>> GetNivelConsultora(string isoPais, string codigoConsultora, string cantidadCampanias)
         {
@@ -99,8 +99,9 @@ namespace Portal.Consultoras.Web.Providers
             {
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 client.DefaultRequestHeaders.ConnectionClose = true;
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", token);
-                HttpResponseMessage response = await client.GetAsync(url + urlParameters);
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", "QUtJQUlZRVRTUlVKRFZQVUpNVlE6NjN0U05NT1VxUTJ3QUgxNktXTC9uZnpPdS9xV3BrcHo5VEZtMjFUaQ==");
+                HttpResponseMessage response = await client.GetAsync(url + Constantes.MetodosInformacionComercial.GetNivelConsultora + urlParameters);
+
                 HttpContent content = response.Content;
 
                 if (response.IsSuccessStatusCode)
