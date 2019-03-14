@@ -86,11 +86,13 @@ namespace Portal.Consultoras.Web.Providers
                 ofertasDelDia = new List<ServiceOferta.BEEstrategia>();
             }
 
-            ofertasDelDia.ForEach(x => x.TieneStock = true);
-            // validar por fecha de facturacion el stock
-            if (GetValidarDiasAntesStock(model))
+            if (ofertasDelDia.Any())
             {
-                ofertasDelDia = _consultaProlProvider.ActualizarEstrategiaStockPROL(ofertasDelDia, model.CodigoISO, model.CampaniaID, model.CodigoConsultora);
+                ofertasDelDia.ForEach(x => x.TieneStock = true);
+                if (GetValidarDiasAntesStock(model))
+                {
+                    ofertasDelDia = _consultaProlProvider.ActualizarEstrategiaStockPROL(ofertasDelDia, model.CodigoISO, model.CampaniaID, model.CodigoConsultora);
+                }
             }
 
             return ofertasDelDia;
