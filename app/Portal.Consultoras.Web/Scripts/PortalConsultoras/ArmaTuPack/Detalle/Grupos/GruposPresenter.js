@@ -25,7 +25,8 @@
 
             $.each(value.componentes, function (idx, grupo) {
                 grupo.cantidadSeleccionados = grupo.cantidadSeleccionados || 0;
-                if(grupo.mensajeEligeopciones === undefined){
+                grupo.editado = grupo.editado || false;
+                if (grupo.mensajeEligeopciones === undefined) {
                     if (grupo.FactorCuadre == 1) {
                         grupo.mensajeEligeopciones = "Elige 1 opción";
                     }
@@ -35,6 +36,7 @@
                 }
                 $.each(grupo.Hermanos, function (idxHx, componente) {
                     componente.cantidadSeleccionados = componente.cantidadSeleccionados || 0;
+                    componente.editado = componente.editado || false;
                 });
             });
 
@@ -54,21 +56,29 @@
         _config.gruposView.renderGrupos(packComponents);
     };
 
-    var _updateGroupView = function(cantidadSeleccionados,factorCuadre,codigoGrupo,cuvComponente){
-        if (cantidadSeleccionados == 0) {
+    var _updateGroupView = function (
+        cantidadSeleccionadosPorGrupo,
+        cantidadSeleccionadosPorComponente,
+        factorCuadre,
+        codigoGrupo,
+        cuvComponente) {
+        if (cantidadSeleccionadosPorGrupo == 0) {
             _config.gruposView.showChooseIt(cuvComponente);
             _config.gruposView.showGroupOptions(codigoGrupo);
             _config.gruposView.hideGroupReady(codigoGrupo);
             _config.gruposView.unblockGroup(codigoGrupo);
         }
-        else if (cantidadSeleccionados < factorCuadre) {
-            _config.gruposView.showQuantitySelector(cuvComponente,cantidadSeleccionados);
+        else if (cantidadSeleccionadosPorGrupo < factorCuadre) {
+            if (cantidadSeleccionadosPorComponente == 0)
+                _config.gruposView.showChooseIt(cuvComponente);
+            else
+                _config.gruposView.showQuantitySelector(cuvComponente, cantidadSeleccionadosPorComponente);
             _config.gruposView.showGroupOptions(codigoGrupo);
             _config.gruposView.hideGroupReady(codigoGrupo);
             _config.gruposView.unblockGroup(codigoGrupo);
         }
-        else if (cantidadSeleccionados == factorCuadre) {
-            _config.gruposView.showQuantitySelector(cuvComponente,cantidadSeleccionados);
+        else if (cantidadSeleccionadosPorGrupo == factorCuadre) {
+            _config.gruposView.showQuantitySelector(cuvComponente, cantidadSeleccionadosPorComponente);
             _config.gruposView.hideGroupOptions(codigoGrupo);
             _config.gruposView.showGroupReady(codigoGrupo);
             _config.gruposView.blockGroup(codigoGrupo);
@@ -93,7 +103,9 @@
                         model.componentesNoSeleccionados.splice(0, 1);
                         grupo.cantidadSeleccionados++;
                         componente.cantidadSeleccionados++;
-                        _updateGroupView(componente.cantidadSeleccionados,
+                        _updateGroupView(
+                            grupo.cantidadSeleccionados,
+                            componente.cantidadSeleccionados,
                             grupo.FactorCuadre,
                             codigoGrupo,
                             cuvComponente);
@@ -132,7 +144,9 @@
                     if (componente.Cuv == cuvComponente && componente.cantidadSeleccionados > 0) {
                         grupo.cantidadSeleccionados--;
                         componente.cantidadSeleccionados--;
-                        _updateGroupView(componente.cantidadSeleccionados,
+                        _updateGroupView(
+                            grupo.cantidadSeleccionados,
+                            componente.cantidadSeleccionados,
                             grupo.FactorCuadre,
                             codigoGrupo,
                             cuvComponente);
@@ -145,16 +159,67 @@
 
         if (componenteSeleccionadoIndex != -1) {
             model.componentesSeleccionados.splice(componenteSeleccionadoIndex, 1);
-            model.componentesNoSeleccionados.push({ ImagenBulk: ""});
+            model.componentesNoSeleccionados.push({ ImagenBulk: "" });
             _packComponents(model);
             _config.armaTuPackDetalleEvents.applyChanges(_config.armaTuPackDetalleEvents.eventName.onSelectedComponentsChanged, model);
         }
+    };
+
+    var _onSelectedComponentsChanged = function (packComponents) {
+        if (typeof packComponents === "undefined" || packComponents === null) {
+            throw "packComponents is null or undefined";
+        }
+
+        if (!Array.isArray(packComponents.componentes) || packComponents.componentes.length === 0) {
+            throw "packComponents has no components";
+        }
+        _packComponents(packComponents);
+
+        var model = _packComponents();
+        $.each(model.componentes, function (idx, grupo) {
+            if (grupo.editado) {
+                $.each(grupo.Hermanos, function (idxHx, componente) {
+                    if (componente.editado) {
+                        _updateGroupView(grupo.cantidadSeleccionados,
+                            componente.cantidadSeleccionados,
+                            grupo.FactorCuadre,
+                            grupo.Grupo,
+                            componente.Cuv);
+                        grupo.editado = false;
+                        componente.editado = false;
+                    }
+                });
+            }
+        });
+    };
+
+    var _onShowWarnings = function (packComponents) {
+        if (typeof packComponents === "undefined" || packComponents === null) {
+            throw "packComponents is null or undefined";
+        }
+
+        if (!Array.isArray(packComponents.componentes) || packComponents.componentes.length === 0) {
+            throw "packComponents has no components";
+        }
+
+        _packComponents(packComponents);
+
+        $.each(_packComponents().componentes, function (idxGrupo, grupo) {
+            _config.gruposView.uncollapseGroup(grupo.Grupo);
+            if (grupo.cantidadSeleccionados < grupo.FactorCuadre)
+                _config.gruposView.addGroupHighlight(grupo.Grupo);
+            else
+                _config.gruposView.removeGroupHighlight(grupo.Grupo);
+        });
+
     };
 
     return {
         onGruposLoaded: _onGruposLoaded,
         addComponente: _addComponente,
         packComponents: _packComponents,
-        deleteComponente: _deleteComponente
+        deleteComponente: _deleteComponente,
+        onSelectedComponentsChanged: _onSelectedComponentsChanged,
+        onShowWarnings: _onShowWarnings
     };
 };

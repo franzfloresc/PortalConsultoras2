@@ -63,10 +63,11 @@
     border-radius: 4px;
 }
 
-.Title_pack {    
+.Title_pack {
     border-bottom: 1px solid #d8d8d8;
     padding: 20px 45px 10px 0;
     margin: 0 20px 25px;
+    position: relative;
 }
 
     .Title_pack h3 {
@@ -194,6 +195,15 @@
     font-size: 12px !important;
     font-weight: bold !important;
     color: #6acb3b !important;
+}
+
+
+.arrow_acordeon {
+    position: absolute;
+    margin: 0px;
+    right: 10px;
+    top: 15px;
+    transform: rotate(-90deg);
 }
 
 
@@ -407,6 +417,18 @@
     .contenedor_rangos {
         margin-top: 10px;
     }
+
+    #Select_Items{
+        display: block !important;
+    }
+
+    #Pack_Items .contend-item {
+        width: 171px !important;
+    }
+
+    .arrow_acordeon {
+        display: none !important;
+    }
 }
 
 
@@ -473,10 +495,10 @@
         margin-bottom: 0px;
         border: none;
         justify-content: space-between !important;
-        background-image: url('/Content/Images/General/Icons/arrow_down.svg');
+        /*background-image: url('/Content/Images/General/Icons/arrow_down.svg');
         background-repeat: no-repeat;
-        background-position: center right 11px;
-        background-size: 23px;
+        background-position: center right 11px;*/
+        /*background-size: 23px;*/
         padding: 20px 45px 20px 0;
         margin-right: 0px;
     }
@@ -521,6 +543,10 @@
 
     .slick-track > div:last-child {
         border: none;
+    }
+
+    .Title_pack.active .arrow_acordeon {
+        transform: rotate(0deg) !important;
     }
 }
 

@@ -29,7 +29,9 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/style.css",
                 "~/Content/Css/Site/style-tismart.css",
                 "~/Content/Css/ui.jqgrid/ui.jqgrid.css"
+
             ));
+             
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/JQueryJs").Include(
                "~/Scripts/jquery-1.11.2.js",
@@ -42,6 +44,7 @@ namespace Portal.Consultoras.Web
                "~/Scripts/donetyping.js",
                "~/Scripts/jquery.lazy.js"
             ));
+
             bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/JQuery3Js").Include(
                 "~/Scripts/jquery-3.3.1.js",
                 "~/Scripts/jquery-migrate-1.2.1.js",
@@ -753,7 +756,7 @@ namespace Portal.Consultoras.Web
             #endregion
 
             #region DetalleEstrategia
-            
+
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mixto/EstrategiaAgregar").Include(
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js",
@@ -772,7 +775,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/OpcionesSeleccionadasModule.js",
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/TituloOpcionesSeleccionadasModule.js",
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/ResumenOpcionesModule.js",
-                
+
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js",
                 "~/Scripts/PortalConsultoras/Shared/AnalyticsPortal.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js",
@@ -1007,7 +1010,7 @@ namespace Portal.Consultoras.Web
             ));
 
             #region ArmaTuPack
-            
+
             bundles.Add(new StyleBundle("~/Bundle/Css/Responsive/ArmaTuPack").Include(
                 "~/Content/Css/Site/ArmaTuPack/ArmaTuPack_Responsive.css",
                 "~/Content/Css/Site/ficha/SeleccionarTipo.css",
@@ -1035,7 +1038,7 @@ namespace Portal.Consultoras.Web
              ));
             #endregion
 
-
+            bundles.IgnoreList.Clear();
 #if DEBUG
             BundleTable.EnableOptimizations = false;
 #else

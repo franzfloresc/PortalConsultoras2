@@ -29,7 +29,8 @@ var detallePresenter = DetallePresenter({
 });
 
 var gruposDesktopView = GruposDesktopView({
-    generalModule: generalModule
+    generalModule: generalModule,
+    gruposContainerId: "#grupos"
 });
 var gruposDesktopPresenter = GruposPresenter({
     gruposView: gruposDesktopView,
@@ -38,18 +39,10 @@ var gruposDesktopPresenter = GruposPresenter({
     armaTuPackDetalleEvents: armaTuPackDetalleEvents
 });
 gruposDesktopView.setPresenter(gruposDesktopPresenter);
-//
-var gruposMobileView = GruposMobileView({
-    generalModule: generalModule
-});
-var gruposMobilePresenter = GruposPresenter({
-    gruposView: gruposMobileView,
-    armaTuPackProvider: armaTuPackProvider,
-    generalModule: generalModule,
-    armaTuPackDetalleEvents: armaTuPackDetalleEvents
-});
 
-var seleccionadosView = SeleccionadosView();
+var seleccionadosView = SeleccionadosView({
+    seleccionadosContainerId: "#seleccionados"
+});
 var seleccionadosPresenter = SeleccionadosPresenter({
     seleccionadosView: seleccionadosView,
     armaTuPackProvider: armaTuPackProvider,
@@ -69,5 +62,10 @@ armaTuPackDetalleEvents.subscribe(armaTuPackDetalleEvents.eventName.onGruposLoad
 });
 
 armaTuPackDetalleEvents.subscribe(armaTuPackDetalleEvents.eventName.onSelectedComponentsChanged, function (packComponents) {
+    gruposDesktopPresenter.onSelectedComponentsChanged(packComponents);
     seleccionadosPresenter.onSelectedComponentsChanged(packComponents);
+});
+
+armaTuPackDetalleEvents.subscribe(armaTuPackDetalleEvents.eventName.onShowWarnings, function (packComponents) {
+    gruposDesktopPresenter.onShowWarnings(packComponents);
 });

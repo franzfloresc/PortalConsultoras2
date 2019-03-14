@@ -1,6 +1,7 @@
 ﻿var GruposDesktopView = function(config) {
     if (typeof config === "undefined" || config === null) throw "config is null or undefined";
     if (typeof config.generalModule === "undefined" || config.generalModule === null) throw "config.generalModule is null or undefined";
+    if (typeof config.gruposContainerId === "undefined" || config.gruposContainerId === null) throw "config.gruposContainerId is null or undefined";
     
     var _config = {
         generalModule: config.generalModule
@@ -11,8 +12,9 @@
     var _elements = {
         grupos: {
             templateId: "#grupos-template",
-            id: "#grupos",
-            attrCarruselContainer: "[data-carrusel-container]"
+            id: config.gruposContainerId || "",
+            attrCarruselContainer: "[data-carrusel-container]",
+            headers: "[data-group-header]",
         },
         componente: {
             quantity : function(cuvComponente){ 
@@ -37,6 +39,15 @@
             },
             blockQuantitySelector : function(grupo){ 
                 return "[data-block-selector-cantidad-" + grupo + "]";
+            },
+            item: function (grupo) {
+                return "[data-group-item][data-grupo=" + grupo + "]";
+            },
+            header: function (grupo) {
+                return "[data-group-header][data-grupo=" + grupo + "]";
+            },
+            body: function (grupo) {
+                return "[data-group-body][data-grupo=" + grupo + "]";
             }
         }
     };
@@ -45,14 +56,42 @@
         _presenter = presenter;
     };
 
+    var _collapseGroup = function(grupo){
+        if (grupo === undefined ||
+            grupo === null ||
+            $.trim(grupo) === "") return;
+
+            $(_elements.grupo.header(grupo)).addClass("active");
+            $(_elements.grupo.body(grupo)).css("display", "block");
+    };
+
+    var _uncollapseGroup = function(grupo){
+        if (grupo === undefined ||
+            grupo === null ||
+            $.trim(grupo) === "") return;
+
+            $(_elements.grupo.header(grupo)).removeClass("active");
+            $(_elements.grupo.body(grupo)).css("display", "none");
+    };
+
     var _renderGrupos = function(packComponents) {
         SetHandlebars(_elements.grupos.templateId, packComponents, _elements.grupos.id);
 
-        $(_elements.grupos.id).on("click","[data-add-component]",function(e){
+        $(_elements.grupos.id).on("click", _elements.grupos.headers, function (e) {
+            var $header = $(e.target);
+            var codigoGrupo = $header.data("grupo");
+            if ($(_elements.grupo.body(codigoGrupo)).is(":visible") == true) {
+                _uncollapseGroup(codigoGrupo);
+            } else {
+                _collapseGroup(codigoGrupo);
+            }
+        });
+
+        $(_elements.grupos.id).on("click", "[data-add-component]", function (e) {
             var $btn = $(e.target);
             var codigoGrupo = $btn.data("grupo");
             var cuvComponente = $btn.data("cuv-componente");
-            _presenter.addComponente(codigoGrupo,cuvComponente);
+            _presenter.addComponente(codigoGrupo, cuvComponente);
         });
 
         $(_elements.grupos.id).on("click","[data-delete-component]",function(e){
@@ -67,24 +106,20 @@
             slidesToScroll: 1,
             autoplaySpeed: 2000,
             fade: false,
-            arrows: false,
-            infinite : false
-        };
-        if (!_config.generalModule.isMobile()) {
-            slickSettings.arrows = true;
-            slickSettings.prevArrow =
+            infinite: false,
+            arrows: true,
+            prevArrow:
                 "<a id=\"opciones-seleccionadas-prev\" class=\"flecha_ofertas-tipo prev\" style=\"left:-5%; text-align:left;display:none;\">" +
-                    "<img src=\"" + baseUrl + "Content/Images/Esika/previous_ofertas_home.png\")\" alt=\"\" />" +
-                "</a>";
-            slickSettings.nextArrow =
+                "<img src=\"" + baseUrl + "Content/Images/Esika/previous_ofertas_home.png\")\" alt=\"\" />" +
+                "</a>",
+            nextArrow:
                 "<a id=\"opciones-seleccionadas-next\" class=\"flecha_ofertas-tipo\" style=\"display: block; right:-5%; text-align:right;display:none;\">" +
-                    "<img src=\"" + baseUrl + "Content/Images/Esika/next.png\")\" alt=\"\" />" +
-                "</a>";
-        } else {
-            slickSettings.slidesToShow = 5;
-        }
-
+                "<img src=\"" + baseUrl + "Content/Images/Esika/next.png\")\" alt=\"\" />" +
+                "</a>"
+        };
         $(_elements.grupos.attrCarruselContainer).slick(slickSettings);
+
+        //if (packComponents.componentes.length > 1) $(_elements.grupos.headers).click();
     };
 
     var _showQuantitySelector = function (cuvComponent,quantity) {
@@ -160,6 +195,24 @@
         $(_elements.grupo.blockQuantitySelector(codigoGrupo)).removeClass("disable");
     };
 
+    
+    var _addGroupHighlight = function(grupo){
+        if (grupo === undefined ||
+            grupo === null ||
+            $.trim(grupo) === "") return;
+
+            $(_elements.grupo.item(grupo)).addClass("error");
+    };
+
+
+    var _removeGroupHighlight = function(grupo){
+        if (grupo === undefined ||
+            grupo === null ||
+            $.trim(grupo) === "") return;
+
+            $(_elements.grupo.item(grupo)).removeClass("error");
+    };
+
     return {
         renderGrupos: _renderGrupos,
         setPresenter : _setPresenter,
@@ -170,6 +223,9 @@
         showGroupReady: _showGroupReady,
         hideGroupReady: _hideGroupReady,
         blockGroup: _blockGroup,
-        unblockGroup: _unblockGroup
+        unblockGroup: _unblockGroup,
+        uncollapseGroup: _uncollapseGroup,
+        addGroupHighlight: _addGroupHighlight,
+        removeGroupHighlight: _removeGroupHighlight
     };
 };

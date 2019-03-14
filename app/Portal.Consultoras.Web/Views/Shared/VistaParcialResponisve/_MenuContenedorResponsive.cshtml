@@ -8,81 +8,84 @@
     menuActivo.ConfiguracionPais = menuActivo.ConfiguracionPais ?? new ConfiguracionPaisModel();
     menuActivo.ConfiguracionPais.MobileFondoBanner = Util.Trim(menuActivo.ConfiguracionPais.MobileFondoBanner);
 }
-<div class="atp-nav absolute bgWhite"> 
-    <nav >
+
+
+
+
+<div class="atp-nav absolute bgWhite">
+    <nav>
+        <!--INIT Carrusel-->
         @if (menuList.Any())
-            {
-                
-                <ul class="subnavegador d-flex flex-row justify-content-center"
-                    
-                    data-es-suscrita="@ViewBag.EsSuscrita.ToString().ToLower()"
-                    data-es-activa="@ViewBag.EsActiva.ToString().ToLower()">
+        {
 
-                    @foreach (var menuhijo in menuList)
+            <div class="contenedor_carrusel_home" id="divCarruselMenuRes"
+                 data-es-suscrita="@ViewBag.EsSuscrita.ToString().ToLower()"
+                 data-es-activa="@ViewBag.EsActiva.ToString().ToLower()">
+
+                @foreach (var menuhijo in menuList)
+                {
+                    var claseActivo = menuhijo.Codigo == menuActivo.Codigo ? "activado" : string.Empty;
+                    if (ViewBag.EsSuscrita)
                     {
-                        var claseActivo = menuhijo.Codigo == menuActivo.Codigo ? "activado" : string.Empty;
-                        if (ViewBag.EsSuscrita)
-                        {
-                            claseActivo = menuhijo.Codigo == menuActivo.Codigo ? "default-dorado activado-dorado" : "default-dorado";
-                        }
-                        <li data-campania="@menuhijo.CampaniaId"
-                            data-activo="1"
-                            data-codigo="@menuhijo.Codigo"
-                            data-es-ancla="@menuhijo.EsAncla"
-                            onclick="menuModule.menuClick(this, '@menuhijo.UrlMenuMobile')">
+                        claseActivo = menuhijo.Codigo == menuActivo.Codigo ? "default-dorado activado-dorado" : "default-dorado";
+                    }
+                    <div data-campania="@menuhijo.CampaniaId"
+                         data-activo="1"
+                         data-codigo="@menuhijo.Codigo"
+                         data-es-ancla="@menuhijo.EsAncla"
+                         onclick="menuModule.menuClick(this, '@menuhijo.UrlMenuMobile')">
 
-                            <a href="javascript:;"
-                                class="@claseActivo text-uppercase"
-                                role="menu"
-                                region="Lateral"
-                                parent="Contenedor - @menuActivo.NombreOrigenPantalla"
-                                title="@menuhijo.MobileTituloMenu">
+                        <a href="javascript:;"
+                           class="@claseActivo text-uppercase"
+                           role="menu"
+                           region="Lateral"
+                           parent="Contenedor - @menuActivo.NombreOrigenPantalla"
+                           title="@menuhijo.MobileTituloMenu">
 
-                                @if (!string.IsNullOrEmpty(menuhijo.DesktopLogoMenu))
+                            @if (!string.IsNullOrEmpty(menuhijo.DesktopLogoMenu))
+                            {
+                                if (menuhijo.Codigo == menuActivo.Codigo)
                                 {
-                                    if (menuhijo.Codigo == menuActivo.Codigo)
-                                    {
-                                        <img src="@menuhijo.DesktopLogoMenu"
-                                                alt="Inicio"
-                                                class="img-fluid atp_icon imgSeleccionado icono-submenu-tabs icono-logo-submenu-tabs"
-                                                
-                                                role="menu"
-                                                region="Lateral"
-                                                parent="Contenedor - @menuActivo.NombreOrigenPantalla"
-                                                title="@menuhijo.MobileTituloMenu" />
+                                    <img src="@menuhijo.DesktopLogoMenu"
+                                         alt="Inicio"
+                                         class="img-fluid atp_icon imgSeleccionado icono-submenu-tabs icono-logo-submenu-tabs"
+                                         role="menu"
+                                         region="Lateral"
+                                         parent="Contenedor - @menuActivo.NombreOrigenPantalla"
+                                         title="@menuhijo.MobileTituloMenu" />
 
-                                        <img src="@menuhijo.DesktopLogoMenuNoActivo"
-                                                alt="Inicio"
-                                                class="img-fluid atp_icon imgNoSeleccionado ocultar icono-submenu-tabs icono-logo-submenu-tabs"
-                                                role="menu"
-                                                region="Lateral"
-                                                parent="Contenedor - @menuActivo.NombreOrigenPantalla"
-                                                title="@menuhijo.MobileTituloMenu" />
-                                    }
-                                    else
-                                    {
-                                        <img src="@menuhijo.DesktopLogoMenuNoActivo"
-                                                alt="Inicio"
-                                                class="img-fluid atp_icon icono-submenu-tabs icono-logo-submenu-tabs"
-                                                
-                                                role="menu"
-                                                region="Lateral"
-                                                parent="Contenedor - @menuActivo.NombreOrigenPantalla"
-                                                title="@menuhijo.MobileTituloMenu" />
-                                    }
-
+                                    <img src="@menuhijo.DesktopLogoMenuNoActivo"
+                                         alt="Inicio"
+                                         class="img-fluid atp_icon imgNoSeleccionado ocultar icono-submenu-tabs icono-logo-submenu-tabs"
+                                         role="menu"
+                                         region="Lateral"
+                                         parent="Contenedor - @menuActivo.NombreOrigenPantalla"
+                                         title="@menuhijo.MobileTituloMenu" />
                                 }
                                 else
                                 {
-                                    <span>@menuhijo.MobileTituloMenu</span>
+                                    <img src="@menuhijo.DesktopLogoMenuNoActivo"
+                                         alt="Inicio"
+                                         class="img-fluid atp_icon icono-submenu-tabs icono-logo-submenu-tabs"
+                                         role="menu"
+                                         region="Lateral"
+                                         parent="Contenedor - @menuActivo.NombreOrigenPantalla"
+                                         title="@menuhijo.MobileTituloMenu" />
                                 }
-                            </a>
+
+                            }
+                            else
+                            {
+                                <span>@menuhijo.MobileTituloMenu</span>
+                            }
+                        </a>
 
 
-                        </li>
-                    }
-                </ul>
-                    
-            }
+                    </div>
+                }
+            </div>
+
+        }
+        <!--END Carrusel-->
     </nav>
 </div>

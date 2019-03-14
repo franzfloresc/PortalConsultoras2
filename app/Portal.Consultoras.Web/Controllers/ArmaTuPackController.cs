@@ -53,7 +53,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
         [HttpGet()]
         [Route("Componentes/{cuv:int}")]
-        public async Task<JsonResult> GetComponentes(string Cuv)
+        public JsonResult GetComponentes(string Cuv)
         {
             try
             {
@@ -64,16 +64,21 @@ namespace Portal.Consultoras.Web.Controllers
                 };
                 bool esMultimarca = false;
                 string mensaje = "";
-                var estrategia = await _estrategiaComponenteProvider.GetListaComponenteArmaTuPack(estrategiaModelo, Constantes.TipoEstrategiaCodigo.ArmaTuPack);
+
+                var componentes =  _estrategiaComponenteProvider.GetListaComponentes(estrategiaModelo, 
+                    Constantes.TipoEstrategiaCodigo.ArmaTuPack, out esMultimarca, out mensaje);
                 //var componentes = Mapper.Map<IList<Componente>, IList<EstrategiaComponenteModel>>(estrategia.Componentes);
-                var componentes = Mapper.Map<Componente, EstrategiaComponenteModel>(estrategia.Componentes.First());
+                //var componentes = Mapper.Map<Componente, EstrategiaComponenteModel>(estrategia);
+                //var componentes = estrategia;
                 return Json(new
                 {
                     success = true,
                     esMultimarca,
-                    TipoEstrategiaID = estrategia.TipoEstrategiaId,
-                    EstrategiaID = estrategia.EstrategiaId,
-                    Cuv = estrategia.CUV2,
+                    TipoEstrategiaID = "",
+                    EstrategiaID = "",
+                    CUV2 = Cuv,
+                    FlagNueva = 0,
+                    CodigoVariante = "2003",
                     componentes = componentes,
                     mensaje
                 }, JsonRequestBehavior.AllowGet);
@@ -84,8 +89,8 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false
-                } , JsonRequestBehavior.AllowGet);
+                }, JsonRequestBehavior.AllowGet);
+            }
             }
         }
-    }
 }

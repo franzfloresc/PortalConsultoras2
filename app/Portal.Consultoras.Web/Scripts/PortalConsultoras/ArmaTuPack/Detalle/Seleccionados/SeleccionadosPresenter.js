@@ -19,15 +19,15 @@
             value.componentesSeleccionados = value.componentesSeleccionados || [];
             value.componentesNoSeleccionados = value.componentesNoSeleccionados || [];
             value.componentes = value.componentes || [];
-            var GrupoFactorCuadre = 0;
+            value.FactorCuadre = value.FactorCuadre || 0;
             $.each(value.componentes, function (idx, grupo) {
                 grupo.cantidadSeleccionados = grupo.cantidadSeleccionados || 0;
-                GrupoFactorCuadre = GrupoFactorCuadre + grupo.FactorCuadre;
+                value.FactorCuadre = value.FactorCuadre + grupo.FactorCuadre;
             });
 
             if (value.componentesSeleccionados.length == 0) {
                 if (value.componentesNoSeleccionados.length == 0) {
-                    for (var i = 0; i < GrupoFactorCuadre; i++) {
+                    for (var i = 0; i < value.FactorCuadre; i++) {
                         value.componentesNoSeleccionados.push({ ImagenBulk: "" });
                     }
                 }
@@ -46,7 +46,16 @@
             throw "packComponents has no components";
         }
         _packComponents(packComponents);
+
         _config.seleccionadosView.renderSeleccionados(_packComponentsModel);
+
+        if (_packComponentsModel.componentesNoSeleccionados.length !== 0) {
+            _config.seleccionadosView.disableAgregar();
+        } else {
+            _config.seleccionadosView.enableAgregar();
+        }
+
+        _config.seleccionadosView.hideTooltip();
     };
 
     var _onSelectedComponentsChanged = function (packComponents) {
@@ -58,37 +67,58 @@
             throw "packComponents has no components";
         }
         _packComponents(packComponents);
-        _config.seleccionadosView.renderSeleccionados(packComponents);
-    };
-
-    var _deleteComponente = function (grupoCuv, cuvComponente) {
-        if (typeof grupoCuv === "undefined" || grupoCuv === null) throw "Grupo is null or undefined";
-        if (typeof cuvComponente === "undefined" || cuvComponente === null) throw "cuvComponente is null or undefined";
 
         var model = _packComponents();
-        var componenteSeleccionadoIndex = -1;
+
+        _config.seleccionadosView.refreshSeleccionados(model);
+
+        if(model.componentesSeleccionados.length < model.FactorCuadre){
+            _config.seleccionadosView.disableAgregar();
+        }else{
+            _config.seleccionadosView.enableAgregar();
+        }
+    };
+
+    var _deleteComponente = function (grupoComponente, cuvComponente, indiceComponente) {
+        if (typeof grupoComponente === "undefined" || grupoComponente === null) throw "grupoComponente is null or undefined";
+        if (typeof cuvComponente === "undefined" || cuvComponente === null) throw "cuvComponente is null or undefined";
+        if (typeof indiceComponente === "undefined" || indiceComponente === null) throw "indiceComponente is null or undefined";
+
+        var model = _packComponents();
 
         $.each(model.componentes, function (idx, grupo) {
-            if (grupo.Grupo == grupoCuv) {
-                $.each(model.componentesSeleccionados, function (idx, componenteSeleccionado) {
-                    if (componenteSeleccionado.Cuv == cuvComponente) {
-                        componenteSeleccionadoIndex = idx;
-                        grupo.cantidadSeleccionados = grupo.cantidadSeleccionados > 0 ? (grupo.cantidadSeleccionados - 1) : 0;
+            if (grupo.Grupo == grupoComponente) {
+                $.each(grupo.Hermanos, function (idxComponente, componente) {
+                    if (componente.Cuv == cuvComponente && componente.cantidadSeleccionados > 0) {
+                        grupo.cantidadSeleccionados--;
+                        componente.cantidadSeleccionados--;
+                        grupo.editado = true;
+                        componente.editado  =true;
+                        model.componentesSeleccionados.splice(indiceComponente, 1);
+                        model.componentesNoSeleccionados.push({ ImagenBulk: "" });
+                        return false;
                     }
                 });
             }
         });
 
-        if (componenteSeleccionadoIndex != -1) {
-            model.componentesSeleccionados.splice(componenteSeleccionadoIndex, 1);
-            _packComponents(model);
-            _config.armaTuPackDetalleEvents.applyChanges(_config.armaTuPackDetalleEvents.eventName.onSelectedComponentsChanged, model);
+        _packComponents(model);
+        _config.armaTuPackDetalleEvents.applyChanges(_config.armaTuPackDetalleEvents.eventName.onSelectedComponentsChanged, model);
+    };
+
+    var _addPack = function () {
+        var model = _packComponents();
+        if(model.componentesSeleccionados.length < model.FactorCuadre){
+            _config.seleccionadosView.showTooltip();
+            _config.armaTuPackDetalleEvents.applyChanges(_config.armaTuPackDetalleEvents.eventName.onShowWarnings, model);
         }
     };
 
     return {
+        packComponents: _packComponents,
         onGruposLoaded: _onGruposLoaded,
         onSelectedComponentsChanged: _onSelectedComponentsChanged,
-        deleteComponente: _deleteComponente
+        deleteComponente: _deleteComponente,
+        addPack: _addPack
     };
 };

@@ -4,10 +4,12 @@
         {{#each this.componentesSeleccionados as |seleccionado|}}
         <li class="Select_Item active">
             <div class="product-select">
-                <button class="product_select_close" data-delete-component data-grupo="{{seleccionado.Grupo}}"
-                        data-cuv-componente="{{seleccionado.Cuv}}">
-                    <img data-grupo="{{seleccionado.Grupo}}"
-                         data-cuv-componente="{{seleccionado.Cuv}}" src="/Content/Images/mobile/Esika/close-button-white.svg">
+                <button class="product_select_close" data-delete-component data-grupo-componente="{{seleccionado.Grupo}}"
+                        data-cuv-componente="{{seleccionado.Cuv}}"
+                        data-indice-componente="{{@@index}}">
+                    <img data-grupo-componente="{{seleccionado.Grupo}}"
+                         data-cuv-componente="{{seleccionado.Cuv}}" 
+                         data-indice-componente="{{@@index}}" src="/Content/Images/mobile/Esika/close-button-white.svg">
                 </button>
                 <img src="{{seleccionado.ImagenBulk}}" />
             </div>
@@ -37,6 +39,20 @@
     {{/each}}
     {{/iff}}
     <div class="Agregar_ArmaTuPack_fixed">
-        <button class="Agregar_ArmaTuPack" onclick="javascript: EstrategiaAgregarModule.EstrategiaAgregar(event, false, 0, false">Agregar</button>
+        <div data-agregado='tooltip' class="popover bottom tooltip_bloqueo" role="tooltip" id="" style="display: none;"  data-tooltip-component >
+            <div class="arrow"></div>
+            <div class="popover-content">
+                <span data-agregado="mensaje1"></span>
+                <!-- <img class="tooltop-emoji" src="/Content/Images/Mobile/Esika/1f44d.png" /> -->
+                <span data-agregado="mensaje2">Debes elegir tus opciones para poder agregar la oferta.</span>
+            </div>
+        </div>
+        <input type="hidden" data-input='cantidad' value="1" />
+        <button id="btnAgregalo" 
+            class="Agregar_ArmaTuPack btn_desactivado_general disable"
+            data-bloqueada="" 
+            > 
+            Agregar
+        </button>
     </div>
 </script>
