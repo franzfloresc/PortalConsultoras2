@@ -57,11 +57,11 @@
     };
 
     var _updateGroupView = function (
-            cantidadSeleccionadosPorGrupo,
-            cantidadSeleccionadosPorComponente,
-            factorCuadre,
-            codigoGrupo,
-            cuvComponente) {
+        cantidadSeleccionadosPorGrupo,
+        cantidadSeleccionadosPorComponente,
+        factorCuadre,
+        codigoGrupo,
+        cuvComponente) {
         if (cantidadSeleccionadosPorGrupo == 0) {
             _config.gruposView.showChooseIt(cuvComponente);
             _config.gruposView.showGroupOptions(codigoGrupo);
@@ -201,13 +201,17 @@
         if (!Array.isArray(packComponents.componentes) || packComponents.componentes.length === 0) {
             throw "packComponents has no components";
         }
-        
+
         _packComponents(packComponents);
 
         $.each(_packComponents().componentes, function (idxGrupo, grupo) {
             _config.gruposView.uncollapseGroup(grupo.Grupo);
+            if (grupo.cantidadSeleccionados < grupo.FactorCuadre)
+                _config.gruposView.addGroupHighlight(grupo.Grupo);
+            else
+                _config.gruposView.removeGroupHighlight(grupo.Grupo);
         });
-        
+
     };
 
     return {

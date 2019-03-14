@@ -29,7 +29,8 @@ var detallePresenter = DetallePresenter({
 });
 
 var gruposDesktopView = GruposDesktopView({
-    generalModule: generalModule
+    generalModule: generalModule,
+    gruposContainerId: "#grupos"
 });
 var gruposDesktopPresenter = GruposPresenter({
     gruposView: gruposDesktopView,
@@ -39,7 +40,9 @@ var gruposDesktopPresenter = GruposPresenter({
 });
 gruposDesktopView.setPresenter(gruposDesktopPresenter);
 
-var seleccionadosView = SeleccionadosView();
+var seleccionadosView = SeleccionadosView({
+    seleccionadosContainerId: "#seleccionados"
+});
 var seleccionadosPresenter = SeleccionadosPresenter({
     seleccionadosView: seleccionadosView,
     armaTuPackProvider: armaTuPackProvider,
