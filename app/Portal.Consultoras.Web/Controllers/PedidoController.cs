@@ -4817,10 +4817,10 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     CUV2 = cuv,
                     CampaniaID = campaniaId.ToInt(),
-                    CodigoEstrategia = Constantes.TipoPersonalizacion.ShowRoom
+                    CodigoEstrategia = Constantes.TipoPersonalizacion.ArmaTuPack
                 };
 
-                var estrategia = _ofertaBaseProvider.ObtenerModeloOfertaDesdeApi(estrategiaModelo);
+                var estrategia = _ofertaBaseProvider.ObtenerModeloOfertaDesdeApi(estrategiaModelo, userData.CodigoISO);
 
                 if (estrategia.Hermanos.Any())
                 {
