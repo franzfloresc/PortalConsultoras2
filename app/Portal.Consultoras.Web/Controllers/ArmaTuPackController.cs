@@ -56,7 +56,6 @@ namespace Portal.Consultoras.Web.Controllers
             return View();
         }
         [HttpPost()]
-        [Route("Componentes/{cuv:int}")]
         public JsonResult GetComponentes(string Cuv)
         {
             try

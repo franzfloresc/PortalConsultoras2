@@ -19,9 +19,7 @@
     };
 
     var _getPackComponents = function () {
-
-        debugger;
-        var estrategia = $(_elementos.dataEstrategia.id).attr(_elementos.dataEstrategia.dataEstrategia);
+        var estrategia = JSON.parse($(_elementos.dataEstrategia.id).attr(_elementos.dataEstrategia.dataEstrategia));
         var params = {
             Cuv: estrategia.CUV2
         };
