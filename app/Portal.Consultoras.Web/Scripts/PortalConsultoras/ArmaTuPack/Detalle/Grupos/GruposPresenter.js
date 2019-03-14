@@ -193,11 +193,29 @@
         });
     };
 
+    var _onShowWarnings = function (packComponents) {
+        if (typeof packComponents === "undefined" || packComponents === null) {
+            throw "packComponents is null or undefined";
+        }
+
+        if (!Array.isArray(packComponents.componentes) || packComponents.componentes.length === 0) {
+            throw "packComponents has no components";
+        }
+        
+        _packComponents(packComponents);
+
+        $.each(_packComponents().componentes, function (idxGrupo, grupo) {
+            _config.gruposView.uncollapseGroup(grupo.Grupo);
+        });
+        
+    };
+
     return {
         onGruposLoaded: _onGruposLoaded,
         addComponente: _addComponente,
         packComponents: _packComponents,
         deleteComponente: _deleteComponente,
         onSelectedComponentsChanged: _onSelectedComponentsChanged,
+        onShowWarnings: _onShowWarnings
     };
 };

@@ -62,3 +62,7 @@ armaTuPackDetalleEvents.subscribe(armaTuPackDetalleEvents.eventName.onSelectedCo
     gruposDesktopPresenter.onSelectedComponentsChanged(packComponents);
     seleccionadosPresenter.onSelectedComponentsChanged(packComponents);
 });
+
+armaTuPackDetalleEvents.subscribe(armaTuPackDetalleEvents.eventName.onShowWarnings, function (packComponents) {
+    gruposDesktopPresenter.onShowWarnings(packComponents);
+});

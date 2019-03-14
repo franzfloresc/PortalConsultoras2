@@ -97,10 +97,20 @@
         _config.armaTuPackDetalleEvents.applyChanges(_config.armaTuPackDetalleEvents.eventName.onSelectedComponentsChanged, model);
     };
 
+    var _addPack = function () {
+        var model = _packComponents();
+
+        if(model.componentesSeleccionados.length < model.FactorCuadre){
+            _config.seleccionadosView.showTooltip();
+            _config.armaTuPackDetalleEvents.applyChanges(_config.armaTuPackDetalleEvents.eventName.onShowWarnings, model);
+        }
+    };
+
     return {
         packComponents: _packComponents,
         onGruposLoaded: _onGruposLoaded,
         onSelectedComponentsChanged: _onSelectedComponentsChanged,
-        deleteComponente: _deleteComponente
+        deleteComponente: _deleteComponente,
+        addPack: _addPack
     };
 };

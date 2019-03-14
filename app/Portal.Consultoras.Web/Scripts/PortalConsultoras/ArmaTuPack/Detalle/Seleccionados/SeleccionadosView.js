@@ -63,10 +63,18 @@
             var indiceComponente = $btn.data("indice-componente");
             _presenter.deleteComponente(grupoComponente, cuvComponente, indiceComponente);
         });
+
+        $(_elements.btnAgregar.id).on("click", function (e) {
+            _presenter.addPack();
+        });
     };
 
     var _hideTooltip = function () {
         $(_elements.tooltip.id).hide();
+    };
+
+    var _showTooltip = function () {
+        $(_elements.tooltip.id).show();
     };
 
     return {
@@ -76,6 +84,7 @@
         disableAgregar: _disableAgregar,
         enableAgregar: _enableAgregar,
         hideTooltip: _hideTooltip,
+        showTooltip: _showTooltip,
     };
 };
 
