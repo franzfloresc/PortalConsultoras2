@@ -240,7 +240,7 @@ namespace Portal.Consultoras.Web.Providers
                             }
 
                             seccion.UrlObtenerProductos = "Estrategia/ATPObtenerProductos";
-                            seccion.UrlLandig = "ArmaTuPack";
+                            seccion.UrlLandig = "ArmaTuPack/Detalle";
                             seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.MobileContenedorArmaTuPack : Constantes.OrigenPedidoWeb.DesktopContenedorArmaTuPack;
                             seccion.VerMas = false;
                             break;
@@ -292,7 +292,7 @@ namespace Portal.Consultoras.Web.Providers
                                 isMobile ? "#template-producto-v2" : "#producto-landing-template";
                             break;
                         case Constantes.ConfiguracionSeccion.TipoPresentacion.BannerInteractivo:
-                            seccion.TemplatePresentacion = "seccion-banner-armatupack";
+                            seccion.TemplatePresentacion = "seccion-bannerInteractivo";
                             break;
                     }
 

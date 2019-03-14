@@ -4120,6 +4120,7 @@
     <Content Include="Scripts\PortalConsultoras\EstrategiaAgregar\PedidoRegistro.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaIncentivos\Detalle.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaIncentivos\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\EstrategiaPersonalizada\BannerInteractivo.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaPersonalizada\CajaProducto.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaPersonalizada\EstrategiaUrls.js" />
     <Content Include="Scripts\PortalConsultoras\Estrategia\EstrategiaComponente.js" />
@@ -5723,7 +5724,7 @@
     <Content Include="Views\ArmaTuPack\Detalle\cabecera-template.cshtml" />
     <Content Include="Views\ArmaTuPack\Detalle\grupos-template.cshtml" />
     <Content Include="Views\ArmaTuPack\Detalle\seleccionados-template.cshtml" />
-    <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-banner-armatupack.cshtml" />
+    <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-bannerInteractivo.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

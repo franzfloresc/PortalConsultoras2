@@ -512,7 +512,7 @@ namespace Portal.Consultoras.Web.Providers
                         {
                             continue;
                         }
-                        confiModel.UrlMenu = "ArmaTuPack/Index";
+                        confiModel.UrlMenu = "ArmaTuPack/Detalle";
                         break;
                 }
 
