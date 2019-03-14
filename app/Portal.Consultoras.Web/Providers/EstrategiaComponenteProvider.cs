@@ -98,14 +98,23 @@ namespace Portal.Consultoras.Web.Providers
 
             listaEstrategiaComponente = OrdenarComponentesPorMarca(listaEstrategiaComponente, out esMultimarca);
             mensaje += "OrdenarComponentesPorMarca = " + listaEstrategiaComponente.Count + "|";
-            listaEstrategiaComponente.ForEach(x => x.TieneStock = true);
-            listaEstrategiaComponente.ForEach(x => x.Hermanos.ForEach(y => y.TieneStock = true));
 
-            if (GetValidarDiasAntesStock(userData))
+            if (listaEstrategiaComponente.Any())
             {
-                _consultaProlProvider.ActualizarComponenteStockPROL(listaEstrategiaComponente, estrategiaModelo.CUV2, userData.CodigoISO, estrategiaModelo.CampaniaID, userData.GetCodigoConsultora());
-            }
+                listaEstrategiaComponente.ForEach(x => {
+                    x.TieneStock = true;
+                    if (x.Hermanos != null && x.Hermanos.Any())
+                    {
+                        x.Hermanos.ForEach(y => y.TieneStock = true);
+                    }
+                });
 
+                if (GetValidarDiasAntesStock(userData))
+                {
+                    _consultaProlProvider.ActualizarComponenteStockPROL(listaEstrategiaComponente, estrategiaModelo.CUV2, userData.CodigoISO, estrategiaModelo.CampaniaID, userData.GetCodigoConsultora());
+                }
+            }
+           
             return listaEstrategiaComponente;
         }
 
