@@ -19,15 +19,22 @@
     };
 
     var _getPackComponents = function () {
+
+        debugger;
+        var estrategia = $(_elementos.dataEstrategia.id).attr(_elementos.dataEstrategia.dataEstrategia);
+        var params = {
+            Cuv: estrategia.CUV2
+        };
+
         _config.armaTuPackProvider
-            .getPackComponentsPromise()
+            .getPackComponentsPromise(params)
             .done(function (data) {
                 if (typeof data === "undefined" || data === null ||
                     !Array.isArray(data.componentes) || data.componentes.length === 0) {
                     _config.generalModule.redirectTo("/ofertas");
                 }
 
-                $(_elementos.dataEstrategia.id).attr(_elementos.dataEstrategia.dataEstrategia, JSON.stringify(data));
+                //$(_elementos.dataEstrategia.id).attr(_elementos.dataEstrategia.dataEstrategia, JSON.stringify(data));
                 _config.armaTuPackDetalleEvents.applyChanges(_config.armaTuPackDetalleEvents.eventName.onGruposLoaded, data);
             })
             .fail(function (data, error) {

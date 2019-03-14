@@ -1,4 +1,5 @@
 ﻿@using Portal.Consultoras.Web.Models
+@model Portal.Consultoras.Web.Models.DetalleEstrategiaFichaModel
 
 @{
     Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
@@ -18,7 +19,7 @@
 
 <div class="Select_ArmaTuPack" data-item="">
     <div style="display:none;">
-        <div id="data-estrategia" data-estrategia=""></div>
+        <div id="data-estrategia" data-estrategia="@Html.Raw(Json.Encode(Model))"></div>
     </div>
     <div id="seleccionados" class="container d-flex align-items-center justify-content-center ">
         <ul class="Select_Group">
@@ -641,4 +642,3 @@
         });
     </script>
 }
- 

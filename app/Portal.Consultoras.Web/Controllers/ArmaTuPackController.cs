@@ -24,7 +24,27 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (string.IsNullOrEmpty(cuv)) throw new ArgumentNullException("cuv", "is null or empty.");
 
-            return View();
+            var listaOfertasATP = _ofertaPersonalizadaProvider.ConsultarEstrategiasModel(IsMobile(), userData.CodigoISO, userData.CampaniaID, userData.CampaniaID, Constantes.TipoEstrategiaCodigo.ArmaTuPack).ToList();
+
+            if (listaOfertasATP == null){ return RedirectToAction("ofertas");}
+            if (listaOfertasATP.Count() == 0){ return RedirectToAction("ofertas");}
+
+            var OfertaATP = listaOfertasATP.FirstOrDefault();
+            var lstPedidoAgrupado = ObtenerPedidoWebSetDetalleAgrupado(false);
+            var packAgregado = lstPedidoAgrupado!=null? lstPedidoAgrupado.Where(x => x.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.ArmaTuPack).FirstOrDefault() : null;
+
+
+            var DetalleEstrategiaFichaModel = new DetalleEstrategiaFichaModel {
+
+                CUV2 = OfertaATP.CUV2,
+                TipoEstrategiaID = OfertaATP.TipoEstrategiaID,
+                EstrategiaID = OfertaATP.EstrategiaID,
+                FlagNueva = OfertaATP.FlagNueva,
+                CodigoVariante = "2003",
+                EsEditable = packAgregado == null ? false : true
+            };
+
+            return View(DetalleEstrategiaFichaModel);
         }
 
         [HttpGet()]
@@ -35,7 +55,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return View();
         }
-        [HttpGet()]
+        [HttpPost()]
         [Route("Componentes/{cuv:int}")]
         public JsonResult GetComponentes(string Cuv)
         {
@@ -57,12 +77,6 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = true,
-                    esMultimarca,
-                    TipoEstrategiaID = "",
-                    EstrategiaID = "",
-                    CUV2 = Cuv,
-                    FlagNueva = 0,
-                    CodigoVariante = "2003",
                     componentes = componentes,
                     mensaje
                 }, JsonRequestBehavior.AllowGet);

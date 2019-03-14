@@ -221,7 +221,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
             return null;
         }
-        
+
         private BEPedidoDetalleResult PedidoAgregarProductoTransaction(BEPedidoDetalle pedidoDetalle)
         {
             pedidoDetalle = PedidoAgregar_ObtenerEstrategia(pedidoDetalle);
@@ -235,9 +235,24 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
             var mensaje = string.Empty;
             var cuvSet = estrategia.CUV2;
+            var pedidoID = 0;
 
             usuario.PaisID = pedidoDetalle.PaisID;
             usuario.TieneValidacionMontoMaximo = _usuarioBusinessLogic.ConfiguracionPaisUsuario(usuario, Constantes.ConfiguracionPais.ValidacionMontoMaximo).TieneValidacionMontoMaximo;
+
+            #region ArmaTuPack
+            if (estrategia.TipoEstrategiaID == pedidoDetalle.Estrategia.TipoEstrategiaID)
+            {
+                var lstDetalleAgrupado = ObtenerPedidoWebSetDetalleAgrupado(usuario, out pedidoID);
+                var packAgregado = lstDetalleAgrupado.Where(x => x.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.ArmaTuPack).First();
+
+                if (packAgregado != null)
+                {
+                    pedidoDetalle.EsEditable = true;
+                    pedidoDetalle.SetID = packAgregado.SetID;
+                }
+            }
+            #endregion
 
             #region Editar Pedido con set
 
@@ -279,7 +294,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 CodigoPrograma = usuario.CodigoPrograma,
                 ConsecutivoNueva = usuario.ConsecutivoNueva
             };
-            var pedidoID = 0;
             var lstDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
 
             #region UnidadesPermitidas
