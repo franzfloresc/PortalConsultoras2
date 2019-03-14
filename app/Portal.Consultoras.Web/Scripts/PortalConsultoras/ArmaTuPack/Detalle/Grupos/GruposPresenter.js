@@ -82,6 +82,7 @@
             _config.gruposView.hideGroupOptions(codigoGrupo);
             _config.gruposView.showGroupReady(codigoGrupo);
             _config.gruposView.blockGroup(codigoGrupo);
+            _config.gruposView.removeGroupHighlight(codigoGrupo);
         }
     };
 

@@ -3516,6 +3516,24 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
                 expect(quantitySelected).to.be.equal(factorCuadre);
                 expect(gruposView.blockGroup.calledOnce).to.be.equals(true);
             });
+
+            it("should remove group highlight when when quantity is equal factorCuadre", function () {
+                gruposPresenter.addComponente(codigoGrupo, cuvComponente);
+                gruposPresenter.addComponente(codigoGrupo, cuvComponente);
+                gruposPresenter.addComponente(codigoGrupo, cuvComponente);
+
+                var model = gruposPresenter.packComponents();
+                var quantitySelected = 0;
+                var factorCuadre = 0;
+                $.each(model.componentes, function (idx, grupo) {
+                    if (grupo.Cuv == codigoGrupo) {
+                        quantitySelected = grupo.cantidadSeleccionados;
+                        factorCuadre = grupo.FactorCuadre;
+                    }
+                });
+                expect(quantitySelected).to.be.equal(factorCuadre);
+                expect(gruposView.removeGroupHighlight.calledOnce).to.be.equals(true);
+            });
         });
 
         it("should not add component when component exits in group and quantity selected is upper equal than FactorCuadre", function () {
