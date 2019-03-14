@@ -47,7 +47,7 @@ begin
 		@ConfiguracionPaisID, @CampaniaID, @Orden, @Orden, null,
 		null,'ARMA TU PACK','','Elige #Cantidad y llévatelos al #PrecioTotal','',
 		10,10,'004','004',0,
-		0,1,1,'ArmaTuPack',@Orden,
+		0,1,1,'ArmaTuPack/Detalle',@Orden,
 		@Orden,'#fa1702','#fa1702',0,0,
 		null,null,'Comenzar','Modificar','#000000','#ffffff'
 	)
