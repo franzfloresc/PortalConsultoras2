@@ -19,7 +19,7 @@
             value.componentesSeleccionados = value.componentesSeleccionados || [];
             value.componentesNoSeleccionados = value.componentesNoSeleccionados || [];
             value.componentes = value.componentes || [];
-            value.FactorCuadre = value.FactorCuadre || 0;
+            value.FactorCuadre = 0;
             $.each(value.componentes, function (idx, grupo) {
                 grupo.cantidadSeleccionados = grupo.cantidadSeleccionados || 0;
                 value.FactorCuadre = value.FactorCuadre + grupo.FactorCuadre;
@@ -77,6 +77,8 @@
         }else{
             _config.seleccionadosView.enableAgregar();
         }
+
+        _config.seleccionadosView.hideTooltip();
     };
 
     var _deleteComponente = function (grupoComponente, cuvComponente, indiceComponente) {

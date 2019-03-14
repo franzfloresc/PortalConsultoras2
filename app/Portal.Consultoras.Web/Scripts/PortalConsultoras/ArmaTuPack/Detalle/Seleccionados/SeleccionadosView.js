@@ -49,8 +49,8 @@
         $(_elements.seleccionados.attrCarruselContainer).slick(slickSettings);
 
         if (packComponents.componentesSeleccionados.length > slickSettings.slidesToShow) {
-            var lastSlideIndex = cantidadSeleccionados - slickSettings.slidesToShow;
-            $(_elements.divOpcionesSeleccionadas.id).slick("slickGoTo", lastSlideIndex);
+            var lastSlideIndex = packComponents.componentesSeleccionados.length - slickSettings.slidesToShow;
+            $(_elements.seleccionados.attrCarruselContainer).slick("slickGoTo", lastSlideIndex);
         }
     };
 
