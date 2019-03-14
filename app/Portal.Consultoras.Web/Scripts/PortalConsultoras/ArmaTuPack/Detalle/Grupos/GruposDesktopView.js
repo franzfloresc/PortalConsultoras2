@@ -1,6 +1,7 @@
 ﻿var GruposDesktopView = function(config) {
     if (typeof config === "undefined" || config === null) throw "config is null or undefined";
     if (typeof config.generalModule === "undefined" || config.generalModule === null) throw "config.generalModule is null or undefined";
+    if (typeof config.gruposContainerId === "undefined" || config.gruposContainerId === null) throw "config.gruposContainerId is null or undefined";
     
     var _config = {
         generalModule: config.generalModule
@@ -11,7 +12,7 @@
     var _elements = {
         grupos: {
             templateId: "#grupos-template",
-            id: "#grupos",
+            id: config.gruposContainerId || "",
             attrCarruselContainer: "[data-carrusel-container]",
             headers: "[data-group-header]",
         },
@@ -38,6 +39,9 @@
             },
             blockQuantitySelector : function(grupo){ 
                 return "[data-block-selector-cantidad-" + grupo + "]";
+            },
+            item: function (grupo) {
+                return "[data-group-item][data-grupo=" + grupo + "]";
             },
             header: function (grupo) {
                 return "[data-group-header][data-grupo=" + grupo + "]";
@@ -191,6 +195,24 @@
         $(_elements.grupo.blockQuantitySelector(codigoGrupo)).removeClass("disable");
     };
 
+    
+    var _addGroupHighlight = function(grupo){
+        if (grupo === undefined ||
+            grupo === null ||
+            $.trim(grupo) === "") return;
+
+            $(_elements.grupo.item(grupo)).addClass("error");
+    };
+
+
+    var _removeGroupHighlight = function(grupo){
+        if (grupo === undefined ||
+            grupo === null ||
+            $.trim(grupo) === "") return;
+
+            $(_elements.grupo.item(grupo)).removeClass("error");
+    };
+
     return {
         renderGrupos: _renderGrupos,
         setPresenter : _setPresenter,
@@ -203,5 +225,7 @@
         blockGroup: _blockGroup,
         unblockGroup: _unblockGroup,
         uncollapseGroup: _uncollapseGroup,
+        addGroupHighlight: _addGroupHighlight,
+        removeGroupHighlight: _removeGroupHighlight
     };
 };

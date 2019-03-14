@@ -141,9 +141,12 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
             //
             generalModule = sinon.stub(GeneralModule);
             armaTuPackDetalleEvents = sinon.stub(ArmaTuPackDetalleEvents());
-            gruposView = sinon.stub(GruposDesktopView({
-                generalModule: generalModule
-            }));
+            gruposView = sinon.stub(
+                GruposDesktopView({
+                    generalModule: generalModule,
+                    gruposContainerId: "#grupos"
+                })
+            );
             //
             gruposPresenter = GruposPresenter({
                 gruposView: gruposView,
@@ -1773,7 +1776,7 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
 
     describe("addComponente", function () {
         var errorMsg = '';
-        //
+        
         var gruposView = null;
         var gruposPresenter = null;
 
@@ -3332,11 +3335,12 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
 
         beforeEach(function () {
             errorMsg = '';
-            //
+            
             generalModule = sinon.stub(GeneralModule);
             armaTuPackDetalleEvents = sinon.stub(ArmaTuPackDetalleEvents());
             gruposView = sinon.stub(GruposDesktopView({
-                generalModule: generalModule
+                generalModule: generalModule,
+                gruposContainerId: "#grupos"
             }));
             gruposPresenter = GruposPresenter({
                 gruposView: gruposView,
@@ -3409,7 +3413,7 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
         });
 
         describe("Component exists at group", function () {
-            
+
 
             beforeEach("add componente with cuv 30405", function () {
                 gruposPresenter.addComponente(codigoGrupo, cuvComponente);
@@ -3438,8 +3442,8 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
                 var model = gruposPresenter.packComponents();
                 var quantitySelected = 0;
                 var factorCuadre = 0;
-                $.each(model.componentes,function(idx,grupo){
-                    if(grupo.Grupo == codigoGrupo){
+                $.each(model.componentes, function (idx, grupo) {
+                    if (grupo.Grupo == codigoGrupo) {
                         quantitySelected = grupo.cantidadSeleccionados;
                         factorCuadre = grupo.FactorCuadre;
                     }
@@ -3452,8 +3456,8 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
                 var model = gruposPresenter.packComponents();
                 var quantitySelected = 0;
                 var factorCuadre = 0;
-                $.each(model.componentes,function(idx,grupo){
-                    if(grupo.Grupo == codigoGrupo){
+                $.each(model.componentes, function (idx, grupo) {
+                    if (grupo.Grupo == codigoGrupo) {
                         quantitySelected = grupo.cantidadSeleccionados;
                         factorCuadre = grupo.FactorCuadre;
                     }
@@ -3466,8 +3470,8 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
                 var model = gruposPresenter.packComponents();
                 var quantitySelected = 0;
                 var factorCuadre = 0;
-                $.each(model.componentes,function(idx,grupo){
-                    if(grupo.Grupo == codigoGrupo){
+                $.each(model.componentes, function (idx, grupo) {
+                    if (grupo.Grupo == codigoGrupo) {
                         quantitySelected = grupo.cantidadSeleccionados;
                         factorCuadre = grupo.FactorCuadre;
                     }
@@ -3484,8 +3488,8 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
                 var model = gruposPresenter.packComponents();
                 var quantitySelected = 0;
                 var factorCuadre = 0;
-                $.each(model.componentes,function(idx,grupo){
-                    if(grupo.Cuv == codigoGrupo){
+                $.each(model.componentes, function (idx, grupo) {
+                    if (grupo.Cuv == codigoGrupo) {
                         quantitySelected = grupo.cantidadSeleccionados;
                         factorCuadre = grupo.FactorCuadre;
                     }
@@ -3503,8 +3507,8 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
                 var model = gruposPresenter.packComponents();
                 var quantitySelected = 0;
                 var factorCuadre = 0;
-                $.each(model.componentes,function(idx,grupo){
-                    if(grupo.Cuv == codigoGrupo){
+                $.each(model.componentes, function (idx, grupo) {
+                    if (grupo.Cuv == codigoGrupo) {
                         quantitySelected = grupo.cantidadSeleccionados;
                         factorCuadre = grupo.FactorCuadre;
                     }
@@ -3529,7 +3533,7 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
 
     describe("deleteComponent", function () {
         var errorMsg = '';
-        //
+        
         var gruposView = null;
         var gruposPresenter = null;
 
@@ -5088,11 +5092,12 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
 
         beforeEach(function () {
             errorMsg = '';
-            //
+            
             generalModule = sinon.stub(GeneralModule);
             armaTuPackDetalleEvents = sinon.stub(ArmaTuPackDetalleEvents());
             gruposView = sinon.stub(GruposDesktopView({
-                generalModule: generalModule
+                generalModule: generalModule,
+                gruposContainerId: "#grupos"
             }));
             gruposPresenter = GruposPresenter({
                 gruposView: gruposView,
@@ -5172,14 +5177,14 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
 
             it("should have no one item at componenteSeleccionado", function () {
                 gruposPresenter.deleteComponente(codigoGrupo, cuvComponente);
-                
+
                 var model = gruposPresenter.packComponents();
                 expect(model.componentesSeleccionados.length).to.be.equals(0);
             });
 
             it("should fire an event onSelectedComponentsChanged with not null data object", function () {
                 gruposPresenter.deleteComponente(codigoGrupo, cuvComponente);
-                
+
                 var firstCall = 0;
                 var firstParam = 0;
                 var secondParam = 1;
@@ -5192,8 +5197,8 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
 
                 var model = gruposPresenter.packComponents();
                 var quantitySelected = 0;
-                $.each(model.componentes,function(idx,grupo){
-                    if(grupo.Cuv == codigoGrupo){
+                $.each(model.componentes, function (idx, grupo) {
+                    if (grupo.Cuv == codigoGrupo) {
                         quantitySelected = grupo.cantidadSeleccionados;
                     }
                 });
@@ -5203,12 +5208,12 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
 
             it("should show options label when selectect quantity is less than factorCuadre", function () {
                 gruposPresenter.deleteComponente(codigoGrupo, cuvComponente);
-                
+
                 var model = gruposPresenter.packComponents();
                 var quantitySelected = 0;
                 var factorCuadre = 0;
-                $.each(model.componentes,function(idx,grupo){
-                    if(grupo.Grupo == codigoGrupo){
+                $.each(model.componentes, function (idx, grupo) {
+                    if (grupo.Grupo == codigoGrupo) {
                         quantitySelected = grupo.cantidadSeleccionados;
                         factorCuadre = grupo.FactorCuadre;
                     }
@@ -5219,12 +5224,12 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
 
             it("should hide ready label when selectect quantity is less than factorCuadre", function () {
                 gruposPresenter.deleteComponente(codigoGrupo, cuvComponente);
-                
+
                 var model = gruposPresenter.packComponents();
                 var quantitySelected = 0;
                 var factorCuadre = 0;
-                $.each(model.componentes,function(idx,grupo){
-                    if(grupo.Grupo == codigoGrupo){
+                $.each(model.componentes, function (idx, grupo) {
+                    if (grupo.Grupo == codigoGrupo) {
                         quantitySelected = grupo.cantidadSeleccionados;
                         factorCuadre = grupo.FactorCuadre;
                     }
@@ -5239,8 +5244,8 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
                 var model = gruposPresenter.packComponents();
                 var quantitySelected = 0;
                 var factorCuadre = 0;
-                $.each(model.componentes,function(idx,grupo){
-                    if(grupo.Grupo == codigoGrupo){
+                $.each(model.componentes, function (idx, grupo) {
+                    if (grupo.Grupo == codigoGrupo) {
                         quantitySelected = grupo.cantidadSeleccionados;
                         factorCuadre = grupo.FactorCuadre;
                     }
@@ -5253,15 +5258,15 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
 
     describe("onShowWarnings", function () {
         var errorMsg = '';
-        //
+        
         var gruposView = null;
         var gruposPresenter = null;
         var generalModule = null;
         var armaTuPackDetalleEvents = null;
-        //
+        
         var codigoGrupo = "1";
         var cuvComponente = "30405";
-        //
+        
         var fakeComponentsWithNoSelected = function () {
             return {
                 "success": true,
@@ -5274,27 +5279,27 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
                 "componentes": [
                     {
                         "Cantidad": 1,
-                        //"CodigoProducto": null,
-                        //"Cuv": "30379",
-                        //"Descripcion": "Color intenso y suavidad por mucho más tiempo con acabado perlado.",
-                        //"DescripcionComercial": null,
+                        "CodigoProducto": null,
+                        "Cuv": "30379",
+                        "Descripcion": "Color intenso y suavidad por mucho más tiempo con acabado perlado.",
+                        "DescripcionComercial": null,
                         "DescripcionMarca": "Ésika",
                         "Digitable": 1,
                         "FactorCuadre": 2,
                         "Grupo": "1",
-                        //"Id": 0,
+                        "Id": 0,
                         "IdMarca": 2,
-                        //"Imagen": null,
-                        //"ImagenBulk": "https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201904/E/productos/bulk/CL_200084550_B.jpg",
-                        //"ImagenProductoSugerido": null,
-                        //"NombreBulk": "Miel glacé",
+                        "Imagen": null,
+                        "ImagenBulk": "https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201904/E/productos/bulk/CL_200084550_B.jpg",
+                        "ImagenProductoSugerido": null,
+                        "NombreBulk": "Miel glacé",
                         "NombreComercial": "Labial de Máxima duración.   2 g / .07 oz.",
                         "DescripcionPlural": "Labiales",
                         "DescripcionSingular": "Labial",
-                        //"Orden": 26,
-                        //"PrecioCatalogo": 2975,
-                        //"PrecioCatalogoString": "2.975",
-                        //"Volumen": "2 g / .07 oz.",
+                        "Orden": 26,
+                        "PrecioCatalogo": 2975,
+                        "PrecioCatalogoString": "2.975",
+                        "Volumen": "2 g / .07 oz.",
                         "Hermanos": [
                             {
                                 "Cantidad": 1,
@@ -5348,7 +5353,7 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
                             }
                         ],
                         "TieneStock": true,
-                        //"EstrategiaGrupoId": 0
+                        "EstrategiaGrupoId": 0
                     },
                     {
                         "Cantidad": 1,
@@ -5435,11 +5440,12 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
 
         beforeEach(function () {
             errorMsg = '';
-            //
+            
             generalModule = sinon.stub(GeneralModule);
             armaTuPackDetalleEvents = sinon.stub(ArmaTuPackDetalleEvents());
             gruposView = sinon.stub(GruposDesktopView({
-                generalModule: generalModule
+                generalModule: generalModule,
+                gruposContainerId: "#grupos"
             }));
             gruposPresenter = GruposPresenter({
                 gruposView: gruposView,
@@ -5452,57 +5458,58 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
             sinon.restore();
         });
 
-        describe("Given no components selected When onShowWarnings is fired", function () {
+        it("Should throw an exception when data object is undefined", function () {
 
-            it("Should throw an exception when data object is undefined", function () {
+            try {
+                gruposPresenter.onShowWarnings(undefined);
+            } catch (error) {
+                errorMsg = error;
+            }
 
-                try {
-                    gruposPresenter.onShowWarnings(undefined);
-                } catch (error) {
-                    errorMsg = error;
-                }
-    
-                expect(errorMsg).to.have.string("packComponents is null or undefined");
-            });
-    
-            it("Should throw an exception when data object is null", function () {
-    
-                try {
-                    gruposPresenter.onShowWarnings(null);
-                } catch (error) {
-                    errorMsg = error;
-                }
-    
-                expect(errorMsg).to.have.string("packComponents is null or undefined");
-            });
-    
-            it("Should hrow an exception when componentes property is null or undefined", function () {
-    
-                try {
-                    gruposPresenter.onShowWarnings({
-                        componentes: null
-                    });
-                } catch (error) {
-                    errorMsg = error;
-                }
-    
-                expect(errorMsg).to.have.string("packComponents has no components");
-            });
-    
-            it("Should throw an exception when componentes property is null or undefined", function () {
-    
-                try {
-                    gruposPresenter.onShowWarnings({
-                        componentes: null
-                    });
-                } catch (error) {
-                    errorMsg = error;
-                }
-    
-                expect(errorMsg).to.have.string("packComponents has no components");
-            });
+            expect(errorMsg).to.have.string("packComponents is null or undefined");
+        });
 
-            it("Should collapse grupos", function () {
+        it("Should throw an exception when data object is null", function () {
+
+            try {
+                gruposPresenter.onShowWarnings(null);
+            } catch (error) {
+                errorMsg = error;
+            }
+
+            expect(errorMsg).to.have.string("packComponents is null or undefined");
+        });
+
+        it("Should hrow an exception when componentes property is null or undefined", function () {
+
+            try {
+                gruposPresenter.onShowWarnings({
+                    componentes: null
+                });
+            } catch (error) {
+                errorMsg = error;
+            }
+
+            expect(errorMsg).to.have.string("packComponents has no components");
+        });
+
+        it("Should throw an exception when componentes property is null or undefined", function () {
+
+            try {
+                gruposPresenter.onShowWarnings({
+                    componentes: null
+                });
+            } catch (error) {
+                errorMsg = error;
+            }
+
+            expect(errorMsg).to.have.string("packComponents has no components");
+        });
+
+
+        describe("Given no one components selected When onShowWarnings is fired", function () {
+
+            it("Should uncollapse all grupos", function () {
                 // Arrange
 
                 // Act
@@ -5511,6 +5518,67 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
                 // Assert
                 expect(gruposView.uncollapseGroup.callCount).to.be.equals(2);
             });
+
+            it("Should highlight  groups with selected quantity less than FactorCuadre", function () {
+                // Arrange
+
+                // Act
+                gruposPresenter.onShowWarnings(fakeComponentsWithNoSelected());
+
+                // Assert
+                expect(gruposView.addGroupHighlight.callCount).to.be.equals(2);
+            });
+
+            it("Should not remove highlight group", function () {
+                // Arrange
+
+                // Act
+                gruposPresenter.onShowWarnings(fakeComponentsWithNoSelected());
+
+                // Assert
+                expect(gruposView.removeGroupHighlight.callCount).to.be.equals(0);
+            });
+        });
+
+        describe("Given one components selected When onShowWarnings is fired", function () {
+            var model = null;
+            beforeEach(function () {
+                gruposPresenter.onGruposLoaded(fakeComponentsWithNoSelected());
+                gruposPresenter.addComponente(codigoGrupo, cuvComponente);
+                gruposPresenter.addComponente(codigoGrupo, cuvComponente);
+                model = gruposPresenter.packComponents();
+            });
+
+            it("Should uncollapse all grupos", function () {
+                // Arrange
+
+                // Act
+                gruposPresenter.onShowWarnings(model);
+
+                // Assert
+                expect(gruposView.uncollapseGroup.callCount).to.be.equals(2);
+            });
+
+            it("Should highlight groups with selected quantity less than FactorCuadre", function () {
+                // Arrange
+
+                // Act
+                gruposPresenter.onShowWarnings(model);
+
+                // Assert
+                expect(gruposView.addGroupHighlight.callCount).to.be.equals(1);
+            });
+
+            it("Should remove highlight to groups with selected quantity equal to FactorCuadre", function () {
+                // Arrange
+
+                // Act
+                gruposPresenter.onShowWarnings(model);
+
+                // Assert
+                expect(gruposView.removeGroupHighlight.callCount).to.be.equals(1);
+            });
+
         });
     });
 });
