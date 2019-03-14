@@ -236,15 +236,15 @@ namespace Portal.Consultoras.BizLogic.Pedido
             var mensaje = string.Empty;
             var cuvSet = estrategia.CUV2;
             var pedidoID = 0;
+            var lstDetalleAgrupado = ObtenerPedidoWebSetDetalleAgrupado(usuario, out pedidoID);
 
             usuario.PaisID = pedidoDetalle.PaisID;
             usuario.TieneValidacionMontoMaximo = _usuarioBusinessLogic.ConfiguracionPaisUsuario(usuario, Constantes.ConfiguracionPais.ValidacionMontoMaximo).TieneValidacionMontoMaximo;
 
             #region ArmaTuPack
-            if (estrategia.TipoEstrategiaID == pedidoDetalle.Estrategia.TipoEstrategiaID)
+            if (estrategia.TipoEstrategiaID.ToString() == pedidoDetalle.Producto.TipoEstrategiaID)
             {
-                var lstDetalleAgrupado = ObtenerPedidoWebSetDetalleAgrupado(usuario, out pedidoID);
-                var packAgregado = lstDetalleAgrupado.Where(x => x.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.ArmaTuPack).First();
+                var packAgregado = lstDetalleAgrupado != null ? lstDetalleAgrupado.Where(x => x.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.ArmaTuPack).FirstOrDefault() : null;
 
                 if (packAgregado != null)
                 {
@@ -343,7 +343,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
             }
             else
             {
-                var lstDetalleAgrupado = ObtenerPedidoWebSetDetalleAgrupado(usuario, out pedidoID);
                 var validacionLimiteVenta = ValidarLimiteVenta(estrategia, lstDetalleAgrupado);
                 if (validacionLimiteVenta != null) return validacionLimiteVenta;
 

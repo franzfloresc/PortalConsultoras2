@@ -40,15 +40,20 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (string.IsNullOrEmpty(cuv)) throw new ArgumentNullException("cuv", "is null or empty.");
 
+            var area = "";
+            if (Request.Browser.IsMobileDevice)
+            {
+                area = "mobile";
+            }
+
             var listaOfertasATP = _ofertaPersonalizadaProvider.ConsultarEstrategiasModel(IsMobile(), userData.CodigoISO, userData.CampaniaID, userData.CampaniaID, Constantes.TipoEstrategiaCodigo.ArmaTuPack).ToList();
 
-            if (listaOfertasATP == null){ return RedirectToAction("ofertas");}
-            if (listaOfertasATP.Count() == 0){ return RedirectToAction("ofertas");}
+            if (listaOfertasATP == null){ return RedirectToAction("ofertas", "ficha", new { Area = area }); };
+            if (listaOfertasATP.Count() == 0){ return RedirectToAction("ofertas", "ficha", new { Area = area }); }
 
             var OfertaATP = listaOfertasATP.FirstOrDefault();
             var lstPedidoAgrupado = ObtenerPedidoWebSetDetalleAgrupado(false);
             var packAgregado = lstPedidoAgrupado!=null? lstPedidoAgrupado.Where(x => x.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.ArmaTuPack).FirstOrDefault() : null;
-
 
             var DetalleEstrategiaFichaModel = new DetalleEstrategiaFichaModel {
 
@@ -56,7 +61,7 @@ namespace Portal.Consultoras.Web.Controllers
                 TipoEstrategiaID = OfertaATP.TipoEstrategiaID,
                 EstrategiaID = OfertaATP.EstrategiaID,
                 FlagNueva = OfertaATP.FlagNueva,
-                CodigoVariante = "2003",
+                CodigoVariante = OfertaATP.CodigoEstrategia,
                 EsEditable = packAgregado == null ? false : true
             };
 
