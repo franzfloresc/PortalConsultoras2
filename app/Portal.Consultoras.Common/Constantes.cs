@@ -3126,6 +3126,8 @@ namespace Portal.Consultoras.Common
         public static class CodigoConfiguracionMSPersonalizacion
         {
             public const string EstrategiaDisponible = "EstrategiaDisponible";
+            public const string GuardaDataEnLocalStorage = "GuardaDataEnLocalStorage";
+            public const string GuardaDataEnSession = "GuardaDataEnSession";
         }
 
         public static class CodigoConfiguracionRecomendaciones
