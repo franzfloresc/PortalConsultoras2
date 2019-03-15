@@ -6,6 +6,7 @@ namespace Portal.Consultoras.Web.Models.CaminoBrillante
     [DataContract]
     public class NivelConsultoraCaminoBrillanteModel
     {
+
         public string ISOPAIS { get; set; }
         [DataMember(Name = "PERIODOCAE")]
         public string PeriodoCae { get; set; }
