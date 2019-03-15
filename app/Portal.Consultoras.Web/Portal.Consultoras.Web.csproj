@@ -4110,6 +4110,7 @@
     <Content Include="Scripts\PortalConsultoras\CatalogoPersonalizado\catalogoPersonalizado.js" />
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\CarruselModule.js" />
+    <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\DetalleEstrategiaProvider.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaModule.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\ListaOpcionesModule.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\ComponentesModule.js" />
