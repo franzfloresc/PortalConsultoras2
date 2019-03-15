@@ -1135,6 +1135,12 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                     if (tippingPoint.IndExigVent == "0" || tippingPoint.MontoVentaExigido == 0) pedido.TippingPoint = config.MontoMinimoPedido;
                     else pedido.TippingPoint = tippingPoint.MontoVentaExigido;
+
+                    List<BEEstrategia> LstEstrategia = _estrategiaBusinessLogic.GetEstrategiaPremiosElectivos(usuario.PaisID, usuario.CodigoPrograma, usuario.CampaniaID, usuario.Nivel);
+                    LstEstrategia = LstEstrategia == null ? new List<BEEstrategia>() : LstEstrategia;
+
+                    if (LstEstrategia.Count > 0)
+                        pedido.olstBEPedidoWebDetalle.ForEach(p => p.EsPremioElectivo = LstEstrategia.Any(c => c.CUV2 == p.CUV));
                 }
 
                 //Duo Perfecto
@@ -1530,7 +1536,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                 if (objPedidoDetalle.olstBEPedidoWebDetalle == null) objPedidoDetalle.olstBEPedidoWebDetalle = new List<BEPedidoWebDetalle>();
 
-                objPedidoDetalle.olstBEPedidoWebDetalle.ForEach(p => p.EsPremioElectivo = LstEstrategia.Any(c => c.CUV2 == p.CUV));
+                //objPedidoDetalle.olstBEPedidoWebDetalle.ForEach(p => p.EsPremioElectivo = LstEstrategia.Any(c => c.CUV2 == p.CUV));
 
                 if (objPedidoDetalle.olstBEPedidoWebDetalle.Any(x => x.EsPremioElectivo))
                 {
