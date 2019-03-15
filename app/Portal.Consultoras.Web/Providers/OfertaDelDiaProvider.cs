@@ -6,6 +6,7 @@ using Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia;
 using Portal.Consultoras.Web.ServiceOferta;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.SessionManager;
+using Portal.Consultoras.Web.TempDataManager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,11 +19,12 @@ namespace Portal.Consultoras.Web.Providers
     public class OfertaDelDiaProvider : OfertaBaseProvider
     {
         protected ISessionManager sessionManager;
+        protected ITempDataManager tempDataManager;
         protected ConfiguracionManagerProvider _configuracionManager;
         protected TablaLogicaProvider _tablaLogica;
         protected OfertaPersonalizadaProvider _ofertaPersonalizada;
         protected ConsultaProlProvider _consultaProlProvider;
-        private TempDataDictionary _tempData;
+        //private TempDataDictionary _tempData;
 
         public OfertaDelDiaProvider(TempDataDictionary objTempData)
         {
@@ -31,7 +33,8 @@ namespace Portal.Consultoras.Web.Providers
             _tablaLogica = new TablaLogicaProvider();
             _ofertaPersonalizada = new OfertaPersonalizadaProvider(objTempData);
             _consultaProlProvider = new ConsultaProlProvider();
-            _tempData = objTempData;
+            //_tempData = objTempData;
+            tempDataManager = new TempDataManager.TempDataManager(objTempData);
         }
 
         public List<ServiceOferta.BEEstrategia> GetOfertas(UsuarioModel model)
@@ -182,7 +185,7 @@ namespace Portal.Consultoras.Web.Providers
         {
             var oddSession = sessionManager.OfertaDelDia.Estrategia;
 
-            var xtempdata = _tempData["xxx1"];
+            var xtempdata = tempDataManager.GetListODD();
 
             try
             {
@@ -204,7 +207,7 @@ namespace Portal.Consultoras.Web.Providers
                     {
                         var listaEstrategiaBase = GetOfertas(usuario);
                         oddSession.ListaOferta = _ofertaPersonalizada.ConsultarEstrategiasModelFormato(listaEstrategiaBase, usuario.CodigoISO, usuario.CampaniaID, 2, usuario.esConsultoraLider, usuario.Simbolo);
-                        _tempData["xxx1"] = oddSession.ListaOferta;
+                        tempDataManager.SetListODD(oddSession.ListaOferta);
                         AsignarPrimeraOferta(ref oddSession, usuario);
                     }
 
@@ -226,7 +229,7 @@ namespace Portal.Consultoras.Web.Providers
                 var listaEstrategia = GetOfertas(usuario);
                 oddSession.ListaOferta = _ofertaPersonalizada.ConsultarEstrategiasModelFormato(listaEstrategia, usuario.CodigoISO, usuario.CampaniaID, 2, usuario.esConsultoraLider, usuario.Simbolo);
 
-                _tempData["xxx1"] = oddSession.ListaOferta;
+                tempDataManager.SetListODD(oddSession.ListaOferta);
 
                 if (!oddSession.ListaOferta.Any())
                 {

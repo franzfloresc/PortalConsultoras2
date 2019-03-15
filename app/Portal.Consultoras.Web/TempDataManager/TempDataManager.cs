@@ -8,26 +8,33 @@ namespace Portal.Consultoras.Web.TempDataManager
 {
     internal class TempDataManager : ITempDataManager
     {
-        public List<EstrategiaPersonalizadaProductoModel> GetListODD(TempDataDictionary TempData, bool persistencia = false)
+        private TempDataDictionary _tempData;
+
+        public TempDataManager(TempDataDictionary TempData)
+        {
+            _tempData = TempData;
+        }
+
+        public List<EstrategiaPersonalizadaProductoModel> GetListODD(bool persistencia = false)
         {
 
             List<EstrategiaPersonalizadaProductoModel> result = null;
 
-            if (TempData["tdListODD"] != null)
+            if (_tempData["tdListODD"] != null)
             {
-                result = (List<EstrategiaPersonalizadaProductoModel>)TempData["tdListODD"];
+                result = (List<EstrategiaPersonalizadaProductoModel>)_tempData["tdListODD"];
                 if (persistencia)
                 {
-                    TempData.Keep("tdListODD");
+                    _tempData.Keep("tdListODD");
                 }
             }
 
             return result;
         }
 
-        public void SetListODD(TempDataDictionary TempData, List<EstrategiaPersonalizadaProductoModel> listODD)
+        public void SetListODD(List<EstrategiaPersonalizadaProductoModel> listODD)
         {
-            TempData["tdListODD"] = listODD;
+            _tempData["tdListODD"] = listODD;
         }
     }
 }

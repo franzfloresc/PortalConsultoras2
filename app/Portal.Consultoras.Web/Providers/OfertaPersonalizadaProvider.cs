@@ -6,6 +6,7 @@ using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServiceOferta;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.SessionManager;
+using Portal.Consultoras.Web.TempDataManager;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -36,18 +37,19 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
+        protected ITempDataManager tempDataManager;
         protected ConfiguracionManagerProvider _configuracionManager;
         protected readonly PedidoWebProvider _pedidoWeb;
         protected OfertaBaseProvider _ofertaBaseProvider;
         protected ShowRoomProvider _showRoomProvider;
         protected ConsultaProlProvider _consultaProlProvider;
-        private TempDataDictionary _tempData;
+        //private TempDataDictionary _tempData;
 
         public OfertaPersonalizadaProvider() : this(Web.SessionManager.SessionManager.Instance,
             new ConfiguracionManagerProvider(),
             new PedidoWebProvider(),
             new OfertaBaseProvider(),
-            new ConsultaProlProvider(), null)
+            new ConsultaProlProvider())
         {
         }
 
@@ -55,9 +57,9 @@ namespace Portal.Consultoras.Web.Providers
             new ConfiguracionManagerProvider(),
             new PedidoWebProvider(),
             new OfertaBaseProvider(),
-            new ConsultaProlProvider(),
-            objTempData)
+            new ConsultaProlProvider())
         {
+            tempDataManager = new TempDataManager.TempDataManager(objTempData);
         }
 
         public OfertaPersonalizadaProvider(
@@ -65,8 +67,7 @@ namespace Portal.Consultoras.Web.Providers
             ConfiguracionManagerProvider configuracionManagerProvider,
             PedidoWebProvider pedidoWebProvider,
             OfertaBaseProvider ofertaBaseProvider,
-            ConsultaProlProvider consultaProlProvider,
-            TempDataDictionary objTempData)
+            ConsultaProlProvider consultaProlProvider)
         {
             this.SessionManager = sessionManager;
             _configuracionManager = configuracionManagerProvider;
@@ -74,7 +75,6 @@ namespace Portal.Consultoras.Web.Providers
             _ofertaBaseProvider = ofertaBaseProvider;
             _showRoomProvider = new ShowRoomProvider();
             _consultaProlProvider = consultaProlProvider;
-            _tempData = objTempData;
         }
 
         #region Metodos de Estrategia Controller
@@ -1249,11 +1249,7 @@ namespace Portal.Consultoras.Web.Providers
 
         public List<EstrategiaPersonalizadaProductoModel> ObtenerListaProductoODD(bool persistenciaLista = false)
         {
-            var xxx = _tempData["xxx1"];
-            if(persistenciaLista)
-            {
-                _tempData.Keep("xxx1");
-            }
+            var xtempdata = tempDataManager.GetListODD(persistenciaLista);
 
             if (SessionManager.OfertaDelDia.Estrategia != null)
             {

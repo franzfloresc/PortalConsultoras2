@@ -8,10 +8,10 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.TempDataManager
 {
-    internal interface ITempDataManager
+    public interface ITempDataManager
     {
-        List<EstrategiaPersonalizadaProductoModel> GetListODD(TempDataDictionary TempData, bool persistencia);
+        List<EstrategiaPersonalizadaProductoModel> GetListODD(bool persistencia = false);
 
-        void SetListODD(TempDataDictionary TempData, List<EstrategiaPersonalizadaProductoModel> listODD);
+        void SetListODD(List<EstrategiaPersonalizadaProductoModel> listODD);
     }
 }
