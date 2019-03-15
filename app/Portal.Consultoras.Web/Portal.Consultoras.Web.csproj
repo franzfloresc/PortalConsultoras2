@@ -323,8 +323,8 @@
     <Compile Include="CustomFilters\ValidateAjaxModelAttribute.cs" />
     <Compile Include="Models\CambioTipoNegocioModel.cs" />
     <Compile Include="Controllers\ReporteContratoController.cs" />
-    <Compile Include="Models\CaminoBrillante\ConsultorasModel.cs" />
-    <Compile Include="Models\CaminoBrillante\NivelesModel.cs" />
+    <Compile Include="Models\CaminoBrillante\NivelConsultoraCaminoBrillanteModel.cs" />
+    <Compile Include="Models\CaminoBrillante\NivelesCaminoBrillanteModel.cs" />
     <Compile Include="Models\CaminoBrillante\OfertasModel.cs" />
     <Compile Include="Models\CaminoBrillante\PeriodosModel.cs" />
     <Compile Include="Models\Config\ResponseReporte\Estructura\ReporteValidacion.cs" />
@@ -4130,6 +4130,7 @@
     <Content Include="Scripts\PortalConsultoras\Buscador\BuscadorModule.js" />
     <Content Include="Scripts\PortalConsultoras\Buscador\BuscadorProvider.js" />
     <Content Include="Scripts\PortalConsultoras\Buscador\BusquedaProductoModule.js" />
+    <Content Include="Scripts\PortalConsultoras\CaminoBrillante\index.js" />
     <Content Include="Scripts\PortalConsultoras\Campania\CampaniaModule.js" />
     <Content Include="Scripts\PortalConsultoras\CatalogoPersonalizado\catalogoPersonalizado.js" />
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />

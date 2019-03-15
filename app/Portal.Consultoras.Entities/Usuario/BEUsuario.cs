@@ -931,6 +931,7 @@ namespace Portal.Consultoras.Entities
         public bool TieneMG { get; set; }
         [DataMember]
         public BEDireccionEntrega DireccionEntrega { get; set; }
+        [DataMember]
         public bool TieneChatbot { get; set; }
         [DataMember]
         public List<BEConfiguracionPaisDatos> RecomendacionesConfiguracion { get; set; }
