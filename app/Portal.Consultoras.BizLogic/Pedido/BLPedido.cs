@@ -2672,6 +2672,16 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     EstrategiaID = productRegalo.EstrategiaID
                 };
 
+                pedidoDetalle.Estrategia = new BEEstrategia()
+                {
+                    Cantidad = pedidoDetalle.Cantidad,
+                    DescripcionCUV2 = Util.Trim(productRegalo.DescripcionCUV2),
+                    FlagNueva = 0,
+                    TipoEstrategiaID = pedidoDetalle.Producto.TipoEstrategiaID.Trim() == string.Empty ? 0 : int.Parse(pedidoDetalle.Producto.TipoEstrategiaID.Trim()),
+                    CUV2 = pedidoDetalle.Producto.CUV,
+                    MarcaID = pedidoDetalle.Producto.MarcaID
+                };
+
                 objRerun = Insert(pedidoDetalle);
             }
             else
