@@ -44,7 +44,7 @@ namespace Portal.Consultoras.Web.Controllers
                 payLoad.CodigoUsuario = strCodigoUsuario;
 
                 var cadenaEncriptada = JWT.JsonWebToken.Encode(payLoad, secretKey, JWT.JwtHashAlgorithm.HS256);
-                urlAccesoExterno = ConfigurationManager.AppSettings["URL_LIDER"].ToString() + "/Index/?p=" + cadenaEncriptada;
+                urlAccesoExterno = ConfigurationManager.AppSettings["URL_LIDER"].ToString() + "/?p=" + cadenaEncriptada;
             }
 
             return Redirect(urlAccesoExterno);
