@@ -5,7 +5,7 @@
 
         jQuery.ajax({
             type: "POST",
-            url: baseUrl + "ArmaTuPack/GetComponentes",
+            url: baseUrl + "DetalleEstrategia/ObtenerComponentes",
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(params),

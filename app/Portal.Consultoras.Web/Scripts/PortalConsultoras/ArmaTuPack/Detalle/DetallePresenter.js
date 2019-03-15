@@ -21,22 +21,27 @@
     var _getPackComponents = function () {
         var estrategia = JSON.parse($(_elementos.dataEstrategia.id).attr(_elementos.dataEstrategia.dataEstrategia));
         var params = {
-            Cuv: estrategia.CUV2
+            estrategiaId: estrategia.EstrategiaID,
+            cuv2: estrategia.CUV2,
+            campania: estrategia.CampaniaID,
+            codigoVariante: estrategia.CodigoVariante,
+            codigoEstrategia: estrategia.CodigoEstrategia
         };
+
+        var urlReturn = !estrategia.IsMobile ? "/ofertas" : "mobile/ofertas";
 
         _config.armaTuPackProvider
             .getPackComponentsPromise(params)
             .done(function (data) {
+
                 if (typeof data === "undefined" || data === null ||
                     !Array.isArray(data.componentes) || data.componentes.length === 0) {
-                    _config.generalModule.redirectTo("/ofertas");
+                    _config.generalModule.redirectTo(urlReturn);
                 }
-
-                //$(_elementos.dataEstrategia.id).attr(_elementos.dataEstrategia.dataEstrategia, JSON.stringify(data));
                 _config.armaTuPackDetalleEvents.applyChanges(_config.armaTuPackDetalleEvents.eventName.onGruposLoaded, data);
             })
             .fail(function (data, error) {
-                _config.generalModule.redirectTo("/ofertas");
+                _config.generalModule.redirectTo(urlReturn);
             });
     };
 

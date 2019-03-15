@@ -1,14 +1,17 @@
 ﻿@using Portal.Consultoras.Web.Models
+@using Portal.Consultoras.Common
 @model Portal.Consultoras.Web.Models.DetalleEstrategiaFichaModel
 
 @{
     Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
+
+    var OrigenPedidoWeb = Model.IsMobile ? Constantes.OrigenPedidoWeb.MobileContenedorArmaTuPack : Constantes.OrigenPedidoWeb.DesktopContenedorArmaTuPack;
 }
 
 
 @section css{
     @System.Web.Optimization.Styles.Render("~/Bundle/Css/Responsive/ArmaTuPack")
- 
+
 }
 
 
@@ -17,7 +20,7 @@
     <p>ELIGE: 2 Fragancias + 1 Maquillaje + 1 Tratamiento Corporal</p>
 </div>
 
-<div class="Select_ArmaTuPack" data-item="">
+<div class="Select_ArmaTuPack" data-OrigenPedidoWeb="@OrigenPedidoWeb" data-item="">
     <div style="display:none;">
         <div id="data-estrategia" data-estrategia='@Html.Raw(Json.Encode(Model))'></div>
     </div>
@@ -591,19 +594,19 @@
 @section scripts{
 
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/ArmaTuPack")
- 
+
 
     <script>
         $(document).ready(function () {
-              
+
             $('#divCarruselMenuRes').slick({
                 infinite: true,
                 vertical: false,
-               
+
                 autoplay: false,
                 speed: 300,
 
-                
+
                 slidesToShow: 4,
                 slidesToScroll: 4,
                 responsive: [
@@ -638,7 +641,7 @@
                 prevArrow: '<a class="previous_ofertas_mobile js-slick-prev-h" style="left: -13%;"><img src="/Content/Images/mobile/Esika/previous_ofertas_home.png"></a>',
                 nextArrow: '<a class="previous_ofertas_mobile js-slick-next-h" style="right: -13%;"><img src="/Content/Images/mobile/Esika/next.png")"/></a>'
             });
-          
+
         });
     </script>
 }
