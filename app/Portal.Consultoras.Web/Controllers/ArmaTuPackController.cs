@@ -35,10 +35,8 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpGet()]
-        [Route("Detalle/{cuv:int}")]
-        public ActionResult Detalle(string cuv)
+        public ActionResult Detalle()
         {
-            if (string.IsNullOrEmpty(cuv)) throw new ArgumentNullException("cuv", "is null or empty.");
 
             var area = "";
             if (Request.Browser.IsMobileDevice)
@@ -76,6 +74,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return View();
         }
+
         [HttpPost()]
         public JsonResult GetComponentes(string Cuv)
         {
