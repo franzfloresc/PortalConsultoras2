@@ -228,7 +228,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     pedidoDetalle.Estrategia = new ServicePedido.BEEstrategia();
                     pedidoDetalle.Estrategia.Cantidad = Convert.ToInt32(model.Cantidad);
-                    pedidoDetalle.Estrategia.LimiteVenta = model.LimiteVenta == 0 ? 99 : model.LimiteVenta;
+                    pedidoDetalle.Estrategia.LimiteVenta = model.LimiteVenta;
                     pedidoDetalle.Estrategia.DescripcionCUV2 = Util.Trim(model.DescripcionProd);
                     pedidoDetalle.Estrategia.FlagNueva = 0;
                     pedidoDetalle.Estrategia.Precio2 = model.PrecioUnidad;
