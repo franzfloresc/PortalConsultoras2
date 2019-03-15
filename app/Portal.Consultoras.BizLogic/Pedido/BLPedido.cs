@@ -1536,8 +1536,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                 if (objPedidoDetalle.olstBEPedidoWebDetalle == null) objPedidoDetalle.olstBEPedidoWebDetalle = new List<BEPedidoWebDetalle>();
 
-                //objPedidoDetalle.olstBEPedidoWebDetalle.ForEach(p => p.EsPremioElectivo = LstEstrategia.Any(c => c.CUV2 == p.CUV));
-
                 if (objPedidoDetalle.olstBEPedidoWebDetalle.Any(x => x.EsPremioElectivo))
                 {
                     var prodRegalo = objPedidoDetalle.olstBEPedidoWebDetalle.Where(x => x.EsPremioElectivo).FirstOrDefault();
