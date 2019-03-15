@@ -22,7 +22,6 @@
                     @foreach (var menuhijo in menuList)
                     {
                         var claseActivo = menuhijo.Codigo == menuActivo.Codigo ? "activado" : string.Empty;
-
                         if (ViewBag.EsSuscrita)
                         {
                             claseActivo = menuhijo.Codigo == menuActivo.Codigo ? "default-dorado activado-dorado" : "default-dorado";
@@ -78,7 +77,6 @@
                             }
                             @if (!string.IsNullOrEmpty(menuhijo.DesktopTituloMenu))
                             {
-
                                 <a href="javascript:void(0);" 
                                    class="@claseActivo" 
                                    role="menu"
