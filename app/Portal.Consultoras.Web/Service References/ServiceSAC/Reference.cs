@@ -2454,6 +2454,9 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         private int CampaniaIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Portal.Consultoras.Web.ServiceSAC.BEConfiguracionOfertasHomeApp ConfiguracionOfertasHomeAppField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int ConfiguracionOfertasHomeIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -2546,6 +2549,19 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 if ((this.CampaniaIDField.Equals(value) != true)) {
                     this.CampaniaIDField = value;
                     this.RaisePropertyChanged("CampaniaID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Portal.Consultoras.Web.ServiceSAC.BEConfiguracionOfertasHomeApp ConfiguracionOfertasHomeApp {
+            get {
+                return this.ConfiguracionOfertasHomeAppField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ConfiguracionOfertasHomeAppField, value) != true)) {
+                    this.ConfiguracionOfertasHomeAppField = value;
+                    this.RaisePropertyChanged("ConfiguracionOfertasHomeApp");
                 }
             }
         }
@@ -3187,6 +3203,9 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TextoLibreField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool TieneStockField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool TieneStockProlField;
@@ -4394,6 +4413,19 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool TieneStock {
+            get {
+                return this.TieneStockField;
+            }
+            set {
+                if ((this.TieneStockField.Equals(value) != true)) {
+                    this.TieneStockField = value;
+                    this.RaisePropertyChanged("TieneStock");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public bool TieneStockProl {
             get {
                 return this.TieneStockProlField;
@@ -4598,6 +4630,179 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                     this.ZonaHorariaField = value;
                     this.RaisePropertyChanged("ZonaHoraria");
                 }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEConfiguracionOfertasHomeApp", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Oferta")]
+    [System.SerializableAttribute()]
+    public partial class BEConfiguracionOfertasHomeApp : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool AppActivoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AppBannerInformativoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int AppCantidadProductosField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AppColorFondoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AppColorTextoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int AppOrdenField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AppTituloField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ConfiguracionOfertasHomeAppIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ConfiguracionOfertasHomeIDField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool AppActivo {
+            get {
+                return this.AppActivoField;
+            }
+            set {
+                if ((this.AppActivoField.Equals(value) != true)) {
+                    this.AppActivoField = value;
+                    this.RaisePropertyChanged("AppActivo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AppBannerInformativo {
+            get {
+                return this.AppBannerInformativoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AppBannerInformativoField, value) != true)) {
+                    this.AppBannerInformativoField = value;
+                    this.RaisePropertyChanged("AppBannerInformativo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int AppCantidadProductos {
+            get {
+                return this.AppCantidadProductosField;
+            }
+            set {
+                if ((this.AppCantidadProductosField.Equals(value) != true)) {
+                    this.AppCantidadProductosField = value;
+                    this.RaisePropertyChanged("AppCantidadProductos");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AppColorFondo {
+            get {
+                return this.AppColorFondoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AppColorFondoField, value) != true)) {
+                    this.AppColorFondoField = value;
+                    this.RaisePropertyChanged("AppColorFondo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AppColorTexto {
+            get {
+                return this.AppColorTextoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AppColorTextoField, value) != true)) {
+                    this.AppColorTextoField = value;
+                    this.RaisePropertyChanged("AppColorTexto");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int AppOrden {
+            get {
+                return this.AppOrdenField;
+            }
+            set {
+                if ((this.AppOrdenField.Equals(value) != true)) {
+                    this.AppOrdenField = value;
+                    this.RaisePropertyChanged("AppOrden");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AppTitulo {
+            get {
+                return this.AppTituloField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AppTituloField, value) != true)) {
+                    this.AppTituloField = value;
+                    this.RaisePropertyChanged("AppTitulo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ConfiguracionOfertasHomeAppID {
+            get {
+                return this.ConfiguracionOfertasHomeAppIDField;
+            }
+            set {
+                if ((this.ConfiguracionOfertasHomeAppIDField.Equals(value) != true)) {
+                    this.ConfiguracionOfertasHomeAppIDField = value;
+                    this.RaisePropertyChanged("ConfiguracionOfertasHomeAppID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ConfiguracionOfertasHomeID {
+            get {
+                return this.ConfiguracionOfertasHomeIDField;
+            }
+            set {
+                if ((this.ConfiguracionOfertasHomeIDField.Equals(value) != true)) {
+                    this.ConfiguracionOfertasHomeIDField = value;
+                    this.RaisePropertyChanged("ConfiguracionOfertasHomeID");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
             }
         }
     }

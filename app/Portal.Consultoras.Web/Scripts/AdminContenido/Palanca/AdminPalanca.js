@@ -111,6 +111,8 @@ function NuevoOfertaHome() {
     ModificarOfertas(0);
 }
 function ModificarOfertas(idOfertasHome) {
+    waitingDialog({});
+
     $.ajax({
         url: baseUrl + "AdministrarPalanca/GetOfertasHome",
         type: "GET",
@@ -118,9 +120,11 @@ function ModificarOfertas(idOfertasHome) {
         data: { idOfertasHome: idOfertasHome },
         contentType: "application/json; charset=utf-8",
         success: function (result) {
+            closeWaitingDialog();
+
             $("#dialog-content-ofertas-home").empty();
             $("#dialog-content-ofertas-home").html(result).ready(
-                UploadFilePalanca("fondo-mobile"), UploadFilePalanca("fondo-desktop")
+                UploadFilePalanca("fondo-mobile"), UploadFilePalanca("fondo-desktop"), UploadFilePalancaApp("fondo-app")
             );
 
             showDialog("DialogMantenimientoOfertasHome");
@@ -237,7 +241,7 @@ function IniDialogs() {
         open: function (event, ui) {
             $(".ui-dialog-titlebar-close", ui.dialog).hide();
             $("#colorpickerHolder").ColorPicker({ flat: true });
-            $("#DesktopColorFondo, #DesktopColorTexto, #MobileColorFondo, #MobileColorTexto").ColorPicker({
+            $("#DesktopColorFondo, #DesktopColorTexto, #MobileColorFondo, #MobileColorTexto, #AdministrarOfertasHomeAppModel_AppColorFondo, #AdministrarOfertasHomeAppModel_AppColorTexto").ColorPicker({
                 onSubmit: function (hsb, hex, rgb, el) {
                     var newValue = "#" + hex;
                     $(el).val(newValue);
@@ -247,25 +251,29 @@ function IniDialogs() {
                     $(this).ColorPickerSetColor(this.value);
                 }
             })
-                .bind("keyup", function () {
-                    $(this).ColorPickerSetColor(this.value);
-                });
+            .bind("keyup", function () {
+                $(this).ColorPickerSetColor(this.value);
+            });
 
             if ($("#DesktopColorFondo").val() === "") {
                 $("#DesktopColorFondo").val("#000000");
             }
-
             if ($("#MobileColorFondo").val() === "") {
                 $("#MobileColorFondo").val("#000000");
             }
-
+            if ($("#AdministrarOfertasHomeAppModel_AppColorFondo").val() === "") {
+                $("#AdministrarOfertasHomeAppModel_AppColorFondo").val("#000000");
+            }
             if ($("#DesktopColorTexto").val() === "") {
                 $("#DesktopColorTexto").val("#ffffff");
             }
-
             if ($("#MobileColorTexto").val() === "") {
                 $("#MobileColorTexto").val("#ffffff");
             }
+            if ($("#AdministrarOfertasHomeAppModel_AppColorTexto").val() === "") {
+                $("#AdministrarOfertasHomeAppModel_AppColorTexto").val("#ffffff");
+            }
+
             if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") !== _palanca.odd) {
                 $(".hide-config-image-odd").hide();
             }
@@ -349,6 +357,26 @@ function IniDialogs() {
                     desktopUsarImagenFondo = false;
                     mobileUsarImagenFondo = false;
                 }
+
+                if (isNaN($("#AdministrarOfertasHomeAppModel_AppOrden").val())) {
+                    _toastHelper.error("El valor del orden app tiene que ser numérico.");
+                    return false;
+                }
+                if (isNaN($("#AdministrarOfertasHomeAppModel_AppCantidadProductos").val())) {
+                    _toastHelper.error("El valor de cantidad de productos app debe ser numérico.");
+                    return false;
+                }
+                var AppColorFondo = $("#AdministrarOfertasHomeAppModel_AppColorFondo").val();
+                var AppColorTexto = $("#AdministrarOfertasHomeAppModel_AppColorTexto").val();
+                if (!regExpColorHex.test(AppColorFondo) && AppColorFondo !== "") {
+                    _toastHelper.error("El color de fondo para app debe tener un código hexadecimal válido.");
+                    return false;
+                }
+                if (!regExpColorHex.test(AppColorTexto) && AppColorTexto !== "") {
+                    _toastHelper.error("El color de texto para app debe tener un código hexadecimal válido.");
+                    return false;
+                }
+
                 var params = {
                     ConfiguracionOfertasHomeID: $("#ConfiguracionOfertasHomeID").val(),
                     ConfiguracionPaisID: $("#ddlConfiguracionIdOfertas").val(),
@@ -377,8 +405,22 @@ function IniDialogs() {
                     MobileActivo: $("#MobileActivo").is(":checked"),
                     UrlSeccion: $("#UrlSeccion").val(),
                     DesktopOrdenBpt: $("#DesktopOrdenBpt").val(),
-                    MobileOrdenBpt: $("#DialogMantenimientoOfertasHome #MobileOrdenBpt").val()
+                    MobileOrdenBpt: $("#DialogMantenimientoOfertasHome #MobileOrdenBpt").val(),
+                    AdministrarOfertasHomeAppModel:
+                    {
+                        ConfiguracionOfertasHomeAppID: $("#AdministrarOfertasHomeAppModel_ConfiguracionOfertasHomeAppID").val(),
+                        AppActivo: $("#AdministrarOfertasHomeAppModel_AppActivo").is(":checked"),
+                        AppTitulo: $("#AdministrarOfertasHomeAppModel_AppTitulo").val(),
+                        AppColorFondo: $("#AdministrarOfertasHomeAppModel_AppColorFondo").val(),
+                        AppColorTexto: $("#AdministrarOfertasHomeAppModel_AppColorTexto").val(),
+                        AppBannerInformativo: $("#nombre-fondo-app").val(),
+                        AppOrden: $("#AdministrarOfertasHomeAppModel_AppOrden").val(),
+                        AppCantidadProductos: $("#AdministrarOfertasHomeAppModel_AppCantidadProductos").val(),
+                    }
                 };
+
+                waitingDialog({});
+
                 jQuery.ajax({
                     type: "POST",
                     url: baseUrl + "AdministrarPalanca/UpdateOfertasHome",
@@ -387,6 +429,8 @@ function IniDialogs() {
                     data: JSON.stringify(params),
                     async: true,
                     success: function (data) {
+                        closeWaitingDialog();
+
                         if (data.success) {
                             HideDialog("DialogMantenimientoOfertasHome");
                             _toastHelper.success("Solicitud realizada sin problemas.");
@@ -396,6 +440,8 @@ function IniDialogs() {
                         }
                     },
                     error: function (data, error) {
+                        closeWaitingDialog();
+
                         _toastHelper.error("Error al procesar la Solicitud.");
                     }
                 });
@@ -592,6 +638,45 @@ function UploadFilePalanca(tag) {
     if ($("#nombre-" + tag).val() !== "") {
         $("#src-" + tag).attr("src", urlS3 + $("#nombre-" + tag).val());
     }
+
+    return false;
+}
+
+function UploadFilePalancaApp(tag) {
+    var tipoFileTag = $("#nombre-" + tag).attr("imageextension");
+    var tipoFile = tipoFileTag.split(",");
+
+    var params = {};
+    params["width"] = $("#nombre-" + tag).attr("imagewidth");
+    params["height"] = $("#nombre-" + tag).attr("imageheight");
+    params["messageSize"] = $("#nombre-" + tag).attr("messageSize");
+
+    new qq.FileUploader({
+        allowedExtensions: tipoFile,
+        element: document.getElementById("img-" + tag),
+        action: rutaFileUpload,
+        params: params,
+        messages: {
+            typeError: $("#nombre-" + tag).attr("messageFormat")
+        },
+        onComplete: function (id, fileName, responseJSON) {
+            closeWaitingDialog();
+            if (checkTimeout(responseJSON)) {
+                if (responseJSON.success) {
+                    $("#nombre-" + tag).val(responseJSON.name);
+                    $("#src-" + tag).attr("src", rutaTemporal + responseJSON.name);
+                }
+                else {
+                    alert(responseJSON.message);
+                }
+            }
+            return false;
+        },
+        onSubmit: function (id, fileName) { $(".qq-upload-list").remove(); waitingDialog({}); },
+        onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").remove(); },
+        onCancel: function (id, fileName) { $(".qq-upload-list").remove(); }
+    });
+    if ($("#nombre-" + tag).val() !== "") $("#src-" + tag).attr("src", urlS3 + $("#nombre-" + tag).val());
 
     return false;
 }

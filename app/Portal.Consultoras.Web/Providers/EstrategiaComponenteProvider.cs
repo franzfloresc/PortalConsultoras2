@@ -511,5 +511,6 @@ namespace Portal.Consultoras.Web.Providers
             string[] _paiseLBel = paiseLBel.Split(';');
             return _paiseLBel.Any(x => x == _paisISO);
         }
+
     }
 }

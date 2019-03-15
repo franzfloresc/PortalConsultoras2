@@ -776,7 +776,7 @@ function EstrategiaVerDetalle(id, origen) {
 //        TipoEstrategiaImagen: tipoEstrategiaImagen || 0,
 //        Descripcion: descripcion,
 //        TipoOferta: datosEst.TipoEstrategiaID || $("#hdTipoEstrategiaID").val(),
-//        enRangoProgNuevas: datosEst.FlagNueva == "1"
+//        esCuponNuevas: datosEst.FlagNueva == "1"
 //    };
 
 //    jQuery.ajax({
@@ -893,22 +893,22 @@ function EstrategiaVerDetalle(id, origen) {
 function HidePopupEstrategiasEspeciales() {
 }
 
-function CerrarLoad() {
-    if (tipoOrigenEstrategia == 1 || tipoOrigenEstrategia == 17 || tipoOrigenEstrategia == 172) {
-        closeWaitingDialog();
-    }
-    else if (tipoOrigenEstrategia == 11) {
-        CerrarSplash();
-    }
-    else if ($.trim(tipoOrigenEstrategia)[0] == 2) {
-        CloseLoading();
-    } else if (isMobile()) {
-        CloseLoading();
-    }
-    else {
-        closeWaitingDialog();
-    }
-}
+//function CerrarLoad() {
+//    if (tipoOrigenEstrategia == 1 || tipoOrigenEstrategia == 17 || tipoOrigenEstrategia == 172) {
+//        closeWaitingDialog();
+//    }
+//    else if (tipoOrigenEstrategia == 11) {
+//        CerrarSplash();
+//    }
+//    else if ($.trim(tipoOrigenEstrategia)[0] == 2) {
+//        CloseLoading();
+//    } else if (isMobile()) {
+//        CloseLoading();
+//    }
+//    else {
+//        closeWaitingDialog();
+//    }
+//}
 
 function AbrirLoad() {
     if (tipoOrigenEstrategia == 1 || tipoOrigenEstrategia == 17 || tipoOrigenEstrategia == 172) {

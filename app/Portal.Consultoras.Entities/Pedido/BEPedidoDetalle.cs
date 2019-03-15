@@ -51,7 +51,7 @@ namespace Portal.Consultoras.Entities.Pedido
         [DataMember]
         public bool EsVirtualCoach { get; set; }
         [DataMember]
-        public bool EnRangoProgramaNuevas { get; set; }
+        public bool EsCuponNuevas { get; set; }
         [DataMember]
         public BEEstrategia Estrategia { get; set; }
         [DataMember]
@@ -60,5 +60,7 @@ namespace Portal.Consultoras.Entities.Pedido
         public bool EsKitNuevaAuto { get; set; }
         [DataMember]
         public bool OfertaWeb { get; set; }
+        [DataMember]
+        public bool EsEditable { get; set; }
     }
 }

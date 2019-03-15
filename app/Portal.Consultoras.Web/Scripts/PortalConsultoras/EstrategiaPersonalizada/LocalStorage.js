@@ -123,6 +123,8 @@
                 return _urlObtenerEstrategia.Lanzamiento;
             case _codigoPalanca.HerramientasVenta:
                 return _urlObtenerEstrategia.HerrameintasVenta;
+            case _codigoPalanca.Ganadoras:
+                return _urlObtenerEstrategia.MasGanadoras;
             default:
                 return null;
         }

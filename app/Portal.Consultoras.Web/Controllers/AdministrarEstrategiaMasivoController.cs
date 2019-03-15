@@ -49,7 +49,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
 
                         lPreCargarFlagImagenURL.AddRange(estrategiasWA
-                            .Where(c => c.FlagImagenURL == false)
+                            .Where(c => !c.FlagImagenURL)
                             .Select(m => m._id));
                     }
                     else
@@ -100,7 +100,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 };
 
-                int validarEstrategiaImagen = _tablaLogicaProvider.ObtenerValorTablaLogicaInt(userData.PaisID, Constantes.TablaLogica.CantidadCuvMasivo, Constantes.TablaLogicaDato.EstrategiaImagen_NuevoMasivo, true);
+                int validarEstrategiaImagen = _tablaLogicaProvider.GetTablaLogicaDatoCodigoInt(userData.PaisID, Constantes.TablaLogica.CantidadCuvMasivo, Constantes.TablaLogicaDato.EstrategiaImagen_NuevoMasivo, true);
 
                 if (validarEstrategiaImagen == 1)
                 {
@@ -569,7 +569,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (entidadMasivo.CantidadCuv <= 0)
             {
-                entidadMasivo.CantidadCuv = _tablaLogicaProvider.ObtenerValorTablaLogicaInt(userData.PaisID, Constantes.TablaLogica.CantidadCuvMasivo, Constantes.TablaLogicaDato.CantidadCuvMasivo_NuevoMasivo, true);
+                entidadMasivo.CantidadCuv = _tablaLogicaProvider.GetTablaLogicaDatoCodigoInt(userData.PaisID, Constantes.TablaLogica.CantidadCuvMasivo, Constantes.TablaLogicaDato.CantidadCuvMasivo_NuevoMasivo, true);
             }
             return entidadMasivo.CantidadCuv;
         }
@@ -667,7 +667,7 @@ namespace Portal.Consultoras.Web.Controllers
             bool rpta = false;
             try
             {
-                var codigo = _tablaLogicaProvider.ObtenerValorTablaLogicaInt(userData.PaisID, Constantes.TablaLogica.Plan20, Constantes.TablaLogicaDato.Tonos, true);
+                var codigo = _tablaLogicaProvider.GetTablaLogicaDatoCodigoInt(userData.PaisID, Constantes.TablaLogica.Plan20, Constantes.TablaLogicaDato.Tonos, true);
                 if (codigo > entidadMasivo.CampaniaId)
                     return rpta;
 
@@ -690,7 +690,7 @@ namespace Portal.Consultoras.Web.Controllers
             bool rpta = false;
             try
             {
-                int validarEstrategiaImagen = _tablaLogicaProvider.ObtenerValorTablaLogicaInt(userData.PaisID, Constantes.TablaLogica.CantidadCuvMasivo, Constantes.TablaLogicaDato.EstrategiaImagen_NuevoMasivo, true);
+                int validarEstrategiaImagen = _tablaLogicaProvider.GetTablaLogicaDatoCodigoInt(userData.PaisID, Constantes.TablaLogica.CantidadCuvMasivo, Constantes.TablaLogicaDato.EstrategiaImagen_NuevoMasivo, true);
 
                 if (validarEstrategiaImagen == 1)
                 {
