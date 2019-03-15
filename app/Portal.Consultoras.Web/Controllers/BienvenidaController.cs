@@ -22,6 +22,7 @@ namespace Portal.Consultoras.Web.Controllers
         private readonly BienvenidaProvider _bienvenidaProvider;
         protected TablaLogicaProvider _tablaLogica;
         private readonly ZonificacionProvider _zonificacionProvider;
+        private readonly CaminoBrillanteProvider _Comercial;
 
         public BienvenidaController()
         {
@@ -29,6 +30,7 @@ namespace Portal.Consultoras.Web.Controllers
             _tablaLogica = new TablaLogicaProvider();
             _bienvenidaProvider = new BienvenidaProvider();
             _zonificacionProvider = new ZonificacionProvider();
+            _Comercial = new CaminoBrillanteProvider("http://10.12.6.217:9500/", "AKIAIYETSRUJDVPUJMVQ", "63tSNMOUqQ2wAH16KWL/nfzOu/qWpkpz9TFm21Ti");
         }
 
         public BienvenidaController(ILogManager logManager)
@@ -238,8 +240,9 @@ namespace Portal.Consultoras.Web.Controllers
                 model.TieneCaminoBrillante = userData.CaminoBrillante;
 
 
-                //var CaminoBrillante = _caminoBrillante.GetNivelConsultora("CRI", "0007975", "1");
+                //var demito = GetNivelConsultora();
 
+                //ricardo
                 model.CaminoBrillanteMsg = userData.CaminoBrillanteMsg.Replace("{0}", "Consultora ambar");
 
 
@@ -1960,14 +1963,19 @@ namespace Portal.Consultoras.Web.Controllers
 
 
         #region CaminoBrillante
-        private async Task<List<NivelConsultoraCaminoBrillanteModel>> GetNivelConsultora()
+        private List<NivelConsultoraCaminoBrillanteModel> GetNivelConsultora()
         {
-            List<string> Credenciales = new List<string>();
-            Credenciales = GetDatosComercial();
-            CaminoBrillanteProvider prv = new CaminoBrillanteProvider(Credenciales[0], Credenciales[1], Credenciales[2]);
+            //List<string> Credenciales = new List<string>();
+            //Credenciales = GetDatosComercial();
+            //CaminoBrillanteProvider prv = new CaminoBrillanteProvider(Credenciales[0], Credenciales[1], Credenciales[2]);
 
-            List<NivelConsultoraCaminoBrillanteModel> p = await prv.GetNivelConsultora("CRI", "0007975", "1");
-            return p;
+
+
+            //Task<List<NivelConsultoraCaminoBrillanteModel>> task = prv.GetNivelConsultora("CRI", "0007975", "1");
+            //task.Wait();
+            //var demo = task.Result;
+            //return demo;
+            return null;
 
         }
 
@@ -1983,6 +1991,8 @@ namespace Portal.Consultoras.Web.Controllers
             return list;
         }
         #endregion
+
+
 
     }
 }
