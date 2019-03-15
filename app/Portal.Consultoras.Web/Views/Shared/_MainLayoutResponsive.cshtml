@@ -18,9 +18,10 @@
 
 
     <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
-    
+
 
     @Styles.Render("~/Bundle/Css/Mixto/Bootstrap")
+    @Styles.Render("~/Bundle/Css/Mixto/LayoutResponsive")
     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
     {
         <link href="@Url.Content("~/Content/Images/Esika/favicon.ico")" rel="shortcut icon" type="image/x-icon" />
@@ -114,7 +115,7 @@
     </script>
 
     <div class="layout-somos-belcorp container-fluid pl-0 pr-0">
-        <header class="layout__header row flex-row flex-nowrap justify-content-between justify-content-lg-start justify-content-xl-start align-items-center ml-0 mr-0">
+        <header class="layout__header row flex-column flex-nowrap justify-content-between justify-content-lg-start justify-content-xl-start align-items-center ml-0 mr-0">
             <div class="row flex-row flex-nowrap justify-content-between justify-content-lg-start justify-content-xl-start align-items-center ml-0 mr-0 mx-auto layout__container">
                 <section class="header__icono__menu mostrarEnMobile pl-0 pr-0">
                     <img class="w-100" src="@Url.Content("~/Content/images/mobile/icono-menu-mobile.svg")" alt="Abrir Menú">
@@ -148,12 +149,13 @@
                 @Html.Partial("~/Views/Shared/_MenuSecundarioResponsive.cshtml")
             </div>
 
-            @Html.Partial("~/Views/Shared/VistaParcialResponisve/_MenuContenedorResponsive.cshtml")
+            @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileMenu/_MenuContenedorOferta.cshtml")
         </header>
 
         @if (!string.IsNullOrEmpty(ViewBag.Title))
         {
-            <section class="row flex-row ml-0 mr-0 layout__view__breadcrumbs__wrapper mostrarEnDesktop">
+            <section data-layout-content="breadcrumb" 
+                     class="row flex-row ml-0 mr-0 layout__view__breadcrumbs__wrapper mostrarEnDesktop">
                 <div class="col-12 pl-0 pr-0 mx-auto layout__view__breadcrumbs">
                     <ul class="row flex-row align-items-center ml-0 mr-0 layout__view__lista__breadcrumbs">
                         <li class="layout__view__breadcrumb">
@@ -166,8 +168,9 @@
                 </div>
             </section>
         }
-
-        @RenderBody()
+        <div data-layout-content="body">
+            @RenderBody()
+        </div>
 
         @Html.Partial("~/Views/Shared/_FooterResponsive.cshtml")
     </div>
