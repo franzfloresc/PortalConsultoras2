@@ -124,6 +124,7 @@ namespace Portal.Consultoras.Web.Controllers
                     userData.CodigoConsultora,
                     userData.EsDiasFacturacion,
                     1);
+
                 showRoomEventoModel.TieneOfertasAMostrar = listaShowRoomOfertas.Any();
 
                 showRoomEventoModel.ListaCategoria = configEstrategiaSR.ListaCategoria;

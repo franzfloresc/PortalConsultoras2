@@ -186,11 +186,57 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 int cantidadTotal0 = 0;
                 if (tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.SRObtenerProductos)
                 {
-                    listModel = _ofertaPersonalizadaProvider.ObtenerListaProductoShowRoom(userData, userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 1);
-                    cantidadTotal0 = listModel.Count;
-                    listModel = _ofertaPersonalizadaProvider.ConsultarOfertasFiltrarSR(model, listModel, tipoConsulta);
-                    listPerdio = _ofertaPersonalizadaProvider.ObtenerListaProductoShowRoom(userData, userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 3);
-                    listaSubCampania = _ofertaPersonalizadaProvider.ObtenerListaProductoShowRoom(userData, userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 2);
+                    if (_ofertaBaseProvider.UsarSession(Constantes.TipoEstrategiaCodigo.ShowRoom))
+                    {
+                        listModel = _ofertaPersonalizadaProvider.ObtenerListaProductoShowRoom(userData, userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 1);
+                        cantidadTotal0 = listModel.Count;
+                        listModel = _ofertaPersonalizadaProvider.ConsultarOfertasFiltrarSR(model, listModel, tipoConsulta);
+                        listPerdio = _ofertaPersonalizadaProvider.ObtenerListaProductoShowRoom(userData, userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 3);
+                        listaSubCampania = _ofertaPersonalizadaProvider.ObtenerListaProductoShowRoom(userData, userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 2);
+                    }
+                    else
+                    {
+                        List<ServiceOferta.BEEstrategia> listaProducto = _ofertaPersonalizadaProvider.GetShowRoomOfertasConsultora(userData);
+                        listaProducto = _ofertaPersonalizadaProvider.ActualizarEstrategiaStockPROL(listaProducto, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora);
+                        List<EstrategiaPedidoModel> listaProductoModel = _ofertaPersonalizadaProvider.ConsultarEstrategiasFormatoEstrategiaToModel1(listaProducto, userData.CodigoISO, userData.CampaniaID);
+
+                        // SetShowRoomOfertasInSession(listaProductoModel, userData);
+                        /************************************************************************>>>>>>>>>inico*/
+                        List<EstrategiaPedidoModel> listaEstrategiaOfertas;
+                        List<EstrategiaPedidoModel> listaEstrategiaSubCampania;
+                        var listaEstrategiaOfertasPerdio = new List<EstrategiaPedidoModel>();
+
+                        if (revistaDigital.ActivoMdo && !revistaDigital.EsActiva)
+                        {
+                            listaEstrategiaOfertas = listaProductoModel.Where(x => !x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
+                            listaEstrategiaOfertasPerdio = listaProductoModel.Where(x => !x.EsSubCampania && x.FlagRevista != Constantes.FlagRevista.Valor0).ToList();
+                            listaEstrategiaSubCampania = listaProductoModel.Where(x => x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
+                        }
+                        else // if (revistaDigital.ActivoMdo && revistaDigital.EsActiva || !revistaDigital.ActivoMdo)
+                        {
+                            listaEstrategiaOfertas = listaProductoModel.Where(x => !x.EsSubCampania).ToList();
+                            listaEstrategiaSubCampania = listaProductoModel.Where(x => x.EsSubCampania).ToList();
+                        }
+
+                        listaEstrategiaSubCampania = _ofertaPersonalizadaProvider.ObtenerListaHermanos(listaEstrategiaSubCampania);
+                        // para no mostrar boton ELIGE TU OPCION
+                        listaEstrategiaSubCampania.ForEach(item =>
+                        {
+                            if (item.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaVariable)
+                                item.CodigoEstrategia = Constantes.TipoEstrategiaSet.CompuestaFija;
+                        });
+
+                        var listaPedido = _ofertaPersonalizadaProvider.ObtenerPedidoWebDetalle();
+
+                      /************************************************************************>>>>>>>>>fin*/
+
+                        listModel = _ofertaPersonalizadaProvider.FormatearModelo1ToPersonalizado(listaEstrategiaOfertas, listaPedido, userData.CodigoISO, userData.CampaniaID, 2, userData.esConsultoraLider, userData.Simbolo).OrderBy(x => x.TieneStock, false).ToList();
+                        cantidadTotal0 = listModel.Count;
+                        listModel = _ofertaPersonalizadaProvider.ConsultarOfertasFiltrarSR(model, listModel, tipoConsulta);
+                        listPerdio = _ofertaPersonalizadaProvider.FormatearModelo1ToPersonalizado(listaEstrategiaOfertasPerdio, listaPedido, userData.CodigoISO, userData.CampaniaID, 1, userData.esConsultoraLider, userData.Simbolo).Where(x => x.TieneStock).OrderBy(x => x.TieneStock, false).ToList();
+                        listaSubCampania = _ofertaPersonalizadaProvider.FormatearModelo1ToPersonalizado(listaEstrategiaSubCampania, listaPedido, userData.CodigoISO, userData.CampaniaID, 2, userData.esConsultoraLider, userData.Simbolo).OrderBy(x => x.TieneStock, false).ToList();
+                        SessionManager.ShowRoom.CargoOfertas = "0";
+                    }
                 }
                 else
                 {

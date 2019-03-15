@@ -260,5 +260,23 @@ namespace Portal.Consultoras.Web.Providers
             bool tipoEstrategiaHabilitado = _sessionManager.GetConfigMicroserviciosPersonalizacion().EstrategiaHabilitado.Contains(tipoEstrategia); //WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion.Contains(tipoEstrategia);
             return tipoEstrategiaHabilitado;
         }
+
+        public bool UsarLocalStorage(string tipoEstrategia)
+        {
+            if (_sessionManager.GetConfigMicroserviciosPersonalizacion().GuardaDataEnLocalStorage.IsNullOrEmptyTrim())
+                return false;
+
+            bool usaLocalStorage = _sessionManager.GetConfigMicroserviciosPersonalizacion().GuardaDataEnLocalStorage.Contains(tipoEstrategia);
+            return usaLocalStorage;
+        }
+
+        public bool UsarSession(string tipoEstrategia)
+        {
+            if (_sessionManager.GetConfigMicroserviciosPersonalizacion().GuardaDataEnSession.IsNullOrEmptyTrim())
+                return false;
+
+            bool usaSession = _sessionManager.GetConfigMicroserviciosPersonalizacion().GuardaDataEnSession.Contains(tipoEstrategia);
+            return usaSession;
+        }
     }
 }
