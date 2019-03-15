@@ -37,14 +37,8 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpGet()]
         public ActionResult Detalle()
         {
-
-            var area = "";
-            var IsMobile = false;
-            if (Request.Browser.IsMobileDevice)
-            {
-                area = "mobile";
-                IsMobile = true;
-            }
+            var area = EsDispositivoMovil() ? "mobile" : string.Empty;
+            var IsMobile = EsDispositivoMovil();
 
             var listaOfertasATP = _ofertaPersonalizadaProvider.ConsultarEstrategiasModel(IsMobile, userData.CodigoISO, userData.CampaniaID, userData.CampaniaID, Constantes.TipoEstrategiaCodigo.ArmaTuPack).ToList();
 
