@@ -76,6 +76,14 @@ namespace Portal.Consultoras.Web.Controllers
         protected readonly ComunicadoProvider _comunicadoProvider;
         protected readonly ProgramaNuevasProvider _programaNuevasProvider;
         protected readonly MiPerfilProvider _miPerfilProvider;
+
+
+
+        protected readonly CaminoBrillanteProvider _caminoBrillante;
+
+
+
+
         protected MasGanadorasModel MasGanadoras
         {
             get
@@ -118,6 +126,7 @@ namespace Portal.Consultoras.Web.Controllers
             _comunicadoProvider = new ComunicadoProvider();
             _programaNuevasProvider = new ProgramaNuevasProvider(SessionManager);
             _miPerfilProvider = new MiPerfilProvider();
+            _caminoBrillante = new CaminoBrillanteProvider("http://10.12.6.217:9500/", "AKIAIYETSRUJDVPUJMVQ", "63tSNMOUqQ2wAH16KWL/nfzOu/qWpkpz9TFm21Ti");
         }
 
         public BaseController(ISessionManager sessionManager)

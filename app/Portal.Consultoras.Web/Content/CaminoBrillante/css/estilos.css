@@ -161,6 +161,10 @@ strong {
         color: white;
     }
 
+.modal-content .btn-principal {
+    padding-left: 45px;
+}
+
 .shad {
     background: white;
     border: 1px solid #efefef;
@@ -275,7 +279,7 @@ strong {
 }*/
 .owl-carousel .owl-item img {
     display: block;
-    max-width: 60px;
+    max-width: 60px !important;
 }
 
 .owl-nav {
@@ -375,10 +379,14 @@ strong {
 }
 
 .medal-5 {
-    width: 100%;
+    width: 92%;
     animation-name: progressCinco;
 }
 
+.medal-6 {
+    width: 100%;
+    animation-name: progressSeis;
+}
 
 @keyframes progressUno {
     0% {
@@ -426,10 +434,19 @@ strong {
     }
 
     100% {
-        width: 100%;
+        width: 92%;
     }
 }
 
+@keyframes progressSeis {
+    0% {
+        width: 0%;
+    }
+
+    100% {
+        width: 100%;
+    }
+}
 
 
 
@@ -454,6 +471,7 @@ strong {
     z-index: 8;
     width: 55px;
     height: 55px;
+    border-radius: 55px;
     -webkit-transition: all 0.2s ease;
     -moz-transition: all 0.2s ease;
     -o-transition: all 0.2s ease;
@@ -485,73 +503,73 @@ strong {
 #ProgressBar .pt1 {
     display: block;
     left: -1%;
-    background: url(../imgs/image-1@2x.png) no-repeat center center;
+    background: #a2a2a2 url(../imgs/image-1@2x.png) no-repeat center center;
     background-size: cover;
 }
 
 #ProgressBar .pt2 {
     display: block;
     left: 19%;
-    background: url(../imgs/recurso-36-3-x@2x.png) no-repeat center center;
+    background: #a2a2a2 url(../imgs/image-1@2x.png) no-repeat center center;
     background-size: cover;
 }
 
 #ProgressBar .pt3 {
     display: block;
     left: 38%;
-    background: url(../imgs/recurso-35-3-x@2x.png) no-repeat center center;
+    background: #a2a2a2 url(../imgs/image-1@2x.png) no-repeat center center;
     background-size: cover;
 }
 
 #ProgressBar .pt4 {
     display: block;
     left: 58%;
-    background: url(../imgs/recurso-34-3-x@2x.png) no-repeat center center;
+    background: #a2a2a2 url(../imgs/image-1@2x.png) no-repeat center center;
     background-size: cover;
 }
 
 #ProgressBar .pt5 {
     display: block;
     left: 78%;
-    background: url(../imgs/recurso-33-3-x@2x.png) no-repeat center center;
+    background: #a2a2a2 url(../imgs/image-1@2x.png) no-repeat center center;
     background-size: cover;
 }
 
 #ProgressBar .pt6 {
     display: block;
     left: 97%;
-    background: url(../imgs/recurso-32-3-x@2x.png) no-repeat center center;
+    background: #a2a2a2 url(../imgs/image-1@2x.png) no-repeat center center;
     background-size: cover;
 }
 
 
 #ProgressBar .pt1.activo {
-    background: url(../imgs/image-1@2x.png) no-repeat center center;
+    background: #e6c79e url(../imgs/image-1@2x.png) no-repeat center center;
     background-size: cover;
 }
 
 #ProgressBar .pt2.activo {
-    background: url(../imgs/recurso-31-3-x-copy-5@2x.png) no-repeat center center;
+    background: #dfa558 url(../imgs/image-1@2x.png) no-repeat center center;
     background-size: cover;
 }
 
 #ProgressBar .pt3.activo {
-    background: url(../imgs/recurso-30-3-x-copy-4@2x.png) no-repeat center center;
+    background: #d28f35 url(../imgs/image-1@2x.png) no-repeat center center;
     background-size: cover;
 }
 
 #ProgressBar .pt4.activo {
-    background: url(../imgs/recurso-29-3-x-copy-3@2x.png) no-repeat center center;
+    background: #b87825 url(../imgs/image-1@2x.png) no-repeat center center;
     background-size: cover;
 }
 
 #ProgressBar .pt5.activo {
-    background: url(../imgs/recurso-28-3-x-copy-2@2x.png) no-repeat center center;
+    background: #a17233 url(../imgs/image-1@2x.png) no-repeat center center;
     background-size: cover;
 }
 
 #ProgressBar .pt6.activo {
-    background: url(../imgs/recurso-27-3-x@2x.png) no-repeat center center;
+    background: #b8905c url(../imgs/image-1@2x.png) no-repeat center center;
     background-size: cover;
 }
 
@@ -668,11 +686,23 @@ strong {
     background-size: cover;
     width: 19px;
     height: 22px;
-    margin-right: 10px;
+    /* margin-right: 10px; */
+    /* margin-top: 10px; */
+    position: absolute;
+    left: 20px;
+    top: 10px;
 }
 
+.desactive {
+    background: #b9b9b9;
+    color: #888888;
+    font-weight: bold;
+}
 
-
+    .desactive:hover {
+        cursor: no-drop;
+        color: #888888;
+    }
 
 
 
@@ -812,8 +842,14 @@ strong {
     }
 
     .medal-5 {
+        width: 94%;
+    }
+
+    .medal-6 {
         width: 100%;
     }
+
+
 
     @keyframes progressUno {
         0% {
@@ -856,6 +892,16 @@ strong {
     }
 
     @keyframes progressCinco {
+        0% {
+            width: 0%;
+        }
+
+        100% {
+            width: 94%;
+        }
+    }
+
+    @keyframes progressSeis {
         0% {
             width: 0%;
         }

@@ -398,5 +398,6 @@ namespace Portal.Consultoras.Web.Models
         public int NovedadBuscador { get; set; }
         public int IndicadorConsultoraDummy { get; set; }
         public bool CaminoBrillante { get; set; }
+        public string CaminoBrillanteMsg { get; set; }
     }
 }

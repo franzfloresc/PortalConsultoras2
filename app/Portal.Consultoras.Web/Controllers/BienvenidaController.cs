@@ -1,6 +1,7 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.CaminoBrillante;
 using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServicePedido;
@@ -10,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -75,7 +77,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 List<BETablaLogicaDatos> datGaBoton;
                 List<BETablaLogicaDatos> configCarouselLiquidacion;
-                
+
                 _showRoomProvider.CargarEventoConsultora(userData);
 
                 using (var sv = new SACServiceClient())
@@ -234,6 +236,13 @@ namespace Portal.Consultoras.Web.Controllers
                 model.TienePagoEnLinea = userData.TienePagoEnLinea;
                 model.MostrarPagoEnLinea = (userData.MontoDeuda > 0);
                 model.TieneCaminoBrillante = userData.CaminoBrillante;
+
+
+                //var CaminoBrillante = _caminoBrillante.GetNivelConsultora("CRI", "0007975", "1");
+
+                model.CaminoBrillanteMsg = userData.CaminoBrillanteMsg.Replace("{0}", "Consultora ambar");
+
+
 
                 #region Camino al Éxito
 
@@ -497,9 +506,9 @@ namespace Portal.Consultoras.Web.Controllers
                 model.UsuarioPrueba = userData.UsuarioPrueba;
                 model.NombreArchivoContrato = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.Contrato_ActualizarDatos + userData.CodigoISO);
                 model.IndicadorConsultoraDigital = beusuario.IndicadorConsultoraDigital;
-                
+
                 var bezona = _zonificacionProvider.GetZonaById(userData.PaisID, userData.ZonaID);
-                
+
                 model.NombreGerenteZonal = bezona.NombreGerenteZona;
 
                 if (beusuario.EMailActivo) model.CorreoAlerta = "";
@@ -1245,7 +1254,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-        
+
         private int ValidarSuenioNavidad()
         {
             var entidad = new BESuenioNavidad
@@ -1292,7 +1301,7 @@ namespace Portal.Consultoras.Web.Controllers
                 _showRoomProvider.CargarEventoConsultora(userData);
                 _showRoomProvider.CargarEventoPersonalizacion(userData);
                 configEstrategiaSR = SessionManager.GetEstrategiaSR();
-               var entidad = new BEShowRoomEventoConsultora
+                var entidad = new BEShowRoomEventoConsultora
                 {
                     CodigoConsultora = userData.CodigoConsultora,
                     CampaniaID = userData.CampaniaID,
@@ -1947,5 +1956,33 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
+
+
+        #region CaminoBrillante
+        private async Task<List<NivelConsultoraCaminoBrillanteModel>> GetNivelConsultora()
+        {
+            List<string> Credenciales = new List<string>();
+            Credenciales = GetDatosComercial();
+            CaminoBrillanteProvider prv = new CaminoBrillanteProvider(Credenciales[0], Credenciales[1], Credenciales[2]);
+
+            List<NivelConsultoraCaminoBrillanteModel> p = await prv.GetNivelConsultora("CRI", "0007975", "1");
+            return p;
+
+        }
+
+        private List<string> GetDatosComercial()
+        {
+            List<string> list = new List<string>();
+            using (var svc = new SACServiceClient())
+            {
+                var response = svc.GetTablaLogicaDatos(userData.PaisID, Constantes.TablaLogicaDato.CaminoBrillanteTablaLogica).ToList();
+                foreach (BETablaLogicaDatos obj in response)
+                    list.Add(obj.Valor);
+            }
+            return list;
+        }
+        #endregion
+
     }
 }
