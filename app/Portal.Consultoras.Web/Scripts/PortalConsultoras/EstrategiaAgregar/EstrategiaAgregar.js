@@ -475,7 +475,7 @@ var EstrategiaAgregarModule = (function () {
                     tipoOrigenEstrategiaAux == 262 ||
                     tipoOrigenEstrategiaAux == 272) {
 
-                    //debugger;
+                    //
 
                     if (isPagina('mobile/pedido/detalle')) CargarPedido(false);
 
