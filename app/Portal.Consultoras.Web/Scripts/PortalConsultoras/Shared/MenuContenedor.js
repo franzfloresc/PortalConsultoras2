@@ -106,8 +106,6 @@ var menuModule = (function () {
             $(elementos.bcParaTiMenuActivo).find("img.click-menu").css("display", "inline");
         }
 
-
-
         if (currentLocation.indexOf("#") > -1) {
             $(elementos.claseimgSeleccionado).hide();
             $(elementos.claseimgNoSeleccionado).show();
@@ -288,7 +286,7 @@ var menuModule = (function () {
         window.location = window.location.origin + url;
     }
     function setCarrouselMenu() {
-        if (_var.Mobile) {
+        if (_var.Mobile || $(elementos.menu2Ul).length > 0) {
             $(elementos.menu2Ul + ".slick-initialized").slick("unslick");
             $(elementos.menu2Ul).not(".slick-initialized").slick({
                 infinite: false,

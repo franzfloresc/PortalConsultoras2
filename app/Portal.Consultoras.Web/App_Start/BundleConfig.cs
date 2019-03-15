@@ -181,6 +181,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Buscador/BuscadorModule.js",
                 "~/Scripts/PortalConsultoras/Shared/ConstantesModule.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/PedidoRegistro.js",
+                "~/Scripts/PortalConsultoras/Shared/MenuContenedor.js",
                 "~/Scripts/slick.js"
             ));
 
@@ -238,6 +239,7 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/Esika-Contenedor").Include(
                 "~/Content/Css/Mobile/Contenedor/Index.css",
+                "~/Content/Css/Mobile/Contenedor/MenuContenedor.css",
                 "~/Content/Css/Mobile/Esika/Contenedor.css"
             ));
 
@@ -977,7 +979,7 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/bootstrap/bootstrap.css"
             ));
 
-            bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/EsikaPageResponsive").Include(
+            bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/LayoutResponsive").Include(
                 "~/Content/Css/ui.jquery/jquery-ui.css",
                 "~/Content/Css/Site/Shared/general.css",
                 "~/Content/Css/Site/Shared/header-responsive.css",
@@ -985,22 +987,18 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/Shared/buscador-responsive.css",
                 "~/Content/Css/Site/Shared/menu-secundario-responsive.css",
                 "~/Content/Css/Site/Shared/footer-responsive.css",
-                "~/Content/Css/Site/Esika/marca-pais-responsive.css",
-                "~/Content/Css/Site/Esika/styleDefault.css",
+                "~/Content/Css/Mobile/Contenedor/MenuContenedor.css",
                 "~/Content/Css/Site/slick.css"
             ));
 
+            bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/EsikaPageResponsive").Include(               
+                "~/Content/Css/Site/Esika/marca-pais-responsive.css",
+                "~/Content/Css/Site/Esika/styleDefault.css"
+            ));
+
             bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/LebelPageResponsive").Include(
-                "~/Content/Css/ui.jquery/jquery-ui.css",
-                "~/Content/Css/Site/Shared/general.css",
-                "~/Content/Css/Site/Shared/header-responsive.css",
-                "~/Content/Css/Site/Shared/menu-principal-responsive.css",
-                "~/Content/Css/Site/Shared/buscador-responsive.css",
-                "~/Content/Css/Site/Shared/menu-secundario-responsive.css",
-                "~/Content/Css/Site/Shared/footer-responsive.css",
                 "~/Content/Css/Site/Lbel/marca-pais-responsive.css",
-                "~/Content/Css/Site/Lbel/styleDefault.css",
-                "~/Content/Css/Site/slick.css"
+                "~/Content/Css/Site/Lbel/styleDefault.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Responsive/TusClientes").Include(
