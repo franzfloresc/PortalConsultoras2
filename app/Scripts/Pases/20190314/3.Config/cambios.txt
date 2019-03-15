@@ -1,7 +1,8 @@
 1.SB2 WEB
 	Agregar:
 		<add key="UrlCatalogoPiloto" value="http://ecatalogoqa.somosbelcorp.com/" />
-	
+		<add key="PaisesDigitoControl" value="DO,MX,PR,VE,SV"/>
+
 2.SB2 WCF
 	Agregar:
 		<add key="SetIdentifierNumberFlag" value="1"/>
