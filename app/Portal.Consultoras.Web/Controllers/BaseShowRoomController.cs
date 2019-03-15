@@ -118,22 +118,6 @@ namespace Portal.Consultoras.Web.Controllers
                 showRoomEventoModel.Simbolo = userData.Simbolo;
                 showRoomEventoModel.CodigoIso = userData.CodigoISO;
 
-                var listaShowRoomOfertas = _ofertaPersonalizadaProvider.ObtenerListaProductoShowRoom(
-                    userData,
-                    userData.CampaniaID,
-                    userData.CodigoConsultora,
-                    userData.EsDiasFacturacion,
-                    1);
-
-                showRoomEventoModel.TieneOfertasAMostrar = listaShowRoomOfertas.Any();
-
-                showRoomEventoModel.ListaCategoria = configEstrategiaSR.ListaCategoria;
-                if (listaShowRoomOfertas.Any())
-                {
-                    showRoomEventoModel.PrecioMinFiltro = listaShowRoomOfertas.Min(p => p.Precio2);
-                    showRoomEventoModel.PrecioMaxFiltro = listaShowRoomOfertas.Max(p => p.Precio2);
-                }
-
                 showRoomEventoModel.FiltersBySorting = _tablaLogicaProvider.GetTablaLogicaDatos(
                     userData.PaisID,
                     Constantes.TablaLogica.OrdenamientoShowRoom);

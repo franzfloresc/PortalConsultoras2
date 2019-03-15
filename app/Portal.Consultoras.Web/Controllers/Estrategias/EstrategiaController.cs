@@ -200,8 +200,6 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                         listaProducto = _ofertaPersonalizadaProvider.ActualizarEstrategiaStockPROL(listaProducto, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora);
                         List<EstrategiaPedidoModel> listaProductoModel = _ofertaPersonalizadaProvider.ConsultarEstrategiasFormatoEstrategiaToModel1(listaProducto, userData.CodigoISO, userData.CampaniaID);
 
-                        // SetShowRoomOfertasInSession(listaProductoModel, userData);
-                        /************************************************************************>>>>>>>>>inico*/
                         List<EstrategiaPedidoModel> listaEstrategiaOfertas;
                         List<EstrategiaPedidoModel> listaEstrategiaSubCampania;
                         var listaEstrategiaOfertasPerdio = new List<EstrategiaPedidoModel>();
@@ -212,14 +210,15 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                             listaEstrategiaOfertasPerdio = listaProductoModel.Where(x => !x.EsSubCampania && x.FlagRevista != Constantes.FlagRevista.Valor0).ToList();
                             listaEstrategiaSubCampania = listaProductoModel.Where(x => x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
                         }
-                        else // if (revistaDigital.ActivoMdo && revistaDigital.EsActiva || !revistaDigital.ActivoMdo)
+                        else
                         {
                             listaEstrategiaOfertas = listaProductoModel.Where(x => !x.EsSubCampania).ToList();
                             listaEstrategiaSubCampania = listaProductoModel.Where(x => x.EsSubCampania).ToList();
                         }
 
                         listaEstrategiaSubCampania = _ofertaPersonalizadaProvider.ObtenerListaHermanos(listaEstrategiaSubCampania);
-                        // para no mostrar boton ELIGE TU OPCION
+
+                        //boton "ELIGE TU OPCION"
                         listaEstrategiaSubCampania.ForEach(item =>
                         {
                             if (item.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaVariable)
@@ -227,8 +226,6 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                         });
 
                         var listaPedido = _ofertaPersonalizadaProvider.ObtenerPedidoWebDetalle();
-
-                      /************************************************************************>>>>>>>>>fin*/
 
                         listModel = _ofertaPersonalizadaProvider.FormatearModelo1ToPersonalizado(listaEstrategiaOfertas, listaPedido, userData.CodigoISO, userData.CampaniaID, 2, userData.esConsultoraLider, userData.Simbolo).OrderBy(x => x.TieneStock, false).ToList();
                         cantidadTotal0 = listModel.Count;
