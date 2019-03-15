@@ -12,7 +12,7 @@
 }
 
 
-<div id="cabecera" class="banner_armaTuPack">
+<div id="cabecera" class="banner_armaTuPack" style="display:none">
     <h1>¡Arma tu pack y llévatelo a S/100! </h1>
     <p>ELIGE: 2 Fragancias + 1 Maquillaje + 1 Tratamiento Corporal</p>
 </div>
@@ -21,7 +21,7 @@
     <div style="display:none;">
         <div id="data-estrategia" data-estrategia='@Html.Raw(Json.Encode(Model))'></div>
     </div>
-    <div id="seleccionados" class="container d-flex align-items-center justify-content-center ">
+    <div id="seleccionados" class="container d-flex align-items-center justify-content-center " style="display:none;">
         <ul class="Select_Group">
             <li class="Select_Item active">
                 <!-- Colocar la clase active cuando se ha selecionado un porducto  -->
@@ -58,7 +58,7 @@
 </div>
 
 <div id="grupos" class="container" style="margin-bottom:60px">
-    <section class="Sections_Pack">
+    <section class="Sections_Pack" style="display:none;">
         <div class="Title_pack d-flex">
             <h3>FRAGANCIA</h3>
             @*<span>Elige 2 opciones</span>*@
@@ -163,7 +163,7 @@
         </div>
     </section>
 
-    <section class="Sections_Pack">
+    <section class="Sections_Pack" style="display:none;">
         <div class="Title_pack d-flex">
             <h3>Maquillaje</h3>
             <span>Elige 2 opciones</span>
