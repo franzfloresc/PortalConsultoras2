@@ -1,5 +1,7 @@
 ﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceUsuario;
+using System.Configuration;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -22,17 +24,30 @@ namespace Portal.Consultoras.Web.Controllers
                 strCodigoUsuario = userData.CodigoUsuario;
             }
 
-            string[] parametros = new string[] { userData.PaisID.ToString() + "|" + strCodigoUsuario };
-            string str = Util.EncriptarQueryString(parametros);
-            string url = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.URL_LIDER) + "?p=" + str;
+            //string[] parametros = new string[] { userData.PaisID.ToString() + "|" + strCodigoUsuario };
+            //string str = Util.EncriptarQueryString(parametros);
+            //string url = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.URL_LIDER) + "?p=" + str;
 
-            if (!SessionManager.GetIngresoPortalLideres())
+            ////if (!SessionManager.GetIngresoPortalLideres())
+            //{
+            //    //RegistrarLogDynamoDB(Constantes.LogDynamoDB.AplicacionPortalLideres, Constantes.LogDynamoDB.RolSociaEmpresaria, "HOME", "INGRESAR");
+            //    SessionManager.SetIngresoPortalLideres(true);
+            //}
+
+            string urlAccesoExterno = string.Empty;
+            string secretKey = ConfigurationManager.AppSettings["JsonWebTokenSecretKey"] ?? "";
+
+            if (!string.IsNullOrEmpty(secretKey))
             {
-                //RegistrarLogDynamoDB(Constantes.LogDynamoDB.AplicacionPortalLideres, Constantes.LogDynamoDB.RolSociaEmpresaria, "HOME", "INGRESAR");
-                SessionManager.SetIngresoPortalLideres(true);
+                IngresoExternoModel payLoad = new IngresoExternoModel();
+                payLoad.Pais = userData.PaisID.ToString();
+                payLoad.CodigoUsuario = strCodigoUsuario;
+
+                var cadenaEncriptada = JWT.JsonWebToken.Encode(payLoad, secretKey, JWT.JwtHashAlgorithm.HS256);
+                urlAccesoExterno = ConfigurationManager.AppSettings["URL_LIDER"].ToString() + "/Index/?p=" + cadenaEncriptada;
             }
 
-            return Redirect(url);
+            return Redirect(urlAccesoExterno);
         }
 
     }
