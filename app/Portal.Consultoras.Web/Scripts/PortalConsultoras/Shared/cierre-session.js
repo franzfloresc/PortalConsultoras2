@@ -9,8 +9,8 @@
             return;
         }
 
-        var url = settings.url;
-        if (url.startsWith('/Login/LogOut') || url.startsWith('/Login/SesionExpirada')) {
+        var url = settings.url || '';
+        if (url.toLowerCase().startsWith('/login')) {
             return;
         }
 
