@@ -3,10 +3,10 @@
 @model PagoEnLineaModel
 
 @{
-    ViewBag.Title = "Pago en Línea";
-    string bancos = Model.Bancos;
-    var rutaIcono = "";
-    string[] result;
+        ViewBag.Title = "Pago en Línea";
+        string bancos = Model.Bancos;
+        var rutaIcono = "";
+        string[] result = { };
 }
 
 @section styles{
@@ -81,8 +81,11 @@
             <!-- HD-2960 - NUEVO MÉTODO DE PAGO -->
             @if (Model.Bancos != "1")
             {
-                result = bancos.Split('¬');
-                rutaIcono = result[0].Split('¦')[3];
+                if (!string.IsNullOrEmpty(bancos))
+                {
+                    result = bancos.Split('¬');
+                    rutaIcono = result[0].Split('¦')[3];
+                }
                 <div class="metodo_pago_seleccion_tarjeta metodoPago text-center" id="divBancaPorInternet" style="display:block;">
                     <div class="opcion_pago_contenido_visible_sin_desplegar opcionPagoDesktop w-100">
                         <div class="col_izq text-left">
@@ -99,9 +102,9 @@
                             </div>
                         </div>
                     </div>
+                    
                     <div class="opcion_pago_contenido_visible_al_desplegar w-100" id="ullistaBancos" style="display:none;">
-                      
-                                                
+                                                                      
                         <p class="texto_informativo_lista_bancos">Te redireccionaremos al banco que elijas.</p>
                         <ul class="listado_bancos">
                             @for (var i = 0; i < result.Length; i++)
@@ -111,8 +114,8 @@
                                 <li class="banco_nombre"><a href= '@fila[1]' title='@fila[0]' class="enlace_banco" target="_blank"> <img src='@fila[2]' alt='@fila[0]'> </a> </li>
                             }
                         </ul>
-                    
                     </div>
+                    
                 </div>
             }
             <!-- FIN - HD-2960 - NUEVO MÉTODO DE PAGO -->
