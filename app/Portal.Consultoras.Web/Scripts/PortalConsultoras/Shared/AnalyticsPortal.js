@@ -3,7 +3,6 @@ if (!jQuery) { throw new Error("AnalyticsPortal.js requires jQuery"); }
 
 +function ($) {
     "use strict";
-
 }(window.jQuery);
 
 var AnalyticsPortalModule = (function () {
@@ -47,7 +46,8 @@ var AnalyticsPortalModule = (function () {
         contenedorfichaProducto: "Contenedor - Ficha de producto",
         CarritoCompras: "Carrito de compras",
         siguiente: "Ver siguiente",
-        anterior: "Ver anterior"
+        anterior: "Ver anterior",
+        duoPerfecto: "Dúo Perfecto" //HD-3473 EINCA
         // Fin - Analytics Ofertas (Miguel)
     };
 
@@ -60,13 +60,14 @@ var AnalyticsPortalModule = (function () {
         ODD: "ODD",
         GND: "GND",
         MG: "MG",
-        Ficha: "FICHA"
+        Ficha: "FICHA",
+        DP: "DP" //HD-3473 EINCA
     };
     // Fin - Analytics Home 1 (Miguel)
 
     var _constantes = {
         // Ini - Analytics Buscador Miguel
-        isTest: false,
+        isTest: true, //Desactivar HD-3473 EINCA
         currencyCodes: [
             { "CountryCode": "BO", "Code": "BOB" },
             { "CountryCode": "CL", "Code": "CLP" },
@@ -83,7 +84,8 @@ var AnalyticsPortalModule = (function () {
         ],
         seccionesPalanca: [
             { "CodigoSeccion": "ODD", "Palanca": "Oferta Del Día" },
-            { "CodigoSeccion": "SR", "Palanca": "Showroom" }
+            { "CodigoSeccion": "SR", "Palanca": "Showroom" },
+            { "CodigoSeccion": "DP", "Palanca": "Dúo Perfecto" }//HD-3473 EINCA
         ],
         origenpedidoWeb: [
             { "CodigoPalanca": "00", "Palanca": "Ofertas Para Ti" },
@@ -100,7 +102,8 @@ var AnalyticsPortalModule = (function () {
             { "CodigoPalanca": "11", "Palanca": "Catalogo Lbel" },
             { "CodigoPalanca": "12", "Palanca": "Catalogo Esika" },
             { "CodigoPalanca": "13", "Palanca": "Catalogo Cyzone" },
-            { "CodigoPalanca": "14", "Palanca": "Más Ganadoras" }
+            { "CodigoPalanca": "14", "Palanca": "Más Ganadoras" },
+            { "CodigoPalanca": "15", "Palanca": "Dúo Perfecto " }//HD-3473 EINCA
         ],
         origenpedidoWebHome: [
             { "Codigo": "010306", "Descripcion": "Banner Header" },
@@ -109,7 +112,9 @@ var AnalyticsPortalModule = (function () {
         ],
         origenpedidoWebEstrategia: [
             { "Codigo": "1020001", "Descripcion": "Desktop Pedido Ofertas Para Ti Carrusel" },
-            { "Codigo": "2020001", "Descripcion": "Mobile Pedido Ofertas Para Ti Carrusel" }
+            { "Codigo": "2020001", "Descripcion": "Mobile Pedido Ofertas Para Ti Carrusel" },
+            { "Codigo": "1030001", "Descripcion": "Desktop Pedido Dúo Perfecto Carrusel" }, //HD-3473 EINCA
+            { "Codigo": "1030002", "Descripcion": "Mobile Pedido Dúo Perfecto Carrusel" }//HD-3473 EINCA
         ],
         paginas: [
             { "CodigoPagina": "00", "Pagina": "Landing Herramientas de Venta" },
@@ -123,7 +128,8 @@ var AnalyticsPortalModule = (function () {
             { "CodigoPagina": "08", "Pagina": "Contenedor" },
             { "CodigoPagina": "09", "Pagina": "Otras" },
             { "CodigoPagina": "10", "Pagina": "Landing Buscador" },
-            { "CodigoPagina": "11", "Pagina": "Landing Ganadoras" }
+            { "CodigoPagina": "11", "Pagina": "Landing Ganadoras" },
+            { "CodigoPagina": "12", "Pagina": "Landing Dúo Perfecto" }, //HD-3473 EINCA 
         ],
         secciones: [
             { "CodigoSeccion": "01", "Seccion": "Carrusel" },
@@ -176,7 +182,8 @@ var AnalyticsPortalModule = (function () {
             { "Codigo": "11", "CodigoPalanca": "", "TextoList": "" },
             { "Codigo": "12", "CodigoPalanca": "", "TextoList": "" },
             { "Codigo": "13", "CodigoPalanca": "", "TextoList": "" },
-            { "Codigo": "14", "CodigoPalanca": "MG", "TextoList": "Más Ganadoras" }
+            { "Codigo": "14", "CodigoPalanca": "MG", "TextoList": "Más Ganadoras" },
+            { "Codigo": "15", "CodigoPalanca": "DP", "TextoList": "Dúo Perfecto" }//HD-3473 EINCA
         ],
         Seccion: [
             { "Codigo": "01", "TextoList": "" },
@@ -204,7 +211,8 @@ var AnalyticsPortalModule = (function () {
         { Codigo: "11", UrlController: "" },
         { Codigo: "12", UrlController: "" },
         { Codigo: "13", UrlController: "" },
-        { Codigo: "14", UrlController: "MasGanadoras" }
+        { Codigo: "14", UrlController: "MasGanadoras" },
+        { Codigo: "15", UrlController: "ProgramaNuevas" } //HD-3473 EINCA 
     ]
 
     ////////////////////////////////////////////////////////////////////////////////////////
@@ -253,9 +261,9 @@ var AnalyticsPortalModule = (function () {
 
         origenEstructura.CodigoPalanca = origenEstructura.CodigoPalanca || "";
         var contendor = origenEstructura.Pagina == ConstantesModule.OrigenPedidoWebEstructura.Pagina.Contenedor
-                        || origenEstructura.Seccion == ConstantesModule.OrigenPedidoWebEstructura.Seccion.Ficha
-                        || origenEstructura.Seccion == ConstantesModule.OrigenPedidoWebEstructura.Seccion.CarruselVerMas
-                        || origenEstructura.CodigoPalanca != "";
+            || origenEstructura.Seccion == ConstantesModule.OrigenPedidoWebEstructura.Seccion.Ficha
+            || origenEstructura.Seccion == ConstantesModule.OrigenPedidoWebEstructura.Seccion.CarruselVerMas
+            || origenEstructura.CodigoPalanca != "";
 
         if (contendor) {
             return _texto.contenedor;
@@ -800,11 +808,11 @@ var AnalyticsPortalModule = (function () {
                         ? AnalyticsPortalModule.MarcaAnadirCarritoHomeBanner(null, codigoOrigenPedido, estrategia)
                         : AnalyticsPortalModule.MarcaAnadirCarritoHome(null, codigoOrigenPedido, estrategia);
                     break;
-                    // Inicio Analytics Oferta Miguel
+                // Inicio Analytics Oferta Miguel
                 case "Contenedor": AnalyticsPortalModule.MarcaAnadirCarrito(event, codigoOrigenPedido, estrategia); break;
                 case "Landing": AnalyticsPortalModule.MarcaAnadirCarrito(event, codigoOrigenPedido, estrategia); break;
                 case "Pedido": AnalyticsPortalModule.MarcaAnadirCarrito(event, codigoOrigenPedido, estrategia); break;
-                    // Fin Analytics Oferta Miguel
+                // Fin Analytics Oferta Miguel
             }
 
         } catch (e) {
@@ -2358,7 +2366,7 @@ var AnalyticsPortalModule = (function () {
             console.log(_texto.exception + e);
         }
     }
-    
+
     function marcarClickMasOfertasPromotionClickMG() {
         try {
             dataLayer.push({

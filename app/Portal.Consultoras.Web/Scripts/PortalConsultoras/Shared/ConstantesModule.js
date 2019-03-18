@@ -21,7 +21,8 @@ var ConstantesModule = (function () {
         Ganadoras: "Ganadoras",
         LiquidacionWeb: "OfertasLiquidacion",
         GuiaNegocio: "GuiaNegocio",
-        SR:"ShowRoom"
+        SR: "ShowRoom",
+        DuoPerfecto:"DuoPerfecto" //HD-3473 EINCA
     }
 
     var _keysLocalStorage = {
@@ -56,7 +57,8 @@ var ConstantesModule = (function () {
         HerramientasVenta: "011",
         ProgramaNuevasRegalo: "044",
         ParticipaProgramaNuevas: "1",
-        NotParticipaProgramaNuevas: "0"
+        NotParticipaProgramaNuevas: "0",
+        DuoPerfecto:"034"//HD-3473 EINCA
     }
 
     var _configuracionOferta = {
@@ -75,7 +77,8 @@ var ConstantesModule = (function () {
         GND: "GN",
         LAN: "LAN",
         MG: "MG",
-        SR: "SR"
+        SR: "SR",
+        DP:"DP"//Dúo Perfecto HD-3473 EINCA 
     }
 
     var _urlObtenerEstrategia = {
@@ -133,7 +136,8 @@ var ConstantesModule = (function () {
             Contenedor: '08',
             Otras: '09',
             LandingBuscador: '10',
-            LandingGanadoras: '11'
+            LandingGanadoras: '11',
+            LandingDP: '12'//HD-3473 EINCA
         },
         Palanca: {
             OfertasParaTi: '00',
@@ -150,7 +154,8 @@ var ConstantesModule = (function () {
             CatalogoLbel: '11',
             CatalogoEsika: '12',
             CatalogoCyzone: '13',
-            Ganadoras: '14'
+            Ganadoras: '14',
+            DuoPerfecto:'15'//HD-3473 EINCA
         },
         Seccion: {
             Carrusel: '01',
