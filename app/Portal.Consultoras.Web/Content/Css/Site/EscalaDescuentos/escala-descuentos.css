@@ -116,6 +116,10 @@
     margin-bottom:18px;
 }
 
+    .info__descuento__fijo__porcentaje__wrapper .col-12:last-child{
+        margin-bottom:0;
+    }
+
 .info__descuento__fijo__porcentaje__titulo{
     font-size:17px;
     margin-bottom:4px;
