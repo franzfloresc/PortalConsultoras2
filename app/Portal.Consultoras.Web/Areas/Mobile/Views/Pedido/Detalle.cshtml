@@ -397,18 +397,6 @@
                         <img src="@Url.Content("~/Content/Images/icono_editar.svg")" alt="Cambiar regalo" />
                     </a>
                 </div>
-                {{else}}
-                @* 
-                <div class="icono_eliminar_item_pedido">
-                    <a href="javascript:;"
-                       title="Eliminar"
-                       onclick="tooltipDelete(event,'{{PedidoDetalleID}}', '{{SetID}}');"
-                       data-pedidodetalleid="{{detalle.PedidoDetalleID}}"
-                       data-setid="{{detalle.SetID}}">
-                        <img src="@Url.Content("~/Content/Images/Esika/tacho-copy.png")" alt="Eliminar" />
-                    </a>
-                </div>
-                *@
                 {{/if}}
             </div>
             <div class="bloque_cantidades_precios_items_ingresados">
@@ -466,11 +454,14 @@
                         <div class="clear"></div>
                     </div>
                 </div>
+                {{#unless detalle.EsKitNueva}}
+                {{#unless detalle.LockPremioElectivo}}
                 <div class="icono_eliminar_item_pedido">
-                    <a href="javascript:;" class="border_radius_4 icon_trash" title="Eliminar" onclick="tooltipDelete(event,'{{PedidoDetalleID}}', '{{SetID}}');" data-pedidodetalleid="{{detalle.PedidoDetalleID}}" data-setid="{{detalle.SetID}}"></a>                        
+                    <a href="javascript:;" class="border_radius_4 icon_trash" title="Eliminar" onclick="tooltipDelete(event,'{{PedidoDetalleID}}', '{{SetID}}');" data-pedidodetalleid="{{detalle.PedidoDetalleID}}" data-setid="{{detalle.SetID}}"></a>
                 </div>
+                {{/unless}}
+                {{/unless}}
 
-                
             </div>
 
             <div style="display:none" class="popover_pedido bottom" id="tlpDelete_{{PedidoDetalleID}}_{{SetID}}">
