@@ -313,6 +313,9 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEConfiguracionPaisDatos> GetConfiguracionPaisDatos(BEConfiguracionPaisDatos entidad);
 
         [OperationContract]
+        List<BEConfiguracionPaisDatos> GetConfiguracionPaisDatosAll(BEConfiguracionPaisDatos entidad);
+
+        [OperationContract]
         int RegistrarUsuarioPostulante(string paisISO, BEUsuarioPostulante entidad);
 
         [OperationContract]
