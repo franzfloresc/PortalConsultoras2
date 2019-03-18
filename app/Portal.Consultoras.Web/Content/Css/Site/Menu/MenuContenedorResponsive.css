@@ -44,6 +44,7 @@
 
         .menu__contenedor__carrusel__wrapper .slick-arrow {
             position: relative;
+            justify-content:center;
         }
 
             .menu__contenedor__carrusel__wrapper .slick-arrow img {
