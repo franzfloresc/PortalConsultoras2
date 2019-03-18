@@ -231,7 +231,8 @@ function ModificarOfertas(idOfertasHome) {
                 $(".div-disenio-atp-visible").show();
                 $(".div-disenio-atp-oculto").hide();
                 $("#tituloSeccionDesktop").html("Desktop/Mobile");
-                $("#titColorTexto").html("Color de títulos");                
+                $("#titColorTexto").html("Color de títulos");    
+                $("#titTamanioImagenFondo").html("(Ancho: 1920 px x Alto: 300 px)");
             }
             /*Fin Agana 186 */
 

@@ -615,7 +615,8 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/ProductoListado/CajaProducto.css",
                 "~/Content/Css/Mobile/LasMasGanadoras/presentacion-seccion-carrusel.css",
                 "~/Content/Css/Mobile/LasMasGanadoras/banner_ofertas_masGanadoras.css",
-                "~/Content/Css/Mobile/ProductoListado/CajaProductoV2.css"
+                "~/Content/Css/Mobile/ProductoListado/CajaProductoV2.css",
+                "~/Content/Css/Site/Contenedor/BannerInteractivo.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/Pedido").Include(
