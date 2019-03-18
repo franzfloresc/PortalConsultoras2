@@ -18,8 +18,17 @@
         }
     };
 
+    var _getEstrategia = function(){
+        var estrategia = { IsMobile : false };
+        if($(_elementos.dataEstrategia.id).length > 0){
+            var strJson = $(_elementos.dataEstrategia.id).attr(_elementos.dataEstrategia.dataEstrategia) || "";
+            estrategia = JSON.parse(strJson);
+        }
+        return estrategia;
+    };
+
     var _getPackComponents = function () {
-        var estrategia = JSON.parse($(_elementos.dataEstrategia.id).attr(_elementos.dataEstrategia.dataEstrategia));
+        var estrategia = _getEstrategia();
         var params = {
             estrategiaId: estrategia.EstrategiaID,
             cuv2: estrategia.CUV2,
