@@ -22,3 +22,7 @@
          messageEncoding="Text" />
 
 		<endpoint address="http://internal-QAiELBServiciosConsultoras-253844361.us-east-1.elb.amazonaws.com/SB2WCF/PedidoService.svc" binding="basicHttpBinding" bindingConfiguration="BasicHttpBinding_IPedidoService" contract="ServicePedido.IPedidoService" name="BasicHttpBinding_IPedidoService" />
+
+5. WSCONSULTORAS
+	Agregar:
+		<add key="NombreBucketAppCatalogo" value="appcatalogo" />
