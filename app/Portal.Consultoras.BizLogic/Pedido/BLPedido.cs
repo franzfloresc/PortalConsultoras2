@@ -661,7 +661,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                             ImporteTotal = ((ncant * detalleSet.FactorRepeticion) + ocant) * detalleSet.PrecioUnidad,
                             Producto = new BEProducto()
                             {
-                                PrecioCatalogo = set.PrecioUnidad,
+                                //PrecioCatalogo = set.PrecioUnidad,
+                                PrecioCatalogo = detalleSet.PrecioUnidad,
                                 CUV = detalleSet.CuvProducto,
                                 TipoOfertaSisID = detalleSet.TipoOfertaSisId,
                                 Descripcion = pedidoDetalle.Producto.Descripcion
