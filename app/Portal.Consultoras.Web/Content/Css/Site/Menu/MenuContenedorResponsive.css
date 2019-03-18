@@ -1,51 +1,137 @@
 ﻿
-.atp-nav {
-    width: 100%;
-    box-shadow: 0 2px 3px 1px rgba(126, 126, 126, .35);
+/* MENÚ CONTENEDOR OFERTAS RESPONSIVE */
+
+.layout__header--menuContenedorOfertas,
+.menu__contenedor__carrusel__wrapper {
+    height: 52px !important;
 }
-    /*  Botones del menú */
-    .atp-nav a[role="menu"] {
-        display: inline-block;
-        padding: 14px 20px;
+
+    .menu__contenedor__carrusel__wrapper .slick-track,
+    .menu__contenedor__carrusel__wrapper .slick-arrow,
+    .menu__contenedor__carrusel__item__link {
+        height: 100%;
     }
 
-        .atp-nav a[role="menu"] span {
-            font-size: 11px;
-            font-weight: 600;
-            letter-spacing: .5px;
+.layout__header--menuContenedorOfertas {
+    -moz-box-shadow: 1px 2px 12px rgba(0,0,0,.14);
+    -webkit-box-shadow: 1px 2px 12px rgba(0,0,0,.14);
+    box-shadow: 1px 2px 12px rgba(0,0,0,.14);
+}
+
+    .layout__header--menuContenedorOfertas > nav {
+        max-width: 1222px;
+    }
+
+.menu__contenedor__carrusel__wrapper {
+    margin-bottom: 0;
+}
+
+    .menu__contenedor__carrusel__wrapper,
+    .menu__contenedor__carrusel__wrapper .slick-arrow,
+    .menu__contenedor__carrusel__wrapper .slick-track,
+    .menu__contenedor__carrusel__item.slick-slide {
+        display: flex !important;
+    }
+
+        .menu__contenedor__carrusel__wrapper .slick-arrow,
+        .menu__contenedor__carrusel__wrapper .slick-track,
+        .menu__contenedor__carrusel__item.slick-slide {
+            -ms-flex-flow: row nowrap;
+            -webkit-flex-flow: row nowrap;
+            flex-flow: row nowrap;
+            align-items: center;
         }
-    /* Eliminar margen inferior a los ¿p? */
-    .atp-nav .subnavegador {
-        margin: 0;
+
+        .menu__contenedor__carrusel__wrapper .slick-arrow {
+            position: relative;
+            justify-content:center;
+        }
+
+            .menu__contenedor__carrusel__wrapper .slick-arrow img {
+                margin-top: 0 !important;
+                height: 21px;
+            }
+
+        .menu__contenedor__carrusel__wrapper .slick-list {
+            flex-basis: 0;
+            -webkit-flex-grow: inherit;
+            flex-grow: 1;
+            max-width: 90%;
+        }
+
+.menu__contenedor__carrusel__item.slick-slide {
+    float: none;
+}
+
+.menu__contenedor__carrusel__item:first-child .menu__contenedor__carrusel__item__link {
+    padding-left: 0;
+}
+
+.menu__contenedor__carrusel__item__link {
+    min-width: 74px;
+    padding-left: 20px;
+    padding-right: 20px;
+    outline: none;
+}
+
+    .menu__contenedor__carrusel__item__link img {
+        width: 74px;
+        height: auto;
+        position: relative;
+        top: 0.2px;
     }
-/* Alinear en fila y bloque los elementos de la lista del menú */
-.subnavegador li {
-    display: inline-block;
-}
-/* Asigna el tamaño del ícono de g+ */
-.atp_icon {
-    height: 13px;
-}
-/* Color dorado cuando se activa el botón */
-.activado-dorado {
-    border-bottom: 3px solid #c39934;
-    color: #c39934;
-}
+
+    .menu__contenedor__carrusel__item__link.activado img,
+    .menu__contenedor__carrusel__item__link.activado-dorado img {
+        width: 74px;
+        top: 1.5px;
+    }
+
+    .menu__contenedor__carrusel__item__link p {
+        font-size: 12px;
+    }
+
+    .menu__contenedor__carrusel__item__link.activado p,
+    .menu__contenedor__carrusel__item__link.activado-dorado p {
+        padding-top: 2px;
+    }
+
+    .menu__contenedor__carrusel__item__link.activado {
+        border-bottom: 2px solid #B52E36;
+    }
+
+        .menu__contenedor__carrusel__item__link.activado p {
+            color: #B52E36;
+        }
+
+    .menu__contenedor__carrusel__item__link.activado-dorado {
+        border-bottom: solid 2px #c39934;
+    }
+
+        .menu__contenedor__carrusel__item__link.activado-dorado p {
+            color: #c39934;
+        }
 
 
-
-/* Sobreescribir estilos del menú*/
-/* El menú ahora es doble se debe de eliminar la primera sombra */
-.layout__header {
-    box-shadow: none;
+.ocultar {
+    display: none;
 }
 
-/* Clases de apoyo */
-.absolute {
-    position: absolute;
-    top: 60px;
+@media screen and (max-width:991px) {
+
+    .layout__header--menuContenedorOfertas {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .menu__contenedor__carrusel__wrapper .slick-list {
+        max-width: 100%;
+    }
+
+    .menu__contenedor__carrusel__item__link {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
 }
 
-.bgWhite {
-    background-color: white;
-}
+/* FIN - MENÚ CONTENEDOR OFERTAS RESPONSIVE */

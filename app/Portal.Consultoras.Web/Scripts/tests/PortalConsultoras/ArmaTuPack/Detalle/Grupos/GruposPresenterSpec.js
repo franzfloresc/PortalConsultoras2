@@ -5327,7 +5327,7 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
                                 "DescripcionComercial": null,
                                 "DescripcionMarca": "Ésika",
                                 "Digitable": 1,
-                                "FactorCuadre": 4,
+                                "FactorCuadre": 2,
                                 "Grupo": "1",
                                 "Id": 0,
                                 "IdMarca": 2,
@@ -5352,7 +5352,7 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
                                 "DescripcionComercial": null,
                                 "DescripcionMarca": "Ésika",
                                 "Digitable": 1,
-                                "FactorCuadre": 4,
+                                "FactorCuadre": 2,
                                 "Grupo": "1",
                                 "Id": 0,
                                 "IdMarca": 2,
@@ -5565,6 +5565,7 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
                 gruposPresenter.addComponente(codigoGrupo, cuvComponente);
                 gruposPresenter.addComponente(codigoGrupo, cuvComponente);
                 model = gruposPresenter.packComponents();
+                sinon.resetHistory();
             });
 
             it("Should uncollapse all grupos", function () {

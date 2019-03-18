@@ -42,8 +42,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             var listaOfertasATP = _ofertaPersonalizadaProvider.ConsultarEstrategiasModel(IsMobile, userData.CodigoISO, userData.CampaniaID, userData.CampaniaID, Constantes.TipoEstrategiaCodigo.ArmaTuPack).ToList();
 
-            if (listaOfertasATP == null){ return RedirectToAction("ofertas", "ficha", new { Area = area }); };
-            if (listaOfertasATP.Count() == 0){ return RedirectToAction("ofertas", "ficha", new { Area = area }); }
+            if (listaOfertasATP == null || listaOfertasATP.Count() == 0) { return RedirectToAction("Index", "Ofertas", new { Area = area }); };
 
             var OfertaATP = listaOfertasATP.FirstOrDefault();
             var lstPedidoAgrupado = ObtenerPedidoWebSetDetalleAgrupado(false);

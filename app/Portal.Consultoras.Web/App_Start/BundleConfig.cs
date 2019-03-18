@@ -988,7 +988,7 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/Shared/buscador-responsive.css",
                 "~/Content/Css/Site/Shared/menu-secundario-responsive.css",
                 "~/Content/Css/Site/Shared/footer-responsive.css",
-                "~/Content/Css/Mobile/Contenedor/MenuContenedor.css",
+                "~/Content/Css/Site/Menu/MenuContenedorResponsive.css",
                 "~/Content/Css/Site/slick.css"
             ));
 
@@ -1012,8 +1012,7 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Responsive/ArmaTuPack").Include(
                 "~/Content/Css/Site/ArmaTuPack/ArmaTuPack_Responsive.css",
-                "~/Content/Css/Site/ficha/SeleccionarTipo.css",
-                "~/Content/Css/Site/Menu/MenuContenedorResponsive.css"
+                "~/Content/Css/Site/ficha/SeleccionarTipo.css"
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mixto/ArmaTuPack").Include(
