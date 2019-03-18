@@ -68,6 +68,20 @@
         $(_elements.seleccionados.id).on("click",_elements.btnAgregar.id, function (e) {
             _presenter.addPack();
         });
+
+        $(window).scroll(function () {
+
+            var scrollTop = $(this).scrollTop();
+
+            if (scrollTop > 230) {
+                $(".Select_ArmaTuPack").addClass("Select_fixed");
+                $(".Select_ArmaTuPack").fadeIn();
+            }
+            else {
+                $(".Select_ArmaTuPack").removeClass("Select_fixed");
+                $(".Select_ArmaTuPack").removeAttr('style');
+            }
+        });
     };
 
     var _hideTooltip = function () {

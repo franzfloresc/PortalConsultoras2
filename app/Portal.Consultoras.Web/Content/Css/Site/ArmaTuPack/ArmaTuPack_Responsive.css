@@ -167,8 +167,7 @@
 
     .product_select_close img {
         width: 7px;
-        height: 7px;
-
+        height: 8px;
     }
 
 .Select_Item.active {
@@ -429,6 +428,10 @@
     .arrow_acordeon {
         display: none !important;
     }
+
+    #Pack_Items .flecha_ofertas-tipo {
+        height: 197px;
+    }
 }
 
 
@@ -547,6 +550,13 @@
 
     .Title_pack.active .arrow_acordeon {
         transform: rotate(0deg) !important;
+    }
+
+    .Select_fixed {
+        position: fixed;
+        width: 100%;
+        z-index: 9999;
+        top: 105px;
     }
 }
 
