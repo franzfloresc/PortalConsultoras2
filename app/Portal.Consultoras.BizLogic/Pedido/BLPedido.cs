@@ -2606,42 +2606,53 @@ namespace Portal.Consultoras.BizLogic.Pedido
         {
             BEPedidoDetalleResult objRerun = null;
             var LstRealo = _estrategiaBusinessLogic.GetEstrategiaPremiosElectivos(pedidoDetalle.Usuario.PaisID, pedidoDetalle.Usuario.CodigoPrograma, pedidoDetalle.Usuario.CampaniaID, pedidoDetalle.Usuario.Nivel).ToList();
-            var reqPedidoDetalle = Get(pedidoDetalle.Usuario);
-            if (reqPedidoDetalle.olstBEPedidoWebDetalle == null)
-            {
-                objRerun = new BEPedidoDetalleResult();
-                objRerun.CodigoRespuesta = Constantes.PedidoValidacion.Code.SUCCESS;
-                return objRerun;
-            }
 
-            reqPedidoDetalle.olstBEPedidoWebDetalle.ForEach(p =>
-            {
-                p.EsRegalo = LstRealo.Any(c => c.CUV2 == p.CUV);
-            });
+            if(LstRealo== null) LstRealo = new List<BEEstrategia>();
 
-            if (reqPedidoDetalle.olstBEPedidoWebDetalle.Any(x => x.EsRegalo))
+            if (LstRealo.Any(x => x.CUV2 == pedidoDetalle.Producto.CUV))
             {
-                var regaloElegido = reqPedidoDetalle.olstBEPedidoWebDetalle.FirstOrDefault(x => x.EsRegalo);
-                BEPedidoDetalle ProdEliminar = (BEPedidoDetalle)pedidoDetalle.Clone();
-
-                ProdEliminar.PedidoDetalleID = regaloElegido.PedidoDetalleID;
-                ProdEliminar.Producto = new BEProducto()
+                var reqPedidoDetalle = Get(pedidoDetalle.Usuario);
+                if (reqPedidoDetalle.olstBEPedidoWebDetalle == null)
                 {
-                    TipoOfertaSisID = regaloElegido.TipoOfertaSisID,
-                    CUV = regaloElegido.CUV
-                };
+                    objRerun = new BEPedidoDetalleResult();
+                    objRerun.CodigoRespuesta = Constantes.PedidoValidacion.Code.SUCCESS;
+                    return objRerun;
+                }
 
-                objRerun = Delete(ProdEliminar).Result;
-                if (objRerun.CodigoRespuesta != Constantes.PedidoValidacion.Code.SUCCESS) return objRerun;
+                reqPedidoDetalle.olstBEPedidoWebDetalle.ForEach(p =>
+                {
+                    p.EsRegalo = LstRealo.Any(c => c.CUV2 == p.CUV);
+                });
 
-                //var regaloElegido = objPedido.Detalle.FirstOrDefault(x => x.EsPremioElectivo);
+                if (reqPedidoDetalle.olstBEPedidoWebDetalle.Any(x => x.EsRegalo))
+                {
+                    var regaloElegido = reqPedidoDetalle.olstBEPedidoWebDetalle.FirstOrDefault(x => x.EsRegalo);
+                    BEPedidoDetalle ProdEliminar = (BEPedidoDetalle)pedidoDetalle.Clone();
+
+                    ProdEliminar.PedidoDetalleID = regaloElegido.PedidoDetalleID;
+                    ProdEliminar.Producto = new BEProducto()
+                    {
+                        TipoOfertaSisID = regaloElegido.TipoOfertaSisID,
+                        CUV = regaloElegido.CUV
+                    };
+
+                    objRerun = Delete(ProdEliminar).Result;
+                    if (objRerun.CodigoRespuesta != Constantes.PedidoValidacion.Code.SUCCESS) return objRerun;
+
+                    //var regaloElegido = objPedido.Detalle.FirstOrDefault(x => x.EsPremioElectivo);
+                }
+                else
+                {
+                    objRerun = new BEPedidoDetalleResult();
+                    objRerun.CodigoRespuesta = Constantes.PedidoValidacion.Code.SUCCESS;
+                }
             }
             else
             {
                 objRerun = new BEPedidoDetalleResult();
                 objRerun.CodigoRespuesta = Constantes.PedidoValidacion.Code.SUCCESS;
             }
-
+            
             return objRerun;
         }
 
