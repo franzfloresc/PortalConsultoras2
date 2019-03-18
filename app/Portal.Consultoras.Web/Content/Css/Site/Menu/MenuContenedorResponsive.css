@@ -48,6 +48,7 @@
 
             .menu__contenedor__carrusel__wrapper .slick-arrow img {
                 margin-top: 0 !important;
+                height: 21px;
             }
 
         .menu__contenedor__carrusel__wrapper .slick-list {
