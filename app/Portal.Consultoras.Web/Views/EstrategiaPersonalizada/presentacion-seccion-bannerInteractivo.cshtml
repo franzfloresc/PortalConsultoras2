@@ -25,7 +25,7 @@
         lStylePanel.Add("background: url(" + Model.ImagenFondo + ") center center no-repeat;");
         lStylePanel.Add("background-position: center !important;");
         lStylePanel.Add("background-size: cover;");
-        lStylePanel.Add("min-height: 500px;");
+        
         lStylePanel.Add("vertical-align: middle;");
     }
     #endregion
@@ -37,7 +37,7 @@
     #endregion
 }
 
-<div class="container">
+<div class="container-flex">
     <div class="atp_main" style="@Html.Raw(String.Join("", lStylePanel))">
         <div class="atp_main_content">
             <h2 class="atp_title text-upper" style="@Html.Raw(String.Join("", lStyleText))">@Model.Titulo</h2>
