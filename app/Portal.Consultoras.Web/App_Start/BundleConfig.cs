@@ -988,7 +988,7 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/Shared/buscador-responsive.css",
                 "~/Content/Css/Site/Shared/menu-secundario-responsive.css",
                 "~/Content/Css/Site/Shared/footer-responsive.css",
-                "~/Content/Css/Mobile/Contenedor/MenuContenedor.css",
+                "~/Content/Css/Site/Menu/MenuContenedorResponsive.css",
                 "~/Content/Css/Site/slick.css"
             ));
 
