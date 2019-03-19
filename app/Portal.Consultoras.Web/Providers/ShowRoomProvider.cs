@@ -466,7 +466,7 @@ namespace Portal.Consultoras.Web.Providers
         public void CargarEntidadesShowRoom(UsuarioModel model)
         {
             ConfigModel configEstrategiaSR = _sessionManager.GetEstrategiaSR() ?? new ConfigModel();
-            MSPersonalizacionConfiguracionModel msPersonalizacionModel = new MSPersonalizacionConfiguracionModel();
+            //MSPersonalizacionConfiguracionModel msPersonalizacionModel = new MSPersonalizacionConfiguracionModel();
 
             try
             {

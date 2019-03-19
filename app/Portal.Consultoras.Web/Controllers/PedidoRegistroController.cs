@@ -51,7 +51,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var producto = olstProducto[0];
 
-                var strCuv = CUV;
+                //var strCuv = CUV;
                 int outVal;
 
                 var pedidoCrudModel = new PedidoCrudModel();
@@ -142,7 +142,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                string mensaje = "", urlRedireccionar = "", CuvSet = string.Empty;
+                string mensaje = "", urlRedireccionar = "";//, CuvSet = string.Empty;
                 BEPedidoDetalle pedidoDetalle = new BEPedidoDetalle();
                 pedidoDetalle.Producto = new ServicePedido.BEProducto();
                 model.CuvTonos = Util.Trim(model.CuvTonos);
@@ -388,8 +388,8 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult UpdateTransaction(PedidoWebDetalleModel model)
         {
-            string tipo = string.Empty;
-            string totalFormato = string.Empty;
+            //string tipo = string.Empty;
+            //string totalFormato = string.Empty;
             var txtBuildCliente = new StringBuilder();
 
 
