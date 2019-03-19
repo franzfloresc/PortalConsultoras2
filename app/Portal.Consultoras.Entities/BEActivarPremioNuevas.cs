@@ -1,11 +1,8 @@
 ﻿using Portal.Consultoras.Common;
 using System;
-using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Entities
 {
@@ -13,37 +10,31 @@ namespace Portal.Consultoras.Entities
     public class BEActivarPremioNuevas
     {
         [DataMember]
+        [Column("CodigoPrograma")]
         public string CodigoPrograma { get; set; }
         [DataMember]
-        public int AnioCampana { get; set; }
+        [Column("AnioCampanaIni")]
+        public int AnioCampanaIni { get; set; }
         [DataMember]
+        [Column("AnioCampanaFin")]
+        public int AnioCampanaFin { get; set; }
+        [DataMember]
+        [Column("Nivel")]
         public string Nivel { get; set; }
         [DataMember]
+        [Column("ActivePremioAuto")]
+        public bool ActivePremioAuto { get; set; }
+        [DataMember]
+        [Column("ActivePremioElectivo")]
+        public bool ActivePremioElectivo { get; set; }
+        [DataMember]
+        [Column("ActiveMonto")]
+        public bool ActiveMonto { get; set; }
+        [DataMember]
+        [Column("ActiveTooltip")]
         public bool ActiveTooltip { get; set; }
         [DataMember]
+        [Column("FechaCreate")]
         public DateTime FechaCreate { get; set; }
-        [DataMember]
-        public bool ActiveMontoTooltip { get; set; }
-        [DataMember]
-        public bool Active { get; set; }
-
-        public BEActivarPremioNuevas()
-        {
-            CodigoPrograma = default(string);
-            AnioCampana = default(int);
-            Nivel = default(string);
-            FechaCreate = default(DateTime);
-        }
-
-        public BEActivarPremioNuevas(IDataRecord row)
-        {
-            CodigoPrograma = row.ToString("CodigoPrograma");
-            AnioCampana = row.ToInt32("AnoCampana");
-            Nivel = row.ToString("Nivel");
-            ActiveTooltip = row.ToBoolean("ActiveTooltip");
-            ActiveMontoTooltip = row.ToBoolean("ActiveTooltipMonto");
-            Active = row.ToBoolean("Active");
-            FechaCreate = row.ToDateTime("FechaCreate");
-        }
     }
 }

@@ -2,7 +2,6 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceSAC;
-using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +25,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (!UsuarioModel.HasAcces(ViewBag.Permiso, "AdministrarFeErratas/Index"))
                     return RedirectToAction("Index", "Bienvenida");
-                
+
                 var administrarFeErratasModel = new AdministrarFeErratasModel()
                 {
                     listaPaises = DropDowListPaises(),
@@ -47,16 +46,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return View(new AdministrarFeErratasModel());
         }
-
-        //movido BaseAdm/ObtenerCampaniasPorPais
-        //public JsonResult ObtenterDropDownPorPais(int PaisID)
-        //{
-        //    IEnumerable<CampaniaModel> lstcampania = _zonificacionProvider.GetCampanias(PaisID);
-        //    return Json(new
-        //    {
-        //        lstCampania = lstcampania
-        //    }, JsonRequestBehavior.AllowGet);
-        //}
 
         public ActionResult Consultar(string sidx, string sord, int page, int rows, int vpaisID, int vCampaniaID)
         {

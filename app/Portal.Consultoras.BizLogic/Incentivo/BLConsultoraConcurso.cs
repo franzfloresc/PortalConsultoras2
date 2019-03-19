@@ -71,6 +71,12 @@ namespace Portal.Consultoras.BizLogic
             }
         }
 
+        public void ActualizarInsertarPuntosConcursoTransaction(int PaisID, string CodigoConsultora, string CodigoCampania, string CodigoConcursos, string PuntosConcurso, string PuntosExigidosConcurso)
+        {
+            DAConcurso DAConcurso = new DAConcurso(PaisID);
+            DAConcurso.ActualizarInsertarPuntosConcurso(CodigoConsultora, CodigoCampania, CodigoConcursos, PuntosConcurso, PuntosExigidosConcurso);
+        }
+
         /// <summary>
         /// Obtener el puntaje del concurso que participa la consultora.
         /// </summary>
@@ -221,7 +227,8 @@ namespace Portal.Consultoras.BizLogic
                         CodigoNivel = item.NivelAlcanzado,
                         PuntosNivel = item.PuntosNivel,
                         CodigoPremio = string.Join("\n", incentivosPremios.Where(p => p.CodigoConcurso == item.CodigoConcurso).Select(x => x.CodigoPremio)),
-                        DescripcionPremio = string.Join("\n", incentivosPremios.Where(p => p.CodigoConcurso == item.CodigoConcurso).Select(x => x.DescripcionPremio))
+                        DescripcionPremio = string.Join("\n", incentivosPremios.Where(p => p.CodigoConcurso == item.CodigoConcurso).Select(x => x.DescripcionPremio)),
+                        Premios = incentivosPremios.Where(p => p.CodigoConcurso == item.CodigoConcurso).ToList()
                     });
 
                     item.Niveles = incentivosNivel;

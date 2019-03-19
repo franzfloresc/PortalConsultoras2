@@ -37,9 +37,21 @@ namespace Portal.Consultoras.Data
             }
         }
 
-        public IDataReader GetRegaloProgramaNuevas(BEConfiguracionProgramaNuevas entidad)
+        public IDataReader GetPremioAutomatico(BEConfiguracionProgramaNuevas entidad)
         {
             using (var command = Context.Database.GetStoredProcCommand("dbo.GetRegaloProgramaNuevas"))
+            {
+                Context.Database.AddInParameter(command, "@CodigoPrograma", DbType.String, entidad.CodigoPrograma);
+                Context.Database.AddInParameter(command, "@Campania", DbType.String, entidad.Campania);
+                Context.Database.AddInParameter(command, "@CodigoNivel", DbType.String, entidad.CodigoNivel);
+
+                return Context.ExecuteReader(command);
+            }
+        }
+
+        public IDataReader GetListPremioElectivo(BEConfiguracionProgramaNuevas entidad)
+        {
+            using (var command = Context.Database.GetStoredProcCommand("dbo.GetPremioElecProgNuevas"))
             {
                 Context.Database.AddInParameter(command, "@CodigoPrograma", DbType.String, entidad.CodigoPrograma);
                 Context.Database.AddInParameter(command, "@Campania", DbType.String, entidad.Campania);

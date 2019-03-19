@@ -31,6 +31,8 @@ namespace Portal.Consultoras.Web.Providers
         }
         protected OfertaBaseProvider _ofertaBaseProvider;
         protected ISessionManager _sessionManager;
+        protected ConsultaProlProvider _consultaProlProvider;
+        protected TablaLogicaProvider _tablaLogicaProvider;
         public virtual ISessionManager SessionManager
         {
             get { return _sessionManager; }
@@ -40,17 +42,23 @@ namespace Portal.Consultoras.Web.Providers
         public EstrategiaComponenteProvider() : this(
             Web.SessionManager.SessionManager.Instance,
             new OfertaBaseProvider(),
-            new ConfiguracionManagerProvider())
+            new ConfiguracionManagerProvider(),
+            new ConsultaProlProvider(),
+            new TablaLogicaProvider())
         {
         }
 
         public EstrategiaComponenteProvider(ISessionManager sessionManager,
             OfertaBaseProvider ofertaBaseProvider,
-            ConfiguracionManagerProvider configuracionManagerProvider)
+            ConfiguracionManagerProvider configuracionManagerProvider,
+            ConsultaProlProvider consultaProlProvider,
+            TablaLogicaProvider tablaLogicaProvider)
         {
             _configuracionManagerProvider = configuracionManagerProvider;
             _ofertaBaseProvider = ofertaBaseProvider;
             this.SessionManager = sessionManager;
+            _consultaProlProvider = consultaProlProvider;
+            _tablaLogicaProvider = tablaLogicaProvider;
         }
 
         public List<EstrategiaComponenteModel> GetListaComponentes(EstrategiaPersonalizadaProductoModel estrategiaModelo, string codigoTipoEstrategia, out bool esMultimarca, out string mensaje)
@@ -90,6 +98,23 @@ namespace Portal.Consultoras.Web.Providers
 
             listaEstrategiaComponente = OrdenarComponentesPorMarca(listaEstrategiaComponente, out esMultimarca);
             mensaje += "OrdenarComponentesPorMarca = " + listaEstrategiaComponente.Count + "|";
+
+            if (listaEstrategiaComponente.Any())
+            {
+                listaEstrategiaComponente.ForEach(x => {
+                    x.TieneStock = true;
+                    if (x.Hermanos != null && x.Hermanos.Any())
+                    {
+                        x.Hermanos.ForEach(y => y.TieneStock = true);
+                    }
+                });
+
+                if (GetValidarDiasAntesStock(userData))
+                {
+                    _consultaProlProvider.ActualizarComponenteStockPROL(listaEstrategiaComponente, estrategiaModelo.CUV2, userData.CodigoISO, estrategiaModelo.CampaniaID, userData.GetCodigoConsultora());
+                }
+            }
+           
             return listaEstrategiaComponente;
         }
 
@@ -505,6 +530,25 @@ namespace Portal.Consultoras.Web.Providers
             var paiseLBel = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesLBel);
             string[] _paiseLBel = paiseLBel.Split(';');
             return _paiseLBel.Any(x => x == _paisISO);
+        }
+
+        private bool GetValidarDiasAntesStock(UsuarioModel userData)
+        {
+            var validar = false;
+            var lstTablaLogicaDatos = _tablaLogicaProvider.GetTablaLogicaDatos(userData.PaisID, Constantes.TablaLogica.StockDiasAntes, true);
+            if (lstTablaLogicaDatos.Any())
+            {
+                var diasAntesStock = lstTablaLogicaDatos.FirstOrDefault().Valor;
+                if (!string.IsNullOrEmpty(diasAntesStock))
+                {
+                    var iDiasAntesStock = int.Parse(diasAntesStock);
+                    if (DateTime.Now.Date >= userData.FechaInicioCampania.AddDays(iDiasAntesStock))
+                    {
+                        validar = true;
+                    }
+                }
+            }
+            return validar;
         }
     }
 }

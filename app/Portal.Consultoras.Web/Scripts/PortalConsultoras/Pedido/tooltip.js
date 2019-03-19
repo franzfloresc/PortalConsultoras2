@@ -1,5 +1,7 @@
 ﻿
-function tooltipDelete(pedidoDetalleID, sedId) {
+function tooltipDelete(event, pedidoDetalleID, sedId) {
+    event.stopPropagation();
+    
     var id = "#tlpDelete_" + pedidoDetalleID + "_" + sedId;
     $(id + " [data-mensaje-eliminar]").hide();
 
@@ -22,7 +24,8 @@ function tooltipDelete(pedidoDetalleID, sedId) {
     //AGANA36 END
 }
 
-function btnSalirTlpDelete(PedidoDetalleID, sedId) {
+function btnSalirTlpDelete(event, PedidoDetalleID, sedId) {
+    event.stopPropagation();
     var id = "#tlpDelete_" + PedidoDetalleID + "_" + sedId;
     $(id + " [data-mensaje-eliminar]").hide();
     $(id).hide();

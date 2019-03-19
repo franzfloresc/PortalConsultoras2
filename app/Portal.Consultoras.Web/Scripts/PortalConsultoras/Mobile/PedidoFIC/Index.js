@@ -670,7 +670,7 @@ function AgregarProductoListado() {
         PrecioUnidad: $("#hdfPrecioUnidad").val(),
         Cantidad: Cantidad,
         TipoOferta: $("#hdTipoEstrategiaID").val(),
-        enRangoProgNuevas: false
+        esCuponNuevas: false
     });
 
     jQuery.ajax({
@@ -704,7 +704,8 @@ function AgregarProductoListado() {
 function InsertarProducto() {
     
     var esOfertaNueva = $("#hdfValorFlagNueva").val() === "1";
-    var urlInsertar = esOfertaNueva ? urlPedidoInsertZe : urlPedidoInsert;
+    //var urlInsertar = esOfertaNueva ? urlPedidoInsertZe : urlPedidoInsert;
+    var urlInsertar = urlPedidoInsert;
     var model = {};
     if ($("#hdTipoOfertaSisID").val() === "0") {
         $("#hdTipoOfertaSisID").val($("#hdTipoEstrategiaID").val());

@@ -21,7 +21,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (!UsuarioModel.HasAcces(ViewBag.Permiso, "AdministrarIncentivos/Index"))
                     return RedirectToAction("Index", "Bienvenida");
-                
+
                 var administrarIncentivosModel = new AdministrarIncentivosModel()
                 {
                     listaPaises = DropDowListPaises(),
@@ -39,16 +39,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return View(new AdministrarIncentivosModel());
         }
-
-        //movido BaseAdm/ObtenerCampaniasPorPais
-        //public JsonResult ObtenterDropDownPorPais(int PaisID)
-        //{
-        //    IEnumerable<CampaniaModel> lstcampania = _zonificacionProvider.GetCampanias(PaisID);
-        //    return Json(new
-        //    {
-        //        lstCampania = lstcampania
-        //    }, JsonRequestBehavior.AllowGet);
-        //}
 
         public ActionResult Consultar(string sidx, string sord, int page, int rows, int vpaisID, int vCampaniaID)
         {

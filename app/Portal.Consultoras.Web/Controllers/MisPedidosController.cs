@@ -381,12 +381,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                             var arr = column.Contains("#") ? column.Split('#') : new string[] { "", column };
                             string value = ExportToExcelMultiple_ValorColumna(arr[1], source);
-                            //      arr[1] == "CUV" ? source.CUV
-                            //    : arr[1] == "DescripcionProd" ? source.DescripcionProd
-                            //    : arr[1] == "Cantidad" ? source.Cantidad.ToString()
-                            //    : arr[1] == "ImporteTotal" ? Util.DecimalToStringFormat(source.ImporteTotal, userData.CodigoISO)
-                            //    : arr[1] == "PrecioUnidad" ? Util.DecimalToStringFormat(source.PrecioUnidad, userData.CodigoISO)
-                            //    : "";
 
                             if (value == "")
                             {
@@ -516,7 +510,7 @@ namespace Portal.Consultoras.Web.Controllers
                 default:
                     break;
             }
-            
+
             return value;
         }
 
@@ -636,14 +630,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                             var arr = column.Contains("#") ? column.Split('#') : new string[] { "", column };
                             string value = ExportToExcelMultiple_ValorColumna(arr[1], source);
-                            //  arr[1] == "CUV" ? source.CUV
-                            //: arr[1] == "DescripcionProd" ? source.DescripcionProd
-                            //: arr[1] == "Cantidad" ? source.Cantidad.ToString()
-                            //: arr[1] == "ImporteTotal" ? Util.DecimalToStringFormat(source.ImporteTotal, userData.CodigoISO)
-                            //: arr[1] == "PrecioUnidad" ? Util.DecimalToStringFormat(source.PrecioUnidad, userData.CodigoISO)
-                            //: arr[1] == "Descuento" ? Util.DecimalToStringFormat(source.ImporteTotalPedido, userData.CodigoISO)
-                            //: arr[1] == "ImportePagar" ? Util.DecimalToStringFormat(source.ImporteTotal - source.ImporteTotalPedido, userData.CodigoISO)
-                            //: "";
 
                             if (value == "")
                             {
@@ -791,14 +777,11 @@ namespace Portal.Consultoras.Web.Controllers
                 Nombre = cliente == -1 ? "" : itm.Nombre,
                 CampaniaId,
                 userData.NombreConsultora,
-
                 pag.PageCount,
                 pag.CurrentPage,
                 pag.RecordCount,
                 grid.PageSize,
-
                 userData.Simbolo,
-
                 CantidadProducto = itemCliente.Sum(p => p.Cantidad),
                 ImporteTotal = importeTotal,
                 ImporteFlete = Util.DecimalToStringFormat(0, userData.CodigoISO),
@@ -810,6 +793,7 @@ namespace Portal.Consultoras.Web.Controllers
                     tipo = estado.ToLower(),
                     userData.Simbolo,
                     a.CUV,
+                    a.SetIdentifierNumber,
                     a.DescripcionProd,
                     a.Cantidad,
                     PrecioUnidad = Util.DecimalToStringFormat(a.PrecioUnidad, userData.CodigoISO),
@@ -848,9 +832,9 @@ namespace Portal.Consultoras.Web.Controllers
                     CampaniaId = int.Parse(campaniaId),
                     ConsultoraId = ObtenerConsultoraId(),
                     Consultora = userData.NombreConsultora,
-                    EsBpt = EsOpt() == 1,
                     CodigoPrograma = userData.CodigoPrograma,
-                    NumeroPedido = userData.ConsecutivoNueva
+                    NumeroPedido = userData.ConsecutivoNueva,
+                    AgruparSet = true
                 };
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -898,7 +882,7 @@ namespace Portal.Consultoras.Web.Controllers
                         NombreCliente = ""
                     });
                 }
-                
+
                 #endregion
             }
 

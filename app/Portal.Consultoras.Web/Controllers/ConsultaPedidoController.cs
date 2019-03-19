@@ -194,20 +194,7 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
 
         #region Metodos
-        //movido BaseAdm/ObtenerCampaniasZonasRegionesPorPais
-        //public JsonResult ObtenterDropDownPorPais(int PaisID)
-        //{
-        //    IEnumerable<CampaniaModel> lstcampania = _zonificacionProvider.GetCampanias(PaisID);
-        //    IEnumerable<ZonaModel> lstzona = _zonificacionProvider.GetZonas(PaisID);
-        //    IEnumerable<RegionModel> lstregion = _zonificacionProvider.GetRegiones(PaisID);
-        //    return Json(new
-        //    {
-        //        lstCampania = lstcampania,
-        //        lstZona = lstzona,
-        //        lstRegion = lstregion
-        //    }, JsonRequestBehavior.AllowGet);
-        //}
-        
+
         public JsonResult SelectTerritorioByCodigo(string codigo, int rowCount, int paisID)
         {
             try
@@ -601,7 +588,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var stream = new MemoryStream();
                 wb.SaveAs(stream);
                 var callback = GetExcelSecureCallback();
-                stream = callback(stream);
+                stream = callback == null ? stream : callback(stream);
 
                 HttpContext.Response.ClearHeaders();
                 HttpContext.Response.Clear();

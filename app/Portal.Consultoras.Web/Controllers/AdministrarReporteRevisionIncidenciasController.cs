@@ -8,7 +8,6 @@ using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 
@@ -16,8 +15,6 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class AdministrarReporteRevisionIncidenciasController : BaseAdmController
     {
-        //protected string _dbdefault = "dbdefault";
-
         protected OfertaBaseProvider _ofertaBaseProvider;
 
         public AdministrarReporteRevisionIncidenciasController()
@@ -67,16 +64,6 @@ namespace Portal.Consultoras.Web.Controllers
             return lst;
         }
 
-        //movido BaseAdm/ObtenerCampaniasPorUsuario
-        //public JsonResult ObtenerCampanias()
-        //{
-        //    IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(userData.PaisID);
-        //    return Json(new
-        //    {
-        //        lista = lst
-        //    }, JsonRequestBehavior.AllowGet);
-        //}
-
         private IEnumerable<TipoEstrategiaModel> DropDowListTipoEstrategia()
         {
             var lst = _tipoEstrategiaProvider.GetTipoEstrategias(userData.PaisID);
@@ -107,8 +94,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                //bool dbdefault = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
-
                 if (ModelState.IsValid)
                 {
                     List<ReporteRevisionIncidenciasMDbAdapterModel> lst = new List<ReporteRevisionIncidenciasMDbAdapterModel>();
@@ -277,8 +262,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                //bool dbdefault = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
-
                 if (ModelState.IsValid)
                 {
                     List<ReporteRevisionIncidenciasMDbAdapterModel> lst = new List<ReporteRevisionIncidenciasMDbAdapterModel>();
@@ -336,8 +319,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                //bool dbdefault = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
-
                 if (ModelState.IsValid)
                 {
                     List<ReporteRevisionIncidenciasMDbAdapterModel> lst = new List<ReporteRevisionIncidenciasMDbAdapterModel>();
