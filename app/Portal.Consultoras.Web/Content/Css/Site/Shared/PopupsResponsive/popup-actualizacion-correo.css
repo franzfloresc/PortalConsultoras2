@@ -2,6 +2,7 @@
 /* MC - HD-3680 - POPUP ACTUALIZACIÓN CORREO ECUADOR */
 
 .popup__wrapper {
+    display:none;
     position: fixed;
     top: 0;
     left: 0;
