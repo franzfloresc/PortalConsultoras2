@@ -133,8 +133,8 @@ var menuModule = (function () {
 
     function setCarrouselMenu() {
 
+        $(elementos.menu2Ul + ".slick-initialized").slick("unslick");
         if (_carrouselContenedorValidarAncho()) {
-            $(elementos.menu2Ul + ".slick-initialized").slick("unslick");
             $(elementos.menu2Ul).not(".slick-initialized").slick({
                 infinite: false,
                 vertical: false,
