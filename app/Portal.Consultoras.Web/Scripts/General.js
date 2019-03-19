@@ -2079,3 +2079,14 @@ function microefectoPedidoGuardado() {
         divCirculos.fadeOut();
     }, 2700);
 }
+
+function DataLayerPedidosPendientes(evento, categoria, accion, etiqueta) {
+    dataLayer.push({
+        'event': evento,
+        'category': categoria,
+        'action': accion,
+        'label': etiqueta
+    });
+}
+
+

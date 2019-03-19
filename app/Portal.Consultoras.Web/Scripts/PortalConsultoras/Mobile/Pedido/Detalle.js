@@ -1165,3 +1165,8 @@ function closeDialogObservacionesProl() {
 
     $('#popup-observaciones-prol').hide();
 }
+
+function PedidosPendientesPorAprobar() {
+    DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras', 'Click botón', 'Pedidos por aprobar');
+    debugger;
+}

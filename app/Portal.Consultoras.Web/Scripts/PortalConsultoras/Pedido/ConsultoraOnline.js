@@ -73,7 +73,7 @@ $(document).ready(function () {
 
     $('.cerrarPendientesPORTAL').on('click', function () {
         $('.popupPendientesPORTAL').hide();
-    });
+    });    
 
     CargarPedidosPend();
 });
@@ -540,4 +540,12 @@ function HorarioRestringido(mostrarAlerta) {
 function CerrarAlertaPedidoReservado() {
     $('#dialog_alertaPedidoReservado').hide();
     document.location.href = urlPedido;
+}
+
+function PendientesCampana() {
+    DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras (Out Tab Pendientes)','Click botón', 'Campana');
+}
+
+function PendientesRevisalo() {
+    DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras (Out Tab Pendientes)', 'Click botón', 'Revísalo');
 }
