@@ -127,7 +127,7 @@ var menuModule = (function () {
         urlIni = document.location.href;
         var currentLocation = window.location.href.toLowerCase();
         _claseImgSeleccionado(currentLocation.indexOf("#") <= -1);
-        _setCarrouselMenu();
+        setCarrouselMenu();
 
     }
 
