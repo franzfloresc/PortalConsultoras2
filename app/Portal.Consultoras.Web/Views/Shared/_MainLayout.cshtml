@@ -139,7 +139,7 @@
 
 
         @Html.Partial("~/Views/Shared/VistaParcialMenu/_Menu.cshtml")
-    
+
     </header>
 
     <div class="fondo_oscuro"></div>
@@ -147,43 +147,53 @@
         string controllerAction = this.ViewContext.RouteData.Values["controller"].ToString() + this.ViewContext.RouteData.Values["action"].ToString();
         controllerAction = controllerAction.ToLower();
     }
-    <div id="contentmain" class="content" data-content="" style="margin-top: 61px;">
+    <div id="contentmain"
+         class="content"
+         data-content=""
+         data-layout="contenido"
+         data-layout-body=""
+         style="margin-top: 61px;">
         @if (!(controllerAction == "bienvenidaindex"
-            || controllerAction == "showroomindex"
-            || controllerAction == "showroomintriga"
-            || controllerAction == "revistadigitalindex"
-            || controllerAction == "revistadigitaldetalle"
-            || controllerAction == "revistadigitalinformacion")
+                || controllerAction == "showroomindex"
+                || controllerAction == "showroomintriga"
+                || ("/" + controllerAction).Contains("revistadigital")
+                || ("/" + controllerAction).Contains("guianegocio")
+            )
             && (@ViewBag.Title != "" && @ViewBag.Title != null))
         {
-            <div class="SubHeader">
+            <div class="SubHeader"
+                 data-layout="ubicacionWeb">
                 <div class="ubicacion_web">
                     <span><a href="@Url.Action("Index", "Bienvenida")">Home</a></span>
                     <span> | @ViewBag.Title</span>
                 </div>
             </div>
+            <hr class="clear" />
         }
-
-        @RenderBody()
-
-        @if (ViewBag.TerminoMostrar == 1)
-        {
-            <div class="footerTerminos">
-                <a id="linkTerminosCondicionesShowRoom" onclick="SetMarcaGoogleAnalyticsTermino();" target="_blank">T&eacute;rminos y condiciones</a>
-            </div>
-        }
-
-        @if (ViewBag.BannerInferior != null)
-        {
-            @Html.Partial("~/Views/ShowRoom/_BannerInferior.cshtml", (Portal.Consultoras.Web.Models.Estrategia.ShowRoom.BannerInferiorConfiguracion)ViewBag.BannerInferior)
-        }
-
+        <div data-layout="body">
+            @RenderBody()
+        </div>
         <hr class="clear" />
-        <footer class="footer_e">
-            @Html.Partial("~/Views/Shared/VistaParcialMenu/_Footer.cshtml")
-        </footer>
-    </div>
+        <div data-layout="footer">
 
+            @if (ViewBag.TerminoMostrar == 1)
+            {
+                <div class="footerTerminos">
+                    <a id="linkTerminosCondicionesShowRoom" onclick="SetMarcaGoogleAnalyticsTermino();" target="_blank">T&eacute;rminos y condiciones</a>
+                </div>
+            }
+
+            @if (ViewBag.BannerInferior != null)
+            {
+                @Html.Partial("~/Views/ShowRoom/_BannerInferior.cshtml", (Portal.Consultoras.Web.Models.Estrategia.ShowRoom.BannerInferiorConfiguracion)ViewBag.BannerInferior)
+            }
+
+            <hr class="clear" />
+            <footer class="footer_e">
+                @Html.Partial("~/Views/Shared/VistaParcialMenu/_Footer.cshtml")
+            </footer>
+        </div>
+    </div>
 
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpBuscadorResultado.cshtml")
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpFeDeErratas.cshtml")
@@ -231,12 +241,12 @@
         var TipoOrigenPantallaODD = 1;
         var ViewIndicadorGPRSB = '@ViewBag.IndicadorGPRSB';
         var codigoAnclaOdd = '@Constantes.ConfiguracionPais.OfertaDelDia';
+        var CantidadVecesInicioSesionNovedad = '@ViewBag.CantidadVecesInicioSesionNovedad';
+        var NovedadBuscadorVisitasUsuario = '@ViewBag.NovedadBuscador';
         var OrigenDesktopODD = 0;
         var CaracteresBuscador = '@ViewBag.CaracteresBuscador';
         var TotalCaracteresEnListaBuscador = '@ViewBag.CaracteresBuscadorMostrar';
         var TotalResultadosBuscador = '@ViewBag.TotalListadorBuscador';
-        var CantidadVecesInicioSesionNovedad = '@ViewBag.CantidadVecesInicioSesionNovedad';
-        var NovedadBuscadorVisitasUsuario = '@ViewBag.NovedadBuscador';
         var AplicarLogicaCantidadBotonVerTodos = '@ViewBag.AplicarLogicaCantidadBotonVerTodos'.toLowerCase();
     </script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/SB2")
@@ -266,5 +276,4 @@
         @TempData.Remove("PixelCodigoIso");
     }
 </body>
-
 </html>

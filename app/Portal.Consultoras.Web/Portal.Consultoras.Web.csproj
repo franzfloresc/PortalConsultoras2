@@ -4215,6 +4215,7 @@
     <Content Include="Scripts\PortalConsultoras\Shared\General\RedesSociales.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\LoginLayout.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\MainLayoutResponsive.js" />
+    <Content Include="Scripts\PortalConsultoras\Shared\MenuPortal.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\MenuContenedor.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\TrackingJetlore.js" />
     <Content Include="Scripts\PortalConsultoras\ShowRoom\BannerInferior.js" />

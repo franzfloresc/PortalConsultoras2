@@ -2,7 +2,6 @@
 @using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Models;
 
-
 @{
     ShowRoomBannerLateralModel showRoomBannerLateral = new ShowRoomBannerLateralModel();
     if (ViewBag.MostrarShowRoomBannerLateral == true) { showRoomBannerLateral = ViewBag.ShowRoomBannerLateral; }
@@ -105,16 +104,15 @@
             <div class="banner_app"><div>X</div></div>
         }
 
-
         @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileMenu/_MobileMenu.cshtml", new ViewDataDictionary {
-        { "vbEsContenedor", 0 },
-        { "vbEsMostrarBuscadorYFiltros", ViewBag.MostrarBuscadorYFiltros }
-    })
-
+            { "vbEsContenedor", 0 },
+            { "vbEsMostrarBuscadorYFiltros", ViewBag.MostrarBuscadorYFiltros }
+        })
 
     </header>
 
-    <section style="min-height: 380px;">
+    <section data-layout="contenido" 
+             style="min-height: 380px;">
         <div id="contentmobile" data-content="">
 
             @if (ViewBag.MostrarBannerPL20 == true && ViewBag.MostrarBannerOtros == false)
@@ -146,7 +144,7 @@
                     </div>
                 }
             }
-            <div id="mob-content-layout">
+            <div data-layout="body" id="mob-content-layout">
                 @RenderBody()
             </div>
         </div>
@@ -489,7 +487,6 @@
         }
     </script>
     @RenderSection("scripts", required: false)
-
 
     @{
         // ViewBag.HabilitarChatEmtelco : Oculta boton que lanza chat.
