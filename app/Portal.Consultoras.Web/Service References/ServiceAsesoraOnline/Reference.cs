@@ -752,6 +752,9 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         private bool TieneCDRExpressField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool TieneChatbotField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int TieneCuponField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -3267,6 +3270,19 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
                 if ((this.TieneCDRExpressField.Equals(value) != true)) {
                     this.TieneCDRExpressField = value;
                     this.RaisePropertyChanged("TieneCDRExpress");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool TieneChatbot {
+            get {
+                return this.TieneChatbotField;
+            }
+            set {
+                if ((this.TieneChatbotField.Equals(value) != true)) {
+                    this.TieneChatbotField = value;
+                    this.RaisePropertyChanged("TieneChatbot");
                 }
             }
         }

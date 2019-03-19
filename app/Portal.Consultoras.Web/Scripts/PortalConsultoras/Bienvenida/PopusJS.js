@@ -443,7 +443,8 @@ function EmpezarSlider() {
 }
 
 function PresentarNovedadBuscador(_val, _valid) {
-    if (_valid) {
+
+    if (_valid == true) {
         $('#toolTipBuscador').on('hide', function () {
             cancel = 1;
         });
@@ -471,6 +472,8 @@ function PresentarNovedadBuscador(_val, _valid) {
             }
         }, 500);
     }
+
+    
 
 
 

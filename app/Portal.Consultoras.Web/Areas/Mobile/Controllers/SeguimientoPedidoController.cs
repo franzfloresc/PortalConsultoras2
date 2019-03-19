@@ -66,71 +66,34 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     pedidoSeleccionado = listaPedidos.FirstOrDefault(p => p.Campana == campania && (p.NumeroPedido ?? "") == (numeroPedido ?? ""));
                 }
 
-                if (pedidoSeleccionado != null)
+                if (pedidoSeleccionado == null)
                 {
-                    Mapper.Map(pedidoSeleccionado, model);
-                    if (!TieneDetalles(model))
+                    return View(model);
+                }
+
+                Mapper.Map(pedidoSeleccionado, model);
+                if (!TieneDetalles(model))
+                {
+                    model.ListaEstadoSeguimiento = new List<SeguimientoMobileModel>();
+                    return View(model);
+                }
+
+                List<BETracking> listaEstadoSeguimiento;
+                var novedades = new List<BENovedadTracking>();
+                using (var service = new PedidoServiceClient())
+                {
+                    listaEstadoSeguimiento = service.GetTrackingByPedido(userData.PaisID, codigoConsultora, model.Campana.ToString(), model.NumeroPedido).ToList();
+                    if (_configuracionManagerProvider.GetConfiguracionManagerContains(Constantes.ConfiguracionManager.WebTrackingConfirmacion, userData.CodigoISO))
                     {
-                        model.ListaEstadoSeguimiento = new List<SeguimientoMobileModel>();
-                        return View(model);
-                    }
-
-                    List<BETracking> listaEstadoSeguimiento;
-                    var novedades = new List<BENovedadTracking>();
-                    using (var service = new PedidoServiceClient())
-                    {
-                        listaEstadoSeguimiento = service.GetTrackingByPedido(userData.PaisID, codigoConsultora, model.Campana.ToString(), model.NumeroPedido).ToList();
-                        if (_configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.WebTrackingConfirmacion).Contains(userData.CodigoISO))
-                        {
-                            novedades = service.GetNovedadesTracking(userData.PaisID, model.NumeroPedido).ToList();
-                        }
-                    }
-                    if (listaEstadoSeguimiento.Count == 0 && model.Fecha != null)
-                        listaEstadoSeguimiento = AgregarTracking(codigoConsultora, model.Fecha.Value);
-
-                    foreach (var item in listaEstadoSeguimiento)
-                    {
-                        var estadoSeguimiento = Mapper.Map<SeguimientoMobileModel>(item);
-                        if (item.Fecha.HasValue)
-                        {
-                            estadoSeguimiento.DiaMes = item.Fecha.Value.ToString("dd/MM");
-                            estadoSeguimiento.HoraMinuto = item.Fecha.Value.ToString("hh:mm tt");
-
-                            var fechaFormatted = item.Fecha.HasValue
-                                ? item.Fecha.Value.TimeOfDay.TotalHours.Equals(0)
-                                    ? item.Fecha.Value.ToString("dd/MM/yyyy")
-                                    : item.Fecha.Value.ToString()
-                                : "";
-
-                            switch (fechaFormatted)
-                            {
-                                case "01/01/2001":
-                                    estadoSeguimiento.DiaMes = string.Empty;
-                                    estadoSeguimiento.HoraMinuto = string.Empty;
-                                    break;
-                                case "01/01/2010":
-                                    var temp = novedades.FirstOrDefault(p => p.TipoEntrega == "01");
-                                    if (temp != null && temp.FechaNovedad.HasValue)
-                                    {
-                                        var fechaTemp = temp.FechaNovedad;
-                                        estadoSeguimiento.DiaMes = fechaTemp.Value.ToString("dd/MM");
-                                        estadoSeguimiento.HoraMinuto = fechaTemp.Value.ToString("hh:mm tt");
-                                    }
-                                    else
-                                    {
-                                        estadoSeguimiento.DiaMes = string.Empty;
-                                        estadoSeguimiento.HoraMinuto = string.Empty;
-                                    }
-                                    break;
-                                case "02/01/2010":
-                                    estadoSeguimiento.DiaMes = "No Entregado";
-                                    estadoSeguimiento.HoraMinuto = "";
-                                    break;
-                            }
-                        }
-                        model.ListaEstadoSeguimiento.Add(estadoSeguimiento);
+                        novedades = service.GetNovedadesTracking(userData.PaisID, model.NumeroPedido).ToList();
                     }
                 }
+                if (listaEstadoSeguimiento.Count == 0 && model.Fecha != null)
+                    listaEstadoSeguimiento = AgregarTracking(codigoConsultora, model.Fecha.Value);
+
+                var listaEstado = ListaEstadoSeguimiento(listaEstadoSeguimiento, novedades);
+                model.ListaEstadoSeguimiento.AddRange(listaEstado);
+
             }
             catch (FaultException ex)
             {
@@ -219,6 +182,60 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             lista.Add(beTracking);
 
             return lista;
+        }
+
+        private List<SeguimientoMobileModel> ListaEstadoSeguimiento(List<BETracking> listaEstado, List<BENovedadTracking> novedades)
+        {
+            var listaEstadoSeguimiento = new List<SeguimientoMobileModel>();
+
+            foreach (var item in listaEstado)
+            {
+                var estadoSeguimiento = Mapper.Map<SeguimientoMobileModel>(item);
+                if (!item.Fecha.HasValue)
+                {
+                    listaEstadoSeguimiento.Add(estadoSeguimiento);
+                    continue;
+                }
+
+                estadoSeguimiento.DiaMes = item.Fecha.Value.ToString("dd/MM");
+                estadoSeguimiento.HoraMinuto = item.Fecha.Value.ToString("hh:mm tt");
+
+                var fechaFormatted = item.Fecha.Value.TimeOfDay.TotalHours.Equals(0)
+                        ? item.Fecha.Value.ToString("dd/MM/yyyy")
+                        : item.Fecha.Value.ToString();
+
+                switch (fechaFormatted)
+                {
+                    case "01/01/0001":
+                    case "1/01/0001":
+                    case "01/01/2001":
+                        estadoSeguimiento.DiaMes = string.Empty;
+                        estadoSeguimiento.HoraMinuto = string.Empty;
+                        break;
+                    case "01/01/2010":
+                        var temp = novedades.FirstOrDefault(p => p.TipoEntrega == "01");
+                        if (temp != null && temp.FechaNovedad.HasValue)
+                        {
+                            var fechaTemp = temp.FechaNovedad;
+                            estadoSeguimiento.DiaMes = fechaTemp.Value.ToString("dd/MM");
+                            estadoSeguimiento.HoraMinuto = fechaTemp.Value.ToString("hh:mm tt");
+                        }
+                        else
+                        {
+                            estadoSeguimiento.DiaMes = string.Empty;
+                            estadoSeguimiento.HoraMinuto = string.Empty;
+                        }
+                        break;
+                    case "02/01/2010":
+                        estadoSeguimiento.DiaMes = "No Entregado";
+                        estadoSeguimiento.HoraMinuto = "";
+                        break;
+                }
+
+                listaEstadoSeguimiento.Add(estadoSeguimiento);
+            }
+
+            return listaEstadoSeguimiento;
         }
 
         #endregion

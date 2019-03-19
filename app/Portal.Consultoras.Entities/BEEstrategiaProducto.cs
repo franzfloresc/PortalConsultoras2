@@ -107,5 +107,10 @@ namespace Portal.Consultoras.Entities
             Volumen = DataRecord.GetColumn<string>(row, "Volumen");
             CampaniaApp = DataRecord.GetColumn<int>(row, "CampaniaApp");
         }
+
+        public BEEstrategiaProducto()
+        {
+
+        }
     }
 }

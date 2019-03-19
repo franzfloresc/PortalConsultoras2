@@ -8,32 +8,23 @@ namespace Portal.Consultoras.Web.Models.Buscador
     {
         public BuscadorModel()
         {
-            Filtro = new Filtros();
             Orden = new Orden();
             Paginacion = new Paginacion();
+            Filtro = new List<Filtros>();
         }
 
         public string TextoBusqueda { get; set; }
         public Orden Orden { get; set; }
         public Paginacion Paginacion { get; set; }
-        public Filtros Filtro { get; set; }
+        public List<Filtros> Filtro { get; set; }
         public bool IsMobile { get; set; }
         public bool IsHome { get; set; }        
     }
 
     public class Filtros
     {
-        public List<ValoresFiltros> categoria { get; set; }
-        public List<ValoresFiltros> marca { get; set; }
-        public List<ValoresFiltros> precio { get; set; }
-    }
-
-    public class ValoresFiltros
-    {
-        public string idFiltro { get; set; }
-        public string nombreFiltro { get; set; }
-        public double min { get; set; }
-        public double max { get; set; }
+        public string NombreGrupo { get; set; }
+        public List<OpcionesFiltro> Opciones { get; set; }
     }
 
     public class Paginacion
@@ -46,5 +37,13 @@ namespace Portal.Consultoras.Web.Models.Buscador
     {
         public string Campo { get; set; }
         public string Tipo { get; set; }
+    }
+
+    public class OpcionesFiltro
+    {
+        public string IdFiltro { get; set; }
+        public string NombreFiltro { get; set; }
+        public double Min { get; set; }
+        public double Max { get; set; }
     }
 }

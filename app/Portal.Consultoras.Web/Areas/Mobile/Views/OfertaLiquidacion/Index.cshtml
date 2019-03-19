@@ -124,9 +124,9 @@
 {
     <script type="text/javascript">
         var urlEnHorarioRestringido = '@Url.Action("EnHorarioRestringido", "Pedido", new {area = ""})';
-        var urlValidarUnidadesPermitidasPedidoProducto = '@Url.Action("ValidarUnidadesPermitidasPedidoProducto", "OfertaLiquidacion", new { area = "" })';
+        @*var urlValidarUnidadesPermitidasPedidoProducto = '@Url.Action("ValidarUnidadesPermitidasPedidoProducto", "OfertaLiquidacion", new { area = "" })';*@
         var urlObtenerStockActualProducto = '@Url.Action("ObtenerStockActualProducto", "OfertaLiquidacion", new { area = "" })';
-        var urlInsertOfertaWebPortal = '@Url.Action("InsertOfertaWebPortal", "OfertaLiquidacion", new { area = "" })';
+        @*var urlInsertOfertaWebPortal = '@Url.Action("InsertOfertaWebPortal", "OfertaLiquidacion", new { area = "" })';*@
         var urlActualizarCantidadTotalPedido = '@Url.Action("ObtenerResumenPedido", "OfertaLiquidacion", new { area = "Mobile" })';
         var urlGetJSONLiquidaciones = '@Url.Action("JsonGetOfertasLiquidacion", "OfertaLiquidacion", new { area = "" })';
         var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
@@ -136,4 +136,5 @@
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/OfertaLiquidacion/Index.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaAgregar/PedidoRegistro.js")"></script>
 }

@@ -1,0 +1,48 @@
+
+Formato UTF-8
+
+Estructura Carpeta pase:
+
+Script    =>	[app\Scripts][Equipo][NombreSprint][NombreRama|'Pase'][Script][archivoSql.sql]
+Rollback  =>	[app\Scripts][Equipo][NombreSprint][NombreRama|'Pase'][Rollback][archivoSql.sql]
+WebConfig => 	[app\Scripts][Equipo][NombreSprint][NombreRama|'Pase'][CambioWebConfig.txt]
+
+
+Ejm:
+app\Scripts \ EPM \ PI2-Sprint1 \ CambioExperiencia \ Script \ NombreScript.sql
+app\Scripts \ EPM \ PI2-Sprint1 \ CambioExperiencia \ Rollback \ NombreScriptRollback.sql
+app\Scripts \ EPM \ PI2-Sprint1 \ CambioExperiencia \ CambioWebConfig.txt
+
+-------------------------------------------------------
+-------------------------------------------------------
+-------------------------------------------------------
+
+
+Rama Desarrollo:
+-----------------
+Crear 
+- Carpeta con el monbre de la rama
+- Dentro a la nueva carpeta crear 2 sub carpeta de Script y Rollback
+- Dentro a la nueva carpeta crear Txt Cambios Web Config, la estructura esta en el otro txt de CambioWebConfig
+- Dentro a la nueva carpeta, si es necesario, crear carpeta ArchivosS3 y ArchivosS3Rollback
+
+-------------------------------------------------------
+-------------------------------------------------------
+-------------------------------------------------------
+
+
+Proceso Pase a PRD:
+--------------------------
+Crear
+
+Carpeta Script, agrupar todos los script para el pase
+Carpeta Rollback, agrupar todos los rollback para el pase
+Txt Cambios Web Config, agrupar todos los cambios de las carpetas de ramas en un solo txt CambioWebConfig
+Carpeta ArchivosS3 (segun sea necesario)
+Caperta ArchivosS3Rollback (segun sea necesario)
+
+-------------------------------------------------------
+-------------------------------------------------------
+-------------------------------------------------------
+
+:) Gracias

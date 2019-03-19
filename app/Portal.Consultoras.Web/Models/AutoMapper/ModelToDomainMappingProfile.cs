@@ -7,6 +7,9 @@ using System;
 using Portal.Consultoras.Web.Models.Estrategia;
 using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using Portal.Consultoras.Web.Models.PagoEnLinea;
+using Portal.Consultoras.Web.ServiceZonificacion;
+using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.ServiceODS;
 
 namespace Portal.Consultoras.Web.Models.AutoMapper
 {
@@ -33,7 +36,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<EstrategiaDetalleModelo, ServicePedido.BEEstrategiaDetalle>();
             
             Mapper.CreateMap<TipoEstrategiaModelo, ServicePedido.BETipoEstrategia>()
-                .ForMember(t => t.FlagActivo, f => f.MapFrom(c => c.FlagActivo ? 1 : 0));
+                .ForMember(t => t.FlagActivo, f => f.MapFrom(c => c.FlagActivo.ToInt()));
 
             Mapper.CreateMap<ProductoModel, Producto>()
                 .ForMember(t => t.IdMarca, f => f.MapFrom(c => c.MarcaID))
@@ -97,7 +100,9 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
 
             Mapper.CreateMap<AdministrarPalancaModel, ServiceSAC.BEConfiguracionPais>();
             Mapper.CreateMap<ConfiguracionPaisDatosModel, ServiceUsuario.BEConfiguracionPaisDatos>();
-            Mapper.CreateMap<AdministrarOfertasHomeModel, BEConfiguracionOfertasHome>();
+            Mapper.CreateMap<AdministrarOfertasHomeModel, BEConfiguracionOfertasHome>()
+                .ForMember(t => t.ConfiguracionOfertasHomeApp, f => f.MapFrom(c => c.AdministrarOfertasHomeAppModel));
+            Mapper.CreateMap<AdministrarOfertasHomeAppModel, BEConfiguracionOfertasHomeApp>();
             Mapper.CreateMap<DescripcionEstrategiaModel, BEDescripcionEstrategia>();
 
             Mapper.CreateMap<FiltroReportePedidoDDWebModel, BEPedidoDDWeb>()
@@ -473,6 +478,22 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<PagoEnLineaMedioPagoDetalleModel, BEPagoEnLineaMedioPagoDetalle>();
             Mapper.CreateMap<PagoEnLineaTipoPasarelaModel, BEPagoEnLineaTipoPasarela>();
             Mapper.CreateMap<PagoEnLineaPasarelaCamposModel, BEPagoEnLineaPasarelaCampos>();
+            Mapper.CreateMap<DireccionEntregaModel, Portal.Consultoras.Web.ServiceUsuario.BEDireccionEntrega>();
+            Mapper.CreateMap<Portal.Consultoras.Web.ServiceUsuario.BEDireccionEntrega, DireccionEntregaModel>();
+            Mapper.CreateMap<UsuarioOpcionesModel, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioOpciones>();
+            Mapper.CreateMap<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioOpciones, UsuarioOpcionesModel>();
+
+            Mapper.CreateMap<CampaniaModel, BECampania>();
+            Mapper.CreateMap<BECampania,CampaniaModel> ();
+
+            Mapper.CreateMap<PremioNuevaModel, BEPremioNuevas>();
+            Mapper.CreateMap<BEPremioNuevas, PremioNuevaModel>();
+            
+            Mapper.CreateMap<EstrategiaComponenteModel, ServicePedido.BEEstrategiaProducto>()
+               .ForMember(t => t.CUV, f => f.MapFrom(c => c.Cuv))
+               .ForMember(t => t.SAP, f => f.MapFrom(c => c.CodigoProducto))
+               .ForMember(t => t.Precio, f => f.MapFrom(c => c.PrecioCatalogo))
+               .ForMember(t => t.NombreMarca, f => f.MapFrom(c => c.DescripcionMarca));
         }
     }
 }

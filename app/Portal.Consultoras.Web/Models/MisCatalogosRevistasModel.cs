@@ -23,5 +23,6 @@
         public string Titulo { get; set; }
 
         public PartialSectionBpt PartialSectionBpt { get; set; }
+        public bool EsDispositivoMovil { get; set; }
     }
 }

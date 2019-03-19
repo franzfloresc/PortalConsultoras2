@@ -2,20 +2,41 @@
 @model Portal.Consultoras.Web.Models.MisPedidosDetalleModel
 
 @{
-    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+    var layout = ViewContext.MobileLayout();
+    Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
+    var mobileConfiguracion = Html.MobileAppConfiguracion();
 }
 
-<div class="titulo_mobile">
-    @{ var mobileConfiguracion = Html.MobileAppConfiguracion();
-        if (mobileConfiguracion.MostrarBotonAtras)
-        {
+<style>
+    .agotado_consultora {
+        background: #f3f3f3;
+        padding:10px 10px
+    }
+    .agotado_consultora img {
+        height:36px
+    }
+</style>
+
+<script>
+    var glbDispositivo = 3;
+</script>
+
+@{
+    if (!mobileConfiguracion.EsAppMobile)
+    {
+        <script>
+            glbDispositivo = 2;
+        </script>
+        <div class="titulo_mobile">
             <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
-        } }
-    &nbsp;&nbsp;PENDIENTES
-</div>
+            &nbsp;&nbsp;PENDIENTES
+        </div>
+        <div class="pestana_esika"></div>
+        <div class="pestana_lbel"></div>
+    }
+}
+
 <div class="fondo_f2f2f2 triang_pe">
-    <div class="pestana_esika"></div>
-    <div class="pestana_lbel"></div>
     @{
         var solicitud = Model.MiPedido;
         var tiposoli = (solicitud.MarcaID == 0) ? 1 : 2;
@@ -138,11 +159,11 @@
 
                 if (item.TieneStock == 0)
                 {
-                    <span class="agotado_consultora" style="font-size: 12px;">@item.MensajeValidacion</span>
+                    <span class="agotado_consultora" style="font-size: 12px;"><img src="/Content/Images/RevistaDigital/icono_advertencia_notificacion_esika.svg" /> @item.MensajeValidacion</span>
                 }
                 else if (item.EstaEnRevista == 1)
                 {
-                    <span class="agotado_consultora" style="font-size: 12px;">@item.MensajeValidacion</span>
+                    <span class="agotado_consultora" style="font-size: 12px;"><img src="/Content/Images/RevistaDigital/icono_advertencia_notificacion_esika.svg" /> @item.MensajeValidacion</span>
                 }
             }
         </div>

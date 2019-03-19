@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceCatalogosIssuu;
 using System;
 using System.Collections.Generic;
@@ -15,9 +16,14 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
     public class CatalogoRevistaController : Controller
     {
-        private const string TextoMensajeSaludoCorreo = "Revisa los catálogos de esta campaña y comunícate conmigo si estás interesada en algunos de los productos.";
         private const string CodigoISO = "BR";
         private const string paisNombre = "brasil";
+        protected readonly ConfiguracionManagerProvider _configuracionManagerProvider;
+
+        public CatalogoRevistaController()
+        {
+            _configuracionManagerProvider = new ConfiguracionManagerProvider();
+        }
 
         public ActionResult Index(string ID = "")
         {
@@ -67,10 +73,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.CodigoISO = CodigoISO;
             ViewBag.EsConsultoraNueva = true;
 
-            string paisesCatalogoWhatsUp = ConfigurationManager.AppSettings.Get("PaisesCatalogoWhatsUp") ?? string.Empty;
-            ViewBag.ActivacionAppCatalogoWhastUp = paisesCatalogoWhatsUp.Contains(CodigoISO) ? 1 : 0;
-
-            ViewBag.TextoMensajeSaludoCorreo = TextoMensajeSaludoCorreo;
+            bool paisesCatalogoWhatsUp = _configuracionManagerProvider.GetConfiguracionManagerContains(Constantes.ConfiguracionManager.PaisesCatalogoWhatsUp, CodigoISO);
+            ViewBag.ActivacionAppCatalogoWhastUp = paisesCatalogoWhatsUp.ToInt();
             ViewBag.PaisAnalytics = CodigoISO;
 
             return View(clienteModel);

@@ -3,19 +3,23 @@
 @model Portal.Consultoras.Web.Models.MisPedidosModel
 
 @{
-    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+    var layout = ViewContext.MobileLayout();
+    Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
+    var mobileConfiguracion = Html.MobileAppConfiguracion();
 }
 
-<div class="titulo_mobile">
-    @{ var mobileConfiguracion = Html.MobileAppConfiguracion();
-        if (mobileConfiguracion.MostrarBotonAtras)
-        {
+@{
+    if (!mobileConfiguracion.EsAppMobile)
+    {
+        <div class="titulo_mobile">
             <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
-        } }
-    &nbsp;&nbsp;&nbsp;&nbsp;PENDIENTES
-</div>
-<div class="pestana_esika"></div>
-<div class="pestana_lbel"></div>
+            &nbsp;&nbsp;&nbsp;&nbsp;PENDIENTES
+        </div>
+        <div class="pestana_esika"></div>
+        <div class="pestana_lbel"></div>
+    }
+}
+
 <div class="wrapper_resumen_mobile">
 
     @if (Model.RegistrosTotal != "0")

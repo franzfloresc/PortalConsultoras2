@@ -79,5 +79,14 @@ namespace Portal.Consultoras.Entities.Pedido
         [NotMapped]
         [DataMember]
         public IEnumerable<BEPedidoWebSetDetalle> Detalles { get; set; }
+
+        [DataMember]
+        [Column("ClienteId")]
+        public int ClienteId { get; set; }
+
+        //todo: usar audit
+        [DataMember]
+        [Column("ClienteNombre")]
+        public string ClienteNombre { get; set; }
     }
 }

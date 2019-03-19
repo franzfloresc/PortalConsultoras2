@@ -41,8 +41,8 @@
 @section scripts{
     <script type="text/javascript">
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';     
-        var urlIncentivos = '@Url.Action("Index", "Incentivos")';
         var codigoISO_MB = '@ViewBag.CodigoISODL';
+        var urlIncentivos = (codigoISO_MB=='CO'? '@Url.Action("Index", "Incentivos")': '@Url.Action("Index", "Bonificaciones")' );     
         var anioActual = '@DateTime.Now.Year';
         var urlS3Raiz = '@ViewBag.UrlRaizS3';
     </script>

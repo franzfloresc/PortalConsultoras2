@@ -412,7 +412,8 @@ function AceptarPedido(pedidoId, tipo) {
                             ListaDetalleModel: detalle,
                             Accion: 1,
                             Tipo: tipo,
-                            Ingresos: ing
+                            Ingresos: ing,
+                            Dispositivo: 1
                         }
 
                         if (response.codigo == 0) {

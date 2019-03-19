@@ -1,4 +1,5 @@
-﻿@using Portal.Consultoras.Web.Models
+﻿@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Models
 @model MisCatalogosRevistasModel
 
 @{
@@ -62,7 +63,7 @@
 <div class="wrapper_resumen_mobile">
     <div id="tab_catalogos_mobile" data-tag-html="Catalogos">
         <div class="texto_catalogos_mobile">Rever e compartilhar catálogos com seus clientes</div>
-        <div class="titulo_catalogo">CATÁLOGOS C-@Portal.Consultoras.Common.Util.SubStr(Model.CampaniaAnterior.ToString(), 4, 2)</div>
+        <div class="titulo_catalogo">CATÁLOGOS C-@Util.SubStr(Model.CampaniaAnterior.ToString(), 4, 2)</div>
         <div class="content_carrusel_catalogo" id="divCatalogo">
             <a class="previous_carrusel_catalogo" style="left:0"><img style="display:none;" src="@Url.Content("~/Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="-" onclick="CatalogoMostrar(-1, this)"/></a>
             <a class="next_carrusel_catalogo" style="right:0"><img src="@Url.Content("~/Content/Images/mobile/Esika/next.png")" alt="-" onclick="CatalogoMostrar(1, this)"/></a>
@@ -70,7 +71,7 @@
        
     </div>
     <div id="tab_revistas_mobile" data-tag-html="Revistas" style="display:none;">
-        <div class="titulo_catalogo">REVISTAS C-@Portal.Consultoras.Common.Util.SubStr(Model.CampaniaAnterior.ToString(), 4, 2)</div>
+        <div class="titulo_catalogo">REVISTAS C-@Util.SubStr(Model.CampaniaAnterior.ToString(), 4, 2)</div>
         <div class="content_revistas_mobile">
             <a class="previous_revistas_mobile" style="left:-30px"><img style="display:none;" src="@Url.Content("~/Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="-" onclick="RevistaMostrar(-1, this)"/></a>
             <a id="lbPortadaGana" href="#" onclick="MostrarMiRevista();">
@@ -192,14 +193,14 @@
 @section scripts{
     <script type="text/javascript">
         var imgNoDisponible = '@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")';
-        var imgIssuu = '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart01' + '{img}' + '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart02Alternativo'
+        var imgIssuu = '@Constantes.CatalogoUrlParameters.UrlPart01' + '{img}' + '@Constantes.CatalogoUrlParameters.UrlPart02Alternativo'
         var codigoIso = '@ViewBag.CodigoISO';
         var defaultImageRevista = '@Url.Content("~/Content/Images/revista_no_disponible.jpg")';
         var urlObtenerPortadaRevista = '@Url.Action("ObtenerPortadaRevista", "CatalogoRevista", new { area = "Mobile" })';
         var urlIconoClienteAutoCompletar = '@Url.Content("~/Content/Images/Esika/user.jpg")';
         var urlBienvenidaMobile = '@Url.Action("Index", "Bienvenida", new { area = "Mobile" })';
         var urlEnviarMail = '@Url.Action("EnviarEmail", "MisCatalogosRevistas", new { area = "" })';
-        var valContenidoCorreoDefecto = '@Html.Raw(ViewBag.TextoMensajeSaludoCorreo)';
+        var valContenidoCorreoDefecto = '@Html.Raw(Constantes.CatalogoMensajesDefault.SaludoCorreo)';
         var RevistaCodigoIssuu = {
             '@Model.CampaniaAnterior': '@Model.CodigoRevistaAnterior',
             '@Model.CampaniaActual': '@Model.CodigoRevistaActual',

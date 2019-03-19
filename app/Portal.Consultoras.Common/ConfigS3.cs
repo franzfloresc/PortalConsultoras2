@@ -208,9 +208,9 @@ namespace Portal.Consultoras.Common
 
                 return url;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }        
     }

@@ -1,0 +1,14 @@
+1 WCF
+Agregar dentro de system.serviceModel->bindings->basicHttpBinding->binding :
+	<readerQuotas maxDepth="32" maxStringContentLength="2147483647" maxArrayLength="2147483647" maxBytesPerRead="2147483647" maxNameTableCharCount="2147483647" />
+	
+	
+2.WSConsultoras
+
+Actualizar:
+<add key="EstrategiaDisponibleMicroservicioPersonalizacion" value="009,101,007,008,030,001,010,005"/>
+
+Agregar:
+<add key="UrlCatalogoDigital" value="http://catalogodigital.somosbelcorp.com?cod={0}" />
+<add key="MostrarPedidosPendientes" value="1" />
+<add key="PaisesConsultoraOnline" value="PE,CL,CO,MX,EC,CR,BO" />	

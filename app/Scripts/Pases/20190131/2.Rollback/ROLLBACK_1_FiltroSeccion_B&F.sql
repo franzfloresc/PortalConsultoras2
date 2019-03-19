@@ -1,0 +1,85 @@
+GO
+USE BelcorpPeru
+GO
+IF EXISTS (SELECT 1 FROM SYSOBJECTS WHERE ID = OBJECT_ID('dbo.FiltroSeccion') AND TYPE = 'U')
+   DROP TABLE DBO.FiltroSeccion
+GO
+
+GO
+USE BelcorpMexico
+GO
+IF EXISTS (SELECT 1 FROM SYSOBJECTS WHERE ID = OBJECT_ID('dbo.FiltroSeccion') AND TYPE = 'U')
+   DROP TABLE DBO.FiltroSeccion
+GO
+
+GO
+USE BelcorpColombia
+GO
+IF EXISTS (SELECT 1 FROM SYSOBJECTS WHERE ID = OBJECT_ID('dbo.FiltroSeccion') AND TYPE = 'U')
+   DROP TABLE DBO.FiltroSeccion
+GO
+
+GO
+USE BelcorpSalvador
+GO
+IF EXISTS (SELECT 1 FROM SYSOBJECTS WHERE ID = OBJECT_ID('dbo.FiltroSeccion') AND TYPE = 'U')
+   DROP TABLE DBO.FiltroSeccion
+GO
+
+GO
+USE BelcorpPuertoRico
+GO
+IF EXISTS (SELECT 1 FROM SYSOBJECTS WHERE ID = OBJECT_ID('dbo.FiltroSeccion') AND TYPE = 'U')
+   DROP TABLE DBO.FiltroSeccion
+GO
+
+GO
+USE BelcorpPanama
+GO
+IF EXISTS (SELECT 1 FROM SYSOBJECTS WHERE ID = OBJECT_ID('dbo.FiltroSeccion') AND TYPE = 'U')
+   DROP TABLE DBO.FiltroSeccion
+GO
+
+GO
+USE BelcorpGuatemala
+GO
+IF EXISTS (SELECT 1 FROM SYSOBJECTS WHERE ID = OBJECT_ID('dbo.FiltroSeccion') AND TYPE = 'U')
+   DROP TABLE DBO.FiltroSeccion
+GO
+
+GO
+USE BelcorpEcuador
+GO
+IF EXISTS (SELECT 1 FROM SYSOBJECTS WHERE ID = OBJECT_ID('dbo.FiltroSeccion') AND TYPE = 'U')
+   DROP TABLE DBO.FiltroSeccion
+GO
+
+GO
+USE BelcorpDominicana
+GO
+IF EXISTS (SELECT 1 FROM SYSOBJECTS WHERE ID = OBJECT_ID('dbo.FiltroSeccion') AND TYPE = 'U')
+   DROP TABLE DBO.FiltroSeccion
+GO
+
+GO
+USE BelcorpCostaRica
+GO
+IF EXISTS (SELECT 1 FROM SYSOBJECTS WHERE ID = OBJECT_ID('dbo.FiltroSeccion') AND TYPE = 'U')
+   DROP TABLE DBO.FiltroSeccion
+GO
+
+GO
+USE BelcorpChile
+GO
+IF EXISTS (SELECT 1 FROM SYSOBJECTS WHERE ID = OBJECT_ID('dbo.FiltroSeccion') AND TYPE = 'U')
+   DROP TABLE DBO.FiltroSeccion
+GO
+
+GO
+USE BelcorpBolivia
+GO
+IF EXISTS (SELECT 1 FROM SYSOBJECTS WHERE ID = OBJECT_ID('dbo.FiltroSeccion') AND TYPE = 'U')
+   DROP TABLE DBO.FiltroSeccion
+GO
+
+GO
