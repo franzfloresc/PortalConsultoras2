@@ -20,9 +20,8 @@
 
 .popup__somos__belcorp {
     width: 100%;
-    top: 70px;
+    top: 90px;
     background-color: #FFF;
-    margin-bottom:70px;
 }
 
 .popup__somos__belcorp,
@@ -138,6 +137,9 @@
 
     .popup__somos__belcorp {
         width: 90%;
+        position:relative;
+        top: 70px;
+        margin-bottom: 70px;
     }
 }
 
