@@ -306,11 +306,52 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult ListarObservaciones(long ProcesoId, int TipoOrigen)
+        public ActionResult ListarObservaciones(long ProcesoId, int TipoOrigen, string Campania)
         {
             List<BENotificacionesDetalle> lstObservaciones;
             List<BENotificacionesDetallePedido> lstObservacionesPedido;
             _notificacionProvider.GetNotificacionesValAutoProl(ProcesoId, TipoOrigen, userData.PaisID, out lstObservaciones, out lstObservacionesPedido);
+            if (!string.IsNullOrEmpty(Campania))
+            {
+
+                int campaniaId = int.Parse(Campania);
+                var detallesPedidoWeb = new List<Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle>();
+
+                using (var pedidoServiceClient = new PedidoServiceClient())
+                {
+                    var parametros = new BEPedidoWebDetalleParametros
+                    {
+                        PaisId = userData.PaisID,
+                        CampaniaId = campaniaId,
+                        ConsultoraId = userData.ConsultoraID,
+                        Consultora = userData.NombreConsultora,
+                        EsBpt = true,
+                        CodigoPrograma = userData.CodigoPrograma,
+                        NumeroPedido = userData.ConsecutivoNueva,
+                        AgruparSet = true
+                    };
+                    detallesPedidoWeb = pedidoServiceClient.SelectByCampania(parametros).ToList();
+                }
+
+                var hayPedidoSet = detallesPedidoWeb.Where(x => x.SetID > 0).ToList();
+                var listadoHijos = new List<Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle>();
+
+                if (hayPedidoSet.Any())
+                {
+                    var lstSetId = string.Empty;
+                    var pedidoId = detallesPedidoWeb.FirstOrDefault().PedidoID;
+                    lstSetId = string.Join(",", detallesPedidoWeb.Where(x => x.SetID > 0).Select(e => e.SetID));
+
+                    using (var sv = new PedidoServiceClient())
+                    {
+                        listadoHijos = sv.ObtenerCuvSetDetalle(userData.PaisID, campaniaId, userData.ConsultoraID, pedidoId, lstSetId).ToList();
+                    }
+                }
+
+                lstObservacionesPedido = _notificacionProvider.AgruparNotificaciones(lstObservacionesPedido, detallesPedidoWeb, listadoHijos, Campania);
+
+            }
+
 
             NotificacionesModel model = new NotificacionesModel
             {
@@ -320,7 +361,9 @@ namespace Portal.Consultoras.Web.Controllers
                 simbolo = userData.Simbolo,
                 Origen = TipoOrigen,
                 mGanancia = Util.DecimalToStringFormat(
-                    lstObservacionesPedido[0].MontoAhorroCatalogo + lstObservacionesPedido[0].MontoAhorroRevista,
+                    lstObservacionesPedido.Any()?
+                    lstObservacionesPedido[0].MontoAhorroCatalogo + lstObservacionesPedido[0].MontoAhorroRevista
+                    :0,
                     userData.CodigoISO)
             };
             ViewBag.PaisIso = userData.CodigoISO;
@@ -328,7 +371,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (model.Origen != 3)
             {
                 model.SubTotal = model.ListaNotificacionesDetallePedido.Sum(p => p.ImporteTotal);
-                model.Descuento = model.ListaNotificacionesDetallePedido[0].DescuentoProl;
+                model.Descuento = model.ListaNotificacionesDetallePedido.Any() ? model.ListaNotificacionesDetallePedido[0].DescuentoProl : 0;
                 model.Total = model.SubTotal - model.Descuento;
 
                 model.SubTotalString = Util.DecimalToStringFormat(model.SubTotal, userData.CodigoISO);
@@ -402,7 +445,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult ListarDetalleCdr(long solicitudId)
         {
             BELogCDRWeb logCdrWeb;
-            List<BECDRWebDetalle> listaCdrWebDetalle;
+            List<ServiceCDR.BECDRWebDetalle> listaCdrWebDetalle;
             using (CDRServiceClient sv = new CDRServiceClient())
             {
                 logCdrWeb = sv.GetLogCDRWebByLogCDRWebId(userData.PaisID, solicitudId);
@@ -422,8 +465,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult ListarDetalleCdrCulminado(long solicitudId)
         {
-            BECDRWeb cdrWeb;
-            List<BECDRWebDetalle> listaCdrWebDetalle;
+            ServiceCDR.BECDRWeb cdrWeb;
+            List<ServiceCDR.BECDRWebDetalle> listaCdrWebDetalle;
             using (CDRServiceClient sv = new CDRServiceClient())
             {
                 cdrWeb = sv.GetCDRWebByLogCDRWebCulminadoId(userData.PaisID, solicitudId);

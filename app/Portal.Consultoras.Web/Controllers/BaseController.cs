@@ -51,7 +51,7 @@ namespace Portal.Consultoras.Web.Controllers
         protected ConfigModel configEstrategiaSR;
         protected BuscadorYFiltrosConfiguracionModel buscadorYFiltro;
         protected ILogManager logManager;
-       
+
         protected string paisesMicroservicioPersonalizacion;
         protected string estrategiaWebApiDisponibilidadTipo;
         protected readonly TipoEstrategiaProvider _tipoEstrategiaProvider;
@@ -255,6 +255,11 @@ namespace Portal.Consultoras.Web.Controllers
         public virtual List<BEPedidoWebDetalle> ObtenerPedidoWebSetDetalleAgrupado(bool noSession = false)
         {
             return _pedidoWebProvider.ObtenerPedidoWebSetDetalleAgrupado(EsOpt(), noSession);
+        }
+
+        public virtual List<BEPedidoWebDetalle> GetDetallePedidoAgrupadoByCampania(int campaniaId)
+        {
+            return _pedidoWebProvider.GetDetallePedidoAgrupadoByCampania(campaniaId);
         }
 
         protected List<ObjMontosProl> ServicioProl_CalculoMontosProl(bool session = true)
@@ -748,7 +753,7 @@ namespace Portal.Consultoras.Web.Controllers
                 Log.JwtToken = userData.JwtToken;
                 Log.CodigoConsultora = userData.CodigoConsultora;
                 Log.CodigoISO = userData.CodigoISO;
-               _logDynamoProvider.RegistrarLogDynamoDB(Log);
+                _logDynamoProvider.RegistrarLogDynamoDB(Log);
             }
             catch (Exception ex)
             {
@@ -848,12 +853,12 @@ namespace Portal.Consultoras.Web.Controllers
             var result = false;
             try
             {
-                var url = HttpContext.Request.Url != null 
-                    ? HttpContext.Request.Url.AbsolutePath 
+                var url = HttpContext.Request.Url != null
+                    ? HttpContext.Request.Url.AbsolutePath
                     : null;
 
-                var urlReferrer = HttpContext.Request.UrlReferrer != null 
-                    ? Util.Trim(HttpContext.Request.UrlReferrer.LocalPath) 
+                var urlReferrer = HttpContext.Request.UrlReferrer != null
+                    ? Util.Trim(HttpContext.Request.UrlReferrer.LocalPath)
                     : Util.Trim(HttpContext.Request.FilePath);
 
                 url = (url ?? "").Replace("#", "/").ToLower() + "/";
@@ -1283,7 +1288,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public virtual bool EsDispositivoMovil()
         {
-            return Util.EsDispositivoMovil(); 
+            return Util.EsDispositivoMovil();
         }
 
         public string GetControllerActual()
@@ -1343,10 +1348,12 @@ namespace Portal.Consultoras.Web.Controllers
 
         public string ObtenerFlagActivacionRecomendaciones()
         {
+            if (!revistaDigital.EsSuscrita) return "0";
             var configuracionPaisDatos = SessionManager.GetRecomendacionesConfig()
                 .ConfiguracionPaisDatos
                 .FirstOrDefault(a => a.Codigo.Equals(Constantes.CodigoConfiguracionRecomendaciones.ActivarRecomendaciones));
-            return configuracionPaisDatos != null ? configuracionPaisDatos.Valor1 : "0";
+            return configuracionPaisDatos != null ? configuracionPaisDatos.Valor2 : "0";
+
         }
 
         public int ObtenerNumeroMaximoCaracteresRecomendaciones(bool esMobile)
@@ -1354,7 +1361,7 @@ namespace Portal.Consultoras.Web.Controllers
             var configuracionPaisDatos = SessionManager.GetRecomendacionesConfig()
                 .ConfiguracionPaisDatos
                 .FirstOrDefault(a => a.Codigo.Equals(Constantes.CodigoConfiguracionRecomendaciones.CaracteresDescripcion));
-            if (esMobile ) return configuracionPaisDatos != null ?  configuracionPaisDatos.Valor2.ToInt() : 35;
+            if (esMobile) return configuracionPaisDatos != null ? configuracionPaisDatos.Valor2.ToInt() : 35;
             return configuracionPaisDatos != null ? configuracionPaisDatos.Valor1.ToInt() : 37;
         }
     }

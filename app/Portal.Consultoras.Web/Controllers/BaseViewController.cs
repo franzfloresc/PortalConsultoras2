@@ -567,8 +567,50 @@ namespace Portal.Consultoras.Web.Controllers
                 #region ODD
                 case Constantes.OrigenPedidoWeb.DesktopHomeOfertaDelDiaBannerSuperior:
                     result = Constantes.OrigenPedidoWeb.DesktopHomeOfertaDelDiaFicha;
+                break;
+                #endregion
+
+                #region ProductoRecomendados
+                case Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoShowRoom:
+                    result = Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoShowRoomFicha;
                     break;
-                    #endregion
+                case Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoHv:
+                    result = Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoHvFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoOdd:
+                    result = Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoOddFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoOpm:
+                    result = Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoOpmFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoLan:
+                    result = Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoLanFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoGanadoras:
+                    result = Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoGanadorasFicha;
+                    break;
+                #endregion
+
+                #region ProductosRecomendadosMobile
+                case Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoOpm:
+                    result = Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoOpmFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoShowRoom:
+                    result = Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoShowRoomFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoLan:
+                    result = Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoLanFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoOdd:
+                    result = Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoOddFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoHv:
+                    result = Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoHvFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoGanadoras:
+                    result = Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoGanadorasFicha;
+                    break;
+                #endregion
             }
 
             return result;
@@ -605,7 +647,6 @@ namespace Portal.Consultoras.Web.Controllers
             
             modelo.OrigenUrl = origen;
             modelo.OrigenAgregar = GetOrigenPedidoWebDetalle(origen);
-
             modelo.TipoAccionNavegar = GetTipoAccionNavegar(modelo.OrigenAgregar, esMobile, esEditar);
             
             if (modelo.Error)
@@ -620,12 +661,9 @@ namespace Portal.Consultoras.Web.Controllers
             modelo.TieneSession = _ofertaPersonalizadaProvider.PalancasConSesion(palanca);
             modelo.Campania = campaniaId;
             modelo.Cuv = cuv;
-
-            modelo.TieneCarrusel = GetTieneCarrusel(palanca, esEditar);
+            modelo.TieneCarrusel = GetValidationHasCarrusel(modelo.OrigenAgregar, palanca, esEditar);
             modelo.OrigenAgregarCarrusel = modelo.TieneCarrusel ? GetOrigenPedidoWebDetalle(origen, modelo.TieneCarrusel) : 0;
-
-            modelo.TieneCompartir = GetTieneCompartir(palanca, esEditar);
-
+            modelo.TieneCompartir = GetTieneCompartir(palanca, esEditar, modelo.OrigenAgregar);
             modelo.Cantidad = 1;
             #endregion
 
@@ -710,31 +748,31 @@ namespace Portal.Consultoras.Web.Controllers
 
         private int GetTipoAccionNavegar(int origen, bool esMobile, bool esEditar)
         {
-            int tipo = Constantes.TipoAccionNavegar.SinBoton;
+            var tipo = Constantes.TipoAccionNavegar.SinBoton;
 
             if (esMobile && origen.ToString().StartsWith(Constantes.IngresoExternoOrigen.App))
             {
                 return tipo;
             }
 
-            if (esEditar)
-            {
-                tipo = Constantes.TipoAccionNavegar.Volver;
-            }
-            else
-            {
-                tipo = GetAccionNavegarSegunOrigen(origen);
-            }
+            tipo = esEditar ? Constantes.TipoAccionNavegar.Volver : GetAccionNavegarSegunOrigen(origen);
 
             return tipo;
         }
 
         private int GetAccionNavegarSegunOrigen(int origen)
         {
-            int tipo = Constantes.TipoAccionNavegar.BreadCrumbs;
+            return EsProductoRecomendado(origen) ? Constantes.TipoAccionNavegar.Volver : Constantes.TipoAccionNavegar.BreadCrumbs;
+        }
 
-            // aplicar logica para los origenes de recomendados
-            return tipo;
+        private bool EsProductoRecomendado(int origen)
+        {
+            var origenString = origen.ToString();
+            if (origen == 0 || origenString.IsNullOrEmptyTrim()) return false;
+
+            var twoLastDigitsOrigen = origenString.Substring(origenString.Length - 2);
+            return twoLastDigitsOrigen.Equals(Constantes.OrigenPedidoWeb.SufijoProductoRecomendadoCarrusel) ||
+                   twoLastDigitsOrigen.Equals(Constantes.OrigenPedidoWeb.SufijoProductoRecomendadoFicha);
         }
 
         private bool GetTieneCarrusel(string palanca, bool esEditar)
@@ -744,8 +782,24 @@ namespace Portal.Consultoras.Web.Controllers
                     || Constantes.NombrePalanca.OfertaDelDia == palanca);
         }
 
-        private bool GetTieneCompartir(string palanca, bool esEditar)
+        private bool GetValidationHasCarrusel(int origen, string palanca, bool esEditar)
         {
+            var origenString = origen.ToString();
+            if (origen == 0 || origenString.IsNullOrEmptyTrim()) return GetTieneCarrusel(palanca, esEditar);
+
+            var twoLastDigitsOrigen = origenString.Substring(origenString.Length - 2);
+            if (twoLastDigitsOrigen.Equals(Constantes.OrigenPedidoWeb.SufijoProductoRecomendadoCarrusel) ||
+               twoLastDigitsOrigen.Equals(Constantes.OrigenPedidoWeb.SufijoProductoRecomendadoFicha))
+            {
+                return false;
+            }
+
+            return GetTieneCarrusel(palanca, esEditar);
+        }
+
+        private bool GetTieneCompartir(string palanca, bool esEditar, int origen)
+        {
+            if (EsProductoRecomendado(origen)) return false;
             return !esEditar && !MobileAppConfiguracion.EsAppMobile &&
                 !(Constantes.NombrePalanca.HerramientasVenta == palanca
                 || Constantes.NombrePalanca.PackNuevas == palanca);
