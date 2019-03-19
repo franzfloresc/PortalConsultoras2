@@ -216,7 +216,6 @@ var BuscadorModule = (function () {
             if ($(".tooltip_informativo_sobre_opcion_busqueda_prod").is(":visible") && !_config.isMobile) {
                 $(".tooltip_informativo_sobre_opcion_busqueda_prod").fadeOut(100);
             }
-            debugger;
             var key = false;
             $.each(_keys, function (i, value) {
                 if (value.val === event.which) key = true;
@@ -235,7 +234,7 @@ var BuscadorModule = (function () {
             var valorBusqueda = $(this).val();
 
             localStorage.setItem('valorBuscador', valorBusqueda);
-            var letras = "abcdefghyjklmnñopqrstuvwxyz";
+            var letras = "abcdefghyjklmnñopqrstuvwxyzáéíóú";
             var valorfinal1 = false;
             valorBusqueda = valorBusqueda.toLowerCase();
             for (i = 0; i < valorBusqueda.length; i++) {
