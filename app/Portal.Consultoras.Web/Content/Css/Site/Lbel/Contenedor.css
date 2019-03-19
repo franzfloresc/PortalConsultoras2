@@ -40,8 +40,8 @@
     background: #043552;
 }
 
-/*.op-menu-horizontal .subnavegador li .activado {
+.op-menu-horizontal .subnavegador li .activado {
     border-bottom: 3px solid #67388c;
     color: #67388c;
-}*/
+}
 
