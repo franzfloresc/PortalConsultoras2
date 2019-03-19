@@ -471,6 +471,8 @@ namespace Portal.Consultoras.Common
             public const string BuscadorYFiltrosConfig = "BuscadorYFiltros";
             public const string MSPersonalizacionConfig = "MSPersonalizacion";
 
+            public const string NivelConsultoraCaminoBrillante = "NivelConsultoraCaminoBrillante";
+
         }
 
         public static class ConfiguracionManager
