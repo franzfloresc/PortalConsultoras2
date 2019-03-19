@@ -197,24 +197,24 @@ namespace Portal.Consultoras.Web.Controllers
         //    }
         //}
 
-        private bool CUVTieneStock(string cuv)
-        {
-            bool response = false;
+        //private bool CUVTieneStock(string cuv)
+        //{
+        //    bool response = false;
 
-            List<ServiceODS.BEProducto> olstProducto;
+        //    List<ServiceODS.BEProducto> olstProducto;
 
-            using (ODSServiceClient sv = new ODSServiceClient())
-            {
-                olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(userData.PaisID, userData.CampaniaID, cuv, userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, 1, 1, false).ToList();
-            }
+        //    using (ODSServiceClient sv = new ODSServiceClient())
+        //    {
+        //        olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(userData.PaisID, userData.CampaniaID, cuv, userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, 1, 1, false).ToList();
+        //    }
 
-            if (olstProducto.Count != 0)
-            {
-                response = olstProducto[0].TieneStock;
-            }
+        //    if (olstProducto.Count != 0)
+        //    {
+        //        response = olstProducto[0].TieneStock;
+        //    }
 
-            return response;
-        }
+        //    return response;
+        //}
 
         [HttpPost]
         public JsonResult UpdateOfertaWebPortal(PedidoDetalleModel model)

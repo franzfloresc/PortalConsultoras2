@@ -6,6 +6,8 @@ using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Estrategia;
 using Portal.Consultoras.Entities.Mobile;
 using Portal.Consultoras.Entities.Producto;
+using Portal.Consultoras.Entities.Oferta;
+using Portal.Consultoras.Entities.BuscadorYFiltros;
 using Portal.Consultoras.ServiceContracts;
 
 using System;
@@ -760,17 +762,20 @@ namespace Portal.Consultoras.Service
         #region Tabla Logica Datos
         public List<BETablaLogicaDatos> GetTablaLogicaDatos(int paisID, Int16 TablaLogicaID)
         {
-            return BLTablaLogicaDatos.GetList(paisID, TablaLogicaID);
+            return BLTablaLogicaDatos.GetListCache(paisID, TablaLogicaID);
         }
         #endregion
 
         #region Buscador
-
         public Dictionary<string,string> GetOrdenamientoFiltrosBuscador(int paisID)
         {
             return _buscadorBusinessLogic.GetOrdenamientoFiltrosBuscador(paisID);
         }
 
+        public List<BEFiltroBuscador> GetFiltroBuscador(int paisID, int tablaLogicaDatosID)
+        {
+            return _buscadorBusinessLogic.GetFiltroBuscador(paisID, tablaLogicaDatosID);
+        }
         #endregion
 
         #region Fe de Erratas
@@ -1432,6 +1437,11 @@ namespace Portal.Consultoras.Service
         {
             var bl = new BLConfiguracionOfertasHome();
             return bl.GetListarSeccion(paisId, campaniaId);
+        }
+        public IList<BEConfiguracionOfertasHomeApp> ListarSeccionConfiguracionOfertasApp(int paisId, int campaniaId)
+        {
+            var bl = new BLConfiguracionOfertasHome();
+            return bl.GetListarSeccionAPP(paisId, campaniaId);
         }
         #endregion
 

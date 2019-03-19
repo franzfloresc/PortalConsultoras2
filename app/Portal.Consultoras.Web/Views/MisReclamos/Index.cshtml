@@ -142,6 +142,8 @@
 
 <input type="hidden" id="hdPedidoIdActual" />
 
+<input type="hidden" id="hdCDRWebID" />
+
 <div class="contenedor_popup_percepciones" id="PopSolicitud">
     <div class="popup_Pendientes">
         <div class="btn_cerrar_popupPercepcion cerrarPendientesPORTAL">
@@ -414,6 +416,8 @@
                 var parent = $(elemento).parents(".content_listado_reclamo");
 
                 var id = $(parent).find(".cdrweb_id").val();
+
+
                 var pedidoId = $(parent).find(".cdrweb_pedidoid").val();
                 var estado = $(parent).find(".cdrweb_estado").val();
                 var formatoFechaCulminado = $(parent).find(".cdrweb_formatoFechaCulminado").val();
@@ -423,7 +427,7 @@
                 var mensajeDespacho = IfNull($(parent).find(".cdrweb_mensajedespacho").val(),'');
 
                 $("#hdPedidoIdActual").val(pedidoId);
-
+                $("#hdCDRWebID").val(id);
                 var item = {
                     CDRWebID: id || 0,
                     PedidoID: pedidoId || 0,
@@ -432,7 +436,7 @@
 
                 switch (estado) {
                     case "1": //Pendiente
-                        window.location.href = urlReclamo + "?pedidoId=" + pedidoId;
+                        window.location.href = urlReclamo + "?p=" + pedidoId + "&c=" + id;
                         break;
                     case "2": //Enviado
                         ObtenerDetalleCdr(item);
@@ -490,6 +494,7 @@
 
             $("#btnFinalizar").on("click", function () {
                 var pedidoId = $("#hdPedidoIdActual").val();
+                var id = $("#hdCDRWebID").val();
                 var lista = new Array();
 
                 $.each($("#divDetallePedidoCdrObservado .txtCantidad"), function (index, value) {
@@ -506,7 +511,7 @@
                 });
 
                 var actualizado = ActualizarDetalleObservado(lista);
-                if (actualizado) window.location.href = urlReclamo + "?pedidoId=" + pedidoId;
+                if (actualizado) window.location.href = urlReclamo + "?p=" + pedidoId + "&c=" + id;
             });
 
             $("#IrPaso1").on("click", function () {

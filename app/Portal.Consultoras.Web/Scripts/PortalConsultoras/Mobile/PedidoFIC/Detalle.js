@@ -10,6 +10,7 @@ $(document).ready(function () {
     });
 
     //ValidarKitNuevas();
+    CargarPedido(true);
 
     $("#suma, #resta").click(function (event) {
         if (!ValidarPermiso(this)) {
@@ -174,7 +175,7 @@ function UpdateLiquidacionSegunTipoOfertaSis(CampaniaID, PedidoID, PedidoDetalle
             PrecioUnidad: PrecioUnidad,
             Cantidad: CantidadSoli,
             TipoOferta: TipoOfertaSisID || 0,
-            enRangoProgNuevas: false
+            esCuponNuevas: false
         });
         ShowLoading();
 

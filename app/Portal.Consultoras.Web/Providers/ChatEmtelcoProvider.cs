@@ -23,7 +23,7 @@ namespace Portal.Consultoras.Web.Providers
         public bool HabilitarChatEmtelco(int paisId, bool esMobile)
         {
             bool Mostrar = false;
-            List<TablaLogicaDatosModel> DataLogica = _tablaLogicaProvider.ObtenerParametrosTablaLogica(paisId, Constantes.TablaLogica.HabilitarChatEmtelco, false);
+            List<TablaLogicaDatosModel> DataLogica = _tablaLogicaProvider.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.HabilitarChatEmtelco, false);
 
             if (esMobile)
             {
