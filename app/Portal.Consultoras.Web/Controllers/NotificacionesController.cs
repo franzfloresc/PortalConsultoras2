@@ -364,7 +364,8 @@ namespace Portal.Consultoras.Web.Controllers
                 mGanancia = Util.DecimalToStringFormat(
                     lstObservacionesPedido.Any()?
                     lstObservacionesPedido[0].MontoAhorroCatalogo + lstObservacionesPedido[0].MontoAhorroRevista
-                    :0,
+                    : 0,
+                    userData.CodigoISO)
             };
             ViewBag.PaisIso = userData.CodigoISO;
             ViewBag.ExistenciaDetallepedido = lstObservacionesPedido.Count();
