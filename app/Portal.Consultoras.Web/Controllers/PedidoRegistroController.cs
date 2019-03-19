@@ -246,6 +246,7 @@ namespace Portal.Consultoras.Web.Controllers
                 pedidoDetalle.Producto.CUV = Util.Trim(model.CuvTonos);
                 pedidoDetalle.Producto.IndicadorMontoMinimo = string.IsNullOrEmpty(model.IndicadorMontoMinimo) ? 0 : Convert.ToInt32(model.IndicadorMontoMinimo);
                 pedidoDetalle.Producto.FlagNueva = model.FlagNueva == "" ? "0" : model.FlagNueva;
+                pedidoDetalle.Producto.Descripcion = model.DescripcionProd ?? "";
                 pedidoDetalle.Usuario = Mapper.Map<ServicePedido.BEUsuario>(userData);
                 pedidoDetalle.Cantidad = Convert.ToInt32(model.Cantidad);
                 pedidoDetalle.PaisID = userData.PaisID;
