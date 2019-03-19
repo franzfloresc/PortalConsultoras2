@@ -127,14 +127,14 @@ var menuModule = (function () {
         urlIni = document.location.href;
         var currentLocation = window.location.href.toLowerCase();
         _claseImgSeleccionado(currentLocation.indexOf("#") <= -1);
-        _setCarrouselMenu();
+        setCarrouselMenu();
 
     }
 
     function setCarrouselMenu() {
 
+        $(elementos.menu2Ul + ".slick-initialized").slick("unslick");
         if (_carrouselContenedorValidarAncho()) {
-            $(elementos.menu2Ul + ".slick-initialized").slick("unslick");
             $(elementos.menu2Ul).not(".slick-initialized").slick({
                 infinite: false,
                 vertical: false,

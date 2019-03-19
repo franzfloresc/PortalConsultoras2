@@ -21,6 +21,7 @@ namespace Portal.Consultoras.Web
             bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/Site-Contenedor").Include(
                 "~/Content/Css/Site/flipclock.css",
                 "~/Content/Css/Site/slick.css",
+               "~/Content/Css/Site/Menu/MenuGeneral.css",
                "~/Content/Css/Site/Menu/MenuContenedor.css"
             ));
 
@@ -242,6 +243,7 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/Esika-Contenedor").Include(
                 "~/Content/Css/Mobile/Contenedor/Index.css",
+                "~/Content/Css/Site/Menu/MenuGeneral.css",
                 "~/Content/Css/Mobile/Contenedor/MenuContenedor.css",
                 "~/Content/Css/Mobile/Esika/Contenedor.css"
             ));
@@ -270,6 +272,8 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/Lbel-Contenedor").Include(
                 "~/Content/Css/Mobile/Contenedor/Index.css",
+               "~/Content/Css/Site/Menu/MenuGeneral.css",
+                "~/Content/Css/Mobile/Contenedor/MenuContenedor.css",
                 "~/Content/Css/Mobile/Lbel/Contenedor.css"
             ));
 
