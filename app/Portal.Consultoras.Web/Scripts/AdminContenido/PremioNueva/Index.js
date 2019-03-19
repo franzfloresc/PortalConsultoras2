@@ -168,6 +168,7 @@ function DesactivarPremio(rowId) {
     var rowData = $("#list").jqGrid('getRowData', rowId);
     Premio = rowData;
     Premio.ActivePremioAuto = 0;
+    Premio.ActivePremioElectivo = 0;
     Premio['Operacion'] = 1;
 
     waitingDialog({});

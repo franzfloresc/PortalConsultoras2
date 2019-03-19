@@ -3576,7 +3576,7 @@ namespace Portal.Consultoras.Web.ServiceODS {
         private System.Nullable<bool> ActivePremioAutoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool ActivePremioElectivoField;
+        private System.Nullable<bool> ActivePremioElectivoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool ActiveTooltipField;
@@ -3682,7 +3682,7 @@ namespace Portal.Consultoras.Web.ServiceODS {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool ActivePremioElectivo {
+        public System.Nullable<bool> ActivePremioElectivo {
             get {
                 return this.ActivePremioElectivoField;
             }
