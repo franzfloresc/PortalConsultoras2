@@ -3,7 +3,7 @@ GO
 
 IF NOT EXISTS (
 		SELECT *
-		FROM dbo.TablaLogicaDatos
+		FROM dbo.TablaLogica
 		WHERE TablaLogicaID = 180
 		)
 BEGIN
@@ -23,7 +23,7 @@ GO
 
 IF NOT EXISTS (
 		SELECT *
-		FROM dbo.TablaLogicaDatos
+		FROM dbo.TablaLogica
 		WHERE TablaLogicaID = 180
 		)
 BEGIN
@@ -43,7 +43,7 @@ GO
 
 IF NOT EXISTS (
 		SELECT *
-		FROM dbo.TablaLogicaDatos
+		FROM dbo.TablaLogica
 		WHERE TablaLogicaID = 180
 		)
 BEGIN
@@ -63,7 +63,7 @@ GO
 
 IF NOT EXISTS (
 		SELECT *
-		FROM dbo.TablaLogicaDatos
+		FROM dbo.TablaLogica
 		WHERE TablaLogicaID = 180
 		)
 BEGIN
@@ -83,7 +83,7 @@ GO
 
 IF NOT EXISTS (
 		SELECT *
-		FROM dbo.TablaLogicaDatos
+		FROM dbo.TablaLogica
 		WHERE TablaLogicaID = 180
 		)
 BEGIN
@@ -103,7 +103,7 @@ GO
 
 IF NOT EXISTS (
 		SELECT *
-		FROM dbo.TablaLogicaDatos
+		FROM dbo.TablaLogica
 		WHERE TablaLogicaID = 180
 		)
 BEGIN
@@ -123,7 +123,7 @@ GO
 
 IF NOT EXISTS (
 		SELECT *
-		FROM dbo.TablaLogicaDatos
+		FROM dbo.TablaLogica
 		WHERE TablaLogicaID = 180
 		)
 BEGIN
@@ -143,7 +143,7 @@ GO
 
 IF NOT EXISTS (
 		SELECT *
-		FROM dbo.TablaLogicaDatos
+		FROM dbo.TablaLogica
 		WHERE TablaLogicaID = 180
 		)
 BEGIN
@@ -163,7 +163,7 @@ GO
 
 IF NOT EXISTS (
 		SELECT *
-		FROM dbo.TablaLogicaDatos
+		FROM dbo.TablaLogica
 		WHERE TablaLogicaID = 180
 		)
 BEGIN
@@ -183,7 +183,7 @@ GO
 
 IF NOT EXISTS (
 		SELECT *
-		FROM dbo.TablaLogicaDatos
+		FROM dbo.TablaLogica
 		WHERE TablaLogicaID = 180
 		)
 BEGIN
@@ -203,7 +203,7 @@ GO
 
 IF NOT EXISTS (
 		SELECT *
-		FROM dbo.TablaLogicaDatos
+		FROM dbo.TablaLogica
 		WHERE TablaLogicaID = 180
 		)
 BEGIN
@@ -223,7 +223,7 @@ GO
 
 IF NOT EXISTS (
 		SELECT *
-		FROM dbo.TablaLogicaDatos
+		FROM dbo.TablaLogica
 		WHERE TablaLogicaID = 180
 		)
 BEGIN

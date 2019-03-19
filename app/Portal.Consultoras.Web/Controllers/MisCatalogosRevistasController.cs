@@ -28,7 +28,7 @@ namespace Portal.Consultoras.Web.Controllers
             _configuracionPaisDatosProvider = new ConfiguracionPaisDatosProvider();
         }
 
-        public ActionResult Index(string marca = "", string demo = "0")
+        public ActionResult Index(string marca = "")
         {
             var clienteModel = new MisCatalogosRevistasModel
             {
@@ -48,8 +48,9 @@ namespace Portal.Consultoras.Web.Controllers
             clienteModel.PartialSectionBpt = _configuracionPaisDatosProvider.GetPartialSectionBptModel(Constantes.OrigenPedidoWeb.SectionBptDesktopCatalogo);
                         
             ViewBag.Piloto = GetTienePiloto(userData.PaisID);
-            ViewBag.UrlCatalogoPiloto = GetUrlCatalogoPiloto(demo == "1");
+            ViewBag.UrlCatalogoPiloto = GetUrlCatalogoPiloto();
             ViewBag.EsConsultoraNueva = userData.EsConsultoraNueva;
+            ViewBag.FBAppId = _configuracionManagerProvider.GetConfiguracionManager(Constantes.Facebook.FB_AppId);
 
             return View(clienteModel);
         }
@@ -271,6 +272,7 @@ namespace Portal.Consultoras.Web.Controllers
                     urlIconTelefono = Globals.RutaCdn + "/ImagenesPortal/Iconos/celu_mail_lbel.png";
                 }
 
+                Mensaje = Mensaje.Replace("\n", "<br/>");
                 var txtBuil = new StringBuilder();
                 foreach (var item in ListaCatalogosCliente)
                 {
@@ -517,8 +519,8 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult EnviarEmailPiloto(List<CatalogoClienteModel> ListaCatalogosCliente, string Mensaje, string Campania)
         {
             try
-            {
-                var url = GetUrlCatalogoPiloto(false);
+            {                
+                var url = GetUrlCatalogoPiloto();
                 var urlImagenLogo = Globals.RutaCdn + "/ImagenesPortal/Iconos/logo.png";
                 var urlIconEmail = Globals.RutaCdn + "/ImagenesPortal/Iconos/mensaje_mail.png";
                 var urlIconTelefono = Globals.RutaCdn + "/ImagenesPortal/Iconos/celu_mail.png";
@@ -530,6 +532,7 @@ namespace Portal.Consultoras.Web.Controllers
                     urlIconTelefono = Globals.RutaCdn + "/ImagenesPortal/Iconos/celu_mail_lbel.png";
                 }
 
+                Mensaje = Mensaje.Replace("\n", "<br/>");
                 var txtBuil = new StringBuilder();
                 foreach (var item in ListaCatalogosCliente)
                 {
@@ -806,13 +809,13 @@ namespace Portal.Consultoras.Web.Controllers
             return campania >= campaniaInicio;
         }
 
-        private string GetUrlCatalogoPiloto(bool qa)
+        private string GetUrlCatalogoPiloto()
         {
             var queryString = string.Format(Constantes.CatalogoPiloto.UrlParamEncrip, userData.CodigoISO, userData.CodigoConsultora);
             byte[] encbuff = Encoding.UTF8.GetBytes(queryString);
             var encripParams = Convert.ToBase64String(encbuff);
 
-            var urlBase = qa ? Constantes.CatalogoPiloto.UrlBaseQA : Constantes.CatalogoPiloto.UrlBase;
+            var urlBase = _configuracionManagerProvider.GetConfiguracionManager(Constantes.CatalogoPiloto.UrlCatalogoPiloto);
             return string.Format(Constantes.CatalogoPiloto.UrlCatalogo, urlBase, encripParams);
         }
 
