@@ -1,7 +1,7 @@
-#addin "nuget:?package=Cake.Sonar"
-#tool "nuget:?package=MSBuild.SonarQube.Runner.Tool"
-#addin "nuget:?package=Cake.SonarScanner"
-#addin nuget:?package=Cake.Git
+#addin nuget:?package=Cake.Sonar&version=1.1.18
+#tool  nuget:?package=MSBuild.SonarQube.Runner.Tool&version=4.3.1
+#addin nuget:?package=Cake.SonarScanner&version=1.1.0
+#addin nuget:?package=Cake.Git&version=0.19.0
 
 ///////////////////////////////////////////////////////////////////////////////
 // ARGUMENTS

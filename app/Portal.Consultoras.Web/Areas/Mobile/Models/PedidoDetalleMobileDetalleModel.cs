@@ -23,5 +23,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public List<string> ListObservacionProl { get; set; }
         public bool EsBackOrder { get; set; }
         public bool AceptoBackOrder { get; set; }
+        public int SetIdentifierNumber { get; set; }
     }
 }
