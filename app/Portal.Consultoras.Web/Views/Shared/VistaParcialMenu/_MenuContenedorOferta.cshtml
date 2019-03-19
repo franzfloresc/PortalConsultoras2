@@ -10,7 +10,10 @@
 
 @if (menuActivo.MostrarMenuFlotante)
 {
-    <div class="op-menu-horizonta-fixed" data-menu-codigo="@menuActivo.Codigo" data-layout-menu2="">
+    <div class="op-menu-horizonta-fixed" 
+         data-menu-codigo="@menuActivo.Codigo" 
+         data-layout="menuContenedor"
+         data-layout-menu2="">
         @if (menuList.Any())
         {
 

@@ -16,9 +16,7 @@
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_GoogleOptimize.cshtml")
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManager.cshtml")
 
-
     <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
-
 
     @Styles.Render("~/Bundle/Css/Mixto/Bootstrap")
     @Styles.Render("~/Bundle/Css/Mixto/LayoutResponsive")
@@ -116,7 +114,8 @@
 
     <div class="layout-somos-belcorp container-fluid pl-0 pr-0">
         <header class="layout__header row flex-column flex-nowrap justify-content-between justify-content-lg-start justify-content-xl-start align-items-center ml-0 mr-0">
-            <div class="col-12 d-flex flex-row flex-nowrap pl-lg-0 pr-lg-0 layout__header--menuSomosBelcorp">
+            <div data-layout="menu"
+                 class="col-12 d-flex flex-row flex-nowrap pl-lg-0 pr-lg-0 layout__header--menuSomosBelcorp">
                 <div class="row flex-row flex-nowrap justify-content-between justify-content-lg-start justify-content-xl-start align-items-center ml-0 mr-0 mx-auto layout__container">
                     <section class="header__icono__menu mostrarEnMobile pl-0 pr-0">
                         <img class="w-100" src="@Url.Content("~/Content/images/mobile/icono-menu-mobile.svg")" alt="Abrir Menú">
@@ -153,7 +152,7 @@
 
         @if (!string.IsNullOrEmpty(ViewBag.Title))
         {
-            <section data-layout-content="breadcrumb" 
+            <section data-layout="ubicacionWeb"
                      class="row flex-row ml-0 mr-0 layout__view__breadcrumbs__wrapper mostrarEnDesktop">
                 <div class="col-12 pl-0 pr-0 mx-auto layout__view__breadcrumbs">
                     <ul class="row flex-row align-items-center ml-0 mr-0 layout__view__lista__breadcrumbs">
@@ -167,10 +166,10 @@
                 </div>
             </section>
         }
-        <div data-layout-content="body">
+        <div data-layout="body">
             @RenderBody()
         </div>
-
+        
         @Html.Partial("~/Views/Shared/_FooterResponsive.cshtml")
     </div>
 

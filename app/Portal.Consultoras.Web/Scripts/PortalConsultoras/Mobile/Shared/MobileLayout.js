@@ -24,9 +24,9 @@ $(function () {
     }
 
     LayoutHeader();
-    if (typeof menuModule !== "undefined") {
-        menuModule.Resize();
-    }
+    //if (typeof menuModule !== "undefined") {
+    //    menuModule.Resize();
+    //}
 
     OcultarChatEmtelco();
 

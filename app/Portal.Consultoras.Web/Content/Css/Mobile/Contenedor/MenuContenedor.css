@@ -202,28 +202,9 @@
     }
 }
 
-
-.bc-menu-vertical-prev, .bc-menu-vertical-next {
-    width: 5% !important;
-}
-
-    .bc-menu-vertical-prev img, .bc-menu-vertical-next img {
-        height: 40px;
-    }
-
 .bc-menu-vertical-next {
     text-align: right !important;
 }
-
-.bc-menu-vertical-prev, .bc-menu-vertical-next {
-    width: auto !important;
-}
-
-    .bc-menu-vertical-prev img, .bc-menu-vertical-next img {
-        height: 20px !important;
-        padding: 0 19px !important;
-        margin-top: 13px !important;
-    }
 
 .slick-slider-fixed-mobile {
     /*height: 40px !important;*/
