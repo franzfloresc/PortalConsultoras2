@@ -1,11 +1,12 @@
-﻿using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.BizLogic.ProgramaNuevas;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
 using System.Data;
 
 namespace Portal.Consultoras.BizLogic
 {
-    public class BLActivarPremioNuevas
+    public class BLActivarPremioNuevas : IActivarPremioNuevasBusinessLogic
     {
         public BEActivarPremioNuevas GetActivarPremioNuevas(int paisID, string codigoPrograma, int anioCampana, string codigoNivel)
         {

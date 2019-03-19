@@ -74,22 +74,22 @@ namespace Portal.Consultoras.Web.SessionManager
 
         #region CDR
 
-        public List<BECDRWebDetalle> GetCDRWebDetalle()
+        public List<ServiceCDR.BECDRWebDetalle> GetCDRWebDetalle()
         {
-            return (List<BECDRWebDetalle>)HttpContext.Current.Session[Constantes.ConstSession.CDRWebDetalle];
+            return (List<ServiceCDR.BECDRWebDetalle>)HttpContext.Current.Session[Constantes.ConstSession.CDRWebDetalle];
         }
 
-        public void SetCDRWebDetalle(List<BECDRWebDetalle> datos)
+        public void SetCDRWebDetalle(List<ServiceCDR.BECDRWebDetalle> datos)
         {
             HttpContext.Current.Session[Constantes.ConstSession.CDRWebDetalle] = datos;
         }
 
-        public List<BECDRWeb> GetCdrWeb()
+        public List<ServiceCDR.BECDRWeb> GetCdrWeb()
         {
-            return (List<BECDRWeb>)HttpContext.Current.Session[Constantes.ConstSession.CDRWeb];
+            return (List<ServiceCDR.BECDRWeb>)HttpContext.Current.Session[Constantes.ConstSession.CDRWeb];
         }
 
-        public void SetCdrWeb(List<BECDRWeb> datos)
+        public void SetCdrWeb(List<ServiceCDR.BECDRWeb> datos)
         {
             HttpContext.Current.Session[Constantes.ConstSession.CDRWeb] = datos;
         }
@@ -124,15 +124,15 @@ namespace Portal.Consultoras.Web.SessionManager
             HttpContext.Current.Session[Constantes.ConstSession.CDRWebDatos] = datos;
         }
 
-        public List<ServicePedido.BEPedidoWeb> GetCdrPedidosFacturado()
-        {
-            return (List<ServicePedido.BEPedidoWeb>)HttpContext.Current.Session[Constantes.ConstSession.CDRPedidosFacturado];
-        }
+        //public List<ServicePedido.BEPedidoWeb> GetCdrPedidosFacturado()
+        //{
+        //    return (List<ServicePedido.BEPedidoWeb>)HttpContext.Current.Session[Constantes.ConstSession.CDRPedidosFacturado];
+        //}
 
-        public void SetCdrPedidosFacturado(List<ServicePedido.BEPedidoWeb> datos)
-        {
-            HttpContext.Current.Session[Constantes.ConstSession.CDRPedidosFacturado] = datos;
-        }
+        //public void SetCdrPedidosFacturado(List<ServicePedido.BEPedidoWeb> datos)
+        //{
+        //    HttpContext.Current.Session[Constantes.ConstSession.CDRPedidosFacturado] = datos;
+        //}
 
         public List<BECDRWebDescripcion> GetCdrDescripcion()
         {
@@ -1244,6 +1244,7 @@ namespace Portal.Consultoras.Web.SessionManager
             if (val == null) { return 0; }
             return (int)val;
         }
+       
 
         void ISessionManager.SetCDRExpressMensajes(List<BETablaLogicaDatos> val)
         {
@@ -1362,6 +1363,32 @@ namespace Portal.Consultoras.Web.SessionManager
         string ISessionManager.GetJwtApiSomosBelcorp()
         {
             return (string)HttpContext.Current.Session[Constantes.ConstSession.JwtApiSomosBelcorp];
+        }
+
+        public int? GetNroPedidosCDRConfig()
+        {
+            int valor = 0;
+            var result = int.TryParse(Convert.ToString(HttpContext.Current.Session["NroPedidosCDRConfig"]), out valor);
+            
+            if (result)
+                return valor;
+            else
+                return null;
+        }
+
+        public void SetNroPedidosCDRConfig(int cantidad)
+        {
+            HttpContext.Current.Session["NroPedidosCDRConfig"] = cantidad;
+        }
+
+        List<CDRWebModel> ISessionManager.GetListaCDRWebCargaInicial()
+        {
+            return (List<CDRWebModel>)HttpContext.Current.Session["ListaCDRWebCargaInicial"];
+        }
+
+        void ISessionManager.SetListaCDRWebCargaInicial(List<CDRWebModel> lista)
+        {
+            HttpContext.Current.Session["ListaCDRWebCargaInicial"] = lista;
         }
         public void SetUsuarioOpciones(List<UsuarioOpcionesModel> usuarioOpciones)
         {
