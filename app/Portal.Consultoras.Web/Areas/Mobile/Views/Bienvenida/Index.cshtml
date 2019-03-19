@@ -803,6 +803,10 @@
 <!--FIN-->
 <!-- POPUP VERIFICACIÓN DE CORREO ELECTRÓNICO PENDIENTE  -->
 
+<!-- POPUP ACTUALIZACIÓN DE CORREO ECUADOR -->
+@Html.Partial("~/Views/Shared/PopupsResponsive/_PopupActualizacionCorreo.cshtml")
+<!-- FIN - POPUP ACTUALIZACIÓN DE CORREO ECUADOR -->
+
 <div class="contenedor_fondo_popup" id="popupVerificacionCorreoElectronicoPendiente" style="display:none;">
     <div class="popup_correo_pendiente_de_confirmar w-100 text-center">
         <div class="btn_cerrar_actualizarMisDatos">
@@ -863,7 +867,7 @@
         var urlCatalogoPersonalizado = '@Url.Action("Index", "CatalogoPersonalizado", new { area = "Mobile" })';
         var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "Estrategia", new { area = "" })';
 
-        var tipoOrigenEstrategia = 2; 
+        var tipoOrigenEstrategia = 2;
         var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.MobileHomeOfertaDelDiaCarrusel';
         var noMostrarPopUpRevistaDig = '@Model.RevistaDigital.NoVolverMostrar';
 
