@@ -33,11 +33,15 @@
     background-size: 20px;
     background-position: center 1px;
     top:-17px;
-    left:16.2%;
+    left:137px;
 }
 
 .submenu__lista--miNegocio{
     top:54px;
+}
+
+.submenu__lista--miNegocioConEnlaceMisEventos{
+    width:1080px;
 }
 
 .submenu__lista--miAsesorBelleza{

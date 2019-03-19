@@ -41,6 +41,9 @@
         var claseSociaEmpresaria = (ViewBag.Lider == 1 && ViewBag.PortalLideres) ? "menu_socia_empresaria" : "";
 
     }
+
+    var subMenuMiNegocioConEnlaceMisEventos = (ViewBag.CodigoISODL == "PE") ? " submenu__lista--miNegocioConEnlaceMisEventos" : "";
+
 }
 
 <!-- MENÚ PRINCIPAL MOBILE -->
@@ -176,6 +179,7 @@
     </a>
 </nav>
 <!-- FIN - MENÚ PRINCIPAL MOBILE -->
+
 <!-- MENÚ PRINCIPAL DESKTOP -->
 
 <nav class="header__menu header__menu--lateralIzquierdo mostrarEnDesktop">
@@ -189,7 +193,7 @@
                     <a class="menu__link d-block menu__link--conSubmenu" title="@menuPadre.Descripcion">
                         @menuPadre.Descripcion
                     </a>
-                    <ul class="submenu__lista submenu__lista--miNegocio row flex-column flex-nowrap flex-lg-wrap flex-xl-wrap ml-0 mr-0 mb-0 pl-0">
+                    <ul class="submenu__lista submenu__lista--miNegocio @subMenuMiNegocioConEnlaceMisEventos row flex-column flex-nowrap flex-lg-wrap flex-xl-wrap ml-0 mr-0 mb-0 pl-0">
                         <div class="pestana__marca__pais"></div>
                         @{
                             var margin = "";
@@ -308,7 +312,7 @@
 
                                 if (ViewBag.SegmentoConsultoraMenu == 1)
                                 {
-                                    <li class="submenu__item submenu__item--Catalogos">
+                                    <li class="submenu__item submenu__item--ProgramaNuevas">
                                         <a href="@urlProgramaNuevas" class="submenu__link d-block" role="menu" region="Principal" parent="MI NEGOCIO" title="Programa Nuevas" target="_blank">
                                             <img src="@(ViewBag.UrlRaizS3)Menu/MiNegocio/@(ViewBag.codigoISOMenu)/imagen_02.png" class="w-100" alt="Catálogos">
                                             <div class="submenu__item__title w-100">PROGRAMA NUEVAS</div>
@@ -324,6 +328,16 @@
                                         </a>
                                     </li>
                                 }
+
+                                if (ViewBag.CodigoISODL == "PE")
+                                {
+                                     <li class="submenu__item submenu__item--MisEventos">
+                                         <a href="@(ViewBag.UrlRaizS3)FileConsultoras/@(ViewBag.codigoISOMenu)/MisEventos.pdf" class="submenu__link d-block" target="_blank" role="menu" region="Principal" parent="MI NEGOCIO" title="Mis Eventos" id="lnk-pri-Eventos">
+                                             <img src="@(ViewBag.UrlRaizS3)Menu/MiNegocio/@(ViewBag.codigoISOMenu)/top_y_brillas.png" alt="Mis Eventos">
+                                             <div class="submenu__item__title w-100">MIS EVENTOS</div>
+                                         </a>
+                                     </li>
+                                 }
                             }
                         }
                     </ul>
