@@ -67,7 +67,9 @@ function continuarSession() {
 function callKeepAlive() {
     var urlKeepAlive = baseUrl + 'Bienvenida/KeepAlive';
 
-    return $.get(urlKeepAlive);
+    return $.get(urlKeepAlive).then(function(result) {
+        checkTimeout(result);
+    });
 }
 
 function noPedidoReservado() {
