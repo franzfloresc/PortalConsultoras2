@@ -1,7 +1,15 @@
-﻿namespace Portal.Consultoras.Web.Models
+﻿using System.Collections.Generic;
+
+namespace Portal.Consultoras.Web.Models
 {
     public class MisDatosModel
     {
+        public MisDatosModel()
+        {
+            UsuarioOpciones = new List<UsuarioOpcionesModel>();
+            this.DireccionEntrega = new DireccionEntregaModel();
+        }
+      
         public string PaisISO { get; set; }
         public string CodigoUsuario { get; set; }
         public string CodigoUsuarioReal { get; set; }
@@ -36,5 +44,13 @@
         public int PaisID { get; set; }
         public int IniciaNumeroCelular { get; set; }
         public int IndicadorConsultoraDigital { get; set; }
+        public List<string> PermisoMenu { get; set; }        
+        public List<UsuarioOpcionesModel> UsuarioOpciones { get; set; }
+
+        public DireccionEntregaModel DireccionEntrega { get; set; }
+
+        public dynamic DatosExtra { get; set; }
+        public bool TieneDireccionEntrega { get; set; }
+        public bool TienePermisosCuenta { get; set; }
     }
 }

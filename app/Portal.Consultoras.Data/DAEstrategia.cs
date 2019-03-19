@@ -165,6 +165,8 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "@ImgFichaMobile", DbType.String, entidad.ImgFichaMobile);
                 Context.Database.AddInParameter(command, "@ImgFichaFondoMobile", DbType.String, entidad.ImgFichaFondoMobile);
                 Context.Database.AddInParameter(command, "@UrlVideoMobile", DbType.String, entidad.UrlVideoMobile);
+                Context.Database.AddInParameter(command, "@ImgFondoApp", DbType.String, entidad.ImgFondoApp);
+                Context.Database.AddInParameter(command, "@ColorTextoApp", DbType.String, entidad.ColorTextoApp);
                 Context.Database.AddOutParameter(command, "@Retorno", DbType.Int32, 0);
                 Context.ExecuteNonQuery(command);
                 result = Convert.ToInt32(command.Parameters["@Retorno"].Value);
@@ -630,6 +632,18 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "@CUV", DbType.String, entidad.CUV2);
                 Context.Database.AddInParameter(command, "@CodigoPrograma", DbType.String, entidad.CodigoPrograma);
                 Context.Database.AddInParameter(command, "@CodigoEstrategia", DbType.String, entidad.CodigoEstrategia);
+
+                return Context.ExecuteReader(command);
+            }
+        }
+
+        public IDataReader GetPremiosElectivos(string codigoPrograma, int anioCampana, string codigoNivel)
+        {
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPremiosElectivos"))
+            {
+                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, anioCampana);
+                Context.Database.AddInParameter(command, "@CodigoPrograma", DbType.String, codigoPrograma);
+                Context.Database.AddInParameter(command, "@CodigoNivel", DbType.String, codigoNivel);
 
                 return Context.ExecuteReader(command);
             }

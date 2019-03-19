@@ -217,19 +217,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="UbigeoTemplate" nillable="true" type="tns:UbigeoTemplate" />
-  <xs:complexType name="UbigeoPA">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:UbigeoTemplate">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="BARRIO_COLONIA_URBANIZACION_REFERENCIAS" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="CORREGIMIENTO" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="DISTRITO" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="PROVINCIA" nillable="true" type="xs:string" />
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="UbigeoPA" nillable="true" type="tns:UbigeoPA" />
   <xs:complexType name="UbigeoSV">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:UbigeoTemplate">
@@ -257,6 +244,19 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="UbigeoGT" nillable="true" type="tns:UbigeoGT" />
+  <xs:complexType name="UbigeoPA">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:UbigeoTemplate">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="BARRIO_COLONIA_URBANIZACION_REFERENCIAS" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CORREGIMIENTO" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DISTRITO" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="PROVINCIA" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="UbigeoPA" nillable="true" type="tns:UbigeoPA" />
   <xs:complexType name="ArrayOfUbigeoTemplate">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="UbigeoTemplate" nillable="true" type="tns:UbigeoTemplate" />
@@ -372,11 +372,13 @@
       <xs:element minOccurs="0" name="Cuv" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
       <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="DetallesKitInicio" nillable="true" type="q2:ArrayOfParametroUneteBE" />
+      <xs:element minOccurs="0" name="IdParametroUnete" type="xs:int" />
       <xs:element minOccurs="0" name="Imagen" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="KitInicioId" type="xs:int" />
       <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Orden" type="xs:int" />
       <xs:element minOccurs="0" name="Precio" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PrecioReal" type="xs:decimal" />
       <xs:element minOccurs="0" name="Tipo" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
@@ -394,4 +396,24 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="MercadoPagoResult" nillable="true" type="tns:MercadoPagoResult" />
+  <xs:complexType name="ArrayOfKitInicioDetalle">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="KitInicioDetalle" nillable="true" type="tns:KitInicioDetalle" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfKitInicioDetalle" nillable="true" type="tns:ArrayOfKitInicioDetalle" />
+  <xs:complexType name="KitInicioDetalle">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Activo" type="xs:boolean" />
+      <xs:element minOccurs="0" name="DetalleKitInicioId" type="xs:int" />
+      <xs:element minOccurs="0" name="Imagen" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="KitInicioDetalleTipo" type="xs:int" />
+      <xs:element minOccurs="0" name="KitInicioTipo" type="xs:int" />
+      <xs:element minOccurs="0" name="NombreProducto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Orden" type="xs:int" />
+      <xs:element minOccurs="0" name="Precio" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TipoPrecio" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="KitInicioDetalle" nillable="true" type="tns:KitInicioDetalle" />
 </xs:schema>

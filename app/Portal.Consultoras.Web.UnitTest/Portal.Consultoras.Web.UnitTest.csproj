@@ -110,6 +110,7 @@
     <Compile Include="Controllers\LoginControllerUnitTest.cs" />
     <Compile Include="Controllers\DetalleEstrategiaControllerUnitTests.cs" />
     <Compile Include="Controllers\BaseViewControllerUnitTests.cs" />
+    <Compile Include="Controllers\TusClientesControllerUnitTests.cs" />
     <Compile Include="Extensions\DataHandler.cs" />
     <Compile Include="Extensions\RedirectToRouteResultExtensions.cs" />
     <Compile Include="Infraestructure\Validator\Phone\MatchCountryPhoneTests.cs" />

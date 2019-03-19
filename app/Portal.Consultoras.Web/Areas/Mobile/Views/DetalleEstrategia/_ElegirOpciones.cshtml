@@ -2,10 +2,14 @@
 <section id="elegir-opciones-modal" class="modal fade modal_selecionar_tipo contenedor_seleccion" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
     <div class="" role="document">
         <div class="header_fixed">
-            <div class="seleccion_header" id="titulo-opciones-seleccionadas"></div>
+            <div class="seleccion_header">
+                <div id="titulo-opciones-seleccionadas"></div>
+                <button onclick="javascript: ListaOpcionesModule.CloseElegirOpcionesModal();" class="button_cerrar">
+                    <img src="/Content/Images/mobile/Esika/close-button.svg" alt="">
+                </button>
+            </div>
             <div class="contenedor_selecionados" id="contenedor-opciones-seleccionadas" style="display:none;">
-                <div class="selecionados_carrosel" id="opciones-seleccionadas">
-                </div>
+                <div class="selecionados_carrosel" id="opciones-seleccionadas"></div>
             </div>
         </div>
         <div class="seleccion_main" id="lista-opciones">
@@ -16,6 +20,6 @@
     </div>
 </section>
 
-@Html.Partial("ListaOpcionesTemplate")
-@Html.Partial("OpcionesSeleccionadasTemplate")
-@Html.Partial("TituloOpcionesSeleccionadasTemplate")
+@Html.Partial("~/Areas/Mobile/Views/DetalleEstrategia/ListaOpcionesTemplate.cshtml")
+@Html.Partial("~/Areas/Mobile/Views/DetalleEstrategia/OpcionesSeleccionadasTemplate.cshtml")
+@Html.Partial("~/Areas/Mobile/Views/DetalleEstrategia/TituloOpcionesSeleccionadasTemplate.cshtml")

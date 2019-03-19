@@ -15,5 +15,9 @@ namespace Portal.Consultoras.BizLogic
         bool EsCuvElecMultiple(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv);
         bool TieneListaEstrategiaElecMultiple(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, List<string> lstCuv);
         int GetLimElectivos(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma);
+
+        List<BEPremioNuevas> ListarPremioNuevasPaginado(BEPremioNuevas premio);
+        BEPremioNuevas Editar(BEPremioNuevas premio);
+        BEPremioNuevas Insertar(BEPremioNuevas premio);
     }
 }

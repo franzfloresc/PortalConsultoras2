@@ -1389,6 +1389,9 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         private bool EsCuponNuevasField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsDuoPerfectoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EsElecMultipleNuevasField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1396,6 +1399,9 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EsOfertaIndependienteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsPremioElectivoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EsSugeridoField;
@@ -1498,6 +1504,9 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int SetIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int SetIdentifierNumberField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string SimboloField;
@@ -1891,6 +1900,19 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsDuoPerfecto {
+            get {
+                return this.EsDuoPerfectoField;
+            }
+            set {
+                if ((this.EsDuoPerfectoField.Equals(value) != true)) {
+                    this.EsDuoPerfectoField = value;
+                    this.RaisePropertyChanged("EsDuoPerfecto");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public bool EsElecMultipleNuevas {
             get {
                 return this.EsElecMultipleNuevasField;
@@ -1925,6 +1947,19 @@ namespace Portal.Consultoras.Web.ServiceCliente {
                 if ((this.EsOfertaIndependienteField.Equals(value) != true)) {
                     this.EsOfertaIndependienteField = value;
                     this.RaisePropertyChanged("EsOfertaIndependiente");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsPremioElectivo {
+            get {
+                return this.EsPremioElectivoField;
+            }
+            set {
+                if ((this.EsPremioElectivoField.Equals(value) != true)) {
+                    this.EsPremioElectivoField = value;
+                    this.RaisePropertyChanged("EsPremioElectivo");
                 }
             }
         }
@@ -2367,6 +2402,19 @@ namespace Portal.Consultoras.Web.ServiceCliente {
                 if ((this.SetIDField.Equals(value) != true)) {
                     this.SetIDField = value;
                     this.RaisePropertyChanged("SetID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int SetIdentifierNumber {
+            get {
+                return this.SetIdentifierNumberField;
+            }
+            set {
+                if ((this.SetIdentifierNumberField.Equals(value) != true)) {
+                    this.SetIdentifierNumberField = value;
+                    this.RaisePropertyChanged("SetIdentifierNumber");
                 }
             }
         }
