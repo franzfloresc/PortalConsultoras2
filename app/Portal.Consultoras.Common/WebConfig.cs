@@ -154,11 +154,35 @@ namespace Portal.Consultoras.Common
 
         #endregion
 
+        #region Flags
+        public static string SetIdentifierNumberFlag
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["SetIdentifierNumberFlag"] ?? string.Empty;
+            }
+        }
+        #endregion
+
         public static string GetByTagName(string tagName)
         {
             return ConfigurationManager.AppSettings[tagName] ?? string.Empty;
         }
 
-    
+        public static string ServicioDireccionEntregaSicc
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["ServicioDireccionEntregaSicc"] ?? string.Empty;
+            }
+        }
+
+        public static string ServicioActualizarBoletaImp
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["ServicioActualizarBoletaImp"] ?? string.Empty;
+            }
+        }
     }
 }

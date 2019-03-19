@@ -1,4 +1,4 @@
-﻿function VisualizarPopup(ProcesoId, Observaciones, Estado, FacturaHoy, DiaFact, MesFact, Visualizado, Asunto, Proceso, EsMontoMinimo, obj) {
+﻿function VisualizarPopup(ProcesoId, Observaciones, Estado, FacturaHoy, DiaFact, MesFact, Visualizado, Asunto, Proceso, EsMontoMinimo, obj, Campania) {
     waitingDialog({});
     var TipoOrigen;
     switch (Proceso) {
@@ -101,7 +101,7 @@
         }).error(function (jqXHR, textStatus, errorThrown) { closeWaitingDialog(); });
     } else {
         $.ajaxSetup({ cache: false });
-        $.get(baseUrl + "Notificaciones/ListarObservaciones?ProcesoId=" + ProcesoId + "&TipoOrigen=" + TipoOrigen).success(function (data) {
+        $.get(baseUrl + "Notificaciones/ListarObservaciones?ProcesoId=" + ProcesoId + "&TipoOrigen=" + TipoOrigen + "&Campania=" + Campania).success(function (data) {
             if (checkTimeout(data)) {
 
                 $('#divListadoObservaciones').html(data);

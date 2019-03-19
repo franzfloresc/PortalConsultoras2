@@ -45,10 +45,31 @@
 }
 
 .footer__link__imagen{
-    width:50px;
-    height:41px;
+    width:50px;    
     margin-bottom:15px;
 }
+
+    .footer__link__imagen--belcorpResponde,
+    .footer__link__imagen--comunidadVirtual
+    {
+        height:41px;
+    }
+
+    .footer__link__imagen--catalogos{
+        margin-top: 7px;
+        margin-bottom: 16px;
+        height: 33px;
+    }
+
+    .footer__link__imagen--noticias{
+        margin-top:4px;
+        height:37px;
+    }
+
+    .footer__link__imagen--tuVozOnline{
+        margin-top: 6px;
+        height: 35px;
+    }
 
 .footer__link__title,
 .footer__link__text
