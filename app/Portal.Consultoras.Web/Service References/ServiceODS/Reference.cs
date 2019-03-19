@@ -140,6 +140,9 @@ namespace Portal.Consultoras.Web.ServiceODS {
         private bool TieneOfertaRevistaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool TieneOfertasRelacionadasField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool TieneStockField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -676,6 +679,19 @@ namespace Portal.Consultoras.Web.ServiceODS {
                 if ((this.TieneOfertaRevistaField.Equals(value) != true)) {
                     this.TieneOfertaRevistaField = value;
                     this.RaisePropertyChanged("TieneOfertaRevista");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool TieneOfertasRelacionadas {
+            get {
+                return this.TieneOfertasRelacionadasField;
+            }
+            set {
+                if ((this.TieneOfertasRelacionadasField.Equals(value) != true)) {
+                    this.TieneOfertasRelacionadasField = value;
+                    this.RaisePropertyChanged("TieneOfertasRelacionadas");
                 }
             }
         }
@@ -3540,6 +3556,388 @@ namespace Portal.Consultoras.Web.ServiceODS {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEPremioNuevas", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ProgramaNueva" +
+        "s")]
+    [System.SerializableAttribute()]
+    public partial class BEPremioNuevas : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ActiveDescField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool ActiveMontoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> ActivePremioAutoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool ActivePremioElectivoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool ActiveTooltipField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ActiveTooltipDescField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ActiveTooltipMontoDescField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int AnoCampanaFinField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> AnoCampanaIniField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoProgramaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoUsuarioField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int FilasPorPaginaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdActivarPremioNuevasField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string Ind_Cup_ElecDescField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NivelField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int NroField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int NumeroPaginaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int OperacionResultadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PaisIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SortColumnaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SortDirectionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int TotalFilasField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ActiveDesc {
+            get {
+                return this.ActiveDescField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ActiveDescField, value) != true)) {
+                    this.ActiveDescField = value;
+                    this.RaisePropertyChanged("ActiveDesc");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool ActiveMonto {
+            get {
+                return this.ActiveMontoField;
+            }
+            set {
+                if ((this.ActiveMontoField.Equals(value) != true)) {
+                    this.ActiveMontoField = value;
+                    this.RaisePropertyChanged("ActiveMonto");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> ActivePremioAuto {
+            get {
+                return this.ActivePremioAutoField;
+            }
+            set {
+                if ((this.ActivePremioAutoField.Equals(value) != true)) {
+                    this.ActivePremioAutoField = value;
+                    this.RaisePropertyChanged("ActivePremioAuto");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool ActivePremioElectivo {
+            get {
+                return this.ActivePremioElectivoField;
+            }
+            set {
+                if ((this.ActivePremioElectivoField.Equals(value) != true)) {
+                    this.ActivePremioElectivoField = value;
+                    this.RaisePropertyChanged("ActivePremioElectivo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool ActiveTooltip {
+            get {
+                return this.ActiveTooltipField;
+            }
+            set {
+                if ((this.ActiveTooltipField.Equals(value) != true)) {
+                    this.ActiveTooltipField = value;
+                    this.RaisePropertyChanged("ActiveTooltip");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ActiveTooltipDesc {
+            get {
+                return this.ActiveTooltipDescField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ActiveTooltipDescField, value) != true)) {
+                    this.ActiveTooltipDescField = value;
+                    this.RaisePropertyChanged("ActiveTooltipDesc");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ActiveTooltipMontoDesc {
+            get {
+                return this.ActiveTooltipMontoDescField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ActiveTooltipMontoDescField, value) != true)) {
+                    this.ActiveTooltipMontoDescField = value;
+                    this.RaisePropertyChanged("ActiveTooltipMontoDesc");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int AnoCampanaFin {
+            get {
+                return this.AnoCampanaFinField;
+            }
+            set {
+                if ((this.AnoCampanaFinField.Equals(value) != true)) {
+                    this.AnoCampanaFinField = value;
+                    this.RaisePropertyChanged("AnoCampanaFin");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> AnoCampanaIni {
+            get {
+                return this.AnoCampanaIniField;
+            }
+            set {
+                if ((this.AnoCampanaIniField.Equals(value) != true)) {
+                    this.AnoCampanaIniField = value;
+                    this.RaisePropertyChanged("AnoCampanaIni");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoPrograma {
+            get {
+                return this.CodigoProgramaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoProgramaField, value) != true)) {
+                    this.CodigoProgramaField = value;
+                    this.RaisePropertyChanged("CodigoPrograma");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoUsuario {
+            get {
+                return this.CodigoUsuarioField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoUsuarioField, value) != true)) {
+                    this.CodigoUsuarioField = value;
+                    this.RaisePropertyChanged("CodigoUsuario");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int FilasPorPagina {
+            get {
+                return this.FilasPorPaginaField;
+            }
+            set {
+                if ((this.FilasPorPaginaField.Equals(value) != true)) {
+                    this.FilasPorPaginaField = value;
+                    this.RaisePropertyChanged("FilasPorPagina");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int IdActivarPremioNuevas {
+            get {
+                return this.IdActivarPremioNuevasField;
+            }
+            set {
+                if ((this.IdActivarPremioNuevasField.Equals(value) != true)) {
+                    this.IdActivarPremioNuevasField = value;
+                    this.RaisePropertyChanged("IdActivarPremioNuevas");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Ind_Cup_ElecDesc {
+            get {
+                return this.Ind_Cup_ElecDescField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Ind_Cup_ElecDescField, value) != true)) {
+                    this.Ind_Cup_ElecDescField = value;
+                    this.RaisePropertyChanged("Ind_Cup_ElecDesc");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Nivel {
+            get {
+                return this.NivelField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NivelField, value) != true)) {
+                    this.NivelField = value;
+                    this.RaisePropertyChanged("Nivel");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Nro {
+            get {
+                return this.NroField;
+            }
+            set {
+                if ((this.NroField.Equals(value) != true)) {
+                    this.NroField = value;
+                    this.RaisePropertyChanged("Nro");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int NumeroPagina {
+            get {
+                return this.NumeroPaginaField;
+            }
+            set {
+                if ((this.NumeroPaginaField.Equals(value) != true)) {
+                    this.NumeroPaginaField = value;
+                    this.RaisePropertyChanged("NumeroPagina");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int OperacionResultado {
+            get {
+                return this.OperacionResultadoField;
+            }
+            set {
+                if ((this.OperacionResultadoField.Equals(value) != true)) {
+                    this.OperacionResultadoField = value;
+                    this.RaisePropertyChanged("OperacionResultado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PaisID {
+            get {
+                return this.PaisIDField;
+            }
+            set {
+                if ((this.PaisIDField.Equals(value) != true)) {
+                    this.PaisIDField = value;
+                    this.RaisePropertyChanged("PaisID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SortColumna {
+            get {
+                return this.SortColumnaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SortColumnaField, value) != true)) {
+                    this.SortColumnaField = value;
+                    this.RaisePropertyChanged("SortColumna");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SortDirection {
+            get {
+                return this.SortDirectionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SortDirectionField, value) != true)) {
+                    this.SortDirectionField = value;
+                    this.RaisePropertyChanged("SortDirection");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TotalFilas {
+            get {
+                return this.TotalFilasField;
+            }
+            set {
+                if ((this.TotalFilasField.Equals(value) != true)) {
+                    this.TotalFilasField = value;
+                    this.RaisePropertyChanged("TotalFilas");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceODS.IODSService")]
     public interface IODSService {
@@ -3781,10 +4179,16 @@ namespace Portal.Consultoras.Web.ServiceODS {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BEProducto[]> GetListBrothersByCUVAsync(int paisID, int codCampania, string cuv);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/ValidarBusquedaProgramaNuevas", ReplyAction="http://tempuri.org/IODSService/ValidarBusquedaProgramaNuevasResponse")]
-        Portal.Consultoras.Common.Enumeradores.ValidacionProgramaNuevas ValidarBusquedaProgramaNuevas(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv);
+        Portal.Consultoras.Common.Enumeradores.ValidacionProgramaNuevas ValidarBusquedaProgramaNuevas(int paisID, int campaniaID, string codigoPrograma, int consecutivoNueva, string cuv);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/ValidarBusquedaProgramaNuevas", ReplyAction="http://tempuri.org/IODSService/ValidarBusquedaProgramaNuevasResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Common.Enumeradores.ValidacionProgramaNuevas> ValidarBusquedaProgramaNuevasAsync(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv);
+        System.Threading.Tasks.Task<Portal.Consultoras.Common.Enumeradores.ValidacionProgramaNuevas> ValidarBusquedaProgramaNuevasAsync(int paisID, int campaniaID, string codigoPrograma, int consecutivoNueva, string cuv);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/ValidarBusquedaProgramaNuevasList", ReplyAction="http://tempuri.org/IODSService/ValidarBusquedaProgramaNuevasListResponse")]
+        System.Collections.Generic.Dictionary<string, Portal.Consultoras.Common.Enumeradores.ValidacionProgramaNuevas> ValidarBusquedaProgramaNuevasList(int paisID, int campaniaID, string codigoPrograma, int consecutivoNueva, string[] listCuv);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/ValidarBusquedaProgramaNuevasList", ReplyAction="http://tempuri.org/IODSService/ValidarBusquedaProgramaNuevasListResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.Dictionary<string, Portal.Consultoras.Common.Enumeradores.ValidacionProgramaNuevas>> ValidarBusquedaProgramaNuevasListAsync(int paisID, int campaniaID, string codigoPrograma, int consecutivoNueva, string[] listCuv);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/ValidarCantidadMaximaProgramaNuevas", ReplyAction="http://tempuri.org/IODSService/ValidarCantidadMaximaProgramaNuevasResponse")]
         int ValidarCantidadMaximaProgramaNuevas(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, int cantidadEnPedido, string cuvIngresado, int cantidadIngresada);
@@ -3798,17 +4202,17 @@ namespace Portal.Consultoras.Web.ServiceODS {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/ValidaCuvElectivo", ReplyAction="http://tempuri.org/IODSService/ValidaCuvElectivoResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BERespValidarElectivos> ValidaCuvElectivoAsync(int paisID, int campaniaID, string cuvIngresado, int consecutivoNueva, string codigoPrograma, string[] lstCuvPedido);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/EsCuvDuoPerfecto", ReplyAction="http://tempuri.org/IODSService/EsCuvDuoPerfectoResponse")]
-        bool EsCuvDuoPerfecto(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/EsCuvElecMultiple", ReplyAction="http://tempuri.org/IODSService/EsCuvElecMultipleResponse")]
+        bool EsCuvElecMultiple(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/EsCuvDuoPerfecto", ReplyAction="http://tempuri.org/IODSService/EsCuvDuoPerfectoResponse")]
-        System.Threading.Tasks.Task<bool> EsCuvDuoPerfectoAsync(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/EsCuvElecMultiple", ReplyAction="http://tempuri.org/IODSService/EsCuvElecMultipleResponse")]
+        System.Threading.Tasks.Task<bool> EsCuvElecMultipleAsync(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/TieneListaEstrategiaDuoPerfecto", ReplyAction="http://tempuri.org/IODSService/TieneListaEstrategiaDuoPerfectoResponse")]
-        bool TieneListaEstrategiaDuoPerfecto(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string[] lstCuv);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/TieneListaEstrategiaElecMultiple", ReplyAction="http://tempuri.org/IODSService/TieneListaEstrategiaElecMultipleResponse")]
+        bool TieneListaEstrategiaElecMultiple(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string[] lstCuv);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/TieneListaEstrategiaDuoPerfecto", ReplyAction="http://tempuri.org/IODSService/TieneListaEstrategiaDuoPerfectoResponse")]
-        System.Threading.Tasks.Task<bool> TieneListaEstrategiaDuoPerfectoAsync(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string[] lstCuv);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/TieneListaEstrategiaElecMultiple", ReplyAction="http://tempuri.org/IODSService/TieneListaEstrategiaElecMultipleResponse")]
+        System.Threading.Tasks.Task<bool> TieneListaEstrategiaElecMultipleAsync(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string[] lstCuv);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/GetLimElectivosProgNuevas", ReplyAction="http://tempuri.org/IODSService/GetLimElectivosProgNuevasResponse")]
         int GetLimElectivosProgNuevas(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma);
@@ -3833,6 +4237,24 @@ namespace Portal.Consultoras.Web.ServiceODS {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/CuvArmaTuPackEstaEnLimite", ReplyAction="http://tempuri.org/IODSService/CuvArmaTuPackEstaEnLimiteResponse")]
         System.Threading.Tasks.Task<bool> CuvArmaTuPackEstaEnLimiteAsync(int paisID, int campaniaID, string zona, string cuv, int cantidadIngresada, int cantidadActual);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/ListarPremioNuevasPaginado", ReplyAction="http://tempuri.org/IODSService/ListarPremioNuevasPaginadoResponse")]
+        Portal.Consultoras.Web.ServiceODS.BEPremioNuevas[] ListarPremioNuevasPaginado(Portal.Consultoras.Web.ServiceODS.BEPremioNuevas premio);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/ListarPremioNuevasPaginado", ReplyAction="http://tempuri.org/IODSService/ListarPremioNuevasPaginadoResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BEPremioNuevas[]> ListarPremioNuevasPaginadoAsync(Portal.Consultoras.Web.ServiceODS.BEPremioNuevas premio);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/Insertar", ReplyAction="http://tempuri.org/IODSService/InsertarResponse")]
+        Portal.Consultoras.Web.ServiceODS.BEPremioNuevas Insertar(Portal.Consultoras.Web.ServiceODS.BEPremioNuevas premio);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/Insertar", ReplyAction="http://tempuri.org/IODSService/InsertarResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BEPremioNuevas> InsertarAsync(Portal.Consultoras.Web.ServiceODS.BEPremioNuevas premio);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/Editar", ReplyAction="http://tempuri.org/IODSService/EditarResponse")]
+        Portal.Consultoras.Web.ServiceODS.BEPremioNuevas Editar(Portal.Consultoras.Web.ServiceODS.BEPremioNuevas premio);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/Editar", ReplyAction="http://tempuri.org/IODSService/EditarResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BEPremioNuevas> EditarAsync(Portal.Consultoras.Web.ServiceODS.BEPremioNuevas premio);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -4166,12 +4588,20 @@ namespace Portal.Consultoras.Web.ServiceODS {
             return base.Channel.GetListBrothersByCUVAsync(paisID, codCampania, cuv);
         }
         
-        public Portal.Consultoras.Common.Enumeradores.ValidacionProgramaNuevas ValidarBusquedaProgramaNuevas(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv) {
-            return base.Channel.ValidarBusquedaProgramaNuevas(paisID, campaniaID, ConsultoraID, codigoPrograma, consecutivoNueva, cuv);
+        public Portal.Consultoras.Common.Enumeradores.ValidacionProgramaNuevas ValidarBusquedaProgramaNuevas(int paisID, int campaniaID, string codigoPrograma, int consecutivoNueva, string cuv) {
+            return base.Channel.ValidarBusquedaProgramaNuevas(paisID, campaniaID, codigoPrograma, consecutivoNueva, cuv);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Common.Enumeradores.ValidacionProgramaNuevas> ValidarBusquedaProgramaNuevasAsync(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv) {
-            return base.Channel.ValidarBusquedaProgramaNuevasAsync(paisID, campaniaID, ConsultoraID, codigoPrograma, consecutivoNueva, cuv);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Common.Enumeradores.ValidacionProgramaNuevas> ValidarBusquedaProgramaNuevasAsync(int paisID, int campaniaID, string codigoPrograma, int consecutivoNueva, string cuv) {
+            return base.Channel.ValidarBusquedaProgramaNuevasAsync(paisID, campaniaID, codigoPrograma, consecutivoNueva, cuv);
+        }
+        
+        public System.Collections.Generic.Dictionary<string, Portal.Consultoras.Common.Enumeradores.ValidacionProgramaNuevas> ValidarBusquedaProgramaNuevasList(int paisID, int campaniaID, string codigoPrograma, int consecutivoNueva, string[] listCuv) {
+            return base.Channel.ValidarBusquedaProgramaNuevasList(paisID, campaniaID, codigoPrograma, consecutivoNueva, listCuv);
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.Dictionary<string, Portal.Consultoras.Common.Enumeradores.ValidacionProgramaNuevas>> ValidarBusquedaProgramaNuevasListAsync(int paisID, int campaniaID, string codigoPrograma, int consecutivoNueva, string[] listCuv) {
+            return base.Channel.ValidarBusquedaProgramaNuevasListAsync(paisID, campaniaID, codigoPrograma, consecutivoNueva, listCuv);
         }
         
         public int ValidarCantidadMaximaProgramaNuevas(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, int cantidadEnPedido, string cuvIngresado, int cantidadIngresada) {
@@ -4190,20 +4620,20 @@ namespace Portal.Consultoras.Web.ServiceODS {
             return base.Channel.ValidaCuvElectivoAsync(paisID, campaniaID, cuvIngresado, consecutivoNueva, codigoPrograma, lstCuvPedido);
         }
         
-        public bool EsCuvDuoPerfecto(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv) {
-            return base.Channel.EsCuvDuoPerfecto(paisID, campaniaID, consecutivoNueva, codigoPrograma, cuv);
+        public bool EsCuvElecMultiple(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv) {
+            return base.Channel.EsCuvElecMultiple(paisID, campaniaID, consecutivoNueva, codigoPrograma, cuv);
         }
         
-        public System.Threading.Tasks.Task<bool> EsCuvDuoPerfectoAsync(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv) {
-            return base.Channel.EsCuvDuoPerfectoAsync(paisID, campaniaID, consecutivoNueva, codigoPrograma, cuv);
+        public System.Threading.Tasks.Task<bool> EsCuvElecMultipleAsync(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv) {
+            return base.Channel.EsCuvElecMultipleAsync(paisID, campaniaID, consecutivoNueva, codigoPrograma, cuv);
         }
         
-        public bool TieneListaEstrategiaDuoPerfecto(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string[] lstCuv) {
-            return base.Channel.TieneListaEstrategiaDuoPerfecto(paisID, campaniaID, consecutivoNueva, codigoPrograma, lstCuv);
+        public bool TieneListaEstrategiaElecMultiple(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string[] lstCuv) {
+            return base.Channel.TieneListaEstrategiaElecMultiple(paisID, campaniaID, consecutivoNueva, codigoPrograma, lstCuv);
         }
         
-        public System.Threading.Tasks.Task<bool> TieneListaEstrategiaDuoPerfectoAsync(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string[] lstCuv) {
-            return base.Channel.TieneListaEstrategiaDuoPerfectoAsync(paisID, campaniaID, consecutivoNueva, codigoPrograma, lstCuv);
+        public System.Threading.Tasks.Task<bool> TieneListaEstrategiaElecMultipleAsync(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string[] lstCuv) {
+            return base.Channel.TieneListaEstrategiaElecMultipleAsync(paisID, campaniaID, consecutivoNueva, codigoPrograma, lstCuv);
         }
         
         public int GetLimElectivosProgNuevas(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma) {
@@ -4236,6 +4666,30 @@ namespace Portal.Consultoras.Web.ServiceODS {
         
         public System.Threading.Tasks.Task<bool> CuvArmaTuPackEstaEnLimiteAsync(int paisID, int campaniaID, string zona, string cuv, int cantidadIngresada, int cantidadActual) {
             return base.Channel.CuvArmaTuPackEstaEnLimiteAsync(paisID, campaniaID, zona, cuv, cantidadIngresada, cantidadActual);
+        }
+        
+        public Portal.Consultoras.Web.ServiceODS.BEPremioNuevas[] ListarPremioNuevasPaginado(Portal.Consultoras.Web.ServiceODS.BEPremioNuevas premio) {
+            return base.Channel.ListarPremioNuevasPaginado(premio);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BEPremioNuevas[]> ListarPremioNuevasPaginadoAsync(Portal.Consultoras.Web.ServiceODS.BEPremioNuevas premio) {
+            return base.Channel.ListarPremioNuevasPaginadoAsync(premio);
+        }
+        
+        public Portal.Consultoras.Web.ServiceODS.BEPremioNuevas Insertar(Portal.Consultoras.Web.ServiceODS.BEPremioNuevas premio) {
+            return base.Channel.Insertar(premio);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BEPremioNuevas> InsertarAsync(Portal.Consultoras.Web.ServiceODS.BEPremioNuevas premio) {
+            return base.Channel.InsertarAsync(premio);
+        }
+        
+        public Portal.Consultoras.Web.ServiceODS.BEPremioNuevas Editar(Portal.Consultoras.Web.ServiceODS.BEPremioNuevas premio) {
+            return base.Channel.Editar(premio);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BEPremioNuevas> EditarAsync(Portal.Consultoras.Web.ServiceODS.BEPremioNuevas premio) {
+            return base.Channel.EditarAsync(premio);
         }
     }
 }

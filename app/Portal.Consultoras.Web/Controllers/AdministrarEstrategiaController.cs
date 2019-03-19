@@ -50,7 +50,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var paisIso = Util.GetPaisISO(userData.PaisID);
                 var urlS3 = ConfigCdn.GetUrlCdnMatriz(paisIso);
 
-                var habilitarNemotecnico = _tablaLogicaProvider.ObtenerValorTablaLogica(userData.PaisID, Constantes.TablaLogica.Plan20,
+                var habilitarNemotecnico = _tablaLogicaProvider.GetTablaLogicaDatoCodigo(userData.PaisID, Constantes.TablaLogica.Plan20,
                     Constantes.TablaLogicaDato.BusquedaNemotecnicoZonaEstrategia);
 
                 estrategiaModel = new EstrategiaModel()
@@ -641,7 +641,7 @@ namespace Portal.Consultoras.Web.Controllers
             var respuestaServiceCdr = new List<RptProductoEstrategia>();
             try
             {
-                var codigo = _tablaLogicaProvider.ObtenerValorTablaLogica(userData.PaisID, Constantes.TablaLogica.Plan20,
+                var codigo = _tablaLogicaProvider.GetTablaLogicaDatoCodigo(userData.PaisID, Constantes.TablaLogica.Plan20,
                     Constantes.TablaLogicaDato.Tonos, true);
 
                 if (Convert.ToInt32(codigo) <= entidad.CampaniaID)
@@ -946,10 +946,13 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult FiltrarEstrategia(string EstrategiaID, string cuv2, string CampaniaID,
             string TipoEstrategiaID, string _id, string mongoIdVal, string tipoEstrategiaCodigo)
         {
+            var lst = new List<EstrategiaMDbAdapterModel>();
+            var lstConfigPaisDatos = new List<BEConfiguracionPaisDatos>();
+
             try
             {
                 bool dbdefault = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
-                List<EstrategiaMDbAdapterModel> lst = new List<EstrategiaMDbAdapterModel>();
+                
                 var entidad = new ServicePedido.BEEstrategia
                 {
                     PaisID = userData.PaisID,
@@ -963,30 +966,67 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, tipoEstrategiaCodigo, dbdefault))
                 {
-                    lst.AddRange(administrarEstrategiaProvider.FiltrarEstrategia(mongoIdVal, userData.CodigoISO).ToList());
+                    lst = administrarEstrategiaProvider.FiltrarEstrategia(mongoIdVal, userData.CodigoISO);
                 }
                 else
                 {
                     using (var sv = new PedidoServiceClient())
                     {
-                        var tmpList = sv.FiltrarEstrategia(entidad).ToList();
-                        foreach (var itemEstrategia in tmpList)
+                        var tmpList = sv.FiltrarEstrategia(entidad);
+                        lst = tmpList.Select(x => new EstrategiaMDbAdapterModel
                         {
-                            lst.Add(new EstrategiaMDbAdapterModel { BEEstrategia = itemEstrategia });
-                        }
+                            BEEstrategia = x
+                        }).ToList();
                     }
                 }
 
-                if (lst.Count <= 0)
+                if (!lst.Any())
+                {
                     return Json(new
                     {
                         success = false,
                         message = "El CUV2 ingresado no está configurado en la matriz comercial",
-                        extra = ""
+                        extra = string.Empty
                     }, JsonRequestBehavior.AllowGet);
+                }
 
                 entidad = lst[0].BEEstrategia;
                 entidad.ImagenMiniaturaURL = ConfigS3.GetUrlFileS3Matriz(userData.CodigoISO, entidad.ImagenMiniaturaURL);
+
+                using (var svc = new UsuarioServiceClient())
+                {
+                    var lstConfigPais = svc.GetConfiguracionPais(new ServiceUsuario.BEConfiguracionPais()
+                    {
+                        Codigo = Constantes.ConfiguracionPais.Lanzamiento,
+                        Detalle = new ServiceUsuario.BEConfiguracionPaisDetalle() {
+                            PaisID = userData.PaisID
+                        }
+                    });
+
+                    var itemLanzamiento = lstConfigPais.FirstOrDefault();
+
+                    if (itemLanzamiento != null)
+                    {
+                        lstConfigPaisDatos = svc.GetConfiguracionPaisDatos(new BEConfiguracionPaisDatos()
+                        {
+                            PaisID = userData.PaisID,
+                            ConfiguracionPaisID = itemLanzamiento.ConfiguracionPaisID,
+                            ConfiguracionPais = new ServiceUsuario.BEConfiguracionPais()
+                            {
+                                Detalle = new ServiceUsuario.BEConfiguracionPaisDetalle()
+                            }
+                        }).ToList();
+                    }
+                }
+
+                if (lstConfigPaisDatos.Any())
+                {
+                    entidad.AppOfertasHomeImgExtension = (lstConfigPaisDatos.Where(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeImgExtension).FirstOrDefault() ?? new BEConfiguracionPaisDatos()).Valor1 ?? string.Empty;
+                    entidad.AppOfertasHomeImgAncho = (lstConfigPaisDatos.Where(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeImgAncho).FirstOrDefault() ?? new BEConfiguracionPaisDatos()).Valor1 ?? string.Empty;
+                    entidad.AppOfertasHomeImgAlto = (lstConfigPaisDatos.Where(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeImgAlto).FirstOrDefault() ?? new BEConfiguracionPaisDatos()).Valor1 ?? string.Empty;
+                    entidad.AppOfertasHomeMsjMedida = (lstConfigPaisDatos.Where(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeMsjMedida).FirstOrDefault() ?? new BEConfiguracionPaisDatos()).Valor1 ?? string.Empty;
+                    entidad.AppOfertasHomeMsjFormato = (lstConfigPaisDatos.Where(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeMsjFormato).FirstOrDefault() ?? new BEConfiguracionPaisDatos()).Valor1 ?? string.Empty;
+                }
 
                 return Json(entidad, JsonRequestBehavior.AllowGet);
             }
@@ -997,7 +1037,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     success = false,
                     message = "Ocurrió un problema al intentar acceder al servicio, intente nuevamente.",
-                    extra = ""
+                    extra = string.Empty
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -1007,7 +1047,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     success = false,
                     message = "Ocurrió un problema al intentar acceder al servicio, intente nuevamente.",
-                    extra = ""
+                    extra = string.Empty
                 }, JsonRequestBehavior.AllowGet);
             }
         }
@@ -1308,11 +1348,11 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     List<string> estrategiasActivasList = new List<string>();
                     List<string> estrategiasInactivasList = new List<string>();
-                    if (!string.IsNullOrEmpty(EstrategiasActivas))
+                    if (EstrategiasActivas != "")
                     {
                         estrategiasActivasList.AddRange(EstrategiasActivas.Split(',').ToList());
                     }
-                    if (!string.IsNullOrEmpty(EstrategiasDesactivas))
+                    if (EstrategiasDesactivas != "")
                     {
                         estrategiasInactivasList.AddRange(EstrategiasDesactivas.Split(',').ToList());
                     }
@@ -1330,8 +1370,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                if (tipoEstrategiaCod == Constantes.TipoEstrategiaCodigo.OfertaParaTi &&
-                    !string.IsNullOrEmpty(EstrategiasDesactivas))
+                if (tipoEstrategiaCod == Constantes.TipoEstrategiaCodigo.OfertaParaTi && EstrategiasDesactivas != "")
                     UpdateCacheListaOfertaFinal(campaniaID);
 
                 return Json(new
@@ -1492,6 +1531,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ServicePedido.BEEstrategia VerficarArchivos(ServicePedido.BEEstrategia estrategia, ServicePedido.BEEstrategiaDetalle estrategiaDetalle)
         {
+            var resizeImagenApp = false;
+
             if (!string.IsNullOrEmpty(estrategia.ImgFondoDesktop) &&
                 (string.IsNullOrEmpty(estrategiaDetalle.ImgFondoDesktop) ||
                  estrategia.ImgFondoDesktop != estrategiaDetalle.ImgFondoDesktop))
@@ -1532,16 +1573,30 @@ namespace Portal.Consultoras.Web.Controllers
                  estrategia.ImgHomeMobile != estrategiaDetalle.ImgHomeMobile))
                 estrategia.ImgHomeMobile = SaveFileS3(estrategia.ImgHomeMobile);
 
+            if (!string.IsNullOrEmpty(estrategia.ImgFondoApp) &&
+                (string.IsNullOrEmpty(estrategiaDetalle.ImgFondoApp) ||
+                 estrategia.ImgFondoApp != estrategiaDetalle.ImgFondoApp))
+            {
+                resizeImagenApp = true;
+                estrategia.ImgFondoApp = SaveFileS3(estrategia.ImgFondoApp, true);
+            }
+
+            if (resizeImagenApp)
+            {
+                var urlImagen = ConfigS3.GetUrlFileS3Matriz(userData.CodigoISO, estrategia.ImgFondoApp);
+                new RenderImgProvider().ImagenesResizeProcesoApp(urlImagen, userData.CodigoISO, userData.PaisID, Constantes.ConfiguracionPais.Lanzamiento);
+            }
+
             return estrategia;
         }
 
-        public string SaveFileS3(string imagenEstrategia)
+        public string SaveFileS3(string imagenEstrategia, bool mantenerExtension = false)
         {
             var path = Path.Combine(Globals.RutaTemporales, imagenEstrategia);
-            var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-            var time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() +
-                       DateTime.Now.Millisecond.ToString();
-            var newfilename = userData.CodigoISO + "_" + time + "_" + FileManager.RandomString() + ".png";
+            var carpetaPais = string.Concat(Globals.UrlMatriz, "/", userData.CodigoISO);
+            var time = string.Concat(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Minute, DateTime.Now.Millisecond);
+            var ext = !mantenerExtension ? ".png" : Path.GetExtension(path);
+            var newfilename = string.Concat(userData.CodigoISO, "_", time, "_", FileManager.RandomString(), ext);
             ConfigS3.SetFileS3(path, carpetaPais, newfilename);
             return newfilename;
         }

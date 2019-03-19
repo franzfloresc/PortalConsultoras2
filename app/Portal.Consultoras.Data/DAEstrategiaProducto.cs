@@ -95,5 +95,6 @@ namespace Portal.Consultoras.Data
             }
             return (result > 0);
         }
+
     }
 }

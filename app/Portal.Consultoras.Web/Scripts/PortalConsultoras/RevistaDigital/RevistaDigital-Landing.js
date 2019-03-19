@@ -274,11 +274,10 @@ function OfertaCargarProductos(busquedaModel, clear, objSeccion) {
 }
 
 function OfertaCargarProductoRespuesta(response, clear, busquedaModel) {
-
     CerrarLoad();
     if (!(typeof AnalyticsPortalModule === 'undefined') && typeof listaSeccion === 'undefined') {
         var origen = {
-            CodigoPalanca: (busquedaModel.VarListaStorage || "").replace("lista", "")
+            CodigoPalanca: (busquedaModel.VarListaStorage || "").replace("Lista", "")
         };
         var obj = {
             lista: response.lista,

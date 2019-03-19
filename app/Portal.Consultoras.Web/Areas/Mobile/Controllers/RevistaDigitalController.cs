@@ -111,6 +111,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
             return PartialView("template-mensaje-bloqueado-Lan-Detalle", modelo);
         }
-                
+
+        public ActionResult ConfirmacionAPP()
+        {
+            return new EmptyResult();
+        }
+
     }
 }
