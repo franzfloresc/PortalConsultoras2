@@ -659,7 +659,7 @@ var PedidoRegistroModule = function () {
         });
     }
 
-    var RegistroProductoBuscador = function (divPadre, valueJSON) {
+    var RegistroProductoBuscador = function (divPadre, valueJSON, origenSeccion) {
 
         var model = JSON.parse($(divPadre).find(valueJSON).val());
         var divCantidad = $(divPadre).find("[data-input='cantidad']");
@@ -681,9 +681,11 @@ var PedidoRegistroModule = function () {
             var OrigenPedidoWeb = model.OrigenPedidoWeb;
             var posicion = model.posicion;
             var tipoEstrategiaId = tipoOfertaSisID;
+            var codigoEstrategia = model.CodigoTipoEstrategia;
             var LimiteVenta = model.LimiteVenta;
             var CantidadesAgregadas = model.CantidadesAgregadas;
             var EstrategiaID = model.EstrategiaID;
+            var MaterialGanancia = model.MaterialGanancia;
 
             if (_mensajeCantidad(cantidad, $(".rango_cantidad_pedido"))) {
                 return false;
@@ -696,6 +698,7 @@ var PedidoRegistroModule = function () {
                 Cantidad: cantidad,
                 PrecioUnidad: precioUnidad,
                 TipoEstrategiaID: parseInt(tipoEstrategiaId),
+                CodigoEstrategia: codigoEstrategia,                
                 OrigenPedidoWeb: OrigenPedidoWeb,
                 MarcaID: marcaID,
                 DescripcionProd: descripcionProd,
@@ -707,7 +710,8 @@ var PedidoRegistroModule = function () {
                 DescripcionEstrategia: descripcionEstrategia,
                 Posicion: posicion,
                 EstrategiaID: EstrategiaID,
-                LimiteVenta: LimiteVenta
+                LimiteVenta: LimiteVenta,
+                MaterialGanancia: MaterialGanancia
             };
 
             jQuery.ajax({
@@ -755,16 +759,19 @@ var PedidoRegistroModule = function () {
                         'CUV': modelFinal.CUV,
                         'Precio': modelFinal.PrecioUnidad,
                         'DescripcionMarca': modelFinal.CUV,
-                        'CodigoTipoEstrategia': modelFinal.EstrategiaID,
+                        //'CodigoTipoEstrategia': modelFinal.EstrategiaID,
+                        'CodigoTipoEstrategia': modelFinal.CodigoEstrategia,
                         'MarcaId': modelFinal.MarcaID,
-                        'Cantidad': modelFinal.Cantidad
+                        'Cantidad': modelFinal.Cantidad,
+                        'DescripcionEstrategia': modelFinal.DescripcionEstrategia,
+                        'MaterialGanancia': modelFinal.MaterialGanancia
                     };
 
                     var _textoBusqueda = localStorage.getItem('valorBuscador');
                     var _vRecomendaciones = localStorage.getItem('vRecomendaciones');
 
                     if (!(typeof AnalyticsPortalModule === 'undefined') && (_vRecomendaciones === 'undefined' || _vRecomendaciones === 'null' || _vRecomendaciones === null)) {
-                        AnalyticsPortalModule.MarcaAnadirCarritoBuscador(modelCarrito, 'Resultados', _textoBusqueda);
+                        AnalyticsPortalModule.MarcaAnadirCarritoBuscador(modelCarrito, origenSeccion, _textoBusqueda);
                     }
 
                     TrackingJetloreAdd(modelFinal.Cantidad, $("#hdCampaniaCodigo").val(), modelFinal.CUV);
@@ -1557,6 +1564,14 @@ function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfe
                     });
                 }
                 return false;
+            }
+
+            var tooltip = $('[data-agregado="tooltip"]');
+            if (typeof tooltip !== 'undefined') {
+                $('[data-agregado="mensaje1"]').html("¡Listo! ");
+                $('[data-agregado="mensaje2"]').html(" Modificaste tu pedido");
+                tooltip.show();
+                setTimeout(function () { tooltip.hide(); }, 4000);
             }
 
             if ($(rowElement).find(".txtLPCli").val().length == 0) {
