@@ -67,7 +67,7 @@ var AnalyticsPortalModule = (function () {
 
     var _constantes = {
         // Ini - Analytics Buscador Miguel
-        isTest: true, //Desactivar HD-3473 EINCA
+        isTest: false, //Desactivar HD-3473 EINCA
         currencyCodes: [
             { "CountryCode": "BO", "Code": "BOB" },
             { "CountryCode": "CL", "Code": "CLP" },
@@ -1148,7 +1148,8 @@ var AnalyticsPortalModule = (function () {
             seccion = seccion.replace("Lista", "");
 
             switch (seccion) {
-                case _codigoSeccion.LAN: _marcaPromotionViewBanner(seccion, data, pos); break;
+                case _codigoSeccion.LAN:
+                case _codigoSeccion.DP: _marcaPromotionViewBanner(seccion, data, pos); break;
                 default:
                     _marcarProductImpresionSegunLista(data); break;
             }
@@ -1617,6 +1618,25 @@ var AnalyticsPortalModule = (function () {
                     'id': item.CUV2,
                     'name': AnalyticsPortalModule.GetPalancaByOrigenPedido(codigo) + " - " + item.DescripcionCompleta + " - " + "Ver producto",
                     'position': fnObtenerContenedor() + (pos != undefined ? (" - " + (pos + 1)) : ""),
+                    'creative': "Banner"
+                };
+                collection.push(element);
+            });
+        }
+
+        if (codigoSeccion == _codigoSeccion.DP) {
+            var element = $("[data-seccion=" + codigoSeccion + "]");
+            var codigo = element.data("origenpedidoweb");
+            var valor = fnObtenerContenedor();
+            console.log(valor);
+            console.log(element);
+
+            $.each(data, function (index) {
+                var item = data[index];
+                var element = {
+                    'id': item.CUV2,
+                    'name': 'Arma tu Dúo Perfecto - Dúo Perfecto',
+                    'position': 'Home - Dúo Perfecto',
                     'creative': "Banner"
                 };
                 collection.push(element);

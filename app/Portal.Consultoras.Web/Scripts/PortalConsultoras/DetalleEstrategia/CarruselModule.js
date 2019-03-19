@@ -103,6 +103,19 @@ var CarruselAyuda = function () {
 
                 //console.log('marcarAnalyticsInicio - fin', obj);
                 AnalyticsPortalModule.MarcaGenericaLista("", obj);
+
+                //INI DH-3473 EINCA Marcar las estrategias de programas nuevas(dúo perfecto)
+                var programNuevas = arrayItems.filter(function (pn) {
+                    return pn.EsBannerProgNuevas == true;
+                });
+
+                if (programNuevas) {
+                    if (programNuevas.length > 0) {
+                        AnalyticsPortalModule.MarcaGenericaLista(ConstantesModule.TipoEstrategia.DP, programNuevas);
+                    }
+                }
+                //FIN DH-3473 EINCA Marcar las estrategias de programas nuevas(dúo perfecto)
+
             }
 
         } catch (e) {
@@ -266,12 +279,32 @@ var CarruselAyuda = function () {
         }
     }
 
+    //HD-3473 EINCA Marcar Analytic, cuando se hace clic en el banner de duo perfecto
+    var _marcaAnalycticCarruselProgramasNuevas = function (event, URL) {
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Home - Dúo Perfecto',
+            'action': 'Click Botón',
+            'label': 'Elegir Ahora'
+        });
+
+        if (URL > 0) {
+            var id = URL;
+            var url = baseUrl + "MiAcademia/Cursos?idcurso=" + id;
+            window.open(url, '_blank');
+        } else {
+            window.open(URL, '_blank');
+        }
+        return false;
+    }
+
     return {
         MarcarAnalyticsChange: marcarAnalyticsChange,
         MarcarAnalyticsInicio: marcarAnalyticsInicio,
         MarcarAnalyticsContenedor: marcarAnalyticsContenedor,
         MarcarAnalyticsLiquidacion: marcarAnalyticsLiquidacion,
-        MostrarFlechaCarrusel: mostrarFlechaCarrusel
+        MostrarFlechaCarrusel: mostrarFlechaCarrusel,
+        MarcaAnalycticCarruselProgramasNuevas: _marcaAnalycticCarruselProgramasNuevas//HD-3473 EINCA
     };
 }();
 
@@ -775,11 +808,11 @@ function ArmarCarouselEstrategias(data) {
     MarcarAnalyticsInicioHomePedido(data.Lista);
 
 
-    if (isMobile()) {
-        ConfiguracionAnaliticDuoPerfectoMobile();  
-    }
-    else
-        ConfiguracionAnaliticDuoPerfecto();
+    //if (isMobile()) {
+    //    ConfiguracionAnaliticDuoPerfectoMobile();  
+    //}
+    //else
+    //    ConfiguracionAnaliticDuoPerfecto();
 
 }
 
@@ -974,10 +1007,10 @@ function ConfiguracionAnaliticDuoPerfectoMobile() {// home y Pedido
             }
 
         }
- 
+
 
     }
- 
+
 }
 
 function ConfiguracionAnaliticDuoPerfecto() {
@@ -1023,7 +1056,7 @@ function ConfiguracionAnaliticDuoPerfecto() {
 
 
             document.querySelectorAll("a[href='/ProgramaNuevas']")[i].onclick = function () {
- 
+
                 if (isPagina('Bienvenida')) {
 
                     dataLayer.push({
@@ -1077,13 +1110,13 @@ function ConfiguracionAnaliticDuoPerfecto() {
                     });
 
                 }
- 
+
             }
 
         }
 
 
-       
+
 
 
     }
