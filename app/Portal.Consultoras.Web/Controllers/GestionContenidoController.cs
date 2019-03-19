@@ -232,7 +232,8 @@ namespace Portal.Consultoras.Web.Controllers
                         Cantidad = d.Cantidad,
                         DescripcionLarga = d.DescripcionLarga,
                         DescripcionProd = d.DescripcionProd,
-                        ImporteTotal = d.ImporteTotal
+                        ImporteTotal = d.ImporteTotal,
+                        SetIdentifierNumber = d.SetIdentifierNumber
                     }));
             }
 

@@ -140,6 +140,12 @@
   <wsdl:message name="IUsuarioService_GetConfiguracionPaisDatos_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetConfiguracionPaisDatosResponse" />
   </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetConfiguracionPaisDatosAll_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetConfiguracionPaisDatosAll" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetConfiguracionPaisDatosAll_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetConfiguracionPaisDatosAllResponse" />
+  </wsdl:message>
   <wsdl:message name="IUsuarioService_RegistrarUsuarioPostulante_InputMessage">
     <wsdl:part name="parameters" element="tns:RegistrarUsuarioPostulante" />
   </wsdl:message>
@@ -959,6 +965,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetConfiguracionPaisDatos" message="tns:IUsuarioService_GetConfiguracionPaisDatos_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetConfiguracionPaisDatosResponse" message="tns:IUsuarioService_GetConfiguracionPaisDatos_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionPaisDatosAll">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetConfiguracionPaisDatosAll" message="tns:IUsuarioService_GetConfiguracionPaisDatosAll_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetConfiguracionPaisDatosAllResponse" message="tns:IUsuarioService_GetConfiguracionPaisDatosAll_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="RegistrarUsuarioPostulante">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/RegistrarUsuarioPostulante" message="tns:IUsuarioService_RegistrarUsuarioPostulante_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/RegistrarUsuarioPostulanteResponse" message="tns:IUsuarioService_RegistrarUsuarioPostulante_OutputMessage" />
@@ -1608,6 +1618,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetConfiguracionPaisDatos">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetConfiguracionPaisDatos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionPaisDatosAll">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetConfiguracionPaisDatosAll" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2890,6 +2909,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetConfiguracionPaisDatos">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetConfiguracionPaisDatos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionPaisDatosAll">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetConfiguracionPaisDatosAll" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
