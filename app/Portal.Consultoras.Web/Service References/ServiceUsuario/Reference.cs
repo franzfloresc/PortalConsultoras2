@@ -1789,6 +1789,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string GPRTextovinculoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool GanaMasNativoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Portal.Consultoras.Web.ServiceUsuario.BEGuiaNegocio GuiaNegocioField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -3419,6 +3422,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.GPRTextovinculoField, value) != true)) {
                     this.GPRTextovinculoField = value;
                     this.RaisePropertyChanged("GPRTextovinculo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool GanaMasNativo {
+            get {
+                return this.GanaMasNativoField;
+            }
+            set {
+                if ((this.GanaMasNativoField.Equals(value) != true)) {
+                    this.GanaMasNativoField = value;
+                    this.RaisePropertyChanged("GanaMasNativo");
                 }
             }
         }
@@ -12612,6 +12628,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetConfiguracionPaisDatos", ReplyAction="http://tempuri.org/IUsuarioService/GetConfiguracionPaisDatosResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[]> GetConfiguracionPaisDatosAsync(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetConfiguracionPaisDatosAll", ReplyAction="http://tempuri.org/IUsuarioService/GetConfiguracionPaisDatosAllResponse")]
+        Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[] GetConfiguracionPaisDatosAll(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetConfiguracionPaisDatosAll", ReplyAction="http://tempuri.org/IUsuarioService/GetConfiguracionPaisDatosAllResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[]> GetConfiguracionPaisDatosAllAsync(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/RegistrarUsuarioPostulante", ReplyAction="http://tempuri.org/IUsuarioService/RegistrarUsuarioPostulanteResponse")]
         int RegistrarUsuarioPostulante(string paisISO, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioPostulante entidad);
         
@@ -13540,6 +13562,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[]> GetConfiguracionPaisDatosAsync(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad) {
             return base.Channel.GetConfiguracionPaisDatosAsync(entidad);
+        }
+        
+        public Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[] GetConfiguracionPaisDatosAll(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad) {
+            return base.Channel.GetConfiguracionPaisDatosAll(entidad);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[]> GetConfiguracionPaisDatosAllAsync(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad) {
+            return base.Channel.GetConfiguracionPaisDatosAllAsync(entidad);
         }
         
         public int RegistrarUsuarioPostulante(string paisISO, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioPostulante entidad) {
