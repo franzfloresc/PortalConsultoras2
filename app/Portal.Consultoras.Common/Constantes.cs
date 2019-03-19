@@ -924,6 +924,18 @@ namespace Portal.Consultoras.Common
             public const int MobileBuscadorGNDFicha = 2040502;
             public const int MobileBuscadorHerramientasdeVentaFicha = 2040802;
 
+            public const int MobileContenedorShowroomCarrusel = 2080101;
+            public const int MobileContenedorShowroomFicha = 2080102;
+            public const int MobileContenedorLanzamientosCarrusel = 2080201; // Esta en duro en rdAnalyticsModule
+            #endregion
+
+            #region Producto Recomendado
+            public const int DesktopPedidoProductoRecomendadoCarrusel = 1021501;
+            public const int MobilePedidoProductoRecomendadoCarrusel = 2021501;
+
+            public const string SufijoProductoRecomendadoCarrusel = "08";
+            public const string SufijoProductoRecomendadoFicha = "09";
+
             public const int DesktopPedidoProductoRecomendadoOpm = 1020008;
             public const int DesktopPedidoProductoRecomendadoShowRoom = 1020108;
             public const int DesktopPedidoProductoRecomendadoLan = 1020208;
@@ -936,17 +948,22 @@ namespace Portal.Consultoras.Common
             public const int MobilePedidoProductoRecomendadoOdd = 2020308;
             public const int MobilePedidoProductoRecomendadoHv = 2020808;
             public const int MobilePedidoProductoRecomendadoGanadoras = 2021408;
-                                            
-            public const int MobileContenedorShowroomCarrusel = 2080101;
-            public const int MobileContenedorShowroomFicha = 2080102;
-            public const int AppConsultoraContenedorShowroomFicha = 4080102;
-            public const int MobileContenedorLanzamientosCarrusel = 2080201; // Esta en duro en rdAnalyticsModule
-            
-            #endregion
 
-            #region Producto Recomendado
-            public const int DesktopPedidoProductoRecomendadoCarrusel = 1021501;
-            public const int MobilePedidoProductoRecomendadoCarrusel = 2021501;
+            public const int DesktopPedidoProductoRecomendadoOpmFicha = 1020009;
+            public const int DesktopPedidoProductoRecomendadoShowRoomFicha = 1020109;
+
+            public const int AppConsultoraContenedorShowroomFicha = 4080102;
+            public const int DesktopPedidoProductoRecomendadoLanFicha = 1020209;
+            public const int DesktopPedidoProductoRecomendadoOddFicha = 1020309;
+            public const int DesktopPedidoProductoRecomendadoHvFicha = 1020809;
+            //public const int DesktopPedidoProductoRecomendadoLanFicha = 1020209;
+            public const int DesktopPedidoProductoRecomendadoGanadorasFicha = 1021409;
+            public const int MobilePedidoProductoRecomendadoOpmFicha = 2020009;
+            public const int MobilePedidoProductoRecomendadoShowRoomFicha = 2020109;
+            public const int MobilePedidoProductoRecomendadoLanFicha = 2020209;
+            public const int MobilePedidoProductoRecomendadoOddFicha = 2020309;
+            public const int MobilePedidoProductoRecomendadoHvFicha = 2020809;
+            public const int MobilePedidoProductoRecomendadoGanadorasFicha = 2021409;
             #endregion
 
             #region Pedidos Pendientes
@@ -1039,6 +1056,7 @@ namespace Portal.Consultoras.Common
             public const string SinPedidosDisponibles = "Lo sentimos, en estos momentos no cuentas con pedidos disponibles para reclamar.";
             public const string FueraDeFecha = "Tu solicitud se encuentra fuera de fecha para poder ser atendida.";
             public const string ContactateChatEnLinea = "Por favor, contáctate con nuestro <span class=\"enlace_chat belcorpChat\"><a>Chat en Línea</a></span>.";
+            public const string ExcedioLimiteReclamo = "Lo sentimos, usted ha excedido el límite de reclamos por pedido"; //HD-3412 EINCA
         }
 
         public static class CodigoOperacionCDR
@@ -1357,8 +1375,14 @@ namespace Portal.Consultoras.Common
         {
             public const string UrlBase = "https://catalogodigital.somosbelcorp.com/";
             public const string UrlBaseQA = "http://ecatalogoqa.somosbelcorp.com/";
+            public const string UrlCatalogoPiloto = "UrlCatalogoPiloto";
             public const string UrlParamEncrip = "iso={0}&consultant={1}";
             public const string UrlCatalogo = "{0}?cod={1}";
+        }
+
+        public static class Facebook
+        {
+            public const string FB_AppId = "FB_AppId";
         }
 
         public static class RevistaNombre
@@ -1739,10 +1763,11 @@ namespace Portal.Consultoras.Common
 
         public struct TablaLogica
         {
+            public const int NroReclamosPorPedidoCDR = 161; //HD-3412 EINCA
             public const int PersonalizacionODD = 93;
             public const int Plan20 = 98;
             public const int CDRExpress = 104;
-
+            public const int StockDiasAntes = 181;
             public const int CorreoFeedbackAppConsultora = 105;
 
             /// <summary>
