@@ -9,7 +9,9 @@
     menuActivo.ConfiguracionPais.MobileFondoBanner = Util.Trim(menuActivo.ConfiguracionPais.MobileFondoBanner);
 }
 
-<div id="seccion-menu-mobile" class="container-fluid pl-lg-0 pr-lg-0 layout__header--menuContenedorOfertas">
+<div id="seccion-menu-mobile" 
+     data-layout="menuContenedor"
+     class="container-fluid pl-lg-0 pr-lg-0 layout__header--menuContenedorOfertas">
     <nav id="seccion-fixed-menu" class="mx-auto">
         @if (menuList.Any())
         {
