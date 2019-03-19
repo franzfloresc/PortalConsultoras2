@@ -677,7 +677,8 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.IdMarca, f => f.MapFrom(c => c.MarcaId))
                 .ForMember(t => t.NombreComercial, f => f.MapFrom(c => c.NombreComercial))
                 .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion1))
-                .ForMember(t => t.DescripcionMarca, f => f.MapFrom(c => c.NombreMarca))
+                .ForMember(t => t.PrecioCatalogo, f => f.MapFrom(c => c.PrecioUnitario))
+                .ForMember(t => t.Digitable, f => f.MapFrom(c => c.IndicadorDigitable ? 1 : 0 ))
 
                 .ForMember(t => t.DescripcionPlural, f => f.MapFrom(c => c.DescripcionPlural))
                 .ForMember(t => t.DescripcionSingular, f => f.MapFrom(c => c.DescripcionSingular));
