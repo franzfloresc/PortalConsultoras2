@@ -483,7 +483,7 @@ namespace Portal.Consultoras.Web.Providers
                     {
                         if (GetValidarDiasAntesStock(userData))
                         {
-                            listEstrategia = _consultaProlProvider.ActualizarEstrategiaStockPROL(listEstrategia, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora);
+                            listEstrategia = ActualizarEstrategiaStockPROL(listEstrategia, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora);
                         }
                     }
                 }
@@ -504,7 +504,7 @@ namespace Portal.Consultoras.Web.Providers
             return listEstrategia;
         }
 
-        private bool GetValidarDiasAntesStock(UsuarioModel userData)
+        public bool GetValidarDiasAntesStock(UsuarioModel userData)
         {
             var validar = false;
             var lstTablaLogicaDatos = _tablaLogicaProvider.GetTablaLogicaDatos(userData.PaisID, Constantes.TablaLogica.StockDiasAntes, true);
@@ -1330,7 +1330,7 @@ namespace Portal.Consultoras.Web.Providers
             {
                 if (GetValidarDiasAntesStock(userData))
                 {
-                    listaProducto = _consultaProlProvider.ActualizarEstrategiaStockPROL(listaProducto, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora);
+                    listaProducto = ActualizarEstrategiaStockPROL(listaProducto, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora);
                 }
             }
 
