@@ -1437,6 +1437,7 @@
     <Content Include="Content\Css\Site\bootstrap\bootstrap-chosen.css" />
     <Content Include="Content\Css\Site\bootstrap\bootstrap.css" />
     <Content Include="Content\Css\Site\BusquedaProductos\busqueda-productos.css" />
+    <Content Include="Content\Css\Site\BusquedaProductos\filtros-busqueda.css" />
     <Content Include="Content\Css\Site\Contenedor\Index.css" />
     <Content Include="Content\Css\Site\Esika\buscador-filtros.css" />
     <Content Include="Content\Css\Site\Esika\campania-navidenia.css" />
@@ -1446,6 +1447,7 @@
     <Content Include="Content\Css\Site\Esika\styleDefault.css" />
     <Content Include="Content\Css\Site\Esika\unsubscribe.css" />
     <Content Include="Content\Css\Site\Esika\verificacion-pin.css" />
+    <Content Include="Content\Css\Site\FichaProductoResponsive\ficha-producto-responsive.css" />
     <Content Include="Content\Css\Site\Ficha\Carrusel.css" />
     <Content Include="Content\Css\Site\Ficha\Esika\FichaEsika.css" />
     <Content Include="Content\Css\Site\Ficha\Lbel\FichaLbel.css" />
@@ -1455,6 +1457,9 @@
     <Content Include="Content\Css\Site\Ficha\SeleccionarTipo.css" />
     <Content Include="Content\Css\Site\Images\carrusel_next_blanco_dorado.png" />
     <Content Include="Content\Css\Site\Images\carrusel_prev_blanco_dorado.png" />
+    <Content Include="Content\Css\Site\Images\gif_de_ofertas.gif" />
+    <Content Include="Content\Css\Site\Images\gif_de_ofertas_2.gif" />
+    <Content Include="Content\Css\Site\Images\gif_de_ofertas_3.gif" />
     <Content Include="Content\Images\icono_party_popper.png" />
     <Content Include="Content\Images\flecha_despliegue_opcion_mi_perfil.svg" />
     <Content Include="Content\Images\Esika\icono_campos_select_mi_perfil.svg" />
@@ -1671,6 +1676,7 @@
     <Content Include="Content\Images\Esika\CategoriasProductos\categoria_tratamiento_corporal.jpg" />
     <Content Include="Content\Images\Esika\CategoriasProductos\categoria_tratamiento_facial.jpg" />
     <Content Include="Content\Images\Esika\icono_input_radio_cdr.svg" />
+    <Content Include="Content\Images\Esika\icons-trash.svg" />
     <Content Include="Content\Images\Esika\RevistaDigital\gana-mas-navidad-esika.svg" />
     <Content Include="Content\Images\Esika\RevistaDigital\gif-club-ganamas2.gif" />
     <Content Include="Content\Images\Esika\RevistaDigital\gif-ganamas.gif" />
@@ -1740,6 +1746,7 @@
     <Content Include="Content\Images\icono_salvavidas.svg" />
     <Content Include="Content\Images\icono_sin_resultados_busqueda.svg" />
     <Content Include="Content\Images\icono_tooltip_informativo.svg" />
+    <Content Include="Content\Images\icono_tu_voz_online.svg" />
     <Content Include="Content\Images\icon_xls.svg" />
     <Content Include="Content\Images\imagen_prod_no_disponible.jpg" />
     <Content Include="Content\Images\imagen_prod_no_disponible.png" />
@@ -1786,6 +1793,7 @@
     <Content Include="Content\Images\mas.svg" />
     <Content Include="Content\Images\menos-desplegable-icono.svg" />
     <Content Include="Content\Images\menos.svg" />
+    <Content Include="Content\Images\mobile\Esika\emoji-clapping-hands%403x.png" />
     <Content Include="Content\Images\mobile\icono_mas_footer_mobile.png" />
     <Content Include="Content\Images\mobile\icono_menos_footer_mobile.png" />
     <Content Include="Content\Images\Lbel\logo_marca_pais_blanco.svg" />
@@ -4724,6 +4732,9 @@
     <None Include="Service References\ServicePedido\PedidoService1110.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServicePedido\PedidoService1111.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServicePedido\PedidoService112.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -4850,6 +4861,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceSAC\SACService63.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceSAC\SACService64.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceSAC\SACService7.xsd">

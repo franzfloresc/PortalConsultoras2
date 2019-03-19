@@ -37,6 +37,10 @@ namespace Portal.Consultoras.Entities
         public string ImgFichaFondoMobile { get; set; }
         [DataMember]
         public string UrlVideoMobile { get; set; }
+        [DataMember]
+        public string ImgFondoApp { get; set; }
+        [DataMember]
+        public string ColorTextoApp { get; set; }
 
         public BEEstrategiaDetalle(BEEstrategia estrategia)
         {
@@ -53,6 +57,8 @@ namespace Portal.Consultoras.Entities
             ImgFichaMobile = estrategia.ImgFichaMobile;
             ImgFichaFondoMobile = estrategia.ImgFichaFondoMobile;
             UrlVideoMobile = estrategia.UrlVideoMobile;
+            ImgFondoApp = estrategia.ImgFondoApp;
+            ColorTextoApp = estrategia.ColorTextoApp;
         }
 
         public BEEstrategiaDetalle()
@@ -74,6 +80,8 @@ namespace Portal.Consultoras.Entities
             ImgFichaMobile = DataRecord.GetColumn<string>(row, "ImgFichaMobile");
             ImgFichaFondoMobile = DataRecord.GetColumn<string>(row, "ImgFichaFondoMobile");
             UrlVideoMobile = DataRecord.GetColumn<string>(row, "UrlVideoMobile");
+            ImgFondoApp = DataRecord.GetColumn<string>(row, "ImgFondoApp");
+            ColorTextoApp = DataRecord.GetColumn<string>(row, "ColorTextoApp");
         }
     }
 }
