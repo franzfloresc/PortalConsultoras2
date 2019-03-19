@@ -59,11 +59,11 @@
                 <p class="productos_ingresados_movil">
                     <span class="icon-mobile"><img src="@Url.Content("~/Content/Images/mobile-pedido.png")" alt="pedido mobile" /></span>
                 </p>
-                <label for="{{DescripcionCortadaProd}}" class="lblLPDesProd">{{Split DescripcionCortadaProd '|' 0}}</label>
+                <label for="{{DescripcionCortadaProd}}" class="lblLPDesProd">{{#iff SetIdentifierNumber '>' '0'}} #{{SetIdentifierNumber}} - {{/iff}} {{Split DescripcionCortadaProd '|' 0}}</label>
             </span>
             {{else}}
             <span style="position:relative">
-                <label for="{{DescripcionCortadaProd}}" class="lblLPDesProd">{{Split DescripcionCortadaProd '|' 0}}</label>
+                <label for="{{DescripcionCortadaProd}}" class="lblLPDesProd">{{#iff SetIdentifierNumber '>' '0'}} #{{SetIdentifierNumber}} - {{/iff}} {{Split DescripcionCortadaProd '|' 0}}</label>
             </span>
             {{/if_eq}}
 
@@ -168,6 +168,8 @@
                 {{#iff DescripcionLarga 'Contains' '\''}}
                     {{Replace DescripcionLarga '\'' ''}}
                 {{/iff}}
+                <a onclick="tooltipDelete(event, '{{PedidoDetalleID}}', '{{SetID}}');" class="border_radius_4 icon_trash" title="Eliminar"></a>
+                
                 {{#if LockPremioElectivo}}
                 <!-- Este enlace se muestra cuando el producto es un regalo de Programa Nuevas -->
                 <a href="javascript:;" onclick="javascript: $('body').css('overflow-y', ''); $('#popupPremio').fadeOut(200); cargarPopupEleccionRegalo();"
@@ -175,8 +177,6 @@
                    style="background-image: url('@Url.Content("~/Content/Images/icono_editar.svg")'); background-repeat:no-repeat; background-size:contain; width: 19px; height: 22px;" title="Editar regalo"></a>
                 <!-- Fin - Este enlace se muestra cuando el producto es un regalo de Programa Nuevas -->
                 {{else}}
-                <a onclick="tooltipDelete(event, '{{PedidoDetalleID}}', '{{SetID}}');"
-                   style="background-image: url('@Url.Content("~/Content/Images/Esika/tacho-copy.png")'); background-repeat:no-repeat; width: 17px; height: 22px; margin: 0 auto;" title="Eliminar"></a>
                 {{/if}}
             {{/if}}
         </div>
@@ -227,7 +227,7 @@
             </li>
             <li class="boton-primaria">
                 <button class="default-background"
-                        onclick="ValidDeletePedido(event, '{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '{{Cantidad}}', '{{ClienteID_}}', '{{CUVReco}}', null, '{{SetID}}', {{EsElecMultipleNuevas}});">
+                            onclick="ValidDeletePedido('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '{{Cantidad}}', '{{ClienteID_}}', '{{CUVReco}}', null, '{{SetID}}', {{EsElecMultipleNuevas}});">
                     SÍ, ELIMINAR
                 </button>
             </li>

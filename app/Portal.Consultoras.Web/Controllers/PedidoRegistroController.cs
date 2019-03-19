@@ -228,7 +228,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     pedidoDetalle.Estrategia = new ServicePedido.BEEstrategia();
                     pedidoDetalle.Estrategia.Cantidad = Convert.ToInt32(model.Cantidad);
-                    pedidoDetalle.Estrategia.LimiteVenta = model.LimiteVenta == 0 ? 99 : model.LimiteVenta;
+                    pedidoDetalle.Estrategia.LimiteVenta = model.LimiteVenta;
                     pedidoDetalle.Estrategia.DescripcionCUV2 = Util.Trim(model.DescripcionProd);
                     pedidoDetalle.Estrategia.FlagNueva = 0;
                     pedidoDetalle.Estrategia.Precio2 = model.PrecioUnidad;
@@ -276,6 +276,7 @@ namespace Portal.Consultoras.Web.Controllers
                     SessionManager.SetDetallesPedidoSetAgrupado(null);
                     SessionManager.SetBEEstrategia(Constantes.ConstSession.ListaEstrategia, null);
                     SessionManager.SetMontosProl(null);
+                    SessionManager.SetMisPedidosDetallePorCampania(null);
 
                     var pedidoWebDetalle = ObtenerPedidoWebDetalle();
                     var CantidadTotalProductos = pedidoWebDetalle.Sum(dp => dp.Cantidad);
@@ -422,6 +423,7 @@ namespace Portal.Consultoras.Web.Controllers
                 SessionManager.SetDetallesPedido(null);
                 SessionManager.SetDetallesPedidoSetAgrupado(null);
                 SessionManager.SetMontosProl(null);
+                SessionManager.SetMisPedidosDetallePorCampania(null);
 
                 var pedidoWebDetalle = ObtenerPedidoWebDetalle();
                 var CantidadTotalProductos = pedidoWebDetalle.Sum(dp => dp.Cantidad);
@@ -517,6 +519,7 @@ namespace Portal.Consultoras.Web.Controllers
             SessionManager.SetDetallesPedido(null);
             SessionManager.SetDetallesPedidoSetAgrupado(null);
             SessionManager.SetMontosProl(null);
+            SessionManager.SetMisPedidosDetallePorCampania(null);
 
             var olstPedidoWebDetalle = ObtenerPedidoWebDetalle();
 
