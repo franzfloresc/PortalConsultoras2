@@ -2,7 +2,7 @@
 
 var MiPerfil_Base = function () {
     var validarCamposConDatos = function () {
-        var camposFormulario = $('.grupo_form_cambio_datos input');
+        var camposFormulario = $('.grupo_form_cambio_datos input, .grupo_form_cambio_datos select');
         $.each(camposFormulario, function (campoFormulario, key) {
             if (!IsNullOrEmpty(campoFormulario)) $(campoFormulario).addClass('campo_con_datos');
         });
@@ -15,7 +15,7 @@ var MiPerfil_Base = function () {
     };
 
     var asignarEventos = function () {
-        $('body').on('blur', '.grupo_form_cambio_datos input', validarLabelActivo);
+        $('body').on('blur', '.grupo_form_cambio_datos input, .grupo_form_cambio_datos select', validarLabelActivo);
     };
 
     return {
