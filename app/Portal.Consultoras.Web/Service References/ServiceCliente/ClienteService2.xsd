@@ -128,6 +128,7 @@
       <xs:element minOccurs="0" name="EsElecMultipleNuevas" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsKitNueva" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsOfertaIndependiente" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EsPremioElectivo" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsSugerido" type="xs:boolean" />
       <xs:element minOccurs="0" name="EstadoItem" type="xs:short" />
       <xs:element minOccurs="0" name="EstrategiaId" type="xs:int" />
@@ -162,6 +163,7 @@
       <xs:element minOccurs="0" name="ProgramaNuevoActivado" type="xs:boolean" />
       <xs:element minOccurs="0" name="QuitoCantBackOrder" type="xs:boolean" />
       <xs:element minOccurs="0" name="SetID" type="xs:int" />
+      <xs:element minOccurs="0" name="SetIdentifierNumber" type="xs:int" />
       <xs:element minOccurs="0" name="Simbolo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Stock" type="xs:int" />
       <xs:element minOccurs="0" name="SubTipoOfertaSisID" type="xs:int" />
