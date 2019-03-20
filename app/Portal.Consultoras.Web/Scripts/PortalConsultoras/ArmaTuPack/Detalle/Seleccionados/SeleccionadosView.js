@@ -38,12 +38,20 @@
         SetHandlebars(_elements.seleccionados.templateId, packComponents, _elements.seleccionados.id);
 
         var slickSettings = {
-            slidesToShow: 5,
+            slidesToShow: 6,
             slidesToScroll: 1,
             autoplaySpeed: 2000,
             fade: false,
             arrows: true,
-            infinite: false
+            infinite: false,
+            responsive:[
+                {
+                    breakpoint: 768,
+                    settings: {
+                        slidesToShow: 4,
+                    }
+                }
+            ]
         };
 
         $(_elements.seleccionados.attrCarruselContainer).slick(slickSettings);
