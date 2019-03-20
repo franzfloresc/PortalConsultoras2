@@ -1065,12 +1065,12 @@ function RegistrarDemandaTotalReemplazoSugerido(cuvSugerido, precio, cantidad, e
 }
 
 function CargarProductosRecomendados(item) {
+    ProductoRecomendadoModule.ObtenerProductos(item.CodigoCatalago, item.EstrategiaIDSicc, item.CUV, item.CodigoProducto);
+    //if (activarRecomendaciones == 1) {
+    //    if ((item.CodigoCatalago == 9 || item.CodigoCatalago == 10 || item.CodigoCatalago == 13) &&
+    //        (item.EstrategiaIDSicc == 2001)) {
 
-    if (activarRecomendaciones == 1) {
-        if ((item.CodigoCatalago == 9 || item.CodigoCatalago == 10 || item.CodigoCatalago == 13) &&
-            (item.EstrategiaIDSicc == 2001)) {
-
-            ProductoRecomendadoModule.ObtenerProductos(item.CUV, item.CodigoProducto);
-        }
-    }
+    //        ProductoRecomendadoModule.ObtenerProductos(item.CUV, item.CodigoProducto);
+    //    }
+    //}
 }

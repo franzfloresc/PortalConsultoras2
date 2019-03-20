@@ -769,6 +769,14 @@ function PedidoUpdate(item, PROL, detalleObj, elementRow) {
             MostrarBarra(data);
             showPopupNivelSuperado(data.DataBarra, prevTotal);
 
+            var tooltip = $('[data-agregado="tooltip"]');
+            if (typeof tooltip !== 'undefined') {
+                $('[data-agregado="mensaje1"]').html("¡Listo! ");
+                $('[data-agregado="mensaje2"]').html(" Modificaste tu pedido");
+                tooltip.show();
+                setTimeout(function () { tooltip.hide(); }, 4000);
+            }
+            
             if (PROL == "0") {
                 detalleObj.CantidadTemporal = $(cantidadElement).val();
                 belcorp.mobile.pedido.setDetalleById(detalleObj);
