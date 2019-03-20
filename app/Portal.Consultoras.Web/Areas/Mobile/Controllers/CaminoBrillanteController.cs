@@ -405,6 +405,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     });
                     montominimo = montomaximo + 1;
                     montomaximo = montomaximo + 100;
+
                 }
             }
             return Json(new { list = objniveles, NivelActual = rdn.Next(1, 6) }, JsonRequestBehavior.AllowGet);
