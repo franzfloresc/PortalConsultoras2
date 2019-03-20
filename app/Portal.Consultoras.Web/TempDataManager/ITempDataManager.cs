@@ -13,5 +13,9 @@ namespace Portal.Consultoras.Web.TempDataManager
         List<EstrategiaPersonalizadaProductoModel> GetListODD(bool persistencia = false);
 
         void SetListODD(List<EstrategiaPersonalizadaProductoModel> listODD);
+
+        bool ExistTDListODD();
+
+        void RemoveTDListODD();
     }
 }

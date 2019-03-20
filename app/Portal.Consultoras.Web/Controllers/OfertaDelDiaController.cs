@@ -11,7 +11,8 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var x = HttpContext.CurrentHandler;
-                var oddModel = _ofertaDelDiaProvider.GetOfertaDelDiaConfiguracion(userData);
+                bool persistenciaTD = this.IsMobile();
+                var oddModel = _ofertaDelDiaProvider.GetOfertaDelDiaConfiguracion(userData, persistenciaTD);
 
                 if (oddModel != null)
                 {

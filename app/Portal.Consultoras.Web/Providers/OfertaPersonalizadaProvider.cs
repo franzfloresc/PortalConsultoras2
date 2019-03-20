@@ -1251,13 +1251,14 @@ namespace Portal.Consultoras.Web.Providers
 
         public List<EstrategiaPersonalizadaProductoModel> ObtenerListaProductoODD(bool persistenciaLista = false)
         {
-            var xtempdata = tempDataManager.GetListODD(persistenciaLista);
+            var listODDTempData = tempDataManager.GetListODD(persistenciaLista);
 
             if (SessionManager.OfertaDelDia.Estrategia != null)
             {
-                if (SessionManager.OfertaDelDia.Estrategia.ListaOferta != null)
+                if ((_ofertaBaseProvider.UsarSession(Constantes.TipoEstrategiaCodigo.OfertaDelDia) && SessionManager.OfertaDelDia.Estrategia.ListaOferta != null) || 
+                    (!_ofertaBaseProvider.UsarSession(Constantes.TipoEstrategiaCodigo.OfertaDelDia) && listODDTempData != null))
                 {
-                    var ListaOfertaSession = SessionManager.OfertaDelDia.Estrategia.ListaOferta;
+                    var ListaOfertaSession = _ofertaBaseProvider.UsarSession(Constantes.TipoEstrategiaCodigo.OfertaDelDia) ? SessionManager.OfertaDelDia.Estrategia.ListaOferta : listODDTempData;
                     return ListaOfertaSession;
                 }
                 else

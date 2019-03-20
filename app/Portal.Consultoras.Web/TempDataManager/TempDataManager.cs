@@ -8,6 +8,13 @@ namespace Portal.Consultoras.Web.TempDataManager
 {
     internal class TempDataManager : ITempDataManager
     {
+        #region Constantes Nombres TempData
+
+        private const string _tdListODD = "tdListODD";
+        private const string _tdMobileBaseODD = "tdMobileODDBase";
+
+        #endregion
+
         private TempDataDictionary _tempData;
 
         public TempDataManager(TempDataDictionary TempData)
@@ -20,12 +27,12 @@ namespace Portal.Consultoras.Web.TempDataManager
 
             List<EstrategiaPersonalizadaProductoModel> result = null;
 
-            if (_tempData["tdListODD"] != null)
+            if (_tempData[_tdListODD] != null)
             {
-                result = (List<EstrategiaPersonalizadaProductoModel>)_tempData["tdListODD"];
+                result = (List<EstrategiaPersonalizadaProductoModel>)_tempData[_tdListODD];
                 if (persistencia)
                 {
-                    _tempData.Keep("tdListODD");
+                    _tempData.Keep(_tdListODD);
                 }
             }
 
@@ -34,7 +41,37 @@ namespace Portal.Consultoras.Web.TempDataManager
 
         public void SetListODD(List<EstrategiaPersonalizadaProductoModel> listODD)
         {
-            _tempData["tdListODD"] = listODD;
+            _tempData[_tdListODD] = listODD; 
+        }
+
+        public bool ExistTDListODD()
+        {
+            return _tempData.ContainsKey(_tdListODD);
+        }
+
+        public void RemoveTDListODD()
+        {
+            _tempData.Remove(_tdListODD);
+        }
+
+        public void SetMobileBaseODD(string valor)
+        {
+            _tempData[_tdMobileBaseODD] = valor;
+        }
+
+        public string GetMobileBaseODD()
+        {
+            return (_tempData[_tdMobileBaseODD] ?? "").ToString();
+        }
+
+        public bool ExistMobileBaseODD()
+        {
+            return _tempData.ContainsKey(_tdMobileBaseODD);
+        }
+
+        public void RemoveMobileBaseODD()
+        {
+            _tempData.Remove(_tdMobileBaseODD);
         }
     }
 }
