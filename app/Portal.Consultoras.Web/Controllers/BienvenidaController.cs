@@ -38,7 +38,7 @@ namespace Portal.Consultoras.Web.Controllers
             this.logManager = logManager;
         }
 
-        public async Task<ActionResult> Index(bool showPopupMisDatos = false, string verSeccion = "", string verCambioClave = "")
+        public ActionResult Index(bool showPopupMisDatos = false, string verSeccion = "", string verCambioClave = "")
         {
             var model = new BienvenidaHomeModel { ShowPopupMisDatos = showPopupMisDatos, OpcionCambiaClave = verCambioClave };
 
@@ -240,24 +240,18 @@ namespace Portal.Consultoras.Web.Controllers
                 model.TieneCaminoBrillante = userData.CaminoBrillante;
 
 
-                //RJ - FORMA 1
-                List<NivelConsultoraCaminoBrillanteModel> DatosConsultora = await GetNivelConsultora();
-                string DescripcionNivel = string.Empty;
-                if (DatosConsultora.Count > 0)
-                {
-                    SessionManager.SetConsultora(DatosConsultora);
-                    foreach (NivelConsultoraCaminoBrillanteModel obj in DatosConsultora)
-                        DescripcionNivel = obj.NivelActual == 1 ? "Consultora" : obj.NivelActual == 2 ? "Coral" : obj.NivelActual == 3 ? "Ámbar" : obj.NivelActual == 4 ? "Perla" : obj.NivelActual == 5 ? "Topacio" : obj.NivelActual == 6 ? "Brillante" : "";
-                }
-                model.CaminoBrillanteMsg = userData.CaminoBrillanteMsg.Replace("{0}", DescripcionNivel);
-
-
-
-
-
+                ////RJ - FORMA 1
+                //List<NivelConsultoraCaminoBrillanteModel> DatosConsultora = await GetNivelConsultora();
+                //string DescripcionNivel = string.Empty;
+                //if (DatosConsultora.Count > 0)
+                //{
+                //    SessionManager.SetConsultora(DatosConsultora);
+                //    foreach (NivelConsultoraCaminoBrillanteModel obj in DatosConsultora)
+                //        DescripcionNivel = obj.NivelActual == 1 ? "Consultora" : obj.NivelActual == 2 ? "Coral" : obj.NivelActual == 3 ? "Ámbar" : obj.NivelActual == 4 ? "Perla" : obj.NivelActual == 5 ? "Topacio" : obj.NivelActual == 6 ? "Brillante" : "";
+                //}
+                //model.CaminoBrillanteMsg = userData.CaminoBrillanteMsg.Replace("{0}", DescripcionNivel);
 
                 #region Camino al Éxito
-
                 var LogicaCaminoExisto = _tablaLogica.GetTablaLogicaDatos(userData.PaisID, Constantes.TablaLogica.EscalaDescuentoDestokp);
                 if (LogicaCaminoExisto.Any())
                 {
@@ -270,7 +264,6 @@ namespace Portal.Consultoras.Web.Controllers
                         model.urlCaminoExito = accesoCaminoExito.Item2 ?? "";
                     }
                 }
-
                 #endregion
 
             }
@@ -1977,10 +1970,7 @@ namespace Portal.Consultoras.Web.Controllers
             List<string> Credenciales = new List<string>();
             Credenciales = GetDatosComercial();
             CaminoBrillanteProvider prv = new CaminoBrillanteProvider(Credenciales[0], Credenciales[1], Credenciales[2]);
-            TimeSpan ts = TimeSpan.FromMilliseconds(5000);
             Task<List<NivelConsultoraCaminoBrillanteModel>> task = prv.GetNivelConsultora("CRI", "0007975", "1");
-            //task.Wait(ts);
-            //var demo = task.Result;
             return task;
         }
 
@@ -1995,9 +1985,22 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return list;
         }
+
+        [HttpGet]
+        public async Task<JsonResult> GetNivelConsultoras()
+        {
+            //RJ - FORMA 2
+            List<NivelConsultoraCaminoBrillanteModel> DatosConsultora = await GetNivelConsultora();
+            string DescripcionNivel = string.Empty;
+            if (DatosConsultora.Count > 0)
+            {
+                SessionManager.SetConsultora(DatosConsultora);
+                foreach (NivelConsultoraCaminoBrillanteModel obj in DatosConsultora)
+                    DescripcionNivel = obj.NivelActual == 1 ? "Consultora" : obj.NivelActual == 2 ? "Coral" : obj.NivelActual == 3 ? "Ámbar" : obj.NivelActual == 4 ? "Perla" : obj.NivelActual == 5 ? "Topacio" : obj.NivelActual == 6 ? "Brillante" : "";
+            }
+            return Json(new { CaminoBrillanteMsg = userData.CaminoBrillanteMsg.Replace("{0}", DescripcionNivel) }, JsonRequestBehavior.AllowGet);
+
+        }
         #endregion
-
-
-
     }
 }

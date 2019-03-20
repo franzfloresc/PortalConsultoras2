@@ -187,7 +187,7 @@
             <img src="~/Content/Images/CaminoBrillante/medalla.PNG">
             <p class="toptext">Camino Brillante</p>
             <p id="TextoCaminoBrillante">
-                @Model.CaminoBrillanteMsg                
+                @*@Model.CaminoBrillanteMsg*@
             </p>
             <a href="@Url.Action("Index", "CaminoBrillante")">Ver Beneficios</a>
         </div>
@@ -1977,6 +1977,23 @@
 </script>
 
 @System.Web.Optimization.Scripts.Render("~/Scripts/PortalConsultoras/Bienvenida/AsesoraOnline.js")
+
+<script src="~/Scripts/jquery-1.11.2.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.ajax({
+            url: "/Bienvenida/GetNivelConsultoras",
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                debugger;
+                $("#TextoCaminoBrillante").append(data.CaminoBrillanteMsg);
+            }, error: function (xhr, status, error) {
+
+            }
+        });
+    });
+</script>
 
 @section scripts{
     <script type="text/javascript">
