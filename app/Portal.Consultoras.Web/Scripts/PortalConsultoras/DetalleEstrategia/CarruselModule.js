@@ -111,7 +111,10 @@ var CarruselAyuda = function () {
 
                 if (programNuevas) {
                     if (programNuevas.length > 0) {
-                        AnalyticsPortalModule.MarcaGenericaLista(ConstantesModule.TipoEstrategia.DP, programNuevas);
+                        if (origen.Pagina) {
+
+                        }
+                        AnalyticsPortalModule.MarcaGenericaLista(ConstantesModule.TipoEstrategia.DP, programNuevas, origen);
                     }
                 }
                 //FIN DH-3473 EINCA Marcar las estrategias de programas nuevas(dúo perfecto)
@@ -281,20 +284,14 @@ var CarruselAyuda = function () {
 
     //HD-3473 EINCA Marcar Analytic, cuando se hace clic en el banner de duo perfecto
     var _marcaAnalycticCarruselProgramasNuevas = function (event, URL) {
+        console.log(event);
         dataLayer.push({
             'event': 'virtualEvent',
             'category': 'Home - Dúo Perfecto',
             'action': 'Click Botón',
             'label': 'Elegir Ahora'
         });
-
-        if (URL > 0) {
-            var id = URL;
-            var url = baseUrl + "MiAcademia/Cursos?idcurso=" + id;
-            window.open(url, '_blank');
-        } else {
-            window.open(URL, '_blank');
-        }
+        document.location.href = URL;
         return false;
     }
 

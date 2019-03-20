@@ -1625,18 +1625,12 @@ var AnalyticsPortalModule = (function () {
         }
 
         if (codigoSeccion == _codigoSeccion.DP) {
-            var element = $("[data-seccion=" + codigoSeccion + "]");
-            var codigo = element.data("origenpedidoweb");
-            var valor = fnObtenerContenedor();
-            console.log(valor);
-            console.log(element);
-
             $.each(data, function (index) {
                 var item = data[index];
                 var element = {
                     'id': item.CUV2,
                     'name': 'Arma tu Dúo Perfecto - Dúo Perfecto',
-                    'position': 'Home - Dúo Perfecto',
+                    'position': pos != undefined ? pos + ' - Dúo Perfecto' : '',
                     'creative': "Banner"
                 };
                 collection.push(element);
