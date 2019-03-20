@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Portal.Consultoras.Web.Models.CaminoBrillante
+﻿namespace Portal.Consultoras.Web.Models.CaminoBrillante
 {
     public class PeriodosModel
     {
