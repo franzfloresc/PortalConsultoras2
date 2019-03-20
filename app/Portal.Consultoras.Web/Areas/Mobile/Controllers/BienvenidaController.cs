@@ -10,6 +10,7 @@ using System.ServiceModel;
 using System.Web.Mvc;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.CaminoBrillante;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -128,7 +129,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.ConsultoraNuevaBannerAppMostrar = SessionManager.GetConsultoraNuevaBannerAppMostrar();
                 model.MostrarPagoEnLinea = (userData.MontoDeuda > 0);
                 model.TieneCaminoBrillante = userData.CaminoBrillante;
-                model.CaminoBrillanteMsg = userData.CaminoBrillanteMsg.Replace("{0}", "Consultora Ámbar");
+
+                //model.CaminoBrillanteMsg = userData.CaminoBrillanteMsg.Replace("{0}", "Consultora Ámbar");
+                model.CaminoBrillanteMsg = userData.CaminoBrillanteMsg.Replace("{0}", GetNivelConsultoras());
 
 
                 #region Camino al Exito
@@ -461,6 +464,48 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-        
+
+        #region CaminoBrillante
+
+        public string GetNivelConsultoras()
+        {
+            List<NivelConsultoraCaminoBrillanteModel> DatosConsultora = GetNivelConsultora();
+            string DescripcionNivel = string.Empty;
+            if (DatosConsultora.Count > 0)
+            {
+                SessionManager.SetConsultora(DatosConsultora);
+                foreach (NivelConsultoraCaminoBrillanteModel obj in DatosConsultora)
+                    DescripcionNivel = obj.NivelActual == 1 ? "Consultora" : obj.NivelActual == 2 ? "Coral" : obj.NivelActual == 3 ? "Ámbar" : obj.NivelActual == 4 ? "Perla" : obj.NivelActual == 5 ? "Topacio" : obj.NivelActual == 6 ? "Brillante" : "";
+            }
+
+            //string a = userData.CaminoBrillanteMsg.Replace("{0}", DescripcionNivel);
+            //return Json(new { CaminoBrillanteMsg = userData.CaminoBrillanteMsg.Replace("{0}", DescripcionNivel) }, JsonRequestBehavior.AllowGet);
+            return DescripcionNivel;
+        }
+
+        private List<NivelConsultoraCaminoBrillanteModel> GetNivelConsultora()
+        {
+            List<string> Credenciales = new List<string>();
+            Credenciales = GetDatosComercial();
+            CaminoBrillanteProvider prv = new CaminoBrillanteProvider(Credenciales[0], Credenciales[1], Credenciales[2]);
+            List<NivelConsultoraCaminoBrillanteModel> task = prv.GetNivelConsultora("CRI", "0007975", "1");
+            return task;
+        }
+
+        public List<string> GetDatosComercial()
+        {
+            List<string> list = new List<string>();
+            using (var svc = new SACServiceClient())
+            {
+                var response = svc.GetTablaLogicaDatos(userData.PaisID, Constantes.TablaLogicaDato.CaminoBrillanteTablaLogica).ToList();
+                foreach (BETablaLogicaDatos obj in response)
+                    list.Add(obj.Valor);
+            }
+            return list;
+        }
+
+
+        #endregion
+
     }
 }
