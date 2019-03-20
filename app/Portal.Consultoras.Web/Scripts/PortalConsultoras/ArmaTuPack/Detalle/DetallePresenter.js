@@ -47,7 +47,20 @@
                     !Array.isArray(data.componentes) || data.componentes.length === 0) {
                     _config.generalModule.redirectTo(urlReturn);
                 }
-                _config.armaTuPackDetalleEvents.applyChanges(_config.armaTuPackDetalleEvents.eventName.onGruposLoaded, data);
+                var dataClone = jQuery.extend(true, {}, data);
+
+                $.each(data.componentes, function (idx, grupo) {
+                    if (grupo.Hermanos === "undefined" || grupo.Hermanos === null || grupo.Hermanos.length === 0) {
+                        $.each(dataClone.componentes, function (idxClone, grupoClone) {
+                            if (grupo.Grupo === grupoClone.Grupo) {
+                                dataClone.componentes.splice(idxClone, 1);
+                                return;
+                            }
+                        });
+                    };
+                });
+
+                _config.armaTuPackDetalleEvents.applyChanges(_config.armaTuPackDetalleEvents.eventName.onGruposLoaded, dataClone);
             })
             .fail(function (data, error) {
                 _config.generalModule.redirectTo(urlReturn);

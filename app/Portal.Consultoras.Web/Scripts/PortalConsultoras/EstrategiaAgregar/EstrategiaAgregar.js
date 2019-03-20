@@ -77,6 +77,11 @@ var EstrategiaAgregarModule = (function () {
         }
     }
 
+    var _OrigenPedido = {
+        MobileContenedorArmaTuPack: "2131502",
+        DesktopContenedorArmaTuPack: "1131502"
+    }
+
     var getEstrategia = function ($btnAgregar, origenPedidoWebEstrategia) {
 
         var estrategiaTxt = $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataEstrategia).attr("data-estrategia")
@@ -391,7 +396,14 @@ var EstrategiaAgregarModule = (function () {
                         }
                         $AgregadoTooltip.show();
                         setTimeout(function () { $AgregadoTooltip.hide(); }, 4000);
-                        ResumenOpcionesModule.LimpiarOpciones();
+                        if (origenPedidoWebEstrategia === _OrigenPedido.DesktopContenedorArmaTuPack) {
+                            window.location = "/ofertas";
+                        } else if (origenPedidoWebEstrategia === _OrigenPedido.MobileContenedorArmaTuPack) {
+                            window.location = "/mobile/ofertas";
+
+                        } else {
+                            ResumenOpcionesModule.LimpiarOpciones();
+                        }
                     } catch (e) {
                         console.error(e);
                     }

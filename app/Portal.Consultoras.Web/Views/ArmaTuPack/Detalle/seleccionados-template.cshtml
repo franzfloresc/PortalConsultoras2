@@ -39,7 +39,7 @@
     {{/each}}
     {{/iff}}
     <div class="Agregar_ArmaTuPack_fixed">
-        <div data-agregado='tooltip' class="popover bottom tooltip_bloqueo" role="tooltip" id="" style="display: none;"  data-tooltip-component >
+        <div data-tooltip-component class="popover bottom tooltip_bloqueo" role="tooltip" id="" style="display: none;">
             <div class="arrow"></div>
             <div class="popover-content">
                 <span data-agregado="mensaje1"></span>
@@ -47,12 +47,20 @@
                 <span data-agregado="mensaje2">Debes elegir tus opciones para poder agregar la oferta.</span>
             </div>
         </div>
+        <div data-limitepedido="tooltip" class="popover top tooltip_limite_pedidos" role="tooltip" id="" style="display: none;">
+            <div class="arrow"></div>
+            <div class="popover-content">
+                <ul class="list-inline popover_texto">
+                    <li><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt="" /></li>
+                    <li>Lo sentimos <img class="tooltop-emoji" src="/Content/Images/Mobile/Esika/1f615.png" /> Has llegado al límite de pedidos para esta oferta.</li>
+                </ul>
+            </div>
+        </div>
         <input type="hidden" data-input='cantidad' value="1" />
-        <button id="btnAgregalo" 
-            class="Agregar_ArmaTuPack btn_desactivado_general disable"
-            data-bloqueada=""
-                onclick="javascript: EstrategiaAgregarModule.EstrategiaAgregar(event, false, 0, false)"
-            > 
+        <button id="btnAgregalo"
+                class="Agregar_ArmaTuPack btn_desactivado_general disable"
+                data-bloqueada=""
+                onclick="javascript: EstrategiaAgregarModule.EstrategiaAgregar(event, false, 0, true)">
             Agregar
         </button>
     </div>
