@@ -90,6 +90,8 @@ strong {
         float: left;
         margin: 20px 1%;
         margin-left: 0;
+        min-height: 60px;
+        margin-bottom: 15px;
     }
 
         .box-beneficios li img {
@@ -135,7 +137,7 @@ strong {
     border-radius: 5px;
     border: 0;
     padding: 10px 20px;
-    max-width: 150px;
+    max-width: 175px;
     text-align: center;
     margin: 25px auto;
     text-decoration: none;
@@ -188,6 +190,7 @@ strong {
             font-size: 12px;
             font-weight: bold;
             text-align: center;
+            height: 28px;
         }
 
 .btn-link {
@@ -197,6 +200,7 @@ strong {
     text-align: center;
     font-size: 13px;
     margin: 10px auto;
+    margin-top: 0;
     border: 0;
 }
 
@@ -232,11 +236,11 @@ strong {
 }
 
 .left-ganancias {
-    width: 46%;
+    width: 49%;
 }
 
 .right-ganancias {
-    width: 46%;
+    width: 43%;
     margin: 0;
     margin-left: 8%;
 }
@@ -845,7 +849,9 @@ button.close {
 /*-----------------PRODUCTOS-----------------------*/
 
 
-
+.pad-center {
+    background: url(../imgs/bg-modal.svg) top center repeat-x;
+}
 
 
 
@@ -919,7 +925,7 @@ button.close {
 
     #ProgressBar span em {
         margin-top: 48px;
-        font-size: 12px;
+        font-size: 11px;
     }
 
     #box-niveles {
@@ -942,6 +948,7 @@ button.close {
 
         .indicador-nivel .left-mod h2, .indicador-nivel .left-mod p {
             text-align: center;
+            margin-bottom: 8px;
         }
 
     .indicador-nivel img {
@@ -983,6 +990,17 @@ button.close {
         margin-bottom: 8px;
     }
 
+    .box-beneficios li {
+        min-height: auto;
+    }
+
+    .subtitle {
+        font-size: 15px;
+    }
+
+    .left-mod p span {
+        display: block;
+    }
 
     .medal-1 {
         width: 17%;

@@ -29,35 +29,385 @@ namespace Portal.Consultoras.Web.Controllers
             //list = await Niveles();
 
             var objniveles = new List<NivelesCaminoBrillanteModel>();
-            var objBeneficio = new List<BeneficiosNivelCaminoBrillanteModel>();
+
+            var objBeneficio1 = new List<BeneficiosNivelCaminoBrillanteModel>();
+            var objBeneficio2 = new List<BeneficiosNivelCaminoBrillanteModel>();
+            var objBeneficio3 = new List<BeneficiosNivelCaminoBrillanteModel>();
+            var objBeneficio4 = new List<BeneficiosNivelCaminoBrillanteModel>();
+            var objBeneficio5 = new List<BeneficiosNivelCaminoBrillanteModel>();
+            var objBeneficio6 = new List<BeneficiosNivelCaminoBrillanteModel>();
+
             int montominimo = rdn.Next(50, 70);
             int montomaximo = rdn.Next(315, 400);
 
-            for (int j = 1; j < 8; j++)
+
+            objBeneficio1.Add(new BeneficiosNivelCaminoBrillanteModel()
             {
-                objBeneficio.Add(new BeneficiosNivelCaminoBrillanteModel()
-                {
-                    CodigoBeneficio = j,
-                    Titulo = "BENEFICIO " + j.ToString(),
-                    Descripcion = "Descripción de Prueba " + j.ToString(),
-                    UrlImagen = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGC9FIeHPnZEUkMW3Pf0PozOdqCH8ip5InmMAp60L4uwRYbtdF"
-                });
-            }
+                CodigoBeneficio = 1,
+                Titulo = "Revista Mi Negocio L'Bel",
+                Descripcion = ""
+            });
+            objBeneficio1.Add(new BeneficiosNivelCaminoBrillanteModel()
+            {
+                CodigoBeneficio = 1,
+                Titulo = "1 catálogo gratis de Ésika, L,'Bel y Cyzone",
+                Descripcion = ""
+            });
+            objBeneficio1.Add(new BeneficiosNivelCaminoBrillanteModel()
+            {
+                CodigoBeneficio = 1,
+                Titulo = "Regalo por pedido y constancia",
+                Descripcion = ""
+            });
+            objBeneficio1.Add(new BeneficiosNivelCaminoBrillanteModel()
+            {
+                CodigoBeneficio = 1,
+                Titulo = "Servicio Callcenter",
+                Descripcion = ""
+            });
+            objBeneficio1.Add(new BeneficiosNivelCaminoBrillanteModel()
+            {
+                CodigoBeneficio = 1,
+                Titulo = "Asesor guía por whatsapp y en persona",
+                Descripcion = ""
+            });
+
+
+
+
+
+            objBeneficio2.Add(new BeneficiosNivelCaminoBrillanteModel()
+            {
+                CodigoBeneficio = 1,
+                Titulo = "Revista Mi Negocio L'Bel",
+                Descripcion = ""
+            });
+            objBeneficio2.Add(new BeneficiosNivelCaminoBrillanteModel()
+            {
+                CodigoBeneficio = 1,
+                Titulo = "1 catálogo gratis de Ésika, L,'Bel y Cyzone",
+                Descripcion = ""
+            });
+            objBeneficio2.Add(new BeneficiosNivelCaminoBrillanteModel()
+            {
+                CodigoBeneficio = 1,
+                Titulo = "20% de descuento en la compra de catálogos y demostradores",
+                Descripcion = ""
+            });
+            objBeneficio2.Add(new BeneficiosNivelCaminoBrillanteModel()
+            {
+                CodigoBeneficio = 1,
+                Titulo = "Regalo por pedido y constancia",
+                Descripcion = ""
+            });
+            objBeneficio2.Add(new BeneficiosNivelCaminoBrillanteModel()
+            {
+                CodigoBeneficio = 1,
+                Titulo = "Kit de productos a bajo precio",
+                Descripcion = "5 productos + muestras"
+            });
+            objBeneficio2.Add(new BeneficiosNivelCaminoBrillanteModel()
+            {
+                CodigoBeneficio = 1,
+                Titulo = "Servicio Callcenter",
+                Descripcion = ""
+            });
+            objBeneficio2.Add(new BeneficiosNivelCaminoBrillanteModel()
+            {
+                CodigoBeneficio = 1,
+                Titulo = "Asesor guía por whatsapp y en persona",
+                Descripcion = ""
+            });
+            objBeneficio2.Add(new BeneficiosNivelCaminoBrillanteModel()
+            {
+                CodigoBeneficio = 1,
+                Titulo = "Descuentos especiales",
+                Descripcion = "Las mejores ofertas según tu nivel"
+            });
+
+
+
+            objBeneficio3.Add(new BeneficiosNivelCaminoBrillanteModel()
+            {
+                CodigoBeneficio = 1,
+                Titulo = "Revista Mi Negocio L'Bel",
+                Descripcion = ""
+            });
+            objBeneficio3.Add(new BeneficiosNivelCaminoBrillanteModel()
+            {
+                CodigoBeneficio = 1,
+                Titulo = "1 catálogo gratis de Ésika, L,'Bel y Cyzone",
+                Descripcion = ""
+            });
+            objBeneficio3.Add(new BeneficiosNivelCaminoBrillanteModel()
+            {
+                CodigoBeneficio = 1,
+                Titulo = "25% de descuento en la compra de catálogos y demostradores",
+                Descripcion = ""
+            });
+            objBeneficio3.Add(new BeneficiosNivelCaminoBrillanteModel()
+            {
+                CodigoBeneficio = 1,
+                Titulo = "Regalo por pedido y constancia",
+                Descripcion = ""
+            });
+            objBeneficio3.Add(new BeneficiosNivelCaminoBrillanteModel()
+            {
+                CodigoBeneficio = 1,
+                Titulo = "Kit de productos a bajo precio",
+                Descripcion = "5 productos + demostradores + neceser pequeño"
+            });
+            objBeneficio3.Add(new BeneficiosNivelCaminoBrillanteModel()
+            {
+                CodigoBeneficio = 1,
+                Titulo = "Servicio Callcenter",
+                Descripcion = ""
+            });
+            objBeneficio3.Add(new BeneficiosNivelCaminoBrillanteModel()
+            {
+                CodigoBeneficio = 1,
+                Titulo = "Asesor guía por whatsapp y en persona",
+                Descripcion = ""
+            });
+            objBeneficio3.Add(new BeneficiosNivelCaminoBrillanteModel()
+            {
+                CodigoBeneficio = 1,
+                Titulo = "Descuentos especiales",
+                Descripcion = "Las mejores ofertas según tu nivel"
+            });
+
+
+
+
+            objBeneficio4.Add(new BeneficiosNivelCaminoBrillanteModel()
+            {
+                CodigoBeneficio = 1,
+                Titulo = "Revista Mi Negocio L'Bel",
+                Descripcion = ""
+            });
+            objBeneficio4.Add(new BeneficiosNivelCaminoBrillanteModel()
+            {
+                CodigoBeneficio = 1,
+                Titulo = "1 catálogo gratis de Ésika, L,'Bel y Cyzone",
+                Descripcion = ""
+            });
+            objBeneficio4.Add(new BeneficiosNivelCaminoBrillanteModel()
+            {
+                CodigoBeneficio = 1,
+                Titulo = "30% de descuento en la compra de catálogos y demostradores",
+                Descripcion = ""
+            });
+            objBeneficio4.Add(new BeneficiosNivelCaminoBrillanteModel()
+            {
+                CodigoBeneficio = 1,
+                Titulo = "Regalo por pedido y constancia",
+                Descripcion = ""
+            });
+            objBeneficio4.Add(new BeneficiosNivelCaminoBrillanteModel()
+            {
+                CodigoBeneficio = 1,
+                Titulo = "Kit de productos a bajo precio",
+                Descripcion = "7 productos + demostradores + neceser mediano"
+            });
+            objBeneficio4.Add(new BeneficiosNivelCaminoBrillanteModel()
+            {
+                CodigoBeneficio = 1,
+                Titulo = "Servicio Callcenter",
+                Descripcion = ""
+            });
+            objBeneficio4.Add(new BeneficiosNivelCaminoBrillanteModel()
+            {
+                CodigoBeneficio = 1,
+                Titulo = "Asesor guía por whatsapp y en persona",
+                Descripcion = ""
+            });
+            objBeneficio4.Add(new BeneficiosNivelCaminoBrillanteModel()
+            {
+                CodigoBeneficio = 1,
+                Titulo = "Descuentos especiales",
+                Descripcion = "Las mejores ofertas según tu nivel"
+
+            });
+
+
+
+            objBeneficio5.Add(new BeneficiosNivelCaminoBrillanteModel()
+            {
+                CodigoBeneficio = 1,
+                Titulo = "Revista Mi Negocio L'Bel",
+                Descripcion = ""
+            });
+            objBeneficio5.Add(new BeneficiosNivelCaminoBrillanteModel()
+            {
+                CodigoBeneficio = 1,
+                Titulo = "1 catálogo gratis de Ésika, L,'Bel y Cyzone",
+                Descripcion = ""
+            });
+            objBeneficio5.Add(new BeneficiosNivelCaminoBrillanteModel()
+            {
+                CodigoBeneficio = 1,
+                Titulo = "30% de descuento en la compra de catálogos y demostradores",
+                Descripcion = ""
+            });
+            objBeneficio5.Add(new BeneficiosNivelCaminoBrillanteModel()
+            {
+                CodigoBeneficio = 1,
+                Titulo = "Regalo por pedido y constancia",
+                Descripcion = ""
+            });
+            objBeneficio5.Add(new BeneficiosNivelCaminoBrillanteModel()
+            {
+                CodigoBeneficio = 1,
+                Titulo = "Kit de productos a bajo precio",
+                Descripcion = "14 productos + demostradores + neceser grande"
+            });
+            objBeneficio5.Add(new BeneficiosNivelCaminoBrillanteModel()
+            {
+                CodigoBeneficio = 1,
+                Titulo = "Servicio Callcenter",
+                Descripcion = ""
+            });
+            objBeneficio5.Add(new BeneficiosNivelCaminoBrillanteModel()
+            {
+                CodigoBeneficio = 1,
+                Titulo = "Asesor guía por whatsapp y en persona",
+                Descripcion = ""
+            });
+            objBeneficio5.Add(new BeneficiosNivelCaminoBrillanteModel()
+            {
+                CodigoBeneficio = 1,
+                Titulo = "Descuentos especiales",
+                Descripcion = "Las mejores ofertas según tu nivel"
+            });
+
+
+
+            objBeneficio6.Add(new BeneficiosNivelCaminoBrillanteModel()
+            {
+                CodigoBeneficio = 1,
+                Titulo = "Beneficios de topacio",
+                Descripcion = ""
+            });
+            objBeneficio6.Add(new BeneficiosNivelCaminoBrillanteModel()
+            {
+                CodigoBeneficio = 1,
+                Titulo = "Programa brillante según tu nivel",
+                Descripcion = ""
+            });
+
+
 
             for (int i = 1; i < 7; i++)
             {
-                objniveles.Add(new NivelesCaminoBrillanteModel()
+                if (i == 1)
                 {
-                    IsoPais = "CRI",
-                    CodigoNivel = i.ToString(),
-                    DescripcionNivel = i == 1 ? "Consultora" : i == 2 ? "Coral" : i == 3 ? "Ámbar" : i == 4 ? "Perla" : i == 5 ? "Topacio" : i == 6 ? "Brillante" : "",
-                    MontoMinimo = montominimo.ToString("C"),
-                    MontoMaximo = montomaximo.ToString("C"),
-                    BeneficiosNivel = objBeneficio,
-                    UrlImagenNivel = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGC9FIeHPnZEUkMW3Pf0PozOdqCH8ip5InmMAp60L4uwRYbtdF"
-                });
-                montominimo = montomaximo + 1;
-                montomaximo = montomaximo + 100;
+                    objniveles.Add(new NivelesCaminoBrillanteModel()
+                    {
+                        IsoPais = "CRI",
+                        CodigoNivel = i.ToString(),
+                        DescripcionNivel = i == 1 ? "Consultora" : i == 2 ? "Coral" : i == 3 ? "Ámbar" : i == 4 ? "Perla" : i == 5 ? "Topacio" : i == 6 ? "Brillante" : "",
+                        MontoMinimo = montominimo.ToString(),
+                        MontoMaximo = montomaximo.ToString(),
+                        BeneficiosNivel = objBeneficio1,
+                        UrlImagenNivel = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGC9FIeHPnZEUkMW3Pf0PozOdqCH8ip5InmMAp60L4uwRYbtdF"
+                    });
+                    montominimo = montomaximo + 1;
+                    montomaximo = montomaximo + 100;
+                }
+
+
+
+                if (i == 2)
+                {
+                    objniveles.Add(new NivelesCaminoBrillanteModel()
+                    {
+                        IsoPais = "CRI",
+                        CodigoNivel = i.ToString(),
+                        DescripcionNivel = i == 1 ? "Consultora" : i == 2 ? "Coral" : i == 3 ? "Ámbar" : i == 4 ? "Perla" : i == 5 ? "Topacio" : i == 6 ? "Brillante" : "",
+                        MontoMinimo = montominimo.ToString(),
+                        MontoMaximo = montomaximo.ToString(),
+                        BeneficiosNivel = objBeneficio2,
+                        UrlImagenNivel = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGC9FIeHPnZEUkMW3Pf0PozOdqCH8ip5InmMAp60L4uwRYbtdF"
+                    });
+                    montominimo = montomaximo + 1;
+                    montomaximo = montomaximo + 100;
+                }
+
+
+
+
+
+                if (i == 3)
+                {
+                    objniveles.Add(new NivelesCaminoBrillanteModel()
+                    {
+                        IsoPais = "CRI",
+                        CodigoNivel = i.ToString(),
+                        DescripcionNivel = i == 1 ? "Consultora" : i == 2 ? "Coral" : i == 3 ? "Ámbar" : i == 4 ? "Perla" : i == 5 ? "Topacio" : i == 6 ? "Brillante" : "",
+                        MontoMinimo = montominimo.ToString(),
+                        MontoMaximo = montomaximo.ToString(),
+                        BeneficiosNivel = objBeneficio3,
+                        UrlImagenNivel = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGC9FIeHPnZEUkMW3Pf0PozOdqCH8ip5InmMAp60L4uwRYbtdF"
+                    });
+                    montominimo = montomaximo + 1;
+                    montomaximo = montomaximo + 100;
+                }
+
+
+
+
+                if (i == 4)
+                {
+                    objniveles.Add(new NivelesCaminoBrillanteModel()
+                    {
+                        IsoPais = "CRI",
+                        CodigoNivel = i.ToString(),
+                        DescripcionNivel = i == 1 ? "Consultora" : i == 2 ? "Coral" : i == 3 ? "Ámbar" : i == 4 ? "Perla" : i == 5 ? "Topacio" : i == 6 ? "Brillante" : "",
+                        MontoMinimo = montominimo.ToString(),
+                        MontoMaximo = montomaximo.ToString(),
+                        BeneficiosNivel = objBeneficio4,
+                        UrlImagenNivel = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGC9FIeHPnZEUkMW3Pf0PozOdqCH8ip5InmMAp60L4uwRYbtdF"
+                    });
+                    montominimo = montomaximo + 1;
+                    montomaximo = montomaximo + 100;
+                }
+
+
+
+
+                if (i == 5)
+                {
+                    objniveles.Add(new NivelesCaminoBrillanteModel()
+                    {
+                        IsoPais = "CRI",
+                        CodigoNivel = i.ToString(),
+                        DescripcionNivel = i == 1 ? "Consultora" : i == 2 ? "Coral" : i == 3 ? "Ámbar" : i == 4 ? "Perla" : i == 5 ? "Topacio" : i == 6 ? "Brillante" : "",
+                        MontoMinimo = montominimo.ToString(),
+                        MontoMaximo = montomaximo.ToString(),
+                        BeneficiosNivel = objBeneficio5,
+                        UrlImagenNivel = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGC9FIeHPnZEUkMW3Pf0PozOdqCH8ip5InmMAp60L4uwRYbtdF"
+                    });
+                    montominimo = montomaximo + 1;
+                    montomaximo = montomaximo + 100;
+                }
+
+
+
+                if (i == 6)
+                {
+                    objniveles.Add(new NivelesCaminoBrillanteModel()
+                    {
+                        IsoPais = "CRI",
+                        CodigoNivel = i.ToString(),
+                        DescripcionNivel = i == 1 ? "Consultora" : i == 2 ? "Coral" : i == 3 ? "Ámbar" : i == 4 ? "Perla" : i == 5 ? "Topacio" : i == 6 ? "Brillante" : "",
+                        MontoMinimo = montominimo.ToString(),
+                        MontoMaximo = montomaximo.ToString(),
+                        BeneficiosNivel = objBeneficio6,
+                        UrlImagenNivel = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGC9FIeHPnZEUkMW3Pf0PozOdqCH8ip5InmMAp60L4uwRYbtdF"
+                    });
+                    montominimo = montomaximo + 1;
+                    montomaximo = montomaximo + 100;
+                }
             }
             return Json(new { list = objniveles, NivelActual = rdn.Next(1, 6) }, JsonRequestBehavior.AllowGet);
         }
@@ -116,12 +466,12 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(new { list = oLogros }, JsonRequestBehavior.AllowGet);
         }
 
-        private Task<List<NivelesCaminoBrillanteModel>> Niveles()
+        private List<NivelesCaminoBrillanteModel> Niveles()
         {
             List<string> Credenciales = new List<string>();
             Credenciales = GetDatosComercial();
             CaminoBrillanteProvider prv = new CaminoBrillanteProvider(Credenciales[0], Credenciales[1], Credenciales[2]);
-            Task<List<NivelesCaminoBrillanteModel>> task = prv.GetNivel("CRI"); //Reemplazar por UserData.Pais
+            List<NivelesCaminoBrillanteModel> task = prv.GetNivel("CRI"); //Reemplazar por UserData.Pais
             return task;
         }
 
