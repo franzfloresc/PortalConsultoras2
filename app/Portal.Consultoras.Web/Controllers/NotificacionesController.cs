@@ -368,35 +368,32 @@ namespace Portal.Consultoras.Web.Controllers
                     userData.CodigoISO)
             };
             ViewBag.PaisIso = userData.CodigoISO;
-            ViewBag.ExistenciaDetallepedido = lstObservacionesPedido.Count();
 
             if (model.Origen != 3)
             {
-                if (model.ListaNotificacionesDetallePedido.Count() > 0)
+                if (model.ListaNotificacionesDetallePedido.Any())
                 {
                     model.SubTotal = model.ListaNotificacionesDetallePedido.Sum(p => p.ImporteTotal);
                     model.Descuento = model.ListaNotificacionesDetallePedido[0].DescuentoProl;
                     model.Total = model.SubTotal - model.Descuento;
-
-                    foreach (var notificacion in model.ListaNotificacionesDetallePedido)
-                    {
-                        notificacion.ImporteTotalString = Util.DecimalToStringFormat(notificacion.ImporteTotal, userData.CodigoISO);
-                        notificacion.PrecioUnidadString = Util.DecimalToStringFormat(notificacion.PrecioUnidad, userData.CodigoISO);
-                    }
                 }
                 else
                 {
                     model.SubTotal = Convert.ToDecimal(0);
                     model.Descuento = Convert.ToDecimal(0);
                     model.Total = Convert.ToDecimal(0);
-
-                    model.ListaNotificacionesDetallePedido.Add(new NotificacionesModelDetallePedido() { ImporteTotalString = "0.00", PrecioUnidadString = "0.00" });
+                    model.ListaNotificacionesDetallePedido.Add(new NotificacionesModelDetallePedido() { ImporteTotal = 0, PrecioUnidad = 0 });
                 }
+
                 model.SubTotalString = Util.DecimalToStringFormat(model.SubTotal, userData.CodigoISO);
                 model.DescuentoString = Util.DecimalToStringFormat(model.Descuento, userData.CodigoISO);
                 model.TotalString = Util.DecimalToStringFormat(model.Total, userData.CodigoISO);
 
-
+                foreach (var notificacion in model.ListaNotificacionesDetallePedido)
+                {
+                    notificacion.ImporteTotalString = Util.DecimalToStringFormat(notificacion.ImporteTotal, userData.CodigoISO);
+                    notificacion.PrecioUnidadString = Util.DecimalToStringFormat(notificacion.PrecioUnidad, userData.CodigoISO);
+                }
             }
 
             return PartialView("DetalleNotificacionesPedido", model);
