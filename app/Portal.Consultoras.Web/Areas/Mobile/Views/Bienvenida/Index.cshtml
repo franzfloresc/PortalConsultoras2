@@ -236,10 +236,10 @@
     <a role="link" region="Central" parent="Mira el Video de Bienvenida" title="Mira el Video de Bienvenida" class="btn_seguirp_mobile ver_video_introductorio" href="javascript:;">MIRA EL VIDEO DE BIENVENIDA</a>
 
 </div>
-
+<br />
 <div class="wrapper_resumen_mobile">
 
-    <!-- INICIO - ENLACE CAMINO AL ÉXITO -->
+    @*<!-- INICIO - ENLACE CAMINO AL ÉXITO -->
     @if (Model.TieneCaminoExito)
     {
         <div class="content_320">
@@ -252,25 +252,19 @@
         </div>
         <div class="linea_separadora_mobile" style="margin-top:4px;"></div>
     }
-    <!-- FIN - ENLACE CAMINO AL ÉXITO -->
+    <!-- FIN - ENLACE CAMINO AL ÉXITO -->*@
 
-
-    @{
-        if (Model.TieneCaminoBrillante)
-        {
-            <div class="content_320">
-                <div class="item1_mobile">
-                    <div class="items_belcorp cam-exito">
-                        <img src="~/Content/Images/CaminoBrillante/medalla.PNG">
-                        <p class="toptext">Camino Brillante</p>
-                        <p>
-                            Conoce todos tus beneficios por ser <br><strong>Consultora Ambar</strong>
-                        </p>
-                        <a href="@Url.Action("Index", "CaminoBrillante")">Ver Beneficios</a>
-                    </div>
-                </div>
-            </div>
-        }
+    
+    @if (Model.TieneCaminoBrillante)
+    {
+        <div class="items_belcorp cam-exito">
+            <img src="~/Content/Images/CaminoBrillante/medalla.PNG">
+            <p class="toptext">Camino Brillante</p>
+            <p>
+                @Model.CaminoBrillanteMsg
+            </p>
+            <a href="@Url.Action("Index", "CaminoBrillante")">Ver Beneficios</a>
+        </div>
     }
 
     <div class="linea_separadora_mobile" style="margin-top:16px"></div>

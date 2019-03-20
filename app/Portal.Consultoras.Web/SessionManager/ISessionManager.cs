@@ -16,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using Portal.Consultoras.Web.Models.Recomendaciones;
 using Portal.Consultoras.Web.Models.Estrategia;
+using Portal.Consultoras.Web.Models.CaminoBrillante;
 
 namespace Portal.Consultoras.Web.SessionManager
 {
@@ -507,5 +508,11 @@ namespace Portal.Consultoras.Web.SessionManager
         string GetJwtApiSomosBelcorp();
         void SetUsuarioOpciones(List<UsuarioOpcionesModel> val);
         List<UsuarioOpcionesModel> GetUsuarioOpciones();
+
+
+        void SetConsultora(List<NivelConsultoraCaminoBrillanteModel> val);
+        List<NivelConsultoraCaminoBrillanteModel> GetConsultora();
+
+
     }
 }

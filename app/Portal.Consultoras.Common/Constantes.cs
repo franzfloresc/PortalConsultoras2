@@ -177,6 +177,7 @@ namespace Portal.Consultoras.Common
             public const int MensajeActualizarEmailSms = 1001;
             public const int MensajeActualizarSms = 1002;
             public const int MensajeActualizarEmail = 1003;
+            public const int CaminoBrillanteTablaLogica = 165;
 
             public static class PersonalizacionOdd
             {
@@ -196,6 +197,28 @@ namespace Portal.Consultoras.Common
             public static class ArmaTuPack
             {
                 public const string ListCuv = "ListCuv";
+            }
+
+
+
+            public static class CaminoBrillante
+            {
+                /// <summary>
+                /// Url para conexion a informacionComercialServices
+                /// </summary>
+                public const string UrlInformacionComercial = "url_inf_com";
+                /// <summary>
+                /// Usuario para autenticarse en el servicio
+                /// </summary>
+                public const string UsuarioInformacionComercial = "usu_inf_com";
+                /// <summary>
+                /// Clave para autenticarse en el servicio
+                /// </summary>
+                public const string ClaveInformacionComercial = "cla_inf_com";
+                /// <summary>
+                /// Número de campanias a obtener en cada periodo
+                /// </summary>
+                public const string NumeroCampaniasEnPeriodo = "num_cam_per";
             }
 
         }
@@ -447,6 +470,8 @@ namespace Portal.Consultoras.Common
             public const string RecomendacionesConfig = "RecomendacionesConfiguracion";
             public const string BuscadorYFiltrosConfig = "BuscadorYFiltros";
             public const string MSPersonalizacionConfig = "MSPersonalizacion";
+
+            public const string NivelConsultoraCaminoBrillante = "NivelConsultoraCaminoBrillante";
 
         }
 
@@ -1471,7 +1496,8 @@ namespace Portal.Consultoras.Common
             public const string MicroserviciosPersonalizacion = "MSPersonalizacion";
             public const string Datami = "DATAMI";
             public const string DireccionEntrega = "DIRECCION_ENTREGA";
-            public const string CaminoBrillante = "CAMINOBRILLANTE";
+            public const string CaminoBrillante = "CAMINOBRILLANTE"; 
+            public const string CaminoBrillanteMsg = "cambri_Home"; 
         }
 
 
@@ -3452,6 +3478,31 @@ namespace Portal.Consultoras.Common
             public const int Inconstantes = 7;
             public const int PosibleEgreso = 8;
             public const int Reingreso = 9;
+        }
+
+        public static class MetodosInformacionComercial
+        {
+            public const string GetPeriodo = "GetPeriodo/";
+            public const string GetNivel = "GetNivel/";
+            public const string GetOfertas = "GetOfertas/";
+            public const string GetNivelConsultora = "GetNivelConsultora/";
+            public const string GetKitsConsultora = "GetKitsConsultora/";
+        }
+
+        public static class CodigoIsoHana
+        {
+            public const string Bolivia = "BOL";
+            public const string Chile = "CHL";
+            public const string Colombia = "COL";
+            public const string CostaRica = "CRI";
+            public const string Ecuador = "ECU";
+            public const string Salvador = "SLV";
+            public const string Guatemala = "GTM";
+            public const string Mexico = "MEX";
+            public const string Panama = "PAN";
+            public const string Peru = "PER";
+            public const string PuertoRico = "PRI";
+            public const string Dominicana = "DOM";
         }
     }
 }

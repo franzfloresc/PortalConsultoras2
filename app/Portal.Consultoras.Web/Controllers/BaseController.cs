@@ -76,6 +76,14 @@ namespace Portal.Consultoras.Web.Controllers
         protected readonly ComunicadoProvider _comunicadoProvider;
         protected readonly ProgramaNuevasProvider _programaNuevasProvider;
         protected readonly MiPerfilProvider _miPerfilProvider;
+
+
+
+        
+
+
+
+
         protected MasGanadorasModel MasGanadoras
         {
             get
@@ -118,6 +126,7 @@ namespace Portal.Consultoras.Web.Controllers
             _comunicadoProvider = new ComunicadoProvider();
             _programaNuevasProvider = new ProgramaNuevasProvider(SessionManager);
             _miPerfilProvider = new MiPerfilProvider();
+            
         }
 
         public BaseController(ISessionManager sessionManager)

@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using System.Web;
 using Portal.Consultoras.Web.Models.Recomendaciones;
 using Portal.Consultoras.Web.Models.Estrategia;
+using Portal.Consultoras.Web.Models.CaminoBrillante;
 
 namespace Portal.Consultoras.Web.SessionManager
 {
@@ -1371,5 +1372,24 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return (List<UsuarioOpcionesModel>)HttpContext.Current.Session[Constantes.ConstSession.UsuarioPedidos];
         }
+
+
+
+        #region CaminoBrillante
+        public void SetConsultora(List<NivelConsultoraCaminoBrillanteModel> val)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.NivelConsultoraCaminoBrillante] = val;
+        }
+
+        public List<NivelConsultoraCaminoBrillanteModel> GetConsultora()
+        {
+            return (List<NivelConsultoraCaminoBrillanteModel>)HttpContext.Current.Session[Constantes.ConstSession.NivelConsultoraCaminoBrillante];
+        }
+        #endregion
+
+
+
+
+
     }
 }

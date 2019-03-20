@@ -3,6 +3,10 @@
 @using Portal.Consultoras.Web.Models
 @model BienvenidaHomeModel
 
+
+
+
+
 @section styles{
 
     @System.Web.Optimization.Styles.Render("~/Bundle/Css/Mixto/CssBienvenida")
@@ -24,6 +28,9 @@
     var nroCampania = Util.SubStr(Model.CampaniaActual.ToString(), 4, 2);
     var revistaDigital = Model.PartialSectionBpt.RevistaDigital ?? new RevistaDigitalModel();
 }
+
+
+
 
 <input type="hidden" id="hdTipoEstrategiaID" value="0" />
 
@@ -174,22 +181,17 @@
     </div>
     <hr class="clear" />
 
-
-    @{
-        if (Model.TieneCaminoBrillante)
-        {
-            <div class="items_belcorp cam-exito">
-                <img src="~/Content/Images/CaminoBrillante/medalla.PNG">
-                <p class="toptext">Camino Brillante</p>
-                <p>
-                    Conoce todos tus beneficios por ser <br><strong>Consultora Ambar</strong>
-                </p>
-                <a href="@Url.Action("Index", "CaminoBrillante")">Ver Beneficios</a>
-            </div>
-        }
+    @if (Model.TieneCaminoBrillante)
+    {
+        <div class="items_belcorp cam-exito">
+            <img src="~/Content/Images/CaminoBrillante/medalla.PNG">
+            <p class="toptext">Camino Brillante</p>
+            <p id="TextoCaminoBrillante">
+                @*@Model.CaminoBrillanteMsg*@
+            </p>
+            <a href="@Url.Action("Index", "CaminoBrillante")">Ver Beneficios</a>
+        </div>
     }
-
-
 
     <div class="items_belcorp">
         @{
@@ -1976,6 +1978,8 @@
 
 @System.Web.Optimization.Scripts.Render("~/Scripts/PortalConsultoras/Bienvenida/AsesoraOnline.js")
 
+
+
 @section scripts{
     <script type="text/javascript">
         var viewBagInscritaFlexipago = '@Model.InscritaFlexipago';
@@ -2101,7 +2105,6 @@
 
     <script src="~/Scripts/PortalConsultoras/Bienvenida/PopusJS.js?v=4.2"></script>
     <script>
-        MostrarPopusEnOrden('@Model.TipoPopUpMostrar', '@Model.VioVideoBienvenidaModel', '@Model.VioTutorialDesktop','@Model.CambioClave');
+        MostrarPopusEnOrden('@Model.TipoPopUpMostrar', '@Model.VioVideoBienvenidaModel', '@Model.VioTutorialDesktop', '@Model.CambioClave');
     </script>
-
 }

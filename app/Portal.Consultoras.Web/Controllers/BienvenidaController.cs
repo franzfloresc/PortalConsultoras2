@@ -1,6 +1,7 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.CaminoBrillante;
 using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServicePedido;
@@ -10,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -20,6 +22,7 @@ namespace Portal.Consultoras.Web.Controllers
         private readonly BienvenidaProvider _bienvenidaProvider;
         protected TablaLogicaProvider _tablaLogica;
         private readonly ZonificacionProvider _zonificacionProvider;
+        private readonly CaminoBrillanteProvider _Comercial;
 
         public BienvenidaController()
         {
@@ -27,6 +30,7 @@ namespace Portal.Consultoras.Web.Controllers
             _tablaLogica = new TablaLogicaProvider();
             _bienvenidaProvider = new BienvenidaProvider();
             _zonificacionProvider = new ZonificacionProvider();
+            _Comercial = new CaminoBrillanteProvider("http://10.12.6.217:9500/", "AKIAIYETSRUJDVPUJMVQ", "63tSNMOUqQ2wAH16KWL/nfzOu/qWpkpz9TFm21Ti");
         }
 
         public BienvenidaController(ILogManager logManager)
@@ -75,7 +79,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 List<BETablaLogicaDatos> datGaBoton;
                 List<BETablaLogicaDatos> configCarouselLiquidacion;
-                
+
                 _showRoomProvider.CargarEventoConsultora(userData);
 
                 using (var sv = new SACServiceClient())
@@ -235,8 +239,19 @@ namespace Portal.Consultoras.Web.Controllers
                 model.MostrarPagoEnLinea = (userData.MontoDeuda > 0);
                 model.TieneCaminoBrillante = userData.CaminoBrillante;
 
-                #region Camino al Éxito
 
+                ////RJ - FORMA 1
+                //List<NivelConsultoraCaminoBrillanteModel> DatosConsultora = await GetNivelConsultora();
+                //string DescripcionNivel = string.Empty;
+                //if (DatosConsultora.Count > 0)
+                //{
+                //    SessionManager.SetConsultora(DatosConsultora);
+                //    foreach (NivelConsultoraCaminoBrillanteModel obj in DatosConsultora)
+                //        DescripcionNivel = obj.NivelActual == 1 ? "Consultora" : obj.NivelActual == 2 ? "Coral" : obj.NivelActual == 3 ? "Ámbar" : obj.NivelActual == 4 ? "Perla" : obj.NivelActual == 5 ? "Topacio" : obj.NivelActual == 6 ? "Brillante" : "";
+                //}
+                //model.CaminoBrillanteMsg = userData.CaminoBrillanteMsg.Replace("{0}", DescripcionNivel);
+
+                #region Camino al Éxito
                 var LogicaCaminoExisto = _tablaLogica.GetTablaLogicaDatos(userData.PaisID, Constantes.TablaLogica.EscalaDescuentoDestokp);
                 if (LogicaCaminoExisto.Any())
                 {
@@ -249,7 +264,6 @@ namespace Portal.Consultoras.Web.Controllers
                         model.urlCaminoExito = accesoCaminoExito.Item2 ?? "";
                     }
                 }
-
                 #endregion
 
             }
@@ -497,9 +511,9 @@ namespace Portal.Consultoras.Web.Controllers
                 model.UsuarioPrueba = userData.UsuarioPrueba;
                 model.NombreArchivoContrato = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.Contrato_ActualizarDatos + userData.CodigoISO);
                 model.IndicadorConsultoraDigital = beusuario.IndicadorConsultoraDigital;
-                
+
                 var bezona = _zonificacionProvider.GetZonaById(userData.PaisID, userData.ZonaID);
-                
+
                 model.NombreGerenteZonal = bezona.NombreGerenteZona;
 
                 if (beusuario.EMailActivo) model.CorreoAlerta = "";
@@ -1245,7 +1259,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-        
+
         private int ValidarSuenioNavidad()
         {
             var entidad = new BESuenioNavidad
@@ -1292,7 +1306,7 @@ namespace Portal.Consultoras.Web.Controllers
                 _showRoomProvider.CargarEventoConsultora(userData);
                 _showRoomProvider.CargarEventoPersonalizacion(userData);
                 configEstrategiaSR = SessionManager.GetEstrategiaSR();
-               var entidad = new BEShowRoomEventoConsultora
+                var entidad = new BEShowRoomEventoConsultora
                 {
                     CodigoConsultora = userData.CodigoConsultora,
                     CampaniaID = userData.CampaniaID,
@@ -1947,5 +1961,46 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
+
+
+        #region CaminoBrillante
+        private Task<List<NivelConsultoraCaminoBrillanteModel>> GetNivelConsultora()
+        {
+            List<string> Credenciales = new List<string>();
+            Credenciales = GetDatosComercial();
+            CaminoBrillanteProvider prv = new CaminoBrillanteProvider(Credenciales[0], Credenciales[1], Credenciales[2]);
+            Task<List<NivelConsultoraCaminoBrillanteModel>> task = prv.GetNivelConsultora("CRI", "0007975", "1");
+            return task;
+        }
+
+        public List<string> GetDatosComercial()
+        {
+            List<string> list = new List<string>();
+            using (var svc = new SACServiceClient())
+            {
+                var response = svc.GetTablaLogicaDatos(userData.PaisID, Constantes.TablaLogicaDato.CaminoBrillanteTablaLogica).ToList();
+                foreach (BETablaLogicaDatos obj in response)
+                    list.Add(obj.Valor);
+            }
+            return list;
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> GetNivelConsultoras()
+        {
+            //RJ - FORMA 2
+            List<NivelConsultoraCaminoBrillanteModel> DatosConsultora = await GetNivelConsultora();
+            string DescripcionNivel = string.Empty;
+            if (DatosConsultora.Count > 0)
+            {
+                SessionManager.SetConsultora(DatosConsultora);
+                foreach (NivelConsultoraCaminoBrillanteModel obj in DatosConsultora)
+                    DescripcionNivel = obj.NivelActual == 1 ? "Consultora" : obj.NivelActual == 2 ? "Coral" : obj.NivelActual == 3 ? "Ámbar" : obj.NivelActual == 4 ? "Perla" : obj.NivelActual == 5 ? "Topacio" : obj.NivelActual == 6 ? "Brillante" : "";
+            }
+            return Json(new { CaminoBrillanteMsg = userData.CaminoBrillanteMsg.Replace("{0}", DescripcionNivel) }, JsonRequestBehavior.AllowGet);
+
+        }
+        #endregion
     }
 }
