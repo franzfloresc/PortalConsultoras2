@@ -212,6 +212,8 @@ $(document).ready(function () {
 
     });
 
+
+    GetNivelConsultoraCaminoBrillante();
     CrearDialogs();
     CargarCarouselEstrategias();
     if (_validartieneMasVendidos() === 1) {
@@ -3307,4 +3309,17 @@ function ObtenerEstadoContrato() {
     });
 
     return re;
+}
+
+function GetNivelConsultoraCaminoBrillante() {
+    $.ajax({
+        url: "/Bienvenida/GetNivelConsultoras",
+        type: "GET",
+        dataType: "json",
+        success: function (data) {
+            $("#TextoCaminoBrillante").append(data.CaminoBrillanteMsg);
+        }, error: function (xhr, status, error) {
+
+        }
+    })
 }
