@@ -113,7 +113,9 @@ namespace Portal.Consultoras.BizLogic
 
             ValidFlagEsPremioNueva(listDetNuevas, listCuvNuevas);
             var listDetNuevasNoPremios = listDetNuevas.Where(d => !d.EsPremioElectivo).ToList();
+
             ValidFlagEsElecMultipleNuevas(paisID, campaniaID, codigoPrograma, consecutivoNueva, listDetNuevasNoPremios, listCuvNuevas);
+            ValidFlagEsIndependiente(listDetNuevas, listCuvNuevas);
         }
 
         public bool EsCuvElecMultiple(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv)
@@ -237,6 +239,17 @@ namespace Portal.Consultoras.BizLogic
             return iNivelInicial <= nivelConsultora && nivelConsultora <= (iNivelInicial + campaniasVigentes - 1);
         }
 
+        //valida si es cupon independiente
+        private void ValidFlagEsIndependiente(List<BEPedidoWebDetalle> listDetNuevas, List<BEProductoProgramaNuevas> listCuvNuevas)
+        {
+            var listCuvIndependiente = listCuvNuevas.Where(c => c.EsCuponIndependiente).ToList();
+            if (listCuvIndependiente.Count == 0) return;
+
+            var listDetalleIndependiente = listDetNuevas.Where(d => listCuvIndependiente.Any(p => p.CodigoCupon == d.CUV)).ToList();
+            listDetalleIndependiente.ForEach(d => d.EsCuponIndependiente = true);
+        }
+        // FIN ticket HD-3755
+
         private void ValidFlagEsPremioNueva(List<BEPedidoWebDetalle> listDetNuevas, List<BEProductoProgramaNuevas> listCuvNuevas)
         {
             var listCuvPremioElec = listCuvNuevas.Where(c => c.EsPremioElectivo).ToList();
@@ -245,6 +258,7 @@ namespace Portal.Consultoras.BizLogic
             var listDetallePremioElec = listDetNuevas.Where(d => listCuvPremioElec.Any(p => p.CodigoCupon == d.CUV)).ToList();
             listDetallePremioElec.ForEach(d => d.EsPremioElectivo = true);
         }
+
         private void ValidFlagEsElecMultipleNuevas(int paisID, int campania, string codPrograma, int consecutivoNueva, List<BEPedidoWebDetalle> listDetNuevas, List<BEProductoProgramaNuevas> listCuvNuevas)
         {
             var listCuvElectivas = listCuvNuevas.Where(c => !c.EsCuponIndependiente).ToList();

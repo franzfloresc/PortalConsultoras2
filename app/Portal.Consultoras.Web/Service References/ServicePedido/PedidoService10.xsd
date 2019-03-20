@@ -973,6 +973,7 @@
       <xs:element minOccurs="0" name="EsCuponNuevas" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsDuoPerfecto" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsElecMultipleNuevas" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EsCuponIndependiente" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsKitNueva" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsOfertaIndependiente" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsPremioElectivo" type="xs:boolean" />

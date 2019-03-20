@@ -1387,7 +1387,10 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EsCuponNuevasField;
-        
+
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsCuponIndependienteField;
+
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EsDuoPerfectoField;
         
@@ -1892,7 +1895,24 @@ namespace Portal.Consultoras.Web.ServiceCliente {
                 }
             }
         }
-        
+
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsCuponIndependiente
+        {
+            get
+            {
+                return this.EsCuponIndependienteField;
+            }
+            set
+            {
+                if ((this.EsCuponIndependienteField.Equals(value) != true))
+                {
+                    this.EsCuponIndependienteField = value;
+                    this.RaisePropertyChanged("EsCuponIndependiente");
+                }
+            }
+        }
+
         [System.Runtime.Serialization.DataMemberAttribute()]
         public bool EsDuoPerfecto {
             get {
