@@ -195,13 +195,12 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                         }
 
-                        cuvTonos = cuvTonos + (cuvTonos == "" ? "" : "|") + cuv;
-                        cuvTonos = cuvTonos + ";" + ficha.MarcaID;
-                        cuvTonos = cuvTonos + ";" + ficha.Precio2;
-                        if (!string.IsNullOrEmpty(descTono))
-                        {
-                            cuvTonos = cuvTonos + ";" + descTono;
-                        }
+                        cuvTonos = cuvTonos
+                            + (cuvTonos == "" ? "" : "|") + cuv
+                            + ";" + ficha.MarcaID
+                            + ";" + ficha.Precio2
+                            + (string.IsNullOrEmpty(descTono) ? "" : (";" + descTono));
+                        
                     }
 
                     model.TipoEstrategiaID = ficha.TipoEstrategiaID;
