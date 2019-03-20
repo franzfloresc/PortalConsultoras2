@@ -1630,7 +1630,7 @@ var AnalyticsPortalModule = (function () {
                 var element = {
                     'id': item.CUV2,
                     'name': 'Arma tu Dúo Perfecto - Dúo Perfecto',
-                    'position': pos != undefined ? pos + ' - Dúo Perfecto' : '',
+                    'position': (pos !== undefined || pos !== "undefined") ? pos + ' - Dúo Perfecto' : '',
                     'creative': "Banner"
                 };
                 collection.push(element);

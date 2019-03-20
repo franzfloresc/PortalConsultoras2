@@ -62,6 +62,12 @@ var CarruselAyuda = function () {
         return pagina;
     }
 
+    var _eliminarDuplicadosArray = function (arr, comp) {
+        const unique = arr.map(e => e[comp]).map((e, i, final) => final.indexOf(e) === i && i).filter(e => arr[e]).map(e => arr[e]);
+        return unique;
+    }
+
+
     var _obtenerEstrategiaLiquidacion = function (objMostrar) {
         var estrategia = "";
         var recomendado = arrayLiquidaciones[objMostrar.IndexMostrar] || {};
@@ -106,15 +112,16 @@ var CarruselAyuda = function () {
 
                 //INI DH-3473 EINCA Marcar las estrategias de programas nuevas(dúo perfecto)
                 var programNuevas = arrayItems.filter(function (pn) {
+                    var cuv2 = pn.CUV2
                     return pn.EsBannerProgNuevas == true;
                 });
 
                 if (programNuevas) {
                     if (programNuevas.length > 0) {
-                        if (origen.Pagina) {
+                      var uniqueProgramNuevas =  _eliminarDuplicadosArray(programNuevas, "CUV2");
 
-                        }
-                        AnalyticsPortalModule.MarcaGenericaLista(ConstantesModule.TipoEstrategia.DP, programNuevas, origen);
+                        var pos = (origen.Pagina === ConstantesModule.OrigenPedidoWebEstructura.Pagina.Home) ? "Home" : "Pedido";
+                        AnalyticsPortalModule.MarcaGenericaLista(ConstantesModule.TipoEstrategia.DP, uniqueProgramNuevas, pos);
                     }
                 }
                 //FIN DH-3473 EINCA Marcar las estrategias de programas nuevas(dúo perfecto)
