@@ -1978,22 +1978,7 @@
 
 @System.Web.Optimization.Scripts.Render("~/Scripts/PortalConsultoras/Bienvenida/AsesoraOnline.js")
 
-<script src="~/Scripts/jquery-1.11.2.min.js"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $.ajax({
-            url: "/Bienvenida/GetNivelConsultoras",
-            type: "GET",
-            dataType: "json",
-            success: function (data) {
-                debugger;
-                $("#TextoCaminoBrillante").append(data.CaminoBrillanteMsg);
-            }, error: function (xhr, status, error) {
 
-            }
-        });
-    });
-</script>
 
 @section scripts{
     <script type="text/javascript">
