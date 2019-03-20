@@ -1,6 +1,11 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Models.CaminoBrillante;
+using Portal.Consultoras.Web.Providers;
+using Portal.Consultoras.Web.ServiceSAC;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -13,5 +18,81 @@ namespace Portal.Consultoras.Web.Controllers
         {
             return View();
         }
+
+        [HttpGet]
+        public JsonResult GetNiveles()
+        {
+            //async Task<
+
+            Random rdn = new Random();
+            long Nivel = rdn.Next(1, 6);
+
+            //List<NivelesCaminoBrillanteModel> list = new List<NivelesCaminoBrillanteModel>();
+            //list = await Niveles();
+
+
+
+            var objniveles = new List<NivelesCaminoBrillanteModel>();
+            var objBeneficio = new List<BeneficiosNivelCaminoBrillanteModel>();
+
+            int montominimo = rdn.Next(50, 70);
+            int montomaximo = rdn.Next(315, 400);
+
+            for (int j = 1; j < 8; j++)
+            {
+                objBeneficio.Add(new BeneficiosNivelCaminoBrillanteModel()
+                {
+                    CodigoBeneficio = j,
+                    Titulo = "BENEFICIO " + j.ToString(),
+                    Descripcion = "Descripción de Prueba " + j.ToString(),
+                    UrlImagen = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGC9FIeHPnZEUkMW3Pf0PozOdqCH8ip5InmMAp60L4uwRYbtdF"
+                });
+            }
+
+            for (int i = 1; i < 7; i++)
+            {
+                objniveles.Add(new NivelesCaminoBrillanteModel()
+                {
+                    IsoPais = "CRI",
+                    CodigoNivel = i.ToString(),
+                    DescripcionNivel = i == 1 ? "Consultora" : i == 2 ? "Coral" : i == 3 ? "Ámbar" : i == 4 ? "Perla" : i == 5 ? "Topacio" : i == 6 ? "Brillante" : "",
+                    MontoMinimo = montominimo.ToString("C"),
+                    MontoMaximo = montomaximo.ToString("C"),
+                    BeneficiosNivel = objBeneficio,
+                    UrlImagenNivel = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGC9FIeHPnZEUkMW3Pf0PozOdqCH8ip5InmMAp60L4uwRYbtdF"
+                });
+                montominimo = montomaximo + 1;
+                montomaximo = montomaximo + 100;
+            }
+            return Json(new { list = objniveles, NivelActual = rdn.Next(1, 6) }, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+        #region CaminoBrillante
+        private Task<List<NivelesCaminoBrillanteModel>> Niveles()
+        {
+            List<string> Credenciales = new List<string>();
+            Credenciales = GetDatosComercial();
+            CaminoBrillanteProvider prv = new CaminoBrillanteProvider(Credenciales[0], Credenciales[1], Credenciales[2]);
+            TimeSpan ts = TimeSpan.FromMilliseconds(5000);
+            Task<List<NivelesCaminoBrillanteModel>> task = prv.GetNivel("CRI"); //Reemplazar por UserData.Pais
+            //task.Wait(ts);
+            //var demo = task.Result;
+            return task;
+        }
+
+        public List<string> GetDatosComercial()
+        {
+            List<string> list = new List<string>();
+            using (var svc = new SACServiceClient())
+            {
+                var response = svc.GetTablaLogicaDatos(userData.PaisID, Constantes.TablaLogicaDato.CaminoBrillanteTablaLogica).ToList();
+                foreach (BETablaLogicaDatos obj in response)
+                    list.Add(obj.Valor);
+            }
+            return list;
+        }
+        #endregion
     }
 }

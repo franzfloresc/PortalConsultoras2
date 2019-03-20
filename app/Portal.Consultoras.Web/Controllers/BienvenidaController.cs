@@ -38,7 +38,7 @@ namespace Portal.Consultoras.Web.Controllers
             this.logManager = logManager;
         }
 
-        public ActionResult Index(bool showPopupMisDatos = false, string verSeccion = "", string verCambioClave = "")
+        public async Task<ActionResult> Index(bool showPopupMisDatos = false, string verSeccion = "", string verCambioClave = "")
         {
             var model = new BienvenidaHomeModel { ShowPopupMisDatos = showPopupMisDatos, OpcionCambiaClave = verCambioClave };
 
@@ -240,10 +240,19 @@ namespace Portal.Consultoras.Web.Controllers
                 model.TieneCaminoBrillante = userData.CaminoBrillante;
 
 
-                //var demito = GetNivelConsultora();
+                //RJ - FORMA 1
+                List<NivelConsultoraCaminoBrillanteModel> DatosConsultora = await GetNivelConsultora();
+                string DescripcionNivel = string.Empty;
+                if (DatosConsultora.Count > 0)
+                {
+                    SessionManager.SetConsultora(DatosConsultora);
+                    foreach (NivelConsultoraCaminoBrillanteModel obj in DatosConsultora)
+                        DescripcionNivel = obj.NivelActual == 1 ? "Consultora" : obj.NivelActual == 2 ? "Coral" : obj.NivelActual == 3 ? "Ámbar" : obj.NivelActual == 4 ? "Perla" : obj.NivelActual == 5 ? "Topacio" : obj.NivelActual == 6 ? "Brillante" : "";
+                }
+                model.CaminoBrillanteMsg = userData.CaminoBrillanteMsg.Replace("{0}", DescripcionNivel);
 
-                //ricardo
-                model.CaminoBrillanteMsg = userData.CaminoBrillanteMsg.Replace("{0}", "Consultora ambar");
+
+
 
 
 
@@ -1963,23 +1972,19 @@ namespace Portal.Consultoras.Web.Controllers
 
 
         #region CaminoBrillante
-        private List<NivelConsultoraCaminoBrillanteModel> GetNivelConsultora()
+        private Task<List<NivelConsultoraCaminoBrillanteModel>> GetNivelConsultora()
         {
-            //List<string> Credenciales = new List<string>();
-            //Credenciales = GetDatosComercial();
-            //CaminoBrillanteProvider prv = new CaminoBrillanteProvider(Credenciales[0], Credenciales[1], Credenciales[2]);
-
-
-
-            //Task<List<NivelConsultoraCaminoBrillanteModel>> task = prv.GetNivelConsultora("CRI", "0007975", "1");
-            //task.Wait();
+            List<string> Credenciales = new List<string>();
+            Credenciales = GetDatosComercial();
+            CaminoBrillanteProvider prv = new CaminoBrillanteProvider(Credenciales[0], Credenciales[1], Credenciales[2]);
+            TimeSpan ts = TimeSpan.FromMilliseconds(5000);
+            Task<List<NivelConsultoraCaminoBrillanteModel>> task = prv.GetNivelConsultora("CRI", "0007975", "1");
+            //task.Wait(ts);
             //var demo = task.Result;
-            //return demo;
-            return null;
-
+            return task;
         }
 
-        private List<string> GetDatosComercial()
+        public List<string> GetDatosComercial()
         {
             List<string> list = new List<string>();
             using (var svc = new SACServiceClient())

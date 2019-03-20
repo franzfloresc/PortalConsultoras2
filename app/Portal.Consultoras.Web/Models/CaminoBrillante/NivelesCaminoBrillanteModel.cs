@@ -6,12 +6,17 @@ namespace Portal.Consultoras.Web.Models.CaminoBrillante
     [DataContract]
     public class NivelesCaminoBrillanteModel
     {
+        [DataMember(Name = "ISOPAIS")]
+        public string IsoPais { get; set; }
 
-        //public string ISOPAIS { get; set;}
         [DataMember(Name = "CODIGONIVEL")]
         public string CodigoNivel { get; set; }
-        [DataMember(Name = "ISOPAIS")]
+
+
+        [DataMember(Name = "DESCRIPCIONNIVEL")]
         public string DescripcionNivel { get; set; }
+
+
         [DataMember(Name = "MONTOMINIMO")]
         public string MontoMinimo { get; set; }
         [DataMember(Name = "MONTOMAXIMO")]
@@ -26,5 +31,11 @@ namespace Portal.Consultoras.Web.Models.CaminoBrillante
         public string Beneficio4 { get; set; }
         [DataMember(Name = "BENEFICIO5")]
         public string Beneficio5 { get; set; }
+
+        [DataMember(Name = "URLIMAGEN")]
+        public string UrlImagenNivel { get; set; }
+
+        [DataMember(Name = "BENEFICIOSNIVEL")]
+        public List<BeneficiosNivelCaminoBrillanteModel> BeneficiosNivel { get; set; }
     }
 }
