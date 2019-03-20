@@ -220,6 +220,7 @@ var BuscadorModule = (function () {
                     esAlfaNumerico = true;
                 }
             }
+            return esAlfaNumerico;
         }
     };
     var _eventos = {
