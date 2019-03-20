@@ -16,9 +16,7 @@
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_GoogleOptimize.cshtml")
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManager.cshtml")
 
-
     <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
-
 
     @Styles.Render("~/Bundle/Css/Mixto/Bootstrap")
     @Styles.Render("~/Bundle/Css/Mixto/LayoutResponsive")
@@ -116,45 +114,45 @@
 
     <div class="layout-somos-belcorp container-fluid pl-0 pr-0">
         <header class="layout__header row flex-column flex-nowrap justify-content-between justify-content-lg-start justify-content-xl-start align-items-center ml-0 mr-0">
-            <div class="row flex-row flex-nowrap justify-content-between justify-content-lg-start justify-content-xl-start align-items-center ml-0 mr-0 mx-auto layout__container">
-                <section class="header__icono__menu mostrarEnMobile pl-0 pr-0">
-                    <img class="w-100" src="@Url.Content("~/Content/images/mobile/icono-menu-mobile.svg")" alt="Abrir Menú">
-                </section>
-                <section class="header__marca__pais text-left">
-                    @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
-                    {
-                        <picture class="d-block w-100">
-                            <source media="(min-width: 992px)" srcset="@Url.Content("~/Content/images/Esika/logo_marca_pais_desktop.svg")">
-                            <source media="(max-width: 991px)" srcset="@Url.Content("~/Content/images/Esika/logo_marca_pais_mobile.svg")">
-                            <img class="logoPaginaResponsive pointer" src="@Url.Content("~/Content/images/Esika/logo_marca_pais_desktop.svg")" alt="Ésika">
-                        </picture>
-                    }
-                    else
-                    {
-                        <picture class="d-block w-100">
-                            <source media="(min-width: 992px)" srcset="@Url.Content("~/Content/images/Lbel/logo_marca_pais.svg")">
-                            <img class="logoPaginaResponsive pointer" src="@Url.Content("~/Content/images/Lbel/logo_marca_pais.svg")">
-                        </picture>
-                    }
-
-
-                </section>
-                @Html.Partial("~/Views/Shared/_MenuPrincipalResponsive.cshtml")
-                <section class="row flex-row justify-content-center align-items-center flex-grow-1 header__buscador__productos">
-                    @if (ViewBag.MostrarBuscadorYFiltros)
-                    {
-                        @Html.Partial("~/Views/Shared/_BuscadorResponsive.cshtml")
-                    }
-                </section>
-                @Html.Partial("~/Views/Shared/_MenuSecundarioResponsive.cshtml")
+            <div data-layout="menu"
+                 class="col-12 d-flex flex-row flex-nowrap pl-lg-0 pr-lg-0 layout__header--menuSomosBelcorp">
+                <div class="row flex-row flex-nowrap justify-content-between justify-content-lg-start justify-content-xl-start align-items-center ml-0 mr-0 mx-auto layout__container">
+                    <section class="header__icono__menu mostrarEnMobile pl-0 pr-0">
+                        <img class="w-100" src="@Url.Content("~/Content/images/mobile/icono-menu-mobile.svg")" alt="Abrir Menú">
+                    </section>
+                    <section class="header__marca__pais text-left">
+                        @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
+                        {
+                            <picture class="d-block w-100">
+                                <source media="(min-width: 992px)" srcset="@Url.Content("~/Content/images/Esika/logo_marca_pais_desktop.svg")">
+                                <source media="(max-width: 991px)" srcset="@Url.Content("~/Content/images/Esika/logo_marca_pais_mobile.svg")">
+                                <img class="logoPaginaResponsive pointer" src="@Url.Content("~/Content/images/Esika/logo_marca_pais_desktop.svg")" alt="Ésika">
+                            </picture>
+                        }
+                        else
+                        {
+                            <picture class="d-block w-100">
+                                <source media="(min-width: 992px)" srcset="@Url.Content("~/Content/images/Lbel/logo_marca_pais.svg")">
+                                <img class="logoPaginaResponsive pointer" src="@Url.Content("~/Content/images/Lbel/logo_marca_pais.svg")">
+                            </picture>
+                        }
+                    </section>
+                    @Html.Partial("~/Views/Shared/_MenuPrincipalResponsive.cshtml")
+                    <section class="row flex-row justify-content-center align-items-center flex-grow-1 header__buscador__productos">
+                        @if (ViewBag.MostrarBuscadorYFiltros)
+                        {
+                            @Html.Partial("~/Views/Shared/_BuscadorResponsive.cshtml")
+                        }
+                    </section>
+                    @Html.Partial("~/Views/Shared/_MenuSecundarioResponsive.cshtml")
+                </div>
             </div>
-
-            @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileMenu/_MenuContenedorOferta.cshtml")
+            @Html.Partial("~/Views/Shared/VistaParcialResponisve/_MenuContenedorResponsive.cshtml")
         </header>
 
         @if (!string.IsNullOrEmpty(ViewBag.Title))
         {
-            <section data-layout-content="breadcrumb" 
+            <section data-layout="ubicacionWeb"
                      class="row flex-row ml-0 mr-0 layout__view__breadcrumbs__wrapper mostrarEnDesktop">
                 <div class="col-12 pl-0 pr-0 mx-auto layout__view__breadcrumbs">
                     <ul class="row flex-row align-items-center ml-0 mr-0 layout__view__lista__breadcrumbs">
@@ -168,10 +166,10 @@
                 </div>
             </section>
         }
-        <div data-layout-content="body">
+        <div class="content_responsive" data-layout="body">
             @RenderBody()
         </div>
-
+        
         @Html.Partial("~/Views/Shared/_FooterResponsive.cshtml")
     </div>
 

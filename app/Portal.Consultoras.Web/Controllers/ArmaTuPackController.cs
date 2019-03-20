@@ -38,12 +38,17 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Detalle()
         {
             var area = EsDispositivoMovil() ? "mobile" : string.Empty;
+            if (!(revistaDigital.TieneRevistaDigital() && revistaDigital.EsSuscrita))
+            {
+                return RedirectToAction("Index", "Ofertas", new { Area = area });
+            }
+
+            //var area = EsDispositivoMovil() ? "mobile" : string.Empty;
             var IsMobile = EsDispositivoMovil();
 
             var listaOfertasATP = _ofertaPersonalizadaProvider.ConsultarEstrategiasModel(IsMobile, userData.CodigoISO, userData.CampaniaID, userData.CampaniaID, Constantes.TipoEstrategiaCodigo.ArmaTuPack).ToList();
 
-            if (listaOfertasATP == null){ return RedirectToAction("ofertas", "ficha", new { Area = area }); };
-            if (listaOfertasATP.Count() == 0){ return RedirectToAction("ofertas", "ficha", new { Area = area }); }
+            if (listaOfertasATP == null || listaOfertasATP.Count() == 0) { return RedirectToAction("Index", "Ofertas", new { Area = area }); };
 
             var OfertaATP = listaOfertasATP.FirstOrDefault();
             var lstPedidoAgrupado = ObtenerPedidoWebSetDetalleAgrupado(false);
@@ -61,8 +66,8 @@ namespace Portal.Consultoras.Web.Controllers
                 CampaniaID = userData.CampaniaID,
                 CodigoEstrategia = Constantes.TipoEstrategiaCodigo.ArmaTuPack
             };
-
             return View(DetalleEstrategiaFichaModel);
+
         }
 
     }

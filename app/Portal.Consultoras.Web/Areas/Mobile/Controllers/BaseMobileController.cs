@@ -151,7 +151,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private bool SiempreMostrarBannerPL20()
         {
-            string controllerName = ControllerContext.RouteData.Values["controller"].ToString();
+            string controllerName = GetControllerActual(); //ControllerContext.RouteData.Values["controller"].ToString();
             string actionName = ControllerContext.RouteData.Values["action"].ToString();
 
             if (controllerName == "Bienvenida" && actionName == "Index") return true;
@@ -160,7 +160,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private bool NuncaMostrarBannerPL20()
         {
-            string controllerName = ControllerContext.RouteData.Values["controller"].ToString();
+            string controllerName = GetControllerActual(); //ControllerContext.RouteData.Values["controller"].ToString();
 
             if (controllerName == "Pedido") return true;
             if (controllerName == "CatalogoPersonalizado") return true;
@@ -180,7 +180,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private bool NuncaMostrarBannerTopPL20()
         {
-            string controllerName = ControllerContext.RouteData.Values["controller"].ToString();
+            string controllerName = GetControllerActual(); //ControllerContext.RouteData.Values["controller"].ToString();
             string actionName = ControllerContext.RouteData.Values["action"].ToString();
 
             if (controllerName == "Bienvenida" && actionName == "Index") return true;
@@ -197,7 +197,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private bool NoMostrarBannerODD()
         {
-            string controllerName = ControllerContext.RouteData.Values["controller"].ToString();
+            string controllerName = GetControllerActual();//ControllerContext.RouteData.Values["controller"].ToString();
 
             if (controllerName == "OfertaLiquidacion") return true;
             if (controllerName == "CatalogoPersonalizado") return true;

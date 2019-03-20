@@ -371,9 +371,7 @@
 /* FIN - MENÚ PRINCIPAL DESKTOP */
 
 /* MENÚ PRINCIPAL MOBILE */
-
-@media screen and (max-width:991px){
-
+@media screen and (max-width:991px) {
     .header__menu--lateralIzquierdo{
         width:90%;
         min-width:0;

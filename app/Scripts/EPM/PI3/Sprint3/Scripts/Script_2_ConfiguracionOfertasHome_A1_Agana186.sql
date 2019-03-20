@@ -8,7 +8,7 @@ GO
 print db_name()
 
 declare @Codigo varchar(100) = 'ATP'
-declare @DesdeCampania int = 201905
+declare @DesdeCampania int = 0
 
 -- Verificar si existe la configuracion con Codigo ATP
 if not exists (select 1 

@@ -1,8 +1,12 @@
-﻿.banner_armaTuPack {
+﻿.content_responsive {
+    margin-top: 112px;
+}
+
+.banner_armaTuPack {
     background-color: #e70002;
     padding: 30px;
     text-align: center;
-    margin-top:109px;
+    
 }
 
     .banner_armaTuPack h1 {
@@ -33,7 +37,7 @@
     margin-bottom: 0;
 }
 
-    .Select_Group li {
+    .Select_Group .sym_mas {
         display: inline-block;
         vertical-align: middle;
         margin: 0px 4px;
@@ -167,8 +171,7 @@
 
     .product_select_close img {
         width: 7px;
-        height: 7px;
-
+        height: 8px;
     }
 
 .Select_Item.active {
@@ -357,16 +360,48 @@
 }
 
 
-
+footer {
+    display: none !important;
+}
 
 #seleccionados .slick-list.draggable {
     padding: 9px 0px;
 }
 
+#grupos {
+    margin-bottom: 95px;
+}
 
+.Select_Group .slick-track article {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+    .Select_Group .slick-track article::after {
+        content: "+";
+        display: block;
+        font-size: 20px;
+        font-weight: bold;
+        position: absolute;
+        right: -6px;
+    }
+
+        .Select_Group .slick-track article:last-child::after {
+              opacity: 0;
+        }
 
 
 @media screen and (min-width:768px) {
+    .content_responsive {
+        margin-top: 142px;
+    }
+
+    #grupos {
+        margin-bottom: 135px;
+    }
+
     #seleccionados .Select_Group {
         width: 472px;
     }
@@ -428,6 +463,11 @@
 
     .arrow_acordeon {
         display: none !important;
+    }
+
+    #Pack_Items .flecha_ofertas-tipo {
+        height: 197px;
+        display: flex !important;
     }
 }
 
@@ -548,11 +588,18 @@
     .Title_pack.active .arrow_acordeon {
         transform: rotate(0deg) !important;
     }
+
+    .Select_fixed {
+        position: fixed;
+        width: 100%;
+        z-index: 999;
+        top: 105px;
+    }
 }
 
 
 @media screen and (max-width:375px) {
-    .Select_Group li {
+    .Select_Group sym_mas {
         margin: 0px 1px;
         font-size: 16px;
     }

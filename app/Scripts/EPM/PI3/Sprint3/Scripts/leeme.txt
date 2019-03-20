@@ -1,0 +1,15 @@
+----------------------------------------------------------------------
+				ATP
+----------------------------------------------------------------------
+
+* Orden de ejecución de los scripts para la Opción de menú de ATP
+
+1) 2_ConfiguracionPais_A1_Agana159_Inicial.sql
+2) 2_ConfiguracionPais_A1_Agana159.sql
+3) Script_1_ConfiguracionOfertasHome_A1_Agana186.sql
+4) Script_2_ConfiguracionOfertasHome_A1_Agana186.sql
+5) Script_2_TablaLogicaDatos_A1_Agana186.sql
+6) 4_ConfiguracionOfertasHomeGet_A1_AGana186.sql
+7) 4_ConfiguracionOfertasHomeUpdate_A1_AGana186.sql
+
+

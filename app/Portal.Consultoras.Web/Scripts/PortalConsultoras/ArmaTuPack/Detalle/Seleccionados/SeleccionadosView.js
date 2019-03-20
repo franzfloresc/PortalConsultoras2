@@ -38,12 +38,20 @@
         SetHandlebars(_elements.seleccionados.templateId, packComponents, _elements.seleccionados.id);
 
         var slickSettings = {
-            slidesToShow: 5,
+            slidesToShow: 6,
             slidesToScroll: 1,
             autoplaySpeed: 2000,
             fade: false,
             arrows: true,
-            infinite: false
+            infinite: false,
+            responsive:[
+                {
+                    breakpoint: 768,
+                    settings: {
+                        slidesToShow: 4,
+                    }
+                }
+            ]
         };
 
         $(_elements.seleccionados.attrCarruselContainer).slick(slickSettings);
@@ -67,6 +75,20 @@
 
         $(_elements.seleccionados.id).on("click",_elements.btnAgregar.id, function (e) {
             _presenter.addPack();
+        });
+
+        $(window).scroll(function () {
+
+            var scrollTop = $(this).scrollTop();
+
+            if (scrollTop > 230) {
+                $(".Select_ArmaTuPack").addClass("Select_fixed");
+                $(".Select_ArmaTuPack").fadeIn();
+            }
+            else {
+                $(".Select_ArmaTuPack").removeClass("Select_fixed");
+                $(".Select_ArmaTuPack").removeAttr('style');
+            }
         });
     };
 
