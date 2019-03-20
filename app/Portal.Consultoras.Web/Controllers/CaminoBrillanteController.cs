@@ -13,6 +13,7 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class CaminoBrillanteController : BaseController
     {
+        #region CaminoBrillante
         // GET: CaminoBrillante
         public ActionResult Index()
         {
@@ -22,19 +23,13 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpGet]
         public JsonResult GetNiveles()
         {
-            //async Task<
-
             Random rdn = new Random();
             long Nivel = rdn.Next(1, 6);
-
             //List<NivelesCaminoBrillanteModel> list = new List<NivelesCaminoBrillanteModel>();
             //list = await Niveles();
 
-
-
             var objniveles = new List<NivelesCaminoBrillanteModel>();
             var objBeneficio = new List<BeneficiosNivelCaminoBrillanteModel>();
-
             int montominimo = rdn.Next(50, 70);
             int montomaximo = rdn.Next(315, 400);
 
@@ -67,18 +62,66 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(new { list = objniveles, NivelActual = rdn.Next(1, 6) }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
+        public JsonResult MisLogros()
+        {
+            var oLogros = new List<MisLogrosCaminoBrillanteModel>();
+            var oIndicadoresCre = new List<Indicador>();
+            var oIndicadoresCom = new List<Indicador>();
 
+            oIndicadoresCre.Add(new Indicador()
+            {
+                Titulo = "Ganancia",
+                Valor = "25",
+                UrlImagen = "/CAMINOBRILLANTE/DESKTOP/NIVELES/NIVEL_{0}.svg"
+            });
 
-        #region CaminoBrillante
+            oIndicadoresCre.Add(new Indicador()
+            {
+                Titulo = "Ganancia",
+                Valor = "8",
+                UrlImagen = "/CAMINOBRILLANTE/DESKTOP/NIVELES/NIVEL_{0}.svg"
+            });
+
+            oIndicadoresCre.Add(new Indicador()
+            {
+                Titulo = "Ganancia",
+                Valor = "5",
+                UrlImagen = "/CAMINOBRILLANTE/DESKTOP/NIVELES/NIVEL_{0}.svg"
+            });
+
+            oLogros.Add(new MisLogrosCaminoBrillanteModel()
+            {
+                Titulo = "Crecimiento",
+                Descripcion = "Tu progreso tiene recompensas",
+                Indicador = oIndicadoresCre
+            });
+
+            for (int i = 1; i < 3; i++)
+            {
+                oIndicadoresCom.Add(new Indicador()
+                {
+                    Titulo = "",
+                    Valor = "",
+                    UrlImagen = ""
+                });
+            }
+
+            oLogros.Add(new MisLogrosCaminoBrillanteModel()
+            {
+                Titulo = "Compromiso",
+                Descripcion = "Tu compromiso tiene recompensas",
+                Indicador = oIndicadoresCom
+            });
+            return Json(new { list = oLogros }, JsonRequestBehavior.AllowGet);
+        }
+
         private Task<List<NivelesCaminoBrillanteModel>> Niveles()
         {
             List<string> Credenciales = new List<string>();
             Credenciales = GetDatosComercial();
             CaminoBrillanteProvider prv = new CaminoBrillanteProvider(Credenciales[0], Credenciales[1], Credenciales[2]);
-            TimeSpan ts = TimeSpan.FromMilliseconds(5000);
             Task<List<NivelesCaminoBrillanteModel>> task = prv.GetNivel("CRI"); //Reemplazar por UserData.Pais
-            //task.Wait(ts);
-            //var demo = task.Result;
             return task;
         }
 

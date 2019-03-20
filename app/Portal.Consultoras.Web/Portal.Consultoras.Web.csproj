@@ -300,6 +300,8 @@
     <Compile Include="Infraestructure\Excel\ExcelProtectionProcessor.cs" />
     <Compile Include="Models\BuscadorYFiltrosCategoriaModel.cs" />
     <Compile Include="Models\CaminoBrillante\BeneficiosNivelCaminoBrillanteModel.cs" />
+    <Compile Include="Models\CaminoBrillante\Indicador.cs" />
+    <Compile Include="Models\CaminoBrillante\MisLogrosCaminoBrillanteModel.cs" />
     <Compile Include="Models\PremioNuevaModel.cs" />
     <Compile Include="Models\BuscadorYFiltrosConfiguracionModel.cs" />
     <Compile Include="Controllers\BusquedaProductosController.cs" />
@@ -4114,6 +4116,7 @@
     <Content Include="Scripts\PortalConsultoras\Buscador\BuscadorProvider.js" />
     <Content Include="Scripts\PortalConsultoras\Buscador\BusquedaProductoModule.js" />
     <Content Include="Scripts\PortalConsultoras\CaminoBrillante\index.js" />
+    <Content Include="Scripts\PortalConsultoras\CaminoBrillante\Mobile.js" />
     <Content Include="Scripts\PortalConsultoras\Campania\CampaniaModule.js" />
     <Content Include="Scripts\PortalConsultoras\CatalogoPersonalizado\catalogoPersonalizado.js" />
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />

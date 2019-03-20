@@ -135,8 +135,7 @@ strong {
     border-radius: 5px;
     border: 0;
     padding: 10px 20px;
-    /*max-width: 150px;*/
-    max-width: 180px;
+    max-width: 150px;
     text-align: center;
     margin: 25px auto;
     text-decoration: none;
@@ -233,11 +232,11 @@ strong {
 }
 
 .left-ganancias {
-    width: 42%;
+    width: 46%;
 }
 
 .right-ganancias {
-    width: 50%;
+    width: 46%;
     margin: 0;
     margin-left: 8%;
 }
@@ -574,7 +573,7 @@ div .owl-carousel .owl-stage-outer {
 }
 
 .modal-open {
-    overflow: hidden
+    overflow: hidden !important;
 }
 
 .modal {
