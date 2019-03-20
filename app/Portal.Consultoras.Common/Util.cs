@@ -3469,9 +3469,6 @@ namespace Portal.Consultoras.Common
                 case Constantes.PaisID.Bolivia:
                 case Constantes.PaisID.Guatemala:
                 case Constantes.PaisID.ElSalvador:
-                    limiteMinimoTelef = 5;
-                    limiteMaximoTelef = 8;
-                    break;
                 case Constantes.PaisID.Panama:
                 case Constantes.PaisID.CostaRica:
                     limiteMinimoTelef = 5;
