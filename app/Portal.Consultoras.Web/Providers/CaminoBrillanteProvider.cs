@@ -28,7 +28,7 @@ namespace Portal.Consultoras.Web.Providers
             bool flag = isoPais != "" && codigoConsultora != "" && cantidadCampanias != "";
             if (!flag) return result;
             string urlParameters = isoPais + "/" + codigoConsultora + "/" + cantidadCampanias;
-            string jsonString = await CallInformacionComercialServices(Url, urlParameters, Token);
+            string jsonString = await CallInformacionComercialServices(Url, urlParameters, Token, Constantes.MetodosInformacionComercial.GetNivelConsultora);
             result = JsonConvert.DeserializeObject<List<NivelConsultoraCaminoBrillanteModel>>(jsonString) as List<NivelConsultoraCaminoBrillanteModel>;
             return result;
         }
@@ -42,7 +42,7 @@ namespace Portal.Consultoras.Web.Providers
             bool flag = isoPais != "";
             if (!flag) return result;
             string urlParameters = isoPais;
-            string jsonString = await CallInformacionComercialServices(Url, urlParameters, Token);
+            string jsonString = await CallInformacionComercialServices(Url, urlParameters, Token, Constantes.MetodosInformacionComercial.GetNivel);
             result = JsonConvert.DeserializeObject<List<NivelesCaminoBrillanteModel>>(jsonString) as List<NivelesCaminoBrillanteModel>;
             return result;
         }
@@ -92,7 +92,7 @@ namespace Portal.Consultoras.Web.Providers
         /// <summary>
         /// Metodo para conectar y obtener la informacion solicitada al servcio de informacion comercial.
         /// </summary>
-        private static async Task<string> CallInformacionComercialServices(string url, string urlParameters, string token)
+        private static async Task<string> CallInformacionComercialServices(string url, string urlParameters, string token, string Method)
         {
             string jsonString = string.Empty;
             using (var client = new HttpClient())
@@ -100,7 +100,7 @@ namespace Portal.Consultoras.Web.Providers
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 client.DefaultRequestHeaders.ConnectionClose = true;
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", "QUtJQUlZRVRTUlVKRFZQVUpNVlE6NjN0U05NT1VxUTJ3QUgxNktXTC9uZnpPdS9xV3BrcHo5VEZtMjFUaQ==");
-                HttpResponseMessage response = await client.GetAsync(url + Constantes.MetodosInformacionComercial.GetNivelConsultora + urlParameters);
+                HttpResponseMessage response = await client.GetAsync(url + Method + urlParameters);
 
                 HttpContent content = response.Content;
 
