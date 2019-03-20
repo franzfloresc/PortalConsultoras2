@@ -1207,6 +1207,14 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         BEUsuario GetConfiguracionOfertaFinalCarrusel(BEUsuario usuario);
         [OperationContract]
+        Task<BEProducto> GetRegaloOfertaFinal(BEUsuario usuario);
+        [OperationContract]
+        BEPedidoDetalleResult ValidaRegaloPedido(BEPedidoDetalle pedidoDetalle);
+        [OperationContract]
+        BEPedidoDetalleResult AgregaRegaloDefault(BEPedidoDetalle pedidoDetalle);
+        [OperationContract]
+        List<BEEstrategia> ListaRegalosApp(BEUsuario pedidoDetalle);
+        [OperationContract]
         BEPedidoDetalleResult InsertOfertaFinalCarrusel(BEPedidoDetalle pedidoDetalle);
         [OperationContract]
         BEPedidoDetalleResult AceptarBackOrderPedidoDetalle(BEPedidoDetalle pedidoDetalle);
@@ -1323,6 +1331,6 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEEscalaDescuento> ListarEscalaDescuentoZona(int paisID, int campaniaID, string region, string zona);
-        
+
     }
 }

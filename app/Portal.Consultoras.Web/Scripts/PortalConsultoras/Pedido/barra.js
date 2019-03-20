@@ -1329,16 +1329,7 @@ function showPopupNivelSuperado(barra, prevLogro) {
         if (!tpElectivos.premioSelected) {
             agregarPremioDefault();
         }
-
-        var idPopup = '#popupPremio';
-        var dvPremio = $(idPopup);
-        var btn = dvPremio.find('.btn_escoger_o_cambiar_regalo');
-        dvPremio.find('.sub-premio-elect').css('display', tpElectivos.premioSelected || !tpElectivos.hasPremios ? 'none': 'block');
-        btn.css('display', !tpElectivos.hasPremios ? 'none': 'block');
-        btn.html(tpElectivos.premioSelected ? 'CAMBIAR PRODUCTO': '¡Escoger ahora!');
-        AbrirPopup(idPopup);
-        setContainerLluvia(idPopup);
-        mostrarLluvia();
+        showPopupPremio();
 
         return;
     }
@@ -1346,6 +1337,19 @@ function showPopupNivelSuperado(barra, prevLogro) {
     if (!TieneMontoMaximo()) {
         showPopupEscalaSiguiente(barra, prevLogro);
     }
+}
+
+function showPopupPremio() {
+    var idPopup = '#popupPremio';
+    var dvPremio = $(idPopup);
+    var btn = dvPremio.find('.btn_escoger_o_cambiar_regalo');
+    dvPremio.find('.title-premio-elect').html('¡Felicidades!<br />' + (!tpElectivos.hasPremios ? 'LLEGASTE A TU REGALO': 'TIENES UN REGALO'));
+    dvPremio.find('.sub-premio-elect').css('display', !tpElectivos.hasPremios ? 'none': 'block');
+    btn.css('display', !tpElectivos.hasPremios ? 'none': 'block');
+    btn.html(tpElectivos.premioSelected ? 'CAMBIAR PRODUCTO': '¡Escoger ahora!');
+    AbrirPopup(idPopup);
+    setContainerLluvia(idPopup);
+    mostrarLluvia();
 }
 
 function addPremioDefaultSuperado(barra, prevLogro) {

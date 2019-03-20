@@ -144,11 +144,12 @@ namespace Portal.Consultoras.Entities
             BotonColor = row.ToString("BotonColor");
             BotonColorTexto = row.ToString("BotonColorTexto");
             ConfiguracionPais = new BEConfiguracionPais();
-            ConfiguracionPais.Codigo = row.ToString("Codigo", "");
+            ConfiguracionPais.Codigo = row.ToString("Codigo", string.Empty);
         }
 
         public BEConfiguracionOfertasHome()
         {
+
         }
     }
 }

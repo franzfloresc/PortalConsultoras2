@@ -483,10 +483,12 @@ namespace Portal.Consultoras.Web.Providers
 
                 if (tipo != Constantes.TipoEstrategiaCodigo.PackNuevas)
                 {
-                    // validar por fecha de facturacion el stock
-                    if (GetValidarDiasAntesStock(userData))
+                    if (listEstrategia.Any())
                     {
-                        listEstrategia = _consultaProlProvider.ActualizarEstrategiaStockPROL(listEstrategia, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora);
+                        if (GetValidarDiasAntesStock(userData))
+                        {
+                            listEstrategia = _consultaProlProvider.ActualizarEstrategiaStockPROL(listEstrategia, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora);
+                        }
                     }
                 }
   
@@ -1323,10 +1325,12 @@ namespace Portal.Consultoras.Web.Providers
             var listaProducto = GetShowRoomOfertasConsultora(userData);
             listaProducto.ForEach(x => x.TieneStock = true);
 
-            // validar por fecha de facturacion el stock
-            if (GetValidarDiasAntesStock(userData))
+            if (listaProducto.Any())
             {
-                listaProducto = _consultaProlProvider.ActualizarEstrategiaStockPROL(listaProducto, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora);
+                if (GetValidarDiasAntesStock(userData))
+                {
+                    listaProducto = _consultaProlProvider.ActualizarEstrategiaStockPROL(listaProducto, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora);
+                }
             }
 
             var listaProductoModel = ConsultarEstrategiasFormatoEstrategiaToModel1(listaProducto, userData.CodigoISO, userData.CampaniaID);

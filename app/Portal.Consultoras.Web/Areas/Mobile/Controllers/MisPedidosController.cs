@@ -97,7 +97,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     //    });
                     //}
 
-                    var detallePedido = ObtenerPedidoWebSetDetalleAgrupado() ?? new List<BEPedidoWebDetalle>();
+                    var detallePedido = ObtenerPedidoWebSetDetalleAgrupado(true) ?? new List<BEPedidoWebDetalle>();
 
                     var totalImportePedido = detallePedido.Sum(x => x.ImporteTotal);
                     var descuentoProl = detallePedido.Sum(x => x.DescuentoProl);
