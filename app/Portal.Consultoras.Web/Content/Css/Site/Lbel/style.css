@@ -314,6 +314,7 @@ header {
 
 .sub_menu_home2 {
     position: absolute;
+    z-index:1;
     left: -150px;
     display: none;
     top: 39px;
@@ -484,7 +485,29 @@ header {
 }
 
     .footer_responde img {
-        margin-bottom: 10px;
+        margin-bottom: 8px;
+    }
+
+    .footer_enlace_belcorp_responde img,
+    .footer_enlace_comunidad_virtual img
+    {
+        height:41px;
+    }
+
+    .footer_enlace_tu_voz_online img{
+        margin-top: 6px;
+        height: 35px;
+    }
+
+    .footer_enlace_catalogos img{
+        margin-top: 7px;
+        margin-bottom:11px;
+        height: 33px;
+    }
+
+    .footer_enlace_noticias img{
+        margin-top: 4px;
+        height: 37px;
     }
 
     .footer_responde span {
@@ -25319,7 +25342,8 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     width: 43%;
     font-weight: 700;
     border: 1px solid black;
-    font-family: 'Lato';
+    border-radius:2px;
+    font-family: 'Lato', sans-serif;
     background: #fff;
     opacity: 0;
     left: 0;
@@ -25333,6 +25357,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     -webkit-transition: all .3s ease;
     letter-spacing: .2px;
 }
+
 /* POPUP IMAGEN PERFIL PROCESO RECORTE */
 .popup_img_perfil {
     display: block;

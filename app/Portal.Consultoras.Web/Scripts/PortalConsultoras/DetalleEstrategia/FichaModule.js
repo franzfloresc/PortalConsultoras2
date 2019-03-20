@@ -488,7 +488,7 @@ var FichaModule = (function (config) {
         var estrategia;
 
         if (_config.tieneSession) {
-            if (_config.esEditable) {
+            if (_config.esEditable || _modeloFicha.TipoAccionNavegar === _tipoAccionNavegar.Volver) {
                 estrategia = _modeloFicha;
             }
             else {
@@ -783,6 +783,13 @@ var FichaModule = (function (config) {
     ////// Fin - Construir Seccion Estrategia
 
     ////// Ini - Construir Estructura Ficha
+    var _validarAbrirFichaResumida = function () {
+        if (_config.origen.slice(-2).in("09", "08")) {
+            return true;
+        }
+        return _config.esEditable;
+    }
+
     var _construirSeccionFicha = function () {
         _config.esMobile = isMobile();
         _getModelo();
@@ -813,10 +820,7 @@ var FichaModule = (function (config) {
 
     };
 
-    var _validarAbrirFichaResumida = function () {
-        // agregar logica para recomendados
-        return _config.esEditable;
-    }
+   
 
     var _getModelo = function () {
 
@@ -875,7 +879,6 @@ var FichaModule = (function (config) {
     };
 
     var _initCarrusel = function () {
-
         if (!_modeloFicha.TieneCarrusel) {
             return false;
         }

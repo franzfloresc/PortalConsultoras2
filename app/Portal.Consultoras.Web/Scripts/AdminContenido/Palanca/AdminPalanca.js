@@ -3,7 +3,9 @@ var _toastHelper = ToastHelper();
 var _listPalanca = ["LAN", "RDR", "RD", "OPT"];
 var _palanca = {
     showroom: "SR",
-    odd: "ODD"
+    odd: "ODD",
+    pn: "PN",
+    dp: "DP"
 }
 
 var _tipopresentacion = {
@@ -69,7 +71,6 @@ jQuery(document).ready(function () {
     });
 
     $("body").on("change", "#ddlConfiguracionIdOfertas", function () {
-
         if (_listPalanca.indexOf($(this).find("option:selected").attr("data-codigo")) > -1) {
             $(".hide-configuration").show();
         } else {
@@ -82,6 +83,8 @@ jQuery(document).ready(function () {
             $(".hide-config-image-odd").hide();
         }
 
+        ConfigSeccionApp($(this).val());
+        
         if ($(this).find("option:selected").attr("data-codigo") == ConstantesModule.TipoEstrategia.ATP) {
             $(".div-disenio-atp-visible").show();
             $(".div-disenio-atp-oculto").hide();
@@ -109,6 +112,68 @@ jQuery(document).ready(function () {
         }
     });
 });
+
+function ConfigSeccionApp(configuracionPaisID) {
+    if (configuracionPaisID == "") {
+        $("#divMantApp").hide();
+        return;
+    }
+
+    waitingDialog({});
+
+    $.ajax({
+        url: baseUrl + "AdministrarPalanca/ConfiguracionSeccionApp",
+        type: "GET",
+        dataType: "json",
+        data: { configuracionPaisID: configuracionPaisID },
+        contentType: "application/json; charset=utf-8",
+        success: function (result) {
+            closeWaitingDialog();
+
+            if (!result.success) {
+                _toastHelper.error("Error al procesar la Solicitud.");
+                return;
+            }
+
+            if (result.data.AppOfertasHomeActivo == "1") $("#divMantApp").show();
+            else $("#divMantApp").hide();
+
+            if (result.data.AppOfertasHomeImgExtension != "") $("#nombre-fondo-app").attr("imageextension", result.data.AppOfertasHomeImgExtension);
+            if (result.data.AppOfertasHomeImgAncho != "") $("#nombre-fondo-app").attr("imagewidth", result.data.AppOfertasHomeImgAncho);
+            if (result.data.AppOfertasHomeImgAlto != "") $("#nombre-fondo-app").attr("imageheight", result.data.AppOfertasHomeImgAlto);
+            if (result.data.AppOfertasHomeMsjMedida != "") $("#nombre-fondo-app").attr("messageSize", result.data.AppOfertasHomeMsjMedida);
+            if (result.data.AppOfertasHomeMsjFormato != "") $("#nombre-fondo-app").attr("messageFormat", result.data.AppOfertasHomeMsjFormato);
+
+            var palanca = $("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo");
+            if (palanca == _palanca.pn || palanca == _palanca.dp) {
+                $("#AdministrarOfertasHomeAppModel_AppColorFondo").parent().parent().hide();
+                $("#AdministrarOfertasHomeAppModel_AppColorTexto").parent().parent().hide();
+                $("#AdministrarOfertasHomeAppModel_AppCantidadProductos").parent().parent().hide();
+
+                $("#AdministrarOfertasHomeAppModel_AppColorFondo").val("");
+                $("#AdministrarOfertasHomeAppModel_AppColorTexto").val("");
+                $("#AdministrarOfertasHomeAppModel_AppCantidadProductos").val("");
+            }
+            else {
+                $("#AdministrarOfertasHomeAppModel_AppColorFondo").parent().parent().show();
+                $("#AdministrarOfertasHomeAppModel_AppColorTexto").parent().parent().show();
+                $("#AdministrarOfertasHomeAppModel_AppCantidadProductos").parent().parent().show();
+
+                if ($("#AdministrarOfertasHomeAppModel_AppColorFondo").val() === "") $("#AdministrarOfertasHomeAppModel_AppColorFondo").val("#000000");
+                if ($("#AdministrarOfertasHomeAppModel_AppColorTexto").val() === "") $("#AdministrarOfertasHomeAppModel_AppColorTexto").val("#ffffff");
+            }
+
+            $("#lblBannerApp").html("Banner&nbsp;Informativo&nbsp;(" + result.data.AppOfertasHomeImgExtension + "):");
+            $("#lblMedidasBannerApp").html("(" + result.data.AppOfertasHomeImgAncho + " x " + result.data.AppOfertasHomeImgAlto + " pixeles)");
+
+            UploadFilePalancaApp("fondo-app");
+        },
+        error: function (request, status, error) {
+            closeWaitingDialog();
+            _toastHelper.error("Error al procesar la Solicitud.");
+        }
+    });
+}
 
 function Modificar(idConfiguracionPais, event) {
     $.ajax({
@@ -203,9 +268,10 @@ function ModificarOfertas(idOfertasHome) {
             closeWaitingDialog();
 
             $("#dialog-content-ofertas-home").empty();
-            $("#dialog-content-ofertas-home").html(result).ready(
-                UploadFilePalanca("fondo-mobile"), UploadFilePalanca("fondo-desktop"), UploadFilePalancaApp("fondo-app")
-            );
+            $("#dialog-content-ofertas-home").html(result).ready(function () {
+                UploadFilePalanca("fondo-mobile");
+                UploadFilePalanca("fondo-desktop");
+            });
 
             showDialog("DialogMantenimientoOfertasHome");
 
@@ -237,7 +303,7 @@ function ModificarOfertas(idOfertasHome) {
             /*Fin Agana 186 */
 
         },
-        error: function (request, status, error) { }
+        error: function (request, status, error) { closeWaitingDialog(); _toastHelper.error("Error al cargar la ventana."); }
     });
 }
 function IniDialogs() {
@@ -372,9 +438,6 @@ function IniDialogs() {
                     $("#MobileColorFondo").val("#000000");
                 }
             }
-            if ($("#AdministrarOfertasHomeAppModel_AppColorFondo").val() === "") {
-                $("#AdministrarOfertasHomeAppModel_AppColorFondo").val("#000000");
-            }
             if ($("#DesktopColorTexto").val() === "") {
                 if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") != ConstantesModule.TipoEstrategia.ATP) {
                     $("#DesktopColorTexto").val("#ffffff");
@@ -385,13 +448,12 @@ function IniDialogs() {
                     $("#MobileColorTexto").val("#ffffff");
                 }
             }
-            if ($("#AdministrarOfertasHomeAppModel_AppColorTexto").val() === "") {
-                $("#AdministrarOfertasHomeAppModel_AppColorTexto").val("#ffffff");
-            }
 
             if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") !== _palanca.odd) {
                 $(".hide-config-image-odd").hide();
             }
+
+            $("#ddlConfiguracionIdOfertas").change();
         },
         buttons:
         {
@@ -542,6 +604,7 @@ function IniDialogs() {
                 var params = {
                     ConfiguracionOfertasHomeID: $("#ConfiguracionOfertasHomeID").val(),
                     ConfiguracionPaisID: $("#ddlConfiguracionIdOfertas").val(),
+                    Codigo: $("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo"),
                     CampaniaID: $("#ddlCampaniaOfertas").val(),
                     DesktopOrden: $("#DesktopOrden").val(),
                     MobileOrden: $("#DialogMantenimientoOfertasHome #MobileOrden").val(),

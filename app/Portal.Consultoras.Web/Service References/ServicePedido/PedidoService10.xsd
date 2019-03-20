@@ -6,6 +6,7 @@
   <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
   <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Usuario" />
   <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" />
+  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd11" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR" />
   <xs:complexType name="ArrayOfBEReporteEstrategiasPorConsultora">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="BEReporteEstrategiasPorConsultora" nillable="true" type="tns:BEReporteEstrategiasPorConsultora" />
@@ -290,12 +291,14 @@
   <xs:element name="BEFichaProducto" nillable="true" type="tns:BEFichaProducto" />
   <xs:complexType name="BEEstrategiaDetalle">
     <xs:sequence>
+      <xs:element minOccurs="0" name="ColorTextoApp" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="EstrategiaID" type="xs:int" />
       <xs:element minOccurs="0" name="FlagIndividual" type="xs:boolean" />
       <xs:element minOccurs="0" name="ImgFichaDesktop" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImgFichaFondoDesktop" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImgFichaFondoMobile" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImgFichaMobile" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImgFondoApp" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImgFondoDesktop" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImgFondoMobile" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImgHomeDesktop" nillable="true" type="xs:string" />
@@ -372,6 +375,11 @@
         <xs:sequence>
           <xs:element minOccurs="0" name="Activo" type="xs:int" />
           <xs:element minOccurs="0" name="AgregarEnMatriz" type="xs:boolean" />
+          <xs:element minOccurs="0" name="AppOfertasHomeImgAlto" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="AppOfertasHomeImgAncho" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="AppOfertasHomeImgExtension" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="AppOfertasHomeMsjFormato" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="AppOfertasHomeMsjMedida" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="CUV1" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="CUV2" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
@@ -388,6 +396,7 @@
           <xs:element minOccurs="0" name="CodigoSAP" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="CodigoTipoEstrategia" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="ColorFondo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ColorTextoApp" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="ConsultoraID" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="CuponElectivoDefault" type="xs:boolean" />
           <xs:element minOccurs="0" name="DescripcionCUV2" nillable="true" type="xs:string" />
@@ -433,6 +442,7 @@
           <xs:element minOccurs="0" name="ImgFichaFondoDesktop" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="ImgFichaFondoMobile" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="ImgFichaMobile" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ImgFondoApp" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="ImgFondoDesktop" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="ImgFondoMobile" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="ImgHomeDesktop" nillable="true" type="xs:string" />
@@ -1040,9 +1050,8 @@
   <xs:element name="BEIndicadorPedidoAutentico" nillable="true" type="tns:BEIndicadorPedidoAutentico" />
   <xs:complexType name="BEPedidoWeb">
     <xs:sequence>
+      <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR" minOccurs="0" name="BECDRWeb" nillable="true" type="q7:ArrayOfBECDRWeb" />
       <xs:element minOccurs="0" name="Bloqueado" type="xs:short" />
-      <xs:element minOccurs="0" name="CDRWebEstado" type="xs:int" />
-      <xs:element minOccurs="0" name="CDRWebID" type="xs:int" />
       <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
       <xs:element minOccurs="0" name="CanalIngreso" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CantidadCuv" type="xs:int" />
@@ -1354,7 +1363,7 @@
   <xs:complexType name="BEValidacionModificacionPedido">
     <xs:sequence>
       <xs:element minOccurs="0" name="Mensaje" nillable="true" type="xs:string" />
-      <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" minOccurs="0" name="MotivoPedidoLock" type="q7:Enumeradores.MotivoPedidoLock" />
+      <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" minOccurs="0" name="MotivoPedidoLock" type="q8:Enumeradores.MotivoPedidoLock" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEValidacionModificacionPedido" nillable="true" type="tns:BEValidacionModificacionPedido" />
@@ -2343,7 +2352,7 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="Campana" type="xs:int" />
       <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
-      <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido" minOccurs="0" name="Detalles" nillable="true" type="q8:ArrayOfBETrackingDetalle" />
+      <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido" minOccurs="0" name="Detalles" nillable="true" type="q9:ArrayOfBETrackingDetalle" />
       <xs:element minOccurs="0" name="Estado" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Etapa" type="xs:int" />
       <xs:element minOccurs="0" name="Fecha" nillable="true" type="xs:dateTime" />
