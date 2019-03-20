@@ -10,7 +10,6 @@ function GetNiveles() {
         type: "GET",
         dataType: "json",
         success: function (data) {
-            debugger;
             var nivelactual = data.NivelActual;
             lista = data;
             var Html = "<div class='Progress medal-" + nivelactual + "' id='indicadorNivel'></div>";
