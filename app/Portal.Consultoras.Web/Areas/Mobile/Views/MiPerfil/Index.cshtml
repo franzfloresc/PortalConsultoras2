@@ -96,8 +96,11 @@ else
                     <input type="hidden" id="hdn_TienePermisosCuenta" value="@TienePermiCuenta" />
                     <div class="datos_codigo w-50 text-left">
                         <span class="text-left text-bold">Código : </span>
-                        <span class="text-right text-bold">@Model.CodigoUsuario</span>
+                        @if (Model.DigitoVerificador != null && ViewBag.PaisesDigitoControl.Contains(Model.PaisISO))
+                            {<span class="text-right text-bold">@Model.CodigoUsuario - <span class="text-bold">@Model.DigitoVerificador</span></span>}
+                         else{ <span class="text-bold">@Model.CodigoUsuario</span>}
                     </div>
+
                     <div class="datos_zona w-50 text-right">
                         <span class="text-left text-bold">Zona : </span>
                         <span class="text-right text-bold">@Model.Zona</span>

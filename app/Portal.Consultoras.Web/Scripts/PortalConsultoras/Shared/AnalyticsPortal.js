@@ -43,7 +43,8 @@ var AnalyticsPortalModule = (function () {
         contenedorfichaProducto: "Contenedor - Ficha de producto",
         CarritoCompras: "Carrito de compras",
         siguiente: "Ver siguiente",
-        anterior: "Ver anterior"
+        anterior: "Ver anterior",
+        palancaLasMasGandoras: "Más Ganadoras"
         // Fin - Analytics Ofertas (Miguel)
     };
 
@@ -645,7 +646,8 @@ var AnalyticsPortalModule = (function () {
                 'DescripcionMarca': estrategia.CUV2,
                 'CodigoTipoEstrategia': estrategia.CodigoEstrategia,
                 'MarcaId': estrategia.MarcaID,
-                'Cantidad': estrategia.Cantidad
+                'Cantidad': estrategia.Cantidad,
+                'Palanca': estrategia.Palanca
             };
 
             var _pagina = pagina.Pagina;
@@ -730,6 +732,9 @@ var AnalyticsPortalModule = (function () {
             var palanca;
             if (model.CodigoTipoEstrategia === "0") palanca = model.DescripcionEstrategia;
             else palanca = _obtenerNombrePalanca(model.CodigoTipoEstrategia);
+
+            if (model.MaterialGanancia || model.Palanca == 'Ganadoras') palanca = _texto.palancaLasMasGandoras;
+
             var lista = "Buscador - " + palanca + " - " + origen + desplegable;
             dataLayer.push({
                 'event': _evento.addToCart,
@@ -804,7 +809,7 @@ var AnalyticsPortalModule = (function () {
             dataLayer.push({
                 'event': _evento.virtualEvent,
                 'category': 'Buscador SB',
-                'action': 'Ver todos los resultados',
+                'action': 'Ver más resultados',
                 'label': busqueda
             });
         } catch (e) {
@@ -2283,6 +2288,50 @@ var AnalyticsPortalModule = (function () {
         });
     }
 
+    var marcaFichaDetalleRecomendado = function (strData, position) {
+
+        var jsonData = jQuery.parseJSON(strData);
+
+        var _localEvent = _evento.productClick;
+        var _currencyCode = _getCurrencyCodes();
+        var _productName = jsonData.Descripcion;
+        var _id = jsonData.CUV;
+        var _price = jsonData.Precio;
+        var _brand = _getMarca(jsonData.MarcaId);
+        var _category = _texto.notavaliable;
+        var _variant = _texto.estandar;
+        var _position = position.toString();
+        var _list = "Pedido - Ofertas Relacionadas";
+
+        try {
+            dataLayer.push({
+                "event": _localEvent,
+                "ecommerce": {
+                    "currencyCode": _currencyCode,
+                    "click": {
+                        "actionField": {
+                            "list": _list
+                        },
+                        "products": [{
+                            "name": _productName,
+                            "id": _id,
+                            "price": _price,
+                            "brand": _brand,
+                            "category": _category,
+                            "variant": _variant,
+                            "position": _position
+                        }]
+                    }
+                },
+                'eventCallback': function () {
+                    //console.log('msg');
+                }
+            });
+        } catch (e) {
+            console.log(_texto.exception + e);
+        }
+    }
+
     ////////////////////////////////////////////////////////////////////////////////////////
     // Fin - Analytics Buscador
     ////////////////////////////////////////////////////////////////////////////////////////
@@ -2388,6 +2437,7 @@ var AnalyticsPortalModule = (function () {
         MarcaEliminarEtiqueta: marcaEliminarEtiqueta,
         MarcaLimpiarFiltros: marcaLimpiarFiltros,
         MarcaBotonFiltro: marcaBotonFiltro,
-        MarcaBotonAplicarFiltro: marcaBotonAplicarFiltro
+        MarcaBotonAplicarFiltro: marcaBotonAplicarFiltro,
+        MarcaFichaDetalleRecomendado: marcaFichaDetalleRecomendado
     }
 })();

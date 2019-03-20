@@ -108,5 +108,6 @@ namespace Portal.Consultoras.BizLogic
         List<BEUsuarioOpciones> GetUsuarioOpciones(int paisID, string codigoUsuario);
         #endregion
         void RegistrarDireccionEntrega(string codigoISO, BEDireccionEntrega direccionEntrega, bool conTransaccion);
+        BEUsuario GetBasicSesionUsuario(int paisID, string codigoUsuario);
     }
 }
