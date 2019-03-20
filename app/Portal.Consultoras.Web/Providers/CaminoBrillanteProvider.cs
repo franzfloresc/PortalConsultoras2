@@ -22,30 +22,70 @@ namespace Portal.Consultoras.Web.Providers
         /// <summary>
         /// Obtiene información de los niveles de la Consultora. 
         /// </summary>
-        public async Task<List<NivelConsultoraCaminoBrillanteModel>> GetNivelConsultora(string isoPais, string codigoConsultora, string cantidadCampanias)
+        //public async Task<List<NivelConsultoraCaminoBrillanteModel>> GetNivelConsultora(string isoPais, string codigoConsultora, string cantidadCampanias)
+        //{
+        //    var result = new List<NivelConsultoraCaminoBrillanteModel>();
+        //    bool flag = isoPais != "" && codigoConsultora != "" && cantidadCampanias != "";
+        //    if (!flag) return result;
+        //    string urlParameters = isoPais + "/" + codigoConsultora + "/" + cantidadCampanias;
+        //    string jsonString = await CallInformacionComercialServices(Url, urlParameters, Token, Constantes.MetodosInformacionComercial.GetNivelConsultora);
+        //    result = JsonConvert.DeserializeObject<List<NivelConsultoraCaminoBrillanteModel>>(jsonString) as List<NivelConsultoraCaminoBrillanteModel>;
+        //    return result;
+        //}
+        public List<NivelConsultoraCaminoBrillanteModel> GetNivelConsultora(string isoPais, string codigoConsultora, string cantidadCampanias)
         {
             var result = new List<NivelConsultoraCaminoBrillanteModel>();
             bool flag = isoPais != "" && codigoConsultora != "" && cantidadCampanias != "";
             if (!flag) return result;
             string urlParameters = isoPais + "/" + codigoConsultora + "/" + cantidadCampanias;
-            string jsonString = await CallInformacionComercialServices(Url, urlParameters, Token, Constantes.MetodosInformacionComercial.GetNivelConsultora);
+            string jsonString = CallInformacionComercialServices(Url, urlParameters, Token, Constantes.MetodosInformacionComercial.GetNivelConsultora);
             result = JsonConvert.DeserializeObject<List<NivelConsultoraCaminoBrillanteModel>>(jsonString) as List<NivelConsultoraCaminoBrillanteModel>;
             return result;
         }
 
+
+
+
+
+
+
+
+
+
+
         /// <summary>
         /// Obtiene información de los Niveles.
         /// </summary>
-        public async Task<List<NivelesCaminoBrillanteModel>> GetNivel(string isoPais)
+        //public async Task<List<NivelesCaminoBrillanteModel>> GetNivel(string isoPais)
+        //{
+        //    var result = new List<NivelesCaminoBrillanteModel>();
+        //    bool flag = isoPais != "";
+        //    if (!flag) return result;
+        //    string urlParameters = isoPais;
+        //    string jsonString = await CallInformacionComercialServices(Url, urlParameters, Token, Constantes.MetodosInformacionComercial.GetNivel);
+        //    result = JsonConvert.DeserializeObject<List<NivelesCaminoBrillanteModel>>(jsonString) as List<NivelesCaminoBrillanteModel>;
+        //    return result;
+        //}
+        public List<NivelesCaminoBrillanteModel> GetNivel(string isoPais)
         {
             var result = new List<NivelesCaminoBrillanteModel>();
             bool flag = isoPais != "";
             if (!flag) return result;
             string urlParameters = isoPais;
-            string jsonString = await CallInformacionComercialServices(Url, urlParameters, Token, Constantes.MetodosInformacionComercial.GetNivel);
+            string jsonString = CallInformacionComercialServices(Url, urlParameters, Token, Constantes.MetodosInformacionComercial.GetNivel);
             result = JsonConvert.DeserializeObject<List<NivelesCaminoBrillanteModel>>(jsonString) as List<NivelesCaminoBrillanteModel>;
             return result;
         }
+
+
+
+
+
+
+
+
+
+
 
         ///// <summary>
         ///// Obtiene el listado de Ofertas de acuerdo a la campaña.
@@ -92,7 +132,27 @@ namespace Portal.Consultoras.Web.Providers
         /// <summary>
         /// Metodo para conectar y obtener la informacion solicitada al servcio de informacion comercial.
         /// </summary>
-        private static async Task<string> CallInformacionComercialServices(string url, string urlParameters, string token, string Method)
+        //private static async Task<string> CallInformacionComercialServices(string url, string urlParameters, string token, string Method)
+        //{
+        //    string jsonString = string.Empty;
+        //    using (var client = new HttpClient())
+        //    {
+        //        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        //        client.DefaultRequestHeaders.ConnectionClose = true;
+        //        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", "QUtJQUlZRVRTUlVKRFZQVUpNVlE6NjN0U05NT1VxUTJ3QUgxNktXTC9uZnpPdS9xV3BrcHo5VEZtMjFUaQ==");
+        //        HttpResponseMessage response = await client.GetAsync(url + Method + urlParameters);
+
+        //        HttpContent content = response.Content;
+
+        //        if (response.IsSuccessStatusCode)
+        //        {
+        //            jsonString = response.Content.ReadAsStringAsync().Result;
+        //        }
+        //    }
+        //    return jsonString;
+        //}
+
+        private static string CallInformacionComercialServices(string url, string urlParameters, string token, string Method)
         {
             string jsonString = string.Empty;
             using (var client = new HttpClient())
@@ -100,7 +160,7 @@ namespace Portal.Consultoras.Web.Providers
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 client.DefaultRequestHeaders.ConnectionClose = true;
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", "QUtJQUlZRVRTUlVKRFZQVUpNVlE6NjN0U05NT1VxUTJ3QUgxNktXTC9uZnpPdS9xV3BrcHo5VEZtMjFUaQ==");
-                HttpResponseMessage response = await client.GetAsync(url + Method + urlParameters);
+                HttpResponseMessage response = client.GetAsync(url + Method + urlParameters).Result;
 
                 HttpContent content = response.Content;
 

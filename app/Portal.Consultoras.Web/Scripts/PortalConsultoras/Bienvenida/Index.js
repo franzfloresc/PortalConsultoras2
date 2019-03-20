@@ -3321,5 +3321,5 @@ function GetNivelConsultoraCaminoBrillante() {
         }, error: function (xhr, status, error) {
 
         }
-    })
+    });
 }

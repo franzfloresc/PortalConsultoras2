@@ -4,7 +4,7 @@ GO
 if not exists(select 1 from MenuMobile where Codigo = 'CaminoBrillante')
 begin
 	declare @_MenuMobileID int = (select max(MenuMobileID) from MenuMobile) + 1
-	insert into MenuMobile values(@_MenuMobileID, 'Camino Brillante', 1001, 6, 'CaminoBrillante/Index', '', 0, 'Menu', 'Mobile', 0, 'CaminoBrillante')
+	insert into MenuMobile values(@_MenuMobileID, 'Camino Brillante', 1001, 6, 'Mobile/CaminoBrillante/Index', '', 0, 'Menu', 'Mobile', 0, 'CaminoBrillante')
 end
 GO
 
@@ -14,7 +14,7 @@ GO
 if not exists(select 1 from MenuMobile where Codigo = 'CaminoBrillante')
 begin
 	declare @_MenuMobileID int = (select max(MenuMobileID) from MenuMobile) + 1
-	insert into MenuMobile values(@_MenuMobileID, 'Camino Brillante', 1001, 6, 'CaminoBrillante/Index', '', 0, 'Menu', 'Mobile', 0, 'CaminoBrillante')
+	insert into MenuMobile values(@_MenuMobileID, 'Camino Brillante', 1001, 6, 'Mobile/CaminoBrillante/Index', '', 0, 'Menu', 'Mobile', 0, 'CaminoBrillante')
 end
 GO
 
@@ -24,7 +24,7 @@ GO
 if not exists(select 1 from MenuMobile where Codigo = 'CaminoBrillante')
 begin
 	declare @_MenuMobileID int = (select max(MenuMobileID) from MenuMobile) + 1
-	insert into MenuMobile values(@_MenuMobileID, 'Camino Brillante', 1001, 6, 'CaminoBrillante/Index', '', 0, 'Menu', 'Mobile', 0, 'CaminoBrillante')
+	insert into MenuMobile values(@_MenuMobileID, 'Camino Brillante', 1001, 6, 'Mobile/CaminoBrillante/Index', '', 0, 'Menu', 'Mobile', 0, 'CaminoBrillante')
 end
 GO
 
@@ -34,7 +34,7 @@ GO
 if not exists(select 1 from MenuMobile where Codigo = 'CaminoBrillante')
 begin
 	declare @_MenuMobileID int = (select max(MenuMobileID) from MenuMobile) + 1
-	insert into MenuMobile values(@_MenuMobileID, 'Camino Brillante', 1001, 6, 'CaminoBrillante/Index', '', 0, 'Menu', 'Mobile', 0, 'CaminoBrillante')
+	insert into MenuMobile values(@_MenuMobileID, 'Camino Brillante', 1001, 6, 'Mobile/CaminoBrillante/Index', '', 0, 'Menu', 'Mobile', 0, 'CaminoBrillante')
 end
 GO
 
@@ -44,7 +44,7 @@ GO
 if not exists(select 1 from MenuMobile where Codigo = 'CaminoBrillante')
 begin
 	declare @_MenuMobileID int = (select max(MenuMobileID) from MenuMobile) + 1
-	insert into MenuMobile values(@_MenuMobileID, 'Camino Brillante', 1001, 6, 'CaminoBrillante/Index', '', 0, 'Menu', 'Mobile', 0, 'CaminoBrillante')
+	insert into MenuMobile values(@_MenuMobileID, 'Camino Brillante', 1001, 6, 'Mobile/CaminoBrillante/Index', '', 0, 'Menu', 'Mobile', 0, 'CaminoBrillante')
 end
 GO
 
@@ -54,7 +54,7 @@ GO
 if not exists(select 1 from MenuMobile where Codigo = 'CaminoBrillante')
 begin
 	declare @_MenuMobileID int = (select max(MenuMobileID) from MenuMobile) + 1
-	insert into MenuMobile values(@_MenuMobileID, 'Camino Brillante', 1001, 6, 'CaminoBrillante/Index', '', 0, 'Menu', 'Mobile', 0, 'CaminoBrillante')
+	insert into MenuMobile values(@_MenuMobileID, 'Camino Brillante', 1001, 6, 'Mobile/CaminoBrillante/Index', '', 0, 'Menu', 'Mobile', 0, 'CaminoBrillante')
 end
 GO
 
@@ -64,7 +64,7 @@ GO
 if not exists(select 1 from MenuMobile where Codigo = 'CaminoBrillante')
 begin
 	declare @_MenuMobileID int = (select max(MenuMobileID) from MenuMobile) + 1
-	insert into MenuMobile values(@_MenuMobileID, 'Camino Brillante', 1001, 6, 'CaminoBrillante/Index', '', 0, 'Menu', 'Mobile', 0, 'CaminoBrillante')
+	insert into MenuMobile values(@_MenuMobileID, 'Camino Brillante', 1001, 6, 'Mobile/CaminoBrillante/Index', '', 0, 'Menu', 'Mobile', 0, 'CaminoBrillante')
 end
 GO
 
@@ -74,7 +74,7 @@ GO
 if not exists(select 1 from MenuMobile where Codigo = 'CaminoBrillante')
 begin
 	declare @_MenuMobileID int = (select max(MenuMobileID) from MenuMobile) + 1
-	insert into MenuMobile values(@_MenuMobileID, 'Camino Brillante', 1001, 6, 'CaminoBrillante/Index', '', 0, 'Menu', 'Mobile', 1, 'CaminoBrillante')
+	insert into MenuMobile values(@_MenuMobileID, 'Camino Brillante', 1001, 6, 'Mobile/CaminoBrillante/Index', '', 0, 'Menu', 'Mobile', 1, 'CaminoBrillante')
 end
 GO
 
@@ -84,7 +84,7 @@ GO
 if not exists(select 1 from MenuMobile where Codigo = 'CaminoBrillante')
 begin
 	declare @_MenuMobileID int = (select max(MenuMobileID) from MenuMobile) + 1
-	insert into MenuMobile values(@_MenuMobileID, 'Camino Brillante', 1001, 6, 'CaminoBrillante/Index', '', 0, 'Menu', 'Mobile', 0, 'CaminoBrillante')
+	insert into MenuMobile values(@_MenuMobileID, 'Camino Brillante', 1001, 6, 'Mobile/CaminoBrillante/Index', '', 0, 'Menu', 'Mobile', 0, 'CaminoBrillante')
 end
 GO
 
@@ -94,7 +94,7 @@ GO
 if not exists(select 1 from MenuMobile where Codigo = 'CaminoBrillante')
 begin
 	declare @_MenuMobileID int = (select max(MenuMobileID) from MenuMobile) + 1
-	insert into MenuMobile values(@_MenuMobileID, 'Camino Brillante', 1001, 6, 'CaminoBrillante/Index', '', 0, 'Menu', 'Mobile', 1, 'CaminoBrillante')
+	insert into MenuMobile values(@_MenuMobileID, 'Camino Brillante', 1001, 6, 'Mobile/CaminoBrillante/Index', '', 0, 'Menu', 'Mobile', 1, 'CaminoBrillante')
 end
 GO
 
@@ -104,7 +104,7 @@ GO
 if not exists(select 1 from MenuMobile where Codigo = 'CaminoBrillante')
 begin
 	declare @_MenuMobileID int = (select max(MenuMobileID) from MenuMobile) + 1
-	insert into MenuMobile values(@_MenuMobileID, 'Camino Brillante', 1001, 6, 'CaminoBrillante/Index', '', 0, 'Menu', 'Mobile', 1, 'CaminoBrillante')
+	insert into MenuMobile values(@_MenuMobileID, 'Camino Brillante', 1001, 6, 'Mobile/CaminoBrillante/Index', '', 0, 'Menu', 'Mobile', 1, 'CaminoBrillante')
 end
 GO
 
@@ -114,7 +114,7 @@ GO
 if not exists(select 1 from MenuMobile where Codigo = 'CaminoBrillante')
 begin
 	declare @_MenuMobileID int = (select max(MenuMobileID) from MenuMobile) + 1
-	insert into MenuMobile values(@_MenuMobileID, 'Camino Brillante', 1001, 6, 'CaminoBrillante/Index', '', 0, 'Menu', 'Mobile', 1, 'CaminoBrillante')
+	insert into MenuMobile values(@_MenuMobileID, 'Camino Brillante', 1001, 6, 'Mobile/CaminoBrillante/Index', '', 0, 'Menu', 'Mobile', 1, 'CaminoBrillante')
 end
 GO
 
