@@ -2345,6 +2345,7 @@ namespace Portal.Consultoras.Common
                 public const string SUCCESS = "0000";
                 public const string SUCCESS_DUOPERFECTO_AGREGADO_UNO = "0010";
                 public const string SUCCESS_DUOPERFECTO_AGREGADO_COMPLETADO = "0011";
+                public const string SUCCESS_REGALO = "0012";
                 public const string ERROR_INTERNO = "9999";
                 public const string ERROR_PRODUCTO_NOEXISTE = "1101";
                 public const string ERROR_PRODUCTO_AGOTADO = "1102";
