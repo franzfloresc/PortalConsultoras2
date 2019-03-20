@@ -1,0 +1,8 @@
+GO
+if not exists (select 1 from TablaLogicaDatos where TablaLogicaDatosID = 14521)
+begin
+insert into TablaLogicaDatos 
+(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
+values (14521,'145','ESCUPONINDEPENDIENTE','PACK INDEPENDIENTE')
+end
+GO
