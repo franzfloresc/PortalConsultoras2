@@ -44,7 +44,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int CampaniaID { get; set; }
         [DataMember]
-        [Column("VigenciaNueva")]
+        [Column("FlagMenuNuevo")]
         public int FlagMenuNuevo { get; set; }
     }
 }
