@@ -169,6 +169,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/handlebars.js",
                 "~/Scripts/LogError.js",
                 "~/Scripts/General.js",
+                "~/Scripts/PortalConsultoras/Shared/ConstantesModule.js",
                 "~/Scripts/PortalConsultoras/Shared/Menu.js",
                 "~/Scripts/PortalConsultoras/Shared/MainLayoutResponsive.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
@@ -182,7 +183,6 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Shared/AnalyticsPortal.js",
                 "~/Scripts/PortalConsultoras/Buscador/BuscadorProvider.js",
                 "~/Scripts/PortalConsultoras/Buscador/BuscadorModule.js",
-                "~/Scripts/PortalConsultoras/Shared/ConstantesModule.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/PedidoRegistro.js",
                 "~/Scripts/PortalConsultoras/Shared/MenuPortal.js",
                 "~/Scripts/PortalConsultoras/Shared/MenuContenedor.js",
@@ -630,7 +630,8 @@ namespace Portal.Consultoras.Web
             bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/Pedido").Include(
                 "~/Content/Css/Mobile/RevistaDigital/Bienvenido-Pedido-Catalogo.css",
                 "~/Content/Css/Mobile/ProductoListado/CajaProducto.css",
-                "~/Content/Css/Mobile/Pedido/PedidoGrilla.css"
+                "~/Content/Css/Mobile/Pedido/PedidoGrilla.css",
+                "~/Content/Css/Mobile/Pedido/EditarProductoFicha.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/PedidoDetalle").Include(
