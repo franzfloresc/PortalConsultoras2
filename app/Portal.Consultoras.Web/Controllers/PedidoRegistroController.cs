@@ -368,14 +368,12 @@ namespace Portal.Consultoras.Web.Controllers
             if (premioSelected != null && premioSelected.CUV != model.CUV)
             {
                 var result = await DeleteTransactionInternal(
-                    premioSelected.CampaniaID,
                     premioSelected.PedidoID,
                     premioSelected.PedidoDetalleID,
                     premioSelected.TipoOfertaSisID,
                     premioSelected.CUV,
                     premioSelected.Cantidad,
                     premioSelected.ClienteID.ToString(),
-                    "",
                     premioSelected.EsBackOrder,
                     premioSelected.SetID
                 );
@@ -464,41 +462,41 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public async Task<JsonResult> DeleteTransaction(int CampaniaID, int PedidoID, short PedidoDetalleID, int TipoOfertaSisID, string CUV, int Cantidad, string ClienteID, string CUVReco, bool EsBackOrder, int setId)
         {
-            var result = await DeleteTransactionInternal(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, Cantidad, ClienteID, CUVReco, EsBackOrder, setId);
+            var result = await DeleteTransactionInternal(PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, Cantidad, ClienteID, EsBackOrder, setId);
 
             return result.Item2;
         }
 
-        private async Task<Tuple<bool, JsonResult>> DeleteTransactionInternal(int CampaniaID, int PedidoID, short PedidoDetalleID, int TipoOfertaSisID, string CUV, int Cantidad, string ClienteID, string CUVReco, bool EsBackOrder, int setId)
+        private async Task<Tuple<bool, JsonResult>> DeleteTransactionInternal(int pedidoId, short pedidoDetalleId, int tipoOfertaSisId, string cuv, int cantidad, string clienteId, bool esBackOrder, int setId)
         {
             var lastResult = new Tuple<bool, JsonResult>(false, Json(new { }));
 
             BEPedidoDetalle pedidoDetalle = new BEPedidoDetalle();
             pedidoDetalle.SetID = setId;
-            pedidoDetalle.PedidoDetalleID = PedidoDetalleID;
-            pedidoDetalle.PedidoID = PedidoID;
+            pedidoDetalle.PedidoDetalleID = pedidoDetalleId;
+            pedidoDetalle.PedidoID = pedidoId;
             pedidoDetalle.Producto = new ServicePedido.BEProducto();
-            pedidoDetalle.Producto.TipoOfertaSisID = TipoOfertaSisID;
-            pedidoDetalle.Producto.CUV = Util.Trim(CUV);
+            pedidoDetalle.Producto.TipoOfertaSisID = tipoOfertaSisId;
+            pedidoDetalle.Producto.CUV = Util.Trim(cuv);
             pedidoDetalle.Usuario = Mapper.Map<ServicePedido.BEUsuario>(userData);
-            pedidoDetalle.Cantidad = Convert.ToInt32(Cantidad);
+            pedidoDetalle.Cantidad = Convert.ToInt32(cantidad);
             pedidoDetalle.PaisID = userData.PaisID;
             pedidoDetalle.IPUsuario = GetIPCliente();
-            pedidoDetalle.ClienteID = string.IsNullOrEmpty(ClienteID) ? (short) 0 : Convert.ToInt16(ClienteID);
+            pedidoDetalle.ClienteID = string.IsNullOrEmpty(clienteId) ? (short) 0 : Convert.ToInt16(clienteId);
             pedidoDetalle.Identifier = SessionManager.GetTokenPedidoAutentico() != null
                 ? SessionManager.GetTokenPedidoAutentico().ToString()
                 : string.Empty;
-            if (EsBackOrder) pedidoDetalle.ObservacionPROL = Constantes.BackOrder.LogAccionCancelar;
-            else pedidoDetalle.ObservacionPROL = GetObservacionesProlPorCuv(CUV);
+            if (esBackOrder) pedidoDetalle.ObservacionPROL = Constantes.BackOrder.LogAccionCancelar;
+            else pedidoDetalle.ObservacionPROL = GetObservacionesProlPorCuv(cuv);
 
             var listaPedidoWebDetalle = ObtenerPedidoWebDetalle();
             var listaPedidoWebDetalleAgrupado = ObtenerPedidoWebSetDetalleAgrupado();
-            var pedidoAgrupado = listaPedidoWebDetalleAgrupado.FirstOrDefault(x => x.CUV == CUV) ?? new BEPedidoWebDetalle();
+            var pedidoAgrupado = listaPedidoWebDetalleAgrupado.FirstOrDefault(x => x.CUV == cuv) ?? new BEPedidoWebDetalle();
             var pedidoEliminado = new BEPedidoWebDetalle();
 
             if (setId == 0)
             {
-                pedidoEliminado = listaPedidoWebDetalle.FirstOrDefault(x => x.CUV == CUV);
+                pedidoEliminado = listaPedidoWebDetalle.FirstOrDefault(x => x.CUV == cuv);
                 if (pedidoEliminado == null)
                     return new Tuple<bool, JsonResult>(false, ErrorJson(Constantes.MensajesError.DeletePedido_CuvNoExiste));
             }

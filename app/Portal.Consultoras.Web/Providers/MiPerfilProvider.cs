@@ -180,9 +180,9 @@ namespace Portal.Consultoras.Web.Providers
                 }
                 sessionManager.SetUsuarioOpciones(null);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, string.Empty, string.Empty);
+                //
             }
             return resultado;
         }
