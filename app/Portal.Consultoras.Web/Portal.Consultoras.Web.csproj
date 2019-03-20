@@ -1419,6 +1419,7 @@
     <Content Include="Content\CaminoBrillante\css\estilos.css" />
     <Content Include="Content\CaminoBrillante\css\ganamas.css" />
     <Content Include="Content\CaminoBrillante\imgs\barchar.PNG" />
+    <Content Include="Content\CaminoBrillante\imgs\bg-modal.svg" />
     <Content Include="Content\CaminoBrillante\imgs\brillo.svg" />
     <Content Include="Content\CaminoBrillante\imgs\group-14.svg" />
     <Content Include="Content\CaminoBrillante\imgs\group-17.svg" />
