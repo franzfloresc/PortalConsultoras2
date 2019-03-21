@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using System;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -37,7 +38,7 @@ namespace Portal.Consultoras.Web.Models
         {
             get
             {
-                return "/Mobile/" + UrlMenu ?? string.Empty;
+                return (Codigo == Constantes.ConfiguracionPais.ArmaTuPack ? "/" :  "/Mobile/") + UrlMenu ?? string.Empty;
             }
         }
 

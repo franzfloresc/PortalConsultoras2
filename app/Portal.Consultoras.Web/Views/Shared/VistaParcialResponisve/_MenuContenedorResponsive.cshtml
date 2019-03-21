@@ -16,9 +16,10 @@
         @if (menuList.Any())
         {
             <div data-layout-menu2="">                 
-                <ul class="row flex-row justify-content-center ml-lg-0 mr-lg-0 subnavegador menu__contenedor__carrusel__wrapper"
+                <ul class="row flex-row flex-nowrap justify-content-center ml-lg-0 mr-lg-0 subnavegador menu__contenedor__carrusel__wrapper"
                     data-es-suscrita="@ViewBag.EsSuscrita.ToString().ToLower()"
-                    data-es-activa="@ViewBag.EsActiva.ToString().ToLower()">
+                    data-es-activa="@ViewBag.EsActiva.ToString().ToLower()"
+                    data-activo-codigo="@menuActivo.Codigo">
 
                     @foreach (var menuhijo in menuList)
                     {
