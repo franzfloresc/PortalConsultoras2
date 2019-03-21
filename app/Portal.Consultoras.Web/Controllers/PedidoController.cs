@@ -4856,5 +4856,33 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        /// <summary>
+        /// Valida si la palanca tiene pedidos
+        /// </summary>
+        /// <param name="te">Tipo de estrategia</param>
+        /// <returns></returns>
+        public JsonResult ValidaExisteTipoEstrategiaEnPedido(string te)
+        {
+            try
+            {
+                var lstPedidoAgrupado = ObtenerPedidoWebSetDetalleAgrupado(false);
+                var packAgregado = lstPedidoAgrupado != null ? lstPedidoAgrupado.Where(x => x.TipoEstrategiaCodigo == te).FirstOrDefault() : null;
+
+                return Json(new
+                {
+                    success = true,
+                    TienePedido = packAgregado != null
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

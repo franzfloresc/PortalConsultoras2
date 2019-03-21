@@ -1055,6 +1055,12 @@ var FichaPartialModule = (function () {
             if (_validarAtp(campaniaId, setid, cuv)) {
                 _construirFicha(event, tipoAccion, true);
             }
+            else {
+                _construirFicha(event, tipoAccion, true);
+            }
+        }
+        else {
+            _construirFicha(event, tipoAccion, true);
         }
     };
 

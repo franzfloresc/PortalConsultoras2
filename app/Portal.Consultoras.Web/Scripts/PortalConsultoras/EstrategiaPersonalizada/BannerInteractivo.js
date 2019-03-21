@@ -1,5 +1,36 @@
 ﻿var BannerInteractivo = (function () {
     'use strict';
+    var ConstanteUrl = {
+        ValidaExisteTipoEstrategiaEnPedido: '/Pedido/ValidaExisteTipoEstrategiaEnPedido'
+        //Landing: '/ArmaTuPack/Detalle'
+    };
+
+    var _fnMensaje = function (fn) {
+        messageConfirmacion(
+            '¿Quieres eliminar el que tenías y empezar de nuevo?',
+            'Recuerda que solo puedes armar 1 pack',
+            fn
+        );
+    }
+    var _fnValidaExisteTipoEstrategiaEnPedido = function () {
+        var d = $.Deferred();
+        var promise = $.ajax({
+            type: 'POST',
+            url: ConstanteUrl.ValidaExisteTipoEstrategiaEnPedido,
+            data: JSON.stringify({
+                te: ConstantesModule.TipoEstrategia.ATP
+            }),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            async: false
+        });
+        promise.done(function (response) {
+            d.resolve(response);
+        });
+        promise.fail(d.reject);
+
+        return d.promise();
+    }
 
     var fnConsultaRedireccionaLanding = function (objeto) {
         var popup = $(objeto).data('popup');
@@ -7,20 +38,27 @@
         var url = baseUrl + landing;
 
         if (popup) {
-            messageConfirmacion(
-                '¿Quieres eliminar el que tenías y empezar de nuevo?',
-                'Recuerda que solo puedes armar 1 pack',
-                function () {
-                    window.location.href = url;
-                }
-            );
+            _fnMensaje(function () {
+                window.location.href = url;
+            });
         }
         else {
             window.location.href = url;
         }
     };
+    var fnConsultaAjaxRedireccionaLanding = function (fn) {
+        var promesa = _fnValidaExisteTipoEstrategiaEnPedido();
+
+        $.when(promesa)
+            .then(function (response) {
+                if (response.TienePedido) {
+                    _fnMensaje(fn);
+                }
+            });
+    };
 
     return {
-        ConsultaRedireccionaLanding: fnConsultaRedireccionaLanding
+        ConsultaRedireccionaLanding: fnConsultaRedireccionaLanding,
+        ConsultaAjaxRedireccionaLanding: fnConsultaAjaxRedireccionaLanding
     };
 })();

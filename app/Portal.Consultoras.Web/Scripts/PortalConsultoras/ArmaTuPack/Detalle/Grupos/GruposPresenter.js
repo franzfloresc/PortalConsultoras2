@@ -77,7 +77,14 @@
             _config.gruposView.hideGroupReady(codigoGrupo);
             _config.gruposView.unblockGroup(codigoGrupo);
         }
-        else if (cantidadSeleccionadosPorGrupo == factorCuadre) {
+        else if (factorCuadre == 1 && cantidadSeleccionadosPorGrupo == factorCuadre) {
+            _config.gruposView.showChosen(cuvComponente);
+             _config.gruposView.hideGroupOptions(codigoGrupo);
+             _config.gruposView.showGroupReady(codigoGrupo);
+             _config.gruposView.blockGroup(codigoGrupo,cuvComponente);
+             _config.gruposView.removeGroupHighlight(codigoGrupo);
+        }
+        else if (factorCuadre > 1 && cantidadSeleccionadosPorGrupo == factorCuadre) {
             _config.gruposView.showQuantitySelector(cuvComponente, cantidadSeleccionadosPorComponente);
             _config.gruposView.hideGroupOptions(codigoGrupo);
             _config.gruposView.showGroupReady(codigoGrupo);
