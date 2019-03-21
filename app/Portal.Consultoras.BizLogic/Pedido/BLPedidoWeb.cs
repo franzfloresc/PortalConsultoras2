@@ -2123,10 +2123,25 @@ namespace Portal.Consultoras.BizLogic
 
                 if (usuario != null)
                 {
-                    using (var reader = new DAPedidoWeb(paisID).GetEstadoPedido(campania, usuarioPrueba ? usuario.ConsultoraAsociadaID : usuario.ConsultoraID))
+
+                    //INI HD-3693 
+                    if (usuario.AutorizaPedido == "0")
                     {
-                        configuracion = reader.MapToObject<BEConfiguracionCampania>(true);
+                        return new BEValidacionModificacionPedido
+                        {
+                            MotivoPedidoLock = Enumeradores.MotivoPedidoLock.Bloqueado,
+                            Mensaje = "Pedido Bloqueado"
+                        };
                     }
+                    else
+                    {
+                        using (var reader = new DAPedidoWeb(paisID).GetEstadoPedido(campania, usuarioPrueba ? usuario.ConsultoraAsociadaID : usuario.ConsultoraID))
+                        {
+                            configuracion = reader.MapToObject<BEConfiguracionCampania>(true);
+                        }
+                    }
+                    //FIN HD-3693
+
                 }
 
                 if (configuracion != null)
