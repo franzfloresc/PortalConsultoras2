@@ -336,9 +336,8 @@ var menuModule = (function () {
 
             if (typeof BannerInteractivo != "undefined") {
                 //BannerInteractivo.ConsultaRedireccionaLanding(this);
+                //return true;
             }
-
-            return true;
         }
         return false;
 
