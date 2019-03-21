@@ -519,7 +519,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 config = _configuracionPaisProvider.ActualizarTituloYSubtituloMenu(config);
                 config = _configuracionPaisProvider.RemplazarTagNombre(config, Constantes.TagCadenaRd.Nombre1, userData.Sobrenombre);
-
+                config.UrlMenu = config.EsAncla ? "#" : config.UrlMenu;
                 config.EsMobile = esMobile;
                 menuContenedor.Add(config);
             }
