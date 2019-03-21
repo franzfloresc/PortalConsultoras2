@@ -20,7 +20,8 @@
             <div class="op-menu-horizontal">
                 <ul class="subnavegador"
                     data-es-suscrita="@ViewBag.EsSuscrita.ToString().ToLower()"
-                    data-es-activa="@ViewBag.EsActiva.ToString().ToLower()">
+                    data-es-activa="@ViewBag.EsActiva.ToString().ToLower()"
+                    data-activo-codigo="@menuActivo.Codigo">
 
                     @foreach (var menuhijo in menuList)
                     {

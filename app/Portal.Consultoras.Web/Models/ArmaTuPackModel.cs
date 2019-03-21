@@ -9,7 +9,7 @@ namespace Portal.Consultoras.Web.Models
         public ArmaTuPackModel()
         {
             ConfiguracionPaisDatos = new List<ConfiguracionPaisDatosModel>();
-            TieneAtp = true;
+            TieneAtp = false;
             TieneLanding = true;
         }
 

@@ -1,9 +1,8 @@
 ﻿
 /* MENÚ CONTENEDOR OFERTAS RESPONSIVE */
 
-.layout__header--menuContenedorOfertas,
 .menu__contenedor__carrusel__wrapper {
-    height: 52px !important;
+    height: 52px!important;
 }
 
     .menu__contenedor__carrusel__wrapper .slick-track,
