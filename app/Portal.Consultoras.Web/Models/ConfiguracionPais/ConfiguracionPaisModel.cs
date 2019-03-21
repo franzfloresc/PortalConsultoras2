@@ -33,6 +33,8 @@ namespace Portal.Consultoras.Web.Models
         public string DesktopLogoBanner { get; set; }
         public string MobileLogoBanner { get; set; }
 
+
+        public bool EsMobile { get; set; }
         public string UrlMenu { get; set; }
         public string UrlMenuMobile
         {
