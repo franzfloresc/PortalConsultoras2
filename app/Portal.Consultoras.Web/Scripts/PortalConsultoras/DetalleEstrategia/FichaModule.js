@@ -1052,12 +1052,7 @@ var FichaPartialModule = (function () {
 
     var _fichaPreValidar = function (event, tipoAccion, tipoEstrategiaCodigo, campaniaId, setid, cuv) {
         if (tipoEstrategiaCodigo == ConstantesModule.ConstantesPalanca.ArmaTuPack) {
-            if (_validarAtp(campaniaId, setid, cuv)) {
-                _construirFicha(event, tipoAccion, true);
-            }
-            else {
-                _construirFicha(event, tipoAccion, true);
-            }
+            _validarAtp(campaniaId, setid, cuv);
         }
         else {
             _construirFicha(event, tipoAccion, true);
