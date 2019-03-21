@@ -3005,7 +3005,7 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
                         "DescripcionComercial": null,
                         "DescripcionMarca": "Cyzone",
                         "Digitable": 1,
-                        "FactorCuadre": 2,
+                        "FactorCuadre": 1,
                         "Grupo": "2",
                         "Id": 0,
                         "IdMarca": 3,
@@ -3029,7 +3029,7 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
                                 "DescripcionComercial": null,
                                 "DescripcionMarca": "Cyzone",
                                 "Digitable": 1,
-                                "FactorCuadre": 2,
+                                "FactorCuadre": 1,
                                 "Grupo": "2",
                                 "Id": 0,
                                 "IdMarca": 3,
@@ -3054,7 +3054,7 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
                                 "DescripcionComercial": null,
                                 "DescripcionMarca": "Cyzone",
                                 "Digitable": 1,
-                                "FactorCuadre": 2,
+                                "FactorCuadre": 1,
                                 "Grupo": "2",
                                 "Id": 0,
                                 "IdMarca": 3,
@@ -3064,256 +3064,6 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
                                 "NombreBulk": "Chocolate",
                                 "NombreComercial": "Cy Glaze. Chocolate 5.5 ml",
                                 "Orden": 35,
-                                "PrecioCatalogo": 3160,
-                                "PrecioCatalogoString": "3.160",
-                                "Volumen": "5.5 ml",
-                                "Hermanos": null,
-                                "TieneStock": false,
-                                "EstrategiaGrupoId": 0
-                            },
-                            {
-                                "Cantidad": 1,
-                                "CodigoProducto": null,
-                                "Cuv": "30681",
-                                "Descripcion": "Labial líquido brillante full color.",
-                                "DescripcionComercial": null,
-                                "DescripcionMarca": "Cyzone",
-                                "Digitable": 1,
-                                "FactorCuadre": 2,
-                                "Grupo": "2",
-                                "Id": 0,
-                                "IdMarca": 3,
-                                "Imagen": null,
-                                "ImagenBulk": "https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201904/C/productos/bulk/CL_200095889_B.jpg",
-                                "ImagenProductoSugerido": null,
-                                "NombreBulk": "Violet",
-                                "NombreComercial": "Cy Glaze. Violet 5.5 ml",
-                                "Orden": 36,
-                                "PrecioCatalogo": 3160,
-                                "PrecioCatalogoString": "3.160",
-                                "Volumen": "5.5 ml",
-                                "Hermanos": null,
-                                "TieneStock": false,
-                                "EstrategiaGrupoId": 0
-                            },
-                            {
-                                "Cantidad": 1,
-                                "CodigoProducto": null,
-                                "Cuv": "30675",
-                                "Descripcion": "Labial líquido brillante full color.",
-                                "DescripcionComercial": null,
-                                "DescripcionMarca": "Cyzone",
-                                "Digitable": 1,
-                                "FactorCuadre": 2,
-                                "Grupo": "2",
-                                "Id": 0,
-                                "IdMarca": 3,
-                                "Imagen": null,
-                                "ImagenBulk": "https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201904/C/productos/bulk/CL_200095887_B.jpg",
-                                "ImagenProductoSugerido": null,
-                                "NombreBulk": "Mauve",
-                                "NombreComercial": "Cy Glaze. Mauve 5.5 ml",
-                                "Orden": 37,
-                                "PrecioCatalogo": 3160,
-                                "PrecioCatalogoString": "3.160",
-                                "Volumen": "5.5 ml",
-                                "Hermanos": null,
-                                "TieneStock": false,
-                                "EstrategiaGrupoId": 0
-                            },
-                            {
-                                "Cantidad": 1,
-                                "CodigoProducto": null,
-                                "Cuv": "30678",
-                                "Descripcion": "Labial líquido brillante full color.",
-                                "DescripcionComercial": null,
-                                "DescripcionMarca": "Cyzone",
-                                "Digitable": 1,
-                                "FactorCuadre": 2,
-                                "Grupo": "2",
-                                "Id": 0,
-                                "IdMarca": 3,
-                                "Imagen": null,
-                                "ImagenBulk": "https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201904/C/productos/bulk/CL_200095888_B.jpg",
-                                "ImagenProductoSugerido": null,
-                                "NombreBulk": "Magenta",
-                                "NombreComercial": "Cy Glaze. Magenta 5.5 ml",
-                                "Orden": 38,
-                                "PrecioCatalogo": 3160,
-                                "PrecioCatalogoString": "3.160",
-                                "Volumen": "5.5 ml",
-                                "Hermanos": null,
-                                "TieneStock": false,
-                                "EstrategiaGrupoId": 0
-                            },
-                            {
-                                "Cantidad": 1,
-                                "CodigoProducto": null,
-                                "Cuv": "30660",
-                                "Descripcion": "Labial líquido brillante full color.",
-                                "DescripcionComercial": null,
-                                "DescripcionMarca": "Cyzone",
-                                "Digitable": 1,
-                                "FactorCuadre": 2,
-                                "Grupo": "2",
-                                "Id": 0,
-                                "IdMarca": 3,
-                                "Imagen": null,
-                                "ImagenBulk": "https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201904/C/productos/bulk/CL_200095882_B.jpg",
-                                "ImagenProductoSugerido": null,
-                                "NombreBulk": "Wine",
-                                "NombreComercial": "Cy Glaze. Wine 5.5 ml",
-                                "Orden": 39,
-                                "PrecioCatalogo": 3160,
-                                "PrecioCatalogoString": "3.160",
-                                "Volumen": "5.5 ml",
-                                "Hermanos": null,
-                                "TieneStock": false,
-                                "EstrategiaGrupoId": 0
-                            },
-                            {
-                                "Cantidad": 1,
-                                "CodigoProducto": null,
-                                "Cuv": "30654",
-                                "Descripcion": "Labial líquido brillante full color.",
-                                "DescripcionComercial": null,
-                                "DescripcionMarca": "Cyzone",
-                                "Digitable": 1,
-                                "FactorCuadre": 2,
-                                "Grupo": "2",
-                                "Id": 0,
-                                "IdMarca": 3,
-                                "Imagen": null,
-                                "ImagenBulk": "https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201904/C/productos/bulk/CL_200095880_B.jpg",
-                                "ImagenProductoSugerido": null,
-                                "NombreBulk": "Deep rose",
-                                "NombreComercial": "Cy Glaze. Deep rose 5.5 ml",
-                                "Orden": 40,
-                                "PrecioCatalogo": 3160,
-                                "PrecioCatalogoString": "3.160",
-                                "Volumen": "5.5 ml",
-                                "Hermanos": null,
-                                "TieneStock": false,
-                                "EstrategiaGrupoId": 0
-                            },
-                            {
-                                "Cantidad": 1,
-                                "CodigoProducto": null,
-                                "Cuv": "30668",
-                                "Descripcion": "Labial líquido brillante full color.",
-                                "DescripcionComercial": null,
-                                "DescripcionMarca": "Cyzone",
-                                "Digitable": 1,
-                                "FactorCuadre": 2,
-                                "Grupo": "2",
-                                "Id": 0,
-                                "IdMarca": 3,
-                                "Imagen": null,
-                                "ImagenBulk": "https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201904/C/productos/bulk/CL_200095884_B.jpg",
-                                "ImagenProductoSugerido": null,
-                                "NombreBulk": "Rose nude",
-                                "NombreComercial": "Cy Glaze. Rose nude 5.5 ml",
-                                "Orden": 41,
-                                "PrecioCatalogo": 3160,
-                                "PrecioCatalogoString": "3.160",
-                                "Volumen": "5.5 ml",
-                                "Hermanos": null,
-                                "TieneStock": false,
-                                "EstrategiaGrupoId": 0
-                            },
-                            {
-                                "Cantidad": 1,
-                                "CodigoProducto": null,
-                                "Cuv": "30674",
-                                "Descripcion": "Labial líquido brillante full color.",
-                                "DescripcionComercial": null,
-                                "DescripcionMarca": "Cyzone",
-                                "Digitable": 1,
-                                "FactorCuadre": 2,
-                                "Grupo": "2",
-                                "Id": 0,
-                                "IdMarca": 3,
-                                "Imagen": null,
-                                "ImagenBulk": "https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201904/C/productos/bulk/CL_200095886_B.jpg",
-                                "ImagenProductoSugerido": null,
-                                "NombreBulk": "Burgundy",
-                                "NombreComercial": "Cy Glaze. Burgundy 5.5 ml",
-                                "Orden": 42,
-                                "PrecioCatalogo": 3160,
-                                "PrecioCatalogoString": "3.160",
-                                "Volumen": "5.5 ml",
-                                "Hermanos": null,
-                                "TieneStock": true,
-                                "EstrategiaGrupoId": 0
-                            },
-                            {
-                                "Cantidad": 1,
-                                "CodigoProducto": null,
-                                "Cuv": "30671",
-                                "Descripcion": "Labial líquido brillante full color.",
-                                "DescripcionComercial": null,
-                                "DescripcionMarca": "Cyzone",
-                                "Digitable": 1,
-                                "FactorCuadre": 2,
-                                "Grupo": "2",
-                                "Id": 0,
-                                "IdMarca": 3,
-                                "Imagen": null,
-                                "ImagenBulk": "https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201904/C/productos/bulk/CL_200095885_B.jpg",
-                                "ImagenProductoSugerido": null,
-                                "NombreBulk": "Deep brown",
-                                "NombreComercial": "Cy Glaze. Deep brown 5.5 ml",
-                                "Orden": 43,
-                                "PrecioCatalogo": 3160,
-                                "PrecioCatalogoString": "3.160",
-                                "Volumen": "5.5 ml",
-                                "Hermanos": null,
-                                "TieneStock": false,
-                                "EstrategiaGrupoId": 0
-                            },
-                            {
-                                "Cantidad": 1,
-                                "CodigoProducto": null,
-                                "Cuv": "30685",
-                                "Descripcion": "Labial líquido brillante full color.",
-                                "DescripcionComercial": null,
-                                "DescripcionMarca": "Cyzone",
-                                "Digitable": 1,
-                                "FactorCuadre": 2,
-                                "Grupo": "2",
-                                "Id": 0,
-                                "IdMarca": 3,
-                                "Imagen": null,
-                                "ImagenBulk": "https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201904/C/productos/bulk/CL_200095890_B.jpg",
-                                "ImagenProductoSugerido": null,
-                                "NombreBulk": "Purple",
-                                "NombreComercial": "Cy Glaze. Purple 5.5 ml",
-                                "Orden": 44,
-                                "PrecioCatalogo": 3160,
-                                "PrecioCatalogoString": "3.160",
-                                "Volumen": "5.5 ml",
-                                "Hermanos": null,
-                                "TieneStock": false,
-                                "EstrategiaGrupoId": 0
-                            },
-                            {
-                                "Cantidad": 1,
-                                "CodigoProducto": null,
-                                "Cuv": "30688",
-                                "Descripcion": "Labial líquido brillante full color.",
-                                "DescripcionComercial": null,
-                                "DescripcionMarca": "Cyzone",
-                                "Digitable": 1,
-                                "FactorCuadre": 2,
-                                "Grupo": "2",
-                                "Id": 0,
-                                "IdMarca": 3,
-                                "Imagen": null,
-                                "ImagenBulk": "https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201904/C/productos/bulk/CL_200095891_B.jpg",
-                                "ImagenProductoSugerido": null,
-                                "NombreBulk": "Deep grape",
-                                "NombreComercial": "Cy Glaze. Deep grape 5.5 ml",
-                                "Orden": 45,
                                 "PrecioCatalogo": 3160,
                                 "PrecioCatalogoString": "3.160",
                                 "Volumen": "5.5 ml",
@@ -3330,8 +3080,14 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
             };
         };
 
-        var codigoGrupo = "1";
-        var cuvComponente = "30405";
+        var codigoGrupo = "";
+        var cuvComponente = "";
+
+        var codigoGrupoFC1 = "2";
+        var cuvComponenteFC1 = "30665";
+
+        var codigoGrupoFC4 = "1";
+        var cuvComponenteFC4 = "30405";
 
         beforeEach(function () {
             errorMsg = '';
@@ -3399,153 +3155,207 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
         });
 
         it("should not add component when grupo do not exists", function () {
-            gruposPresenter.addComponente("0", cuvComponente);
+            gruposPresenter.addComponente("0", cuvComponenteFC1);
 
             var model = gruposPresenter.packComponents();
             expect(model.componentesSeleccionados.length).to.be.equals(0);
         });
 
         it("should not add component when component do not exists", function () {
-            gruposPresenter.addComponente(codigoGrupo, "30405xx");
+            gruposPresenter.addComponente(codigoGrupoFC4, "30405xx");
 
             var model = gruposPresenter.packComponents();
             expect(model.componentesSeleccionados.length).to.be.equals(0);
         });
 
-        describe("Component exists at group", function () {
-
-
-            beforeEach("add componente with cuv 30405", function () {
-                gruposPresenter.addComponente(codigoGrupo, cuvComponente);
-            });
-
-            it("should have one item at componenteSeleccionado", function () {
-                var model = gruposPresenter.packComponents();
-
-                expect(model.componentesSeleccionados.length).to.be.equals(1);
-            });
-
-            it("should have component with cuv 30405 at componenteSeleccionado", function () {
-                var model = gruposPresenter.packComponents();
-                expect(model.componentesSeleccionados[0].Cuv).to.be.equals(cuvComponente);
-            });
-
-            it("should fire an event onSelectedComponentsChanged with not null data object", function () {
-                var firstCall = 0;
-                var firstParam = 0;
-                var secondParam = 1;
-                expect(armaTuPackDetalleEvents.applyChanges.args[firstCall][firstParam]).to.equals(armaTuPackDetalleEvents.eventName.onSelectedComponentsChanged);
-                expect(armaTuPackDetalleEvents.applyChanges.args[firstCall][secondParam]).to.not.equal(null);
-            });
-
-            it("should show quantity selector when quantity is less than factorCuadre", function () {
-                var model = gruposPresenter.packComponents();
-                var quantitySelected = 0;
-                var factorCuadre = 0;
-                $.each(model.componentes, function (idx, grupo) {
-                    if (grupo.Grupo == codigoGrupo) {
-                        quantitySelected = grupo.cantidadSeleccionados;
-                        factorCuadre = grupo.FactorCuadre;
-                    }
+        describe("Given a Component exists at group", function () {
+            describe("When componente is added", function () {
+                beforeEach(function () {
+                    codigoGrupo = codigoGrupoFC4;
+                    cuvComponente = cuvComponenteFC4;
                 });
-                expect(quantitySelected).to.be.lessThan(factorCuadre);
-                expect(gruposView.showQuantitySelector.calledOnce).to.be.equals(true);
-            });
 
-            it("should show options label when quantity is less than factorCuadre", function () {
-                var model = gruposPresenter.packComponents();
-                var quantitySelected = 0;
-                var factorCuadre = 0;
-                $.each(model.componentes, function (idx, grupo) {
-                    if (grupo.Grupo == codigoGrupo) {
-                        quantitySelected = grupo.cantidadSeleccionados;
-                        factorCuadre = grupo.FactorCuadre;
-                    }
+                it("should have one item at componenteSeleccionado", function () {
+                    //Arrange
+
+                    //Act
+                    gruposPresenter.addComponente(codigoGrupo, cuvComponente);
+
+                    //Assert
+                    var model = gruposPresenter.packComponents();
+                    expect(model.componentesSeleccionados.length).to.be.equals(1);
                 });
-                expect(quantitySelected).to.be.lessThan(factorCuadre);
-                expect(gruposView.showGroupOptions.calledOnce).to.be.equals(true);
-            });
 
-            it("should hide ready label when quantity is less than factorCuadre", function () {
-                var model = gruposPresenter.packComponents();
-                var quantitySelected = 0;
-                var factorCuadre = 0;
-                $.each(model.componentes, function (idx, grupo) {
-                    if (grupo.Grupo == codigoGrupo) {
-                        quantitySelected = grupo.cantidadSeleccionados;
-                        factorCuadre = grupo.FactorCuadre;
-                    }
+                it("should have one component with cuv 30405 in componenteSeleccionado", function () {
+                    //Arrange
+
+                    //Act
+                    gruposPresenter.addComponente(codigoGrupo, cuvComponente);
+
+                    //Assert
+                    var model = gruposPresenter.packComponents();
+                    expect(model.componentesSeleccionados[0].Cuv).to.be.equals(cuvComponente);
                 });
-                expect(quantitySelected).to.be.lessThan(factorCuadre);
-                expect(gruposView.hideGroupReady.calledOnce).to.be.equals(true);
-            });
 
-            it("should hide options label and show ready label when quantity is equal factorCuadre", function () {
-                gruposPresenter.addComponente(codigoGrupo, cuvComponente);
-                gruposPresenter.addComponente(codigoGrupo, cuvComponente);
-                gruposPresenter.addComponente(codigoGrupo, cuvComponente);
+                it("should fire an event onSelectedComponentsChanged with not null data object", function () {
+                    //Arrange
 
-                var model = gruposPresenter.packComponents();
-                var quantitySelected = 0;
-                var factorCuadre = 0;
-                $.each(model.componentes, function (idx, grupo) {
-                    if (grupo.Cuv == codigoGrupo) {
-                        quantitySelected = grupo.cantidadSeleccionados;
-                        factorCuadre = grupo.FactorCuadre;
-                    }
+                    //Act
+                    gruposPresenter.addComponente(codigoGrupo, cuvComponente);
+
+                    //Assert
+                    var firstCall = 0;
+                    var firstParam = 0;
+                    var secondParam = 1;
+                    expect(armaTuPackDetalleEvents.applyChanges.args[firstCall][firstParam]).to.equals(armaTuPackDetalleEvents.eventName.onSelectedComponentsChanged);
+                    expect(armaTuPackDetalleEvents.applyChanges.args[firstCall][secondParam]).to.not.equal(null);
                 });
-                expect(quantitySelected).to.be.equal(factorCuadre);
-                expect(gruposView.hideGroupOptions.calledOnce).to.be.equals(true);
-                expect(gruposView.showGroupReady.calledOnce).to.be.equals(true);
-            });
 
-            it("should block components when when quantity is equal factorCuadre", function () {
-                gruposPresenter.addComponente(codigoGrupo, cuvComponente);
-                gruposPresenter.addComponente(codigoGrupo, cuvComponente);
-                gruposPresenter.addComponente(codigoGrupo, cuvComponente);
-
-                var model = gruposPresenter.packComponents();
-                var quantitySelected = 0;
-                var factorCuadre = 0;
-                $.each(model.componentes, function (idx, grupo) {
-                    if (grupo.Cuv == codigoGrupo) {
-                        quantitySelected = grupo.cantidadSeleccionados;
-                        factorCuadre = grupo.FactorCuadre;
-                    }
+                it("should not add component when quantity selected is upper equal than FactorCuadre", function () {
+                    //Arrange
+                    gruposPresenter.addComponente(codigoGrupo, cuvComponente);
+                    gruposPresenter.addComponente(codigoGrupo, cuvComponente);
+                    gruposPresenter.addComponente(codigoGrupo, cuvComponente);
+                    gruposPresenter.addComponente(codigoGrupo, cuvComponente);
+        
+                    //Act
+                    gruposPresenter.addComponente(codigoGrupo, cuvComponente);
+        
+                    //Assert
+                    var model = gruposPresenter.packComponents();
+                    expect(model.componentesSeleccionados.length).to.be.equals(4);
                 });
-                expect(quantitySelected).to.be.equal(factorCuadre);
-                expect(gruposView.blockGroup.calledOnce).to.be.equals(true);
-            });
 
-            it("should remove group highlight when when quantity is equal factorCuadre", function () {
-                gruposPresenter.addComponente(codigoGrupo, cuvComponente);
-                gruposPresenter.addComponente(codigoGrupo, cuvComponente);
-                gruposPresenter.addComponente(codigoGrupo, cuvComponente);
+                describe("and Factor Cuadre is equals to 1 ", function () {
 
-                var model = gruposPresenter.packComponents();
-                var quantitySelected = 0;
-                var factorCuadre = 0;
-                $.each(model.componentes, function (idx, grupo) {
-                    if (grupo.Cuv == codigoGrupo) {
-                        quantitySelected = grupo.cantidadSeleccionados;
-                        factorCuadre = grupo.FactorCuadre;
-                    }
+                    beforeEach(function () {
+                        codigoGrupo = codigoGrupoFC1;
+                        cuvComponente = cuvComponenteFC1;
+                        gruposPresenter.addComponente(codigoGrupo, cuvComponente);
+                    });
+                    
+                    it("should hide options label and show ready label", function () {
+                        var model = gruposPresenter.packComponents();
+                        var quantitySelected = 0;
+                        var factorCuadre = 0;
+                        $.each(model.componentes, function (idx, grupo) {
+                            if (grupo.Cuv == codigoGrupo) {
+                                quantitySelected = grupo.cantidadSeleccionados;
+                                factorCuadre = grupo.FactorCuadre;
+                            }
+                        });
+                        expect(quantitySelected).to.be.equal(factorCuadre);
+                        expect(gruposView.hideGroupOptions.calledOnce).to.be.equals(true);
+                        expect(gruposView.showGroupReady.calledOnce).to.be.equals(true);
+                    });
+    
+                    it("should change choose it  to chosen", function () {
+                        var model = gruposPresenter.packComponents();
+                        var quantitySelected = 0;
+                        var factorCuadre = 0;
+                        $.each(model.componentes, function (idx, grupo) {
+                            if (grupo.Cuv == codigoGrupo) {
+                                quantitySelected = grupo.cantidadSeleccionados;
+                                factorCuadre = grupo.FactorCuadre;
+                            }
+                        });
+                        expect(quantitySelected).to.be.equal(factorCuadre);
+                        expect(gruposView.showChosen.calledOnce).to.be.equals(true);
+                    });
+
+                    it("should block components", function () {
+                        // Arrange
+
+                        // Act
+
+                        //Assert
+                        var model = gruposPresenter.packComponents();
+                        var quantitySelected = 0;
+                        var factorCuadre = 0;
+                        var firstCall = 0;
+                        var firstParam = 0;
+                        var secondParam = 1;
+                        $.each(model.componentes, function (idx, grupo) {
+                            if (grupo.Cuv == codigoGrupo) {
+                                quantitySelected = grupo.cantidadSeleccionados;
+                                factorCuadre = grupo.FactorCuadre;
+                            }
+                        });
+
+                        expect(quantitySelected).to.be.equal(factorCuadre);
+                        expect(gruposView.blockGroup.calledOnce).to.be.equals(true);
+                        expect(gruposView.blockGroup.args[firstCall][firstParam]).to.equals(codigoGrupo);
+                        expect(gruposView.blockGroup.args[firstCall][secondParam]).to.equals(cuvComponente);
+                    });
+    
+                    it("should remove group highlight", function () {
+                        var model = gruposPresenter.packComponents();
+                        var quantitySelected = 0;
+                        var factorCuadre = 0;
+                        $.each(model.componentes, function (idx, grupo) {
+                            if (grupo.Cuv == codigoGrupo) {
+                                quantitySelected = grupo.cantidadSeleccionados;
+                                factorCuadre = grupo.FactorCuadre;
+                            }
+                        });
+                        expect(quantitySelected).to.be.equal(factorCuadre);
+                        expect(gruposView.removeGroupHighlight.calledOnce).to.be.equals(true);
+                    });
+                
+                });    
+    
+                describe("and Factor Cuadre is upper than 1 ", function () {
+
+                    beforeEach(function () {
+                        gruposPresenter.addComponente(codigoGrupo, cuvComponente);
+                    });
+
+                    
+                    it("should show quantity selector when quantity is less than factorCuadre", function () {
+                        var model = gruposPresenter.packComponents();
+                        var quantitySelected = 0;
+                        var factorCuadre = 0;
+                        $.each(model.componentes, function (idx, grupo) {
+                            if (grupo.Grupo == codigoGrupo) {
+                                quantitySelected = grupo.cantidadSeleccionados;
+                                factorCuadre = grupo.FactorCuadre;
+                            }
+                        });
+                        expect(quantitySelected).to.be.lessThan(factorCuadre);
+                        expect(gruposView.showQuantitySelector.calledOnce).to.be.equals(true);
+                    });
+
+                    it("should show options label when quantity is less than factorCuadre", function () {
+                        var model = gruposPresenter.packComponents();
+                        var quantitySelected = 0;
+                        var factorCuadre = 0;
+                        $.each(model.componentes, function (idx, grupo) {
+                            if (grupo.Grupo == codigoGrupo) {
+                                quantitySelected = grupo.cantidadSeleccionados;
+                                factorCuadre = grupo.FactorCuadre;
+                            }
+                        });
+                        expect(quantitySelected).to.be.lessThan(factorCuadre);
+                        expect(gruposView.showGroupOptions.calledOnce).to.be.equals(true);
+                    });
+    
+                    it("should hide ready label when quantity is less than factorCuadre", function () {
+                        var model = gruposPresenter.packComponents();
+                        var quantitySelected = 0;
+                        var factorCuadre = 0;
+                        $.each(model.componentes, function (idx, grupo) {
+                            if (grupo.Grupo == codigoGrupo) {
+                                quantitySelected = grupo.cantidadSeleccionados;
+                                factorCuadre = grupo.FactorCuadre;
+                            }
+                        });
+                        expect(quantitySelected).to.be.lessThan(factorCuadre);
+                        expect(gruposView.hideGroupReady.calledOnce).to.be.equals(true);
+                    });    
+                    
                 });
-                expect(quantitySelected).to.be.equal(factorCuadre);
-                expect(gruposView.removeGroupHighlight.calledOnce).to.be.equals(true);
+                
             });
-        });
-
-        it("should not add component when component exits in group and quantity selected is upper equal than FactorCuadre", function () {
-            gruposPresenter.addComponente(codigoGrupo, cuvComponente);
-            gruposPresenter.addComponente(codigoGrupo, cuvComponente);
-            gruposPresenter.addComponente(codigoGrupo, cuvComponente);
-            gruposPresenter.addComponente(codigoGrupo, cuvComponente);
-
-            gruposPresenter.addComponente(codigoGrupo, cuvComponente);
-
-            var model = gruposPresenter.packComponents();
-            expect(model.componentesSeleccionados.length).to.be.equals(4);
         });
     });
 
