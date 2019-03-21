@@ -354,11 +354,14 @@ function SeccionMostrarProductos(data) {
     }
     else if (data.Seccion.Codigo === CONS_CODIGO_SECCION.ATP) {
         if (data.lista.length > 0) {
-            console.log(data);
             var btnRedirect = htmlSeccion.find('button.atp_button'),
                 pSubtitulo = htmlSeccion.find('p[data-subtitulo]');
 
-            pSubtitulo.html(pSubtitulo.data('subtitulo').replace('#PrecioTotal', data.lista[0].Precio));
+            var subTitulo = pSubtitulo.data('subtitulo')
+                .replace('#Cantidad', data.lista[0].CantidadPack)
+                .replace('#PrecioTotal', data.lista[0].Precio);
+
+            pSubtitulo.html(subTitulo);
             //btnRedirect.attr('data-cuv', data.lista[0].CUV2);
 
             if (data.estaEnPedido) {

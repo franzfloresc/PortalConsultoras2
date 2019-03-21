@@ -303,6 +303,13 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool TieneStock { get; set; }
 
+        // TODO: liberar comentario
+        /// <summary>
+        /// Calculo del factor cuadre
+        /// </summary>
+        [DataMember]
+        public int CantidadPack { get; set; }
+
         public BEEstrategia()
         { }
 
