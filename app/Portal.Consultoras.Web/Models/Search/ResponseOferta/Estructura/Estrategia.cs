@@ -39,5 +39,11 @@
         public int FlagRevista { get; set; }
         public int TipoEstrategiaImagenMostrar { get; set; }
         public string Niveles { get; set; }
+
+        // TODO: liberar comentario
+        /// <summary>
+        /// Calculo del factor cuadre
+        /// </summary>
+        public int CantidadPack { get; set; }
     }
 }

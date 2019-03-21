@@ -88,6 +88,7 @@
         color: #808080;
         line-height: normal;
         margin-left: 25px;
+        pointer-events: none;
     }
 
 .Sections_Pack {
@@ -211,8 +212,11 @@
 
 
 
+.Agregar_ArmaTuPack_fixed{
+
+}
 /* Tooltip */
-.tooltip_bloqueo{
+/*.tooltip_bloqueo{
     left: inherit;
     top: -81px;
     box-shadow: 0 2px 4px 2px rgba(0, 0, 0, 0.2);
@@ -224,16 +228,12 @@
         
     }
     .tooltip_bloqueo > .arrow{
-        /* bottom: -11px; */
-        /* margin-left:-11px; */
-        /* border-bottom-width: 0;    */
         border-top-color:rgb(175, 175, 175) !important;  
         border-width: 11px;
         height: 0;        
         bottom: -22px;
         right:15px;
         border: 11px solid transparent;
-        /* z-index:2; */
     }
     
     .tooltip_bloqueo > .arrow:after{
@@ -243,8 +243,7 @@
         border-bottom-width: 0;
         border-top-color: whitesmoke;
         border-width: 10px;
-    }
-
+    }*/
 /*Boton cantidad*/
 .contenedor_rangos {
     border: solid 1px #000;
@@ -396,6 +395,25 @@ footer {
     z-index: 99999 !important;
 }
 
+.Agregar_ArmaTuPack_fixed .popover {
+    border: none;
+    width: 291px;
+}
+
+    .Agregar_ArmaTuPack_fixed  .popover.top {
+        margin-top: -58px;
+    }
+
+.Agregar_ArmaTuPack_fixed  .list-inline > li {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+
+.Agregar_ArmaTuPack_fixed .popover.top > .arrow {
+    left: 75%;
+}
+
 @media screen and (min-width:768px) {
     .content_responsive {
         margin-top: 142px;
@@ -410,7 +428,7 @@ footer {
     }
 
     #opciones-seleccionadas-next {
-        right: -7% !important; 
+        right: -7% !important;
     }
 
     #opciones-seleccionadas-prev {
@@ -448,7 +466,7 @@ footer {
         width: 3000% !important;
     }
 
-    .Title_pack{
+    .Title_pack {
         pointer-events: none;
     }
 
@@ -456,7 +474,7 @@ footer {
         margin-top: 10px;
     }
 
-    #Select_Items{
+    #Select_Items {
         display: block !important;
     }
 
@@ -471,6 +489,10 @@ footer {
     #Pack_Items .flecha_ofertas-tipo {
         height: 197px;
         display: flex !important;
+    }
+
+    .Agregar_ArmaTuPack_fixed .popover {
+        right: -461px;
     }
 }
 
@@ -598,6 +620,14 @@ footer {
         z-index: 999;
         top: 105px;
     }
+
+    .Agregar_ArmaTuPack_fixed .popover {
+        right: 0px;
+    }
+
+        .Agregar_ArmaTuPack_fixed .popover.top {
+            margin-top: -78px;
+        }
 }
 
 

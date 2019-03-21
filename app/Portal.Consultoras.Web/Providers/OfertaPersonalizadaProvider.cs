@@ -1146,6 +1146,8 @@ namespace Portal.Consultoras.Web.Providers
                     estrategia.CodigoEstrategia
                 );
 
+                prodModel.CantidadPack = estrategia.CantidadPack;
+
                 if (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento)
                 {
                     prodModel.TipoEstrategiaDetalle.ImgFondoDesktop = ConfigCdn.GetUrlFileCdnMatriz(codigoISO, estrategia.EstrategiaDetalle.ImgFondoDesktop);

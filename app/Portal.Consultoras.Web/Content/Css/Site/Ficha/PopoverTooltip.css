@@ -156,10 +156,11 @@
     margin-bottom: 0px;
 }
 
-.list-inline li{
-    vertical-align: middle;
-    display: inline-block;
-}
+    .list-inline li {
+        vertical-align: middle;
+        display: inline-block;
+        line-height: normal;
+    }
 
 .tooltip_agregado {
     width: 292px;
@@ -174,6 +175,12 @@
 
 .tooltip_agregado > .arrow {
     left: 93% !important;
+}
+
+.icon_alerta {
+    width: 21px;
+    margin-right: 4px;
+    display: block;
 }
 
 .tooltop-emoji {
