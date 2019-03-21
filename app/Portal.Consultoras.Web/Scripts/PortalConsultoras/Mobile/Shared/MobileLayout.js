@@ -832,7 +832,7 @@ function messageInfoValidado(message, fnAceptar) {
     }
 }
 
-function messageConfirmacion(message, fnAceptar) {
+function messageConfirmacion(title, message, fnAceptar) {
     $('#mensajeInformacionConfirmacion').html(message);
     $('#popupInformacionConfirmacion').show();
     if ($.isFunction(fnAceptar)) {
