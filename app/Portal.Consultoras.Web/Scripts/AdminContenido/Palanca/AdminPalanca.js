@@ -76,7 +76,7 @@ jQuery(document).ready(function () {
         } else {
             $(".hide-configuration").hide();
         }
-        
+
         if ($(this).find("option:selected").attr("data-codigo") === _palanca.odd) {
             $(".hide-config-image-odd").show();
         } else {
@@ -84,7 +84,7 @@ jQuery(document).ready(function () {
         }
 
         ConfigSeccionApp($(this).val());
-        
+
         if ($(this).find("option:selected").attr("data-codigo") == ConstantesModule.TipoEstrategia.ATP) {
             $(".div-disenio-atp-visible").show();
             $(".div-disenio-atp-oculto").hide();
@@ -99,12 +99,12 @@ jQuery(document).ready(function () {
             $("#BotonColor").val("#000000");
             $("#BotonColorTexto").val("#ffffff");
             $("#DesktopCantidadProductos").val("0");
-            $("#DesktopOrden").val("1");            
+            $("#DesktopOrden").val("1");
             $("#cbDesktopCantidadTodos").prop("checked", true);
             $("#DesktopCantidadProductos").attr("disabled", "disabled");
-            $("#ddlDesktopTipoPresentacionOfertas").val(_tipopresentacion.bannerInterativo);   
+            $("#ddlDesktopTipoPresentacionOfertas").val(_tipopresentacion.bannerInterativo);
             $("#titTamanioImagenFondo").html("(Ancho: 1920 px x Alto: 300 px)");
-        }else {
+        } else {
             $(".div-disenio-atp-visible").hide();
             $(".div-disenio-atp-oculto").show();
             $("#tituloSeccionDesktop").html("Desktop");
@@ -135,8 +135,11 @@ function ConfigSeccionApp(configuracionPaisID) {
                 return;
             }
 
-            if (result.data.AppOfertasHomeActivo == "1") $("#divMantApp").show();
-            else $("#divMantApp").hide();
+            if (result.data.AppOfertasHomeActivo == "1") {
+                if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") != ConstantesModule.TipoEstrategia.ATP)
+                    $("#divMantApp").show();
+            }
+            else { $("#divMantApp").hide(); }
 
             if (result.data.AppOfertasHomeImgExtension != "") $("#nombre-fondo-app").attr("imageextension", result.data.AppOfertasHomeImgExtension);
             if (result.data.AppOfertasHomeImgAncho != "") $("#nombre-fondo-app").attr("imagewidth", result.data.AppOfertasHomeImgAncho);
@@ -198,9 +201,9 @@ function Modificar(idConfiguracionPais, event) {
             }
 
             /*INIT Agana 159*/
-             
+
             var esATP = $.trim($("#Codigo").val()) === ConstantesModule.TipoEstrategia.ATP;
-           
+
             if (esATP) {
                 $("#lblDesktop").html('Desktop/Mobile');
 
@@ -216,7 +219,7 @@ function Modificar(idConfiguracionPais, event) {
                 $("#divOrdenBPT").hide();
                 $("#divDesktopSubTituloMenu").hide();
                 $("#divDesktopTituloBanner").hide();
-                $("#divDesktopSubTituloBanner").hide();       
+                $("#divDesktopSubTituloBanner").hide();
             } else {
                 $("#lblDesktop").html('Desktop');//Default
                 $("#divUrlMenu").show();
@@ -236,7 +239,7 @@ function Modificar(idConfiguracionPais, event) {
 
             /*END Agana 159*/
 
-             /*Ini Agana 186*/
+            /*Ini Agana 186*/
 
             if ($(this).find("option:selected").attr("data-codigo") == ConstantesModule.TipoEstrategia.ATP) {
                 $(".div-disenio-atp-visible").show();
@@ -246,7 +249,7 @@ function Modificar(idConfiguracionPais, event) {
                 $("#titTamanioImagenFondo").html("(Ancho: 1920 px x Alto: 300 px)");
             }
 
-             /*Fin Agana 186*/
+            /*Fin Agana 186*/
         },
         error: function (request, status, error) { }
     });
@@ -293,11 +296,14 @@ function ModificarOfertas(idOfertasHome) {
             }
 
             /*Inicia Agana 186 */
-            if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") == ConstantesModule.TipoEstrategia.ATP) {               
+            if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") == ConstantesModule.TipoEstrategia.ATP) {
                 $(".div-disenio-atp-visible").show();
                 $(".div-disenio-atp-oculto").hide();
+
+                $("#divMantApp").hide();
+
                 $("#tituloSeccionDesktop").html("Desktop/Mobile");
-                $("#titColorTexto").html("Color de títulos");    
+                $("#titColorTexto").html("Color de títulos");
                 $("#titTamanioImagenFondo").html("(Ancho: 1920 px x Alto: 300 px)");
             }
             /*Fin Agana 186 */
@@ -376,8 +382,8 @@ function IniDialogs() {
                     async: true,
                     success: function (data) {
                         if (data.success) {
-                            HideDialog("DialogMantenimientoPalanca"); 
-                             //_toastHelper.error("Solicitud realizada sin problemas.");
+                            HideDialog("DialogMantenimientoPalanca");
+                            //_toastHelper.error("Solicitud realizada sin problemas.");
                             showDialogMensaje("Solicitud realizada sin problemas.", '');
                             UpdateGrillaPalanca();
                         } else {
@@ -642,13 +648,13 @@ function IniDialogs() {
                         AppOrden: $("#AdministrarOfertasHomeAppModel_AppOrden").val(),
                         AppCantidadProductos: $("#AdministrarOfertasHomeAppModel_AppCantidadProductos").val(),
                     },
-                    BotonTexto1 : $("#BotonTexto1").val(),
-                    BotonTexto2 : $("#BotonTexto2").val(),
-                    BotonColor : $("#BotonColor").val(),
+                    BotonTexto1: $("#BotonTexto1").val(),
+                    BotonTexto2: $("#BotonTexto2").val(),
+                    BotonColor: $("#BotonColor").val(),
                     BotonColorTexto: $("#BotonColorTexto").val(),
-                    Codigo: $("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") 
+                    Codigo: $("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo")
                 };
-                
+
                 waitingDialog({});
 
                 jQuery.ajax({

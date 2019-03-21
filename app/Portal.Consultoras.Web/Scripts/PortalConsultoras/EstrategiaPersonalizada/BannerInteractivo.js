@@ -2,10 +2,9 @@
     'use strict';
 
     var fnConsultaRedireccionaLanding = function (objeto) {
-        var popup = $(objeto).data('popup'),
-            landing = $(objeto).data('landing'),
-            //cuv = $(objeto).data('cuv'),
-            url = baseUrl + landing;// + '/' + cuv
+        var popup = $(objeto).data('popup');
+        var landing = $(objeto).data('landing');
+        var url = baseUrl + landing;
 
         if (popup) {
             messageConfirmacion(
@@ -24,4 +23,4 @@
     return {
         ConsultaRedireccionaLanding: fnConsultaRedireccionaLanding
     };
-});
+})();

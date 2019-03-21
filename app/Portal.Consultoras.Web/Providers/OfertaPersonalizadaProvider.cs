@@ -481,17 +481,16 @@ namespace Portal.Consultoras.Web.Providers
                 listEstrategia = GetEstrategiasService(entidad);
                 listEstrategia.ForEach(x => { x.TieneStock = true; });
 
-                if (tipo != Constantes.TipoEstrategiaCodigo.PackNuevas)
+                if (tipo != Constantes.TipoEstrategiaCodigo.PackNuevas
+                    && listEstrategia.Any())
                 {
-                    if (listEstrategia.Any())
+                    var validarDias = GetValidarDiasAntesStock(userData);
+                    if (validarDias)
                     {
-                        if (GetValidarDiasAntesStock(userData))
-                        {
-                            listEstrategia = _consultaProlProvider.ActualizarEstrategiaStockPROL(listEstrategia, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora);
-                        }
+                        listEstrategia = _consultaProlProvider.ActualizarEstrategiaStockPROL(listEstrategia, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora);
                     }
                 }
-  
+
                 if (campaniaId == userData.CampaniaID)
                 {
                     SetSessionEstrategia(tipo, varSession, listEstrategia);
@@ -575,7 +574,7 @@ namespace Portal.Consultoras.Web.Providers
                     listEstrategia = osc.GetEstrategiasPedido(entidad).ToList();
                 }
             }
-;
+
             return listEstrategia;
         }
 
@@ -1327,7 +1326,8 @@ namespace Portal.Consultoras.Web.Providers
 
             if (listaProducto.Any())
             {
-                if (GetValidarDiasAntesStock(userData))
+                var validarDias = GetValidarDiasAntesStock(userData);
+                if (validarDias)
                 {
                     listaProducto = _consultaProlProvider.ActualizarEstrategiaStockPROL(listaProducto, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora);
                 }
@@ -1349,7 +1349,7 @@ namespace Portal.Consultoras.Web.Providers
                     listaProductoRetorno = SessionManager.ShowRoom.OfertasPerdio;
                     break;
                 default:
-                    listaProductoRetorno =  SessionManager.ShowRoom.Ofertas;
+                    listaProductoRetorno = SessionManager.ShowRoom.Ofertas;
                     break;
             }
 

@@ -425,28 +425,26 @@ namespace Portal.Consultoras.Web.Providers
 
                     }
 
-                    if (model.CampaniaID != 0)
+                    if (model.CampaniaID != 0
+                        && configEstrategiaSR.BeShowRoom != null
+                        && configEstrategiaSR.BeShowRoom.Estado == SHOWROOM_ESTADO_ACTIVO)
                     {
-                        if (configEstrategiaSR.BeShowRoom != null &&
-                            configEstrategiaSR.BeShowRoom.Estado == SHOWROOM_ESTADO_ACTIVO)
+                        CargarNivelShowRoom(model);
+                        ActualizarValorPersonalizacionesShowRoom(model, configEstrategiaSR);
+
+                        _sessionManager.SetEsShowRoom("1");
+                        var fechaHoy = model.FechaHoy;
+
+                        if (fechaHoy >= model.FechaInicioCampania.AddDays(-configEstrategiaSR.BeShowRoom.DiasAntes).Date
+                            && fechaHoy <= model.FechaInicioCampania.AddDays(configEstrategiaSR.BeShowRoom.DiasDespues).Date)
                         {
-                            CargarNivelShowRoom(model);
-                            ActualizarValorPersonalizacionesShowRoom(model, configEstrategiaSR);
+                            _sessionManager.SetMostrarShowRoomProductos("1");
+                        }
 
-                            _sessionManager.SetEsShowRoom("1");
-                            var fechaHoy = model.FechaHoy;
-
-                            if (fechaHoy >= model.FechaInicioCampania.AddDays(-configEstrategiaSR.BeShowRoom.DiasAntes).Date
-                                && fechaHoy <= model.FechaInicioCampania.AddDays(configEstrategiaSR.BeShowRoom.DiasDespues).Date)
-                            {
-                                _sessionManager.SetMostrarShowRoomProductos("1");
-                            }
-
-                            if (fechaHoy > model.FechaInicioCampania.AddDays(configEstrategiaSR.BeShowRoom.DiasDespues).Date)
-                            {
-                                _sessionManager.SetMostrarShowRoomProductosExpiro("1");
-                                configEstrategiaSR.ConfiguracionPaisDatos = new List<ConfiguracionPaisDatosModel>();
-                            }
+                        if (fechaHoy > model.FechaInicioCampania.AddDays(configEstrategiaSR.BeShowRoom.DiasDespues).Date)
+                        {
+                            _sessionManager.SetMostrarShowRoomProductosExpiro("1");
+                            configEstrategiaSR.ConfiguracionPaisDatos = new List<ConfiguracionPaisDatosModel>();
                         }
                     }
                     configEstrategiaSR.CargoEntidadEventoPersonalizacion = configEstrategiaSR.BeShowRoom != null &&
@@ -928,7 +926,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 ShowRoomEventoConsultoraModel modelo = new ShowRoomEventoConsultoraModel();
 
-                if (respuesta.Result != null && respuesta.Result.Count() > 0)
+                if (respuesta.Result != null && respuesta.Result.Any())
                 {
                     foreach (Models.Search.ResponseEvento.Estructura.EventoConsultora eventoConsultora in respuesta.Result.DefaultIfEmpty())
                     {

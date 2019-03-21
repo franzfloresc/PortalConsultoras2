@@ -37,8 +37,8 @@
     #endregion
 }
 
-<div class="container-flex">
-    <div class="atp_main" style="@Html.Raw(String.Join("", lStylePanel))">
+<div class="container-flex atp_container" style="@Html.Raw(String.Join("", lStylePanel))">
+    <div class="atp_main">
         <div class="atp_main_content">
             <h2 class="atp_title text-upper" style="@Html.Raw(String.Join("", lStyleText))">@Model.Titulo</h2>
             <div class="atp_content">
@@ -49,16 +49,19 @@
                 @*<span>Sigue el texto aquí.</span>*@
             </div>
         </div>
-        <button class="atp_button atp_button_center text-upper" 
-                style="@Html.Raw(String.Join("", lStyleBoton))"
-                data-crea="@Model.BotonTexto1" 
-                data-modifica="@Model.BotonTexto2"
-                @*data-landing="@Url.Action("Index", "ArmaTuPack")"*@
-                data-landing="@Model.UrlLandig"
-                data-popup="false"
-                data-cuv=""
-                onclick="javascript: BannerInteractivo().ConsultaRedireccionaLanding(this);">
-            @Model.BotonTexto1
-        </button>
+        <div class="atp_action">
+            <button class="atp_button atp_button_center text-upper" 
+                    style="@Html.Raw(String.Join("", lStyleBoton))"
+                    data-crea="@Model.BotonTexto1" 
+                    data-modifica="@Model.BotonTexto2"
+                    @*data-landing="@Url.Action("Index", "ArmaTuPack")"*@
+                    data-landing="@Model.UrlLandig"
+                    data-popup="false"
+                    data-cuv=""
+                    onclick="javascript: BannerInteractivo.ConsultaRedireccionaLanding(this);">
+                @Model.BotonTexto1
+            </button>
+        </div>
+        
     </div>
 </div>
