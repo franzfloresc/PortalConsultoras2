@@ -1052,14 +1052,14 @@ var FichaPartialModule = (function () {
 
     var _fichaPreValidar = function (event, tipoAccion, tipoEstrategiaCodigo, campaniaId, setid, cuv) {
         if (tipoEstrategiaCodigo == ConstantesModule.ConstantesPalanca.ArmaTuPack) {
-            _validarAtp(campaniaId, setid, cuv);
+            _mostrarPopupAtp(campaniaId, setid, cuv);
         }
         else {
             _construirFicha(event, tipoAccion, true);
         }
     };
 
-    var _validarAtp = function (campaniaId, setid, cuv) {
+    var _mostrarPopupAtp = function (campaniaId, setid, cuv) {
         AbrirLoad();
         var params =
             {
