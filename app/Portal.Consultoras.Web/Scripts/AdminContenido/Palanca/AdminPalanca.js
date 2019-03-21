@@ -84,26 +84,28 @@ jQuery(document).ready(function () {
         }
 
         ConfigSeccionApp($(this).val());
-
+        
         if ($(this).find("option:selected").attr("data-codigo") == ConstantesModule.TipoEstrategia.ATP) {
-            $(".div-disenio-atp-visible").show();
-            $(".div-disenio-atp-oculto").hide();
-            $("#tituloSeccionDesktop").html("Desktop/Mobile");
-            $("#titColorTexto").html("Color de títulos");
-            $("#DesktopTitulo").val("ARMA TU PACK");
-            $("#DesktopColorFondo").val("#fa1702");
-            $("#DesktopSubTitulo").val("Elige #Cantidad y llevátelos al #PrecioTotal");
-            $("#DesktopColorTexto").val("#ffffff");
-            $("#BotonTexto1").val("Comenzar");
-            $("#BotonTexto2").val("Modificar");
-            $("#BotonColor").val("#000000");
-            $("#BotonColorTexto").val("#ffffff");
-            $("#DesktopCantidadProductos").val("0");
-            $("#DesktopOrden").val("1");
-            $("#cbDesktopCantidadTodos").prop("checked", true);
-            $("#DesktopCantidadProductos").attr("disabled", "disabled");
-            $("#ddlDesktopTipoPresentacionOfertas").val(_tipopresentacion.bannerInterativo);
-            $("#titTamanioImagenFondo").html("(Ancho: 1920 px x Alto: 300 px)");
+            if ($("#ConfiguracionOfertasHomeID").val() == 0) {
+                $(".div-disenio-atp-visible").show();
+                $(".div-disenio-atp-oculto").hide();
+                $("#tituloSeccionDesktop").html("Desktop/Mobile");
+                $("#titColorTexto").html("Color de títulos");
+                $("#DesktopTitulo").val("ARMA TU PACK");
+                $("#DesktopColorFondo").val("#fa1702");
+                $("#DesktopSubTitulo").val("Elige #Cantidad y llevátelos al #PrecioTotal");
+                $("#DesktopColorTexto").val("#ffffff");
+                $("#BotonTexto1").val("Comenzar");
+                $("#BotonTexto2").val("Modificar");
+                $("#BotonColor").val("#000000");
+                $("#BotonColorTexto").val("#ffffff");
+                $("#DesktopCantidadProductos").val("0");
+                $("#DesktopOrden").val("1");
+                $("#cbDesktopCantidadTodos").prop("checked", true);
+                $("#DesktopCantidadProductos").attr("disabled", "disabled");
+                $("#ddlDesktopTipoPresentacionOfertas").val(_tipopresentacion.bannerInterativo);
+                $("#titTamanioImagenFondo").html("(Ancho: 1920 px x Alto: 300 px)");
+            }
         } else {
             $(".div-disenio-atp-visible").hide();
             $(".div-disenio-atp-oculto").show();
@@ -268,6 +270,7 @@ function ModificarOfertas(idOfertasHome) {
         data: { idOfertasHome: idOfertasHome },
         contentType: "application/json; charset=utf-8",
         success: function (result) {
+            
             closeWaitingDialog();
 
             $("#dialog-content-ofertas-home").empty();
@@ -509,6 +512,8 @@ function IniDialogs() {
                 var mobileUsarImagenFondo = $("#MobileUsarImagenFondo").prop("checked");
                 var botonColor = $("#BotonColor").val();
                 var botonColorTexto = $("#BotonColorTexto").val();
+                var desktopActivo = $("#DesktopActivo").is(":checked");
+                var mobileActivo = $("#MobileActivo").is(":checked");
 
                 var regExpColorHex = /^#+([a-fA-F0-9]{6})/;
                 if (!regExpColorHex.test(desktopColorFondo) && desktopColorFondo !== "") {
@@ -566,6 +571,7 @@ function IniDialogs() {
                     mobileColorTexto = desktopColorTexto;
                     desktopUsarImagenFondo = $("#DesktopUsarImagenFondo").prop("checked");
                     mobileUsarImagenFondo = desktopUsarImagenFondo;
+                    mobileActivo = desktopActivo;
 
                     $("#DesktopOrdenBpt").val($("#DesktopOrden").val());
                     $("#MobileOrden").val($("#DesktopOrden").val());
@@ -632,8 +638,8 @@ function IniDialogs() {
                     MobileTipoEstrategia: GetStringEstrategia("mobile-tipo-estrategia"),
                     DesktopCantidadProductos: $("#DesktopCantidadProductos").val(),
                     MobileCantidadProductos: $("#MobileCantidadProductos").val(),
-                    DesktopActivo: $("#DesktopActivo").is(":checked"),
-                    MobileActivo: $("#MobileActivo").is(":checked"),
+                    DesktopActivo: desktopActivo,
+                    MobileActivo: mobileActivo,
                     UrlSeccion: $("#UrlSeccion").val(),
                     DesktopOrdenBpt: $("#DesktopOrdenBpt").val(),
                     MobileOrdenBpt: $("#DialogMantenimientoOfertasHome #MobileOrdenBpt").val(),
