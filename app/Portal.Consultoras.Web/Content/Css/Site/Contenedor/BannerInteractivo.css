@@ -89,3 +89,9 @@
         text-align: center;
     }
 }
+
+/* Fix container min-height 500 */
+
+[data-seccion="ATP"] .seccion-content-contenedor {
+    min-height: auto;
+}
