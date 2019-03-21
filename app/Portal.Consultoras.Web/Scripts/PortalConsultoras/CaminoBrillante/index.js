@@ -30,9 +30,8 @@ function GetNiveles() {
             $(".pt" + nivelactual).addClass("brillante");
             //Desactivando según nivel
             if (nivelactual === 1)
-                $('#OfertasEspeciales').addClass("desactive");
+                $('#OfertasEspeciales').hide();
 
-            debugger;
             //Agregando lista de beneficios en la pagina principal
             $("#BeneficiosPrincipal").empty();
             var htmlBeneficios = "";

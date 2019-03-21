@@ -1,5 +1,8 @@
-﻿namespace Portal.Consultoras.Web.Models.CaminoBrillante
+﻿using System;
+
+namespace Portal.Consultoras.Web.Models.CaminoBrillante
 {
+    [Serializable]
     public class PeriodosModel
     {
         public string Isopais { get; set; }
