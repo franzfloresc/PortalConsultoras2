@@ -211,7 +211,6 @@ var BuscadorModule = (function () {
             } 
         },
         EsAlfanumericoLetras: function (valorBusqueda) {
-            debugger;
             var letras = "abcdefghyjklmnñopqrstuvwxyzáéíóú";
             var esAlfaNumerico = false;
             valorBusqueda = valorBusqueda.toLowerCase();
