@@ -51,7 +51,7 @@
          data-tipoestrategia="{{TipoEstrategiaCodigo}}"
          data-OrigenPedidoWeb="{{OrigenPedidoWeb}}">
         <div class="texto_pedidos celda_producto pedidoPadreToolTip"
-             onclick="javascript:{{#iff TipoEstrategiaCodigo '=='  '@Constantes.TipoEstrategiaCodigo.ArmaTuPack'}}AbrirPopupArmaTuPack('{{CampaniaID}}','{{SetID}}','{{CUV}}'){{else}}FichaPartialModule.ConstruirFicha(this, '{{TipoAccion}}'){{/iff}}"
+             onclick="javascript:FichaPartialModule.FichaPreValidar(this, '{{TipoAccion}}', '{{TipoEstrategiaCodigo}}', {{CampaniaID}}, {{SetID}}, {{CUV}})"
              style="position:relative">
             <span class="producto-codigo">{{CUV}}</span>
             {{#if_eq TipoPedido 'M'}}
@@ -114,12 +114,12 @@
             {{/iff}}
         </div>
         <div class="texto_pedidos precioUnitario"
-             onclick="javascript:FichaPartialModule.ConstruirFicha(this, '{{TipoAccion}}')">
+             onclick="javascript:FichaPartialModule.FichaPreValidar(this, '{{TipoAccion}}', '{{TipoEstrategiaCodigo}}', {{CampaniaID}}, {{SetID}}, {{CUV}})">
             <input type="hidden" name="hdfLPPrecioU{{PedidoDetalleID}}" value="{{PrecioUnidad}}" class="classPrecioUnidad hdfLPPrecioU" />
             {{SimboloMoneda}} {{FormatoPrecioUnidad}}
         </div>
         <div class="texto_pedidos subtotal"
-             onclick="javascript:FichaPartialModule.ConstruirFicha(this, '{{TipoAccion}}')">
+             onclick="javascript:FichaPartialModule.FichaPreValidar(this, '{{TipoAccion}}', '{{TipoEstrategiaCodigo}}', {{CampaniaID}}, {{SetID}}, {{CUV}})">
             <span class="precio">
                 {{SimboloMoneda}} {{FormatoPrecioUnidad}}
             </span>
