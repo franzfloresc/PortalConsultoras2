@@ -559,7 +559,7 @@ namespace Portal.Consultoras.Web.SessionManager
 
         public void SetArmaTuPack(ArmaTuPackModel data)
         {
-            HttpContext.Current.Session["ConfigEstrategiaATP"] = data;
+            HttpContext.Current.Session[Constantes.ConstSession.ArmaTuPack] = data;
         }
 
         ArmaTuPackModel ISessionManager.GetArmaTuPack()
