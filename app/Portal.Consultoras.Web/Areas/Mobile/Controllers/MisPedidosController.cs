@@ -59,7 +59,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return View(listaPedidos);
         }
 
-        decimal descuento = 0;
+        //decimal descuento = 0;
         [HttpGet]
         public PartialViewResult IngresadoDetalle()
         {
@@ -97,7 +97,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     //    });
                     //}
 
-                    var detallePedido = ObtenerPedidoWebSetDetalleAgrupado() ?? new List<BEPedidoWebDetalle>();
+                    var detallePedido = ObtenerPedidoWebSetDetalleAgrupado(true) ?? new List<BEPedidoWebDetalle>();
 
                     var totalImportePedido = detallePedido.Sum(x => x.ImporteTotal);
                     var descuentoProl = detallePedido.Sum(x => x.DescuentoProl);

@@ -2700,7 +2700,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var pedidoWeb = ObtenerPedidoWeb();
 
-                int result = 0;
+                //int result = 0;
 
                 pedidoModelo.ListaDetalle = lstPedidoWebDetalle;
 
@@ -4649,7 +4649,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult CargarPremiosElectivos()
         {
-            var premios = _programaNuevasProvider.GetListPremioElectivo();
+           var premios = _programaNuevasProvider.GetListPremioElectivo();
 
             var details = ObtenerPedidoWebSetDetalleAgrupado(true) ?? new List<BEPedidoWebDetalle>();
 

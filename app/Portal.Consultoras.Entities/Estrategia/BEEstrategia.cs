@@ -303,12 +303,23 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool TieneStock { get; set; }
 
-        // TODO: liberar comentario
-        /// <summary>
-        /// Calculo del factor cuadre
-        /// </summary>
         [DataMember]
-        public int CantidadPack { get; set; }
+        public string ImgFondoApp { get; set; }
+        [DataMember]
+        public string ColorTextoApp { get; set; }
+
+        [DataMember]
+        public string AppOfertasHomeImgExtension { get; set; }
+        [DataMember]
+        public string AppOfertasHomeImgAncho { get; set; }
+        [DataMember]
+        public string AppOfertasHomeImgAlto { get; set; }
+        [DataMember]
+        public string AppOfertasHomeMsjMedida { get; set; }
+        [DataMember]
+        public string AppOfertasHomeMsjFormato { get; set; }
+        [DataMember]
+        public int FlagSeleccionado { get; set; }
 
         public BEEstrategia()
         { }

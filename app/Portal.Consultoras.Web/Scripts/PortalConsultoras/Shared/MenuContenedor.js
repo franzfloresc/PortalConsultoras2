@@ -264,11 +264,20 @@ var menuModule = (function () {
         if (codigo.indexOf("INICIO") > -1) $('ul.subnavegador li a').attr('parent', tituloMenu);
     }
 
-    function menuClick(e, url) {
+    function menuClick(e, url, confirmar) {
+
+
         var objHtmlEvent = $(e);
         var esAncla = objHtmlEvent.data(tagIsAnchor);
         var codigo = objHtmlEvent.data("codigo") || "";
         codigo = codigo.toUpperCase();
+
+        confirmar = _mostrarConfirmar(codigo, confirmar);
+
+        if (confirmar) {
+            return false;
+        }
+
         var currentLocation = window.location.href.toLowerCase();
         var originLocation = window.location.origin;
         var menuHeight = navbarHeight;
@@ -313,20 +322,25 @@ var menuModule = (function () {
                 AnalyticsPortalModule.ClickTabGanadoras(codigo);
             }
 
-            //url = $.trim(url);
-            //url = url[0] !== "/" ? "/" + url : url;
-            //if (window.location.pathname.toLowerCase() === url.toLowerCase()) return;
+            url = $.trim(url);
+            url = url[0] !== "/" ? "/" + url : url;
+            if (window.location.pathname.toLowerCase() === url.toLowerCase()) return;
 
-            //if (codigo == ConstantesModule.TipoEstrategia.ATP) {
-            //    var htmlSeccion = $("[data-seccion=" + ConstantesModule.TipoEstrategia.ATP + "]"),
-            //        btnRedirect = htmlSeccion.find('button.atp_button'),
-            //        cuv = btnRedirect.data('cuv');
-            //    console.log(window.location.origin + url + '/' + cuv);
-            //    window.location = window.location.origin + url + '/' + cuv;
-            //}
-
-            //window.location = window.location.origin + url;
+            window.location = window.location.origin + url;
         }
+    }
+    function _mostrarConfirmar(codigo, confirmar) {
+
+        confirmar = confirmar === undefined ? true : confirmar;
+        if (confirmar ) {
+
+            if (typeof BannerInteractivo != "undefined") {
+                //BannerInteractivo.ConsultaRedireccionaLanding(this);
+                //return true;
+            }
+        }
+        return false;
+
     }
     function _claseImgSeleccionado(estado) {
         if (estado) {

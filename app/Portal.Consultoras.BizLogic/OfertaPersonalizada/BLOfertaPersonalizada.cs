@@ -169,7 +169,7 @@ namespace Portal.Consultoras.BizLogic.OfertaPersonalizada
             }
 
             var listaSinPrecio2 = new List<string>();
-            var listaSinStock = new List<BEEstrategia>();
+            //var listaSinStock = new List<BEEstrategia>();
 
             //if (esFacturacion)
             //{

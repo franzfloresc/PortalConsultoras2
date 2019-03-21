@@ -428,7 +428,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult ListarDetalleCdr(long solicitudId)
         {
             BELogCDRWeb logCdrWeb;
-            List<BECDRWebDetalle> listaCdrWebDetalle;
+            List<ServiceCDR.BECDRWebDetalle> listaCdrWebDetalle;
             using (CDRServiceClient sv = new CDRServiceClient())
             {
                 logCdrWeb = sv.GetLogCDRWebByLogCDRWebId(userData.PaisID, solicitudId);
@@ -448,8 +448,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult ListarDetalleCdrCulminado(long solicitudId)
         {
-            BECDRWeb cdrWeb;
-            List<BECDRWebDetalle> listaCdrWebDetalle;
+            ServiceCDR.BECDRWeb cdrWeb;
+            List<ServiceCDR.BECDRWebDetalle> listaCdrWebDetalle;
             using (CDRServiceClient sv = new CDRServiceClient())
             {
                 cdrWeb = sv.GetCDRWebByLogCDRWebCulminadoId(userData.PaisID, solicitudId);

@@ -481,15 +481,16 @@ namespace Portal.Consultoras.Web.Providers
                 listEstrategia = GetEstrategiasService(entidad);
                 listEstrategia.ForEach(x => { x.TieneStock = true; });
 
-                if (tipo != Constantes.TipoEstrategiaCodigo.PackNuevas)
+                if (tipo != Constantes.TipoEstrategiaCodigo.PackNuevas
+                    && listEstrategia.Any())
                 {
-                    // validar por fecha de facturacion el stock
-                    if (GetValidarDiasAntesStock(userData))
+                    var validarDias = GetValidarDiasAntesStock(userData);
+                    if (validarDias)
                     {
                         listEstrategia = _consultaProlProvider.ActualizarEstrategiaStockPROL(listEstrategia, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora);
                     }
                 }
-  
+
                 if (campaniaId == userData.CampaniaID)
                 {
                     SetSessionEstrategia(tipo, varSession, listEstrategia);
@@ -573,7 +574,7 @@ namespace Portal.Consultoras.Web.Providers
                     listEstrategia = osc.GetEstrategiasPedido(entidad).ToList();
                 }
             }
-;
+
             return listEstrategia;
         }
 
@@ -1325,10 +1326,13 @@ namespace Portal.Consultoras.Web.Providers
             var listaProducto = GetShowRoomOfertasConsultora(userData);
             listaProducto.ForEach(x => x.TieneStock = true);
 
-            // validar por fecha de facturacion el stock
-            if (GetValidarDiasAntesStock(userData))
+            if (listaProducto.Any())
             {
-                listaProducto = _consultaProlProvider.ActualizarEstrategiaStockPROL(listaProducto, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora);
+                var validarDias = GetValidarDiasAntesStock(userData);
+                if (validarDias)
+                {
+                    listaProducto = _consultaProlProvider.ActualizarEstrategiaStockPROL(listaProducto, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora);
+                }
             }
 
             var listaProductoModel = ConsultarEstrategiasFormatoEstrategiaToModel1(listaProducto, userData.CodigoISO, userData.CampaniaID);
@@ -1347,7 +1351,7 @@ namespace Portal.Consultoras.Web.Providers
                     listaProductoRetorno = SessionManager.ShowRoom.OfertasPerdio;
                     break;
                 default:
-                    listaProductoRetorno =  SessionManager.ShowRoom.Ofertas;
+                    listaProductoRetorno = SessionManager.ShowRoom.Ofertas;
                     break;
             }
 

@@ -122,7 +122,7 @@ namespace Portal.Consultoras.Web.Providers
                 return respuesta;
             }
 
-            var listaSinPrecio2 = new List<string>();
+            //var listaSinPrecio2 = new List<string>();
             try
             {
                 respuesta = JsonConvert.DeserializeObject<OutputEstrategiaGrupo>(jsonString);

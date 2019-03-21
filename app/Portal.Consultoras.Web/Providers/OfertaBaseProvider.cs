@@ -112,7 +112,7 @@ namespace Portal.Consultoras.Web.Providers
                 return estrategias;
             }
 
-            List<string> listaCuvPrecio0 = new List<string>();
+            //List<string> listaCuvPrecio0 = new List<string>();
             string codTipoEstrategia = string.Empty, codCampania = string.Empty;
 
             foreach (Models.Search.ResponseOferta.Estructura.Estrategia item in respuesta.Result)
@@ -139,9 +139,9 @@ namespace Portal.Consultoras.Web.Providers
                         Orden = Convert.ToInt32(item.Orden),
                         Precio = Convert.ToDecimal(item.Precio),
                         Precio2 = Convert.ToDecimal(item.Precio2),
-                        PrecioString = Util.DecimalToStringFormat((decimal)item.Precio2, codigoISO),
-                        PrecioTachado = Util.DecimalToStringFormat((decimal)item.Precio, codigoISO),
-                        GananciaString = Util.DecimalToStringFormat((decimal)item.Ganancia, codigoISO),
+                        PrecioString = Util.DecimalToStringFormat(Convert.ToDecimal(item.Precio2), codigoISO),
+                        PrecioTachado = Util.DecimalToStringFormat(Convert.ToDecimal(item.Precio), codigoISO),
+                        GananciaString = Util.DecimalToStringFormat(Convert.ToDecimal(item.Ganancia), codigoISO),
                         Ganancia = Convert.ToDecimal(item.Ganancia),
                         TextoLibre = item.TextoLibre,
                         TieneVariedad = Convert.ToBoolean(item.TieneVariedad) ? 1 : 0,
