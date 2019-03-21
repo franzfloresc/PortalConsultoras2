@@ -479,7 +479,7 @@ namespace Portal.Consultoras.Web.Providers
                         config.UrlMenu = "GuiaNegocio";
                         break;
                     case Constantes.ConfiguracionPais.HerramientasVenta:
-                        confiModel.UrlMenu = "HerramientasVenta/Comprar";
+                        config.UrlMenu = "HerramientasVenta/Comprar";
                         break;
                     case Constantes.ConfiguracionPais.ProgramaNuevas:
                         if (esElecMultiple) continue;
@@ -502,7 +502,7 @@ namespace Portal.Consultoras.Web.Providers
                             continue;
                         }
 
-                        confiModel.UrlMenu = sessionManager.MasGanadoras.GetModel().TieneLanding 
+                        config.UrlMenu = sessionManager.MasGanadoras.GetModel().TieneLanding 
                                             ? "MasGanadoras" : "#";
                         break;
 
@@ -513,7 +513,7 @@ namespace Portal.Consultoras.Web.Providers
                         {
                             continue;
                         }
-                        confiModel.UrlMenu = "ArmaTuPack/Detalle";
+                        config.UrlMenu = "ArmaTuPack/Detalle";
                         break;
                 }
 

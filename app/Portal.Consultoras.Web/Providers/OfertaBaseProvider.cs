@@ -112,7 +112,7 @@ namespace Portal.Consultoras.Web.Providers
                 return estrategias;
             }
 
-            List<string> listaCuvPrecio0 = new List<string>();
+            //List<string> listaCuvPrecio0 = new List<string>();
             string codTipoEstrategia = string.Empty, codCampania = string.Empty;
 
             foreach (Models.Search.ResponseOferta.Estructura.Estrategia item in respuesta.Result)
