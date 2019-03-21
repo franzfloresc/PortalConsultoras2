@@ -949,8 +949,7 @@ namespace Portal.Consultoras.Service
         #region Camino Brillante
         public List<BEBeneficiosCaminoBrillante> GetBeneficiosCaminoBrillante(int paisID)
         {
-            var bl = new BLUsuario();
-            return bl.GetBeneficiosCaminoBrillante(paisID);
+            return _usuarioBusinessLogic.GetBeneficiosCaminoBrillante(paisID);
         }
         #endregion
     }
