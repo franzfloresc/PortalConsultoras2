@@ -314,6 +314,7 @@ namespace Portal.Consultoras.Web.Providers
             {
                 foreach (var item in menuContenedor)
                 {
+                    item.EsMobile = esMobile;
                     if (item.Codigo == Constantes.ConfiguracionPais.MasGanadoras)
                     {
                         item.UrlMenu = sessionManager.MasGanadoras.GetModel().TieneLanding ? "MasGanadoras" : "#";
@@ -478,7 +479,7 @@ namespace Portal.Consultoras.Web.Providers
                         config.UrlMenu = "GuiaNegocio";
                         break;
                     case Constantes.ConfiguracionPais.HerramientasVenta:
-                        confiModel.UrlMenu = "HerramientasVenta/Comprar";
+                        config.UrlMenu = "HerramientasVenta/Comprar";
                         break;
                     case Constantes.ConfiguracionPais.ProgramaNuevas:
                         if (esElecMultiple) continue;
@@ -501,7 +502,7 @@ namespace Portal.Consultoras.Web.Providers
                             continue;
                         }
 
-                        confiModel.UrlMenu = sessionManager.MasGanadoras.GetModel().TieneLanding 
+                        config.UrlMenu = sessionManager.MasGanadoras.GetModel().TieneLanding 
                                             ? "MasGanadoras" : "#";
                         break;
 
@@ -512,13 +513,14 @@ namespace Portal.Consultoras.Web.Providers
                         {
                             continue;
                         }
-                        confiModel.UrlMenu = "ArmaTuPack/Detalle";
+                        config.UrlMenu = "ArmaTuPack/Detalle";
                         break;
                 }
 
                 config = _configuracionPaisProvider.ActualizarTituloYSubtituloMenu(config);
                 config = _configuracionPaisProvider.RemplazarTagNombre(config, Constantes.TagCadenaRd.Nombre1, userData.Sobrenombre);
-
+                config.UrlMenu = config.EsAncla ? "#" : config.UrlMenu;
+                config.EsMobile = esMobile;
                 menuContenedor.Add(config);
             }
 
@@ -528,7 +530,7 @@ namespace Portal.Consultoras.Web.Providers
             sessionManager.SetMenuContenedor(menuContenedor);
             SetMenuContenedorNoSuscrita(menuContenedor, revistaDigital.EsSuscrita);
 
-            menuContenedor.Add(new ConfiguracionPaisModel() { DesktopTituloMenu="SABER MÁS", Codigo = "INFO", CampaniaId=userData.CampaniaID ,UrlMenu= "RevistaDigital/Informacion" , MobileTituloMenu =  "SABER MÁS" });
+            menuContenedor.Add(new ConfiguracionPaisModel() { EsMobile= esMobile, DesktopTituloMenu ="SABER MÁS", Codigo = "INFO", CampaniaId=userData.CampaniaID ,UrlMenu= "RevistaDigital/Informacion" , MobileTituloMenu =  "SABER MÁS" });
             return menuContenedor;
         }
 

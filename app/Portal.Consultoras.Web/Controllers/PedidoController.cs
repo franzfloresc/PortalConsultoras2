@@ -2700,7 +2700,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var pedidoWeb = ObtenerPedidoWeb();
 
-                int result = 0;
+                //int result = 0;
 
                 pedidoModelo.ListaDetalle = lstPedidoWebDetalle;
 
