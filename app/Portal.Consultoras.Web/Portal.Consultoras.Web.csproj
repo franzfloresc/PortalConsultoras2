@@ -965,6 +965,7 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="SessionManager\ISessionManager.cs" />
+    <Compile Include="TempDataManager\ITempDataManager.cs" />
     <Compile Include="SessionManager\MasGanadoras\IMasGanadoras.cs" />
     <Compile Include="SessionManager\MasGanadoras\MasGanadoras.cs" />
     <Compile Include="SessionManager\OfertaDelDia\IOfertaDelDia.cs" />
@@ -972,6 +973,7 @@
     <Compile Include="SessionManager\ShowRoom\IShowRoom.cs" />
     <Compile Include="SessionManager\SessionManager.cs" />
     <Compile Include="SessionManager\ShowRoom\ShowRoom.cs" />
+    <Compile Include="TempDataManager\TempDataManager.cs" />
     <Compile Include="Set.aspx.cs">
       <DependentUpon>Set.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

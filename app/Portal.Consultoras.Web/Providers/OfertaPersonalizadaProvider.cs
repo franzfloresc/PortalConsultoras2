@@ -6,6 +6,7 @@ using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServiceOferta;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.SessionManager;
+using Portal.Consultoras.Web.TempDataManager;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -14,6 +15,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -35,6 +37,7 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
+        protected ITempDataManager tempDataManager;
         protected ConfiguracionManagerProvider _configuracionManager;
         protected readonly PedidoWebProvider _pedidoWeb;
         protected OfertaBaseProvider _ofertaBaseProvider;
@@ -49,6 +52,16 @@ namespace Portal.Consultoras.Web.Providers
             new ConsultaProlProvider(),
             new TablaLogicaProvider())
         {
+        }
+
+        public OfertaPersonalizadaProvider(TempDataDictionary objTempData) : this(Web.SessionManager.SessionManager.Instance,
+            new ConfiguracionManagerProvider(),
+            new PedidoWebProvider(),
+            new OfertaBaseProvider(),
+            new ConsultaProlProvider(),
+            new TablaLogicaProvider())
+        {
+            tempDataManager = new TempDataManager.TempDataManager(objTempData);
         }
 
         public OfertaPersonalizadaProvider(
@@ -1247,7 +1260,7 @@ namespace Portal.Consultoras.Web.Providers
                     return ObtenerListaProductoShowRoom(usuarioModel, campaniaId, codigoConsultora, esDiasFacturacion, 1)
                         .FirstOrDefault(x => x.CUV2 == cuv);
                 case Constantes.NombrePalanca.OfertaDelDia:
-                    var listaProductoODD = RevisarCamposParaMostrar(ObtenerListaProductoODD(), true);
+                    var listaProductoODD = RevisarCamposParaMostrar(ObtenerListaProductoODD(true), true);
                     return listaProductoODD.FirstOrDefault(x => x.CUV2 == cuv);
                 case Constantes.NombrePalanca.PackNuevas:
                     var varSession = Constantes.ConstSession.ListaEstrategia + Constantes.TipoEstrategiaCodigo.PackNuevas;
@@ -1264,13 +1277,16 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
-        public List<EstrategiaPersonalizadaProductoModel> ObtenerListaProductoODD()
+        public List<EstrategiaPersonalizadaProductoModel> ObtenerListaProductoODD(bool persistenciaLista = false)
         {
+            var listODDTempData = tempDataManager.GetListODD(persistenciaLista);
+
             if (SessionManager.OfertaDelDia.Estrategia != null)
             {
-                if (SessionManager.OfertaDelDia.Estrategia.ListaOferta != null)
+                if ((_ofertaBaseProvider.UsarSession(Constantes.TipoEstrategiaCodigo.OfertaDelDia) && SessionManager.OfertaDelDia.Estrategia.ListaOferta != null) || 
+                    (!_ofertaBaseProvider.UsarSession(Constantes.TipoEstrategiaCodigo.OfertaDelDia) && listODDTempData != null))
                 {
-                    var ListaOfertaSession = SessionManager.OfertaDelDia.Estrategia.ListaOferta;
+                    var ListaOfertaSession = _ofertaBaseProvider.UsarSession(Constantes.TipoEstrategiaCodigo.OfertaDelDia) ? SessionManager.OfertaDelDia.Estrategia.ListaOferta : listODDTempData;
                     return ListaOfertaSession;
                 }
                 else
