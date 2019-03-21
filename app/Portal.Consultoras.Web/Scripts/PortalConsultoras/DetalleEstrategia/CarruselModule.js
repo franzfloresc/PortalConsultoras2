@@ -112,20 +112,18 @@ var CarruselAyuda = function () {
 
                 //INI DH-3473 EINCA Marcar las estrategias de programas nuevas(dúo perfecto)
                 var programNuevas = arrayItems.filter(function (pn) {
-                    var cuv2 = pn.CUV2
                     return pn.EsBannerProgNuevas == true;
                 });
 
                 if (programNuevas) {
                     if (programNuevas.length > 0) {
-                      var uniqueProgramNuevas =  _eliminarDuplicadosArray(programNuevas, "CUV2");
+                        var uniqueProgramNuevas = _eliminarDuplicadosArray(programNuevas, "CUV2");
 
-                        var pos = (origen.Pagina === ConstantesModule.OrigenPedidoWebEstructura.Pagina.Home) ? "Home" : "Pedido";
+                        var pos = (isHome()) ? "Home" : "Pedido";
                         AnalyticsPortalModule.MarcaGenericaLista(ConstantesModule.TipoEstrategia.DP, uniqueProgramNuevas, pos);
                     }
                 }
                 //FIN DH-3473 EINCA Marcar las estrategias de programas nuevas(dúo perfecto)
-
             }
 
         } catch (e) {
@@ -290,16 +288,27 @@ var CarruselAyuda = function () {
     }
 
     //HD-3473 EINCA Marcar Analytic, cuando se hace clic en el banner de duo perfecto
-    var _marcaAnalycticCarruselProgramasNuevas = function (event, URL) {
-        console.log(event);
-        dataLayer.push({
-            'event': 'virtualEvent',
-            'category': 'Home - Dúo Perfecto',
-            'action': 'Click Botón',
-            'label': 'Elegir Ahora'
-        });
-        document.location.href = URL;
-        return false;
+    var marcaAnalycticCarruselProgramasNuevas = function (e, url) {
+        try {
+            var category = (isHome()) ? "Home - Dúo Perfecto" : "Pedido - Dúo Perfecto";
+            var pagina = isHome() ? ConstantesModule.OrigenPedidoWebEstructura.Pagina.Home : ConstantesModule.OrigenPedidoWebEstructura.Pagina.Pedido;
+            var OrigenPedidoWeb = ConstantesModule.OrigenPedidoWebEstructura.Dispositivo.Desktop
+                + pagina + ConstantesModule.OrigenPedidoWebEstructura.Palanca.DP
+                + ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel;
+            AnalyticsPortalModule.MarcaPromotionClicBanner(OrigenPedidoWeb, "", url);
+
+            dataLayer.push({
+                'event': 'virtualEvent',
+                'category': category,
+                'action': 'Click Botón',
+                'label': 'Elegir Ahora'
+            });
+            document.location.href = url;
+            return false;
+        } catch (e) {
+
+        }
+
     }
 
     return {
@@ -308,7 +317,7 @@ var CarruselAyuda = function () {
         MarcarAnalyticsContenedor: marcarAnalyticsContenedor,
         MarcarAnalyticsLiquidacion: marcarAnalyticsLiquidacion,
         MostrarFlechaCarrusel: mostrarFlechaCarrusel,
-        MarcaAnalycticCarruselProgramasNuevas: _marcaAnalycticCarruselProgramasNuevas//HD-3473 EINCA
+        MarcaAnalycticCarruselProgramasNuevas: marcaAnalycticCarruselProgramasNuevas//HD-3473 EINCA
     };
 }();
 

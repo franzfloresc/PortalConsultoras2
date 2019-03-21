@@ -330,52 +330,52 @@ var EstrategiaAgregarModule = (function () {
 
             $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataInputCantidad).val("1");
 
-            if (isMobile())
-            {
-                if (isPagina('ProgramaNuevas') || controllerName == "programanuevas") {
-                    dataLayer.push({
-                        'event': 'addToCart',
-                        'ecommerce': {
-                            'currencyCode': 'PEN',
-                            'add': {
-                                'actionField': { 'list': 'ContenedorMobileProgramaNuevas-Dúo Perfecto' },
-                                'products': [{
-                                    'name': estrategia.DescripcionCompleta,
-                                    'price': estrategia.PrecioVenta,
-                                    'brand': estrategia.DescripcionMarca,
-                                    'id': estrategia.CUV2,
-                                    'category': 'Gana+ > Dúo Perfecto',
-                                    'variant': ' ',
-                                    'quantity': cantidad
-                                }]
-                            }
-                        }
-                    });
-                }
-            }
-            else
-            {
-                if (isPagina('ProgramaNuevas') || controllerName == "programanuevas") {
-					dataLayer.push({
-						'event': 'addToCart',
-						'ecommerce': {
-							'currencyCode': 'PEN',
-							'add': {
-								'actionField': { 'list': 'ContenedorProgramaNuevas-Dúo Perfecto' },
-								'products': [{
-									'name': estrategia.DescripcionCompleta,
-									'price': estrategia.PrecioVenta,
-									'brand': estrategia.DescripcionMarca,
-									'id': estrategia.CUV2,
-									'category': 'Gana+ > Dúo Perfecto',
-									'variant': ' ',
-									'quantity': cantidad
-								}]
-							}
-						}
-					});
-				}
-            }
+    //        if (isMobile())
+    //        {
+    //            if (isPagina('ProgramaNuevas') || controllerName == "programanuevas") {
+    //                dataLayer.push({
+    //                    'event': 'addToCart',
+    //                    'ecommerce': {
+    //                        'currencyCode': 'PEN',
+    //                        'add': {
+    //                            'actionField': { 'list': 'ContenedorMobileProgramaNuevas-Dúo Perfecto' },
+    //                            'products': [{
+    //                                'name': estrategia.DescripcionCompleta,
+    //                                'price': estrategia.PrecioVenta,
+    //                                'brand': estrategia.DescripcionMarca,
+    //                                'id': estrategia.CUV2,
+    //                                'category': 'Gana+ > Dúo Perfecto',
+    //                                'variant': ' ',
+    //                                'quantity': cantidad
+    //                            }]
+    //                        }
+    //                    }
+    //                });
+    //            }
+    //        }
+    //        else
+    //        {
+    //            if (isPagina('ProgramaNuevas') || controllerName == "programanuevas") {
+				//	dataLayer.push({
+				//		'event': 'addToCart',
+				//		'ecommerce': {
+				//			'currencyCode': 'PEN',
+				//			'add': {
+				//				'actionField': { 'list': 'ContenedorProgramaNuevas-Dúo Perfecto' },
+				//				'products': [{
+				//					'name': estrategia.DescripcionCompleta,
+				//					'price': estrategia.PrecioVenta,
+				//					'brand': estrategia.DescripcionMarca,
+				//					'id': estrategia.CUV2,
+				//					'category': 'Gana+ > Dúo Perfecto',
+				//					'variant': ' ',
+				//					'quantity': cantidad
+				//				}]
+				//			}
+				//		}
+				//	});
+				//}
+    //        }
 			
             if (divAgregado != null) {
                 if (typeof divAgregado.length != "undefined" && divAgregado.length > 0) {

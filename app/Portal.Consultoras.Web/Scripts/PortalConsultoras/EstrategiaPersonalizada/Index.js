@@ -28,7 +28,8 @@ var CONS_CODIGO_SECCION = {
     OPT: "OPT",
     DES: "DES-NAV",
     HV: "HV",
-    MG: 'MG'
+    MG: 'MG',
+    DP: 'DP' //HD-3473 EINCA 
 };
 
 var listaSeccion = {};
@@ -121,6 +122,12 @@ function SeccionCargarProductos(objConsulta) {
         $("#" + objConsulta.Codigo).find(".seccion-content-contenedor").fadeIn();
     }
 
+
+    //HD-3473 EINCA 
+    if (objConsulta.Codigo === CONS_CODIGO_SECCION.DP) {
+        AnalyticsPortalModule.MarcaPromotionViewBanner('Contenedor - Inicio');
+    }
+
     if (objConsulta.UrlObtenerProductos === "")
         return false;
 
@@ -148,6 +155,7 @@ function SeccionCargarProductos(objConsulta) {
 
         return false;
     }
+
 
     if (objConsulta.Codigo === CONS_CODIGO_SECCION.HV) {
         if (!varContenedor.CargoHv) {

@@ -290,7 +290,10 @@ var menuModule = (function () {
             });
         }
     }
-    function sectionClick(url, titulo, e) {
+    function sectionClick(url, titulo, elem, event) {
+        if (typeof event !== undefined && typeof event !== "undefined") {
+            event.stopPropagation();
+        }
         url = url || "";
         if (_var.Mobile && url.indexOf("Mobile") < 0) {
             url = "/Mobile" + url;
@@ -299,7 +302,10 @@ var menuModule = (function () {
         if (typeof AnalyticsPortalModule !== "undefined") {
             titulo = titulo || "";
             var OrigenPedidoWeb = "";
-            OrigenPedidoWeb = EstrategiaAgregarModule.GetOrigenPedidoWeb($(e), false);
+            var texto = sectionClickTexto(elem);
+            var clicEnBanner = false;
+
+            OrigenPedidoWeb = EstrategiaAgregarModule.GetOrigenPedidoWeb($(elem), false);
 
             if (url.indexOf(ConstantesModule.CodigosPalanca.Ganadoras) > 0) {
                 if (titulo === "BannerMG") {
@@ -335,67 +341,18 @@ var menuModule = (function () {
                     + ConstantesModule.OrigenPedidoWebEstructura.Palanca.Lanzamientos
                     + ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel;
             }
-
-            if (isMobile()) {
-            if (isPagina('Ofertas#RD') || controllerName == 'ofertas') {
-                if (document.getElementById('divBannerOfertasMobile') != null) {
-                    if (document.getElementById('divBannerOfertasMobile').getAttribute('data-codigobanner') == 'DP') {
-
-                   dataLayer.push({
-                        'event': 'promotionClick',
-                        'ecommerce': {
-                            'promoClick': {
-                                'promotions':
-                                    [{
-                                        'id': '28489',
-                                        'name': 'OfertasMobileArmatuDúoPerfecto-DúoPerfecto',
-                                        'position': 'OfertasMobileContenedor-Inicio-Dúo Perfecto',
-                                        'creative': 'Banner'
-                                    }]
-                            }
-                        }
-                    });
-
-
-
-
-                    }
-                }
+            //HD-3473 EINCA 
+            else if (url.indexOf(ConstantesModule.TipoEstrategia.DP) > 0) {
+                OrigenPedidoWeb = ConstantesModule.OrigenPedidoWebEstructura.Dispositivo.Desktop
+                    + ConstantesModule.OrigenPedidoWebEstructura.Pagina.Contenedor
+                    + ConstantesModule.OrigenPedidoWebEstructura.Palanca.DP
+                    + ConstantesModule.OrigenPedidoWebEstructura.Seccion.Banner;
             }
-
+            if (url.indexOf(ConstantesModule.TipoEstrategia.DP) > 0 && titulo !== "ClicVerMas") {
+                clicEnBanner = true;
             }
-            else {
-
-                if (isPagina('Ofertas')) {
-                    if (document.getElementById('divBannerOfertas') != null) {
-                        if (document.getElementById('divBannerOfertas').getAttribute('data-codigobanner') == 'DP') {
- 
-                            dataLayer.push({
-                                'event': 'promotionClick',
-                                'ecommerce': {
-                                    'promoClick': {
-                                        'promotions':
-                                            [{
-                                                'id': '28490',
-                                                'name': 'OfertasArmatuDúoPerfecto-DúoPerfecto',
-                                                'position': 'ContenedorOfertas-Inicio-Dúo Perfecto',
-                                                'creative': 'Banner'
-                                            }]
-                                    }
-                                }
-                            });
- 
-                        }
-                        
-                    }
-                 }
-            }
-
-
             OrigenPedidoWeb = OrigenPedidoWeb || "";
-            var texto = sectionClickTexto(e);
-            AnalyticsPortalModule.MarcaClicVerMasOfertas(url, OrigenPedidoWeb, texto);
-      
+            AnalyticsPortalModule.MarcaClicVerMasOfertas(url, OrigenPedidoWeb, texto, clicEnBanner);
         }
         else {
             document.location = url;

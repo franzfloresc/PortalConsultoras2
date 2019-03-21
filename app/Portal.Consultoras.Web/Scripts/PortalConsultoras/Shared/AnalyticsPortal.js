@@ -47,7 +47,9 @@ var AnalyticsPortalModule = (function () {
         CarritoCompras: "Carrito de compras",
         siguiente: "Ver siguiente",
         anterior: "Ver anterior",
-        duoPerfecto: "Dúo Perfecto" //HD-3473 EINCA
+        duoPerfecto: "Dúo Perfecto", //HD-3473 EINCA
+        armaTuDuoPerfecto: ' Arma tu Dúo Perfecto - Dúo Perfecto'
+
         // Fin - Analytics Ofertas (Miguel)
     };
 
@@ -146,6 +148,7 @@ var AnalyticsPortalModule = (function () {
         campania: "Campaña ",
         IdBannerGanadorasVerMas: "000123",
         // Fin - Analytics Ofertas
+        IdBennerDuoPerfecto: "347301"
     };
 
     var _origenPedidoWebEstructura = {
@@ -1185,6 +1188,58 @@ var AnalyticsPortalModule = (function () {
         }
 
     }
+    //HD-3473 EINCA 
+    var marcaPromotionViewBanner = function (pos) {
+        try {
+            if (_constantes.isTest)
+                alert("Marcación promotion view Banner.");
+            dataLayer.push({
+                'event': _evento.promotionView,
+                'ecommerce': {
+                    'promoView': {
+                        'promotions': [
+                            {
+                                'id': _constantes.IdBennerDuoPerfecto,
+                                'name': 'Arma tu Dúo Perfecto - Dúo Perfecto',
+                                'position': pos + ' - Dúo Perfecto',
+                                'creative': 'Banner'
+                            }]
+                    }
+                }
+            });
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+
+    }
+
+    //HD-3473 EINCA 
+    var marcaPromotionClicBanner = function (OrigenPedidoWeb, texto,url) {
+        try {
+            if (_constantes.isTest)
+                alert("Marcación promotion view Banner.");
+            var pos = _getParametroListSegunOrigen(OrigenPedidoWeb, url);
+            dataLayer.push({
+                'event': 'promotionClick',
+                'ecommerce': {
+                    'promoClick': {
+                        'promotions': [
+                            {
+                                'id': _constantes.IdBennerDuoPerfecto,
+                                'name': _texto.armaTuDuoPerfecto,
+                                'position': pos,
+                                'creative': 'Banner'
+                            }]
+                    }
+                }
+            });
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+
+    }
+
+
 
     var marcaGenericaClic = function (element, codigoOrigenPedido) {
         var codigoPagina = codigoOrigenPedido.toString().substring(1, 3);
@@ -1624,6 +1679,7 @@ var AnalyticsPortalModule = (function () {
             });
         }
 
+        //HD-3473 EINCA 
         if (codigoSeccion == _codigoSeccion.DP) {
             $.each(data, function (index) {
                 var item = data[index];
@@ -1696,12 +1752,18 @@ var AnalyticsPortalModule = (function () {
 * Nombre Archivo Desktop: Scripts\PortalConsultoras\Shared\MenuContenedor.js
 * Linea de Código Desktop: 284
 */
-    var marcaClicVerMasOfertas = function (url, origenPedido, titulo) {
+    var marcaClicVerMasOfertas = function (url, origenPedido, titulo, clicEnBanner) {
         try {
             if (_constantes.isTest)
                 alert("Marcación Ver más ofertas.");
 
             var textoCategory = _getParametroListSegunOrigen(origenPedido, url);
+
+            if (typeof clicEnBanner !== "undefined" && typeof clicEnBanner !== undefined) {
+                if (clicEnBanner) {
+                    marcaPromotionClicBanner(origenPedido, titulo);
+                }
+            }
 
             dataLayer.push({
                 'event': _evento.virtualEvent,
@@ -2742,6 +2804,9 @@ var AnalyticsPortalModule = (function () {
         MarcaRecomendacionesFlechaSiguiente: marcaRecomendacionesFlechaSiguiente,
         MarcaRecomendacionesFlechaAnterior: marcaRecomendacionesFlechaAnterior,
         MarcaOcultarRecomendaciones: marcaOcultarRecomendaciones,
-        MarcaAnadirCarritoRecomendaciones: marcaAnadirCarritoRecomendaciones
+        MarcaAnadirCarritoRecomendaciones: marcaAnadirCarritoRecomendaciones,
+        //HD-3473 EINCA 
+        MarcaPromotionViewBanner: marcaPromotionViewBanner,
+        MarcaPromotionClicBanner: marcaPromotionClicBanner
     }
 })();

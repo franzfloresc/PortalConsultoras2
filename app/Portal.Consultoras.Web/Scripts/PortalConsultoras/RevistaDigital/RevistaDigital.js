@@ -176,10 +176,10 @@ $(document).ready(function () {
     });
 
 
-    if (isMobile()) {
-        ConfiguracionAnaliticDuoPerfectoOfertasMobile();//ofertas mobile banner
-    } else
-        ConfiguracionAnaliticDuoPerfectoOfertas();
+    //if (isMobile()) {
+    //    ConfiguracionAnaliticDuoPerfectoOfertasMobile();//ofertas mobile banner
+    //} else
+    //    ConfiguracionAnaliticDuoPerfectoOfertas();
 
 });
 

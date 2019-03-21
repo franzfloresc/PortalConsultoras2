@@ -136,8 +136,7 @@ var ConstantesModule = (function () {
             Contenedor: '08',
             Otras: '09',
             LandingBuscador: '10',
-            LandingGanadoras: '11',
-            LandingDP: '12'//HD-3473 EINCA
+            LandingGanadoras: '11'
         },
         Palanca: {
             OfertasParaTi: '00',
@@ -155,7 +154,7 @@ var ConstantesModule = (function () {
             CatalogoEsika: '12',
             CatalogoCyzone: '13',
             Ganadoras: '14',
-            DuoPerfecto:'15'//HD-3473 EINCA
+            DP:'15'//HD-3473 EINCA
         },
         Seccion: {
             Carrusel: '01',
