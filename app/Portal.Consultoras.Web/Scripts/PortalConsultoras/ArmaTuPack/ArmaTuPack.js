@@ -29,7 +29,9 @@
                             strComponentes = strComponentes + '</ul>';
 
                             CerrarLoad();
+                        
                             AbrirMensaje(strComponentes, "El pack que armaste contiene:");
+                            bindBlackScreenToCloseButton();
                         }
                     }
                 }
@@ -46,5 +48,12 @@
                 alert("Ocurrió un error al ejecutar la acción. Por favor inténtelo de nuevo.");
             }
         }
+    });
+}
+
+function bindBlackScreenToCloseButton() {
+
+    $('.ui-widget-overlay').click(function () {
+        $('.ui-dialog-titlebar-close').click();
     });
 }
