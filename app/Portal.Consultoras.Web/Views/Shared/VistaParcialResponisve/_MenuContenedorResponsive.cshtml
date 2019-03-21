@@ -28,12 +28,17 @@
                         {
                             claseActivo = menuhijo.Codigo == menuActivo.Codigo ? "default-dorado activado-dorado" : "default-dorado";
                         }
+                        var urlMenu = menuhijo.UrlMenu;
+                        if (menuhijo.EsMobile)
+                        {
+                            urlMenu = menuhijo.UrlMenuMobile;
+                        }
                         <li class="menu__contenedor__carrusel__item"
                             data-campania="@menuhijo.CampaniaId"
                             data-activo="1"
                             data-codigo="@menuhijo.Codigo"
                             data-es-ancla="@menuhijo.EsAncla"
-                            onclick="menuModule.menuClick(this, '@menuhijo.UrlMenuMobile')">
+                            onclick="menuModule.menuClick(this, '@urlMenu')">
 
                             <a href="javascript:;"
                                class="@claseActivo d-flex flex-row justify-content-center align-items-center menu__contenedor__carrusel__item__link"
