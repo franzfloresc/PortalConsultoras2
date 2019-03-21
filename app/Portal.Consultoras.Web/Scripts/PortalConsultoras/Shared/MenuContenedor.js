@@ -265,8 +265,6 @@ var menuModule = (function () {
     }
 
     function menuClick(e, url, confirmar) {
-
-
         var objHtmlEvent = $(e);
         var esAncla = objHtmlEvent.data(tagIsAnchor);
         var codigo = objHtmlEvent.data("codigo") || "";
@@ -309,7 +307,6 @@ var menuModule = (function () {
 
         }
         else {
-
             if (codigo.indexOf("INICIO") > -1) {
                 _claseImgSeleccionado(true);
                 _animateScrollTo(elementos.html, menuHeight);
@@ -325,6 +322,13 @@ var menuModule = (function () {
             url = $.trim(url);
             url = url[0] !== "/" ? "/" + url : url;
             if (window.location.pathname.toLowerCase() === url.toLowerCase()) return;
+
+            if (ConstantesModule.TipoEstrategia.ATP == codigo) {
+                BannerInteractivo.ConsultaAjaxRedireccionaLanding(function () {
+                    window.location = window.location.origin + url;
+                });
+                return false;
+            }
 
             window.location = window.location.origin + url;
         }

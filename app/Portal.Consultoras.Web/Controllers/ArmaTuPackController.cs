@@ -65,8 +65,6 @@ namespace Portal.Consultoras.Web.Controllers
                 CodigoEstrategia = Constantes.TipoEstrategiaCodigo.ArmaTuPack
             };
             return View(DetalleEstrategiaFichaModel);
-
         }
-
     }
 }
