@@ -49,7 +49,7 @@ begin
 		10,10,'004','004',0,
 		0,1,1,'ArmaTuPack/Detalle',@Orden,
 		@Orden,'#fa1702','#fa1702',0,0,
-		null,null,'Comenzar','Modificar','#000000','#ffffff'
+		'#ffffff','#ffffff','Comenzar','Modificar','#000000','#ffffff'
 	)
 
 	IF (@@TRANCOUNT > 0)  commit transaction InsertCOHCodigoATP; 

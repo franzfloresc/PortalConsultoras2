@@ -17,6 +17,7 @@ if exists (select 1
 				and cp.Codigo = @Codigo and coh.CampaniaID = @DesdeCampania)
 begin
 	declare @ConfiguracionPaisID int
+	declare @ConfiguracionOfertasHomeID int
 
 	select 
 		@ConfiguracionPaisID = cp.ConfiguracionPaisID
@@ -24,7 +25,12 @@ begin
 	where cp.Codigo = @Codigo 
 	and cp.DesdeCampania = @DesdeCampania
 
+	select @ConfiguracionOfertasHomeID = ConfiguracionOfertasHomeID from ConfiguracionOfertasHome 
+	where ConfiguracionPaisId  = @ConfiguracionPaisID and CampaniaID = @DesdeCampania
+
 	print 'Empieza delete  [dbo].[ConfiguracionOfertasHome]: Codigo ATP'
+
+	delete from [dbo].[ConfiguracionOfertasHomeApp]  where ConfiguracionOfertasHomeID = @ConfiguracionOfertasHomeID
 
 	delete from [dbo].[ConfiguracionOfertasHome]  where ConfiguracionPaisID = @ConfiguracionPaisID and CampaniaID = @DesdeCampania
 end
