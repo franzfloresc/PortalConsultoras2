@@ -7,6 +7,7 @@ using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -426,8 +427,8 @@ namespace Portal.Consultoras.Web.Providers
                 UrlLandig = "/" + (isMobile ? "Mobile/" : "") + entConf.UrlSeccion,
                 VerMas = true,
 
-                BotonColor = entConf.BotonColor,
-                BotonColorTexto = entConf.BotonColorTexto,
+                BotonColor = BotonColorCss(entConf.BotonColor, entConf.BotonColorTexto),
+                //BotonColorTexto = entConf.BotonColorTexto,
                 BotonTexto1 = entConf.BotonTexto1,
                 BotonTexto2 = entConf.BotonTexto2
             };
@@ -519,6 +520,20 @@ namespace Portal.Consultoras.Web.Providers
             }
 
             return seccion;
+        }
+
+        private string BotonColorCss(string botonColor, string botonColorTexto)
+        {
+            var estilo = new StringBuilder();
+            if (!String.IsNullOrEmpty(botonColor) && botonColor.Replace("#", "").Trim().Length > 0)
+            {
+                estilo.Append("background-color: " + botonColor + ";");
+            }
+            if (!String.IsNullOrEmpty(botonColorTexto) && botonColorTexto.Replace("#", "").Trim().Length > 0)
+            {
+                estilo.Append("color: " + botonColorTexto + ";");
+            }
+            return estilo.ToString();
         }
     }
 }
