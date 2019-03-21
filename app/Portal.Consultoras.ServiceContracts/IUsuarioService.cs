@@ -439,5 +439,9 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         void RegistrarDireccionEntrega(string codigoISO, BEDireccionEntrega direccionEntrega);
         #endregion
+        #region Camino Brillante
+        [OperationContract]
+        List<BEBeneficiosCaminoBrillante> GetBeneficiosCaminoBrillante(int paisID);
+        #endregion
     }
 }

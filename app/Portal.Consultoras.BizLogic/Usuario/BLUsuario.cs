@@ -3948,5 +3948,22 @@ namespace Portal.Consultoras.BizLogic
                 if (conTransaccion) ts.Dispose();
             }
         }
+
+        #region Camino Brillante
+        public List<BEBeneficiosCaminoBrillante> GetBeneficiosCaminoBrillante(int paisID)
+        {
+            var lista = new List<BEBeneficiosCaminoBrillante>();
+            var da = new DACaminoBrillante(paisID);
+
+            using (IDataReader reader = da.GetBeneficiosCaminoBrillante())
+                while (reader.Read())
+                {
+                    var app = new BEBeneficiosCaminoBrillante(reader);
+                    lista.Add(app);
+                }
+
+            return lista;
+        }
+        #endregion
     }
 }
