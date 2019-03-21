@@ -4802,14 +4802,14 @@ body {
     color: #b75d9f;
 }
 
-    .bloque_cantidades_precios_items_ingresados .contenedor_cantidadProductos div .signo_menos, .bloque_cantidades_precios_items_ingresados .contenedor_cantidadProductos div .signo_mas {
+    /*.bloque_cantidades_precios_items_ingresados .contenedor_cantidadProductos div .signo_menos, .bloque_cantidades_precios_items_ingresados .contenedor_cantidadProductos div .signo_mas {
         width: 31%;
-    }
+    }*/
 
-    .bloque_cantidades_precios_items_ingresados .contenedor_cantidadProductos div .campo_cantidadProductos {
+    /*.bloque_cantidades_precios_items_ingresados .contenedor_cantidadProductos div .campo_cantidadProductos {
         width: 38%;
         max-width: 55.56px;
-    }
+    }*/
 
     .mensaje_eliminarPedido a {
         color: #642f80;
