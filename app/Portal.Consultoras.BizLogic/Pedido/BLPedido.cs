@@ -248,14 +248,17 @@ namespace Portal.Consultoras.BizLogic.Pedido
             usuario.TieneValidacionMontoMaximo = _usuarioBusinessLogic.ConfiguracionPaisUsuario(usuario, Constantes.ConfiguracionPais.ValidacionMontoMaximo).TieneValidacionMontoMaximo;
 
             #region ArmaTuPack
-            if (estrategia.TipoEstrategiaID.ToString() == pedidoDetalle.Producto.TipoEstrategiaID)
+            if (pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopContenedorArmaTuPack || pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobileContenedorArmaTuPack)
             {
                 var packAgregado = lstDetalleAgrupado != null ? lstDetalleAgrupado.Where(x => x.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.ArmaTuPack).FirstOrDefault() : null;
 
                 if (packAgregado != null)
                 {
-                    pedidoDetalle.EsEditable = true;
-                    pedidoDetalle.SetID = packAgregado.SetID;
+                    if(packAgregado.CUV == estrategia.CUV2)
+                    {
+                        pedidoDetalle.EsEditable = true;
+                        pedidoDetalle.SetID = packAgregado.SetID;
+                    }
                 }
             }
             #endregion

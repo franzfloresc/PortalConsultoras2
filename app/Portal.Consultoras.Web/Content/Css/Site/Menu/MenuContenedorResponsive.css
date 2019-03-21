@@ -1,13 +1,13 @@
 ﻿
 /* MENÚ CONTENEDOR OFERTAS RESPONSIVE */
 
-.layout__header--menuContenedorOfertas,
 .menu__contenedor__carrusel__wrapper {
-    height: 52px !important;
+    height: 52px!important;
 }
 
     .menu__contenedor__carrusel__wrapper .slick-track,
     .menu__contenedor__carrusel__wrapper .slick-arrow,
+    .menu__contenedor__carrusel__item,
     .menu__contenedor__carrusel__item__link {
         height: 100%;
     }
@@ -33,62 +33,73 @@
         display: flex !important;
     }
 
-        .menu__contenedor__carrusel__wrapper .slick-arrow,
-        .menu__contenedor__carrusel__wrapper .slick-track,
-        .menu__contenedor__carrusel__item.slick-slide {
-            -ms-flex-flow: row nowrap;
-            -webkit-flex-flow: row nowrap;
-            flex-flow: row nowrap;
-            align-items: center;
+    .menu__contenedor__carrusel__wrapper .slick-arrow,
+    .menu__contenedor__carrusel__wrapper .slick-track,
+    .menu__contenedor__carrusel__item.slick-slide {
+        -ms-flex-flow: row nowrap;
+        -webkit-flex-flow: row nowrap;
+        flex-flow: row nowrap;
+        align-items: center;
+    }
+
+    .menu__contenedor__carrusel__wrapper .slick-arrow {
+        position: relative;
+        justify-content:center;
+    }
+
+    .menu__contenedor__carrusel__wrapper .bc-menu-vertical-prev{
+        margin-right:15px;
+    }
+
+    .menu__contenedor__carrusel__wrapper .bc-menu-vertical-next {
+        margin-left: 15px;
+    }
+
+        .menu__contenedor__carrusel__wrapper .slick-arrow img {
+            margin-top: 0 !important;
+            height: 21px;
         }
 
-        .menu__contenedor__carrusel__wrapper .slick-arrow {
-            position: relative;
-            justify-content:center;
-        }
+    .menu__contenedor__carrusel__wrapper .slick-list {
+        flex-basis: 0;
+        -webkit-flex-grow: inherit;
+        flex-grow: 1;
+        max-width: 90%;
+    }
 
-            .menu__contenedor__carrusel__wrapper .slick-arrow img {
-                margin-top: 0 !important;
-                height: 21px;
-            }
+.menu__contenedor__carrusel__item {
+    min-width: 98px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
 
-        .menu__contenedor__carrusel__wrapper .slick-list {
-            flex-basis: 0;
-            -webkit-flex-grow: inherit;
-            flex-grow: 1;
-            max-width: 90%;
-        }
+.menu__contenedor__carrusel__item:first-child {
+    padding-left: 0;
+}
 
 .menu__contenedor__carrusel__item.slick-slide {
     float: none;
 }
 
-.menu__contenedor__carrusel__item:first-child .menu__contenedor__carrusel__item__link {
-    padding-left: 0;
-}
-
 .menu__contenedor__carrusel__item__link {
-    min-width: 74px;
-    padding-left: 20px;
-    padding-right: 20px;
     outline: none;
 }
 
     .menu__contenedor__carrusel__item__link img {
-        width: 74px;
+        width: 67px;
         height: auto;
         position: relative;
-        top: 0.2px;
     }
 
     .menu__contenedor__carrusel__item__link.activado img,
     .menu__contenedor__carrusel__item__link.activado-dorado img {
-        width: 74px;
+        width: 68px;
         top: 1.5px;
     }
 
     .menu__contenedor__carrusel__item__link p {
-        font-size: 12px;
+        font-size: 11px;
+        letter-spacing:0.2px;
     }
 
     .menu__contenedor__carrusel__item__link.activado p,
@@ -97,7 +108,7 @@
     }
 
     .menu__contenedor__carrusel__item__link.activado {
-        border-bottom: 2px solid #B52E36;
+        border-bottom: 3px solid #B52E36;
     }
 
         .menu__contenedor__carrusel__item__link.activado p {
@@ -105,7 +116,7 @@
         }
 
     .menu__contenedor__carrusel__item__link.activado-dorado {
-        border-bottom: solid 2px #c39934;
+        border-bottom: solid 3px #c39934;
     }
 
         .menu__contenedor__carrusel__item__link.activado-dorado p {
@@ -124,11 +135,20 @@
         padding-right: 12px;
     }
 
+    .menu__contenedor__carrusel__wrapper .bc-menu-vertical-prev {
+        margin-right: 0;
+    }
+
+    .menu__contenedor__carrusel__wrapper .bc-menu-vertical-next {
+        margin-left: 0;
+    }
+
     .menu__contenedor__carrusel__wrapper .slick-list {
         max-width: 100%;
     }
 
-    .menu__contenedor__carrusel__item__link {
+    .menu__contenedor__carrusel__item {
+        min-width:74px;
         padding-left: 15px;
         padding-right: 15px;
     }

@@ -392,6 +392,9 @@ footer {
               opacity: 0;
         }
 
+.ui-widget-overlay {
+    z-index: 99999 !important;
+}
 
 @media screen and (min-width:768px) {
     .content_responsive {
