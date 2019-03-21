@@ -2646,29 +2646,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     ProdEliminar.Identifier = pedidoDetalle.Identifier;
                     ProdEliminar.ObservacionPROL = regaloElegido.ObservacionPROL;
 
-                    //BEPedidoDetalle ProdEliminar = (BEPedidoDetalle)regaloElegido.Clone();
-
-
-                    //ProdEliminar.PedidoDetalleID = regaloElegido.PedidoDetalleID;
-                    //ProdEliminar.Producto = new BEProducto()
-                    //{
-                    //    TipoOfertaSisID = regaloElegido.TipoOfertaSisID,
-                    //    CUV = regaloElegido.CUV
-                    //};
-
-                    //pedidoDetalle.Estrategia = new BEEstrategia()
-                    //{
-                    //    Cantidad = pedidoDetalle.Cantidad,
-                    //    DescripcionCUV2 = Util.Trim(pedidoDetalle.Producto.Descripcion),
-                    //    FlagNueva = 0,
-                    //    Precio = pedidoDetalle.Producto.PrecioCatalogo,
-                    //    TipoEstrategiaID = pedidoDetalle.Producto.TipoEstrategiaID.Trim() == string.Empty ? 0 : int.Parse(pedidoDetalle.Producto.TipoEstrategiaID.Trim()),
-                    //    CUV2 = pedidoDetalle.Producto.CUV,
-                    //    MarcaID = pedidoDetalle.Producto.MarcaID,
-                    //    LimiteVenta = 1,//pedidoDetalle.LimiteVenta == 0 ? 99 : pedidoDetalle.LimiteVenta,
-                    //    Precio2 = pedidoDetalle.Producto.PrecioCatalogo
-                    //};
-
                     objRerun = Insert(pedidoDetalle);
                     if (objRerun.CodigoRespuesta != Constantes.PedidoValidacion.Code.SUCCESS) return objRerun;
 
