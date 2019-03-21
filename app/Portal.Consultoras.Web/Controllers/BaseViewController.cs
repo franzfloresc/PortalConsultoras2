@@ -571,6 +571,27 @@ namespace Portal.Consultoras.Web.Controllers
                     break;
                 #endregion
 
+                #region Pack de Nuevas
+                case Constantes.OrigenPedidoWeb.DesktopHomePackNuevasCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopHomePackNuevasFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopLandingPackNuevasCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopLandingPackNuevasFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopPedidoPackNuevasCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopPedidoPackNuevasFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobileHomePackNuevasCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobileHomePackNuevasFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobilePedidoPackNuevasCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobilePedidoPackNuevasFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobileLandingPackNuevasCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobileLandingDuoPerfectoFicha;
+                    break;
+                #endregion
+
                 #region Mas Ganadoras
                 case Constantes.OrigenPedidoWeb.DesktopContenedorGanadorasCarrusel:
                     result = Constantes.OrigenPedidoWeb.DesktopContenedorGanadorasFicha;

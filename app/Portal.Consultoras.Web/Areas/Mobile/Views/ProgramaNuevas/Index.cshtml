@@ -5,7 +5,9 @@
     ViewBag.Title = "CLUB GANA+";
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayoutContenedor.cshtml";
     var nameTagScrollTo = "divTopFiltros" + @Model.CampaniaID;
-    var origenPedidoCarrusel = Constantes.OrigenPedidoWeb.MobileLandingDuoPerfectoCarrusel;
+    var origenPedidoCarrusel = ViewBag.CodPalanca == Constantes.ConfiguracionPais.ElecMultiple 
+        ? Constantes.OrigenPedidoWeb.DesktopLandingDuoPerfectoCarrusel 
+        : Constantes.OrigenPedidoWeb.DesktopLandingPackNuevasCarrusel;
 }
 
 @section styles{

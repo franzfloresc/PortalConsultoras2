@@ -4,8 +4,12 @@
 @{
     Layout = "~/Views/Shared/_MainLayoutContenedor.cshtml";
     var idBorrar = "borrar" + Model.CampaniaID;
-    var origenPedidoCarrusel = Constantes.OrigenPedidoWeb.DesktopLandingDuoPerfectoCarrusel;
-    var origenPedidoFicha = Constantes.OrigenPedidoWeb.DesktopLandingDuoPerfectoFicha;
+    var origenPedidoCarrusel = ViewBag.CodPalanca == Constantes.ConfiguracionPais.ElecMultiple 
+                                ? Constantes.OrigenPedidoWeb.DesktopLandingDuoPerfectoCarrusel 
+                                : Constantes.OrigenPedidoWeb.DesktopLandingPackNuevasCarrusel;
+    var origenPedidoFicha = ViewBag.CodPalanca == Constantes.ConfiguracionPais.ElecMultiple 
+                                ? Constantes.OrigenPedidoWeb.DesktopLandingDuoPerfectoFicha
+                                : Constantes.OrigenPedidoWeb.DesktopLandingPackNuevasFicha;
 }
 
 @section styles{
