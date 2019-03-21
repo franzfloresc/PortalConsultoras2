@@ -97,7 +97,10 @@ var AnalyticsPortalModule = (function () {
             { "CodigoPalanca": "11", "Palanca": "Catalogo Lbel" },
             { "CodigoPalanca": "12", "Palanca": "Catalogo Esika" },
             { "CodigoPalanca": "13", "Palanca": "Catalogo Cyzone" },
-            { "CodigoPalanca": "14", "Palanca": "Más Ganadoras" }
+            { "CodigoPalanca": "14", "Palanca": "Más Ganadoras" },
+            { "CodigoPalanca": "15", "Palanca": "" },
+            { "CodigoPalanca": "16", "Palanca": "Dúo Perfecto" },
+            { "CodigoPalanca": "17", "Palanca": "Pack de Nuevas" },
         ],
         origenpedidoWebHome: [
             { "Codigo": "010306", "Descripcion": "Banner Header" },
@@ -120,7 +123,11 @@ var AnalyticsPortalModule = (function () {
             { "CodigoPagina": "08", "Pagina": "Contenedor" },
             { "CodigoPagina": "09", "Pagina": "Otras" },
             { "CodigoPagina": "10", "Pagina": "Landing Buscador" },
-            { "CodigoPagina": "11", "Pagina": "Landing Ganadoras" }
+            { "CodigoPagina": "11", "Pagina": "Landing Ganadoras" },
+            { "CodigoPagina": "12", "Pagina": "" },
+            { "CodigoPagina": "13", "Pagina": "" },
+            { "CodigoPagina": "14", "Pagina": "Landing Dúo Perfecto" },
+            { "CodigoPagina": "15", "Pagina": "Landing Pack de Nuevas" }
         ],
         secciones: [
             { "CodigoSeccion": "01", "Seccion": "Carrusel" },
@@ -175,7 +182,10 @@ var AnalyticsPortalModule = (function () {
             { "Codigo": "11", "CodigoPalanca": "", "TextoList": "" },
             { "Codigo": "12", "CodigoPalanca": "", "TextoList": "" },
             { "Codigo": "13", "CodigoPalanca": "", "TextoList": "" },
-            { "Codigo": "14", "CodigoPalanca": "MG", "TextoList": "Más Ganadoras" }
+            { "Codigo": "14", "CodigoPalanca": "MG", "TextoList": "Más Ganadoras" },
+            { "Codigo": "15", "CodigoPalanca": "", "TextoList": "" },
+            { "Codigo": "16", "CodigoPalanca": "DP", "TextoList": "Dúo Perfecto" },
+            { "Codigo": "17", "CodigoPalanca": "PN", "TextoList": "Pack de Nuevas" }
         ],
         Seccion: [
             { "Codigo": "01", "TextoList": "" },
@@ -203,12 +213,25 @@ var AnalyticsPortalModule = (function () {
         { Codigo: "11", UrlController: "" },
         { Codigo: "12", UrlController: "" },
         { Codigo: "13", UrlController: "" },
-        { Codigo: "14", UrlController: "MasGanadoras" }
+        { Codigo: "14", UrlController: "MasGanadoras" },
+        { Codigo: "16", UrlController: "" },
+        { Codigo: "17", UrlController: "" }
     ]
 
     ////////////////////////////////////////////////////////////////////////////////////////
     // Ini - Metodos Iniciales
     ////////////////////////////////////////////////////////////////////////////////////////
+    var _getIdPalancaSegunCodigo = function(codigo) {
+        var total = _origenPedidoWebEstructura.Palanca.length;
+        for (var i = 0; i < total; i++) {
+            var item = _origenPedidoWebEstructura.Palanca[i];
+            if (item.CodigoPalanca == codigo) {
+                return item.Codigo;
+            }
+        }
+
+        return "";
+    };
 
     var _getEstructuraOrigenPedidoWeb = function (origen, url) {
         var origenEstructura = {};
@@ -237,6 +260,10 @@ var AnalyticsPortalModule = (function () {
             origenEstructura.Palanca = _getCodigoPalancaSegunUrl(url);
         }
 
+        if (origenEstructura.Palanca == "" && origenEstructura.CodigoPalanca != "") {
+            origenEstructura.Palanca = _getIdPalancaSegunCodigo(origenEstructura.CodigoPalanca);
+        }
+
         if (origenEstructura.Pagina == "" && url != "") {
             switch (window.controllerName) {
                 case "ofertas": origenEstructura.Pagina = ConstantesModule.OrigenPedidoWebEstructura.Pagina.Contenedor; break;
@@ -258,6 +285,8 @@ var AnalyticsPortalModule = (function () {
             || origenEstructura.Pagina == ConstantesModule.OrigenPedidoWebEstructura.Pagina.LandingHerramientasVenta
             || origenEstructura.Pagina == ConstantesModule.OrigenPedidoWebEstructura.Pagina.LandingLiquidacion
             || origenEstructura.Pagina == ConstantesModule.OrigenPedidoWebEstructura.Pagina.LandingOfertasParaTi
+            || origenEstructura.Pagina == ConstantesModule.OrigenPedidoWebEstructura.Pagina.LandingDuoPerfecto
+            || origenEstructura.Pagina == ConstantesModule.OrigenPedidoWebEstructura.Pagina.LandingPackNuevas
             || origenEstructura.Pagina == ConstantesModule.OrigenPedidoWebEstructura.Pagina.LandingShowroom
             || origenEstructura.Seccion == ConstantesModule.OrigenPedidoWebEstructura.Seccion.Ficha
             || origenEstructura.Seccion == ConstantesModule.OrigenPedidoWebEstructura.Seccion.CarruselVerMas
@@ -568,6 +597,8 @@ var AnalyticsPortalModule = (function () {
                 case "Home": !esFicha ? contenedor = "Contenedor - Inicio" : contenedor = contenedorFicha; break;
                 case "Contenedor": !esFicha ? contenedor = "Contenedor - Inicio" : contenedor = contenedorFicha; break;
                 case "Landing Ofertas Para Ti": !esFicha ? contenedor = _texto.contenedor : contenedor = contenedorFicha; break;
+                case "Landing Dúo Perfecto": !esFicha ? contenedor = _texto.contenedor : contenedor = contenedorFicha; break;
+                case "Landing Pack de Nuevas": !esFicha ? contenedor = _texto.contenedor : contenedor = contenedorFicha; break;
                 case "Pedido": contenedor = "Carrito de compras"; break;
                 case "Otras": contenedor = !esFicha ? _texto.contenedor : contenedor = contenedorFicha; break;
                 case "Landing Showroom": !esFicha ? contenedor = _texto.contenedor : contenedor = contenedorFicha; break;

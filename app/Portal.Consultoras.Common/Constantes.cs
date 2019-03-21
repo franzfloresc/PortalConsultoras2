@@ -742,6 +742,21 @@ namespace Portal.Consultoras.Common
             public const int MobileLandingGanadorasGanadorasFicha = 2111402; // Esta en duro en ConstantesModule
             #endregion
 
+            #region Duo Perfecto
+            public const int DesktopLandingDuoPerfectoCarrusel = 1141601;
+            public const int DesktopLandingDuoPerfectoFicha = 1141602;
+            public const int DesktopHomeDuoPerfectoCarrusel = 1011601;
+            public const int DesktopHomeDuoPerfectoFicha = 1011602;
+            public const int DesktopPedidoDuoPerfectoCarrusel = 1021601;
+            public const int DesktopPedidoDuoPerfectoFicha = 1021602;
+            public const int MobileLandingDuoPerfectoCarrusel = 2141601;
+            public const int MobileLandingDuoPerfectoFicha = 2141602;
+            public const int MobileHomeDuoPerfectoCarrusel = 2011601;
+            public const int MobileHomeDuoPerfectoFicha = 2011602;
+            public const int MobilePedidoDuoPerfectoCarrusel = 2021601;
+            public const int MobilePedidoDuoPerfectoFicha = 2021602;
+            #endregion
+
             #region VirtualCoach
             public const int VirtualCoachDesktopPedido = 1231;
             public const int VirtualCoachMobilePedido = 2231;

@@ -358,7 +358,7 @@ namespace Portal.Consultoras.Web.Controllers
                 { Constantes.NombrePalanca.GuiaDeNegocioDigitalizada, "Guía De Negocio" },
                 { Constantes.NombrePalanca.HerramientasVenta, "Demostradores" },
                 { Constantes.NombrePalanca.MasGanadoras, "Las más ganadoras" },
-                { Constantes.NombrePalanca.PackNuevas, _programaNuevasProvider.GetLimElectivos() > 1 ? "Dúo Perfecto" : "Programa Nuevas" }
+                { Constantes.NombrePalanca.PackNuevas, _programaNuevasProvider.TieneDuoPerfecto() ? "Dúo Perfecto" : "Programa Nuevas" }
             };
 
             return nombresPalancas.ContainsKey(palanca) ? nombresPalancas[palanca] : string.Empty;
@@ -549,6 +549,27 @@ namespace Portal.Consultoras.Web.Controllers
                     result = Constantes.OrigenPedidoWeb.MobileLandingBuscadorHerramientasDeVentaFicha;
                     break;
                 #endregion Buscador Mobile
+
+                #region Duo Perfecto
+                case Constantes.OrigenPedidoWeb.DesktopHomeDuoPerfectoCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopHomeDuoPerfectoFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopLandingDuoPerfectoCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopLandingDuoPerfectoFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopPedidoDuoPerfectoCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopPedidoDuoPerfectoFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobileHomeDuoPerfectoCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobileHomeDuoPerfectoFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobilePedidoDuoPerfectoCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobilePedidoDuoPerfectoFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobileLandingDuoPerfectoCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobileLandingDuoPerfectoFicha;
+                    break;
+                #endregion
 
                 #region Mas Ganadoras
                 case Constantes.OrigenPedidoWeb.DesktopContenedorGanadorasCarrusel:

@@ -75,7 +75,9 @@ var ConstantesModule = (function () {
         GND: "GN",
         LAN: "LAN",
         MG: "MG",
-        SR: "SR"
+        SR: "SR",
+        PN: "PN",
+        DP: "DP"
     }
 
     var _urlObtenerEstrategia = {
@@ -134,7 +136,9 @@ var ConstantesModule = (function () {
             Contenedor: '08',
             Otras: '09',
             LandingBuscador: '10',
-            LandingGanadoras: '11'
+            LandingGanadoras: '11',
+            LandingDuoPerfecto: '14',
+            LandingPackNuevas: '15'
         },
         Palanca: {
             OfertasParaTi: '00',
@@ -151,7 +155,9 @@ var ConstantesModule = (function () {
             CatalogoLbel: '11',
             CatalogoEsika: '12',
             CatalogoCyzone: '13',
-            Ganadoras: '14'
+            Ganadoras: '14',
+            DuoPerfecto: '16',
+            PackNuevas: '17'
         },
         Seccion: {
             Carrusel: '01',
