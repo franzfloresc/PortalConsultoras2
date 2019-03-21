@@ -313,19 +313,11 @@ var menuModule = (function () {
                 AnalyticsPortalModule.ClickTabGanadoras(codigo);
             }
 
-            //url = $.trim(url);
-            //url = url[0] !== "/" ? "/" + url : url;
-            //if (window.location.pathname.toLowerCase() === url.toLowerCase()) return;
-
-            //if (codigo == ConstantesModule.TipoEstrategia.ATP) {
-            //    var htmlSeccion = $("[data-seccion=" + ConstantesModule.TipoEstrategia.ATP + "]"),
-            //        btnRedirect = htmlSeccion.find('button.atp_button'),
-            //        cuv = btnRedirect.data('cuv');
-            //    console.log(window.location.origin + url + '/' + cuv);
-            //    window.location = window.location.origin + url + '/' + cuv;
-            //}
-
-            //window.location = window.location.origin + url;
+            url = $.trim(url);
+            url = url[0] !== "/" ? "/" + url : url;
+            if (window.location.pathname.toLowerCase() === url.toLowerCase()) return;
+            
+            window.location = window.location.origin + url;
         }
     }
     function _claseImgSeleccionado(estado) {

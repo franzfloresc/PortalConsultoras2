@@ -35,18 +35,18 @@ namespace Portal.Consultoras.Web.Providers
             }
             return datos;
         }
-        public List<ParametroUneteBE> ObtenerUbigeoPrincipal(string CodigoISO)
-        {
-            List<ParametroUneteBE> result;
-            int IdPadre = 0;
-            using (var sv = new PortalServiceClient())
-            {
+        //public List<ParametroUneteBE> ObtenerUbigeoPrincipal(string CodigoISO)
+        //{
+        //    List<ParametroUneteBE> result;
+        //    int IdPadre = 0;
+        //    using (var sv = new PortalServiceClient())
+        //    {
 
-                result = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel1, IdPadre);
-            }
+        //        result = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel1, IdPadre);
+        //    }
 
-            return result;
-        }
+        //    return result;
+        //}
 
         public async Task<List<ParametroUneteBE>> ObtenerUbigeoPrincipalAsync(string CodigoISO)
         {
@@ -180,9 +180,9 @@ namespace Portal.Consultoras.Web.Providers
                 }
                 sessionManager.SetUsuarioOpciones(null);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, string.Empty, string.Empty);
+                //
             }
             return resultado;
         }

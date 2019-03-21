@@ -1,51 +1,54 @@
-﻿.atp_main {
-    background-color: #e70002;
-    background-repeat: no-repeat;
-    background-size:cover;
-    background-position: center !important;
-    color: white;
-    font-family: 'lato';
-    text-align: center;
+﻿.atp_container{
+    
+    background: linear-gradient(to bottom, #C8A02D, #8D7329);
+    color: black;
     height: auto;
-    padding: 20px 0;
-    margin: 15px 0;
+    padding: 20px 0; 
+  }
+.atp_main {
+    width: 320px;
+    margin: 0 auto;
 }
 
 .atp_title {
     letter-spacing: 2px;
     font-size: 22px;
     font-weight: 900;
-    margin: 0;
-    padding: 0;
+    margin: 10px 0 0 0;
+    padding: 0 10px;
+    text-align:left;
     color:inherit;
 }
 
 .atp_content {
     line-height: 1em;
     font-size: 14px;
-    font-weight: 900;
-    margin: 30px 0;
+    font-weight: 600;
+    margin: 15px 0;
 }
 
     .atp_content p {
         line-height: 16px;
         margin: 0;
+        text-align:left;
+        padding: 0 10px;
     }
 
-        .atp_content p > span {
-            font-size: 18px;
-        }
+.atp_action{
+    position:relative;
+    width: 100%;
+    height: 50px;
+}
 
 .atp_button {
     background-color: black;
     color: white;
     border: none;
     cursor: pointer;
+    position:absolute;
+    left:10px;
 }
 
-    .atp_button:hover {
-        cursor: pointer;
-    }
 
 .atp_button_center {
     text-align: center;
@@ -61,26 +64,28 @@
 }
 
 @media (min-width: 600px) {
-    .atp_main {
-        background-color: #e70002;
-        color: white;
-        font-family: 'lato';
-        text-align: center;
+    .atp_main {        
         height: auto;
-        padding: 70px 0;
-        margin: 0 ;
+        padding: 20px 0;        
+    }
+
+    .atp_button{
+        position: relative;
     }
 
     .atp_button_center {
-        width: 25%;
+        width: 95%;
     }
 
     .atp_title {
         letter-spacing: 2.7px;
         font-size: 30px;
+        text-align: center;
+        font-weight: 800 !important;
     }
 
-    .atp_content {
+    .atp_content p{
         font-size: 17px;
+        text-align: center;
     }
 }

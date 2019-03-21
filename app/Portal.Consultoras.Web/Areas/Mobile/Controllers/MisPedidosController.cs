@@ -59,7 +59,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return View(listaPedidos);
         }
 
-        decimal descuento = 0;
+        //decimal descuento = 0;
         [HttpGet]
         public PartialViewResult IngresadoDetalle()
         {
