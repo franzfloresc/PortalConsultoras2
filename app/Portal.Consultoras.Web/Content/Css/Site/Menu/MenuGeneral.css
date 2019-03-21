@@ -2,7 +2,7 @@
 
 /* ini - Flechas */
 .bc-menu-vertical-prev, .bc-menu-vertical-next {
-    width: 5% !important;
+    width: 60px !important;
 }
 
     .bc-menu-vertical-prev img, .bc-menu-vertical-next img {
