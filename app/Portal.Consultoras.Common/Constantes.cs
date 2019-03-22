@@ -3356,6 +3356,11 @@ namespace Portal.Consultoras.Common
             public const int StockHijo = 1;
         }
 
+        public static class Controlador
+        {
+            public static readonly string[] ActualizacionODD = { "Bienvenida", "Ofertas", "DetalleEstrategia", "Pedido" };
+        }
+
         public static class EstrategiaDetalleCamposID
         {
             public const int FlagIndividual = 10212;
