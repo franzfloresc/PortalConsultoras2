@@ -822,6 +822,7 @@
     <Compile Include="Providers\BienvenidaProvider.cs" />
     <Compile Include="Providers\BuscadorBaseProvider.cs" />
     <Compile Include="Providers\BuscadorYFiltrosProvider.cs" />
+    <Compile Include="Providers\CaminoBrillanteProvider.cs" />
     <Compile Include="Providers\CdrProvider.cs" />
     <Compile Include="Providers\ClienteProvider.cs" />
     <Compile Include="Providers\ConfiguracionManagerProvider.cs" />
