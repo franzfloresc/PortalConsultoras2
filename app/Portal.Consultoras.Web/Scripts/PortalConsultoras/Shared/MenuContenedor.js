@@ -347,10 +347,11 @@ var menuModule = (function () {
                     + ConstantesModule.OrigenPedidoWebEstructura.Pagina.Contenedor
                     + ConstantesModule.OrigenPedidoWebEstructura.Palanca.DP
                     + ConstantesModule.OrigenPedidoWebEstructura.Seccion.Banner;
+                if (titulo !== "ClicVerMas") {
+                    clicEnBanner = true;
+                }
             }
-            if (url.indexOf(ConstantesModule.TipoEstrategia.DP) > 0 && titulo !== "ClicVerMas") {
-                clicEnBanner = true;
-            }
+
             OrigenPedidoWeb = OrigenPedidoWeb || "";
             AnalyticsPortalModule.MarcaClicVerMasOfertas(url, OrigenPedidoWeb, texto, clicEnBanner);
         }
