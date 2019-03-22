@@ -21,13 +21,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         [HttpGet]
         public JsonResult GetNiveles()
         {
-            Random rdn = new Random();
-            long Nivel = rdn.Next(1, 6);
             //List<NivelesCaminoBrillanteModel> list = new List<NivelesCaminoBrillanteModel>();
             //list = await Niveles();
+            Random rdn = new Random();
+            List<NivelConsultoraCaminoBrillanteModel> DatosConsultora = SessionManager.GetConsultora();
 
             var objniveles = new List<NivelesCaminoBrillanteModel>();
-
             var objBeneficio1 = new List<BeneficiosNivelCaminoBrillanteModel>();
             var objBeneficio2 = new List<BeneficiosNivelCaminoBrillanteModel>();
             var objBeneficio3 = new List<BeneficiosNivelCaminoBrillanteModel>();
@@ -48,7 +47,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             objBeneficio1.Add(new BeneficiosNivelCaminoBrillanteModel()
             {
                 CodigoBeneficio = 1,
-                Titulo = "1 catálogo gratis de Ésika, L,'Bel y Cyzone",
+                Titulo = "1 catálogo gratis de Ésika, L'Bel y Cyzone",
                 Descripcion = ""
             });
             objBeneficio1.Add(new BeneficiosNivelCaminoBrillanteModel()
@@ -83,7 +82,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             objBeneficio2.Add(new BeneficiosNivelCaminoBrillanteModel()
             {
                 CodigoBeneficio = 1,
-                Titulo = "1 catálogo gratis de Ésika, L,'Bel y Cyzone",
+                Titulo = "1 catálogo gratis de Ésika, L'Bel y Cyzone",
                 Descripcion = ""
             });
             objBeneficio2.Add(new BeneficiosNivelCaminoBrillanteModel()
@@ -134,7 +133,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             objBeneficio3.Add(new BeneficiosNivelCaminoBrillanteModel()
             {
                 CodigoBeneficio = 1,
-                Titulo = "1 catálogo gratis de Ésika, L,'Bel y Cyzone",
+                Titulo = "1 catálogo gratis de Ésika, L'Bel y Cyzone",
                 Descripcion = ""
             });
             objBeneficio3.Add(new BeneficiosNivelCaminoBrillanteModel()
@@ -186,7 +185,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             objBeneficio4.Add(new BeneficiosNivelCaminoBrillanteModel()
             {
                 CodigoBeneficio = 1,
-                Titulo = "1 catálogo gratis de Ésika, L,'Bel y Cyzone",
+                Titulo = "1 catálogo gratis de Ésika, L'Bel y Cyzone",
                 Descripcion = ""
             });
             objBeneficio4.Add(new BeneficiosNivelCaminoBrillanteModel()
@@ -238,7 +237,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             objBeneficio5.Add(new BeneficiosNivelCaminoBrillanteModel()
             {
                 CodigoBeneficio = 1,
-                Titulo = "1 catálogo gratis de Ésika, L,'Bel y Cyzone",
+                Titulo = "1 catálogo gratis de Ésika, L'Bel y Cyzone",
                 Descripcion = ""
             });
             objBeneficio5.Add(new BeneficiosNivelCaminoBrillanteModel()
@@ -408,7 +407,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 }
             }
-            return Json(new { list = objniveles, NivelActual = rdn.Next(1, 6) }, JsonRequestBehavior.AllowGet);
+
+            long nivel = DatosConsultora[0].NivelActual;
+            return Json(new { list = objniveles, NivelActual = nivel }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
@@ -470,7 +471,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             List<string> Credenciales = new List<string>();
             Credenciales = GetDatosComercial();
             CaminoBrillanteProvider prv = new CaminoBrillanteProvider(Credenciales[0], Credenciales[1], Credenciales[2]);
-            List<NivelesCaminoBrillanteModel> task = prv.GetNivel("CRI"); //Reemplazar por UserData.Pais
+            List<NivelesCaminoBrillanteModel> task = prv.GetNivel(userData.CodigoISO);
+            //List<NivelesCaminoBrillanteModel> task = prv.GetNivel("CRI");
             return task;
         }
 
