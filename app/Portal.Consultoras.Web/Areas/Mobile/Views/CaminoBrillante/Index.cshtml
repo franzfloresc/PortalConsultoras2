@@ -12,9 +12,9 @@
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
 }
 
-<link href="~/Content/CaminoBrillante/css/estilos.css" rel="stylesheet" />
-<link href="~/Scripts/owl.carousel.2.0.0-beta.2.4/assets/owl.carousel.css" rel="stylesheet" />
-
+@section styles{
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/CaminoBrillante")
+}
 <br />
 
 <div class="container ">
@@ -45,15 +45,12 @@
             </div>
         </div>
     </div>
-    <div class="cont-benf">
-        <h2 class="title">MIS BENEFICIOS DE NIVEL</h2>
-        <p class="text">Todos los beneficios que tienes actualmente en tu nivel</p>
-        <ul class="box-beneficios" id="BeneficiosPrincipal"></ul>
+    <div class="cont-benf" id="BeneficiosPrincipal">
     </div>
     <a id="OfertasEspeciales" class="btn-principal">Ofertas especiales</a>
     <div class="cont-logros">
         <h2 class="title">MIS LOGROS</h2>
-        <p class="text">Mira los logros que has obtenido por ventas y pasar pedidos <br>de forma constante, tu esfuerzo tiene recompensas.</p>
+        <p class="text">Mira los logros que has obtenido por ventas y pasar pedidos de forma constante, tu esfuerzo tiene recompensas</p>
         <div class="boxcenter">
             <div class="owl-carousel owl-crec">
                 <div class="item">
@@ -161,7 +158,6 @@
 </div>
 
 <script src="~/Scripts/jquery-1.11.2.min.js"></script>
-<script src="~/Scripts/bootstrap.min.js"></script>
 <script src="~/Scripts/owl.carousel.js"></script>
 <script src="~/Scripts/PortalConsultoras/CaminoBrillante/Mobile.js"></script>
 
