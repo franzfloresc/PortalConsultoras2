@@ -277,6 +277,7 @@ namespace Portal.Consultoras.Web.Controllers
                     SessionManager.SetDetallesPedidoSetAgrupado(null);
                     SessionManager.SetBEEstrategia(Constantes.ConstSession.ListaEstrategia, null);
                     SessionManager.SetMontosProl(null);
+                    SessionManager.SetMisPedidosDetallePorCampania(null);
 
                     var pedidoWebDetalle = ObtenerPedidoWebDetalle();
                     var CantidadTotalProductos = pedidoWebDetalle.Sum(dp => dp.Cantidad);
@@ -423,6 +424,7 @@ namespace Portal.Consultoras.Web.Controllers
                 SessionManager.SetDetallesPedido(null);
                 SessionManager.SetDetallesPedidoSetAgrupado(null);
                 SessionManager.SetMontosProl(null);
+                SessionManager.SetMisPedidosDetallePorCampania(null);
 
                 var pedidoWebDetalle = ObtenerPedidoWebDetalle();
                 var CantidadTotalProductos = pedidoWebDetalle.Sum(dp => dp.Cantidad);
@@ -518,6 +520,7 @@ namespace Portal.Consultoras.Web.Controllers
             SessionManager.SetDetallesPedido(null);
             SessionManager.SetDetallesPedidoSetAgrupado(null);
             SessionManager.SetMontosProl(null);
+            SessionManager.SetMisPedidosDetallePorCampania(null);
 
             var olstPedidoWebDetalle = ObtenerPedidoWebDetalle();
 
