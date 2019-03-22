@@ -73,7 +73,7 @@ $(document).ready(function () {
 
     $('.cerrarPendientesPORTAL').on('click', function () {
         $('.popupPendientesPORTAL').hide();
-    });    
+    });
 
     CargarPedidosPend();
 });
@@ -180,7 +180,6 @@ function CargarPedidosPend(page, rows) {
 }
 
 function CargarPopupPedidoPend(pedidoId) {
-
     var obj = {
         sidx: "",
         sord: "",
@@ -267,6 +266,7 @@ function CargarPopupPedidoPend(pedidoId) {
             }
         }
     });
+
 }
 
 function ShowPopupRechazoPedido(pedidoId, tipo) {
@@ -287,9 +287,26 @@ function ShowPopupMotivoRechazo() {
 
     $('#dialog_confirmacionRechazo').hide();
     $('#dialog_motivoRechazo').show();
+
+    DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras - Pedidos Pendientes', 'Pop up ¿Vas a Rechazar el Pedido? - Click Botón', 'Sí, Rechazo el Pedido');
 }
 
-function RechazarPedido() {
+function RechazarPedido(origenBoton) {
+    var opcionRechazo = ($('.optionsRechazoSelect').text()) ? $('.optionsRechazoSelect').text() : "";
+    if (origenBoton) {
+        switch (origenBoton) {
+            case 1: /*boton enviar*/
+                DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras - Pedidos Pendientes', 'Pop up ¡Cuéntanos porqué lo Rechazaste! - Click Botón Enviar', opcionRechazo);
+                break;
+            case 2:/*boton cerrar*/
+                DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras - Pedidos Pendientes', 'Pop up ¡Cuéntanos porqué lo Rechazaste!', 'cerrar');                
+                break;
+            default:
+                break;
+        }
+    }
+    
+
     $('#btnRechazarPedido').prop('disabled', true);
 
     var opt = $('.optionsRechazoSelect').data('id');
@@ -323,6 +340,7 @@ function RechazarPedido() {
                     $('#btnRechazarPedido').prop('disabled', false);
                     $('#dialog_motivoRechazo').hide();
                     $('#dialog_mensajeRechazado').show();
+                    DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras - Pedidos Pendientes', 'Pop up Pedido Rechazado', opcionRechazo);
                 }
                 else {
                     alert_msg(data.message);
@@ -336,9 +354,12 @@ function RechazarPedido() {
             }
         }
     });
+
+
 };
 
 function CerrarMensajeRechazado() {
+    DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras - Pedidos Pendientes', 'Pop up Pedido Rechazado - Click Botón', 'Ok');
     $('#dialog_mensajeRechazado').hide();
     $('#popup_pendientes').hide();
     $('#popup2_pendientes').hide();
@@ -543,9 +564,40 @@ function CerrarAlertaPedidoReservado() {
 }
 
 function PendientesCampana() {
-    DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras (Out Tab Pendientes)','Click botón', 'Campana');
+    DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras - Out Tab Pedidos Pendientes', 'Click Botón', 'Campana');
 }
 
-function PendientesRevisalo() {
-    DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras (Out Tab Pendientes)', 'Click botón', 'Revísalo');
+function PendientesRevisalo(categoria, accion) {
+    DataLayerPedidosPendientes('virtualEvent', categoria, accion, 'Revísalo');
+}
+
+function PendientesRegresar() {
+    DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras - PopUp Pedidos Pendientes', 'Click Botón', 'Regresar');
+}
+
+function RechazoPedidosPendientes() {
+    DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras - PopUp Pedidos Pendientes', 'Click Botón', 'Rechazo el Pedido');
+}
+
+function AceptoTodoElPedidoTipoAtencion() {
+
+    var tipoAtencion = ""
+
+    if ($('.ddlAtenderPopUpPedidosPend').prop('selectedIndex') > 0) {
+        tipoAtencion = $('.ddlAtenderPopUpPedidosPend').text();
+    }
+
+    DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras - PopUp Pedidos Pendientes', 'Click Botón', 'Acepto Todo el Pedido - ' + tipoAtencion);
+}
+
+function DialogComoAtenderPedidoPend(etiqueta) {
+    DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras - Pedidos Pendientes', 'Pop up Alerta: No escogió tipo de Atención', etiqueta);
+}
+
+function NoRechazoPedidoDejameVerlo(etiqueta) {
+    DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras - Pedidos Pendientes', 'Pop up ¿Vas a Rechazar el Pedido? - Click Botón', etiqueta);
+}
+
+function PorqueLoRechazasteCerrar() {
+    DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras - Pedidos Pendientes', 'Pop up ¡Cuéntanos porqué lo Rechazaste! - Click Botón', 'cerrar');
 }

@@ -22,7 +22,7 @@
 </style>
 
 <div class="btn_cerrar_agregarUnidades">
-    <a href="javascript:;" onclick="CloseAgregarCliente();">
+    <a href="javascript:;" onclick="CloseAgregarCliente(2);">
         <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
         <span class="texto_btn_cerrar">CERRAR</span>
     </a>
@@ -131,12 +131,16 @@ else
                                     item.Insertado = data.insertado;
                                     if ($.isFunction(ClienteDetalleOK)) ClienteDetalleOK(item);
                                 });
-                                CloseAgregarCliente();
+                                CloseAgregarCliente(1);
+
+
                             }
                             else {
                                 CloseLoading();
                                 messageInfo(data.message);
                             }
+
+
                         }
                     },
                     error: function (data, error) {
@@ -148,7 +152,20 @@ else
                 });
             });
 
-        function CloseAgregarCliente() {
+    function CloseAgregarCliente(origenBoton) {
+
+        if (origenBoton) {
+            switch (origenBoton) {
+                case 1: /*boton Guardar*/
+                    DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras - Pedidos Pendientes', 'Pop up Agregar Cliente', 'guardar');
+                    break
+                case 2: /*boton Cerrar*/
+                    DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras - Pedidos Pendientes', 'Pop up Agregar Cliente', 'cerrar');
+                    break;
+                default:
+                    break;
+            }
+        }
             $("#divAgregarCliente").modal("hide");
         }
 </script>

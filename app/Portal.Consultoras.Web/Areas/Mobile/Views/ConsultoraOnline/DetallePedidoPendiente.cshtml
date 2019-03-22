@@ -10,11 +10,12 @@
 <style>
     .agotado_consultora {
         background: #f3f3f3;
-        padding:10px 10px
+        padding: 10px 10px
     }
-    .agotado_consultora img {
-        height:36px
-    }
+
+        .agotado_consultora img {
+            height: 36px
+        }
 </style>
 
 <script>
@@ -146,7 +147,7 @@
             {
                 if (@item.TieneStock == 1)
                 {
-                    <select class="select_detalle" id="soldet_tipoate_@item.PedidoDetalleId">
+                    <select class="select_detalle ddlAtenderPedidosPend" id="soldet_tipoate_@item.PedidoDetalleId">
                         <option value="" selected>¿CÓMO LO ATENDERÁS?</option>
                         <option value="ingrped">INGRESAR A MI PEDIDO</option>
                         <option value="ingrten">YA LO TENGO</option>
@@ -177,20 +178,20 @@
     </div>
     <hr class="clear" />
     <div class="linea_separadora_roja" style="margin-top:20px;"></div>
-    <a class="btn_acepto_pedido" href="javascript:;" onclick="AceptarPedido('@solicitud.PedidoId', '@tiposoli')">ACEPTO TODO EL PEDIDO</a>
-    <a class="btn_rechazo_pedido" href="javascript:;" onclick="javascript: $('#PedidoRechazado').show();">RECHAZO EL PEDIDO</a>
+    <a class="btn_acepto_pedido" href="javascript:;" onclick="AceptoTodoElPedidoTipoAtencion();AceptarPedido('@solicitud.PedidoId', '@tiposoli')">ACEPTO TODO EL PEDIDO</a>
+    <a class="btn_rechazo_pedido" href="javascript:;" onclick="javascript: RechazoPedidosPendientes(); $('#PedidoRechazado').show();">RECHAZO EL PEDIDO</a>
 </div>
 
 <div id="ComoloAtenderas" class="MensajeAlertaMobile">
     <div class="content_mensajeAlerta">
-        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#ComoloAtenderas').hide();">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript:DialogComoAtenderPedidoPend('Cerrar Pop up'); $('#ComoloAtenderas').hide();">
             <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
         </a>
         <hr class="clear">
         <div class="icono_alerta exclamacion_icono_mobile"></div>
         <div class="titulo_compartir"><b>IMPORTANTE</b></div>
         <div class="mensaje_alerta">Por favor elige cómo atenderás todos los productos del pedido</div>
-        <a class="btn_ok_mobile" onclick="javascript: $('#ComoloAtenderas').hide();">OK</a>
+        <a class="btn_ok_mobile" onclick="javascript:DialogComoAtenderPedidoPend('Ok'); $('#ComoloAtenderas').hide();">OK</a>
     </div>
 </div>
 
@@ -209,7 +210,7 @@
 
 <div id="PedidoRechazado" class="MensajeAlertaMobile">
     <div class="content_mensajeAlerta">
-        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#PedidoRechazado').hide();">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#PedidoRechazado').hide(); VasARechazarelPedido('cerrar');">
             <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
         </a>
         <hr class="clear">
@@ -217,10 +218,10 @@
         <div class="titulo_compartir">¿VAS A <b>RECHAZAR EL PEDIDO</b>?</div>
         <div class="mensaje_alerta">Si rechazas el pedido vas a perderlo</div>
         <div class="col-xs-12 col-sm-6">
-            <a class="btn_acepto_pedido" href="javascript:;" onclick="javascript: $('#PedidoRechazado').hide();">NO, DÉJAME VERLO</a>
+            <a class="btn_acepto_pedido" href="javascript:;" onclick="javascript: $('#PedidoRechazado').hide(); VasARechazarelPedido('No, Déjame verlo');">NO, DÉJAME VERLO</a>
         </div>
         <div class="col-xs-12 col-sm-6">
-            <a class="btn_rechazo_pedido" href="javascript:;" onclick="javascript: $('#PedidoRechazadoDetalle').show();">SÍ, RECHAZO EL PEDIDO</a>
+            <a class="btn_rechazo_pedido" href="javascript:;" onclick="javascript: $('#PedidoRechazadoDetalle').show();  VasARechazarelPedido('Sí, Rechazo el Pedido');">SÍ, RECHAZO EL PEDIDO</a>
         </div>
 
     </div>
@@ -241,7 +242,7 @@
 
 <div id="PedidoRechazadoDetalle" class="MensajeAlertaMobile" style="padding:10px;">
     <div class="content_mensajeAlerta">
-        <a class="cerrar_popMobile" href="javascript:;" onclick="RechazarPedido('@solicitud.PedidoId');">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="RechazarPedido('@solicitud.PedidoId',2);">
             <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
         </a>
         <hr class="clear">
@@ -255,20 +256,20 @@
             }
         </div>
         <textarea rows="10" class="comentario_rechazados" id="txtOtrosRechazo" readonly="readonly" maxlength="300"></textarea>
-        <a class="btn_acepto_pedido" href="#" onclick="RechazarPedido('@solicitud.PedidoId');">ENVIAR</a>
+        <a class="btn_acepto_pedido" href="#" onclick="RechazarPedido('@solicitud.PedidoId',1);">ENVIAR</a>
     </div>
 </div>
 
 <div id="MensajePedidoRechazado" class="MensajeAlertaMobile">
     <div class="content_mensajeAlerta">
-        <a class="cerrar_popMobile" href="javascript:;" onclick="CerrarMensajeRechazado();">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="CerrarMensajeRechazado(2);">
             <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
         </a>
         <hr class="clear">
         <div class="icono_alerta exclamacion_icono_mobile"></div>
         <div class="titulo_compartir"><b>RECHAZASTE</b> EL PEDIDO</div>
         <div class="mensaje_alerta">Ya está eliminado de tu lista de pendientes</div>
-        <a class="btn_ok_mobile" onclick="CerrarMensajeRechazado();">OK</a>
+        <a class="btn_ok_mobile" onclick="CerrarMensajeRechazado(1);">OK</a>
     </div>
 </div>
 
