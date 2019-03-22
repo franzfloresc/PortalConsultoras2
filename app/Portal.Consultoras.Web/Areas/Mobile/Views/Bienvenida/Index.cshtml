@@ -240,13 +240,27 @@
 <div class="wrapper_resumen_mobile">
     @if (Model.TieneCaminoBrillante)
     {
+        @*<div class="items_belcorp cam-exito">
+                <img src="~/Content/Images/CaminoBrillante/medalla.PNG">
+
+                <div class="mb-left">
+
+                    <p class="toptext">Camino Brillante</p>
+                    <p class="describtext">
+                        @Model.CaminoBrillanteMsg
+                    </p>
+                    <a href="@Url.Action("Index", "CaminoBrillante")">Mis Beneficios</a>
+                </div>
+            </div>
+            <div class="linea_separadora_mobile" style="margin-top:16px"></div>*@
+
         <div class="items_belcorp cam-exito">
             <img src="~/Content/Images/CaminoBrillante/medalla.PNG">
             <p class="toptext">Camino Brillante</p>
             <p>
                 @Model.CaminoBrillanteMsg
             </p>
-            <a href="@Url.Action("Index", "CaminoBrillante")">Ver Beneficios</a>
+            <a href="@Url.Action("Index", "CaminoBrillante")">Mis Beneficios</a>
         </div>
         <div class="linea_separadora_mobile" style="margin-top:16px"></div>
     }

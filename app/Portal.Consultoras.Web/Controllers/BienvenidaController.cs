@@ -22,7 +22,6 @@ namespace Portal.Consultoras.Web.Controllers
         private readonly BienvenidaProvider _bienvenidaProvider;
         protected TablaLogicaProvider _tablaLogica;
         private readonly ZonificacionProvider _zonificacionProvider;
-        private readonly CaminoBrillanteProvider _Comercial;
 
         public BienvenidaController()
         {
@@ -30,7 +29,6 @@ namespace Portal.Consultoras.Web.Controllers
             _tablaLogica = new TablaLogicaProvider();
             _bienvenidaProvider = new BienvenidaProvider();
             _zonificacionProvider = new ZonificacionProvider();
-            _Comercial = new CaminoBrillanteProvider("http://10.12.6.217:9500/", "AKIAIYETSRUJDVPUJMVQ", "63tSNMOUqQ2wAH16KWL/nfzOu/qWpkpz9TFm21Ti");
         }
 
         public BienvenidaController(ILogManager logManager)
@@ -239,9 +237,14 @@ namespace Portal.Consultoras.Web.Controllers
                 model.MostrarPagoEnLinea = (userData.MontoDeuda > 0);
 
 
-                //CaminoBrillante
+                //Inicio CaminoBrillante 
                 model.TieneCaminoBrillante = userData.CaminoBrillante;
-                model.CaminoBrillanteMsg = userData.CaminoBrillanteMsg.Replace("{0}", GetNivelConsultoras());
+                string DatosConsultora = GetNivelConsultoras();
+                if(DatosConsultora != "")
+                    model.CaminoBrillanteMsg = userData.CaminoBrillanteMsg.Replace("{0}", GetNivelConsultoras());
+                //Fin CaminoBrillante
+
+
 
                 #region Camino al Éxito
                 var LogicaCaminoExisto = _tablaLogica.GetTablaLogicaDatos(userData.PaisID, Constantes.TablaLogica.EscalaDescuentoDestokp);

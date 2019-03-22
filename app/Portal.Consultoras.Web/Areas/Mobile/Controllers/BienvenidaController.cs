@@ -130,9 +130,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.MostrarPagoEnLinea = (userData.MontoDeuda > 0);
 
 
-                //CaminoBrillante
+                //Inicio CaminoBrillante 
                 model.TieneCaminoBrillante = userData.CaminoBrillante;
-                model.CaminoBrillanteMsg = userData.CaminoBrillanteMsg.Replace("{0}", GetNivelConsultoras());
+                string DatosConsultora = GetNivelConsultoras();
+                if (DatosConsultora != "")
+                    model.CaminoBrillanteMsg = userData.CaminoBrillanteMsg.Replace("{0}", GetNivelConsultoras());
+                //Fin CaminoBrillante
 
 
                 #region Camino al Exito
