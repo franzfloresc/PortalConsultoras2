@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 namespace Portal.Consultoras.Web.Models.CaminoBrillante
 {
+    [Serializable()]
     [DataContract]
     public class NivelesCaminoBrillanteModel
     {

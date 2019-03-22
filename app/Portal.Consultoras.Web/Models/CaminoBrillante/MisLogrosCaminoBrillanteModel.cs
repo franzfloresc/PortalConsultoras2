@@ -1,7 +1,10 @@
 ﻿using System.Runtime.Serialization;
 using System.Collections.Generic;
+using System;
+
 namespace Portal.Consultoras.Web.Models.CaminoBrillante
 {
+    [Serializable()]
     [DataContract]
     public class MisLogrosCaminoBrillanteModel
     {

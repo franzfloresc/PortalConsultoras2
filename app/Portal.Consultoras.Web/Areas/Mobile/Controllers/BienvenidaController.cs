@@ -130,8 +130,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.MostrarPagoEnLinea = (userData.MontoDeuda > 0);
                 model.TieneCaminoBrillante = userData.CaminoBrillante;
 
-                //model.CaminoBrillanteMsg = userData.CaminoBrillanteMsg.Replace("{0}", "Consultora Ámbar");
-                model.CaminoBrillanteMsg = userData.CaminoBrillanteMsg.Replace("{0}", GetNivelConsultoras());
+                //Inicio CaminoBrillante 
+                model.TieneCaminoBrillante = userData.CaminoBrillante;
+                string DatosConsultora = GetNivelConsultoras();
+                if (DatosConsultora != "")
+                    model.CaminoBrillanteMsg = userData.CaminoBrillanteMsg.Replace("{0}", GetNivelConsultoras());
+                //Fin CaminoBrillante
 
 
                 #region Camino al Exito
@@ -475,11 +479,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 SessionManager.SetConsultora(DatosConsultora);
                 foreach (NivelConsultoraCaminoBrillanteModel obj in DatosConsultora)
-                    DescripcionNivel = obj.NivelActual == 1 ? "Consultora" : obj.NivelActual == 2 ? "Coral" : obj.NivelActual == 3 ? "Ámbar" : obj.NivelActual == 4 ? "Perla" : obj.NivelActual == 5 ? "Topacio" : obj.NivelActual == 6 ? "Brillante" : "";
+                    DescripcionNivel = obj.NivelActual == 1 ? "Consultora" : obj.NivelActual == 2 ? "Consultora Coral" : obj.NivelActual == 3 ? "Consultora Ámbar" : obj.NivelActual == 4 ? "Consultora Perla" : obj.NivelActual == 5 ? "Consultora Topacio" : obj.NivelActual == 6 ? "Consultora Brillante" : "";
             }
-
-            //string a = userData.CaminoBrillanteMsg.Replace("{0}", DescripcionNivel);
-            //return Json(new { CaminoBrillanteMsg = userData.CaminoBrillanteMsg.Replace("{0}", DescripcionNivel) }, JsonRequestBehavior.AllowGet);
             return DescripcionNivel;
         }
 
@@ -488,7 +489,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             List<string> Credenciales = new List<string>();
             Credenciales = GetDatosComercial();
             CaminoBrillanteProvider prv = new CaminoBrillanteProvider(Credenciales[0], Credenciales[1], Credenciales[2]);
-            List<NivelConsultoraCaminoBrillanteModel> task = prv.GetNivelConsultora("CRI", "0007975", "1");
+            //List<NivelConsultoraCaminoBrillanteModel> task = prv.GetNivelConsultora("CRI", "0007975", "1");
+
+            var isoPais = userData.CodigoISO == "CR" ? "CRI" : userData.CodigoISO;
+
+            List<NivelConsultoraCaminoBrillanteModel> task = prv.GetNivelConsultora(isoPais, userData.CodigoConsultora, "1");
             return task;
         }
 

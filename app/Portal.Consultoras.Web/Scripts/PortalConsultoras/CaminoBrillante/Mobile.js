@@ -28,23 +28,25 @@ function GetNiveles() {
             for (var i = 1; i <= nivelactual; i++)
                 $(".pt" + i).addClass("activo");
             $(".pt" + nivelactual).addClass("brillante");
-            //Desactivando según nivel
-            if (nivelactual === 1)
-                $('#OfertasEspeciales').addClass("desactive");
 
-            debugger;
             //Agregando lista de beneficios en la pagina principal
             $("#BeneficiosPrincipal").empty();
-            var htmlBeneficios = "";
-
-
             var index = nivelactual - 1;
 
+            var htmlBeneficios = "<h2 class='title'>MIS BENEFICIOS DE NIVEL</h2>";
+            htmlBeneficios += "<p class='text'>Todos los beneficios que tienes actualmente en tu nivel</p>";
+            htmlBeneficios += "<ul class='box-beneficios' id='BeneficiosPrincipal'>";
             for (var i = 0; i <= data.list[index].BeneficiosNivel.length - 1; i++) {
                 htmlBeneficios += "<li>";
                 htmlBeneficios += "<img src='../Content/CaminoBrillante/imgs/group-14.svg'>";
                 htmlBeneficios += "<div class='txt-benf'><p class='text-bold'>" + data.list[index].BeneficiosNivel[i].Titulo + "<span>" + data.list[index].BeneficiosNivel[i].Descripcion + "</span></p></div>";
                 htmlBeneficios += "</li>";
+            }
+            htmlBeneficios += "</ul>";
+            //Desactivando según nivel
+            if (nivelactual === 1) {
+                $('#OfertasEspeciales').hide();
+                htmlBeneficios += "<br />";
             }
             $("#BeneficiosPrincipal").append(htmlBeneficios);
 
