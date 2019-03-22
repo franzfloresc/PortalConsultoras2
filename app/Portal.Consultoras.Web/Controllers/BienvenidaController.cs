@@ -235,16 +235,14 @@ namespace Portal.Consultoras.Web.Controllers
 
                 model.TienePagoEnLinea = userData.TienePagoEnLinea;
                 model.MostrarPagoEnLinea = (userData.MontoDeuda > 0);
-
+                model.TieneCaminoBrillante = userData.CaminoBrillante;
 
                 //Inicio CaminoBrillante 
                 model.TieneCaminoBrillante = userData.CaminoBrillante;
                 string DatosConsultora = GetNivelConsultoras();
-                if(DatosConsultora != "")
+                if (DatosConsultora != "")
                     model.CaminoBrillanteMsg = userData.CaminoBrillanteMsg.Replace("{0}", GetNivelConsultoras());
                 //Fin CaminoBrillante
-
-
 
                 #region Camino al Éxito
                 var LogicaCaminoExisto = _tablaLogica.GetTablaLogicaDatos(userData.PaisID, Constantes.TablaLogica.EscalaDescuentoDestokp);
@@ -1960,7 +1958,7 @@ namespace Portal.Consultoras.Web.Controllers
 
 
         #region CaminoBrillante
-        
+
         public string GetNivelConsultoras()
         {
             List<NivelConsultoraCaminoBrillanteModel> DatosConsultora = GetNivelConsultora();

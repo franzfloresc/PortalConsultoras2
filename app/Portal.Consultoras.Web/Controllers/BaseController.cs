@@ -1150,15 +1150,13 @@ namespace Portal.Consultoras.Web.Controllers
 
             ViewBag.MenuMobile = menuMobile;
 
-
             //CaminoBrillante : Si es postulante no figura la opción en el menú [desktop - Mobile]
-            if(userData.TipoUsuario == 2)
+            if (userData.TipoUsuario == 2)
             {
                 menuWeb.SingleOrDefault(r => r.Codigo == "mimegocio").SubMenus.Remove(menuWeb.SingleOrDefault(r => r.Codigo == "mimegocio").SubMenus.SingleOrDefault(x => x.Codigo == "caminobrillante"));
 
                 menuMobile.SingleOrDefault(r => r.Codigo == "minegocio").SubMenu.Remove(menuMobile.SingleOrDefault(r => r.Codigo == "minegocio").SubMenu.SingleOrDefault(x => x.Codigo == "caminobrillante"));
             }
-
 
             ViewBag.Permiso = menuWeb;
             ViewBag.TituloLiqWeb = existItemLiqWeb ? descLiqWeb : "Liquidación Web";
