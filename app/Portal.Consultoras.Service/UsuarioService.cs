@@ -945,5 +945,12 @@ namespace Portal.Consultoras.Service
             return _usuarioBusinessLogic.GetUsuarioOpciones(paisID, codigoUsuario);
         }
         #endregion
+
+        #region Camino Brillante
+        public List<BEBeneficiosCaminoBrillante> GetBeneficiosCaminoBrillante(int paisID)
+        {
+            return _usuarioBusinessLogic.GetBeneficiosCaminoBrillante(paisID);
+        }
+        #endregion
     }
 }

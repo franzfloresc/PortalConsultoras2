@@ -1,0 +1,18 @@
+﻿using System.Data;
+using System.Data.Common;
+
+namespace Portal.Consultoras.Data
+{
+    public class DACaminoBrillante : DataAccess
+    {
+        public DACaminoBrillante(int paisID)
+            : base(paisID, EDbSource.Portal)
+        { }
+
+        public IDataReader GetBeneficiosCaminoBrillante()
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetBeneficioCaminoBrillante");
+            return Context.ExecuteReader(command);
+        }
+    }
+}
