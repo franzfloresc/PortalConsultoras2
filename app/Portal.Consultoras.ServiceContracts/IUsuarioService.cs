@@ -313,6 +313,9 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEConfiguracionPaisDatos> GetConfiguracionPaisDatos(BEConfiguracionPaisDatos entidad);
 
         [OperationContract]
+        List<BEConfiguracionPaisDatos> GetConfiguracionPaisDatosAll(BEConfiguracionPaisDatos entidad);
+
+        [OperationContract]
         int RegistrarUsuarioPostulante(string paisISO, BEUsuarioPostulante entidad);
 
         [OperationContract]
@@ -435,6 +438,10 @@ namespace Portal.Consultoras.ServiceContracts
         string RegistrarPerfil(BEUsuario usuario);
         [OperationContract]
         void RegistrarDireccionEntrega(string codigoISO, BEDireccionEntrega direccionEntrega);
+        #endregion
+        #region Camino Brillante
+        [OperationContract]
+        List<BEBeneficiosCaminoBrillante> GetBeneficiosCaminoBrillante(int paisID);
         #endregion
     }
 }

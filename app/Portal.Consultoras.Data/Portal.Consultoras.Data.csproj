@@ -73,6 +73,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Buscador\DAFiltroBuscador.cs" />
     <Compile Include="CDR\DACDRParametria.cs" />
     <Compile Include="CDR\DACDRWeb.cs" />
     <Compile Include="CDR\DACDRWebDatos.cs" />
@@ -99,6 +100,7 @@
     <Compile Include="DABannerPedido.cs" />
     <Compile Include="DABelcorpNoticia.cs" />
     <Compile Include="DABelcorpResponde.cs" />
+    <Compile Include="DACaminoBrillante.cs" />
     <Compile Include="DACategoria.cs" />
     <Compile Include="DADireccionEntega.cs" />
     <Compile Include="DAHorario.cs" />
