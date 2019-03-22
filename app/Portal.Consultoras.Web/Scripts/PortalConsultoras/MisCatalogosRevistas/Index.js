@@ -316,6 +316,8 @@ function CargarCarruselCatalogo() {
                 xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{tipoCatalogoTodo}/g, tagTodo);
                 xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{campania}/g, anio + nro);
                 xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{textourl}/g, urlCatalogoPiloto);
+                //xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{isMovil}/g, isMovil);
+                //xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{FBAppId}/g, FBAppId);
 
                 $("#idSection" + i).append(xHtmlItemCatalogoPasosActual);                
                 $("#txtUrlActual").val(urlCatalogoPiloto);
@@ -477,7 +479,24 @@ function ObtenerEstadoCatalogo(campana, defered) {
 function CopiarEnlaceActual(catalogo, campania) {
 
     var copyText = $('#txtUrlActual');
-    copyText.select();
+
+    if (isMobileNative.iOS()) {
+        var el = copyText.get(0);
+        var editable = el.contentEditable;
+        var readOnly = el.readOnly;
+        el.contentEditable = true;
+        el.readOnly = false;
+        var range = document.createRange();
+        range.selectNodeContents(el);
+        var sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+        el.setSelectionRange(0, 999999);
+        el.contentEditable = editable;
+        el.readOnly = readOnly;
+    }
+    else
+        copyText.select();
 
     try {
         var successful = document.execCommand('copy');
@@ -560,6 +579,15 @@ function GetCatalogosLinksByCampania(data, campania) {
             $(idCat).find(elemItem).find("[data-accion='face']").attr("title", 'FB-' + tagCat + ' C' + n + a);
             $(idCat).find(elemItem).find("[data-tipo='img']").attr("title", 'Ver-' + tagCat + ' C' + n + a);
             $(idCat).find(elemItem).find("[data-accion='whatsapp']").attr("href", "https://api.whatsapp.com/send?text=" + urlCatWS);
+
+            if (piloto == '1' && contDiv == 1) {
+                if (isMovil == "True")
+                    $("[data-accion='ms']").attr("href", "fb-messenger://share?link=" + encodeURIComponent(urlCatalogoPiloto) + "&app_id=" + encodeURIComponent(FBAppId));
+                else {
+                    $("[data-accion='ms']").attr("href", "https://www.facebook.com/dialog/send?app_id=" + encodeURIComponent(FBAppId) + "&link=" + encodeURIComponent(urlCatalogoPiloto) + "&redirect_uri=" + encodeURIComponent(urlCatalogoPiloto));
+                    $("[data-accion='ms']").attr("target", "_blank");
+                }
+            }
         }
     }
     FinRenderCatalogo();
@@ -756,7 +784,7 @@ function CatalogoEnviarEmail() {
         async: true,
         success: function (data) {
             closeWaitingDialog();
-            $('#CompartirCorreo').hide();
+            $('#CompartirCorreo').fadeOut(100);
             if (checkTimeout(data)) {
                 if (data.success) {
                     MonstrarAlerta(data.message);
@@ -771,7 +799,7 @@ function CatalogoEnviarEmail() {
         },
         error: function (data, error) {
             closeWaitingDialog();
-            $('#CompartirCorreo').hide();
+            $('#CompartirCorreo').fadeOut(100);
             if (checkTimeout(data)) {
                 MonstrarExclamacion("ERROR");
             }
@@ -820,7 +848,7 @@ function CatalogoEnviarEmailPiloto() {
         async: true,
         success: function (data) {
             closeWaitingDialog();
-            $('#CompartirCorreo').hide();
+            $('#CompartirCorreo').fadeOut(100);
             if (checkTimeout(data)) {
                 if (data.success) {
                     MonstrarAlerta(data.message);
@@ -835,7 +863,7 @@ function CatalogoEnviarEmailPiloto() {
         },
         error: function (data, error) {
             closeWaitingDialog();
-            $('#CompartirCorreo').hide();
+            $('#CompartirCorreo').fadeOut(100);
             if (checkTimeout(data)) {
                 MonstrarExclamacion("ERROR");
             }
@@ -974,10 +1002,10 @@ function ocultarTooltipCompartirCatalogoMobile() {
 
 function MonstrarExclamacion(texto) {
     $("#mensaje_exclamacion #mensaje_exclamacion_texto").html(texto);
-    $("#mensaje_exclamacion").show();
+    $("#mensaje_exclamacion").fadeIn(100);
 }
 
 function MonstrarAlerta(texto) {
     $("#mensaje_alerta #mensaje_alerta_texto").html(texto);
-    $("#mensaje_alerta").show();
+    $("#mensaje_alerta").fadeIn(100);
 }
