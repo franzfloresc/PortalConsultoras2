@@ -238,36 +238,34 @@
 </div>
 <br />
 <div class="wrapper_resumen_mobile">
-
-    @*<!-- INICIO - ENLACE CAMINO AL ÉXITO -->
-    @if (Model.TieneCaminoExito)
-    {
-        <div class="content_320">
-            <div class="camino_al_exito text-center text-uppercase">
-                Camino al éxito
-            </div>
-            <a class="enlace_ver_mas_sobre_camino_al_exito text-center" href="@Model.urlCaminoExito" target="_blank" title="Ver más">
-                Ver más
-            </a>
-        </div>
-        <div class="linea_separadora_mobile" style="margin-top:4px;"></div>
-    }
-    <!-- FIN - ENLACE CAMINO AL ÉXITO -->*@
-
-    
     @if (Model.TieneCaminoBrillante)
     {
+        @*<div class="items_belcorp cam-exito">
+                <img src="~/Content/Images/CaminoBrillante/medalla.PNG">
+
+                <div class="mb-left">
+
+                    <p class="toptext">Camino Brillante</p>
+                    <p class="describtext">
+                        @Model.CaminoBrillanteMsg
+                    </p>
+                    <a href="@Url.Action("Index", "CaminoBrillante")">Mis Beneficios</a>
+                </div>
+            </div>
+            <div class="linea_separadora_mobile" style="margin-top:16px"></div>*@
+
         <div class="items_belcorp cam-exito">
             <img src="~/Content/Images/CaminoBrillante/medalla.PNG">
             <p class="toptext">Camino Brillante</p>
             <p>
                 @Model.CaminoBrillanteMsg
             </p>
-            <a href="@Url.Action("Index", "CaminoBrillante")">Ver Beneficios</a>
+            <a href="@Url.Action("Index", "CaminoBrillante")">Mis Beneficios</a>
         </div>
+        <div class="linea_separadora_mobile" style="margin-top:16px"></div>
     }
 
-    <div class="linea_separadora_mobile" style="margin-top:16px"></div>
+
 
     <div class="content_320">
         <div class="item1_mobile">
