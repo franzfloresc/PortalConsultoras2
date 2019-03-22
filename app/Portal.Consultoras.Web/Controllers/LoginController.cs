@@ -866,7 +866,7 @@ namespace Portal.Consultoras.Web.Controllers
                         return RedirectToUniqueRoute("ConsultoraOnline", "Pendientes");
                     case Constantes.IngresoExternoPagina.Notificaciones:
                         return RedirectToUniqueRoute("Notificaciones", "IndexExterno", new { IdOrigen = model.OrigenPedido });
-                    case Constantes.IngresoExternoPagina.MasGanadoras:
+                    case Constantes.IngresoExternoPagina.MasGanadoras: 
                         return RedirectToUniqueRoute("MasGanadoras", "Index");
                 }
             }
