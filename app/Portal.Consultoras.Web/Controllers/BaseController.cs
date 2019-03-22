@@ -582,8 +582,15 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
                 else
-                {
-                    switch(GetControllerActual())
+                { 
+                    string controlador = GetControllerActual();
+
+                    if (!Constantes.Controlador.ActualizacionODD.Contains(controlador))
+                    {
+                        actualizaBaseODD = false;
+                    }
+
+                    switch (controlador)
                     {
                         case "Ofertas":
                             if (_tempData.ExistTDListODD())
