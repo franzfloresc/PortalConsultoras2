@@ -349,7 +349,7 @@ var menuModule = (function () {
             else if (url.indexOf(ConstantesModule.TipoEstrategia.DP) > 0) {
                 OrigenPedidoWeb = ConstantesModule.OrigenPedidoWebEstructura.Dispositivo.Desktop
                     + ConstantesModule.OrigenPedidoWebEstructura.Pagina.Contenedor
-                    + ConstantesModule.OrigenPedidoWebEstructura.Palanca.DP
+                    + ConstantesModule.OrigenPedidoWebEstructura.Palanca.DuoPerfecto
                     + ConstantesModule.OrigenPedidoWebEstructura.Seccion.Banner;
                 if (titulo !== "ClicVerMas") {
                     clicEnBanner = true;
