@@ -15695,6 +15695,12 @@ body, html {
     color: white;
 }
 
+.enlace__noVolverAVerAnuncio {
+    position: relative;
+    margin-top: 0;
+    bottom: 0;
+}
+
 .caja-traslado {
     position: absolute;
     width: 214px;
