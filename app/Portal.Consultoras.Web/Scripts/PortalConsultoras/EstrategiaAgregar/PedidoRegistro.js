@@ -1501,9 +1501,6 @@ function UpdateTransaction(CantidadActual, CampaniaID, PedidoID, PedidoDetalleID
                 return false;
 
             if (data.success != true) {
-                var regex = /(\d+)/g;
-                var cantLimitada = parseInt(datos.message.match(regex)[1]);
-                $(txtLPCant).val(cantLimitada);
                 var errorCliente = data.errorCliente || false;
                 if (!errorCliente) {
                     messageInfoError(data.message);
