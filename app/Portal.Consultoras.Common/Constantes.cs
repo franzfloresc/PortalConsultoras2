@@ -3443,7 +3443,7 @@ namespace Portal.Consultoras.Common
             public const string Patt_Niveles = "{REPO_S3}/CAMINOBRILLANTE/NIVELES/NIVEL_{KEY}_{STATE}.png";
             public const string Patt_Beneficios = "{REPO_S3}/CAMINOBRILLANTE/BENEFICIOS/TIPO_{KEY}";
             public const string Patt_Crecimiento = "{REPO_S3}/CAMINOBRILLANTE/LOGROS/CRECIMIENTO/ESCALA_{KEY}_{STATE}.png";
-            public const string Patt_Compromiso = "{{REPO_S3}/CAMINOBRILLANTE/LOGROS/COMPROMISO/PEDIDO_{STATE}.png";
+            public const string Patt_Compromiso = "{REPO_S3}/CAMINOBRILLANTE/LOGROS/COMPROMISO/PEDIDO_{STATE}.png";
             public const string Patt_Constancia = "{REPO_S3}/CAMINOBRILLANTE/LOGROS/CONSTANCIA/TORTA_{KEY}.png";
             public const string Patt_Incremento = "{REPO_S3}/CAMINOBRILLANTE/LOGROS/INCREMENTO/PEDIDO_{KEY}.png";
         }
