@@ -5,8 +5,6 @@
 @{
     var menuList = (List<ConfiguracionPaisModel>)ViewBag.MenuContenedor ?? new List<ConfiguracionPaisModel>();
     var menuActivo = (MenuContenedorModel)ViewBag.MenuContenedorActivo ?? new MenuContenedorModel();
-    menuActivo.ConfiguracionPais = menuActivo.ConfiguracionPais ?? new ConfiguracionPaisModel();
-    menuActivo.ConfiguracionPais.MobileFondoBanner = Util.Trim(menuActivo.ConfiguracionPais.MobileFondoBanner);
 }
 
 <div id="seccion-menu-mobile" 

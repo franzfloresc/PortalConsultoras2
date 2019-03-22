@@ -45,7 +45,7 @@ begin
 	values
 	(
 		@ConfiguracionPaisID, @CampaniaID, @Orden, @Orden, null,
-		null,'ARMA TU PACK','','Elige tus productos favoritos y llévatelos al #PrecioTotal','Elige tus productos favoritos y llévatelos al #PrecioTotal',
+		null,'ARMA TU PACK','','Elige tus productos favoritos y llévatelos a #PrecioTotal','Elige tus productos favoritos y llévatelos a #PrecioTotal',
 		10,10,'004','004',0,
 		0,1,1,'ArmaTuPack/Detalle',@Orden,
 		@Orden,'#fa1702','#fa1702',0,0,
