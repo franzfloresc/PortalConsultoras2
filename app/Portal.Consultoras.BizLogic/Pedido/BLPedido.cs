@@ -2620,7 +2620,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     TipoEstrategiaID = pedidoDetalle.Producto.TipoEstrategiaID.Trim() == string.Empty ? 0 : int.Parse(pedidoDetalle.Producto.TipoEstrategiaID.Trim()),
                     CUV2 = pedidoDetalle.Producto.CUV,
                     MarcaID = pedidoDetalle.Producto.MarcaID,
-                    LimiteVenta = pedidoDetalle.LimiteVenta == 0 ? 99 : pedidoDetalle.LimiteVenta,
+                    LimiteVenta = 1,
                     Precio2 = pedidoDetalle.Producto.PrecioCatalogo
                 };
             }
