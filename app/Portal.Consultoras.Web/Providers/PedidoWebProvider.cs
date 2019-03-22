@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Portal.Consultoras.Web.ServiceUsuario;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -181,6 +182,47 @@ namespace Portal.Consultoras.Web.Providers
             return detallesPedidoWeb;
         }
 
+        public virtual List<BEPedidoWebDetalle> GetDetallePedidoAgrupadoByCampania(int campaniaId)
+        {
+            var detallePedidoWeb = (List<BEPedidoWebDetalle>)null;
+            var userData = sessionManager.GetUserData();
+
+            try
+            {
+                using (var pedidoServiceClient = new PedidoServiceClient())
+                {
+
+                    var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
+                    {
+                        PaisId = userData.PaisID,
+                        CampaniaId = campaniaId,
+                        ConsultoraId = userData.ConsultoraID,
+                        Consultora = userData.NombreConsultora,
+                        CodigoPrograma = userData.CodigoPrograma,
+                        NumeroPedido = userData.ConsecutivoNueva,
+                        AgruparSet = true
+                    };
+
+                    detallePedidoWeb = pedidoServiceClient.SelectByCampania(bePedidoWebDetalleParametros).ToList();
+                }
+
+                foreach (var item in detallePedidoWeb)
+                {
+                    item.ClienteID = string.IsNullOrEmpty(item.Nombre) ? (short)0 : Convert.ToInt16(item.ClienteID);
+                    item.Nombre = string.IsNullOrEmpty(item.Nombre) ? "Para mí" : item.Nombre;
+                    //item.DescripcionOferta = ObtenerDescripcionOferta(item, false, false, userData.NuevasDescripcionesBuscador);
+                }
+            }
+            catch (Exception ex)
+            {
+                detallePedidoWeb = new List<BEPedidoWebDetalle>();
+
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
+            return detallePedidoWeb;
+        }
+
         private List<BEPedidoWebDetalle> PedidoConObservaciones(List<BEPedidoWebDetalle> pedido, List<ObservacionModel> observaciones)
         {
             var pedObs = pedido;
@@ -271,7 +313,7 @@ namespace Portal.Consultoras.Web.Providers
 
             descripcion = Util.obtenerNuevaDescripcionProductoDetalle(item.ConfiguracionOfertaID, pedidoValidado,
                 item.FlagConsultoraOnline, item.OrigenPedidoWeb, lista, suscripcion, item.TipoEstrategiaCodigo, item.MarcaID,
-                item.CodigoCatalago, item.DescripcionOferta, item.EsCuponNuevas, item.EsElecMultipleNuevas);
+                item.CodigoCatalago, item.DescripcionOferta, item.EsCuponNuevas, item.EsElecMultipleNuevas, item.EsPremioElectivo);
 
             return descripcion;
         }
@@ -309,6 +351,14 @@ namespace Portal.Consultoras.Web.Providers
             return pedidoDetalleResult;
         }
 
+        public async Task EliminarPedidoWebDetalle(BEPedidoWebDetalle pedidoDetalle)
+        {
+            using (var pedidoServiceClient = new PedidoServiceClient())
+            {
+                await pedidoServiceClient.DelPedidoWebDetalleAsync(pedidoDetalle);
+            }
+        }
+
         public bool EsHoraReserva(UsuarioModel usuario, DateTime fechaHora)
         {
             if (!usuario.DiaPROL)
@@ -328,6 +378,26 @@ namespace Portal.Consultoras.Web.Providers
             return true;
         }
 
+        public int GetPedidoPendientes(UsuarioModel usuario)
+        {
+            if (_configuracionManager.GetMostrarPedidosPendientesFromConfig())
+            {
+                var paisesConsultoraOnline = _configuracionManager.GetPaisesConConsultoraOnlineFromConfig();
+                if (paisesConsultoraOnline.Contains(usuario.CodigoISO)
+                    && usuario.EsConsultora())
+                {
+                    using (var svc = new UsuarioServiceClient())
+                    {
+                        var cantPedidosPendientes = svc.GetCantidadSolicitudesPedido(usuario.PaisID, usuario.ConsultoraID, usuario.CampaniaID);
+
+                        return cantPedidosPendientes;
+                    }
+                }
+            }
+
+            return 0;
+        }
+
         private int BuildFechaNoHabil(UsuarioModel usuario)
         {
             var result = 0;
@@ -341,5 +411,6 @@ namespace Portal.Consultoras.Web.Providers
 
             return result;
         }
+        
     }
 }

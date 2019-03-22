@@ -132,6 +132,12 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool TieneOfertasRelacionadas { get; set; }
 
+        [DataMember]
+        public string MensajeOfertaFinal { get; set; }
+
+        [DataMember]
+        public decimal RestanteTippingPoint { get; set; }
+
         public BEProducto(IDataRecord row)
         {
             CUV = row.ToString("CUV");

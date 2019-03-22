@@ -56,7 +56,9 @@ var PedidoRegistroModule = function () {
     };
 
     var _mensajeRespuestaError = function (data) {
-        if (data.success == true) {
+        if (data.success == true) return false;
+        if (!IsNullOrEmpty(data.mensajeAviso)) {
+            AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
             return false;
         }
 
@@ -99,8 +101,6 @@ var PedidoRegistroModule = function () {
                 }
 
                 MostrarBarra(result, '1');
-
-                ActualizarGanancia(result.DataBarra);
 
                 CargarResumenCampaniaHeader(true);
 
@@ -519,7 +519,6 @@ var PedidoRegistroModule = function () {
 
                 MostrarBarra(data, '1');
 
-                ActualizarGanancia(data.DataBarra);
                 CargarResumenCampaniaHeader(true);
                 TrackingJetloreAdd(item.Cantidad, $("#hdCampaniaCodigo").val(), item.CUV);
                 TagManagerClickAgregarProductoLiquidacion(item);
@@ -660,7 +659,7 @@ var PedidoRegistroModule = function () {
         });
     }
 
-    var RegistroProductoBuscador = function (divPadre, valueJSON) {
+    var RegistroProductoBuscador = function (divPadre, valueJSON, origenSeccion) {
 
         var model = JSON.parse($(divPadre).find(valueJSON).val());
         var divCantidad = $(divPadre).find("[data-input='cantidad']");
@@ -682,9 +681,11 @@ var PedidoRegistroModule = function () {
             var OrigenPedidoWeb = model.OrigenPedidoWeb;
             var posicion = model.posicion;
             var tipoEstrategiaId = tipoOfertaSisID;
+            var codigoEstrategia = model.CodigoTipoEstrategia;
             var LimiteVenta = model.LimiteVenta;
             var CantidadesAgregadas = model.CantidadesAgregadas;
             var EstrategiaID = model.EstrategiaID;
+            var MaterialGanancia = model.MaterialGanancia;
 
             if (_mensajeCantidad(cantidad, $(".rango_cantidad_pedido"))) {
                 return false;
@@ -697,6 +698,7 @@ var PedidoRegistroModule = function () {
                 Cantidad: cantidad,
                 PrecioUnidad: precioUnidad,
                 TipoEstrategiaID: parseInt(tipoEstrategiaId),
+                CodigoEstrategia: codigoEstrategia,                
                 OrigenPedidoWeb: OrigenPedidoWeb,
                 MarcaID: marcaID,
                 DescripcionProd: descripcionProd,
@@ -708,7 +710,8 @@ var PedidoRegistroModule = function () {
                 DescripcionEstrategia: descripcionEstrategia,
                 Posicion: posicion,
                 EstrategiaID: EstrategiaID,
-                LimiteVenta: LimiteVenta
+                LimiteVenta: LimiteVenta,
+                MaterialGanancia: MaterialGanancia
             };
 
             jQuery.ajax({
@@ -756,16 +759,19 @@ var PedidoRegistroModule = function () {
                         'CUV': modelFinal.CUV,
                         'Precio': modelFinal.PrecioUnidad,
                         'DescripcionMarca': modelFinal.CUV,
-                        'CodigoTipoEstrategia': modelFinal.EstrategiaID,
+                        //'CodigoTipoEstrategia': modelFinal.EstrategiaID,
+                        'CodigoTipoEstrategia': modelFinal.CodigoEstrategia,
                         'MarcaId': modelFinal.MarcaID,
-                        'Cantidad': modelFinal.Cantidad
+                        'Cantidad': modelFinal.Cantidad,
+                        'DescripcionEstrategia': modelFinal.DescripcionEstrategia,
+                        'MaterialGanancia': modelFinal.MaterialGanancia
                     };
 
                     var _textoBusqueda = localStorage.getItem('valorBuscador');
                     var _vRecomendaciones = localStorage.getItem('vRecomendaciones');
 
                     if (!(typeof AnalyticsPortalModule === 'undefined') && (_vRecomendaciones === 'undefined' || _vRecomendaciones === 'null' || _vRecomendaciones === null)) {
-                        AnalyticsPortalModule.MarcaAnadirCarritoBuscador(modelCarrito, 'Resultados', _textoBusqueda);
+                        AnalyticsPortalModule.MarcaAnadirCarritoBuscador(modelCarrito, origenSeccion, _textoBusqueda);
                     }
 
                     TrackingJetloreAdd(modelFinal.Cantidad, $("#hdCampaniaCodigo").val(), modelFinal.CUV);
@@ -810,10 +816,16 @@ var PedidoRegistroModule = function () {
                 return false;
             }
 
-            var add = _agregarOfertaFinal(model);
-            if (add.success) {
+            dataAgregarOF = _agregarOfertaFinal(model);
+            if (dataAgregarOF.success) {
+                if (typeof MostrarBarra === 'function') {
+                    var prevTotal = mtoLogroBarra;
+                    MostrarBarra(dataAgregarOF);
+                    showPopupNivelSuperado(dataAgregarOF.DataBarra, prevTotal);
+                }
+
                 AgregarOfertaFinalLog(model.CUV, model.Cantidad, tipoOfertaFinal_Log, gap_Log, 1, 'Producto Agregado');
-                ActualizarValoresPopupOfertaFinal(add, true);
+                ActualizarValoresPopupOfertaFinal(dataAgregarOF);
                 objDivPadre.find('.agregado').show();
                 if ($.isFunction(fnFinal)) fnFinal();
             }
@@ -961,8 +973,10 @@ var PedidoRegistroModule = function () {
                 $("#pCantidadProductosPedido").html(data.cantidadTotalProductos > 0 ? data.cantidadTotalProductos : 0);
                 microefectoPedidoGuardado();
                 if (cerrarSplash) CerrarSplash();
+                var prevTotal = mtoLogroBarra || 0;
                 MostrarBarra(data);
                 TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
+                showPopupNivelSuperado(data.DataBarra, prevTotal);
 
                 retorno = data;
                 return true;
@@ -1063,7 +1077,8 @@ var PedidoRegistroModule = function () {
                 }
 
                 CloseLoading();
-                ActualizarGanancia(data.DataBarra);
+                var prevTotal = mtoLogroBarra || 0;
+                MostrarBarra(data);
                 var existeError = $(data).filter("input[id=hdErrorInsertarProducto]").val();
                 if (existeError == "1") {
                     $("#divProductoObservaciones").html('<div class="alert-top-icon text-danger" style="margin-top: 0;"><i class="icon-exclamation-circle"></i><br/>Ocurrió un error al ejecutar la operación.</div>');
@@ -1072,6 +1087,7 @@ var PedidoRegistroModule = function () {
                     CloseLoading();
                     return false;
                 }
+                showPopupNivelSuperado(data.DataBarra, prevTotal);
                 $('#divMensajeCUV').hide();
                 $("#divProductoObservaciones").html("");
                 $("#divProductoMantenedor").hide();
@@ -1280,7 +1296,9 @@ var PedidoRegistroModule = function () {
                     $("#hdErrorInsertarProducto").val(response.errorInsertarProducto);
 
                     //tieneMicroefecto = true;
+                    var prevTotal = mtoLogroBarra;
                     MostrarBarra(response);
+                    showPopupNivelSuperado(response.DataBarra, prevTotal);
                     if (response.modificoBackOrder) showDialog("divBackOrderModificado");
                     CargarDetallePedido();
                     $("#pCantidadProductosPedido").html(response.cantidadTotalProductos > 0 ? response.cantidadTotalProductos : 0);
@@ -1359,7 +1377,8 @@ var PedidoRegistroModule = function () {
                     return false;
                 }
 
-                ActualizarGanancia(data.DataBarra);
+                var prevTotal = mtoLogroBarra || 0;
+                MostrarBarra(data);
                 var existeError = $(data).filter("input[id=hdErrorInsertarProducto]").val();
                 if (existeError == "1") {
                     AbrirMensaje("Ocurrió un error al ejecutar la operación.");
@@ -1368,6 +1387,7 @@ var PedidoRegistroModule = function () {
                 }
 
                 CloseLoading();
+                showPopupNivelSuperado(data.DataBarra, prevTotal);
 
                 $("#divProductoObservaciones").html("");
                 VisibleEstrategias(true);
@@ -1546,6 +1566,14 @@ function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfe
                 return false;
             }
 
+            var tooltip = $('[data-agregado="tooltip"]');
+            if (typeof tooltip !== 'undefined') {
+                $('[data-agregado="mensaje1"]').html("¡Listo! ");
+                $('[data-agregado="mensaje2"]').html(" Modificaste tu pedido");
+                tooltip.show();
+                setTimeout(function () { tooltip.hide(); }, 4000);
+            }
+
             if ($(rowElement).find(".txtLPCli").val().length == 0) {
                 $(rowElement).find(".hdfLPCliDes").val($("#hdfNomConsultora").val());
                 $(rowElement).find(".txtLPCli").val($("#hdfNomConsultora").val());
@@ -1572,7 +1600,9 @@ function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfe
             totalUnidades = totalUnidades - parseInt(CantidadAnti) + parseInt(Cantidad);
             $("#pCantidadProductosPedido").html(totalUnidades);
 
+            var prevTotal = mtoLogroBarra;
             MostrarBarra(data);
+            showPopupNivelSuperado(data.DataBarra, prevTotal);
             if (data.modificoBackOrder) {
                 showDialog("divBackOrderModificado");
             }

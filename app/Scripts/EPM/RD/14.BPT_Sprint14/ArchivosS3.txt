@@ -1,7 +1,0 @@
-Copiar el contenido en la ruta
-
-https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/
-
-Ejemplo
-La carpeta EscalaDescuentos Estaria asi
-https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/EscalaDescuentos/...
