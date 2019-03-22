@@ -1,9 +1,10 @@
-﻿using System.Runtime.Serialization;
+﻿using System;
+using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities.Pedido
 {
     [DataContract]
-    public class BEPedidoDetalle
+    public class BEPedidoDetalle : ICloneable 
     {
         public BEPedidoDetalle()
         {
@@ -60,5 +61,12 @@ namespace Portal.Consultoras.Entities.Pedido
         public bool EsKitNuevaAuto { get; set; }
         [DataMember]
         public bool OfertaWeb { get; set; }
+        [DataMember]
+        public bool EsEditable { get; set; }
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
     }
 }

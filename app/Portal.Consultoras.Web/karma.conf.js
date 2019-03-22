@@ -30,6 +30,10 @@ module.exports = function (config) {
             // FichaModule
             'Scripts/PortalConsultoras/Shared/ConstantesModule.js',
             'Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js',
+            'Scripts/PortalConsultoras/TusClientes/TusClientesProvider.js',
+            'Scripts/PortalConsultoras/TusClientes/PanelListaModule.js',
+            'Scripts/PortalConsultoras/TusClientes/PanelMantenerModule.js',
+            'Scripts/PortalConsultoras/TusClientes/ClientePanelModule.js',
             'Scripts/PortalConsultoras/DetalleEstrategia/FichaModule.js',
             'Scripts/tests/PortalConsultoras/DetalleEstrategia/FichaModuleSpec.js'
         ],
@@ -87,7 +91,7 @@ module.exports = function (config) {
 
         // Continuous Integration mode
         // if true, Karma captures browsers, runs the tests and exits
-        singleRun: false,
+        singleRun: true,
 
         // Concurrency level
         // how many browser should be started simultaneous

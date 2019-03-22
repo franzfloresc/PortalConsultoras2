@@ -297,9 +297,29 @@ namespace Portal.Consultoras.Entities
         public string FotoProductoSmall { get; set; }
         [DataMember]
         public string FotoProductoMedium { get; set; }
+        [DataMember]
+        public bool CuponElectivoDefault { get; set; }
 
         [DataMember]
         public bool TieneStock { get; set; }
+
+        [DataMember]
+        public string ImgFondoApp { get; set; }
+        [DataMember]
+        public string ColorTextoApp { get; set; }
+
+        [DataMember]
+        public string AppOfertasHomeImgExtension { get; set; }
+        [DataMember]
+        public string AppOfertasHomeImgAncho { get; set; }
+        [DataMember]
+        public string AppOfertasHomeImgAlto { get; set; }
+        [DataMember]
+        public string AppOfertasHomeMsjMedida { get; set; }
+        [DataMember]
+        public string AppOfertasHomeMsjFormato { get; set; }
+        [DataMember]
+        public int FlagSeleccionado { get; set; }
 
         public BEEstrategia()
         { }
@@ -413,6 +433,7 @@ namespace Portal.Consultoras.Entities
             FlagRevista = row.ToInt32("FlagRevista");
             ImgFichaDesktop = row.ToString("ImgFichaDesktop");
             ImgFichaMobile = row.ToString("ImgFichaMobile");
+            CuponElectivoDefault = row.ToBoolean("INC_CUPO_ELEC_DEFA");
             EstrategiaDetalle = new BEEstrategiaDetalle(row);
             TipoEstrategia = new BETipoEstrategia(row);
 
