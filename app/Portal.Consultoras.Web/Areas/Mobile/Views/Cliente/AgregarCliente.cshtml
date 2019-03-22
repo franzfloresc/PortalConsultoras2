@@ -82,8 +82,7 @@ else
         $('#divAgregarCliente').modal({ backdrop: 'static', keyboard: false })
 
             $("#btnGuardar").on("click", function (e) {
-                e.preventDefault();
-
+                e.preventDefault();                
                 $("#divValidationSummary").html("");
                 if (jQuery.trim($('#Telefono').val()) == "" && jQuery.trim($('#Celular').val()) == "") {
                     $("#divValidationSummary").html("* Debes Ingresar al menos un teléfono de contacto");
@@ -127,7 +126,13 @@ else
                                 item.CodigoCliente = data.extra.split("|")[0];
                                 item.ClienteID = data.extra.split("|")[1];
 
-                                messageInfo(data.message, function () {
+                                messageInfo(data.message, function (e) {
+                                    debugger;
+                                    if ($(e.target.parentElement).attr('class').includes("cerrar_popMobile")) { /*click en cerrar pop up*/
+                                        DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras', 'Pop up Registro Cliente Satisfactorio', 'Cerrar');
+                                    } else if ($(e.target).attr('class').includes("btn-aceptar")) {  /*click en Aceptar*/
+                                        DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras', 'Pop up Registro Cliente Satisfactorio', 'Aceptar');
+                                    }
                                     item.Insertado = data.insertado;
                                     if ($.isFunction(ClienteDetalleOK)) ClienteDetalleOK(item);
                                 });

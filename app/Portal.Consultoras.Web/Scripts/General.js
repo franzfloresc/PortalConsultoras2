@@ -736,14 +736,14 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
             $('.ui-dialog .ui-button').off('click');
             $('.ui-dialog .ui-icon-closethick').off('click');
 
-            $('.ui-dialog .ui-button').on('click', function () {
+            $('.ui-dialog .ui-button').on('click', function (e) {            
                 HideDialog("alertDialogMensajes");
-                if ($.isFunction(fnAceptar)) fnAceptar();
+                if ($.isFunction(fnAceptar)) fnAceptar(e);
             });
 
-            $('.ui-dialog .ui-icon-closethick').on('click', function () {
+            $('.ui-dialog .ui-icon-closethick').on('click', function (e) {
                 HideDialog("alertDialogMensajes");
-                if ($.isFunction(fnAceptar)) fnAceptar();
+                if ($.isFunction(fnAceptar)) fnAceptar(e);
             });
 
             $('.ui-dialog .ui-button').focus();

@@ -157,12 +157,17 @@
             success: function (data) {
                 if (checkTimeout(data)) {
                     if (data.success == true) {
-                        CerrarSplash();
-
+                        CerrarSplash();                        
                         item.CodigoCliente = data.extra.split("|")[0];
                         item.ClienteID = data.extra.split("|")[1];                        
-                        AbrirMensaje(data.message, null, function () {
-                            //$(this).hasCl
+                        AbrirMensaje(data.message, null, function (e) {                                                             
+                            var clase = $(e.target).attr('class');  
+                            if (clase.includes("ui-icon-closethick")) { /*click en cerrar pop up*/
+                                DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras', 'Pop up Registro Cliente Satisfactorio', 'Cerrar');
+                            } else if (clase.includes("ui-button-text")) {  /*click en Aceptar*/
+                                DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras', 'Pop up Registro Cliente Satisfactorio', 'Aceptar');
+                            }
+
                             flagClienteDetalle = false;
 
                             if ($.isFunction(ClienteDetalleOK)) ClienteDetalleOK(item);
