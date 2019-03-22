@@ -102,25 +102,6 @@ else
                     </li>
                 }
                 <!-- HD-2960 - NUEVO MÉTODO DE PAGO -->
-                @*<li class="opcion_pago metodoPago text-center" id="divBancaPorInternet" style="display:none">
-                    <div class="opcion_pago_contenido_visible_sin_desplegar opcionPagoMobile w-100">
-                        <div class="col_izq text-left">
-                            <div class="icono_marca_tarjeta" id="divIcono">
-
-                            </div>
-                            <h4 class="titulo_monto_pago_total titulo_monto_pago_total_paso_2">
-                                Pagos banca por internet
-                            </h4>
-                        </div>
-                        <div class="col_der">
-                            <div class="icono_flecha_despliegue girar90n">
-                                <img src="@Url.Content("~/Content/Images/flecha-despliegue.svg")" alt="Desplegar contenido" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="opcion_pago_contenido_visible_al_desplegar w-100 mt-0" id="ullistaBancos" style="display:none">
-                    </div>
-                </li>*@
                 @if (Model.Bancos != "1")
                 {
                     if (!string.IsNullOrEmpty(bancos))
