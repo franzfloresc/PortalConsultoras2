@@ -395,13 +395,16 @@ var EstrategiaAgregarModule = (function () {
                             $AgregadoTooltip.find(dataProperties.tooltipMensaje2).html(" Modificaste tu pedido");
                         }
                         $AgregadoTooltip.show();
-                        setTimeout(function () { $AgregadoTooltip.hide(); }, 4000);
-                        if (origenPedidoWebEstrategia === _OrigenPedido.DesktopContenedorArmaTuPack) {
-                            window.location = "/ofertas";
-                        } else if (origenPedidoWebEstrategia === _OrigenPedido.MobileContenedorArmaTuPack) {
-                            window.location = "/mobile/ofertas";
+                        setTimeout(function () {
+                            $AgregadoTooltip.hide();
+                            if (origenPedidoWebEstrategia === _OrigenPedido.DesktopContenedorArmaTuPack) {
+                                window.location = "/ofertas";
+                            } else if (origenPedidoWebEstrategia === _OrigenPedido.MobileContenedorArmaTuPack) {
+                                window.location = "/mobile/ofertas";
 
-                        } else {
+                            }
+                        }, 2500);
+                        if (!(origenPedidoWebEstrategia === _OrigenPedido.DesktopContenedorArmaTuPack || origenPedidoWebEstrategia === _OrigenPedido.MobileContenedorArmaTuPack)) {
                             ResumenOpcionesModule.LimpiarOpciones();
                         }
                     } catch (e) {

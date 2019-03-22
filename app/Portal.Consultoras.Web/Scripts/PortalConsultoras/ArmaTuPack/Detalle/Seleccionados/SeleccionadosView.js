@@ -55,9 +55,9 @@
         };
 
         $(_elements.seleccionados.attrCarruselContainer).slick(slickSettings);
-
-        if (packComponents.componentesSeleccionados.length > slickSettings.slidesToShow) {
-            var lastSlideIndex = packComponents.componentesSeleccionados.length - slickSettings.slidesToShow;
+        var slidestoShow = $(window).width() < 768 ? slickSettings.responsive[0].settings.slidesToShow : slickSettings.slidesToShow;
+        if (packComponents.componentesSeleccionados.length > slidestoShow) {
+            var lastSlideIndex = packComponents.componentesSeleccionados.length - slidestoShow;
             $(_elements.seleccionados.attrCarruselContainer).slick("slickGoTo", lastSlideIndex);
         }
     };
