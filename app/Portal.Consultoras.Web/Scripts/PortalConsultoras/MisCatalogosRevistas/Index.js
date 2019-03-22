@@ -479,6 +479,15 @@ function CopiarEnlaceActual(catalogo, campania) {
     var copyText = $('#txtUrlActual');
     copyText.select();
 
+    //se agrego vento push - HD-3964
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Catálogos y revistas',
+        'action': 'Catálogo Digital - Copiar Enlace - clic botón',
+        'label': catalogo
+    });
+    // fin 
+
     try {
         var successful = document.execCommand('copy');
         var msg = successful ? 'successful' : 'unsuccessful';
@@ -824,9 +833,24 @@ function CatalogoEnviarEmailPiloto() {
             if (checkTimeout(data)) {
                 if (data.success) {
                     MonstrarAlerta(data.message);
+
+                    //evento luego de enviar el correo satisfacoriamente - HD-3694
+                    dataLayer.push({
+                        'event': 'virtualEvent',
+                        'category': 'Catálogos y revistas',
+                        'action': 'Compartir email',
+                        'label': campaniaEmail,
+                        'value': 1,
+                        'gtm.uniqueEventId': 7292
+                    });
+                    //
+
                     if (data.extra == "R") {
                         location.href = '/Bienvenida';
                     }
+
+                    
+
                 }
                 else {
                     MonstrarExclamacion(data.message);

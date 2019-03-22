@@ -167,7 +167,7 @@
         dataLayer.push({
             'event': 'virtualEvent',
             'category': 'Catálogos y revistas',
-            'action': 'Compartir FB',
+            'action': 'Catálogo Digital - Compartir FB - clic botón',
             'label': catalogo,
             'value': 0
         });
@@ -181,6 +181,7 @@
         var top = (screen.height / 2) - (popHeight / 2);
         var url = "http://www.facebook.com/sharer/sharer.php?u=" + u;
         window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
+
     }
 
     // catalogo email
@@ -190,7 +191,8 @@
             'category': 'Catálogos y revistas',
             'action': 'Compartir email – clic botón',
             'label': tipoCatalogo,
-            'value': 0
+            'value': 0,
+            'gtm.uniqueEventId': 6330
         });
 
         $("#comentarios").val(valContenidoCorreoDefecto);
@@ -226,7 +228,7 @@
         dataLayer.push({
             'event': 'virtualEvent',
             'category': 'Catálogos y revistas',
-            'action': 'Compartir FB',
+            'action': 'Catálogo Digital - Compartir FB - clic botón',
             'label': campaniaCatalogo,
             'value': 0
         });
@@ -248,7 +250,8 @@
             'category': 'Catálogos y revistas',
             'action': 'Compartir email – clic botón',
             'label': tipoCatalogo == 'Todo' ? campania : tipoCatalogo,
-            'value': 0
+            'value': 0,
+            'gtm.uniqueEventId': 6330
         });
 
         $("#comentarios").val(tipoCatalogo == 'Todo' ? valContenidoCorreoPilotoDefecto : valContenidoCorreoDefecto);
@@ -303,7 +306,7 @@
         dataLayer.push({
             'event': 'virtualEvent',
             'category': 'Catálogos y revistas',
-            'action': 'Compartir WhatsApp',
+            'action': 'Catálogo Digital - Compartir WhatsApp',
             'label': campania,
             'value': 0
         });
