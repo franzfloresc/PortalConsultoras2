@@ -238,23 +238,6 @@
 </div>
 <br />
 <div class="wrapper_resumen_mobile">
-
-    @*<!-- INICIO - ENLACE CAMINO AL ÉXITO -->
-    @if (Model.TieneCaminoExito)
-    {
-        <div class="content_320">
-            <div class="camino_al_exito text-center text-uppercase">
-                Camino al éxito
-            </div>
-            <a class="enlace_ver_mas_sobre_camino_al_exito text-center" href="@Model.urlCaminoExito" target="_blank" title="Ver más">
-                Ver más
-            </a>
-        </div>
-        <div class="linea_separadora_mobile" style="margin-top:4px;"></div>
-    }
-    <!-- FIN - ENLACE CAMINO AL ÉXITO -->*@
-
-    
     @if (Model.TieneCaminoBrillante)
     {
         <div class="items_belcorp cam-exito">
@@ -265,9 +248,10 @@
             </p>
             <a href="@Url.Action("Index", "CaminoBrillante")">Ver Beneficios</a>
         </div>
+        <div class="linea_separadora_mobile" style="margin-top:16px"></div>
     }
 
-    <div class="linea_separadora_mobile" style="margin-top:16px"></div>
+
 
     <div class="content_320">
         <div class="item1_mobile">

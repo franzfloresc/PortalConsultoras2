@@ -749,7 +749,7 @@ namespace Portal.Consultoras.Web
             #endregion
 
             #region DetalleEstrategia
-            
+
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mixto/EstrategiaAgregar").Include(
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js",
@@ -768,7 +768,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/OpcionesSeleccionadasModule.js",
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/TituloOpcionesSeleccionadasModule.js",
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/ResumenOpcionesModule.js",
-                
+
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js",
                 "~/Scripts/PortalConsultoras/Shared/AnalyticsPortal.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js",
@@ -999,6 +999,20 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/TusClientes/TusClientes_Responsive.css"
             ));
 
+            #region CaminoBrillante
+
+            bundles.Add(new StyleBundle("~/Bundle/Css/CaminoBrillante").Include(
+                "~/Content/CaminoBrillante/css/estilos.css",
+                "~/Scripts/owl.carousel.2.0.0-beta.2.4/assets/owl.carousel.css"));
+
+
+            bundles.Add(new ScriptBundle("~/Bundle/Js/CaminoBrillante").Include(
+                "~/Scripts/jquery-1.11.2.min.js",
+                "~/Scripts/bootstrap.min.js",
+                "~/Scripts/owl.carousel.js",
+                "~/Scripts/PortalConsultoras/CaminoBrillante/index.js"));
+
+            #endregion
 #if DEBUG
             BundleTable.EnableOptimizations = false;
 #else
