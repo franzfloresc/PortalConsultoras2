@@ -37,8 +37,9 @@ function GetNiveles() {
             htmlBeneficios += "<p class='text'>Todos los beneficios que tienes actualmente en tu nivel</p>";
             htmlBeneficios += "<ul class='box-beneficios' id='BeneficiosPrincipal'>";
             for (var i = 0; i <= data.list[index].BeneficiosNivel.length - 1; i++) {
+
                 htmlBeneficios += "<li>";
-                htmlBeneficios += "<img src='../Content/CaminoBrillante/imgs/group-14.svg'>";
+                htmlBeneficios += "<img src='/Content/CaminoBrillante/imgs/group-14.svg'>";
                 htmlBeneficios += "<div class='txt-benf'><p class='text-bold'>" + data.list[index].BeneficiosNivel[i].Titulo + "<span>" + data.list[index].BeneficiosNivel[i].Descripcion + "</span></p></div>";
                 htmlBeneficios += "</li>";
             }
@@ -62,10 +63,33 @@ function ModalBeneficios(index) {
     $("#m_titulo").text(lista.list[index].DescripcionNivel);
     //$("#m_montoMinimo").text("Monto mínimo:" + lista.list[index].MontoMinimo);
     $("#m_montoMinimo").append("Monto mínimo: <span>S/ " + lista.list[index].MontoMinimo + ".00</span>");
+
+    $("#m_titulo").text(lista.list[index].DescripcionNivel);
+
+
+    if (index === 0)
+        $("#m_imagen").attr("src", "/Content/CaminoBrillante/imgs/image-1@2x.png");
+
+    if (index === 1)
+        $("#m_imagen").attr("src", "/Content/CaminoBrillante/imgs/recurso-29-3-x-copy-3@2x.png");
+
+    if (index === 2)
+        $("#m_imagen").attr("src", "/Content/CaminoBrillante/imgs/recurso-30-3-x-copy-4@2x.png");
+
+    if (index === 3)
+        $("#m_imagen").attr("src", "/Content/CaminoBrillante/imgs/recurso-36-3-x@2x.png");
+
+    if (index === 4)
+        $("#m_imagen").attr("src", "/Content/CaminoBrillante/imgs/recurso-28-3-x-copy-2@2x.png");
+
+    if (index === 5)
+        $("#m_imagen").attr("src", "/Content/CaminoBrillante/imgs/recurso-27-3-x@2x.png");
+
+
     var Html = "";
     for (var i = 0; i <= lista.list[index].BeneficiosNivel.length - 1; i++) {
         Html += "<li>";
-        Html += "<img src='../Content/CaminoBrillante/imgs/group-14.svg'>";
+        Html += "<img src='/Content/CaminoBrillante/imgs/group-14.svg'>";
         Html += "<div class='txt-benf'><p class='text-bold'>" + lista.list[index].BeneficiosNivel[i].Titulo + "<span>" + lista.list[index].BeneficiosNivel[i].Descripcion + "</span></p></div>";
         Html += "</li>";
     }
