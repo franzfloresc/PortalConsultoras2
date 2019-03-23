@@ -38,7 +38,7 @@ function GetNiveles() {
             htmlBeneficios += "<ul class='box-beneficios' id='BeneficiosPrincipal'>";
             for (var i = 0; i <= data.list[index].BeneficiosNivel.length - 1; i++) {
                 htmlBeneficios += "<li>";
-                htmlBeneficios += "<img src='../Content/CaminoBrillante/imgs/group-14.svg'>";
+                htmlBeneficios += "<img src='/Content/CaminoBrillante/imgs/group-14.svg'>";
                 htmlBeneficios += "<div class='txt-benf'><p class='text-bold'>" + data.list[index].BeneficiosNivel[i].Titulo + "<span>" + data.list[index].BeneficiosNivel[i].Descripcion + "</span></p></div>";
                 htmlBeneficios += "</li>";
             }
@@ -65,7 +65,7 @@ function ModalBeneficios(index) {
     var Html = "";
     for (var i = 0; i <= lista.list[index].BeneficiosNivel.length - 1; i++) {
         Html += "<li>";
-        Html += "<img src='../Content/CaminoBrillante/imgs/group-14.svg'>";
+        Html += "<img src='/Content/CaminoBrillante/imgs/group-14.svg'>";
         Html += "<div class='txt-benf'><p class='text-bold'>" + lista.list[index].BeneficiosNivel[i].Titulo + "<span>" + lista.list[index].BeneficiosNivel[i].Descripcion + "</span></p></div>";
         Html += "</li>";
     }
