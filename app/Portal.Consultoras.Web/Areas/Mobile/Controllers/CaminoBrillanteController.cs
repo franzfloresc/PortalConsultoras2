@@ -41,32 +41,32 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             objBeneficio1.Add(new BeneficiosNivelCaminoBrillanteModel()
             {
                 CodigoBeneficio = 1,
-                Titulo = "Revista Mi Negocio L'Bel",
-                Descripcion = ""
+                Titulo = "",
+                Descripcion = "Revista Mi Negocio L'Bel"
             });
             objBeneficio1.Add(new BeneficiosNivelCaminoBrillanteModel()
             {
                 CodigoBeneficio = 1,
-                Titulo = "1 catálogo gratis de Ésika, L'Bel y Cyzone",
-                Descripcion = ""
+                Titulo = "",
+                Descripcion = "1 catálogo gratis de Ésika, L'Bel y Cyzone"
             });
             objBeneficio1.Add(new BeneficiosNivelCaminoBrillanteModel()
             {
                 CodigoBeneficio = 1,
-                Titulo = "Regalo por pedido y constancia",
-                Descripcion = ""
+                Titulo = "",
+                Descripcion = "Regalo por pedido y constancia"
             });
             objBeneficio1.Add(new BeneficiosNivelCaminoBrillanteModel()
             {
                 CodigoBeneficio = 1,
-                Titulo = "Servicio Callcenter",
-                Descripcion = ""
+                Titulo = "",
+                Descripcion = "Servicio Callcenter"
             });
             objBeneficio1.Add(new BeneficiosNivelCaminoBrillanteModel()
             {
                 CodigoBeneficio = 1,
-                Titulo = "Asesor guía por whatsapp y en persona",
-                Descripcion = ""
+                Titulo = "",
+                Descripcion = "Asesor guía por whatsapp y en persona"
             });
 
 
@@ -76,26 +76,26 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             objBeneficio2.Add(new BeneficiosNivelCaminoBrillanteModel()
             {
                 CodigoBeneficio = 1,
-                Titulo = "Revista Mi Negocio L'Bel",
-                Descripcion = ""
+                Titulo = "",
+                Descripcion = "Revista Mi Negocio L'Bel"
             });
             objBeneficio2.Add(new BeneficiosNivelCaminoBrillanteModel()
             {
                 CodigoBeneficio = 1,
-                Titulo = "1 catálogo gratis de Ésika, L'Bel y Cyzone",
-                Descripcion = ""
+                Titulo = "",
+                Descripcion = "1 catálogo gratis de Ésika, L'Bel y Cyzone"
             });
             objBeneficio2.Add(new BeneficiosNivelCaminoBrillanteModel()
             {
                 CodigoBeneficio = 1,
-                Titulo = "20% de descuento en la compra de catálogos y demostradores",
-                Descripcion = ""
+                Titulo = "",
+                Descripcion = "20% de descuento en la compra de catálogos y demostradores"
             });
             objBeneficio2.Add(new BeneficiosNivelCaminoBrillanteModel()
             {
                 CodigoBeneficio = 1,
-                Titulo = "Regalo por pedido y constancia",
-                Descripcion = ""
+                Titulo = "",
+                Descripcion = "Regalo por pedido y constancia"
             });
             objBeneficio2.Add(new BeneficiosNivelCaminoBrillanteModel()
             {
@@ -106,14 +106,14 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             objBeneficio2.Add(new BeneficiosNivelCaminoBrillanteModel()
             {
                 CodigoBeneficio = 1,
-                Titulo = "Servicio Callcenter",
-                Descripcion = ""
+                Titulo = "",
+                Descripcion = "Servicio Callcenter"
             });
             objBeneficio2.Add(new BeneficiosNivelCaminoBrillanteModel()
             {
                 CodigoBeneficio = 1,
-                Titulo = "Asesor guía por whatsapp y en persona",
-                Descripcion = ""
+                Titulo = "",
+                Descripcion = "Asesor guía por whatsapp y en persona"
             });
             objBeneficio2.Add(new BeneficiosNivelCaminoBrillanteModel()
             {
@@ -127,26 +127,26 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             objBeneficio3.Add(new BeneficiosNivelCaminoBrillanteModel()
             {
                 CodigoBeneficio = 1,
-                Titulo = "Revista Mi Negocio L'Bel",
-                Descripcion = ""
+                Titulo = "",
+                Descripcion = "Revista Mi Negocio L'Bel"
             });
             objBeneficio3.Add(new BeneficiosNivelCaminoBrillanteModel()
             {
                 CodigoBeneficio = 1,
-                Titulo = "1 catálogo gratis de Ésika, L'Bel y Cyzone",
-                Descripcion = ""
+                Titulo = "",
+                Descripcion = "1 catálogo gratis de Ésika, L'Bel y Cyzone"
             });
             objBeneficio3.Add(new BeneficiosNivelCaminoBrillanteModel()
             {
                 CodigoBeneficio = 1,
-                Titulo = "25% de descuento en la compra de catálogos y demostradores",
-                Descripcion = ""
+                Titulo = "",
+                Descripcion = "25% de descuento en la compra de catálogos y demostradores"
             });
             objBeneficio3.Add(new BeneficiosNivelCaminoBrillanteModel()
             {
                 CodigoBeneficio = 1,
-                Titulo = "Regalo por pedido y constancia",
-                Descripcion = ""
+                Titulo = "",
+                Descripcion = "Regalo por pedido y constancia"
             });
             objBeneficio3.Add(new BeneficiosNivelCaminoBrillanteModel()
             {
@@ -157,14 +157,14 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             objBeneficio3.Add(new BeneficiosNivelCaminoBrillanteModel()
             {
                 CodigoBeneficio = 1,
-                Titulo = "Servicio Callcenter",
-                Descripcion = ""
+                Titulo = "",
+                Descripcion = "Servicio Callcenter"
             });
             objBeneficio3.Add(new BeneficiosNivelCaminoBrillanteModel()
             {
                 CodigoBeneficio = 1,
-                Titulo = "Asesor guía por whatsapp y en persona",
-                Descripcion = ""
+                Titulo = "",
+                Descripcion = "Asesor guía por whatsapp y en persona"
             });
             objBeneficio3.Add(new BeneficiosNivelCaminoBrillanteModel()
             {
@@ -179,26 +179,26 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             objBeneficio4.Add(new BeneficiosNivelCaminoBrillanteModel()
             {
                 CodigoBeneficio = 1,
-                Titulo = "Revista Mi Negocio L'Bel",
-                Descripcion = ""
+                Titulo = "",
+                Descripcion = "Revista Mi Negocio L'Bel"
             });
             objBeneficio4.Add(new BeneficiosNivelCaminoBrillanteModel()
             {
                 CodigoBeneficio = 1,
-                Titulo = "1 catálogo gratis de Ésika, L'Bel y Cyzone",
-                Descripcion = ""
+                Titulo = "",
+                Descripcion = "1 catálogo gratis de Ésika, L'Bel y Cyzone"
             });
             objBeneficio4.Add(new BeneficiosNivelCaminoBrillanteModel()
             {
                 CodigoBeneficio = 1,
-                Titulo = "30% de descuento en la compra de catálogos y demostradores",
-                Descripcion = ""
+                Titulo = "",
+                Descripcion = "30% de descuento en la compra de catálogos y demostradores"
             });
             objBeneficio4.Add(new BeneficiosNivelCaminoBrillanteModel()
             {
                 CodigoBeneficio = 1,
-                Titulo = "Regalo por pedido y constancia",
-                Descripcion = ""
+                Titulo = "",
+                Descripcion = "Regalo por pedido y constancia"
             });
             objBeneficio4.Add(new BeneficiosNivelCaminoBrillanteModel()
             {
@@ -209,14 +209,14 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             objBeneficio4.Add(new BeneficiosNivelCaminoBrillanteModel()
             {
                 CodigoBeneficio = 1,
-                Titulo = "Servicio Callcenter",
-                Descripcion = ""
+                Titulo = "",
+                Descripcion = "Servicio Callcenter"
             });
             objBeneficio4.Add(new BeneficiosNivelCaminoBrillanteModel()
             {
                 CodigoBeneficio = 1,
-                Titulo = "Asesor guía por whatsapp y en persona",
-                Descripcion = ""
+                Titulo = "",
+                Descripcion = "Asesor guía por whatsapp y en persona"
             });
             objBeneficio4.Add(new BeneficiosNivelCaminoBrillanteModel()
             {
@@ -231,26 +231,26 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             objBeneficio5.Add(new BeneficiosNivelCaminoBrillanteModel()
             {
                 CodigoBeneficio = 1,
-                Titulo = "Revista Mi Negocio L'Bel",
-                Descripcion = ""
+                Titulo = "",
+                Descripcion = "Revista Mi Negocio L'Bel"
             });
             objBeneficio5.Add(new BeneficiosNivelCaminoBrillanteModel()
             {
                 CodigoBeneficio = 1,
-                Titulo = "1 catálogo gratis de Ésika, L'Bel y Cyzone",
-                Descripcion = ""
+                Titulo = "",
+                Descripcion = "1 catálogo gratis de Ésika, L'Bel y Cyzone"
             });
             objBeneficio5.Add(new BeneficiosNivelCaminoBrillanteModel()
             {
                 CodigoBeneficio = 1,
-                Titulo = "30% de descuento en la compra de catálogos y demostradores",
-                Descripcion = ""
+                Titulo = "",
+                Descripcion = "30% de descuento en la compra de catálogos y demostradores"
             });
             objBeneficio5.Add(new BeneficiosNivelCaminoBrillanteModel()
             {
                 CodigoBeneficio = 1,
-                Titulo = "Regalo por pedido y constancia",
-                Descripcion = ""
+                Titulo = "",
+                Descripcion = "Regalo por pedido y constancia"
             });
             objBeneficio5.Add(new BeneficiosNivelCaminoBrillanteModel()
             {
@@ -261,14 +261,14 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             objBeneficio5.Add(new BeneficiosNivelCaminoBrillanteModel()
             {
                 CodigoBeneficio = 1,
-                Titulo = "Servicio Callcenter",
-                Descripcion = ""
+                Titulo = "",
+                Descripcion = "Servicio Callcenter"
             });
             objBeneficio5.Add(new BeneficiosNivelCaminoBrillanteModel()
             {
                 CodigoBeneficio = 1,
-                Titulo = "Asesor guía por whatsapp y en persona",
-                Descripcion = ""
+                Titulo = "",
+                Descripcion = "Asesor guía por whatsapp y en persona"
             });
             objBeneficio5.Add(new BeneficiosNivelCaminoBrillanteModel()
             {
@@ -282,14 +282,14 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             objBeneficio6.Add(new BeneficiosNivelCaminoBrillanteModel()
             {
                 CodigoBeneficio = 1,
-                Titulo = "Beneficios de topacio",
-                Descripcion = ""
+                Titulo = "",
+                Descripcion = "Beneficios de topacio"
             });
             objBeneficio6.Add(new BeneficiosNivelCaminoBrillanteModel()
             {
                 CodigoBeneficio = 1,
-                Titulo = "Programa brillante según tu nivel",
-                Descripcion = ""
+                Titulo = "",
+                Descripcion = "Programa brillante según tu nivel"
             });
 
 
@@ -404,7 +404,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     });
                     montominimo = montomaximo + 1;
                     montomaximo = montomaximo + 100;
-
                 }
             }
 
