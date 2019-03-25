@@ -66,8 +66,20 @@ var CarruselAyuda = function () {
     }
 
     var _eliminarDuplicadosArray = function (arr, comp) {
-        const unique = arr.map(e => e[comp]).map((e, i, final) => final.indexOf(e) === i && i).filter(e => arr[e]).map(e => arr[e]);
+        //emac5
+        var unique = arr.map(function (e) {
+            return e[comp];
+        }).map(function (e, i, final) {
+            return final.indexOf(e) === i && i;
+        }).filter(function (e) {
+            return arr[e];
+        }).map(function (e) {
+            return arr[e];
+        });
+        //emac6
+        //const unique = arr.map(e => e[comp]).map((e, i, final) => final.indexOf(e) === i && i).filter(e => arr[e]).map(e => arr[e]);
         return unique;
+
     }
 
 
