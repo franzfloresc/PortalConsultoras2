@@ -1503,11 +1503,13 @@ function UpdateTransaction(CantidadActual, CampaniaID, PedidoID, PedidoDetalleID
         data: JSON.stringify(item),
         async: true,
         success: function (data) {
+            debugger;
             CerrarSplash();
             if (!checkTimeout(data))
                 return false;
 
             if (data.success != true) {
+                $(txtLPCant).val(CantidadActual);
                 var errorCliente = data.errorCliente || false;
                 if (!errorCliente) {
                     messageInfoError(data.message);
