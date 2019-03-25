@@ -142,7 +142,6 @@
 .popup__somos__belcorp__enlace--noVolverAMostrar:hover {
     color: #FFF;
     font-weight: 300 !important;
-    text-transform:uppercase;
     text-decoration: underline;
 }
 

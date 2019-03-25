@@ -624,6 +624,7 @@ function armarComunicadosPopup(comunicado) {
     $(".popup_comunicado .detalle_popup_comunicado").attr("urlAccion", comunicado.DescripcionAccion);
 
     $(".popup_comunicado .detalle_popup_comunicado").css("background-image", "url(" + comunicado.UrlImagen + ")");
+    $(".popup_comunicado .detalle_popup_comunicado").css("background-size", "100%");
     $(".contenedor_popup_comunicado").modal("show");
 
     ActualizarVisualizoComunicado(comunicado.ComunicadoId);
