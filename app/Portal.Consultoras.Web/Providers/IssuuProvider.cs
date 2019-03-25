@@ -1,10 +1,13 @@
-﻿using Portal.Consultoras.Common;
+﻿using System.Collections.Generic;
+using Portal.Consultoras.Common;
 using System.Linq;
+using Portal.Consultoras.Web.Models;
 
 namespace Portal.Consultoras.Web.Providers
 {
     public class IssuuProvider
     {
+        private List<TablaLogicaDatosModel> _segmentacion;
         protected ConfiguracionManagerProvider _configuracionManager;
         protected TablaLogicaProvider _tablaLogicaProvider;
 
@@ -27,9 +30,8 @@ namespace Portal.Consultoras.Web.Providers
             string Grupos;
             bool esMarcaEspecial;
             outPilotoSeg = false;
-            var datos = _tablaLogicaProvider.GetTablaLogicaDatos(Util.GetPaisID(codigoISO),
-                Constantes.ConfiguracionManager.RevistaCatalogoTablaLogicaId);
-            string marcas = _tablaLogicaProvider.GetValueByCode(datos, Constantes.ConfiguracionManager.Catalogo_Marca_Piloto + codigoISO + campania);
+            var config = GetConfigSegmentacion(codigoISO);
+            string marcas = _tablaLogicaProvider.GetValueByCode(config, Constantes.ConfiguracionManager.Catalogo_Marca_Piloto + codigoISO + campania);
 
             switch (idMarcaCatalogo)
             {
@@ -50,7 +52,7 @@ namespace Portal.Consultoras.Web.Providers
                     break;
             }
 
-            Grupos = _tablaLogicaProvider.GetValueByCode(datos, Constantes.ConfiguracionManager.Catalogo_Piloto_Grupos + nombreCatalogoConfig + Constantes.ConfiguracionManager.SubGuion + codigoISO + campania);
+            Grupos = _tablaLogicaProvider.GetValueByCode(config, Constantes.ConfiguracionManager.Catalogo_Piloto_Grupos + nombreCatalogoConfig + Constantes.ConfiguracionManager.SubGuion + codigoISO + campania);
             esMarcaEspecial = marcas.Split(',').Select(marca => marca.Trim()).Contains(nombreCatalogoConfig);
 
 
@@ -58,7 +60,7 @@ namespace Portal.Consultoras.Web.Providers
             {
                 foreach (var grupo in Grupos.Split(','))
                 {
-                    var zonas = _tablaLogicaProvider.GetValueByCode(datos, Constantes.ConfiguracionManager.Catalogo_Piloto_Zonas + nombreCatalogoConfig + Constantes.ConfiguracionManager.SubGuion + codigoISO + campania + Constantes.ConfiguracionManager.SubGuion + grupo);
+                    var zonas = _tablaLogicaProvider.GetValueByCode(config, Constantes.ConfiguracionManager.Catalogo_Piloto_Zonas + nombreCatalogoConfig + Constantes.ConfiguracionManager.SubGuion + codigoISO + campania + Constantes.ConfiguracionManager.SubGuion + grupo);
                     esRevistaPiloto = zonas.Split(',').Select(zona => zona.Trim()).Contains(codigoZona);
                     if (esRevistaPiloto)
                     {
@@ -98,14 +100,14 @@ namespace Portal.Consultoras.Web.Providers
             string codeGrupo = null;
             string nroCampania = string.Empty;
             string anioCampania = string.Empty;
-            var datos = _tablaLogicaProvider.GetTablaLogicaDatos(Util.GetPaisID(codigoISO), Constantes.ConfiguracionManager.RevistaCatalogoTablaLogicaId);
-            var Grupos = _tablaLogicaProvider.GetValueByCode(datos, Constantes.ConfiguracionManager.RevistaPiloto_Grupos + codigoISO + campania);
+            var config = GetConfigSegmentacion(codigoISO);
+            var Grupos = _tablaLogicaProvider.GetValueByCode(config, Constantes.ConfiguracionManager.RevistaPiloto_Grupos + codigoISO + campania);
 
             if (!string.IsNullOrEmpty(Grupos))
             {
                 foreach (var grupo in Grupos.Split(','))
                 {
-                    var zonas = _tablaLogicaProvider.GetValueByCode(datos, Constantes.ConfiguracionManager.RevistaPiloto_Zonas + codigoISO + campania + "_" + grupo);
+                    var zonas = _tablaLogicaProvider.GetValueByCode(config, Constantes.ConfiguracionManager.RevistaPiloto_Zonas + codigoISO + campania + "_" + grupo);
                     esRevistaPiloto = zonas.Split(',').Select(zona => zona.Trim()).Contains(codigoZona);
                     if (esRevistaPiloto)
                     {
@@ -142,9 +144,8 @@ namespace Portal.Consultoras.Web.Providers
                     return codigoRevista;
 
                 string tipo = "1";
-                var datos = _tablaLogicaProvider.GetTablaLogicaDatos(Util.GetPaisID(codigoISO), Constantes.ConfiguracionManager.RevistaCatalogoTablaLogicaId);
-                var zonas = _tablaLogicaProvider.GetValueByCode(datos,
-                    Constantes.ConfiguracionManager.RevistaPiloto_Zonas_RDR_2 + codigoISO);
+                var config = GetConfigSegmentacion(codigoISO);
+                var zonas = _tablaLogicaProvider.GetValueByCode(config, Constantes.ConfiguracionManager.RevistaPiloto_Zonas_RDR_2 + codigoISO);
 
                 if (zonas.Contains(codigoZona))
                 {
@@ -155,6 +156,19 @@ namespace Portal.Consultoras.Web.Providers
 
             }
             return codigoRevista;
+        }
+
+        private List<TablaLogicaDatosModel> GetConfigSegmentacion(string codigoIso)
+        {
+            if (_segmentacion == null)
+            {
+                _segmentacion = _tablaLogicaProvider.GetTablaLogicaDatos(
+                    Util.GetPaisID(codigoIso),
+                    Constantes.ConfiguracionManager.RevistaCatalogoTablaLogicaId);
+
+            }
+
+            return _segmentacion;
         }
     }
 }
