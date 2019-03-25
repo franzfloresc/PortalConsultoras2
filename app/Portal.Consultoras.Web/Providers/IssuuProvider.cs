@@ -6,10 +6,12 @@ namespace Portal.Consultoras.Web.Providers
     public class IssuuProvider
     {
         protected ConfiguracionManagerProvider _configuracionManager;
+        protected TablaLogicaProvider _tablaLogicaProvider;
 
         public IssuuProvider()
         {
             _configuracionManager = new ConfiguracionManagerProvider();
+            _tablaLogicaProvider = new TablaLogicaProvider();
         }
 
         public string GetCatalogoCodigoIssuu(string campania, int idMarcaCatalogo, string codigoISO, string codigoZona, out bool outPilotoSeg)
@@ -19,13 +21,15 @@ namespace Portal.Consultoras.Web.Providers
             string CodeGrup = null;
             string nroCampania = string.Empty;
             string anioCampania = string.Empty;
-            string codigo = null;
-            string requestUrl = null;
+            string codigo;
+            string requestUrl;
             bool esRevistaPiloto = false;
-            string Grupos = null;
-            string marcas = _configuracionManager.GetConfiguracionManager(Constantes.ConfiguracionManager.Catalogo_Marca_Piloto + codigoISO + campania) ?? "";
-            bool esMarcaEspecial = false;
+            string Grupos;
+            bool esMarcaEspecial;
             outPilotoSeg = false;
+            var datos = _tablaLogicaProvider.GetTablaLogicaDatos(Util.GetPaisID(codigoISO),
+                Constantes.ConfiguracionManager.RevistaCatalogoTablaLogicaId);
+            string marcas = _tablaLogicaProvider.GetValueByCode(datos, Constantes.ConfiguracionManager.Catalogo_Marca_Piloto + codigoISO + campania);
 
             switch (idMarcaCatalogo)
             {
@@ -46,19 +50,19 @@ namespace Portal.Consultoras.Web.Providers
                     break;
             }
 
-            Grupos = _configuracionManager.GetConfiguracionManager(Constantes.ConfiguracionManager.Catalogo_Piloto_Grupos + nombreCatalogoConfig + Constantes.ConfiguracionManager.SubGuion + codigoISO + campania);
-            esMarcaEspecial = marcas.Split(new char[1] { ',' }).Select(marca => marca.Trim()).Contains(nombreCatalogoConfig);
+            Grupos = _tablaLogicaProvider.GetValueByCode(datos, Constantes.ConfiguracionManager.Catalogo_Piloto_Grupos + nombreCatalogoConfig + Constantes.ConfiguracionManager.SubGuion + codigoISO + campania);
+            esMarcaEspecial = marcas.Split(',').Select(marca => marca.Trim()).Contains(nombreCatalogoConfig);
 
 
             if (!string.IsNullOrEmpty(Grupos))
             {
                 foreach (var grupo in Grupos.Split(','))
                 {
-                    var zonas = _configuracionManager.GetConfiguracionManager(Constantes.ConfiguracionManager.Catalogo_Piloto_Zonas + nombreCatalogoConfig + Constantes.ConfiguracionManager.SubGuion + codigoISO + campania + Constantes.ConfiguracionManager.SubGuion + grupo);
-                    esRevistaPiloto = zonas.Split(new char[1] { ',' }).Select(zona => zona.Trim()).Contains(codigoZona);
+                    var zonas = _tablaLogicaProvider.GetValueByCode(datos, Constantes.ConfiguracionManager.Catalogo_Piloto_Zonas + nombreCatalogoConfig + Constantes.ConfiguracionManager.SubGuion + codigoISO + campania + Constantes.ConfiguracionManager.SubGuion + grupo);
+                    esRevistaPiloto = zonas.Split(',').Select(zona => zona.Trim()).Contains(codigoZona);
                     if (esRevistaPiloto)
                     {
-                        CodeGrup = grupo.Trim().ToString();
+                        CodeGrup = grupo.Trim();
                         break;
                     }
                 }
