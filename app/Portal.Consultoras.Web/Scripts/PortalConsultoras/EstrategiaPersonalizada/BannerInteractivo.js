@@ -7,7 +7,7 @@
 
     var _fnMensaje = function (fn) {
         messageConfirmacion(
-            '¿Quieres eliminar el que tenías y empezar de nuevo?',
+            '¿Quieres eliminar el pack que tienes y empezar de nuevo?',
             'Recuerda que solo puedes armar 1 pack',
             fn
         );
