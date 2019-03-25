@@ -1457,6 +1457,9 @@ namespace Portal.Consultoras.Common
             public const string ExcedioLimiteVenta = "Las unidades ingresadas exceden el máximo permitido ({0}) en esta campaña.";
             public const string StockLimiteVenta = "En esta campaña nuestro producto <b>{0} – {1}</b> ha tenido una gran acogida. Sin embargo hemos reservado una ({2}) unidad(es) para ti. Por favor modifica las unidades ingresadas.";
             public const string Pedido_NoAgregarLiquidacion = "No se puede agregar una Oferta Liquidacion por este medio.";
+            //INI HD-3693
+            public const string Pedido_ConsultoraBloqueada = "Pedido Bloqueado.";
+            //FIN HD-3693
         }
 
         public static class MensajesExito
@@ -2402,7 +2405,6 @@ namespace Portal.Consultoras.Common
 
                 public const string ERROR_AGREGAR_BACKORDER_NO_PERMITIDO = "2201";
                 public const string ERROR_AGREGAR_BACKORDER = "2202";
-
             }
 
             public static Dictionary<string, PedidoValidacionConfiguracion> Configuracion
@@ -2466,7 +2468,6 @@ namespace Portal.Consultoras.Common
 
                             {Code.ERROR_AGREGAR_BACKORDER_NO_PERMITIDO , new PedidoValidacionConfiguracion(){ Mensaje ="No se puede agregar un set como BackOrder." } },
                             {Code.ERROR_AGREGAR_BACKORDER , new PedidoValidacionConfiguracion(){ Mensaje ="No se encuentra el detalle en el pedido para agregarlo como BackOrder." } }
-
                         });
                 }
             }

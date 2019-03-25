@@ -57,8 +57,20 @@ namespace Portal.Consultoras.BizLogic.Reserva
         
         public string DeshacerPedidoValidado(BEUsuario usuario, string tipo)
         {
+            //INI 3693
+            BEUsuario userBloqueado = null;
+            using (var reader = (new DAConfiguracionCampania(usuario.PaisID)).GetConfiguracionByUsuarioAndCampania(usuario.PaisID, usuario.ConsultoraID, usuario.CampaniaID, usuario.usuarioPrueba, usuario.AceptacionConsultoraDA))
+            {
+                if (reader.Read()) userBloqueado = new BEUsuario(reader, true, true);
+            }
+            if (userBloqueado != null)
+            {
+                if (userBloqueado.AutorizaPedido == "0") return Constantes.MensajesError.Pedido_ConsultoraBloqueada;
+            }
+            //FIN 3693
+
             if (usuario.IndicadorGPRSB == 1) return string.Format("En este momento nos encontramos facturando tu pedido de C{0}, inténtalo más tarde", usuario.CampaniaID.Substring(4, 2));
-            
+
             var codigoUsuario = usuario.UsuarioPrueba == 1 ? usuario.ConsultoraAsociada : usuario.CodigoUsuario;
             bool validacionAbierta = tipo == "PV";
             short estado = validacionAbierta ? Constantes.EstadoPedido.Procesado : Constantes.EstadoPedido.Pendiente;

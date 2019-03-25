@@ -2130,7 +2130,7 @@ namespace Portal.Consultoras.BizLogic
                         return new BEValidacionModificacionPedido
                         {
                             MotivoPedidoLock = Enumeradores.MotivoPedidoLock.Bloqueado,
-                            Mensaje = "Pedido Bloqueado"
+                            Mensaje = Constantes.MensajesError.Pedido_ConsultoraBloqueada
                         };
                     }
                     else
