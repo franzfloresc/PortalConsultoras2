@@ -236,10 +236,12 @@ namespace Portal.Consultoras.BizLogic
         {
             string codigo;
             bool esRevistaPiloto = false;
-            var Grupos = ConfigurationManager.AppSettings[Constantes.ConfiguracionManager.RevistaPiloto_Grupos + catalogoRevista.PaisISO + catalogoRevista.CampaniaID];
             string codeGrupo = null;
             string nroCampania = string.Empty;
             string anioCampania = string.Empty;
+            var datos = new BLTablaLogicaDatos().GetListCache(Util.GetPaisID(catalogoRevista.PaisISO),
+                Constantes.ConfiguracionManager.RevistaCatalogoTablaLogicaId);
+            var Grupos = GetValueByCode(datos, Constantes.ConfiguracionManager.RevistaPiloto_Grupos + catalogoRevista.PaisISO + catalogoRevista.CampaniaID);
 
             if (catalogoRevista.CampaniaID.ToString().Length >= 6)
                 nroCampania = catalogoRevista.CampaniaID.Substring(4, 2);
@@ -253,7 +255,7 @@ namespace Portal.Consultoras.BizLogic
 
                     foreach (var grupo in Grupos.Split(','))
                     {
-                        var zonas = ConfigurationManager.AppSettings[Constantes.ConfiguracionManager.RevistaPiloto_Zonas + catalogoRevista.PaisISO + catalogoRevista.CampaniaID + "_" + grupo];
+                        var zonas = GetValueByCode(datos,Constantes.ConfiguracionManager.RevistaPiloto_Zonas + catalogoRevista.PaisISO + catalogoRevista.CampaniaID + "_" + grupo);
                         esRevistaPiloto = zonas.Split(',').Select(zona => zona.Trim()).Contains(codigoZona);
                         if (esRevistaPiloto)
                         {

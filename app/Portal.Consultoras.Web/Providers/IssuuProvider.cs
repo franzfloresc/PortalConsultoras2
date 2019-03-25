@@ -95,16 +95,17 @@ namespace Portal.Consultoras.Web.Providers
             string codigo;
             string requestUrl;
             bool esRevistaPiloto = false;
-            var Grupos = _configuracionManager.GetConfiguracionManager(Constantes.ConfiguracionManager.RevistaPiloto_Grupos + codigoISO + campania);
             string codeGrupo = null;
             string nroCampania = string.Empty;
             string anioCampania = string.Empty;
+            var datos = _tablaLogicaProvider.GetTablaLogicaDatos(Util.GetPaisID(codigoISO), Constantes.ConfiguracionManager.RevistaCatalogoTablaLogicaId);
+            var Grupos = _tablaLogicaProvider.GetValueByCode(datos, Constantes.ConfiguracionManager.RevistaPiloto_Grupos + codigoISO + campania);
 
             if (!string.IsNullOrEmpty(Grupos))
             {
                 foreach (var grupo in Grupos.Split(','))
                 {
-                    var zonas = _configuracionManager.GetConfiguracionManager(Constantes.ConfiguracionManager.RevistaPiloto_Zonas + codigoISO + campania + "_" + grupo);
+                    var zonas = _tablaLogicaProvider.GetValueByCode(datos, Constantes.ConfiguracionManager.RevistaPiloto_Zonas + codigoISO + campania + "_" + grupo);
                     esRevistaPiloto = zonas.Split(',').Select(zona => zona.Trim()).Contains(codigoZona);
                     if (esRevistaPiloto)
                     {
@@ -141,7 +142,11 @@ namespace Portal.Consultoras.Web.Providers
                     return codigoRevista;
 
                 string tipo = "1";
-                if (_configuracionManager.GetConfiguracionManagerContains(Constantes.ConfiguracionManager.RevistaPiloto_Zonas_RDR_2 + codigoISO, codigoZona))
+                var datos = _tablaLogicaProvider.GetTablaLogicaDatos(Util.GetPaisID(codigoISO), Constantes.ConfiguracionManager.RevistaCatalogoTablaLogicaId);
+                var zonas = _tablaLogicaProvider.GetValueByCode(datos,
+                    Constantes.ConfiguracionManager.RevistaPiloto_Zonas_RDR_2 + codigoISO);
+
+                if (zonas.Contains(codigoZona))
                 {
                     tipo = "2";
                 }
