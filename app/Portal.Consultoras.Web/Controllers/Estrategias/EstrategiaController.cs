@@ -76,6 +76,12 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             return PreparListaModel(model, Constantes.TipoConsultaOfertaPersonalizadas.MGObtenerProductos);
         }
 
+        [HttpPost]
+        public JsonResult ATPObtenerProductos(BusquedaProductoModel model)
+        {
+            return PreparListaModel(model, Constantes.TipoConsultaOfertaPersonalizadas.ATPObtenerProductos);
+        }
+
         [HttpGet]
         public JsonResult HomePedidoObtenerProductos(string tipoOrigenEstrategia = "")
         {
@@ -219,6 +225,8 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
                 ActualizarSession(tipoConsulta, (tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.SRObtenerProductos ? cantidadTotal0 : cantidadTotal));
 
+                var estaEnPedido = VerificarEnPedido(tipoConsulta);
+
                 return Json(new
                 {
                     success = true,
@@ -232,7 +240,8 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                     codigo = palanca,
                     codigoOrigen = model.Codigo,
                     guardaEnLocalStorage = guarda,
-                    objBannerCajaProducto
+                    objBannerCajaProducto,
+                    estaEnPedido
                 });
             }
             catch (Exception ex)
@@ -331,6 +340,15 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                             session.TieneLanding = ActualizarSession_TieneLanding(session.TieneLanding, cantidadTotal);
                             break;
                         }
+
+                    case Constantes.TipoConsultaOfertaPersonalizadas.ATPObtenerProductos:
+                        {
+                            var session = SessionManager.GetArmaTuPack();
+                            session.TieneLanding = cantidadTotal > 0;
+                            SessionManager.SetArmaTuPack(session);
+
+                            break;
+                        }
                 }
             }
             catch (Exception ex)
@@ -352,6 +370,17 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 }
             }
             return tieneLanding;
+        }
+
+        private bool VerificarEnPedido(int tipoConsulta)
+        {
+            var respuesta = false;
+            if (tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.ATPObtenerProductos)
+            {
+                var listaPedido = _pedidoWebProvider.ObtenerPedidoWebSetDetalleAgrupado(0);
+                respuesta = listaPedido.Any(p => p.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.ArmaTuPack);
+            }
+            return respuesta;
         }
 
 

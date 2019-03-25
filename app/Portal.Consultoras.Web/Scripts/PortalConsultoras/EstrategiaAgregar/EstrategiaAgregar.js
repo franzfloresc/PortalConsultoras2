@@ -77,6 +77,11 @@ var EstrategiaAgregarModule = (function () {
         }
     }
 
+    var _OrigenPedido = {
+        MobileContenedorArmaTuPack: "2131502",
+        DesktopContenedorArmaTuPack: "1131502"
+    }
+
     var getEstrategia = function ($btnAgregar, origenPedidoWebEstrategia) {
 
         var estrategiaTxt = $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataEstrategia).attr("data-estrategia")
@@ -390,8 +395,18 @@ var EstrategiaAgregarModule = (function () {
                             $AgregadoTooltip.find(dataProperties.tooltipMensaje2).html(" Modificaste tu pedido");
                         }
                         $AgregadoTooltip.show();
-                        setTimeout(function () { $AgregadoTooltip.hide(); }, 4000);
-                        ResumenOpcionesModule.LimpiarOpciones();
+                        setTimeout(function () {
+                            $AgregadoTooltip.hide();
+                            if (origenPedidoWebEstrategia === _OrigenPedido.DesktopContenedorArmaTuPack) {
+                                window.location = "/ofertas";
+                            } else if (origenPedidoWebEstrategia === _OrigenPedido.MobileContenedorArmaTuPack) {
+                                window.location = "/mobile/ofertas";
+
+                            }
+                        }, 2500);
+                        if (!(origenPedidoWebEstrategia === _OrigenPedido.DesktopContenedorArmaTuPack || origenPedidoWebEstrategia === _OrigenPedido.MobileContenedorArmaTuPack)) {
+                            ResumenOpcionesModule.LimpiarOpciones();
+                        }
                     } catch (e) {
                         console.error(e);
                     }

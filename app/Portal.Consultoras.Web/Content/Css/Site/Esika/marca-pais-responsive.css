@@ -16,8 +16,8 @@
     background-color:#e81c36;
 }
 
-.menu__link--pedido{
-    background-image:url(../../../images/esika/vineta_indicador.png);
+.menu__link--pedido {
+    background-image: url(/Content/images/esika/vineta_indicador.png);
 }
 
 .menu__item--campaniaActual{

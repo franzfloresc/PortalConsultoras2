@@ -1,5 +1,5 @@
 ﻿var NuevoMasivo = (function (config) {
-
+    
     var _config = {
         habilitarNemotecnico: config.habilitarNemotecnico || false,
         urlConsultarOfertasPersonalizadas: config.urlConsultarOfertasPersonalizadas,
@@ -21,32 +21,23 @@
         CantidadCuv: 0
     }
 
-    var _codigoEstrategia = {
-        OfertaParaTi: "001",
-        PackNuevas: "002",
-        OfertaWeb: "003",
-        Lanzamiento: "005",
-        OfertasParaMi: "007",
-        PackAltoDesembolso: "008",
-        OfertaDelDia: "009",
-        GuiaDeNegocio: "010",
-        LosMasVendidos: "020",
-        HerramientaVenta: "011",
-        ShowRoom: "030"
-    }
+    var _codigoEstrategia = ConstantesModule.ConstantesPalanca;
 
 
     var _showActionsVer1 = function (cellvalue, options, rowObject) {
         var text;
         var cantidad = rowObject[2];
         var tipo = rowObject[3];
+        var _codigoEstrategiaCombo = $("#ddlTipoEstrategia option:selected").data("codigo");
+        var esArmaTuPack = (_codigoEstrategiaCombo == ConstantesModule.ConstantesPalanca.ArmaTuPack);       
 
         if (tipo == "2")
             _variables.cantidadPrecargar = parseInt(cantidad);
         else if (tipo == "0")
             _variables.cantidadTotal = parseInt(cantidad);
-
-        if (cantidad != "0")
+     
+        
+        if ((cantidad != "0") && (!esArmaTuPack))
             text = rowObject[2] + '<a href="javascript:;" onclick="admNuevoMasivoModulo.VerCuvsTipo(\'' + tipo + '\', \'' + rowObject[0] + '\')">Ver</a';
         else
             text = rowObject[2];
@@ -57,6 +48,8 @@
 
         var cantidad = rowObject[2];
         var tipo = rowObject[3];
+        var _codigoEstrategiaCombo = $("#ddlTipoEstrategia option:selected").data("codigo");
+        var esArmaTuPack = (_codigoEstrategiaCombo == ConstantesModule.ConstantesPalanca.ArmaTuPack);
 
         if (tipo == "1") {
             _variables.cantidadPrecargar2 = parseInt(cantidad);
@@ -66,7 +59,7 @@
             $("#spnCantidadNoConfigurar3").html(parseInt(cantidad));
 
         var text;
-        if (cantidad != "0")
+        if ((cantidad != "0")&& (!esArmaTuPack))
             text = rowObject[2] +
                 " <a href='javascript:;' onclick=admNuevoMasivoModulo.VerCuvsTipo2('" +
                 tipo +
@@ -391,15 +384,17 @@
         }
 
         var estrategiaCodigo = $("#ddlTipoEstrategia option:selected").data("codigo") || "";
-        if (!estrategiaCodigo.in(_codigoEstrategia.OfertaParaTi,
-            _codigoEstrategia.GuiaDeNegocio,
+        if (!estrategiaCodigo.in(
+            _codigoEstrategia.OfertaParaTi,
+            _codigoEstrategia.GuiaDeNegocioDigitalizada,
             _codigoEstrategia.LosMasVendidos,
             _codigoEstrategia.Lanzamiento,
             _codigoEstrategia.OfertasParaMi,
             _codigoEstrategia.PackAltoDesembolso,
             _codigoEstrategia.OfertaDelDia,
             _codigoEstrategia.ShowRoom,
-            _codigoEstrategia.HerramientaVenta)) {
+            _codigoEstrategia.HerramientasVenta,
+            _codigoEstrategia.ArmaTuPack)) {
 
             _toastHelper.error("Debe seleccionar el tipo de Estrategia que permita esta funcionalidad.");
             return false;

@@ -11,7 +11,8 @@ var _palanca = {
 var _tipopresentacion = {
     showroom: "5",
     odd: "6",
-    banner: "4"
+    banner: "4",
+    bannerInterativo: "10"
 }
 
 jQuery(document).ready(function () {
@@ -21,9 +22,9 @@ jQuery(document).ready(function () {
     UpdateGrillaPalanca();
     IniDialogs();
 
-    $("#btnBuscar").click(function () {
-        UpdateGrillaOfertas();
-    });
+    //$("#btnBuscar").click(function () {
+    //    UpdateGrillaOfertas();
+    //});
 
 
     $("#ddlTipoEstrategia").change(function () {
@@ -83,6 +84,34 @@ jQuery(document).ready(function () {
         }
 
         ConfigSeccionApp($(this).val());
+        
+        if ($(this).find("option:selected").attr("data-codigo") == ConstantesModule.TipoEstrategia.ATP) {
+            if ($("#ConfiguracionOfertasHomeID").val() == 0) {
+                $(".div-disenio-atp-visible").show();
+                $(".div-disenio-atp-oculto").hide();
+                $("#tituloSeccionDesktop").html("Desktop/Mobile");
+                $("#titColorTexto").html("Color de títulos");
+                $("#DesktopTitulo").val("ARMA TU PACK");
+                $("#DesktopColorFondo").val("#fa1702");
+                $("#DesktopSubTitulo").val("Elige tus productos favoritos y llévatelos al #PrecioTotal");
+                $("#DesktopColorTexto").val("#ffffff");
+                $("#BotonTexto1").val("Comenzar");
+                $("#BotonTexto2").val("Modificar");
+                $("#BotonColor").val("#000000");
+                $("#BotonColorTexto").val("#ffffff");
+                $("#DesktopCantidadProductos").val("0");
+                $("#DesktopOrden").val("1");
+                $("#cbDesktopCantidadTodos").prop("checked", true);
+                $("#DesktopCantidadProductos").attr("disabled", "disabled");
+                $("#ddlDesktopTipoPresentacionOfertas").val(_tipopresentacion.bannerInterativo);
+                $("#titTamanioImagenFondo").html("(Ancho: 1920 px x Alto: 300 px)");
+            }
+        } else {
+            $(".div-disenio-atp-visible").hide();
+            $(".div-disenio-atp-oculto").show();
+            $("#tituloSeccionDesktop").html("Desktop");
+            $("#titColorTexto").html("Color Texto:");
+        }
     });
 });
 
@@ -108,8 +137,11 @@ function ConfigSeccionApp(configuracionPaisID) {
                 return;
             }
 
-            if (result.data.AppOfertasHomeActivo == "1") $("#divMantApp").show();
-            else $("#divMantApp").hide();
+            if (result.data.AppOfertasHomeActivo == "1") {
+                if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") != ConstantesModule.TipoEstrategia.ATP)
+                    $("#divMantApp").show();
+            }
+            else { $("#divMantApp").hide(); }
 
             if (result.data.AppOfertasHomeImgExtension != "") $("#nombre-fondo-app").attr("imageextension", result.data.AppOfertasHomeImgExtension);
             if (result.data.AppOfertasHomeImgAncho != "") $("#nombre-fondo-app").attr("imagewidth", result.data.AppOfertasHomeImgAncho);
@@ -161,6 +193,7 @@ function Modificar(idConfiguracionPais, event) {
                 UploadFilePalanca("icono"), UploadFilePalanca("desktop-fondo-banner"), UploadFilePalanca("desktop-logo-banner"),
                 UploadFilePalanca("mobile-fondo-banner"), UploadFilePalanca("mobile-logo-banner")
             );
+
             showDialog("DialogMantenimientoPalanca");
 
             var esTrueAncla = $.trim($("#UrlMenu").val()) == "#";
@@ -168,6 +201,57 @@ function Modificar(idConfiguracionPais, event) {
                 $("#cbAncla").prop("checked", true);
                 $("#UrlMenu").attr("disabled", "disabled");
             }
+
+            /*INIT Agana 159*/
+
+            var esATP = $.trim($("#Codigo").val()) === ConstantesModule.TipoEstrategia.ATP;
+
+            if (esATP) {
+                $("#lblDesktop").html('Desktop/Mobile');
+
+                $("#divUrlMenu").hide();
+                $("#divUrlMenuTxt").hide();
+
+                $("#divDesktopFondo").hide();
+                $("#divDesktopLogo").hide();
+
+                $("#divSeccionMobileTitulo").hide();
+                $("#divSeccionMobile").hide();
+
+                $("#divOrdenBPT").hide();
+                $("#divDesktopSubTituloMenu").hide();
+                $("#divDesktopTituloBanner").hide();
+                $("#divDesktopSubTituloBanner").hide();
+            } else {
+                $("#lblDesktop").html('Desktop');//Default
+                $("#divUrlMenu").show();
+                $("#divUrlMenuTxt").show();
+
+                $("#divDesktopFondo").show();
+                $("#divDesktopLogo").show();
+
+                $("#divSeccionMobileTitulo").show();
+                $("#divSeccionMobile").show();
+
+                $("#divOrdenBPT").show();
+                $("#divDesktopSubTituloMenu").show();
+                $("#divDesktopTituloBanner").show();
+                $("#divDesktopSubTituloBanner").show();
+            }
+
+            /*END Agana 159*/
+
+            /*Ini Agana 186*/
+
+            if ($(this).find("option:selected").attr("data-codigo") == ConstantesModule.TipoEstrategia.ATP) {
+                $(".div-disenio-atp-visible").show();
+                $(".div-disenio-atp-oculto").hide();
+                $("#tituloSeccionDesktop").html("Desktop/Mobile");
+                $("#titColorTexto").html("Color de títulos");
+                $("#titTamanioImagenFondo").html("(Ancho: 1920 px x Alto: 300 px)");
+            }
+
+            /*Fin Agana 186*/
         },
         error: function (request, status, error) { }
     });
@@ -186,6 +270,7 @@ function ModificarOfertas(idOfertasHome) {
         data: { idOfertasHome: idOfertasHome },
         contentType: "application/json; charset=utf-8",
         success: function (result) {
+            
             closeWaitingDialog();
 
             $("#dialog-content-ofertas-home").empty();
@@ -212,6 +297,20 @@ function ModificarOfertas(idOfertasHome) {
             } else {
                 $(".hide-configuration").hide();
             }
+
+            /*Inicia Agana 186 */
+            if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") == ConstantesModule.TipoEstrategia.ATP) {
+                $(".div-disenio-atp-visible").show();
+                $(".div-disenio-atp-oculto").hide();
+
+                $("#divMantApp").hide();
+
+                $("#tituloSeccionDesktop").html("Desktop/Mobile");
+                $("#titColorTexto").html("Color de títulos");
+                $("#titTamanioImagenFondo").html("(Ancho: 1920 px x Alto: 300 px)");
+            }
+            /*Fin Agana 186 */
+
         },
         error: function (request, status, error) { closeWaitingDialog(); _toastHelper.error("Error al cargar la ventana."); }
     });
@@ -224,9 +323,9 @@ function IniDialogs() {
         closeOnEscape: true,
         width: 830,
         draggable: false,
-        title: "Configurar Contenedor Menú",
+        title: "Menú",
         open: function (event, ui) {
-            (".ui-dialog-titlebar-close", ui.dialog).hide();
+            //(".ui-dialog-titlebar-close", ui.dialog).hide(); //eaar tiene bug
         },
         close: function () {
             HideDialog("DialogMantenimientoPalanca");
@@ -239,6 +338,19 @@ function IniDialogs() {
                     _toastHelper.error("El valor del orden tiene que ser numerico.");
                     return false;
                 }
+
+                /*INIT AGANA 159 */
+                var esATP = $.trim($("#Codigo").val()) === ConstantesModule.TipoEstrategia.ATP;
+
+                if (esATP) {
+                    //valores a replicar
+                    $("#OrdenBpt").val($("#Orden").val());
+                    $("#DialogMantenimientoPalanca #MobileOrden").val($("#Orden").val());
+                    $("#DialogMantenimientoPalanca #MobileOrdenBpt").val($("#Orden").val());
+                    $("#MobileTituloMenu").val($("#DesktopTituloMenu").val());
+                }
+                /*END AGANA 159 */
+
                 var params = {
                     ConfiguracionPaisID: $("#ConfiguracionPaisID").val(),
                     Codigo: $("#ddlConfiguracionPais").val(),
@@ -274,14 +386,17 @@ function IniDialogs() {
                     success: function (data) {
                         if (data.success) {
                             HideDialog("DialogMantenimientoPalanca");
-                            _toastHelper.success("Solicitud realizada sin problemas.");
+                            //_toastHelper.error("Solicitud realizada sin problemas.");
+                            showDialogMensaje("Solicitud realizada sin problemas.", '');
                             UpdateGrillaPalanca();
                         } else {
-                            _toastHelper.error("Error al procesar la Solicitud.");
+                            //_toastHelper.error("Error al procesar la Solicitud.");
+                            showDialogMensaje("Error al procesar la Solicitud.", '');
                         }
                     },
                     error: function (data, error) {
-                        _toastHelper.error("Error al procesar la Solicitud.");
+                        //_toastHelper.error("Error al procesar la Solicitud.");
+                        showDialogMensaje("Error al procesar la Solicitud.", '');
                     }
                 });
 
@@ -300,7 +415,7 @@ function IniDialogs() {
         closeOnEscape: true,
         width: 830,
         draggable: false,
-        title: "Configurar Contenedor Home",
+        title: "Home",
         close: function () {
             $('div[id^="collorpicker_"]').hide();
             HideDialog("DialogMantenimientoOfertasHome");
@@ -308,7 +423,7 @@ function IniDialogs() {
         open: function (event, ui) {
             $(".ui-dialog-titlebar-close", ui.dialog).hide();
             $("#colorpickerHolder").ColorPicker({ flat: true });
-            $("#DesktopColorFondo, #DesktopColorTexto, #MobileColorFondo, #MobileColorTexto, #AdministrarOfertasHomeAppModel_AppColorFondo, #AdministrarOfertasHomeAppModel_AppColorTexto").ColorPicker({
+            $("#DesktopColorFondo, #DesktopColorTexto, #MobileColorFondo, #MobileColorTexto, #AdministrarOfertasHomeAppModel_AppColorFondo, #AdministrarOfertasHomeAppModel_AppColorTexto, #BotonColor, #BotonColorTexto").ColorPicker({
                 onSubmit: function (hsb, hex, rgb, el) {
                     var newValue = "#" + hex;
                     $(el).val(newValue);
@@ -318,22 +433,29 @@ function IniDialogs() {
                     $(this).ColorPickerSetColor(this.value);
                 }
             })
-            .bind("keyup", function () {
-                $(this).ColorPickerSetColor(this.value);
-            });
+                .bind("keyup", function () {
+                    $(this).ColorPickerSetColor(this.value);
+                });
 
             if ($("#DesktopColorFondo").val() === "") {
-                $("#DesktopColorFondo").val("#000000");
+                if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") != ConstantesModule.TipoEstrategia.ATP) {
+                    $("#DesktopColorFondo").val("#000000");
+                }
             }
             if ($("#MobileColorFondo").val() === "") {
-                $("#MobileColorFondo").val("#000000");
+                if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") != ConstantesModule.TipoEstrategia.ATP) {
+                    $("#MobileColorFondo").val("#000000");
+                }
             }
-            
             if ($("#DesktopColorTexto").val() === "") {
-                $("#DesktopColorTexto").val("#ffffff");
+                if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") != ConstantesModule.TipoEstrategia.ATP) {
+                    $("#DesktopColorTexto").val("#ffffff");
+                }
             }
             if ($("#MobileColorTexto").val() === "") {
-                $("#MobileColorTexto").val("#ffffff");
+                if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") != ConstantesModule.TipoEstrategia.ATP) {
+                    $("#MobileColorTexto").val("#ffffff");
+                }
             }
 
             if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") !== _palanca.odd) {
@@ -388,6 +510,10 @@ function IniDialogs() {
                 var mobileColorTexto = $("#MobileColorTexto").val();
                 var desktopUsarImagenFondo = $("#DesktopUsarImagenFondo").prop("checked");
                 var mobileUsarImagenFondo = $("#MobileUsarImagenFondo").prop("checked");
+                var botonColor = $("#BotonColor").val();
+                var botonColorTexto = $("#BotonColorTexto").val();
+                var desktopActivo = $("#DesktopActivo").is(":checked");
+                var mobileActivo = $("#MobileActivo").is(":checked");
 
                 var regExpColorHex = /^#+([a-fA-F0-9]{6})/;
                 if (!regExpColorHex.test(desktopColorFondo) && desktopColorFondo !== "") {
@@ -410,6 +536,20 @@ function IniDialogs() {
                     return false;
                 }
 
+                var esATP = $.trim($("#Codigo").val()) === ConstantesModule.TipoEstrategia.ATP;
+
+                if (esATP) {
+                    if (!regExpColorHex.test(botonColor) && botonColor !== "") {
+                        _toastHelper.error("El color del botón debe tener un código hexadecimal válido.");
+                        return false;
+                    }
+
+                    if (!regExpColorHex.test(botonColorTexto) && botonColorTexto !== "") {
+                        _toastHelper.error("El color del mensaje del botón debe tener un código hexadecimal válido.");
+                        return false;
+                    }
+                }
+
                 if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") === _palanca.odd) {
                     desktopTipoPresentacion = _tipopresentacion.odd;
                     mobileTipoPresentacion = _tipopresentacion.odd;
@@ -421,6 +561,38 @@ function IniDialogs() {
                     desktopUsarImagenFondo = false;
                     mobileUsarImagenFondo = false;
                 }
+
+                /*Inicio Agana 186 - Setear valores por defecto*/
+
+                if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") == ConstantesModule.TipoEstrategia.ATP) {
+                    desktopColorFondo = $("#DesktopColorFondo").val();
+                    mobileColorFondo = desktopColorFondo;
+                    desktopColorTexto = $("#DesktopColorTexto").val();
+                    mobileColorTexto = desktopColorTexto;
+                    desktopUsarImagenFondo = $("#DesktopUsarImagenFondo").prop("checked");
+                    mobileUsarImagenFondo = desktopUsarImagenFondo;
+                    mobileActivo = desktopActivo;
+
+                    $("#DesktopOrdenBpt").val($("#DesktopOrden").val());
+                    $("#MobileOrden").val($("#DesktopOrden").val());
+                    $("#MobileOrdenBpt").val($("#DesktopOrden").val());
+                    $("#nombre-fondo-mobile").val($("#nombre-fondo-desktop").val());
+                    $("#src-fondo-mobile").attr("src", $("#src-fondo-desktop").attr("src"));
+                    $("#MobileTitulo").val($("#DesktopTitulo").val());
+                    $("#MobileSubTitulo").val($("#DesktopSubTitulo").val());
+
+                    if (!regExpColorHex.test(botonColor) && botonColor !== "") {
+                        _toastHelper.error("El color del botón debe tener un código hexadecimal válido.");
+                        return false;
+                    }
+
+                    if (!regExpColorHex.test(botonColorTexto) && botonColorTexto !== "") {
+                        _toastHelper.error("El color del mensaje del botón debe tener un código hexadecimal válido.");
+                        return false;
+                    }
+                }
+
+                /*Fin Agana 186*/
 
                 if (isNaN($("#AdministrarOfertasHomeAppModel_AppOrden").val())) {
                     _toastHelper.error("El valor del orden app tiene que ser numérico.");
@@ -466,8 +638,8 @@ function IniDialogs() {
                     MobileTipoEstrategia: GetStringEstrategia("mobile-tipo-estrategia"),
                     DesktopCantidadProductos: $("#DesktopCantidadProductos").val(),
                     MobileCantidadProductos: $("#MobileCantidadProductos").val(),
-                    DesktopActivo: $("#DesktopActivo").is(":checked"),
-                    MobileActivo: $("#MobileActivo").is(":checked"),
+                    DesktopActivo: desktopActivo,
+                    MobileActivo: mobileActivo,
                     UrlSeccion: $("#UrlSeccion").val(),
                     DesktopOrdenBpt: $("#DesktopOrdenBpt").val(),
                     MobileOrdenBpt: $("#DialogMantenimientoOfertasHome #MobileOrdenBpt").val(),
@@ -481,7 +653,12 @@ function IniDialogs() {
                         AppBannerInformativo: $("#nombre-fondo-app").val(),
                         AppOrden: $("#AdministrarOfertasHomeAppModel_AppOrden").val(),
                         AppCantidadProductos: $("#AdministrarOfertasHomeAppModel_AppCantidadProductos").val(),
-                    }
+                    },
+                    BotonTexto1: $("#BotonTexto1").val(),
+                    BotonTexto2: $("#BotonTexto2").val(),
+                    BotonColor: $("#BotonColor").val(),
+                    BotonColorTexto: $("#BotonColorTexto").val(),
+                    Codigo: $("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo")
                 };
 
                 waitingDialog({});
@@ -498,15 +675,17 @@ function IniDialogs() {
 
                         if (data.success) {
                             HideDialog("DialogMantenimientoOfertasHome");
-                            _toastHelper.success("Solicitud realizada sin problemas.");
+                            //_toastHelper.success("Solicitud realizada sin problemas.");
+                            showDialogMensaje(data.message, '');
                             UpdateGrillaOfertas();
                         } else {
-                            _toastHelper.error("Error al procesar la Solicitud.");
+                            showDialogMensaje(data.message, '');
+                            //_toastHelper.error("Error al procesar la Solicitud.");
                         }
                     },
                     error: function (data, error) {
                         closeWaitingDialog();
-
+                        console.log(data);
                         _toastHelper.error("Error al procesar la Solicitud.");
                     }
                 });
@@ -646,7 +825,7 @@ function UpdateGrillaOfertas() {
         rowNum: 10,
         scrollOffset: 0,
         rowList: [10, 20, 30, 40, 50],
-        sortname: "Orden",
+        sortname: "DesktopOrden",
         sortorder: "asc",
         viewrecords: true,
         height: "auto",

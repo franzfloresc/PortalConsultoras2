@@ -13545,6 +13545,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string Descripcion1Field;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescripcionGrupoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int DigitableField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -13753,6 +13756,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.Descripcion1Field, value) != true)) {
                     this.Descripcion1Field = value;
                     this.RaisePropertyChanged("Descripcion1");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DescripcionGrupo {
+            get {
+                return this.DescripcionGrupoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescripcionGrupoField, value) != true)) {
+                    this.DescripcionGrupoField = value;
+                    this.RaisePropertyChanged("DescripcionGrupo");
                 }
             }
         }

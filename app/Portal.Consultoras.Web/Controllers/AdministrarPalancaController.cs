@@ -114,12 +114,12 @@ namespace Portal.Consultoras.Web.Controllers
                     message = string.Empty,
                     data = new
                     {
-                        AppOfertasHomeActivo = (lst.Where(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeActivo).FirstOrDefault() ?? new ConfiguracionPaisDatosModel()).Valor1 ?? "0",
-                        AppOfertasHomeImgExtension = (lst.Where(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeImgExtension).FirstOrDefault() ?? new ConfiguracionPaisDatosModel()).Valor1 ?? string.Empty,
-                        AppOfertasHomeImgAncho = (lst.Where(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeImgAncho).FirstOrDefault() ?? new ConfiguracionPaisDatosModel()).Valor1 ?? string.Empty,
-                        AppOfertasHomeImgAlto = (lst.Where(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeImgAlto).FirstOrDefault() ?? new ConfiguracionPaisDatosModel()).Valor1 ?? string.Empty,
-                        AppOfertasHomeMsjMedida = (lst.Where(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeMsjMedida).FirstOrDefault() ?? new ConfiguracionPaisDatosModel()).Valor1 ?? string.Empty,
-                        AppOfertasHomeMsjFormato = (lst.Where(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeMsjFormato).FirstOrDefault() ?? new ConfiguracionPaisDatosModel()).Valor1 ?? string.Empty
+                        AppOfertasHomeActivo = (lst.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeActivo) ?? new ConfiguracionPaisDatosModel()).Valor1 ?? "0",
+                        AppOfertasHomeImgExtension = (lst.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeImgExtension) ?? new ConfiguracionPaisDatosModel()).Valor1 ?? string.Empty,
+                        AppOfertasHomeImgAncho = (lst.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeImgAncho) ?? new ConfiguracionPaisDatosModel()).Valor1 ?? string.Empty,
+                        AppOfertasHomeImgAlto = (lst.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeImgAlto) ?? new ConfiguracionPaisDatosModel()).Valor1 ?? string.Empty,
+                        AppOfertasHomeMsjMedida = (lst.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeMsjMedida) ?? new ConfiguracionPaisDatosModel()).Valor1 ?? string.Empty,
+                        AppOfertasHomeMsjFormato = (lst.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeMsjFormato) ?? new ConfiguracionPaisDatosModel()).Valor1 ?? string.Empty
                     }
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -253,6 +253,16 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                var mensaje = ValidarExistente(model);
+                if (mensaje != "")
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = mensaje
+                    });
+                }
+               
                 model.AdministrarOfertasHomeAppModel.AppBannerInformativo = model.AdministrarOfertasHomeAppModel.AppBannerInformativo ?? string.Empty;
                 model.AdministrarOfertasHomeAppModel.AppColorFondo = model.AdministrarOfertasHomeAppModel.AppColorFondo ?? string.Empty;
                 model.AdministrarOfertasHomeAppModel.AppColorTexto = model.AdministrarOfertasHomeAppModel.AppColorTexto ?? string.Empty;
@@ -260,15 +270,20 @@ namespace Portal.Consultoras.Web.Controllers
 
                 model.PaisID = userData.PaisID;
                 model = UpdateFilesOfertas(model);
+
+                if (model.Codigo == Constantes.TipoPersonalizacion.ArmaTuPack)
+                    model.MobileImagenFondo = model.DesktopImagenFondo;
+
                 using (var sv = new SACServiceClient())
                 {
                     var entidad = Mapper.Map<BEConfiguracionOfertasHome>(model);
                     sv.UpdateConfiguracionOfertasHome(entidad);
                 }
+                
                 return Json(new
                 {
                     success = true,
-                    message = "Se grabó con éxito.",
+                    message = "Se actualizó la información satisfactoriamente",
                 });
             }
             catch (Exception ex)
@@ -280,6 +295,28 @@ namespace Portal.Consultoras.Web.Controllers
                     message = ex.StackTrace,
                 });
             }
+        }
+
+        private string ValidarExistente(AdministrarOfertasHomeModel model)
+        {
+            var mensaje = "";
+            if (model.ConfiguracionOfertasHomeID == 0)
+            {
+                var list = ListarConfiguracionOfertasHome(model.CampaniaID).ToList();
+
+                foreach (var listOferta in list)
+                {
+                    var objConfiguracionHome = listOferta.ConfiguracionPais;
+
+                    if (objConfiguracionHome.Codigo == model.Codigo)
+                    {
+                        mensaje = "No se puede tener más de una palanca configurada para una misma campaña.";
+                    }
+
+                }
+            }
+            return mensaje;
+
         }
 
         private IEnumerable<ConfiguracionPaisModel> ListarConfiguracionPais()

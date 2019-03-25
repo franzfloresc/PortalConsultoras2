@@ -21,7 +21,7 @@ var ConstantesModule = (function () {
         Ganadoras: "Ganadoras",
         LiquidacionWeb: "OfertasLiquidacion",
         GuiaNegocio: "GuiaNegocio",
-        SR:"ShowRoom"
+        SR: "ShowRoom"
     }
 
     var _keysLocalStorage = {
@@ -38,22 +38,27 @@ var ConstantesModule = (function () {
         CompuestaVariable: "2003"
     }
 
+    // es homologo a DB TipoEstrategia, campo Codigo
+    // es homologo a constantes.TipoEstrategiaCodigo
     var _constantesPalanca = {
         OfertaParaTi: "001",
         PackNuevas: "002",
         OfertaWeb: "003",
+        ArmaTuPack: "004",
         Lanzamiento: "005",
         OfertasParaMi: "007",
-        MasGanadoras: "007",
+        MasGanadoras: "007", // No tiene referecia con BD, caso particular de OfertasParaMi 007
         PackAltoDesembolso: "008",
-        RevistaDigital: "101",
-        LosMasVendidos: "020",
-        IncentivosProgramaNuevas: "021",
         OfertaDelDia: "009",
         GuiaDeNegocioDigitalizada: "010",
+        HerramientasVenta: "011",
+        LosMasVendidos: "020",
+        IncentivosProgramaNuevas: "021",
         Incentivos: "022",
         ShowRoom: "030",
-        HerramientasVenta: "011",
+
+        RevistaDigital: "101", // No tiene referecia con BD, caso particular de OfertasParaMi 007
+
         ProgramaNuevasRegalo: "044",
         ParticipaProgramaNuevas: "1",
         NotParticipaProgramaNuevas: "0"
@@ -75,7 +80,8 @@ var ConstantesModule = (function () {
         GND: "GN",
         LAN: "LAN",
         MG: "MG",
-        SR: "SR"
+        SR: "SR",
+        ATP: "ATP"
     }
 
     var _urlObtenerEstrategia = {

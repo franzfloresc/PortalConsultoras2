@@ -243,7 +243,7 @@ var AnalyticsPortalModule = (function () {
             }
         }
 
-        console.log("_getEstructuraOrigenPedidoWeb", origen, origenEstructura);
+        //console.log("_getEstructuraOrigenPedidoWeb", origen, origenEstructura);
 
         return origenEstructura;
     }
@@ -372,7 +372,7 @@ var AnalyticsPortalModule = (function () {
             ? ((palanca != "" ? separador : "") + palanca)
             : palanca;
 
-        console.log("_getParametroListSegunOrigen = " + texto, origenEstructura, url);
+        //console.log("_getParametroListSegunOrigen = " + texto, origenEstructura, url);
 
         return texto;
     }
