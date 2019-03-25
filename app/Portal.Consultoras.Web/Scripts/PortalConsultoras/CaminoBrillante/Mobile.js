@@ -45,7 +45,8 @@ function GetNiveles() {
             htmlBeneficios += "</ul>";
             //Desactivando según nivel
             if (nivelactual === 1) {
-                $('#OfertasEspeciales').hide();
+                //.hide();
+                $('#OfertasEspeciales').addClass("OfertasEspecialesBlock");
                 htmlBeneficios += "<br />";
             }
             $("#BeneficiosPrincipal").append(htmlBeneficios);
@@ -60,8 +61,27 @@ function ModalBeneficios(index) {
     $("#m_montoMinimo").empty();
     $("#ListaBeneficios").empty();
     $("#m_titulo").text(lista.list[index].DescripcionNivel);
-    //$("#m_montoMinimo").text("Monto mínimo:" + lista.list[index].MontoMinimo);
     $("#m_montoMinimo").append("Monto mínimo: <span>S/ " + lista.list[index].MontoMinimo + ".00</span>");
+
+    if (index === 0)
+        $("#m_imagen").attr("src", "/Content/CaminoBrillante/imgs/image-1@2x.png");
+
+    if (index === 1)
+        $("#m_imagen").attr("src", "/Content/CaminoBrillante/imgs/recurso-29-3-x-copy-3@2x.png");
+
+    if (index === 2)
+        $("#m_imagen").attr("src", "/Content/CaminoBrillante/imgs/recurso-30-3-x-copy-4@2x.png");
+
+    if (index === 3)
+        $("#m_imagen").attr("src", "/Content/CaminoBrillante/imgs/recurso-36-3-x@2x.png");
+
+    if (index === 4)
+        $("#m_imagen").attr("src", "/Content/CaminoBrillante/imgs/recurso-28-3-x-copy-2@2x.png");
+
+    if (index === 5)
+        $("#m_imagen").attr("src", "/Content/CaminoBrillante/imgs/recurso-27-3-x@2x.png");
+
+
     var Html = "";
     for (var i = 0; i <= lista.list[index].BeneficiosNivel.length - 1; i++) {
         Html += "<li>";

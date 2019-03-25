@@ -10,6 +10,14 @@
     @System.Web.Optimization.Styles.Render("~/Bundle/Css/CaminoBrillante")
 }
 <br />
+<style>
+    .OfertasEspecialesBlock {
+        background: #d1d1d4 !important;
+        color: #909094 !important;
+        font-weight: bolder !important;
+        font-size: 14px !important;
+    }
+</style>
 
 <div class="container ">
     <h2 class="title">AVANCE NIVEL</h2>
@@ -25,10 +33,12 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <div class="modal-body pad-center">
-                    <div class="indicador-nivel">
-                        <img id="m_imagen" /> @*src="~/Content/CaminoBrillante/imgs/recurso-31-3-x-copy-5@2x.png"*@
-                        <div class="left-mod">
-                            <h2 id="m_titulo"></h2>
+                    <div class="indicador-nivel" style="text-align:center; margin-bottom: 20px;" >
+                        <center>
+                            <img id="m_imagen" style="float: unset; max-width: 100px !important;" />
+                        </center>
+                        <div class="left-mod" style="width: 100%; margin-left: 0px;" >
+                            <h2 id="m_titulo" style="color: black; font-size: 20px; font-weight: bold;" ></h2>
                             <p id="m_montoMinimo"></p>
                         </div>
                     </div>
@@ -92,7 +102,7 @@
             </div>
         </div>
     </div>
-    <div class="cont-ganancias">
+    <div class="cont-ganancias" style="display:none" >
         <div class="left-ganancias">
             <h2 class="title">MIS GANANCIAS</h2>
             <p class="text">Mira las ganancias que has obtenido durante una campaña o en lo que va del año</p>
