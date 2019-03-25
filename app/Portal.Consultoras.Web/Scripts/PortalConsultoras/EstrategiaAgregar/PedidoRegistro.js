@@ -1503,7 +1503,7 @@ function UpdateTransaction(CantidadActual, CampaniaID, PedidoID, PedidoDetalleID
         data: JSON.stringify(item),
         async: true,
         success: function (data) {
-            debugger;
+            
             CerrarSplash();
             if (!checkTimeout(data))
                 return false;
