@@ -1509,7 +1509,7 @@ function UpdateTransaction(CantidadActual, CampaniaID, PedidoID, PedidoDetalleID
                 return false;
 
             if (data.success != true) {
-                $(txtLPCant).val(CantidadActual);
+                $(txtLPCant).val(CantidadAnti);
                 var errorCliente = data.errorCliente || false;
                 if (!errorCliente) {
                     messageInfoError(data.message);
