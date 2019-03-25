@@ -46,7 +46,7 @@ function GetNiveles() {
             htmlBeneficios += "</ul>";
             //Desactivando según nivel
             if (nivelactual === 1) {
-                $('#OfertasEspeciales').hide();
+                $('#OfertasEspeciales').addClass("OfertasEspecialesBlock");
                 htmlBeneficios += "<br />";
             }
             $("#BeneficiosPrincipal").append(htmlBeneficios);

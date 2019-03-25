@@ -1967,7 +1967,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 SessionManager.SetConsultora(DatosConsultora);
                 foreach (NivelConsultoraCaminoBrillanteModel obj in DatosConsultora)
-                    DescripcionNivel = obj.NivelActual == 1 ? "Consultora" : obj.NivelActual == 2 ? "Consultora Coral" : obj.NivelActual == 3 ? "Consultora Ámbar" : obj.NivelActual == 4 ? "Consultora Perla" : obj.NivelActual == 5 ? "Consultora Topacio" : obj.NivelActual == 6 ? "Consultora Brillante" : "";
+                    DescripcionNivel = obj.NivelActual == 1 ? "<b>Consultora</b>" : obj.NivelActual == 2 ? "<b>Consultora Coral</b>" : obj.NivelActual == 3 ? "<b>Consultora Ámbar</b>" : obj.NivelActual == 4 ? "<b>Consultora Perla</b>" : obj.NivelActual == 5 ? "<b>Consultora Topacio</b>" : obj.NivelActual == 6 ? "<b>Consultora Brillante</b>" : "";
             }
             return DescripcionNivel;
         }
