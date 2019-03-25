@@ -93,7 +93,7 @@ jQuery(document).ready(function () {
                 $("#titColorTexto").html("Color de títulos");
                 $("#DesktopTitulo").val("ARMA TU PACK");
                 $("#DesktopColorFondo").val("#fa1702");
-                $("#DesktopSubTitulo").val("Elige #Cantidad y llevátelos al #PrecioTotal");
+                $("#DesktopSubTitulo").val("Elige tus productos favoritos y llévatelos al #PrecioTotal");
                 $("#DesktopColorTexto").val("#ffffff");
                 $("#BotonTexto1").val("Comenzar");
                 $("#BotonTexto2").val("Modificar");

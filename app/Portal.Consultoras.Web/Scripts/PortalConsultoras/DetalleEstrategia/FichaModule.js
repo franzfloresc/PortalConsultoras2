@@ -1083,8 +1083,7 @@ var FichaPartialModule = (function () {
                                 var strComponentes = '<ul>';
 
                                 $(data.pedidoSet.Detalles).each(function (i, v) {
-
-                                    strComponentes = strComponentes + '<li style="list-style:none;text-align:left">- ' + v.NombreProducto + '</li>';
+                                    strComponentes = strComponentes + '<li style="list-style:none;text-align:left">- x' + v.FactorRepeticion + ' ' + v.NombreProducto + '</li>';
                                 });
 
                                 strComponentes = strComponentes + '</ul>';
