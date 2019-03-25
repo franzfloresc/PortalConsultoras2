@@ -25,6 +25,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (isDigital)
                 {
+                    System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
+
                     BonificacionesModel model = new BonificacionesModel {   CodigoIso = userData.CodigoISO ,
                                                                             Codigoconsultora =userData.CodigoConsultora ,
                                                                             NumeroDocumento = userData.DocumentoIdentidad
