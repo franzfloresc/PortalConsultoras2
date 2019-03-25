@@ -92,10 +92,10 @@ namespace Portal.Consultoras.Web.Providers
         private string GetTablaLogicaDatoValor(int paisId, short tablaLogicaId, string codigo, bool saveInSession = false)
         {
             var datos = GetTablaLogicaDatos(paisId, tablaLogicaId, saveInSession);
-            return GatCampoValor(datos, codigo);
+            return GetCampoValor(datos, codigo);
         }
 
-        private string GatCampoValor(List<TablaLogicaDatosModel> datos, string codigo)
+        private string GetCampoValor(List<TablaLogicaDatosModel> datos, string codigo)
         {
             datos = datos ?? new List<TablaLogicaDatosModel>();
 
