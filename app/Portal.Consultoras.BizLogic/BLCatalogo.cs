@@ -332,10 +332,12 @@ namespace Portal.Consultoras.BizLogic
                 esRevistaPiloto = false;
 
             if (esRevistaPiloto && esMarcaEspecial)
-                requestUrl = string.Format(codigo, nombreCatalogoIssuu, GetPaisNombreByISO(CodigoISO), nroCampania, anioCampania, CodeGrup.Replace(Constantes.ConfiguracionManager.Catalogo_Piloto_Escenario, ""));
+            {
+                requestUrl = string.Format(codigo, nombreCatalogoIssuu, Util.GetPaisNombreByISO(CodigoISO), nroCampania, anioCampania, CodeGrup.Replace(Constantes.ConfiguracionManager.Catalogo_Piloto_Escenario, ""));
+            }
             else
             {
-                requestUrl = string.Format(codigo, nombreCatalogoIssuu, GetPaisNombreByISO(CodigoISO), campania.Substring(4, 2), campania.Substring(0, 4), "");
+                requestUrl = string.Format(codigo, nombreCatalogoIssuu, Util.GetPaisNombreByISO(CodigoISO), campania.Substring(4, 2), campania.Substring(0, 4), "");
                 requestUrl = Util.Trim(requestUrl.Substring(requestUrl.Length - 1)) == "." ? requestUrl.Substring(0, requestUrl.Length - 1) : requestUrl;
             }
 
@@ -449,28 +451,6 @@ namespace Portal.Consultoras.BizLogic
             {
                 LogManager.SaveLog(ex, url, codigoIso);
                 return string.Empty;
-            }
-        }
-
-        private string GetPaisNombreByISO(string paisISO)
-        {
-            switch (paisISO)
-            {
-                case Constantes.CodigosISOPais.Argentina: return "argentina";
-                case Constantes.CodigosISOPais.Bolivia: return "bolivia";
-                case Constantes.CodigosISOPais.Chile: return "chile";
-                case Constantes.CodigosISOPais.Colombia: return "colombia";
-                case Constantes.CodigosISOPais.CostaRica: return "costarica";
-                case Constantes.CodigosISOPais.Dominicana: return "republicadominicana";
-                case Constantes.CodigosISOPais.Ecuador: return "ecuador";
-                case Constantes.CodigosISOPais.Guatemala: return "guatemala";
-                case Constantes.CodigosISOPais.Mexico: return "mexico";
-                case Constantes.CodigosISOPais.Panama: return "panama";
-                case Constantes.CodigosISOPais.Peru: return "peru";
-                case Constantes.CodigosISOPais.PuertoRico: return "puertorico";
-                case Constantes.CodigosISOPais.Salvador: return "elsalvador";
-                case Constantes.CodigosISOPais.Venezuela: return "venezuela";
-                default: return "sinpais";
             }
         }
         #endregion
