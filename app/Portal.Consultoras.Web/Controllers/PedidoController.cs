@@ -4867,7 +4867,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var lstPedidoAgrupado = ObtenerPedidoWebSetDetalleAgrupado(false);
-                var packAgregado = lstPedidoAgrupado != null ? lstPedidoAgrupado.Where(x => x.TipoEstrategiaCodigo == te).FirstOrDefault() : null;
+                var packAgregado = lstPedidoAgrupado != null ? lstPedidoAgrupado.FirstOrDefault(x => x.TipoEstrategiaCodigo == te) : null;
 
                 return Json(new
                 {
