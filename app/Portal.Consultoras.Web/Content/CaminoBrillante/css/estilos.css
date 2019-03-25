@@ -471,73 +471,73 @@ div .owl-carousel .owl-stage-outer {
 #ProgressBar .pt1 {
     display: block;
     left: -1%;
-    background: #a2a2a2 url(/Content/CaminoBrillante/imgs/image-1@2x.png) no-repeat center center;
+    background: url(/Content/CaminoBrillante/imgs/image-1@2x.png) no-repeat center center;
     background-size: cover;
 }
 
 #ProgressBar .pt2 {
     display: block;
     left: 19%;
-    background: #a2a2a2 url(/Content/CaminoBrillante/imgs/recurso-34-3-x@2x.png) no-repeat center center;
+    background: url(/Content/CaminoBrillante/imgs/recurso-34-3-x@2x.png) no-repeat center center;
     background-size: cover;
 }
 
 #ProgressBar .pt3 {
     display: block;
     left: 38%;
-    background: #a2a2a2 url(/Content/CaminoBrillante/imgs/recurso-35-3-x@2x.png) no-repeat center center;
+    background: url(/Content/CaminoBrillante/imgs/recurso-35-3-x@2x.png) no-repeat center center;
     background-size: cover;
 }
 
 #ProgressBar .pt4 {
     display: block;
     left: 58%;
-    background: #a2a2a2 url(/Content/CaminoBrillante/imgs/recurso-34-3-x@2x.png) no-repeat center center;
+    background: url(/Content/CaminoBrillante/imgs/recurso-34-3-x@2x.png) no-repeat center center;
     background-size: cover;
 }
 
 #ProgressBar .pt5 {
     display: block;
     left: 78%;
-    background: #a2a2a2 url(/Content/CaminoBrillante/imgs/recurso-33-3-x@2x.png) no-repeat center center;
+    background: url(/Content/CaminoBrillante/imgs/recurso-33-3-x@2x.png) no-repeat center center;
     background-size: cover;
 }
 
 #ProgressBar .pt6 {
     display: block;
     left: 97%;
-    background: #a2a2a2 url(/Content/CaminoBrillante/imgs/recurso-32-3-x@2x.png) no-repeat center center;
+    background: url(/Content/CaminoBrillante/imgs/recurso-32-3-x@2x.png) no-repeat center center;
     background-size: cover;
 }
 
 
 #ProgressBar .pt1.activo {
-    background: #e6c79e url(/Content/CaminoBrillante/imgs/image-1@2x.png) no-repeat center center;
+    background: url(/Content/CaminoBrillante/imgs/image-1@2x.png) no-repeat center center;
     background-size: cover;
 }
 
 #ProgressBar .pt2.activo {
-    background: #dfa558 url(/Content/CaminoBrillante/imgs/recurso-29-3-x-copy-3@2x.png) no-repeat center center;
+    background: url(/Content/CaminoBrillante/imgs/recurso-29-3-x-copy-3@2x.png) no-repeat center center;
     background-size: cover;
 }
 
 #ProgressBar .pt3.activo {
-    background: #d28f35 url(/Content/CaminoBrillante/imgs/recurso-30-3-x-copy-4@2x.png) no-repeat center center;
+    background: url(/Content/CaminoBrillante/imgs/recurso-30-3-x-copy-4@2x.png) no-repeat center center;
     background-size: cover;
 }
 
 #ProgressBar .pt4.activo {
-    background: #b87825 url(/Content/CaminoBrillante/imgs/recurso-36-3-x@2x.png) no-repeat center center;
+    background: url(/Content/CaminoBrillante/imgs/recurso-36-3-x@2x.png) no-repeat center center;
     background-size: cover;
 }
 
 #ProgressBar .pt5.activo {
-    background: #a17233 url(/Content/CaminoBrillante/imgs/recurso-28-3-x-copy-2@2x.png) no-repeat center center;
+    background: url(/Content/CaminoBrillante/imgs/recurso-28-3-x-copy-2@2x.png) no-repeat center center;
     background-size: cover;
 }
 
 #ProgressBar .pt6.activo {
-    background: #b8905c url(/Content/CaminoBrillante/imgs/recurso-27-3-x@2x.png) no-repeat center center;
+    background: url(/Content/CaminoBrillante/imgs/recurso-27-3-x@2x.png) no-repeat center center;
     background-size: cover;
 }
 

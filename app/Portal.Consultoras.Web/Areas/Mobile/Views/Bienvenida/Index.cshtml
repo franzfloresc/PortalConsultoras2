@@ -256,11 +256,13 @@
 
         <div class="items_belcorp cam-exito">
             <img src="~/Content/Images/CaminoBrillante/medalla.PNG" style="max-width: 80px;">
-            <p class="toptext">Camino Brillante</p>
-            <p>
-                @Model.CaminoBrillanteMsg
-            </p>
-            <a href="@Url.Action("Index", "CaminoBrillante")">Mis Beneficios</a>
+            <div class="mb-left">
+                <p class="toptext">Camino Brillante</p>
+                <p class="describtext">
+                    @Model.CaminoBrillanteMsg
+                </p>
+                <a href="@Url.Action("Index", "CaminoBrillante")">Mis Beneficios</a>
+            </div>
         </div>
         <div class="linea_separadora_mobile" style="margin-top:16px"></div>
     }
