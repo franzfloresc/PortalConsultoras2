@@ -359,7 +359,7 @@ function SeccionMostrarProductos(data) {
 
             var subTitulo = pSubtitulo.data('subtitulo')
                 .replace('#Cantidad', data.lista[0].CantidadPack)
-                .replace('#PrecioTotal', data.lista[0].Precio);
+                .replace('#PrecioTotal', variablesPortal.SimboloMoneda + " " + data.lista[0].PrecioVenta);
 
             pSubtitulo.html(subTitulo);
             //btnRedirect.attr('data-cuv', data.lista[0].CUV2);
