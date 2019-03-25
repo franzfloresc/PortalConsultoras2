@@ -30,14 +30,13 @@ namespace Portal.Consultoras.Web.Providers
 
         public virtual List<ClienteModel> SelectByConsultora(int paisId, long consultoraId)
         {
-            var clientesResult = (List<ClienteModel>)null;
-            var clientes = (List<BECliente>)null;
+            List<BECliente> clientes;
 
             using (var serviceClient = new ClienteServiceClient())
             {
                 clientes = serviceClient.SelectByConsultora(paisId, consultoraId).ToList();
             }
-            clientesResult = Mapper.Map<List<ClienteModel>>(clientes);
+            var clientesResult = Mapper.Map<List<ClienteModel>>(clientes);
 
             return clientesResult;
         }
