@@ -88,8 +88,8 @@ namespace Portal.Consultoras.Web.Providers
 
         public string GetRevistaCodigoIssuu(string campania, bool tieneRDCR, string codigoISO, string codigoZona)
         {
-            string codigo = null;
-            string requestUrl = null;
+            string codigo;
+            string requestUrl;
             bool esRevistaPiloto = false;
             var Grupos = _configuracionManager.GetConfiguracionManager(Constantes.ConfiguracionManager.RevistaPiloto_Grupos + codigoISO + campania);
             string codeGrupo = null;
@@ -101,10 +101,10 @@ namespace Portal.Consultoras.Web.Providers
                 foreach (var grupo in Grupos.Split(','))
                 {
                     var zonas = _configuracionManager.GetConfiguracionManager(Constantes.ConfiguracionManager.RevistaPiloto_Zonas + codigoISO + campania + "_" + grupo);
-                    esRevistaPiloto = zonas.Split(new char[1] { ',' }).Select(zona => zona.Trim()).Contains(codigoZona);
+                    esRevistaPiloto = zonas.Split(',').Select(zona => zona.Trim()).Contains(codigoZona);
                     if (esRevistaPiloto)
                     {
-                        codeGrupo = grupo.Trim().ToString();
+                        codeGrupo = grupo.Trim();
                         break;
                     }
                 }

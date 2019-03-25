@@ -234,7 +234,7 @@ namespace Portal.Consultoras.BizLogic
 
         private void SetCatalogoRevistaCodigoIssuu(string codigoZona, BECatalogoRevista catalogoRevista)
         {
-            string codigo = null;
+            string codigo;
             bool esRevistaPiloto = false;
             var Grupos = ConfigurationManager.AppSettings[Constantes.ConfiguracionManager.RevistaPiloto_Grupos + catalogoRevista.PaisISO + catalogoRevista.CampaniaID];
             string codeGrupo = null;
@@ -254,10 +254,10 @@ namespace Portal.Consultoras.BizLogic
                     foreach (var grupo in Grupos.Split(','))
                     {
                         var zonas = ConfigurationManager.AppSettings[Constantes.ConfiguracionManager.RevistaPiloto_Zonas + catalogoRevista.PaisISO + catalogoRevista.CampaniaID + "_" + grupo];
-                        esRevistaPiloto = zonas.Split(new char[1] { ',' }).Select(zona => zona.Trim()).Contains(codigoZona);
+                        esRevistaPiloto = zonas.Split(',').Select(zona => zona.Trim()).Contains(codigoZona);
                         if (esRevistaPiloto)
                         {
-                            codeGrupo = grupo.Trim().ToString();
+                            codeGrupo = grupo.Trim();
                             break;
                         }
                     }
