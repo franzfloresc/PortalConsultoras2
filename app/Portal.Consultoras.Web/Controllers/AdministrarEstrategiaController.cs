@@ -818,10 +818,12 @@ namespace Portal.Consultoras.Web.Controllers
                         }
 
                         #region Imagen Resize  
-                        error.Append("| mensajeErrorImagenResize");
-                        mensajeErrorImagenResize = _renderImgProvider.ImagenesResizeProceso(model.RutaImagenCompleta, userData.CodigoISO);
-                        error.Append("| mensajeErrorImagenResize fin = " + mensajeErrorImagenResize);
-
+                        if (model.CodigoTipoEstrategia != Constantes.TipoEstrategiaCodigo.ArmaTuPack)
+                        {
+                            error.Append("| mensajeErrorImagenResize");
+                            mensajeErrorImagenResize = _renderImgProvider.ImagenesResizeProceso(model.RutaImagenCompleta, userData.CodigoISO);
+                            error.Append("| mensajeErrorImagenResize fin = " + mensajeErrorImagenResize);
+                        }
                         #endregion
 
                         if (entidad.ImagenMiniaturaURL == string.Empty || entidad.ImagenMiniaturaURL == "prod_grilla_vacio.png")
