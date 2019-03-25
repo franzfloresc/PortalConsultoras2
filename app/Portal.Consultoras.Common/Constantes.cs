@@ -1326,6 +1326,7 @@ namespace Portal.Consultoras.Common
             public const string PedidosPendientes = "PEDIDOSPENDIENTES";
             public const string ActualizaDatos = "ACTUALIZADATOS";
             public const string Notificaciones = "NOTIFICACIONES";
+            public const string MasGanadoras = "MASGANADORAS";
         }
 
         public static class IngresoExternoOrigen
