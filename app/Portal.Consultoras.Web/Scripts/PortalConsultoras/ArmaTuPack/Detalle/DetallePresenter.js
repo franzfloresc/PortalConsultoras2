@@ -54,7 +54,7 @@
                         $.each(dataClone.componentes, function (idxClone, grupoClone) {
                             if (grupo.Grupo === grupoClone.Grupo) {
                                 dataClone.componentes.splice(idxClone, 1);
-                                return;
+                                return false;
                             }
                         });
                     };
