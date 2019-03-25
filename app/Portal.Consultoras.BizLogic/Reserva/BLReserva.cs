@@ -57,7 +57,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
         
         public string DeshacerPedidoValidado(BEUsuario usuario, string tipo)
         {
-            //INI 3693
+            //INI HD-3693
             BEUsuario userBloqueado = null;
             using (var reader = (new DAConfiguracionCampania(usuario.PaisID)).GetConfiguracionByUsuarioAndCampania(usuario.PaisID, usuario.ConsultoraID, usuario.CampaniaID, usuario.usuarioPrueba, usuario.AceptacionConsultoraDA))
             {
@@ -67,7 +67,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
             {
                 if (userBloqueado.AutorizaPedido == "0") return Constantes.MensajesError.Pedido_ConsultoraBloqueada;
             }
-            //FIN 3693
+            //FIN HD-3693
 
             if (usuario.IndicadorGPRSB == 1) return string.Format("En este momento nos encontramos facturando tu pedido de C{0}, inténtalo más tarde", usuario.CampaniaID.Substring(4, 2));
 
