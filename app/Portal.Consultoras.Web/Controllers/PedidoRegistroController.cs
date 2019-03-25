@@ -180,7 +180,8 @@ namespace Portal.Consultoras.Web.Controllers
                     if (string.IsNullOrEmpty(model.CuvTonos)) model.CuvTonos = ficha.CUV2;
 
                     var tonos = model.CuvTonos.Split('|');
-                    string cuvTonos = "";
+                    var cuvTonos = new StringBuilder();
+                    //string cuvTonos = "";
                     foreach (var tono in tonos)
                     {
                         var listSp = tono.Split(';');
@@ -195,11 +196,13 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                         }
 
-                        cuvTonos = cuvTonos
-                            + (cuvTonos == "" ? "" : "|") + cuv
-                            + ";" + ficha.MarcaID
-                            + ";" + ficha.Precio2
-                            + (string.IsNullOrEmpty(descTono) ? "" : (";" + descTono));
+                        cuvTonos.Append((cuvTonos.ToString() == "" ? "" : "|") + cuv);
+                        cuvTonos.Append(";" + ficha.MarcaID);
+                        cuvTonos.Append(";" + ficha.Precio2);
+                        if (!string.IsNullOrEmpty(descTono))
+                        {
+                            cuvTonos.Append(";" + descTono);
+                        }
                         
                     }
 
@@ -207,7 +210,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.IndicadorMontoMinimo = ficha.IndicadorMontoMinimo.ToString();
                     model.TipoEstrategiaImagen = ficha.TipoEstrategiaImagenMostrar;
                     model.FlagNueva = ficha.FlagNueva.ToString();
-                    model.CuvTonos = cuvTonos;
+                    model.CuvTonos = cuvTonos.ToString();
 
                     pedidoDetalle.EsVirtualCoach = true;
                     pedidoDetalle.Estrategia = new ServicePedido.BEEstrategia();

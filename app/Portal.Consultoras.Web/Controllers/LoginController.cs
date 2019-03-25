@@ -1409,7 +1409,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     using (var usuarioCliente = new UsuarioServiceClient())
                     {
-                        var insert = usuarioCliente.ActualizarNovedadBuscadorAsync(usuarioModel.PaisID, usuarioModel.CodigoUsuario);
+                        usuarioCliente.ActualizarNovedadBuscadorAsync(usuarioModel.PaisID, usuarioModel.CodigoUsuario);
                     }
 
                     usuarioModel.EsLebel = GetPaisesLbelFromConfig().Contains(usuarioModel.CodigoISO);

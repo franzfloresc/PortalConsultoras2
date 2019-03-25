@@ -1028,11 +1028,11 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (lstConfigPaisDatos.Any())
                 {
-                    entidadServ.AppOfertasHomeImgExtension = (lstConfigPaisDatos.Where(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeImgExtension).FirstOrDefault() ?? new BEConfiguracionPaisDatos()).Valor1 ?? string.Empty;
-                    entidadServ.AppOfertasHomeImgAncho = (lstConfigPaisDatos.Where(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeImgAncho).FirstOrDefault() ?? new BEConfiguracionPaisDatos()).Valor1 ?? string.Empty;
-                    entidadServ.AppOfertasHomeImgAlto = (lstConfigPaisDatos.Where(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeImgAlto).FirstOrDefault() ?? new BEConfiguracionPaisDatos()).Valor1 ?? string.Empty;
-                    entidadServ.AppOfertasHomeMsjMedida = (lstConfigPaisDatos.Where(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeMsjMedida).FirstOrDefault() ?? new BEConfiguracionPaisDatos()).Valor1 ?? string.Empty;
-                    entidadServ.AppOfertasHomeMsjFormato = (lstConfigPaisDatos.Where(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeMsjFormato).FirstOrDefault() ?? new BEConfiguracionPaisDatos()).Valor1 ?? string.Empty;
+                    entidadServ.AppOfertasHomeImgExtension = (lstConfigPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeImgExtension) ?? new BEConfiguracionPaisDatos()).Valor1 ?? string.Empty;
+                    entidadServ.AppOfertasHomeImgAncho = (lstConfigPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeImgAncho) ?? new BEConfiguracionPaisDatos()).Valor1 ?? string.Empty;
+                    entidadServ.AppOfertasHomeImgAlto = (lstConfigPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeImgAlto) ?? new BEConfiguracionPaisDatos()).Valor1 ?? string.Empty;
+                    entidadServ.AppOfertasHomeMsjMedida = (lstConfigPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeMsjMedida) ?? new BEConfiguracionPaisDatos()).Valor1 ?? string.Empty;
+                    entidadServ.AppOfertasHomeMsjFormato = (lstConfigPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeMsjFormato) ?? new BEConfiguracionPaisDatos()).Valor1 ?? string.Empty;
                 }
 
                 return Json(entidadServ, JsonRequestBehavior.AllowGet);

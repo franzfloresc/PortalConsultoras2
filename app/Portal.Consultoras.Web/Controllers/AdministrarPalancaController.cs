@@ -114,12 +114,12 @@ namespace Portal.Consultoras.Web.Controllers
                     message = string.Empty,
                     data = new
                     {
-                        AppOfertasHomeActivo = (lst.Where(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeActivo).FirstOrDefault() ?? new ConfiguracionPaisDatosModel()).Valor1 ?? "0",
-                        AppOfertasHomeImgExtension = (lst.Where(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeImgExtension).FirstOrDefault() ?? new ConfiguracionPaisDatosModel()).Valor1 ?? string.Empty,
-                        AppOfertasHomeImgAncho = (lst.Where(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeImgAncho).FirstOrDefault() ?? new ConfiguracionPaisDatosModel()).Valor1 ?? string.Empty,
-                        AppOfertasHomeImgAlto = (lst.Where(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeImgAlto).FirstOrDefault() ?? new ConfiguracionPaisDatosModel()).Valor1 ?? string.Empty,
-                        AppOfertasHomeMsjMedida = (lst.Where(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeMsjMedida).FirstOrDefault() ?? new ConfiguracionPaisDatosModel()).Valor1 ?? string.Empty,
-                        AppOfertasHomeMsjFormato = (lst.Where(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeMsjFormato).FirstOrDefault() ?? new ConfiguracionPaisDatosModel()).Valor1 ?? string.Empty
+                        AppOfertasHomeActivo = (lst.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeActivo) ?? new ConfiguracionPaisDatosModel()).Valor1 ?? "0",
+                        AppOfertasHomeImgExtension = (lst.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeImgExtension) ?? new ConfiguracionPaisDatosModel()).Valor1 ?? string.Empty,
+                        AppOfertasHomeImgAncho = (lst.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeImgAncho) ?? new ConfiguracionPaisDatosModel()).Valor1 ?? string.Empty,
+                        AppOfertasHomeImgAlto = (lst.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeImgAlto) ?? new ConfiguracionPaisDatosModel()).Valor1 ?? string.Empty,
+                        AppOfertasHomeMsjMedida = (lst.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeMsjMedida) ?? new ConfiguracionPaisDatosModel()).Valor1 ?? string.Empty,
+                        AppOfertasHomeMsjFormato = (lst.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeMsjFormato) ?? new ConfiguracionPaisDatosModel()).Valor1 ?? string.Empty
                     }
                 }, JsonRequestBehavior.AllowGet);
             }
