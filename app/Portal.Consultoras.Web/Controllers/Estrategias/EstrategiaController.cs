@@ -670,7 +670,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 }
                 else if (palanca == Constantes.NombrePalanca.OfertaDelDia)
                 {
-                    listaOfertasModel = _ofertaPersonalizadaProvider.ObtenerListaProductoODD();
+                    listaOfertasModel = _ofertaPersonalizadaProvider.ObtenerListaProductoODD(userData);
                 }
                 else if (palanca == Constantes.NombrePalanca.PackNuevas)
                 {
