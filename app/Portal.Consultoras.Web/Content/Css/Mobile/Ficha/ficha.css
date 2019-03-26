@@ -97,6 +97,12 @@ ul.breadcumbs li:last-child a {
     text-transform:uppercase;
 }
 
+.descripcion_item {
+    font-weight: normal;
+    text-transform: none
+}
+
+
 .precio_producto p {
     font-size: 13px;
     font-weight: normal;
@@ -135,7 +141,7 @@ ul.breadcumbs li:last-child a {
     font-weight: bold;
     letter-spacing: 0.5px;
     color: #000000;
-    margin: 12px 0px 14px 0px;
+    margin: 12px 0px 10px 0px;
     line-height: normal;
 }
 
@@ -228,7 +234,7 @@ ul.breadcumbs li:last-child a {
 }
 
 .precio li:first-child {
-    padding-right: 11px;
+    padding-right: 8px;
 }
 
 .precio li:last-child {
@@ -417,7 +423,12 @@ ul.breadcumbs li:last-child a {
     margin-left: 4px;
 }
 /* Fin Seleccionar tono*/
+
+
 /* Tabs */
+.tabs{
+    margin-top:15px;
+}
 .tabs ul.tabs {
     padding: 0;
     margin: 0;
@@ -425,12 +436,10 @@ ul.breadcumbs li:last-child a {
 }
 
 .tabs ul.tabs li a, .tab_title {
-    padding: 20px 0px;
+    padding: 15px 0px;
     display: block;
-    font-size: 13px;
-    font-weight: bold;
+    font-size: 16px;
     line-height: normal;
-    letter-spacing: 2.5px;
     color: #000000;
     background: url(/Content/Images/mobile/Esika/down-arrow.svg);
     background-repeat: no-repeat;
@@ -467,10 +476,25 @@ ul.breadcumbs li:last-child a {
     display: none;
 }
 
-.tabs li:nth-child(1) {
-    border-top: 1px solid #ccc;
+.tabs li {
+    border-bottom: 1px solid #ccc;
 }
 
+.tabs li:last-child {
+    border: none;
+}
+
+.ficha_tabs li .active {
+    color: #b9007e !important;
+}
+
+.tabs_container h4 {
+    font-size: 13.5px;
+    font-weight: bold;
+    line-height: normal;
+    margin-top: 0px;
+    margin-bottom: 5px;
+}
 /* fin Tabs */
 .content_producto_compuesto::after {
     content: "";

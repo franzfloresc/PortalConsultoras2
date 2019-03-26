@@ -200,17 +200,17 @@ var FichaModule = (function (config) {
 
         var estrategia = _config.localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
 
-        $(_seccionesFichaProducto.ContenidoProducto).hide();
-        $(_tabsFichaProducto.detalleProducto).hide();
-        $(_tabsFichaProducto.detallePack).hide();
-        $(_tabsFichaProducto.tipsVenta).hide();
-        $(_tabsFichaProducto.beneficios).hide();
-        $(_tabsFichaProducto.video).hide();
-        $(_seccionesFichaTabProducto.ContenidoProductoDetalleProducto).hide();
-        $(_seccionesFichaTabProducto.ContenidoProductoDetallePack).hide();
-        $(_seccionesFichaTabProducto.ContenidoProductoTipsVenta).hide();
-        $(_seccionesFichaTabProducto.ContenidoProductoBeneficios).hide();
-        $(_seccionesFichaTabProducto.ContenidoProductoVideo).hide();
+        //$(_seccionesFichaProducto.ContenidoProducto).hide();
+        //$(_tabsFichaProducto.detalleProducto).hide();
+        //$(_tabsFichaProducto.detallePack).hide();
+        //$(_tabsFichaProducto.tipsVenta).hide();
+        //$(_tabsFichaProducto.beneficios).hide();
+        //$(_tabsFichaProducto.video).hide();
+        //$(_seccionesFichaTabProducto.ContenidoProductoDetalleProducto).hide();
+        //$(_seccionesFichaTabProducto.ContenidoProductoDetallePack).hide();
+        //$(_seccionesFichaTabProducto.ContenidoProductoTipsVenta).hide();
+        //$(_seccionesFichaTabProducto.ContenidoProductoBeneficios).hide();
+        //$(_seccionesFichaTabProducto.ContenidoProductoVideo).hide();
 
         var showTabContainer = false;
         if (_codigoPalanca.ShowRoom === _config.palanca ||

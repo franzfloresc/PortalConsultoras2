@@ -44,6 +44,12 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     {{DescripcionCompleta}}
                 </div>
+                <div class="col-md-12 col-sm-12 col-xs-12 descripcion_item">
+                    15 gr
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12 descripcion_item">
+                    15 x 20 x 25 milimentos
+                </div>
             </div>
             {{#IsNullOrEmpty this.ListaDescripcionDetalle '!='}}
             <div id="SloganLanzamientos">
@@ -69,7 +75,7 @@
                 <li class="precio_producto">
                     <p>
                         Precio para ti
-                        <b style="font-size: 14px;">
+                        <b>
                             {{#IsNullOrEmpty ListaPrecioNiveles '!='}}1x {{/IsNullOrEmpty}}{{SimboloMoneda}} {{PrecioVenta}}
                         </b>
                     </p>
