@@ -5,6 +5,22 @@ var urlPasarelaPago = urlPasarelaPago || '';
 var rutaGuardarDatosPago = rutaGuardarDatosPago || '';
 var tipoOrigenPantalla = tipoOrigenPantalla || 0;
 
+// FechaActual
+var diaActual = new Date();
+var day = diaActual.getDate();
+var month = diaActual.getMonth() + 1;
+var year = diaActual.getFullYear();
+
+if (day < 10) {
+    day = "0" + day;
+}
+if (month < 10) {
+    month = "0" + month;
+}
+
+var fechaHoy = day + '-' + month + '-' + year;
+//fin fecha hoy ------------
+
 $(document).ready(function () {
     'use strict';
     var mainPL;
@@ -159,7 +175,23 @@ $(document).ready(function () {
                     var montoParcial = parseFloat($(this).val());
                     var porcentaje = parseFloat($("#hdPorcentajeGastosAdministrativos").val());
 
-                    var montoGastos = montoParcial * (porcentaje / 100);
+                    /*Validación si se le aplica el 3% de gastos Adm. HD-3804 */
+                    var CodigoIso = $.trim($("#hdCodigoIso").val());
+                    var IndicadorConsultoraDigital = $.trim($("#hdIndicadorConsultoraDigital").val());
+
+                    var dia = $.trim($("#hdFechaVencimiento").val()).substr(0,2);
+                    var mes = $.trim($("#hdFechaVencimiento").val()).substr(3, 2);
+                    var año = $.trim($("#hdFechaVencimiento").val()).substr(6,4);
+
+                    var FechaVencimiento = dia + '-' + mes + '-' + año;
+                    
+                    if (CodigoIso == 'PE' && FechaVencimiento >= fechaHoy && IndicadorConsultoraDigital == '1') {
+                        var montoGastos = 0 ;
+                    } else {
+                        var montoGastos = montoParcial * (porcentaje / 100);
+                    }
+
+                    // Fin de validacion HD-3804
 
                     $("#spnMontoParcial").html(DecimalToStringFormat(montoParcial));
                     $("#spnMontoGastosAdministrativos").html(DecimalToStringFormat(montoGastos));

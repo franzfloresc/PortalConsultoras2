@@ -70,6 +70,10 @@ else
 
             <input type="hidden" id="hdMontoDeuda" value="@Model.MontoDeuda" name="MontoDeuda" />
             <input type="hidden" id="hdPorcentajeGastosAdministrativos" value="@Model.PorcentajeGastosAdministrativos" name="PorcentajeGastosAdministrativos" />
+            <input type="hidden" id="hdCodigoIso" value="@Model.CodigoIso" name="CodigoIso" />
+            <input type="hidden" id="hdFechaVencimiento" value="@Model.FechaVencimiento" name="FechaVencimiento" />
+            <input type="hidden" id="hdIndicadorConsultoraDigital" value="@Model.IndicadorConsultoraDigital" name="IndicadorConsultoraDigital" />
+
 
             <ul class="lista_opciones_pago">
                 @foreach (var item in Model.ListaTipoPago)
@@ -184,17 +188,17 @@ else
                                     <div class="descripcion_opcion_activacion">
                                         Al presionar continuar aceptas los
                                         @if (metodoPago.TipoVisualizacionTyC == Constantes.PagoEnLineaMetodoPagoVisualizacionTyC.Popup)
-            {
-                            <a class="ver_terminos_y_condiciones" data-tipovisualizacion="">
-                                términos y condiciones
-                            </a>
-}
+                                        {
+                                            <a class="ver_terminos_y_condiciones" data-tipovisualizacion="">
+                                                términos y condiciones
+                                            </a>
+                                        }
                                         @if (metodoPago.TipoVisualizacionTyC == Constantes.PagoEnLineaMetodoPagoVisualizacionTyC.Archivo)
-            {
-                            <a class="ver_terminos_y_condiciones" target="_blank" href="@metodoPago.TerminosCondiciones">
-                                términos y condiciones
-                            </a>
-}
+                                        {
+                                            <a class="ver_terminos_y_condiciones" target="_blank" href="@metodoPago.TerminosCondiciones">
+                                                términos y condiciones
+                                            </a>
+                                        }
 
                                     </div>
                                 </div>

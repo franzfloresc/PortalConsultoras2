@@ -6,6 +6,7 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.PagoEnLinea;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.SessionManager;
+using Portal.Consultoras.Web.ServiceUsuario;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -31,12 +32,19 @@ namespace Portal.Consultoras.Web.Providers
 
         public PagoEnLineaModel ObtenerValoresPagoEnLinea(PagoEnLineaModel model)
         {
+            ServiceUsuario.BEUsuario beusuario;
             var userData = sessionManager.GetUserData();
+
+            using (UsuarioServiceClient sv = new UsuarioServiceClient())
+            {
+                beusuario = sv.Select(userData.PaisID, userData.CodigoUsuario);
+            }
 
             model.CodigoIso = userData.CodigoISO;
             model.Simbolo = userData.Simbolo;
             model.MontoDeuda = userData.MontoDeuda;
             model.FechaVencimiento = userData.FechaLimPago;
+            model.IndicadorConsultoraDigital = beusuario.IndicadorConsultoraDigital;
 
             var porcentajeGastosAdministrativosString = _tablaLogica.GetTablaLogicaDatoCodigo(userData.PaisID, Constantes.TablaLogica.ValoresPagoEnLinea, Constantes.TablaLogicaDato.PorcentajeGastosAdministrativos,true);
             decimal porcentajeGastosAdministrativos;
@@ -284,9 +292,9 @@ namespace Portal.Consultoras.Web.Providers
 
                 var bePagoEnLinea = GenerarEntidadPagoEnLineaVisa(respuestaVisa, model);
 
-                var bEUsuario = Mapper.Map<BEUsuario>(userData);                
+                var bEUsuario = Mapper.Map<ServicePedido.BEUsuario>(userData);
 
-                BERespuestaServicio result = null;
+                ServicePedido.BERespuestaServicio result = null;
 
                 using (PedidoServiceClient ps = new PedidoServiceClient())
                 {
