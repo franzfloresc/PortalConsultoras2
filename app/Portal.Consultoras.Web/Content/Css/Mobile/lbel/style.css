@@ -14771,8 +14771,8 @@ span.icon-advertencia {
 
 .popup__somos__belcorp__icono--sesionPorFinalizar,
 .popup__somos__belcorp__icono--alertaCierreSesion {
-    width: 68px;
-    height: 68px;
+    width: 56px;
+    height: 56px;
     margin-bottom: 17px;
     background-position: center;
     background-repeat: no-repeat;
@@ -14825,7 +14825,7 @@ span.icon-advertencia {
     background-color: #FFF;
     color: #000;
     border: 1px solid #000;
-    margin-right: 11px;
+    margin-right: 16px;
 }
 
 .btn_margen_inferior_30 {

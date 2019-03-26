@@ -34935,8 +34935,8 @@ height:30px;
 
 .popup__somos__belcorp__mensaje--cierreSesion,
 .popup__somos__belcorp__mensaje--cierreSesion span {
-    font-size: 18px;
-    line-height: 26px;
+    font-size: 16px;
+    line-height: 23px;
 }
 
 .popup__somos__belcorp__mensaje--cierreSesion {
@@ -34956,8 +34956,8 @@ height:30px;
 
 .popup__somos__belcorp__icono--sesionPorFinalizar,
 .popup__somos__belcorp__icono--alertaCierreSesion {
-    width: 72px;
-    height: 72px;
+    width: 56px;
+    height: 56px;
     margin-bottom: 17px;
     background-position: center;
     background-repeat: no-repeat;
@@ -35010,7 +35010,7 @@ height:30px;
     background-color: #FFF;
     color: #000;
     border: 1px solid #000;
-    margin-right: 35px;
+    margin-right: 16px;
 }
 
 .btn_margen_inferior_30 {
