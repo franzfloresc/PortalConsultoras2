@@ -216,7 +216,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!Constantes.AceptacionContrato.ControladoresOmitidas.Contains(controllerName)
                     && !Constantes.AceptacionContrato.AcionesOmitidas.Contains(actionName)
                     && ValidarContratoPopup())
-                {                    
+                {
                     filterContext.Result = !esMobile ? new RedirectResult(Url.Action("Index", "Bienvenida")) :
                         new RedirectResult(Url.Action("Index", "Bienvenida", new { Area = "Mobile" }));
                     return;
@@ -592,7 +592,7 @@ namespace Portal.Consultoras.Web.Controllers
                 SetBarraConsultoraMontosTotales(objR, montosProl, Agrupado);
 
                 #region Tipping Point
-                
+
                 var configProgNuevas = _programaNuevasProvider.GetConfiguracion();
                 objR.TippingPointBarra = _programaNuevasProvider.GetBarraTippingPoint(configProgNuevas.CodigoPrograma);
                 _programaNuevasProvider.SetBarraConsultoraTippingPoint(objR, configProgNuevas);
@@ -1123,7 +1123,7 @@ namespace Portal.Consultoras.Web.Controllers
             _showRoomProvider.CargarEventoPersonalizacion(userData);
             var menuActivo = _menuContenedorProvider.GetMenuActivo(userData, revistaDigital, herramientasVenta, Request, guiaNegocio, SessionManager, _configuracionManagerProvider, _eventoFestivoProvider, _configuracionPaisProvider, _guiaNegocioProvider, _ofertaPersonalizadaProvider, _programaNuevasProvider, esMobile);
             ViewBag.MenuContenedorActivo = menuActivo;
-            
+
             ViewBag.MenuContenedor = _menuContenedorProvider.GetMenuContenedorByMenuActivoCampania(menuActivo.CampaniaId, userData.CampaniaID, userData, revistaDigital, guiaNegocio, SessionManager, _configuracionManagerProvider, _eventoFestivoProvider, _configuracionPaisProvider, _guiaNegocioProvider, _ofertaPersonalizadaProvider, _programaNuevasProvider, esMobile);
 
             var menuMobile = BuildMenuMobile(userData, revistaDigital);
@@ -1363,6 +1363,35 @@ namespace Portal.Consultoras.Web.Controllers
                 .FirstOrDefault(a => a.Codigo.Equals(Constantes.CodigoConfiguracionRecomendaciones.CaracteresDescripcion));
             if (esMobile) return configuracionPaisDatos != null ? configuracionPaisDatos.Valor2.ToInt() : 35;
             return configuracionPaisDatos != null ? configuracionPaisDatos.Valor1.ToInt() : 37;
+        }
+
+        public bool IndicadorConsultoraDigital()
+        {
+            bool r = false;
+            try
+            {
+                ServiceUsuario.BEUsuario beusuario;
+
+                using (var sv = new ServiceUsuario.UsuarioServiceClient())
+                {
+                    beusuario = sv.Select(userData.PaisID, userData.CodigoUsuario);
+                }
+
+                if (beusuario != null)
+                {
+                    r = beusuario.IndicadorConsultoraDigital > 0;
+                }
+                else
+                {
+                    r = false;
+                }
+            }
+            catch (Exception e)
+            {
+                r = false;
+            }
+
+            return r;
         }
     }
 }
