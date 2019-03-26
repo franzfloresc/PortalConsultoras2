@@ -1816,6 +1816,7 @@ namespace Portal.Consultoras.Common
             public const short GanaMasNativo = 159;
             public const short ResizeImagenesAppGanaMas = 162;
             public const short TiempoMaximoSP = 180;
+            public const short CaminoBrillanteInfoComercial = 165;
         }
 
         public struct MensajesCDRExpress
@@ -3439,5 +3440,58 @@ namespace Portal.Consultoras.Common
             public const int PosibleEgreso = 8;
             public const int Reingreso = 9;
         }
+
+        public static class CaminoBrillante
+        {
+
+            public static class ServicioComercial
+            {
+                public const string GetPeriodo = "GetPeriodo/";
+                public const string GetNivel = "GetNivel/";
+                public const string GetOfertas = "GetOfertas/";
+                public const string GetNivelConsultora = "GetNivelConsultora/";
+                public const string GetKitsConsultora = "GetKitsConsultora/";
+
+                public static class TablaLogicaDatosKey {
+                    /// <summary>
+                    /// Url para conexion a informacionComercialServices
+                    /// </summary>
+                    public const string UrlInformacionComercial = "url_inf_com";
+                    /// <summary>
+                    /// Usuario para autenticarse en el servicio
+                    /// </summary>
+                    public const string UsuarioInformacionComercial = "usu_inf_com";
+                    /// <summary>
+                    /// Clave para autenticarse en el servicio
+                    /// </summary>
+                    public const string ClaveInformacionComercial = "cla_inf_com";
+                    /// <summary>
+                    /// Número de campanias a obtener en cada periodo
+                    /// </summary>
+                    public const string NumeroCampaniasEnPeriodo = "num_cam_per";
+                }
+            }
+
+            public static class CodigoBeneficio {
+
+                public const string BENEFICIO01 = "BENEFICIO01";
+                public const string BENEFICIO02 = "BENEFICIO02";
+                public const string BENEFICIO03 = "BENEFICIO03";
+                public const string BENEFICIO04 = "BENEFICIO04";
+                public const string BENEFICIO05 = "BENEFICIO05";
+
+                private static List<string> _Beneficios;
+
+                public static List<string> Beneficios
+                {
+                    get
+                    {
+                        return _Beneficios ?? (_Beneficios = new List<string> { BENEFICIO01, BENEFICIO02, BENEFICIO03, BENEFICIO04, BENEFICIO05});
+                    }
+                }
+            }
+
+        }
+
     }
 }
