@@ -43,8 +43,8 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
 
-            SessionManager.SetfechaGetNotificacionesSinLeer(null);
-            SessionManager.SetcantidadGetNotificacionesSinLeer(null);
+            //Limpiar Cache Notificaciones
+            LimpiarCacheNotificaciones();
 
             List<BENotificaciones> olstNotificaciones;
             NotificacionesModel model = new NotificacionesModel();
@@ -54,6 +54,12 @@ namespace Portal.Consultoras.Web.Controllers
             }
             model.ListaNotificaciones = olstNotificaciones;
             return View(model);
+        }
+
+        private void LimpiarCacheNotificaciones()
+        {
+            var urlToRemove = Url.Action("GetNotificacionesSinLeer", "Notificaciones");
+            HttpResponse.RemoveOutputCacheItem(urlToRemove);
         }
 
         public ActionResult ListarNotificaciones(long ProcesoId, int TipoOrigen)
@@ -117,9 +123,8 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                SessionManager.SetfechaGetNotificacionesSinLeer(null);
-                SessionManager.SetcantidadGetNotificacionesSinLeer(null);
-
+                //Limpiar Cache Notificaciones
+                LimpiarCacheNotificaciones();
                 return Json(new { success = true }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -521,25 +526,18 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult GetNotificacionesSinLeer()
+        [OutputCacheAttribute(Duration = 1800 ,Location = System.Web.UI.OutputCacheLocation.Client,VaryByParam = "codigoUsuario")] //Media hora EINCA 204-01-2019
+        public JsonResult GetNotificacionesSinLeer(string codigoUsuario = "")
         {
             int cantidadNotificaciones = -1;
             var mensaje = string.Empty;
             try
             {
-                if (CheckDataSessionCantidadNotificaciones())
-                {
-                    cantidadNotificaciones = Convert.ToInt32(SessionManager.GetcantidadGetNotificacionesSinLeer());
-                }
-                else
-                {
-                    using (UsuarioServiceClient sv = new UsuarioServiceClient())
-                    {
-                        cantidadNotificaciones = sv.GetNotificacionesSinLeer(userData.PaisID, userData.ConsultoraID, userData.IndicadorBloqueoCDR, userData.TienePagoEnLinea);
-                    }
+                LogManager.LogManager.LogErrorWebServicesBus(new Exception("Registrando carga Notificaciones: "),userData.UsuarioNombre,userData.PaisID.ToString());
 
-                    SessionManager.SetfechaGetNotificacionesSinLeer(DateTime.Now.Ticks);
-                    SessionManager.SetcantidadGetNotificacionesSinLeer(cantidadNotificaciones);
+                using (UsuarioServiceClient sv = new UsuarioServiceClient())
+                {
+                    cantidadNotificaciones = sv.GetNotificacionesSinLeer(userData.PaisID, userData.ConsultoraID, userData.IndicadorBloqueoCDR, userData.TienePagoEnLinea);
                 }
             }
             catch (Exception ex)
@@ -548,19 +546,6 @@ namespace Portal.Consultoras.Web.Controllers
                 mensaje = ex.Message;
             }
             return Json(new { mensaje, cantidadNotificaciones }, JsonRequestBehavior.AllowGet);
-        }
-
-        public bool CheckDataSessionCantidadNotificaciones()
-        {
-            if (SessionManager.GetfechaGetNotificacionesSinLeer() != null &&
-                SessionManager.GetcantidadGetNotificacionesSinLeer() != null)
-            {
-                var ticks = Convert.ToInt64(SessionManager.GetfechaGetNotificacionesSinLeer());
-                var fecha = new DateTime(ticks);
-                var diferencia = DateTime.Now - fecha;
-                return (diferencia.TotalMinutes <= 30);
-            }
-            return false;
         }
     }
 }
