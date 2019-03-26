@@ -14976,4 +14976,12 @@ a {
     margin-bottom: 30px;
 }
 
+@media screen and (max-width:324px) {
+
+    .popup__somos__belcorp__btn--cerrarSesion {
+        margin-right: 8px;
+    }
+
+}
+
 /* FIN - MC - HD-3159 - POPUP CIERRE DE SESIÓN */
