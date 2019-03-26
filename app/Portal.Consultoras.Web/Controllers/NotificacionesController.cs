@@ -25,7 +25,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             _cdrProvider = new CdrProvider();
             _notificacionProvider = new NotificacionProvider();
-        } 
+        }
 
         public ActionResult Index()
         {
@@ -41,6 +41,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     return RedirectToAction("Index", "Notificaciones", new { area = "Mobile" });
                 }
+
             }
 
             //Limpiar Cache Notificaciones
@@ -368,10 +369,37 @@ namespace Portal.Consultoras.Web.Controllers
                 mGanancia = Util.DecimalToStringFormat(
                     lstObservacionesPedido.Any()?
                     lstObservacionesPedido[0].MontoAhorroCatalogo + lstObservacionesPedido[0].MontoAhorroRevista
-                    :0,
+                    : 0,
                     userData.CodigoISO)
             };
             ViewBag.PaisIso = userData.CodigoISO;
+
+            if (model.Origen != 3)
+            {
+                if (model.ListaNotificacionesDetallePedido.Any())
+                {
+                    model.SubTotal = model.ListaNotificacionesDetallePedido.Sum(p => p.ImporteTotal);
+                    model.Descuento = model.ListaNotificacionesDetallePedido[0].DescuentoProl;
+                    model.Total = model.SubTotal - model.Descuento;
+                }
+                else
+                {
+                    model.SubTotal = Convert.ToDecimal(0);
+                    model.Descuento = Convert.ToDecimal(0);
+                    model.Total = Convert.ToDecimal(0);
+                    model.ListaNotificacionesDetallePedido.Add(new NotificacionesModelDetallePedido() { ImporteTotal = 0, PrecioUnidad = 0 });
+                }
+
+                model.SubTotalString = Util.DecimalToStringFormat(model.SubTotal, userData.CodigoISO);
+                model.DescuentoString = Util.DecimalToStringFormat(model.Descuento, userData.CodigoISO);
+                model.TotalString = Util.DecimalToStringFormat(model.Total, userData.CodigoISO);
+
+                foreach (var notificacion in model.ListaNotificacionesDetallePedido)
+                {
+                    notificacion.ImporteTotalString = Util.DecimalToStringFormat(notificacion.ImporteTotal, userData.CodigoISO);
+                    notificacion.PrecioUnidadString = Util.DecimalToStringFormat(notificacion.PrecioUnidad, userData.CodigoISO);
+                }
+            }
 
             if (model.Origen != 3)
             {
