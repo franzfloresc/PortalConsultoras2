@@ -484,8 +484,38 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (WsGestionWeb sv = new WsGestionWeb())
                 {
-                    var respuestaServiceCdr = sv.GetCdrWebConsulta_Reclamo(userData.CodigoISO, model.CampaniaID.ToString(),
+#if DEBUG
+                    model.CampaniaID = 201905;
+#endif
+                    var respuestaServiceCdr = sv.GetCdrWeb_Reclamo(userData.CodigoISO, model.CampaniaID.ToString(),
                         userData.CodigoConsultora, model.CUV, model.Cantidad, userData.CodigoZona);
+
+
+#if DEBUG
+
+                    var respuestaServiceCdr2 = new RptCdrReclamo[0];
+                    respuestaServiceCdr2[0].Codigo = "00";
+                    respuestaServiceCdr2[0].Descripcion = "Su solicitud procede";
+                    respuestaServiceCdr2[0].Estrategia = 2002;
+                    var complementos = new ProductosComplementos[1];
+
+                    complementos[0].cuv = "31867";
+                    complementos[0].descripcion = "LB IRRESISTIBLE EDP 50 ML";
+                    complementos[0].precio = 7610.00M;
+                    complementos[0].cantidad = 1;
+                    complementos[0].digitable = 1;
+
+                    complementos[1].cuv = "31140";
+                    complementos[1].descripcion = "LB MITHYKA EDP QUP 50 ML";
+                    complementos[1].precio = 7360.00M;
+                    complementos[1].cantidad = 6;
+                    complementos[1].digitable = 0;
+
+                    respuestaServiceCdr2[0].LProductosComplementos = complementos;
+#endif
+
+                    //var respuestaServiceCdr = sv.GetCdrWebConsulta_Reclamo(userData.CodigoISO, model.CampaniaID.ToString(),
+                    //  userData.CodigoConsultora, model.CUV, model.Cantidad, userData.CodigoZona);
 
 
                     if (respuestaServiceCdr[0].Codigo != "00")
@@ -501,7 +531,7 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
 
-            #endregion
+#endregion
 
             string mensajeError;
             var valid = ValidarRegistro(model, out mensajeError);
@@ -514,7 +544,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ValidarNoPack(MisReclamosModel model)
         {
-            #region Validar Pack y Sets
+#region Validar Pack y Sets
 
             try
             {
@@ -536,7 +566,7 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
 
-            #endregion
+#endregion
 
             string mensajeError = "";
             return Json(new
@@ -1174,7 +1204,7 @@ namespace Portal.Consultoras.Web.Controllers
                 };
                 IEnumerable<BECDRWebDetalleReporte> items = lst;
 
-                #region Sort Section
+#region Sort Section
                 if (sord == "asc")
                 {
                     switch (sidx)
@@ -1331,7 +1361,7 @@ namespace Portal.Consultoras.Web.Controllers
                             break;
                     }
                 }
-                #endregion
+#endregion
                 items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
                 BEPager pag = Util.PaginadorGenerico(grid, lst);
 
@@ -1441,7 +1471,7 @@ namespace Portal.Consultoras.Web.Controllers
             htmlTemplate = htmlTemplate.Replace("#FORMATO_NUMEROSOLICITUD#", cdrWeb.CDRWebID.ToString());
             htmlTemplate = htmlTemplate.Replace("#FORMATO_CAMPANIA#", formatoCampania);
 
-            #region Valores de Mensaje Express
+#region Valores de Mensaje Express
 
             if (!string.IsNullOrEmpty(cdrWeb.MensajeDespacho))
             {
@@ -1452,9 +1482,9 @@ namespace Portal.Consultoras.Web.Controllers
             }
             else htmlTemplate = htmlTemplate.Replace("#MENSAJE_EXPRESS#", "");
 
-            #endregion
+#endregion
 
-            #region Valores de Detalle
+#region Valores de Detalle
 
             var templateDetalleBasePath = AppDomain.CurrentDomain.BaseDirectory + "Content\\Template\\mailing_detalle.html";
             string htmlTemplateDetalleBase = FileManager.GetContenido(templateDetalleBasePath);
@@ -1499,7 +1529,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             htmlTemplate = htmlTemplate.Replace("#FORMATO_DETALLECDR#", txtBuil.ToString());
 
-            #endregion
+#endregion
 
             return htmlTemplate;
         }
