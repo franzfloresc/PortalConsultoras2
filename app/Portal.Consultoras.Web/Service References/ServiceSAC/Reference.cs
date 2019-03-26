@@ -10626,6 +10626,9 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         private bool SegmentacionRegionZonaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int TipoComunicadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string UrlImagenField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -10783,6 +10786,19 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 if ((this.SegmentacionRegionZonaField.Equals(value) != true)) {
                     this.SegmentacionRegionZonaField = value;
                     this.RaisePropertyChanged("SegmentacionRegionZona");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TipoComunicado {
+            get {
+                return this.TipoComunicadoField;
+            }
+            set {
+                if ((this.TipoComunicadoField.Equals(value) != true)) {
+                    this.TipoComunicadoField = value;
+                    this.RaisePropertyChanged("TipoComunicado");
                 }
             }
         }
