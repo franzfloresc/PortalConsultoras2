@@ -126,8 +126,7 @@ else
                                 item.CodigoCliente = data.extra.split("|")[0];
                                 item.ClienteID = data.extra.split("|")[1];
 
-                                messageInfo(data.message, function (e) {
-                                    debugger;
+                                messageInfo(data.message, function (e) {                                    
                                     if ($(e.target.parentElement).attr('class').includes("cerrar_popMobile")) { /*click en cerrar pop up*/
                                         DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras', 'Pop up Registro Cliente Satisfactorio', 'Cerrar');
                                     } else if ($(e.target).attr('class').includes("btn-aceptar")) {  /*click en Aceptar*/

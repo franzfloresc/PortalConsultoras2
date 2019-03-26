@@ -17,7 +17,7 @@ $(document).ready(function () {
 
 });
 
-function RechazarPedido(id,origenBoton) {
+function RechazarPedido(id, origenBoton) {
     var opcionRechazo = ($('.opcion_rechazo_select').text()) ? $('.opcion_rechazo_select').text() : "";
     if (origenBoton) {
         switch (origenBoton) {
@@ -97,17 +97,30 @@ function AceptarPedido(id, tipo) {
     var isOk = true;
     var detalle = [];
     var ing = 0;
+    var opciones = "";
 
     $('div.detalle_pedido_reservado').each(function () {
+        debugger;
         var id = $(this).find("input[id*='soldet_']").val();
         var cant = $(this).find('#soldet_qty_' + id).text();
         var opt = $(this).find('#soldet_tipoate_' + id).val();
+        var cuv = $(this).find("input[id*='soldet_cuv_']").val();
+        var nombre = $(this).find("input[id*='soldet_nom_']").val();
+        var precio = $(this).find("input[id*='soldet_precio_']").val();
+        var marca = $(this).find("input[id*='soldet_mrc_']").val();
+        var opcion = $(this).find("#soldet_tipoate_" + id + " option[value='" + opt + "']").text();
         var k = 0;
+
+
+
+        opciones = (opciones.length) ? (opciones + ", ") : opciones;
+        opciones = opciones + opcion;
 
         if (typeof opt !== 'undefined') {
             if (opt == "") {
                 $('#ComoloAtenderas').show();
                 isOk = false;
+                DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras - PopUp Pedidos Pendientes', 'Click Botón', 'Acepto Todo el Pedido - ' + opciones);
                 return false;
             }
             else {
@@ -121,11 +134,21 @@ function AceptarPedido(id, tipo) {
         if (typeof id !== 'undefined' && id !== "") {
             var d = {
                 PedidoDetalleId: id,
-                OpcionAcepta: k
+                OpcionAcepta: k,
+                Nombre: nombre,
+                Precio: precio,
+                Marca: marca,
+                CUV: cuv,
+                Categoria: 'No Disponible',
+                Variante: 'Estándar',
+                Cantidad: cant,
+                OpcionCod: opt,
+                OpcionString: opcion
             }
             detalle.push(d);
         }
     });
+    DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras - PopUp Pedidos Pendientes', 'Click Botón', 'Acepto Todo el Pedido - ' + opciones);
 
     if (isOk && detalle.length > 0) {
         var name = $('#sc-nombre').text();
@@ -160,7 +183,7 @@ function AceptarPedido(id, tipo) {
                             Ingresos: ing,
                             Dispositivo: glbDispositivo
                         }
-
+                        debugger;
                         if (response.codigo == 0) {
                             _pedido = pedido;
 
@@ -214,6 +237,49 @@ function ProcesarAceptarPedido(pedido) {
 
                     ActualizarGanancia(response.DataBarra);
                     $('#PedidoAceptado').show();
+
+                    debugger;
+                    var opciones = "";
+                    $.each(pedido.ListaDetalleModel, function (i, item) {
+                        opciones = (opciones.length) ? (opciones + ", ") : opciones;
+                        opciones += item.OpcionString;
+                    });
+                    DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras - Pedidos Pendientes', 'Pop up Pedido Aceptado', opciones);
+
+                    var PedidosIngresarAMiPedido = $.grep(pedido.ListaDetalleModel, function (n, i) {
+                        return n.OpcionCod === 'ingrped';
+                    });
+
+
+                    if (PedidosIngresarAMiPedido.length) {
+                        var productos = [];
+
+                        $.each(PedidosIngresarAMiPedido, function (i, item) {
+                            var producto = {}
+                            producto["name"] = item.Nombre;
+                            producto["price"] = item.Precio;
+                            producto["brand"] = item.Marca;
+                            producto["id"] = item.CUV;
+                            producto["category"] = item.Categoria;
+                            producto["variant"] = item.Variante;
+                            producto["quantity"] = item.Cantidad;
+
+                            productos.push(producto);
+                        });
+
+                        dataLayer.push({
+                            'event': 'virtualPage',
+                            'ecommerce': {
+                                'currencyCode': AnalyticsPortalModule.GetCurrencyCode(),
+                                'add': {
+                                    'actionField': { 'list': 'Pedidos Pendientes - Pedidos Aceptados' },
+                                    'products': productos
+                                }
+                            }
+                        });
+
+                    }
+
                 }
                 else {
                     if (response.code == 1) {
@@ -346,4 +412,8 @@ function DialogComoAtenderPedidoPend(etiqueta) {
 
 function VasARechazarelPedido(etiqueta) {
     DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras - Pedidos Pendientes', 'Pop up ¿Vas a Rechazar el Pedido? - Click Botón', etiqueta);
+}
+
+function PedidoAceptado() {
+
 }

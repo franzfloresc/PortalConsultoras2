@@ -108,66 +108,70 @@
 
     @foreach (var item in Model.ListaDetalle2)
     {
-        <div class="detalle_pedido_reservado">
-            <input type="hidden" value="@item.PedidoDetalleId" id="soldet_@item.PedidoDetalleId" />
-            <div class="left_reservado" style="width:228px;">
-                @if (solicitud.MarcaID == 0)
-                {
-                    <div class="datos_Reservado">
-                        <span>@item.CUV</span>
-                        <span>@item.Producto</span>
-                    </div>
-                }
-                else
-                {
-                    <div class="datos_Reservado">
-                        <span>@item.Producto</span>
-                    </div>
-                }
-            </div>
-            <div class="right_reservado">
-                <div class="texto_reservado">CANT</div>
-                <div class="datos_Reservado" id="soldet_qty_@item.PedidoDetalleId"><b>@item.Cantidad</b></div>
-            </div>
-            <hr class="clear"><br>
-            <div class="left_reservado">
-                <div class="texto_reservado">
-                    <span>Precio Unitario</span>
-                    <span>Sub-total</span>
-                </div>
-            </div>
-            <div class="right_reservado">
-                <div class="texto_reservado">
-                    <span>@ViewBag.Simbolo @item.FormatoPrecioUnitario</span>
-                    <span>@ViewBag.Simbolo @item.FormatoPrecioTotal</span>
-                </div>
-            </div>
-            <hr class="clear">
+    <div class="detalle_pedido_reservado">
+        <input type="hidden" value="@item.PedidoDetalleId" id="soldet_@item.PedidoDetalleId" />
+        <input type="hidden" value="@item.CUV" id="soldet_cuv_@item.PedidoDetalleId" />        
+        <input type="hidden" value="@item.Producto" id="soldet_nom_@item.PedidoDetalleId" />
+        <input type="hidden" value="@item.PrecioUnitario" id="soldet_precio_@item.PedidoDetalleId" />
+        <input type="hidden" value="@item.Marca" id="soldet_mrc_@item.PedidoDetalleId" />
+        <div class="left_reservado" style="width:228px;">
             @if (solicitud.MarcaID == 0)
             {
-                if (@item.TieneStock == 1)
-                {
-                    <select class="select_detalle ddlAtenderPedidosPend" id="soldet_tipoate_@item.PedidoDetalleId">
-                        <option value="" selected>¿CÓMO LO ATENDERÁS?</option>
-                        <option value="ingrped">INGRESAR A MI PEDIDO</option>
-                        <option value="ingrten">YA LO TENGO</option>
-                    </select>
-                }
-                else
-                {
-                    <span class="btn_ingreso_pedido" style="text-align: center;">AGOTADO</span>
-                }
-
-                if (item.TieneStock == 0)
-                {
-                    <span class="agotado_consultora" style="font-size: 12px;"><img src="/Content/Images/RevistaDigital/icono_advertencia_notificacion_esika.svg" /> @item.MensajeValidacion</span>
-                }
-                else if (item.EstaEnRevista == 1)
-                {
-                    <span class="agotado_consultora" style="font-size: 12px;"><img src="/Content/Images/RevistaDigital/icono_advertencia_notificacion_esika.svg" /> @item.MensajeValidacion</span>
-                }
+                <div class="datos_Reservado">
+                    <span>@item.CUV</span>
+                    <span>@item.Producto</span>
+                </div>
+            }
+            else
+            {
+                <div class="datos_Reservado">
+                    <span>@item.Producto</span>
+                </div>
             }
         </div>
+        <div class="right_reservado">
+            <div class="texto_reservado">CANT</div>
+            <div class="datos_Reservado" id="soldet_qty_@item.PedidoDetalleId"><b>@item.Cantidad</b></div>
+        </div>
+        <hr class="clear"><br>
+        <div class="left_reservado">
+            <div class="texto_reservado">
+                <span>Precio Unitario</span>
+                <span>Sub-total</span>
+            </div>
+        </div>
+        <div class="right_reservado">
+            <div class="texto_reservado">
+                <span>@ViewBag.Simbolo @item.FormatoPrecioUnitario</span>
+                <span>@ViewBag.Simbolo @item.FormatoPrecioTotal</span>
+            </div>
+        </div>
+        <hr class="clear">
+        @if (solicitud.MarcaID == 0)
+        {
+            if (@item.TieneStock == 1)
+            {
+                <select class="select_detalle ddlAtenderPedidosPend" id="soldet_tipoate_@item.PedidoDetalleId">
+                    <option value="" selected>¿CÓMO LO ATENDERÁS?</option>
+                    <option value="ingrped">INGRESAR A MI PEDIDO</option>
+                    <option value="ingrten">YA LO TENGO</option>
+                </select>
+            }
+            else
+            {
+                <span class="btn_ingreso_pedido" style="text-align: center;">AGOTADO</span>
+            }
+
+            if (item.TieneStock == 0)
+            {
+                <span class="agotado_consultora" style="font-size: 12px;"><img src="/Content/Images/RevistaDigital/icono_advertencia_notificacion_esika.svg" /> @item.MensajeValidacion</span>
+            }
+            else if (item.EstaEnRevista == 1)
+            {
+                <span class="agotado_consultora" style="font-size: 12px;"><img src="/Content/Images/RevistaDigital/icono_advertencia_notificacion_esika.svg" /> @item.MensajeValidacion</span>
+            }
+        }
+    </div>
     }
 
     <div class="left_reservado">
