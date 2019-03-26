@@ -141,7 +141,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.ImagenBulk, f => f.MapFrom(c => c.ImagenBulk))
                 .ForMember(t => t.DescripcionMarca, f => f.MapFrom(c => c.NombreMarca));
 
-            Mapper.CreateMap<BECDRWeb, CDRWebModel>();
+            Mapper.CreateMap<ServiceCDR.BECDRWeb, CDRWebModel>();
 
             Mapper.CreateMap<BELogCDRWeb, CDRWebModel>()
                 .ForMember(t => t.PedidoNumero, f => f.MapFrom(c => c.PedidoFacturadoId))
@@ -234,6 +234,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<ServiceSAC.BEConfiguracionPais, ConfiguracionPaisModel>();
             Mapper.CreateMap<ServiceSAC.BEConfiguracionPais, AdministrarPalancaModel>();
             Mapper.CreateMap<ServiceUsuario.BEConfiguracionPaisDatos, ConfiguracionPaisDatosModel>();
+            Mapper.CreateMap<ServiceSAC.BEConfiguracionPaisDatos, ConfiguracionPaisDatosModel>();
 
             Mapper.CreateMap<ServiceUsuario.BEConfiguracionPaisDatos, ConfiguracionPaisComponenteModel>()
                 .ForMember(t => t.ConfiguracionPaisComponenteID,
