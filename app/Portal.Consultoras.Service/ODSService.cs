@@ -252,7 +252,7 @@ namespace Portal.Consultoras.Service
             return BLProducto.GetNombreProducto048ByListaCUV(paisID, campaniaId, listaCUV);
         }
 
-        public int InsProductoCompartido(BEProductoCompartido ProComp)
+        public BEProductoCompartidoResult InsProductoCompartido(BEProductoCompartido ProComp)
         {
             return BLProducto.InsProductoCompartido(ProComp);
         }
