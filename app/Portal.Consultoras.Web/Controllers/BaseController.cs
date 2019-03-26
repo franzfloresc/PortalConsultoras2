@@ -1353,7 +1353,7 @@ namespace Portal.Consultoras.Web.Controllers
             var configuracionPaisDatos = SessionManager.GetRecomendacionesConfig()
                 .ConfiguracionPaisDatos
                 .FirstOrDefault(a => a.Codigo.Equals(Constantes.CodigoConfiguracionRecomendaciones.ActivarRecomendaciones));
-            return configuracionPaisDatos != null ? configuracionPaisDatos.Valor1 : "0";
+            return configuracionPaisDatos != null ? configuracionPaisDatos.Valor2 : "0";
         }
 
         public int ObtenerNumeroMaximoCaracteresRecomendaciones(bool esMobile)
