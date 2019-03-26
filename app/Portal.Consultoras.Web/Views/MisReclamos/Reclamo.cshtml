@@ -369,12 +369,13 @@
     {{/each}}
 </script>
 <script id="template-operacion" type="text/x-handlebars-template">
-        {{#each this as |item|}}
-        <label>
-            <input type="checkbox" onchange="EscogerSolucion(this,event)" id="chk{{item.CodigoOperacion}}" data-tipo="{{item.Tipo}}">{{item.CDRTipoOperacion.DescripcionOperacion}}
-        </label>
-        @*  <span class="btn_solucion_reclamo" id="{{item.CodigoOperacion}}" data-tipo="{{item.Tipo}}">{{item.CDRTipoOperacion.DescripcionOperacion}}</span>*@
-        {{/each}}
+    {{#each this as |item|}}
+    <label>
+        <input type="checkbox" onchange="EscogerSolucion(this,event)" id="chk{{item.CodigoOperacion}}" data-tipo="{{item.Tipo}}">{{item.CDRTipoOperacion.DescripcionOperacion}}
+    </label>
+    @*  <span class="btn_solucion_reclamo" id="{{item.CodigoOperacion}}" data-tipo="{{item.Tipo}}">{{item.CDRTipoOperacion.DescripcionOperacion}}</span>*@
+    {{/each}}
+     <span class="btn_solucion_reclamo" id="btnSiguiente">Siguiente</span>
 </script>
 <script id="template-confirmacion" type="text/x-handlebars-template">
     {{#iff CUV2 '!=' ''}}
