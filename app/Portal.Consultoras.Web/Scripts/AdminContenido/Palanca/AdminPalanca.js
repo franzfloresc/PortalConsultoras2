@@ -85,7 +85,7 @@ jQuery(document).ready(function () {
 
         ConfigSeccionApp($(this).val());
         
-        if ($(this).find("option:selected").attr("data-codigo") == ConstantesModule.TipoEstrategia.ATP) {
+        if ($(this).find("option:selected").attr("data-codigo") == ConstantesModule.CodigoPalanca.ATP) {
             if ($("#ConfiguracionOfertasHomeID").val() == 0) {
                 $(".div-disenio-atp-visible").show();
                 $(".div-disenio-atp-oculto").hide();
@@ -138,7 +138,7 @@ function ConfigSeccionApp(configuracionPaisID) {
             }
 
             if (result.data.AppOfertasHomeActivo == "1") {
-                if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") != ConstantesModule.TipoEstrategia.ATP)
+                if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") != ConstantesModule.CodigoPalanca.ATP)
                     $("#divMantApp").show();
             }
             else { $("#divMantApp").hide(); }
@@ -204,7 +204,7 @@ function Modificar(idConfiguracionPais, event) {
 
             /*INIT Agana 159*/
 
-            var esATP = $.trim($("#Codigo").val()) === ConstantesModule.TipoEstrategia.ATP;
+            var esATP = $.trim($("#Codigo").val()) === ConstantesModule.CodigoPalanca.ATP;
 
             if (esATP) {
                 $("#lblDesktop").html('Desktop/Mobile');
@@ -243,7 +243,7 @@ function Modificar(idConfiguracionPais, event) {
 
             /*Ini Agana 186*/
 
-            if ($(this).find("option:selected").attr("data-codigo") == ConstantesModule.TipoEstrategia.ATP) {
+            if ($(this).find("option:selected").attr("data-codigo") == ConstantesModule.CodigoPalanca.ATP) {
                 $(".div-disenio-atp-visible").show();
                 $(".div-disenio-atp-oculto").hide();
                 $("#tituloSeccionDesktop").html("Desktop/Mobile");
@@ -299,7 +299,7 @@ function ModificarOfertas(idOfertasHome) {
             }
 
             /*Inicia Agana 186 */
-            if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") == ConstantesModule.TipoEstrategia.ATP) {
+            if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") == ConstantesModule.CodigoPalanca.ATP) {
                 $(".div-disenio-atp-visible").show();
                 $(".div-disenio-atp-oculto").hide();
 
@@ -340,7 +340,7 @@ function IniDialogs() {
                 }
 
                 /*INIT AGANA 159 */
-                var esATP = $.trim($("#Codigo").val()) === ConstantesModule.TipoEstrategia.ATP;
+                var esATP = $.trim($("#Codigo").val()) === ConstantesModule.CodigoPalanca.ATP;
 
                 if (esATP) {
                     //valores a replicar
@@ -438,22 +438,22 @@ function IniDialogs() {
                 });
 
             if ($("#DesktopColorFondo").val() === "") {
-                if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") != ConstantesModule.TipoEstrategia.ATP) {
+                if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") != ConstantesModule.CodigoPalanca.ATP) {
                     $("#DesktopColorFondo").val("#000000");
                 }
             }
             if ($("#MobileColorFondo").val() === "") {
-                if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") != ConstantesModule.TipoEstrategia.ATP) {
+                if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") != ConstantesModule.CodigoPalanca.ATP) {
                     $("#MobileColorFondo").val("#000000");
                 }
             }
             if ($("#DesktopColorTexto").val() === "") {
-                if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") != ConstantesModule.TipoEstrategia.ATP) {
+                if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") != ConstantesModule.CodigoPalanca.ATP) {
                     $("#DesktopColorTexto").val("#ffffff");
                 }
             }
             if ($("#MobileColorTexto").val() === "") {
-                if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") != ConstantesModule.TipoEstrategia.ATP) {
+                if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") != ConstantesModule.CodigoPalanca.ATP) {
                     $("#MobileColorTexto").val("#ffffff");
                 }
             }
@@ -536,7 +536,7 @@ function IniDialogs() {
                     return false;
                 }
 
-                var esATP = $.trim($("#Codigo").val()) === ConstantesModule.TipoEstrategia.ATP;
+                var esATP = $.trim($("#Codigo").val()) === ConstantesModule.CodigoPalanca.ATP;
 
                 if (esATP) {
                     if (!regExpColorHex.test(botonColor) && botonColor !== "") {
@@ -564,7 +564,7 @@ function IniDialogs() {
 
                 /*Inicio Agana 186 - Setear valores por defecto*/
 
-                if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") == ConstantesModule.TipoEstrategia.ATP) {
+                if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") == ConstantesModule.CodigoPalanca.ATP) {
                     desktopColorFondo = $("#DesktopColorFondo").val();
                     mobileColorFondo = desktopColorFondo;
                     desktopColorTexto = $("#DesktopColorTexto").val();

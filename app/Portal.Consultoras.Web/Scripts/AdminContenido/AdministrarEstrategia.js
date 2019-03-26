@@ -66,7 +66,7 @@
         Pagina: 0
     }
 
-    var _codigoEstrategia = ConstantesModule.ConstantesPalanca;
+    var _codigoTipoEstrategia = ConstantesModule.TipoEstrategia;
 
     var _idEstrategia = {
         OfertaParaTi: 4,
@@ -501,7 +501,7 @@
             $("#hdNiveles").val(data.Niveles);
 
             /*INI ATP*/
-            if (data.CodigoTipoEstrategia == _codigoEstrategia.ArmaTuPack) {
+            if (data.CodigoTipoEstrategia == _codigoTipoEstrategia.ArmaTuPack) {
                 $('#tabControl1').hide();
                 $('#divSeccionImagenes').hide();
                 $("#txtCUV2").prop('disabled', true);
@@ -533,10 +533,10 @@
             var aux2 = $("#hdEstrategiaCodigo").val();
 
             if (aux1 == "4"
-                || aux2 == _codigoEstrategia.Lanzamiento
-                || aux2 == _codigoEstrategia.OfertasParaMi
-                || aux2 == _codigoEstrategia.PackAltoDesembolso
-                || aux2 == _codigoEstrategia.ShowRoom) {
+                || aux2 == _codigoTipoEstrategia.Lanzamiento
+                || aux2 == _codigoTipoEstrategia.OfertasParaMi
+                || aux2 == _codigoTipoEstrategia.PackAltoDesembolso
+                || aux2 == _codigoTipoEstrategia.ShowRoom) {
                 $("#txtOrden").val("");
                 $("#div-orden").hide();
 
