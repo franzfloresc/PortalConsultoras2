@@ -1799,6 +1799,15 @@ function ContinuarConfirmEnvioSolicitudCDR() {
     });
 }
 
+//HD-3703
+function EscogerSolucion(opcion, event) {
+    $("#divOpcionesEscoger input[type=checkbox]").not(opcion).prop('checked', false);
+}
+
+function ObtenerFormSegunOpcionSeleccioado(callbackWhenFinish) {
+
+}
+
 
 $('body').on('keypress', 'input[attrKey="PreValidarCUV"]', function (event) {
 

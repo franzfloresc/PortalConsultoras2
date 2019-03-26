@@ -333,7 +333,7 @@
         </div>
         <div class="contenido_popUp contenido_popUp_general">
             <span class="mensaje_popup_general">
-                Asegúrate de tener todos los incovenientes registrados <strong>porque s&oacute;lo puedes hacer <span id="txtCantidadPedidoConfig"></span> solicitud web por pedido.</strong><br/><br />
+                Asegúrate de tener todos los incovenientes registrados <strong>porque s&oacute;lo puedes hacer <span id="txtCantidadPedidoConfig"></span> solicitud web por pedido.</strong><br /><br />
                 ¿Deseas continuar?
             </span>
             <div class="grupo_botones_popup_general">
@@ -369,9 +369,12 @@
     {{/each}}
 </script>
 <script id="template-operacion" type="text/x-handlebars-template">
-    {{#each this as |item|}}
-    <span class="btn_solucion_reclamo" id="{{item.CodigoOperacion}}" data-tipo="{{item.Tipo}}">{{item.CDRTipoOperacion.DescripcionOperacion}}</span>
-    {{/each}}
+        {{#each this as |item|}}
+        <label>
+            <input type="checkbox" onchange="EscogerSolucion(this,event)" id="chk{{item.CodigoOperacion}}" data-tipo="{{item.Tipo}}">{{item.CDRTipoOperacion.DescripcionOperacion}}
+        </label>
+        @*  <span class="btn_solucion_reclamo" id="{{item.CodigoOperacion}}" data-tipo="{{item.Tipo}}">{{item.CDRTipoOperacion.DescripcionOperacion}}</span>*@
+        {{/each}}
 </script>
 <script id="template-confirmacion" type="text/x-handlebars-template">
     {{#iff CUV2 '!=' ''}}

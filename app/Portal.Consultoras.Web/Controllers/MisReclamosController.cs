@@ -493,25 +493,38 @@ namespace Portal.Consultoras.Web.Controllers
 
 #if DEBUG
 
-                    var respuestaServiceCdr2 = new RptCdrReclamo[0];
-                    respuestaServiceCdr2[0].Codigo = "00";
-                    respuestaServiceCdr2[0].Descripcion = "Su solicitud procede";
-                    respuestaServiceCdr2[0].Estrategia = 2002;
-                    var complementos = new ProductosComplementos[1];
+                    if (respuestaServiceCdr != null)
+                    {
+                        if (respuestaServiceCdr[0].LProductosComplementos.Count() <= 0)
+                        {
+                           var respuestaServiceCdr2 = new RptCdrReclamo[1];
 
-                    complementos[0].cuv = "31867";
-                    complementos[0].descripcion = "LB IRRESISTIBLE EDP 50 ML";
-                    complementos[0].precio = 7610.00M;
-                    complementos[0].cantidad = 1;
-                    complementos[0].digitable = 1;
+                            respuestaServiceCdr2[0] = new RptCdrReclamo();
+                            respuestaServiceCdr2[0].Codigo = "00";
+                            respuestaServiceCdr2[0].Descripcion = "Su solicitud procede";
+                            respuestaServiceCdr2[0].Estrategia = 2002;
 
-                    complementos[1].cuv = "31140";
-                    complementos[1].descripcion = "LB MITHYKA EDP QUP 50 ML";
-                    complementos[1].precio = 7360.00M;
-                    complementos[1].cantidad = 6;
-                    complementos[1].digitable = 0;
+                            ProductosComplementos[] complementos = new ProductosComplementos[1];
+                            complementos[0] = new ProductosComplementos();
+                            complementos[0].cuv = "30429";
+                            complementos[0].descripcion = "ES MIA EDP 45 ML";
+                            complementos[0].precio = 7610.00M;
+                            complementos[0].cantidad = 1;
+                            complementos[0].digitable = 1;
 
-                    respuestaServiceCdr2[0].LProductosComplementos = complementos;
+                            complementos[1] = new ProductosComplementos();
+
+                            complementos[1].cuv = "30432";
+                            complementos[1].descripcion = "ES MIA PROB C/PUMP 2ML";
+                            complementos[1].precio = 7360.00M;
+                            complementos[1].cantidad = 1;
+                            complementos[1].digitable = 0;
+
+                            respuestaServiceCdr2[0].LProductosComplementos = complementos;
+                        }
+                    }
+
+                   
 #endif
 
                     //var respuestaServiceCdr = sv.GetCdrWebConsulta_Reclamo(userData.CodigoISO, model.CampaniaID.ToString(),
