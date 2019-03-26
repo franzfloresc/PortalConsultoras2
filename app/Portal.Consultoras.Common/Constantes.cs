@@ -3123,6 +3123,8 @@ namespace Portal.Consultoras.Common
         public static class CodigoConfiguracionMSPersonalizacion
         {
             public const string EstrategiaDisponible = "EstrategiaDisponible";
+            public const string GuardaDataEnLocalStorage = "GuardaDataEnLocalStorage";
+            public const string GuardaDataEnSession = "GuardaDataEnSession";
         }
 
         public static class CodigoConfiguracionRecomendaciones
@@ -3366,6 +3368,12 @@ namespace Portal.Consultoras.Common
             public const string ConsultaStockProl = "api/Pedido/ValidacionStockPalancas";
             public const int StockPadre = 0;
             public const int StockHijo = 1;
+        }
+
+        public static class Controlador
+        {
+            public static readonly string[] ActualizacionODD = { "Bienvenida", "Ofertas", "DetalleEstrategia", "Pedido" };
+            public const string Pedido = "Pedido";
         }
 
         public static class EstrategiaDetalleCamposID

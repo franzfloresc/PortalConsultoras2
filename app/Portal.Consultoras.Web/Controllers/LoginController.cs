@@ -1387,11 +1387,17 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 msPersonalizacionModel.PaisHabilitado = usuarioModel.CodigoISO;
                             }
+
+                            msPersonalizacionModel.GuardaDataEnLocalStorage = configuracionPaisDatos.Where(config => config.Codigo == Constantes.CodigoConfiguracionMSPersonalizacion.GuardaDataEnLocalStorage).Select(config => config.Valor1).FirstOrDefault() ?? string.Empty; ;
+                            msPersonalizacionModel.GuardaDataEnSession = configuracionPaisDatos.Where(config => config.Codigo == Constantes.CodigoConfiguracionMSPersonalizacion.GuardaDataEnSession).Select(config => config.Valor1).FirstOrDefault() ?? string.Empty; ;
                         }
                         catch (Exception ex)
                         {
                             msPersonalizacionModel.PaisHabilitado = WebConfig.PaisesMicroservicioPersonalizacion;
                             msPersonalizacionModel.EstrategiaHabilitado = WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion;
+                            msPersonalizacionModel.GuardaDataEnLocalStorage = string.Empty;
+                            msPersonalizacionModel.GuardaDataEnSession = string.Empty;
+
                             Common.LogManager.SaveLog(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
                         }
 
@@ -1399,6 +1405,8 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             msPersonalizacionModel.EstrategiaHabilitado = string.Empty;
                             msPersonalizacionModel.PaisHabilitado = string.Empty;
+                            msPersonalizacionModel.GuardaDataEnLocalStorage = string.Empty;
+                            msPersonalizacionModel.GuardaDataEnSession = string.Empty;
                             Common.LogManager.SaveLog(new Exception("La configuración MSPersonalizacion se encuentra deshabilitado en la tabla configuracionpais.", null), usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
                         }
 

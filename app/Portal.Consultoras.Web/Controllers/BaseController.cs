@@ -76,6 +76,7 @@ namespace Portal.Consultoras.Web.Controllers
         protected readonly ComunicadoProvider _comunicadoProvider;
         protected readonly ProgramaNuevasProvider _programaNuevasProvider;
         protected readonly MiPerfilProvider _miPerfilProvider;
+        private TempDataManager.TempDataManager _tempData;
         protected MasGanadorasModel MasGanadoras
         {
             get
@@ -101,11 +102,11 @@ namespace Portal.Consultoras.Web.Controllers
             _showRoomProvider = new ShowRoomProvider(_tablaLogicaProvider);
             _baseProvider = new BaseProvider();
             _guiaNegocioProvider = new GuiaNegocioProvider();
-            _ofertaPersonalizadaProvider = new OfertaPersonalizadaProvider();
+            _ofertaPersonalizadaProvider = new OfertaPersonalizadaProvider(this.TempData);
             _configuracionManagerProvider = new ConfiguracionManagerProvider();
             _ofertasViewProvider = new OfertaViewProvider();
             _revistaDigitalProvider = new RevistaDigitalProvider();
-            _ofertaDelDiaProvider = new OfertaDelDiaProvider();
+            _ofertaDelDiaProvider = new OfertaDelDiaProvider(this.TempData);
             _logDynamoProvider = new LogDynamoProvider();
             _eventoFestivoProvider = new EventoFestivoProvider();
             _pedidoWebProvider = new PedidoWebProvider();
@@ -118,6 +119,7 @@ namespace Portal.Consultoras.Web.Controllers
             _comunicadoProvider = new ComunicadoProvider();
             _programaNuevasProvider = new ProgramaNuevasProvider(SessionManager);
             _miPerfilProvider = new MiPerfilProvider();
+            _tempData = new TempDataManager.TempDataManager(this.TempData);
         }
 
         public BaseController(ISessionManager sessionManager)
@@ -185,31 +187,8 @@ namespace Portal.Consultoras.Web.Controllers
                 ObtenerPedidoWebDetalle();
 
                 bool esMobile = EsDispositivoMovil();
-                bool actualizaBase = true; //actualizar session de ODD desde BD
-
-                if (esMobile)
-                {
-                    if (filterContext.ActionDescriptor.ControllerDescriptor.ControllerName == "DescargarApp")
-                    {
-                        TempData["CallBase"] = "DescargarApp";
-                        actualizaBase = true;
-                    }
-                    else
-                    {
-                        if ((TempData["CallBase"] ?? "").ToString() == "DescargarApp")
-                        {
-                            //Valida si ya se ha cargado la data desde el controlador "DescargarApp", para no volver a actualizar data
-                            actualizaBase = false;
-                            TempData["CallBase"] = null;
-                        }
-                        else
-                        {
-                            actualizaBase = true;
-                        }
-                    }
-                }
-
-                GetUserDataViewBag(actualizaBase);
+                
+                GetUserDataViewBag();
 
                 var controllerName = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
                 var actionName = filterContext.ActionDescriptor.ActionName;
@@ -573,6 +552,60 @@ namespace Portal.Consultoras.Web.Controllers
         }
         #endregion  
 
+        private bool ActualizarODDBase(bool esMobile)
+        {
+            bool actualizaBaseODD = !(new OfertaBaseProvider().UsarSession(Constantes.TipoEstrategiaCodigo.OfertaDelDia)); //actualizar session de ODD desde BD
+
+            if (actualizaBaseODD)
+            {
+                if (esMobile)
+                {
+                    if (GetControllerActual() == "DescargarApp")
+                    {
+                        _tempData.SetMobileBaseODD("1");
+                    }
+                    else
+                    {
+                        if (_tempData.GetMobileBaseODD() == "1")
+                        {
+                            //Valida si ya se ha cargado la data desde el controlador "DescargarApp", para no volver a actualizar data
+                            actualizaBaseODD = false;
+                            _tempData.RemoveMobileBaseODD();
+                        }
+                    }
+                }
+                else
+                { 
+                    string controlador = GetControllerActual();
+
+                    if (!Constantes.Controlador.ActualizacionODD.Contains(controlador))
+                    {
+                        actualizaBaseODD = false;
+                    }
+
+                    switch (controlador)
+                    {
+                        //case "Ofertas":
+                        //    if (_tempData.ExistTDListODD())
+                        //    {
+                        //        actualizaBaseODD = false;
+                        //    }
+                        //    break;
+                        case "DetalleEstrategia":
+                            string accion = (ControllerContext.RouteData.Values["action"] ?? "").ToString();
+                            string palanca = (ControllerContext.RouteData.Values["palanca"] ?? "").ToString();
+                            if(accion == "Ficha" && palanca != Constantes.NombrePalanca.OfertaDelDia)
+                            {
+                                actualizaBaseODD = false;
+                            }
+                            break;
+                    }
+                }
+            }
+
+            return actualizaBaseODD;
+        }
+
         public BarraConsultoraModel GetDataBarra(bool inEscala = true, bool inMensaje = false, bool Agrupado = false)
         {
             var objR = new BarraConsultoraModel
@@ -932,7 +965,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region Cargar ViewBag
 
-        private void GetUserDataViewBag(bool actualizaBaseODD)
+        private void GetUserDataViewBag()
         {
             var esMobile = IsMobile();
 
@@ -1084,7 +1117,8 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.GPRBannerUrl = userData.GPRBannerUrl;
 
                 // odd
-                ViewBag.OfertaDelDia = _ofertaDelDiaProvider.GetOfertaDelDiaConfiguracion(userData, actualizaBaseODD);
+                bool actualizaODDBase = ActualizarODDBase(esMobile);
+                ViewBag.OfertaDelDia = _ofertaDelDiaProvider.GetOfertaDelDiaConfiguracion(userData, true, actualizaODDBase);
                 ViewBag.TieneOfertaDelDia = _ofertaDelDiaProvider.CumpleOfertaDelDia(userData, GetControllerActual());
                 ViewBag.MostrarBannerSuperiorOdd = _ofertaDelDiaProvider.MostrarBannerSuperiorOdd(userData, GetControllerActual());
             }
