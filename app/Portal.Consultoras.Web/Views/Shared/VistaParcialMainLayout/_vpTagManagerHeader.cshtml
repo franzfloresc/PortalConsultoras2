@@ -8,13 +8,8 @@
 
     dataLayer = [];
     var listaPedidos = @Html.Raw(Json.Encode((ViewBag.ListaPedidosPendientesCliente != null) ? ViewBag.ListaPedidosPendientesCliente : ""));
-    console.log('listaPedidos');
-    console.log(listaPedidos);
-    if (listaPedidos.length > 0) {
-        debugger;
-        console.log('listaPedidos length ' + listaPedidos.length);        
+    if (listaPedidos.length > 0) {               
         for (var i = 0; i < listaPedidos.length; i++) {
-            console.log(listaPedidos[i]);
             CargaDataLayer(listaPedidos[i]['MedioContacto']);
         }
     } else {
@@ -22,7 +17,6 @@
     } ;
 
     function CargaDataLayer(origenPedido) {
-        console.log('origenpedido', origenPedido);
         var contenido = {};
         if ('@topProd' == 'TipoEmpty') {
         contenido = {

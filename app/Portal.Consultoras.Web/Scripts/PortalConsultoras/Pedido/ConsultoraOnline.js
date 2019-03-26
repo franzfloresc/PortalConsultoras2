@@ -378,8 +378,7 @@ function AceptarPedido(pedidoId, tipo) {
         var opciones = "";
 
         var nodes = $(container).find('> div');
-        $(nodes).each(function () {
-            debugger;
+        $(nodes).each(function () {            
             var id = $(this).find(":nth-child(1)").val();
             var opt = $(this).find(":nth-child(7) select").val();
             var cant = $(this).find("#pedpend-deta2-cantidad").text();
@@ -451,8 +450,7 @@ function AceptarPedido(pedidoId, tipo) {
                 contentType: 'application/json; charset=utf-8',
                 data: JSON.stringify(cliente),
                 async: true,
-                success: function (response) {
-                    debugger;
+                success: function (response) {                    
                     if (response.success) {
                         var pedido = {
                             PedidoId: pedidoId,
@@ -494,8 +492,7 @@ function AceptarPedidoRegistraClienteOK(obj) {
 function AceptarPedidoRegistraClienteCancel(obj) {
 }
 
-function ProcesarAceptarPedido(pedido) {
-    debugger;
+function ProcesarAceptarPedido(pedido) {    
     waitingDialog({});
     $.ajax({
         type: 'POST',
@@ -516,9 +513,7 @@ function ProcesarAceptarPedido(pedido) {
                     else {
                         $('#popup2_pendientes').hide();
                         $('#dialog2_aceptasPendientes').show();
-                    }
-
-                    debugger;
+                    }                    
 
                     var opciones = "";
                     $.each(pedido.ListaDetalleModel, function (i, item) {

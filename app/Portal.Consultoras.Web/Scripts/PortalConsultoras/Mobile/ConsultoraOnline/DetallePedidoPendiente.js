@@ -99,8 +99,7 @@ function AceptarPedido(id, tipo) {
     var ing = 0;
     var opciones = "";
 
-    $('div.detalle_pedido_reservado').each(function () {
-        debugger;
+    $('div.detalle_pedido_reservado').each(function () {        
         var id = $(this).find("input[id*='soldet_']").val();
         var cant = $(this).find('#soldet_qty_' + id).text();
         var opt = $(this).find('#soldet_tipoate_' + id).val();
@@ -182,8 +181,7 @@ function AceptarPedido(id, tipo) {
                             Tipo: tipo,
                             Ingresos: ing,
                             Dispositivo: glbDispositivo
-                        }
-                        debugger;
+                        }                        
                         if (response.codigo == 0) {
                             _pedido = pedido;
 
@@ -237,8 +235,7 @@ function ProcesarAceptarPedido(pedido) {
 
                     ActualizarGanancia(response.DataBarra);
                     $('#PedidoAceptado').show();
-
-                    debugger;
+                   
                     var opciones = "";
                     $.each(pedido.ListaDetalleModel, function (i, item) {
                         opciones = (opciones.length) ? (opciones + ", ") : opciones;
