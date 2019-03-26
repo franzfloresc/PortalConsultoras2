@@ -3984,6 +3984,16 @@ namespace Portal.Consultoras.Common
 
             return result;
         }
+
+        /// <summary>
+        /// Metodo para codificar texto plano a Base64.
+        /// </summary>
+        public static string Base64Encode(string plainText)
+        {
+            var plainTextBytes = Encoding.UTF8.GetBytes(plainText);
+            return System.Convert.ToBase64String(plainTextBytes);
+        }
+
     }
 
     public static class DataRecord
