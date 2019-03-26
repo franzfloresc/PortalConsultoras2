@@ -851,8 +851,7 @@ function messageConfirmacionDuoPerfecto(message, fnAceptar) {
 }
 
 function CargarCantidadProductosPedidos(noMostrarEfecto) {
-    noMostrarEfecto = noMostrarEfecto || false;
-    var montoWebAcumulado = "";
+    noMostrarEfecto = noMostrarEfecto || false;    
     
     jQuery.ajax({
         type: 'POST',
@@ -864,20 +863,8 @@ function CargarCantidadProductosPedidos(noMostrarEfecto) {
         success: function (data) {
             if (checkTimeout(data)) {
 
-                if (data.montoWebAcumulado == 0) {
-                    if (data.paisID == 4)  //Formato de decimales para Colombia
-                        montoWebAcumulado = "0";
-                    else
-                        montoWebAcumulado = "0.00";
-                } else {
-                    if (data.paisID == 4)  //Formato de decimales para Colombia
-                        montoWebAcumulado = SeparadorMiles(data.montoWebAcumulado.toFixed(0));
-                    else
-                        montoWebAcumulado = data.montoWebAcumulado.toFixed(2);
-                }
-
                 $(".num-menu-shop").html(data.cantidadProductos);
-                $(".js-span-pedidoingresado").html(montoWebAcumulado);
+                $(".js-span-pedidoingresado").html(data.montoWebConDescuentoStr);
                 if (!noMostrarEfecto) {
                     $('.num-menu-shop').removeClass('microefecto_color');
                     setTimeout(function () { $('.num-menu-shop').addClass('microefecto_color') }, 250);
