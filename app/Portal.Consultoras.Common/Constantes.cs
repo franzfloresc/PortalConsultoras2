@@ -3359,6 +3359,7 @@ namespace Portal.Consultoras.Common
         public static class Controlador
         {
             public static readonly string[] ActualizacionODD = { "Bienvenida", "Ofertas", "DetalleEstrategia", "Pedido" };
+            public const string Pedido = "Pedido";
         }
 
         public static class EstrategiaDetalleCamposID
