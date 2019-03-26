@@ -51,7 +51,8 @@ namespace Portal.Consultoras.BizLogic
         NivelesProgramaNuevas,
         ProgramaArmaTuPack,
         CuvListZonaArmaTuPack,
-        OrdenamientoFiltros
+        OrdenamientoFiltros,
+        CaminoBrillanteNiveles
     }
 
     internal static class CacheManager<T>
