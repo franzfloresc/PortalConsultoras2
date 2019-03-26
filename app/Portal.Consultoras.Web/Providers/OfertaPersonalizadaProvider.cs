@@ -38,6 +38,7 @@ namespace Portal.Consultoras.Web.Providers
         }
 
         protected ITempDataManager tempDataManager;
+        private TempDataDictionary _tempDataDictionary;
         protected ConfiguracionManagerProvider _configuracionManager;
         protected readonly PedidoWebProvider _pedidoWeb;
         protected OfertaBaseProvider _ofertaBaseProvider;
@@ -61,6 +62,7 @@ namespace Portal.Consultoras.Web.Providers
             new ConsultaProlProvider(),
             new TablaLogicaProvider())
         {
+            _tempDataDictionary = objTempData;
             tempDataManager = new TempDataManager.TempDataManager(objTempData);
         }
 
@@ -1260,7 +1262,7 @@ namespace Portal.Consultoras.Web.Providers
                     return ObtenerListaProductoShowRoom(usuarioModel, campaniaId, codigoConsultora, esDiasFacturacion, 1)
                         .FirstOrDefault(x => x.CUV2 == cuv);
                 case Constantes.NombrePalanca.OfertaDelDia:
-                    var listaProductoODD = RevisarCamposParaMostrar(ObtenerListaProductoODD(true), true);
+                    var listaProductoODD = RevisarCamposParaMostrar(ObtenerListaProductoODD(usuarioModel, true), true);
                     return listaProductoODD.FirstOrDefault(x => x.CUV2 == cuv);
                 case Constantes.NombrePalanca.PackNuevas:
                     var varSession = Constantes.ConstSession.ListaEstrategia + Constantes.TipoEstrategiaCodigo.PackNuevas;
@@ -1277,17 +1279,28 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
-        public List<EstrategiaPersonalizadaProductoModel> ObtenerListaProductoODD(bool persistenciaLista = false)
+        public List<EstrategiaPersonalizadaProductoModel> ObtenerListaProductoODD(UsuarioModel usuarioModel, bool persistenciaLista = false)
         {
             var listODDTempData = tempDataManager.GetListODD(persistenciaLista);
 
             if (SessionManager.OfertaDelDia.Estrategia != null)
             {
-                if ((_ofertaBaseProvider.UsarSession(Constantes.TipoEstrategiaCodigo.OfertaDelDia) && SessionManager.OfertaDelDia.Estrategia.ListaOferta != null) || 
-                    (!_ofertaBaseProvider.UsarSession(Constantes.TipoEstrategiaCodigo.OfertaDelDia) && listODDTempData != null))
+                if (_ofertaBaseProvider.UsarSession(Constantes.TipoEstrategiaCodigo.OfertaDelDia) && SessionManager.OfertaDelDia.Estrategia.ListaOferta != null) 
                 {
-                    var ListaOfertaSession = _ofertaBaseProvider.UsarSession(Constantes.TipoEstrategiaCodigo.OfertaDelDia) ? SessionManager.OfertaDelDia.Estrategia.ListaOferta : listODDTempData;
-                    return ListaOfertaSession;
+                    return SessionManager.OfertaDelDia.Estrategia.ListaOferta;
+                }
+                else if (!_ofertaBaseProvider.UsarSession(Constantes.TipoEstrategiaCodigo.OfertaDelDia))
+                {
+                    if (listODDTempData != null)
+                    {
+                        return listODDTempData;
+                    }
+                    else
+                    {
+                        listODDTempData = new OfertaDelDiaProvider(_tempDataDictionary).GetOfertaDelDiaConfiguracion(usuarioModel, false, true).ListaOferta;
+                        tempDataManager.RemoveTDListODD();
+                        return listODDTempData;
+                    }
                 }
                 else
                     return new List<EstrategiaPersonalizadaProductoModel>();

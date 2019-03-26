@@ -592,12 +592,12 @@ namespace Portal.Consultoras.Web.Controllers
 
                     switch (controlador)
                     {
-                        case "Ofertas":
-                            if (_tempData.ExistTDListODD())
-                            {
-                                actualizaBaseODD = false;
-                            }
-                            break;
+                        //case "Ofertas":
+                        //    if (_tempData.ExistTDListODD())
+                        //    {
+                        //        actualizaBaseODD = false;
+                        //    }
+                        //    break;
                         case "DetalleEstrategia":
                             string accion = (ControllerContext.RouteData.Values["action"] ?? "").ToString();
                             string palanca = (ControllerContext.RouteData.Values["palanca"] ?? "").ToString();
