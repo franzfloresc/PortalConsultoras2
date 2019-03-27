@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using Portal.Consultoras.Common;
-using Portal.Consultoras.Entities.CaminoBrillante;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -21,6 +20,20 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         {
             this.Url = url;
             Token = Util.Base64Encode(usuario + ":" + clave);
+        }
+
+        /// <summary>
+        /// Obtiene los datos del periodo de acuerdo a cada País y consultora.
+        /// </summary>
+        public async Task<List<PeriodoCaminoBrillante>> GetPeriodo(string isoPais)
+        {
+            var result = new List<PeriodoCaminoBrillante>();
+            bool flag = isoPais != "";
+            if (!flag) return result;
+            string urlParameters = isoPais;
+            string jsonString = await CallInformacionComercialServices(Url +Constantes.CaminoBrillante.ServicioComercial.GetPeriodo, urlParameters, Token);
+            result = JsonConvert.DeserializeObject<List<PeriodoCaminoBrillante>>(jsonString) as List<PeriodoCaminoBrillante>;
+            return result;
         }
 
         /// <summary>
@@ -68,22 +81,6 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         */
 
         /// <summary>
-        /// Obtiene los datos del periodo de acuerdo a cada País y consultora.
-        /// </summary>
-        /*
-        public async Task<List<BENivelConsultoraCaminoBrillante>> GetPeriodo(string isoPais)
-        {
-            var result = new List<BENivelConsultoraCaminoBrillante>();
-            bool flag = isoPais != "";
-            if (!flag) return result;
-            string urlParameters = isoPais;
-            string jsonString = await CallInformacionComercialServices(Url, urlParameters, Token);
-            result = JsonConvert.DeserializeObject<List<BENivelConsultoraCaminoBrillante>>(jsonString) as List<BENivelConsultoraCaminoBrillante>;
-            return result;
-        }
-        */
-
-        /// <summary>
         /// Obtiene los kits para cada consultora.
         /// </summary>
         /*
@@ -120,7 +117,6 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             }
             return jsonString;
         }
-
 
         [DataContract]
         public class NivelCaminoBrillante {
@@ -193,6 +189,22 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             public string Periodo4 { get; set; }
             [DataMember(Name = "PERIODO5")]
             public string Periodo5 { get; set; }
+        }
+
+        [DataContract]
+        public class PeriodoCaminoBrillante
+        {
+            [DataMember(Name = "ISOPAIS")]
+            public string IsoPais { get; set; }
+            [DataMember(Name = "PERIODO")]
+            public string Periodo { get; set; }
+            [DataMember(Name = "CAMPANAINICIAL")]
+            public string CampanaInicial { get; set; }
+            [DataMember(Name = "CAMPANAFINAL")]
+            public string CampanaFinal { get; set; }
+            [DataMember(Name = "NROCAMPANA")]
+            public string NroCampana { get; set; }
+
         }
 
     }
