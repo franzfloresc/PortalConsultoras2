@@ -471,18 +471,20 @@
                         <div class="clear"></div>
                     </div>
                 </div>
-                {{#unless detalle.EsKitNueva}}
-                {{#unless detalle.LockPremioElectivo}}
-                
+
                 <div class="contenedor_espaciocentro">
                     <div onclick="javascript: FichaPartialModule.FichaPreValidar(this, '{{TipoAccion}}', '{{TipoEstrategiaCodigo}}', {{CampaniaID}}, {{SetID}}, {{CUV}})"
                          class="contenedor_espaciodimension"></div>
                 </div>
+
+                {{#unless detalle.EsKitNueva}}
+                {{#unless detalle.LockPremioElectivo}}
+
                 <div class="icono_eliminar_item_pedido">
-                    <a href="javascript:;" class="border_radius_4 icon_trash" title="Eliminar" onclick="tooltipDelete(event,'{{PedidoDetalleID}}', '{{SetID}}');" data-pedidodetalleid="{{detalle.PedidoDetalleID}}" data-setid="{{detalle.SetID}}"></a>
+                    <a href="javascript:;" class="border_radius_4 icon_trash" title="Eliminar" 
                        onclick="tooltipDelete(event,'{{PedidoDetalleID}}', '{{SetID}}');" 
                        data-pedidodetalleid="{{detalle.PedidoDetalleID}}" 
-                       data-setid="{{detalle.SetID}}"></a>
+                       data-setid="{{detalle.SetID}}"</a>
                 </div>
                 {{/unless}}
                 {{/unless}}
