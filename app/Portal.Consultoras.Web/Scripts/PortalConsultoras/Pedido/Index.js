@@ -543,8 +543,7 @@ $(document).ready(function () {
     
 });
 
-function CargarDetallePedido(page, rows, asyncrono) {
-    debugger;
+function CargarDetallePedido(page, rows, asyncrono) {    
     $(".pMontoCliente").css("display", "none");
 
     $("#tbobyDetallePedido").html('<div><div style="width:100%;"><div style="text-align: center;"><br>Cargando Detalle de Productos<br><img src="' + urlLoad + '" /></div></div></div>');
