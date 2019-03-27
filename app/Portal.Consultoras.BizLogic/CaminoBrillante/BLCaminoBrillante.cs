@@ -302,7 +302,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
         private BELogroCaminoBrillante GetResumenLogros(List<BELogroCaminoBrillante> logros)
         {
-            if (logros != null) return logros[1];
+            //if (logros != null) return logros[1];
 
             return new BELogroCaminoBrillante()
             {
