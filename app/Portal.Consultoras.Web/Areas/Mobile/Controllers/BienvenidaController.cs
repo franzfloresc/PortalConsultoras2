@@ -19,11 +19,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatosProvider;
         private readonly BienvenidaProvider _bienvenidaProvider;
         protected TablaLogicaProvider _tablaLogica;
+        protected CaminoBrillanteProvider _caminoBrillanteProvider;
         public BienvenidaController()
         {
             _configuracionPaisDatosProvider = new ConfiguracionPaisDatosProvider();
             _tablaLogica = new TablaLogicaProvider();
             _bienvenidaProvider = new BienvenidaProvider();
+            _caminoBrillanteProvider = new CaminoBrillanteProvider();
         }
 
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
@@ -128,21 +130,17 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.TienePagoEnLinea = userData.TienePagoEnLinea;
                 model.ConsultoraNuevaBannerAppMostrar = SessionManager.GetConsultoraNuevaBannerAppMostrar();
                 model.MostrarPagoEnLinea = (userData.MontoDeuda > 0);
-                model.TieneCaminoBrillante = userData.CaminoBrillante;
-
-                //Inicio CaminoBrillante 
-                model.TieneCaminoBrillante = userData.CaminoBrillante;
-                var resumenCaminoBrillante = ObtenerNivelActualConsultora();
-                if (resumenCaminoBrillante != null)
-                {
-                    model.CaminoBrillanteMsg = userData.CaminoBrillanteMsg.Replace("{0}", "<b>" + resumenCaminoBrillante.DescripcionNivel + "</b>");
-                    model.UrlLogoCaminoBrillante = resumenCaminoBrillante.UrlImagenNivel.Replace("{DIMEN}","MDPI");
-                    model.UrlLogoCaminoBrillante = model.UrlLogoCaminoBrillante.Replace("{STATE}", "A");
-                }
-                //Fin CaminoBrillante
-
 
                 #region Camino al Exito
+                model.TieneCaminoBrillante = userData.CaminoBrillante;
+                model.TieneCaminoBrillante = userData.CaminoBrillante;
+                var NivelCaminoBrillante = _caminoBrillanteProvider.ObtenerNivelActualConsultora();
+                if (NivelCaminoBrillante != null)
+                {
+                    model.CaminoBrillanteMsg = userData.CaminoBrillanteMsg.Replace("{0}", "<b>" + NivelCaminoBrillante.DescripcionNivel + "</b>");
+                    model.UrlLogoCaminoBrillante = NivelCaminoBrillante.UrlImagenNivel.Replace("{DIMEN}", "MDPI");
+                    model.UrlLogoCaminoBrillante = model.UrlLogoCaminoBrillante.Replace("{STATE}", "A");
+                }
 
                 var LogicaCaminoExisto = _tablaLogica.GetTablaLogicaDatos(userData.PaisID, Constantes.TablaLogica.EscalaDescuentoMobile);
                 if (LogicaCaminoExisto.Any())
@@ -472,36 +470,5 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-
-        #region CaminoBrillante
-        private BENivelCaminoBrillante ObtenerNivelActualConsultora()
-        {
-            try
-            {
-                var oResumen = ResumenConsultoraCaminoBrillante();
-                if (oResumen == null || oResumen.NivelConsultora.Count() == 0 || oResumen.Niveles.Count() == 0) return null;
-                var codNivel = oResumen.NivelConsultora.Where(x => x.Campania == userData.CampaniaID.ToString()).Select(z => z.NivelActual).FirstOrDefault();
-                if (string.IsNullOrEmpty(codNivel)) codNivel = oResumen.NivelConsultora[0].NivelActual;
-                return oResumen.Niveles.Where(x => x.CodigoNivel == codNivel).FirstOrDefault();
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return null;
-            }
-        }
-
-        private BEConsultoraCaminoBrillante ResumenConsultoraCaminoBrillante()
-        {
-            var usuarioDatos = new ServiceUsuario.BEUsuario();
-            usuarioDatos.CodigoConsultora = userData.CodigoConsultora;
-            usuarioDatos.CampaniaID = userData.CampaniaID;
-            usuarioDatos.Region = userData.CodigorRegion;
-            usuarioDatos.Zona = userData.CodigoZona;
-
-            using (var svc = new UsuarioServiceClient())
-                return svc.GetConsultoraNivelCaminoBrillante(userData.PaisID, usuarioDatos);
-        }
-        #endregion
     }
 }

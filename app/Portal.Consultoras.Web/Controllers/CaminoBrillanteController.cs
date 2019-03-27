@@ -467,12 +467,13 @@ namespace Portal.Consultoras.Web.Controllers
 
         private List<NivelesCaminoBrillanteModel> Niveles()
         {
-            List<string> Credenciales = new List<string>();
-            Credenciales = GetDatosComercial();
-            CaminoBrillanteProvider prv = new CaminoBrillanteProvider(Credenciales[0], Credenciales[1], Credenciales[2]);
-            //List<NivelesCaminoBrillanteModel> task = prv.GetNivel("CRI");
-            List<NivelesCaminoBrillanteModel> task = prv.GetNivel(userData.CodigoISO);
-            return task;
+            //List<string> Credenciales = new List<string>();
+            //Credenciales = GetDatosComercial();
+            //CaminoBrillanteProvider prv = new CaminoBrillanteProvider(Credenciales[0], Credenciales[1], Credenciales[2]);
+            ////List<NivelesCaminoBrillanteModel> task = prv.GetNivel("CRI");
+            //List<NivelesCaminoBrillanteModel> task = prv.GetNivel(userData.CodigoISO);
+            //return task;
+            return null;
         }
 
         public List<string> GetDatosComercial()
