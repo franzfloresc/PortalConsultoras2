@@ -573,6 +573,8 @@ function IniDialogs() {
                     mobileUsarImagenFondo = desktopUsarImagenFondo;
                     mobileActivo = desktopActivo;
 
+                    mobileTipoPresentacion = desktopTipoPresentacion;
+
                     $("#DesktopOrdenBpt").val($("#DesktopOrden").val());
                     $("#MobileOrden").val($("#DesktopOrden").val());
                     $("#MobileOrdenBpt").val($("#DesktopOrden").val());

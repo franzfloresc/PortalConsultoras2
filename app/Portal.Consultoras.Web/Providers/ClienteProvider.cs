@@ -22,7 +22,7 @@ namespace Portal.Consultoras.Web.Providers
         {
            return _tablaLogicaProvider.GetTablaLogicaDatoValorBool(
                             paisId,
-                            ConsTablaLogica.FlagFuncional.TablaLogicaID,
+                            ConsTablaLogica.FlagFuncional.TablaLogicaId,
                             ConsTablaLogica.FlagFuncional.MisClientes,
                             true
                             );
