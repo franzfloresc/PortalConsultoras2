@@ -5,7 +5,7 @@ namespace Portal.Consultoras.Entities.CaminoBrillante
     public class BEConsultoraCaminoBrillante
     {
         /// <summary>
-        /// Obtiene el nivel de la Consultora
+        /// Obtiene la información del nivel de la Consultora
         /// </summary>
         public List<BENivelConsultoraCaminoBrillante> NivelConsultora { get; set; }
         /// <summary>
@@ -16,6 +16,10 @@ namespace Portal.Consultoras.Entities.CaminoBrillante
         /// Obtiene el resumen de los logros
         /// </summary>
         public BELogroCaminoBrillante ResumenLogros { get; set; }
+        /// <summary>
+        /// Obtiene el Logros de Camino Brillante
+        /// </summary>
+        public List<BELogroCaminoBrillante> Logros { get; set; }
 
         public class BENivelConsultoraCaminoBrillante {
             /// <summary>
@@ -29,7 +33,7 @@ namespace Portal.Consultoras.Entities.CaminoBrillante
             /// <summary>
             /// Obtiene el nivel de la consultora en su camino brillante 
             /// </summary>
-            public string NivelActual { get; set; }
+            public string Nivel { get; set; }
             /// <summary>
             /// Monto total que facturo la consultora
             /// </summary>
@@ -54,6 +58,10 @@ namespace Portal.Consultoras.Entities.CaminoBrillante
             /// Ganancia total de todo el año 
             /// </summary>
             public decimal GananciaAnual { get; set; }
+            /// <summary>
+            /// Flag Nivel Actual 
+            /// </summary>
+            public bool EsActual { get; set; }
         }
 
     }
