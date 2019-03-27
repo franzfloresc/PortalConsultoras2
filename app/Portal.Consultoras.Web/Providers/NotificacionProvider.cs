@@ -112,7 +112,7 @@ namespace Portal.Consultoras.Web.Providers
                             if (lstObservacionesPedido.Where(x => cuvHijos.Contains(x.CUV) && x.ObservacionPROL != null).FirstOrDefault() != null)
                                 observacionesHijos.Add(lstObservacionesPedido.Where(x => cuvHijos.Contains(x.CUV) && x.ObservacionPROL != null).FirstOrDefault());
 
-                            itemPedido.ObservacionPROL = observacionesHijos.Any() ? string.Join("", observacionesHijos.Select(e => e.ObservacionPROL)) : null;
+                            itemPedido.ObservacionPROL = observacionesHijos.Any() ? string.Join("", observacionesHijos.Distinct().ToList().Select(e => e.ObservacionPROL)) : null;
 
 
                         }
