@@ -22,7 +22,8 @@ namespace Portal.Consultoras.Web.Controllers
         private readonly BienvenidaProvider _bienvenidaProvider;
         protected TablaLogicaProvider _tablaLogica;
         private readonly ZonificacionProvider _zonificacionProvider;
-        protected CaminoBrillanteProvider _caminoBrillanteProvider;
+        CaminoBrillanteProvider _caminoBrillanteProvider;
+
         public BienvenidaController()
         {
             _configuracionPaisDatosProvider = new ConfiguracionPaisDatosProvider();
@@ -239,6 +240,11 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #region Camino al Éxito
                 model.TieneCaminoBrillante = userData.CaminoBrillante;
+
+
+
+
+
                 var NivelCaminoBrillante = _caminoBrillanteProvider.ObtenerNivelActualConsultora();
                 if (NivelCaminoBrillante != null)
                 {
