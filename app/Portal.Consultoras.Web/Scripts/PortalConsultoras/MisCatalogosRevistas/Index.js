@@ -1040,8 +1040,7 @@ function MonstrarAlerta(texto) {
 
 function MarcarCompartirFbExitoso() {
     
-    if (window.location.search.includes("catalogo_compartido_fb")) {
-        debugger;
+    if (window.location.search.includes("catalogo_compartido_fb")) {        
         dataLayer.push({
             'event': 'virtualEvent',
             'category': 'Catálogos y revistas',
