@@ -97,6 +97,7 @@ function CargarPedidosPend(page, rows) {
         data: JSON.stringify(obj),
         async: true,
         success: function (response) {
+            debugger;
             if (checkTimeout(response)) {
                 if (response.success) {
                     var data = response.data;
