@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Portal.Consultoras.Common
 {
@@ -1772,9 +1773,10 @@ namespace Portal.Consultoras.Common
             public const int NoPopUp = 3;
         }
 
+        [Obsolete("Use ConsTablaLogica")]
         public struct TablaLogica
         {
-            public const int NroReclamosPorPedidoCDR = 161; //HD-3412 EINCA
+            public const int NroReclamosPorPedidoCDR = 161;
             public const int PersonalizacionODD = 93;
             public const int Plan20 = 98;
             public const int CDRExpress = 104;
