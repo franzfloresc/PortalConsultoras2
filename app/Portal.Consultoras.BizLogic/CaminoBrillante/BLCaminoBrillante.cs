@@ -14,16 +14,18 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
     public class BLCaminoBrillante : ICaminoBrillanteBusinessLogic
     {
         private readonly ITablaLogicaDatosBusinessLogic _tablaLogicaDatosBusinessLogic;
+        private readonly IEscalaDescuentoBusinessLogic _escalaDescuentoBusinessLogic;
         private CaminoBrillanteProvider _providerCaminoBrillante;
 
-        public BLCaminoBrillante() : this(new BLTablaLogicaDatos())
+        public BLCaminoBrillante() : this(new BLTablaLogicaDatos(), new BLEscalaDescuento())
         {
 
         }
 
-        public BLCaminoBrillante(ITablaLogicaDatosBusinessLogic tablaLogicaDatosBusinessLogic)
+        public BLCaminoBrillante(ITablaLogicaDatosBusinessLogic tablaLogicaDatosBusinessLogic, IEscalaDescuentoBusinessLogic escalaDescuentoBusinessLogic)
         {
             _tablaLogicaDatosBusinessLogic = tablaLogicaDatosBusinessLogic;
+            _escalaDescuentoBusinessLogic = escalaDescuentoBusinessLogic;
         }
 
         public List<BENivelCaminoBrillante> GetNiveles(int paisId)
@@ -43,15 +45,12 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             var datosTablaLogica = GetDatosTablaLogica(paisId);
 
             _providerCaminoBrillante = _providerCaminoBrillante ?? getCaminoBrillanteProvider(paisId, datosTablaLogica);
-            if (_providerCaminoBrillante == null || datosTablaLogica == null || datosTablaLogica.Count == 0) return null;
+            if (_providerCaminoBrillante == null || datosTablaLogica == null || datosTablaLogica.Count == 0 || entidad.CampaniaID == 0) return null;
+            
+            var periodo = GetPeriodosCache(paisId).Where(e => e.CampanaInicial >= entidad.CampaniaID && entidad.CampaniaID <= e.CampanaFinal).FirstOrDefault();
+            if (periodo == null) return null;
 
-            //Llamar a comercial para obtener los parametros de Numero de Campana
-            var numeroCampania = "6";
-
-            //Hacer LLamadas Async
-
-            //Llamar al servicio para obtener la Informacion de la consultora
-            var nivel = _providerCaminoBrillante.GetNivelConsultora(Util.GetPaisIsoHanna(paisId), entidad.CodigoConsultora, numeroCampania).Result;
+            var nivel = _providerCaminoBrillante.GetNivelConsultora(Util.GetPaisIsoHanna(paisId), entidad.CodigoConsultora, periodo.NroCampana).Result;
 
             return new BEConsultoraCaminoBrillante()
             {
@@ -68,191 +67,155 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                     PeriodoCae = e.PeriodoCae
                 }).OrderByDescending(e => e.Campania).ToList(),
                 Niveles = GetNivelesCaminoBrillanteMantenedor(paisId),
-                ResumenLogros = GetResumenLogros(paisId, entidad, nivel)
+                ResumenLogros = GetResumenLogros(GetConsultoraLogros(paisId, entidad, GetNivelesCaminoBrillanteMantenedor(paisId), nivel))
             };
         }
 
         public List<BELogroCaminoBrillante> GetConsultoraLogros(int paisId, BEUsuario entidad)
         {
+            return null;
+        }
+
+        public List<BELogroCaminoBrillante> GetConsultoraLogros(int paisId, BEUsuario entidad, List<BENivelCaminoBrillante> nivelesCaminoBrillantes, 
+            List<NivelConsultoraCaminoBrillante> nivelesConsultora)
+        {
             return new List<BELogroCaminoBrillante> {
-                    new BELogroCaminoBrillante() {
-                        Id = "CRECIMIENTO",
-                        Titulo = "Crecimiento",
-                        Descripcion = "Estos son los logros que obtienes por ser constante con los pedidos y las ventas.",
-                        Indicadores = new List<BELogroCaminoBrillante.BEIndicadorCaminoBrillante>{
+                    GetConsultoraLogrosCrecimiento(paisId, entidad, nivelesCaminoBrillantes, nivelesConsultora),
+                    GetConsultoraLogrosCompromiso(paisId, entidad)
+            };
+        }
+
+        private BELogroCaminoBrillante GetConsultoraLogrosCrecimiento(int paisId, BEUsuario entidad, List<BENivelCaminoBrillante> nivelesCaminoBrillantes, 
+            List<NivelConsultoraCaminoBrillante> nivelesConsultora) {
+
+            var escalasDescuento = _escalaDescuentoBusinessLogic.GetEscalaDescuento(paisId, entidad.CampaniaID, entidad.Region, entidad.Zona) ?? new List<BEEscalaDescuento>();
+
+            var nivelConsultora = nivelesConsultora[0];
+            short nivelActual = 0;
+            short nivelCodigo = 0;
+            Int16.TryParse(nivelConsultora.NivelActual, out nivelActual);
+
+            var idx = 0;
+
+            var medallaEscalas = escalasDescuento.Select(e => new BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante() {
+                Orden = idx++,
+                Tipo = "CIR",
+                Estado = (e.PorDescuento <= nivelConsultora.CambioEscala),
+                Subtitulo = "¿Cómo lograrlo?",
+                ModalTitulo = "Lorem Ipsum is simply",
+                ModalDescripcion = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.",
+                Valor = e.PorDescuento+"%",
+            }).ToList();
+
+            idx = 0;
+            var medallaNiveles = nivelesCaminoBrillantes.Select(e => new BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante()
+            {
+                Orden = idx++,
+                Tipo = "NIV",
+                Estado = (Int16.TryParse(e.CodigoNivel, out nivelCodigo) ? nivelCodigo <= nivelActual : false),
+                Titulo = "¡Ya lo tienes!",
+                ModalTitulo = "Lorem Ipsum is simply",
+                ModalDescripcion = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.",
+                Valor = e.CodigoNivel,
+            }).ToList();
+
+            var incrementosPedido = new List<int> { 5, 10, 15, 20, 30, 40, 100 };
+            idx = 0;
+
+            var medallaIncrementoPedido = incrementosPedido.Select(e => new BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante() {
+                Orden = idx++,
+                Tipo = "CIR",
+                Estado = (nivelConsultora.PorcentajeIncremento <= e),
+                Subtitulo = "¿Cómo lograrlo?",
+                ModalTitulo = "Lorem Ipsum is simply",
+                ModalDescripcion = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.",
+                Valor = e+"%",
+            }).ToList();
+
+            var medallaConstancia = new List<BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante>();
+
+            var periodos = GetPeriodos(paisId);
+
+            Action<string, int> delegado = (periodo, constancia) => {
+                if (!string.IsNullOrEmpty(periodo))
+                {
+                    var periodoCaminoBrillante = periodos.Where(e => "" + e.Periodo == periodo).FirstOrDefault();
+                    if (periodoCaminoBrillante != null) {
+                        var valor = periodoCaminoBrillante.Periodo +"-" + periodoCaminoBrillante.NroCampana + "-" + constancia;
+                        if (!medallaConstancia.Any(e => e.Valor == valor)) {
+                            var inicio = "" + periodoCaminoBrillante.CampanaInicial;
+                            var fin = "" + periodoCaminoBrillante.CampanaFinal;
+
+                            inicio = (inicio.Length >= 6 ? inicio.Substring(inicio.Length - 2, 2) : inicio);
+                            fin = (fin.Length >= 6 ? fin.Substring(fin.Length - 2, 2) : fin);
+
+                            medallaConstancia.Add(new BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante()
+                            {
+                                Tipo = "PIE",
+                                Estado = (constancia > 0),
+                                Titulo = "De C" + inicio + " a C" + fin,
+                                Subtitulo = "¿Cómo lograrlo?",
+                                ModalTitulo = "Lorem Ipsum is simply",
+                                ModalDescripcion = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.",
+                                Valor = valor,
+                            });
+                        }
+                    }
+                }
+            };
+
+            nivelesConsultora.ForEach(e =>
+            {
+                delegado(e.Periodo1, e.Constancia1);
+                delegado(e.Periodo2, e.Constancia2);
+                delegado(e.Periodo3, e.Constancia3);
+                delegado(e.Periodo4, e.Constancia4);
+                delegado(e.Periodo5, e.Constancia5);
+            });
+
+            idx = 0;
+            medallaConstancia.OrderByDescending(e => e.Valor).ForEach(e =>
+            {
+                e.Orden = idx++;
+            });
+
+            return new BELogroCaminoBrillante()
+            {
+                Id = "CRECIMIENTO",
+                Titulo = "Crecimiento",
+                Descripcion = "Estos son los logros que obtienes por ser constante con los pedidos y las ventas.",
+                Indicadores = new List<BELogroCaminoBrillante.BEIndicadorCaminoBrillante>{
                             new BELogroCaminoBrillante.BEIndicadorCaminoBrillante() {
-                                Titulo = "Cambio de escala",                                
-                                Medallas = new List<BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante>{
-                                    new BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante(){
-                                        Orden = 0,
-                                        Tipo = "CIR",
-                                        Estado = true,
-                                        Subtitulo = "¿Cómo lograrlo",
-                                        Valor = "25%",
-                                    },
-                                    new BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante(){
-                                        Orden = 0,
-                                        Tipo = "CIR",
-                                        Estado = true,
-                                        Subtitulo = "¿Cómo lograrlo",
-                                        Valor = "28%",
-                                    },
-                                    new BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante(){
-                                        Orden = 0,
-                                        Tipo = "CIR",
-                                        Estado = true,
-                                        Subtitulo = "¿Cómo lograrlo",
-                                        Valor = "30%",
-                                    },
-                                    new BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante(){
-                                        Orden = 0,
-                                        Tipo = "CIR",
-                                        Estado = true,
-                                        Subtitulo = "¿Cómo lograrlo",
-                                        Valor = "35%",
-                                    }
-                                }
+                                Titulo = "Cambio de escala",
+                                Medallas = medallaEscalas
                             },
                             new BELogroCaminoBrillante.BEIndicadorCaminoBrillante() {
                                 Titulo = "Cambio de nivel",
-                                Medallas = new List<BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante>{
-                                    new BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante(){
-                                        Orden = 0,
-                                        Tipo = "NIV",
-                                        Estado = true,
-                                        Titulo = "¡Ya lo tienes!",
-                                        Valor = "1",
-                                    },
-                                    new BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante(){
-                                        Orden = 0,
-                                        Tipo = "NIV",
-                                        Estado = false,
-                                        Subtitulo = "¿Cómo lograrlo?",
-                                        Valor = "2",
-                                    },
-                                    new BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante(){
-                                        Orden = 0,
-                                        Tipo = "NIV",
-                                        Estado = false,
-                                        Subtitulo = "¿Cómo lograrlo?",
-                                        Valor = "3",
-                                    },
-                                     new BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante(){
-                                        Orden = 0,
-                                        Tipo = "NIV",
-                                        Estado = false,
-                                        Subtitulo = "¿Cómo lograrlo?",
-                                        Valor = "4",
-                                    },
-                                      new BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante(){
-                                        Orden = 0,
-                                        Tipo = "NIV",
-                                        Estado = false,
-                                        Subtitulo = "¿Cómo lograrlo?",
-                                        Valor = "5",
-                                    },
-                                       new BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante(){
-                                        Orden = 0,
-                                        Tipo = "NIV",
-                                        Estado = false,
-                                        Subtitulo = "¿Cómo lograrlo?",
-                                        Valor = "6",
-                                    }
-                                }
+                                Medallas = medallaNiveles                                
                             },
                             new BELogroCaminoBrillante.BEIndicadorCaminoBrillante() {
                                 Titulo = "Constancia",
-                                Medallas = new List<BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante>{
-                                    new BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante(){
-                                        Orden = 0,
-                                        Tipo = "PIE",
-                                        Estado = true,
-                                        Titulo = "De C15 a C02",
-                                        Subtitulo = "¿Cómo lograrlo?",
-                                        Valor = "1-6",
-                                    },
-                                    new BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante(){
-                                        Orden = 0,
-                                        Tipo = "PIE",
-                                        Estado = false,
-                                        Titulo = "De C03 a C08",
-                                        Subtitulo = "¿Cómo lograrlo?",
-                                        Valor = "0-6",
-                                    },
-                                    new BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante(){
-                                        Orden = 0,
-                                        Tipo = "PIE",
-                                        Estado = false,
-                                        Titulo = "De C09 a C14",
-                                        Subtitulo = "¿Cómo lograrlo?",
-                                        Valor = "0-6",
-                                    }
-                                }
+                                Medallas = medallaConstancia
                             },
                             new BELogroCaminoBrillante.BEIndicadorCaminoBrillante() {
                                 Titulo = "Incremento en monto de pedidos",
-                                Medallas = new List<BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante>{
-                                    new BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante(){
-                                        Orden = 0,
-                                        Tipo = "CIR",
-                                        Estado = true,
-                                        Subtitulo = "¿Cómo lograrlo?",
-                                        Valor = "5%",
-                                    },
-                                    new BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante(){
-                                        Orden = 0,
-                                        Tipo = "CIR",
-                                        Estado = false,
-                                        Subtitulo = "¿Cómo lograrlo?",
-                                        Valor = "10%",
-                                    },
-                                    new BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante(){
-                                        Orden = 0,
-                                        Tipo = "CIR",
-                                        Estado = false,
-                                        Subtitulo = "¿Cómo lograrlo?",
-                                        Valor = "15%",
-                                    },
-                                    new BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante(){
-                                        Orden = 0,
-                                        Tipo = "CIR",
-                                        Estado = false,
-                                        Subtitulo = "¿Cómo lograrlo?",
-                                        Valor = "20%",
-                                    },
-                                    new BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante(){
-                                        Orden = 0,
-                                        Tipo = "CIR",
-                                        Estado = false,
-                                        Subtitulo = "¿Cómo lograrlo?",
-                                        Valor = "30%",
-                                    },
-                                    new BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante(){
-                                        Orden = 0,
-                                        Tipo = "CIR",
-                                        Estado = false,
-                                        Subtitulo = "¿Cómo lograrlo?",
-                                        Valor = "40%",
-                                    },
-                                    new BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante(){
-                                        Orden = 0,
-                                        Tipo = "CIR",
-                                        Estado = false,
-                                        Subtitulo = "¿Cómo lograrlo?",
-                                        Valor = "100%",
-                                    }
-                                }
+                                Medallas = medallaIncrementoPedido
                             }
                         }
-                    },
-                    new BELogroCaminoBrillante() {
-                        Id = "COMPROMISO",
-                        Titulo = "Crompromiso",
-                        Descripcion = "Estos son los logros que obtienes por ser constante con los pedidos y las ventas.",
-                        Indicadores = new List<BELogroCaminoBrillante.BEIndicadorCaminoBrillante>{
-                            new BELogroCaminoBrillante.BEIndicadorCaminoBrillante() {
-                                Titulo = "Programa de nuevas",
-                                Medallas = new List<BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante>{
+            };
+        }
+
+        private BELogroCaminoBrillante GetConsultoraLogrosCompromiso(int paisId, BEUsuario entidad)
+        {
+            //Saber si pasaron los 6 pedidos de nuevas
+            BELogroCaminoBrillante.BEIndicadorCaminoBrillante medallasProgramaNuevas = null;
+            if (entidad.ConsecutivoNueva < 10 && entidad.EsConsultoraNueva) {
+                var pedidosProgramaNuevas = new List<int> { 1, 2, 3, 4, 5, 6 };
+                //Tabla ODS
+                medallasProgramaNuevas = new BELogroCaminoBrillante.BEIndicadorCaminoBrillante()
+                {
+                    Titulo = "Programa de nuevas",
+                    Medallas = new List<BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante>{
                                     new BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante(){
                                         Orden = 0,
                                         Tipo = "PED",
@@ -302,110 +265,47 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                                         Valor = "6",
                                     }
                                 }
-                            },
-                            new BELogroCaminoBrillante.BEIndicadorCaminoBrillante() {
-                                Titulo = "Tiempo juntos",
-                                Medallas = new List<BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante>{
-                                    new BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante(){
-                                        Orden = 0,
-                                        Tipo = "TIM",
-                                        Estado = true,
-                                        Titulo = "1 año",
-                                        Subtitulo = "¿Cómo lograrlo?",
-                                        Valor = "1",
-                                    },
-                                    new BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante(){
-                                        Orden = 0,
-                                        Tipo = "TIM",
-                                        Estado = false,
-                                        Titulo = "2 años",
-                                        Subtitulo = "¿Cómo lograrlo?",
-                                        Valor = "2",
-                                    },
-                                    new BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante(){
-                                        Orden = 0,
-                                        Tipo = "TIM",
-                                        Estado = false,
-                                        Titulo = "3 años",
-                                        Subtitulo = "¿Cómo lograrlo?",
-                                        Valor = "3",
-                                    },
-                                     new BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante(){
-                                        Orden = 0,
-                                        Tipo = "TIM",
-                                        Estado = false,
-                                        Titulo = "4 años",
-                                        Subtitulo = "¿Cómo lograrlo?",
-                                        Valor = "4",
-                                    },
-                                      new BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante(){
-                                        Orden = 0,
-                                        Tipo = "TIM",
-                                        Estado = false,
-                                        Titulo = "5 años",
-                                        Subtitulo = "¿Cómo lograrlo?",
-                                        Valor = "5",
-                                    },
-                                       new BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante(){
-                                        Orden = 0,
-                                        Tipo = "TIM",
-                                        Estado = false,
-                                        Titulo = "10 años",
-                                        Subtitulo = "¿Cómo lograrlo?",
-                                        Valor = "10",
-                                    },
-                                       new BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante(){
-                                        Orden = 0,
-                                        Tipo = "TIM",
-                                        Estado = false,
-                                        Titulo = "15 años",
-                                        Subtitulo = "¿Cómo lograrlo?",
-                                        Valor = "15",
-                                    },
-                                       new BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante(){
-                                        Orden = 0,
-                                        Tipo = "TIM",
-                                        Estado = false,
-                                        Titulo = "20 años",
-                                        Subtitulo = "¿Cómo lograrlo?",
-                                        Valor = "20",
-                                    },
-                                       new BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante(){
-                                        Orden = 0,
-                                        Tipo = "TIM",
-                                        Estado = false,
-                                        Titulo = "30 años",
-                                        Subtitulo = "¿Cómo lograrlo?",
-                                        Valor = "30",
-                                    },
-                                       new BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante(){
-                                        Orden = 0,
-                                        Tipo = "TIM",
-                                        Estado = false,
-                                        Titulo = "40 años",
-                                        Subtitulo = "¿Cómo lograrlo?",
-                                        Valor = "40",
-                                    }
-                                }
-                            }
-                        }
-                    }
+                };
+            }
+
+            var anios = 10;
+
+            var medallasAnios = new List<int> { 1, 2, 3, 4, 5, 10, 15, 20, 30, 40 };
+
+            var orden = 0;
+
+            var tiempoJuntos = new BELogroCaminoBrillante.BEIndicadorCaminoBrillante()
+            {
+                Titulo = "Tiempo juntos",
+                Medallas = medallasAnios.Select(e => new BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante() {
+                    Orden = orden++,
+                    Tipo = "TIM",
+                    Estado = e <= anios,
+                    Titulo = e+(1 == 1 ? "año" : " años"),
+                    Subtitulo = "¿Cómo lograrlo?",
+                    Valor = ""+ e,
+                    ModalTitulo = "Lorem Ipsum is simply",
+                    ModalDescripcion = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.",
+                }).ToList()
+            };
+
+            return new BELogroCaminoBrillante()
+            {
+                Id = "COMPROMISO",
+                Titulo = "Crompromiso",
+                Descripcion = "Estos son los logros que obtienes por ser constante con los pedidos y las ventas.",
+                Indicadores = (medallasProgramaNuevas != null ? 
+                                new List<BELogroCaminoBrillante.BEIndicadorCaminoBrillante> { medallasProgramaNuevas, tiempoJuntos } 
+                                :new List<BELogroCaminoBrillante.BEIndicadorCaminoBrillante> { tiempoJuntos })
             };
         }
 
-        public void GetConsultoraOfertas(int paisId, BEUsuario entidad)
+        private BELogroCaminoBrillante GetResumenLogros(List<BELogroCaminoBrillante> logros)
         {
-            throw new NotImplementedException();
-        }
+            if (logros != null) return logros[1];
 
-        public void GetConsultoraKits(int paisId, BEUsuario entidad)
-        {
-            throw new NotImplementedException();
-        }
-
-        private BELogroCaminoBrillante GetResumenLogros(int paisId, BEUsuario entidad, List<NivelConsultoraCaminoBrillante> niveles)
-        {
-            return new BELogroCaminoBrillante() {
+            return new BELogroCaminoBrillante()
+            {
                 Id = "MIS_LOGROS",
                 Titulo = "Mis logros",
                 Descripcion = "Estos son los logros que obtienes por ser constante con los pedidos y las ventas.",
@@ -467,6 +367,35 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 }
             };
         }
+
+        public void GetConsultoraOfertas(int paisId, BEUsuario entidad)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void GetConsultoraKits(int paisId, BEUsuario entidad)
+        {
+            throw new NotImplementedException();
+        }
+        
+        private List<BEPeriodoCaminoBrillante> GetPeriodos(int paisId) {
+            _providerCaminoBrillante = _providerCaminoBrillante ?? getCaminoBrillanteProvider(paisId);
+            if (_providerCaminoBrillante == null) return null;
+
+            return (_providerCaminoBrillante.GetPeriodo(Util.GetPaisIsoHanna(paisId)).Result ?? new List<PeriodoCaminoBrillante>())
+                .Select(e => new BEPeriodoCaminoBrillante() {
+                    CampanaFinal = int.Parse(e.CampanaFinal),
+                    CampanaInicial = int.Parse(e.CampanaInicial),
+                    IsoPais = e.IsoPais,
+                    NroCampana = e.NroCampana,
+                    Periodo = int.Parse(e.Periodo)
+                }).ToList();
+        }
+
+        private List<BEPeriodoCaminoBrillante> GetPeriodosCache(int paisId)
+        {
+            return CacheManager<List<BEPeriodoCaminoBrillante>>.ValidateDataElement(paisId, ECacheItem.CaminoBrillantePeriodos, () => GetPeriodos(paisId));
+        }        
 
         private List<BENivelCaminoBrillante> GetNivelesCaminoBrillanteMantenedor(int paisId)
         {
