@@ -3044,6 +3044,9 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         private int CantidadField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CantidadPackField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigoAgrupacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -3156,6 +3159,9 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int FlagRevistaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int FlagSeleccionadoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int FlagTextoLibreField;
@@ -3521,6 +3527,19 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 if ((this.CantidadField.Equals(value) != true)) {
                     this.CantidadField = value;
                     this.RaisePropertyChanged("Cantidad");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CantidadPack {
+            get {
+                return this.CantidadPackField;
+            }
+            set {
+                if ((this.CantidadPackField.Equals(value) != true)) {
+                    this.CantidadPackField = value;
+                    this.RaisePropertyChanged("CantidadPack");
                 }
             }
         }
@@ -4015,6 +4034,19 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 if ((this.FlagRevistaField.Equals(value) != true)) {
                     this.FlagRevistaField = value;
                     this.RaisePropertyChanged("FlagRevista");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int FlagSeleccionado {
+            get {
+                return this.FlagSeleccionadoField;
+            }
+            set {
+                if ((this.FlagSeleccionadoField.Equals(value) != true)) {
+                    this.FlagSeleccionadoField = value;
+                    this.RaisePropertyChanged("FlagSeleccionado");
                 }
             }
         }
@@ -4854,6 +4886,9 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         private int AppOrdenField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AppSubTituloField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string AppTituloField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -4949,6 +4984,19 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 if ((this.AppOrdenField.Equals(value) != true)) {
                     this.AppOrdenField = value;
                     this.RaisePropertyChanged("AppOrden");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AppSubTitulo {
+            get {
+                return this.AppSubTituloField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AppSubTituloField, value) != true)) {
+                    this.AppSubTituloField = value;
+                    this.RaisePropertyChanged("AppSubTitulo");
                 }
             }
         }
