@@ -1,8 +1,4 @@
 
---AGANA-186
-
-GO
-USE BelcorpPeru_BPT
 GO
 
 print db_name()
@@ -48,4 +44,6 @@ end
 GO
 
 print 'Fin de inserción de columnas: Color de títulos, Texto botón inicial, Texto botón final, Color del botón, Color mensaje botón'
+
+go
 

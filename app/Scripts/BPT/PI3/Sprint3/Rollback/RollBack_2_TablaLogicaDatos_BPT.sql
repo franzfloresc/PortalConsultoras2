@@ -1,7 +1,5 @@
 
 GO
-USE BelcorpPeru_BPT
-GO
 
 print db_name()
 
@@ -22,3 +20,5 @@ end
 GO
 
 print 'Fin de eliminació de tabla logica datos codigo 10 - Banner interativo'
+
+go
