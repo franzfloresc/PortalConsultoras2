@@ -1,7 +1,5 @@
 
 GO
-USE BelcorpPeru_BPT
-GO
 
 print db_name()
 
@@ -46,4 +44,6 @@ end
 GO
 
 print 'Fin de eliminación de columnas: Color de títulos, Texto botón inicial, Texto botón final, Color del botón, Color mensaje botón'
+
+GO
 

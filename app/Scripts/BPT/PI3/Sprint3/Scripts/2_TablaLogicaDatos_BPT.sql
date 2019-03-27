@@ -1,6 +1,4 @@
 GO
-USE BelcorpPeru_BPT
-GO
 
 print db_name()
 

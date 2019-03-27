@@ -1,8 +1,3 @@
---EAAR
-
-use BelcorpPeru_Bpt
-
-go
 
 GO
 
@@ -10,7 +5,7 @@ print db_name()
 
 go
 
-alter PROCEDURE [dbo].[ConfiguracionOfertasHomeGet]
+ALTER PROCEDURE [dbo].[ConfiguracionOfertasHomeGet]
 	@ConfiguracionOfertasHomeID int
 AS
 BEGIN
@@ -30,5 +25,4 @@ BEGIN
 		P.ConfiguracionOfertasHomeID = @ConfiguracionOfertasHomeID
 END
 
-
- 
+GO
