@@ -230,8 +230,12 @@ namespace Portal.Consultoras.Web.Controllers
                 if (model.PaisID == 0)
                     model.PaisID = Util.GetPaisID(model.CodigoISO);
 
-                var resultadoInicioSesion = await ObtenerResultadoInicioSesion(model);
+                #region DesencriptarClaveSecreta
+                var PasswordCjs = ConfigurationManager.AppSettings.Get("CryptoJSPassword");
+                model.ClaveSecreta = Util.DecryptCryptoJs(model.ClaveSecreta, PasswordCjs, model.Salt, model.Key, model.Iv);
+                #endregion
 
+                var resultadoInicioSesion = await ObtenerResultadoInicioSesion(model);
 
                 if (resultadoInicioSesion != null && resultadoInicioSesion.Result == USUARIO_VALIDO)
                 {
@@ -866,6 +870,8 @@ namespace Portal.Consultoras.Web.Controllers
                         return RedirectToUniqueRoute("ConsultoraOnline", "Pendientes");
                     case Constantes.IngresoExternoPagina.Notificaciones:
                         return RedirectToUniqueRoute("Notificaciones", "IndexExterno", new { IdOrigen = model.OrigenPedido });
+                    case Constantes.IngresoExternoPagina.MasGanadoras: 
+                        return RedirectToUniqueRoute("MasGanadoras", "Index");
                 }
             }
             catch (Exception ex)

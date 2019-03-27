@@ -299,7 +299,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.Total = model.SubTotal + model.Descuento;
             }
             else model.Total = model.ListaNotificacionesDetallePedido.Sum(p => p.ImporteTotal);
-            model.DecimalToString = _notificacionProvider.CreateConverterDecimalToString(userData.PaisID);
 
             return View("ListadoObservaciones", model);
         }

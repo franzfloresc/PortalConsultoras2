@@ -1472,6 +1472,8 @@
     <Content Include="Content\Css\Site\Images\carrusel_prev_blanco_dorado.png" />
     <Content Include="Content\Css\Site\Images\gif_de_ofertas.gif" />
     <Content Include="Content\Css\Site\Images\gif_de_ofertas_2.gif" />
+    <Content Include="Content\Images\checkBuroSAC.svg" />
+    <Content Include="Content\Images\exclamationBuroSAC.svg" />
     <Content Include="Content\Css\Site\Images\gif_de_ofertas_3.gif" />
     <Content Include="Content\Css\Site\Menu\MenuGeneral.css" />
     <Content Include="Content\Css\Site\Menu\MenuContenedorResponsive.css" />
@@ -1690,6 +1692,7 @@
     <Content Include="Content\Images\Esika\CategoriasProductos\categoria_moda.jpg" />
     <Content Include="Content\Images\Esika\CategoriasProductos\categoria_tratamiento_corporal.jpg" />
     <Content Include="Content\Images\Esika\CategoriasProductos\categoria_tratamiento_facial.jpg" />
+    <Content Include="Content\Images\Esika\CheckAmarillo.svg" />
     <Content Include="Content\Images\Esika\icono_input_radio_cdr.svg" />
     <Content Include="Content\Images\Esika\icons-trash.svg" />
     <Content Include="Content\Images\Esika\RevistaDigital\gana-mas-navidad-esika.svg" />
@@ -3686,6 +3689,7 @@
     <Content Include="Content\Images\prod_grilla_vacio.png" />
     <Content Include="Content\Images\Question.png" />
     <Content Include="Content\Images\quote.png" />
+    <Content Include="Content\Images\rechazadaBuroSAC.svg" />
     <Content Include="Content\Images\regalo_microefecto_esika.png" />
     <Content Include="Content\Images\regalo_microefecto_lbel.png" />
     <Content Include="Content\Images\remove.png" />
@@ -4019,6 +4023,8 @@
     <Content Include="Scripts\Comunidad\fuzescale-1.3.min.js" />
     <Content Include="Scripts\Comunidad\jquery.min.js" />
     <Content Include="Scripts\Comunidad\modernizr.custom.js" />
+    <Content Include="Scripts\CryptoJS\aes.js" />
+    <Content Include="Scripts\CryptoJS\pbkdf2.js" />
     <Content Include="Scripts\cycle-plugin.js" />
     <Content Include="Scripts\DatetimePicker\jquery.datetimepicker.js" />
     <Content Include="Scripts\DD_roundies.js" />
@@ -5701,6 +5707,10 @@
     <Content Include="Views\Pedido\_vpPedidoGrilla.cshtml" />
     <Content Include="Views\ProductoRecomendado\_template_producto.cshtml" />
     <Content Include="Views\Pedido\_vpPedidoGrilla-Template.cshtml" />
+    <Content Include="Views\Bonificaciones\Index.cshtml" />
+    <Content Include="Views\MisCatalogosRevistas\Index.cshtml" />
+    <Content Include="Views\MisCatalogosRevistas\template-revista-slide.cshtml" />
+    <Content Include="Views\Unete\_MensajeRespuestaBuro.cshtml" />
     <None Include="Service References\ValidacionesUnete\ValidacionesUnete.wsdl" />
     <None Include="Service References\ValidacionesUnete\ValidacionesUnete.xsd">
       <SubType>Designer</SubType>
@@ -5717,18 +5727,15 @@
     <None Include="Service References\ValidacionesUnete\ValidacionesUnete4.xsd">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Views\Bonificaciones\Index.cshtml" />
-    <Content Include="Views\MisCatalogosRevistas\Index.cshtml" />
-    <Content Include="Views\MisCatalogosRevistas\template-revista-slide.cshtml" />
     <Content Include="Views\Unete\ReportePagoKit.cshtml" />
-    <Content Include="Views\Unete\ReporteTipoConsultora.cshtml" />
-    <Content Include="Views\DetalleEstrategia\ProductoTemplate.cshtml" />
-    <Content Include="Views\DetalleEstrategia\FichaTemplate.cshtml" />
     <Content Include="Views\TusClientes\Index.cshtml" />
     <Content Include="Views\TusClientes\PanelLista.cshtml" />
     <Content Include="Views\TusClientes\PanelMantener.cshtml" />
     <Content Include="Views\TusClientes\PanelTest.cshtml" />
     <Content Include="Views\TusClientes\_Mantener.cshtml" />
+    <Content Include="Views\Unete\ReporteTipoConsultora.cshtml" />
+    <Content Include="Views\DetalleEstrategia\FichaTemplate.cshtml" />
+    <Content Include="Views\DetalleEstrategia\ProductoTemplate.cshtml" />
     <Content Include="Views\ArmaTuPack\Detalle.cshtml" />
     <Content Include="Views\AdministrarEstrategia\EstrategiaGrupoDialog.cshtml" />
     <Content Include="Views\ArmaTuPack\Detalle\cabecera-template.cshtml" />

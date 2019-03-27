@@ -361,6 +361,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     var pedidoDetalleStock = new BEPedidoDetalle();
                     pedidoDetalleStock.Producto = new BEProducto();
                     pedidoDetalleStock.Producto.CUV = estrategia.CUV2;
+					pedidoDetalleStock.Producto.Descripcion = pedidoDetalle.Producto.Descripcion;
                     pedidoDetalleStock.Cantidad = pedidoDetalle.Cantidad;
                     var resultStockLimite = ValidarStockLimiteVenta(usuario, pedidoDetalleStock, lstDetalle, out mensaje);
                     if (resultStockLimite) return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_LIMITE_VENTA, mensaje);
@@ -2616,14 +2617,31 @@ namespace Portal.Consultoras.BizLogic.Pedido
         {
             var cantidadActual = pedido.Where(d => d.CUV == pedidoDetalle.Producto.CUV).Sum(d => d.Cantidad);
             var respValidar = _limiteVentaBusinessLogic.CuvTieneLimiteVenta(usuario.PaisID, usuario.CampaniaID, usuario.CodigorRegion, usuario.CodigoZona, pedidoDetalle.Producto.CUV, pedidoDetalle.Cantidad, cantidadActual);
-            if (respValidar.TieneLimite) mensaje = string.Format(Constantes.MensajesError.ExcedioLimiteVenta, respValidar.UnidadesMaximas);
+            if (respValidar.TieneLimite) mensaje = string.Format(Constantes.MensajesError.StockLimiteVenta, pedidoDetalle.Producto.CUV, pedidoDetalle.Producto.Descripcion, respValidar.UnidadesMaximas);
             else mensaje = null;
             return respValidar.TieneLimite;
         }
 
         public BEPedidoDetalleResult ValidaRegaloPedido(BEPedidoDetalle pedidoDetalle)
         {
-            BEPedidoDetalleResult objRerun = null;
+            BEPedidoDetalleResult objRerun = new BEPedidoDetalleResult();
+
+            if (pedidoDetalle.Estrategia == null && pedidoDetalle.Producto.EstrategiaID <= 0)
+            {
+                pedidoDetalle.Estrategia = new BEEstrategia()
+                {
+                    Cantidad = pedidoDetalle.Cantidad,
+                    DescripcionCUV2 = Util.Trim(pedidoDetalle.Producto.Descripcion),
+                    FlagNueva = 0,
+                    Precio = pedidoDetalle.Producto.PrecioCatalogo,
+                    TipoEstrategiaID = pedidoDetalle.Producto.TipoEstrategiaID.Trim() == string.Empty ? 0 : int.Parse(pedidoDetalle.Producto.TipoEstrategiaID.Trim()),
+                    CUV2 = pedidoDetalle.Producto.CUV,
+                    MarcaID = pedidoDetalle.Producto.MarcaID,
+                    LimiteVenta = 1,
+                    Precio2 = pedidoDetalle.Producto.PrecioCatalogo
+                };
+            }
+
             var LstRealo = _estrategiaBusinessLogic.GetEstrategiaPremiosElectivos(pedidoDetalle.Usuario.PaisID, pedidoDetalle.Usuario.CodigoPrograma, pedidoDetalle.Usuario.CampaniaID, pedidoDetalle.Usuario.Nivel).ToList();
 
             if (LstRealo == null) LstRealo = new List<BEEstrategia>();
@@ -2631,10 +2649,12 @@ namespace Portal.Consultoras.BizLogic.Pedido
             if (LstRealo.Any(x => x.CUV2 == pedidoDetalle.Producto.CUV))
             {
                 var reqPedidoDetalle = Get(pedidoDetalle.Usuario);
+
                 if (reqPedidoDetalle.olstBEPedidoWebDetalle == null)
                 {
-                    objRerun = new BEPedidoDetalleResult();
-                    objRerun.CodigoRespuesta = Constantes.PedidoValidacion.Code.SUCCESS;
+                    objRerun = Insert(pedidoDetalle);
+                    if (objRerun.CodigoRespuesta != Constantes.PedidoValidacion.Code.SUCCESS) return objRerun;
+                    objRerun.CodigoRespuesta = Constantes.PedidoValidacion.Code.SUCCESS_REGALO;
                     return objRerun;
                 }
 
@@ -2643,35 +2663,46 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     p.EsRegalo = LstRealo.Any(c => c.CUV2 == p.CUV);
                 });
 
-                if (reqPedidoDetalle.olstBEPedidoWebDetalle.Any(x => x.EsRegalo))
-                {
-                    var regaloElegido = reqPedidoDetalle.olstBEPedidoWebDetalle.FirstOrDefault(x => x.EsRegalo);
-                    BEPedidoDetalle ProdEliminar = (BEPedidoDetalle)pedidoDetalle.Clone();
+                var regaloElegido = reqPedidoDetalle.olstBEPedidoWebDetalle.FirstOrDefault(x => x.EsRegalo);
 
+                if (regaloElegido != null)
+                {
+
+                    BEPedidoDetalle ProdEliminar = new BEPedidoDetalle();
+                    ProdEliminar.SetID = regaloElegido.SetID;
                     ProdEliminar.PedidoDetalleID = regaloElegido.PedidoDetalleID;
-                    ProdEliminar.Producto = new BEProducto()
-                    {
-                        TipoOfertaSisID = regaloElegido.TipoOfertaSisID,
-                        CUV = regaloElegido.CUV
-                    };
+                    ProdEliminar.PedidoID = regaloElegido.PedidoID;
+                    ProdEliminar.Producto = new BEProducto();
+                    ProdEliminar.Producto.TipoOfertaSisID = regaloElegido.TipoOfertaSisID;
+                    ProdEliminar.Producto.CUV = regaloElegido.CUV;
+                    ProdEliminar.Usuario = pedidoDetalle.Usuario;
+                    ProdEliminar.Cantidad = pedidoDetalle.Cantidad;
+                    ProdEliminar.PaisID = pedidoDetalle.PaisID;
+                    ProdEliminar.IPUsuario = pedidoDetalle.IPUsuario;
+                    ProdEliminar.ClienteID = regaloElegido.ClienteID;
+                    ProdEliminar.Identifier = pedidoDetalle.Identifier;
+                    ProdEliminar.ObservacionPROL = regaloElegido.ObservacionPROL;
+
+                    objRerun = Insert(pedidoDetalle);
+                    if (objRerun.CodigoRespuesta != Constantes.PedidoValidacion.Code.SUCCESS) return objRerun;
 
                     objRerun = Delete(ProdEliminar).Result;
                     if (objRerun.CodigoRespuesta != Constantes.PedidoValidacion.Code.SUCCESS) return objRerun;
 
-                    //var regaloElegido = objPedido.Detalle.FirstOrDefault(x => x.EsPremioElectivo);
+                    objRerun = new BEPedidoDetalleResult();
+                    objRerun.CodigoRespuesta = Constantes.PedidoValidacion.Code.SUCCESS_REGALO;
                 }
                 else
                 {
-                    objRerun = new BEPedidoDetalleResult();
                     objRerun.CodigoRespuesta = Constantes.PedidoValidacion.Code.SUCCESS;
                 }
             }
             else
             {
-                objRerun = new BEPedidoDetalleResult();
                 objRerun.CodigoRespuesta = Constantes.PedidoValidacion.Code.SUCCESS;
             }
 
+            objRerun.MensajeRespuesta = objRerun.MensajeRespuesta ?? Constantes.PedidoValidacion.Configuracion[Constantes.PedidoValidacion.Code.SUCCESS].Mensaje;
             return objRerun;
         }
 
