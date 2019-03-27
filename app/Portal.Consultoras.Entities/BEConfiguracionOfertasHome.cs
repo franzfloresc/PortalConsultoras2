@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Common;
-using System;
+using Portal.Consultoras.Entities.Oferta;
+
 using System.Data;
 using System.Runtime.Serialization;
 
@@ -94,6 +95,9 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public BEConfiguracionPais ConfiguracionPais { get; set; }
 
+        [DataMember]
+        public BEConfiguracionOfertasHomeApp ConfiguracionOfertasHomeApp { get; set; }
+
         public BEConfiguracionOfertasHome(IDataRecord row)
         {
             ConfiguracionOfertasHomeID = row.ToInt32("ConfiguracionOfertasHomeID");
@@ -127,11 +131,12 @@ namespace Portal.Consultoras.Entities
             MobileActivo = row.ToBoolean("MobileActivo");
             UrlSeccion = row.ToString("UrlSeccion");
             ConfiguracionPais = new BEConfiguracionPais();
-            ConfiguracionPais.Codigo = row.ToString("Codigo", "");
+            ConfiguracionPais.Codigo = row.ToString("Codigo", string.Empty);
         }
 
         public BEConfiguracionOfertasHome()
         {
+
         }
     }
 }

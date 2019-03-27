@@ -432,30 +432,42 @@ namespace Portal.Consultoras.BizLogic
             }
         }
 
-        public IList<BEPedidoWebDetalle> GetPedidoWebDetalleByCampania(BEPedidoWebDetalleParametros bePedidoWebDetalleParametros,
-            bool consultoraOnLine = true)
+        public IList<BEPedidoWebDetalle> GetPedidoWebDetalleByCampania(BEPedidoWebDetalleParametros detParametros)
         {
-            var pedidoWebDetalle = new List<BEPedidoWebDetalle>();
-            var daPedidoWebDetalle = new DAPedidoWebDetalle(bePedidoWebDetalleParametros.PaisId);
+            return GetPedidoWebDetalleByCampania(detParametros, true, false);
+        }
+        public IList<BEPedidoWebDetalle> GetPedidoWebDetalleByCampania(BEPedidoWebDetalleParametros detParametros, bool consultoraOnLine, bool updLabelNuevas)
+        {
+            var listpedidoDetalle = new List<BEPedidoWebDetalle>();
+            var daPedidoWebDetalle = new DAPedidoWebDetalle(detParametros.PaisId);
 
-            using (IDataReader reader = daPedidoWebDetalle.GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros))
+            using (IDataReader reader = daPedidoWebDetalle.GetPedidoWebDetalleByCampania(detParametros))
             {
                 while (reader.Read())
                 {
-                    var entidad = new BEPedidoWebDetalle(reader, bePedidoWebDetalleParametros.Consultora);
-                    entidad.PaisID = bePedidoWebDetalleParametros.PaisId;
-                    pedidoWebDetalle.Add(entidad);
+                    var entidad = new BEPedidoWebDetalle(reader, detParametros.Consultora);
+                    entidad.PaisID = detParametros.PaisId;
+                    listpedidoDetalle.Add(entidad);
                 }
             }
-            _blProgramaNuevas.UpdateFlagCupones(bePedidoWebDetalleParametros.PaisId, pedidoWebDetalle);
+            if (updLabelNuevas)
+            {
+                _blProgramaNuevas.UpdFlagCupones(
+                    detParametros.PaisId,
+                    detParametros.CampaniaId,
+                    detParametros.NumeroPedido,
+                    detParametros.CodigoPrograma,
+                    listpedidoDetalle
+                );
+            }
 
             #region ConsultoraOnline
             if (consultoraOnLine)
             {
-                var daConsultoraOnline = new DAConsultoraOnline(bePedidoWebDetalleParametros.PaisId);
+                var daConsultoraOnline = new DAConsultoraOnline(detParametros.PaisId);
                 var listaProductosConsultoraOnline = new List<BESolicitudClienteDetalle>();
 
-                using (IDataReader reader = daConsultoraOnline.GetProductoByCampaniaByConsultoraId(bePedidoWebDetalleParametros.CampaniaId, bePedidoWebDetalleParametros.ConsultoraId))
+                using (IDataReader reader = daConsultoraOnline.GetProductoByCampaniaByConsultoraId(detParametros.CampaniaId, detParametros.ConsultoraId))
                     while (reader.Read())
                     {
                         var entidad = new BESolicitudClienteDetalle(reader);
@@ -464,16 +476,38 @@ namespace Portal.Consultoras.BizLogic
 
                 if (listaProductosConsultoraOnline.Count > 0)
                 {
-                    foreach (var item in pedidoWebDetalle)
+                    foreach (var item in listpedidoDetalle)
                     {
                         var itemConsultoraOnline = listaProductosConsultoraOnline.FirstOrDefault(p => p.PedidoWebID == item.PedidoID && p.PedidoWebDetalleID == item.PedidoDetalleID);
                         if (itemConsultoraOnline != null) item.FlagConsultoraOnline = true;
                     }
                 }
             }
-            #endregion            
+            #endregion
 
-            return pedidoWebDetalle;
+            if(WebConfig.SetIdentifierNumberFlag == "1")
+            {
+                if (detParametros.AgruparSet)
+                {
+                    var PedidoDetalleIdentifierNumber = listpedidoDetalle.Where(x => x.EstrategiaId != 0).Reverse().GroupBy(x => new { x.ClienteID, x.EstrategiaId }).Where(x => x.Count() > 1)
+                   .Select(g => new { g, count = g.Count() })
+                   .SelectMany(t => t.g.Select(b => b)
+                                       .Zip(Enumerable.Range(1, t.count), (j, i) => new BEPedidoWebDetalle
+                                       {
+                                           ClienteID = j.ClienteID,
+                                           EstrategiaId = j.EstrategiaId,
+                                           SetID = j.SetID,
+                                           SetIdentifierNumber = i
+                                       })).ToList();
+
+                    foreach (var item in PedidoDetalleIdentifierNumber)
+                    {
+                        listpedidoDetalle.Where(x => x.SetID == item.SetID).Update(x => { x.SetIdentifierNumber = item.SetIdentifierNumber; });
+                    }
+                }
+            }
+
+            return listpedidoDetalle;
         }
 
         public IList<BEPedidoDDWebDetalle> GetPedidosDDWebDetalleByCampaniaPedido(int paisID, int CampaniaID, int PedidoID)
@@ -837,7 +871,7 @@ namespace Portal.Consultoras.BizLogic
             using (IDataReader reader = daPedidoWebDetalle.ObtenerCuvSetDetalle(campaniaID, consultoraID, pedidoID, ListaSet))
                 while (reader.Read())
                 {
-                    if (DataRecord.HasColumn(reader, "SetID") && (DataRecord.HasColumn(reader, "CUV")))
+                    if (DataRecord.HasColumn(reader, "SetID") && DataRecord.HasColumn(reader, "CUV"))
                     {
                         listaBePedidoWebDetalle.Add(new BEPedidoWebDetalle() { CUV = Convert.ToString(reader["CUV"]), SetID = Convert.ToInt32(reader["SetID"]) });
                     }

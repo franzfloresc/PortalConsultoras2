@@ -4,7 +4,6 @@ var PedidoEnLinea;
 var urlPasarelaPago = urlPasarelaPago || '';
 var rutaGuardarDatosPago = rutaGuardarDatosPago || '';
 var tipoOrigenPantalla = tipoOrigenPantalla || 0;
-var montoMinimoPago = montoMinimoPago || 0.5;
 
 $(document).ready(function () {
     'use strict';

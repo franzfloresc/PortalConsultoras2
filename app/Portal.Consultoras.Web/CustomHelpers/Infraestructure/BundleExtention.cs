@@ -40,8 +40,6 @@ namespace Portal.Consultoras.Web
 
         public void Process(BundleContext context, BundleResponse response)
         {
-
-            response.Content = response.Content;
             response.ContentType = "text/css";
             response.Cacheability = HttpCacheability.Public;
         }
@@ -51,8 +49,6 @@ namespace Portal.Consultoras.Web
 
         public void Process(BundleContext context, BundleResponse response)
         {
-
-            response.Content = response.Content;
             response.ContentType = "text/javascript";
             response.Cacheability = HttpCacheability.Public;
         }
