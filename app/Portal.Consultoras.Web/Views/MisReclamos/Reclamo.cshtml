@@ -80,7 +80,7 @@
             <div class="content_reclamo" id="Paso2">
                 <div class="content_reclamo" id="Cambio1" style="display: none; max-width: 890px;">
                     <div class="subtitulo_reclamo">Escoge una solución</div>
-                    <div id="divOperacion">
+                    <div id="divOperacion" class="lista_opciones_cdr_wrapper">
                     </div>
                     <hr class="clear" />
                     <span class="btn_paso_anterior" id="RegresarPaso1">REGRESAR</span>
@@ -369,12 +369,23 @@
     {{/each}}
 </script>
 <script id="template-operacion" type="text/x-handlebars-template">
-    {{#each this as |item|}}
-    <label>
-        <input type="checkbox" onchange="EscogerSolucion(this,event)" id="chk{{item.CodigoOperacion}}" data-tipo="{{item.Tipo}}">{{item.CDRTipoOperacion.DescripcionOperacion}}
-    </label>
-    @*  <span class="btn_solucion_reclamo" id="{{item.CodigoOperacion}}" data-tipo="{{item.Tipo}}">{{item.CDRTipoOperacion.DescripcionOperacion}}</span>*@
-    {{/each}}
+    <ul class="text-center lista_opciones_cdr">
+        {{#each this as |item|}}
+        <li class="opcion_cdr border-radius-4">
+            <a href="#" title="" class="text-center opcion_cdr_enlace">
+                <div class="opcion_cdr_icono_wrapper">
+                    <img src="@Url.Content("~/Content/Images/opcion_devolucion_cdr.svg")" alt="" class="opcion_cdr_icono" />
+                </div>
+                <div class="text-bold opcion_cdr_seleccion_wrapper">
+                    <input id="opcionCdrSeleccion" style="display:none!important;" type="checkbox" onchange="EscogerSolucion(this,event)" id="chk{{item.CodigoOperacion}}" data-tipo="{{item.Tipo}}">{{item.CDRTipoOperacion.DescripcionOperacion}}
+                    <label for="opcionCdrSeleccion" class="border-radius-4 opcion_cdr_checkbox">
+                    </label>
+                </div>
+            </a>
+        </li>
+        @*  <span class="btn_solucion_reclamo" id="{{item.CodigoOperacion}}" data-tipo="{{item.Tipo}}">{{item.CDRTipoOperacion.DescripcionOperacion}}</span>*@
+        {{/each}}
+    </ul>
      <span class="btn_solucion_reclamo" id="btnSiguiente">Siguiente</span>
 </script>
 <script id="template-confirmacion" type="text/x-handlebars-template">

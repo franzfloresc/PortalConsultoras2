@@ -3589,6 +3589,9 @@
     <Content Include="Content\Images\ojito.png" />
     <Content Include="Content\Images\ojos.svg" />
     <Content Include="Content\Images\ojos_negro.svg" />
+    <Content Include="Content\Images\opcion_cambio_mismo_producto_cdr.svg" />
+    <Content Include="Content\Images\opcion_cambio_otro_producto_cdr.svg" />
+    <Content Include="Content\Images\opcion_devolucion_cdr.svg" />
     <Content Include="Content\Images\ordenar-flecha-icono.svg" />
     <Content Include="Content\Images\ordenar-icono.svg" />
     <Content Include="Content\Images\paquete_doc.png" />

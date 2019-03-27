@@ -28363,6 +28363,65 @@ div.motivoRechazo textarea {
     background-color:transparent!important;
 }
 
+.lista_opciones_cdr {
+    list-style-type: none;
+    margin-bottom: 41px;
+}
+
+.opcion_cdr {
+    display: inline-block;
+    vertical-align: middle;
+    width: 156px;
+    height: 154px;
+    border-radius: 4px;
+    margin-right: 16px;
+    border: 1px solid #000;
+}
+
+    .opcion_cdr:last-child {
+        margin-right: 0;
+    }
+
+.opcion_cdr_enlace {
+    padding: 15px;
+    height: 100%;
+    position: relative;
+}
+
+.opcion_cdr_icono_wrapper {
+    height: 46px;
+    margin-top: 24px;
+    margin-bottom: 15px;
+}
+
+.opcion_cdr_icono {
+    display: block;
+    width: auto;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 21px;
+}
+
+.opcion_cdr_checkbox {
+    display: block;
+    background-color: #FFF;
+    border: 1px solid #000;
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    top: 10px;
+    right: 11px;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+input[type="checkbox"]:checked + .opcion_cdr_checkbox {
+    background-color: #000;
+}
+
 .rango_reclamo {
     width:80px;
     margin-right:0;
