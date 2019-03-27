@@ -1,6 +1,12 @@
 ﻿
 namespace Portal.Consultoras.Common
 {
+    /// <summary>
+    /// Valores de TablaLogica y TablaLogicaDatos
+    /// <para> ConsTablaLogica.[TablaLogica].[TablaLogicaId | Valor o codigo TablaLogicaDatos] </para>
+    /// <para> Id de TablaLogica : ConsTablaLogica.FlagFuncional.TablaLogicaId </para>
+    /// <para> Valor de TablaLogicaDatos: ConsTablaLogica.FlagFuncional.MisClientes </para>
+    /// </summary>
     public static class ConsTablaLogica
     {
         public static class PasePedido

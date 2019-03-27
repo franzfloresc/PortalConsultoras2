@@ -141,6 +141,7 @@ namespace Portal.Consultoras.Common
             public const int IdMaximo = 502;
         }
 
+        [Obsolete("Use ConsTablaLogica")]
         public static class TablaLogicaDato
         {
             // PackNuevas-PedidoAsociado.
