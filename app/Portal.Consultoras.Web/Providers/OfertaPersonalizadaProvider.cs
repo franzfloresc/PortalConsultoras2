@@ -45,13 +45,15 @@ namespace Portal.Consultoras.Web.Providers
         protected ShowRoomProvider _showRoomProvider;
         protected ConsultaProlProvider _consultaProlProvider;
         protected TablaLogicaProvider _tablaLogicaProvider;
+        protected ProgramaNuevasProvider _programaNuevasProvider;
 
         public OfertaPersonalizadaProvider() : this(Web.SessionManager.SessionManager.Instance,
             new ConfiguracionManagerProvider(),
             new PedidoWebProvider(),
             new OfertaBaseProvider(),
             new ConsultaProlProvider(),
-            new TablaLogicaProvider())
+            new TablaLogicaProvider(),
+            new ProgramaNuevasProvider(Web.SessionManager.SessionManager.Instance))
         {
         }
 
@@ -72,7 +74,8 @@ namespace Portal.Consultoras.Web.Providers
             PedidoWebProvider pedidoWebProvider,
             OfertaBaseProvider ofertaBaseProvider,
             ConsultaProlProvider consultaProlProvider,
-            TablaLogicaProvider tablaLogicaProvider)
+            TablaLogicaProvider tablaLogicaProvider,
+            ProgramaNuevasProvider programaNuevasProvider)
         {
             this.SessionManager = sessionManager;
             _configuracionManager = configuracionManagerProvider;
@@ -81,6 +84,7 @@ namespace Portal.Consultoras.Web.Providers
             _showRoomProvider = new ShowRoomProvider();
             _consultaProlProvider = consultaProlProvider;
             _tablaLogicaProvider = tablaLogicaProvider;
+            _programaNuevasProvider = programaNuevasProvider;
         }
 
         #region Metodos de Estrategia Controller
@@ -491,16 +495,18 @@ namespace Portal.Consultoras.Web.Providers
 
                 listEstrategia = GetEstrategiasService(entidad);
                 listEstrategia.ForEach(x => { x.TieneStock = true; });
-
-                if (tipo != Constantes.TipoEstrategiaCodigo.PackNuevas)
+                
+                if (tipo == Constantes.TipoEstrategiaCodigo.PackNuevas)
                 {
-                    if (listEstrategia.Any())
-                    {
-                        if (GetValidarDiasAntesStock(userData))
-                        {
-                            listEstrategia = ActualizarEstrategiaStockPROL(listEstrategia, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora);
-                        }
-                    }
+                    var listProdEstraProgNuevas = _programaNuevasProvider.GetListCuvEstrategia();
+                    listEstrategia = listEstrategia.Join(listProdEstraProgNuevas, e => e.CUV2, pen => pen.Cuv, (e, pen) => {
+                        e.EsOfertaIndependiente = pen.EsCuponIndependiente;
+                        return e;
+                    }).ToList();
+                }
+                else if (listEstrategia.Any() && GetValidarDiasAntesStock(userData))
+                {
+                    listEstrategia = ActualizarEstrategiaStockPROL(listEstrategia, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora);
                 }
 
                 if (campaniaId == userData.CampaniaID)
@@ -585,7 +591,7 @@ namespace Portal.Consultoras.Web.Providers
                     listEstrategia = osc.GetEstrategiasPedido(entidad).ToList();
                 }
             }
-;
+
             return listEstrategia;
         }
 
