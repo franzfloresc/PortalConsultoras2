@@ -731,4 +731,55 @@ ul.breadcumbs li:last-child a {
     margin-left: 15px;
 }
 
+.btn_detalle {
+    font-size: 12px;
+    font-weight: bold;
+    margin: 12px 0px 0px;
+    display: inline-block;
+}
 
+    .btn_detalle img {
+        width: 20px;
+        transform: rotate(-90deg);
+        margin-left: -4px;
+        margin-top: -2px;
+    }
+
+/*Modal detalle*/
+.modal_producto_detalle {
+    padding-right: 0px !important;
+    background-color: #fff;
+}
+    .modal_producto_detalle .modal-dialog {
+        width: 100%;
+        margin: 0 auto;
+        height: 100%;
+    }
+
+    .modal_producto_detalle .modal-content {
+        border: none;
+        height: 100%;
+        box-shadow: none;
+    }
+
+        .modal_producto_detalle .modal-content .imagen_producto {
+            margin-bottom: 0px !important;
+        }
+
+
+.btn_volver {
+    font-weight: normal;
+    text-transform: uppercase;
+    font-size: 13px;
+    margin-top: 10px;
+    margin-bottom: 25px;
+    background: none;
+}
+
+    .btn_volver img {
+        width: 11px;
+        transform: rotate(180deg);
+        position: relative;
+        top: -1px;
+        margin-right: 5px;
+    }
