@@ -22,7 +22,9 @@ namespace Portal.Consultoras.Web.Providers
         }
 
         public CaminoBrillanteProvider()
-        {}
+        {
+            sessionManager = SessionManager.SessionManager.Instance;
+        }
         
         public BENivelCaminoBrillante ObtenerNivelActualConsultora()
         {
@@ -30,8 +32,8 @@ namespace Portal.Consultoras.Web.Providers
             {
                 var oResumen = ResumenConsultoraCaminoBrillante();
                 if (oResumen == null || oResumen.NivelConsultora.Count() == 0 || oResumen.Niveles.Count() == 0) return null;
-                var codNivel = oResumen.NivelConsultora.Where(x => x.Campania == UsuarioDatos.CampaniaID.ToString()).Select(z => z.NivelActual).FirstOrDefault();
-                if (string.IsNullOrEmpty(codNivel)) codNivel = oResumen.NivelConsultora[0].NivelActual;
+                var codNivel = oResumen.NivelConsultora.Where(x => x.Campania == UsuarioDatos.CampaniaID.ToString()).Select(z => z.Nivel).FirstOrDefault();
+                if (string.IsNullOrEmpty(codNivel)) codNivel = oResumen.NivelConsultora[0].Nivel;
                 return oResumen.Niveles.Where(x => x.CodigoNivel == codNivel).FirstOrDefault();
             }
             catch (Exception ex)
@@ -50,7 +52,7 @@ namespace Portal.Consultoras.Web.Providers
             usuarioDatos.Zona = UsuarioDatos.CodigoZona;
 
             using (var svc = new UsuarioServiceClient())
-                return svc.GetConsultoraNivelCaminoBrillante(UsuarioDatos.PaisID, usuarioDatos);
+                return svc.GetConsultoraNivelCaminoBrillante(UsuarioDatos.PaisID, usuarioDatos, true);
         }
 
 
