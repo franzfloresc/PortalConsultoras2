@@ -132,9 +132,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 //Inicio CaminoBrillante 
                 model.TieneCaminoBrillante = userData.CaminoBrillante;
-                string DatosConsultora = GetNivelConsultoras();
-                if (DatosConsultora != "")
-                    model.CaminoBrillanteMsg = userData.CaminoBrillanteMsg.Replace("{0}", GetNivelConsultoras());
+                model.CaminoBrillanteMsg = userData.CaminoBrillanteMsg.Replace("{0}", "<b>" + ObtenerNivelActualConsultora() + "</b>");
                 //Fin CaminoBrillante
 
 
@@ -470,46 +468,34 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         }
 
         #region CaminoBrillante
-
-        public string GetNivelConsultoras()
+        private string ObtenerNivelActualConsultora()
         {
-            List<NivelConsultoraCaminoBrillanteModel> DatosConsultora = GetNivelConsultora();
-            string DescripcionNivel = string.Empty;
-            if (DatosConsultora.Count > 0)
+            try
             {
-                SessionManager.SetConsultora(DatosConsultora);
-                foreach (NivelConsultoraCaminoBrillanteModel obj in DatosConsultora)
-                    DescripcionNivel = obj.NivelActual == 1 ? "<b>Consultora</b>" : obj.NivelActual == 2 ? "<b>Consultora Coral</b>" : obj.NivelActual == 3 ? "<b>Consultora Ámbar</b>" : obj.NivelActual == 4 ? "<b>Consultora Perla</b>" : obj.NivelActual == 5 ? "<b>Consultora Topacio</b>" : obj.NivelActual == 6 ? "<b>Consultora Brillante</b>" : "";
+                var oResumen = ResumenConsultoraCaminoBrillante();
+                if (oResumen == null || oResumen.NivelConsultora.Count() == 0 || oResumen.Niveles.Count() == 0) return "";
+                var codNivel = oResumen.NivelConsultora.Where(x => x.Campania == userData.CampaniaID.ToString()).Select(z => z.NivelActual).FirstOrDefault();
+                if (string.IsNullOrEmpty(codNivel)) codNivel = oResumen.NivelConsultora[0].NivelActual;
+                return oResumen.Niveles.Where(x => x.CodigoNivel == codNivel).Select(z => z.DescripcionNivel).FirstOrDefault();
             }
-            return DescripcionNivel;
-        }
-
-        private List<NivelConsultoraCaminoBrillanteModel> GetNivelConsultora()
-        {
-            List<string> Credenciales = new List<string>();
-            Credenciales = GetDatosComercial();
-            CaminoBrillanteProvider prv = new CaminoBrillanteProvider(Credenciales[0], Credenciales[1], Credenciales[2]);
-            //List<NivelConsultoraCaminoBrillanteModel> task = prv.GetNivelConsultora("CRI", "0007975", "1");
-
-            var isoPais = userData.CodigoISO == "CR" ? "CRI" : userData.CodigoISO;
-
-            List<NivelConsultoraCaminoBrillanteModel> task = prv.GetNivelConsultora(isoPais, userData.CodigoConsultora, "1");
-            return task;
-        }
-
-        public List<string> GetDatosComercial()
-        {
-            List<string> list = new List<string>();
-            using (var svc = new SACServiceClient())
+            catch (Exception ex)
             {
-                var response = svc.GetTablaLogicaDatos(userData.PaisID, Constantes.TablaLogicaDato.CaminoBrillanteTablaLogica).ToList();
-                foreach (BETablaLogicaDatos obj in response)
-                    list.Add(obj.Valor);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return "";
             }
-            return list;
         }
 
+        private BEConsultoraCaminoBrillante ResumenConsultoraCaminoBrillante()
+        {
+            var usuarioDatos = new ServiceUsuario.BEUsuario();
+            usuarioDatos.CodigoConsultora = userData.CodigoConsultora;
+            usuarioDatos.CampaniaID = userData.CampaniaID;
+            usuarioDatos.Region = userData.CodigorRegion;
+            usuarioDatos.Zona = userData.CodigoZona;
 
+            using (var svc = new UsuarioServiceClient())
+                return svc.GetConsultoraNivelCaminoBrillante(userData.PaisID, usuarioDatos);
+        }
         #endregion
 
     }

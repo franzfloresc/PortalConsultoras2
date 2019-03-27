@@ -1522,7 +1522,7 @@ namespace Portal.Consultoras.Common
             public const string Datami = "DATAMI";
             public const string DireccionEntrega = "DIRECCION_ENTREGA";
             public const string CaminoBrillante = "CAMINOBRILLANTE"; 
-            public const string CaminoBrillanteMsg = "cambri_Home"; 
+            public const string CaminoBrillanteMsg = "HomeCaminoBrillante"; 
         }
 
 
