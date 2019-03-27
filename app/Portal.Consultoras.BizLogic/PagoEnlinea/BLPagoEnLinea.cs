@@ -9,21 +9,24 @@ using System.Data;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Portal.Consultoras.BizLogic;
 
 namespace Portal.Consultoras.BizLogic.PagoEnlinea
 {
     public class BLPagoEnLinea : IPagoEnLineaBusinessLogic
     {
         private readonly ITablaLogicaDatosBusinessLogic _tablaLogicaDatosBusinessLogic;
+        private readonly IUsuarioBusinessLogic _usuarioBusinessLogic;
 
-        public BLPagoEnLinea() : this(new BLTablaLogicaDatos())
+        public BLPagoEnLinea() : this(new BLTablaLogicaDatos(),new BLUsuario())
         {
 
         }
 
-        public BLPagoEnLinea(ITablaLogicaDatosBusinessLogic tablaLogicaDatosBusinessLogic)
+        public BLPagoEnLinea(ITablaLogicaDatosBusinessLogic tablaLogicaDatosBusinessLogic, IUsuarioBusinessLogic usuarioBusinessLogic)
         {
             _tablaLogicaDatosBusinessLogic = tablaLogicaDatosBusinessLogic;
+            _usuarioBusinessLogic = usuarioBusinessLogic;
         }
 
         public int InsertPagoEnLineaResultadoLog(int paisId, BEPagoEnLineaResultadoLog entidad)
@@ -262,6 +265,10 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
                 var pagoBancaPorInternet = result.ListaMedioPago.FirstOrDefault(e => e.Codigo == Constantes.PagoEnLineaPasarela.PBI && e.Estado);
                 if (pagoBancaPorInternet != null) pagoBancaPorInternet.Estado = false;
             }
+
+            _usuarioBusinessLogic.getRe
+
+            //GetRevistaDigitalSuscripcion(usuario);
 
             result.ListaMedioPago.ForEach(e =>
             {
