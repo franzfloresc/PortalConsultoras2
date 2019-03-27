@@ -28363,19 +28363,27 @@ div.motivoRechazo textarea {
     background-color:transparent!important;
 }
 
+.lista_opciones_cdr_wrapper {
+    margin-bottom: 70px;
+}
+
 .lista_opciones_cdr {
     list-style-type: none;
     margin-bottom: 41px;
 }
 
-.opcion_cdr {
+.opcion_cdr,
+.opcion_cdr_seleccionada_campo_busqueda {
     display: inline-block;
     vertical-align: middle;
+}
+
+.opcion_cdr {
     width: 156px;
     height: 154px;
     border-radius: 4px;
     margin-right: 16px;
-    border: 1px solid #000;
+    border: 1px solid #808080;
 }
 
     .opcion_cdr:last-child {
@@ -28424,6 +28432,95 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     background-position: center;
     background-size: 100%;
 }
+
+.opcion_cdr_seleccionada_info--cambiarPorOtroProducto p,
+.opcion_cdr_seleccionada_campo_busqueda {
+    font-size: 14px;
+    letter-spacing: 0.1px;
+}
+
+.opcion_cdr_seleccionada_info--cambiarPorOtroProducto p {
+    margin-bottom: 12px;
+}
+
+.opcion_cdr_seleccionada_campos_busqueda_producto_a_cambiar {
+    margin-top: 30px;
+    margin-bottom: 45px;
+}
+
+.opcion_cdr_seleccionada_campo_busqueda {
+    border: 1px solid #000;
+    height: 40px;
+    margin-right: 8px;
+    padding-left: 16px;
+    padding-right: 16px;
+    font-family: 'Lato', sans-serif;
+    line-height: 40px;
+    color: #000;
+}
+
+    .opcion_cdr_seleccionada_campo_busqueda:last-child {
+        margin-right: 0;
+    }
+
+.opcion_cdr_seleccionada_campo_busqueda--codigo,
+.opcion_cdr_seleccionada_campo_busqueda--precio {
+    min-width: 130px;
+}
+
+.opcion_cdr_seleccionada_campo_busqueda--descripcion {
+    min-width: 261px;
+}
+
+.opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad {
+    min-width: 60px;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .liquidacion_rango_cantidad_pedido,
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .liquidacion_rango_right_pedido,
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .menos {
+        border-left: 0;
+        border-bottom: 0;
+        border-top: 0;
+        border-radius: 0;
+        height: 100%;
+    }
+
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .liquidacion_rango_cantidad_pedido {
+        border-right: 1px solid #000 !important;
+    }
+
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .liquidacion_rango_right_pedido {
+        border-right: 0;
+    }
+
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .mas,
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .menos {
+        height: 47%;
+        position: relative;
+    }
+
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .mas {
+        border-bottom: 1px solid #000;
+    }
+
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad img {
+        position: absolute;
+        margin: auto;
+        right: 0;
+        top: 0;
+        bottom: 0;
+    }
+
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .mas img {
+        left: 0.5px;
+    }
+
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .menos img {
+        left: -1.5px;
+    }
 
 .rango_reclamo {
     width:80px;
@@ -28599,27 +28696,24 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 }
 
 .btn_solucion_reclamo {
-    float: left;
-    width: 270px;
-    height: 45px;
-    border: 1px solid black;
-    line-height: 45px;
-    font-family: 'Lato';
-    font-size: 13px;
-    font-weight: bold;
+    display: inline-block;
+    width: 217px;
+    height: 40px;
+    background-color: #000;
+    color: #FFF;
+    border: 1px solid #000;
+    line-height: 38px;
+    font-family: 'Lato', sans-serif;
+    font-size: 14px;
     text-align: center;
     margin-right: 36px;
     margin-bottom: 10px;
-    cursor:pointer;
+    cursor: pointer;
+    letter-spacing:0.5px;
 }
 
     .btn_solucion_reclamo:last-child {
         margin-right: 0;
-    }
-
-    .btn_solucion_reclamo:hover {
-        background: black;
-        color: white;
     }
 
 .subtitulo_reclamo_light {

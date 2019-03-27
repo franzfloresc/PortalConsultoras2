@@ -80,7 +80,7 @@
             <div class="content_reclamo" id="Paso2">
                 <div class="content_reclamo" id="Cambio1" style="display: none; max-width: 890px;">
                     <div class="subtitulo_reclamo">Escoge una solución</div>
-                    <div id="divOperacion" class="lista_opciones_cdr_wrapper">
+                    <div id="divOperacion" class="text-center lista_opciones_cdr_wrapper">
                     </div>
                     <hr class="clear" />
                     @*<span class="btn_paso_anterior" id="RegresarPaso1">REGRESAR</span>*@
@@ -417,20 +417,44 @@
     <ul class="text-center lista_opciones_cdr">
         {{#each this as |item|}}
         <li class="opcion_cdr border-radius-4">
-            <a href="#" title="" class="text-center opcion_cdr_enlace">
+            <a title="{{item.CDRTipoOperacion.DescripcionOperacion}}" class="text-center opcion_cdr_enlace">
                 <div class="opcion_cdr_icono_wrapper">
                     <img src="@Url.Content("~/Content/Images/opcion_devolucion_cdr.svg")" alt="" class="opcion_cdr_icono" />
                 </div>
                 <div class="text-bold opcion_cdr_seleccion_wrapper">
-                    <input id="{{item.CodigoOperacion}}" style="display:none!important;" type="checkbox" onchange="EscogerSolucion(this,event)" id="chk{{item.CodigoOperacion}}" data-tipo="{{item.Tipo}}">{{item.CDRTipoOperacion.DescripcionOperacion}}
+                    <input id="{{item.CodigoOperacion}}" style="display:none!important;" type="checkbox" onchange="EscogerSolucion(this,event)" id="chk{{item.CodigoOperacion}}" data-tipo="{{item.Tipo}}">
+                    <span>{{item.CDRTipoOperacion.DescripcionOperacion}}</span>
                     <label for="{{item.CodigoOperacion}}" class="border-radius-4 opcion_cdr_checkbox">
                     </label>
                 </div>
             </a>
         </li>
-        @*  <span class="btn_solucion_reclamo" id="{{item.CodigoOperacion}}" data-tipo="{{item.Tipo}}">{{item.CDRTipoOperacion.DescripcionOperacion}}</span>*@
+        @*<span class="btn_solucion_reclamo" id="{{item.CodigoOperacion}}" data-tipo="{{item.Tipo}}">{{item.CDRTipoOperacion.DescripcionOperacion}}</span>*@
         {{/each}}
     </ul>
+    <!-- INFORMACIÓN CUANDO SE SELECCIONA LA OPCIÓN DE CAMBIAR POR OTRO PRODUCTO -->
+    <div class="opcion_cdr_seleccionada_info opcion_cdr_seleccionada_info--cambiarPorOtroProducto">
+        <p>Puedes cambiarlo por otro producto(s) cuyo monto sea mayor o igual al que reclamas <span>($ 9.99)</span></p>
+        <p class="text-bold">
+            Búscalo en tus catálogos de Campaña <span>04</span>:
+        </p>
+        <div class="text-center opcion_cdr_seleccionada_campos_busqueda_producto_a_cambiar">
+            <input type="text" class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--codigo" value="" placeholder="Código" />
+            <input type="text" class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--descripcion" value="" placeholder="Descripción del producto" />
+            <input type="text" class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--precio" value="" placeholder="Precio" />
+            <div class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad" data-cantidad-contenedor="">
+                <input type="text" name="Cantidad" id="txtCantidad2" value="1" data-input="cantidad" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid"
+                    attrKey="PreValidarCUV"
+                    onfocus=" SeleccionarContenido(this) ">
+                <div class="liquidacion_rango_right_pedido">
+                    <a class="mas modificarPrecioMas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                    <a class="menos modificarPrecioMenos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- FIN - INFORMACIÓN CUANDO SE SELECCIONA LA OPCIÓN DE CAMBIAR POR OTRO PRODUCTO -->
+    <button type="button" class="border-radius-4 text-bold btn_solucion_reclamo" id="btnSiguiente">Siguiente</button>
 </script>
 <script id="template-confirmacion" type="text/x-handlebars-template">
     {{#iff CUV2 '!=' ''}}
