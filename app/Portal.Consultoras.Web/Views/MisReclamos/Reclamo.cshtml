@@ -422,8 +422,8 @@
                     <img src="@Url.Content("~/Content/Images/opcion_devolucion_cdr.svg")" alt="" class="opcion_cdr_icono" />
                 </div>
                 <div class="text-bold opcion_cdr_seleccion_wrapper">
-                    <input id="opcionCdrSeleccion" style="display:none!important;" type="checkbox" onchange="EscogerSolucion(this,event)" id="chk{{item.CodigoOperacion}}" data-tipo="{{item.Tipo}}">{{item.CDRTipoOperacion.DescripcionOperacion}}
-                    <label for="opcionCdrSeleccion" class="border-radius-4 opcion_cdr_checkbox">
+                    <input id="{{item.CodigoOperacion}}" style="display:none!important;" type="checkbox" onchange="EscogerSolucion(this,event)" id="chk{{item.CodigoOperacion}}" data-tipo="{{item.Tipo}}">{{item.CDRTipoOperacion.DescripcionOperacion}}
+                    <label for="{{item.CodigoOperacion}}" class="border-radius-4 opcion_cdr_checkbox">
                     </label>
                 </div>
             </a>
