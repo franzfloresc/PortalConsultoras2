@@ -132,7 +132,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 //Inicio CaminoBrillante 
                 model.TieneCaminoBrillante = userData.CaminoBrillante;
-                model.CaminoBrillanteMsg = userData.CaminoBrillanteMsg.Replace("{0}", "<b>" + ObtenerNivelActualConsultora() + "</b>");
+                var resumenCaminoBrillante = ObtenerNivelActualConsultora();
+                if (resumenCaminoBrillante != null)
+                {
+                    model.CaminoBrillanteMsg = userData.CaminoBrillanteMsg.Replace("{0}", "<b>" + resumenCaminoBrillante.DescripcionNivel + "</b>");
+                    model.UrlLogoCaminoBrillante = resumenCaminoBrillante.UrlImagenNivel.Replace("{DIMEN}","MDPI");
+                    model.UrlLogoCaminoBrillante = model.UrlLogoCaminoBrillante.Replace("{STATE}", "A");
+                }
                 //Fin CaminoBrillante
 
 
@@ -468,20 +474,20 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         }
 
         #region CaminoBrillante
-        private string ObtenerNivelActualConsultora()
+        private BENivelCaminoBrillante ObtenerNivelActualConsultora()
         {
             try
             {
                 var oResumen = ResumenConsultoraCaminoBrillante();
-                if (oResumen == null || oResumen.NivelConsultora.Count() == 0 || oResumen.Niveles.Count() == 0) return "";
+                if (oResumen == null || oResumen.NivelConsultora.Count() == 0 || oResumen.Niveles.Count() == 0) return null;
                 var codNivel = oResumen.NivelConsultora.Where(x => x.Campania == userData.CampaniaID.ToString()).Select(z => z.NivelActual).FirstOrDefault();
                 if (string.IsNullOrEmpty(codNivel)) codNivel = oResumen.NivelConsultora[0].NivelActual;
-                return oResumen.Niveles.Where(x => x.CodigoNivel == codNivel).Select(z => z.DescripcionNivel).FirstOrDefault();
+                return oResumen.Niveles.Where(x => x.CodigoNivel == codNivel).FirstOrDefault();
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return "";
+                return null;
             }
         }
 
@@ -497,6 +503,5 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 return svc.GetConsultoraNivelCaminoBrillante(userData.PaisID, usuarioDatos);
         }
         #endregion
-
     }
 }
