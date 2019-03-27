@@ -6,10 +6,14 @@ using System.Web.Mvc;
 using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.CustomFilters;
+using Portal.Consultoras.Web.Infraestructure;
 using Portal.Consultoras.Web.Models.Search.ResponseOferta.Estructura;
 
 namespace Portal.Consultoras.Web.Controllers
 {
+    [UniqueSession("UniqueRoute", UniqueRoute.IdentifierKey, "/g/")]
+    [ClearSessionMobileApp(UniqueRoute.IdentifierKey, "MobileAppConfiguracion", "StartSession")]
     [RoutePrefix("ArmaTuPack")]
     public class ArmaTuPackController : BaseController
     {
