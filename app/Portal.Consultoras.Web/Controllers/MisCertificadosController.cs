@@ -96,6 +96,21 @@ namespace Portal.Consultoras.Web.Controllers
                     if (string.IsNullOrWhiteSpace(certificado.NombreVista)) certificado.NombreVista = "~/Views/MisCertificados/NoAdeudoPdf.cshtml";
 
                     break;
+                //INI HD-3812
+                case Constantes.PaisID.CostaRica:
+                case Constantes.PaisID.Panama:
+                case Constantes.PaisID.ElSalvador:
+                case Constantes.PaisID.Guatemala:
+                    certificado.Nombre = "Constancia No Adeudo";
+                    if (userData.MontoDeuda > 0)
+                    {
+                        certificado.MensajeError = "Tu cuenta tiene saldo pendiente, no es posible expedir un certificado de " + certificado.Nombre;
+                        break;
+                    }
+                    certificado.CertificadoId = 1;
+                    certificado.NombreVista = "~/Views/MisCertificados/CAM_NoAdeudoPdf.cshtml";
+                    break;
+                //FIN HD-3812
                 default:
                     certificado = null;
                     break;
