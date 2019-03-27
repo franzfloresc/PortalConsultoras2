@@ -544,7 +544,7 @@ function ProcesarAceptarPedido(pedido) {
                         });
 
                         dataLayer.push({
-                            'event': 'virtualPage',
+                            'event': 'addToCart',
                             'ecommerce': {
                                 'currencyCode': AnalyticsPortalModule.GetCurrencyCode(),
                                 'add': {

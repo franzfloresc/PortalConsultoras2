@@ -28,6 +28,8 @@ var aCamRev = new Array();
 
 $(document).ready(function () {
 
+    MarcarCompartirFbExitoso();
+
     configurarContenedorExpoOfertas();
     campSelect = getNumeroCampania(getCodigoCampaniaActual());
     $('#campaniaRevista').val(getCodigoCampaniaActual());
@@ -197,6 +199,8 @@ $(document).ready(function () {
     }
 
     // Fin - Eventos que se utilizan en vista responsive
+
+
 
 });
 
@@ -1032,4 +1036,19 @@ function MonstrarExclamacion(texto) {
 function MonstrarAlerta(texto) {
     $("#mensaje_alerta #mensaje_alerta_texto").html(texto);
     $("#mensaje_alerta").fadeIn(100);
+}
+
+function MarcarCompartirFbExitoso() {
+    
+    if (window.location.search.includes("catalogo_compartido_fb")) {
+        debugger;
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Catálogos y revistas',
+            'action': 'Catálogo Digital - Compartir FB',
+            'label' : campaniaCodigo
+        });
+
+        window.close();
+    }
 }

@@ -238,7 +238,7 @@
         var popHeight = 420;
         var left = (screen.width / 2) - (popWwidth / 2);
         var top = (screen.height / 2) - (popHeight / 2);
-        var url = "http://www.facebook.com/sharer/sharer.php?u=" + texto;
+        var url = "http://www.facebook.com/dialog/share?href=" + texto + "&app_id=" + encodeURIComponent(FBAppId) + "&redirect_uri=" + window.location.href + "?catalogo_compartido_fb=1" 
         window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
     }
 
@@ -294,14 +294,14 @@
         campaniaEmail = campania;
 
         $("#divCheckbox").find("[type='checkbox']").removeAttr('checked');
-        
+
         if (tipoCatalogo == 'Todo') {
 
             $('#btnEnviarCorreo').data('piloto', '1')
             $('#divDescEnviar').fadeOut(100);
             $('#divCheckbox').fadeOut(100);
             $('#CompartirCorreo').fadeIn(100);
-            
+
         }
         else {
 
@@ -320,7 +320,7 @@
 
             $('#CompartirCorreo').fadeIn(100);
             //$('#CompartirCorreoMobile').fadeIn(100);
-                                
+
             for (var i = 0; i < 3; i++) {
                 var cata = $("#divCatalogo" + i + " [data-cam='" + campania + "'][data-estado='1']");
 
@@ -331,8 +331,8 @@
                         $("#divCheckbox [data-cat='" + cat + "']").fadeIn(100);
                     }
                 }
-            }          
-        }              
+            }
+        }
     }
 
     var CompartirWhatsAppActual = function (catalogo, campania, texto) {
@@ -355,7 +355,7 @@
 
         var url = "https://api.whatsapp.com/send?text=" + texto;
         window.open(url, 'WhatsApp');
-    }   
+    }
 
     var TagManagerWS = function (catalogo, campaniaCatalogo) {
         dataLayer.push({
