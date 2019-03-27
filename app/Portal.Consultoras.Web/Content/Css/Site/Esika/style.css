@@ -28413,7 +28413,7 @@ div.motivoRechazo textarea {
     height:154px;
     border-radius:4px;
     margin-right:16px;
-    border:1px solid #000;
+    border:1px solid #808080;
 }
 
     .opcion_cdr:last-child{
@@ -28458,6 +28458,9 @@ div.motivoRechazo textarea {
 
 input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     background-color: #000;
+    background-image:url(/Content/Images/icono_check_cdr.svg);
+    background-position:center;
+    background-size:100%;
 }
 
 .rango_reclamo {
