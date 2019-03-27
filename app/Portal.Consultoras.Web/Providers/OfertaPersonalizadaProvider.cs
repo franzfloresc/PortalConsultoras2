@@ -135,6 +135,9 @@ namespace Portal.Consultoras.Web.Providers
                 case Constantes.TipoConsultaOfertaPersonalizadas.SRObtenerProductos:
                     palanca = Constantes.TipoEstrategiaCodigo.ShowRoom;
                     break;
+                case Constantes.TipoConsultaOfertaPersonalizadas.ATPObtenerProductos:
+                    palanca = Constantes.TipoEstrategiaCodigo.ArmaTuPack;
+                    break;
             }
 
             return palanca;
@@ -225,6 +228,7 @@ namespace Portal.Consultoras.Web.Providers
                 case Constantes.TipoConsultaOfertaPersonalizadas.LANObtenerProductos:
                 case Constantes.TipoConsultaOfertaPersonalizadas.OPTObtenerProductos:
                 case Constantes.TipoConsultaOfertaPersonalizadas.NuevasObtenerProductos:
+                case Constantes.TipoConsultaOfertaPersonalizadas.ATPObtenerProductos:
                     listModel1 = listaFinal1;
                     break;
             }
@@ -445,6 +449,9 @@ namespace Portal.Consultoras.Web.Providers
                     listEstrategia.AddRange(lstTmp.Where(x => x.FlagRevista != Constantes.FlagRevista.Valor2).OrderBy(x => x.Orden));
                     listEstrategia = listEstrategia.OrderBy(x => x.TieneStock, false).ToList();
                     break;
+                case Constantes.TipoEstrategiaCodigo.ArmaTuPack:
+                    listEstrategia.AddRange(ConsultarEstrategiasPorTipo(esMobile, Constantes.TipoEstrategiaCodigo.ArmaTuPack, campaniaId));
+                    break;
             }
 
             return listEstrategia;
@@ -567,6 +574,7 @@ namespace Portal.Consultoras.Web.Providers
                     case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada: tipoPersonalizacion = Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada; break;
                     case Constantes.TipoEstrategiaCodigo.ShowRoom: tipoPersonalizacion = Constantes.ConfiguracionPais.ShowRoom; break;
                     case Constantes.TipoEstrategiaCodigo.HerramientasVenta: tipoPersonalizacion = Constantes.ConfiguracionPais.HerramientasVenta; break;
+                    case Constantes.TipoEstrategiaCodigo.ArmaTuPack: tipoPersonalizacion = Constantes.TipoPersonalizacion.ArmaTuPack; break;
                 }
 
                 string pathMS = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertas,
@@ -1164,6 +1172,8 @@ namespace Portal.Consultoras.Web.Providers
                     estrategia.CodigoEstrategia
                 );
 
+                prodModel.CantidadPack = estrategia.CantidadPack;
+
                 if (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento)
                 {
                     prodModel.TipoEstrategiaDetalle.ImgFondoDesktop = ConfigCdn.GetUrlFileCdnMatriz(codigoISO, estrategia.EstrategiaDetalle.ImgFondoDesktop);
@@ -1364,7 +1374,8 @@ namespace Portal.Consultoras.Web.Providers
 
             if (listaProducto.Any())
             {
-                if (GetValidarDiasAntesStock(userData))
+                var validarDias = GetValidarDiasAntesStock(userData);
+                if (validarDias)
                 {
                     listaProducto = ActualizarEstrategiaStockPROL(listaProducto, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora);
                 }

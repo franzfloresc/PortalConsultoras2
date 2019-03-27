@@ -45,6 +45,15 @@ namespace Portal.Consultoras.Web.Controllers
                 return SessionManager.GetRevistaDigital();
             }
         }
+
+        protected ArmaTuPackModel armaTuPack
+        {
+            get
+            {
+                return SessionManager.GetArmaTuPack();
+            }
+        }
+
         protected HerramientasVentaModel herramientasVenta;
         protected GuiaNegocioModel guiaNegocio;
         protected DataModel estrategiaODD;
@@ -1155,39 +1164,10 @@ namespace Portal.Consultoras.Web.Controllers
                 (!revistaDigital.TieneRDC || (revistaDigital.TieneRDC && !revistaDigital.EsActiva));
 
             _showRoomProvider.CargarEventoPersonalizacion(userData);
-            var menuActivo = _menuContenedorProvider.GetMenuActivo(userData, revistaDigital, herramientasVenta, Request, guiaNegocio, SessionManager, _configuracionManagerProvider, _eventoFestivoProvider, _configuracionPaisProvider, _guiaNegocioProvider, _ofertaPersonalizadaProvider, _programaNuevasProvider, esMobile);
-            ViewBag.MenuContenedorActivo = menuActivo;
 
-            ViewBag.MenuContenedor = _menuContenedorProvider.GetMenuContenedorByMenuActivoCampania(menuActivo.CampaniaId, userData.CampaniaID, userData, revistaDigital, guiaNegocio, SessionManager, _configuracionManagerProvider, _eventoFestivoProvider, _configuracionPaisProvider, _guiaNegocioProvider, _ofertaPersonalizadaProvider, _programaNuevasProvider, esMobile);
+            MenuViewBag(esMobile);
 
-            var menuMobile = BuildMenuMobile(userData, revistaDigital);
-            var menuWeb = BuildMenu(userData, revistaDigital);
-            var descLiqWeb = "";
-            var existItemLiqWeb = esMobile ? _menuProvider.FindInMenu(menuMobile, m => m.Codigo.ToLower() == Constantes.MenuCodigo.LiquidacionWeb.ToLower(), m => m.Descripcion, out descLiqWeb) :
-                _menuProvider.FindInMenu(menuWeb, m => m.Codigo.ToLower() == Constantes.MenuCodigo.LiquidacionWeb.ToLower(), m => m.Descripcion, out descLiqWeb);
-
-            ViewBag.MenuMobile = menuMobile;
-            ViewBag.Permiso = menuWeb;
-            ViewBag.TituloLiqWeb = existItemLiqWeb ? descLiqWeb : "Liquidación Web";
-
-            ViewBag.ProgramaBelcorpMenu = BuildMenuService();
             ViewBag.codigoISOMenu = userData.CodigoISO;
-
-            if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
-            {
-                ViewBag.SegmentoConsultoraMenu = 1;
-            }
-            else
-            {
-                if (userData.CodigoISO == Constantes.CodigosISOPais.Venezuela)
-                {
-                    ViewBag.SegmentoConsultoraMenu = userData.SegmentoID;
-                }
-                else
-                {
-                    ViewBag.SegmentoConsultoraMenu = userData.SegmentoInternoID ?? userData.SegmentoID;
-                }
-            }
 
             var urlS3 = ConfigurationManager.AppSettings["URL_S3"] ?? "";
             if (!string.IsNullOrEmpty(urlS3))
@@ -1232,6 +1212,60 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.FlagBuscarPorCategoriaTotalProductos = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.FlagBuscarPorCategoriaTotalProductos).ToBool();
         }
 
+        #endregion
+
+        #region
+        private void MenuViewBag(bool esMobile)
+        {
+            if (MenuContenedorValidarPagina())
+            {
+                var esMobileMenu = EsDispositivoMovil() || esMobile;
+                var menuActivo = _menuContenedorProvider.GetMenuActivo(userData, revistaDigital, herramientasVenta, Request, guiaNegocio, SessionManager, _configuracionManagerProvider, _eventoFestivoProvider, _configuracionPaisProvider, _guiaNegocioProvider, _ofertaPersonalizadaProvider, _programaNuevasProvider, esMobileMenu);
+                ViewBag.MenuContenedorActivo = menuActivo;
+                ViewBag.MenuContenedor = _menuContenedorProvider.GetMenuContenedorByMenuActivoCampania(menuActivo.CampaniaId, userData.CampaniaID, userData, revistaDigital, guiaNegocio, SessionManager, _configuracionManagerProvider, _eventoFestivoProvider, _configuracionPaisProvider, _guiaNegocioProvider, _ofertaPersonalizadaProvider, _programaNuevasProvider, esMobileMenu);
+            }
+
+            var menuMobile = BuildMenuMobile(userData, revistaDigital);
+            var menuWeb = BuildMenu(userData, revistaDigital);
+            var descLiqWeb = "";
+            var existItemLiqWeb = esMobile ? _menuProvider.FindInMenu(menuMobile, m => m.Codigo.ToLower() == Constantes.MenuCodigo.LiquidacionWeb.ToLower(), m => m.Descripcion, out descLiqWeb) :
+                _menuProvider.FindInMenu(menuWeb, m => m.Codigo.ToLower() == Constantes.MenuCodigo.LiquidacionWeb.ToLower(), m => m.Descripcion, out descLiqWeb);
+
+            ViewBag.MenuMobile = menuMobile;
+            ViewBag.Permiso = menuWeb;
+            ViewBag.TituloLiqWeb = existItemLiqWeb ? descLiqWeb : "Liquidación Web";
+
+            ViewBag.ProgramaBelcorpMenu = BuildMenuService();
+
+            if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
+            {
+                ViewBag.SegmentoConsultoraMenu = 1;
+            }
+            else
+            {
+                if (userData.CodigoISO == Constantes.CodigosISOPais.Venezuela)
+                {
+                    ViewBag.SegmentoConsultoraMenu = userData.SegmentoID;
+                }
+                else
+                {
+                    ViewBag.SegmentoConsultoraMenu = userData.SegmentoInternoID ?? userData.SegmentoID;
+                }
+            }
+        }
+
+        private bool MenuContenedorValidarPagina()
+        {
+            string controllerName = GetControllerActual();
+
+            controllerName = "," + controllerName.ToLower() + ",";
+
+            var controladores = ",,miscatalogosrevistas,busquedaproductos,tusclientes,";
+
+            if (controladores.Contains(controllerName)) return false;
+
+            return true;
+        }
         #endregion
 
         public int ObtenerConfiguracionBuscador(string codigo)

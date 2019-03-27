@@ -1,7 +1,6 @@
-﻿@using Portal.Consultoras.Common
+﻿@using Portal.Consultoras.Web.CustomHelpers
+@using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Models;
-@using Newtonsoft.Json;
-@using Portal.Consultoras.Web.CustomHelpers
 
 @{
     ShowRoomBannerLateralModel showRoomBannerLateral = new ShowRoomBannerLateralModel();
@@ -58,7 +57,7 @@
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManagerBody.cshtml")
 
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTrackingJetlore.cshtml")
-    
+
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpInputHidden.cshtml")
 
     @if (!esIngresoUnico)
@@ -78,19 +77,20 @@
             @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloqueMensajesPedido.cshtml")
         }
 
-
         @if (!esIngresoUnico)
         {
             @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileMenu/_MobileMenu.cshtml", new ViewDataDictionary {
-           { "vbEsContenedor", 1 },
-           { "vbEsMostrarBuscadorYFiltros", ViewBag.MostrarBuscadorYFiltros }
-        })
-
+               { "vbEsContenedor", 1 },
+               { "vbEsMostrarBuscadorYFiltros", ViewBag.MostrarBuscadorYFiltros }
+            })
         }
+
+        @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileMenu/_MenuContenedorOferta.cshtml")
 
     </header>
 
-    <section style="min-height: 380px;">
+    <section data-layout="contenido" 
+             style="min-height: 380px;">
         @{
             var marginTop = esIngresoUnico ? "0px;" : "60px";
         }
@@ -125,8 +125,7 @@
                     </div>
                 }
             }
-            @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileMenu/_MenuContenedorOferta.cshtml")
-            <div id="mob-content-layout">
+            <div data-layout="body" id="mob-content-layout">
                 @RenderBody()
             </div>
         </div>
@@ -488,12 +487,13 @@
     @RenderSection("scripts", required: false)
 
     @{
+        // ViewBag.HabilitarChatEmtelco : Oculta boton que lanza chat.
+        // Deberia ir dentro de la condicion de este if?
         if (!esIngresoUnico)
         {
             <script type="text/javascript" src="@Url.Content("~/emt_chat/js/inject.js")"></script>
         }
     }
-
 
     @if (TempData.ContainsKey("PixelCodigoIso"))
     {

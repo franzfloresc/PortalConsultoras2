@@ -132,7 +132,10 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     using (var image = System.Drawing.Image.FromStream(new MemoryStream(fileBytes)))
                     {
-                        if (image.Height != height || image.Width != width)
+                        var noCumpleDimension = image.Height != height || image.Width != width;
+                        image.Dispose();
+
+                        if (noCumpleDimension)
                             return Json(new { success = false, message = messageSize }, "text/html");
                     }
                 }
@@ -143,7 +146,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!Directory.Exists(Globals.RutaTemporales)) Directory.CreateDirectory(Globals.RutaTemporales);
 
                 System.IO.File.WriteAllBytes(path, fileBytes);
-                
+
                 return Json(new { success = true, name = Path.GetFileName(path) }, "text/html");
             }
             catch (Exception ex)

@@ -518,7 +518,7 @@ var BuscadorModule = (function () {
         RedireccionarMenuPrincipal: function (e) {
             e.preventDefault();
             if (!_config.isMobile) {
-                window.location.href = 'Bienvenida';
+                window.location.href = '/Bienvenida';
             }
             else {
                 window.location.href = '/Mobile/Bienvenida';
