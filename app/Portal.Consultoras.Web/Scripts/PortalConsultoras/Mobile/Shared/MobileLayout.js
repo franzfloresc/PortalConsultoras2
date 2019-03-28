@@ -880,16 +880,11 @@ function CargarCantidadProductosPedidos(noMostrarEfecto) {
 }
 
 function CargarCantidadNotificacionesSinLeer() {
-    //INI EINCA 24-01-2019
-    var sendData = {
-        codigoUsuario: codigoConsultora
-    };
-    //FIN EINCA 24-01-2019
-
-    jQuery.ajax({
-        type: 'POST',
-        url: urlGetNotificacionesSinLeer,
-        data: JSON.stringify(sendData),
+    var sparam = localStorage.getItem('KeyPseudoParam'); //SALUD-58 30-01-2019
+    $.ajax({
+        type: 'GET',
+        url: urlGetNotificacionesSinLeer + "?pseudoParam=" + sparam + "&codigoUsuario=" + codigoConsultora + "", //SALUD-58 30-01-2019
+        data: {}, //SALUD-58 30-01-2019
         cache: true,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
@@ -900,7 +895,6 @@ function CargarCantidadNotificacionesSinLeer() {
                     $('.notificaciones_mobiles').html(data.cantidadNotificaciones);
                     $("#divNotificacionesSinLeer").show();
                 }
-
             }
         },
         error: function (data, error) { }
