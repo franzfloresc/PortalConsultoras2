@@ -1,6 +1,6 @@
 ﻿
 var PedidoEnLinea;
-
+var montoGastos = 0;
 var urlPasarelaPago = urlPasarelaPago || '';
 var rutaGuardarDatosPago = rutaGuardarDatosPago || '';
 var tipoOrigenPantalla = tipoOrigenPantalla || 0;
@@ -186,9 +186,9 @@ $(document).ready(function () {
                     var FechaVencimiento = dia + '-' + mes + '-' + año;
                     
                     if (CodigoIso == 'PE' && FechaVencimiento >= fechaHoy && IndicadorConsultoraDigital == '1') {
-                        var montoGastos = 0 ;
+                         montoGastos = 0 ;
                     } else {
-                        var montoGastos = montoParcial * (porcentaje / 100);
+                         montoGastos = montoParcial * (porcentaje / 100);
                     }
 
                     // Fin de validacion HD-3804
