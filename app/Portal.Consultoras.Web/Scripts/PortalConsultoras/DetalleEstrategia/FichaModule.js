@@ -131,7 +131,7 @@ var FichaModule = (function (config) {
         carrusel: "ficha_carrusel_template",
         compartir: "ficha_compartir_template",
         styleOdd: "ofertadeldia-template-style",
-        componenteDetalle:"componenteDetalle-template"
+        componenteDetalle: "componenteDetalle-template"
     };
 
     var _seccionesFichaProducto = {
@@ -243,12 +243,12 @@ var FichaModule = (function (config) {
             $(_elementos.marca).hide();
         }
 
-        if (_codigoPalanca.HerramientasVenta === _config.palanca || 
-            _codigoPalanca.OfertasParaMi === _config.palanca || 
-            _codigoPalanca.OfertaParaTi === _config.palanca || 
-            _codigoPalanca.GuiaDeNegocioDigitalizada === _config.palanca || 
-            _codigoPalanca.OfertaDelDia === _config.palanca || 
-            _codigoPalanca.ShowRoom === _config.palanca || 
+        if (_codigoPalanca.HerramientasVenta === _config.palanca ||
+            _codigoPalanca.OfertasParaMi === _config.palanca ||
+            _codigoPalanca.OfertaParaTi === _config.palanca ||
+            _codigoPalanca.GuiaDeNegocioDigitalizada === _config.palanca ||
+            _codigoPalanca.OfertaDelDia === _config.palanca ||
+            _codigoPalanca.ShowRoom === _config.palanca ||
             _codigoPalanca.PackNuevas === _config.palanca) {
             $(_seccionesFichaProducto.ContenidoProducto).hide();
         }
@@ -299,12 +299,35 @@ var FichaModule = (function (config) {
     var _verDetalleComponente = function (cuv) {
         alert(cuv);
         console.log('cuv', cuv);
+
+        _setHandlebars(_template.componenteDetalle, { codigo: 123, nombre: 'dddddddddd' });
+
+        _setAcordionDetalleComponente();
+        $("#modal_producto_detalle").modal();
+
          
 
-        _setHandlebars(_template.componenteDetalle, {codigo:123, nombre:'dddddddddd'});
-        $("#modal_producto_detalle").modal()
     };
 
+    var _setAcordionDetalleComponente = function () {
+        $("#mnuDetalleComponente li a").click(function () {
+            var $this = $(this);
+            $this.parent().children("ul").slideToggle();
+            var clase = $this.attr("class");
+            if (clase === "active") {
+                $this.attr("class", "tab-link");
+            }
+            else {
+                $this.attr("class", "active");
+                $('#carousel11').slick({
+                    infinite: true,
+                    slidesToShow: 3,
+                    slidesToScroll: 3
+                });
+
+            }
+        });
+    };
 
     var _construirSeccionDetalleFichas = function () {
         var pEstrategia = _estrategia;
@@ -833,7 +856,7 @@ var FichaModule = (function (config) {
 
     };
 
-   
+
 
     var _getModelo = function () {
 
@@ -1006,7 +1029,7 @@ var FichaPartialModule = (function () {
     };
 
     var _construirFicha = function (event, tipoAccion, esEditar) {
-        
+
         if (tipoAccion != ConstantesModule.EditarItemPedido.Activo) {
             return false;
         }
@@ -1076,11 +1099,11 @@ var FichaPartialModule = (function () {
     var _mostrarPopupAtp = function (campaniaId, setid, cuv) {
         AbrirLoad();
         var params =
-            {
-                campaniaId: campaniaId,
-                set: setid,
-                cuv: cuv
-            };
+        {
+            campaniaId: campaniaId,
+            set: setid,
+            cuv: cuv
+        };
 
         jQuery.ajax({
             type: "POST",
@@ -1130,7 +1153,7 @@ var FichaPartialModule = (function () {
             $('.ui-dialog-titlebar-close').click();
         });
     };
-    
+
     return {
         ConstruirFicha: _construirFicha,
         ShowDivFichaResumida: _showDivFichaResumida,
