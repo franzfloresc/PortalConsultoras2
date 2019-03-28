@@ -6,10 +6,10 @@ IF NOT EXISTS (
 		FROM sys.columns c
 		INNER JOIN sys.tables t ON c.object_id = t.object_id
 		WHERE t.name = N'YobelPedidoTemp'
-			AND C.name = 'FlagHoraEstimadaEntrega'
+			AND C.name = 'IndEntregaEstimada'
 		)
 BEGIN
-	ALTER TABLE dbo.YobelPedidoTemp ADD FlagHoraEstimadaEntrega VARCHAR(4) NULL;
+	ALTER TABLE dbo.YobelPedidoTemp ADD IndEntregaEstimada VARCHAR(2) NULL;
 END
 
 IF NOT EXISTS (
@@ -17,10 +17,10 @@ IF NOT EXISTS (
 		FROM sys.columns c
 		INNER JOIN sys.tables t ON c.object_id = t.object_id
 		WHERE t.name = N'YobelPedidoTemp'
-			AND C.name = 'HoraEstimadaEntregaDesde'
+			AND C.name = 'FecHoraEntregaEstimadaDesde'
 		)
 BEGIN
-	ALTER TABLE dbo.YobelPedidoTemp ADD HoraEstimadaEntregaDesde DATETIME NULL;
+	ALTER TABLE dbo.YobelPedidoTemp ADD FecHoraEntregaEstimadaDesde DATETIME NULL;
 END
 
 IF NOT EXISTS (
@@ -28,10 +28,10 @@ IF NOT EXISTS (
 		FROM sys.columns c
 		INNER JOIN sys.tables t ON c.object_id = t.object_id
 		WHERE t.name = N'YobelPedidoTemp'
-			AND C.name = 'HoraEstimadaEntregaHasta'
+			AND C.name = 'FecHoraEntregaEstimadaHasta'
 		)
 BEGIN
-	ALTER TABLE dbo.YobelPedidoTemp ADD HoraEstimadaEntregaHasta DATETIME NULL;
+	ALTER TABLE dbo.YobelPedidoTemp ADD FecHoraEntregaEstimadaHasta DATETIME NULL;
 END
 
 IF NOT EXISTS (
@@ -39,9 +39,10 @@ IF NOT EXISTS (
 		FROM sys.columns c
 		INNER JOIN sys.tables t ON c.object_id = t.object_id
 		WHERE t.name = N'YobelPedidoTemp'
-			AND C.name = 'ColumnaPorDefinir'
+			AND C.name = 'IndTipoInformacion'
 		)
 BEGIN
-	ALTER TABLE dbo.YobelPedidoTemp ADD ColumnaPorDefinir VARCHAR(4) NULL;
+	ALTER TABLE dbo.YobelPedidoTemp ADD IndTipoInformacion VARCHAR(2) NULL;
 END
+
 

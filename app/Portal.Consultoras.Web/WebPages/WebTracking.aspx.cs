@@ -94,7 +94,7 @@ namespace Portal.Consultoras.Web.WebPages
             Label lblFecha = (Label)e.Row.FindControl("lblFecha");
             LinkButton botonSegPed = (LinkButton)e.Row.FindControl("imgSegPed");
             Label lblTextoValorTurno = (Label)e.Row.FindControl("lblTextoValorTurno");
-            Label lblHoraEstimadaDesdeHasta = (Label)e.Row.FindControl("lblHoraEstimadaDesdeHasta");           
+            Label lblHoraEstimadaDesdeHasta = (Label)e.Row.FindControl("lblHoraEstimadaDesdeHasta");
 
             if (lblTextoValorTurno != null)
                 lblTextoValorTurno.ForeColor = System.Drawing.ColorTranslator.FromHtml((ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(paisIso)) ? "#e81c36" : "#b75d9f");
@@ -443,8 +443,13 @@ namespace Portal.Consultoras.Web.WebPages
                     var desde = listaPedidoSeguimientoModel.FirstOrDefault(a => a.Etapa == Constantes.SegPedidoSituacion.HoraEstimadaEntregaDesde);
                     var hasta = listaPedidoSeguimientoModel.FirstOrDefault(a => a.Etapa == Constantes.SegPedidoSituacion.HoraEstimadaEntregaHasta);
 
-                    if (desde.Fecha.HasValue) horaEstimadaEntregaDesde = desde.Fecha.Value.TimeOfDay.TotalHours.Equals(0) ? desde.Fecha.Value.ToString() : desde.Fecha.Value.ToString("HH:mm tt");
-                    if (hasta.Fecha.HasValue) horaEstimadaEntregaHasta = hasta.Fecha.Value.TimeOfDay.TotalHours.Equals(0) ? hasta.Fecha.Value.ToString() : hasta.Fecha.Value.ToString("HH:mm tt");
+                    //INI HD-3606 
+                    if (desde != null)
+                        if (desde.Fecha.HasValue) horaEstimadaEntregaDesde = desde.Fecha.Value.TimeOfDay.TotalHours.Equals(0) ? desde.Fecha.Value.ToString() : desde.Fecha.Value.ToString("HH:mm tt");
+
+                    if (hasta != null)
+                        if (hasta.Fecha.HasValue) horaEstimadaEntregaHasta = hasta.Fecha.Value.TimeOfDay.TotalHours.Equals(0) ? hasta.Fecha.Value.ToString() : hasta.Fecha.Value.ToString("HH:mm tt");
+                    //FIN HD-3606 
 
                     //Obtener si la zona y region permite los valores configurados
 
@@ -503,7 +508,7 @@ namespace Portal.Consultoras.Web.WebPages
                                 item.ValorTurno = string.Empty;
                             }
                         }
-
+                        //HD-3606 EINCA
                         if (item.Etapa == Constantes.SegPedidoSituacion.FechaEstimadaEntrega && ValidarZonaRegion())
                         {
                             item.HoraEstimadaDesdeHasta = string.Format("{0} - {1}", horaEstimadaEntregaDesde, horaEstimadaEntregaHasta);

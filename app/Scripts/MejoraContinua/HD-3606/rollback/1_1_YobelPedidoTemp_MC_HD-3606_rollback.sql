@@ -6,12 +6,12 @@ IF EXISTS (
 		FROM sys.columns c
 		INNER JOIN sys.tables t ON c.object_id = t.object_id
 		WHERE t.name = N'YobelPedidoTemp'
-			AND C.name = 'FlagHoraEstimadaEntrega'
+			AND C.name = 'IndEntregaEstimada'
 		)
 BEGIN
 	ALTER TABLE dbo.YobelPedidoTemp
 
-	DROP COLUMN FlagHoraEstimadaEntrega;
+	DROP COLUMN IndEntregaEstimada;
 END
 
 IF EXISTS (
@@ -19,39 +19,40 @@ IF EXISTS (
 		FROM sys.columns c
 		INNER JOIN sys.tables t ON c.object_id = t.object_id
 		WHERE t.name = N'YobelPedidoTemp'
-			AND C.name = 'HoraEstimadaEntregaDesde'
+			AND C.name = 'FecHoraEntregaEstimadaDesde'
 		)
 BEGIN
 	ALTER TABLE dbo.YobelPedidoTemp
 
-	DROP COLUMN HoraEstimadaEntregaDesde;
+	DROP COLUMN FecHoraEntregaEstimadaDesde;
 END
 
-IF NOT EXISTS (
+IF EXISTS (
 		SELECT *
 		FROM sys.columns c
 		INNER JOIN sys.tables t ON c.object_id = t.object_id
 		WHERE t.name = N'YobelPedidoTemp'
-			AND C.name = 'HoraEstimadaEntregaHasta'
+			AND C.name = 'FecHoraEntregaEstimadaHasta'
 		)
 BEGIN
 	ALTER TABLE dbo.YobelPedidoTemp
 
-	DROP COLUMN HoraEstimadaEntregaHasta;
+	DROP COLUMN FecHoraEntregaEstimadaHasta;
 END
 
-IF NOT EXISTS (
+IF EXISTS (
 		SELECT *
 		FROM sys.columns c
 		INNER JOIN sys.tables t ON c.object_id = t.object_id
 		WHERE t.name = N'YobelPedidoTemp'
-			AND C.name = 'ColumnaPorDefinir'
+			AND C.name = 'IndTipoInformacion'
 		)
 BEGIN
 	ALTER TABLE dbo.YobelPedidoTemp
 
-	DROP COLUMN ColumnaPorDefinir;
+	DROP COLUMN IndTipoInformacion;
 END
+go
 
 
 

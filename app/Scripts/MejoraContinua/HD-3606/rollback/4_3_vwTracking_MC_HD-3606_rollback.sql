@@ -1,7 +1,4 @@
-﻿USE BelcorpPeru
-GO
-
-
+USE [BelcorpPeru]
 GO
 
 ALTER VIEW [dbo].[vwTracking]
@@ -68,16 +65,6 @@ SELECT oZ.Codigo AS Zona
 	,ISNULL(dbo.fnObtenerStatusEntregaWTDescripcion(A.NroPedido), '') AS StatusEntrega
 	,A.NroPedido
 	,PS.FechaEstimadaEntrega AS FechaEstimada
-	,CASE A.IndEntregaEstimada
-		WHEN 'N'
-			THEN NULL
-		ELSE A.FecHoraEntregaEstimadaDesde
-		END AS FechaEstimadaDesde
-	,CASE A.IndEntregaEstimada
-		WHEN 'N'
-			THEN NULL
-		ELSE A.FecHoraEntregaEstimadaHasta
-		END AS FechaEstimadaHasta
 	,P.Estado
 	,P.Fecha AS FechaFact
 FROM vwPedidosTotales P WITH (NOLOCK)
