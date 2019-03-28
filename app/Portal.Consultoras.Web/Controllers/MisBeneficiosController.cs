@@ -37,7 +37,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     segmentoId = (userData.SegmentoInternoID == null) ? userData.SegmentoID : (int)userData.SegmentoInternoID;
                 }
-                int segmentoServicio = userData.EsJoven == 1 ? 99 : segmentoId;
+                int segmentoServicio = segmentoId;
 
                 IList<BEServicioCampania> lstTemp2 = lstTemp1.Where(p => p.ConfiguracionZona == string.Empty || p.ConfiguracionZona.Contains(userData.ZonaID.ToString())).ToList();
                 IList<BEServicioCampania> lst = lstTemp2.Where(p => p.Segmento == "-1" || p.Segmento == segmentoServicio.ToString()).ToList();
