@@ -62,7 +62,8 @@ namespace Portal.Consultoras.Web.Providers
             new PedidoWebProvider(),
             new OfertaBaseProvider(),
             new ConsultaProlProvider(),
-            new TablaLogicaProvider())
+            new TablaLogicaProvider(),
+            new ProgramaNuevasProvider(Web.SessionManager.SessionManager.Instance))
         {
             _tempDataDictionary = objTempData;
             tempDataManager = new TempDataManager.TempDataManager(objTempData);
