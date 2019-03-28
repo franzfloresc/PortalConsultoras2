@@ -23,6 +23,7 @@
     <div data-ficha-contenido="ficha_producto_template"></div>
 </div>
 
+ 
 <div class="container" id="ContenidoProducto">
     <div class="row tabs">
         <div class="col-md-12 col-sm-12 col-xs-12">
@@ -56,13 +57,14 @@
                         <h3 class="video_title">Sleeping With Sirens - If You Can't Hang</h3>
                     </ul>
                 </li>
-             
+
             </ul>
         </div>
     </div>
 </div>
-
+ 
 <!-- INIT: Panel cliente-->
+
 <div id="PanelClienteLista" class="contenedor_seleccion" style=" margin-right: -320px; opacity: 0; height: 100%; display: none;">
     <div id="PanelClienteLista_Contenedor"></div>
 </div>
@@ -163,7 +165,7 @@
 </script>
 
 <!-- Modal Producto detalle -->
-<div class="modal modal_producto_detalle fade" id="modal_producto_detalle" tabindex="-1" role="dialog">
+@*<div class="modal modal_producto_detalle fade" id="modal_producto_detalle" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-body">
@@ -235,12 +237,13 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
 
 @Html.Partial("~/Areas/Mobile/Views/DetalleEstrategia/_ElegirOpciones.cshtml")
 @Html.Partial("~/Areas/Mobile/Views/DetalleEstrategia/ProductoTemplate.cshtml")
 @Html.Partial("~/Areas/Mobile/Views/DetalleEstrategia/ResumenOpcionesTemplate.cshtml")
 @Html.Partial("~/Areas/Mobile/Views/DetalleEstrategia/ComponentesTemplate.cshtml")
+@Html.Partial("~/Areas/Mobile/Views/DetalleEstrategia/ComponenteDetalleTemplate.cshtml")
 @Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml", new ViewDataDictionary { { "TieneBotones", false } })
 @Html.Partial("~/Views/DetalleEstrategia/template-ficha-detalle-video.cshtml")
 @Html.Partial("_template-ofertadeldia-style")

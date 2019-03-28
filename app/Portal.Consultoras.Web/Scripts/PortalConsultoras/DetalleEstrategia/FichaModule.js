@@ -295,6 +295,14 @@ var FichaModule = (function (config) {
 
     };
 
+    var _verDetalleComponente = function (cuv) {
+        alert(cuv);
+        console.log('cuv', cuv);
+         $("#modal_producto_detalle").modal()
+         
+    };
+
+
     var _construirSeccionDetalleFichas = function () {
         var pEstrategia = _estrategia;
         if (pEstrategia === null || typeof (pEstrategia) === "undefined") {
@@ -976,7 +984,8 @@ var FichaModule = (function (config) {
     return {
         Inicializar: _init,
         GetEstrategia: getEstrategia,
-        GetModeloFicha: getModeloFicha
+        GetModeloFicha: getModeloFicha,
+        verDetalleComponente: _verDetalleComponente
     };
 });
 
