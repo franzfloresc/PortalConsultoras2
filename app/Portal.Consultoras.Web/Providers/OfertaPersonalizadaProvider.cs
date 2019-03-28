@@ -484,16 +484,6 @@ namespace Portal.Consultoras.Web.Providers
 
                 listEstrategia = GetEstrategiasService(entidad);
                 listEstrategia.ForEach(x => { x.TieneStock = true; });
-
-                if (tipo != Constantes.TipoEstrategiaCodigo.PackNuevas
-                    && listEstrategia.Any())
-                {
-                    var validarDias = GetValidarDiasAntesStock(userData);
-                    if (validarDias)
-                    {
-                        listEstrategia = _consultaProlProvider.ActualizarEstrategiaStockPROL(listEstrategia, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora);
-                    }
-                }
                 
                 if (tipo == Constantes.TipoEstrategiaCodigo.PackNuevas)
                 {

@@ -58,7 +58,7 @@ function eventBreadCumb(url, titulo) {
 
     var codigoPalanca = fichaModule.GetEstrategia().CodigoPalanca || "";
     if (typeof AnalyticsPortalModule !== 'undefined') {
-        if (codigoPalanca === ConstantesModule.TipoEstrategia.MG) {
+        if (codigoPalanca === ConstantesModule.CodigoPalanca.MG) {
             AnalyticsPortalModule.ClickOnBreadcrumb(url, codigoPalanca, titulo);
             return;
         }
@@ -104,8 +104,8 @@ var FichaModule = (function (config) {
     };
 
     var _codigoVariedad = ConstantesModule.CodigoVariedad;
-    var _codigoPalanca = ConstantesModule.CodigosPalanca;
-    var _constantePalanca = ConstantesModule.ConstantesPalanca;
+    var _tipoEstrategiaTexto = ConstantesModule.TipoEstrategiaTexto;
+    var _tipoEstrategia = ConstantesModule.TipoEstrategia;
     var _tipoAccionNavegar = ConstantesModule.TipoAccionNavegar;
 
     var _elementos = {
@@ -213,12 +213,12 @@ var FichaModule = (function (config) {
         $(_seccionesFichaTabProducto.ContenidoProductoVideo).hide();
 
         var showTabContainer = false;
-        if (_codigoPalanca.ShowRoom === _config.palanca ||
-            ConstantesModule.ConstantesPalanca.Lanzamiento === _config.palanca) {
+        if (_tipoEstrategiaTexto.ShowRoom === _config.palanca ||
+            _tipoEstrategia.Lanzamiento === _config.palanca) {
             showTabContainer = true;
         }
 
-        if (_codigoPalanca.Lanzamiento === _config.palanca) {
+        if (_tipoEstrategiaTexto.Lanzamiento === _config.palanca) {
             if (estrategia.TipoEstrategiaDetalle.UrlVideoDesktop && !_config.esMobile) {
                 $(_tabsFichaProducto.video).show();
                 $(_seccionesFichaTabProducto.ContenidoProductoVideo).show();
@@ -279,16 +279,16 @@ var FichaModule = (function (config) {
             $(_elementos.marca).hide();
         }
 
-        if (_codigoPalanca.HerramientasVenta === _config.palanca || 
-            _codigoPalanca.OfertasParaMi === _config.palanca || 
-            _codigoPalanca.OfertaParaTi === _config.palanca || 
-            _codigoPalanca.GuiaDeNegocioDigitalizada === _config.palanca || 
-            _codigoPalanca.OfertaDelDia === _config.palanca || 
-            _codigoPalanca.ShowRoom === _config.palanca || 
-            _codigoPalanca.PackNuevas === _config.palanca) {
+        if (_tipoEstrategiaTexto.HerramientasVenta === _config.palanca || 
+            _tipoEstrategiaTexto.OfertasParaMi === _config.palanca || 
+            _tipoEstrategiaTexto.OfertaParaTi === _config.palanca || 
+            _tipoEstrategiaTexto.GuiaDeNegocioDigitalizada === _config.palanca || 
+            _tipoEstrategiaTexto.OfertaDelDia === _config.palanca || 
+            _tipoEstrategiaTexto.ShowRoom === _config.palanca || 
+            _tipoEstrategiaTexto.PackNuevas === _config.palanca) {
             $(_seccionesFichaProducto.ContenidoProducto).hide();
         }
-        else if (_codigoPalanca.Lanzamiento === _config.palanca) {
+        else if (_tipoEstrategiaTexto.Lanzamiento === _config.palanca) {
             $(_seccionesFichaProducto.ContenidoProducto).show();
         }
     };
@@ -304,7 +304,7 @@ var FichaModule = (function (config) {
             return false;
         }
 
-        if (pEstrategia.CodigoEstrategia === _constantePalanca.Lanzamiento) {
+        if (pEstrategia.CodigoEstrategia === _tipoEstrategia.Lanzamiento) {
             //Construir sección ficha - Video
             if (_config.esMobile) {
                 pEstrategia.VideoHeight = 218;
@@ -503,8 +503,8 @@ var FichaModule = (function (config) {
         }
         else {
             estrategia = _config.localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
-            if ((typeof estrategia === "undefined" || estrategia === null) && _config.palanca === _codigoPalanca.OfertasParaMi) {
-                estrategia = _config.localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _codigoPalanca.Ganadoras);
+            if ((typeof estrategia === "undefined" || estrategia === null) && _config.palanca === _tipoEstrategiaTexto.OfertasParaMi) {
+                estrategia = _config.localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _tipoEstrategiaTexto.Ganadoras);
             }
         }
 
@@ -950,7 +950,7 @@ var FichaModule = (function (config) {
     function ValidaOfertaDelDia(muestra) {
         var estrategia = getEstrategia();
 
-        if (ConstantesModule.CodigosPalanca.OfertaDelDia == _config.palanca &&
+        if (_tipoEstrategiaTexto.OfertaDelDia == _config.palanca &&
             (estrategia == null || estrategia.EstrategiaID == undefined)) {
             if (muestra)
                 AbrirMensaje('¡Ups! Esta oferta fue por tiempo limitado y ya no puedes modificarla.');
@@ -1051,7 +1051,7 @@ var FichaPartialModule = (function () {
     };
 
     var _fichaPreValidar = function (event, tipoAccion, tipoEstrategiaCodigo, campaniaId, setid, cuv) {
-        if (tipoEstrategiaCodigo == ConstantesModule.ConstantesPalanca.ArmaTuPack) {
+        if (tipoEstrategiaCodigo == ConstantesModule.TipoEstrategia.ArmaTuPack) {
             _mostrarPopupAtp(campaniaId, setid, cuv);
         }
         else {

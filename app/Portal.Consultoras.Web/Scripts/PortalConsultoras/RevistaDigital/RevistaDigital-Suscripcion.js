@@ -248,12 +248,9 @@ function RedireccionarContenedorComprar(origenWeb, codigo) {
     origenWeb = $.trim(origenWeb);
     if (origenWeb !== "")
         rdAnalyticsModule.Access(origenWeb);
-    
-    //if (!(typeof AnalyticsPortalModule === 'undefined'))
-    //    AnalyticsPortalModule.MarcaVerOfertas(origenWeb);
 
     codigo = $.trim(codigo);
-    window.location = (isMobileNative.any() ? "/Mobile" : "") + "/Ofertas" + (codigo !== "" ? "#" + codigo : "");
+    window.location = (isMobileNative.any() || isMobile() ? "/Mobile" : "") + "/Ofertas" + (codigo !== "" ? "#" + codigo : "");
 }
 
 function RedireccionarContenedorInformativa(origenWeb) {

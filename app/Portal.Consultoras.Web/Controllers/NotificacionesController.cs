@@ -315,21 +315,22 @@ namespace Portal.Consultoras.Web.Controllers
             {
 
                 int campaniaId = int.Parse(Campania);
-                var detallesPedidoWeb = new List<Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle>();
+
+                var parametros = new BEPedidoWebDetalleParametros
+                {
+                    PaisId = userData.PaisID,
+                    CampaniaId = campaniaId,
+                    ConsultoraId = userData.ConsultoraID,
+                    Consultora = userData.NombreConsultora,
+                    EsBpt = true,
+                    CodigoPrograma = userData.CodigoPrograma,
+                    NumeroPedido = userData.ConsecutivoNueva,
+                    AgruparSet = true
+                };
+                List<ServicePedido.BEPedidoWebDetalle> detallesPedidoWeb;
 
                 using (var pedidoServiceClient = new PedidoServiceClient())
                 {
-                    var parametros = new BEPedidoWebDetalleParametros
-                    {
-                        PaisId = userData.PaisID,
-                        CampaniaId = campaniaId,
-                        ConsultoraId = userData.ConsultoraID,
-                        Consultora = userData.NombreConsultora,
-                        EsBpt = true,
-                        CodigoPrograma = userData.CodigoPrograma,
-                        NumeroPedido = userData.ConsecutivoNueva,
-                        AgruparSet = true
-                    };
                     detallesPedidoWeb = pedidoServiceClient.SelectByCampania(parametros).ToList();
                 }
 

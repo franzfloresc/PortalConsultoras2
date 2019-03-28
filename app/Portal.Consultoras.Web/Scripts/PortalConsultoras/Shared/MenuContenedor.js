@@ -323,7 +323,7 @@ var menuModule = (function () {
             url = url[0] !== "/" ? "/" + url : url;
             if (window.location.pathname.toLowerCase() === url.toLowerCase()) return;
 
-            if (ConstantesModule.TipoEstrategia.ATP == codigo) {
+            if (ConstantesModule.CodigoPalanca.ATP == codigo) {
                 BannerInteractivo.ConsultaAjaxRedireccionaLanding(function () {
                     window.location = window.location.origin + url;
                 });
@@ -378,20 +378,20 @@ var menuModule = (function () {
             var OrigenPedidoWeb = "";
             OrigenPedidoWeb = EstrategiaAgregarModule.GetOrigenPedidoWeb($(e), false);
 
-            if (url.indexOf(ConstantesModule.CodigosPalanca.Ganadoras) > 0) {
+            if (url.indexOf(ConstantesModule.TipoEstrategiaTexto.Ganadoras) > 0) {
                 if (titulo === "BannerMG") {
                     AnalyticsPortalModule.MarcarClickMasOfertasPromotionClickMG();
                 }
             }
 
-            if (url.indexOf(ConstantesModule.CodigosPalanca.LiquidacionWeb) > 0) {
+            if (url.indexOf(ConstantesModule.TipoEstrategiaTexto.LiquidacionWeb) > 0) {
                 OrigenPedidoWeb = ConstantesModule.OrigenPedidoWebEstructura.Dispositivo.Desktop
                     + ConstantesModule.OrigenPedidoWebEstructura.Pagina.Home
                     + ConstantesModule.OrigenPedidoWebEstructura.Palanca.Liquidacion
                     + ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel;
             }
 
-            else if (url.indexOf(ConstantesModule.CodigosPalanca.SR) > 0) {
+            else if (url.indexOf(ConstantesModule.TipoEstrategiaTexto.SR) > 0) {
                 if (titulo === "BotonVerMasEspecialesHome") {
                     OrigenPedidoWeb = ConstantesModule.OrigenPedidoWebEstructura.Dispositivo.Desktop
                         + ConstantesModule.OrigenPedidoWebEstructura.Pagina.Home
@@ -400,13 +400,13 @@ var menuModule = (function () {
                 }
             }
 
-            else if (url.indexOf(ConstantesModule.CodigosPalanca.GuiaNegocio) > 0) {
+            else if (url.indexOf(ConstantesModule.TipoEstrategiaTexto.GuiaNegocio) > 0) {
                 OrigenPedidoWeb = ConstantesModule.OrigenPedidoWebEstructura.Dispositivo.Desktop
                     + ConstantesModule.OrigenPedidoWebEstructura.Pagina.Contenedor
                     + ConstantesModule.OrigenPedidoWebEstructura.Palanca.GND
                     + ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel;
             }
-            else if (url.indexOf(ConstantesModule.TipoEstrategia.LAN) > 0) {
+            else if (url.indexOf(ConstantesModule.CodigoPalanca.LAN) > 0) {
                 OrigenPedidoWeb = ConstantesModule.OrigenPedidoWebEstructura.Dispositivo.Desktop
                     + ConstantesModule.OrigenPedidoWebEstructura.Pagina.Home
                     + ConstantesModule.OrigenPedidoWebEstructura.Palanca.Lanzamientos

@@ -5733,15 +5733,15 @@
     <Content Include="Views\TusClientes\PanelMantener.cshtml" />
     <Content Include="Views\TusClientes\PanelTest.cshtml" />
     <Content Include="Views\TusClientes\_Mantener.cshtml" />
+    <Content Include="Views\Unete\ReporteTipoConsultora.cshtml" />
+    <Content Include="Views\DetalleEstrategia\FichaTemplate.cshtml" />
+    <Content Include="Views\DetalleEstrategia\ProductoTemplate.cshtml" />
     <Content Include="Views\ArmaTuPack\Detalle.cshtml" />
     <Content Include="Views\AdministrarEstrategia\EstrategiaGrupoDialog.cshtml" />
     <Content Include="Views\ArmaTuPack\Detalle\cabecera-template.cshtml" />
     <Content Include="Views\ArmaTuPack\Detalle\grupos-template.cshtml" />
     <Content Include="Views\ArmaTuPack\Detalle\seleccionados-template.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-bannerInteractivo.cshtml" />
-    <Content Include="Views\Unete\ReporteTipoConsultora.cshtml" />
-    <Content Include="Views\DetalleEstrategia\FichaTemplate.cshtml" />
-    <Content Include="Views\DetalleEstrategia\ProductoTemplate.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

@@ -3680,7 +3680,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             var pedidoEditable = _tablaLogicaProvider.GetTablaLogicaDatoValorBool(
                             userData.PaisID,
-                            ConsTablaLogica.PasePedido.TablaLogicaID,
+                            ConsTablaLogica.PasePedido.TablaLogicaId,
                             ConsTablaLogica.PasePedido.CuvEditable,
                             true
                             );

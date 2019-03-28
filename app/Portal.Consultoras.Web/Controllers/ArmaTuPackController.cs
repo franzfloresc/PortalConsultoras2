@@ -19,23 +19,7 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index()
         {
-            var cuv = Request.QueryString["cuv"];
-
-            if (String.IsNullOrEmpty(cuv))
-            {
-                //var estrategia = PreparListaModel(
-                //    new BusquedaProductoModel()
-                //    {
-                //        CampaniaID = userData.CampaniaID
-                //    },
-                //    Constantes.TipoConsultaOfertaPersonalizadas.ATPObtenerProductos);
-
-                return Json(new { respuesta = true }, JsonRequestBehavior.AllowGet);
-            }
-            else
-            {
-                return RedirectToAction("Detalle", "ArmaTuPack", new { cuv = cuv });
-            }
+            return RedirectToAction("Detalle", "ArmaTuPack");
         }
 
         [HttpGet()]
