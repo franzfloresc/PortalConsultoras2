@@ -10,11 +10,9 @@ function GetNiveles() {
         type: "GET",
         dataType: "json",
         success: function (data) {
-
             lista = data;
-
             //Inicio: Barra de niveles
-            var nivelactual = data.NivelActual;
+            var nivelactual = data.Nivel;
             var Html = "<div class='Progress medal-" + nivelactual + "' id='indicadorNivel'></div>";
             var estilo;
             for (var i = 0; i <= data.list.Niveles.length - 1; i++) {
@@ -58,24 +56,14 @@ function GetNiveles() {
             }
             //Fin
 
-
-            debugger;
-
             //==========================================    LOGROS  =================================================
-
             //$("#Carusel-Logros").empty();
             $('#TituloLogros').append(data.list.ResumenLogros.Titulo);
             $('#DescripcionLogros').append(data.list.ResumenLogros.Descripcion);
-
-            
             for (var i = 0; i <= data.list.ResumenLogros.Indicadores.length - 1; i++) {
-
-
-                //HtmlLogros += '<div class="owl-stage-outer"><div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 870px; padding-left: 35px; padding-right: 35px;"><div class="owl-item active" style="width: 380px; margin-right: 20px;">';
-
                 var HtmlLogros = '';
-
-                HtmlLogros = '<div class="item">';
+                HtmlLogros += '<div class="owl-item">';
+                HtmlLogros += '<div class="item">';
                 HtmlLogros += '<div class="shad box-' + data.list.ResumenLogros.Indicadores[i].Titulo + '">';
                 HtmlLogros += '<p class="text-bold">' + data.list.ResumenLogros.Indicadores[i].Titulo + '</p>';
                 HtmlLogros += '<span class="text-down">' + data.list.ResumenLogros.Indicadores[i].Descripcion + '</span>';
@@ -93,15 +81,11 @@ function GetNiveles() {
                 HtmlLogros += '<a href="" class="btn-link">Ver todos</a>';
                 HtmlLogros += '</div>';
                 HtmlLogros += '</div>';
-                //HtmlLogros += '</div>';
-                //HtmlLogros += '</div>';
-                $(".owl-stage").append(HtmlLogros);
+                HtmlLogros += '</div>';
+                //$("#Carusel-Logros").append(HtmlLogros);
+                $(".owl-stage").append(HtmlLogros);             
+                //$(".owl-stage").css({"transform": "translate3d(0px, 0px, 0px)", "transition": "all 0.25s ease 0s", "padding-left": "35px", "padding-right": "35px" });
             }
-            
-            
-
-
-
         }, error: function (xhr, status, error) {
 
         }
@@ -109,7 +93,6 @@ function GetNiveles() {
 }
 
 function ModalBeneficios(index) {
-    debugger;
     $("#m_montoMinimo").empty();
     $("#ListaBeneficios").empty();
     $("#m_titulo").text(lista.list.Niveles[index].DescripcionNivel);

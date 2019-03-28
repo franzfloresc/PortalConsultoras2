@@ -487,7 +487,7 @@ div .owl-carousel .owl-stage-outer {
 
 #ProgressBar .pt2 {
     display: block;
-    left: 19%;
+    left: 18%;
 }
 
 #ProgressBar .pt3 {
@@ -899,7 +899,10 @@ button.close {
     font-weight: bold;
 }
 
-
+/*.owl-carousel .owl-item {
+    width: 46% !important;
+    margin: 0 2% !important;
+}*/
 
 
 
@@ -953,13 +956,13 @@ button.close {
     }
 
     .Progress:after {
-        top: -3px;
-        width: 10px;
-        height: 10px;
+        top: -2px;
+        width: 8px;
+        height: 8px;
     }
 
     #ProgressBar span em {
-        margin-top: 48px;
+        margin-top: 14px;
         font-size: 11px;
     }
 
@@ -1050,7 +1053,7 @@ button.close {
     }
 
     .medal-5 {
-        width: 94%;
+        width: 95%;
     }
 
     .medal-6 {
@@ -1105,7 +1108,7 @@ button.close {
         }
 
         100% {
-            width: 94%;
+            width: 95%;
         }
     }
 
