@@ -28203,15 +28203,15 @@ div.motivoRechazo textarea {
 .precio_reclamo,
 .rango_reclamo
 {
-    border: 1px solid #808080;
+    border: 1px solid #000;
     border-radius: 4px;
     padding: 6px 10px 10px 16px;
     font-family: 'Lato', sans-serif;
-    font-size:16px;
+    font-size:14px;
     color:#000;
-    margin-right:22px;
-    line-height: 47px;
-    height:47px;
+    margin-right:8px;
+    line-height: 40px;
+    height:40px;
 }
 
 .select_reclamo,
@@ -28225,7 +28225,7 @@ div.motivoRechazo textarea {
 }
 
 .select_reclamo{
-    width:261px;
+    width:264px;
 }
 
 .select_reclamo,
@@ -28290,7 +28290,7 @@ div.motivoRechazo textarea {
         width: 100%;
         height: 95%;
         padding: 6px 10px 10px 20px;
-        line-height: 30px;
+        line-height: 24px;
     }
 
 .descripcion_reclamo + .chosen-container .chosen-single,
@@ -28582,57 +28582,63 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     padding: 0;
 }
 
-.rango_reclamo .liquidacion_rango_cantidad_pedido{
-    width:70.5%;
-    border-top:0;
-    border-bottom:0;
-    border-left:0;
-    border-right:1px solid #808080!important;
-}
+    .rango_reclamo .liquidacion_rango_cantidad_pedido,
+    .rango_reclamo .liquidacion_rango_right_pedido{
+        height:100%;
+    }
 
-.rango_reclamo .liquidacion_rango_right_pedido,
-.rango_reclamo .mas,
-.rango_reclamo .menos
-{
-    position:relative;
-    padding-top:0;
-}
+    .rango_reclamo .liquidacion_rango_cantidad_pedido{
+        width:70.5%;
+        border-top:0;
+        border-bottom:0;
+        border-left:0;
+        border-right:1px solid #000!important;
+        padding-bottom:3px;
+    }
 
-.rango_reclamo .liquidacion_rango_right_pedido,
-.rango_reclamo .menos
-{
-    border:0;
-}
+    .rango_reclamo .liquidacion_rango_right_pedido,
+    .rango_reclamo .mas,
+    .rango_reclamo .menos
+    {
+        position:relative;
+        padding-top:0;
+    }
 
-.rango_reclamo .mas,
-.rango_reclamo .menos
-{
-    margin-top:0;
-    height:22.5px;
-}
+    .rango_reclamo .liquidacion_rango_right_pedido,
+    .rango_reclamo .menos
+    {
+        border:0;
+    }
 
-.rango_reclamo .mas{
-    border-bottom:1px solid #808080;
-}
+    .rango_reclamo .mas,
+    .rango_reclamo .menos
+    {
+        margin-top:0;
+        height:50%;
+    }
 
-.rango_reclamo .mas img,
-.rango_reclamo .menos img
-{
-    position:absolute;
-    margin:auto;
-    bottom:0;
-    right:0;
-}
+    .rango_reclamo .mas{
+        border-bottom:1px solid #000;
+    }
 
-.rango_reclamo .mas img{
-    top:2.5px;
-    left:2px;
-}
+        .rango_reclamo .mas img,
+        .rango_reclamo .menos img
+        {
+            position:absolute;
+            margin:auto;
+            bottom:0;
+            right:0;
+        }
 
-.rango_reclamo .menos img{
-    top:-2.5px;
-    left:0;
-}
+        .rango_reclamo .mas img{
+            top:2.5px;
+            left:2px;
+        }
+
+        .rango_reclamo .menos img{
+            top:-2.5px;
+            left:0;
+        }
 
 .btn_no_stock {
     font-family: 'LAto';
