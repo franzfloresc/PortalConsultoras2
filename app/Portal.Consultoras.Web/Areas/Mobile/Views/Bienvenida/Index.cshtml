@@ -237,68 +237,26 @@
 
 </div>
 <br />
+
 <div class="wrapper_resumen_mobile">
     @if (Model.TieneCaminoBrillante)
     {
-        @*<div class="items_belcorp cam-exito">
-                <img src="~/Content/Images/CaminoBrillante/medalla.PNG">
-
-                <div class="mb-left">
-
-                    <p class="toptext">Camino Brillante</p>
-                    <p class="describtext">
-                        @Model.CaminoBrillanteMsg
-                    </p>
-                    <a href="@Url.Action("Index", "CaminoBrillante")">Mis Beneficios</a>
-                </div>
-            </div>
-            <div class="linea_separadora_mobile" style="margin-top:16px"></div>*@
-
     <div class="items_belcorp cam-exito">
-        @{
-            var srcImageBrillante = "";
-            if (Model.CaminoBrillanteMsg.Contains("Brillante"))
+        @{ if (!string.IsNullOrEmpty(Model.UrlLogoCaminoBrillante))
             {
-                srcImageBrillante = "/Content/CaminoBrillante/imgs/recurso-27-3-x@2x.png";
+                <img src="@Model.UrlLogoCaminoBrillante" style="max-width: 80px;" />
             }
-            else if (Model.CaminoBrillanteMsg.Contains("Topacio"))
-            {
-                srcImageBrillante = "/Content/CaminoBrillante/imgs/recurso-28-3-x-copy-2@2x.png";
-            }
-            else if (Model.CaminoBrillanteMsg.Contains("Perla"))
-            {
-                srcImageBrillante = "/Content/CaminoBrillante/imgs/recurso-36-3-x@2x.png";
-            }
-            else if (Model.CaminoBrillanteMsg.Contains("Ámbar"))
-            {
-                srcImageBrillante = "/Content/CaminoBrillante/imgs/recurso-30-3-x-copy-4@2x.png";
-            }
-            else if (Model.CaminoBrillanteMsg.Contains("Coral"))
-            {
-                srcImageBrillante = "/Content/CaminoBrillante/imgs/recurso-29-3-x-copy-3@2x.png";
-            }
-            else
-            {
-                srcImageBrillante = "/Content/CaminoBrillante/imgs/image-1@2x.png";
-            }
-
         }
-
-        <img src="@srcImageBrillante" style="max-width: 80px;" />
-
-        <!--
-        <img src="~/Content/Images/CaminoBrillante/medalla.PNG" style="max-width: 80px;">
-        -->
-        <p class="toptext">Camino Brillante</p>
-        <p>
-            @Html.Raw(Model.CaminoBrillanteMsg)
-        </p>
-        <a href="@Url.Action("Index", "CaminoBrillante")">Mis Beneficios</a>
+        <div class="mb-left">
+            <p class="toptext">Camino Brillante</p>
+            @*<p>
+                @Html.Raw(Model.CaminoBrillanteMsg)
+            </p>*@
+            <a href="@Url.Action("Index", "CaminoBrillante")">Mis Beneficios</a>
+        </div>
     </div>
-        <div class="linea_separadora_mobile" style="margin-top:16px"></div>
+    <div class="linea_separadora_mobile" style="margin-top:16px"></div>
     }
-
-
 
     <div class="content_320">
         <div class="item1_mobile">

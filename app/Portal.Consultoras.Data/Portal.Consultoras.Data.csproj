@@ -74,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Buscador\DAFiltroBuscador.cs" />
+    <Compile Include="CaminoBrillante\DACaminoBrillante.cs" />
     <Compile Include="CDR\DACDRParametria.cs" />
     <Compile Include="CDR\DACDRWeb.cs" />
     <Compile Include="CDR\DACDRWebDatos.cs" />

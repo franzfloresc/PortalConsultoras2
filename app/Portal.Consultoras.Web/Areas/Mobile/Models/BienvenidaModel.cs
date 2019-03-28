@@ -67,5 +67,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public string urlCaminoExito { get; set; }
         public bool TieneCaminoBrillante { get; set; }
         public string CaminoBrillanteMsg { get; set; }
+        public string UrlLogoCaminoBrillante { get; set; }
     }
 }

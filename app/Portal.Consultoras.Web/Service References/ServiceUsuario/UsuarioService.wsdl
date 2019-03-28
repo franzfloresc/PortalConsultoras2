@@ -35,7 +35,8 @@
       <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" />
       <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Usuario" />
       <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.OpcionesVerificacion" />
-      <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd8" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CaminoBrillante" />
+      <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd9" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IUsuarioService_UpdNotificacionCdrCulminadoVisualizacion_InputMessage">
@@ -385,6 +386,24 @@
   </wsdl:message>
   <wsdl:message name="IUsuarioService_RegistrarDireccionEntrega_OutputMessage">
     <wsdl:part name="parameters" element="tns:RegistrarDireccionEntregaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetNivelesCaminoBrillante_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetNivelesCaminoBrillante" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetNivelesCaminoBrillante_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetNivelesCaminoBrillanteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetConsultoraNivelCaminoBrillante_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetConsultoraNivelCaminoBrillante" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetConsultoraNivelCaminoBrillante_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetConsultoraNivelCaminoBrillanteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetConsultoraLogrosCaminoBrillante_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetConsultoraLogrosCaminoBrillante" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetConsultoraLogrosCaminoBrillante_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetConsultoraLogrosCaminoBrillanteResponse" />
   </wsdl:message>
   <wsdl:message name="IUsuarioService_Select_InputMessage">
     <wsdl:part name="parameters" element="tns:Select" />
@@ -1128,6 +1147,18 @@
     <wsdl:operation name="RegistrarDireccionEntrega">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/RegistrarDireccionEntrega" message="tns:IUsuarioService_RegistrarDireccionEntrega_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/RegistrarDireccionEntregaResponse" message="tns:IUsuarioService_RegistrarDireccionEntrega_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNivelesCaminoBrillante">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetNivelesCaminoBrillante" message="tns:IUsuarioService_GetNivelesCaminoBrillante_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetNivelesCaminoBrillanteResponse" message="tns:IUsuarioService_GetNivelesCaminoBrillante_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultoraNivelCaminoBrillante">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetConsultoraNivelCaminoBrillante" message="tns:IUsuarioService_GetConsultoraNivelCaminoBrillante_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetConsultoraNivelCaminoBrillanteResponse" message="tns:IUsuarioService_GetConsultoraNivelCaminoBrillante_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultoraLogrosCaminoBrillante">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetConsultoraLogrosCaminoBrillante" message="tns:IUsuarioService_GetConsultoraLogrosCaminoBrillante_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetConsultoraLogrosCaminoBrillanteResponse" message="tns:IUsuarioService_GetConsultoraLogrosCaminoBrillante_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="Select">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/Select" message="tns:IUsuarioService_Select_InputMessage" />
@@ -1987,6 +2018,33 @@
     </wsdl:operation>
     <wsdl:operation name="RegistrarDireccionEntrega">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/RegistrarDireccionEntrega" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNivelesCaminoBrillante">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetNivelesCaminoBrillante" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultoraNivelCaminoBrillante">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetConsultoraNivelCaminoBrillante" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultoraLogrosCaminoBrillante">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetConsultoraLogrosCaminoBrillante" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3278,6 +3336,33 @@
     </wsdl:operation>
     <wsdl:operation name="RegistrarDireccionEntrega">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/RegistrarDireccionEntrega" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNivelesCaminoBrillante">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetNivelesCaminoBrillante" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultoraNivelCaminoBrillante">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetConsultoraNivelCaminoBrillante" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultoraLogrosCaminoBrillante">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetConsultoraLogrosCaminoBrillante" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

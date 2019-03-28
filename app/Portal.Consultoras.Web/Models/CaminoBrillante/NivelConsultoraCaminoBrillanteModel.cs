@@ -12,7 +12,7 @@ namespace Portal.Consultoras.Web.Models.CaminoBrillante
         [DataMember]
         public string Campania { get; set; }
         [DataMember]
-        public int NivelActual { get; set; }
+        public int Nivel { get; set; }
         [DataMember]
         public string MontoPedido { get; set; }
         [DataMember]

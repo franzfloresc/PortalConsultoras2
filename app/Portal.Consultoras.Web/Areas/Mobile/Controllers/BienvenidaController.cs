@@ -19,11 +19,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatosProvider;
         private readonly BienvenidaProvider _bienvenidaProvider;
         protected TablaLogicaProvider _tablaLogica;
+        protected CaminoBrillanteProvider _caminoBrillanteProvider;
         public BienvenidaController()
         {
             _configuracionPaisDatosProvider = new ConfiguracionPaisDatosProvider();
             _tablaLogica = new TablaLogicaProvider();
             _bienvenidaProvider = new BienvenidaProvider();
+            _caminoBrillanteProvider = new CaminoBrillanteProvider();
         }
 
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
@@ -128,17 +130,17 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.TienePagoEnLinea = userData.TienePagoEnLinea;
                 model.ConsultoraNuevaBannerAppMostrar = SessionManager.GetConsultoraNuevaBannerAppMostrar();
                 model.MostrarPagoEnLinea = (userData.MontoDeuda > 0);
-                model.TieneCaminoBrillante = userData.CaminoBrillante;
-
-                //Inicio CaminoBrillante 
-                model.TieneCaminoBrillante = userData.CaminoBrillante;
-                string DatosConsultora = GetNivelConsultoras();
-                if (DatosConsultora != "")
-                    model.CaminoBrillanteMsg = userData.CaminoBrillanteMsg.Replace("{0}", GetNivelConsultoras());
-                //Fin CaminoBrillante
-
 
                 #region Camino al Exito
+                model.TieneCaminoBrillante = userData.CaminoBrillante;
+                model.TieneCaminoBrillante = userData.CaminoBrillante;
+                var NivelCaminoBrillante = _caminoBrillanteProvider.ObtenerNivelActualConsultora();
+                if (NivelCaminoBrillante != null)
+                {
+                    model.CaminoBrillanteMsg = userData.CaminoBrillanteMsg.Replace("{0}", "<b>" + NivelCaminoBrillante.DescripcionNivel + "</b>");
+                    model.UrlLogoCaminoBrillante = NivelCaminoBrillante.UrlImagenNivel.Replace("{DIMEN}", "MDPI");
+                    model.UrlLogoCaminoBrillante = model.UrlLogoCaminoBrillante.Replace("{STATE}", "A");
+                }
 
                 var LogicaCaminoExisto = _tablaLogica.GetTablaLogicaDatos(userData.PaisID, Constantes.TablaLogica.EscalaDescuentoMobile);
                 if (LogicaCaminoExisto.Any())
@@ -468,49 +470,5 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-
-        #region CaminoBrillante
-
-        public string GetNivelConsultoras()
-        {
-            List<NivelConsultoraCaminoBrillanteModel> DatosConsultora = GetNivelConsultora();
-            string DescripcionNivel = string.Empty;
-            if (DatosConsultora.Count > 0)
-            {
-                SessionManager.SetConsultora(DatosConsultora);
-                foreach (NivelConsultoraCaminoBrillanteModel obj in DatosConsultora)
-                    DescripcionNivel = obj.NivelActual == 1 ? "<b>Consultora</b>" : obj.NivelActual == 2 ? "<b>Consultora Coral</b>" : obj.NivelActual == 3 ? "<b>Consultora Ámbar</b>" : obj.NivelActual == 4 ? "<b>Consultora Perla</b>" : obj.NivelActual == 5 ? "<b>Consultora Topacio</b>" : obj.NivelActual == 6 ? "<b>Consultora Brillante</b>" : "";
-            }
-            return DescripcionNivel;
-        }
-
-        private List<NivelConsultoraCaminoBrillanteModel> GetNivelConsultora()
-        {
-            List<string> Credenciales = new List<string>();
-            Credenciales = GetDatosComercial();
-            CaminoBrillanteProvider prv = new CaminoBrillanteProvider(Credenciales[0], Credenciales[1], Credenciales[2]);
-            //List<NivelConsultoraCaminoBrillanteModel> task = prv.GetNivelConsultora("CRI", "0007975", "1");
-
-            var isoPais = userData.CodigoISO == "CR" ? "CRI" : userData.CodigoISO;
-
-            List<NivelConsultoraCaminoBrillanteModel> task = prv.GetNivelConsultora(isoPais, userData.CodigoConsultora, "1");
-            return task;
-        }
-
-        public List<string> GetDatosComercial()
-        {
-            List<string> list = new List<string>();
-            using (var svc = new SACServiceClient())
-            {
-                var response = svc.GetTablaLogicaDatos(userData.PaisID, Constantes.TablaLogicaDato.CaminoBrillanteTablaLogica).ToList();
-                foreach (BETablaLogicaDatos obj in response)
-                    list.Add(obj.Valor);
-            }
-            return list;
-        }
-
-
-        #endregion
-
     }
 }
