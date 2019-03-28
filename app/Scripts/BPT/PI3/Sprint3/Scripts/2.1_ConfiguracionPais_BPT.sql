@@ -20,7 +20,7 @@ begin
 	'Arma tu pack','Arma tu pack',
 	NULL,NULL,NULL,NULL, NULL,
 	NULL, NULL,
-	NULL, NULL,'',
+	NULL, NULL,
 	@orden,@orden,@orden,@orden)
 
 end
