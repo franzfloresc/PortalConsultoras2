@@ -253,12 +253,14 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             var medallaConstancia = new List<BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante>();
             var periodos = GetPeriodos(entidad.PaisID);
 
-            short.TryParse(nivelConsultora.NivelActual, out short nivelActual);
+            var nivelActual = 0;
+            var _periodo = 0;
+            Int32.TryParse(nivelConsultora.NivelActual, out nivelActual);
             
             Action<string, int> builderMedallaConstancia = (periodo, constancia) => {
                 if (!string.IsNullOrEmpty(periodo))
                 {
-                    if (Int32.TryParse(periodo, out int _periodo)) {
+                    if (Int32.TryParse(periodo, out _periodo)) {
                         var periodoCaminoBrillante = periodos.Where(e => e.Periodo == _periodo).FirstOrDefault();
                         if (periodoCaminoBrillante != null)
                         {
