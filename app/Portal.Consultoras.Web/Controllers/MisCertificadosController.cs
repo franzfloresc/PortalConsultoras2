@@ -266,7 +266,6 @@ namespace Portal.Consultoras.Web.Controllers
                         beMiCertificado = listaData.FirstOrDefault(x => x.TipoCert == tipo);
                         model = Mapper.Map<MiCertificadoModel>(beMiCertificado);
                     }
-
                     model.CertificadoId = tmp.CertificadoId;
                     model.Nombre = tmp.Nombre;
                     model.MensajeError = tmp.MensajeError;
@@ -318,6 +317,20 @@ namespace Portal.Consultoras.Web.Controllers
                             case Constantes.PaisID.Peru:
                                 model.Pais = "Peru";
                                 break;
+                            //INI HD-3812
+                            case Constantes.PaisID.CostaRica:
+                                model.Pais = "CR";
+                                break;
+                            case Constantes.PaisID.Guatemala:
+                                model.Pais = "GT";
+                                break;
+                            case Constantes.PaisID.Panama:
+                                model.Pais = "PA";
+                                break;
+                            case Constantes.PaisID.ElSalvador:
+                                model.Pais = "ES";
+                                break;
+                            //FIN HD-3812
                             default:
                                 model.Pais = "";
                                 break;
