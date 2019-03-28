@@ -77,6 +77,11 @@ var EstrategiaAgregarModule = (function () {
         }
     }
 
+    var _OrigenPedido = {
+        MobileContenedorArmaTuPack: "2131502",
+        DesktopContenedorArmaTuPack: "1131502"
+    }
+
     var getEstrategia = function ($btnAgregar, origenPedidoWebEstrategia) {
 
         var estrategiaTxt = $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataEstrategia).attr("data-estrategia")
@@ -304,7 +309,7 @@ var EstrategiaAgregarModule = (function () {
 
         var cuvs = "";
         var codigoVariante = estrategia.CodigoVariante;
-        if ((ConstantesModule.CodigoVariedad.IndividualVariable == codigoVariante || ConstantesModule.CodigoVariedad.CompuestaVariable == codigoVariante)) {
+        if ((_codigoVariedad.IndividualVariable == codigoVariante || _codigoVariedad.CompuestaVariable == codigoVariante)) {
             var listaCuvs = $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataTono.concat(dataProperties.dataTonoSelect));
             if (listaCuvs.length > 0) {
                 $.each(listaCuvs,
@@ -312,7 +317,7 @@ var EstrategiaAgregarModule = (function () {
                         var cuv = $(item).attr("data-tono-select");
                         if (cuv != "") {
                             cuvs = cuvs + (cuvs == "" ? "" : "|") + cuv;
-                            //if (ConstantesModule.CodigoVariedad.CompuestaVariable == codigoVariante) {
+                            //if (_codigoVariedad.CompuestaVariable == codigoVariante) {
                             cuvs = cuvs + ";" + $(item).find(elementosDiv.EstrategiaHdMarcaID).val();
                             cuvs = cuvs + ";" + $(item).find(elementosDiv.EstrategiaHdPrecioCatalogo).val();
                             cuvs = cuvs + ";" + "";
@@ -390,8 +395,18 @@ var EstrategiaAgregarModule = (function () {
                             $AgregadoTooltip.find(dataProperties.tooltipMensaje2).html(" Modificaste tu pedido");
                         }
                         $AgregadoTooltip.show();
-                        setTimeout(function () { $AgregadoTooltip.hide(); }, 4000);
-                        ResumenOpcionesModule.LimpiarOpciones();
+                        setTimeout(function () {
+                            $AgregadoTooltip.hide();
+                            if (origenPedidoWebEstrategia === _OrigenPedido.DesktopContenedorArmaTuPack) {
+                                window.location = "/ofertas";
+                            } else if (origenPedidoWebEstrategia === _OrigenPedido.MobileContenedorArmaTuPack) {
+                                window.location = "/mobile/ofertas";
+
+                            }
+                        }, 2500);
+                        if (!(origenPedidoWebEstrategia === _OrigenPedido.DesktopContenedorArmaTuPack || origenPedidoWebEstrategia === _OrigenPedido.MobileContenedorArmaTuPack)) {
+                            ResumenOpcionesModule.LimpiarOpciones();
+                        }
                     } catch (e) {
                         console.error(e);
                     }
@@ -442,7 +457,7 @@ var EstrategiaAgregarModule = (function () {
                         MostrarBarra(data, "1");
                     }
 
-                    if (estrategia.CodigoEstrategia == ConstantesModule.ConstantesPalanca.PackNuevas) {
+                    if (estrategia.CodigoEstrategia == ConstantesModule.TipoEstrategia.PackNuevas) {
                         if (typeof CargarCarouselEstrategias != constantes.undefined())
                             CargarCarouselEstrategias();
                     }
@@ -459,7 +474,7 @@ var EstrategiaAgregarModule = (function () {
                     $(elementosDiv.hdErrorInsertarProducto).val(data.errorInsertarProducto);
 
                     cierreCarouselEstrategias();
-                    if (estrategia.CodigoEstrategia == ConstantesModule.ConstantesPalanca.PackNuevas) {
+                    if (estrategia.CodigoEstrategia == ConstantesModule.TipoEstrategia.PackNuevas) {
                         if (typeof CargarCarouselEstrategias != constantes.undefined())
                             CargarCarouselEstrategias();
                     }
@@ -490,7 +505,7 @@ var EstrategiaAgregarModule = (function () {
 
                         }
                     } else if (tipoOrigenEstrategiaAux != 272) {
-                        if (estrategia.CodigoEstrategia == ConstantesModule.ConstantesPalanca.PackNuevas) {
+                        if (estrategia.CodigoEstrategia == ConstantesModule.TipoEstrategia.PackNuevas) {
                             CargarCarouselEstrategias();
                         }
 

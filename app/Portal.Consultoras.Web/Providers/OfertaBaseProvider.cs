@@ -1,11 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿using AutoMapper;
+using Newtonsoft.Json;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Oferta.ResponseOfertaGenerico;
+using Portal.Consultoras.Web.Models.Search.ResponseOferta.Estructura;
 using Portal.Consultoras.Web.SessionManager;
-using Portal.Consultoras.Web.ServicePROLConsultas;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -27,6 +28,55 @@ namespace Portal.Consultoras.Web.Providers
             httpClient.DefaultRequestHeaders.Accept.Clear();
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
+        
+        public EstrategiaPersonalizadaProductoModel ObtenerModeloOfertaDesdeApi(EstrategiaPersonalizadaProductoModel estrategiaModelo, string codigoIso)
+        {                                                                       
+            var taskApi = Task.Run(() => ObtenerOfertaDesdeApi(estrategiaModelo.CUV2, estrategiaModelo.CampaniaID.ToString(), estrategiaModelo.CodigoEstrategia, codigoIso));
+            Task.WhenAll(taskApi);
+            Estrategia estrategia = taskApi.Result ?? new Estrategia();
+            var modeloEstrategia = new EstrategiaPersonalizadaProductoModel();
+            modeloEstrategia.Hermanos = Mapper.Map<IList<Componente>, List<EstrategiaComponenteModel>>(estrategia.Componentes ?? new List<Componente>());
+            return modeloEstrategia;
+        }
+
+        private async Task<Estrategia> ObtenerOfertaDesdeApi(string cuv, string campaniaId, string tipoPersonalizacion, string codigoIso)
+        {
+            var estrategia = new Estrategia();
+
+            string pathMs = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertaByCuv,
+              codigoIso,
+              tipoPersonalizacion,
+              campaniaId,
+              cuv
+              );
+
+            HttpResponseMessage httpResponse = await httpClient.GetAsync(pathMs);
+
+            if (!httpResponse.IsSuccessStatusCode)
+            {
+                return estrategia;
+            }
+
+            string jsonString = await httpResponse.Content.ReadAsStringAsync();
+            if (Util.Trim(jsonString) == string.Empty)
+            {
+                return estrategia;
+            }
+
+            OutputOferta respuesta = new OutputOferta();
+            try
+            {
+                respuesta = JsonConvert.DeserializeObject<OutputOferta>(jsonString);
+                estrategia = respuesta.Result;
+            }
+            catch (Exception ex)
+            {
+                Common.LogManager.SaveLog(ex, string.Empty, codigoIso);
+                return estrategia;
+            }
+
+            return estrategia;
+        }
 
         public static async Task<List<ServiceOferta.BEEstrategia>> ObtenerOfertasDesdeApi(string path, string codigoISO)
         {
@@ -44,11 +94,11 @@ namespace Portal.Consultoras.Web.Providers
                 return estrategias;
             }
 
-            OutputOferta respuesta = new OutputOferta();
+            var respuesta = new OutputOfertaLista();
             var listaSinPrecio2 = new List<string>();
             try
             {
-                respuesta = JsonConvert.DeserializeObject<OutputOferta>(jsonString);
+                respuesta = JsonConvert.DeserializeObject<OutputOfertaLista>(jsonString);
             }
             catch (Exception ex)
             {
@@ -62,7 +112,7 @@ namespace Portal.Consultoras.Web.Providers
                 return estrategias;
             }
 
-            List<string> listaCuvPrecio0 = new List<string>();
+            //List<string> listaCuvPrecio0 = new List<string>();
             string codTipoEstrategia = string.Empty, codCampania = string.Empty;
 
             foreach (Models.Search.ResponseOferta.Estructura.Estrategia item in respuesta.Result)
@@ -89,19 +139,21 @@ namespace Portal.Consultoras.Web.Providers
                         Orden = Convert.ToInt32(item.Orden),
                         Precio = Convert.ToDecimal(item.Precio),
                         Precio2 = Convert.ToDecimal(item.Precio2),
-                        PrecioString = Util.DecimalToStringFormat((decimal)item.Precio2, codigoISO),
-                        PrecioTachado = Util.DecimalToStringFormat((decimal)item.Precio, codigoISO),
-                        GananciaString = Util.DecimalToStringFormat((decimal)item.Ganancia, codigoISO),
+                        PrecioString = Util.DecimalToStringFormat(Convert.ToDecimal(item.Precio2), codigoISO),
+                        PrecioTachado = Util.DecimalToStringFormat(Convert.ToDecimal(item.Precio), codigoISO),
+                        GananciaString = Util.DecimalToStringFormat(Convert.ToDecimal(item.Ganancia), codigoISO),
                         Ganancia = Convert.ToDecimal(item.Ganancia),
                         TextoLibre = item.TextoLibre,
                         TieneVariedad = Convert.ToBoolean(item.TieneVariedad) ? 1 : 0,
                         TipoEstrategiaID = Convert.ToInt32(item.TipoEstrategiaId),
                         TipoEstrategiaImagenMostrar = 6,
                         EsSubCampania = Convert.ToBoolean(item.EsSubCampania) ? 1 : 0,
-                        Niveles = item.Niveles
+                        Niveles = item.Niveles,
+                        // TODO: liberar comentario
+                        CantidadPack = item.CantidadPack
                     };
                     estrategia.TipoEstrategia = new ServiceOferta.BETipoEstrategia { Codigo = item.CodigoTipoEstrategia };
-                    
+
                     if (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento && item.EstrategiaDetalle != null)
                     {
                         estrategia.EstrategiaDetalle = new ServiceOferta.BEEstrategiaDetalle();
@@ -259,6 +311,24 @@ namespace Portal.Consultoras.Web.Providers
         {
             bool tipoEstrategiaHabilitado = _sessionManager.GetConfigMicroserviciosPersonalizacion().EstrategiaHabilitado.Contains(tipoEstrategia); //WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion.Contains(tipoEstrategia);
             return tipoEstrategiaHabilitado;
+        }
+
+        public bool UsarLocalStorage(string tipoEstrategia)
+        {
+            if (_sessionManager.GetConfigMicroserviciosPersonalizacion().GuardaDataEnLocalStorage.IsNullOrEmptyTrim())
+                return false;
+
+            bool usaLocalStorage = _sessionManager.GetConfigMicroserviciosPersonalizacion().GuardaDataEnLocalStorage.Contains(tipoEstrategia);
+            return usaLocalStorage;
+        }
+
+        public bool UsarSession(string tipoEstrategia)
+        {
+            if (_sessionManager.GetConfigMicroserviciosPersonalizacion().GuardaDataEnSession.IsNullOrEmptyTrim())
+                return false;
+
+            bool usaSession = _sessionManager.GetConfigMicroserviciosPersonalizacion().GuardaDataEnSession.Contains(tipoEstrategia);
+            return usaSession;
         }
     }
 }

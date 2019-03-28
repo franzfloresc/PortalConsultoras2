@@ -34,11 +34,15 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult Index()
         {
-            SessionManager.SetfechaGetNotificacionesSinLeer(null);
-            SessionManager.SetcantidadGetNotificacionesSinLeer(null);
-
+            LimpiarCacheNotificaciones();
             var model = new NotificacionesModel { ListaNotificaciones = ObtenerNotificaciones() };
             return View(model);
+        }
+
+        private void LimpiarCacheNotificaciones()
+        {
+            var urlToRemove = Url.Action("GetNotificacionesSinLeer", "Notificaciones");
+            HttpResponse.RemoveOutputCacheItem(urlToRemove);
         }
 
         public ActionResult IndexExterno(int IdOrigen = 0)
@@ -236,21 +240,21 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (!string.IsNullOrEmpty(Campania))
             {
                 int campaniaId = int.Parse(Campania);
-                var detallesPedidoWeb = new List<Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle>();
+
+                var parametros = new BEPedidoWebDetalleParametros
+                {
+                    PaisId = userData.PaisID,
+                    CampaniaId = campaniaId,
+                    ConsultoraId = userData.ConsultoraID,
+                    Consultora = userData.NombreConsultora,
+                    EsBpt = true,
+                    CodigoPrograma = userData.CodigoPrograma,
+                    NumeroPedido = userData.ConsecutivoNueva,
+                    AgruparSet = true
+                };
+                List<ServicePedido.BEPedidoWebDetalle> detallesPedidoWeb;
                 using (var pedidoServiceClient = new PedidoServiceClient())
                 {
-                    var parametros = new BEPedidoWebDetalleParametros
-                    {
-                        PaisId = userData.PaisID,
-                        CampaniaId = campaniaId,
-                        ConsultoraId = userData.ConsultoraID,
-                        Consultora = userData.NombreConsultora,
-                        EsBpt = true,
-                        CodigoPrograma = userData.CodigoPrograma,
-                        NumeroPedido = userData.ConsecutivoNueva,
-                        AgruparSet = true
-                    };
-
                     detallesPedidoWeb = pedidoServiceClient.SelectByCampania(parametros).ToList();
                 }
 

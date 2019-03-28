@@ -25,7 +25,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             _cdrProvider = new CdrProvider();
             _notificacionProvider = new NotificacionProvider();
-        } 
+        }
 
         public ActionResult Index()
         {
@@ -41,10 +41,11 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     return RedirectToAction("Index", "Notificaciones", new { area = "Mobile" });
                 }
+
             }
 
-            SessionManager.SetfechaGetNotificacionesSinLeer(null);
-            SessionManager.SetcantidadGetNotificacionesSinLeer(null);
+            //Limpiar Cache Notificaciones
+            LimpiarCacheNotificaciones();
 
             List<BENotificaciones> olstNotificaciones;
             NotificacionesModel model = new NotificacionesModel();
@@ -54,6 +55,12 @@ namespace Portal.Consultoras.Web.Controllers
             }
             model.ListaNotificaciones = olstNotificaciones;
             return View(model);
+        }
+
+        private void LimpiarCacheNotificaciones()
+        {
+            var urlToRemove = Url.Action("GetNotificacionesSinLeer", "Notificaciones");
+            HttpResponse.RemoveOutputCacheItem(urlToRemove);
         }
 
         public ActionResult ListarNotificaciones(long ProcesoId, int TipoOrigen)
@@ -117,9 +124,8 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                SessionManager.SetfechaGetNotificacionesSinLeer(null);
-                SessionManager.SetcantidadGetNotificacionesSinLeer(null);
-
+                //Limpiar Cache Notificaciones
+                LimpiarCacheNotificaciones();
                 return Json(new { success = true }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -315,21 +321,22 @@ namespace Portal.Consultoras.Web.Controllers
             {
 
                 int campaniaId = int.Parse(Campania);
-                var detallesPedidoWeb = new List<Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle>();
+
+                var parametros = new BEPedidoWebDetalleParametros
+                {
+                    PaisId = userData.PaisID,
+                    CampaniaId = campaniaId,
+                    ConsultoraId = userData.ConsultoraID,
+                    Consultora = userData.NombreConsultora,
+                    EsBpt = true,
+                    CodigoPrograma = userData.CodigoPrograma,
+                    NumeroPedido = userData.ConsecutivoNueva,
+                    AgruparSet = true
+                };
+                List<ServicePedido.BEPedidoWebDetalle> detallesPedidoWeb;
 
                 using (var pedidoServiceClient = new PedidoServiceClient())
                 {
-                    var parametros = new BEPedidoWebDetalleParametros
-                    {
-                        PaisId = userData.PaisID,
-                        CampaniaId = campaniaId,
-                        ConsultoraId = userData.ConsultoraID,
-                        Consultora = userData.NombreConsultora,
-                        EsBpt = true,
-                        CodigoPrograma = userData.CodigoPrograma,
-                        NumeroPedido = userData.ConsecutivoNueva,
-                        AgruparSet = true
-                    };
                     detallesPedidoWeb = pedidoServiceClient.SelectByCampania(parametros).ToList();
                 }
 
@@ -363,10 +370,37 @@ namespace Portal.Consultoras.Web.Controllers
                 mGanancia = Util.DecimalToStringFormat(
                     lstObservacionesPedido.Any()?
                     lstObservacionesPedido[0].MontoAhorroCatalogo + lstObservacionesPedido[0].MontoAhorroRevista
-                    :0,
+                    : 0,
                     userData.CodigoISO)
             };
             ViewBag.PaisIso = userData.CodigoISO;
+
+            if (model.Origen != 3)
+            {
+                if (model.ListaNotificacionesDetallePedido.Any())
+                {
+                    model.SubTotal = model.ListaNotificacionesDetallePedido.Sum(p => p.ImporteTotal);
+                    model.Descuento = model.ListaNotificacionesDetallePedido[0].DescuentoProl;
+                    model.Total = model.SubTotal - model.Descuento;
+                }
+                else
+                {
+                    model.SubTotal = Convert.ToDecimal(0);
+                    model.Descuento = Convert.ToDecimal(0);
+                    model.Total = Convert.ToDecimal(0);
+                    model.ListaNotificacionesDetallePedido.Add(new NotificacionesModelDetallePedido() { ImporteTotal = 0, PrecioUnidad = 0 });
+                }
+
+                model.SubTotalString = Util.DecimalToStringFormat(model.SubTotal, userData.CodigoISO);
+                model.DescuentoString = Util.DecimalToStringFormat(model.Descuento, userData.CodigoISO);
+                model.TotalString = Util.DecimalToStringFormat(model.Total, userData.CodigoISO);
+
+                foreach (var notificacion in model.ListaNotificacionesDetallePedido)
+                {
+                    notificacion.ImporteTotalString = Util.DecimalToStringFormat(notificacion.ImporteTotal, userData.CodigoISO);
+                    notificacion.PrecioUnidadString = Util.DecimalToStringFormat(notificacion.PrecioUnidad, userData.CodigoISO);
+                }
+            }
 
             if (model.Origen != 3)
             {
@@ -521,25 +555,18 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult GetNotificacionesSinLeer()
+        [OutputCacheAttribute(Duration = 1800 ,Location = System.Web.UI.OutputCacheLocation.Client,VaryByParam = "codigoUsuario")] //Media hora EINCA 204-01-2019
+        public JsonResult GetNotificacionesSinLeer(string codigoUsuario = "")
         {
             int cantidadNotificaciones = -1;
             var mensaje = string.Empty;
             try
             {
-                if (CheckDataSessionCantidadNotificaciones())
-                {
-                    cantidadNotificaciones = Convert.ToInt32(SessionManager.GetcantidadGetNotificacionesSinLeer());
-                }
-                else
-                {
-                    using (UsuarioServiceClient sv = new UsuarioServiceClient())
-                    {
-                        cantidadNotificaciones = sv.GetNotificacionesSinLeer(userData.PaisID, userData.ConsultoraID, userData.IndicadorBloqueoCDR, userData.TienePagoEnLinea);
-                    }
+                LogManager.LogManager.LogErrorWebServicesBus(new Exception("Registrando carga Notificaciones: "),userData.UsuarioNombre,userData.PaisID.ToString());
 
-                    SessionManager.SetfechaGetNotificacionesSinLeer(DateTime.Now.Ticks);
-                    SessionManager.SetcantidadGetNotificacionesSinLeer(cantidadNotificaciones);
+                using (UsuarioServiceClient sv = new UsuarioServiceClient())
+                {
+                    cantidadNotificaciones = sv.GetNotificacionesSinLeer(userData.PaisID, userData.ConsultoraID, userData.IndicadorBloqueoCDR, userData.TienePagoEnLinea);
                 }
             }
             catch (Exception ex)
@@ -548,19 +575,6 @@ namespace Portal.Consultoras.Web.Controllers
                 mensaje = ex.Message;
             }
             return Json(new { mensaje, cantidadNotificaciones }, JsonRequestBehavior.AllowGet);
-        }
-
-        public bool CheckDataSessionCantidadNotificaciones()
-        {
-            if (SessionManager.GetfechaGetNotificacionesSinLeer() != null &&
-                SessionManager.GetcantidadGetNotificacionesSinLeer() != null)
-            {
-                var ticks = Convert.ToInt64(SessionManager.GetfechaGetNotificacionesSinLeer());
-                var fecha = new DateTime(ticks);
-                var diferencia = DateTime.Now - fecha;
-                return (diferencia.TotalMinutes <= 30);
-            }
-            return false;
         }
     }
 }
