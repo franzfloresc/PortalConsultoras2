@@ -1,4 +1,4 @@
-
+﻿
 GO
 
 ALTER PROCEDURE [dbo].[ConfiguracionOfertasHomeListarSecciones]
