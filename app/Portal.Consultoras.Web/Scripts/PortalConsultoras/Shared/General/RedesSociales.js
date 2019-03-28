@@ -1,4 +1,29 @@
 ﻿var RedesSociales = (function () {
+    window.fbAsyncInit = function () {/*setear valor a  FBAppId desde la vista :   var FBAppId = '@ViewBag.FBAppId'; */
+        FB.init({
+            appId: FBAppId,
+            cookie: true,
+            xfbml: true,
+            version: 'v3.0'
+        });
+
+        FB.getLoginStatus(function (response) {
+            if (response.status === 'connected') {
+                getInfoFB(1);
+            }
+        });
+
+        cargoPluginFacebook = true;
+    };
+
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) { return; }
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
 
     var _variables = {
         clickDataCompartir: "[data-compartir]",
@@ -234,12 +259,21 @@
         });
         InsertarLogCatalogoDynamo('Facebook', campaniaCatalogo, catalogo, 1);
 
-        var popWwidth = 570;
-        var popHeight = 420;
-        var left = (screen.width / 2) - (popWwidth / 2);
-        var top = (screen.height / 2) - (popHeight / 2);
-        var url = "http://www.facebook.com/dialog/share?href=" + texto + "&app_id=" + encodeURIComponent(FBAppId) + "&redirect_uri=" + window.location.href + "?catalogo_compartido_fb=1" 
-        window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
+        FB.ui({
+            method: 'share',            
+            href: texto,
+        }, function (response) {
+            if (response && !response.error_code) {
+                dataLayer.push({
+                    'event': 'virtualEvent',
+                    'category': 'Catálogos y revistas',
+                    'action': 'Catálogo Digital - Compartir FB',
+                    'label': campaniaCatalogo,                    
+                });
+            } else {
+               console.log('Error al publicar via facebook')
+            }
+        });
     }
 
     // catalogo compartir por Facebook actual
