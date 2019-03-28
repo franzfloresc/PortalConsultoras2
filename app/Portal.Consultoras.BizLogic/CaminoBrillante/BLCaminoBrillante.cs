@@ -54,7 +54,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
             var logros = GetConsultoraLogros(paisId, entidad, GetNivelesCaminoBrillanteMantenedor(paisId, isWeb), nivel);
 
-            return new BEConsultoraCaminoBrillante()
+            var resultado = new BEConsultoraCaminoBrillante()
             {
                 NivelConsultora = nivel.Select(e => new BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante()
                 {
@@ -67,12 +67,19 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                     MontoPedido = e.MontoPedido,
                     Nivel = e.NivelActual,
                     PeriodoCae = e.PeriodoCae,
-                    EsActual = e.Campania == ""+entidad.CampaniaID
+                    EsActual = e.Campania == "" + entidad.CampaniaID
                 }).OrderByDescending(e => e.Campania).ToList(),
                 Niveles = GetNivelesCaminoBrillanteMantenedor(paisId, isWeb),
                 ResumenLogros = GetResumenLogros(logros),
                 Logros = logros
             };
+
+            if (!resultado.NivelConsultora.Any(e => e.EsActual) && resultado.NivelConsultora.Count() > 0)
+            {
+                resultado.NivelConsultora[0].EsActual = true;
+            }
+
+            return resultado;
         }
 
         public List<BELogroCaminoBrillante> GetConsultoraLogros(int paisId, BEUsuario entidad, bool isWeb)

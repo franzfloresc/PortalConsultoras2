@@ -906,6 +906,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="paisId" type="xs:int" />
+        <xs:element minOccurs="0" name="isWeb" type="xs:boolean" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -921,6 +922,7 @@
       <xs:sequence>
         <xs:element minOccurs="0" name="paisId" type="xs:int" />
         <xs:element xmlns:q59="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q59:BEUsuario" />
+        <xs:element minOccurs="0" name="isWeb" type="xs:boolean" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -936,6 +938,7 @@
       <xs:sequence>
         <xs:element minOccurs="0" name="paisId" type="xs:int" />
         <xs:element xmlns:q61="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q61:BEUsuario" />
+        <xs:element minOccurs="0" name="isWeb" type="xs:boolean" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
