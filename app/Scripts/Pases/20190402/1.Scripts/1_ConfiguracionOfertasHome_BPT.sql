@@ -1,4 +1,4 @@
-GO
+ï»¿GO
 USE BelcorpPeru
 GO
 
@@ -8,7 +8,7 @@ print db_name()
 
 GO
 
-print 'Inicio de creación de columnas'
+print 'Inicio de creacion de columnas'
 
 if not exists(
 	select 1 from INFORMATION_SCHEMA.COLUMNS
@@ -46,7 +46,7 @@ end
 
 GO
 
-print 'Fin de inserción de columnas: Color de títulos, Texto botón inicial, Texto botón final, Color del botón, Color mensaje botón'
+print 'Fin de insercion de columnas: Color de titulos, Texto boton inicial, Texto boton final, Color del boton, Color mensaje boton'
 
 go
 
@@ -62,7 +62,7 @@ print db_name()
 
 GO
 
-print 'Inicio de creación de columnas'
+print 'Inicio de creacion de columnas'
 
 if not exists(
 	select 1 from INFORMATION_SCHEMA.COLUMNS
@@ -100,7 +100,7 @@ end
 
 GO
 
-print 'Fin de inserción de columnas: Color de títulos, Texto botón inicial, Texto botón final, Color del botón, Color mensaje botón'
+print 'Fin de insercion de columnas: Color de titulos, Texto boton inicial, Texto boton final, Color del boton, Color mensaje boton'
 
 go
 
@@ -116,7 +116,7 @@ print db_name()
 
 GO
 
-print 'Inicio de creación de columnas'
+print 'Inicio de creacion de columnas'
 
 if not exists(
 	select 1 from INFORMATION_SCHEMA.COLUMNS
@@ -154,7 +154,7 @@ end
 
 GO
 
-print 'Fin de inserción de columnas: Color de títulos, Texto botón inicial, Texto botón final, Color del botón, Color mensaje botón'
+print 'Fin de insercion de columnas: Color de titulos, Texto boton inicial, Texto boton final, Color del boton, Color mensaje boton'
 
 go
 
@@ -170,7 +170,7 @@ print db_name()
 
 GO
 
-print 'Inicio de creación de columnas'
+print 'Inicio de creacion de columnas'
 
 if not exists(
 	select 1 from INFORMATION_SCHEMA.COLUMNS
@@ -208,7 +208,7 @@ end
 
 GO
 
-print 'Fin de inserción de columnas: Color de títulos, Texto botón inicial, Texto botón final, Color del botón, Color mensaje botón'
+print 'Fin de insercion de columnas: Color de titulos, Texto boton inicial, Texto boton final, Color del boton, Color mensaje boton'
 
 go
 
@@ -224,7 +224,7 @@ print db_name()
 
 GO
 
-print 'Inicio de creación de columnas'
+print 'Inicio de creacion de columnas'
 
 if not exists(
 	select 1 from INFORMATION_SCHEMA.COLUMNS
@@ -262,7 +262,7 @@ end
 
 GO
 
-print 'Fin de inserción de columnas: Color de títulos, Texto botón inicial, Texto botón final, Color del botón, Color mensaje botón'
+print 'Fin de insercion de columnas: Color de titulos, Texto boton inicial, Texto boton final, Color del boton, Color mensaje boton'
 
 go
 
@@ -278,7 +278,7 @@ print db_name()
 
 GO
 
-print 'Inicio de creación de columnas'
+print 'Inicio de creacion de columnas'
 
 if not exists(
 	select 1 from INFORMATION_SCHEMA.COLUMNS
@@ -316,7 +316,7 @@ end
 
 GO
 
-print 'Fin de inserción de columnas: Color de títulos, Texto botón inicial, Texto botón final, Color del botón, Color mensaje botón'
+print 'Fin de insercion de columnas: Color de titulos, Texto boton inicial, Texto boton final, Color del boton, Color mensaje boton'
 
 go
 
@@ -332,7 +332,7 @@ print db_name()
 
 GO
 
-print 'Inicio de creación de columnas'
+print 'Inicio de creacion de columnas'
 
 if not exists(
 	select 1 from INFORMATION_SCHEMA.COLUMNS
@@ -370,7 +370,7 @@ end
 
 GO
 
-print 'Fin de inserción de columnas: Color de títulos, Texto botón inicial, Texto botón final, Color del botón, Color mensaje botón'
+print 'Fin de insercion de columnas: Color de titulos, Texto boton inicial, Texto boton final, Color del boton, Color mensaje boton'
 
 go
 
@@ -386,7 +386,7 @@ print db_name()
 
 GO
 
-print 'Inicio de creación de columnas'
+print 'Inicio de creacion de columnas'
 
 if not exists(
 	select 1 from INFORMATION_SCHEMA.COLUMNS
@@ -424,7 +424,7 @@ end
 
 GO
 
-print 'Fin de inserción de columnas: Color de títulos, Texto botón inicial, Texto botón final, Color del botón, Color mensaje botón'
+print 'Fin de insercion de columnas: Color de titulos, Texto boton inicial, Texto boton final, Color del boton, Color mensaje boton'
 
 go
 
@@ -440,7 +440,7 @@ print db_name()
 
 GO
 
-print 'Inicio de creación de columnas'
+print 'Inicio de creacion de columnas'
 
 if not exists(
 	select 1 from INFORMATION_SCHEMA.COLUMNS
@@ -478,7 +478,7 @@ end
 
 GO
 
-print 'Fin de inserción de columnas: Color de títulos, Texto botón inicial, Texto botón final, Color del botón, Color mensaje botón'
+print 'Fin de insercion de columnas: Color de titulos, Texto boton inicial, Texto boton final, Color del boton, Color mensaje boton'
 
 go
 
@@ -494,7 +494,7 @@ print db_name()
 
 GO
 
-print 'Inicio de creación de columnas'
+print 'Inicio de creacion de columnas'
 
 if not exists(
 	select 1 from INFORMATION_SCHEMA.COLUMNS
@@ -532,7 +532,7 @@ end
 
 GO
 
-print 'Fin de inserción de columnas: Color de títulos, Texto botón inicial, Texto botón final, Color del botón, Color mensaje botón'
+print 'Fin de insercion de columnas: Color de titulos, Texto boton inicial, Texto boton final, Color del boton, Color mensaje boton'
 
 go
 
@@ -548,7 +548,7 @@ print db_name()
 
 GO
 
-print 'Inicio de creación de columnas'
+print 'Inicio de creacion de columnas'
 
 if not exists(
 	select 1 from INFORMATION_SCHEMA.COLUMNS
@@ -586,7 +586,7 @@ end
 
 GO
 
-print 'Fin de inserción de columnas: Color de títulos, Texto botón inicial, Texto botón final, Color del botón, Color mensaje botón'
+print 'Fin de insercion de columnas: Color de titulos, Texto boton inicial, Texto boton final, Color del boton, Color mensaje boton'
 
 go
 
@@ -602,7 +602,7 @@ print db_name()
 
 GO
 
-print 'Inicio de creación de columnas'
+print 'Inicio de creacion de columnas'
 
 if not exists(
 	select 1 from INFORMATION_SCHEMA.COLUMNS
@@ -640,7 +640,7 @@ end
 
 GO
 
-print 'Fin de inserción de columnas: Color de títulos, Texto botón inicial, Texto botón final, Color del botón, Color mensaje botón'
+print 'Fin de insercion de columnas: Color de titulos, Texto boton inicial, Texto boton final, Color del boton, Color mensaje boton'
 
 go
 
