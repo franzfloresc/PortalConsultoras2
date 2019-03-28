@@ -241,16 +241,9 @@ namespace Portal.Consultoras.Web.Controllers
                 #region Camino al Éxito
                 model.TieneCaminoBrillante = userData.CaminoBrillante;
 
-
-
-
-
                 var NivelCaminoBrillante = _caminoBrillanteProvider.ObtenerNivelActualConsultora();
                 if (NivelCaminoBrillante != null)
                 {
-
-
-
                     model.CaminoBrillanteMsg = userData.CaminoBrillanteMsg.Replace("{0}", "<b>" + NivelCaminoBrillante.DescripcionNivel + "</b>");
                     model.UrlLogoCaminoBrillante = NivelCaminoBrillante.UrlImagenNivel.Replace("{DIMEN}", "MDPI");
                     model.UrlLogoCaminoBrillante = model.UrlLogoCaminoBrillante.Replace("{STATE}", "A");

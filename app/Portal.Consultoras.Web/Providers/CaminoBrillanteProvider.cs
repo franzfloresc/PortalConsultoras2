@@ -27,21 +27,15 @@ namespace Portal.Consultoras.Web.Providers
         {
             sessionManager = SessionManager.SessionManager.Instance;
         }
-        
+
         public BENivelCaminoBrillante ObtenerNivelActualConsultora()
         {
             try
             {
                 var oResumen = ResumenConsultoraCaminoBrillante();
-
-
-                //Niveles
-
                 if (oResumen == null || oResumen.NivelConsultora.Count() == 0 || oResumen.Niveles.Count() == 0) return null;
-
                 sessionManager.SetConsultoraCaminoBrillante(oResumen);
-
-
+                var codNivel = oResumen.NivelConsultora.Where(x => x.EsActual).Select(z => z.Nivel).FirstOrDefault();
                 return oResumen.Niveles.Where(x => x.CodigoNivel == codNivel).FirstOrDefault();
             }
             catch (Exception ex)

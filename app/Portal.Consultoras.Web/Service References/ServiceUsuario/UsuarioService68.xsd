@@ -36,32 +36,19 @@
   <xs:element name="BEBeneficioCaminoBrillante" nillable="true" type="tns:BEBeneficioCaminoBrillante" />
   <xs:complexType name="BEConsultoraCaminoBrillante">
     <xs:sequence>
+      <xs:element minOccurs="0" name="Logros" nillable="true" type="tns:ArrayOfBELogroCaminoBrillante" />
       <xs:element minOccurs="0" name="NivelConsultora" nillable="true" type="tns:ArrayOfBEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante" />
       <xs:element minOccurs="0" name="Niveles" nillable="true" type="tns:ArrayOfBENivelCaminoBrillante" />
       <xs:element minOccurs="0" name="ResumenLogros" nillable="true" type="tns:BELogroCaminoBrillante" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEConsultoraCaminoBrillante" nillable="true" type="tns:BEConsultoraCaminoBrillante" />
-  <xs:complexType name="ArrayOfBEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante">
+  <xs:complexType name="ArrayOfBELogroCaminoBrillante">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante" nillable="true" type="tns:BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BELogroCaminoBrillante" nillable="true" type="tns:BELogroCaminoBrillante" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="ArrayOfBEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante" nillable="true" type="tns:ArrayOfBEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante" />
-  <xs:complexType name="BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Campania" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="FechaIngreso" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="GananciaAnual" type="xs:decimal" />
-      <xs:element minOccurs="0" name="GananciaCampania" type="xs:decimal" />
-      <xs:element minOccurs="0" name="GananciaPeriodo" type="xs:decimal" />
-      <xs:element minOccurs="0" name="KitSolicitado" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="MontoPedido" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="NivelActual" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="PeriodoCae" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante" nillable="true" type="tns:BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante" />
+  <xs:element name="ArrayOfBELogroCaminoBrillante" nillable="true" type="tns:ArrayOfBELogroCaminoBrillante" />
   <xs:complexType name="BELogroCaminoBrillante">
     <xs:sequence>
       <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
@@ -105,10 +92,25 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante" nillable="true" type="tns:BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante" />
-  <xs:complexType name="ArrayOfBELogroCaminoBrillante">
+  <xs:complexType name="ArrayOfBEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BELogroCaminoBrillante" nillable="true" type="tns:BELogroCaminoBrillante" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante" nillable="true" type="tns:BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="ArrayOfBELogroCaminoBrillante" nillable="true" type="tns:ArrayOfBELogroCaminoBrillante" />
+  <xs:element name="ArrayOfBEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante" nillable="true" type="tns:ArrayOfBEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante" />
+  <xs:complexType name="BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Campania" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EsActual" type="xs:boolean" />
+      <xs:element minOccurs="0" name="FechaIngreso" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="GananciaAnual" type="xs:decimal" />
+      <xs:element minOccurs="0" name="GananciaCampania" type="xs:decimal" />
+      <xs:element minOccurs="0" name="GananciaPeriodo" type="xs:decimal" />
+      <xs:element minOccurs="0" name="KitSolicitado" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MontoPedido" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Nivel" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PeriodoCae" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante" nillable="true" type="tns:BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante" />
 </xs:schema>
