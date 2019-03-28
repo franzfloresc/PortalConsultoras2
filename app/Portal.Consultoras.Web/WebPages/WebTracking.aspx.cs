@@ -511,7 +511,11 @@ namespace Portal.Consultoras.Web.WebPages
                         //HD-3606 EINCA
                         if (item.Etapa == Constantes.SegPedidoSituacion.FechaEstimadaEntrega && ValidarZonaRegion())
                         {
-                            item.HoraEstimadaDesdeHasta = string.Format("{0} - {1}", horaEstimadaEntregaDesde, horaEstimadaEntregaHasta);
+                            if (horaEstimadaEntregaDesde != string.Empty && horaEstimadaEntregaHasta != string.Empty)
+                            {
+                                item.HoraEstimadaDesdeHasta = string.Format("{0} - {1}", horaEstimadaEntregaDesde, horaEstimadaEntregaHasta);
+                            }
+                            
                         }
                     }
 
@@ -552,7 +556,7 @@ namespace Portal.Consultoras.Web.WebPages
                     int.TryParse(ViewState["REGIONID"].ToString(), out regionid);
 
                     var resultado = sv.GetTablaLogicaDatos(paisid, Constantes.TablaLogica.SegPedidoRegionZona).FirstOrDefault();
-                    if (resultado == null) return false;
+                    if (resultado == null) return true; // si no hay registros mostrar
                     if (resultado.Valor.IsNullOrEmptyTrim()) return false;
                     string[] arrZonaRegion = resultado.Valor.Split(';');
                     foreach (var item in arrZonaRegion)
