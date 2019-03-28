@@ -3281,10 +3281,10 @@
 
                 $("#hdnEtiqueta1").val("4");
             } else if (aux1 == "4" || aux1 == "5"
-                || aux2 == _codigoEstrategia.Lanzamiento
-                || aux2 == _codigoEstrategia.OfertasParaMi
-                || aux2 == _codigoEstrategia.PackAltoDesembolso
-                || aux2 == _codigoEstrategia.ShowRoom) {
+                || aux2 == _codigoTipoEstrategia.Lanzamiento
+                || aux2 == _codigoTipoEstrategia.OfertasParaMi
+                || aux2 == _codigoTipoEstrategia.PackAltoDesembolso
+                || aux2 == _codigoTipoEstrategia.ShowRoom) {
 
                 $("#hdnEtiqueta1").val("1");
                 $("#hdnEtiqueta2").val("3");
@@ -3317,7 +3317,7 @@
                 $("#hdnEtiqueta2").val("5");
             }
 
-            if (aux2 == _codigoEstrategia.Lanzamiento) $("#div-revista-digital").show();
+            if (aux2 == _codigoTipoEstrategia.Lanzamiento) $("#div-revista-digital").show();
             else $("#div-revista-digital").hide();
 
             _limpiarCamposLanzamiento("img-fondo-desktop");
@@ -3338,7 +3338,7 @@
             else
                 $("#divPrecioValorizado").html("Precio Valorizado");
 
-            if (aux2 == _codigoEstrategia.CodigoShowRoom) {
+            if (aux2 == _codigoTipoEstrategia.CodigoShowRoom) {
                 _vistaNuevoProductoShowroon();
             } else {
                 _vistaNuevoProductoGeneral();
@@ -3425,22 +3425,22 @@
             _variables.paisNombre = $("#ddlPais option:selected").text();
             admConfig.Variable.paisNombre = $("#ddlPais option:selected").text();
             var codigo = $("#ddlTipoEstrategia").find(":selected").data("codigo");
-            if (codigo === _codigoEstrategia.ShowRoom) {
+            if (codigo === _codigoTipoEstrategia.ShowRoom) {
                 _cargarEventoShowRoom();
             }
             else {
                 _fnGrilla();
             }
 
-            if (codigo == _codigoEstrategia.OfertaParaTi ||
-                codigo == _codigoEstrategia.OfertaDelDia ||
-                codigo == _codigoEstrategia.Lanzamiento ||
-                codigo == _codigoEstrategia.OfertasParaMi ||
-                codigo == _codigoEstrategia.PackAltoDesembolso ||
-                codigo == _codigoEstrategia.GuiaDeNegocioDigitalizada ||
-                codigo == _codigoEstrategia.LosMasVendidos ||
-                codigo == _codigoEstrategia.ShowRoom ||
-                codigo == _codigoEstrategia.ArmaTuPack
+            if (codigo == _codigoTipoEstrategia.OfertaParaTi ||
+                codigo == _codigoTipoEstrategia.OfertaDelDia ||
+                codigo == _codigoTipoEstrategia.Lanzamiento ||
+                codigo == _codigoTipoEstrategia.OfertasParaMi ||
+                codigo == _codigoTipoEstrategia.PackAltoDesembolso ||
+                codigo == _codigoTipoEstrategia.GuiaDeNegocioDigitalizada ||
+                codigo == _codigoTipoEstrategia.LosMasVendidos ||
+                codigo == _codigoTipoEstrategia.ShowRoom ||
+                codigo == _codigoTipoEstrategia.ArmaTuPack
             ) {
                 $("#mensajeActivarDesactivar").show();
             } else {
