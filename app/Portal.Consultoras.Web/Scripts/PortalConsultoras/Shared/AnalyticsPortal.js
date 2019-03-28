@@ -2538,7 +2538,6 @@ var AnalyticsPortalModule = (function () {
         MarcaRecomendacionesFlechaSiguiente: marcaRecomendacionesFlechaSiguiente,
         MarcaRecomendacionesFlechaAnterior: marcaRecomendacionesFlechaAnterior,
         MarcaOcultarRecomendaciones: marcaOcultarRecomendaciones,
-        MarcaAnadirCarritoRecomendaciones: marcaAnadirCarritoRecomendaciones,
         MarcaPromotionViewBanner: marcaPromotionViewBanner,//HD-3473 EINCA 
         MarcaPromotionClicBanner: marcaPromotionClicBanner,//HD-3473 EINCA 
         MarcaCategoria: marcaCategoria,

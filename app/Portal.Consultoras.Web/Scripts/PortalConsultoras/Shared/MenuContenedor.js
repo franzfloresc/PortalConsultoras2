@@ -231,7 +231,7 @@ var menuModule = (function () {
                 if (_var.Mobile) _moverSubMenuContenedorOfertasMobile();
                 setTimeout(function () {
                     updateParentAttribute(codigo);
-                },1000);
+                }, 1000);
             } else {
                 if (currentLocation.indexOf("/revisar") > -1)
                     window.location = originLocation + "/" + (_var.Mobile ? "Mobile/" : "") + "Ofertas/Revisar#" + codigo;
@@ -295,7 +295,7 @@ var menuModule = (function () {
         }
     }
     function sectionClick(url, titulo, elem, event) {
-        if (typeof event !== undefined && typeof event !== "undefined") {
+        if (typeof event !== "undefined") {
             event.stopPropagation();
         }
         url = url || "";
