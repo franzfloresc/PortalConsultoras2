@@ -2,192 +2,156 @@
 USE BelcorpPeru
 GO
 
-go
-
 update d
 set d.Valor1 = isnull(d.Valor1, '') + ',004'
 from ConfiguracionPaisDatos d
 inner join configuracionpais p on p.configuracionpaisid = d.configuracionpaisid
 where p.codigo = 'MSPersonalizacion'
 and d.codigo = 'EstrategiaDisponible'
-
-go
+and d.Valor1 not like '%004%'
 
 
 GO
 USE BelcorpMexico
 GO
 
-go
-
 update d
 set d.Valor1 = isnull(d.Valor1, '') + ',004'
 from ConfiguracionPaisDatos d
 inner join configuracionpais p on p.configuracionpaisid = d.configuracionpaisid
 where p.codigo = 'MSPersonalizacion'
 and d.codigo = 'EstrategiaDisponible'
-
-go
+and d.Valor1 not like '%004%'
 
 
 GO
 USE BelcorpColombia
 GO
 
-go
-
 update d
 set d.Valor1 = isnull(d.Valor1, '') + ',004'
 from ConfiguracionPaisDatos d
 inner join configuracionpais p on p.configuracionpaisid = d.configuracionpaisid
 where p.codigo = 'MSPersonalizacion'
 and d.codigo = 'EstrategiaDisponible'
-
-go
+and d.Valor1 not like '%004%'
 
 
 GO
 USE BelcorpSalvador
 GO
 
-go
-
 update d
 set d.Valor1 = isnull(d.Valor1, '') + ',004'
 from ConfiguracionPaisDatos d
 inner join configuracionpais p on p.configuracionpaisid = d.configuracionpaisid
 where p.codigo = 'MSPersonalizacion'
 and d.codigo = 'EstrategiaDisponible'
-
-go
+and d.Valor1 not like '%004%'
 
 
 GO
 USE BelcorpPuertoRico
 GO
 
-go
-
 update d
 set d.Valor1 = isnull(d.Valor1, '') + ',004'
 from ConfiguracionPaisDatos d
 inner join configuracionpais p on p.configuracionpaisid = d.configuracionpaisid
 where p.codigo = 'MSPersonalizacion'
 and d.codigo = 'EstrategiaDisponible'
-
-go
+and d.Valor1 not like '%004%'
 
 
 GO
 USE BelcorpPanama
 GO
 
-go
-
 update d
 set d.Valor1 = isnull(d.Valor1, '') + ',004'
 from ConfiguracionPaisDatos d
 inner join configuracionpais p on p.configuracionpaisid = d.configuracionpaisid
 where p.codigo = 'MSPersonalizacion'
 and d.codigo = 'EstrategiaDisponible'
-
-go
+and d.Valor1 not like '%004%'
 
 
 GO
 USE BelcorpGuatemala
 GO
 
-go
-
 update d
 set d.Valor1 = isnull(d.Valor1, '') + ',004'
 from ConfiguracionPaisDatos d
 inner join configuracionpais p on p.configuracionpaisid = d.configuracionpaisid
 where p.codigo = 'MSPersonalizacion'
 and d.codigo = 'EstrategiaDisponible'
-
-go
+and d.Valor1 not like '%004%'
 
 
 GO
 USE BelcorpEcuador
 GO
 
-go
-
 update d
 set d.Valor1 = isnull(d.Valor1, '') + ',004'
 from ConfiguracionPaisDatos d
 inner join configuracionpais p on p.configuracionpaisid = d.configuracionpaisid
 where p.codigo = 'MSPersonalizacion'
 and d.codigo = 'EstrategiaDisponible'
-
-go
+and d.Valor1 not like '%004%'
 
 
 GO
 USE BelcorpDominicana
 GO
 
-go
-
 update d
 set d.Valor1 = isnull(d.Valor1, '') + ',004'
 from ConfiguracionPaisDatos d
 inner join configuracionpais p on p.configuracionpaisid = d.configuracionpaisid
 where p.codigo = 'MSPersonalizacion'
 and d.codigo = 'EstrategiaDisponible'
-
-go
+and d.Valor1 not like '%004%'
 
 
 GO
 USE BelcorpCostaRica
 GO
 
-go
-
 update d
 set d.Valor1 = isnull(d.Valor1, '') + ',004'
 from ConfiguracionPaisDatos d
 inner join configuracionpais p on p.configuracionpaisid = d.configuracionpaisid
 where p.codigo = 'MSPersonalizacion'
 and d.codigo = 'EstrategiaDisponible'
-
-go
+and d.Valor1 not like '%004%'
 
 
 GO
 USE BelcorpChile
 GO
 
-go
-
 update d
 set d.Valor1 = isnull(d.Valor1, '') + ',004'
 from ConfiguracionPaisDatos d
 inner join configuracionpais p on p.configuracionpaisid = d.configuracionpaisid
 where p.codigo = 'MSPersonalizacion'
 and d.codigo = 'EstrategiaDisponible'
-
-go
+and d.Valor1 not like '%004%'
 
 
 GO
 USE BelcorpBolivia
 GO
 
-go
-
 update d
 set d.Valor1 = isnull(d.Valor1, '') + ',004'
 from ConfiguracionPaisDatos d
 inner join configuracionpais p on p.configuracionpaisid = d.configuracionpaisid
 where p.codigo = 'MSPersonalizacion'
 and d.codigo = 'EstrategiaDisponible'
-
-go
+and d.Valor1 not like '%004%'
 
 
 GO
