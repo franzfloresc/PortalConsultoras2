@@ -214,7 +214,7 @@ var FichaModule = (function (config) {
                 FichaTabElement.onclick = function (event) {
                     var numID = event.target.getAttribute("data-numTab");
 
-                    for (var j = 1; j <= 5; j++) {
+                    for (var j = 1; j <= 4; j++) {
                         document.getElementById("contenido_" + j.toString()).style.display = "none";
                     }
 

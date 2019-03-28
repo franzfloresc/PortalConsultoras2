@@ -766,6 +766,10 @@ ul.breadcumbs li:last-child a {
             margin-bottom: 0px !important;
         }
 
+    .modal_producto_detalle .modal-content {
+        box-shadow: none !important;
+    }
+
 
 .btn_volver {
     font-weight: normal;
