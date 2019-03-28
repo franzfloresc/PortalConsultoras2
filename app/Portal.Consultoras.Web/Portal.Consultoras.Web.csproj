@@ -5117,6 +5117,9 @@
     <None Include="Service References\ServiceUsuario\UsuarioService68.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServiceUsuario\UsuarioService69.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServiceZonificacion\ZonificacionService.wsdl" />
     <None Include="Service References\ServiceZonificacion\ZonificacionService.xsd">
       <SubType>Designer</SubType>
@@ -5724,6 +5727,8 @@
     <Content Include="Views\TusClientes\PanelMantener.cshtml" />
     <Content Include="Views\TusClientes\PanelTest.cshtml" />
     <Content Include="Views\TusClientes\_Mantener.cshtml" />
+    <Content Include="Views\CaminoBrillante\Compromiso.cshtml" />
+    <Content Include="Views\CaminoBrillante\Crecimiento.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

@@ -3984,6 +3984,7 @@ namespace Portal.Consultoras.Common
 
             return result;
         }
+
     }
 
     public static class DataRecord

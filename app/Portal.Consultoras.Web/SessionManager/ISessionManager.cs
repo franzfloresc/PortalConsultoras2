@@ -518,8 +518,9 @@ namespace Portal.Consultoras.Web.SessionManager
         List<UsuarioOpcionesModel> GetUsuarioOpciones();
 
 
-        void SetConsultora(List<NivelConsultoraCaminoBrillanteModel> val);
-        List<NivelConsultoraCaminoBrillanteModel> GetConsultora();
+        
+        void SetConsultoraCaminoBrillante(BEConsultoraCaminoBrillante val);
+        BEConsultoraCaminoBrillante GetConsultoraCaminoBrillante();
 
 
     }

@@ -1,0 +1,15 @@
+﻿@using Portal.Consultoras.Web.Areas.Mobile.Models
+@using Portal.Consultoras.Web.CustomHelpers
+
+@model BienvenidaModel
+
+@{
+    var layout = ViewContext.MobileLayout();
+    Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
+}
+
+@section styles{
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/CaminoBrillante")
+}
+<br />
+

@@ -181,10 +181,14 @@
     {
         <link href="~/Content/CaminoBrillante/Content.css" rel="stylesheet" />
         <div class="items_belcorp cam-exito">
-            <img src="~/Content/Images/CaminoBrillante/medalla.PNG">
+            @if (!string.IsNullOrEmpty(Model.UrlLogoCaminoBrillante))
+            {
+                <img src="@Model.UrlLogoCaminoBrillante" />
+            }          
+
             <p class="toptext">Camino Brillante</p>
             <p id="TextoCaminoBrillante">
-                @Model.CaminoBrillanteMsg
+                @Html.Raw(Model.CaminoBrillanteMsg)
             </p>
             <a href="@Url.Action("Index", "CaminoBrillante")">Ver Beneficios</a>
         </div>
