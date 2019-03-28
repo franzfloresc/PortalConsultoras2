@@ -338,14 +338,14 @@
                 /*Detalle*/
                 var detalle = "<div id='swappable' class='d__block administracion__popups__grilla__contenido'>";
                 for (var i = 0; i < data.length; i++) {
-                    detalle += "<div   comunicadoID='" + data[i].ComunicadoId + "' orden='" + data[i].Numero + "' class='d__block background__color__m__lighter ui-state-default row__grilla'>";
-                    detalle += "<div class='col__grilla col__grilla--numero'><div class='row__grilla row__grilla__texto text__center' >" + data[i].Numero + "</div ></div >";
-                    detalle += "<div class='col__grilla col__grilla--fondo'><div class='row__grilla row__grilla__texto text__center' >" + data[i].NombreImagen + "</div ></div >";
-                    detalle += "<div class='col__grilla col__grilla--duracion'><div class='row__grilla row__grilla__texto text__center' >" + (data[i].FechaInicio_ + "-" + data[i].FechaFin_) + "</div ></div >";
-                    detalle += "<div class='col__grilla col__grilla--titulo'><div class='row__grilla row__grilla__texto text__center' >" + data[i].Titulo + "</div ></div >";
-                    detalle += "<div class='col__grilla col__grilla--ruta'><div class='row__grilla row__grilla__texto text__center' ><a target='blank' href=" + data[i].DescripcionAccion + "  class='d__block'>" + data[i].DescripcionAccion + "</a></div ></div >";
-                    detalle += "<div class='col__grilla col__grilla--estado'><div class='row__grilla row__grilla__texto text__center' >" + (data[i].Activo ? "Activo" : "Inactivo") + "</div ></div >";
-                    detalle += "<div class='col__grilla col__grilla--editar'><div class='row__grilla row__grilla__texto text__center' ><a href='' title='Editar Popup' class='d__block enlace__editar'><img ComunicadoId=" + data[i].ComunicadoId.toString() + " src=" + "@Url.Content("~/Content/Images/Edit.png") alt='Editar' title='Editar Popup' class='d__block'></a></div></div >";
+                    detalle += "<div comunicadoID='" + data[i].ComunicadoId + "' orden='" + data[i].Numero + "' class='d__block background__color__m__lighter ui-state-default row__grilla'>";
+                    detalle += "<div class='col__grilla col__grilla--numero'><div class='row__grilla row__grilla__texto text__center' ><span class='d__block w__100'>" + data[i].Numero + "</span></div ></div >";
+                    detalle += "<div class='col__grilla col__grilla--fondo'><div class='row__grilla row__grilla__texto text__center' ><span class='d__block w__100'>" + data[i].NombreImagen + "</span></div ></div >";
+                    detalle += "<div class='col__grilla col__grilla--duracion'><div class='row__grilla row__grilla__texto text__center' ><span class='d__block w__100'>" + (data[i].FechaInicio_ + "-" + data[i].FechaFin_) + "</span></div ></div >";
+                    detalle += "<div class='col__grilla col__grilla--titulo'><div class='row__grilla row__grilla__texto text__center' ><span class='d__block w__100'>" + data[i].Titulo + "</span></div ></div >";
+                    detalle += "<div class='col__grilla col__grilla--ruta'><div class='row__grilla row__grilla__texto text__center' ><a target='blank' href=" + data[i].DescripcionAccion + "  class='d__block w__100'>" + data[i].DescripcionAccion + "</a></div ></div >";
+                    detalle += "<div class='col__grilla col__grilla--estado'><div class='row__grilla row__grilla__texto text__center' ><span class='d__block w__100'>" + (data[i].Activo ? "Activo" : "Inactivo") + "</span></div ></div >";
+                    detalle += "<div class='col__grilla col__grilla--editar'><div class='row__grilla row__grilla__texto text__center' ><a href='' title='Editar Popup' class='d__block w__100 enlace__editar'><img ComunicadoId=" + data[i].ComunicadoId.toString() + " src=" + "@Url.Content("~/Content/Images/Edit.png") alt='Editar' title='Editar Popup' class='d__block'></a></div></div >";
                     detalle += "</div>";
                 }
                 detalle += "</div>";

@@ -681,10 +681,16 @@ div.ui-state-highlight {
 
 .administracion__popups__grilla__contenido .row__grilla {
     min-height: 58px;
+    heig
 }
 
 .administracion__popups__grilla__contenido > .row__grilla {
     border-bottom: 1px solid #FFF;
+}
+
+.administracion__popups__grilla__contenido .col__grilla{
+    padding-top:8px;
+    padding-bottom:8px;
 }
 
 .administracion__popups__grilla__contenido .col__grilla--numero {
