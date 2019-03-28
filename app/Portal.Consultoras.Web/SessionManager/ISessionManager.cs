@@ -359,14 +359,6 @@ namespace Portal.Consultoras.Web.SessionManager
 
         CDRWebModel GetListaCDRDetalle();
 
-        void SetfechaGetNotificacionesSinLeer(dynamic val);
-
-        dynamic GetfechaGetNotificacionesSinLeer();
-
-        void SetcantidadGetNotificacionesSinLeer(dynamic val);
-
-        dynamic GetcantidadGetNotificacionesSinLeer();
-
         void SetPedidoFIC(List<BEPedidoFICDetalle> val);
 
         List<BEPedidoFICDetalle> GetPedidoFIC();
