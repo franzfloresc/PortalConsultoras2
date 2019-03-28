@@ -355,7 +355,6 @@ var menuModule = (function () {
                     clicEnBanner = true;
                 }
             }
-
             OrigenPedidoWeb = OrigenPedidoWeb || "";
             AnalyticsPortalModule.MarcaClicVerMasOfertas(url, OrigenPedidoWeb, texto, clicEnBanner);
         }
