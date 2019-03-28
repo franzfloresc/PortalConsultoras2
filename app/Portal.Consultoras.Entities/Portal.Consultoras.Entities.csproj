@@ -86,6 +86,7 @@
     <Compile Include="CaminoBrillante\BEBeneficioCaminoBrillante.cs" />
     <Compile Include="CaminoBrillante\BEConsultoraCaminoBrillante.cs" />
     <Compile Include="CaminoBrillante\BELogroCaminoBrillante.cs" />
+    <Compile Include="CaminoBrillante\BEMedallaLogroCaminoBrillante.cs" />
     <Compile Include="CaminoBrillante\BENivelCaminoBrillante.cs" />
     <Compile Include="CaminoBrillante\BEPeriodoCaminoBrillante.cs" />
     <Compile Include="CargaMasiva\BECargaMasivaImagenes.cs" />

@@ -1816,7 +1816,11 @@ namespace Portal.Consultoras.Common
             public const short GanaMasNativo = 159;
             public const short ResizeImagenesAppGanaMas = 162;
             public const short TiempoMaximoSP = 180;
+            #region Camino Brillante
             public const short CaminoBrillanteInfoComercial = 165;
+            public const short CaminoBrillanteLogros = 166;
+            public const short CaminoBrillanteIndicadores = 167;
+            #endregion
         }
 
         public struct MensajesCDRExpress
@@ -3489,6 +3493,24 @@ namespace Portal.Consultoras.Common
                         return _Beneficios ?? (_Beneficios = new List<string> { BENEFICIO01, BENEFICIO02, BENEFICIO03, BENEFICIO04, BENEFICIO05});
                     }
                 }
+            }
+
+            public static class Logros {
+
+                public const string COMPROMISO = "COMPROMISO";
+                public const string CRECIMIENTO = "CRECIMIENTO";
+                public const string RESUMEN = "RESUMEN";
+
+                public static class Indicadores {
+
+                    public const string ESCALA = "ESCALA";
+                    public const string NIVEL = "NIVEL";
+                    public const string CONSTANCIA = "CONSTANCIA";
+                    public const string INCREMENTO = "INCREMENTO";
+                    public const string TIEMPO_JUNTOS = "TIEMPO_JUNTOS";
+
+                }
+                
             }
 
         }

@@ -12,6 +12,7 @@ namespace Portal.Consultoras.Entities.CaminoBrillante
         public class BEIndicadorCaminoBrillante
         {
             public int Orden { get; set; }
+            public string Codigo { get; set; }
             public string Titulo { get; set; }
             public string Descripcion { get; set; }
             public List<BEMedallaCaminoBrillante> Medallas { get; set; }
