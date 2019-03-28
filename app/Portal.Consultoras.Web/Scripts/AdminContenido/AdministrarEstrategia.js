@@ -3493,7 +3493,7 @@
             $("#hdTipoCargaShowroom").val("SetShowroom");
             $("#fileDescMasivo").val("");
             if (_validarMasivo()) {
-                if ($("#ddlTipoEstrategia").find(":selected").data("codigo") === _codigoEstrategia.ShowRoom) {
+                if ($("#ddlTipoEstrategia").find(":selected").data("codigo") === _codigoTipoEstrategia.ShowRoom) {
                     $("#ui-id-10").text("Carga masiva de Showroom");
                 } else {
                     $("#ui-id-10").text("Carga masiva de descripciones de Estrategias");
@@ -3502,7 +3502,7 @@
                 $("#divDescMasivoPaso1").show();
                 $("#divDescMasivoPaso2").hide();
 
-                if ($("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ShowRoom) {
+                if ($("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoTipoEstrategia.ShowRoom) {
                     $("#seccionFormatoArchivoShowroon").show();
                     $("#seccionFormatoArchivoSetShowroon").show();
                     $("#seccionFormatoArchivoGeneral").hide();
@@ -3523,7 +3523,7 @@
             $("#divDescMasivoPaso1").show();
             $("#divDescMasivoPaso2").hide();
             $("#estadoCargaMasiva").text("");
-            if ($("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ShowRoom) {
+            if ($("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoTipoEstrategia.ShowRoom) {
                 if ($("#hdTipoCargaShowroom").val() == "SetShowroom") {
                     _uploadFileSetStrategyShowroom();
                 } else {
@@ -3812,7 +3812,7 @@
 
                 $("#divBloqueoCuvPaso1").show();
                 $("#divBloqueoCuvPaso2").hide();
-                if ($("#ddlTipoEstrategia").find(":selected").data("codigo") !== _codigoEstrategia.GuiaDeNegocioDigitalizada) {
+                if ($("#ddlTipoEstrategia").find(":selected").data("codigo") !== _codigoTipoEstrategia.GuiaDeNegocioDigitalizada) {
                     _toastHelper.error("Seleccionar Tipo de Estrategia Guia de Negocio.");
                 } else {
                     $("#divBloqueoCuvPaso2").hide();
@@ -3833,16 +3833,16 @@
             $("#btnActualizarTonos").hide();
             $("#btnCargaBloqueoCuv").hide();
 
-            if (aux2.in(_codigoEstrategia.OfertaParaTi,
-                _codigoEstrategia.OfertaDelDia,
-                _codigoEstrategia.LosMasVendidos,
-                _codigoEstrategia.Lanzamiento,
-                _codigoEstrategia.OfertasParaMi,
-                _codigoEstrategia.PackAltoDesembolso,
-                _codigoEstrategia.GuiaDeNegocioDigitalizada,
-                _codigoEstrategia.ShowRoom,
-                _codigoEstrategia.HerramientasVenta,
-                _codigoEstrategia.ArmaTuPack
+            if (aux2.in(_codigoTipoEstrategia.OfertaParaTi,
+                _codigoTipoEstrategia.OfertaDelDia,
+                _codigoTipoEstrategia.LosMasVendidos,
+                _codigoTipoEstrategia.Lanzamiento,
+                _codigoTipoEstrategia.OfertasParaMi,
+                _codigoTipoEstrategia.PackAltoDesembolso,
+                _codigoTipoEstrategia.GuiaDeNegocioDigitalizada,
+                _codigoTipoEstrategia.ShowRoom,
+                _codigoTipoEstrategia.HerramientasVenta,
+                _codigoTipoEstrategia.ArmaTuPack
             )) {
 
                 $("#btnActivarDesactivar").show();
@@ -3850,13 +3850,13 @@
                 $("#btnDescripcionMasivo").show();
                 $("#btnNuevo").show();
 
-                if (aux2 !== _codigoEstrategia.HerramientasVenta) $("#btnActualizarTonos").show();
-                if (aux2 === _codigoEstrategia.GuiaDeNegocioDigitalizada) $("#btnCargaBloqueoCuv").show();
-                if (aux2 === _codigoEstrategia.ShowRoom) {
+                if (aux2 !== _codigoTipoEstrategia.HerramientasVenta) $("#btnActualizarTonos").show();
+                if (aux2 === _codigoTipoEstrategia.GuiaDeNegocioDigitalizada) $("#btnCargaBloqueoCuv").show();
+                if (aux2 === _codigoTipoEstrategia.ShowRoom) {
                     $("#btnDescripcionMasivo").val("Descrip. Masivo Set");
                     $("#btnDescripcionMasivoProd").show();
                 }
-                else if (aux2 === _codigoEstrategia.ArmaTuPack) {
+                else if (aux2 === _codigoTipoEstrategia.ArmaTuPack) {
                     $("#btnActualizarTonos").hide();
                     $("#btnNuevo").hide();
                     $("#btnNuevoMasivo").show();
