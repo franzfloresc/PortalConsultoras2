@@ -188,19 +188,23 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             var listaEstadoSeguimiento = new List<SeguimientoMobileModel>();
 
-             var   listaSeguimiento = AutoMapper.Mapper.Map<List<BETracking>, List<SeguimientoMobileModel>>(listaEstado);
+            var listaSeguimiento = AutoMapper.Mapper.Map<List<BETracking>, List<SeguimientoMobileModel>>(listaEstado);
 
-            var listaSeguimientoSecundario = listaSeguimiento.Where(a => a.Etapa != Constantes.SegPedidoSituacion.HoraEstimadaEntregaDesde 
+            var listaSeguimientoSecundario = listaSeguimiento.Where(a => a.Etapa != Constantes.SegPedidoSituacion.HoraEstimadaEntregaDesde
             && a.Etapa != Constantes.SegPedidoSituacion.HoraEstimadaEntregaHasta);
 
 
             var horaEstimadaEntregaDesde = string.Empty;
             var horaEstimadaEntregaHasta = string.Empty;
+
             var desde = listaEstado.FirstOrDefault(a => a.Etapa == Constantes.SegPedidoSituacion.HoraEstimadaEntregaDesde);
             var hasta = listaEstado.FirstOrDefault(a => a.Etapa == Constantes.SegPedidoSituacion.HoraEstimadaEntregaHasta);
 
-            if (desde.Fecha.HasValue) horaEstimadaEntregaDesde = desde.Fecha.Value.TimeOfDay.TotalHours.Equals(0) ? desde.Fecha.Value.ToString() : desde.Fecha.Value.ToString("HH:mm tt");
-            if (hasta.Fecha.HasValue) horaEstimadaEntregaHasta = hasta.Fecha.Value.TimeOfDay.TotalHours.Equals(0) ? hasta.Fecha.Value.ToString() : hasta.Fecha.Value.ToString("HH:mm tt");
+            if (desde != null)
+                if (desde.Fecha.HasValue) horaEstimadaEntregaDesde = desde.Fecha.Value.TimeOfDay.TotalHours.Equals(0) ? desde.Fecha.Value.ToString() : desde.Fecha.Value.ToString("HH:mm tt");
+
+            if (hasta != null)
+                if (hasta.Fecha.HasValue) horaEstimadaEntregaHasta = hasta.Fecha.Value.TimeOfDay.TotalHours.Equals(0) ? hasta.Fecha.Value.ToString() : hasta.Fecha.Value.ToString("HH:mm tt");
 
 
             foreach (var item in listaSeguimientoSecundario)
@@ -280,7 +284,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     {
                         //Extraer la zona y la region
                         string[] arrItem = item.Split(',');
-                        int nzonaid,nregionid;
+                        int nzonaid, nregionid;
 
                         int.TryParse(arrItem[1], out nzonaid);
                         int.TryParse(arrItem[0], out nregionid);
