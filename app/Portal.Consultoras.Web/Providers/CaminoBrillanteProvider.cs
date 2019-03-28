@@ -23,18 +23,17 @@ namespace Portal.Consultoras.Web.Providers
             get { return sessionManager.GetUserData(); }
         }
 
-        public CaminoBrillanteProvider()
-        {
-            sessionManager = SessionManager.SessionManager.Instance;
-        }
-
         public BENivelCaminoBrillante ObtenerNivelActualConsultora()
         {
             try
             {
-                var oResumen = ResumenConsultoraCaminoBrillante();
-                if (oResumen == null || oResumen.NivelConsultora.Count() == 0 || oResumen.Niveles.Count() == 0) return null;
-                sessionManager.SetConsultoraCaminoBrillante(oResumen);
+                var oResumen = sessionManager.GetConsultoraCaminoBrillante();
+                if (oResumen == null)
+                {
+                    oResumen = ResumenConsultoraCaminoBrillante();
+                    if (oResumen != null)  sessionManager.SetConsultoraCaminoBrillante(oResumen);
+                } 
+                if (oResumen == null || oResumen.NivelConsultora.Count() == 0 || oResumen.Niveles.Count() == 0) return null;                
                 var codNivel = oResumen.NivelConsultora.Where(x => x.EsActual).Select(z => z.Nivel).FirstOrDefault();
                 return oResumen.Niveles.Where(x => x.CodigoNivel == codNivel).FirstOrDefault();
             }
