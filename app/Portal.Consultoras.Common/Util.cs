@@ -3333,7 +3333,7 @@ namespace Portal.Consultoras.Common
                 response = (HttpWebResponse)request.GetResponse();
                 result = true;
             }
-            catch (WebException webException)
+            catch (WebException)
             {
                 LogManager.SaveLog(new Exception("URL " + url + " no encontrada"), "", "");
                 result = false;

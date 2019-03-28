@@ -729,7 +729,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 bool dbdefault = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
-                var mensajeErrorImagenResize = " Antes de Crear la Imagenes Renderizadas";
+                var mensajeErrorImagenResize = ""; // " Antes de Crear la Imagenes Renderizadas";
                 var nroPedido = Util.Trim(model.NumeroPedido);
                 if (nroPedido.Contains(",")) model.NumeroPedido = "0";
 

@@ -1765,7 +1765,7 @@ describe("ArmaTuPack - Detalle - DetallePresenter", function () {
             .returns(
                 TestHelpersModule
                     .getResolvedPromiseWithData({
-                        Grupos : [
+                        componentes : [
                             {},
                             {}
                         ]

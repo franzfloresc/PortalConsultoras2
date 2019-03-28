@@ -8,7 +8,7 @@
         urlEliminarOfertaShowRoomDetalleAll: '/AdministrarComponente/EliminarOfertaShowRoomDetalleAllNew'
     };
 
-    var _codigoEstrategia = ConstantesModule.ConstantesPalanca;
+    var _codigoTipoEstrategia = ConstantesModule.TipoEstrategia;
 
     var _eventos = {
         clickNuevoDetalle: function () {
@@ -109,7 +109,7 @@
         var codigoEstrategia = $("#ddlTipoEstrategia").find(":selected").data("codigo");
         var newTitulo = "Edición de Productos"
 
-        if (codigoEstrategia == _codigoEstrategia.ArmaTuPack) {
+        if (codigoEstrategia == _codigoTipoEstrategia.ArmaTuPack) {
             newTitulo = "Edición de componentes";
             $("#divbtnGrupoEstrategia").show();
         }
@@ -151,7 +151,7 @@
 
         var codigo = $("#ddlTipoEstrategia").find(":selected").data("codigo");
 
-        var ocultarGrupoEstrategia = codigo != _codigoEstrategia.ArmaTuPack;
+        var ocultarGrupoEstrategia = codigo != _codigoTipoEstrategia.ArmaTuPack;
         console.log('ocultarGrupoEstrategia', ocultarGrupoEstrategia);
         var parametros = {
             estrategiaId: estrategiaId,
@@ -337,7 +337,7 @@
         var newLabel1 = "Marca Producto:";
         var newLabel2 = '¿Activar Oferta?:';
 
-        if ($("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ArmaTuPack) {
+        if ($("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoTipoEstrategia.ArmaTuPack) {
             //Descriptivo para Grupos ATP
             newTitulo = "Edición de grupos";
             newLabel0 = "Nombre de Grupos:";

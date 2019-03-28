@@ -66,7 +66,7 @@
         Pagina: 0
     }
 
-    var _codigoEstrategia = ConstantesModule.ConstantesPalanca;
+    var _codigoTipoEstrategia = ConstantesModule.TipoEstrategia;
 
     var _idEstrategia = {
         OfertaParaTi: 4,
@@ -501,7 +501,7 @@
             $("#hdNiveles").val(data.Niveles);
 
             /*INI ATP*/
-            if (data.CodigoTipoEstrategia == _codigoEstrategia.ArmaTuPack) {
+            if (data.CodigoTipoEstrategia == _codigoTipoEstrategia.ArmaTuPack) {
                 $('#tabControl1').hide();
                 $('#divSeccionImagenes').hide();
                 $("#txtCUV2").prop('disabled', true);
@@ -533,10 +533,10 @@
             var aux2 = $("#hdEstrategiaCodigo").val();
 
             if (aux1 == "4"
-                || aux2 == _codigoEstrategia.Lanzamiento
-                || aux2 == _codigoEstrategia.OfertasParaMi
-                || aux2 == _codigoEstrategia.PackAltoDesembolso
-                || aux2 == _codigoEstrategia.ShowRoom) {
+                || aux2 == _codigoTipoEstrategia.Lanzamiento
+                || aux2 == _codigoTipoEstrategia.OfertasParaMi
+                || aux2 == _codigoTipoEstrategia.PackAltoDesembolso
+                || aux2 == _codigoTipoEstrategia.ShowRoom) {
                 $("#txtOrden").val("");
                 $("#div-orden").hide();
 
@@ -551,10 +551,10 @@
             }
 
             if (aux1 == "4" || aux1 == "5"
-                || aux2 == _codigoEstrategia.Lanzamiento
-                || aux2 == _codigoEstrategia.OfertasParaMi
-                || aux2 == _codigoEstrategia.PackAltoDesembolso
-                || aux2 == _codigoEstrategia.ShowRoom) {
+                || aux2 == _codigoTipoEstrategia.Lanzamiento
+                || aux2 == _codigoTipoEstrategia.OfertasParaMi
+                || aux2 == _codigoTipoEstrategia.PackAltoDesembolso
+                || aux2 == _codigoTipoEstrategia.ShowRoom) {
                 $("#ddlEtiqueta1").children("option").hide();
                 $("#ddlEtiqueta1").children("option[data-id='1']").show();
 
@@ -609,8 +609,8 @@
             $("#txtGanancia").val(data.Ganancia);
             $("#AppColorTexto").val(data.ColorTextoApp);
             closeWaitingDialog();
-            if ($("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ShowRoom
-                || data.CodigoTipoEstrategia == _codigoEstrategia.ArmaTuPack) {
+            if ($("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoTipoEstrategia.ShowRoom
+                || data.CodigoTipoEstrategia == _codigoTipoEstrategia.ArmaTuPack) {
                 _vistaNuevoProductoShowroon();
             } else {
                 _vistaNuevoProductoGeneral();
@@ -838,7 +838,7 @@
                 + "<img src='" + admConfig.Config.rutaImagenDisable + "' alt='Deshabilitar' border='0' /></a>";
         }
         var remove = "";
-        if ($("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ShowRoom) {
+        if ($("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoTipoEstrategia.ShowRoom) {
             remove += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Remover('" + id + "','" + rowObject[14] + "',event);\" >"
                 + "<img src='" + _config.rutaImagenDelete + "' alt='Eliminar' border='0' /></a>";
         }
@@ -853,7 +853,7 @@
         var cuv = rowObject[5];
         var _idMongo = rowObject[14];
 
-        if ($("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ArmaTuPack) {
+        if ($("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoTipoEstrategia.ArmaTuPack) {
             id = _idMongo;
         }
 
@@ -861,7 +861,7 @@
             + "<img src='" + admConfig.Config.rutaImagenEdit + "' alt='Editar' border='0' /></a>";
 
         var remove = "";
-        if ($("#ddlTipoEstrategia").find(":selected").data("codigo") != _codigoEstrategia.ArmaTuPack) {
+        if ($("#ddlTipoEstrategia").find(":selected").data("codigo") != _codigoTipoEstrategia.ArmaTuPack) {
             remove = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').EliminarProducto('" + id + "',event);\" >"
             + "<img src='" + admConfig.Config.rutaImagenDisable + "' alt='Deshabilitar' border='0' /></a>";
         }
@@ -889,7 +889,7 @@
     //    var cuv = rowObject[5];
     //    var  _idMongo = rowObject[14];
 
-    //    if ($("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ArmaTuPack) {
+    //    if ($("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoTipoEstrategia.ArmaTuPack) {
     //        id = _idMongo;                   
     //    }
 
@@ -1099,7 +1099,7 @@
         $("#url-video-mobile").val("");
         $("#txtPrecioPublico").val("");
         $("#txtGanancia").val("");
-        if ($("#hdEstrategiaCodigo").val() === _codigoEstrategia.Lanzamiento) {
+        if ($("#hdEstrategiaCodigo").val() === _codigoTipoEstrategia.Lanzamiento) {
             $("#div-revista-digital").show();
             $("#divSeccionIndividual").show();
         }
@@ -1299,8 +1299,8 @@
         var hideColProducts = true;
 
         /*INIT ATP*/
-        if (codigo == _codigoEstrategia.ArmaTuPack
-            || codigo == _codigoEstrategia.ShowRoom) {
+        if (codigo == _codigoTipoEstrategia.ArmaTuPack
+            || codigo == _codigoTipoEstrategia.ShowRoom) {
             colNameActions = 'Tácticas';
             hideColProducts = false;
         }
@@ -1324,13 +1324,13 @@
             multiselect: (tipo == "4" ||
                 tipo == "7" ||
                 tipo == "20" ||
-                codigo == _codigoEstrategia.Lanzamiento ||
-                codigo == _codigoEstrategia.OfertasParaMi ||
-                codigo == _codigoEstrategia.PackAltoDesembolso ||
-                codigo == _codigoEstrategia.GuiaDeNegocioDigitalizada ||
-                codigo == _codigoEstrategia.ShowRoom ||
-                codigo == _codigoEstrategia.HerramientasVenta ||
-                codigo == _codigoEstrategia.ArmaTuPack),
+                codigo == _codigoTipoEstrategia.Lanzamiento ||
+                codigo == _codigoTipoEstrategia.OfertasParaMi ||
+                codigo == _codigoTipoEstrategia.PackAltoDesembolso ||
+                codigo == _codigoTipoEstrategia.GuiaDeNegocioDigitalizada ||
+                codigo == _codigoTipoEstrategia.ShowRoom ||
+                codigo == _codigoTipoEstrategia.HerramientasVenta ||
+                codigo == _codigoTipoEstrategia.ArmaTuPack),
             multiselectWidth: 35,
             colNames: [
                 "EstrategiaID", "Orden", "#", "Pedido asociado", "Precio", "CUV", "Descripción", "Límite venta", "Código SAP", "ImagenURL",

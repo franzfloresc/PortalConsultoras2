@@ -703,21 +703,21 @@ var AnalyticsPortalModule = (function () {
 
     var _obtenerNombrePalanca = function (tipoEstrategiaId) {
         switch (tipoEstrategiaId) {
-            case ConstantesModule.ConstantesPalanca.GuiaDeNegocioDigitalizada:
+            case ConstantesModule.TipoEstrategia.GuiaDeNegocioDigitalizada:
                 return "Guía de negocio";
-            case ConstantesModule.ConstantesPalanca.HerramientasVenta:
+            case ConstantesModule.TipoEstrategia.HerramientasVenta:
                 return "Herramientas de Venta";
-            case ConstantesModule.ConstantesPalanca.ShowRoom:
+            case ConstantesModule.TipoEstrategia.ShowRoom:
                 return "ShowRoom";
-            case ConstantesModule.ConstantesPalanca.OfertaDelDia:
+            case ConstantesModule.TipoEstrategia.OfertaDelDia:
                 return "Oferta del Día";
-            case ConstantesModule.ConstantesPalanca.OfertaParaTi:
+            case ConstantesModule.TipoEstrategia.OfertaParaTi:
                 return "Oferta para Ti";
-            case ConstantesModule.ConstantesPalanca.OfertasParaMi:
+            case ConstantesModule.TipoEstrategia.OfertasParaMi:
                 return "Oferta para Mi";
-            case ConstantesModule.ConstantesPalanca.Lanzamiento:
+            case ConstantesModule.TipoEstrategia.Lanzamiento:
                 return "Lanzamiento";
-            case ConstantesModule.ConstantesPalanca.PackAltoDesembolso:
+            case ConstantesModule.TipoEstrategia.PackAltoDesembolso:
                 return "Packs Ganadores";
             default:
                 return "Gana+";

@@ -207,7 +207,7 @@
     margin: 0px;
     right: 10px;
     top: 15px;
-    transform: rotate(-90deg);
+    transform: rotate(0deg);
 }
 
 
@@ -611,7 +611,7 @@ footer {
     }
 
     .Title_pack.active .arrow_acordeon {
-        transform: rotate(0deg) !important;
+        transform: rotate(180deg) !important;
     }
 
     .Select_fixed {

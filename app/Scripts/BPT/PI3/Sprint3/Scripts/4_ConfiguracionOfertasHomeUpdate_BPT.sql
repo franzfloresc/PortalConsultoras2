@@ -1,8 +1,3 @@
---EAAR
-
-use BelcorpPeru_Bpt
-
-go
 
 GO
 
@@ -10,9 +5,7 @@ print db_name()
 
 go
 
-
-
-ALTER PROCEDURE [ConfiguracionOfertasHomeUpdate] 
+ALTER PROCEDURE [dbo].[ConfiguracionOfertasHomeUpdate] 
 @ConfiguracionOfertasHomeID int,
 @ConfiguracionPaisID int,
 @CampaniaID int,
@@ -40,7 +33,11 @@ ALTER PROCEDURE [ConfiguracionOfertasHomeUpdate]
 @DesktopUsarImagenFondo bit,
 @MobileUsarImagenFondo bit,
 @DesktopColorTexto varchar(10),
-@MobileColorTexto varchar(10) 
+@MobileColorTexto varchar(10),
+@BotonTexto1 varchar(100),
+@BotonTexto2 varchar(100),
+@BotonColor varchar(10),
+@BotonColorTexto varchar(10)
 AS 
 BEGIN
 	SET NOCOUNT ON
@@ -77,7 +74,11 @@ BEGIN
 			DesktopUsarImagenFondo,
 			MobileUsarImagenFondo, 
 			DesktopColorTexto,
-			MobileColorTexto 
+			MobileColorTexto,
+			BotonTexto1,
+			BotonTexto2,
+			BotonColor,
+			BotonColorTexto
 		)
 		VALUES 
 		(
@@ -107,7 +108,11 @@ BEGIN
 			@DesktopUsarImagenFondo,
 			@MobileUsarImagenFondo, 
 			@DesktopColorTexto,
-			@MobileColorTexto 
+			@MobileColorTexto,
+			@BotonTexto1,
+			@BotonTexto2,
+			@BotonColor,
+			@BotonColorTexto  
 		)
 
 		SET @insertedId = SCOPE_IDENTITY();
@@ -143,7 +148,6 @@ BEGIN
 			MobileUsarImagenFondo = @MobileUsarImagenFondo, 
 			DesktopColorTexto = @DesktopColorTexto,
 			MobileColorTexto = @MobileColorTexto,
-
 			BotonTexto1=@BotonTexto1,
 			BotonTexto2=@BotonTexto2,
 			BotonColor=@BotonColor,
@@ -157,3 +161,4 @@ BEGIN
 	SELECT @insertedId
 END
 
+GO

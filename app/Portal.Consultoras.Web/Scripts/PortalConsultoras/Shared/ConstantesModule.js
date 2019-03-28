@@ -1,6 +1,7 @@
 ﻿
 var ConstantesModule = (function () {
-    var _codigosPalanca = {
+    // antiguo var _codigosPalanca = {
+    var _codigoTipoEstrategiaTexto = {
         OfertaParaTi: "OfertaParaTi",
         PackNuevas: "PackNuevas", // Oferta Nueva Esika
         OfertaWeb: "OfertaWeb",
@@ -40,7 +41,8 @@ var ConstantesModule = (function () {
 
     // es homologo a DB TipoEstrategia, campo Codigo
     // es homologo a constantes.TipoEstrategiaCodigo
-    var _constantesPalanca = {
+    // antiguo var _constantesPalanca = {
+    var _codigoTipoEstrategia = {
         OfertaParaTi: "001",
         PackNuevas: "002",
         OfertaWeb: "003",
@@ -74,10 +76,13 @@ var ConstantesModule = (function () {
         ShowRoom: 1707,
     }
 
-    var _tipoEstrategia = {
+    // es homologo a DB ConfiguracionPais, campo Codigo
+    // es homologo a constantes.ConfiguracionPais
+    // antiguo var _tipoEstrategia = {
+    var _codigoPalanca = {
         RD: "RD",
         HV: "HV",
-        GND: "GN",
+        GND: "GND",
         LAN: "LAN",
         MG: "MG",
         SR: "SR",
@@ -193,17 +198,17 @@ var ConstantesModule = (function () {
     }
 
     return {
-        CodigosPalanca: _codigosPalanca,
+        CodigoPalanca: _codigoPalanca,
+        TipoEstrategia: _codigoTipoEstrategia,
+        TipoEstrategiaTexto: _codigoTipoEstrategiaTexto,
         KeysLocalStorage: _keysLocalStorage,
         CodigoVariedad: _codigoVariedad,
-        ConstantesPalanca: _constantesPalanca,
-        TipoEstrategia: _tipoEstrategia,
-        UrlObtenerEstrategia: _urlObtenerEstrategia,
         OrigenPedidoWeb: _origenPedidoWeb,
         OrigenPedidoWebEstructura: _origenPedidoWebEstructura,
         ConfiguracionOferta: _configuracionOferta,
         TipoAccionNavegar: _tipoAccionNavegar,
         EditarItemPedido: _editarItemPedido,
+        UrlObtenerEstrategia: _urlObtenerEstrategia,
         UrlDetalleEstrategia: _urlDetalleEstrategia,
         UrlPedido: _urlPedido
     }
