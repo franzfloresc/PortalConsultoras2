@@ -130,7 +130,8 @@ var FichaModule = (function (config) {
         producto: "ficha_producto_template",
         carrusel: "ficha_carrusel_template",
         compartir: "ficha_compartir_template",
-        styleOdd: "ofertadeldia-template-style"
+        styleOdd: "ofertadeldia-template-style",
+        componenteDetalle:"componenteDetalle-template"
     };
 
     var _seccionesFichaProducto = {
@@ -298,8 +299,10 @@ var FichaModule = (function (config) {
     var _verDetalleComponente = function (cuv) {
         alert(cuv);
         console.log('cuv', cuv);
-         $("#modal_producto_detalle").modal()
          
+
+        _setHandlebars(_template.componenteDetalle, {codigo:123, nombre:'dddddddddd'});
+        $("#modal_producto_detalle").modal()
     };
 
 
