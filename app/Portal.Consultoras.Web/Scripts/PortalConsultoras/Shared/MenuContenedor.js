@@ -346,7 +346,7 @@ var menuModule = (function () {
                     + ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel;
             }
             //HD-3473 EINCA 
-            else if (url.indexOf(ConstantesModule.TipoEstrategia.DP) > 0) {
+            else if (url.includes(ConstantesModule.TipoEstrategia.DP)) {
                 OrigenPedidoWeb = ConstantesModule.OrigenPedidoWebEstructura.Dispositivo.Desktop
                     + ConstantesModule.OrigenPedidoWebEstructura.Pagina.Contenedor
                     + ConstantesModule.OrigenPedidoWebEstructura.Palanca.DuoPerfecto
