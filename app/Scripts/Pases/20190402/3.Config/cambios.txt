@@ -26,7 +26,16 @@ Add:
         }
     }
 	
+Update: ***  Agregar 'ATP' al listado ***
+		Personalizacion: ['GND', 'LAN', 'ODD', 'OPM', 'OPT', 'PAD', 'SR', 'LIQ', 'CAT', 'HV', 'ATP']
+
+		
+		
+		
+2.Microservicio Sync - Archivo appsettings.json
+
+
+**** El cambio debe agregarse en el "appsettings.json". agregar al listado ATP en Palancas ****
+
+	Palancas: "...., ATP"
 	
-Update:
-	
-Delete:
