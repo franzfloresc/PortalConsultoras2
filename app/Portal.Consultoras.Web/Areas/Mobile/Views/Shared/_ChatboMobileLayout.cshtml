@@ -1,0 +1,228 @@
+﻿@using Portal.Consultoras.Web.CustomHelpers
+@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Models;
+@{
+    ShowRoomBannerLateralModel showRoomBannerLateral = new ShowRoomBannerLateralModel();
+    if (ViewBag.MostrarShowRoomBannerLateral == true) { showRoomBannerLateral = ViewBag.ShowRoomBannerLateral; }
+
+    bool esIngresoUnico = ViewContext.EsIngresoUnico();
+}
+
+<!DOCTYPE html>
+<html lang="es-PE">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="SomosBelcorp Web Mobile" />
+
+    <title>Somos Belcorp</title>
+
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManagerHeader.cshtml")
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_GoogleOptimize.cshtml")
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManager.cshtml")
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,100,300,700,900' rel='stylesheet' type='text/css'>
+    @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
+    {
+        <link href="@Url.Content("~/Content/Images/Esika/favicon.ico")" rel="shortcut icon" type="image/x-icon" />
+        @Styles.Render("~/Bundle/Css/Mobile/esika-CssSB2Mobile")
+        @Styles.Render("~/Bundle/Css/Mobile/Esika-Contenedor")
+    }
+    else
+    {
+        <link href="@Url.Content("~/Content/Images/icons/favicon_lbel.ico")" rel="shortcut icon" type="image/x-icon" />
+        @Styles.Render("~/Bundle/Css/Mobile/lbel-CssSB2Mobile")
+        @Styles.Render("~/Bundle/Css/Mobile/Lbel-Contenedor")
+    }
+    <link href="@Url.Content("~/Content/Css/Mobile/calc.css")" rel="stylesheet" type="text/css" />
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpVariablesGeneralesPortal.cshtml")
+    <script type="text/javascript">
+        var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))' == "True";
+        var revistaDigital = @Html.Raw(Json.Encode(ViewBag.revistaDigital));
+    </script>
+    @RenderSection("styles", required: false)
+    @if (TempData.ContainsKey("PixelCodigoIso"))
+    {
+        <noscript id="noscript-pixel-image"></noscript>
+    }
+</head>
+<body>
+    <header id="new-header">
+        <div class="container-fluid agregarBackgroundNavidenio" style="padding-top:9px; padding-bottom:9px;">
+            <div class="row">
+                @*
+                    <div class="col-xs-2 icono_menuMobile_campania_navidenia">
+                       <img src="@Url.Content("~/Content/Images/mobile/icono-menu-mobile.svg")" id="ic_menu" class="icon-menu" alt="Menú" />
+                    </div>
+                *@
+                <div class="col-xs-5 text-center">
+                    <a role="link" region="Superior" parent="Bienvenida" title="Bienvenida"
+                       class="logo_mobile"></a>
+                </div>
+                <div class="col-xs-5 text-right">
+                    <div class="menu-shop">
+                        <div class="contenedor_circulos">
+                            <div class="circulo-1 iniciarTransicion"></div>
+                            <div class="circulo-2 iniciarTransicion"></div>
+                            <div class="circulo-3 iniciarTransicion"></div>
+                        </div>
+                        <div data-agregado='tooltip' class="popover bottom tooltip_agregado" role="tooltip" id="" style="display: none;">
+                            <div class="arrow"></div>
+                            <div class="popover-content">
+                                <span data-agregado="mensaje1">¡Genial! </span>
+                                <img class="tooltop-emoji" src="/Content/Images/Mobile/Esika/1f44d.png" /> 
+                                <span data-agregado="mensaje2"> Agregaste una oferta</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </header>
+
+    <section style="min-height: 380px;">
+        <div id="contentmobile" data-content="">
+            <div id="mob-content-layout">
+                @RenderBody()
+            </div>
+        </div>
+        <div class="clear">
+            <br />
+            <br />
+        </div>
+    </section>
+
+    <footer class="footer-page">
+        @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileMenu/_MobileMenuFooter.cshtml")
+        <hr class="clear" />
+    </footer>
+
+    @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpLoadingMobile.cshtml")
+    <div style="display:none">
+        <a id="HiddenRedesSocialesWA" href="#" data-action="share/whatsapp/share">WA</a>
+    </div>
+
+    @Scripts.Render("~/Bundle/Js/Mobile/MobileLayout")
+
+    <script type="text/javascript">
+        var urlRegistrarUsuarioComunidad = '@Url.Action("RegistrarUsuarioComunidad", "Bienvenida", new { area = "" })';
+        var urlValidarCorreoComunidad = '@Url.Action("ValidarCorreoComunidad", "Bienvenida", new { area = "" })';
+        var urlValidarCorreoIngresado = '@Url.Action("ValidarCorreoIngresado", "Bienvenida", new { area = "" })';
+        var urlValidarUsuarioIngresado = '@Url.Action("ValidarUsuarioIngresado", "Bienvenida", new { area = "" })';
+        var urlGetCantidadProductos = '@Url.Action("GetResumenCampaniaAgrupado", "GestionContenido", new { area = "" })';
+        var urlGetNotificacionesSinLeer = '@Url.Action("GetNotificacionesSinLeer", "Notificaciones", new { area = "" })';
+        var urlGetCantidadPedidos = '@Url.Action("GetCantidadPedidos", "ConsultoraOnline", new { area = "Mobile" })';
+        var urlGetShowRoom = '@Url.Action("MostrarShowRoomBannerLateral", "Bienvenida", new { area = "" })';
+        var urlCloseBannerPL20 = '@Url.Action("CloseBannerPL20", "Pedido", new { area = "" })';
+        var urlOcultarBannerTop = '@Url.Action("OcultarBannerTop", "Pedido", new { area = "" })';
+        var urlDeshacerReservaPedidoReservado2 = '@Url.Action("PedidoValidadoDeshacerReserva", "Pedido", new { area = "" })';
+        var urlReservadoEnHorarioRestringuido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
+        var urlPedidoValidado = '@Url.Action("Validado", "Pedido", new { area = "Mobile" })';
+
+        var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new { area = "" })';
+        var urlPedidoInsertZe = '@Url.Action("AgregarProductoZE", "Pedido", new { area = "" })';
+        var baseUrl = "@Url.Content("~")";
+        var tipoOfertaFinalCatalogoPersonalizado = '@Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore';
+
+        var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
+        //var esPaisTrackingJetlore = '@ViewBag.PaisesConTrackingJetlore';
+        var indicadorEnviadoDescarga = '@ViewBag.IndicadorEnviado';
+
+        var IsoPais = '@ViewBag.CodigoISODL';
+        var gTipoUsuario = '@ViewBag.TipoUsuario';
+
+        //Postulante
+        var mostrarBannerPostulante = '@ViewBag.MostrarBannerPostulante';
+
+        //GPR
+        var estaRechazado = '@ViewBag.IndicadorGPRSB';
+        var cerrarRechazado = '@ViewBag.CerrarRechazado';
+        var mostrarBannerRechazo = '@ViewBag.MostrarBannerRechazo';
+
+        //ODD
+        var mostrarOfertaDelDia = '@ViewBag.MostrarODD';
+        var usuarioNombre = '@ViewBag.UsuarioNombre';
+        var campaniaCodigo = '@ViewBag.CampaniaCodigo';
+        var campaniaAnio = parseInt(parseInt(campaniaCodigo) / 100);
+        var campaniaNro = parseInt(campaniaCodigo) - campaniaAnio * 100;
+        var MostrarBannerPL20 = '@ViewBag.MostrarBannerPL20';
+        var MostrarBannerOtros = '@ViewBag.MostrarBannerOtros';
+        var ocultarBannerTop = '@Session["OcultarBannerTop"]';
+        var TipoOrigenPantallaODD = 2;
+        // New Chat
+        var emt_client_type = '@ViewBag.TipoUsuario';
+        var emt_country = '@ViewBag.CodigoISODL';
+        var emt_email_address = '@ViewBag.CorreoC';
+        var emt_first_name = '@ViewBag.NombreC';
+        var emt_id = '@ViewBag.CodigoUsuario';
+        var emt_type = '0';
+        var emt_device = ' ';
+        var emt_default_message = '@Html.Raw(ViewBag.MensajeChat)';
+
+        var habilitarChatEmtelco = '@ViewBag.HabilitarChatEmtelco';
+        var sesionEsShowRoom = '@Session["EsShowRoom"]';
+        var EstadoActivo = '@ViewBag.EstadoActivo';
+        var ViewBagEsMobile = '@ViewBag.EsMobile';
+
+        var tokenPedidoAutenticoOk = '@ViewBag.TokenPedidoAutenticoOk';
+        var _ModificacionPedidoProl = '@ViewBag.ModificarPedidoProl';
+        window.urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
+        window.urlLogElastic = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogElastic"]';
+        window.patternElastic = '@System.Configuration.ConfigurationManager.AppSettings["PatternElastic"]';
+        var userData = {
+            'aplicacion': '@(Constantes.LogDynamoDB.AplicacionPortalConsultoras)',
+            'rol': '@(Constantes.LogDynamoDB.RolConsultora)',
+            'campana': '@ViewBag.AnalyticsCampania',
+            'region': '@ViewBag.AnalyticsRegion',
+            'zona': '@ViewBag.AnalyticsZona',
+            'seccion': '@ViewBag.AnalyticsSeccion',
+            'pais': '@ViewBag.AnalyticsPais',
+            'codigoConsultora': '@ViewBag.AnalyticsCodigoConsultora'
+        };
+        var vbFotoPerfil = '@ViewBag.FotoPerfil';
+        if (vbFotoPerfil != null && vbFotoPerfil != "") {
+            $('.foto_menu').show();
+        }
+
+        var ViewIndicadorGPRSB = '@ViewBag.IndicadorGPRSB';
+        var MensajePedidoMobile = '@ViewBag.MensajePedidoMobile';
+        var OrigenDesktopODD = 0;
+
+        //BANNER APP
+        var urlOcultarBannerApp = '@Url.Action("OcultarBannerApp", "Bienvenida", new { area = "Mobile" })';
+        var oBannerApp = @Html.Raw(@Json.Encode(ViewBag.BannerApp));
+
+        // Buscados
+        var CantidadVecesInicioSesionNovedad = '@ViewBag.CantidadVecesInicioSesionNovedad';
+        var NovedadBuscadorVisitasUsuario = '@ViewBag.NovedadBuscador';
+
+        // Seteando Controlador y Accion
+        @{
+            var routeValues = HttpContext.Current.Request.RequestContext.RouteData.Values;
+            string ctrl = routeValues.ContainsKey("controller") ? routeValues["controller"].ToString() : "CtrlNoRoute";
+            string acti = routeValues.ContainsKey("action") ? routeValues["action"].ToString() : "ActiNoRoute";
+        }
+        window.controllerName = '@ctrl.ToLower()';
+        window.actionName     = '@acti.ToLower()';
+    </script>
+    @RenderSection("scripts", required: false)
+    @if (TempData.ContainsKey("PixelCodigoIso"))
+    {
+        @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Login-Header")
+        <script>
+            var pixelAnalytics = Analytics();
+            pixelAnalytics.invocarEventoPixelById('@(TempData["PixelMarcacion"])', '@(TempData["PixelId"])');
+        </script>
+        @TempData.Remove("PixelCodigoIso");
+    }
+
+    <script>
+        $.ajaxSetup({
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("isMobile", isMobile());
+            }
+        });
+    </script>
+</body>
+</html>

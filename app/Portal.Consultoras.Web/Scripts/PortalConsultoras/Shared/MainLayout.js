@@ -4,9 +4,10 @@ var ventanaChat = null;
 
 
 $(document).ready(function () {
+
     LayoutHeader();
     LayoutMenu();
-
+    CargarCantidadNotificacionesSinLeer();
     OcultarChatEmtelco();
 
     $(document).on('click', function () {
@@ -156,7 +157,7 @@ $(document).ready(function () {
     HandlebarsRegisterHelper();
     SetFormatDecimalPais(formatDecimalPaisMain);
     CargarResumenCampaniaHeader();
-    CargarCantidadNotificacionesSinLeer();
+
 
     $('#alertDialogMensajes').dialog({
         autoOpen: false,
@@ -417,18 +418,24 @@ function CargarCantidadNotificacionesSinLeer() {
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
             if (checkTimeout(data)) {
+
                 if (data.cantidadNotificaciones > 0) {
+                    $('#mensajeSinNotificaciones').hide();
+                    $('#mensajeNotificaciones').show();
+
                     $(document).find(".js-notificaciones2").html(data.cantidadNotificaciones);
                     $(document).find(".js-notificaciones").html(data.cantidadNotificaciones);
                     $(document).find(".js-notificaciones").addClass("notificaciones_activas");
                     $(document).find(".js-cantidad_notificaciones").html(data.cantidadNotificaciones);
                 } else {
-                    $(document).find(".aviso_mensajes").html('NO <b>TIENES MENSAJES SIN LEER</b>');
+                    $('#mensajeSinNotificaciones').show();
+                    $('#mensajeNotificaciones').hide();
+                    $(document).find(".aviso_mensajes").html('No <b>tienes notificaciones nuevas</b>');
                     $(document).find(".js-notificaciones").html(0);
                     $(document).find(".js-notificaciones").removeClass("notificaciones_activas");
                     $(document).find("#mensajeNotificaciones").html("No tienes notificaciones. ");
                 }
-
+             
                 data.mensaje = data.mensaje || "";
             }
         },

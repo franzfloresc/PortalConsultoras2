@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.Config.ResponseReporte.Estructura;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceZonificacion;
@@ -60,16 +61,6 @@ namespace Portal.Consultoras.Web.Controllers
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
 
-        //movido BaseAdm/ObtenerCampaniasPorUsuario
-        //public JsonResult ObtenerCampanias()
-        //{
-        //    IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(userData.PaisID);
-        //    return Json(new
-        //    {
-        //        lista = lst
-        //    }, JsonRequestBehavior.AllowGet);
-        //}
-
         private IEnumerable<TipoEstrategiaModel> DropDowListTipoEstrategia()
         {
             List<BETipoEstrategia> lst = _tipoEstrategiaProvider.GetTipoEstrategias(userData.PaisID);
@@ -123,13 +114,13 @@ namespace Portal.Consultoras.Web.Controllers
                 nombreReporte = NombreReporteValidacionOPM;
 
 
-            if ((int.Parse(TipoEstrategiaID) != 99) || 
+            if ((int.Parse(TipoEstrategiaID) != 99) ||
                 _ofertaBaseProvider.UsarMsPersonalizacion(Constantes.ReporteValidacionDatos.TipoEstrategiaCodigo[int.Parse(TipoEstrategiaID)]))
             {
                 lst = administrarEstrategiaProvider.ObtenerReporteValidacionPalancas(Constantes.ReporteValidacionDatos.TipoPersonalizacion[int.Parse(TipoEstrategiaID)], CampaniaID);
             }
             else
-            { 
+            {
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
                     lst = sv.GetReporteValidacion(userData.PaisID, Convert.ToInt32(CampaniaID), Convert.ToInt32(TipoEstrategiaID)).ToList();
@@ -156,83 +147,101 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEReporteValidacionSRPersonalizacion> lstSrPersonalizacion;
             List<BEReporteValidacionSROferta> lstSrOferta;
             List<BEReporteValidacionSRComponentes> lstSrComponente;
-            
-            using (PedidoServiceClient sv = new PedidoServiceClient())
-            {
-                lstSrCampania = sv.GetReporteShowRoomCampania(userData.PaisID, Convert.ToInt32(CampaniaID)).ToList();
-                lstSrPersonalizacion = sv.GetReporteShowRoomPersonalizacion(userData.PaisID, Convert.ToInt32(CampaniaID)).ToList();
-                lstSrOferta = sv.GetReporteShowRoomOferta(userData.PaisID, Convert.ToInt32(CampaniaID)).ToList();
-                lstSrComponente = sv.GetReporteShowRoomComponentes(userData.PaisID, Convert.ToInt32(CampaniaID)).ToList();
-            }
-
-            if (lstSrCampania.Count == 0 && lstSrPersonalizacion.Count == 0 && lstSrOferta.Count == 0 && lstSrComponente.Count == 0)
-                return Content("<script>alert('" + MensajeNoHayRegistros + "')</script>");
 
             List<ReporteValidacionSRModel> listSrCampaniaModel = new List<ReporteValidacionSRModel>();
             List<ReporteValidacionSRModel> lstSrPersonalizacionModel = new List<ReporteValidacionSRModel>();
             List<ReporteValidacionSRModel> lstSrOfertaModel = new List<ReporteValidacionSRModel>();
             List<ReporteValidacionSRModel> lstSrComponenteModel = new List<ReporteValidacionSRModel>();
 
-            lstSrCampania.ForEach(x => listSrCampaniaModel.Add(new ReporteValidacionSRModel
+            if (_ofertaBaseProvider.UsarMsPersonalizacion(Constantes.TipoEstrategiaCodigo.ShowRoom))
             {
-                CodPais = x.CodPais,
-                Campania = x.Campania,
-                CUV = x.CUV,
-                NombreEvento = x.NombreEvento,
-                DiasAntesFacturacion = x.DiasAntesFacturacion,
-                DiasDespuesFacturacion = x.DiasDespuesFacturacion,
-                FlagHabilitarEvento = x.FlagHabilitarEvento,
-                FlagHabilitarCompraXCompra = x.FlagHabilitarCompraXCompra,
-                FlagHabilitarSubCampania = x.FlagHabilitarSubCampania
+                ReporteValidacionShowroom reporteValidacionShowroom = administrarEstrategiaProvider.ObtenerReportValidacionShowroom(CampaniaID);
 
-            }));
+                listSrCampaniaModel = reporteValidacionShowroom.ListaCampania.OrderBy(campo => campo.CodPais).ToList();
+                lstSrPersonalizacionModel = reporteValidacionShowroom.ListaPersonalizacion.OrderBy(campo => campo.CodPais).ThenBy(campo => campo.Nombre).ToList();
+                lstSrOfertaModel = reporteValidacionShowroom.ListaOferta;
+                lstSrComponenteModel = reporteValidacionShowroom.ListaComponente.OrderBy(campo => campo.CodPais).ThenBy(campo => campo.CUV).ToList();
 
-            lstSrPersonalizacion.ForEach(x => lstSrPersonalizacionModel.Add(new ReporteValidacionSRModel
+                if (listSrCampaniaModel.Count == 0 && lstSrPersonalizacionModel.Count == 0 && lstSrOfertaModel.Count == 0 && lstSrComponenteModel.Count == 0)
+                {
+                    return Content("<script>alert('" + MensajeNoHayRegistros + "')</script>");
+                }
+            }
+            else
             {
-                Personalizacion = x.Personalizacion,
-                Medio = x.Medio,
-                BO = x.BO,
-                CL = x.CL,
-                CO = x.CO,
-                CR = x.CR,
-                DO = x.DO,
-                EC = x.EC,
-                GT = x.GT,
-                MX = x.MX,
-                PA = x.PA,
-                PE = x.PE,
-                PR = x.PR,
-                SV = x.SV,
-                VE = x.VE
-            }));
+                using (PedidoServiceClient sv = new PedidoServiceClient())
+                {
+                    lstSrCampania = sv.GetReporteShowRoomCampania(userData.PaisID, Convert.ToInt32(CampaniaID)).ToList();
+                    lstSrPersonalizacion = sv.GetReporteShowRoomPersonalizacion(userData.PaisID, Convert.ToInt32(CampaniaID)).ToList();
+                    lstSrOferta = sv.GetReporteShowRoomOferta(userData.PaisID, Convert.ToInt32(CampaniaID)).ToList();
+                    lstSrComponente = sv.GetReporteShowRoomComponentes(userData.PaisID, Convert.ToInt32(CampaniaID)).ToList();
+                }
 
-            lstSrOferta.ForEach(x => lstSrOfertaModel.Add(new ReporteValidacionSRModel
-            {
-                CodPais = x.CodPais,
-                Campania = x.Campania,
-                CUV = x.CUV,
-                CodigoTO = x.CodigoTO,
-                CodigoSAP = x.CodigoSAP,
-                Descripcion = x.Descripcion,
-                PrecioValorizado = x.PrecioValorizado,
-                PrecioOferta = x.PrecioOferta,
-                UnidadesPermitidas = x.UnidadesPermitidas,
-                EsSubCampania = x.EsSubCampania,
-                HabilitarOferta = x.HabilitarOferta,
-                FlagImagenCargada = x.FlagImagenCargada,
-                FlagImagenMINI = x.FlagImagenMINI
+                if (lstSrCampania.Count == 0 && lstSrPersonalizacion.Count == 0 && lstSrOferta.Count == 0 && lstSrComponente.Count == 0)
+                    return Content("<script>alert('" + MensajeNoHayRegistros + "')</script>");
 
-            }));
+                lstSrCampania.ForEach(x => listSrCampaniaModel.Add(new ReporteValidacionSRModel
+                {
+                    CodPais = x.CodPais,
+                    Campania = x.Campania,
+                    CUV = x.CUV,
+                    NombreEvento = x.NombreEvento,
+                    DiasAntesFacturacion = x.DiasAntesFacturacion,
+                    DiasDespuesFacturacion = x.DiasDespuesFacturacion,
+                    FlagHabilitarEvento = x.FlagHabilitarEvento,
+                    FlagHabilitarCompraXCompra = x.FlagHabilitarCompraXCompra,
+                    FlagHabilitarSubCampania = x.FlagHabilitarSubCampania
 
-            lstSrComponente.ForEach(x => lstSrComponenteModel.Add(new ReporteValidacionSRModel
-            {
-                CodPais = x.CodPais,
-                Campania = x.Campania,
-                CUV = x.CUV,
-                Nombre = x.Nombre,
-                Descripcion1 = x.Descripcion1,
-                FlagImagenCargada = Convert.ToInt32(x.FlagImagenCargada)
-            }));
+                }));
+
+                lstSrPersonalizacion.ForEach(x => lstSrPersonalizacionModel.Add(new ReporteValidacionSRModel
+                {
+                    Personalizacion = x.Personalizacion,
+                    Medio = x.Medio,
+                    BO = x.BO,
+                    CL = x.CL,
+                    CO = x.CO,
+                    CR = x.CR,
+                    DO = x.DO,
+                    EC = x.EC,
+                    GT = x.GT,
+                    MX = x.MX,
+                    PA = x.PA,
+                    PE = x.PE,
+                    PR = x.PR,
+                    SV = x.SV,
+                    VE = x.VE
+                }));
+
+                lstSrOferta.ForEach(x => lstSrOfertaModel.Add(new ReporteValidacionSRModel
+                {
+                    CodPais = x.CodPais,
+                    Campania = x.Campania,
+                    CUV = x.CUV,
+                    CodigoTO = x.CodigoTO,
+                    CodigoSAP = x.CodigoSAP,
+                    Descripcion = x.Descripcion,
+                    PrecioValorizado = x.PrecioValorizado,
+                    PrecioOferta = x.PrecioOferta,
+                    UnidadesPermitidas = x.UnidadesPermitidas,
+                    EsSubCampania = x.EsSubCampania,
+                    HabilitarOferta = x.HabilitarOferta,
+                    FlagImagenCargada = x.FlagImagenCargada,
+                    FlagImagenMINI = x.FlagImagenMINI
+
+                }));
+
+                lstSrComponente.ForEach(x => lstSrComponenteModel.Add(new ReporteValidacionSRModel
+                {
+                    CodPais = x.CodPais,
+                    Campania = x.Campania,
+                    CUV = x.CUV,
+                    Nombre = x.Nombre,
+                    Descripcion1 = x.Descripcion1,
+                    FlagImagenCargada = Convert.ToInt32(x.FlagImagenCargada)
+                }));
+
+            }
 
             List<List<ReporteValidacionSRModel>> lst = new List<List<ReporteValidacionSRModel>>();
             lst.Add(listSrCampaniaModel);

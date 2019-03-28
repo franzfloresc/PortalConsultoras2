@@ -230,13 +230,13 @@
     <script type="text/javascript">
         var imgNoDisponible = '@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")';
         var imgIssuu = '@Constantes.CatalogoUrlParameters.UrlPart01' + '{img}' + '@Constantes.CatalogoUrlParameters.UrlPart02Alternativo';
-        var codigoIso = '@ViewBag.CodigoISO';
+        var codigoIso = '@ViewBag.CodigoISODL';
         var defaultImageRevista = '@Url.Content("~/Content/Images/revista_no_disponible.jpg")';
         var urlObtenerPortadaRevista = '@Url.Action("ObtenerPortadaRevista", "Catalogo", new { area = "Mobile" })';
         var urlIconoClienteAutoCompletar = '@Url.Content("~/Content/Images/Esika/user.jpg")';
         var urlBienvenidaMobile = '@Url.Action("Index", "Bienvenida", new { area = "Mobile" })';
         var urlEnviarMail = '@Url.Action("EnviarEmail", "MisCatalogosRevistas", new { area = "" })';
-        var valContenidoCorreoDefecto = '@Html.Raw(ViewBag.TextoMensajeSaludoCorreo)';
+        var valContenidoCorreoDefecto = '@Html.Raw(Constantes.CatalogoMensajesDefault.SaludoCorreo)';
         var RevistaCodigoIssuu = {
             '@Model.CampaniaAnterior': '@Model.CodigoRevistaAnterior',
             '@Model.CampaniaActual': '@Model.CodigoRevistaActual',

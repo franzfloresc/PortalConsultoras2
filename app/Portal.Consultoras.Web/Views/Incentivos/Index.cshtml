@@ -22,7 +22,7 @@
         foreach (var incentivo in Model.listaIncentivos)
         {
             contador += 1;
-            
+
             <div class="item_incentivos">
                 @Html.Hidden("IncentivoID", incentivo.IncentivoID)
                 <div class="content_img_incetivos">
@@ -35,7 +35,7 @@
                     <br />@incentivo.Subtitulo
                 </div>
             </div>
-        
+
             if (contador == 4)
             {
                 contador = 0;

@@ -72,7 +72,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 int tipoCronogramaId = model.TipoCronogramaID == 3 ? 2 : model.TipoCronogramaID;
-                int marcarPedido = model.TipoCronogramaID == 2 ? 0 : 1;
+                int marcarPedido = (model.TipoCronogramaID != 2).ToInt();
                 string descProceso = ((Enumeradores.TipoDescargaPedidos)model.TipoCronogramaID).ToString();
 
                 string[] file;

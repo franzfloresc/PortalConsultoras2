@@ -14,7 +14,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
     public class CatalogoController : BaseMobileController
     {
-        private const string TextoMensajeSaludoCorreo = "Revisa los catálogos de esta campaña y comunícate conmigo si estás interesada en algunos de los productos.";
         private readonly IssuuProvider _issuuProvider;
         private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatosProvider;
         public CatalogoController()
@@ -46,13 +45,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             clienteModel.CodigoRevistaSiguiente = _issuuProvider.GetRevistaCodigoIssuu(clienteModel.CampaniaSiguiente, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
 
             clienteModel.PartialSectionBpt = _configuracionPaisDatosProvider.GetPartialSectionBptModel(Constantes.OrigenPedidoWeb.SectionBptMobileCatalogo);
-
-            ViewBag.CodigoISO = userData.CodigoISO;
             ViewBag.EsConsultoraNueva = userData.EsConsultoraNueva;
-            ViewBag.TextoMensajeSaludoCorreo = TextoMensajeSaludoCorreo;
 
-            string paisesCatalogoWhatsUp = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesCatalogoWhatsUp);
-            ViewBag.ActivacionAppCatalogoWhastUp = paisesCatalogoWhatsUp.Contains(userData.CodigoISO) ? 1 : 0;
+            bool paisesCatalogoWhatsUp = _configuracionManagerProvider.GetConfiguracionManagerContains(Constantes.ConfiguracionManager.PaisesCatalogoWhatsUp, userData.CodigoISO);
+            ViewBag.ActivacionAppCatalogoWhastUp = paisesCatalogoWhatsUp.ToInt();
 
             var paisesEsika = _configuracionManagerProvider.GetPaisesEsikaFromConfig().ToLower();
             ViewBag.EsPaisEsika = paisesEsika.Contains(userData.CodigoISO.ToLower());

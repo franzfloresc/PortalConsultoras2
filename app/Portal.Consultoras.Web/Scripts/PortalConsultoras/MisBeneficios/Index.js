@@ -34,7 +34,7 @@ function ArmarProgramasBelcorp(data) {
              '<div class="items_misBeneficios">',
                     '<div class="contenedor_item_img">',
                         '<img class="item_img" src="' + imgIncentivos + '" alt="Alternate Text" />',
-                        '<span class="item_titulo"><b>INCENTIVOS</b></span>',
+            '<span class="item_titulo"><b>' + (codigoISO_MB=='CO'?'INCENTIVOS':'BONIFICACIONES')+'</b></span>',
                     '</div>',
                     '<div class="contenedor_item_descripcion">',
                         '<span>',

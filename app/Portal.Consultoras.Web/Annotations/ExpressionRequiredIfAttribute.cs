@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
@@ -107,7 +108,7 @@ namespace Portal.Consultoras.Web.Annotations
             rule.ValidationParameters.Add("listvalues", OtherPropertyValue);
             rule.ValidationParameters.Add("otherproperty", OtherProperty);
             rule.ValidationParameters.Add("expresion", Expresion);
-            rule.ValidationParameters.Add("regexnotmatch", RegexNotMatch ? 1 : 0);
+            rule.ValidationParameters.Add("regexnotmatch", RegexNotMatch.ToInt());
 
             rule.ValidationType = "expressionrequiredif" + tmp;
             yield return rule;

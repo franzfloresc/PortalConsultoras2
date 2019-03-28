@@ -389,11 +389,13 @@ function AceptarPedido(pedidoId, tipo) {
             var key = (tipo == 1) ? '#sc-d1' : '#sc-d2';
             var name = $(popup).find(key + '-nombre').text();
             var email = $(popup).find(key + '-correo').text();
+            var telefono = $(popup).find(key + '-telefono').text();            
 
             var cliente = {
                 ConsultoraId: 0,
                 NombreCliente: name,
                 Nombre: name,
+                Celular: telefono,
                 eMail: email
             };
 
@@ -412,7 +414,8 @@ function AceptarPedido(pedidoId, tipo) {
                             ListaDetalleModel: detalle,
                             Accion: 1,
                             Tipo: tipo,
-                            Ingresos: ing
+                            Ingresos: ing,
+                            Dispositivo: 1
                         }
 
                         if (response.codigo == 0) {

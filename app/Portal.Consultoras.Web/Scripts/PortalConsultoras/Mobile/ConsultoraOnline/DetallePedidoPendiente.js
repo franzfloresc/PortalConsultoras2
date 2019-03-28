@@ -142,7 +142,8 @@ function AceptarPedido(id, tipo) {
                             ListaDetalleModel: detalle,
                             Accion: 2,
                             Tipo: tipo,
-                            Ingresos: ing
+                            Ingresos: ing,
+                            Dispositivo: glbDispositivo
                         }
 
                         if (response.codigo == 0) {
@@ -177,8 +178,7 @@ function AceptarPedidoRegistraClienteCancel(obj) {
 }
 
 function ProcesarAceptarPedido(pedido) {
-
-    waitingDialog({});
+    ShowLoading({});
     $.ajax({
         type: 'POST',
         url: '/ConsultoraOnline/AceptarPedido',
@@ -187,7 +187,7 @@ function ProcesarAceptarPedido(pedido) {
         data: JSON.stringify(pedido),
         async: true,
         success: function (response) {
-            closeWaitingDialog();
+            CloseLoading();
             if (checkTimeout(response)) {
                 if (response.success) {
                     if (pedido.Tipo == 1) {

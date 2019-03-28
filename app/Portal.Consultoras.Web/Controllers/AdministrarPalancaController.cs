@@ -1,13 +1,17 @@
 ﻿using AutoMapper;
+
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceSAC;
+using Portal.Consultoras.Web.ServiceUsuario;
+
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
+using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -66,21 +70,69 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult GetOfertasHome(int idOfertasHome)
         {
             var model = new AdministrarOfertasHomeModel();
+
             if (idOfertasHome > 0)
             {
                 using (var sv = new SACServiceClient())
                 {
                     var beConfiguracionOfertas = sv.GetConfiguracionOfertasHome(userData.PaisID, idOfertasHome);
-                    model = Mapper.Map<BEConfiguracionOfertasHome, AdministrarOfertasHomeModel>(beConfiguracionOfertas);
+                    model = Mapper.Map<AdministrarOfertasHomeModel>(beConfiguracionOfertas);
                 }
             }
-            model.DesktopTipoEstrategia = model.DesktopTipoEstrategia ?? "";
-            model.MobileTipoEstrategia = model.MobileTipoEstrategia ?? "";
+
+            model.DesktopTipoEstrategia = model.DesktopTipoEstrategia ?? string.Empty;
+            model.MobileTipoEstrategia = model.MobileTipoEstrategia ?? string.Empty;
             model.ListaCampanias = _zonificacionProvider.GetCampanias(userData.PaisID);
             model.ListaTipoPresentacion = ListTipoPresentacion();
             model.ListaConfiguracionPais = ListarConfiguracionPais();
             model.ListaTipoEstrategia = ListTipoEstrategia();
+            
             return PartialView("Partials/MantenimientoOfertasHome", model);
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> ConfiguracionSeccionApp(int configuracionPaisID)
+        {
+            var lst = new List<ConfiguracionPaisDatosModel>();
+
+            try
+            {
+                using (var svc = new UsuarioServiceClient())
+                {
+                    var result = await svc.GetConfiguracionPaisDatosAllAsync(new ServiceUsuario.BEConfiguracionPaisDatos()
+                    {
+                        PaisID = userData.PaisID,
+                        ConfiguracionPaisID = configuracionPaisID
+                    });
+
+                    lst = Mapper.Map<List<ConfiguracionPaisDatosModel>>(result);
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    message = string.Empty,
+                    data = new
+                    {
+                        AppOfertasHomeActivo = (lst.Where(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeActivo).FirstOrDefault() ?? new ConfiguracionPaisDatosModel()).Valor1 ?? "0",
+                        AppOfertasHomeImgExtension = (lst.Where(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeImgExtension).FirstOrDefault() ?? new ConfiguracionPaisDatosModel()).Valor1 ?? string.Empty,
+                        AppOfertasHomeImgAncho = (lst.Where(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeImgAncho).FirstOrDefault() ?? new ConfiguracionPaisDatosModel()).Valor1 ?? string.Empty,
+                        AppOfertasHomeImgAlto = (lst.Where(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeImgAlto).FirstOrDefault() ?? new ConfiguracionPaisDatosModel()).Valor1 ?? string.Empty,
+                        AppOfertasHomeMsjMedida = (lst.Where(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeMsjMedida).FirstOrDefault() ?? new ConfiguracionPaisDatosModel()).Valor1 ?? string.Empty,
+                        AppOfertasHomeMsjFormato = (lst.Where(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeMsjFormato).FirstOrDefault() ?? new ConfiguracionPaisDatosModel()).Valor1 ?? string.Empty
+                    }
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+
+                return Json(new
+                {
+                    success = false,
+                    message = ex.StackTrace
+                }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         public JsonResult ListPalanca(string sidx, string sord, int page, int rows)
@@ -201,11 +253,16 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                model.AdministrarOfertasHomeAppModel.AppBannerInformativo = model.AdministrarOfertasHomeAppModel.AppBannerInformativo ?? string.Empty;
+                model.AdministrarOfertasHomeAppModel.AppColorFondo = model.AdministrarOfertasHomeAppModel.AppColorFondo ?? string.Empty;
+                model.AdministrarOfertasHomeAppModel.AppColorTexto = model.AdministrarOfertasHomeAppModel.AppColorTexto ?? string.Empty;
+                model.AdministrarOfertasHomeAppModel.AppTitulo = model.AdministrarOfertasHomeAppModel.AppTitulo ?? string.Empty;
+
                 model.PaisID = userData.PaisID;
                 model = UpdateFilesOfertas(model);
                 using (var sv = new SACServiceClient())
                 {
-                    var entidad = Mapper.Map<AdministrarOfertasHomeModel, BEConfiguracionOfertasHome>(model);
+                    var entidad = Mapper.Map<BEConfiguracionOfertasHome>(model);
                     sv.UpdateConfiguracionOfertasHome(entidad);
                 }
                 return Json(new
@@ -317,9 +374,11 @@ namespace Portal.Consultoras.Web.Controllers
 
         private AdministrarOfertasHomeModel UpdateFilesOfertas(AdministrarOfertasHomeModel model)
         {
+            var resizeImagenApp = false;
+            var entidad = new BEConfiguracionOfertasHome();
+
             if (model.ConfiguracionPaisID != 0)
             {
-                BEConfiguracionOfertasHome entidad;
                 using (var sv = new SACServiceClient())
                 {
                     entidad = sv.GetConfiguracionOfertasHome(userData.PaisID, model.ConfiguracionOfertasHomeID);
@@ -331,27 +390,41 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!string.IsNullOrEmpty(model.MobileImagenFondo) &&
                     (string.IsNullOrEmpty(entidad.MobileImagenFondo) || model.MobileImagenFondo != entidad.MobileImagenFondo))
                     model.MobileImagenFondo = SaveFileS3(model.MobileImagenFondo);
-
+                if (!string.IsNullOrEmpty(model.AdministrarOfertasHomeAppModel.AppBannerInformativo) &&
+                    (string.IsNullOrEmpty(entidad.ConfiguracionOfertasHomeApp.AppBannerInformativo) || model.AdministrarOfertasHomeAppModel.AppBannerInformativo != entidad.ConfiguracionOfertasHomeApp.AppBannerInformativo))
+                {
+                    resizeImagenApp = true;
+                    model.AdministrarOfertasHomeAppModel.AppBannerInformativo = SaveFileS3(model.AdministrarOfertasHomeAppModel.AppBannerInformativo, true);
+                }
             }
             else
             {
                 model.DesktopImagenFondo = SaveFileS3(model.DesktopImagenFondo);
                 model.MobileImagenFondo = SaveFileS3(model.MobileImagenFondo);
+                model.AdministrarOfertasHomeAppModel.AppBannerInformativo = SaveFileS3(model.AdministrarOfertasHomeAppModel.AppBannerInformativo, true);
+                if (model.AdministrarOfertasHomeAppModel.AppBannerInformativo != string.Empty) resizeImagenApp = true;
+            }
+
+            if (resizeImagenApp)
+            {
+                var urlImagen = ConfigS3.GetUrlFileS3Matriz(userData.CodigoISO, model.AdministrarOfertasHomeAppModel.AppBannerInformativo);
+                new Providers.RenderImgProvider().ImagenesResizeProcesoApp(urlImagen, userData.CodigoISO, userData.PaisID, model.Codigo);
             }
 
             return model;
         }
 
-        private string SaveFileS3(string imagenEstrategia)
+        private string SaveFileS3(string imagenEstrategia, bool mantenerExtension = false)
         {
             imagenEstrategia = Util.Trim(imagenEstrategia);
-            if (imagenEstrategia == "")
-                return "";
+            if (imagenEstrategia == string.Empty)
+                return string.Empty;
 
             var path = Path.Combine(Globals.RutaTemporales, imagenEstrategia);
-            var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-            var time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
-            var newfilename = userData.CodigoISO + "_" + time + "_" + FileManager.RandomString() + ".png";
+            var carpetaPais = string.Concat(Globals.UrlMatriz, "/", userData.CodigoISO);
+            var time = string.Concat(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Minute, DateTime.Now.Millisecond);
+            var ext = !mantenerExtension ? ".png" : Path.GetExtension(path);
+            var newfilename = string.Concat(userData.CodigoISO, "_", time, "_", FileManager.RandomString(), ext);
             ConfigS3.SetFileS3(path, carpetaPais, newfilename);
             return newfilename;
         }

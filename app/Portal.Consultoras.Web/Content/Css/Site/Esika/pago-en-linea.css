@@ -1698,3 +1698,11 @@
     font-size:13px;
     float:none;
 }
+
+.disabledButton:hover,
+.disabledButton:focus,
+.disabledButton {
+    opacity: 0.65;
+    background-color: #F2F1F1;
+    color: currentColor;
+}

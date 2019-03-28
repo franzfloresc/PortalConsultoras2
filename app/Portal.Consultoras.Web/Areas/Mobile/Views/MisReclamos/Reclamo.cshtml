@@ -76,7 +76,7 @@
         </div>
 
         <div class="pregunta_inconveniente_producto tipografia_lato tipografia_lato_bold Registro1" id="divUltimasSolicitudes">
-            ¿Con qué producto has tenido inconvenientes?
+            <div class="pregunta_inconveniente_producto_titulo">¿Con qué producto has tenido inconvenientes?</div>
             <div class="mi_solicitud_cdr">
                 <div class="pestania_ver_mi_solicitud">
                     <img src="@Url.Content("~/Content/Images/mobile/pestania_ver_solicitud.svg")" alt="Ver mi solicitud">
@@ -109,10 +109,9 @@
         <div class="campos_registro_solicitud_cdr Registro1">
             <div class="formulario_inscripcion_cdr">
                 @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.ListaCampania, "CampaniaID", "NombreCorto", Model.CampaniaID), new { id = "ddlCampania", @class = "select_reclamo", @required = "required" })
-                <select class="elige_num_pedido" id="ddlnumPedido" name="numPedido" required="required" style="display:none;">
-                </select>
-                <input id="txtNumPedido" type="text" style="text-align:center;display:none;"/>
-                <input id="cuvmobile" class="tipografia_lato tipografia_lato_regular ValidaNumeral ValidaPasteNumeral valid" type="text" value="" placeholder="Código o Descripción del producto"/>
+                <select class="elige_num_pedido" id="ddlnumPedido" name="numPedido" required="required" style="display:none;"></select>
+                <input id="txtNumPedido" type="text" style="text-align:center;display:none;" />
+                <input id="cuvmobile" class="tipografia_lato tipografia_lato_regular ValidaNumeral ValidaPasteNumeral valid" type="text" value="" placeholder="Código o Descripción del producto" />
 
                 <div id="DescripcionCuv" class="producto_cdr" style="font-size:13px;display:none">
                     <span id="txtCuv" class="codigo_producto_cdr tipografia_lato_bold"></span>
@@ -149,7 +148,7 @@
             <input type="hidden" id="hdImporteTotalPedido" />
             <input type="hidden" id="hdCdrWebDatos_Ssic" />
             <input type="hidden" id="hdCuvPrecio2" />
-            <input type="hidden" id="hdCuvCodigo"/>
+            <input type="hidden" id="hdCuvCodigo" />
         </div>
         <div class="pregunta_inconveniente_producto tipografia_lato tipografia_lato_bold Registro2" style="display:none;">
             ¿Cuál fue el inconveniente?
@@ -202,6 +201,7 @@
                         <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad2" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
                                data-input="cantidad" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
                         <a class="cantidad_mas_home modificarPrecioMas"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                        <div class="clear"></div>
                     </div>
                 </div>
             </div>
@@ -232,10 +232,54 @@
         <div class="pregunta_inconveniente_producto tipografia_lato tipografia_lato_bold mb-23 AceptarSolucion" style="display:none;">
             <span class="titulo_revision_resumen">Revisa el resumen, finaliza y envía tu solicitud</span>
             <span class="mensaje_vista_cdr tipografia_lato_regular">
-                Asegúrate de tener todos los inconvenientes registrados porque <span class="tipografia_lato_bold">sólo puedes hacer 1 solicitud web por pedido.</span>
+                Asegúrate de tener todos los inconvenientes registrados porque <span class="tipografia_lato_bold">sólo puedes hacer @Model.CantidadReclamosPorPedido solicitud web por pedido.</span>
             </span>
         </div>
         <div id="divDetallePaso3" class="AceptarSolucion UltimasSolicitudes" style="display:none;">
+        </div>
+        @if (Model.TieneCDRExpress)
+        {
+            <div id="EleccionTipoEnvio" class="eleccion_tipo_envio text-left">
+                <div class="tipo_envio tipo_envio_regular">
+                    <div class="tipo_envio_checkbox">
+                        <input type="radio" value="" id="TipoEnvioRegular" name="TipoEnvio" checked />
+                        <label for="TipoEnvioRegular">
+                            <span></span>
+                        </label>
+                    </div>
+                    <div id="divDespachoNormal" class="tipo_envio_descripcion">
+                        @Model.MensajesExpress.RegularPrincipal
+                        <br />
+                        @Model.MensajesExpress.RegularAdicional
+                    </div>
+                </div>
+                <div class="tipo_envio tipo_envio_express">
+                    <div class="tipo_envio_checkbox">
+                        <input type="radio" value="" id="TipoEnvioExpress" name="TipoEnvio" />
+                        <label for="TipoEnvioExpress">
+                            <span></span>
+                        </label>
+                    </div>
+                    <div id="divDespachoExpress" class="tipo_envio_descripcion">
+                        @Model.MensajesExpress.ExpressPrincipal
+                        <br />
+                        @if (!string.IsNullOrEmpty(Model.MensajesExpress.ExpressFlete))
+                        {@Model.MensajesExpress.ExpressFlete}
+                        @if (Model.EsConsultoraNueva)
+                        {
+                            <br />
+                            <span style="color:red;">@Model.MensajesExpress.Nuevas</span>
+                        }
+                        <br />
+                        @Model.MensajesExpress.ExpressAdicional
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div style="display:none;">
+            <input type="hidden" id="hdTieneCDRExpress" value="@(Model.TieneCDRExpress ? 1 : 0)" />
+            <input type="hidden" id="hdFleteDespacho" value="@Model.FleteDespacho" />
         </div>
 
         <div class="validacion_datos tipografia_lato AceptarSolucion" style="display:none;">
@@ -271,11 +315,11 @@
         <div class="content_politica_devolucion tipografia_lato AceptarSolucion" style="display:none;">
             <input type="checkbox" value="" id="politica-devolucion" name="politica-devolucion" />
             <label for="politica-devolucion">
-                <span></span>
                 <a href="@Model.UrlPoliticaCdr" target="_blank" class="enlace_politica_devolucion tipografia_lato_regular"
                    title="acepto la política de devolución">
                     Acepto la política de cambios y devoluciones
                 </a>
+                <span></span>
             </label>
         </div>
         <div class="tooltip_btn_reportar_inconveniente tipografia_lato AceptarSolucion" style="display:none;">
@@ -411,9 +455,33 @@
     <div class="buscar_producto_cdr_contenido_popup text-center">
         <div class="busqueda_codigo_o_descripcion_wrapper d-block">
             <input type="text" value="" id="CampoBusquedaCuvDescripcion" class="campo_busqueda_codigo_o_descripcion_producto" placeholder="Escribe el código o descripción" />
-            <ul id="ListaCoincidenciasBusquedaProductosCdr" class="lista_coincidencias_busqueda_productos d-block text-left">
+            <ul id="ListaCoincidenciasBusquedaProductosCdr" class="lista_coincidencias_busqueda_productos d-block text-left"></ul>
+        </div>
+    </div>
+</div>
 
-            </ul>
+@*HD-3412 EINCA*@
+<div class="contenedor_popup_general" id="divConfirmEnviarSolicitudCDR" style="display:none;">
+    <div class="popup_general">
+        <div class="btn_cerrar_popup_general">
+            <a href="javascript:;" onclick="CancelarConfirmEnvioSolicitudCDR();">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
+            </a>
+        </div>
+        <div class="contenido_popUp contenido_popUp_general">
+            <span class="mensaje_popup_general">
+                Asegúrate de tener todos los incovenientes registrados <strong>porque s&oacute;lo puedes hacer <span id="txtCantidadPedidoConfig"></span> solicitud web por pedido.</strong><br /><br />
+                ¿Deseas continuar?
+            </span>
+            <div class="grupo_botones_popup_general">
+                <button type="button" name="btn_accion_secundaria" class="btn_accion_secundaria" onclick="misReclamosRegistro.Funciones.CancelarConfirmEnvioSolicitudCDR();">
+                    Cancelar
+                </button>
+                <button type="button" name="btn_accion_principal" class="btn_accion_principal" onclick="misReclamosRegistro.Funciones.ContinuarConfirmEnvioSolicitudCDR();">
+                    Si, continuar
+                </button>
+            </div>
         </div>
     </div>
 </div>
@@ -600,14 +668,14 @@
 
         var mensajeGestionCdrInhabilitada = '@Html.Raw(Model.MensajeGestionCdrInhabilitada)';
         var mensajeCdrFueraDeFechaCompleto = '@Html.Raw(Constantes.CdrWebMensajes.FueraDeFecha)';
-		var mensajeChatEnLinea = '@Html.Raw(Constantes.CdrWebMensajes.ContactateChatEnLinea)';
+        var mensajeChatEnLinea = '@Html.Raw(Constantes.CdrWebMensajes.ContactateChatEnLinea)';
 
-		var flagAppMobile = @(!mobileConfiguracion.EsAppMobile ? 0 : 1);
+        var flagAppMobile = @(!mobileConfiguracion.EsAppMobile ? 0 : 1);
         if (flagAppMobile == 0) mensajeCdrFueraDeFechaCompleto = mensajeCdrFueraDeFechaCompleto + " " + mensajeChatEnLinea;
-
+        var CantidadReclamosPorPedidoConfig = '@Html.Raw(Model.CantidadReclamosPorPedido)';
         var OrigenCDR = true;
 
     </script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/MisReclamos/Reclamo.js")?v2"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/MisReclamos/Reclamo.js")?v3"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js")"></script>
 }

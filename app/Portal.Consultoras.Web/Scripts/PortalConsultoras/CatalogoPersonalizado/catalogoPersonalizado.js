@@ -16,7 +16,7 @@ var rangoPrecios = 0;
 var mPremax = 0.00;
 var mPremin = 0.00;
 var flagEvento = true;
-var tieneMicroefecto = false;
+//var tieneMicroefecto = false;
 $(document).ready(function () {
     $(document).on('click', '[data-btn-agregar-catalogopersonalizado]', function () {
 
@@ -26,7 +26,7 @@ $(document).ready(function () {
         agregarProductoAlCarrito(this);
 
         var contenedor = $(this).parents("[data-item='catalogopersonalizado']");
-        AgregarProductoCatalogoPersonalizado(contenedor);
+        //AgregarProductoCatalogoPersonalizado(contenedor);
     });
     $(document).on('click', '#boton_vermas', function () {
         CargarCatalogoPersonalizado();
@@ -39,7 +39,7 @@ $(document).ready(function () {
         if (ReservadoOEnHorarioRestringido())
             return false;
         agregarProductoAlCarrito(this);
-        AgregarProductoOfertaRevista(this);
+        //AgregarProductoOfertaRevista(this);
     });
 
     $(document).on('click', '[data-close]', function () {
@@ -469,159 +469,159 @@ function CargarCatalogoPersonalizado() {
 
 }
 
-function AgregarProductoCatalogoPersonalizado(item) {
-    DialogLoadingAbrir();
+//function AgregarProductoCatalogoPersonalizado(item) {
+//    DialogLoadingAbrir();
 
-    var divPadre = item;
-    var attItem = $(item).attr("data-item") || "";
-    if (attItem == "") {
-        divPadre = $(item).parents("[data-item]").eq(0);
-    }
+//    var divPadre = item;
+//    var attItem = $(item).attr("data-item") || "";
+//    if (attItem == "") {
+//        divPadre = $(item).parents("[data-item]").eq(0);
+//    }
 
-    var cuv = $(divPadre).find(".hdItemCuv").val();
-    var cantidad = $(divPadre).find("[data-input='cantidad']").val();
-    var tipoOfertaSisID = $(divPadre).find(".hdItemTipoOfertaSisID").val();
-    var configuracionOfertaID = $(divPadre).find(".hdItemConfiguracionOfertaID").val();
-    var indicadorMontoMinimo = $(divPadre).find(".hdItemIndicadorMontoMinimo").val();
-    var marcaID = $(divPadre).find(".hdItemMarcaID").val();
-    var precioUnidad = $(divPadre).find(".hdItemPrecioUnidad").val();
-    var descripcionProd = $(divPadre).find(".hdItemDescripcionProd").val();
-    var OrigenPedidoWeb = $(divPadre).find(".OrigenPedidoWeb").val();
+//    var cuv = $(divPadre).find(".hdItemCuv").val();
+//    var cantidad = $(divPadre).find("[data-input='cantidad']").val();
+//    var tipoOfertaSisID = $(divPadre).find(".hdItemTipoOfertaSisID").val();
+//    var configuracionOfertaID = $(divPadre).find(".hdItemConfiguracionOfertaID").val();
+//    var indicadorMontoMinimo = $(divPadre).find(".hdItemIndicadorMontoMinimo").val();
+//    var marcaID = $(divPadre).find(".hdItemMarcaID").val();
+//    var precioUnidad = $(divPadre).find(".hdItemPrecioUnidad").val();
+//    var descripcionProd = $(divPadre).find(".hdItemDescripcionProd").val();
+//    var OrigenPedidoWeb = $(divPadre).find(".OrigenPedidoWeb").val();
 
-    if (!isInt(cantidad)) {
-        DialogMensaje("La cantidad ingresada debe ser un número mayor que cero, verifique");
-        DialogLoadingCerrar();
-        return false;
-    }
+//    if (!isInt(cantidad)) {
+//        DialogMensaje("La cantidad ingresada debe ser un número mayor que cero, verifique");
+//        DialogLoadingCerrar();
+//        return false;
+//    }
 
-    if (cantidad <= 0) {
-        DialogMensaje("La cantidad ingresada debe ser mayor que cero, verifique");
-        DialogLoadingCerrar();
-        return false;
-    }
+//    if (cantidad <= 0) {
+//        DialogMensaje("La cantidad ingresada debe ser mayor que cero, verifique");
+//        DialogLoadingCerrar();
+//        return false;
+//    }
 
-    if (tipoOrigen == '3') {
-        var imagenProducto = $('#imagenAnimacion>img', item);
+//    if (tipoOrigen == '3') {
+//        var imagenProducto = $('#imagenAnimacion>img', item);
 
-        if (imagenProducto.length > 0) {
-            var carrito = $('.campana');
+//        if (imagenProducto.length > 0) {
+//            var carrito = $('.campana');
 
-            $("body").prepend('<img src="' + imagenProducto.attr("src") + '" class="transicion">');
+//            $("body").prepend('<img src="' + imagenProducto.attr("src") + '" class="transicion">');
 
-            $(".transicion").css({
-                'height': imagenProducto.css("height"),
-                'width': imagenProducto.css("width"),
-                'top': imagenProducto.offset().top,
-                'left': imagenProducto.offset().left,
-            }).animate({
-                'top': carrito.offset().top - 60,
-                'left': carrito.offset().left + 100,
-                'height': carrito.css("height"),
-                'width': carrito.css("width"),
-                'opacity': 0.5
-            }, 450, 'swing', function () {
-                $(this).animate({
-                    'top': carrito.offset().top,
-                    'opacity': 0,
-                }, 150, 'swing', function () {
-                    $(this).remove();
-                });
-            });
-        }
-    }
+//            $(".transicion").css({
+//                'height': imagenProducto.css("height"),
+//                'width': imagenProducto.css("width"),
+//                'top': imagenProducto.offset().top,
+//                'left': imagenProducto.offset().left,
+//            }).animate({
+//                'top': carrito.offset().top - 60,
+//                'left': carrito.offset().left + 100,
+//                'height': carrito.css("height"),
+//                'width': carrito.css("width"),
+//                'opacity': 0.5
+//            }, 450, 'swing', function () {
+//                $(this).animate({
+//                    'top': carrito.offset().top,
+//                    'opacity': 0,
+//                }, 150, 'swing', function () {
+//                    $(this).remove();
+//                });
+//            });
+//        }
+//    }
 
-    var model = {
-        CUV: cuv,
-        Cantidad: cantidad,
-        PrecioUnidad: precioUnidad,
-        OrigenPedidoWeb: OrigenPedidoWeb,
-        MarcaID: marcaID,
-        DescripcionProd: descripcionProd,
-        TipoOfertaSisID: tipoOfertaSisID,
-        IndicadorMontoMinimo: indicadorMontoMinimo,
-        ConfiguracionOfertaID: configuracionOfertaID
-    };
+//    var model = {
+//        CUV: cuv,
+//        Cantidad: cantidad,
+//        PrecioUnidad: precioUnidad,
+//        OrigenPedidoWeb: OrigenPedidoWeb,
+//        MarcaID: marcaID,
+//        DescripcionProd: descripcionProd,
+//        TipoOfertaSisID: tipoOfertaSisID,
+//        IndicadorMontoMinimo: indicadorMontoMinimo,
+//        ConfiguracionOfertaID: configuracionOfertaID
+//    };
 
-    AgregarProducto(model, function () { $(divPadre).find(".product-add").show(); });
-}
+//    AgregarProducto(model, function () { $(divPadre).find(".product-add").show(); });
+//}
 
-function AgregarProducto(item, otraFunct) {
+//function AgregarProducto(item, otraFunct) {
 
-    DialogLoadingAbrir();
-    tieneMicroefecto = true;
+//    DialogLoadingAbrir();
+//    tieneMicroefecto = true;
 
-    jQuery.ajax({
-        type: 'POST',
-        url: baseUrl + 'Pedido/PedidoInsertar',
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(item),
-        async: true,
-        success: function (data) {
-            if (checkTimeout(data)) {
-                if (data.success == true) {
-                    if (tipoOrigen == '3') {
-                        MostrarBarra(data, '1');
-                    }
-                    else {
-                        ActualizarGanancia(data.DataBarra);
-                    }
+//    jQuery.ajax({
+//        type: 'POST',
+//        url: baseUrl + 'Pedido/PedidoInsertar',
+//        dataType: 'json',
+//        contentType: 'application/json; charset=utf-8',
+//        data: JSON.stringify(item),
+//        async: true,
+//        success: function (data) {
+//            if (checkTimeout(data)) {
+//                if (data.success == true) {
+//                    if (tipoOrigen == '3') {
+//                        MostrarBarra(data, '1');
+//                    }
+//                    else {
+//                        ActualizarGanancia(data.DataBarra);
+//                    }
 
-                    if (tipoOrigen == '2') {
+//                    if (tipoOrigen == '2') {
 
-                        CargarCantidadProductosPedidos();
-                    }
-                    else {
-                        CargarResumenCampaniaHeader(true);
-                    }
+//                        CargarCantidadProductosPedidos();
+//                    }
+//                    else {
+//                        CargarResumenCampaniaHeader(true);
+//                    }
 
-                    TrackingJetloreAdd(item.Cantidad, $("#hdCampaniaCodigo").val(), item.CUV);
+//                    TrackingJetloreAdd(item.Cantidad, $("#hdCampaniaCodigo").val(), item.CUV);
 
-                    if (typeof (otraFunct) == 'function' || typeof (otraFunct) == 'string') {
-                        setTimeout(otraFunct, 50);
-                    }
+//                    if (typeof (otraFunct) == 'function' || typeof (otraFunct) == 'string') {
+//                        setTimeout(otraFunct, 50);
+//                    }
 
-                    if (tipoOrigen == '2') {
+//                    if (tipoOrigen == '2') {
 
-                        if (parseInt(item.Cantidad) > 1) {
-                            if (typeof codTipoOferta != 'undefined' && codTipoOferta == '048N') {
-                                var resumen = getDatosResumenOferta048N(parseInt(item.Cantidad));
-                                if (resumen != null && resumen.lista_oObjGratis.length > 0) {
-                                    SetHandlebars("#template-resumenoferta048N", resumen, '#PopupResumenOferta048N');
-                                    $('#PopupResumenOferta048N').show();
-                                    DialogLoadingCerrar();
-                                    return false;
-                                }
-                            }
-                        }
+//                        if (parseInt(item.Cantidad) > 1) {
+//                            if (typeof codTipoOferta != 'undefined' && codTipoOferta == '048N') {
+//                                var resumen = getDatosResumenOferta048N(parseInt(item.Cantidad));
+//                                if (resumen != null && resumen.lista_oObjGratis.length > 0) {
+//                                    SetHandlebars("#template-resumenoferta048N", resumen, '#PopupResumenOferta048N');
+//                                    $('#PopupResumenOferta048N').show();
+//                                    DialogLoadingCerrar();
+//                                    return false;
+//                                }
+//                            }
+//                        }
 
-                        if (typeof isAddFichaProductoFAV !== 'undefined') {
-                            document.location.href = urlCatalogoPersonalizado;
-                        }
-                    }
+//                        if (typeof isAddFichaProductoFAV !== 'undefined') {
+//                            document.location.href = urlCatalogoPersonalizado;
+//                        }
+//                    }
 
-                    if (tipoOrigen != 2) {
-                        if ($('#PopFichaProductoNueva').is(':visible')) {
-                            $('#PopFichaProductoNueva').hide();
-                        }
-                    }
+//                    if (tipoOrigen != 2) {
+//                        if ($('#PopFichaProductoNueva').is(':visible')) {
+//                            $('#PopFichaProductoNueva').hide();
+//                        }
+//                    }
 
-                }
-                else {
-                    messageInfoError(data.message);
-                }
+//                }
+//                else {
+//                    messageInfoError(data.message);
+//                }
 
-                DialogLoadingCerrar();
-            }
-        },
-        error: function (data, error) {
-            if (checkTimeout(data)) {
-                tieneMicroefecto = false;
-                AjaxError(data, error);
-            }
-        }
-    });
-}
+//                DialogLoadingCerrar();
+//            }
+//        },
+//        error: function (data, error) {
+//            if (checkTimeout(data)) {
+//                tieneMicroefecto = false;
+//                AjaxError(data, error);
+//            }
+//        }
+//    });
+//}
 
 function ObtenerOfertaRevista(item) {
 
@@ -774,92 +774,92 @@ function ObtenerOfertaRevista(item) {
     });
 }
 
-function AgregarProductoOfertaRevista(btn) {
+//function AgregarProductoOfertaRevista(btn) {
 
-    var tipoCUV = $(btn).attr('data-cuv');
-    var item = $(btn).parents("[data-oferta-popup]");
+//    var tipoCUV = $(btn).attr('data-cuv');
+//    var item = $(btn).parents("[data-oferta-popup]");
 
-    DialogLoadingAbrir();
-    var hidden = "";
+//    DialogLoadingAbrir();
+//    var hidden = "";
 
-    if (tipoCUV == 'revista' || tipoCUV == 'pack') {
-        hidden = $(item).find('#hiddenRevista');
-    } else if (tipoCUV == 'catalogo') {
-        hidden = $(item).find('#hiddenCatalogo');
-    }
+//    if (tipoCUV == 'revista' || tipoCUV == 'pack') {
+//        hidden = $(item).find('#hiddenRevista');
+//    } else if (tipoCUV == 'catalogo') {
+//        hidden = $(item).find('#hiddenCatalogo');
+//    }
 
-    if (hidden.length == 0) {
-        DialogLoadingCerrar();
-        return false;
-    }
+//    if (hidden.length == 0) {
+//        DialogLoadingCerrar();
+//        return false;
+//    }
 
-    var cantidad = $(item).find('[data-cantidad-input="' + tipoCUV + '"]').val();
+//    var cantidad = $(item).find('[data-cantidad-input="' + tipoCUV + '"]').val();
 
-    if (!isInt(cantidad)) {
-        DialogMensaje("La cantidad ingresada debe ser un número mayor que cero, verifique");
-        DialogLoadingCerrar();
-        return false;
-    }
+//    if (!isInt(cantidad)) {
+//        DialogMensaje("La cantidad ingresada debe ser un número mayor que cero, verifique");
+//        DialogLoadingCerrar();
+//        return false;
+//    }
 
-    if (cantidad <= 0) {
-        DialogMensaje("La cantidad ingresada debe ser mayor que cero, verifique");
-        DialogLoadingCerrar();
-        return false;
-    }
+//    if (cantidad <= 0) {
+//        DialogMensaje("La cantidad ingresada debe ser mayor que cero, verifique");
+//        DialogLoadingCerrar();
+//        return false;
+//    }
 
-    var precioUnidadAdd = $(hidden).find(".hdItemPrecioUnidad").val();
-    if (tipoCUV == 'pack') {
-        precioUnidadAdd = $(btn).parents(".item_pack_personalizado").find('.hdItemPackPrecio').val();
-    }
+//    var precioUnidadAdd = $(hidden).find(".hdItemPrecioUnidad").val();
+//    if (tipoCUV == 'pack') {
+//        precioUnidadAdd = $(btn).parents(".item_pack_personalizado").find('.hdItemPackPrecio').val();
+//    }
 
-    var cuvAdd = tipoCUV == 'pack' ? $(btn).attr("data-cuvadd") : $(hidden).find(".hdItemCuv").val();
+//    var cuvAdd = tipoCUV == 'pack' ? $(btn).attr("data-cuvadd") : $(hidden).find(".hdItemCuv").val();
 
-    var imagenProducto = $('#imagenAnimacion>img', item);
+//    var imagenProducto = $('#imagenAnimacion>img', item);
 
-    if (imagenProducto.length > 0) {
-        var carrito = $('.campana');
+//    if (imagenProducto.length > 0) {
+//        var carrito = $('.campana');
 
-        $("body").prepend('<img src="' + imagenProducto.attr("src") + '" class="transicion">');
+//        $("body").prepend('<img src="' + imagenProducto.attr("src") + '" class="transicion">');
 
-        $(".transicion").css({
-            'height': imagenProducto.css("height"),
-            'width': imagenProducto.css("width"),
-            'top': imagenProducto.offset().top,
-            'left': imagenProducto.offset().left,
-        }).animate({
-            'top': carrito.offset().top - 60,
-            'left': carrito.offset().left + 100,
-            'height': carrito.css("height"),
-            'width': carrito.css("width"),
-            'opacity': 0.5
-        }, 450, 'swing', function () {
-            $(this).animate({
-                'top': carrito.offset().top,
-                'opacity': 0,
-            }, 150, 'swing', function () {
-                $(this).remove();
-            });
-        });
-    }
+//        $(".transicion").css({
+//            'height': imagenProducto.css("height"),
+//            'width': imagenProducto.css("width"),
+//            'top': imagenProducto.offset().top,
+//            'left': imagenProducto.offset().left,
+//        }).animate({
+//            'top': carrito.offset().top - 60,
+//            'left': carrito.offset().left + 100,
+//            'height': carrito.css("height"),
+//            'width': carrito.css("width"),
+//            'opacity': 0.5
+//        }, 450, 'swing', function () {
+//            $(this).animate({
+//                'top': carrito.offset().top,
+//                'opacity': 0,
+//            }, 150, 'swing', function () {
+//                $(this).remove();
+//            });
+//        });
+//    }
 
 
-    var model = {
-        CUV: cuvAdd,
-        Cantidad: cantidad,
-        PrecioUnidad: precioUnidadAdd,
-        OrigenPedidoWeb: $(hidden).find(".OrigenPedidoWeb").val(),
-        MarcaID: $(hidden).find(".hdItemMarcaID").val(),
-        DescripcionProd: $(hidden).find(".hdItemDescripcionProd").val(),
-        TipoOfertaSisID: $(hidden).find(".hdItemTipoOfertaSisID").val(),
-        IndicadorMontoMinimo: $(hidden).find(".hdItemIndicadorMontoMinimo").val(),
-        ConfiguracionOfertaID: $(hidden).find(".hdItemConfiguracionOfertaID").val()
-    };
+//    var model = {
+//        CUV: cuvAdd,
+//        Cantidad: cantidad,
+//        PrecioUnidad: precioUnidadAdd,
+//        OrigenPedidoWeb: $(hidden).find(".OrigenPedidoWeb").val(),
+//        MarcaID: $(hidden).find(".hdItemMarcaID").val(),
+//        DescripcionProd: $(hidden).find(".hdItemDescripcionProd").val(),
+//        TipoOfertaSisID: $(hidden).find(".hdItemTipoOfertaSisID").val(),
+//        IndicadorMontoMinimo: $(hidden).find(".hdItemIndicadorMontoMinimo").val(),
+//        ConfiguracionOfertaID: $(hidden).find(".hdItemConfiguracionOfertaID").val()
+//    };
 
-    AgregarProducto(model, function () {
-        $("[data-item='catalogopersonalizado']:has(.hdItemCuv[value='" + cuvAdd + "'])").find(".product-add").show();
-        $('[data-oferta]').attr("class", "").hide();
-    });
-}
+//    AgregarProducto(model, function () {
+//        $("[data-item='catalogopersonalizado']:has(.hdItemCuv[value='" + cuvAdd + "'])").find(".product-add").show();
+//        $('[data-oferta]').attr("class", "").hide();
+//    });
+//}
 
 function agregarProductoAlCarrito(o) {
 
@@ -1107,36 +1107,36 @@ function cambiarInfoFichaProductoFAV(tipo, cuv, origen) {
     }
 }
 
-function agregarCuvPedidoFichaProductoFAV(tipo) {
-    var container = null;
-    if (tipo == 2)
-        container = $('#PrecioCatalogo').find('[data-item="catalogopersonalizado"]');
-    else
-        container = $('#PopFichaProductoNueva').find('[data-item="catalogopersonalizado"]');
+//function agregarCuvPedidoFichaProductoFAV(tipo) {
+//    var container = null;
+//    if (tipo == 2)
+//        container = $('#PrecioCatalogo').find('[data-item="catalogopersonalizado"]');
+//    else
+//        container = $('#PopFichaProductoNueva').find('[data-item="catalogopersonalizado"]');
 
-    if (typeof container != 'undefined') {
+//    if (typeof container != 'undefined') {
 
-        var cuv = $(container).find('#hdCuvFichaProductoFAVSelect').val();
+//        var cuv = $(container).find('#hdCuvFichaProductoFAVSelect').val();
 
-        if (typeof cuv != 'undefined' && cuv != '') {
-            var esMaquillaje = $(container).find('.hdItemEsMaquillaje').val();
+//        if (typeof cuv != 'undefined' && cuv != '') {
+//            var esMaquillaje = $(container).find('.hdItemEsMaquillaje').val();
 
-            if (esMaquillaje) {
-                $(container).find('.hdItemCuv').val(cuv);
-            }
+//            if (esMaquillaje) {
+//                $(container).find('.hdItemCuv').val(cuv);
+//            }
 
-            tipoOrigen = tipo;
+//            tipoOrigen = tipo;
 
-            if (ReservadoOEnHorarioRestringido())
-                return false;
+//            if (ReservadoOEnHorarioRestringido())
+//                return false;
 
-            agregarProductoAlCarrito(this);
+//            agregarProductoAlCarrito(this);
 
-            AgregarProductoCatalogoPersonalizado(container);
-        }
-    }
+//            AgregarProductoCatalogoPersonalizado(container);
+//        }
+//    }
 
-}
+//}
 
 function AjustarTonoTooltips(objcontenedor) {
     var arrayObjTooltip = objcontenedor.find('.content_tonos_maquillaje .tooltip_tono');
