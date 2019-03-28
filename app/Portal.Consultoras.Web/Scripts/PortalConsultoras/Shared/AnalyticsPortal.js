@@ -1568,18 +1568,15 @@ var AnalyticsPortalModule = (function () {
             });
         }
 
-        //HD-3473 EINCA 
+        //HD-3473 EINCA para duo solo se registra uno
         if (codigoSeccion == _codigoSeccion.DP) {
-            $.each(data, function (index) {
-                var item = data[index];
-                var element = {
-                    'id': _constantes.IdBennerDuoPerfecto,
-                    'name': 'Arma tu Dúo Perfecto - Dúo Perfecto',
-                    'position': (pos !== undefined || pos !== "undefined") ? pos + ' - Dúo Perfecto' : '',
-                    'creative': "Banner"
-                };
-                collection.push(element);
-            });
+            var element = {
+                'id': _constantes.IdBennerDuoPerfecto,
+                'name': 'Arma tu Dúo Perfecto - Dúo Perfecto',
+                'position': (pos !== undefined || pos !== "undefined") ? pos + ' - Dúo Perfecto' : '',
+                'creative': "Banner"
+            };
+            collection.push(element);
         }
 
         return collection;
