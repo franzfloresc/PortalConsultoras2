@@ -407,7 +407,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
             }
 
-            long nivel = DatosConsultora[0].NivelActual;
+            long nivel = DatosConsultora[0].Nivel;
             return Json(new { list = objniveles, NivelActual = nivel }, JsonRequestBehavior.AllowGet);
         }
 

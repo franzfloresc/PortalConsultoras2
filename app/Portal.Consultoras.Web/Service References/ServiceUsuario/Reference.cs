@@ -6305,14 +6305,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEBeneficioCaminoBrillante[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEBeneficioCaminoBrillante))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEConsultoraCaminoBrillante))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BELogroCaminoBrillante[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BELogroCaminoBrillante))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BELogroCaminoBrillante.BEIndicadorCaminoBrillante[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BELogroCaminoBrillante.BEIndicadorCaminoBrillante))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BELogroCaminoBrillante[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEValidaLoginSB2))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExternoPais))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.EAplicacionOrigen))]
@@ -6989,6 +6989,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Portal.Consultoras.Web.ServiceUsuario.BELogroCaminoBrillante[] LogrosField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Portal.Consultoras.Web.ServiceUsuario.BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante[] NivelConsultoraField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -7004,6 +7007,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Portal.Consultoras.Web.ServiceUsuario.BELogroCaminoBrillante[] Logros {
+            get {
+                return this.LogrosField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.LogrosField, value) != true)) {
+                    this.LogrosField = value;
+                    this.RaisePropertyChanged("Logros");
+                }
             }
         }
         
@@ -7069,6 +7085,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             private string CampaniaField;
             
             [System.Runtime.Serialization.OptionalFieldAttribute()]
+            private bool EsActualField;
+            
+            [System.Runtime.Serialization.OptionalFieldAttribute()]
             private string FechaIngresoField;
             
             [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -7087,7 +7106,7 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             private string MontoPedidoField;
             
             [System.Runtime.Serialization.OptionalFieldAttribute()]
-            private string NivelActualField;
+            private string NivelField;
             
             [System.Runtime.Serialization.OptionalFieldAttribute()]
             private string PeriodoCaeField;
@@ -7110,6 +7129,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                     if ((object.ReferenceEquals(this.CampaniaField, value) != true)) {
                         this.CampaniaField = value;
                         this.RaisePropertyChanged("Campania");
+                    }
+                }
+            }
+            
+            [System.Runtime.Serialization.DataMemberAttribute()]
+            public bool EsActual {
+                get {
+                    return this.EsActualField;
+                }
+                set {
+                    if ((this.EsActualField.Equals(value) != true)) {
+                        this.EsActualField = value;
+                        this.RaisePropertyChanged("EsActual");
                     }
                 }
             }
@@ -7193,14 +7225,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             }
             
             [System.Runtime.Serialization.DataMemberAttribute()]
-            public string NivelActual {
+            public string Nivel {
                 get {
-                    return this.NivelActualField;
+                    return this.NivelField;
                 }
                 set {
-                    if ((object.ReferenceEquals(this.NivelActualField, value) != true)) {
-                        this.NivelActualField = value;
-                        this.RaisePropertyChanged("NivelActual");
+                    if ((object.ReferenceEquals(this.NivelField, value) != true)) {
+                        this.NivelField = value;
+                        this.RaisePropertyChanged("Nivel");
                     }
                 }
             }
@@ -13751,22 +13783,22 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         System.Threading.Tasks.Task RegistrarDireccionEntregaAsync(string codigoISO, Portal.Consultoras.Web.ServiceUsuario.BEDireccionEntrega direccionEntrega);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetNivelesCaminoBrillante", ReplyAction="http://tempuri.org/IUsuarioService/GetNivelesCaminoBrillanteResponse")]
-        Portal.Consultoras.Web.ServiceUsuario.BENivelCaminoBrillante[] GetNivelesCaminoBrillante(int paisId);
+        Portal.Consultoras.Web.ServiceUsuario.BENivelCaminoBrillante[] GetNivelesCaminoBrillante(int paisId, bool isWeb);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetNivelesCaminoBrillante", ReplyAction="http://tempuri.org/IUsuarioService/GetNivelesCaminoBrillanteResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BENivelCaminoBrillante[]> GetNivelesCaminoBrillanteAsync(int paisId);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BENivelCaminoBrillante[]> GetNivelesCaminoBrillanteAsync(int paisId, bool isWeb);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetConsultoraNivelCaminoBrillante", ReplyAction="http://tempuri.org/IUsuarioService/GetConsultoraNivelCaminoBrillanteResponse")]
-        Portal.Consultoras.Web.ServiceUsuario.BEConsultoraCaminoBrillante GetConsultoraNivelCaminoBrillante(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEUsuario entidad);
+        Portal.Consultoras.Web.ServiceUsuario.BEConsultoraCaminoBrillante GetConsultoraNivelCaminoBrillante(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEUsuario entidad, bool isWeb);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetConsultoraNivelCaminoBrillante", ReplyAction="http://tempuri.org/IUsuarioService/GetConsultoraNivelCaminoBrillanteResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEConsultoraCaminoBrillante> GetConsultoraNivelCaminoBrillanteAsync(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEUsuario entidad);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEConsultoraCaminoBrillante> GetConsultoraNivelCaminoBrillanteAsync(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEUsuario entidad, bool isWeb);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetConsultoraLogrosCaminoBrillante", ReplyAction="http://tempuri.org/IUsuarioService/GetConsultoraLogrosCaminoBrillanteResponse")]
-        Portal.Consultoras.Web.ServiceUsuario.BELogroCaminoBrillante[] GetConsultoraLogrosCaminoBrillante(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEUsuario entidad);
+        Portal.Consultoras.Web.ServiceUsuario.BELogroCaminoBrillante[] GetConsultoraLogrosCaminoBrillante(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEUsuario entidad, bool isWeb);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetConsultoraLogrosCaminoBrillante", ReplyAction="http://tempuri.org/IUsuarioService/GetConsultoraLogrosCaminoBrillanteResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BELogroCaminoBrillante[]> GetConsultoraLogrosCaminoBrillanteAsync(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEUsuario entidad);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BELogroCaminoBrillante[]> GetConsultoraLogrosCaminoBrillanteAsync(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEUsuario entidad, bool isWeb);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/Select", ReplyAction="http://tempuri.org/IUsuarioService/SelectResponse")]
         Portal.Consultoras.Web.ServiceUsuario.BEUsuario Select(int paisID, string codigoUsuario);
@@ -14786,28 +14818,28 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.RegistrarDireccionEntregaAsync(codigoISO, direccionEntrega);
         }
         
-        public Portal.Consultoras.Web.ServiceUsuario.BENivelCaminoBrillante[] GetNivelesCaminoBrillante(int paisId) {
-            return base.Channel.GetNivelesCaminoBrillante(paisId);
+        public Portal.Consultoras.Web.ServiceUsuario.BENivelCaminoBrillante[] GetNivelesCaminoBrillante(int paisId, bool isWeb) {
+            return base.Channel.GetNivelesCaminoBrillante(paisId, isWeb);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BENivelCaminoBrillante[]> GetNivelesCaminoBrillanteAsync(int paisId) {
-            return base.Channel.GetNivelesCaminoBrillanteAsync(paisId);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BENivelCaminoBrillante[]> GetNivelesCaminoBrillanteAsync(int paisId, bool isWeb) {
+            return base.Channel.GetNivelesCaminoBrillanteAsync(paisId, isWeb);
         }
         
-        public Portal.Consultoras.Web.ServiceUsuario.BEConsultoraCaminoBrillante GetConsultoraNivelCaminoBrillante(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEUsuario entidad) {
-            return base.Channel.GetConsultoraNivelCaminoBrillante(paisId, entidad);
+        public Portal.Consultoras.Web.ServiceUsuario.BEConsultoraCaminoBrillante GetConsultoraNivelCaminoBrillante(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEUsuario entidad, bool isWeb) {
+            return base.Channel.GetConsultoraNivelCaminoBrillante(paisId, entidad, isWeb);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEConsultoraCaminoBrillante> GetConsultoraNivelCaminoBrillanteAsync(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEUsuario entidad) {
-            return base.Channel.GetConsultoraNivelCaminoBrillanteAsync(paisId, entidad);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEConsultoraCaminoBrillante> GetConsultoraNivelCaminoBrillanteAsync(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEUsuario entidad, bool isWeb) {
+            return base.Channel.GetConsultoraNivelCaminoBrillanteAsync(paisId, entidad, isWeb);
         }
         
-        public Portal.Consultoras.Web.ServiceUsuario.BELogroCaminoBrillante[] GetConsultoraLogrosCaminoBrillante(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEUsuario entidad) {
-            return base.Channel.GetConsultoraLogrosCaminoBrillante(paisId, entidad);
+        public Portal.Consultoras.Web.ServiceUsuario.BELogroCaminoBrillante[] GetConsultoraLogrosCaminoBrillante(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEUsuario entidad, bool isWeb) {
+            return base.Channel.GetConsultoraLogrosCaminoBrillante(paisId, entidad, isWeb);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BELogroCaminoBrillante[]> GetConsultoraLogrosCaminoBrillanteAsync(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEUsuario entidad) {
-            return base.Channel.GetConsultoraLogrosCaminoBrillanteAsync(paisId, entidad);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BELogroCaminoBrillante[]> GetConsultoraLogrosCaminoBrillanteAsync(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEUsuario entidad, bool isWeb) {
+            return base.Channel.GetConsultoraLogrosCaminoBrillanteAsync(paisId, entidad, isWeb);
         }
         
         public Portal.Consultoras.Web.ServiceUsuario.BEUsuario Select(int paisID, string codigoUsuario) {
