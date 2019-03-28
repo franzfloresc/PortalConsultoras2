@@ -887,6 +887,60 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
+  <xs:element name="ActualizarValidacionDatos">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="isMobile" type="xs:boolean" />
+        <xs:element minOccurs="0" name="ipDispositivo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="codigoConsultora" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element minOccurs="0" name="CodigoUsuario" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ActualizarValidacionDatosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ActualizarValidacionDatosResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ActualizarSMS">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element minOccurs="0" name="codigoConsultora" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="tipoEnvio" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="celularAnterior" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="celularActual" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ActualizarSMSResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ActualizarSMSResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ActualizarFijo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element minOccurs="0" name="codigoConsultora" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="tipoEnvio" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="telefonoAnterior" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="telefonoActual" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ActualizarFijoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ActualizarFijoResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="Select">
     <xs:complexType>
       <xs:sequence>

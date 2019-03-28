@@ -1789,6 +1789,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string GPRTextovinculoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool GanaMasNativoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Portal.Consultoras.Web.ServiceUsuario.BEGuiaNegocio GuiaNegocioField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -2069,6 +2072,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool TieneCDRExpressField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool TieneChatbotField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int TieneCuponField;
@@ -3424,6 +3430,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool GanaMasNativo {
+            get {
+                return this.GanaMasNativoField;
+            }
+            set {
+                if ((this.GanaMasNativoField.Equals(value) != true)) {
+                    this.GanaMasNativoField = value;
+                    this.RaisePropertyChanged("GanaMasNativo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public Portal.Consultoras.Web.ServiceUsuario.BEGuiaNegocio GuiaNegocio {
             get {
                 return this.GuiaNegocioField;
@@ -4641,6 +4660,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.TieneCDRExpressField.Equals(value) != true)) {
                     this.TieneCDRExpressField = value;
                     this.RaisePropertyChanged("TieneCDRExpress");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool TieneChatbot {
+            get {
+                return this.TieneChatbotField;
+            }
+            set {
+                if ((this.TieneChatbotField.Equals(value) != true)) {
+                    this.TieneChatbotField = value;
+                    this.RaisePropertyChanged("TieneChatbot");
                 }
             }
         }
@@ -12852,6 +12884,24 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/RegistrarDireccionEntrega", ReplyAction="http://tempuri.org/IUsuarioService/RegistrarDireccionEntregaResponse")]
         System.Threading.Tasks.Task RegistrarDireccionEntregaAsync(string codigoISO, Portal.Consultoras.Web.ServiceUsuario.BEDireccionEntrega direccionEntrega);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ActualizarValidacionDatos", ReplyAction="http://tempuri.org/IUsuarioService/ActualizarValidacionDatosResponse")]
+        int ActualizarValidacionDatos(bool isMobile, string ipDispositivo, string codigoConsultora, int PaisID, string CodigoUsuario);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ActualizarValidacionDatos", ReplyAction="http://tempuri.org/IUsuarioService/ActualizarValidacionDatosResponse")]
+        System.Threading.Tasks.Task<int> ActualizarValidacionDatosAsync(bool isMobile, string ipDispositivo, string codigoConsultora, int PaisID, string CodigoUsuario);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ActualizarSMS", ReplyAction="http://tempuri.org/IUsuarioService/ActualizarSMSResponse")]
+        int ActualizarSMS(int PaisID, string codigoConsultora, string tipoEnvio, string celularAnterior, string celularActual);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ActualizarSMS", ReplyAction="http://tempuri.org/IUsuarioService/ActualizarSMSResponse")]
+        System.Threading.Tasks.Task<int> ActualizarSMSAsync(int PaisID, string codigoConsultora, string tipoEnvio, string celularAnterior, string celularActual);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ActualizarFijo", ReplyAction="http://tempuri.org/IUsuarioService/ActualizarFijoResponse")]
+        int ActualizarFijo(int PaisID, string codigoConsultora, string tipoEnvio, string telefonoAnterior, string telefonoActual);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ActualizarFijo", ReplyAction="http://tempuri.org/IUsuarioService/ActualizarFijoResponse")]
+        System.Threading.Tasks.Task<int> ActualizarFijoAsync(int PaisID, string codigoConsultora, string tipoEnvio, string telefonoAnterior, string telefonoActual);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/Select", ReplyAction="http://tempuri.org/IUsuarioService/SelectResponse")]
         Portal.Consultoras.Web.ServiceUsuario.BEUsuario Select(int paisID, string codigoUsuario);
         
@@ -13860,6 +13910,30 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public System.Threading.Tasks.Task RegistrarDireccionEntregaAsync(string codigoISO, Portal.Consultoras.Web.ServiceUsuario.BEDireccionEntrega direccionEntrega) {
             return base.Channel.RegistrarDireccionEntregaAsync(codigoISO, direccionEntrega);
+        }
+        
+        public int ActualizarValidacionDatos(bool isMobile, string ipDispositivo, string codigoConsultora, int PaisID, string CodigoUsuario) {
+            return base.Channel.ActualizarValidacionDatos(isMobile, ipDispositivo, codigoConsultora, PaisID, CodigoUsuario);
+        }
+        
+        public System.Threading.Tasks.Task<int> ActualizarValidacionDatosAsync(bool isMobile, string ipDispositivo, string codigoConsultora, int PaisID, string CodigoUsuario) {
+            return base.Channel.ActualizarValidacionDatosAsync(isMobile, ipDispositivo, codigoConsultora, PaisID, CodigoUsuario);
+        }
+        
+        public int ActualizarSMS(int PaisID, string codigoConsultora, string tipoEnvio, string celularAnterior, string celularActual) {
+            return base.Channel.ActualizarSMS(PaisID, codigoConsultora, tipoEnvio, celularAnterior, celularActual);
+        }
+        
+        public System.Threading.Tasks.Task<int> ActualizarSMSAsync(int PaisID, string codigoConsultora, string tipoEnvio, string celularAnterior, string celularActual) {
+            return base.Channel.ActualizarSMSAsync(PaisID, codigoConsultora, tipoEnvio, celularAnterior, celularActual);
+        }
+        
+        public int ActualizarFijo(int PaisID, string codigoConsultora, string tipoEnvio, string telefonoAnterior, string telefonoActual) {
+            return base.Channel.ActualizarFijo(PaisID, codigoConsultora, tipoEnvio, telefonoAnterior, telefonoActual);
+        }
+        
+        public System.Threading.Tasks.Task<int> ActualizarFijoAsync(int PaisID, string codigoConsultora, string tipoEnvio, string telefonoAnterior, string telefonoActual) {
+            return base.Channel.ActualizarFijoAsync(PaisID, codigoConsultora, tipoEnvio, telefonoAnterior, telefonoActual);
         }
         
         public Portal.Consultoras.Web.ServiceUsuario.BEUsuario Select(int paisID, string codigoUsuario) {

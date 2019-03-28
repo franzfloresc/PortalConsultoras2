@@ -741,6 +741,24 @@ namespace Portal.Consultoras.BizLogic
             return consultora;
         }
 
+        public int ActualizarFijo(int paisID, string codigoConsultora, string tipoEnvio, string telefonoAnterior, string telefonoActual)
+        {
+            var daUsuario = new DAUsuario(paisID);
+            return daUsuario.ActualizarFijo(codigoConsultora, tipoEnvio, telefonoAnterior, telefonoActual);
+        }
+
+        public int ActualizarSMS(int paisID, string codigoConsultora, string tipoEnvio, string celularAnterior, string celularActual)
+        {
+            var daUsuario = new DAUsuario(paisID);
+            return daUsuario.ActualizarSMS(codigoConsultora, tipoEnvio, celularAnterior, celularActual);
+        }
+
+        public int ActualizarValidacionDatos(bool isMobile, string ipDispositivo, string codigoConsultora,  int paisID, string CodigoUsuario)
+        {
+            var daUsuario = new DAUsuario(paisID);
+            return daUsuario.ActualizarValidacionDatos(isMobile, codigoConsultora, ipDispositivo, CodigoUsuario);
+        }
+
         private BEUsuario GetUsuario(int paisID, string codigoUsuario)
         {
             using (var reader = new DAUsuario(paisID).GetSesionUsuario(codigoUsuario))
@@ -3621,6 +3639,7 @@ namespace Portal.Consultoras.BizLogic
             oMensaje.MensajeAmbos = tablaLogica.Where(a => a.TablaLogicaDatosID == Constantes.TablaLogicaDato.MensajeActualizarEmailSms).Select(b => b.Valor).FirstOrDefault();
             oMensaje.MensajeCelular = tablaLogica.Where(a => a.TablaLogicaDatosID == Constantes.TablaLogicaDato.MensajeActualizarSms).Select(b => b.Valor).FirstOrDefault();
             oMensaje.MensajeEmail = tablaLogica.Where(a => a.TablaLogicaDatosID == Constantes.TablaLogicaDato.MensajeActualizarEmail).Select(b => b.Valor).FirstOrDefault();
+            oMensaje.MensajeFijo = tablaLogica.Where(a => a.TablaLogicaDatosID == Constantes.TablaLogicaDato.MensajeActualizarFijo).Select(b => b.Valor).FirstOrDefault();
 
             return oMensaje;
         }

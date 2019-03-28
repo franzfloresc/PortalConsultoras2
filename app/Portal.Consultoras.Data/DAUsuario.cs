@@ -719,6 +719,39 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteNonQuery(command);
         }
 
+        public int ActualizarSMS(string codigoConsultora, string tipoEnvio, string celularAnterior, string celularActual)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetActualizarSMS");
+            Context.Database.AddInParameter(command, "@codigoConsultora", DbType.AnsiString, codigoConsultora);
+            Context.Database.AddInParameter(command, "@tipoEnvio", DbType.AnsiString, tipoEnvio);
+            Context.Database.AddInParameter(command, "@CelularAnterior", DbType.AnsiString, celularAnterior);
+            Context.Database.AddInParameter(command, "@CelularActual", DbType.AnsiString, celularActual);
+
+            return Context.ExecuteNonQuery(command);
+        }
+
+        public int ActualizarFijo(string codigoConsultora, string tipoEnvio, string telefonoAnterior, string telefonoActual)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetActualizarFijo");
+            Context.Database.AddInParameter(command, "@codigoConsultora", DbType.AnsiString, codigoConsultora);
+            Context.Database.AddInParameter(command, "@tipoEnvio", DbType.AnsiString, tipoEnvio);
+            Context.Database.AddInParameter(command, "@FijoAnterior", DbType.AnsiString, telefonoAnterior);
+            Context.Database.AddInParameter(command, "@FijoActual", DbType.AnsiString, telefonoActual);
+
+            return Context.ExecuteNonQuery(command);
+        }
+
+        public int ActualizarValidacionDatos(bool isMobile, string codigoConsultora, string ipDispositivo, string CodigoUsuario)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetActualizarValidacionDatos");
+            Context.Database.AddInParameter(command, "@isMobile", DbType.Boolean, isMobile);
+            Context.Database.AddInParameter(command, "@codigoConsultora", DbType.AnsiString, codigoConsultora);
+            Context.Database.AddInParameter(command, "@ipDispositivo", DbType.AnsiString, ipDispositivo);
+            Context.Database.AddInParameter(command, "@codigoUsuario", DbType.AnsiString, CodigoUsuario);
+
+            return Context.ExecuteNonQuery(command);
+        }
+
         public IDataReader GetUsuarioExternoByCodigoUsuario(string codigoUsuario)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetUsuarioExternoByCodigoUsuario");

@@ -418,6 +418,7 @@ function actualizarDatos() {
         return false;
     }
 
+    debugger;
     if (txtCelularMD != "") {
         if (!isInt(txtCelularMD)) {
             $('#btnGuardar')[0].disabled = false;

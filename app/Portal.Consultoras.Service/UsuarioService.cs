@@ -937,5 +937,23 @@ namespace Portal.Consultoras.Service
             return _usuarioBusinessLogic.GetUsuarioOpciones(paisID, codigoUsuario);
         }
         #endregion
+
+        public int ActualizarValidacionDatos(bool isMobile, string ipDispositivo,  string codigoConsultora, int PaisID, string CodigoUsuario)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.ActualizarValidacionDatos(isMobile, ipDispositivo, codigoConsultora, PaisID, CodigoUsuario);
+        }
+
+        public int ActualizarSMS(int PaisID, string CodigoUsuario, string tipoEnvio, string celularAnterior, string celularActual)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.ActualizarSMS(PaisID, CodigoUsuario, tipoEnvio, celularAnterior, celularActual);
+        }
+
+        public int ActualizarFijo(int PaisID, string CodigoUsuario, string tipoEnvio, string telefonoAnterior, string telefonoActual)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.ActualizarFijo(PaisID, CodigoUsuario, tipoEnvio, telefonoAnterior, telefonoActual);
+        }
     }
 }
