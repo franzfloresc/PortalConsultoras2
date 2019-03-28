@@ -398,5 +398,6 @@ namespace Portal.Consultoras.Web.Models
         public int NovedadBuscador { get; set; }
         public int IndicadorConsultoraDummy { get; set; }
         public Dictionary<string, string> ListaOrdenamientoFiltrosBuscador { get; set; }
+        public string PseudoParamNotif { get; set; } //SALUD-58 
     }
 }

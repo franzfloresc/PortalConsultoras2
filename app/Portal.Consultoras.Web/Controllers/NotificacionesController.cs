@@ -25,7 +25,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             _cdrProvider = new CdrProvider();
             _notificacionProvider = new NotificacionProvider();
-        } 
+        }
 
         public ActionResult Index()
         {
@@ -43,9 +43,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
 
-            //Limpiar Cache Notificaciones
-            LimpiarCacheNotificaciones();
-
             List<BENotificaciones> olstNotificaciones;
             NotificacionesModel model = new NotificacionesModel();
             using (UsuarioServiceClient sv = new UsuarioServiceClient())
@@ -54,12 +51,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
             model.ListaNotificaciones = olstNotificaciones;
             return View(model);
-        }
-
-        private void LimpiarCacheNotificaciones()
-        {
-            var urlToRemove = Url.Action("GetNotificacionesSinLeer", "Notificaciones");
-            HttpResponse.RemoveOutputCacheItem(urlToRemove);
         }
 
         public ActionResult ListarNotificaciones(long ProcesoId, int TipoOrigen)
@@ -122,9 +113,6 @@ namespace Portal.Consultoras.Web.Controllers
                             break;
                     }
                 }
-
-                //Limpiar Cache Notificaciones
-                LimpiarCacheNotificaciones();
                 return Json(new { success = true }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -465,16 +453,14 @@ namespace Portal.Consultoras.Web.Controllers
             return PartialView("DetallePagoEnLinea", pagoEnLineaModel);
         }
 
-        [HttpPost]
-        [OutputCacheAttribute(Duration = 1800 ,Location = System.Web.UI.OutputCacheLocation.Client,VaryByParam = "codigoUsuario")] //Media hora EINCA 204-01-2019
-        public JsonResult GetNotificacionesSinLeer(string codigoUsuario = "")
+        [HttpGet]
+        [OutputCache(Duration = 1800, Location = System.Web.UI.OutputCacheLocation.Client, VaryByParam = "pseudoParam;codigoUsuario")] //SALUD-58 30-01-2019
+        public JsonResult GetNotificacionesSinLeer(string pseudoParam, string codigoUsuario = "")
         {
             int cantidadNotificaciones = -1;
             var mensaje = string.Empty;
             try
             {
-                LogManager.LogManager.LogErrorWebServicesBus(new Exception("Registrando carga Notificaciones: "),userData.UsuarioNombre,userData.PaisID.ToString());
-
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
                     cantidadNotificaciones = sv.GetNotificacionesSinLeer(userData.PaisID, userData.ConsultoraID, userData.IndicadorBloqueoCDR, userData.TienePagoEnLinea);

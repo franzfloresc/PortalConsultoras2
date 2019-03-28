@@ -970,11 +970,14 @@ namespace Portal.Consultoras.Web.Controllers
             return resultadoInicioSesion;
         }
 
+       
+
         public async Task<UsuarioModel> GetUserData(int paisId, string codigoUsuario, int refrescarDatos = 0, bool esAppMobile = false)
         {
             pasoLog = "Login.GetUserData";
             sessionManager.SetIsContrato(1);
             sessionManager.SetIsOfertaPack(1);
+            var pseudoParamNotif =  (DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds;//SALUD-58       
 
             var usuarioModel = (UsuarioModel)null;
 
@@ -992,6 +995,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     #region
                     usuarioModel = new UsuarioModel();
+                    usuarioModel.PseudoParamNotif = pseudoParamNotif.ToString().Replace("-", ""); //SALUD-58
                     usuarioModel.NovedadBuscador = usuario.NovedadBuscador;
                     usuarioModel.CompraVDirectaCer = usuario.CompraVDirecta;
                     usuarioModel.IVACompraVDirectaCer = usuario.IVACompraVDirecta;
@@ -1184,6 +1188,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     usuarioModel.DocumentoIdentidad = usuario.DocumentoIdentidad;
                     usuarioModel.PromedioVenta = usuario.PromedioVenta;
+
                     #endregion
 
                     if (usuarioModel.RolID == Constantes.Rol.Consultora)
@@ -1356,7 +1361,6 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.PuedeActualizar = usuario.PuedeActualizar;
                     usuarioModel.PuedeEnviarSMS = usuario.PuedeEnviarSMS;
                     usuarioModel.FotoPerfilAncha = usuario.FotoPerfilAncha;
-
                     sessionManager.SetFlagLogCargaOfertas(HabilitarLogCargaOfertas(usuarioModel.PaisID));
                     sessionManager.SetTieneLan(true);
                     sessionManager.SetTieneLanX1(true);
@@ -1367,16 +1371,14 @@ namespace Portal.Consultoras.Web.Controllers
                     sessionManager.SetTieneHvX1(true);
                     sessionManager.SetJwtApiSomosBelcorp(usuarioModel.JwtToken);
                     sessionManager.SetTieneMg(true);
-
-
-
-
                     usuarioModel.FotoPerfil = usuario.FotoPerfil;
                     usuarioModel.FotoOriginalSinModificar = usuario.FotoOriginalSinModificar;
                     usuarioModel.DiaFacturacion = GetDiaFacturacion(usuarioModel.PaisID, usuarioModel.CampaniaID, usuarioModel.ConsultoraID, usuarioModel.ZonaID, usuarioModel.RegionID);
                     usuarioModel.NuevasDescripcionesBuscador = getNuevasDescripcionesBuscador(usuarioModel.PaisID);
                     usuarioModel.ListaOrdenamientoFiltrosBuscador = getListaOrdenamientoFiltrosBuscador(usuarioModel.PaisID);
+                    
                 }
+               
 
                 sessionManager.SetUserData(usuarioModel);
             }
@@ -1504,7 +1506,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return result != null;
-        }        
+        }
 
         private async Task<ServiceUsuario.BEUsuario> ActualizarDatosHana(UsuarioModel model)
         {
@@ -2392,7 +2394,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 paises = _zonificacionProvider.GetPaisesEntidad();
-                
+
                 paises.RemoveAll(p => p.CodigoISO == Constantes.CodigosISOPais.Argentina || p.CodigoISO == Constantes.CodigosISOPais.Venezuela);
             }
             catch (Exception ex)

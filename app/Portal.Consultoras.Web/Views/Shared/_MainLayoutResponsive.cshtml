@@ -40,7 +40,8 @@
         var indicadorEnviadoDescarga = '@ViewBag.IndicadorEnviado';
         var gTipoUsuario = '@ViewBag.TipoUsuario';
         var IsoPais = '@ViewBag.CodigoISODL';
-        var codigoConsultora = '@ViewBag.CodigoConsultoraDL'; //EINCA 24-01-2019
+        var codigoConsultora = '@ViewBag.CodigoConsultoraDL'; //SALUD-58
+        var pseudoParamNotif = '@ViewBag.PseudoParamNotif'; //SALUD-58
 
         //Postulante
         var mostrarBannerPostulante = '@ViewBag.MostrarBannerPostulante';
@@ -121,8 +122,8 @@
                     {
                         <picture class="d-block w-100">
                             @*<source media="(min-width: 992px)" srcset="@Url.Content("~/Content/images/Esika/logo_marca_pais_desktop.svg")">
-                            <source media="(max-width: 991px)" srcset="@Url.Content("~/Content/images/Esika/logo_marca_pais_mobile.svg")">
-                            <img class="logoPaginaResponsive pointer" src="@Url.Content("~/Content/images/Esika/logo_marca_pais_desktop.svg")" alt="Ésika">*@
+                                <source media="(max-width: 991px)" srcset="@Url.Content("~/Content/images/Esika/logo_marca_pais_mobile.svg")">
+                                <img class="logoPaginaResponsive pointer" src="@Url.Content("~/Content/images/Esika/logo_marca_pais_desktop.svg")" alt="Ésika">*@
                             <source media="(min-width: 992px)" srcset="@Url.Content("~/Content/images/Esika/logo_marca_pais_desktop_blanco.svg")">
                             <source media="(max-width: 991px)" srcset="@Url.Content("~/Content/images/Esika/logo_marca_pais_desktop_blanco.svg")">
                             <img class="logoPaginaResponsive pointer" src="@Url.Content("~/Content/images/Esika/logo_marca_pais_desktop_blanco.svg")" alt="Ésika">
@@ -132,7 +133,7 @@
                     {
                         <picture class="d-block w-100">
                             @*<source media="(min-width: 992px)" srcset="@Url.Content("~/Content/images/Lbel/logo_marca_pais.svg")">
-                            <img class="logoPaginaResponsive pointer" src="@Url.Content("~/Content/images/Lbel/logo_marca_pais.svg")">*@
+                                <img class="logoPaginaResponsive pointer" src="@Url.Content("~/Content/images/Lbel/logo_marca_pais.svg")">*@
                             <source media="(min-width: 992px)" srcset="@Url.Content("~/Content/images/Lbel/logo_marca_pais_blanco.svg")">
                             <img class="logoPaginaResponsive pointer" src="@Url.Content("~/Content/images/Lbel/logo_marca_pais_blanco.svg")">
                         </picture>
