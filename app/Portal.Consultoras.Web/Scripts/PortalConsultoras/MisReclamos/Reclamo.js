@@ -9,11 +9,6 @@ var tipoDespacho = false;
 
 $(document).ready(function () {
 
-    //$('.chosen-select').chosen();
-    //$('.chosen-select-deselect').chosen({ allow_single_deselect: true });
-
-    //$('.chosen-search-input').attr('placeholder', 'Buscar código o descripción');
-
     $("#ddlCampania").on("change", function () {
         $("#txtCantidad").val("1");
         $("#divMotivo").html("");
@@ -70,8 +65,6 @@ $(document).ready(function () {
         $("#txtCUV2").val('');
         $("#txtCUVPrecio2").val('');
         if (ValidarPasoUno()) {
-            //HD-3412 EINCA
-            //validar lado del server
             ValidarPasoUnoServer(function (result, msg) {
                 if (!result) {
                     alert_msg(msg);
@@ -101,8 +94,7 @@ $(document).ready(function () {
     });
 
     $("#CambioProducto2").on("click", function () {
-
-        //HD-3412 EINCA
+        
         if (ValidarPasoDosTrueque()) {
             ValidarPasoDosTruequeServer(function (result, msg) {
                 if (!result) {
@@ -131,8 +123,7 @@ $(document).ready(function () {
             alert_msg(mensajeGestionCdrInhabilitada);
             return false;
         }
-
-        //El if se hizo con !() para colnsiderar posibles valores null o undefined de $('#ddCampania').val()
+        
         if (!($('#ddlCampania').val() > 0)) {
             alert_msg(mensajeCdrFueraDeFechaCompleto);
             return false;
@@ -195,7 +186,7 @@ $(document).ready(function () {
         var precio = $("#hdCuvPrecio2").val();
         var cantidad = parseInt($("#txtCantidad2").val());
 
-        cantidad = cantidad == 99 ? 99 : cantidad; //+ 1;
+        cantidad = cantidad == 99 ? 99 : cantidad;
 
         var importeTotal = precio * cantidad;
 
@@ -233,7 +224,7 @@ $(document).ready(function () {
         var precio = $("#hdCuvPrecio2").val();
         var cantidad = parseInt($("#txtCantidad2").val());
 
-        cantidad = cantidad == 1 ? 1 : cantidad; //- 1;
+        cantidad = cantidad == 1 ? 1 : cantidad;
 
         var importeTotal = precio * cantidad;
 
@@ -572,8 +563,7 @@ function AsignarCUV(pedido) {
         $("#txtNumeroPedido").val(pedido.NumeroPedido);
         $("#txtPrecioUnidad").val(data.PrecioUnidad);
         $("#hdImporteTotalPedido").val(pedido.ImporteTotal);
-        //$("#CDRWebID").val(pedido.CDRWebID); //HD-3412 EINCA
-        $("#CDRWebID").val(CDRWebID); //HD-3412 EINCA
+        $("#CDRWebID").val(CDRWebID);
         BuscarMotivo();
         DetalleCargar();
     }
@@ -642,7 +632,7 @@ function ValidarPaso1() {
 
     var item = {
         PedidoID: $("#txtPedidoID").val(),
-        CUV: $.trim($("#ddlCuv").val()),//$.trim($("#txtCUV").val()),
+        CUV: $.trim($("#ddlCuv").val()),
         Cantidad: $.trim($("#txtCantidad").val()),
         Motivo: $.trim($("#divMotivo [data-check='1']").attr("id")),
         CampaniaID: $("#ddlCampania").val()
@@ -673,7 +663,6 @@ function ValidarPaso1() {
     return ok;
 }
 
-//HD-3412 EINCA
 function ValidarPasoUno() {
     if ($("#ddlCampania").val() == "" || $("#ddlCampania").val() == "0") {
         alert_msg("por favor, seleccionar una campaña.");
@@ -698,17 +687,6 @@ function ValidarPasoUno() {
         return false;
     }
 
-    //ok = $("#ddlCampania").val() > 0 ? ok : false;
-    //ok = $.trim($("#txtPedidoID").val()) > 0 ? ok : false;
-    //ok = $.trim($("#ddlCuv").val()) /*$.trim($("#txtCUV").val())*/ != "" ? ok : false;
-
-    //ok = $.trim($("#divMotivo [data-check='1']").attr("id")) != "" ? ok : false;
-
-    //if (!ok) {
-    //    alert_msg("Datos incorrectos");
-    //    return false;
-    //}
-
     if (!(parseInt($("#txtCantidad").val()) > 0 && parseInt($("#txtCantidad").val()) <= parseInt($("#txtCantidad").attr("data-maxvalue")))) {
         alert_msg("Lamentablemente la cantidad ingresada supera a la cantidad facturada en tu pedido (" +
             $.trim($("#txtCantidad").attr("data-maxvalue")) + ")");
@@ -718,7 +696,6 @@ function ValidarPasoUno() {
     return true;
 }
 
-//HD-3412 EINCA
 function ValidarPasoUnoServer(callbackWhenFinish) {
 
     $.ajaxSetup({
@@ -925,7 +902,7 @@ function CargarPropuesta(codigoSsic) {
     var tipo = (codigoSsic == "C" || codigoSsic == "D" || codigoSsic == "F" || codigoSsic == "G") ? "canje" : "cambio";
 
     var item = {
-        CUV: $.trim($("#ddlCuv").val()),//$.trim($("#txtCuv").text()),
+        CUV: $.trim($("#ddlCuv").val()),
         DescripcionProd: $.trim($("#hdtxtCUVDescripcion").val()),
         Cantidad: $.trim($("#txtCantidad").val()),
         EstadoSsic: $.trim(codigoSsic)
@@ -970,7 +947,7 @@ function DetalleGuardar() {
         CampaniaID: $("#ddlCampania").val() || 0,
         Motivo: $(".reclamo_motivo_select[data-check='1']").attr("id"),
         Operacion: $(".btn_solucion_reclamo[data-check='1']").attr("id"),
-        CUV: $.trim($("#ddlCuv").val()),//$("#txtCUV").val(),
+        CUV: $.trim($("#ddlCuv").val()),
         Cantidad: $("#txtCantidad").val(),
         CUV2: $("#txtCUV2").val(),
         Cantidad2: $("#txtCantidad2").val()
@@ -1384,24 +1361,11 @@ function ValidarSolicitudCDREnvio(validarCorreoVacio, validarCelularVacio) {
     }
 
     if (!ok) return false;
-
-    //if (celular != "" && !ValidarTelefono(celular)) {
-    //    ControlSetError('#txtTelefono', '#spnTelefonoError', '*Este número de celular ya está siendo utilizado. Intenta con otro.');
-    //    return false;
-    //}
-
+    
     if (!$("#btnAceptoPoliticas").hasClass("politica_reclamos_icono_active")) {
         alert_msg("Debe aceptar la política de Cambios y Devoluciones");
         return false;
     }
-
-    //var correo = $.trim($("#txtEmail").val());
-    //var correoActual = $.trim($("#hdEmail").val());
-    //if (correo != correoActual ) {
-    //    ControlSetError('#txtEmail', '#spnEmailError', '*Este correo ya está siendo utilizado. Intenta con otro');
-    //    return false;
-    //}
-
 
     return true;
 }

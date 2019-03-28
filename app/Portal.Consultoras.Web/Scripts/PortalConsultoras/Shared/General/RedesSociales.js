@@ -249,28 +249,6 @@
             'label': campaniaCatalogo,
             'value': 0
         });
-
-        //texto = texto.ReplaceAll("/", "%2F");
-        //texto = texto.ReplaceAll(":", "%3A");
-        //texto = texto.ReplaceAll("?", "%3F");
-        //texto = texto.ReplaceAll("=", "%3D");
-        //texto = texto.ReplaceAll("&", "%26");
-        //texto = texto.ReplaceAll(" ", "%20");
-
-        //var popWwidth = 570;
-        //var popHeight = 420;
-        //var left = (screen.width / 2) - (popWwidth / 2);
-        //var top = (screen.height / 2) - (popHeight / 2);
-        //var url;
-        //if (isMovil == true) {
-        //    url = 'fb-messenger://share?link=' + encodeURIComponent(texto) + '&app_id=' + encodeURIComponent(FBAppId);
-        //    window.open(url);
-        //}
-        //else
-        //{
-        //    url = "https://www.facebook.com/dialog/send?app_id=" + FBAppId + "&link=" + texto + "&redirect_uri=" + texto;
-        //    window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
-        //}
     }
 
     // catalogo email actual
@@ -291,14 +269,14 @@
         campaniaEmail = campania;
 
         $("#divCheckbox").find("[type='checkbox']").removeAttr('checked');
-        
+
         if (tipoCatalogo == 'Todo') {
 
             $('#btnEnviarCorreo').data('piloto', '1')
             $('#divDescEnviar').fadeOut(100);
             $('#divCheckbox').fadeOut(100);
             $('#CompartirCorreo').fadeIn(100);
-            
+
         }
         else {
 
@@ -316,8 +294,7 @@
             $('#divCheckbox').fadeIn(100);
 
             $('#CompartirCorreo').fadeIn(100);
-            //$('#CompartirCorreoMobile').fadeIn(100);
-                                
+
             for (var i = 0; i < 3; i++) {
                 var cata = $("#divCatalogo" + i + " [data-cam='" + campania + "'][data-estado='1']");
 
@@ -328,8 +305,8 @@
                         $("#divCheckbox [data-cat='" + cat + "']").fadeIn(100);
                     }
                 }
-            }          
-        }              
+            }
+        }
     }
 
     var CompartirWhatsAppActual = function (catalogo, campania, texto) {
@@ -352,7 +329,7 @@
 
         var url = "https://api.whatsapp.com/send?text=" + texto;
         window.open(url, 'WhatsApp');
-    }   
+    }
 
     var TagManagerWS = function (catalogo, campaniaCatalogo) {
         dataLayer.push({

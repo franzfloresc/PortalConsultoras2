@@ -7,7 +7,7 @@ belcorp.settings.uniquePrefix = "/g/";
 jQuery(document).ready(function () {
 
     CreateLoading();
-    //eventCloseDialogMensaje();
+
     $("header").resize(function () {
         LayoutMenu();
     });

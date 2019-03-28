@@ -253,8 +253,7 @@
             _obtenerCampanias();
             _bindingEvents();
             _fnGrilla();
-
-            // $("#btnExportarExcel").click(_exportarExcel);
+            
         });
     }
 

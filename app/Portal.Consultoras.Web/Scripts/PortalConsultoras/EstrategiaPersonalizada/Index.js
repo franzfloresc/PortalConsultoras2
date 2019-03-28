@@ -205,7 +205,6 @@ function SeccionCargarProductos(objConsulta) {
         cache: false
     });
 
-    //console.log('SeccionCargarProductos - ajax', objConsulta.Codigo, objConsulta);
 
     $.ajax({
         type: 'post',
@@ -237,7 +236,7 @@ function SeccionCargarProductos(objConsulta) {
 }
 
 function SeccionMostrarProductos(data) {
-    //console.log(data.Seccion.Codigo, data);
+
     var CarruselCiclico = true;
 
     if (isMobile()) {
@@ -262,7 +261,7 @@ function SeccionMostrarProductos(data) {
             (data.Seccion.TipoPresentacion === CONS_TIPO_PRESENTACION.Banners.toString() ||
                 data.Seccion.TipoPresentacion === CONS_TIPO_PRESENTACION.ShowRoom.toString() ||
                 data.Seccion.TipoPresentacion === CONS_TIPO_PRESENTACION.OfertaDelDia.toString())) {
-            //console.log(data.Seccion.TipoPresentacion, 'loading fadeOut');
+
             $("#" + data.Seccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
             $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
         }
@@ -339,8 +338,6 @@ function SeccionMostrarProductos(data) {
             var cantidadTotal = 0;
             var cantidadAMostrar = parseInt($("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-mostrar]").html());
 
-            //console.log('cantidadTotal-0', cantidadAMostrar, data);
-
             if (data.Seccion.Codigo === CONS_CODIGO_SECCION.SR) {
                 cantidadTotal = data.cantidadTotal0;
             }
@@ -412,8 +409,6 @@ function SeccionMostrarProductos(data) {
             Origen: origen
         };
 
-
-        //console.log('marcarAnalyticsInicio - fin', obj);
         AnalyticsPortalModule.MarcaGenericaLista("", obj);
     }
 }
@@ -458,12 +453,12 @@ function RenderCarruselIndividuales(divProd, data) {
     }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
         VerificarClick(slick, currentSlide, nextSlide, "previsuales");
     }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
-        //console.log('RenderCarruselIndividuales', event, slick, currentSlide, nextSlide);
+
         var data = $(slick.$slides.find("[data-estrategia]")[currentSlide]).data("estrategia");
         var dateItem = new Array(data);
-        //console.log('RenderCarruselIndividuales', dateItem);
+
         indexPosCarruselLan = currentSlide;
-        //Analytics
+
         AnalyticsPortalModule.MarcaGenericaLista(data.CodigoPalanca, dateItem, currentSlide);
         $(sElementos.listadoProductos + " .slick-active [data-acortartxt] p").removeClass("Acortar2Renglones3puntos");
         $(sElementos.listadoProductos + " .slick-active [data-acortartxt] p").addClass("Acortar2Renglones3puntos");
@@ -471,7 +466,6 @@ function RenderCarruselIndividuales(divProd, data) {
         $(sElementos.listadoProductos + " .slick-active [data-acortartxt] span").addClass("Acortar3Renglones3puntos");
     });
 
-    //Marcación Analytics
     $.each(data.lista, function (key, value) {
         if (value.TipoEstrategiaDetalle.FlagIndividual) {
             var dateItem = new Array(value);
@@ -510,7 +504,6 @@ function RenderCarruselSimple(divProd, data, cc) {
 
     divProd.find(sElementos.listadoProductos).css("overflow-y", "visible");
 
-    //console.log('RenderCarruselSimple', data.Seccion.Codigo, data);
     CarruselAyuda.MarcarAnalyticsContenedor(1, data, seccionName, null, slidesToShow);
 }
 
@@ -551,9 +544,7 @@ function RenderCarruselSimpleV2(divProd, data, cc) {
         $('.prevArrow').hide();
     }
 
-    //console.log('RenderCarruselSimpleV2', data.Seccion.Codigo, data);
     CarruselAyuda.MarcarAnalyticsContenedor(1, data, seccionName, null, slidesToShow);
-    //AnalyticsPortalModule.MarcaGenericaLista(data.Seccion.Codigo, data, slidesToShow); // Inicio RenderCarruselSimpleV2
 }
 
 // Fin - Render Carrusel

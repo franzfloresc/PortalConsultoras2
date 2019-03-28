@@ -1,6 +1,5 @@
 ﻿
 function OnClickFichaDetalle(e) {
-    //var estoyEnLaFicha = typeof fichaModule !== "undefined"; //una forma de identificar si estoy en la ficha o no.    
     //el objeto e debe ser establecido con target  (e.target)
     var infoCuvItem = EstrategiaAgregarModule.EstrategiaObtenerObj($(e));
     var codigoEstrategia = $.trim(infoCuvItem.CodigoEstrategia);
