@@ -613,7 +613,7 @@ function ValidarPaso1() {
     var ok = true;
     ok = $("#ddlCampania").val() > 0 ? ok : false;
     ok = $.trim($("#txtPedidoID").val()) > 0 ? ok : false;
-    ok = $.trim($("#ddlCuv").val()) /*$.trim($("#txtCUV").val())*/ != "" ? ok : false;
+    ok = $.trim($("#ddlCuv").val()) != "" ? ok : false;
 
     ok = $.trim($("#divMotivo [data-check='1']").attr("id")) != "" ? ok : false;
 

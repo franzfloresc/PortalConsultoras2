@@ -6,7 +6,7 @@ var TusClientesModule = function (config) {
     "use strict";
 
     var _config = {
-        tusClientesProvider: config.tusClientesProvider /*|| TusClientesProvider()*/,
+        tusClientesProvider: config.tusClientesProvider,
         checkTimeout: checkTimeout
     };
 

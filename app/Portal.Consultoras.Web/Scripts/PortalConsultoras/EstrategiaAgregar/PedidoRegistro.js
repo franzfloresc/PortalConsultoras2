@@ -1561,8 +1561,7 @@ function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfe
         CerrarSplash();
         return false;
     }
-
-    /*Agregado el 13/03/2019*/
+    
     var CantidadSoli = (cant - cantAnti);
     PrecioUnidad = $(rowElement).find(".hdfLPPrecioU").val();
     var param = ({

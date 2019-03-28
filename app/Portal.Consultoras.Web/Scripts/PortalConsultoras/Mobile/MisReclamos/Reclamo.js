@@ -1789,7 +1789,7 @@ $(document).ready(function () {
                 var id = objPedido.attr("data-pedido-id");
                 var pedidos = listaPedidos.Find("PedidoID", id);
                 var pedido = pedidos.length > 0 ? pedidos[0] : new Object();
-                $/*("#divPopupPedido").hide();*/
+               
                 me.Funciones.AsignarCUV(pedido);
             },
 
