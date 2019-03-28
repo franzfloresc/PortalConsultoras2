@@ -3613,6 +3613,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.PaginaDe = "1";
                 }
 
+                model.TipoPaginador = Constantes.ClasificadorPedido.PedidoDetalle;
                 model.MensajeCierreCampania = ViewBag.MensajeCierreCampania;
                 model.Simbolo = userData.Simbolo;
 

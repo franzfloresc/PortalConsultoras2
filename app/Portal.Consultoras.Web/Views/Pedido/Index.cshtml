@@ -531,6 +531,9 @@
             @if (ViewBag.MostrarPedidosPendientes == "1")
             {
                 <div id="infoPendientes" style="background:white; display: none;">
+
+                    <div id="paginadorCabPend">
+                    </div>
                     <div class="content_datos_pendientes">
                         <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Tipo y nombre de Cliente</div>
                         <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Origen</div>
@@ -542,6 +545,8 @@
                     <div class="linea_separadora" style="margin-top:-1px"></div>
                     <div>
                         <div id="divPedidosPend"> </div>
+                    </div>
+                    <div id="paginadorPiePend">
                     </div>
                     <div class="tiempo_atencionPedido">
                         <span class="icono_notaDemanda"></span>
@@ -1960,9 +1965,9 @@
         var mensajeNoAgregarLiquidacion = '@Constantes.MensajesError.Pedido_NoAgregarLiquidacion';
 
         var urlInsertarDemandaTotalReemplazoSugerido = '@Url.Action("InsertarDemandaTotalReemplazoSugerido", "Pedido")';
-        
+
         var urlValidarKitNuevas = '@Url.Action("ValidarKitNuevas", "PedidoRegistro", new { area = "" })';
-        
+
         var urlObtenerComponentes = '@Url.Action("ObtenerComponentes", "DetalleEstrategia")';
         var listaIconoLluvia = [
             '@Url.Content("~/Content/Images/lluvia/ov-d.svg")',
@@ -1976,6 +1981,8 @@
 
         var activarRecomendaciones = '@ViewBag.ActivarRecomendaciones';
         var maxCaracteresRecomendaciones = '@ViewBag.MaxCaracteresRecomendaciones';
+        var ClasPedidoDetalle = '@Constantes.ClasificadorPedido.PedidoDetalle';
+        var ClasPedidoDetallePendiente = '@Constantes.ClasificadorPedido.PedidoDetallePendiente';
     </script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/SB2-Pedido")
     @if (HttpContext.Current.Request.Browser.IsMobileDevice)

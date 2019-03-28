@@ -2504,6 +2504,12 @@ namespace Portal.Consultoras.Common
             public const string UPDATESET = "US";
         }
 
+        public static class ClasificadorPedido
+        {
+            public const string PedidoDetalle = "DetPedido";
+            public const string PedidoDetallePendiente = "DetPedidoPend";
+        }
+
         public static class FlagRevista
         {
             public const int Valor0 = 0;
