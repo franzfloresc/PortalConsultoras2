@@ -207,7 +207,14 @@ $(document).ready(function () {
         preventClick(1, true);
         $('#btnLoginFB').prop('disabled', true);
         limpiar_local_storage();
+
+        var dataToSend = encriptarCryptoJS(Contrasenia, cadena);
+        $('#hdeSalt').val(dataToSend.salt);
+        $('#hdeCiphertext').val(dataToSend.ciphertext);
+        $('#hdeKey').val(dataToSend.key);
+        $('#hdeIv').val(dataToSend.iv);
     });
+
     $("#txtUsuario").keypress(
         function (evt) {
             var charCode = getCharCodeKeyPress(evt);
@@ -393,9 +400,55 @@ $(document).ready(function () {
         tipoOpcion = 3
         if (PaisID != 0 && telefonoCentral != "")
             RecuperarContrasenia();
-    }); 
+    });
 });
 
+function encriptarCryptoJS(password, cadena) {
+
+    var bytesInSalt = 128 / 8;
+    var salt = CryptoJS.lib.WordArray.random(bytesInSalt);
+    var skey = getKeyAndIV(cadena, salt);
+    var data = CryptoJS.AES.encrypt(password, skey.key, { iv: skey.iv, padding: CryptoJS.pad.Pkcs7 });
+    var dataToSend = {
+        salt: salt.toString(CryptoJS.enc.Base64),
+        ciphertext: data.ciphertext.toString(CryptoJS.enc.Base64),
+        key: data.key.toString(CryptoJS.enc.Base64),
+        iv: data.iv.toString(CryptoJS.enc.Base64)
+    }
+
+    return dataToSend;
+}
+
+function wordArraySubArray(array, index, length) {
+    var hex = array.toString(CryptoJS.enc.Hex);
+    var subHex = hex.substr(index * 2, length * 2);
+    return CryptoJS.enc.Hex.parse(subHex);
+};
+
+function getKeyAndIV(password, salt) {
+
+    var ivBitLength = 128;
+    var keyBitLength = 256;
+
+    var ivByteLength = ivBitLength / 8;
+    var keyByteLength = keyBitLength / 8;
+
+    var ivWordLength = ivBitLength / 32;
+    var keyWordLength = keyBitLength / 32;
+
+    var totalWordLength = ivWordLength + keyWordLength;
+
+    var iterations = 1000;
+    var allBits = CryptoJS.PBKDF2(password, salt, { keySize: totalWordLength, iterations: iterations });
+
+    var iv128Bits = wordArraySubArray(allBits, 0, ivByteLength);
+    var key256Bits = wordArraySubArray(allBits, ivByteLength, keyByteLength);
+
+    return {
+        iv: iv128Bits,
+        key: key256Bits
+    };
+};
 
 function Inicializar() {
     $(".cboPaisCambioClave").trigger('change');
@@ -790,10 +843,15 @@ function login2() {
     $('#ddlPais').val(CodigoISO);
     $('#txtUsuario').val(CodigoUsuario);
     $('#txtContrasenia').val(Contrasenia);
-
     $('#HdePaisID').val(PaisID);
 
-    waitingDialog();
+    var dataToSend = encriptarCryptoJS(Contrasenia, cadena);
+    $('#hdeSalt').val(dataToSend.salt);
+    $('#hdeCiphertext').val(dataToSend.ciphertext);
+    $('#hdeKey').val(dataToSend.key);
+    $('#hdeIv').val(dataToSend.iv);
+
+    waitingDialog();    
 
     var form = $('#frmLogin');
     var postData = form.serialize() + "&returlUrl=" + $('#returnUrl').val();

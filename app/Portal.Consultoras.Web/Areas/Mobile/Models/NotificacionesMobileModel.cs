@@ -22,6 +22,5 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public decimal SubTotal { get; set; }
         public decimal Descuento { get; set; }
         public decimal Total { get; set; }
-        public Converter<decimal, string> DecimalToString { get; set; }
     }
 }
