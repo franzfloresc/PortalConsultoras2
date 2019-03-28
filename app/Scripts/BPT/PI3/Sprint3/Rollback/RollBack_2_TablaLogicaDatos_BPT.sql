@@ -1,11 +1,11 @@
-
+ï»¿
 GO
 
 print db_name()
 
 GO
 
-print 'Inicio de eliminació de tabla logica datos codigo 10 - Banner interativo'
+print 'Inicio de eliminacion de tabla logica datos codigo 10 - Banner interativo'
 
 declare @TablaLogicaID int = 120
 declare @Codigo varchar(150) = '10'
@@ -19,6 +19,6 @@ end
 
 GO
 
-print 'Fin de eliminació de tabla logica datos codigo 10 - Banner interativo'
+print 'Fin de eliminacion de tabla logica datos codigo 10 - Banner interativo'
 
 go
