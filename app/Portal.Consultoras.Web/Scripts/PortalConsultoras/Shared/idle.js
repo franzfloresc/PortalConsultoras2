@@ -291,8 +291,6 @@ var store = (function () {
   
           startIdleTimer();
 
-        } else {
-          alert(currentConfig.errorAlertMessage);
         }
   
       });
