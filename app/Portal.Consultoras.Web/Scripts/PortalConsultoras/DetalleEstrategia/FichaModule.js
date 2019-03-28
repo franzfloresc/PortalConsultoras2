@@ -320,9 +320,12 @@ var FichaModule = (function (config) {
             else {
                 $this.attr("class", "active");
                 $('#carousel11').slick({
+                    dots: true,
                     infinite: true,
-                    slidesToShow: 3,
-                    slidesToScroll: 3
+                    speed: 300,
+                    slidesToShow: 1,
+                    centerMode: true,
+                    variableWidth: true
                 });
 
             }
