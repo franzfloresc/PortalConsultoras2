@@ -999,6 +999,7 @@ namespace Portal.Consultoras.Web.Controllers
             pasoLog = "Login.GetUserData";
             sessionManager.SetIsContrato(1);
             sessionManager.SetIsOfertaPack(1);
+            var pseudoParamNotif =  (DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds;//SALUD-58       
 
             var usuarioModel = (UsuarioModel)null;
 
@@ -1016,6 +1017,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     #region
                     usuarioModel = new UsuarioModel();
+                    usuarioModel.PseudoParamNotif = pseudoParamNotif.ToString().Replace("-", ""); //SALUD-58
                     usuarioModel.NovedadBuscador = usuario.NovedadBuscador;
                     usuarioModel.CompraVDirectaCer = usuario.CompraVDirecta;
                     usuarioModel.IVACompraVDirectaCer = usuario.IVACompraVDirecta;
@@ -1208,6 +1210,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     usuarioModel.DocumentoIdentidad = usuario.DocumentoIdentidad;
                     usuarioModel.PromedioVenta = usuario.PromedioVenta;
+
                     #endregion
 
                     if (usuarioModel.RolID == Constantes.Rol.Consultora)

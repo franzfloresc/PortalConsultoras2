@@ -1,4 +1,4 @@
-GO
+﻿GO
 
 print db_name()
 go

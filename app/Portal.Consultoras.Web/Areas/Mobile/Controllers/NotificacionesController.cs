@@ -34,26 +34,14 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult Index()
         {
-            LimpiarCacheNotificaciones();
             var model = new NotificacionesModel { ListaNotificaciones = ObtenerNotificaciones() };
             return View(model);
         }
 
-        private void LimpiarCacheNotificaciones()
-        {
-            var urlToRemove = Url.Action("GetNotificacionesSinLeer", "Notificaciones");
-            HttpResponse.RemoveOutputCacheItem(urlToRemove);
-        }
-
         public ActionResult IndexExterno(int IdOrigen = 0)
         {
-            SessionManager.SetfechaGetNotificacionesSinLeer(null);
-            SessionManager.SetcantidadGetNotificacionesSinLeer(null);
-
             var model = new NotificacionesModel { ListaNotificaciones = ObtenerNotificaciones() };
-
             model.Origen = IdOrigen;
-
             return View("Index", model);
         }
 
