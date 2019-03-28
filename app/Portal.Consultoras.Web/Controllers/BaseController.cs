@@ -167,14 +167,7 @@ namespace Portal.Consultoras.Web.Controllers
                 estrategiaODD = SessionManager.OfertaDelDia.Estrategia;
                 configEstrategiaSR = SessionManager.GetEstrategiaSR() ?? new ConfigModel();
                 buscadorYFiltro = SessionManager.GetBuscadorYFiltrosConfig();
-
-
-                //if (!configEstrategiaSR.CargoEntidadesShowRoom)
-                //{
-                //    _showRoomProvider.CargarEntidadesShowRoom(userData);
-                //    configEstrategiaSR = SessionManager.GetEstrategiaSR();
-                //}
-
+                
                 if (Request.IsAjaxRequest())
                 {
                     base.OnActionExecuting(filterContext);

@@ -1181,11 +1181,7 @@ namespace Portal.Consultoras.Service
         {
             return new BLEstrategia().ValidarCUVsRecomendados(entidad);
         }
-
-        //public List<BEEstrategia> FiltrarEstrategiaPedido(BEEstrategia entidad)
-        //{
-        //    return new BLEstrategia().FiltrarEstrategiaPedido(entidad);
-        //}
+        
         public string ValidarStockEstrategia(BEEstrategia entidad)
         {
             return new BLEstrategia().ValidarStockEstrategia(entidad);
@@ -1856,12 +1852,7 @@ namespace Portal.Consultoras.Service
         {
             return new BLReserva().EnviarCorreoReservaProl(input);
         }
-
-        //public int InsertarDesglose(BEInputReservaProl input)
-        //{
-        //    return new BLReserva().InsertarDesglose(input);
-        //}
-
+        
         public string CargarSesionAndDeshacerPedidoValidado(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, string tipo)
         {
             return new BLReserva().CargarSesionAndDeshacerPedidoValidado(paisISO, campania, consultoraID, usuarioPrueba, aceptacionConsultoraDA, tipo);

@@ -837,8 +837,7 @@ namespace Portal.Consultoras.Web.Providers
                 Simbolo = usuarioModel.Simbolo,
                 CodigoTipoEstrategia = Constantes.TipoEstrategiaCodigo.ShowRoom
             };
-            //List<ServiceOferta.BEEstrategia> listaProducto;
-
+            
             var listEstrategia = GetEstrategiasService(entidad);
             return listEstrategia;
         }

@@ -1620,8 +1620,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var solicitudPostulante = sv.ObtenerSolicitudPostulante(CodigoISO, id);
                 switch (solicitudPostulante.PaisID)
                 {
-                    //Mexico
-                    case 9:
+                    case Constantes.PaisID.Mexico:
                         if (solicitudPostulante.ReferenciaEntrega != null)
                         {
                             fechaFormato = solicitudPostulante.FechaNacimiento.Value.ToString("yyyy-MM-dd");
@@ -1893,8 +1892,6 @@ namespace Portal.Consultoras.Web.Controllers
             return View();
         }
 
-        // LMH
-
         public ActionResult ReportePagoKit()
         {
             ViewBag.HTMLSACUnete = getHTMLSACUnete("ReportePagoKit", "&rol=" + userData.RolDescripcion);
@@ -2130,12 +2127,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
         }
-
-        // LMH
-
-
-
-
+        
 
         [HttpPost]
         public JsonResult ConsultarSolicitudesPostulanteV2(GestionaPostulanteModelSAC model)
