@@ -78,7 +78,6 @@
     };
 
     var _seleccionarRegistro = function (paisId, clienteId, codigoCliente, nombreCliente, nombre) {
-        //console.log(paisId, clienteId, codigoCliente, nombreCliente, nombre);
 
         paisId = paisId || "";
 

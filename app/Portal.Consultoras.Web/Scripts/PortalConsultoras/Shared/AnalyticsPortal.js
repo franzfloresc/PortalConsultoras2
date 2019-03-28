@@ -550,8 +550,7 @@ var AnalyticsPortalModule = (function () {
             var pagina = _constantes.paginas.find(function (element) {
                 return element.CodigoPagina == codigoPagina;
             });
-
-            //var esCarrusel = seccion.Seccion == "Carrusel";
+            
             var esVerMas = typeof seccion !== "undefined" ? seccion.Seccion == "Carrusel Ver Más" : false;
             var esFicha = typeof seccion !== "undefined" ? seccion.Seccion == "Ficha" : false;
             var esCarrusel = false;
