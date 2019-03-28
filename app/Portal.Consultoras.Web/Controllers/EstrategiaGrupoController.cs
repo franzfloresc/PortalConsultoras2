@@ -40,8 +40,10 @@ namespace Portal.Consultoras.Web.Controllers
 
             var distinct = (from item in lstComponentes select new { EstrategiaId = estrategiaId, Grupo = item.Grupo }).Distinct();
             List<EstrategiaGrupoModel> grupos = (from item in distinct
-                      select new EstrategiaGrupoModel
-                      { _idEstrategia = estrategiaId, EstrategiaGrupoId = 0, Grupo = item.Grupo, DescripcionSingular = string.Empty, DescripcionPlural = string.Empty }).ToList();
+                                                 select new EstrategiaGrupoModel
+                                                 { _idEstrategia = estrategiaId, EstrategiaGrupoId = 0, Grupo = item.Grupo, DescripcionSingular = string.Empty, DescripcionPlural = string.Empty }).ToList();
+
+            grupos = grupos.OrderBy(g => g.Grupo).ToList();
 
             foreach (var item in grupos)
             {
