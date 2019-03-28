@@ -9,24 +9,26 @@ using System.Data;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
-using Portal.Consultoras.BizLogic;
+using Portal.Consultoras.Entities.RevistaDigital;
+using Portal.Consultoras.BizLogic.RevistaDigital;
+using Portal.Consultoras.Data;
 
 namespace Portal.Consultoras.BizLogic.PagoEnlinea
 {
     public class BLPagoEnLinea : IPagoEnLineaBusinessLogic
     {
         private readonly ITablaLogicaDatosBusinessLogic _tablaLogicaDatosBusinessLogic;
-        private readonly IUsuarioBusinessLogic _usuarioBusinessLogic;
+        private readonly IRevistaDigitalSuscripcionBusinessLogic _revistaDigitalSuscripcionBusinessLogic;
 
-        public BLPagoEnLinea() : this(new BLTablaLogicaDatos(),new BLUsuario())
+        public BLPagoEnLinea() : this(new BLTablaLogicaDatos(), new BLRevistaDigitalSuscripcion())
         {
 
         }
 
-        public BLPagoEnLinea(ITablaLogicaDatosBusinessLogic tablaLogicaDatosBusinessLogic, IUsuarioBusinessLogic usuarioBusinessLogic)
+        public BLPagoEnLinea(ITablaLogicaDatosBusinessLogic tablaLogicaDatosBusinessLogic, IRevistaDigitalSuscripcionBusinessLogic revistaDigitalSuscripcionBusinessLogic)
         {
             _tablaLogicaDatosBusinessLogic = tablaLogicaDatosBusinessLogic;
-            _usuarioBusinessLogic = usuarioBusinessLogic;
+            _revistaDigitalSuscripcionBusinessLogic = revistaDigitalSuscripcionBusinessLogic;
         }
 
         public int InsertPagoEnLineaResultadoLog(int paisId, BEPagoEnLineaResultadoLog entidad)
@@ -148,10 +150,12 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
 
         private void CargarConfiguracion_MedioPagoDetalle(int paisId, List<BEPagoEnLineaMedioPagoDetalle> pagoEnLineaMedioPagoDetalles)
         {
-            pagoEnLineaMedioPagoDetalles.ForEach(item => {
-                switch (item.TipoPasarelaCodigoPlataforma) {
+            pagoEnLineaMedioPagoDetalles.ForEach(item =>
+            {
+                switch (item.TipoPasarelaCodigoPlataforma)
+                {
                     case Constantes.PagoEnLineaMetodoPago.PasarelaVisa:
-                        if(item.TipoTarjeta == Constantes.PagoEnLineaTipoTarjeta.Credito) CargarConfiguracion_MedioPagoDetalle_Visa(paisId, item);
+                        if (item.TipoTarjeta == Constantes.PagoEnLineaTipoTarjeta.Credito) CargarConfiguracion_MedioPagoDetalle_Visa(paisId, item);
                         break;
                     case Constantes.PagoEnLineaMetodoPago.PasarelaBelcorpPayU:
                         CargarConfiguracion_MedioPagoDetalle_Payu(paisId, item);
@@ -245,6 +249,8 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
         {
             var result = new BEPagoEnLinea();
             List<BETablaLogicaDatos> listaConfiguracion = null;
+            int campaniaActual = 0;
+            var resultado = Constantes.GanaMas.PaisSinRD;
 
             var listaMetodoPagoTask = Task.Run(() => result.ListaMetodoPago = ObtenerPagoEnLineaMedioPagoDetalle(paisId));
             var listaMedioPagoTask = Task.Run(() => result.ListaMedioPago = ObtenerPagoEnLineaMedioPago(paisId));
@@ -266,9 +272,44 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
                 if (pagoBancaPorInternet != null) pagoBancaPorInternet.Estado = false;
             }
 
-            _usuarioBusinessLogic.getRe
+            var oRequest = new BERevistaDigitalSuscripcion()
+            {
+                CodigoConsultora = codigoUsuario,
+                PaisID = paisId
+            };
 
-            //GetRevistaDigitalSuscripcion(usuario);
+            var daUsuario = new DAUsuario(paisId);
+            using (IDataReader reader = daUsuario.GetInfoPreLogin(codigoUsuario))
+            {
+                if (reader.Read())
+                {
+                    campaniaActual = Convert.ToInt32(reader["CampaniaActual"]);
+                }
+            }
+
+            var oResponse = _revistaDigitalSuscripcionBusinessLogic.GetLast(oRequest);
+
+            if (oResponse.RevistaDigitalSuscripcionID > 0)
+            {
+                if (oResponse.FechaSuscripcion > oResponse.FechaDesuscripcion)
+                {
+                    if (oResponse.CampaniaEfectiva <= campaniaActual) resultado = Constantes.GanaMas.PaisConRD_SuscritaActiva;
+                    else resultado = Constantes.GanaMas.PaisConRD_SuscritaNoActiva;
+                }
+                else if (oResponse.FechaSuscripcion < oResponse.FechaDesuscripcion)
+                {
+                    if (oResponse.CampaniaEfectiva <= campaniaActual) resultado = Constantes.GanaMas.PaisConRD_NoSuscritaNoActiva;
+                    else resultado = Constantes.GanaMas.PaisConRD_NoSuscritaActiva;
+                }
+            }
+            else
+            {
+                resultado = Constantes.GanaMas.PaisConRD_NoSuscritaNoActiva;
+            }
+
+
+            if(resultado== Constantes.GanaMas.PaisConRD_SuscritaActiva)
+
 
             result.ListaMedioPago.ForEach(e =>
             {
