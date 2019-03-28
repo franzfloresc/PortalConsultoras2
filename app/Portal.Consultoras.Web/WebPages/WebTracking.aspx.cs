@@ -444,11 +444,11 @@ namespace Portal.Consultoras.Web.WebPages
                     var hasta = listaPedidoSeguimientoModel.FirstOrDefault(a => a.Etapa == Constantes.SegPedidoSituacion.HoraEstimadaEntregaHasta);
 
                     //INI HD-3606 
-                    if (desde != null)
+                    if (desde != null && hasta != null)
+                    {
                         if (desde.Fecha.HasValue) horaEstimadaEntregaDesde = desde.Fecha.Value.TimeOfDay.TotalHours.Equals(0) ? desde.Fecha.Value.ToString() : desde.Fecha.Value.ToString("HH:mm tt");
-
-                    if (hasta != null)
                         if (hasta.Fecha.HasValue) horaEstimadaEntregaHasta = hasta.Fecha.Value.TimeOfDay.TotalHours.Equals(0) ? hasta.Fecha.Value.ToString() : hasta.Fecha.Value.ToString("HH:mm tt");
+                    }
                     //FIN HD-3606 
 
                     //Obtener si la zona y region permite los valores configurados
@@ -515,7 +515,7 @@ namespace Portal.Consultoras.Web.WebPages
                             {
                                 item.HoraEstimadaDesdeHasta = string.Format("{0} - {1}", horaEstimadaEntregaDesde, horaEstimadaEntregaHasta);
                             }
-                            
+
                         }
                     }
 

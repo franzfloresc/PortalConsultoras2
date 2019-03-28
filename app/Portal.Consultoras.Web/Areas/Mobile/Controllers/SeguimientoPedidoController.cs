@@ -200,12 +200,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var desde = listaEstado.FirstOrDefault(a => a.Etapa == Constantes.SegPedidoSituacion.HoraEstimadaEntregaDesde);
             var hasta = listaEstado.FirstOrDefault(a => a.Etapa == Constantes.SegPedidoSituacion.HoraEstimadaEntregaHasta);
 
-            if (desde != null)
+            if (desde != null && hasta != null)
+            {
                 if (desde.Fecha.HasValue) horaEstimadaEntregaDesde = desde.Fecha.Value.TimeOfDay.TotalHours.Equals(0) ? desde.Fecha.Value.ToString() : desde.Fecha.Value.ToString("HH:mm tt");
-
-            if (hasta != null)
                 if (hasta.Fecha.HasValue) horaEstimadaEntregaHasta = hasta.Fecha.Value.TimeOfDay.TotalHours.Equals(0) ? hasta.Fecha.Value.ToString() : hasta.Fecha.Value.ToString("HH:mm tt");
-
+            }
 
             foreach (var item in listaSeguimientoSecundario)
             {
@@ -257,7 +256,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     {
                         item.HoraEstimadaDesdeHasta = string.Format("{0} - {1}", horaEstimadaEntregaDesde, horaEstimadaEntregaHasta);
                     }
-                   
+
                 }
 
                 listaEstadoSeguimiento.Add(item);
