@@ -916,7 +916,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else
                 {
-                    lst = sv.GetEstadoServiciobyPais(ServicioId, 0).ToList();
+                    lst = sv.GetEstadoServiciobyPais(ServicioId, CampaniaInicioID).ToList();
                     lst[0].CampaniaInicialId = CampaniaInicioID.ToString();
                     lst[0].CampaniaFinalId = CampaniaFinalID.ToString();
                     lst[0].ServicioId = ServicioId;
