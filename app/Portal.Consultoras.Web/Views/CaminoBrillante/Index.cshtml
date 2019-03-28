@@ -6,9 +6,9 @@
 
 
 
-@section styles{
-    @System.Web.Optimization.Styles.Render("~/Bundle/Css/CaminoBrillante")
-}
+@*@section styles{
+        @System.Web.Optimization.Styles.Render("~/Bundle/Css/CaminoBrillante")
+    }*@
 <br />
 <style>
     .OfertasEspecialesBlock {
@@ -33,12 +33,12 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <div class="modal-body pad-center">
-                    <div class="indicador-nivel" style="text-align:center; margin-bottom: 20px;" >
+                    <div class="indicador-nivel" style="text-align:center; margin-bottom: 20px;">
                         <center>
                             <img id="m_imagen" style="float: unset; max-width: 100px !important;" />
                         </center>
-                        <div class="left-mod" style="width: 100%; margin-left: 0px;" >
-                            <h2 id="m_titulo" style="color: black; font-size: 20px; font-weight: bold;" ></h2>
+                        <div class="left-mod" style="width: 100%; margin-left: 0px;">
+                            <h2 id="m_titulo" style="color: black; font-size: 20px; font-weight: bold;"></h2>
                             <p id="m_montoMinimo"></p>
                         </div>
                     </div>
@@ -53,25 +53,19 @@
     </div>
     <a id="OfertasEspeciales" class="btn-principal">Ofertas especiales</a>
     <div class="cont-logros">
-        <h2 class="title">MIS LOGROS</h2>
-        <p class="text">Mira los logros que has obtenido por ventas y pasar pedidos de forma constante, tu esfuerzo tiene recompensas</p>
+        <h2 class="title" id="TituloLogros"></h2>
+        <p class="text" id="DescripcionLogros"></p>
         <div class="boxcenter">
-            <div class="owl-carousel owl-crec">
-                <div class="item">
+            <div class="owl-carousel owl-crec" id="Carusel-Logros">
+                @*<div class="item">
                     <div class="shad box-crecimiento">
                         <p class="text-bold">Crecimiento</p>
                         <span class="text-down">Tu progreso tiene recompensas</span>
                         <ul class="list-crec">
                             <li>
-                                <img src="~/Content/CaminoBrillante/imgs/recurso-17-3-x@2x.png">
-                                <p>Ganancia</p>
-                            </li>
-                            <li>
-                                <img src="~/Content/CaminoBrillante/imgs/recurso-18-3-x@2x.png">
-                                <p>Ganancia</p>
-                            </li>
-                            <li>
-                                <img src="~/Content/CaminoBrillante/imgs/recurso-19-3-x@2x.png">
+                                <div class="circle-porcent veinticinco">
+                                    <span>25%</span>
+                                </div>
                                 <p>Ganancia</p>
                             </li>
                         </ul>
@@ -98,11 +92,11 @@
                         </ul>
                         <a href="" class="btn-link">Ver todos</a>
                     </div>
-                </div>
+                </div>*@
             </div>
         </div>
     </div>
-    <div class="cont-ganancias" style="display:none" >
+    <div class="cont-ganancias" style="display:none">
         <div class="left-ganancias">
             <h2 class="title">MIS GANANCIAS</h2>
             <p class="text">Mira las ganancias que has obtenido durante una campaña o en lo que va del año</p>
@@ -149,7 +143,7 @@
                         <span>S/ 250</span>
                     </div>
                 </div>
-          
+
             </div>
         </div>
         <div class="shad right-ganancias">

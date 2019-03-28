@@ -31,8 +31,14 @@ namespace Portal.Consultoras.Web.Providers
             try
             {
                 var oResumen = ResumenConsultoraCaminoBrillante();
+
+
+                //Niveles
+
                 if (oResumen == null || oResumen.NivelConsultora.Count() == 0 || oResumen.Niveles.Count() == 0) return null;
-       
+
+                sessionManager.SetConsultoraCaminoBrillante(oResumen);
+
 
                 var codNivel = oResumen.NivelConsultora.Where(x => x.Campania == UsuarioDatos.CampaniaID.ToString()).Select(z => z.NivelActual).FirstOrDefault();
                 if (string.IsNullOrEmpty(codNivel)) codNivel = oResumen.NivelConsultora[0].NivelActual;
