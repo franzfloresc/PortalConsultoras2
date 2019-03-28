@@ -2539,6 +2539,12 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICDRService/GetMontoFletePorZonaId", ReplyAction="http://tempuri.org/ICDRService/GetMontoFletePorZonaIdResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCDR.BECDRWeb> GetMontoFletePorZonaIdAsync(int paisId, Portal.Consultoras.Web.ServiceCDR.BECDRWeb entity);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICDRService/ValCUVEnProcesoReclamo", ReplyAction="http://tempuri.org/ICDRService/ValCUVEnProcesoReclamoResponse")]
+        int ValCUVEnProcesoReclamo(int paisId, int pedidoId, string cuv);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICDRService/ValCUVEnProcesoReclamo", ReplyAction="http://tempuri.org/ICDRService/ValCUVEnProcesoReclamoResponse")]
+        System.Threading.Tasks.Task<int> ValCUVEnProcesoReclamoAsync(int paisId, int pedidoId, string cuv);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -2774,6 +2780,14 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCDR.BECDRWeb> GetMontoFletePorZonaIdAsync(int paisId, Portal.Consultoras.Web.ServiceCDR.BECDRWeb entity) {
             return base.Channel.GetMontoFletePorZonaIdAsync(paisId, entity);
+        }
+        
+        public int ValCUVEnProcesoReclamo(int paisId, int pedidoId, string cuv) {
+            return base.Channel.ValCUVEnProcesoReclamo(paisId, pedidoId, cuv);
+        }
+        
+        public System.Threading.Tasks.Task<int> ValCUVEnProcesoReclamoAsync(int paisId, int pedidoId, string cuv) {
+            return base.Channel.ValCUVEnProcesoReclamoAsync(paisId, pedidoId, cuv);
         }
     }
 }

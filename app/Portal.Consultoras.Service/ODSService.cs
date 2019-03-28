@@ -301,6 +301,11 @@ namespace Portal.Consultoras.Service
         {
             return BLProgramaNuevas.GetLimElectivos(paisID, campaniaID, consecutivoNueva, codigoPrograma);
         }
+
+        public List<BEProductoEstraProgNuevas> GetListCuvProgNuevasEstrategia(BEConsultoraProgramaNuevas consultoraNueva)
+        {
+            return BLProgramaNuevas.GetListCuvEstrategia(consultoraNueva);
+        }
         #endregion
 
         #region VentaExclusiva
@@ -324,5 +329,18 @@ namespace Portal.Consultoras.Service
         }
         #endregion
 
+        public List<BEPremioNuevas> ListarPremioNuevasPaginado(BEPremioNuevas premio)
+        {
+            return BLProgramaNuevas.ListarPremioNuevasPaginado(premio);
+        }
+
+        public BEPremioNuevas Insertar(BEPremioNuevas premio)
+        {
+            return BLProgramaNuevas.Insertar(premio);
+        }
+        public BEPremioNuevas Editar(BEPremioNuevas premio)
+        {
+            return BLProgramaNuevas.Editar(premio);
+        }
     }
 }

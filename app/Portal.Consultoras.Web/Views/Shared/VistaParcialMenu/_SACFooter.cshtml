@@ -29,7 +29,7 @@
     @if (showLinks)
     {
         if (ViewBag.CodigoISODL == "PE")
-        { <link href="@Url.Content("~/Content/Css/Site/footer_PE.css")" rel="stylesheet" type="text/css" /> }
+        {<link href="@Url.Content("~/Content/Css/Site/footer_PE.css")" rel="stylesheet" type="text/css" /> }
 
         string fieldWidthClass = "footer_width_item";
         foreach (var itemFooter in permisoList.Where(x => x.Posicion.ToLower().Equals("footer")))
@@ -74,3 +74,4 @@
     </span>
 </div>
 <div class="clear"></div>
+

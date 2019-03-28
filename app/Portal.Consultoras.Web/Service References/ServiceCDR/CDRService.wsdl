@@ -188,6 +188,12 @@
   <wsdl:message name="ICDRService_GetMontoFletePorZonaId_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetMontoFletePorZonaIdResponse" />
   </wsdl:message>
+  <wsdl:message name="ICDRService_ValCUVEnProcesoReclamo_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValCUVEnProcesoReclamo" />
+  </wsdl:message>
+  <wsdl:message name="ICDRService_ValCUVEnProcesoReclamo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValCUVEnProcesoReclamoResponse" />
+  </wsdl:message>
   <wsdl:portType name="ICDRService">
     <wsdl:operation name="InsCDRWeb">
       <wsdl:input wsaw:Action="http://tempuri.org/ICDRService/InsCDRWeb" message="tns:ICDRService_InsCDRWeb_InputMessage" />
@@ -292,6 +298,10 @@
     <wsdl:operation name="GetMontoFletePorZonaId">
       <wsdl:input wsaw:Action="http://tempuri.org/ICDRService/GetMontoFletePorZonaId" message="tns:ICDRService_GetMontoFletePorZonaId_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ICDRService/GetMontoFletePorZonaIdResponse" message="tns:ICDRService_GetMontoFletePorZonaId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ValCUVEnProcesoReclamo">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICDRService/ValCUVEnProcesoReclamo" message="tns:ICDRService_ValCUVEnProcesoReclamo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICDRService/ValCUVEnProcesoReclamoResponse" message="tns:ICDRService_ValCUVEnProcesoReclamo_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ICDRService" type="tns:ICDRService">
@@ -530,6 +540,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ValCUVEnProcesoReclamo">
+      <soap:operation soapAction="http://tempuri.org/ICDRService/ValCUVEnProcesoReclamo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="BasicHttpsBinding_ICDRService" type="tns:ICDRService">
     <wsp:PolicyReference URI="#BasicHttpsBinding_ICDRService_policy" />
@@ -761,6 +780,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetMontoFletePorZonaId">
       <soap:operation soapAction="http://tempuri.org/ICDRService/GetMontoFletePorZonaId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValCUVEnProcesoReclamo">
+      <soap:operation soapAction="http://tempuri.org/ICDRService/ValCUVEnProcesoReclamo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

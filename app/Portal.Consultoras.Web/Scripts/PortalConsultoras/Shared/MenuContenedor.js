@@ -206,9 +206,10 @@ var menuModule = (function () {
         }
     }
     function updateParentAttribute(codigo) {
-        if (codigo === "ODD") $('ul.subnavegador li a').attr('parent', 'Contenedor - ¡Solo Hoy!');
-        if (codigo === "LAN") $('ul.subnavegador li a').attr('parent', 'Contenedor - Lo Nuevo ¡Nuevo!');
-        if (codigo.indexOf("INICIO") > -1) $('ul.subnavegador li a').attr('parent', 'Contenedor - Inicio');
+        var tituloMenu = 'Contenedor - ' + $(elementos.menu2Ul).find("[data-codigo=" + codigo + "]").find("a").attr("title");
+        if (codigo === "ODD") $('ul.subnavegador li a').attr('parent', tituloMenu);
+        if (codigo === "LAN") $('ul.subnavegador li a').attr('parent', tituloMenu);
+        if (codigo.indexOf("INICIO") > -1) $('ul.subnavegador li a').attr('parent', tituloMenu);
     }
     function menuClick(e, url) {
         var objHtmlEvent = $(e);
@@ -228,8 +229,9 @@ var menuModule = (function () {
                 if ($(elementos.seccionMenuFija).css("position") === "fixed") menuHeight += seccionFixedMenuHeigt;
                 _animateScrollTo(anchorMark + codigo, menuHeight);
                 if (_var.Mobile) _moverSubMenuContenedorOfertasMobile();
-
-                updateParentAttribute(codigo);
+                setTimeout(function () {
+                    updateParentAttribute(codigo);
+                },1000);
             } else {
                 if (currentLocation.indexOf("/revisar") > -1)
                     window.location = originLocation + "/" + (_var.Mobile ? "Mobile/" : "") + "Ofertas/Revisar#" + codigo;
@@ -255,7 +257,9 @@ var menuModule = (function () {
                 $(elementos.claseimgSeleccionado).show();
                 $(elementos.claseimgNoSeleccionado).hide();
                 _animateScrollTo(elementos.html, menuHeight);
-                updateParentAttribute(codigo);
+                setTimeout(function () {
+                    updateParentAttribute(codigo);
+                }, 1000);
             }
 
             if (typeof AnalyticsPortalModule !== "undefined") {

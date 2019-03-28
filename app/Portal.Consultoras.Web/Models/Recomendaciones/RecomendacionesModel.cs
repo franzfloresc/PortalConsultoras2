@@ -8,5 +8,6 @@ namespace Portal.Consultoras.Web.Models.Recomendaciones
     {
         public int Total { get; set; }
         public IList<Productos> Productos { get; set; }
+        public IList<Productos> productoConsultado { get; set; }
     }
 }
