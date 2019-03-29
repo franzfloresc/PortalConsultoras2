@@ -313,12 +313,13 @@ div .owl-carousel .owl-stage-outer {
     border-radius: 7px;
     background: #dedede;
     position: relative;
+    margin: 0 auto;
 }
 
 .Progress {
     width: 15%;
     position: relative;
-    background: #b9007e;
+    background: rgb(232, 27, 56);
     height: 100%;
     border-radius: 15px;
     border-color: #4A90E2;
@@ -328,12 +329,12 @@ div .owl-carousel .owl-stage-outer {
 }
 
 .medal-1 {
-    width: 15%;
+    width: 14%;
     animation-name: progressUno;
 }
 
 .medal-2 {
-    width: 33%;
+    width: 34%;
     animation-name: progressDos;
 }
 
@@ -348,7 +349,7 @@ div .owl-carousel .owl-stage-outer {
 }
 
 .medal-5 {
-    width: 92%;
+    width: 94%;
     animation-name: progressCinco;
 }
 
@@ -363,7 +364,7 @@ div .owl-carousel .owl-stage-outer {
     }
 
     100% {
-        width: 15%;
+        width: 14%;
     }
 }
 
@@ -373,7 +374,7 @@ div .owl-carousel .owl-stage-outer {
     }
 
     100% {
-        width: 33%;
+        width: 34%;
     }
 }
 
@@ -403,7 +404,7 @@ div .owl-carousel .owl-stage-outer {
     }
 
     100% {
-        width: 92%;
+        width: 94%;
     }
 }
 
@@ -441,7 +442,6 @@ div .owl-carousel .owl-stage-outer {
     display: block;
     position: absolute;
     top: -20px;
-    
     z-index: 8;
     width: 55px;
     height: 55px;
@@ -480,6 +480,8 @@ div .owl-carousel .owl-stage-outer {
     color: black;
 }
 
+
+
 #ProgressBar .pt1 {
     display: block;
     left: -1%;
@@ -487,28 +489,29 @@ div .owl-carousel .owl-stage-outer {
 
 #ProgressBar .pt2 {
     display: block;
-    left: 18%;
+    left: 19%;
 }
 
 #ProgressBar .pt3 {
     display: block;
-    left: 38%;
+    left: 39%;
 }
 
 #ProgressBar .pt4 {
     display: block;
-    left: 58%;
+    left: 59%;
 }
 
 #ProgressBar .pt5 {
     display: block;
-    left: 78%;
+    left: 79%;
 }
 
 #ProgressBar .pt6 {
     display: block;
-    left: 97%;
+    left: 99%;
 }
+
 
 
 #ProgressBar span em {
@@ -1037,27 +1040,56 @@ button.close {
     }
 
     .medal-1 {
-        width: 17%;
+        width: 12%;
     }
 
     .medal-2 {
-        width: 35%;
+        width: 32%;
     }
 
     .medal-3 {
-        width: 56%;
+        width: 52%;
     }
 
     .medal-4 {
-        width: 76%;
+        width: 72%;
     }
 
     .medal-5 {
-        width: 95%;
+        width: 72%;
     }
 
     .medal-6 {
-        width: 100%;
+        width: 92%;
+    }
+
+    #ProgressBar .pt1 {
+        left: -7%;
+    }
+
+    #ProgressBar .pt2 {
+        display: block;
+        left: 13%;
+    }
+
+    #ProgressBar .pt3 {
+        display: block;
+        left: 33%;
+    }
+
+    #ProgressBar .pt4 {
+        display: block;
+        left: 53%;
+    }
+
+    #ProgressBar .pt5 {
+        display: block;
+        left: 73%;
+    }
+
+    #ProgressBar .pt6 {
+        display: block;
+        left: 93%;
     }
 
 
