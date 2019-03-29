@@ -18,7 +18,7 @@
 </style>
 
 <div class="container ">
-    <h2 class="title">AVANCE NIVEL</h2>
+    <h2 class="title">Mi nivel</h2>
     <div id="box-niveles">
         <div id="ProgressBar">
         </div>
@@ -73,6 +73,8 @@
                                     {
                                         <li>
                                             @{
+                                            if (item2 != null)
+                                            {
                                                 if (item2.Tipo == "PIE")
                                                 {
                                                     string[] torta = @item2.Valor.Split('-');
@@ -87,8 +89,9 @@
                                                         <span>@item2.Valor</span>
                                                     </div>
                                                 }
+                                                <p>@item2.Titulo</p>
                                             }
-                                            <p>@item2.Titulo</p>
+                                        }
                                         </li>
                                     }
                                 }
