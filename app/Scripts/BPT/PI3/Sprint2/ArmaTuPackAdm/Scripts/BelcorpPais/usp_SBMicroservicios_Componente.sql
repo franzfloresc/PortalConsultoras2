@@ -1,9 +1,4 @@
-﻿USE [BelcorpCostaRica_BPT]
-GO
-/****** Object:  StoredProcedure [dbo].[usp_SBMicroservicios_Componente]    Script Date: 26/02/2019 16:15:21 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
+﻿
 GO
 ALTER PROCEDURE [dbo].[usp_SBMicroservicios_Componente] 
 AS
@@ -72,3 +67,6 @@ BEGIN
 		LEFT JOIN EstrategiaProductoTemporalMongoApp EPTM WITH (NOLOCK) on
         	PCT.AnoCampania = EPTM.Campania AND PCT.CodigoProducto = EPTM.CodigoSap
 END
+
+GO
+
