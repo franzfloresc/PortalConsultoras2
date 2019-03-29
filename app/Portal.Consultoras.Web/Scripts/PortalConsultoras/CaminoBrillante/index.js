@@ -13,6 +13,7 @@ function GetNiveles() {
             lista = data;
             //Inicio: Barra de niveles
             var nivelactual = data.Nivel;
+            var NivelIndice = parseInt(nivelactual) - 1;
             var Html = "<div class='Progress medal-" + nivelactual + "' id='indicadorNivel'></div>";
             var estilo;
             for (var i = 0; i <= data.list.Niveles.length - 1; i++) {
@@ -29,14 +30,15 @@ function GetNiveles() {
             $("#ProgressBar").append(Html);
             for (var i = 1; i <= nivelactual; i++)
                 $(".pt" + i).addClass("activo");
+
             $(".pt" + nivelactual).addClass("brillante");
             //Fin
 
             //Inicio: Agregando lista de beneficios en la pagina principal
             $("#BeneficiosPrincipal").empty();
             var index = nivelactual - 1;
-            var htmlBeneficios = "<h2 class='title'>MIS BENEFICIOS DE NIVEL</h2>";
-            htmlBeneficios += "<p class='text'>Todos los beneficios que tienes actualmente en tu nivel</p>";
+            var htmlBeneficios = "<h2 class='title'>Mis beneficios</h2>";
+            //htmlBeneficios += "<p class='text'>Todos los beneficios que tienes actualmente en tu nivel</p>";
             htmlBeneficios += "<ul class='box-beneficios' id='BeneficiosPrincipal'>";
             for (var i = 0; i <= data.list.Niveles[index].Beneficios.length - 1; i++) {
 
@@ -58,9 +60,8 @@ function ModalBeneficios(index) {
     $("#m_montoMinimo").empty();
     $("#ListaBeneficios").empty();
     $("#m_titulo").text(lista.list.Niveles[index].DescripcionNivel);
-    $("#m_imagen").attr("src", lista.list.Niveles[index].UrlImagenNivel);
     $("#m_montoMinimo").append("Monto mínimo: <span>S/ " + lista.list.Niveles[index].MontoMinimo + ".00</span>");
-
+    $("#m_imagen").attr("src", lista.list.Niveles[index].UrlImagenNivel.replace("_I", "_A"));
     var Html = "";
     for (var i = 0; i <= lista.list.Niveles[index].Beneficios.length - 1; i++) {
         Html += "<li>";

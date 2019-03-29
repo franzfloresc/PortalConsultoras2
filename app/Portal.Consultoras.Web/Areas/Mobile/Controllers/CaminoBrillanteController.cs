@@ -30,17 +30,17 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public JsonResult GetNiveles()
         {
             var informacion = SessionManager.GetConsultoraCaminoBrillante();
-            var _NivealActual = Convert.ToInt32(informacion.NivelConsultora[0].Nivel) - 1;
+            var _NivealActual = Convert.ToInt32(informacion.NivelConsultora.Where(x => x.EsActual).Select(z => z.Nivel).FirstOrDefault());
+
             for (int i = 0; i <= informacion.Niveles.Count() - 1; i++)
             {
                 informacion.Niveles[i].UrlImagenNivel = informacion.Niveles[i].UrlImagenNivel.Replace("{DIMEN}", "MDPI");
 
-                if (i <= _NivealActual)
+                if (i <= _NivealActual - 1)
                     informacion.Niveles[i].UrlImagenNivel = informacion.Niveles[i].UrlImagenNivel.Replace("{STATE}", "A");
                 else
                     informacion.Niveles[i].UrlImagenNivel = informacion.Niveles[i].UrlImagenNivel.Replace("{STATE}", "I");
             }
-            //return Json(new { list = informacion.Niveles, informacion.NivelConsultora[0].NivelActual }, JsonRequestBehavior.AllowGet);
             return Json(new { list = informacion, informacion.NivelConsultora[0].Nivel }, JsonRequestBehavior.AllowGet);
         }
         #endregion

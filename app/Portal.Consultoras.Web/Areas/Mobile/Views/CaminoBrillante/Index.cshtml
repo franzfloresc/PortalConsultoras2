@@ -26,7 +26,7 @@
 </style>
 
 <div class="container ">
-    <h2 class="title">AVANCE NIVEL</h2>
+    <h2 class="title">Mi nivel</h2>
     <div id="box-niveles">
         <div id="ProgressBar">
         </div>
@@ -79,30 +79,25 @@
                                 {
                                     <li>
                                         @{
-                                            if (item2.Tipo == "PIE")
+                                            if (item2 != null)
                                             {
-                                                string[] torta = @item2.Valor.Split('-');
-                                                var imagen = torta[1].PadLeft(2, '0') + "_" + torta[2].PadLeft(2, '0') + ".svg";
-                                                <img src="~/Content/CaminoBrillante/imgs/PIZZA_@imagen" />
-                                            }
-                                            else
-                                            {
-                                                string Valor = item2.Valor.Replace("%", "");
-                                                string Estilo = string.Empty;
-                                                if (Valor.Equals("25"))
+                                                if (item2.Tipo == "PIE")
                                                 {
-                                                    Estilo = "veinticinco";
+                                                    string[] torta = @item2.Valor.Split('-');
+                                                    var imagen = torta[1].PadLeft(2, '0') + "_" + torta[2].PadLeft(2, '0') + ".svg";
+                                                    <img src="~/Content/CaminoBrillante/imgs/PIZZA_@imagen" />
                                                 }
                                                 else
                                                 {
-                                                    Estilo = "cinco";
+                                                    string Valor = item2.Valor.Replace("%", "");
+                                                    string Estilo = Valor.Equals("25") ? "veinticinco" : "cinco";
+                                                    <div class="circle-porcent @Estilo">
+                                                        <span>@item2.Valor</span>
+                                                    </div>
                                                 }
-                                                <div class="circle-porcent @Estilo">
-                                                    <span>@item2.Valor</span>
-                                                </div>
+                                                <p>@item2.Titulo</p>
                                             }
                                         }
-                                        <p>@item2.Titulo</p>
                                     </li>
                                 }
                             </ul>

@@ -36,7 +36,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 informacion.Niveles[i].UrlImagenNivel = informacion.Niveles[i].UrlImagenNivel.Replace("{DIMEN}", "MDPI");
 
-                if (i <= _NivealActual)
+                if (i <= _NivealActual - 1)
                     informacion.Niveles[i].UrlImagenNivel = informacion.Niveles[i].UrlImagenNivel.Replace("{STATE}", "A");
                 else
                     informacion.Niveles[i].UrlImagenNivel = informacion.Niveles[i].UrlImagenNivel.Replace("{STATE}", "I");
