@@ -433,7 +433,7 @@
         {{/each}}
     </ul>
     <!-- INFORMACIÓN CUANDO SE SELECCIONA LA OPCIÓN DE CAMBIAR POR OTRO PRODUCTO -->
-    <div class="opcion_cdr_seleccionada_info opcion_cdr_seleccionada_info--cambiarPorOtroProducto">
+    <div class="opcion_cdr_seleccionada_info opcion_cdr_seleccionada_info--cambiarPorOtroProducto" style="display:none;">
         <p>Puedes cambiarlo por otro producto(s) cuyo monto sea mayor o igual al que reclamas <span>($ 9.99)</span></p>
         <p class="text-bold">
             Búscalo en tus catálogos de Campaña <span>04</span>:
@@ -444,8 +444,8 @@
             <input type="text" class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--precio" value="" placeholder="Precio" />
             <div class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad" data-cantidad-contenedor="">
                 <input type="text" name="Cantidad" id="txtCantidad2" value="1" data-input="cantidad" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid"
-                    attrKey="PreValidarCUV"
-                    onfocus=" SeleccionarContenido(this) ">
+                       attrKey="PreValidarCUV"
+                       onfocus=" SeleccionarContenido(this) ">
                 <div class="liquidacion_rango_right_pedido">
                     <a class="mas modificarPrecioMas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Esika/mas.png" alt=""></a>
                     <a class="menos modificarPrecioMenos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="/Content/Images/Esika/menos.png" alt=""></a>
@@ -454,6 +454,16 @@
         </div>
     </div>
     <!-- FIN - INFORMACIÓN CUANDO SE SELECCIONA LA OPCIÓN DE CAMBIAR POR OTRO PRODUCTO -->
+    <!-- INFORMACIÓN CUANDO SE SELECCIONA LA OPCIÓN DE DEVOLUCIÓN Y EL PRODUCTO FORMA PARTE DE UN SET -->
+    <div class="opcion_cdr_seleccionada_info opcion_cdr_seleccionada_info--devolucionCasoSetProducto">
+        <p class="text-bold">El producto <span class="text-bold producto_set_nom">0006 - Kalos Sport</span> pertenece al pack:</p>
+        <p class="text-left producto_set_lista">
+            <span class="text-bold">+ Kalos Sport</span>
+            <span class="text-bold">+ Máscara</span>
+            <span class="text-bold">+ 2 Labial Dúo</span>
+        </p>
+    </div>
+    <!-- FIN - INFORMACIÓN CUANDO SE SELECCIONA LA OPCIÓN DE DEVOLUCIÓN Y EL PRODUCTO FORMA PARTE DE UN SET -->
     <button type="button" class="border-radius-4 text-bold btn_solucion_reclamo" id="btnSiguiente">Siguiente</button>
 </script>
 <script id="template-confirmacion" type="text/x-handlebars-template">

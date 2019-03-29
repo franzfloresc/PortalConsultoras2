@@ -28263,7 +28263,7 @@ div.motivoRechazo textarea {
     left: 21px;
     height: 47px;
     line-height: 44px;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .contenedor_descripcion_reclamo,
@@ -28349,7 +28349,7 @@ div.motivoRechazo textarea {
     padding-top:1px;
     border:1px solid#000;
     background-color:#FBFBFB;
-    font-size:16px;
+    font-size:14px;
     background-image:url(../../../Images/icono_lupa.svg);
     background-repeat:no-repeat;
     background-position:97% center;
@@ -28371,7 +28371,7 @@ div.motivoRechazo textarea {
 }
 
 .descripcion_reclamo + .chosen-container .active-result {
-    font-size:16px;
+    font-size:14px;
     margin-bottom:8px;
     -moz-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
@@ -28472,9 +28472,10 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 }
 
 .opcion_cdr_seleccionada_info--cambiarPorOtroProducto p,
-.opcion_cdr_seleccionada_campo_busqueda{
-    font-size:14px;
-    letter-spacing:0.1px;
+.opcion_cdr_seleccionada_info--devolucionCasoSetProducto p,
+.opcion_cdr_seleccionada_campo_busqueda {
+    font-size: 14px;
+    letter-spacing: 0.1px;
 }
 
 .opcion_cdr_seleccionada_info--cambiarPorOtroProducto p {
@@ -28575,6 +28576,26 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
         .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .menos img {
             left: -1.5px;
         }
+
+.opcion_cdr_seleccionada_info--devolucionCasoSetProducto{
+    margin-bottom:25px;
+}
+
+.producto_set_nom {
+    font-size: 16px;
+}
+
+.producto_set_lista {
+    display: inline-block;
+    margin-top:8px;
+    margin-bottom: 0;
+    text-align: left;
+}
+
+    .producto_set_lista span{
+        display:block;
+        margin-bottom:5px;
+    }
 
 .rango_reclamo {
     width: 80px;
