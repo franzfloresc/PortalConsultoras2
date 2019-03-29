@@ -273,15 +273,11 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected List<ObjMontosProl> ServicioProl_CalculoMontosProl(bool session = true)
         {
+            if (session && SessionManager.GetMontosProl() != null) return SessionManager.GetMontosProl();
+
             var montosProl = new List<ObjMontosProl> { new ObjMontosProl() };
 
-            if (session && SessionManager.GetMontosProl() != null)
-            {
-                return SessionManager.GetMontosProl();
-            }
-
             var detallesPedidoWeb = ObtenerPedidoWebDetalle();
-
             if (detallesPedidoWeb.Any())
             {
                 var cuvs = string.Join("|", detallesPedidoWeb.Select(p => p.CUV).ToArray());
@@ -337,22 +333,20 @@ namespace Portal.Consultoras.Web.Controllers
             var puntajesExigidos = string.Empty;
 
             userData.EjecutaProl = false;
-
-            var lista = ServicioProl_CalculoMontosProl(false) ?? new List<ObjMontosProl>();
-
-            if (lista.Any())
+            var listMontosProl = ServicioProl_CalculoMontosProl(false);
+            if (listMontosProl.Any())
             {
-                var oRespuestaProl = lista[0];
+                var montosProl = listMontosProl[0];
 
-                decimal.TryParse(oRespuestaProl.AhorroCatalogo, out montoAhorroCatalogo);
-                decimal.TryParse(oRespuestaProl.AhorroRevista, out montoAhorroRevista);
-                decimal.TryParse(oRespuestaProl.MontoTotalDescuento, out montoDescuento);
-                decimal.TryParse(oRespuestaProl.MontoEscala, out montoEscala);
+                decimal.TryParse(montosProl.AhorroCatalogo, out montoAhorroCatalogo);
+                decimal.TryParse(montosProl.AhorroRevista, out montoAhorroRevista);
+                decimal.TryParse(montosProl.MontoTotalDescuento, out montoDescuento);
+                decimal.TryParse(montosProl.MontoEscala, out montoEscala);
 
-                if (oRespuestaProl.ListaConcursoIncentivos != null)
+                if (montosProl.ListaConcursoIncentivos != null)
                 {
-                    puntajes = string.Join("|", oRespuestaProl.ListaConcursoIncentivos.Select(c => c.puntajeconcurso.Split('|')[0]).ToArray());
-                    puntajesExigidos = string.Join("|", oRespuestaProl.ListaConcursoIncentivos.Select(c => (c.puntajeconcurso.IndexOf('|') > -1 ? c.puntajeconcurso.Split('|')[1] : "0")).ToArray());
+                    puntajes = string.Join("|", montosProl.ListaConcursoIncentivos.Select(c => c.puntajeconcurso.Split('|')[0]).ToArray());
+                    puntajesExigidos = string.Join("|", montosProl.ListaConcursoIncentivos.Select(c => (c.puntajeconcurso.IndexOf('|') > -1 ? c.puntajeconcurso.Split('|')[1] : "0")).ToArray());
                 }
             }
 
@@ -371,7 +365,6 @@ namespace Portal.Consultoras.Web.Controllers
             using (var sv = new PedidoServiceClient())
             {
                 sv.UpdateMontosPedidoWeb(bePedidoWeb);
-
                 if (!string.IsNullOrEmpty(userData.CodigosConcursos))
                     sv.ActualizarInsertarPuntosConcurso(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID.ToString(), userData.CodigosConcursos, puntajes, puntajesExigidos);
             }
@@ -600,12 +593,12 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                var rtpa = ServicioProl_CalculoMontosProl(userData.EjecutaProl);
+                var listMontosProl = ServicioProl_CalculoMontosProl(userData.EjecutaProl);
                 userData.EjecutaProl = true;
-                if (!rtpa.Any()) return objR;
-
-                var obj = rtpa[0];
-                SetBarraConsultoraMontosTotales(objR, obj, Agrupado);
+                if (!listMontosProl.Any()) return objR;
+                
+                var montosProl = listMontosProl[0];
+                SetBarraConsultoraMontosTotales(objR, montosProl, Agrupado);
 
                 #region Tipping Point
                 
