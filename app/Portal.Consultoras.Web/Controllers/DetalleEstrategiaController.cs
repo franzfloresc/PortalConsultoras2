@@ -112,6 +112,34 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
         }
-        
+
+        public JsonResult ObtenerComponenteDetalle( string cuv)
+        {
+            try
+            {
+                  
+                bool esMultimarca = false;
+                string mensaje = "";
+                
+                //EAAR: consumir servicio de juanjo
+
+                return Json(new
+                {
+                    success = true, 
+                    respuesta= cuv+" test",
+                    mensaje
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+
+                return Json(new
+                {
+                    success = false
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+        }
     }
 }

@@ -1,5 +1,11 @@
 ﻿var ComponenteDetalleModule = (function () {
 
+    var _config = {
+        ComponenteDetalleProvider: ComponenteDetalleProvider
+    };
+
+    var _urlComponenteDetalle = ConstantesModule.UrlDetalleEstrategia;
+
     var _setHandlebars = function (idTemplate, modelo) {
         SetHandlebars("#" + idTemplate, modelo, _template.getTagDataHtml(idTemplate));
     };
@@ -12,15 +18,33 @@
     };
 
     var _VerDetalle = function (cuv) {
-        alert('cuv: '+cuv);
+        alert('cuv: ' + cuv + ' ... ' + _urlComponenteDetalle.obtenerComponenteDetalle);
         console.log('cuv', cuv);
+        
+        _config.ComponenteDetalleProvider.PromiseObternerComponenteDetalle({
+            cuv: cuv 
+        }).done(function (data) {
+            if (data.success) {
+                
+            }
+            console.log('data', data);
+            _MostrarModal(data);
 
-        _setHandlebars(_template.componenteDetalle, { codigo: 123, nombre: 'dddddddddd' });
+        }).fail(function (data, error) {
+            console.log(data);
+            console.log(error);
+            errorRespuesta = true;
+        });
+          
+    };
 
-        _setAcordionDetalleComponente();         
+    var _MostrarModal = function (data) {
+
+        _setHandlebars(_template.componenteDetalle, data);
+
+        _setAcordionDetalleComponente();//eventos de acordio
         $("#modal_producto_detalle").modal();
         _FijarCarrusel();
-         
     };
 
     var _FijarCarrusel = function () {
@@ -34,7 +58,7 @@
         });
 
     };
-     
+
     var _setAcordionDetalleComponente = function () {
         $("#mnuDetalleComponente li a").click(function () {
             var $this = $(this);
@@ -45,13 +69,13 @@
             }
             else {
                 $this.attr("class", "active");
-                
+
 
             }
         });
     };
- 
+
     return {
-        VerDetalle: _VerDetalle 
+        VerDetalle: _VerDetalle
     };
 });
