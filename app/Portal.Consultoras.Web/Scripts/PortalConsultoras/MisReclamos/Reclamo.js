@@ -86,7 +86,7 @@ $(document).ready(function () {
     });
 
     $('#divOperacion').on("click", ".btn_solucion_reclamo", function () {
-
+        console.log(this);
         $(".btn_solucion_reclamo").attr("data-check", "0");
         var id = $.trim($(this).attr("id"));
         if (id == "") {
@@ -1010,7 +1010,7 @@ function DetalleGuardar() {
 function CambioPaso2(paso) {
     paso2Actual = paso2Actual + (paso || 1);
     paso2Actual = paso2Actual < 1 ? 1 : paso2Actual > 3 ? 3 : paso2Actual;
-    $('div[id^=Cambio]').hide();
+    //$('div[id^=Cambio]').hide();
     $('[id=Cambio' + paso2Actual + ']').show();
 }
 
@@ -1802,8 +1802,24 @@ function ContinuarConfirmEnvioSolicitudCDR() {
 //HD-3703
 function EscogerSolucion(opcion, event) {
     $("#divOperacion input[type=checkbox]").not(opcion).prop('checked', false);
+    var id = opcion.id;
 
-    
+    if (id == "") {
+        $('#infoOpcionesDeCambio').fadeOut();
+        return false;
+    }
+
+    $('#infoOpcionesDeCambio').show();
+
+    if (id == "T") {
+        $('#OpcionCambioPorOtroProducto').fadeIn(100);
+    } else if (id == "C") {
+        $('#OpcionCambioMismoProducto').fadeIn(100);
+    } else if (id == "D") {
+        $('#OpcionDevolucion').fadeIn(100);
+    } else {
+        $('#infoOpcionesDeCambio').fadeOut();
+    }
 
 }
 

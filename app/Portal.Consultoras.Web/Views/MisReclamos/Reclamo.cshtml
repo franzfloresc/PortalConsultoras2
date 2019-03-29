@@ -175,51 +175,6 @@
                         <hr class="clear" />
                     </div>
                 </div>
-
-                @*INI HD-3703 EINCA*@
-                <div id="divCambioOtroProducto" style="display:none">
-                    <div class="texto_reclamo">
-                        <input type="hidden" id="hdMontoMinimoReclamo_OP" />
-                        Puedes cambiarlo por otro producto(s) cuyo monto sea mayor o igual al que reclamas (<span id="spnSimboloMonedaReclamo_OP">S/.</span><span id="spnMontoMinimoReclamoFormato_OP">15</span>)<br />
-                        Búscalo en tus catálogos de Campaña <span id="spnNumeroCampaniaReclamo_OP">15</span>:
-                    </div>
-                    <div class="text-center">
-                        <input type="text" placeholder="Código" class="codigo_reclamo ValidaNumeral ValidaPasteNumeral valid" id="txtCUV2_OP" />
-                        <input type="text" placeholder="Descripción del producto" id="txtCUVDescripcion2_OP" readonly="readonly" class="descripcion_reclamo" style="width: 369px;" />
-                        <input type="text" placeholder="Precio" class="precio_reclamo" id="txtCUVPrecio2_OP" readonly="readonly" />
-                        <input type="hidden" id="hdCuvPrecio2_OP" />
-                        <input type="hidden" id="hdParametriaCdr_OP" />
-                        <input type="hidden" id="hdParametriaAbsCdr_OP" />
-                        <input type="hidden" id="hdCuvPrecio2_OP" />
-
-                        <input type="hidden" id="hdCdrWebDatos_Ssic_OP" />
-                        <div class="rango_reclamo" data-cantidad-contenedor="">
-                            <input type="text" name="Cantidad" id="txtCantidad2" value="1" data-input="cantidad" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid"
-                                   attrKey="PreValidarCUV"
-                                   onfocus=" SeleccionarContenido(this) ">
-                            <div class="liquidacion_rango_right_pedido">
-                                <a class="mas modificarPrecioMas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                                <a class="menos modificarPrecioMenos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="/Content/Images/Esika/menos.png" alt=""></a>
-                            </div>
-                        </div>
-                    </div>
-                    <hr class="clear" />
-                    <div class="total_precio_reclamo">
-                        <input type="hidden" id="hdImporteTotal2_OP" />
-                        Total: <span id="spnImporteTotal2"></span>
-                    </div>
-                    <hr class="clear" />
-                    <a class="btn_paso_anterior" href="javascript:;" id="RegresarPaso2_OP">REGRESAR</a>
-                    <a class="btn_si_stock_cdr" href="javascript:;" style="width: 296px;" id="CambioProducto2_OP">SIGUIENTE</a>
-                    <hr class="clear" />
-                </div>
-                <div id="divCambioMismoProducto" style="display:none">
-                    <p>Cambio por el mismo producto</p>
-                </div>
-                <div id="divDevolucion" style="display:none">
-                    <p>Devolución del producto</p>
-                </div>
-                @*FIN HD-3703 EINCA*@
             </div>
             <div class="content_reclamo" id="Paso3" style="display: none;">
                 <div class="subtitulo_reclamo" style="margin-bottom: 0">Revisa el resumen, finaliza y envía tu solicitud</div>
@@ -419,41 +374,60 @@
         <li class="opcion_cdr border-radius-4">
             <a title="{{item.CDRTipoOperacion.DescripcionOperacion}}" class="text-center opcion_cdr_enlace">
                 <div class="opcion_cdr_icono_wrapper">
+                    {{#if_eq item.CodigoOperacion 'D'}}
                     <img src="@Url.Content("~/Content/Images/opcion_devolucion_cdr.svg")" alt="" class="opcion_cdr_icono" />
+                    {{else if_eq item.CodigoOperacion 'T'}}
+                    <img src="@Url.Content("~/Content/Images/opcion_cambio_otro_producto_cdr.svg")" alt="" class="opcion_cdr_icono" />
+                    {{else if_eq item.CodigoOperacion 'C' }}
+                    <img src="@Url.Content("~/Content/Images/opcion_cambio_mismo_producto_cdr.svg")" alt="" class="opcion_cdr_icono" />
+                    {{/if_eq}}
                 </div>
                 <div class="text-bold opcion_cdr_seleccion_wrapper">
-                    <input id="{{item.CodigoOperacion}}" style="display:none!important;" type="checkbox" onchange="EscogerSolucion(this,event)" id="chk{{item.CodigoOperacion}}" data-tipo="{{item.Tipo}}">
+                    <input id="{{item.CodigoOperacion}}" style="display:none!important;" type="checkbox" onchange="EscogerSolucion(this,event)" data-tipo="{{item.Tipo}}">
                     {{item.CDRTipoOperacion.DescripcionOperacion}}
                     <label for="{{item.CodigoOperacion}}" class="border-radius-4 opcion_cdr_checkbox">
                     </label>
                 </div>
             </a>
         </li>
-        @*<span class="btn_solucion_reclamo" id="{{item.CodigoOperacion}}" data-tipo="{{item.Tipo}}">{{item.CDRTipoOperacion.DescripcionOperacion}}</span>*@
         {{/each}}
     </ul>
-    <!-- INFORMACIÓN CUANDO SE SELECCIONA LA OPCIÓN DE CAMBIAR POR OTRO PRODUCTO -->
-    <div class="opcion_cdr_seleccionada_info opcion_cdr_seleccionada_info--cambiarPorOtroProducto">
-        <p>Puedes cambiarlo por otro producto(s) cuyo monto sea mayor o igual al que reclamas <span>($ 9.99)</span></p>
-        <p class="text-bold">
-            Búscalo en tus catálogos de Campaña <span>04</span>:
-        </p>
-        <div class="text-center opcion_cdr_seleccionada_campos_busqueda_producto_a_cambiar">
-            <input type="text" class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--codigo" value="" placeholder="Código" />
-            <input type="text" class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--descripcion" value="" placeholder="Descripción del producto" />
-            <input type="text" class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--precio" value="" placeholder="Precio" />
-            <div class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad" data-cantidad-contenedor="">
-                <input type="text" name="Cantidad" id="txtCantidad2" value="1" data-input="cantidad" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid"
-                    attrKey="PreValidarCUV"
-                    onfocus=" SeleccionarContenido(this) ">
-                <div class="liquidacion_rango_right_pedido">
-                    <a class="mas modificarPrecioMas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                    <a class="menos modificarPrecioMenos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+
+    <div id="infoOpcionesDeCambio" style="display:none;">
+        <div id="OpcionCambioPorOtroProducto" style="display:none;">
+            <!-- INFORMACIÓN CUANDO SE SELECCIONA LA OPCIÓN DE CAMBIAR POR OTRO PRODUCTO -->
+            <div class="opcion_cdr_seleccionada_info opcion_cdr_seleccionada_info--cambiarPorOtroProducto">
+                <p>Puedes cambiarlo por otro producto(s) cuyo monto sea mayor o igual al que reclamas <span>($ 9.99)</span></p>
+                <p class="text-bold">
+                    Búscalo en tus catálogos de Campaña <span>04</span>:
+                </p>
+                <div class="text-center opcion_cdr_seleccionada_campos_busqueda_producto_a_cambiar">
+                    <input type="text" class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--codigo" value="" placeholder="Código" />
+                    <input type="text" class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--descripcion" value="" placeholder="Descripción del producto" />
+                    <input type="text" class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--precio" value="" placeholder="Precio" />
+                    <div class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad" data-cantidad-contenedor="">
+                        <input type="text" name="Cantidad" id="txtCantidad2" value="1" data-input="cantidad" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid"
+                               attrKey="PreValidarCUV"
+                               onfocus=" SeleccionarContenido(this) ">
+                        <div class="liquidacion_rango_right_pedido">
+                            <a class="mas modificarPrecioMas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                            <a class="menos modificarPrecioMenos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <!-- FIN - INFORMACIÓN CUANDO SE SELECCIONA LA OPCIÓN DE CAMBIAR POR OTRO PRODUCTO -->
+        </div>
+        <div id="OpcionCambioMismoProducto" style="display:none;">
+            <p>Cambio por el mismo producto</p>
+        </div>
+        <div id="OpcionDevolucion" style="display:none;">
+            <p>Devolución del producto</p>
         </div>
     </div>
-    <!-- FIN - INFORMACIÓN CUANDO SE SELECCIONA LA OPCIÓN DE CAMBIAR POR OTRO PRODUCTO -->
+
+
+
     <button type="button" class="border-radius-4 text-bold btn_solucion_reclamo" id="btnSiguiente">Siguiente</button>
 </script>
 <script id="template-confirmacion" type="text/x-handlebars-template">
