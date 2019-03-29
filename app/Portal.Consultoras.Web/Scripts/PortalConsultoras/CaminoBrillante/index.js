@@ -48,44 +48,6 @@ function GetNiveles() {
             htmlBeneficios += "</ul>";
             $("#BeneficiosPrincipal").append(htmlBeneficios);
             //Fin
-
-            //Desactivando botón para el primer nivel
-            if (nivelactual === 1) {
-                $('#OfertasEspeciales').addClass("OfertasEspecialesBlock");
-                htmlBeneficios += "<br />";
-            }
-            //Fin
-
-            //==========================================    LOGROS  =================================================
-            //$("#Carusel-Logros").empty();
-            $('#TituloLogros').append(data.list.ResumenLogros.Titulo);
-            $('#DescripcionLogros').append(data.list.ResumenLogros.Descripcion);
-            for (var i = 0; i <= data.list.ResumenLogros.Indicadores.length - 1; i++) {
-                var HtmlLogros = '';
-                HtmlLogros += '<div class="owl-item">';
-                HtmlLogros += '<div class="item">';
-                HtmlLogros += '<div class="shad box-' + data.list.ResumenLogros.Indicadores[i].Titulo + '">';
-                HtmlLogros += '<p class="text-bold">' + data.list.ResumenLogros.Indicadores[i].Titulo + '</p>';
-                HtmlLogros += '<span class="text-down">' + data.list.ResumenLogros.Indicadores[i].Descripcion + '</span>';
-                HtmlLogros += '<ul class="list-crec">';
-
-                for (var medalla = 0; medalla <= data.list.ResumenLogros.Indicadores[i].Medallas.length - 1; medalla++) {
-                    HtmlLogros += '<li>';
-                    HtmlLogros += '<div class="circle-porcent cinco">';
-                    HtmlLogros += '<span>' + data.list.ResumenLogros.Indicadores[i].Medallas[medalla].Valor  + '</span>';
-                    HtmlLogros += '</div>';
-                    HtmlLogros += '<p>' + data.list.ResumenLogros.Indicadores[i].Medallas[medalla].Titulo + '</p>';
-                    HtmlLogros += '</li>';  
-                }
-                HtmlLogros += '</ul>';
-                HtmlLogros += '<a href="" class="btn-link">Ver todos</a>';
-                HtmlLogros += '</div>';
-                HtmlLogros += '</div>';
-                HtmlLogros += '</div>';
-                //$("#Carusel-Logros").append(HtmlLogros);
-                $(".owl-stage").append(HtmlLogros);             
-                //$(".owl-stage").css({"transform": "translate3d(0px, 0px, 0px)", "transition": "all 0.25s ease 0s", "padding-left": "35px", "padding-right": "35px" });
-            }
         }, error: function (xhr, status, error) {
 
         }

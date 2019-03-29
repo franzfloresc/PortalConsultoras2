@@ -1433,6 +1433,12 @@
     <Content Include="Content\CaminoBrillante\imgs\icono-2.PNG" />
     <Content Include="Content\CaminoBrillante\imgs\icono.png" />
     <Content Include="Content\CaminoBrillante\imgs\image-1%402x.png" />
+    <Content Include="Content\CaminoBrillante\imgs\PIZZA_06_01.svg" />
+    <Content Include="Content\CaminoBrillante\imgs\PIZZA_06_02.svg" />
+    <Content Include="Content\CaminoBrillante\imgs\PIZZA_06_03.svg" />
+    <Content Include="Content\CaminoBrillante\imgs\PIZZA_06_04.svg" />
+    <Content Include="Content\CaminoBrillante\imgs\PIZZA_06_05.svg" />
+    <Content Include="Content\CaminoBrillante\imgs\PIZZA_06_06.svg" />
     <Content Include="Content\CaminoBrillante\imgs\recurso-17-3-x%402x.png" />
     <Content Include="Content\CaminoBrillante\imgs\recurso-18-3-x%402x.png" />
     <Content Include="Content\CaminoBrillante\imgs\recurso-19-3-x%402x.png" />
@@ -4125,7 +4131,6 @@
     <Content Include="Scripts\PortalConsultoras\Buscador\BuscadorProvider.js" />
     <Content Include="Scripts\PortalConsultoras\Buscador\BusquedaProductoModule.js" />
     <Content Include="Scripts\PortalConsultoras\CaminoBrillante\index.js" />
-    <Content Include="Scripts\PortalConsultoras\CaminoBrillante\Mobile.js" />
     <Content Include="Scripts\PortalConsultoras\Campania\CampaniaModule.js" />
     <Content Include="Scripts\PortalConsultoras\CatalogoPersonalizado\catalogoPersonalizado.js" />
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
