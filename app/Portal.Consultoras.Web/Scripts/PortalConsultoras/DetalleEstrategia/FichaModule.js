@@ -130,8 +130,7 @@ var FichaModule = (function (config) {
         producto: "ficha_producto_template",
         carrusel: "ficha_carrusel_template",
         compartir: "ficha_compartir_template",
-        styleOdd: "ofertadeldia-template-style",
-        componenteDetalle: "componenteDetalle-template"
+        styleOdd: "ofertadeldia-template-style" 
     };
 
     var _seccionesFichaProducto = {
@@ -295,43 +294,7 @@ var FichaModule = (function (config) {
         if (showTabContainer) $(_seccionesFichaProducto.ContenidoProducto).show();
 
     };
-
-    var _verDetalleComponente = function (cuv) {
-        alert(cuv);
-        console.log('cuv', cuv);
-
-        _setHandlebars(_template.componenteDetalle, { codigo: 123, nombre: 'dddddddddd' });
-
-        _setAcordionDetalleComponente();
-        $("#modal_producto_detalle").modal();
-
-         
-
-    };
-
-    var _setAcordionDetalleComponente = function () {
-        $("#mnuDetalleComponente li a").click(function () {
-            var $this = $(this);
-            $this.parent().children("ul").slideToggle();
-            var clase = $this.attr("class");
-            if (clase === "active") {
-                $this.attr("class", "tab-link");
-            }
-            else {
-                $this.attr("class", "active");
-                $('#carousel11').slick({
-                    dots: true,
-                    infinite: true,
-                    speed: 300,
-                    slidesToShow: 1,
-                    centerMode: true,
-                    variableWidth: true
-                });
-
-            }
-        });
-    };
-
+      
     var _construirSeccionDetalleFichas = function () {
         var pEstrategia = _estrategia;
         if (pEstrategia === null || typeof (pEstrategia) === "undefined") {
@@ -1013,8 +976,7 @@ var FichaModule = (function (config) {
     return {
         Inicializar: _init,
         GetEstrategia: getEstrategia,
-        GetModeloFicha: getModeloFicha,
-        verDetalleComponente: _verDetalleComponente
+        GetModeloFicha: getModeloFicha 
     };
 });
 

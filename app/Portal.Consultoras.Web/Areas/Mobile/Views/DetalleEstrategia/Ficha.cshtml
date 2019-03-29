@@ -24,10 +24,14 @@
         AbrirLoad();
 
         var fichaModule;
+        var componenteDetalleModule;
 
         var urlGetCantidadProductos = '@Url.Action("GetResumenCampaniaAgrupado", "GestionContenido", new {area = ""})';
 
         $(document).ready(function () {
+
+            componenteDetalleModule = ComponenteDetalleModule();
+
             fichaModule = FichaModule({
                 localStorageModule: LocalStorageModule(),
                 analyticsPortalModule: AnalyticsPortalModule,
