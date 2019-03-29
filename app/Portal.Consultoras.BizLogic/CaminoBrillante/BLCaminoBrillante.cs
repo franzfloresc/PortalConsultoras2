@@ -428,59 +428,6 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                                    ModalTitulo = e.ComoLograrlo_Estado ? e.ComoLograrlo_Titulo : string.Empty,
                                    ModalDescripcion = e.ComoLograrlo_Estado ? e.ComoLograrlo_Descripcion : string.Empty
                                }).ToList()
-                    /*
-                    Medallas = new List<BEMedallaCaminoBrillante>{
-                                    new BEMedallaCaminoBrillante(){
-                                        Orden = 0,
-                                        Tipo = "PED",
-                                        Estado = true,
-                                        Titulo ="1er pedido",
-                                        Subtitulo = "¿Cómo lograrlo",
-                                        Valor = "1",
-                                    },
-                                    new BEMedallaCaminoBrillante(){
-                                        Orden = 0,
-                                        Tipo = "PED",
-                                        Estado = true,
-                                        Titulo ="2do pedido",
-                                        Subtitulo = "¿Cómo lograrlo",
-                                        Valor = "2",
-                                    },
-                                    new BEMedallaCaminoBrillante(){
-                                        Orden = 0,
-                                        Tipo = "PED",
-                                        Estado = true,
-                                        Titulo ="3er pedido",
-                                        Subtitulo = "¿Cómo lograrlo",
-                                        Valor = "3",
-                                    },
-                                    new BEMedallaCaminoBrillante(){
-                                        Orden = 0,
-                                        Tipo = "PED",
-                                        Estado = true,
-                                        Titulo ="4to pedido",
-                                        Subtitulo = "¿Cómo lograrlo",
-                                        Valor = "4",
-                                    },
-                                    new BEMedallaCaminoBrillante(){
-                                        Orden = 0,
-                                        Tipo = "PED",
-                                        Estado = true,
-                                        Titulo ="5to pedido",
-                                        Subtitulo = "¿Cómo lograrlo",
-                                        Valor = "5",
-                                    },
-                                    new BEMedallaCaminoBrillante(){
-                                        Orden = 0,
-                                        Tipo = "PED",
-                                        Estado = true,
-                                        Titulo ="6to pedido",
-                                        Subtitulo = "¿Cómo lograrlo",
-                                        Valor = "6",
-                                    }
-                                }
-                        */
-
                 };
             }
             return null;
