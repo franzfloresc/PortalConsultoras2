@@ -5,6 +5,9 @@
     if (config === null || typeof config === "undefined")
         throw "config is null or undefined";
 
+    if (config.localStorageModule === null || typeof config.localStorageModule === "undefined")
+        throw "config.localStorageModule is null or undefined";
+
     if (config.analyticsPortalModule === null || typeof config.analyticsPortalModule === "undefined")
         throw "config.analyticsPortalModule is null or undefined";
 
@@ -13,8 +16,9 @@
     var _codigoPalanca = ConstantesModule.CodigosPalanca;
     var _constantePalanca = ConstantesModule.ConstantesPalanca;
 
-    var _config = {
+    var _config = {        
         ComponenteDetalleProvider: ComponenteDetalleProvider,
+        localStorageModule: config.localStorageModule,
         analyticsPortalModule: config.analyticsPortalModule,
         palanca: config.palanca,
         campania: config.campania,
@@ -93,6 +97,9 @@
 
     var _VerDetalle = function (cuv) {
 
+        var estrategia = _config.localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
+
+        console.log('estrategia', estrategia);
         console.log('cuv', cuv);
         console.log('_config', _config);
 

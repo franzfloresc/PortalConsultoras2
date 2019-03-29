@@ -30,15 +30,14 @@
 
         $(document).ready(function () {
 
-            componenteDetalleModule = ComponenteDetalleModule(
-                {
-                analyticsPortalModule: AnalyticsPortalModule, 
+            componenteDetalleModule = ComponenteDetalleModule({
+                localStorageModule: LocalStorageModule(),
+                analyticsPortalModule: AnalyticsPortalModule,
                 palanca: "@Model.Palanca",
                 campania: "@Model.Campania",
                 cuv: "@Model.Cuv",
                 origen: "@Model.OrigenUrl"
-            }
-            );
+            });
 
             fichaModule = FichaModule({
                 localStorageModule: LocalStorageModule(),
