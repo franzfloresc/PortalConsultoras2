@@ -69,8 +69,10 @@
                             <ul class="list-crec">
                                 @foreach (var item2 in data.Indicadores[i].Medallas)
                                 {
-                                    <li>
-                                        @{
+                                    if (item2 != null)
+                                    {
+                                        <li>
+                                            @{
                                             if (item2 != null)
                                             {
                                                 if (item2.Tipo == "PIE")
@@ -90,7 +92,8 @@
                                                 <p>@item2.Titulo</p>
                                             }
                                         }
-                                    </li>
+                                        </li>
+                                    }
                                 }
                             </ul>
                             <a href="" class="btn-link">Ver todos</a>
