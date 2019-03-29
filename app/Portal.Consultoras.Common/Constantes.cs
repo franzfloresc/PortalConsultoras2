@@ -91,7 +91,16 @@ namespace Portal.Consultoras.Common
             public const int EstadosUnidos = 16;
         }
 
-        public static class CodigosISOPais
+
+        public static class TipoEnvio
+        {
+            public const string SMS = "SMS";
+            public const string FIJO = "FIJO";
+        }
+
+
+
+            public static class CodigosISOPais
         {
             public const string Peru = "PE";
             public const string Chile = "CL";

@@ -170,7 +170,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     respuesta = sv.ActualizarEmail(usuario, correoNuevo);
                 }
-                ActualizarValidacionDatos(EsDispositivoMovil(), usuario.CodigoConsultora);
+                ActualizarValidacionDatos(EsDispositivoMovil(), usuario.CodigoUsuario);
                 return Json(new { success = respuesta.Succcess, message = respuesta.Message });
             }
             catch (Exception ex)
@@ -318,7 +318,7 @@ namespace Portal.Consultoras.Web.Controllers
                         userData.FotoPerfilAncha = Util.EsImagenAncha(imagenS3);
                         ViewBag.FotoPerfilAncha = userData.FotoPerfilAncha;
                     }
-                    ActualizarValidacionDatos(EsDispositivoMovil(), userData.CodigoConsultora);
+                    ActualizarValidacionDatos(EsDispositivoMovil(), userData.CodigoUsuario);
                     userData.FotoOriginalSinModificar = nameImage;
                     ViewBag.FotoPerfilSinModificar = nameImage;
 
@@ -352,7 +352,7 @@ namespace Portal.Consultoras.Web.Controllers
                     ConfigS3.DeleteFileS3(carpetaPais, userData.FotoOriginalSinModificar);
                 }
 
-                ActualizarValidacionDatos(EsDispositivoMovil(), userData.CodigoConsultora);
+                ActualizarValidacionDatos(EsDispositivoMovil(), userData.CodigoUsuario);
                 userData.FotoPerfil = "../../Content/Images/icono_avatar.svg";
                 userData.FotoOriginalSinModificar = null;
                 userData.FotoPerfilAncha = false;
@@ -388,7 +388,7 @@ namespace Portal.Consultoras.Web.Controllers
             };
 
             result = await sender.Send(celular);
-            ActualizarValidacionDatos(EsDispositivoMovil(), userData.CodigoConsultora);
+            ActualizarValidacionDatos(EsDispositivoMovil(), userData.CodigoUsuario);
             return Json(result);
         }
 
@@ -409,7 +409,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             var celularNuevo = result.Message;
             UpdateCelularLogDynamo(celularNuevo);
-            ActualizarValidacionDatos(EsDispositivoMovil(), userData.CodigoConsultora);
+            ActualizarValidacionDatos(EsDispositivoMovil(), userData.CodigoUsuario);
             return Json(new { Success = true });
         }
 
@@ -464,7 +464,7 @@ namespace Portal.Consultoras.Web.Controllers
                         });
                     }
                 }
-                ActualizarValidacionDatos(EsDispositivoMovil(), userData.CodigoConsultora);
+                ActualizarValidacionDatos(EsDispositivoMovil(), userData.CodigoUsuario);
             }
             catch (FaultException ex)
             {
@@ -525,7 +525,7 @@ namespace Portal.Consultoras.Web.Controllers
                             rslt = 0;
                     }
                 }
-                ActualizarValidacionDatos(EsDispositivoMovil(), userData.CodigoConsultora);
+                ActualizarValidacionDatos(EsDispositivoMovil(), userData.CodigoUsuario);
                 return Json(new
                 {
                     success = true,
@@ -740,22 +740,20 @@ namespace Portal.Consultoras.Web.Controllers
         {
             int result = 0;
             var request = new HttpRequestWrapper(System.Web.HttpContext.Current.Request);
-            //string ipDispositivo = request.ClientIPFromRequest(skipPrivate: true); ipDispositivo = ipDispositivo == null ? String.Empty : ipDispositivo;
-            string ipDispositivo = "192.168.1.1";
+            string ipDispositivo = request.ClientIPFromRequest(skipPrivate: true);
+                   ipDispositivo = ipDispositivo == null ? String.Empty : ipDispositivo;
             using (UsuarioServiceClient sv = new UsuarioServiceClient())
             {
-                result= sv.ActualizarValidacionDatos(isMobile, ipDispositivo, codigoConsultora, userData.PaisID, userData.CodigoUsuario);
+                result= sv.ActualizarValidacionDatos(isMobile, ipDispositivo, codigoConsultora  , userData.PaisID, userData.CodigoUsuario);
 
             }
         }
 
-
-
         public void ActualizarSMS(int paisId, string codigoConsultora, string celularAnterior, string celularActual)
         {
             int result = 0;
-            string tipoEnvio = "SMS";
-            if (userData.PaisID != 11)
+            string tipoEnvio = Constantes.TipoEnvio.SMS.ToString();
+            if (userData.PaisID != Convert.ToInt32(Constantes.PaisID.Peru))/*Se ejecuta para todos los países menos Perú*/
             {
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
@@ -767,7 +765,7 @@ namespace Portal.Consultoras.Web.Controllers
         public void ActualizarFijo(int paisId, string codigoConsultora, string telefonoAnterior, string telefonoActual)
         {
             int result = 0;
-            string tipoEnvio = "FIJO";
+            string tipoEnvio = Constantes.TipoEnvio.FIJO.ToString();
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
                     result = sv.ActualizarFijo(paisId, codigoConsultora, tipoEnvio, telefonoAnterior, telefonoActual);
