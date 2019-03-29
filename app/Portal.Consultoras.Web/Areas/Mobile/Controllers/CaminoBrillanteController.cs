@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -11,6 +10,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         // GET: CaminoBrillante
         public ActionResult Index()
         {
+            var informacion = SessionManager.GetConsultoraCaminoBrillante();
+            ViewBag.ResumenLogros = informacion.ResumenLogros;
+            ViewBag.TieneOfertasEspeciales = informacion.Niveles[0].TieneOfertasEspeciales;
             return View();
         }
 

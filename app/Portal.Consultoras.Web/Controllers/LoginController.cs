@@ -230,8 +230,12 @@ namespace Portal.Consultoras.Web.Controllers
                 if (model.PaisID == 0)
                     model.PaisID = Util.GetPaisID(model.CodigoISO);
 
-                var resultadoInicioSesion = await ObtenerResultadoInicioSesion(model);
+                #region DesencriptarClaveSecreta
+                var PasswordCjs = ConfigurationManager.AppSettings.Get("CryptoJSPassword");
+                model.ClaveSecreta = Util.DecryptCryptoJs(model.ClaveSecreta, PasswordCjs, model.Salt, model.Key, model.Iv);
+                #endregion
 
+                var resultadoInicioSesion = await ObtenerResultadoInicioSesion(model);
 
                 if (resultadoInicioSesion != null && resultadoInicioSesion.Result == USUARIO_VALIDO)
                 {
@@ -1340,9 +1344,15 @@ namespace Portal.Consultoras.Web.Controllers
                         var lista = linkPaisTask.Result;
                         if (lista.Count > 0)
                         {
-                            usuarioModel.UrlAyuda = lista.Find(x => x.TipoLinkID == 301).Url;
-                            usuarioModel.UrlCapedevi = lista.Find(x => x.TipoLinkID == 302).Url;
-                            usuarioModel.UrlTerminos = lista.Find(x => x.TipoLinkID == 303).Url;
+                            usuarioModel.UrlAyuda = lista.Find(x => x.TipoLinkID == 301) != null 
+                                ? lista.Find(x => x.TipoLinkID == 301).Url 
+                                : null;
+                            usuarioModel.UrlCapedevi = lista.Find(x => x.TipoLinkID == 302) != null
+                                ? lista.Find(x => x.TipoLinkID == 302).Url
+                                : null;
+                            usuarioModel.UrlTerminos = lista.Find(x => x.TipoLinkID == 303) != null
+                                ? lista.Find(x => x.TipoLinkID == 303).Url
+                                : null;
                         }
 
                         usuarioModel.EsUsuarioComunidad = usuarioComunidadTask.Result;
