@@ -66,6 +66,27 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public List<BEMisPedidosDetalle> DetallePedido { get; set; }
 
+        [DataMember]
+        public int CUV { get; set; }
+
+        [DataMember]
+        public string Producto { get; set; }
+
+        [DataMember]
+        public int Cantidad { get; set; }
+
+        [DataMember]
+        public decimal Precio { get; set; }
+
+        [DataMember]
+        public string Tono { get; set; }
+
+        [DataMember]
+        public string Url { get; set; }
+
+        [DataMember]
+        public List<BEMisPedidos> ListaClientes { get; set; }
+
         public BEMisPedidos(IDataRecord row)
         {
             PedidoId = row.ToInt64("SolicitudClienteID");
@@ -90,6 +111,12 @@ namespace Portal.Consultoras.Entities
             SaldoHoras = row.ToString("SaldoHoras");
             PedidoWebID = row.ToInt32("PedidoWebID");
             DetallePedido = new List<BEMisPedidosDetalle>();
+            CUV = row.ToInt32("CUV");
+            Producto = row.ToString("Producto");
+            Cantidad = row.ToInt32("Cantidad");
+            Tono = row.ToString("Tono");
+            Url = row.ToString("Url");
+            ListaClientes = new List<BEMisPedidos>();
         }
     }
 
@@ -135,6 +162,7 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public int PedidoWebDetalleID { get; set; }
+
 
         public BEMisPedidosDetalle()
         {
