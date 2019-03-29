@@ -1,10 +1,6 @@
-﻿USE [BelcorpCostaRica_BPT]
-GO
-/****** Object:  StoredProcedure [dbo].[usp_SBMicroservicios_Componente]    Script Date: 26/02/2019 16:15:21 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+﻿go
+
+
 ALTER PROCEDURE [dbo].[usp_SBMicroservicios_Componente] 
 AS
 BEGIN
@@ -52,13 +48,6 @@ BEGIN
 		,fb.Nombre
 		,ga.DescripcionCorta
 		,sl.DescripcionLarga
-		,EPTM.NombreComercial AS NombreComercial
-		,EPTM.Descripcion
-		,EPTM.Volumen
-		,EPTM.Imagen
-		,EPTM.ImagenBulk
-		,EPTM.NombreBulk
-		,EPTM.CampaniaApp as CampaniaApp
 		FROM cte_ProductoComercial EPT
 		INNER JOIN  ods.ProductoComercial PCT ON EPT.CAMPANIAID = PCT.AnoCampania 
 			AND EPT.CUV = PCT.CUV
@@ -69,6 +58,5 @@ BEGIN
 		LEFT JOIN ods.SAP_GRUPOARTICULO ga WITH (NOLOCK) on sp.CodigoGrupoArticuloSAP = ga.Codigo
 		LEFT JOIN dbo.FiltroBuscadorGrupoArticulo fbga WITH (NOLOCK) on ga.Codigo = fbga.CodigoGrupoArticulo
 		LEFT JOIN dbo.FiltroBuscador fb WITH (NOLOCK) on fbga.CodigoFiltroBuscador = fb.Codigo
-		LEFT JOIN EstrategiaProductoTemporalMongoApp EPTM WITH (NOLOCK) on
-        	PCT.AnoCampania = EPTM.Campania AND PCT.CodigoProducto = EPTM.CodigoSap
 END
+go
