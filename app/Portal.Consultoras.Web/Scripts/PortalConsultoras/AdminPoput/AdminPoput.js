@@ -2,8 +2,7 @@
  Fecha Creación : 14_02_2019
  */
 /***********************************************DECLARACIÓN DE VARIABLES GLOBALES****************************************************************************************/
-var VistaAdministracionPopups
-    , VistaAdministracionPopups
+var VistaAdministracionPopups 
     , URL_ADJUNTAR_ARCHIVO = baseUrl + 'AdministracionPopups/GetCargarArchivoCSV'
     , URL_GUARDAR_POPUT = baseUrl + 'AdministracionPopups/GetGuardarPopup'
     , URL_DETALLE_POPUT = baseUrl + 'AdministracionPopups/GetDetallePopup'
@@ -93,7 +92,7 @@ $(document).ready(function () {
                 });
                 $("#swappable").disableSelection();
             }
-        },
+        }
             me.Eventos = {
                 AbrirPopupNuevo: function (e) {
                     e.preventDefault();
@@ -149,7 +148,6 @@ $(document).ready(function () {
     $('#fechaMax,#fechaMin').change(function (e) {
         var idFecha = e.target.id;
         var valorFecha = e.target.value;
-        var dateFormat = "mm/dd/yy";
 
         switch (idFecha) {
             case "fechaMin":
@@ -159,7 +157,6 @@ $(document).ready(function () {
                     $("#fechaMin").val("");
                     return false;
                 }
-                var hoy = new Date();
                 var hoy = new Date((hoy.getMonth() + 1).toString() + "/" + hoy.getDate() + "/" + hoy.getFullYear().toString());
                 var date = new Date(valorFecha);
                 if (date < hoy) {
@@ -286,10 +283,6 @@ var ReadImage = function (file) {
 
         image.src = _file.target.result;
         image.onload = function () {
-            var height = this.height;
-            var width = this.width;
-            var type = file.type;
-            var size = ~~(file.size / 1024) + "KB";
 
             $("#targetImg").attr('src', _file.target.result);
             $("#description").html(file.name);
@@ -334,9 +327,6 @@ var ClearView = function () {
 }
 
 function ClearFileView() {
-    var inputImage = document.getElementById("imgPoputs").value = "";
-    var inputImage = document.getElementById("targetImg").value = "";
-    var inputImage = document.getElementById("targetImg").src = "";
     $("#imgPreview").hide();
     $("#description").html("Formato de archivo JPG.<br /> (326 x 418 píxeles)");
 }
