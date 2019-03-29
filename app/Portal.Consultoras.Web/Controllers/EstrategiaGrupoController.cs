@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models.AdministrarEstrategia;
+using Portal.Consultoras.Web.Models.Oferta.ResponseOfertaGenerico;
 using Portal.Consultoras.Web.Providers;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,13 +25,13 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult Guardar(List<EstrategiaGrupoModel> datos)
         {
-            bool respuesta = false;
+            OutputEstrategiaGrupo respuesta = new OutputEstrategiaGrupo();
             if (ModelState.IsValid)
             {
                 respuesta = estrategiaGrupoProvider.Guardar(datos, userData.CodigoISO);
             }
 
-            return Json(new { mensaje = "ok", estado = respuesta }, JsonRequestBehavior.AllowGet);
+            return Json(new { mensaje = respuesta.Message, estado = respuesta.Success }, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult ConsultarDetalleEstrategiaGrupo(string estrategiaId, string codigoTipoEstrategia)
