@@ -82,6 +82,10 @@ var FichaModule = (function (config) {
     if (config.generalModule === null || typeof config.generalModule === "undefined")
         throw "config.generalModule is null or undefined";
 
+    if (config.componenteDetalleModule === null || typeof config.componenteDetalleModule === "undefined")
+        throw "config.componenteDetalleModule is null or undefined";
+    
+
     var _primeraMarca = "";
     var _ultimaMarca = "";
     var _esMultimarca = false;
@@ -100,7 +104,8 @@ var FichaModule = (function (config) {
         tieneCliente: config.tieneCliente || false,
         localStorageModule: config.localStorageModule,
         analyticsPortalModule: config.analyticsPortalModule,
-        detalleEstrategiaProvider: DetalleEstrategiaProvider
+        detalleEstrategiaProvider: DetalleEstrategiaProvider,
+        componenteDetalleModule: config.componenteDetalleModule
     };
 
     var _codigoVariedad = ConstantesModule.CodigoVariedad;
@@ -328,6 +333,8 @@ var FichaModule = (function (config) {
         _ocultarSecciones();
         _crearTabs();
         _ocultarTabs();
+
+        _config.componenteDetalleModule.OcultarControles();
 
         return true;
     };

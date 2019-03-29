@@ -1,10 +1,26 @@
-﻿var ComponenteDetalleModule = (function () {
+﻿var ComponenteDetalleModule = (function (config) {
 
-    var _config = {
-        ComponenteDetalleProvider: ComponenteDetalleProvider
-    };
+    "use strict";
+
+    if (config === null || typeof config === "undefined")
+        throw "config is null or undefined";
+
+    if (config.analyticsPortalModule === null || typeof config.analyticsPortalModule === "undefined")
+        throw "config.analyticsPortalModule is null or undefined";
 
     var _urlComponenteDetalle = ConstantesModule.UrlDetalleEstrategia;
+    var _codigoVariedad = ConstantesModule.CodigoVariedad;
+    var _codigoPalanca = ConstantesModule.CodigosPalanca;
+    var _constantePalanca = ConstantesModule.ConstantesPalanca;
+
+    var _config = {
+        ComponenteDetalleProvider: ComponenteDetalleProvider,
+        analyticsPortalModule: config.analyticsPortalModule,
+        palanca: config.palanca,
+        campania: config.campania,
+        cuv: config.cuv,
+        origen: config.origen
+    };
 
     var _setHandlebars = function (idTemplate, modelo) {
         SetHandlebars("#" + idTemplate, modelo, _template.getTagDataHtml(idTemplate));
@@ -14,18 +30,38 @@
         getTagDataHtml: function (templateId) {
             return "[data-ficha-contenido=" + templateId + "]";
         },
-        componenteDetalle: "componenteDetalle-template"
+        componenteDetalle: "componenteDetalle-template",
+        ContenidoProducto: "#ContenidoProducto",
+        BotonVerDetalle: "div[id='btnVerDetalle']"
+    };
+
+    var _validator = {
+        mostrarBotoneraVerDetalle: function (valor) {
+            if (valor) {
+                $(_template.BotonVerDetalle).each(function () { $(this).show(); });
+            } else {
+                $(_template.BotonVerDetalle).each(function () { $(this).hide(); });
+            }
+        },
+        mostrarContenidoProducto: function (valor) {
+            if (valor) {
+                $(_template.ContenidoProducto).show();
+            } else {
+                $(_template.ContenidoProducto).hide();
+            }
+        }
     };
 
     var _VerDetalle = function (cuv) {
-        alert('cuv: ' + cuv + ' ... ' + _urlComponenteDetalle.obtenerComponenteDetalle);
+
         console.log('cuv', cuv);
-        
+        console.log('_config', _config);
+
         _config.ComponenteDetalleProvider.PromiseObternerComponenteDetalle({
-            cuv: cuv 
+            cuv: cuv
         }).done(function (data) {
             if (data.success) {
-                
+
             }
             console.log('data', data);
             _MostrarModal(data);
@@ -35,7 +71,7 @@
             console.log(error);
             errorRespuesta = true;
         });
-          
+
     };
 
     var _MostrarModal = function (data) {
@@ -59,6 +95,37 @@
 
     };
 
+    var _OcultarControles = function () {
+
+        if (_codigoPalanca.Ganadoras === _config.palanca ||
+            _codigoPalanca.ShowRoom === _config.palanca || /*Especiales*/
+            _codigoPalanca.Lanzamiento === _config.palanca || /*Lo nuevo nuevo*/
+            _codigoPalanca.OfertasParaMi === _config.palanca ||
+            _codigoPalanca.OfertaParaTi === _config.palanca ||
+
+            _codigoPalanca.GuiaNegocio === _config.palanca ||
+            _codigoPalanca.GuiaDeNegocioDigitalizada === _config.palanca) {
+
+            _validator.mostrarContenidoProducto(true);
+
+            if ($(_template.BotonVerDetalle).length > 1) {
+
+                _validator.mostrarBotoneraVerDetalle(true);
+                _validator.mostrarContenidoProducto(false);
+
+            } else {
+                _validator.mostrarBotoneraVerDetalle(false);
+            }
+        }
+        else {
+            _validator.mostrarContenidoProducto(false);
+            _validator.mostrarBotoneraVerDetalle(false);
+        }
+
+    };
+
+
+
     var _setAcordionDetalleComponente = function () {
         $("#mnuDetalleComponente li a").click(function () {
             var $this = $(this);
@@ -76,6 +143,7 @@
     };
 
     return {
-        VerDetalle: _VerDetalle
+        VerDetalle: _VerDetalle,
+        OcultarControles: _OcultarControles
     };
 });
