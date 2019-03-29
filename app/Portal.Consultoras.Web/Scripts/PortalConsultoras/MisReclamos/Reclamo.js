@@ -1812,21 +1812,22 @@ function EscogerSolucion(opcion, event) {
     $('#infoOpcionesDeCambio').show();
 
     if (id == "T") {
+        $('#OpcionCambioMismoProducto').fadeOut(200);
+        $('#OpcionDevolucion').fadeOut(200);
         $('#OpcionCambioPorOtroProducto').fadeIn(100);
     } else if (id == "C") {
+        $('#OpcionDevolucion').fadeOut(200);
+        $('#OpcionCambioPorOtroProducto').fadeOut(200);
         $('#OpcionCambioMismoProducto').fadeIn(100);
     } else if (id == "D") {
+        $('#OpcionCambioMismoProducto').fadeOut(200);
+        $('#OpcionCambioPorOtroProducto').fadeOut(200);
         $('#OpcionDevolucion').fadeIn(100);
     } else {
         $('#infoOpcionesDeCambio').fadeOut();
     }
 
 }
-
-function ObtenerFormSegunOpcionSeleccioado(callbackWhenFinish) {
-
-}
-
 
 $('body').on('keypress', 'input[attrKey="PreValidarCUV"]', function (event) {
 
