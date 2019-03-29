@@ -69,25 +69,28 @@
                             <ul class="list-crec">
                                 @foreach (var item2 in data.Indicadores[i].Medallas)
                                 {
-                                    <li>
-                                        @{
-                                            if (item2.Tipo == "PIE")
-                                            {
-                                                string[] torta = @item2.Valor.Split('-');
-                                                var imagen = torta[1].PadLeft(2,'0') + "_" + torta[2].PadLeft(2, '0') + ".svg";
-                                                <img src="~/Content/CaminoBrillante/imgs/PIZZA_@imagen" />
+                                    if (item2 != null)
+                                    {
+                                        <li>
+                                            @{
+                                                if (item2.Tipo == "PIE")
+                                                {
+                                                    string[] torta = @item2.Valor.Split('-');
+                                                    var imagen = torta[1].PadLeft(2, '0') + "_" + torta[2].PadLeft(2, '0') + ".svg";
+                                                    <img src="~/Content/CaminoBrillante/imgs/PIZZA_@imagen" />
+                                                }
+                                                else
+                                                {
+                                                    string Valor = item2.Valor.Replace("%", "");
+                                                    string Estilo = Valor.Equals("25") ? "veinticinco" : "cinco";
+                                                    <div class="circle-porcent @Estilo">
+                                                        <span>@item2.Valor</span>
+                                                    </div>
+                                                }
                                             }
-                                            else
-                                            {
-                                                string Valor = item2.Valor.Replace("%", "");
-                                                string Estilo = Valor.Equals("25") ? "veinticinco" : "cinco";
-                                                <div class="circle-porcent @Estilo">
-                                                    <span>@item2.Valor</span>
-                                                </div>
-                                            }
-                                        }
-                                        <p>@item2.Titulo</p>
-                                    </li>
+                                            <p>@item2.Titulo</p>
+                                        </li>
+                                    }
                                 }
                             </ul>
                             <a href="" class="btn-link">Ver todos</a>
