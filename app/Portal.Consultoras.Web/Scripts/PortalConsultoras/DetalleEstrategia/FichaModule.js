@@ -354,7 +354,6 @@ var FichaModule = (function (config) {
         if (data.Detalles.length == 0) {
             _redireccionar('_asignaDetallePedido, sin detalles componentes');
             return false;
-            //throw 'Componente: No existe detalle de pedido';
         }
         _selectClient(data.ClienteId, data.ClienteNombre);
 
@@ -759,7 +758,7 @@ var FichaModule = (function (config) {
                 var dvRedesSocialesHeight = dvRedesSociales.innerHeight();
                 var diferenciaHeight = dvIzquierdoHeight - dvFichaEtiquetaHeight;
                 dvDetalle.removeClass("ficha_detalle_cuerpo");
-                //dvDetalle.height(diferenciaHeight);
+
                 dvDetalle.css("min-height", diferenciaHeight);
             }
             else {

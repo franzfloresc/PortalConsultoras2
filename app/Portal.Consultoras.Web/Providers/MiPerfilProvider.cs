@@ -79,21 +79,6 @@ namespace Portal.Consultoras.Web.Providers
 
             return result;
         }
-        //public DireccionEntregaModel ObtenerDireccionPorConsultora(DireccionEntregaModel Direccion)
-        //{
-
-        //    BEDireccionEntrega BlEntidad;
-        //    DireccionEntregaModel response;
-        //    var request = Mapper.Map<BEDireccionEntrega>(Direccion);
-        //    using (var sv = new UsuarioServiceClient())
-        //    {
-        //        BlEntidad = sv.ObtenerDireccionPorConsultora(request);
-        //    }
-        //    response = Mapper.Map<DireccionEntregaModel>(BlEntidad);
-        //    response.Operacion = response.DireccionEntregaID == Constantes.OperacionBD.Insertar ? Constantes.OperacionBD.Insertar : Constantes.OperacionBD.Editar;
-        //    return response;
-
-        //}
 
         public async Task<DireccionEntregaModel> ObtenerDireccionPorConsultoraAsync(DireccionEntregaModel Direccion)
         {

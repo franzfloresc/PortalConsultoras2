@@ -161,7 +161,7 @@ namespace Portal.Consultoras.Service
         {
             return BLCDRWeb.GetMontoFletePorZonaId(paisId, entity.ZonaID);
         }
-        //HD-3412 EINCA
+
         public int ValCUVEnProcesoReclamo(int paisId, int pedidoId, string cuv)
         {
             return BLCDRWebDetalle.ValCUVEnProcesoReclamo(paisId, pedidoId,cuv);

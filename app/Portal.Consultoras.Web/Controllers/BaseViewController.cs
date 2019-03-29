@@ -214,13 +214,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                //var modelo = FichaModelo(palanca, campaniaId, cuv, origen);
-
-                //if (modelo != null)
-                //{
-                //    return View(modelo);
-                //}
-
                 var modelo = new DetalleEstrategiaFichaModel
                 {
                     Palanca = palanca,
