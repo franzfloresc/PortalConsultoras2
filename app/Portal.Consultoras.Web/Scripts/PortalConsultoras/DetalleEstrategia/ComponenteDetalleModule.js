@@ -28,7 +28,10 @@
         },
         componenteDetalle: "componenteDetalle-template",
         ContenidoProducto: "#ContenidoProducto",
-        BotonVerDetalle: "div[id='btnVerDetalle']"
+        BotonVerDetalle: "div[id='btnVerDetalle']",
+        MenuDetalleComponente: "#mnuDetalleComponente li a",
+        CarruselVideo: '#carouselVideo',
+        ModalProductoDetalle: "#modal_producto_detalle"
     };
 
     var _validator = {
@@ -54,13 +57,13 @@
             _util.setHandlebars(_template.componenteDetalle, data);
 
             this.setAcordionDetalleComponente();//eventos de acordio
-            $("#modal_producto_detalle").modal();
+            $(_template.ModalProductoDetalle).modal();
 
             this.fijarCarrusel();
         },
         fijarCarrusel: function () {
 
-            $('#carouselVideo').slick({
+            $(_template.CarruselVideo).slick({
                 infinite: false,
                 speed: 300,
                 slidesToShow: 1,
@@ -69,7 +72,7 @@
             });
         },
         setAcordionDetalleComponente: function () {
-            $("#mnuDetalleComponente li a").click(function () {
+            $(_template.MenuDetalleComponente).click(function () {
                 var $this = $(this);
                 $this.parent().children("ul").slideToggle();
                 var clase = $this.attr("class");
