@@ -21,11 +21,7 @@
         cuv: config.cuv,
         origen: config.origen
     };
-
-    var _setHandlebars = function (idTemplate, modelo) {
-        SetHandlebars("#" + idTemplate, modelo, _template.getTagDataHtml(idTemplate));
-    };
-
+     
     var _template = {
         getTagDataHtml: function (templateId) {
             return "[data-ficha-contenido=" + templateId + "]";
@@ -52,6 +48,46 @@
         }
     };
 
+    var _util = {
+        mostrarModal: function (data) {
+
+            _util.setHandlebars(_template.componenteDetalle, data);
+
+            this.setAcordionDetalleComponente();//eventos de acordio
+            $("#modal_producto_detalle").modal();
+
+            this.fijarCarrusel();
+        },
+        fijarCarrusel: function () {
+
+            $('#carouselVideo').slick({
+                infinite: false,
+                speed: 300,
+                slidesToShow: 1,
+                centerMode: false,
+                variableWidth: true
+            });
+        },
+        setAcordionDetalleComponente: function () {
+            $("#mnuDetalleComponente li a").click(function () {
+                var $this = $(this);
+                $this.parent().children("ul").slideToggle();
+                var clase = $this.attr("class");
+                if (clase === "active") {
+                    $this.attr("class", "tab-link");
+                }
+                else {
+                    $this.attr("class", "active");
+
+
+                }
+            });
+        },
+        setHandlebars: function (idTemplate, modelo) {
+            SetHandlebars("#" + idTemplate, modelo, _template.getTagDataHtml(idTemplate));
+        }
+    };
+
     var _VerDetalle = function (cuv) {
 
         console.log('cuv', cuv);
@@ -64,7 +100,7 @@
 
             }
             console.log('data', data);
-            _MostrarModal(data);
+            _util.mostrarModal(data);
 
         }).fail(function (data, error) {
             console.log(data);
@@ -73,28 +109,7 @@
         });
 
     };
-
-    var _MostrarModal = function (data) {
-
-        _setHandlebars(_template.componenteDetalle, data);
-
-        _setAcordionDetalleComponente();//eventos de acordio
-        $("#modal_producto_detalle").modal();
-        _FijarCarrusel();
-    };
-
-    var _FijarCarrusel = function () {
-
-        $('#carouselVideo').slick({
-            infinite: false,
-            speed: 300,
-            slidesToShow: 1,
-            centerMode: false,
-            variableWidth: true
-        });
-
-    };
-
+     
     var _OcultarControles = function () {
 
         if (_codigoPalanca.Ganadoras === _config.palanca ||
@@ -123,25 +138,7 @@
         }
 
     };
-
-
-
-    var _setAcordionDetalleComponente = function () {
-        $("#mnuDetalleComponente li a").click(function () {
-            var $this = $(this);
-            $this.parent().children("ul").slideToggle();
-            var clase = $this.attr("class");
-            if (clase === "active") {
-                $this.attr("class", "tab-link");
-            }
-            else {
-                $this.attr("class", "active");
-
-
-            }
-        });
-    };
-
+ 
     return {
         VerDetalle: _VerDetalle,
         OcultarControles: _OcultarControles
