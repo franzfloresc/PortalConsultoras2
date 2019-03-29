@@ -1,12 +1,20 @@
-﻿USE [AppCatalogo]
-GO
-/****** Object:  StoredProcedure [dbo].[ObtenerProductosBySap]    Script Date: 26/02/2019 17:17:38 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
+﻿
 GO
 
-create PROCEDURE [dbo].[ObtenerProductosBySapMongo]
+USE [AppCatalogo]
+
+GO
+IF EXISTS (
+		SELECT 1
+		FROM sys.procedures
+		WHERE name = N'ObtenerProductosBySapMongo'
+		)
+BEGIN
+	DROP PROCEDURE [dbo].[ObtenerProductosBySapMongo]
+END
+
+GO
+CREATE PROCEDURE [dbo].[ObtenerProductosBySapMongo]
 AS
 BEGIN
 	SELECT 
@@ -29,3 +37,4 @@ BEGIN
 	INNER JOIN ProductoCampana pc ON B.Id = pc.Id
 	INNER JOIN Marca m ON pc.IdMarca = m.Id
 END
+GO
