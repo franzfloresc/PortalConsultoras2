@@ -36,6 +36,7 @@ namespace Portal.Consultoras.Web.Providers
             Estrategia estrategia = taskApi.Result ?? new Estrategia();
             var modeloEstrategia = new EstrategiaPersonalizadaProductoModel();
             modeloEstrategia.Hermanos = Mapper.Map<IList<Componente>, List<EstrategiaComponenteModel>>(estrategia.Componentes ?? new List<Componente>());
+            //modeloEstrategia.Secciones = Mapper.Map<IList<Componente>, List<EstrategiaComponenteModel>>(estrategia.Componentes ?? new List<Componente>());
             return modeloEstrategia;
         }
 

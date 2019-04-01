@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Portal.Consultoras.Web.Models.DetalleEstrategia;
+using System;
 using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Models
@@ -42,6 +43,8 @@ namespace Portal.Consultoras.Web.Models
         public decimal Ganancia { get; set; }
         public string GananciaString { get; set; }
         public List<EstrategiaComponenteModel> Hermanos { get; set; }
+        public List<EstrategiaComponenteSeccionModel> Secciones { get; set; }
+
         // se usa para filtrar los productos por categoria en ShowRoom
         public string ImagenProductoMini { get; set; }
         /// <summary>

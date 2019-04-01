@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Portal.Consultoras.Web.Models.ConsultaProl;
 using Portal.Consultoras.Web.Models.Search.ResponseOferta.Estructura;
+using Portal.Consultoras.Web.Models.DetalleEstrategia;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -72,6 +73,7 @@ namespace Portal.Consultoras.Web.Providers
 
             var userData = SessionManager.GetUserData();
             List<EstrategiaComponenteModel> listaEstrategiaComponente;
+            List<EstrategiaComponenteSeccionModel> listEstrategiaComponenteSeccion;
             if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, codigoTipoEstrategia)
                 && codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.ArmaTuPack)
             {
@@ -80,6 +82,8 @@ namespace Portal.Consultoras.Web.Providers
                 EstrategiaPersonalizadaProductoModel estrategia = _ofertaBaseProvider.ObtenerModeloOfertaDesdeApi(estrategiaModelo, userData.CodigoISO);
 
                 listaEstrategiaComponente = estrategia.Hermanos;
+                listEstrategiaComponenteSeccion = estrategia.Secciones;
+
                 mensaje += "ObtenerModeloOfertaDesdeApi = " + listaEstrategiaComponente.Count + "|";
             }
             else

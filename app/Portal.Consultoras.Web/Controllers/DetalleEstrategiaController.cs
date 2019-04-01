@@ -7,6 +7,7 @@ using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.SessionManager;
 using Portal.Consultoras.Web.Models.DetalleEstrategia;
+using System.Linq;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -118,28 +119,40 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
+        //public JsonResult ObtenerComponenteDetalle(string estrategiaId, string cuv2, string campania, string codigoVariante, string codigoEstrategia = "")
         public JsonResult ObtenerComponenteDetalle(string cuv)
 
         {
             try
             {
+                var estrategiaModelo = new EstrategiaPersonalizadaProductoModel
+                {
+                    EstrategiaID = 123123,//estrategiaId.ToInt(),
+                    CUV2 = "30391",
+                    CampaniaID = 201905,//campania.ToInt(),
+                    CodigoVariante = "2003",//codigoVariante,
+                    Hermanos = null
+                };
 
                 bool esMultimarca = false;
                 string mensaje = "";
+                
+                //var res = _estrategiaComponenteProvider.GetListaComponentes(estrategiaModelo, codigoEstrategia, out esMultimarca, out mensaje).FirstOrDefault();
+                var res = _estrategiaComponenteProvider.GetListaComponentes(estrategiaModelo, "004", out esMultimarca, out mensaje).FirstOrDefault();
 
-                ComponenteDetalleModel res = new ComponenteDetalleModel();
+                //ComponenteDetalleModel res = new ComponenteDetalleModel();
 
-                res.Marca = "Marca 1";
-                res.Descripcion = "Descripción 1";
-                res.UnidadMedida = new List<string>() { "10 gr", "11 x 12 x 13 milimentos" };
-                res.Moneda = "s/";
-                res.PrecioCliente = 100.38;
-                res.FotoProducto = "https://d1y60eoca8fkyl.cloudfront.net/Matriz/PE/PE_2000825142019343304_byszvswrvn_medium.png";
+                //res.Marca = "Marca 1";
+                //res.Descripcion = "Descripción 1";
+                //res.UnidadMedida = new List<string>() { "10 gr", "11 x 12 x 13 milimentos" };
+                //res.Moneda = "s/";
+                //res.PrecioCliente = 100.38;
+                //res.FotoProducto = "https://d1y60eoca8fkyl.cloudfront.net/Matriz/PE/PE_2000825142019343304_byszvswrvn_medium.png";
 
-                res.ModoUso = new List<SeccionComponenteDetalle>() { new SeccionComponenteDetalle { Titulo = "Titulo modo uso 1", Valor = "descripción de modo de uso 1" }, new SeccionComponenteDetalle { Titulo = "Titulo modo uso 2", Valor = "descripción de modo de uso 2" } };
-                res.DescubreMas = new List<SeccionComponenteDetalle>() { new SeccionComponenteDetalle { Titulo = "Titulo descubre´más 1", Valor = "descripción de descubre más 1" }, new SeccionComponenteDetalle { Titulo = "Titulo descubre´más 2", Valor = "descripción de descubre más 2" } };
-                res.TipVenta = new List<SeccionComponenteDetalle>() { new SeccionComponenteDetalle { Titulo = "titulo tip de venta 1", Valor = "descripcion de tip de venta 1" }, new SeccionComponenteDetalle { Titulo = "titulo tip de venta 2", Valor = "descripcion de tip de venta 2" } };
-                res.Video = new List<SeccionComponenteDetalle>() { new SeccionComponenteDetalle { Titulo = "titulo de video 1", Valor = "https://www.youtube.com/embed/_UwWYtLWEZg" }, new SeccionComponenteDetalle { Titulo = "titulo video 2", Valor = "https://www.youtube.com/embed/_UwWYtaaaaaaaaa" } };
+                //res.ModoUso = new List<SeccionComponenteDetalle>() { new SeccionComponenteDetalle { Titulo = "Titulo modo uso 1", Valor = "descripción de modo de uso 1" }, new SeccionComponenteDetalle { Titulo = "Titulo modo uso 2", Valor = "descripción de modo de uso 2" } };
+                //res.DescubreMas = new List<SeccionComponenteDetalle>() { new SeccionComponenteDetalle { Titulo = "Titulo descubre´más 1", Valor = "descripción de descubre más 1" }, new SeccionComponenteDetalle { Titulo = "Titulo descubre´más 2", Valor = "descripción de descubre más 2" } };
+                //res.TipVenta = new List<SeccionComponenteDetalle>() { new SeccionComponenteDetalle { Titulo = "titulo tip de venta 1", Valor = "descripcion de tip de venta 1" }, new SeccionComponenteDetalle { Titulo = "titulo tip de venta 2", Valor = "descripcion de tip de venta 2" } };
+                //res.Video = new List<SeccionComponenteDetalle>() { new SeccionComponenteDetalle { Titulo = "titulo de video 1", Valor = "https://www.youtube.com/embed/_UwWYtLWEZg" }, new SeccionComponenteDetalle { Titulo = "titulo video 2", Valor = "https://www.youtube.com/embed/_UwWYtaaaaaaaaa" } };
 
                 //EAAR: consumir servicio de juanjo
 

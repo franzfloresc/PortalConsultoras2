@@ -105,6 +105,8 @@
         console.log('_config', _config);
 
         _config.ComponenteDetalleProvider.PromiseObternerComponenteDetalle({
+            codigoEstrategia: estrategia.CodigoEstrategia,
+            campaniaID: estrategia.CampaniaID,
             cuv: cuv
         }).done(function (res) {
             console.log('res', res);
