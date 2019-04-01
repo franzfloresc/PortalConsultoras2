@@ -797,7 +797,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/Ficha/CarruselModule.js",
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/DetalleEstrategiaProvider.js",
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/ComponenteDetalleProvider.js",
-                "~/Scripts/PortalConsultoras/DetalleEstrategia/ComponenteDetalleModule.js",
+                "~/Scripts/PortalConsultoras/DetalleEstrategia/Ficha/ComponenteDetalleModule.js",
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/FichaModule.js"
             ));
 
