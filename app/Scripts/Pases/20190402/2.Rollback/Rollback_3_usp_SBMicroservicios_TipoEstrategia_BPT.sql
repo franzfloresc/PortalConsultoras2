@@ -13,7 +13,7 @@ BEGIN
 END
 GO
 
-ALTER PROCEDURE [dbo].[usp_SBMicroservicios_TipoEstrategia]
+CREATE PROCEDURE [dbo].[usp_SBMicroservicios_TipoEstrategia]
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -51,6 +51,7 @@ BEGIN
     FROM TipoEstrategia WITH (NOLOCK)
 END
 GO
+
 
 
 GO
@@ -68,7 +69,7 @@ BEGIN
 END
 GO
 
-ALTER PROCEDURE [dbo].[usp_SBMicroservicios_TipoEstrategia]
+CREATE PROCEDURE [dbo].[usp_SBMicroservicios_TipoEstrategia]
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -106,6 +107,7 @@ BEGIN
     FROM TipoEstrategia WITH (NOLOCK)
 END
 GO
+
 
 
 GO
@@ -123,7 +125,7 @@ BEGIN
 END
 GO
 
-ALTER PROCEDURE [dbo].[usp_SBMicroservicios_TipoEstrategia]
+CREATE PROCEDURE [dbo].[usp_SBMicroservicios_TipoEstrategia]
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -161,6 +163,7 @@ BEGIN
     FROM TipoEstrategia WITH (NOLOCK)
 END
 GO
+
 
 
 GO
@@ -178,7 +181,7 @@ BEGIN
 END
 GO
 
-ALTER PROCEDURE [dbo].[usp_SBMicroservicios_TipoEstrategia]
+CREATE PROCEDURE [dbo].[usp_SBMicroservicios_TipoEstrategia]
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -216,6 +219,7 @@ BEGIN
     FROM TipoEstrategia WITH (NOLOCK)
 END
 GO
+
 
 
 GO
@@ -233,7 +237,7 @@ BEGIN
 END
 GO
 
-ALTER PROCEDURE [dbo].[usp_SBMicroservicios_TipoEstrategia]
+CREATE PROCEDURE [dbo].[usp_SBMicroservicios_TipoEstrategia]
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -271,6 +275,7 @@ BEGIN
     FROM TipoEstrategia WITH (NOLOCK)
 END
 GO
+
 
 
 GO
@@ -288,7 +293,7 @@ BEGIN
 END
 GO
 
-ALTER PROCEDURE [dbo].[usp_SBMicroservicios_TipoEstrategia]
+CREATE PROCEDURE [dbo].[usp_SBMicroservicios_TipoEstrategia]
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -326,6 +331,7 @@ BEGIN
     FROM TipoEstrategia WITH (NOLOCK)
 END
 GO
+
 
 
 GO
@@ -343,7 +349,7 @@ BEGIN
 END
 GO
 
-ALTER PROCEDURE [dbo].[usp_SBMicroservicios_TipoEstrategia]
+CREATE PROCEDURE [dbo].[usp_SBMicroservicios_TipoEstrategia]
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -381,6 +387,7 @@ BEGIN
     FROM TipoEstrategia WITH (NOLOCK)
 END
 GO
+
 
 
 GO
@@ -398,7 +405,7 @@ BEGIN
 END
 GO
 
-ALTER PROCEDURE [dbo].[usp_SBMicroservicios_TipoEstrategia]
+CREATE PROCEDURE [dbo].[usp_SBMicroservicios_TipoEstrategia]
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -436,6 +443,7 @@ BEGIN
     FROM TipoEstrategia WITH (NOLOCK)
 END
 GO
+
 
 
 GO
@@ -453,7 +461,7 @@ BEGIN
 END
 GO
 
-ALTER PROCEDURE [dbo].[usp_SBMicroservicios_TipoEstrategia]
+CREATE PROCEDURE [dbo].[usp_SBMicroservicios_TipoEstrategia]
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -491,6 +499,7 @@ BEGIN
     FROM TipoEstrategia WITH (NOLOCK)
 END
 GO
+
 
 
 GO
@@ -508,7 +517,7 @@ BEGIN
 END
 GO
 
-ALTER PROCEDURE [dbo].[usp_SBMicroservicios_TipoEstrategia]
+CREATE PROCEDURE [dbo].[usp_SBMicroservicios_TipoEstrategia]
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -546,6 +555,7 @@ BEGIN
     FROM TipoEstrategia WITH (NOLOCK)
 END
 GO
+
 
 
 GO
@@ -563,7 +573,7 @@ BEGIN
 END
 GO
 
-ALTER PROCEDURE [dbo].[usp_SBMicroservicios_TipoEstrategia]
+CREATE PROCEDURE [dbo].[usp_SBMicroservicios_TipoEstrategia]
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -601,6 +611,7 @@ BEGIN
     FROM TipoEstrategia WITH (NOLOCK)
 END
 GO
+
 
 
 GO
@@ -618,7 +629,7 @@ BEGIN
 END
 GO
 
-ALTER PROCEDURE [dbo].[usp_SBMicroservicios_TipoEstrategia]
+CREATE PROCEDURE [dbo].[usp_SBMicroservicios_TipoEstrategia]
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -656,6 +667,7 @@ BEGIN
     FROM TipoEstrategia WITH (NOLOCK)
 END
 GO
+
 
 
 GO
