@@ -26,6 +26,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
         }
 
+        [HttpGet]
         public override ActionResult Ficha(string palanca, int campaniaId, string cuv, string origen)
         {
             try
@@ -49,6 +50,7 @@ namespace Portal.Consultoras.Web.Controllers
             
         }
 
+        [HttpPost]
         public JsonResult ObtenerModelo(string palanca, int campaniaId, string cuv, string origen, bool esEditable = false)
         {
             try
@@ -76,6 +78,7 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
         public JsonResult ObtenerComponentes(string estrategiaId, string cuv2, string campania, string codigoVariante, string codigoEstrategia = "", List<EstrategiaComponenteModel> lstHermanos = null)
         {
             try
@@ -113,6 +116,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
 
+        [HttpPost]
         public JsonResult ObtenerComponenteDetalle( string cuv)
         {
             try
