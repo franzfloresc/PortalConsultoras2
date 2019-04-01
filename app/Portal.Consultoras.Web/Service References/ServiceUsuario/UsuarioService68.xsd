@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Recomendados" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Recomendados" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Search.RequestRecomendacion" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Search.RequestRecomendacion" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd9" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
   <xs:complexType name="RecomendadoRequest">
     <xs:sequence>
       <xs:element minOccurs="0" name="cantidadProductos" type="xs:int" />
       <xs:element minOccurs="0" name="codigoConsultora" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="codigoPais" nillable="true" type="xs:string" />
       <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="codigoProducto" nillable="true" type="q1:ArrayOfstring" />
       <xs:element minOccurs="0" name="codigoZona" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="codigocampania" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="configuracion" nillable="true" type="tns:configuracion" />
       <xs:element minOccurs="0" name="cuv" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="origen" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="personalizaciones" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>

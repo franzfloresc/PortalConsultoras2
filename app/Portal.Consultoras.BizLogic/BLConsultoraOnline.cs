@@ -1,8 +1,16 @@
-﻿using Portal.Consultoras.Data;
+﻿using Newtonsoft.Json;
+using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
-using Portal.Consultoras.Entities.Recomendados;
+using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
+using Portal.Consultoras.Entities.Search.ResponseRecomendacion.Estructura;
+using Portal.Consultoras.Entities.Search.RequestRecomendacion;
+using Portal.Consultoras.Entities.Search.ResponseRecomendacion;
+using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -143,7 +151,104 @@ namespace Portal.Consultoras.BizLogic
 
         public IList<BEEstrategia> GetRecomendados(RecomendadoRequest RecomendadoRequest)
         {
-            return new List<BEEstrategia>();
+            var estrategias = GetRecomendadosApiMS(RecomendadoRequest);
+
+            return estrategias;
+        }
+
+        public IList<BEEstrategia> GetRecomendadosApiMS(RecomendadoRequest RecomendadoRequest)
+        {
+            var httpClient = new HttpClient { BaseAddress = new Uri("http://localhost:5000/") };
+            httpClient.DefaultRequestHeaders.Accept.Clear();
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            var dataString = JsonConvert.SerializeObject(RecomendadoRequest);
+            HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
+            var response = httpClient.PostAsync(string.Concat("recomendaciones/", RecomendadoRequest.codigoPais, "/", RecomendadoRequest.codigocampania, "/", RecomendadoRequest.origen), contentPost).GetAwaiter().GetResult();
+            var jsonString = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+
+            var respuesta = JsonConvert.DeserializeObject<OutputOfertaLista>(jsonString);
+
+
+            var estrategias = new List<BEEstrategia>();
+
+            foreach (var item in respuesta.Result)
+            {
+                try
+                {
+                    var estrategia = new BEEstrategia
+                    {
+                        CampaniaID = Convert.ToInt32(item.CodigoCampania),
+                        CodigoEstrategia = item.CodigoEstrategia.ToString(),
+                        CodigoProducto = item.CodigoProducto,
+                        CUV2 = item.CUV2,
+                        DescripcionCUV2 = item.DescripcionCUV2,
+                        DescripcionEstrategia = item.DescripcionTipoEstrategia,
+                        DescripcionMarca = item.MarcaDescripcion,
+                        EstrategiaID = Convert.ToInt32(item.EstrategiaId),
+                        FlagNueva = Convert.ToBoolean(item.FlagNueva) ? 1 : 0,
+                        FlagRevista = item.FlagRevista,
+                        FotoProducto01 = item.ImagenURL,
+                        ImagenURL = item.ImagenEstrategia,
+                        IndicadorMontoMinimo = Convert.ToInt32(item.IndicadorMontoMinimo),
+                        LimiteVenta = Convert.ToInt32(item.LimiteVenta),
+                        MarcaID = Convert.ToInt32(item.MarcaId),
+                        Orden = Convert.ToInt32(item.Orden),
+                        Precio = Convert.ToDecimal(item.Precio),
+                        Precio2 = Convert.ToDecimal(item.Precio2),
+                        PrecioString = Util.DecimalToStringFormat(Convert.ToDecimal(item.Precio2), RecomendadoRequest.codigoPais),
+                        PrecioTachado = Util.DecimalToStringFormat(Convert.ToDecimal(item.Precio), RecomendadoRequest.codigoPais),
+                        GananciaString = Util.DecimalToStringFormat(Convert.ToDecimal(item.Ganancia), RecomendadoRequest.codigoPais),
+                        Ganancia = Convert.ToDecimal(item.Ganancia),
+                        TextoLibre = item.TextoLibre,
+                        TieneVariedad = Convert.ToBoolean(item.TieneVariedad) ? 1 : 0,
+                        TipoEstrategiaID = Convert.ToInt32(item.TipoEstrategiaId),
+                        TipoEstrategiaImagenMostrar = 6,
+                        EsSubCampania = Convert.ToBoolean(item.EsSubCampania) ? 1 : 0,
+                        Niveles = item.Niveles,
+                        // TODO: liberar comentario
+                        CantidadPack = item.CantidadPack
+                    };
+                    estrategia.TipoEstrategia = new BETipoEstrategia { Codigo = item.CodigoTipoEstrategia };
+
+                    if (estrategia.Precio2 > 0)
+                    {
+                        List<BEEstrategiaProducto> compoponentes = new List<BEEstrategiaProducto>();
+                        foreach (var componente in item.Componentes)
+                        {
+                            var estrategiaTono = new BEEstrategiaProducto
+                            {
+                                Grupo = componente.Grupo.ToString(),
+                                CUV = componente.Cuv,
+                                SAP = componente.CodigoSap,
+                                Orden = componente.Orden,
+                                Precio = componente.PrecioUnitario,
+                                Digitable = Convert.ToBoolean(componente.IndicadorDigitable) ? 1 : 0,
+                                Cantidad = componente.Cantidad,
+                                FactorCuadre = componente.FactorCuadre,
+                                IdMarca = componente.MarcaId,
+                                NombreMarca = componente.NombreMarca,
+                                NombreComercial = componente.NombreComercial,
+                                Volumen = componente.Volumen,
+                                NombreBulk = componente.NombreBulk
+                            };
+
+                            compoponentes.Add(estrategiaTono);
+                        }
+
+                        estrategia.EstrategiaProducto = compoponentes;
+
+                        estrategias.Add(estrategia);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Common.LogManager.SaveLog(ex, string.Empty, RecomendadoRequest.codigoPais);
+                    return estrategias;
+                }
+            }
+
+            return estrategias;
         }
     }
 }

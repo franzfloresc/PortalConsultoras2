@@ -10106,7 +10106,8 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="RecomendadoRequest", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Recomendados")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="RecomendadoRequest", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Search.Reques" +
+        "tRecomendacion")]
     [System.SerializableAttribute()]
     public partial class RecomendadoRequest : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -10120,16 +10121,25 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string codigoConsultoraField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string codigoPaisField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string[] codigoProductoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string codigoZonaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string codigocampaniaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Portal.Consultoras.Web.ServiceUsuario.configuracion configuracionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string cuvField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string origenField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string personalizacionesField;
@@ -10171,6 +10181,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string codigoPais {
+            get {
+                return this.codigoPaisField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.codigoPaisField, value) != true)) {
+                    this.codigoPaisField = value;
+                    this.RaisePropertyChanged("codigoPais");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string[] codigoProducto {
             get {
                 return this.codigoProductoField;
@@ -10192,6 +10215,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.codigoZonaField, value) != true)) {
                     this.codigoZonaField = value;
                     this.RaisePropertyChanged("codigoZona");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string codigocampania {
+            get {
+                return this.codigocampaniaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.codigocampaniaField, value) != true)) {
+                    this.codigocampaniaField = value;
+                    this.RaisePropertyChanged("codigocampania");
                 }
             }
         }
@@ -10223,6 +10259,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string origen {
+            get {
+                return this.origenField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.origenField, value) != true)) {
+                    this.origenField = value;
+                    this.RaisePropertyChanged("origen");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string personalizaciones {
             get {
                 return this.personalizacionesField;
@@ -10247,7 +10296,8 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="configuracion", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Recomendados")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="configuracion", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Search.Reques" +
+        "tRecomendacion")]
     [System.SerializableAttribute()]
     public partial class configuracion : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
