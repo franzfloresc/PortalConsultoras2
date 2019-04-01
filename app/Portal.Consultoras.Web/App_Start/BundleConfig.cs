@@ -827,7 +827,8 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Mobile/Ficha/PopoverTooltip.css",
                 "~/Content/Css/Mobile/ProductoListado/CajaProducto.css",
                 "~/Content/Css/Mobile/Ficha/SeleccionarTipo.css",
-                "~/Content/Css/Mobile/Clientes/Asignarcliente.css"
+                "~/Content/Css/Mobile/Clientes/Asignarcliente.css",
+                "~/Content/Css/Mobile/Ficha/FichaEnriquecida.css"
 
             ));
 
