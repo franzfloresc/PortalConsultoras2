@@ -74,6 +74,7 @@
                 centerMode: false,
                 variableWidth: true
             });
+              
         },
         setAcordionDetalleComponente: function () {
             $(_template.MenuDetalleComponente).click(function () {

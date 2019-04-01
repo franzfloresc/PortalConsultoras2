@@ -11,6 +11,7 @@ namespace Portal.Consultoras.Web.Models.DetalleEstrategia
 
         public string Moneda { get; set; }
         public double? PrecioCliente { get; set; }
+        public string FotoProducto { get; set; }
 
         public List<SeccionComponenteDetalle> ModoUso { get; set; }
         public List<SeccionComponenteDetalle> DescubreMas { get; set; }
