@@ -665,7 +665,7 @@ namespace Portal.Consultoras.Common
             public const string DGuiaNegocio = "1I0";
             public const string MGuiaNegocio = "2I0";
             public const string DHerramientaVenta = "1J0";
-            public const string MHerramientaVenta = "2J0";  
+            public const string MHerramientaVenta = "2J0";
             public const string DMasGanadoras = "1K0";
             public const string MMasGanadoras = "2K0";
             public const string DDuoPerfecto = "1L0";
@@ -2411,7 +2411,7 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_UNIDAD_SOBREPASA_PERMITIDO = "2116";
                 public const string ERROR_UNIDAD_SINSALDO = "2117";
                 public const string ERROR_UNIDAD_CONSALDO = "2118";
-                public const string ERROR_UNIDAD_SOBREPASA_STOCK = "2119";               
+                public const string ERROR_UNIDAD_SOBREPASA_STOCK = "2119";
 
                 public const string ERROR_RESERVA_NINGUNO = "2010";
                 public const string SUCCESS_RESERVA = "2011";
@@ -3079,9 +3079,9 @@ namespace Portal.Consultoras.Common
             /// <summary>
             /// api/Evento/listarConsultora/{isoPais}/{codigoConsultora}/{codigoCampania}
             /// </summary>
-            public const string UrlObtenerPersonalizacion= "api/Personalizacion/{0}/{1}/{2}";
+            public const string UrlObtenerPersonalizacion = "api/Personalizacion/{0}/{1}/{2}";
             #endregion
-            
+
             #region Reporte
             /// <summary>
             /// /api/Reporte/ReporteValidacion/{pais}/{tipo}/{campania}
@@ -3140,7 +3140,7 @@ namespace Portal.Consultoras.Common
             public const string FlagBuscarPorCategoria = "BuscarPorCategoria";
             public const string FlagBuscarPorCategoriaTotalProductos = "BuscarPorCategoriaTotalProductos";
         }
-        
+
         public static class CodigoConfiguracionMSPersonalizacion
         {
             public const string EstrategiaDisponible = "EstrategiaDisponible";
@@ -3407,9 +3407,11 @@ namespace Portal.Consultoras.Common
             public const int ColorTextoApp = 10215;
         }
 
-        public static class Formatos {
+        public static class Formatos
+        {
             public const string Fecha = "dd/MM/yyyy";
             public const string FechaHora = "dd/MM/yyyy HH:mm";
+            public const string FechaHoraUTC = "yyyy-MM-ddThh:mm:ss";
         }
         public static class OperacionBD
         {
@@ -3442,7 +3444,7 @@ namespace Portal.Consultoras.Common
                 public const string MaquilladorVirtual = "04";
             }
         }
-        
+
         public static class OpcionesUsuario
         {
             public const int BoletaImpresa = 1;
@@ -3519,7 +3521,8 @@ namespace Portal.Consultoras.Common
                 public const string GetNivelConsultora = "GetNivelConsultora/";
                 public const string GetKitsConsultora = "GetKitsConsultora/";
 
-                public static class TablaLogicaDatosKey {
+                public static class TablaLogicaDatosKey
+                {
                     /// <summary>
                     /// Url para conexion a informacionComercialServices
                     /// </summary>
@@ -3539,7 +3542,8 @@ namespace Portal.Consultoras.Common
                 }
             }
 
-            public static class CodigoBeneficio {
+            public static class CodigoBeneficio
+            {
 
                 public const string BENEFICIO01 = "BENEFICIO01";
                 public const string BENEFICIO02 = "BENEFICIO02";
@@ -3553,18 +3557,20 @@ namespace Portal.Consultoras.Common
                 {
                     get
                     {
-                        return _Beneficios ?? (_Beneficios = new List<string> { BENEFICIO01, BENEFICIO02, BENEFICIO03, BENEFICIO04, BENEFICIO05});
+                        return _Beneficios ?? (_Beneficios = new List<string> { BENEFICIO01, BENEFICIO02, BENEFICIO03, BENEFICIO04, BENEFICIO05 });
                     }
                 }
             }
 
-            public static class Logros {
+            public static class Logros
+            {
 
                 public const string COMPROMISO = "COMPROMISO";
                 public const string CRECIMIENTO = "CRECIMIENTO";
                 public const string RESUMEN = "RESUMEN";
 
-                public static class Indicadores {
+                public static class Indicadores
+                {
 
                     public const string ESCALA = "ESCALA";
                     public const string NIVEL = "NIVEL";
@@ -3573,11 +3579,47 @@ namespace Portal.Consultoras.Common
                     public const string TIEMPO_JUNTOS = "TIEMPO_JUNTOS";
                     public const string PROGRAMA_NUEVAS = "PROGRAMA_NUEVAS";
 
+                    public static class Medallas
+                    {
+
+                        public const string ComoLograrlo = "¿Cómo lograrlo?";
+                        public const string YaLoTienes = "¡Ya lo tienes!";
+
+                        public static class Codes
+                        {
+                            public const string CIRC = "CIRC";
+                            public const string NIV = "NIV";
+                            public const string PIE = "PIE";
+                            public const string TIM = "TIM";
+                            public const string PED = "PED";
+                        }
+                    }
                 }
-                
+            }
+
+            public static class Beneficios {
+
+                private static Dictionary<string, string> _Iconos;
+
+                public static Dictionary<string, string> Iconos
+                {
+                    get
+                    {
+                        return _Iconos ?? (_Iconos = new Dictionary<string, string> {
+                            {"01", "icono.svg"},
+                            {"02", "icono.svg"},
+                            {"03", "icono.svg"},
+                            {"04", "icono.svg"},
+                            {"05", "icono.svg"},
+                            {"06", "icono.svg"},
+                            {"07", "icono.svg"},
+                            {"08", "icono.svg"},
+                        });
+                    }
+                }
+
             }
 
         }
-
     }
 }
