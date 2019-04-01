@@ -281,7 +281,7 @@
         dataLayer.push({
             'event': 'virtualEvent',
             'category': 'Catálogos y revistas',
-            'action': 'Compartir FB-Messenger',
+            'action': 'Catálogo digital - Compartir FB - Messenger',
             'label': campaniaCatalogo,
             'value': 0
         });
@@ -315,7 +315,7 @@
         dataLayer.push({
             'event': 'virtualEvent',
             'category': 'Catálogos y revistas',
-            'action': 'Compartir email – clic botón',
+            'action': 'Catálogo digital - Compartir email – clic botón',
             'label': tipoCatalogo == 'Todo' ? campania : tipoCatalogo,
             'value': 0,
             'gtm.uniqueEventId': 6330

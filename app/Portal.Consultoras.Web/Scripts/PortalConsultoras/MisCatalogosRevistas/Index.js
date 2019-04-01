@@ -866,16 +866,16 @@ function CatalogoEnviarEmailPiloto() {
                 if (data.success) {
                     MonstrarAlerta(data.message);
 
-                    //evento luego de enviar el correo satisfacoriamente - HD-3694
+                    /*evento luego de enviar el correo satisfacoriamente - HD-3694*/
                     dataLayer.push({
                         'event': 'virtualEvent',
                         'category': 'Catálogos y revistas',
-                        'action': 'Compartir email',
+                        'action': 'Catálogo digital - Compartir email',
                         'label': campaniaEmail,
                         'value': 1,
                         'gtm.uniqueEventId': 7292
                     });
-                    //
+                    
 
                     if (data.extra == "R") {
                         location.href = '/Bienvenida';
@@ -1054,7 +1054,7 @@ function MarcarCompartirFbExitoso() {
         dataLayer.push({
             'event': 'virtualEvent',
             'category': 'Catálogos y revistas',
-            'action': 'Catálogo Digital - Compartir FB-Messenger',
+            'action': 'Catálogo Digital - Compartir FB - Messenger',
             'label': campaniaCodigo
         });        
     }
