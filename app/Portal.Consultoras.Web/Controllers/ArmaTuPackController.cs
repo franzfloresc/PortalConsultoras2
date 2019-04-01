@@ -58,5 +58,10 @@ namespace Portal.Consultoras.Web.Controllers
             };
             return View(DetalleEstrategiaFichaModel);
         }
+
+        public ActionResult AgregarATPApp()
+        {
+            return new EmptyResult();
+        }
     }
 }
