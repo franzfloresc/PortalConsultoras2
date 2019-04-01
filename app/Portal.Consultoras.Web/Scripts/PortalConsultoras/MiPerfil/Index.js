@@ -409,7 +409,7 @@ function actualizarDatos() {
     if ((txtCelularMD == null || txtCelularMD == "")) {
         $('#btnGuardar')[0].disabled = false;
         alert('Debe ingresar un número de celular. \n');
-        return false;
+        return false; 
     }
 
     if ((txtTelefonoMD == null || txtTelefonoMD == "") && hdn_PaisID != 3 ) {
@@ -418,7 +418,7 @@ function actualizarDatos() {
         return false;
     }
 
-    debugger;
+
     if (txtCelularMD != "") {
         if (!isInt(txtCelularMD)) {
             $('#btnGuardar')[0].disabled = false;
