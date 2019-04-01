@@ -503,7 +503,7 @@ namespace Portal.Consultoras.Web.Controllers
                             respuestaServiceCdr2[0].Descripcion = "Su solicitud procede";
                             respuestaServiceCdr2[0].Estrategia = 2002;
 
-                            ProductosComplementos[] complementos = new ProductosComplementos[1];
+                            ProductosComplementos[] complementos = new ProductosComplementos[2];
                             complementos[0] = new ProductosComplementos();
                             complementos[0].cuv = "30429";
                             complementos[0].descripcion = "ES MIA EDP 45 ML";
@@ -522,6 +522,8 @@ namespace Portal.Consultoras.Web.Controllers
                             respuestaServiceCdr2[0].LProductosComplementos = complementos;
                         }
                     }
+
+                    respuestaServiceCdr[0].Codigo = "00";
 
 
 #endif
