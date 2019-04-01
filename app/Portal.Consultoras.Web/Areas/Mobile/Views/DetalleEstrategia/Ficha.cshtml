@@ -11,9 +11,9 @@
 @Html.Partial("FichaTemplate")
 
 @*@if (Model.NoEsCampaniaActual)
-{
-    @Html.Action("RDMensajeBloqueadoDetalle", "RevistaDigital")
-}*@
+    {
+        @Html.Action("RDMensajeBloqueadoDetalle", "RevistaDigital")
+    }*@
 
 @section scripts{
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/EstrategiaAgregar")
@@ -24,13 +24,26 @@
         AbrirLoad();
 
         var fichaModule;
+        var componenteDetalleModule;
 
         var urlGetCantidadProductos = '@Url.Action("GetResumenCampaniaAgrupado", "GestionContenido", new {area = ""})';
 
         $(document).ready(function () {
+
+            componenteDetalleModule = ComponenteDetalleModule({
+                localStorageModule: LocalStorageModule(),
+                analyticsPortalModule: AnalyticsPortalModule,
+                palanca: "@Model.Palanca",
+                campania: "@Model.Campania",
+                cuv: "@Model.Cuv",
+                origen: "@Model.OrigenUrl"
+            });
+
             fichaModule = FichaModule({
                 localStorageModule: LocalStorageModule(),
                 analyticsPortalModule: AnalyticsPortalModule,
+                componenteDetalleModule: componenteDetalleModule,
+
                 generalModule: GeneralModule,
                 palanca: "@Model.Palanca",
                 campania: "@Model.Campania",

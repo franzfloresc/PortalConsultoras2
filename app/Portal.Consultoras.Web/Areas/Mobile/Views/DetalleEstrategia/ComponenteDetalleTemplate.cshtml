@@ -1,8 +1,6 @@
-﻿@using Portal.Consultoras.Common
-
+﻿﻿@using Portal.Consultoras.Common
 
 <div data-ficha-contenido="componenteDetalle-template"></div>
-
 <script id="componenteDetalle-template" type="text/x-handlebars-template">
     <div class="modal modal_producto_detalle fade" id="modal_producto_detalle" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
@@ -11,62 +9,84 @@
                     <button type="button" class="btn_volver" data-dismiss="modal" aria-label="Close"><img src="/Content/Images/mobile/Esika/right-arrow.svg" alt="" />   Volver</button>
                     <div class="row imagen_producto ">
                         <div class="col-md-12 col-sm-12 col-xs-12">
-                            <img src="https://d1y60eoca8fkyl.cloudfront.net/Matriz/PE/PE_2000825142019343304_byszvswrvn_medium.png">
-                        </div>
-                        <hr class="clear">
-                        <div id="contenedor_foto_referencial" class="texto_referencial">
-                            <span data-texto_referencial="">* Foto Referencial; código {{codigo}}; nombre: {{nombre}}</span>
+                            <img src={{ImgUrl FotoProducto}} />
                         </div>
                     </div>
                     <hr class="clear">
-                    <div class="row marca_producto">
-                        <div class="col-md-12 col-sm-12 col-xs-12">
-                            <h2>Ésika</h2>
-                        </div>
+                    <div id="contenedor_foto_referencial" class="texto_referencial">
+                        <span data-texto_referencial="">* Foto Referencial</span>
                     </div>
-
-                    <div class="row descripcion_producto">
-                        <div class="col-md-12 col-sm-12 col-xs-12">
-                            2 Esmalte 6 en 1 + 2 HD Perfect Long + 2 Máscaras Efecto Extensiones + Hydra Milk
-                        </div>
-                        <div class="col-md-12 col-sm-12 col-xs-12 descripcion_item">
-                            15 gr
-                        </div>
-                        <div class="col-md-12 col-sm-12 col-xs-12 descripcion_item">
-                            15 x 20 x 25 milimentos
-                        </div>
+                </div>
+                <hr class="clear">
+                <div class="row marca_producto">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <h2>{{Marca}}</h2>
                     </div>
-
+                </div>
+                <div class="row descripcion_producto">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        {{Descripcion}}
+                    </div>
+                    {{#each this.UnidadMedida as |value|}}
+                    <div class="col-md-12 col-sm-12 col-xs-12 descripcion_item">
+                        {{value}}
+                    </div>
+                    {{/each}}
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        Para tu cliente
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12 descripcion_item">
+                        {{Moneda}} {{PrecioCliente}}
+                    </div>
                     <div class="row tabs">
                         <div class="col-md-12 col-sm-12 col-xs-12">
-                            <ul class="tabs ficha_tabs">
+                            <ul id="mnuDetalleComponente" class="tabs ficha_tabs">
+                          
                                 <li id="div_ficha_tab1">
                                     <a class="tab-link">Modo de uso</a>
                                     <ul class="tabs_container">
-                                        <h4>Conoce el producto</h4>
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim porro dolorum dolor blanditiis omnis sunt aut totam iste, aliquam provident excepturi laborum quo optio! Omnis, ab? Fuga odio eum iure?</p>
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim porro dolorum dolor blanditiis omnis sunt aut totam iste, aliquam provident excepturi laborum quo optio! Omnis, ab? Fuga odio eum iure?</p>
-                                        <h4>Cómo y cuándo usarlos</h4>
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim porro dolorum dolor blanditiis omnis sunt aut totam iste, aliquam provident excepturi laborum quo optio! Omnis, ab? Fuga odio eum iure?</p>
+                                        {{#each this.ModoUso as |myitem|}}
+                                        <h4>{{myitem.Titulo}}</h4>
+                                        <p>{{myitem.Valor}}</p>
+                                        {{/each}}
                                     </ul>
                                 </li>
+                             
                                 <li id="div_ficha_tab2">
                                     <a class="tab-link">Descubre más</a>
                                     <ul>
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim porro dolorum dolor blanditiis omnis sunt aut totam iste, aliquam provident excepturi laborum quo optio! Omnis, ab? Fuga odio eum iure?
+                                        {{#each this.DescubreMas as |myitem|}}
+                                        <h4>{{myitem.Titulo}}</h4>
+                                        <p>{{myitem.Valor}}</p>
+                                        {{/each}}
                                     </ul>
                                 </li>
+                              
+
                                 <li id="div_ficha_tab3">
                                     <a class="tab-link">Tips de venta</a>
                                     <ul>
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim porro dolorum dolor blanditiis omnis sunt aut totam iste, aliquam provident excepturi laborum quo optio! Omnis, ab? Fuga odio eum iure?
+                                        {{#each this.TipVenta as |myitem|}}
+                                        <h4>{{myitem.Titulo}}</h4>
+                                        <p>{{myitem.Valor}}</p>
+                                        {{/each}}
                                     </ul>
                                 </li>
+
+
                                 <li id="div_ficha_tab4">
                                     <a class="tab-link">Videos</a>
                                     <ul>
-                                        <iframe class="video_item" width="560" height="315" src="https://www.youtube.com/embed/_UwWYtLWEZg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                                        <h3 class="video_title">Sleeping With Sirens - If You Can't Hang</h3>
+                                        <div style="width:98% !important; height:500px !important;">
+                                            <div id="carouselVideo">
+                                                {{#each this.Video as |myitem|}}
+                                                <div style="width:350px;height:350px;">
+                                                    <p>{{myitem.Titulo}}</p>
+                                                    <iframe class="video_item" width="350" height="350" src="{{myitem.Valor}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                                </div>
+                                                {{/each}}
+                                            </div>
+                                        </div>
                                     </ul>
                                 </li>
 
@@ -77,5 +97,4 @@
             </div>
         </div>
     </div>
-  
 </script>
