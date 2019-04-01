@@ -28363,6 +28363,66 @@ div.motivoRechazo textarea {
     background-color:transparent!important;
 }
 
+.rango_reclamo {
+    width: 80px;
+    margin-right: 0;
+    padding: 0;
+}
+
+    .rango_reclamo .liquidacion_rango_cantidad_pedido,
+    .rango_reclamo .liquidacion_rango_right_pedido {
+        height: 100%;
+    }
+
+    .rango_reclamo .liquidacion_rango_cantidad_pedido {
+        width: 70.5%;
+        border-top: 0;
+        border-bottom: 0;
+        border-left: 0;
+        border-right: 1px solid #000 !important;
+        padding-bottom: 3px;
+    }
+
+    .rango_reclamo .liquidacion_rango_right_pedido,
+    .rango_reclamo .mas,
+    .rango_reclamo .menos {
+        position: relative;
+        padding-top: 0;
+    }
+
+    .rango_reclamo .liquidacion_rango_right_pedido,
+    .rango_reclamo .menos {
+        border: 0;
+    }
+
+    .rango_reclamo .mas,
+    .rango_reclamo .menos {
+        margin-top: 0;
+        height: 50%;
+    }
+
+    .rango_reclamo .mas {
+        border-bottom: 1px solid #000;
+    }
+
+        .rango_reclamo .mas img,
+        .rango_reclamo .menos img {
+            position: absolute;
+            margin: auto;
+            bottom: 0;
+            right: 0;
+        }
+
+        .rango_reclamo .mas img {
+            top: 2.5px;
+            left: 2px;
+        }
+
+    .rango_reclamo .menos img {
+        top: -2.5px;
+        left: 0;
+    }
+
 .lista_opciones_cdr_wrapper {
     margin-bottom: 70px;
 }
@@ -28424,6 +28484,7 @@ div.motivoRechazo textarea {
     position: absolute;
     top: 10px;
     right: 11px;
+    cursor: pointer;
     -moz-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
     -webkit-transition: all 0.3s ease;
@@ -28440,7 +28501,8 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 .opcion_cdr_seleccionada_info--cambiarPorOtroProducto p,
 .opcion_cdr_seleccionada_info--devolucionCasoSetProducto p,
 .opcion_cdr_seleccionada_campo_busqueda,
-.opcion_cdr_seleccionada_terminos_entrega_producto_texto {
+.opcion_cdr_seleccionada_terminos_entrega_producto_texto,
+.opcion_cdr_seleccionada_info--cambioMismoProducto p {
     font-size: 14px;
     letter-spacing: 0.1px;
 }
@@ -28449,7 +28511,8 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     margin-bottom: 12px;
 }
 
-.opcion_cdr_seleccionada_campos_busqueda_producto_a_cambiar {
+.opcion_cdr_seleccionada_campos_busqueda_producto_a_cambiar,
+.opcion_cdr_seleccionada_info--cambioMismoProducto {
     margin-top: 30px;
     margin-bottom: 45px;
 }
@@ -28548,7 +28611,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     margin-bottom: 25px;
 }
 
-.producto_set_nom {
+.producto_nom {
     font-size: 16px;
 }
 
@@ -28559,7 +28622,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 }
 
 .producto_set_lista {
-    margin-top:8px;
+    margin-top: 8px;
     margin-bottom: 18px;
     text-align: left;
 }
@@ -28587,67 +28650,8 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     line-height: 22px;
 }
 
-.rango_reclamo {
-    width:80px;
-    margin-right:0;
-    padding:0;
-}
-
-    .rango_reclamo .liquidacion_rango_cantidad_pedido{
-        width:70.5%;
-        border-top:0;
-        border-bottom:0;
-        border-left:0;
-        border-right:1px solid #000!important;
-        padding-bottom:3px;
-    }
-
-    .rango_reclamo .liquidacion_rango_right_pedido,
-    .rango_reclamo .mas,
-    .rango_reclamo .menos
-    {
-        position:relative;
-        padding-top:0;
-    }
-
-    .rango_reclamo .liquidacion_rango_right_pedido,
-    .rango_reclamo .menos
-    {
-        border:0;
-    }
-
-    .rango_reclamo .mas,
-    .rango_reclamo .menos
-    {
-        margin-top:0;
-        height:50%;
-    }
-
-    .rango_reclamo .mas{
-        border-bottom:1px solid #000;
-    }
-
-        .rango_reclamo .mas img,
-        .rango_reclamo .menos img
-        {
-            position:absolute;
-            margin:auto;
-            bottom:0;
-            right:0;
-        }
-
-        .rango_reclamo .mas img{
-            top:2.5px;
-            left:2px;
-        }
-
-        .rango_reclamo .menos img{
-            top:-2.5px;
-            left:0;
-        }
-
 .btn_no_stock {
-    font-family: 'LAto';
+    font-family: 'Lato', sans-serif;
     font-size: 13px;
     text-decoration: underline;
     margin-top: 30px;
@@ -28659,7 +28663,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 }
 
 .btn_si_stock {
-    font-family: 'LAto';
+    font-family: 'Lato', sans-serif;
     font-size: 13px;
     font-weight: 700;
     display: block;
@@ -28671,11 +28675,11 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     background: #613c87;
     line-height: 45px;
     float: left;
-    cursor:pointer;
+    cursor: pointer;
 }
 
 .btn_si_stock_cdr {
-    font-family: 'LAto';
+    font-family: 'Lato', sans-serif;
     font-size: 13px;
     font-weight: 700;
     float: right;
@@ -28687,7 +28691,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     color: white;
     background: #613c87;
     line-height: 45px;
-    cursor:pointer;
+    cursor: pointer;
 }
 
 .paso_active_reclamo {
