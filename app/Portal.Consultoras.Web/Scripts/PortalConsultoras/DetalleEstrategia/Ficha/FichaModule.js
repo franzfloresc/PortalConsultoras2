@@ -82,10 +82,6 @@ var FichaModule = (function (config) {
     if (config.generalModule === null || typeof config.generalModule === "undefined")
         throw "config.generalModule is null or undefined";
 
-    if (config.componenteDetalleModule === null || typeof config.componenteDetalleModule === "undefined")
-        throw "config.componenteDetalleModule is null or undefined";
-    
-
     var _primeraMarca = "";
     var _ultimaMarca = "";
     var _esMultimarca = false;
@@ -135,7 +131,7 @@ var FichaModule = (function (config) {
         producto: "ficha_producto_template",
         carrusel: "ficha_carrusel_template",
         compartir: "ficha_compartir_template",
-        styleOdd: "ofertadeldia-template-style" 
+        styleOdd: "ofertadeldia-template-style"
     };
 
     var _seccionesFichaProducto = {
@@ -299,7 +295,7 @@ var FichaModule = (function (config) {
         if (showTabContainer) $(_seccionesFichaProducto.ContenidoProducto).show();
 
     };
-      
+
     var _construirSeccionDetalleFichas = function () {
         var pEstrategia = _estrategia;
         if (pEstrategia === null || typeof (pEstrategia) === "undefined") {
@@ -334,8 +330,11 @@ var FichaModule = (function (config) {
         _crearTabs();
         _ocultarTabs();
 
-        _config.componenteDetalleModule.OcultarControles();
-
+        if (config.componenteDetalleModule === null || typeof config.componenteDetalleModule === "undefined") {
+            throw "config.componenteDetalleModule is null or undefined";
+        } else {
+            _config.componenteDetalleModule.OcultarControles();
+        }
         return true;
     };
 
@@ -983,7 +982,7 @@ var FichaModule = (function (config) {
     return {
         Inicializar: _init,
         GetEstrategia: getEstrategia,
-        GetModeloFicha: getModeloFicha 
+        GetModeloFicha: getModeloFicha
     };
 });
 

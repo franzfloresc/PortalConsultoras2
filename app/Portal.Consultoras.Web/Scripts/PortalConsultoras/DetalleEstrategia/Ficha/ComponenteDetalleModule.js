@@ -105,12 +105,14 @@
 
         _config.ComponenteDetalleProvider.PromiseObternerComponenteDetalle({
             cuv: cuv
-        }).done(function (data) {
-            if (data.success) {
-
+        }).done(function (res) {
+            console.log('res', res);
+            
+            if (res.success) {
+              
+                _util.mostrarModal(res.data);
             }
-            console.log('data', data);
-            _util.mostrarModal(data);
+           
 
         }).fail(function (data, error) {
             console.log(data);
