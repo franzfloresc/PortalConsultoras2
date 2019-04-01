@@ -788,7 +788,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/Ficha/ListaOpcionesModule.js",
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/Ficha/ComponentesModule.js",
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/Ficha/OpcionesSeleccionadasModule.js",
-                "~/Scripts/PortalConsultoras/DetalleEstrategia/TituloOpcionesSeleccionadasModule.js",
+                "~/Scripts/PortalConsultoras/DetalleEstrategia/Ficha/TituloOpcionesSeleccionadasModule.js",
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/Ficha/ResumenOpcionesModule.js",
 
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js",
