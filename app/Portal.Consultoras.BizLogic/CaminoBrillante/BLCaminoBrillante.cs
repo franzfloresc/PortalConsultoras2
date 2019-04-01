@@ -7,6 +7,7 @@ using Portal.Consultoras.Data.CaminoBrillante;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.CaminoBrillante;
 using Microsoft.Practices.EnterpriseLibrary.Common.Utility;
+using System.Globalization;
 
 namespace Portal.Consultoras.BizLogic.CaminoBrillante
 {
@@ -75,7 +76,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             };
         }
 
-        //Pendiente Implementar 
+        //Pendiente Implementar - Eliminar
         public List<BELogroCaminoBrillante> GetConsultoraLogros(int paisId, BEUsuario entidad, bool isWeb)
         {
             return null;
@@ -85,16 +86,16 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         {
             return new List<BELogroCaminoBrillante> {
                 GetConsultoraLogrosCrecimiento(paisId, entidad, nivelesCaminoBrillantes, nivelConsultora, nivelesConsultora),
-                GetConsultoraLogrosCompromiso(paisId, entidad) };
+                GetConsultoraLogrosCompromiso(paisId, entidad, nivelConsultora) };
         }
 
-        //Pendiente Optimizar 
+        //Pendiente Implementar 
         public void GetConsultoraOfertas(int paisId, BEUsuario entidad, bool isWeb)
         {
             throw new NotImplementedException();
         }
 
-        //Pendiente Optimizar 
+        //Pendiente Implementar 
         public void GetConsultoraKits(int paisId, BEUsuario entidad, bool isWeb)
         {
             throw new NotImplementedException();
@@ -378,10 +379,10 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             };
         }
 
-        private BELogroCaminoBrillante GetConsultoraLogrosCompromiso(int paisId, BEUsuario entidad)
+        private BELogroCaminoBrillante GetConsultoraLogrosCompromiso(int paisId, BEUsuario entidad, NivelConsultoraCaminoBrillante nivelConsultora)
         {
             var medallasProgramaNuevas = GetConsultoraLogrosCompromiso_ProgramaNuevas(paisId, entidad);
-            var medallasTiempoJuntos = GetConsultoraLogrosCompromiso_TiempoJuntos(paisId, entidad);
+            var medallasTiempoJuntos = GetConsultoraLogrosCompromiso_TiempoJuntos(paisId, entidad, nivelConsultora);
 
             var tablaLogicaDatos = (GetDatosTablaLogica(paisId, Constantes.TablaLogica.CaminoBrillanteLogros) ?? new List<BETablaLogicaDatos>())
                 .Where(e => e.Codigo == Constantes.CaminoBrillante.Logros.COMPROMISO).FirstOrDefault() ?? new BETablaLogicaDatos();
@@ -396,32 +397,30 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             };
         }
 
-        //Pendiente obtener cuales son las medallas alcanzadas
+        //Pendiente calcular el flag para mostrar y validar el campo consecutivo nuevas
         private BEIndicadorCaminoBrillante GetConsultoraLogrosCompromiso_ProgramaNuevas(int paisId, BEUsuario entidad)
         {
-            //if (entidad.ConsecutivoNueva < 10 && entidad.EsConsultoraNueva)
-            if(true)
+            //Calcular este Flag
+            var showMedallasNuevas = (entidad.EsConsultoraNueva && true);
+
+            if(showMedallasNuevas)
             {
                 var configMedalla = (GetGetConfiguracionMedallaCaminoBrillanteCache(paisId) ?? new List<BEConfiguracionMedallaCaminoBrillante>())
                                     .Where(e => e.Logro == Constantes.CaminoBrillante.Logros.COMPROMISO && e.Indicador == Constantes.CaminoBrillante.Logros.Indicadores.PROGRAMA_NUEVAS).ToList();
-
-                //Tabla ODS
-                var pedidosConsultoraProgramaNuevas = new List<int> { 1, 2, 3, 4, 5, 6 };
                 
-                int consecutivoPedido = 0;
+                int valPedido = 0;
                 int orden = 0;
-
                 var tablaLogicaDatos = (GetDatosTablaLogica(paisId, Constantes.TablaLogica.CaminoBrillanteIndicadores) ?? new List<BETablaLogicaDatos>())
-                .Where(e => e.Codigo == Constantes.CaminoBrillante.Logros.Indicadores.PROGRAMA_NUEVAS).FirstOrDefault() ?? new BETablaLogicaDatos();
+                                        .Where(e => e.Codigo == Constantes.CaminoBrillante.Logros.Indicadores.PROGRAMA_NUEVAS).FirstOrDefault() ?? new BETablaLogicaDatos();
 
                 return new BEIndicadorCaminoBrillante()
                 {
                     Titulo = tablaLogicaDatos.Valor,
                     Codigo = Constantes.CaminoBrillante.Logros.Indicadores.PROGRAMA_NUEVAS,
-                    Medallas = configMedalla.Where( e => int.TryParse(e.Codigo, out consecutivoPedido))
+                    Medallas = configMedalla.Where( e => int.TryParse(e.Codigo, out valPedido))
                                .Select(e => new BEMedallaCaminoBrillante() {
                                    Orden = orden ++,
-                                   Estado = pedidosConsultoraProgramaNuevas.Contains(int.Parse(e.Codigo)),
+                                   Estado = (int.Parse(e.Codigo) <= entidad.ConsecutivoNueva),
                                    Tipo = Constantes.CaminoBrillante.Logros.Indicadores.Medallas.Codes.PED,
                                    Valor = e.Codigo,
                                    Titulo = string.Format(e.Valor, e.Codigo),
@@ -433,10 +432,15 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             return null;
         }
 
-        //Pendiente de Optimizar - Falta Calcular el tiempo en añios
-        private BEIndicadorCaminoBrillante GetConsultoraLogrosCompromiso_TiempoJuntos(int paisId, BEUsuario entidad)
+        private BEIndicadorCaminoBrillante GetConsultoraLogrosCompromiso_TiempoJuntos(int paisId, BEUsuario entidad, NivelConsultoraCaminoBrillante nivelConsultora)
         {
-            var aniosConsultora = 10;
+            var aniosConsultora = -1;
+            if (!string.IsNullOrEmpty(nivelConsultora.FechaIngreso)) {
+                DateTime anioIngreso = DateTime.MinValue;
+                if (DateTime.TryParseExact(nivelConsultora.FechaIngreso, Constantes.Formatos.FechaHoraUTC, CultureInfo.InvariantCulture, DateTimeStyles.None, out anioIngreso)) {
+                    aniosConsultora = Math.Max(0,DateTime.Now.Year - anioIngreso.Year);
+                }
+            }
 
             var configMedalla = (GetGetConfiguracionMedallaCaminoBrillanteCache(paisId) ?? new List<BEConfiguracionMedallaCaminoBrillante>())
                 .Where(e => e.Logro == Constantes.CaminoBrillante.Logros.COMPROMISO && e.Indicador == Constantes.CaminoBrillante.Logros.Indicadores.TIEMPO_JUNTOS).ToList();
@@ -451,17 +455,17 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 Titulo = tablaLogicaDatos.Valor,
                 Codigo = Constantes.CaminoBrillante.Logros.Indicadores.TIEMPO_JUNTOS,
                 Medallas = configMedalla
-                .Where(e => int.TryParse(e.Valor, out anios))
+                .Where(e => int.TryParse(e.Codigo, out anios))
                 .Select(e => new BEMedallaCaminoBrillante()
                 {
                     Orden = orden++,
                     Tipo = Constantes.CaminoBrillante.Logros.Indicadores.Medallas.Codes.TIM,
-                    Estado = (anios <= aniosConsultora),
+                    Estado = (anios <= aniosConsultora && aniosConsultora != -1),
                     Titulo = string.Format(e.Valor ?? string.Empty, anios),
                     Subtitulo = (anios <= aniosConsultora) ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes,
                     ModalTitulo = e.ComoLograrlo_Estado ? e.ComoLograrlo_Titulo : string.Empty,
                     ModalDescripcion = e.ComoLograrlo_Estado ? e.ComoLograrlo_Descripcion : string.Empty,
-                    Valor = e.Valor
+                    Valor = e.Codigo
                 }).ToList()
             };
 
@@ -501,6 +505,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         }
 
         //Pendiente Quitar la Data Simulada de los beneficios
+        //Leer Flags de tiene ofertas especiales
         private List<BENivelCaminoBrillante> GetNivelesCaminoBrillanteMantenedor(int paisId, bool isWeb)
         {
             var lstBeneficios = GetBeneficiosCaminoBrillante(paisId) ?? new List<BEBeneficioCaminoBrillante>();
