@@ -170,6 +170,7 @@ namespace Portal.Consultoras.Common
             public const int UrlLogoPasarelaPago = 12209;
             public const int ColorBotonPagarPasarelaPago = 12210;
             public const int MensajeInformacionPagoExitoso = 12211;
+            public const int Acplica3porciento = 12215;
 
             public const int CantidadCuvMasivo_NuevoMasivo = 13701;
             public const int EstrategiaImagen_NuevoMasivo = 13702;
@@ -2858,6 +2859,7 @@ namespace Portal.Consultoras.Common
             public const string MerchantIdApp = "16";
             public const string AccessKeyIdApp = "17";
             public const string SecretAccessKeyApp = "18";
+            public const string Aplica3porciento = "17";
 
             public const string Recurrence = "FALSE";
             public const string RecurrenceAmount = "0.00";

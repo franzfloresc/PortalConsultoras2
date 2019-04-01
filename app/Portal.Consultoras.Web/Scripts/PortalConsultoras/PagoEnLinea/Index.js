@@ -178,14 +178,15 @@ $(document).ready(function () {
                     /*Validación si se le aplica el 3% de gastos Adm. HD-3804 */
                     var CodigoIso = $.trim($("#hdCodigoIso").val());
                     var IndicadorConsultoraDigital = $.trim($("#hdIndicadorConsultoraDigital").val());
+                    var Aplica3Porciento = $.trim($("#hdAplica3Porciento").val());
 
                     var dia = $.trim($("#hdFechaVencimiento").val()).substr(0,2);
                     var mes = $.trim($("#hdFechaVencimiento").val()).substr(3, 2);
                     var año = $.trim($("#hdFechaVencimiento").val()).substr(6,4);
 
                     var FechaVencimiento = dia + '-' + mes + '-' + año;
-                    
-                    if (CodigoIso == 'PE' && FechaVencimiento >= fechaHoy && IndicadorConsultoraDigital == '1') {
+
+                    if (CodigoIso == 'PE' && FechaVencimiento >= fechaHoy && IndicadorConsultoraDigital == '1' && Aplica3Porciento == '1') {
                          montoGastos = 0 ;
                     } else {
                          montoGastos = montoParcial * (porcentaje / 100);

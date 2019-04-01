@@ -13,6 +13,7 @@ namespace Portal.Consultoras.Web.Models.PagoEnLinea
         public DateTime FechaVencimiento { get; set; }
         //TICKET HD-3804
         public int IndicadorConsultoraDigital { get; set; }
+        public string Aplica3porciento { get; set; }
         //Fin
 
         public decimal PorcentajeGastosAdministrativos { get; set; }
@@ -91,7 +92,7 @@ namespace Portal.Consultoras.Web.Models.PagoEnLinea
             get
             {
                 // HD-3804 Evalua si se le aplicara el porcentaje de pago online
-                if (CodigoIso == Constantes.CodigosISOPais.Peru && FechaVencimiento >= DateTime.Today && IndicadorConsultoraDigital == 1)
+                if (CodigoIso == Constantes.CodigosISOPais.Peru && FechaVencimiento >= DateTime.Today && IndicadorConsultoraDigital == 1 && Aplica3porciento == "1")
                 {
                     return 0;
                 }
@@ -116,7 +117,7 @@ namespace Portal.Consultoras.Web.Models.PagoEnLinea
             get
             {
                 // HD-3804 Evalua si se le aplicara el porcentaje de pago online
-                if (CodigoIso == Constantes.CodigosISOPais.Peru && FechaVencimiento >= DateTime.Today && IndicadorConsultoraDigital == 1)
+                if (CodigoIso == Constantes.CodigosISOPais.Peru && FechaVencimiento >= DateTime.Today && IndicadorConsultoraDigital == 1 && Aplica3porciento == "1")
                 {
                     return decimal.Round(MontoDeuda, 2);
                 }

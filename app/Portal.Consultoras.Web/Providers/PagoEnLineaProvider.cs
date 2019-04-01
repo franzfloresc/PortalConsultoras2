@@ -23,6 +23,7 @@ namespace Portal.Consultoras.Web.Providers
         private const int MaxYearCard = 20;
         protected ISessionManager sessionManager;
         protected TablaLogicaProvider _tablaLogica;
+        public int flagAlica3PorcientoString;
 
         public PagoEnLineaProvider()
         {
@@ -45,6 +46,7 @@ namespace Portal.Consultoras.Web.Providers
             model.MontoDeuda = userData.MontoDeuda;
             model.FechaVencimiento = userData.FechaLimPago;
             model.IndicadorConsultoraDigital = beusuario.IndicadorConsultoraDigital;
+            model.Aplica3porciento = _tablaLogica.GetTablaLogicaDatoCodigo(userData.PaisID, Constantes.TablaLogica.ValoresPagoEnLinea, Constantes.TablaLogicaDato.Acplica3porciento, true);
 
             var porcentajeGastosAdministrativosString = _tablaLogica.GetTablaLogicaDatoCodigo(userData.PaisID, Constantes.TablaLogica.ValoresPagoEnLinea, Constantes.TablaLogicaDato.PorcentajeGastosAdministrativos,true);
             decimal porcentajeGastosAdministrativos;
