@@ -391,7 +391,6 @@
         </li>
         {{/each}}
     </ul>
-
     <div id="infoOpcionesDeCambio" style="display:none;">
         <div id="OpcionCambioPorOtroProducto" style="display:none;">
             <!-- INFORMACIÓN CUANDO SE SELECCIONA LA OPCIÓN DE CAMBIAR POR OTRO PRODUCTO -->
@@ -439,13 +438,19 @@
                     <span class="text-bold">+ Máscara</span>
                     <span class="text-bold">+ 2 Labial Dúo</span>
                 </p>
+                <div class="text-center text-bold opcion_cdr_seleccionada_terminos_entrega_producto_set_wrapper">
+                    <input id="TerminosEntregaProductoSet" style="display:none!important;" type="checkbox">
+                    <label for="TerminosEntregaProductoSet" class="border-radius-4 opcion_cdr_checkbox opcion_cdr_checkbox--terminosEntregaProductoSet">
+                    </label>
+                    <span class="text-left default-color opcion_cdr_seleccionada_terminos_entrega_producto_texto">
+                        Recuerda que al cambiar el producto se deberá entregar<br/>
+                        <span class="text-uppercase">todos los productos que contiene el pack </span> mencionado.
+                    </span>
+                </div>
             </div>
             <!-- FIN - INFORMACIÓN CUANDO SE SELECCIONA LA OPCIÓN DE DEVOLUCIÓN Y EL PRODUCTO FORMA PARTE DE UN SET -->
         </div>
     </div>
-
-
-
     <button type="button" class="border-radius-4 text-bold btn_solucion_reclamo" id="btnSiguiente">Siguiente</button>
 </script>
 <script id="template-confirmacion" type="text/x-handlebars-template">
