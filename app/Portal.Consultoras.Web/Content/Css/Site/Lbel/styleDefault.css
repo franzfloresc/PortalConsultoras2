@@ -28,6 +28,10 @@
     border-radius: 4px;
 }
 
+.multimarca-background-color {
+    background-color: #b9007e;
+}
+
 /* POPUP GENERAL (ACCIONES ACEPTAR Y CANCELAR) */
 
 .contenedor_popup_general {
@@ -230,9 +234,6 @@
         order:-1;
         margin-bottom:20px;
     }
-}
-.multimarca-background-color {
-    background-color: #b9007e;
 }
 
 /* FIN - POPUP GENERAL (ACCIONES ACEPTAR Y CANCELAR) */
