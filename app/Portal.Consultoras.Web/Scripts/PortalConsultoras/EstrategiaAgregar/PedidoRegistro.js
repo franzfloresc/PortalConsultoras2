@@ -1219,6 +1219,18 @@ var PedidoRegistroModule = function () {
             success: function (data) {
                 if (!checkTimeout(data)) {
                     CerrarSplash();
+                    //INI HD-MDRR
+                    var esPackDuo = isPackDuoNuevas($("#hdTipoEstrategiaID").val());
+                    if (esPackDuo) {
+                        try {
+                            var $AgregadoTooltip = $(dataProperties.tooltip);
+                            $AgregadoTooltip.show();
+                            setTimeout(function () { $AgregadoTooltip.hide(); }, 4000);
+                        } catch (e) {
+                            console.error(e);
+                        }
+                    }
+                //FIN HD-MDRR
                     return false;
                 }
 
@@ -1233,6 +1245,10 @@ var PedidoRegistroModule = function () {
                 CargarCarouselEstrategias();
                 HideDialog("divVistaPrevia");
                 PedidoOnSuccess();
+
+
+              
+                   
                 if (data.modificoBackOrder) showDialog("divBackOrderModificado");
                 CargarDetallePedido();
                 MostrarBarra(data);

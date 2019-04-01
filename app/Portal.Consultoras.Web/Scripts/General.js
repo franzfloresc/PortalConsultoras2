@@ -2079,3 +2079,17 @@ function microefectoPedidoGuardado() {
         divCirculos.fadeOut();
     }, 2700);
 }
+
+//INI HD-MDRR
+function isPackDuoNuevas(TipoEstrategia) {
+    var esFicha = false;
+    switch (TipoEstrategia) {
+        case 3029:
+        case 3030:
+            esFicha = true; break;
+        default:
+            esFicha = false; break;
+    }
+    return esFicha;
+}
+//FIN HD-MDRR

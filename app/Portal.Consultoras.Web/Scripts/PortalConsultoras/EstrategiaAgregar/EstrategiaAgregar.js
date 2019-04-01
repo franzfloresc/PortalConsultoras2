@@ -381,6 +381,10 @@ var EstrategiaAgregarModule = (function () {
                     }
                 }
 
+                //INI HD-MDRR
+                esFicha = (typeof esFicha === 'undefined' || !esFicha) ? isPackDuoNuevas(estrategia.TipoEstrategiaID) : esFicha;
+                //FIN HD-MDRR
+
                 //Tooltip de agregado
                 if (esFicha) {
                     try {
@@ -391,7 +395,10 @@ var EstrategiaAgregarModule = (function () {
                         }
                         $AgregadoTooltip.show();
                         setTimeout(function () { $AgregadoTooltip.hide(); }, 4000);
-                        ResumenOpcionesModule.LimpiarOpciones();
+                        //INI HD-MDRR
+                        //ResumenOpcionesModule.LimpiarOpciones();
+                        if (typeof ResumenOpcionesModule != 'undefined') { ResumenOpcionesModule.LimpiarOpciones() };
+                        //FIN HD-MDRR
                     } catch (e) {
                         console.error(e);
                     }
