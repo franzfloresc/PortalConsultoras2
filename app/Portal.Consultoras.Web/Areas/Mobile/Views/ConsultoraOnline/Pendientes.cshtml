@@ -57,7 +57,7 @@
                             <!--   Pedidos   -->
                             <div class="row align-items-center">
                                 <div class="col-8">
-                                    <div class=" vc-box">
+                                    <div class="vc-box">
                                         <div class="vc-box--header">
                                             <span class="vc-box--title">@item.Cliente</span>
                                         </div>
@@ -94,110 +94,113 @@
 
                 <!-- Vista por producto -->
                 <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                    <!--   Pedidos   -->
-                    <div class="container vc-box">          
-                    <div class="row align-items-start  ">
-                        <div class="col no-padd">
-                        <div class=" vc-box ">
-                            <div class="vc-box--img">
-                            </div>
-                        </div>
-                        </div>
-                        <div class="col-10">
-                        <div class=" vc-box">
-                            <div class="vc-box--header">
-                            <span class="vc-box--title">x 6 Delineador Líquido Punta Plumón Marrón otoño</span>
-                            </div>
-                            <div class="vc-box--content">
-                            <p><strong>Precio total: </strong>S/. 161.40</p>
-                            <p><strong>Origen: </strong> Catálogo Digital</p>
-                            </div>
-                            <div class="vc-box--action vc-box--radius">
-                            <p class="vc-box--title">Te lo pidieron</p>
-                            <p>Katherine Lorenzo</p>
-                            <p>Grecia Gabriel</p>
-                            <p>Ver más...</p>
-                            <div class="vc-box--button">
-                                <a class="vc-box--btn vc-box--title">Confirmar clientes</a>
+                    <!--   Productos   -->
+                    @foreach (var item2 in Model.ListaProductos)
+                    {
+                        <div class="container vc-box">
+                            <div class="row align-items-start  ">
+                                <div class="col no-padd">
+                                    <div class="vc-box">
+                                        <img src="@item2.Url" class="vc-box--img">
+                                    </div>
+                                </div>
+                                <div class="col-10">
+                                    <div class=" vc-box">
+                                        <div class="vc-box--header">
+                                            <span class="vc-box--title">x @item2.Cantidad @item2.Producto</span>
+                                        </div>
+                                        <div class="vc-box--content">
+                                            <p><strong>Precio total: </strong>@ViewBag.Simbolo @item2.FormatoPrecioTotal</p>
+                                            <p><strong>Origen: </strong>@item2.MedioContacto</p>
+                                        </div>
+                                        <div class="vc-box--action vc-box--radius">
+                                            <p class="vc-box--title">Te lo pidieron</p>
+                                            @foreach (var item3 in item2.ListaClientes)
+                                            {
+                                                <p>@item3.Cliente</p>
+                                            }   
+                                            <div class="vc-box--button">
+                                                <a class="vc-box--btn vc-box--title" href="@Url.Action("DetallePedidoPendiente", "ConsultoraOnline", new { pedidoId = item2.PedidoId })">Confirmar clientes</a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
-                            </div>
+                            <hr>
                         </div>
-                        </div>
-                    </div>
-                    
-                    <hr>
-                    </div>
+                    }
                     <!-- / Pedidos -->
-                    <!--   Pedidos   -->    
-                    <div class="container vc-box">
-                    
-                    <div class="row align-items-start  ">
-                        <div class="col no-padd">
-                        <div class=" vc-box ">
-                            <div class="vc-box--img">
-                            </div>
+                    <!--   Pedidos   -->
+                    @*<div class="container vc-box">
+
+            <div class="row align-items-start  ">
+                <div class="col no-padd">
+                    <div class=" vc-box ">
+                        <div class="vc-box--img">
                         </div>
-                        </div>
-                        <div class="col-10">
-                        <div class=" vc-box">
-                            <div class="vc-box--header">
+                    </div>
+                </div>
+                <div class="col-10">
+                    <div class=" vc-box">
+                        <div class="vc-box--header">
                             <span class="vc-box--title">x 2 Máscara Mega Full Curve Azul</span>
-                            </div>
-                            <div class="vc-box--content">
+                        </div>
+                        <div class="vc-box--content">
                             <p><strong>Precio total: </strong>S/. 59.80</p>
                             <p><strong>Origen: </strong> Asesor de Belleza</p>
-                            </div>
-                            <div class="vc-box--action vc-box--radius">
+                        </div>
+                        <div class="vc-box--action vc-box--radius">
                             <p class="vc-box--title">Te lo pidió</p>
-                            <p>Katherine Lorenzo</p>                  
+                            <p>Katherine Lorenzo</p>
                             <div class="vc-box--button">
                                 <a class="vc-box--btn vc-box--title">Confirmar cliente</a>
                             </div>
 
-                            </div>
                         </div>
-                        </div>
+                    </div>
+                </div>
 
-                    </div>
-                    
-                    <hr>
-                    </div>
+            </div>
+
+            <hr>
+        </div>*@
                     <!-- / Pedidos -->
-                    <!--   Pedidos   -->      
-                    <div class="container vc-box">
-                    
-                    <div class="row align-items-start  ">
-                        <div class="col no-padd">
-                        <div class=" vc-box ">
-                            <div class="vc-box--img">
-                            </div>
+                    <!--   Pedidos   -->
+                    @*<div class="container vc-box">
+
+            <div class="row align-items-start  ">
+                <div class="col no-padd">
+                    <div class=" vc-box ">
+                        <div class="vc-box--img">
                         </div>
-                        </div>
-                        <div class="col-10">
-                        <div class=" vc-box">
-                            <div class="vc-box--header">
+                    </div>
+                </div>
+                <div class="col-10">
+                    <div class=" vc-box">
+                        <div class="vc-box--header">
                             <span class="vc-box--title">x 2 Desodorante roll-on Magnat</span>
-                            </div>
-                            <div class="vc-box--content">
+                        </div>
+                        <div class="vc-box--content">
                             <p><strong>Precio total: </strong>S/. 19.80</p>
                             <p><strong>Origen: </strong> Catálogo Digital</p>
-                            </div>
-                            <div class="vc-box--action vc-box--radius">
+                        </div>
+                        <div class="vc-box--action vc-box--radius">
                             <p class="vc-box--title">Te lo pidió</p>
                             <p>Lina Cuellar</p>
-                            
+
                             <div class="vc-box--button">
                                 <a class="vc-box--btn vc-box--title">Confirmar cliente</a>
                             </div>
 
-                            </div>
                         </div>
-                        </div>
+                    </div>
+                </div>
 
-                    </div>
-                    
-                    </div>
+            </div>
+
+        </div>*@
                     <!-- / Pedidos -->
                 </div>
                 <!-- / Vista por producto -->
@@ -205,7 +208,7 @@
             </div>
         </div>
         <!-- / Contenido tabs -->
-     }
+                    }
     <!-- / Registro total -->
 
 </div>
