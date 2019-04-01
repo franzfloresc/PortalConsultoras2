@@ -128,10 +128,10 @@
         display: inline-block;
         width: 90%;
         border: none;
-        padding: 10px 0px;
-        font-size: 13px;
-        padding-right: 28px;
-    }
+    padding: 10px 0px;
+    font-size: 13px;
+    padding-right: 28px;
+}
 
     .buscar_clientes img {
         width: 17px;

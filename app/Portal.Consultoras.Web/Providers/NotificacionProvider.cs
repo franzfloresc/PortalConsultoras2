@@ -109,8 +109,8 @@ namespace Portal.Consultoras.Web.Providers
                             List<String> cuvHijos = listadoHijos.Where(x => x.SetID == itemPedido.SetID).Select(x => x.CUV).ToList();
                             var observacionesHijos = lstObservacionesPedido.Where(x => cuvHijos.Contains(x.CUV) && x.ObservacionPROL != null).ToList();
 
-                            if (lstObservacionesPedido.Where(x => cuvHijos.Contains(x.CUV) && x.ObservacionPROL != null).FirstOrDefault() != null)
-                                observacionesHijos.Add(lstObservacionesPedido.Where(x => cuvHijos.Contains(x.CUV) && x.ObservacionPROL != null).FirstOrDefault());
+                            if (lstObservacionesPedido.FirstOrDefault(x => cuvHijos.Contains(x.CUV) && x.ObservacionPROL != null) != null)
+                                observacionesHijos.Add(lstObservacionesPedido.FirstOrDefault(x => cuvHijos.Contains(x.CUV) && x.ObservacionPROL != null));
 
                             itemPedido.ObservacionPROL = observacionesHijos.Any() ? string.Join("", observacionesHijos.Select(e => e.ObservacionPROL)) : null;
 
