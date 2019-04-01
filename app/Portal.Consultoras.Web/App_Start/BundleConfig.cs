@@ -360,7 +360,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/implements/youtube.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Index.js",
                 "~/Scripts/PortalConsultoras/Pedido/barra.js",
-                "~/Scripts/PortalConsultoras/DetalleEstrategia/CarruselModule.js",
+                "~/Scripts/PortalConsultoras/DetalleEstrategia/Ficha/CarruselModule.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
                 "~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js",
@@ -402,7 +402,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Pedido/PedidoProvider.js",
                 "~/Scripts/PortalConsultoras/Pedido/Index.js",
                  "~/Scripts/PortalConsultoras/Pedido/barra.js",
-                "~/Scripts/PortalConsultoras/DetalleEstrategia/CarruselModule.js",
+                "~/Scripts/PortalConsultoras/DetalleEstrategia/Ficha/CarruselModule.js",
                 "~/Scripts/PortalConsultoras/Pedido/ofertafinal.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
                 "~/Scripts/PortalConsultoras/Cupon/CuponModule.js",
@@ -430,7 +430,7 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mobile/Bienvenida").Include(
                 "~/Scripts/implements/youtube.js",
-                "~/Scripts/PortalConsultoras/DetalleEstrategia/CarruselModule.js",
+                "~/Scripts/PortalConsultoras/DetalleEstrategia/Ficha/CarruselModule.js",
                 "~/Scripts/PortalConsultoras/EstrategiaProducto/DetalleProducto.js",
                 "~/Scripts/PortalConsultoras/Mobile/Bienvenida/Index.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
@@ -488,7 +488,7 @@ namespace Portal.Consultoras.Web
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mobile/Pedido").Include(
-                "~/Scripts/PortalConsultoras/DetalleEstrategia/CarruselModule.js",
+                "~/Scripts/PortalConsultoras/DetalleEstrategia/Ficha/CarruselModule.js",
                 "~/Scripts/PortalConsultoras/Pedido/PedidoProvider.js",
                 "~/Scripts/PortalConsultoras/Mobile/Pedido/index.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
@@ -569,7 +569,7 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/Ofertas").Include(
                 "~/Scripts/jquery.flexslider.js",
-                "~/Scripts/PortalConsultoras/DetalleEstrategia/CarruselModule.js",
+                "~/Scripts/PortalConsultoras/DetalleEstrategia/Ficha/CarruselModule.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
                 "~/Scripts/PortalConsultoras/Shared/AnalyticsPortal.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
@@ -604,7 +604,7 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mobile/Ofertas").Include(
                 "~/Scripts/jquery.flexslider.js",
-                "~/Scripts/PortalConsultoras/DetalleEstrategia/CarruselModule.js",
+                "~/Scripts/PortalConsultoras/DetalleEstrategia/Ficha/CarruselModule.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/Index.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js",
@@ -794,7 +794,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js",
                 "~/Scripts/PortalConsultoras/Shared/AnalyticsPortal.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js",
-                "~/Scripts/PortalConsultoras/DetalleEstrategia/CarruselModule.js",
+                "~/Scripts/PortalConsultoras/DetalleEstrategia/Ficha/CarruselModule.js",
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/DetalleEstrategiaProvider.js",
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/ComponenteDetalleProvider.js",
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/ComponenteDetalleModule.js",
