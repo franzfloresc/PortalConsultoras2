@@ -18,12 +18,12 @@
                     </div>
                 </div>
                 <hr class="clear">
-                <div class="row marca_producto">
+                <div class="marca_producto">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <h2>{{Marca}}</h2>
                     </div>
                 </div>
-                <div class="row descripcion_producto">
+                <div class="descripcion_producto">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         {{Descripcion}}
                     </div>
@@ -32,13 +32,11 @@
                         {{value}}
                     </div>
                     {{/each}}
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        Para tu cliente
+                    <div class="col-md-12 col-sm-12 col-xs-12 descripcion_item precio">
+                        Para tu cliente <b>{{Moneda}} {{PrecioCliente}}</b>
                     </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12 descripcion_item">
-                        {{Moneda}} {{PrecioCliente}}
-                    </div>
-                    <div class="row tabs">
+               
+                    <div class="tabs">
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <ul id="mnuDetalleComponente" class="tabs ficha_tabs">
                           
@@ -54,7 +52,7 @@
                              
                                 <li id="div_ficha_tab2">
                                     <a class="tab-link">Descubre más</a>
-                                    <ul>
+                                    <ul class="tabs_container">
                                         {{#each this.DescubreMas as |myitem|}}
                                         <h4>{{myitem.Titulo}}</h4>
                                         <p>{{myitem.Valor}}</p>
@@ -65,7 +63,7 @@
 
                                 <li id="div_ficha_tab3">
                                     <a class="tab-link">Tips de venta</a>
-                                    <ul>
+                                    <ul class="tabs_container">
                                         {{#each this.TipVenta as |myitem|}}
                                         <h4>{{myitem.Titulo}}</h4>
                                         <p>{{myitem.Valor}}</p>
@@ -76,7 +74,7 @@
 
                                 <li id="div_ficha_tab4">
                                     <a class="tab-link">Videos</a>
-                                    <ul>
+                                    <ul class="tabs_container">
                                         <div style="width:98% !important; height:500px !important;">
                                             <div id="carouselVideo">
                                                 {{#each this.Video as |myitem|}}
