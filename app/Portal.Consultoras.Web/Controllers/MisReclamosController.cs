@@ -478,7 +478,7 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult ValidarPaso1(MisReclamosModel model)
         {
             #region Validar Pack y Sets
-
+            var respuestaServiceCdr = new RptCdrReclamo[1];
             try
             {
                 using (WsGestionWeb sv = new WsGestionWeb())
@@ -486,10 +486,8 @@ namespace Portal.Consultoras.Web.Controllers
 #if DEBUG
                     model.CampaniaID = 201905;
 #endif
-                    var respuestaServiceCdr = sv.GetCdrWeb_Reclamo(userData.CodigoISO, model.CampaniaID.ToString(),
-                        userData.CodigoConsultora, model.CUV, model.Cantidad, userData.CodigoZona);
-
-
+                    respuestaServiceCdr = sv.GetCdrWeb_Reclamo(userData.CodigoISO, model.CampaniaID.ToString(),
+                       userData.CodigoConsultora, model.CUV, model.Cantidad, userData.CodigoZona);
 #if DEBUG
 
                     if (respuestaServiceCdr != null)
@@ -507,7 +505,7 @@ namespace Portal.Consultoras.Web.Controllers
                             complementos[0] = new ProductosComplementos();
                             complementos[0].cuv = "30429";
                             complementos[0].descripcion = "ES MIA EDP 45 ML";
-                            complementos[0].precio = 7610.00M;
+                            complementos[0].precio = 23.30M;
                             complementos[0].cantidad = 1;
                             complementos[0].digitable = 1;
 
@@ -515,29 +513,29 @@ namespace Portal.Consultoras.Web.Controllers
 
                             complementos[1].cuv = "30432";
                             complementos[1].descripcion = "ES MIA PROB C/PUMP 2ML";
-                            complementos[1].precio = 7360.00M;
+                            complementos[1].precio = 25.49M;
                             complementos[1].cantidad = 1;
                             complementos[1].digitable = 0;
 
-                            respuestaServiceCdr2[0].LProductosComplementos = complementos;
+                            respuestaServiceCdr[0].LProductosComplementos = complementos;
                         }
                     }
 
                     respuestaServiceCdr[0].Codigo = "00";
-
-
+                   
 #endif
 
-                    //var respuestaServiceCdr = sv.GetCdrWebConsulta_Reclamo(userData.CodigoISO, model.CampaniaID.ToString(),
-                    //  userData.CodigoConsultora, model.CUV, model.Cantidad, userData.CodigoZona);
 
 
-                    if (respuestaServiceCdr[0].Codigo != "00")
-                        return Json(new
-                        {
-                            success = false,
-                            message = "No está permitido el reclamo de Packs y Sets por este medio. " + Constantes.CdrWebMensajes.ContactateChatEnLinea,
-                        }, JsonRequestBehavior.AllowGet);
+                    //if (respuestaServiceCdr[0].Codigo != "00")
+                    //    return Json(new
+                    //    {
+                    //        success = false,
+                    //        message = "No está permitido el reclamo de Packs y Sets por este medio. " + Constantes.CdrWebMensajes.ContactateChatEnLinea,
+                    //    }, JsonRequestBehavior.AllowGet);
+
+
+
                 }
             }
             catch (Exception ex)
@@ -552,7 +550,8 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(new
             {
                 success = valid,
-                message = mensajeError
+                message = mensajeError,
+                data = respuestaServiceCdr,
             }, JsonRequestBehavior.AllowGet);
         }
 
