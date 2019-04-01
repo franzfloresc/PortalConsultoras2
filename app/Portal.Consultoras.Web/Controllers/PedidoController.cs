@@ -1915,9 +1915,7 @@ namespace Portal.Consultoras.Web.Controllers
 
 
                 var pedidoWeb = ObtenerPedidoWeb();
-
-                //int result = 0;
-
+                
                 pedidoModelo.ListaDetalle = lstPedidoWebDetalle;
 
                 var pedidoWebDetalleModel = Mapper.Map<List<BEPedidoWebDetalle>, List<PedidoWebDetalleModel>>(pedidoModelo.ListaDetalle);

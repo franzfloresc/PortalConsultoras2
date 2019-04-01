@@ -729,7 +729,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 bool dbdefault = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
-                var mensajeErrorImagenResize = ""; // " Antes de Crear la Imagenes Renderizadas";
+                var mensajeErrorImagenResize = "";
                 var nroPedido = Util.Trim(model.NumeroPedido);
                 if (nroPedido.Contains(",")) model.NumeroPedido = "0";
 
@@ -959,7 +959,6 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 bool dbdefault = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
-                //var lst = new List<EstrategiaMDbAdapterModel>();
 
                 if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, tipoEstrategiaCodigo, dbdefault))
                 {
@@ -985,7 +984,7 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             lst.Add(new EstrategiaMDbAdapterModel { BEEstrategia = itemEstrategia });
                         }
-                    }   
+                    }
                 }
 
                 if (lst.Count <= 0)
@@ -1195,7 +1194,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return data;
         }
-        
+
         [HttpPost]
         public JsonResult DeshabilitarEstrategia(string EstrategiaID, string idMongoVal, string tipoEstrategiaCodigo)
         {
@@ -1375,7 +1374,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-        
+
         public static byte[] ReadFully(Stream input)
         {
             var buffer = new byte[16 * 1024];

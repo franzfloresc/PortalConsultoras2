@@ -35,18 +35,6 @@ namespace Portal.Consultoras.Web.Providers
             }
             return datos;
         }
-        //public List<ParametroUneteBE> ObtenerUbigeoPrincipal(string CodigoISO)
-        //{
-        //    List<ParametroUneteBE> result;
-        //    int IdPadre = 0;
-        //    using (var sv = new PortalServiceClient())
-        //    {
-
-        //        result = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel1, IdPadre);
-        //    }
-
-        //    return result;
-        //}
 
         public async Task<List<ParametroUneteBE>> ObtenerUbigeoPrincipalAsync(string CodigoISO)
         {

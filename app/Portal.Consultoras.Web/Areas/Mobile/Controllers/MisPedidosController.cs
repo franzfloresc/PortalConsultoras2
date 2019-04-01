@@ -59,7 +59,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return View(listaPedidos);
         }
 
-        //decimal descuento = 0;
         [HttpGet]
         public PartialViewResult IngresadoDetalle()
         {
@@ -67,8 +66,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             try
             {
-                //var mobileConfiguracion = this.GetUniqueSession<MobileAppConfiguracionModel>("MobileAppConfiguracion");
-
                 using (var service = new PedidoServiceClient())
                 {
                     var detallePedido = ObtenerPedidoWebSetDetalleAgrupado(true) ?? new List<BEPedidoWebDetalle>();

@@ -111,8 +111,7 @@ namespace Portal.Consultoras.Web.Providers
                 Common.LogManager.SaveLog(new Exception(respuesta.Message), string.Empty, codigoISO);
                 return estrategias;
             }
-
-            //List<string> listaCuvPrecio0 = new List<string>();
+            
             string codTipoEstrategia = string.Empty, codCampania = string.Empty;
 
             foreach (Models.Search.ResponseOferta.Estructura.Estrategia item in respuesta.Result)
@@ -149,7 +148,6 @@ namespace Portal.Consultoras.Web.Providers
                         TipoEstrategiaImagenMostrar = 6,
                         EsSubCampania = Convert.ToBoolean(item.EsSubCampania) ? 1 : 0,
                         Niveles = item.Niveles,
-                        // TODO: liberar comentario
                         CantidadPack = item.CantidadPack
                     };
                     estrategia.TipoEstrategia = new ServiceOferta.BETipoEstrategia { Codigo = item.CodigoTipoEstrategia };

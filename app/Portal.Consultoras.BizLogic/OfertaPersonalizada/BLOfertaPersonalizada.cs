@@ -161,16 +161,7 @@ namespace Portal.Consultoras.BizLogic.OfertaPersonalizada
         {
             var estrategiasResult = new List<BEEstrategia>();
             var codigoIso = Util.GetPaisISO(entidad.PaisID);
-            //var esFacturacion = false;
-            //if (entidad.ValidarPeriodoFacturacion)
-            //{
-            //    var fechaHoy = DateTime.Now.AddHours(entidad.ZonaHoraria).Date;
-            //    esFacturacion = fechaHoy >= entidad.FechaInicioFacturacion.Date;
-            //}
-
             var listaSinPrecio2 = new List<string>();
-            //var listaSinStock = new List<BEEstrategia>();
-
 
             if (lista.Count > 0)
             {
