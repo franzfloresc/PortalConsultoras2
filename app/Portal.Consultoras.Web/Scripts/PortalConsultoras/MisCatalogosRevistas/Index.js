@@ -27,6 +27,30 @@ var cantCamRev = 3;
 var aCamRev = new Array();
 
 $(document).ready(function () {
+    window.fbAsyncInit = function () {/*setear valor a  FBAppId desde la vista :   var FBAppId = '@ViewBag.FBAppId'; */
+        FB.init({
+            appId: FBAppId,
+            cookie: true,
+            xfbml: true,
+            version: 'v3.0'
+        });
+
+        FB.getLoginStatus(function (response) {
+            if (response.status === 'connected') {
+                getInfoFB(1);
+            }
+        });
+
+        cargoPluginFacebook = true;
+    };
+
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) { return; }
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
 
     MarcarCompartirFbExitoso();
 
@@ -203,6 +227,35 @@ $(document).ready(function () {
 
 
 });
+
+// catalogo compartir por Facebook actual
+var CompartirFacebookActual = function (catalogo, campaniaCatalogo, texto) {
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Catálogos y revistas',
+        'action': 'Catálogo Digital - Compartir FB - clic botón',
+        'label': campaniaCatalogo,
+        'value': 0
+    });
+    InsertarLogCatalogoDynamo('Facebook', campaniaCatalogo, catalogo, 1);
+
+    FB.ui({
+        method: 'share',
+        href: texto,
+    }, function (response) {
+        if (response && !response.error_code) {
+            dataLayer.push({
+                'event': 'virtualEvent',
+                'category': 'Catálogos y revistas',
+                'action': 'Catálogo Digital - Compartir FB',
+                'label': campaniaCatalogo,
+            });
+        } else {
+            console.log('Error al publicar via facebook')
+        }
+    });
+}
+
 
 function getCodigoCampaniaAnterior() {
     return $.trim($("#hdCampaniaAnterior").val()) || '';
