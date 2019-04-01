@@ -872,6 +872,9 @@ namespace Portal.Consultoras.Web.Controllers
                         return RedirectToUniqueRoute("Notificaciones", "IndexExterno", new { IdOrigen = model.OrigenPedido });
                     case Constantes.IngresoExternoPagina.MasGanadoras: 
                         return RedirectToUniqueRoute("MasGanadoras", "Index");
+                    case Constantes.IngresoExternoPagina.ArmaTuPack:
+                        return RedirectToUniqueRoute("ArmaTuPack", "Detalle");
+
                 }
             }
             catch (Exception ex)
