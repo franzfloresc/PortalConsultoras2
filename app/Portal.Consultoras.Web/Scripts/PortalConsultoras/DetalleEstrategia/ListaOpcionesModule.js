@@ -15,7 +15,7 @@
 /// <reference path="../../../Scripts/PortalConsultoras/Shared/ConstantesModule.js" />
 /// <reference path="../../../Scripts/PortalConsultoras/DetalleEstrategia/OpcionesSeleccionadasModule.js" />
 /// <reference path="../../../Scripts/PortalConsultoras/DetalleEstrategia/DetalleEstrategiaProvider.js" />
-/// <reference path="../../../Scripts/PortalConsultoras/DetalleEstrategia/FichaModule.js" />
+/// <reference path="../../../Scripts/PortalConsultoras/DetalleEstrategia/Ficha/FichaModule.js" />
 
 var opcionesEvents = opcionesEvents || {};
 registerEvent.call(opcionesEvents, "onComponentSelected");

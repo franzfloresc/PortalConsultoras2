@@ -798,7 +798,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/DetalleEstrategiaProvider.js",
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/Ficha/ComponenteDetalleProvider.js",
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/Ficha/ComponenteDetalleModule.js",
-                "~/Scripts/PortalConsultoras/DetalleEstrategia/FichaModule.js"
+                "~/Scripts/PortalConsultoras/DetalleEstrategia/Ficha/FichaModule.js"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/Ficha").Include(
