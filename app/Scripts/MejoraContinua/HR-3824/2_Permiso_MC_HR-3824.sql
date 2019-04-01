@@ -13,7 +13,7 @@ BEGIN
 
 	INSERT INTO Permiso
 	(PermisoID, Descripcion, IdPadre, OrdenItem, UrlItem, PaginaNueva, Posicion, UrlImagen, EsSoloImagen, EsMenuEspecial, EsServicios, EsPrincipal, Codigo)
-	VALUES(@PermisoID+1, 'FECHAS DE PROMOCIONES', @IDPadre, @OrdenItem + 1,'https://somosbelcorpqa.s3.amazonaws.com/FileConsultoras/PE/cronograma-dias-de-venta-peru-2019.pdf',1,'Footer',NULL,0,0,0,1,NULL)
+	VALUES(@PermisoID+1, 'FECHAS DE PROMOCIONES', @IDPadre, @OrdenItem + 1,'https://somosbelcorpqa.s3.amazonaws.com/FileConsultoras/BO/cronograma-dias-de-venta-bolivia-2019.pdf',1,'Footer',NULL,0,0,0,1,NULL)
 	INSERT INTO RolPermiso(RolID, PermisoID, Activo, Mostrar) VALUES(@RolID, @PermisoID + 1, 1, 1)
 END
 
@@ -33,7 +33,7 @@ BEGIN
 
 	INSERT INTO Permiso
 	(PermisoID, Descripcion, IdPadre, OrdenItem, UrlItem, PaginaNueva, Posicion, UrlImagen, EsSoloImagen, EsMenuEspecial, EsServicios, EsPrincipal, Codigo)
-	VALUES(@PermisoID+1, 'FECHAS DE PROMOCIONES', @IDPadre, @OrdenItem + 1,'https://somosbelcorpqa.s3.amazonaws.com/FileConsultoras/PE/cronograma-dias-de-venta-peru-2019.pdf',1,'Footer',NULL,0,0,0,1,NULL)
+	VALUES(@PermisoID+1, 'FECHAS DE PROMOCIONES', @IDPadre, @OrdenItem + 1,'https://somosbelcorpqa.s3.amazonaws.com/FileConsultoras/CL/cronograma-dias-de-venta-chile-2019.pdf',1,'Footer',NULL,0,0,0,1,NULL)
 	INSERT INTO RolPermiso(RolID, PermisoID, Activo, Mostrar) VALUES(@RolID, @PermisoID + 1, 1, 1)
 END
 
@@ -53,7 +53,7 @@ BEGIN
 
 	INSERT INTO Permiso
 	(PermisoID, Descripcion, IdPadre, OrdenItem, UrlItem, PaginaNueva, Posicion, UrlImagen, EsSoloImagen, EsMenuEspecial, EsServicios, EsPrincipal, Codigo)
-	VALUES(@PermisoID+1, 'FECHAS DE PROMOCIONES', @IDPadre, @OrdenItem + 1,'https://somosbelcorpqa.s3.amazonaws.com/FileConsultoras/PE/cronograma-dias-de-venta-peru-2019.pdf',1,'Footer',NULL,0,0,0,1,NULL)
+	VALUES(@PermisoID+1, 'FECHAS DE PROMOCIONES', @IDPadre, @OrdenItem + 1,'https://somosbelcorpqa.s3.amazonaws.com/FileConsultoras/CO/cronograma-dias-de-venta-colombia-2019.pdf',1,'Footer',NULL,0,0,0,1,NULL)
 	INSERT INTO RolPermiso(RolID, PermisoID, Activo, Mostrar) VALUES(@RolID, @PermisoID + 1, 1, 1)
 END
 
@@ -73,7 +73,7 @@ BEGIN
 
 	INSERT INTO Permiso
 	(PermisoID, Descripcion, IdPadre, OrdenItem, UrlItem, PaginaNueva, Posicion, UrlImagen, EsSoloImagen, EsMenuEspecial, EsServicios, EsPrincipal, Codigo)
-	VALUES(@PermisoID+1, 'FECHAS DE PROMOCIONES', @IDPadre, @OrdenItem + 1,'https://somosbelcorpqa.s3.amazonaws.com/FileConsultoras/PE/cronograma-dias-de-venta-peru-2019.pdf',1,'Footer',NULL,0,0,0,1,NULL)
+	VALUES(@PermisoID+1, 'FECHAS DE PROMOCIONES', @IDPadre, @OrdenItem + 1,'https://somosbelcorpqa.s3.amazonaws.com/FileConsultoras/CR/cronograma-dias-de-venta-costarica-2019.pdf',1,'Footer',NULL,0,0,0,1,NULL)
 	INSERT INTO RolPermiso(RolID, PermisoID, Activo, Mostrar) VALUES(@RolID, @PermisoID + 1, 1, 1)
 END
 
@@ -93,7 +93,7 @@ BEGIN
 
 	INSERT INTO Permiso
 	(PermisoID, Descripcion, IdPadre, OrdenItem, UrlItem, PaginaNueva, Posicion, UrlImagen, EsSoloImagen, EsMenuEspecial, EsServicios, EsPrincipal, Codigo)
-	VALUES(@PermisoID+1, 'FECHAS DE PROMOCIONES', @IDPadre, @OrdenItem + 1,'https://somosbelcorpqa.s3.amazonaws.com/FileConsultoras/PE/cronograma-dias-de-venta-peru-2019.pdf',1,'Footer',NULL,0,0,0,1,NULL)
+	VALUES(@PermisoID+1, 'FECHAS DE PROMOCIONES', @IDPadre, @OrdenItem + 1,'https://somosbelcorpqa.s3.amazonaws.com/FileConsultoras/DO/cronograma-dias-de-venta-dominicana-2019.pdf',1,'Footer',NULL,0,0,0,1,NULL)
 	INSERT INTO RolPermiso(RolID, PermisoID, Activo, Mostrar) VALUES(@RolID, @PermisoID + 1, 1, 1)
 END
 
@@ -113,7 +113,7 @@ BEGIN
 
 	INSERT INTO Permiso
 	(PermisoID, Descripcion, IdPadre, OrdenItem, UrlItem, PaginaNueva, Posicion, UrlImagen, EsSoloImagen, EsMenuEspecial, EsServicios, EsPrincipal, Codigo)
-	VALUES(@PermisoID+1, 'FECHAS DE PROMOCIONES', @IDPadre, @OrdenItem + 1,'https://somosbelcorpqa.s3.amazonaws.com/FileConsultoras/PE/cronograma-dias-de-venta-peru-2019.pdf',1,'Footer',NULL,0,0,0,1,NULL)
+	VALUES(@PermisoID+1, 'FECHAS DE PROMOCIONES', @IDPadre, @OrdenItem + 1,'https://somosbelcorpqa.s3.amazonaws.com/FileConsultoras/EC/cronograma-dias-de-venta-ecuador-2019.pdf',1,'Footer',NULL,0,0,0,1,NULL)
 	INSERT INTO RolPermiso(RolID, PermisoID, Activo, Mostrar) VALUES(@RolID, @PermisoID + 1, 1, 1)
 END
 
@@ -133,7 +133,7 @@ BEGIN
 
 	INSERT INTO Permiso
 	(PermisoID, Descripcion, IdPadre, OrdenItem, UrlItem, PaginaNueva, Posicion, UrlImagen, EsSoloImagen, EsMenuEspecial, EsServicios, EsPrincipal, Codigo)
-	VALUES(@PermisoID+1, 'FECHAS DE PROMOCIONES', @IDPadre, @OrdenItem + 1,'https://somosbelcorpqa.s3.amazonaws.com/FileConsultoras/PE/cronograma-dias-de-venta-peru-2019.pdf',1,'Footer',NULL,0,0,0,1,NULL)
+	VALUES(@PermisoID+1, 'FECHAS DE PROMOCIONES', @IDPadre, @OrdenItem + 1,'https://somosbelcorpqa.s3.amazonaws.com/FileConsultoras/GT/cronograma-dias-de-venta-guatemala-2019.pdf',1,'Footer',NULL,0,0,0,1,NULL)
 	INSERT INTO RolPermiso(RolID, PermisoID, Activo, Mostrar) VALUES(@RolID, @PermisoID + 1, 1, 1)
 END
 
@@ -153,7 +153,7 @@ BEGIN
 
 	INSERT INTO Permiso
 	(PermisoID, Descripcion, IdPadre, OrdenItem, UrlItem, PaginaNueva, Posicion, UrlImagen, EsSoloImagen, EsMenuEspecial, EsServicios, EsPrincipal, Codigo)
-	VALUES(@PermisoID+1, 'FECHAS DE PROMOCIONES', @IDPadre, @OrdenItem + 1,'https://somosbelcorpqa.s3.amazonaws.com/FileConsultoras/PE/cronograma-dias-de-venta-peru-2019.pdf',1,'Footer',NULL,0,0,0,1,NULL)
+	VALUES(@PermisoID+1, 'FECHAS DE PROMOCIONES', @IDPadre, @OrdenItem + 1,'https://somosbelcorpqa.s3.amazonaws.com/FileConsultoras/MX/cronograma-dias-de-venta-mexico-2019.pdf',1,'Footer',NULL,0,0,0,1,NULL)
 	INSERT INTO RolPermiso(RolID, PermisoID, Activo, Mostrar) VALUES(@RolID, @PermisoID + 1, 1, 1)
 END
 
@@ -173,7 +173,7 @@ BEGIN
 
 	INSERT INTO Permiso
 	(PermisoID, Descripcion, IdPadre, OrdenItem, UrlItem, PaginaNueva, Posicion, UrlImagen, EsSoloImagen, EsMenuEspecial, EsServicios, EsPrincipal, Codigo)
-	VALUES(@PermisoID+1, 'FECHAS DE PROMOCIONES', @IDPadre, @OrdenItem + 1,'https://somosbelcorpqa.s3.amazonaws.com/FileConsultoras/PE/cronograma-dias-de-venta-peru-2019.pdf',1,'Footer',NULL,0,0,0,1,NULL)
+	VALUES(@PermisoID+1, 'FECHAS DE PROMOCIONES', @IDPadre, @OrdenItem + 1,'https://somosbelcorpqa.s3.amazonaws.com/FileConsultoras/PA/cronograma-dias-de-venta-panama-2019.pdf',1,'Footer',NULL,0,0,0,1,NULL)
 	INSERT INTO RolPermiso(RolID, PermisoID, Activo, Mostrar) VALUES(@RolID, @PermisoID + 1, 1, 1)
 END
 
@@ -213,7 +213,7 @@ BEGIN
 
 	INSERT INTO Permiso
 	(PermisoID, Descripcion, IdPadre, OrdenItem, UrlItem, PaginaNueva, Posicion, UrlImagen, EsSoloImagen, EsMenuEspecial, EsServicios, EsPrincipal, Codigo)
-	VALUES(@PermisoID+1, 'FECHAS DE PROMOCIONES', @IDPadre, @OrdenItem + 1,'https://somosbelcorpqa.s3.amazonaws.com/FileConsultoras/PE/cronograma-dias-de-venta-peru-2019.pdf',1,'Footer',NULL,0,0,0,1,NULL)
+	VALUES(@PermisoID+1, 'FECHAS DE PROMOCIONES', @IDPadre, @OrdenItem + 1,'https://somosbelcorpqa.s3.amazonaws.com/FileConsultoras/PR/cronograma-dias-de-venta-puertorico-2019.pdf',1,'Footer',NULL,0,0,0,1,NULL)
 	INSERT INTO RolPermiso(RolID, PermisoID, Activo, Mostrar) VALUES(@RolID, @PermisoID + 1, 1, 1)
 END
 
@@ -233,7 +233,7 @@ BEGIN
 
 	INSERT INTO Permiso
 	(PermisoID, Descripcion, IdPadre, OrdenItem, UrlItem, PaginaNueva, Posicion, UrlImagen, EsSoloImagen, EsMenuEspecial, EsServicios, EsPrincipal, Codigo)
-	VALUES(@PermisoID+1, 'FECHAS DE PROMOCIONES', @IDPadre, @OrdenItem + 1,'https://somosbelcorpqa.s3.amazonaws.com/FileConsultoras/PE/cronograma-dias-de-venta-peru-2019.pdf',1,'Footer',NULL,0,0,0,1,NULL)
+	VALUES(@PermisoID+1, 'FECHAS DE PROMOCIONES', @IDPadre, @OrdenItem + 1,'https://somosbelcorpqa.s3.amazonaws.com/FileConsultoras/SV/cronograma-dias-de-venta-salvador-2019.pdf',1,'Footer',NULL,0,0,0,1,NULL)
 	INSERT INTO RolPermiso(RolID, PermisoID, Activo, Mostrar) VALUES(@RolID, @PermisoID + 1, 1, 1)
 END
 
