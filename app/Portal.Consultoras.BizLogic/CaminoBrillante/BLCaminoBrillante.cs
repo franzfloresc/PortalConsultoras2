@@ -355,14 +355,14 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 .Where(e => e.Logro == Constantes.CaminoBrillante.Logros.CRECIMIENTO && e.Indicador == Constantes.CaminoBrillante.Logros.Indicadores.INCREMENTO).ToList();
 
             var medallaIncrementoPedido = configMedalla
-                .Where(e => int.TryParse(e.Valor, out incremento))
+                .Where(e => int.TryParse(e.Codigo, out incremento))
                 .Select(e => new BEMedallaCaminoBrillante()
                 {
                     Orden = idx++,
                     Tipo = Constantes.CaminoBrillante.Logros.Indicadores.Medallas.Codes.CIRC,
-                    Estado = (nivelConsultora.PorcentajeIncremento <= int.Parse(e.Valor)),
+                    Estado = (nivelConsultora.PorcentajeIncremento <= int.Parse(e.Codigo)),
                     Titulo = string.Format(e.Valor ?? string.Empty, nivelConsultora.PorcentajeIncremento),
-                    Subtitulo = (nivelConsultora.PorcentajeIncremento <= int.Parse(e.Valor)) ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes,
+                    Subtitulo = (nivelConsultora.PorcentajeIncremento <= int.Parse(e.Codigo)) ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes,
                     Valor = e.Valor,
                     ModalTitulo = e.ComoLograrlo_Estado ? e.ComoLograrlo_Titulo : string.Empty,
                     ModalDescripcion = e.ComoLograrlo_Estado ? e.ComoLograrlo_Descripcion : string.Empty,
@@ -401,9 +401,10 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         private BEIndicadorCaminoBrillante GetConsultoraLogrosCompromiso_ProgramaNuevas(int paisId, BEUsuario entidad)
         {
             //Calcular este Flag
-            var showMedallasNuevas = (entidad.EsConsultoraNueva && true);
+            //var showMedallasNuevas = (entidad.EsConsultoraNueva && true);
+            var showMedallasNuevas = true;
 
-            if(showMedallasNuevas)
+            if (showMedallasNuevas)
             {
                 var configMedalla = (GetGetConfiguracionMedallaCaminoBrillanteCache(paisId) ?? new List<BEConfiguracionMedallaCaminoBrillante>())
                                     .Where(e => e.Logro == Constantes.CaminoBrillante.Logros.COMPROMISO && e.Indicador == Constantes.CaminoBrillante.Logros.Indicadores.PROGRAMA_NUEVAS).ToList();
@@ -596,7 +597,8 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 TieneOfertasEspeciales = !("1" == e.CodigoNivel),
                 UrlImagenNivel = pattern.Replace("{KEY}", (e.CodigoNivel ?? "").Length == 1 ? "0" + e.CodigoNivel : e.CodigoNivel),
                 Beneficios = lstBeneficios.Where(b => b.CodigoNivel == e.CodigoNivel && !(string.IsNullOrEmpty(b.NombreBeneficio)
-                                                      && Constantes.CaminoBrillante.CodigoBeneficio.Beneficios.Contains(b.CodigoBeneficio))).ToList()
+                                                      && Constantes.CaminoBrillante.CodigoBeneficio.Beneficios.Contains(b.CodigoBeneficio))
+                                                      ).ToList()
             }).ToList();
         }
 

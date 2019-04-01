@@ -3534,6 +3534,29 @@ namespace Portal.Consultoras.Common
                 }
             }
 
+            public static class Beneficios {
+
+                private static Dictionary<string, string> _Iconos;
+
+                public static Dictionary<string, string> Iconos
+                {
+                    get
+                    {
+                        return _Iconos ?? (_Iconos = new Dictionary<string, string> {
+                            {"01", "icono.svg"},
+                            {"02", "icono.svg"},
+                            {"03", "icono.svg"},
+                            {"04", "icono.svg"},
+                            {"05", "icono.svg"},
+                            {"06", "icono.svg"},
+                            {"07", "icono.svg"},
+                            {"08", "icono.svg"},
+                        });
+                    }
+                }
+
+            }
+
         }
     }
 }
