@@ -684,6 +684,11 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.DescripcionPlural, f => f.MapFrom(c => c.DescripcionPlural))
                 .ForMember(t => t.DescripcionSingular, f => f.MapFrom(c => c.DescripcionSingular));
 
+            Mapper.CreateMap<Search.ResponseOferta.Estructura.Estrategia, DetalleEstrategiaFichaModel>()
+                .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CodigoCampania))
+                .ForMember(t => t.FlagNueva, f => f.MapFrom(c => c.FlagNueva ? 1 : 0))
+                .ForMember(t => t.Hermanos, f => f.MapFrom(c => c.Componentes));
+
 
         }
     }

@@ -1574,5 +1574,42 @@ namespace Portal.Consultoras.Web.Providers
 
             return revisarLista;
         }
+
+        public DetalleEstrategiaFichaModel GetEstrategiaFicha(string cuv, string campania, string tipoEstrategia, out string mensaje)
+        {
+            var userData = SessionManager.GetUserData();
+            DetalleEstrategiaFichaModel estrategia = null;
+            mensaje = string.Empty;
+
+            if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, tipoEstrategia))
+            {
+                mensaje += "SiMongo|";
+                string codigoEstrategia = Util.GetTipoPersonalizacionByCodigoEstrategia(tipoEstrategia);
+                estrategia = _ofertaBaseProvider.ObtenerModeloOfertaFichaDesdeApi(cuv, campania, codigoEstrategia, userData.CodigoISO);
+            }
+            else
+            {
+                mensaje += "NoMongo| Palanca no permitida consumir ficha desde API";
+            }
+
+            if (estrategia != null && estrategia.Hermanos != null && estrategia.Hermanos.Any())
+            {
+                estrategia.Hermanos.ForEach(x =>
+                {
+                    x.TieneStock = true;
+                    if (x.Hermanos != null && x.Hermanos.Any())
+                    {
+                        x.Hermanos.ForEach(y => y.TieneStock = true);
+                    }
+                });
+
+                if (GetValidarDiasAntesStock(userData))
+                {
+                    _consultaProlProvider.ActualizarComponenteStockPROL(estrategia.Hermanos, cuv, userData.CodigoISO, estrategia.CampaniaID, userData.GetCodigoConsultora());
+                }                
+            }
+
+            return estrategia;
+        }
     }
 }

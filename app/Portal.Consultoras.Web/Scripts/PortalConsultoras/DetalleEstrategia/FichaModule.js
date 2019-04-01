@@ -198,7 +198,7 @@ var FichaModule = (function (config) {
 
     var _ocultarTabs = function () {
 
-        var estrategia = _config.localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
+        var estrategia = getEstrategia();
 
         $(_seccionesFichaProducto.ContenidoProducto).hide();
         $(_tabsFichaProducto.detalleProducto).hide();
@@ -484,6 +484,28 @@ var FichaModule = (function (config) {
         }
     };
 
+    var _getEstrategiaFicha = function () {
+        var param = {
+            cuv: '00798',
+            campania: '201906',
+            tipoEstrategia: '011'
+        };
+
+        var errorRespuesta = false;
+        _config.detalleEstrategiaProvider
+            .promiseObtenerEstrategiaFicha(param)
+            .done(function (data) {
+                return data;
+            }).fail(function (data, error) {
+                errorRespuesta = true;
+            });
+
+        if (errorRespuesta) {
+            _redireccionar("_getComponentesAndUpdateEsMultimarca, promiseObternerComponentes");
+            return false;
+        }
+    };
+
     var _getEstrategia = function () {
         var estrategia;
 
@@ -511,7 +533,10 @@ var FichaModule = (function (config) {
         if (typeof estrategia === "undefined" || estrategia == null) return estrategia;
 
         _getComponentesAndUpdateEsMultimarca(estrategia);
+
         _actualizarCodigoVariante(estrategia);
+
+        var estrategiaFichaxxx = _getEstrategiaFicha();
 
         estrategia.ClaseBloqueada = "btn_desactivado_general";
         estrategia.ClaseBloqueadaRangos = "contenedor_rangos_desactivado";
