@@ -1814,17 +1814,17 @@ function EscogerSolucion(opcion, event) {
     if (id == "T") {
         $('#OpcionCambioMismoProducto').fadeOut(200);
         $('#OpcionDevolucion').fadeOut(200);
-        $('#OpcionCambioPorOtroProducto').fadeIn(100);
+        $('#OpcionCambioPorOtroProducto').fadeIn(150);
     } else if (id == "C") {
         $('#OpcionDevolucion').fadeOut(200);
         $('#OpcionCambioPorOtroProducto').fadeOut(200);
-        $('#OpcionCambioMismoProducto').fadeIn(100);
+        $('#OpcionCambioMismoProducto').fadeIn(150);
     } else if (id == "D") {
         $('#OpcionCambioMismoProducto').fadeOut(200);
         $('#OpcionCambioPorOtroProducto').fadeOut(200);
-        $('#OpcionDevolucion').fadeIn(100);
+        $('#OpcionDevolucion').fadeIn(150);
     } else {
-        $('#infoOpcionesDeCambio').fadeOut();
+        $('#infoOpcionesDeCambio').fadeOut(200);
     }
 
 }
