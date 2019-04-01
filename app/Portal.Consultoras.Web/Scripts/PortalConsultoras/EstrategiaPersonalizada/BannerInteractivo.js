@@ -49,12 +49,21 @@
     var fnConsultaAjaxRedireccionaLanding = function (fn) {
         var promesa = _fnValidaExisteTipoEstrategiaEnPedido();
 
+        var resultado = false;
+
         $.when(promesa)
             .then(function (response) {
                 if (response.TienePedido) {
                     _fnMensaje(fn);
+                    resultado = true;
                 }
             });
+
+        if (!resultado) {
+            fn();
+        }
+
+        return resultado;
     };
 
     return {

@@ -5745,6 +5745,7 @@
     <Content Include="Views\Bonificaciones\IndexExterno.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaTemplate.cshtml" />
     <Content Include="Views\DetalleEstrategia\ProductoTemplate.cshtml" />
+    <Content Include="Views\Unete\_ConsultarEstadoTelefonico.cshtml" />
     <Content Include="Views\ArmaTuPack\Detalle.cshtml" />
     <Content Include="Views\AdministrarEstrategia\EstrategiaGrupoDialog.cshtml" />
     <Content Include="Views\ArmaTuPack\Detalle\cabecera-template.cshtml" />
