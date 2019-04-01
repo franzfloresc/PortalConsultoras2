@@ -82,6 +82,7 @@
     <Compile Include="BEValidacionDatos.cs" />
     <Compile Include="BEPremiosProgramaNuevas.cs" />
     <Compile Include="BuscadorYFiltros\BEBuscadorYFiltrosConfiguracion.cs" />
+    <Compile Include="BuscadorYFiltros\BEFiltroBuscador.cs" />
     <Compile Include="CargaMasiva\BECargaMasivaImagenes.cs" />
     <Compile Include="BEMiCertificado.cs" />
     <Compile Include="BEPedidoWebDetalleParametros.cs" />
@@ -109,6 +110,7 @@
     <Compile Include="LimiteVenta\BERespValidarLimiteVenta.cs" />
     <Compile Include="Producto\BEProductoRecomendado.cs" />
     <Compile Include="ProgramaNuevas\BENivelesProgramaNuevas.cs" />
+    <Compile Include="ProgramaNuevas\BEProductoEstraProgNuevas.cs" />
     <Compile Include="ProgramaNuevas\BERespValidarElectivos.cs" />
     <Compile Include="PagoEnLinea\BEPagoEnLineaMedioPago.cs" />
     <Compile Include="PagoEnLinea\BEPagoEnLineaPasarelaCampos.cs" />

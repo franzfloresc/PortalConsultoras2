@@ -246,6 +246,7 @@ namespace Portal.Consultoras.Web.Controllers
                 pedidoDetalle.Producto.CUV = Util.Trim(model.CuvTonos);
                 pedidoDetalle.Producto.IndicadorMontoMinimo = string.IsNullOrEmpty(model.IndicadorMontoMinimo) ? 0 : Convert.ToInt32(model.IndicadorMontoMinimo);
                 pedidoDetalle.Producto.FlagNueva = model.FlagNueva == "" ? "0" : model.FlagNueva;
+                pedidoDetalle.Producto.Descripcion = model.DescripcionProd ?? "";
                 pedidoDetalle.Usuario = Mapper.Map<ServicePedido.BEUsuario>(userData);
                 pedidoDetalle.Cantidad = Convert.ToInt32(model.Cantidad);
                 pedidoDetalle.PaisID = userData.PaisID;
@@ -276,6 +277,7 @@ namespace Portal.Consultoras.Web.Controllers
                     SessionManager.SetDetallesPedidoSetAgrupado(null);
                     SessionManager.SetBEEstrategia(Constantes.ConstSession.ListaEstrategia, null);
                     SessionManager.SetMontosProl(null);
+                    SessionManager.SetMisPedidosDetallePorCampania(null);
 
                     var pedidoWebDetalle = ObtenerPedidoWebDetalle();
                     var CantidadTotalProductos = pedidoWebDetalle.Sum(dp => dp.Cantidad);
@@ -422,6 +424,7 @@ namespace Portal.Consultoras.Web.Controllers
                 SessionManager.SetDetallesPedido(null);
                 SessionManager.SetDetallesPedidoSetAgrupado(null);
                 SessionManager.SetMontosProl(null);
+                SessionManager.SetMisPedidosDetallePorCampania(null);
 
                 var pedidoWebDetalle = ObtenerPedidoWebDetalle();
                 var CantidadTotalProductos = pedidoWebDetalle.Sum(dp => dp.Cantidad);
@@ -517,6 +520,7 @@ namespace Portal.Consultoras.Web.Controllers
             SessionManager.SetDetallesPedido(null);
             SessionManager.SetDetallesPedidoSetAgrupado(null);
             SessionManager.SetMontosProl(null);
+            SessionManager.SetMisPedidosDetallePorCampania(null);
 
             var olstPedidoWebDetalle = ObtenerPedidoWebDetalle();
 

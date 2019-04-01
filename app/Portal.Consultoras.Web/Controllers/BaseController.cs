@@ -51,7 +51,7 @@ namespace Portal.Consultoras.Web.Controllers
         protected ConfigModel configEstrategiaSR;
         protected BuscadorYFiltrosConfiguracionModel buscadorYFiltro;
         protected ILogManager logManager;
-       
+
         protected string paisesMicroservicioPersonalizacion;
         protected string estrategiaWebApiDisponibilidadTipo;
         protected readonly TipoEstrategiaProvider _tipoEstrategiaProvider;
@@ -257,17 +257,18 @@ namespace Portal.Consultoras.Web.Controllers
             return _pedidoWebProvider.ObtenerPedidoWebSetDetalleAgrupado(EsOpt(), noSession);
         }
 
+        public virtual List<BEPedidoWebDetalle> GetDetallePedidoAgrupadoByCampania(int campaniaId)
+        {
+            return _pedidoWebProvider.GetDetallePedidoAgrupadoByCampania(campaniaId);
+        }
+
         protected List<ObjMontosProl> ServicioProl_CalculoMontosProl(bool session = true)
         {
+            if (session && SessionManager.GetMontosProl() != null) return SessionManager.GetMontosProl();
+
             var montosProl = new List<ObjMontosProl> { new ObjMontosProl() };
 
-            if (session && SessionManager.GetMontosProl() != null)
-            {
-                return SessionManager.GetMontosProl();
-            }
-
             var detallesPedidoWeb = ObtenerPedidoWebDetalle();
-
             if (detallesPedidoWeb.Any())
             {
                 var cuvs = string.Join("|", detallesPedidoWeb.Select(p => p.CUV).ToArray());
@@ -323,22 +324,20 @@ namespace Portal.Consultoras.Web.Controllers
             var puntajesExigidos = string.Empty;
 
             userData.EjecutaProl = false;
-
-            var lista = ServicioProl_CalculoMontosProl(false) ?? new List<ObjMontosProl>();
-
-            if (lista.Any())
+            var listMontosProl = ServicioProl_CalculoMontosProl(false);
+            if (listMontosProl.Any())
             {
-                var oRespuestaProl = lista[0];
+                var montosProl = listMontosProl[0];
 
-                decimal.TryParse(oRespuestaProl.AhorroCatalogo, out montoAhorroCatalogo);
-                decimal.TryParse(oRespuestaProl.AhorroRevista, out montoAhorroRevista);
-                decimal.TryParse(oRespuestaProl.MontoTotalDescuento, out montoDescuento);
-                decimal.TryParse(oRespuestaProl.MontoEscala, out montoEscala);
+                decimal.TryParse(montosProl.AhorroCatalogo, out montoAhorroCatalogo);
+                decimal.TryParse(montosProl.AhorroRevista, out montoAhorroRevista);
+                decimal.TryParse(montosProl.MontoTotalDescuento, out montoDescuento);
+                decimal.TryParse(montosProl.MontoEscala, out montoEscala);
 
-                if (oRespuestaProl.ListaConcursoIncentivos != null)
+                if (montosProl.ListaConcursoIncentivos != null)
                 {
-                    puntajes = string.Join("|", oRespuestaProl.ListaConcursoIncentivos.Select(c => c.puntajeconcurso.Split('|')[0]).ToArray());
-                    puntajesExigidos = string.Join("|", oRespuestaProl.ListaConcursoIncentivos.Select(c => (c.puntajeconcurso.IndexOf('|') > -1 ? c.puntajeconcurso.Split('|')[1] : "0")).ToArray());
+                    puntajes = string.Join("|", montosProl.ListaConcursoIncentivos.Select(c => c.puntajeconcurso.Split('|')[0]).ToArray());
+                    puntajesExigidos = string.Join("|", montosProl.ListaConcursoIncentivos.Select(c => (c.puntajeconcurso.IndexOf('|') > -1 ? c.puntajeconcurso.Split('|')[1] : "0")).ToArray());
                 }
             }
 
@@ -357,7 +356,6 @@ namespace Portal.Consultoras.Web.Controllers
             using (var sv = new PedidoServiceClient())
             {
                 sv.UpdateMontosPedidoWeb(bePedidoWeb);
-
                 if (!string.IsNullOrEmpty(userData.CodigosConcursos))
                     sv.ActualizarInsertarPuntosConcurso(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID.ToString(), userData.CodigosConcursos, puntajes, puntajesExigidos);
             }
@@ -586,12 +584,12 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                var rtpa = ServicioProl_CalculoMontosProl(userData.EjecutaProl);
+                var listMontosProl = ServicioProl_CalculoMontosProl(userData.EjecutaProl);
                 userData.EjecutaProl = true;
-                if (!rtpa.Any()) return objR;
-
-                var obj = rtpa[0];
-                SetBarraConsultoraMontosTotales(objR, obj, Agrupado);
+                if (!listMontosProl.Any()) return objR;
+                
+                var montosProl = listMontosProl[0];
+                SetBarraConsultoraMontosTotales(objR, montosProl, Agrupado);
 
                 #region Tipping Point
                 
@@ -755,7 +753,7 @@ namespace Portal.Consultoras.Web.Controllers
                 Log.JwtToken = userData.JwtToken;
                 Log.CodigoConsultora = userData.CodigoConsultora;
                 Log.CodigoISO = userData.CodigoISO;
-               _logDynamoProvider.RegistrarLogDynamoDB(Log);
+                _logDynamoProvider.RegistrarLogDynamoDB(Log);
             }
             catch (Exception ex)
             {
@@ -855,12 +853,12 @@ namespace Portal.Consultoras.Web.Controllers
             var result = false;
             try
             {
-                var url = HttpContext.Request.Url != null 
-                    ? HttpContext.Request.Url.AbsolutePath 
+                var url = HttpContext.Request.Url != null
+                    ? HttpContext.Request.Url.AbsolutePath
                     : null;
 
-                var urlReferrer = HttpContext.Request.UrlReferrer != null 
-                    ? Util.Trim(HttpContext.Request.UrlReferrer.LocalPath) 
+                var urlReferrer = HttpContext.Request.UrlReferrer != null
+                    ? Util.Trim(HttpContext.Request.UrlReferrer.LocalPath)
                     : Util.Trim(HttpContext.Request.FilePath);
 
                 url = (url ?? "").Replace("#", "/").ToLower() + "/";
@@ -1290,7 +1288,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public virtual bool EsDispositivoMovil()
         {
-            return Util.EsDispositivoMovil(); 
+            return Util.EsDispositivoMovil();
         }
 
         public string GetControllerActual()
@@ -1350,10 +1348,12 @@ namespace Portal.Consultoras.Web.Controllers
 
         public string ObtenerFlagActivacionRecomendaciones()
         {
+            if (!revistaDigital.EsSuscrita) return "0";
             var configuracionPaisDatos = SessionManager.GetRecomendacionesConfig()
                 .ConfiguracionPaisDatos
                 .FirstOrDefault(a => a.Codigo.Equals(Constantes.CodigoConfiguracionRecomendaciones.ActivarRecomendaciones));
-            return configuracionPaisDatos != null ? configuracionPaisDatos.Valor1 : "0";
+            return configuracionPaisDatos != null ? configuracionPaisDatos.Valor2 : "0";
+
         }
 
         public int ObtenerNumeroMaximoCaracteresRecomendaciones(bool esMobile)
@@ -1361,7 +1361,7 @@ namespace Portal.Consultoras.Web.Controllers
             var configuracionPaisDatos = SessionManager.GetRecomendacionesConfig()
                 .ConfiguracionPaisDatos
                 .FirstOrDefault(a => a.Codigo.Equals(Constantes.CodigoConfiguracionRecomendaciones.CaracteresDescripcion));
-            if (esMobile ) return configuracionPaisDatos != null ?  configuracionPaisDatos.Valor2.ToInt() : 35;
+            if (esMobile) return configuracionPaisDatos != null ? configuracionPaisDatos.Valor2.ToInt() : 35;
             return configuracionPaisDatos != null ? configuracionPaisDatos.Valor1.ToInt() : 37;
         }
     }

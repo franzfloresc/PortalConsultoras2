@@ -201,6 +201,7 @@ namespace Portal.Consultoras.Common
             {
                 public const int Habilitar_App = 12213;
                 public const int Habilitar_App_PBI_ExternalApp = 12214;
+                public const decimal MontoMinimoPago = 0.50m;
             }
 
             public static class ArmaTuPack
@@ -934,6 +935,18 @@ namespace Portal.Consultoras.Common
             public const int MobileBuscadorGNDFicha = 2040502;
             public const int MobileBuscadorHerramientasdeVentaFicha = 2040802;
 
+            public const int MobileContenedorShowroomCarrusel = 2080101;
+            public const int MobileContenedorShowroomFicha = 2080102;
+            public const int MobileContenedorLanzamientosCarrusel = 2080201; // Esta en duro en rdAnalyticsModule
+            #endregion
+
+            #region Producto Recomendado
+            public const int DesktopPedidoProductoRecomendadoCarrusel = 1021501;
+            public const int MobilePedidoProductoRecomendadoCarrusel = 2021501;
+
+            public const string SufijoProductoRecomendadoCarrusel = "08";
+            public const string SufijoProductoRecomendadoFicha = "09";
+
             public const int DesktopPedidoProductoRecomendadoOpm = 1020008;
             public const int DesktopPedidoProductoRecomendadoShowRoom = 1020108;
             public const int DesktopPedidoProductoRecomendadoLan = 1020208;
@@ -946,17 +959,22 @@ namespace Portal.Consultoras.Common
             public const int MobilePedidoProductoRecomendadoOdd = 2020308;
             public const int MobilePedidoProductoRecomendadoHv = 2020808;
             public const int MobilePedidoProductoRecomendadoGanadoras = 2021408;
-                                            
-            public const int MobileContenedorShowroomCarrusel = 2080101;
-            public const int MobileContenedorShowroomFicha = 2080102;
-            public const int AppConsultoraContenedorShowroomFicha = 4080102;
-            public const int MobileContenedorLanzamientosCarrusel = 2080201; // Esta en duro en rdAnalyticsModule
-            
-            #endregion
 
-            #region Producto Recomendado
-            public const int DesktopPedidoProductoRecomendadoCarrusel = 1021501;
-            public const int MobilePedidoProductoRecomendadoCarrusel = 2021501;
+            public const int DesktopPedidoProductoRecomendadoOpmFicha = 1020009;
+            public const int DesktopPedidoProductoRecomendadoShowRoomFicha = 1020109;
+
+            public const int AppConsultoraContenedorShowroomFicha = 4080102;
+            public const int DesktopPedidoProductoRecomendadoLanFicha = 1020209;
+            public const int DesktopPedidoProductoRecomendadoOddFicha = 1020309;
+            public const int DesktopPedidoProductoRecomendadoHvFicha = 1020809;
+            //public const int DesktopPedidoProductoRecomendadoLanFicha = 1020209;
+            public const int DesktopPedidoProductoRecomendadoGanadorasFicha = 1021409;
+            public const int MobilePedidoProductoRecomendadoOpmFicha = 2020009;
+            public const int MobilePedidoProductoRecomendadoShowRoomFicha = 2020109;
+            public const int MobilePedidoProductoRecomendadoLanFicha = 2020209;
+            public const int MobilePedidoProductoRecomendadoOddFicha = 2020309;
+            public const int MobilePedidoProductoRecomendadoHvFicha = 2020809;
+            public const int MobilePedidoProductoRecomendadoGanadorasFicha = 2021409;
             #endregion
 
             #region Pedidos Pendientes
@@ -1049,6 +1067,7 @@ namespace Portal.Consultoras.Common
             public const string SinPedidosDisponibles = "Lo sentimos, en estos momentos no cuentas con pedidos disponibles para reclamar.";
             public const string FueraDeFecha = "Tu solicitud se encuentra fuera de fecha para poder ser atendida.";
             public const string ContactateChatEnLinea = "Por favor, contáctate con nuestro <span class=\"enlace_chat belcorpChat\"><a>Chat en Línea</a></span>.";
+            public const string ExcedioLimiteReclamo = "Lo sentimos, usted ha excedido el límite de reclamos por pedido"; //HD-3412 EINCA
         }
 
         public static class CodigoOperacionCDR
@@ -1317,6 +1336,7 @@ namespace Portal.Consultoras.Common
             public const string PedidosPendientes = "PEDIDOSPENDIENTES";
             public const string ActualizaDatos = "ACTUALIZADATOS";
             public const string Notificaciones = "NOTIFICACIONES";
+            public const string MasGanadoras = "MASGANADORAS";
         }
 
         public static class IngresoExternoOrigen
@@ -1367,8 +1387,14 @@ namespace Portal.Consultoras.Common
         {
             public const string UrlBase = "https://catalogodigital.somosbelcorp.com/";
             public const string UrlBaseQA = "http://ecatalogoqa.somosbelcorp.com/";
+            public const string UrlCatalogoPiloto = "UrlCatalogoPiloto";
             public const string UrlParamEncrip = "iso={0}&consultant={1}";
             public const string UrlCatalogo = "{0}?cod={1}";
+        }
+
+        public static class Facebook
+        {
+            public const string FB_AppId = "FB_AppId";
         }
 
         public static class RevistaNombre
@@ -1441,7 +1467,7 @@ namespace Portal.Consultoras.Common
             public const string InsertarValidarKitInicio = "No está permitido agregar el Kit de un programa obligatorio.";
             public const string ValidarAgregarProgNuevas = "Sucedió un error al validar el programa de nuevas. Inténtenlo más tarde.";
             public const string ExcedioLimiteVenta = "Las unidades ingresadas exceden el máximo permitido ({0}) en esta campaña.";
-            public const string StockLimiteVenta = "En esta campaña nuestro producto <b>{0} – {1}</b> ha tenido una gran acogida. Sin embargo hemos reservado una ({2}) unidad(es) para ti. Por favor modifica las unidades ingresadas.";
+            public const string StockLimiteVenta = "En esta campaña nuestro producto <b>{0} – {1}</b> ha tenido una gran acogida. Sin embargo hemos reservado {2} unidad(es) para ti. Por favor modifica las unidades ingresadas.";
             public const string Pedido_NoAgregarLiquidacion = "No se puede agregar una Oferta Liquidacion por este medio.";
         }
 
@@ -1653,6 +1679,13 @@ namespace Portal.Consultoras.Common
                 public const string MPopupBloqueado = "MPopupBloqueado";
                 #endregion
             }
+
+            public const string AppOfertasHomeActivo = "AppOfertasHomeActivo";
+            public const string AppOfertasHomeImgExtension = "AppOfertasHomeImgExtension";
+            public const string AppOfertasHomeImgAncho = "AppOfertasHomeImgAncho";
+            public const string AppOfertasHomeImgAlto = "AppOfertasHomeImgAlto";
+            public const string AppOfertasHomeMsjMedida = "AppOfertasHomeMsjMedida";
+            public const string AppOfertasHomeMsjFormato = "AppOfertasHomeMsjFormato";
         }
 
         public static class ConfiguracionSeccion
@@ -1742,10 +1775,11 @@ namespace Portal.Consultoras.Common
 
         public struct TablaLogica
         {
+            public const int NroReclamosPorPedidoCDR = 161; //HD-3412 EINCA
             public const int PersonalizacionODD = 93;
             public const int Plan20 = 98;
             public const int CDRExpress = 104;
-
+            public const int StockDiasAntes = 181;
             public const int CorreoFeedbackAppConsultora = 105;
 
             /// <summary>
@@ -1791,6 +1825,7 @@ namespace Portal.Consultoras.Common
             public const short ArmaTuPack = 14;
             public const short PilotoCatalogoDigital = 155;
             public const short GanaMasNativo = 159;
+            public const short ResizeImagenesAppGanaMas = 162;
             public const short TiempoMaximoSP = 180;
         }
 
@@ -2023,6 +2058,7 @@ namespace Portal.Consultoras.Common
             public const string MontoPremiacion = "Pasa pedido de {0} {1} esta campaña para entregarte tu premio.";
             public const string CalculoPuntos = "X;K";
             public const string CalculoProgramaNuevas = "P";
+            public const string OfertaFinalTippingPoint = "AGREGA {Monto} PARA GANAR UN {Producto} Y ACCEDER A PACKS EXCLUSIVOS NUEVAS";
         }
 
         public static class ComunicadoTipoDispositivo
@@ -2164,57 +2200,6 @@ namespace Portal.Consultoras.Common
             public const string TipoImagenSmall = "SMALL";
             public const string TipoImagenMedium = "MEDIUM";
             public const string ValorTextoDefaultAppCatalogo = "appcatalogo";
-
-            public class App
-            {
-                public static List<AppConfiguracion> Configuracion
-                {
-                    get
-                    {
-                        var lst = new List<AppConfiguracion>();
-
-                        lst.Add(new AppConfiguracion()
-                        {
-                            Tipo = "_mdpi",
-                            Alto = 215,
-                            Ancho = 95
-                        });
-                        lst.Add(new AppConfiguracion()
-                        {
-                            Tipo = "_hdpi",
-                            Alto = 322,
-                            Ancho = 142
-                        });
-                        lst.Add(new AppConfiguracion()
-                        {
-                            Tipo = "_xhdpi",
-                            Alto = 430,
-                            Ancho = 190
-                        });
-                        lst.Add(new AppConfiguracion()
-                        {
-                            Tipo = "_xxhdpi",
-                            Alto = 645,
-                            Ancho = 285
-                        });
-                        lst.Add(new AppConfiguracion()
-                        {
-                            Tipo = "_xxxhdpi",
-                            Alto = 860,
-                            Ancho = 380
-                        });
-
-                        return lst;
-                    }
-                }
-
-                public class AppConfiguracion
-                {
-                    public string Tipo { get; set; }
-                    public int Alto { get; set; }
-                    public int Ancho { get; set; }
-                }
-            }
         }
 
         public static class RecuperacionPedido
@@ -2372,6 +2357,7 @@ namespace Portal.Consultoras.Common
                 public const string SUCCESS = "0000";
                 public const string SUCCESS_DUOPERFECTO_AGREGADO_UNO = "0010";
                 public const string SUCCESS_DUOPERFECTO_AGREGADO_COMPLETADO = "0011";
+                public const string SUCCESS_REGALO = "0012";
                 public const string ERROR_INTERNO = "9999";
                 public const string ERROR_PRODUCTO_NOEXISTE = "1101";
                 public const string ERROR_PRODUCTO_AGOTADO = "1102";
@@ -2468,7 +2454,7 @@ namespace Portal.Consultoras.Common
                             {Code.ERROR_ELIMINAR_SET, new PedidoValidacionConfiguracion(){ Mensaje ="Ocurrió un error al eliminar el detalle del set."} },
                             {Code.ERROR_ELIMINAR_TODO, new PedidoValidacionConfiguracion(){ Mensaje ="Ocurrió un error al eliminar el pedido." } },
                             {Code.ERROR_ELIMINAR_TODO_SET, new PedidoValidacionConfiguracion(){ Mensaje ="Ocurrió un error al eliminar el set." } },
-                            {Code.ERROR_CANTIDAD_LIMITE, new PedidoValidacionConfiguracion(){ Mensaje ="La cantidad no debe ser mayor que la cantidad limite ( {0} )." } },
+                            {Code.ERROR_CANTIDAD_LIMITE, new PedidoValidacionConfiguracion(){ Mensaje ="Excediste el límite de compras de este producto. (Máx.: {0} unidades)" } },
 
                             {Code.ERROR_RESERVA_NINGUNO, new PedidoValidacionConfiguracion(){ Mensaje ="El pedido no se reservó." } },
                             {Code.SUCCESS_RESERVA, new PedidoValidacionConfiguracion(){ Mensaje ="Pedido reservado." } },
@@ -3395,6 +3381,8 @@ namespace Portal.Consultoras.Common
             public const int ImgFichaFondoMobile = 10209;
             public const int UrlVideoDesktop = 10204;
             public const int UrlVideoMobile = 10207;
+            public const int ImgFondoApp = 10214;
+            public const int ColorTextoApp = 10215;
         }
 
         public static class Formatos {
