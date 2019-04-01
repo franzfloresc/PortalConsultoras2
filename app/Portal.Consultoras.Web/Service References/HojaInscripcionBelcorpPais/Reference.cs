@@ -776,10 +776,10 @@ namespace Portal.Consultoras.Web.HojaInscripcionBelcorpPais {
         private string CodigoISOField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Portal.Consultoras.Web.HojaInscripcionBelcorpPais.ParametroUneteBE[] ListaZonasTelefonicasActivasField;
+        private System.Collections.Generic.List<Portal.Consultoras.Web.HojaInscripcionBelcorpPais.ParametroUneteBE> ListaZonasTelefonicasActivasField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Portal.Consultoras.Web.HojaInscripcionBelcorpPais.ParametroUneteBE[] ListaZonasTelefonicasInactivasField;
+        private System.Collections.Generic.List<Portal.Consultoras.Web.HojaInscripcionBelcorpPais.ParametroUneteBE> ListaZonasTelefonicasInactivasField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Portal.Consultoras.Web.HojaInscripcionBelcorpPais.ParametroUneteBE ParametroCorreoField;
@@ -811,7 +811,7 @@ namespace Portal.Consultoras.Web.HojaInscripcionBelcorpPais {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Portal.Consultoras.Web.HojaInscripcionBelcorpPais.ParametroUneteBE[] ListaZonasTelefonicasActivas {
+        public System.Collections.Generic.List<Portal.Consultoras.Web.HojaInscripcionBelcorpPais.ParametroUneteBE> ListaZonasTelefonicasActivas {
             get {
                 return this.ListaZonasTelefonicasActivasField;
             }
@@ -824,7 +824,7 @@ namespace Portal.Consultoras.Web.HojaInscripcionBelcorpPais {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Portal.Consultoras.Web.HojaInscripcionBelcorpPais.ParametroUneteBE[] ListaZonasTelefonicasInactivas {
+        public System.Collections.Generic.List<Portal.Consultoras.Web.HojaInscripcionBelcorpPais.ParametroUneteBE> ListaZonasTelefonicasInactivas {
             get {
                 return this.ListaZonasTelefonicasInactivasField;
             }
