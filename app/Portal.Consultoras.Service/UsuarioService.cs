@@ -6,6 +6,7 @@ using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.OpcionesVerificacion;
 using Portal.Consultoras.Entities.Pedido;
+using Portal.Consultoras.Entities.Recomendados;
 using Portal.Consultoras.Entities.Usuario;
 using Portal.Consultoras.ServiceContracts;
 using System;
@@ -904,6 +905,15 @@ namespace Portal.Consultoras.Service
             var BLUsuario = new BLUsuario();
             return BLUsuario.ActuaizarNovedadBuscador(paisID, codigoUsuario);
         }
+
+        #region Recomendados
+
+        public IList<BEEstrategia> GetRecomendados(RecomendadoRequest RecomendadoRequest)
+        {
+            var blMisPedidos = new BLConsultoraOnline();
+            return blMisPedidos.GetRecomendados(RecomendadoRequest);
+        }
+        #endregion
 
         #region Direccion de Entrega
         public BEDireccionEntrega ObtenerDireccionPorConsultora(BEDireccionEntrega direccion)

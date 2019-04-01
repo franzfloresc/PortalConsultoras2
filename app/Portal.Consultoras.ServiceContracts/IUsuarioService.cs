@@ -2,6 +2,7 @@
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.OpcionesVerificacion;
 using Portal.Consultoras.Entities.Pedido;
+using Portal.Consultoras.Entities.Recomendados;
 using Portal.Consultoras.Entities.Usuario;
 using System;
 using System.Collections.Generic;
@@ -420,6 +421,9 @@ namespace Portal.Consultoras.ServiceContracts
         
         [OperationContract]
         string ActualizarNovedadBuscador(int paisID, string codigoUsuario);
+
+        [OperationContract]
+        IList<BEEstrategia> GetRecomendados(RecomendadoRequest RecomendadoRequest);
 
         #region ActualizacionDatos
         [OperationContract]

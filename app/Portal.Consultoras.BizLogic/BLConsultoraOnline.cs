@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.Recomendados;
 using System.Collections.Generic;
 using System.Data;
 
@@ -138,6 +139,11 @@ namespace Portal.Consultoras.BizLogic
                 }
                 return lista;
             }
+        }
+
+        public IList<BEEstrategia> GetRecomendados(RecomendadoRequest RecomendadoRequest)
+        {
+            return new List<BEEstrategia>();
         }
     }
 }
