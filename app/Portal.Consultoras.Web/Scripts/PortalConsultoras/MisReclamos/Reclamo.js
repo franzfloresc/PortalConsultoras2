@@ -191,17 +191,19 @@ $(document).ready(function () {
         }
     });
 
-    $(".modificarPrecioMas").on("click", function () {
-        var precio = $("#hdCuvPrecio2").val();
-        var cantidad = parseInt($("#txtCantidad2").val());
 
-        cantidad = cantidad == 99 ? 99 : cantidad; //+ 1;
 
-        var importeTotal = precio * cantidad;
+    //$(".modificarPrecioMas").on("click", function () {
+    //    var precio = $("#hdCuvPrecio2").val();
+    //    var cantidad = parseInt($("#txtCantidad2").val());
 
-        $("#hdImporteTotal2").val(importeTotal);
-        $("#spnImporteTotal2").html(DecimalToStringFormat(importeTotal));
-    });
+    //    cantidad = cantidad == 99 ? 99 : cantidad; //+ 1;
+
+    //    var importeTotal = precio * cantidad;
+
+    //    $("#hdImporteTotal2").val(importeTotal);
+    //    $("#spnImporteTotal2").html(DecimalToStringFormat(importeTotal));
+    //});
 
     $("#btnDespachoNormal").on("click", function () {
         var claseBotonActivado = "cdr_tipo_despacho_icono_active";
@@ -229,17 +231,18 @@ $(document).ready(function () {
         }
     });
 
-    $(".modificarPrecioMenos").on("click", function () {
-        var precio = $("#hdCuvPrecio2").val();
-        var cantidad = parseInt($("#txtCantidad2").val());
+    //HD-3703 EINCA
+    //$(".modificarPrecioMenos").on("click", function () {
+    //    var precio = $("#hdCuvPrecio2").val();
+    //    var cantidad = parseInt($("#txtCantidad2").val());
 
-        cantidad = cantidad == 1 ? 1 : cantidad; //- 1;
+    //    cantidad = cantidad == 1 ? 1 : cantidad; //- 1;
 
-        var importeTotal = precio * cantidad;
+    //    var importeTotal = precio * cantidad;
 
-        $("#hdImporteTotal2").val(importeTotal);
-        $("#spnImporteTotal2").html(DecimalToStringFormat(importeTotal));
-    });
+    //    $("#hdImporteTotal2").val(importeTotal);
+    //    $("#spnImporteTotal2").html(DecimalToStringFormat(importeTotal));
+    //});
 
     $("#txtTelefono").keypress(function (evt) {
         var charCode = (evt.which) ? evt.which : window.event.keyCode;
@@ -574,35 +577,42 @@ function AsignarCUV(pedido) {
         $("#hdImporteTotalPedido").val(pedido.ImporteTotal);
         //$("#CDRWebID").val(pedido.CDRWebID); //HD-3412 EINCA
         $("#CDRWebID").val(CDRWebID); //HD-3412 EINCA
-        BuscarMotivo();
-        DetalleCargar();
+        $.when(BuscarMotivo()).then(function () {
+            DetalleCargar();
+        });
+
     }
 }
 
 function BuscarMotivo() {
-
     var PedidoId = $.trim($("#txtPedidoID").val()) || 0;
     var CampaniaId = $.trim($("#ddlCampania").val()) || 0;
     if (PedidoId <= 0 || CampaniaId <= 0)
         return false;
 
-    waitingDialog();
-
+    $.ajaxSetup({
+        global: false,
+        type: "POST",
+        url: baseUrl + 'MisReclamos/BuscarMotivo',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        beforeSend: function () {
+            waitingDialog();
+        },
+        complete: function () {
+            closeWaitingDialog();
+        }
+    });
     var item = {
         CampaniaID: $.trim($("#ddlCampania").val()),
         PedidoID: PedidoId
     };
 
-    jQuery.ajax({
-        type: 'POST',
-        url: baseUrl + 'MisReclamos/BuscarMotivo',
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
+    $.ajax({
         data: JSON.stringify(item),
         async: true,
         cache: false,
         success: function (data) {
-            closeWaitingDialog();
             if (!checkTimeout(data))
                 return false;
 
@@ -610,7 +620,6 @@ function BuscarMotivo() {
                 alert_msg(data.message);
                 return false;
             }
-
             SetHandlebars("#template-motivo", data.detalle, "#divMotivo");
         },
         error: function (data, error) {
@@ -1253,17 +1262,24 @@ function DetalleCargar() {
         CDRWebID: $("#CDRWebID").val() || 0,
         PedidoID: $("#txtPedidoID").val() || 0
     };
-
-    waitingDialog();
-    jQuery.ajax({
-        type: 'POST',
+    $.ajaxSetup({
+        global: false,
+        type: "POST",
         url: baseUrl + 'MisReclamos/DetalleCargar',
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
+        beforeSend: function () {
+            waitingDialog();
+        },
+        complete: function () {
+            closeWaitingDialog();
+        }
+    });
+    $.ajax({
         data: JSON.stringify(item),
+        async: true,
         cache: false,
         success: function (data) {
-            closeWaitingDialog();
             if (!checkTimeout(data))
                 return false;
 
@@ -1799,7 +1815,12 @@ function ContinuarConfirmEnvioSolicitudCDR() {
     });
 }
 
-//HD-3703
+function SeleccionarContenido(control) {
+    control.select();
+}
+
+
+//HD-3703 EINCA
 function EscogerSolucion(opcion, event) {
     $("#divOperacion input[type=checkbox]").not(opcion).prop('checked', false);
     var id = opcion.id;
@@ -1815,6 +1836,8 @@ function EscogerSolucion(opcion, event) {
         $('#OpcionCambioMismoProducto').fadeOut(200);
         $('#OpcionDevolucion').fadeOut(200);
         $('#OpcionCambioPorOtroProducto').fadeIn(100);
+        SetMontoCampaniaTotal();
+
     } else if (id == "C") {
         $('#OpcionDevolucion').fadeOut(200);
         $('#OpcionCambioPorOtroProducto').fadeOut(200);
@@ -1827,6 +1850,36 @@ function EscogerSolucion(opcion, event) {
         $('#infoOpcionesDeCambio').fadeOut();
     }
 
+}
+
+function SetMontoCampaniaTotal() {
+    $("#spnSimboloMonedaReclamo").html(variablesPortal.SimboloMoneda);
+    var precioUnidad = $("#txtPrecioUnidad").val();
+    var cantidad = $("#txtCantidad").val();
+    var totalTrueque = parseFloat(precioUnidad) * parseFloat(cantidad);
+    $("#hdMontoMinimoReclamo").val(totalTrueque);
+    $("#spnMontoMinimoReclamoFormato").html(DecimalToStringFormat(totalTrueque));
+    var campania = $("#ddlCampania").val() || 0;
+    var numeroCampania = '00';
+    if (campania > 0) {
+        numeroCampania = campania.substring(4);    }
+    $("#spnNumeroCampaniaReclamo").html(numeroCampania);
+}
+
+//HD-3703 EINCA
+function AgregarODisminuirCantidad(event, opcion) {
+    if (opcion === 1) {
+        EstrategiaAgregarModule.AdicionarCantidad(event);
+    }
+    if (opcion === 2) {
+        EstrategiaAgregarModule.DisminuirCantidad(event);
+    }
+    var precio = $("#hdCuvPrecio2").val() == "" ? 0 : parseFloat($("#hdCuvPrecio2").val());
+    var cantidad = parseInt($("#txtCantidad2").val());
+    cantidad = cantidad == 99 ? 99 : cantidad; //+ 1;
+    var importeTotal = precio * cantidad;
+    $("#hdImporteTotal2").val(importeTotal);
+    $("#spnImporteTotal2").html(DecimalToStringFormat(importeTotal));
 }
 
 $('body').on('keypress', 'input[attrKey="PreValidarCUV"]', function (event) {
