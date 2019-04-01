@@ -271,6 +271,20 @@ namespace Portal.Consultoras.Web.Controllers
                     model.MensajeError = tmp.MensajeError;
                     model.NombreVista = tmp.NombreVista;
 
+                    //INI HD-3812
+                    switch (userData.PaisID)
+                    {
+                        case Constantes.PaisID.CostaRica:
+                            if (model.TipoDocumento == "CCI") model.TipoDocumento = "cédula de identidad";
+                            else if(model.TipoDocumento == "PASP") model.TipoDocumento = "pasaporte";
+                            break;
+                        case Constantes.PaisID.Panama:
+                            if (model.TipoDocumento == "C.Ext") model.TipoDocumento = "cédula externa";
+                            else if (model.TipoDocumento == "PSSPT") model.TipoDocumento = "pasaporte";
+                            else if (model.TipoDocumento == "OTROS") model.TipoDocumento = "nro. de documento";
+                            break;
+                    }
+                    //FIN HD-3812
                     var numeroDocumento = model.NumeroDocumento;
                     switch (userData.PaisID)
                     {

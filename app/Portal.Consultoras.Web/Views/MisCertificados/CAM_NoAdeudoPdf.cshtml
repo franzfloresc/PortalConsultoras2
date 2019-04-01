@@ -44,10 +44,8 @@
         {<span style="font-family: Arial;"> identificada con documento personal de identificaci&oacute;n No. @Model.NumeroDocumento.Trim()</span>}
         else if (Model.Pais == "ES")
         {<span style="font-family: Arial;"> identificada con documento &uacute;nico de identidad No. @Model.NumeroDocumento.Trim()</span>}
-        else if (Model.Pais == "PA")
-        {<span style="font-family: Arial;"> identificada con  c&eacute;dula de ciudadan&iacute;a No. @Model.NumeroDocumento.Trim()</span>}
-        else if (Model.Pais == "CR")
-        {<span style="font-family: Arial;"> identificada con la c&eacute;dula de ciudadan&iacute;a No. @Model.NumeroDocumento.Trim()</span>}
+        else if (Model.Pais == "PA" || Model.Pais == "CR")
+        {<span style="font-family: Arial;"> identificada con  @Model.TipoDocumento.Trim() No. @Model.NumeroDocumento.Trim()</span>}
         else 
         {<span style="font-family: Arial;"> identificada con documento No. @Model.NumeroDocumento.Trim()</span>}
         <span style="font-family: Arial;"> es cliente de la empresa y a la fecha </span>
