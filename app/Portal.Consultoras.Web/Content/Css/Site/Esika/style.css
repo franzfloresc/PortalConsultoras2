@@ -28267,13 +28267,14 @@ div.motivoRechazo textarea {
     width:100%;
     top: 36px;
     z-index: 2;
-    padding: 8px 10px 15px 0;
+    padding: 8px 10px 0 0;
 }
 
 .lista_resultados_busqueda_por_cuv {
-    min-height: 77px;
+    min-height: 0;
     max-height: 200px;
     overflow: auto;
+    margin-bottom:15px;
 }
 
     .lista_resultados_busqueda_por_cuv::-webkit-scrollbar-track {
@@ -28287,6 +28288,10 @@ div.motivoRechazo textarea {
 
     .resultado_busqueda_por_cuv:last-child{
         border-bottom:none;
+    }
+
+    .resultado_busqueda_por_cuv:last-child .resultado_busqueda_por_cuv_enlace{
+        padding-bottom:0;
     }
 
 .resultado_busqueda_por_cuv_enlace {
