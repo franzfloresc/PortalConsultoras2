@@ -19,5 +19,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         //Get Kits
         void GetConsultoraKits(int paisId, BEUsuario entidad, bool isWeb);
 
+
+        List<BEOfertaCaminoBrillante> GetOfertas(int paisId, string campania);
     }
 }
