@@ -946,10 +946,10 @@ namespace Portal.Consultoras.Service
         }
         #endregion
 
-        public int ActualizarValidacionDatos(bool isMobile, string ipDispositivo,  string codigoConsultora, int PaisID, string CodigoUsuario)
+        public int ActualizarValidacionDatos(bool isMobile, string ipDispositivo,  string codigoConsultora, int PaisID, string CodigoUsuario, string tipoEnvio1, string tipoEnvio2)
         {
             var BLUsuario = new BLUsuario();
-            return BLUsuario.ActualizarValidacionDatos(isMobile, ipDispositivo, codigoConsultora, PaisID, CodigoUsuario);
+            return BLUsuario.ActualizarValidacionDatos(isMobile, ipDispositivo, codigoConsultora, PaisID, CodigoUsuario, tipoEnvio1, tipoEnvio2);
         }
 
         public int ActualizarSMS(int PaisID, string CodigoUsuario, string tipoEnvio, string celularAnterior, string celularActual)

@@ -6501,6 +6501,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string MensajeEmailField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MensajeFijoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Portal.Consultoras.Web.ServiceUsuario.BEUsuarioPerfil[] oDatosPerfilField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
@@ -6548,6 +6551,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.MensajeEmailField, value) != true)) {
                     this.MensajeEmailField = value;
                     this.RaisePropertyChanged("MensajeEmail");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string MensajeFijo {
+            get {
+                return this.MensajeFijoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MensajeFijoField, value) != true)) {
+                    this.MensajeFijoField = value;
+                    this.RaisePropertyChanged("MensajeFijo");
                 }
             }
         }
@@ -12891,10 +12907,10 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         System.Threading.Tasks.Task RegistrarDireccionEntregaAsync(string codigoISO, Portal.Consultoras.Web.ServiceUsuario.BEDireccionEntrega direccionEntrega);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ActualizarValidacionDatos", ReplyAction="http://tempuri.org/IUsuarioService/ActualizarValidacionDatosResponse")]
-        int ActualizarValidacionDatos(bool isMobile, string ipDispositivo, string codigoConsultora, int PaisID, string CodigoUsuario);
+        int ActualizarValidacionDatos(bool isMobile, string ipDispositivo, string codigoConsultora, int PaisID, string CodigoUsuario, string tipoEnvio1, string tipoEnvio2);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ActualizarValidacionDatos", ReplyAction="http://tempuri.org/IUsuarioService/ActualizarValidacionDatosResponse")]
-        System.Threading.Tasks.Task<int> ActualizarValidacionDatosAsync(bool isMobile, string ipDispositivo, string codigoConsultora, int PaisID, string CodigoUsuario);
+        System.Threading.Tasks.Task<int> ActualizarValidacionDatosAsync(bool isMobile, string ipDispositivo, string codigoConsultora, int PaisID, string CodigoUsuario, string tipoEnvio1, string tipoEnvio2);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ActualizarSMS", ReplyAction="http://tempuri.org/IUsuarioService/ActualizarSMSResponse")]
         int ActualizarSMS(int PaisID, string codigoConsultora, string tipoEnvio, string celularAnterior, string celularActual);
@@ -13926,12 +13942,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.RegistrarDireccionEntregaAsync(codigoISO, direccionEntrega);
         }
         
-        public int ActualizarValidacionDatos(bool isMobile, string ipDispositivo, string codigoConsultora, int PaisID, string CodigoUsuario) {
-            return base.Channel.ActualizarValidacionDatos(isMobile, ipDispositivo, codigoConsultora, PaisID, CodigoUsuario);
+        public int ActualizarValidacionDatos(bool isMobile, string ipDispositivo, string codigoConsultora, int PaisID, string CodigoUsuario, string tipoEnvio1, string tipoEnvio2) {
+            return base.Channel.ActualizarValidacionDatos(isMobile, ipDispositivo, codigoConsultora, PaisID, CodigoUsuario, tipoEnvio1, tipoEnvio2);
         }
         
-        public System.Threading.Tasks.Task<int> ActualizarValidacionDatosAsync(bool isMobile, string ipDispositivo, string codigoConsultora, int PaisID, string CodigoUsuario) {
-            return base.Channel.ActualizarValidacionDatosAsync(isMobile, ipDispositivo, codigoConsultora, PaisID, CodigoUsuario);
+        public System.Threading.Tasks.Task<int> ActualizarValidacionDatosAsync(bool isMobile, string ipDispositivo, string codigoConsultora, int PaisID, string CodigoUsuario, string tipoEnvio1, string tipoEnvio2) {
+            return base.Channel.ActualizarValidacionDatosAsync(isMobile, ipDispositivo, codigoConsultora, PaisID, CodigoUsuario, tipoEnvio1, tipoEnvio2);
         }
         
         public int ActualizarSMS(int PaisID, string codigoConsultora, string tipoEnvio, string celularAnterior, string celularActual) {

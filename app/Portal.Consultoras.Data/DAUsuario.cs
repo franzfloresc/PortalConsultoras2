@@ -741,13 +741,15 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteNonQuery(command);
         }
 
-        public int ActualizarValidacionDatos(bool isMobile, string codigoConsultora, string ipDispositivo, string CodigoUsuario)
+        public int ActualizarValidacionDatos(bool isMobile, string codigoConsultora, string ipDispositivo, string CodigoUsuario, string tipoEnvio1, string tipoEnvio2)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetActualizarValidacionDatos");
             Context.Database.AddInParameter(command, "@isMobile", DbType.Boolean, isMobile);
             Context.Database.AddInParameter(command, "@codigoConsultora", DbType.AnsiString, codigoConsultora);
             Context.Database.AddInParameter(command, "@ipDispositivo", DbType.AnsiString, ipDispositivo);
             Context.Database.AddInParameter(command, "@codigoUsuario", DbType.AnsiString, CodigoUsuario);
+            Context.Database.AddInParameter(command, "@tipoEnvio1", DbType.AnsiString, tipoEnvio1);
+            Context.Database.AddInParameter(command, "@tipoEnvio2", DbType.AnsiString, tipoEnvio2);
 
             return Context.ExecuteNonQuery(command);
         }

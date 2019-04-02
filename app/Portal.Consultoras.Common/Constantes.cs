@@ -96,6 +96,8 @@ namespace Portal.Consultoras.Common
         {
             public const string SMS = "SMS";
             public const string FIJO = "FIJO";
+            public const string EMAIL = "Email";    
+            public const string TODO = "todo";
         }
 
 

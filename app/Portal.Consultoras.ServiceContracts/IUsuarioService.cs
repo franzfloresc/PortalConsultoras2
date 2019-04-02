@@ -441,7 +441,7 @@ namespace Portal.Consultoras.ServiceContracts
         #endregion
 
         [OperationContract]
-        int ActualizarValidacionDatos(bool isMobile, string ipDispositivo, string codigoConsultora, int PaisID, string CodigoUsuario);
+        int ActualizarValidacionDatos(bool isMobile, string ipDispositivo, string codigoConsultora, int PaisID, string CodigoUsuario,string tipoEnvio1, string tipoEnvio2);
 
         [OperationContract]
         int ActualizarSMS(int PaisID, string codigoConsultora, string tipoEnvio, string celularAnterior, string celularActual);
