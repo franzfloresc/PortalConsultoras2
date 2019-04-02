@@ -1,5 +1,6 @@
 ﻿var localStorageModule;
 var analyticsPortalModule;
+var generalModule;
 
 var fichaModule;
 var componenteDetalleModule;
@@ -9,6 +10,7 @@ $(document).ready(function () {
 
     localStorageModule = LocalStorageModule();
     analyticsPortalModule = AnalyticsPortalModule;
+    generalModule = GeneralModule;
 
     componenteDetalleModule = ComponenteDetalleModule({
         localStorageModule: localStorageModule,
@@ -24,14 +26,24 @@ $(document).ready(function () {
         analyticsPortalModule: analyticsPortalModule,
         componenteDetalleModule: componenteDetalleModule,
 
-        generalModule: GeneralModule,
+        generalModule: generalModule,
         palanca: modelPalanca,
         campania: modelCampania,
         cuv: modelCuv,
         origen: modelOrigen
     });
 
-    fichaModule.Inicializar();
+    try {
+        fichaModule.Inicializar();
+    }
+    catch (error) {
+        console.log(error);
+        var url = "/ofertas";
+        if (generalModule.isMobile()) {
+            url = "/mobile" + url;
+        } 
+        generalModule.redirectTo(url);
+    }
 
     CerrarLoad();
 });
