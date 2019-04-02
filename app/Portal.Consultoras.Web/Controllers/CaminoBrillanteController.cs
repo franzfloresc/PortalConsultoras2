@@ -14,7 +14,13 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var informacion = SessionManager.GetConsultoraCaminoBrillante();
             ViewBag.ResumenLogros = informacion.ResumenLogros;
-            ViewBag.TieneOfertasEspeciales = informacion.Niveles[0].TieneOfertasEspeciales;
+
+            int nivelActual = 0;
+            int.TryParse(informacion.NivelConsultora.Where(x => x.EsActual).Select(z => z.Nivel).FirstOrDefault(), out nivelActual);
+
+            var _NivealActual = informacion.NivelConsultora.Where(x => x.EsActual).Select(z => z.Nivel).FirstOrDefault();
+
+            ViewBag.TieneOfertasEspeciales = informacion.Niveles.Where(e => e.CodigoNivel == _NivealActual).Select(e => e.TieneOfertasEspeciales).FirstOrDefault();
             return View();
         }
 
