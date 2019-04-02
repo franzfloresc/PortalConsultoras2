@@ -11,7 +11,7 @@ namespace Portal.Consultoras.Web.Models.DetalleEstrategia
     public class EstrategiaComponenteSeccionDetalleModel
     {
         public string Titulo { get; set; }
-        public string Valor { get; set; }
+        public string Descripcion { get; set; }
         public string Key { get; set; }
     } 
 }

@@ -108,16 +108,15 @@
         _config.ComponenteDetalleProvider.PromiseObternerComponenteDetalle({
             codigoEstrategia: estrategia.CodigoEstrategia,
             campaniaID: estrategia.CampaniaID,
-            cuv: cuv
+            cuv: componente.Cuv
         }).done(function (res) {
             console.log('res', res);
             
             if (res.success) {
-              
-                _util.mostrarModal(res.data);
+                componente.Secciones = res.data;
+                _util.mostrarModal(componente);
             }
-           
-
+            
         }).fail(function (data, error) {
             console.log(data);
             console.log(error);

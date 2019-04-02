@@ -9,7 +9,7 @@
                     <button type="button" class="btn_volver" data-dismiss="modal" aria-label="Close"><img src="/Content/Images/mobile/Esika/right-arrow.svg" alt="" />   Volver</button>
                     <div class="row imagen_producto ">
                         <div class="col-md-12 col-sm-12 col-xs-12">
-                            <img src={{ImgUrl FotoProducto}} />
+                            <img src={{ImgUrl ImagenBulk}} />
                         </div>
                     </div>
                     <hr class="clear">
@@ -20,59 +20,49 @@
                 <hr class="clear">
                 <div class="marca_producto">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <h2>{{Marca}}</h2>
+                        <h2>{{DescripcionMarca}}</h2>
                     </div>
                 </div>
                 <div class="descripcion_producto">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         {{Descripcion}}
                     </div>
-                    {{#each this.UnidadMedida as |value|}}
                     <div class="col-md-12 col-sm-12 col-xs-12 descripcion_item">
-                        {{value}}
+                        {{Volumen}}
                     </div>
-                    {{/each}}
                     <div class="col-md-12 col-sm-12 col-xs-12 descripcion_item precio">
-                        Para tu cliente <b>{{Moneda}} {{PrecioCliente}}</b>
+                        Para tu cliente <b>{{PrecioCatalogo}}</b>
                     </div>
-               
+
                     <div class="tabs">
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <ul id="mnuDetalleComponente" class="tabs ficha_tabs">
-                          
+                                {{#each this.Secciones as |seccion|}}
                                 <li id="div_ficha_tab1">
-                                    <a class="tab-link">Modo de uso</a>
+                                    <a class="tab-link">{{seccion.Titulo}}</a>
                                     <ul class="tabs_container">
-                                        {{#each this.ModoUso as |myitem|}}
-                                        <h4>{{myitem.Titulo}}</h4>
-                                        <p>{{myitem.Valor}}</p>
+                                        {{#each seccion.Detalles as |detalle|}}                                   
+                                        {{#IsNullOrEmpty detalle.Key '!='}}
+                                        <div style="width:600px !important; height:500px !important;">
+                                            <div id="carouselVideo">
+                                                <div style="width:350px;height:350px;">
+                                                    <p>{{detalle.Titulo}}</p>
+                                                    <iframe class="video_item" width="350" height="350" src="{{detalle.Key}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{else}}
+                                        <h4>{{detalle.Titulo}}</h4>
+                                        <p>{{detalle.Descripcion}}</p>
+                                        {{/IsNullOrEmpty}}
+
                                         {{/each}}
                                     </ul>
                                 </li>
-                             
-                                <li id="div_ficha_tab2">
-                                    <a class="tab-link">Descubre más</a>
-                                    <ul class="tabs_container">
-                                        {{#each this.DescubreMas as |myitem|}}
-                                        <h4>{{myitem.Titulo}}</h4>
-                                        <p>{{myitem.Valor}}</p>
-                                        {{/each}}
-                                    </ul>
-                                </li>
-                              
-
-                                <li id="div_ficha_tab3">
-                                    <a class="tab-link">Tips de venta</a>
-                                    <ul class="tabs_container">
-                                        {{#each this.TipVenta as |myitem|}}
-                                        <h4>{{myitem.Titulo}}</h4>
-                                        <p>{{myitem.Valor}}</p>
-                                        {{/each}}
-                                    </ul>
-                                </li>
+                                {{/each}}
 
 
-                                <li id="div_ficha_tab4">
+                                @*<li id="div_ficha_tab4">
                                     <a class="tab-link">Videos</a>
                                     <ul class="tabs_container">
                                         <div style="width:98% !important; height:500px !important;">
@@ -86,7 +76,7 @@
                                             </div>
                                         </div>
                                     </ul>
-                                </li>
+                                </li>*@
 
                             </ul>
                         </div>
