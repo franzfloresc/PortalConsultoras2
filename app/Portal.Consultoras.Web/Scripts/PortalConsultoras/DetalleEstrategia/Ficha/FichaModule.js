@@ -187,15 +187,15 @@ var FichaModule = (function (config) {
         }
     });
 
-    var _fijarFooterCampaniaSiguiente = function () {
-        if (_config.esMobile) {
-            var $elemento = $(".content_inscribirte");
-            if ($elemento.length !== 0) {
-                var $redesSociales = $(_seccionesFichaProducto.Contenedor_redes_sociales);
-                $redesSociales.find(".share").css("margin-bottom", "200px");
-            }
-        }
-    };
+    //var _fijarFooterCampaniaSiguiente = function () {
+    //    if (_config.esMobile) {
+    //        var $elemento = $(".content_inscribirte");
+    //        if ($elemento.length !== 0) {
+    //            var $redesSociales = $(_seccionesFichaProducto.Contenedor_redes_sociales);
+    //            $redesSociales.find(".share").css("margin-bottom", "200px");
+    //        }
+    //    }
+    //};
 
 
 
@@ -981,7 +981,7 @@ var FichaModule = (function (config) {
         _construirSeccionFicha();
         _construirSeccionEstrategia();
         _construirSeccionDetalleFichas();
-        _fijarFooterCampaniaSiguiente();
+        //_fijarFooterCampaniaSiguiente();
         _initCliente();
         _initCarrusel();
         _analytics();
