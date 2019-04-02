@@ -187,15 +187,15 @@ var FichaModule = (function (config) {
         }
     });
 
-    var _fijarFooterCampaniaSiguiente = function () {
-        if (_config.esMobile) {
-            var $elemento = $(".content_inscribirte");
-            if ($elemento.length !== 0) {
-                var $redesSociales = $(_seccionesFichaProducto.Contenedor_redes_sociales);
-                $redesSociales.find(".share").css("margin-bottom", "200px");
-            }
-        }
-    };
+    //var _fijarFooterCampaniaSiguiente = function () {
+    //    if (_config.esMobile) {
+    //        var $elemento = $(".content_inscribirte");
+    //        if ($elemento.length !== 0) {
+    //            var $redesSociales = $(_seccionesFichaProducto.Contenedor_redes_sociales);
+    //            $redesSociales.find(".share").css("margin-bottom", "200px");
+    //        }
+    //    }
+    //};
 
 
 
@@ -299,7 +299,8 @@ var FichaModule = (function (config) {
     var _construirSeccionDetalleFichas = function () {
         var pEstrategia = _estrategia;
         if (pEstrategia === null || typeof (pEstrategia) === "undefined") {
-            _redireccionar("_construirSeccionDetalleFichas, sin Estrategia");
+            //_redireccionar("_construirSeccionDetalleFichas, sin Estrategia");
+            throw "_construirSeccionDetalleFichas, sin Estrategia";
             return false;
         }
 
@@ -360,7 +361,8 @@ var FichaModule = (function (config) {
         data = data || {};
         data.Detalles = data.Detalles || [];
         if (data.Detalles.length == 0) {
-            _redireccionar('_asignaDetallePedido, sin detalles componentes');
+            //_redireccionar('_asignaDetallePedido, sin detalles componentes');
+            throw "_asignaDetallePedido, sin detalles componentes";
             return false;
         }
         _selectClient(data.ClienteId, data.ClienteNombre);
@@ -409,7 +411,8 @@ var FichaModule = (function (config) {
                     });
 
                 if (errorRespuesta) {
-                    _redireccionar("_setPedidoSetDetalle, promiseObternerDetallePedido");
+                    //_redireccionar("_setPedidoSetDetalle, promiseObternerDetallePedido");
+                    throw "_setPedidoSetDetalle, promiseObternerDetallePedido";
                     return false;
                 }
             }
@@ -445,7 +448,8 @@ var FichaModule = (function (config) {
                 });
 
             if (errorRespuesta) {
-                _redireccionar("_getComponentesAndUpdateEsMultimarca, promiseObternerComponentes");
+                //_redireccionar("_getComponentesAndUpdateEsMultimarca, promiseObternerComponentes");
+                throw "_getComponentesAndUpdateEsMultimarca, promiseObternerComponentes";
                 return false;
             }
 
@@ -549,7 +553,8 @@ var FichaModule = (function (config) {
         var estrategia = getEstrategia();
 
         if (estrategia == null) {
-            _redireccionar("_construirSeccionEstrategia, sin estrategia");
+            //_redireccionar("_construirSeccionEstrategia, sin estrategia");
+            throw "_construirSeccionEstrategia, sin estrategia";
             return false;
         }
 
@@ -816,7 +821,8 @@ var FichaModule = (function (config) {
         _config.mostrarCliente = _modeloFicha.MostrarCliente || _config.mostrarCliente;
 
         if (!ValidaOfertaDelDia(true)) {
-            _redireccionar("_construirSeccionFicha, ValidaOfertaDelDia");
+            //_redireccionar("_construirSeccionFicha, ValidaOfertaDelDia");
+            throw "_construirSeccionFicha, ValidaOfertaDelDia";
             return false;
         }
 
@@ -863,7 +869,8 @@ var FichaModule = (function (config) {
         _modeloFicha = modeloFicha;
 
         if (modeloFicha.Error === true) {
-            _redireccionar("_getModelo, promiseObternerModelo");
+            //_redireccionar("_getModelo, promiseObternerModelo");
+            throw "_getModelo, promiseObternerModelo";
             return false;
         }
 
@@ -877,22 +884,22 @@ var FichaModule = (function (config) {
         SetHandlebars("#" + idTemplate, modelo, _template.getTagDataHtml(idTemplate));
     };
 
-    var _redireccionar = function (txtOrigen) {
-        console.log(txtOrigen);
-        _estrategia = {};
-        if (_modeloFicha.TipoAccionNavegar == undefined) {
-            _modeloFicha.TipoAccionNavegar = $('#DivPopupFichaResumida').length ? _tipoAccionNavegar.Volver : _tipoAccionNavegar.BreadCrumbs;
-        }
+    //var _redireccionar = function (txtOrigen) {
+    //    console.log(txtOrigen);
+    //    _estrategia = {};
+    //    if (_modeloFicha.TipoAccionNavegar == undefined) {
+    //        _modeloFicha.TipoAccionNavegar = $('#DivPopupFichaResumida').length ? _tipoAccionNavegar.Volver : _tipoAccionNavegar.BreadCrumbs;
+    //    }
 
-        if (_modeloFicha.TipoAccionNavegar != _tipoAccionNavegar.Volver) {
-            _modeloFicha = {};
-            window.location = baseUrl + (_config.esMobile ? "Mobile/" : "") + "Ofertas";
-        }
-        else {
-            _modeloFicha = {};
-            FichaPartialModule.ShowDivFichaResumida(false);
-        }
-    };
+    //    if (_modeloFicha.TipoAccionNavegar != _tipoAccionNavegar.Volver) {
+    //        _modeloFicha = {};
+    //        window.location = baseUrl + (_config.esMobile ? "Mobile/" : "") + "Ofertas";
+    //    }
+    //    else {
+    //        _modeloFicha = {};
+    //        FichaPartialModule.ShowDivFichaResumida(false);
+    //    }
+    //};
 
     var _initCarrusel = function () {
         if (!_modeloFicha.TieneCarrusel) {
@@ -981,7 +988,7 @@ var FichaModule = (function (config) {
         _construirSeccionFicha();
         _construirSeccionEstrategia();
         _construirSeccionDetalleFichas();
-        _fijarFooterCampaniaSiguiente();
+        //_fijarFooterCampaniaSiguiente();
         _initCliente();
         _initCarrusel();
         _analytics();
@@ -1044,7 +1051,14 @@ var FichaPartialModule = (function () {
             AbrirLoad();
 
             fichaModule = FichaModule(objFicha);
-            fichaModule.Inicializar();
+
+            try {
+                fichaModule.Inicializar();
+            }
+            catch (error) {
+                console.log(error);
+                _showDivFichaResumida(false);
+            }
 
             CerrarLoad({
                 overflow: false
