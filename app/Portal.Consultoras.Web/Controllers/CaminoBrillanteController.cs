@@ -1,9 +1,12 @@
 ﻿using System.Web.Mvc;
 using System.Linq;
 using System;
+using System.Collections.Generic;
+using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Web.Controllers
 {
+    //[RoutePrefix("CaminoBrillante")]
     public class CaminoBrillanteController : BaseController
     {
         #region CaminoBrillante
@@ -12,7 +15,13 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var informacion = SessionManager.GetConsultoraCaminoBrillante();
             ViewBag.ResumenLogros = informacion.ResumenLogros;
-            ViewBag.TieneOfertasEspeciales = informacion.Niveles[0].TieneOfertasEspeciales;
+
+            int nivelActual = 0;
+            int.TryParse(informacion.NivelConsultora.Where(x => x.EsActual).Select(z => z.Nivel).FirstOrDefault(), out nivelActual);
+
+            var _NivealActual = informacion.NivelConsultora.Where(x => x.EsActual).Select(z => z.Nivel).FirstOrDefault();
+
+            ViewBag.TieneOfertasEspeciales = informacion.Niveles.Where(e => e.CodigoNivel == _NivealActual).Select(e => e.TieneOfertasEspeciales).FirstOrDefault();
             return View();
         }
 
@@ -29,20 +38,31 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpGet]
         public JsonResult GetNiveles()
         {
-            var informacion = SessionManager.GetConsultoraCaminoBrillante();
+            var informacion = SessionManager.GetConsultoraCaminoBrillante() ?? new ServiceUsuario.BEConsultoraCaminoBrillante();
+            
+            int nivelActual = 0;
+            int.TryParse(informacion.NivelConsultora.Where(x => x.EsActual).Select(z => z.Nivel).FirstOrDefault(), out nivelActual);
+
             var _NivealActual = Convert.ToInt32(informacion.NivelConsultora.Where(x => x.EsActual).Select(z => z.Nivel).FirstOrDefault());
+           
+            informacion.Niveles.ToList().ForEach(
+                e => {
+                    int nivel = 0;
+                    int.TryParse(e.CodigoNivel, out nivel);
+                    e.UrlImagenNivel = Constantes.CaminoBrillante.Niveles.Iconos.Keys.Contains(e.CodigoNivel) ? Constantes.CaminoBrillante.Niveles.Iconos[e.CodigoNivel][nivel <= nivelActual ? 1 : 0 ] : "";
+                });
 
-            for (int i = 0; i <= informacion.Niveles.Count() - 1; i++)
-            {
-                informacion.Niveles[i].UrlImagenNivel = informacion.Niveles[i].UrlImagenNivel.Replace("{DIMEN}", "MDPI");
 
-                if (i <= _NivealActual - 1)
-                    informacion.Niveles[i].UrlImagenNivel = informacion.Niveles[i].UrlImagenNivel.Replace("{STATE}", "A");
-                else
-                    informacion.Niveles[i].UrlImagenNivel = informacion.Niveles[i].UrlImagenNivel.Replace("{STATE}", "I");
-            }
+
             return Json(new { list = informacion, informacion.NivelConsultora[0].Nivel }, JsonRequestBehavior.AllowGet);
         }
+
+        //[Route("CaminoBrillante/{Ofertas}"]
+        public ActionResult Ofertas()
+        {
+            return View();
+        }
+
         #endregion
     }
 }

@@ -67,34 +67,30 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         /// <summary>
         /// Obtiene el listado de Ofertas de acuerdo a la campaña.
         /// </summary>
-        /*
-        public async Task<List<BENivelConsultoraCaminoBrillante>> GetOfertas(string campania)
+        public async Task<List<OfertaCaminoBrillante>> GetOfertas(string isoPais, string campania)
         {
-            var result = new List<BENivelConsultoraCaminoBrillante>();
+            var result = new List<OfertaCaminoBrillante>();
             bool flag = campania != "";
             if (!flag) return result;
-            string urlParameters = campania;
+            string urlParameters = string.Format("{0}/{1}", isoPais, campania);
             string jsonString = await CallInformacionComercialServices(Url, urlParameters, Token);
-            result = JsonConvert.DeserializeObject<List<BENivelConsultoraCaminoBrillante>>(jsonString) as List<BENivelConsultoraCaminoBrillante>;
+            result = JsonConvert.DeserializeObject<List<OfertaCaminoBrillante>>(jsonString) as List<OfertaCaminoBrillante>;
             return result;
         }
-        */
 
         /// <summary>
         /// Obtiene los kits para cada consultora.
         /// </summary>
-        /*
-        public async Task<List<BENivelConsultoraCaminoBrillante>> GetKitsConsultora(string isoPais, string campania)
+        public async Task<List<KitsHistoricoConsultora>> GetKitHistoricoConsultora(string isoPais, string consultora, string campania)
         {
-            var result = new List<BENivelConsultoraCaminoBrillante>();
+            var result = new List<KitsHistoricoConsultora>();
             bool flag = isoPais != "" && campania != "";
             if (!flag) return result;
-            string urlParameters = isoPais + "/" + campania;
+            string urlParameters = string.Format("{0}/{1}/{2}", isoPais, consultora, campania);
             string jsonString = await CallInformacionComercialServices(Url, urlParameters, Token);
-            result = JsonConvert.DeserializeObject<List<BENivelConsultoraCaminoBrillante>>(jsonString) as List<BENivelConsultoraCaminoBrillante>;
+            result = JsonConvert.DeserializeObject<List<KitsHistoricoConsultora>>(jsonString) as List<KitsHistoricoConsultora>;
             return result;
         }
-        */
 
         /// <summary>
         /// Metodo para conectar y obtener la informacion solicitada al servcio de informacion comercial.
@@ -210,5 +206,42 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
     }
 
+    [DataContract]
+    public class OfertaCaminoBrillante
+    {
+        [DataMember(Name = "ISOPAIS")]
+        public string IsoPais { get; set; }
+        [DataMember(Name = "CODIGOKIT")]
+        public string CodigoKit { get; set; }
+        [DataMember(Name = "CUV")]
+        public string Cuv { get; set; }
+        [DataMember(Name = "CODIGOSAP")]
+        public string CodigoSap { get; set; }
+        [DataMember(Name = "DESCRIPCION")]
+        public string Descripcion { get; set; }
+        [DataMember(Name = "PRECIO")]
+        public decimal Precio { get; set; }
+        [DataMember(Name = "MARCA")]
+        public string Marca { get; set; }
+        [DataMember(Name = "DIGITABLE")]
+        public int Digitable { get; set; }
+        [DataMember(Name = "DESCRIPCIONOFERTA")]
+        public string DescripcionOferta { get; set; }
+        [DataMember(Name = "NIVEL")]
+        public string Nivel { get; set; }
+
+    }
+
+    [DataContract]
+    public class KitsHistoricoConsultora
+    {
+        [DataMember(Name = "ISOPAIS")]
+        public string IsoPais { get; set; }
+        [DataMember(Name = "CODIGOKIT")]
+        public string CodigoKit { get; set; }
+        [DataMember(Name = "CAMPANAATENCION")]
+        public string CampaniaAtencion { get; set; }
+
+    }
 
 }

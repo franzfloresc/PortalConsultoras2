@@ -34884,6 +34884,20 @@ height:30px;
     width:65px;
 }
 
+
+
+
+
+
+
+.filtros__lista-handleBar input[type='checkbox']:checked + span:after {
+    content: inherit !important;
+    color:transparent;
+    background:transparent;
+
+}
+
+
 /* FIN - POPUP LLEGASTE AL 30% DE DESCUENTO */
 
 /* FIN - PROGRAMA NUEVAS - ELIGE TU REGALO */
