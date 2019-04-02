@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Camino Brillante";
     var data = ViewBag.ResumenLogros;
     var TieneOfertasEspeciales = ViewBag.TieneOfertasEspeciales;
 }
@@ -50,9 +50,11 @@
     <div class="cont-benf" id="BeneficiosPrincipal">
     </div>
 
+
     @if (TieneOfertasEspeciales)
     {
-        <a id="OfertasEspeciales" class="btn-principal">Ofertas especiales</a>
+        @*<a id="OfertasEspeciales" class="btn-principal">Ofertas especiales</a>*@
+        <a id="OfertasEspeciales" href="@Url.Action("Ofertas", "CaminoBrillante")" class="btn-principal">Ofertas especiales</a>
     }
 
     <div class="cont-logros">

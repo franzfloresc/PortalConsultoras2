@@ -51,6 +51,7 @@ namespace Portal.Consultoras.Web.Providers
             usuarioDatos.CampaniaID = UsuarioDatos.CampaniaID;
             usuarioDatos.Region = UsuarioDatos.CodigorRegion;
             usuarioDatos.Zona = UsuarioDatos.CodigoZona;
+            usuarioDatos.PaisID = UsuarioDatos.PaisID;
 
             using (var svc = new UsuarioServiceClient())
                 return svc.GetConsultoraNivelCaminoBrillante(UsuarioDatos.PaisID, usuarioDatos, true);

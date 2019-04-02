@@ -964,6 +964,10 @@ namespace Portal.Consultoras.Service
             return _caminoBrillanteBusinessLogic.GetConsultoraLogros(paisId, entidad, isWeb);
         }
 
+        public List<BEOfertaCaminoBrillante> GetOfertasCaminoBrillante(int paisId, string periodo) {
+            return _caminoBrillanteBusinessLogic.GetOfertas(paisId, periodo);
+        }
+
         #endregion
 
     }
