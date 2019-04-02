@@ -281,7 +281,7 @@ namespace Portal.Consultoras.Web.Controllers
                         case Constantes.PaisID.Panama:
                             if (model.TipoDocumento == "C.Ext") model.TipoDocumento = "cédula externa";
                             else if (model.TipoDocumento == "PSSPT") model.TipoDocumento = "pasaporte";
-                            else if (model.TipoDocumento == "OTROS") model.TipoDocumento = "nro. de documento";
+                            else if (model.TipoDocumento == "OTROS" || model.TipoDocumento == "DNI") model.TipoDocumento = "nro. de documento";
                             break;
                     }
                     //FIN HD-3812
