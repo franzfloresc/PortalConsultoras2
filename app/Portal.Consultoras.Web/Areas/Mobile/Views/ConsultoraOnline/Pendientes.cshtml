@@ -8,6 +8,11 @@
     var mobileConfiguracion = Html.MobileAppConfiguracion();
 }
 
+@section styles{
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/Mixto/Bootstrap")
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/Mixto/SugerenciaPendientes")
+}
+
 @{
     if (!mobileConfiguracion.EsAppMobile)
     {
@@ -18,9 +23,6 @@
         <div class="pestana_esika"></div>
         <div class="pestana_lbel"></div>
     }
-
-    <link href="@Url.Content("~/Content/Css/Site/bootstrap/bootstrap.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Content/Css/Mobile/ConsultoraOnline/Pendientes.css")" rel="stylesheet" type="text/css" />
 }
 
 
@@ -29,7 +31,8 @@
 <div class="container-flex">
 
     <!-- Registro total  -->
-    @if (Model.RegistrosTotal != "0"){
+    @if (Model.RegistrosTotal != "0")
+    {
 
         <!-- Menú Tabs -->
         <div class="vc-tabs">
@@ -49,10 +52,11 @@
             <div class="tab-content" id="myTabContent">
                 <!-- Vista por cliente -->
                 <div class="tab-pane fade active in" id="home" role="tabpanel" aria-labelledby="home-tab">
-                
-                @foreach (var item in Model.ListaPedidos){
-                    
-                    
+
+                    @foreach (var item in Model.ListaPedidos)
+                    {
+
+
                         <div class="container vc-box vc-box--shadow">
                             <!--   Pedidos   -->
                             <div class="row align-items-center">
@@ -62,36 +66,36 @@
                                             <span class="vc-box--title">@item.Cliente</span>
                                         </div>
                                         <div class="vc-box--content">
-                                        <p><strong>Precio total: </strong> @ViewBag.Simbolo @item.FormatoPrecioTotal </p>
-                                        <p><strong>Origen: </strong>
-                                        @if (item.MarcaID == 0)
-                                            {
-                                                @item.MedioContacto
-                                            }
-                                            else
-                                            {
-                                                <text>Portal @item.Marca</text>
-                                            }
-                                         </p>
+                                            <p><strong>Precio total: </strong> @ViewBag.Simbolo @item.FormatoPrecioTotal </p>
+                                            <p>
+                                                <strong>Origen: </strong>
+                                                @if (item.MarcaID == 0)
+                                                {
+                                                    @item.MedioContacto
+                                                }
+                                                else
+                                                {
+                                                    <text>Portal @item.Marca</text>
+                                                }
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-4 ">
                                     <div class=" vc-box">
                                         <div class="vc-box--action">
-                                        <a class="vc-box--btn vc-box--title" href="@Url.Action("DetallePedidoPendiente", "ConsultoraOnline", new { pedidoId = item.PedidoId })">Confirmar productos</a>
+                                            <a class="vc-box--btn vc-box--title" href="@Url.Action("DetallePedidoPendiente", "ConsultoraOnline", new { pedidoId = item.PedidoId })">Confirmar productos</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <!-- / Pedidos -->
-                        </div>                
-                    
-                    
-                }
+                        </div>
+
+
+                    }
                 </div>
                 <!-- / Vista por cliente -->
-
                 <!-- Vista por producto -->
                 <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                     <!--   Productos   -->
@@ -136,72 +140,72 @@
                     <!--   Pedidos   -->
                     @*<div class="container vc-box">
 
-            <div class="row align-items-start  ">
-                <div class="col no-padd">
-                    <div class=" vc-box ">
-                        <div class="vc-box--img">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-10">
-                    <div class=" vc-box">
-                        <div class="vc-box--header">
-                            <span class="vc-box--title">x 2 Máscara Mega Full Curve Azul</span>
-                        </div>
-                        <div class="vc-box--content">
-                            <p><strong>Precio total: </strong>S/. 59.80</p>
-                            <p><strong>Origen: </strong> Asesor de Belleza</p>
-                        </div>
-                        <div class="vc-box--action vc-box--radius">
-                            <p class="vc-box--title">Te lo pidió</p>
-                            <p>Katherine Lorenzo</p>
-                            <div class="vc-box--button">
-                                <a class="vc-box--btn vc-box--title">Confirmar cliente</a>
+                            <div class="row align-items-start  ">
+                                <div class="col no-padd">
+                                    <div class=" vc-box ">
+                                        <div class="vc-box--img">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-10">
+                                    <div class=" vc-box">
+                                        <div class="vc-box--header">
+                                            <span class="vc-box--title">x 2 Máscara Mega Full Curve Azul</span>
+                                        </div>
+                                        <div class="vc-box--content">
+                                            <p><strong>Precio total: </strong>S/. 59.80</p>
+                                            <p><strong>Origen: </strong> Asesor de Belleza</p>
+                                        </div>
+                                        <div class="vc-box--action vc-box--radius">
+                                            <p class="vc-box--title">Te lo pidió</p>
+                                            <p>Katherine Lorenzo</p>
+                                            <div class="vc-box--button">
+                                                <a class="vc-box--btn vc-box--title">Confirmar cliente</a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
 
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <hr>
-        </div>*@
+                            <hr>
+                        </div>*@
                     <!-- / Pedidos -->
                     <!--   Pedidos   -->
                     @*<div class="container vc-box">
 
-            <div class="row align-items-start  ">
-                <div class="col no-padd">
-                    <div class=" vc-box ">
-                        <div class="vc-box--img">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-10">
-                    <div class=" vc-box">
-                        <div class="vc-box--header">
-                            <span class="vc-box--title">x 2 Desodorante roll-on Magnat</span>
-                        </div>
-                        <div class="vc-box--content">
-                            <p><strong>Precio total: </strong>S/. 19.80</p>
-                            <p><strong>Origen: </strong> Catálogo Digital</p>
-                        </div>
-                        <div class="vc-box--action vc-box--radius">
-                            <p class="vc-box--title">Te lo pidió</p>
-                            <p>Lina Cuellar</p>
+                            <div class="row align-items-start  ">
+                                <div class="col no-padd">
+                                    <div class=" vc-box ">
+                                        <div class="vc-box--img">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-10">
+                                    <div class=" vc-box">
+                                        <div class="vc-box--header">
+                                            <span class="vc-box--title">x 2 Desodorante roll-on Magnat</span>
+                                        </div>
+                                        <div class="vc-box--content">
+                                            <p><strong>Precio total: </strong>S/. 19.80</p>
+                                            <p><strong>Origen: </strong> Catálogo Digital</p>
+                                        </div>
+                                        <div class="vc-box--action vc-box--radius">
+                                            <p class="vc-box--title">Te lo pidió</p>
+                                            <p>Lina Cuellar</p>
 
-                            <div class="vc-box--button">
-                                <a class="vc-box--btn vc-box--title">Confirmar cliente</a>
+                                            <div class="vc-box--button">
+                                                <a class="vc-box--btn vc-box--title">Confirmar cliente</a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
 
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>*@
+                        </div>*@
                     <!-- / Pedidos -->
                 </div>
                 <!-- / Vista por producto -->
@@ -209,81 +213,80 @@
             </div>
         </div>
         <!-- / Contenido tabs -->
-                    }
+    }
     <!-- / Registro total -->
 
 </div>
 
 <!-- / Vista por cleinte / producto -->
-
 @*
-<div class="wrapper_resumen_mobile">
+    <div class="wrapper_resumen_mobile">
 
-    @if (Model.RegistrosTotal != "0")
-    {
-        foreach (var item in Model.ListaPedidos)
+        @if (Model.RegistrosTotal != "0")
         {
-            <div class="content_pendiente">
-                <div class="titulo_pendiente">
-                    @if (item.FlagConsultora)
-                    {
-                        <label> CLIENTE EXISTENTE </label>
-                    }
-                    else
-                    {
-                        <label> NUEVO CLIENTE </label>
-                    }
-                </div>
-                <div class="nombre_cliente_pendiente">@item.Cliente</div>
-                <div class="descripcion_pendiente">
-                    <span style="float:left;">Origen</span>
-                    <span style="float: right;">
-                        @if (item.MarcaID == 0)
+            foreach (var item in Model.ListaPedidos)
+            {
+                <div class="content_pendiente">
+                    <div class="titulo_pendiente">
+                        @if (item.FlagConsultora)
                         {
-                            <text>@item.MedioContacto</text>
+                            <label> CLIENTE EXISTENTE </label>
                         }
                         else
                         {
-                            <text>Portal @item.Marca</text>
+                            <label> NUEVO CLIENTE </label>
                         }
-                    </span>
-                </div>
-                <hr class="clear" />
-                <div class="precio_pendiente">
-                    <span style="float:left;">PRECIO TOTAL</span>
-                    <span style="float: right;">@ViewBag.Simbolo @item.FormatoPrecioTotal</span>
-                </div>
-                <hr class="clear" />
-                <div class="tooltip_pendiente">
-                    <div style="float:left;">
-                        <div class="titulo_tooltip_p">¡No pierdas esta oportunidad!</div>
-                        <div class="hora_tooltip_p">
-                            @if (item.FlagConsultora)
+                    </div>
+                    <div class="nombre_cliente_pendiente">@item.Cliente</div>
+                    <div class="descripcion_pendiente">
+                        <span style="float:left;">Origen</span>
+                        <span style="float: right;">
+                            @if (item.MarcaID == 0)
                             {
-                                <text> Te quedan <b>24:00:00</b> horas</text>
+                                <text>@item.MedioContacto</text>
                             }
                             else
                             {
-                                <text>Te quedan <b>@item.SaldoHoras</b> horas</text>
+                                <text>Portal @item.Marca</text>
                             }
-                        </div>
-                    </div>
-                    <div style="float:right;">
-                        <a class="btn_revisalo_pendiente" href="@Url.Action("DetallePedidoPendiente", "ConsultoraOnline", new { pedidoId = item.PedidoId })">REVÍSALO</a>
+                        </span>
                     </div>
                     <hr class="clear" />
+                    <div class="precio_pendiente">
+                        <span style="float:left;">PRECIO TOTAL</span>
+                        <span style="float: right;">@ViewBag.Simbolo @item.FormatoPrecioTotal</span>
+                    </div>
+                    <hr class="clear" />
+                    <div class="tooltip_pendiente">
+                        <div style="float:left;">
+                            <div class="titulo_tooltip_p">¡No pierdas esta oportunidad!</div>
+                            <div class="hora_tooltip_p">
+                                @if (item.FlagConsultora)
+                                {
+                                    <text> Te quedan <b>24:00:00</b> horas</text>
+                                }
+                                else
+                                {
+                                    <text>Te quedan <b>@item.SaldoHoras</b> horas</text>
+                                }
+                            </div>
+                        </div>
+                        <div style="float:right;">
+                            <a class="btn_revisalo_pendiente" href="@Url.Action("DetallePedidoPendiente", "ConsultoraOnline", new { pedidoId = item.PedidoId })">REVÍSALO</a>
+                        </div>
+                        <hr class="clear" />
+                    </div>
                 </div>
-            </div>
+            }
         }
-    }
 
-    <div class="linea_separadora_mobile"></div>
-    <div class="icono_pendiente"></div>
-    <div class="texto_advertencia_pendiente">Sólo tienes 24 horas para atender los pedidos. No pierdas esta oportunidad de hacer nuevos clientes. </div>
-    <hr class="clear" />
-    <div class="texto_revisa_pendientes">Revisa tus pedidos aceptados en:</div>
-    <a href="@Url.Action("Historial", "ConsultoraOnline", new { area = "Mobile" })" class="btn_historial_pedido">Historial de Pedidos</a>
-</div>
+        <div class="linea_separadora_mobile"></div>
+        <div class="icono_pendiente"></div>
+        <div class="texto_advertencia_pendiente">Sólo tienes 24 horas para atender los pedidos. No pierdas esta oportunidad de hacer nuevos clientes. </div>
+        <hr class="clear" />
+        <div class="texto_revisa_pendientes">Revisa tus pedidos aceptados en:</div>
+        <a href="@Url.Action("Historial", "ConsultoraOnline", new { area = "Mobile" })" class="btn_historial_pedido">Historial de Pedidos</a>
+    </div>
 *@
 
 @section scripts {

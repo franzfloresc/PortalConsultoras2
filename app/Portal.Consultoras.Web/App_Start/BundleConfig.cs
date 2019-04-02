@@ -1024,6 +1024,10 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/TusClientes/TusClientes_Responsive.css"
             ));
 
+            bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/SugerenciaPendientes").Include(
+                "~/Content/Css/Mobile/ConsultoraOnline/Pendientes.css"
+            ));
+
             #region ArmaTuPack
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Responsive/ArmaTuPack").Include(
