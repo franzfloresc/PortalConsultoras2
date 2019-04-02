@@ -40,8 +40,7 @@ $(document).ready(function () {
                 getInfoFB(1);
             }
         });
-
-       var cargoPluginFacebook = true;
+       
     };
 
     (function (d, s, id) {
