@@ -71,17 +71,14 @@
                 </div>
                 <hr class="clear" />
                 <div>
-                    <div class="subtitulo_reclamo">¿Cuál fue el inconveniente?</div>
-                    <hr class="clear" />
                     <div class="content_motivo_wrapper">
                         <div class="content_motivo_select" id="divMotivo"></div>
                         <div class="clear"></div>
                     </div>
                 </div>
-                <hr class="clear" />
-                @*<div class="linea_separadora_roja" style="height: 2px;"></div>*@
-                <button type="button" class="border-radius-4 text-bold btn_cdr" id="IrPAso2">SIGUIENTE</button>
-                <hr class="clear" />
+                <div class="text-center">
+                    <button type="button" class="border-radius-4 text-bold btn_cdr" id="IrPAso2">SIGUIENTE</button>
+                </div>
                 <br />
             </div>
             <div class="content_reclamo" id="Paso2">
@@ -370,6 +367,7 @@
     {{/each}}
 </script>
 <script id="template-motivo" type="text/x-handlebars-template">
+    <div class="subtitulo_reclamo subtitulo_reclamo_motivo">¿Cuál fue el inconveniente?</div>
     {{#each this as |item|}}
     <div class="reclamo_motivo_select" id="{{item.CodigoReclamo}}">{{item.DescripcionReclamo}}</div>
     {{/each}}

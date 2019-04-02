@@ -28180,6 +28180,12 @@ div.motivoRechazo textarea {
     margin-top: 25px;
 }
 
+.subtitulo_reclamo_motivo{
+    font-size:16px;
+    margin-top:30px;
+    margin-bottom:20px;
+}
+
 .select_reclamo,
 .elige_num_pedido,
 .codigo_reclamo,
@@ -28189,10 +28195,9 @@ div.motivoRechazo textarea {
 .precio_reclamo,
 .rango_reclamo,
 .rango_reclamo .liquidacion_rango_cantidad_pedido,
-.rango_reclamo .liquidacion_rango_right_pedido
-{
-    display:inline-block;
-    vertical-align:top;
+.rango_reclamo .liquidacion_rango_right_pedido {
+    display: inline-block;
+    vertical-align: top;
 }
 
 .select_reclamo,
@@ -28890,16 +28895,11 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     line-height: 38px;
     font-family: 'Lato', sans-serif;
     font-size: 14px;
-    text-align: center;
-    margin-right: 36px;
+    margin-top:20px;
     margin-bottom: 10px;
     cursor: pointer;
     letter-spacing: 0.5px;
 }
-
-    /*.btn_solucion_reclamo:last-child {
-        margin-right: 0;
-    }*/
 
 .subtitulo_reclamo_light {
     font-family: 'Lato';
