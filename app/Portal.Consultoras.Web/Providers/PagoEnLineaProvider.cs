@@ -23,7 +23,6 @@ namespace Portal.Consultoras.Web.Providers
         private const int MaxYearCard = 20;
         protected ISessionManager sessionManager;
         protected TablaLogicaProvider _tablaLogica;
-        public int flagAlica3PorcientoString;
 
         public PagoEnLineaProvider()
         {
