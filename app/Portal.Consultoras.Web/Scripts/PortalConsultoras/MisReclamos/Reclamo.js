@@ -97,7 +97,6 @@ $(document).ready(function () {
     });
 
     $('#divOperacion').on("click", ".btn_solucion_reclamo", function () {
-        console.log(this);
         $(".btn_solucion_reclamo").attr("data-check", "0");
         var id = $.trim($(this).attr("id"));
         if (id == "") {
@@ -112,7 +111,6 @@ $(document).ready(function () {
     });
 
     $("#CambioProducto2").on("click", function () {
-
         //HD-3412 EINCA
         if (ValidarPasoDosTrueque()) {
             ValidarPasoDosTruequeServer(function (result, msg) {
@@ -130,6 +128,8 @@ $(document).ready(function () {
                     $("#spnCantidadCuv2").html($("#txtCantidad2").val());
                 }
             });
+
+
         }
     });
 
@@ -820,6 +820,62 @@ function CargarOperacion() {
             closeWaitingDialog();
         }
     });
+}
+
+//HD-3703 EINCA
+function AnalizarOperacionV2(id) {
+    //deshabilitar Escoge una elección
+    $('#Cambio1').hide();
+
+    codigoSsic = id;
+    if (id == "C") {
+        CambioPaso2(100);
+        $("[data-tipo-confirma='cambio']").hide();
+        $("[data-tipo-confirma=canje]").show();
+        CargarPropuesta(id);
+    }
+
+    if (id == "D") {
+        if (ValidarPaso2Devolucion(id)) {
+            CambioPaso2(100);
+            $("[data-tipo-confirma='cambio']").hide();
+            $("[data-tipo-confirma=canje]").show();
+            CargarPropuesta(id);
+        }
+    }
+
+    if (id == "F") {
+        if (ValidarPaso2Faltante(id)) {
+            CambioPaso2(100);
+            $("[data-tipo-confirma='cambio']").hide();
+            $("[data-tipo-confirma=canje]").show();
+            CargarPropuesta(id);
+        }
+    }
+
+    if (id == "G") {
+        if (ValidarPaso2FaltanteAbono(id)) {
+            CambioPaso2(100);
+            $("[data-tipo-confirma='cambio']").hide();
+            $("[data-tipo-confirma=canje]").show();
+            CargarPropuesta(id);
+        }
+    }
+    if (id == "T") {
+        if (ValidarPasoDosTrueque()) {
+            $("#spnCuv1").html($.trim($("#ddlCuv").val()));
+            $("#spnDescripcionCuv1").html($("#hdtxtCUVDescripcion").val());
+            $("#spnCantidadCuv1").html($("#txtCantidad").val());
+
+            $("#spnCuv2").html($("#txtCUV2").val());
+            $("#spnDescripcionCuv2").html($("#txtCUVDescripcion2").val());
+            $("#spnCantidadCuv2").html($("#txtCantidad2").val());
+            $("#Cambio3").show().find("[data-tipo-confirma='cambio']").show();
+        }
+
+
+       
+    }
 }
 
 function AnalizarOperacion(id) {
@@ -1845,27 +1901,30 @@ function EscogerSolucion(opcion, event) {
 
     var isChecked = $("#divOperacion input[type=checkbox]").is(':checked');
     if (id == "" || !isChecked) {
-        $('#infoOpcionesDeCambio').fadeOut();
+        $('#infoOpcionesDeCambio').fadeOut(200);
+        if (id == "D" && !isChecked) {
+            $('#divDevolucionSetsOrPack').hide();
+        }
         return false;
     }
-
     $('#infoOpcionesDeCambio').show();
 
     if (id == "T") {
         $('#OpcionCambioMismoProducto').fadeOut(200);
         $('#OpcionDevolucion').fadeOut(200);
-        $('#OpcionCambioPorOtroProducto').fadeIn(150);
+        $('#OpcionCambioPorOtroProducto').fadeIn(200);
         SetMontoCampaniaTotal();
 
     } else if (id == "C") {
         $('#OpcionDevolucion').fadeOut(200);
         $('#OpcionCambioPorOtroProducto').fadeOut(200);
-        $('#OpcionCambioMismoProducto').fadeIn(150);
+        $('#OpcionCambioMismoProducto').fadeIn(200);
         $('#spnDescProdDevolucion').html($('#hdtxtCUVDescripcion').val());
     } else if (id == "D") {
         $('#OpcionCambioMismoProducto').fadeOut(200);
         $('#OpcionCambioPorOtroProducto').fadeOut(200);
         $('#OpcionDevolucion').fadeIn(150);
+        $('#divDevolucionSetsOrPack').show();
         SetHandlebars("#template-opcion-devolucion", dataCdrServicio, "#divDevolucionSetsOrPack");
     } else {
         $('#infoOpcionesDeCambio').fadeOut(200);
@@ -1903,6 +1962,19 @@ function AgregarODisminuirCantidad(event, opcion) {
     $("#hdImporteTotal2").val(importeTotal);
     $("#spnImporteTotal2").html(DecimalToStringFormat(importeTotal));
 }
+
+function IrAEscogiste() {
+    var id = "";
+    //$("#divOperacion input[type=checkbox]").each(function () {
+    //    if ($(this).is(':checked')) {
+    //        id = $(this).attr("id");
+    //        return true;
+    //    }
+    //});
+    $('#Cambio1').hide();
+    $('#Paso3').show();
+}
+
 
 $('body').on('keypress', 'input[attrKey="PreValidarCUV"]', function (event) {
 
