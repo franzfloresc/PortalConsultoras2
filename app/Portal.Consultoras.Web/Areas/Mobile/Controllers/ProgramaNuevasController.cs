@@ -12,7 +12,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         // GET: ProgramaNuevas
         public ActionResult Index()
         {
-            ViewBag.variableEstrategia = GetVariableEstrategia();
+            ViewBag.variableEstrategia = GetEstrategiaHabilitado();
             var model = GetLandingModel(1);
 
             return View(model);
