@@ -3485,5 +3485,11 @@ namespace Portal.Consultoras.Common
             public const int PosibleEgreso = 8;
             public const int Reingreso = 9;
         }
+
+        public static class BooleanString
+        {
+            public const string True = "True";
+            public const string False = "False";
+        }
     }
 }

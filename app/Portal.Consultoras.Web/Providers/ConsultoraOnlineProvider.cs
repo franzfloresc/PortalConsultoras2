@@ -44,13 +44,13 @@ namespace Portal.Consultoras.Web.Providers
 
 
 
-        public List<EstrategiaPedidoModel> ObtenerPorId(int paisId, int setId)
+        public List<EstrategiaPedidoModel> GetRecomendados(RecomendadoRequest recomendado)
         {
 
             var ac = sessionManager;
             using (var sv = new UsuarioServiceClient())
             {
-                var resp =  sv.GetRecomendados(new RecomendadoRequest());
+                var resp =  sv.GetRecomendados(recomendado);
             }
 
             return new List<EstrategiaPedidoModel>();

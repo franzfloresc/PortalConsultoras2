@@ -1037,19 +1037,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return View(model);
         }
 
-        public ActionResult PendientesMedioDeCompra()
-        {
-
-            var model = new PedidosPendientesMedioPagoModel();
-            model.Total =100;
-            model.TotalGana = 60;
-            model.TotalCatalogo = 40;
-            var pedidoSet = _consultoraOnlineProvider.ObtenerPorId(1,0);
-
-             
-            return View(model);
-        }
-
+  
 
         public ActionResult DetallePedidoPendiente(int pedidoId)
         {
@@ -1179,6 +1167,81 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             SessionManager.SetobjMisPedidosDetalleVal(olstMisProductos);
             return olstMisProductos;
         }
+
+
+        public ActionResult PendientesMedioDeCompra()
+        {
+
+            var model = new PedidosPendientesMedioPagoModel();
+            var parametrosRecomendado = new RecomendadoRequest();
+            var listaSap = new List<String>();
+
+
+            model.Total = 100;
+            model.TotalGana = 60;
+            model.TotalCatalogo = 40;
+
+            //  revistaDigital.soci
+            //  parametrosRecomendado.codigoConsultora = userData.CodigoConsultora;
+            //parametrosRecomendado.codigoZona = userData.ZonaID.ToString();
+            //parametrosRecomendado.codigoProducto = listaSap.ToArray();
+            //parametrosRecomendado.cantidadProductos = listaSap.Count;
+            //parametrosRecomendado.configuracion = new configuracion() {
+            //  //  sociaEmpresaria = revistaDigital.SociaEmpresariaExperienciaGanaMas
+            //    mdo = revistaDigital.ActivoMdo? Constantes.BooleanString.True : Constantes.BooleanString.False
+
+            //  revistaDigital.rdr
+            //};
+
+            listaSap.Add("210090349");
+            listaSap.Add("210090295");
+            listaSap.Add("200088604");
+
+
+            parametrosRecomendado.codigoConsultora = "0033938";
+            parametrosRecomendado.codigoZona = "1714";
+            parametrosRecomendado.codigoProducto = listaSap.ToArray();
+            parametrosRecomendado.cantidadProductos = 20;
+            parametrosRecomendado.personalizaciones = "";
+            parametrosRecomendado.configuracion = new configuracion() {
+                sociaEmpresaria = "0",
+                suscripcionActiva = "False",
+                mdo = "True",
+                rd = "True",
+                rdi= "False",
+                rdr = "False",
+                diaFacturacion = 1,
+                mostrarProductoConsultado="True"
+
+            };
+
+            // {
+            //                "codigoConsultora":"0033938",
+            // "codigoZona":"1714",
+            // "codigoProducto": ["210090349","210090295","200088604"],
+            // "cantidadProductos": 20,
+            // "personalizaciones":"",
+            // "configuracion":{
+            //    "sociaEmpresaria":"0",
+            //    "suscripcionActiva":"False",
+            //    "mdo":"True",
+            //    "rd":"True",
+            //    "rdi":"False",
+            //    "rdr":"False",
+            //    "diaFacturacion":1,
+            //    "mostrarProductoConsultado": "true"
+            // }
+            //}
+
+            var resultRecomendados = _consultoraOnlineProvider.GetRecomendados(parametrosRecomendado);
+            resultRecomendados.Add(new EstrategiaPedidoModel());
+            resultRecomendados.Add(new EstrategiaPedidoModel());
+            model.ListaGana = resultRecomendados;
+
+
+            return View(model);
+        }
+
 
     }
 }

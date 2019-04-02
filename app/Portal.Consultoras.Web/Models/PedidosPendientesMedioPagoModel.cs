@@ -11,7 +11,8 @@ namespace Portal.Consultoras.Web.Models
         public decimal Total { get; set; }
         public decimal TotalGana { get; set; }
         public decimal TotalCatalogo { get; set; }
-
+        public List<EstrategiaPedidoModel> ListaGana { get; set; }
+        public List<EstrategiaPedidoModel> ListaCatalogo { get; set; }
         public decimal GananciaGana { get; set; }
 
     }
