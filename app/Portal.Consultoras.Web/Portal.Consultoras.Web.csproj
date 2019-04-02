@@ -4126,6 +4126,7 @@
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\Ficha\ComponenteDetalleProvider.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\Ficha\ComponenteDetalleModule.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\DetalleEstrategiaProvider.js" />
+    <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\Ficha\Ficha.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\Ficha\FichaModule.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\Ficha\ListaOpcionesModule.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\Ficha\ComponentesModule.js" />
