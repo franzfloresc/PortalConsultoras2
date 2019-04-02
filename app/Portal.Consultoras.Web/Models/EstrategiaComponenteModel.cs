@@ -29,6 +29,7 @@ namespace Portal.Consultoras.Web.Models
         public string PrecioCatalogoString { get; set; }
         public string Volumen { get; set; }
         public List<EstrategiaComponenteModel> Hermanos { get; set; }
+        public bool TieneStock { get; set; }
 
         public object Clone()
         {

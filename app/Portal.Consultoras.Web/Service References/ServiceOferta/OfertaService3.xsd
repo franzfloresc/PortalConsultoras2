@@ -93,6 +93,7 @@
           <xs:element minOccurs="0" name="Slogan" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="TallaColor" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="TextoLibre" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="TieneStock" type="xs:boolean" />
           <xs:element minOccurs="0" name="TieneStockProl" type="xs:boolean" />
           <xs:element minOccurs="0" name="TieneVariedad" type="xs:int" />
           <xs:element minOccurs="0" name="TipoConcurso" nillable="true" type="xs:string" />

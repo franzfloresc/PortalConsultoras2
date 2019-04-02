@@ -123,6 +123,8 @@
                 return _urlObtenerEstrategia.Lanzamiento;
             case _codigoPalanca.HerramientasVenta:
                 return _urlObtenerEstrategia.HerrameintasVenta;
+            case _codigoPalanca.Ganadoras:
+                return _urlObtenerEstrategia.MasGanadoras;
             default:
                 return null;
         }
@@ -144,6 +146,9 @@
             IsMobile: isMobile()
         };
         var urlEstrategia = _obtenerUrlEstrategia(palanca);
+        if (urlEstrategia == null || urlEstrategia == "") {
+            return false;
+        }
         var resppuesta = true;
         _promiseObternerEstrategia(urlEstrategia, param).done(function (data) {
 

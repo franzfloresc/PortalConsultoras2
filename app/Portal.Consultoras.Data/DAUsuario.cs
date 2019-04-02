@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.OpcionesVerificacion;
+using Portal.Consultoras.Entities.Usuario;
 using System;
 using System.Data;
 using System.Data.Common;
@@ -988,7 +989,13 @@ namespace Portal.Consultoras.Data
             Context.ExecuteNonQuery(command);
         }
 
-        public bool GetPermisoChatbot(string codigoConsultora)
+        public IDataReader GetUsuarioOpciones(string codigoUsuario)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("GetUsuarioOpciones");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.String, codigoUsuario);
+            return Context.ExecuteReader(command);
+        }
+         public bool GetPermisoChatbot(string codigoConsultora)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPermisoChatbot");
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, codigoConsultora);            
@@ -997,6 +1004,16 @@ namespace Portal.Consultoras.Data
             Context.ExecuteNonQuery(command);
             
             return Convert.ToBoolean(command.Parameters["@PermisoChatbot"].Value);
+        }
+
+        public void InsertarUsuarioOpciones(BEUsuarioOpciones objU, string CodigoUsuario)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsUsuarioOpciones");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, CodigoUsuario);
+            Context.Database.AddInParameter(command, "@OpcionesUsuarioId", DbType.Int32, objU.OpcionesUsuarioId);
+            Context.Database.AddInParameter(command, "@Activo", DbType.Boolean, objU.CheckBox);
+
+            Context.ExecuteNonQuery(command);
         }
     }
 }

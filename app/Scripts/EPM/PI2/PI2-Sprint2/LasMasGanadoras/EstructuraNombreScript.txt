@@ -1,0 +1,25 @@
+﻿Estructura Nombre Archivo
+-----------------------------
+
+Caracteres guion bajo y alfa numerico, sin ñ, sin tilde
+Formato UTF-8
+
+- Script => [Tipo_][Objeto_][SiglasEquipo][_TicketJiraOpcional]
+- Rollback => RollBack_[Tipo_][Objeto_][SiglasEquipo][_TicketJiraOpcional]
+
+Objeto => Nombre el objeto (tabla, store, function, type)
+
+Tipo => 
+1 => Create y alter de Type, Tablas, Temporal
+2 => Indices, Update, insert, delete
+3 => create store or function
+4 => alter store or function
+5 => delete store or function
+6 => grant (permisos)
+NO delete from table
+
+Contenido Archivo
+-----------------
+
+USE Belcor[Pais]
+store, function, table => igual para todos los paises

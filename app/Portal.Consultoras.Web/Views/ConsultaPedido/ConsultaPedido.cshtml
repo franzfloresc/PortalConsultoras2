@@ -360,7 +360,6 @@
                        range.select();
                    }
                    var posicion = getSelectionStart(document.getElementById('txtTerritorio'));
-                   //var posicion = $("#txtTerritorio").prop('selectionStart');
                    var part = split(request.term.substring(0, posicion));
                    var last = part[part.length - 1] || "";
                    last = jQuery.trim(last.substring(last.lastIndexOf(' ')));
@@ -853,7 +852,6 @@
             text: "-- Todos --"
         }));
 
-        //$("#ddlFechas")[0].selectedIndex = 0;
         $("#txtTerritorio").val("");
         $("#TerritorioID").val("");
         $("#ddlEstadoPedido")[0].selectedIndex = 0;

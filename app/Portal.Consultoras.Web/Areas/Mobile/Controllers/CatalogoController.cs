@@ -47,8 +47,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             clienteModel.PartialSectionBpt = _configuracionPaisDatosProvider.GetPartialSectionBptModel(Constantes.OrigenPedidoWeb.SectionBptMobileCatalogo);
             ViewBag.EsConsultoraNueva = userData.EsConsultoraNueva;
 
-            string paisesCatalogoWhatsUp = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesCatalogoWhatsUp);
-            ViewBag.ActivacionAppCatalogoWhastUp = paisesCatalogoWhatsUp.Contains(userData.CodigoISO) ? 1 : 0;
+            bool paisesCatalogoWhatsUp = _configuracionManagerProvider.GetConfiguracionManagerContains(Constantes.ConfiguracionManager.PaisesCatalogoWhatsUp, userData.CodigoISO);
+            ViewBag.ActivacionAppCatalogoWhastUp = paisesCatalogoWhatsUp.ToInt();
 
             var paisesEsika = _configuracionManagerProvider.GetPaisesEsikaFromConfig().ToLower();
             ViewBag.EsPaisEsika = paisesEsika.Contains(userData.CodigoISO.ToLower());
