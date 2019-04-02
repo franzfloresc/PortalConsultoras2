@@ -116,12 +116,14 @@ $(document).ready(function () {
         var listaResultadosBusquedaPorCuv = $(".contenedor_descripcion_reclamo");
         if ((!listaResultadosBusquedaPorCuv.is(e.target) && listaResultadosBusquedaPorCuv.has(e.target).length === 0)) {
             $(".lista_resultados_busqueda_por_cuv_wrapper").fadeOut(100);
+            $("#ResultadosBusquedaCUV").fadeIn(100);
         }
     });
 
 
     $("#ddlCuv").on("click", function () {
         if ($("#ddlCampania").val() != 0) {
+            $("#ResultadosBusquedaCUV").fadeIn(100);
             $(".lista_resultados_busqueda_por_cuv_wrapper").fadeIn(100);
         }
     });
@@ -129,7 +131,9 @@ $(document).ready(function () {
     $("#ddlCuv").on("keyup", function () {
         if ($(this).val().length === 0) {
             $(".lista_resultados_busqueda_por_cuv_wrapper").fadeOut(100);
+            $("#ResultadosBusquedaCUV").fadeOut(100);
         } else {
+            $("#ResultadosBusquedaCUV").fadeIn(100);
             $(".lista_resultados_busqueda_por_cuv_wrapper").fadeIn(100);
             var cuvIngresado = $('#ddlCuv').val();
             $("#ResultadosBusquedaCUV li").filter(function () {
@@ -144,6 +148,7 @@ $(document).ready(function () {
         var descripProdCdr = $(this).find(".resultado_busqueda_por_cuv_descrip_prod").html();
         $("#ddlCuv").val(codigoProdCdr + ' - ' + descripProdCdr);
         $(".lista_resultados_busqueda_por_cuv_wrapper").fadeOut(100);
+        $(this).fadeOut(100);
     });
 
     // FIN - HD-3703
