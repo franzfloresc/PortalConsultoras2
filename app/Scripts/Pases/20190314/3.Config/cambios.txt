@@ -1,0 +1,28 @@
+1.SB2 WEB
+	Agregar:
+		<add key="UrlCatalogoPiloto" value="http://ecatalogoqa.somosbelcorp.com/" />
+	Actualizar:
+		<add key="PaisesDigitoControl" value="DO,MX,PR,VE,SV"/>
+
+2.SB2 WCF
+	Agregar:
+		<add key="SetIdentifierNumberFlag" value="1"/>
+
+3.MS SEARCH NODE
+	Modificar:
+		Personalizacion: ['GND', 'LAN', 'ODD', 'OPM', 'SR', 'HV', 'MG']
+
+4.PROLValAutoWinServ
+	Actualizar:
+		<binding name="BasicHttpBinding_IPedidoService" closeTimeout="00:10:00"
+         openTimeout="00:10:00" receiveTimeout="00:10:00" sendTimeout="00:10:00"
+         allowCookies="false" bypassProxyOnLocal="false" hostNameComparisonMode="StrongWildcard"
+         maxBufferPoolSize="2147483647" maxBufferSize="2147483647" maxReceivedMessageSize="2147483647"
+         textEncoding="utf-8" transferMode="Streamed" useDefaultWebProxy="true"
+         messageEncoding="Text" />
+
+		<endpoint address="http://internal-QAiELBServiciosConsultoras-253844361.us-east-1.elb.amazonaws.com/SB2WCF/PedidoService.svc" binding="basicHttpBinding" bindingConfiguration="BasicHttpBinding_IPedidoService" contract="ServicePedido.IPedidoService" name="BasicHttpBinding_IPedidoService" />
+
+5. WSCONSULTORAS
+	Agregar:
+		<add key="NombreBucketAppCatalogo" value="appcatalogo" />

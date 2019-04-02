@@ -1,7 +1,7 @@
-#addin "nuget:?package=Cake.Sonar"
-#tool "nuget:?package=MSBuild.SonarQube.Runner.Tool"
-#addin "nuget:?package=Cake.SonarScanner"
-#addin nuget:?package=Cake.Git
+#addin nuget:?package=Cake.Sonar&version=1.1.18
+#tool  nuget:?package=MSBuild.SonarQube.Runner.Tool&version=4.3.1
+#addin nuget:?package=Cake.SonarScanner&version=1.1.0
+#addin nuget:?package=Cake.Git&version=0.19.0
 
 ///////////////////////////////////////////////////////////////////////////////
 // ARGUMENTS
@@ -94,7 +94,7 @@ Task("SonarBegin")
         Password = sonarPassword,
         Version = hash,
         Exclusions = "**/*.js,**/*.css,**/emt_chat/**,*UnitTest/**"
-        // Branch = branch // Require https://docs.sonarqube.org/display/PLUG/Branch+Plugin
+        // Branch = branch
     });
 });
 
@@ -121,7 +121,7 @@ Task("SonarJS")
     });
 });
 
-// Require: https://github.com/racodond/sonar-css-plugin
+// Require: https://docs.sonarqube.org/display/PLUG/SonarCSS
 Task("SonarCSS")
     .Does(() => 
 {

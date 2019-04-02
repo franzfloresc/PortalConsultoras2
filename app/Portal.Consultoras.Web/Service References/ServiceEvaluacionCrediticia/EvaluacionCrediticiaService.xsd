@@ -11,4 +11,18 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="EvaluacionCrediticiaBE" nillable="true" type="tns:EvaluacionCrediticiaBE" />
+  <xs:complexType name="EvaluacionCrediticiaDatosBE">
+    <xs:sequence>
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.Utils" minOccurs="0" name="EnumEstadoCrediticio" type="q2:Enums.EstadoBurocrediticio" />
+      <xs:element minOccurs="0" name="Mensaje" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PrimerApellido" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PrimerNombre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RequiereAprobacionSAC" type="xs:boolean" />
+      <xs:element minOccurs="0" name="RespuestaEstado" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RespuestaServicio" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SegundoApellido" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SegundoNombre" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="EvaluacionCrediticiaDatosBE" nillable="true" type="tns:EvaluacionCrediticiaDatosBE" />
 </xs:schema>
