@@ -18,9 +18,9 @@
         }
     };
 
-    var _getEstrategia = function(){
-        var estrategia = { IsMobile : false };
-        if($(_elementos.dataEstrategia.id).length > 0){
+    var _getEstrategia = function () {
+        var estrategia = { IsMobile: false };
+        if ($(_elementos.dataEstrategia.id).length > 0) {
             var strJson = $(_elementos.dataEstrategia.id).attr(_elementos.dataEstrategia.dataEstrategia) || "";
             estrategia = JSON.parse(strJson);
         }
@@ -74,6 +74,6 @@
     };
 
     return {
-        init : _init
+        init: _init
     };
 };

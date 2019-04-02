@@ -6,6 +6,7 @@ using Portal.Consultoras.Web.GestionPasos;
 using Portal.Consultoras.Web.HojaInscripcionBelcorpPais;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceUnete;
+using Portal.Consultoras.Web.ValidacionesUnete;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -1585,6 +1586,12 @@ namespace Portal.Consultoras.Web.Controllers
             return PartialView("_ConsultarEstadoCrediticia");
         }
 
+        public ActionResult MostrarMensajeBuro(string respuestaBuro)
+        {
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("MensajeRespuestaBuro", "&respuestaBuro=" + respuestaBuro);
+            return PartialView("~/Views/Unete/_MensajeRespuestaBuro.cshtml");
+        }
+
         [HttpPost]
         public JsonResult ConsultarEstadoCrediticia(int id, int idEstado)
         {
@@ -1612,67 +1619,76 @@ namespace Portal.Consultoras.Web.Controllers
             using (var sv = new PortalServiceClient())
             {
                 var solicitudPostulante = sv.ObtenerSolicitudPostulante(CodigoISO, id);
-
                 switch (solicitudPostulante.PaisID)
                 {
-                    //Mexico
-                    case 9:
-                        fechaFormato = solicitudPostulante.FechaNacimiento.Value.ToString("yyyy-MM-dd");
-                        var lugaresNivel1 = sv.ObtenerParametrosUnete(Constantes.CodigosISOPais.Mexico, EnumsTipoParametro.LugarNivel1, 0);
-                        if (solicitudPostulante.Direccion.Contains("|"))
+                    case Constantes.PaisID.Mexico:
+                        if (solicitudPostulante.ReferenciaEntrega != null)
                         {
-
-                            tercieriaDireccion = solicitudPostulante.Direccion.Split('|');
-                            ciudad = tercieriaDireccion[0];
-                            calleNumero = tercieriaDireccion[2];
-                        }
-                        foreach (var item in lugaresNivel1)
-                        {
-                            if (item.Nombre.Equals(solicitudPostulante.LugarPadre))
+                            fechaFormato = solicitudPostulante.FechaNacimiento.Value.ToString("yyyy-MM-dd");
+                            var lugaresNivel1 = sv.ObtenerParametrosUnete(Constantes.CodigosISOPais.Mexico, EnumsTipoParametro.LugarNivel1, 0);
+                            if (solicitudPostulante.Direccion.Contains("|"))
                             {
-                                abreviationZona = item.Descripcion;
-                            }
-                        }
 
-                        if (!string.IsNullOrEmpty(solicitudPostulante.CodigoZona))
-                        {
-                            codigoZona = solicitudPostulante.CodigoZona;
+                                tercieriaDireccion = solicitudPostulante.Direccion.Split('|');
+                                ciudad = tercieriaDireccion[0];
+                                calleNumero = tercieriaDireccion[2];
+                            }
+                            foreach (var item in lugaresNivel1)
+                            {
+                                if (item.Nombre.Equals(solicitudPostulante.LugarPadre))
+                                {
+                                    abreviationZona = item.Descripcion;
+                                }
+                            }
+
+                            if (!string.IsNullOrEmpty(solicitudPostulante.CodigoZona))
+                            {
+                                codigoZona = solicitudPostulante.CodigoZona;
+                            }
+                            else
+                            {
+                                codigoZona = "9999";
+                            }
+
+                            urlClient = string.Format("/api/ValidacionCrediticiaExterna/Get?codigoISO={0}&numeroDocumento={1}&apellido={2}&codZona={3}&apellidoMaterno={4}&nombres={5}&fechaNacimiento={6}&direccion={7}&delegacionMunicipio={8}&ciudad={9}&estado={10}&cp={11}&tarjetaDeCredito={12}&creditoHipotecario={13}&creditoAutomotriz={14}&tipoIdentificacion={15}",
+                                             Constantes.CodigosISOPais.Mexico, solicitudPostulante.NumeroDocumento, solicitudPostulante.ApellidoPaterno, codigoZona, solicitudPostulante.ApellidoMaterno, solicitudPostulante.PrimerNombre + ' ' + solicitudPostulante.SegundoNombre, fechaFormato, calleNumero, solicitudPostulante.LugarHijo, ciudad, abreviationZona, Convert.ToInt32(solicitudPostulante.CodigoPostal).ToString("D5"), String.Empty, String.Empty, String.Empty, solicitudPostulante.TipoDocumento);
+                            ConsultaCrediticiaExternaMX respuesta = (new Common.Rest()).GetAsync<ConsultaCrediticiaExternaMX>(urlClient);
+                            respuestaBuro = string.IsNullOrWhiteSpace(respuesta.Resultado) ? String.Empty : respuesta.Resultado;
+
+
+                            switch (respuestaBuro)
+                            {
+                                case "R01":
+
+                                    string[] arrayReferenciaEntrega;
+                                    if (solicitudPostulante.ReferenciaEntrega != null)
+                                    {
+                                        arrayReferenciaEntrega = solicitudPostulante.ReferenciaEntrega.Split('|');
+                                        solicitudPostulante.ReferenciaEntrega = arrayReferenciaEntrega[0] + "|" + arrayReferenciaEntrega[1] + "|" + arrayReferenciaEntrega[2] + "|" + "R01";
+
+                                    }
+                                    sv.ActualizarReferenciaEntregaSAC(solicitudPostulante);
+
+                                    break;
+                                case "R03":
+                                    solicitudPostulante.EstadoBurocrediticio = 3;
+                                    solicitudPostulante.SubEstadoPostulante = 11;
+                                    solicitudPostulante.TipoRechazo = "9";
+                                    solicitudPostulante.EstadoPostulante = 4;
+                                    solicitudPostulante.Direccion = null;
+                                    solicitudPostulante.ReferenciaEntrega = null;
+                                    sv.ActualizarReferenciaEntregaSAC(solicitudPostulante);
+                                    EnviarCorreoRechazoBuro(solicitudPostulante);
+                                    break;
+                            }
                         }
                         else
                         {
-                            codigoZona = "9999";
+                            respuestaBuro = "R01";
+                            solicitudPostulante.ReferenciaEntrega = "R01";
+                            sv.ActualizarReferenciaEntregaSAC(solicitudPostulante);
                         }
 
-                        urlClient = string.Format("/api/ValidacionCrediticiaExterna/Get?codigoISO={0}&numeroDocumento={1}&apellido={2}&codZona={3}&apellidoMaterno={4}&nombres={5}&fechaNacimiento={6}&direccion={7}&delegacionMunicipio={8}&ciudad={9}&estado={10}&cp={11}&tarjetaDeCredito={12}&creditoHipotecario={13}&creditoAutomotriz={14}&tipoIdentificacion={15}",
-                                         Constantes.CodigosISOPais.Mexico, solicitudPostulante.NumeroDocumento, solicitudPostulante.ApellidoPaterno, codigoZona, solicitudPostulante.ApellidoMaterno, solicitudPostulante.PrimerNombre + ' ' + solicitudPostulante.SegundoNombre, fechaFormato, calleNumero, solicitudPostulante.LugarHijo, ciudad, abreviationZona, Convert.ToInt32(solicitudPostulante.CodigoPostal).ToString("D5"), String.Empty, String.Empty, String.Empty, solicitudPostulante.TipoDocumento);
-
-
-                        ConsultaCrediticiaExternaMX respuesta = (new Common.Rest()).GetAsync<ConsultaCrediticiaExternaMX>(urlClient);
-
-
-                        respuestaBuro = string.IsNullOrWhiteSpace(respuesta.Resultado) ? String.Empty : respuesta.Resultado;
-                        switch (respuestaBuro)
-                        {
-                            case "R01":
-
-                                string[] arrayReferenciaEntrega;
-
-                                arrayReferenciaEntrega = solicitudPostulante.ReferenciaEntrega.Split('|');
-                                solicitudPostulante.ReferenciaEntrega = arrayReferenciaEntrega[0] + "|" + arrayReferenciaEntrega[1] + "|" + arrayReferenciaEntrega[2] + "|" + "R01";
-                                sv.ActualizarReferenciaEntregaSAC(solicitudPostulante);
-
-                                break;
-                            case "R03":
-                                solicitudPostulante.EstadoBurocrediticio = 3;
-                                solicitudPostulante.SubEstadoPostulante = 11;
-                                solicitudPostulante.TipoRechazo = "9";
-                                solicitudPostulante.EstadoPostulante = 4;
-                                solicitudPostulante.Direccion = null;
-                                solicitudPostulante.ReferenciaEntrega = null;
-                                sv.ActualizarReferenciaEntregaSAC(solicitudPostulante);
-
-                                break;
-                        }
                         break;
 
                     default:
@@ -1683,6 +1699,25 @@ namespace Portal.Consultoras.Web.Controllers
             RegistrarLogGestionSacUnete(id.ToString(), "CONSULTA BURO EXTERNO", "ASIGNAR");
             return Json(respuestaBuro, JsonRequestBehavior.AllowGet);
         }
+
+        public void EnviarCorreoRechazoBuro(SolicitudPostulante solicitante)
+        {
+            using (var sv = new ValidacionesUneteClient())
+            {
+                var parametro = new EmailParameter
+                {
+                    TipoEmail = EnumsTipoEmail.RechazoBuro,
+                    Marca = EnumsMarca.Lbel,
+                    Nombre = solicitante.PrimerNombre,
+                    CorreoElectronico = solicitante.CorreoElectronico
+                };
+
+                sv.EnviarEmail(parametro);
+            }
+
+        }
+
+
 
         [HttpPost]
         public ActionResult GrabarDatosDireccion(EditarDireccionModel model)
@@ -1866,8 +1901,6 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.HTMLSACUnete = getHTMLSACUnete("GestionaPostulante", "&rol=" + nombreRol);
             return View();
         }
-
-        // LMH
 
         public ActionResult ReportePagoKit()
         {
@@ -2098,17 +2131,12 @@ namespace Portal.Consultoras.Web.Controllers
                     {"Hora Proceso", "HoraProceso"},
                     {"Origen", "Origen"},
                 };
-               
+
                 Util.ExportToExcel("Reporte Pagokit", lst, dic);
                 return View();
             }
 
         }
-
-        // LMH
-
-
-
 
 
         [HttpPost]

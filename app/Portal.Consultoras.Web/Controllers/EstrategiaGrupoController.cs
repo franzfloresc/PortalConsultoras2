@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models.AdministrarEstrategia;
+using Portal.Consultoras.Web.Models.Oferta.ResponseOfertaGenerico;
 using Portal.Consultoras.Web.Providers;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,13 +25,13 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult Guardar(List<EstrategiaGrupoModel> datos)
         {
-            bool respuesta = false;
+            OutputEstrategiaGrupo respuesta = new OutputEstrategiaGrupo();
             if (ModelState.IsValid)
             {
                 respuesta = estrategiaGrupoProvider.Guardar(datos, userData.CodigoISO);
             }
 
-            return Json(new { mensaje = "ok", estado = respuesta }, JsonRequestBehavior.AllowGet);
+            return Json(new { mensaje = respuesta.Message, estado = respuesta.Success }, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult ConsultarDetalleEstrategiaGrupo(string estrategiaId, string codigoTipoEstrategia)
@@ -40,8 +41,10 @@ namespace Portal.Consultoras.Web.Controllers
 
             var distinct = (from item in lstComponentes select new { EstrategiaId = estrategiaId, Grupo = item.Grupo }).Distinct();
             List<EstrategiaGrupoModel> grupos = (from item in distinct
-                      select new EstrategiaGrupoModel
-                      { _idEstrategia = estrategiaId, EstrategiaGrupoId = 0, Grupo = item.Grupo, DescripcionSingular = string.Empty, DescripcionPlural = string.Empty }).ToList();
+                                                 select new EstrategiaGrupoModel
+                                                 { _idEstrategia = estrategiaId, EstrategiaGrupoId = 0, Grupo = item.Grupo, DescripcionSingular = string.Empty, DescripcionPlural = string.Empty }).ToList();
+
+            grupos = grupos.OrderBy(g => g.Grupo).ToList();
 
             foreach (var item in grupos)
             {

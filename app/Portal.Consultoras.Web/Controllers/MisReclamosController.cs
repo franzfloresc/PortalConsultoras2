@@ -47,15 +47,13 @@ namespace Portal.Consultoras.Web.Controllers
                 return RedirectToAction("Index", "Bienvenida");
 
             MisReclamosModel model = new MisReclamosModel();
-            List<CDRWebModel> listaCdrWebModel;
             try
             {
-                SessionManager.SetListaCDRWebCargaInicial(null);//HD-3412 EINCA
-                SessionManager.SetCDRPedidoFacturado(null); //HD-3412 EINCA
-                listaCdrWebModel = _cdrProvider.ObtenerCDRWebCargaInicial(userData.ConsultoraID,userData.PaisID);//HD-3412 EINCA
-                var ObtenerCampaniaPedidosFacturados = _cdrProvider.CDRObtenerPedidoFacturadoCargaInicial(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);//HD-3412 EINCA
-
-
+                SessionManager.SetListaCDRWebCargaInicial(null);
+                SessionManager.SetCDRPedidoFacturado(null);
+                List<CDRWebModel> listaCdrWebModel = _cdrProvider.ObtenerCDRWebCargaInicial(userData.ConsultoraID,userData.PaisID);
+                var ObtenerCampaniaPedidosFacturados = _cdrProvider.CDRObtenerPedidoFacturadoCargaInicial(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
+                
                 string urlPoliticaCdr = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlPoliticasCDR) ?? "{0}";
                 model.UrlPoliticaCdr = string.Format(urlPoliticaCdr, userData.CodigoISO);
                 model.ListaCDRWeb = listaCdrWebModel.FindAll(p => p.CantidadDetalle > 0);
@@ -76,10 +74,7 @@ namespace Portal.Consultoras.Web.Controllers
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                listaCdrWebModel = new List<CDRWebModel>();
             }
-
-
 
             return View(model);
         }
@@ -105,8 +100,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (p != 0)
             {
                 var listaCdr = _cdrProvider.CargarBECDRWeb(new MisReclamosModel { PedidoID = p }, userData.PaisID, userData.ConsultoraID);
-                if (listaCdr.Count == 0) return RedirectToAction("Index");
-                //HD-3412 EINCA 
+                if (listaCdr.Count == 0) return RedirectToAction("Index"); 
                 var listacdrweb = listaCdr.Where(a => a.CDRWebID == c).ToArray();
                 if (listacdrweb.Count() == 1)
                 {
@@ -149,7 +143,7 @@ namespace Portal.Consultoras.Web.Controllers
             string mensaje = "No se ha encontrado su número de pedido, vuelva a intentarlo otra vez seleccionando la campaña.";
             try
             {
-                var listaPedidoFacturados = SessionManager.GetCDRPedidoFacturado();//HD-3412 EINCA
+                var listaPedidoFacturados = SessionManager.GetCDRPedidoFacturado();
 
                 listaPedidoFacturados = listaPedidoFacturados.Where(a => a.CampaniaID == CampaniaID).ToList();
 
@@ -158,7 +152,7 @@ namespace Portal.Consultoras.Web.Controllers
                     mensaje = "";
                     foreach (var item in listaPedidoFacturados)
                     {
-                        //HD-3412 EINCA
+
                         var existe = listaNroPedidos.Where(c => c.CampaniaID == item.CampaniaID && item.PedidoID == c.PedidoID) ?? new List<CampaniaModel>();
                         if (!existe.Any())
                         {
@@ -239,7 +233,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.CUV = Util.SubStr(model.CUV, 0);
 
                 var listaPedidoFacturados = _cdrProvider.CargarPedidosFacturados(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
-                var listaCDRWebCargaInicial = SessionManager.GetListaCDRWebCargaInicial(); //HD-3412 EINCA
+                var listaCDRWebCargaInicial = SessionManager.GetListaCDRWebCargaInicial();
 
                 var lstCDRWeb = new List<ServicePedido.BECDRWeb>();
 
@@ -274,7 +268,6 @@ namespace Portal.Consultoras.Web.Controllers
                         var lista = pedido.olstBEPedidoWebDetalle.Where(d => (d.CUV == model.CUV && d.CampaniaID == model.CampaniaID) || model.CUV == "").ToList();
                         if (lista.Any())
                         {
-                            //HD-3412 EINCA
                             BEPedidoWeb pedidoActual = new BEPedidoWeb
                             {
                                 CampaniaID = pedido.CampaniaID,
@@ -284,8 +277,6 @@ namespace Portal.Consultoras.Web.Controllers
                                 FechaRegistro = pedido.FechaRegistro,
                                 CanalIngreso = pedido.CanalIngreso,
                                 BECDRWeb = (lstCDRWeb.Where(a => a.PedidoID == pedido.PedidoID).ToList() == null) ? null : lstCDRWeb.Where(a => a.PedidoID == pedido.PedidoID).ToArray(),
-                                //CDRWebID = pedido.CDRWebID, //HD-3412 EINCA 
-                                //CDRWebEstado = pedido.CDRWebEstado,//HD-3412 EINCA
                                 NumeroPedido = pedido.NumeroPedido,
                                 olstBEPedidoWebDetalle = lista.ToArray()
                             };
@@ -338,7 +329,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private bool TieneDetalleFueraFecha(ServiceCDR.BECDRWeb cdrWeb, MisReclamosModel model) //HD-3412
+        private bool TieneDetalleFueraFecha(ServiceCDR.BECDRWeb cdrWeb, MisReclamosModel model)
         {
             var operacionValidaList = _cdrProvider.CargarMotivoOperacionPorDias(model, userData.FechaActualPais.Date, userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
             return cdrWeb.CDRWebDetalle.Any(detalle =>
@@ -660,7 +651,7 @@ namespace Portal.Consultoras.Web.Controllers
             var cdrWebs = _cdrProvider.CargarBECDRWeb(model, userData.PaisID, userData.ConsultoraID);
 
             //obtenermos el de estado pendiente
-            cdrWebs = cdrWebs.Where(a => a.Estado == Constantes.EstadoCDRWeb.Pendiente).ToList(); //HD-3412 EINCA
+            cdrWebs = cdrWebs.Where(a => a.Estado == Constantes.EstadoCDRWeb.Pendiente).ToList();
 
 
             if (cdrWebs.Count != 1)
@@ -897,21 +888,15 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 RegistraLogDynamoCDR(model);
-
-                //HD-3412 EINCA 
+                
                 var user = SessionManager.GetUserData();
                 user.EMail = model.Email;
                 user.Celular = model.Telefono;
                 SessionManager.SetUserData(user);
 
-                //userData.EMail = model.Email;
-                //userData.Celular = model.Telefono;
-                //SessionManager.SetUserData(userData);
-
                 if (!string.IsNullOrWhiteSpace(model.Email))
                 {
                     string contenidoMailCulminado = CrearEmailReclamoCulminado(cdrWebMailConfirmacion);
-                    //HD-3412 EINCA
                     var nombreConsultora = userData.NombreConsultora;
                     System.Threading.Tasks.Task.Factory.StartNew(() =>
                     {
@@ -924,7 +909,7 @@ namespace Portal.Consultoras.Web.Controllers
                         string paramQuerystring = Util.EncriptarQueryString(parametros);
                         string cadena = "<br /><br /> Estimada consultora " + userData.NombreConsultora + " Para confirmar la dirección de correo electrónico ingresada haga click " +
                                          "<br /> <a href='" + Util.GetUrlHost(HttpContext.Request) + "WebPages/MailConfirmation.aspx?data=" + paramQuerystring + "'>aquí</a><br/><br/>Belcorp";
-                        //HD-3412 EINCA
+
                         var codigoIso = userData.CodigoISO;
 
                         System.Threading.Tasks.Task.Factory.StartNew(() =>
@@ -942,7 +927,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                SessionManager.SetListaCDRWebCargaInicial(null);//HD-3412 EINCA
+                SessionManager.SetListaCDRWebCargaInicial(null);
 
                 return Json(new
                 {

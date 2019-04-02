@@ -7,7 +7,7 @@ belcorp.settings.uniquePrefix = "/g/";
 jQuery(document).ready(function () {
 
     CreateLoading();
-    //eventCloseDialogMensaje();
+
 
     if (typeof (tokenPedidoAutenticoOk) !== 'undefined') {
         GuardarIndicadorPedidoAutentico();
@@ -1001,11 +1001,11 @@ function ActualizarGanancia(data) {
     $("[data-ganancia]").html(data.MontoGananciaStr || "");
     $("[data-ganancia2]").html(variablesPortal.SimboloMoneda + " " + data.MontoGananciaStr || "");
     $("[data-pedidocondescuento]").html(DecimalToStringFormat(data.TotalPedido - data.MontoDescuento));
-    $("[data-montodescuento]").html(variablesPortal.SimboloMoneda + " " + DecimalToStringFormat(data.MontoDescuentoStr));
+    $("[data-montodescuento]").html(variablesPortal.SimboloMoneda + " " + data.MontoDescuentoStr);
     $("[data-pedidototal]").html(variablesPortal.SimboloMoneda + " " + data.TotalPedidoStr);
     $("[data-cantidadproducto]").html(data.CantidadProductos);
-    $("[data-montoahorrocatalogo]").html(variablesPortal.SimboloMoneda + " " + DecimalToStringFormat(data.MontoAhorroCatalogoStr));
-    $("[data-montoahorrorevista]").html(variablesPortal.SimboloMoneda + " " + DecimalToStringFormat(data.MontoAhorroRevistaStr));
+    $("[data-montoahorrocatalogo]").html(variablesPortal.SimboloMoneda + " " + data.MontoAhorroCatalogoStr);
+    $("[data-montoahorrorevista]").html(variablesPortal.SimboloMoneda + " " + data.MontoAhorroRevistaStr);
 
     $(".num-menu-shop").html(data.CantidadProductos);
     $(".js-span-pedidoingresado").html(data.TotalPedidoStr);
@@ -1900,9 +1900,7 @@ function EstablecerLazyCarruselAfterChange(elementoHtml) {
 
 }
 
-/*
-Detectando IE 6 - 11
-*/
+/*  Detectando IE 6 - 11 */
 function isMSIE() {
     return (navigator.userAgent.indexOf('MSIE') !== -1 || navigator.appVersion.indexOf('Trident/') > 0);
 }

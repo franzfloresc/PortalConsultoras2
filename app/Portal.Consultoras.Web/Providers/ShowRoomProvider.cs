@@ -16,7 +16,6 @@ using System.Threading.Tasks;
 namespace Portal.Consultoras.Web.Providers
 {
     using Portal.Consultoras.Common.Response;
-    using Portal.Consultoras.Web.Models.Estrategia;
     using Portal.Consultoras.Web.Models.Search.ResponseEvento;
     using Portal.Consultoras.Web.Models.Search.ResponseNivel;
     using System;
@@ -464,7 +463,6 @@ namespace Portal.Consultoras.Web.Providers
         public void CargarEntidadesShowRoom(UsuarioModel model)
         {
             ConfigModel configEstrategiaSR = _sessionManager.GetEstrategiaSR() ?? new ConfigModel();
-            //MSPersonalizacionConfiguracionModel msPersonalizacionModel = new MSPersonalizacionConfiguracionModel();
 
             try
             {
