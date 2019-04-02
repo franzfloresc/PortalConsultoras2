@@ -1,6 +1,7 @@
 ﻿using Portal.Consultoras.Web.Controllers;
 using Portal.Consultoras.Web.CustomFilters;
 using Portal.Consultoras.Web.Infraestructure;
+using Portal.Consultoras.Common;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
@@ -13,7 +14,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public ActionResult Index()
         {
             ViewBag.variableEstrategia = GetVariableEstrategia();
-            var model = GetLandingModel(1);
+            var model = GetLandingModel(1, Constantes.ConfiguracionPais.ProgramaNuevas);
 
             return View(model);
         }

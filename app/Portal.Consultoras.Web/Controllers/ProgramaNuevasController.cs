@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using Portal.Consultoras.Web.Models.Layout;
+using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -9,7 +10,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Index()
         {
             ViewBag.variableEstrategia = GetVariableEstrategia();
-            var model = GetLandingModel(1);
+            var model = GetLandingModel(1, Constantes.ConfiguracionPais.ProgramaNuevas);
 
             return View(model);
         }
