@@ -1,12 +1,18 @@
-﻿var fichaModule;
+﻿var localStorageModule;
+var analyticsPortalModule;
+
+var fichaModule;
 var componenteDetalleModule;
 
 $(document).ready(function () {
     AbrirLoad();
-    
+
+    localStorageModule = LocalStorageModule();
+    analyticsPortalModule = AnalyticsPortalModule;
+
     componenteDetalleModule = ComponenteDetalleModule({
-        localStorageModule: LocalStorageModule(),
-        analyticsPortalModule: AnalyticsPortalModule,
+        localStorageModule: localStorageModule,
+        analyticsPortalModule: analyticsPortalModule,
         palanca: modelPalanca,
         campania: modelCampania,
         cuv: modelCuv,
@@ -14,8 +20,8 @@ $(document).ready(function () {
     });
 
     fichaModule = FichaModule({
-        localStorageModule: LocalStorageModule(),
-        analyticsPortalModule: AnalyticsPortalModule,
+        localStorageModule: localStorageModule,
+        analyticsPortalModule: analyticsPortalModule,
         componenteDetalleModule: componenteDetalleModule,
 
         generalModule: GeneralModule,
