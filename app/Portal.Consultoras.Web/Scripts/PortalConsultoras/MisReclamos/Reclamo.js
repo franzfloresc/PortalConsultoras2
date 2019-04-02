@@ -86,7 +86,7 @@ $(document).ready(function () {
                 } else {
                     //Seteamos la data de la respuesta del servicio de cdr
                     var ProductoSeleccionado = {
-                        CUV: $("#ddlCuv").val(),
+                        CUV: $("#hdfCUV").val(),
                         Descripcion: $("#hdtxtCUVDescripcion").val()
                     };
 
@@ -155,7 +155,7 @@ $(document).ready(function () {
     $("#ResultadosBusquedaCUV").on("click", ".resultado_busqueda_por_cuv_enlace", function (e) {
         e.preventDefault();
         var codigoProdCdr = $(this).find(".resultado_busqueda_por_cuv_codigo_prod").html();
-        $('#hdfCUVSeleccionado').val(codigoProdCdr);//HD-3703 EINCA
+        $('#hdfCUV').val(codigoProdCdr);//HD-3703 EINCA
         var descripProdCdr = $(this).find(".resultado_busqueda_por_cuv_descrip_prod").html();
         $("#ddlCuv").val(codigoProdCdr + ' - ' + descripProdCdr);
         $(".lista_resultados_busqueda_por_cuv_wrapper").fadeOut(100);        
@@ -644,7 +644,7 @@ function AsignarCUV(pedido) {
         alert_msg("Lo sentimos, usted ha excedido el límite de reclamos por pedido");
     } else {
         pedido.olstBEPedidoWebDetalle = pedido.olstBEPedidoWebDetalle || new Array();
-        var cuvSeleccionado = $.trim($('#hdfCUVSeleccionado').val());
+        var cuvSeleccionado = $.trim($('#hdfCUV').val());
         //var detalle = pedido.olstBEPedidoWebDetalle.Find("CUV", $.trim($("#ddlCuv").val()) || "");
         var detalle = pedido.olstBEPedidoWebDetalle.Find("CUV", cuvSeleccionado || "");
         var data = detalle.length > 0 ? detalle[0] : new Object();
@@ -823,7 +823,7 @@ function ValidarPasoUnoServer(callbackWhenFinish) {
     });
     var item = {
         PedidoID: $("#txtPedidoID").val(),
-        CUV: $.trim($("#ddlCuv").val()),
+        CUV: $.trim($('#hdfCUV').val()),// $.trim($("#ddlCuv").val()),
         Cantidad: $.trim($("#txtCantidad").val()),
         Motivo: $.trim($("#divMotivo [data-check='1']").attr("id")),
         CampaniaID: $("#ddlCampania").val()
@@ -1070,7 +1070,7 @@ function CargarPropuesta(codigoSsic) {
     var tipo = (codigoSsic == "C" || codigoSsic == "D" || codigoSsic == "F" || codigoSsic == "G") ? "canje" : "cambio";
 
     var item = {
-        CUV: $.trim($("#ddlCuv").val()),//$.trim($("#txtCuv").text()),
+        CUV: $.trim($("#hdfCUV").val()),// $.trim($("#ddlCuv").val()),//$.trim($("#txtCuv").text()),
         DescripcionProd: $.trim($("#hdtxtCUVDescripcion").val()),
         Cantidad: $.trim($("#txtCantidad").val()),
         EstadoSsic: $.trim(codigoSsic)
@@ -1115,7 +1115,7 @@ function DetalleGuardar() {
         CampaniaID: $("#ddlCampania").val() || 0,
         Motivo: $(".reclamo_motivo_select[data-check='1']").attr("id"),
         Operacion: $(".btn_solucion_reclamo[data-check='1']").attr("id"),
-        CUV: $.trim($("#ddlCuv").val()),//$("#txtCUV").val(),
+        CUV: $.trim($("#hdfCUV").val()),//$.trim($("#ddlCuv").val()),//$("#txtCUV").val(),
         Cantidad: $("#txtCantidad").val(),
         CUV2: $("#txtCUV2").val(),
         Cantidad2: $("#txtCantidad2").val()

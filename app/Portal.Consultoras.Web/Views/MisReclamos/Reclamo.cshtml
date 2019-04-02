@@ -48,13 +48,13 @@
                         <input type="hidden" id="txtPrecioUnidad" />
                         <input type="hidden" id="hdImporteTotalPedido" />
                         <input type="hidden" id="hdtxtCUVDescripcion" />
+                        <input type="hidden" id="hdfCUV" value="0" />
                         <select class="elige_num_pedido" id="ddlnumPedido" name="numPedido" required="required" style="display:none;"></select>
                         @*<div class="contenedor_descripcion_reclamo">
-                            <select class="chosen-select descripcion_reclamo" data-placeholder="Ingresa el código" id="ddlCuv" name="txtCUVDescripcion" required="required"></select>
-                            <span class="descripcion_reclamo_fake_placeholder">Ingresa el código</span>
-                        </div>*@
+                                <select class="chosen-select descripcion_reclamo" data-placeholder="Ingresa el código" id="ddlCuv" name="txtCUVDescripcion" required="required"></select>
+                                <span class="descripcion_reclamo_fake_placeholder">Ingresa el código</span>
+                            </div>*@
                         <div class="contenedor_descripcion_reclamo">
-                            <input type="hidden" id="hdfCUVSeleccionado" value="0" />
                             <input type="text" placeholder="Ingresa el código" class="descripcion_reclamo" id="ddlCuv" name="txtCUVDescripcion" required="required" />
                             <div class="border-radius-4 lista_resultados_busqueda_por_cuv_wrapper">
                                 <ul id="ResultadosBusquedaCUV" class="lista_resultados_busqueda_por_cuv"></ul>
@@ -71,8 +71,6 @@
                 </div>
                 <hr class="clear" />
                 <div>
-                    <div class="subtitulo_reclamo">¿Cuál fue el inconveniente?</div>
-                    <hr class="clear" />
                     <div class="content_motivo_wrapper">
                         <div class="content_motivo_select" id="divMotivo"></div>
                         <div class="clear"></div>
@@ -370,6 +368,7 @@
     {{/each}}
 </script>
 <script id="template-motivo" type="text/x-handlebars-template">
+    <div class="subtitulo_reclamo">¿Cuál fue el inconveniente?</div>
     {{#each this as |item|}}
     <div class="reclamo_motivo_select" id="{{item.CodigoReclamo}}">{{item.DescripcionReclamo}}</div>
     {{/each}}
