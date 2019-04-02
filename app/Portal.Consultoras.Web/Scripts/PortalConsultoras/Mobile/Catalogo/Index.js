@@ -47,8 +47,7 @@ $(document).ready(function () {
         $("[data-tag-html]").hide();
         var tag = $(this).attr("data-tag") || "";
         var obj = $("[data-tag-html='" + tag + "']");
-
-        //soluciona error en producción: Uncaught ReferenceError: TagManagerPaginasVirtuales is not defined
+        
         if (tag === "Revistas") TagManagerPaginasVirtuales();
 
         $.each(obj, function (ind, objTag) {
@@ -74,9 +73,7 @@ $(document).ready(function () {
     CargarCarruselCatalogo();
     ColumnasDeshabilitadasxPais();
     CargarTodosCorreo();
-
-    //soluciona error en producción : Uncaught ReferenceError: CatalogoMostrar is not defined
-    
+        
     $("#divCatalogo a[data-button_carrusel='carrusel'] > img").click(function (e) {
 
         var img = $(this).attr("id") || "";

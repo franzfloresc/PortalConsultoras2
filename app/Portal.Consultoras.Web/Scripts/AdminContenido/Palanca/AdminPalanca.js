@@ -22,12 +22,7 @@ jQuery(document).ready(function () {
     UpdateGrillaPalanca();
     IniDialogs();
     IniDialogOfertasHome();
-
-    //$("#btnBuscar").click(function () {
-    //    UpdateGrillaOfertas();
-    //});
-
-
+    
     $("#ddlTipoEstrategia").change(function () {
 
     });
@@ -210,7 +205,7 @@ function Modificar(idConfiguracionPais, event) {
                 $("#divDesktopTituloBanner").hide();
                 $("#divDesktopSubTituloBanner").hide();
             } else {
-                $("#lblDesktop").html('Desktop');//Default
+                $("#lblDesktop").html('Desktop');
                 $("#divUrlMenu").show();
                 $("#divUrlMenuTxt").show();
 
@@ -243,7 +238,7 @@ function IniDialogs() {
         draggable: false,
         title: "Menú",
         open: function (event, ui) {
-            //(".ui-dialog-titlebar-close", ui.dialog).hide(); //eaar tiene bug
+
         },
         close: function () {
             HideDialog("DialogMantenimientoPalanca");
@@ -256,8 +251,7 @@ function IniDialogs() {
                         _toastHelper.error("El valor del orden tiene que ser numerico.");
                         return false;
                     }
-
-                    /*INIT AGANA 159 */
+                    
                     var esATP = $.trim($("#Codigo").val()) === ConstantesModule.CodigoPalanca.ATP;
 
                     if (esATP) {
@@ -267,7 +261,7 @@ function IniDialogs() {
                         $("#DialogMantenimientoPalanca #MobileOrdenBpt").val($("#Orden").val());
                         $("#MobileTituloMenu").val($("#DesktopTituloMenu").val());
                     }
-                    /*END AGANA 159 */
+
 
                     var params = {
                         ConfiguracionPaisID: $("#ConfiguracionPaisID").val(),
@@ -304,16 +298,13 @@ function IniDialogs() {
                         success: function (data) {
                             if (data.success) {
                                 HideDialog("DialogMantenimientoPalanca");
-                                //_toastHelper.error("Solicitud realizada sin problemas.");
                                 showDialogMensaje("Solicitud realizada sin problemas.", '');
                                 UpdateGrillaPalanca();
                             } else {
-                                //_toastHelper.error("Error al procesar la Solicitud.");
                                 showDialogMensaje("Error al procesar la Solicitud.", '');
                             }
                         },
                         error: function (data, error) {
-                            //_toastHelper.error("Error al procesar la Solicitud.");
                             showDialogMensaje("Error al procesar la Solicitud.", '');
                         }
                     });
@@ -719,12 +710,10 @@ function IniDialogOfertasHome() {
 
                             if (data.success) {
                                 HideDialog("DialogMantenimientoOfertasHome");
-                                //_toastHelper.success("Solicitud realizada sin problemas.");
                                 showDialogMensaje(data.message, '');
                                 UpdateGrillaOfertas();
                             } else {
                                 showDialogMensaje(data.message, '');
-                                //_toastHelper.error("Error al procesar la Solicitud.");
                             }
                         },
                         error: function (data, error) {
@@ -932,7 +921,7 @@ function OfertasHomeMostrarCampos() {
     $("#divMantApp").show();
 
     $(".divHomeUsarImagenFondo").hide(); // caso odd
-    /*Inicia Agana 186 */
+    
     if (codigoConfiguracionPais == ConstantesModule.CodigoPalanca.ATP) {
         $("#divTituloMobile").hide();
         $("#divContenidoMobile").hide();

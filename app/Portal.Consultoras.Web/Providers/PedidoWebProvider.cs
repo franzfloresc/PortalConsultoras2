@@ -210,7 +210,6 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     item.ClienteID = string.IsNullOrEmpty(item.Nombre) ? (short)0 : Convert.ToInt16(item.ClienteID);
                     item.Nombre = string.IsNullOrEmpty(item.Nombre) ? "Para mí" : item.Nombre;
-                    //item.DescripcionOferta = ObtenerDescripcionOferta(item, false, false, userData.NuevasDescripcionesBuscador);
                 }
             }
             catch (Exception ex)

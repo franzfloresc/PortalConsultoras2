@@ -75,12 +75,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             record.DropDownUbigeo1 = await _miPerfilProvider.ObtenerUbigeoPrincipalAsync(userData.CodigoISO);
         }
-
-        //private List<ParametroUneteBE> DropDownUbigeoPrincipal()
-        //{
-        //    return _miPerfilProvider.ObtenerUbigeoPrincipal(userData.CodigoISO);
-        //}
-
+        
         [HttpGet]
         public async Task<JsonResult> ObtenerUbigeoDependiente(int Nivel, int IdPadre)
         {

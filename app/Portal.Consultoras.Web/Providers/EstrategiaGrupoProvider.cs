@@ -30,20 +30,20 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
-        public bool Guardar(List<EstrategiaGrupoModel> datos, string codigoIso)
+        public OutputEstrategiaGrupo Guardar(List<EstrategiaGrupoModel> datos, string codigoIso)
         {
             if (!datos.Any())
             {
-                return true;
+                return new OutputEstrategiaGrupo { Success = true, Message = "Sin datos que guardar" };
             }
 
-            Task<bool> taskapi = Task.Run(() => InsertarGrupoEstrategiaApi(Constantes.PersonalizacionOfertasService.UrlGuardarEstrategiaGrupo, datos, codigoIso));
+            Task<OutputEstrategiaGrupo> taskapi = Task.Run(() => InsertarGrupoEstrategiaApi(Constantes.PersonalizacionOfertasService.UrlGuardarEstrategiaGrupo, datos, codigoIso));
             Task.WhenAll(taskapi);
 
             return taskapi.Result;
         }
 
-        private async Task<bool> InsertarGrupoEstrategiaApi(string path, List<EstrategiaGrupoModel> datos, string codigoIso)
+        private async Task<OutputEstrategiaGrupo> InsertarGrupoEstrategiaApi(string path, List<EstrategiaGrupoModel> datos, string codigoIso)
         {
             OutputEstrategiaGrupo respuesta = new OutputEstrategiaGrupo { Success = false };
 
@@ -59,7 +59,7 @@ namespace Portal.Consultoras.Web.Providers
 
             if (!httpResponse.IsSuccessStatusCode)
             {
-                return respuesta.Success;
+                return respuesta;
             }
 
             string jsonString = await httpResponse.Content.ReadAsStringAsync();
@@ -78,7 +78,7 @@ namespace Portal.Consultoras.Web.Providers
                 Common.LogManager.SaveLog(new Exception(respuesta.Message), string.Empty, codigoIso);
             }
 
-            return respuesta.Success;
+            return respuesta;
         }
 
         public List<EstrategiaGrupoModel> ObtenerEstrategiaGrupo(string estrategiaId, string codigoIso)
@@ -121,8 +121,7 @@ namespace Portal.Consultoras.Web.Providers
             {
                 return respuesta;
             }
-
-            //var listaSinPrecio2 = new List<string>();
+            
             try
             {
                 respuesta = JsonConvert.DeserializeObject<OutputEstrategiaGrupo>(jsonString);

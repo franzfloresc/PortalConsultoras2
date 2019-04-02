@@ -354,7 +354,6 @@ var FichaModule = (function (config) {
         if (data.Detalles.length == 0) {
             _redireccionar('_asignaDetallePedido, sin detalles componentes');
             return false;
-            //throw 'Componente: No existe detalle de pedido';
         }
         _selectClient(data.ClienteId, data.ClienteNombre);
 
@@ -521,8 +520,17 @@ var FichaModule = (function (config) {
         estrategia.TieneStock = _config.esEditable || estrategia.TieneStock;
 
         estrategia = $.extend(_modeloFicha, estrategia);
+        estrategia.TipoPersonalizacion = _tipoPersonalizacion(estrategia.CodigoEstrategia);
         _estrategia = estrategia;
         return estrategia;
+    };
+
+    var _tipoPersonalizacion = function (codigoTipoEstrategia) {
+        try {
+            ConstantesModule.GetTipoPersonalizacionByTipoEstrategia(codigoTipoEstrategia);
+        } catch (e) {
+
+        }
     };
 
     ////// Fin - Obtener Estrategia
@@ -759,7 +767,7 @@ var FichaModule = (function (config) {
                 var dvRedesSocialesHeight = dvRedesSociales.innerHeight();
                 var diferenciaHeight = dvIzquierdoHeight - dvFichaEtiquetaHeight;
                 dvDetalle.removeClass("ficha_detalle_cuerpo");
-                //dvDetalle.height(diferenciaHeight);
+
                 dvDetalle.css("min-height", diferenciaHeight);
             }
             else {
