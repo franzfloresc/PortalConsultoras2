@@ -120,26 +120,31 @@ namespace Portal.Consultoras.Web.Controllers
 
         [HttpPost]
         //public JsonResult ObtenerComponenteDetalle(string estrategiaId, string cuv2, string campania, string codigoVariante, string codigoEstrategia = "")
-        public JsonResult ObtenerComponenteDetalle(string cuv)
+        public JsonResult ObtenerComponenteDetalle(string estrategiaId,string cuv2, string campaniaId, string codigoVariante, string codigoEstrategia)
 
         {
             try
             {
+            //EstrategiaID: estrategia.EstrategiaID,
+            //CUV2: componente.Cuv,
+            //CampaniaID: estrategia.CampaniaID,
+            //CodigoVariante: estrategiaCodigoVariante
+
                 var estrategiaModelo = new EstrategiaPersonalizadaProductoModel
                 {
-                    EstrategiaID = 123123,//estrategiaId.ToInt(),
-                    CUV2 = "30391",
-                    CampaniaID = 201905,//campania.ToInt(),
-                    CodigoVariante = "2003",//codigoVariante,
+                    EstrategiaID = estrategiaId.ToInt(),
+                    CUV2 = cuv2,
+                    CampaniaID = campaniaId.ToInt(), 
+                    CodigoVariante = codigoVariante, 
                     Hermanos = null
                 };
 
                 bool esMultimarca = false;
                 string mensaje = "";
 
-                //var res = _estrategiaComponenteProvider.GetListaComponentes(estrategiaModelo, codigoEstrategia, out esMultimarca, out mensaje).FirstOrDefault();
-                var res = _estrategiaComponenteProvider.GetListaComponentes(estrategiaModelo, "004", out esMultimarca, out mensaje).FirstOrDefault();
+                var res = _estrategiaComponenteProvider.GetListaComponentes(estrategiaModelo, codigoEstrategia, out esMultimarca, out mensaje).FirstOrDefault();
 
+                #region data tmp
                 List<EstrategiaComponenteSeccionModel> secciones = new List<EstrategiaComponenteSeccionModel>(){
                 new EstrategiaComponenteSeccionModel()
                 {
@@ -165,10 +170,9 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
                 };
+                #endregion
 
-                secciones.ForEach(x => {
-                    x.EsVideos = x.Detalles.FindAll(y => !string.IsNullOrEmpty(y.Key)).Count > 0;
-                });
+                secciones.ForEach(x => {x.EsVideos = x.Detalles.FindAll(y => !string.IsNullOrEmpty(y.Key)).Count > 0;});
 
                 //EAAR: consumir servicio de juanjo
 

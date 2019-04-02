@@ -102,13 +102,13 @@
 
         console.log('componente', componente);
         console.log('estrategia', estrategia);
-        console.log('componente.Cuv', componente.Cuv);
-        console.log('_config', _config);
-
+       
         _config.ComponenteDetalleProvider.PromiseObternerComponenteDetalle({
-            codigoEstrategia: estrategia.CodigoEstrategia,
-            campaniaID: estrategia.CampaniaID,
-            cuv: componente.Cuv
+            estrategiaId: estrategia.EstrategiaID,
+            cuv2: componente.Cuv,
+            campaniaId: estrategia.CampaniaID,
+            codigoVariante: estrategia.CodigoVariante,
+            codigoEstrategia: estrategia.CodigoEstrategia
         }).done(function (res) {
             console.log('res', res);
             
