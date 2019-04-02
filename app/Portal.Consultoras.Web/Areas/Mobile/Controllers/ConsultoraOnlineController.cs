@@ -1254,8 +1254,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             try
             {
                 MisPedidosModel consultoraOnlineMisPedidos = SessionManager.GetobjMisPedidos();
-                //string _cuv = Convert.ToString(cuv);
-             
+                //string _cuv = Convert.ToString(cuv);           
                 var pedido = consultoraOnlineMisPedidos.ListaPedidos.Where(p => p.CUV == cuv && p.Estado.Trim().Length == 0).ToList();
 
                 if (pedido == null)
@@ -1269,13 +1268,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         return RedirectToAction("Home", "Bienvenida", new { area = "Mobile" });
                     }
                 }
-
                 //List<BEMisPedidos> olstMisPedidos;
                 //using (UsuarioServiceClient svc = new UsuarioServiceClient())
                 //{
                 //    olstMisPedidos = svc.GetMisPedidosConsultoraOnlineCliente(userData.PaisID,0, cuv).ToList();
                 //}
-
                //model.ListaDetalle2 = new List<MisPedidosDetalleModel2>();
                 if (pedido.Count> 0)
                 {

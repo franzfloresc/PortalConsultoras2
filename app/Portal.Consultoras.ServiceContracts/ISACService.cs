@@ -595,6 +595,9 @@ namespace Portal.Consultoras.ServiceContracts
         void RechazarSolicitudCliente(int paisID, long solicitudId, bool definitivo, int opcionRechazo, string razonMotivoRechazo);
 
         [OperationContract]
+        void RechazarSolicitudVistaCliente(int paisID, long solicitudId, int cuv);
+
+        [OperationContract]
         BESolicitudNuevaConsultora ReasignarSolicitudCliente(int paisID, long solicitudId, string codigoUbigeo, string campania, int marcaId, int opcionRechazo, string razonMotivoRechazo);
 
         [OperationContract]
