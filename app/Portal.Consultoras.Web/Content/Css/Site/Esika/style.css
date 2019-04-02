@@ -28250,10 +28250,88 @@ div.motivoRechazo textarea {
 
 .contenedor_descripcion_reclamo{
     position:relative;
-    margin-right:22px;
+    margin-right:8px;
+    z-index:24;
 }
 
-.descripcion_reclamo_fake_placeholder{
+.lista_resultados_busqueda_por_cuv_wrapper {
+    display: none;
+    background-color: #FFF;
+    border-top: 1px solid #FFF;
+    border-left: 1px solid #000;
+    border-right: 1px solid #000;
+    border-bottom: 1px solid #000;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    position: absolute;
+    width:100%;
+    top: 36px;
+    z-index: 2;
+    padding: 8px 10px 0 0;
+}
+
+.lista_resultados_busqueda_por_cuv {
+    min-height: 0;
+    max-height: 200px;
+    overflow: auto;
+    margin-bottom:15px;
+}
+
+    .lista_resultados_busqueda_por_cuv::-webkit-scrollbar-track {
+        background-color: #e2e2e2;
+        border-radius: 4px;
+    }
+
+.resultado_busqueda_por_cuv{
+    border-bottom:1px solid #b5b5b5;
+}
+
+    .resultado_busqueda_por_cuv:last-child{
+        border-bottom:none;
+    }
+
+    .resultado_busqueda_por_cuv:last-child .resultado_busqueda_por_cuv_enlace{
+        padding-bottom:0;
+    }
+
+.resultado_busqueda_por_cuv_enlace {
+    display: block;
+    width: 100%;
+    min-height: 77px;
+    padding: 15px 10px 15px 20px;
+}
+
+.resultado_busqueda_por_cuv_datos_imagen,
+.resultado_busqueda_por_cuv_datos_prod {
+    display: inline-block;
+    vertical-align:middle;
+}
+
+.resultado_busqueda_por_cuv_datos_imagen{
+    height:40px;
+    margin-right:16px;
+}
+
+.resultado_busqueda_por_cuv_datos_imagen img{
+    width:auto;
+    height:100%;
+}
+
+.resultado_busqueda_por_cuv_datos_prod {
+    width: 83%;
+}
+
+.resultado_busqueda_por_cuv_codigo_prod{
+    color:#808080;
+    margin-bottom:3px;
+}
+
+.resultado_busqueda_por_cuv_codigo_prod,
+.resultado_busqueda_por_cuv_descrip_prod {
+    font-size: 13px;
+}
+
+.descripcion_reclamo_fake_placeholder {
     display: block;
     width: 100%;
     margin: auto 0;
@@ -28340,19 +28418,21 @@ div.motivoRechazo textarea {
     color:#000;
 }
 
-.descripcion_reclamo + .chosen-container .chosen-search-input[type="text"]{
-    display:block;
-    height:100%;
-    font-family:'Lato', sans-serif;
-    padding-left:18px;
-    padding-right:18px;
-    padding-top:1px;
-    border:1px solid#000;
-    background-color:#FBFBFB;
-    font-size:14px;
-    background-image:url(../../../Images/icono_lupa.svg);
-    background-repeat:no-repeat;
-    background-position:97% center;
+.descripcion_reclamo + .chosen-container .chosen-search-input[type="text"] {
+    display: block;
+    height: 100%;
+    font-family: 'Lato', sans-serif;
+    padding-left: 18px;
+    padding-right: 18px;
+    padding-top: 1px;
+    border: 0;
+    /*background-color:#FBFBFB;*/
+    /*background-color:#FBFBFB;*/
+    background-color: #FFF;
+    font-size: 14px;
+    background-image: url(../../../Images/icono_lupa.svg);
+    background-repeat: no-repeat;
+    background-position: 97% center;
 }
 
 .descripcion_reclamo + .chosen-container .chosen-results{
