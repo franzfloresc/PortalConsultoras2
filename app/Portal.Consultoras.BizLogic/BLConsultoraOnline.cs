@@ -7,10 +7,10 @@ using System.Data;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
-using Portal.Consultoras.Entities.Search.ResponseRecomendacion.Estructura;
 using Portal.Consultoras.Entities.Search.RequestRecomendacion;
 using Portal.Consultoras.Entities.Search.ResponseRecomendacion;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Entities.Search.RequestRecomendacion.Estructura;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -174,7 +174,7 @@ namespace Portal.Consultoras.BizLogic
             RecomendadoRequest.codigoProducto.Add("200088604");
             RecomendadoRequest.cantidadProductos = 1000;
             RecomendadoRequest.personalizaciones = "";
-            RecomendadoRequest.configuracion = new configuracion();
+            RecomendadoRequest.configuracion = new Configuracion();
             RecomendadoRequest.configuracion.sociaEmpresaria = "0";
             RecomendadoRequest.configuracion.suscripcionActiva = "False";
             RecomendadoRequest.configuracion.mdo = "True";
