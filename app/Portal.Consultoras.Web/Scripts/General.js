@@ -384,6 +384,11 @@ jQuery(document).ready(function () {
             Handlebars.registerHelper('Multiplicar', function (a, b) {
                 return a * b;
             });
+
+            //EAAR
+            Handlebars.registerHelper('json', function (context) {
+                return JSON.stringify(context).replace(/"/g, '&quot;');
+            });
         }
     };
 

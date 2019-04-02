@@ -13,7 +13,7 @@
 
     var _urlComponenteDetalle = ConstantesModule.UrlDetalleEstrategia;
     var _codigoVariedad = ConstantesModule.CodigoVariedad;
-    var _codigoPalanca = ConstantesModule.CodigosPalanca;
+    var _tipoEstrategiaTexto = ConstantesModule.TipoEstrategiaTexto;
     var _constantePalanca = ConstantesModule.ConstantesPalanca;
 
     var _config = {        
@@ -96,12 +96,13 @@
         }
     };
 
-    var _VerDetalle = function (cuv) {
+    var _VerDetalle = function (componente) {
 
         var estrategia = _config.localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
 
+        console.log('componente', componente);
         console.log('estrategia', estrategia);
-        console.log('cuv', cuv);
+        console.log('componente.Cuv', componente.Cuv);
         console.log('_config', _config);
 
         _config.ComponenteDetalleProvider.PromiseObternerComponenteDetalle({
@@ -127,14 +128,14 @@
      
     var _OcultarControles = function () {
 
-        if (_codigoPalanca.Ganadoras === _config.palanca ||
-            _codigoPalanca.ShowRoom === _config.palanca || /*Especiales*/
-            _codigoPalanca.Lanzamiento === _config.palanca || /*Lo nuevo nuevo*/
-            _codigoPalanca.OfertasParaMi === _config.palanca ||
-            _codigoPalanca.OfertaParaTi === _config.palanca ||
+        if (_tipoEstrategiaTexto.Ganadoras === _config.palanca ||
+            _tipoEstrategiaTexto.ShowRoom === _config.palanca || /*Especiales*/
+            _tipoEstrategiaTexto.Lanzamiento === _config.palanca || /*Lo nuevo nuevo*/
+            _tipoEstrategiaTexto.OfertasParaMi === _config.palanca ||
+            _tipoEstrategiaTexto.OfertaParaTi === _config.palanca ||
 
-            _codigoPalanca.GuiaNegocio === _config.palanca ||
-            _codigoPalanca.GuiaDeNegocioDigitalizada === _config.palanca) {
+            _tipoEstrategiaTexto.GuiaNegocio === _config.palanca ||
+            _tipoEstrategiaTexto.GuiaDeNegocioDigitalizada === _config.palanca) {
 
             _validator.mostrarContenidoProducto(true);
 
