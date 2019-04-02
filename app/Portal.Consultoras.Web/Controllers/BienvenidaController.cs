@@ -1867,18 +1867,21 @@ namespace Portal.Consultoras.Web.Controllers
 
         public string ObtenerActualizacionEmailSms(string pagina = "1")
         {
+            string[] ValidacionDatos = new string[2];
             try
             {
                 BEMensajeToolTip obj;
 
-                //int ValidacionDatos = ValidacionPerfilConsultora();
-
-
-
-
-
                 using (var sv = new UsuarioServiceClient())
                     obj = sv.GetActualizacionEmailySms(userData.PaisID, userData.CodigoUsuario);
+
+               //  ValidacionDatos = ValidacionPerfilConsultora(obj, pagina);
+
+
+
+
+
+
 
                 if (obj == null) return pagina == "1" ? "" : "|";
                 if (obj.oDatosPerfil == null) return pagina == "1" ? "" : "|";
@@ -1930,29 +1933,67 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private int ValidacionPerfilConsultora()
+        private string[] ValidacionPerfilConsultora(BEMensajeToolTip obj, string pagina)
         {
+            string[] tipoEnvio= new string[2];
+            string[] resultadoValidacionPerfil = new string[2];
             int resultadoActivoPopup = 0;
             List<BEValidacionDatos> listBEValidacionDatos;
+            tipoEnvio[0] = Constantes.TipoEnvio.SMS.ToString();
+            tipoEnvio[1] = Constantes.TipoEnvio.EMAIL.ToString();
+
 
             using (var sv = new UsuarioServiceClient())
                    resultadoActivoPopup = sv.ValidaEstadoPopup(userData.PaisID);
 
-            if (resultadoActivoPopup == 1)/*Si el popup está inactivo ingresa pasará por demás validaciones*/
+            if (resultadoActivoPopup == 1)/*Si el popup está activo ingresa, pasará por demás validaciones para saber si quedará activo*/
             {
                 using (var sv = new UsuarioServiceClient())
                     listBEValidacionDatos = sv.GetTipoEnvioActivos(userData.PaisID, userData.CodigoUsuario).ToList();
 
-                if (listBEValidacionDatos.Count> 0)
+                if (userData.PaisID == Convert.ToInt32(Constantes.PaisID.Peru))
                 {
+                    var tipoenvioContainActivo = from t in listBEValidacionDatos
+                                           where tipoEnvio.Contains(t.TipoEnvio)  && t.Estado=="A"
+                                           select t;
+
+                    if (tipoenvioContainActivo.Count() == tipoEnvio.Length)
+                    {
+                        /*Validamos si no cuenta con SMS*/
+                        if (listBEValidacionDatos.Where(x => x.TipoEnvio.Contains(Constantes.TipoEnvio.SMS.ToString())).ToList().Count <= 0)
+                        {
+                            resultadoValidacionPerfil[0] = "1";
+                            resultadoValidacionPerfil[1] = obj.MensajeCelular;
+                        }
+                        else
+                        if (listBEValidacionDatos.Where(x => x.TipoEnvio.Contains(Constantes.TipoEnvio.EMAIL.ToString())).ToList().Count <= 0)
+                        {
+                            resultadoValidacionPerfil[0] = "1";
+                            resultadoValidacionPerfil[1] = obj.MensajeEmail;
+                        }
+                    }
+                    else /*No cuenta con ninguna validación, ni de email, teléfono o celular*/
+                    {
+                        var tipoenvioContainPendiente = from t in listBEValidacionDatos
+                                                        where tipoEnvio.Contains(t.TipoEnvio) && t.Estado == "P"
+                                                        select t;
+
+                        if (tipoenvioContainPendiente.Count() > 0)
+                        {
+                            resultadoValidacionPerfil[0] = "1";
+                            resultadoValidacionPerfil[1] = obj.MensajeAmbos;
+                        }
+                        else resultadoValidacionPerfil[0] = "0"; resultadoValidacionPerfil[0] = string.Empty;
+                    }
 
                 }
-                   
-
-
             }
-            else  return resultadoActivoPopup;/*Significa que el popup está en estado inactivo*/
-            return 0;
+            /*Significa que el popup está en estado inactivo*/
+            else {
+                resultadoValidacionPerfil[0] = "0"; resultadoValidacionPerfil[0] = string.Empty;
+            }
+
+            return resultadoValidacionPerfil;
         }
 
         public JsonResult ObtenerEstadoContrato()
