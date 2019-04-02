@@ -520,8 +520,17 @@ var FichaModule = (function (config) {
         estrategia.TieneStock = _config.esEditable || estrategia.TieneStock;
 
         estrategia = $.extend(_modeloFicha, estrategia);
+        estrategia.TipoPersonalizacion = _tipoPersonalizacion(estrategia.CodigoEstrategia);
         _estrategia = estrategia;
         return estrategia;
+    };
+
+    var _tipoPersonalizacion = function (codigoTipoEstrategia) {
+        try {
+            ConstantesModule.GetTipoPersonalizacionByTipoEstrategia(codigoTipoEstrategia);
+        } catch (e) {
+
+        }
     };
 
     ////// Fin - Obtener Estrategia
