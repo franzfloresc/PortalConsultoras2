@@ -234,6 +234,7 @@
     <Compile Include="Controllers\BonificacionesController.cs" />
     <Compile Include="Controllers\BaseAdmController.cs" />
     <Compile Include="Controllers\CaminoBrillanteController.cs" />
+    <Compile Include="Controllers\CaminoBrillanteOfertasController.cs" />
     <Compile Include="Controllers\ProductoRecomendadoController.cs" />
     <Compile Include="Controllers\TusClientesController.cs" />
     <Compile Include="Controllers\PremioNuevasController.cs" />
@@ -1418,9 +1419,12 @@
     <Content Include="Content\CaminoBrillante\Content.css" />
     <Content Include="Content\CaminoBrillante\css\estilos.css" />
     <Content Include="Content\CaminoBrillante\css\ganamas.css" />
+    <Content Include="Content\CaminoBrillante\imgs\ambar.svg" />
     <Content Include="Content\CaminoBrillante\imgs\barchar.PNG" />
     <Content Include="Content\CaminoBrillante\imgs\bg-modal.svg" />
+    <Content Include="Content\CaminoBrillante\imgs\brillante.svg" />
     <Content Include="Content\CaminoBrillante\imgs\brillo.svg" />
+    <Content Include="Content\CaminoBrillante\imgs\coral.svg" />
     <Content Include="Content\CaminoBrillante\imgs\group-14.svg" />
     <Content Include="Content\CaminoBrillante\imgs\group-17.svg" />
     <Content Include="Content\CaminoBrillante\imgs\group-23.svg" />
@@ -1433,6 +1437,7 @@
     <Content Include="Content\CaminoBrillante\imgs\icono-2.PNG" />
     <Content Include="Content\CaminoBrillante\imgs\icono.png" />
     <Content Include="Content\CaminoBrillante\imgs\image-1%402x.png" />
+    <Content Include="Content\CaminoBrillante\imgs\perla.svg" />
     <Content Include="Content\CaminoBrillante\imgs\PIZZA_06_01.svg" />
     <Content Include="Content\CaminoBrillante\imgs\PIZZA_06_02.svg" />
     <Content Include="Content\CaminoBrillante\imgs\PIZZA_06_03.svg" />
@@ -1452,6 +1457,7 @@
     <Content Include="Content\CaminoBrillante\imgs\recurso-34-3-x%402x.png" />
     <Content Include="Content\CaminoBrillante\imgs\recurso-35-3-x%402x.png" />
     <Content Include="Content\CaminoBrillante\imgs\recurso-36-3-x%402x.png" />
+    <Content Include="Content\CaminoBrillante\imgs\topacio.svg" />
     <Content Include="Content\CaminoBrillante\Mobile.css" />
     <Content Include="Content\Css\Button\style.css" />
     <Content Include="Content\Css\colorpicker\colorpicker.css" />
@@ -5741,6 +5747,8 @@
     <Content Include="Views\CaminoBrillante\Compromiso.cshtml" />
     <Content Include="Views\CaminoBrillante\Crecimiento.cshtml" />
     <Content Include="Views\DetalleEstrategia\ProductoTemplate.cshtml" />
+    <Content Include="Views\CaminoBrillanteOfertas\Index.cshtml" />
+    <Content Include="Views\CaminoBrillante\Ofertas.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

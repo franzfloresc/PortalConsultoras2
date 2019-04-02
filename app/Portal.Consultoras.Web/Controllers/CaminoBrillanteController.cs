@@ -4,6 +4,7 @@ using System;
 
 namespace Portal.Consultoras.Web.Controllers
 {
+    //[RoutePrefix("CaminoBrillante")]
     public class CaminoBrillanteController : BaseController
     {
         #region CaminoBrillante
@@ -12,7 +13,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var informacion = SessionManager.GetConsultoraCaminoBrillante();
             ViewBag.ResumenLogros = informacion.ResumenLogros;
-            ViewBag.TieneOfertasEspeciales = informacion.Niveles[0].TieneOfertasEspeciales;
+            ViewBag.TieneOfertasEspeciales = true; //informacion.Niveles[0].TieneOfertasEspeciales;
             return View();
         }
 
@@ -43,6 +44,13 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return Json(new { list = informacion, informacion.NivelConsultora[0].Nivel }, JsonRequestBehavior.AllowGet);
         }
+
+        //[Route("CaminoBrillante/{Ofertas}"]
+        public ActionResult Ofertas()
+        {
+            return View();
+        }
+
         #endregion
     }
 }

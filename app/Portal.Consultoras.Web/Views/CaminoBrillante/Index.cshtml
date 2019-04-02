@@ -50,9 +50,11 @@
     <div class="cont-benf" id="BeneficiosPrincipal">
     </div>
 
+
     @if (TieneOfertasEspeciales)
     {
-        <a id="OfertasEspeciales" class="btn-principal">Ofertas especiales</a>
+        @*<a id="OfertasEspeciales" class="btn-principal">Ofertas especiales</a>*@
+        <a id="OfertasEspeciales" href="@Url.Action("Ofertas", "CaminoBrillante")" class="btn-principal">Ofertas especiales</a>
     }
 
     <div class="cont-logros">
@@ -71,22 +73,25 @@
                                 {
                                     <li>
                                         @{
-                                            if (item2.Tipo == "PIE")
+                                            if (item2 != null)
                                             {
-                                                string[] torta = @item2.Valor.Split('-');
-                                                var imagen = torta[1].PadLeft(2,'0') + "_" + torta[2].PadLeft(2, '0') + ".svg";
-                                                <img src="~/Content/CaminoBrillante/imgs/PIZZA_@imagen" />
-                                            }
-                                            else
-                                            {
-                                                string Valor = item2.Valor.Replace("%", "");
-                                                string Estilo = Valor.Equals("25") ? "veinticinco" : "cinco";
-                                                <div class="circle-porcent @Estilo">
-                                                    <span>@item2.Valor</span>
-                                                </div>
+                                                if (item2.Tipo == "PIE")
+                                                {
+                                                    string[] torta = @item2.Valor.Split('-');
+                                                    var imagen = torta[1].PadLeft(2, '0') + "_" + torta[2].PadLeft(2, '0') + ".svg";
+                                                    <img src="~/Content/CaminoBrillante/imgs/PIZZA_@imagen" />
+                                                }
+                                                else
+                                                {
+                                                    string Valor = item2.Valor.Replace("%", "");
+                                                    string Estilo = Valor.Equals("25") ? "veinticinco" : "cinco";
+                                                    <div class="circle-porcent @Estilo">
+                                                        <span>@item2.Valor</span>
+                                                    </div>
+                                                }
+                                                <p>@item2.Titulo</p>
                                             }
                                         }
-                                        <p>@item2.Titulo</p>
                                     </li>
                                 }
                             </ul>
