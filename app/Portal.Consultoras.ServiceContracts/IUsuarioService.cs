@@ -449,5 +449,13 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         int ActualizarFijo(int PaisID, string codigoConsultora, string tipoEnvio, string telefonoAnterior, string telefonoActual);
 
+        [OperationContract]
+        int ValidaEstadoPopup(int PaisID);
+
+
+        [OperationContract]
+        List<BEValidacionDatos> GetTipoEnvioActivos(int PaisID, string CodigoUsuario);
+
+
     }
 }

@@ -2,6 +2,7 @@
 using Portal.Consultoras.Entities.OpcionesVerificacion;
 using Portal.Consultoras.Entities.Usuario;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 
@@ -728,6 +729,14 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CelularActual", DbType.AnsiString, celularActual);
 
             return Context.ExecuteNonQuery(command);
+        }
+
+        public IDataReader  GetTipoEnvioActivos(string codigoUsuario)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetTipoEnvioActivos");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, codigoUsuario);
+
+            return Context.ExecuteReader(command);
         }
 
         public int ActualizarFijo(string codigoConsultora, string tipoEnvio, string telefonoAnterior, string telefonoActual)

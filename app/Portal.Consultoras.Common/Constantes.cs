@@ -151,7 +151,8 @@ namespace Portal.Consultoras.Common
             public const int IdMaximo = 502;
         }
 
-        public static class TablaLogicaDato
+
+            public static class TablaLogicaDato
         {
             // PackNuevas-PedidoAsociado.
             public const int TablaLogicaPackNuevasPedidoAsociadoID = 72;
@@ -189,6 +190,8 @@ namespace Portal.Consultoras.Common
             public const int MensajeActualizarSms = 1002;
             public const int MensajeActualizarEmail = 1003;
             public const int MensajeActualizarFijo = 16261;
+
+            public const int TablaLogicaestadoPopupInformativoID = 191;
 
             public static class PersonalizacionOdd
             {

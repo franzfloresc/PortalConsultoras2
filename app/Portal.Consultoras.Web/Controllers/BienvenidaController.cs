@@ -1871,6 +1871,12 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 BEMensajeToolTip obj;
 
+                //int ValidacionDatos = ValidacionPerfilConsultora();
+
+
+
+
+
                 using (var sv = new UsuarioServiceClient())
                     obj = sv.GetActualizacionEmailySms(userData.PaisID, userData.CodigoUsuario);
 
@@ -1922,6 +1928,31 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return pagina == "1" ? "" : "|";
             }
+        }
+
+        private int ValidacionPerfilConsultora()
+        {
+            int resultadoActivoPopup = 0;
+            List<BEValidacionDatos> listBEValidacionDatos;
+
+            using (var sv = new UsuarioServiceClient())
+                   resultadoActivoPopup = sv.ValidaEstadoPopup(userData.PaisID);
+
+            if (resultadoActivoPopup == 1)/*Si el popup está inactivo ingresa pasará por demás validaciones*/
+            {
+                using (var sv = new UsuarioServiceClient())
+                    listBEValidacionDatos = sv.GetTipoEnvioActivos(userData.PaisID, userData.CodigoUsuario).ToList();
+
+                if (listBEValidacionDatos.Count> 0)
+                {
+
+                }
+                   
+
+
+            }
+            else  return resultadoActivoPopup;/*Significa que el popup está en estado inactivo*/
+            return 0;
         }
 
         public JsonResult ObtenerEstadoContrato()

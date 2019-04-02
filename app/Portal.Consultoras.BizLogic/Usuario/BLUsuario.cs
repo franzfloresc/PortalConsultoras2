@@ -753,6 +753,32 @@ namespace Portal.Consultoras.BizLogic
             return daUsuario.ActualizarSMS(codigoConsultora, tipoEnvio, celularAnterior, celularActual);
         }
 
+        public int ValidaEstadoPopup(int paisID)
+        {
+            var tablaLogica = _tablaLogicaDatosBusinessLogic.GetList(paisID, Constantes.TablaLogicaDato.TablaLogicaestadoPopupInformativoID);
+            return Convert.ToInt32( tablaLogica.FirstOrDefault().Valor);
+        }
+
+        public List<BEValidacionDatos> GetTipoEnvioActivos(int paisID, string codigoUsuario)
+        {
+            List<BEValidacionDatos> lista = new List<BEValidacionDatos>();
+            var daUsuario = new DAUsuario(paisID);
+
+            using (IDataReader reader = daUsuario.GetTipoEnvioActivos(codigoUsuario))
+            {
+                BEValidacionDatos validacionDato;
+
+                while (reader.Read())
+                {
+                    validacionDato = MapUtil.MapToObject<BEValidacionDatos>(reader, true, true);
+                    lista.Add(new BEValidacionDatos() { TipoEnvio=validacionDato.TipoEnvio, DatoNuevo=validacionDato.DatoNuevo, DatoAntiguo=validacionDato.DatoAntiguo, Estado=validacionDato.Estado});
+                }
+                
+            }
+
+            return lista;
+        }
+
         public int ActualizarValidacionDatos(bool isMobile, string ipDispositivo, string codigoConsultora,  int paisID, string CodigoUsuario, string tipoEnvio1, string tipoEnvio2)
         {
             var daUsuario = new DAUsuario(paisID);

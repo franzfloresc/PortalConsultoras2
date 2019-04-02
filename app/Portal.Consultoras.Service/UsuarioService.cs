@@ -963,5 +963,17 @@ namespace Portal.Consultoras.Service
             var BLUsuario = new BLUsuario();
             return BLUsuario.ActualizarFijo(PaisID, CodigoUsuario, tipoEnvio, telefonoAnterior, telefonoActual);
         }
+
+        public int ValidaEstadoPopup(int PaisID)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.ValidaEstadoPopup(PaisID);
+        }
+
+        public List<BEValidacionDatos> GetTipoEnvioActivos(int PaisID, string CodigoUsuario)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.GetTipoEnvioActivos(PaisID, CodigoUsuario);
+        }
     }
 }

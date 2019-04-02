@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data;
 using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities
@@ -50,5 +52,14 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         [Column("UsuarioModificacion")]
         public string UsuarioModificacion { get; set; }
+
+
+        //public BEValidacionDatos(IDataRecord row)
+        //{
+        //    TipoEnvio = row.ToString("TipoEnvio");
+        //    DatoAntiguo = row.ToString("DatoAntiguo");
+        //    DatoNuevo = row.ToString("DatoNuevo");
+        //    Estado = row.ToString("Estado");
+        //}
     }
 }
