@@ -873,7 +873,7 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private int EstrategiaIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEEstrategiaProducto> EstrategiaProductoField;
+        private Portal.Consultoras.Web.ServiceUsuario.BEEstrategiaProducto[] EstrategiaProductoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string EstrategiaProductoCodigoSAPField;
@@ -1591,7 +1591,7 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEEstrategiaProducto> EstrategiaProducto {
+        public Portal.Consultoras.Web.ServiceUsuario.BEEstrategiaProducto[] EstrategiaProducto {
             get {
                 return this.EstrategiaProductoField;
             }
@@ -5067,7 +5067,7 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private bool PuedeEnviarSMSField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos> RecomendacionesConfiguracionField;
+        private Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[] RecomendacionesConfiguracionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string RegionField;
@@ -5187,7 +5187,7 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string UrlBannerGanaMasField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioOpciones> UsuarioOpcionesField;
+        private Portal.Consultoras.Web.ServiceUsuario.BEUsuarioOpciones[] UsuarioOpcionesField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int UsuarioPruebaField;
@@ -7398,7 +7398,7 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos> RecomendacionesConfiguracion {
+        public Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[] RecomendacionesConfiguracion {
             get {
                 return this.RecomendacionesConfiguracionField;
             }
@@ -7918,7 +7918,7 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioOpciones> UsuarioOpciones {
+        public Portal.Consultoras.Web.ServiceUsuario.BEUsuarioOpciones[] UsuarioOpciones {
             get {
                 return this.UsuarioOpcionesField;
             }
@@ -8857,7 +8857,7 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private bool BloqueoProductoDigitalField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos> ConfiguracionPaisDatosField;
+        private Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[] ConfiguracionPaisDatosField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -8883,7 +8883,7 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos> ConfiguracionPaisDatos {
+        public Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[] ConfiguracionPaisDatos {
             get {
                 return this.ConfiguracionPaisDatosField;
             }
@@ -9367,13 +9367,13 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.RecomendadoRequest))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.configuracion))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Common.Enumeradores.RechazoBannerUrl))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<string>))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<int>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(string[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(int[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BERevistaDigitalSuscripcion))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioOpciones>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEUsuarioOpciones[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEUsuarioOpciones))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEMensajeToolTip))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioPerfil>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEUsuarioPerfil[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEUsuarioPerfil))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDireccion))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEValidaLoginSB2))]
@@ -9382,9 +9382,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPais))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BaseEntidad))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDetalle))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPais>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPais[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEUsuarioPostulante))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEUsuario))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEBuscadorYFiltrosConfiguracion))]
@@ -9393,43 +9393,43 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BERevistaDigital))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEOfertaFinal))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExterno))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExterno>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExterno[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEUsuarioConfiguracion))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEUsuarioChatEmtelco))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BETerminosCondiciones))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BETerminosCondiciones>))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEEventoFestivo>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BETerminosCondiciones[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEEventoFestivo[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEEventoFestivo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BERespuestaSMS))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEBuscadorYFiltros>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEBuscadorYFiltros[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEBuscadorYFiltros))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEEstrategia>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEEstrategia[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEEstrategia))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEEstrategiaDetalle))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEEstrategiaProducto>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEEstrategiaProducto[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEEstrategiaProducto))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BETipoEstrategia))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEConsultoraDatos))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioRol>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEUsuarioRol[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEUsuarioRol))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioCorreo>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEUsuarioCorreo[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEUsuarioCorreo))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEUsuario>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEUsuario[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEDupla))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEBelcorpResponde))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEKitNueva>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEKitNueva[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEKitNueva))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BeReporteContrato>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BeReporteContrato[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BeReporteContrato))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BENotificaciones>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BENotificaciones[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BENotificaciones))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BENotificacionesDetalle>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BENotificacionesDetalle[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BENotificacionesDetalle))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BENotificacionesDetallePedido>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BENotificacionesDetallePedido[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BENotificacionesDetallePedido))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEMisPedidosDetalle>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEMisPedidosDetalle[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEMisPedidosDetalle))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEConsultoraDatoSAC))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEConsultoraEstadoSAC))]
@@ -10124,7 +10124,7 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string codigoPaisField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Collections.Generic.List<string> codigoProductoField;
+        private string[] codigoProductoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string codigoZonaField;
@@ -10194,7 +10194,7 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<string> codigoProducto {
+        public string[] codigoProducto {
             get {
                 return this.codigoProductoField;
             }
@@ -10471,7 +10471,7 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string MensajeEmailField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioPerfil> oDatosPerfilField;
+        private Portal.Consultoras.Web.ServiceUsuario.BEUsuarioPerfil[] oDatosPerfilField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -10523,7 +10523,7 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioPerfil> oDatosPerfil {
+        public Portal.Consultoras.Web.ServiceUsuario.BEUsuarioPerfil[] oDatosPerfil {
             get {
                 return this.oDatosPerfilField;
             }
@@ -14624,7 +14624,7 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string CodigoUbigeoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEMisPedidosDetalle> DetallePedidoField;
+        private Portal.Consultoras.Web.ServiceUsuario.BEMisPedidosDetalle[] DetallePedidoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DireccionField;
@@ -14657,7 +14657,7 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private int LeidoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos> ListaClientesField;
+        private Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos[] ListaClientesField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string MarcaField;
@@ -14777,7 +14777,7 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEMisPedidosDetalle> DetallePedido {
+        public Portal.Consultoras.Web.ServiceUsuario.BEMisPedidosDetalle[] DetallePedido {
             get {
                 return this.DetallePedidoField;
             }
@@ -14920,7 +14920,7 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos> ListaClientes {
+        public Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos[] ListaClientes {
             get {
                 return this.ListaClientesField;
             }
@@ -16141,22 +16141,22 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         System.Threading.Tasks.Task<bool> ValidarUsuarioAsync(string paisIso, string codigoUsuario, string clave);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetConfiguracionPais", ReplyAction="http://tempuri.org/IUsuarioService/GetConfiguracionPaisResponse")]
-        System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPais> GetConfiguracionPais(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPais entidad);
+        Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPais[] GetConfiguracionPais(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPais entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetConfiguracionPais", ReplyAction="http://tempuri.org/IUsuarioService/GetConfiguracionPaisResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPais>> GetConfiguracionPaisAsync(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPais entidad);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPais[]> GetConfiguracionPaisAsync(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPais entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetConfiguracionPaisComponente", ReplyAction="http://tempuri.org/IUsuarioService/GetConfiguracionPaisComponenteResponse")]
-        System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos> GetConfiguracionPaisComponente(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad);
+        Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[] GetConfiguracionPaisComponente(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetConfiguracionPaisComponente", ReplyAction="http://tempuri.org/IUsuarioService/GetConfiguracionPaisComponenteResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos>> GetConfiguracionPaisComponenteAsync(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[]> GetConfiguracionPaisComponenteAsync(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetConfiguracionPaisComponenteDatos", ReplyAction="http://tempuri.org/IUsuarioService/GetConfiguracionPaisComponenteDatosResponse")]
-        System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos> GetConfiguracionPaisComponenteDatos(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad);
+        Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[] GetConfiguracionPaisComponenteDatos(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetConfiguracionPaisComponenteDatos", ReplyAction="http://tempuri.org/IUsuarioService/GetConfiguracionPaisComponenteDatosResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos>> GetConfiguracionPaisComponenteDatosAsync(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[]> GetConfiguracionPaisComponenteDatosAsync(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ConfiguracionPaisComponenteDeshabilitar", ReplyAction="http://tempuri.org/IUsuarioService/ConfiguracionPaisComponenteDeshabilitarRespons" +
             "e")]
@@ -16167,10 +16167,10 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         System.Threading.Tasks.Task<bool> ConfiguracionPaisComponenteDeshabilitarAsync(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ConfiguracionPaisDatosGuardar", ReplyAction="http://tempuri.org/IUsuarioService/ConfiguracionPaisDatosGuardarResponse")]
-        int ConfiguracionPaisDatosGuardar(int paisId, System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos> entidad);
+        int ConfiguracionPaisDatosGuardar(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[] entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ConfiguracionPaisDatosGuardar", ReplyAction="http://tempuri.org/IUsuarioService/ConfiguracionPaisDatosGuardarResponse")]
-        System.Threading.Tasks.Task<int> ConfiguracionPaisDatosGuardarAsync(int paisId, System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos> entidad);
+        System.Threading.Tasks.Task<int> ConfiguracionPaisDatosGuardarAsync(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[] entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ValidarConfiguracionPaisDetalle", ReplyAction="http://tempuri.org/IUsuarioService/ValidarConfiguracionPaisDetalleResponse")]
         bool ValidarConfiguracionPaisDetalle(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDetalle entidad);
@@ -16179,16 +16179,16 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         System.Threading.Tasks.Task<bool> ValidarConfiguracionPaisDetalleAsync(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDetalle entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetConfiguracionPaisDatos", ReplyAction="http://tempuri.org/IUsuarioService/GetConfiguracionPaisDatosResponse")]
-        System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos> GetConfiguracionPaisDatos(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad);
+        Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[] GetConfiguracionPaisDatos(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetConfiguracionPaisDatos", ReplyAction="http://tempuri.org/IUsuarioService/GetConfiguracionPaisDatosResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos>> GetConfiguracionPaisDatosAsync(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[]> GetConfiguracionPaisDatosAsync(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetConfiguracionPaisDatosAll", ReplyAction="http://tempuri.org/IUsuarioService/GetConfiguracionPaisDatosAllResponse")]
-        System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos> GetConfiguracionPaisDatosAll(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad);
+        Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[] GetConfiguracionPaisDatosAll(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetConfiguracionPaisDatosAll", ReplyAction="http://tempuri.org/IUsuarioService/GetConfiguracionPaisDatosAllResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos>> GetConfiguracionPaisDatosAllAsync(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[]> GetConfiguracionPaisDatosAllAsync(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/RegistrarUsuarioPostulante", ReplyAction="http://tempuri.org/IUsuarioService/RegistrarUsuarioPostulanteResponse")]
         int RegistrarUsuarioPostulante(string paisISO, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioPostulante entidad);
@@ -16257,10 +16257,10 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExterno> GetUsuarioExternoByProveedorAndIdAppAsync(string proveedor, string idAplicacion, string fotoPerfil);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetListaLoginExterno", ReplyAction="http://tempuri.org/IUsuarioService/GetListaLoginExternoResponse")]
-        System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExterno> GetListaLoginExterno(int paisID, string codigoUsuario);
+        Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExterno[] GetListaLoginExterno(int paisID, string codigoUsuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetListaLoginExterno", ReplyAction="http://tempuri.org/IUsuarioService/GetListaLoginExternoResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExterno>> GetListaLoginExternoAsync(int paisID, string codigoUsuario);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExterno[]> GetListaLoginExternoAsync(int paisID, string codigoUsuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/UpdatePosutlanteMensajes", ReplyAction="http://tempuri.org/IUsuarioService/UpdatePosutlanteMensajesResponse")]
         void UpdatePosutlanteMensajes(int paisID, string codigoUsuario, int tipo);
@@ -16287,16 +16287,16 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         System.Threading.Tasks.Task<bool> InsertTerminosCondicionesAsync(Portal.Consultoras.Web.ServiceUsuario.BETerminosCondiciones terminos);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/InsertTerminosCondicionesMasivo", ReplyAction="http://tempuri.org/IUsuarioService/InsertTerminosCondicionesMasivoResponse")]
-        bool InsertTerminosCondicionesMasivo(int paisID, System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BETerminosCondiciones> terminos);
+        bool InsertTerminosCondicionesMasivo(int paisID, Portal.Consultoras.Web.ServiceUsuario.BETerminosCondiciones[] terminos);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/InsertTerminosCondicionesMasivo", ReplyAction="http://tempuri.org/IUsuarioService/InsertTerminosCondicionesMasivoResponse")]
-        System.Threading.Tasks.Task<bool> InsertTerminosCondicionesMasivoAsync(int paisID, System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BETerminosCondiciones> terminos);
+        System.Threading.Tasks.Task<bool> InsertTerminosCondicionesMasivoAsync(int paisID, Portal.Consultoras.Web.ServiceUsuario.BETerminosCondiciones[] terminos);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetEventoFestivo", ReplyAction="http://tempuri.org/IUsuarioService/GetEventoFestivoResponse")]
-        System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEEventoFestivo> GetEventoFestivo(int paisID, string Alcance, int Campania);
+        Portal.Consultoras.Web.ServiceUsuario.BEEventoFestivo[] GetEventoFestivo(int paisID, string Alcance, int Campania);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetEventoFestivo", ReplyAction="http://tempuri.org/IUsuarioService/GetEventoFestivoResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEEventoFestivo>> GetEventoFestivoAsync(int paisID, string Alcance, int Campania);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEEventoFestivo[]> GetEventoFestivoAsync(int paisID, string Alcance, int Campania);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/UpdUsuarioFotoPerfil", ReplyAction="http://tempuri.org/IUsuarioService/UpdUsuarioFotoPerfilResponse")]
         int UpdUsuarioFotoPerfil(int paisID, string codigoUsuario, string fileName);
@@ -16377,10 +16377,10 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDireccion> GetDireccionConsultoraAsync(int paisID, string codigoUsuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/listaProductos", ReplyAction="http://tempuri.org/IUsuarioService/listaProductosResponse")]
-        System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEBuscadorYFiltros> listaProductos(int paisID, int CampaniaID, int filas, string CodigoDescripcion, int regionId, int zonaId, int codigoRegion, int codigoZona);
+        Portal.Consultoras.Web.ServiceUsuario.BEBuscadorYFiltros[] listaProductos(int paisID, int CampaniaID, int filas, string CodigoDescripcion, int regionId, int zonaId, int codigoRegion, int codigoZona);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/listaProductos", ReplyAction="http://tempuri.org/IUsuarioService/listaProductosResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEBuscadorYFiltros>> listaProductosAsync(int paisID, int CampaniaID, int filas, string CodigoDescripcion, int regionId, int zonaId, int codigoRegion, int codigoZona);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEBuscadorYFiltros[]> listaProductosAsync(int paisID, int CampaniaID, int filas, string CodigoDescripcion, int regionId, int zonaId, int codigoRegion, int codigoZona);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ActualizarNovedadBuscador", ReplyAction="http://tempuri.org/IUsuarioService/ActualizarNovedadBuscadorResponse")]
         string ActualizarNovedadBuscador(int paisID, string codigoUsuario);
@@ -16389,10 +16389,10 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         System.Threading.Tasks.Task<string> ActualizarNovedadBuscadorAsync(int paisID, string codigoUsuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetRecomendados", ReplyAction="http://tempuri.org/IUsuarioService/GetRecomendadosResponse")]
-        System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEEstrategia> GetRecomendados(Portal.Consultoras.Web.ServiceUsuario.RecomendadoRequest RecomendadoRequest);
+        Portal.Consultoras.Web.ServiceUsuario.BEEstrategia[] GetRecomendados(Portal.Consultoras.Web.ServiceUsuario.RecomendadoRequest RecomendadoRequest);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetRecomendados", ReplyAction="http://tempuri.org/IUsuarioService/GetRecomendadosResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEEstrategia>> GetRecomendadosAsync(Portal.Consultoras.Web.ServiceUsuario.RecomendadoRequest RecomendadoRequest);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEEstrategia[]> GetRecomendadosAsync(Portal.Consultoras.Web.ServiceUsuario.RecomendadoRequest RecomendadoRequest);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/EnviarSmsCodigo", ReplyAction="http://tempuri.org/IUsuarioService/EnviarSmsCodigoResponse")]
         Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio EnviarSmsCodigo(int paisID, string codigoUsuario, string codigoConsultora, int campaniaID, bool esMobile, string celularActual, string celularNuevo);
@@ -16401,10 +16401,10 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio> EnviarSmsCodigoAsync(int paisID, string codigoUsuario, string codigoConsultora, int campaniaID, bool esMobile, string celularActual, string celularNuevo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetUsuarioOpciones", ReplyAction="http://tempuri.org/IUsuarioService/GetUsuarioOpcionesResponse")]
-        System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioOpciones> GetUsuarioOpciones(int paisID, string codigoUsuario);
+        Portal.Consultoras.Web.ServiceUsuario.BEUsuarioOpciones[] GetUsuarioOpciones(int paisID, string codigoUsuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetUsuarioOpciones", ReplyAction="http://tempuri.org/IUsuarioService/GetUsuarioOpcionesResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioOpciones>> GetUsuarioOpcionesAsync(int paisID, string codigoUsuario);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioOpciones[]> GetUsuarioOpcionesAsync(int paisID, string codigoUsuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/InsertarDireccionEntrega", ReplyAction="http://tempuri.org/IUsuarioService/InsertarDireccionEntregaResponse")]
         Portal.Consultoras.Web.ServiceUsuario.BEDireccionEntrega InsertarDireccionEntrega(Portal.Consultoras.Web.ServiceUsuario.BEDireccionEntrega direccion);
@@ -16449,22 +16449,22 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEConsultoraDatos> GetDatosConsultoraAsync(int paisID, string codigoUsuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/SelectUsuarioRol", ReplyAction="http://tempuri.org/IUsuarioService/SelectUsuarioRolResponse")]
-        System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioRol> SelectUsuarioRol(int paisID, string RolDescripcion, string NombreUsuario);
+        Portal.Consultoras.Web.ServiceUsuario.BEUsuarioRol[] SelectUsuarioRol(int paisID, string RolDescripcion, string NombreUsuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/SelectUsuarioRol", ReplyAction="http://tempuri.org/IUsuarioService/SelectUsuarioRolResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioRol>> SelectUsuarioRolAsync(int paisID, string RolDescripcion, string NombreUsuario);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioRol[]> SelectUsuarioRolAsync(int paisID, string RolDescripcion, string NombreUsuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/SelectByEmail", ReplyAction="http://tempuri.org/IUsuarioService/SelectByEmailResponse")]
-        System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioCorreo> SelectByEmail(string Email, int PaisID);
+        Portal.Consultoras.Web.ServiceUsuario.BEUsuarioCorreo[] SelectByEmail(string Email, int PaisID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/SelectByEmail", ReplyAction="http://tempuri.org/IUsuarioService/SelectByEmailResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioCorreo>> SelectByEmailAsync(string Email, int PaisID);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioCorreo[]> SelectByEmailAsync(string Email, int PaisID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/SelectByNombre", ReplyAction="http://tempuri.org/IUsuarioService/SelectByNombreResponse")]
-        System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEUsuario> SelectByNombre(int paisID, string Nombre);
+        Portal.Consultoras.Web.ServiceUsuario.BEUsuario[] SelectByNombre(int paisID, string Nombre);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/SelectByNombre", ReplyAction="http://tempuri.org/IUsuarioService/SelectByNombreResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEUsuario>> SelectByNombreAsync(int paisID, string Nombre);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuario[]> SelectByNombreAsync(int paisID, string Nombre);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/DelUsuarioRol", ReplyAction="http://tempuri.org/IUsuarioService/DelUsuarioRolResponse")]
         int DelUsuarioRol(int paisID, string codigoUsuario, int RolID);
@@ -16605,10 +16605,10 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         System.Threading.Tasks.Task<int> ValidarTelefonoConsultoraAsync(int PaisID, string Telefono, string CodigoUsuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetEstadosRestringidos", ReplyAction="http://tempuri.org/IUsuarioService/GetEstadosRestringidosResponse")]
-        System.Collections.Generic.List<int> GetEstadosRestringidos(int paisID);
+        int[] GetEstadosRestringidos(int paisID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetEstadosRestringidos", ReplyAction="http://tempuri.org/IUsuarioService/GetEstadosRestringidosResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<int>> GetEstadosRestringidosAsync(int paisID);
+        System.Threading.Tasks.Task<int[]> GetEstadosRestringidosAsync(int paisID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/UpdActualizarDatos", ReplyAction="http://tempuri.org/IUsuarioService/UpdActualizarDatosResponse")]
         int UpdActualizarDatos(int paisID, string CodigoUsuario, string Email, string Celular, string Telefono);
@@ -16635,10 +16635,10 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         System.Threading.Tasks.Task<string> GetUsuarioPermisosAsync(int paisID, string codigoUsuario, string codigoConsultora, short tipoUsuario, short rolID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetValidarConsultoraNueva", ReplyAction="http://tempuri.org/IUsuarioService/GetValidarConsultoraNuevaResponse")]
-        System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEKitNueva> GetValidarConsultoraNueva(int paisID, string CodigoConsultora);
+        Portal.Consultoras.Web.ServiceUsuario.BEKitNueva[] GetValidarConsultoraNueva(int paisID, string CodigoConsultora);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetValidarConsultoraNueva", ReplyAction="http://tempuri.org/IUsuarioService/GetValidarConsultoraNuevaResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEKitNueva>> GetValidarConsultoraNuevaAsync(int paisID, string CodigoConsultora);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEKitNueva[]> GetValidarConsultoraNuevaAsync(int paisID, string CodigoConsultora);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ValidarUsuarioPrueba", ReplyAction="http://tempuri.org/IUsuarioService/ValidarUsuarioPruebaResponse")]
         int ValidarUsuarioPrueba(string CodigoUsuario, int paisID);
@@ -16689,10 +16689,10 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         System.Threading.Tasks.Task<int> AceptarContratoAceptacionAsync(int paisID, long consultoraid, string codigoConsultora, string origen, string direccionIP, string InformacionSOMobile, string imei, string deviceID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ReporteContratoAceptacion", ReplyAction="http://tempuri.org/IUsuarioService/ReporteContratoAceptacionResponse")]
-        System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BeReporteContrato> ReporteContratoAceptacion(int paisID, string codigoConsultora, string cedula, System.Nullable<System.DateTime> FechaInicio, System.Nullable<System.DateTime> FechaFin);
+        Portal.Consultoras.Web.ServiceUsuario.BeReporteContrato[] ReporteContratoAceptacion(int paisID, string codigoConsultora, string cedula, System.Nullable<System.DateTime> FechaInicio, System.Nullable<System.DateTime> FechaFin);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ReporteContratoAceptacion", ReplyAction="http://tempuri.org/IUsuarioService/ReporteContratoAceptacionResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BeReporteContrato>> ReporteContratoAceptacionAsync(int paisID, string codigoConsultora, string cedula, System.Nullable<System.DateTime> FechaInicio, System.Nullable<System.DateTime> FechaFin);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BeReporteContrato[]> ReporteContratoAceptacionAsync(int paisID, string codigoConsultora, string cedula, System.Nullable<System.DateTime> FechaInicio, System.Nullable<System.DateTime> FechaFin);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetSesionUsuarioLoginDD", ReplyAction="http://tempuri.org/IUsuarioService/GetSesionUsuarioLoginDDResponse")]
         Portal.Consultoras.Web.ServiceUsuario.BEUsuario GetSesionUsuarioLoginDD(int paisID, string codigoUsuario, string claveSecreta);
@@ -16701,10 +16701,10 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuario> GetSesionUsuarioLoginDDAsync(int paisID, string codigoUsuario, string claveSecreta);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetUsuarioDigitadorByFfVv", ReplyAction="http://tempuri.org/IUsuarioService/GetUsuarioDigitadorByFfVvResponse")]
-        System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEUsuario> GetUsuarioDigitadorByFfVv(int paisID, string codigoFfvv);
+        Portal.Consultoras.Web.ServiceUsuario.BEUsuario[] GetUsuarioDigitadorByFfVv(int paisID, string codigoFfvv);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetUsuarioDigitadorByFfVv", ReplyAction="http://tempuri.org/IUsuarioService/GetUsuarioDigitadorByFfVvResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEUsuario>> GetUsuarioDigitadorByFfVvAsync(int paisID, string codigoFfvv);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuario[]> GetUsuarioDigitadorByFfVvAsync(int paisID, string codigoFfvv);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetSesionUsuarioLoginDDByRol", ReplyAction="http://tempuri.org/IUsuarioService/GetSesionUsuarioLoginDDByRolResponse")]
         Portal.Consultoras.Web.ServiceUsuario.BEUsuario GetSesionUsuarioLoginDDByRol(int paisID, int rolID, string email);
@@ -16719,10 +16719,10 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         System.Threading.Tasks.Task UpdUsuarioDigitadorAsync(Portal.Consultoras.Web.ServiceUsuario.BEUsuario usuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetUsuario", ReplyAction="http://tempuri.org/IUsuarioService/GetUsuarioResponse")]
-        System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEUsuario> GetUsuario(int paisID, int rol, string codigoUsuario, string codigoFFVV, string nombres, bool estado);
+        Portal.Consultoras.Web.ServiceUsuario.BEUsuario[] GetUsuario(int paisID, int rol, string codigoUsuario, string codigoFFVV, string nombres, bool estado);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetUsuario", ReplyAction="http://tempuri.org/IUsuarioService/GetUsuarioResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEUsuario>> GetUsuarioAsync(int paisID, int rol, string codigoUsuario, string codigoFFVV, string nombres, bool estado);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuario[]> GetUsuarioAsync(int paisID, int rol, string codigoUsuario, string codigoFFVV, string nombres, bool estado);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/UpdUsuarioDD", ReplyAction="http://tempuri.org/IUsuarioService/UpdUsuarioDDResponse")]
         void UpdUsuarioDD(Portal.Consultoras.Web.ServiceUsuario.BEUsuario usuario);
@@ -16731,10 +16731,10 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         System.Threading.Tasks.Task UpdUsuarioDDAsync(Portal.Consultoras.Web.ServiceUsuario.BEUsuario usuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetNotificacionesConsultora", ReplyAction="http://tempuri.org/IUsuarioService/GetNotificacionesConsultoraResponse")]
-        System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BENotificaciones> GetNotificacionesConsultora(int PaisID, long ConsultoraId, int indicadorBloqueoCDR, bool tienePagoEnLinea);
+        Portal.Consultoras.Web.ServiceUsuario.BENotificaciones[] GetNotificacionesConsultora(int PaisID, long ConsultoraId, int indicadorBloqueoCDR, bool tienePagoEnLinea);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetNotificacionesConsultora", ReplyAction="http://tempuri.org/IUsuarioService/GetNotificacionesConsultoraResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BENotificaciones>> GetNotificacionesConsultoraAsync(int PaisID, long ConsultoraId, int indicadorBloqueoCDR, bool tienePagoEnLinea);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BENotificaciones[]> GetNotificacionesConsultoraAsync(int PaisID, long ConsultoraId, int indicadorBloqueoCDR, bool tienePagoEnLinea);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetNotificacionesSinLeer", ReplyAction="http://tempuri.org/IUsuarioService/GetNotificacionesSinLeerResponse")]
         int GetNotificacionesSinLeer(int PaisID, long ConsultoraId, int indicadorBloqueoCDR, bool tienePagoEnLinea);
@@ -16743,30 +16743,30 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         System.Threading.Tasks.Task<int> GetNotificacionesSinLeerAsync(int PaisID, long ConsultoraId, int indicadorBloqueoCDR, bool tienePagoEnLinea);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetNotificacionesConsultoraDetalle", ReplyAction="http://tempuri.org/IUsuarioService/GetNotificacionesConsultoraDetalleResponse")]
-        System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BENotificacionesDetalle> GetNotificacionesConsultoraDetalle(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen);
+        Portal.Consultoras.Web.ServiceUsuario.BENotificacionesDetalle[] GetNotificacionesConsultoraDetalle(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetNotificacionesConsultoraDetalle", ReplyAction="http://tempuri.org/IUsuarioService/GetNotificacionesConsultoraDetalleResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BENotificacionesDetalle>> GetNotificacionesConsultoraDetalleAsync(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BENotificacionesDetalle[]> GetNotificacionesConsultoraDetalleAsync(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetNotificacionesConsultoraDetallePedido", ReplyAction="http://tempuri.org/IUsuarioService/GetNotificacionesConsultoraDetallePedidoRespon" +
             "se")]
-        System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BENotificacionesDetallePedido> GetNotificacionesConsultoraDetallePedido(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen);
+        Portal.Consultoras.Web.ServiceUsuario.BENotificacionesDetallePedido[] GetNotificacionesConsultoraDetallePedido(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetNotificacionesConsultoraDetallePedido", ReplyAction="http://tempuri.org/IUsuarioService/GetNotificacionesConsultoraDetallePedidoRespon" +
             "se")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BENotificacionesDetallePedido>> GetNotificacionesConsultoraDetallePedidoAsync(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BENotificacionesDetallePedido[]> GetNotificacionesConsultoraDetallePedidoAsync(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetMisPedidosConsultoraOnline", ReplyAction="http://tempuri.org/IUsuarioService/GetMisPedidosConsultoraOnlineResponse")]
-        System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos> GetMisPedidosConsultoraOnline(int PaisID, long ConsultoraId, int Campania);
+        Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos[] GetMisPedidosConsultoraOnline(int PaisID, long ConsultoraId, int Campania);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetMisPedidosConsultoraOnline", ReplyAction="http://tempuri.org/IUsuarioService/GetMisPedidosConsultoraOnlineResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos>> GetMisPedidosConsultoraOnlineAsync(int PaisID, long ConsultoraId, int Campania);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos[]> GetMisPedidosConsultoraOnlineAsync(int PaisID, long ConsultoraId, int Campania);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetMisPedidosDetalleConsultoraOnline", ReplyAction="http://tempuri.org/IUsuarioService/GetMisPedidosDetalleConsultoraOnlineResponse")]
-        System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEMisPedidosDetalle> GetMisPedidosDetalleConsultoraOnline(int PaisID, long PedidoID);
+        Portal.Consultoras.Web.ServiceUsuario.BEMisPedidosDetalle[] GetMisPedidosDetalleConsultoraOnline(int PaisID, long PedidoID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetMisPedidosDetalleConsultoraOnline", ReplyAction="http://tempuri.org/IUsuarioService/GetMisPedidosDetalleConsultoraOnlineResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEMisPedidosDetalle>> GetMisPedidosDetalleConsultoraOnlineAsync(int PaisID, long PedidoID);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEMisPedidosDetalle[]> GetMisPedidosDetalleConsultoraOnlineAsync(int PaisID, long PedidoID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetCantidadSolicitudesPedido", ReplyAction="http://tempuri.org/IUsuarioService/GetCantidadSolicitudesPedidoResponse")]
         int GetCantidadSolicitudesPedido(int PaisID, long ConsultoraId, int Campania);
@@ -16781,10 +16781,10 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         System.Threading.Tasks.Task<string> GetSaldoHorasSolicitudesPedidoAsync(int PaisID, long ConsultoraId, int Campania);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetMisPedidosClienteOnline", ReplyAction="http://tempuri.org/IUsuarioService/GetMisPedidosClienteOnlineResponse")]
-        System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos> GetMisPedidosClienteOnline(int paisID, long consultoraId, int campania);
+        Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos[] GetMisPedidosClienteOnline(int paisID, long consultoraId, int campania);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetMisPedidosClienteOnline", ReplyAction="http://tempuri.org/IUsuarioService/GetMisPedidosClienteOnlineResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos>> GetMisPedidosClienteOnlineAsync(int paisID, long consultoraId, int campania);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos[]> GetMisPedidosClienteOnlineAsync(int paisID, long consultoraId, int campania);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetPedidoClienteOnlineBySolicitudClienteId", ReplyAction="http://tempuri.org/IUsuarioService/GetPedidoClienteOnlineBySolicitudClienteIdResp" +
             "onse")]
@@ -16815,10 +16815,10 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEConsultoraEstadoSAC> ConsultoraEstadoSACAsync(string paisID, string codigoConsultora);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetValidacionStockProductos", ReplyAction="http://tempuri.org/IUsuarioService/GetValidacionStockProductosResponse")]
-        System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BENotificacionesDetallePedido> GetValidacionStockProductos(int PaisID, long ConsultoraId, long ValAutomaticaPROLLogId);
+        Portal.Consultoras.Web.ServiceUsuario.BENotificacionesDetallePedido[] GetValidacionStockProductos(int PaisID, long ConsultoraId, long ValAutomaticaPROLLogId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetValidacionStockProductos", ReplyAction="http://tempuri.org/IUsuarioService/GetValidacionStockProductosResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BENotificacionesDetallePedido>> GetValidacionStockProductosAsync(int PaisID, long ConsultoraId, long ValAutomaticaPROLLogId);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BENotificacionesDetallePedido[]> GetValidacionStockProductosAsync(int PaisID, long ConsultoraId, long ValAutomaticaPROLLogId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetFechaPromesaCronogramaByCampania", ReplyAction="http://tempuri.org/IUsuarioService/GetFechaPromesaCronogramaByCampaniaResponse")]
         string GetFechaPromesaCronogramaByCampania(int PaisID, int CampaniaId, string CodigoConsultora, System.DateTime Fechafact);
@@ -16887,10 +16887,10 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         System.Threading.Tasks.Task<int> ConfirmarSuscripcionAsync(string PaisISO, string Email);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GenerarReporteSuscripcionLideres", ReplyAction="http://tempuri.org/IUsuarioService/GenerarReporteSuscripcionLideresResponse")]
-        System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEUsuario> GenerarReporteSuscripcionLideres(string PaisISO, string TipoReporte);
+        Portal.Consultoras.Web.ServiceUsuario.BEUsuario[] GenerarReporteSuscripcionLideres(string PaisISO, string TipoReporte);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GenerarReporteSuscripcionLideres", ReplyAction="http://tempuri.org/IUsuarioService/GenerarReporteSuscripcionLideresResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEUsuario>> GenerarReporteSuscripcionLideresAsync(string PaisISO, string TipoReporte);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuario[]> GenerarReporteSuscripcionLideresAsync(string PaisISO, string TipoReporte);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudClienteVisualizacion", ReplyAction="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudClienteVisualizacionRe" +
             "sponse")]
@@ -16925,10 +16925,10 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BENotificacionesDetalleCatalogo> ObtenerDetalleNotificacionAsync(int PaisID, long SolicitudClienteCatalogoId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ObtenerResultadoEncuesta", ReplyAction="http://tempuri.org/IUsuarioService/ObtenerResultadoEncuestaResponse")]
-        System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEUsuario> ObtenerResultadoEncuesta(int paisID, int campaniaInicio, int campaniaFin);
+        Portal.Consultoras.Web.ServiceUsuario.BEUsuario[] ObtenerResultadoEncuesta(int paisID, int campaniaInicio, int campaniaFin);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ObtenerResultadoEncuesta", ReplyAction="http://tempuri.org/IUsuarioService/ObtenerResultadoEncuestaResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEUsuario>> ObtenerResultadoEncuestaAsync(int paisID, int campaniaInicio, int campaniaFin);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuario[]> ObtenerResultadoEncuestaAsync(int paisID, int campaniaInicio, int campaniaFin);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetCantidadPedidosConsultoraOnline", ReplyAction="http://tempuri.org/IUsuarioService/GetCantidadPedidosConsultoraOnlineResponse")]
         int GetCantidadPedidosConsultoraOnline(int PaisID, long ConsultoraId);
@@ -17070,27 +17070,27 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.ValidarUsuarioAsync(paisIso, codigoUsuario, clave);
         }
         
-        public System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPais> GetConfiguracionPais(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPais entidad) {
+        public Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPais[] GetConfiguracionPais(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPais entidad) {
             return base.Channel.GetConfiguracionPais(entidad);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPais>> GetConfiguracionPaisAsync(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPais entidad) {
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPais[]> GetConfiguracionPaisAsync(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPais entidad) {
             return base.Channel.GetConfiguracionPaisAsync(entidad);
         }
         
-        public System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos> GetConfiguracionPaisComponente(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad) {
+        public Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[] GetConfiguracionPaisComponente(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad) {
             return base.Channel.GetConfiguracionPaisComponente(entidad);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos>> GetConfiguracionPaisComponenteAsync(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad) {
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[]> GetConfiguracionPaisComponenteAsync(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad) {
             return base.Channel.GetConfiguracionPaisComponenteAsync(entidad);
         }
         
-        public System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos> GetConfiguracionPaisComponenteDatos(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad) {
+        public Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[] GetConfiguracionPaisComponenteDatos(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad) {
             return base.Channel.GetConfiguracionPaisComponenteDatos(entidad);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos>> GetConfiguracionPaisComponenteDatosAsync(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad) {
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[]> GetConfiguracionPaisComponenteDatosAsync(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad) {
             return base.Channel.GetConfiguracionPaisComponenteDatosAsync(entidad);
         }
         
@@ -17102,11 +17102,11 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.ConfiguracionPaisComponenteDeshabilitarAsync(entidad);
         }
         
-        public int ConfiguracionPaisDatosGuardar(int paisId, System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos> entidad) {
+        public int ConfiguracionPaisDatosGuardar(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[] entidad) {
             return base.Channel.ConfiguracionPaisDatosGuardar(paisId, entidad);
         }
         
-        public System.Threading.Tasks.Task<int> ConfiguracionPaisDatosGuardarAsync(int paisId, System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos> entidad) {
+        public System.Threading.Tasks.Task<int> ConfiguracionPaisDatosGuardarAsync(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[] entidad) {
             return base.Channel.ConfiguracionPaisDatosGuardarAsync(paisId, entidad);
         }
         
@@ -17118,19 +17118,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.ValidarConfiguracionPaisDetalleAsync(entidad);
         }
         
-        public System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos> GetConfiguracionPaisDatos(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad) {
+        public Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[] GetConfiguracionPaisDatos(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad) {
             return base.Channel.GetConfiguracionPaisDatos(entidad);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos>> GetConfiguracionPaisDatosAsync(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad) {
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[]> GetConfiguracionPaisDatosAsync(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad) {
             return base.Channel.GetConfiguracionPaisDatosAsync(entidad);
         }
         
-        public System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos> GetConfiguracionPaisDatosAll(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad) {
+        public Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[] GetConfiguracionPaisDatosAll(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad) {
             return base.Channel.GetConfiguracionPaisDatosAll(entidad);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos>> GetConfiguracionPaisDatosAllAsync(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad) {
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[]> GetConfiguracionPaisDatosAllAsync(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad) {
             return base.Channel.GetConfiguracionPaisDatosAllAsync(entidad);
         }
         
@@ -17222,11 +17222,11 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.GetUsuarioExternoByProveedorAndIdAppAsync(proveedor, idAplicacion, fotoPerfil);
         }
         
-        public System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExterno> GetListaLoginExterno(int paisID, string codigoUsuario) {
+        public Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExterno[] GetListaLoginExterno(int paisID, string codigoUsuario) {
             return base.Channel.GetListaLoginExterno(paisID, codigoUsuario);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExterno>> GetListaLoginExternoAsync(int paisID, string codigoUsuario) {
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExterno[]> GetListaLoginExternoAsync(int paisID, string codigoUsuario) {
             return base.Channel.GetListaLoginExternoAsync(paisID, codigoUsuario);
         }
         
@@ -17262,19 +17262,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.InsertTerminosCondicionesAsync(terminos);
         }
         
-        public bool InsertTerminosCondicionesMasivo(int paisID, System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BETerminosCondiciones> terminos) {
+        public bool InsertTerminosCondicionesMasivo(int paisID, Portal.Consultoras.Web.ServiceUsuario.BETerminosCondiciones[] terminos) {
             return base.Channel.InsertTerminosCondicionesMasivo(paisID, terminos);
         }
         
-        public System.Threading.Tasks.Task<bool> InsertTerminosCondicionesMasivoAsync(int paisID, System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BETerminosCondiciones> terminos) {
+        public System.Threading.Tasks.Task<bool> InsertTerminosCondicionesMasivoAsync(int paisID, Portal.Consultoras.Web.ServiceUsuario.BETerminosCondiciones[] terminos) {
             return base.Channel.InsertTerminosCondicionesMasivoAsync(paisID, terminos);
         }
         
-        public System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEEventoFestivo> GetEventoFestivo(int paisID, string Alcance, int Campania) {
+        public Portal.Consultoras.Web.ServiceUsuario.BEEventoFestivo[] GetEventoFestivo(int paisID, string Alcance, int Campania) {
             return base.Channel.GetEventoFestivo(paisID, Alcance, Campania);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEEventoFestivo>> GetEventoFestivoAsync(int paisID, string Alcance, int Campania) {
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEEventoFestivo[]> GetEventoFestivoAsync(int paisID, string Alcance, int Campania) {
             return base.Channel.GetEventoFestivoAsync(paisID, Alcance, Campania);
         }
         
@@ -17382,11 +17382,11 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.GetDireccionConsultoraAsync(paisID, codigoUsuario);
         }
         
-        public System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEBuscadorYFiltros> listaProductos(int paisID, int CampaniaID, int filas, string CodigoDescripcion, int regionId, int zonaId, int codigoRegion, int codigoZona) {
+        public Portal.Consultoras.Web.ServiceUsuario.BEBuscadorYFiltros[] listaProductos(int paisID, int CampaniaID, int filas, string CodigoDescripcion, int regionId, int zonaId, int codigoRegion, int codigoZona) {
             return base.Channel.listaProductos(paisID, CampaniaID, filas, CodigoDescripcion, regionId, zonaId, codigoRegion, codigoZona);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEBuscadorYFiltros>> listaProductosAsync(int paisID, int CampaniaID, int filas, string CodigoDescripcion, int regionId, int zonaId, int codigoRegion, int codigoZona) {
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEBuscadorYFiltros[]> listaProductosAsync(int paisID, int CampaniaID, int filas, string CodigoDescripcion, int regionId, int zonaId, int codigoRegion, int codigoZona) {
             return base.Channel.listaProductosAsync(paisID, CampaniaID, filas, CodigoDescripcion, regionId, zonaId, codigoRegion, codigoZona);
         }
         
@@ -17398,11 +17398,11 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.ActualizarNovedadBuscadorAsync(paisID, codigoUsuario);
         }
         
-        public System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEEstrategia> GetRecomendados(Portal.Consultoras.Web.ServiceUsuario.RecomendadoRequest RecomendadoRequest) {
+        public Portal.Consultoras.Web.ServiceUsuario.BEEstrategia[] GetRecomendados(Portal.Consultoras.Web.ServiceUsuario.RecomendadoRequest RecomendadoRequest) {
             return base.Channel.GetRecomendados(RecomendadoRequest);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEEstrategia>> GetRecomendadosAsync(Portal.Consultoras.Web.ServiceUsuario.RecomendadoRequest RecomendadoRequest) {
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEEstrategia[]> GetRecomendadosAsync(Portal.Consultoras.Web.ServiceUsuario.RecomendadoRequest RecomendadoRequest) {
             return base.Channel.GetRecomendadosAsync(RecomendadoRequest);
         }
         
@@ -17414,11 +17414,11 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.EnviarSmsCodigoAsync(paisID, codigoUsuario, codigoConsultora, campaniaID, esMobile, celularActual, celularNuevo);
         }
         
-        public System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioOpciones> GetUsuarioOpciones(int paisID, string codigoUsuario) {
+        public Portal.Consultoras.Web.ServiceUsuario.BEUsuarioOpciones[] GetUsuarioOpciones(int paisID, string codigoUsuario) {
             return base.Channel.GetUsuarioOpciones(paisID, codigoUsuario);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioOpciones>> GetUsuarioOpcionesAsync(int paisID, string codigoUsuario) {
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioOpciones[]> GetUsuarioOpcionesAsync(int paisID, string codigoUsuario) {
             return base.Channel.GetUsuarioOpcionesAsync(paisID, codigoUsuario);
         }
         
@@ -17478,27 +17478,27 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.GetDatosConsultoraAsync(paisID, codigoUsuario);
         }
         
-        public System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioRol> SelectUsuarioRol(int paisID, string RolDescripcion, string NombreUsuario) {
+        public Portal.Consultoras.Web.ServiceUsuario.BEUsuarioRol[] SelectUsuarioRol(int paisID, string RolDescripcion, string NombreUsuario) {
             return base.Channel.SelectUsuarioRol(paisID, RolDescripcion, NombreUsuario);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioRol>> SelectUsuarioRolAsync(int paisID, string RolDescripcion, string NombreUsuario) {
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioRol[]> SelectUsuarioRolAsync(int paisID, string RolDescripcion, string NombreUsuario) {
             return base.Channel.SelectUsuarioRolAsync(paisID, RolDescripcion, NombreUsuario);
         }
         
-        public System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioCorreo> SelectByEmail(string Email, int PaisID) {
+        public Portal.Consultoras.Web.ServiceUsuario.BEUsuarioCorreo[] SelectByEmail(string Email, int PaisID) {
             return base.Channel.SelectByEmail(Email, PaisID);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioCorreo>> SelectByEmailAsync(string Email, int PaisID) {
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioCorreo[]> SelectByEmailAsync(string Email, int PaisID) {
             return base.Channel.SelectByEmailAsync(Email, PaisID);
         }
         
-        public System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEUsuario> SelectByNombre(int paisID, string Nombre) {
+        public Portal.Consultoras.Web.ServiceUsuario.BEUsuario[] SelectByNombre(int paisID, string Nombre) {
             return base.Channel.SelectByNombre(paisID, Nombre);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEUsuario>> SelectByNombreAsync(int paisID, string Nombre) {
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuario[]> SelectByNombreAsync(int paisID, string Nombre) {
             return base.Channel.SelectByNombreAsync(paisID, Nombre);
         }
         
@@ -17686,11 +17686,11 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.ValidarTelefonoConsultoraAsync(PaisID, Telefono, CodigoUsuario);
         }
         
-        public System.Collections.Generic.List<int> GetEstadosRestringidos(int paisID) {
+        public int[] GetEstadosRestringidos(int paisID) {
             return base.Channel.GetEstadosRestringidos(paisID);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<int>> GetEstadosRestringidosAsync(int paisID) {
+        public System.Threading.Tasks.Task<int[]> GetEstadosRestringidosAsync(int paisID) {
             return base.Channel.GetEstadosRestringidosAsync(paisID);
         }
         
@@ -17726,11 +17726,11 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.GetUsuarioPermisosAsync(paisID, codigoUsuario, codigoConsultora, tipoUsuario, rolID);
         }
         
-        public System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEKitNueva> GetValidarConsultoraNueva(int paisID, string CodigoConsultora) {
+        public Portal.Consultoras.Web.ServiceUsuario.BEKitNueva[] GetValidarConsultoraNueva(int paisID, string CodigoConsultora) {
             return base.Channel.GetValidarConsultoraNueva(paisID, CodigoConsultora);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEKitNueva>> GetValidarConsultoraNuevaAsync(int paisID, string CodigoConsultora) {
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEKitNueva[]> GetValidarConsultoraNuevaAsync(int paisID, string CodigoConsultora) {
             return base.Channel.GetValidarConsultoraNuevaAsync(paisID, CodigoConsultora);
         }
         
@@ -17798,11 +17798,11 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.AceptarContratoAceptacionAsync(paisID, consultoraid, codigoConsultora, origen, direccionIP, InformacionSOMobile, imei, deviceID);
         }
         
-        public System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BeReporteContrato> ReporteContratoAceptacion(int paisID, string codigoConsultora, string cedula, System.Nullable<System.DateTime> FechaInicio, System.Nullable<System.DateTime> FechaFin) {
+        public Portal.Consultoras.Web.ServiceUsuario.BeReporteContrato[] ReporteContratoAceptacion(int paisID, string codigoConsultora, string cedula, System.Nullable<System.DateTime> FechaInicio, System.Nullable<System.DateTime> FechaFin) {
             return base.Channel.ReporteContratoAceptacion(paisID, codigoConsultora, cedula, FechaInicio, FechaFin);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BeReporteContrato>> ReporteContratoAceptacionAsync(int paisID, string codigoConsultora, string cedula, System.Nullable<System.DateTime> FechaInicio, System.Nullable<System.DateTime> FechaFin) {
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BeReporteContrato[]> ReporteContratoAceptacionAsync(int paisID, string codigoConsultora, string cedula, System.Nullable<System.DateTime> FechaInicio, System.Nullable<System.DateTime> FechaFin) {
             return base.Channel.ReporteContratoAceptacionAsync(paisID, codigoConsultora, cedula, FechaInicio, FechaFin);
         }
         
@@ -17814,11 +17814,11 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.GetSesionUsuarioLoginDDAsync(paisID, codigoUsuario, claveSecreta);
         }
         
-        public System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEUsuario> GetUsuarioDigitadorByFfVv(int paisID, string codigoFfvv) {
+        public Portal.Consultoras.Web.ServiceUsuario.BEUsuario[] GetUsuarioDigitadorByFfVv(int paisID, string codigoFfvv) {
             return base.Channel.GetUsuarioDigitadorByFfVv(paisID, codigoFfvv);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEUsuario>> GetUsuarioDigitadorByFfVvAsync(int paisID, string codigoFfvv) {
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuario[]> GetUsuarioDigitadorByFfVvAsync(int paisID, string codigoFfvv) {
             return base.Channel.GetUsuarioDigitadorByFfVvAsync(paisID, codigoFfvv);
         }
         
@@ -17838,11 +17838,11 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.UpdUsuarioDigitadorAsync(usuario);
         }
         
-        public System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEUsuario> GetUsuario(int paisID, int rol, string codigoUsuario, string codigoFFVV, string nombres, bool estado) {
+        public Portal.Consultoras.Web.ServiceUsuario.BEUsuario[] GetUsuario(int paisID, int rol, string codigoUsuario, string codigoFFVV, string nombres, bool estado) {
             return base.Channel.GetUsuario(paisID, rol, codigoUsuario, codigoFFVV, nombres, estado);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEUsuario>> GetUsuarioAsync(int paisID, int rol, string codigoUsuario, string codigoFFVV, string nombres, bool estado) {
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuario[]> GetUsuarioAsync(int paisID, int rol, string codigoUsuario, string codigoFFVV, string nombres, bool estado) {
             return base.Channel.GetUsuarioAsync(paisID, rol, codigoUsuario, codigoFFVV, nombres, estado);
         }
         
@@ -17854,11 +17854,11 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.UpdUsuarioDDAsync(usuario);
         }
         
-        public System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BENotificaciones> GetNotificacionesConsultora(int PaisID, long ConsultoraId, int indicadorBloqueoCDR, bool tienePagoEnLinea) {
+        public Portal.Consultoras.Web.ServiceUsuario.BENotificaciones[] GetNotificacionesConsultora(int PaisID, long ConsultoraId, int indicadorBloqueoCDR, bool tienePagoEnLinea) {
             return base.Channel.GetNotificacionesConsultora(PaisID, ConsultoraId, indicadorBloqueoCDR, tienePagoEnLinea);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BENotificaciones>> GetNotificacionesConsultoraAsync(int PaisID, long ConsultoraId, int indicadorBloqueoCDR, bool tienePagoEnLinea) {
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BENotificaciones[]> GetNotificacionesConsultoraAsync(int PaisID, long ConsultoraId, int indicadorBloqueoCDR, bool tienePagoEnLinea) {
             return base.Channel.GetNotificacionesConsultoraAsync(PaisID, ConsultoraId, indicadorBloqueoCDR, tienePagoEnLinea);
         }
         
@@ -17870,35 +17870,35 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.GetNotificacionesSinLeerAsync(PaisID, ConsultoraId, indicadorBloqueoCDR, tienePagoEnLinea);
         }
         
-        public System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BENotificacionesDetalle> GetNotificacionesConsultoraDetalle(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen) {
+        public Portal.Consultoras.Web.ServiceUsuario.BENotificacionesDetalle[] GetNotificacionesConsultoraDetalle(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen) {
             return base.Channel.GetNotificacionesConsultoraDetalle(PaisID, ValAutomaticaPROLLogId, TipoOrigen);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BENotificacionesDetalle>> GetNotificacionesConsultoraDetalleAsync(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen) {
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BENotificacionesDetalle[]> GetNotificacionesConsultoraDetalleAsync(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen) {
             return base.Channel.GetNotificacionesConsultoraDetalleAsync(PaisID, ValAutomaticaPROLLogId, TipoOrigen);
         }
         
-        public System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BENotificacionesDetallePedido> GetNotificacionesConsultoraDetallePedido(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen) {
+        public Portal.Consultoras.Web.ServiceUsuario.BENotificacionesDetallePedido[] GetNotificacionesConsultoraDetallePedido(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen) {
             return base.Channel.GetNotificacionesConsultoraDetallePedido(PaisID, ValAutomaticaPROLLogId, TipoOrigen);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BENotificacionesDetallePedido>> GetNotificacionesConsultoraDetallePedidoAsync(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen) {
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BENotificacionesDetallePedido[]> GetNotificacionesConsultoraDetallePedidoAsync(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen) {
             return base.Channel.GetNotificacionesConsultoraDetallePedidoAsync(PaisID, ValAutomaticaPROLLogId, TipoOrigen);
         }
         
-        public System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos> GetMisPedidosConsultoraOnline(int PaisID, long ConsultoraId, int Campania) {
+        public Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos[] GetMisPedidosConsultoraOnline(int PaisID, long ConsultoraId, int Campania) {
             return base.Channel.GetMisPedidosConsultoraOnline(PaisID, ConsultoraId, Campania);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos>> GetMisPedidosConsultoraOnlineAsync(int PaisID, long ConsultoraId, int Campania) {
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos[]> GetMisPedidosConsultoraOnlineAsync(int PaisID, long ConsultoraId, int Campania) {
             return base.Channel.GetMisPedidosConsultoraOnlineAsync(PaisID, ConsultoraId, Campania);
         }
         
-        public System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEMisPedidosDetalle> GetMisPedidosDetalleConsultoraOnline(int PaisID, long PedidoID) {
+        public Portal.Consultoras.Web.ServiceUsuario.BEMisPedidosDetalle[] GetMisPedidosDetalleConsultoraOnline(int PaisID, long PedidoID) {
             return base.Channel.GetMisPedidosDetalleConsultoraOnline(PaisID, PedidoID);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEMisPedidosDetalle>> GetMisPedidosDetalleConsultoraOnlineAsync(int PaisID, long PedidoID) {
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEMisPedidosDetalle[]> GetMisPedidosDetalleConsultoraOnlineAsync(int PaisID, long PedidoID) {
             return base.Channel.GetMisPedidosDetalleConsultoraOnlineAsync(PaisID, PedidoID);
         }
         
@@ -17918,11 +17918,11 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.GetSaldoHorasSolicitudesPedidoAsync(PaisID, ConsultoraId, Campania);
         }
         
-        public System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos> GetMisPedidosClienteOnline(int paisID, long consultoraId, int campania) {
+        public Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos[] GetMisPedidosClienteOnline(int paisID, long consultoraId, int campania) {
             return base.Channel.GetMisPedidosClienteOnline(paisID, consultoraId, campania);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos>> GetMisPedidosClienteOnlineAsync(int paisID, long consultoraId, int campania) {
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos[]> GetMisPedidosClienteOnlineAsync(int paisID, long consultoraId, int campania) {
             return base.Channel.GetMisPedidosClienteOnlineAsync(paisID, consultoraId, campania);
         }
         
@@ -17958,11 +17958,11 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.ConsultoraEstadoSACAsync(paisID, codigoConsultora);
         }
         
-        public System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BENotificacionesDetallePedido> GetValidacionStockProductos(int PaisID, long ConsultoraId, long ValAutomaticaPROLLogId) {
+        public Portal.Consultoras.Web.ServiceUsuario.BENotificacionesDetallePedido[] GetValidacionStockProductos(int PaisID, long ConsultoraId, long ValAutomaticaPROLLogId) {
             return base.Channel.GetValidacionStockProductos(PaisID, ConsultoraId, ValAutomaticaPROLLogId);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BENotificacionesDetallePedido>> GetValidacionStockProductosAsync(int PaisID, long ConsultoraId, long ValAutomaticaPROLLogId) {
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BENotificacionesDetallePedido[]> GetValidacionStockProductosAsync(int PaisID, long ConsultoraId, long ValAutomaticaPROLLogId) {
             return base.Channel.GetValidacionStockProductosAsync(PaisID, ConsultoraId, ValAutomaticaPROLLogId);
         }
         
@@ -18054,11 +18054,11 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.ConfirmarSuscripcionAsync(PaisISO, Email);
         }
         
-        public System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEUsuario> GenerarReporteSuscripcionLideres(string PaisISO, string TipoReporte) {
+        public Portal.Consultoras.Web.ServiceUsuario.BEUsuario[] GenerarReporteSuscripcionLideres(string PaisISO, string TipoReporte) {
             return base.Channel.GenerarReporteSuscripcionLideres(PaisISO, TipoReporte);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEUsuario>> GenerarReporteSuscripcionLideresAsync(string PaisISO, string TipoReporte) {
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuario[]> GenerarReporteSuscripcionLideresAsync(string PaisISO, string TipoReporte) {
             return base.Channel.GenerarReporteSuscripcionLideresAsync(PaisISO, TipoReporte);
         }
         
@@ -18094,11 +18094,11 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.ObtenerDetalleNotificacionAsync(PaisID, SolicitudClienteCatalogoId);
         }
         
-        public System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEUsuario> ObtenerResultadoEncuesta(int paisID, int campaniaInicio, int campaniaFin) {
+        public Portal.Consultoras.Web.ServiceUsuario.BEUsuario[] ObtenerResultadoEncuesta(int paisID, int campaniaInicio, int campaniaFin) {
             return base.Channel.ObtenerResultadoEncuesta(paisID, campaniaInicio, campaniaFin);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<Portal.Consultoras.Web.ServiceUsuario.BEUsuario>> ObtenerResultadoEncuestaAsync(int paisID, int campaniaInicio, int campaniaFin) {
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuario[]> ObtenerResultadoEncuestaAsync(int paisID, int campaniaInicio, int campaniaFin) {
             return base.Channel.ObtenerResultadoEncuestaAsync(paisID, campaniaInicio, campaniaFin);
         }
         
