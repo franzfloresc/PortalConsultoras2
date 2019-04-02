@@ -3601,21 +3601,44 @@ namespace Portal.Consultoras.Common
             public static class Beneficios {
 
                 private static Dictionary<string, string> _Iconos;
+                private static string path = "CAMINOBRILLANTE/BENEFICIOS/{1}";
 
                 public static Dictionary<string, string> Iconos
                 {
                     get
                     {
                         return _Iconos ?? (_Iconos = new Dictionary<string, string> {
-                            {"01", "asesor.svg"},
-                            {"02", "beneficios.svg"},
-                            {"03", "call_center.svg"},
-                            {"04", "catalogo_revista.svg"},
-                            {"05", "consultora.svg"},
-                            {"06", "descuento.svg"},
-                            {"07", "kit.svg"},
-                            {"08", "productos_especiales.svg"},
-                            {"09", "regalo.svg"},
+                            {"01", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"asesor.svg")},
+                            {"02", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"beneficios.svg")},
+                            {"03", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"call_center.svg")},
+                            {"04", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"catalogo_revista.svg")},
+                            {"05", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"consultora.svg")},
+                            {"06", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"descuento.svg")},
+                            {"07", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"kit.svg")},
+                            {"08", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"productos_especiales.svg")},
+                            {"09", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"regalo.svg")},
+                        });
+                    }
+                }
+
+            }
+
+            public static class Niveles {
+
+                private static Dictionary<string, string[]> _Iconos;
+                private static string path = "CAMINOBRILLANTE/NIVELES/NIVEL_0{0}_{1}.png";
+
+                public static Dictionary<string, string[]> Iconos
+                {
+                    get
+                    {
+                        return _Iconos ?? (_Iconos = new Dictionary<string, string[]> {
+                            { "1", new string[]{ string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "1", "I"), string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "1", "A") } },
+                            { "2", new string[]{ string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "2", "I"), string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "2", "A") } },
+                            { "3", new string[]{ string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "3", "I"), string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "3", "A") } },
+                            { "4", new string[]{ string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "4", "I"), string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "4", "A") } },
+                            { "5", new string[]{ string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "5", "I"), string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "5", "A") } },
+                            { "6", new string[]{ string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "6", "I"), string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "6", "A") } },
                         });
                     }
                 }
