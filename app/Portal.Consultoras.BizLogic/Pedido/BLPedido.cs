@@ -640,7 +640,9 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     var ncant = pedidoDetalle.Cantidad;
 
                     var set = _pedidoWebSetBusinessLogic.Obtener(pedidoDetalle.PaisID, pedidoDetalle.SetID);
-                    foreach (var detalleSet in set.Detalles)
+                    var detallesSet = set.Detalles.Where(x => x.Digitable == 1).ToList();
+
+                    foreach (var detalleSet in detallesSet)
                     {
                         var ocant = 0;
                         if (xsets.Any())
