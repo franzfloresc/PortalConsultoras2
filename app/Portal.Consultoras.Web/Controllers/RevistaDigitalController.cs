@@ -77,7 +77,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                ViewBag.variableEstrategia = GetVariableEstrategia();
+                ViewBag.variableEstrategia = GetEstrategiaHabilitado();
                 return RDViewLanding(1);
             }
             catch (Exception ex)

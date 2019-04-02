@@ -266,7 +266,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
                 var cantidadTotal = listModel.Count + listPerdio.Count;
 
-                var guarda = !_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, palanca);
+                bool guardaEnLS = _ofertaBaseProvider.UsarLocalStorage(palanca);
 
                 var objBannerCajaProducto = _configuracionPaisDatosProvider.GetBannerCajaProducto(tipoConsulta, esMobile);
 
@@ -284,7 +284,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                     cantidadTotal0,
                     codigo = palanca,
                     codigoOrigen = model.Codigo,
-                    guardaEnLocalStorage = guarda,
+                    guardaEnLocalStorage = guardaEnLS,
                     objBannerCajaProducto
                 });
             }
