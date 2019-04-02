@@ -318,6 +318,8 @@
     <Compile Include="DEPedidoWebDetalleObs.cs" />
     <Compile Include="RevistaDigital\BERevistaDigitalSuscripcion.cs" />
     <Compile Include="Cupon\BECuponConsultora.cs" />
+    <Compile Include="Search\RequestRecomendacion\Estructura\Configuracion.cs" />
+    <Compile Include="Search\RequestRecomendacion\Estructura\ProductoSolicitado.cs" />
     <Compile Include="Search\RequestRecomendacion\RecomendadoRequest.cs" />
     <Compile Include="Search\ResponseRecomendacion\Estructura\Componente.cs" />
     <Compile Include="Search\ResponseRecomendacion\Estructura\Estrategia.cs" />
