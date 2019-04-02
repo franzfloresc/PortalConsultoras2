@@ -28731,7 +28731,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
         }
 
 .opcion_cdr_seleccionada_info--devolucionCasoSetProducto{
-    margin-bottom:25px;
+    margin-bottom:8px;
 }
 
 .producto_nom {
@@ -28846,9 +28846,6 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 
 .content_motivo_select {
     width: 100%;
-    margin-right: 10%;
-    float: left;
-    margin-bottom: 20px;
 }
 
 .reclamo_motivo_select {
