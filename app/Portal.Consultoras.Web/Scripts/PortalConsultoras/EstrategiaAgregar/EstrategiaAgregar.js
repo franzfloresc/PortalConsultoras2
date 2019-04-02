@@ -405,7 +405,7 @@ var EstrategiaAgregarModule = (function () {
 
 								}
 							} else {
-								if (estrategia.CodigoEstrategia = ConstantesModule.TipoEstrategia.ArmaTuPack) {
+								if (estrategia.CodigoEstrategia === ConstantesModule.TipoEstrategia.ArmaTuPack) {
 									window.location = "/ArmaTuPack/AgregarATPApp";
 								} else {
 									window.location = "/mobile/ofertas";
