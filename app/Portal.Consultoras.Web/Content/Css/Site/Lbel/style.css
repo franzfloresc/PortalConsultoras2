@@ -28844,7 +28844,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     background-position: 20px 17px;
 }
 
-.btn_solucion_reclamo {
+.btn_cdr {
     display: inline-block;
     width: 217px;
     height: 40px;
@@ -28861,9 +28861,9 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     letter-spacing:0.5px;
 }
 
-    .btn_solucion_reclamo:last-child {
+    /*.btn_solucion_reclamo:last-child {
         margin-right: 0;
-    }
+    }*/
 
 .subtitulo_reclamo_light {
     font-family: 'Lato';

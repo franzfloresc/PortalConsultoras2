@@ -77,8 +77,8 @@
                     </div>
                 </div>
                 <hr class="clear" />
-                <div class="linea_separadora_roja" style="height: 2px;"></div>
-                <span class="btn_si_stock_cdr" style="width: 296px;" id="IrPAso2">SIGUIENTE</span>
+                @*<div class="linea_separadora_roja" style="height: 2px;"></div>*@
+                <button type="button" class="border-radius-4 text-bold btn_cdr" id="IrPAso2">SIGUIENTE</button>
                 <hr class="clear" />
                 <br />
             </div>
@@ -442,7 +442,7 @@
         </div>
         <!-- FIN - INFORMACIÓN CUANDO SE SELECCIONA LA OPCIÓN DE DEVOLUCIÓN Y EL PRODUCTO FORMA PARTE DE UN SET -->
     </div>
-    <button type="button" class="border-radius-4 text-bold btn_solucion_reclamo" onclick="IrAEscogiste()" id="btnSiguiente">Siguiente</button>
+    <button type="button" class="border-radius-4 text-bold btn_cdr btn_solucion_reclamo" onclick="IrAEscogiste()" id="btnSiguiente">Siguiente</button>
 </script>
 <script id="template-confirmacion" type="text/x-handlebars-template">
     {{#iff CUV2 '!=' ''}}
