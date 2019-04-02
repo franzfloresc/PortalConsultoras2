@@ -2147,7 +2147,6 @@ function EjecutarServicioPROL() {
             //console.log('EjecutarServicio PROL - respuesta');
 
             if (RespuestaEjecutarServicioPROL(response.data)) return;
-            if (typeof NoReservoPedido !== 'undefined') NoReservoPedido = false;
 
             //console.log('Mostrar Mensaje Prol - antes');
             MostrarMensajeProl(response, function () { return CumpleOfertaFinalMostrar(response); });

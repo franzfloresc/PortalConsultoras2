@@ -924,7 +924,6 @@ function RespuestaEjecutarServicioPROL(response, fnOfertaFinal) {
 
     var cumpleOferta = fnOfertaFinal();
     if (cumpleOferta) {
-        setReservoPedido();
         return;
     }
 
@@ -934,11 +933,6 @@ function RespuestaEjecutarServicioPROL(response, fnOfertaFinal) {
     }
 
     EjecutarAccionesReservaExitosa(response);
-    setReservoPedido();
-}
-
-function setReservoPedido() {
-    if (typeof NoReservoPedido !== 'undefined') NoReservoPedido = false;
 }
 
 function EjecutarAccionesReservaExitosa(response) {
