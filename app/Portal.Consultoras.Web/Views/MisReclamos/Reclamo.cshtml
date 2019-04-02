@@ -433,18 +433,16 @@
             <!-- FIN - INFORMACIÓN CUANDO SE SELECCIONA LA OPCIÓN DE CAMBIAR POR OTRO PRODUCTO -->
         </div>
         <div id="OpcionCambioMismoProducto" style="display:none;">
-            <p>Te reenviaremos el mismo producto: <span id="spnDescProdDevolucion"></span> </p>
-                <p class="text-bold">Te reenviaremos el siguiente producto: <span id="spnDescProdDevolucion" class="text-bold producto_nom"></span></p>
-            </div>
-        </div>
-        <div id="OpcionDevolucion" style="display:none;">
-            <!-- INFORMACIÓN CUANDO SE SELECCIONA LA OPCIÓN DE DEVOLUCIÓN Y EL PRODUCTO FORMA PARTE DE UN SET -->
-            <div id="divDevolucionSetsOrPack" class="opcion_cdr_seleccionada_info opcion_cdr_seleccionada_info--devolucionCasoSetProducto">
-            </div>
-            <!-- FIN - INFORMACIÓN CUANDO SE SELECCIONA LA OPCIÓN DE DEVOLUCIÓN Y EL PRODUCTO FORMA PARTE DE UN SET -->
+            <p class="text-bold">Te reenviaremos el siguiente producto: <span id="spnDescProdDevolucion" class="text-bold producto_nom"></span></p>
         </div>
     </div>
-    <button type="button" class="border-radius-4 text-bold btn_solucion_reclamo" id="btnSiguiente">Siguiente</button>
+    <div id="OpcionDevolucion" style="display:none;">
+        <!-- INFORMACIÓN CUANDO SE SELECCIONA LA OPCIÓN DE DEVOLUCIÓN Y EL PRODUCTO FORMA PARTE DE UN SET -->
+        <div id="divDevolucionSetsOrPack" class="opcion_cdr_seleccionada_info opcion_cdr_seleccionada_info--devolucionCasoSetProducto">
+        </div>
+        <!-- FIN - INFORMACIÓN CUANDO SE SELECCIONA LA OPCIÓN DE DEVOLUCIÓN Y EL PRODUCTO FORMA PARTE DE UN SET -->
+    </div>
+    <button type="button" class="border-radius-4 text-bold btn_solucion_reclamo" onclick="IrAEscogiste()" id="btnSiguiente">Siguiente</button>
 </script>
 <script id="template-confirmacion" type="text/x-handlebars-template">
     {{#iff CUV2 '!=' ''}}
@@ -573,7 +571,7 @@
             <label for="TerminosEntregaProductoSet" class="border-radius-4 opcion_cdr_checkbox opcion_cdr_checkbox--terminosEntregaProductoSet">
             </label>
             <span class="text-left default-color opcion_cdr_seleccionada_terminos_entrega_producto_texto">
-                Recuerda que al cambiar el producto se deberá entregar<br />
+                Recuerda al devolver el producto se deberá entregar<br />
                 <span class="text-uppercase">todos los productos que contiene el pack </span> mencionado.
             </span>
         </div>
