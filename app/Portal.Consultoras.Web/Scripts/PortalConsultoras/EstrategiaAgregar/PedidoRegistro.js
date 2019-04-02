@@ -1219,18 +1219,6 @@ var PedidoRegistroModule = function () {
             success: function (data) {
                 if (!checkTimeout(data)) {
                     CerrarSplash();
-                    //INI HD-MDRR
-                    var esPackDuo = isPackDuoNuevas($("#hdTipoEstrategiaID").val());
-                    if (esPackDuo) {
-                        try {
-                            var $AgregadoTooltip = $(dataProperties.tooltip);
-                            $AgregadoTooltip.show();
-                            setTimeout(function () { $AgregadoTooltip.hide(); }, 4000);
-                        } catch (e) {
-                            console.error(e);
-                        }
-                    }
-                //FIN HD-MDRR
                     return false;
                 }
 
@@ -1241,6 +1229,17 @@ var PedidoRegistroModule = function () {
 
                 $("#hdErrorInsertarProducto").val(data.errorInsertarProducto);
 
+                //INI HD-MDRR
+                if (_flagNueva) {
+                    try {
+                        var $AgregadoTooltip = $("[data-agregado=\"tooltip\"]");
+                        $AgregadoTooltip.show();
+                        setTimeout(function () { $AgregadoTooltip.hide(); }, 4000);
+                    } catch (e) {
+                        console.error(e);
+                    }
+                }
+                //FIN HD-MDRR
                 cierreCarouselEstrategias();
                 CargarCarouselEstrategias();
                 HideDialog("divVistaPrevia");

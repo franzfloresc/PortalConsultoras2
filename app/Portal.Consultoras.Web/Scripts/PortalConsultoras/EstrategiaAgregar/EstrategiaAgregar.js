@@ -382,7 +382,7 @@ var EstrategiaAgregarModule = (function () {
                 }
 
                 //INI HD-MDRR
-                esFicha = (typeof esFicha === 'undefined' || !esFicha) ? isPackDuoNuevas(estrategia.TipoEstrategiaID) : esFicha;
+                esFicha = ((estrategia.FlagNueva==1?true:false) || esFicha);
                 //FIN HD-MDRR
 
                 //Tooltip de agregado

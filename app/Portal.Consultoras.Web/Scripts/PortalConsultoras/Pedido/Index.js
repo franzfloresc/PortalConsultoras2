@@ -24,7 +24,9 @@ var listaMensajeMeta = listaMensajeMeta;
 var listaParametriaOfertaFinal = listaParametriaOfertaFinal || {};
 var cuvbuscado = "";
 var cuvEsCuponNuevas = false;
-
+//INI HD-MDRR
+var _flagNueva = false;
+//FIN HD-MDRR
 var pedidoProvider = PedidoProvider();
 
 $(document).ready(function () {
@@ -1412,7 +1414,9 @@ function BuscarByCUV(CUV) {
                 if (data[0].ObservacionCUV != null && data[0].ObservacionCUV != "") {
                     $("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>" + data[0].ObservacionCUV + "</div></div>");
                 }
-
+                //INI HD-MDRR
+                _flagNueva = (data[0].FlagNueva == "1") ? true : false;
+                //FIN HD-MDRR
                 CargarProductosRecomendados(data[0]);
 
             } else {
