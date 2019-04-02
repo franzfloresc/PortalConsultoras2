@@ -306,12 +306,6 @@ namespace Portal.Consultoras.Common
             public const int TablaLogicaId = 88;
         }
 
-        // utilizar TablaLogicaId = 100
-        //public static class OfertasParaTiPorDefecto
-        //{
-        //    public const int TablaLogicaId = 89;
-        //}
-
         public static class PersonalizacionOdd
         {
             public const int TablaLogicaId = 93;
