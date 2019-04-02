@@ -1079,7 +1079,9 @@
   <xs:element name="ArrayOfBEMisPedidos" nillable="true" type="tns:ArrayOfBEMisPedidos" />
   <xs:complexType name="BEMisPedidos">
     <xs:sequence>
+      <xs:element minOccurs="0" name="CUV" type="xs:int" />
       <xs:element minOccurs="0" name="Campania" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
       <xs:element minOccurs="0" name="Cliente" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoUbigeo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DetallePedido" nillable="true" type="tns:ArrayOfBEMisPedidosDetalle" />
@@ -1093,6 +1095,7 @@
       <xs:element minOccurs="0" name="FormartoFechaSolicitud" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FormatoPrecioTotal" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Leido" type="xs:int" />
+      <xs:element minOccurs="0" name="ListaClientes" nillable="true" type="tns:ArrayOfBEMisPedidos" />
       <xs:element minOccurs="0" name="Marca" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MarcaID" type="xs:int" />
       <xs:element minOccurs="0" name="MedioContacto" nillable="true" type="xs:string" />
@@ -1100,9 +1103,13 @@
       <xs:element minOccurs="0" name="NumIteracion" type="xs:int" />
       <xs:element minOccurs="0" name="PedidoId" type="xs:long" />
       <xs:element minOccurs="0" name="PedidoWebID" type="xs:int" />
+      <xs:element minOccurs="0" name="Precio" type="xs:decimal" />
       <xs:element minOccurs="0" name="PrecioTotal" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Producto" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="SaldoHoras" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Telefono" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Tono" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Url" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEMisPedidos" nillable="true" type="tns:BEMisPedidos" />

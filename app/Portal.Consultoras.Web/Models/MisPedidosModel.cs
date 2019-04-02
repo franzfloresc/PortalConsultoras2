@@ -8,7 +8,7 @@ namespace Portal.Consultoras.Web.Models
     public class MisPedidosModel
     {
         public List<BEMisPedidos> ListaPedidos { get; set; }
-
+        public List<BEMisPedidos> ListaProductos { get; set; }
         public string Registros { get; set; }
         public string RegistrosDe { get; set; }
         public string RegistrosTotal { get; set; }

@@ -923,7 +923,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public ActionResult Pendientes()
         {
             MisPedidosModel model = new MisPedidosModel();
-
+            //var isCLiente = false;
             try
             {
                 List<BEMisPedidos> olstMisPedidos;
@@ -934,46 +934,98 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 if (olstMisPedidos.Count > 0)
                 {
-                    olstMisPedidos.RemoveAll(x => x.Estado.Trim().Length > 0);
+                    //olstMisPedidos.RemoveAll(x => x.Estado.Trim().Length > 0);
 
-                    if (olstMisPedidos.Count > 0)
-                    {
-                        olstMisPedidos.ToList().ForEach(y => y.FormartoFechaSolicitud = y.FechaSolicitud.ToString("dd") + " de " + y.FechaSolicitud.ToString("MMMM", new CultureInfo("es-ES")));
-                        olstMisPedidos.ToList().ForEach(y => y.FormatoPrecioTotal = Util.DecimalToStringFormat(y.PrecioTotal, userData.CodigoISO));
+                    //if (isCLiente)
+                    //{
+                        if (olstMisPedidos.Count > 0)
+                            {
+                                olstMisPedidos.ToList().ForEach(y => y.FormartoFechaSolicitud = y.FechaSolicitud.ToString("dd") + " de " + y.FechaSolicitud.ToString("MMMM", new CultureInfo("es-ES")));
+                                olstMisPedidos.ToList().ForEach(y => y.FormatoPrecioTotal = Util.DecimalToStringFormat(y.PrecioTotal, userData.CodigoISO));
 
-                        model.ListaPedidos = olstMisPedidos;
+                                model.ListaPedidos = olstMisPedidos;
 
-                        objMisPedidos = model;
-                        SessionManager.SetobjMisPedidos(objMisPedidos);
+                                objMisPedidos = model;
+                                SessionManager.SetobjMisPedidos(objMisPedidos);
 
-                        var lstClientesExistentes = olstMisPedidos.Where(x => x.FlagConsultora).ToList();
+                                var lstClientesExistentes = olstMisPedidos.Where(x => x.FlagConsultora).ToList();
 
-                        if (lstClientesExistentes.Count == olstMisPedidos.Count)
-                        {
-                            model.FechaPedidoReciente = "24:00:00";
-                        }
-                        else
-                        {
-                            var pedidoReciente = olstMisPedidos.Where(x => !x.FlagConsultora).OrderBy(x => x.FechaSolicitud).First();
+                                if (lstClientesExistentes.Count == olstMisPedidos.Count)
+                                {
+                                    model.FechaPedidoReciente = "24:00:00";
+                                }
+                                else
+                                {
+                                    var pedidoReciente = olstMisPedidos.Where(x => !x.FlagConsultora).OrderBy(x => x.FechaSolicitud).First();
 
-                            DateTime starDate = DateTime.Now;
-                            DateTime endDate = pedidoReciente.FechaSolicitud.AddDays(1);
+                                    DateTime starDate = DateTime.Now;
+                                    DateTime endDate = pedidoReciente.FechaSolicitud.AddDays(1);
 
-                            TimeSpan ts = endDate - starDate;
-                            model.FechaPedidoReciente = ts.Hours.ToString().PadLeft(2, '0') + ":" + ts.Minutes.ToString().PadLeft(2, '0') + ":" + ts.Seconds.ToString().PadLeft(2, '0');
-                        }
+                                    TimeSpan ts = endDate - starDate;
+                                    model.FechaPedidoReciente = ts.Hours.ToString().PadLeft(2, '0') + ":" + ts.Minutes.ToString().PadLeft(2, '0') + ":" + ts.Seconds.ToString().PadLeft(2, '0');
+                                }
 
-                        model.RegistrosTotal = model.ListaPedidos.Count.ToString();
-                    }
-                    else
-                    {
-                        model.RegistrosTotal = "0";
-                        return RedirectToAction("Detalle", "Pedido", new { area = "Mobile" });
-                    }
+                                model.RegistrosTotal = model.ListaPedidos.Count.ToString();
+                            }
+                            else
+                            {
+                                model.RegistrosTotal = "0";
+                                return RedirectToAction("Detalle", "Pedido", new { area = "Mobile" });
+                            }
+                    //}
+                    //else
+                    //{
+                        //if (olstMisPedidos.Count > 0)
+                        //{
+
+                            var cuvList= olstMisPedidos.Select(x => x.CUV).Distinct().ToList();
+
+                            List<BEMisPedidos> ListaPorProductos = new List<BEMisPedidos>();
+
+                            foreach (var cuv in cuvList)
+                            {
+                                var data = olstMisPedidos.FirstOrDefault(x => x.CUV==cuv);
+                                data.Cantidad = olstMisPedidos.Count(x => x.CUV == cuv);
+                                var clientes = olstMisPedidos.Where(x => x.CUV == cuv);
+                                data.ListaClientes = clientes.ToArray();
+                                ListaPorProductos.Add(data);
+
+                            }
+                            model.ListaProductos = ListaPorProductos;
+
+                            //objMisPedidos = model;
+                            //SessionManager.SetobjMisPedidos(objMisPedidos);
+
+                            //var lstClientesExistentes = olstMisPedidos.Where(x => x.FlagConsultora).ToList();
+
+                            //if (lstClientesExistentes.Count == olstMisPedidos.Count)
+                            //{
+                            //    model.FechaPedidoReciente = "24:00:00";
+                            //}
+                            //else
+                            //{
+                            //    var pedidoReciente = olstMisPedidos.Where(x => !x.FlagConsultora).OrderBy(x => x.FechaSolicitud).First();
+
+                            //    DateTime starDate = DateTime.Now;
+                            //    DateTime endDate = pedidoReciente.FechaSolicitud.AddDays(1);
+
+                            //    TimeSpan ts = endDate - starDate;
+                            //    model.FechaPedidoReciente = ts.Hours.ToString().PadLeft(2, '0') + ":" + ts.Minutes.ToString().PadLeft(2, '0') + ":" + ts.Seconds.ToString().PadLeft(2, '0');
+                            //}
+
+                            //model.RegistrosTotal = model.ListaPedidos.Count.ToString();
+                        //}
+                        //else
+                        //{
+                        //    //model.RegistrosTotal = "0";
+                        //    return RedirectToAction("Detalle", "Pedido", new { area = "Mobile" });
+                        //}
+                   // }
+                       
                 }
                 else
                 {
-                    model.RegistrosTotal = "0";
+                    //model.RegistrosTotal = "0";
                     return RedirectToAction("Detalle", "Pedido", new { area = "Mobile" });
                 }
             }

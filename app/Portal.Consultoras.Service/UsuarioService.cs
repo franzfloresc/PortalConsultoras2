@@ -6,7 +6,7 @@ using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.OpcionesVerificacion;
 using Portal.Consultoras.Entities.Pedido;
-using Portal.Consultoras.Entities.Recomendados;
+using Portal.Consultoras.Entities.Search.RequestRecomendacion;
 using Portal.Consultoras.Entities.Usuario;
 using Portal.Consultoras.ServiceContracts;
 using System;

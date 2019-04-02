@@ -1421,6 +1421,7 @@
     <Content Include="Content\Css\colorpicker\colorpicker.css" />
     <Content Include="Content\Css\Mobile\Clientes\Asignarcliente.css" />
     <Content Include="Content\Css\Mobile\Buscador\categorias-productos.css" />
+    <Content Include="Content\Css\Mobile\ConsultoraOnline\Pendientes.css" />
     <Content Include="Content\Css\Mobile\Contenedor\MenuContenedor.css" />
     <Content Include="Content\Css\Mobile\Contenedor\Index.css" />
     <Content Include="Content\Css\Mobile\Contenedor\carrusel.individual.css" />
@@ -4645,6 +4646,9 @@
     <None Include="Service References\ServiceCliente\ClienteService5.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServiceCliente\ClienteService6.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServiceCliente\configuration91.svcinfo" />
     <None Include="Service References\ServiceCliente\configuration.svcinfo" />
     <None Include="Service References\ServiceCliente\Reference.svcmap">
@@ -5131,6 +5135,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceUsuario\UsuarioService68.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUsuario\UsuarioService69.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceZonificacion\ZonificacionService.wsdl" />

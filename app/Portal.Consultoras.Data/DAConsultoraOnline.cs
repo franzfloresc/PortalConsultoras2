@@ -12,7 +12,8 @@ namespace Portal.Consultoras.Data
 
         public IDataReader GetSolicitudesPedido(long ConsultoraId, int Campania)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetSolicitudesPedido_SB2");
+            /* DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetSolicitudesPedido_SB2"); */
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetSolicitudesPedidoClienteDetalle_SB2"); 
             Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int64, ConsultoraId);
             Context.Database.AddInParameter(command, "@Campania", DbType.Int32, Campania);
 
