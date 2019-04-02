@@ -381,9 +381,26 @@ var EstrategiaAgregarModule = (function () {
                     }
                 }
 
+
                 //INI HD-MDRR
-                esFicha = ((estrategia.FlagNueva==1?true:false) || esFicha);
-                //FIN HD-MDRR
+
+                ////Tooltip de agregado
+                //if (esFicha) {
+                //    try {
+                //        var $AgregadoTooltip = $(dataProperties.tooltip);
+                //        if (params.EsEditable) {
+                //            $AgregadoTooltip.find(dataProperties.tooltipMensaje1).html("¡Listo! ");
+                //            $AgregadoTooltip.find(dataProperties.tooltipMensaje2).html(" Modificaste tu pedido");
+                //        }
+                //        $AgregadoTooltip.show();
+                //        setTimeout(function () { $AgregadoTooltip.hide(); }, 4000);
+                //        ResumenOpcionesModule.LimpiarOpciones();
+                //    } catch (e) {
+                //        console.error(e);
+                //    }
+
+                //}
+                var esFicha = ((estrategia.FlagNueva == 1 ? true : false) && IsNullOrEmpty(data.mensajeAviso)) || esFicha;
 
                 //Tooltip de agregado
                 if (esFicha) {
@@ -395,15 +412,14 @@ var EstrategiaAgregarModule = (function () {
                         }
                         $AgregadoTooltip.show();
                         setTimeout(function () { $AgregadoTooltip.hide(); }, 4000);
-                        //INI HD-MDRR
-                        //ResumenOpcionesModule.LimpiarOpciones();
                         if (typeof ResumenOpcionesModule != 'undefined') { ResumenOpcionesModule.LimpiarOpciones() };
-                        //FIN HD-MDRR
                     } catch (e) {
                         console.error(e);
                     }
 
                 }
+                //FIN HD-MDRR
+               
                 var barraJsLoaded = typeof MostrarBarra === 'function';
 
                 if (barraJsLoaded) {

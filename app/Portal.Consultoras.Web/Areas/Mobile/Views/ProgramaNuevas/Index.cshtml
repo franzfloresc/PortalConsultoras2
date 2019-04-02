@@ -12,6 +12,9 @@
 }
 
 @section styles{
+    @*INI HD-MDRR*@
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/Mobile/Ficha")
+    @*FIN HD-MDRR*@
     @System.Web.Optimization.Styles.Render("~/Bundle/Css/Mobile/RevistaDigital-Landing")
     <style>
         .slct-box-filtro-mobile {
@@ -104,7 +107,7 @@
 @Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml", new ViewDataDictionary { { "TieneBotones", false } })
 
 @section scripts{
-<script type="text/javascript">
+    <script type="text/javascript">
         var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
         var tipoOrigenPantalla = 1;
         var urlOfertaCargarProductos = '@Url.Action("RDObtenerProductosNuevas", "Estrategia", new { area = ""})';
@@ -119,6 +122,6 @@
         var campaniaId = @Model.CampaniaID;
         var variableEstrategia = @Html.Raw(Json.Encode(ViewBag.variableEstrategia)) || {};
         var lsListaRD = 'PNLista';
-</script>
+    </script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mobile/RevistaDigital-Landing")
 }

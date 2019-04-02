@@ -1070,6 +1070,18 @@ var PedidoRegistroModule = function () {
                 }
 
                 CloseLoading();
+
+                //INI HD-MDRR
+                if (_flagNueva && IsNullOrEmpty(data.mensajeAviso)) {
+                    try {
+                        var $AgregadoTooltip = $("[data-agregado=\"tooltip\"]");
+                        $AgregadoTooltip.show();
+                        setTimeout(function () { $AgregadoTooltip.hide(); }, 4000);
+                    } catch (e) {
+                        console.error(e);
+                    }
+                }
+                //FIN HD-MDRR
                 var prevTotal = mtoLogroBarra || 0;
                 MostrarBarra(data);
                 var existeError = $(data).filter("input[id=hdErrorInsertarProducto]").val();
@@ -1230,7 +1242,7 @@ var PedidoRegistroModule = function () {
                 $("#hdErrorInsertarProducto").val(data.errorInsertarProducto);
 
                 //INI HD-MDRR
-                if (_flagNueva) {
+                if (_flagNueva && IsNullOrEmpty(data.mensajeAviso)) {
                     try {
                         var $AgregadoTooltip = $("[data-agregado=\"tooltip\"]");
                         $AgregadoTooltip.show();

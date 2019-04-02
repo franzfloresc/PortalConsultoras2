@@ -7,6 +7,9 @@ var mensajeParametrizableCuv = '';
 var cuvbuscado = "";
 var precioCuvBuscado = "";
 var cuvEsCuponNuevas = false;
+//INI HD-MDRR
+var _flagNueva = false;
+//FIN HD-MDRR
 var productoEcontrado;
 
 var belcorp = belcorp || {};
@@ -449,7 +452,9 @@ function BuscarByCUV(cuv) {
             
             CloseLoading();
             ObservacionesProducto(item);
-
+            //INI HD-MDRR
+            _flagNueva = (item.FlagNueva == "1") ? true : false;
+                //FIN HD-MDRR
             CargarProductosRecomendados(productoEcontrado);
         },
         error: function (data, error) {
