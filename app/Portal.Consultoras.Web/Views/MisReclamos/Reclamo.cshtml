@@ -49,9 +49,15 @@
                         <input type="hidden" id="hdImporteTotalPedido" />
                         <input type="hidden" id="hdtxtCUVDescripcion" />
                         <select class="elige_num_pedido" id="ddlnumPedido" name="numPedido" required="required" style="display:none;"></select>
+                        @*<div class="contenedor_descripcion_reclamo">
+                            <select class="chosen-select descripcion_reclamo" data-placeholder="Ingresa el código" id="ddlCuv" name="txtCUVDescripcion" required="required"></select>
+                            <span class="descripcion_reclamo_fake_placeholder">Ingresa el código</span>
+                        </div>*@
                         <div class="contenedor_descripcion_reclamo">
-                            <select class="chosen-select descripcion_reclamo" data-placeholder="¿Qué código o Descripción del producto tiene?" id="ddlCuv" name="txtCUVDescripcion" required="required"></select>
-                            <span class="descripcion_reclamo_fake_placeholder">¿Qué código o Descripción del producto tiene?</span>
+                            <input type="text" placeholder="Ingresa el código" class="descripcion_reclamo" id="ddlCuv" name="txtCUVDescripcion" required="required" />
+                            <div class="border-radius-4 lista_resultados_busqueda_por_cuv_wrapper">
+                                <ul id="ResultadosBusquedaCUV" class="lista_resultados_busqueda_por_cuv"></ul>
+                            </div>
                         </div>
                         <div class="rango_reclamo" data-cantidad-contenedor="">
                             <input type="text" name="Cantidad" id="txtCantidad" data-input="cantidad" value="1" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid" onfocus="SeleccionarContenido(this) ">
