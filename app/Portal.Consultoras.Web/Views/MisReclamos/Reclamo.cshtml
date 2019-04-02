@@ -55,7 +55,7 @@
                                 <span class="descripcion_reclamo_fake_placeholder">Ingresa el código</span>
                             </div>*@
                         <div class="contenedor_descripcion_reclamo">
-                            <input type="text" placeholder="Ingresa el código" class="descripcion_reclamo" id="ddlCuv" name="txtCUVDescripcion" required="required" />
+                            <input type="text" placeholder="Ingresa el código" class="descripcion_reclamo btn_deshabilitado" id="ddlCuv" name="txtCUVDescripcion" required="required" />
                             <div class="border-radius-4 lista_resultados_busqueda_por_cuv_wrapper">
                                 <ul id="ResultadosBusquedaCUV" class="lista_resultados_busqueda_por_cuv"></ul>
                             </div>
@@ -118,7 +118,6 @@
                             </div>
                         </div>
                     </div>
-                    <hr class="clear" />
                     <div class="total_precio_reclamo">
                         <input type="hidden" id="hdImporteTotal2" />
                         Total: <span id="spnImporteTotal2"></span>
@@ -422,12 +421,10 @@
                         </div>
                     </div>
                 </div>
-                <hr class="clear" />
-                <div class="total_precio_reclamo">
+                <div id="MontoTotalProductoACambiar" class="text-bold total_precio_reclamo" style="display:none;">
                     <input type="hidden" id="hdImporteTotal2" />
                     Total: <span id="spnImporteTotal2"></span>
                 </div>
-
             </div>
             <!-- FIN - INFORMACIÓN CUANDO SE SELECCIONA LA OPCIÓN DE CAMBIAR POR OTRO PRODUCTO -->
         </div>

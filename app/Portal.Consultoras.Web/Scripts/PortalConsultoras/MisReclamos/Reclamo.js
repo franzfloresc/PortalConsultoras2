@@ -388,6 +388,7 @@ function EvaluarCUV2() {
         $("#hdImporteTotal2").val(0);
         $("#spnImporteTotal2").html("");
         $("#CambioProducto2").addClass("disabledClick");
+        $("#MontoTotalProductoACambiar").fadeOut(100);
     }
 }
 
@@ -546,6 +547,7 @@ function BuscarCUVCambiar(cuv) {
                 var cantidad = $("#txtCantidad2").val();
                 $("#hdImporteTotal2").val(precio * cantidad);
                 $("#spnImporteTotal2").html(DecimalToStringFormat(precio * cantidad));
+                $("#MontoTotalProductoACambiar").fadeIn(100);
             } else {
                 $("#txtCUVDescripcion2").val("");
                 $("#txtCUVPrecio2").val("");

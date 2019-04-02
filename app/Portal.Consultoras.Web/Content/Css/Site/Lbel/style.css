@@ -28599,6 +28599,13 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 .opcion_cdr_seleccionada_campos_busqueda_producto_a_cambiar,
 .opcion_cdr_seleccionada_info--cambioMismoProducto {
     margin-top: 30px;
+}
+
+.opcion_cdr_seleccionada_campos_busqueda_producto_a_cambiar {
+    margin-bottom: 20px;
+}
+
+.opcion_cdr_seleccionada_info--cambioMismoProducto {
     margin-bottom: 45px;
 }
 
@@ -28613,37 +28620,37 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     color: #000;
 }
 
-    .opcion_cdr_seleccionada_campo_busqueda::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-        color: #808080;
-    }
+.opcion_cdr_seleccionada_campo_busqueda::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: #808080;
+}
 
-    .opcion_cdr_seleccionada_campo_busqueda::-moz-placeholder { /* Firefox 19+ */
-        color: #808080;
-    }
+.opcion_cdr_seleccionada_campo_busqueda::-moz-placeholder { /* Firefox 19+ */
+    color: #808080;
+}
 
-    .opcion_cdr_seleccionada_campo_busqueda:-ms-input-placeholder { /* IE 10+ */
-        color: #808080;
-    }
+.opcion_cdr_seleccionada_campo_busqueda:-ms-input-placeholder { /* IE 10+ */
+    color: #808080;
+}
 
-    .opcion_cdr_seleccionada_campo_busqueda:-moz-placeholder { /* Firefox 18- */
-        color: #808080;
-    }
+.opcion_cdr_seleccionada_campo_busqueda:-moz-placeholder { /* Firefox 18- */
+    color: #808080;
+}
 
-    .opcion_cdr_seleccionada_campo_busqueda:last-child {
-        margin-right: 0;
-    }
+.opcion_cdr_seleccionada_campo_busqueda:last-child {
+    margin-right: 0;
+}
 
 .opcion_cdr_seleccionada_campo_busqueda--codigo,
 .opcion_cdr_seleccionada_campo_busqueda--precio {
-    min-width: 130px;
+    width: 130px;
 }
 
 .opcion_cdr_seleccionada_campo_busqueda--descripcion {
-    min-width: 261px;
+    width: 261px;
 }
 
 .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad {
-    min-width: 60px;
+    min-width:60px;
     padding-left: 0;
     padding-right: 0;
 }
@@ -28660,6 +28667,12 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 
     .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .liquidacion_rango_cantidad_pedido {
         border-right: 1px solid #000 !important;
+        padding-bottom:3px;
+    }
+
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad.btn_deshabilitado .liquidacion_rango_cantidad_pedido {
+        border-right: 1px solid rgba(128, 128, 128, 0.5);
+        opacity: 0.5;
     }
 
     .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .liquidacion_rango_right_pedido {
@@ -28672,8 +28685,17 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
         position: relative;
     }
 
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad.btn_deshabilitado .mas,
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad.btn_deshabilitado .menos {
+        opacity: 0.5;
+    }
+
     .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .mas {
         border-bottom: 1px solid #000;
+    }
+
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad.btn_deshabilitado .mas {
+        border-bottom: 1px solid rgba(128, 128, 128, 0.5);
     }
 
     .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad img {
@@ -28894,13 +28916,12 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 }
 
 .total_precio_reclamo {
-    float: right;
-    width: 33%;
-    margin-top: 15px;
+    display: inline-block;
+    width: auto;
     margin-bottom: 20px;
     font-family: 'Lato';
-    font-size: 15px;
-    color: #888888;
+    font-size: 17px;
+    color: #000;
 }
 
 .btn_paso_anterior {
@@ -28992,7 +29013,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 }
 
 .listado_eliminar_reclamo {
-    width: 12%;
+    width: 11.5%;
     text-align: center;
 }
 

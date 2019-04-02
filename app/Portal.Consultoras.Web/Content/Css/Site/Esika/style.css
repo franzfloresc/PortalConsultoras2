@@ -28637,6 +28637,13 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 .opcion_cdr_seleccionada_campos_busqueda_producto_a_cambiar,
 .opcion_cdr_seleccionada_info--cambioMismoProducto {
     margin-top: 30px;
+}
+
+.opcion_cdr_seleccionada_campos_busqueda_producto_a_cambiar{
+    margin-bottom:20px;
+}
+
+.opcion_cdr_seleccionada_info--cambioMismoProducto {
     margin-bottom: 45px;
 }
 
@@ -28651,84 +28658,99 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     color:#000;
 }
 
-    .opcion_cdr_seleccionada_campo_busqueda::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-        color: #808080;
+.opcion_cdr_seleccionada_campo_busqueda::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: #808080;
+}
+
+.opcion_cdr_seleccionada_campo_busqueda::-moz-placeholder { /* Firefox 19+ */
+    color: #808080;
+}
+
+.opcion_cdr_seleccionada_campo_busqueda:-ms-input-placeholder { /* IE 10+ */
+    color: #808080;
+}
+
+.opcion_cdr_seleccionada_campo_busqueda:-moz-placeholder { /* Firefox 18- */
+    color: #808080;
+}
+
+.opcion_cdr_seleccionada_campo_busqueda:last-child{
+    margin-right:0;
+}
+
+.opcion_cdr_seleccionada_campo_busqueda--codigo,
+.opcion_cdr_seleccionada_campo_busqueda--precio {
+    width: 130px;
+}
+
+.opcion_cdr_seleccionada_campo_busqueda--descripcion {
+    width: 261px;
+}
+
+.opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad{
+    min-width:60px;
+    padding-left:0;
+    padding-right:0;
+}
+
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .liquidacion_rango_cantidad_pedido,
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .liquidacion_rango_right_pedido,
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .menos {
+        border-left: 0;
+        border-bottom: 0;
+        border-top: 0;
+        border-radius: 0;
+        height: 100%;
     }
 
-    .opcion_cdr_seleccionada_campo_busqueda::-moz-placeholder { /* Firefox 19+ */
-        color: #808080;
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .liquidacion_rango_cantidad_pedido {
+        border-right: 1px solid #000 !important;
+        padding-bottom:3px;
     }
 
-    .opcion_cdr_seleccionada_campo_busqueda:-ms-input-placeholder { /* IE 10+ */
-        color: #808080;
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad.btn_deshabilitado .liquidacion_rango_cantidad_pedido {
+        border-right: 1px solid rgba(128, 128, 128, 0.5)!important;
+        opacity:0.5;
     }
 
-    .opcion_cdr_seleccionada_campo_busqueda:-moz-placeholder { /* Firefox 18- */
-        color: #808080;
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .liquidacion_rango_right_pedido {
+        border-right:0;
     }
 
-    .opcion_cdr_seleccionada_campo_busqueda:last-child{
-        margin-right:0;
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .mas,
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .menos{
+        height: 47%;
+        position:relative;
     }
 
-    .opcion_cdr_seleccionada_campo_busqueda--codigo,
-    .opcion_cdr_seleccionada_campo_busqueda--precio {
-        min-width: 130px;
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad.btn_deshabilitado .mas,
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad.btn_deshabilitado .menos{
+        opacity:0.5;
     }
 
-    .opcion_cdr_seleccionada_campo_busqueda--descripcion {
-        min-width: 261px;
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .mas {
+        border-bottom: 1px solid #000;
     }
 
-    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad{
-        min-width:60px;
-        padding-left:0;
-        padding-right:0;
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad.btn_deshabilitado .mas {
+        border-bottom: 1px solid rgba(128, 128, 128, 0.5);
     }
 
-        .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .liquidacion_rango_cantidad_pedido,
-        .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .liquidacion_rango_right_pedido,
-        .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .menos {
-            border-left: 0;
-            border-bottom: 0;
-            border-top: 0;
-            border-radius: 0;
-            height: 100%;
-        }
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad img{
+        position:absolute;
+        margin:auto;
+        right:0;
+        top:0;
+        bottom:0;
+    }
 
-        .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .liquidacion_rango_cantidad_pedido {
-            border-right: 1px solid #000 !important;
-        }
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .mas img{
+        left:0.5px;
+    }
 
-        .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .liquidacion_rango_right_pedido {
-            border-right:0;
-        }
-
-        .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .mas,
-        .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .menos{
-            height: 47%;
-            position:relative;
-        }
-
-        .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .mas{
-            border-bottom:1px solid #000;
-        }
-
-        .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad img{
-            position:absolute;
-            margin:auto;
-            right:0;
-            top:0;
-            bottom:0;
-        }
-
-        .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .mas img{
-            left:0.5px;
-        }
-
-        .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .menos img {
-            left: -1.5px;
-        }
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .menos img {
+        left: -1.5px;
+    }
 
 .opcion_cdr_seleccionada_info--devolucionCasoSetProducto{
     margin-bottom:8px;
@@ -28929,13 +28951,12 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 }
 
 .total_precio_reclamo {
-    float: right;
-    width: 33%;
-    margin-top: 15px;
+    display:inline-block;
+    width: auto;
     margin-bottom: 20px;
     font-family: 'Lato';
-    font-size: 15px;
-    color: #888888;
+    font-size: 17px;
+    color: #000;
 }
 
 .btn_paso_anterior {
@@ -29003,14 +29024,18 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
         border-bottom: 0;
     }
 
-.listado_producto_reclamo, .listado_solicitud_reclamo, .listado_solicitada_reclamo, .listado_eliminar_reclamo {
+.listado_producto_reclamo,
+.listado_solicitud_reclamo,
+.listado_solicitada_reclamo,
+.listado_eliminar_reclamo {
+    display:inline-block;
+    vertical-align:top;
     font-family: 'Lato';
     line-height: 19px;
     font-size: 15px;
     padding-top: 25px;
     padding-bottom: 25px;
     color: black;
-    float: left;
 }
 
 .listado_producto_reclamo {
@@ -29027,7 +29052,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 }
 
 .listado_eliminar_reclamo {
-    width: 12%;
+    width: 11.5%;
     text-align: center;
 }
 
