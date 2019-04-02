@@ -1,7 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using AutoMapper;
+using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Common.Response;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.AdministrarEstrategia;
 using Portal.Consultoras.Web.Models.Config.ResponseReporte;
 using Portal.Consultoras.Web.Models.Config.ResponseReporte.Estructura;
 using Portal.Consultoras.Web.Models.Estrategia;
@@ -24,9 +26,14 @@ namespace Portal.Consultoras.Web.Providers
         private readonly static HttpClient httpClientMicroservicioSync = new HttpClient();
 
         private readonly ISessionManager sessionManager = SessionManager.SessionManager.Instance;
+        protected OfertaBaseProvider _ofertaBaseProvider;
+        protected readonly EstrategiaGrupoProvider _estrategiaGrupoProvider;
 
-        static AdministrarEstrategiaProvider()
+        public AdministrarEstrategiaProvider()
         {
+            _ofertaBaseProvider = new OfertaBaseProvider();
+            _estrategiaGrupoProvider = new EstrategiaGrupoProvider();
+
             if (!string.IsNullOrEmpty(WebConfig.UrlMicroservicioPersonalizacionSync))
             {
                 httpClientMicroservicioSync.BaseAddress = new Uri(WebConfig.UrlMicroservicioPersonalizacionSync);
@@ -138,6 +145,42 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     _id = d._id,
                     FlagConfig = d.FlagConfig,
+                    //Componentes = Mapper.Map<List<WaEstrategiaComponenteModel>, List<ServicePedido.BEEstrategiaProducto>>(d.Componentes ?? new List<WaEstrategiaComponenteModel>()),
+                    Componentes = d.Componentes.Select(x => new ServicePedido.BEEstrategiaProducto
+                    {
+                        CodigoEstrategia = x.CodigoEstrategia.ToString(),
+                        CUV2 = x.CuvPadre,
+                        CUV = x.Cuv,
+
+                        Precio = x.PrecioUnitario.ToDecimal(),
+                        PrecioValorizado = x.PrecioValorizado.ToDecimal(),
+                        Campania = x.CampaniaId.ToInt(),
+                        //CampaniaApp = x.,
+                        Cantidad = x.Cantidad,
+                        Digitable = x.IndicadorDigitable ? 1 : 0,
+                        EstrategiaID = x.EstrategiaId,
+                        EstrategiaProductoID = x.EstrategiaProductoId,
+                        FactorCuadre = x.FactorCuadre,
+                        IdMarca = x.MarcaId,
+                        Orden = x.Orden,
+                        //PaisID = x.,
+                        //Activo = x.Activo,
+                        //CodigoError = x.,
+                        //CodigoErrorObs = x.,
+                        Descripcion = x.Descripcion,
+                        Descripcion1 = x.Descripcion1,
+                        Grupo = x.Grupo.ToString(),
+                        ImagenBulk = x.ImagenBulk,
+                        ImagenProducto = x.ImagenProducto,
+                        NombreBulk = x.NombreBulk,
+                        NombreComercial = x.NombreComercial,
+                        NombreMarca = x.NombreMarca,
+                        NombreProducto = x.NombreProducto,
+                        SAP = x.CodigoSap,
+                        UsuarioCreacion = x.UsuarioCreacion,
+                        UsuarioModificacion = x.UsuarioModificacion,
+                        Volumen = x.Volumen
+                    }).ToList() ?? new List<ServicePedido.BEEstrategiaProducto>(),
                     BEEstrategia = new ServicePedido.BEEstrategia
                     {
                         ID = index + 1,
@@ -281,6 +324,47 @@ namespace Portal.Consultoras.Web.Providers
                 listaEstrategias.AddRange(mapList);
             }
             return listaEstrategias;
+        }
+
+        public virtual List<ServicePedido.BEEstrategiaProducto> GetEstrategiaProductoService(string isoPais, string estrategiaId, string codigoTipoEstrategia)
+        {
+            List<ServicePedido.BEEstrategiaProducto> lst;
+            codigoTipoEstrategia = Util.Trim(codigoTipoEstrategia);
+            var palancaMongoPrueba = codigoTipoEstrategia != ""
+                && Constantes.TipoEstrategiaCodigo.ArmaTuPack == codigoTipoEstrategia;
+
+            if (palancaMongoPrueba && _ofertaBaseProvider.UsarMsPersonalizacion(isoPais, codigoTipoEstrategia, false))
+            {
+                lst = FiltrarEstrategia(estrategiaId, isoPais)
+                    .Select(x => x.Componentes)
+                    .FirstOrDefault();
+            }
+            else
+            {
+                int paisId = Util.GetPaisID(isoPais);
+                var estrategiaX = new ServicePedido.BEEstrategia() { PaisID = paisId, EstrategiaID = Int32.Parse(estrategiaId) };
+
+                using (var sv = new PedidoServiceClient())
+                {
+                    lst = sv.GetEstrategiaProducto(estrategiaX).ToList();
+                }
+            }
+            return lst;
+        }
+
+
+        public virtual List<EstrategiaGrupoModel> GetEstrategiaGrupoService(string isoPais, string estrategiaId, string codigoTipoEstrategia)
+        {
+            var estrategiaGrupoLista = new List<EstrategiaGrupoModel>();
+            codigoTipoEstrategia = Util.Trim(codigoTipoEstrategia);
+
+            var palancaMongoPrueba = codigoTipoEstrategia != ""
+                && Constantes.TipoEstrategiaCodigo.ArmaTuPack == codigoTipoEstrategia;
+            if (palancaMongoPrueba && _ofertaBaseProvider.UsarMsPersonalizacion(isoPais, codigoTipoEstrategia, false))
+            {
+                estrategiaGrupoLista = _estrategiaGrupoProvider.ObtenerEstrategiaGrupo(estrategiaId, isoPais);
+            }
+            return estrategiaGrupoLista;
         }
 
         public void RegistrarEstrategia(ServicePedido.BEEstrategia entidad, string pais)

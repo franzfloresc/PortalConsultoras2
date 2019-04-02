@@ -35,7 +35,12 @@ namespace Portal.Consultoras.Web.Models
 
         public int DesktopOrdenBpt { get; set; }
         public int MobileOrdenBpt { get; set; }
-
+         
+        public string BotonTexto1 { get; set; }    
+        public string BotonTexto2 { get; set; }    
+        public string BotonColor { get; set; }    
+        public string BotonColorTexto { get; set; }
+         
         public int PaisID { get; set; }
         public ConfiguracionPaisModel ConfiguracionPais { get; set; }
         public IEnumerable<PaisModel> ListaPaises { set; get; }
