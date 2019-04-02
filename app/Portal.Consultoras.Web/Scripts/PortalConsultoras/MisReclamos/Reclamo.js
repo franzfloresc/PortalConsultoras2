@@ -110,6 +110,16 @@ $(document).ready(function () {
         CambioPaso(-1);
     });
 
+    // HD-3703
+
+    $(document).on("click", function (e) {
+        var listaResultadosBusquedaPorCuv = $(".contenedor_descripcion_reclamo");
+        if ((!listaResultadosBusquedaPorCuv.is(e.target) && listaResultadosBusquedaPorCuv.has(e.target).length === 0)) {
+            $(".lista_resultados_busqueda_por_cuv_wrapper").fadeOut(100);
+        }
+    });
+
+
     $("#ddlCuv").on("click", function () {
         if ($("#ddlCampania").val() != 0) {
             $(".lista_resultados_busqueda_por_cuv_wrapper").fadeIn(100);
@@ -135,6 +145,8 @@ $(document).ready(function () {
         $("#ddlCuv").val(codigoProdCdr + ' - ' + descripProdCdr);
         $(".lista_resultados_busqueda_por_cuv_wrapper").fadeOut(100);
     });
+
+    // FIN - HD-3703
 
     $("#CambioProducto2").on("click", function () {
         //HD-3412 EINCA
@@ -454,17 +466,21 @@ function BuscarCUV() {
 
             if (data.detalle.length > 1) {
                 $("#ddlCuv").html("");
+
+                // HD-3703
+
                 //$('.descripcion_reclamo_fake_placeholder').hide();
                 //$('#ddlCuv').append($('<option></option>').val("").html(""));
                 $(data.detalle).each(function (index, item) {
                     //$('#ddlCuv').append($('<option></option>').val(item.CUV).html(item.CUV + " - " + item.DescripcionProd));
                     $('#ResultadosBusquedaCUV').append('<li class="resultado_busqueda_por_cuv" data-value-cuv="'+item.CUV+'"><a class="resultado_busqueda_por_cuv_enlace" title="' + item.DescripcionProd + '"><div class="resultado_busqueda_por_cuv_datos_imagen"><img src="https://cdn1-prd.somosbelcorp.com/Matriz/PE/PE_201905_30709.jpg" alt="'+item.DescripcionProd+'" /></div><div class="resultado_busqueda_por_cuv_datos_prod">' + '<div class="resultado_busqueda_por_cuv_codigo_prod">' + item.CUV + '</div>' + '<div class="resultado_busqueda_por_cuv_descrip_prod">' + item.DescripcionProd + '</div>' +'</div></a></li>');
                 });
-
                 //$('.chosen-select').chosen();
                 //$(".chosen-select").val('').trigger("chosen:updated");
                 //$('.chosen-select-deselect').chosen({ allow_single_deselect: true });
                 //$('.chosen-search-input').attr('placeholder', 'Ingresa el código');
+
+                // FIN - HD-3703
             }
         },
         error: function (data, error) {
