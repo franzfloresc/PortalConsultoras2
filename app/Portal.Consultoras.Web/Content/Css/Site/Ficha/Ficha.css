@@ -181,6 +181,7 @@ body {
     margin: 0px;
     display: flex;
     align-items: center;
+    -webkit-flex-flow: row wrap;
 }
 
 .detalle_producto:last-child {
@@ -208,8 +209,20 @@ body {
     line-height: 1.27;
     padding-bottom: 11px;
     width: 100%;
-    padding-top: 5px;
+    /*padding-top: 5px;*/
 }
+
+.ganancia {
+    color: #b9007e !important;
+}
+.content_right_ficha .tono_select_opt {
+    margin-top: 10px;
+}
+
+.content_right_ficha {
+    width: 100% !important
+}
+
 
 .cantidad_descripcion_detalle:last-child {
     padding-bottom: 0;
@@ -1190,18 +1203,21 @@ ul.breadcumbs li a::before {
     height: 200px;
 }
 
-.button_ver_detalle{
+.button_ver_detalle {
     font-size: 13.5px;
     font-weight: bold;
     margin-left: auto;
+    position: relative;
+    padding-right: 25px;
 }
 
     .button_ver_detalle img {
-        position: relative;
-        top: 7px;
+        top: 1px;
         width: 21px;
         transform: rotate(-90deg);
-        right: 4px;
+        right: 7px;
+        position: absolute;
+
     }
 
 
