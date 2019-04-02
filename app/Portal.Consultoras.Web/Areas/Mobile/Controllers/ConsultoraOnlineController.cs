@@ -2,6 +2,7 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
@@ -21,17 +22,30 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
     {
         #region Variables
 
+        private readonly ConsultoraOnlineProvider _consultoraOnlineProvider;
         private const int refrescoGetCantidadPedidos = 30;
         MisPedidosModel objMisPedidos;
         readonly bool isEsika = false;
         #endregion
 
+     
+
         public ConsultoraOnlineController()
+            : this(new ConsultoraOnlineProvider())
         {
             if (_configuracionManagerProvider.GetPaisesEsikaFromConfig().Contains(userData.CodigoISO))
             {
                 isEsika = true;
             }
+        }
+
+        public ConsultoraOnlineController(ConsultoraOnlineProvider consultoraOnlineProvider)
+        {
+            if (_configuracionManagerProvider.GetPaisesEsikaFromConfig().Contains(userData.CodigoISO))
+            {
+                isEsika = true;
+            }
+            _consultoraOnlineProvider = consultoraOnlineProvider;
         }
 
         ~ConsultoraOnlineController()
@@ -970,6 +984,20 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return View(model);
         }
+
+        public ActionResult PendientesMedioDeCompra()
+        {
+
+            var model = new PedidosPendientesMedioPagoModel();
+            model.Total =100;
+            model.TotalGana = 60;
+            model.TotalCatalogo = 40;
+            var pedidoSet = _consultoraOnlineProvider.ObtenerPorId(1,0);
+
+             
+            return View(model);
+        }
+
 
         public ActionResult DetallePedidoPendiente(int pedidoId)
         {

@@ -1,0 +1,47 @@
+﻿@using Portal.Consultoras.Web.CustomHelpers
+@model Portal.Consultoras.Web.Models.PedidosPendientesMedioPagoModel
+
+@{
+    var layout = ViewContext.MobileLayout();
+    Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
+    var mobileConfiguracion = Html.MobileAppConfiguracion();
+}
+
+<div style="height:600px">
+
+    <div style="height:100px; border:1px solid black;">
+        Podras vender todo a <label>@Model.Total</label>
+    </div>
+
+
+    <div style="height:200px; border:1px thin black;">
+        por Gana+: <label>@Model.TotalGana</label><br />
+        Gana <label>@Model.GananciaGana</label>
+    </div>
+
+
+    <div style="height:200px; border:1px solid black;">
+        por Gana+: <label>@Model.TotalCatalogo</label>
+    </div>
+
+    <div style="height:100px; border:1px thin black;">
+       ya lo tnego en stcok
+    </div>
+
+    <div id="btnAceptarPedido" onclick="PendientesAprobarPedido()" style="height:50px; border:1px solid black; text-align:center">
+        aceptar pedido
+    </div>
+
+</div>
+
+
+@section scripts {
+    <script type="text/javascript">
+        var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
+        var urlPendientes = '@Url.Action("Pendientes", "ConsultoraOnline")';
+        var urlPedido = '@Url.Action("Index", "Pedido")';
+        var urlClienteDetalle = "@Url.Action("AgregarCliente", "Cliente", new { area = "Mobile" })";
+    </script>
+
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/ConsultoraOnline/PedidoPendienteMedioCompra.js")"></script>
+}

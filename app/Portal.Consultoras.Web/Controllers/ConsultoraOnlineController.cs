@@ -17,6 +17,8 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class ConsultoraOnlineController : BaseController
     {
+       
+
         #region Configuracion de Paginado
 
         MisPedidosModel objMisPedidos;

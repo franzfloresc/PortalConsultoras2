@@ -298,3 +298,4 @@ function CerrarAlertaPedidoReservado() {
     $('#AlertaPedidoReservado').hide();
     document.location.href = urlPedido;
 }
+
