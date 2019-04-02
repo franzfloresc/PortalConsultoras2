@@ -1254,8 +1254,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             try
             {
                 MisPedidosModel consultoraOnlineMisPedidos = SessionManager.GetobjMisPedidos();
-                string _cuv = Convert.ToString(cuv);
-                BEMisPedidos pedido = consultoraOnlineMisPedidos.ListaPedidos.FirstOrDefault(p => p.DetallePedido.ToList()[0].CUV == _cuv && p.Estado.Trim().Length == 0);
+                //string _cuv = Convert.ToString(cuv);
+             
+                var pedido = consultoraOnlineMisPedidos.ListaPedidos.Where(p => p.CUV == cuv && p.Estado.Trim().Length == 0).ToList();
 
                 if (pedido == null)
                 {
@@ -1269,24 +1270,21 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     }
                 }
 
-               List< BEMisPedidos> olstMisPedidos;
-                using (UsuarioServiceClient svc = new UsuarioServiceClient())
-                {
-                    olstMisPedidos = svc.GetMisPedidosConsultoraOnlineCliente(userData.PaisID,0, cuv).ToList();
-                }
+                //List<BEMisPedidos> olstMisPedidos;
+                //using (UsuarioServiceClient svc = new UsuarioServiceClient())
+                //{
+                //    olstMisPedidos = svc.GetMisPedidosConsultoraOnlineCliente(userData.PaisID,0, cuv).ToList();
+                //}
 
                //model.ListaDetalle2 = new List<MisPedidosDetalleModel2>();
-                if (olstMisPedidos.Count> 0)
+                if (pedido.Count> 0)
                 {
-                    model.ListaPedidos = olstMisPedidos;
+                    model.ListaPedidos = pedido;
 
                     SessionManager.SetobjMisPedidos(model);
-
                    // olstMisPedidos = CargarMisPedidosDatosClientes(pedido.MarcaID, olstMisPedidos);
-
                    // var Pedidos = Mapper.Map<List<BEMisPedidos>, List<MisPedidosModel>>(olstMisPedidos);
                    // Pedidos.Update(p => p.ListaDetalleModel[0].ListaDetalle2[0].CodigoIso = userData.CodigoISO);
-
                    //model.ListaDetalleModel = Pedidos;
                 }
 
