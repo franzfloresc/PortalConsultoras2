@@ -19,13 +19,19 @@ $(document).ready(function () {
     $("#ddlCampania").on("change", function () {
         $("#txtCantidad").val("1");
         $("#divMotivo").html("");
-        if ($("#ddlCampania").val() == 0) {
+        $('#ResultadosBusquedaCUV').empty(); //HD-7303 EINCA
+        $(".lista_resultados_busqueda_por_cuv_wrapper").fadeOut(100);
+        $('#ddlCuv').val('');
+        if ($(this).val() == "0") {
             $("#ddlnumPedido").html("");
             $("#ddlnumPedido").hide();
             $("#ddlCuv").html("");
             $('.chosen-select').chosen();
             $(".chosen-select").val('').trigger("chosen:updated");
+            $('#ddlCuv').addClass('btn_deshabilitado');
             return false;
+        } else {
+            $('#ddlCuv').removeClass('btn_deshabilitado');
         }
         $("#txtPedidoID").val(0);
         $("#txtNumeroPedido").val(0);
@@ -142,13 +148,19 @@ $(document).ready(function () {
         }
     });
 
-    $("#ResultadosBusquedaCUV").on("click",".resultado_busqueda_por_cuv_enlace", function (e) {
+    $('#ddlCuv').focusout(function () {
+        $(".lista_resultados_busqueda_por_cuv_wrapper").fadeOut(100);
+    });
+
+    $("#ResultadosBusquedaCUV").on("click", ".resultado_busqueda_por_cuv_enlace", function (e) {
         e.preventDefault();
         var codigoProdCdr = $(this).find(".resultado_busqueda_por_cuv_codigo_prod").html();
+        $('#hdfCUVSeleccionado').val(codigoProdCdr);//HD-3703 EINCA
         var descripProdCdr = $(this).find(".resultado_busqueda_por_cuv_descrip_prod").html();
         $("#ddlCuv").val(codigoProdCdr + ' - ' + descripProdCdr);
-        $(".lista_resultados_busqueda_por_cuv_wrapper").fadeOut(100);
+        $(".lista_resultados_busqueda_por_cuv_wrapper").fadeOut(100);        
         $(this).fadeOut(100);
+        ObtenerDatosCuv();
     });
 
     // FIN - HD-3703
@@ -471,14 +483,14 @@ function BuscarCUV() {
 
             if (data.detalle.length > 1) {
                 $("#ddlCuv").html("");
+                $("#ResultadosBusquedaCUV").empty();
 
-                // HD-3703
 
                 //$('.descripcion_reclamo_fake_placeholder').hide();
                 //$('#ddlCuv').append($('<option></option>').val("").html(""));
                 $(data.detalle).each(function (index, item) {
                     //$('#ddlCuv').append($('<option></option>').val(item.CUV).html(item.CUV + " - " + item.DescripcionProd));
-                    $('#ResultadosBusquedaCUV').append('<li class="resultado_busqueda_por_cuv" data-value-cuv="'+item.CUV+'"><a class="resultado_busqueda_por_cuv_enlace" title="' + item.DescripcionProd + '"><div class="resultado_busqueda_por_cuv_datos_imagen"><img src="https://cdn1-prd.somosbelcorp.com/Matriz/PE/PE_201905_30709.jpg" alt="'+item.DescripcionProd+'" /></div><div class="resultado_busqueda_por_cuv_datos_prod">' + '<div class="resultado_busqueda_por_cuv_codigo_prod">' + item.CUV + '</div>' + '<div class="resultado_busqueda_por_cuv_descrip_prod">' + item.DescripcionProd + '</div>' +'</div></a></li>');
+                    $('#ResultadosBusquedaCUV').append('<li class="resultado_busqueda_por_cuv" data-value-cuv="' + item.CUV + '"><a class="resultado_busqueda_por_cuv_enlace" title="' + item.DescripcionProd + '"><div class="resultado_busqueda_por_cuv_datos_imagen"><img src="https://cdn1-prd.somosbelcorp.com/Matriz/PE/PE_201905_30709.jpg" alt="' + item.DescripcionProd + '" /></div><div class="resultado_busqueda_por_cuv_datos_prod">' + '<div class="resultado_busqueda_por_cuv_codigo_prod">' + item.CUV + '</div>' + '<div class="resultado_busqueda_por_cuv_descrip_prod">' + item.DescripcionProd + '</div>' + '</div></a></li>');
                 });
                 //$('.chosen-select').chosen();
                 //$(".chosen-select").val('').trigger("chosen:updated");
@@ -632,7 +644,9 @@ function AsignarCUV(pedido) {
         alert_msg("Lo sentimos, usted ha excedido el límite de reclamos por pedido");
     } else {
         pedido.olstBEPedidoWebDetalle = pedido.olstBEPedidoWebDetalle || new Array();
-        var detalle = pedido.olstBEPedidoWebDetalle.Find("CUV", $.trim($("#ddlCuv").val()) || "");
+        var cuvSeleccionado = $.trim($('#hdfCUVSeleccionado').val());
+        //var detalle = pedido.olstBEPedidoWebDetalle.Find("CUV", $.trim($("#ddlCuv").val()) || "");
+        var detalle = pedido.olstBEPedidoWebDetalle.Find("CUV", cuvSeleccionado || "");
         var data = detalle.length > 0 ? detalle[0] : new Object();
         $("#txtCantidad").removeAttr("disabled");
         $("#txtCantidad").attr("data-maxvalue", data.Cantidad);
@@ -922,7 +936,7 @@ function AnalizarOperacionV2(id) {
         }
 
 
-       
+
     }
 }
 
