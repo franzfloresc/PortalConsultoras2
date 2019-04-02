@@ -126,7 +126,8 @@ BEGIN
 		begin
 			UPDATE Usuario 
 			set Bloqueado = 1,
-			CantidadIntentoLogueo = (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'IntentoLogueo')
+			CantidadIntentoLogueo = (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'IntentoLogueo'),
+			FechaUltimoIntentoLogueo = getdate()
 			WHERE CodigoUsuario = @CodigoUsuario
 
 			SET @Result = 5 
@@ -282,7 +283,8 @@ BEGIN
 		begin
 			UPDATE Usuario 
 			set Bloqueado = 1,
-			CantidadIntentoLogueo = (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'IntentoLogueo')
+			CantidadIntentoLogueo = (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'IntentoLogueo'),
+			FechaUltimoIntentoLogueo = getdate()
 			WHERE CodigoUsuario = @CodigoUsuario
 
 			SET @Result = 5 
@@ -438,7 +440,8 @@ BEGIN
 		begin
 			UPDATE Usuario 
 			set Bloqueado = 1,
-			CantidadIntentoLogueo = (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'IntentoLogueo')
+			CantidadIntentoLogueo = (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'IntentoLogueo'),
+			FechaUltimoIntentoLogueo = getdate()
 			WHERE CodigoUsuario = @CodigoUsuario
 
 			SET @Result = 5 
@@ -594,7 +597,8 @@ BEGIN
 		begin
 			UPDATE Usuario 
 			set Bloqueado = 1,
-			CantidadIntentoLogueo = (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'IntentoLogueo')
+			CantidadIntentoLogueo = (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'IntentoLogueo'),
+			FechaUltimoIntentoLogueo = getdate()
 			WHERE CodigoUsuario = @CodigoUsuario
 
 			SET @Result = 5 
@@ -750,7 +754,8 @@ BEGIN
 		begin
 			UPDATE Usuario 
 			set Bloqueado = 1,
-			CantidadIntentoLogueo = (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'IntentoLogueo')
+			CantidadIntentoLogueo = (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'IntentoLogueo'),
+			FechaUltimoIntentoLogueo = getdate()
 			WHERE CodigoUsuario = @CodigoUsuario
 
 			SET @Result = 5 
@@ -906,7 +911,8 @@ BEGIN
 		begin
 			UPDATE Usuario 
 			set Bloqueado = 1,
-			CantidadIntentoLogueo = (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'IntentoLogueo')
+			CantidadIntentoLogueo = (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'IntentoLogueo'),
+			FechaUltimoIntentoLogueo = getdate()
 			WHERE CodigoUsuario = @CodigoUsuario
 
 			SET @Result = 5 
@@ -1062,7 +1068,8 @@ BEGIN
 		begin
 			UPDATE Usuario 
 			set Bloqueado = 1,
-			CantidadIntentoLogueo = (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'IntentoLogueo')
+			CantidadIntentoLogueo = (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'IntentoLogueo'),
+			FechaUltimoIntentoLogueo = getdate()
 			WHERE CodigoUsuario = @CodigoUsuario
 
 			SET @Result = 5 
@@ -1218,7 +1225,8 @@ BEGIN
 		begin
 			UPDATE Usuario 
 			set Bloqueado = 1,
-			CantidadIntentoLogueo = (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'IntentoLogueo')
+			CantidadIntentoLogueo = (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'IntentoLogueo'),
+			FechaUltimoIntentoLogueo = getdate()
 			WHERE CodigoUsuario = @CodigoUsuario
 
 			SET @Result = 5 
@@ -1374,7 +1382,8 @@ BEGIN
 		begin
 			UPDATE Usuario 
 			set Bloqueado = 1,
-			CantidadIntentoLogueo = (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'IntentoLogueo')
+			CantidadIntentoLogueo = (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'IntentoLogueo'),
+			FechaUltimoIntentoLogueo = getdate()
 			WHERE CodigoUsuario = @CodigoUsuario
 
 			SET @Result = 5 
@@ -1530,7 +1539,8 @@ BEGIN
 		begin
 			UPDATE Usuario 
 			set Bloqueado = 1,
-			CantidadIntentoLogueo = (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'IntentoLogueo')
+			CantidadIntentoLogueo = (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'IntentoLogueo'),
+			FechaUltimoIntentoLogueo = getdate()
 			WHERE CodigoUsuario = @CodigoUsuario
 
 			SET @Result = 5 
@@ -1686,7 +1696,8 @@ BEGIN
 		begin
 			UPDATE Usuario 
 			set Bloqueado = 1,
-			CantidadIntentoLogueo = (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'IntentoLogueo')
+			CantidadIntentoLogueo = (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'IntentoLogueo'),
+			FechaUltimoIntentoLogueo = getdate()
 			WHERE CodigoUsuario = @CodigoUsuario
 
 			SET @Result = 5 
@@ -1842,7 +1853,8 @@ BEGIN
 		begin
 			UPDATE Usuario 
 			set Bloqueado = 1,
-			CantidadIntentoLogueo = (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'IntentoLogueo')
+			CantidadIntentoLogueo = (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'IntentoLogueo'),
+			FechaUltimoIntentoLogueo = getdate()
 			WHERE CodigoUsuario = @CodigoUsuario
 
 			SET @Result = 5 
