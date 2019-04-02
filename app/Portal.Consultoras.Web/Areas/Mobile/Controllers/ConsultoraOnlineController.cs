@@ -1244,5 +1244,137 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return View(model);
         }
+
+        /////////Lista por clientes ///////
+
+        public ActionResult DetallePedidoPendienteClientes(int cuv)
+        {
+            MisPedidosModel model = new MisPedidosModel();
+
+            try
+            {
+                MisPedidosModel consultoraOnlineMisPedidos = SessionManager.GetobjMisPedidos();
+                string _cuv = Convert.ToString(cuv);
+                BEMisPedidos pedido = consultoraOnlineMisPedidos.ListaPedidos.FirstOrDefault(p => p.DetallePedido.ToList()[0].CUV == _cuv && p.Estado.Trim().Length == 0);
+
+                if (pedido == null)
+                {
+                    if (consultoraOnlineMisPedidos.ListaPedidos.Count > 0)
+                    {
+                        return RedirectToAction("Pendientes", "ConsultoraOnline", new { area = "Mobile" });
+                    }
+                    else
+                    {
+                        return RedirectToAction("Home", "Bienvenida", new { area = "Mobile" });
+                    }
+                }
+
+               List< BEMisPedidos> olstMisPedidos;
+                using (UsuarioServiceClient svc = new UsuarioServiceClient())
+                {
+                    olstMisPedidos = svc.GetMisPedidosConsultoraOnlineCliente(userData.PaisID,0, cuv).ToList();
+                }
+
+               //model.ListaDetalle2 = new List<MisPedidosDetalleModel2>();
+                if (olstMisPedidos.Count> 0)
+                {
+                    model.ListaPedidos = olstMisPedidos;
+
+                    SessionManager.SetobjMisPedidos(model);
+
+                   // olstMisPedidos = CargarMisPedidosDatosClientes(pedido.MarcaID, olstMisPedidos);
+
+                   // var Pedidos = Mapper.Map<List<BEMisPedidos>, List<MisPedidosModel>>(olstMisPedidos);
+                   // Pedidos.Update(p => p.ListaDetalleModel[0].ListaDetalle2[0].CodigoIso = userData.CodigoISO);
+
+                   //model.ListaDetalleModel = Pedidos;
+                }
+
+                model.RegistrosTotal = model.ListaPedidos.Count.ToString();
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
+            using (SACServiceClient sv = new SACServiceClient())
+            {
+                List<BEMotivoSolicitud> motivoSolicitud = sv.GetMotivosRechazo(userData.PaisID).ToList();
+                ViewBag.MotivosRechazo = Mapper.Map<List<MisPedidosMotivoRechazoModel>>(motivoSolicitud);
+            }
+
+            return View(model);
+        }
+
+        //private List<BEMisPedidos> CargarMisPedidosDatosClientes(int marcaId,List<BEMisPedidos> olstMisPedidos)
+        //{
+        //    // 0=App Catalogos, >0=Portal Marca
+        //    if (marcaId != 0)
+        //    {
+        //        return olstMisPedidos;
+        //    }
+
+        //    int? revistaGana = null;
+        //    using (PedidoServiceClient sv = new PedidoServiceClient())
+        //    {
+        //        revistaGana = sv.ValidarDesactivaRevistaGana(userData.PaisID, userData.CampaniaID, userData.CodigoZona);
+        //    }
+
+        //    List<ServiceODS.BEProducto> olstMisProductos = GetValidarCuvMisPedidosCliente(olstMisPedidos);
+
+        //    foreach (var item in olstMisPedidos)
+        //    {
+        //        var pedidoVal = olstMisProductos.FirstOrDefault(x => x.CUV == item.DetallePedido[0].CUV);
+        //        if (pedidoVal == null)
+        //        {
+        //            item.DetallePedido[0].TieneStock = 0;
+        //            item.DetallePedido[0].MensajeValidacion = "El producto solicitado no existe";
+        //            continue;
+        //        }
+
+        //        item.DetallePedido[0].TieneStock = pedidoVal.TieneStock.ToInt();
+        //        item.DetallePedido[0].EstaEnRevista = pedidoVal.EstaEnRevista.ToInt();
+
+        //        if (!pedidoVal.TieneStock)
+        //        {
+        //            item.DetallePedido[0].MensajeValidacion = "Este producto está agotado";
+        //        }
+        //        else if (pedidoVal.CUVRevista.Length != 0 && revistaGana == 0)
+        //        {
+        //            item.DetallePedido[0].EstaEnRevista = 1;
+        //            item.DetallePedido[0].MensajeValidacion = isEsika
+        //                ? Constantes.MensajeEstaEnRevista.EsikaMobile
+        //                : Constantes.MensajeEstaEnRevista.LbelMobile;
+        //        }
+
+
+        //    }
+
+        //    return olstMisPedidos;
+        //}
+
+        //private List<ServiceODS.BEProducto> GetValidarCuvMisPedidosCliente(List<BEMisPedidos> olstMisPedidos)
+        //{
+
+        //    var txtBuil = new StringBuilder();
+        //    foreach (var item in olstMisPedidos)
+        //    {
+        //        txtBuil.Append(item.DetallePedido[0].CUV + ",");
+        //    }
+
+        //    var inputCuv = txtBuil.ToString();
+        //    inputCuv = inputCuv.Substring(0, inputCuv.Length - 1);
+
+        //    List<ServiceODS.BEProducto> olstMisProductos;
+
+        //    using (ODSServiceClient svc = new ODSServiceClient())
+        //    {
+        //        olstMisProductos = svc.GetValidarCUVMisPedidos(userData.PaisID, userData.CampaniaID, inputCuv, userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona).ToList();
+        //    }
+
+        //    SessionManager.SetobjMisPedidosDetalleVal(olstMisProductos);
+        //    return olstMisProductos;
+        //}
+
     }
 }
