@@ -111,17 +111,31 @@ $(document).ready(function () {
         CambioPaso(-1);
     });
 
+    $("#ddlCuv").on("click", function () {
+        if ($("#ddlCampania").val() != 0) {
+            $(".lista_resultados_busqueda_por_cuv_wrapper").fadeIn(100);
+        }
+    });
+
     $("#ddlCuv").on("keyup", function () {
         if ($(this).val().length === 0) {
-            $('.lista_resultados_busqueda_por_cuv_wrapper').fadeOut(100);
+            $(".lista_resultados_busqueda_por_cuv_wrapper").fadeOut(100);
         } else {
-            $('.lista_resultados_busqueda_por_cuv_wrapper').fadeIn(100);
+            $(".lista_resultados_busqueda_por_cuv_wrapper").fadeIn(100);
             var cuvIngresado = $('#ddlCuv').val();
             $("#ResultadosBusquedaCUV li").filter(function () {
-                $(this).toggle($(this).attr('data-value-cuv').indexOf(cuvIngresado) > -1);
+                $(this).toggle($(this).attr("data-value-cuv").indexOf(cuvIngresado) > -1);
             });
         }
-    })
+    });
+
+    $("#ResultadosBusquedaCUV").on("click",".resultado_busqueda_por_cuv_enlace", function (e) {
+        e.preventDefault();
+        var codigoProdCdr = $(this).find(".resultado_busqueda_por_cuv_codigo_prod").html();
+        var descripProdCdr = $(this).find(".resultado_busqueda_por_cuv_descrip_prod").html();
+        $("#ddlCuv").val(codigoProdCdr + ' - ' + descripProdCdr);
+        $(".lista_resultados_busqueda_por_cuv_wrapper").fadeOut(100);
+    });
 
     $("#CambioProducto2").on("click", function () {
 
