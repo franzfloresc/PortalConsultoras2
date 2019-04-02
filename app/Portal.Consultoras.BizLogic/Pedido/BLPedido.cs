@@ -1136,6 +1136,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                     pedido.CantidadProductos = lstDetalle.Sum(p => p.Cantidad);
                     pedido.CantidadCuv = lstDetalle.Count;
+                    pedido.TieneArmaTuPack = lstDetalle.Any(x => x.EsArmaTuPack);
                 }
 
                 //Programa nuevas
