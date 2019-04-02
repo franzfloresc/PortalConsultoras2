@@ -25,11 +25,11 @@ function ObjetoMensajes() {
     this.sinCambios = "No existe ningún cambio realizado";
     this.seleccionImagen = "No seleccionó una imagen";
     this.ingresoTituloPrincipal = "No ingresó el Título principal.";
-    this.ingresoDescripcion = "No ingresó la descripcón.";
+    this.ingresoDescripcion = "No ingresó la descripción.";
     this.maximocaracteres = "Sobrepasó la cantidad aceptada de caracteres";
     this.ingresoURL = "No ingresó una URL";
-    this.ingresoTipoDispositivo = "No seelccionó un tipo de dispositivo";
-    this.guardarDatos = "Deseas guardar los datos ingresados";
+    this.ingresoTipoDispositivo = "No seleccionó un tipo de dispositivo";
+    this.guardarDatos = "Desea guardar los datos ingresados";
     this.cargando = "Cargando";
     this.espera = "Espere por favor";
     this.registroSatisfactorio = "Se registró de forma satisfactoria";
@@ -99,7 +99,7 @@ $(document).ready(function () {
                     if ($("#ddlCampania").val().length > 0) {
                         document.getElementById("imgPreview").style.display = "none";
                         LimpiarCamposPoput();
-                        $("#description").html("Formato de archivo JPG.<br /> (326 x 418 píxeles)");
+                        $("#description").html("Formato de archivo PNG.<br /> (326 x 418 píxeles)");
                         $("#nameArchivo").html(OBJETO_MENJASE.validaArchivoCsv);
                         $("#hdAccion").val(TIPO_ACCION_NUEVO);
                         $('#modalTitulo').html($(this).attr('title'));
@@ -157,7 +157,8 @@ $(document).ready(function () {
                     $("#fechaMin").val("");
                     return false;
                 }
-                var hoy = new Date((hoy.getMonth() + 1).toString() + "/" + hoy.getDate() + "/" + hoy.getFullYear().toString());
+                var hoy_ = new Date();
+                var hoy = new Date((hoy_.getMonth() + 1).toString() + "/" + hoy_.getDate() + "/" + hoy_.getFullYear().toString());
                 var date = new Date(valorFecha);
                 if (date < hoy) {
                     alert(OBJETO_MENJASE.validarFechaPasada);
@@ -239,7 +240,7 @@ function GetCamposCargadosPoput(data) {
         $("#targetImg").attr('src', (data.UrlImagen));
         $("#description").html(data.NombreImagen);
         $("#imgPreview").show();
-    } else $("#description").html("Formato de archivo JPG.<br /> (326 x 418 píxeles)");
+    } else $("#description").html("Formato de archivo PNG.<br /> (326 x 418 píxeles)");
 
     $("#txtTituloPrincipal").val(data.Descripcion);
     $("#txtDescripcion").val(data.Comentario);
@@ -328,7 +329,7 @@ var ClearView = function () {
 
 function ClearFileView() {
     $("#imgPreview").hide();
-    $("#description").html("Formato de archivo JPG.<br /> (326 x 418 píxeles)");
+    $("#description").html("Formato de archivo PNG.<br /> (326 x 418 píxeles)");
 }
 
 function getFileCSV() {
@@ -511,7 +512,7 @@ function respuestaValidacionCambios() {
 }
 
 function ValidaImagen(file) {
-    $("#description").html("Formato de archivo JPG.<br /> (326 x 418 píxeles)");
+    $("#description").html("Formato de archivo PNG.<br /> (326 x 418 píxeles)");
     $("#targetImg").attr("src", "");
     $("#imgPreview").hide();
 
