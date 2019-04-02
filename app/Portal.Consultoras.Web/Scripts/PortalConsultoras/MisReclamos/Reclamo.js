@@ -7,6 +7,8 @@ var listaPedidos = new Array();
 var codigoSsic = "";
 var tipoDespacho = false;
 
+var dataCdrServicio = {};
+
 $(document).ready(function () {
 
     //$('.chosen-select').chosen();
@@ -72,10 +74,19 @@ $(document).ready(function () {
         if (ValidarPasoUno()) {
             //HD-3412 EINCA
             //validar lado del server
-            ValidarPasoUnoServer(function (result, msg) {
+            ValidarPasoUnoServer(function (result, msg, data) {
                 if (!result) {
                     alert_msg(msg);
                 } else {
+                    //Seteamos la data de la respuesta del servicio de cdr
+                    var ProductoSeleccionado = {
+                        CUV: $("#ddlCuv").val(),
+                        Descripcion: $("#hdtxtCUVDescripcion").val()
+                    };
+
+                    dataCdrServicio.ProductoSeleccionado = ProductoSeleccionado;
+                    dataCdrServicio.DataRespuestaServicio = data[0].LProductosComplementos;
+
                     paso2Actual = 1;
                     $.when(CambioPaso()).then(function () {
                         CargarOperacion();
@@ -302,6 +313,13 @@ $(document).ready(function () {
         }
     });
 });
+
+
+function SetTemplateDevolucion(data) {
+    if (data) {
+        SetHandlebars("#template-opcion-devolucion", data, "#divDevolucionSetsOrPack");
+    }
+}
 
 function CUV2Cambio() {
     var cuv2Val = $("#txtCUV2").val();
@@ -641,59 +659,59 @@ function BuscarMotivo() {
     });
 }
 
-function ValidarPaso1() {
-    var ok = true;
-    ok = $("#ddlCampania").val() > 0 ? ok : false;
-    ok = $.trim($("#txtPedidoID").val()) > 0 ? ok : false;
-    ok = $.trim($("#ddlCuv").val()) /*$.trim($("#txtCUV").val())*/ != "" ? ok : false;
+//function ValidarPaso1() {
+//    var ok = true;
+//    ok = $("#ddlCampania").val() > 0 ? ok : false;
+//    ok = $.trim($("#txtPedidoID").val()) > 0 ? ok : false;
+//    ok = $.trim($("#ddlCuv").val()) /*$.trim($("#txtCUV").val())*/ != "" ? ok : false;
 
-    ok = $.trim($("#divMotivo [data-check='1']").attr("id")) != "" ? ok : false;
+//    ok = $.trim($("#divMotivo [data-check='1']").attr("id")) != "" ? ok : false;
 
-    if (!ok) {
-        alert_msg("Datos incorrectos");
-        return false;
-    }
+//    if (!ok) {
+//        alert_msg("Datos incorrectos");
+//        return false;
+//    }
 
-    if (!(parseInt($("#txtCantidad").val()) > 0 && parseInt($("#txtCantidad").val()) <= parseInt($("#txtCantidad").attr("data-maxvalue")))) {
-        alert_msg("Lamentablemente la cantidad ingresada supera a la cantidad facturada en tu pedido (" +
-            $.trim($("#txtCantidad").attr("data-maxvalue")) + ")");
-        return false;
-    }
+//    if (!(parseInt($("#txtCantidad").val()) > 0 && parseInt($("#txtCantidad").val()) <= parseInt($("#txtCantidad").attr("data-maxvalue")))) {
+//        alert_msg("Lamentablemente la cantidad ingresada supera a la cantidad facturada en tu pedido (" +
+//            $.trim($("#txtCantidad").attr("data-maxvalue")) + ")");
+//        return false;
+//    }
 
-    waitingDialog();
+//    waitingDialog();
 
-    var item = {
-        PedidoID: $("#txtPedidoID").val(),
-        CUV: $.trim($("#ddlCuv").val()),//$.trim($("#txtCUV").val()),
-        Cantidad: $.trim($("#txtCantidad").val()),
-        Motivo: $.trim($("#divMotivo [data-check='1']").attr("id")),
-        CampaniaID: $("#ddlCampania").val()
-    };
+//    var item = {
+//        PedidoID: $("#txtPedidoID").val(),
+//        CUV: $.trim($("#ddlCuv").val()),//$.trim($("#txtCUV").val()),
+//        Cantidad: $.trim($("#txtCantidad").val()),
+//        Motivo: $.trim($("#divMotivo [data-check='1']").attr("id")),
+//        CampaniaID: $("#ddlCampania").val()
+//    };
 
-    jQuery.ajax({
-        type: 'POST',
-        url: baseUrl + 'MisReclamos/ValidarPaso1',
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(item),
-        async: true,
-        cache: false,
-        success: function (data) {
-            closeWaitingDialog();
-            if (checkTimeout(data)) {
-                ok = data.success;
-                if (!data.success && data.message != "") {
-                    alert_msg(data.message);
-                }
-            }
-        },
-        error: function (data, error) {
-            closeWaitingDialog();
-        }
-    });
+//    jQuery.ajax({
+//        type: 'POST',
+//        url: baseUrl + 'MisReclamos/ValidarPaso1',
+//        dataType: 'json',
+//        contentType: 'application/json; charset=utf-8',
+//        data: JSON.stringify(item),
+//        async: true,
+//        cache: false,
+//        success: function (data) {
+//            closeWaitingDialog();
+//            if (checkTimeout(data)) {
+//                ok = data.success;
+//                if (!data.success && data.message != "") {
+//                    alert_msg(data.message);
+//                }
+//            }
+//        },
+//        error: function (data, error) {
+//            closeWaitingDialog();
+//        }
+//    });
 
-    return ok;
-}
+//    return ok;
+//}
 
 //HD-3412 EINCA
 function ValidarPasoUno() {
@@ -768,14 +786,14 @@ function ValidarPasoUnoServer(callbackWhenFinish) {
         data: JSON.stringify(item),
         async: true,
         cache: false,
-        success: function (data) {
-            if (checkTimeout(data)) {
+        success: function (d) {
+            if (checkTimeout(d)) {
                 if (callbackWhenFinish && typeof callbackWhenFinish === "function") {
-                    callbackWhenFinish(data.success, data.message);
+                    callbackWhenFinish(d.success, d.message, d.data);
                 }
             }
         },
-        error: function (data, error) {
+        error: function (d, error) {
             closeWaitingDialog();
         }
     });
@@ -1838,7 +1856,8 @@ function EscogerSolucion(opcion, event) {
     $("#divOperacion input[type=checkbox]").not(opcion).prop('checked', false);
     var id = opcion.id;
 
-    if (id == "") {
+    var isChecked = $("#divOperacion input[type=checkbox]").is(':checked');
+    if (id == "" || !isChecked) {
         $('#infoOpcionesDeCambio').fadeOut();
         return false;
     }
@@ -1855,10 +1874,12 @@ function EscogerSolucion(opcion, event) {
         $('#OpcionDevolucion').fadeOut(200);
         $('#OpcionCambioPorOtroProducto').fadeOut(200);
         $('#OpcionCambioMismoProducto').fadeIn(150);
+        $('#spnDescProdDevolucion').html($('#hdtxtCUVDescripcion').val());
     } else if (id == "D") {
         $('#OpcionCambioMismoProducto').fadeOut(200);
         $('#OpcionCambioPorOtroProducto').fadeOut(200);
         $('#OpcionDevolucion').fadeIn(150);
+        SetHandlebars("#template-opcion-devolucion", dataCdrServicio, "#divDevolucionSetsOrPack");
     } else {
         $('#infoOpcionesDeCambio').fadeOut(200);
     }
@@ -1875,7 +1896,8 @@ function SetMontoCampaniaTotal() {
     var campania = $("#ddlCampania").val() || 0;
     var numeroCampania = '00';
     if (campania > 0) {
-        numeroCampania = campania.substring(4);    }
+        numeroCampania = campania.substring(4);
+    }
     $("#spnNumeroCampaniaReclamo").html(numeroCampania);
 }
 

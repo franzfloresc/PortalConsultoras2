@@ -60,7 +60,6 @@ namespace Portal.Consultoras.Web.SessionManager
         List<BECDRWebMotivoOperacion> GetCdrMotivoOperacion();
 
         void SetCdrMotivoOperacion(List<BECDRWebMotivoOperacion> datos);
-        #endregion
 
         int? GetNroPedidosCDRConfig(); //HD-3412 EINCA
 
@@ -69,6 +68,13 @@ namespace Portal.Consultoras.Web.SessionManager
         List<CDRWebModel> GetListaCDRWebCargaInicial();//HD-3412 EINCA
 
         void SetListaCDRWebCargaInicial(List<CDRWebModel> lista);//HD-3412 EINCA
+
+        void SetCDRSetsPacks(ServiceGestionWebPROL.RptCdrReclamo rptCdr); //HD-3703 EINCA
+
+        ServiceGestionWebPROL.RptCdrReclamo GetCDRSetsPacks(); //HD-3703 EINCA
+        #endregion
+
+
 
         BEPedidoWeb GetPedidoWeb();
 
