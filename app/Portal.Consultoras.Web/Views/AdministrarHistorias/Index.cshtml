@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_SACLayout.cshtml";
+}
+
+<div class="wrap_cab">
+
+    <div class="filtros2">
+        <div class="elements">
+            <div class="div-2">
+                <h1>Gestión de Historias</h1>
+            </div>
+            @*<div class="div-3">
+                    <div class="titC">Campaña:</div>
+                    <div class="selectA borde_redondeado">
+
+                    </div>
+                    <div class="input_search">
+
+                    </div>
+                </div>*@
+        </div>
+    </div>
+    <div class="filtros2">
+        <div class="elements">
+            <div class="div-2">
+                <div class="titC">Icono Historia:</div>
+            </div>
+            <div class="div-3">
+                <div>
+                    <input type="file" id="flConsultorasSegmento" value="" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="wrap">
+    <div class="container clearfix" style="width: 1135px;">
+        <div id="divContenedorGrid" class="border-wrapper">
+            <div class="grilla_banner">
+                <table id="list"></table>
+            </div>
+        </div>
+        <div class="sep"></div>
+        <div class="div-3">
+            <div class="input_validar">
+                <input id="btnCancelar" type="button" value="Cancelar" title="Cancelar" style="display: none;" />
+                <input id="btnGuardar" type="button" value="Grabar" title="Grabar" style="display: none;" />
+            </div>
+        </div>
+    </div>
+</div>
