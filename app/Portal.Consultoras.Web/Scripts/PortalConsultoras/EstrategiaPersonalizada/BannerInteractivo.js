@@ -18,7 +18,7 @@
             type: 'POST',
             url: ConstanteUrl.ValidaExisteTipoEstrategiaEnPedido,
             data: JSON.stringify({
-                te: ConstantesModule.CodigoPalanca.ATP
+                te: ConstantesModule.TipoEstrategia.ArmaTuPack
             }),
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
