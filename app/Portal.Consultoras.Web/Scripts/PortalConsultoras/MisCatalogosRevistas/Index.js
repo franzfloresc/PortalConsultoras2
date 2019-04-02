@@ -41,7 +41,7 @@ $(document).ready(function () {
             }
         });
 
-        cargoPluginFacebook = true;
+       var cargoPluginFacebook = true;
     };
 
     (function (d, s, id) {
