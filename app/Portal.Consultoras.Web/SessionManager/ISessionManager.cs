@@ -34,13 +34,13 @@ namespace Portal.Consultoras.Web.SessionManager
 
         #region CDR
 
-        List<BECDRWebDetalle> GetCDRWebDetalle();
+        List<ServiceCDR.BECDRWebDetalle> GetCDRWebDetalle();
         
-        void SetCDRWebDetalle(List<BECDRWebDetalle> datos);
+        void SetCDRWebDetalle(List<ServiceCDR.BECDRWebDetalle> datos);
         
-        List<BECDRWeb> GetCdrWeb();
+        List<ServiceCDR.BECDRWeb> GetCdrWeb();
 
-        void SetCdrWeb(List<BECDRWeb> datos);
+        void SetCdrWeb(List<ServiceCDR.BECDRWeb> datos);
         
         List<CampaniaModel> GetCdrCampanias();
 
@@ -62,6 +62,14 @@ namespace Portal.Consultoras.Web.SessionManager
 
         void SetCdrMotivoOperacion(List<BECDRWebMotivoOperacion> datos);
         #endregion
+
+        int? GetNroPedidosCDRConfig(); //HD-3412 EINCA
+
+        void SetNroPedidosCDRConfig(int cantidad);//HD-3412 EINCA
+
+        List<CDRWebModel> GetListaCDRWebCargaInicial();//HD-3412 EINCA
+
+        void SetListaCDRWebCargaInicial(List<CDRWebModel> lista);//HD-3412 EINCA
 
         BEPedidoWeb GetPedidoWeb();
 
@@ -384,9 +392,9 @@ namespace Portal.Consultoras.Web.SessionManager
 
         string GetcarpetaPais();
 
-        void SetCdrPedidosFacturado(List<ServicePedido.BEPedidoWeb> datos);
+        //void SetCdrPedidosFacturado(List<ServicePedido.BEPedidoWeb> datos);
 
-        List<ServicePedido.BEPedidoWeb> GetCdrPedidosFacturado();
+        //List<ServicePedido.BEPedidoWeb> GetCdrPedidosFacturado();
 
         void SetCDRMotivoOperacion(List<BECDRWebMotivoOperacion> val);
 
@@ -508,11 +516,8 @@ namespace Portal.Consultoras.Web.SessionManager
         string GetJwtApiSomosBelcorp();
         void SetUsuarioOpciones(List<UsuarioOpcionesModel> val);
         List<UsuarioOpcionesModel> GetUsuarioOpciones();
-
-
-        void SetConsultora(List<NivelConsultoraCaminoBrillanteModel> val);
-        List<NivelConsultoraCaminoBrillanteModel> GetConsultora();
-
-
+        
+        void SetConsultoraCaminoBrillante(BEConsultoraCaminoBrillante val);
+        BEConsultoraCaminoBrillante GetConsultoraCaminoBrillante();
     }
 }

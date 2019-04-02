@@ -1,9 +1,11 @@
 ﻿using Portal.Consultoras.BizLogic;
+using Portal.Consultoras.BizLogic.CaminoBrillante;
 using Portal.Consultoras.BizLogic.CDR;
 using Portal.Consultoras.BizLogic.PagoEnlinea;
 using Portal.Consultoras.BizLogic.Pedido;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.CaminoBrillante;
 using Portal.Consultoras.Entities.OpcionesVerificacion;
 using Portal.Consultoras.Entities.Pedido;
 using Portal.Consultoras.Entities.Usuario;
@@ -17,15 +19,20 @@ namespace Portal.Consultoras.Service
     {
         private readonly IUsuarioBusinessLogic _usuarioBusinessLogic;
         private readonly IDireccionEntregaBusinessLogic _direccionEntregaBusinessLogic;
-        public UsuarioService() : this(new BLUsuario() , new BLDireccionEntrega())
+        private readonly ICaminoBrillanteBusinessLogic _caminoBrillanteBusinessLogic;
+        private readonly IConfiguracionPaisDatosBusinessLogic _configuracionPaisDatosBusinessLogic;
+
+        public UsuarioService() : this(new BLUsuario() , new BLDireccionEntrega(), new BLCaminoBrillante(), new BLConfiguracionPaisDatos())
         {
 
         }
 
-        public UsuarioService(IUsuarioBusinessLogic usuarioBusinessLogic , IDireccionEntregaBusinessLogic direccionEntregaBusinessLogic)
+        public UsuarioService(IUsuarioBusinessLogic usuarioBusinessLogic , IDireccionEntregaBusinessLogic direccionEntregaBusinessLogic, ICaminoBrillanteBusinessLogic caminoBrillanteBusinessLogic, IConfiguracionPaisDatosBusinessLogic configuracionPaisDatosBusinessLogic)
         {
             _usuarioBusinessLogic =          usuarioBusinessLogic;
             _direccionEntregaBusinessLogic = direccionEntregaBusinessLogic;
+            _caminoBrillanteBusinessLogic = caminoBrillanteBusinessLogic;
+            _configuracionPaisDatosBusinessLogic = configuracionPaisDatosBusinessLogic;
         }
 
         public BEUsuario Select(int paisID, string codigoUsuario)
@@ -661,6 +668,11 @@ namespace Portal.Consultoras.Service
             return bl.GetList(entidad);
         }
 
+        public List<BEConfiguracionPaisDatos> GetConfiguracionPaisDatosAll(BEConfiguracionPaisDatos entidad)
+        {
+            return _configuracionPaisDatosBusinessLogic.GetListAll(entidad);
+        }
+
         public List<BEConfiguracionPaisDatos> GetConfiguracionPaisComponente(BEConfiguracionPaisDatos entidad)
         {
             var bl = new BLConfiguracionPaisDatos();
@@ -937,5 +949,22 @@ namespace Portal.Consultoras.Service
             return _usuarioBusinessLogic.GetUsuarioOpciones(paisID, codigoUsuario);
         }
         #endregion
+
+        #region Camino Brillante
+
+        public List<BENivelCaminoBrillante> GetNivelesCaminoBrillante(int paisId, bool isWeb) {
+            return _caminoBrillanteBusinessLogic.GetNiveles(paisId, isWeb);
+        }
+
+        public BEConsultoraCaminoBrillante GetConsultoraNivelCaminoBrillante(int paisId, BEUsuario entidad, bool isWeb) {
+            return _caminoBrillanteBusinessLogic.GetConsultoraNivel(paisId, entidad, isWeb);
+        }
+
+        public List<BELogroCaminoBrillante> GetConsultoraLogrosCaminoBrillante(int paisId, BEUsuario entidad, bool isWeb) {
+            return _caminoBrillanteBusinessLogic.GetConsultoraLogros(paisId, entidad, isWeb);
+        }
+
+        #endregion
+
     }
 }

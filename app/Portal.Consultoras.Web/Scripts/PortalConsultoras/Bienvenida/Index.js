@@ -213,7 +213,7 @@ $(document).ready(function () {
     });
 
 
-    GetNivelConsultoraCaminoBrillante();
+    //GetNivelConsultoraCaminoBrillante();
     CrearDialogs();
     CargarCarouselEstrategias();
     if (_validartieneMasVendidos() === 1) {
@@ -3321,5 +3321,5 @@ function GetNivelConsultoraCaminoBrillante() {
         }, error: function (xhr, status, error) {
 
         }
-    })
+    });
 }

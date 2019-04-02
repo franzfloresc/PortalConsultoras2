@@ -300,10 +300,11 @@ header {
     position: absolute;
     top: 39px;
     margin-left: -90px;
-    width: 977px;
+    width: 852px;
     height: auto;
-    padding-left: 65px;
-    padding-right: 60px;
+    padding-left: 60px;
+    padding-right: 32px;
+    padding-bottom: 13px;
     display: none;
     background: rgba(255,255,255,.95) url('/Content/Images/Esika/fondo.png');
     -webkit-box-shadow: -4px 4px 11px -5px rgba(120,120,120,1);
@@ -312,8 +313,13 @@ header {
     z-index:3;
 }
 
+.sub_menu_home_con_enlace_misEventos {
+    width: 1056px;
+}
+
 .sub_menu_home2 {
     position: absolute;
+    z-index:1;
     left: -150px;
     display: none;
     top: 39px;
@@ -331,6 +337,9 @@ header {
     width: 100%;
     height: 1px;
     background: black;
+    position:absolute;
+    top:0;
+    left:0;
 }
 
 .pestana_esika {
@@ -350,7 +359,7 @@ header {
 .content_left_menu {
     float: left;
     margin-right: 35px;
-    margin-top: 40px;
+    margin-top: 35px;
 }
 
 .menu_titulo {
@@ -373,9 +382,9 @@ header {
 }
 
 .menu_imagen {
-    margin-top: 40px;
-    margin-right: 45px;
-    margin-left: 13px;
+    margin-top: 34px;
+    margin-right: 27px;
+    /*margin-left: 13px;*/
     float: left;
     width: 180px;
     height: 143px;
@@ -385,6 +394,10 @@ header {
 
     .menu_imagen img {
         width: 100%;
+    }
+
+    .menu_imagen:last-child{
+        margin-right:0;
     }
 
 .titulo_imagen {
@@ -484,7 +497,29 @@ header {
 }
 
     .footer_responde img {
-        margin-bottom: 10px;
+        margin-bottom: 8px;
+    }
+
+    .footer_enlace_belcorp_responde img,
+    .footer_enlace_comunidad_virtual img
+    {
+        height:41px;
+    }
+
+    .footer_enlace_tu_voz_online img{
+        margin-top: 6px;
+        height: 35px;
+    }
+
+    .footer_enlace_catalogos img{
+        margin-top: 7px;
+        margin-bottom:11px;
+        height: 33px;
+    }
+
+    .footer_enlace_noticias img{
+        margin-top: 4px;
+        height: 37px;
     }
 
     .footer_responde span {
@@ -4426,6 +4461,10 @@ a.subir_carousel, a.bajar_carousel {
     display: block;
 }
 
+.new_menu a:hover {
+    text-decoration: underline;
+}
+
 .boton-home a {
     color: black;
     padding-top: 32px;
@@ -6120,7 +6159,6 @@ ul.type-6 li {
 
 .color_marca {
     color: #613c87;
-    text-transform: uppercase;
 }
 
 .red_texto {
@@ -20365,6 +20403,9 @@ color:white;
         padding-top: 3px;
         padding-bottom: 0;
     }
+    .paginador_notificaciones{
+        float: right;
+    }
 
         .acordion_titulo .mostrarPaginadorPedidos.inferior .flecha_paginador_atras {
             margin-right: 10px;
@@ -24837,7 +24878,10 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
         }
 
 .dscto_ofertasNiveles {
-    margin-left: 20px;
+    /* 
+    GANAZG-176 
+      margin-left: 20px; 
+    */
 }
 
 .separador_montos {
@@ -24873,8 +24917,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     .contenido_misGanancias h6 {
         font-size: 13px;
         font-weight: 900 !important;
-        color: #642f80;
-        text-transform: uppercase;
+        color: #642f80; 
     }
 
 .contenedor_montos_sinDescuento {
@@ -25315,7 +25358,8 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     width: 43%;
     font-weight: 700;
     border: 1px solid black;
-    font-family: 'Lato';
+    border-radius:2px;
+    font-family: 'Lato', sans-serif;
     background: #fff;
     opacity: 0;
     left: 0;
@@ -25329,6 +25373,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     -webkit-transition: all .3s ease;
     letter-spacing: .2px;
 }
+
 /* POPUP IMAGEN PERFIL PROCESO RECORTE */
 .popup_img_perfil {
     display: block;

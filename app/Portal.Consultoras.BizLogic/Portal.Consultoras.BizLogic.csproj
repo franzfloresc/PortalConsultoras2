@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Portal.Consultoras.BizLogic</RootNamespace>
-    <AssemblyName>Portal.Consultoras.BizLogic</AssemblyName>
+    <AssemblyName>E</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>
@@ -105,6 +105,9 @@
     <Compile Include="BLPremiosProgramaNuevas.cs" />
     <Compile Include="BLReporteRevisionIncidencias.cs" />
     <Compile Include="Cache\BLCache.cs" />
+    <Compile Include="CaminoBrillante\BLCaminoBrillante.cs" />
+    <Compile Include="CaminoBrillante\CaminoBrillanteProvider.cs" />
+    <Compile Include="CaminoBrillante\ICaminoBrillanteBusinessLogic.cs" />
     <Compile Include="Cliente\BLClienteDB.cs" />
     <Compile Include="Cliente\IClienteBusinessLogic.cs" />
     <Compile Include="Comunicado\IComunicadoBusinessLogic.cs" />
@@ -118,6 +121,7 @@
     <Compile Include="Cupon\ICuponConsultoraBusinessLogic.cs" />
     <Compile Include="Pedido\BLDireccionEntrega.cs" />
     <Compile Include="Pedido\IDireccionEntregaBusinessLogic.cs" />
+    <Compile Include="ProgramaNuevas\IActivarPremioNuevasBusinessLogic.cs" />
     <Compile Include="ProgramaNuevas\IConfiguracionProgramaNuevasBusinessLogic.cs" />
     <Compile Include="Estrategia\IEstrategiaBusinessLogic.cs" />
     <Compile Include="Estrategia\IEstrategiaProductoBusinessLogic.cs" />

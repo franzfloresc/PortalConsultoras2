@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.CaminoBrillante;
 using Portal.Consultoras.Entities.OpcionesVerificacion;
 using Portal.Consultoras.Entities.Pedido;
 using Portal.Consultoras.Entities.Usuario;
@@ -313,6 +314,9 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEConfiguracionPaisDatos> GetConfiguracionPaisDatos(BEConfiguracionPaisDatos entidad);
 
         [OperationContract]
+        List<BEConfiguracionPaisDatos> GetConfiguracionPaisDatosAll(BEConfiguracionPaisDatos entidad);
+
+        [OperationContract]
         int RegistrarUsuarioPostulante(string paisISO, BEUsuarioPostulante entidad);
 
         [OperationContract]
@@ -435,6 +439,15 @@ namespace Portal.Consultoras.ServiceContracts
         string RegistrarPerfil(BEUsuario usuario);
         [OperationContract]
         void RegistrarDireccionEntrega(string codigoISO, BEDireccionEntrega direccionEntrega);
+        #endregion
+
+        #region Camino Brillante
+        [OperationContract]
+        List<BENivelCaminoBrillante> GetNivelesCaminoBrillante(int paisId, bool isWeb);
+        [OperationContract]
+        BEConsultoraCaminoBrillante GetConsultoraNivelCaminoBrillante(int paisId, BEUsuario entidad, bool isWeb);
+        [OperationContract]
+        List<BELogroCaminoBrillante> GetConsultoraLogrosCaminoBrillante(int paisId, BEUsuario entidad, bool isWeb);
         #endregion
     }
 }

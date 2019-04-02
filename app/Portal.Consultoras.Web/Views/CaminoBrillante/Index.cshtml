@@ -1,14 +1,24 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
+    var data = ViewBag.ResumenLogros;
+    var TieneOfertasEspeciales = ViewBag.TieneOfertasEspeciales;
 }
-<link href="~/Content/CaminoBrillante/css/estilos.css" rel="stylesheet" />
-<link href="~/Scripts/owl.carousel.2.0.0-beta.2.4/assets/owl.carousel.css" rel="stylesheet" />
 
+@section styles{
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/CaminoBrillante")
+}
 <br />
+<style>
+    .OfertasEspecialesBlock {
+        background: #d1d1d4 !important;
+        color: #909094 !important;
+        font-weight: bolder !important;
+        font-size: 14px !important;
+    }
+</style>
 
 <div class="container ">
-    <h2 class="title">AVANCE NIVEL</h2>
+    <h2 class="title">Mi nivel</h2>
     <div id="box-niveles">
         <div id="ProgressBar">
         </div>
@@ -21,103 +31,80 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <div class="modal-body pad-center">
-                    <div class="indicador-nivel">
-                        <img id="m_imagen" src="~/Content/CaminoBrillante/imgs/recurso-31-3-x-copy-5@2x.png" />
-                        <div class="left-mod">
-                            <h2 id="m_titulo"></h2>
+                    <div class="indicador-nivel" style="text-align:center; margin-bottom: 20px;">
+                        <center>
+                            <img id="m_imagen" style="float: unset; max-width: 100px !important;" />
+                        </center>
+                        <div class="left-mod" style="width: 100%; margin-left: 0px;">
+                            <h2 id="m_titulo" style="color: black; font-size: 20px; font-weight: bold;"></h2>
                             <p id="m_montoMinimo"></p>
                         </div>
                     </div>
-                    <h4 class="subtitle text-center">MIS BENEFICIOS DE NIVEL</h4>
-                    <ul class="box-beneficios two-colums" id="ListaBeneficios">
-                    </ul>
-                    <a href="" class="btn-principal"><em class="icon-niv"></em>Como subir de nivel <span>1</span></a>
+                    <h4 class="subtitle text-center">Mis Beneficios</h4>
+                    <ul class="box-beneficios two-colums" id="ListaBeneficios"></ul>
+                    @*<a href="" class="btn-principal"><em class="icon-niv"></em>Como subir de nivel <span>1</span></a>*@
                 </div>
             </div>
         </div>
     </div>
-    <div class="cont-benf">
-        <h2 class="title">MIS BENEFICIOS DE NIVEL</h2>
-        <p class="text">Todos los beneficios que tienes actualmente en tu nivel</p>
-        <ul class="box-beneficios">
-            <li>
-                <img src="~/Content/CaminoBrillante/imgs/group-14.svg">
-                <div class="txt-benf"><p class="text-bold">Revista mi negocio L’Bel</p></div>
-            </li>
-            <li>
-                <img src="~/Content/CaminoBrillante/imgs/group-24.svg">
-                <div class="txt-benf"><p class="text-bold">Servicio callcenter</p></div>
-            </li>
-            <li>
-                <img src="~/Content/CaminoBrillante/imgs/group-17.svg">
-                <div class="txt-benf"><p class="text-bold">Regalo por pedido y constancia</p></div>
-            </li>
-            <li>
-                <img src="~/Content/CaminoBrillante/imgs/group-68-copy.svg">
-                <div class="txt-benf"><p class="text-bold">1 catálogo gratis de Ésika, L’Bel y Cyzone</p></div>
-            </li>
-            <li>
-                <img src="~/Content/CaminoBrillante/imgs/group-43.svg">
-                <div class="txt-benf"><p class="text-bold">Acompañamiento presencial y virtual</p></div>
-            </li>
-            <li>
-                <img src="~/Content/CaminoBrillante/imgs/group-23.svg">
-                <div class="txt-benf"><p class="text-bold">Descuentos especiales <span>Las mejores ofertas según tu nivel</span></p></div>
-            </li>
-        </ul>
+    <div class="cont-benf" id="BeneficiosPrincipal">
     </div>
-    <a id="OfertasEspeciales" class="btn-principal">Ofertas especiales</a>
+
+    @if (TieneOfertasEspeciales)
+    {
+        <a id="OfertasEspeciales" class="btn-principal">Ofertas especiales</a>
+    }
+
     <div class="cont-logros">
-        <h2 class="title">MIS LOGROS</h2>
-        <p class="text">Mira los logros que has obtenido por ventas y pasar pedidos <br>de forma constante, tu esfuerzo tiene recompensas.</p>
+        <h2 class="title" id="TituloLogros">@data.Titulo</h2>
+        <p class="text" id="DescripcionLogros">@data.Descripcion</p>
         <div class="boxcenter">
-            <div class="owl-carousel owl-crec">
-                <div class="item">
-                    <div class="shad box-crecimiento">
-                        <p class="text-bold">Crecimiento</p>
-                        <span class="text-down">Tu progreso tiene recompensas</span>
-                        <ul class="list-crec">
-                            <li>
-                                <img src="~/Content/CaminoBrillante/imgs/recurso-17-3-x@2x.png">
-                                <p>Ganancia</p>
-                            </li>
-                            <li>
-                                <img src="~/Content/CaminoBrillante/imgs/recurso-18-3-x@2x.png">
-                                <p>Ganancia</p>
-                            </li>
-                            <li>
-                                <img src="~/Content/CaminoBrillante/imgs/recurso-19-3-x@2x.png">
-                                <p>Ganancia</p>
-                            </li>
-                        </ul>
-                        <a href="" class="btn-link">Ver todos</a>
+            <div class="owl-carousel owl-crec" id="Carusel-Logros">
+                @for (int i = 0; i < data.Indicadores.Length; i++)
+                {
+                    <div class="item">
+                        <div class="shad box-@data.Indicadores[i].Titulo">
+                            <p class="text-bold">@data.Indicadores[i].Titulo</p>
+                            <span class="text-down">@data.Indicadores[i].Descripcion</span>
+                            <ul class="list-crec">
+                                @foreach (var item2 in data.Indicadores[i].Medallas)
+                                {
+                                    if (item2 != null)
+                                    {
+                                        <li>
+                                            @{
+                                            if (item2 != null)
+                                            {
+                                                if (item2.Tipo == "PIE")
+                                                {
+                                                    string[] torta = @item2.Valor.Split('-');
+                                                    var imagen = torta[1].PadLeft(2, '0') + "_" + torta[2].PadLeft(2, '0') + ".svg";
+                                                    <img src="~/Content/CaminoBrillante/imgs/PIZZA_@imagen" />
+                                                }
+                                                else
+                                                {
+                                                    string Valor = item2.Valor.Replace("%", "");
+                                                    string Estilo = Valor.Equals("25") ? "veinticinco" : "cinco";
+                                                    <div class="circle-porcent @Estilo">
+                                                        <span>@item2.Valor</span>
+                                                    </div>
+                                                }
+                                                <p>@item2.Titulo</p>
+                                            }
+                                        }
+                                        </li>
+                                    }
+                                }
+                            </ul>
+                            <a href="" class="btn-link">Ver todos</a>
+                        </div>
                     </div>
-                </div>
-                <div class="item">
-                    <div class="shad box-compromiso">
-                        <p class="text-bold">Compromisos</p>
-                        <span class="text-down">Pasar pedidos tiene recompesas</span>
-                        <ul class="list-crec">
-                            <li>
-                                <img src="~/Content/CaminoBrillante/imgs/icono-2.png">
-                                <p>Del 1 al 6</p>
-                            </li>
-                            <li>
-                                <img src="~/Content/CaminoBrillante/imgs/icono-2.png">
-                                <p>Del 6 al 12</p>
-                            </li>
-                            <li>
-                                <img src="~/Content/CaminoBrillante/imgs/icono-2.png">
-                                <p>Del 12 al 18</p>
-                            </li>
-                        </ul>
-                        <a href="" class="btn-link">Ver todos</a>
-                    </div>
-                </div>
+                }
             </div>
         </div>
     </div>
-    <div class="cont-ganancias">
+
+    <div class="cont-ganancias" style="display:none">
         <div class="left-ganancias">
             <h2 class="title">MIS GANANCIAS</h2>
             <p class="text">Mira las ganancias que has obtenido durante una campaña o en lo que va del año</p>
@@ -164,7 +151,7 @@
                         <span>S/ 250</span>
                     </div>
                 </div>
-          
+
             </div>
         </div>
         <div class="shad right-ganancias">
@@ -177,11 +164,14 @@
     </div>
 </div>
 
+@*@System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante")*@
 
 <script src="~/Scripts/jquery-1.11.2.min.js"></script>
 <script src="~/Scripts/bootstrap.min.js"></script>
 <script src="~/Scripts/owl.carousel.js"></script>
 <script src="~/Scripts/PortalConsultoras/CaminoBrillante/index.js"></script>
+
+
 
 <script>
     (function ($) {

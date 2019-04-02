@@ -237,37 +237,26 @@
 
 </div>
 <br />
+
 <div class="wrapper_resumen_mobile">
-
-    @*<!-- INICIO - ENLACE CAMINO AL ÉXITO -->
-    @if (Model.TieneCaminoExito)
-    {
-        <div class="content_320">
-            <div class="camino_al_exito text-center text-uppercase">
-                Camino al éxito
-            </div>
-            <a class="enlace_ver_mas_sobre_camino_al_exito text-center" href="@Model.urlCaminoExito" target="_blank" title="Ver más">
-                Ver más
-            </a>
-        </div>
-        <div class="linea_separadora_mobile" style="margin-top:4px;"></div>
-    }
-    <!-- FIN - ENLACE CAMINO AL ÉXITO -->*@
-
-    
     @if (Model.TieneCaminoBrillante)
     {
-        <div class="items_belcorp cam-exito">
-            <img src="~/Content/Images/CaminoBrillante/medalla.PNG">
+    <div class="items_belcorp cam-exito">
+        @{ if (!string.IsNullOrEmpty(Model.UrlLogoCaminoBrillante))
+            {
+                <img src="@Model.UrlLogoCaminoBrillante" style="max-width: 80px;" />
+            }
+        }
+        <div class="mb-left">
             <p class="toptext">Camino Brillante</p>
-            <p>
-                @Model.CaminoBrillanteMsg
-            </p>
-            <a href="@Url.Action("Index", "CaminoBrillante")">Ver Beneficios</a>
+            @*<p>
+                @Html.Raw(Model.CaminoBrillanteMsg)
+            </p>*@
+            <a href="@Url.Action("Index", "CaminoBrillante")">Mis Beneficios</a>
         </div>
-    }
-
+    </div>
     <div class="linea_separadora_mobile" style="margin-top:16px"></div>
+    }
 
     <div class="content_320">
         <div class="item1_mobile">
@@ -323,15 +312,7 @@
                 @Model.Simbolo <span>@Util.DecimalToStringFormat(Model.MontoDeuda, Model.CodigoISO)</span>
             </div>
             <div class="texto_inferior js-div-vencimiento">Vencimiento: <span>@Model.FechaVencimiento</span></div>
-            @if (Model.TienePagoEnLinea && Model.MostrarPagoEnLinea)
-            {
-                <a role="link" region="Central" parent="Mi Estado de Cuenta" title="Paga en línea" class="btn_paga_online_mobile" href="@Url.Action("MetodoPago","PagoEnLinea")">
-                    <div class="texto_btn_pago_en_linea">
-                        <span>PAGA EN LÍNEA</span>
-                    </div>
-                </a>
-            }
-            else
+            @if (Model.MostrarPagoEnLinea)
             {
                 if (Model.PaisID == Constantes.PaisID.Chile)
                 {
@@ -344,6 +325,14 @@
                 else if (Model.PaisID == Constantes.PaisID.PuertoRico)
                 {
                     <a role="link" region="Central" parent="Mi Estado de Cuenta" title="Paga en línea" class="btn_paga_online_mobile" href="@Url.Action("Index", "Paypal", new { area = "Mobile" })"> PAGA EN L&Iacute;NEA</a>
+                }
+                else if (Model.TienePagoEnLinea)
+                {
+                    <a role="link" region="Central" parent="Mi Estado de Cuenta" title="Paga en línea" class="btn_paga_online_mobile" href="@Url.Action("MetodoPago","PagoEnLinea")">
+                        <div class="texto_btn_pago_en_linea">
+                            <span>PAGA EN L&Iacute;NEA</span>
+                        </div>
+                    </a>
                 }
             }
         </div>

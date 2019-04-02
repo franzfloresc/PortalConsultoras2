@@ -90,6 +90,8 @@ strong {
         float: left;
         margin: 20px 1%;
         margin-left: 0;
+        min-height: 60px;
+        margin-bottom: 15px;
     }
 
         .box-beneficios li img {
@@ -135,16 +137,17 @@ strong {
     border-radius: 5px;
     border: 0;
     padding: 10px 20px;
-    max-width: 150px;
+    max-width: 175px;
     text-align: center;
     margin: 25px auto;
     text-decoration: none;
     overflow: inherit;
-    background: #e81c36;
-    background: -moz-linear-gradient(left, #e81c36 0%, #613c87 100%);
-    background: -webkit-linear-gradient(left, #e81c36 0%,#613c87 100%);
-    background: linear-gradient(to right, #e81c36 0%,#613c87 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e81c36', endColorstr='#613c87',GradientType=1 );
+    background: #b9007e;
+    /*    background: #e81c36;
+   background: -moz-linear-gradient(left, #e81c36 0%, #613c87 100%);
+   background: -webkit-linear-gradient(left, #e81c36 0%,#613c87 100%);
+   background: linear-gradient(to right, #e81c36 0%,#613c87 100%);
+   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e81c36', endColorstr='#613c87',GradientType=1 );*/
 }
 
     .btn-principal:hover {
@@ -188,6 +191,7 @@ strong {
             font-size: 12px;
             font-weight: bold;
             text-align: center;
+            height: 28px;
         }
 
 .btn-link {
@@ -197,6 +201,7 @@ strong {
     text-align: center;
     font-size: 13px;
     margin: 10px auto;
+    margin-top: 0;
     border: 0;
 }
 
@@ -232,14 +237,15 @@ strong {
 }
 
 .left-ganancias {
-    width: 46%;
+    width: 49%;
 }
 
 .right-ganancias {
-    width: 46%;
+    width: 43%;
     margin: 0;
     margin-left: 8%;
 }
+
 
 .list-ganacias {
     display: block;
@@ -307,6 +313,7 @@ div .owl-carousel .owl-stage-outer {
     border-radius: 7px;
     background: #dedede;
     position: relative;
+    margin: 0 auto;
 }
 
 .Progress {
@@ -322,12 +329,12 @@ div .owl-carousel .owl-stage-outer {
 }
 
 .medal-1 {
-    width: 15%;
+    width: 14%;
     animation-name: progressUno;
 }
 
 .medal-2 {
-    width: 33%;
+    width: 34%;
     animation-name: progressDos;
 }
 
@@ -342,7 +349,7 @@ div .owl-carousel .owl-stage-outer {
 }
 
 .medal-5 {
-    width: 92%;
+    width: 94%;
     animation-name: progressCinco;
 }
 
@@ -357,7 +364,7 @@ div .owl-carousel .owl-stage-outer {
     }
 
     100% {
-        width: 15%;
+        width: 14%;
     }
 }
 
@@ -367,7 +374,7 @@ div .owl-carousel .owl-stage-outer {
     }
 
     100% {
-        width: 33%;
+        width: 34%;
     }
 }
 
@@ -397,7 +404,7 @@ div .owl-carousel .owl-stage-outer {
     }
 
     100% {
-        width: 92%;
+        width: 94%;
     }
 }
 
@@ -413,6 +420,11 @@ div .owl-carousel .owl-stage-outer {
 
 
 
+
+
+
+
+
 .Progress:after {
     position: absolute;
     top: -3px;
@@ -421,7 +433,7 @@ div .owl-carousel .owl-stage-outer {
     display: block;
     width: 14px;
     height: 14px;
-    background: #ad001b;
+    background: #9a056b;
     border-radius: 16px;
     z-index: 5;
 }
@@ -430,16 +442,21 @@ div .owl-carousel .owl-stage-outer {
     display: block;
     position: absolute;
     top: -20px;
-    background: #b3b3b3;
     z-index: 8;
     width: 55px;
     height: 55px;
     border-radius: 55px;
+    z-index: 10;
     -webkit-transition: all 0.2s ease;
     -moz-transition: all 0.2s ease;
     -o-transition: all 0.2s ease;
     transition: all 0.2s ease;
 }
+
+    #ProgressBar span img {
+        display: block;
+        width: 100%;
+    }
 
     #ProgressBar span:not(.activo):hover {
         top: -24px;
@@ -463,87 +480,55 @@ div .owl-carousel .owl-stage-outer {
     color: black;
 }
 
+
+
 #ProgressBar .pt1 {
     display: block;
     left: -1%;
-    background: #a2a2a2 url(../imgs/image-1@2x.png) no-repeat center center;
-    background-size: cover;
 }
 
 #ProgressBar .pt2 {
     display: block;
     left: 19%;
-    background: #a2a2a2 url(../imgs/recurso-36-3-x@2x.png) no-repeat center center;
-    background-size: cover;
 }
 
 #ProgressBar .pt3 {
     display: block;
-    left: 38%;
-    background: #a2a2a2 url(../imgs/recurso-35-3-x@2x.png) no-repeat center center;
-    background-size: cover;
+    left: 39%;
 }
 
 #ProgressBar .pt4 {
     display: block;
-    left: 58%;
-    background: #a2a2a2 url(../imgs/recurso-34-3-x@2x.png) no-repeat center center;
-    background-size: cover;
+    left: 59%;
 }
 
 #ProgressBar .pt5 {
     display: block;
-    left: 78%;
-    background: #a2a2a2 url(../imgs/recurso-33-3-x@2x.png) no-repeat center center;
-    background-size: cover;
+    left: 79%;
 }
 
 #ProgressBar .pt6 {
     display: block;
-    left: 97%;
-    background: #a2a2a2 url(../imgs/recurso-32-3-x@2x.png) no-repeat center center;
-    background-size: cover;
+    left: 99%;
 }
 
-
-#ProgressBar .pt1.activo {
-    background: #e6c79e url(../imgs/image-1@2x.png) no-repeat center center;
-    background-size: cover;
-}
-
-#ProgressBar .pt2.activo {
-    background: #dfa558 url(../imgs/recurso-31-3-x-copy-5@2x.png) no-repeat center center;
-    background-size: cover;
-}
-
-#ProgressBar .pt3.activo {
-    background: #d28f35 url(../imgs/recurso-30-3-x-copy-4@2x.png) no-repeat center center;
-    background-size: cover;
-}
-
-#ProgressBar .pt4.activo {
-    background: #b87825 url(../imgs/recurso-29-3-x-copy-3@2x.png) no-repeat center center;
-    background-size: cover;
-}
-
-#ProgressBar .pt5.activo {
-    background: #a17233 url(../imgs/recurso-28-3-x-copy-2@2x.png) no-repeat center center;
-    background-size: cover;
-}
-
-#ProgressBar .pt6.activo {
-    background: #b8905c url(../imgs/recurso-27-3-x@2x.png) no-repeat center center;
-    background-size: cover;
-}
 
 
 #ProgressBar span em {
     display: block;
     font-size: 13px;
     text-align: center;
-    margin-top: 65px;
+    margin-top: 15px;
     font-style: normal;
     color: gray;
+}
+
+#ProgressBar span .activa {
+    display: block;
+}
+
+#ProgressBar span .inactiva {
+    display: none;
 }
 
 #chart-montos {
@@ -563,17 +548,21 @@ div .owl-carousel .owl-stage-outer {
 
 /*---------------MODAL BOOSTRAP 3-----------------*/
 
-.modal-footer:after, .modal-footer:before {
-    display: table;
-    content: " ";
+/*.modal-footer:after,.modal-footer:before{
+    display:table;
+    content:" ";
 }
-
-.modal-footer:after {
-    clear: both;
+.modal-footer:after{
+    clear:both;
 }
+.modal-open{
+        overflow: hidden;
+    }.modal{position:fixed;top:0;right:0;bottom:0;left:0;z-index:1050;display:none;overflow:hidden;-webkit-overflow-scrolling:touch;outline:0}.modal.fade .modal-dialog{-webkit-transition:-webkit-transform .3s ease-out;-o-transition:-o-transform .3s ease-out;transition:transform .3s ease-out;-webkit-transform:translate(0,-25%);-ms-transform:translate(0,-25%);-o-transform:translate(0,-25%);transform:translate(0,-25%)}.modal.in .modal-dialog{-webkit-transform:translate(0,0);-ms-transform:translate(0,0);-o-transform:translate(0,0);transform:translate(0,0)}.modal-open .modal{overflow-x:hidden;overflow-y:auto}.modal-dialog{position:relative;width:auto;margin:10px}.modal-content{position:relative;background-color:#fff;-webkit-background-clip:padding-box;background-clip:padding-box;border:1px solid #999;border:1px solid rgba(0,0,0,.2);border-radius:6px;outline:0;-webkit-box-shadow:0 3px 9px rgba(0,0,0,.5);box-shadow:0 3px 9px rgba(0,0,0,.5)}.modal-backdrop{position:fixed;top:0;right:0;bottom:0;left:0;z-index:1040;background-color:#000}.modal-backdrop.fade{filter:alpha(opacity=0);opacity:0}.modal-backdrop.in{filter:alpha(opacity=50);opacity:.5}.modal-header{min-height:16.43px;padding:15px;border-bottom:1px solid #e5e5e5}.modal-header .close{margin-top:-2px}.modal-title{margin:0;line-height:1.42857143}.modal-body{position:relative;padding:15px}.modal-footer{padding:15px;text-align:right;border-top:1px solid #e5e5e5}.modal-footer .btn+.btn{margin-bottom:0;margin-left:5px}.modal-footer .btn-group .btn+.btn{margin-left:-1px}.modal-footer .btn-block+.btn-block{margin-left:0}.modal-scrollbar-measure{position:absolute;top:-9999px;width:50px;height:50px;overflow:scroll}@media (min-width:768px){.modal-dialog{width:600px;margin:30px auto}.modal-content{-webkit-box-shadow:0 5px 15px rgba(0,0,0,.5);box-shadow:0 5px 15px rgba(0,0,0,.5)}.modal-sm{width:300px}}@media (min-width:992px){.modal-lg{width:900px}}
+*/
 
 .modal-open {
-    overflow: hidden !important;
+    overflow: hidden;
+    padding-right: 0 !important;
 }
 
 .modal {
@@ -585,49 +574,60 @@ div .owl-carousel .owl-stage-outer {
     z-index: 1050;
     display: none;
     overflow: hidden;
-    -webkit-overflow-scrolling: touch;
-    outline: 0
+    outline: 0;
 }
-
-    .modal.fade .modal-dialog {
-        -webkit-transition: -webkit-transform .3s ease-out;
-        -o-transition: -o-transform .3s ease-out;
-        transition: transform .3s ease-out;
-        -webkit-transform: translate(0,-25%);
-        -ms-transform: translate(0,-25%);
-        -o-transform: translate(0,-25%);
-        transform: translate(0,-25%)
-    }
-
-    .modal.in .modal-dialog {
-        -webkit-transform: translate(0,0);
-        -ms-transform: translate(0,0);
-        -o-transform: translate(0,0);
-        transform: translate(0,0)
-    }
 
 .modal-open .modal {
     overflow-x: hidden;
-    overflow-y: auto
+    overflow-y: auto;
 }
 
 .modal-dialog {
     position: relative;
     width: auto;
-    margin: 10px
+    margin: 0.5rem;
+    pointer-events: none;
+}
+
+.modal.fade .modal-dialog {
+    transition: -webkit-transform 0.3s ease-out;
+    transition: transform 0.3s ease-out;
+    transition: transform 0.3s ease-out, -webkit-transform 0.3s ease-out;
+    -webkit-transform: translate(0, -25%);
+    transform: translate(0, -25%);
+}
+
+.modal.in .modal-dialog {
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0);
+}
+
+.modal-dialog-centered {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    min-height: calc(100% - (0.5rem * 2));
 }
 
 .modal-content {
     position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    width: 100%;
+    pointer-events: auto;
     background-color: #fff;
-    -webkit-background-clip: padding-box;
     background-clip: padding-box;
-    border: 1px solid #999;
-    border: 1px solid rgba(0,0,0,.2);
-    border-radius: 6px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 0.3rem;
     outline: 0;
-    -webkit-box-shadow: 0 3px 9px rgba(0,0,0,.5);
-    box-shadow: 0 3px 9px rgba(0,0,0,.5)
 }
 
 .modal-backdrop {
@@ -637,56 +637,71 @@ div .owl-carousel .owl-stage-outer {
     bottom: 0;
     left: 0;
     z-index: 1040;
-    background-color: #000
+    background-color: #000;
 }
 
     .modal-backdrop.fade {
-        filter: alpha(opacity=0);
-        opacity: 0
+        opacity: 0;
     }
 
     .modal-backdrop.in {
-        filter: alpha(opacity=50);
-        opacity: .5
+        opacity: 0.5;
     }
 
 .modal-header {
-    min-height: 16.43px;
-    padding: 15px;
-    border-bottom: 1px solid #e5e5e5
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    padding: 1rem;
+    border-bottom: 1px solid #e9ecef;
+    border-top-left-radius: 0.3rem;
+    border-top-right-radius: 0.3rem;
 }
 
     .modal-header .close {
-        margin-top: -2px
+        padding: 1rem;
+        margin: -1rem -1rem -1rem auto;
     }
 
 .modal-title {
-    margin: 0;
-    line-height: 1.42857143
+    margin-bottom: 0;
+    line-height: 1.5;
 }
 
 .modal-body {
     position: relative;
-    padding: 15px
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 1rem;
 }
 
 .modal-footer {
-    padding: 15px;
-    text-align: right;
-    border-top: 1px solid #e5e5e5
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+    padding: 1rem;
+    border-top: 1px solid #e9ecef;
 }
 
-    .modal-footer .btn + .btn {
-        margin-bottom: 0;
-        margin-left: 5px
+    .modal-footer > :not(:first-child) {
+        margin-left: .25rem;
     }
 
-    .modal-footer .btn-group .btn + .btn {
-        margin-left: -1px
-    }
-
-    .modal-footer .btn-block + .btn-block {
-        margin-left: 0
+    .modal-footer > :not(:last-child) {
+        margin-right: .25rem;
     }
 
 .modal-scrollbar-measure {
@@ -694,28 +709,27 @@ div .owl-carousel .owl-stage-outer {
     top: -9999px;
     width: 50px;
     height: 50px;
-    overflow: scroll
+    overflow: scroll;
 }
 
-@media (min-width:768px) {
+@media (min-width: 576px) {
     .modal-dialog {
-        width: 600px;
-        margin: 30px auto
+        max-width: 500px;
+        margin: 1.75rem auto;
     }
 
-    .modal-content {
-        -webkit-box-shadow: 0 5px 15px rgba(0,0,0,.5);
-        box-shadow: 0 5px 15px rgba(0,0,0,.5)
+    .modal-dialog-centered {
+        min-height: calc(100% - (1.75rem * 2));
     }
 
     .modal-sm {
-        width: 300px
+        max-width: 300px;
     }
 }
 
-@media (min-width:992px) {
+@media (min-width: 992px) {
     .modal-lg {
-        width: 900px
+        max-width: 800px;
     }
 }
 
@@ -761,6 +775,7 @@ button.close {
             font-size: 20px;
             display: block;
             margin: 0;
+            font-weight: bold !important;
         }
 
         .indicador-nivel .left-mod p {
@@ -814,12 +829,12 @@ button.close {
 }
 
 .modal-open .modal {
-    padding-right: 0px !important;
+    /* padding-right: 0px !important;*/
 }
 
 .icon-niv {
     display: inline-block;
-    background: url(../imgs/icon-s.svg) no-repeat center center;
+    background: url(/Content/CaminoBrillante/imgs/icon-s.svg) no-repeat center center;
     background-size: cover;
     width: 19px;
     height: 22px;
@@ -845,6 +860,15 @@ button.close {
 /*-----------------PRODUCTOS-----------------------*/
 
 
+.pad-center {
+    background: url(/Content/CaminoBrillante/imgs/bg-modal.svg) top center repeat-x;
+}
+
+
+
+.left-mod p span {
+    display: block;
+}
 
 
 
@@ -852,13 +876,36 @@ button.close {
 
 
 
+.owl-carousel .owl-item .circle-porcent {
+    display: block;
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    margin: 0 auto;
+    margin-bottom: 6px;
+}
 
+.circle-porcent.veinticinco {
+    background: #b9007e;
+}
 
+.circle-porcent.cinco {
+    background: #64425e;
+}
 
+.owl-carousel .owl-item .circle-porcent span {
+    color: white;
+    font-size: 19px;
+    text-align: center;
+    line-height: 50px;
+    display: block;
+    font-weight: bold;
+}
 
-
-
-
+/*.owl-carousel .owl-item {
+    width: 46% !important;
+    margin: 0 2% !important;
+}*/
 
 
 
@@ -912,14 +959,14 @@ button.close {
     }
 
     .Progress:after {
-        top: -3px;
-        width: 10px;
-        height: 10px;
+        top: -2px;
+        width: 8px;
+        height: 8px;
     }
 
     #ProgressBar span em {
-        margin-top: 48px;
-        font-size: 12px;
+        margin-top: 14px;
+        font-size: 11px;
     }
 
     #box-niveles {
@@ -942,15 +989,16 @@ button.close {
 
         .indicador-nivel .left-mod h2, .indicador-nivel .left-mod p {
             text-align: center;
+            margin-bottom: 8px;
         }
 
     .indicador-nivel img {
         max-width: 90px !important;
     }
 
-    .modal-open .modal {
+    /*    .modal-open .modal {
         padding-right: 0 !important;
-    }
+    }*/
 
     .brillante:before {
         width: 41px;
@@ -983,29 +1031,65 @@ button.close {
         margin-bottom: 8px;
     }
 
+    .box-beneficios li {
+        min-height: auto;
+    }
+
+    .subtitle {
+        font-size: 15px;
+    }
 
     .medal-1 {
-        width: 17%;
+        width: 12%;
     }
 
     .medal-2 {
-        width: 35%;
+        width: 32%;
     }
 
     .medal-3 {
-        width: 56%;
+        width: 52%;
     }
 
     .medal-4 {
-        width: 76%;
+        width: 72%;
     }
 
     .medal-5 {
-        width: 94%;
+        width: 72%;
     }
 
     .medal-6 {
-        width: 100%;
+        width: 92%;
+    }
+
+    #ProgressBar .pt1 {
+        left: -7%;
+    }
+
+    #ProgressBar .pt2 {
+        display: block;
+        left: 13%;
+    }
+
+    #ProgressBar .pt3 {
+        display: block;
+        left: 33%;
+    }
+
+    #ProgressBar .pt4 {
+        display: block;
+        left: 53%;
+    }
+
+    #ProgressBar .pt5 {
+        display: block;
+        left: 73%;
+    }
+
+    #ProgressBar .pt6 {
+        display: block;
+        left: 93%;
     }
 
 
@@ -1056,7 +1140,7 @@ button.close {
         }
 
         100% {
-            width: 94%;
+            width: 95%;
         }
     }
 

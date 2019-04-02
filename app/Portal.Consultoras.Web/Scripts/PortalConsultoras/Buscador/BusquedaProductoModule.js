@@ -26,7 +26,7 @@
         scriptHandleBarCriterios: '#js-labelCriteriosFiltros',
         redireccionarFicha: '.redireccionarFicha',
         dataToggle: '[data-toggle]',
-        enlaceLimpiarEtiquetasFiltros: '.enlace__limpiar__filtros, .filtro__btn--limpiar',
+        enlaceLimpiarEtiquetasFiltros: 'a.enlace__limpiar__filtros, button.filtro__btn--limpiar',
         buscadorFiltrosSeleccionar: '.buscadorFiltrosSeleccionar',
         preCargaFiltros: '.layout__precarga--actualizacionFiltros',
         criteriosBuscadorMobile: '.criteriosBuscadorMobile',
@@ -556,8 +556,8 @@
         LimpiarFiltros: function () {
             $(_elementos.filtroCheckbox).removeAttr('checked');
 
-            if (!(typeof AnalyticsPortalModule === 'undefined'))
-                AnalyticsPortalModule.MarcaLimpiarFiltros();
+            //if (!(typeof AnalyticsPortalModule === 'undefined'))
+            //    AnalyticsPortalModule.MarcaLimpiarFiltros();
 
         },
         ScrollCargarProductos: function () {
@@ -580,7 +580,7 @@
             e.preventDefault();
             AbrirLoad();
             var divPadre = $(this).parents("[data-item='BuscadorFichasProductos']").eq(0);
-            PedidoRegistroModule.RegistroProductoBuscador(divPadre, _elementos.valueJSON);            
+            PedidoRegistroModule.RegistroProductoBuscador(divPadre, _elementos.valueJSON, "Resultados");            
         },
         RedireccionarAFichaDeFotoYDescripcion: function (e) {
             e.preventDefault();

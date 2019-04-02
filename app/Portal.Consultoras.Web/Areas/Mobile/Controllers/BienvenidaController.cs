@@ -10,6 +10,7 @@ using System.ServiceModel;
 using System.Web.Mvc;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.CaminoBrillante;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -18,11 +19,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatosProvider;
         private readonly BienvenidaProvider _bienvenidaProvider;
         protected TablaLogicaProvider _tablaLogica;
+        protected CaminoBrillanteProvider _caminoBrillanteProvider;
         public BienvenidaController()
         {
             _configuracionPaisDatosProvider = new ConfiguracionPaisDatosProvider();
             _tablaLogica = new TablaLogicaProvider();
             _bienvenidaProvider = new BienvenidaProvider();
+            _caminoBrillanteProvider = new CaminoBrillanteProvider();
         }
 
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
@@ -127,11 +130,17 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.TienePagoEnLinea = userData.TienePagoEnLinea;
                 model.ConsultoraNuevaBannerAppMostrar = SessionManager.GetConsultoraNuevaBannerAppMostrar();
                 model.MostrarPagoEnLinea = (userData.MontoDeuda > 0);
-                model.TieneCaminoBrillante = userData.CaminoBrillante;
-                model.CaminoBrillanteMsg = userData.CaminoBrillanteMsg.Replace("{0}", "Consultora Ámbar");
-
 
                 #region Camino al Exito
+                model.TieneCaminoBrillante = userData.CaminoBrillante;
+                model.TieneCaminoBrillante = userData.CaminoBrillante;
+                var NivelCaminoBrillante = _caminoBrillanteProvider.ObtenerNivelActualConsultora();
+                if (NivelCaminoBrillante != null)
+                {
+                    model.CaminoBrillanteMsg = userData.CaminoBrillanteMsg.Replace("{0}", "<b>" + NivelCaminoBrillante.DescripcionNivel + "</b>");
+                    model.UrlLogoCaminoBrillante = NivelCaminoBrillante.UrlImagenNivel.Replace("{DIMEN}", "MDPI");
+                    model.UrlLogoCaminoBrillante = model.UrlLogoCaminoBrillante.Replace("{STATE}", "A");
+                }
 
                 var LogicaCaminoExisto = _tablaLogica.GetTablaLogicaDatos(userData.PaisID, Constantes.TablaLogica.EscalaDescuentoMobile);
                 if (LogicaCaminoExisto.Any())
@@ -461,6 +470,5 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-        
     }
 }
