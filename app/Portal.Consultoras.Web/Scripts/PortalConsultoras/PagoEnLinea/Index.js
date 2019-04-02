@@ -18,7 +18,7 @@ if (month < 10) {
     month = "0" + month;
 }
 
-var fechaHoy = day + '-' + month + '-' + year;
+var fechaHoy = day + '/' + month + '/' + year;
 //fin fecha hoy ------------
 
 $(document).ready(function () {
@@ -184,9 +184,9 @@ $(document).ready(function () {
                     var mes = $.trim($("#hdFechaVencimiento").val()).substr(3, 2);
                     var año = $.trim($("#hdFechaVencimiento").val()).substr(6,4);
 
-                    var FechaVencimiento = dia + '-' + mes + '-' + año;
+                    var FechaVencimiento = dia + '/' + mes + '/' + año;
 
-                    if (CodigoIso == 'PE' && FechaVencimiento >= fechaHoy && IndicadorConsultoraDigital == '1' && Aplica3Porciento == '1') {
+                    if (CodigoIso == 'PE' && new Date(FechaVencimiento).getTime() >= new Date(fechaHoy).getTime() && IndicadorConsultoraDigital == '1' && Aplica3Porciento == '1') {
                          montoGastos = 0 ;
                     } else {
                          montoGastos = montoParcial * (porcentaje / 100);
