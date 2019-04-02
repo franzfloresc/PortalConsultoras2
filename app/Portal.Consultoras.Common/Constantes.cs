@@ -1848,6 +1848,7 @@ namespace Portal.Consultoras.Common
             public const short CaminoBrillanteInfoComercial = 165;
             public const short CaminoBrillanteLogros = 166;
             public const short CaminoBrillanteIndicadores = 167;
+            public const short CaminoBrillanteOfertasEspeciales = 167; //Pendiente
             #endregion
         }
 
@@ -3606,14 +3607,15 @@ namespace Portal.Consultoras.Common
                     get
                     {
                         return _Iconos ?? (_Iconos = new Dictionary<string, string> {
-                            {"01", "icono.svg"},
-                            {"02", "icono.svg"},
-                            {"03", "icono.svg"},
-                            {"04", "icono.svg"},
-                            {"05", "icono.svg"},
-                            {"06", "icono.svg"},
-                            {"07", "icono.svg"},
-                            {"08", "icono.svg"},
+                            {"01", "asesor.svg"},
+                            {"02", "beneficios.svg"},
+                            {"03", "call_center.svg"},
+                            {"04", "catalogo_revista.svg"},
+                            {"05", "consultora.svg"},
+                            {"06", "descuento.svg"},
+                            {"07", "kit.svg"},
+                            {"08", "productos_especiales.svg"},
+                            {"09", "regalo.svg"},
                         });
                     }
                 }
