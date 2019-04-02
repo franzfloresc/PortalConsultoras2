@@ -3591,7 +3591,7 @@ namespace Portal.Consultoras.Common
                             public const string CIRC = "CIRC";
                             public const string NIV = "NIV";
                             public const string PIE = "PIE";
-                            public const string TIM = "TIM";
+                            public const string TIM = "TIME";
                             public const string PED = "PED";
                         }
                     }

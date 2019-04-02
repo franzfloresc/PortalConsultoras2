@@ -99,6 +99,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             return CacheManager<List<BEOfertaCaminoBrillante>>.ValidateDataElement(paisId, ECacheItem.CaminoBrillanteOfertas, campania, () => GetOfertasProvider(paisId, campania));
         }
 
+        //Pendiente cargar imagenes
         public List<BEOfertaCaminoBrillante> GetOfertasProvider(int paisId, string campania)
         {
             _providerCaminoBrillante = _providerCaminoBrillante ?? getCaminoBrillanteProvider(paisId);
@@ -147,6 +148,8 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             }).ToList();
         }
         
+        //Constantes
+        //Validar Nuevas
         private BELogroCaminoBrillante GetResumenLogros(int paisId, List<BELogroCaminoBrillante> logros)
         {
             Func<BEMedallaCaminoBrillante, string, int, BEMedallaCaminoBrillante> funcCopyMedalla = (medalla, title, index) =>
@@ -204,7 +207,13 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                         addSerieMedalla(Constantes.CaminoBrillante.Logros.COMPROMISO, Constantes.CaminoBrillante.Logros.Indicadores.TIEMPO_JUNTOS, lastMedallaTiempoJuntos);
                 }
 
-                return medallas.Take(3).ToList();
+                return medallas.Select(e => new BEMedallaCaminoBrillante() {
+                    Estado = e.Estado,
+                    Valor = e.Valor,
+                    Orden = e.Orden,
+                    Tipo = e.Tipo,
+                    Titulo = e.Titulo
+                }).Take(3).ToList();
             };
             
             var tablaLogicaDatos = (GetDatosTablaLogica(paisId, Constantes.TablaLogica.CaminoBrillanteLogros) ?? new List<BETablaLogicaDatos>())
@@ -433,7 +442,6 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                     Orden = idx++,
                     Tipo = Constantes.CaminoBrillante.Logros.Indicadores.Medallas.Codes.CIRC,
                     Estado = (nivelConsultora.PorcentajeIncremento <= int.Parse(e.Codigo)),
-                    //Titulo = e.Valor,
                     Subtitulo = (nivelConsultora.PorcentajeIncremento <= int.Parse(e.Codigo)) ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes,
                     Valor = string.Format(e.Valor ?? string.Empty, e.Codigo),                    
                     ModalTitulo = e.ComoLograrlo_Estado ? e.ComoLograrlo_Titulo : string.Empty,
@@ -583,83 +591,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         {
             var lstBeneficios = GetBeneficiosCaminoBrillante(paisId) ?? new List<BEBeneficioCaminoBrillante>();
             var lstNiveles = _providerCaminoBrillante.GetNivel(Util.GetPaisIsoHanna(paisId)).Result;
-            var pattern = (isWeb ? "http://somosbelcorpqa.s3.amazonaws.com/Iconos/CAMINOBRILLANTE/NIVELES/NIVEL_{KEY}_{STATE}.png"
-                                  : "http://somosbelcorpqa.s3.amazonaws.com/Iconos/CAMINOBRILLANTE/NIVELES/{DIMEN}/NIVEL_{KEY}_{STATE}.png");
-
-            //Simular Data
-            #region Data Simulada
-            foreach (var item in lstNiveles)
-            {
-                switch (item.CodigoNivel)
-                {
-                    case "1":
-                        item.Beneficio1 = "Revista Mi Negocio L’Bel";
-                        item.Beneficio2 = "1 catálogo gratis de Ésika, L’Bel, Cyzone";
-                        item.Beneficio3 = "Regalo por pedido y constancia";
-                        item.Beneficio4 = "Servicio Callcenter";
-                        item.Beneficio5 = "Asesor guía por whatsapp y en persona";
-                        break;
-                    case "2":
-                        item.Beneficio1 = "Revista Mi Negocio L’Bel";
-                        item.Beneficio2 = "1 catálogo gratis de Ésika, L’Bel, Cyzone";
-                        item.Beneficio3 = "20% de descuento en la compra de catálogos y demostradores";
-                        item.Beneficio4 = "Regalo por pedido y constancia";
-                        item.Beneficio5 = "Kit de productos a bajo precio";
-                        break;
-                    case "3":
-                        item.Beneficio1 = "Revista Mi Negocio L’Bel";
-                        item.Beneficio2 = "1 catálogo gratis de Ésika, L’Bel, Cyzone";
-                        item.Beneficio3 = "25% de descuento en la compra de catálogos y demostradores";
-                        item.Beneficio4 = "Regalo por pedido y constancia";
-                        item.Beneficio5 = "Kit de productos a bajo precio";
-                        break;
-                    case "4":
-                        item.Beneficio1 = "Kit de productos a bajo precio";
-                        item.Beneficio2 = "1 catálogo gratis de Ésika, L’Bel, Cyzone";
-                        item.Beneficio3 = "30% de descuento en la compra de catálogos y demostradores";
-                        item.Beneficio4 = "Regalo por pedido y constancia";
-                        item.Beneficio5 = "Kit de productos a bajo precio";
-                        break;
-                    case "5":
-                        item.Beneficio1 = "Revista Mi Negocio L’Bel";
-                        item.Beneficio2 = "1 catálogo gratis de Ésika, L’Bel, Cyzone";
-                        item.Beneficio3 = "30% de descuento en la compra de catálogos y demostradores";
-                        item.Beneficio4 = "Regalo por pedido y constancia";
-                        item.Beneficio5 = "Kit de productos a bajo precio";
-                        break;
-                    case "6":
-                        item.Beneficio1 = "Beneficios de topacio";
-                        item.Beneficio2 = "Programa brillante según tu nivel";
-                        item.Beneficio3 = "";
-                        item.Beneficio4 = "";
-                        item.Beneficio5 = "";
-                        break;
-                }
-            }
-            #endregion
-
-            lstBeneficios.Where(e => Constantes.CaminoBrillante.CodigoBeneficio.Beneficios.Contains(e.CodigoBeneficio)).ForEach(e =>
-            {
-                switch (e.CodigoBeneficio)
-                {
-                    case Constantes.CaminoBrillante.CodigoBeneficio.BENEFICIO01:
-                        e.NombreBeneficio = lstNiveles.Where(n => n.CodigoNivel == e.CodigoNivel).Select(n => n.Beneficio1).SingleOrDefault();
-                        break;
-                    case Constantes.CaminoBrillante.CodigoBeneficio.BENEFICIO02:
-                        e.NombreBeneficio = lstNiveles.Where(n => n.CodigoNivel == e.CodigoNivel).Select(n => n.Beneficio2).SingleOrDefault();
-                        break;
-                    case Constantes.CaminoBrillante.CodigoBeneficio.BENEFICIO03:
-                        e.NombreBeneficio = lstNiveles.Where(n => n.CodigoNivel == e.CodigoNivel).Select(n => n.Beneficio3).SingleOrDefault();
-                        break;
-                    case Constantes.CaminoBrillante.CodigoBeneficio.BENEFICIO04:
-                        e.NombreBeneficio = lstNiveles.Where(n => n.CodigoNivel == e.CodigoNivel).Select(n => n.Beneficio4).SingleOrDefault();
-                        break;
-                    case Constantes.CaminoBrillante.CodigoBeneficio.BENEFICIO05:
-                        e.NombreBeneficio = lstNiveles.Where(n => n.CodigoNivel == e.CodigoNivel).Select(n => n.Beneficio5).SingleOrDefault();
-                        break;
-                }
-            });
-
+            
             return lstNiveles.Select(e => new BENivelCaminoBrillante()
             {
                 CodigoNivel = e.CodigoNivel,
@@ -667,7 +599,6 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 MontoMaximo = e.MontoMaximo,
                 MontoMinimo = e.MontoMinimo,
                 TieneOfertasEspeciales = !("1" == e.CodigoNivel), //Usar Configuracion
-                UrlImagenNivel = pattern.Replace("{KEY}", (e.CodigoNivel ?? "").Length == 1 ? "0" + e.CodigoNivel : e.CodigoNivel),
                 Beneficios = lstBeneficios.Where(b => b.CodigoNivel == e.CodigoNivel && !(string.IsNullOrEmpty(b.NombreBeneficio)
                                                       && Constantes.CaminoBrillante.CodigoBeneficio.Beneficios.Contains(b.CodigoBeneficio))
                                                       ).ToList()

@@ -23,7 +23,7 @@ namespace Portal.Consultoras.Entities.CaminoBrillante
         public string Descripcion { get; set; }
 
         [DataMember]
-        [Column("UrlIcono")]
-        public string UrlIcono { get; set; }
+        [Column("Icono")]
+        public string Icono { get; set; }
     }
 }
