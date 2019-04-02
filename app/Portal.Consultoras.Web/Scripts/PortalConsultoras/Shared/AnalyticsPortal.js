@@ -1145,8 +1145,6 @@ var AnalyticsPortalModule = (function () {
     //HD-3473 EINCA 
     var marcaPromotionViewBanner = function (pos) {
         try {
-            if (_constantes.isTest)
-                alert("Marcación promotion view Banner.");
             dataLayer.push({
                 'event': _evento.promotionView,
                 'ecommerce': {
@@ -1170,8 +1168,6 @@ var AnalyticsPortalModule = (function () {
     //HD-3473 EINCA 
     var marcaPromotionClicBanner = function (OrigenPedidoWeb, texto, url) {
         try {
-            if (_constantes.isTest)
-                alert("Marcación promotion view Banner.");
             var pos = _getParametroListSegunOrigen(OrigenPedidoWeb, url);
             dataLayer.push({
                 'event': 'promotionClick',
@@ -1552,9 +1548,10 @@ var AnalyticsPortalModule = (function () {
 
     var _autoMapperV2 = function (codigoSeccion, data, pos) {
         var collection = [];
+        var element;
 
         if (codigoSeccion == _codigoSeccion.LAN) {
-            var element = $("[data-seccion=" + codigoSeccion + "]");
+            element = $("[data-seccion=" + codigoSeccion + "]");
             var codigo = element.data("origenpedidoweb");
             $.each(data, function (index) {
                 var item = data[index];
@@ -1570,10 +1567,10 @@ var AnalyticsPortalModule = (function () {
 
         //HD-3473 EINCA para duo solo se registra uno
         if (codigoSeccion == _codigoSeccion.DP) {
-            var element = {
+            element = {
                 'id': _constantes.IdBennerDuoPerfecto,
                 'name': 'Arma tu Dúo Perfecto - Dúo Perfecto',
-                'position': (pos !== undefined || pos !== "undefined") ? pos + ' - Dúo Perfecto' : '',
+                'position': (pos !== undefined) ? pos + ' - Dúo Perfecto' : '',
                 'creative': "Banner"
             };
             collection.push(element);
