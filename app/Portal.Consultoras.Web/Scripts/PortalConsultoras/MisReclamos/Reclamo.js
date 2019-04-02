@@ -29,9 +29,11 @@ $(document).ready(function () {
             $('.chosen-select').chosen();
             $(".chosen-select").val('').trigger("chosen:updated");
             $('#ddlCuv').addClass('btn_deshabilitado');
+            $('#RangoCantidad').addClass('btn_deshabilitado');
             return false;
         } else {
             $('#ddlCuv').removeClass('btn_deshabilitado');
+            $('#RangoCantidad').removeClass('btn_deshabilitado');
         }
         $("#txtPedidoID").val(0);
         $("#txtNumeroPedido").val(0);
