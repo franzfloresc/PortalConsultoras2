@@ -8,8 +8,7 @@ $(document).ready(function () {
         if (mostrar.css("display") == "none") mostrar.fadeIn(200);
         else mostrar.fadeOut(200);
     });
-
-    //ValidarKitNuevas();
+    
     CargarPedido(true);
 
     $("#suma, #resta").click(function (event) {

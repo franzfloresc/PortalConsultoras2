@@ -88,7 +88,6 @@ namespace Portal.Consultoras.Web.Models
 
         public bool TieneStock { get; set; } //flag para controlar si el producto cuenta con stock
 
-        // TODO: liberar comentario
         /// <summary>
         /// Calculo del factor cuadre
         /// </summary>

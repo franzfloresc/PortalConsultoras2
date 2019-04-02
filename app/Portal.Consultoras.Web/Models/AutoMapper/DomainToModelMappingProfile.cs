@@ -669,8 +669,6 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.CheckBox, f => f.MapFrom(c => c.CheckBox));
 
             Mapper.CreateMap<Componente, EstrategiaComponenteModel>()
-                //.ForMember(t => t.Id, f => f.MapFrom(c => Convert.ToInt32((c._id))));
-                //.ForMember(t => t.Id, f => f.Ignore())
                 .ForMember(t => t.Cantidad, f => f.MapFrom(c => c.Cantidad))
                 .ForMember(t => t.DescripcionMarca, f => f.MapFrom(c => c.NombreMarca))
                 .ForMember(t => t.FactorCuadre, f => f.MapFrom(c => c.FactorCuadre))
