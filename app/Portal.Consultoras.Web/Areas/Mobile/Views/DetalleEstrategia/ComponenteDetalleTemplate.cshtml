@@ -31,52 +31,68 @@
                         {{Volumen}}
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12 descripcion_item precio">
-                        Para tu cliente <b>{{PrecioCatalogo}}</b>
+                        Para tu cliente <b>{{SimboloMoneda}} {{PrecioCatalogo}}</b>
                     </div>
 
                     <div class="tabs">
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <ul id="mnuDetalleComponente" class="tabs ficha_tabs">
                                 {{#each this.Secciones as |seccion|}}
+
+                                {{#iff seccion.EsVideos '==' false }}
                                 <li id="div_ficha_tab1">
                                     <a class="tab-link">{{seccion.Titulo}}</a>
                                     <ul class="tabs_container">
-                                        {{#each seccion.Detalles as |detalle|}}                                   
-                                        {{#IsNullOrEmpty detalle.Key '!='}}
-                                        <div style="width:600px !important; height:500px !important;">
-                                            <div id="carouselVideo">
-                                                <div style="width:350px;height:350px;">
-                                                    <p>{{detalle.Titulo}}</p>
-                                                    <iframe class="video_item" width="350" height="350" src="{{detalle.Key}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        {{else}}
+                                        {{#each seccion.Detalles as |detalle index|}}
+
                                         <h4>{{detalle.Titulo}}</h4>
                                         <p>{{detalle.Descripcion}}</p>
-                                        {{/IsNullOrEmpty}}
 
                                         {{/each}}
                                     </ul>
                                 </li>
+                                {{/iff}}
                                 {{/each}}
 
-
-                                @*<li id="div_ficha_tab4">
-                                    <a class="tab-link">Videos</a>
+                                {{#each this.Secciones as |seccion|}}
+                                 {{#iff seccion.EsVideos '==' true }} 
+                                <li id="div_ficha_tab1">
+                                    <a class="tab-link">{{seccion.Titulo}}</a>
                                     <ul class="tabs_container">
                                         <div style="width:98% !important; height:500px !important;">
                                             <div id="carouselVideo">
-                                                {{#each this.Video as |myitem|}}
+                                                {{#each seccion.Detalles as |detalle index|}}
                                                 <div style="width:350px;height:350px;">
-                                                    <p>{{myitem.Titulo}}</p>
-                                                    <iframe class="video_item" width="350" height="350" src="{{myitem.Valor}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                                    <p>{{detalle.Titulo}}</p>
+                                                    <iframe class="video_item" width="350" height="350" src="{{detalle.Key}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                                 </div>
                                                 {{/each}}
                                             </div>
                                         </div>
                                     </ul>
-                                </li>*@
+                                </li>
+                                {{/iff}} 
+                                {{/each}} 
+
+
+                                @*<li id="div_ficha_tab4">
+            <a class="tab-link">Videos</a>
+            <ul class="tabs_container">
+                <div style="width:98% !important; height:500px !important;">
+                    <div id="carouselVideo">
+
+                        <div style="width:350px;height:350px;">
+                            <p>sdfsdfsdf</p>
+                            <iframe class="video_item" width="350" height="350" src="https://www.youtube.com/watch?v=9ypqLHFpnbQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        <div style="width:350px;height:350px;">
+                            <p>sdfsdxxxxfsdf</p>
+                            <iframe class="video_item" width="350" height="350" src="https://www.youtube.com/watch?v=9ypqLHFpnbQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+            </ul>
+        </li>*@
 
                             </ul>
                         </div>

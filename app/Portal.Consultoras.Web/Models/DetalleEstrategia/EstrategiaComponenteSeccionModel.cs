@@ -5,6 +5,7 @@ namespace Portal.Consultoras.Web.Models.DetalleEstrategia
     public class EstrategiaComponenteSeccionModel
     {
         public string Titulo { get; set; }
+        public bool EsVideos { get; set; }
         public List<EstrategiaComponenteSeccionDetalleModel> Detalles { get; set; }
     }
 

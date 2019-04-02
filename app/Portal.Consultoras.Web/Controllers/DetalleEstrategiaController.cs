@@ -166,7 +166,10 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 };
 
- 
+                secciones.ForEach(x => {
+                    x.EsVideos = x.Detalles.FindAll(y => !string.IsNullOrEmpty(y.Key)).Count > 0;
+                });
+
                 //EAAR: consumir servicio de juanjo
 
                 return Json(new
