@@ -405,8 +405,8 @@
                 </p>
                 <div class="text-center opcion_cdr_seleccionada_campos_busqueda_producto_a_cambiar">
                     <input type="text" class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--codigo" value="" id="txtCUV2" placeholder="Código" />
-                    <input type="text" class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--descripcion" id="txtCUVDescripcion2" value="" placeholder="Descripción del producto" />
-                    <input type="text" class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--precio" id="txtCUVPrecio2" value="" placeholder="Precio" />
+                    <input type="text" class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--descripcion" id="txtCUVDescripcion2" readonly value="" placeholder="Descripción del producto" />
+                    <input type="text" class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--precio" id="txtCUVPrecio2" readonly value="" placeholder="Precio" />
                     <div class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad" data-cantidad-contenedor="">
                         <input type="hidden" id="hdCuvPrecio2">
                         <input type="hidden" id="hdParametriaCdr" value="0">
@@ -429,7 +429,12 @@
             <!-- FIN - INFORMACIÓN CUANDO SE SELECCIONA LA OPCIÓN DE CAMBIAR POR OTRO PRODUCTO -->
         </div>
         <div id="OpcionCambioMismoProducto" style="display:none;">
-            <p class="text-bold">Te reenviaremos el siguiente producto: <span id="spnDescProdDevolucion" class="text-bold producto_nom"></span></p>
+            <div class="opcion_cdr_seleccionada_info opcion_cdr_seleccionada_info--cambioMismoProducto">
+                <p>Te reenviaremos el siguiente producto:</p>
+                <p class="text-bold">
+                    <span id="spnDescProdDevolucion" class="text-bold producto_nom"></span>
+                </p>
+            </div>
         </div>
     </div>
     <div id="OpcionDevolucion" style="display:none;">

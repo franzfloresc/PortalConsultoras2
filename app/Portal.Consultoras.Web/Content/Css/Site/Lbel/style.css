@@ -28595,6 +28595,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     background-image: url(/Content/Images/icono_check_cdr.svg);
     background-position: center;
     background-size: 100%;
+    background-repeat:no-repeat;
 }
 
 .opcion_cdr_seleccionada_info--cambiarPorOtroProducto p,
@@ -28613,14 +28614,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 .opcion_cdr_seleccionada_campos_busqueda_producto_a_cambiar,
 .opcion_cdr_seleccionada_info--cambioMismoProducto {
     margin-top: 30px;
-}
-
-.opcion_cdr_seleccionada_campos_busqueda_producto_a_cambiar {
     margin-bottom: 20px;
-}
-
-.opcion_cdr_seleccionada_info--cambioMismoProducto {
-    margin-bottom: 45px;
 }
 
 .opcion_cdr_seleccionada_campo_busqueda {
@@ -29027,7 +29021,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 }
 
 .listado_eliminar_reclamo {
-    width: 11.5%;
+    width: 11%;
     text-align: center;
 }
 
@@ -29111,25 +29105,26 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 }
 
 .politica_reclamos_icono {
-    background-image: url('/Content/Images/check_terminos_cdr.svg');
-    background-repeat:no-repeat;
-    background-position:center;
-    background-color:#d6d6d6;
-    width:20px;
-    height:20px;
-    margin-top:4.5px;
-    margin-right:6px;
-    border-radius:4px;
-    background-size: 65%;
+    background-image: url(/Content/Images/icono_check_cdr.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #FFF;
+    border: 1px solid #000;
+    width: 20px;
+    height: 20px;
+    margin-top: 4.5px;
+    margin-right: 6px;
+    border-radius: 4px;
+    background-size: 100%;
     -moz-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
     -webkit-transition: all 0.3s ease;
     transition: all 0.3s ease;
-    cursor:pointer;
+    cursor: pointer;
 }
 
 .politica_reclamos_icono_active {
-    background-color:#642f80;
+    background-color:#000;
 }
 
 .politica_reclamos_texto a{

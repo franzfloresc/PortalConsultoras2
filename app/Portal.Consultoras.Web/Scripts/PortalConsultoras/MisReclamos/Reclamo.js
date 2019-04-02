@@ -1989,8 +1989,8 @@ function EscogerSolucion(opcion, event) {
     } else if (id == "D") {
         $('#OpcionCambioMismoProducto').fadeOut(200);
         $('#OpcionCambioPorOtroProducto').fadeOut(200);
-        $('#OpcionDevolucion').fadeIn(150);
         $('#divDevolucionSetsOrPack').show();
+        $('#OpcionDevolucion').fadeIn(200);
         SetHandlebars("#template-opcion-devolucion", dataCdrServicio, "#divDevolucionSetsOrPack");
     } else {
         $('#infoOpcionesDeCambio').fadeOut(200);
