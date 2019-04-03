@@ -112,7 +112,7 @@ GO
 USE BelcorpChile
 GO
 
-ALTETR PROCEDURE dbo.ObtenerComunicadoPorConsultora @CodigoConsultora VARCHAR(20)
+ALTER PROCEDURE dbo.ObtenerComunicadoPorConsultora @CodigoConsultora VARCHAR(20)
 	,@TipoDispositivo SMALLINT = 1
 AS
 BEGIN
