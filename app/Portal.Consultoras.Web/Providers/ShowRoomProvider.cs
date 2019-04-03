@@ -18,6 +18,7 @@ namespace Portal.Consultoras.Web.Providers
     using Portal.Consultoras.Common.Response;
     using Portal.Consultoras.Web.Models.Estrategia;
     using Portal.Consultoras.Web.Models.Search.ResponseEvento;
+    using Portal.Consultoras.Web.Models.Search.ResponseEvento.Estructura;
     using Portal.Consultoras.Web.Models.Search.ResponseNivel;
     using System;
     using System.Text;
@@ -124,11 +125,12 @@ namespace Portal.Consultoras.Web.Providers
         {
             try
             {
+
+                bool eventoConsultoraNull = false;
                 if (UsarMsPersonalizacion(model.CodigoISO, Constantes.TipoEstrategiaCodigo.ShowRoom))
                 {
-                    ShowRoomEventoConsultoraModel eventoConsultora = ObtenerEventoConsultoraApi(model.CodigoISO, model.CampaniaID, model.GetCodigoConsultora());
-
-                    if (eventoConsultora == null)
+                    ShowRoomEventoConsultoraModel eventoConsultora = ObtenerEventoConsultoraApi(model.CodigoISO, model.CampaniaID, model.GetCodigoConsultora(), out eventoConsultoraNull);
+                    if (eventoConsultoraNull)
                     {
                         eventoConsultora = RegistrarEventoConsultoraApi(showRoomEventoModel.EventoID, false);
                     }
@@ -410,13 +412,16 @@ namespace Portal.Consultoras.Web.Providers
                     _sessionManager.SetEsShowRoom("0");
                     _sessionManager.SetMostrarShowRoomProductos("0");
                     _sessionManager.SetMostrarShowRoomProductosExpiro("0");
-
+                  
                     if (UsarMsPersonalizacion(model.CodigoISO, Constantes.TipoEstrategiaCodigo.ShowRoom))
                     {
                         OutputEvento eventoPersonalizacions = ApiEventoPersonalizacion(model);
 
                         configEstrategiaSR.BeShowRoom = ObtieneEventoModel(eventoPersonalizacions.Result);
-                        configEstrategiaSR.ListaPersonalizacionConsultora = ObtienePersonalizacionesModel(eventoPersonalizacions.Result.FirstOrDefault().PersonalizacionNivel);
+                        
+                        IList<Evento> eventos = eventoPersonalizacions.Result ?? new List<Evento>();
+                        Evento personalizacionNivel = eventos.Any() ? eventos.FirstOrDefault() : new Evento();
+                        configEstrategiaSR.ListaPersonalizacionConsultora = ObtienePersonalizacionesModel(personalizacionNivel.PersonalizacionNivel);
                     }
                     else
                     {
@@ -895,7 +900,7 @@ namespace Portal.Consultoras.Web.Providers
             return modelo;
         }
 
-        public ShowRoomEventoConsultoraModel ObtenerEventoConsultoraApi(string pais, int codigoCampania, string codigoConsultora)
+        public ShowRoomEventoConsultoraModel ObtenerEventoConsultoraApi(string pais, int codigoCampania, string codigoConsultora , out bool eventoConsultoraNull)
         {
             UsuarioModel userData = _sessionManager.GetUserData();
 
@@ -909,7 +914,7 @@ namespace Portal.Consultoras.Web.Providers
 
             Task.WhenAll(taskApi);
             string jsonString = taskApi.Result;
-
+            eventoConsultoraNull = true;
             try
             {
                 OutputEventoConsultora respuesta = JsonConvert.DeserializeObject<OutputEventoConsultora>(jsonString);
@@ -917,13 +922,13 @@ namespace Portal.Consultoras.Web.Providers
                 if (respuesta == null)
                 {
                     Common.LogManager.SaveLog(new Exception("Servicio no responde"), string.Empty, pais);
-                    throw new Exception();
+                    eventoConsultoraNull = false;
                 }
 
                 if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
                 {
                     Common.LogManager.SaveLog(new Exception(respuesta.Message), string.Empty, pais);
-                    throw new Exception(respuesta.Message);
+                    eventoConsultoraNull = false;
                 }
 
                 ShowRoomEventoConsultoraModel modelo = new ShowRoomEventoConsultoraModel();
@@ -940,7 +945,7 @@ namespace Portal.Consultoras.Web.Providers
                         modelo.MostrarPopup = eventoConsultora.MostrarPopup;
                         modelo.MostrarPopupVenta = eventoConsultora.MostrarPopupVenta;
                     }
-
+                    eventoConsultoraNull = false;
                     return modelo;
                 }
 
@@ -949,8 +954,9 @@ namespace Portal.Consultoras.Web.Providers
             }
             catch (Exception ex)
             {
+                eventoConsultoraNull = false;
                 Common.LogManager.SaveLog(ex, string.Empty, pais);
-                throw;
+                return null;
             }
         }
 
