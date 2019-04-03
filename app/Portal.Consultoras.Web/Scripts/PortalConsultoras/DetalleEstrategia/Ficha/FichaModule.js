@@ -992,9 +992,9 @@ var FichaModule = (function (config) {
         return _getEstrategia();
     }
 
-    function getModeloFicha() {
-        return _modeloFicha;
-    }
+    //function getModeloFicha() {
+    //    return _modeloFicha;
+    //}
 
     function ValidaOfertaDelDia(muestra) {
         var estrategia = getEstrategia();
@@ -1023,7 +1023,7 @@ var FichaModule = (function (config) {
     return {
         Inicializar: _init,
         GetEstrategia: getEstrategia,
-        GetModeloFicha: getModeloFicha
+        GetModeloFicha: _getModelo
     };
 });
 
