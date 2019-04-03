@@ -83,7 +83,7 @@ namespace Portal.Consultoras.Web.Providers
             return "";
         }
 
-        public List<BEEstrategia> ActualizarEstrategiaStockPROL(List<BEEstrategia> lista, string paisISO, int campaniaID, string codigoConsultora)
+        public List<BEEstrategia> ActualizarEstrategiaStockPROL(List<BEEstrategia> lista, string paisISO, int campaniaID, string codigoConsultora, bool esFacturacion)
         {
             if (lista.Count == 0) return lista;
 
@@ -95,7 +95,8 @@ namespace Portal.Consultoras.Web.Providers
                     PaisISO = paisISO,
                     CampaniaID = campaniaID,
                     ListaCUVs = listaCUVs,
-                    FlagDetalle = Constantes.ConsultaPROL.StockPadre
+                    FlagDetalle = Constantes.ConsultaPROL.StockPadre,
+                    EsFacturacion = esFacturacion
                 };
 
                 string requestUrl = Constantes.ConsultaPROL.ConsultaStockProl;

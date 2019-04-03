@@ -89,10 +89,10 @@ namespace Portal.Consultoras.Web.Providers
             if (ofertasDelDia.Any())
             {
                 ofertasDelDia.ForEach(x => x.TieneStock = true);
-                if (GetValidarDiasAntesStock(model))
-                {
-                    ofertasDelDia = _consultaProlProvider.ActualizarEstrategiaStockPROL(ofertasDelDia, model.CodigoISO, model.CampaniaID, model.CodigoConsultora);
-                }
+
+                var validarDias = GetValidarDiasAntesStock(model);
+
+                ofertasDelDia = _consultaProlProvider.ActualizarEstrategiaStockPROL(ofertasDelDia, model.CodigoISO, model.CampaniaID, model.CodigoConsultora, validarDias);
             }
 
             return ofertasDelDia;

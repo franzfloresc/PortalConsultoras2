@@ -493,9 +493,10 @@ namespace Portal.Consultoras.Web.Providers
                         return e;
                     }).ToList();
                 }
-                else if (listEstrategia.Any() && GetValidarDiasAntesStock(userData))
+                else if (listEstrategia.Any())
                 {
-                    listEstrategia = _consultaProlProvider.ActualizarEstrategiaStockPROL(listEstrategia, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora);
+                    var validarDias = GetValidarDiasAntesStock(userData);
+                    listEstrategia = _consultaProlProvider.ActualizarEstrategiaStockPROL(listEstrategia, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora, validarDias);
                 }
 
                 if (campaniaId == userData.CampaniaID)
@@ -1324,10 +1325,8 @@ namespace Portal.Consultoras.Web.Providers
             if (listaProducto.Any())
             {
                 var validarDias = GetValidarDiasAntesStock(userData);
-                if (validarDias)
-                {
-                    listaProducto = _consultaProlProvider.ActualizarEstrategiaStockPROL(listaProducto, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora);
-                }
+
+                listaProducto = _consultaProlProvider.ActualizarEstrategiaStockPROL(listaProducto, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora, validarDias);
             }
 
             var listaProductoModel = ConsultarEstrategiasFormatoEstrategiaToModel1(listaProducto, userData.CodigoISO, userData.CampaniaID);
