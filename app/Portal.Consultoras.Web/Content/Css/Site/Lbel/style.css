@@ -28606,6 +28606,10 @@ div.motivoRechazo textarea {
     margin-bottom: 21px;
 }
 
+.opcion_cdr_icono--solicitudReclamo {
+    margin-bottom: 0;
+}
+
 .opcion_cdr_checkbox {
     display: block;
     background-color: #FFF;
@@ -29045,12 +29049,31 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 }
 
 .listado_producto_reclamo {
-    width: 40%;
+    width: 37%;
     padding-right: 15px;
 }
 
 .listado_solicitud_reclamo {
-    width: 22%;
+    width: 17%;
+    margin-right: 100px;
+}
+
+.listado_solicitud_reclamo_icono_solucion,
+.listado_solicitud_reclamo_descrip_solucion {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.listado_solicitud_reclamo_icono_solucion {
+    width: 35px;
+    height: 35px;
+    margin-bottom: 7px;
+}
+
+.listado_solicitud_reclamo_descrip_solucion {
+    font-size: 14px;
+    max-width: 100px;
+    line-height: 17px;
 }
 
 .listado_solicitada_reclamo {

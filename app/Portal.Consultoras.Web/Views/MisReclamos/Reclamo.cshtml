@@ -186,7 +186,7 @@
                 <div>
                     <div class="content_listado_reclamo">
                         <div class="listado_producto_reclamo text_gris_reclamo">PRODUCTO</div>
-                        <div class="listado_solicitud_reclamo text_gris_reclamo">SOLICITUD</div>
+                        <div class="listado_solicitud_reclamo text_gris_reclamo text-center">SOLICITUD</div>
                         <div class="listado_solicitada_reclamo text_gris_reclamo">SOLUCION SOLICITADA</div>
                         <div class="listado_eliminar_reclamo text_gris_reclamo">ELIMINAR</div>
                     </div>
@@ -503,7 +503,24 @@
             {{item.Cantidad}} unidades<br />
             Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio}}
         </div>
-        <div class="listado_solicitud_reclamo"><b>{{item.Solicitud}}</b></div>
+        <div class="listado_solicitud_reclamo text-center">
+            <div class="listado_solicitud_reclamo_icono_solucion">
+                {{#if_eq CodigoOperacion 'C'}}
+                    <img src="@Url.Content("~/Content/Images/opcion_cambio_mismo_producto_cdr.svg")" alt="{{item.Solicitud}}" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
+                {{else if_eq CodigoOperacion 'D'}}
+                    <img src="@Url.Content("~/Content/Images/opcion_devolucion_cdr.svg")" alt="{{item.Solicitud}}" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
+                {{else if_eq CodigoOperacion 'F'}}
+                    <img src="@Url.Content("~/Content/Images/opcion_cambio_mismo_producto_cdr.svg")" alt="{{item.Solicitud}}" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
+                {{else if_eq CodigoOperacion 'G'}}
+                    <img src="@Url.Content("~/Content/Images/opcion_devolucion_cdr.svg")" alt="{{item.Solicitud}}" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
+                {{else if_eq CodigoOperacion 'T'}}
+                    <img src="@Url.Content("~/Content/Images/opcion_cambio_otro_producto_cdr.svg")" alt="{{item.Solicitud}}" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
+                {{/if_eq}}
+            </div>
+            <div class="text-center text-bold listado_solicitud_reclamo_descrip_solucion">
+                {{item.Solicitud}}
+            </div>
+        </div>
         <div class="listado_solicitada_reclamo">
             {{#if_eq CodigoOperacion 'C'}}
             {{item.SolucionSolicitada}}
