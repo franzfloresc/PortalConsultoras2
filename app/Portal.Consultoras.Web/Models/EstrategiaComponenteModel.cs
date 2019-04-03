@@ -32,8 +32,10 @@ namespace Portal.Consultoras.Web.Models
         public string DescripcionSingular { get; set; }
         public string Volumen { get; set; }
 
-        public List<EstrategiaComponenteModel> Hermanos { get; set; }
+        public EstrategiaComponenteCabeceraModel Cabecera { get; set; }
         public List<EstrategiaComponenteSeccionModel> Secciones { get; set; }
+        public List<EstrategiaComponenteModel> Hermanos { get; set; }
+        
 
         public bool TieneStock { get; set; }
 

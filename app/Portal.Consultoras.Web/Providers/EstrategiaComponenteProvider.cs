@@ -76,8 +76,7 @@ namespace Portal.Consultoras.Web.Providers
                 EstrategiaPersonalizadaProductoModel estrategia = _ofertaBaseProvider.ObtenerModeloOfertaDesdeApi(estrategiaModelo, userData.CodigoISO);
 
                 listaEstrategiaComponente = estrategia.Hermanos;
-                listEstrategiaComponenteSeccion = estrategia.Secciones;
-
+                  
                 mensaje += "ObtenerModeloOfertaDesdeApi = " + listaEstrategiaComponente.Count + "|";
             }
             else
@@ -119,59 +118,59 @@ namespace Portal.Consultoras.Web.Providers
         }
 
         //Copia de GetListaComponentes. Incluye: Tipos y tonos + Sección
-        public EstrategiaPersonalizadaProductoModel GetListaComponenteDetalle(EstrategiaPersonalizadaProductoModel estrategiaModelo, string codigoTipoEstrategia, out bool esMultimarca, out string mensaje)
-        {
-            esMultimarca = false;
-            mensaje = "";
+        //public EstrategiaPersonalizadaProductoModel GetListaComponenteDetalle(EstrategiaPersonalizadaProductoModel estrategiaModelo, string codigoTipoEstrategia, out bool esMultimarca, out string mensaje)
+        //{
+        //    esMultimarca = false;
+        //    mensaje = "";
 
-            var userData = SessionManager.GetUserData();
-            EstrategiaPersonalizadaProductoModel estrategia;
-            if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, codigoTipoEstrategia)
-                && codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.ArmaTuPack)
-            {
-                mensaje += "SiMongo|";
-                estrategiaModelo.CodigoEstrategia = Util.GetTipoPersonalizacionByCodigoEstrategia(codigoTipoEstrategia);
-                estrategia = _ofertaBaseProvider.ObtenerModeloOfertaDesdeApi(estrategiaModelo, userData.CodigoISO);
+        //    var userData = SessionManager.GetUserData();
+        //    EstrategiaPersonalizadaProductoModel estrategia;
+        //    if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, codigoTipoEstrategia)
+        //        && codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.ArmaTuPack)
+        //    {
+        //        mensaje += "SiMongo|";
+        //        estrategiaModelo.CodigoEstrategia = Util.GetTipoPersonalizacionByCodigoEstrategia(codigoTipoEstrategia);
+        //        estrategia = _ofertaBaseProvider.ObtenerModeloOfertaDesdeApi(estrategiaModelo, userData.CodigoISO);
                   
-                mensaje += "ObtenerModeloOfertaDesdeApi = " + estrategia.Hermanos.Count + "|";
-            }
-            else
-            {
-                mensaje += "NoMongo|";
+        //        mensaje += "ObtenerModeloOfertaDesdeApi = " + estrategia.Hermanos.Count + "|";
+        //    }
+        //    else
+        //    {
+        //        mensaje += "NoMongo|";
 
-                List<BEEstrategiaProducto> listaBeEstrategiaProductos;
-                listaBeEstrategiaProductos = GetEstrategiaProductos(estrategiaModelo);
-                estrategia = new EstrategiaPersonalizadaProductoModel();
-                if (!listaBeEstrategiaProductos.Any()) return estrategia;
+        //        List<BEEstrategiaProducto> listaBeEstrategiaProductos;
+        //        listaBeEstrategiaProductos = GetEstrategiaProductos(estrategiaModelo);
+        //        estrategia = new EstrategiaPersonalizadaProductoModel();
+        //        if (!listaBeEstrategiaProductos.Any()) return estrategia;
 
-                mensaje += "GetEstrategiaProductos = " + listaBeEstrategiaProductos.Count + "|";
+        //        mensaje += "GetEstrategiaProductos = " + listaBeEstrategiaProductos.Count + "|";
                 
-                estrategia.Hermanos = GetEstrategiaDetalleCompuesta(estrategiaModelo, listaBeEstrategiaProductos);
-                mensaje += "GetEstrategiaDetalleCompuesta = " + estrategia.Hermanos.Count + "|";
+        //        estrategia.Hermanos = GetEstrategiaDetalleCompuesta(estrategiaModelo, listaBeEstrategiaProductos);
+        //        mensaje += "GetEstrategiaDetalleCompuesta = " + estrategia.Hermanos.Count + "|";
 
-                estrategia.Hermanos = OrdenarComponentesPorMarca(estrategia.Hermanos, out esMultimarca);
-                mensaje += "OrdenarComponentesPorMarca = " + estrategia.Hermanos.Count + "|";
-            }
+        //        estrategia.Hermanos = OrdenarComponentesPorMarca(estrategia.Hermanos, out esMultimarca);
+        //        mensaje += "OrdenarComponentesPorMarca = " + estrategia.Hermanos.Count + "|";
+        //    }
 
-            if (estrategia.Hermanos.Any())
-            {
-                estrategia.Hermanos.ForEach(x =>
-                {
-                    x.TieneStock = true;
-                    if (x.Hermanos != null && x.Hermanos.Any())
-                    {
-                        x.Hermanos.ForEach(y => y.TieneStock = true);
-                    }
-                });
+        //    if (estrategia.Hermanos.Any())
+        //    {
+        //        estrategia.Hermanos.ForEach(x =>
+        //        {
+        //            x.TieneStock = true;
+        //            if (x.Hermanos != null && x.Hermanos.Any())
+        //            {
+        //                x.Hermanos.ForEach(y => y.TieneStock = true);
+        //            }
+        //        });
 
-                if (GetValidarDiasAntesStock(userData))
-                {
-                    _consultaProlProvider.ActualizarComponenteStockPROL(estrategia.Hermanos, estrategiaModelo.CUV2, userData.CodigoISO, estrategiaModelo.CampaniaID, userData.GetCodigoConsultora());
-                }
-            }
+        //        if (GetValidarDiasAntesStock(userData))
+        //        {
+        //            _consultaProlProvider.ActualizarComponenteStockPROL(estrategia.Hermanos, estrategiaModelo.CUV2, userData.CodigoISO, estrategiaModelo.CampaniaID, userData.GetCodigoConsultora());
+        //        }
+        //    }
 
-            return estrategia;
-        }
+        //    return estrategia;
+        //}
 
         public virtual List<BEEstrategiaProducto> GetEstrategiaProducto(int PaisID, int EstrategiaID)
         {

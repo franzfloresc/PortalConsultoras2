@@ -98,6 +98,44 @@ namespace Portal.Consultoras.Web.Controllers
                 string mensaje = "";
                 var componentes = _estrategiaComponenteProvider.GetListaComponentes(estrategiaModelo, codigoEstrategia, out esMultimarca, out mensaje);
 
+                #region AGana 399: data tmp
+                componentes.ForEach(x => {
+
+                    x.Cabecera = new EstrategiaComponenteCabeceraModel { ContenidoNeto = "80 ml", Dimensiones = "15 x 20 x 25 milímetros", TallaMedidas = "TallaMedidas 1" };
+                    x.Secciones = new List<EstrategiaComponenteSeccionModel>(){
+                new EstrategiaComponenteSeccionModel()
+                {
+                    Titulo = "Modo de uso",
+                    Detalles = new List<EstrategiaComponenteSeccionDetalleModel>() { new EstrategiaComponenteSeccionDetalleModel { Titulo = "modo uso 1", Descripcion = "valor 1", Key = "" } }
+                },
+                new EstrategiaComponenteSeccionModel()
+                {
+                    Titulo = "Descubre más",
+                    Detalles = new List<EstrategiaComponenteSeccionDetalleModel>() { new EstrategiaComponenteSeccionDetalleModel { Titulo = "Descubre más 1", Descripcion = "valor 1", Key = "" } }
+                },
+                new EstrategiaComponenteSeccionModel()
+                {
+                    Titulo = "Tips de venta",
+                    Detalles = new List<EstrategiaComponenteSeccionDetalleModel>() { new EstrategiaComponenteSeccionDetalleModel { Titulo = "Tips de venta 1", Descripcion = "valor 1", Key = "" } }
+                },
+                new EstrategiaComponenteSeccionModel()
+                {
+                    Titulo = "Videos",
+                    Detalles = new List<EstrategiaComponenteSeccionDetalleModel>() {
+                        new EstrategiaComponenteSeccionDetalleModel { Titulo = "Videos 1", Descripcion = "", Key = "X_-W9qt0IMg" },
+                        new EstrategiaComponenteSeccionDetalleModel { Titulo = "Videos 2", Descripcion = "", Key = "lhitIQ0i5gI" },
+                        new EstrategiaComponenteSeccionDetalleModel { Titulo = "Videos 3", Descripcion = "", Key = "ELi-pF0Onog" }
+                    }
+                }
+                };
+
+                });
+                #endregion
+
+                #region Agana 399
+                componentes.ForEach(c => { c.Secciones.ForEach(x => { x.EsVideos = x.Detalles.FindAll(y => !string.IsNullOrEmpty(y.Key)).Count > 0; }); });
+                #endregion
+                 
                 return Json(new
                 {
                     success = true,
@@ -118,77 +156,77 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
 
-        [HttpPost]
-        //public JsonResult ObtenerComponenteDetalle(string estrategiaId, string cuv2, string campania, string codigoVariante, string codigoEstrategia = "")
-        public JsonResult ObtenerComponenteDetalle(string estrategiaId, string cuv2, string campaniaId, string codigoVariante, string codigoEstrategia)
+        //[HttpPost]
+        //public JsonResult ObtenerComponenteDetalle(string estrategiaId, string cuv2, string campaniaId, string codigoVariante, string codigoEstrategia)
 
-        {
-            try
-            {                  
-                var estrategiaModelo = new EstrategiaPersonalizadaProductoModel
-                {
-                    EstrategiaID = estrategiaId.ToInt(),
-                    CUV2 = cuv2,
-                    CampaniaID = campaniaId.ToInt(),
-                    CodigoVariante = codigoVariante,
-                    Hermanos = null
-                };
+        //{
+        //    try
+        //    {
+        //        var estrategiaModelo = new EstrategiaPersonalizadaProductoModel
+        //        {
+        //            EstrategiaID = estrategiaId.ToInt(),
+        //            CUV2 = cuv2,
+        //            CampaniaID = campaniaId.ToInt(),
+        //            CodigoVariante = codigoVariante,
+        //            Hermanos = null
+        //        };
 
-                bool esMultimarca = false;
-                string mensaje = "";
-              
-                EstrategiaPersonalizadaProductoModel res = _estrategiaComponenteProvider.GetListaComponenteDetalle(estrategiaModelo, codigoEstrategia, out esMultimarca, out mensaje);
+        //        bool esMultimarca = false;
+        //        string mensaje = "";
 
-                #region data tmp
-                res.Cabecera = new EstrategiaComponenteCabeceraModel { ContenidoNeto = "80 ml", Dimensiones = "15 x 20 x 25 milímetros", TallaMedidas = "TallaMedidas 1" };
-                res.Secciones = new List<EstrategiaComponenteSeccionModel>(){
-                new EstrategiaComponenteSeccionModel()
-                {
-                    Titulo = "Modo de uso",
-                    Detalles = new List<EstrategiaComponenteSeccionDetalleModel>() { new EstrategiaComponenteSeccionDetalleModel { Titulo = "modo uso 1", Descripcion = "valor 1", Key = "" } }
-                },
-                new EstrategiaComponenteSeccionModel()
-                {
-                    Titulo = "Descubre más",
-                    Detalles = new List<EstrategiaComponenteSeccionDetalleModel>() { new EstrategiaComponenteSeccionDetalleModel { Titulo = "Descubre más 1", Descripcion = "valor 1", Key = "" } }
-                },
-                new EstrategiaComponenteSeccionModel()
-                {
-                    Titulo = "Tips de venta",
-                    Detalles = new List<EstrategiaComponenteSeccionDetalleModel>() { new EstrategiaComponenteSeccionDetalleModel { Titulo = "Tips de venta 1", Descripcion = "valor 1", Key = "" } }
-                },
-                new EstrategiaComponenteSeccionModel()
-                {
-                    Titulo = "Videos",
-                    Detalles = new List<EstrategiaComponenteSeccionDetalleModel>() {
-                        new EstrategiaComponenteSeccionDetalleModel { Titulo = "Videos 1", Descripcion = "", Key = "https://www.youtube.com/watch?v=M4V0Tkim7PA" },
-                        new EstrategiaComponenteSeccionDetalleModel { Titulo = "Videos 2", Descripcion = "", Key = "https://www.youtube.com/embed/_UwWYtLWEZg" }
-                    }
-                }
-                };
-                #endregion
-                 
-                res.Secciones.ForEach(x => { x.EsVideos = x.Detalles.FindAll(y => !string.IsNullOrEmpty(y.Key)).Count > 0; });
+        //        EstrategiaPersonalizadaProductoModel res = _estrategiaComponenteProvider.GetListaComponenteDetalle(estrategiaModelo, codigoEstrategia, out esMultimarca, out mensaje);
 
-                //EAAR: consumir servicio de juanjo
+        //        #region data tmp
+        //        res.Cabecera = new EstrategiaComponenteCabeceraModel { ContenidoNeto = "80 ml", Dimensiones = "15 x 20 x 25 milímetros", TallaMedidas = "TallaMedidas 1" };
+        //        res.Secciones = new List<EstrategiaComponenteSeccionModel>(){
+        //        new EstrategiaComponenteSeccionModel()
+        //        {
+        //            Titulo = "Modo de uso",
+        //            Detalles = new List<EstrategiaComponenteSeccionDetalleModel>() { new EstrategiaComponenteSeccionDetalleModel { Titulo = "modo uso 1", Descripcion = "valor 1", Key = "" } }
+        //        },
+        //        new EstrategiaComponenteSeccionModel()
+        //        {
+        //            Titulo = "Descubre más",
+        //            Detalles = new List<EstrategiaComponenteSeccionDetalleModel>() { new EstrategiaComponenteSeccionDetalleModel { Titulo = "Descubre más 1", Descripcion = "valor 1", Key = "" } }
+        //        },
+        //        new EstrategiaComponenteSeccionModel()
+        //        {
+        //            Titulo = "Tips de venta",
+        //            Detalles = new List<EstrategiaComponenteSeccionDetalleModel>() { new EstrategiaComponenteSeccionDetalleModel { Titulo = "Tips de venta 1", Descripcion = "valor 1", Key = "" } }
+        //        },
+        //        new EstrategiaComponenteSeccionModel()
+        //        {
+        //            Titulo = "Videos",
+        //            Detalles = new List<EstrategiaComponenteSeccionDetalleModel>() {
+        //                new EstrategiaComponenteSeccionDetalleModel { Titulo = "Videos 1", Descripcion = "", Key = "https://www.youtube.com/watch?v=M4V0Tkim7PA" },
+        //                new EstrategiaComponenteSeccionDetalleModel { Titulo = "Videos 2", Descripcion = "", Key = "https://www.youtube.com/embed/_UwWYtLWEZg" }
+        //            }
+        //        }
+        //        };
+        //        #endregion
 
-                return Json(new
-                {
-                    success = true,
-                    data = res,
-                    mensaje
-                }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+        //        res.Secciones.ForEach(x => { x.EsVideos = x.Detalles.FindAll(y => !string.IsNullOrEmpty(y.Key)).Count > 0; });
 
-                return Json(new
-                {
-                    success = false
-                }, JsonRequestBehavior.AllowGet);
-            }
+        //        //EAAR: consumir servicio de juanjo
 
-        }
+        //        return Json(new
+        //        {
+        //            success = true,
+        //            data = res,
+        //            mensaje
+        //        }, JsonRequestBehavior.AllowGet);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+
+        //        return Json(new
+        //        {
+        //            success = false
+        //        }, JsonRequestBehavior.AllowGet);
+        //    }
+
+        //}
+
     }
 }

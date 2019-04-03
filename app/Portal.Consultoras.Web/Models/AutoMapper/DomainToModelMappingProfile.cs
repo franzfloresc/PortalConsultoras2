@@ -669,6 +669,23 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo))
                 .ForMember(t => t.CheckBox, f => f.MapFrom(c => c.CheckBox));
 
+            #region Agana 399: componente detalle
+            Mapper.CreateMap<EstrategiaComponenteCabecera, EstrategiaComponenteCabeceraModel>()
+                .ForMember(t => t.ContenidoNeto, f => f.MapFrom(c => c.ContenidoNeto))
+                .ForMember(t => t.Dimensiones, f => f.MapFrom(c => c.Dimensiones))
+                .ForMember(t => t.TallaMedidas, f => f.MapFrom(c => c.TallaMedidas));
+
+            Mapper.CreateMap<EstrategiaComponenteSeccion, EstrategiaComponenteSeccionModel>()
+                .ForMember(t => t.Titulo, f => f.MapFrom(c => c.Titulo))
+                .ForMember(t => t.EsVideos, f => f.MapFrom(c => c.EsVideos))
+                .ForMember(t => t.Detalles, f => f.MapFrom(c => c.Detalles));
+
+            Mapper.CreateMap<EstrategiaComponenteSeccionDetalle, EstrategiaComponenteSeccionDetalleModel>()
+                .ForMember(t => t.Titulo, f => f.MapFrom(c => c.Titulo))
+                .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
+                .ForMember(t => t.Key, f => f.MapFrom(c => c.Key));             
+            #endregion
+
             Mapper.CreateMap<Componente, EstrategiaComponenteModel>()
                 .ForMember(t => t.Cantidad, f => f.MapFrom(c => c.Cantidad))
                 .ForMember(t => t.DescripcionMarca, f => f.MapFrom(c => c.NombreMarca))
@@ -678,29 +695,12 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.NombreComercial, f => f.MapFrom(c => c.NombreComercial))
                 .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion1))
                 .ForMember(t => t.PrecioCatalogo, f => f.MapFrom(c => c.PrecioUnitario))
-                .ForMember(t => t.Digitable, f => f.MapFrom(c => c.IndicadorDigitable ? 1 : 0 ))
-
+                .ForMember(t => t.Digitable, f => f.MapFrom(c => c.IndicadorDigitable ? 1 : 0 ))                
                 .ForMember(t => t.DescripcionPlural, f => f.MapFrom(c => c.DescripcionPlural))
-                .ForMember(t => t.DescripcionSingular, f => f.MapFrom(c => c.DescripcionSingular));
-
-
-            #region Agana 399: componente detalle
-            Mapper.CreateMap<EstrategiaComponenteCabecera, EstrategiaComponenteCabeceraModel>()
-                .ForMember(t => t.ContenidoNeto, f => f.MapFrom(c => c.ContenidoNeto))
-                .ForMember(t => t.Dimensiones, f => f.MapFrom(c => c.Dimensiones))
-                .ForMember(t => t.TallaMedidas, f => f.MapFrom(c => c.TallaMedidas));
-
-            Mapper.CreateMap<EstrategiaComponenteSeccionDetalle, EstrategiaComponenteSeccionDetalleModel>()
-                .ForMember(t => t.Titulo, f => f.MapFrom(c => c.Titulo))
-                .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
-                .ForMember(t => t.Key, f => f.MapFrom(c => c.Key));
-
-            Mapper.CreateMap<EstrategiaComponenteSeccion, EstrategiaComponenteSeccionModel>()
-                .ForMember(t => t.Titulo, f => f.MapFrom(c => c.Titulo))
-                .ForMember(t => t.EsVideos, f => f.MapFrom(c => c.EsVideos))
-                .ForMember(t => t.Detalles, f => f.MapFrom(c => c.Detalles));
-            #endregion
-
+                .ForMember(t => t.DescripcionSingular, f => f.MapFrom(c => c.DescripcionSingular))
+                .ForMember(t => t.Cabecera, f => f.MapFrom(c => c.Cabecera))
+                .ForMember(t => t.Secciones, f => f.MapFrom(c => c.Secciones));
+             
         }
     }
 }

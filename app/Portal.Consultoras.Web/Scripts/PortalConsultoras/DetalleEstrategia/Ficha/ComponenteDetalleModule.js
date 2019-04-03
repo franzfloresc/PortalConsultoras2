@@ -16,7 +16,7 @@
     var _tipoEstrategiaTexto = ConstantesModule.TipoEstrategiaTexto;
     var _constantePalanca = ConstantesModule.ConstantesPalanca;
 
-    var _config = {        
+    var _config = {
         ComponenteDetalleProvider: ComponenteDetalleProvider,
         localStorageModule: config.localStorageModule,
         analyticsPortalModule: config.analyticsPortalModule,
@@ -25,7 +25,7 @@
         cuv: config.cuv,
         origen: config.origen
     };
-     
+
     var _template = {
         getTagDataHtml: function (templateId) {
             return "[data-ficha-contenido=" + templateId + "]";
@@ -57,16 +57,15 @@
 
     var _util = {
         mostrarModal: function (data) {
-
             _util.setHandlebars(_template.componenteDetalle, data);
 
             this.setAcordionDetalleComponente();//eventos de acordio
             $(_template.ModalProductoDetalle).modal();
 
-            this.fijarCarrusel();
+            this.setCarrusel();
+            this.setYoutubeApi();
         },
-        fijarCarrusel: function () {
-
+        setCarrusel: function () {
             $(_template.CarruselVideo).slick({
                 infinite: false,
                 speed: 300,
@@ -74,7 +73,6 @@
                 centerMode: false,
                 variableWidth: true
             });
-              
         },
         setAcordionDetalleComponente: function () {
             $(_template.MenuDetalleComponente).click(function () {
@@ -85,47 +83,31 @@
                     $this.attr("class", "tab-link");
                 }
                 else {
-                    $this.attr("class", "active");
-
-
+                    $this.attr("class", "active");                     
                 }
             });
         },
         setHandlebars: function (idTemplate, modelo) {
             SetHandlebars("#" + idTemplate, modelo, _template.getTagDataHtml(idTemplate));
+        },
+        setYoutubeApi: function () {
+            if (youtubeModule) {
+                youtubeModule.Inicializar();
+            }
         }
     };
 
     var _VerDetalle = function (componente) {
 
-        var estrategia = _config.localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
+        //var estrategia = _config.localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
+        //console.log('estrategia', estrategia);
 
         console.log('componente', componente);
-        console.log('estrategia', estrategia);
-       
-        _config.ComponenteDetalleProvider.PromiseObternerComponenteDetalle({
-            estrategiaId: estrategia.EstrategiaID,
-            cuv2: componente.Cuv,
-            campaniaId: estrategia.CampaniaID,
-            codigoVariante: estrategia.CodigoVariante,
-            codigoEstrategia: estrategia.CodigoEstrategia
-        }).done(function (res) {
-            console.log('res', res);
-            
-            if (res.success) {
-                componente.Cabecera = res.data.Cabecera;
-                componente.Secciones = res.data.Secciones;
-                _util.mostrarModal(componente);
-            }
-            
-        }).fail(function (data, error) {
-            console.log(data);
-            console.log(error);
-            errorRespuesta = true;
-        });
-
+         
+        _util.mostrarModal(componente);
+         
     };
-     
+
     var _OcultarControles = function () {
 
         if (_tipoEstrategiaTexto.Ganadoras === _config.palanca ||
@@ -154,7 +136,7 @@
         }
 
     };
- 
+
     return {
         VerDetalle: _VerDetalle,
         OcultarControles: _OcultarControles

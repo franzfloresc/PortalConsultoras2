@@ -57,50 +57,67 @@
                                 {{/each}}
 
                                 {{#each this.Secciones as |seccion|}}
-                                 {{#iff seccion.EsVideos '==' true }} 
+                                {{#iff seccion.EsVideos '==' true }}
                                 <li id="div_ficha_tab1">
                                     <a class="tab-link">{{seccion.Titulo}}</a>
                                     <ul class="tabs_container">
                                         <div style="width:98% !important; height:500px !important;">
                                             <div id="carouselVideo">
                                                 {{#each seccion.Detalles as |detalle index|}}
+                                                @*<div style="width:350px;height:350px;">
+            <p>{{detalle.Titulo}}</p>
+            <iframe class="video_item" width="350" height="350" src="{{detalle.Key}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>*@
                                                 <div style="width:350px;height:350px;">
                                                     <p>{{detalle.Titulo}}</p>
-                                                    <iframe class="video_item" width="350" height="350" src="{{detalle.Key}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                                    <div id="ytFichax"
+                                                         data-youtube="{
+                 height:'350',
+                 width:'350',
+                 enablejsapi:1,
+                 fs:0,
+                 showinfo:0,
+                 modestbranding:1,
+                 loop:1,
+                 videoId: '{{detalle.Key}}',
+                 playerVars:{autoplay:0,rel:0}}"
+                                                         data-extra="{'descripcionResumen':'{{detalle.Titulo}}'}"
+                                                         class="yt-video"></div>
                                                 </div>
-                                                {{/each}}
+                                                    {{/each}}
+                                                </div>
                                             </div>
-                                        </div>
                                     </ul>
                                 </li>
-                                {{/iff}} 
-                                {{/each}} 
-
-
-                                @*<li id="div_ficha_tab4">
-            <a class="tab-link">Videos</a>
-            <ul class="tabs_container">
-                <div style="width:98% !important; height:500px !important;">
-                    <div id="carouselVideo">
-
-                        <div style="width:350px;height:350px;">
-                            <p>sdfsdfsdf</p>
-                            <iframe class="video_item" width="350" height="350" src="https://www.youtube.com/watch?v=9ypqLHFpnbQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        </div>
-                        <div style="width:350px;height:350px;">
-                            <p>sdfsdxxxxfsdf</p>
-                            <iframe class="video_item" width="350" height="350" src="https://www.youtube.com/watch?v=9ypqLHFpnbQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        </div>
-                    </div>
-                </div>
-            </ul>
-        </li>*@
-
+                                {{/iff}}
+                                {{/each}}
+                                  
                             </ul>
                         </div>
+                        
+                        <div class="video-visual">
+                            <div class="video-container" style="width: 100%; position: relative;">
+                                <div id="ytFichax"
+                                     data-youtube="{
+                 height:'350',
+                 width:'350',
+                 enablejsapi:1,
+                 fs:0,
+                 showinfo:0,
+                 modestbranding:1,
+                 loop:1,
+                 videoId: 'vuk4jvydjD4',
+                 playerVars:{autoplay:0,rel:0}}"
+                                     data-extra="{'descripcionResumen':'weqweqweqweqweqweqweweqweqwe'}"
+                                     class="yt-video"></div>
+                            </div>
+                        </div>
+                        
+                         
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </script>
+
