@@ -1,7 +1,5 @@
 ﻿using System.Web.Mvc;
 using System.Linq;
-using System;
-using System.Collections.Generic;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.ServiceUsuario;
 
@@ -14,15 +12,26 @@ namespace Portal.Consultoras.Web.Controllers
         // GET: CaminoBrillante
         public ActionResult Index()
         {
-            var informacion = SessionManager.GetConsultoraCaminoBrillante();
-            ViewBag.ResumenLogros = informacion.ResumenLogros;
+            var informacion = SessionManager.GetConsultoraCaminoBrillante() ?? new ServiceUsuario.BEConsultoraCaminoBrillante();
 
-            int nivelActual = 0;
-            int.TryParse(informacion.NivelConsultora.Where(x => x.EsActual).Select(z => z.Nivel).FirstOrDefault(), out nivelActual);
+            if (informacion != null)
+            {
+                int nivelActual = 0;
+                int.TryParse(informacion.NivelConsultora.Where(x => x.EsActual).Select(z => z.Nivel).FirstOrDefault(), out nivelActual);
 
-            var _NivealActual = informacion.NivelConsultora.Where(x => x.EsActual).Select(z => z.Nivel).FirstOrDefault();
+                informacion.Niveles.ToList().ForEach(
+                    e =>
+                    {
+                        int nivel = 0;
+                        int.TryParse(e.CodigoNivel, out nivel);
+                        e.UrlImagenNivel = Constantes.CaminoBrillante.Niveles.Iconos.Keys.Contains(e.CodigoNivel) ? Constantes.CaminoBrillante.Niveles.Iconos[e.CodigoNivel][nivel <= nivelActual ? 1 : 0] : "";
+                    });
 
-            ViewBag.TieneOfertasEspeciales = informacion.Niveles.Where(e => e.CodigoNivel == _NivealActual).Select(e => e.TieneOfertasEspeciales).FirstOrDefault();
+                ViewBag.TieneOfertasEspeciales = informacion.Niveles.Where(e => e.CodigoNivel == nivelActual.ToString()).Select(e => e.TieneOfertasEspeciales).FirstOrDefault();
+                ViewBag.ResumenLogros = informacion.ResumenLogros;
+                ViewBag.Niveles = informacion.Niveles;
+                ViewBag.NivelActual = nivelActual;
+            }
             return View();
         }
 
@@ -48,22 +57,19 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult GetNiveles()
         {
             var informacion = SessionManager.GetConsultoraCaminoBrillante() ?? new ServiceUsuario.BEConsultoraCaminoBrillante();
-            
-            int nivelActual = 0;
-            int.TryParse(informacion.NivelConsultora.Where(x => x.EsActual).Select(z => z.Nivel).FirstOrDefault(), out nivelActual);
 
-            var _NivealActual = Convert.ToInt32(informacion.NivelConsultora.Where(x => x.EsActual).Select(z => z.Nivel).FirstOrDefault());
-           
+
             informacion.Niveles.ToList().ForEach(
-                e => {
-                    int nivel = 0;
-                    int.TryParse(e.CodigoNivel, out nivel);
-                    e.UrlImagenNivel = Constantes.CaminoBrillante.Niveles.Iconos.Keys.Contains(e.CodigoNivel) ? Constantes.CaminoBrillante.Niveles.Iconos[e.CodigoNivel][nivel <= nivelActual ? 1 : 0 ] : "";
-                });
+                   e =>
+                   {
+                       e.Beneficios.ToList().ForEach(
+                              x =>
+                              {
+                                  x.Icono = Constantes.CaminoBrillante.Beneficios.Iconos.Keys.Contains(x.Icono) ? Constantes.CaminoBrillante.Beneficios.Iconos[x.Icono] : "";
+                              });
+                   });
 
-
-
-            return Json(new { list = informacion, informacion.NivelConsultora[0].Nivel }, JsonRequestBehavior.AllowGet);
+            return Json(new { informacion.Niveles }, JsonRequestBehavior.AllowGet);
         }
 
         private List<BEOfertaCaminoBrillante> GetOfertasCaminoBrillante()

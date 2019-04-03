@@ -3601,7 +3601,7 @@ namespace Portal.Consultoras.Common
             public static class Beneficios {
 
                 private static Dictionary<string, string> _Iconos;
-                private static string path = "CAMINOBRILLANTE/BENEFICIOS/{1}";
+                private static string path = "CAMINOBRILLANTE/BENEFICIOS/{0}";
 
                 public static Dictionary<string, string> Iconos
                 {
