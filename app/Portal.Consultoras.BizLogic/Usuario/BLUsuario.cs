@@ -567,7 +567,7 @@ namespace Portal.Consultoras.BizLogic
                 var contratoAceptacionTask = Task.Run(() => GetContratoAceptacion(paisID, usuario.ConsultoraID));
                 var pagoEnLineaTask = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetListCache(paisID, Constantes.TablaLogica.ValoresPagoEnLinea));
                 var tieneChatbotTask = Task.Run(() => usuario.TieneChatbot = TieneChatbot(paisID, usuario.CodigoConsultora));
-                var tieneGanaMasNativo = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetListCache(paisID , Constantes.TablaLogica.GanaMasNativo));
+                var tieneGanaMasNativo = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetListCache(paisID, Constantes.TablaLogica.GanaMasNativo));
 
                 var lstConfiguracionPais = new List<string>();
                 lstConfiguracionPais.Add(Constantes.ConfiguracionPais.RevistaDigital);
@@ -1859,7 +1859,7 @@ namespace Portal.Consultoras.BizLogic
 
             try
             {
-                if (usuario.EMail != string.Empty) 
+                if (usuario.EMail != string.Empty)
                 {
                     int cantidad = this.ValidarEmailConsultora(usuario.PaisID, usuario.EMail, usuario.CodigoUsuario);
 
@@ -1892,7 +1892,7 @@ namespace Portal.Consultoras.BizLogic
             {
                 resultado = string.Format("{0}|{1}|{2}|0", "0", "4", "Ocurrió un error al acceder al servicio, intente nuevamente.");
                 LogManager.SaveLog(ex, usuario.CodigoUsuario, string.Empty);
-                
+
             }
 
             return resultado;
@@ -3244,7 +3244,7 @@ namespace Portal.Consultoras.BizLogic
                 string titulo = "(" + paisISO + ") Verificación de Autenticidad de Somosbelcorp";
                 string logo = (esEsika ? Globals.RutaCdn + "/ImagenesPortal/Iconos/logo.png" : Globals.RutaCdn + "/ImagenesPortal/Iconos/logod.png");
                 string nombrecorreo = oUsu.PrimerNombre.Trim();
-                //string fondo = (esEsika ? "e81c36" : "642f80");
+
                 string displayname = "Somos Belcorp";
                 string codigoGenerado = Common.Util.GenerarCodigoRandom();
                 Portal.Consultoras.Common.MailUtilities.EnviarMailPinAutenticacion(emailFrom, emailTo, titulo, displayname, logo, nombrecorreo, codigoGenerado);
@@ -3765,7 +3765,7 @@ namespace Portal.Consultoras.BizLogic
             };
         }
         #endregion
-        
+
         #region UsuariosOpciones
         public List<BEUsuarioOpciones> GetUsuarioOpciones(int paisID, string codigoUsuario)
         {
@@ -3798,7 +3798,7 @@ namespace Portal.Consultoras.BizLogic
                 segmentoDatami = Constantes.SegmentoDatami.SegmentoE;
             else if (usuario.SegmentoInternoID == Constantes.SegmentoInterno.EspecialistaDeBelleza || usuario.SegmentoInternoID == Constantes.SegmentoInterno.AsesoraDeBelleza)
                 segmentoDatami = Constantes.SegmentoDatami.SegmentoF;
-               return segmentoDatami;
+            return segmentoDatami;
         }
 
         public string RegistrarPerfil(BEUsuario usuario)
@@ -3854,12 +3854,12 @@ namespace Portal.Consultoras.BizLogic
                 catch (Exception ex)
                 {
                     LogManager.SaveLog(ex, string.Empty, usuario.PaisID);
-                    if (lst != null  && lst[0] != "0")
+                    if (lst != null && lst[0] != "0")
                     {
                         resultado = string.Format("{0}|{1}|{2}|0", "0", "4", "Ocurrió un error al registrar los datos, intente nuevamente.");
                     }
                     ts.Dispose();
-                }               
+                }
             }
             return resultado;
         }
@@ -3900,12 +3900,12 @@ namespace Portal.Consultoras.BizLogic
                 /*Envío SQL*/
                 if (direccionEntrega.Operacion == Constantes.OperacionBD.Editar)
                 {
-                    if(!direccionEntrega.Ubigeo1.Equals(direccionEntrega.Ubigeo1Anterior)) cambioAtributo = true;
-                    else if(!direccionEntrega.Ubigeo2.Equals(direccionEntrega.Ubigeo2Anterior)) cambioAtributo = true;
-                    else if(!direccionEntrega.Ubigeo3.Equals(direccionEntrega.Ubigeo3Anterior)) cambioAtributo = true;
-                    else if(!direccionEntrega.Direccion.Trim().Equals(direccionEntrega.DireccionAnterior.Trim())) cambioAtributo = true;
-                    else if(!direccionEntrega.Zona.Trim().Equals(direccionEntrega.ZonaAnterior.Trim())) cambioAtributo = true;
-                    else if(!direccionEntrega.Referencia.Trim().Equals(direccionEntrega.ReferenciaAnterior.Trim())) cambioAtributo = true;
+                    if (!direccionEntrega.Ubigeo1.Equals(direccionEntrega.Ubigeo1Anterior)) cambioAtributo = true;
+                    else if (!direccionEntrega.Ubigeo2.Equals(direccionEntrega.Ubigeo2Anterior)) cambioAtributo = true;
+                    else if (!direccionEntrega.Ubigeo3.Equals(direccionEntrega.Ubigeo3Anterior)) cambioAtributo = true;
+                    else if (!direccionEntrega.Direccion.Trim().Equals(direccionEntrega.DireccionAnterior.Trim())) cambioAtributo = true;
+                    else if (!direccionEntrega.Zona.Trim().Equals(direccionEntrega.ZonaAnterior.Trim())) cambioAtributo = true;
+                    else if (!direccionEntrega.Referencia.Trim().Equals(direccionEntrega.ReferenciaAnterior.Trim())) cambioAtributo = true;
 
                     if (cambioAtributo) _direccionEntregaBusinessLogic.Editar(direccionEntrega);
                 }
@@ -3916,7 +3916,7 @@ namespace Portal.Consultoras.BizLogic
 
                 /*Envío SICC*/
                 var remoteAddress = new EndpointAddress(WebConfig.ServicioDireccionEntregaSicc);
-                var direcConcat = string.Concat(direccionEntrega.Direccion, string.IsNullOrEmpty(direccionEntrega.Zona) ? "" : "|" + direccionEntrega.Zona,  string.IsNullOrEmpty(direccionEntrega.Referencia) ? "" : "|" + direccionEntrega.Referencia);
+                var direcConcat = string.Concat(direccionEntrega.Direccion, string.IsNullOrEmpty(direccionEntrega.Zona) ? "" : "|" + direccionEntrega.Zona, string.IsNullOrEmpty(direccionEntrega.Referencia) ? "" : "|" + direccionEntrega.Referencia);
                 if (direcConcat.Length > 100) direcConcat = direcConcat.Substring(0, 100);
 
                 var Direccionexterna = new DireccionEntregaMAEWebService
