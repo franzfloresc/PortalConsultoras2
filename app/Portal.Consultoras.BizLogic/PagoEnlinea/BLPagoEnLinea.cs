@@ -271,13 +271,16 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
                 var pagoBancaPorInternet = result.ListaMedioPago.FirstOrDefault(e => e.Codigo == Constantes.PagoEnLineaPasarela.PBI && e.Estado);
                 if (pagoBancaPorInternet != null) pagoBancaPorInternet.Estado = false;
             }
+        
+            var Evaluacion = (EsDigital == "1") && (fecha >= DateTime.Now.Date) && paisId == Constantes.PaisID.Peru;
 
-            var Evaluacion = (EsDigital == "1") && (fecha >= DateTime.Now.Date);
-
-            result.ListaMetodoPago.ForEach(e =>
+            if (Evaluacion)
             {
-                e.PorcentajeGastosAdministrativos = Evaluacion ? 0 : e.PorcentajeGastosAdministrativos;
-            });
+                result.ListaMetodoPago.ForEach(e =>
+                {
+                    e.PorcentajeGastosAdministrativos = Evaluacion ? 0 : e.PorcentajeGastosAdministrativos;
+                });
+            }
 
             result.ListaMedioPago.ForEach(e =>
             {
