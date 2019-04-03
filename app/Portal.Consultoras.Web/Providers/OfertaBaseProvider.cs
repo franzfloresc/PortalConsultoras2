@@ -41,6 +41,14 @@ namespace Portal.Consultoras.Web.Providers
             return modeloEstrategia;
         }
 
+        public List<ServiceOferta.BEEstrategia> ObtenerEntidadOfertasDesdeApi(string pathMS, string codigoIso)
+        {
+            var taskApi = Task.Run(() => ObtenerOfertasDesdeApi(pathMS, codigoIso));
+            Task.WhenAll(taskApi);
+            List<ServiceOferta.BEEstrategia> listEstrategia = taskApi.Result ?? new List<ServiceOferta.BEEstrategia>();
+            return listEstrategia;
+        }
+
         private async Task<Estrategia> ObtenerOfertaDesdeApi(string cuv, string campaniaId, string tipoPersonalizacion, string codigoIso)
         {
             var estrategia = new Estrategia();
@@ -80,7 +88,7 @@ namespace Portal.Consultoras.Web.Providers
             return estrategia;
         }
 
-        public static async Task<List<ServiceOferta.BEEstrategia>> ObtenerOfertasDesdeApi(string path, string codigoISO)
+        private static async Task<List<ServiceOferta.BEEstrategia>> ObtenerOfertasDesdeApi(string path, string codigoISO)
         {
             List<ServiceOferta.BEEstrategia> estrategias = new List<ServiceOferta.BEEstrategia>();
             HttpResponseMessage httpResponse = await httpClient.GetAsync(path);

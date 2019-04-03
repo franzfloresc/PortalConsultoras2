@@ -558,9 +558,10 @@ namespace Portal.Consultoras.Web.Providers
                     userData.CodigoZona
                     );
 
-                var taskApi = Task.Run(() => OfertaBaseProvider.ObtenerOfertasDesdeApi(pathMS, userData.CodigoISO));
-                Task.WhenAll(taskApi);
-                listEstrategia = taskApi.Result;
+                listEstrategia = _ofertaBaseProvider.ObtenerEntidadOfertasDesdeApi(pathMS, userData.CodigoISO);
+                //var taskApi = Task.Run(() => OfertaBaseProvider.ObtenerOfertasDesdeApi(pathMS, userData.CodigoISO));
+                //Task.WhenAll(taskApi);
+                //listEstrategia = taskApi.Result;
 
             }
             else
