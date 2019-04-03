@@ -99,10 +99,10 @@ SET [AChequeo] = T.[AChequeo]
 	,[OrdenImpreso] = T.[OrdenImpreso]
 	,[FechaEntregado] = T.[FechaEntregado]
 	,[NroCajas] = T.[NroCajas]
-	,[IndEntregaEstimada] = [IndEntregaEstimada]
-	,[FecHoraEntregaEstimadaDesde] = [FecHoraEntregaEstimadaDesde]
-	,[FecHoraEntregaEstimadaHasta] = [FecHoraEntregaEstimadaHasta]
-	,[IndTipoInformacion] = [IndTipoInformacion]
+	,[IndEntregaEstimada] = T.[IndEntregaEstimada]
+	,[FecHoraEntregaEstimadaDesde] = T.[FecHoraEntregaEstimadaDesde]
+	,[FecHoraEntregaEstimadaHasta] = T.[FecHoraEntregaEstimadaHasta]
+	,[IndTipoInformacion] = T.[IndTipoInformacion]
 FROM ods.ApePedido A
 INNER JOIN YobelPedidoTemp T ON A.NroPedido = T.NroPedido
 	AND A.Campana = T.Campana
