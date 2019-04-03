@@ -18,7 +18,8 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         void GetConsultoraOfertas(int paisId, BEUsuario entidad, bool isWeb);
         //Get Kits
         void GetConsultoraKits(int paisId, BEUsuario entidad, bool isWeb);
-
+        //Get Desmostradores
+        List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillante(int paisID, string campaniaID);
 
         List<BEOfertaCaminoBrillante> GetOfertas(int paisId, string campania);
     }
