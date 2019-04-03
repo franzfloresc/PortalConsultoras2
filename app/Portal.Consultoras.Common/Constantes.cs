@@ -3194,6 +3194,7 @@ namespace Portal.Consultoras.Common
             public const string EstrategiaDisponible = "EstrategiaDisponible";
             public const string GuardaDataEnLocalStorage = "GuardaDataEnLocalStorage";
             public const string GuardaDataEnSession = "GuardaDataEnSession";
+            public const string EstrategiaDisponibleParaFicha = "EstrategiaDisponibleParaFicha";
         }
 
         public static class CodigoConfiguracionRecomendaciones

@@ -340,5 +340,12 @@ namespace Portal.Consultoras.Web.Providers
             bool usaSession = _sessionManager.GetConfigMicroserviciosPersonalizacion().GuardaDataEnSession.Contains(tipoEstrategia);
             return usaSession;
         }
+
+        public bool UsaFichaMsPersonalizacion(string tipoEstrategia)
+        {
+            bool tipoEstrategiaHabilitado = _sessionManager.GetConfigMicroserviciosPersonalizacion().EstrategiaDisponibleParaFicha.Contains(tipoEstrategia); 
+            return tipoEstrategiaHabilitado;
+        }
+
     }
 }
