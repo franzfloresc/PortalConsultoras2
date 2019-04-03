@@ -107,6 +107,7 @@ var FichaModule = (function (config) {
     var _tipoEstrategiaTexto = ConstantesModule.TipoEstrategiaTexto;
     var _tipoEstrategia = ConstantesModule.TipoEstrategia;
     var _tipoAccionNavegar = ConstantesModule.TipoAccionNavegar;
+    var _fichaServicioApi = true;
 
     var _elementos = {
         hdCampaniaCodigo: {
@@ -509,34 +510,38 @@ var FichaModule = (function (config) {
     var _getEstrategia = function () {
         var estrategia;
 
-        if (_config.tieneSession) {
-            if (_config.esEditable || _modeloFicha.TipoAccionNavegar === _tipoAccionNavegar.Volver) {
-                estrategia = _modeloFicha;
-            }
-            else {
-                var valData = $(_elementos.dataEstrategia.id).attr(_elementos.dataEstrategia.dataEstrategia) || "";
-                if (valData != "") {
-                    estrategia = JSON.parse(valData);
-                }
-                else {
+        if (!_fichaServicioApi) {
+            if (_config.tieneSession) {
+                if (_config.esEditable || _modeloFicha.TipoAccionNavegar === _tipoAccionNavegar.Volver) {
                     estrategia = _modeloFicha;
                 }
+                else {
+                    var valData = $(_elementos.dataEstrategia.id).attr(_elementos.dataEstrategia.dataEstrategia) || "";
+                    if (valData != "") {
+                        estrategia = JSON.parse(valData);
+                    }
+                    else {
+                        estrategia = _modeloFicha;
+                    }
+                }
             }
+            else {
+                estrategia = _config.localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
+                if ((typeof estrategia === "undefined" || estrategia === null) && _config.palanca === _tipoEstrategiaTexto.OfertasParaMi) {
+                    estrategia = _config.localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _tipoEstrategiaTexto.Ganadoras);
+                }
+            }
+
+            if (typeof estrategia === "undefined" || estrategia == null) return estrategia;
+
+            _getComponentesAndUpdateEsMultimarca(estrategia);
         }
         else {
-            estrategia = _config.localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
-            if ((typeof estrategia === "undefined" || estrategia === null) && _config.palanca === _tipoEstrategiaTexto.OfertasParaMi) {
-                estrategia = _config.localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _tipoEstrategiaTexto.Ganadoras);
-            }
+            estrategia = _modeloFicha;
+            ////////////////////////var estrategiaFichaxxx = _getEstrategiaFicha();
         }
 
-        if (typeof estrategia === "undefined" || estrategia == null) return estrategia;
-
-        _getComponentesAndUpdateEsMultimarca(estrategia);
-
         _actualizarCodigoVariante(estrategia);
-
-        var estrategiaFichaxxx = _getEstrategiaFicha();
 
         estrategia.ClaseBloqueada = "btn_desactivado_general";
         estrategia.ClaseBloqueadaRangos = "contenedor_rangos_desactivado";

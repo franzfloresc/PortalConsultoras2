@@ -725,24 +725,50 @@ namespace Portal.Consultoras.Web.Controllers
 
         private DetalleEstrategiaFichaModel GetEstrategiaInicial(string palanca, int campaniaId, string cuv)
         {
+            //colocar bifurcacion
+            bool esFichaApi = true;
+
             var modelo = new DetalleEstrategiaFichaModel();
-            if (_ofertaPersonalizadaProvider.PalancasConSesion(palanca))
+
+            if (!esFichaApi)
             {
-                var estrategiaPresonalizada = _ofertaPersonalizadaProvider.ObtenerEstrategiaPersonalizada(userData, palanca, cuv, campaniaId);
-
-                if (estrategiaPresonalizada == null)
+                if (_ofertaPersonalizadaProvider.PalancasConSesion(palanca))
                 {
-                    return null;
-                }
+                    var estrategiaPresonalizada = _ofertaPersonalizadaProvider.ObtenerEstrategiaPersonalizada(userData, palanca, cuv, campaniaId);
 
-                if (userData.CampaniaID != campaniaId) estrategiaPresonalizada.ClaseBloqueada = "btn_desactivado_general";
-                modelo = Mapper.Map<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaModel>(estrategiaPresonalizada);
+                    if (estrategiaPresonalizada == null)
+                    {
+                        return null;
+                    }
+
+                    if (userData.CampaniaID != campaniaId) estrategiaPresonalizada.ClaseBloqueada = "btn_desactivado_general";
+                    modelo = Mapper.Map<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaModel>(estrategiaPresonalizada);
+
+                    if (palanca == Constantes.NombrePalanca.PackNuevas)
+                    {
+                        modelo.TipoEstrategiaDetalle.Slogan = "Contenido del Set:";
+                        modelo.ListaDescripcionDetalle = modelo.ArrayContenidoSet;
+                    }
+                }
+            }
+            else
+            {
+                string mensaje;
+                string codigoPalanca;
+
+                if (!Constantes.NombrePalanca.PalancasbyCodigo.TryGetValue(palanca, out codigoPalanca)) return null;
+
+                modelo = _ofertaPersonalizadaProvider.GetEstrategiaFicha(cuv, campaniaId.ToString(), codigoPalanca, out mensaje);
+
+                if (userData.CampaniaID != campaniaId) modelo.ClaseBloqueada = "btn_desactivado_general";
+
                 if (palanca == Constantes.NombrePalanca.PackNuevas)
                 {
                     modelo.TipoEstrategiaDetalle.Slogan = "Contenido del Set:";
                     modelo.ListaDescripcionDetalle = modelo.ArrayContenidoSet;
                 }
             }
+
             return modelo;
         }
 

@@ -1589,7 +1589,7 @@ namespace Portal.Consultoras.Web.Providers
             }
             else
             {
-                mensaje += "NoMongo| Palanca no permitida consumir ficha desde API";
+                mensaje += "NoMongo| Palanca no está en mongo";
             }
 
             if (estrategia != null && estrategia.Hermanos != null && estrategia.Hermanos.Any())
