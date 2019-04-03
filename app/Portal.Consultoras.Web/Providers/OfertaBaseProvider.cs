@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.DetalleEstrategia;
 using Portal.Consultoras.Web.Models.Oferta.ResponseOfertaGenerico;
 using Portal.Consultoras.Web.Models.Search.ResponseOferta.Estructura;
 using Portal.Consultoras.Web.SessionManager;
@@ -36,7 +37,7 @@ namespace Portal.Consultoras.Web.Providers
             Estrategia estrategia = taskApi.Result ?? new Estrategia();
             var modeloEstrategia = new EstrategiaPersonalizadaProductoModel();
             modeloEstrategia.Hermanos = Mapper.Map<IList<Componente>, List<EstrategiaComponenteModel>>(estrategia.Componentes ?? new List<Componente>());
-            //modeloEstrategia.Secciones = Mapper.Map<IList<Componente>, List<EstrategiaComponenteModel>>(estrategia.Componentes ?? new List<Componente>());
+            modeloEstrategia.Secciones = Mapper.Map<IList<EstrategiaComponenteSeccion>, List<EstrategiaComponenteSeccionModel>>(estrategia.Secciones ?? new List<EstrategiaComponenteSeccion>());
             return modeloEstrategia;
         }
 

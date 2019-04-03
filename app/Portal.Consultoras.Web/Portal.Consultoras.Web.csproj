@@ -543,6 +543,7 @@
     <Compile Include="Models\Search\ResponseNivel\OutputNivel.cs" />
     <Compile Include="Models\Search\ResponseOferta\Estructura\Componente.cs" />
     <Compile Include="Models\Search\ResponseOferta\Estructura\Estrategia.cs" />
+    <Compile Include="Models\Search\ResponseOferta\Estructura\EstrategiaComponenteSeccion.cs" />
     <Compile Include="Models\Search\ResponseOferta\Estructura\EstrategiaDetalle.cs" />
     <Compile Include="Models\Search\ResponseOferta\Estructura\Grupo.cs" />
     <Compile Include="Models\Search\ResponseOferta\OutputOferta.cs" />

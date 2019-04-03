@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Portal.Consultoras.Web.Models.Search.ResponseOferta.Estructura;
+using Portal.Consultoras.Web.Models.DetalleEstrategia;
 
 namespace Portal.Consultoras.Web.Models.AutoMapper
 {
@@ -682,6 +683,18 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.DescripcionPlural, f => f.MapFrom(c => c.DescripcionPlural))
                 .ForMember(t => t.DescripcionSingular, f => f.MapFrom(c => c.DescripcionSingular));
 
+
+            #region Agana 399: Secciones de componente
+            Mapper.CreateMap<EstrategiaComponenteSeccionDetalle, EstrategiaComponenteSeccionDetalleModel>()
+                .ForMember(t => t.Titulo, f => f.MapFrom(c => c.Titulo))
+                .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
+                .ForMember(t => t.Key, f => f.MapFrom(c => c.Key));
+
+            Mapper.CreateMap<EstrategiaComponenteSeccion, EstrategiaComponenteSeccionModel>()
+                .ForMember(t => t.Titulo, f => f.MapFrom(c => c.Titulo))
+                .ForMember(t => t.EsVideos, f => f.MapFrom(c => c.EsVideos))
+                .ForMember(t => t.Detalles, f => f.MapFrom(c => c.Detalles));
+            #endregion
 
         }
     }
