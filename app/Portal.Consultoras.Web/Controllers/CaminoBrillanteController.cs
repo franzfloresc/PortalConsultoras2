@@ -2,6 +2,8 @@
 using System.Linq;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.ServiceUsuario;
+using System.Collections.Generic;
+using System;
 
 namespace Portal.Consultoras.Web.Controllers
 {
