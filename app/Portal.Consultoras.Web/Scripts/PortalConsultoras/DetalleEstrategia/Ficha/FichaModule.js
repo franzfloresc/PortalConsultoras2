@@ -817,7 +817,7 @@ var FichaModule = (function (config) {
     }
 
     var _construirSeccionFicha = function () {
-        _config.esMobile = isMobile();
+        _config.esMobile = _config.generalModule.isMobile();
         _getModelo();
 
         _config.tieneSession = _modeloFicha.TieneSession;
@@ -831,9 +831,9 @@ var FichaModule = (function (config) {
             return false;
         }
 
-        if (_validarAbrirFichaResumida()) {
-            FichaPartialModule.ShowDivFichaResumida(true);
-        }
+        //if (_validarAbrirFichaResumida()) {
+        //    FichaPartialModule.ShowDivFichaResumida(true);
+        //}
 
         _modeloFicha.BreadCrumbs = _modeloFicha.BreadCrumbs || {};
         _modeloFicha.BreadCrumbs.TipoAccionNavegar = _modeloFicha.TipoAccionNavegar;
@@ -1062,6 +1062,7 @@ var FichaPartialModule = (function () {
 
             try {
                 fichaModule.Inicializar();
+                _showDivFichaResumida(true)
             }
             catch (error) {
                 console.log(error);
