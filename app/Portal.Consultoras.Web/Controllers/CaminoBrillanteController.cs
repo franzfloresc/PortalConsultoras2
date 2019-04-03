@@ -14,8 +14,8 @@ namespace Portal.Consultoras.Web.Controllers
         // GET: CaminoBrillante
         public ActionResult Index()
         {
-            var informacion = SessionManager.GetConsultoraCaminoBrillante();
-            ViewBag.ResumenLogros = informacion.ResumenLogros;
+            //var informacion = SessionManager.GetConsultoraCaminoBrillante();
+            ViewBag.ResumenLogros = "";//// informacion.ResumenLogros;
 
             int nivelActual = 0;
             int.TryParse(informacion.NivelConsultora.Where(x => x.EsActual).Select(z => z.Nivel).FirstOrDefault(), out nivelActual);
