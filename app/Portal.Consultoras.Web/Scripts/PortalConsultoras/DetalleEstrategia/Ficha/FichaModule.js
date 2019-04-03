@@ -89,7 +89,7 @@ var FichaModule = (function (config) {
     var _ultimaMarca = "";
     var _esMultimarca = false;
     var _estrategia = {};
-    var _modeloFicha = {};
+    
 
     var _config = {
         esMobile: null,
@@ -817,81 +817,84 @@ var FichaModule = (function (config) {
     }
 
     var _construirSeccionFicha = function () {
-        _modeloFicha = _getModelo();
+        var modeloFicha = _getModelo();
 
         _config.esMobile = _config.generalModule.isMobile();
-        _config.tieneSession = _modeloFicha.TieneSession;
-        _config.palanca = _modeloFicha.Palanca || _config.palanca;
-        _config.origen = _modeloFicha.OrigenUrl || _config.origen;
-        _config.mostrarCliente = _modeloFicha.MostrarCliente || _config.mostrarCliente;
+        _config.tieneSession = modeloFicha.TieneSession;
+        _config.palanca = modeloFicha.Palanca || _config.palanca;
+        _config.origen = modeloFicha.OrigenUrl || _config.origen;
+        _config.mostrarCliente = modeloFicha.MostrarCliente || _config.mostrarCliente;
 
         if (!ValidaOfertaDelDia(true)) {
             //_redireccionar("_construirSeccionFicha, ValidaOfertaDelDia");
             throw "_construirSeccionFicha, ValidaOfertaDelDia";
-            return false;
+            //return false;
         }
 
         //if (_validarAbrirFichaResumida()) {
         //    FichaPartialModule.ShowDivFichaResumida(true);
         //}
 
-        _modeloFicha.BreadCrumbs = _modeloFicha.BreadCrumbs || {};
-        _modeloFicha.BreadCrumbs.TipoAccionNavegar = _modeloFicha.TipoAccionNavegar;
-        _setHandlebars(_template.navegar, _modeloFicha.BreadCrumbs);
+        //modeloFicha.BreadCrumbs = modeloFicha.BreadCrumbs || {};
+        //modeloFicha.BreadCrumbs.TipoAccionNavegar = modeloFicha.TipoAccionNavegar;
+        _setHandlebars(_template.navegar, modeloFicha.BreadCrumbs);
 
-        if (_modeloFicha.TieneCarrusel) {
-            _setHandlebars(_template.carrusel, _modeloFicha);
+        if (modeloFicha.TieneCarrusel) {
+            _setHandlebars(_template.carrusel, modeloFicha);
         }
 
-        _setHandlebars(_template.compartir, _modeloFicha);
-
+        _setHandlebars(_template.compartir, modeloFicha);
     };
 
-
-
+    var _modeloFicha = null;
     var _getModelo = function () {
+        if (typeof _modeloFicha === "undefined" || _modeloFicha === null) {
 
-        //var paramsObtenerModelo = {};
-        //paramsObtenerModelo.palanca = _config.palanca;
-        //paramsObtenerModelo.campaniaId = _config.campania;
-        //paramsObtenerModelo.cuv = _config.cuv;
-        //paramsObtenerModelo.origen = _config.origen;
-        //paramsObtenerModelo.esEditable = _config.esEditable;
 
-        var modeloFicha = {};
+            //var paramsObtenerModelo = {};
+            //paramsObtenerModelo.palanca = _config.palanca;
+            //paramsObtenerModelo.campaniaId = _config.campania;
+            //paramsObtenerModelo.cuv = _config.cuv;
+            //paramsObtenerModelo.origen = _config.origen;
+            //paramsObtenerModelo.esEditable = _config.esEditable;
 
-        _config.detalleEstrategiaProvider
-            .promiseObternerModelo({
-                palanca: _config.palanca,
-                campaniaId: _config.campania,
-                cuv: _config.cuv,
-                origen: _config.origen,
-                esEditable: _config.esEditable
-            })
-            .done(function (data) {
-                modeloFicha = data.data || {};
-                modeloFicha.Error = data.success === false;
-            })
-            .fail(function (data, error) {
-                //modeloFicha = {};
-                modeloFicha.Error = true;
-            });
+            var modeloFicha = {};
 
-        //_modeloFicha = modeloFicha;
+            _config.detalleEstrategiaProvider
+                .promiseObternerModelo({
+                    palanca: _config.palanca,
+                    campaniaId: _config.campania,
+                    cuv: _config.cuv,
+                    origen: _config.origen,
+                    esEditable: _config.esEditable
+                })
+                .done(function (data) {
+                    modeloFicha = data.data || {};
+                    modeloFicha.Error = data.success === false;
+                })
+                .fail(function (data, error) {
+                    //modeloFicha = {};
+                    modeloFicha.Error = true;
+                });
 
-        if (modeloFicha.Error === true) {
-            //_redireccionar("_getModelo, promiseObternerModelo");
-            throw "_getModelo, promiseObternerModelo";
-            //return false;
+            //_modeloFicha = modeloFicha;
+
+            if (modeloFicha.Error === true) {
+                //_redireccionar("_getModelo, promiseObternerModelo");
+                throw "_getModelo, promiseObternerModelo";
+                //return false;
+            }
+
+            //_modeloFicha.ConfiguracionContenedor = _modeloFicha.ConfiguracionContenedor || {};
+            //_modeloFicha.BreadCrumbs = _modeloFicha.BreadCrumbs || {};
+
+            modeloFicha.ConfiguracionContenedor = modeloFicha.ConfiguracionContenedor || {};
+            modeloFicha.BreadCrumbs = modeloFicha.BreadCrumbs || {};
+
+            _modeloFicha = modeloFicha;
         }
 
-        //_modeloFicha.ConfiguracionContenedor = _modeloFicha.ConfiguracionContenedor || {};
-        //_modeloFicha.BreadCrumbs = _modeloFicha.BreadCrumbs || {};
-
-        modeloFicha.ConfiguracionContenedor = modeloFicha.ConfiguracionContenedor || {};
-        modeloFicha.BreadCrumbs = modeloFicha.BreadCrumbs || {};
-
-        return modeloFicha;
+        return _modeloFicha;
     };
 
     ////// Fin - Construir Estructura Ficha
