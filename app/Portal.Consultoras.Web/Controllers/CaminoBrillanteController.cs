@@ -3,6 +3,7 @@ using System.Linq;
 using System;
 using System.Collections.Generic;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.ServiceUsuario;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -29,6 +30,14 @@ namespace Portal.Consultoras.Web.Controllers
             return View();
         }
 
+        public ActionResult Ofertas()
+        {
+            var model = GetOfertasCaminoBrillante();
+            if (model == null || model.Count == 0) return RedirectToAction("Index", "CaminoBrillante");
+            
+            return View(model);
+        }
+
         [HttpGet]
         public JsonResult GetNiveles()
         {
@@ -51,12 +60,27 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(new { list = informacion, informacion.NivelConsultora[0].Nivel }, JsonRequestBehavior.AllowGet);
         }
 
-        //[Route("CaminoBrillante/{Ofertas}"]
-        public ActionResult Ofertas()
+        private List<BEOfertaCaminoBrillante> GetOfertasCaminoBrillante()
         {
-            return View();
-        }
+            try
+            {
+                var ofertas = SessionManager.GetOfertasCaminoBrillante();
+                if (ofertas == null || ofertas.Count > 0)
+                {
+                    using (var svc = new UsuarioServiceClient())
+                        ofertas = svc.GetOfertasCaminoBrillante(userData.PaisID, "201904").ToList();
+                    if (ofertas != null)
+                        SessionManager.SetOfertasCaminoBrillante(ofertas);
+                }
 
+                return ofertas;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return null;
+            }            
+        }
         #endregion
     }
 }
