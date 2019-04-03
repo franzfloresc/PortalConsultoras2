@@ -138,7 +138,7 @@
             <!-- FIN - SECCIÓN ETIQUETAS DE CRITERIOS ELEGIDOS EN LOS FILTROS (DESKTOP) -->
             <section class="col-12 fichas__productos__wrapper text-center" id="FichasProductosCaminoBrillanteBuscador">
 
-                <article class="ficha__producto " data-item="BuscadorFichasProductos">
+                <article class="ficha__producto " data-item="ofertaFinal" >
                     <div class="etiqueta-box etiq-coral">
 
                         <img src="~/Content/CaminoBrillante/imgs/coral.svg" />
@@ -186,10 +186,21 @@
                         <div class="col-12 pl-0 pr-0 etiqueta_buscador_producto ficha__producto__etiqueta text-center">
                         </div>
                     </div>
+
+                     
+                        <input type="hidden" class="hdOfertaFinalCuv" value="29866" />
+                        <input type="hidden" class="hdOfertaFinalTipoOfertaSisID" value="0" />
+                        <input type="hidden" class="hdOfertaFinalConfiguracionOfertaID" value="0" />
+                        <input type="hidden" class="hdOfertaFinalIndicadorMontoMinimo" value="" />
+                        <input type="hidden" class="hdOfertaFinalPrecioUnidad" value="0" />
+                        <input type="hidden" class="hdOfertaFinalDescripcionProd" value="" />                       
+                        <input type="hidden" class="hdOfertaFinalTipoEstrategiaID" value="3023" />
+ 
+                    
                 </article>
 
 
-                <article class="ficha__producto producto_desactivado" data-item="BuscadorFichasProductos">
+                <article class="ficha__producto producto_desactivado" data-item="ofertaFinal">
                     <div class="etiqueta-box etiq-coral">
 
                         <img src="~/Content/CaminoBrillante/imgs/coral.svg" />
@@ -236,9 +247,19 @@
                         <div class="col-12 pl-0 pr-0 etiqueta_buscador_producto ficha__producto__etiqueta text-center">
                         </div>
                     </div>
+ 
+                        <input type="hidden" class="hdOfertaFinalCuv" value="29866" />
+                        <input type="hidden" class="hdOfertaFinalTipoOfertaSisID" value="0" />
+                        <input type="hidden" class="hdOfertaFinalConfiguracionOfertaID" value="0" />
+                        <input type="hidden" class="hdOfertaFinalIndicadorMontoMinimo" value="" />
+                        <input type="hidden" class="hdOfertaFinalPrecioUnidad" value="0" />
+                        <input type="hidden" class="hdOfertaFinalDescripcionProd" value="" />
+                        <input type="hidden" class="hdOfertaFinalTipoEstrategiaID" value="3023" />
+                    
+
                 </article>
 
-                <article class="ficha__producto producto_desactivado" data-item="BuscadorFichasProductos">
+                <article class="ficha__producto producto_desactivado" data-item="ofertaFinal" >
                     <div class="etiqueta-box etiq-coral">
 
                         <img src="~/Content/CaminoBrillante/imgs/coral.svg" />
@@ -287,8 +308,7 @@
                     </div>
                 </article>
 
- 
-                <article class="ficha__producto producto_desactivado" data-item="BuscadorFichasProductos">
+                <article class="ficha__producto producto_desactivado" data-item="ofertaFinal" >
                     <div class="etiqueta-box etiq-coral">
 
                         <img src="~/Content/CaminoBrillante/imgs/coral.svg" />
@@ -336,12 +356,8 @@
                         </div>
                     </div>
                 </article>
-
-
-
-
-
-                <article class="ficha__producto producto_desactivado" data-item="BuscadorFichasProductos">
+ 
+                <article class="ficha__producto producto_desactivado" data-item="ofertaFinal" >
                     <div class="etiqueta-box etiq-ambar">
                         @*<img src="imgs/ambar.svg">*@
                         <img src="~/Content/CaminoBrillante/imgs/ambar.svg" />
@@ -389,11 +405,8 @@
                         </div>
                     </div>
                 </article>
-
-
-
-
-                <article class="ficha__producto producto_desactivado" data-item="BuscadorFichasProductos">
+ 
+                <article class="ficha__producto producto_desactivado" data-item="ofertaFinal" >
                     <div class="etiqueta-box etiq-perla">
                         @*<img src="imgs/perla.svg">*@
                         <img src="~/Content/CaminoBrillante/imgs/perla.svg" />
@@ -441,12 +454,8 @@
                         </div>
                     </div>
                 </article>
-
-
-
-
-
-                <article class="ficha__producto producto_desactivado" data-item="BuscadorFichasProductos">
+                 
+                <article class="ficha__producto producto_desactivado" data-item="ofertaFinal" >
                     <div class="etiqueta-box etiq-topacio">
                         @*<img src="imgs/topacio.svg">*@
                         <img src="~/Content/CaminoBrillante/imgs/topacio.svg" />
@@ -495,10 +504,7 @@
                     </div>
                 </article>
 
-
-
-
-                <article class="ficha__producto producto_desactivado" data-item="BuscadorFichasProductos">
+                <article class="ficha__producto producto_desactivado" data-item="ofertaFinal" >
                     <div class="etiqueta-box etiq-brillante">
                         @*<img src="imgs/brillante.svg">*@
                         <img src="~/Content/CaminoBrillante/imgs/brillante.svg" />
@@ -572,6 +578,8 @@
             }
     </script>
 
+
+    <script src="~/Scripts/PortalConsultoras/Cliente/Index.js"></script>
     <script src="~/Scripts/PortalConsultoras/Pedido/ofertafinal.js"></script>
     <script src="~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js"></script>
     <script src="~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js"></script>
@@ -579,15 +587,60 @@
 
     <script type="text/javascript">
         var tipoOrigen = "1";
+        var reservaResponse = {
+            data: { Reserva: false }
+        };
+        var baseUrl = "/";
+        
         function AgregarProducto() {
             
             var items = document.getElementById('FichasProductosCaminoBrillanteBuscador');
             
             for (var i = 0; i < items.children.length; i++) {
+ 
                 items.children[i].children[1].children[3].children[1].firstElementChild.onclick = function (e) {
                     e.preventDefault();
+                    AbrirSplash();
 
-                    PedidoRegistroModule.AgregarOfertaFinalClick(this);
+                    var params = {
+                        CuvTonos: "",
+                        CUV: "34587",
+                        Cantidad: "1",
+                        TipoEstrategiaID: 3014,
+                        EstrategiaID: "34076",
+                        OrigenPedidoWeb: "1080301",
+                        TipoEstrategiaImagen: "6",
+                        FlagNueva: false,
+                        EsEditable: false,
+                        SetId: null,
+                        ClienteID: 0//_getClienteIdSelected()
+                    };
+
+                    jQuery.ajax({
+                        type: "POST",
+                        url: baseUrl + "PedidoRegistro/PedidoAgregarProductoTransaction",
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify(params),
+                        async: true,
+                        cache: false,
+                        success: function (data) {
+                            //dfd.resolve(data);
+                            CerrarSplash();
+                            CargarResumenCampaniaHeader(true);
+                        },
+                        error: function (data, error) {
+                            alert("error");
+                           // dfd.reject(data, error);
+                        }
+                    });
+
+
+
+
+
+
+                    //PedidoRegistroModule.AgregarOfertaFinalClick(this.parentElement.parentElement.parentElement);
 
                     //var PedidoCrudModel = {
                     //    CuvTonos: null,

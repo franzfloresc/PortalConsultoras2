@@ -11,8 +11,8 @@ namespace Portal.Consultoras.Web.Controllers
         // GET: CaminoBrillante
         public ActionResult Index()
         {
-            var informacion = SessionManager.GetConsultoraCaminoBrillante();
-            ViewBag.ResumenLogros = informacion.ResumenLogros;
+            //var informacion = SessionManager.GetConsultoraCaminoBrillante();
+            ViewBag.ResumenLogros = "";//// informacion.ResumenLogros;
             ViewBag.TieneOfertasEspeciales = true; //informacion.Niveles[0].TieneOfertasEspeciales;
             return View();
         }

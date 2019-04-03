@@ -234,7 +234,6 @@
     <Compile Include="Controllers\BonificacionesController.cs" />
     <Compile Include="Controllers\BaseAdmController.cs" />
     <Compile Include="Controllers\CaminoBrillanteController.cs" />
-    <Compile Include="Controllers\CaminoBrillanteOfertasController.cs" />
     <Compile Include="Controllers\ProductoRecomendadoController.cs" />
     <Compile Include="Controllers\TusClientesController.cs" />
     <Compile Include="Controllers\PremioNuevasController.cs" />
@@ -5747,7 +5746,6 @@
     <Content Include="Views\CaminoBrillante\Compromiso.cshtml" />
     <Content Include="Views\CaminoBrillante\Crecimiento.cshtml" />
     <Content Include="Views\DetalleEstrategia\ProductoTemplate.cshtml" />
-    <Content Include="Views\CaminoBrillanteOfertas\Index.cshtml" />
     <Content Include="Views\CaminoBrillante\Ofertas.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
