@@ -15,9 +15,10 @@ namespace Portal.Consultoras.Data.CaminoBrillante
             return Context.ExecuteReader(command);
         }
 
-        public IDataReader GetMedallaLogrosCaminoBrillante()
+        public IDataReader GetConfiguracionMedallaCaminoBrillante()
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetMedallaLogrosCaminoBrillante");
+            //DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetConfiguracionMedallaCaminoBrillante");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetConfiguracionMedallaCaminoBrillante_II");            
             return Context.ExecuteReader(command);
         }
 

@@ -443,11 +443,13 @@ namespace Portal.Consultoras.ServiceContracts
 
         #region Camino Brillante
         [OperationContract]
-        List<BENivelCaminoBrillante> GetNivelesCaminoBrillante(int paisId);
+        List<BENivelCaminoBrillante> GetNivelesCaminoBrillante(int paisId, bool isWeb);
         [OperationContract]
-        BEConsultoraCaminoBrillante GetConsultoraNivelCaminoBrillante(int paisId, BEUsuario entidad);
+        BEConsultoraCaminoBrillante GetConsultoraNivelCaminoBrillante(int paisId, BEUsuario entidad, bool isWeb);
         [OperationContract]
-        List<BELogroCaminoBrillante> GetConsultoraLogrosCaminoBrillante(int paisId, BEUsuario entidad);
+        List<BELogroCaminoBrillante> GetConsultoraLogrosCaminoBrillante(int paisId, BEUsuario entidad, bool isWeb);
+        [OperationContract]
+        List<BEOfertaCaminoBrillante> GetOfertasCaminoBrillante(int paisId, string periodo);
         #endregion
     }
 }

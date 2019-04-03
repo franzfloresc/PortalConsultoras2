@@ -7,17 +7,19 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
     public interface ICaminoBrillanteBusinessLogic {
 
         //Get Consultora Nivel
-        List<BENivelCaminoBrillante> GetNiveles(int paisId);
+        List<BENivelCaminoBrillante> GetNiveles(int paisId, bool isWeb);
         //Get Consultora Nivel
-        BEConsultoraCaminoBrillante GetConsultoraNivel(int paisId, BEUsuario entidad);
+        BEConsultoraCaminoBrillante GetConsultoraNivel(int paisId, BEUsuario entidad, bool isWeb);
         //Get Consultora Logros Resumen
         //void GetConsultoraLogrosResumen(int paisId, BEUsuario entidad);
         //Get Consultora Logros
-        List<BELogroCaminoBrillante> GetConsultoraLogros(int paisId, BEUsuario entidad);
+        List<BELogroCaminoBrillante> GetConsultoraLogros(int paisId, BEUsuario entidad, bool isWeb);
         //Get Ofertas
-        void GetConsultoraOfertas(int paisId, BEUsuario entidad);
+        void GetConsultoraOfertas(int paisId, BEUsuario entidad, bool isWeb);
         //Get Kits
-        void GetConsultoraKits(int paisId, BEUsuario entidad);
+        void GetConsultoraKits(int paisId, BEUsuario entidad, bool isWeb);
 
+
+        List<BEOfertaCaminoBrillante> GetOfertas(int paisId, string campania);
     }
 }

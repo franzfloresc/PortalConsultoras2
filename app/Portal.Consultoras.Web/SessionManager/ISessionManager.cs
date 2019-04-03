@@ -516,11 +516,11 @@ namespace Portal.Consultoras.Web.SessionManager
         string GetJwtApiSomosBelcorp();
         void SetUsuarioOpciones(List<UsuarioOpcionesModel> val);
         List<UsuarioOpcionesModel> GetUsuarioOpciones();
+        
+        void SetConsultoraCaminoBrillante(BEConsultoraCaminoBrillante val);
+        BEConsultoraCaminoBrillante GetConsultoraCaminoBrillante();
 
-
-        void SetConsultora(List<NivelConsultoraCaminoBrillanteModel> val);
-        List<NivelConsultoraCaminoBrillanteModel> GetConsultora();
-
-
+        void SetOfertasCaminoBrillante(List<BEOfertaCaminoBrillante> val);
+        List<BEOfertaCaminoBrillante> GetOfertasCaminoBrillante();
     }
 }

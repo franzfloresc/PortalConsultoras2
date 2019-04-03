@@ -136,6 +136,7 @@ namespace Portal.Consultoras.Web.Models
         public string MensajeToolTipPerfil{ get; set; }
         public bool TieneCaminoBrillante { get; set; }
         public string CaminoBrillanteMsg { get; set; }
+        public string UrlLogoCaminoBrillante { get; set; }
 
         
 

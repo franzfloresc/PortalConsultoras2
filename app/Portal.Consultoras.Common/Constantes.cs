@@ -192,6 +192,7 @@ namespace Portal.Consultoras.Common
             {
                 public const int Habilitar_App = 12213;
                 public const int Habilitar_App_PBI_ExternalApp = 12214;
+                public const decimal MontoMinimoPago = 0.50m;
             }
 
             public static class ArmaTuPack
@@ -472,7 +473,7 @@ namespace Portal.Consultoras.Common
             public const string MSPersonalizacionConfig = "MSPersonalizacion";
 
             public const string NivelConsultoraCaminoBrillante = "NivelConsultoraCaminoBrillante";
-
+            public const string OfertasCaminoBrillante = "OfertasCaminoBrillante";
         }
 
         public static class ConfiguracionManager
@@ -664,7 +665,7 @@ namespace Portal.Consultoras.Common
             public const string DGuiaNegocio = "1I0";
             public const string MGuiaNegocio = "2I0";
             public const string DHerramientaVenta = "1J0";
-            public const string MHerramientaVenta = "2J0";  
+            public const string MHerramientaVenta = "2J0";
             public const string DMasGanadoras = "1K0";
             public const string MMasGanadoras = "2K0";
             public const string DDuoPerfecto = "1L0";
@@ -1481,7 +1482,7 @@ namespace Portal.Consultoras.Common
             public const string InsertarValidarKitInicio = "No está permitido agregar el Kit de un programa obligatorio.";
             public const string ValidarAgregarProgNuevas = "Sucedió un error al validar el programa de nuevas. Inténtenlo más tarde.";
             public const string ExcedioLimiteVenta = "Las unidades ingresadas exceden el máximo permitido ({0}) en esta campaña.";
-            public const string StockLimiteVenta = "En esta campaña nuestro producto <b>{0} – {1}</b> ha tenido una gran acogida. Sin embargo hemos reservado una ({2}) unidad(es) para ti. Por favor modifica las unidades ingresadas.";
+            public const string StockLimiteVenta = "En esta campaña nuestro producto <b>{0} – {1}</b> ha tenido una gran acogida. Sin embargo hemos reservado {2} unidad(es) para ti. Por favor modifica las unidades ingresadas.";
             public const string Pedido_NoAgregarLiquidacion = "No se puede agregar una Oferta Liquidacion por este medio.";
         }
 
@@ -1522,7 +1523,7 @@ namespace Portal.Consultoras.Common
             public const string Datami = "DATAMI";
             public const string DireccionEntrega = "DIRECCION_ENTREGA";
             public const string CaminoBrillante = "CAMINOBRILLANTE"; 
-            public const string CaminoBrillanteMsg = "cambri_Home"; 
+            public const string CaminoBrillanteMsg = "HomeCaminoBrillante"; 
         }
 
 
@@ -1843,7 +1844,12 @@ namespace Portal.Consultoras.Common
             public const short GanaMasNativo = 159;
             public const short ResizeImagenesAppGanaMas = 162;
             public const short TiempoMaximoSP = 180;
+            #region Camino Brillante
             public const short CaminoBrillanteInfoComercial = 165;
+            public const short CaminoBrillanteLogros = 166;
+            public const short CaminoBrillanteIndicadores = 167;
+            public const short CaminoBrillanteOfertasEspeciales = 167; //Pendiente
+            #endregion
         }
 
         public struct MensajesCDRExpress
@@ -2406,7 +2412,7 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_UNIDAD_SOBREPASA_PERMITIDO = "2116";
                 public const string ERROR_UNIDAD_SINSALDO = "2117";
                 public const string ERROR_UNIDAD_CONSALDO = "2118";
-                public const string ERROR_UNIDAD_SOBREPASA_STOCK = "2119";               
+                public const string ERROR_UNIDAD_SOBREPASA_STOCK = "2119";
 
                 public const string ERROR_RESERVA_NINGUNO = "2010";
                 public const string SUCCESS_RESERVA = "2011";
@@ -3074,9 +3080,9 @@ namespace Portal.Consultoras.Common
             /// <summary>
             /// api/Evento/listarConsultora/{isoPais}/{codigoConsultora}/{codigoCampania}
             /// </summary>
-            public const string UrlObtenerPersonalizacion= "api/Personalizacion/{0}/{1}/{2}";
+            public const string UrlObtenerPersonalizacion = "api/Personalizacion/{0}/{1}/{2}";
             #endregion
-            
+
             #region Reporte
             /// <summary>
             /// /api/Reporte/ReporteValidacion/{pais}/{tipo}/{campania}
@@ -3135,7 +3141,7 @@ namespace Portal.Consultoras.Common
             public const string FlagBuscarPorCategoria = "BuscarPorCategoria";
             public const string FlagBuscarPorCategoriaTotalProductos = "BuscarPorCategoriaTotalProductos";
         }
-        
+
         public static class CodigoConfiguracionMSPersonalizacion
         {
             public const string EstrategiaDisponible = "EstrategiaDisponible";
@@ -3402,9 +3408,11 @@ namespace Portal.Consultoras.Common
             public const int ColorTextoApp = 10215;
         }
 
-        public static class Formatos {
+        public static class Formatos
+        {
             public const string Fecha = "dd/MM/yyyy";
             public const string FechaHora = "dd/MM/yyyy HH:mm";
+            public const string FechaHoraUTC = "yyyy-MM-ddThh:mm:ss";
         }
         public static class OperacionBD
         {
@@ -3437,7 +3445,7 @@ namespace Portal.Consultoras.Common
                 public const string MaquilladorVirtual = "04";
             }
         }
-        
+
         public static class OpcionesUsuario
         {
             public const int BoletaImpresa = 1;
@@ -3514,7 +3522,8 @@ namespace Portal.Consultoras.Common
                 public const string GetNivelConsultora = "GetNivelConsultora/";
                 public const string GetKitsConsultora = "GetKitsConsultora/";
 
-                public static class TablaLogicaDatosKey {
+                public static class TablaLogicaDatosKey
+                {
                     /// <summary>
                     /// Url para conexion a informacionComercialServices
                     /// </summary>
@@ -3534,7 +3543,8 @@ namespace Portal.Consultoras.Common
                 }
             }
 
-            public static class CodigoBeneficio {
+            public static class CodigoBeneficio
+            {
 
                 public const string BENEFICIO01 = "BENEFICIO01";
                 public const string BENEFICIO02 = "BENEFICIO02";
@@ -3548,12 +3558,93 @@ namespace Portal.Consultoras.Common
                 {
                     get
                     {
-                        return _Beneficios ?? (_Beneficios = new List<string> { BENEFICIO01, BENEFICIO02, BENEFICIO03, BENEFICIO04, BENEFICIO05});
+                        return _Beneficios ?? (_Beneficios = new List<string> { BENEFICIO01, BENEFICIO02, BENEFICIO03, BENEFICIO04, BENEFICIO05 });
                     }
                 }
             }
 
-        }
+            public static class Logros
+            {
 
+                public const string COMPROMISO = "COMPROMISO";
+                public const string CRECIMIENTO = "CRECIMIENTO";
+                public const string RESUMEN = "RESUMEN";
+
+                public static class Indicadores
+                {
+
+                    public const string ESCALA = "ESCALA";
+                    public const string NIVEL = "NIVEL";
+                    public const string CONSTANCIA = "CONSTANCIA";
+                    public const string INCREMENTO = "INCREMENTO_PEDIDO";
+                    public const string TIEMPO_JUNTOS = "TIEMPO_JUNTOS";
+                    public const string PROGRAMA_NUEVAS = "PROGRAMA_NUEVAS";
+
+                    public static class Medallas
+                    {
+
+                        public const string ComoLograrlo = "¿Cómo lograrlo?";
+                        public const string YaLoTienes = "¡Ya lo tienes!";
+
+                        public static class Codes
+                        {
+                            public const string CIRC = "CIRC";
+                            public const string NIV = "NIV";
+                            public const string PIE = "PIE";
+                            public const string TIM = "TIME";
+                            public const string PED = "PED";
+                        }
+                    }
+                }
+            }
+
+            public static class Beneficios {
+
+                private static Dictionary<string, string> _Iconos;
+                private static string path = "CAMINOBRILLANTE/BENEFICIOS/{1}";
+
+                public static Dictionary<string, string> Iconos
+                {
+                    get
+                    {
+                        return _Iconos ?? (_Iconos = new Dictionary<string, string> {
+                            {"01", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"asesor.svg")},
+                            {"02", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"beneficios.svg")},
+                            {"03", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"call_center.svg")},
+                            {"04", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"catalogo_revista.svg")},
+                            {"05", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"consultora.svg")},
+                            {"06", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"descuento.svg")},
+                            {"07", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"kit.svg")},
+                            {"08", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"productos_especiales.svg")},
+                            {"09", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"regalo.svg")},
+                        });
+                    }
+                }
+
+            }
+
+            public static class Niveles {
+
+                private static Dictionary<string, string[]> _Iconos;
+                private static string path = "CAMINOBRILLANTE/NIVELES/NIVEL_0{0}_{1}.png";
+
+                public static Dictionary<string, string[]> Iconos
+                {
+                    get
+                    {
+                        return _Iconos ?? (_Iconos = new Dictionary<string, string[]> {
+                            { "1", new string[]{ string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "1", "I"), string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "1", "A") } },
+                            { "2", new string[]{ string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "2", "I"), string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "2", "A") } },
+                            { "3", new string[]{ string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "3", "I"), string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "3", "A") } },
+                            { "4", new string[]{ string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "4", "I"), string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "4", "A") } },
+                            { "5", new string[]{ string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "5", "I"), string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "5", "A") } },
+                            { "6", new string[]{ string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "6", "I"), string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "6", "A") } },
+                        });
+                    }
+                }
+
+            }
+
+        }
     }
 }

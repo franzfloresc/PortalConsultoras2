@@ -142,11 +142,12 @@ strong {
     margin: 25px auto;
     text-decoration: none;
     overflow: inherit;
-    background: #e81c36;
-    background: -moz-linear-gradient(left, #e81c36 0%, #613c87 100%);
-    background: -webkit-linear-gradient(left, #e81c36 0%,#613c87 100%);
-    background: linear-gradient(to right, #e81c36 0%,#613c87 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e81c36', endColorstr='#613c87',GradientType=1 );
+    background: #b9007e;
+    /*    background: #e81c36;
+   background: -moz-linear-gradient(left, #e81c36 0%, #613c87 100%);
+   background: -webkit-linear-gradient(left, #e81c36 0%,#613c87 100%);
+   background: linear-gradient(to right, #e81c36 0%,#613c87 100%);
+   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e81c36', endColorstr='#613c87',GradientType=1 );*/
 }
 
     .btn-principal:hover {
@@ -312,12 +313,13 @@ div .owl-carousel .owl-stage-outer {
     border-radius: 7px;
     background: #dedede;
     position: relative;
+    margin: 0 auto;
 }
 
 .Progress {
     width: 15%;
     position: relative;
-    background: rgb(232, 27, 56);
+    background: #b9007e;
     height: 100%;
     border-radius: 15px;
     border-color: #4A90E2;
@@ -327,12 +329,12 @@ div .owl-carousel .owl-stage-outer {
 }
 
 .medal-1 {
-    width: 15%;
+    width: 14%;
     animation-name: progressUno;
 }
 
 .medal-2 {
-    width: 33%;
+    width: 34%;
     animation-name: progressDos;
 }
 
@@ -347,7 +349,7 @@ div .owl-carousel .owl-stage-outer {
 }
 
 .medal-5 {
-    width: 92%;
+    width: 94%;
     animation-name: progressCinco;
 }
 
@@ -362,7 +364,7 @@ div .owl-carousel .owl-stage-outer {
     }
 
     100% {
-        width: 15%;
+        width: 14%;
     }
 }
 
@@ -372,7 +374,7 @@ div .owl-carousel .owl-stage-outer {
     }
 
     100% {
-        width: 33%;
+        width: 34%;
     }
 }
 
@@ -402,7 +404,7 @@ div .owl-carousel .owl-stage-outer {
     }
 
     100% {
-        width: 92%;
+        width: 94%;
     }
 }
 
@@ -418,6 +420,11 @@ div .owl-carousel .owl-stage-outer {
 
 
 
+
+
+
+
+
 .Progress:after {
     position: absolute;
     top: -3px;
@@ -426,7 +433,7 @@ div .owl-carousel .owl-stage-outer {
     display: block;
     width: 14px;
     height: 14px;
-    background: #ad001b;
+    background: #9a056b;
     border-radius: 16px;
     z-index: 5;
 }
@@ -435,16 +442,21 @@ div .owl-carousel .owl-stage-outer {
     display: block;
     position: absolute;
     top: -20px;
-    background: #b3b3b3;
     z-index: 8;
     width: 55px;
     height: 55px;
     border-radius: 55px;
+    z-index: 10;
     -webkit-transition: all 0.2s ease;
     -moz-transition: all 0.2s ease;
     -o-transition: all 0.2s ease;
     transition: all 0.2s ease;
 }
+
+    #ProgressBar span img {
+        display: block;
+        width: 100%;
+    }
 
     #ProgressBar span:not(.activo):hover {
         top: -24px;
@@ -454,12 +466,12 @@ div .owl-carousel .owl-stage-outer {
 .brillante:before {
     content: "";
     display: block;
-    background: url(/Content/CaminoBrillante/imgs/brillo.svg) no-repeat center center;
+    background: url(../imgs/brillo.svg) no-repeat center center;
     background-size: cover;
     width: 65px;
     height: 65px;
     position: absolute;
-    top: -5px;
+    top: -7px;
     left: -5px;
     z-index: 5;
 }
@@ -468,87 +480,55 @@ div .owl-carousel .owl-stage-outer {
     color: black;
 }
 
+
+
 #ProgressBar .pt1 {
     display: block;
     left: -1%;
-    background: #a2a2a2 url(/Content/CaminoBrillante/imgs/image-1@2x.png) no-repeat center center;
-    background-size: cover;
 }
 
 #ProgressBar .pt2 {
     display: block;
     left: 19%;
-    background: #a2a2a2 url(/Content/CaminoBrillante/imgs/recurso-34-3-x@2x.png) no-repeat center center;
-    background-size: cover;
 }
 
 #ProgressBar .pt3 {
     display: block;
-    left: 38%;
-    background: #a2a2a2 url(/Content/CaminoBrillante/imgs/recurso-35-3-x@2x.png) no-repeat center center;
-    background-size: cover;
+    left: 39%;
 }
 
 #ProgressBar .pt4 {
     display: block;
-    left: 58%;
-    background: #a2a2a2 url(/Content/CaminoBrillante/imgs/recurso-34-3-x@2x.png) no-repeat center center;
-    background-size: cover;
+    left: 59%;
 }
 
 #ProgressBar .pt5 {
     display: block;
-    left: 78%;
-    background: #a2a2a2 url(/Content/CaminoBrillante/imgs/recurso-33-3-x@2x.png) no-repeat center center;
-    background-size: cover;
+    left: 79%;
 }
 
 #ProgressBar .pt6 {
     display: block;
-    left: 97%;
-    background: #a2a2a2 url(/Content/CaminoBrillante/imgs/recurso-32-3-x@2x.png) no-repeat center center;
-    background-size: cover;
+    left: 99%;
 }
 
-
-#ProgressBar .pt1.activo {
-    background: #e6c79e url(/Content/CaminoBrillante/imgs/image-1@2x.png) no-repeat center center;
-    background-size: cover;
-}
-
-#ProgressBar .pt2.activo {
-    background: #dfa558 url(/Content/CaminoBrillante/imgs/recurso-29-3-x-copy-3@2x.png) no-repeat center center;
-    background-size: cover;
-}
-
-#ProgressBar .pt3.activo {
-    background: #d28f35 url(/Content/CaminoBrillante/imgs/recurso-30-3-x-copy-4@2x.png) no-repeat center center;
-    background-size: cover;
-}
-
-#ProgressBar .pt4.activo {
-    background: #b87825 url(/Content/CaminoBrillante/imgs/recurso-36-3-x@2x.png) no-repeat center center;
-    background-size: cover;
-}
-
-#ProgressBar .pt5.activo {
-    background: #a17233 url(/Content/CaminoBrillante/imgs/recurso-28-3-x-copy-2@2x.png) no-repeat center center;
-    background-size: cover;
-}
-
-#ProgressBar .pt6.activo {
-    background: #b8905c url(/Content/CaminoBrillante/imgs/recurso-27-3-x@2x.png) no-repeat center center;
-    background-size: cover;
-}
 
 
 #ProgressBar span em {
     display: block;
     font-size: 13px;
     text-align: center;
-    margin-top: 65px;
+    margin-top: 15px;
     font-style: normal;
     color: gray;
+}
+
+#ProgressBar span .activa {
+    display: block;
+}
+
+#ProgressBar span .inactiva {
+    display: none;
 }
 
 #chart-montos {
@@ -795,7 +775,7 @@ button.close {
             font-size: 20px;
             display: block;
             margin: 0;
-            font-weight: bold;
+            font-weight: bold !important;
         }
 
         .indicador-nivel .left-mod p {
@@ -886,6 +866,9 @@ button.close {
 
 
 
+.left-mod p span {
+    display: block;
+}
 
 
 
@@ -893,8 +876,45 @@ button.close {
 
 
 
+.owl-carousel .owl-item .circle-porcent {
+    display: block;
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    margin: 0 auto;
+    margin-bottom: 6px;
+}
 
+.circle-porcent.veinticinco {
+    background: #b9007e;
+}
 
+.circle-porcent.cinco {
+    background: #64425e;
+}
+
+.owl-carousel .owl-item .circle-porcent span {
+    color: white;
+    font-size: 19px;
+    text-align: center;
+    line-height: 52px;
+    display: block;
+    font-weight: bold;
+}
+
+/*.owl-carousel .owl-item {
+    width: 46% !important;
+    margin: 0 2% !important;
+}*/
+
+/*CRECIMIENTO*/
+.max750 {
+    max-width: 750px;
+}
+.box-camb {
+    padding-left: 30px !important;
+    padding-right: 30px !important;
+}
 
 
 
@@ -949,13 +969,13 @@ button.close {
     }
 
     .Progress:after {
-        top: -3px;
-        width: 10px;
-        height: 10px;
+        top: -2px;
+        width: 8px;
+        height: 8px;
     }
 
     #ProgressBar span em {
-        margin-top: 48px;
+        margin-top: 14px;
         font-size: 11px;
     }
 
@@ -1028,88 +1048,127 @@ button.close {
     .subtitle {
         font-size: 15px;
     }
+    .box-beneficios {
+        margin-bottom:30px;
+    }
+    .owl-carousel .owl-item .circle-porcent {
+        width: 42px;
+        height: 42px;
+    }
+    .owl-carousel .owl-item .circle-porcent span {
+        font-size: 14px;
+        line-height: 44px;
+    }
 
-    .left-mod p span {
-        display: block;
+
+
+    #ProgressBar span.pt1 em {
+        left: -12px;
+        position: relative;
+    }
+
+    #ProgressBar .pt1 {
+        left: -6%;
+    }
+    #ProgressBar .pt2 {
+        left: 14%;
+    }
+    #ProgressBar .pt3 {
+        left: 34%;
+    }
+    #ProgressBar .pt4 {
+        left: 54%;
+    }
+    #ProgressBar .pt5 {
+        left: 74%;
+    }
+    #ProgressBar .pt6 {
+        left: 94%;
     }
 
     .medal-1 {
-        width: 17%;
+        width: 12%;
+        animation-name: MovilprogressUno;
     }
 
     .medal-2 {
-        width: 35%;
+        width: 32%;
+        animation-name: MovilprogressDos;
     }
 
     .medal-3 {
-        width: 56%;
+        width: 52%;
+        animation-name: MovilprogressTres;
     }
 
     .medal-4 {
-        width: 76%;
+        width: 72%;
+        animation-name: MovilprogressCuatro;
     }
 
     .medal-5 {
-        width: 94%;
+        width: 92%;
+        animation-name: MovilprogressCinco;
     }
 
     .medal-6 {
         width: 100%;
+        animation-name: MovilprogressSeis;
     }
 
 
 
-    @keyframes progressUno {
+    @keyframes MovilprogressUno {
         0% {
             width: 0%;
         }
 
         100% {
-            width: 17%;
+            width: 12%;
         }
     }
 
-    @keyframes progressDos {
+    @keyframes MovilprogressDos {
         0% {
             width: 0%;
         }
 
         100% {
-            width: 35%;
+            width: 32%;
         }
     }
 
-    @keyframes progressTres {
+    @keyframes MovilprogressTres {
         0% {
             width: 0%;
         }
 
         100% {
-            width: 56%;
+            width: 52%;
         }
     }
 
-    @keyframes progressCuatro {
+    @keyframes MovilprogressCuatro {
         0% {
             width: 0%;
         }
 
         100% {
-            width: 76%;
+            width: 72%;
         }
     }
 
-    @keyframes progressCinco {
+    @keyframes MovilprogressCinco {
         0% {
             width: 0%;
         }
 
         100% {
-            width: 94%;
+            width: 92%;
         }
     }
 
-    @keyframes progressSeis {
+    @keyframes MovilprogressSeis {
         0% {
             width: 0%;
         }
@@ -1119,7 +1178,6 @@ button.close {
         }
     }
 }
-
 
 @media screen and (max-width: 600px) {
     .left-ganancias, .right-ganancias {
