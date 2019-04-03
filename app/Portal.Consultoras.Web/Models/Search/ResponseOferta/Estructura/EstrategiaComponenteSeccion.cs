@@ -5,6 +5,12 @@ using System.Web;
 
 namespace Portal.Consultoras.Web.Models.Search.ResponseOferta.Estructura
 {
+    public class EstrategiaComponenteCabecera
+    {
+        public string ContenidoNeto { get; set; }
+        public string Dimensiones { get; set; }
+        public string TallaMedidas { get; set; }
+    }
     public class EstrategiaComponenteSeccion
     {
         public string Titulo { get; set; }

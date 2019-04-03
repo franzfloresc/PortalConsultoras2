@@ -2,6 +2,13 @@
 
 namespace Portal.Consultoras.Web.Models.DetalleEstrategia
 {
+    public class EstrategiaComponenteCabeceraModel
+    {
+        public string ContenidoNeto { get; set; }
+        public string Dimensiones { get; set; }
+        public string TallaMedidas { get; set; }
+    }
+
     public class EstrategiaComponenteSeccionModel
     {
         public string Titulo { get; set; }

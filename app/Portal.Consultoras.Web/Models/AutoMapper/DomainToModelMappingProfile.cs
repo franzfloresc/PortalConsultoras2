@@ -684,7 +684,12 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.DescripcionSingular, f => f.MapFrom(c => c.DescripcionSingular));
 
 
-            #region Agana 399: Secciones de componente
+            #region Agana 399: componente detalle
+            Mapper.CreateMap<EstrategiaComponenteCabecera, EstrategiaComponenteCabeceraModel>()
+                .ForMember(t => t.ContenidoNeto, f => f.MapFrom(c => c.ContenidoNeto))
+                .ForMember(t => t.Dimensiones, f => f.MapFrom(c => c.Dimensiones))
+                .ForMember(t => t.TallaMedidas, f => f.MapFrom(c => c.TallaMedidas));
+
             Mapper.CreateMap<EstrategiaComponenteSeccionDetalle, EstrategiaComponenteSeccionDetalleModel>()
                 .ForMember(t => t.Titulo, f => f.MapFrom(c => c.Titulo))
                 .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))

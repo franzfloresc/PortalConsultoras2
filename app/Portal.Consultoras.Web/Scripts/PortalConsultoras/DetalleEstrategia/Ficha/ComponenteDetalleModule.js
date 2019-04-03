@@ -113,7 +113,8 @@
             console.log('res', res);
             
             if (res.success) {
-                componente.Secciones = res.data;
+                componente.Cabecera = res.data.Cabecera;
+                componente.Secciones = res.data.Secciones;
                 _util.mostrarModal(componente);
             }
             
