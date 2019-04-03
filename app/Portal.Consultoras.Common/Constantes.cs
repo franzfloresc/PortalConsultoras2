@@ -473,7 +473,7 @@ namespace Portal.Consultoras.Common
             public const string MSPersonalizacionConfig = "MSPersonalizacion";
 
             public const string NivelConsultoraCaminoBrillante = "NivelConsultoraCaminoBrillante";
-
+            public const string OfertasCaminoBrillante = "OfertasCaminoBrillante";
         }
 
         public static class ConfiguracionManager
@@ -3601,7 +3601,7 @@ namespace Portal.Consultoras.Common
             public static class Beneficios {
 
                 private static Dictionary<string, string> _Iconos;
-                private static string path = "CAMINOBRILLANTE/BENEFICIOS/{1}";
+                private static string path = "CAMINOBRILLANTE/BENEFICIOS/{0}";
 
                 public static Dictionary<string, string> Iconos
                 {

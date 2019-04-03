@@ -133,13 +133,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 #region Camino al Exito
                 model.TieneCaminoBrillante = userData.CaminoBrillante;
-                model.TieneCaminoBrillante = userData.CaminoBrillante;
                 var NivelCaminoBrillante = _caminoBrillanteProvider.ObtenerNivelActualConsultora();
                 if (NivelCaminoBrillante != null)
                 {
                     model.CaminoBrillanteMsg = userData.CaminoBrillanteMsg.Replace("{0}", "<b>" + NivelCaminoBrillante.DescripcionNivel + "</b>");
-                    model.UrlLogoCaminoBrillante = NivelCaminoBrillante.UrlImagenNivel.Replace("{DIMEN}", "MDPI");
-                    model.UrlLogoCaminoBrillante = model.UrlLogoCaminoBrillante.Replace("{STATE}", "A");
+
+                    model.UrlLogoCaminoBrillante = Constantes.CaminoBrillante.Niveles.Iconos.Keys.Contains(NivelCaminoBrillante.CodigoNivel) ? Constantes.CaminoBrillante.Niveles.Iconos[NivelCaminoBrillante.CodigoNivel][1] : "";
                 }
 
                 var LogicaCaminoExisto = _tablaLogica.GetTablaLogicaDatos(userData.PaisID, Constantes.TablaLogica.EscalaDescuentoMobile);

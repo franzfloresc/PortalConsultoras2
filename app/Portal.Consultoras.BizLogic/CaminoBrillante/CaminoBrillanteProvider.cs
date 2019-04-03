@@ -73,7 +73,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             bool flag = campania != "";
             if (!flag) return result;
             string urlParameters = string.Format("{0}/{1}", isoPais, campania);
-            string jsonString = await CallInformacionComercialServices(Url, urlParameters, Token);
+            string jsonString = await CallInformacionComercialServices(Url + Constantes.CaminoBrillante.ServicioComercial.GetOfertas, urlParameters, Token);
             result = JsonConvert.DeserializeObject<List<OfertaCaminoBrillante>>(jsonString) as List<OfertaCaminoBrillante>;
             return result;
         }
