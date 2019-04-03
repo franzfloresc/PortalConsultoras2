@@ -1,7 +1,7 @@
 ﻿USE BelcorpBolivia
 GO
 
-CREATE PROCEDURE dbo.ObtenerComunicadoPorConsultora @CodigoConsultora VARCHAR(20)
+ALTER PROCEDURE dbo.ObtenerComunicadoPorConsultora @CodigoConsultora VARCHAR(20)
 	,@TipoDispositivo SMALLINT = 1
 AS
 BEGIN
@@ -112,7 +112,7 @@ GO
 USE BelcorpChile
 GO
 
-CREATE PROCEDURE dbo.ObtenerComunicadoPorConsultora @CodigoConsultora VARCHAR(20)
+ALTER PROCEDURE dbo.ObtenerComunicadoPorConsultora @CodigoConsultora VARCHAR(20)
 	,@TipoDispositivo SMALLINT = 1
 AS
 BEGIN
@@ -223,7 +223,7 @@ GO
 USE BelcorpColombia
 GO
 
-CREATE PROCEDURE dbo.ObtenerComunicadoPorConsultora @CodigoConsultora VARCHAR(20)
+ALTER PROCEDURE dbo.ObtenerComunicadoPorConsultora @CodigoConsultora VARCHAR(20)
 	,@TipoDispositivo SMALLINT = 1
 AS
 BEGIN
@@ -334,7 +334,7 @@ GO
 USE BelcorpCostaRica
 GO
 
-CREATE PROCEDURE dbo.ObtenerComunicadoPorConsultora @CodigoConsultora VARCHAR(20)
+ALTER PROCEDURE dbo.ObtenerComunicadoPorConsultora @CodigoConsultora VARCHAR(20)
 	,@TipoDispositivo SMALLINT = 1
 AS
 BEGIN
@@ -445,7 +445,7 @@ GO
 USE BelcorpDominicana
 GO
 
-CREATE PROCEDURE dbo.ObtenerComunicadoPorConsultora @CodigoConsultora VARCHAR(20)
+ALTER PROCEDURE dbo.ObtenerComunicadoPorConsultora @CodigoConsultora VARCHAR(20)
 	,@TipoDispositivo SMALLINT = 1
 AS
 BEGIN
@@ -556,7 +556,7 @@ GO
 USE BelcorpEcuador
 GO
 
-CREATE PROCEDURE dbo.ObtenerComunicadoPorConsultora @CodigoConsultora VARCHAR(20)
+ALTER PROCEDURE dbo.ObtenerComunicadoPorConsultora @CodigoConsultora VARCHAR(20)
 	,@TipoDispositivo SMALLINT = 1
 AS
 BEGIN
@@ -667,7 +667,7 @@ GO
 USE BelcorpGuatemala
 GO
 
-CREATE PROCEDURE dbo.ObtenerComunicadoPorConsultora @CodigoConsultora VARCHAR(20)
+ALTER PROCEDURE dbo.ObtenerComunicadoPorConsultora @CodigoConsultora VARCHAR(20)
 	,@TipoDispositivo SMALLINT = 1
 AS
 BEGIN
@@ -778,7 +778,7 @@ GO
 USE BelcorpMexico
 GO
 
-CREATE PROCEDURE dbo.ObtenerComunicadoPorConsultora @CodigoConsultora VARCHAR(20)
+ALTER PROCEDURE dbo.ObtenerComunicadoPorConsultora @CodigoConsultora VARCHAR(20)
 	,@TipoDispositivo SMALLINT = 1
 AS
 BEGIN
@@ -889,7 +889,7 @@ GO
 USE BelcorpPanama
 GO
 
-CREATE PROCEDURE dbo.ObtenerComunicadoPorConsultora @CodigoConsultora VARCHAR(20)
+ALTER PROCEDURE dbo.ObtenerComunicadoPorConsultora @CodigoConsultora VARCHAR(20)
 	,@TipoDispositivo SMALLINT = 1
 AS
 BEGIN
@@ -1000,7 +1000,7 @@ GO
 USE BelcorpPeru
 GO
 
-CREATE PROCEDURE dbo.ObtenerComunicadoPorConsultora @CodigoConsultora VARCHAR(20)
+ALTER PROCEDURE dbo.ObtenerComunicadoPorConsultora @CodigoConsultora VARCHAR(20)
 	,@TipoDispositivo SMALLINT = 1
 AS
 BEGIN
@@ -1111,7 +1111,7 @@ GO
 USE BelcorpPuertoRico
 GO
 
-CREATE PROCEDURE dbo.ObtenerComunicadoPorConsultora @CodigoConsultora VARCHAR(20)
+ALTER PROCEDURE dbo.ObtenerComunicadoPorConsultora @CodigoConsultora VARCHAR(20)
 	,@TipoDispositivo SMALLINT = 1
 AS
 BEGIN
@@ -1222,7 +1222,7 @@ GO
 USE BelcorpSalvador
 GO
 
-CREATE PROCEDURE dbo.ObtenerComunicadoPorConsultora @CodigoConsultora VARCHAR(20)
+ALTER PROCEDURE dbo.ObtenerComunicadoPorConsultora @CodigoConsultora VARCHAR(20)
 	,@TipoDispositivo SMALLINT = 1
 AS
 BEGIN
