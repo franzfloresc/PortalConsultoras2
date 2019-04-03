@@ -817,9 +817,9 @@ var FichaModule = (function (config) {
     }
 
     var _construirSeccionFicha = function () {
-        _config.esMobile = _config.generalModule.isMobile();
-        _getModelo();
+        _modeloFicha = _getModelo();
 
+        _config.esMobile = _config.generalModule.isMobile();
         _config.tieneSession = _modeloFicha.TieneSession;
         _config.palanca = _modeloFicha.Palanca || _config.palanca;
         _config.origen = _modeloFicha.OrigenUrl || _config.origen;
@@ -851,36 +851,47 @@ var FichaModule = (function (config) {
 
     var _getModelo = function () {
 
-        var paramsObtenerModelo = {};
-        paramsObtenerModelo.palanca = _config.palanca;
-        paramsObtenerModelo.campaniaId = _config.campania;
-        paramsObtenerModelo.cuv = _config.cuv;
-        paramsObtenerModelo.origen = _config.origen;
-        paramsObtenerModelo.esEditable = _config.esEditable;
+        //var paramsObtenerModelo = {};
+        //paramsObtenerModelo.palanca = _config.palanca;
+        //paramsObtenerModelo.campaniaId = _config.campania;
+        //paramsObtenerModelo.cuv = _config.cuv;
+        //paramsObtenerModelo.origen = _config.origen;
+        //paramsObtenerModelo.esEditable = _config.esEditable;
 
         var modeloFicha = {};
 
         _config.detalleEstrategiaProvider
-            .promiseObternerModelo(paramsObtenerModelo)
+            .promiseObternerModelo({
+                palanca: _config.palanca,
+                campaniaId: _config.campania,
+                cuv: _config.cuv,
+                origen: _config.origen,
+                esEditable: _config.esEditable
+            })
             .done(function (data) {
                 modeloFicha = data.data || {};
                 modeloFicha.Error = data.success === false;
             })
             .fail(function (data, error) {
-                modeloFicha = {};
+                //modeloFicha = {};
                 modeloFicha.Error = true;
             });
 
-        _modeloFicha = modeloFicha;
+        //_modeloFicha = modeloFicha;
 
         if (modeloFicha.Error === true) {
             //_redireccionar("_getModelo, promiseObternerModelo");
             throw "_getModelo, promiseObternerModelo";
-            return false;
+            //return false;
         }
 
-        _modeloFicha.ConfiguracionContenedor = _modeloFicha.ConfiguracionContenedor || {};
-        _modeloFicha.BreadCrumbs = _modeloFicha.BreadCrumbs || {};
+        //_modeloFicha.ConfiguracionContenedor = _modeloFicha.ConfiguracionContenedor || {};
+        //_modeloFicha.BreadCrumbs = _modeloFicha.BreadCrumbs || {};
+
+        modeloFicha.ConfiguracionContenedor = modeloFicha.ConfiguracionContenedor || {};
+        modeloFicha.BreadCrumbs = modeloFicha.BreadCrumbs || {};
+
+        return modeloFicha;
     };
 
     ////// Fin - Construir Estructura Ficha
