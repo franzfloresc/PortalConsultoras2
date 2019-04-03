@@ -179,6 +179,9 @@ body {
     border-bottom: none !important;
     padding: 0px;
     margin: 0px;
+    display: flex;
+    align-items: center;
+    -webkit-flex-flow: row wrap;
 }
 
 .detalle_producto:last-child {
@@ -206,8 +209,20 @@ body {
     line-height: 1.27;
     padding-bottom: 11px;
     width: 100%;
-    padding-top: 5px;
+    /*padding-top: 5px;*/
 }
+
+.ganancia {
+    color: #b9007e !important;
+}
+.content_right_ficha .tono_select_opt {
+    margin-top: 10px;
+}
+
+.content_right_ficha {
+    width: 100% !important
+}
+
 
 .cantidad_descripcion_detalle:last-child {
     padding-bottom: 0;
@@ -1187,6 +1202,68 @@ ul.breadcumbs li a::before {
     width: 100%;
     height: 200px;
 }
+
+.button_ver_detalle {
+    font-size: 13.5px;
+    font-weight: bold;
+    margin-left: auto;
+    position: relative;
+    padding-right: 25px;
+}
+
+    .button_ver_detalle img {
+        top: 1px;
+        width: 21px;
+        transform: rotate(-90deg);
+        right: 7px;
+        position: absolute;
+
+    }
+
+
+.items_video .vido{
+    margin-bottom: 15px;
+}
+
+.ficha_content_left {
+    width: 55%;
+    box-sizing: border-box;
+    padding: 0 30px;
+    float: left;
+    height: 250px;
+    display: flex;
+    align-items: end;
+}
+
+.ficha_content_rigth {
+    width: 45%;
+    box-sizing: border-box;
+    padding: 0 30px;
+    float:left;
+    text-align: center
+}
+
+.precio_cliente{
+    font-size: 14px;
+    margin-top:10px;
+}
+
+.precio_cliente span{
+    font-weight: bold;
+}
+
+.popup_ficha_tabs{
+    margin-top:80px;
+}
+
+.producto_detalle_content {
+    margin-top: 30px;
+}
+
+.contents_ficha_tab.active .label_tab {
+    color: #b9007e;
+}
+
 
 
 

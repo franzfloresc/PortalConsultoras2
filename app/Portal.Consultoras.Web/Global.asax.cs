@@ -61,6 +61,7 @@ namespace Portal.Consultoras.Web
 
         protected void Session_Start(object sender, EventArgs e)
         {
+            //
         }
 
         private void Application_BeginRequest(object sender, EventArgs e)
@@ -86,13 +87,4 @@ namespace Portal.Consultoras.Web
             }
         }
     }
-
-    //public class PreApplicationStart
-    //{
-    //    public static void Start()
-    //    {
-
-    //        Microsoft.Web.Infrastructure.DynamicModuleHelper.DynamicModuleUtility.RegisterModule(typeof(Portal.Consultoras.Common.JwtModule));
-    //    }
-    //}
 }

@@ -93,10 +93,9 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpGet]
         public async Task<JsonResult> ConfiguracionSeccionApp(int configuracionPaisID)
         {
-            var lst = new List<ConfiguracionPaisDatosModel>();
-
             try
             {
+                List<ConfiguracionPaisDatosModel> lst;
                 using (var svc = new UsuarioServiceClient())
                 {
                     var result = await svc.GetConfiguracionPaisDatosAllAsync(new ServiceUsuario.BEConfiguracionPaisDatos()
@@ -412,10 +411,10 @@ namespace Portal.Consultoras.Web.Controllers
         private AdministrarOfertasHomeModel UpdateFilesOfertas(AdministrarOfertasHomeModel model)
         {
             var resizeImagenApp = false;
-            var entidad = new BEConfiguracionOfertasHome();
 
             if (model.ConfiguracionPaisID != 0)
             {
+                BEConfiguracionOfertasHome entidad;
                 using (var sv = new SACServiceClient())
                 {
                     entidad = sv.GetConfiguracionOfertasHome(userData.PaisID, model.ConfiguracionOfertasHomeID);

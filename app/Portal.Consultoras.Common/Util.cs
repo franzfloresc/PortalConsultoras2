@@ -2599,9 +2599,9 @@ namespace Portal.Consultoras.Common
             string iso;
             try
             {
-                iso =  (from c in listaPaises
-                        where c.Key == paisID.ToString()
-                        select c.Value).SingleOrDefault();
+                iso = (from c in listaPaises
+                       where c.Key == paisID.ToString()
+                       select c.Value).SingleOrDefault();
             }
             catch (Exception)
             {
@@ -3333,7 +3333,7 @@ namespace Portal.Consultoras.Common
                 response = (HttpWebResponse)request.GetResponse();
                 result = true;
             }
-            catch (WebException webException)
+            catch (WebException)
             {
                 LogManager.SaveLog(new Exception("URL " + url + " no encontrada"), "", "");
                 result = false;
@@ -3585,7 +3585,7 @@ namespace Portal.Consultoras.Common
 
             return result;
         }
-     
+
         public static class Security
         {
             public static string ToMd5(string input)
@@ -3784,7 +3784,7 @@ namespace Portal.Consultoras.Common
             return result;
         }
 
-        public static string obtenerCodigoOrigenWeb(string codigoEstrategia,string codigoTipoEstrategia,
+        public static string obtenerCodigoOrigenWeb(string codigoEstrategia, string codigoTipoEstrategia,
             int marcaId, bool mobile, bool home, bool recomendaciones, bool materialGanancia, bool suscripcion)
 
         {
@@ -3794,40 +3794,40 @@ namespace Portal.Consultoras.Common
             {
                 case "LIQ":
                     result = home ?
-                        (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorLiquidacionDesplegableBuscador.ToString() : 
+                        (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorLiquidacionDesplegableBuscador.ToString() :
                             Constantes.OrigenPedidoWeb.DesktopBuscadorLiquidacionDesplegableBuscador.ToString())
                         :
-                        (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorLiquidacionCarrusel.ToString() : 
+                        (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorLiquidacionCarrusel.ToString() :
                             Constantes.OrigenPedidoWeb.DesktopLandingBuscadorLiquidacionCarrusel.ToString());
                     break;
                 case "CAT":
                     result = home ?
-                        ((marcaId == 1 ? (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorCatalogoLbelDesplegableBuscador.ToString() : 
+                        ((marcaId == 1 ? (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorCatalogoLbelDesplegableBuscador.ToString() :
                                 Constantes.OrigenPedidoWeb.DesktopBuscadorCatalogoLbelDesplegableBuscador.ToString()) :
-                        (marcaId == 2 ? (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorCatalogoEsikaDesplegableBuscador.ToString() : 
+                        (marcaId == 2 ? (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorCatalogoEsikaDesplegableBuscador.ToString() :
                                 Constantes.OrigenPedidoWeb.DesktopBuscadorCatalogoEsikaDesplegableBuscador.ToString()) :
-                        (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorCatalogoCyzoneDesplegableBuscador.ToString() : 
+                        (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorCatalogoCyzoneDesplegableBuscador.ToString() :
                             Constantes.OrigenPedidoWeb.DesktopBuscadorCatalogoCyzoneDesplegableBuscador.ToString()))))
                         :
-                         ((marcaId == 1 ? (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorCatalogoLbelCarrusel.ToString() : 
+                         ((marcaId == 1 ? (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorCatalogoLbelCarrusel.ToString() :
                                  Constantes.OrigenPedidoWeb.DesktopLandingBuscadorCatalogoLbelCarrusel.ToString()) :
-                        (marcaId == 2 ? (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorCatalogoEsikaCarrusel.ToString() : 
+                        (marcaId == 2 ? (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorCatalogoEsikaCarrusel.ToString() :
                                 Constantes.OrigenPedidoWeb.DesktopLandingBuscadorCatalogoEsikaCarrusel.ToString()) :
-                        (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorCatalogoCyzoneCarrusel.ToString() : 
+                        (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorCatalogoCyzoneCarrusel.ToString() :
                             Constantes.OrigenPedidoWeb.DesktopLandingBuscadorCatalogoCyzoneCarrusel.ToString()))));
                     break;
                 default:
                     switch (codigoTipoEstrategia)
                     {
                         case Constantes.TipoEstrategiaCodigo.ShowRoom:
-                            result = recomendaciones ? 
-                                (mobile ? Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoShowRoom.ToString() : 
-                                    Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoShowRoom.ToString()) 
+                            result = recomendaciones ?
+                                (mobile ? Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoShowRoom.ToString() :
+                                    Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoShowRoom.ToString())
                                 : home ?
-                                (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorShowroomDesplegableBuscador.ToString() : 
+                                (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorShowroomDesplegableBuscador.ToString() :
                                     Constantes.OrigenPedidoWeb.DesktopBuscadorShowroomDesplegableBuscador.ToString())
                                 :
-                                (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorShowroomCarrusel.ToString() : 
+                                (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorShowroomCarrusel.ToString() :
                                     Constantes.OrigenPedidoWeb.DesktopLandingBuscadorShowroomCarrusel.ToString());
                             break;
                         case Constantes.TipoEstrategiaCodigo.Lanzamiento:
@@ -3835,16 +3835,16 @@ namespace Portal.Consultoras.Common
                                 (mobile ? Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoLan.ToString() :
                                     Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoLan.ToString())
                                 : home ?
-                                (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorLanzamientosDesplegableBuscador.ToString() : 
+                                (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorLanzamientosDesplegableBuscador.ToString() :
                                     Constantes.OrigenPedidoWeb.DesktopBuscadorLanzamientosDesplegableBuscador.ToString())
                                 :
-                                (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorLanzamientosCarrusel.ToString() : 
+                                (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorLanzamientosCarrusel.ToString() :
                                     Constantes.OrigenPedidoWeb.DesktopLandingBuscadorLanzamientosCarrusel.ToString());
                             break;
                         case Constantes.TipoEstrategiaCodigo.OfertaParaTi:
                         case Constantes.TipoEstrategiaCodigo.OfertasParaMi:
                         case Constantes.TipoEstrategiaCodigo.PackAltoDesembolso:
-                            result = recomendaciones && materialGanancia ? 
+                            result = recomendaciones && materialGanancia ?
                                     (mobile ? Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoGanadoras.ToString() :
                                     Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoGanadoras.ToString())
                                 : materialGanancia && suscripcion ? (home ?
@@ -3857,10 +3857,10 @@ namespace Portal.Consultoras.Common
                                 (mobile ? Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoOpm.ToString() :
                                     Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoOpm.ToString())
                                 : home ?
-                                (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorOfertasParaTiDesplegableBuscador.ToString() : 
+                                (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorOfertasParaTiDesplegableBuscador.ToString() :
                                     Constantes.OrigenPedidoWeb.DesktopBuscadorOfertasParaTiDesplegableBuscador.ToString())
                                 :
-                                (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorOfertasParaTiCarrusel.ToString() : 
+                                (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorOfertasParaTiCarrusel.ToString() :
                                     Constantes.OrigenPedidoWeb.DesktopLandingBuscadorOfertasParaTiCarrusel.ToString());
                             break;
                         case Constantes.TipoEstrategiaCodigo.OfertaDelDia:
@@ -3868,18 +3868,18 @@ namespace Portal.Consultoras.Common
                                 (mobile ? Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoOdd.ToString() :
                                     Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoOdd.ToString())
                                 : home ?
-                                 (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorOfertaDelDiaDesplegableBuscador.ToString() : 
+                                 (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorOfertaDelDiaDesplegableBuscador.ToString() :
                                      Constantes.OrigenPedidoWeb.DesktopBuscadorOfertaDelDiaDesplegableBuscador.ToString())
                                  :
-                                 (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorOfertaDelDiaCarrusel.ToString() : 
+                                 (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorOfertaDelDiaCarrusel.ToString() :
                                      Constantes.OrigenPedidoWeb.DesktopLandingBuscadorOfertaDelDiaCarrusel.ToString());
                             break;
                         case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
                             result = home ?
-                                (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorGNDDesplegableBuscador.ToString() : 
+                                (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorGNDDesplegableBuscador.ToString() :
                                     Constantes.OrigenPedidoWeb.DesktopBuscadorGNDDesplegableBuscador.ToString())
                                 :
-                                (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorGNDCarrusel.ToString() : 
+                                (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorGNDCarrusel.ToString() :
                                     Constantes.OrigenPedidoWeb.DesktopLandingBuscadorGNDCarrusel.ToString());
                             break;
                         case Constantes.TipoEstrategiaCodigo.HerramientasVenta:
@@ -3887,10 +3887,10 @@ namespace Portal.Consultoras.Common
                                 (mobile ? Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoHv.ToString() :
                                     Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoHv.ToString())
                                 : home ?
-                               (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorHerramientasdeVentaDesplegableBuscador.ToString() : 
+                               (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorHerramientasdeVentaDesplegableBuscador.ToString() :
                                    Constantes.OrigenPedidoWeb.DesktopBuscadorHerramientasdeVentaDesplegableBuscador.ToString())
                                :
-                               (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorHerramientasDeVentaCarrusel.ToString() : 
+                               (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorHerramientasDeVentaCarrusel.ToString() :
                                    Constantes.OrigenPedidoWeb.DesktopLandingBuscadorHerramientasDeVentaCarrusel.ToString());
                             break;
                     }
@@ -3904,20 +3904,26 @@ namespace Portal.Consultoras.Common
         public static string GetTipoPersonalizacionByCodigoEstrategia(string codigoEstrategia)
         {
             var tipoPersonalizacion = string.Empty;
-
+            
             switch (codigoEstrategia)
             {
-                case Constantes.TipoEstrategiaCodigo.Lanzamiento:
-                    tipoPersonalizacion = Constantes.TipoPersonalizacion.Lanzamiento;
-                    break;
                 case Constantes.TipoEstrategiaCodigo.OfertaParaTi:
                     tipoPersonalizacion = Constantes.TipoPersonalizacion.OfertaParaTi;
+                    break;
+                case Constantes.TipoEstrategiaCodigo.ArmaTuPack:
+                    tipoPersonalizacion = Constantes.TipoPersonalizacion.ArmaTuPack;
+                    break;
+                case Constantes.TipoEstrategiaCodigo.Lanzamiento:
+                    tipoPersonalizacion = Constantes.TipoPersonalizacion.Lanzamiento;
                     break;
                 case Constantes.TipoEstrategiaCodigo.OfertasParaMi:
                     tipoPersonalizacion = Constantes.TipoPersonalizacion.OfertasParaMi;
                     break;
                 case Constantes.TipoEstrategiaCodigo.PackAltoDesembolso:
                     tipoPersonalizacion = Constantes.TipoPersonalizacion.PackAltoDesembolso;
+                    break;
+                case Constantes.TipoEstrategiaCodigo.OfertaDelDia:
+                    tipoPersonalizacion = Constantes.TipoPersonalizacion.OfertaDelDia;
                     break;
                 case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
                     tipoPersonalizacion = Constantes.TipoPersonalizacion.GuiaDeNegocioDigitalizada;
@@ -3928,11 +3934,8 @@ namespace Portal.Consultoras.Common
                 case Constantes.TipoEstrategiaCodigo.ShowRoom:
                     tipoPersonalizacion = Constantes.TipoPersonalizacion.ShowRoom;
                     break;
-                case Constantes.TipoEstrategiaCodigo.OfertaDelDia:
-                    tipoPersonalizacion = Constantes.TipoPersonalizacion.OfertaDelDia;
-                    break; 
-                case Constantes.TipoEstrategiaCodigo.ArmaTuPack:
-                    tipoPersonalizacion = Constantes.TipoPersonalizacion.ArmaTuPack;
+                case Constantes.TipoEstrategiaCodigo.RevistaDigital:
+                    tipoPersonalizacion = Constantes.ConfiguracionPais.RevistaDigital;
                     break;
                 default:
                     break;
@@ -3978,6 +3981,100 @@ namespace Portal.Consultoras.Common
 
             return result;
         }
+
+        public static string DecryptCryptoJs(string CipherText, string Password, string Salt, string Key, string Iv)
+        {
+            var cipherText = Convert.FromBase64String(CipherText);
+            var password = Encoding.UTF8.GetBytes(Password);
+            var salt = Convert.FromBase64String(Salt);
+
+            var crypto = new SimpleCrypto(password, salt);
+
+            var iv = Convert.FromBase64String(Iv);
+            if (!Enumerable.SequenceEqual(iv, crypto.IV))
+            {
+                throw new Exception("IVs do not match");
+            }
+
+            var key = Convert.FromBase64String(Key);
+            if (!Enumerable.SequenceEqual(key, crypto.Key))
+            {
+                throw new Exception("Keys do not match");
+            }
+
+            var plainText = crypto.Decrypt(cipherText);
+
+            return Encoding.UTF8.GetString(plainText);
+        }
+    }
+
+    public class SimpleCrypto
+    {
+        private readonly Encoding encoder = Encoding.Default;
+        private readonly SymmetricAlgorithm algorithm;
+
+        private const int ivBitLength = 128;
+        private const int keyBitLength = 256;
+
+        private const int Iterations = 1000;
+
+        public SimpleCrypto(byte[] password, byte[] salt)
+        {
+            algorithm = Rijndael.Create();
+            algorithm.Padding = PaddingMode.PKCS7;
+            algorithm.Mode = CipherMode.CBC;
+            algorithm.BlockSize = 128;
+            algorithm.KeySize = 256;
+
+            using (var rfc2898DeriveBytes = new Rfc2898DeriveBytes(password, salt, Iterations))
+            {
+                algorithm.IV = rfc2898DeriveBytes.GetBytes(ivBitLength / 8);
+                algorithm.Key = rfc2898DeriveBytes.GetBytes(keyBitLength / 8);
+            }
+        }
+
+        public byte[] IV
+        {
+            get { return algorithm.IV; }
+        }
+
+        public byte[] Key
+        {
+            get { return algorithm.Key; }
+        }
+
+        private static byte[] Transform(byte[] bytes, Func<ICryptoTransform> selectCryptoTransform)
+        {
+            using (var memoryStream = new MemoryStream())
+            {
+                using (var cryptoStream = new CryptoStream(memoryStream, selectCryptoTransform(), CryptoStreamMode.Write))
+                {
+                    cryptoStream.Write(bytes, 0, bytes.Length);
+                }
+                return memoryStream.ToArray();
+            }
+        }
+
+        public string Encrypt(string unencrypted)
+        {
+            return Convert.ToBase64String(Encrypt(encoder.GetBytes(unencrypted)));
+        }
+
+        public string Decrypt(string encrypted)
+        {
+            return encoder.GetString(Decrypt(Convert.FromBase64String(encrypted)));
+        }
+
+        public byte[] Encrypt(byte[] buffer)
+        {
+            return Transform(buffer, algorithm.CreateEncryptor);
+        }
+
+        public byte[] Decrypt(byte[] buffer)
+        {
+            return Transform(buffer, algorithm.CreateDecryptor);
+        }
+
     }
 
     public static class DataRecord
@@ -4215,7 +4312,7 @@ namespace Portal.Consultoras.Common
             return valorDefecto;
         }
 
-        #endregion
+        #endregion        
     }
 
     public static class LinqExtensions
@@ -4228,5 +4325,4 @@ namespace Portal.Consultoras.Common
             }
         }
     }
-
 }

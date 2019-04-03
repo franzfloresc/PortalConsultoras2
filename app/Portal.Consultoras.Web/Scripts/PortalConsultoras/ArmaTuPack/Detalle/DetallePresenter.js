@@ -18,9 +18,9 @@
         }
     };
 
-    var _getEstrategia = function(){
-        var estrategia = { IsMobile : false };
-        if($(_elementos.dataEstrategia.id).length > 0){
+    var _getEstrategia = function () {
+        var estrategia = { IsMobile: false };
+        if ($(_elementos.dataEstrategia.id).length > 0) {
             var strJson = $(_elementos.dataEstrategia.id).attr(_elementos.dataEstrategia.dataEstrategia) || "";
             estrategia = JSON.parse(strJson);
         }
@@ -37,7 +37,7 @@
             codigoEstrategia: estrategia.CodigoEstrategia
         };
 
-        var urlReturn = !estrategia.IsMobile ? "/ofertas" : "mobile/ofertas";
+        var urlReturn = !estrategia.IsMobile ? "/ofertas" : "/mobile/ofertas";
 
         _config.armaTuPackProvider
             .getPackComponentsPromise(params)
@@ -46,18 +46,20 @@
                 if (typeof data === "undefined" || data === null ||
                     !Array.isArray(data.componentes) || data.componentes.length === 0) {
                     _config.generalModule.redirectTo(urlReturn);
+                    return false;
                 }
                 var dataClone = jQuery.extend(true, {}, data);
 
                 $.each(data.componentes, function (idx, grupo) {
-                    if (grupo.Hermanos === "undefined" || grupo.Hermanos === null || grupo.Hermanos.length === 0) {
+                    if (typeof grupo.Hermanos === "undefined" || grupo.Hermanos === null || 
+                    !Array.isArray(grupo.Hermanos) || grupo.Hermanos.length === 0) {
                         $.each(dataClone.componentes, function (idxClone, grupoClone) {
                             if (grupo.Grupo === grupoClone.Grupo) {
                                 dataClone.componentes.splice(idxClone, 1);
-                                return;
+                                return false;
                             }
                         });
-                    };
+                    }
                 });
 
                 _config.armaTuPackDetalleEvents.applyChanges(_config.armaTuPackDetalleEvents.eventName.onGruposLoaded, dataClone);
@@ -72,6 +74,6 @@
     };
 
     return {
-        init : _init
+        init: _init
     };
 };

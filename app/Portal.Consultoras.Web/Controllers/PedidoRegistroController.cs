@@ -50,8 +50,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 var producto = olstProducto[0];
-
-                //var strCuv = CUV;
+                
                 int outVal;
 
                 var pedidoCrudModel = new PedidoCrudModel();
@@ -142,7 +141,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                string mensaje = "", urlRedireccionar = "";//, CuvSet = string.Empty;
+                string mensaje = "", urlRedireccionar = "";
                 BEPedidoDetalle pedidoDetalle = new BEPedidoDetalle();
                 pedidoDetalle.Producto = new ServicePedido.BEProducto();
                 model.CuvTonos = Util.Trim(model.CuvTonos);
@@ -181,7 +180,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     var tonos = model.CuvTonos.Split('|');
                     var cuvTonos = new StringBuilder();
-                    //string cuvTonos = "";
+                    
                     foreach (var tono in tonos)
                     {
                         var listSp = tono.Split(';');
@@ -248,6 +247,7 @@ namespace Portal.Consultoras.Web.Controllers
                 pedidoDetalle.Producto.CUV = Util.Trim(model.CuvTonos);
                 pedidoDetalle.Producto.IndicadorMontoMinimo = string.IsNullOrEmpty(model.IndicadorMontoMinimo) ? 0 : Convert.ToInt32(model.IndicadorMontoMinimo);
                 pedidoDetalle.Producto.FlagNueva = model.FlagNueva == "" ? "0" : model.FlagNueva;
+                pedidoDetalle.Producto.Descripcion = model.DescripcionProd ?? "";
                 pedidoDetalle.Usuario = Mapper.Map<ServicePedido.BEUsuario>(userData);
                 pedidoDetalle.Cantidad = Convert.ToInt32(model.Cantidad);
                 pedidoDetalle.PaisID = userData.PaisID;
@@ -327,7 +327,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public async Task<JsonResult> AgergarPremioDefault()
         {
-            var premios =_programaNuevasProvider.GetListPremioElectivo();
+            var premios = _programaNuevasProvider.GetListPremioElectivo();
             var premioSelected = GetPremioSelected(premios);
 
             if (premioSelected != null) return Json(false);
@@ -389,8 +389,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult UpdateTransaction(PedidoWebDetalleModel model)
         {
-            //string tipo = string.Empty;
-            //string totalFormato = string.Empty;
             var txtBuildCliente = new StringBuilder();
 
 
@@ -526,10 +524,6 @@ namespace Portal.Consultoras.Web.Controllers
             var total = olstPedidoWebDetalle.Sum(p => p.ImporteTotal);
             var formatoTotal = Util.DecimalToStringFormat(total, userData.CodigoISO);
 
-            //var formatoTotalCliente = "";
-            //if (olstPedidoWebDetalle.Any()) formatoTotalCliente = PedidoWebTotalClienteFormato(ClienteID, olstPedidoWebDetalle);
-            //var listaCliente = ListarClienteSegunPedido("", olstPedidoWebDetalle);
-
             SessionManager.SetBEEstrategia(Constantes.ConstSession.ListaEstrategia, null);
 
             var message = !errorServer ? "OK"
@@ -544,8 +538,6 @@ namespace Portal.Consultoras.Web.Controllers
                 message,
                 formatoTotal,
                 total,
-                //formatoTotalCliente,
-                //listaCliente,
                 tipo,
                 EsAgregado,
                 DataBarra = !errorServer ? GetDataBarra() : new BarraConsultoraModel(),

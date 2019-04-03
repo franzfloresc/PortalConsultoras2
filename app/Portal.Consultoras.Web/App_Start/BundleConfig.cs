@@ -415,8 +415,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js",
                 "~/Scripts/PortalConsultoras/Pedido/tooltip.js",
-                "~/Scripts/PortalConsultoras/Pedido/KitNuevas.js",
-                "~/Scripts/PortalConsultoras/ProductoRecomendado/ProductoRecomendadoModule.js"
+                "~/Scripts/PortalConsultoras/ProductoRecomendado/ProductoRecomendadoModule.js",
+                "~/Scripts/PortalConsultoras/Pedido/KitNuevas.js"
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/PedidoValidado").Include(
@@ -469,8 +469,11 @@ namespace Portal.Consultoras.Web
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mixto/Js-Login").Include(
                "~/Scripts/General.js",
                "~/Scripts/PortalConsultoras/Login/Analytics.js",
-               "~/Scripts/PortalConsultoras/Login/FormsSignIn.js"
+               "~/Scripts/PortalConsultoras/Login/FormsSignIn.js",
+               "~/Scripts/CryptoJS/aes.js",
+               "~/Scripts/CryptoJS/pbkdf2.js"
             ));
+
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mixto/Login-Header").Include(
                "~/Scripts/PortalConsultoras/Login/Analytics.js"
             ));
@@ -517,8 +520,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Cupon/Cupon.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
                 //"~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js",
-                "~/Scripts/PortalConsultoras/EstrategiaAgregar/PedidoRegistro.js",
                 "~/Scripts/PortalConsultoras/Pedido/tooltip.js",
+                "~/Scripts/PortalConsultoras/EstrategiaAgregar/PedidoRegistro.js",
                 "~/Scripts/PortalConsultoras/Pedido/KitNuevas.js",
                 "~/Scripts/PortalConsultoras/Pedido/barra.js"
             ));
@@ -827,7 +830,8 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Mobile/Ficha/PopoverTooltip.css",
                 "~/Content/Css/Mobile/ProductoListado/CajaProducto.css",
                 "~/Content/Css/Mobile/Ficha/SeleccionarTipo.css",
-                "~/Content/Css/Mobile/Clientes/Asignarcliente.css"
+                "~/Content/Css/Mobile/Clientes/Asignarcliente.css",
+                "~/Content/Css/Mobile/Ficha/FichaEnriquecida.css"
 
             ));
 

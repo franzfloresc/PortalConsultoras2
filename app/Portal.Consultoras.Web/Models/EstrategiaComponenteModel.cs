@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Portal.Consultoras.Web.Models.DetalleEstrategia;
+using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
@@ -30,7 +31,12 @@ namespace Portal.Consultoras.Web.Models
         public string DescripcionPlural { get; set; }
         public string DescripcionSingular { get; set; }
         public string Volumen { get; set; }
+
+        public EstrategiaComponenteCabeceraModel Cabecera { get; set; }
+        public List<EstrategiaComponenteSeccionModel> Secciones { get; set; }
         public List<EstrategiaComponenteModel> Hermanos { get; set; }
+        
+
         public bool TieneStock { get; set; }
 
         //Agana 244

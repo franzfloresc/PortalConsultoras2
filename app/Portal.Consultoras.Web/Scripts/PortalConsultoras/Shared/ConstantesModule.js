@@ -1,6 +1,7 @@
 ﻿
 var ConstantesModule = (function () {
-    var _codigosPalanca = {
+    // antiguo var _codigosPalanca = {
+    var _codigoTipoEstrategiaTexto = {
         OfertaParaTi: "OfertaParaTi",
         PackNuevas: "PackNuevas", // Oferta Nueva Esika
         OfertaWeb: "OfertaWeb",
@@ -40,7 +41,8 @@ var ConstantesModule = (function () {
 
     // es homologo a DB TipoEstrategia, campo Codigo
     // es homologo a constantes.TipoEstrategiaCodigo
-    var _constantesPalanca = {
+    // antiguo var _constantesPalanca = {
+    var _codigoTipoEstrategia = {
         OfertaParaTi: "001",
         PackNuevas: "002",
         OfertaWeb: "003",
@@ -74,15 +76,40 @@ var ConstantesModule = (function () {
         ShowRoom: 1707,
     }
 
-    var _tipoEstrategia = {
+    // es homologo a DB ConfiguracionPais, campo Codigo
+    // es homologo a constantes.ConfiguracionPais
+    // antiguo var _tipoEstrategia = {
+    var _codigoPalanca = {
         RD: "RD",
         HV: "HV",
-        GND: "GN",
+        GND: "GND",
         LAN: "LAN",
         MG: "MG",
         SR: "SR",
         ATP: "ATP"
     }
+
+
+    /// los que no tienen TipoPersonalizacion se pone texto
+    var _TipoEstrategiaTipoPersonalizacion = [
+        { TipoEstrategia: "001", TipoPersonalizacion: "OPT", Nombre: "" },
+        { TipoEstrategia: "002", TipoPersonalizacion: "", Nombre: "PackNueva" },
+        { TipoEstrategia: "003", TipoPersonalizacion: "" },
+        { TipoEstrategia: "004", TipoPersonalizacion: "ATP" },
+        { TipoEstrategia: "005", TipoPersonalizacion: "LAN" },
+        { TipoEstrategia: "006", TipoPersonalizacion: "" },
+        { TipoEstrategia: "007", TipoPersonalizacion: "OPM" },
+        { TipoEstrategia: "008", TipoPersonalizacion: "PAD" },
+        { TipoEstrategia: "009", TipoPersonalizacion: "ODD" },
+        { TipoEstrategia: "010", TipoPersonalizacion: "GND" },
+        { TipoEstrategia: "011", TipoPersonalizacion: "HV" },
+        { TipoEstrategia: "020", TipoPersonalizacion: "", Nombre: "MasVendidos" },
+        { TipoEstrategia: "021", TipoPersonalizacion: "", Nombre: "ProgramaNuevas" },
+        { TipoEstrategia: "022", TipoPersonalizacion: "", Nombre: "Incentivos" },
+        { TipoEstrategia: "030", TipoPersonalizacion: "SR" },
+        { TipoEstrategia: "101", TipoPersonalizacion: "", Nombre: "RevistaDigital" },
+        { TipoEstrategia: "201", TipoPersonalizacion: "", Nombre: "MasGanadoras" }
+    ];
 
     var _urlObtenerEstrategia = {
         OfertaParaTi: "/Estrategia/OPTObtenerProductos",
@@ -192,22 +219,36 @@ var ConstantesModule = (function () {
     var _urlPedido = {
         cargarDetallePedido: '/Pedido/CargarDetallePedido',
         ejecutarServicioProl: '/Pedido/EjecutarServicioPROL',
-        updatePostulanteMensaje:'/Pedido/UpdatePostulanteMensaje'
+        updatePostulanteMensaje: '/Pedido/UpdatePostulanteMensaje'
     }
 
+    var _getTipoPersonalizacionByTipoEstrategia = function (codigoTipoEstrategia) {
+
+        var valor = _TipoEstrategiaTipoPersonalizacion.find(function (element) {
+            return element.TipoEstrategia == codigoTipoEstrategia;
+        });
+
+        if (valor == undefined) {
+            return "";
+        }
+
+        valor.TipoPersonalizacion || valor.Nombre || "";
+    };
+
     return {
-        CodigosPalanca: _codigosPalanca,
+        CodigoPalanca: _codigoPalanca,
+        TipoEstrategia: _codigoTipoEstrategia,
+        TipoEstrategiaTexto: _codigoTipoEstrategiaTexto,
         KeysLocalStorage: _keysLocalStorage,
         CodigoVariedad: _codigoVariedad,
-        ConstantesPalanca: _constantesPalanca,
-        TipoEstrategia: _tipoEstrategia,
-        UrlObtenerEstrategia: _urlObtenerEstrategia,
         OrigenPedidoWeb: _origenPedidoWeb,
         OrigenPedidoWebEstructura: _origenPedidoWebEstructura,
         ConfiguracionOferta: _configuracionOferta,
         TipoAccionNavegar: _tipoAccionNavegar,
         EditarItemPedido: _editarItemPedido,
+        UrlObtenerEstrategia: _urlObtenerEstrategia,
         UrlDetalleEstrategia: _urlDetalleEstrategia,
-        UrlPedido: _urlPedido
+        UrlPedido: _urlPedido,
+        GetTipoPersonalizacionByTipoEstrategia: _getTipoPersonalizacionByTipoEstrategia
     }
 })();

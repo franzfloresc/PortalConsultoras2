@@ -13,10 +13,10 @@
 
     var _urlComponenteDetalle = ConstantesModule.UrlDetalleEstrategia;
     var _codigoVariedad = ConstantesModule.CodigoVariedad;
-    var _codigoPalanca = ConstantesModule.CodigosPalanca;
+    var _tipoEstrategiaTexto = ConstantesModule.TipoEstrategiaTexto;
     var _constantePalanca = ConstantesModule.ConstantesPalanca;
 
-    var _config = {        
+    var _config = {
         ComponenteDetalleProvider: ComponenteDetalleProvider,
         localStorageModule: config.localStorageModule,
         analyticsPortalModule: config.analyticsPortalModule,
@@ -25,12 +25,13 @@
         cuv: config.cuv,
         origen: config.origen
     };
-     
+
     var _template = {
         getTagDataHtml: function (templateId) {
             return "[data-ficha-contenido=" + templateId + "]";
         },
         componenteDetalle: "componenteDetalle-template",
+        componenteDetalleIndividual: "componenteDetalleIndividual-template",
         ContenidoProducto: "#ContenidoProducto",
         BotonVerDetalle: "div[id='btnVerDetalle']",
         MenuDetalleComponente: "#mnuDetalleComponente li a",
@@ -57,16 +58,15 @@
 
     var _util = {
         mostrarModal: function (data) {
-
             _util.setHandlebars(_template.componenteDetalle, data);
 
             this.setAcordionDetalleComponente();//eventos de acordio
             $(_template.ModalProductoDetalle).modal();
 
-            this.fijarCarrusel();
+            this.setCarrusel();
+            this.setYoutubeApi();
         },
-        fijarCarrusel: function () {
-
+        setCarrusel: function () {
             $(_template.CarruselVideo).slick({
                 infinite: false,
                 speed: 300,
@@ -84,54 +84,41 @@
                     $this.attr("class", "tab-link");
                 }
                 else {
-                    $this.attr("class", "active");
-
-
+                    $this.attr("class", "active");                     
                 }
             });
         },
         setHandlebars: function (idTemplate, modelo) {
             SetHandlebars("#" + idTemplate, modelo, _template.getTagDataHtml(idTemplate));
+        },
+        setYoutubeApi: function () {
+            if (youtubeModule) {
+                youtubeModule.Inicializar();
+            }
         }
     };
 
-    var _VerDetalle = function (cuv) {
+    var _VerDetalle = function (componente) {
 
-        var estrategia = _config.localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
+        //var estrategia = _config.localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
+        //console.log('estrategia', estrategia);
 
-        console.log('estrategia', estrategia);
-        console.log('cuv', cuv);
-        console.log('_config', _config);
-
-        _config.ComponenteDetalleProvider.PromiseObternerComponenteDetalle({
-            cuv: cuv
-        }).done(function (res) {
-            console.log('res', res);
-            
-            if (res.success) {
-              
-                _util.mostrarModal(res.data);
-            }
-           
-
-        }).fail(function (data, error) {
-            console.log(data);
-            console.log(error);
-            errorRespuesta = true;
-        });
-
+        console.log('componente', componente);
+         
+        _util.mostrarModal(componente);
+         
     };
-     
+
     var _OcultarControles = function () {
 
-        if (_codigoPalanca.Ganadoras === _config.palanca ||
-            _codigoPalanca.ShowRoom === _config.palanca || /*Especiales*/
-            _codigoPalanca.Lanzamiento === _config.palanca || /*Lo nuevo nuevo*/
-            _codigoPalanca.OfertasParaMi === _config.palanca ||
-            _codigoPalanca.OfertaParaTi === _config.palanca ||
+        if (_tipoEstrategiaTexto.Ganadoras === _config.palanca ||
+            _tipoEstrategiaTexto.ShowRoom === _config.palanca || /*Especiales*/
+            _tipoEstrategiaTexto.Lanzamiento === _config.palanca || /*Lo nuevo nuevo*/
+            _tipoEstrategiaTexto.OfertasParaMi === _config.palanca ||
+            _tipoEstrategiaTexto.OfertaParaTi === _config.palanca ||
 
-            _codigoPalanca.GuiaNegocio === _config.palanca ||
-            _codigoPalanca.GuiaDeNegocioDigitalizada === _config.palanca) {
+            _tipoEstrategiaTexto.GuiaNegocio === _config.palanca ||
+            _tipoEstrategiaTexto.GuiaDeNegocioDigitalizada === _config.palanca) {
 
             _validator.mostrarContenidoProducto(true);
 
@@ -150,7 +137,7 @@
         }
 
     };
- 
+
     return {
         VerDetalle: _VerDetalle,
         OcultarControles: _OcultarControles

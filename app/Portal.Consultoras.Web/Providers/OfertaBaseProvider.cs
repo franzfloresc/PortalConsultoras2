@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.DetalleEstrategia;
 using Portal.Consultoras.Web.Models.Oferta.ResponseOfertaGenerico;
 using Portal.Consultoras.Web.Models.Search.ResponseOferta.Estructura;
 using Portal.Consultoras.Web.SessionManager;
@@ -35,8 +36,16 @@ namespace Portal.Consultoras.Web.Providers
             Task.WhenAll(taskApi);
             Estrategia estrategia = taskApi.Result ?? new Estrategia();
             var modeloEstrategia = new EstrategiaPersonalizadaProductoModel();
-            modeloEstrategia.Hermanos = Mapper.Map<IList<Componente>, List<EstrategiaComponenteModel>>(estrategia.Componentes ?? new List<Componente>());
+            modeloEstrategia.Hermanos = Mapper.Map<IList<Componente>, List<EstrategiaComponenteModel>>(estrategia.Componentes ?? new List<Componente>());            
             return modeloEstrategia;
+        }
+
+        public List<ServiceOferta.BEEstrategia> ObtenerEntidadOfertasDesdeApi(string pathMS, string codigoIso)
+        {
+            var taskApi = Task.Run(() => ObtenerOfertasDesdeApi(pathMS, codigoIso));
+            Task.WhenAll(taskApi);
+            List<ServiceOferta.BEEstrategia> listEstrategia = taskApi.Result ?? new List<ServiceOferta.BEEstrategia>();
+            return listEstrategia;
         }
 
         private async Task<Estrategia> ObtenerOfertaDesdeApi(string cuv, string campaniaId, string tipoPersonalizacion, string codigoIso)
@@ -78,7 +87,7 @@ namespace Portal.Consultoras.Web.Providers
             return estrategia;
         }
 
-        public static async Task<List<ServiceOferta.BEEstrategia>> ObtenerOfertasDesdeApi(string path, string codigoISO)
+        private static async Task<List<ServiceOferta.BEEstrategia>> ObtenerOfertasDesdeApi(string path, string codigoISO)
         {
             List<ServiceOferta.BEEstrategia> estrategias = new List<ServiceOferta.BEEstrategia>();
             HttpResponseMessage httpResponse = await httpClient.GetAsync(path);
@@ -111,8 +120,7 @@ namespace Portal.Consultoras.Web.Providers
                 Common.LogManager.SaveLog(new Exception(respuesta.Message), string.Empty, codigoISO);
                 return estrategias;
             }
-
-            //List<string> listaCuvPrecio0 = new List<string>();
+            
             string codTipoEstrategia = string.Empty, codCampania = string.Empty;
 
             foreach (Models.Search.ResponseOferta.Estructura.Estrategia item in respuesta.Result)
@@ -149,7 +157,6 @@ namespace Portal.Consultoras.Web.Providers
                         TipoEstrategiaImagenMostrar = 6,
                         EsSubCampania = Convert.ToBoolean(item.EsSubCampania) ? 1 : 0,
                         Niveles = item.Niveles,
-                        // TODO: liberar comentario
                         CantidadPack = item.CantidadPack
                     };
                     estrategia.TipoEstrategia = new ServiceOferta.BETipoEstrategia { Codigo = item.CodigoTipoEstrategia };
@@ -302,14 +309,15 @@ namespace Portal.Consultoras.Web.Providers
         {
             if (dbDefault) return false;
 
-            bool paisHabilitado = _sessionManager.GetConfigMicroserviciosPersonalizacion().PaisHabilitado.Contains(pais); //WebConfig.PaisesMicroservicioPersonalizacion.Contains(pais);
-            bool tipoEstrategiaHabilitado = _sessionManager.GetConfigMicroserviciosPersonalizacion().EstrategiaHabilitado.Contains(tipoEstrategia); //WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion.Contains(tipoEstrategia);
+            bool paisHabilitado = _sessionManager.GetConfigMicroserviciosPersonalizacion().PaisHabilitado.Contains(pais);
+            bool tipoEstrategiaHabilitado = _sessionManager.GetConfigMicroserviciosPersonalizacion().EstrategiaHabilitado.Contains(tipoEstrategia);
+
             return paisHabilitado && tipoEstrategiaHabilitado;
         }
 
         public bool UsarMsPersonalizacion(string tipoEstrategia)
         {
-            bool tipoEstrategiaHabilitado = _sessionManager.GetConfigMicroserviciosPersonalizacion().EstrategiaHabilitado.Contains(tipoEstrategia); //WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion.Contains(tipoEstrategia);
+            bool tipoEstrategiaHabilitado = _sessionManager.GetConfigMicroserviciosPersonalizacion().EstrategiaHabilitado.Contains(tipoEstrategia);
             return tipoEstrategiaHabilitado;
         }
     }

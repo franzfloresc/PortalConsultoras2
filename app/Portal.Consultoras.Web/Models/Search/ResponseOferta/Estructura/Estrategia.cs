@@ -22,6 +22,8 @@
         public bool FlagEstrella { get; set; }
         public bool TieneVariedad { get; set; }
         public List<Componente> Componentes { get; set; }
+        public EstrategiaComponenteCabecera Cabecera { get; set; }
+        public List<EstrategiaComponenteSeccion> Secciones { get; set; }        
         public int TipoEstrategiaId { get; set; }
         public string DescripcionTipoEstrategia { get; set; }
         public string CodigoTipoEstrategia { get; set; }

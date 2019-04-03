@@ -28,15 +28,14 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
 
             MisReclamosModel model = new MisReclamosModel();
-            List<CDRWebModel> listaCdrWebModel;
             var mobileConfiguracion = this.GetUniqueSession<MobileAppConfiguracionModel>("MobileAppConfiguracion");
 
             try
             {
-                SessionManager.SetListaCDRWebCargaInicial(null);//HD-3412 EINCA
-                SessionManager.SetCDRPedidoFacturado(null); //HD-3412 EINCA
-                listaCdrWebModel = _cdrProvider.ObtenerCDRWebCargaInicial(userData.ConsultoraID,userData.PaisID);//HD-3412 EINCA
-                var ObtenerCampaniaPedidos = _cdrProvider.CDRObtenerPedidoFacturadoCargaInicial(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);//HD-3412 EINCA
+                SessionManager.SetListaCDRWebCargaInicial(null);
+                SessionManager.SetCDRPedidoFacturado(null);
+                List<CDRWebModel> listaCdrWebModel = _cdrProvider.ObtenerCDRWebCargaInicial(userData.ConsultoraID,userData.PaisID);
+                var ObtenerCampaniaPedidos = _cdrProvider.CDRObtenerPedidoFacturadoCargaInicial(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
 
                 string urlPoliticaCdr = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlPoliticasCDR) ?? "{0}";
                 model.UrlPoliticaCdr = string.Format(urlPoliticaCdr, userData.CodigoISO);
@@ -59,7 +58,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                listaCdrWebModel = new List<CDRWebModel>();
             }
 
            
@@ -86,7 +84,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 var listaCdr = _cdrProvider.CargarBECDRWeb(new MisReclamosModel { PedidoID = p }, userData.PaisID, userData.ConsultoraID);
                 if (listaCdr.Count == 0) return RedirectToAction("Index", "MisReclamos", new { area = "Mobile" });
-                //HD-3412 EINCA 
                 var listacdrweb = listaCdr.Where(a => a.CDRWebID == c).ToArray();
                 if (listacdrweb.Count() == 1)
                 {

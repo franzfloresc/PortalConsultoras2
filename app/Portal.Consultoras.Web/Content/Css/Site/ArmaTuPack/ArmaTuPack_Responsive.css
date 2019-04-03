@@ -207,7 +207,7 @@
     margin: 0px;
     right: 10px;
     top: 15px;
-    transform: rotate(-90deg);
+    transform: rotate(0deg);
 }
 
 
@@ -369,6 +369,7 @@ footer {
 
 #grupos {
     margin-bottom: 95px;
+    padding-top: 95px;
 }
 
 .Select_Group .slick-track article {
@@ -421,6 +422,7 @@ footer {
 
     #grupos {
         margin-bottom: 135px;
+        padding-top: 0px;
     }
 
     #seleccionados .Select_Group {
@@ -611,7 +613,7 @@ footer {
     }
 
     .Title_pack.active .arrow_acordeon {
-        transform: rotate(0deg) !important;
+        transform: rotate(180deg) !important;
     }
 
     .Select_fixed {

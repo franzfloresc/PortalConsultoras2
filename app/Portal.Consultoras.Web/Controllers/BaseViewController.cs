@@ -214,13 +214,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                //var modelo = FichaModelo(palanca, campaniaId, cuv, origen);
-
-                //if (modelo != null)
-                //{
-                //    return View(modelo);
-                //}
-
                 var modelo = new DetalleEstrategiaFichaModel
                 {
                     Palanca = palanca,
@@ -658,6 +651,7 @@ namespace Portal.Consultoras.Web.Controllers
             modelo.BreadCrumbs = modelo.TipoAccionNavegar == Constantes.TipoAccionNavegar.BreadCrumbs
                 ? GetDetalleEstrategiaBreadCrumbs(campaniaId, palanca)
                : new DetalleEstrategiaBreadCrumbsModel();
+            modelo.BreadCrumbs.TipoAccionNavegar = modelo.TipoAccionNavegar;
             modelo.Palanca = palanca;
             modelo.TieneSession = _ofertaPersonalizadaProvider.PalancasConSesion(palanca);
             modelo.Campania = campaniaId;

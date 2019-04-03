@@ -31,7 +31,7 @@
                     <input type="hidden" class="Nombre" value="{{DescripcionCompleta}}" />
                     <input type="hidden" class="ProductoDescripcion" value="" />
                     <input type="hidden" class="Volumen" value="" />
-                    <input type="hidden" class="Palanca" value="{{Palanca}}" />
+                    <input type="hidden" class="Palanca" value="{{TipoPersonalizacion}}" />
                 </div>
                 <div class="texto_redes_sociales">Comparte este producto con tus clientes</div>
                 <a class="btn_compartir_facebook" href="javascript:;" data-compartir="FB">
@@ -95,7 +95,7 @@
                             GANA
                             {{/iff}}
                             {{#iff CodigoVariante '==' '@Constantes.TipoEstrategiaSet.CompuestaVariable'}}
-                            GANA HASTA
+                            GANA
                             {{/iff}}
                             <span data-ganancia="">{{SimboloMoneda}} {{GananciaString}}</span>
                         </div>

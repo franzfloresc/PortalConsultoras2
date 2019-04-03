@@ -49,14 +49,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                     foreach (var pedidoDetalleProducto in pedidoCliente.ListaPedidoWebDetalle)
                     {
-                        //BEPedidoWebDetalle[] lstPedidoDetalleProducto;
                         var lstPedidoDetalleProducto2 = new List<BEPedidoWebDetalle>();
-                        //using (var sv = new ClienteServiceClient())
-                        //{
-                        //    lstPedidoDetalleProducto = sv.GetPedidoWebDetalleByCliente(userData.PaisID, pedidoCliente.CampaniaID, userData.ConsultoraID, pedidoDetalleProducto.ClienteID);
-                        //}
 
-                        //var detallepedido = ObtenerPedidoWebSetDetalleAgrupado();
                         var detallePedidoCliente = detallePedidoWeb.Where(x => x.ClienteID == pedidoDetalleProducto.ClienteID).ToList();
 
                         foreach (var det in detallePedidoCliente)
@@ -423,18 +417,15 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             txtBuil.Append("Cliente");
             txtBuil.Append("</td>");
             txtBuil.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 126px; background-color: #666699;'>");
-            /*txtBuil.Append("Cod. Venta");*/
             txtBuil.Append("Código");
             txtBuil.Append("</td>");
             txtBuil.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 347px; background-color: #666699;'>");
-            //txtBuil.Append("Descripción");
             txtBuil.Append("Producto");
             txtBuil.Append("</td>");
             txtBuil.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 124px; background-color: #666699;'>");
             txtBuil.Append("Cantidad");
             txtBuil.Append("</td>");
             txtBuil.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 182px; background-color: #666699;'>");
-            //txtBuil.Append("Precio Unit.");
             txtBuil.Append("Precio unitario");
             txtBuil.Append("</td>");
             txtBuil.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 165px; background-color: #666699;'>");

@@ -274,9 +274,8 @@ var EstrategiaAgregarModule = (function () {
         }
         //**FIN ANALYTICS *****
 
-        //console.log(origenPedidoWebEstrategia);
         var estrategia = getEstrategia($btnAgregar, origenPedidoWebEstrategia);
-        //console.log(estrategia);
+
         if (estrategiaEstaBloqueada($btnAgregar, estrategia.CampaniaID)) {
             estrategia.OrigenPedidoWebEstrategia = origenPedidoWebEstrategia;
             getDivMsgBloqueado($btnAgregar, estrategia).show();
@@ -322,7 +321,7 @@ var EstrategiaAgregarModule = (function () {
 
         var cuvs = "";
         var codigoVariante = estrategia.CodigoVariante;
-        if ((ConstantesModule.CodigoVariedad.IndividualVariable == codigoVariante || ConstantesModule.CodigoVariedad.CompuestaVariable == codigoVariante)) {
+        if ((_codigoVariedad.IndividualVariable == codigoVariante || _codigoVariedad.CompuestaVariable == codigoVariante)) {
             var listaCuvs = $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataTono.concat(dataProperties.dataTonoSelect));
             if (listaCuvs.length > 0) {
                 $.each(listaCuvs,
@@ -330,13 +329,13 @@ var EstrategiaAgregarModule = (function () {
                         var cuv = $(item).attr("data-tono-select");
                         if (cuv != "") {
                             cuvs = cuvs + (cuvs == "" ? "" : "|") + cuv;
-                            //if (ConstantesModule.CodigoVariedad.CompuestaVariable == codigoVariante) {
+
                             cuvs = cuvs + ";" + $(item).find(elementosDiv.EstrategiaHdMarcaID).val();
                             cuvs = cuvs + ";" + $(item).find(elementosDiv.EstrategiaHdPrecioCatalogo).val();
                             cuvs = cuvs + ";" + "";
                             cuvs = cuvs + ";" + $(item).find(elementosDiv.Estrategia_hd_Digitable).val();
                             cuvs = cuvs + ";" + $(item).find(elementosDiv.Estrategia_hd_Grupo).val();
-                            //}
+
                         }
                     });
             }
@@ -372,6 +371,21 @@ var EstrategiaAgregarModule = (function () {
 
                     CerrarLoad();
                     return false;
+                }
+
+
+                var cuv = estrategia.CUV2;
+                if (cuv.substring(0, 3) == '999') {
+                    sessionStorage.setItem('cuvPack', cuv);
+                }
+
+                try {
+                    if (!(typeof AnalyticsPortalModule === 'undefined')) {
+                        AnalyticsPortalModule.MarcaAnadirCarritoGenerico(event, origenPedidoWebEstrategia, estrategia);
+                    }
+                    TrackingJetloreAdd(cantidad, $(elementosDiv.hdCampaniaCodigo).val(), cuv);
+                } catch (e) {
+                    console.log(e);
                 }
 
                 $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataInputCantidad).val("1");
@@ -420,6 +434,9 @@ var EstrategiaAgregarModule = (function () {
                         if (!(origenPedidoWebEstrategia === _OrigenPedido.DesktopContenedorArmaTuPack || origenPedidoWebEstrategia === _OrigenPedido.MobileContenedorArmaTuPack)) {
                             ResumenOpcionesModule.LimpiarOpciones();
                         }
+                        else {
+                            return;
+                        }
                     } catch (e) {
                         console.error(e);
                     }
@@ -433,7 +450,7 @@ var EstrategiaAgregarModule = (function () {
                     var issetPopupPremio = $("#popupPremio").length > 0;
 
                     if ($("#divBarra").length > 0) {
-                        MostrarBarra(data, destino); //OG
+                        MostrarBarra(data, destino);
 
                         if (issetPopupPremio) {
                             showPopupNivelSuperado(data.DataBarra, prevTotal);
@@ -454,12 +471,7 @@ var EstrategiaAgregarModule = (function () {
                 } else {
                     CargarResumenCampaniaHeader(true);
                 }
-
-                var cuv = estrategia.CUV2;
-                if (cuv.substring(0, 3) == '999') {
-                    sessionStorage.setItem('cuvPack', cuv);
-                }
-
+                
                 var tipoOrigenEstrategiaAux = 0;
                 if (typeof tipoOrigenEstrategia != "undefined") {
                     tipoOrigenEstrategiaAux = tipoOrigenEstrategia || 0;
@@ -470,7 +482,7 @@ var EstrategiaAgregarModule = (function () {
                         MostrarBarra(data, "1");
                     }
 
-                    if (estrategia.CodigoEstrategia == ConstantesModule.ConstantesPalanca.PackNuevas) {
+                    if (estrategia.CodigoEstrategia == ConstantesModule.TipoEstrategia.PackNuevas) {
                         if (typeof CargarCarouselEstrategias != constantes.undefined())
                             CargarCarouselEstrategias();
                     }
@@ -487,7 +499,7 @@ var EstrategiaAgregarModule = (function () {
                     $(elementosDiv.hdErrorInsertarProducto).val(data.errorInsertarProducto);
 
                     cierreCarouselEstrategias();
-                    if (estrategia.CodigoEstrategia == ConstantesModule.ConstantesPalanca.PackNuevas) {
+                    if (estrategia.CodigoEstrategia == ConstantesModule.TipoEstrategia.PackNuevas) {
                         if (typeof CargarCarouselEstrategias != constantes.undefined())
                             CargarCarouselEstrategias();
                     }
@@ -502,9 +514,7 @@ var EstrategiaAgregarModule = (function () {
                     tipoOrigenEstrategiaAux == 27 ||
                     tipoOrigenEstrategiaAux == 262 ||
                     tipoOrigenEstrategiaAux == 272) {
-
-                    //
-
+                    
                     if (isPagina('mobile/pedido/detalle')) CargarPedido(false);
 
                     if (tipoOrigenEstrategiaAux == 262) {
@@ -518,7 +528,7 @@ var EstrategiaAgregarModule = (function () {
 
                         }
                     } else if (tipoOrigenEstrategiaAux != 272) {
-                        if (estrategia.CodigoEstrategia == ConstantesModule.ConstantesPalanca.PackNuevas) {
+                        if (estrategia.CodigoEstrategia == ConstantesModule.TipoEstrategia.PackNuevas) {
                             CargarCarouselEstrategias();
                         }
 
@@ -528,31 +538,18 @@ var EstrategiaAgregarModule = (function () {
                     }
                 }
 
-                try {
-                    if (!(typeof AnalyticsPortalModule === 'undefined')) {
-                        AnalyticsPortalModule.MarcaAnadirCarritoGenerico(event, origenPedidoWebEstrategia, estrategia);
-                    }
-                    TrackingJetloreAdd(cantidad, $(elementosDiv.hdCampaniaCodigo).val(), cuv);
-                } catch (e) {
-                    console.log(e);
-                }
                 if (data.listCuvEliminar != null) {
-                    $.each(data.listCuvEliminar, function (i, cuv) {
+                    $.each(data.listCuvEliminar, function (i, cuvElem) {
 
-                        itemClone.parent().find('[data-item-cuv=' + cuv + '] .agregado.product-add').hide();
+                        itemClone.parent().find('[data-item-cuv=' + cuvElem + '] .agregado.product-add').hide();
 
-                        ActualizarLocalStoragePalancas(cuv, false);
+                        ActualizarLocalStoragePalancas(cuvElem, false);
                     })
                 }
 
                 var localStorageModule = new LocalStorageModule();
                 localStorageModule.ActualizarCheckAgregado($.trim(estrategia.EstrategiaID), estrategia.CampaniaID, estrategia.CodigoPalanca, true);
-
-
-                //if (belcorp.estrategia.applyChanges){
-                //    belcorp.estrategia.applyChanges("onProductoAgregado", data);
-                //}
-
+                
                 CerrarLoad();
                 if (popup) {
                     CerrarPopup(elementosPopPup.popupDetalleCarouselLanzamiento);

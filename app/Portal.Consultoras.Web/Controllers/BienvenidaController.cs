@@ -1362,18 +1362,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 }
 
-                //if (!configEstrategiaSR.CargoEntidadesShowRoom)
-                //{
-                //    return Json(new
-                //    {
-                //        success = false,
-                //        data = "",
-                //        message = ""
-                //    });
-                //}
-
-                //var showRoom = configEstrategiaSR.BeShowRoom ?? new ShowRoomEventoModel();
-
                 ShowRoomEventoModel showRoom = null;
 
                 configEstrategiaSR = SessionManager.GetEstrategiaSR();
