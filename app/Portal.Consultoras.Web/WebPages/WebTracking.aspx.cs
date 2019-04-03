@@ -509,13 +509,12 @@ namespace Portal.Consultoras.Web.WebPages
                             }
                         }
                         //HD-3606 EINCA
-                        if (item.Etapa == Constantes.SegPedidoSituacion.FechaEstimadaEntrega && ValidarZonaRegion())
-                        {
-                            if (horaEstimadaEntregaDesde != string.Empty && horaEstimadaEntregaHasta != string.Empty)
-                            {
-                                item.HoraEstimadaDesdeHasta = string.Format("{0} - {1}", horaEstimadaEntregaDesde, horaEstimadaEntregaHasta);
-                            }
 
+                        var flag = (horaEstimadaEntregaDesde != string.Empty && horaEstimadaEntregaHasta != string.Empty) ? true : false;
+
+                        if (item.Etapa == Constantes.SegPedidoSituacion.FechaEstimadaEntrega && flag)
+                        {
+                            item.HoraEstimadaDesdeHasta = ValidarZonaRegion() == true ? string.Format("{0} - {1}", horaEstimadaEntregaDesde, horaEstimadaEntregaHasta) : "";
                         }
                     }
 

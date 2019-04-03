@@ -250,35 +250,25 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         break;
                 }
 
-                if (item.Etapa == Constantes.SegPedidoSituacion.FechaEstimadaEntrega && ValidarZonaRegion())
-                {
-                    if (horaEstimadaEntregaDesde != string.Empty && horaEstimadaEntregaHasta != string.Empty)
-                    {
-                        item.HoraEstimadaDesdeHasta = string.Format("{0} - {1}", horaEstimadaEntregaDesde, horaEstimadaEntregaHasta);
-                    }
+                var flag = (horaEstimadaEntregaDesde != string.Empty && horaEstimadaEntregaHasta != string.Empty) ? true : false;
 
-                }
+                if (item.Etapa == Constantes.SegPedidoSituacion.FechaEstimadaEntrega && flag)
+                    item.HoraEstimadaDesdeHasta = ValidarZonaRegion() == true ? string.Format("{0} - {1}", horaEstimadaEntregaDesde, horaEstimadaEntregaHasta) : "";
 
                 listaEstadoSeguimiento.Add(item);
             }
-
             return listaEstadoSeguimiento;
         }
-
         public bool ValidarZonaRegion()
         {
-
             try
             {
                 using (var sv = new ServiceSAC.SACServiceClient())
                 {
                     int paisid, zonaid, regionid;
-
                     int.TryParse(userData.PaisID.ToString(), out paisid);
-
                     int.TryParse(userData.ZonaID.ToString(), out zonaid);
                     int.TryParse(userData.RegionID.ToString(), out regionid);
-
                     var resultado = sv.GetTablaLogicaDatos(paisid, Constantes.TablaLogica.SegPedidoRegionZona).FirstOrDefault();
                     if (resultado == null) return true; // si no hay registros mostrar para todos
                     if (resultado.Valor.IsNullOrEmptyTrim()) return false;
@@ -288,16 +278,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         //Extraer la zona y la region
                         string[] arrItem = item.Split(',');
                         int nzonaid, nregionid;
-
                         int.TryParse(arrItem[1], out nzonaid);
                         int.TryParse(arrItem[0], out nregionid);
-
                         if (zonaid == nzonaid && regionid == nregionid) return true;
-
                     }
-
                 }
-
                 return false;
             }
             catch (FaultException ex)
