@@ -82,6 +82,9 @@ var FichaModule = (function (config) {
     if (config.generalModule === null || typeof config.generalModule === "undefined")
         throw "config.generalModule is null or undefined";
 
+    if (config.detalleEstrategiaProvider === null || typeof config.detalleEstrategiaProvider === "undefined")
+        throw "config.detalleEstrategiaProvider is null or undefined";
+
     var _primeraMarca = "";
     var _ultimaMarca = "";
     var _esMultimarca = false;
@@ -98,9 +101,11 @@ var FichaModule = (function (config) {
         esEditable: config.esEditable || false,
         setId: config.setId || 0,
         tieneCliente: config.tieneCliente || false,
+        //
         localStorageModule: config.localStorageModule,
         analyticsPortalModule: config.analyticsPortalModule,
-        detalleEstrategiaProvider: DetalleEstrategiaProvider,
+        generalModule: config.generalModule,
+        detalleEstrategiaProvider: config.detalleEstrategiaProvider,
         componenteDetalleModule: config.componenteDetalleModule
     };
 
@@ -812,7 +817,7 @@ var FichaModule = (function (config) {
     }
 
     var _construirSeccionFicha = function () {
-        _config.esMobile = isMobile();
+        _config.esMobile = _config.generalModule.isMobile();
         _getModelo();
 
         _config.tieneSession = _modeloFicha.TieneSession;
@@ -826,9 +831,9 @@ var FichaModule = (function (config) {
             return false;
         }
 
-        if (_validarAbrirFichaResumida()) {
-            FichaPartialModule.ShowDivFichaResumida(true);
-        }
+        //if (_validarAbrirFichaResumida()) {
+        //    FichaPartialModule.ShowDivFichaResumida(true);
+        //}
 
         _modeloFicha.BreadCrumbs = _modeloFicha.BreadCrumbs || {};
         _modeloFicha.BreadCrumbs.TipoAccionNavegar = _modeloFicha.TipoAccionNavegar;
@@ -1034,6 +1039,9 @@ var FichaPartialModule = (function () {
             localStorageModule: LocalStorageModule(),
             analyticsPortalModule: AnalyticsPortalModule,
             generalModule: GeneralModule,
+            detalleEstrategiaProvider: DetalleEstrategiaProvider,
+            componenteDetalleModule : null,
+
             palanca: palanca,
             campania: campania,
             cuv: cuv,
@@ -1054,6 +1062,7 @@ var FichaPartialModule = (function () {
 
             try {
                 fichaModule.Inicializar();
+                _showDivFichaResumida(true)
             }
             catch (error) {
                 console.log(error);
