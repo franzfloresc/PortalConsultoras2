@@ -28581,6 +28581,7 @@ div.motivoRechazo textarea {
     }
 
 .opcion_cdr_enlace,
+.opcion_cdr_seleccionada_terminos_entrega_producto_wrapper,
 .opcion_cdr_seleccionada_terminos_entrega_producto_set_wrapper {
     position: relative;
 }
@@ -28633,7 +28634,9 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 .opcion_cdr_seleccionada_info--devolucionCasoSetProducto p,
 .opcion_cdr_seleccionada_campo_busqueda,
 .opcion_cdr_seleccionada_terminos_entrega_producto_texto,
-.opcion_cdr_seleccionada_info--cambioMismoProducto p {
+.opcion_cdr_seleccionada_info--cambioMismoProducto p,
+.opcion_cdr_seleccionada_info--envioProducto p,
+.opcion_cdr_seleccionada_info--devolucionDinero p{
     font-size: 14px;
     letter-spacing: 0.1px;
 }
@@ -28643,7 +28646,9 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 }
 
 .opcion_cdr_seleccionada_campos_busqueda_producto_a_cambiar,
-.opcion_cdr_seleccionada_info--cambioMismoProducto {
+.opcion_cdr_seleccionada_info--cambioMismoProducto,
+.opcion_cdr_seleccionada_info--envioProducto,
+.opcion_cdr_seleccionada_info--devolucionDinero {
     margin-top: 30px;
     margin-bottom: 20px;
 }
@@ -28757,9 +28762,17 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     margin-bottom: 8px;
 }
 
-.producto_nom {
-    font-size: 16px;
+.producto_nom,
+.producto_set_lista {
+    margin-top: 8px;
+    margin-bottom: 18px;
 }
+
+    .producto_nom span,
+    .producto_set_lista span {
+        display:block;
+        margin-bottom: 5px;
+    }
 
 .producto_set_lista,
 .opcion_cdr_checkbox--terminosEntregaProductoSet,
@@ -28768,15 +28781,8 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 }
 
 .producto_set_lista {
-    margin-top: 8px;
-    margin-bottom: 18px;
     text-align: left;
 }
-
-    .producto_set_lista span {
-        display: block;
-        margin-bottom: 5px;
-    }
 
 .opcion_cdr_checkbox--terminosEntregaProductoSet,
 .opcion_cdr_seleccionada_terminos_entrega_producto_texto {
@@ -28793,7 +28799,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 }
 
 .opcion_cdr_seleccionada_terminos_entrega_producto_texto {
-    line-height: 22px;
+    line-height: 20px;
 }
 
 .btn_no_stock {

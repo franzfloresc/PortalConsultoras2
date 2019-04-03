@@ -1985,7 +1985,7 @@ function EscogerSolucion(opcion, event) {
         $('#OpcionDevolucion').fadeOut(200);
         $('#OpcionCambioPorOtroProducto').fadeOut(200);
         $('#OpcionCambioMismoProducto').fadeIn(200);
-        $('#spnDescProdDevolucion').html($('#hdtxtCUVDescripcion').val());
+        $('#spnDescProdDevolucion').html($("#hdfCUV").val() + ' - ' + $('#hdtxtCUVDescripcion').val());
     } else if (id == "D") {
         $('#OpcionCambioMismoProducto').fadeOut(200);
         $('#OpcionCambioPorOtroProducto').fadeOut(200);
