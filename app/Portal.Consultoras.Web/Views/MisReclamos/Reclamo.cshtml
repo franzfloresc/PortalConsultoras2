@@ -383,6 +383,10 @@
                     <img src="@Url.Content("~/Content/Images/opcion_cambio_otro_producto_cdr.svg")" alt="" class="opcion_cdr_icono" />
                     {{else if_eq item.CodigoOperacion 'C' }}
                     <img src="@Url.Content("~/Content/Images/opcion_cambio_mismo_producto_cdr.svg")" alt="" class="opcion_cdr_icono" />
+                    {{else if_eq item.CodigoOperacion 'F' }}
+                    <img src="@Url.Content("~/Content/Images/opcion_cambio_mismo_producto_cdr.svg")" alt="" class="opcion_cdr_icono" />
+                    {{else if_eq item.CodigoOperacion 'G' }}
+                    <img src="@Url.Content("~/Content/Images/opcion_devolucion_cdr.svg")" alt="" class="opcion_cdr_icono" />
                     {{/if_eq}}
                 </div>
                 <div class="text-bold opcion_cdr_seleccion_wrapper">
