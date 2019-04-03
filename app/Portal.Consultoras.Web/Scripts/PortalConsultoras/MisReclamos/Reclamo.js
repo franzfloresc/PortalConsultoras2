@@ -1722,18 +1722,18 @@ function CambioPaso(paso) {
     pasoActual = pasoActual < 1 ? 1 : pasoActual > 3 ? 3 : pasoActual;
 
     $(".paso_reclamo[data-paso]").removeClass("paso_active_reclamo");
-    $(".paso_reclamo[data-paso] span").html("");
+    //$(".paso_reclamo[data-paso] span").html("");
     $(".paso_reclamo[data-paso]").each(function (ind, tag) {
         var pasoTag = $(tag).attr("data-paso");
         if (pasoTag < pasoActual) {
-            $(tag).addClass("paso_active_reclamo");
-            $(tag).find("span").html("<img src='" + imgCheck + "' />");
+            $(tag).addClass("paso_reclamo_completado");
+            //$(tag).find("span").html("<img src='" + imgCheck + "' />");
         }
         else if (pasoTag == pasoActual) {
             $(tag).addClass("paso_active_reclamo");
-            $(tag).find("span").html("<img src='" + imgPasos.replace("{0}", "cdr_paso" + pasoActual + "_activo") + "' />");
+            //$(tag).find("span").html("<img src='" + imgPasos.replace("{0}", "cdr_paso" + pasoActual + "_activo") + "' />");
         }
-        else $(tag).find("span").html("<img src='" + imgPasos.replace("{0}", "cdr_paso" + pasoTag) + "' />");
+        else $(tag).removeClass("paso_active_reclamo");/*$(tag).find("span").html("<img src='" + imgPasos.replace("{0}", "cdr_paso" + pasoTag) + "' />")*/;
     });
 
     $('div[id^=Cambio]').hide();

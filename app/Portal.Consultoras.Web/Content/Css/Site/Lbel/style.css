@@ -28123,12 +28123,18 @@ div.motivoRechazo textarea {
     overflow: hidden;
 }
 
-.paso_reclamo.paso_reclamo_1,
-.paso_reclamo.paso_reclamo_2,
-.paso_reclamo.paso_reclamo_3 {
-    background-size: 56%;
-    background-repeat: no-repeat;
-    background-position: center;
+.paso_reclamo_1,
+.paso_reclamo_2,
+.paso_reclamo_3 {
+    background-size: 56% !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+}
+
+.paso_reclamo_completado {
+    background-color: #613c87;
+    border:1px solid #613c87;
+    background-image: url(/Content/Images/icono_check_cdr.svg);
 }
 
 .paso_reclamo_1.paso_active_reclamo {
@@ -28886,7 +28892,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     margin-right: 4%;
 }
 
-    .reclamo_motivo_select:nth-child(2n) {
+    .reclamo_motivo_select:nth-child(odd) {
         margin-right: 0;
     }
 
@@ -28913,7 +28919,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     font-family: 'Lato', sans-serif;
     font-size: 14px;
     margin-top: 20px;
-    margin-bottom: 10px;
+    margin-bottom: 60px;
     cursor: pointer;
     letter-spacing: 0.5px;
 }
@@ -33061,10 +33067,6 @@ height:30px;
 
 .SubHeader {
     background: #fff;
-}
-
-.reclamo_motivo_select:nth-child(2n) {
-    margin-right: 0;
 }
 
 .height_min {
