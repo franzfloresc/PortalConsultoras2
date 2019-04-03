@@ -1474,25 +1474,42 @@ function ObtenerProductosSugeridos(CUV) {
             SetHandlebars("#js-CarruselSugerido", lista, "#divCarruselSugerido");
 
             $.each($("#divCarruselSugerido .sugerido"), function (index, obj) {
-                var h = $(obj).find(".nombre_producto").height();
-                if (h > 40) {
-                    var txt = $(obj).find(".nombre_producto b").html();
-                    var splits = txt.split(" ");
-                    var lent = splits.length;
-                    var cont = false;
-                    for (var i = lent; i > 0; i--) {
-                        if (cont) continue;
-                        splits.splice(i - 1, 1);
-                        $(obj).find(".nombre_producto b").html(splits.join(" "));
-                        var hx = $(obj).find(".nombre_producto").height();
-                        if (hx <= 40) {
-                            var txtF = splits.join(" ");
-                            txtF = txtF.substr(0, txtF.length - 3);
-                            $(obj).find(".nombre_producto b").html(txtF + "...");
-                            cont = true;
-                        }
-                    }
+                
+
+                var selector = $(obj).find(".nombre_producto_sugerido");
+                var descripcion = selector.html();
+                var str = new String(descripcion);
+                var wd = str.length;
+                if (wd <= 100) {
+                    $(obj).find(".nombre_producto_sugerido b").html(selector.html());
+
+
                 }
+                else {
+
+                    var descripcionNueva = descripcion.substring(0, 97);
+                    descripcionNueva = descripcionNueva + "...";
+                    $(obj).find(".nombre_producto_sugerido b").html(descripcionNueva);
+                }
+                //var h = $(obj).find(".nombre_producto").height();
+                //if (h > 40) {
+                //    var txt = $(obj).find(".nombre_producto b").html();
+                //    var splits = txt.split(" ");
+                //    var lent = splits.length;
+                //    var cont = false;
+                //    for (var i = lent; i > 0; i--) {
+                //        if (cont) continue;
+                //        splits.splice(i - 1, 1);
+                //        $(obj).find(".nombre_producto b").html(splits.join(" "));
+                //        var hx = $(obj).find(".nombre_producto").height();
+                //        if (hx <= 40) {
+                //            var txtF = splits.join(" ");
+                //            txtF = txtF.substr(0, txtF.length - 3);
+                //            $(obj).find(".nombre_producto b").html(txtF + "...");
+                //            cont = true;
+                //        }
+                //    }
+                //}
             });
 
             $("#divObservaciones").html("");

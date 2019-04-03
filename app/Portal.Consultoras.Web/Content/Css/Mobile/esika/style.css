@@ -4392,6 +4392,14 @@ table > thead > tr > th {
     font-weight: 900;
 }
 
+.sugerido .content_item_home{
+    padding-bottom: 20px
+}
+
+.nombre_producto_sugerido {
+    height: 60px !important;
+}
+
 .producto_precio {   
     width: 100%;
     padding-left: 10px;

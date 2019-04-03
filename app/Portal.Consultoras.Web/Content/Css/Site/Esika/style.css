@@ -17880,6 +17880,10 @@ label.checkpop.c_on {
     height: 40px;
 }
 
+.nombre_producto_sugerido {
+    height: 60px;
+}
+
 .boton_Agregalo_home {
     display: block;
     margin-top: 7px;
