@@ -43,7 +43,7 @@
                 }
                 else
                 {
-                    otroEstilo = "onclick=ModalBeneficios(" + i + ") data-toggle=modal data-target=#BenefNivel";
+                    otroEstilo = "onclick=ModalBeneficios(" + @Niveles[i].CodigoNivel + ") data-toggle=modal data-target=#BenefNivel";
                 }
                 <span class="point @estiloClase" @otroEstilo>
                     <img src=@Niveles[i].UrlImagenNivel>
@@ -139,7 +139,14 @@
                                                     }
                                                     else if (item2.Tipo == "PED" || item2.Tipo == "TIME")
                                                     {
-                                                        <img src="~/Content/CaminoBrillante/imgs/pedido_activo.svg" />
+                                                        if (item2.Estado)
+                                                        {
+                                                            <img src="~/Content/CaminoBrillante/imgs/pedido_activo.svg" />
+                                                        }
+                                                        else
+                                                        {
+                                                            <img src="~/Content/CaminoBrillante/imgs/pedido_desactivo.svg" />
+                                                        }
                                                     }
                                                     <p>@item2.Titulo</p>
                                                 }
