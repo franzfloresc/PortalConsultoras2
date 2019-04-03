@@ -241,21 +241,21 @@
 <div class="wrapper_resumen_mobile">
     @if (Model.TieneCaminoBrillante)
     {
-    <div class="items_belcorp cam-exito">
-        @{ if (!string.IsNullOrEmpty(Model.UrlLogoCaminoBrillante))
-            {
-                <img src="@Model.UrlLogoCaminoBrillante" style="max-width: 80px;" />
+        <div class="items_belcorp cam-exito">
+            @{ if (!string.IsNullOrEmpty(Model.UrlLogoCaminoBrillante))
+                {
+                    <img src="@Model.UrlLogoCaminoBrillante" style="max-width: 80px;" />
+                }
             }
-        }
-        <div class="mb-left">
-            <p class="toptext">Camino Brillante</p>
-            @*<p>
-                @Html.Raw(Model.CaminoBrillanteMsg)
-            </p>*@
-            <a href="@Url.Action("Index", "CaminoBrillante")">Mis Beneficios</a>
+            <div class="mb-left">
+                <p class="toptext">Camino Brillante</p>
+                @*<p>
+                        @Html.Raw(Model.CaminoBrillanteMsg)
+                    </p>*@
+                <a href="@Url.Action("Index", "CaminoBrillante")">Mis Beneficios</a>
+            </div>
         </div>
-    </div>
-    <div class="linea_separadora_mobile" style="margin-top:16px"></div>
+        <div class="linea_separadora_mobile" style="margin-top:16px"></div>
     }
 
     <div class="content_320">

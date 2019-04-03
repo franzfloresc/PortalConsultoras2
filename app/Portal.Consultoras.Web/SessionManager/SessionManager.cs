@@ -1410,10 +1410,18 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             HttpContext.Current.Session[Constantes.ConstSession.NivelConsultoraCaminoBrillante] = val;
         }
-
         public BEConsultoraCaminoBrillante GetConsultoraCaminoBrillante()
         {
             return (BEConsultoraCaminoBrillante)HttpContext.Current.Session[Constantes.ConstSession.NivelConsultoraCaminoBrillante];
+        }
+
+        public void SetOfertasCaminoBrillante(List<BEOfertaCaminoBrillante> val)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.OfertasCaminoBrillante] = val;
+        }
+        public List<BEOfertaCaminoBrillante> GetOfertasCaminoBrillante()
+        {
+            return (List<BEOfertaCaminoBrillante>)HttpContext.Current.Session[Constantes.ConstSession.OfertasCaminoBrillante];
         }
         #endregion
 
