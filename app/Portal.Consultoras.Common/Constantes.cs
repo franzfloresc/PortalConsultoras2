@@ -1459,6 +1459,7 @@ namespace Portal.Consultoras.Common
             public const string ExcedioLimiteVenta = "Las unidades ingresadas exceden el máximo permitido ({0}) en esta campaña.";
             public const string StockLimiteVenta = "En esta campaña nuestro producto <b>{0} – {1}</b> ha tenido una gran acogida. Sin embargo hemos reservado {2} unidad(es) para ti. Por favor modifica las unidades ingresadas.";
             public const string Pedido_NoAgregarLiquidacion = "No se puede agregar una Oferta Liquidacion por este medio.";
+            public const string ServicioCatalogoVirtuales = "Por favor vuelva ingresar en unos momentos, ya que el servicio de catálogos virtuales está teniendo problemas.";
         }
 
         public static class MensajesExito
