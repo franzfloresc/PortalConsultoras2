@@ -245,7 +245,7 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
             return new BLResumenCampania().GetMontoDeuda(paisId, 0, (int)consultoraId, codigoUsuario, true);
         }
 
-        public BEPagoEnLinea ObtenerPagoEnLineaConfiguracion(int paisId, long consultoraId, string codigoUsuario)
+        public BEPagoEnLinea ObtenerPagoEnLineaConfiguracion(int paisId, long consultoraId, string codigoUsuario, string EsDigital, DateTime fecha)
         {
             var result = new BEPagoEnLinea();
             List<BETablaLogicaDatos> listaConfiguracion = null;
@@ -272,44 +272,12 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
                 if (pagoBancaPorInternet != null) pagoBancaPorInternet.Estado = false;
             }
 
-            var oRequest = new BERevistaDigitalSuscripcion()
+            var Evaluacion = (EsDigital == "1") && (fecha >= DateTime.Now.Date);
+
+            result.ListaMetodoPago.ForEach(e =>
             {
-                CodigoConsultora = codigoUsuario,
-                PaisID = paisId
-            };
-
-            var daUsuario = new DAUsuario(paisId);
-            using (IDataReader reader = daUsuario.GetInfoPreLogin(codigoUsuario))
-            {
-                if (reader.Read())
-                {
-                    campaniaActual = Convert.ToInt32(reader["CampaniaActual"]);
-                }
-            }
-
-            var oResponse = _revistaDigitalSuscripcionBusinessLogic.GetLast(oRequest);
-
-            if (oResponse.RevistaDigitalSuscripcionID > 0)
-            {
-                if (oResponse.FechaSuscripcion > oResponse.FechaDesuscripcion)
-                {
-                    if (oResponse.CampaniaEfectiva <= campaniaActual) resultado = Constantes.GanaMas.PaisConRD_SuscritaActiva;
-                    else resultado = Constantes.GanaMas.PaisConRD_SuscritaNoActiva;
-                }
-                else if (oResponse.FechaSuscripcion < oResponse.FechaDesuscripcion)
-                {
-                    if (oResponse.CampaniaEfectiva <= campaniaActual) resultado = Constantes.GanaMas.PaisConRD_NoSuscritaNoActiva;
-                    else resultado = Constantes.GanaMas.PaisConRD_NoSuscritaActiva;
-                }
-            }
-            else
-            {
-                resultado = Constantes.GanaMas.PaisConRD_NoSuscritaNoActiva;
-            }
-
-
-            if(resultado== Constantes.GanaMas.PaisConRD_SuscritaActiva)
-
+                e.PorcentajeGastosAdministrativos = Evaluacion ? 0 : e.PorcentajeGastosAdministrativos;
+            });
 
             result.ListaMedioPago.ForEach(e =>
             {

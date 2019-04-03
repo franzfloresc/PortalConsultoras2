@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.PagoEnLinea;
+using System;
 using System.Collections.Generic;
 
 namespace Portal.Consultoras.BizLogic.PagoEnlinea
@@ -21,7 +22,7 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
         int ObtenerNumeroOrden(int paisId);
         string ObtenerPagoEnLineaURLPaginasBancos(int paisId);
         List<BEPagoEnLineaBanco> ObtenerPagoEnLineaBancos(int paisId);
-        BEPagoEnLinea ObtenerPagoEnLineaConfiguracion(int paisId, long consultoraId, string codigoUsuario);
+        BEPagoEnLinea ObtenerPagoEnLineaConfiguracion(int paisId, long consultoraId, string codigoUsuario, string EsDigital, DateTime fecha);
         BEPagoEnLineaVisa ObtenerPagoEnLineaVisaConfiguracion(int paisId, string codigoConsutora);
         BERespuestaServicio RegistrarPagoEnLineaVisa(BEUsuario usuario, BEPagoEnLineaVisa pagoEnLineaVisa);
         
