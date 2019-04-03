@@ -309,7 +309,7 @@ var FichaModule = (function (config) {
             return false;
         }
 
-        if (!_modeloFicha.MostrarAdicional) {
+        if (!_getModelo().MostrarAdicional) {
             return false;
         }
 
@@ -502,10 +502,11 @@ var FichaModule = (function (config) {
 
     var _getEstrategia = function () {
         var estrategia;
+        var modeloFicha = _getModelo();
 
         if (_config.tieneSession) {
-            if (_config.esEditable || _modeloFicha.TipoAccionNavegar === _tipoAccionNavegar.Volver) {
-                estrategia = _modeloFicha;
+            if (_config.esEditable || modeloFicha.TipoAccionNavegar === _tipoAccionNavegar.Volver) {
+                estrategia = modeloFicha;
             }
             else {
                 var valData = $(_elementos.dataEstrategia.id).attr(_elementos.dataEstrategia.dataEstrategia) || "";
@@ -513,7 +514,7 @@ var FichaModule = (function (config) {
                     estrategia = JSON.parse(valData);
                 }
                 else {
-                    estrategia = _modeloFicha;
+                    estrategia = modeloFicha;
                 }
             }
         }
@@ -536,7 +537,7 @@ var FichaModule = (function (config) {
         estrategia.setId = _config.setId || 0;
         estrategia.TieneStock = _config.esEditable || estrategia.TieneStock;
 
-        estrategia = $.extend(_modeloFicha, estrategia);
+        estrategia = $.extend(modeloFicha, estrategia);
         estrategia.TipoPersonalizacion = _tipoPersonalizacion(estrategia.CodigoEstrategia);
         _estrategia = estrategia;
         return estrategia;
@@ -556,6 +557,7 @@ var FichaModule = (function (config) {
     var _construirSeccionEstrategia = function () {
 
         var estrategia = getEstrategia();
+        var modeloFicha = _getModelo();
 
         if (estrategia == null) {
             //_redireccionar("_construirSeccionEstrategia, sin estrategia");
@@ -565,7 +567,7 @@ var FichaModule = (function (config) {
 
         $(_elementos.dataEstrategia.id).attr(_elementos.dataEstrategia.dataEstrategia, JSON.stringify(estrategia));
         _setEstrategiaBreadcrumb(estrategia);
-        estrategia.MostrarCliente = _modeloFicha.MostrarCliente;
+        estrategia.MostrarCliente = modeloFicha.MostrarCliente;
         _setHandlebars(_template.producto, estrategia);
 
         _setEstrategiaTipoBoton(estrategia);
@@ -578,7 +580,7 @@ var FichaModule = (function (config) {
 
         if (estrategia.TieneReloj) {
             _crearReloj(estrategia);
-            _setHandlebars(_template.styleOdd, _modeloFicha);
+            _setHandlebars(_template.styleOdd, modeloFicha);
         }
 
         if (!_config.esMobile) {
@@ -591,8 +593,9 @@ var FichaModule = (function (config) {
     };
 
     var _setEstrategiaBreadcrumb = function (estrategia) {
+        var modeloFicha = _getModelo();
 
-        if (_modeloFicha.TipoAccionNavegar != _tipoAccionNavegar.BreadCrumbs) {
+        if (modeloFicha.TipoAccionNavegar != _tipoAccionNavegar.BreadCrumbs) {
             return false;
         }
 
@@ -921,7 +924,9 @@ var FichaModule = (function (config) {
     //};
 
     var _initCarrusel = function () {
-        if (!_modeloFicha.TieneCarrusel) {
+        var modeloFicha = _getModelo();
+
+        if (!modeloFicha.TieneCarrusel) {
             return false;
         }
 
@@ -950,7 +955,9 @@ var FichaModule = (function (config) {
     };
 
     var _initCliente = function () {
-        if (!_modeloFicha.MostrarCliente) {
+        var modeloFicha = _getModelo();
+
+        if (!modeloFicha.MostrarCliente) {
             return false;
         }
 
