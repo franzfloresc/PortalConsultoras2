@@ -532,14 +532,11 @@ namespace Portal.Consultoras.Web.Controllers
                     urlIconTelefono = Globals.RutaCdn + "/ImagenesPortal/Iconos/celu_mail_lbel.png";
                 }
 
-                string campaniaId;
                 string fechaFacturacion;
                 try
                 {
                     if (Campania == userData.CampaniaID.ToString())
                     {
-                        campaniaId = userData.CampaniaID.ToString();
-
                         if (!userData.DiaPROL) fechaFacturacion = userData.FechaFacturacion.ToShortDateString();
                         else
                         {
@@ -556,10 +553,9 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     else
                     {
-                        campaniaId = Campania;
                         using (UsuarioServiceClient sv = new UsuarioServiceClient())
                         {
-                            fechaFacturacion = sv.GetFechaFacturacion(campaniaId, userData.ZonaID, userData.PaisID).ToShortDateString();
+                            fechaFacturacion = sv.GetFechaFacturacion(Campania, userData.ZonaID, userData.PaisID).ToShortDateString();
                         }
                     }
                 }
