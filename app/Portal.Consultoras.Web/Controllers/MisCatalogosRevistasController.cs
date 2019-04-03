@@ -532,6 +532,53 @@ namespace Portal.Consultoras.Web.Controllers
                     urlIconTelefono = Globals.RutaCdn + "/ImagenesPortal/Iconos/celu_mail_lbel.png";
                 }
 
+                string campaniaId;
+                string fechaFacturacion;
+                try
+                {
+                    if (Campania == userData.CampaniaID.ToString())
+                    {
+                        campaniaId = userData.CampaniaID.ToString();
+
+                        if (!userData.DiaPROL) fechaFacturacion = userData.FechaFacturacion.ToShortDateString();
+                        else
+                        {
+                            DateTime fechaHoraActual = DateTime.Now.AddHours(userData.ZonaHoraria);
+                            if (userData.DiasCampania != 0 && fechaHoraActual < userData.FechaInicioCampania)
+                            {
+                                fechaFacturacion = userData.FechaInicioCampania.ToShortDateString();
+                            }
+                            else
+                            {
+                                fechaFacturacion = fechaHoraActual.ToShortDateString();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        campaniaId = Campania;
+                        using (UsuarioServiceClient sv = new UsuarioServiceClient())
+                        {
+                            fechaFacturacion = sv.GetFechaFacturacion(campaniaId, userData.ZonaID, userData.PaisID).ToShortDateString();
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                    return Json(new
+                    {
+                        success = false,
+                        message = "Por favor vuelva ingresar en unos momentos, ya que el servicio de catálogos virtuales está teniendo problemas.",
+                        extra = string.Empty
+                    });
+                }
+
+                DateTime dd = DateTime.Parse(fechaFacturacion, new CultureInfo("es-ES"));
+                string fdf = dd.ToString("dd", new CultureInfo("es-ES"));
+                string fmf = dd.ToString("MMMM", new CultureInfo("es-ES"));
+                string ffechaFact = fdf + " de " + char.ToUpper(fmf[0]) + fmf.Substring(1);
+
                 Mensaje = Mensaje.Replace("\n", "<br/>");
                 var txtBuil = new StringBuilder();
                 foreach (var item in ListaCatalogosCliente)
@@ -560,6 +607,7 @@ namespace Portal.Consultoras.Web.Controllers
                     mailBody += "</tr>";
                     mailBody += "<tr>";
                     mailBody += "<td style=\"text-align:center; font-family:'Calibri'; color:#000; font-weight:500; font-size:14px; padding-bottom:30px;\">" + (Mensaje ?? "");
+                    mailBody += "<br/><br/>Recuerda que tienes hasta el " + ffechaFact + " para enviarme tu pedido.</td>";
                     mailBody += "</tr>";
                     mailBody += "<tr>";
                     mailBody += "<td>";
