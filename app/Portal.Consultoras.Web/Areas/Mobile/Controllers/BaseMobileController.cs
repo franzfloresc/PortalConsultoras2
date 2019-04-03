@@ -197,7 +197,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private bool NoMostrarBannerODD()
         {
-            string controllerName = GetControllerActual();//ControllerContext.RouteData.Values["controller"].ToString();
+            string controllerName = GetControllerActual();
 
             if (controllerName == "OfertaLiquidacion") return true;
             if (controllerName == "CatalogoPersonalizado") return true;
