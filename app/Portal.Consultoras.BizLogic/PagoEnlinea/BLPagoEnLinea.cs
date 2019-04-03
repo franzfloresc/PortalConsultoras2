@@ -245,7 +245,7 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
             return new BLResumenCampania().GetMontoDeuda(paisId, 0, (int)consultoraId, codigoUsuario, true);
         }
 
-        public BEPagoEnLinea ObtenerPagoEnLineaConfiguracion(int paisId, long consultoraId, string codigoUsuario, string EsDigital, DateTime fecha)
+        public BEPagoEnLinea ObtenerPagoEnLineaConfiguracion(int paisId, long consultoraId, string codigoUsuario, int EsDigital, DateTime FechaVencimiento)
         {
             var result = new BEPagoEnLinea();
             List<BETablaLogicaDatos> listaConfiguracion = null;
@@ -272,7 +272,7 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
                 if (pagoBancaPorInternet != null) pagoBancaPorInternet.Estado = false;
             }
         
-            var Evaluacion = (EsDigital == "1") && (fecha >= DateTime.Now.Date) && paisId == Constantes.PaisID.Peru;
+            var Evaluacion = (EsDigital == 1) && (FechaVencimiento >= DateTime.Now.Date) && paisId == Constantes.PaisID.Peru;
 
             if (Evaluacion)
             {

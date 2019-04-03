@@ -22,7 +22,7 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
         int ObtenerNumeroOrden(int paisId);
         string ObtenerPagoEnLineaURLPaginasBancos(int paisId);
         List<BEPagoEnLineaBanco> ObtenerPagoEnLineaBancos(int paisId);
-        BEPagoEnLinea ObtenerPagoEnLineaConfiguracion(int paisId, long consultoraId, string codigoUsuario, string EsDigital, DateTime fecha);
+        BEPagoEnLinea ObtenerPagoEnLineaConfiguracion(int paisId, long consultoraId, string codigoUsuario, int EsDigital, DateTime FechaVencimiento);
         BEPagoEnLineaVisa ObtenerPagoEnLineaVisaConfiguracion(int paisId, string codigoConsutora);
         BERespuestaServicio RegistrarPagoEnLineaVisa(BEUsuario usuario, BEPagoEnLineaVisa pagoEnLineaVisa);
         

@@ -1207,7 +1207,7 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         BEUsuario GetConfiguracionOfertaFinalCarrusel(BEUsuario usuario);
         [OperationContract]
-        Task<BEProducto> GetRegaloOfertaFinal(BEUsuario usuario);
+        BEProducto GetRegaloOfertaFinal(BEUsuario usuario);
         [OperationContract]
         BEPedidoDetalleResult ValidaRegaloPedido(BEPedidoDetalle pedidoDetalle);
         [OperationContract]
@@ -1272,7 +1272,7 @@ namespace Portal.Consultoras.ServiceContracts
         int ObtenerPagoEnLineaNumeroOrden(int paisId);
 
         [OperationContract]
-        BEPagoEnLinea ObtenerPagoEnLineaConfiguracion(int paisId, long consultoraId, string codigoUsuario, string EsDigital, DateTime fecha);
+        BEPagoEnLinea ObtenerPagoEnLineaConfiguracion(int paisId, long consultoraId, string codigoUsuario, int EsDigital, DateTime FechaVencimientoPago);
 
         [OperationContract]
         BEPagoEnLineaVisa ObtenerPagoEnLineaVisaConfiguracion(int paisId, string codigoConsutora);
