@@ -5116,6 +5116,9 @@
     <None Include="Service References\ServiceUsuario\UsuarioService61.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServiceUsuario\UsuarioService610.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServiceUsuario\UsuarioService62.xsd">
       <SubType>Designer</SubType>
     </None>

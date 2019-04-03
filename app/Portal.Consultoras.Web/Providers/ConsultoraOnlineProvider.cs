@@ -47,13 +47,30 @@ namespace Portal.Consultoras.Web.Providers
         public List<EstrategiaPedidoModel> GetRecomendados(RecomendadoRequest recomendado)
         {
 
-            var ac = sessionManager;
+            var response = new List<EstrategiaPedidoModel>(); 
+
             using (var sv = new UsuarioServiceClient())
             {
-                var resp =  sv.GetRecomendados(recomendado);
+                var resultServicelist =  sv.GetRecomendados(recomendado);
+
+                if (resultServicelist != null)
+                {
+                    resultServicelist.Each(x=> {
+
+                        response.Add( new EstrategiaPedidoModel() {
+                            DescripcionCUV2 = x.DescripcionCUV2,
+                            PrecioString = x.PrecioString
+
+                        });
+
+                    });
+
+                }
+
+                
             }
 
-            return new List<EstrategiaPedidoModel>();
+            return response;
         }
 
     }

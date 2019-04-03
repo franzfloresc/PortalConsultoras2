@@ -16,6 +16,26 @@ namespace Portal.Consultoras.BizLogic
 {
     public class BLConsultoraOnline
     {
+
+        public IList<BEMisPedidos> GetSolicitudesPedidoPendiente(int PaisID, long ConsultoraId, int Campania)
+        {
+            var daMisPedidos = new DAConsultoraOnline(PaisID);
+            var misPedidos = new List<BEMisPedidos>();
+            using (IDataReader reader = daMisPedidos.GetSolicitudesPedidoPendiente(ConsultoraId, Campania))
+            {
+                while (reader.Read())
+                {
+                    var entidad = new BEMisPedidos(reader);
+                    misPedidos.Add(entidad);
+                }
+
+                return misPedidos;
+            }
+        }
+
+
+        
+
         public IList<BEMisPedidos> GetMisPedidos(int PaisID, long ConsultoraId, int Campania)
         {
             var daMisPedidos = new DAConsultoraOnline(PaisID);

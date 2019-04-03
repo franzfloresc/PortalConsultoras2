@@ -443,5 +443,8 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         void RegistrarDireccionEntrega(string codigoISO, BEDireccionEntrega direccionEntrega);
         #endregion
+
+        [OperationContract]
+        IList<BEMisPedidos> GetSolicitudesPedidoPendiente(int PaisID, long ConsultoraId, int Campania);
     }
 }

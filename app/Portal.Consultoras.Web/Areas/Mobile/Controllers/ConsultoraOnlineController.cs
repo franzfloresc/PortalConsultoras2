@@ -1169,7 +1169,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         }
 
 
-        public ActionResult PendientesMedioDeCompra()
+        public ActionResult PendientesMedioDeCompra(int pedidoId)
         {
 
             var model = new PedidosPendientesMedioPagoModel();
@@ -1177,43 +1177,47 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var listaSap = new List<String>();
 
 
+
+            ////////////////////////////////////////////////////////////////
+            MisPedidosModel modelPedido = new MisPedidosModel();
+
+            List<BEMisPedidos> olstMisPedidos;
+            using (UsuarioServiceClient svc = new UsuarioServiceClient())
+            {
+                olstMisPedidos = svc.GetMisPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID, userData.CampaniaID).ToList();
+                modelPedido.ListaPedidos = olstMisPedidos;
+                SessionManager.SetobjMisPedidos(modelPedido);
+            }
+
+            MisPedidosModel consultoraOnlineMisPedidos = SessionManager.GetobjMisPedidos();
+            long _pedidoId = Convert.ToInt64(pedidoId);
+            BEMisPedidos pedido = consultoraOnlineMisPedidos.ListaPedidos.FirstOrDefault(p => p.PedidoId == _pedidoId && p.Estado.Trim().Length == 0);
+
+            model.Cliente = pedido.Cliente;
+            model.Email = pedido.Email;
+            List<BEMisPedidosDetalle> olstMisPedidosDet;
+            using (UsuarioServiceClient svc = new UsuarioServiceClient())
+            {
+                olstMisPedidosDet = svc.GetMisPedidosDetalleConsultoraOnline(userData.PaisID, pedidoId).ToList();
+            }
+
+            model.ListaCatalogo = new List<MisPedidosDetalleModel2>();
+            if (olstMisPedidosDet.Count > 0)
+            {
+                SessionManager.SetobjMisPedidosDetalle(olstMisPedidosDet);
+                olstMisPedidosDet = olstMisPedidosDet.Where(x => x.estado.HasValue && x.estado.Value == true).ToList();     
+                olstMisPedidosDet = CargarMisPedidosDetalleDatos(pedido.MarcaID, olstMisPedidosDet);
+                var detallePedidos = Mapper.Map<List<BEMisPedidosDetalle>, List<MisPedidosDetalleModel2>>(olstMisPedidosDet);
+                detallePedidos.Update(p => p.CodigoIso = userData.CodigoISO);
+                model.ListaCatalogo = detallePedidos;
+           
+
+            //////////////////////////////
+
             model.Total = 100;
             model.TotalGana = 60;
             model.TotalCatalogo = 40;
-
-            //  revistaDigital.soci
-            //  parametrosRecomendado.codigoConsultora = userData.CodigoConsultora;
-            //parametrosRecomendado.codigoZona = userData.ZonaID.ToString();
-            //parametrosRecomendado.codigoProducto = listaSap.ToArray();
-            //parametrosRecomendado.cantidadProductos = listaSap.Count;
-            //parametrosRecomendado.configuracion = new configuracion() {
-            //  //  sociaEmpresaria = revistaDigital.SociaEmpresariaExperienciaGanaMas
-            //    mdo = revistaDigital.ActivoMdo? Constantes.BooleanString.True : Constantes.BooleanString.False
-
-            //  revistaDigital.rdr
-            //};
-
-            listaSap.Add("210090349");
-            listaSap.Add("210090295");
-            listaSap.Add("200088604");
-
-
-            parametrosRecomendado.codigoConsultora = "0033938";
-            parametrosRecomendado.codigoZona = "1714";
-            parametrosRecomendado.codigoProducto = listaSap.ToArray();
-            parametrosRecomendado.cantidadProductos = 20;
-            parametrosRecomendado.personalizaciones = "";
-            parametrosRecomendado.configuracion = new configuracion() {
-                sociaEmpresaria = "0",
-                suscripcionActiva = "False",
-                mdo = "True",
-                rd = "True",
-                rdi= "False",
-                rdr = "False",
-                diaFacturacion = 1,
-                mostrarProductoConsultado="True"
-
-            };
+             
 
             // {
             //                "codigoConsultora":"0033938",
@@ -1234,13 +1238,15 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             //}
 
             var resultRecomendados = _consultoraOnlineProvider.GetRecomendados(parametrosRecomendado);
-            resultRecomendados.Add(new EstrategiaPedidoModel());
-            resultRecomendados.Add(new EstrategiaPedidoModel());
             model.ListaGana = resultRecomendados;
+
+            }
 
 
             return View(model);
         }
+
+
 
 
     }

@@ -342,6 +342,13 @@ namespace Portal.Consultoras.Service
             var blNotificaciones = new BLNotificaciones();
             return blNotificaciones.GetNotificacionesConsultoraDetallePedido(PaisID, ValAutomaticaPROLLogId, TipoOrigen);
         }
+ 
+
+        public IList<BEMisPedidos> GetSolicitudesPedidoPendiente(int PaisID, long ConsultoraId, int Campania)
+        {
+            var blMisPedidos = new BLConsultoraOnline();
+            return blMisPedidos.GetSolicitudesPedidoPendiente(PaisID, ConsultoraId, Campania);
+        }
 
         public IList<BEMisPedidos> GetMisPedidosConsultoraOnline(int PaisID, long ConsultoraId, int Campania)
         {

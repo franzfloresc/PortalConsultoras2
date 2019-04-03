@@ -7,21 +7,27 @@
     var mobileConfiguracion = Html.MobileAppConfiguracion();
 }
 
-<div style="height:600px">
+<div style="height:600px" data-cli   >
 
     <div style="height:100px; border:1px solid black;">
         Podras vender todo a <label>@Model.Total</label>
     </div>
 
 
-    <div style="height:200px; border:1px thin black;">
+    <div style="height:200px; border:1px thin black;overflow: hidden;">
         por Gana+: <label>@Model.TotalGana</label><br />
         Gana <label>@Model.GananciaGana</label>
      
         @foreach (var x in Model.ListaGana)
          { 
-            <div style="height:180px; padding:10px; background-color:red">
-
+            <div style="height: 180px;
+    margin: 10px;
+    background-color: red;
+    width: 100px;
+    display: inline-block; color:white">
+                @x.DescripcionCUV2
+                <br />
+                @x.PrecioString
 
 
             </div>
@@ -29,18 +35,42 @@
         }
 
 
+            <div style="width:100px;background-color:black;display: inline-block;color:white;width: 100px;text-align: center;padding: 10px;/* margin-bottom: 50px; */"> guardar</div>
+
     </div>
 
 
-    <div style="height:200px; border:1px solid black;">
-        por Gana+: <label>@Model.TotalCatalogo</label>
+    <div style="height:200px; border:1px solid black;overflow: hidden;">
+        por Catalogo: <label>@Model.TotalCatalogo</label>
+
+
+        @foreach (var x in Model.ListaCatalogo)
+    {
+                      <div style="height: 180px;
+                margin: 10px;
+                background-color: darkslategrey;
+                width: 100px;
+                display: inline-block;">
+                          @x.Producto
+                          <br />
+                          @x.FormatoPrecioTotal
+
+
+
+                      </div>
+
+}
+        <div style="width:100px;background-color:black;display: inline-block;color:white;width: 100px;text-align: center;padding: 10px;/* margin-bottom: 50px; */"> guardar</div>
+
     </div>
 
     <div style="height:100px; border:1px thin black;">
-       ya lo tnego en stcok
+        ya lo tnego en stcok
+
+        <div style="width:100px;background-color:black;display: inline-block;color:white;width: 100px;text-align: center;padding: 10px;/* margin-bottom: 50px; */"> guardar</div>
     </div>
 
-    <div id="btnAceptarPedido" onclick="PendientesAprobarPedido()" style="height:50px; border:1px solid black; text-align:center">
+    <div id="btnAceptarPedido" onclick="AceptarPedidoPendiente()" style="height:50px; border:1px solid black; text-align:center; background-color:black;display: inline-block;color:white; text-align: center;padding: 10px;">
         aceptar pedido
     </div>
 
@@ -53,6 +83,7 @@
         var urlPendientes = '@Url.Action("Pendientes", "ConsultoraOnline")';
         var urlPedido = '@Url.Action("Index", "Pedido")';
         var urlClienteDetalle = "@Url.Action("AgregarCliente", "Cliente", new { area = "Mobile" })";
+        
     </script>
 
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/ConsultoraOnline/PedidoPendienteMedioCompra.js")"></script>
