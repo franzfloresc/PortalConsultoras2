@@ -2303,10 +2303,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult ExportarExcelValidacionZona(string ReporteNombre, int idTipoParametroUnete)
         {
-            List<ServiceUnete.ParametroUneteBE> result = new List<ServiceUnete.ParametroUneteBE>();
-            result = GetReporteZonas(idTipoParametroUnete);
+            List<ServiceUnete.ParametroUneteBE> result = GetReporteZonas(idTipoParametroUnete);
             Dictionary<string, string> dic;
-
             using (var sv = new PortalServiceClient())
             {
                 dic = sv.GetDictionaryReporteZonas();
