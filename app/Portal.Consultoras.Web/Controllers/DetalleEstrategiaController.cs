@@ -138,38 +138,38 @@ namespace Portal.Consultoras.Web.Controllers
                 string mensaje = "";
                 List<EstrategiaComponenteSeccionModel> secciones;
 
-                EstrategiaPersonalizadaProductoModel res = _estrategiaComponenteProvider.GetListaComponenteDetalle(estrategiaModelo, codigoEstrategia, out esMultimarca, out mensaje).FirstOrDefault();
+                EstrategiaPersonalizadaProductoModel res = _estrategiaComponenteProvider.GetListaComponenteDetalle(estrategiaModelo, codigoEstrategia, out esMultimarca, out mensaje);
 
                 #region Desde Product Api
-                //secciones = res.Secciones;
+                secciones = res.Secciones;
                 #endregion
 
                 #region desde data tmp
-                secciones = new List<EstrategiaComponenteSeccionModel>(){
-                new EstrategiaComponenteSeccionModel()
-                {
-                    Titulo = "Modo de uso",
-                    Detalles = new List<EstrategiaComponenteSeccionDetalleModel>() { new EstrategiaComponenteSeccionDetalleModel { Titulo = "modo uso 1", Descripcion = "valor 1", Key = "" } }
-                },
-                new EstrategiaComponenteSeccionModel()
-                {
-                    Titulo = "Descubre más",
-                    Detalles = new List<EstrategiaComponenteSeccionDetalleModel>() { new EstrategiaComponenteSeccionDetalleModel { Titulo = "Descubre más 1", Descripcion = "valor 1", Key = "" } }
-                },
-                new EstrategiaComponenteSeccionModel()
-                {
-                    Titulo = "Tips de venta",
-                    Detalles = new List<EstrategiaComponenteSeccionDetalleModel>() { new EstrategiaComponenteSeccionDetalleModel { Titulo = "Tips de venta 1", Descripcion = "valor 1", Key = "" } }
-                },
-                new EstrategiaComponenteSeccionModel()
-                {
-                    Titulo = "Videos",
-                    Detalles = new List<EstrategiaComponenteSeccionDetalleModel>() {
-                        new EstrategiaComponenteSeccionDetalleModel { Titulo = "Videos 1", Descripcion = "", Key = "https://www.youtube.com/watch?v=M4V0Tkim7PA" },
-                        new EstrategiaComponenteSeccionDetalleModel { Titulo = "Videos 2", Descripcion = "", Key = "https://www.youtube.com/embed/_UwWYtLWEZg" }
-                    }
-                }
-                };
+                //secciones = new List<EstrategiaComponenteSeccionModel>(){
+                //new EstrategiaComponenteSeccionModel()
+                //{
+                //    Titulo = "Modo de uso",
+                //    Detalles = new List<EstrategiaComponenteSeccionDetalleModel>() { new EstrategiaComponenteSeccionDetalleModel { Titulo = "modo uso 1", Descripcion = "valor 1", Key = "" } }
+                //},
+                //new EstrategiaComponenteSeccionModel()
+                //{
+                //    Titulo = "Descubre más",
+                //    Detalles = new List<EstrategiaComponenteSeccionDetalleModel>() { new EstrategiaComponenteSeccionDetalleModel { Titulo = "Descubre más 1", Descripcion = "valor 1", Key = "" } }
+                //},
+                //new EstrategiaComponenteSeccionModel()
+                //{
+                //    Titulo = "Tips de venta",
+                //    Detalles = new List<EstrategiaComponenteSeccionDetalleModel>() { new EstrategiaComponenteSeccionDetalleModel { Titulo = "Tips de venta 1", Descripcion = "valor 1", Key = "" } }
+                //},
+                //new EstrategiaComponenteSeccionModel()
+                //{
+                //    Titulo = "Videos",
+                //    Detalles = new List<EstrategiaComponenteSeccionDetalleModel>() {
+                //        new EstrategiaComponenteSeccionDetalleModel { Titulo = "Videos 1", Descripcion = "", Key = "https://www.youtube.com/watch?v=M4V0Tkim7PA" },
+                //        new EstrategiaComponenteSeccionDetalleModel { Titulo = "Videos 2", Descripcion = "", Key = "https://www.youtube.com/embed/_UwWYtLWEZg" }
+                //    }
+                //}
+                //};
                 #endregion
 
                 secciones.ForEach(x => { x.EsVideos = x.Detalles.FindAll(y => !string.IsNullOrEmpty(y.Key)).Count > 0; });
