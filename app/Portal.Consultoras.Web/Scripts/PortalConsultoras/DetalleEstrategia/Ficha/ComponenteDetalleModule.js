@@ -31,6 +31,7 @@
             return "[data-ficha-contenido=" + templateId + "]";
         },
         componenteDetalle: "componenteDetalle-template",
+        componenteDetalleIndividual: "componenteDetalleIndividual-template",
         ContenidoProducto: "#ContenidoProducto",
         BotonVerDetalle: "div[id='btnVerDetalle']",
         MenuDetalleComponente: "#mnuDetalleComponente li a",
