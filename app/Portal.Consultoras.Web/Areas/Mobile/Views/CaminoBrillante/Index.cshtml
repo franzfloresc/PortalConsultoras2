@@ -8,6 +8,8 @@
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
     var data = ViewBag.ResumenLogros;
     var TieneOfertasEspeciales = ViewBag.TieneOfertasEspeciales;
+    var Niveles = ViewBag.Niveles;
+    var NivelActual = ViewBag.NivelActual;
 }
 
 @section styles{
@@ -25,12 +27,41 @@
     }
 </style>
 
+
 <div class="container ">
     <h2 class="title">Mi nivel</h2>
     <div id="box-niveles">
         <div id="ProgressBar">
+
+            <div class="Progress medal-@NivelActual"></div>
+
+            @{
+                var estilo = 0;
+                var otroEstilo = "";
+                var estiloClase = "";
+            }
+            @for (int i = 0; i < Niveles.Length; i++)
+            {
+                estilo = Convert.ToInt32(i) + Convert.ToInt32(1);
+
+                estiloClase = "pt" + estilo;
+
+                if (estilo <= NivelActual)
+                {
+                    otroEstilo = "";
+                }
+                else
+                {
+                    otroEstilo = "onclick=ModalBeneficios(" + i + ") data-toggle=modal data-target=#BenefNivel";
+                }
+                <span class="point @estiloClase" @otroEstilo>
+                    <img src=@Niveles[i].UrlImagenNivel>
+                    <em>@Niveles[i].DescripcionNivel</em>
+                </span>
+            }
         </div>
     </div>
+    <input type="hidden" id="hfNivelActual" value="@NivelActual" />
 
     <div class="modal fade" id="BenefNivel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
@@ -56,11 +87,50 @@
         </div>
     </div>
     <div class="cont-benf" id="BeneficiosPrincipal">
+        <h2 class='title'>Mis beneficios</h2>
+        <ul class='box-beneficios' id='BeneficiosPrincipal'>
+            @foreach (var beneficio in Niveles[NivelActual - 1].Beneficios)
+            {
+                <li>
+                    @if (Portal.Consultoras.Common.Constantes.CaminoBrillante.Beneficios.Iconos.Keys.Contains((string)beneficio.Icono))
+                    {
+                        <img src='@Portal.Consultoras.Common.Constantes.CaminoBrillante.Beneficios.Iconos[(string)beneficio.Icono]'>
+                    }
+                    else
+                    {
+                        <img src=''>
+                    }
+                    <div class="txt-benf">
+                        <p class="text-bold">@beneficio.Descripcion<span>@beneficio.NombreBeneficio</span></p>
+                    </div>
+                </li>
+            }
+        </ul>
+
+        @*<h2 class='title'>Mis beneficios</h2>
+            <ul class='box-beneficios' id='BeneficiosPrincipal'>
+
+                @for (int i = 0; i <= Niveles[NivelActual - 1].Beneficios.Length - 1; i++)
+                {
+                    <li>
+                        <img src='/Content/CaminoBrillante/imgs/group-14.svg'>
+                        <div class="txt-benf">
+                            <p class="text-bold">
+                                @Niveles[NivelActual - 1].Beneficios[i].Descripcion
+                                <span>@Niveles[NivelActual - 1].Beneficios[i].NombreBeneficio</span>
+                            </p>
+                        </div>
+                    </li>
+                }
+            </ul>*@
     </div>
+
+
+
 
     @if (TieneOfertasEspeciales)
     {
-        <a id="OfertasEspeciales" class="btn-principal">Ofertas especiales</a>
+        <a id="OfertasEspeciales" href="@Url.Action("Ofertas", "CaminoBrillante")" class="btn-principal">Ofertas especiales</a>
     }
 
     <div class="cont-logros">
@@ -77,28 +147,35 @@
                             <ul class="list-crec">
                                 @foreach (var item2 in data.Indicadores[i].Medallas)
                                 {
-                                    <li>
-                                        @{
-                                            if (item2 != null)
-                                            {
-                                                if (item2.Tipo == "PIE")
+                                    if (item2 != null)
+                                    {
+                                        <li>
+                                            @{
+                                                if (item2 != null)
                                                 {
-                                                    string[] torta = @item2.Valor.Split('-');
-                                                    var imagen = torta[1].PadLeft(2, '0') + "_" + torta[2].PadLeft(2, '0') + ".svg";
-                                                    <img src="~/Content/CaminoBrillante/imgs/PIZZA_@imagen" />
+                                                    if (item2.Tipo == "PIE")
+                                                    {
+                                                        string[] torta = @item2.Valor.Split('-');
+                                                        var imagen = torta[1].PadLeft(2, '0') + "_" + torta[2].PadLeft(2, '0') + ".svg";
+                                                        <img src="~/Content/CaminoBrillante/imgs/PIZZA_@imagen" />
+                                                    }
+                                                    else if (item2.Tipo == "CIRC")
+                                                    {
+                                                        string Valor = item2.Valor.Replace("%", "");
+                                                        string Estilo = Valor.Equals("25") ? "veinticinco" : "cinco";
+                                                        <div class="circle-porcent @Estilo">
+                                                            <span>@item2.Valor</span>
+                                                        </div>
+                                                    }
+                                                    else if (item2.Tipo == "PED" || item2.Tipo == "TIME")
+                                                    {
+                                                        <img src="~/Content/CaminoBrillante/imgs/pedido_activo.svg" />
+                                                    }
+                                                    <p>@item2.Titulo</p>
                                                 }
-                                                else
-                                                {
-                                                    string Valor = item2.Valor.Replace("%", "");
-                                                    string Estilo = Valor.Equals("25") ? "veinticinco" : "cinco";
-                                                    <div class="circle-porcent @Estilo">
-                                                        <span>@item2.Valor</span>
-                                                    </div>
-                                                }
-                                                <p>@item2.Titulo</p>
                                             }
-                                        }
-                                    </li>
+                                        </li>
+                                    }
                                 }
                             </ul>
                             <a href="" class="btn-link">Ver todos</a>
@@ -156,6 +233,7 @@
                         <span>S/ 250</span>
                     </div>
                 </div>
+
             </div>
         </div>
         <div class="shad right-ganancias">
