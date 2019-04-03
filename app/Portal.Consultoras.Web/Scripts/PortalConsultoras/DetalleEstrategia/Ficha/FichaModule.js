@@ -809,12 +809,12 @@ var FichaModule = (function (config) {
     ////// Fin - Construir Seccion Estrategia
 
     ////// Ini - Construir Estructura Ficha
-    var _validarAbrirFichaResumida = function () {
-        if (_config.origen.slice(-2).in("09", "08")) {
-            return true;
-        }
-        return _config.esEditable;
-    }
+    //var _validarAbrirFichaResumida = function () {
+    //    if (_config.origen.slice(-2).in("09", "08")) {
+    //        return true;
+    //    }
+    //    return _config.esEditable;
+    //}
 
     var _construirSeccionFicha = function () {
         var modeloFicha = _getModelo();
