@@ -1111,6 +1111,60 @@ function CargarPropuesta(codigoSsic) {
     });
 }
 
+function DetalleGuardarV2(operacionId) {
+
+    $.ajaxSetup({
+        global: false,
+        type: "POST",
+        url: baseUrl + 'MisReclamos/DetalleGuardar',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        async: true,
+        cache: false,
+        beforeSend: function () {
+            waitingDialog();
+        },
+        complete: function () {
+            closeWaitingDialog();
+        }
+    });
+
+    var item = {
+        CDRWebID: $("#CDRWebID").val() || 0,
+        PedidoID: $("#txtPedidoID").val() || 0,
+        NumeroPedido: $("#txtNumeroPedido").val() || 0,
+        CampaniaID: $("#ddlCampania").val() || 0,
+        Motivo: $(".reclamo_motivo_select[data-check='1']").attr("id"),
+        Operacion: operacionId,
+        CUV: $.trim($("#hdfCUV").val()),
+        Cantidad: $("#txtCantidad").val(),
+        CUV2: $("#txtCUV2").val(),
+        Cantidad2: $("#txtCantidad2").val()
+    };
+
+    $.ajax({        
+        data: JSON.stringify(item),       
+        success: function (data) {         
+            if (!checkTimeout(data)) {
+                return false;
+            }
+            if (data.success == false) {
+                alert_msg(data.message);
+                return false;
+            }
+            $("#CDRWebID").val(data.detalle);
+            $('#Cambio1').hide();
+            $('#Paso3').show();
+            DetalleCargar();
+            //CambioPaso();
+            //
+        },
+        error: function (data, error) {
+            closeWaitingDialog();
+        }
+    });
+}
+
 function DetalleGuardar() {
     var item = {
         CDRWebID: $("#CDRWebID").val() || 0,
@@ -2031,14 +2085,20 @@ function AgregarODisminuirCantidad(event, opcion) {
 
 function IrAEscogiste() {
     var id = "";
-    //$("#divOperacion input[type=checkbox]").each(function () {
-    //    if ($(this).is(':checked')) {
-    //        id = $(this).attr("id");
-    //        return true;
-    //    }
-    //});
+    $("#divOperacion input[type=checkbox]").each(function () {
+        if ($(this).is(':checked')) {
+            id = $(this).attr("id");
+            return true;
+        }
+    });
+
     $('#Cambio1').hide();
     $('#Paso3').show();
+
+    DetalleGuardarV2(id);
+
+   
+
 }
 
 

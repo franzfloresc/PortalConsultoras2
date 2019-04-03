@@ -232,6 +232,9 @@ namespace Portal.Consultoras.Web.Providers
             if (differenceInDays <= 0) return new List<BECDRWebMotivoOperacion>();
 
             var listaMotivoOperacion = CargarMotivoOperacion(paisId);
+#if DEBUG
+            differenceInDays = 5;
+#endif
             var listaFiltro = listaMotivoOperacion.Where(mo => mo.CDRTipoOperacion.NumeroDiasAtrasOperacion >= differenceInDays).ToList();
             return listaFiltro.OrderBy(p => p.Prioridad).ToList();
         }
