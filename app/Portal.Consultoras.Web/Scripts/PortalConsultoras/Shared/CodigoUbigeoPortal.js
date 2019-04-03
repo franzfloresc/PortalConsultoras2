@@ -1,5 +1,5 @@
 ﻿
-if (!jQuery) { throw new Error("AnalyticsPortal.js requires jQuery"); }
+if (!jQuery) { throw new Error("CodigoUbigeoPortal.js requires jQuery"); }
 
 +function ($) {
     "use strict";
@@ -100,7 +100,7 @@ var CodigoUbigeoPortal = (function () {
             { Codigo: "11", CodigoPalanca: "", Texto: "" },
             { Codigo: "12", CodigoPalanca: "", Texto: "" },
             { Codigo: "13", CodigoPalanca: "", Texto: "" },
-            { Codigo: "14", CodigoPalanca: "MG", Texto: "Más Ganadoras" }
+            { Codigo: "14", CodigoPalanca: "MG", Texto: "Más Ganadoras" },
 
 
             { Codigo: "15", CodigoPalanca: "", Texto: "", Desc: "Grilla" }
@@ -140,9 +140,7 @@ var CodigoUbigeoPortal = (function () {
         origenEstructura.Pagina = (origenEstructura.Pagina || codigoUbigeoPortal.substring(2, 4)).toString().trim();
         origenEstructura.SeccionFuncional = (origenEstructura.SeccionFuncional || codigoUbigeoPortal.substring(4, 6)).toString().trim();
         origenEstructura.Seccion = (origenEstructura.Seccion || codigoUbigeoPortal.substring(6, 8)).toString().trim();
-        
-        //console.log("getEstructuraSegunCodigoUbigeo", codigo, origenEstructura);
-
+                             
         return origenEstructura;
     }
 
