@@ -1,9 +1,10 @@
 ﻿var localStorageModule;
 var analyticsPortalModule;
 var generalModule;
+var detalleEstrategiaProvider;
+var componenteDetalleModule;
 
 var fichaModule;
-var componenteDetalleModule;
 
 $(document).ready(function () {
     AbrirLoad();
@@ -11,6 +12,7 @@ $(document).ready(function () {
     localStorageModule = LocalStorageModule();
     analyticsPortalModule = AnalyticsPortalModule;
     generalModule = GeneralModule;
+    detalleEstrategiaProvider = DetalleEstrategiaProvider;
 
     componenteDetalleModule = ComponenteDetalleModule({
         localStorageModule: localStorageModule,
@@ -24,9 +26,10 @@ $(document).ready(function () {
     fichaModule = FichaModule({
         localStorageModule: localStorageModule,
         analyticsPortalModule: analyticsPortalModule,
+        generalModule: generalModule,
+        detalleEstrategiaProvider: detalleEstrategiaProvider,
         componenteDetalleModule: componenteDetalleModule,
 
-        generalModule: generalModule,
         palanca: modelPalanca,
         campania: modelCampania,
         cuv: modelCuv,
