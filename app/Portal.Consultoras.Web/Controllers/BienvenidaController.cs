@@ -246,14 +246,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     model.CaminoBrillanteMsg = userData.CaminoBrillanteMsg.Replace("{0}", "<b>" + NivelCaminoBrillante.DescripcionNivel + "</b>");
 
-
-                    //model.UrlLogoCaminoBrillante = NivelCaminoBrillante.UrlImagenNivel.Replace("{DIMEN}", "MDPI");
-                    //model.UrlLogoCaminoBrillante = model.UrlLogoCaminoBrillante.Replace("{STATE}", "A");
-
-
                     model.UrlLogoCaminoBrillante = Constantes.CaminoBrillante.Niveles.Iconos.Keys.Contains(NivelCaminoBrillante.CodigoNivel) ? Constantes.CaminoBrillante.Niveles.Iconos[NivelCaminoBrillante.CodigoNivel][1] : "";
-
-                    
                 }
 
                 var LogicaCaminoExisto = _tablaLogica.GetTablaLogicaDatos(userData.PaisID, Constantes.TablaLogica.EscalaDescuentoDestokp);
