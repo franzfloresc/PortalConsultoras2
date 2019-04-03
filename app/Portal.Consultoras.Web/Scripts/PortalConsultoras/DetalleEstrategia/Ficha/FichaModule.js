@@ -22,6 +22,10 @@ registerEvent.call(opcionesEvents, "onOptionSelected");
 
 var baseUrl = baseUrl || "";
 
+var isChangeTono = false;
+var isChangeCliente = false;
+var isChangeCantidad = false;
+
 var variablesPortal = variablesPortal || {};
 var fichaModule = fichaModule || {};
 var carruselModule = carruselModule || {};
@@ -389,6 +393,7 @@ var FichaModule = (function (config) {
         });
 
         $(_elementos.btnAgregalo).addClass("btn_desactivado_general");
+        isChangeTono = false;
     };
 
     var _setPedidoSetDetalle = function (pEstrategia) {
@@ -928,9 +933,17 @@ var FichaModule = (function (config) {
         });
 
         $(_seccionesPanelCliente.btnShowCliente).click(function () {
+
+            var nombreButton = $(this).find('.cambiar_opcion_editarFicha').text().trim();
+            if (AnalyticsPortalModule != 'undefined') {
+                AnalyticsPortalModule.MarcaFichaResumidaClickDetalleCliente(nombreButton);
+            }
+           
             panelCliente.Abrir();
             console.log('_initCliente - DivPopupFichaResumida overflow hidden');
             $("#DivPopupFichaResumida").css("overflow", "hidden");
+            isChangeCliente = true;
+
         });
         //END PANEL CLIENTE
     };
@@ -1059,6 +1072,19 @@ var FichaPartialModule = (function () {
     };
 
     var _fichaPreValidar = function (event, tipoAccion, tipoEstrategiaCodigo, campaniaId, setid, cuv) {
+        
+        var producto = $(event).find(".lblLPDesProd").html() + "";
+        if(producto === 'undefined')
+            producto = $(event).find(".desc_prod").find("span").html();
+
+        isChangeTono = false;
+        isChangeCantidad = false;
+        isChangeCliente = false;
+
+        if (typeof AnalyticsPortalModule !== 'undefined') {
+            AnalyticsPortalModule.MarcaFichaResumidaClickDetalleProducto(producto);
+        }
+
         if (tipoEstrategiaCodigo == ConstantesModule.ConstantesPalanca.ArmaTuPack) {
             _mostrarPopupAtp(campaniaId, setid, cuv);
         }

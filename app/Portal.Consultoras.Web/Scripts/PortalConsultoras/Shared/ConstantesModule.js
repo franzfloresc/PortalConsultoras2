@@ -117,8 +117,10 @@ var ConstantesModule = (function () {
         DesktopBuscadorGanadorasCarrusel: "1101401",
         MobileBuscadorGanadorasCarrusel: "2101401",
         DesktopLandingBuscadorGanadorasFicha: "1101402",
-        MobileLandingBuscadorGanadorasFicha: "2101402"
+        MobileLandingBuscadorGanadorasFicha: "2101402",
 
+        DesktopPedidoEditarFicha: "1020003",
+        MobilePedidoEditarFicha: "2020004"
     }
 
     // en AnaluticsPortal.js tambiar actualizar los valores

@@ -1,4 +1,5 @@
 ﻿
+
 if (!jQuery) { throw new Error("AnalyticsPortal.js requires jQuery"); }
 
 +function ($) {
@@ -348,10 +349,10 @@ var AnalyticsPortalModule = (function () {
         if (estoyEnLaFicha === true) {
             origenEstructura.Seccion = ConstantesModule.OrigenPedidoWebEstructura.Seccion.CarruselVerMas;
         }
-
+        
         var contendor = _getTextoContenedorSegunOrigen(origenEstructura);
         var pagina = "";
-
+        
         if (origenEstructura.Seccion == ConstantesModule.OrigenPedidoWebEstructura.Seccion.CarruselVerMas) {
             pagina = _getTextoSeccionSegunOrigen(origenEstructura);
         }
@@ -1865,6 +1866,11 @@ var AnalyticsPortalModule = (function () {
     }
     var marcarPopupBotonEligeloSoloUno = function (estrategia, componentes) {
         try {
+            var textoCategory = "";
+            if (estrategia !== "undefined")
+                if (estrategia.OrigenPedidoEditar !== "undefined")
+                    textoCategory = _getParametroListSegunOrigen(estrategia.OrigenPedidoEditar, "");
+
             dataLayer.push({
                 'event': _evento.virtualEvent,
                 'category': 'Contenedor - Pop up Elige 1 opción',
@@ -1900,16 +1906,35 @@ var AnalyticsPortalModule = (function () {
         }
     }
     var marcarCambiarOpcion = function (opcion) {
-        try {
-            dataLayer.push({
-                'event': _evento.virtualEvent,
-                'category': _texto.contenedorfichaProducto,
-                'action': 'Cambiar opción',
-                'label': opcion.DescripcionCompleta
-            });
-        } catch (e) {
-            console.log(_texto.excepcion + e);
+        var origenPedido = opcion.OrigenPedidoEditar || 0;
+        if (origenPedido > 0) {
+            if (origenPedido == ConstantesModule.OrigenPedidoWeb.DesktopPedidoEditarFicha || 
+                origenPedido == ConstantesModule.OrigenPedidoWeb.MobilePedidoEditarFicha) {
+                try {
+                    dataLayer.push({
+                        'event': _evento.virtualEvent,
+                        'category': _texto.CarritoCompras + " - Ficha Resumida",
+                        'action': 'Ver Popup Cambiar opciones',
+                        'label': opcion.DescripcionCompleta
+                    });
+                } catch (e) {
+                    console.log(_texto.excepcion + e);
+                }
+            }
+
+        } else {  //Cambia Opcione normal
+            try {
+                dataLayer.push({
+                    'event': _evento.virtualEvent,
+                    'category': _texto.contenedorfichaProducto,
+                    'action': 'Cambiar opción',
+                    'label': opcion.DescripcionCompleta
+                });
+            } catch (e) {
+                console.log(_texto.excepcion + e);
+            }
         }
+        
     }
     var marcarPopupEligeXOpciones = function (opcion) {
         try {
@@ -2336,6 +2361,49 @@ var AnalyticsPortalModule = (function () {
     // Fin - Analytics Buscador
     ////////////////////////////////////////////////////////////////////////////////////////
 
+    ////////////////////////////////////////////////////////////////////////////////////////
+    // Inicio - Analytics Ficha Resumida
+    ////////////////////////////////////////////////////////////////////////////////////////
+    var marcaFichaResumidaClickDetalleProducto = function (producto) {
+        dataLayer.push({
+            "event": _evento.virtualEvent,
+            "category": _texto.CarritoCompras,
+            "action": 'Visualizar Producto',
+            "label": producto
+        });
+    }
+    var marcaFichaResumidaClickDetalleCliente = function (nombreBoton) {
+        dataLayer.push({
+            "event": _evento.virtualEvent,
+            "category": _texto.CarritoCompras + " - Ficha Resumida",
+            "action": 'Click Botón',
+            "label": nombreBoton
+        });
+    }
+    var marcaFichaResumidaClickModificar = function (origenPedido, isChangeTono, isChangeCantidad, isChangeCliente) {
+        var origenPedido = origenPedido || 0;
+        if (origenPedido > 0) {
+            if (origenPedido == ConstantesModule.OrigenPedidoWeb.DesktopPedidoEditarFicha ||
+                origenPedido == ConstantesModule.OrigenPedidoWeb.MobilePedidoEditarFicha) {
+                
+                //TODO  Coordinar con Alan
+                //var textoCategory = _getParametroListSegunOrigen(origenPedido, "");
+                var label = isChangeTono ? "Tono " : "";
+                label += (isChangeCliente ? ((label === "" ? "" : "- ") + "Cliente ") : "");
+                label += (isChangeCantidad ? ((label === "" ? "" : "- ") + "Cantidad") : "");
+                dataLayer.push({
+                    "event": _evento.virtualEvent,
+                    "category": _texto.CarritoCompras + " - Ficha Resumida",
+                    "action": 'Modificar',
+                    "label": label
+                });
+            }
+        }
+        
+    }
+    ////////////////////////////////////////////////////////////////////////////////////////
+    // Fin - Analytics Ficha Resumida
+    ////////////////////////////////////////////////////////////////////////////////////////
 
     return {
         // Ini - Metodos Iniciales
@@ -2438,6 +2506,10 @@ var AnalyticsPortalModule = (function () {
         MarcaLimpiarFiltros: marcaLimpiarFiltros,
         MarcaBotonFiltro: marcaBotonFiltro,
         MarcaBotonAplicarFiltro: marcaBotonAplicarFiltro,
-        MarcaFichaDetalleRecomendado: marcaFichaDetalleRecomendado
+        MarcaFichaDetalleRecomendado: marcaFichaDetalleRecomendado,
+
+        MarcaFichaResumidaClickDetalleProducto: marcaFichaResumidaClickDetalleProducto,
+        MarcaFichaResumidaClickDetalleCliente: marcaFichaResumidaClickDetalleCliente,
+        MarcaFichaResumidaClickModificar: marcaFichaResumidaClickModificar
     }
 })();

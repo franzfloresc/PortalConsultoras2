@@ -203,6 +203,7 @@ var ListaOpcionesModule = (function () {
     };
 
     var SeleccionarOpcion = function (cuv, event) {
+        
         if (typeof cuv === "undefined" ||
             cuv === null ||
             $.trim(cuv) === "") throw "param componente is not defined or null";

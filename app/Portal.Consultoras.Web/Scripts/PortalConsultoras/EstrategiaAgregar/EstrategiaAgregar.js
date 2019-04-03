@@ -250,7 +250,7 @@ var EstrategiaAgregarModule = (function () {
     }
 
     var estrategiaAgregar = function (event, popup, limite, esFicha, esEditable) {
-
+          
         popup = popup || false;
         limite = limite || 0;
         esEditable = esEditable || false;
@@ -261,6 +261,19 @@ var EstrategiaAgregarModule = (function () {
         var $btnAgregar = $(event.target);
         //console.log($btnAgregar);
         var origenPedidoWebEstrategia = getOrigenPedidoWeb($btnAgregar);
+
+        //*****ANALYTICS ******
+        if (AnalyticsPortalModule != 'undefined') {
+            if (typeof (fichaModule) != "undefined") {
+                if (typeof (fichaModule.GetEstrategia) != "undefined") {
+                    var estrategia = fichaModule.GetEstrategia();
+                    AnalyticsPortalModule.MarcaFichaResumidaClickModificar(estrategia.OrigenPedidoEditar, isChangeTono, isChangeCantidad, isChangeCliente);
+                }
+            }
+            
+        }
+        //**FIN ANALYTICS *****
+
         //console.log(origenPedidoWebEstrategia);
         var estrategia = getEstrategia($btnAgregar, origenPedidoWebEstrategia);
         //console.log(estrategia);
@@ -610,6 +623,7 @@ var EstrategiaAgregarModule = (function () {
                 var estrategia = fichaModule.GetEstrategia();
                 if (estrategia.esEditable) { //todos menos la 2003 (tipos&tonos)
                     EstrategiaAgregarModule.HabilitarBoton();
+                    isChangeCantidad = true; //para hacer seguimiento al marcar analytics
                 }
             }
         }
