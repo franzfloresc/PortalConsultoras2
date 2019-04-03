@@ -473,7 +473,7 @@ namespace Portal.Consultoras.Common
             public const string MSPersonalizacionConfig = "MSPersonalizacion";
 
             public const string NivelConsultoraCaminoBrillante = "NivelConsultoraCaminoBrillante";
-
+            public const string OfertasCaminoBrillante = "OfertasCaminoBrillante";
         }
 
         public static class ConfiguracionManager
