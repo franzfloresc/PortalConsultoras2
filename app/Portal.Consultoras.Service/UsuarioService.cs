@@ -968,6 +968,11 @@ namespace Portal.Consultoras.Service
             return _caminoBrillanteBusinessLogic.GetOfertas(paisId, periodo);
         }
 
+        public List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillante(int paisID, string campaniaID)
+        {
+            return _caminoBrillanteBusinessLogic.GetDemostradoresCaminoBrillante(paisID, campaniaID);
+        }
+
         #endregion
 
     }
