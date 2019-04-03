@@ -86,6 +86,7 @@
     <Compile Include="BuscadorYFiltros\BEFiltroBuscador.cs" />
     <Compile Include="CaminoBrillante\BEBeneficioCaminoBrillante.cs" />
     <Compile Include="CaminoBrillante\BEConsultoraCaminoBrillante.cs" />
+    <Compile Include="CaminoBrillante\BEDesmostradoresCaminoBrillante.cs" />
     <Compile Include="CaminoBrillante\BEKitsHistoricoConsultora.cs" />
     <Compile Include="CaminoBrillante\BELogroCaminoBrillante.cs" />
     <Compile Include="CaminoBrillante\BEMedallaLogroCaminoBrillante.cs" />

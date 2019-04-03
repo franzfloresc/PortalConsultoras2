@@ -632,5 +632,18 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             return new CaminoBrillanteProvider(url, usuario, clave);
         }
 
+        public List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillante(int paisID, string campaniaID)
+        {            
+            var demostradores = new List<BEDesmostradoresCaminoBrillante>();
+            var daCaminoBrillante = new DACaminoBrillante(paisID);
+
+            using (IDataReader reader = daCaminoBrillante.GetDemostradoresCaminoBrillante(campaniaID))
+                while (reader.Read())
+                {
+                    demostradores.Add(new BEDesmostradoresCaminoBrillante(reader));
+                }
+
+            return demostradores;
+        }
     }
 }

@@ -450,6 +450,8 @@ namespace Portal.Consultoras.ServiceContracts
         List<BELogroCaminoBrillante> GetConsultoraLogrosCaminoBrillante(int paisId, BEUsuario entidad, bool isWeb);
         [OperationContract]
         List<BEOfertaCaminoBrillante> GetOfertasCaminoBrillante(int paisId, string periodo);
+        [OperationContract]
+        List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillante(int paisID, string campaniaID);
         #endregion
     }
 }
