@@ -1186,6 +1186,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             ViewBag.MostrarBuscadorYFiltros = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.MostrarBuscador).ToBool();
             ViewBag.CaracteresBuscador = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.CaracteresBuscador);
+            ViewBag.CaracteresBuscadorNumerico = ObtenerConfiguracionBuscadorNumerico(Constantes.TipoConfiguracionBuscador.CaracteresBuscador);
             ViewBag.TotalListadorBuscador = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.TotalResultadosBuscador);
             ViewBag.CaracteresBuscadorMostrar = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.CaracteresBuscadorMostrar);
             ViewBag.CantidadVecesInicioSesionNovedad = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.CantidadInicioSesionNovedadBuscador);
@@ -1205,7 +1206,12 @@ namespace Portal.Consultoras.Web.Controllers
             var valor = (from item in buscadorYFiltro.ConfiguracionPaisDatos where item.Codigo == codigo select item.Valor1).FirstOrDefault();
             return valor == null ? ObtenerValorPorDefecto(codigo) : valor.ToInt();
         }
-
+        public int ObtenerConfiguracionBuscadorNumerico(string codigo)
+        {
+            if (!buscadorYFiltro.ConfiguracionPaisDatos.Any()) return ObtenerValorPorDefecto(codigo);
+            var valor = (from item in buscadorYFiltro.ConfiguracionPaisDatos where item.Codigo == codigo select item.Valor2).FirstOrDefault();
+            return valor == null ? ObtenerValorPorDefecto(codigo) : valor.ToInt();
+        }
         private int ObtenerValorPorDefecto(string codigo)
         {
             switch (codigo)
