@@ -20,6 +20,7 @@
 
 .cam-exito a {
     margin-top: 11px;
+    transform: inherit;
 }
 
     .cam-exito a:hover {
@@ -112,7 +113,8 @@
     .describtext {
         display: none;
     }
-    .cam-exito:after, .mb-left:after{
+
+    .cam-exito:after, .mb-left:after {
         content: "";
         display: block;
         clear: both;

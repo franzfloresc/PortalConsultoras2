@@ -1460,6 +1460,8 @@
     <Content Include="Content\CaminoBrillante\imgs\recurso-34-3-x%402x.png" />
     <Content Include="Content\CaminoBrillante\imgs\recurso-35-3-x%402x.png" />
     <Content Include="Content\CaminoBrillante\imgs\recurso-36-3-x%402x.png" />
+    <Content Include="Content\CaminoBrillante\imgs\Tiempojuntos_activo.svg" />
+    <Content Include="Content\CaminoBrillante\imgs\Tiempojuntos_inactivo.svg" />
     <Content Include="Content\CaminoBrillante\imgs\topacio.svg" />
     <Content Include="Content\CaminoBrillante\Mobile.css" />
     <Content Include="Content\Css\Button\style.css" />
