@@ -36,6 +36,7 @@
         BotonVerDetalle: "div[id='btnVerDetalle']",
         MenuDetalleComponente: "#mnuDetalleComponente li a",
         CarruselVideo: '#carouselVideo',
+        CarruselIndividualVideo: '#carouselIndividualVideo',
         ModalProductoDetalle: "#modal_producto_detalle"
     };
 
@@ -57,17 +58,30 @@
     };
 
     var _util = {
-        mostrarModal: function (data) {
+        mostrarDetalleModal: function (data) {
             _util.setHandlebars(_template.componenteDetalle, data);
 
             this.setAcordionDetalleComponente();//eventos de acordio
+
             $(_template.ModalProductoDetalle).modal();
 
-            this.setCarrusel();
+            this.setCarrusel(_template.CarruselVideo);
             this.setYoutubeApi();
         },
-        setCarrusel: function () {
-            $(_template.CarruselVideo).slick({
+        mostrarDetalleIndividual: function (estrategia) {
+            //Este método asigna los datos del componente individual a _template.componenteDetalleIndividual
+
+            //estrategia.Hermanos por default es solo 1
+            if (estrategia.Hermanos.length > 0) {
+                _util.setHandlebars(_template.componenteDetalleIndividual, estrategia.Hermanos[0]);
+                this.setCarrusel(_template.CarruselIndividualVideo);
+                this.setYoutubeApi();
+            } else {
+                console.log('estrategia.Hermanos no tiene items');
+            }
+        },
+        setCarrusel: function (id) {
+            $(id).slick({
                 infinite: false,
                 speed: 300,
                 slidesToShow: 1,
@@ -105,7 +119,7 @@
 
         console.log('componente', componente);
          
-        _util.mostrarModal(componente);
+        _util.mostrarDetalleModal(componente);
          
     };
 

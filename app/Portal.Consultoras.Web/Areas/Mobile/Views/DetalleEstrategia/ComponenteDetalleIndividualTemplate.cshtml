@@ -6,6 +6,57 @@
         <div class="row tabs">
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <ul class="tabs ficha_tabs">
+
+                    {{#each this.Secciones as |seccion|}}
+
+                    {{#iff seccion.EsVideos '==' false }}
+                    <li id="div_ficha_tab1">
+                        <a class="tab-link">{{seccion.Titulo}}</a>
+                        <ul class="tabs_container">
+                            {{#each seccion.Detalles as |detalle index|}}
+
+                            <h4>{{detalle.Titulo}}</h4>
+                            <p>{{detalle.Descripcion}}</p>
+
+                            {{/each}}
+                        </ul>
+                    </li>
+                    {{/iff}}
+                    {{/each}}
+
+                    {{#each this.Secciones as |seccion|}}
+                    {{#iff seccion.EsVideos '==' true }}
+                    <li id="div_ficha_tab1">
+                        <a class="tab-link">{{seccion.Titulo}}</a>
+                        <ul class="tabs_container">
+                            <div style="width:98% !important; height:500px !important;">
+                                <div id="carouselIndividualVideo">
+                                    {{#each seccion.Detalles as |detalle index|}}
+                                    <div style="width:350px;height:350px;">
+                                        <p>{{detalle.Titulo}}</p>
+                                        <div id="ytFichax"
+                                             data-youtube="{
+                                                     height:'350',
+                                                     width:'350',
+                                                     enablejsapi:1,
+                                                     fs:0,
+                                                     showinfo:0,
+                                                     modestbranding:1,
+                                                     loop:1,
+                                                     videoId: '{{detalle.Key}}',
+                                                     playerVars:{autoplay:0,rel:0}}"
+                                             data-extra="{'descripcionResumen':'{{detalle.Titulo}}'}"
+                                             class="yt-video">
+                                        </div>
+                                    </div>
+                                    {{/each}}
+                                </div>
+                            </div>
+                        </ul>
+                    </li>
+                    {{/iff}}
+                    {{/each}}
+
                     <li id="div_ficha_tab1">
                         <a class="tab-link">Modo de uso</a>
                         <ul class="tabs_container">
@@ -16,6 +67,8 @@
                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim porro dolorum dolor blanditiis omnis sunt aut totam iste, aliquam provident excepturi laborum quo optio! Omnis, ab? Fuga odio eum iure?</p>
                         </ul>
                     </li>
+
+
                     <li id="div_ficha_tab2">
                         <a class="tab-link">Descubre más</a>
                         <ul>
