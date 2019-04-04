@@ -1196,6 +1196,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.FlagFiltrosBuscador = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.FlagFiltrosBuscador).ToBool();
             ViewBag.FlagBuscarPorCategoria = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.FlagBuscarPorCategoria).ToBool();
             ViewBag.FlagBuscarPorCategoriaTotalProductos = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.FlagBuscarPorCategoriaTotalProductos).ToBool();
+            ViewBag.MostrarPalabrasMenoresACuatro = ObtenerConfiguracionBuscadorCaracteresMenoresACuatro(Constantes.TipoConfiguracionBuscador.MostrarPalabrasMenoresACuatro);
         }
 
         #endregion
@@ -1211,6 +1212,22 @@ namespace Portal.Consultoras.Web.Controllers
             if (!buscadorYFiltro.ConfiguracionPaisDatos.Any()) return ObtenerValorPorDefecto(codigo);
             var valor = (from item in buscadorYFiltro.ConfiguracionPaisDatos where item.Codigo == codigo select item.Valor2).FirstOrDefault();
             return valor == null ? ObtenerValorPorDefecto(codigo) : valor.ToInt();
+        }
+        public string ObtenerConfiguracionBuscadorCaracteresMenoresACuatro(string codigo)
+        {
+            if (!buscadorYFiltro.ConfiguracionPaisDatos.Any()) return ObtenerValorPorDefectoCadena(codigo);
+            var valor = (from item in buscadorYFiltro.ConfiguracionPaisDatos where item.Codigo == codigo select item.Valor1).FirstOrDefault();
+            return valor == null ? ObtenerValorPorDefectoCadena(codigo) : valor;
+        }
+        private string ObtenerValorPorDefectoCadena(string codigo)
+        {
+            switch (codigo)
+            {
+                case Constantes.TipoConfiguracionBuscador.MostrarPalabrasMenoresACuatro:
+                    return string.Empty;
+                default:
+                    return string.Empty;
+            }
         }
         private int ObtenerValorPorDefecto(string codigo)
         {
