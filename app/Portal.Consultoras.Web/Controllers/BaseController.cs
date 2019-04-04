@@ -256,7 +256,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public virtual List<BEPedidoWebDetalle> ObtenerPedidoWebSetDetalleAgrupado(bool noSession = false)
         {
-            return _pedidoWebProvider.ObtenerPedidoWebSetDetalleAgrupado(EsOpt(), noSession);
+            return _pedidoWebProvider.ObtenerPedidoWebSetDetalleAgrupado(noSession);
         }
 
         public virtual List<BEPedidoWebDetalle> GetDetallePedidoAgrupadoByCampania(int campaniaId)

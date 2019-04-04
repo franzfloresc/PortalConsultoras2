@@ -77,12 +77,12 @@ namespace Portal.Consultoras.Common
                     logError.IsoPais = Util.GetPaisISO(int.Parse(logError.IsoPais));
                 }
 
-                
+
                 RegistrarElastic(logError);
             }
             catch (Exception)
             {
-                //EventLog.WriteEntry("SomosBelcorp - LogManager", string.Format("Mensaje: {0} \nTrace: {1}", ex.Message, ex.StackTrace), EventLogEntryType.Error);
+                //
             }
         }
 
@@ -120,7 +120,7 @@ namespace Portal.Consultoras.Common
             }
             catch (Exception)
             {
-                //EventLog.WriteEntry("SomosBelcorp - LogManager", string.Format("Mensaje: {0} \nTrace: {1}", ex.Message, ex.StackTrace), EventLogEntryType.Error);
+                //
             }
         }
 
@@ -147,12 +147,14 @@ namespace Portal.Consultoras.Common
                 var exceptionMessage = string.Empty;
                 if (logError.Exception != null)
                 {
-                    exceptionMessage = logError.Exception.Message;
+                    exceptionMessage = GetMensajeError(logError.Exception);
 
-                    if (logError.Exception.StackTrace != null)
-                    {
-                        exceptionMessage += " - " + logError.Exception.StackTrace;
-                    }
+                    //exceptionMessage = logError.Exception.Message;
+
+                    //if (logError.Exception.StackTrace != null)
+                    //{
+                    //    exceptionMessage += " - " + logError.Exception.StackTrace;
+                    //}
 
                 }
 
@@ -171,7 +173,7 @@ namespace Portal.Consultoras.Common
                         className = frame.GetMethod().DeclaringType.Name;
                         methodName = frame.GetMethod().Name;
                     }
-                    
+
                 }
                 else
                 {
@@ -242,7 +244,7 @@ namespace Portal.Consultoras.Common
             var exceptionMessage = "";
             try
             {
-                var separador = " | ";
+                var separador = "\n";
 
                 if (ex != null)
                 {
@@ -252,7 +254,11 @@ namespace Portal.Consultoras.Common
                     var innerException = ex.InnerException;
                     while (innerException != null)
                     {
-                        exceptionMessage = string.Format("{0}, InnerException: {1}", exceptionMessage, innerException.Message);
+                        exceptionMessage = string.Format("{0}" + separador + "Message: {1}" + separador + "InnerException: {2}", 
+                            exceptionMessage, 
+                            innerException.Message, 
+                            innerException.StackTrace);
+
                         innerException = innerException.InnerException;
                     }
                 }

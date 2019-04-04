@@ -1730,7 +1730,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return RedirectToAction("Index");
             }
 
-            List<BEPedidoWebDetalle> lstPedidoWebDetalle = _pedidoWebProvider.ObtenerPedidoWebSetDetalleAgrupado(EsOpt(), false);
+            List<BEPedidoWebDetalle> lstPedidoWebDetalle = _pedidoWebProvider.ObtenerPedidoWebSetDetalleAgrupado();
 
             var model = new PedidoDetalleModel
             {
@@ -1894,7 +1894,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                List<BEPedidoWebDetalle> lstPedidoWebDetalle = _pedidoWebProvider.ObtenerPedidoWebSetDetalleAgrupado(EsOpt(), false);
+                List<BEPedidoWebDetalle> lstPedidoWebDetalle = _pedidoWebProvider.ObtenerPedidoWebSetDetalleAgrupado();
                 lstPedidoWebDetalle.ForEach(x =>
                 {
                     x.DescripcionOferta = string.Empty;
@@ -3309,7 +3309,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var lstPedidoAgrupado = ObtenerPedidoWebSetDetalleAgrupado(false);
+                var lstPedidoAgrupado = ObtenerPedidoWebSetDetalleAgrupado();
                 var packAgregado = lstPedidoAgrupado != null ? lstPedidoAgrupado.FirstOrDefault(x => x.TipoEstrategiaCodigo == te) : null;
 
                 return Json(new
