@@ -501,7 +501,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                                         .Where(e => e.Codigo == Constantes.CaminoBrillante.Logros.Indicadores.PROGRAMA_NUEVAS).FirstOrDefault() ?? new BETablaLogicaDatos();
 
                 return new BEIndicadorCaminoBrillante()
-                {
+                { 
                     Titulo = tablaLogicaDatos.Valor,
                     Codigo = Constantes.CaminoBrillante.Logros.Indicadores.PROGRAMA_NUEVAS,
                     Medallas = configMedalla.Where( e => int.TryParse(e.Codigo, out valPedido))
