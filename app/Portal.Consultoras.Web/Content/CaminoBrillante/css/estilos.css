@@ -56,6 +56,7 @@ strong {
     font-size: 24px;
     color: black;
     margin-bottom: 15px;
+    font-weight: bold !important;
 }
 
 .subtitle {
@@ -713,6 +714,71 @@ div .owl-carousel .owl-stage-outer {
     overflow: scroll;
 }
 
+
+
+
+
+
+
+
+/*new cambios*/
+
+.box-camb {
+    margin: 35px auto;
+    width: 50%;
+    padding: 0px 3%;
+    /* padding-left: 0; */
+    box-sizing: border-box;
+    float: left;
+}
+
+.cambio-crec {
+    width: 100%;
+    display: block;
+    margin-top: 20px;
+}
+
+.itm {
+    width: 24%;
+    float: left;
+    max-width: 85px;
+    display: block;
+    padding: 0 1%;
+    margin-bottom: 18px;
+}
+
+.contain-camb {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+    .contain-camb:after {
+        content: "";
+        display: block;
+        clear: both;
+    }
+
+.imgpizz {
+    background: transparent !important;
+}
+
+.cambio-crec .itm .circle-porcent img {
+    width: 100%;
+    margin: 0 auto;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 @media (min-width: 576px) {
     .modal-dialog {
         max-width: 500px;
@@ -887,6 +953,8 @@ button.close {
 
 .cambio-crec .como-log {
     cursor: pointer;
+    text-align: center;
+    display: block;
 }
 
 .cambio-crec div img {
@@ -1210,6 +1278,22 @@ button.close {
             width: 100%;
         }
     }
+
+
+    .cambio-crec .circle-porcent {
+        width: 40px;
+        height: 40px;
+    }
+
+        .cambio-crec .circle-porcent span {
+            font-size: 13px;
+            line-height: 42px;
+        }
+
+    .cambio-crec .como-log {
+        font-size: 11px;
+        margin-top: 8px;
+    }
 }
 
 @media screen and (max-width: 600px) {
@@ -1244,7 +1328,15 @@ button.close {
     }
 }
 
+@media screen and (max-width: 430px) {
+    .text-bold {
+        font-size: 12px;
+    }
 
+    .itm {
+        width: 50%;
+    }
+}
 
 /*.-------------------MODAL VERSION 4---------------------*/
 
