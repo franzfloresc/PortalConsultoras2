@@ -77,7 +77,7 @@ namespace Portal.Consultoras.Common
                     logError.IsoPais = Util.GetPaisISO(int.Parse(logError.IsoPais));
                 }
 
-                
+
                 RegistrarElastic(logError);
             }
             catch (Exception)
@@ -173,7 +173,7 @@ namespace Portal.Consultoras.Common
                         className = frame.GetMethod().DeclaringType.Name;
                         methodName = frame.GetMethod().Name;
                     }
-                    
+
                 }
                 else
                 {
@@ -244,17 +244,21 @@ namespace Portal.Consultoras.Common
             var exceptionMessage = "";
             try
             {
-                var separador = " | ";
+                var separador = "\n";
 
                 if (ex != null)
                 {
                     exceptionMessage += "Error message: " + ex.Message;
-                    exceptionMessage += separador + "\n StackTrace: " + ex.StackTrace;
+                    exceptionMessage += separador + "StackTrace: " + ex.StackTrace;
 
                     var innerException = ex.InnerException;
                     while (innerException != null)
                     {
-                        exceptionMessage = string.Format("\n {0}, Message: {1}, InnerException: {2}", exceptionMessage, innerException.Message, innerException.StackTrace);
+                        exceptionMessage = string.Format("{0}" + separador + "Message: {1}" + separador + "InnerException: {2}", 
+                            exceptionMessage, 
+                            innerException.Message, 
+                            innerException.StackTrace);
+
                         innerException = innerException.InnerException;
                     }
                 }
