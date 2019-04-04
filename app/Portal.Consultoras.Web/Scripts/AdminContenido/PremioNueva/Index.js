@@ -86,7 +86,8 @@ function ShowActionsEdit(cellvalue, options, rowObject) {
 
 function ShowActionsDelete(cellvalue, options, rowObject) {
     var Des = "<img src='" + rutaImagenDelete + "' alt='Deshabilitar Premio' title='Deshabilitar Premio' border='0' style='cursor:pointer' /></a>";
-    if (rowObject.ActivePremioAuto == false || rowObject.ActivePremioElectivo == false) Des = "";
+    if (rowObject.ActivePremioAuto == false || rowObject.ActivePremioElectivo == false) Des ;
+    if (rowObject.ActivePremioAuto == false && rowObject.ActivePremioElectivo == false) Des = "";
     return Des;
 }
 function RegistrarConstrains() {
@@ -167,7 +168,7 @@ function DesactivarPremio(rowId) {
     var rowData = $("#list").jqGrid('getRowData', rowId);
     Premio = rowData;
     
-    if (Premio.ActivePremioAuto=='false') return;
+    if (Premio.ActivePremioAuto == 'false' && Premio.ActivePremioElectivo == 'false') return;
     var elimina = confirm('¿Está seguro que desea deshabilitar el premio?');
     if (!elimina) return;
 
