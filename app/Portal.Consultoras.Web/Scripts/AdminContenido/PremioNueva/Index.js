@@ -86,7 +86,7 @@ function ShowActionsEdit(cellvalue, options, rowObject) {
 
 function ShowActionsDelete(cellvalue, options, rowObject) {
     var Des = "<img src='" + rutaImagenDelete + "' alt='Deshabilitar Premio' title='Deshabilitar Premio' border='0' style='cursor:pointer' /></a>";
-    if (rowObject.ActivePremioAuto == false) Des = "";
+    if (rowObject.ActivePremioAuto == false || rowObject.ActivePremioElectivo == false) Des = "";
     return Des;
 }
 function RegistrarConstrains() {
