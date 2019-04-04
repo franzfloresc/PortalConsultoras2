@@ -4,6 +4,8 @@ GO
 if exists(select 1 from MenuMobile where Codigo = 'CaminoBrillante')
 begin
 	delete from MenuMobile where Codigo = 'CaminoBrillante'
+	update MenuMobile set OrdenItem = 9 where MenuMobileID = 1008 and MenuPadreID = 1001
+	update MenuMobile set OrdenItem = 10 where MenuMobileID = 1015 and MenuPadreID = 1001
 end
 GO
 
@@ -13,6 +15,8 @@ GO
 if exists(select 1 from MenuMobile where Codigo = 'CaminoBrillante')
 begin
 	delete from MenuMobile where Codigo = 'CaminoBrillante'
+	update MenuMobile set OrdenItem = 9 where MenuMobileID = 1008 and MenuPadreID = 1001
+	update MenuMobile set OrdenItem = 10 where MenuMobileID = 1015 and MenuPadreID = 1001
 end
 GO
 
@@ -22,6 +26,8 @@ GO
 if exists(select 1 from MenuMobile where Codigo = 'CaminoBrillante')
 begin
 	delete from MenuMobile where Codigo = 'CaminoBrillante'
+	update MenuMobile set OrdenItem = 9 where MenuMobileID = 1008 and MenuPadreID = 1001
+	update MenuMobile set OrdenItem = 10 where MenuMobileID = 1015 and MenuPadreID = 1001
 end
 GO
 
@@ -31,6 +37,8 @@ GO
 if exists(select 1 from MenuMobile where Codigo = 'CaminoBrillante')
 begin
 	delete from MenuMobile where Codigo = 'CaminoBrillante'
+	update MenuMobile set OrdenItem = 9 where MenuMobileID = 1008 and MenuPadreID = 1001
+	update MenuMobile set OrdenItem = 10 where MenuMobileID = 1015 and MenuPadreID = 1001
 end
 GO
 
@@ -40,6 +48,8 @@ GO
 if exists(select 1 from MenuMobile where Codigo = 'CaminoBrillante')
 begin
 	delete from MenuMobile where Codigo = 'CaminoBrillante'
+	update MenuMobile set OrdenItem = 9 where MenuMobileID = 1008 and MenuPadreID = 1001
+	update MenuMobile set OrdenItem = 10 where MenuMobileID = 1015 and MenuPadreID = 1001
 end
 GO
 
@@ -49,6 +59,8 @@ GO
 if exists(select 1 from MenuMobile where Codigo = 'CaminoBrillante')
 begin
 	delete from MenuMobile where Codigo = 'CaminoBrillante'
+	update MenuMobile set OrdenItem = 9 where MenuMobileID = 1008 and MenuPadreID = 1001
+	update MenuMobile set OrdenItem = 10 where MenuMobileID = 1015 and MenuPadreID = 1001
 end
 GO
 
@@ -58,6 +70,8 @@ GO
 if exists(select 1 from MenuMobile where Codigo = 'CaminoBrillante')
 begin
 	delete from MenuMobile where Codigo = 'CaminoBrillante'
+	update MenuMobile set OrdenItem = 9 where MenuMobileID = 1008 and MenuPadreID = 1001
+	update MenuMobile set OrdenItem = 10 where MenuMobileID = 1015 and MenuPadreID = 1001
 end
 GO
 
@@ -67,6 +81,8 @@ GO
 if exists(select 1 from MenuMobile where Codigo = 'CaminoBrillante')
 begin
 	delete from MenuMobile where Codigo = 'CaminoBrillante'
+	update MenuMobile set OrdenItem = 9 where MenuMobileID = 1008 and MenuPadreID = 1001
+	update MenuMobile set OrdenItem = 10 where MenuMobileID = 1015 and MenuPadreID = 1001
 end
 GO
 
@@ -76,6 +92,8 @@ GO
 if exists(select 1 from MenuMobile where Codigo = 'CaminoBrillante')
 begin
 	delete from MenuMobile where Codigo = 'CaminoBrillante'
+	update MenuMobile set OrdenItem = 9 where MenuMobileID = 1008 and MenuPadreID = 1001
+	update MenuMobile set OrdenItem = 10 where MenuMobileID = 1015 and MenuPadreID = 1001
 end
 GO
 
@@ -85,6 +103,8 @@ GO
 if exists(select 1 from MenuMobile where Codigo = 'CaminoBrillante')
 begin
 	delete from MenuMobile where Codigo = 'CaminoBrillante'
+	update MenuMobile set OrdenItem = 9 where MenuMobileID = 1008 and MenuPadreID = 1001
+	update MenuMobile set OrdenItem = 10 where MenuMobileID = 1015 and MenuPadreID = 1001
 end
 GO
 
@@ -94,6 +114,8 @@ GO
 if exists(select 1 from MenuMobile where Codigo = 'CaminoBrillante')
 begin
 	delete from MenuMobile where Codigo = 'CaminoBrillante'
+	update MenuMobile set OrdenItem = 9 where MenuMobileID = 1008 and MenuPadreID = 1001
+	update MenuMobile set OrdenItem = 10 where MenuMobileID = 1015 and MenuPadreID = 1001
 end
 GO
 
@@ -102,6 +124,8 @@ GO
 
 if exists(select 1 from MenuMobile where Codigo = 'CaminoBrillante')
 begin
+	update MenuMobile set OrdenItem = 9 where MenuMobileID = 1008 and MenuPadreID = 1001
+	update MenuMobile set OrdenItem = 10 where MenuMobileID = 1015 and MenuPadreID = 1001
 	delete from MenuMobile where Codigo = 'CaminoBrillante'
 end
 GO

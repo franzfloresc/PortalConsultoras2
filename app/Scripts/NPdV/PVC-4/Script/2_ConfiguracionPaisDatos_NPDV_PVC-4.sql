@@ -7,9 +7,11 @@ begin
 	insert into ConfiguracionPais (Codigo ,Excluyente ,Descripcion ,Estado, TienePerfil, DesdeCampania, Orden, OrdenBpt, MobileOrden,MobileOrdenBPT)
 	values ('CAMINOBRILLANTE', 1,'Camino brillante de las consultoras', 0, 0 , 0, 0, 0, 0, 0)
 	set @ConfiguracionPaisID = SCOPE_IDENTITY()
-	insert into ConfiguracionPaisDatos values (@ConfiguracionPaisID, 'HomeCaminoBrillante', 0, 
+	if not exists (select 1 from ConfiguracionPaisDatos where Codigo = 'HomeCaminoBrillante')
+	begin
+		insert into ConfiguracionPaisDatos values (@ConfiguracionPaisID, 'HomeCaminoBrillante', 0, 
 											  '¡Crece como {0} y obtén más beneficios!', NULL, NULL, '0: Mensaje home Camino Brillante 1: -- 2: --', 1, 'CaminoBrillante')
-
+	end
 end
 go
 
@@ -22,9 +24,11 @@ begin
 	insert into ConfiguracionPais (Codigo ,Excluyente ,Descripcion ,Estado, TienePerfil, DesdeCampania, Orden, OrdenBpt, MobileOrden,MobileOrdenBPT)
 	values ('CAMINOBRILLANTE', 1,'Camino brillante de las consultoras', 0, 0 , 0, 0, 0, 0, 0)
 	set @ConfiguracionPaisID = SCOPE_IDENTITY()
-	insert into ConfiguracionPaisDatos values (@ConfiguracionPaisID, 'HomeCaminoBrillante', 0, 
+	if not exists (select 1 from ConfiguracionPaisDatos where Codigo = 'HomeCaminoBrillante')
+	begin
+		insert into ConfiguracionPaisDatos values (@ConfiguracionPaisID, 'HomeCaminoBrillante', 0, 
 											  '¡Crece como {0} y obtén más beneficios!', NULL, NULL, '0: Mensaje home Camino Brillante 1: -- 2: --', 1, 'CaminoBrillante')
-
+	end
 end
 go
 
@@ -37,9 +41,11 @@ begin
 	insert into ConfiguracionPais (Codigo ,Excluyente ,Descripcion ,Estado, TienePerfil, DesdeCampania, Orden, OrdenBpt, MobileOrden,MobileOrdenBPT)
 	values ('CAMINOBRILLANTE', 1,'Camino brillante de las consultoras', 0, 0 , 0, 0, 0, 0, 0)
 	set @ConfiguracionPaisID = SCOPE_IDENTITY()
-	insert into ConfiguracionPaisDatos values (@ConfiguracionPaisID, 'HomeCaminoBrillante', 0, 
+	if not exists (select 1 from ConfiguracionPaisDatos where Codigo = 'HomeCaminoBrillante')
+	begin
+		insert into ConfiguracionPaisDatos values (@ConfiguracionPaisID, 'HomeCaminoBrillante', 0, 
 											  '¡Crece como {0} y obtén más beneficios!', NULL, NULL, '0: Mensaje home Camino Brillante 1: -- 2: --', 1, 'CaminoBrillante')
-
+	end
 end
 go
 
@@ -52,9 +58,11 @@ begin
 	insert into ConfiguracionPais (Codigo ,Excluyente ,Descripcion ,Estado, TienePerfil, DesdeCampania, Orden, OrdenBpt, MobileOrden,MobileOrdenBPT)
 	values ('CAMINOBRILLANTE', 1,'Camino brillante de las consultoras', 0, 0 , 0, 0, 0, 0, 0)
 	set @ConfiguracionPaisID = SCOPE_IDENTITY()
-	insert into ConfiguracionPaisDatos values (@ConfiguracionPaisID, 'HomeCaminoBrillante', 0, 
+	if not exists (select 1 from ConfiguracionPaisDatos where Codigo = 'HomeCaminoBrillante')
+	begin
+		insert into ConfiguracionPaisDatos values (@ConfiguracionPaisID, 'HomeCaminoBrillante', 0, 
 											  '¡Crece como {0} y obtén más beneficios!', NULL, NULL, '0: Mensaje home Camino Brillante 1: -- 2: --', 1, 'CaminoBrillante')
-
+	end
 end
 go
 
@@ -67,9 +75,11 @@ begin
 	insert into ConfiguracionPais (Codigo ,Excluyente ,Descripcion ,Estado, TienePerfil, DesdeCampania, Orden, OrdenBpt, MobileOrden,MobileOrdenBPT)
 	values ('CAMINOBRILLANTE', 1,'Camino brillante de las consultoras', 0, 0 , 0, 0, 0, 0, 0)
 	set @ConfiguracionPaisID = SCOPE_IDENTITY()
-	insert into ConfiguracionPaisDatos values (@ConfiguracionPaisID, 'HomeCaminoBrillante', 0, 
+	if not exists (select 1 from ConfiguracionPaisDatos where Codigo = 'HomeCaminoBrillante')
+	begin
+		insert into ConfiguracionPaisDatos values (@ConfiguracionPaisID, 'HomeCaminoBrillante', 0, 
 											  '¡Crece como {0} y obtén más beneficios!', NULL, NULL, '0: Mensaje home Camino Brillante 1: -- 2: --', 1, 'CaminoBrillante')
-
+	end
 end
 go
 
@@ -82,9 +92,11 @@ begin
 	insert into ConfiguracionPais (Codigo ,Excluyente ,Descripcion ,Estado, TienePerfil, DesdeCampania, Orden, OrdenBpt, MobileOrden,MobileOrdenBPT)
 	values ('CAMINOBRILLANTE', 1,'Camino brillante de las consultoras', 0, 0 , 0, 0, 0, 0, 0)
 	set @ConfiguracionPaisID = SCOPE_IDENTITY()
-	insert into ConfiguracionPaisDatos values (@ConfiguracionPaisID, 'HomeCaminoBrillante', 0, 
+	if not exists (select 1 from ConfiguracionPaisDatos where Codigo = 'HomeCaminoBrillante')
+	begin
+		insert into ConfiguracionPaisDatos values (@ConfiguracionPaisID, 'HomeCaminoBrillante', 0, 
 											  '¡Crece como {0} y obtén más beneficios!', NULL, NULL, '0: Mensaje home Camino Brillante 1: -- 2: --', 1, 'CaminoBrillante')
-
+	end
 end
 go
 
@@ -97,9 +109,11 @@ begin
 	insert into ConfiguracionPais (Codigo ,Excluyente ,Descripcion ,Estado, TienePerfil, DesdeCampania, Orden, OrdenBpt, MobileOrden,MobileOrdenBPT)
 	values ('CAMINOBRILLANTE', 1,'Camino brillante de las consultoras', 0, 0 , 0, 0, 0, 0, 0)
 	set @ConfiguracionPaisID = SCOPE_IDENTITY()
-	insert into ConfiguracionPaisDatos values (@ConfiguracionPaisID, 'HomeCaminoBrillante', 0, 
+	if not exists (select 1 from ConfiguracionPaisDatos where Codigo = 'HomeCaminoBrillante')
+	begin
+		insert into ConfiguracionPaisDatos values (@ConfiguracionPaisID, 'HomeCaminoBrillante', 0, 
 											  '¡Crece como {0} y obtén más beneficios!', NULL, NULL, '0: Mensaje home Camino Brillante 1: -- 2: --', 1, 'CaminoBrillante')
-
+	end
 end
 go
 
@@ -112,9 +126,11 @@ begin
 	insert into ConfiguracionPais (Codigo ,Excluyente ,Descripcion ,Estado, TienePerfil, DesdeCampania, Orden, OrdenBpt, MobileOrden,MobileOrdenBPT)
 	values ('CAMINOBRILLANTE', 1,'Camino brillante de las consultoras', 1, 0 , 0, 0, 0, 0, 0)
 	set @ConfiguracionPaisID = SCOPE_IDENTITY()
-	insert into ConfiguracionPaisDatos values (@ConfiguracionPaisID, 'HomeCaminoBrillante', 0, 
+	if not exists (select 1 from ConfiguracionPaisDatos where Codigo = 'HomeCaminoBrillante')
+	begin
+		insert into ConfiguracionPaisDatos values (@ConfiguracionPaisID, 'HomeCaminoBrillante', 0, 
 											  '¡Crece como {0} y obtén más beneficios!', NULL, NULL, '0: Mensaje home Camino Brillante 1: -- 2: --', 1, 'CaminoBrillante')
-
+	end
 end
 go
 
@@ -127,9 +143,11 @@ begin
 	insert into ConfiguracionPais (Codigo ,Excluyente ,Descripcion ,Estado, TienePerfil, DesdeCampania, Orden, OrdenBpt, MobileOrden,MobileOrdenBPT)
 	values ('CAMINOBRILLANTE', 1,'Camino brillante de las consultoras', 0, 0 , 0, 0, 0, 0, 0)
 	set @ConfiguracionPaisID = SCOPE_IDENTITY()
-	insert into ConfiguracionPaisDatos values (@ConfiguracionPaisID, 'HomeCaminoBrillante', 0, 
+	if not exists (select 1 from ConfiguracionPaisDatos where Codigo = 'HomeCaminoBrillante')
+	begin
+		insert into ConfiguracionPaisDatos values (@ConfiguracionPaisID, 'HomeCaminoBrillante', 0, 
 											  '¡Crece como {0} y obtén más beneficios!', NULL, NULL, '0: Mensaje home Camino Brillante 1: -- 2: --', 1, 'CaminoBrillante')
-
+	end
 end
 go
 
@@ -142,9 +160,11 @@ begin
 	insert into ConfiguracionPais (Codigo ,Excluyente ,Descripcion ,Estado, TienePerfil, DesdeCampania, Orden, OrdenBpt, MobileOrden,MobileOrdenBPT)
 	values ('CAMINOBRILLANTE', 1,'Camino brillante de las consultoras', 1, 0 , 0, 0, 0, 0, 0)
 	set @ConfiguracionPaisID = SCOPE_IDENTITY()
-	insert into ConfiguracionPaisDatos values (@ConfiguracionPaisID, 'HomeCaminoBrillante', 0, 
+	if not exists (select 1 from ConfiguracionPaisDatos where Codigo = 'HomeCaminoBrillante')
+	begin
+		insert into ConfiguracionPaisDatos values (@ConfiguracionPaisID, 'HomeCaminoBrillante', 0, 
 											  '¡Crece como {0} y obtén más beneficios!', NULL, NULL, '0: Mensaje home Camino Brillante 1: -- 2: --', 1, 'CaminoBrillante')
-
+	end
 end
 go
 
@@ -157,9 +177,11 @@ begin
 	insert into ConfiguracionPais (Codigo ,Excluyente ,Descripcion ,Estado, TienePerfil, DesdeCampania, Orden, OrdenBpt, MobileOrden,MobileOrdenBPT)
 	values ('CAMINOBRILLANTE', 1,'Camino brillante de las consultoras', 1, 0 , 0, 0, 0, 0, 0)
 	set @ConfiguracionPaisID = SCOPE_IDENTITY()
-	insert into ConfiguracionPaisDatos values (@ConfiguracionPaisID, 'HomeCaminoBrillante', 0, 
+	if not exists (select 1 from ConfiguracionPaisDatos where Codigo = 'HomeCaminoBrillante')
+	begin
+		insert into ConfiguracionPaisDatos values (@ConfiguracionPaisID, 'HomeCaminoBrillante', 0, 
 											  '¡Crece como {0} y obtén más beneficios!', NULL, NULL, '0: Mensaje home Camino Brillante 1: -- 2: --', 1, 'CaminoBrillante')
-
+	end
 end
 go
 
@@ -172,9 +194,11 @@ begin
 	insert into ConfiguracionPais (Codigo ,Excluyente ,Descripcion ,Estado, TienePerfil, DesdeCampania, Orden, OrdenBpt, MobileOrden,MobileOrdenBPT)
 	values ('CAMINOBRILLANTE', 1,'Camino brillante de las consultoras', 1, 0 , 0, 0, 0, 0, 0)
 	set @ConfiguracionPaisID = SCOPE_IDENTITY()
-	insert into ConfiguracionPaisDatos values (@ConfiguracionPaisID, 'HomeCaminoBrillante', 0, 
+	if not exists (select 1 from ConfiguracionPaisDatos where Codigo = 'HomeCaminoBrillante')
+	begin
+		insert into ConfiguracionPaisDatos values (@ConfiguracionPaisID, 'HomeCaminoBrillante', 0, 
 											  '¡Crece como {0} y obtén más beneficios!', NULL, NULL, '0: Mensaje home Camino Brillante 1: -- 2: --', 1, 'CaminoBrillante')
-
+	end
 end
 go
 
