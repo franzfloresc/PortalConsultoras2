@@ -483,19 +483,23 @@ namespace Portal.Consultoras.Web.Providers
                 }
 
                 listEstrategia = GetEstrategiasService(entidad);
-                listEstrategia.ForEach(x => { x.TieneStock = true; });
-                
-                if (tipo == Constantes.TipoEstrategiaCodigo.PackNuevas)
+
+                if (listEstrategia.Any())
                 {
-                    var listProdEstraProgNuevas = _programaNuevasProvider.GetListCuvEstrategia();
-                    listEstrategia = listEstrategia.Join(listProdEstraProgNuevas, e => e.CUV2, pen => pen.Cuv, (e, pen) => {
-                        e.EsOfertaIndependiente = pen.EsCuponIndependiente;
-                        return e;
-                    }).ToList();
-                }
-                else if (listEstrategia.Any() && GetValidarDiasAntesStock(userData))
-                {
-                    listEstrategia = _consultaProlProvider.ActualizarEstrategiaStockPROL(listEstrategia, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora);
+                    listEstrategia.ForEach(x => { x.TieneStock = true; });
+                    if (tipo == Constantes.TipoEstrategiaCodigo.PackNuevas)
+                    {
+                        var listProdEstraProgNuevas = _programaNuevasProvider.GetListCuvEstrategia();
+                        listEstrategia = listEstrategia.Join(listProdEstraProgNuevas, e => e.CUV2, pen => pen.Cuv, (e, pen) =>
+                        {
+                            e.EsOfertaIndependiente = pen.EsCuponIndependiente;
+                            return e;
+                        }).ToList();
+                    }
+                    else if (GetValidarDiasAntesStock(userData))
+                    {
+                        listEstrategia = _consultaProlProvider.ActualizarEstrategiaStockPROL(listEstrategia, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora);
+                    }
                 }
 
                 if (campaniaId == userData.CampaniaID)
@@ -546,7 +550,7 @@ namespace Portal.Consultoras.Web.Providers
                 int campaniaId = entidad.CampaniaID;
                 int materialGanancia = entidad.MaterialGanancia;
                 string tipoPersonalizacion = Util.GetTipoPersonalizacionByCodigoEstrategia(tipo);
-                
+
                 string pathMS = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertas,
                     userData.CodigoISO,
                     tipoPersonalizacion,
@@ -834,7 +838,7 @@ namespace Portal.Consultoras.Web.Providers
                 Simbolo = usuarioModel.Simbolo,
                 CodigoTipoEstrategia = Constantes.TipoEstrategiaCodigo.ShowRoom
             };
-            
+
             var listEstrategia = GetEstrategiasService(entidad);
             return listEstrategia;
         }
