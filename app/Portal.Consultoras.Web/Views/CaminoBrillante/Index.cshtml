@@ -70,7 +70,7 @@
                             <p id="m_montoMinimo"></p>
                         </div>
                     </div>
-                    <h4 class="subtitle text-center">Mis Beneficios</h4>
+                    <h4 class="subtitle text-center">Conoce los beneficios:</h4>
                     <ul class="box-beneficios two-colums" id="ListaBeneficios"></ul>
                 </div>
             </div>
@@ -100,7 +100,7 @@
 
     @if (TieneOfertasEspeciales)
     {
-        <a id="OfertasEspeciales" href="@Url.Action("Ofertas", "CaminoBrillante")" class="btn-principal">Ofertas especiales</a>
+        <a id="OfertasEspeciales" href="@Url.Action("Ofertas", "CaminoBrillante")" class="btn-principal">Ver ofertas</a>
     }
 
     <div class="cont-logros">
@@ -131,13 +131,13 @@
                                                     }
                                                     else if (item2.Tipo == "CIRC")
                                                     {
-                                                        string Valor = item2.Valor.Replace("%", "");
-                                                        string Estilo = Valor.Equals("25") ? "veinticinco" : "cinco";
+                                                        string Estilo = item2.Estado ? "crec-activo" : "crec-inactivo";
+
                                                         <div class="circle-porcent @Estilo">
                                                             <span>@item2.Valor</span>
                                                         </div>
                                                     }
-                                                    else if (item2.Tipo == "PED" || item2.Tipo == "TIME")
+                                                    else if (item2.Tipo == "PED")
                                                     {
                                                         if (item2.Estado)
                                                         {
@@ -146,6 +146,17 @@
                                                         else
                                                         {
                                                             <img src="~/Content/CaminoBrillante/imgs/pedido_desactivo.svg" />
+                                                        }
+                                                    }
+                                                    else if (item2.Tipo == "TIME")
+                                                    {
+                                                        if (item2.Estado)
+                                                        {
+                                                            <img src="~/Content/CaminoBrillante/imgs/Tiempojuntos_activo.svg" />
+                                                        }
+                                                        else
+                                                        {
+                                                            <img src="~/Content/CaminoBrillante/imgs/Tiempojuntos_inactivo.svg" />
                                                         }
                                                     }
                                                     <p>@item2.Titulo</p>
@@ -222,6 +233,7 @@
         </div>
     </div>
 </div>
+
 
 @*@System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante")*@
 

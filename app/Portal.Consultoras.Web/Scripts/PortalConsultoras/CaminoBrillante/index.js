@@ -19,13 +19,13 @@ function ModalBeneficios(index) {
         dataType: "json",
         contentType: "application/json; charset=utf-8",
         success: function (data) {
-            debugger;
+            
             $("#m_titulo").text(data.Niveles[0].DescripcionNivel);
-            $("#m_montoMinimo").append("Monto mínimo: <span>S/ " + data.Niveles[0].MontoMinimo + ".00</span>");
+            $("#m_montoMinimo").append("Monto mínimo para lograr: <span>S/ " + data.Niveles[0].MontoMinimo + ".00</span>");
             $("#m_imagen").attr("src", data.Niveles[0].UrlImagenNivel.replace("_I", "_A"));
             var Html = "";
             for (var i = 0; i <= data.Niveles[0].Beneficios.length - 1; i++) {
-                debugger;
+                
                 Html += "<li>";
                 Html += "<img src='" + data.Niveles[0].Beneficios[i].Icono + "'>";
                 Html += "<div class='txt-benf'><p class='text-bold'>" + data.Niveles[0].Beneficios[i].Descripcion + "<span>" + data.Niveles[0].Beneficios[i].NombreBeneficio + "</span></p></div>";

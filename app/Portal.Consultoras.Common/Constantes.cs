@@ -3627,7 +3627,7 @@ namespace Portal.Consultoras.Common
             public static class Niveles {
 
                 private static Dictionary<string, string[]> _Iconos;
-                private static string path = "CAMINOBRILLANTE/NIVELES/NIVEL_0{0}_{1}.png";
+                private static string path = "CAMINOBRILLANTE/NIVELES/NIVEL_0{0}_{1}.svg";
 
                 public static Dictionary<string, string[]> Iconos
                 {
