@@ -203,6 +203,9 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public string FormatoPrecioTotal { get; set; }
+        
+        [DataMember]
+        public bool Elegido { get; set; }
 
         [DataMember]
         public string Url { get; set; }

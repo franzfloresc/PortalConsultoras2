@@ -886,6 +886,7 @@
       <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
       <xs:element minOccurs="0" name="CantidadTotal" type="xs:int" />
       <xs:element minOccurs="0" name="CodigoSap" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Elegido" type="xs:boolean" />
       <xs:element minOccurs="0" name="EstaEnRevista" type="xs:int" />
       <xs:element minOccurs="0" name="Estado" nillable="true" type="xs:boolean" />
       <xs:element minOccurs="0" name="FormatoPrecioTotal" nillable="true" type="xs:string" />

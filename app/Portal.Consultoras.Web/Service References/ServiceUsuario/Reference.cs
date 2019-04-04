@@ -12857,6 +12857,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string CodigoSapField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool ElegidoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int EstaEnRevistaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -12971,6 +12974,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.CodigoSapField, value) != true)) {
                     this.CodigoSapField = value;
                     this.RaisePropertyChanged("CodigoSap");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Elegido {
+            get {
+                return this.ElegidoField;
+            }
+            set {
+                if ((this.ElegidoField.Equals(value) != true)) {
+                    this.ElegidoField = value;
+                    this.RaisePropertyChanged("Elegido");
                 }
             }
         }

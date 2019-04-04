@@ -31,7 +31,15 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
+        //public IDataReader GetSapFromCuvlist(string cuvList, int campaniaid)
+        //{
+        //    DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetSapFromCuvList");
+        //    Context.Database.AddInParameter(command, "@CuvList", DbType.String, cuvList);
+        //    Context.Database.AddInParameter(command, "@Campania", DbType.Int32, campaniaid);
 
+        //    return Context.ExecuteReader(command);
+        //}
+      
         public IDataReader GetSolicitudesPedidoDetalle(long PedidoID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetSolicitudesPedidoDetalle_SB2");

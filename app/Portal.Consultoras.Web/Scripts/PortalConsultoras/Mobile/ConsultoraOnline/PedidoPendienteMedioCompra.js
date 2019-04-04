@@ -5,6 +5,7 @@
 
 
 function AceptarPedidoPendiente(id, tipo) {
+
     var pedido = {
         PedidoId: id,
         ClienteId: 0,
@@ -12,7 +13,8 @@ function AceptarPedidoPendiente(id, tipo) {
         Accion: 2,
         Tipo: tipo,
         Ingresos: ing,
-        Dispositivo: glbDispositivo
+        Dispositivo: glbDispositivo,
+        CorreoClientes:['abc@a.com', 'bcd@g.com']
     }
 
 

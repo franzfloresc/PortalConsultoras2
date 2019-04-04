@@ -95,32 +95,11 @@ button {
   transform: rotate(45deg);
 }
 
-.guia {
-  border: 1px solid black;
-}
 .vc-tabs {
   margin: 0 0 24px 0;
 }
 .vc-box {
   background-color: #ffffff;
-  /* 
-    Cabecera 
-  */
-  /*-----------------------------*/
-  /* 
-    Solo contenido
-      - Afecta:
-        > Precio total
-        > Origen      
-  */
-  /*-----------------------------*/
-  /* 
-    Botón confirmar 
-  */
-  /*-----------------------------*/
-  /* 
-    img
-  */
 }
 .vc-box--header span {
   font-weight: 700;
@@ -214,7 +193,14 @@ button {
 
 
 /* Desplegable Acepta pedido */
-
+.pending hr {
+  margin-top: 24px;
+  margin-bottom: 24px;
+  border-top-color: #d1d1d4;
+}
+.pending hr.mt-8{
+  margin-top: 8px;
+}
 .pending-top {
     padding-top: 8px;
 }
@@ -229,6 +215,9 @@ button {
 .attend-title {
   font-size: 20px;
   font-weight: 700;
+}
+.attend-subtitle {
+  margin-bottom: 8px;
 }
 .attend-close, .attend-delete {
   display: flex;
@@ -306,7 +295,7 @@ button {
   padding-top: 8.5px;
   padding-bottom: 8.5px;
   display: inline-block;
-
+  /* Agregado en raw css */
   border: 1px solid black;
   border-radius:4px;
   width: 100%;
@@ -433,32 +422,52 @@ button {
   bottom: 5px;
 }
 
-.mtb-16 {
-  margin-top: 16px;
-  margin-bottom: 16px;
+.mt-8 {
+  margin-top: 8px;
 }
-
-.mb-16 {
-  margin-bottom: 16px;
-}
-
 .mt-16 {
   margin-top: 16px;
 }
-
 .mt-32 {
   margin-top: 32px;
+}
+
+.mb-8 {
+  margin-bottom: 8px;
+}
+.mb-16 {
+  margin-bottom: 16px;
+}
+.mb-24 {
+  margin-bottom: 24px;
+}
+
+.mtb-16 {
+  margin-top: 16px;
+  margin-bottom: 16px;
 }
 
 .pall-16 {
   padding: 16px;
 }
 
+.pr-0 {
+  padding-right: 0;
+}
+.text-12 {
+  font-size: 12px;
+}
 .text-14 {
   font-size: 14px;
 }
+.text-18 {
+  font-size: 18px;
+}
 .text-700 {
   font-weight: 700;
+}
+.text-purple {
+  color: #b9007e;
 }
 .text-gray {
   color: #454549;
@@ -468,6 +477,11 @@ button {
 }
 .text-white {
   color: #fff;
+}
+
+.title-small {
+  font-size: 18px;
+  margin: 0;
 }
 
 .no-border {
@@ -486,3 +500,53 @@ button {
   padding-top: 16px;
   padding-bottom: 16px;
 }
+
+/* Paso 2 */
+
+/* Para agregar a los utilitarios */
+.brokenBox {
+  width: 110%;
+}
+
+.containBox {
+  overflow: hidden;
+}
+/* ---------------------------- */
+
+/* Imagenes de producto de catálogo */
+
+.products-img,
+.conGanaMas-img,
+.conCatalogo-img {
+  width: 88px;
+}
+
+/* ---------------------------- */
+
+/* Estilos para Slick */
+.products .slick-slide,
+.conGanaMas .slick-slide,
+.conCatalogo .slick-slide {
+  position: relative;
+}
+/* Imagen de Slick */
+.products .slick-slide:after,
+.conGanaMas .slick-slide:after,
+.conCatalogo .slick-slide:after {
+  background: url("https://i.ibb.co/PFWnJQ8/add-3x.png") no-repeat center center;
+  background-size: cover;
+  content: "";
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  top: 20%;
+  right: -15px;
+}
+.products .slick-slide:last-child:after,
+.conGanaMas .slick-slide:last-child:after,
+.conCatalogo .slick-slide:last-child:after {
+  display: none;
+}
+
+/* ---------------------------- */
+

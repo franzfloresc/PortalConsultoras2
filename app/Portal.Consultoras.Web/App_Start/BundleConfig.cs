@@ -1025,8 +1025,12 @@ namespace Portal.Consultoras.Web
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/SugerenciaPendientes").Include(
+                "~/Content/Css/Site/slick.css",
                 "~/Content/Css/Mobile/ConsultoraOnline/Pendientes.css"
             ));
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Mobile/SugerenciaPendientes").Include(
+               "~/Scripts/slick.js"
+           ));
 
             #region ArmaTuPack
 

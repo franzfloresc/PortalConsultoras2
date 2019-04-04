@@ -356,6 +356,12 @@ namespace Portal.Consultoras.Service
             return blMisPedidos.GetMisPedidos(PaisID, ConsultoraId, Campania);
         }
 
+        //public IList<string> GetSapFromCuvlist(string cuvList, int campaniaid, int paisId)
+        //{
+        //    var blMisPedidos = new BLConsultoraOnline();
+        //    return blMisPedidos.GetSapFromCuvlist(cuvList, campaniaid, paisId);
+        //}
+
         public IList<BEMisPedidosDetalle> GetMisPedidosDetalleConsultoraOnline(int PaisID, long PedidoID)
         {
             var blMisPedidos = new BLConsultoraOnline();
