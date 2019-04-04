@@ -1,7 +1,5 @@
-﻿@using Portal.Consultoras.Web.Areas.Mobile.Models
+﻿
 @using Portal.Consultoras.Web.CustomHelpers
-
-@model BienvenidaModel
 
 @{
     var layout = ViewContext.MobileLayout();
@@ -9,12 +7,10 @@
     var data = ViewBag.Informacion;
 }
 
-@section styles{
-    @System.Web.Optimization.Styles.Render("~/Bundle/Css/CaminoBrillante")
-}
-<br />
-<br />
+<link href="~/Content/CaminoBrillante/css/estilos.css" rel="stylesheet" />
 
+<br />
+<br />
 
 
 
@@ -22,36 +18,51 @@
 
     <h2 class="title">@data.Titulo</h2>
 
-    <div class="row">
+    <div class="contain-camb">
 
         @for (int i = 0; i < data.Indicadores.Length; i++)
         {
-            <div class="box-camb col-sm-12 col-md-6">
+            <div class="box-camb">
                 <p class="text-bold">@data.Indicadores[i].Titulo</p>
-                <div class="cambio-crec row">
+                <div class="cambio-crec">
 
                     @foreach (var item2 in data.Indicadores[i].Medallas)
                     {
                         if (item2 != null)
                         {
 
-                            <div class="col-3 col-sm-3">
+                            <div class="itm">
 
                                 @if (item2.Tipo == "PIE")
                                 {
                                     string[] torta = @item2.Valor.Split('-');
                                     var imagen = torta[1].PadLeft(2, '0') + "_" + torta[2].PadLeft(2, '0') + ".svg";
-                                    <img src="~/Content/CaminoBrillante/imgs/PIZZA_@imagen" />
+                                    <div class="circle-porcent imgpizz">
+                                        <img src="~/Content/CaminoBrillante/imgs/PIZZA_@imagen" />
+                                    </div>
                                 }
-                                else if (item2.Tipo == "CIRC" || item2.Tipo == "NIV")
+                                else if (item2.Tipo == "CIRC")
                                 {
-                                    string Valor = item2.Valor.Replace("%", "");
-                                    string Estilo = Valor.Equals("25") ? "veinticinco" : "cinco";
+                                    string Estilo = item2.Estado ? "crec-activo" : "crec-inactivo";
                                     <div class="circle-porcent @Estilo">
                                         <span>@item2.Valor</span>
                                     </div>
                                 }
-                                else if (item2.Tipo == "PED" || item2.Tipo == "TIME")
+                                else if (item2.Tipo == "NIV")
+                                {
+                                    if (Portal.Consultoras.Common.Constantes.CaminoBrillante.Niveles.Iconos.Keys.Contains((string)@item2.Valor))
+                                    {
+                                        int estado = item2.Estado ? 1 : 0;
+                                        <div class="circle-porcent imgpizz">
+                                            <img src='@Portal.Consultoras.Common.Constantes.CaminoBrillante.Niveles.Iconos[(string)@item2.Valor][estado]'>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <img src=''>
+                                    }
+                                }
+                                else if (item2.Tipo == "PED")
                                 {
                                     if (item2.Estado)
                                     {
@@ -62,8 +73,19 @@
                                         <img src="~/Content/CaminoBrillante/imgs/pedido_desactivo.svg" />
                                     }
                                 }
+                                else if (item2.Tipo == "TIME")
+                                {
+                                    if (item2.Estado)
+                                    {
+                                        <img src="~/Content/CaminoBrillante/imgs/Tiempojuntos_activo.svg" />
+                                    }
+                                    else
+                                    {
+                                        <img src="~/Content/CaminoBrillante/imgs/Tiempojuntos_inactivo.svg" />
+                                    }
+                                }
                                 <a href="" class="inactivo">@item2.Titulo</a>
-                                <a href="" class="como-log inactivo">¿Cómo lograrlo?</a>
+                                <span data-toggle=modal data-target=#ModalPorcentaje class="como-log inactivo">¿Cómo lograrlo?</span>
                             </div>
                         }
                     }
@@ -76,27 +98,35 @@
 
 <!-- Modal -->
 <div class="modal fade" id="ModalPorcentaje" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog " role="document">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
-
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
-
-            <div class="modal-body ">
-
-                <div class="indicador-nivel">
-                    <div class="circle-porcent veinticinco doble">
-                        <span>28%</span>
-                    </div>
-                    <div class="left-mod">
-                        <h2>Cambio de escala</h2>
-                        <p>Monto mínimo Cambio de escalaCambio de escalaCambio de escalaCambio de escala</p>
+            <div class="modal-body pad-center">
+                <div class="indicador-nivel" style="text-align:center; margin-bottom: 20px;">
+                    <center>
+                        <img id="m_imagen" style="float: unset; max-width: 100px !important;" />
+                    </center>
+                    <div class="left-mod" style="width: 100%; margin-left: 0px;">
+                        <h2 id="m_titulo" style="color: black; font-size: 20px; font-weight: bold;"></h2>
+                        <p id="m_montoMinimo"></p>
                     </div>
                 </div>
+                <h4 class="subtitle text-center">Mis Beneficios</h4>
+                <ul class="box-beneficios two-colums" id="ListaBeneficios"></ul>
             </div>
         </div>
     </div>
 </div>
 
 
+
+
+
+
+
+
+
+<script src="~/Scripts/jquery-1.11.2.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>

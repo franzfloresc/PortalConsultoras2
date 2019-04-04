@@ -12,6 +12,20 @@ begin
 												(16504, 165, 'num_cam_per', 'Número de campanias a obtener en un Periodo', '6')
 	end
 end
+
+if not exists (select 1 from TablaLogica where TablaLogicaID = 166)
+begin
+	insert into TablaLogica values (166, 'CaminoBri Ofertas Especiales')
+	if not exists (select 1 from TablaLogicaDatos where TablaLogicaID = 166)
+	begin
+			insert into TablaLogicaDatos values (16601, 166, '1', 'Activa/Desactiva el boton tiene oferta especiales', '0'),
+										        (16602, 166, '2', 'Activa/Desactiva el boton tiene oferta especiales', '1'),
+										        (16603, 166, '3', 'Activa/Desactiva el boton tiene oferta especiales', '1'),
+												(16604, 166, '4', 'Activa/Desactiva el boton tiene oferta especiales', '1'),
+												(16605, 166, '5', 'Activa/Desactiva el boton tiene oferta especiales', '1'),
+												(16606, 166, '6', 'Activa/Desactiva el boton tiene oferta especiales', '1')
+	end
+end
 GO
 
 USE BelcorpMexico
@@ -26,6 +40,20 @@ begin
 										        (16502, 165, 'usu_inf_com', 'usuario', 'AKIAIYETSRUJDVPUJMVQ'),
 										        (16503, 165, 'cla_inf_com', 'clave', '63tSNMOUqQ2wAH16KWL/nfzOu/qWpkpz9TFm21Ti'),
 												(16504, 165, 'num_cam_per', 'Número de campanias a obtener en un Periodo', '6')
+	end
+end
+
+if not exists (select 1 from TablaLogica where TablaLogicaID = 166)
+begin
+	insert into TablaLogica values (166, 'CaminoBri Ofertas Especiales')
+	if not exists (select 1 from TablaLogicaDatos where TablaLogicaID = 166)
+	begin
+			insert into TablaLogicaDatos values (16601, 166, '1', 'Activa/Desactiva el boton tiene oferta especiales', '0'),
+										        (16602, 166, '2', 'Activa/Desactiva el boton tiene oferta especiales', '1'),
+										        (16603, 166, '3', 'Activa/Desactiva el boton tiene oferta especiales', '1'),
+												(16604, 166, '4', 'Activa/Desactiva el boton tiene oferta especiales', '1'),
+												(16605, 166, '5', 'Activa/Desactiva el boton tiene oferta especiales', '1'),
+												(16606, 166, '6', 'Activa/Desactiva el boton tiene oferta especiales', '1')
 	end
 end
 GO
@@ -44,6 +72,20 @@ begin
 												(16504, 165, 'num_cam_per', 'Número de campanias a obtener en un Periodo', '6')
 	end
 end
+
+if not exists (select 1 from TablaLogica where TablaLogicaID = 166)
+begin
+	insert into TablaLogica values (166, 'CaminoBri Ofertas Especiales')
+	if not exists (select 1 from TablaLogicaDatos where TablaLogicaID = 166)
+	begin
+			insert into TablaLogicaDatos values (16601, 166, '1', 'Activa/Desactiva el boton tiene oferta especiales', '0'),
+										        (16602, 166, '2', 'Activa/Desactiva el boton tiene oferta especiales', '1'),
+										        (16603, 166, '3', 'Activa/Desactiva el boton tiene oferta especiales', '1'),
+												(16604, 166, '4', 'Activa/Desactiva el boton tiene oferta especiales', '1'),
+												(16605, 166, '5', 'Activa/Desactiva el boton tiene oferta especiales', '1'),
+												(16606, 166, '6', 'Activa/Desactiva el boton tiene oferta especiales', '1')
+	end
+end
 GO
 
 USE BelcorpSalvador
@@ -58,6 +100,20 @@ begin
 										        (16502, 165, 'usu_inf_com', 'usuario', 'AKIAIYETSRUJDVPUJMVQ'),
 										        (16503, 165, 'cla_inf_com', 'clave', '63tSNMOUqQ2wAH16KWL/nfzOu/qWpkpz9TFm21Ti'),
 												(16504, 165, 'num_cam_per', 'Número de campanias a obtener en un Periodo', '6')
+	end
+end
+
+if not exists (select 1 from TablaLogica where TablaLogicaID = 166)
+begin
+	insert into TablaLogica values (166, 'CaminoBri Ofertas Especiales')
+	if not exists (select 1 from TablaLogicaDatos where TablaLogicaID = 166)
+	begin
+			insert into TablaLogicaDatos values (16601, 166, '1', 'Activa/Desactiva el boton tiene oferta especiales', '0'),
+										        (16602, 166, '2', 'Activa/Desactiva el boton tiene oferta especiales', '1'),
+										        (16603, 166, '3', 'Activa/Desactiva el boton tiene oferta especiales', '1'),
+												(16604, 166, '4', 'Activa/Desactiva el boton tiene oferta especiales', '1'),
+												(16605, 166, '5', 'Activa/Desactiva el boton tiene oferta especiales', '1'),
+												(16606, 166, '6', 'Activa/Desactiva el boton tiene oferta especiales', '1')
 	end
 end
 GO
@@ -76,6 +132,20 @@ begin
 												(16504, 165, 'num_cam_per', 'Número de campanias a obtener en un Periodo', '6')
 	end
 end
+
+if not exists (select 1 from TablaLogica where TablaLogicaID = 166)
+begin
+	insert into TablaLogica values (166, 'CaminoBri Ofertas Especiales')
+	if not exists (select 1 from TablaLogicaDatos where TablaLogicaID = 166)
+	begin
+			insert into TablaLogicaDatos values (16601, 166, '1', 'Activa/Desactiva el boton tiene oferta especiales', '0'),
+										        (16602, 166, '2', 'Activa/Desactiva el boton tiene oferta especiales', '1'),
+										        (16603, 166, '3', 'Activa/Desactiva el boton tiene oferta especiales', '1'),
+												(16604, 166, '4', 'Activa/Desactiva el boton tiene oferta especiales', '1'),
+												(16605, 166, '5', 'Activa/Desactiva el boton tiene oferta especiales', '1'),
+												(16606, 166, '6', 'Activa/Desactiva el boton tiene oferta especiales', '1')
+	end
+end
 GO
 
 USE BelcorpPanama
@@ -90,6 +160,20 @@ begin
 										        (16502, 165, 'usu_inf_com', 'usuario', 'AKIAIYETSRUJDVPUJMVQ'),
 										        (16503, 165, 'cla_inf_com', 'clave', '63tSNMOUqQ2wAH16KWL/nfzOu/qWpkpz9TFm21Ti'),
 												(16504, 165, 'num_cam_per', 'Número de campanias a obtener en un Periodo', '6')
+	end
+end
+
+if not exists (select 1 from TablaLogica where TablaLogicaID = 166)
+begin
+	insert into TablaLogica values (166, 'CaminoBri Ofertas Especiales')
+	if not exists (select 1 from TablaLogicaDatos where TablaLogicaID = 166)
+	begin
+			insert into TablaLogicaDatos values (16601, 166, '1', 'Activa/Desactiva el boton tiene oferta especiales', '0'),
+										        (16602, 166, '2', 'Activa/Desactiva el boton tiene oferta especiales', '1'),
+										        (16603, 166, '3', 'Activa/Desactiva el boton tiene oferta especiales', '1'),
+												(16604, 166, '4', 'Activa/Desactiva el boton tiene oferta especiales', '1'),
+												(16605, 166, '5', 'Activa/Desactiva el boton tiene oferta especiales', '1'),
+												(16606, 166, '6', 'Activa/Desactiva el boton tiene oferta especiales', '1')
 	end
 end
 GO
@@ -108,6 +192,20 @@ begin
 												(16504, 165, 'num_cam_per', 'Número de campanias a obtener en un Periodo', '6')
 	end
 end
+
+if not exists (select 1 from TablaLogica where TablaLogicaID = 166)
+begin
+	insert into TablaLogica values (166, 'CaminoBri Ofertas Especiales')
+	if not exists (select 1 from TablaLogicaDatos where TablaLogicaID = 166)
+	begin
+			insert into TablaLogicaDatos values (16601, 166, '1', 'Activa/Desactiva el boton tiene oferta especiales', '0'),
+										        (16602, 166, '2', 'Activa/Desactiva el boton tiene oferta especiales', '1'),
+										        (16603, 166, '3', 'Activa/Desactiva el boton tiene oferta especiales', '1'),
+												(16604, 166, '4', 'Activa/Desactiva el boton tiene oferta especiales', '1'),
+												(16605, 166, '5', 'Activa/Desactiva el boton tiene oferta especiales', '1'),
+												(16606, 166, '6', 'Activa/Desactiva el boton tiene oferta especiales', '1')
+	end
+end
 GO
 
 USE BelcorpEcuador
@@ -122,6 +220,20 @@ begin
 										        (16502, 165, 'usu_inf_com', 'usuario', 'AKIAIYETSRUJDVPUJMVQ'),
 										        (16503, 165, 'cla_inf_com', 'clave', '63tSNMOUqQ2wAH16KWL/nfzOu/qWpkpz9TFm21Ti'),
 												(16504, 165, 'num_cam_per', 'Número de campanias a obtener en un Periodo', '6')
+	end
+end
+
+if not exists (select 1 from TablaLogica where TablaLogicaID = 166)
+begin
+	insert into TablaLogica values (166, 'CaminoBri Ofertas Especiales')
+	if not exists (select 1 from TablaLogicaDatos where TablaLogicaID = 166)
+	begin
+			insert into TablaLogicaDatos values (16601, 166, '1', 'Activa/Desactiva el boton tiene oferta especiales', '0'),
+										        (16602, 166, '2', 'Activa/Desactiva el boton tiene oferta especiales', '1'),
+										        (16603, 166, '3', 'Activa/Desactiva el boton tiene oferta especiales', '1'),
+												(16604, 166, '4', 'Activa/Desactiva el boton tiene oferta especiales', '1'),
+												(16605, 166, '5', 'Activa/Desactiva el boton tiene oferta especiales', '1'),
+												(16606, 166, '6', 'Activa/Desactiva el boton tiene oferta especiales', '1')
 	end
 end
 GO
@@ -140,6 +252,20 @@ begin
 												(16504, 165, 'num_cam_per', 'Número de campanias a obtener en un Periodo', '6')
 	end
 end
+
+if not exists (select 1 from TablaLogica where TablaLogicaID = 166)
+begin
+	insert into TablaLogica values (166, 'CaminoBri Ofertas Especiales')
+	if not exists (select 1 from TablaLogicaDatos where TablaLogicaID = 166)
+	begin
+			insert into TablaLogicaDatos values (16601, 166, '1', 'Activa/Desactiva el boton tiene oferta especiales', '0'),
+										        (16602, 166, '2', 'Activa/Desactiva el boton tiene oferta especiales', '1'),
+										        (16603, 166, '3', 'Activa/Desactiva el boton tiene oferta especiales', '1'),
+												(16604, 166, '4', 'Activa/Desactiva el boton tiene oferta especiales', '1'),
+												(16605, 166, '5', 'Activa/Desactiva el boton tiene oferta especiales', '1'),
+												(16606, 166, '6', 'Activa/Desactiva el boton tiene oferta especiales', '1')
+	end
+end
 GO
 
 USE BelcorpCostaRica
@@ -154,6 +280,20 @@ begin
 										        (16502, 165, 'usu_inf_com', 'usuario', 'AKIAIYETSRUJDVPUJMVQ'),
 										        (16503, 165, 'cla_inf_com', 'clave', '63tSNMOUqQ2wAH16KWL/nfzOu/qWpkpz9TFm21Ti'),
 												(16504, 165, 'num_cam_per', 'Número de campanias a obtener en un Periodo', '6')
+	end
+end
+
+if not exists (select 1 from TablaLogica where TablaLogicaID = 166)
+begin
+	insert into TablaLogica values (166, 'CaminoBri Ofertas Especiales')
+	if not exists (select 1 from TablaLogicaDatos where TablaLogicaID = 166)
+	begin
+			insert into TablaLogicaDatos values (16601, 166, '1', 'Activa/Desactiva el boton tiene oferta especiales', '0'),
+										        (16602, 166, '2', 'Activa/Desactiva el boton tiene oferta especiales', '1'),
+										        (16603, 166, '3', 'Activa/Desactiva el boton tiene oferta especiales', '1'),
+												(16604, 166, '4', 'Activa/Desactiva el boton tiene oferta especiales', '1'),
+												(16605, 166, '5', 'Activa/Desactiva el boton tiene oferta especiales', '1'),
+												(16606, 166, '6', 'Activa/Desactiva el boton tiene oferta especiales', '1')
 	end
 end
 GO
@@ -172,6 +312,20 @@ begin
 												(16504, 165, 'num_cam_per', 'Número de campanias a obtener en un Periodo', '6')
 	end
 end
+
+if not exists (select 1 from TablaLogica where TablaLogicaID = 166)
+begin
+	insert into TablaLogica values (166, 'CaminoBri Ofertas Especiales')
+	if not exists (select 1 from TablaLogicaDatos where TablaLogicaID = 166)
+	begin
+			insert into TablaLogicaDatos values (16601, 166, '1', 'Activa/Desactiva el boton tiene oferta especiales', '0'),
+										        (16602, 166, '2', 'Activa/Desactiva el boton tiene oferta especiales', '1'),
+										        (16603, 166, '3', 'Activa/Desactiva el boton tiene oferta especiales', '1'),
+												(16604, 166, '4', 'Activa/Desactiva el boton tiene oferta especiales', '1'),
+												(16605, 166, '5', 'Activa/Desactiva el boton tiene oferta especiales', '1'),
+												(16606, 166, '6', 'Activa/Desactiva el boton tiene oferta especiales', '1')
+	end
+end
 GO
 
 USE BelcorpBolivia
@@ -186,6 +340,20 @@ begin
 										        (16502, 165, 'usu_inf_com', 'usuario', 'AKIAIYETSRUJDVPUJMVQ'),
 										        (16503, 165, 'cla_inf_com', 'clave', '63tSNMOUqQ2wAH16KWL/nfzOu/qWpkpz9TFm21Ti'),
 												(16504, 165, 'num_cam_per', 'Número de campanias a obtener en un Periodo', '6')
+	end
+end
+
+if not exists (select 1 from TablaLogica where TablaLogicaID = 166)
+begin
+	insert into TablaLogica values (166, 'CaminoBri Ofertas Especiales')
+	if not exists (select 1 from TablaLogicaDatos where TablaLogicaID = 166)
+	begin
+			insert into TablaLogicaDatos values (16601, 166, '1', 'Activa/Desactiva el boton tiene oferta especiales', '0'),
+										        (16602, 166, '2', 'Activa/Desactiva el boton tiene oferta especiales', '1'),
+										        (16603, 166, '3', 'Activa/Desactiva el boton tiene oferta especiales', '1'),
+												(16604, 166, '4', 'Activa/Desactiva el boton tiene oferta especiales', '1'),
+												(16605, 166, '5', 'Activa/Desactiva el boton tiene oferta especiales', '1'),
+												(16606, 166, '6', 'Activa/Desactiva el boton tiene oferta especiales', '1')
 	end
 end
 GO
