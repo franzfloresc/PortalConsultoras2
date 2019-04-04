@@ -1232,7 +1232,7 @@ ul.breadcumbs li a::before {
     float: left;
     height: 250px;
     display: flex;
-    align-items: end;
+    align-items: flex-end;
 }
 
 .ficha_content_rigth {

@@ -22,8 +22,9 @@
         transform: rotate(180deg);
     }
 
-
-
+.contenedor_detalle {
+    display: block !important;
+}
 
 /*INIT Estilo Panel*/
 .sidenav {
