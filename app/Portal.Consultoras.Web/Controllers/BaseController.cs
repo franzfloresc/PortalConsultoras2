@@ -1215,20 +1215,11 @@ namespace Portal.Consultoras.Web.Controllers
         }
         public string ObtenerConfiguracionBuscadorCaracteresMenoresACuatro(string codigo)
         {
-            if (!buscadorYFiltro.ConfiguracionPaisDatos.Any()) return ObtenerValorPorDefectoCadena(codigo);
+            if (!buscadorYFiltro.ConfiguracionPaisDatos.Any()) return string.Empty;
             var valor = (from item in buscadorYFiltro.ConfiguracionPaisDatos where item.Codigo == codigo select item.Valor1).FirstOrDefault();
-            return valor == null ? ObtenerValorPorDefectoCadena(codigo) : valor;
+            return valor ?? string.Empty;
         }
-        private string ObtenerValorPorDefectoCadena(string codigo)
-        {
-            switch (codigo)
-            {
-                case Constantes.TipoConfiguracionBuscador.MostrarPalabrasMenoresACuatro:
-                    return string.Empty;
-                default:
-                    return string.Empty;
-            }
-        }
+
         private int ObtenerValorPorDefecto(string codigo)
         {
             switch (codigo)
