@@ -5,6 +5,10 @@ if exists (select 1 from Permiso where Codigo = 'CaminoBrillante')
 begin
 	delete from RolPermiso where PermisoID = (select PermisoID from Permiso where Codigo = 'CaminoBrillante')
 	delete from Permiso where Codigo = 'CaminoBrillante'
+	Update Permiso set OrdenItem = 10 where PermisoID = 1021 and IdPadre = 1003 
+	Update Permiso set OrdenItem = 11 where PermisoID = 1079 and IdPadre = 1003
+	Update Permiso set OrdenItem = 12 where PermisoID = 1055 and IdPadre = 1003 
+	Update Permiso set OrdenItem = 13 where PermisoID = 1006 and IdPadre = 1003 
 end
 GO
 
@@ -15,6 +19,10 @@ if exists (select 1 from Permiso where Codigo = 'CaminoBrillante')
 begin
 	delete from RolPermiso where PermisoID = (select PermisoID from Permiso where Codigo = 'CaminoBrillante')
 	delete from Permiso where Codigo = 'CaminoBrillante'
+	Update Permiso set OrdenItem = 10 where PermisoID = 1021 and IdPadre = 1003 
+	Update Permiso set OrdenItem = 11 where PermisoID = 1079 and IdPadre = 1003
+	Update Permiso set OrdenItem = 12 where PermisoID = 1055 and IdPadre = 1003 
+	Update Permiso set OrdenItem = 13 where PermisoID = 1006 and IdPadre = 1003 
 end
 GO
 
@@ -25,6 +33,10 @@ if exists (select 1 from Permiso where Codigo = 'CaminoBrillante')
 begin
 	delete from RolPermiso where PermisoID = (select PermisoID from Permiso where Codigo = 'CaminoBrillante')
 	delete from Permiso where Codigo = 'CaminoBrillante'
+	Update Permiso set OrdenItem = 10 where PermisoID = 1021 and IdPadre = 1003 
+	Update Permiso set OrdenItem = 11 where PermisoID = 1079 and IdPadre = 1003
+	Update Permiso set OrdenItem = 12 where PermisoID = 1055 and IdPadre = 1003 
+	Update Permiso set OrdenItem = 13 where PermisoID = 1006 and IdPadre = 1003 
 end
 GO
 
@@ -35,6 +47,10 @@ if exists (select 1 from Permiso where Codigo = 'CaminoBrillante')
 begin
 	delete from RolPermiso where PermisoID = (select PermisoID from Permiso where Codigo = 'CaminoBrillante')
 	delete from Permiso where Codigo = 'CaminoBrillante'
+	Update Permiso set OrdenItem = 10 where PermisoID = 1021 and IdPadre = 1003 
+	Update Permiso set OrdenItem = 11 where PermisoID = 1079 and IdPadre = 1003
+	Update Permiso set OrdenItem = 12 where PermisoID = 1055 and IdPadre = 1003 
+	Update Permiso set OrdenItem = 13 where PermisoID = 1006 and IdPadre = 1003 
 end
 GO
 
@@ -45,6 +61,10 @@ if exists (select 1 from Permiso where Codigo = 'CaminoBrillante')
 begin
 	delete from RolPermiso where PermisoID = (select PermisoID from Permiso where Codigo = 'CaminoBrillante')
 	delete from Permiso where Codigo = 'CaminoBrillante'
+	Update Permiso set OrdenItem = 10 where PermisoID = 1021 and IdPadre = 1003 
+	Update Permiso set OrdenItem = 11 where PermisoID = 1079 and IdPadre = 1003
+	Update Permiso set OrdenItem = 12 where PermisoID = 1055 and IdPadre = 1003 
+	Update Permiso set OrdenItem = 13 where PermisoID = 1006 and IdPadre = 1003 
 end
 GO
 
@@ -55,6 +75,10 @@ if exists (select 1 from Permiso where Codigo = 'CaminoBrillante')
 begin
 	delete from RolPermiso where PermisoID = (select PermisoID from Permiso where Codigo = 'CaminoBrillante')
 	delete from Permiso where Codigo = 'CaminoBrillante'
+	Update Permiso set OrdenItem = 10 where PermisoID = 1021 and IdPadre = 1003 
+	Update Permiso set OrdenItem = 11 where PermisoID = 1079 and IdPadre = 1003
+	Update Permiso set OrdenItem = 12 where PermisoID = 1055 and IdPadre = 1003 
+	Update Permiso set OrdenItem = 13 where PermisoID = 1006 and IdPadre = 1003 
 end
 GO
 
@@ -65,6 +89,10 @@ if exists (select 1 from Permiso where Codigo = 'CaminoBrillante')
 begin
 	delete from RolPermiso where PermisoID = (select PermisoID from Permiso where Codigo = 'CaminoBrillante')
 	delete from Permiso where Codigo = 'CaminoBrillante'
+	Update Permiso set OrdenItem = 10 where PermisoID = 1021 and IdPadre = 1003 
+	Update Permiso set OrdenItem = 11 where PermisoID = 1079 and IdPadre = 1003
+	Update Permiso set OrdenItem = 12 where PermisoID = 1055 and IdPadre = 1003 
+	Update Permiso set OrdenItem = 13 where PermisoID = 1006 and IdPadre = 1003 
 end
 GO
 
@@ -75,6 +103,10 @@ if exists (select 1 from Permiso where Codigo = 'CaminoBrillante')
 begin
 	delete from RolPermiso where PermisoID = (select PermisoID from Permiso where Codigo = 'CaminoBrillante')
 	delete from Permiso where Codigo = 'CaminoBrillante'
+	Update Permiso set OrdenItem = 10 where PermisoID = 1021 and IdPadre = 1003 
+	Update Permiso set OrdenItem = 11 where PermisoID = 1079 and IdPadre = 1003
+	Update Permiso set OrdenItem = 12 where PermisoID = 1055 and IdPadre = 1003 
+	Update Permiso set OrdenItem = 13 where PermisoID = 1006 and IdPadre = 1003 
 end
 GO
 
@@ -85,6 +117,10 @@ if exists (select 1 from Permiso where Codigo = 'CaminoBrillante')
 begin
 	delete from RolPermiso where PermisoID = (select PermisoID from Permiso where Codigo = 'CaminoBrillante')
 	delete from Permiso where Codigo = 'CaminoBrillante'
+	Update Permiso set OrdenItem = 10 where PermisoID = 1021 and IdPadre = 1003 
+	Update Permiso set OrdenItem = 11 where PermisoID = 1079 and IdPadre = 1003
+	Update Permiso set OrdenItem = 12 where PermisoID = 1055 and IdPadre = 1003 
+	Update Permiso set OrdenItem = 13 where PermisoID = 1006 and IdPadre = 1003 
 end
 GO
 
@@ -95,6 +131,10 @@ if exists (select 1 from Permiso where Codigo = 'CaminoBrillante')
 begin
 	delete from RolPermiso where PermisoID = (select PermisoID from Permiso where Codigo = 'CaminoBrillante')
 	delete from Permiso where Codigo = 'CaminoBrillante'
+	Update Permiso set OrdenItem = 10 where PermisoID = 1021 and IdPadre = 1003 
+	Update Permiso set OrdenItem = 11 where PermisoID = 1079 and IdPadre = 1003
+	Update Permiso set OrdenItem = 12 where PermisoID = 1055 and IdPadre = 1003 
+	Update Permiso set OrdenItem = 13 where PermisoID = 1006 and IdPadre = 1003 
 end
 GO
 
@@ -105,6 +145,10 @@ if exists (select 1 from Permiso where Codigo = 'CaminoBrillante')
 begin
 	delete from RolPermiso where PermisoID = (select PermisoID from Permiso where Codigo = 'CaminoBrillante')
 	delete from Permiso where Codigo = 'CaminoBrillante'
+	Update Permiso set OrdenItem = 10 where PermisoID = 1021 and IdPadre = 1003 
+	Update Permiso set OrdenItem = 11 where PermisoID = 1079 and IdPadre = 1003
+	Update Permiso set OrdenItem = 12 where PermisoID = 1055 and IdPadre = 1003 
+	Update Permiso set OrdenItem = 13 where PermisoID = 1006 and IdPadre = 1003 
 end
 GO
 
@@ -115,6 +159,10 @@ if exists (select 1 from Permiso where Codigo = 'CaminoBrillante')
 begin
 	delete from RolPermiso where PermisoID = (select PermisoID from Permiso where Codigo = 'CaminoBrillante')
 	delete from Permiso where Codigo = 'CaminoBrillante'
+	Update Permiso set OrdenItem = 10 where PermisoID = 1021 and IdPadre = 1003 
+	Update Permiso set OrdenItem = 11 where PermisoID = 1079 and IdPadre = 1003
+	Update Permiso set OrdenItem = 12 where PermisoID = 1055 and IdPadre = 1003 
+	Update Permiso set OrdenItem = 13 where PermisoID = 1006 and IdPadre = 1003 
 end
 GO
 
