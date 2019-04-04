@@ -51,6 +51,14 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Crecimiento()
         {
+            var informacion = SessionManager.GetConsultoraCaminoBrillante() ?? new ServiceUsuario.BEConsultoraCaminoBrillante();
+
+            if (informacion.Logros != null)
+            {
+                ViewBag.Crecimiento = informacion.Logros;
+            }
+            else
+                return RedirectToAction("Index", "Bienvenida");
             return View();
         }
 
