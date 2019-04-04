@@ -6,6 +6,9 @@ namespace Portal.Consultoras.Common
     /// </summary>
     public static class CodigoUbigeoPortal
     {
+
+        public const string Guion = "--";
+
         public static class Dispositivo
         {
             public const string Desktop = "01";
@@ -58,6 +61,11 @@ namespace Portal.Consultoras.Common
             public const string SubCampania= "07";
             public const string Recomendados= "08";
             public const string FichaResumida= "09";
+        }
+
+        public static string GuionPedidoGuionFichaResumida
+        {
+            get { return Guion + Pagina.Pedido + Guion + Seccion.FichaResumida; }
         }
     }
 }
