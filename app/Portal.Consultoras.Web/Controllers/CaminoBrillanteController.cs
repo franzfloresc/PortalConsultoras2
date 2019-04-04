@@ -3,7 +3,7 @@ using System.Linq;
 using Portal.Consultoras.Common;
 using System;
 using System.Collections.Generic;
-using System;
+using Portal.Consultoras.Web.ServiceUsuario;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -12,6 +12,8 @@ namespace Portal.Consultoras.Web.Controllers
     {
         #region CaminoBrillante
         // GET: CaminoBrillante
+
+
         public ActionResult Index()
         {
             var informacion = SessionManager.GetConsultoraCaminoBrillante() ?? new ServiceUsuario.BEConsultoraCaminoBrillante();
