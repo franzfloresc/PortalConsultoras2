@@ -466,7 +466,7 @@ div .owl-carousel .owl-stage-outer {
 .brillante:before {
     content: "";
     display: block;
-    background: url(../imgs/brillo.svg) no-repeat center center;
+    background: url(/Content/CaminoBrillante/imgs/brillo.svg) no-repeat center center;
     background-size: cover;
     width: 65px;
     height: 65px;
