@@ -405,11 +405,11 @@
   <wsdl:message name="IUsuarioService_GetConsultoraLogrosCaminoBrillante_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetConsultoraLogrosCaminoBrillanteResponse" />
   </wsdl:message>
-  <wsdl:message name="IUsuarioService_GetOfertasCaminoBrillante_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetOfertasCaminoBrillante" />
+  <wsdl:message name="IUsuarioService_GetKitCaminoBrillante_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetKitCaminoBrillante" />
   </wsdl:message>
-  <wsdl:message name="IUsuarioService_GetOfertasCaminoBrillante_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetOfertasCaminoBrillanteResponse" />
+  <wsdl:message name="IUsuarioService_GetKitCaminoBrillante_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetKitCaminoBrillanteResponse" />
   </wsdl:message>
   <wsdl:message name="IUsuarioService_GetDemostradoresCaminoBrillante_InputMessage">
     <wsdl:part name="parameters" element="tns:GetDemostradoresCaminoBrillante" />
@@ -1172,9 +1172,9 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetConsultoraLogrosCaminoBrillante" message="tns:IUsuarioService_GetConsultoraLogrosCaminoBrillante_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetConsultoraLogrosCaminoBrillanteResponse" message="tns:IUsuarioService_GetConsultoraLogrosCaminoBrillante_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetOfertasCaminoBrillante">
-      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetOfertasCaminoBrillante" message="tns:IUsuarioService_GetOfertasCaminoBrillante_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetOfertasCaminoBrillanteResponse" message="tns:IUsuarioService_GetOfertasCaminoBrillante_OutputMessage" />
+    <wsdl:operation name="GetKitCaminoBrillante">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetKitCaminoBrillante" message="tns:IUsuarioService_GetKitCaminoBrillante_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetKitCaminoBrillanteResponse" message="tns:IUsuarioService_GetKitCaminoBrillante_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetDemostradoresCaminoBrillante">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetDemostradoresCaminoBrillante" message="tns:IUsuarioService_GetDemostradoresCaminoBrillante_InputMessage" />
@@ -2072,8 +2072,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetOfertasCaminoBrillante">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetOfertasCaminoBrillante" style="document" />
+    <wsdl:operation name="GetKitCaminoBrillante">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetKitCaminoBrillante" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3408,8 +3408,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetOfertasCaminoBrillante">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetOfertasCaminoBrillante" style="document" />
+    <wsdl:operation name="GetKitCaminoBrillante">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetKitCaminoBrillante" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

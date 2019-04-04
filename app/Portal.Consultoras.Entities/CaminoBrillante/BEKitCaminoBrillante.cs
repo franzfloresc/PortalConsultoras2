@@ -1,8 +1,7 @@
 ﻿namespace Portal.Consultoras.Entities.CaminoBrillante
 {
-    public class BEOfertaCaminoBrillante
+    public class BEKitCaminoBrillante
     {
-
         public string CodigoKit { get; set; }
         public string Cuv { get; set; }
         public string CodigoSap { get; set; }
