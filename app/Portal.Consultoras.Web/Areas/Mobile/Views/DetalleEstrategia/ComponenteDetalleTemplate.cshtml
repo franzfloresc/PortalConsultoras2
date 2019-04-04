@@ -53,11 +53,7 @@
                                         {{/each}}
                                     </ul>
                                 </li>
-                                {{/iff}}
-                                {{/each}}
-
-                                {{#each this.Secciones as |seccion|}}
-                                {{#iff seccion.EsVideos '==' true }}
+                                {{else}}                                 
                                 <li id="div_ficha_tab1">
                                     <a class="tab-link">{{seccion.Titulo}}</a>
                                     <ul class="tabs_container">
@@ -85,10 +81,10 @@
                                             </div>
                                         </div>
                                     </ul>
-                                </li>
+                                </li>                             
                                 {{/iff}}
                                 {{/each}}
-
+                                  
                             </ul>
                         </div>
                           
