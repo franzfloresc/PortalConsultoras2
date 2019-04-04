@@ -249,12 +249,12 @@ namespace Portal.Consultoras.Common
                 if (ex != null)
                 {
                     exceptionMessage += "Error message: " + ex.Message;
-                    exceptionMessage += separador + "StackTrace: " + ex.StackTrace;
+                    exceptionMessage += separador + "\n StackTrace: " + ex.StackTrace;
 
                     var innerException = ex.InnerException;
                     while (innerException != null)
                     {
-                        exceptionMessage = string.Format("{0}, InnerException: {1}", exceptionMessage, innerException.Message);
+                        exceptionMessage = string.Format("\n {0}, Message: {1}, InnerException: {2}", exceptionMessage, innerException.Message, innerException.StackTrace);
                         innerException = innerException.InnerException;
                     }
                 }
