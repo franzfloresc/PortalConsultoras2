@@ -33,7 +33,7 @@ namespace Portal.Consultoras.Web.WebPages
             else CargarPedidoEspecifico(campania, nroPedido);
 
             lnkPoliticasVenta.NavigateUrl = Globals.RutaCdn + "/SeguimientoPedido/" + Convert.ToString(ViewState["PAISISO"]) + "/Politica.pdf";
-            
+
 
         }
 
@@ -112,7 +112,7 @@ namespace Portal.Consultoras.Web.WebPages
             string strFecha = string.Empty;
 
             if (tracking.Fecha.HasValue)
-                strFecha = tracking.Fecha.Value.TimeOfDay.TotalHours.Equals(0) 
+                strFecha = tracking.Fecha.Value.TimeOfDay.TotalHours.Equals(0)
                     ? tracking.Fecha.Value.ToString("dd/MM/yyyy")
                     : tracking.Fecha.Value.ToString();
 
@@ -271,7 +271,7 @@ namespace Portal.Consultoras.Web.WebPages
                 int paisId = Convert.ToInt32(ViewState["PAIS"]);
                 string codigoConsultora = Convert.ToString(ViewState["CODIGO"]);
                 string paisIso = Convert.ToString(ViewState["PAISISO"]);
-                //int campanhaId = Convert.ToInt32(ViewState["CAMPANHAID"]);
+
                 int mostrarAyuda = Convert.ToInt32(ViewState["MOSTRARAYUDA"]);
 
                 CargarPedidos(paisId, codigoConsultora);
@@ -392,7 +392,7 @@ namespace Portal.Consultoras.Web.WebPages
                     {
                         novedades = sv.GetNovedadesTracking(paisID, nropedido);
                     }
-                    
+
                     pnlStatusGeneral.Visible = false;
                     if (estado == "RECHAZADO")
                     {
@@ -429,8 +429,8 @@ namespace Portal.Consultoras.Web.WebPages
                         string strTexto = string.Empty;
 
                         if (item.Fecha.HasValue)
-                            strFecha = item.Fecha.Value.TimeOfDay.TotalHours.Equals(0) 
-                                ? item.Fecha.Value.ToString("d/MM/yyyy") 
+                            strFecha = item.Fecha.Value.TimeOfDay.TotalHours.Equals(0)
+                                ? item.Fecha.Value.ToString("d/MM/yyyy")
                                 : item.Fecha.Value.ToString();
 
                         if (strFecha == "01/01/2001" || strFecha == "01/01/0001" || strFecha == "1/01/0001")
@@ -458,7 +458,7 @@ namespace Portal.Consultoras.Web.WebPages
 
                         item.CodigoConsultora = strFecha;
                         item.NumeroPedido = strTexto;
-                        
+
                         if (item.Etapa == 6 && !string.IsNullOrEmpty(item.ValorTurno))
                         {
                             if (item.ValorTurno.ToUpper() == "AM")
@@ -602,8 +602,8 @@ namespace Portal.Consultoras.Web.WebPages
                 gvNovedades.SelectedIndex = 0;
                 if (gvNovedades.DataKeys[0] != null)
                 {
-                    string lat = (string) gvNovedades.DataKeys[0]["Latitud"];
-                    string longi = (string) gvNovedades.DataKeys[0]["Longitud"];
+                    string lat = (string)gvNovedades.DataKeys[0]["Latitud"];
+                    string longi = (string)gvNovedades.DataKeys[0]["Longitud"];
                     string novedad = "Entrega";
 
                     ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Mapa",
@@ -627,8 +627,8 @@ namespace Portal.Consultoras.Web.WebPages
 
                 if (gvNovedades.DataKeys[index] != null)
                 {
-                    string lat = (string) gvNovedades.DataKeys[index]["Latitud"];
-                    string longi = (string) gvNovedades.DataKeys[index]["Longitud"];
+                    string lat = (string)gvNovedades.DataKeys[index]["Latitud"];
+                    string longi = (string)gvNovedades.DataKeys[index]["Longitud"];
                     string novedad = "Entrega";
 
                     ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Mapa",
@@ -663,7 +663,7 @@ namespace Portal.Consultoras.Web.WebPages
                 int index = Convert.ToInt32(e.CommandArgument.ToString());
                 if (gvNovedades.DataKeys[index] != null)
                 {
-                    string urlImagen = (string) gvNovedades.DataKeys[index]["Boleta"];
+                    string urlImagen = (string)gvNovedades.DataKeys[index]["Boleta"];
                     string novedad = "Entrega";
 
                     int imagenExiste = 0;
@@ -746,8 +746,8 @@ namespace Portal.Consultoras.Web.WebPages
                 gvNovedadesPostVenta.SelectedIndex = 0;
                 if (gvNovedadesPostVenta.DataKeys[0] != null)
                 {
-                    string lat = (string) gvNovedadesPostVenta.DataKeys[0]["Latitud"];
-                    string longi = (string) gvNovedadesPostVenta.DataKeys[0]["Longitud"];
+                    string lat = (string)gvNovedadesPostVenta.DataKeys[0]["Latitud"];
+                    string longi = (string)gvNovedadesPostVenta.DataKeys[0]["Longitud"];
                     string novedad = "Recojo";
 
                     ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Mapa",

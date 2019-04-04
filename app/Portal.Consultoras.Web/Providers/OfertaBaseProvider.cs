@@ -48,7 +48,7 @@ namespace Portal.Consultoras.Web.Providers
             return listEstrategia;
         }
 
-        private async Task<Estrategia> ObtenerOfertaDesdeApi(string cuv, string campaniaId, string tipoPersonalizacion, string codigoIso)
+        private static async Task<Estrategia> ObtenerOfertaDesdeApi(string cuv, string campaniaId, string tipoPersonalizacion, string codigoIso)
         {
             var estrategia = new Estrategia();
 
@@ -67,6 +67,7 @@ namespace Portal.Consultoras.Web.Providers
             }
 
             string jsonString = await httpResponse.Content.ReadAsStringAsync();
+            httpResponse.Dispose();
             if (Util.Trim(jsonString) == string.Empty)
             {
                 return estrategia;
@@ -98,6 +99,7 @@ namespace Portal.Consultoras.Web.Providers
             }
 
             string jsonString = await httpResponse.Content.ReadAsStringAsync();
+            httpResponse.Dispose();
             if (Util.Trim(jsonString) == string.Empty)
             {
                 return estrategias;
