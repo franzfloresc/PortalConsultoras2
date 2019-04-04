@@ -1440,6 +1440,7 @@
     <Content Include="Content\CaminoBrillante\imgs\pedido_activo.svg" />
     <Content Include="Content\CaminoBrillante\imgs\pedido_desactivo.svg" />
     <Content Include="Content\CaminoBrillante\imgs\perla.svg" />
+    <Content Include="Content\CaminoBrillante\imgs\PIZZA_06_00.svg" />
     <Content Include="Content\CaminoBrillante\imgs\PIZZA_06_01.svg" />
     <Content Include="Content\CaminoBrillante\imgs\PIZZA_06_02.svg" />
     <Content Include="Content\CaminoBrillante\imgs\PIZZA_06_03.svg" />

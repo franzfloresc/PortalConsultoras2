@@ -13,7 +13,6 @@ function ModalBeneficios(index) {
     $("#m_imagen").attr("src", "");
 
     $.ajax({
-
         type: "POST",
         url: "/CaminoBrillante/GetNiveles",
         data: '{nivel: ' + index + '}',
