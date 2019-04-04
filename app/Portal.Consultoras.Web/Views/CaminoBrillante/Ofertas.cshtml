@@ -630,16 +630,12 @@
     <script src="~/Scripts/PortalConsultoras/Pedido/ofertafinal.js"></script>
     <script src="~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js"></script>
     <script src="~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js"></script>
-    <script src="~/Scripts/PortalConsultoras/EstrategiaAgregar/PedidoRegistro.js"></script>
+    <script src="~/Scripts/PortalConsultoras/EstrategiaAgregar/PedidoRegistro.js"></script>       
 
 
 
     <script type="text/javascript">
         var tipoOrigen = "1";
-        var reservaResponse = {
-            data: { Reserva: false }
-        };
-        var baseUrl = "/";
 
         function AgregarProducto() {
 
@@ -648,50 +644,14 @@
             for (var i = 0; i < items.length; i++) {
                 items[i].onclick = function (e) {
                     e.preventDefault();
-                    AbrirSplash();
                     var cuvCapturado = this.parentElement.parentElement.parentElement.parentElement.children[0].value;
                     var cantidadCapturado = this.parentElement.parentElement.children[0].children[0].children[1].value;
 
-                    var params = {
-                        CuvTonos: "",
                         CUV: cuvCapturado,
                         Cantidad: cantidadCapturado,
-                        TipoEstrategiaID: 3014,
-                        EstrategiaID: "34076",
-                        OrigenPedidoWeb: "1080301",
-                        TipoEstrategiaImagen: "6",
-                        FlagNueva: false,
-                        EsEditable: false,
-                        SetId: null,
                         ClienteID: 0
-                    };
-
-
-                    jQuery.ajax({
-                        type: "POST",
-                        url: baseUrl + "PedidoRegistro/PedidoAgregarProductoTransaction",
-                        dataType: "json",
-                        contentType: "application/json; charset=utf-8",
-                        data: JSON.stringify(params),
-                        async: true,
-                        cache: false,
-                        success: function (data) {
-                            //dfd.resolve(data);
-                            CerrarSplash();
-                            CargarResumenCampaniaHeader(true);
-                        },
-                        error: function (data, error) {
-                            alert("error");
-                            // dfd.reject(data, error);
-                        }
-                    });
-
-
 
                 }
-
-
-
                 //items.children[0].children[4].children[3].children[1].firstElementChild.onclick = function (e) {
                 ////items.children[i].children[1].children[3].children[1].firstElementChild.onclick = function (e) {
 
