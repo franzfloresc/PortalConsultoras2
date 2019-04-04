@@ -1139,7 +1139,7 @@ var FichaPartialModule = (function () {
         if (typeof AnalyticsPortalModule !== 'undefined') {
             AnalyticsPortalModule.MarcaFichaResumidaClickDetalleProducto(producto);
         }
-
+        if (tipoEstrategiaCodigo == ConstantesModule.TipoEstrategia.ArmaTuPack) {
             _mostrarPopupAtp(campaniaId, setid, cuv);
         }
         else {
