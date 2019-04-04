@@ -172,8 +172,10 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             {
                 var _logro = logros.Where(e => e.Id == logro).FirstOrDefault() ?? new BELogroCaminoBrillante();
                 var _indicador = _logro.Indicadores.Where(e => e.Codigo == indicador).FirstOrDefault() ?? new BEIndicadorCaminoBrillante();
-                return _indicador.Medallas.OrderByDescending(e => e.Orden).Where(e => e.Estado).FirstOrDefault() ??
-                            _indicador.Medallas.OrderBy(e => e.Orden).FirstOrDefault();
+                if(_indicador.Medallas != null)
+                    return _indicador.Medallas.OrderByDescending(e => e.Orden).Where(e => e.Estado).FirstOrDefault() ??
+                                _indicador.Medallas.OrderBy(e => e.Orden).FirstOrDefault();
+                return null;
             };
 
             var medallaEscala = funcCopyMedalla(funcUltimaMedalla(Constantes.CaminoBrillante.Logros.CRECIMIENTO, Constantes.CaminoBrillante.Logros.Indicadores.ESCALA), "Escala", 0);
@@ -193,9 +195,13 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                         var _indicador = _logro.Indicadores.Where(e => e.Codigo == indicador).FirstOrDefault() ?? new BEIndicadorCaminoBrillante();
                         var index = _indicador.Medallas.IndexOf(medalla);
 
-                        if (index - 1 > 0 && medallas.Count == 0) medallas.Add(_indicador.Medallas[index - 1]);
-                        if (medallas.Count == 1) medallas.Add(medalla);
-                        if (index + 1 < _indicador.Medallas.Count) medallas.Add(_indicador.Medallas[index + 1]);
+                        if (index - 1 > 0 && medallas.Count < 3) medallas.Add(_indicador.Medallas[index - 1]);
+                        if (medallas.Count < 3) medallas.Add(medalla);
+                        if (index + 1 < _indicador.Medallas.Count && medallas.Count < 3) medallas.Add(_indicador.Medallas[index + 1]);
+                        if (medallas.Count < 3 && index + 2 < _indicador.Medallas.Count) {
+                            medallas.Add(_indicador.Medallas[index + 2]);
+                        }
+
                     }
                 };
 
@@ -482,7 +488,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         {
             //Calcular este Flag
             //var showMedallasNuevas = (entidad.EsConsultoraNueva && true);
-            var showMedallasNuevas = true;
+            var showMedallasNuevas = (entidad.EsConsultoraNueva || (entidad.ConsecutivoNueva > 0));
 
             if (showMedallasNuevas)
             {
