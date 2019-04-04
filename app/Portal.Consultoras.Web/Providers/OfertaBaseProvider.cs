@@ -67,7 +67,7 @@ namespace Portal.Consultoras.Web.Providers
             try
             {
                 respuesta = JsonConvert.DeserializeObject<OutputOferta>(jsonString);
-                estrategia = respuesta.Result;
+                estrategia = respuesta.Result ?? new Estrategia();
             }
             catch (Exception ex)
             {
