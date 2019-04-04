@@ -75,7 +75,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 List<BETablaLogicaDatos> datGaBoton;
                 List<BETablaLogicaDatos> configCarouselLiquidacion;
-                
+
                 _showRoomProvider.CargarEventoConsultora(userData);
 
                 using (var sv = new SACServiceClient())
@@ -496,9 +496,9 @@ namespace Portal.Consultoras.Web.Controllers
                 model.UsuarioPrueba = userData.UsuarioPrueba;
                 model.NombreArchivoContrato = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.Contrato_ActualizarDatos + userData.CodigoISO);
                 model.IndicadorConsultoraDigital = beusuario.IndicadorConsultoraDigital;
-                
+
                 var bezona = _zonificacionProvider.GetZonaById(userData.PaisID, userData.ZonaID);
-                
+
                 model.NombreGerenteZonal = bezona.NombreGerenteZona;
 
                 if (beusuario.EMailActivo) model.CorreoAlerta = "";
@@ -1244,7 +1244,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-        
+
         private int ValidarSuenioNavidad()
         {
             var entidad = new BESuenioNavidad
@@ -1283,6 +1283,192 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region ShowRoom
 
+        #region Administrador de Actualización de datos HD-3680 : P.S.O
+        public ActionResult ReporteValidacionDatos()
+        {
+            if (!UsuarioModel.HasAcces(ViewBag.Permiso, "Bienvenida/ReporteSueniosNavidad"))
+                return RedirectToAction("Index", "Bienvenida");
+
+            var parametrizarCuvModel = new ParametrizarCUVModel()
+            {
+                listaCampania = new List<CampaniaModel>(),
+                listaZonas = new List<ZonaModel>(),
+                listaPaises = _zonificacionProvider.GetPaises(userData.PaisID, userData.RolID)
+            };
+
+            return View(parametrizarCuvModel);
+        }
+
+        public ActionResult ConsultarValidacionDatos(string sidx, string sord, int page, int rows, string PaisID, string FechaInicio, string FechaFin, string TipoEnvio, string CodigoConsultora, string Consulta)
+        {
+            if (ModelState.IsValid)
+            {
+                List<BEValidacionDatos> lst;
+
+                if (Consulta == "1")
+                {
+                    var beValidacionDatos = new BEValidacionDatos
+                    {
+                        PaisID = Convert.ToInt32(PaisID),
+                        FechaInicio = FechaInicio,
+                        FechaFin = FechaFin,
+                        TipoEnvio = TipoEnvio,
+                        CodigoUsuario = CodigoConsultora
+                    };
+
+                    using (var sv = new UsuarioServiceClient())
+                    {
+                        lst = sv.ListarValidacionDatos(beValidacionDatos).ToList();
+                    }
+                }
+                else
+                {
+                    lst = new List<BEValidacionDatos>();
+                }
+
+                var grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
+                IEnumerable<BEValidacionDatos> items = lst;
+
+                #region Sort Section
+                if (sord == "asc")
+                {
+                    switch (sidx)
+                    {
+                        case "TipoEnvio":
+                            items = lst.OrderBy(x => x.TipoEnvio);
+                            break;
+
+                        case "DatoAntiguo":
+                            items = lst.OrderBy(x => x.DatoAntiguo);
+                            break;
+
+                        case "DatoNuevo":
+                            items = lst.OrderBy(x => x.DatoNuevo);
+                            break;
+
+                        case "Estado":
+                            items = lst.OrderBy(x => x.Estado);
+                            break;
+
+                        case "CodigoUsuario":
+                            items = lst.OrderBy(x => x.CodigoUsuario);
+                            break;
+
+                        case "FechaCreacion":
+                            items = lst.OrderBy(x => x.FechaCreacion);
+                            break;
+
+                        case "FechaModificacion":
+                            items = lst.OrderBy(x => x.FechaModificacion);
+                            break;
+                    }
+                }
+                else
+                {
+                    switch (sidx)
+                    {
+                        case "TipoEnvio":
+                            items = lst.OrderByDescending(x => x.TipoEnvio);
+                            break;
+
+                        case "DatoAntiguo":
+                            items = lst.OrderByDescending(x => x.DatoAntiguo);
+                            break;
+
+                        case "DatoNuevo":
+                            items = lst.OrderByDescending(x => x.DatoNuevo);
+                            break;
+
+                        case "Estado":
+                            items = lst.OrderByDescending(x => x.Estado);
+                            break;
+
+                        case "CodigoUsuario":
+                            items = lst.OrderByDescending(x => x.CodigoUsuario);
+                            break;
+
+                        case "FechaCreacion":
+                            items = lst.OrderByDescending(x => x.FechaCreacion);
+                            break;
+
+                        case "FechaModificacion":
+                            items = lst.OrderByDescending(x => x.FechaModificacion);
+                            break;
+                    }
+                }
+                #endregion
+
+
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+
+                var pag = Util.PaginadorGenerico(grid, lst);
+
+                var data = new
+                {
+                    total = pag.PageCount,
+                    page = pag.CurrentPage,
+                    records = pag.RecordCount,
+                    rows = from a in items
+                           select new
+                           {
+                               a.ValidacionId,
+                               cell = new string[]
+                               {
+                                   a.TipoEnvio.ToString(),
+                                   a.DatoAntiguo,
+                                   a.DatoNuevo,
+                                   a.Estado,
+                                   a.CodigoUsuario,
+                                   a.FechaCreacion.ToString(),
+                                   a.FechaModificacion.ToString(),
+                               }
+                           }
+                };
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            return RedirectToAction("ReporteSueniosNavidad", "Bienvenida");
+
+        }
+
+        public ActionResult ExportarExcelValidacionDatos(string PaisID, string FechaInicio, string FechaFin, string TipoEnvio, string CodigoConsultora)
+        {
+            List<BEValidacionDatos> lst;
+            var beValidacionDatos = new BEValidacionDatos
+            {
+                PaisID = Convert.ToInt32(PaisID),
+                FechaInicio = FechaInicio,
+                FechaFin = FechaFin,
+                TipoEnvio = TipoEnvio,
+                CodigoUsuario = CodigoConsultora
+            };
+
+            using (var sv = new UsuarioServiceClient())
+            {
+                lst = sv.ListarValidacionDatos(beValidacionDatos).ToList();
+            }
+
+            var dic = new Dictionary<string, string>
+            {
+                {"Tipo de Envìo", "TipoEnvio"},
+                {"Dato Antiguo", "DatoAntiguo"},
+                {"Dato Nuevo", "DatoNuevo"},
+                {"Estado", "Estado"},
+                {"Codigo de Consultora", "CodigoConsultora"},
+                {"Fecha de Creacion", "FechaCreacion"},
+                {"Fecha de Modificacion", "FechaModificacion"}
+            };
+
+            Util.ExportToExcel("ValidacionDatos", lst, dic, GetExcelSecureCallback());
+            return View();
+        }
+        #endregion
+
         [HttpPost]
         public JsonResult NoMostrarShowRoomPopup(string TipoShowRoom)
         {
@@ -1291,7 +1477,7 @@ namespace Portal.Consultoras.Web.Controllers
                 _showRoomProvider.CargarEventoConsultora(userData);
                 _showRoomProvider.CargarEventoPersonalizacion(userData);
                 configEstrategiaSR = SessionManager.GetEstrategiaSR();
-               var entidad = new BEShowRoomEventoConsultora
+                var entidad = new BEShowRoomEventoConsultora
                 {
                     CodigoConsultora = userData.CodigoConsultora,
                     CampaniaID = userData.CampaniaID,
@@ -1865,7 +2051,7 @@ namespace Portal.Consultoras.Web.Controllers
             };
         }
 
-        public string ObtenerActualizacionEmailSms(string pagina = "1")
+        public JsonResult ObtenerActualizacionEmailSms(string pagina = "1")
         {
             string[] ValidacionDatos = new string[2];
             try
@@ -1875,16 +2061,15 @@ namespace Portal.Consultoras.Web.Controllers
                 using (var sv = new UsuarioServiceClient())
                     obj = sv.GetActualizacionEmailySms(userData.PaisID, userData.CodigoUsuario);
 
-               //  ValidacionDatos = ValidacionPerfilConsultora(obj, pagina);
+                if (userData.PaisID == Convert.ToInt32(Constantes.PaisID.Peru))
+                    ValidacionDatos = ValidacionPerfilConsultoraPeru(obj);
+                else
+                    ValidacionDatos = ValidacionPerfilConsultorOtrosPaises(obj);
 
-
-
-
-
-
-
-                if (obj == null) return pagina == "1" ? "" : "|";
-                if (obj.oDatosPerfil == null) return pagina == "1" ? "" : "|";
+            if (Convert.ToInt32(ValidacionDatos[0]) == 0)
+            {
+                if (obj == null) { ValidacionDatos[0] = "0"; ValidacionDatos[1]= pagina == "1" ? "" : "|"; return Json(new { valor=ValidacionDatos[0], mensaje=ValidacionDatos[1].ToString() }, JsonRequestBehavior.AllowGet); }
+                if (obj.oDatosPerfil == null) { ValidacionDatos[0] = "0"; ValidacionDatos[1] = pagina == "1" ? "" : "|"; return Json(new { valor=ValidacionDatos[0], mensaje=ValidacionDatos[1].ToString() }, JsonRequestBehavior.AllowGet); }
 
                 string pendiente = string.Empty;
                 string tieneMensajes = string.Empty;
@@ -1908,32 +2093,127 @@ namespace Portal.Consultoras.Web.Controllers
                 switch (tieneMensajes)
                 {
                     case "1":
-                        if (obj.oDatosPerfil[0].TipoEnvio == "1") return pagina == "1" ? obj.MensajeCelular : nuevoDatoCelular + "|";
-                        if (menSms) return pagina == "1" ? obj.MensajeCelular : nuevoDatoCelular + "|";
-                        return pagina == "1" ? "" : "|";
-                    case "2":
-                        if (obj.oDatosPerfil[0].TipoEnvio == "1") return pagina == "1" ? obj.MensajeEmail : "|" + nuevoDatoEmail;
-                        if (menEmail) return pagina == "1" ? obj.MensajeEmail : "|" + nuevoDatoEmail;
-                        return pagina == "1" ? "" : "|";
-                    case "3":
+                            if (obj.oDatosPerfil[0].TipoEnvio == "1") { ValidacionDatos[0] = "0"; ValidacionDatos[1] = pagina == "1" ? obj.MensajeCelular : nuevoDatoCelular + "|"; return Json(new { valor=ValidacionDatos[0], mensaje=ValidacionDatos[1].ToString() }, JsonRequestBehavior.AllowGet); }  ;
+                            if (menSms) { ValidacionDatos[0] = "0"; ValidacionDatos[1]= pagina == "1" ? obj.MensajeCelular : nuevoDatoCelular + "|"; return Json(new { valor=ValidacionDatos[0], mensaje=ValidacionDatos[1].ToString() }, JsonRequestBehavior.AllowGet); }
+                            ValidacionDatos[0] = "0";
+                            ValidacionDatos[1] =pagina == "1" ? "" : " | ";
+                            return Json(new { valor=ValidacionDatos[0], mensaje=ValidacionDatos[1].ToString() }, JsonRequestBehavior.AllowGet);
+                        case "2":
+                            if (obj.oDatosPerfil[0].TipoEnvio == "1") { ValidacionDatos[0] = "0"; ValidacionDatos[1] = pagina == "1" ? obj.MensajeEmail : "|" + nuevoDatoEmail; return Json(new { valor=ValidacionDatos[0], mensaje=ValidacionDatos[1].ToString() }, JsonRequestBehavior.AllowGet); }
+                            if (menEmail) { ValidacionDatos[0] = "0"; ValidacionDatos[1] = pagina == "1" ? obj.MensajeEmail : "|" + nuevoDatoEmail; return Json(new { valor=ValidacionDatos[0], mensaje=ValidacionDatos[1].ToString() }, JsonRequestBehavior.AllowGet); }
+                            ValidacionDatos[0] = "0";
+                            ValidacionDatos[1] = pagina == "1" ? "" : " | ";
+                            return Json(new { valor = ValidacionDatos[0], mensaje = ValidacionDatos[1].ToString() }, JsonRequestBehavior.AllowGet);
+                        case "3":
                         {
-                            if (obj.oDatosPerfil[0].TipoEnvio == "1") return pagina == "1" ? obj.MensajeAmbos : "|";
-                            if (menSms && !menEmail) return pagina == "1" ? obj.MensajeCelular : nuevoDatoCelular + "|";
-                            if (!menSms && menEmail) return pagina == "1" ? obj.MensajeEmail : "|" + nuevoDatoEmail;
-                            if (menSms && menEmail) return pagina == "1" ? obj.MensajeAmbos : nuevoDatoCelular + "|" + nuevoDatoEmail;
-                            return pagina == "1" ? "" : "|";
-                        }
+                                if (obj.oDatosPerfil[0].TipoEnvio == "1") { ValidacionDatos[0] = "0"; ValidacionDatos[1] = pagina == "1" ? obj.MensajeAmbos : "|"; return Json(new { valor=ValidacionDatos[0], mensaje=ValidacionDatos[1].ToString() }, JsonRequestBehavior.AllowGet); }
+                                if (menSms && !menEmail) { ValidacionDatos[0] = "0"; ValidacionDatos[1] = pagina == "1" ? obj.MensajeCelular : nuevoDatoCelular + "|"; return Json(new { valor=ValidacionDatos[0], mensaje=ValidacionDatos[1].ToString() }, JsonRequestBehavior.AllowGet); }
+                                if (!menSms && menEmail) { ValidacionDatos[0] = "0"; ValidacionDatos[1] = pagina == "1" ? obj.MensajeEmail : "|" + nuevoDatoEmail; return Json(new { valor=ValidacionDatos[0], mensaje=ValidacionDatos[1].ToString() }, JsonRequestBehavior.AllowGet); }
+                                if (menSms && menEmail) { ValidacionDatos[0] = "0"; ValidacionDatos[1] = pagina == "1" ? obj.MensajeAmbos : nuevoDatoCelular + "|" + nuevoDatoEmail; return Json(new { valor=ValidacionDatos[0], mensaje=ValidacionDatos[1].ToString() }, JsonRequestBehavior.AllowGet); }
+                                ValidacionDatos[0] = "0";
+                                ValidacionDatos[1] = pagina == "1" ? "" : " | ";
+                                return Json(new { valor = ValidacionDatos[0], mensaje = ValidacionDatos[1].ToString() }, JsonRequestBehavior.AllowGet);
+                            }
                 }
-                return pagina == "1" ? "" : "|";
+                    ValidacionDatos[0] = "0";
+                    ValidacionDatos[1] = pagina == "1" ? "" : " | ";
+                    return Json(new { valor = ValidacionDatos[0], mensaje = ValidacionDatos[1].ToString() }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                    return Json(new { valor = ValidacionDatos[0], mensaje = ValidacionDatos[1].ToString() }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return pagina == "1" ? "" : "|";
+                ValidacionDatos[0] = "0";
+                ValidacionDatos[1] = pagina == "1" ? "" : " | ";
+                return Json(new { valor=ValidacionDatos[0], mensaje=ValidacionDatos[1].ToString() }, JsonRequestBehavior.AllowGet);
             }
         }
 
-        private string[] ValidacionPerfilConsultora(BEMensajeToolTip obj, string pagina)
+        private string[] ValidacionPerfilConsultorOtrosPaises(BEMensajeToolTip obj)
+        {
+            string[] tipoEnvio = new string[2];
+            string[] estado = new string[2];
+            string[] resultadoValidacionPerfil = new string[2];
+            int resultadoActivoPopup = 0;
+            List<BEValidacionDatos> listBEValidacionDatos;
+            tipoEnvio[0] = Constantes.TipoEnvio.SMS.ToString();
+            tipoEnvio[1] = Constantes.TipoEnvio.EMAIL.ToString();
+
+            estado[0] = "A";
+            estado[1] = "S";
+
+
+            using (var sv = new UsuarioServiceClient())
+                resultadoActivoPopup = sv.ValidaEstadoPopup(userData.PaisID);
+
+            if (resultadoActivoPopup == 1)/*Si el popup está activo ingresa, pasará por demás validaciones para saber si quedará activo*/
+            {
+                using (var sv = new UsuarioServiceClient())
+                    listBEValidacionDatos = sv.GetTipoEnvioActivos(userData.PaisID, userData.CodigoUsuario).ToList();
+
+                if (listBEValidacionDatos.Count() <= 0)
+                {
+                    resultadoValidacionPerfil[0] = "1";
+                    resultadoValidacionPerfil[1] = obj.MensajeAmbos;
+                }
+                else
+                {
+                    var tipoenvioContainActivo = from t in listBEValidacionDatos
+                                                 where tipoEnvio.Contains(t.TipoEnvio) && estado.Contains(t.Estado)
+                                                 select t;
+
+                    if (tipoenvioContainActivo.Count() == tipoEnvio.Length)
+                    {
+                        resultadoValidacionPerfil[0] = "2";
+                        resultadoValidacionPerfil[1] = string.Empty;
+
+                    }
+                    else
+                    {
+                        /*Validamos si no cuenta con SMS*/
+                        if (listBEValidacionDatos.Where(x => x.TipoEnvio.Contains(Constantes.TipoEnvio.SMS.ToString())).ToList().Count < 0)
+                        {
+                            resultadoValidacionPerfil[0] = "1";
+                            resultadoValidacionPerfil[1] = obj.MensajeCelular;
+                        }
+                        else
+                        if (listBEValidacionDatos.Where(x => x.TipoEnvio.Contains(Constantes.TipoEnvio.EMAIL.ToString()) && x.TipoEnvio == "P").ToList().Count > 0)
+                        {
+                            resultadoValidacionPerfil[0] = "1";
+                            resultadoValidacionPerfil[1] = obj.MensajeEmail;
+                        }
+                        else
+                        {
+                            var tipoenvioContainPendiente = from t in listBEValidacionDatos
+                                                            where tipoEnvio.Contains(t.TipoEnvio) && t.Estado == "P"
+                                                            select t;
+
+                            var telefonoCount = listBEValidacionDatos.Where(x => x.TipoEnvio.Contains(Constantes.TipoEnvio.SMS.ToString())).ToList().Count < 0 ? 1 : 0; ;
+
+                            if (tipoenvioContainPendiente.Count() ==( Convert.ToInt32( tipoenvioContainPendiente.Count() )  + Convert.ToInt32( telefonoCount)))
+                            {
+                                resultadoValidacionPerfil[0] = "1";
+                                resultadoValidacionPerfil[1] = obj.MensajeAmbos;
+                            }
+
+                        }
+                    }
+
+                }
+
+            }
+            /*Significa que el popup está en estado inactivo*/
+            else
+            {
+                resultadoValidacionPerfil[0] = "0"; resultadoValidacionPerfil[0] = string.Empty;
+            }
+
+            return resultadoValidacionPerfil;
+        }
+
+        private string[] ValidacionPerfilConsultoraPeru(BEMensajeToolTip obj)
         {
             string[] tipoEnvio= new string[2];
             string[] resultadoValidacionPerfil = new string[2];
@@ -1941,7 +2221,6 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEValidacionDatos> listBEValidacionDatos;
             tipoEnvio[0] = Constantes.TipoEnvio.SMS.ToString();
             tipoEnvio[1] = Constantes.TipoEnvio.EMAIL.ToString();
-
 
             using (var sv = new UsuarioServiceClient())
                    resultadoActivoPopup = sv.ValidaEstadoPopup(userData.PaisID);
@@ -1951,42 +2230,55 @@ namespace Portal.Consultoras.Web.Controllers
                 using (var sv = new UsuarioServiceClient())
                     listBEValidacionDatos = sv.GetTipoEnvioActivos(userData.PaisID, userData.CodigoUsuario).ToList();
 
-                if (userData.PaisID == Convert.ToInt32(Constantes.PaisID.Peru))
-                {
-                    var tipoenvioContainActivo = from t in listBEValidacionDatos
-                                           where tipoEnvio.Contains(t.TipoEnvio)  && t.Estado=="A"
-                                           select t;
-
-                    if (tipoenvioContainActivo.Count() == tipoEnvio.Length)
+              
+                    if (listBEValidacionDatos.Count() <= 0)
                     {
-                        /*Validamos si no cuenta con SMS*/
-                        if (listBEValidacionDatos.Where(x => x.TipoEnvio.Contains(Constantes.TipoEnvio.SMS.ToString())).ToList().Count <= 0)
+                        resultadoValidacionPerfil[0] = "1";
+                        resultadoValidacionPerfil[1] = obj.MensajeAmbos;
+                    }
+                    else
+                    {
+                        var tipoenvioContainActivo = from t in listBEValidacionDatos
+                                                     where tipoEnvio.Contains(t.TipoEnvio) && t.Estado == "A"
+                                                     select t;
+
+                        if (tipoenvioContainActivo.Count() == tipoEnvio.Length)
                         {
-                            resultadoValidacionPerfil[0] = "1";
-                            resultadoValidacionPerfil[1] = obj.MensajeCelular;
+                            resultadoValidacionPerfil[0] = "2";
+                            resultadoValidacionPerfil[1] = string.Empty;
+
                         }
                         else
-                        if (listBEValidacionDatos.Where(x => x.TipoEnvio.Contains(Constantes.TipoEnvio.EMAIL.ToString())).ToList().Count <= 0)
                         {
-                            resultadoValidacionPerfil[0] = "1";
-                            resultadoValidacionPerfil[1] = obj.MensajeEmail;
-                        }
-                    }
-                    else /*No cuenta con ninguna validación, ni de email, teléfono o celular*/
-                    {
-                        var tipoenvioContainPendiente = from t in listBEValidacionDatos
-                                                        where tipoEnvio.Contains(t.TipoEnvio) && t.Estado == "P"
-                                                        select t;
+                            /*Validamos si no cuenta con SMS*/
+                            if (listBEValidacionDatos.Where(x => x.TipoEnvio.Contains(Constantes.TipoEnvio.SMS.ToString()) && x.TipoEnvio=="P").ToList().Count > 0)
+                            {
+                                resultadoValidacionPerfil[0] = "1";
+                                resultadoValidacionPerfil[1] = obj.MensajeCelular;
+                            }
+                            else
+                            if (listBEValidacionDatos.Where(x => x.TipoEnvio.Contains(Constantes.TipoEnvio.EMAIL.ToString()) && x.TipoEnvio == "P").ToList().Count > 0)
+                            {
+                                resultadoValidacionPerfil[0] = "1";
+                                resultadoValidacionPerfil[1] = obj.MensajeEmail;
+                            }
+                            else 
+                            {
+                                var tipoenvioContainPendiente = from t in listBEValidacionDatos
+                                                             where tipoEnvio.Contains(t.TipoEnvio) && t.Estado == "P"
+                                                             select t;
 
-                        if (tipoenvioContainPendiente.Count() > 0)
-                        {
-                            resultadoValidacionPerfil[0] = "1";
-                            resultadoValidacionPerfil[1] = obj.MensajeAmbos;
-                        }
-                        else resultadoValidacionPerfil[0] = "0"; resultadoValidacionPerfil[0] = string.Empty;
-                    }
+                                if (tipoenvioContainPendiente.Count() == tipoEnvio.Length)
+                                {
+                                    resultadoValidacionPerfil[0] = "1";
+                                    resultadoValidacionPerfil[1] = obj.MensajeAmbos;
+                                }
 
-                }
+                            }
+                        }
+
+                    }
+                
             }
             /*Significa que el popup está en estado inactivo*/
             else {

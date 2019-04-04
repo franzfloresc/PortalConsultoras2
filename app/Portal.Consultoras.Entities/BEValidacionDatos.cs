@@ -53,13 +53,17 @@ namespace Portal.Consultoras.Entities
         [Column("UsuarioModificacion")]
         public string UsuarioModificacion { get; set; }
 
+        [DataMember]
+        [Column("FechaInicio")]
+        public string FechaInicio { get; set; }
 
-        //public BEValidacionDatos(IDataRecord row)
-        //{
-        //    TipoEnvio = row.ToString("TipoEnvio");
-        //    DatoAntiguo = row.ToString("DatoAntiguo");
-        //    DatoNuevo = row.ToString("DatoNuevo");
-        //    Estado = row.ToString("Estado");
-        //}
+        [DataMember]
+        [Column("FechaFin")]
+        public string FechaFin { get; set; }
+
+        [DataMember]
+        [Column("PaisID")]
+        public int PaisID { get; set; }
+
     }
 }

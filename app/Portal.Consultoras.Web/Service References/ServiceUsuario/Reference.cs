@@ -8418,7 +8418,16 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private System.DateTime FechaCreacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FechaFinField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FechaInicioField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.DateTime FechaModificacionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PaisIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TipoEnvioField;
@@ -8521,6 +8530,32 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FechaFin {
+            get {
+                return this.FechaFinField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FechaFinField, value) != true)) {
+                    this.FechaFinField = value;
+                    this.RaisePropertyChanged("FechaFin");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FechaInicio {
+            get {
+                return this.FechaInicioField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FechaInicioField, value) != true)) {
+                    this.FechaInicioField = value;
+                    this.RaisePropertyChanged("FechaInicio");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public System.DateTime FechaModificacion {
             get {
                 return this.FechaModificacionField;
@@ -8529,6 +8564,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.FechaModificacionField.Equals(value) != true)) {
                     this.FechaModificacionField = value;
                     this.RaisePropertyChanged("FechaModificacion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PaisID {
+            get {
+                return this.PaisIDField;
+            }
+            set {
+                if ((this.PaisIDField.Equals(value) != true)) {
+                    this.PaisIDField = value;
+                    this.RaisePropertyChanged("PaisID");
                 }
             }
         }
@@ -13143,6 +13191,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetTipoEnvioActivos", ReplyAction="http://tempuri.org/IUsuarioService/GetTipoEnvioActivosResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEValidacionDatos[]> GetTipoEnvioActivosAsync(int PaisID, string CodigoUsuario);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ListarValidacionDatos", ReplyAction="http://tempuri.org/IUsuarioService/ListarValidacionDatosResponse")]
+        Portal.Consultoras.Web.ServiceUsuario.BEValidacionDatos[] ListarValidacionDatos(Portal.Consultoras.Web.ServiceUsuario.BEValidacionDatos beValidacionDatos);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ListarValidacionDatos", ReplyAction="http://tempuri.org/IUsuarioService/ListarValidacionDatosResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEValidacionDatos[]> ListarValidacionDatosAsync(Portal.Consultoras.Web.ServiceUsuario.BEValidacionDatos beValidacionDatos);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/Select", ReplyAction="http://tempuri.org/IUsuarioService/SelectResponse")]
         Portal.Consultoras.Web.ServiceUsuario.BEUsuario Select(int paisID, string codigoUsuario);
         
@@ -14199,6 +14253,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEValidacionDatos[]> GetTipoEnvioActivosAsync(int PaisID, string CodigoUsuario) {
             return base.Channel.GetTipoEnvioActivosAsync(PaisID, CodigoUsuario);
+        }
+        
+        public Portal.Consultoras.Web.ServiceUsuario.BEValidacionDatos[] ListarValidacionDatos(Portal.Consultoras.Web.ServiceUsuario.BEValidacionDatos beValidacionDatos) {
+            return base.Channel.ListarValidacionDatos(beValidacionDatos);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEValidacionDatos[]> ListarValidacionDatosAsync(Portal.Consultoras.Web.ServiceUsuario.BEValidacionDatos beValidacionDatos) {
+            return base.Channel.ListarValidacionDatosAsync(beValidacionDatos);
         }
         
         public Portal.Consultoras.Web.ServiceUsuario.BEUsuario Select(int paisID, string codigoUsuario) {

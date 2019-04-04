@@ -731,6 +731,17 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteNonQuery(command);
         }
 
+        public IDataReader ListarValidacionDatos(BEValidacionDatos beValidacionDatos)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarValidacionDatos");
+            Context.Database.AddInParameter(command, "@FechaInicio", DbType.AnsiString, beValidacionDatos.FechaInicio);
+            Context.Database.AddInParameter(command, "@FechaFin", DbType.AnsiString, beValidacionDatos.FechaFin);
+            Context.Database.AddInParameter(command, "@TipoEnvio", DbType.AnsiString, beValidacionDatos.TipoEnvio);
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, beValidacionDatos.CodigoUsuario);
+
+            return Context.ExecuteReader(command);
+        }
+
         public IDataReader  GetTipoEnvioActivos(string codigoUsuario)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetTipoEnvioActivos");

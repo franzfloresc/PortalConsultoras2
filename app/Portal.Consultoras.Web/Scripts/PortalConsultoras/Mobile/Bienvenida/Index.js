@@ -116,6 +116,7 @@ $(document).ready(function () {
     ObtenerComunicadosPopup();
     EstablecerAccionLazyImagen("img[data-lazy-seccion-banner-home]");
     if ($.inArray(IsoPais, arrayPaisNoBannerLiq) == -1) bannerFunc.showExpoOferta();
+    debugger;
     ConsultarEmailPendiente();
     RegistrarInicioSession();
 });
@@ -737,6 +738,7 @@ function VerTutorialMobile() {
 }
 
 function ConsultarEmailPendiente() {
+    debugger;
     var item = {
         pagina: "1"
     }
@@ -744,14 +746,23 @@ function ConsultarEmailPendiente() {
     $.ajax({
         type: 'POST',
         url: baseUrl + 'Bienvenida/ObtenerActualizacionEmailSms',
-        dataType: 'Text',
+        dataType: 'Json',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(item),
         success: function (data) {
+            debugger;
             if (checkTimeout(data)) {
-                if (data != '') {
+                if (parseInt(data[0]) == 0) {
                     document.getElementById('mensajeToolTip').innerHTML = data;
                     document.getElementsByClassName('tooltip_info_revision_correo')[0].style.display = 'block';
+                } else if (parseInt(data[0]) == 1) {
+                   // document.getElementById('mensajeToolTip').innerHTML = data;
+                    document.getElementsByClassName('tooltip_info_revision_correo')[0].style.display = 'none';
+                    document.getElementsByClassName('popup__wrapper')[0].style.display = 'block';
+                } else if (parseInt(data[0]) == 2) {
+                    //document.getElementById('mensajeToolTip').innerHTML = data;
+                    document.getElementsByClassName('tooltip_info_revision_correo')[0].style.display = 'none';
+                    document.getElementsByClassName('popup__wrapper')[0].style.display = 'none';
                 }
             }
         },

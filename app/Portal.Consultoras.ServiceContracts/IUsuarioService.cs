@@ -456,6 +456,12 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         List<BEValidacionDatos> GetTipoEnvioActivos(int PaisID, string CodigoUsuario);
 
+        [OperationContract]
+        List<BEValidacionDatos> ListarValidacionDatos(BEValidacionDatos beValidacionDatos);
+
+
+
+
 
     }
 }

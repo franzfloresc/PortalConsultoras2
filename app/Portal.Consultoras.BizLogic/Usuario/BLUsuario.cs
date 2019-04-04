@@ -759,7 +759,13 @@ namespace Portal.Consultoras.BizLogic
             return Convert.ToInt32( tablaLogica.FirstOrDefault().Valor);
         }
 
-        public List<BEValidacionDatos> GetTipoEnvioActivos(int paisID, string codigoUsuario)
+        public List<BEValidacionDatos> ListarValidacionDatos(BEValidacionDatos beValidacionDatos)
+        {
+            var daUsuario = new DAUsuario(beValidacionDatos.PaisID);
+            using (IDataReader reader = daUsuario.ListarValidacionDatos(beValidacionDatos))
+                return reader.MapToCollection<BEValidacionDatos>();
+        }
+       public List<BEValidacionDatos> GetTipoEnvioActivos(int paisID, string codigoUsuario)
         {
             List<BEValidacionDatos> lista = new List<BEValidacionDatos>();
             var daUsuario = new DAUsuario(paisID);
