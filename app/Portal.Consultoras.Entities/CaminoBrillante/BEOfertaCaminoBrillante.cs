@@ -2,6 +2,7 @@
 {
     public class BEOfertaCaminoBrillante
     {
+
         public string CodigoKit { get; set; }
         public string Cuv { get; set; }
         public string CodigoSap { get; set; }
