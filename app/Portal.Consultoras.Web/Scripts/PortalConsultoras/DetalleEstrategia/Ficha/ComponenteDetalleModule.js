@@ -113,14 +113,17 @@
     };
 
     var _VerDetalle = function (componente) {
-
-        //var estrategia = _config.localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
-        //console.log('estrategia', estrategia);
-
-        console.log('componente', componente);
          
+        console.log('componente', componente);         
         _util.mostrarDetalleModal(componente);
          
+    };
+
+    var _VerDetalleIndividual = function (estrategia) {
+  
+        console.log('estrategia', estrategia);
+        _util.mostrarDetalleIndividual(estrategia);
+
     };
 
     var _OcultarControles = function () {
@@ -154,6 +157,7 @@
 
     return {
         VerDetalle: _VerDetalle,
+        VerDetalleIndividual: _VerDetalleIndividual,
         OcultarControles: _OcultarControles
     };
 });

@@ -581,7 +581,7 @@ var FichaModule = (function (config) {
             //throw "config.componenteDetalleModule is null or undefined";
             console.log('config.componenteDetalleModule is null or undefined');//hay casos que es opcional
         } else {
-            _config.componenteDetalleModule.mostrarDetalleIndividual(estrategia);
+            _config.componenteDetalleModule.VerDetalleIndividual(estrategia);
         }
         //END Agana 457
 
