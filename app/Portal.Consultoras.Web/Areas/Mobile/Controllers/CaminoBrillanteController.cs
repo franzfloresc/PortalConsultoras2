@@ -42,7 +42,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 var informacion = SessionManager.GetConsultoraCaminoBrillante() ?? new ServiceUsuario.BEConsultoraCaminoBrillante();
                 if (informacion.Logros != null)
+                {
                     ViewBag.Informacion = opcion == "Crecimiento" ? informacion.Logros[0] : informacion.Logros[1];
+                    ViewBag.Vista = opcion == "Crecimiento" ? "Crecimiento" : "Compromiso";
+                }
+
                 else
                     return RedirectToAction("Index", "Bienvenida");
             }

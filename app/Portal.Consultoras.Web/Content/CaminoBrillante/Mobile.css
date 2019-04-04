@@ -103,6 +103,7 @@
         margin-top: 8px;
         border-radius: 4px;
         margin-left: 6%;
+        transform: inherit;
     }
 
         .cam-exito a:hover {
