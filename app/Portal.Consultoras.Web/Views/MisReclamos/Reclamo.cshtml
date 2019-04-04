@@ -231,26 +231,28 @@
                 <div class="linea_separadora_roja" style="height: 2px;"></div>
                 <div class="subtitulo_listado">VALIDA TUS DATOS</div>
                 <div class="texto_valida_datos">En caso de necesitar contactarnos contigo, lo haremos a través de:</div>
-                <div class="float_left">
-                    <span class="texto_correo">Correo Electrónico</span>
-                    <input type="hidden" id="hdEmail" value="@Model.Email" />
-                    <input type="text" name="txtEmail" id="txtEmail" value="@Model.Email" class="correo_reclamo" onkeydown="return limitarMaximo(event,this.value,100,'txtTelefono')" />
-                    <br />
-                    <div class="correo_reclamo_error">
-                        <span id="spnEmailError" style="display: none;">
-                            *Correo Electrónico incorrecto
-                        </span>
+                <div class="text-center validacion_datos_wrapper">
+                    <div class="validacion_datos_correo_electronico">
+                        <span class="text-left texto_correo">Correo Electrónico</span>
+                        <input type="hidden" id="hdEmail" value="@Model.Email" />
+                        <input type="text" name="txtEmail" id="txtEmail" value="@Model.Email" class="correo_reclamo" onkeydown="return limitarMaximo(event,this.value,100,'txtTelefono')" />
+                        <br />
+                        <div class="correo_reclamo_error">
+                            <span id="spnEmailError" style="display: none;">
+                                *Correo Electrónico incorrecto
+                            </span>
+                        </div>
                     </div>
-                </div>
-                <div class="float_left">
-                    <span class="texto_correo">Celular de contacto</span>
-                    <input type="hidden" id="hdTelefono" value="@Model.Telefono" />
-                    <input type="text" name="txtTelefono" id="txtTelefono" value="@Model.Telefono" class="correo_reclamo" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefono')" />
-                    <br />
-                    <div class="correo_reclamo_error">
-                        <span id="spnTelefonoError" style="display: none;">
-                            *Teléfono incorrecto
-                        </span>
+                    <div class="validacion_datos_celular_contacto">
+                        <span class="text-left texto_correo">Celular de contacto</span>
+                        <input type="hidden" id="hdTelefono" value="@Model.Telefono" />
+                        <input type="text" name="txtTelefono" id="txtTelefono" value="@Model.Telefono" class="correo_reclamo" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefono')" />
+                        <br />
+                        <div class="correo_reclamo_error">
+                            <span id="spnTelefonoError" style="display: none;">
+                                *Teléfono incorrecto
+                            </span>
+                        </div>
                     </div>
                 </div>
                 <hr class="clear" />
@@ -261,8 +263,10 @@
                         <a href="@Model.UrlPoliticaCdr" target="_blank" style="display: inline;">Acepto la política de cambios y devoluciones</a>
                     </div>
                 </div>
-                <a class="btn_agrega_otro_reclamo" id="IrSolicitudInicial">AGREGA OTRO PRODUCTO A LA SOLICITUD</a>
-                <a class="btn_si_stock_cdr" href="javascript:;" style="width: 296px; margin-top: 2px;" id="IrSolicitudEnviada">FINALIZA Y ENVÍA TU SOLICITUD</a>
+                <div class="text-right">
+                    <a class="btn_agrega_otro_reclamo" id="IrSolicitudInicial">AGREGA OTRO PRODUCTO A LA SOLICITUD</a>
+                    <a class="btn_si_stock_cdr" href="javascript:;" style="width: 296px; margin-top: 2px;" id="IrSolicitudEnviada">FINALIZA Y ENVÍA TU SOLICITUD</a>
+                </div>
                 <hr class="clear" />
             </div>
         </div>
@@ -506,15 +510,15 @@
         <div class="listado_solicitud_reclamo text-center">
             <div class="listado_solicitud_reclamo_icono_solucion">
                 {{#if_eq item.CodigoOperacion 'D'}}
-                <img src="@Url.Content(" ~/Content/Images/opcion_devolucion_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
+                <img src="@Url.Content("~/Content/Images/opcion_devolucion_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
                 {{else if_eq item.CodigoOperacion 'T'}}
-                <img src="@Url.Content(" ~/Content/Images/opcion_cambio_otro_producto_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
+                <img src="@Url.Content("~/Content/Images/opcion_cambio_otro_producto_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
                 {{else if_eq item.CodigoOperacion 'C' }}
-                <img src="@Url.Content(" ~/Content/Images/opcion_cambio_mismo_producto_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
+                <img src="@Url.Content("~/Content/Images/opcion_cambio_mismo_producto_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
                 {{else if_eq item.CodigoOperacion 'F' }}
-                <img src="@Url.Content(" ~/Content/Images/opcion_cambio_mismo_producto_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
+                <img src="@Url.Content("~/Content/Images/opcion_cambio_mismo_producto_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
                 {{else if_eq item.CodigoOperacion 'G' }}
-                <img src="@Url.Content(" ~/Content/Images/opcion_devolucion_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
+                <img src="@Url.Content("~/Content/Images/opcion_devolucion_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
                 {{/if_eq}}
             </div>
             <div class="text-center text-bold listado_solicitud_reclamo_descrip_solucion">

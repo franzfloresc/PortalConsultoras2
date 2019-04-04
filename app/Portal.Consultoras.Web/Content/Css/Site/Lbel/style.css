@@ -28563,7 +28563,9 @@ div.motivoRechazo textarea {
 }
 
 .opcion_cdr,
-.opcion_cdr_seleccionada_campo_busqueda {
+.opcion_cdr_seleccionada_campo_busqueda,
+.validacion_datos_correo_electronico,
+.validacion_datos_celular_contacto {
     display: inline-block;
     vertical-align: middle;
 }
@@ -29138,7 +29140,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 
 .texto_correo {
     display: block;
-    margin-left: 60px;
+    margin-left: 51px;
     font-family: 'Lato';
     font-size: 15px;
     color: #b5b5b5;
