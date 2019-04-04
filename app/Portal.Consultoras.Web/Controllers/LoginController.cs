@@ -1890,11 +1890,18 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 if (usuarioModel == null)
-                    throw new ArgumentNullException("usuarioModel", "No puede ser nulo");
-
+                {
+                    SetUserError(usuarioModel);
+                    return usuarioModel;
+                }
+           
 
                 if (usuarioModel.TipoUsuario == Constantes.TipoUsuario.Postulante)
-                    throw new ArgumentException("No se asigna configuracion pais para los Postulantes.");
+                {
+                    SetUserError(usuarioModel);
+                    return usuarioModel;
+                }
+                    
 
                 var guiaNegocio = new GuiaNegocioModel();
                 var revistaDigitalModel = new RevistaDigitalModel();
@@ -2036,11 +2043,9 @@ namespace Portal.Consultoras.Web.Controllers
                     codigoConsultora = usuarioModel.CodigoConsultora;
                     pais = usuarioModel.PaisID.ToString();
                 }
+                SetUserError(usuarioModel);
                 logManager.LogErrorWebServicesBusWrap(ex, codigoConsultora, pais, "LoginController.ConfiguracionPaisUsuario");
-                sessionManager.SetGuiaNegocio(new GuiaNegocioModel());
-                sessionManager.SetRevistaDigital(new RevistaDigitalModel());
-                sessionManager.SetConfiguracionesPaisModel(new List<ConfiguracionPaisModel>());
-                sessionManager.SetOfertaFinalModel(new OfertaFinalModel());
+                
             }
 
             return usuarioModel;
@@ -2066,7 +2071,14 @@ namespace Portal.Consultoras.Web.Controllers
                 return usuario;
             }
         }
-
+        private void SetUserError(UsuarioModel usuarioModel )
+        {
+        
+            sessionManager.SetGuiaNegocio(new GuiaNegocioModel());
+            sessionManager.SetRevistaDigital(new RevistaDigitalModel());
+            sessionManager.SetConfiguracionesPaisModel(new List<ConfiguracionPaisModel>());
+            sessionManager.SetOfertaFinalModel(new OfertaFinalModel());
+        }
         #endregion
 
         #region metodos normales
