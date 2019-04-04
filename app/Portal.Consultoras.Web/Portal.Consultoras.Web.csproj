@@ -1440,6 +1440,7 @@
     <Content Include="Content\CaminoBrillante\imgs\pedido_activo.svg" />
     <Content Include="Content\CaminoBrillante\imgs\pedido_desactivo.svg" />
     <Content Include="Content\CaminoBrillante\imgs\perla.svg" />
+    <Content Include="Content\CaminoBrillante\imgs\PIZZA_06_00.svg" />
     <Content Include="Content\CaminoBrillante\imgs\PIZZA_06_01.svg" />
     <Content Include="Content\CaminoBrillante\imgs\PIZZA_06_02.svg" />
     <Content Include="Content\CaminoBrillante\imgs\PIZZA_06_03.svg" />
@@ -1459,6 +1460,8 @@
     <Content Include="Content\CaminoBrillante\imgs\recurso-34-3-x%402x.png" />
     <Content Include="Content\CaminoBrillante\imgs\recurso-35-3-x%402x.png" />
     <Content Include="Content\CaminoBrillante\imgs\recurso-36-3-x%402x.png" />
+    <Content Include="Content\CaminoBrillante\imgs\Tiempojuntos_activo.svg" />
+    <Content Include="Content\CaminoBrillante\imgs\Tiempojuntos_inactivo.svg" />
     <Content Include="Content\CaminoBrillante\imgs\topacio.svg" />
     <Content Include="Content\CaminoBrillante\Mobile.css" />
     <Content Include="Content\Css\Button\style.css" />
