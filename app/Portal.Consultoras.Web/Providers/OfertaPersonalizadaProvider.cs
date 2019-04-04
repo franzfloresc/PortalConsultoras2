@@ -1089,6 +1089,7 @@ namespace Portal.Consultoras.Web.Providers
                 return listaRetorno;
 
             var claseBloqueada = "btn_desactivado_general";
+            var esDuoPerfecto = _programaNuevasProvider.TieneDuoPerfecto();
             listaProductoModel.ForEach(estrategia =>
             {
                 var prodModel = new EstrategiaPersonalizadaProductoModel();
@@ -1124,6 +1125,7 @@ namespace Portal.Consultoras.Web.Providers
                 prodModel.ClaseBloqueada = tipo == 1 || (estrategia.CampaniaID > 0 && estrategia.CampaniaID != campaniaID) ? claseBloqueada : "";
                 prodModel.TipoEstrategiaID = estrategia.TipoEstrategiaID;
                 prodModel.FlagNueva = estrategia.FlagNueva;
+                prodModel.EsDuoPerfecto = estrategia.FlagNueva == 1 && esDuoPerfecto;
                 prodModel.IsAgregado = prodModel.ClaseBloqueada != claseBloqueada && listaPedido.Any(p => p.EstrategiaId == estrategia.EstrategiaID);
                 prodModel.ArrayContenidoSet = estrategia.FlagNueva == 1 ? estrategia.DescripcionCUV2.Split('|').Skip(1).ToList() : new List<string>();
                 prodModel.ListaDescripcionDetalle = estrategia.ListaDescripcionDetalle ?? new List<string>();

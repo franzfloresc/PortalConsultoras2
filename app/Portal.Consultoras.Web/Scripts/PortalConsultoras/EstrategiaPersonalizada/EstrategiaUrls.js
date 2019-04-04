@@ -34,8 +34,12 @@ function OnClickFichaDetalle(e) {
 function getOrigenPedidoWebDetalle(item) {
     if (!item) return;
 
-    if (item.FlagNueva && typeof origenPedidoWebDuoPerfecto !== 'undefined') {
-        return origenPedidoWebDuoPerfecto;
+    if (item.FlagNueva) {
+        if (item.EsDuoPerfecto && typeof origenPedidoWebDuoPerfecto !== 'undefined') {
+            return origenPedidoWebDuoPerfecto;
+        } else if (typeof origenPedidoWebPackNuevas !== 'undefined') {
+            return origenPedidoWebPackNuevas;
+        }
     }
 
     return '';
