@@ -1,6 +1,9 @@
-﻿using System.Linq;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using System.Linq;
 using Portal.Consultoras.Common;
+using System;
+using System.Collections.Generic;
+using Portal.Consultoras.Web.ServiceUsuario;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -8,6 +11,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
     {
         #region CaminoBrillante
         // GET: CaminoBrillante
+
+
         public ActionResult Index()
         {
             var informacion = SessionManager.GetConsultoraCaminoBrillante() ?? new ServiceUsuario.BEConsultoraCaminoBrillante();
@@ -33,28 +38,29 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     ViewBag.NivelActual = nivelActual;
                 }
                 else
-                    RedirectToAction("Index", "Bienvenida");
+                    return RedirectToAction("Index", "Bienvenida");
             }
             return View();
         }
 
-        public ActionResult Compromiso()
+        public ActionResult Logros(string opcion)
         {
-            return View();
-        }
-
-        public ActionResult Crecimiento()
-        {
+            if (!string.IsNullOrEmpty(opcion))
+            {
+                var informacion = SessionManager.GetConsultoraCaminoBrillante() ?? new ServiceUsuario.BEConsultoraCaminoBrillante();
+                if (informacion.Logros != null)
+                    ViewBag.Informacion = opcion == "Crecimiento" ? informacion.Logros[0] : informacion.Logros[1];
+                else
+                    return RedirectToAction("Index", "Bienvenida");
+            }
             return View();
         }
 
         public ActionResult Ofertas()
         {
-            //var model = GetOfertasCaminoBrillante();
-            //if (model == null || model.Count == 0) return RedirectToAction("Index", "CaminoBrillante");
-
-            //return View(model);
-            return null;
+            var model = GetOfertasCaminoBrillante();
+            if (model == null || model.Count == 0) return RedirectToAction("Index", "CaminoBrillante");
+            return View(model);
         }
 
         [HttpPost]
@@ -76,45 +82,28 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return Json(new { Niveles = Beneficios }, JsonRequestBehavior.AllowGet);
         }
+
+        private List<BEOfertaCaminoBrillante> GetOfertasCaminoBrillante()
+        {
+            try
+            {
+                var ofertas = SessionManager.GetOfertasCaminoBrillante();
+                if (ofertas == null || ofertas.Count > 0)
+                {
+                    using (var svc = new UsuarioServiceClient())
+                        ofertas = svc.GetOfertasCaminoBrillante(userData.PaisID, "201904").ToList();
+                    if (ofertas != null)
+                        SessionManager.SetOfertasCaminoBrillante(ofertas);
+                }
+
+                return ofertas;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return null;
+            }
+        }
         #endregion
-
-        //#region CaminoBrillante
-        //// GET: CaminoBrillante
-        //public ActionResult Index()
-        //{
-        //    var informacion = SessionManager.GetConsultoraCaminoBrillante();
-        //    ViewBag.ResumenLogros = informacion.ResumenLogros;
-        //    ViewBag.TieneOfertasEspeciales = informacion.Niveles[0].TieneOfertasEspeciales;
-        //    return View();
-        //}
-
-        //public ActionResult Compromiso()
-        //{
-        //    return View();
-        //}
-
-        //public ActionResult Crecimiento()
-        //{
-        //    return View();
-        //}
-
-        //[HttpGet]
-        //public JsonResult GetNiveles()
-        //{
-        //    var informacion = SessionManager.GetConsultoraCaminoBrillante();
-        //    var _NivealActual = Convert.ToInt32(informacion.NivelConsultora.Where(x => x.EsActual).Select(z => z.Nivel).FirstOrDefault());
-
-        //    for (int i = 0; i <= informacion.Niveles.Count() - 1; i++)
-        //    {
-        //        informacion.Niveles[i].UrlImagenNivel = informacion.Niveles[i].UrlImagenNivel.Replace("{DIMEN}", "MDPI");
-
-        //        if (i <= _NivealActual - 1)
-        //            informacion.Niveles[i].UrlImagenNivel = informacion.Niveles[i].UrlImagenNivel.Replace("{STATE}", "A");
-        //        else
-        //            informacion.Niveles[i].UrlImagenNivel = informacion.Niveles[i].UrlImagenNivel.Replace("{STATE}", "I");
-        //    }
-        //    return Json(new { list = informacion, informacion.NivelConsultora[0].Nivel }, JsonRequestBehavior.AllowGet);
-        //}
-        //#endregion
     }
 }
