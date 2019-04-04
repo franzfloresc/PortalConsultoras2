@@ -34,25 +34,25 @@ namespace Portal.Consultoras.Web.SessionManager
         #region CDR
 
         List<ServiceCDR.BECDRWebDetalle> GetCDRWebDetalle();
-        
+
         void SetCDRWebDetalle(List<ServiceCDR.BECDRWebDetalle> datos);
-        
+
         List<ServiceCDR.BECDRWeb> GetCdrWeb();
 
         void SetCdrWeb(List<ServiceCDR.BECDRWeb> datos);
-        
+
         List<CampaniaModel> GetCdrCampanias();
 
         void SetCdrCampanias(List<CampaniaModel> datos);
-        
+
         List<BECDRParametria> GetCdrParametria();
 
         void SetCdrParametria(List<BECDRParametria> datos);
-        
+
         List<BECDRWebDatos> GetCdrWebDatos();
 
         void SetCdrWebDatos(List<BECDRWebDatos> datos);
-        
+
         List<BECDRWebDescripcion> GetCdrDescripcion();
 
         void SetCdrDescripcion(List<BECDRWebDescripcion> datos);
@@ -69,9 +69,10 @@ namespace Portal.Consultoras.Web.SessionManager
 
         void SetListaCDRWebCargaInicial(List<CDRWebModel> lista);//HD-3412 EINCA
 
-        void SetCDRSetsPacks(ServiceGestionWebPROL.RptCdrReclamo rptCdr); //HD-3703 EINCA
+        bool GetFlagIsSetsOrPack(); //HD-3703 EINCA
 
-        ServiceGestionWebPROL.RptCdrReclamo GetCDRSetsPacks(); //HD-3703 EINCA
+        void SetFlagIsSetsOrPack(bool flag); //HD-3703 EINCA
+
         #endregion
 
 
@@ -209,13 +210,13 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetStartSession(DateTime startSession);
 
         DateTime GetStartSession();
-        
+
         IShowRoom ShowRoom { get; }
 
         void SetDatosPagoVisa(PagoEnLineaModel model);
 
         PagoEnLineaModel GetDatosPagoVisa();
-        
+
         void SetListadoEstadoCuenta(List<EstadoCuentaModel> model);
 
         List<EstadoCuentaModel> GetListadoEstadoCuenta();
@@ -227,7 +228,7 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetEstrategiaSR(Models.Estrategia.ShowRoom.ConfigModel data);
 
         Models.Estrategia.ShowRoom.ConfigModel GetEstrategiaSR();
-        
+
         void SetBEEstrategia(string key, List<ServiceOferta.BEEstrategia> data);
 
         List<ServiceOferta.BEEstrategia> GetBEEstrategia(string key);
@@ -260,7 +261,7 @@ namespace Portal.Consultoras.Web.SessionManager
 
         bool GetPedidoValidado();
 
-        void setBEUsuarioModel (List<ServiceUsuario.BEUsuario> model);
+        void setBEUsuarioModel(List<ServiceUsuario.BEUsuario> model);
 
         List<ServiceUsuario.BEUsuario> getBEUsuarioModel();
 
@@ -510,14 +511,14 @@ namespace Portal.Consultoras.Web.SessionManager
         List<List<BEEstadoServicio>> GetListaRango();
 
         BEUsuarioDatos GetDatosUsuario();
-        
-        IMasGanadoras MasGanadoras { get;  }
+
+        IMasGanadoras MasGanadoras { get; }
         bool GetMostrarBannerNuevas();
 
         void SetMostrarBannerNuevas(bool mostrarBannerNuevas);
-        
+
         void SetJwtApiSomosBelcorp(string token);
-        
+
         string GetJwtApiSomosBelcorp();
         void SetUsuarioOpciones(List<UsuarioOpcionesModel> val);
         List<UsuarioOpcionesModel> GetUsuarioOpciones();

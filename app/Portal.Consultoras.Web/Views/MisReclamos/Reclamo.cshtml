@@ -420,9 +420,7 @@
                         <input type="hidden" id="hdParametriaCdr" value="0">
                         <input type="hidden" id="hdParametriaAbsCdr" value="1">
                         <input type="hidden" id="hdCdrWebDatos_Ssic">
-                        <input type="text" name="Cantidad" id="txtCantidad2" value="1" data-input="cantidad" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid"
-                               attrKey="PreValidarCUV"
-                               onfocus="SeleccionarContenido(this) ">
+                        <input type="text" name="Cantidad" id="txtCantidad2" value="1" data-input="cantidad" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid">
                         <div class="liquidacion_rango_right_pedido">
                             <a class="mas modificarPrecioMas" onclick="AgregarODisminuirCantidad(event,1)"><img src="/Content/Images/Esika/mas.png" alt=""></a>
                             <a class="menos modificarPrecioMenos" onclick="AgregarODisminuirCantidad(event,2)"><img src="/Content/Images/Esika/menos.png" alt=""></a>
@@ -460,12 +458,12 @@
                 </p>
             </div>
         </div>
-    </div>
-    <div id="OpcionDevolucion" style="display:none;">
-        <!-- INFORMACIÓN CUANDO SE SELECCIONA LA OPCIÓN DE DEVOLUCIÓN Y EL PRODUCTO FORMA PARTE DE UN SET -->
-        <div id="divDevolucionSetsOrPack" class="opcion_cdr_seleccionada_info opcion_cdr_seleccionada_info--devolucionCasoSetProducto">
+        <div id="OpcionDevolucion" style="display:none;">
+            <!-- INFORMACIÓN CUANDO SE SELECCIONA LA OPCIÓN DE DEVOLUCIÓN Y EL PRODUCTO FORMA PARTE DE UN SET -->
+            <div id="divDevolucionSetsOrPack" class="opcion_cdr_seleccionada_info opcion_cdr_seleccionada_info--devolucionCasoSetProducto">
+            </div>
+            <!-- FIN - INFORMACIÓN CUANDO SE SELECCIONA LA OPCIÓN DE DEVOLUCIÓN Y EL PRODUCTO FORMA PARTE DE UN SET -->
         </div>
-        <!-- FIN - INFORMACIÓN CUANDO SE SELECCIONA LA OPCIÓN DE DEVOLUCIÓN Y EL PRODUCTO FORMA PARTE DE UN SET -->
     </div>
     <button type="button" class="border-radius-4 text-bold btn_cdr btn_solucion_reclamo" onclick="IrAFinalizar()" id="btnSiguiente">Siguiente</button>
 </script>

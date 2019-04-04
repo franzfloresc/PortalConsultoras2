@@ -58,11 +58,6 @@ $(document).ready(function () {
         }
     });
 
-    $("#ddlCuv").on("change", function () {
-        cuvKeyUp = true;
-        ObtenerDatosCuv();
-    });
-
     $("#txtCUV2").on('keyup', function (evt) {
         cuv2KeyUp = true;
         EvaluarCUV2();
@@ -124,77 +119,39 @@ $(document).ready(function () {
 
     // HD-3703
 
-    $(document).on("click", function (e) {
-        var listaResultadosBusquedaPorCuv = $(".contenedor_descripcion_reclamo");
-        if ((!listaResultadosBusquedaPorCuv.is(e.target) && listaResultadosBusquedaPorCuv.has(e.target).length === 0)) {
-            $(".lista_resultados_busqueda_por_cuv_wrapper").fadeOut(100);
-            $("#ResultadosBusquedaCUV").fadeIn(100);
-        }
-    });
+    //$(document).on("click", function (e) {
+    //    var listaResultadosBusquedaPorCuv = $(".contenedor_descripcion_reclamo");
+    //    if ((!listaResultadosBusquedaPorCuv.is(e.target) && listaResultadosBusquedaPorCuv.has(e.target).length === 0)) {
+    //        $(".lista_resultados_busqueda_por_cuv_wrapper").fadeOut(100);
+    //        $("#ResultadosBusquedaCUV").fadeIn(100);
+    //    }
+    //});
 
-
+    //$("#ddlCuv").on('change', function () {
+    //    console.log('change');
+    //    //ObtenerDatosCuv();
     $("#ddlCuv").on("click", function () {
         if ($("#ddlCampania").val() != 0) {
             $("#ResultadosBusquedaCUV").fadeIn(100);
             $(".lista_resultados_busqueda_por_cuv_wrapper").fadeIn(100);
         }
-    });
-
-    $("#ddlCuv").on("keyup", function () {
+    }).on("keyup", function () {
+        console.log('ddlCuv keypup');
         if ($(this).val().length === 0) {
             $(".lista_resultados_busqueda_por_cuv_wrapper").fadeOut(100);
             $("#ResultadosBusquedaCUV").fadeOut(100);
         } else {
             $("#ResultadosBusquedaCUV").fadeIn(100);
             $(".lista_resultados_busqueda_por_cuv_wrapper").fadeIn(100);
-            var cuvIngresado = $('#ddlCuv').val();
-            $("#ResultadosBusquedaCUV li").filter(function () {
+            var cuvIngresado = $(this).val();
+            $("#ResultadosBusquedaCUV").find("li").filter(function () {
                 $(this).toggle($(this).attr("data-value-cuv").indexOf(cuvIngresado) > -1);
             });
         }
-    });
-
-    $('#ddlCuv').focusout(function () {
+    }).on('focusout', function () {
+        console.log('ddlCuv focusout');
         $(".lista_resultados_busqueda_por_cuv_wrapper").fadeOut(100);
     });
-
-    $("#ResultadosBusquedaCUV").on("click", ".resultado_busqueda_por_cuv_enlace", function (e) {
-        e.preventDefault();
-        var codigoProdCdr = $(this).find(".resultado_busqueda_por_cuv_codigo_prod").html();
-        $('#hdfCUV').val(codigoProdCdr);//HD-3703 EINCA
-        var descripProdCdr = $(this).find(".resultado_busqueda_por_cuv_descrip_prod").html();
-        $("#ddlCuv").val(codigoProdCdr + ' - ' + descripProdCdr);
-        $(".lista_resultados_busqueda_por_cuv_wrapper").fadeOut(100);
-        $(this).fadeOut(100);
-        ObtenerDatosCuv();
-    });
-
-    // FIN - HD-3703
-
-    //$("#CambioProducto2").on("click", function () {
-    //    //HD-3412 EINCA
-    //    if (ValidarPasoDosTrueque()) {
-    //        ValidarPasoDosTruequeServer(function (result, msg) {
-    //            if (!result) {
-    //                alert_msg(msg);
-    //                return false;
-    //            } else {
-    //                CambioPaso2(1);
-    //                $("#spnCuv1").html($.trim($("#ddlCuv").val()));
-    //                $("#spnDescripcionCuv1").html($("#hdfCUVDescripcion").val());
-    //                $("#spnCantidadCuv1").html($("#txtCantidad").val());
-
-    //                $("#spnCuv2").html($("#txtCUV2").val());
-    //                $("#spnDescripcionCuv2").html($("#txtCUVDescripcion2").val());
-    //                $("#spnCantidadCuv2").html($("#txtCantidad2").val());
-    //            }
-    //        });
-    //    }
-    //});
-
-    //$("[data-cambiopaso]").on("click", function () {
-    //    DetalleGuardar();
-    //});
 
     $("#IrSolicitudInicial").on("click", function () {
         if (mensajeGestionCdrInhabilitada != '') {
@@ -207,10 +164,6 @@ $(document).ready(function () {
             alert_msg(mensajeCdrFueraDeFechaCompleto);
             return false;
         }
-
-        //$('.chosen-select').chosen();
-        //$(".chosen-select").val('').trigger("chosen:updated");
-
         $("#hdfCUVDescripcion").val("");
         $("#txtCantidad").val("1");
         $("#divMotivo").html('');
@@ -227,6 +180,7 @@ $(document).ready(function () {
         BuscarCUV();
         $("#divUltimasSolicitudes").show();
         $("#ddlCampania").attr("disabled", "disabled");
+        $('#ddlCuv,#RangoCantidad').removeClass("btn_deshabilitado");
     });
 
     $("#IrSolicitudEnviada").on("click", function () {
@@ -260,8 +214,6 @@ $(document).ready(function () {
             $(this).addClass("politica_reclamos_icono_active");
         }
     });
-
-
 
     //$(".modificarPrecioMas").on("click", function () {
     //    var precio = $("#hdCuvPrecio2").val();
@@ -487,20 +439,10 @@ function BuscarCUV() {
             if (data.detalle.length > 1) {
                 $("#ddlCuv").html("");
                 $("#ResultadosBusquedaCUV").empty();
-
-
-                //$('.descripcion_reclamo_fake_placeholder').hide();
-                //$('#ddlCuv').append($('<option></option>').val("").html(""));
+                var divPadre = $('#ResultadosBusquedaCUV');
                 $(data.detalle).each(function (index, item) {
-                    //$('#ddlCuv').append($('<option></option>').val(item.CUV).html(item.CUV + " - " + item.DescripcionProd));
-                    $('#ResultadosBusquedaCUV').append('<li class="resultado_busqueda_por_cuv" data-value-cuv="' + item.CUV + '"><a class="resultado_busqueda_por_cuv_enlace" title="' + item.DescripcionProd + '"><div class="resultado_busqueda_por_cuv_datos_imagen"><img src="https://cdn1-prd.somosbelcorp.com/Matriz/PE/PE_201905_30709.jpg" alt="' + item.DescripcionProd + '" /></div><div class="resultado_busqueda_por_cuv_datos_prod">' + '<div class="resultado_busqueda_por_cuv_codigo_prod">' + item.CUV + '</div>' + '<div class="resultado_busqueda_por_cuv_descrip_prod">' + item.DescripcionProd + '</div>' + '</div></a></li>');
+                    divPadre.append('<li class="resultado_busqueda_por_cuv" data-value-producto="' + item.DescripcionProd + '" data-value-cuv="' + item.CUV + '"><a onclick="SeleccionarCUVBusqueda($(this).parent());" class="resultado_busqueda_por_cuv_enlace" title="' + item.DescripcionProd + '"><div class="resultado_busqueda_por_cuv_datos_imagen"><img src="https://cdn1-prd.somosbelcorp.com/Matriz/PE/PE_201905_30709.jpg" alt="' + item.DescripcionProd + '" /></div><div class="resultado_busqueda_por_cuv_datos_prod">' + '<div class="resultado_busqueda_por_cuv_codigo_prod">' + item.CUV + '</div>' + '<div class="resultado_busqueda_por_cuv_descrip_prod">' + item.DescripcionProd + '</div>' + '</div></a></li>');
                 });
-                //$('.chosen-select').chosen();
-                //$(".chosen-select").val('').trigger("chosen:updated");
-                //$('.chosen-select-deselect').chosen({ allow_single_deselect: true });
-                //$('.chosen-search-input').attr('placeholder', 'Ingresa el código');
-
-                // FIN - HD-3703
             }
         },
         error: function (data, error) {
@@ -508,6 +450,16 @@ function BuscarCUV() {
             checkTimeout(data);
         }
     });
+}
+
+
+function SeleccionarCUVBusqueda(tag) {
+    var el = $(tag)[0];
+    var cuv = $(el).attr('data-value-cuv');
+    var producto = $(el).attr('data-value-producto');
+    $('#hdfCUV').val(cuv);
+    $('#ddlCuv').val(cuv + ' - ' + producto);
+    ObtenerDatosCuv();
 }
 
 function BuscarCUVCambiar(cuv) {
@@ -1835,41 +1787,42 @@ function SeleccionarContenido(control) {
 
 //HD-3703 EINCA
 function EscogerSolucion(opcion, event) {
-    $("#divOperacion input[type=checkbox]").not(opcion).prop('checked', false);
+    var tagCheck = $("#divOperacion input[type=checkbox]");
+    var tagDivInfo = $('#infoOpcionesDeCambio');
+    tagCheck.not(opcion).prop('checked', false);
     var id = opcion.id;
-
-    var isChecked = $("#divOperacion input[type=checkbox]").is(':checked');
+    var isChecked = tagCheck.is(':checked');
     if (id == "" || !isChecked) {
-        $('#infoOpcionesDeCambio').fadeOut(200);
-        if (id == "D" && !isChecked) {
-            $('#divDevolucionSetsOrPack').hide();
-        }
+        tagDivInfo.hide().children().hide(); //ocultamos la capa padre y los hijos
         return false;
     }
-    $('#infoOpcionesDeCambio').show();
+    tagDivInfo.show();//Mostramos la capa padre
 
+    //ocultamos la capa hijo visible
+    tagDivInfo.children().each(function (index, element) {
+        if ($(element).is(':visible')) {
+            $(element).fadeOut(200);
+            return false;
+        }
+    });
+
+    //en base al id, mostramos la capa correspondiente
     if (id == "T") {
-        $('#OpcionCambioMismoProducto').fadeOut(200);
-        $('#OpcionDevolucion').fadeOut(200);
         $('#OpcionCambioPorOtroProducto').fadeIn(200);
         SetMontoCampaniaTotal();
         ObtenerValorParametria(id);
-
     } else if (id == "C") {
-        $('#OpcionDevolucion').fadeOut(200);
-        $('#OpcionCambioPorOtroProducto').fadeOut(200);
         $('#OpcionCambioMismoProducto').fadeIn(200);
         $('#spnDescProdDevolucion').html($('#hdfCUVDescripcion').val());
     } else if (id == "D") {
-        $('#OpcionCambioMismoProducto').fadeOut(200);
-        $('#OpcionCambioPorOtroProducto').fadeOut(200);
         $('#divDevolucionSetsOrPack').show();
         $('#OpcionDevolucion').fadeIn(200);
         SetHandlebars("#template-opcion-devolucion", dataCdrServicio, "#divDevolucionSetsOrPack");
+    } else if (id == "F") {
+        $('#OpcionEnvioDelProducto').fadeIn(200);
     } else {
-        $('#infoOpcionesDeCambio').fadeOut(200);
+        $('#OpcionDevolucionDinero').fadeIn(200);
     }
-
 }
 
 function SetMontoCampaniaTotal() {
@@ -1903,6 +1856,7 @@ function AgregarODisminuirCantidad(event, opcion) {
     $("#spnImporteTotal2").html(DecimalToStringFormat(importeTotal));
 }
 
+//HD-3703 EINCA
 function IrAFinalizar() {
     var id = "";
     var tag = $("#divOperacion input[type=checkbox]");
@@ -1940,11 +1894,11 @@ function IrAFinalizar() {
     });
 }
 
-$('body').on('keypress', 'input[attrKey="PreValidarCUV"]', function (event) {
+//$('body').on('keypress', 'input[attrKey="PreValidarCUV"]', function (event) {
 
-    if (event.keyCode == 13) {
-        if ($("#btnAgregar")[0].disabled == false) {
-            AgregarProductoListado();
-        }
-    }
-})
+//    if (event.keyCode == 13) {
+//        if ($("#btnAgregar")[0].disabled == false) {
+//            AgregarProductoListado();
+//        }
+//    }
+//})

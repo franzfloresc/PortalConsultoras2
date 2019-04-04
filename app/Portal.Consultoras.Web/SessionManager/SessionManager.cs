@@ -154,15 +154,13 @@ namespace Portal.Consultoras.Web.SessionManager
             HttpContext.Current.Session[Constantes.ConstSession.CDRMotivoOperacion] = datos;
         }
         //HD-3703 EINCA
-        public void SetCDRSetsPacks(ServiceGestionWebPROL.RptCdrReclamo rptCdr)
-        {
-            HttpContext.Current.Session[Constantes.ConstSession.CDRSetsYPacks] = rptCdr;
+        public bool GetFlagIsSetsOrPack() {
+            return (bool)HttpContext.Current.Session[Constantes.ConstSession.CDRFlagIsSetsOrPacks];
         }
         //HD-3703 EINCA
-        public ServiceGestionWebPROL.RptCdrReclamo GetCDRSetsPacks()
-        {
-            return (ServiceGestionWebPROL.RptCdrReclamo)HttpContext.Current.Session[Constantes.ConstSession.CDRSetsYPacks];
-        }
+        public void SetFlagIsSetsOrPack(bool flag) {
+            HttpContext.Current.Session[Constantes.ConstSession.CDRFlagIsSetsOrPacks] = flag;
+        }      
 
         #endregion
 
