@@ -299,3 +299,23 @@ function CerrarAlertaPedidoReservado() {
     document.location.href = urlPedido;
 }
 
+function MostrarMensajedeRechazoPedido(cuv) {
+    var mensaje ='#' + cuv;
+    $(mensaje).show();
+    //document.location.href = urlPedido;
+}
+function OcultarMensajedeRechazoPedido(cuv) {
+    var mensaje = '#' + cuv;
+    $(mensaje).hide();
+    //document.location.href = urlPedido;
+}
+
+function AceptarPedidoProducto(id) {
+    var texto = '#texto_' + id;
+    var aceptado = '#aceptar_' + id;
+    $(texto).removeClass('text-white');
+    $(texto).addClass('text-black');
+    $(aceptado).removeClass('active');
+    $(aceptado).text('Aceptado');
+    //document.location.href = urlPedido;
+}
