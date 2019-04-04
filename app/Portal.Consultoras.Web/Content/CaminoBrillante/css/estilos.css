@@ -115,6 +115,7 @@ strong {
     text-align: left;
     font-weight: bold;
     line-height: 17px;
+    margin-bottom: 20px;
 }
 
 .text-down {
@@ -871,12 +872,33 @@ button.close {
 }
 
 
+.cambio-crec a, .cambio-crec .com-log {
+    text-align: center;
+    display: block;
+    font-size: 12px;
+    text-decoration: none;
+    color: black;
+}
 
+.cambio-crec .inactivo {
+    color: gray;
+    text-decoration: none;
+}
 
+.cambio-crec .como-log {
+    cursor: pointer;
+}
 
+.cambio-crec div img {
+    display: block;
+    margin: 0 auto;
+}
 
+.cambio-crec > .col-3 {
+    margin-bottom: 20px;
+}
 
-.owl-carousel .owl-item .circle-porcent {
+.owl-carousel .owl-item .circle-porcent, .circle-porcent {
     display: block;
     width: 50px;
     height: 50px;
@@ -885,22 +907,23 @@ button.close {
     margin-bottom: 6px;
 }
 
-.circle-porcent.veinticinco {
-    background: #b9007e;
-}
+    .circle-porcent.veinticinco {
+        background: #b9007e;
+    }
 
-.circle-porcent.cinco {
-    background: #64425e;
-}
+    .circle-porcent.cinco {
+        background: #64425e;
+    }
 
-.owl-carousel .owl-item .circle-porcent span {
-    color: white;
-    font-size: 19px;
-    text-align: center;
-    line-height: 52px;
-    display: block;
-    font-weight: bold;
-}
+    .owl-carousel .owl-item .circle-porcent span, .cambio-crec .circle-porcent span, .indicador-nivel .circle-porcent span {
+        color: white;
+        font-size: 19px;
+        text-align: center;
+        line-height: 50px;
+        display: block;
+        font-weight: bold;
+        text-decoration: none !important;
+    }
 
 /*.owl-carousel .owl-item {
     width: 46% !important;
@@ -911,9 +934,11 @@ button.close {
 .max750 {
     max-width: 750px;
 }
+
 .box-camb {
-    padding-left: 30px !important;
-    padding-right: 30px !important;
+    /*padding-left: 30px !important;
+    padding-right: 30px !important;*/
+    margin: 35px auto;
 }
 
 
@@ -1048,17 +1073,20 @@ button.close {
     .subtitle {
         font-size: 15px;
     }
+
     .box-beneficios {
-        margin-bottom:30px;
+        margin-bottom: 30px;
     }
+
     .owl-carousel .owl-item .circle-porcent {
         width: 42px;
         height: 42px;
     }
-    .owl-carousel .owl-item .circle-porcent span {
-        font-size: 14px;
-        line-height: 44px;
-    }
+
+        .owl-carousel .owl-item .circle-porcent span {
+            font-size: 14px;
+            line-height: 44px;
+        }
 
 
 
@@ -1070,18 +1098,23 @@ button.close {
     #ProgressBar .pt1 {
         left: -6%;
     }
+
     #ProgressBar .pt2 {
         left: 14%;
     }
+
     #ProgressBar .pt3 {
         left: 34%;
     }
+
     #ProgressBar .pt4 {
         left: 54%;
     }
+
     #ProgressBar .pt5 {
         left: 74%;
     }
+
     #ProgressBar .pt6 {
         left: 94%;
     }
