@@ -84,7 +84,7 @@
                                 <div class="col-4 ">
                                     <div class=" vc-box">
                                         <div class="vc-box--action">
-                                            <a class="vc-box--btn vc-box--title" href="@Url.Action("DetallePedidoPendiente", "ConsultoraOnline", new { pedidoId = item.PedidoId })">Confirmar productos</a>
+                                            <a class="vc-box--btn vc-box--title" href="@Url.Action("DetallePedidoPendiente", "ConsultoraOnline", new { ids = item.PedidoId })">Confirmar productos</a>
                                         </div>
                                     </div>
                                 </div>
@@ -111,7 +111,7 @@
                                 <div class="col-10">
                                     <div class=" vc-box">
                                         <div class="vc-box--header">
-                                            <span class="vc-box--title">x @item2.Cantidad @item2.Producto</span>
+                                            <span class="vc-box--title">x @item2.CantidadTotal @item2.Producto</span>
                                         </div>
                                         <div class="vc-box--content">
                                             <p><strong>Precio total: </strong>@ViewBag.Simbolo @item2.FormatoPrecioTotal</p>
@@ -125,7 +125,7 @@
                                             }
                                             <p>Ver más...</p>
                                             <div class="vc-box--button">
-                                                <a class="vc-box--btn vc-box--title" href="@Url.Action("DetallePedidoPendienteCliente", "ConsultoraOnline", new { pedidoId = item2.CUV })">Confirmar clientes</a>
+                                                <a class="vc-box--btn vc-box--title" href="@Url.Action("DetallePedidoPendienteCliente", "ConsultoraOnline", new { cuv = item2.CUV })">Confirmar clientes</a>
                                             </div>
 
                                         </div>

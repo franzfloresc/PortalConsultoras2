@@ -180,6 +180,9 @@ namespace Portal.Consultoras.ServiceContracts
         IList<BEMisPedidosDetalle> GetMisPedidosDetalleConsultoraOnline(int PaisID, long PedidoID);
 
         [OperationContract]
+        IList<BEMisPedidosDetalle> GetMisPedidosDetallePendientesAll(int paisId, int campaniaId, long consultoraId);
+
+        [OperationContract]
         int GetCantidadSolicitudesPedido(int PaisID, long ConsultoraId, int Campania);
 
         [OperationContract]

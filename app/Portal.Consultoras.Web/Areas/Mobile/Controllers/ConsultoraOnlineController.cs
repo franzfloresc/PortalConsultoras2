@@ -926,106 +926,82 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             //var isCLiente = false;
             try
             {
-                List<BEMisPedidos> olstMisPedidos;
+                var lstMisPedidos = new List<BEMisPedidos>();
                 using (UsuarioServiceClient svc = new UsuarioServiceClient())
                 {
-                    olstMisPedidos = svc.GetMisPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID, userData.CampaniaID).ToList();
+                    lstMisPedidos = svc.GetMisPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID, userData.CampaniaID).ToList();
                 }
 
-                if (olstMisPedidos.Count > 0)
+                lstMisPedidos.RemoveAll(x => x.Estado.Trim().Length > 0);
+                if (lstMisPedidos.Count > 0)
                 {
-                    //olstMisPedidos.RemoveAll(x => x.Estado.Trim().Length > 0);
+                    // Falta agrupar por correo
 
-                    //if (isCLiente)
+                    lstMisPedidos.ForEach(y => y.FormartoFechaSolicitud = y.FechaSolicitud.ToString("dd") + " de " + y.FechaSolicitud.ToString("MMMM", new CultureInfo("es-ES")));
+                    lstMisPedidos.ForEach(y => y.FormatoPrecioTotal = Util.DecimalToStringFormat(y.PrecioTotal, userData.CodigoISO));
+
+                    // obtener todo los detalles de los pedidos por campania,consultora
+                    var lstMisPedidosDetalleAll = new List<BEMisPedidosDetalle>();
+                    using (UsuarioServiceClient svc = new UsuarioServiceClient())
+                    {
+                        lstMisPedidosDetalleAll = svc.GetMisPedidosDetallePendientesAll(userData.PaisID, userData.CampaniaID, userData.ConsultoraID).ToList();
+                    }
+
+                    foreach (var cab in lstMisPedidos)
+                    {
+                        var detalles = lstMisPedidosDetalleAll.Where(x => x.PedidoId == cab.PedidoId);
+                        if (detalles.Any()) cab.DetallePedido = detalles.ToArray();
+                    }
+
+                    model.ListaPedidos = lstMisPedidos;
+
+                    var lstByProductos = new List<BEMisPedidosDetalle>();
+                    var grpListCuv = lstMisPedidosDetalleAll.Select(x => x.CUV).Distinct().ToList();
+                    foreach (var cuv in grpListCuv)
+                    {
+                        var lstCuv = lstMisPedidosDetalleAll.Where(x => x.CUV == cuv);
+                        var det = lstMisPedidosDetalleAll.First(x => x.CUV == cuv);
+                        var ids = lstCuv.Where(x => x.CUV == cuv).Select(x => x.PedidoId.ToString()).ToArray();
+                        //item.Cantidad = lst1.Count();
+                        det.CantidadTotal = lstCuv.Sum(x => x.Cantidad);
+                        det.PrecioTotal = lstCuv.Sum(x => x.PrecioUnitario);
+                        det.FormatoPrecioTotal = Util.DecimalToStringFormat(det.PrecioTotal.ToDecimal(), userData.CodigoISO);
+                        det.ListaClientes = lstMisPedidos.Where(x => ids.Contains(x.PedidoId.ToString())).ToArray();
+                        lstByProductos.Add(det);
+                        
+                        //var data = olstMisPedidos.FirstOrDefault(x => x.CUV == cuv);
+                        //data.Cantidad = olstMisPedidos.Count(x => x.CUV == cuv);
+                        //var clientes = olstMisPedidos.Where(x => x.CUV == cuv);
+                        //data.ListaClientes = clientes.ToArray();
+                        //ListaPorProductos.Add(data);
+                    }
+                    model.ListaProductos = lstByProductos;
+
+                    objMisPedidos = model;
+                    SessionManager.SetobjMisPedidos(objMisPedidos);
+
+                    //var lstClientesExistentes = olstMisPedidos.Where(x => x.FlagConsultora).ToList();
+
+                    //if (lstClientesExistentes.Count == olstMisPedidos.Count)
                     //{
-                        if (olstMisPedidos.Count > 0)
-                            {
-                                olstMisPedidos.ToList().ForEach(y => y.FormartoFechaSolicitud = y.FechaSolicitud.ToString("dd") + " de " + y.FechaSolicitud.ToString("MMMM", new CultureInfo("es-ES")));
-                                olstMisPedidos.ToList().ForEach(y => y.FormatoPrecioTotal = Util.DecimalToStringFormat(y.PrecioTotal, userData.CodigoISO));
-
-                                model.ListaPedidos = olstMisPedidos;
-
-                                objMisPedidos = model;
-                                SessionManager.SetobjMisPedidos(objMisPedidos);
-
-                                var lstClientesExistentes = olstMisPedidos.Where(x => x.FlagConsultora).ToList();
-
-                                if (lstClientesExistentes.Count == olstMisPedidos.Count)
-                                {
-                                    model.FechaPedidoReciente = "24:00:00";
-                                }
-                                else
-                                {
-                                    var pedidoReciente = olstMisPedidos.Where(x => !x.FlagConsultora).OrderBy(x => x.FechaSolicitud).First();
-
-                                    DateTime starDate = DateTime.Now;
-                                    DateTime endDate = pedidoReciente.FechaSolicitud.AddDays(1);
-
-                                    TimeSpan ts = endDate - starDate;
-                                    model.FechaPedidoReciente = ts.Hours.ToString().PadLeft(2, '0') + ":" + ts.Minutes.ToString().PadLeft(2, '0') + ":" + ts.Seconds.ToString().PadLeft(2, '0');
-                                }
-
-                                model.RegistrosTotal = model.ListaPedidos.Count.ToString();
-                            }
-                            else
-                            {
-                                model.RegistrosTotal = "0";
-                                return RedirectToAction("Detalle", "Pedido", new { area = "Mobile" });
-                            }
+                    //    model.FechaPedidoReciente = "24:00:00";
                     //}
                     //else
                     //{
-                        //if (olstMisPedidos.Count > 0)
-                        //{
+                    //    var pedidoReciente = olstMisPedidos.Where(x => !x.FlagConsultora).OrderBy(x => x.FechaSolicitud).First();
 
-                            var cuvList= olstMisPedidos.Select(x => x.CUV).Distinct().ToList();
+                    //    DateTime starDate = DateTime.Now;
+                    //    DateTime endDate = pedidoReciente.FechaSolicitud.AddDays(1);
 
-                            List<BEMisPedidos> ListaPorProductos = new List<BEMisPedidos>();
+                    //    TimeSpan ts = endDate - starDate;
+                    //    model.FechaPedidoReciente = ts.Hours.ToString().PadLeft(2, '0') + ":" + ts.Minutes.ToString().PadLeft(2, '0') + ":" + ts.Seconds.ToString().PadLeft(2, '0');
+                    //}
 
-                            foreach (var cuv in cuvList)
-                            {
-                                var data = olstMisPedidos.FirstOrDefault(x => x.CUV==cuv);
-                                data.Cantidad = olstMisPedidos.Count(x => x.CUV == cuv);
-                                var clientes = olstMisPedidos.Where(x => x.CUV == cuv);
-                                data.ListaClientes = clientes.ToArray();
-                                ListaPorProductos.Add(data);
-
-                            }
-                            model.ListaProductos = ListaPorProductos;
-
-                            //objMisPedidos = model;
-                            //SessionManager.SetobjMisPedidos(objMisPedidos);
-
-                            //var lstClientesExistentes = olstMisPedidos.Where(x => x.FlagConsultora).ToList();
-
-                            //if (lstClientesExistentes.Count == olstMisPedidos.Count)
-                            //{
-                            //    model.FechaPedidoReciente = "24:00:00";
-                            //}
-                            //else
-                            //{
-                            //    var pedidoReciente = olstMisPedidos.Where(x => !x.FlagConsultora).OrderBy(x => x.FechaSolicitud).First();
-
-                            //    DateTime starDate = DateTime.Now;
-                            //    DateTime endDate = pedidoReciente.FechaSolicitud.AddDays(1);
-
-                            //    TimeSpan ts = endDate - starDate;
-                            //    model.FechaPedidoReciente = ts.Hours.ToString().PadLeft(2, '0') + ":" + ts.Minutes.ToString().PadLeft(2, '0') + ":" + ts.Seconds.ToString().PadLeft(2, '0');
-                            //}
-
-                            //model.RegistrosTotal = model.ListaPedidos.Count.ToString();
-                        //}
-                        //else
-                        //{
-                        //    //model.RegistrosTotal = "0";
-                        //    return RedirectToAction("Detalle", "Pedido", new { area = "Mobile" });
-                        //}
-                   // }
-                       
+                    model.RegistrosTotal = model.ListaPedidos.Count.ToString();
                 }
                 else
                 {
-                    //model.RegistrosTotal = "0";
+                    model.RegistrosTotal = "0";
                     return RedirectToAction("Detalle", "Pedido", new { area = "Mobile" });
                 }
             }
@@ -1037,46 +1013,62 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return View(model);
         }
 
-  
 
-        public ActionResult DetallePedidoPendiente(int pedidoId)
+
+        //public ActionResult DetallePedidoPendiente(int pedidoId)
+        public ActionResult DetallePedidoPendiente(string ids)
         {
             MisPedidosDetalleModel model = new MisPedidosDetalleModel();
 
             try
             {
-                MisPedidosModel consultoraOnlineMisPedidos = SessionManager.GetobjMisPedidos();
-                long _pedidoId = Convert.ToInt64(pedidoId);
-                BEMisPedidos pedido = consultoraOnlineMisPedidos.ListaPedidos.FirstOrDefault(p => p.PedidoId == _pedidoId && p.Estado.Trim().Length == 0);
-
-                if (pedido == null)
+                MisPedidosModel pedidos = SessionManager.GetobjMisPedidos();
+                if (string.IsNullOrEmpty(ids))
                 {
-                    if (consultoraOnlineMisPedidos.ListaPedidos.Count > 0)
-                    {
+                    if (pedidos.ListaPedidos.Any())
                         return RedirectToAction("Pendientes", "ConsultoraOnline", new { area = "Mobile" });
-                    }
                     else
-                    {
                         return RedirectToAction("Home", "Bienvenida", new { area = "Mobile" });
-                    }
                 }
 
-                List<BEMisPedidosDetalle> olstMisPedidosDet;
-                using (UsuarioServiceClient svc = new UsuarioServiceClient())
+                //long _pedidoId = Convert.ToInt64(pedidoId);
+                //BEMisPedidos pedido = consultoraOnlineMisPedidos.ListaPedidos.FirstOrDefault(p => p.PedidoId == _pedidoId && p.Estado.Trim().Length == 0);
+                var arrIds = ids.Split(',');
+                var lstPedido = pedidos.ListaPedidos.Where(x => arrIds.Contains(x.PedidoId.ToString()));
+
+                //if (pedido == null)
+                if (!lstPedido.Any())
                 {
-                    olstMisPedidosDet = svc.GetMisPedidosDetalleConsultoraOnline(userData.PaisID, pedidoId).ToList();
+                    //if (consultoraOnlineMisPedidos.ListaPedidos.Count > 0)
+                    if (pedidos.ListaPedidos.Any())
+                        return RedirectToAction("Pendientes", "ConsultoraOnline", new { area = "Mobile" });
+                    else
+                        return RedirectToAction("Home", "Bienvenida", new { area = "Mobile" });
                 }
+
+                var lstMisPedidosDet = new List<BEMisPedidosDetalle>();
+                foreach(var cab in lstPedido)
+                {
+                    foreach(var det in cab.DetallePedido)
+                    {
+                        lstMisPedidosDet.Add(det);
+                    }
+                }
+                //using (UsuarioServiceClient svc = new UsuarioServiceClient())
+                //{
+                //    olstMisPedidosDet = svc.GetMisPedidosDetalleConsultoraOnline(userData.PaisID, pedidoId).ToList();
+                //}
 
                 model.ListaDetalle2 = new List<MisPedidosDetalleModel2>();
-                if (olstMisPedidosDet.Count > 0)
+                if (lstMisPedidosDet.Any())
                 {
-                    model.MiPedido = pedido;
+                    var firstPedido = pedidos.ListaPedidos.FirstOrDefault();
+                    model.MiPedido = firstPedido;
 
-                    SessionManager.SetobjMisPedidosDetalle(olstMisPedidosDet);
+                    //SessionManager.SetobjMisPedidosDetalle(olstMisPedidosDet);
+                    lstMisPedidosDet = CargarMisPedidosDetalleDatos(firstPedido.MarcaID, lstMisPedidosDet);
 
-                    olstMisPedidosDet = CargarMisPedidosDetalleDatos(pedido.MarcaID, olstMisPedidosDet);
-
-                    var detallePedidos = Mapper.Map<List<BEMisPedidosDetalle>, List<MisPedidosDetalleModel2>>(olstMisPedidosDet);
+                    var detallePedidos = Mapper.Map<List<BEMisPedidosDetalle>, List<MisPedidosDetalleModel2>>(lstMisPedidosDet);
                     detallePedidos.Update(p => p.CodigoIso = userData.CodigoISO);
 
                     model.ListaDetalle2 = detallePedidos;
@@ -1091,32 +1083,29 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             using (SACServiceClient sv = new SACServiceClient())
             {
-                List<BEMotivoSolicitud> motivoSolicitud = sv.GetMotivosRechazo(userData.PaisID).ToList();
-                ViewBag.MotivosRechazo = Mapper.Map<List<MisPedidosMotivoRechazoModel>>(motivoSolicitud);
+                var lsMotivos = sv.GetMotivosRechazo(userData.PaisID).ToList();
+                ViewBag.MotivosRechazo = Mapper.Map<List<MisPedidosMotivoRechazoModel>>(lsMotivos);
             }
 
             return View(model);
         }
 
-        private List<BEMisPedidosDetalle> CargarMisPedidosDetalleDatos(int marcaId, List<BEMisPedidosDetalle> olstMisPedidosDet)
+        private List<BEMisPedidosDetalle> CargarMisPedidosDetalleDatos(int marcaId, List<BEMisPedidosDetalle> lstMisPedidosDet)
         {
-            // 0=App Catalogos, >0=Portal Marca
-            if (marcaId != 0)
-            {
-                return olstMisPedidosDet;
-            }
+            // 0=App Catalogos, > 0=Portal Marca
+            if (marcaId != 0) return lstMisPedidosDet;
 
             int? revistaGana = null;
-            using (PedidoServiceClient sv = new PedidoServiceClient())
+            using (PedidoServiceClient svc = new PedidoServiceClient())
             {
-                revistaGana = sv.ValidarDesactivaRevistaGana(userData.PaisID, userData.CampaniaID, userData.CodigoZona);
+                revistaGana = svc.ValidarDesactivaRevistaGana(userData.PaisID, userData.CampaniaID, userData.CodigoZona);
             }
 
-            List<ServiceODS.BEProducto> olstMisProductos = GetValidarCuvMisPedidos(olstMisPedidosDet);
+            var lstMisProductos = GetValidarCuvMisPedidos(lstMisPedidosDet);
 
-            foreach (var item in olstMisPedidosDet)
+            foreach (var item in lstMisPedidosDet)
             {
-                var pedidoVal = olstMisProductos.FirstOrDefault(x => x.CUV == item.CUV);
+                var pedidoVal = lstMisProductos.FirstOrDefault(x => x.CUV == item.CUV);
                 if (pedidoVal == null)
                 {
                     item.TieneStock = 0;
@@ -1138,36 +1127,32 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         ? Constantes.MensajeEstaEnRevista.EsikaMobile
                         : Constantes.MensajeEstaEnRevista.LbelMobile;
                 }
-
-
             }
 
-            return olstMisPedidosDet;
+            return lstMisPedidosDet;
         }
 
-        private List<ServiceODS.BEProducto> GetValidarCuvMisPedidos(List<BEMisPedidosDetalle> olstMisPedidosDet)
+        private List<ServiceODS.BEProducto> GetValidarCuvMisPedidos(List<BEMisPedidosDetalle> lstMisPedidosDet)
         {
+            //var txtBuil = new StringBuilder();
+            //foreach (var item in lstMisPedidosDet)
+            //{
+            //    txtBuil.Append(item.CUV + ",");
+            //}
 
-            var txtBuil = new StringBuilder();
-            foreach (var item in olstMisPedidosDet)
-            {
-                txtBuil.Append(item.CUV + ",");
-            }
-
-            var inputCuv = txtBuil.ToString();
-            inputCuv = inputCuv.Substring(0, inputCuv.Length - 1);
-
-            List<ServiceODS.BEProducto> olstMisProductos;
+            //var inputCuv = txtBuil.ToString();
+            var inputCuv = string.Join(",", lstMisPedidosDet.Select(x => x.CUV).ToList());
+            //inputCuv = inputCuv.Substring(0, inputCuv.Length - 1);
+            var lstMisProductos = new List<ServiceODS.BEProducto>();
 
             using (ODSServiceClient svc = new ODSServiceClient())
             {
-                olstMisProductos = svc.GetValidarCUVMisPedidos(userData.PaisID, userData.CampaniaID, inputCuv, userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona).ToList();
+                lstMisProductos = svc.GetValidarCUVMisPedidos(userData.PaisID, userData.CampaniaID, inputCuv, userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona).ToList();
             }
 
-            SessionManager.SetobjMisPedidosDetalleVal(olstMisProductos);
-            return olstMisProductos;
+            SessionManager.SetobjMisPedidosDetalleVal(lstMisProductos);
+            return lstMisProductos;
         }
-
 
         public ActionResult PendientesMedioDeCompra()
         {
@@ -1197,7 +1182,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     oListaPedidos.ForEach(x => {
 
                         var oDetallesTemporal = svc.GetMisPedidosDetalleConsultoraOnline(userData.PaisID, x.PedidoId).ToList();
-
                         if (oDetallesTemporal.Any())
                         {
                             oListaPedidosDetalle.AddRange(oDetallesTemporal);
@@ -1209,27 +1193,23 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.ListaCatalogo = new List<MisPedidosDetalleModel2>();
             if (oListaPedidosDetalle.Count > 0)
             {
-                
-            SessionManager.SetobjMisPedidosDetalle(oListaPedidosDetalle);
-            oListaPedidosDetalleConEstado = oListaPedidosDetalle.Where(x => x.estado.HasValue && x.estado.Value == true).ToList();
-            oPedidosIds = oListaPedidosDetalleConEstado.Select(x => x.PedidoId).Distinct().ToList();
-            oPedidosAfectados = oListaPedidos.Where(x => oPedidosIds.Contains(x.PedidoId)).ToList();
+                SessionManager.SetobjMisPedidosDetalle(oListaPedidosDetalle);
+                oListaPedidosDetalleConEstado = oListaPedidosDetalle.Where(x => x.Estado.HasValue && x.Estado.Value == true).ToList();
+                oPedidosIds = oListaPedidosDetalleConEstado.Select(x => x.PedidoId).Distinct().ToList();
+                oPedidosAfectados = oListaPedidos.Where(x => oPedidosIds.Contains(x.PedidoId)).ToList();
 
-            oPedidosAfectados.ForEach(pedido => {
+                oPedidosAfectados.ForEach(pedido => {
 
-                if (oListaPedidosDetalleConEstado.Any(x => x.PedidoId == pedido.PedidoId))
-                {
-                    var odetalleTemporal = CargarMisPedidosDetalleDatos(pedido.MarcaID, oListaPedidosDetalleConEstado.Where(x => x.PedidoId == pedido.PedidoId).ToList());
-                    var detallePedidos = Mapper.Map<List<BEMisPedidosDetalle>, List<MisPedidosDetalleModel2>>(odetalleTemporal);
-                    detallePedidos.Update(p => p.CodigoIso = userData.CodigoISO);
-                    oListaCatalogo.AddRange(detallePedidos);
-                }
-
-            });
+                    if (oListaPedidosDetalleConEstado.Any(x => x.PedidoId == pedido.PedidoId))
+                    {
+                        var odetalleTemporal = CargarMisPedidosDetalleDatos(pedido.MarcaID, oListaPedidosDetalleConEstado.Where(x => x.PedidoId == pedido.PedidoId).ToList());
+                        var detallePedidos = Mapper.Map<List<BEMisPedidosDetalle>, List<MisPedidosDetalleModel2>>(odetalleTemporal);
+                        detallePedidos.Update(p => p.CodigoIso = userData.CodigoISO);
+                        oListaCatalogo.AddRange(detallePedidos);
+                    }
+                });
 
                 var oListaGana = _consultoraOnlineProvider.GetRecomendados(parametrosRecomendado);
-
-
                 model.ListaCatalogo = oListaCatalogo;
                 model.TotalCatalogo = oListaCatalogo.Sum(x => x.PrecioTotal);
                 model.ListaGana = oListaGana;
@@ -1238,9 +1218,5 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return View(model);
         }
-
-
-
-
     }
 }

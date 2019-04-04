@@ -11,34 +11,49 @@ namespace Portal.Consultoras.Entities
     {
         [DataMember]
         public long PedidoId { get; set; }
+
         [DataMember]
         public string Cliente { get; set; }
+
         [DataMember]
         public string Telefono { get; set; }
+
         [DataMember]
         public string Email { get; set; }
+
         [DataMember]
         public string Direccion { get; set; }
+
         [DataMember]
         public string MensajeDelCliente { get; set; }
+
         [DataMember]
         public int Leido { get; set; }
+
         [DataMember]
         public string Estado { get; set; }
+
         [DataMember]
         public int NumIteracion { get; set; }
+
         [DataMember]
         public string CodigoUbigeo { get; set; }
+
         [DataMember]
         public string Campania { get; set; }
+
         [DataMember]
         public int MarcaID { get; set; }
+
         [DataMember]
         public DateTime FechaSolicitud { get; set; }
+
         [DataMember]
         public DateTime? FechaModificacion { get; set; }
+
         [DataMember]
         public string FlagMedio { get; set; }
+
         [DataMember]
         public bool FlagConsultora { get; set; }
 
@@ -66,26 +81,26 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public List<BEMisPedidosDetalle> DetallePedido { get; set; }
 
-        [DataMember]
-        public int CUV { get; set; }
+        //[DataMember]
+        //public int CUV { get; set; }
 
-        [DataMember]
-        public string Producto { get; set; }
+        //[DataMember]
+        //public string Producto { get; set; }
 
-        [DataMember]
-        public int Cantidad { get; set; }
+        //[DataMember]
+        //public int Cantidad { get; set; }
 
-        [DataMember]
-        public decimal Precio { get; set; }
+        //[DataMember]
+        //public decimal Precio { get; set; }
 
-        [DataMember]
-        public string Tono { get; set; }
+        //[DataMember]
+        //public string Tono { get; set; }
 
-        [DataMember]
-        public string Url { get; set; }
+        //[DataMember]
+        //public string Url { get; set; }
 
-        [DataMember]
-        public List<BEMisPedidos> ListaClientes { get; set; }
+        //[DataMember]
+        //public List<BEMisPedidos> ListaClientes { get; set; }
 
         public BEMisPedidos(IDataRecord row)
         {
@@ -111,12 +126,12 @@ namespace Portal.Consultoras.Entities
             SaldoHoras = row.ToString("SaldoHoras");
             PedidoWebID = row.ToInt32("PedidoWebID");
             DetallePedido = new List<BEMisPedidosDetalle>();
-            CUV = row.ToInt32("CUV");
-            Producto = row.ToString("Producto");
-            Cantidad = row.ToInt32("Cantidad");
-            Tono = row.ToString("Tono");
-            Url = row.ToString("Url");
-            ListaClientes = new List<BEMisPedidos>();
+            //CUV = row.ToInt32("CUV");
+            //Producto = row.ToString("Producto");
+            //Cantidad = row.ToInt32("Cantidad");
+            //Tono = row.ToString("Tono");
+            //Url = row.ToString("Url");
+            ///ListaClientes = new List<BEMisPedidos>();
         }
     }
 
@@ -128,29 +143,40 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public long PedidoId { get; set; }
+
         [DataMember]
         public string Producto { get; set; }
+
         [DataMember]
         public string Tono { get; set; }
+
         [DataMember]
         public int MarcaID { get; set; }
+
         [DataMember]
         public string Marca { get; set; }
+
         [DataMember]
         public string CUV { get; set; }
+
         [DataMember]
         public int Cantidad { get; set; }
+
         [DataMember]
         public double PrecioUnitario { get; set; }
-        [DataMember]
-        public double PrecioTotal { get; set; }
+
+        //[DataMember]
+        //public double PrecioTotal { get; set; }
 
         [DataMember]
         public string MedioContacto { get; set; }
+
         [DataMember]
         public int EstaEnRevista { get; set; }
+
         [DataMember]
         public int TieneStock { get; set; }
+
         [DataMember]
         public string MensajeValidacion { get; set; }
 
@@ -164,8 +190,25 @@ namespace Portal.Consultoras.Entities
         public int PedidoWebDetalleID { get; set; }
 
         [DataMember]
-        public bool? estado { get; set; }
+        public bool? Estado { get; set; }
 
+        [DataMember]
+        public List<BEMisPedidos> ListaClientes { get; set; }
+
+        [DataMember]
+        public int CantidadTotal { get; set; }
+
+        [DataMember]
+        public double PrecioTotal { get; set; }
+
+        [DataMember]
+        public string FormatoPrecioTotal { get; set; }
+
+        [DataMember]
+        public string Url { get; set; }
+
+        [DataMember]
+        public string CodigoSap { get; set; }
 
         public BEMisPedidosDetalle()
         {
@@ -179,25 +222,17 @@ namespace Portal.Consultoras.Entities
             Tono = row.ToString("Tono");
             Marca = row.ToString("Marca");
             CUV = row.ToString("CUV");
-            estado = row.ToBoolean("estado");
             PrecioUnitario = row.ToDouble("Precio");
             Cantidad = row.ToInt32("Cantidad");
-            PrecioTotal = PrecioUnitario * Cantidad;
-
-
-                MarcaID = row.ToInt32("MarcaID");
-
-
-                MedioContacto = row.ToString("MContacto");
-
-
-                TipoAtencion = row.ToInt32("TipoAtencion");
-
-
-                PedidoWebID = row.ToInt32("PedidoWebID");
-
-
-                PedidoWebDetalleID = row.ToInt32("PedidoWebDetalleID");
+            PrecioTotal = (PrecioUnitario * Cantidad);
+            MarcaID = row.ToInt32("MarcaID");
+            MedioContacto = row.ToString("MContacto");
+            TipoAtencion = row.ToInt32("TipoAtencion");
+            PedidoWebID = row.ToInt32("PedidoWebID");
+            PedidoWebDetalleID = row.ToInt32("PedidoWebDetalleID");
+            Estado = row.ToBoolean("Estado");
+            Url = row.ToString("Url");
+            CodigoSap = row.ToString("CodigoSap");
         }
     }
 }
