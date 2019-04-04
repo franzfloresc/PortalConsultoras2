@@ -1255,7 +1255,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 MisPedidosModel consultoraOnlineMisPedidos = SessionManager.GetobjMisPedidos();
                 //string _cuv = Convert.ToString(cuv);           
-                var pedido = consultoraOnlineMisPedidos.ListaPedidos.Where(p => p.CUV == cuv && p.Estado.Trim().Length == 0).ToList();
+                var pedido = consultoraOnlineMisPedidos.ListaPedidos.Where(p => p.PedidoId == cuv && p.Estado.Trim().Length == 0).ToList();
 
                 if (pedido == null)
                 {
