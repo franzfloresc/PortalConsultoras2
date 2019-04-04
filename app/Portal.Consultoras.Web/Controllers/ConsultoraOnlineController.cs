@@ -20,7 +20,7 @@ namespace Portal.Consultoras.Web.Controllers
         #region Configuracion de Paginado
 
         MisPedidosModel objMisPedidos;
-        readonly int registrosPagina = 5;
+        int registrosPagina;
         int indiceActualPagina = 0;
         int indiceUltimaPagina;
         readonly bool isEsika = false;
