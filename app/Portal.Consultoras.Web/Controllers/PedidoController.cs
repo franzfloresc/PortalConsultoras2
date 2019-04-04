@@ -25,6 +25,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using BEPedidoWeb = Portal.Consultoras.Web.ServicePedido.BEPedidoWeb;
 using BEPedidoWebDetalle = Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle;
+ 
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -339,6 +340,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 ViewBag.ActivarRecomendaciones = ObtenerFlagActivacionRecomendaciones();
                 ViewBag.MaxCaracteresRecomendaciones = ObtenerNumeroMaximoCaracteresRecomendaciones(false);
+                ViewBag.DemostradoresCaminoBrillante = new List<string>() { "00006", "00007", "00008" }; 
+
             }
             catch (FaultException ex)
             {

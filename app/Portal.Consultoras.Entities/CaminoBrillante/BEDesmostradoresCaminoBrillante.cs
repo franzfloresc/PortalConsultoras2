@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities.CaminoBrillante
 {
+    [DataContract]
     public class BEDesmostradoresCaminoBrillante
     {
         [DataMember]

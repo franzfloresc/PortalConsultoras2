@@ -3301,6 +3301,7 @@ namespace Portal.Consultoras.Common
             public const string ESPREMIOELEC = "ESPREMIOELEC";
             public const string ESCUPONNUEVAS = "ESCUPONNUEVAS";
             public const string ESELECMULTIPLENUEVAS = "ESELECMULTIPLENUEVAS";
+            public const string ESCAMINOBRILLANTE = "1181901,2181901";
         }
 
         public static class CodigosCatalogos
