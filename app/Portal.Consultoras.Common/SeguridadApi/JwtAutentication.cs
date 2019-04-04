@@ -8,7 +8,7 @@ using System.Web;
 
 namespace Portal.Consultoras.Common
 {
-    public class JwtAutentication
+    public static class JwtAutentication
     {
         #region Async Metodos
 
