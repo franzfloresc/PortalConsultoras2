@@ -1867,12 +1867,15 @@ var AnalyticsPortalModule = (function () {
         try {
             var textoCategory = "";
             if (estrategia !== "undefined")
-                if (estrategia.OrigenPedidoEditar !== "undefined")
-                    textoCategory = _getParametroListSegunOrigen(estrategia.OrigenPedidoEditar, "");
-
+                if (estrategia.CodigoUbigeoPortal !== "undefined") {
+                    textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(estrategia.CodigoUbigeoPortal);  //using new function
+                    textoCategory = textoCategory + " - Pop up Cambia tu opción";
+                }   
+           
+            textoCategory = textoCategory === "" ? "Contenedor - Pop up Elige 1 opción" : textoCategory;
             dataLayer.push({
                 'event': _evento.virtualEvent,
-                'category': 'Contenedor - Pop up Elige 1 opción',
+                'category': textoCategory,
                 'action': 'Elígelo',
                 'label': estrategia.DescripcionCompleta + '-' + componentes.HermanosSeleccionados[0].NombreBulk
             });
