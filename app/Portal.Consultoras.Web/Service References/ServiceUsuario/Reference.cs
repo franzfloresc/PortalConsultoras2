@@ -12963,7 +12963,13 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private int CantidadField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool ElegidoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int EstaEnRevistaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> EstadoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string MarcaField;
@@ -13007,9 +13013,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TonoField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<bool> estadoField;
-        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -13047,6 +13050,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Elegido {
+            get {
+                return this.ElegidoField;
+            }
+            set {
+                if ((this.ElegidoField.Equals(value) != true)) {
+                    this.ElegidoField = value;
+                    this.RaisePropertyChanged("Elegido");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int EstaEnRevista {
             get {
                 return this.EstaEnRevistaField;
@@ -13055,6 +13071,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.EstaEnRevistaField.Equals(value) != true)) {
                     this.EstaEnRevistaField = value;
                     this.RaisePropertyChanged("EstaEnRevista");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> Estado {
+            get {
+                return this.EstadoField;
+            }
+            set {
+                if ((this.EstadoField.Equals(value) != true)) {
+                    this.EstadoField = value;
+                    this.RaisePropertyChanged("Estado");
                 }
             }
         }
@@ -13237,19 +13266,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.TonoField, value) != true)) {
                     this.TonoField = value;
                     this.RaisePropertyChanged("Tono");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<bool> estado {
-            get {
-                return this.estadoField;
-            }
-            set {
-                if ((this.estadoField.Equals(value) != true)) {
-                    this.estadoField = value;
-                    this.RaisePropertyChanged("estado");
                 }
             }
         }

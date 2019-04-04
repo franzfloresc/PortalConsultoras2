@@ -891,7 +891,9 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
+      <xs:element minOccurs="0" name="Elegido" type="xs:boolean" />
       <xs:element minOccurs="0" name="EstaEnRevista" type="xs:int" />
+      <xs:element minOccurs="0" name="Estado" nillable="true" type="xs:boolean" />
       <xs:element minOccurs="0" name="Marca" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MarcaID" type="xs:int" />
       <xs:element minOccurs="0" name="MedioContacto" nillable="true" type="xs:string" />
@@ -906,7 +908,6 @@
       <xs:element minOccurs="0" name="TieneStock" type="xs:int" />
       <xs:element minOccurs="0" name="TipoAtencion" type="xs:int" />
       <xs:element minOccurs="0" name="Tono" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="estado" nillable="true" type="xs:boolean" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEMisPedidosDetalle" nillable="true" type="tns:BEMisPedidosDetalle" />

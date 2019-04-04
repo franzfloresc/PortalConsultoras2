@@ -33,8 +33,19 @@ namespace Portal.Consultoras.BizLogic
             }
         }
 
-
-        
+        //public IList<string> GetSapFromCuvlist(string cuvList, int campaniaid, int paisId)
+        //{
+        //    var daMisPedidos = new DAConsultoraOnline(paisId);
+        //    var result = new List<string>();
+        //    using (IDataReader reader = daMisPedidos.GetSapFromCuvlist(cuvList, campaniaid))
+        //    {
+        //        while (reader.Read())
+        //        {                  
+        //            result.Add(reader[0].ToString());
+        //        }
+        //        return result;
+        //    }
+        //}
 
         public IList<BEMisPedidos> GetMisPedidos(int PaisID, long ConsultoraId, int Campania)
         {
@@ -182,27 +193,30 @@ namespace Portal.Consultoras.BizLogic
             httpClient.DefaultRequestHeaders.Accept.Clear();
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            RecomendadoRequest.codigoPais = "pe";
-            RecomendadoRequest.codigocampania = "201905";
-            RecomendadoRequest.codigoZona = "1714";
-            RecomendadoRequest.origen = "sb-desktop";
-            RecomendadoRequest.codigoConsultora = "0033938";
-            RecomendadoRequest.cuv = "14647";
+
+            // RecomendadoRequest.codigoPais = "pe";
+            // RecomendadoRequest.codigocampania = "201905";
+            //RecomendadoRequest.codigoZona = "1714";
+            //RecomendadoRequest.origen = "sb-desktop";
+            //RecomendadoRequest.codigoConsultora = "0033938";
+            //  RecomendadoRequest.cuv = "14647";
+            // RecomendadoRequest.personalizaciones = "";
+            //    RecomendadoRequest.configuracion = new Configuracion();
+            //  RecomendadoRequest.configuracion.sociaEmpresaria = "0";
+            //   RecomendadoRequest.configuracion.diaFacturacion = 1;
+
+            //RecomendadoRequest.configuracion.suscripcionActiva = "False";
+            //RecomendadoRequest.configuracion.mdo = "True";
+            //RecomendadoRequest.configuracion.rd = "False";
+            //RecomendadoRequest.configuracion.rdi = "False";
+            //RecomendadoRequest.configuracion.rdr = "False";
+            //RecomendadoRequest.configuracion.mostrarProductoConsultado = "True";
+
             RecomendadoRequest.codigoProducto = new List<string>();
             RecomendadoRequest.codigoProducto.Add("210090349");
             RecomendadoRequest.codigoProducto.Add("210090295");
             RecomendadoRequest.codigoProducto.Add("200088604");
             RecomendadoRequest.cantidadProductos = 1000;
-            RecomendadoRequest.personalizaciones = "";
-            RecomendadoRequest.configuracion = new Configuracion();
-            RecomendadoRequest.configuracion.sociaEmpresaria = "0";
-            RecomendadoRequest.configuracion.suscripcionActiva = "False";
-            RecomendadoRequest.configuracion.mdo = "True";
-            RecomendadoRequest.configuracion.rd = "False";
-            RecomendadoRequest.configuracion.rdi = "False";
-            RecomendadoRequest.configuracion.rdr = "False";
-            RecomendadoRequest.configuracion.diaFacturacion = 1;
-            RecomendadoRequest.configuracion.mostrarProductoConsultado = "True";
 
             var dataString = JsonConvert.SerializeObject(RecomendadoRequest);
             HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");

@@ -164,8 +164,10 @@ namespace Portal.Consultoras.Entities
         public int PedidoWebDetalleID { get; set; }
 
         [DataMember]
-        public bool? estado { get; set; }
+        public bool? Estado { get; set; }
 
+        [DataMember]
+        public bool Elegido { get; set; }
 
         public BEMisPedidosDetalle()
         {
@@ -179,7 +181,7 @@ namespace Portal.Consultoras.Entities
             Tono = row.ToString("Tono");
             Marca = row.ToString("Marca");
             CUV = row.ToString("CUV");
-            estado = row.ToBoolean("estado");
+            Estado = row.ToBoolean("estado");
             PrecioUnitario = row.ToDouble("Precio");
             Cantidad = row.ToInt32("Cantidad");
             PrecioTotal = PrecioUnitario * Cantidad;
