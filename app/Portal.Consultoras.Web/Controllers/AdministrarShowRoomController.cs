@@ -507,7 +507,7 @@ namespace Portal.Consultoras.Web.Controllers
                 else
                 {
                     listaPersonalizacionModel = configEstrategiaSR.ListaPersonalizacionConsultora.Where(
-                            p => p.TipoPersonalizacion == Constantes.ShowRoomPersonalizacion.TipoPersonalizacion.Evento).ToList();
+                            p => p.TipoPersonalizacion == Constantes.ShowRoomPersonalizacion.TipoPersonalizacionSr.Evento).ToList();
 
                     List<ServicePedido.BEShowRoomPersonalizacionNivel> listaPersonalizacionNivel;
 
