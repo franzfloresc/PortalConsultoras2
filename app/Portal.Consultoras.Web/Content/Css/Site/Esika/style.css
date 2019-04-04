@@ -28601,7 +28601,9 @@ div.motivoRechazo textarea {
 }
 
 .opcion_cdr,
-.opcion_cdr_seleccionada_campo_busqueda {
+.opcion_cdr_seleccionada_campo_busqueda,
+.validacion_datos_correo_electronico,
+.validacion_datos_celular_contacto {
     display: inline-block;
     vertical-align: middle;
 }
@@ -28619,8 +28621,9 @@ div.motivoRechazo textarea {
     }
 
 .opcion_cdr_enlace,
-.opcion_cdr_seleccionada_terminos_entrega_producto_set_wrapper{
-    position:relative;
+.opcion_cdr_seleccionada_terminos_entrega_producto_wrapper,
+.opcion_cdr_seleccionada_terminos_entrega_producto_set_wrapper {
+    position: relative;
 }
 
 .opcion_cdr_enlace {
@@ -28643,6 +28646,10 @@ div.motivoRechazo textarea {
     margin-bottom: 21px;
 }
 
+.opcion_cdr_icono--solicitudReclamo{
+    margin-bottom:0;
+}
+
 .opcion_cdr_checkbox {
     display: block;
     background-color: #FFF;
@@ -28652,7 +28659,7 @@ div.motivoRechazo textarea {
     position: absolute;
     top: 10px;
     right: 11px;
-    cursor:pointer;
+    cursor: pointer;
     -moz-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
     -webkit-transition: all 0.3s ease;
@@ -28671,7 +28678,9 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 .opcion_cdr_seleccionada_info--devolucionCasoSetProducto p,
 .opcion_cdr_seleccionada_campo_busqueda,
 .opcion_cdr_seleccionada_terminos_entrega_producto_texto,
-.opcion_cdr_seleccionada_info--cambioMismoProducto p{
+.opcion_cdr_seleccionada_info--cambioMismoProducto p,
+.opcion_cdr_seleccionada_info--envioProducto p,
+.opcion_cdr_seleccionada_info--devolucionDinero p{
     font-size: 14px;
     letter-spacing: 0.1px;
 }
@@ -28681,7 +28690,9 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 }
 
 .opcion_cdr_seleccionada_campos_busqueda_producto_a_cambiar,
-.opcion_cdr_seleccionada_info--cambioMismoProducto {
+.opcion_cdr_seleccionada_info--cambioMismoProducto,
+.opcion_cdr_seleccionada_info--envioProducto,
+.opcion_cdr_seleccionada_info--devolucionDinero {
     margin-top: 30px;
     margin-bottom: 20px;
 }
@@ -28795,26 +28806,26 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     margin-bottom:8px;
 }
 
-.producto_nom {
-    font-size: 16px;
-}
-
 .producto_set_lista,
 .opcion_cdr_checkbox--terminosEntregaProductoSet,
 .opcion_cdr_seleccionada_terminos_entrega_producto_texto {
     display: inline-block;
 }
 
+.producto_nom,
 .producto_set_lista {
     margin-top: 8px;
     margin-bottom: 18px;
+}
+    .producto_nom span,
+    .producto_set_lista span {
+        display:block;
+        margin-bottom: 5px;
+    }
+
+.producto_set_lista {    
     text-align: left;
 }
-
-    .producto_set_lista span{
-        display:block;
-        margin-bottom:5px;
-    }
 
 .opcion_cdr_checkbox--terminosEntregaProductoSet,
 .opcion_cdr_seleccionada_terminos_entrega_producto_texto {
@@ -28831,7 +28842,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 }
 
 .opcion_cdr_seleccionada_terminos_entrega_producto_texto{
-    line-height:22px;
+    line-height:20px;
 }
 
 .btn_no_stock {
@@ -29078,12 +29089,31 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 }
 
 .listado_producto_reclamo {
-    width: 40%;
+    width: 37%;
     padding-right: 15px;
 }
 
 .listado_solicitud_reclamo {
-    width: 22%;
+    width: 17%;
+    margin-right: 100px;
+}
+
+.listado_solicitud_reclamo_icono_solucion,
+.listado_solicitud_reclamo_descrip_solucion{
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.listado_solicitud_reclamo_icono_solucion {
+    width: 35px;
+    height: 35px;
+    margin-bottom: 7px;
+}
+
+.listado_solicitud_reclamo_descrip_solucion{
+    font-size:14px;
+    max-width:100px;
+    line-height:17px;
 }
 
 .listado_solicitada_reclamo {
@@ -29148,7 +29178,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 
 .texto_correo {
     display: block;
-    margin-left: 60px;
+    margin-left: 51px;
     font-family: 'Lato';
     font-size: 15px;
     color: #b5b5b5;
