@@ -640,7 +640,7 @@ namespace Portal.Consultoras.Common
             public const string DGuiaNegocio = "1I0";
             public const string MGuiaNegocio = "2I0";
             public const string DHerramientaVenta = "1J0";
-            public const string MHerramientaVenta = "2J0";  
+            public const string MHerramientaVenta = "2J0";
             public const string DMasGanadoras = "1K0";
             public const string MMasGanadoras = "2K0";
             public const string DDuoPerfecto = "1L0";
@@ -1385,6 +1385,7 @@ namespace Portal.Consultoras.Common
         public static class Facebook
         {
             public const string FB_AppId = "FB_AppId";
+            public const string FB_Pixel = "168434853695851";
         }
 
         public static class RevistaNombre
@@ -2379,7 +2380,7 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_UNIDAD_SOBREPASA_PERMITIDO = "2116";
                 public const string ERROR_UNIDAD_SINSALDO = "2117";
                 public const string ERROR_UNIDAD_CONSALDO = "2118";
-                public const string ERROR_UNIDAD_SOBREPASA_STOCK = "2119";               
+                public const string ERROR_UNIDAD_SOBREPASA_STOCK = "2119";
 
                 public const string ERROR_RESERVA_NINGUNO = "2010";
                 public const string SUCCESS_RESERVA = "2011";
@@ -3047,9 +3048,9 @@ namespace Portal.Consultoras.Common
             /// <summary>
             /// api/Evento/listarConsultora/{isoPais}/{codigoConsultora}/{codigoCampania}
             /// </summary>
-            public const string UrlObtenerPersonalizacion= "api/Personalizacion/{0}/{1}/{2}";
+            public const string UrlObtenerPersonalizacion = "api/Personalizacion/{0}/{1}/{2}";
             #endregion
-            
+
             #region Reporte
             /// <summary>
             /// /api/Reporte/ReporteValidacion/{pais}/{tipo}/{campania}
@@ -3108,7 +3109,7 @@ namespace Portal.Consultoras.Common
             public const string FlagBuscarPorCategoria = "BuscarPorCategoria";
             public const string FlagBuscarPorCategoriaTotalProductos = "BuscarPorCategoriaTotalProductos";
         }
-        
+
         public static class CodigoConfiguracionMSPersonalizacion
         {
             public const string EstrategiaDisponible = "EstrategiaDisponible";
@@ -3375,7 +3376,8 @@ namespace Portal.Consultoras.Common
             public const int ColorTextoApp = 10215;
         }
 
-        public static class Formatos {
+        public static class Formatos
+        {
             public const string Fecha = "dd/MM/yyyy";
             public const string FechaHora = "dd/MM/yyyy HH:mm";
         }
@@ -3410,7 +3412,7 @@ namespace Portal.Consultoras.Common
                 public const string MaquilladorVirtual = "04";
             }
         }
-        
+
         public static class OpcionesUsuario
         {
             public const int BoletaImpresa = 1;
