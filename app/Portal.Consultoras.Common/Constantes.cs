@@ -3584,8 +3584,8 @@ namespace Portal.Consultoras.Common
                     public static class Medallas
                     {
 
-                        public const string ComoLograrlo = "¿Cómo lograrlo?";
                         public const string YaLoTienes = "¡Ya lo tienes!";
+                        public const string ComoLograrlo = "¿Cómo lograrlo?";
 
                         public static class Codes
                         {
