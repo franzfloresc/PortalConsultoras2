@@ -17,30 +17,23 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Index()
         {
             var informacion = SessionManager.GetConsultoraCaminoBrillante() ?? new ServiceUsuario.BEConsultoraCaminoBrillante();
+            if (informacion == null || informacion.NivelConsultora == null || informacion.NivelConsultora.Count() == 0) return RedirectToAction("Index", "Bienvenida");
 
-            if (informacion != null)
-            {
-                if (informacion.NivelConsultora != null)
+            int nivelActual = 0;
+            int.TryParse(informacion.NivelConsultora.Where(x => x.EsActual).Select(z => z.Nivel).FirstOrDefault(), out nivelActual);
+
+            informacion.Niveles.ToList().ForEach(
+                e =>
                 {
-                    int nivelActual = 0;
-                    int.TryParse(informacion.NivelConsultora.Where(x => x.EsActual).Select(z => z.Nivel).FirstOrDefault(), out nivelActual);
+                    int nivel = 0;
+                    int.TryParse(e.CodigoNivel, out nivel);
+                    e.UrlImagenNivel = Constantes.CaminoBrillante.Niveles.Iconos.Keys.Contains(e.CodigoNivel) ? Constantes.CaminoBrillante.Niveles.Iconos[e.CodigoNivel][nivel <= nivelActual ? 1 : 0] : "";
+                });
 
-                    informacion.Niveles.ToList().ForEach(
-                        e =>
-                        {
-                            int nivel = 0;
-                            int.TryParse(e.CodigoNivel, out nivel);
-                            e.UrlImagenNivel = Constantes.CaminoBrillante.Niveles.Iconos.Keys.Contains(e.CodigoNivel) ? Constantes.CaminoBrillante.Niveles.Iconos[e.CodigoNivel][nivel <= nivelActual ? 1 : 0] : "";
-                        });
-
-                    ViewBag.TieneOfertasEspeciales = informacion.Niveles.Where(e => e.CodigoNivel == nivelActual.ToString()).Select(e => e.TieneOfertasEspeciales).FirstOrDefault();
-                    ViewBag.ResumenLogros = informacion.ResumenLogros;
-                    ViewBag.Niveles = informacion.Niveles;
-                    ViewBag.NivelActual = nivelActual;
-                }
-                else
-                    return RedirectToAction("Index", "Bienvenida");
-            }
+            ViewBag.TieneOfertasEspeciales = informacion.Niveles.Where(e => e.CodigoNivel == nivelActual.ToString()).Select(e => e.TieneOfertasEspeciales).FirstOrDefault();
+            ViewBag.ResumenLogros = informacion.ResumenLogros;
+            ViewBag.Niveles = informacion.Niveles;
+            ViewBag.NivelActual = nivelActual;
             return View();
         }
 
