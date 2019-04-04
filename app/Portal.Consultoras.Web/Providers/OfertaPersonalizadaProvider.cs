@@ -496,9 +496,13 @@ namespace Portal.Consultoras.Web.Providers
                             return e;
                         }).ToList();
                     }
-                    else if (GetValidarDiasAntesStock(userData))
+                    else
                     {
-                        listEstrategia = _consultaProlProvider.ActualizarEstrategiaStockPROL(listEstrategia, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora);
+                        var validarDias = GetValidarDiasAntesStock(userData);
+                        if (validarDias)
+                        {
+                            listEstrategia = _consultaProlProvider.ActualizarEstrategiaStockPROL(listEstrategia, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora);
+                        }
                     }
                 }
 
@@ -912,7 +916,7 @@ namespace Portal.Consultoras.Web.Providers
                         x.Hermanos = ObtenerListaTonos(
                             listaProducto.FirstOrDefault(c => c.CUV2 == x.CUV2 && c.CampaniaID == x.CampaniaID).EstrategiaProducto.ToList());
                 });
-            var listaPedido = _pedidoWeb.ObtenerPedidoWebSetDetalleAgrupado(0);
+            var listaPedido = _pedidoWeb.ObtenerPedidoWebSetDetalleAgrupado();
             var listaEstrategiaPedidoModel = ConsultarEstrategiasFormatoModelo1(listaProductoModel, listaPedido, codigoISO, campaniaID);
             return listaEstrategiaPedidoModel;
         }
@@ -1308,7 +1312,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 if (tipoOferta != 3)
                 {
-                    var listaPedidoDetalle = _pedidoWeb.ObtenerPedidoWebSetDetalleAgrupado(0);
+                    var listaPedidoDetalle = _pedidoWeb.ObtenerPedidoWebSetDetalleAgrupado();
                     listaProductoRetorno.Update(x =>
                     {
                         x.IsAgregado = listaPedidoDetalle.Any(p => p.EstrategiaId == x.EstrategiaID);
@@ -1503,7 +1507,7 @@ namespace Portal.Consultoras.Web.Providers
             if (revisarLista != null)
             {
                 if (!revisarLista.Any()) return new List<EstrategiaPersonalizadaProductoModel>();
-                var listaPedido = _pedidoWeb.ObtenerPedidoWebSetDetalleAgrupado(0);
+                var listaPedido = _pedidoWeb.ObtenerPedidoWebSetDetalleAgrupado();
                 revisarLista.Update(x =>
                 {
                     x.IsAgregado = listaPedido.Any(p => p.EstrategiaId == x.EstrategiaID);

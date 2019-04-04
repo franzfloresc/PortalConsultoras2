@@ -36,7 +36,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             var OfertaATP = listaOfertasATP.FirstOrDefault();
-            var lstPedidoAgrupado = ObtenerPedidoWebSetDetalleAgrupado(false);
+            var lstPedidoAgrupado = ObtenerPedidoWebSetDetalleAgrupado();
             var packAgregado = lstPedidoAgrupado != null ? lstPedidoAgrupado.FirstOrDefault(x => x.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.ArmaTuPack) : null;
 
             var DetalleEstrategiaFichaModel = new DetalleEstrategiaFichaModel
