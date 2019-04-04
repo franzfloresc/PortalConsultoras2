@@ -602,23 +602,19 @@ function ObtenerProductosSugeridos(CUV) {
             $('#PopSugerido').show();
             SetHandlebars("#js-CarruselSugerido", lista, '#divCarruselSugerido');
             $.each($("#divCarruselSugerido .sugerido"), function (index, obj) {
-                
 
+                debugger;
                 var selector = $(obj).find(".nombre_producto_sugerido");
-                var descripcion = selector.html();
-                var str = new String(descripcion);
-                var wd = str.length;
-               
-                if (wd <= 100) {
-                    $(obj).find(".nombre_producto_sugerido").html(selector.html());
-
-
+                var descripcion = selector.text().trim();
+                var wd = descripcion.length;
+                if (wd <= 50) {
+                    selector.html(descripcion);
                 }
                 else {
 
-                    var descripcionNueva = descripcion.substring(0, 100);
+                    var descripcionNueva = descripcion.substring(0, 50);
                     descripcionNueva = descripcionNueva + "...";
-                    $(obj).find(".nombre_producto_sugerido").html(descripcionNueva);
+                    selector.html(descripcionNueva);
                 }
                 
             });
