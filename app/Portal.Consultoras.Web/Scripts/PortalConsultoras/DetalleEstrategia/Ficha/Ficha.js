@@ -41,11 +41,7 @@ $(document).ready(function () {
     }
     catch (error) {
         console.log(error);
-        var url = "/ofertas";
-        if (generalModule.isMobile()) {
-            url = "/mobile" + url;
-        } 
-        generalModule.redirectTo(url);
+        generalModule.redirectTo("ofertas");
     }
 
     CerrarLoad();

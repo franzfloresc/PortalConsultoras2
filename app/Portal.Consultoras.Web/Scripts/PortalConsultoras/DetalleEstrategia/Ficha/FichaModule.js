@@ -573,6 +573,18 @@ var FichaModule = (function (config) {
         $(_elementos.dataEstrategia.id).attr(_elementos.dataEstrategia.dataEstrategia, JSON.stringify(estrategia));
         _setEstrategiaBreadcrumb(estrategia);
         estrategia.MostrarCliente = modeloFicha.MostrarCliente;
+        console.log('estrategia ---', estrategia);
+
+        
+        //INI Agana 456: para setear valores del detalle individual
+        if (config.componenteDetalleModule === null || typeof config.componenteDetalleModule === "undefined") {
+            //throw "config.componenteDetalleModule is null or undefined";
+            console.log('config.componenteDetalleModule is null or undefined');//hay casos que es opcional
+        } else {
+            _config.componenteDetalleModule.VerDetalleIndividual(estrategia);
+        }
+        //END Agana 457
+
         _setHandlebars(_template.producto, estrategia);
 
         _setEstrategiaTipoBoton(estrategia);
@@ -1139,7 +1151,7 @@ var FichaPartialModule = (function () {
         if (typeof AnalyticsPortalModule !== 'undefined') {
             AnalyticsPortalModule.MarcaFichaResumidaClickDetalleProducto(producto);
         }
-
+        if (tipoEstrategiaCodigo == ConstantesModule.TipoEstrategia.ArmaTuPack) {
         if (tipoEstrategiaCodigo == ConstantesModule.TipoEstrategia.ArmaTuPack) {
             _mostrarPopupAtp(campaniaId, setid, cuv);
         }
