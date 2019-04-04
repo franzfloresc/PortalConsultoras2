@@ -1071,7 +1071,7 @@ var PedidoRegistroModule = function () {
 
                 CloseLoading();
 
-                //INI HD-MDRR
+                //INI HD-3908
                 if (_flagNueva && IsNullOrEmpty(data.mensajeAviso)) {
                     try {
                         var $AgregadoTooltip = $("[data-agregado=\"tooltip\"]");
@@ -1081,7 +1081,7 @@ var PedidoRegistroModule = function () {
                         console.error(e);
                     }
                 }
-                //FIN HD-MDRR
+                //FIN HD-3908
                 var prevTotal = mtoLogroBarra || 0;
                 MostrarBarra(data);
                 var existeError = $(data).filter("input[id=hdErrorInsertarProducto]").val();
@@ -1241,7 +1241,7 @@ var PedidoRegistroModule = function () {
 
                 $("#hdErrorInsertarProducto").val(data.errorInsertarProducto);
 
-                //INI HD-MDRR
+                //INI HD-3908
                 if (_flagNueva && IsNullOrEmpty(data.mensajeAviso)) {
                     try {
                         var $AgregadoTooltip = $("[data-agregado=\"tooltip\"]");
@@ -1251,7 +1251,7 @@ var PedidoRegistroModule = function () {
                         console.error(e);
                     }
                 }
-                //FIN HD-MDRR
+                //FIN HD-3908
                 cierreCarouselEstrategias();
                 CargarCarouselEstrategias();
                 HideDialog("divVistaPrevia");

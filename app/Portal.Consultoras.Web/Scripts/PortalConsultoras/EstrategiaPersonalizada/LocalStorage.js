@@ -66,6 +66,11 @@
             case _tipoEstrategiaPalanca.MG:
             case _constantesPalanca.MasGanadoras:
                 return _keyLocalStorage.Ganadoras;
+            //INI HD-3908
+            case _tipoEstrategiaPalanca.PN:
+            case _constantesPalanca.PackNuevas:
+                return _keyLocalStorage.PackNuevas;
+            //FIN HD-3908
             default:
                 return null;
         }

@@ -1044,6 +1044,12 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     x.CodigoPalanca = Constantes.ConfiguracionPais.MasGanadoras;
                 }
+                //INI HD-MDRR
+                else if (palanca == Constantes.TipoEstrategiaCodigo.PackNuevas)
+                {
+                    x.CodigoPalanca = Constantes.ConfiguracionPais.PackNuevas;
+                }
+                //FIN HD-MDRR
             });
 
             return listaProducto;

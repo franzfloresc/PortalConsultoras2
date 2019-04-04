@@ -382,7 +382,7 @@ var EstrategiaAgregarModule = (function () {
                 }
 
 
-                //INI HD-MDRR
+                //INI HD-3908
 
                 ////Tooltip de agregado
                 //if (esFicha) {
@@ -418,7 +418,7 @@ var EstrategiaAgregarModule = (function () {
                     }
 
                 }
-                //FIN HD-MDRR
+                //FIN HD-3908
                
                 var barraJsLoaded = typeof MostrarBarra === 'function';
 
