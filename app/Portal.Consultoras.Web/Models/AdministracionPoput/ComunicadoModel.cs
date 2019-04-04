@@ -41,10 +41,10 @@ namespace Portal.Consultoras.Web.Models.AdministracionPoput
 
     public class Archivo
     {
-        public int RegionId { get; set; }
-        public int ZonaId{ get; set; }
-        public int Estado { get; set; }
-        public int Consultoraid{ get; set; }
+        public string RegionId { get; set; }
+        public string ZonaId{ get; set; }
+        public string Estado { get; set; }
+        public string Consultoraid{ get; set; }
     }
    
 }

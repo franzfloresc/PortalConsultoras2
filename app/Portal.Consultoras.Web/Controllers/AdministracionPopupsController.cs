@@ -133,10 +133,10 @@ namespace Portal.Consultoras.Web.Controllers
                                     {
                                         listArchivo.Add(new Archivo()
                                         {
-                                            RegionId = Convert.ToInt32(row.Split(","[0])[0]),
-                                            ZonaId = Convert.ToInt32(row.Split(","[0])[1]),
-                                            Estado = Convert.ToInt32(row.Split(","[0])[2]),
-                                            Consultoraid = Convert.ToInt32(row.Split(","[0])[3])
+                                            RegionId = row.Split(","[0])[0].Replace("\r", ""),
+                                            ZonaId = row.Split(","[0])[1].Replace("\r", ""),
+                                            Estado = row.Split(","[0])[2].Replace("\r", "") ,
+                                            Consultoraid = row.Split(","[0])[3].Replace("\r", "")
                                         });
                                     }
                                 }

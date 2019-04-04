@@ -38,6 +38,6 @@ namespace Portal.Consultoras.Entities.Comunicado
         public int Estado { get; set; }
         [DataMember]
         [Column("Consultoraid")]
-        public int Consultoraid { get; set; }
+        public string Consultoraid { get; set; }
     }
 }
