@@ -602,8 +602,6 @@ function ObtenerProductosSugeridos(CUV) {
             $('#PopSugerido').show();
             SetHandlebars("#js-CarruselSugerido", lista, '#divCarruselSugerido');
             $.each($("#divCarruselSugerido .sugerido"), function (index, obj) {
-
-                debugger;
                 var selector = $(obj).find(".nombre_producto_sugerido");
                 var descripcion = selector.text().trim();
                 var wd = descripcion.length;
