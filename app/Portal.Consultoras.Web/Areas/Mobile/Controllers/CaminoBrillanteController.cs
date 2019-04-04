@@ -80,17 +80,17 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return Json(new { Niveles = Beneficios }, JsonRequestBehavior.AllowGet);
         }
 
-        private List<BEOfertaCaminoBrillante> GetOfertasCaminoBrillante()
+        private List<BEKitCaminoBrillante> GetOfertasCaminoBrillante()
         {
             try
             {
-                var ofertas = SessionManager.GetOfertasCaminoBrillante();
+                var ofertas = SessionManager.GetKitCaminoBrillante();
                 if (ofertas == null || ofertas.Count > 0)
                 {
                     using (var svc = new UsuarioServiceClient())
-                        ofertas = svc.GetOfertasCaminoBrillante(userData.PaisID, "201904").ToList();
+                        ofertas = svc.GetKitCaminoBrillante(userData.PaisID, "201904").ToList();
                     if (ofertas != null)
-                        SessionManager.SetOfertasCaminoBrillante(ofertas);
+                        SessionManager.SetKitCaminoBrillante(ofertas);
                 }
 
                 return ofertas;
