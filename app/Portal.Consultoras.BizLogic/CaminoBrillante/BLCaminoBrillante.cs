@@ -89,25 +89,25 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 GetConsultoraLogrosCompromiso(paisId, entidad, nivelConsultora) };
         }
 
-        public List<BEOfertaCaminoBrillante> GetOfertas(int paisId, string campania)
+        public List<BEKitCaminoBrillante> GetKit(int paisId, string campania)
         {
-            return GetOfertasCache(paisId, campania);
+            return GetKitCache(paisId, campania);
         }
 
-        public List<BEOfertaCaminoBrillante> GetOfertasCache(int paisId, string campania)
+        public List<BEKitCaminoBrillante> GetKitCache(int paisId, string campania)
         {
-            return CacheManager<List<BEOfertaCaminoBrillante>>.ValidateDataElement(paisId, ECacheItem.CaminoBrillanteOfertas, campania, () => GetOfertasProvider(paisId, campania));
+            return CacheManager<List<BEKitCaminoBrillante>>.ValidateDataElement(paisId, ECacheItem.CaminoBrillanteOfertas, campania, () => GetKitProvider(paisId, campania));
         }
 
         //Pendiente cargar imagenes
-        public List<BEOfertaCaminoBrillante> GetOfertasProvider(int paisId, string campania)
+        public List<BEKitCaminoBrillante> GetKitProvider(int paisId, string campania)
         {
             _providerCaminoBrillante = _providerCaminoBrillante ?? getCaminoBrillanteProvider(paisId);
             if (_providerCaminoBrillante == null) return null;
 
             var ofertas = _providerCaminoBrillante.GetOfertas(Util.GetPaisIsoHanna(paisId), campania).Result;
 
-            return ofertas.Select(e => new BEOfertaCaminoBrillante()
+            return ofertas.Select(e => new BEKitCaminoBrillante()
             {
                 CodigoKit = e.CodigoKit,
                 CodigoSap = e.CodigoSap,
