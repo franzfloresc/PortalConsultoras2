@@ -101,7 +101,7 @@ namespace Portal.Consultoras.Web.Controllers
                 #region AGana 399: data tmp
                 componentes.ForEach(x => {
 
-                    x.Cabecera = new EstrategiaComponenteCabeceraModel { ContenidoNeto = "80 ml", Dimensiones = "15 x 20 x 25 milímetros", TallaMedidas = "TallaMedidas 1" };
+                    x.Cabecera = new EstrategiaComponenteCabeceraModel { ContenidoNeto = "80 ml", Dimensiones = "15 x 20 x 25 milímetros", TallaMedidas = "Talla medida ejm 1" };
                     x.Secciones = new List<EstrategiaComponenteSeccionModel>(){
                 new EstrategiaComponenteSeccionModel()
                 {

@@ -44,12 +44,19 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     {{DescripcionCompleta}}
                 </div>
+                <!--INI AGANA 456 -->
+                {{#each this.Hermanos as |componente|}}
                 <div class="col-md-12 col-sm-12 col-xs-12 descripcion_item">
-                    15 gr
+                    {{componente.Cabecera.ContenidoNeto}}
                 </div>
                 <div class="col-md-12 col-sm-12 col-xs-12 descripcion_item">
-                    15 x 20 x 25 milimentos
+                    {{componente.Cabecera.Dimensiones}}
                 </div>
+                <div class="col-md-12 col-sm-12 col-xs-12 descripcion_item">
+                    {{componente.Cabecera.TallaMedidas}}
+                </div>
+                {{/each}}
+                <!--END AGANA 456 -->
             </div>
             {{#IsNullOrEmpty this.ListaDescripcionDetalle '!='}}
             <div id="SloganLanzamientos">
