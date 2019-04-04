@@ -3,7 +3,7 @@ using System.Linq;
 using Portal.Consultoras.Common;
 using System;
 using System.Collections.Generic;
-using System;
+using Portal.Consultoras.Web.ServiceUsuario;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -12,6 +12,8 @@ namespace Portal.Consultoras.Web.Controllers
     {
         #region CaminoBrillante
         // GET: CaminoBrillante
+
+
         public ActionResult Index()
         {
             var informacion = SessionManager.GetConsultoraCaminoBrillante() ?? new ServiceUsuario.BEConsultoraCaminoBrillante();
@@ -49,16 +51,22 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Crecimiento()
         {
+            var informacion = SessionManager.GetConsultoraCaminoBrillante() ?? new ServiceUsuario.BEConsultoraCaminoBrillante();
+
+            if (informacion.Logros != null)
+            {
+                ViewBag.Crecimiento = informacion.Logros;
+            }
+            else
+                return RedirectToAction("Index", "Bienvenida");
             return View();
         }
 
         public ActionResult Ofertas()
         {
-            //var model = GetOfertasCaminoBrillante();
-            //if (model == null || model.Count == 0) return RedirectToAction("Index", "CaminoBrillante");
-
-            //return View(model);
-            return null;
+            var model = GetOfertasCaminoBrillante();
+            if (model == null || model.Count == 0) return RedirectToAction("Index", "CaminoBrillante");
+            return View(model);
         }
 
         [HttpPost]
@@ -79,6 +87,28 @@ namespace Portal.Consultoras.Web.Controllers
                 });
 
             return Json(new { Niveles = Beneficios }, JsonRequestBehavior.AllowGet);
+        }
+
+        private List<BEOfertaCaminoBrillante> GetOfertasCaminoBrillante()
+        {
+            try
+            {
+                var ofertas = SessionManager.GetOfertasCaminoBrillante();
+                if (ofertas == null || ofertas.Count > 0)
+                {
+                    using (var svc = new UsuarioServiceClient())
+                        ofertas = svc.GetOfertasCaminoBrillante(userData.PaisID, "201904").ToList();
+                    if (ofertas != null)
+                        SessionManager.SetOfertasCaminoBrillante(ofertas);
+                }
+
+                return ofertas;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return null;
+            }
         }
         #endregion
     }
