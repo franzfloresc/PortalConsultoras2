@@ -92,8 +92,15 @@ var FichaModule = (function (config) {
     var _primeraMarca = "";
     var _ultimaMarca = "";
     var _esMultimarca = false;
-    var _estrategia = {};
-    
+
+    var _modeloFichaTemp = null;
+    var _modeloFicha = function (value) {
+        if (typeof value === "undefined") {
+            return _modeloFichaTemp;
+        } else {
+            _modeloFichaTemp = value;
+        }
+    } 
 
     var _config = {
         esMobile: null,
@@ -306,7 +313,7 @@ var FichaModule = (function (config) {
     };
 
     var _construirSeccionDetalleFichas = function () {
-        var pEstrategia = _estrategia;
+        var pEstrategia = _modeloFicha();
         if (pEstrategia === null || typeof (pEstrategia) === "undefined") {
             //_redireccionar("_construirSeccionDetalleFichas, sin Estrategia");
             throw "_construirSeccionDetalleFichas, sin Estrategia";
@@ -345,6 +352,9 @@ var FichaModule = (function (config) {
         } else {
             _config.componenteDetalleModule.OcultarControles();
         }
+
+        _modeloFicha(pEstrategia);
+
         return true;
     };
 
@@ -505,9 +515,8 @@ var FichaModule = (function (config) {
         }
     };
 
-    var _getEstrategia = function () {
+    var _getEstrategia = function (modeloFicha) {
         var estrategia;
-        var modeloFicha = _modeloFicha();
 
         if (_config.tieneSession) {
             if (_config.esEditable || modeloFicha.TipoAccionNavegar === _tipoAccionNavegar.Volver) {
@@ -544,7 +553,7 @@ var FichaModule = (function (config) {
 
         estrategia = $.extend(modeloFicha, estrategia);
         estrategia.TipoPersonalizacion = _tipoPersonalizacion(estrategia.CodigoEstrategia);
-        _estrategia = estrategia;
+        //_estrategia = estrategia;
         return estrategia;
     };
 
@@ -561,8 +570,7 @@ var FichaModule = (function (config) {
     ////// Ini - Construir Seccion Estrategia
     var _construirSeccionEstrategia = function () {
 
-        var estrategia = getEstrategia();
-        var modeloFicha = _modeloFicha();
+        var estrategia = _modeloFicha();
 
         if (estrategia == null) {
             //_redireccionar("_construirSeccionEstrategia, sin estrategia");
@@ -572,8 +580,8 @@ var FichaModule = (function (config) {
 
         $(_elementos.dataEstrategia.id).attr(_elementos.dataEstrategia.dataEstrategia, JSON.stringify(estrategia));
         _setEstrategiaBreadcrumb(estrategia);
-        estrategia.MostrarCliente = modeloFicha.MostrarCliente;
-        console.log('estrategia ---', estrategia);
+        //estrategia.MostrarCliente = modeloFicha.MostrarCliente;
+        //console.log('estrategia ---', estrategia);
 
         
         //INI Agana 456: para setear valores del detalle individual
@@ -604,7 +612,7 @@ var FichaModule = (function (config) {
             _validarSiEsAgregado(estrategia);
         }
 
-        _estrategia = estrategia;
+        _modeloFicha(estrategia);
 
         return true;
     };
@@ -838,17 +846,19 @@ var FichaModule = (function (config) {
 
     var _construirSeccionFicha = function () {
         var modeloFicha = _getModelo();
-        _modeloFicha(modeloFicha);
-        //
-        _config.tieneSession = modeloFicha.TieneSession;
-        _config.palanca = modeloFicha.Palanca || _config.palanca;
-        _config.origen = modeloFicha.OrigenUrl || _config.origen;
-        _config.mostrarCliente = modeloFicha.MostrarCliente || _config.mostrarCliente;
+        //_modeloFicha(modeloFicha);
+        ////
+        //_config.tieneSession = modeloFicha.TieneSession;
+        //_config.palanca = modeloFicha.Palanca || _config.palanca;
+        //_config.origen = modeloFicha.OrigenUrl || _config.origen;
+        //_config.mostrarCliente = modeloFicha.MostrarCliente || _config.mostrarCliente;
 
         if (!_validaOfertaDelDia(true)) {
             //_redireccionar("_construirSeccionFicha, ValidaOfertaDelDia");
-            throw "_construirSeccionFicha, ValidaOfertaDelDia";
-            //return false;
+            setTimeout(function () {
+                throw "_construirSeccionFicha, ValidaOfertaDelDia";
+            }, 2000);
+            return false;
         }
 
         //if (_validarAbrirFichaResumida()) {
@@ -864,15 +874,6 @@ var FichaModule = (function (config) {
         }
 
         _setHandlebars(_template.compartir, modeloFicha);
-    };
-
-    var _modeloFichaTemp = null;
-    var _modeloFicha = function (value) {
-        if (typeof value === "undefined") {
-            return _modeloFichaTemp;
-        } else {
-            _modeloFichaTemp = value;
-        }
     };
 
     var _getModelo = function () {
@@ -1008,23 +1009,28 @@ var FichaModule = (function (config) {
         if (typeof _config.analyticsPortalModule === 'undefined')
             return;
 
-        _config.analyticsPortalModule.MarcaVisualizarDetalleProducto(_estrategia);
+        _config.analyticsPortalModule.MarcaVisualizarDetalleProducto(_getModelo());
 
     };
 
-    function getEstrategia() {
-        if (isInt(_estrategia.EstrategiaID)) {
-            return _estrategia;
-        }
-        return _getEstrategia();
-    }
+    //function getEstrategia() {
+    //    var modeloFicha = _modeloFicha();
+
+    //    if (isInt(modeloFicha.EstrategiaID)) {
+    //        return modeloFicha;
+    //    }
+
+    //    modeloFicha = _getEstrategia(modeloFicha);
+
+    //    _modeloFicha(modeloFicha);
+    //}
 
     //function getModeloFicha() {
     //    return _modeloFicha;
     //}
 
     var _validaOfertaDelDia = function (mostrarMensaje) {
-        var estrategia = getEstrategia();
+        var estrategia = _modeloFicha();
 
         if (_tipoEstrategiaTexto.OfertaDelDia == _config.palanca &&
             (estrategia == null || estrategia.EstrategiaID == undefined)) {
@@ -1039,6 +1045,20 @@ var FichaModule = (function (config) {
 
     function _init() {
         _config.esMobile = _config.generalModule.isMobile();
+
+        var modeloFicha = _getModelo();
+        //
+        _config.tieneSession = modeloFicha.TieneSession;
+        _config.palanca = modeloFicha.Palanca || _config.palanca;
+        _config.origen = modeloFicha.OrigenUrl || _config.origen;
+        _config.mostrarCliente = modeloFicha.MostrarCliente || _config.mostrarCliente;
+
+        //if (!isInt(modeloFicha.EstrategiaID)) {
+            modeloFicha = _getEstrategia(modeloFicha);
+        //}
+        _modeloFicha(modeloFicha);
+        
+
         _construirSeccionFicha();
         _construirSeccionEstrategia();
         _construirSeccionDetalleFichas();
@@ -1050,7 +1070,7 @@ var FichaModule = (function (config) {
 
     return {
         Inicializar: _init,
-        GetEstrategia: getEstrategia//,
+        GetEstrategia: _modeloFicha//,
         //GetModeloFicha: _modeloFicha
     };
 });
