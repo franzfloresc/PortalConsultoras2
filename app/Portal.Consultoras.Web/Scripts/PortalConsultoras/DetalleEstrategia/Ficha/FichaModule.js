@@ -217,28 +217,28 @@ var FichaModule = (function (config) {
 
     var _crearTabs = function () {
 
-        for (var i = 1; i <= 5; i++) {
+        //for (var i = 1; i <= 5; i++) {
 
-            var FichaTabElement = document.getElementById("ficha_tab_" + i.toString());
+        //    var FichaTabElement = document.getElementById("ficha_tab_" + i.toString());
 
-            if (FichaTabElement) {
+        //    if (FichaTabElement) {
 
-                if (FichaTabElement.checked) {
-                    document.getElementById("contenido_" + i.toString()).style.display = "block";
-                }
+        //        if (FichaTabElement.checked) {
+        //            document.getElementById("contenido_" + i.toString()).style.display = "block";
+        //        }
 
-                FichaTabElement.onclick = function (event) {
-                    var numID = event.target.getAttribute("data-numTab");
+        //        FichaTabElement.onclick = function (event) {
+        //            var numID = event.target.getAttribute("data-numTab");
 
-                    for (var j = 1; j <= 4; j++) {
-                        document.getElementById("contenido_" + j.toString()).style.display = "none";
-                    }
+        //            for (var j = 1; j <= 4; j++) {
+        //                document.getElementById("contenido_" + j.toString()).style.display = "none";
+        //            }
 
-                    document.getElementById("contenido_" + numID.toString()).style.display = "block";
-                };
+        //            document.getElementById("contenido_" + numID.toString()).style.display = "block";
+        //        };
 
-            }
-        }
+        //    }
+        //}
 
         $("ul.ficha_tabs li a").click(function () {
             var $this = $(this);

@@ -11,6 +11,9 @@
     if (config.analyticsPortalModule === null || typeof config.analyticsPortalModule === "undefined")
         throw "config.analyticsPortalModule is null or undefined";
 
+    if (config.generalModule === null || typeof config.generalModule === "undefined")
+        throw "config.generalModule is null or undefined";
+
     var _urlComponenteDetalle = ConstantesModule.UrlDetalleEstrategia;
     var _codigoVariedad = ConstantesModule.CodigoVariedad;
     var _tipoEstrategiaTexto = ConstantesModule.TipoEstrategiaTexto;
@@ -20,6 +23,7 @@
         ComponenteDetalleProvider: ComponenteDetalleProvider,
         localStorageModule: config.localStorageModule,
         analyticsPortalModule: config.analyticsPortalModule,
+        generalModule: config.generalModule,
         palanca: config.palanca,
         campania: config.campania,
         cuv: config.cuv,
@@ -63,7 +67,11 @@
 
             this.setAcordionDetalleComponente();//eventos de acordio
 
-            $(_template.ModalProductoDetalle).modal();
+            if (!_config.generalModule.isMobile()) {
+                $(_template.ModalProductoDetalle).show();
+            } else {
+                $(_template.ModalProductoDetalle).modal();
+            }
 
             this.setCarrusel(_template.CarruselVideo);
             this.setYoutubeApi();

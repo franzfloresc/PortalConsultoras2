@@ -1,0 +1,133 @@
+﻿﻿@using Portal.Consultoras.Common
+
+<div id="ContenidoProducto" data-ficha-contenido="componenteDetalleIndividual-template"></div>
+<script id="componenteDetalleIndividual-template" type="text/x-handlebars-template">
+    <div id="ContenidoProducto" class="contenedor_ficha_tabs">
+        <div class="tabla_ficha_tab">
+            <div class="row_ficha_tab">
+                <div class="cell_ficha_tab" id="div_ficha_tab1">
+                    <div class="contents_ficha_tab active">
+                        <input id="ficha_tab_1" class="imput_tab_clean imput_tab" type="radio" name="tabs" data-numTab="1">
+                        <label for="ficha_tab_1" class="label_tab">Modo de uso</label>
+                    </div>
+                </div>
+                <div class="cell_ficha_tab" id="div_ficha_tab2">
+                    <div class="contents_ficha_tab">
+                        <input id="ficha_tab_2" class="imput_tab_clean imput_tab" type="radio" data-numTab="2" name="tabs">
+                        <label for="ficha_tab_2" class="label_tab">Descubre más</label>
+                    </div>
+                </div>
+                <div class="cell_ficha_tab" id="div_ficha_tab3">
+                    <div class="contents_ficha_tab">
+                        <input id="ficha_tab_3" class="imput_tab_clean imput_tab" type="radio" data-numTab="3" name="tabs">
+                        <label for="ficha_tab_3" class="label_tab">Tips de venta</label>
+                    </div>
+                </div>
+                <div class="cell_ficha_tab" id="div_ficha_tab4">
+                    <div class="contents_ficha_tab">
+                        <input id="ficha_tab_4" class="imput_tab_clean imput_tab" type="radio" data-numTab="4" name="tabs">
+                        <label for="ficha_tab_4" class="label_tab">Videos</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section id="contenido_1" class="seccion_tab">
+            <h3>Lorem Ipsum:</h3>
+            <p>El labial Color HD Velvet tiene un color mate 5 veces más intenso que hidrata tus labios. Contiene una fórmula con pigmentos de color saturado y microprismas que capturan la luz para amplificar el color. Labial de sensación ligera.</p>
+            <h3>Pulso:</h3>
+            <p>Posee un poder de seduccón innato que le permite conquistar a cualquier mujer a través de su mirada penetrante y su media sonrisa. Su aspecto puede parecer irreverente pero su elegancia y gestos de caballerosidad lo hacen irresistible. Aún sin conocerlo, puedes saber que</p>
+        </section>
+
+        <section id="contenido_2" class="seccion_tab">
+            <h3>Labial en barra rouge lintense:</h3>
+            <p>El labial Color HD Velvet tiene un color mate 5 veces más intenso que hidrata tus labios. Contiene una fórmula con pigmentos de color saturado y microprismas que capturan la luz para amplificar el color. Labial de sensación ligera.</p>
+            <h3>Pulso:</h3>
+            <p>Posee un poder de seduccón innato que le permite conquistar a cualquier mujer a través de su mirada penetrante y su media sonrisa. Su aspecto puede parecer irreverente pero su elegancia y gestos de caballerosidad lo hacen irresistible. Aún sin conocerlo, puedes saber que</p>
+        </section>
+
+        <section id="contenido_3" class="seccion_tab">
+            <h3>Labial en barra rouge lintense:</h3>
+            <p>El labial Color HD Velvet tiene un color mate 5 veces más intenso que hidrata tus labios. Contiene una fórmula con pigmentos de color saturado y microprismas que capturan la luz para amplificar el color. Labial de sensación ligera.</p>
+            <p>El labial Color HD Velvet tiene un color mate 5 veces más intenso que hidrata tus labios. Contiene una fórmula con pigmentos de color saturado y microprismas que capturan la luz para amplificar el color. Labial de sensación ligera.</p>
+            <h3>Pulso:</h3>
+            <p>Posee un poder de seduccón innato que le permite conquistar a cualquier mujer a través de su mirada penetrante y su media sonrisa. Su aspecto puede parecer irreverente pero su elegancia y gestos de caballerosidad lo hacen irresistible. Aún sin conocerlo, puedes saber que</p>
+            <p>Posee un poder de seduccón innato que le permite conquistar a cualquier mujer a través de su mirada penetrante y su media sonrisa. Su aspecto puede parecer irreverente pero su elegancia y gestos de caballerosidad lo hacen irresistible. Aún sin conocerlo, puedes saber que</p>
+        </section>
+
+        <section id="contenido_4" class="seccion_tab tab_video">
+            <div class="items_video">
+                <iframe class="video" src="https://www.youtube.com/embed/7QU1nvuxaMA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <h3>Audioslave - Like a Stone (Official Video)</h3>
+            </div>
+            <div class="items_video">
+                <iframe class="video" src="https://www.youtube.com/embed/7QU1nvuxaMA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <h3>Audioslave - Like a Stone (Official Video)</h3>
+            </div>
+            <div class="items_video">
+                <iframe class="video" src="https://www.youtube.com/embed/7QU1nvuxaMA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <h3>Audioslave - Like a Stone (Official Video)</h3>
+            </div>
+        </section>
+    </div>
+    @*<div id="ContenidoProducto" class="container">
+        <div class="row tabs">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <ul class="tabs ficha_tabs">
+
+                    {{#each this.Secciones as |seccion|}}
+
+                    {{#iff seccion.EsVideos '==' false }}
+                    <li id="div_ficha_tab1">
+                        <a class="tab-link">{{seccion.Titulo}}</a>
+                        <ul class="tabs_container">
+                            {{#each seccion.Detalles as |detalle index|}}
+
+                            <h4>{{detalle.Titulo}}</h4>
+                            <p>{{detalle.Descripcion}}</p>
+
+                            {{/each}}
+                        </ul>
+                    </li>
+                    {{/iff}}
+                    {{/each}}
+
+                    {{#each this.Secciones as |seccion|}}
+                    {{#iff seccion.EsVideos '==' true }}
+                    <li id="div_ficha_tab1">
+                        <a class="tab-link">{{seccion.Titulo}}</a>
+                        <ul class="tabs_container">
+                            <div style="width:98% !important; height:500px !important;">
+                                <div id="carouselIndividualVideo">
+                                    {{#each seccion.Detalles as |detalle index|}}
+                                    <div style="width:350px;height:350px;">
+                                        <p>{{detalle.Titulo}}</p>
+                                        <div id="ytFichax"
+                                             data-youtube="{
+                                                     height:'350',
+                                                     width:'350',
+                                                     enablejsapi:1,
+                                                     fs:0,
+                                                     showinfo:0,
+                                                     modestbranding:1,
+                                                     loop:1,
+                                                     videoId: '{{detalle.Key}}',
+                                                     playerVars:{autoplay:0,rel:0}}"
+                                             data-extra="{'descripcionResumen':'{{detalle.Titulo}}'}"
+                                             class="yt-video">
+                                        </div>
+                                    </div>
+                                    {{/each}}
+                                </div>
+                            </div>
+                        </ul>
+                    </li>
+                    {{/iff}}
+                    {{/each}}
+                     
+                </ul>
+            </div>
+        </div>
+    </div>*@
+</script>
+

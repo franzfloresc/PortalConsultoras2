@@ -28,7 +28,8 @@
 
         <div class="clear"></div>
 
-        <div id="ContenidoProducto" class="contenedor_ficha_tabs">
+        @Html.Partial("~/Views/DetalleEstrategia/ComponenteDetalleIndividualTemplate.cshtml")
+        @*<div id="ContenidoProducto" class="contenedor_ficha_tabs">
             <div class="tabla_ficha_tab">
                 <div class="row_ficha_tab">
                     <div class="cell_ficha_tab" id="div_ficha_tab1">
@@ -96,8 +97,8 @@
                 </div>
             </section>
 
-            
-        </div>
+
+        </div>*@
 
         <div class="clear"></div>
 
@@ -150,110 +151,10 @@
     </div>
 </script>
 
-<div id="Producto_detalle" class="Modal_Editar_Producto" style="display:none" >
-    <div class="contenedor_detalle texto_font" >
-        <a class="boton_volver_ficha" href=""> <img src="/Content/Images/mobile/Esika/right-arrow.svg">Volver</a>
-        <div class="producto_detalle_content">
-            <div class="ficha_content_left">      
-                <div>
-                    <div class="nombre_marca">
-                        <span data-nombre_marca="">Ésika</span>
-                    </div>
-                    <div class="descripcion">2 Studio Look Labiales líquido</div>
-                    <div class="descripcion_item" style="margin-top: 8px;">15 gr</div>
-                    <div class="precio_cliente">Para tu cliente <span>S/. 81.90</span></div>
-
-                </div>
-            </div>
-            <div class="ficha_content_rigth">
-                <div id="FichaImagenProducto" class="contenedor_imagen" style="height: 250px;">
-                    <img class="contenedor_img" src="https://cdn1-prd.somosbelcorp.com/Matriz/PE/PE_2000864142019310487_wywrofseci.png" alt="">
-                </div>
-                <div id="contenedor_foto_referencial" class="texto_referencial" style="margin: 0px;">
-                    <span>* Foto Referencial</span>
-                </div>
-            </div>
-            <br class="clear" />
-
-            <div id="ContenidoProducto" class="contenedor_ficha_tabs popup_ficha_tabs">
-                <div class="tabla_ficha_tab">
-                    <div class="row_ficha_tab">
-                        <div class="cell_ficha_tab" id="div_ficha_tab1">
-                            <div class="contents_ficha_tab active">
-                                <input id="ficha_tab_1" class="imput_tab_clean imput_tab" type="radio" name="tabs" data-numtab="1">
-                                <label for="ficha_tab_1" class="label_tab">Modo de uso</label>
-                            </div>
-                        </div>
-                        <div class="cell_ficha_tab" id="div_ficha_tab2">
-                            <div class="contents_ficha_tab">
-                                <input id="ficha_tab_2" class="imput_tab_clean imput_tab" type="radio" data-numtab="2" name="tabs">
-                                <label for="ficha_tab_2" class="label_tab">Descubre más</label>
-                            </div>
-                        </div>
-                        <div class="cell_ficha_tab" id="div_ficha_tab3">
-                            <div class="contents_ficha_tab">
-                                <input id="ficha_tab_3" class="imput_tab_clean imput_tab" type="radio" data-numtab="3" name="tabs">
-                                <label for="ficha_tab_3" class="label_tab">Tips de venta</label>
-                            </div>
-                        </div>
-                        <div class="cell_ficha_tab" id="div_ficha_tab4">
-                            <div class="contents_ficha_tab">
-                                <input id="ficha_tab_4" class="imput_tab_clean imput_tab" type="radio" data-numtab="4" name="tabs">
-                                <label for="ficha_tab_4" class="label_tab">Videos</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <section id="contenido_1" class="seccion_tab">
-                    <h3>Lorem Ipsum:</h3>
-                    <p>El labial Color HD Velvet tiene un color mate 5 veces más intenso que hidrata tus labios. Contiene una fórmula con pigmentos de color saturado y microprismas que capturan la luz para amplificar el color. Labial de sensación ligera.</p>
-                    <h3>Pulso:</h3>
-                    <p>Posee un poder de seduccón innato que le permite conquistar a cualquier mujer a través de su mirada penetrante y su media sonrisa. Su aspecto puede parecer irreverente pero su elegancia y gestos de caballerosidad lo hacen irresistible. Aún sin conocerlo, puedes saber que</p>
-                </section>
-
-                <section id="contenido_2" class="seccion_tab">
-                    <h3>Labial en barra rouge lintense:</h3>
-                    <p>El labial Color HD Velvet tiene un color mate 5 veces más intenso que hidrata tus labios. Contiene una fórmula con pigmentos de color saturado y microprismas que capturan la luz para amplificar el color. Labial de sensación ligera.</p>
-                    <h3>Pulso:</h3>
-                    <p>Posee un poder de seduccón innato que le permite conquistar a cualquier mujer a través de su mirada penetrante y su media sonrisa. Su aspecto puede parecer irreverente pero su elegancia y gestos de caballerosidad lo hacen irresistible. Aún sin conocerlo, puedes saber que</p>
-                </section>
-
-                <section id="contenido_3" class="seccion_tab">
-                    <h3>Labial en barra rouge lintense:</h3>
-                    <p>El labial Color HD Velvet tiene un color mate 5 veces más intenso que hidrata tus labios. Contiene una fórmula con pigmentos de color saturado y microprismas que capturan la luz para amplificar el color. Labial de sensación ligera.</p>
-                    <p>El labial Color HD Velvet tiene un color mate 5 veces más intenso que hidrata tus labios. Contiene una fórmula con pigmentos de color saturado y microprismas que capturan la luz para amplificar el color. Labial de sensación ligera.</p>
-                    <h3>Pulso:</h3>
-                    <p>Posee un poder de seduccón innato que le permite conquistar a cualquier mujer a través de su mirada penetrante y su media sonrisa. Su aspecto puede parecer irreverente pero su elegancia y gestos de caballerosidad lo hacen irresistible. Aún sin conocerlo, puedes saber que</p>
-                    <p>Posee un poder de seduccón innato que le permite conquistar a cualquier mujer a través de su mirada penetrante y su media sonrisa. Su aspecto puede parecer irreverente pero su elegancia y gestos de caballerosidad lo hacen irresistible. Aún sin conocerlo, puedes saber que</p>
-                </section>
-
-                <section id="contenido_4" class="seccion_tab tab_video">
-                    <div class="items_video">
-                        <iframe class="video" src="https://www.youtube.com/embed/7QU1nvuxaMA" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" frameborder="0"></iframe>
-                        <h3>Audioslave - Like a Stone (Official Video)</h3>
-                    </div>
-                    <div class="items_video">
-                        <iframe class="video" src="https://www.youtube.com/embed/7QU1nvuxaMA" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" frameborder="0"></iframe>
-                        <h3>Audioslave - Like a Stone (Official Video)</h3>
-                    </div>
-                    <div class="items_video">
-                        <iframe class="video" src="https://www.youtube.com/embed/7QU1nvuxaMA" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" frameborder="0"></iframe>
-                        <h3>Audioslave - Like a Stone (Official Video)</h3>
-                    </div>
-                </section>
-            </div>
-
-
-
-        </div>
-     
-    </div>
-</div>
-
-    @Html.Partial("~/Views/DetalleEstrategia/_ElegirOpciones.cshtml")
-    @Html.Partial("~/Views/DetalleEstrategia/ProductoTemplate.cshtml")
-    @Html.Partial("~/Views/DetalleEstrategia/ResumenOpcionesTemplate.cshtml")
-    @Html.Partial("~/Views/DetalleEstrategia/ComponentesTemplate.cshtml")
-    @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
-    @Html.Partial("~/Views/DetalleEstrategia/template-ficha-detalle-video.cshtml")
+@Html.Partial("~/Views/DetalleEstrategia/_ElegirOpciones.cshtml")
+@Html.Partial("~/Views/DetalleEstrategia/ProductoTemplate.cshtml")
+@Html.Partial("~/Views/DetalleEstrategia/ResumenOpcionesTemplate.cshtml")
+@Html.Partial("~/Views/DetalleEstrategia/ComponentesTemplate.cshtml")
+@Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
+@Html.Partial("~/Views/DetalleEstrategia/template-ficha-detalle-video.cshtml")
+@Html.Partial("~/Views/DetalleEstrategia/ComponenteDetalleTemplate.cshtml")
