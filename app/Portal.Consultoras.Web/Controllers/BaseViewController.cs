@@ -640,7 +640,7 @@ namespace Portal.Consultoras.Web.Controllers
             
             modelo.OrigenUrl = origen;
             modelo.OrigenAgregar = GetOrigenPedidoWebDetalle(origen);
-            modelo.OrigenPedidoEditar = esEditar ? esMobile ? Constantes.OrigenPedidoWeb.MobilePedidoEditarFicha : Constantes.OrigenPedidoWeb.DesktopPedidoEditarFicha : 0;
+            modelo.CodigoUbigeoPortal = esEditar ? CodigoUbigeoPortal.GuionPedidoGuionFichaResumida : "";
             modelo.TipoAccionNavegar = GetTipoAccionNavegar(modelo.OrigenAgregar, esMobile, esEditar);
             
             if (modelo.Error)

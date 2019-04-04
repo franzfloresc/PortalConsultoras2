@@ -100,8 +100,7 @@ var CodigoUbigeoPortal = (function () {
             { Codigo: "11", CodigoPalanca: "", Texto: "" },
             { Codigo: "12", CodigoPalanca: "", Texto: "" },
             { Codigo: "13", CodigoPalanca: "", Texto: "" },
-            { Codigo: "14", CodigoPalanca: "MG", Texto: "Más Ganadoras" }
-
+            { Codigo: "14", CodigoPalanca: "MG", Texto: "Más Ganadoras" },
 
             { Codigo: "15", CodigoPalanca: "", Texto: "", Desc: "Grilla" }
 
@@ -233,6 +232,9 @@ var CodigoUbigeoPortal = (function () {
         texto += texto != ""
             ? ((seccionFuncional != "" ? separador : "") + seccionFuncional)
             : seccionFuncional;
+        texto += texto != ""
+            ? ((seccion != "" ? separador : "") + seccion)
+            : seccion;
 
         //console.log("_getParametroListSegunOrigen = " + texto, origenEstructura);
 
