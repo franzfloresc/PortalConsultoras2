@@ -2012,7 +2012,7 @@ var GeneralModule = (function () {
         if (typeof url === "undefined" || url === null || $.trim(url) === "") return false;
 
         var destinationUrl = "/";
-        if (isMobile) destinationUrl += "Mobile/";
+        if (_isMobile()) destinationUrl = destinationUrl + "Mobile/";
         destinationUrl += url;
 
         window.location.href = destinationUrl;
