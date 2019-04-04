@@ -1050,8 +1050,8 @@ var FichaModule = (function (config) {
 
     return {
         Inicializar: _init,
-        GetEstrategia: getEstrategia,
-        GetModeloFicha: _modeloFicha
+        GetEstrategia: getEstrategia//,
+        //GetModeloFicha: _modeloFicha
     };
 });
 
