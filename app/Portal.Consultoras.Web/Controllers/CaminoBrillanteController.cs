@@ -44,21 +44,16 @@ namespace Portal.Consultoras.Web.Controllers
             return View();
         }
 
-        public ActionResult Compromiso()
+        public ActionResult Logros(string opcion)
         {
-            return View();
-        }
-
-        public ActionResult Crecimiento()
-        {
-            var informacion = SessionManager.GetConsultoraCaminoBrillante() ?? new ServiceUsuario.BEConsultoraCaminoBrillante();
-
-            if (informacion.Logros != null)
+            if (!string.IsNullOrEmpty(opcion))
             {
-                ViewBag.Crecimiento = informacion.Logros;
+                var informacion = SessionManager.GetConsultoraCaminoBrillante() ?? new ServiceUsuario.BEConsultoraCaminoBrillante();
+                if (informacion.Logros != null)
+                    ViewBag.Informacion = opcion == "Crecimiento" ? informacion.Logros[0] : informacion.Logros[1];
+                else
+                    return RedirectToAction("Index", "Bienvenida");
             }
-            else
-                return RedirectToAction("Index", "Bienvenida");
             return View();
         }
 

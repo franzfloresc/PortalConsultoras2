@@ -1,0 +1,94 @@
+﻿
+@{
+    ViewBag.Title = "Crecimiento";
+    var data = ViewBag.Informacion;
+}
+
+@section styles{
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/CaminoBrillante")
+}
+<br />
+
+
+<div class="container">
+
+    <h2 class="title">@data.Titulo</h2>
+
+    <div class="row">
+
+        @for (int i = 0; i < data.Indicadores.Length; i++)
+        {
+            <div class="box-camb col-sm-12 col-md-6">
+                <p class="text-bold">@data.Indicadores[i].Titulo</p>
+                <div class="cambio-crec row">
+
+                    @foreach (var item2 in data.Indicadores[i].Medallas)
+                    {
+                        if (item2 != null)
+                        {
+
+                            <div class="col-3 col-sm-3">
+
+                                @if (item2.Tipo == "PIE")
+                                {
+                                    string[] torta = @item2.Valor.Split('-');
+                                    var imagen = torta[1].PadLeft(2, '0') + "_" + torta[2].PadLeft(2, '0') + ".svg";
+                                    <img src="~/Content/CaminoBrillante/imgs/PIZZA_@imagen" />
+                                }
+                                else if (item2.Tipo == "CIRC" || item2.Tipo == "NIV")
+                                {
+                                    string Valor = item2.Valor.Replace("%", "");
+                                    string Estilo = Valor.Equals("25") ? "veinticinco" : "cinco";
+                                    <div class="circle-porcent @Estilo">
+                                        <span>@item2.Valor</span>
+                                    </div>
+                                }
+                                else if (item2.Tipo == "PED" || item2.Tipo == "TIME")
+                                {
+                                    if (item2.Estado)
+                                    {
+                                        <img src="~/Content/CaminoBrillante/imgs/pedido_activo.svg" />
+                                    }
+                                    else
+                                    {
+                                        <img src="~/Content/CaminoBrillante/imgs/pedido_desactivo.svg" />
+                                    }
+                                }
+                                <a href="" class="inactivo">@item2.Titulo</a>
+                                <a href="" class="como-log inactivo">¿Cómo lograrlo?</a>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="ModalPorcentaje" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content">
+
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+
+            <div class="modal-body ">
+
+                <div class="indicador-nivel">
+                    <div class="circle-porcent veinticinco doble">
+                        <span>28%</span>
+                    </div>
+                    <div class="left-mod">
+                        <h2>Cambio de escala</h2>
+                        <p>Monto mínimo Cambio de escalaCambio de escalaCambio de escalaCambio de escala</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
