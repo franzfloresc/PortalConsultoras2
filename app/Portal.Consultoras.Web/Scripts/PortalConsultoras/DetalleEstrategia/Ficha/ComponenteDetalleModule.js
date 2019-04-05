@@ -20,7 +20,6 @@
     var _constantePalanca = ConstantesModule.ConstantesPalanca;
 
     var _config = {
-        ComponenteDetalleProvider: ComponenteDetalleProvider,
         localStorageModule: config.localStorageModule,
         analyticsPortalModule: config.analyticsPortalModule,
         generalModule: config.generalModule,
