@@ -57,9 +57,14 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Ofertas()
         {
-            var model = GetDemostradoresCaminoBrillante();
-            if (model == null || model.Count == 0) return RedirectToAction("Index", "CaminoBrillante");
-            return View(model);
+            if (GetKitCaminoBrillante() != null || GetDemostradoresCaminoBrillante() != null)
+            {
+                var model = GetKitCaminoBrillante();
+                ViewBag.Demostradores = GetDemostradoresCaminoBrillante();
+                return View(model);
+            }
+            else
+                return RedirectToAction("Index", "CaminoBrillante");
         }
 
         [HttpPost]
@@ -70,6 +75,9 @@ namespace Portal.Consultoras.Web.Controllers
             var Beneficios = informacion.Niveles.Where(
                 e => e.CodigoNivel == nivel.ToString()).Select(z => new { z.Beneficios, z.DescripcionNivel, z.MontoMinimo, z.UrlImagenNivel });
 
+
+            var Moneda = userData.Simbolo;
+
             Beneficios.ToList().ForEach(
                 e =>
                 {
@@ -79,7 +87,7 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 });
 
-            return Json(new { Niveles = Beneficios }, JsonRequestBehavior.AllowGet);
+            return Json(new { Niveles = Beneficios, Moneda }, JsonRequestBehavior.AllowGet);
         }
 
         private List<BEKitCaminoBrillante> GetKitCaminoBrillante()
