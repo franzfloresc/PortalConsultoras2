@@ -488,7 +488,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         {
             //Calcular este Flag
             //var showMedallasNuevas = (entidad.EsConsultoraNueva && true);
-            var showMedallasNuevas = (entidad.EsConsultoraNueva || (entidad.ConsecutivoNueva > 0));
+            var showMedallasNuevas = entidad.EsConsultoraNueva;
 
             if (showMedallasNuevas)
             {
