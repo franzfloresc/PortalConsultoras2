@@ -89,6 +89,7 @@
             //estrategia.Hermanos por default es solo 1
             if (estrategia.Hermanos.length > 0) {
                 _util.setHandlebars(_template.componenteDetalleIndividual, estrategia.Hermanos[0]);
+                this.setAcordionDetalleComponente();//eventos de acordio
                 this.setCarrusel(_template.CarruselIndividualVideo);
                 this.setYoutubeApi();
             } else {
