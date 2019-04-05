@@ -89,28 +89,31 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 GetConsultoraLogrosCompromiso(paisId, entidad, nivelConsultora) };
         }
 
-        public List<BEOfertaCaminoBrillante> GetOfertas(int paisId, string campania)
+        public List<BEKitCaminoBrillante> GetKit(int paisId, string campania)
         {
-            return GetOfertasCache(paisId, campania);
+            //var kits =  GetKitCache(paisId, campania);
+            var kits = GetKitProvider(paisId, campania);
+
+            return kits;
         }
 
-        public List<BEOfertaCaminoBrillante> GetOfertasCache(int paisId, string campania)
+        public List<BEKitCaminoBrillante> GetKitCache(int paisId, string campania)
         {
-            return CacheManager<List<BEOfertaCaminoBrillante>>.ValidateDataElement(paisId, ECacheItem.CaminoBrillanteOfertas, campania, () => GetOfertasProvider(paisId, campania));
+            return CacheManager<List<BEKitCaminoBrillante>>.ValidateDataElement(paisId, ECacheItem.CaminoBrillanteOfertas, campania, () => GetKitProvider(paisId, campania));
         }
 
         //Pendiente cargar imagenes
-        public List<BEOfertaCaminoBrillante> GetOfertasProvider(int paisId, string campania)
+        public List<BEKitCaminoBrillante> GetKitProvider(int paisId, string campania)
         {
             _providerCaminoBrillante = _providerCaminoBrillante ?? getCaminoBrillanteProvider(paisId);
             if (_providerCaminoBrillante == null) return null;
 
             var ofertas = _providerCaminoBrillante.GetOfertas(Util.GetPaisIsoHanna(paisId), campania).Result;
 
-            return ofertas.Select(e => new BEOfertaCaminoBrillante()
+            return ofertas.Select(e => new BEKitCaminoBrillante()
             {
-                CodigoKit = e.CodigoKit,
-                CodigoSap = e.CodigoSap,
+                //CodigoKit = e.CodigoKit,
+                //CodigoSap = e.CodigoSap,
                 Cuv = e.Cuv,
                 Descripcion = e.Descripcion,
                 DescripcionOferta = e.DescripcionOferta,
@@ -118,7 +121,32 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 Marca = e.Marca,
                 Nivel = e.Nivel,
                 Precio = e.Precio,
-                Imagen = "https://cdn1-prd.somosbelcorp.com/Matriz/PE/PE_2019345307_zvcbmzibzx.png"
+                Imagen = "https://cdn1-prd.somosbelcorp.com/Matriz/PE/PE_2019345307_zvcbmzibzx.png",
+
+
+                //Nueva Estructura
+                EstrategiaID = 1111,
+                CodigoEstrategia = "112",
+                CodigoKit = e.CodigoKit,
+                CodigoSap = e.CodigoSap,
+                CUV = e.Cuv,
+                DescripcionCUV = e.Descripcion,
+                DescripcionCortaCUV = e.DescripcionOferta,
+                MarcaID = 1,
+                DescripcionMarca = e.Marca,
+                CodigoNivel = e.Nivel,
+                DescripcionNivel = e.Nivel,
+                PrecioValorizado = e.Precio,
+                PrecioCatalogo = e.Precio,
+                Ganancia = 0,
+                FotoProductoSmall = "https://cdn1-prd.somosbelcorp.com/Matriz/PE/PE_2019345307_zvcbmzibzx.png",
+                FotoProductoMedium = "https://cdn1-prd.somosbelcorp.com/Matriz/PE/PE_2019345307_zvcbmzibzx.png",
+                TipoEstrategiaID = "1",
+                OrigenPedidoWebFicha = 1,
+                FlagSeleccionado = false,
+                FlagDigitable = e.Digitable,
+                FlagHabilitado = false
+
             }).ToList();
         }
 
@@ -180,7 +208,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
             var medallaEscala = funcCopyMedalla(funcUltimaMedalla(Constantes.CaminoBrillante.Logros.CRECIMIENTO, Constantes.CaminoBrillante.Logros.Indicadores.ESCALA), "Escala", 0);
             var medallaContancia = funcCopyMedalla(funcUltimaMedalla(Constantes.CaminoBrillante.Logros.CRECIMIENTO, Constantes.CaminoBrillante.Logros.Indicadores.CONSTANCIA), "Constancia", 1);
-            var medallaIncremento = funcCopyMedalla(funcUltimaMedalla(Constantes.CaminoBrillante.Logros.CRECIMIENTO, Constantes.CaminoBrillante.Logros.Indicadores.INCREMENTO), "Incremento", 2);
+            var medallaIncremento = funcCopyMedalla(funcUltimaMedalla(Constantes.CaminoBrillante.Logros.CRECIMIENTO, Constantes.CaminoBrillante.Logros.Indicadores.INCREMENTO_PEDIDO), "Incremento", 2);
 
             Func<List<BEMedallaCaminoBrillante>> funcResumenCompromiso = () =>
             {
@@ -239,6 +267,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                         Orden = 0,
                         Titulo = tablaLogicaDatos_Crecimiento.Valor,
                         Descripcion = tablaLogicaDatos_Crecimiento.Descripcion,
+                        Codigo = Constantes.CaminoBrillante.Logros.CRECIMIENTO,
                         Medallas = (new List<BEMedallaCaminoBrillante>{
                             medallaEscala,
                             medallaContancia,
@@ -249,6 +278,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                         Orden = 1,
                         Titulo = tablaLogicaDatos_Compromiso.Valor,
                         Descripcion = tablaLogicaDatos_Compromiso.Descripcion,
+                        Codigo = Constantes.CaminoBrillante.Logros.COMPROMISO,
                         Medallas = funcResumenCompromiso()
                     }
                 }
@@ -304,7 +334,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 var configMedalla = configsMedalla.Where(p => p.Codigo == e.Valor).FirstOrDefault();
                 if (configMedalla != null)
                 {
-                    e.Subtitulo = e.Estado ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes;
+                    e.Subtitulo = e.Estado ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo;
                     e.Valor = string.Format(configMedalla.Valor ?? string.Empty, e.Valor);
                     e.ModalTitulo = configMedalla.ComoLograrlo_Estado ? configMedalla.ComoLograrlo_Titulo : string.Empty;
                     e.ModalDescripcion = configMedalla.ComoLograrlo_Estado ? configMedalla.ComoLograrlo_Descripcion : string.Empty;
@@ -312,6 +342,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 else
                 {
                     e.Valor = string.Format("{0}%", e.Valor);
+                    e.Subtitulo = e.Estado ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo;
                 }
             });
 
@@ -341,7 +372,9 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             {
                 Orden = idx++,
                 Tipo = Constantes.CaminoBrillante.Logros.Indicadores.Medallas.Codes.NIV,
+                Titulo = e.DescripcionNivel,
                 Estado = (short.TryParse(e.CodigoNivel, out nivelCodigo) ? nivelCodigo <= nivelActual : false),
+                Subtitulo = (nivelCodigo <= nivelActual ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo),
                 Valor = e.CodigoNivel,
             }).ToList();
 
@@ -350,7 +383,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 var configMedalla = configsMedalla.Where(p => p.Valor == e.Valor).FirstOrDefault();
                 if (configMedalla != null)
                 {
-                    e.Subtitulo = e.Estado ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes;
+                    e.Subtitulo = e.Estado ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo;
                     e.ModalTitulo = configMedalla.ComoLograrlo_Estado ? configMedalla.ComoLograrlo_Titulo : string.Empty;
                     e.ModalDescripcion = configMedalla.ComoLograrlo_Estado ? configMedalla.ComoLograrlo_Descripcion : string.Empty;
                 }
@@ -399,7 +432,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                                     Tipo = Constantes.CaminoBrillante.Logros.Indicadores.Medallas.Codes.PIE,
                                     Estado = (constancia > 0),
                                     Titulo = string.Format(configMedalla.Valor ?? string.Empty, (periodoCaminoBrillante.CampanaInicial % 100), (periodoCaminoBrillante.CampanaFinal % 100)),
-                                    Subtitulo = (constancia > 0) ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes,
+                                    Subtitulo = (""+constancia == periodoCaminoBrillante.NroCampana) ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo,
                                     ModalTitulo = configMedalla.ComoLograrlo_Estado ? configMedalla.ComoLograrlo_Titulo : string.Empty,
                                     ModalDescripcion = configMedalla.ComoLograrlo_Estado ? configMedalla.ComoLograrlo_Descripcion : string.Empty,
                                     Valor = valor,
@@ -439,7 +472,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             int incremento = 0;
 
             var configMedalla = (GetGetConfiguracionMedallaCaminoBrillanteCache(paisId) ?? new List<BEConfiguracionMedallaCaminoBrillante>())
-                .Where(e => e.Logro == Constantes.CaminoBrillante.Logros.CRECIMIENTO && e.Indicador == Constantes.CaminoBrillante.Logros.Indicadores.INCREMENTO).ToList();
+                .Where(e => e.Logro == Constantes.CaminoBrillante.Logros.CRECIMIENTO && e.Indicador == Constantes.CaminoBrillante.Logros.Indicadores.INCREMENTO_PEDIDO).ToList();
 
             var medallaIncrementoPedido = configMedalla
                 .Where(e => int.TryParse(e.Codigo, out incremento))
@@ -448,19 +481,19 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                     Orden = idx++,
                     Tipo = Constantes.CaminoBrillante.Logros.Indicadores.Medallas.Codes.CIRC,
                     Estado = (nivelConsultora.PorcentajeIncremento <= int.Parse(e.Codigo)),
-                    Subtitulo = (nivelConsultora.PorcentajeIncremento <= int.Parse(e.Codigo)) ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes,
+                    Subtitulo = (nivelConsultora.PorcentajeIncremento <= int.Parse(e.Codigo)) ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo,
                     Valor = string.Format(e.Valor ?? string.Empty, e.Codigo),                    
                     ModalTitulo = e.ComoLograrlo_Estado ? e.ComoLograrlo_Titulo : string.Empty,
                     ModalDescripcion = e.ComoLograrlo_Estado ? e.ComoLograrlo_Descripcion : string.Empty,
                 }).ToList();
 
             var tablaLogicaDatos = (GetDatosTablaLogica(paisId, Constantes.TablaLogica.CaminoBrillanteIndicadores) ?? new List<BETablaLogicaDatos>())
-                .Where(e => e.Codigo == Constantes.CaminoBrillante.Logros.Indicadores.INCREMENTO).FirstOrDefault() ?? new BETablaLogicaDatos();
+                .Where(e => e.Codigo == Constantes.CaminoBrillante.Logros.Indicadores.INCREMENTO_PEDIDO).FirstOrDefault() ?? new BETablaLogicaDatos();
 
             return new BEIndicadorCaminoBrillante()
             {
                 Titulo = tablaLogicaDatos.Valor,
-                Codigo = Constantes.CaminoBrillante.Logros.Indicadores.INCREMENTO,
+                Codigo = Constantes.CaminoBrillante.Logros.Indicadores.INCREMENTO_PEDIDO,
                 Medallas = medallaIncrementoPedido
             };
         }
@@ -488,7 +521,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         {
             //Calcular este Flag
             //var showMedallasNuevas = (entidad.EsConsultoraNueva && true);
-            var showMedallasNuevas = (entidad.EsConsultoraNueva || (entidad.ConsecutivoNueva > 0));
+            var showMedallasNuevas = entidad.EsConsultoraNueva;
 
             if (showMedallasNuevas)
             {
@@ -511,6 +544,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                                    Tipo = Constantes.CaminoBrillante.Logros.Indicadores.Medallas.Codes.PED,
                                    Valor = e.Codigo,
                                    Titulo = string.Format(e.Valor, e.Codigo),
+                                   Subtitulo = (int.Parse(e.Codigo) <= entidad.ConsecutivoNueva) ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo,
                                    ModalTitulo = e.ComoLograrlo_Estado ? e.ComoLograrlo_Titulo : string.Empty,
                                    ModalDescripcion = e.ComoLograrlo_Estado ? e.ComoLograrlo_Descripcion : string.Empty
                                }).ToList()
@@ -549,7 +583,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                     Tipo = Constantes.CaminoBrillante.Logros.Indicadores.Medallas.Codes.TIM,
                     Estado = (anios <= aniosConsultora && aniosConsultora != -1),
                     Titulo = string.Format(e.Valor ?? string.Empty, anios),
-                    Subtitulo = (anios <= aniosConsultora) ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes,
+                    //Subtitulo = (anios <= aniosConsultora) ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo,
                     ModalTitulo = e.ComoLograrlo_Estado ? e.ComoLograrlo_Titulo : string.Empty,
                     ModalDescripcion = e.ComoLograrlo_Estado ? e.ComoLograrlo_Descripcion : string.Empty,
                     Valor = e.Codigo
@@ -638,6 +672,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             return new CaminoBrillanteProvider(url, usuario, clave);
         }
 
+        /*
         public List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillante(int paisID, string campaniaID)
         {            
             var demostradores = new List<BEDesmostradoresCaminoBrillante>();
@@ -651,5 +686,32 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
             return demostradores;
         }
+        */
+        public List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillante(int paisID, string campaniaID)
+        {            
+            var result =  new DACaminoBrillante(paisID).GetDemostradoresCaminoBrillante(campaniaID)
+                        .MapToCollection<BEDesmostradoresCaminoBrillante>();
+
+            result.ForEach(e => {
+                e.EstrategiaID = 10;
+                e.CodigoEstrategia = "10";
+                e.DescripcionCortaCUV = e.Descripcion;
+                e.DescripcionCUV = e.Descripcion;
+                e.MarcaID = 1;
+                e.DescripcionMarca = "Esika";
+                e.FotoProductoMedium = "https://cdn1-prd.somosbelcorp.com/Matriz/PE/PE_2019345307_zvcbmzibzx.png";
+                e.FotoProductoSmall = "https://cdn1-prd.somosbelcorp.com/Matriz/PE/PE_2019345307_zvcbmzibzx.png";
+                e.TipoEstrategiaID = "10";
+                e.OrigenPedidoWebFicha = 10;
+            });
+
+            return result;
+        }
+
+        public List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillanteCache(int paisID, string campaniaID)
+        {
+            return CacheManager<List<BEDesmostradoresCaminoBrillante>>.ValidateDataElement(paisID, ECacheItem.CaminoBrillanteDemostradores, campaniaID, () => GetDemostradoresCaminoBrillante(paisID, campaniaID));
+        }
+
     }
 }

@@ -205,6 +205,7 @@ strong {
     margin: 10px auto;
     margin-top: 0;
     border: 0;
+    width: 60px !important;
 }
 
     .btn-link:hover {
@@ -749,7 +750,7 @@ div .owl-carousel .owl-stage-outer {
 
 .contain-camb {
     width: 100%;
-    max-width: 900px;
+    max-width: 740px;
     margin: 0 auto;
 }
 
@@ -928,7 +929,7 @@ button.close {
 
 
 .pad-center {
-    background: url(/Content/CaminoBrillante/imgs/bg-modal.svg) top center repeat-x;
+    background: url(/Content/CaminoBrillante/imgs/bg-modal.png) top center repeat-x;
 }
 
 
@@ -946,21 +947,23 @@ button.close {
     color: black;
 }
 
-.cambio-crec .inactivo {
-    color: gray;
-    text-decoration: none;
-}
+
 
 .cambio-crec .como-log {
     cursor: pointer;
     text-align: center;
     display: block;
+    color: black;
+    text-decoration: underline;
 }
-
-.cambio-crec div img {
-    display: block;
-    margin: 0 auto;
-}
+    .cambio-crec .como-log.inactivo {
+        text-decoration: none;
+        color:gray;
+    }
+    .cambio-crec div img {
+        display: block;
+        margin: 0 auto;
+    }
 
 .cambio-crec > .col-3 {
     margin-bottom: 20px;
@@ -1006,7 +1009,7 @@ button.close {
 .box-camb {
     /*padding-left: 30px !important;
     padding-right: 30px !important;*/
-    margin: 35px auto;
+    margin: 20px auto;
 }
 
 
@@ -1163,8 +1166,12 @@ button.close {
     #ProgressBar span.pt1 em {
         left: -12px;
         position: relative;
+        margin-top:13px;
     }
+    #ProgressBar span.pt6 em {
 
+        margin-top: 13px;
+    }
     #ProgressBar .pt1 {
         left: -6%;
     }
@@ -1319,6 +1326,18 @@ button.close {
         font-size: 12px;
         line-height: 40px;
     }
+    .box-camb {
+        width: 100%;
+    }
+
+
+    /*#ProgressBar span img {
+        max-height: 34px;
+    }
+
+    #ProgressBar span {
+        max-width: 35px;
+    }*/
 }
 
 @media screen and (max-width: 600px) {
@@ -1340,6 +1359,9 @@ button.close {
     div .owl-carousel .owl-stage-outer {
         overflow: hidden;
     }
+    .cam-exito {
+        padding: 0 3px;
+    }
 }
 
 @media screen and (max-width: 530px) {
@@ -1349,7 +1371,10 @@ button.close {
     }
 
     .box-beneficios li {
-        margin: 10px 0;
+        margin: 0 0;
+    }
+    .cam-exito a {
+        font-size:13px;
     }
 }
 
@@ -1359,7 +1384,11 @@ button.close {
     }
 
     .itm {
-        width: 50%;
+        width: 25%;
+    }
+    .box-camb {
+  
+        margin-bottom: 0;
     }
 }
 

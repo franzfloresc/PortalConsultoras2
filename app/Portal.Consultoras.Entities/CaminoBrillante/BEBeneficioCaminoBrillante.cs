@@ -21,7 +21,7 @@ namespace Portal.Consultoras.Entities.CaminoBrillante
         [DataMember]
         [Column("Descripcion")]
         public string Descripcion { get; set; }
-
+        
         [DataMember]
         [Column("Icono")]
         public string Icono { get; set; }

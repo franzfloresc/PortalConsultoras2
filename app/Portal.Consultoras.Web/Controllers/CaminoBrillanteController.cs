@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿
+using System.Web.Mvc;
 using System.Linq;
 using Portal.Consultoras.Common;
 using System;
@@ -43,7 +44,11 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var informacion = SessionManager.GetConsultoraCaminoBrillante() ?? new ServiceUsuario.BEConsultoraCaminoBrillante();
                 if (informacion.Logros != null)
+                {
                     ViewBag.Informacion = opcion == "Crecimiento" ? informacion.Logros[0] : informacion.Logros[1];
+                    ViewBag.Vista = opcion == "Crecimiento" ? "Crecimiento" : "Compromiso";
+                }
+                
                 else
                     return RedirectToAction("Index", "Bienvenida");
             }
@@ -52,7 +57,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Ofertas()
         {
-            var model = GetOfertasCaminoBrillante();
+            var model = GetDemostradoresCaminoBrillante();
             if (model == null || model.Count == 0) return RedirectToAction("Index", "CaminoBrillante");
             return View(model);
         }
@@ -77,17 +82,39 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(new { Niveles = Beneficios }, JsonRequestBehavior.AllowGet);
         }
 
-        private List<BEOfertaCaminoBrillante> GetOfertasCaminoBrillante()
+        private List<BEKitCaminoBrillante> GetKitCaminoBrillante()
         {
             try
             {
-                var ofertas = SessionManager.GetOfertasCaminoBrillante();
-                if (ofertas == null || ofertas.Count > 0)
+                var ofertas = SessionManager.GetKitCaminoBrillante();
+                if (ofertas == null || ofertas.Count == 0)
                 {
                     using (var svc = new UsuarioServiceClient())
-                        ofertas = svc.GetOfertasCaminoBrillante(userData.PaisID, "201904").ToList();
+                        ofertas = svc.GetKitCaminoBrillante(userData.PaisID, "201904").ToList();
                     if (ofertas != null)
-                        SessionManager.SetOfertasCaminoBrillante(ofertas);
+                        SessionManager.SetKitCaminoBrillante(ofertas);
+                }
+
+                return ofertas;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return null;
+            }
+        }
+
+        private List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillante()
+        {
+            try
+            {
+                var ofertas = SessionManager.GetDemostradoresCaminoBrillante();
+                if (ofertas == null || ofertas.Count == 0)
+                {
+                    using (var svc = new UsuarioServiceClient())
+                        ofertas = svc.GetDemostradoresCaminoBrillante(userData.PaisID, "201904").ToList();
+                    if (ofertas != null) 
+                        SessionManager.SetDemostradoresCaminoBrillante(ofertas);
                 }
 
                 return ofertas;

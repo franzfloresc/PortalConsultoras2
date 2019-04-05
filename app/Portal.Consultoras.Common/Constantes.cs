@@ -473,7 +473,8 @@ namespace Portal.Consultoras.Common
             public const string MSPersonalizacionConfig = "MSPersonalizacion";
 
             public const string NivelConsultoraCaminoBrillante = "NivelConsultoraCaminoBrillante";
-            public const string OfertasCaminoBrillante = "OfertasCaminoBrillante";
+            public const string KitCaminoBrillante = "KitCaminoBrillante";
+            public const string DemostradoresCaminoBrillante = "DemostradoresCaminoBrillante";
         }
 
         public static class ConfiguracionManager
@@ -3577,15 +3578,15 @@ namespace Portal.Consultoras.Common
                     public const string ESCALA = "ESCALA";
                     public const string NIVEL = "NIVEL";
                     public const string CONSTANCIA = "CONSTANCIA";
-                    public const string INCREMENTO = "INCREMENTO_PEDIDO";
+                    public const string INCREMENTO_PEDIDO = "INCREMENTO_PEDIDO";
                     public const string TIEMPO_JUNTOS = "TIEMPO_JUNTOS";
                     public const string PROGRAMA_NUEVAS = "PROGRAMA_NUEVAS";
 
                     public static class Medallas
                     {
 
-                        public const string ComoLograrlo = "¿Cómo lograrlo?";
                         public const string YaLoTienes = "¡Ya lo tienes!";
+                        public const string ComoLograrlo = "¿Cómo lograrlo?";
 
                         public static class Codes
                         {

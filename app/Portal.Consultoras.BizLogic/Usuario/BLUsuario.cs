@@ -28,6 +28,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Transactions;
 using System.ServiceModel;
+using Portal.Consultoras.Data.CaminoBrillante;
 
 namespace Portal.Consultoras.BizLogic
 {
