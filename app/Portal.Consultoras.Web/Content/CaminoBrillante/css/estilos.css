@@ -844,13 +844,16 @@ button.close {
             display: block;
             margin: 0;
             font-weight: bold !important;
+            text-align: center;
+            margin-bottom: 8px;
         }
 
         .indicador-nivel .left-mod p {
             color: black;
             font-size: 15px;
             display: block;
-            margin: 0;
+            text-align: center;
+            margin-bottom: 8px;
         }
 
 .two-colums {
