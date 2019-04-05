@@ -64,10 +64,18 @@
         mostrarDetalleModal: function (data) {
             _util.setHandlebars(_template.componenteDetalle, data);
 
-            this.setAcordionDetalleComponente();//eventos de acordio
+            if (!_config.generalModule.isMobile()) {
+                _events.bindClosePopup();
+            }
+
+            if (!_config.generalModule.isMobile())
+                this.setTabDetalleComponente();
+            else
+                this.setAcordionDetalleComponente();//eventos de acordio
 
             if (!_config.generalModule.isMobile()) {
                 $(_template.ModalProductoDetalle).show();
+                $("body").css("overflow", "hidden");
             } else {
                 $(_template.ModalProductoDetalle).modal();
             }
@@ -96,6 +104,17 @@
                 variableWidth: true
             });
         },
+        setTabDetalleComponente: function () {
+            $(_template.getTagDataHtml("componenteDetalle-template")).off("click", "[data-tab-header]");
+            $(_template.getTagDataHtml("componenteDetalle-template")).on("click", "[data-tab-header]", function (e) {
+                e.preventDefault();
+                var numTab = $(e.target).data("num-tab");
+                $("[data-tab-header]").removeClass("active");
+                $("[data-tab-header][data-num-tab=" + numTab + "]").addClass("active");
+                $("[data-tab-body]").hide();
+                $("[data-tab-body][data-num-tab=" + numTab + "]").show();
+            });
+        },
         setAcordionDetalleComponente: function () {
             $(_template.MenuDetalleComponente).click(function () {
                 var $this = $(this);
@@ -120,10 +139,8 @@
     };
 
     var _VerDetalle = function (componente) {
-         
         console.log('componente', componente);         
         _util.mostrarDetalleModal(componente);
-         
     };
 
     var _VerDetalleIndividual = function (estrategia) {
@@ -160,6 +177,17 @@
             _validator.mostrarBotoneraVerDetalle(false);
         }
 
+    };
+
+    var _events = {
+        bindClosePopup: function () {
+            $("body").off("click", "[data-close-product-detail-popup]");
+            $("body").on("click", "[data-close-product-detail-popup]", function (e) {
+                e.preventDefault();
+                $("[data-product-detail-popup]").hide();
+                $("body").css("overflow", "auto");
+            });
+        }
     };
 
     return {
