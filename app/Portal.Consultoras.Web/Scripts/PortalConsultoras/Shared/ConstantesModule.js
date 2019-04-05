@@ -144,11 +144,11 @@ var ConstantesModule = (function () {
         DesktopBuscadorGanadorasCarrusel: "1101401",
         MobileBuscadorGanadorasCarrusel: "2101401",
         DesktopLandingBuscadorGanadorasFicha: "1101402",
-        MobileLandingBuscadorGanadorasFicha: "2101402",
-
-        DesktopPedidoEditarFicha: "1020003",
-        MobilePedidoEditarFicha: "2020004"
+        MobileLandingBuscadorGanadorasFicha: "2101402"
     }
+    var _codigoUbigeoPortal = {
+        GuionPedidoGuionFichaResumida : "--02--09"
+}
 
     // en AnaluticsPortal.js tambiar actualizar los valores
     var _origenPedidoWebEstructura = {
@@ -249,6 +249,7 @@ var ConstantesModule = (function () {
         UrlObtenerEstrategia: _urlObtenerEstrategia,
         UrlDetalleEstrategia: _urlDetalleEstrategia,
         UrlPedido: _urlPedido,
-        GetTipoPersonalizacionByTipoEstrategia: _getTipoPersonalizacionByTipoEstrategia
+        GetTipoPersonalizacionByTipoEstrategia: _getTipoPersonalizacionByTipoEstrategia,
+        CodigoUbigeoPortal: _codigoUbigeoPortal
     }
 })();

@@ -823,8 +823,6 @@ namespace Portal.Consultoras.Common
             public const int DesktopLandingOfertasParaTiOfertasParaTiFicha = 1070002;
             public const int DesktopPedidoOfertasParaTiCarrusel = 1020001;
             public const int DesktopPedidoOfertasParaTiFicha = 1020002;
-            public const int DesktopPedidoEditarFicha = 1020003;
-            public const int MobilePedidoEditarFicha  = 2020004;
             public const int MobileHomeOfertasParaTiCarrusel = 2010001;
             public const int MobileHomeOfertasParaTiFicha = 2010002;
             public const int MobileLandingOfertasParaTiOfertasParaTiCarrusel = 2070001; // Esta en duro en rdAnalyticsModule

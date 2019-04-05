@@ -1865,17 +1865,9 @@ var AnalyticsPortalModule = (function () {
     }
     var marcarPopupBotonEligeloSoloUno = function (estrategia, componentes) {
         try {
-            var textoCategory = "";
-            if (estrategia !== "undefined")
-                if (estrategia.CodigoUbigeoPortal !== "undefined") {
-                    textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(estrategia.CodigoUbigeoPortal);  //using new function
-                    textoCategory = textoCategory + " - Pop up Cambia tu opción";
-                }   
-           
-            textoCategory = textoCategory === "" ? "Contenedor - Pop up Elige 1 opción" : textoCategory;
             dataLayer.push({
                 'event': _evento.virtualEvent,
-                'category': textoCategory,
+                'category': "Contenedor - Pop up Elige 1 opción",
                 'action': 'Elígelo',
                 'label': estrategia.DescripcionCompleta + '-' + componentes.HermanosSeleccionados[0].NombreBulk
             });
@@ -1897,9 +1889,10 @@ var AnalyticsPortalModule = (function () {
     }
     var marcarEliminarOpcionSeleccionada = function (estrategia, nombreComponentes) {
         try {
+            textoCategory = "Contenedor - Pop up Elige 1 opción";
             dataLayer.push({
                 'event': _evento.virtualEvent,
-                'category': 'Contenedor - Pop up Elige 1 opción',
+                'category': textoCategory,
                 'action': 'Desenmarcar Producto',
                 'label': estrategia.DescripcionCompleta + '-' + nombreComponentes
             });
@@ -1988,9 +1981,11 @@ var AnalyticsPortalModule = (function () {
     }
     var marcarEliminarOpcionSeleccionadaVariasOpciones = function (estrategia, nombreComponentes) {
         try {
+           
+            textoCategory = "Contenedor - Pop up Elige más de una opción";
             dataLayer.push({
                 'event': _evento.virtualEvent,
-                'category': 'Contenedor - Pop up Elige más de una opción',
+                'category': textoCategory,
                 'action': 'Desenmarcar opción',
                 'label': estrategia.DescripcionCompleta + ' - ' + nombreComponentes
             });
@@ -2383,19 +2378,18 @@ var AnalyticsPortalModule = (function () {
         });
     }
     var marcaFichaResumidaClickModificar = function (origenPedido, isChangeTono, isChangeCantidad, isChangeCliente) {
-        var origenPedido = origenPedido || 0;
-        if (origenPedido > 0) {
-            if (origenPedido == ConstantesModule.OrigenPedidoWeb.DesktopPedidoEditarFicha ||
-                origenPedido == ConstantesModule.OrigenPedidoWeb.MobilePedidoEditarFicha) {
+        var origenPedido = origenPedido || "";
+        var textoCategory = "";
+        if (origenPedido != "") {
+            if (origenPedido == ConstantesModule.CodigoUbigeoPortal.GuionPedidoGuionFichaResumida) {
+                textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(origenPedido);  //using new function
                 
-                //TODO  Coordinar con Alan
-                //var textoCategory = _getParametroListSegunOrigen(origenPedido, "");
                 var label = isChangeTono ? "Tono " : "";
                 label += (isChangeCliente ? ((label === "" ? "" : "- ") + "Cliente ") : "");
                 label += (isChangeCantidad ? ((label === "" ? "" : "- ") + "Cantidad") : "");
                 dataLayer.push({
                     "event": _evento.virtualEvent,
-                    "category": _texto.CarritoCompras + " - Ficha Resumida",
+                    "category": textoCategory,
                     "action": 'Modificar',
                     "label": label
                 });

@@ -267,7 +267,7 @@ var EstrategiaAgregarModule = (function () {
             if (typeof (fichaModule) != "undefined") {
                 if (typeof (fichaModule.GetEstrategia) != "undefined") {
                     var estrategia = fichaModule.GetEstrategia();
-                    AnalyticsPortalModule.MarcaFichaResumidaClickModificar(estrategia.OrigenPedidoEditar, isChangeTono, isChangeCantidad, isChangeCliente);
+                    AnalyticsPortalModule.MarcaFichaResumidaClickModificar(estrategia.CodigoUbigeoPortal, isChangeTono, isChangeCantidad, isChangeCliente);
                 }
             }
             
