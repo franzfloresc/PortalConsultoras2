@@ -1813,14 +1813,18 @@ function EscogerSolucion(opcion, event) {
         ObtenerValorParametria(id);
     } else if (id == "C") {
         $('#OpcionCambioMismoProducto').fadeIn(200);
-        $('#spnDescProdDevolucion').html($('#hdfCUVDescripcion').val());
+        //$('#spnDescProdDevolucion').html($('#hdfCUVDescripcion').val());
+        $('#spnDescProdDevolucionC').html($('#ddlCuv').val());  
     } else if (id == "D") {
         $('#divDevolucionSetsOrPack').show();
         $('#OpcionDevolucion').fadeIn(200);
         SetHandlebars("#template-opcion-devolucion", dataCdrServicio, "#divDevolucionSetsOrPack");
     } else if (id == "F") {
+        $('#spnDescripcionProductoOpcionF').text($('#ddlCuv').val());
+        //$('#spnDescripcionProductoOpcionF').val($('#hdfCUVDescripcion').val());
         $('#OpcionEnvioDelProducto').fadeIn(200);
     } else {
+        $('#spnDescripcionProductoOpcionG').html($('#ddlCuv').val());
         $('#OpcionDevolucionDinero').fadeIn(200);
     }
 }
