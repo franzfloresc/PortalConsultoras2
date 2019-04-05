@@ -190,7 +190,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Areas\Mobile\Controllers\BuscadorController.cs" />
-    <Compile Include="Areas\Mobile\Controllers\CaminoBrillanteController.cs" />
     <Compile Include="Areas\Mobile\Controllers\DetalleEstrategiaController.cs" />
     <Compile Include="Areas\Mobile\Controllers\MasGanadorasController.cs" />
     <Compile Include="Areas\Mobile\Controllers\MiPerfilController.cs" />
@@ -4609,8 +4608,6 @@
     <Content Include="Areas\Mobile\Views\Pedido\_PopupEleccionRegalo.cshtml" />
     <Content Include="Areas\Mobile\Views\Pedido\_PopupPremio.cshtml" />
     <Content Include="Areas\Mobile\Views\Pedido\_PopupDescuento.cshtml" />
-    <Content Include="Areas\Mobile\Views\CaminoBrillante\Index.cshtml" />
-    <Content Include="Areas\Mobile\Views\CaminoBrillante\Logros.cshtml" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>
