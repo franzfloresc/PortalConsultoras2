@@ -20,7 +20,7 @@
     <div class="row align-items-center">
       <div class="col-10">
         <h2 class="attend-title mb-0">Paso 2: Elige cómo atender</h2>
-        <span class="attend-subtitle text-12">Podrás vender todo a S/. 134.50</span>
+        <span class="attend-subtitle text-12">Podrás vender todo a @ViewBag.Simbolo @Model.TotalCatalogo</span>
       </div>
       <div class="col-2">
         <div class="attend-close">
@@ -34,29 +34,41 @@
   <hr class="mt-8">
 
   <!--  Con Gana+  -->
-  <div class="container">
+  <div class="container  containBox">
     <div class="porGanaMas">
       <div class="row align-items-center">
         <div class="col-8 pr-0">
-          <h3 class="title-small text-700 text-gray">Por Gana+ $ 100000.000</h3>
-          <span class="text-purple text-14">Gana S/. 67.90</span>
+            <h3 class="title-small text-700 text-gray">Por Gana+ @ViewBag.Simbolo @Model.TotalGana</h3>
+            <span class="text-purple text-14">Gana @ViewBag.Simbolo @Model.GananciaGana</span>
         </div>
         <div class="col">
-          <div class="vc-box text-black text-14 text-700">
-            <a href="#" class="action-btn action-btn_border">Elegido</a>
+          <div data-accion="ingrgana"  class="btnAccion vc-box text-black text-14 text-700">
+            <a href="#" class="action-btn action-btn_border active">Elegido</a>
           </div>
         </div>
       </div>
-      <div class="row conGanaMas vc-box vc-box--shadow">
-        <div class="col products-item">
-          <img src="https://i.ibb.co/MVyDK3j/square-3x.jpg" class="img-fluid products-img" alt="Producto">
-          <p class="text-12 text-gray">Pack 4 Delineadores Líquido Punta Plumón Marrón otoño</p>
-          <span class="text-12 text-gray">S/. 50.80</span>
-        </div>
-        <div class="col products-item"><img src="https://i.ibb.co/MVyDK3j/square-3x.jpg" class="img-fluid products-img" alt="Producto">
-          <p class="text-12 text-gray">Delineador Líquido Punta Plumón Marrón otoño + Natural Care Coconut Ocean</p>
-          <span class="text-12 text-gray">S/. 15.80</span>
-        </div>
+      <div class="row conGanaMas vc-box vc-box--shadow  @if (Model.ListaGana.Count>2){  <text>brokenBox</text> 	} ">
+          @*<div class="col products-item">
+              <img src="https://i.ibb.co/MVyDK3j/square-3x.jpg" class="img-fluid products-img" alt="Producto">
+              <p class="text-12 text-gray">Pack 4 Delineadores Líquido Punta Plumón Marrón otoño</p>
+              <span class="text-12 text-gray">S/. 50.80</span>
+          </div>
+          <div class="col products-item">
+              <img src="https://i.ibb.co/MVyDK3j/square-3x.jpg" class="img-fluid products-img" alt="Producto">
+              <p class="text-12 text-gray">Delineador Líquido Punta Plumón Marrón otoño + Natural Care Coconut Ocean</p>
+              <span class="text-12 text-gray">S/. 15.80</span>
+          </div>*@
+
+          @foreach (var x in Model.ListaGana)
+            {
+              <div class="col products-item">
+                  <img src="https://i.ibb.co/MVyDK3j/square-3x.jpg" class="img-fluid products-img" alt="Producto">
+                  <p class="text-12 text-gray"> @x.DescripcionCUV2</p>
+                  <span class="text-12 text-gray">@ViewBag.Simbolo @x.PrecioString</span>
+              </div>
+            }
+
+
       </div>
       <span class="text-12 text-purple">* Incluye productos extras</span>
     </div>
@@ -71,37 +83,55 @@
       <div class="row align-items-center">
         <div class="col-8 pr-0">
           <h3 class="title-small text-700 text-gray">Por Catálogo</h3>
-          <span class="title-small text-700 text-gray">S/. 134.50</span>
+          <span class="title-small text-700 text-gray"> @ViewBag.Simbolo @Model.TotalCatalogo</span>
         </div>
         <div class="col">
-          <div class="vc-box text-black text-14 text-700">
+          <div data-accion="ingrped"  class="btnAccion vc-box text-black text-14 text-700">
             <a href="#" class="action-btn action-btn_border active">Elegir</a>
           </div>
         </div>
       </div>
-      <div class="row conCatalogo vc-box vc-box--shadow brokenBox">
-        <div class="col">
-          <img src="https://i.ibb.co/MVyDK3j/square-3x.jpg" class="img-fluid products-img" alt="Producto">
-          <p class="text-12 text-gray">Pack 4 Delineadores Líquido Punta Plumón Marrón otoño</p>
-          <span class="text-12 text-gray">S/. 50.80</span>
-        </div>
-        <div class="col"><img src="https://i.ibb.co/MVyDK3j/square-3x.jpg" class="img-fluid products-img" alt="Producto">
-          <p class="text-12 text-gray">Delineador Líquido Punta Plumón Marrón otoño + Natural Care Coconut Ocean</p>
-          <span class="text-12 text-gray">S/. 15.80</span></div>
-        <div class="col"><img src="https://i.ibb.co/MVyDK3j/square-3x.jpg" class="img-fluid products-img" alt="Producto">
-          <p class="text-12 text-gray">Pack 4 Delineadores Líquido Punta Plumón Marrón otoño</p>
-          <span class="text-12 text-gray">S/. 15.80</span></div>        
-        <div class="col">
-          <img src="https://i.ibb.co/MVyDK3j/square-3x.jpg" class="img-fluid products-img" alt="Producto">
-          <p class="text-12 text-gray">Pack 4 Delineadores Líquido Punta Plumón Marrón otoño</p>
-          <span class="text-12 text-gray">S/. 50.80</span>
-        </div>
-        <div class="col"><img src="https://i.ibb.co/MVyDK3j/square-3x.jpg" class="img-fluid products-img" alt="Producto">
-          <p class="text-12 text-gray">Delineador Líquido Punta Plumón Marrón otoño + Natural Care Coconut Ocean</p>
-          <span class="text-12 text-gray">S/. 15.80</span></div>
-        <div class="col"><img src="https://i.ibb.co/MVyDK3j/square-3x.jpg" class="img-fluid products-img" alt="Producto">
-          <p class="text-12 text-gray">Pack 4 Delineadores Líquido Punta Plumón Marrón otoño</p>
-          <span class="text-12 text-gray">S/. 15.80</span></div>
+      <div class="row conCatalogo vc-box vc-box--shadow  @if (Model.ListaGana.Count>2){  <text>brokenBox</text> 	} ">
+
+          @foreach (var x in Model.ListaCatalogo)
+            {
+              <div class="col">
+                  <img src="https://i.ibb.co/MVyDK3j/square-3x.jpg" class="img-fluid products-img" alt="Producto">
+                  <p class="text-12 text-gray"> @x.Producto</p>
+                  <span class="text-12 text-gray">@ViewBag.Simbolo @x.FormatoPrecioTotal</span>
+              </div>
+        }
+
+          @*<div class="col">
+              <img src="https://i.ibb.co/MVyDK3j/square-3x.jpg" class="img-fluid products-img" alt="Producto">
+              <p class="text-12 text-gray">Pack 4 Delineadores Líquido Punta Plumón Marrón otoño</p>
+              <span class="text-12 text-gray">S/. 50.80</span>
+          </div>
+          <div class="col">
+              <img src="https://i.ibb.co/MVyDK3j/square-3x.jpg" class="img-fluid products-img" alt="Producto">
+              <p class="text-12 text-gray">Delineador Líquido Punta Plumón Marrón otoño + Natural Care Coconut Ocean</p>
+              <span class="text-12 text-gray">S/. 15.80</span>
+          </div>
+          <div class="col">
+              <img src="https://i.ibb.co/MVyDK3j/square-3x.jpg" class="img-fluid products-img" alt="Producto">
+              <p class="text-12 text-gray">Pack 4 Delineadores Líquido Punta Plumón Marrón otoño</p>
+              <span class="text-12 text-gray">S/. 15.80</span>
+          </div>
+          <div class="col">
+              <img src="https://i.ibb.co/MVyDK3j/square-3x.jpg" class="img-fluid products-img" alt="Producto">
+              <p class="text-12 text-gray">Pack 4 Delineadores Líquido Punta Plumón Marrón otoño</p>
+              <span class="text-12 text-gray">S/. 50.80</span>
+          </div>
+          <div class="col">
+              <img src="https://i.ibb.co/MVyDK3j/square-3x.jpg" class="img-fluid products-img" alt="Producto">
+              <p class="text-12 text-gray">Delineador Líquido Punta Plumón Marrón otoño + Natural Care Coconut Ocean</p>
+              <span class="text-12 text-gray">S/. 15.80</span>
+          </div>
+          <div class="col">
+              <img src="https://i.ibb.co/MVyDK3j/square-3x.jpg" class="img-fluid products-img" alt="Producto">
+              <p class="text-12 text-gray">Pack 4 Delineadores Líquido Punta Plumón Marrón otoño</p>
+              <span class="text-12 text-gray">S/. 15.80</span>
+          </div>*@
       </div>
 
     </div>
@@ -109,7 +139,7 @@
   <!-- / Con Catálogo    -->
   <hr>
 
-  <!--  Con Catálogo  -->
+  <!--  Con Stock  -->
   <div class="container">
     <div class="yaLoTengo">
       <div class="row align-items-center">
@@ -117,14 +147,14 @@
           <h3 class="title-small text-700 text-gray">Ya lo tengo en stock</h3>
         </div>
         <div class="col">
-          <div class="vc-box text-black text-14 text-700">
+          <div data-accion="ingrten"  class="btnAccion vc-box text-black text-14 text-700">
             <a href="#" class="action-btn action-btn_border active">Elegir</a>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <!-- / Con Catálogo    -->  
+  <!-- / Con Stock    -->  
   
   <hr>
   
@@ -149,8 +179,8 @@
     <div class="container">
       <div class="row">
         <div class="col">
-          <div class="vc-box text-14 text-700">
-            <a href="#" class="action-btn action-btn_continue " data-toggle="modal" data-target="#aprobarPedido">Aprobar pedido</a>
+          <div id="btnAceptarPedido" onclick="AceptarPedidoPendiente()"  class="vc-box text-14 text-700">
+            <a href="#"  class="action-btn action-btn_continue " data-toggle="modal" data-target="#aprobarPedido">Aprobar pedido</a>
           </div>
         </div>
       </div>

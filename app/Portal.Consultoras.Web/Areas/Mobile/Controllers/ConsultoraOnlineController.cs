@@ -1183,12 +1183,14 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
              
            
                 if (oListaPedidos.Any())
-                {                    
-                        oListaPedidos.ForEach(x => {
+                {
+                    oListaPedidos.ForEach(x => {
 
-                            var oDetallesTemporal = svc.GetMisPedidosDetalleConsultoraOnline(userData.PaisID, x.PedidoId).ToList();
-                            if (oDetallesTemporal.Any())
-                            {
+
+                    var oDetallesTemporal = svc.GetMisPedidosDetalleConsultoraOnline(userData.PaisID, x.PedidoId).ToList();
+                        if (oDetallesTemporal.Any())
+                        {
+                            oDetallesTemporal.Take(2).Update(u =>{ u.Elegido = true;                         });
                                 x.DetallePedido = oDetallesTemporal.ToArray();
                                  oListaPedidosDetalle.AddRange(oDetallesTemporal);
                               //  modelPedido
@@ -1294,6 +1296,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
               model.TotalCatalogo = oListaCatalogo.Sum(x => x.PrecioTotal);
               model.ListaGana = oListaGana;
               model.TotalGana = oListaGana.Sum(x=>x.Precio2);
+            model.GananciaGana = oListaGana.Sum(x=>x.Ganancia);
             //}
 
             return View(model);

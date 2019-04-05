@@ -59,7 +59,9 @@ namespace Portal.Consultoras.Web.Providers
 
                         response.Add( new EstrategiaPedidoModel() {
                             DescripcionCUV2 = x.DescripcionCUV2,
-                            PrecioString = x.PrecioString
+                            PrecioString = x.PrecioString,
+                            Precio2 = x.Precio2,
+                            Ganancia = x.Ganancia
 
                         });
 
