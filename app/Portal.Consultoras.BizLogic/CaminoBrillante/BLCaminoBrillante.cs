@@ -131,7 +131,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 CodigoSap = e.CodigoSap,
                 CUV = e.Cuv,
                 DescripcionCUV = e.Descripcion,
-                DescripcionCortaCUV = e.DescripcionOferta,
+                DescripcionCortaCUV = e.Descripcion,
                 MarcaID = 1,
                 DescripcionMarca = e.Marca,
                 CodigoNivel = e.Nivel,
