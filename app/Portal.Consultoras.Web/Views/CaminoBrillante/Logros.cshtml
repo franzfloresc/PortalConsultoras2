@@ -109,9 +109,18 @@
                                                     </button>
                                                     <div class="modal-body">
                                                         <div class="indicador-nivel">
-                                                            <div class="circle-porcent crec-activo doble">
-                                                                <span>@item2.Valor</span>
-                                                            </div>
+                                                            @if (item2.Tipo == "PED")
+                                                            {
+                                                                <div class="circle-porcent imgpizz">
+                                                                    <img src="~/Content/CaminoBrillante/imgs/pedido_activo.svg" />
+                                                                </div>
+                                                            }
+                                                            else
+                                                            {
+                                                                <div class="circle-porcent crec-activo doble">
+                                                                    <span>@item2.Valor</span>
+                                                                </div>
+                                                            }
                                                             <div class="left-mod">
                                                                 <h2>@item2.ModalTitulo</h2>
                                                                 <p>@item2.ModalDescripcion</p>
