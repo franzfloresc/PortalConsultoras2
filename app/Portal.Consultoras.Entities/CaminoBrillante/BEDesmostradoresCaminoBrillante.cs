@@ -44,19 +44,32 @@ namespace Portal.Consultoras.Entities.CaminoBrillante
         }
         */
 
+        [DataMember]
         public int EstrategiaID { get; set; }
+        [DataMember]
         public string CodigoEstrategia { get; set; }
+        [DataMember]
         public string CUV { get; set; }
+        [DataMember]
         public string DescripcionCUV { get; set; }
+        [DataMember]
         public string DescripcionCortaCUV { get; set; }
+        [DataMember]
         public int MarcaID { get; set; }
+        [DataMember]
         public string DescripcionMarca { get; set; }
         //public decimal PrecioValorizado { get; set; }
+        [DataMember]
         public decimal PrecioFinal { get; set; }
+        [DataMember]
         public decimal Ganancia { get; set; }
+        [DataMember]
         public string FotoProductoSmall { get; set; }
+        [DataMember]
         public string FotoProductoMedium { get; set; }
+        [DataMember]
         public string TipoEstrategiaID { get; set; }
+        [DataMember]
         public int OrigenPedidoWebFicha { get; set; }
 
     }
