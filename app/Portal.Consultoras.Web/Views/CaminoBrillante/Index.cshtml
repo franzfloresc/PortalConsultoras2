@@ -1,12 +1,14 @@
 ﻿@{
+    Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
     ViewBag.Title = "Camino Brillante";
+
     var data = ViewBag.ResumenLogros;
     var Niveles = ViewBag.Niveles;
     var TieneOfertasEspeciales = ViewBag.TieneOfertasEspeciales;
     var NivelActual = ViewBag.NivelActual;
 }
 
-@section styles{
+@section css{
     @System.Web.Optimization.Styles.Render("~/Bundle/Css/CaminoBrillante")
 }
 <br />
