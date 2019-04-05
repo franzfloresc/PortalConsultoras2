@@ -244,7 +244,8 @@
                                         </a>
                                     </div>
                                 </div>
-                                <div class="col-12 pl-0 pr-0 etiqueta_buscador_producto ficha__producto__etiqueta text-center">
+                                <div class="col-12 pl-0 pr-0 etiqueta_buscador_producto ficha__producto__etiqueta text-center" style="display:none;" data-Agregado="DivAgregado">
+                                    <span class="text-uppercase text-bold d-inline-block">Agregado</span>
                                 </div>
                             </div>
                         </article>
@@ -310,7 +311,8 @@
                                         </a>
                                     </div>
                                 </div>
-                                <div class="col-12 pl-0 pr-0 etiqueta_buscador_producto ficha__producto__etiqueta text-center">
+                                <div class="col-12 pl-0 pr-0 etiqueta_buscador_producto ficha__producto__etiqueta text-center" style="display:none;" data-Agregado="DivAgregado">
+                                    <span class="text-uppercase text-bold d-inline-block">Agregado</span>
                                 </div>
                             </div>
                         </article>
@@ -392,8 +394,10 @@
                         cache: false,
                         success: function (data) {
                             //dfd.resolve(data);
+                            debugger;
                             CerrarSplash();
                             CargarResumenCampaniaHeader(true);
+                            
                         },
                         error: function (data, error) {
                             alert("error");
