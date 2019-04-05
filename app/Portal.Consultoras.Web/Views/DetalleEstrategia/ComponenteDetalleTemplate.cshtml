@@ -53,7 +53,7 @@
 
                     {{#iff seccion.EsVideos '==' true }}
                     <section class="seccion_tab" {{#if @@first}} style="display:block" {{/if}} data-tab-body data-num-tab="{{@@index}}">
-                        <div id="carouselIndividualVideo">
+                        <div id="carouselVideo">
                             {{#each seccion.Detalles as |detalle|}}
                             <div @*style="width:350px;height:350px;"*@>
                                 <p>{{detalle.Titulo}}</p>
