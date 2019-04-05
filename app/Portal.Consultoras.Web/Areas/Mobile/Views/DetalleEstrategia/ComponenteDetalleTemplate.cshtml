@@ -53,11 +53,7 @@
                                         {{/each}}
                                     </ul>
                                 </li>
-                                {{/iff}}
-                                {{/each}}
-
-                                {{#each this.Secciones as |seccion|}}
-                                {{#iff seccion.EsVideos '==' true }}
+                                {{else}}                                 
                                 <li id="div_ficha_tab1">
                                     <a class="tab-link">{{seccion.Titulo}}</a>
                                     <ul class="tabs_container">
@@ -85,32 +81,13 @@
                                             </div>
                                         </div>
                                     </ul>
-                                </li>
+                                </li>                             
                                 {{/iff}}
                                 {{/each}}
-
+                                  
                             </ul>
                         </div>
-
-                        <div class="video-visual">
-                            <div class="video-container" style="width: 100%; position: relative;">
-                                <div id="ytFichax"
-                                     data-youtube="{
-                 height:'350',
-                 width:'350',
-                 enablejsapi:1,
-                 fs:0,
-                 showinfo:0,
-                 modestbranding:1,
-                 loop:1,
-                 videoId: 'vuk4jvydjD4',
-                 playerVars:{autoplay:0,rel:0}}"
-                                     data-extra="{'descripcionResumen':'weqweqweqweqweqweqweweqweqwe'}"
-                                     class="yt-video"></div>
-                            </div>
-                        </div>
-
-
+                          
                     </div>
                 </div>
             </div>

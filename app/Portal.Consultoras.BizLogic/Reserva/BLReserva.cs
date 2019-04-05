@@ -633,7 +633,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
             return flag;
         }
 
-        private bool InsLogEnvioCorreoPedidoValidado(BEInputReservaProl input, List<BEPedidoWebDetalle> listPedidoWebDetalle)
+        private void InsLogEnvioCorreoPedidoValidado(BEInputReservaProl input, List<BEPedidoWebDetalle> listPedidoWebDetalle)
         {
             BELogCabeceraEnvioCorreo beLogCabecera = new BELogCabeceraEnvioCorreo
             {
@@ -652,7 +652,8 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 PrecioUnitario = detalle.PrecioUnidad
             }).ToList();
 
-            return new BLLogEnvioCorreo().InsLogEnvioCorreoPedidoValidado(input.PaisID, beLogCabecera, listLogDetalleEnvioCorreo);
+            var bl = new BLLogEnvioCorreo();
+            bl.InsLogEnvioCorreoPedidoValidado(input.PaisID, beLogCabecera, listLogDetalleEnvioCorreo);
         }
 
         #endregion

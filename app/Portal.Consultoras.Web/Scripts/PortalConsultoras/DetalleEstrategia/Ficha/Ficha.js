@@ -17,6 +17,7 @@ $(document).ready(function () {
     componenteDetalleModule = ComponenteDetalleModule({
         localStorageModule: localStorageModule,
         analyticsPortalModule: analyticsPortalModule,
+        generalModule: generalModule,
         palanca: modelPalanca,
         campania: modelCampania,
         cuv: modelCuv,

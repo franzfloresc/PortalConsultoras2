@@ -2795,18 +2795,21 @@ namespace Portal.Consultoras.BizLogic
             return null;
         }
 
-        private BEUsuarioDatos GetOpcionHabilitar(int paisID, int origenID, ref BEUsuarioDatos oDatos)
+        private void GetOpcionHabilitar(int paisID, int origenID, ref BEUsuarioDatos oDatos)
         {
             var DAUsuario = new DAUsuario(paisID);
-            using (IDataReader rd = DAUsuario.GetOpcionHabilitada(oDatos.CodigoUsuario, origenID))
-                if (rd.Read())
-                {
-                    oDatos.OpcionCorreoDesabilitado = rd.GetString(0);
-                    oDatos.OpcionSmsDesabilitado = rd.GetString(1);
-                    oDatos.HoraRestanteCorreo = rd.GetInt32(2);
-                    oDatos.HoraRestanteSms = rd.GetInt32(3);
-                }
-            return oDatos;
+            DAUsuario.GetOpcionHabilitada(oDatos.CodigoUsuario, origenID);
+            //using (IDataReader rd = DAUsuario.GetOpcionHabilitada(oDatos.CodigoUsuario, origenID))
+            //{
+            //    if (rd.Read())
+            //    {
+            //        oDatos.OpcionCorreoDesabilitado = rd.GetString(0);
+            //        oDatos.OpcionSmsDesabilitado = rd.GetString(1);
+            //        oDatos.HoraRestanteCorreo = rd.GetInt32(2);
+            //        oDatos.HoraRestanteSms = rd.GetInt32(3);
+            //    }
+            //}
+            //return oDatos;
         }
 
         private bool GetHorarioByCodigo(int paisID, string origen, out string descripcion)
@@ -3830,22 +3833,21 @@ namespace Portal.Consultoras.BizLogic
                             DAUsuario.InsertarUsuarioOpciones(item, usuario.CodigoUsuario);
                         }
 
-                        if (usuario.PaisID == Constantes.PaisID.Chile)
+                        if (usuario.PaisID == Constantes.PaisID.Chile
+                            && usuario.UsuarioOpciones.Any(a => a.OpcionesUsuarioId == Constantes.OpcionesUsuario.BoletaImpresa))
                         {
-                            if (usuario.UsuarioOpciones.Any(a => a.OpcionesUsuarioId == Constantes.OpcionesUsuario.BoletaImpresa))
+                            var urlService = new EndpointAddress(WebConfig.ServicioActualizarBoletaImp);
+                            string flagBolImp = !usuario.UsuarioOpciones.Where(a => a.Codigo == "chkBoletasImpresas").Select(b => b.CheckBox).FirstOrDefault() ? "N" : "S";
+                            using (var svr = new ProcesoMAEActualizaFlagImpBoletasWebServiceImplClient(new BasicHttpBinding(), urlService))
                             {
-                                var urlService = new EndpointAddress(WebConfig.ServicioActualizarBoletaImp);
-                                string flagBolImp = !usuario.UsuarioOpciones.Where(a => a.Codigo == "chkBoletasImpresas").Select(b => b.CheckBox).FirstOrDefault() ? "N" : "S";
-                                using (var svr = new ProcesoMAEActualizaFlagImpBoletasWebServiceImplClient(new BasicHttpBinding(), urlService))
-                                {
-                                    svr.Endpoint.Binding.SendTimeout = new TimeSpan(0, 0, 0, 10);
-                                    var objActualizarFlagBoleta = new List<ConsultoraFlagImpBoleta>();
-                                    objActualizarFlagBoleta.Add(new ConsultoraFlagImpBoleta { codigoConsultora = usuario.CodigoConsultora, indImprimeBoleta = flagBolImp, indImprimePaquete = flagBolImp });
-                                    var result = svr.actualizaFlagImpBoletas(objActualizarFlagBoleta.ToArray());
-                                    if (result.estado == 1)
-                                        throw new Exception(result.mensaje);
-                                }
+                                svr.Endpoint.Binding.SendTimeout = new TimeSpan(0, 0, 0, 10);
+                                var objActualizarFlagBoleta = new List<ConsultoraFlagImpBoleta>();
+                                objActualizarFlagBoleta.Add(new ConsultoraFlagImpBoleta { codigoConsultora = usuario.CodigoConsultora, indImprimeBoleta = flagBolImp, indImprimePaquete = flagBolImp });
+                                var result = svr.actualizaFlagImpBoletas(objActualizarFlagBoleta.ToArray());
+                                if (result.estado == 1)
+                                    throw new Exception(result.mensaje);
                             }
+
                         }
                     }
 

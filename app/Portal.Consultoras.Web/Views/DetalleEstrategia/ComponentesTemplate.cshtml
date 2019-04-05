@@ -104,7 +104,7 @@
                         </div>
                     </div>
                     
-                    <a class="button_ver_detalle" href="#">Ver detalle <img src="/Content/Images/General/Icons/arrow_down.svg"></a>
+                    <a class="button_ver_detalle" onclick="javascript:componenteDetalleModule.VerDetalle({{{json this}}})">Ver detalle <img src="/Content/Images/General/Icons/arrow_down.svg"></a>
                     
                     {{#iff componente.Digitable '==' '1'}}
                         <div class="content_right_ficha" style="width:43%;">

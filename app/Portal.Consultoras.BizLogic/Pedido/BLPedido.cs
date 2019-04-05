@@ -252,13 +252,10 @@ namespace Portal.Consultoras.BizLogic.Pedido
             {
                 var packAgregado = lstDetalleAgrupado != null ? lstDetalleAgrupado.FirstOrDefault(x => x.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.ArmaTuPack) : null;
 
-                if (packAgregado != null)
+                if (packAgregado != null && packAgregado.CUV == estrategia.CUV2)
                 {
-                    if (packAgregado.CUV == estrategia.CUV2)
-                    {
-                        pedidoDetalle.EsEditable = true;
-                        pedidoDetalle.SetID = packAgregado.SetID;
-                    }
+                    pedidoDetalle.EsEditable = true;
+                    pedidoDetalle.SetID = packAgregado.SetID;
                 }
             }
             #endregion
