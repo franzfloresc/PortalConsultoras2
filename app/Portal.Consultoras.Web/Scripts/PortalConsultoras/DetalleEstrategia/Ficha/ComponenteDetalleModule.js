@@ -36,7 +36,7 @@
         componenteDetalle: "componenteDetalle-template",
         componenteDetalleIndividual: "componenteDetalleIndividual-template",
         ContenidoProducto: "#ContenidoProducto",
-        BotonVerDetalle: "div[id='btnVerDetalle']",
+        BotonVerDetalle: "[id='btnVerDetalle']",
         MenuDetalleComponente: "#mnuDetalleComponente li a",
         CarruselVideo: '#carouselVideo',
         CarruselIndividualVideo: '#carouselIndividualVideo',
@@ -66,17 +66,11 @@
 
             if (!_config.generalModule.isMobile()) {
                 _events.bindClosePopup();
-            }
-
-            if (!_config.generalModule.isMobile())
                 this.setTabDetalleComponente();
-            else
-                this.setAcordionDetalleComponente();//eventos de acordio
-
-            if (!_config.generalModule.isMobile()) {
-                $(_template.ModalProductoDetalle).show();
                 $("body").css("overflow", "hidden");
+                $(_template.ModalProductoDetalle).show();
             } else {
+                this.setAcordionDetalleComponente();//eventos de acordio
                 $(_template.ModalProductoDetalle).modal();
             }
 
@@ -87,9 +81,14 @@
             //Este método asigna los datos del componente individual a _template.componenteDetalleIndividual
 
             //estrategia.Hermanos por default es solo 1
-            if (estrategia.Hermanos.length > 0) {
+            if (estrategia.Hermanos.length== 1) {
                 _util.setHandlebars(_template.componenteDetalleIndividual, estrategia.Hermanos[0]);
-                this.setAcordionDetalleComponente();//eventos de acordio
+                if (!_config.generalModule.isMobile()) {
+                    this.setTabDetalleComponente();
+                }
+                else {
+                    this.setAcordionDetalleComponente();//eventos de acordio
+                }
                 this.setCarrusel(_template.CarruselIndividualVideo);
                 this.setYoutubeApi();
             } else {
@@ -106,8 +105,8 @@
             });
         },
         setTabDetalleComponente: function () {
-            $(_template.getTagDataHtml("componenteDetalle-template")).off("click", "[data-tab-header]");
-            $(_template.getTagDataHtml("componenteDetalle-template")).on("click", "[data-tab-header]", function (e) {
+            $("body").off("click", "[data-tab-header]");
+            $("body").on("click", "[data-tab-header]", function (e) {
                 e.preventDefault();
                 var numTab = $(e.target).data("num-tab");
                 $("[data-tab-header]").removeClass("active");
@@ -165,7 +164,6 @@
             _validator.mostrarContenidoProducto(true);
 
             if ($(_template.BotonVerDetalle).length > 1) {
-
                 _validator.mostrarBotoneraVerDetalle(true);
                 _validator.mostrarContenidoProducto(false);
 
