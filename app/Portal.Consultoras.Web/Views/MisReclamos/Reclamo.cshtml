@@ -47,7 +47,7 @@
                         <input type="hidden" id="txtNumeroPedido" value="@Model.NumeroPedido" />
                         <input type="hidden" id="txtPrecioUnidad" />
                         <input type="hidden" id="hdImporteTotalPedido" />
-                        <input type="hidden" id="hdtxtCUVDescripcion" />
+                        <input type="hidden" id="hdfCUVDescripcion" />
                         <input type="hidden" id="hdfCUV" value="0" />
                         <select class="elige_num_pedido" id="ddlnumPedido" name="numPedido" required="required" style="display:none;"></select>
                         @*<div class="contenedor_descripcion_reclamo">
@@ -86,8 +86,71 @@
                     <div class="subtitulo_reclamo">Escoge una solución</div>
                     <div id="divOperacion" class="text-center lista_opciones_cdr_wrapper">
                     </div>
+                    <div id="infoOpcionesDeCambio" style="display:none;">
+                        <div id="OpcionCambioPorOtroProducto" style="display:none;">
+                            <!-- INFORMACIÓN CUANDO SE SELECCIONA LA OPCIÓN DE CAMBIAR POR OTRO PRODUCTO -->
+                            <div class="opcion_cdr_seleccionada_info opcion_cdr_seleccionada_info--cambiarPorOtroProducto">
+                                <p>Puedes cambiarlo por otro producto(s) cuyo monto sea mayor o igual al que reclamas (<span id="spnSimboloMonedaReclamo">S/.</span><span id="spnMontoMinimoReclamoFormato">15</span>)</p>
+                                <p class="text-bold">
+                                    Búscalo en tus catálogos de Campaña <span id="spnNumeroCampaniaReclamo">15</span>:
+                                </p>
+                                <div class="text-center opcion_cdr_seleccionada_campos_busqueda_producto_a_cambiar">
+                                    <input type="text" class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--codigo" value="" id="txtCUV2" placeholder="Código" />
+                                    <input type="text" class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--descripcion" id="txtCUVDescripcion2" readonly value="" placeholder="Descripción del producto" />
+                                    <input type="text" class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--precio" id="txtCUVPrecio2" readonly value="" placeholder="Precio" />
+                                    <div class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad" data-cantidad-contenedor="">
+                                        <input type="hidden" id="hdCuvPrecio2">
+                                        <input type="hidden" id="hdParametriaCdr" value="0">
+                                        <input type="hidden" id="hdParametriaAbsCdr" value="1">
+                                        <input type="hidden" id="hdCdrWebDatos_Ssic">
+                                        <input type="text" name="Cantidad" id="txtCantidad2" value="1" data-input="cantidad" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid">
+                                        <div class="liquidacion_rango_right_pedido">
+                                            <a class="mas modificarPrecioMas" onclick="AgregarODisminuirCantidad(event,1)"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                                            <a class="menos modificarPrecioMenos" onclick="AgregarODisminuirCantidad(event,2)"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="MontoTotalProductoACambiar" class="text-bold total_precio_reclamo" style="display:none;">
+                                    <input type="hidden" id="hdImporteTotal2" />
+                                    Total: <span id="spnImporteTotal2"></span>
+                                </div>
+                            </div>
+                            <!-- FIN - INFORMACIÓN CUANDO SE SELECCIONA LA OPCIÓN DE CAMBIAR POR OTRO PRODUCTO -->
+                        </div>
+                        <div id="OpcionCambioMismoProducto" style="display:none;">
+                            <div class="opcion_cdr_seleccionada_info opcion_cdr_seleccionada_info--cambioMismoProducto">
+                                <p class="text-bold">Vamos a reenviarte el mismo producto:</p>
+                                <p class="text-bold">
+                                    <span id="spnDescProdDevolucionC" class="text-bold producto_nom"></span>
+                                </p>
+                            </div>
+                        </div>
+                        <div id="OpcionEnvioDelProducto" style="display:none;">
+                            <div class="opcion_cdr_seleccionada_info opcion_cdr_seleccionada_info--envioProducto">
+                                <p class="text-bold">Vamos a enviarte el siguiente producto:</p>
+                                <p class="text-bold">
+                                    <span class="text-bold producto_nom" id="spnDescripcionProductoOpcionF"></span>
+                                </p>
+                            </div>
+                        </div>
+                        <div id="OpcionDevolucionDinero" style="display:none;">
+                            <div class="opcion_cdr_seleccionada_info opcion_cdr_seleccionada_info--devolucionDinero">
+                                <p class="text-bold">Vamos a descontar el siguiente producto en tu próximo pedido:</p>
+                                <p class="text-bold">
+                                    <span class="text-bold producto_nom" id="spnDescripcionProductoOpcionG"></span>
+                                </p>
+                            </div>
+                        </div>
+                        <div id="OpcionDevolucion" style="display:none;">
+                            <!-- INFORMACIÓN CUANDO SE SELECCIONA LA OPCIÓN DE DEVOLUCIÓN Y EL PRODUCTO FORMA PARTE DE UN SET -->
+                            <div id="divDevolucionSetsOrPack" class="opcion_cdr_seleccionada_info opcion_cdr_seleccionada_info--devolucionCasoSetProducto">
+                            </div>
+                            <!-- FIN - INFORMACIÓN CUANDO SE SELECCIONA LA OPCIÓN DE DEVOLUCIÓN Y EL PRODUCTO FORMA PARTE DE UN SET -->
+                        </div>
+                    </div>
+                    <button type="button" class="border-radius-4 text-bold btn_cdr btn_solucion_reclamo" onclick="IrAFinalizar()" id="btnSiguiente">Siguiente</button>
                     <hr class="clear" />
-                    @*<span class="btn_paso_anterior" id="RegresarPaso1">REGRESAR</span>*@
+
                 </div>
                 <div class="content_reclamo" id="Cambio2" style="display: none;">
                     <div class="subtitulo_reclamo_light">ELEGISTE</div>
@@ -379,7 +442,7 @@
     <ul class="text-center lista_opciones_cdr">
         {{#each this as |item|}}
         <li class="opcion_cdr border-radius-4">
-            <a title="{{item.CDRTipoOperacion.DescripcionOperacion}}" class="text-center opcion_cdr_enlace">
+            <a title="{{item.CDRTipoOperacion.DescripcionOperacion}}" class="text-center opcion_cdr_enlace">                
                 <div class="opcion_cdr_icono_wrapper">
                     {{#if_eq item.CodigoOperacion 'D'}}
                     <img src="@Url.Content("~/Content/Images/opcion_devolucion_cdr.svg")" alt="" class="opcion_cdr_icono" />
@@ -403,71 +466,7 @@
         </li>
         {{/each}}
     </ul>
-    <div id="infoOpcionesDeCambio" style="display:none;">
-        <div id="OpcionCambioPorOtroProducto" style="display:none;">
-            <!-- INFORMACIÓN CUANDO SE SELECCIONA LA OPCIÓN DE CAMBIAR POR OTRO PRODUCTO -->
-            <div class="opcion_cdr_seleccionada_info opcion_cdr_seleccionada_info--cambiarPorOtroProducto">
-                <p>Puedes cambiarlo por otro producto(s) cuyo monto sea mayor o igual al que reclamas (<span id="spnSimboloMonedaReclamo">S/.</span><span id="spnMontoMinimoReclamoFormato">15</span>)</p>
-                <p class="text-bold">
-                    Búscalo en tus catálogos de Campaña <span id="spnNumeroCampaniaReclamo">15</span>:
-                </p>
-                <div class="text-center opcion_cdr_seleccionada_campos_busqueda_producto_a_cambiar">
-                    <input type="text" class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--codigo" value="" id="txtCUV2" placeholder="Código" />
-                    <input type="text" class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--descripcion" id="txtCUVDescripcion2" readonly value="" placeholder="Descripción del producto" />
-                    <input type="text" class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--precio" id="txtCUVPrecio2" readonly value="" placeholder="Precio" />
-                    <div class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad" data-cantidad-contenedor="">
-                        <input type="hidden" id="hdCuvPrecio2">
-                        <input type="hidden" id="hdParametriaCdr" value="0">
-                        <input type="hidden" id="hdParametriaAbsCdr" value="1">
-                        <input type="hidden" id="hdCdrWebDatos_Ssic">
-                        <input type="text" name="Cantidad" id="txtCantidad2" value="1" data-input="cantidad" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid"
-                               attrKey="PreValidarCUV"
-                               onfocus="SeleccionarContenido(this) ">
-                        <div class="liquidacion_rango_right_pedido">
-                            <a class="mas modificarPrecioMas" onclick="AgregarODisminuirCantidad(event,1)"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                            <a class="menos modificarPrecioMenos" onclick="AgregarODisminuirCantidad(event,2)"><img src="/Content/Images/Esika/menos.png" alt=""></a>
-                        </div>
-                    </div>
-                </div>
-                <div id="MontoTotalProductoACambiar" class="text-bold total_precio_reclamo" style="display:none;">
-                    <input type="hidden" id="hdImporteTotal2" />
-                    Total: <span id="spnImporteTotal2"></span>
-                </div>
-            </div>
-            <!-- FIN - INFORMACIÓN CUANDO SE SELECCIONA LA OPCIÓN DE CAMBIAR POR OTRO PRODUCTO -->
-        </div>
-        <div id="OpcionCambioMismoProducto" style="display:none;">
-            <div class="opcion_cdr_seleccionada_info opcion_cdr_seleccionada_info--cambioMismoProducto">
-                <p class="text-bold">Vamos a reenviarte el mismo producto:</p>
-                <p class="text-bold">
-                    <span id="spnDescProdDevolucion" class="text-bold producto_nom"></span>
-                </p>
-            </div>
-        </div>
-        <div id="OpcionEnvioDelProducto" style="display:none;">
-            <div class="opcion_cdr_seleccionada_info opcion_cdr_seleccionada_info--envioProducto">
-                <p class="text-bold">Vamos a enviarte el siguiente producto:</p>
-                <p class="text-bold">
-                    <span class="text-bold producto_nom">04034 - CZ CY LL XT-TIME HONEY MATE</span>
-                </p>
-            </div>
-        </div>
-        <div id="OpcionDevolucionDinero" style="display:none;">
-            <div class="opcion_cdr_seleccionada_info opcion_cdr_seleccionada_info--devolucionDinero">
-                <p class="text-bold">Vamos a descontar el siguiente producto en tu próximo pedido:</p>
-                <p class="text-bold">
-                    <span class="text-bold producto_nom">04034 - CZ CY LL XT-TIME HONEY MATE</span>
-                </p>
-            </div>
-        </div>
-    </div>
-    <div id="OpcionDevolucion" style="display:none;">
-        <!-- INFORMACIÓN CUANDO SE SELECCIONA LA OPCIÓN DE DEVOLUCIÓN Y EL PRODUCTO FORMA PARTE DE UN SET -->
-        <div id="divDevolucionSetsOrPack" class="opcion_cdr_seleccionada_info opcion_cdr_seleccionada_info--devolucionCasoSetProducto">
-        </div>
-        <!-- FIN - INFORMACIÓN CUANDO SE SELECCIONA LA OPCIÓN DE DEVOLUCIÓN Y EL PRODUCTO FORMA PARTE DE UN SET -->
-    </div>
-    <button type="button" class="border-radius-4 text-bold btn_cdr btn_solucion_reclamo" onclick="IrAEscogiste()" id="btnSiguiente">Siguiente</button>
+    
 </script>
 <script id="template-confirmacion" type="text/x-handlebars-template">
     {{#iff CUV2 '!=' ''}}
@@ -619,6 +618,10 @@
         </div>
     </div>
 </script>
+
+
+
+
 @section scripts{
 
     <script type="text/javascript">
