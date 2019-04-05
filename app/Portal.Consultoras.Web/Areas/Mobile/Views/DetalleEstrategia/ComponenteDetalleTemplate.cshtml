@@ -57,15 +57,16 @@
                                 <li id="div_ficha_tab1">
                                     <a class="tab-link">{{seccion.Titulo}}</a>
                                     <ul class="tabs_container">
-                                        <div style="width:98% !important; height:500px !important;">
-                                            <div id="carouselVideo">
+                                        <div style="@*width:95% !important*@">
+                                            <div id="carouselIndividualVideo">
                                                 {{#each seccion.Detalles as |detalle index|}}
-                                                <div style="width:350px;height:350px;">
-                                                    <p>{{detalle.Titulo}}</p>
-                                                    <div id="ytFichax"
-                                                         data-youtube="{
-                                                     height:'350',
-                                                     width:'350',
+                                                <div style="">
+                                                    <div>
+                                                        <div id="ytFichax"
+                                                             @*class="video_item"*@
+                                                             data-youtube="{
+                                                     height:'173',
+                                                     width:'100%',
                                                      enablejsapi:1,
                                                      fs:0,
                                                      showinfo:0,
@@ -73,8 +74,10 @@
                                                      loop:1,
                                                      videoId: '{{detalle.Key}}',
                                                      playerVars:{autoplay:0,rel:0}}"
-                                                         data-extra="{'descripcionResumen':'{{detalle.Titulo}}'}"
-                                                         class="yt-video">
+                                                             data-extra="{'descripcionResumen':'{{detalle.Titulo}}'}"
+                                                             class="yt-video">
+                                                        </div>
+                                                        <h3 class="video_title">{{detalle.Titulo}}</h3>
                                                     </div>
                                                 </div>
                                                 {{/each}}

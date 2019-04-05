@@ -147,3 +147,7 @@
     margin: 10px 0px 0px 0px;
 }
 /* fin Tabs */
+
+#carouselIndividualVideo .slick-arrow {
+    display: none !important;
+}
