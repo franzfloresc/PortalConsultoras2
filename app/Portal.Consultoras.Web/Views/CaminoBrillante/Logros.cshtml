@@ -19,9 +19,15 @@
             <div class="box-camb">
                 <p class="text-bold">@data.Indicadores[i].Titulo</p>
                 <div class="cambio-crec">
+                    @{
+                        var NombreModal = 1;
+                    }
 
                     @foreach (var item2 in data.Indicadores[i].Medallas)
                     {
+
+
+
                         if (item2 != null)
                         {
 
@@ -78,47 +84,53 @@
                                         <img src="~/Content/CaminoBrillante/imgs/Tiempojuntos_inactivo.svg" />
                                     }
                                 }
-                                <a href="" class="inactivo">@item2.Titulo</a>
 
-                                @if (item2.Tipo != "TIME")
+                                @if (item2.Tipo != "NIV")
                                 {
-                                    <span data-toggle=modal data-target=#ModalPorcentaje class="como-log inactivo">@item2.Subtitulo</span>
+                                    <a href="#" class="inactivo">@item2.Titulo</a>
+                                }
+
+                                @if (@item2.Subtitulo == "¡Ya lo tienes!")
+                                {
+                                    <span class="como-log inactivo">@item2.Subtitulo</span>
+                                }
+                                else
+                                {
+                                    <span data-toggle="modal" data-target="#Modal-@data.Indicadores[i].Codigo-@NombreModal" class="como-log">@item2.Subtitulo</span>
+
+                                    if (@item2.ModalTitulo != null && item2.ModalDescripcion != null)
+                                    {
+                                        <div class="modal fade" id="Modal-@data.Indicadores[i].Codigo-@NombreModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    <div class="modal-body">
+                                                        <div class="indicador-nivel">
+                                                            <div class="circle-porcent crec-activo doble">
+                                                                <span>@item2.Valor</span>
+                                                            </div>
+                                                            <div class="left-mod">
+                                                                <h2>@item2.ModalTitulo</h2>
+                                                                <p>@item2.ModalDescripcion</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
                                 }
                             </div>
                         }
+                        NombreModal = NombreModal + 1;
                     }
                 </div>
             </div>
         }
     </div>
 </div>
-
-
-<!-- Modal -->
-<div class="modal fade" id="ModalPorcentaje" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            <div class="modal-body pad-center">
-                <div class="indicador-nivel" style="text-align:center; margin-bottom: 20px;">
-                    <center>
-                        <img id="m_imagen" style="float: unset; max-width: 100px !important;" />
-                    </center>
-                    <div class="left-mod" style="width: 100%; margin-left: 0px;">
-                        <h2 id="m_titulo" style="color: black; font-size: 20px; font-weight: bold;"></h2>
-                        <p id="m_montoMinimo"></p>
-                    </div>
-                </div>
-                <h4 class="subtitle text-center">Mis Beneficios</h4>
-                <ul class="box-beneficios two-colums" id="ListaBeneficios"></ul>
-            </div>
-        </div>
-    </div>
-</div>
-
-
 
 
 <script src="~/Scripts/jquery-1.11.2.min.js"></script>
