@@ -68,6 +68,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var Beneficios = informacion.Niveles.Where(
                 e => e.CodigoNivel == nivel.ToString()).Select(z => new { z.Beneficios, z.DescripcionNivel, z.MontoMinimo, z.UrlImagenNivel });
 
+
+            var Moneda = userData.Simbolo;
+
             Beneficios.ToList().ForEach(
                 e =>
                 {
@@ -77,7 +80,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     });
                 });
 
-            return Json(new { Niveles = Beneficios }, JsonRequestBehavior.AllowGet);
+            return Json(new { Niveles = Beneficios, Moneda }, JsonRequestBehavior.AllowGet);
         }
 
         private List<BEKitCaminoBrillante> GetOfertasCaminoBrillante()
