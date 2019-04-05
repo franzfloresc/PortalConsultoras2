@@ -341,7 +341,9 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             {
                 Orden = idx++,
                 Tipo = Constantes.CaminoBrillante.Logros.Indicadores.Medallas.Codes.NIV,
+                Titulo = e.DescripcionNivel,
                 Estado = (short.TryParse(e.CodigoNivel, out nivelCodigo) ? nivelCodigo <= nivelActual : false),
+                Subtitulo = (short.TryParse(e.CodigoNivel, out nivelCodigo) ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo),
                 Valor = e.CodigoNivel,
             }).ToList();
 
@@ -511,6 +513,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                                    Tipo = Constantes.CaminoBrillante.Logros.Indicadores.Medallas.Codes.PED,
                                    Valor = e.Codigo,
                                    Titulo = string.Format(e.Valor, e.Codigo),
+                                   Subtitulo = (int.Parse(e.Codigo) <= entidad.ConsecutivoNueva) ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo,
                                    ModalTitulo = e.ComoLograrlo_Estado ? e.ComoLograrlo_Titulo : string.Empty,
                                    ModalDescripcion = e.ComoLograrlo_Estado ? e.ComoLograrlo_Descripcion : string.Empty
                                }).ToList()
@@ -549,7 +552,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                     Tipo = Constantes.CaminoBrillante.Logros.Indicadores.Medallas.Codes.TIM,
                     Estado = (anios <= aniosConsultora && aniosConsultora != -1),
                     Titulo = string.Format(e.Valor ?? string.Empty, anios),
-                    Subtitulo = (anios <= aniosConsultora) ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo,
+                    //Subtitulo = (anios <= aniosConsultora) ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo,
                     ModalTitulo = e.ComoLograrlo_Estado ? e.ComoLograrlo_Titulo : string.Empty,
                     ModalDescripcion = e.ComoLograrlo_Estado ? e.ComoLograrlo_Descripcion : string.Empty,
                     Valor = e.Codigo
