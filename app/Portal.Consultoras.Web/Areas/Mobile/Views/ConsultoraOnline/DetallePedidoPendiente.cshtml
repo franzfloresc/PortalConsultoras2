@@ -53,7 +53,7 @@
         var solicitud = Model.MiPedido;
         var tiposoli = (solicitud.MarcaID == 0) ? 1 : 2;
     }
-    <div class="pending-subtitle pending-bgGray">
+    @*<div class="pending-subtitle pending-bgGray">
         <div class="container">
             <div class="row">
                 <div class="col">
@@ -64,7 +64,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>*@
     <!-- / Pending subtitle    -->
     <!--  Orders  -->
     <div class="container">
@@ -108,15 +108,15 @@
                         </div>
 
                         @*<div class="vc-box text-700 text-14 text-black" style:none>
-                            <a class="action-btn action-btn_border">Aceptado</a>
-                        </div>*@
+                                <a class="action-btn action-btn_border">Aceptado</a>
+                            </div>*@
                     </div>
 
                 </div>
 
                 <!--   /Order Action   -->
                 <!--  Order Delete Popup      -->
-                <div id=@item.CUV  class="row align-items-center" style="display:none;">
+                <div id=@item.CUV class="row align-items-center" style="display:none;">
                     <div class="col mt-16">
                         <div class="tooltip-primary tooltip-arrow_top ptb-16 ">
                             <div class="col-12">
@@ -140,83 +140,83 @@
             </div>
         }
         @*<div class="container vc-box vc-box--shadow">
-            <!--   Pedidos   -->
-            <div class="row align-items-start">
-                <div class="col-9">
-                    <div class=" vc-box">
-                        <div class="vc-box--header">
-                            <span class="vc-box--title">Grecia Gabriel</span>
+                <!--   Pedidos   -->
+                <div class="row align-items-start">
+                    <div class="col-9">
+                        <div class=" vc-box">
+                            <div class="vc-box--header">
+                                <span class="vc-box--title">Grecia Gabriel</span>
+                            </div>
+                            <div class="vc-box--content">
+                                <p style="margin-bottom: 16px;">999956799</p>
+                            </div>
                         </div>
-                        <div class="vc-box--content">
-                            <p style="margin-bottom: 16px;">999956799</p>
+                    </div>
+                    <div class="col-3">
+                        <div class=" vc-box">
+                            <div class="vc-box--action attend-delete">
+                                <img class="attend-img_30" src="https://i.ibb.co/jTXwndP/trash-3x.png" alt="Borrar">
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-3">
-                    <div class=" vc-box">
-                        <div class="vc-box--action attend-delete">
-                            <img class="attend-img_30" src="https://i.ibb.co/jTXwndP/trash-3x.png" alt="Borrar">
+                <div class="row align-items-center">
+                    <div class="col-4">
+                        <div class="vc-box ipt-tel">
+                            <input type="tel" value="1" placeholder="1" class="text-center text-14 text-700">
                         </div>
                     </div>
+
+                    <div class="col-8">
+                        <div class="vc-box text-black text-14 text-700">
+                            <a href="#" class="action-btn action-btn_border active">Aceptar</a>
+                        </div>
+
+                        <div class="vc-box text-700 text-14 text-black">
+                                <a class="action-btn action-btn_border">Aceptado</a>
+                        </div>
+                    </div>
+
                 </div>
+                <!-- / Pedidos -->
             </div>
-            <div class="row align-items-center">
-                <div class="col-4">
-                    <div class="vc-box ipt-tel">
-                        <input type="tel" value="1" placeholder="1" class="text-center text-14 text-700">
-                    </div>
-                </div>
-
-                <div class="col-8">
-                    <div class="vc-box text-black text-14 text-700">
-                        <a href="#" class="action-btn action-btn_border active">Aceptar</a>
-                    </div>
-
-                    <div class="vc-box text-700 text-14 text-black">
-                            <a class="action-btn action-btn_border">Aceptado</a>
-                    </div>
-                </div>
-
-            </div>
-            <!-- / Pedidos -->
-        </div>
-        <div class="container vc-box vc-box--shadow">
-            <!--   Pedidos   -->
-            <div class="row align-items-start">
-                <div class="col-9">
-                    <div class=" vc-box">
-                        <div class="vc-box--header">
-                            <span class="vc-box--title">Mariana Zumarán</span>
+            <div class="container vc-box vc-box--shadow">
+                <!--   Pedidos   -->
+                <div class="row align-items-start">
+                    <div class="col-9">
+                        <div class=" vc-box">
+                            <div class="vc-box--header">
+                                <span class="vc-box--title">Mariana Zumarán</span>
+                            </div>
+                            <div class="vc-box--content">
+                                <p style="margin-bottom: 16px;">999956799</p>
+                            </div>
                         </div>
-                        <div class="vc-box--content">
-                            <p style="margin-bottom: 16px;">999956799</p>
+                    </div>
+                    <div class="col-3">
+                        <div class=" vc-box">
+                            <div class="vc-box--action attend-delete">
+                                <img class="attend-img_30" src="https://i.ibb.co/jTXwndP/trash-3x.png" alt="Borrar">
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-3">
-                    <div class=" vc-box">
-                        <div class="vc-box--action attend-delete">
-                            <img class="attend-img_30" src="https://i.ibb.co/jTXwndP/trash-3x.png" alt="Borrar">
+                <div class="row align-items-center">
+                    <div class="col-4">
+                        <div class="vc-box ipt-tel">
+                            <input type="tel" value="2" placeholder="1" class="text-black text-center text-700 text-14">
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="row align-items-center">
-                <div class="col-4">
-                    <div class="vc-box ipt-tel">
-                        <input type="tel" value="2" placeholder="1" class="text-black text-center text-700 text-14">
-                    </div>
-                </div>
 
-                <div class="col-8">
-                    <div class="vc-box text-black text-14 text-700">
-                        <a href="#" class="action-btn action-btn_border">Aceptado</a>
+                    <div class="col-8">
+                        <div class="vc-box text-black text-14 text-700">
+                            <a href="#" class="action-btn action-btn_border">Aceptado</a>
+                        </div>
                     </div>
-                </div>
 
-            </div>
-            <!-- / Pedidos -->
-        </div>*@
+                </div>
+                <!-- / Pedidos -->
+            </div>*@
     </div>
     <!-- / Orders    -->
     <div class="container position-absolute" style="display:none;">
@@ -299,36 +299,35 @@
 </div>
 <!-- / modal -->
 <!-- / Agregado desplegado con tooltips y modals -->
-
 @*<style>
-    .agotado_consultora {
-        background: #f3f3f3;
-        padding: 10px 10px
-    }
-
-        .agotado_consultora img {
-            height: 36px
+        .agotado_consultora {
+            background: #f3f3f3;
+            padding: 10px 10px
         }
-</style>
 
-<script>
-    var glbDispositivo = 3;
-</script>
+            .agotado_consultora img {
+                height: 36px
+            }
+    </style>
 
-@{
-    if (!mobileConfiguracion.EsAppMobile)
-    {
-        <script>
-            glbDispositivo = 2;
-        </script>
-        <div class="titulo_mobile">
-            <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
-            &nbsp;&nbsp;PENDIENTES
-        </div>
-        <div class="pestana_esika"></div>
-        <div class="pestana_lbel"></div>
-    }
-}*@
+    <script>
+        var glbDispositivo = 3;
+    </script>
+
+    @{
+        if (!mobileConfiguracion.EsAppMobile)
+        {
+            <script>
+                glbDispositivo = 2;
+            </script>
+            <div class="titulo_mobile">
+                <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+                &nbsp;&nbsp;PENDIENTES
+            </div>
+            <div class="pestana_esika"></div>
+            <div class="pestana_lbel"></div>
+        }
+    }*@
 
 @*<div class="fondo_f2f2f2 triang_pe">
         @{

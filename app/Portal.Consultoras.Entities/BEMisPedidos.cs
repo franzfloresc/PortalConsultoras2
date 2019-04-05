@@ -81,30 +81,11 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public List<BEMisPedidosDetalle> DetallePedido { get; set; }
 
-        //[DataMember]
-        //public int CUV { get; set; }
-
-        //[DataMember]
-        //public string Producto { get; set; }
-
-        //[DataMember]
-        //public int Cantidad { get; set; }
-
-        //[DataMember]
-        //public decimal Precio { get; set; }
-
-        //[DataMember]
-        //public string Tono { get; set; }
-
-        //[DataMember]
-        //public string Url { get; set; }
-
-        //[DataMember]
-        //public List<BEMisPedidos> ListaClientes { get; set; }
-
         [DataMember]
         public int ClienteId { get; set; }
 
+        [DataMember]
+        public int CantidadTotal { get; set; }
 
         public BEMisPedidos(IDataRecord row)
         {
@@ -130,12 +111,6 @@ namespace Portal.Consultoras.Entities
             SaldoHoras = row.ToString("SaldoHoras");
             PedidoWebID = row.ToInt32("PedidoWebID");
             DetallePedido = new List<BEMisPedidosDetalle>();
-            //CUV = row.ToInt32("CUV");
-            //Producto = row.ToString("Producto");
-            //Cantidad = row.ToInt32("Cantidad");
-            //Tono = row.ToString("Tono");
-            //Url = row.ToString("Url");
-            ///ListaClientes = new List<BEMisPedidos>();
         }
     }
 
@@ -169,9 +144,6 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public double PrecioUnitario { get; set; }
 
-        //[DataMember]
-        //public double PrecioTotal { get; set; }
-
         [DataMember]
         public string MedioContacto { get; set; }
 
@@ -197,25 +169,25 @@ namespace Portal.Consultoras.Entities
         public int Estado { get; set; }
 
         [DataMember]
-        public List<BEMisPedidos> ListaClientes { get; set; }
-
-        [DataMember]
-        public int CantidadTotal { get; set; }
-
-        [DataMember]
         public double PrecioTotal { get; set; }
-
-        [DataMember]
-        public string FormatoPrecioTotal { get; set; }
-        
-        [DataMember]
-        public bool Elegido { get; set; }
 
         [DataMember]
         public string Url { get; set; }
 
         [DataMember]
         public string CodigoSap { get; set; }
+
+        [DataMember]
+        public int CantidadTotal { get; set; }
+
+        [DataMember]
+        public List<BEMisPedidos> ListaClientes { get; set; }
+
+        [DataMember]
+        public string FormatoPrecioTotal { get; set; }
+
+        [DataMember]
+        public bool Elegido { get; set; }
 
         public BEMisPedidosDetalle()
         {
@@ -229,7 +201,6 @@ namespace Portal.Consultoras.Entities
             Tono = row.ToString("Tono");
             Marca = row.ToString("Marca");
             CUV = row.ToString("CUV");
-            Estado = row.ToInt32("estado");
             PrecioUnitario = row.ToDouble("Precio");
             Cantidad = row.ToInt32("Cantidad");
             PrecioTotal = (PrecioUnitario * Cantidad);

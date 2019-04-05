@@ -1813,22 +1813,6 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="GetMisPedidosConsultoraOnlineCliente">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
-        <xs:element minOccurs="0" name="Campania" type="xs:long" />
-        <xs:element minOccurs="0" name="Cuv" type="xs:long" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetMisPedidosConsultoraOnlineClienteResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q90="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetMisPedidosConsultoraOnlineClienteResult" nillable="true" type="q90:ArrayOfBEMisPedidos" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
   <xs:element name="GetCantidadSolicitudesPedido">
     <xs:complexType>
       <xs:sequence>

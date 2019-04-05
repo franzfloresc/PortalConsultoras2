@@ -12435,6 +12435,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string CampaniaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CantidadTotalField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ClienteField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -12525,6 +12528,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.CampaniaField, value) != true)) {
                     this.CampaniaField = value;
                     this.RaisePropertyChanged("Campania");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CantidadTotal {
+            get {
+                return this.CantidadTotalField;
+            }
+            set {
+                if ((this.CantidadTotalField.Equals(value) != true)) {
+                    this.CantidadTotalField = value;
+                    this.RaisePropertyChanged("CantidadTotal");
                 }
             }
         }
