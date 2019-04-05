@@ -21,12 +21,12 @@ namespace Portal.Consultoras.Entities.CaminoBrillante
         [DataMember]
         //[Column("PrecioCatalogo")]
         [Column("PrecioCatalogo")]
-        public string PrecioCatalogo { get; set; }
+        public decimal PrecioCatalogo { get; set; }
 
         [DataMember]
         //[Column("PrecioValorizado")]
         [Column("PrecioValorizado")]
-        public string PrecioValorizado { get; set; }
+        public decimal PrecioValorizado { get; set; }
 
         [DataMember]
         //[Column("Descripcion")]

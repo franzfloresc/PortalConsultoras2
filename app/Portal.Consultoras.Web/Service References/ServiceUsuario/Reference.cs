@@ -7677,10 +7677,10 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string DescripcionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string PrecioCatalogoField;
+        private decimal PrecioCatalogoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string PrecioValorizadoField;
+        private decimal PrecioValorizadoField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -7732,12 +7732,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string PrecioCatalogo {
+        public decimal PrecioCatalogo {
             get {
                 return this.PrecioCatalogoField;
             }
             set {
-                if ((object.ReferenceEquals(this.PrecioCatalogoField, value) != true)) {
+                if ((this.PrecioCatalogoField.Equals(value) != true)) {
                     this.PrecioCatalogoField = value;
                     this.RaisePropertyChanged("PrecioCatalogo");
                 }
@@ -7745,12 +7745,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string PrecioValorizado {
+        public decimal PrecioValorizado {
             get {
                 return this.PrecioValorizadoField;
             }
             set {
-                if ((object.ReferenceEquals(this.PrecioValorizadoField, value) != true)) {
+                if ((this.PrecioValorizadoField.Equals(value) != true)) {
                     this.PrecioValorizadoField = value;
                     this.RaisePropertyChanged("PrecioValorizado");
                 }
