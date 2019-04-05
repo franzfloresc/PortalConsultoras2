@@ -282,6 +282,7 @@ div .owl-carousel .owl-stage-outer {
 .owl-carousel .owl-item img {
     display: block;
     max-width: 60px !important;
+    min-width: 51px;
 }
 
 .owl-nav {
@@ -474,7 +475,7 @@ div .owl-carousel .owl-stage-outer {
     width: 65px;
     height: 65px;
     position: absolute;
-    top: -7px;
+    top: -5px;
     left: -5px;
     z-index: 5;
 }
@@ -487,32 +488,32 @@ div .owl-carousel .owl-stage-outer {
 
 #ProgressBar .pt1 {
     display: block;
-    left: -1%;
+    left: -3%;
 }
 
 #ProgressBar .pt2 {
     display: block;
-    left: 19%;
+    left: 16%;
 }
 
 #ProgressBar .pt3 {
     display: block;
-    left: 39%;
+    left: 36%;
 }
 
 #ProgressBar .pt4 {
     display: block;
-    left: 59%;
+    left: 56%;
 }
 
 #ProgressBar .pt5 {
     display: block;
-    left: 79%;
+    left: 76%;
 }
 
 #ProgressBar .pt6 {
     display: block;
-    left: 99%;
+    left: 96%;
 }
 
 
@@ -1015,7 +1016,7 @@ button.close {
 
 
 .como-log {
-    margin-top: 15px !important;
+    margin-top: 12px !important;
 }
 
 
@@ -1394,3 +1395,101 @@ button.close {
 
 /*.-------------------MODAL VERSION 4---------------------*/
 
+
+
+
+@media screen and (max-width: 330px) {
+    .medal-1 {
+        width: 13%;
+        animation-name: MovilprogressUno;
+    }
+
+    .medal-2 {
+        width: 33%;
+        animation-name: MovilprogressDos;
+    }
+
+    .medal-3 {
+        width: 53%;
+        animation-name: MovilprogressTres;
+    }
+
+    .medal-4 {
+        width: 73%;
+        animation-name: MovilprogressCuatro;
+    }
+
+    .medal-5 {
+        width: 93%;
+        animation-name: MovilprogressCinco;
+    }
+
+    .medal-6 {
+        width: 100%;
+        animation-name: MovilprogressSeis;
+    }
+
+
+
+    @keyframes MovilprogressUno {
+        0% {
+            width: 0%;
+        }
+
+        100% {
+            width: 13%;
+        }
+    }
+
+    @keyframes MovilprogressDos {
+        0% {
+            width: 0%;
+        }
+
+        100% {
+            width: 33%;
+        }
+    }
+
+    @keyframes MovilprogressTres {
+        0% {
+            width: 0%;
+        }
+
+        100% {
+            width: 53%;
+        }
+    }
+
+    @keyframes MovilprogressCuatro {
+        0% {
+            width: 0%;
+        }
+
+        100% {
+            width: 73%;
+        }
+    }
+
+    @keyframes MovilprogressCinco {
+        0% {
+            width: 0%;
+        }
+
+        100% {
+            width: 93%;
+        }
+    }
+
+    @keyframes MovilprogressSeis {
+        0% {
+            width: 0%;
+        }
+
+        100% {
+            width: 100%;
+        }
+    }
+}
+
+   
