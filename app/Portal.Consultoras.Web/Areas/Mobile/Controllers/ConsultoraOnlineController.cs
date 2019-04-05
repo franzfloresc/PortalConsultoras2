@@ -1173,93 +1173,147 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             var model = new PedidosPendientesMedioPagoModel();
             var parametrosRecomendado = new RecomendadoRequest();
-            MisPedidosModel modelPedido = new MisPedidosModel();
-            List<BEMisPedidos> oListaPedidos;
-            var oListaPedidosDetalle = new List<BEMisPedidosDetalle>();
-            var oListaPedidosDetalleConEstado = new List<BEMisPedidosDetalle>();
-            var oPedidosAfectados = new List<BEMisPedidos>();
-            var oPedidosIds = new List<long>();
+            List<BEMisPedidos> pedidosSesion;
+
+            //MisPedidosModel modelPedido = new MisPedidosModel();
+            //List<BEMisPedidos> oListaPedidos;
+       
+            //var oPedidosAfectados = new List<BEMisPedidos>();
+            //var oPedidosIds = new List<long>();
             var oListaCatalogo = new List<MisPedidosDetalleModel2>();
-            var listaSap = new List<string>();
+            //var listaSap = new List<string>();
             ////////////////////////////////////////////////////////////////
 
+
+
+
+            ///////////////////////////////////////////////////////////////////////////
+            var oListaPedidosDetalle = new List<BEMisPedidosDetalle>();
+            // var oListaPedidosDetalleConEstado = new List<BEMisPedidosDetalle>();
+            List<BEMisPedidos> oListaPedidos;
+            MisPedidosModel modelPedido = new MisPedidosModel();
             using (UsuarioServiceClient svc = new UsuarioServiceClient())
             {
                 oListaPedidos = svc.GetSolicitudesPedidoPendiente(userData.PaisID, userData.ConsultoraID, userData.CampaniaID).ToList();
-                modelPedido.ListaPedidos = oListaPedidos;
-               SessionManager.SetobjMisPedidos(modelPedido);
-            }
+             
+           
+                if (oListaPedidos.Any())
+                {                    
+                        oListaPedidos.ForEach(x => {
 
-            if (oListaPedidos.Any())
-            {
-                using (UsuarioServiceClient svc = new UsuarioServiceClient())
-                {
-                    oListaPedidos.ForEach(x => {
+                            var oDetallesTemporal = svc.GetMisPedidosDetalleConsultoraOnline(userData.PaisID, x.PedidoId).ToList();
 
-                        var oDetallesTemporal = svc.GetMisPedidosDetalleConsultoraOnline(userData.PaisID, x.PedidoId).ToList();
+                            if (oDetallesTemporal.Any())
+                            {
+                                x.DetallePedido = oDetallesTemporal.ToArray();
+                                 oListaPedidosDetalle.AddRange(oDetallesTemporal);
+                              //  modelPedido
+                            }
+                        });  
+                    
 
-                        if (oDetallesTemporal.Any())
-                        {
-                            oListaPedidosDetalle.AddRange(oDetallesTemporal);
-                        }
-                    });                  
+
                 }
-            }          
+                modelPedido.ListaPedidos = oListaPedidos;
+                SessionManager.SetobjMisPedidos(modelPedido);
+            }
+           
+
+
+
+
+            pedidosSesion = SessionManager.GetobjMisPedidos().ListaPedidos;
+
+            pedidosSesion.ForEach(pedido =>
+            {
+                if (pedido.DetallePedido.Any(i => i.Elegido == true))
+                {
+                    var odetalleTemporal = CargarMisPedidosDetalleDatos(pedido.MarcaID, pedido.DetallePedido.Where(i => i.Elegido == true).ToList());
+                    var detallePedidos = Mapper.Map<List<BEMisPedidosDetalle>, List<MisPedidosDetalleModel2>>(odetalleTemporal);
+                    detallePedidos.Update(p => p.CodigoIso = userData.CodigoISO);
+                    oListaCatalogo.AddRange(detallePedidos);
+
+                    //pedido.DetallePedido.Where(i => i.Elegido == true).ToList().ForEach(detalle =>
+                    //{
+
+
+                    //});
+                }
+            });
+            
+            
+        
+
+            //if (oListaPedidos.Any())
+            //{
+            //    using (UsuarioServiceClient svc = new UsuarioServiceClient())
+            //    {
+            //        oListaPedidos.ForEach(x => {
+
+            //            var oDetallesTemporal = svc.GetMisPedidosDetalleConsultoraOnline(userData.PaisID, x.PedidoId).ToList();
+
+            //            if (oDetallesTemporal.Any())
+            //            {
+            //                oListaPedidosDetalle.AddRange(oDetallesTemporal);
+            //            }
+            //        });                  
+            //    }
+            //}          
 
             model.ListaCatalogo = new List<MisPedidosDetalleModel2>();
-            if (oListaPedidosDetalle.Count > 0)
+            //if (oListaPedidosDetalle.Count > 0)
+            //{
+            //    SessionManager.SetobjMisPedidosDetalle(oListaPedidosDetalle);
+            //    oListaPedidosDetalleConEstado = oListaPedidosDetalle; //.Where(x => x.estado.HasValue && x.estado.Value == true).ToList();
+            //    oPedidosIds = oListaPedidosDetalleConEstado.Select(x => x.PedidoId).Distinct().ToList();
+            //    oPedidosAfectados = oListaPedidos.Where(x => oPedidosIds.Contains(x.PedidoId)).ToList();
+
+            //    oPedidosAfectados.ForEach(pedido => {
+
+            //        if (oListaPedidosDetalleConEstado.Any(x => x.PedidoId == pedido.PedidoId))
+            //        {
+            //            var odetalleTemporal = CargarMisPedidosDetalleDatos(pedido.MarcaID, oListaPedidosDetalleConEstado.Where(x => x.PedidoId == pedido.PedidoId).ToList());
+            //            var detallePedidos = Mapper.Map<List<BEMisPedidosDetalle>, List<MisPedidosDetalleModel2>>(odetalleTemporal);
+            //            detallePedidos.Update(p => p.CodigoIso = userData.CodigoISO);
+            //            oListaCatalogo.AddRange(detallePedidos);
+            //        }
+
+            //    });
+
+            //using (UsuarioServiceClient svc = new UsuarioServiceClient())
+            //{
+
+            //     listaSap = svc.GetSapFromCuvlist( string.Join(",", oListaCatalogo.Select(x => x.CUV).ToList()), userData.CampaniaID, userData.PaisID).ToList();
+            //}
+
+            parametrosRecomendado.codigoPais = userData.CodigoISO;
+            parametrosRecomendado.codigocampania = userData.CampaniaID.ToString();
+            parametrosRecomendado.codigoZona = userData.CodigoZona;
+            parametrosRecomendado.origen = "sb-desktop";
+            parametrosRecomendado.codigoConsultora = userData.CodigoConsultora;
+            parametrosRecomendado.cuv = string.Empty;
+            parametrosRecomendado.codigoProducto = new string[10];
+            parametrosRecomendado.personalizaciones = string.Empty;
+            parametrosRecomendado.configuracion = new Configuracion()
             {
-                SessionManager.SetobjMisPedidosDetalle(oListaPedidosDetalle);
-                oListaPedidosDetalleConEstado = oListaPedidosDetalle; //.Where(x => x.estado.HasValue && x.estado.Value == true).ToList();
-                oPedidosIds = oListaPedidosDetalleConEstado.Select(x => x.PedidoId).Distinct().ToList();
-                oPedidosAfectados = oListaPedidos.Where(x => oPedidosIds.Contains(x.PedidoId)).ToList();
+                sociaEmpresaria = userData.Lider.ToString(),
+                suscripcionActiva = userData.ToString(),
+                mdo = revistaDigital.ActivoMdo.ToString(),
+                rd = revistaDigital.TieneRDC.ToString(),
+                rdi = revistaDigital.TieneRDI.ToString(),
+                rdr = revistaDigital.TieneRDCR.ToString(),
+                diaFacturacion = userData.DiaFacturacion,
+                mostrarProductoConsultado = IsMobile().ToString()
 
-                oPedidosAfectados.ForEach(pedido => {
+            };
+        
+            var oListaGana = _consultoraOnlineProvider.GetRecomendados(parametrosRecomendado);
 
-                    if (oListaPedidosDetalleConEstado.Any(x => x.PedidoId == pedido.PedidoId))
-                    {
-                        var odetalleTemporal = CargarMisPedidosDetalleDatos(pedido.MarcaID, oListaPedidosDetalleConEstado.Where(x => x.PedidoId == pedido.PedidoId).ToList());
-                        var detallePedidos = Mapper.Map<List<BEMisPedidosDetalle>, List<MisPedidosDetalleModel2>>(odetalleTemporal);
-                        detallePedidos.Update(p => p.CodigoIso = userData.CodigoISO);
-                        oListaCatalogo.AddRange(detallePedidos);
-                    }
-
-                });
-
-                //using (UsuarioServiceClient svc = new UsuarioServiceClient())
-                //{
-
-                //     listaSap = svc.GetSapFromCuvlist( string.Join(",", oListaCatalogo.Select(x => x.CUV).ToList()), userData.CampaniaID, userData.PaisID).ToList();
-                //}
-
-                parametrosRecomendado.codigoPais = userData.CodigoISO;
-                parametrosRecomendado.codigocampania = userData.CampaniaID.ToString();
-                parametrosRecomendado.codigoZona = userData.CodigoZona;
-                parametrosRecomendado.origen = "sb-desktop";
-                parametrosRecomendado.codigoConsultora = userData.CodigoConsultora;
-                parametrosRecomendado.cuv = string.Empty;
-                parametrosRecomendado.codigoProducto = new string[10];
-                parametrosRecomendado.personalizaciones = string.Empty;
-                parametrosRecomendado.configuracion = new Configuracion() {
-                    sociaEmpresaria = userData.Lider.ToString(),
-                    suscripcionActiva = userData.ToString(),
-                    mdo = revistaDigital.ActivoMdo.ToString(),
-                    rd = revistaDigital.TieneRDC.ToString(),
-                    rdi = revistaDigital.TieneRDI.ToString(),
-                    rdr = revistaDigital.TieneRDCR.ToString(),
-                    diaFacturacion = userData.DiaFacturacion,
-                    mostrarProductoConsultado = IsMobile().ToString()
-
-                };
-                parametrosRecomendado.codigoProducto = listaSap.ToArray();
-
-                var oListaGana = _consultoraOnlineProvider.GetRecomendados(parametrosRecomendado);
-
-                model.ListaCatalogo = oListaCatalogo;
-                model.TotalCatalogo = oListaCatalogo.Sum(x => x.PrecioTotal);
-                model.ListaGana = oListaGana;
-                model.TotalGana = oListaGana.Sum(x=>x.Precio2);
-            }
+              model.ListaCatalogo = oListaCatalogo;
+              model.TotalCatalogo = oListaCatalogo.Sum(x => x.PrecioTotal);
+              model.ListaGana = oListaGana;
+              model.TotalGana = oListaGana.Sum(x=>x.Precio2);
+            //}
 
             return View(model);
         }

@@ -851,6 +851,7 @@
       <xs:element minOccurs="0" name="Campania" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
       <xs:element minOccurs="0" name="Cliente" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ClienteId" type="xs:int" />
       <xs:element minOccurs="0" name="CodigoUbigeo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DetallePedido" nillable="true" type="tns:ArrayOfBEMisPedidosDetalle" />
       <xs:element minOccurs="0" name="Direccion" nillable="true" type="xs:string" />
@@ -893,7 +894,7 @@
       <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
       <xs:element minOccurs="0" name="Elegido" type="xs:boolean" />
       <xs:element minOccurs="0" name="EstaEnRevista" type="xs:int" />
-      <xs:element minOccurs="0" name="Estado" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Estado" type="xs:int" />
       <xs:element minOccurs="0" name="Marca" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MarcaID" type="xs:int" />
       <xs:element minOccurs="0" name="MedioContacto" nillable="true" type="xs:string" />

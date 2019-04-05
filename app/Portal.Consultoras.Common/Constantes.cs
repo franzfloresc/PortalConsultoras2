@@ -3486,6 +3486,13 @@ namespace Portal.Consultoras.Common
             public const int Reingreso = 9;
         }
 
-       
+        public static class OpcionesIngresoPendientes
+        {
+            public const string ingrped = "ingrped";
+            public const string ingrgana = "ingrgana";
+            public const string ingrten = "ingrten";
+        }
+
+
     }
 }

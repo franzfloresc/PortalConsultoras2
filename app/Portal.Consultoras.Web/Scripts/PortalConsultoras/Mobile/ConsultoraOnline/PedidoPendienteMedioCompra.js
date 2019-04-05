@@ -10,7 +10,7 @@ function AceptarPedidoPendiente(id, tipo) {
         PedidoId: id,
         ClienteId: 0,
         ListaDetalleModel: detalle,
-        Accion: 2,
+        Accion: 'ingrten',  ///Accion: 'ingrgana',   
         Tipo: tipo,
         Ingresos: ing,
         Dispositivo: glbDispositivo,

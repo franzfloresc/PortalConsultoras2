@@ -12444,6 +12444,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string ClienteField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ClienteIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigoUbigeoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -12582,6 +12585,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.ClienteField, value) != true)) {
                     this.ClienteField = value;
                     this.RaisePropertyChanged("Cliente");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ClienteId {
+            get {
+                return this.ClienteIdField;
+            }
+            set {
+                if ((this.ClienteIdField.Equals(value) != true)) {
+                    this.ClienteIdField = value;
+                    this.RaisePropertyChanged("ClienteId");
                 }
             }
         }
@@ -12969,7 +12985,7 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private int EstaEnRevistaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<bool> EstadoField;
+        private int EstadoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string MarcaField;
@@ -13076,7 +13092,7 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<bool> Estado {
+        public int Estado {
             get {
                 return this.EstadoField;
             }
