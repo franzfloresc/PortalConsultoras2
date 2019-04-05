@@ -1,8 +1,8 @@
 ﻿
 
 @{
-    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
+    ViewBag.Title = "Ofertas";
 }
  
 <link href="@Url.Content("~/Content/Css/Site/BusquedaProductos/busqueda-productos.css")" rel="stylesheet" />
@@ -67,7 +67,7 @@
             <section class="col-12 col-lg-6 col-xl-6 busqueda__productos__encontrados__wrapper pr-lg-0 pr-xl-0">
                 <br />
                 <h1 class="col-12 pl-0 pr-0 busqueda__productos__titulo">
-                    Resultado de Kits
+                    Resultado de Demostradores
                 </h1>
                 <p class="col-12 pl-0 pr-0 busqueda__productos__encontrados">
                     <span id="TotalProductos" class="busqueda__num__productos__encontrados">Estos son los kits según tu nivel</span>
@@ -133,9 +133,9 @@
                     {
                         <article class="ficha__producto " data-item="BuscadorFichasProductos">
 
-                            <input type="hidden" id="hdCuv" value="@item.Cuv" />
+                            @*<input type="hidden" id="hdCuv" value="@item.Cuv" />
                             <input type="hidden" id="hdCodigoSap" value="@item.CodigoKit" />
-                            <input type="hidden" id="hdCodigoKit" value="@item.CodigoSap" />
+                            <input type="hidden" id="hdCodigoKit" value="@item.CodigoSap" />*@
 
                             <div class="etiqueta-box etiq-coral">
 
@@ -144,14 +144,14 @@
                             </div>
                             <div class="row flex-row justify-content-center ml-0 mr-0">
                                 <figure class="col-12 pl-0 pr-0 row flex-row ml-0 mr-0 justify-content-center align-items-end ficha__producto__imagen text-center">
-                                    <img data-src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201905/E/productos/PE_200094549.jpg" data-src-error="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201905/E/productos/PE_200094549.jpg" class="lazy redireccionarFicha" src="@item.Imagen">
+                                    <img data-src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201905/E/productos/PE_200094549.jpg" data-src-error="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201905/E/productos/PE_200094549.jpg" class="lazy redireccionarFicha" src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201905/E/productos/PE_200094549.jpg">
                                     <a title="Ver detalle" class="row flex-row ml-0 mr-0 justify-content-center align-items-center col pl-0 pr-0 text-bold text-uppercase mostrarEnDesktop redireccionarFicha btn__ver__detalle">
                                         Ver detalle
                                     </a>
                                 </figure>
                                 <div class="col-12 pl-0 pr-0 ficha__producto__descrip d-block mx-auto text-left">
                                     <div class="col-12 pl-0 pr-0 ficha__producto__descrip__marca__pais text-uppercase">
-                                        Catálogo @item.Marca
+                                        Catálogo Esika
                                     </div>
                                     <div class="col-12 pl-0 pr-0 ficha__producto__descrip__nom text-bold redireccionarFicha">
                                         @item.Descripcion
@@ -159,7 +159,7 @@
                                 </div>
                                 <div class="row flex-row align-items-end align-items-md-baseline ml-0 mr-0 col-12 pl-0 pr-0 ficha__producto__precio">
                                     <div class="ficha__producto__precio__normal text-left">S/. 48.00</div>
-                                    <div class="ficha__producto__precio__oferta text-bold text-left">S/ @item.Precio</div>
+                                    <div class="ficha__producto__precio__oferta text-bold text-left">S/ @item.PrecioCatalogo</div>
                                 </div>
                                 <div class="row flex-row justify-content-between ml-0 mr-0 pl-0 pr-0 ficha__producto__agregar__producto">
                                     <div class="col-12 col-md col-lg col-xl pl-0 pr-0">
@@ -628,8 +628,6 @@
     <script src="~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js"></script>
     <script src="~/Scripts/PortalConsultoras/EstrategiaAgregar/PedidoRegistro.js"></script>
 
-
-
     <script type="text/javascript">
         var tipoOrigen = "1";
         var reservaResponse = {
@@ -681,51 +679,7 @@
                             // dfd.reject(data, error);
                         }
                     });
-
-
-
                 }
-
-
-
-                //items.children[0].children[4].children[3].children[1].firstElementChild.onclick = function (e) {
-                ////items.children[i].children[1].children[3].children[1].firstElementChild.onclick = function (e) {
-
-
-
-                //    //PedidoRegistroModule.AgregarOfertaFinalClick(this.parentElement.parentElement.parentElement);
-
-                //    //var PedidoCrudModel = {
-                //    //    CuvTonos: null,
-                //    //    CUV: 29866,
-                //    //    Cantidad: 1,
-                //    //    PrecioUnidad: 0,
-                //    //    EstrategiaID: 33817,
-                //    //    TipoEstrategiaID: 3023,
-                //    //    OrigenPedidoWeb: 1000801,
-                //    //    MarcaID: 0,
-                //    //    DescripcionProd: null,
-                //    //    TipoOfertaSisID: 0,
-                //    //    IndicadorMontoMinimo: null,
-                //    //    ConfiguracionOfertaID: 0,
-                //    //    ClienteID: 0,
-                //    //    ClienteID_: null,
-                //    //    ClienteDescripcion: null,
-                //    //    OfertaWeb:false,
-                //    //    EsSugerido: false,
-                //    //    EsKitNueva: false,
-                //    //    TipoEstrategiaImagen: 6,
-                //    //    EsOfertaIndependiente: false,
-                //    //    FlagNueva: null,
-                //    //    LimiteVenta: 0,
-                //    //    EsCuponNuevas: false,
-                //    //    EsKitNuevaAuto: false,
-                //    //    EsEditable: false,
-                //    //    SetId:0
-                //    //}
-
-
-                //}
             }
         }
 
@@ -734,8 +688,6 @@
 
 
     </script>
-
-
 
     <script src="~/Scripts/PortalConsultoras/Buscador/BusquedaProductoModule.js"></script>
 

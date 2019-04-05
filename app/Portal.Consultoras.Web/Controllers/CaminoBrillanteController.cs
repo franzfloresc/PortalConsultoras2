@@ -52,7 +52,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Ofertas()
         {
-            var model = GetKitCaminoBrillante();
+            var model = GetDemostradoresCaminoBrillante();
             if (model == null || model.Count == 0) return RedirectToAction("Index", "CaminoBrillante");
             return View(model);
         }
@@ -82,7 +82,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var ofertas = SessionManager.GetKitCaminoBrillante();
-                if (ofertas == null || ofertas.Count > 0)
+                if (ofertas == null || ofertas.Count == 0)
                 {
                     using (var svc = new UsuarioServiceClient())
                         ofertas = svc.GetKitCaminoBrillante(userData.PaisID, "201904").ToList();
@@ -104,7 +104,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var ofertas = SessionManager.GetDemostradoresCaminoBrillante();
-                if (ofertas == null || ofertas.Count > 0)
+                if (ofertas == null || ofertas.Count == 0)
                 {
                     using (var svc = new UsuarioServiceClient())
                         ofertas = svc.GetDemostradoresCaminoBrillante(userData.PaisID, "201904").ToList();
