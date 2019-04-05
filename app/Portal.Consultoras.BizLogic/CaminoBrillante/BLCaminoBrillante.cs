@@ -689,8 +689,23 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         */
         public List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillante(int paisID, string campaniaID)
         {            
-            return new DACaminoBrillante(paisID).GetDemostradoresCaminoBrillante(campaniaID)
+            var result =  new DACaminoBrillante(paisID).GetDemostradoresCaminoBrillante(campaniaID)
                         .MapToCollection<BEDesmostradoresCaminoBrillante>();
+
+            result.ForEach(e => {
+                e.EstrategiaID = 10;
+                e.CodigoEstrategia = "10";
+                e.DescripcionCortaCUV = e.Descripcion;
+                e.DescripcionCUV = e.Descripcion;
+                e.MarcaID = 1;
+                e.DescripcionMarca = "Esika";
+                e.FotoProductoMedium = "https://cdn1-prd.somosbelcorp.com/Matriz/PE/PE_2019345307_zvcbmzibzx.png";
+                e.FotoProductoSmall = "https://cdn1-prd.somosbelcorp.com/Matriz/PE/PE_2019345307_zvcbmzibzx.png";
+                e.TipoEstrategiaID = "10";
+                e.OrigenPedidoWebFicha = 10;
+            });
+
+            return result;
         }
 
         public List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillanteCache(int paisID, string campaniaID)
