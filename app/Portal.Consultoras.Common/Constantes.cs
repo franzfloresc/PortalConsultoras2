@@ -3414,7 +3414,7 @@ namespace Portal.Consultoras.Common
         {
             public const string Fecha = "dd/MM/yyyy";
             public const string FechaHora = "dd/MM/yyyy HH:mm";
-            public const string FechaHoraUTC = "yyyy-MM-ddThh:mm:ss";
+            public const string FechaHoraUTC = "yyyy-MM-dd'T'hh:mm:ss.zzz'Z'";
         }
         public static class OperacionBD
         {
