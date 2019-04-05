@@ -109,8 +109,8 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
             return ofertas.Select(e => new BEKitCaminoBrillante()
             {
-                CodigoKit = e.CodigoKit,
-                CodigoSap = e.CodigoSap,
+                //CodigoKit = e.CodigoKit,
+                //CodigoSap = e.CodigoSap,
                 Cuv = e.Cuv,
                 Descripcion = e.Descripcion,
                 DescripcionOferta = e.DescripcionOferta,
@@ -118,7 +118,32 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 Marca = e.Marca,
                 Nivel = e.Nivel,
                 Precio = e.Precio,
-                Imagen = "https://cdn1-prd.somosbelcorp.com/Matriz/PE/PE_2019345307_zvcbmzibzx.png"
+                Imagen = "https://cdn1-prd.somosbelcorp.com/Matriz/PE/PE_2019345307_zvcbmzibzx.png",
+
+
+                //Nueva Estructura
+                EstrategiaID = 1111,
+                CodigoEstrategia = "112",
+                CodigoKit = e.CodigoKit,
+                CodigoSap = e.CodigoSap,
+                CUV = e.Cuv,
+                DescripcionCUV = e.Descripcion,
+                DescripcionCortaCUV = e.DescripcionOferta,
+                MarcaID = 1,
+                DescripcionMarca = e.Marca,
+                CodigoNivel = e.Nivel,
+                DescripcionNivel = e.Nivel,
+                PrecioValorizado = e.Precio,
+                PrecioCatalogo = e.Precio,
+                Ganancia = 0,
+                FotoProductoSmall = "https://cdn1-prd.somosbelcorp.com/Matriz/PE/PE_2019345307_zvcbmzibzx.png",
+                FotoProductoMedium = "https://cdn1-prd.somosbelcorp.com/Matriz/PE/PE_2019345307_zvcbmzibzx.png",
+                TipoEstrategiaID = "1",
+                OrigenPedidoWebFicha = 1,
+                FlagSeleccionado = false,
+                FlagDigitable = e.Digitable,
+                FlagHabilitado = false
+
             }).ToList();
         }
 
@@ -239,6 +264,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                         Orden = 0,
                         Titulo = tablaLogicaDatos_Crecimiento.Valor,
                         Descripcion = tablaLogicaDatos_Crecimiento.Descripcion,
+                        Codigo = Constantes.CaminoBrillante.Logros.CRECIMIENTO,
                         Medallas = (new List<BEMedallaCaminoBrillante>{
                             medallaEscala,
                             medallaContancia,
@@ -249,6 +275,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                         Orden = 1,
                         Titulo = tablaLogicaDatos_Compromiso.Valor,
                         Descripcion = tablaLogicaDatos_Compromiso.Descripcion,
+                        Codigo = Constantes.CaminoBrillante.Logros.COMPROMISO,
                         Medallas = funcResumenCompromiso()
                     }
                 }
@@ -641,6 +668,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             return new CaminoBrillanteProvider(url, usuario, clave);
         }
 
+        /*
         public List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillante(int paisID, string campaniaID)
         {            
             var demostradores = new List<BEDesmostradoresCaminoBrillante>();
@@ -654,5 +682,17 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
             return demostradores;
         }
+        */
+        public List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillante(int paisID, string campaniaID)
+        {            
+            return new DACaminoBrillante(paisID).GetDemostradoresCaminoBrillante(campaniaID)
+                        .MapToCollection<BEDesmostradoresCaminoBrillante>();
+        }
+
+        public List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillanteCache(int paisID, string campaniaID)
+        {
+            return CacheManager<List<BEDesmostradoresCaminoBrillante>>.ValidateDataElement(paisID, ECacheItem.CaminoBrillanteDemostradores, campaniaID, () => GetDemostradoresCaminoBrillante(paisID, campaniaID));
+        }
+
     }
 }
