@@ -339,9 +339,12 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.UrlFranjaNegra = _eventoFestivoProvider.GetUrlFranjaNegra();
 
                 ViewBag.ActivarRecomendaciones = ObtenerFlagActivacionRecomendaciones();
-                ViewBag.MaxCaracteresRecomendaciones = ObtenerNumeroMaximoCaracteresRecomendaciones(false);
-                ViewBag.DemostradoresCaminoBrillante = new List<string>() { "00006", "00007", "00008" }; 
-
+                ViewBag.MaxCaracteresRecomendaciones = ObtenerNumeroMaximoCaracteresRecomendaciones(false);               
+                using (var sv = new UsuarioServiceClient())
+                {
+                    ViewBag.DemostradoresCaminoBrillante = sv.GetDemostradoresCaminoBrillante(userData.PaisID, Convert.ToString(userData.CampaniaID));
+                }
+              
             }
             catch (FaultException ex)
             {

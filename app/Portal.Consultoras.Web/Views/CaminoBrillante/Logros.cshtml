@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Crecimiento";
+    ViewBag.Title = "Camino Brillante | " + ViewBag.Vista;
     var data = ViewBag.Informacion;
 }
 
@@ -79,7 +79,11 @@
                                     }
                                 }
                                 <a href="" class="inactivo">@item2.Titulo</a>
-                                <span data-toggle=modal data-target=#ModalPorcentaje class="como-log inactivo">¿Cómo lograrlo?</span>
+
+                                @if (item2.Tipo != "TIME")
+                                {
+                                    <span data-toggle=modal data-target=#ModalPorcentaje class="como-log inactivo">@item2.Subtitulo</span>
+                                }
                             </div>
                         }
                     }
@@ -113,9 +117,6 @@
         </div>
     </div>
 </div>
-
-
-
 
 
 

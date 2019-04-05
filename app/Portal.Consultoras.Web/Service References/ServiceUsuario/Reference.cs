@@ -6313,8 +6313,8 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEMedallaCaminoBrillante))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEOfertaCaminoBrillante[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEOfertaCaminoBrillante))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEKitCaminoBrillante[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEKitCaminoBrillante))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEDesmostradoresCaminoBrillante[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEDesmostradoresCaminoBrillante))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEValidaLoginSB2))]
@@ -7629,10 +7629,10 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BEOfertaCaminoBrillante", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CaminoBrillan" +
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEKitCaminoBrillante", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CaminoBrillan" +
         "te")]
     [System.SerializableAttribute()]
-    public partial class BEOfertaCaminoBrillante : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+    public partial class BEKitCaminoBrillante : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
@@ -14122,11 +14122,11 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetConsultoraLogrosCaminoBrillante", ReplyAction="http://tempuri.org/IUsuarioService/GetConsultoraLogrosCaminoBrillanteResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BELogroCaminoBrillante[]> GetConsultoraLogrosCaminoBrillanteAsync(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEUsuario entidad, bool isWeb);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetOfertasCaminoBrillante", ReplyAction="http://tempuri.org/IUsuarioService/GetOfertasCaminoBrillanteResponse")]
-        Portal.Consultoras.Web.ServiceUsuario.BEOfertaCaminoBrillante[] GetOfertasCaminoBrillante(int paisId, string periodo);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetKitCaminoBrillante", ReplyAction="http://tempuri.org/IUsuarioService/GetKitCaminoBrillanteResponse")]
+        Portal.Consultoras.Web.ServiceUsuario.BEKitCaminoBrillante[] GetKitCaminoBrillante(int paisId, string periodo);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetOfertasCaminoBrillante", ReplyAction="http://tempuri.org/IUsuarioService/GetOfertasCaminoBrillanteResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEOfertaCaminoBrillante[]> GetOfertasCaminoBrillanteAsync(int paisId, string periodo);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetKitCaminoBrillante", ReplyAction="http://tempuri.org/IUsuarioService/GetKitCaminoBrillanteResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEKitCaminoBrillante[]> GetKitCaminoBrillanteAsync(int paisId, string periodo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetDemostradoresCaminoBrillante", ReplyAction="http://tempuri.org/IUsuarioService/GetDemostradoresCaminoBrillanteResponse")]
         Portal.Consultoras.Web.ServiceUsuario.BEDesmostradoresCaminoBrillante[] GetDemostradoresCaminoBrillante(int paisID, string campaniaID);
@@ -15176,12 +15176,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.GetConsultoraLogrosCaminoBrillanteAsync(paisId, entidad, isWeb);
         }
         
-        public Portal.Consultoras.Web.ServiceUsuario.BEOfertaCaminoBrillante[] GetOfertasCaminoBrillante(int paisId, string periodo) {
-            return base.Channel.GetOfertasCaminoBrillante(paisId, periodo);
+        public Portal.Consultoras.Web.ServiceUsuario.BEKitCaminoBrillante[] GetKitCaminoBrillante(int paisId, string periodo) {
+            return base.Channel.GetKitCaminoBrillante(paisId, periodo);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEOfertaCaminoBrillante[]> GetOfertasCaminoBrillanteAsync(int paisId, string periodo) {
-            return base.Channel.GetOfertasCaminoBrillanteAsync(paisId, periodo);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEKitCaminoBrillante[]> GetKitCaminoBrillanteAsync(int paisId, string periodo) {
+            return base.Channel.GetKitCaminoBrillanteAsync(paisId, periodo);
         }
         
         public Portal.Consultoras.Web.ServiceUsuario.BEDesmostradoresCaminoBrillante[] GetDemostradoresCaminoBrillante(int paisID, string campaniaID) {

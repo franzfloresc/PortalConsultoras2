@@ -21,6 +21,6 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         //Get Desmostradores
         List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillante(int paisID, string campaniaID);
 
-        List<BEOfertaCaminoBrillante> GetOfertas(int paisId, string campania);
+        List<BEKitCaminoBrillante> GetKit(int paisId, string campania);
     }
 }
