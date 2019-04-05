@@ -121,18 +121,7 @@
   </xs:complexType>
   <xs:element name="ArrayOfBEKitCaminoBrillante" nillable="true" type="tns:ArrayOfBEKitCaminoBrillante" />
   <xs:complexType name="BEKitCaminoBrillante">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="CodigoKit" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoSap" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Cuv" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DescripcionOferta" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Digitable" type="xs:int" />
-      <xs:element minOccurs="0" name="Imagen" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Marca" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Nivel" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Precio" type="xs:decimal" />
-    </xs:sequence>
+    <xs:sequence />
   </xs:complexType>
   <xs:element name="BEKitCaminoBrillante" nillable="true" type="tns:BEKitCaminoBrillante" />
   <xs:complexType name="ArrayOfBEDesmostradoresCaminoBrillante">
@@ -146,8 +135,8 @@
       <xs:element minOccurs="0" name="CodigoProducto" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Cuv" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="PrecioCatalogo" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="PrecioValorizado" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PrecioCatalogo" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PrecioValorizado" type="xs:decimal" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEDesmostradoresCaminoBrillante" nillable="true" type="tns:BEDesmostradoresCaminoBrillante" />
