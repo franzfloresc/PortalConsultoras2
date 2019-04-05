@@ -3578,7 +3578,7 @@ namespace Portal.Consultoras.Common
                     public const string ESCALA = "ESCALA";
                     public const string NIVEL = "NIVEL";
                     public const string CONSTANCIA = "CONSTANCIA";
-                    public const string INCREMENTO = "INCREMENTO_PEDIDO";
+                    public const string INCREMENTO_PEDIDO = "INCREMENTO_PEDIDO";
                     public const string TIEMPO_JUNTOS = "TIEMPO_JUNTOS";
                     public const string PROGRAMA_NUEVAS = "PROGRAMA_NUEVAS";
 
