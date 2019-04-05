@@ -245,7 +245,6 @@ namespace Portal.Consultoras.Web.Controllers
                 if (NivelCaminoBrillante != null) 
                 {
                     model.CaminoBrillanteMsg = userData.CaminoBrillanteMsg.Replace("{0}", "<b>" + NivelCaminoBrillante.DescripcionNivel + "</b>");
-
                     model.UrlLogoCaminoBrillante = Constantes.CaminoBrillante.Niveles.Iconos.Keys.Contains(NivelCaminoBrillante.CodigoNivel) ? Constantes.CaminoBrillante.Niveles.Iconos[NivelCaminoBrillante.CodigoNivel][1] : "";
                 }
 
