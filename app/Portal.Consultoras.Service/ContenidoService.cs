@@ -166,7 +166,7 @@ namespace Portal.Consultoras.Service
         {
             var blResumenCampania = new BLResumenCampania();
             //solucion a error en producción :Parameters to 'GetFlexipago' have the same names but not the same order as the method arguments.
-            return blResumenCampania.GetFlexipago(paisID, ConsultoraID , CampaniaID);
+            return blResumenCampania.GetFlexipago(paisID, ConsultoraID, CampaniaID);
         }
 
         public IList<BEResumenCampania> GetDeudaTotal(int paisID, int ConsultoraID)
@@ -493,7 +493,7 @@ namespace Portal.Consultoras.Service
         #endregion
 
         #region Gestor de Poputs
-        public List<BEComunicado> GetListaPopup(int Estado, string Campania,int  Paginas, int Filas, int PaisID)
+        public List<BEComunicado> GetListaPopup(int Estado, string Campania, int Paginas, int Filas, int PaisID)
         {
             return _BLBelcorpResponde.GetListaPopup(Estado, Campania, Paginas, Filas, PaisID);
         }
@@ -505,14 +505,14 @@ namespace Portal.Consultoras.Service
         public int GuardarPopups(string tituloPrincipal, string descripcion, string UrlImagen, string fechaMaxima, string fechaMinima, bool checkDesktop, bool checkMobile, int accionID, string datosCSVJson, string comunicadoId, string nombreArchivo, string codigoCampania, string descripcionAccion, int PaisId)
         {
             List<BEComunicadoSegmentacion> listdatosCSV = new List<BEComunicadoSegmentacion>();
-            if ( datosCSVJson!="null")
+            if (datosCSVJson != "null")
             {
                 MemoryStream ms = new MemoryStream(System.Text.ASCIIEncoding.ASCII.GetBytes(datosCSVJson));
                 ms.Position = 0;
                 DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(List<BEComunicadoSegmentacion>));
                 listdatosCSV = (List<BEComunicadoSegmentacion>)ser.ReadObject(ms);
             }
-                return _BLBelcorpResponde.GuardarPopups(tituloPrincipal, descripcion, UrlImagen, fechaMaxima, fechaMinima, checkDesktop, checkMobile, accionID, listdatosCSV,  comunicadoId,  nombreArchivo,  codigoCampania, descripcionAccion, PaisId);
+            return _BLBelcorpResponde.GuardarPopups(tituloPrincipal, descripcion, UrlImagen, fechaMaxima, fechaMinima, checkDesktop, checkMobile, accionID, listdatosCSV, comunicadoId, nombreArchivo, codigoCampania, descripcionAccion, PaisId);
         }
 
         public int ActualizaOrden(string Comunicado, string Orden, int PaisId)
@@ -525,6 +525,16 @@ namespace Portal.Consultoras.Service
             return _BLBelcorpResponde.EliminarArchivoCsv(Comunicadoid, PaisId);
         }
 
+
+        public int ActivaPopupValidador(int PaisId, int estado)
+        {
+            return _BLBelcorpResponde.ActivaPopupValidador(PaisId, estado);
+        }
+
+        public int CargaEstadoValidadorDatos(int PaisId)
+        {
+            return _BLBelcorpResponde.CargaEstadoValidadorDatos(PaisId);
+        }
         #endregion
 
 

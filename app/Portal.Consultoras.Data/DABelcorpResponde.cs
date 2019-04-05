@@ -106,6 +106,19 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@comunicadoid", DbType.Int32, comunicadoid);
             return Context.ExecuteNonQuery(command);
         }
+
+        public int ActivaPopupValidador(int estado)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ActivaPopupValidador");
+            Context.Database.AddInParameter(command, "@estado", DbType.Int32, estado);
+            return Context.ExecuteNonQuery(command);
+        }
+
+        public IDataReader CargaEstadoValidadorDatos()
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.CargaEstadoValidadorDatos");
+            return Context.ExecuteReader(command);
+        }
         #endregion
     }
 }

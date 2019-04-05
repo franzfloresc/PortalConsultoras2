@@ -3996,6 +3996,18 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/EliminarArchivoCsv", ReplyAction="http://tempuri.org/IContenidoService/EliminarArchivoCsvResponse")]
         System.Threading.Tasks.Task<int> EliminarArchivoCsvAsync(int Comunicadoid, int PaisID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/ActivaPopupValidador", ReplyAction="http://tempuri.org/IContenidoService/ActivaPopupValidadorResponse")]
+        int ActivaPopupValidador(int PaisID, int estado);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/ActivaPopupValidador", ReplyAction="http://tempuri.org/IContenidoService/ActivaPopupValidadorResponse")]
+        System.Threading.Tasks.Task<int> ActivaPopupValidadorAsync(int PaisID, int estado);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/CargaEstadoValidadorDatos", ReplyAction="http://tempuri.org/IContenidoService/CargaEstadoValidadorDatosResponse")]
+        int CargaEstadoValidadorDatos(int PaisID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/CargaEstadoValidadorDatos", ReplyAction="http://tempuri.org/IContenidoService/CargaEstadoValidadorDatosResponse")]
+        System.Threading.Tasks.Task<int> CargaEstadoValidadorDatosAsync(int PaisID);
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -4683,6 +4695,22 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         
         public System.Threading.Tasks.Task<int> EliminarArchivoCsvAsync(int Comunicadoid, int PaisID) {
             return base.Channel.EliminarArchivoCsvAsync(Comunicadoid, PaisID);
+        }
+        
+        public int ActivaPopupValidador(int PaisID, int estado) {
+            return base.Channel.ActivaPopupValidador(PaisID, estado);
+        }
+        
+        public System.Threading.Tasks.Task<int> ActivaPopupValidadorAsync(int PaisID, int estado) {
+            return base.Channel.ActivaPopupValidadorAsync(PaisID, estado);
+        }
+        
+        public int CargaEstadoValidadorDatos(int PaisID) {
+            return base.Channel.CargaEstadoValidadorDatos(PaisID);
+        }
+        
+        public System.Threading.Tasks.Task<int> CargaEstadoValidadorDatosAsync(int PaisID) {
+            return base.Channel.CargaEstadoValidadorDatosAsync(PaisID);
         }
     }
 }

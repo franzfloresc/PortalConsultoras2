@@ -74,10 +74,10 @@ namespace Portal.Consultoras.BizLogic
                         UrlImagen = reader[2] == null ? string.Empty : reader[2].ToString(),
                         FechaInicio = reader[3] == null ? string.Empty : reader[3].ToString(),
                         FechaFin = reader[4] == null ? string.Empty : reader[4].ToString(),
-                        Titulo =reader[5] == null ? string.Empty : reader[5].ToString(),
+                        Titulo = reader[5] == null ? string.Empty : reader[5].ToString(),
                         DescripcionAccion = reader[6] == null ? string.Empty : reader[6].ToString(),
-                        Activo = Convert.ToBoolean( reader[7]),
-                        PaginasMaximas= reader[8] == DBNull.Value ? 0 : int.Parse(reader[8].ToString()),
+                        Activo = Convert.ToBoolean(reader[7]),
+                        PaginasMaximas = reader[8] == DBNull.Value ? 0 : int.Parse(reader[8].ToString()),
                     });
                 }
 
@@ -87,7 +87,7 @@ namespace Portal.Consultoras.BizLogic
 
         public BEComunicado GetDetallePopup(int comunicadoid, int PaisID)
         {
-         BEComunicado objetoBEComunicado = new BEComunicado();
+            BEComunicado objetoBEComunicado = new BEComunicado();
 
             var daBelcorpResponde = new DABelcorpResponde(PaisID);
 
@@ -105,7 +105,7 @@ namespace Portal.Consultoras.BizLogic
                     objetoBEComunicado.NombreArchivoCCV = reader[7] == null ? string.Empty : reader[7].ToString();
                     objetoBEComunicado.FechaInicio = reader[8] == null ? string.Empty : reader[8].ToString();
                     objetoBEComunicado.FechaFin = reader[9] == null ? string.Empty : reader[9].ToString();
-                    objetoBEComunicado.TipoDispositivo= reader[10] == DBNull.Value ? 0 : int.Parse(reader[10].ToString());
+                    objetoBEComunicado.TipoDispositivo = reader[10] == DBNull.Value ? 0 : int.Parse(reader[10].ToString());
                     objetoBEComunicado.Comentario = reader[11] == null ? string.Empty : reader[11].ToString();
                 }
 
@@ -118,7 +118,7 @@ namespace Portal.Consultoras.BizLogic
         {
             var daBelcorpResponde = new DABelcorpResponde(PaisID);
             string[] arrayColumnasBEComunicadoSegmentacion = GetArrayColumnas(listdatosCSV);
-            return daBelcorpResponde.GuardarPopups(tituloPrincipal, descripcion, UrlImagen, fechaMaxima, fechaMinima, checkDesktop, checkMobile, accionID, arrayColumnasBEComunicadoSegmentacion,  comunicadoId,  nombreArchivo,  codigoCampania, descripcionAccion);
+            return daBelcorpResponde.GuardarPopups(tituloPrincipal, descripcion, UrlImagen, fechaMaxima, fechaMinima, checkDesktop, checkMobile, accionID, arrayColumnasBEComunicadoSegmentacion, comunicadoId, nombreArchivo, codigoCampania, descripcionAccion);
 
         }
 
@@ -139,11 +139,11 @@ namespace Portal.Consultoras.BizLogic
             }
             else
             {
-                    arrayColumnas[0]="@";
-                    arrayColumnas[1]="@";
-                    arrayColumnas[2]="@";
-                    arrayColumnas[3]="@";
-               
+                arrayColumnas[0] = "@";
+                arrayColumnas[1] = "@";
+                arrayColumnas[2] = "@";
+                arrayColumnas[3] = "@";
+
             }
             return arrayColumnas;
         }
@@ -158,6 +158,26 @@ namespace Portal.Consultoras.BizLogic
         {
             var daBelcorpResponde = new DABelcorpResponde(PaisID);
             return daBelcorpResponde.EliminarArchivoCsv(comunicadoid);
+        }
+
+        public int ActivaPopupValidador(int paisId, int estado)
+        {
+            var daBelcorpResponde = new DABelcorpResponde(paisId);
+            return daBelcorpResponde.ActivaPopupValidador(estado);
+        }
+
+        public int CargaEstadoValidadorDatos(int paisId)
+        {
+            int estado = 0;
+            var daBelcorpResponde = new DABelcorpResponde(paisId);
+            using (IDataReader reader = daBelcorpResponde.CargaEstadoValidadorDatos())
+            {
+                while (reader.Read())
+                {
+                    estado = reader[0] == DBNull.Value ? 0 : int.Parse(reader[0].ToString());
+                }
+            }
+            return estado;
         }
         #endregion
     }

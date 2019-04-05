@@ -94,6 +94,52 @@ namespace Portal.Consultoras.Web.Controllers
 
             return Json(objetoComunicadoModel, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult CargaEstadoValidadorDatos()
+        {
+            int estado = 0;
+            ComunicadoModel objetoComunicadoModel;
+
+            try
+            {
+                using (ContenidoServiceClient sv = new ContenidoServiceClient())
+                {
+                    estado = sv.CargaEstadoValidadorDatos(userData.PaisID);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                objetoComunicadoModel = new ComunicadoModel();
+            }
+
+            return Json(estado, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+        public JsonResult ActivaPopupValidador(int estado)
+        {
+            int respuestaActualizacion = 0;
+            ComunicadoModel objetoComunicadoModel;
+
+            try
+            {
+                using (ContenidoServiceClient sv = new ContenidoServiceClient())
+                {
+                    respuestaActualizacion = sv.ActivaPopupValidador(userData.PaisID, estado);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                objetoComunicadoModel = new ComunicadoModel();
+            }
+
+            return Json(respuestaActualizacion, JsonRequestBehavior.AllowGet);
+        }
         #endregion
 
         #region ARCHIVOS
@@ -135,7 +181,7 @@ namespace Portal.Consultoras.Web.Controllers
                                         {
                                             RegionId = row.Split(","[0])[0].Replace("\r", ""),
                                             ZonaId = row.Split(","[0])[1].Replace("\r", ""),
-                                            Estado = row.Split(","[0])[2].Replace("\r", "") ,
+                                            Estado = row.Split(","[0])[2].Replace("\r", ""),
                                             Consultoraid = row.Split(","[0])[3].Replace("\r", "")
                                         });
                                     }
@@ -207,6 +253,10 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new { success = false, message = "Hubo un error al cargar el archivo, intente nuevamente." }, "text/html");
             }
         }
+
+
+
+
 
         private string GetGuardarImagenServidor(string imagenActual, string imagenAnterior)
         {

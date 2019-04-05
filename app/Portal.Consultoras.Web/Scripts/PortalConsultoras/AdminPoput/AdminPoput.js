@@ -2,7 +2,7 @@
  Fecha Creación : 14_02_2019
  */
 /***********************************************DECLARACIÓN DE VARIABLES GLOBALES****************************************************************************************/
-var VistaAdministracionPopups 
+var VistaAdministracionPopups
     , URL_ADJUNTAR_ARCHIVO = baseUrl + 'AdministracionPopups/GetCargarArchivoCSV'
     , URL_GUARDAR_POPUT = baseUrl + 'AdministracionPopups/GetGuardarPopup'
     , URL_DETALLE_POPUT = baseUrl + 'AdministracionPopups/GetDetallePopup'
@@ -10,6 +10,8 @@ var VistaAdministracionPopups
     , URL_ELIMINA_ARCHIVOCSV = baseUrl + 'AdministracionPopups/EliminarArchivoCsv'
     , URL_AGREGAR_IMAGEN = baseUrl + 'AdministracionPopups/AgregarImagenUpload'
     , URL_BUSCAR_POPUTS = baseUrl + 'AdministracionPopups/GetCargaListadoPopup'
+    , URL_POPUPVALIDADOR_ESTADO = baseUrl + 'AdministracionPopups/ActivaPopupValidador'
+    , URL_POPUPVALIDADOR_CARGA = baseUrl + 'AdministracionPopups/CargaEstadoValidadorDatos'
     , TIPO_ACCION_NUEVO = 1
     , TIPO_ACCION_MODIFICAR = 2;
 
@@ -39,6 +41,8 @@ function ObjetoMensajes() {
     this.dimensionesImagen = "Las medidas deben ser: 326 x 418";
     this.validaArchivoCsv = "Formato de archivo csv";
     this.validarFechaPasada = "Ingrese una fecha mayor o igual a la de hoy";
+    this.activaPopupValidador = "El estado del popup de validación de datos fue actualizado";
+    this.mensajeActivadorPopupValidador = "Desea actualizar el estado del popup de validación de datos?";
 }
 
 /******************************************************MÉTODOS Y OPERACIONES*********************************************************************************/
@@ -93,46 +97,49 @@ $(document).ready(function () {
                 $("#swappable").disableSelection();
             }
         }
-            me.Eventos = {
-                AbrirPopupNuevo: function (e) {
-                    e.preventDefault();
-                    if ($("#ddlCampania").val().length > 0) {
-                        document.getElementById("imgPreview").style.display = "none";
-                        LimpiarCamposPoput();
-                        $("#description").html("Formato de archivo PNG.<br /> (326 x 418 píxeles)");
-                        $("#nameArchivo").html(OBJETO_MENJASE.validaArchivoCsv);
-                        $("#hdAccion").val(TIPO_ACCION_NUEVO);
-                        $('#modalTitulo').html($(this).attr('title'));
-                        $('#AgregarPopup').fadeIn(100);
-                        $('#AgregarPopup').scrollTop(0);
-                        $('#AgregarPopup').css('display', 'flex');
-                        $('body').css('overflow-y', 'hidden');
-                    } else alert(OBJETO_MENJASE.seleccionCampaña);
-                },
-                AbrirPopupModificar: function (e) {
-                    e.preventDefault();
-                    $("#hdAccion").val(TIPO_ACCION_MODIFICAR)
+        me.Eventos = {
+            AbrirPopupNuevo: function (e) {
+                e.preventDefault();
+                if ($("#ddlCampania").val().length > 0) {
+                    document.getElementById("imgPreview").style.display = "none";
                     LimpiarCamposPoput();
-                    var comunicadoid = e.target.getAttribute("comunicadoid")
-                    $("#hdComunicadoId").val(comunicadoid)
-                    GetCargaDetallePoput(comunicadoid);
+                    $("#description").html("Formato de archivo PNG.<br /> (326 x 418 píxeles)");
+                    $("#nameArchivo").html(OBJETO_MENJASE.validaArchivoCsv);
+                    $("#hdAccion").val(TIPO_ACCION_NUEVO);
                     $('#modalTitulo').html($(this).attr('title'));
                     $('#AgregarPopup').fadeIn(100);
                     $('#AgregarPopup').scrollTop(0);
                     $('#AgregarPopup').css('display', 'flex');
                     $('body').css('overflow-y', 'hidden');
-                },
-                CerrarPopup: function (e) {
-                    e.preventDefault();
-                    $('#AgregarPopup').fadeOut(100);
-                    $('body').css('overflow-y', '');
-                }
+                } else alert(OBJETO_MENJASE.seleccionCampaña);
             },
+            AbrirPopupModificar: function (e) {
+                e.preventDefault();
+                $("#hdAccion").val(TIPO_ACCION_MODIFICAR)
+                LimpiarCamposPoput();
+                var comunicadoid = e.target.getAttribute("comunicadoid")
+                $("#hdComunicadoId").val(comunicadoid)
+                GetCargaDetallePoput(comunicadoid);
+                $('#modalTitulo').html($(this).attr('title'));
+                $('#AgregarPopup').fadeIn(100);
+                $('#AgregarPopup').scrollTop(0);
+                $('#AgregarPopup').css('display', 'flex');
+                $('body').css('overflow-y', 'hidden');
+            },
+            CerrarPopup: function (e) {
+                e.preventDefault();
+                $('#AgregarPopup').fadeOut(100);
+                $('body').css('overflow-y', '');
+            }
+        },
             me.Inicializar = function () {
                 me.Funciones.InicializarEventos();
                 me.Funciones.CargarDatePicker();
             }
     }
+    CargaEstadoValidadorDatos();
+
+
 
     VistaAdministracionPopups = new vistaAdPop();
     VistaAdministracionPopups.Inicializar();
@@ -361,6 +368,62 @@ function getFileCSV() {
     });
 }
 
+function CargaEstadoValidadorDatos() {
+    $.ajax({
+        type: "POST",
+        url: URL_POPUPVALIDADOR_CARGA,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        cache: false,
+        success: function (data) {
+            if (checkTimeout(data)) {
+                document.getElementById('checkValidador').checked = parseInt(data) == 1 ? true : false;
+            }
+        },
+        error: function (x, xh, xhr) {
+            if (checkTimeout(x)) {
+                closeWaitingDialog();
+            }
+        }
+    });
+
+}
+
+
+
+
+function activarPopupValidador(valor) {
+
+    var bool = confirm(OBJETO_MENJASE.mensajeActivadorPopupValidador);
+    if (bool) {
+        var estado = document.getElementById(valor.id).checked ? 1 : 0;
+        var object = {
+            estado: estado,
+        };
+
+        $.ajax({
+            type: "POST",
+            url: URL_POPUPVALIDADOR_ESTADO,
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(object),
+            dataType: "json",
+            cache: false,
+            success: function (data) {
+                if (checkTimeout(data)) {
+                    alert(OBJETO_MENJASE.activaPopupValidador);
+                }
+            },
+            error: function (x, xh, xhr) {
+                if (checkTimeout(x)) {
+                    closeWaitingDialog();
+                }
+            }
+        });
+
+    }
+
+}
+
 $("#btnGuardar").click(function () {
 
     if (parseInt($("#hdAccion").val()) == 2) {
@@ -466,7 +529,7 @@ function respuestaValidacionCambios() {
     if (JSON.parse(localStorage.getItem('datosPoput')).NombreImagen != $("#description").html())
         acumuladoValidacion += 1;
     if (JSON.parse(localStorage.getItem('datosPoput')).NombreArchivoCCV != ($("#nameArchivo").html() == OBJETO_MENJASE.validaArchivoCsv ? "" : $("#nameArchivo").html()))
-        acumuladoValidacion += 1;   
+        acumuladoValidacion += 1;
     if (JSON.parse(localStorage.getItem('datosPoput')).Descripcion != $("#txtTituloPrincipal").val())
         acumuladoValidacion += 1;
     if (JSON.parse(localStorage.getItem('datosPoput')).DescripcionAccion != $("#txtUrl").val())
