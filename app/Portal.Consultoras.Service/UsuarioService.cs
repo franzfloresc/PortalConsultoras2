@@ -368,6 +368,18 @@ namespace Portal.Consultoras.Service
             return blMisPedidos.GetMisPedidosDetalle(PaisID, PedidoID);
         }
 
+        public IList<BEMisPedidosDetalle> GetMisPedidosDetallePendientesAll(int paisId, int campaniaId, long consultoraId)
+        {
+            var blMisPedidos = new BLConsultoraOnline();
+            return blMisPedidos.GetMisPedidosDetalleAll(paisId, campaniaId, consultoraId);
+        }
+
+        //public IList<BEMisPedidos> GetMisPedidosConsultoraOnlineCliente(int PaisID, long Campania, long Cuv)
+        //{
+        //    var blMisPedidos = new BLConsultoraOnline();
+        //    return blMisPedidos.GetMisPedidosDetalleCliente(PaisID,Campania,Cuv);
+        //}
+
         public int GetCantidadSolicitudesPedido(int PaisID, long ConsultoraId, int Campania)
         {
             var blMisPedidos = new BLConsultoraOnline();

@@ -190,6 +190,15 @@ namespace Portal.Consultoras.Data
             Context.ExecuteReader(command);
         }
 
+        public void RechazarSolicitudVistaCliente(long solicitudId, int cuv)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdRechazarSolicitudCliente");
+            Context.Database.AddInParameter(command, "@SolicitudId", DbType.Int64, solicitudId);
+            Context.Database.AddInParameter(command, "@Cuv", DbType.Int32, cuv);
+
+            Context.ExecuteReader(command);
+        }
+
         public IDataReader ReasignarSolicitudCliente(long solicitudId, string codigoUbigeo, string campania, int paisId, int marcaId, int opcionRechazo, string razonMotivoRechazo)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ReasignarSolicitudCliente");

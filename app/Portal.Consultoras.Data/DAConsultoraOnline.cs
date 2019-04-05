@@ -12,8 +12,8 @@ namespace Portal.Consultoras.Data
 
         public IDataReader GetSolicitudesPedido(long ConsultoraId, int Campania)
         {
-            /* DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetSolicitudesPedido_SB2"); */
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetSolicitudesPedidoClienteDetalle_SB2"); 
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetSolicitudesPedido_SB2");
+            //DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetSolicitudesPedidoClienteDetalle_SB2"); 
             Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int64, ConsultoraId);
             Context.Database.AddInParameter(command, "@Campania", DbType.Int32, Campania);
 
@@ -48,6 +48,23 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
+        public IDataReader GetSolicitudesPedidoDetalleAll(int campaniaId, long consultoraId)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetSolicitudesPedidoDetalleAll_SB2");
+            Context.Database.AddInParameter(command, "@CampaniaId", DbType.Int32, campaniaId);
+            Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int64, consultoraId);
+
+            return Context.ExecuteReader(command);
+        }
+
+        public IDataReader GetSolicitudesPedidoDetalleCliente(long Campania, long cuv)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetSolicitudesPedidoDetalleCliente_SB2");
+            Context.Database.AddInParameter(command, "@Campania", DbType.Int64, Campania);
+            Context.Database.AddInParameter(command, "@SolicitudClienteID", DbType.Int64, cuv);
+
+            return Context.ExecuteReader(command);
+        }
         public IDataReader GetMisPedidosClienteOnline(long ConsultoraId, int Campania)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetMisPedidosClienteOnline_SB2");
