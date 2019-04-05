@@ -69,8 +69,25 @@
                             {{/if}}
                         </div>
                         <div class="descripcion" data-descripcion="">{{DescripcionCompleta}}</div>
+                        @*
                         <div class="descripcion_item" style="margin-top: 8px;">15 gr</div>
                         <div class="descripcion_item">15 x 20 x 25 milimentos</div>
+                        *@
+                        <!--INI AGANA 456 -->
+                        {{#iff this.Hermanos.length '==' 1}}
+                        {{#each this.Hermanos as |componente|}}
+                        <div class="descripcion_item">
+                            {{componente.Cabecera.ContenidoNeto}}
+                        </div>
+                        <div class="descripcion_item">
+                            {{componente.Cabecera.Dimensiones}}
+                        </div>
+                        <div class="descripcion_item">
+                            {{componente.Cabecera.TallaMedidas}}
+                        </div>
+                        {{/each}}
+                        {{/iff}}
+                        <!--END AGANA 456 -->
                     </div>
                     <div class="contenedor_derecho">
                         {{#iff Precio '>' 0}}
