@@ -1513,6 +1513,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             try
             {
                 List<BEEstrategia> LstEstrategia = _estrategiaBusinessLogic.GetEstrategiaPremiosElectivos(usuario.PaisID, usuario.CodigoPrograma, usuario.CampaniaID, usuario.Nivel);
+                if (LstEstrategia == null) LstEstrategia = new List<BEEstrategia>();
                 BEPedidoWeb objPedidoDetalle = Get(usuario);
 
                 if (objPedidoDetalle.olstBEPedidoWebDetalle == null) objPedidoDetalle.olstBEPedidoWebDetalle = new List<BEPedidoWebDetalle>();
@@ -1526,6 +1527,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 else
                 {
                     var prodRegalo = LstEstrategia.FirstOrDefault(x => x.CuponElectivoDefault);
+                    if (prodRegalo == null) prodRegalo = new BEEstrategia() { CUV2 = string.Empty, DescripcionCUV2 = string.Empty };
                     ProductoRegalo.CUV = prodRegalo.CUV2;
                     ProductoRegalo.DescripcionProducto = prodRegalo.DescripcionCUV2;
                 }
@@ -2633,6 +2635,16 @@ namespace Portal.Consultoras.BizLogic.Pedido
         {
             BEPedidoDetalleResult objRerun = null;
             var lisRegalos = _estrategiaBusinessLogic.GetEstrategiaPremiosElectivos(pedidoDetalle.Usuario.PaisID, pedidoDetalle.Usuario.CodigoPrograma, pedidoDetalle.Usuario.CampaniaID, pedidoDetalle.Usuario.Nivel).ToList();
+            if (lisRegalos == null) lisRegalos = new List<BEEstrategia>();
+
+            if (lisRegalos.Count == 0)
+            {
+                objRerun = new BEPedidoDetalleResult();
+                objRerun.CodigoRespuesta = Constantes.PedidoValidacion.Code.SUCCESS;
+
+                return objRerun;
+            }
+
             var reqPedidoDetalle = Get(pedidoDetalle.Usuario);
 
             if (reqPedidoDetalle.olstBEPedidoWebDetalle == null) reqPedidoDetalle.olstBEPedidoWebDetalle = new List<BEPedidoWebDetalle>();
