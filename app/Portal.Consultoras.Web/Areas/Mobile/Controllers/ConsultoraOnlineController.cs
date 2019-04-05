@@ -1179,7 +1179,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 if (oListaPedidos.Any())
                 {
-                    oListaPedidos.ForEach(x => {
+                    oListaPedidos.ForEach(x => 
                     {
 
 
@@ -1191,8 +1191,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                             oListaPedidosDetalle.AddRange(oDetallesTemporal);
                             //  modelPedido
                         }
+                    }
 
-                    });
+                    );
                  
 
 
