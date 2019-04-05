@@ -13,7 +13,6 @@
 <br />
 
 
-
 <div class="container">
 
     <h2 class="title">@data.Titulo</h2>
@@ -85,7 +84,11 @@
                                     }
                                 }
                                 <a href="" class="inactivo">@item2.Titulo</a>
-                                <span data-toggle=modal data-target=#ModalPorcentaje class="como-log inactivo">¿Cómo lograrlo?</span>
+
+                                @if (item2.Tipo != "TIME")
+                                {
+                                    <span data-toggle=modal data-target=#ModalPorcentaje class="como-log inactivo">@item2.Subtitulo</span>
+                                }
                             </div>
                         }
                     }
@@ -119,14 +122,6 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
 
 <script src="~/Scripts/jquery-1.11.2.min.js"></script>
 <script src="~/Scripts/bootstrap.min.js"></script>

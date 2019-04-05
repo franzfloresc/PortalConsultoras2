@@ -91,7 +91,14 @@
                         <img src=''>
                     }
                     <div class="txt-benf">
-                        <p class="text-bold">@beneficio.Descripcion<span>@beneficio.NombreBeneficio</span></p>
+                        @if (string.IsNullOrEmpty(@beneficio.Descripcion))
+                        {
+                            <p class="text-bold"><span>@beneficio.NombreBeneficio</span></p>
+                        }
+                        else
+                        {
+                            <p class="text-bold">@beneficio.NombreBeneficio<span>@beneficio.Descripcion</span></p>
+                        }
                     </div>
                 </li>
             }
