@@ -10,6 +10,31 @@
 <link href="@Url.Content("~/Content/Css/Site/FichaProductoResponsive/ficha-producto-responsive.css")" rel="stylesheet" />
 <link href="~/Content/CaminoBrillante/css/ganamas.css" rel="stylesheet" />
 
+<style>
+    .desactive-mas-menos {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 100%;
+
+        background: gray;
+        opacity: 0.6;
+        cursor: not-allowed;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 10;
+    }
+
+    .desactivo {
+        pointer-events: none;
+        cursor: none;
+        text-decoration: none;
+        opacity: 0.4;
+    }
+</style>
+
+
 <body>
 
 
