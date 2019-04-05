@@ -28943,6 +28943,10 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     letter-spacing: 0.5px;
 }
 
+.btn_ir_paso_2 {
+    margin-top: 52px;
+}
+
 .subtitulo_reclamo_light {
     font-family: 'Lato';
     font-size: 15px;

@@ -28614,11 +28614,22 @@ div.motivoRechazo textarea {
     border-radius: 4px;
     margin-right: 16px;
     border: 1px solid #808080;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
 }
 
     .opcion_cdr:last-child{
         margin-right:0;
     }
+
+.opcion_cdr_seleccionada {
+    border: 2px solid #000;
+    -moz-box-shadow: 1px 1px 10px -2px rgba(0,0,0,.7);
+    -webkit-box-shadow: 1px 1px 10px -2px rgba(0,0,0,.7);
+    box-shadow: 1px 1px 10px -2px rgba(0,0,0,.7);
+}
 
 .opcion_cdr_enlace,
 .opcion_cdr_seleccionada_terminos_entrega_producto_wrapper,
@@ -28975,6 +28986,10 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     margin:20px auto 60px auto;
     cursor: pointer;
     letter-spacing: 0.5px;
+}
+
+.btn_ir_paso_2{
+    margin-top:52px;
 }
 
 .subtitulo_reclamo_light {

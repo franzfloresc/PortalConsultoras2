@@ -1794,6 +1794,7 @@ function EscogerSolucion(opcion, event) {
     var isChecked = tagCheck.is(':checked');
     if (id == "" || !isChecked) {
         tagDivInfo.hide().children().hide(); //ocultamos la capa padre y los hijos
+        $(opcion).parents(".opcion_cdr").removeClass("opcion_cdr_seleccionada");
         return false;
     }
     tagDivInfo.show();//Mostramos la capa padre
@@ -1806,24 +1807,36 @@ function EscogerSolucion(opcion, event) {
         }
     });
 
+    $("#btnIrPaso3").fadeIn(100);
+
     //en base al id, mostramos la capa correspondiente
     if (id == "T") {
+        $(".opcion_cdr").removeClass("opcion_cdr_seleccionada");
+        $(opcion).parents(".opcion_cdr").addClass("opcion_cdr_seleccionada");
         $('#OpcionCambioPorOtroProducto').fadeIn(200);
         SetMontoCampaniaTotal();
         ObtenerValorParametria(id);
     } else if (id == "C") {
+        $(".opcion_cdr").removeClass("opcion_cdr_seleccionada");
+        $(opcion).parents(".opcion_cdr").addClass("opcion_cdr_seleccionada");
         $('#OpcionCambioMismoProducto').fadeIn(200);
         //$('#spnDescProdDevolucion').html($('#hdfCUVDescripcion').val());
-        $('#spnDescProdDevolucionC').html($('#ddlCuv').val());  
+        $('#spnDescProdDevolucionC').html($('#ddlCuv').val()); 
     } else if (id == "D") {
+        $(".opcion_cdr").removeClass("opcion_cdr_seleccionada");
+        $(opcion).parents(".opcion_cdr").addClass("opcion_cdr_seleccionada");
         $('#divDevolucionSetsOrPack').show();
         $('#OpcionDevolucion').fadeIn(200);
         SetHandlebars("#template-opcion-devolucion", dataCdrServicio, "#divDevolucionSetsOrPack");
     } else if (id == "F") {
+        $(".opcion_cdr").removeClass("opcion_cdr_seleccionada");
+        $(opcion).parents(".opcion_cdr").addClass("opcion_cdr_seleccionada");
         $('#spnDescripcionProductoOpcionF').text($('#ddlCuv').val());
         //$('#spnDescripcionProductoOpcionF').val($('#hdfCUVDescripcion').val());
         $('#OpcionEnvioDelProducto').fadeIn(200);
     } else {
+        $(".opcion_cdr").removeClass("opcion_cdr_seleccionada");
+        $(opcion).parents(".opcion_cdr").addClass("opcion_cdr_seleccionada");
         $('#spnDescripcionProductoOpcionG').html($('#ddlCuv').val());
         $('#OpcionDevolucionDinero').fadeIn(200);
     }
