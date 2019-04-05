@@ -473,7 +473,8 @@ namespace Portal.Consultoras.Common
             public const string MSPersonalizacionConfig = "MSPersonalizacion";
 
             public const string NivelConsultoraCaminoBrillante = "NivelConsultoraCaminoBrillante";
-            public const string OfertasCaminoBrillante = "OfertasCaminoBrillante";
+            public const string KitCaminoBrillante = "KitCaminoBrillante";
+            public const string DemostradoresCaminoBrillante = "DemostradoresCaminoBrillante";
         }
 
         public static class ConfiguracionManager
@@ -3584,8 +3585,8 @@ namespace Portal.Consultoras.Common
                     public static class Medallas
                     {
 
-                        public const string ComoLograrlo = "¿Cómo lograrlo?";
                         public const string YaLoTienes = "¡Ya lo tienes!";
+                        public const string ComoLograrlo = "¿Cómo lograrlo?";
 
                         public static class Codes
                         {

@@ -89,25 +89,25 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 GetConsultoraLogrosCompromiso(paisId, entidad, nivelConsultora) };
         }
 
-        public List<BEOfertaCaminoBrillante> GetOfertas(int paisId, string campania)
+        public List<BEKitCaminoBrillante> GetKit(int paisId, string campania)
         {
-            return GetOfertasCache(paisId, campania);
+            return GetKitCache(paisId, campania);
         }
 
-        public List<BEOfertaCaminoBrillante> GetOfertasCache(int paisId, string campania)
+        public List<BEKitCaminoBrillante> GetKitCache(int paisId, string campania)
         {
-            return CacheManager<List<BEOfertaCaminoBrillante>>.ValidateDataElement(paisId, ECacheItem.CaminoBrillanteOfertas, campania, () => GetOfertasProvider(paisId, campania));
+            return CacheManager<List<BEKitCaminoBrillante>>.ValidateDataElement(paisId, ECacheItem.CaminoBrillanteOfertas, campania, () => GetKitProvider(paisId, campania));
         }
 
         //Pendiente cargar imagenes
-        public List<BEOfertaCaminoBrillante> GetOfertasProvider(int paisId, string campania)
+        public List<BEKitCaminoBrillante> GetKitProvider(int paisId, string campania)
         {
             _providerCaminoBrillante = _providerCaminoBrillante ?? getCaminoBrillanteProvider(paisId);
             if (_providerCaminoBrillante == null) return null;
 
             var ofertas = _providerCaminoBrillante.GetOfertas(Util.GetPaisIsoHanna(paisId), campania).Result;
 
-            return ofertas.Select(e => new BEOfertaCaminoBrillante()
+            return ofertas.Select(e => new BEKitCaminoBrillante()
             {
                 CodigoKit = e.CodigoKit,
                 CodigoSap = e.CodigoSap,
@@ -304,7 +304,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 var configMedalla = configsMedalla.Where(p => p.Codigo == e.Valor).FirstOrDefault();
                 if (configMedalla != null)
                 {
-                    e.Subtitulo = e.Estado ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes;
+                    e.Subtitulo = e.Estado ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo;
                     e.Valor = string.Format(configMedalla.Valor ?? string.Empty, e.Valor);
                     e.ModalTitulo = configMedalla.ComoLograrlo_Estado ? configMedalla.ComoLograrlo_Titulo : string.Empty;
                     e.ModalDescripcion = configMedalla.ComoLograrlo_Estado ? configMedalla.ComoLograrlo_Descripcion : string.Empty;
@@ -341,7 +341,9 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             {
                 Orden = idx++,
                 Tipo = Constantes.CaminoBrillante.Logros.Indicadores.Medallas.Codes.NIV,
+                Titulo = e.DescripcionNivel,
                 Estado = (short.TryParse(e.CodigoNivel, out nivelCodigo) ? nivelCodigo <= nivelActual : false),
+                Subtitulo = (short.TryParse(e.CodigoNivel, out nivelCodigo) ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo),
                 Valor = e.CodigoNivel,
             }).ToList();
 
@@ -350,7 +352,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 var configMedalla = configsMedalla.Where(p => p.Valor == e.Valor).FirstOrDefault();
                 if (configMedalla != null)
                 {
-                    e.Subtitulo = e.Estado ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes;
+                    e.Subtitulo = e.Estado ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo;
                     e.ModalTitulo = configMedalla.ComoLograrlo_Estado ? configMedalla.ComoLograrlo_Titulo : string.Empty;
                     e.ModalDescripcion = configMedalla.ComoLograrlo_Estado ? configMedalla.ComoLograrlo_Descripcion : string.Empty;
                 }
@@ -399,7 +401,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                                     Tipo = Constantes.CaminoBrillante.Logros.Indicadores.Medallas.Codes.PIE,
                                     Estado = (constancia > 0),
                                     Titulo = string.Format(configMedalla.Valor ?? string.Empty, (periodoCaminoBrillante.CampanaInicial % 100), (periodoCaminoBrillante.CampanaFinal % 100)),
-                                    Subtitulo = (constancia > 0) ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes,
+                                    Subtitulo = (constancia > 0) ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo,
                                     ModalTitulo = configMedalla.ComoLograrlo_Estado ? configMedalla.ComoLograrlo_Titulo : string.Empty,
                                     ModalDescripcion = configMedalla.ComoLograrlo_Estado ? configMedalla.ComoLograrlo_Descripcion : string.Empty,
                                     Valor = valor,
@@ -448,7 +450,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                     Orden = idx++,
                     Tipo = Constantes.CaminoBrillante.Logros.Indicadores.Medallas.Codes.CIRC,
                     Estado = (nivelConsultora.PorcentajeIncremento <= int.Parse(e.Codigo)),
-                    Subtitulo = (nivelConsultora.PorcentajeIncremento <= int.Parse(e.Codigo)) ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes,
+                    Subtitulo = (nivelConsultora.PorcentajeIncremento <= int.Parse(e.Codigo)) ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo,
                     Valor = string.Format(e.Valor ?? string.Empty, e.Codigo),                    
                     ModalTitulo = e.ComoLograrlo_Estado ? e.ComoLograrlo_Titulo : string.Empty,
                     ModalDescripcion = e.ComoLograrlo_Estado ? e.ComoLograrlo_Descripcion : string.Empty,
@@ -488,7 +490,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         {
             //Calcular este Flag
             //var showMedallasNuevas = (entidad.EsConsultoraNueva && true);
-            var showMedallasNuevas = (entidad.EsConsultoraNueva || (entidad.ConsecutivoNueva > 0));
+            var showMedallasNuevas = entidad.EsConsultoraNueva;
 
             if (showMedallasNuevas)
             {
@@ -511,6 +513,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                                    Tipo = Constantes.CaminoBrillante.Logros.Indicadores.Medallas.Codes.PED,
                                    Valor = e.Codigo,
                                    Titulo = string.Format(e.Valor, e.Codigo),
+                                   Subtitulo = (int.Parse(e.Codigo) <= entidad.ConsecutivoNueva) ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo,
                                    ModalTitulo = e.ComoLograrlo_Estado ? e.ComoLograrlo_Titulo : string.Empty,
                                    ModalDescripcion = e.ComoLograrlo_Estado ? e.ComoLograrlo_Descripcion : string.Empty
                                }).ToList()
@@ -549,7 +552,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                     Tipo = Constantes.CaminoBrillante.Logros.Indicadores.Medallas.Codes.TIM,
                     Estado = (anios <= aniosConsultora && aniosConsultora != -1),
                     Titulo = string.Format(e.Valor ?? string.Empty, anios),
-                    Subtitulo = (anios <= aniosConsultora) ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes,
+                    //Subtitulo = (anios <= aniosConsultora) ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo,
                     ModalTitulo = e.ComoLograrlo_Estado ? e.ComoLograrlo_Titulo : string.Empty,
                     ModalDescripcion = e.ComoLograrlo_Estado ? e.ComoLograrlo_Descripcion : string.Empty,
                     Valor = e.Codigo

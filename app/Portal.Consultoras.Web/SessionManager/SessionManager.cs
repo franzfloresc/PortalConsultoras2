@@ -1402,8 +1402,6 @@ namespace Portal.Consultoras.Web.SessionManager
             return (List<UsuarioOpcionesModel>)HttpContext.Current.Session[Constantes.ConstSession.UsuarioPedidos];
         }
 
-
-
         #region CaminoBrillante
 
         public void SetConsultoraCaminoBrillante(BEConsultoraCaminoBrillante val)
@@ -1415,19 +1413,23 @@ namespace Portal.Consultoras.Web.SessionManager
             return (BEConsultoraCaminoBrillante)HttpContext.Current.Session[Constantes.ConstSession.NivelConsultoraCaminoBrillante];
         }
 
-        public void SetOfertasCaminoBrillante(List<BEOfertaCaminoBrillante> val)
+        public void SetKitCaminoBrillante(List<BEKitCaminoBrillante> val)
         {
-            HttpContext.Current.Session[Constantes.ConstSession.OfertasCaminoBrillante] = val;
+            HttpContext.Current.Session[Constantes.ConstSession.KitCaminoBrillante] = val;
         }
-        public List<BEOfertaCaminoBrillante> GetOfertasCaminoBrillante()
+        public List<BEKitCaminoBrillante> GetKitCaminoBrillante()
         {
-            return (List<BEOfertaCaminoBrillante>)HttpContext.Current.Session[Constantes.ConstSession.OfertasCaminoBrillante];
+            return (List<BEKitCaminoBrillante>)HttpContext.Current.Session[Constantes.ConstSession.KitCaminoBrillante];
+        }
+
+        public void SetDemostradoresCaminoBrillante(List<BEDesmostradoresCaminoBrillante> val)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.DemostradoresCaminoBrillante] = val;
+        }
+        public List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillante()
+        {
+            return (List<BEDesmostradoresCaminoBrillante>)HttpContext.Current.Session[Constantes.ConstSession.DemostradoresCaminoBrillante];
         }
         #endregion
-
-
-
-
-
     }
 }
