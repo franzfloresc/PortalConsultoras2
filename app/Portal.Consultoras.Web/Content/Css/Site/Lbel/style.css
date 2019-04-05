@@ -28553,9 +28553,9 @@ div.motivoRechazo textarea {
         left: 0;
     }
 
-.lista_opciones_cdr_wrapper {
+/*.lista_opciones_cdr_wrapper {
     margin-bottom: 70px;
-}
+}*/
 
 .lista_opciones_cdr {
     list-style-type: none;
@@ -28636,13 +28636,17 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     background-repeat:no-repeat;
 }
 
+.opcion_cdr_seleccionada_info_wrapper{
+    margin-bottom:50px;
+}
+
 .opcion_cdr_seleccionada_info--cambiarPorOtroProducto p,
 .opcion_cdr_seleccionada_info--devolucionCasoSetProducto p,
 .opcion_cdr_seleccionada_campo_busqueda,
 .opcion_cdr_seleccionada_terminos_entrega_producto_texto,
 .opcion_cdr_seleccionada_info--cambioMismoProducto p,
 .opcion_cdr_seleccionada_info--envioProducto p,
-.opcion_cdr_seleccionada_info--devolucionDinero p{
+.opcion_cdr_seleccionada_info--devolucionDinero p {
     font-size: 14px;
     letter-spacing: 0.1px;
 }
@@ -28768,6 +28772,16 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     margin-bottom: 8px;
 }
 
+.opcion_cdr_seleccionada_terminos_entrega_producto_set_wrapper {
+    margin-top: 18px;
+}
+
+.producto_set_lista,
+.opcion_cdr_checkbox--terminosEntregaProductoSet,
+.opcion_cdr_seleccionada_terminos_entrega_producto_texto {
+    display: inline-block;
+}
+
 .producto_nom,
 .producto_set_lista {
     margin-top: 8px;
@@ -28779,12 +28793,6 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
         display:block;
         margin-bottom: 5px;
     }
-
-.producto_set_lista,
-.opcion_cdr_checkbox--terminosEntregaProductoSet,
-.opcion_cdr_seleccionada_terminos_entrega_producto_texto {
-    display: inline-block;
-}
 
 .producto_set_lista {
     text-align: left;
@@ -28930,8 +28938,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     line-height: 38px;
     font-family: 'Lato', sans-serif;
     font-size: 14px;
-    margin-top: 20px;
-    margin-bottom: 60px;
+    margin: 20px auto 60px auto;
     cursor: pointer;
     letter-spacing: 0.5px;
 }
@@ -28969,7 +28976,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 .total_precio_reclamo {
     display: inline-block;
     width: auto;
-    margin-bottom: 20px;
+    margin-bottom: 0;
     font-family: 'Lato';
     font-size: 17px;
     color: #000;
@@ -29067,7 +29074,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 }
 
 .listado_solicitud_reclamo_icono_solucion {
-    width: 40px;
+    width: auto;
     height: 40px;
     margin-bottom: 7px;
 }
