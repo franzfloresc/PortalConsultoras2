@@ -47,12 +47,11 @@ namespace Portal.Consultoras.Web.Controllers
                 return RedirectToAction("Index", "Bienvenida");
 
             MisReclamosModel model = new MisReclamosModel();
-            List<CDRWebModel> listaCdrWebModel;
             try
             {
-                SessionManager.SetListaCDRWebCargaInicial(null);//HD-3412 EINCA
-                SessionManager.SetCDRPedidoFacturado(null); //HD-3412 EINCA
-                listaCdrWebModel = _cdrProvider.ObtenerCDRWebCargaInicial(userData.ConsultoraID,userData.PaisID);//HD-3412 EINCA
+                SessionManager.SetListaCDRWebCargaInicial(null);
+                SessionManager.SetCDRPedidoFacturado(null);
+                List<CDRWebModel> listaCdrWebModel = _cdrProvider.ObtenerCDRWebCargaInicial(userData.ConsultoraID,userData.PaisID);//HD-3412 EINCA
                 var ObtenerCampaniaPedidosFacturados = _cdrProvider.CDRObtenerPedidoFacturadoCargaInicial(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);//HD-3412 EINCA
 
 
@@ -76,10 +75,7 @@ namespace Portal.Consultoras.Web.Controllers
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                listaCdrWebModel = new List<CDRWebModel>();
             }
-
-
 
             return View(model);
         }
