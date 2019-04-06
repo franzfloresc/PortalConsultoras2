@@ -52,7 +52,8 @@ namespace Portal.Consultoras.Web.Providers
             usuarioDatos.Region = UsuarioDatos.CodigorRegion;
             usuarioDatos.Zona = UsuarioDatos.CodigoZona;
             usuarioDatos.PaisID = UsuarioDatos.PaisID;
-            usuarioDatos.EsConsultoraNueva = UsuarioDatos.EsConsultoraNueva;
+
+            usuarioDatos.ConsultoraNueva = UsuarioDatos.ConsultoraNueva; //ConsultoraNueva Validar con viector
             usuarioDatos.ConsecutivoNueva = UsuarioDatos.ConsecutivoNueva;
 
             using (var svc = new UsuarioServiceClient())

@@ -132,10 +132,10 @@ strong {
     font-weight: normal;
 }
 
-.btn-principal {
+div .btn-principal {
     position: relative;
     display: block;
-    color: white;
+    color: white !important;
     border-radius: 5px;
     border: 0;
     padding: 10px 20px;
@@ -333,27 +333,27 @@ div .owl-carousel .owl-stage-outer {
 }
 
 .medal-1 {
-    width: 14%;
+    width: 11%;
     animation-name: progressUno;
 }
 
 .medal-2 {
-    width: 34%;
+    width: 31%;
     animation-name: progressDos;
 }
 
 .medal-3 {
-    width: 54%;
+    width: 51%;
     animation-name: progressTres;
 }
 
 .medal-4 {
-    width: 74%;
+    width: 71%;
     animation-name: progressCuatro;
 }
 
 .medal-5 {
-    width: 94%;
+    width: 91%;
     animation-name: progressCinco;
 }
 
@@ -368,7 +368,7 @@ div .owl-carousel .owl-stage-outer {
     }
 
     100% {
-        width: 14%;
+        width: 11%;
     }
 }
 
@@ -378,7 +378,7 @@ div .owl-carousel .owl-stage-outer {
     }
 
     100% {
-        width: 34%;
+        width: 31%;
     }
 }
 
@@ -388,7 +388,7 @@ div .owl-carousel .owl-stage-outer {
     }
 
     100% {
-        width: 54%;
+        width: 51%;
     }
 }
 
@@ -398,7 +398,7 @@ div .owl-carousel .owl-stage-outer {
     }
 
     100% {
-        width: 74%;
+        width: 71%;
     }
 }
 
@@ -408,7 +408,7 @@ div .owl-carousel .owl-stage-outer {
     }
 
     100% {
-        width: 94%;
+        width: 91%;
     }
 }
 
@@ -834,8 +834,7 @@ button.close {
 
     .indicador-nivel .left-mod {
         display: block;
-        float: left;
-        margin-left: 15px;
+   
         margin-top: 12px;
     }
 
@@ -843,18 +842,17 @@ button.close {
             color: black;
             font-size: 20px;
             display: block;
+            text-align:center;
             margin: 0;
             font-weight: bold !important;
-            text-align: center;
-            margin-bottom: 8px;
         }
 
         .indicador-nivel .left-mod p {
             color: black;
             font-size: 15px;
             display: block;
-            text-align: center;
-            margin-bottom: 8px;
+            margin: 0;
+            text-align:center;
         }
 
 .two-colums {
@@ -960,14 +958,16 @@ button.close {
     color: black;
     text-decoration: underline;
 }
+
     .cambio-crec .como-log.inactivo {
         text-decoration: none;
-        color:gray;
+        color: gray;
     }
-    .cambio-crec div img {
-        display: block;
-        margin: 0 auto;
-    }
+
+.cambio-crec div img {
+    display: block;
+    margin: 0 auto;
+}
 
 .cambio-crec > .col-3 {
     margin-bottom: 20px;
@@ -1023,8 +1023,9 @@ button.close {
 }
 
 
-
-
+header.layout__header {
+    z-index:200;
+}
 
 
 
@@ -1170,12 +1171,13 @@ button.close {
     #ProgressBar span.pt1 em {
         left: -12px;
         position: relative;
-        margin-top:13px;
-    }
-    #ProgressBar span.pt6 em {
-
         margin-top: 13px;
     }
+
+    #ProgressBar span.pt6 em {
+        margin-top: 13px;
+    }
+
     #ProgressBar .pt1 {
         left: -6%;
     }
@@ -1330,6 +1332,7 @@ button.close {
         font-size: 12px;
         line-height: 40px;
     }
+
     .box-camb {
         width: 100%;
     }
@@ -1363,6 +1366,7 @@ button.close {
     div .owl-carousel .owl-stage-outer {
         overflow: hidden;
     }
+
     .cam-exito {
         padding: 0 3px;
     }
@@ -1377,8 +1381,9 @@ button.close {
     .box-beneficios li {
         margin: 0 0;
     }
+
     .cam-exito a {
-        font-size:13px;
+        font-size: 13px;
     }
 }
 
@@ -1390,8 +1395,8 @@ button.close {
     .itm {
         width: 25%;
     }
+
     .box-camb {
-  
         margin-bottom: 0;
     }
 }
@@ -1495,4 +1500,18 @@ button.close {
     }
 }
 
-   
+.modal.fade:not(.show) {
+    opacity:1;
+}
+.close span {
+    font-size: 32px;
+}
+.modal-content .circle-porcent.crec-activo {
+    width: 80px;
+    height: 80px;
+}
+
+.cambio-crec .modal-content .circle-porcent span, .indicador-nivel .circle-porcent span {
+    font-size: 24px;
+    line-height: 80px;
+}

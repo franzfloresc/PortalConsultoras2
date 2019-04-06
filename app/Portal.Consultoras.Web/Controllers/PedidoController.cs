@@ -343,7 +343,8 @@ namespace Portal.Consultoras.Web.Controllers
                 
                 using (var sv = new UsuarioServiceClient())
                 {
-                    ViewBag.DemostradoresCaminoBrillante = sv.GetDemostradoresCaminoBrillante(userData.PaisID, Convert.ToString(userData.CampaniaID));
+                    //ViewBag.DemostradoresCaminoBrillante = sv.GetKitCaminoBrillante(userData.PaisID, Convert.ToString(userData.CampaniaID));
+                    ViewBag.KitsCaminoBrillante = sv.GetKitCaminoBrillante(userData.PaisID, "201904");
                 }
               
             }

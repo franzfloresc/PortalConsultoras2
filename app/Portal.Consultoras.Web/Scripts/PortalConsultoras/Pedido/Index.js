@@ -631,20 +631,19 @@ function CargarDetallePedido(page, rows, asyncrono) {
                     }
                 }
                 // camino brillante
+                
+                var filas = document.getElementById('tbListaPedido').children[1].getElementsByClassName('contenido_ingresoPedido mouse_encima');
 
-                var filas = document.getElementById('tbListaPedido').children[1].getElementsByClassName('contenido_ingresoPedido mouse_encima pedido_item_editable')
-
-                var Eskits = true;
+                var Eskits = false;
                 if (filas != null) {
 
                     for (var i = 0; i < filas.length; i++) {
 
                         if (filas[i].children[0].getElementsByClassName('texto_pedidos_ofertas')[0].firstElementChild.innerHTML == 'CAMINOBRILLANTE') {
 
-                            for (var j = 0; j < demostradoresCaminoBrillante.length; j++) {
-                                if (filas[i].getAttribute('data-cuv') == demostradoresCaminoBrillante[j].Cuv) {
-                                    Eskits = false;
-
+                            for (var j = 0; j < kitsCaminoBrillante.length; j++) {
+                                if (filas[i].getAttribute('data-cuv') == kitsCaminoBrillante[j].Cuv) {
+                                    Eskits = true;
                                 }
                             }
 
@@ -658,21 +657,11 @@ function CargarDetallePedido(page, rows, asyncrono) {
                                     e.preventDefault();
                                 }
 
-                                filas[0].children[1].children[1].children[0].disabled = 'disabled'
+                                filas[0].children[1].children[1].children[0].disabled = 'disabled';
                             }
-
-
                         }
-
-
-
-
                     }
                 }
-
-
-
-
             }
         })
         .fail(function (response, error) {

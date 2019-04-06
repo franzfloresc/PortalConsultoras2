@@ -57,9 +57,14 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Ofertas()
         {
-            var model = GetDemostradoresCaminoBrillante();
-            if (model == null || model.Count == 0) return RedirectToAction("Index", "CaminoBrillante");
-            return View(model);
+            if (GetKitCaminoBrillante() != null || GetDemostradoresCaminoBrillante() != null)
+            {
+                var model = GetKitCaminoBrillante();
+                ViewBag.Demostradores = GetDemostradoresCaminoBrillante();
+                return View(model);
+            }
+            else
+                return RedirectToAction("Index", "CaminoBrillante");
         }
 
         [HttpPost]
