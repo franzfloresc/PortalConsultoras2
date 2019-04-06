@@ -177,6 +177,7 @@ strong {
     width: auto;
     height: auto;
 }
+
 .ficha__producto .etiqueta-box img {
     display: block;
     float: left;
@@ -188,7 +189,7 @@ strong {
 }*/
 .boton__agregalo--fichaProducto i {
     position: absolute;
-    left: 4px;
+    left: 23px;
     top: 0;
 }
 
@@ -282,16 +283,16 @@ input[type=checkbox] {
         visibility: visible;
         padding: 1px 5px;
         border-radius: 3px;
-        z-index:5;
+        z-index: 5;
     }
 
     input[type=checkbox]:checked:after {
-        content: "✓";
+        content: "?";
         font-size: 13px;
         font-weight: bold;
         background-color: gray;
         border: 0;
-        z-index:10;
+        z-index: 10;
     }
 
 
@@ -351,7 +352,7 @@ input[type=checkbox] {
     font-size: 14px !important;
 }
 
- 
+
 @media (max-width:999px) {
     .lista__opciones__ordenamiento__y__filtrar {
         display: none;
@@ -364,8 +365,8 @@ input[type=checkbox] {
 
 @media (max-width:600px) {
     .ficha__producto .etiqueta-box img {
-        display:block;
-        float:left;
+        display: block;
+        float: left;
     }
 }
 
@@ -398,12 +399,13 @@ input[type=checkbox] {
         }
 
             .op-menu-horizontal .subnavegador li a {
-                text-transform: uppercase;
+                text-decoration: none;
+                /*text-transform: uppercase;
                 font-size: 11px;
                 font-weight: bold;
                 letter-spacing: 0.5px;
                 color: #000;
-                height: 52px;
+                height: 52px;*/
             }
 
                 .op-menu-horizontal .subnavegador li a img {
@@ -426,6 +428,8 @@ input[type=checkbox] {
 .op-menu-horizontal .subnavegador li .activado-dorado {
     border-bottom: 3px solid #c39934;
     color: #c39934;
+    height: 50px;
+    display:block;
 }
 
 
@@ -441,3 +445,54 @@ input[type=checkbox] {
     }
 }
 
+
+
+.vistaofertas .SubHeader {
+    display: none;
+}
+
+.vistaofertas .new_menu {
+    height: auto;
+}
+
+.vistaofertas .op-menu-horizontal {
+    max-width: 990px;
+    display: block;
+    margin: auto;
+    width: 100%;
+    text-align: left;
+}
+
+    .vistaofertas .op-menu-horizontal li a {
+        text-transform: uppercase;
+        font-size: 11px;
+        font-weight: bold;
+        letter-spacing: .5px;
+        color: #000;
+        height: 52px;
+        text-decoration: none;
+    }
+
+.hidebox {
+    display: none;
+}
+
+.op-menu-horizonta-fixed {
+    display: none;
+}
+
+.subbox {
+    display: block !important;
+    position: fixed;
+}
+
+    .subbox .op-menu-horizontal {
+        width: 100%;
+        margin: 0 auto;
+        max-width: 1000px;
+        text-align: left;
+    }
+
+.padtop .content_belcorp {
+    margin-top: 60px;
+}
