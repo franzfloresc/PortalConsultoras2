@@ -1,5 +1,6 @@
 ﻿
 @{
+    Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
     ViewBag.Title = "Camino Brillante | " + ViewBag.Vista;
     var data = ViewBag.Informacion;
 }
@@ -106,7 +107,7 @@
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
-                                                    <div class="modal-body">
+                                                    <div class="modal-body pad-center">
                                                         <div class="indicador-nivel">
                                                             @if (item2.Tipo == "PED")
                                                             {
