@@ -147,14 +147,12 @@ namespace Portal.Consultoras.Common
                 var exceptionMessage = string.Empty;
                 if (logError.Exception != null)
                 {
-                    exceptionMessage = GetMensajeError(logError.Exception);
+                    exceptionMessage = logError.Exception.Message;
 
-                    //exceptionMessage = logError.Exception.Message;
-
-                    //if (logError.Exception.StackTrace != null)
-                    //{
-                    //    exceptionMessage += " - " + logError.Exception.StackTrace;
-                    //}
+                    if (logError.Exception.StackTrace != null)
+                    {
+                        exceptionMessage += " - " + logError.Exception.StackTrace;
+                    }
 
                 }
 
