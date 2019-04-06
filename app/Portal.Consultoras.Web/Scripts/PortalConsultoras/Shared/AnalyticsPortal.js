@@ -1538,11 +1538,10 @@ var AnalyticsPortalModule = (function () {
                 'event': _evento.virtualEvent,
                 'category': textoCategory,
                 'action': 'Click Botón',
-                'label': titulo,
-                'eventCallback': function () {
-                    document.location = url;
-                }
+                'label': titulo
             });
+
+            document.location = url;
 
         } catch (e) {
             console.log(_texto.excepcion + e);

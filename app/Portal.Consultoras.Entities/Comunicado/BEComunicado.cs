@@ -49,5 +49,8 @@ namespace Portal.Consultoras.Entities
         public bool SegmentacionEstadoActividad { get; set; }
         [DataMember]
         public List<BEComunicadoVista> Vistas { get; set; }
+        [DataMember] //HD-3550 EINCA
+        [Column("TipoComunicado")] //HD-3550 EINCA
+        public int TipoComunicado { get; set; } //HD-3550 EINCA
     }
 }
