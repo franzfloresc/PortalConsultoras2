@@ -119,6 +119,9 @@ namespace Portal.Consultoras.Web.ServiceODS {
         private string MensajeEstaEnRevista2Field;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MensajeOfertaFinalField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NombreField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -129,6 +132,9 @@ namespace Portal.Consultoras.Web.ServiceODS {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal PrecioValorizadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal RestanteTippingPointField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TextoBusquedaField;
@@ -593,6 +599,19 @@ namespace Portal.Consultoras.Web.ServiceODS {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string MensajeOfertaFinal {
+            get {
+                return this.MensajeOfertaFinalField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MensajeOfertaFinalField, value) != true)) {
+                    this.MensajeOfertaFinalField = value;
+                    this.RaisePropertyChanged("MensajeOfertaFinal");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string Nombre {
             get {
                 return this.NombreField;
@@ -640,6 +659,19 @@ namespace Portal.Consultoras.Web.ServiceODS {
                 if ((this.PrecioValorizadoField.Equals(value) != true)) {
                     this.PrecioValorizadoField = value;
                     this.RaisePropertyChanged("PrecioValorizado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal RestanteTippingPoint {
+            get {
+                return this.RestanteTippingPointField;
+            }
+            set {
+                if ((this.RestanteTippingPointField.Equals(value) != true)) {
+                    this.RestanteTippingPointField = value;
+                    this.RaisePropertyChanged("RestanteTippingPoint");
                 }
             }
         }

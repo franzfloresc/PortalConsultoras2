@@ -2451,6 +2451,18 @@ namespace Portal.Consultoras.Web.ServiceSAC {
     public partial class BEConfiguracionOfertasHome : Portal.Consultoras.Web.ServiceSAC.BaseEntidad {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string BotonColorField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string BotonColorTextoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string BotonTexto1Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string BotonTexto2Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int CampaniaIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -2539,6 +2551,58 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string UrlSeccionField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string BotonColor {
+            get {
+                return this.BotonColorField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.BotonColorField, value) != true)) {
+                    this.BotonColorField = value;
+                    this.RaisePropertyChanged("BotonColor");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string BotonColorTexto {
+            get {
+                return this.BotonColorTextoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.BotonColorTextoField, value) != true)) {
+                    this.BotonColorTextoField = value;
+                    this.RaisePropertyChanged("BotonColorTexto");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string BotonTexto1 {
+            get {
+                return this.BotonTexto1Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.BotonTexto1Field, value) != true)) {
+                    this.BotonTexto1Field = value;
+                    this.RaisePropertyChanged("BotonTexto1");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string BotonTexto2 {
+            get {
+                return this.BotonTexto2Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.BotonTexto2Field, value) != true)) {
+                    this.BotonTexto2Field = value;
+                    this.RaisePropertyChanged("BotonTexto2");
+                }
+            }
+        }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public int CampaniaID {
@@ -5660,6 +5724,9 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         private string Descripcion1Field;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescripcionGrupoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int DigitableField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -5868,6 +5935,19 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 if ((object.ReferenceEquals(this.Descripcion1Field, value) != true)) {
                     this.Descripcion1Field = value;
                     this.RaisePropertyChanged("Descripcion1");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DescripcionGrupo {
+            get {
+                return this.DescripcionGrupoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescripcionGrupoField, value) != true)) {
+                    this.DescripcionGrupoField = value;
+                    this.RaisePropertyChanged("DescripcionGrupo");
                 }
             }
         }
@@ -10626,6 +10706,9 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         private bool SegmentacionRegionZonaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int TipoComunicadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string UrlImagenField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -10783,6 +10866,19 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 if ((this.SegmentacionRegionZonaField.Equals(value) != true)) {
                     this.SegmentacionRegionZonaField = value;
                     this.RaisePropertyChanged("SegmentacionRegionZona");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TipoComunicado {
+            get {
+                return this.TipoComunicadoField;
+            }
+            set {
+                if ((this.TipoComunicadoField.Equals(value) != true)) {
+                    this.TipoComunicadoField = value;
+                    this.RaisePropertyChanged("TipoComunicado");
                 }
             }
         }

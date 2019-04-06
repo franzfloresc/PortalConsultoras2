@@ -184,7 +184,7 @@ namespace Portal.Consultoras.Web.Providers
 
         public virtual List<BEPedidoWebDetalle> GetDetallePedidoAgrupadoByCampania(int campaniaId)
         {
-            var detallePedidoWeb = (List<BEPedidoWebDetalle>)null;
+            List<BEPedidoWebDetalle> detallePedidoWeb;
             var userData = sessionManager.GetUserData();
 
             try
@@ -411,6 +411,6 @@ namespace Portal.Consultoras.Web.Providers
 
             return result;
         }
-        
+
     }
 }
