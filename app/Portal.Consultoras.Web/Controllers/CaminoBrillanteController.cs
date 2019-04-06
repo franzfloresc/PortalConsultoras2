@@ -57,10 +57,17 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Ofertas()
         {
-            if (GetKitCaminoBrillante() != null || GetDemostradoresCaminoBrillante() != null)
+            var lstKit = GetKitCaminoBrillante();
+            var lstDemo = GetDemostradoresCaminoBrillante();
+            int cantKit = lstKit.Count();
+            int cantDemo = lstDemo.Count();
+
+            if (lstKit != null || lstDemo != null)
             {
                 var model = GetKitCaminoBrillante();
-                ViewBag.Demostradores = GetDemostradoresCaminoBrillante();
+                ViewBag.Demostradores = lstDemo; //temporal
+                ViewBag.CantidadKit = "Mostrando " + cantKit + " de " + cantKit;  //temporal
+                ViewBag.CantidadDemostradores = "Mostrando " + cantDemo + " de " + cantDemo;  //temporal              
                 return View(model);
             }
             else
