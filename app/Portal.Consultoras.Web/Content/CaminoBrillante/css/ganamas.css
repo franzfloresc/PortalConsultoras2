@@ -496,3 +496,10 @@ input[type=checkbox] {
 .padtop .content_belcorp {
     margin-top: 60px;
 }
+div .cartbtn {
+    text-indent: 20px !important;
+    position: relative !important;
+}
+    div .cartbtn i {
+        left: -12px;
+    }
