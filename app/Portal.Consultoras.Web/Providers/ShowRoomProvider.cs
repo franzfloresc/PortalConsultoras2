@@ -21,7 +21,6 @@ using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Web.Providers
 {
-
     /// <summary>
     /// Propiedades y metodos de ShowRoom
     /// </summary>
