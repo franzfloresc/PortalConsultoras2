@@ -23,23 +23,29 @@ namespace Portal.Consultoras.Web.Providers
 {
     public class AdministrarEstrategiaProvider
     {
-        private readonly static HttpClient httpClientMicroservicioSync = new HttpClient();
+        private readonly static HttpClient httpClientMicroservicioSync;
 
         private readonly ISessionManager sessionManager = SessionManager.SessionManager.Instance;
         protected OfertaBaseProvider _ofertaBaseProvider;
         protected readonly EstrategiaGrupoProvider _estrategiaGrupoProvider;
 
-        public AdministrarEstrategiaProvider()
-        {
-            _ofertaBaseProvider = new OfertaBaseProvider();
-            _estrategiaGrupoProvider = new EstrategiaGrupoProvider();
 
+        static AdministrarEstrategiaProvider()
+        {
             if (!string.IsNullOrEmpty(WebConfig.UrlMicroservicioPersonalizacionSync))
             {
+                httpClientMicroservicioSync = new HttpClient();
                 httpClientMicroservicioSync.BaseAddress = new Uri(WebConfig.UrlMicroservicioPersonalizacionSync);
                 httpClientMicroservicioSync.DefaultRequestHeaders.Accept.Clear();
                 httpClientMicroservicioSync.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             }
+        }
+
+
+        public AdministrarEstrategiaProvider()
+        {
+            _ofertaBaseProvider = new OfertaBaseProvider();
+            _estrategiaGrupoProvider = new EstrategiaGrupoProvider();
         }
 
         private static async Task<string> RespSBMicroservicios(string jsonParametros, string requestUrlParam, string responseType, UsuarioModel userData)
