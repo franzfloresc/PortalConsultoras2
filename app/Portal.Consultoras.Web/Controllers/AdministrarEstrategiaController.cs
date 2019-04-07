@@ -176,35 +176,39 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+
+                    return RedirectToAction("Index", "AdministrarEstrategia");
+                }
+
                 bool dbdefault = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
 
-                if (ModelState.IsValid)
+                var lst = ConsultarObtenerEstrategia(CampaniaID, TipoEstrategiaID, CUV, Consulta, Imagen, Activo, TipoEstrategiaCodigo, dbdefault);
+
+                var grid = new BEGrid
                 {
-                    var lst = ConsultarObtenerEstrategia(CampaniaID, TipoEstrategiaID, CUV, Consulta, Imagen, Activo, TipoEstrategiaCodigo, dbdefault);
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
 
-                    var grid = new BEGrid
-                    {
-                        PageSize = rows,
-                        CurrentPage = page,
-                        SortColumn = sidx,
-                        SortOrder = sord
-                    };
+                IEnumerable<EstrategiaMDbAdapterModel> items = ConsultarOrdenar(lst, sidx, sord);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                var pag = Util.PaginadorGenerico(grid, lst);
 
-                    IEnumerable<EstrategiaMDbAdapterModel> items = ConsultarOrdenar(lst, sidx, sord);
-                    items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-                    var pag = Util.PaginadorGenerico(grid, lst);
-
-                    var data = new
-                    {
-                        total = pag.PageCount,
-                        page = pag.CurrentPage,
-                        records = pag.RecordCount,
-                        rows = from a in items
-                               select new
+                var data = new
+                {
+                    total = pag.PageCount,
+                    page = pag.CurrentPage,
+                    records = pag.RecordCount,
+                    rows = from a in items
+                           select new
+                           {
+                               id = a.BEEstrategia.EstrategiaID,
+                               cell = new string[]
                                {
-                                   id = a.BEEstrategia.EstrategiaID,
-                                   cell = new string[]
-                                   {
                                         a.BEEstrategia.EstrategiaID.ToString(),
                                         a.BEEstrategia.Orden.ToString(),
                                         a.BEEstrategia.ID.ToString(),
@@ -221,12 +225,11 @@ namespace Portal.Consultoras.Web.Controllers
                                         a.BEEstrategia.PesoMaximoImagen.ToString(),
                                         a._id,
                                         a.BEEstrategia.CodigoTipoEstrategia
-                                   }
                                }
-                    };
-                    return Json(data, JsonRequestBehavior.AllowGet);
-                }
-                return RedirectToAction("Index", "AdministrarEstrategia");
+                           }
+                };
+                return Json(data, JsonRequestBehavior.AllowGet);
+
             }
             catch (Exception ex)
             {
@@ -239,33 +242,35 @@ namespace Portal.Consultoras.Web.Controllers
             string cuv, string consulta, int imagen, int activo, string tipoEstrategiaCodigo, bool dbdefault)
         {
             List<EstrategiaMDbAdapterModel> lst = new List<EstrategiaMDbAdapterModel>();
-            if (consulta == "1")
+            if (consulta != "1")
             {
-                var entidad = new ServicePedido.BEEstrategia
-                {
-                    PaisID = userData.PaisID,
-                    TipoEstrategiaID = Convert.ToInt32(tipoEstrategiaId),
-                    CUV2 = cuv != "" ? cuv : "0",
-                    CampaniaID = Convert.ToInt32(campaniaId),
-                    Activo = activo,
-                    Imagen = imagen
-                };
+                return lst;
+            }
 
-                if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, tipoEstrategiaCodigo, dbdefault))
+            var entidad = new ServicePedido.BEEstrategia
+            {
+                PaisID = userData.PaisID,
+                TipoEstrategiaID = Convert.ToInt32(tipoEstrategiaId),
+                CUV2 = cuv != "" ? cuv : "0",
+                CampaniaID = Convert.ToInt32(campaniaId),
+                Activo = activo,
+                Imagen = imagen
+            };
+
+            if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, tipoEstrategiaCodigo, dbdefault))
+            {
+                entidad.CodigoTipoEstrategia = tipoEstrategiaCodigo;
+                lst.AddRange(administrarEstrategiaProvider.Listar(entidad.CampaniaID.ToString(),
+                    entidad.CodigoTipoEstrategia, userData.CodigoISO, entidad.Activo, entidad.CUV2, entidad.Imagen).ToList());
+            }
+            else
+            {
+                using (var sv = new PedidoServiceClient())
                 {
-                    entidad.CodigoTipoEstrategia = tipoEstrategiaCodigo;
-                    lst.AddRange(administrarEstrategiaProvider.Listar(entidad.CampaniaID.ToString(),
-                        entidad.CodigoTipoEstrategia, userData.CodigoISO, entidad.Activo, entidad.CUV2, entidad.Imagen).ToList());
-                }
-                else
-                {
-                    using (var sv = new PedidoServiceClient())
+                    var tmpEstrategiaList = sv.GetEstrategias(entidad).ToList();
+                    foreach (var itemEstrategia in tmpEstrategiaList)
                     {
-                        var tmpEstrategiaList = sv.GetEstrategias(entidad).ToList();
-                        foreach (var itemEstrategia in tmpEstrategiaList)
-                        {
-                            lst.Add(new EstrategiaMDbAdapterModel { BEEstrategia = itemEstrategia });
-                        }
+                        lst.Add(new EstrategiaMDbAdapterModel { BEEstrategia = itemEstrategia });
                     }
                 }
             }
@@ -724,7 +729,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 bool dbdefault = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
-                var mensajeErrorImagenResize = " Antes de Crear la Imagenes Renderizadas";
+                var mensajeErrorImagenResize = ""; // " Antes de Crear la Imagenes Renderizadas";
                 var nroPedido = Util.Trim(model.NumeroPedido);
                 if (nroPedido.Contains(",")) model.NumeroPedido = "0";
 
@@ -813,10 +818,12 @@ namespace Portal.Consultoras.Web.Controllers
                         }
 
                         #region Imagen Resize  
-                        error.Append("| mensajeErrorImagenResize");
-                        mensajeErrorImagenResize = _renderImgProvider.ImagenesResizeProceso(model.RutaImagenCompleta, userData.CodigoISO);
-                        error.Append("| mensajeErrorImagenResize fin = " + mensajeErrorImagenResize);
-
+                        if (model.CodigoTipoEstrategia != Constantes.TipoEstrategiaCodigo.ArmaTuPack)
+                        {
+                            error.Append("| mensajeErrorImagenResize");
+                            mensajeErrorImagenResize = _renderImgProvider.ImagenesResizeProceso(model.RutaImagenCompleta, userData.CodigoISO);
+                            error.Append("| mensajeErrorImagenResize fin = " + mensajeErrorImagenResize);
+                        }
                         #endregion
 
                         if (entidad.ImagenMiniaturaURL == string.Empty || entidad.ImagenMiniaturaURL == "prod_grilla_vacio.png")
@@ -952,53 +959,53 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 bool dbdefault = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
-                
-                var entidad = new ServicePedido.BEEstrategia
-                {
-                    PaisID = userData.PaisID,
-                    EstrategiaID = Convert.ToInt32(EstrategiaID),
-                    CampaniaID = Convert.ToInt32(CampaniaID),
-                    TipoEstrategiaID = Convert.ToInt32(TipoEstrategiaID),
-                    CUV2 = cuv2,
-                    AgregarEnMatriz = true,
-                    UsuarioRegistro = userData.CodigoConsultora
-                };
+                //var lst = new List<EstrategiaMDbAdapterModel>();
 
                 if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, tipoEstrategiaCodigo, dbdefault))
                 {
-                    lst = administrarEstrategiaProvider.FiltrarEstrategia(mongoIdVal, userData.CodigoISO);
+                    lst.AddRange(administrarEstrategiaProvider.FiltrarEstrategia(mongoIdVal, userData.CodigoISO).ToList());
                 }
                 else
                 {
+                    var entidad = new ServicePedido.BEEstrategia
+                    {
+                        PaisID = userData.PaisID,
+                        EstrategiaID = Convert.ToInt32(EstrategiaID),
+                        CampaniaID = Convert.ToInt32(CampaniaID),
+                        TipoEstrategiaID = Convert.ToInt32(TipoEstrategiaID),
+                        CUV2 = cuv2,
+                        AgregarEnMatriz = true,
+                        UsuarioRegistro = userData.CodigoConsultora
+                    };
+
                     using (var sv = new PedidoServiceClient())
                     {
-                        var tmpList = sv.FiltrarEstrategia(entidad);
-                        lst = tmpList.Select(x => new EstrategiaMDbAdapterModel
+                        var tmpList = sv.FiltrarEstrategia(entidad).ToList();
+                        foreach (var itemEstrategia in tmpList)
                         {
-                            BEEstrategia = x
-                        }).ToList();
-                    }
+                            lst.Add(new EstrategiaMDbAdapterModel { BEEstrategia = itemEstrategia });
+                        }
+                    }   
                 }
 
-                if (!lst.Any())
-                {
+                if (lst.Count <= 0)
                     return Json(new
                     {
                         success = false,
                         message = "El CUV2 ingresado no está configurado en la matriz comercial",
-                        extra = string.Empty
+                        extra = ""
                     }, JsonRequestBehavior.AllowGet);
-                }
 
-                entidad = lst[0].BEEstrategia;
-                entidad.ImagenMiniaturaURL = ConfigS3.GetUrlFileS3Matriz(userData.CodigoISO, entidad.ImagenMiniaturaURL);
+                var entidadServ = lst[0].BEEstrategia;
+                entidadServ.ImagenMiniaturaURL = ConfigS3.GetUrlFileS3Matriz(userData.CodigoISO, entidadServ.ImagenMiniaturaURL);
 
                 using (var svc = new UsuarioServiceClient())
                 {
                     var lstConfigPais = svc.GetConfiguracionPais(new ServiceUsuario.BEConfiguracionPais()
                     {
                         Codigo = Constantes.ConfiguracionPais.Lanzamiento,
-                        Detalle = new ServiceUsuario.BEConfiguracionPaisDetalle() {
+                        Detalle = new ServiceUsuario.BEConfiguracionPaisDetalle()
+                        {
                             PaisID = userData.PaisID
                         }
                     });
@@ -1021,14 +1028,14 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (lstConfigPaisDatos.Any())
                 {
-                    entidad.AppOfertasHomeImgExtension = (lstConfigPaisDatos.Where(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeImgExtension).FirstOrDefault() ?? new BEConfiguracionPaisDatos()).Valor1 ?? string.Empty;
-                    entidad.AppOfertasHomeImgAncho = (lstConfigPaisDatos.Where(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeImgAncho).FirstOrDefault() ?? new BEConfiguracionPaisDatos()).Valor1 ?? string.Empty;
-                    entidad.AppOfertasHomeImgAlto = (lstConfigPaisDatos.Where(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeImgAlto).FirstOrDefault() ?? new BEConfiguracionPaisDatos()).Valor1 ?? string.Empty;
-                    entidad.AppOfertasHomeMsjMedida = (lstConfigPaisDatos.Where(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeMsjMedida).FirstOrDefault() ?? new BEConfiguracionPaisDatos()).Valor1 ?? string.Empty;
-                    entidad.AppOfertasHomeMsjFormato = (lstConfigPaisDatos.Where(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeMsjFormato).FirstOrDefault() ?? new BEConfiguracionPaisDatos()).Valor1 ?? string.Empty;
+                    entidadServ.AppOfertasHomeImgExtension = (lstConfigPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeImgExtension) ?? new BEConfiguracionPaisDatos()).Valor1 ?? string.Empty;
+                    entidadServ.AppOfertasHomeImgAncho = (lstConfigPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeImgAncho) ?? new BEConfiguracionPaisDatos()).Valor1 ?? string.Empty;
+                    entidadServ.AppOfertasHomeImgAlto = (lstConfigPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeImgAlto) ?? new BEConfiguracionPaisDatos()).Valor1 ?? string.Empty;
+                    entidadServ.AppOfertasHomeMsjMedida = (lstConfigPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeMsjMedida) ?? new BEConfiguracionPaisDatos()).Valor1 ?? string.Empty;
+                    entidadServ.AppOfertasHomeMsjFormato = (lstConfigPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeMsjFormato) ?? new BEConfiguracionPaisDatos()).Valor1 ?? string.Empty;
                 }
 
-                return Json(entidad, JsonRequestBehavior.AllowGet);
+                return Json(entidadServ, JsonRequestBehavior.AllowGet);
             }
             catch (FaultException ex)
             {
