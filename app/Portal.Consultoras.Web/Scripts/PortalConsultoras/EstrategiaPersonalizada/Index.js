@@ -16,7 +16,8 @@ var CONS_TIPO_PRESENTACION = {
     ShowRoom: 5,
     OfertaDelDia: 6,
     CarruselIndividuales: 8,
-    carruselIndividualesv2: 9
+    carruselIndividualesv2: 9,
+    BannerInteractivo: 10
 };
 
 var CONS_CODIGO_SECCION = {
@@ -28,7 +29,8 @@ var CONS_CODIGO_SECCION = {
     OPT: "OPT",
     DES: "DES-NAV",
     HV: "HV",
-    MG: 'MG'
+    MG: 'MG',
+    ATP: 'ATP'
 };
 
 var listaSeccion = {};
@@ -196,6 +198,20 @@ function SeccionCargarProductos(objConsulta) {
         return false;
     }
 
+    //if (objConsulta.Codigo === CONS_CODIGO_SECCION.ATP) {
+    ////    if (paisHabilitado && tipoEstrategiaHabilitado) {
+    ////        guardaEnLS = false;
+    ////    }
+
+    ////    OfertaCargarProductos({
+    ////        VarListaStorage: 'ATPLista',
+    ////        UrlCargarProductos: baseUrl + objConsulta.UrlObtenerProductos,
+    ////        guardaEnLocalStorage: guardaEnLS,
+    ////        Palanca: objConsulta.Codigo
+    ////    }, false, objConsulta);
+    //    debugger;
+    //}
+
     var param = {
         codigo: objConsulta.Codigo,
         campaniaId: objConsulta.CampaniaId,
@@ -213,7 +229,10 @@ function SeccionCargarProductos(objConsulta) {
         cache: false
     });
 
+    //console.log(objConsulta);
     //console.log('SeccionCargarProductos - ajax', objConsulta.Codigo, objConsulta);
+    //console.log(param);
+    //console.log(baseUrl + objConsulta.UrlObtenerProductos);
 
     $.ajax({
         type: 'post',
@@ -245,7 +264,15 @@ function SeccionCargarProductos(objConsulta) {
 }
 
 function SeccionMostrarProductos(data) {
-    //console.log(data.Seccion.Codigo, data);
+    /**************************************************
+     * TODO: quitar
+     *************************************************/
+    //if (data.Seccion.Codigo == CONS_CODIGO_SECCION.ATP) {
+    //    //console.log(data);
+    //    debugger;
+    //}
+    /*************************************************/
+
     var CarruselCiclico = true;
 
     if (isMobile()) {
@@ -265,7 +292,7 @@ function SeccionMostrarProductos(data) {
     }
 
     var divListadoProductos = htmlSeccion.find(sElementos.listadoProductos);
-    if (divListadoProductos.length !== 1) {
+    if (data.Seccion.TipoPresentacion !== CONS_TIPO_PRESENTACION.BannerInteractivo.toString() && divListadoProductos.length !== 1) {
         if (data.Seccion !== undefined &&
             (data.Seccion.TipoPresentacion === CONS_TIPO_PRESENTACION.Banners.toString() ||
                 data.Seccion.TipoPresentacion === CONS_TIPO_PRESENTACION.ShowRoom.toString() ||
@@ -281,8 +308,9 @@ function SeccionMostrarProductos(data) {
         return false;
 
     data.Seccion.TemplateProducto = $.trim(data.Seccion.TemplateProducto);
-    if (data.Seccion.TemplateProducto === ""
-        || data.Seccion.Codigo === undefined) {
+    if ((data.Seccion.TemplateProducto === "" ||
+         data.Seccion.Codigo === undefined) && 
+        data.Seccion.Codigo != CONS_CODIGO_SECCION.ATP) {
         return false;
     }
 
@@ -331,6 +359,33 @@ function SeccionMostrarProductos(data) {
 
         } else {
             $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeOut();
+            UpdateSessionState(data.Seccion.Codigo, data.campaniaId);
+        }
+    }
+    else if (data.Seccion.Codigo === CONS_CODIGO_SECCION.ATP) {
+        if (data.lista.length > 0) {
+            var btnRedirect = htmlSeccion.find('button.atp_button'),
+                pSubtitulo = htmlSeccion.find('p[data-subtitulo]');
+
+            var subTitulo = pSubtitulo.data('subtitulo')
+                .replace('#Cantidad', data.lista[0].CantidadPack)
+                .replace('#PrecioTotal', variablesPortal.SimboloMoneda + " " + data.lista[0].PrecioVenta);
+
+            pSubtitulo.html(subTitulo);
+            //btnRedirect.attr('data-cuv', data.lista[0].CUV2);
+
+            if (data.estaEnPedido) {
+                btnRedirect.attr('data-popup', true);
+                btnRedirect.html(btnRedirect.data('modifica'));
+            }
+            else {
+                btnRedirect.attr('data-popup', false);
+                btnRedirect.html(btnRedirect.data('crea'));
+            }
+            $('#' + data.Seccion.Codigo).find('.seccion-content-contenedor').fadeIn();
+        }
+        else {
+            $('.subnavegador').find('[data-codigo=' + data.Seccion.Codigo + ']').fadeOut();
             UpdateSessionState(data.Seccion.Codigo, data.campaniaId);
         }
     }

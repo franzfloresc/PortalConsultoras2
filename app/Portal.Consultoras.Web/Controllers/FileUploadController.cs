@@ -130,9 +130,14 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (width > 0 && height > 0)
                 {
-                    var image = System.Drawing.Image.FromStream(new MemoryStream(fileBytes));
-                    if (image.Height != height || image.Width != width)
-                        return Json(new { success = false, message = messageSize }, "text/html");
+                    using (var image = System.Drawing.Image.FromStream(new MemoryStream(fileBytes)))
+                    {
+                        var noCumpleDimension = image.Height != height || image.Width != width;
+                        image.Dispose();
+
+                        if (noCumpleDimension)
+                            return Json(new { success = false, message = messageSize }, "text/html");
+                    }
                 }
 
                 var time = string.Concat(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Minute, DateTime.Now.Millisecond);
@@ -141,7 +146,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!Directory.Exists(Globals.RutaTemporales)) Directory.CreateDirectory(Globals.RutaTemporales);
 
                 System.IO.File.WriteAllBytes(path, fileBytes);
-                
+
                 return Json(new { success = true, name = Path.GetFileName(path) }, "text/html");
             }
             catch (Exception ex)

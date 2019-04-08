@@ -344,7 +344,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private bool SiempreMostrarBannerPL20()
         {
-            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+            string controllerName = GetControllerActual(); //this.ControllerContext.RouteData.Values["controller"].ToString();
             string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
 
             if (controllerName == "Bienvenida" && actionName == "Index") return true;
@@ -353,7 +353,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private bool NuncaMostrarBannerPL20()
         {
-            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+            string controllerName = GetControllerActual(); //this.ControllerContext.RouteData.Values["controller"].ToString();
 
             return controllerName == "Pedido"
                 || controllerName == "CatalogoPersonalizado"
@@ -372,7 +372,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private bool NuncaMostrarBannerTopPL20()
         {
-            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+            string controllerName = GetControllerActual(); //this.ControllerContext.RouteData.Values["controller"].ToString();
             string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
 
             return (controllerName == "Bienvenida" && actionName == "Index")
