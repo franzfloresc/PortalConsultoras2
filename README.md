@@ -1,2 +1,1 @@
-# Portal Consultoras SB2
-Pull dummy
+# Portal Consultoras SB 2

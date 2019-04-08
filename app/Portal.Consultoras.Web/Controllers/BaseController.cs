@@ -45,6 +45,15 @@ namespace Portal.Consultoras.Web.Controllers
                 return SessionManager.GetRevistaDigital();
             }
         }
+
+        protected ArmaTuPackModel armaTuPack
+        {
+            get
+            {
+                return SessionManager.GetArmaTuPack();
+            }
+        }
+
         protected HerramientasVentaModel herramientasVenta;
         protected GuiaNegocioModel guiaNegocio;
         protected DataModel estrategiaODD;
@@ -195,7 +204,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!Constantes.AceptacionContrato.ControladoresOmitidas.Contains(controllerName)
                     && !Constantes.AceptacionContrato.AcionesOmitidas.Contains(actionName)
                     && ValidarContratoPopup())
-                {                    
+                {
                     filterContext.Result = !esMobile ? new RedirectResult(Url.Action("Index", "Bienvenida")) :
                         new RedirectResult(Url.Action("Index", "Bienvenida", new { Area = "Mobile" }));
                     return;
@@ -625,7 +634,7 @@ namespace Portal.Consultoras.Web.Controllers
                 SetBarraConsultoraMontosTotales(objR, montosProl, Agrupado);
 
                 #region Tipping Point
-                
+
                 var configProgNuevas = _programaNuevasProvider.GetConfiguracion();
                 objR.TippingPointBarra = _programaNuevasProvider.GetBarraTippingPoint(configProgNuevas.CodigoPrograma);
                 _programaNuevasProvider.SetBarraConsultoraTippingPoint(objR, configProgNuevas);
@@ -968,7 +977,7 @@ namespace Portal.Consultoras.Web.Controllers
         private void GetUserDataViewBag()
         {
             var esMobile = IsMobile();
-
+            ViewBag.PseudoParamNotif = userData.PseudoParamNotif; //SALUD-58
             ViewBag.EstadoInscripcionEpm = revistaDigital.EstadoRdcAnalytics;
             ViewBag.UsuarioNombre = (Util.Trim(userData.Sobrenombre) == "" ? userData.NombreConsultora : userData.Sobrenombre);
             ViewBag.Usuario = "Hola, " + userData.UsuarioNombre;
@@ -1155,39 +1164,10 @@ namespace Portal.Consultoras.Web.Controllers
                 (!revistaDigital.TieneRDC || (revistaDigital.TieneRDC && !revistaDigital.EsActiva));
 
             _showRoomProvider.CargarEventoPersonalizacion(userData);
-            var menuActivo = _menuContenedorProvider.GetMenuActivo(userData, revistaDigital, herramientasVenta, Request, guiaNegocio, SessionManager, _configuracionManagerProvider, _eventoFestivoProvider, _configuracionPaisProvider, _guiaNegocioProvider, _ofertaPersonalizadaProvider, _programaNuevasProvider, esMobile);
-            ViewBag.MenuContenedorActivo = menuActivo;
-            
-            ViewBag.MenuContenedor = _menuContenedorProvider.GetMenuContenedorByMenuActivoCampania(menuActivo.CampaniaId, userData.CampaniaID, userData, revistaDigital, guiaNegocio, SessionManager, _configuracionManagerProvider, _eventoFestivoProvider, _configuracionPaisProvider, _guiaNegocioProvider, _ofertaPersonalizadaProvider, _programaNuevasProvider, esMobile);
 
-            var menuMobile = BuildMenuMobile(userData, revistaDigital);
-            var menuWeb = BuildMenu(userData, revistaDigital);
-            var descLiqWeb = "";
-            var existItemLiqWeb = esMobile ? _menuProvider.FindInMenu(menuMobile, m => m.Codigo.ToLower() == Constantes.MenuCodigo.LiquidacionWeb.ToLower(), m => m.Descripcion, out descLiqWeb) :
-                _menuProvider.FindInMenu(menuWeb, m => m.Codigo.ToLower() == Constantes.MenuCodigo.LiquidacionWeb.ToLower(), m => m.Descripcion, out descLiqWeb);
+            MenuViewBag(esMobile);
 
-            ViewBag.MenuMobile = menuMobile;
-            ViewBag.Permiso = menuWeb;
-            ViewBag.TituloLiqWeb = existItemLiqWeb ? descLiqWeb : "Liquidación Web";
-
-            ViewBag.ProgramaBelcorpMenu = BuildMenuService();
             ViewBag.codigoISOMenu = userData.CodigoISO;
-
-            if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
-            {
-                ViewBag.SegmentoConsultoraMenu = 1;
-            }
-            else
-            {
-                if (userData.CodigoISO == Constantes.CodigosISOPais.Venezuela)
-                {
-                    ViewBag.SegmentoConsultoraMenu = userData.SegmentoID;
-                }
-                else
-                {
-                    ViewBag.SegmentoConsultoraMenu = userData.SegmentoInternoID ?? userData.SegmentoID;
-                }
-            }
 
             var urlS3 = ConfigurationManager.AppSettings["URL_S3"] ?? "";
             if (!string.IsNullOrEmpty(urlS3))
@@ -1220,6 +1200,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             ViewBag.MostrarBuscadorYFiltros = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.MostrarBuscador).ToBool();
             ViewBag.CaracteresBuscador = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.CaracteresBuscador);
+            ViewBag.CaracteresBuscadorNumerico = ObtenerConfiguracionBuscadorNumerico(Constantes.TipoConfiguracionBuscador.CaracteresBuscador);
             ViewBag.TotalListadorBuscador = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.TotalResultadosBuscador);
             ViewBag.CaracteresBuscadorMostrar = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.CaracteresBuscadorMostrar);
             ViewBag.CantidadVecesInicioSesionNovedad = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.CantidadInicioSesionNovedadBuscador);
@@ -1233,13 +1214,72 @@ namespace Portal.Consultoras.Web.Controllers
 
         #endregion
 
+        #region
+        private void MenuViewBag(bool esMobile)
+        {
+            if (MenuContenedorValidarPagina())
+            {
+                var esMobileMenu = EsDispositivoMovil() || esMobile;
+                var menuActivo = _menuContenedorProvider.GetMenuActivo(userData, revistaDigital, herramientasVenta, Request, guiaNegocio, SessionManager, _configuracionManagerProvider, _eventoFestivoProvider, _configuracionPaisProvider, _guiaNegocioProvider, _ofertaPersonalizadaProvider, _programaNuevasProvider, esMobileMenu);
+                ViewBag.MenuContenedorActivo = menuActivo;
+                ViewBag.MenuContenedor = _menuContenedorProvider.GetMenuContenedorByMenuActivoCampania(menuActivo.CampaniaId, userData.CampaniaID, userData, revistaDigital, guiaNegocio, SessionManager, _configuracionManagerProvider, _eventoFestivoProvider, _configuracionPaisProvider, _guiaNegocioProvider, _ofertaPersonalizadaProvider, _programaNuevasProvider, esMobileMenu);
+            }
+
+            var menuMobile = BuildMenuMobile(userData, revistaDigital);
+            var menuWeb = BuildMenu(userData, revistaDigital);
+            var descLiqWeb = "";
+            var existItemLiqWeb = esMobile ? _menuProvider.FindInMenu(menuMobile, m => m.Codigo.ToLower() == Constantes.MenuCodigo.LiquidacionWeb.ToLower(), m => m.Descripcion, out descLiqWeb) :
+                _menuProvider.FindInMenu(menuWeb, m => m.Codigo.ToLower() == Constantes.MenuCodigo.LiquidacionWeb.ToLower(), m => m.Descripcion, out descLiqWeb);
+
+            ViewBag.MenuMobile = menuMobile;
+            ViewBag.Permiso = menuWeb;
+            ViewBag.TituloLiqWeb = existItemLiqWeb ? descLiqWeb : "Liquidación Web";
+
+            ViewBag.ProgramaBelcorpMenu = BuildMenuService();
+
+            if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
+            {
+                ViewBag.SegmentoConsultoraMenu = 1;
+            }
+            else
+            {
+                if (userData.CodigoISO == Constantes.CodigosISOPais.Venezuela)
+                {
+                    ViewBag.SegmentoConsultoraMenu = userData.SegmentoID;
+                }
+                else
+                {
+                    ViewBag.SegmentoConsultoraMenu = userData.SegmentoInternoID ?? userData.SegmentoID;
+                }
+            }
+        }
+
+        private bool MenuContenedorValidarPagina()
+        {
+            string controllerName = GetControllerActual();
+
+            controllerName = "," + controllerName.ToLower() + ",";
+
+            var controladores = ",,miscatalogosrevistas,busquedaproductos,tusclientes,";
+
+            if (controladores.Contains(controllerName)) return false;
+
+            return true;
+        }
+        #endregion
+
         public int ObtenerConfiguracionBuscador(string codigo)
         {
             if (!buscadorYFiltro.ConfiguracionPaisDatos.Any()) return ObtenerValorPorDefecto(codigo);
             var valor = (from item in buscadorYFiltro.ConfiguracionPaisDatos where item.Codigo == codigo select item.Valor1).FirstOrDefault();
             return valor == null ? ObtenerValorPorDefecto(codigo) : valor.ToInt();
         }
-
+        public int ObtenerConfiguracionBuscadorNumerico(string codigo)
+        {
+            if (!buscadorYFiltro.ConfiguracionPaisDatos.Any()) return ObtenerValorPorDefecto(codigo);
+            var valor = (from item in buscadorYFiltro.ConfiguracionPaisDatos where item.Codigo == codigo select item.Valor2).FirstOrDefault();
+            return valor == null ? ObtenerValorPorDefecto(codigo) : valor.ToInt();
+        }
         private int ObtenerValorPorDefecto(string codigo)
         {
             switch (codigo)
@@ -1396,6 +1436,35 @@ namespace Portal.Consultoras.Web.Controllers
                 .FirstOrDefault(a => a.Codigo.Equals(Constantes.CodigoConfiguracionRecomendaciones.CaracteresDescripcion));
             if (esMobile) return configuracionPaisDatos != null ? configuracionPaisDatos.Valor2.ToInt() : 35;
             return configuracionPaisDatos != null ? configuracionPaisDatos.Valor1.ToInt() : 37;
+        }
+
+        public bool IndicadorConsultoraDigital()
+        {
+            bool r = false;
+            try
+            {
+                ServiceUsuario.BEUsuario beusuario;
+
+                using (var sv = new ServiceUsuario.UsuarioServiceClient())
+                {
+                    beusuario = sv.Select(userData.PaisID, userData.CodigoUsuario);
+                }
+
+                if (beusuario != null)
+                {
+                    r = beusuario.IndicadorConsultoraDigital > 0;
+                }
+                else
+                {
+                    r = false;
+                }
+            }
+            catch (Exception e)
+            {
+                r = false;
+            }
+
+            return r;
         }
     }
 }

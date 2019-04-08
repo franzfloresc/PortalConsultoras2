@@ -284,9 +284,9 @@ namespace Portal.Consultoras.BizLogic
                 listPaginado.Update(x =>
                 {
                     x.ActiveDesc = x.ActivePremioAuto == true ? "Si" : "No";
-                    x.ActiveTooltipDesc = x.ActiveTooltip == true ? "Si" : "No";
-                    x.ActiveTooltipMontoDesc = x.ActiveMonto == true ? "Si" : "No";
-                    x.Ind_Cup_ElecDesc = x.ActivePremioElectivo == true ? "Si" : "No";
+                    x.ActiveTooltipDesc = x.ActiveTooltip ? "Si" : "No";
+                    x.ActiveTooltipMontoDesc = x.ActiveMonto ? "Si" : "No";
+                    x.Ind_Cup_ElecDesc = x.ActivePremioElectivo ? "Si" : "No";
                 });
                 return listPaginado;
             }

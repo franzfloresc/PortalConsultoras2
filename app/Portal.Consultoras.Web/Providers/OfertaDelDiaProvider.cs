@@ -71,10 +71,9 @@ namespace Portal.Consultoras.Web.Providers
                        model.CodigorRegion,
                         model.CodigoZona
                      );
+
                     var taskApi = Task.Run(() => ObtenerOfertasDesdeApi(pathOferta, model.CodigoISO));
-
                     Task.WhenAll(taskApi);
-
                     ofertasDelDia = taskApi.Result;
                 }
                 else
