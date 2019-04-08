@@ -1174,15 +1174,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             MenuViewBag(esMobile);
 
-            //CaminoBrillante : Si es postulante no figura la opción en el menú [desktop - Mobile]
-            if (userData.TipoUsuario == 2)
-            {
-                menuWeb.SingleOrDefault(r => r.Codigo == "mimegocio").SubMenus.Remove(menuWeb.SingleOrDefault(r => r.Codigo == "mimegocio").SubMenus.SingleOrDefault(x => x.Codigo == "caminobrillante"));
-
-                menuMobile.SingleOrDefault(r => r.Codigo == "minegocio").SubMenu.Remove(menuMobile.SingleOrDefault(r => r.Codigo == "minegocio").SubMenu.SingleOrDefault(x => x.Codigo == "caminobrillante"));
-            }
-
-
             ViewBag.codigoISOMenu = userData.CodigoISO;
 
             var urlS3 = ConfigurationManager.AppSettings["URL_S3"] ?? "";
@@ -1239,6 +1230,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var menuActivo = _menuContenedorProvider.GetMenuActivo(userData, revistaDigital, herramientasVenta, Request, guiaNegocio, SessionManager, _configuracionManagerProvider, _eventoFestivoProvider, _configuracionPaisProvider, _guiaNegocioProvider, _ofertaPersonalizadaProvider, _programaNuevasProvider, esMobileMenu);
                 ViewBag.MenuContenedorActivo = menuActivo;
                 ViewBag.MenuContenedor = _menuContenedorProvider.GetMenuContenedorByMenuActivoCampania(menuActivo.CampaniaId, userData.CampaniaID, userData, revistaDigital, guiaNegocio, SessionManager, _configuracionManagerProvider, _eventoFestivoProvider, _configuracionPaisProvider, _guiaNegocioProvider, _ofertaPersonalizadaProvider, _programaNuevasProvider, esMobileMenu);
+               
             }
 
             var menuMobile = BuildMenuMobile(userData, revistaDigital);
@@ -1246,6 +1238,13 @@ namespace Portal.Consultoras.Web.Controllers
             var descLiqWeb = "";
             var existItemLiqWeb = esMobile ? _menuProvider.FindInMenu(menuMobile, m => m.Codigo.ToLower() == Constantes.MenuCodigo.LiquidacionWeb.ToLower(), m => m.Descripcion, out descLiqWeb) :
                 _menuProvider.FindInMenu(menuWeb, m => m.Codigo.ToLower() == Constantes.MenuCodigo.LiquidacionWeb.ToLower(), m => m.Descripcion, out descLiqWeb);
+
+            //CaminoBrillante : Si es postulante no figura la opción en el menú [desktop - Mobile]
+            if (userData.TipoUsuario == 2)
+            {
+                menuWeb.SingleOrDefault(r => r.Codigo == "mimegocio").SubMenus.Remove(menuWeb.SingleOrDefault(r => r.Codigo == "mimegocio").SubMenus.SingleOrDefault(x => x.Codigo == "caminobrillante"));
+                menuMobile.SingleOrDefault(r => r.Codigo == "minegocio").SubMenu.Remove(menuMobile.SingleOrDefault(r => r.Codigo == "minegocio").SubMenu.SingleOrDefault(x => x.Codigo == "caminobrillante"));
+            }
 
             ViewBag.MenuMobile = menuMobile;
             ViewBag.Permiso = menuWeb;
