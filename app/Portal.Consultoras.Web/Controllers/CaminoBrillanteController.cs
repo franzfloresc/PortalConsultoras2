@@ -61,6 +61,7 @@ namespace Portal.Consultoras.Web.Controllers
             var lstDemo = GetDemostradoresCaminoBrillante();
             int cantKit = lstKit.Count();
             int cantDemo = lstDemo.Count();
+            ViewBag.Moneda = userData.Simbolo;
 
             if (lstKit != null || lstDemo != null)
             {
