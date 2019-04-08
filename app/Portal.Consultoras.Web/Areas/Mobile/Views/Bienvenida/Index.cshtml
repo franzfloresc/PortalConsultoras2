@@ -287,8 +287,12 @@
                     @Util.DecimalToStringFormat(Convert.ToDecimal(Model.MontoAhorroCatalogo + Model.MontoAhorroRevista), Model.CodigoISO)
                 </span>
             </div>
-            <div role="link" region="Central" parent="Ganancia Estimada Total" title="Pedido ingresado" class="texto_inferior" style="text-decoration:underline;"><a href="@Url.Action("Index", "Pedido")">Pedido ingresado: @Model.Simbolo <span class="js-span-pedidoingresado">@Util.DecimalToStringFormat(Model.MontoPedido, Model.CodigoISO)</span></a></div>
-
+            <div role="link" region="Central" parent="Ganancia Estimada Total" title="Pedido ingresado" class="texto_inferior" style="text-decoration:underline;">
+                <a href="@Url.Action("Index", "Pedido")">
+                    Pedido ingresado: @Model.Simbolo <span class="js-span-pedidoingresado">@Util.DecimalToStringFormat(Model.MontoPedido, Model.CodigoISO)</span>
+                </a>
+            </div>
+            <a role="link" region="Central" title="Ver más" class="btn_borde_black mt-23 mb-0" href="@Url.Action("Index", "EscalaDescuentos", new { area = "" })"> VER M&Aacute;S</a>
         </div>
     </div>
     <div class="linea_separadora_mobile" style="margin-top:16px"></div>
@@ -301,15 +305,7 @@
                 @Model.Simbolo <span>@Util.DecimalToStringFormat(Model.MontoDeuda, Model.CodigoISO)</span>
             </div>
             <div class="texto_inferior js-div-vencimiento">Vencimiento: <span>@Model.FechaVencimiento</span></div>
-            @if (Model.TienePagoEnLinea && Model.MostrarPagoEnLinea)
-            {
-                <a role="link" region="Central" parent="Mi Estado de Cuenta" title="Paga en línea" class="btn_paga_online_mobile" href="@Url.Action("MetodoPago","PagoEnLinea")">
-                    <div class="texto_btn_pago_en_linea">
-                        <span>PAGA EN LÍNEA</span>
-                    </div>
-                </a>
-            }
-            else
+            @if (Model.MostrarPagoEnLinea)
             {
                 if (Model.PaisID == Constantes.PaisID.Chile)
                 {
@@ -322,6 +318,14 @@
                 else if (Model.PaisID == Constantes.PaisID.PuertoRico)
                 {
                     <a role="link" region="Central" parent="Mi Estado de Cuenta" title="Paga en línea" class="btn_paga_online_mobile" href="@Url.Action("Index", "Paypal", new { area = "Mobile" })"> PAGA EN L&Iacute;NEA</a>
+                }
+                else if (Model.TienePagoEnLinea)
+                {
+                    <a role="link" region="Central" parent="Mi Estado de Cuenta" title="Paga en línea" class="btn_paga_online_mobile" href="@Url.Action("MetodoPago","PagoEnLinea")">
+                        <div class="texto_btn_pago_en_linea">
+                            <span>PAGA EN L&Iacute;NEA</span>
+                        </div>
+                    </a>
                 }
             }
         </div>
@@ -863,7 +867,7 @@
         var urlCatalogoPersonalizado = '@Url.Action("Index", "CatalogoPersonalizado", new { area = "Mobile" })';
         var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "Estrategia", new { area = "" })';
 
-        var tipoOrigenEstrategia = 2; 
+        var tipoOrigenEstrategia = 2;
         var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.MobileHomeOfertaDelDiaCarrusel';
         var noMostrarPopUpRevistaDig = '@Model.RevistaDigital.NoVolverMostrar';
 

@@ -166,6 +166,16 @@ namespace Portal.Consultoras.BizLogic
             return limElectivos;
         }
 
+        public List<BEProductoEstraProgNuevas> GetListCuvEstrategia(BEConsultoraProgramaNuevas consultoraNueva)
+        {
+            var lstCuponNuevas = GetProductosByCampaniaCache(consultoraNueva.PaisID, consultoraNueva.CampaniaID);
+            if (lstCuponNuevas == null || lstCuponNuevas.Count == 0) return new List<BEProductoEstraProgNuevas>();
+
+            return FiltrarProductosByNivelyCodigoPrograma(lstCuponNuevas, consultoraNueva.ConsecutivoNueva, consultoraNueva.CodigoPrograma)
+                .Where(c => !c.EsPremioElectivo)
+                .Select(c => new BEProductoEstraProgNuevas { Cuv = c.CodigoCupon, EsCuponIndependiente = c.EsCuponIndependiente }).ToList();
+        }
+
         #region Metodos de Programa Nuevas
 
         private bool IsFlagOn(string codigo, int paisID)
@@ -273,8 +283,7 @@ namespace Portal.Consultoras.BizLogic
         }
 
         #endregion
-
-
+        
         public List<BEPremioNuevas> ListarPremioNuevasPaginado(BEPremioNuevas premio)
         {
         
@@ -289,9 +298,9 @@ namespace Portal.Consultoras.BizLogic
                 listPaginado.Update(x =>
                 {
                     x.ActiveDesc = x.ActivePremioAuto == true ? "Si" : "No";
-                    x.ActiveTooltipDesc = x.ActiveTooltip == true ? "Si" : "No";
-                    x.ActiveTooltipMontoDesc = x.ActiveMonto == true ? "Si" : "No";
-                    x.Ind_Cup_ElecDesc = x.ActivePremioElectivo == true ? "Si" : "No";
+                    x.ActiveTooltipDesc = x.ActiveTooltip ? "Si" : "No";
+                    x.ActiveTooltipMontoDesc = x.ActiveMonto ? "Si" : "No";
+                    x.Ind_Cup_ElecDesc = x.ActivePremioElectivo ? "Si" : "No";
                 });
                 return listPaginado;
             }
@@ -343,8 +352,5 @@ namespace Portal.Consultoras.BizLogic
             }
             return record;
         }
-
-
-
     }
 }
