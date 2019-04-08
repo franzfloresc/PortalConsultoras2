@@ -180,12 +180,12 @@ namespace Portal.Consultoras.BizLogic
                 new ProductoSolicitado
                 {
                     CodigoSap = "210090349",
-                    Cantidad = 1
+                    Cantidad = 6
                 },
                 new ProductoSolicitado
                 {
                     CodigoSap = "210090295",
-                    Cantidad = 1
+                    Cantidad = 6
                 }
                 //new ProductoSolicitado
                 //{
@@ -195,6 +195,8 @@ namespace Portal.Consultoras.BizLogic
             };
 
             var EstrategiasMs = GetRecomendadosApiMS(RecomendadoRequest);
+
+            EstrategiasMs = EstrategiasMs.Where(x => x.CodigoEstrategia != 2003).ToList();
 
             EstrategiasMs = GetRecomendadosAlgorithm(RecomendadoRequest, EstrategiasMs);
 
@@ -213,6 +215,9 @@ namespace Portal.Consultoras.BizLogic
             HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
             var response = httpClient.PostAsync(string.Concat("recomendaciones/", RecomendadoRequest.codigoPais, "/", RecomendadoRequest.codigocampania, "/", RecomendadoRequest.origen), contentPost).GetAwaiter().GetResult();
             var jsonString = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+
+            //var CurrentDirectory = HttpContext.Current.Server.MapPath(@"~\DataRecomendados\recomendados.json");
+            //var jsonString = System.Text.Encoding.UTF8.GetString(File.ReadAllBytes(CurrentDirectory));
 
             var respuesta = JsonConvert.DeserializeObject<OutputOfertaLista>(jsonString);
 
@@ -305,7 +310,7 @@ namespace Portal.Consultoras.BizLogic
         {
             var EstrategiasRecomendadas = GetExactPackCombination(RecomendadoRequest.productosSolicitados, Estrategias);
 
-            if(EstrategiasRecomendadas.Count == 0)
+            if (EstrategiasRecomendadas.Count == 0)
             {
                 var ExactPacksCombinations = new List<ResponseRecomendacion.Estrategia>();
 
@@ -313,9 +318,9 @@ namespace Portal.Consultoras.BizLogic
 
                 foreach (var item in RecomendadoRequest.productosSolicitados)
                 {
-                    var EstrategiaCombination = GetExactPacksCombinations(item, Estrategias);
+                    var EstrategiaCombination = GetExactIndividualCombinations(item, Estrategias);
 
-                    ExactPacksCombinations.Concat(EstrategiaCombination);
+                    ExactPacksCombinations = ExactPacksCombinations.Concat(EstrategiaCombination).ToList();
 
                     if (EstrategiaCombination.Count == 0)
                     {
@@ -323,22 +328,50 @@ namespace Portal.Consultoras.BizLogic
                     }
                 }
 
-                if (ExistPacksCombinations) EstrategiasRecomendadas.Concat(ExactPacksCombinations);
+                if (ExistPacksCombinations) EstrategiasRecomendadas = EstrategiasRecomendadas.Concat(ExactPacksCombinations).ToList();
             }
 
-            if(EstrategiasRecomendadas.Count == 0)
+            if (EstrategiasRecomendadas.Count == 0)
+            {
+                var ExactPacksCombinations = new List<ResponseRecomendacion.Estrategia>();
+                var ExistPacksCombinations = true;
+                var CantidadAdicionalesTotal = 0;
+
+                foreach (var item in RecomendadoRequest.productosSolicitados)
+                {
+                    var CantidadAdicionales = 0;
+                    var EstrategiaCombination = GetNotExactIndividualCombinations(item, Estrategias, out CantidadAdicionales);
+
+                    CantidadAdicionalesTotal = CantidadAdicionalesTotal + CantidadAdicionales;
+                    ExactPacksCombinations = ExactPacksCombinations.Concat(EstrategiaCombination).ToList();
+
+                    if (EstrategiaCombination.Count == 0)
+                    {
+                        ExistPacksCombinations = false;
+                    }
+
+                    if (CantidadAdicionalesTotal > 2)
+                    {
+                        ExistPacksCombinations = false;
+                    }
+                }
+
+                if (ExistPacksCombinations) EstrategiasRecomendadas = EstrategiasRecomendadas.Concat(ExactPacksCombinations).ToList();
+            }
+
+            if (EstrategiasRecomendadas.Count == 0)
             {
                 var CantidadAdicionales = 0;
                 var NotExactPackCombination = GetNotExactPackCombination(RecomendadoRequest.productosSolicitados, Estrategias, out CantidadAdicionales);
 
-                EstrategiasRecomendadas.Concat(NotExactPackCombination);
+                EstrategiasRecomendadas = EstrategiasRecomendadas.Concat(NotExactPackCombination).ToList();
+            }
 
-                if (NotExactPackCombination.Count == 0)
-                {
-                    var NotExactPacksCombinations = GetNotExactPacksCombinations(RecomendadoRequest.productosSolicitados, Estrategias);
+            if (EstrategiasRecomendadas.Count == 0)
+            {
+                var NotExactPacksCombinations = GetNotExactPacksCombinations(RecomendadoRequest.productosSolicitados, Estrategias);
 
-                    EstrategiasRecomendadas.Concat(NotExactPacksCombinations);
-                }
+                EstrategiasRecomendadas = EstrategiasRecomendadas.Concat(NotExactPacksCombinations).ToList();
             }
 
             return EstrategiasRecomendadas;
@@ -356,7 +389,8 @@ namespace Portal.Consultoras.BizLogic
 
             foreach (var estrategia in Estrategias)
             {
-                if(estrategia.Componentes.Exists(comp => !SapList.Contains(comp.CodigoSap))) { break; }
+                if(estrategia.Componentes.Exists(comp => !SapList.Contains(comp.CodigoSap))) { continue; }
+                if (estrategia.Componentes.Count != ProductosSolicitados.Count) { continue; }
 
                 ProductosSolicitados.ForEach(y =>
                 {
@@ -373,7 +407,7 @@ namespace Portal.Consultoras.BizLogic
             return EstrategiasRecomendadas;
         }
 
-        public List<ResponseRecomendacion.Estrategia> GetExactPacksCombinations(ProductoSolicitado ProductoSolicitado, List<ResponseRecomendacion.Estrategia> Estrategias)
+        public List<ResponseRecomendacion.Estrategia> GetExactIndividualCombinations(ProductoSolicitado ProductoSolicitado, List<ResponseRecomendacion.Estrategia> Estrategias)
         {
             var EstrategiasRecomendadas = new List<ResponseRecomendacion.Estrategia>();
 
@@ -382,7 +416,7 @@ namespace Portal.Consultoras.BizLogic
 
             foreach (var estrategia in Estrategias)
             {
-                if (estrategia.Componentes.Exists(comp => !comp.CodigoSap.Equals(ProductoSolicitado.CodigoSap))) { break; }
+                if (estrategia.Componentes.Exists(comp => !comp.CodigoSap.Equals(ProductoSolicitado.CodigoSap))) { continue; }
 
                 EstrategiasIndividuales.Add(estrategia);
             }
@@ -421,7 +455,7 @@ namespace Portal.Consultoras.BizLogic
                             EstrategiasRecomendadas.Add(estrategia);
                         }
 
-                        EstrategiasRecomendadas.Concat(EstrategiasExactPackCombination);
+                        EstrategiasRecomendadas = EstrategiasRecomendadas.Concat(EstrategiasExactPackCombination).ToList();
                         break;
                     }
                     else
@@ -445,6 +479,52 @@ namespace Portal.Consultoras.BizLogic
                                 break;
                             }
                         }
+                    }
+                }
+            }
+
+            return EstrategiasRecomendadas;
+        }
+
+        public List<ResponseRecomendacion.Estrategia> GetNotExactIndividualCombinations(ProductoSolicitado ProductoSolicitado, List<ResponseRecomendacion.Estrategia> Estrategias, out int CantidadAdicionales)
+        {
+            var EstrategiasRecomendadas = new List<ResponseRecomendacion.Estrategia>();
+
+            var EstrategiasIndividuales = new List<ResponseRecomendacion.Estrategia>();
+            CantidadAdicionales = 0;
+
+            foreach (var estrategia in Estrategias)
+            {
+                if (estrategia.Componentes.Exists(comp => !comp.CodigoSap.Equals(ProductoSolicitado.CodigoSap))) { continue; }
+
+                EstrategiasIndividuales.Add(estrategia);
+            }
+
+            EstrategiasIndividuales = EstrategiasIndividuales.OrderByDescending(x => x.Componentes[0].Cantidad).ToList();
+
+            foreach (var estrategia in EstrategiasIndividuales)
+            {
+                var residuo = ProductoSolicitado.Cantidad % estrategia.Componentes[0].Cantidad;
+                var cociente = ProductoSolicitado.Cantidad / estrategia.Componentes[0].Cantidad;
+                if (residuo == 0)
+                {
+                    for (int i = 1; i <= cociente; i++)
+                    {
+                        EstrategiasRecomendadas.Add(estrategia);
+                    }
+                    break;
+                }
+                else
+                {
+                    CantidadAdicionales = ((cociente + 1) * estrategia.Componentes[0].Cantidad - ProductoSolicitado.Cantidad);
+
+                    if (CantidadAdicionales <= 2)
+                    {
+                        for (int i = 1; i <= cociente + 1; i++)
+                        {
+                            EstrategiasRecomendadas.Add(estrategia);
+                        }
+                        break;
                     }
                 }
             }
@@ -490,18 +570,20 @@ namespace Portal.Consultoras.BizLogic
                 }
                 else
                 {
-
-                    foreach (var productoSolicitado in ProductosSolicitados)
+                    if(estrategia.Componentes.Count == ProductosSolicitados.Count)
                     {
-                        var componente = estrategia.Componentes.Where(comp => comp.CodigoSap == productoSolicitado.CodigoSap && comp.Cantidad > productoSolicitado.Cantidad).FirstOrDefault();
+                        foreach (var productoSolicitado in ProductosSolicitados)
+                        {
+                            var componente = estrategia.Componentes.Where(comp => comp.CodigoSap == productoSolicitado.CodigoSap && comp.Cantidad > productoSolicitado.Cantidad).FirstOrDefault();
 
-                        CantidadAdicionales = componente.Cantidad - productoSolicitado.Cantidad;
-                    }
+                            CantidadAdicionales = CantidadAdicionales + (componente.Cantidad - productoSolicitado.Cantidad);
+                        }
 
-                    if(CantidadAdicionales <= 2)
-                    {
-                        EstrategiasRecomendadas.Add(estrategia);
-                        break;
+                        if (CantidadAdicionales <= 2)
+                        {
+                            EstrategiasRecomendadas.Add(estrategia);
+                            break;
+                        }
                     }
                 }
             }
@@ -523,14 +605,14 @@ namespace Portal.Consultoras.BizLogic
 
                 if(ExactPackCombination.Count > 0)
                 {
-                    EstrategiasRecomendadas.Concat(ExactPackCombination);
+                    EstrategiasRecomendadas = EstrategiasRecomendadas.Concat(ExactPackCombination).ToList();
                 }
                 else
                 {
-                    var ExactPacksCombinations = GetExactPacksCombinations(ProductoSolicitado, Estrategias);
+                    var ExactPacksCombinations = GetExactIndividualCombinations(ProductoSolicitado, Estrategias);
                     if(ExactPacksCombinations.Count > 0)
                     {
-                        EstrategiasRecomendadas.Concat(ExactPacksCombinations);
+                        EstrategiasRecomendadas = EstrategiasRecomendadas.Concat(ExactPacksCombinations).ToList();
                     }
                     else
                     {
@@ -538,7 +620,7 @@ namespace Portal.Consultoras.BizLogic
                         var NotExactPackCombination = GetNotExactPackCombination(ProductosSolicitadosClone, Estrategias, out CantidadAdicionales);
                         if (NotExactPackCombination.Count > 0)
                         {
-                            EstrategiasRecomendadas.Concat(NotExactPackCombination);
+                            EstrategiasRecomendadas = EstrategiasRecomendadas.Concat(NotExactPackCombination).ToList();
                             CantidadAdicionalesGenral = CantidadAdicionalesGenral + CantidadAdicionales;
                         }
                     }
