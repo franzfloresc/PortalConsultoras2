@@ -100,13 +100,15 @@
                 <div class="texto_reservado">
                     <span>Precio unitario:</span>
                 </div>
-                @if (item.DescuentoProl > 0)
-                {
-                    <div class="texto_reservado">
-                        <span style="display:inline-block;">Descuento</span>
-                        <span class="icono_advertencia_notificacion" style="margin-top: -7px;"></span>
-                    </div>
-                }
+                @*INI EINCA 14012019 Se comenta por el momento*@
+                @*@if (item.DescuentoProl > 0)
+                    {
+                        <div class="texto_reservado">
+                            <span style="display:inline-block;">Descuento</span>
+                            <span class="icono_advertencia_notificacion" style="margin-top: -7px;"></span>
+                        </div>
+                    }*@
+                @*FIN EINCA 14012019*@
 
                     <div class="importe_reservado">Subtotal:</div>
             </div>
@@ -114,12 +116,14 @@
                 <div class="texto_reservado">
                     <span>@ViewBag.Simbolo @string.Format("{0:N2}", item.PrecioUnidad)</span>
                 </div>
-                @if (item.DescuentoProl > 0)
-                {
-                    <div class="texto_reservado">
-                        <span>@ViewBag.Simbolo @string.Format("{0:N2}", item.DescuentoProl)</span>
-                    </div>
-                }
+                @*INI EINCA 14012019 Se comenta por el momento*@
+                @*@if (item.DescuentoProl > 0)
+                    {
+                        <div class="texto_reservado">
+                            <span>@ViewBag.Simbolo @string.Format("{0:N2}", item.DescuentoProl)</span>
+                        </div>
+                    }*@
+                @*FIN EINCA 14012019*@
 
                 <div class="importe_reservado">@ViewBag.Simbolo @string.Format("{0:N2}", item.ImporteTotal)</div>
             </div>
@@ -145,7 +149,10 @@
         <div class="importe_final" style="font-size:15px"><b> @ViewBag.Simbolo @string.Format("{0:N2}", Model.ListaNotificacionesDetallePedido.Sum(p => p.ImporteTotal))</b></div>
         @if (Model.ListaNotificacionesDetallePedido.Sum(p => p.DescuentoProl) > 0)
         {
-            <div class="importe_final" style="font-size:15px"><b> @ViewBag.Simbolo @string.Format("{0:N2}", Model.ListaNotificacionesDetallePedido.Sum(p => p.DescuentoProl))</b></div>
+            @*<div class="importe_final" style="font-size:15px"><b> @ViewBag.Simbolo @string.Format("{0:N2}", Model.ListaNotificacionesDetallePedido.Sum(p => p.DescuentoProl))</b></div>*@
+
+            <div class="importe_final" style="font-size:15px"><b> @ViewBag.Simbolo @string.Format("{0:N2}", Model.ListaNotificacionesDetallePedido.Select(p => p.DescuentoProl).FirstOrDefault())</b></div>
+
         }
     </div>
     <hr class="clear" />

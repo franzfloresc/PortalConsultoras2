@@ -391,6 +391,7 @@ function ValidarPermiso(obj) {
 }
 
 function BuscarByCUV(cuv) {
+    $("div.producto_por_agregar_imagen").find("img").attr("src", "/Content/Images/imagen_prod_no_disponible.jpg");
     if (cuv == $('#hdfCUV').val()) {
         if (productoSugerido) {
             if (productoAgotado) MostrarMensaje("mensajeCUVAgotado");
