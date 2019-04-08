@@ -512,3 +512,6 @@ div .cartbtn {
 #seccion-menu-mobile {
     display:none !important;
 }
+.layout__view__breadcrumbs__wrapper {
+    margin-top: 140px;
+}
