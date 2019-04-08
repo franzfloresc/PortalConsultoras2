@@ -181,6 +181,10 @@
             </a>
         </section> -->
         <!-- FIN - SECCIÓN ETIQUETAS DE CRITERIOS ELEGIDOS EN LOS FILTROS (DESKTOP) -->
+        <div id="divresultadosKit" style="display:none">
+            @ViewBag.CantidadKit
+        </div>
+
         <section class="col-12 fichas__productos__wrapper text-center" id="kits">
 
             @{
@@ -248,8 +252,10 @@
 
         <hr />
 
+        <div id="divresultadosDemostradores" style="display:none;">
+            @ViewBag.CantidadDemostradores
+        </div>
         <section class="col-12 fichas__productos__wrapper text-center" id="Demostradores" style="display:none;">
-
             @{
                 foreach (var item in Demostradores)
                 {
@@ -408,6 +414,8 @@
             $('#Demostradores').hide();
             $("#Tab-kits").addClass("activado-dorado");
             $("#Tab-Demostradores").removeClass("activado-dorado");
+            $("#divresultadosDemostradores").hide();
+            $("#divresultadosKit").show();
         });
 
 
@@ -416,7 +424,9 @@
             $('#kits').hide();
 
             $("#Tab-kits").removeClass("activado-dorado");
-            $("#Tab-Demostradores").addClass("activado-dorado");
+            $("#Tab-Demostradores").addClass("activado-dorado");            
+            $("#divresultadosKit").hide();
+            $("#divresultadosDemostradores").show();
         });
     }
 
