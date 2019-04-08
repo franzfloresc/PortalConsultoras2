@@ -20,7 +20,7 @@
 }
 
 .menu__link--pedido{
-    background-image:url(/Content/images/lbel/vineta_indicador.png);
+    background-image:url(/Content/Images/lbel/vineta_indicador.png);
 }
 
 .pestana__marca__pais{
@@ -29,12 +29,16 @@
     background-color: #FFF;
     background-image:url(/Content/Images/Lbel/pestana_lbel.png);
     top: -3px;
-    left: 15.7%;
+    left: 134px;
     background-size: cover;
 }
 
 .submenu__lista--miNegocio{
     top:51px;
+}
+
+.submenu__lista--miNegocioConEnlaceMisEventos{
+    width:1080px;
 }
 
 .submenu__lista--miAsesorBelleza{
@@ -181,7 +185,6 @@
     transition: .3s;
     cursor: pointer;
 }
-
 
 .bg_activar_boton_no_animado:hover {
     background-color: #000;

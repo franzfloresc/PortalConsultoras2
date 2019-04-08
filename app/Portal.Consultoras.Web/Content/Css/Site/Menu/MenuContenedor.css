@@ -37,6 +37,18 @@
                 .op-menu-horizontal .subnavegador li a.activado-grande img {
                     height: 20.20px;
                 }
+                /* Para menú gana+ */
+                .op-menu-horizontal .subnavegador .slick-list {
+                    width: 90%;
+                    margin: 0 auto;
+                }
+                /*.bc-menu-vertical-prev img, .bc-menu-vertical-next img {
+                    height: 20px !important;
+                    padding: 0 19px !important;
+                    margin-top: 19px !important;
+                }*/
+                
+                /* fin para menú gana+ */
 
             .op-menu-horizontal .subnavegador li .gana_mas_horizontal {
                 color: #c39934;

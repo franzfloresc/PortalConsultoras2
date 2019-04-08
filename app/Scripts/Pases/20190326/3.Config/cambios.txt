@@ -1,0 +1,7 @@
+1.SB2 WEB
+	Agregar:
+		<add key="CryptoJSPassword" value="Password01"/> (Diferente en PRD)
+		
+2.WSCONSULTORAS
+	Agregar:
+		<add key="UrlBannerLan" value="{0}/AppConsultora/{1}/Banner_Lanzamiento.jpg" />
