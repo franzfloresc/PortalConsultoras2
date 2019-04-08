@@ -4931,6 +4931,13 @@ body {
     border: 0;
 }
 
+.bonificaciones_digital {
+    width: 128px;
+    height: 76px;
+    background: url('/Content/Images/Mobile/Esika/bonificaciones_digital.png') no-repeat right bottom;
+    margin-bottom: 0;
+} 
+
 .catalogo_esika {
     width: 128px;
     height: 76px;
