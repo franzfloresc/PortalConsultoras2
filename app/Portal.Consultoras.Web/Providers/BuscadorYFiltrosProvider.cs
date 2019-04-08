@@ -39,8 +39,7 @@ namespace Portal.Consultoras.Web.Providers
             );
 
             var parametros = GetJsonPostBuscador(userData, buscadorModel, revistaDigital);
-            List <BuscadorYFiltrosCategoriaModel> buscadorYFiltrosCategoriaModel = new List<BuscadorYFiltrosCategoriaModel>();
-            buscadorYFiltrosCategoriaModel = await PostAsync<List<BuscadorYFiltrosCategoriaModel>>(pathBuscador, parametros);
+            List <BuscadorYFiltrosCategoriaModel> buscadorYFiltrosCategoriaModel = await PostAsync<List<BuscadorYFiltrosCategoriaModel>>(pathBuscador, parametros);
 
             foreach (BuscadorYFiltrosCategoriaModel item in buscadorYFiltrosCategoriaModel) {
                 item.Imagen = ConfigCdn.GetUrlFileInSubdirectory("Buscador", userData.CodigoISO, item.Imagen);
