@@ -101,7 +101,15 @@
                 speed: 300,
                 slidesToShow: 1,
                 centerMode: false,
-                variableWidth: true
+                variableWidth: true,
+                prevArrow:
+                    "<a id=\"opciones-seleccionadas-prev\" class=\"flecha_ofertas-tipo prev\" style=\"left:-5%; text-align:left;display:none;\">" +
+                    "<img src=\"" + baseUrl + "Content/Images/Esika/previous_ofertas_home.png\")\" alt=\"\" />" +
+                    "</a>",
+                nextArrow:
+                    "<a id=\"opciones-seleccionadas-next\" class=\"flecha_ofertas-tipo\" style=\"display: block; right:-5%; text-align:right;display:none;\">" +
+                    "<img src=\"" + baseUrl + "Content/Images/Esika/next.png\")\" alt=\"\" />" +
+                    "</a>"
             });
         },
         setTabDetalleComponente: function () {

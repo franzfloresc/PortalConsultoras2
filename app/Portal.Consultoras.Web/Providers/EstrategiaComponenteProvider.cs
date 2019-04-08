@@ -76,7 +76,7 @@ namespace Portal.Consultoras.Web.Providers
                 EstrategiaPersonalizadaProductoModel estrategia = _ofertaBaseProvider.ObtenerModeloOfertaDesdeApi(estrategiaModelo, userData.CodigoISO);
 
                 listaEstrategiaComponente = estrategia.Hermanos;
-                  
+
                 mensaje += "ObtenerModeloOfertaDesdeApi = " + listaEstrategiaComponente.Count + "|";
             }
             else
@@ -131,7 +131,7 @@ namespace Portal.Consultoras.Web.Providers
         //        mensaje += "SiMongo|";
         //        estrategiaModelo.CodigoEstrategia = Util.GetTipoPersonalizacionByCodigoEstrategia(codigoTipoEstrategia);
         //        estrategia = _ofertaBaseProvider.ObtenerModeloOfertaDesdeApi(estrategiaModelo, userData.CodigoISO);
-                  
+
         //        mensaje += "ObtenerModeloOfertaDesdeApi = " + estrategia.Hermanos.Count + "|";
         //    }
         //    else
@@ -144,7 +144,7 @@ namespace Portal.Consultoras.Web.Providers
         //        if (!listaBeEstrategiaProductos.Any()) return estrategia;
 
         //        mensaje += "GetEstrategiaProductos = " + listaBeEstrategiaProductos.Count + "|";
-                
+
         //        estrategia.Hermanos = GetEstrategiaDetalleCompuesta(estrategiaModelo, listaBeEstrategiaProductos);
         //        mensaje += "GetEstrategiaDetalleCompuesta = " + estrategia.Hermanos.Count + "|";
 

@@ -4,7 +4,7 @@ namespace Portal.Consultoras.Web.Models.Search.ResponseOferta.Estructura
 {
     public class Componente
     {
-        public List<EstrategiaComponenteCabecera> Cabecera { get; set; }
+        public EstrategiaComponenteCabecera Cabecera { get; set; }
         public List<EstrategiaComponenteSeccion> Secciones { get; set; }
         public List<Componente> Hermanos { get; set; }
          
