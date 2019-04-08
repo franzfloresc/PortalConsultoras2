@@ -964,8 +964,8 @@ namespace Portal.Consultoras.Service
             return _caminoBrillanteBusinessLogic.GetConsultoraLogros(paisId, entidad, isWeb);
         }
 
-        public List<BEKitCaminoBrillante> GetKitCaminoBrillante(int paisId, string periodo) {
-            return _caminoBrillanteBusinessLogic.GetKit(paisId, periodo);
+        public List<BEKitCaminoBrillante> GetKitCaminoBrillante(int paisID, BEUsuario entidad, int periodoId) {
+            return _caminoBrillanteBusinessLogic.GetKit(paisID, entidad, periodoId);
         }
 
         public List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillante(int paisID, string campaniaID)

@@ -346,13 +346,24 @@ namespace Portal.Consultoras.Web.Controllers
 
                 ViewBag.ActivarRecomendaciones = ObtenerFlagActivacionRecomendaciones();
                 ViewBag.MaxCaracteresRecomendaciones = ObtenerNumeroMaximoCaracteresRecomendaciones(false);
-                
+
+
+
+                #region Camino Brillante 
+                 // Se debe de invocar desde el provider coordinar con JOse
+                var user = new Portal.Consultoras.Web.ServiceUsuario.BEUsuario()
+                {
+                    CampaniaID = userData.CampaniaID
+                };
+
                 using (var sv = new UsuarioServiceClient())
                 {
                     //ViewBag.DemostradoresCaminoBrillante = sv.GetKitCaminoBrillante(userData.PaisID, Convert.ToString(userData.CampaniaID));
-                    ViewBag.KitsCaminoBrillante = sv.GetKitCaminoBrillante(userData.PaisID, "201904");
+                    //ViewBag.KitsCaminoBrillante = sv.GetKitCaminoBrillante(userData.PaisID, "201904");
+                    ViewBag.KitsCaminoBrillante = sv.GetKitCaminoBrillante(userData.PaisID, user, 201903).ToList();
                 }
-              
+                #endregion
+
             }
             catch (FaultException ex)
             {
