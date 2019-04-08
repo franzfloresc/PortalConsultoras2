@@ -79,13 +79,13 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         /// <summary>
         /// Obtiene los kits para cada consultora.
         /// </summary>
-        public async Task<List<KitsHistoricoConsultora>> GetKitHistoricoConsultora(string isoPais, string consultora, string campania)
+        public async Task<List<KitsHistoricoConsultora>> GetKitHistoricoConsultora(string isoPais, string consultora, int periodoId)
         {
             var result = new List<KitsHistoricoConsultora>();
-            bool flag = isoPais != "" && campania != "";
+            bool flag = isoPais != "";
             if (!flag) return result;
-            string urlParameters = string.Format("{0}/{1}/{2}", isoPais, consultora, campania);
-            string jsonString = await CallInformacionComercialServices(Url, urlParameters, Token);
+            string urlParameters = string.Format("{0}/{1}/{2}", isoPais, consultora, periodoId);
+            string jsonString = await CallInformacionComercialServices(Url + Constantes.CaminoBrillante.ServicioComercial.GetKitsConsultora, urlParameters, Token);
             result = JsonConvert.DeserializeObject<List<KitsHistoricoConsultora>>(jsonString) as List<KitsHistoricoConsultora>;
             return result;
         }
