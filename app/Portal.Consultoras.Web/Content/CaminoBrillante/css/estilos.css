@@ -1153,7 +1153,7 @@ header.layout__header {
     }
 
     .box-beneficios {
-        margin-bottom: 30px;
+        margin-bottom: 20px;
     }
 
     .owl-carousel .owl-item .circle-porcent {
@@ -1336,15 +1336,22 @@ header.layout__header {
     .box-camb {
         width: 100%;
     }
-
-
-    /*#ProgressBar span img {
-        max-height: 34px;
+    .cambio-crec a, .cambio-crec .com-log {
+        font-size: 11px;
     }
 
-    #ProgressBar span {
-        max-width: 35px;
-    }*/
+
+    div .btn-principal {
+        margin-top: 0px;
+        margin-bottom: 40px;
+    }
+    .cambio-crec .como-log {
+        margin-top: 4px !important;
+        line-height: 11px;
+    }
+    .box-Crecimiento .text-bold {
+        margin-bottom: 0;
+    }
 }
 
 @media screen and (max-width: 600px) {
