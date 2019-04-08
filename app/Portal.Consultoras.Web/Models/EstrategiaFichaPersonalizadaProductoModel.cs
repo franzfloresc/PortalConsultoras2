@@ -12,6 +12,8 @@ namespace Portal.Consultoras.Web.Models
         public bool TieneSession { get; set; }
         public int Campania { get; set; }
         public string Cuv { get; set; }
+        public bool EsEditable { get; set; }
+        public bool IsMobile { get; set; }
 
         public bool TieneReloj { get; set; }
         public bool TieneCompartir { get; set; }
