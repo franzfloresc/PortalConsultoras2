@@ -77,7 +77,7 @@
                     </div>
                 </div>
                 <div class="text-center">
-                    <button type="button" class="border-radius-4 text-bold btn_cdr" id="IrPAso2">SIGUIENTE</button>
+                    <button type="button" class="border-radius-4 text-bold btn_cdr btn_ir_paso_2" id="IrPAso2">SIGUIENTE</button>
                 </div>
                 <br />
             </div>
@@ -89,8 +89,8 @@
                 <div class="subtitulo_reclamo">Escoge una solución</div>
                 <div id="divOperacion" class="text-center lista_opciones_cdr_wrapper">
                 </div>
-                <div id="infoOpcionesDeCambio" style="display:none;">
-                    <div id="OpcionCambioPorOtroProducto" style="display:none;">
+                    <div id="infoOpcionesDeCambio" class="text-center" style="display:none;">
+                        <div id="OpcionCambioPorOtroProducto" class="opcion_cdr_seleccionada_info_wrapper" style="display:none;">
                         <!-- INFORMACIÓN CUANDO SE SELECCIONA LA OPCIÓN DE CAMBIAR POR OTRO PRODUCTO -->
                         <div class="opcion_cdr_seleccionada_info opcion_cdr_seleccionada_info--cambiarPorOtroProducto">
                             <p>Puedes cambiarlo por otro producto(s) cuyo monto sea mayor o igual al que reclamas (<span id="spnSimboloMonedaReclamo">S/.</span><span id="spnMontoMinimoReclamoFormato">15</span>)</p>
@@ -120,7 +120,7 @@
                         </div>
                         <!-- FIN - INFORMACIÓN CUANDO SE SELECCIONA LA OPCIÓN DE CAMBIAR POR OTRO PRODUCTO -->
                     </div>
-                    <div id="OpcionCambioMismoProducto" style="display:none;">
+                        <div id="OpcionCambioMismoProducto" class="opcion_cdr_seleccionada_info_wrapper" style="display:none;">
                         <div class="opcion_cdr_seleccionada_info opcion_cdr_seleccionada_info--cambioMismoProducto">
                             <p class="text-bold">Vamos a reenviarte el mismo producto:</p>
                             <p class="text-bold">
@@ -128,7 +128,7 @@
                             </p>
                         </div>
                     </div>
-                    <div id="OpcionEnvioDelProducto" style="display:none;">
+                        <div id="OpcionEnvioDelProducto" class="opcion_cdr_seleccionada_info_wrapper" style="display:none;">
                         <div class="opcion_cdr_seleccionada_info opcion_cdr_seleccionada_info--envioProducto">
                             <p class="text-bold">Vamos a enviarte el siguiente producto:</p>
                             <p class="text-bold">
@@ -136,7 +136,7 @@
                             </p>
                         </div>
                     </div>
-                    <div id="OpcionDevolucionDinero" style="display:none;">
+                        <div id="OpcionDevolucionDinero" class="opcion_cdr_seleccionada_info_wrapper" style="display:none;">
                         <div class="opcion_cdr_seleccionada_info opcion_cdr_seleccionada_info--devolucionDinero">
                             <p class="text-bold">Vamos a descontar el siguiente producto en tu próximo pedido:</p>
                             <p class="text-bold">
@@ -144,16 +144,14 @@
                             </p>
                         </div>
                     </div>
-                    <div id="OpcionDevolucion" style="display:none;">
+                        <div id="OpcionDevolucion" class="opcion_cdr_seleccionada_info_wrapper" style="display:none;">
                         <!-- INFORMACIÓN CUANDO SE SELECCIONA LA OPCIÓN DE DEVOLUCIÓN Y EL PRODUCTO FORMA PARTE DE UN SET -->
                         <div id="divDevolucionSetsOrPack" class="opcion_cdr_seleccionada_info opcion_cdr_seleccionada_info--devolucionCasoSetProducto">
                         </div>
                         <!-- FIN - INFORMACIÓN CUANDO SE SELECCIONA LA OPCIÓN DE DEVOLUCIÓN Y EL PRODUCTO FORMA PARTE DE UN SET -->
                     </div>
                 </div>
-                <button type="button" class="border-radius-4 text-bold btn_cdr btn_solucion_reclamo" onclick="IrAFinalizar()" id="btnSiguiente">Siguiente</button>
-                <hr class="clear" />
-
+                    <button type="button" id="btnIrPaso3" class="border-radius-4 text-bold btn_cdr btn_solucion_reclamo" style="display:none;" onclick="IrAFinalizar()" id="btnSiguiente">Siguiente</button>
                 @*<div class="content_reclamo" id="Cambio2" style="display: none;">
                         <div class="subtitulo_reclamo_light">ELEGISTE</div>
                         <div class="titulo_belcorp_reclamo">CAMBIARLO POR OTRO PRODUCTO</div>
