@@ -99,7 +99,8 @@ namespace Portal.Consultoras.Web.Controllers
                 var componentes = _estrategiaComponenteProvider.GetListaComponentes(estrategiaModelo, codigoEstrategia, out esMultimarca, out mensaje);
 
                 #region AGana 399: data tmp
-                //componentes.ForEach(x => {
+                //componentes.ForEach(x =>
+                //{
 
                 //    x.Cabecera = new EstrategiaComponenteCabeceraModel { ContenidoNeto = "80 ml", Dimensiones = "15 x 20 x 25 milímetros", TallaMedidas = "Talla medida ejm 1" };
                 //    x.Secciones = new List<EstrategiaComponenteSeccionModel>(){
@@ -133,9 +134,14 @@ namespace Portal.Consultoras.Web.Controllers
                 #endregion
 
                 #region Agana 399
+
+                //validación 'tiene videos'                
                 componentes.ForEach(c => { c.Secciones.ForEach(x => { x.EsVideos = x.Detalles.FindAll(y => !string.IsNullOrEmpty(y.Key)).Count > 0; }); });
-                #endregion
+                //validación 'tiene detalle de sección'
+                componentes.ForEach(c => { c.Secciones.ForEach(x => { c.MostrarVerDetalle = x.Detalles.Count > 0; }); });
                  
+                #endregion
+
                 return Json(new
                 {
                     success = true,
@@ -155,6 +161,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
         }
-         
+
     }
 }
