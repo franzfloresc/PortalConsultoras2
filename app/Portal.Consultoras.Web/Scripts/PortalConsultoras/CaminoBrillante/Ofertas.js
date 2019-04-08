@@ -66,6 +66,8 @@ function CambiarOferta() {
         $('#Demostradores').hide();
         $("#Tab-kits").addClass("activado-dorado");
         $("#Tab-Demostradores").removeClass("activado-dorado");
+        $("#divresultadosDemostradores").hide();
+        $("#divresultadosKit").show();
     });
 
 
@@ -75,7 +77,7 @@ function CambiarOferta() {
 
         $("#Tab-kits").removeClass("activado-dorado");
         $("#Tab-Demostradores").addClass("activado-dorado");
+        $("#divresultadosKit").hide();
+        $("#divresultadosDemostradores").show();
     });
 }
-
-
