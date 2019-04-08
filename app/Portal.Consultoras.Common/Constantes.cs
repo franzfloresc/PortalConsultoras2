@@ -754,6 +754,36 @@ namespace Portal.Consultoras.Common
             public const int MobileLandingGanadorasGanadorasFicha = 2111402; // Esta en duro en ConstantesModule
             #endregion
 
+            #region Duo Perfecto
+            public const int DesktopLandingDuoPerfectoCarrusel = 1141601;
+            public const int DesktopLandingDuoPerfectoFicha = 1141602;
+            public const int DesktopHomeDuoPerfectoCarrusel = 1011601;
+            public const int DesktopHomeDuoPerfectoFicha = 1011602;
+            public const int DesktopPedidoDuoPerfectoCarrusel = 1021601;
+            public const int DesktopPedidoDuoPerfectoFicha = 1021602;
+            public const int MobileLandingDuoPerfectoCarrusel = 2141601;
+            public const int MobileLandingDuoPerfectoFicha = 2141602;
+            public const int MobileHomeDuoPerfectoCarrusel = 2011601;
+            public const int MobileHomeDuoPerfectoFicha = 2011602;
+            public const int MobilePedidoDuoPerfectoCarrusel = 2021601;
+            public const int MobilePedidoDuoPerfectoFicha = 2021602;
+            #endregion
+
+            #region Pack Nuevas
+            public const int DesktopLandingPackNuevasCarrusel = 1151701;
+            public const int DesktopLandingPackNuevasFicha = 1151702;
+            public const int DesktopHomePackNuevasCarrusel = 1011701;
+            public const int DesktopHomePackNuevasFicha = 1011702;
+            public const int DesktopPedidoPackNuevasCarrusel = 1021701;
+            public const int DesktopPedidoPackNuevasFicha = 1021702;
+            public const int MobileLandingPackNuevasCarrusel = 2151701;
+            public const int MobileLandingPackNuevasFicha = 2151702;
+            public const int MobileHomePackNuevasCarrusel = 2011701;
+            public const int MobileHomePackNuevasFicha = 2011702;
+            public const int MobilePedidoPackNuevasCarrusel = 2021701;
+            public const int MobilePedidoPackNuevasFicha = 2021702;
+            #endregion
+
             #region VirtualCoach
             public const int VirtualCoachDesktopPedido = 1231;
             public const int VirtualCoachMobilePedido = 2231;

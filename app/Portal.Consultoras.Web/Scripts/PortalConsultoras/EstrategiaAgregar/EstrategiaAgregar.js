@@ -263,7 +263,14 @@ var EstrategiaAgregarModule = (function () {
         var origenPedidoWebEstrategia = getOrigenPedidoWeb($btnAgregar);
         //console.log(origenPedidoWebEstrategia);
         var estrategia = getEstrategia($btnAgregar, origenPedidoWebEstrategia);
-        //console.log(estrategia);
+
+        if (typeof getOrigenPedidoWebDetalle !== 'undefined') {
+            var origenDetalle = getOrigenPedidoWebDetalle(estrategia);
+            if (origenDetalle) {
+                origenPedidoWebEstrategia = origenDetalle;
+            }
+        }
+        console.log(estrategia);
         if (estrategiaEstaBloqueada($btnAgregar, estrategia.CampaniaID)) {
             estrategia.OrigenPedidoWebEstrategia = origenPedidoWebEstrategia;
             getDivMsgBloqueado($btnAgregar, estrategia).show();
@@ -378,6 +385,7 @@ var EstrategiaAgregarModule = (function () {
 
                 $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataInputCantidad).val("1");
 
+			
                 if (divAgregado != null) {
                     if (typeof divAgregado.length != "undefined" && divAgregado.length > 0) {
                         divAgregado.each(function (index, element) {

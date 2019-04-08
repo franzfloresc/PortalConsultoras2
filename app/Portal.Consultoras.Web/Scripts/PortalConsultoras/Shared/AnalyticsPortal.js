@@ -3,7 +3,6 @@ if (!jQuery) { throw new Error("AnalyticsPortal.js requires jQuery"); }
 
 +function ($) {
     "use strict";
-
 }(window.jQuery);
 
 var AnalyticsPortalModule = (function () {
@@ -44,7 +43,10 @@ var AnalyticsPortalModule = (function () {
         CarritoCompras: "Carrito de compras",
         siguiente: "Ver siguiente",
         anterior: "Ver anterior",
-        palancaLasMasGandoras: "Más Ganadoras"
+        duoPerfecto: "Dúo Perfecto", //HD-3473 EINCA
+        palancaLasMasGandoras: "Más Ganadoras",
+        armaTuDuoPerfecto: ' Arma tu Dúo Perfecto - Dúo Perfecto' //HD-3473 EINCA
+
         // Fin - Analytics Ofertas (Miguel)
     };
 
@@ -57,13 +59,14 @@ var AnalyticsPortalModule = (function () {
         ODD: "ODD",
         GND: "GND",
         MG: "MG",
-        Ficha: "FICHA"
+        Ficha: "FICHA",
+        DP: "DP" //HD-3473 EINCA
     };
     // Fin - Analytics Home 1 (Miguel)
 
     var _constantes = {
         // Ini - Analytics Buscador Miguel
-        isTest: false,
+        isTest: false, //Desactivar HD-3473 EINCA
         currencyCodes: [
             { "CountryCode": "BO", "Code": "BOB" },
             { "CountryCode": "CL", "Code": "CLP" },
@@ -80,7 +83,8 @@ var AnalyticsPortalModule = (function () {
         ],
         seccionesPalanca: [
             { "CodigoSeccion": "ODD", "Palanca": "Oferta Del Día" },
-            { "CodigoSeccion": "SR", "Palanca": "Showroom" }
+            { "CodigoSeccion": "SR", "Palanca": "Showroom" },
+            { "CodigoSeccion": "DP", "Palanca": "Dúo Perfecto" }//HD-3473 EINCA
         ],
         origenpedidoWeb: [
             { "CodigoPalanca": "00", "Palanca": "Ofertas Para Ti" },
@@ -97,7 +101,10 @@ var AnalyticsPortalModule = (function () {
             { "CodigoPalanca": "11", "Palanca": "Catalogo Lbel" },
             { "CodigoPalanca": "12", "Palanca": "Catalogo Esika" },
             { "CodigoPalanca": "13", "Palanca": "Catalogo Cyzone" },
-            { "CodigoPalanca": "14", "Palanca": "Más Ganadoras" }
+            { "CodigoPalanca": "14", "Palanca": "Más Ganadoras" },
+            { "CodigoPalanca": "15", "Palanca": "" },
+            { "CodigoPalanca": "16", "Palanca": "Dúo Perfecto" },
+            { "CodigoPalanca": "17", "Palanca": "Pack de Nuevas" },
         ],
         origenpedidoWebHome: [
             { "Codigo": "010306", "Descripcion": "Banner Header" },
@@ -120,7 +127,11 @@ var AnalyticsPortalModule = (function () {
             { "CodigoPagina": "08", "Pagina": "Contenedor" },
             { "CodigoPagina": "09", "Pagina": "Otras" },
             { "CodigoPagina": "10", "Pagina": "Landing Buscador" },
-            { "CodigoPagina": "11", "Pagina": "Landing Ganadoras" }
+            { "CodigoPagina": "11", "Pagina": "Landing Ganadoras" },
+            { "CodigoPagina": "12", "Pagina": "" },
+            { "CodigoPagina": "13", "Pagina": "" },
+            { "CodigoPagina": "14", "Pagina": "Landing Dúo Perfecto" },
+            { "CodigoPagina": "15", "Pagina": "Landing Pack de Nuevas" }
         ],
         secciones: [
             { "CodigoSeccion": "01", "Seccion": "Carrusel" },
@@ -139,6 +150,7 @@ var AnalyticsPortalModule = (function () {
         campania: "Campaña ",
         IdBannerGanadorasVerMas: "000123",
         // Fin - Analytics Ofertas
+        IdBennerDuoPerfecto: "347301"
     };
 
     var _origenPedidoWebEstructura = {
@@ -175,7 +187,10 @@ var AnalyticsPortalModule = (function () {
             { "Codigo": "11", "CodigoPalanca": "", "TextoList": "" },
             { "Codigo": "12", "CodigoPalanca": "", "TextoList": "" },
             { "Codigo": "13", "CodigoPalanca": "", "TextoList": "" },
-            { "Codigo": "14", "CodigoPalanca": "MG", "TextoList": "Más Ganadoras" }
+            { "Codigo": "14", "CodigoPalanca": "MG", "TextoList": "Más Ganadoras" },
+            { "Codigo": "15", "CodigoPalanca": "", "TextoList": "" },
+            { "Codigo": "16", "CodigoPalanca": "DP", "TextoList": "Dúo Perfecto" },
+            { "Codigo": "17", "CodigoPalanca": "PN", "TextoList": "Pack de Nuevas" }
         ],
         Seccion: [
             { "Codigo": "01", "TextoList": "" },
@@ -203,12 +218,26 @@ var AnalyticsPortalModule = (function () {
         { Codigo: "11", UrlController: "" },
         { Codigo: "12", UrlController: "" },
         { Codigo: "13", UrlController: "" },
-        { Codigo: "14", UrlController: "MasGanadoras" }
+        { Codigo: "14", UrlController: "MasGanadoras" },
+        { Codigo: "15", UrlController: "" },
+        { Codigo: "16", UrlController: "" },
+        { Codigo: "17", UrlController: "" }
     ]
 
     ////////////////////////////////////////////////////////////////////////////////////////
     // Ini - Metodos Iniciales
     ////////////////////////////////////////////////////////////////////////////////////////
+    var _getIdPalancaSegunCodigo = function (codigo) {
+        var total = _origenPedidoWebEstructura.Palanca.length;
+        for (var i = 0; i < total; i++) {
+            var item = _origenPedidoWebEstructura.Palanca[i];
+            if (item.CodigoPalanca == codigo) {
+                return item.Codigo;
+            }
+        }
+
+        return "";
+    };
 
     var _getEstructuraOrigenPedidoWeb = function (origen, url) {
         var origenEstructura = {};
@@ -237,6 +266,10 @@ var AnalyticsPortalModule = (function () {
             origenEstructura.Palanca = _getCodigoPalancaSegunUrl(url);
         }
 
+        if (origenEstructura.Palanca == "" && origenEstructura.CodigoPalanca != "") {
+            origenEstructura.Palanca = _getIdPalancaSegunCodigo(origenEstructura.CodigoPalanca);
+        }
+
         if (origenEstructura.Pagina == "" && url != "") {
             switch (window.controllerName) {
                 case "ofertas": origenEstructura.Pagina = ConstantesModule.OrigenPedidoWebEstructura.Pagina.Contenedor; break;
@@ -258,6 +291,8 @@ var AnalyticsPortalModule = (function () {
             || origenEstructura.Pagina == ConstantesModule.OrigenPedidoWebEstructura.Pagina.LandingHerramientasVenta
             || origenEstructura.Pagina == ConstantesModule.OrigenPedidoWebEstructura.Pagina.LandingLiquidacion
             || origenEstructura.Pagina == ConstantesModule.OrigenPedidoWebEstructura.Pagina.LandingOfertasParaTi
+            || origenEstructura.Pagina == ConstantesModule.OrigenPedidoWebEstructura.Pagina.LandingDuoPerfecto
+            || origenEstructura.Pagina == ConstantesModule.OrigenPedidoWebEstructura.Pagina.LandingPackNuevas
             || origenEstructura.Pagina == ConstantesModule.OrigenPedidoWebEstructura.Pagina.LandingShowroom
             || origenEstructura.Seccion == ConstantesModule.OrigenPedidoWebEstructura.Seccion.Ficha
             || origenEstructura.Seccion == ConstantesModule.OrigenPedidoWebEstructura.Seccion.CarruselVerMas
@@ -568,6 +603,8 @@ var AnalyticsPortalModule = (function () {
                 case "Home": !esFicha ? contenedor = "Contenedor - Inicio" : contenedor = contenedorFicha; break;
                 case "Contenedor": !esFicha ? contenedor = "Contenedor - Inicio" : contenedor = contenedorFicha; break;
                 case "Landing Ofertas Para Ti": !esFicha ? contenedor = _texto.contenedor : contenedor = contenedorFicha; break;
+                case "Landing Dúo Perfecto": !esFicha ? contenedor = _texto.contenedor : contenedor = contenedorFicha; break;
+                case "Landing Pack de Nuevas": !esFicha ? contenedor = _texto.contenedor : contenedor = contenedorFicha; break;
                 case "Pedido": contenedor = "Carrito de compras"; break;
                 case "Otras": contenedor = !esFicha ? _texto.contenedor : contenedor = contenedorFicha; break;
                 case "Landing Showroom": !esFicha ? contenedor = _texto.contenedor : contenedor = contenedorFicha; break;
@@ -1060,7 +1097,8 @@ var AnalyticsPortalModule = (function () {
             seccion = seccion.replace("Lista", "");
 
             switch (seccion) {
-                case _codigoSeccion.LAN: _marcaPromotionViewBanner(seccion, data, pos); break;
+                case _codigoSeccion.LAN:
+                case _codigoSeccion.DP: _marcaPromotionViewBanner(seccion, data, pos); break;
                 default:
                     _marcarProductImpresionSegunLista(data); break;
             }
@@ -1069,7 +1107,7 @@ var AnalyticsPortalModule = (function () {
         }
 
     }
-    
+
     var marcaVerDetalleProducto = function (element, codigoOrigenPedido, url) {
         try {
             if (_constantes.isTest)
@@ -1099,10 +1137,56 @@ var AnalyticsPortalModule = (function () {
                     }
                 }
             });
-
         } catch (e) {
             console.log(_texto.excepcion + e);
         }
+    }
+
+    //HD-3473 EINCA 
+    var marcaPromotionViewBanner = function (pos) {
+        try {
+            dataLayer.push({
+                'event': _evento.promotionView,
+                'ecommerce': {
+                    'promoView': {
+                        'promotions': [
+                            {
+                                'id': _constantes.IdBennerDuoPerfecto,
+                                'name': _texto.armaTuDuoPerfecto,
+                                'position': pos + ' - Dúo Perfecto',
+                                'creative': 'Banner'
+                            }]
+                    }
+                }
+            });
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+
+    }
+
+    //HD-3473 EINCA 
+    var marcaPromotionClicBanner = function (OrigenPedidoWeb, texto, url) {
+        try {
+            var pos = _getParametroListSegunOrigen(OrigenPedidoWeb, url);
+            dataLayer.push({
+                'event': 'promotionClick',
+                'ecommerce': {
+                    'promoClick': {
+                        'promotions': [
+                            {
+                                'id': _constantes.IdBennerDuoPerfecto,
+                                'name': _texto.armaTuDuoPerfecto,
+                                'position': pos,
+                                'creative': 'Banner'
+                            }]
+                    }
+                }
+            });
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+
     }
 
     var marcaDetalleProductoBienvenida = function (element, codigoOrigenPedido) {
@@ -1464,9 +1548,10 @@ var AnalyticsPortalModule = (function () {
 
     var _autoMapperV2 = function (codigoSeccion, data, pos) {
         var collection = [];
+        var element;
 
         if (codigoSeccion == _codigoSeccion.LAN) {
-            var element = $("[data-seccion=" + codigoSeccion + "]");
+            element = $("[data-seccion=" + codigoSeccion + "]");
             var codigo = element.data("origenpedidoweb");
             $.each(data, function (index) {
                 var item = data[index];
@@ -1478,6 +1563,17 @@ var AnalyticsPortalModule = (function () {
                 };
                 collection.push(element);
             });
+        }
+
+        //HD-3473 EINCA para duo solo se registra uno
+        if (codigoSeccion == _codigoSeccion.DP) {
+            element = {
+                'id': _constantes.IdBennerDuoPerfecto,
+                'name': 'Arma tu Dúo Perfecto - Dúo Perfecto',
+                'position': (pos !== undefined) ? pos + ' - Dúo Perfecto' : '',
+                'creative': "Banner"
+            };
+            collection.push(element);
         }
 
         return collection;
@@ -1528,12 +1624,18 @@ var AnalyticsPortalModule = (function () {
 
     }
 
-    var marcaClicVerMasOfertas = function (url, origenPedido, titulo) {
+    var marcaClicVerMasOfertas = function (url, origenPedido, titulo, clicEnBanner) {
         try {
             if (_constantes.isTest)
                 alert("Marcación Ver más ofertas.");
 
             var textoCategory = _getParametroListSegunOrigen(origenPedido, url);
+
+            if (typeof clicEnBanner !== "undefined" && typeof clicEnBanner !== undefined) {
+                if (clicEnBanner) {
+                    marcaPromotionClicBanner(origenPedido, titulo);
+                }
+            }
 
             dataLayer.push({
                 'event': _evento.virtualEvent,
@@ -2429,9 +2531,10 @@ var AnalyticsPortalModule = (function () {
         MarcaRecomendacionesFlechaSiguiente: marcaRecomendacionesFlechaSiguiente,
         MarcaRecomendacionesFlechaAnterior: marcaRecomendacionesFlechaAnterior,
         MarcaOcultarRecomendaciones: marcaOcultarRecomendaciones,
+        MarcaPromotionViewBanner: marcaPromotionViewBanner,//HD-3473 EINCA 
+        MarcaPromotionClicBanner: marcaPromotionClicBanner,//HD-3473 EINCA 
         MarcaCategoria: marcaCategoria,
         MarcaAnadirCarritoRecomendaciones: marcaAnadirCarritoRecomendaciones,
-
         MarcaFiltroPorSeccion: marcaFiltroPorSeccion,
         MarcaEliminarEtiqueta: marcaEliminarEtiqueta,
         MarcaLimpiarFiltros: marcaLimpiarFiltros,
