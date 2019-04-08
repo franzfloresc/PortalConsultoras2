@@ -1,4 +1,4 @@
-USE BelcorpBolivia_MC
+USE BelcorpBolivia
 GO
 
 IF NOT EXISTS (
@@ -33,7 +33,7 @@ BEGIN
 		)
 	VALUES (
 		200
-		,'Activación versión nueva trama YOBEL'
+		,'Activación nueva trama YOBEL'
 		)
 END
 GO
@@ -53,7 +53,7 @@ BEGIN
 		)
 	VALUES (
 		200
-		,'Activación versión nueva trama YOBEL'
+		,'Activación nueva trama YOBEL'
 		)
 END
 GO
@@ -73,7 +73,7 @@ BEGIN
 		)
 	VALUES (
 		200
-		,'Activación versión nueva trama YOBEL'
+		,'Activación nueva trama YOBEL'
 		)
 END
 GO
@@ -93,7 +93,7 @@ BEGIN
 		)
 	VALUES (
 		200
-		,'Activación versión nueva trama YOBEL'
+		,'Activación nueva trama YOBEL'
 		)
 END
 GO
@@ -113,7 +113,7 @@ BEGIN
 		)
 	VALUES (
 		200
-		,'Activación versión nueva trama YOBEL'
+		,'Activación nueva trama YOBEL'
 		)
 END
 GO
@@ -133,7 +133,7 @@ BEGIN
 		)
 	VALUES (
 		200
-		,'Activación versión nueva trama YOBEL'
+		,'Activación nueva trama YOBEL'
 		)
 END
 GO
@@ -153,7 +153,7 @@ BEGIN
 		)
 	VALUES (
 		200
-		,'Activación versión nueva trama YOBEL'
+		,'Activación nueva trama YOBEL'
 		)
 END
 GO
@@ -173,7 +173,7 @@ BEGIN
 		)
 	VALUES (
 		200
-		,'Activación versión nueva trama YOBEL'
+		,'Activación nueva trama YOBEL'
 		)
 END
 GO
@@ -193,7 +193,7 @@ BEGIN
 		)
 	VALUES (
 		200
-		,'Activación versión nueva trama YOBEL'
+		,'Activación nueva trama YOBEL'
 		)
 END
 GO
@@ -213,7 +213,7 @@ BEGIN
 		)
 	VALUES (
 		200
-		,'Activación versión nueva trama YOBEL'
+		,'Activación nueva trama YOBEL'
 		)
 END
 GO
@@ -233,7 +233,7 @@ BEGIN
 		)
 	VALUES (
 		200
-		,'Activación versión nueva trama YOBEL'
+		,'Activación nueva trama YOBEL'
 		)
 END
 GO
