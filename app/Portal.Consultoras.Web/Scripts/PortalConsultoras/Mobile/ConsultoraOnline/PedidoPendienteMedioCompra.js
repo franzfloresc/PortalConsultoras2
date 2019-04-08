@@ -16,7 +16,7 @@
         else {
             $('#btnAceptarPedido a').addClass('active');
         }
-       
+
         e.preventDefault();
         return false;
     });
@@ -29,10 +29,9 @@ function AceptarPedidoPendiente(id, tipo) {
 
     var btn = $('.btnAccion a').not('.active')[0];
 
-    if (btn)
-    {
+    if (btn) {
          
-       
+
 
         var pedido = {
             //PedidoId: id,
@@ -44,7 +43,7 @@ function AceptarPedidoPendiente(id, tipo) {
                          //Tipo: tipo,
             //Ingresos: ing,
             //Dispositivo: glbDispositivo,
-           // CorreoClientes:['abc@a.com', 'bcd@g.com']
+            // CorreoClientes:['abc@a.com', 'bcd@g.com']
         }
 
       
@@ -100,10 +99,9 @@ function AceptarPedidoPendiente(id, tipo) {
                     AbrirMensaje("Ocurrió un error inesperado al momento de aceptar el pedido. Consulte con su administrador del sistema para obtener mayor información");
                 }
             }
-  });
+        });
 
     }
 
-  
+
 }
- 

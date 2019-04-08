@@ -67,7 +67,7 @@ namespace Portal.Consultoras.Web.Providers
             try
             {
                 respuesta = JsonConvert.DeserializeObject<OutputOferta>(jsonString);
-                estrategia = respuesta.Result;
+                estrategia = respuesta.Result ?? new Estrategia();
             }
             catch (Exception ex)
             {
@@ -113,6 +113,11 @@ namespace Portal.Consultoras.Web.Providers
             }
             
             string codTipoEstrategia = string.Empty, codCampania = string.Empty;
+
+            if (respuesta.Result == null)
+            {
+                return estrategias;
+            }
 
             foreach (Models.Search.ResponseOferta.Estructura.Estrategia item in respuesta.Result)
             {
@@ -310,6 +315,24 @@ namespace Portal.Consultoras.Web.Providers
         {
             bool tipoEstrategiaHabilitado = _sessionManager.GetConfigMicroserviciosPersonalizacion().EstrategiaHabilitado.Contains(tipoEstrategia);
             return tipoEstrategiaHabilitado;
+        }
+
+        public bool UsarLocalStorage(string tipoEstrategia)
+        {
+            if (_sessionManager.GetConfigMicroserviciosPersonalizacion().GuardaDataEnLocalStorage.IsNullOrEmptyTrim())
+                return false;
+
+            bool usaLocalStorage = _sessionManager.GetConfigMicroserviciosPersonalizacion().GuardaDataEnLocalStorage.Contains(tipoEstrategia);
+            return usaLocalStorage;
+        }
+
+        public bool UsarSession(string tipoEstrategia)
+        {
+            if (_sessionManager.GetConfigMicroserviciosPersonalizacion().GuardaDataEnSession.IsNullOrEmptyTrim())
+                return false;
+
+            bool usaSession = _sessionManager.GetConfigMicroserviciosPersonalizacion().GuardaDataEnSession.Contains(tipoEstrategia);
+            return usaSession;
         }
     }
 }

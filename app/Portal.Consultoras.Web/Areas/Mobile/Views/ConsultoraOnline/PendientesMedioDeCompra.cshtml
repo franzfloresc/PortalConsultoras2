@@ -2,6 +2,8 @@
 @model Portal.Consultoras.Web.Models.PedidosPendientesMedioPagoModel
 
 @{
+    /**/
+
     var layout = ViewContext.MobileLayout();
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
     var mobileConfiguracion = Html.MobileAppConfiguracion();
@@ -14,87 +16,87 @@
 
 <!-- Paso 2  -->
 <div class="container-flex pending ">
-  
-  <!-- Attend title   -->
-  <div class="container pending-top">
-    <div class="row align-items-center">
-      <div class="col-10">
-        <h2 class="attend-title mb-0">Paso 2: Elige cómo atender</h2>
-        <span class="attend-subtitle text-12">Podrás vender todo a @ViewBag.Simbolo @Model.TotalCatalogo</span>
-      </div>
-      <div class="col-2">
-        <div class="attend-close">
-          <img class="attend-img_32" src="https://i.ibb.co/tPxhXbW/close-3x.png" alt="cerrar">
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- / Attend title   -->
-  
-  <hr class="mt-8">
 
-  <!--  Con Gana+  -->
-  <div class="container  containBox">
-    <div class="porGanaMas">
-      <div class="row align-items-center">
-        <div class="col-8 pr-0">
-            <h3 class="title-small text-700 text-gray">Por Gana+ @ViewBag.Simbolo @Model.TotalGana</h3>
-            <span class="text-purple text-14">Gana @ViewBag.Simbolo @Model.GananciaGana</span>
+    <!-- Attend title   -->
+    <div class="container pending-top">
+        <div class="row align-items-center">
+            <div class="col-10">
+                <h2 class="attend-title mb-0">Paso 2: Elige cómo atender</h2>
+                <span class="attend-subtitle text-12">Podrás vender todo a @ViewBag.Simbolo @Model.TotalCatalogo</span>
+            </div>
+            <div class="col-2">
+                <div class="attend-close">
+                    <img class="attend-img_32" src="https://i.ibb.co/tPxhXbW/close-3x.png" alt="cerrar">
+                </div>
+            </div>
         </div>
-        <div class="col">
-          <div data-accion="ingrgana"  class="btnAccion vc-box text-black text-14 text-700">
-            <a href="#" class="action-btn action-btn_border active">Elegido</a>
-          </div>
-        </div>
-      </div>
+    </div>
+    <!-- / Attend title   -->
+
+    <hr class="mt-8">
+
+    <!--  Con Gana+  -->
+    <div class="container  containBox">
+        <div class="porGanaMas">
+            <div class="row align-items-center">
+                <div class="col-8 pr-0">
+                    <h3 class="title-small text-700 text-gray">Por Gana+ @ViewBag.Simbolo @Model.TotalGana</h3>
+                    <span class="text-purple text-14">Gana @ViewBag.Simbolo @Model.GananciaGana</span>
+                </div>
+                <div class="col">
+                    <div data-accion="ingrgana" class="btnAccion vc-box text-black text-14 text-700">
+                        <a href="#" class="action-btn action-btn_border active">Elegido</a>
+                    </div>
+                </div>
+            </div>
       <div class="row conGanaMas  vc-box vc-box--shadow  @if (Model.ListaGana.Count>2){  <text>brokenBox</text> 	} "  data-listagana="@Json.Encode(Model.ListaGana)" >
-          @*<div class="col products-item">
-              <img src="https://i.ibb.co/MVyDK3j/square-3x.jpg" class="img-fluid products-img" alt="Producto">
-              <p class="text-12 text-gray">Pack 4 Delineadores Líquido Punta Plumón Marrón otoño</p>
-              <span class="text-12 text-gray">S/. 50.80</span>
-          </div>
-          <div class="col products-item">
-              <img src="https://i.ibb.co/MVyDK3j/square-3x.jpg" class="img-fluid products-img" alt="Producto">
-              <p class="text-12 text-gray">Delineador Líquido Punta Plumón Marrón otoño + Natural Care Coconut Ocean</p>
-              <span class="text-12 text-gray">S/. 15.80</span>
-          </div>*@
+                @*<div class="col products-item">
+                        <img src="https://i.ibb.co/MVyDK3j/square-3x.jpg" class="img-fluid products-img" alt="Producto">
+                        <p class="text-12 text-gray">Pack 4 Delineadores Líquido Punta Plumón Marrón otoño</p>
+                        <span class="text-12 text-gray">S/. 50.80</span>
+                    </div>
+                    <div class="col products-item">
+                        <img src="https://i.ibb.co/MVyDK3j/square-3x.jpg" class="img-fluid products-img" alt="Producto">
+                        <p class="text-12 text-gray">Delineador Líquido Punta Plumón Marrón otoño + Natural Care Coconut Ocean</p>
+                        <span class="text-12 text-gray">S/. 15.80</span>
+                    </div>*@
 
-          @foreach (var x in Model.ListaGana)
-            {
-              <div class="col products-item">
-                  <img src="@x.FotoProducto01" class="img-fluid products-img" alt="Producto">
-                  <p class="text-12 text-gray"> @x.DescripcionCUV2</p>
-                  <span class="text-12 text-gray">@ViewBag.Simbolo @x.PrecioString</span>
-              </div>
-            }
+                @foreach (var x in Model.ListaGana)
+                {
+                    <div class="col products-item">
+                        <img src="@x.FotoProducto01" class="img-fluid products-img" alt="Producto">
+                        <p class="text-12 text-gray"> @x.DescripcionCUV2</p>
+                        <span class="text-12 text-gray">@ViewBag.Simbolo @x.PrecioString</span>
+                    </div>
+                }
 
 
-      </div>
-      <span class="text-12 text-purple">* Incluye productos extras</span>
+            </div>
+            <span class="text-12 text-purple">* Incluye productos extras</span>
+        </div>
     </div>
-  </div>
-  <!-- / Con Gana+    -->
+    <!-- / Con Gana+    -->
 
-  <hr>
+    <hr>
 
-  <!--  Con Catálogo  -->
-  <div class="container containBox">
-    <div class="porCatalogo">
-      <div class="row align-items-center">
-        <div class="col-8 pr-0">
-          <h3 class="title-small text-700 text-gray">Por Catálogo</h3>
-          <span class="title-small text-700 text-gray"> @ViewBag.Simbolo @Model.TotalCatalogo</span>
-        </div>
-        <div class="col">
-          <div data-accion="ingrped"  class="btnAccion vc-box text-black text-14 text-700">
-            <a href="#" class="action-btn action-btn_border active">Elegir</a>
-          </div>
-        </div>
-      </div>
-      <div class="row conCatalogo vc-box vc-box--shadow  @if (Model.ListaGana.Count>2){  <text>brokenBox</text> 	} ">
+    <!--  Con Catálogo  -->
+    <div class="container containBox">
+        <div class="porCatalogo">
+            <div class="row align-items-center">
+                <div class="col-8 pr-0">
+                    <h3 class="title-small text-700 text-gray">Por Catálogo</h3>
+                    <span class="title-small text-700 text-gray"> @ViewBag.Simbolo @Model.TotalCatalogo</span>
+                </div>
+                <div class="col">
+                    <div data-accion="ingrped" class="btnAccion vc-box text-black text-14 text-700">
+                        <a href="#" class="action-btn action-btn_border active">Elegir</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row conCatalogo vc-box vc-box--shadow  @if (Model.ListaGana.Count>2){  <text>brokenBox</text> 	} ">
 
-          @foreach (var x in Model.ListaCatalogo)
-            {
+                @foreach (var x in Model.ListaCatalogo)
+                {
 
                  for (int i = 0; i < x.Cantidad; i++)
                     {
@@ -113,209 +115,205 @@
             <p class="text-12 text-gray">Pack 4 Delineadores Líquido Punta Plumón Marrón otoño</p>
             <span class="text-12 text-gray">S/. 15.80</span>
         </div>*@
-      </div>
+            </div>
 
+        </div>
     </div>
-  </div>
-  <!-- / Con Catálogo    -->
-  <hr>
+    <!-- / Con Catálogo    -->
+    <hr>
 
-  <!--  Con Stock  -->
-  <div class="container">
-    <div class="yaLoTengo">
-      <div class="row align-items-center">
-        <div class="col-8">
-          <h3 class="title-small text-700 text-gray">Ya lo tengo en stock</h3>
-        </div>
-        <div class="col">
-          <div data-accion="ingrten"  class="btnAccion vc-box text-black text-14 text-700">
-            <a href="#" class="action-btn action-btn_border active">Elegir</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- / Con Stock    -->  
-  
-  <hr>
-  
-  <!--  Tooltip  -->
-  <div class="container position-absolute" style="display:none">
-    <!--   Tooltip bottom     -->
-    <div class="row align-items-center position-relative action-continue">
-      <div class="col mb-16">
-        <div class="tooltip-secondary tooltip-arrow_bottom ptb-16 ">
-          <div class="col-12">
-            <h6 class="text-14 text-black text-700 tooltip-info">Debes elegir cómo atender el pedido para aprobarlo.</h6>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!--  / Tooltip bottom      -->
-  </div>
-  <!--  / Tooltip  -->
-  
-  <!--  / Action buttons  -->
-  <div class="bt-1 ptb-8 mt-32">
+    <!--  Con Stock  -->
     <div class="container">
-      <div class="row">
+        <div class="yaLoTengo">
+            <div class="row align-items-center">
+                <div class="col-8">
+                    <h3 class="title-small text-700 text-gray">Ya lo tengo en stock</h3>
+                </div>
+                <div class="col">
+                    <div data-accion="ingrten" class="btnAccion vc-box text-black text-14 text-700">
+                        <a href="#" class="action-btn action-btn_border active">Elegir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- / Con Stock    -->
+
+    <hr>
+
+    <!--  Tooltip  -->
+    <div class="container position-absolute" style="display:none">
+        <!--   Tooltip bottom     -->
+        <div class="row align-items-center position-relative action-continue">
+            <div class="col mb-16">
+                <div class="tooltip-secondary tooltip-arrow_bottom ptb-16 ">
+                    <div class="col-12">
+                        <h6 class="text-14 text-black text-700 tooltip-info">Debes elegir cómo atender el pedido para aprobarlo.</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--  / Tooltip bottom      -->
+    </div>
+    <!--  / Tooltip  -->
+    <!--  / Action buttons  -->
+    <div class="bt-1 ptb-8 mt-32">
+        <div class="container">
+            <div class="row">
           <div class="col">
               <div id="btnAceptarPedido" onclick="AceptarPedidoPendiente()" class="vc-box text-14 text-700">
                   <a href="#" class="action-btn action-btn_continue " data-toggle="modal" >Aprobar pedido</a>
               </div>
               <a href="#"style="display:none" id="popuplink" class="action-btn action-btn_continue " data-toggle="modal" data-target="#aprobarPedido"></a>
           </div>
-      </div>
+            </div>
+        </div>
     </div>
-  </div>
-  <!--  / Action buttons  -->
+    <!--  / Action buttons  -->
 </div>
 
 <!-- modal -->
 <div id="aprobarPedido" class="modal animated bounceIn" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
-  <!-- dialog -->
-  <div class="modal-dialog">
+    <!-- dialog -->
+    <div class="modal-dialog">
 
-    <!-- content -->
-    <div class="modal-content">
+        <!-- content -->
+        <div class="modal-content">
 
-      <!-- header -->
-      <div class="modal-header">
-        <div class="" style="display: flex; justify-content: flex-end; width:100%">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <!--           <span aria-hidden="true">&times;</span> -->
-            <img src="https://i.ibb.co/tPxhXbW/close-3x.png" style="height: 32px; width: 32px" alt="cerrar">
-        </button>
+            <!-- header -->
+            <div class="modal-header">
+                <div class="" style="display: flex; justify-content: flex-end; width:100%">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <!--           <span aria-hidden="true">&times;</span> -->
+                        <img src="https://i.ibb.co/tPxhXbW/close-3x.png" style="height: 32px; width: 32px" alt="cerrar">
+                    </button>
 
-        </div>
-      </div>
-      <!-- header -->
-
-      <!-- body -->
-      <div class="modal-body" style=" margin-top: 76px;">
-        <div class="vc-box--action" style="display: flex; justify-content: center; align-items: center; width:100%">
-          <img src="https://i.ibb.co/n6p5vcB/check-circle-outline-3x.png" alt="error">
-        </div>
-        <p class="text-center text-18 text-700 text-black" style=" width: 85%; margin: 0 auto;">¡Pedido aprobado!</p>
-        <p class="text-center text-14 text-black mt-16 mb-24">Has atendido el pedido por Gana+.</p>
-        <!-- 
-        - Si elige Gana+: "Has atendido el pedido por Gana+."
-
-        - Si elige Catálogo: "Has atendido el pedido por catálogo."
-
-        - Si ya lo tiene en stock: "Recuerda atenderlo con los productos que tienes en stock."
-        -->
-        <div class="row justify-content-center ">
-          <div class="col-10 mb-16">
-            <div class="vc-box text-14 text-700">
-              <a href="#" class="action-btn action-btn_continue active">Ver pedidos por aprobar</a>
+                </div>
             </div>
-          </div>
-          <div class="w-100"></div>
-          <div class="col-10">
-            <div class="vc-box text-14 text-700">
-              <a href="#" class="action-btn action-btn_refuse " data-toggle="modal" data-target="#rechazarTodo">Ir a mis pedidos</a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- body -->
+            <!-- header -->
+            <!-- body -->
+            <div class="modal-body" style=" margin-top: 76px;">
+                <div class="vc-box--action" style="display: flex; justify-content: center; align-items: center; width:100%">
+                    <img src="https://i.ibb.co/n6p5vcB/check-circle-outline-3x.png" alt="error">
+                </div>
+                <p class="text-center text-18 text-700 text-black" style=" width: 85%; margin: 0 auto;">¡Pedido aprobado!</p>
+                <p class="text-center text-14 text-black mt-16 mb-24">Has atendido el pedido por Gana+.</p>
+                <!--
+                - Si elige Gana+: "Has atendido el pedido por Gana+."
 
-      <!-- footer -->
+                - Si elige Catálogo: "Has atendido el pedido por catálogo."
+
+                - Si ya lo tiene en stock: "Recuerda atenderlo con los productos que tienes en stock."
+                -->
+                <div class="row justify-content-center ">
+                    <div class="col-10 mb-16">
+                        <div class="vc-box text-14 text-700">
+                            <a href="#" class="action-btn action-btn_continue active">Ver pedidos por aprobar</a>
+                        </div>
+                    </div>
+                    <div class="w-100"></div>
+                    <div class="col-10">
+                        <div class="vc-box text-14 text-700">
+                            <a href="#" class="action-btn action-btn_refuse " data-toggle="modal" data-target="#rechazarTodo">Ir a mis pedidos</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- body -->
+            <!-- footer -->
+
+        </div>
+        <!-- footer -->
 
     </div>
-    <!-- footer -->
-
-  </div>
-  <!-- content -->
+    <!-- content -->
 
 </div>
 <!-- / modal -->
 <!-- /Paso 2  -->
-
 @*<div style="height:600px" data-cli   >
 
-    <div style="height:50px; border:1px solid black;">
-        Podras vender todo a <label>@Model.Total</label>
-    </div>
+        <div style="height:50px; border:1px solid black;">
+            Podras vender todo a <label>@Model.Total</label>
+        </div>
 
 
-    <div style="height:200px; border:1px thin black;overflow: hidden;">
-        por Gana+: <label>@Model.TotalGana</label><br />
-        Gana <label>@Model.GananciaGana</label>
-     
-        @foreach (var x in Model.ListaGana)
-         { 
-            <div style="height: 180px;
-    margin: 10px;
-    background-color: red;
-    width: 100px;
-    display: inline-block; color:white">
-                @x.DescripcionCUV2
-                <br />
-                @x.PrecioString
+        <div style="height:200px; border:1px thin black;overflow: hidden;">
+            por Gana+: <label>@Model.TotalGana</label><br />
+            Gana <label>@Model.GananciaGana</label>
+
+            @foreach (var x in Model.ListaGana)
+             {
+                <div style="height: 180px;
+        margin: 10px;
+        background-color: red;
+        width: 100px;
+        display: inline-block; color:white">
+                    @x.DescripcionCUV2
+                    <br />
+                    @x.PrecioString
 
 
-            </div>
+                </div>
 
-        }
+            }
 
 
+                <div style="width:100px;background-color:black;display: inline-block;color:white;width: 100px;text-align: center;padding: 10px;/* margin-bottom: 50px; */"> guardar</div>
+
+        </div>
+
+
+        <div style="height:200px; border:1px solid black;overflow: hidden;">
+            por Catalogo: <label>@Model.TotalCatalogo</label>
+
+
+            @foreach (var x in Model.ListaCatalogo)
+        {
+                          <div style="height: 180px;
+                    margin: 10px;
+                    background-color: darkslategrey;
+                    width: 100px;
+                    display: inline-block;">
+                              @x.Producto
+                              <br />
+                              @x.FormatoPrecioTotal
+
+
+
+                          </div>
+
+    }
             <div style="width:100px;background-color:black;display: inline-block;color:white;width: 100px;text-align: center;padding: 10px;/* margin-bottom: 50px; */"> guardar</div>
 
-    </div>
+        </div>
 
+        <div style="height:100px; border:1px thin black;">
+            ya lo tnego en stcok
 
-    <div style="height:200px; border:1px solid black;overflow: hidden;">
-        por Catalogo: <label>@Model.TotalCatalogo</label>
+            <div style="width:100px;background-color:black;display: inline-block;color:white;width: 100px;text-align: center;padding: 10px;/* margin-bottom: 50px; */"> guardar</div>
+        </div>
 
+        <div id="btnAceptarPedido" onclick="AceptarPedidoPendiente()" style="height:50px; border:1px solid black; text-align:center; background-color:black;display: inline-block;color:white; text-align: center;padding: 10px;">
+            aceptar pedido
+        </div>
 
-        @foreach (var x in Model.ListaCatalogo)
-    {
-                      <div style="height: 180px;
-                margin: 10px;
-                background-color: darkslategrey;
-                width: 100px;
-                display: inline-block;">
-                          @x.Producto
-                          <br />
-                          @x.FormatoPrecioTotal
-
-
-
-                      </div>
-
-}
-        <div style="width:100px;background-color:black;display: inline-block;color:white;width: 100px;text-align: center;padding: 10px;/* margin-bottom: 50px; */"> guardar</div>
-
-    </div>
-
-    <div style="height:100px; border:1px thin black;">
-        ya lo tnego en stcok
-
-        <div style="width:100px;background-color:black;display: inline-block;color:white;width: 100px;text-align: center;padding: 10px;/* margin-bottom: 50px; */"> guardar</div>
-    </div>
-
-    <div id="btnAceptarPedido" onclick="AceptarPedidoPendiente()" style="height:50px; border:1px solid black; text-align:center; background-color:black;display: inline-block;color:white; text-align: center;padding: 10px;">
-        aceptar pedido
-    </div>
-
-</div>*@
+    </div>*@
 
 
 @section scripts {
-    
+
 
     <script type="text/javascript">
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
         var urlPendientes = '@Url.Action("Pendientes", "ConsultoraOnline")';
         var urlPedido = '@Url.Action("Index", "Pedido")';
         var urlClienteDetalle = "@Url.Action("AgregarCliente", "Cliente", new { area = "Mobile" })";
-        
+
     </script>
 
-    
+
 
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/ConsultoraOnline/PedidoPendienteMedioCompra.js")"></script>
 
@@ -323,23 +321,23 @@
 
 
     <script type="text/javascript">
-      
+
         $('.conGanaMas').slick({
-          arrows: false,
-          mobileFirst: true,
-          infinite: false,
-          centerPadding: '40px',
-          slidesToShow: 2
-          // slidesToShow: 2.3
+            arrows: false,
+            mobileFirst: true,
+            infinite: false,
+            centerPadding: '40px',
+            slidesToShow: 2
+            // slidesToShow: 2.3
         });
         $('.conCatalogo').slick({
-          arrows: false,
-          mobileFirst: true,
-          infinite: false,
-          centerPadding: '40px',
-          // slidesToShow: 2
-          slidesToShow: 2.3
+            arrows: false,
+            mobileFirst: true,
+            infinite: false,
+            centerPadding: '40px',
+            // slidesToShow: 2
+            slidesToShow: 2.3
         });
-      
+
     </script>
 }

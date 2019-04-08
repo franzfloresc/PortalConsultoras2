@@ -2,6 +2,7 @@
 @model Portal.Consultoras.Web.Models.MisPedidosDetalleModel
 
 @{
+
     var layout = ViewContext.MobileLayout();
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
     var mobileConfiguracion = Html.MobileAppConfiguracion();
@@ -54,17 +55,17 @@
         var tiposoli = (solicitud.MarcaID == 0) ? 1 : 2;
     }
     @*<div class="pending-subtitle pending-bgGray">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <div class="mtb-16">
-                        <h3 class="text-14 text-700 text-gray m-0">Cliente:</h3>
-                        <p class="  text-14 text-gray">@solicitud.Cliente</p>
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="mtb-16">
+                            <h3 class="text-14 text-700 text-gray m-0">Cliente:</h3>
+                            <p class="  text-14 text-gray">@solicitud.Cliente</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>*@
+        </div>*@
     <!-- / Pending subtitle    -->
     <!--  Orders  -->
     <div class="container">
