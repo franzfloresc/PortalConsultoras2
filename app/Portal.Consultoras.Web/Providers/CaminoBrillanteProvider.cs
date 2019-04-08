@@ -17,11 +17,11 @@ namespace Portal.Consultoras.Web.Providers
     public class CaminoBrillanteProvider
     {
         protected ISessionManager sessionManager = SessionManager.SessionManager.Instance;
-
         public UsuarioModel UsuarioDatos
         {
             get { return sessionManager.GetUserData(); }
         }
+                
 
         public BENivelCaminoBrillante ObtenerNivelActualConsultora()
         {
@@ -58,6 +58,55 @@ namespace Portal.Consultoras.Web.Providers
 
             using (var svc = new UsuarioServiceClient())
                 return svc.GetConsultoraNivelCaminoBrillante(UsuarioDatos.PaisID, usuarioDatos, true);
+        }
+
+        public List<BEKitCaminoBrillante> GetKitCaminoBrillante()
+        {
+            try
+            {
+                var ofertas = sessionManager.GetKitCaminoBrillante();
+                if (ofertas == null || ofertas.Count == 0)
+                {
+                    var user = new BEUsuario()
+                    {
+                        CampaniaID = UsuarioDatos.CampaniaID
+                    };
+
+                    using (var svc = new UsuarioServiceClient())
+                        ofertas = svc.GetKitCaminoBrillante(UsuarioDatos.PaisID, user, 201903).ToList();
+                    if (ofertas != null)
+                        sessionManager.SetKitCaminoBrillante(ofertas);
+                }
+
+                return ofertas;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, UsuarioDatos.CodigoConsultora, UsuarioDatos.CodigoISO);
+                return null;
+            }
+        }
+
+        public List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillante()
+        {
+            try
+            {
+                var ofertas = sessionManager.GetDemostradoresCaminoBrillante();
+                if (ofertas == null || ofertas.Count == 0)
+                {
+                    using (var svc = new UsuarioServiceClient())
+                        ofertas = svc.GetDemostradoresCaminoBrillante(UsuarioDatos.PaisID, "201904").ToList();
+                    if (ofertas != null)
+                        sessionManager.SetDemostradoresCaminoBrillante(ofertas);
+                }
+
+                return ofertas;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, UsuarioDatos.CodigoConsultora, UsuarioDatos.CodigoISO);
+                return null;
+            }
         }
     }
 }

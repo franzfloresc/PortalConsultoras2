@@ -45,22 +45,24 @@ namespace Portal.Consultoras.Web.Controllers
         private readonly OfertaBaseProvider _ofertaBaseProvider;
         protected ProductoFaltanteProvider _productoFaltanteProvider;
         private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatosProvider;
+        private readonly CaminoBrillanteProvider _caminoBrillanteProvider;
 
         public PedidoController()
             : this(new PedidoSetProvider(),
                   new ProductoFaltanteProvider(),
-                  new ConfiguracionPaisDatosProvider(), new OfertaBaseProvider())
+                  new ConfiguracionPaisDatosProvider(), new OfertaBaseProvider(), new CaminoBrillanteProvider())
         {
         }
 
         public PedidoController(PedidoSetProvider pedidoSetProvider,
             ProductoFaltanteProvider productoFaltanteProvider,
-            ConfiguracionPaisDatosProvider configuracionPaisDatosProvider, OfertaBaseProvider ofertaBaseProvider)
+            ConfiguracionPaisDatosProvider configuracionPaisDatosProvider, OfertaBaseProvider ofertaBaseProvider, CaminoBrillanteProvider caminoBrillanteProvider)
         {
             _pedidoSetProvider = pedidoSetProvider;
             _ofertaBaseProvider = ofertaBaseProvider;
             _productoFaltanteProvider = productoFaltanteProvider;
             _configuracionPaisDatosProvider = configuracionPaisDatosProvider;
+            _caminoBrillanteProvider = caminoBrillanteProvider;
         }
 
         public ActionResult Index(bool lanzarTabConsultoraOnline = false, string cuv = "", int campana = 0)
@@ -347,21 +349,12 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.ActivarRecomendaciones = ObtenerFlagActivacionRecomendaciones();
                 ViewBag.MaxCaracteresRecomendaciones = ObtenerNumeroMaximoCaracteresRecomendaciones(false);
 
-
-
                 #region Camino Brillante 
-                 // Se debe de invocar desde el provider coordinar con JOse
                 var user = new Portal.Consultoras.Web.ServiceUsuario.BEUsuario()
                 {
                     CampaniaID = userData.CampaniaID
                 };
-
-                using (var sv = new UsuarioServiceClient())
-                {
-                    //ViewBag.DemostradoresCaminoBrillante = sv.GetKitCaminoBrillante(userData.PaisID, Convert.ToString(userData.CampaniaID));
-                    //ViewBag.KitsCaminoBrillante = sv.GetKitCaminoBrillante(userData.PaisID, "201904");
-                    ViewBag.KitsCaminoBrillante = sv.GetKitCaminoBrillante(userData.PaisID, user, 201903).ToList();
-                }
+                ViewBag.KitsCaminoBrillante = _caminoBrillanteProvider.GetKitCaminoBrillante().ToList();
                 #endregion
 
             }
