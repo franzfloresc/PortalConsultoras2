@@ -72,7 +72,7 @@
                         </div>
                     </div>
                     <div style="float:right;">
-                        <a class="btn_revisalo_pendiente" href="@Url.Action("DetallePedidoPendiente", "ConsultoraOnline", new { pedidoId = item.PedidoId })">REVÍSALO</a>
+                        <a class="btn_revisalo_pendiente" onclick="PendientesRevisalo('Carrito de Compras - Pedidos Pendientes','Click Botón');"  href="@Url.Action("DetallePedidoPendiente", "ConsultoraOnline", new { pedidoId = item.PedidoId })">REVÍSALO</a>
                     </div>
                     <hr class="clear" />
                 </div>

@@ -2437,6 +2437,7 @@ var AnalyticsPortalModule = (function () {
         MarcaLimpiarFiltros: marcaLimpiarFiltros,
         MarcaBotonFiltro: marcaBotonFiltro,
         MarcaBotonAplicarFiltro: marcaBotonAplicarFiltro,
-        MarcaFichaDetalleRecomendado: marcaFichaDetalleRecomendado
+        MarcaFichaDetalleRecomendado: marcaFichaDetalleRecomendado,
+        GetCurrencyCode: _getCurrencyCodes
     }
 })();

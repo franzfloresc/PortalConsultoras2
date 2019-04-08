@@ -307,7 +307,7 @@
     @if (ViewBag.CantPedidoPendientes > 0)
     {
         <div class="info_pedidos_por_aprobar">
-            <a href="@Url.Action("Pendientes", "ConsultoraOnline", new { area = "Mobile" })" class="multimarca-background-color text-center btn_pedidos_por_aprobar" title="Pedidos por aprobar">
+            <a href="@Url.Action("Pendientes", "ConsultoraOnline", new { area = "Mobile" })" onclick="PedidosPendientesPorAprobar();" class="multimarca-background-color text-center btn_pedidos_por_aprobar" title="Pedidos por aprobar">
                 Pedidos por aprobar (@ViewBag.CantPedidoPendientes)
             </a>
         </div>
