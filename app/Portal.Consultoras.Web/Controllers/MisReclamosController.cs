@@ -307,6 +307,7 @@ namespace Portal.Consultoras.Web.Controllers
         private List<BECDRWebMotivoOperacion> CargarOperacion(MisReclamosModel model)
         {
             var listaRetorno = new List<BECDRWebMotivoOperacion>();
+            bool? flagSetsOrPacks = false;
             try
             {
                 model.Motivo = Util.SubStr(model.Motivo, 0);
@@ -328,6 +329,19 @@ namespace Portal.Consultoras.Web.Controllers
                     add.CDRTipoOperacion.DescripcionOperacion = desc.Descripcion;
                     listaRetorno.Add(add);
                 }
+
+
+
+                if (SessionManager.GetFlagIsSetsOrPack() != null)
+                {
+                    flagSetsOrPacks = SessionManager.GetFlagIsSetsOrPack();
+                }
+
+                if (flagSetsOrPacks == true)
+                {
+                    listaRetorno = listaRetorno.Where(a => a.CodigoOperacion == Constantes.CodigoOperacionCDR.Canje || a.CodigoOperacion == Constantes.CodigoOperacionCDR.Devolucion).ToList();
+                }
+
                 return listaRetorno;
             }
             catch (Exception ex)
@@ -465,6 +479,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult BuscarMotivo(MisReclamosModel model)
         {
+            SessionManager.SetFlagIsSetsOrPack(null); //HD-3703 EINCA
             var lista = _cdrProvider.CargarMotivo(model, userData.FechaActualPais.Date, userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
             return Json(new
             {
@@ -488,8 +503,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     respuestaServiceCdr = sv.GetCdrWeb_Reclamo(userData.CodigoISO, model.CampaniaID.ToString(),
                        userData.CodigoConsultora, model.CUV, model.Cantidad, userData.CodigoZona);
-                    isSetsOrPack = (respuestaServiceCdr != null) ? (respuestaServiceCdr[0].LProductosComplementos.Count() > 0 
-                        && estrategias.Contains(respuestaServiceCdr[0].Estrategia.ToString()) ) ? true : false : false;
+                    isSetsOrPack = (respuestaServiceCdr != null) ? (respuestaServiceCdr[0].LProductosComplementos.Count() > 0
+                        && estrategias.Contains(respuestaServiceCdr[0].Estrategia.ToString())) ? true : false : false;
                     SessionManager.SetFlagIsSetsOrPack(isSetsOrPack);
 
                 }
