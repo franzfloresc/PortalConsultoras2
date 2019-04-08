@@ -25626,6 +25626,7 @@ span.datoPedidoCliente {
     font-weight: normal;
     padding-left: 16px;
     padding-bottom: 40px;
+    margin-top: 15px;
 }
 
     .revision_pedidosAceptados .texto_revisaPedidos {
@@ -25963,7 +25964,7 @@ a#cierreMotivoRechazo img {
     position: absolute;
     padding: 0 8px;
     background: #fff;
-    height: 80px;
+    height: auto;
     min-width: 200px;
     margin-top: -58px;
     z-index: 9;
@@ -26179,6 +26180,7 @@ div.motivoRechazo textarea {
         margin-left: 56px;
         padding-left: 5px;
         border-left: 1px solid #d4d4d4;
+        height: 100%;
     }
 
 .margen-sup {

@@ -543,10 +543,6 @@
                     <div>
                         <div id="divPedidosPend"> </div>
                     </div>
-                    <div class="tiempo_atencionPedido">
-                        <span class="icono_notaDemanda"></span>
-                        <span>Sólo tienes 24 horas para atender los pedidos. No pierdas esta oportunidad de hacer nuevos clientes.</span>
-                    </div>
                     <div class="revision_pedidosAceptados">
                         <span class="texto_revisaPedidos">Revisa tus pedidos aceptados en:</span>
                         <span class="icono_consultoraOnline"></span>
@@ -1256,11 +1252,6 @@
                         <span class="texto_pedidos_pendientes tips">
                             <label>¡No pierdas esta oportunidad!</label>
                         </span>
-                        {{#if FlagConsultora}}
-                        <h6 class="tiempos_P">Te quedan <span><b>24:00:00</b></span> horas</h6>
-                        {{else}}
-                        <h6 class="tiempos_P">Te quedan <span><b>{{SaldoHoras}}</b></span> horas</h6>
-                        {{/if}}
                         <h4 class="linkea_Pendientes tooltipPendientes" onclick="PendientesRevisalo('Carrito de Compras - In Tab Pedidos Pendientes','Click Botón');">►REVÍSALO</h4>
                     </div>
                 </button>
@@ -1274,12 +1265,7 @@
     <script id="popup-pedidopend-template" type="text/x-handlebars-template">
         <div class="content_popUp_Pendientes">
             <div class="mensajes_deAtencion">
-                <span>¡No te pierdas esta oportunidad!</span>
-                {{#if FlagConsultora}}
-                <span>Te quedan <br>24:00:00</span>
-                {{else}}
-                <span>Te quedan <br>{{SaldoHoras}}</span>
-                {{/if}}
+                <span>¡No te pierdas esta oportunidad!</span>                
                 <div class="clear"></div>
             </div>
 
