@@ -221,7 +221,11 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetEstrategiaSR(Models.Estrategia.ShowRoom.ConfigModel data);
 
         Models.Estrategia.ShowRoom.ConfigModel GetEstrategiaSR();
-        
+
+        void SetArmaTuPack(ArmaTuPackModel data);
+
+        ArmaTuPackModel GetArmaTuPack();
+
         void SetBEEstrategia(string key, List<ServiceOferta.BEEstrategia> data);
 
         List<ServiceOferta.BEEstrategia> GetBEEstrategia(string key);
@@ -358,14 +362,6 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetListaCDRDetalle(CDRWebModel val);
 
         CDRWebModel GetListaCDRDetalle();
-
-        void SetfechaGetNotificacionesSinLeer(dynamic val);
-
-        dynamic GetfechaGetNotificacionesSinLeer();
-
-        void SetcantidadGetNotificacionesSinLeer(dynamic val);
-
-        dynamic GetcantidadGetNotificacionesSinLeer();
 
         void SetPedidoFIC(List<BEPedidoFICDetalle> val);
 

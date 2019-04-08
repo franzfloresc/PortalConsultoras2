@@ -43,14 +43,14 @@ $(document).ready(function () {
   
 });
 
-function ScrollUser(anchor, alto) {
-    var topMenu = ($("#seccion-fixed-menu").position() || {}).top || 0;
-    if (topMenu > 0)
-        alto = alto + $("#seccion-fixed-menu").height() + 10;
+//function ScrollUser(anchor, alto) {
+//    var topMenu = ($("#seccion-fixed-menu").position() || {}).top || 0;
+//    if (topMenu > 0)
+//        alto = alto + $("#seccion-fixed-menu").height() + 10;
 
-    alto = (jQuery(anchor).offset() || {}).top - alto;
-    return alto;
-}
+//    alto = (jQuery(anchor).offset() || {}).top - alto;
+//    return alto;
+//}
 
 function RDPopupMobileCerrar() {
 
@@ -248,12 +248,9 @@ function RedireccionarContenedorComprar(origenWeb, codigo) {
     origenWeb = $.trim(origenWeb);
     if (origenWeb !== "")
         rdAnalyticsModule.Access(origenWeb);
-    
-    //if (!(typeof AnalyticsPortalModule === 'undefined'))
-    //    AnalyticsPortalModule.MarcaVerOfertas(origenWeb);
 
     codigo = $.trim(codigo);
-    window.location = (isMobileNative.any() ? "/Mobile" : "") + "/Ofertas" + (codigo !== "" ? "#" + codigo : "");
+    window.location = (isMobileNative.any() || isMobile() ? "/Mobile" : "") + "/Ofertas" + (codigo !== "" ? "#" + codigo : "");
 }
 
 function RedireccionarContenedorInformativa(origenWeb) {

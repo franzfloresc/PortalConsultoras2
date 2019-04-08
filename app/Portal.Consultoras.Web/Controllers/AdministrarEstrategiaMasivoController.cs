@@ -102,7 +102,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 int validarEstrategiaImagen = _tablaLogicaProvider.GetTablaLogicaDatoCodigoInt(userData.PaisID, Constantes.TablaLogica.CantidadCuvMasivo, Constantes.TablaLogicaDato.EstrategiaImagen_NuevoMasivo, true);
 
-                if (validarEstrategiaImagen == 1)
+                if ((validarEstrategiaImagen == 1)&&(codigoEstrategia!= Constantes.TipoEstrategiaCodigo.ArmaTuPack))
                 {
                     lst.Add(new ComunModel
                     {
