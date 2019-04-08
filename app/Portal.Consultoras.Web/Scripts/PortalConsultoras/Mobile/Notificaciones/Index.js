@@ -13,8 +13,11 @@
         case "PAYONLINE": TipoOrigen = 9; break;
         default: TipoOrigen = 3; break;
     }
-    if (Visualizado == "False") $.post(urlActualizarEstadoNotificacion + "?ProcesoId=" + ProcesoId + "&TipoOrigen=" + TipoOrigen)
-
+    if (Visualizado == "False") {
+        $.post(urlActualizarEstadoNotificacion + "?ProcesoId=" + ProcesoId + "&TipoOrigen=" + TipoOrigen).success(function () {
+            localStorage.setItem('KeyPseudoParam', new Date().getTime());//SALUD-58 30-01-2019
+        });
+    }
     if (TipoOrigen == 6) location.href = urlDetallePedidoRechazado + "?ProcesoId=" + ProcesoId;
     else if (TipoOrigen == 5) location.href = urlDetalleSolicitudClienteCatalogo + "?SolicitudId=" + ProcesoId;
     else if (TipoOrigen == 4) location.href = Estado == 0 ? urlConsultoraOnlinePendientes : urlConsultoraOnlineHistorial;

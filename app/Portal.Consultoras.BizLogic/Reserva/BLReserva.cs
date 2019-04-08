@@ -713,9 +713,8 @@ namespace Portal.Consultoras.BizLogic.Reserva
         private bool ObtenerFlagBoletaImpresa(int paisID, string codigoUsuario)
         {
             var BLUsuario = new BLUsuario();
-            var _miperfil = new List<BEUsuarioOpciones>();
             bool flag = false;
-            _miperfil = BLUsuario.GetUsuarioOpciones(paisID, codigoUsuario);
+            List<BEUsuarioOpciones> _miperfil = BLUsuario.GetUsuarioOpciones(paisID, codigoUsuario);
             flag = _miperfil.Where(a => a.OpcionesUsuarioId == Constantes.OpcionesUsuario.BoletaImpresa).Select(b => b.CheckBox).FirstOrDefault();
             return flag;
         }
