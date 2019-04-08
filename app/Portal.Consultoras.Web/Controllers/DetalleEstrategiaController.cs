@@ -136,9 +136,9 @@ namespace Portal.Consultoras.Web.Controllers
                 #region Agana 399
 
                 //validación 'tiene videos'                
-                componentes.ForEach(c => { c.Secciones.ForEach(x => { x.EsVideos = x.Detalles.FindAll(y => !string.IsNullOrEmpty(y.Key)).Count > 0; }); });
+                componentes.ForEach(c => { (c.Secciones ?? new List<EstrategiaComponenteSeccionModel>()).ForEach(x => { x.EsVideos = (x.Detalles ?? new List<EstrategiaComponenteSeccionDetalleModel>()).FindAll(y => !string.IsNullOrEmpty(y.Key)).Count > 0; }); });
                 //validación 'tiene detalle de sección'
-                componentes.ForEach(c => { c.Secciones.ForEach(x => { c.MostrarVerDetalle = x.Detalles.Count > 0; }); });
+                componentes.ForEach(c => { (c.Secciones ?? new List<EstrategiaComponenteSeccionModel>()).ForEach(x => { c.MostrarVerDetalle = (x.Detalles ?? new List<EstrategiaComponenteSeccionDetalleModel>()).Count > 0; }); });
                  
                 #endregion
 
