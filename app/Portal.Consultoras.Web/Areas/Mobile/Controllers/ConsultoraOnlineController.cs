@@ -1155,7 +1155,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var parametrosRecomendado = new RecomendadoRequest();
             List<BEMisPedidos> pedidosSesion;
             var oListaCatalogo = new List<MisPedidosDetalleModel2>();
-          
 
             ///////////////////////////////////////////////////////////////////////////
             var oListaPedidosDetalle = new List<BEMisPedidosDetalle>();
@@ -1166,13 +1165,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 oListaPedidos = svc.GetSolicitudesPedidoPendiente(userData.PaisID, userData.ConsultoraID, userData.CampaniaID).ToList();
 
-
                 if (oListaPedidos.Any())
                 {
-                    oListaPedidos.ForEach(x => 
+                    oListaPedidos.ForEach(x =>
                     {
-
-
                         var oDetallesTemporal = svc.GetMisPedidosDetalleConsultoraOnline(userData.PaisID, x.PedidoId).ToList();
                         if (oDetallesTemporal.Any())
                         {
@@ -1181,18 +1177,14 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                             oListaPedidosDetalle.AddRange(oDetallesTemporal);
                             //  modelPedido
                         }
-                    }
-
-                    );
+                    });
                 }
                 modelPedido.ListaPedidos = oListaPedidos;
                 SessionManager.SetobjMisPedidos(modelPedido);
             }
 
-////////////////////////////////////////////////////////
-
-
-
+            ////////////////////////////////////////////////////////
+            ///
             pedidosSesion = SessionManager.GetobjMisPedidos().ListaPedidos;
 
             pedidosSesion.ForEach(pedido =>
@@ -1202,12 +1194,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     var odetalleTemporal = CargarMisPedidosDetalleDatos(pedido.MarcaID, pedido.DetallePedido.Where(i => i.Elegido == true).ToList());
                     var detallePedidos = Mapper.Map<List<BEMisPedidosDetalle>, List<MisPedidosDetalleModel2>>(odetalleTemporal);
                     detallePedidos.Update(p => p.CodigoIso = userData.CodigoISO);
-                    oListaCatalogo.AddRange(detallePedidos);                  
+                    oListaCatalogo.AddRange(detallePedidos);
                 }
-            });   
+            });
 
             model.ListaCatalogo = new List<MisPedidosDetalleModel2>();
-           
+
             parametrosRecomendado.codigoPais = userData.CodigoISO;
             parametrosRecomendado.codigocampania = userData.CampaniaID.ToString();
             parametrosRecomendado.codigoZona = userData.CodigoZona;
@@ -1234,8 +1226,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.TotalCatalogo = oListaCatalogo.Sum(x => x.PrecioTotal);
             model.ListaGana = oListaGana;
             model.TotalGana = oListaGana.Sum(x => x.Precio2);
-            model.GananciaGana = oListaGana.Sum(x=>x.Ganancia);
-       
+            model.GananciaGana = oListaGana.Sum(x => x.Ganancia);
 
             return View(model);
         }
@@ -1275,7 +1266,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
 
                 var lstPedidos = pedidos.ListaPedidos.Where(x => arrIds.Contains(x.PedidoId.ToString()));
-                foreach(var cab in lstPedidos)
+                foreach (var cab in lstPedidos)
                 {
                     cab.CantidadTotal = cab.DetallePedido.Where(x => x.CUV == cuv).Sum(x => x.Cantidad);
                 }
