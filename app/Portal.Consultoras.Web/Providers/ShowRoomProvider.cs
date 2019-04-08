@@ -923,12 +923,14 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     Common.LogManager.SaveLog(new Exception("Servicio no responde"), string.Empty, pais);
                     eventoConsultoraNull = false;
+                    return null;
                 }
 
                 if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
                 {
                     Common.LogManager.SaveLog(new Exception(respuesta.Message), string.Empty, pais);
                     eventoConsultoraNull = false;
+                    return null;
                 }
 
                 ShowRoomEventoConsultoraModel modelo = new ShowRoomEventoConsultoraModel();
