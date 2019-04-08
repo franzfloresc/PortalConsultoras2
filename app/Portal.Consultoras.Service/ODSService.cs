@@ -301,6 +301,11 @@ namespace Portal.Consultoras.Service
         {
             return BLProgramaNuevas.GetLimElectivos(paisID, campaniaID, consecutivoNueva, codigoPrograma);
         }
+
+        public List<BEProductoEstraProgNuevas> GetListCuvProgNuevasEstrategia(BEConsultoraProgramaNuevas consultoraNueva)
+        {
+            return BLProgramaNuevas.GetListCuvEstrategia(consultoraNueva);
+        }
         #endregion
 
         #region VentaExclusiva

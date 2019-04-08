@@ -190,7 +190,7 @@ namespace Portal.Consultoras.BizLogic
 
             return bePedidoWebDetalle;
         }
-        
+
         public void UpdPedidoWebDetalle(BEPedidoWebDetalle pedidowebdetalle)
         {
             var daPedidoWeb = new DAPedidoWeb(pedidowebdetalle.PaisID);
@@ -245,8 +245,8 @@ namespace Portal.Consultoras.BizLogic
             var daPedidoWeb = new DAPedidoWeb(pedidowebdetalle.PaisID);
             var daPedidoWebDetalle = new DAPedidoWebDetalle(pedidowebdetalle.PaisID);
 
-            daPedidoWebDetalle.UpdPedidoWebDetalle(pedidowebdetalle); 
-            
+            daPedidoWebDetalle.UpdPedidoWebDetalle(pedidowebdetalle);
+
 
             switch (pedidowebdetalle.TipoOfertaSisID)
             {
@@ -281,7 +281,7 @@ namespace Portal.Consultoras.BizLogic
                         Clientes, ImporteTotalPedido,
                         usuario.CodigoUsuario);
         }
-        
+
         public short UpdPedidoWebDetalleMasivo(List<BEPedidoWebDetalle> pedidowebdetalle)
         {
             short updated = 0;
@@ -483,7 +483,26 @@ namespace Portal.Consultoras.BizLogic
                     }
                 }
             }
-            #endregion            
+            #endregion
+
+            if (WebConfig.SetIdentifierNumberFlag == "1" && detParametros.AgruparSet)
+            {
+                var PedidoDetalleIdentifierNumber = listpedidoDetalle.Where(x => x.EstrategiaId != 0).Reverse().GroupBy(x => new { x.ClienteID, x.EstrategiaId }).Where(x => x.Count() > 1)
+               .Select(g => new { g, count = g.Count() })
+               .SelectMany(t => t.g.Select(b => b)
+                                   .Zip(Enumerable.Range(1, t.count), (j, i) => new BEPedidoWebDetalle
+                                   {
+                                       ClienteID = j.ClienteID,
+                                       EstrategiaId = j.EstrategiaId,
+                                       SetID = j.SetID,
+                                       SetIdentifierNumber = i
+                                   })).ToList();
+
+                foreach (var item in PedidoDetalleIdentifierNumber)
+                {
+                    listpedidoDetalle.Where(x => x.SetID == item.SetID).Update(x => { x.SetIdentifierNumber = item.SetIdentifierNumber; });
+                }
+            }
 
             return listpedidoDetalle;
         }
@@ -822,17 +841,17 @@ namespace Portal.Consultoras.BizLogic
                 return false;
             }
         }
-         
+
 
         public bool UpdatePedidoWebSetTransaction(BEPedidoDetalle pedidowebdetalle, int paisId, int setId, int cantidad)
         {
-                var result = false;
+            var result = false;
 
-                DAPedidoWebDetalle daPedidoWebDetalle = new DAPedidoWebDetalle(paisId);
-                result = daPedidoWebDetalle.UpdCantidadPedidoWebSet(setId, cantidad);
-                daPedidoWebDetalle.UpdPedidoWebSetCliente(pedidowebdetalle);
+            DAPedidoWebDetalle daPedidoWebDetalle = new DAPedidoWebDetalle(paisId);
+            result = daPedidoWebDetalle.UpdCantidadPedidoWebSet(setId, cantidad);
+            daPedidoWebDetalle.UpdPedidoWebSetCliente(pedidowebdetalle);
 
-               return result;
+            return result;
         }
 
         public List<BEPedidoWebSetDetalle> GetPedidoWebSetDetalle(int paisID, int campania, long consultoraId)

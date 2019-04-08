@@ -933,7 +933,10 @@
                         <input type="hidden" id="hdeCodigoISO" name="hdeCodigoISO" />
 
                         <input type="hidden" id="HdePaisID" name="PaisID" />
-
+                        <input type="hidden" id="hdeSalt" name="Salt" />
+                        <input type="hidden" id="hdeCiphertext" name="ClaveSecreta" />
+                        <input type="hidden" id="hdeKey" name="Key" />
+                        <input type="hidden" id="hdeIv" name="Iv" />
 
                         <select id="ddlPais" name="CodigoISO" class="DropDown" tabindex="1">
                             <option value="00" data-id="99">Elige tu País</option>
@@ -967,7 +970,7 @@
 
             <div class="boxform">
                 <div class="formcontrol pass">
-                    <input type="password" name="ClaveSecreta" id="txtContrasenia" class="inputForm" placeholder="Contraseña" value="" />
+                    <input type="password" id="txtContrasenia" class="inputForm" placeholder="Contraseña" value="" />
                 </div>
                 <div id="Div5" class="btn">
                     <a href="javascript:void(0);" id="abrirMSJ02" onclick="AbrirMensajeLogin(2)" class="helper hdos"></a>
@@ -1120,6 +1123,7 @@
     var urlChatBelCorp = '@Url.Action("ChatBelcorp", "Login")';
     var urlIniciarLogin = '@Url.Action("Login", "Login")';
     var habilitarChatEmtelco = '@ViewBag.HabilitarChatEmtelco';
+    var cadena = '@System.Configuration.ConfigurationManager.AppSettings.Get("CryptoJSPassword")';
 </script>
 
 @if (TempData["errorLogin"] != null)

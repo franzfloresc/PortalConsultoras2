@@ -77,12 +77,22 @@ var EstrategiaAgregarModule = (function () {
         }
     }
 
+    var _OrigenPedido = {
+        MobileContenedorArmaTuPack: "2131502",
+        DesktopContenedorArmaTuPack: "1131502"
+    }
+
     var getEstrategia = function ($btnAgregar, origenPedidoWebEstrategia) {
 
-        var estrategia = JSON.parse($btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataEstrategia).attr("data-estrategia"))
-                || JSON.parse($btnAgregar.parents("div.content_btn_agregar").siblings("#contenedor-showroom-subcampanias-mobile")
-                        .find(".slick-active").find(dataProperties.dataEstrategia).attr("data-estrategia"))
-                || {};
+        var estrategiaTxt = $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataEstrategia).attr("data-estrategia")
+                || $btnAgregar.parents("div.content_btn_agregar").siblings("#contenedor-showroom-subcampanias-mobile")
+                        .find(".slick-active").find(dataProperties.dataEstrategia).attr("data-estrategia")
+                || "";
+
+        var estrategia = {};
+        if (estrategiaTxt != "") {
+            estrategia = JSON.parse(estrategiaTxt);
+        }
 
         return estrategia;
     };
@@ -299,7 +309,7 @@ var EstrategiaAgregarModule = (function () {
 
         var cuvs = "";
         var codigoVariante = estrategia.CodigoVariante;
-        if ((ConstantesModule.CodigoVariedad.IndividualVariable == codigoVariante || ConstantesModule.CodigoVariedad.CompuestaVariable == codigoVariante)) {
+        if ((_codigoVariedad.IndividualVariable == codigoVariante || _codigoVariedad.CompuestaVariable == codigoVariante)) {
             var listaCuvs = $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataTono.concat(dataProperties.dataTonoSelect));
             if (listaCuvs.length > 0) {
                 $.each(listaCuvs,
@@ -307,7 +317,7 @@ var EstrategiaAgregarModule = (function () {
                         var cuv = $(item).attr("data-tono-select");
                         if (cuv != "") {
                             cuvs = cuvs + (cuvs == "" ? "" : "|") + cuv;
-                            //if (ConstantesModule.CodigoVariedad.CompuestaVariable == codigoVariante) {
+                            //if (_codigoVariedad.CompuestaVariable == codigoVariante) {
                             cuvs = cuvs + ";" + $(item).find(elementosDiv.EstrategiaHdMarcaID).val();
                             cuvs = cuvs + ";" + $(item).find(elementosDiv.EstrategiaHdPrecioCatalogo).val();
                             cuvs = cuvs + ";" + "";
@@ -351,6 +361,21 @@ var EstrategiaAgregarModule = (function () {
                     return false;
                 }
 
+
+                var cuv = estrategia.CUV2;
+                if (cuv.substring(0, 3) == '999') {
+                    sessionStorage.setItem('cuvPack', cuv);
+                }
+
+                try {
+                    if (!(typeof AnalyticsPortalModule === 'undefined')) {
+                        AnalyticsPortalModule.MarcaAnadirCarritoGenerico(event, origenPedidoWebEstrategia, estrategia);
+                    }
+                    TrackingJetloreAdd(cantidad, $(elementosDiv.hdCampaniaCodigo).val(), cuv);
+                } catch (e) {
+                    console.log(e);
+                }
+
                 $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataInputCantidad).val("1");
 
                 if (divAgregado != null) {
@@ -385,8 +410,21 @@ var EstrategiaAgregarModule = (function () {
                             $AgregadoTooltip.find(dataProperties.tooltipMensaje2).html(" Modificaste tu pedido");
                         }
                         $AgregadoTooltip.show();
-                        setTimeout(function () { $AgregadoTooltip.hide(); }, 4000);
-                        ResumenOpcionesModule.LimpiarOpciones();
+                        setTimeout(function () {
+                            $AgregadoTooltip.hide();
+                            if (origenPedidoWebEstrategia === _OrigenPedido.DesktopContenedorArmaTuPack) {
+                                window.location = "/ofertas";
+                            } else if (origenPedidoWebEstrategia === _OrigenPedido.MobileContenedorArmaTuPack) {
+                                window.location = "/mobile/ofertas";
+
+                            }
+                        }, 2500);
+                        if (!(origenPedidoWebEstrategia === _OrigenPedido.DesktopContenedorArmaTuPack || origenPedidoWebEstrategia === _OrigenPedido.MobileContenedorArmaTuPack)) {
+                            ResumenOpcionesModule.LimpiarOpciones();
+                        }
+                        else {
+                            return;
+                        }
                     } catch (e) {
                         console.error(e);
                     }
@@ -421,12 +459,7 @@ var EstrategiaAgregarModule = (function () {
                 } else {
                     CargarResumenCampaniaHeader(true);
                 }
-
-                var cuv = estrategia.CUV2;
-                if (cuv.substring(0, 3) == '999') {
-                    sessionStorage.setItem('cuvPack', cuv);
-                }
-
+                
                 var tipoOrigenEstrategiaAux = 0;
                 if (typeof tipoOrigenEstrategia != "undefined") {
                     tipoOrigenEstrategiaAux = tipoOrigenEstrategia || 0;
@@ -437,7 +470,7 @@ var EstrategiaAgregarModule = (function () {
                         MostrarBarra(data, "1");
                     }
 
-                    if (estrategia.CodigoEstrategia == ConstantesModule.ConstantesPalanca.PackNuevas) {
+                    if (estrategia.CodigoEstrategia == ConstantesModule.TipoEstrategia.PackNuevas) {
                         if (typeof CargarCarouselEstrategias != constantes.undefined())
                             CargarCarouselEstrategias();
                     }
@@ -454,7 +487,7 @@ var EstrategiaAgregarModule = (function () {
                     $(elementosDiv.hdErrorInsertarProducto).val(data.errorInsertarProducto);
 
                     cierreCarouselEstrategias();
-                    if (estrategia.CodigoEstrategia == ConstantesModule.ConstantesPalanca.PackNuevas) {
+                    if (estrategia.CodigoEstrategia == ConstantesModule.TipoEstrategia.PackNuevas) {
                         if (typeof CargarCarouselEstrategias != constantes.undefined())
                             CargarCarouselEstrategias();
                     }
@@ -470,7 +503,7 @@ var EstrategiaAgregarModule = (function () {
                     tipoOrigenEstrategiaAux == 262 ||
                     tipoOrigenEstrategiaAux == 272) {
 
-                    //debugger;
+                    //
 
                     if (isPagina('mobile/pedido/detalle')) CargarPedido(false);
 
@@ -485,7 +518,7 @@ var EstrategiaAgregarModule = (function () {
 
                         }
                     } else if (tipoOrigenEstrategiaAux != 272) {
-                        if (estrategia.CodigoEstrategia == ConstantesModule.ConstantesPalanca.PackNuevas) {
+                        if (estrategia.CodigoEstrategia == ConstantesModule.TipoEstrategia.PackNuevas) {
                             CargarCarouselEstrategias();
                         }
 
@@ -495,20 +528,12 @@ var EstrategiaAgregarModule = (function () {
                     }
                 }
 
-                try {
-                    if (!(typeof AnalyticsPortalModule === 'undefined')) {
-                        AnalyticsPortalModule.MarcaAnadirCarritoGenerico(event, origenPedidoWebEstrategia, estrategia);
-                    }
-                    TrackingJetloreAdd(cantidad, $(elementosDiv.hdCampaniaCodigo).val(), cuv);
-                } catch (e) {
-                    console.log(e);
-                }
                 if (data.listCuvEliminar != null) {
-                    $.each(data.listCuvEliminar, function (i, cuv) {
+                    $.each(data.listCuvEliminar, function (i, cuvElem) {
 
-                        itemClone.parent().find('[data-item-cuv=' + cuv + '] .agregado.product-add').hide();
+                        itemClone.parent().find('[data-item-cuv=' + cuvElem + '] .agregado.product-add').hide();
 
-                        ActualizarLocalStoragePalancas(cuv, false);
+                        ActualizarLocalStoragePalancas(cuvElem, false);
                     })
                 }
 

@@ -271,6 +271,7 @@
       <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" minOccurs="0" name="GPRBannerUrl" type="q2:Enumeradores.RechazoBannerUrl" />
       <xs:element minOccurs="0" name="GPRMostrarBannerRechazo" type="xs:boolean" />
       <xs:element minOccurs="0" name="GPRTextovinculo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="GanaMasNativo" type="xs:boolean" />
       <xs:element minOccurs="0" name="GuiaNegocio" nillable="true" type="tns:BEGuiaNegocio" />
       <xs:element minOccurs="0" name="HabilitarRestriccionHoraria" type="xs:boolean" />
       <xs:element minOccurs="0" name="HoraCierreNoFacturable" type="ser:duration" />
@@ -365,6 +366,7 @@
       <xs:element minOccurs="0" name="TieneAsesoraOnline" type="xs:int" />
       <xs:element minOccurs="0" name="TieneCDR" type="xs:int" />
       <xs:element minOccurs="0" name="TieneCDRExpress" type="xs:boolean" />
+      <xs:element minOccurs="0" name="TieneChatbot" type="xs:boolean" />
       <xs:element minOccurs="0" name="TieneCupon" type="xs:int" />
       <xs:element minOccurs="0" name="TieneGND" type="xs:boolean" />
       <xs:element minOccurs="0" name="TieneHana" type="xs:int" />

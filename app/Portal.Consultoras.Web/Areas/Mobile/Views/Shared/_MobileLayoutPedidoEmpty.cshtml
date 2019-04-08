@@ -125,9 +125,9 @@
             </a>
             <hr class="clear">
             <div class="icono_alerta check_icono_mobile"></div>
-            <div class="titulo_compartir">¡LO <b>LOGRASTE</b>!</div>
+            <div class="titulo_compartir">¡Lo <b>lograste</b>!</div>
             <div id="mensajeInformacionSB2Bueno" class="mensaje_alerta"></div>
-            <a href="javascript:;" onclick="$('#popupInformacionSB2Bueno').hide();" class="btn_ok_mobile"><b>OK</b></a>
+            <a href="javascript:;" onclick="$('#popupInformacionSB2Bueno').hide();" class="btn_ok_mobile"><b>Ok</b></a>
         </div>
     </div>
 
@@ -155,7 +155,15 @@
     var campaniaAnio = parseInt(parseInt(campaniaCodigo) / 100);
     var campaniaNro = parseInt(campaniaCodigo) - campaniaAnio * 100;
 
-    var IsoPais = '@ViewBag.CodigoISODL';
+        var IsoPais = '@ViewBag.CodigoISODL';
+
+     //INI SALUD-58
+    var codigoConsultora = '@ViewBag.CodigoConsultoraDL';
+    var pseudoParamNotif = '@ViewBag.PseudoParamNotif';
+    var inicial = localStorage.getItem('KeyPseudoParam');
+    if (inicial === 'undefinied' || inicial === undefined || inicial === null)
+        localStorage.setItem('KeyPseudoParam', pseudoParamNotif); //se almacena por primera vez
+    //FIN SALUD-58
 
     //Postulante
     var mostrarBannerPostulante = '@ViewBag.MostrarBannerPostulante';

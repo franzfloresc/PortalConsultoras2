@@ -42,6 +42,10 @@ h3 {
     font-size: 18px;
 }
 
+.mt-23{
+    margin-top:23px;
+}
+
 .noPadding {
     padding: 0 !important;
 }
@@ -338,7 +342,6 @@ h4.re3 {
     font-family: 'Lato';
     position: relative;
     font-size: 14px;
-    text-transform: uppercase;
     margin-bottom: 0;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -1047,7 +1050,6 @@ h4.re3 {
     .sub_titulo_noti span {
         font-weight: 900;
         color: #613c87;
-        text-transform: uppercase;
     }
 
 .firma_notificaciones {
@@ -4693,8 +4695,7 @@ body {
 
 .mi_ganancia {
     color: #642f80;
-    font-weight: 700;
-    text-transform: uppercase;
+    font-weight: 700; 
 }
 
 .textos_resumen span, .montos_resumen span {
@@ -4793,7 +4794,7 @@ body {
         line-height: 15px;
         -webkit-border-radius: 0;
         -webkit-appearance: none !important;
-        text-transform: uppercase;
+     
     }
 
 
@@ -4805,14 +4806,14 @@ body {
     color: #b75d9f;
 }
 
-    .bloque_cantidades_precios_items_ingresados .contenedor_cantidadProductos div .signo_menos, .bloque_cantidades_precios_items_ingresados .contenedor_cantidadProductos div .signo_mas {
+    /*.bloque_cantidades_precios_items_ingresados .contenedor_cantidadProductos div .signo_menos, .bloque_cantidades_precios_items_ingresados .contenedor_cantidadProductos div .signo_mas {
         width: 31%;
-    }
+    }*/
 
-    .bloque_cantidades_precios_items_ingresados .contenedor_cantidadProductos div .campo_cantidadProductos {
+    /*.bloque_cantidades_precios_items_ingresados .contenedor_cantidadProductos div .campo_cantidadProductos {
         width: 38%;
         max-width: 55.56px;
-    }
+    }*/
 
     .mensaje_eliminarPedido a {
         color: #642f80;
@@ -5470,14 +5471,21 @@ body {
 
 .titulo_compartir {
     font-family: 'Lato';
-    font-size: 24px;
+    font-size: 18px;
     font-weight: 300;
     line-height: .82;
-    text-align: center;
+    text-transform: uppercase;
     color: #000000;
     margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+.contet_alert {
+    max-width: 300px;
+    margin: 0 auto;
     margin-bottom: 30px;
 }
+
 
 .contrevista p {
 font-size: 13px;
@@ -5704,7 +5712,7 @@ input[type='checkbox']:checked + span:after {
 
 .content_mensajeAlerta {
     width: 100%;
-    height: 100%;
+    height: auto;
     margin: 0 auto;
     position: relative;
     background: white;
@@ -5843,7 +5851,7 @@ input[type='checkbox']:checked + span:after {
     }
 
     .titulo_compartir {
-        font-size: 19px;
+        font-size: 16px;
         line-height: 28px;
     }
 }
@@ -6206,7 +6214,6 @@ input[type='checkbox']:checked + span:after {
     display: block;
     margin-top: 25px;
     cursor: pointer;
-    text-transform: uppercase;
 }
 
 .tooltip_validado {
@@ -6249,8 +6256,7 @@ input[type='checkbox']:checked + span:after {
     text-align: center;
     display: block;
     margin-top: 30px;
-    background: #613c87;
-    text-transform: uppercase;
+    background: #613c87; 
 }
 
 .icono_tooltip_validado {
@@ -6304,6 +6310,28 @@ input[type='checkbox']:checked + span:after {
 .right_reservado {
     float: right;
     text-align: right;
+}
+
+.observacion_notificacion{
+    margin-top: 12px;
+    padding: 10px;
+    background-color: #EEEEEE;
+    position: relative;
+    border-radius:4px;
+}
+
+.observacion_notificacion:before{
+    bottom: 100%;
+    left: 20px;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(0, 0, 0, 0);
+    border-bottom-color: #EEEEEE;
+    border-width: 7px;
 }
 
 .datos_Reservado {
@@ -7159,7 +7187,6 @@ input[type='checkbox']:checked + span:after {
 
 .color_marca {
     color: #613c87;
-    text-transform: uppercase;
 }
 
 .text-danger {
@@ -8440,22 +8467,22 @@ a {
     background-repeat:no-repeat;
 }
 
-.camino_al_exito{
+.camino_al_exito {
     width: 167px;
     color: #613c87;
     font-size: 14px;
     margin-bottom: 3px;
-    background-image: url(../../../Images/Lbel/estrellas.png);
+    background-image: url(/Content/Images/Lbel/estrellas.png);
     background-position: right -2px;
     background-size: 23px;
 }
 
-.enlace_ver_mas_sobre_camino_al_exito{
+.enlace_ver_mas_sobre_camino_al_exito {
     width: 63px;
     margin: 0 auto;
     font-size: 11px;
     text-decoration: underline;
-    background-image: url(../../../Images/mobile/Lbel/indicador_pedido.png);
+    background-image: url(/Content/Images/mobile/Lbel/indicador_pedido.png);
     background-position: left 5px;
     background-size: 6px;
 }
@@ -13225,24 +13252,38 @@ span.icon-advertencia {
     z-index: 1001;
 }
 
-    .app-footer .sections-1 {
-        width: 50%;
-        display: inline-block;
-        margin-left: -2px;
-        margin-right: -2px;
-        vertical-align: middle;
-        text-align: right;
-        font-size: 17px;
+    .app-footer-pedidos {
+        height: auto;
+        line-height: 16px;
     }
 
-    .app-footer .sections-2 {
-        width: 50%;
-        display: inline-block;
-        margin-left: -2px;
-        margin-right: -2px;
-        vertical-align: middle;
-        text-align: center;
-        font-size: 19px;
+    .app-footer-section {
+        margin: 10px 0;
+    }
+
+.app-footer .sections-1 {
+    width: 50%;
+    display: inline-block;
+    margin-left: -2px;
+    margin-right: -2px;
+    vertical-align: middle;
+    text-align: right;
+    font-size: 14px;
+}
+
+.app-footer .sections-2 {
+    width: 50%;
+    display: inline-block;
+    margin-left: -2px;
+    margin-right: -2px;
+    vertical-align: middle;
+    text-align: right;
+    font-size: 14px;
+    padding-right: 16px;
+}
+
+    .fz-19 {
+        font-size: 19px !important;
     }
 /*FIN ESTILOS EMBEBER APP (APPCONS-1099)*/
 

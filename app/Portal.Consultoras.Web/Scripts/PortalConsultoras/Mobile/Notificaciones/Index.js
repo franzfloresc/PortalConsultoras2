@@ -1,4 +1,5 @@
-﻿function VisualizarPopup(ProcesoId, Observaciones, Estado, FacturaHoy, DiaFact, MesFact, Visualizado, Asunto, Proceso) {
+﻿function VisualizarPopup(ProcesoId, Observaciones, Estado, FacturaHoy, DiaFact, MesFact, Visualizado, Asunto, Proceso, elemento, Campania) {
+ 
     ShowLoading();
     var TipoOrigen;
     switch (Proceso) {
@@ -12,8 +13,11 @@
         case "PAYONLINE": TipoOrigen = 9; break;
         default: TipoOrigen = 3; break;
     }
-    if (Visualizado == "False") $.post(urlActualizarEstadoNotificacion + "?ProcesoId=" + ProcesoId + "&TipoOrigen=" + TipoOrigen)
-
+    if (Visualizado == "False") {
+        $.post(urlActualizarEstadoNotificacion + "?ProcesoId=" + ProcesoId + "&TipoOrigen=" + TipoOrigen).success(function () {
+            localStorage.setItem('KeyPseudoParam', new Date().getTime());//SALUD-58 30-01-2019
+        });
+    }
     if (TipoOrigen == 6) location.href = urlDetallePedidoRechazado + "?ProcesoId=" + ProcesoId;
     else if (TipoOrigen == 5) location.href = urlDetalleSolicitudClienteCatalogo + "?SolicitudId=" + ProcesoId;
     else if (TipoOrigen == 4) location.href = Estado == 0 ? urlConsultoraOnlinePendientes : urlConsultoraOnlineHistorial;
@@ -21,5 +25,5 @@
     else if (TipoOrigen == 7) location.href = urlListarDetalleCDRCulminado + "?solicitudId=" + ProcesoId + "&Proceso=" + Proceso;
     else if (TipoOrigen == 8) location.href = urlListarDetalleCDRCulminado + "?solicitudId=" + ProcesoId + "&Proceso=" + Proceso;
     else if (TipoOrigen == 9) location.href = urlListarPayOnline + "?solicitudId=" + ProcesoId;
-    else location.href = urlListarObservaciones + "?ProcesoId=" + ProcesoId + "&TipoOrigen=" + TipoOrigen;
+    else location.href = urlListarObservaciones + "?ProcesoId=" + ProcesoId + "&TipoOrigen=" + TipoOrigen  + "&Campania=" + Campania   ;
 }

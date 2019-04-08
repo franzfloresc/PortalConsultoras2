@@ -464,7 +464,7 @@ namespace Portal.Consultoras.BizLogic
             List<BEIncentivoConcurso> incentivosConcursos;
             var incentivosNivel = new List<BEIncentivoNivel>();
             var incentivosPremios = new List<BEIncentivoPremio>();
-            string paisISO = Util.GetPaisISO(paisID);
+            //string paisISO = Util.GetPaisISO(paisID);
 
             var DAConcurso = new DAConcurso(paisID);
 
