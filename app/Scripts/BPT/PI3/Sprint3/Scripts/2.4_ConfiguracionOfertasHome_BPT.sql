@@ -1,4 +1,4 @@
-go
+ï»¿go
 print db_name()
 
 declare @Codigo varchar(100) = 'ATP'
@@ -44,7 +44,7 @@ begin
 		@Orden, @Orden, @Orden, @Orden,
 		0,0,
 		'ContenedorHome_Banner_Atp.png','ContenedorHome_Banner_Atp.png',
-		'ARMA TU PACK','ARMA TU PACK','Elige tus productos favoritos y llévatelos a #PrecioTotal','Elige tus productos favoritos y llévatelos a #PrecioTotal',
+		'ARMA TU PACK','ARMA TU PACK','Elige tus productos favoritos y llÃ©vatelos a #PrecioTotal','Elige tus productos favoritos y llÃ©vatelos a #PrecioTotal',
 		10,10,'004','004',
 		0,0,1,1,
 		'#fa1702','#fa1702',

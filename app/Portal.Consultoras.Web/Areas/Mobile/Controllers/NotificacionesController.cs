@@ -34,22 +34,14 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult Index()
         {
-            SessionManager.SetfechaGetNotificacionesSinLeer(null);
-            SessionManager.SetcantidadGetNotificacionesSinLeer(null);
-
             var model = new NotificacionesModel { ListaNotificaciones = ObtenerNotificaciones() };
             return View(model);
         }
 
         public ActionResult IndexExterno(int IdOrigen = 0)
         {
-            SessionManager.SetfechaGetNotificacionesSinLeer(null);
-            SessionManager.SetcantidadGetNotificacionesSinLeer(null);
-
             var model = new NotificacionesModel { ListaNotificaciones = ObtenerNotificaciones() };
-
             model.Origen = IdOrigen;
-
             return View("Index", model);
         }
 
