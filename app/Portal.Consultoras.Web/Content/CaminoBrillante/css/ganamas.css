@@ -213,11 +213,11 @@ strong {
         background: rgba(255, 255, 255, 0.1);
     }
 
-    .producto_desactivado .boton__agregalo--fichaProducto {
+.producto_desactivado .boton__agregalo--fichaProducto {
         background: #848484;
         color: black !important;
         border: transparent;
-    }
+}
 
 
 
