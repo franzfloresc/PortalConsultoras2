@@ -952,20 +952,20 @@ namespace Portal.Consultoras.Service
 
         #region Camino Brillante
 
-        public List<BENivelCaminoBrillante> GetNivelesCaminoBrillante(int paisId, bool isWeb) {
-            return _caminoBrillanteBusinessLogic.GetNiveles(paisId, isWeb);
+        public List<BENivelCaminoBrillante> GetNivelesCaminoBrillante(int paisId) {
+            return _caminoBrillanteBusinessLogic.GetNiveles(paisId, false);
         }
 
-        public BEConsultoraCaminoBrillante GetConsultoraNivelCaminoBrillante(int paisId, BEUsuario entidad, bool isWeb) {
-            return _caminoBrillanteBusinessLogic.GetConsultoraNivel(paisId, entidad, isWeb);
+        public BEConsultoraCaminoBrillante GetConsultoraNivelCaminoBrillante(BEUsuario entidad) {
+            return _caminoBrillanteBusinessLogic.GetConsultoraNivel(entidad.PaisID, entidad, false);
         }
 
-        public List<BELogroCaminoBrillante> GetConsultoraLogrosCaminoBrillante(int paisId, BEUsuario entidad, bool isWeb) {
-            return _caminoBrillanteBusinessLogic.GetConsultoraLogros(paisId, entidad, isWeb);
+        public List<BELogroCaminoBrillante> GetConsultoraLogrosCaminoBrillante(BEUsuario entidad) {
+            return _caminoBrillanteBusinessLogic.GetConsultoraLogros(entidad.PaisID, entidad, false);
         }
 
-        public List<BEKitCaminoBrillante> GetKitCaminoBrillante(int paisID, BEUsuario entidad, int periodoId) {
-            return _caminoBrillanteBusinessLogic.GetKit(paisID, entidad, periodoId);
+        public List<BEKitCaminoBrillante> GetKitCaminoBrillante(BEUsuario entidad, int periodoId, int nivel) {
+            return _caminoBrillanteBusinessLogic.GetKit(entidad.PaisID, entidad, periodoId);
         }
 
         public List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillante(int paisID, string campaniaID)
