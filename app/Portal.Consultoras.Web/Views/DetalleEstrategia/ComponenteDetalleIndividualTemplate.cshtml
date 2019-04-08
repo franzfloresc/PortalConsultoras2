@@ -28,25 +28,25 @@
         {{/iff}}
 
         {{#iff seccion.EsVideos '==' true }}
-        <section class="seccion_tab" {{#if @@first}} style="display:block" {{/if}} data-tab-body data-num-tab="{{@@index}}">
-            <div id="carouselIndividualVideo" >
+        <section class="seccion_tab xxxx" {{#if @@first}} style="display:block" {{/if}} data-tab-body data-num-tab="{{@@index}}">
+            <div id="carouselIndividualVideo" class="items_video" >
                 {{#each seccion.Detalles as |detalle|}}
                 <div @*style="width:350px;height:350px;"*@>
-                    <p>{{detalle.Titulo}}</p>
                     <div id="ytFichax"
                          data-youtube="{
-                                                             @*height:'350',
-                                                             width:'350',*@
-                                                             enablejsapi:1,
-                                                             fs:0,
-                                                             showinfo:0,
-                                                             modestbranding:1,
-                                                             loop:1,
-                                                             videoId: '{{detalle.Key}}',
-                                                             playerVars:{autoplay:0,rel:0}}"
+                          @*height:'350',
+                          width:'350',*@
+                          enablejsapi:1,
+                          fs:0,
+                          showinfo:0,
+                          modestbranding:1,
+                          loop:1,
+                          videoId: '{{detalle.Key}}',
+                          playerVars:{autoplay:0,rel:0}}"
                          data-extra="{'descripcionResumen':'{{detalle.Titulo}}'}"
-                         class="yt-video">
+                         class="yt-video video">
                     </div>
+                    <h3>{{detalle.Titulo}}</h3>
                 </div>
                 {{/each}}
             </div>
