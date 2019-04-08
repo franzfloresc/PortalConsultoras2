@@ -27,9 +27,14 @@ namespace Portal.Consultoras.Web.Models
         public int Orden { get; set; }
         public decimal PrecioCatalogo { get; set; }
         public string PrecioCatalogoString { get; set; }
+        public string DescripcionPlural { get; set; }
+        public string DescripcionSingular { get; set; }
         public string Volumen { get; set; }
         public List<EstrategiaComponenteModel> Hermanos { get; set; }
         public bool TieneStock { get; set; }
+
+        //Agana 244
+        public int EstrategiaGrupoId { get; set; }
 
         public object Clone()
         {
