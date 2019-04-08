@@ -1452,6 +1452,11 @@
     <Content Include="Content\CaminoBrillante\imgs\icono-2.PNG" />
     <Content Include="Content\CaminoBrillante\imgs\icono.png" />
     <Content Include="Content\CaminoBrillante\imgs\image-1%402x.png" />
+    <Content Include="Content\CaminoBrillante\imgs\Nivel_02.svg" />
+    <Content Include="Content\CaminoBrillante\imgs\Nivel_03.svg" />
+    <Content Include="Content\CaminoBrillante\imgs\Nivel_04.svg" />
+    <Content Include="Content\CaminoBrillante\imgs\Nivel_05.svg" />
+    <Content Include="Content\CaminoBrillante\imgs\Nivel_06.svg" />
     <Content Include="Content\CaminoBrillante\imgs\pedido_activo.svg" />
     <Content Include="Content\CaminoBrillante\imgs\pedido_desactivo.svg" />
     <Content Include="Content\CaminoBrillante\imgs\perla.svg" />
