@@ -37,7 +37,7 @@ namespace Portal.Consultoras.Web.Providers
             var value = (from item 
                     in _recomendacionesConfiguracion.ConfiguracionPaisDatos
                     where item.Codigo == Constantes.CodigoConfiguracionRecomendaciones.ActivarRecomendaciones
-                    select item.Valor1)
+                    select item.Valor2)
                 .FirstOrDefault();
             return !value.IsNullOrEmptyTrim() && value == "1";
         }

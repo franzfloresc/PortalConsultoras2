@@ -155,6 +155,7 @@ var CarruselAyuda = function () {
 
     var marcarAnalyticsContenedor = function (tipo, data, seccionName, slick, currentSlide, nextSlide) {
         //tipo : 1= inicio, 2: cambio
+
         try {
             var origen = {
                 Pagina: ConstantesModule.OrigenPedidoWebEstructura.Pagina.Contenedor,
@@ -439,13 +440,13 @@ var CarruselModule = (function (config) {
 
         var titulo = '';
 
-        if (_config.palanca == ConstantesModule.CodigosPalanca.Lanzamiento) {
+        if (_config.palanca == ConstantesModule.TipoEstrategiaTexto.Lanzamiento) {
             titulo = 'SET DONDE ENCUENTRAS EL PRODUCTO';
         }
-        else if (_config.palanca == ConstantesModule.CodigosPalanca.ShowRoom) {
+        else if (_config.palanca == ConstantesModule.TipoEstrategiaTexto.ShowRoom) {
             titulo = 'VER MÁS SETS EXCLUSIVOS PARA TI';
         }
-        else if (_config.palanca == ConstantesModule.CodigosPalanca.OfertaDelDia) {
+        else if (_config.palanca == ConstantesModule.TipoEstrategiaTexto.OfertaDelDia) {
             titulo = 'VER MÁS OFERTAS ¡SOLO HOY!';
         }
 
@@ -457,13 +458,13 @@ var CarruselModule = (function (config) {
             lista: []
         };
 
-        if (_config.palanca == ConstantesModule.CodigosPalanca.Lanzamiento) {
+        if (_config.palanca == ConstantesModule.TipoEstrategiaTexto.Lanzamiento) {
             data.lista = _cargarDatos();
         }
         else if (
-            (_config.palanca == ConstantesModule.CodigosPalanca.ShowRoom)
-            || (_config.palanca == ConstantesModule.CodigosPalanca.OfertaDelDia)
-            || (_config.palanca == ConstantesModule.CodigosPalanca.PackNuevas)
+            (_config.palanca == ConstantesModule.TipoEstrategiaTexto.ShowRoom)
+            || (_config.palanca == ConstantesModule.TipoEstrategiaTexto.OfertaDelDia)
+            || (_config.palanca == ConstantesModule.TipoEstrategiaTexto.PackNuevas)
         ) {
             var param = { cuvExcluido: _config.cuv, palanca: _config.palanca }
             _promiseObternerDataCarrusel(param).done(function (response) {
