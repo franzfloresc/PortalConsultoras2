@@ -190,7 +190,12 @@
             @{
                 foreach (var item in Model)
                 {
-                    <article class="ficha__producto" data-item="BuscadorFichasProductos">
+
+                    @{ 
+                        var FlagHabilitado = item.FlagHabilitado ? "producto_desactivado" : "";
+                    }
+
+                    <article class="ficha__producto @FlagHabilitado" data-item="BuscadorFichasProductos">
 
                         <input type="hidden" id="hdCuv" value="@item.CUV" />
                         <div>
@@ -308,6 +313,7 @@
 
 <script src="https://www.somosbelcorp.com/Bundle/Js/Desktop/JQuery3Js?v=6K-kHHuzTBQeaIUNJP1kR-uZJRJv9nA2SlHvYURb6j41"></script>
 @*<script src="https://www.somosbelcorp.com/Bundle/Js/Mixto/PageResponsive?v=UnwRHvNM2IKDp7bnVYbR9vzcKjvNhncrgvXVwHUULCg1"></script>*@
+
 
 <script type='text/javascript'>
     (function () {
