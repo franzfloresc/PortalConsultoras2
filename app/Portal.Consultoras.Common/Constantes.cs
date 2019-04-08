@@ -1747,7 +1747,7 @@ namespace Portal.Consultoras.Common
             public const short ArmaTuPack = 14;
             public const short PilotoCatalogoDigital = 155;
 
-            public const short SegPedidoRegionZona = 190;//HD-3606 EINCA
+            public const short SegPedidoRegionZona = 169;//HD-3606 EINCA
         }
 
         public struct MensajesCDRExpress
