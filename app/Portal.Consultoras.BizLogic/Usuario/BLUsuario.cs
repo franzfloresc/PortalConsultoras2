@@ -3565,7 +3565,7 @@ namespace Portal.Consultoras.BizLogic
             }
 
             mostrarBuscador = configuracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.TipoConfiguracionBuscador.ConsultoraDummy);
-            if (mostrarBuscador != null) buscadorYFiltrosConfiguracion.IndicadorConsultoraDummy = !(mostrarBuscador.Valor1 == "0");
+            if (mostrarBuscador != null) buscadorYFiltrosConfiguracion.IndicadorConsultoraDummy = mostrarBuscador.Valor1 != "0";
 
             mostrarBuscador = configuracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.TipoConfiguracionBuscador.MostrarBotonVerTodos);
             if (mostrarBuscador != null) buscadorYFiltrosConfiguracion.MostrarBotonVerTodosBuscador = mostrarBuscador.Valor1 == "1";
@@ -3833,7 +3833,7 @@ namespace Portal.Consultoras.BizLogic
 
                         if (usuario.PaisID == Constantes.PaisID.Chile)
                         {
-                            if (usuario.UsuarioOpciones.Where(a => a.OpcionesUsuarioId == Constantes.OpcionesUsuario.BoletaImpresa).Count() > 0)
+                            if (usuario.UsuarioOpciones.Any(a => a.OpcionesUsuarioId == Constantes.OpcionesUsuario.BoletaImpresa))
                             {
                                 var urlService = new EndpointAddress(WebConfig.ServicioActualizarBoletaImp);
                                 string flagBolImp = !usuario.UsuarioOpciones.Where(a => a.Codigo == "chkBoletasImpresas").Select(b => b.CheckBox).FirstOrDefault() ? "N" : "S";

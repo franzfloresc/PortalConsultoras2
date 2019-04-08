@@ -177,6 +177,12 @@ namespace Portal.Consultoras.Web.Models
 
         public ConfiguracionSeccionHomeModel ConfiguracionContenedor { get; set; }
 
+        // TODO: liberar comentario
+        /// <summary>
+        /// Calculo del factor cuadre
+        /// </summary>
+        public int CantidadPack { get; set; }
+
         public string PrecioOfertaFormat
         {
             get
