@@ -181,6 +181,10 @@
             </a>
         </section> -->
         <!-- FIN - SECCIÓN ETIQUETAS DE CRITERIOS ELEGIDOS EN LOS FILTROS (DESKTOP) -->
+        <div id="divresultadosKit" style="display:none">
+            @ViewBag.CantidadKit
+        </div>
+
         <section class="col-12 fichas__productos__wrapper text-center" id="kits">
 
             @{
@@ -246,8 +250,12 @@
             }
         </section>
 
-        <section class="col-12 fichas__productos__wrapper text-center" id="Demostradores" style="display:none;">
+        <hr />
 
+        <div id="divresultadosDemostradores" style="display:none;">
+            @ViewBag.CantidadDemostradores
+        </div>
+        <section class="col-12 fichas__productos__wrapper text-center" id="Demostradores" style="display:none;">
             @{
                 foreach (var item in Demostradores)
                 {
@@ -339,6 +347,11 @@
 <script src="~/Scripts/PortalConsultoras/CaminoBrillante/Ofertas.js"></script>
 
 <script>
+            $("#divresultadosDemostradores").hide();
+            $("#divresultadosKit").show();
+            $("#Tab-Demostradores").addClass("activado-dorado");            
+            $("#divresultadosKit").hide();
+            $("#divresultadosDemostradores").show();
     AgregarProducto();
     CambiarOferta();
 </script>
