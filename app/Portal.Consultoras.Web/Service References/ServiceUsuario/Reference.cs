@@ -7731,7 +7731,7 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private int TipoEstrategiaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string TipoEstrategiaIDField;
+        private int TipoEstrategiaIDField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -8147,12 +8147,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string TipoEstrategiaID {
+        public int TipoEstrategiaID {
             get {
                 return this.TipoEstrategiaIDField;
             }
             set {
-                if ((object.ReferenceEquals(this.TipoEstrategiaIDField, value) != true)) {
+                if ((this.TipoEstrategiaIDField.Equals(value) != true)) {
                     this.TipoEstrategiaIDField = value;
                     this.RaisePropertyChanged("TipoEstrategiaID");
                 }
@@ -14683,10 +14683,10 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BELogroCaminoBrillante[]> GetConsultoraLogrosCaminoBrillanteAsync(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEUsuario entidad, bool isWeb);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetKitCaminoBrillante", ReplyAction="http://tempuri.org/IUsuarioService/GetKitCaminoBrillanteResponse")]
-        Portal.Consultoras.Web.ServiceUsuario.BEKitCaminoBrillante[] GetKitCaminoBrillante(int paisId, string periodo);
+        Portal.Consultoras.Web.ServiceUsuario.BEKitCaminoBrillante[] GetKitCaminoBrillante(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuario entidad, int periodoId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetKitCaminoBrillante", ReplyAction="http://tempuri.org/IUsuarioService/GetKitCaminoBrillanteResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEKitCaminoBrillante[]> GetKitCaminoBrillanteAsync(int paisId, string periodo);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEKitCaminoBrillante[]> GetKitCaminoBrillanteAsync(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuario entidad, int periodoId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetDemostradoresCaminoBrillante", ReplyAction="http://tempuri.org/IUsuarioService/GetDemostradoresCaminoBrillanteResponse")]
         Portal.Consultoras.Web.ServiceUsuario.BEDesmostradoresCaminoBrillante[] GetDemostradoresCaminoBrillante(int paisID, string campaniaID);
@@ -15736,12 +15736,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.GetConsultoraLogrosCaminoBrillanteAsync(paisId, entidad, isWeb);
         }
         
-        public Portal.Consultoras.Web.ServiceUsuario.BEKitCaminoBrillante[] GetKitCaminoBrillante(int paisId, string periodo) {
-            return base.Channel.GetKitCaminoBrillante(paisId, periodo);
+        public Portal.Consultoras.Web.ServiceUsuario.BEKitCaminoBrillante[] GetKitCaminoBrillante(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuario entidad, int periodoId) {
+            return base.Channel.GetKitCaminoBrillante(paisID, entidad, periodoId);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEKitCaminoBrillante[]> GetKitCaminoBrillanteAsync(int paisId, string periodo) {
-            return base.Channel.GetKitCaminoBrillanteAsync(paisId, periodo);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEKitCaminoBrillante[]> GetKitCaminoBrillanteAsync(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuario entidad, int periodoId) {
+            return base.Channel.GetKitCaminoBrillanteAsync(paisID, entidad, periodoId);
         }
         
         public Portal.Consultoras.Web.ServiceUsuario.BEDesmostradoresCaminoBrillante[] GetDemostradoresCaminoBrillante(int paisID, string campaniaID) {

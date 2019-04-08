@@ -57,10 +57,18 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Ofertas()
         {
-            if (GetKitCaminoBrillante() != null || GetDemostradoresCaminoBrillante() != null)
+            var lstKit = GetKitCaminoBrillante();
+            var lstDemo = GetDemostradoresCaminoBrillante();
+            int cantKit = lstKit.Count();
+            int cantDemo = lstDemo.Count();
+            ViewBag.Moneda = userData.Simbolo;
+
+            if (lstKit != null || lstDemo != null)
             {
                 var model = GetKitCaminoBrillante();
-                ViewBag.Demostradores = GetDemostradoresCaminoBrillante();
+                ViewBag.Demostradores = lstDemo; //temporal
+                ViewBag.CantidadKit = "Mostrando " + cantKit + " de " + cantKit;  //temporal
+                ViewBag.CantidadDemostradores = "Mostrando " + cantDemo + " de " + cantDemo;  //temporal              
                 return View(model);
             }
             else
@@ -97,8 +105,12 @@ namespace Portal.Consultoras.Web.Controllers
                 var ofertas = SessionManager.GetKitCaminoBrillante();
                 if (ofertas == null || ofertas.Count == 0)
                 {
+                    var user = new BEUsuario() {
+                        CampaniaID = userData.CampaniaID
+                    };
+
                     using (var svc = new UsuarioServiceClient())
-                        ofertas = svc.GetKitCaminoBrillante(userData.PaisID, "201904").ToList();
+                        ofertas = svc.GetKitCaminoBrillante(userData.PaisID, user, 201903).ToList();
                     if (ofertas != null)
                         SessionManager.SetKitCaminoBrillante(ofertas);
                 }

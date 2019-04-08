@@ -26,6 +26,16 @@ namespace Portal.Consultoras.Data.CaminoBrillante
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetConfiguracionMedallaCaminoBrillante_II");            
             return Context.ExecuteReader(command);
-        } 
+        }
+
+        public IDataReader GetKitsCaminoBrillante(int periodoId, int campaniaId, string cuvsStringList)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetKitsCaminoBrillante");
+            Context.Database.AddInParameter(command, "@Periodo", DbType.Int32, periodoId);
+            Context.Database.AddInParameter(command, "@Campania", DbType.Int32, campaniaId);
+            Context.Database.AddInParameter(command, "@CuvsStringList", DbType.Xml, cuvsStringList);
+            return Context.ExecuteReader(command);
+        }
+
     }
 }

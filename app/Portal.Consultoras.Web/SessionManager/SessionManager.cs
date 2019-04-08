@@ -558,6 +558,16 @@ namespace Portal.Consultoras.Web.SessionManager
             HttpContext.Current.Session["ConfigEstrategiaSR"] = data;
         }
 
+        public void SetArmaTuPack(ArmaTuPackModel data)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.ArmaTuPack] = data;
+        }
+
+        ArmaTuPackModel ISessionManager.GetArmaTuPack()
+        {
+            return ((ArmaTuPackModel)HttpContext.Current.Session[Constantes.ConstSession.ArmaTuPack]) ?? new ArmaTuPackModel();
+        }
+
         public Portal.Consultoras.Web.Models.Estrategia.ShowRoom.ConfigModel GetEstrategiaSR()
         {
             return (Portal.Consultoras.Web.Models.Estrategia.ShowRoom.ConfigModel)HttpContext.Current.Session["ConfigEstrategiaSR"] ?? new Models.Estrategia.ShowRoom.ConfigModel();
@@ -901,30 +911,6 @@ namespace Portal.Consultoras.Web.SessionManager
             var val = HttpContext.Current.Session["ListaCDRDetalle"];
 
             return (CDRWebModel)val;
-        }
-
-        void ISessionManager.SetfechaGetNotificacionesSinLeer(dynamic val)
-        {
-            HttpContext.Current.Session["fechaGetNotificacionesSinLeer"] = val;
-        }
-
-        dynamic ISessionManager.GetfechaGetNotificacionesSinLeer()
-        {
-            var val = HttpContext.Current.Session["fechaGetNotificacionesSinLeer"];
-
-            return (dynamic)val;
-        }
-
-        void ISessionManager.SetcantidadGetNotificacionesSinLeer(dynamic val)
-        {
-            HttpContext.Current.Session["cantidadGetNotificacionesSinLeer"] = val;
-        }
-
-        dynamic ISessionManager.GetcantidadGetNotificacionesSinLeer()
-        {
-            var val = HttpContext.Current.Session["cantidadGetNotificacionesSinLeer"];
-
-            return (dynamic)val;
         }
 
         void ISessionManager.SetPedidoFIC(List<BEPedidoFICDetalle> val)

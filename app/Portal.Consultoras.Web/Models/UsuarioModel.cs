@@ -399,5 +399,6 @@ namespace Portal.Consultoras.Web.Models
         public int IndicadorConsultoraDummy { get; set; }
         public bool CaminoBrillante { get; set; }
         public string CaminoBrillanteMsg { get; set; }
+        public string PseudoParamNotif { get; set; } //SALUD-58 
     }
 }

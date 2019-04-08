@@ -115,6 +115,7 @@ else
         var urlListarDetalleCDR = '@Url.Action("DetalleCDR", "Notificaciones", new { area = "Mobile"})';
         var urlListarDetalleCDRCulminado = '@Url.Action("DetalleNotificacionesCDR", "Notificaciones", new { area = "Mobile" })';
         var urlListarPayOnline = '@Url.Action("DetallePagoEnLinea", "Notificaciones", new { area = "Mobile" })';
+        localStorage.setItem('KeyPseudoParam', new Date().getTime()); //SALUD-58
     </script>
     <script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Notificaciones/Index.js")"></script>
 }

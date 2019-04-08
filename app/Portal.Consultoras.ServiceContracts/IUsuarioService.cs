@@ -449,7 +449,7 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         List<BELogroCaminoBrillante> GetConsultoraLogrosCaminoBrillante(int paisId, BEUsuario entidad, bool isWeb);
         [OperationContract]
-        List<BEKitCaminoBrillante> GetKitCaminoBrillante(int paisId, string periodo);
+        List<BEKitCaminoBrillante> GetKitCaminoBrillante(int paisID, BEUsuario entidad, int periodoId);
         [OperationContract]
         List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillante(int paisID, string campaniaID);
         #endregion
