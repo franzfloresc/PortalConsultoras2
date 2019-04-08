@@ -8,6 +8,7 @@ using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.CaminoBrillante;
 using Microsoft.Practices.EnterpriseLibrary.Common.Utility;
 using System.Globalization;
+using Portal.Consultoras.Common.Serializer;
 
 namespace Portal.Consultoras.BizLogic.CaminoBrillante
 {
@@ -89,65 +90,54 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 GetConsultoraLogrosCompromiso(paisId, entidad, nivelConsultora) };
         }
 
-        public List<BEKitCaminoBrillante> GetKit(int paisId, string campania)
+        public List<BEKitCaminoBrillante> GetKit(int paisId, BEUsuario entidad, int periodoId)
         {
             //var kits =  GetKitCache(paisId, campania);
-            var kits = GetKitProvider(paisId, campania);
+            //var kits = GetKitProvider(paisId, periodoId, entidad.CampaniaID);
+            var kits = GetKitCache(paisId, periodoId, entidad.CampaniaID);
+
+            //var historicoKits = GetConsultoraKitHistorico(paisId, entidad, true);
 
             return kits;
         }
 
-        public List<BEKitCaminoBrillante> GetKitCache(int paisId, string campania)
+        public List<BEKitCaminoBrillante> GetKitCache(int paisId, int periodoId, int campaniaId)
         {
-            return CacheManager<List<BEKitCaminoBrillante>>.ValidateDataElement(paisId, ECacheItem.CaminoBrillanteOfertas, campania, () => GetKitProvider(paisId, campania));
+            return CacheManager<List<BEKitCaminoBrillante>>.ValidateDataElement(paisId, ECacheItem.CaminoBrillanteOfertas, string.Format("{0}-{1}", periodoId, campaniaId) , () => GetKitProvider(paisId, periodoId, campaniaId));
         }
 
         //Pendiente cargar imagenes
-        public List<BEKitCaminoBrillante> GetKitProvider(int paisId, string campania)
+        public List<BEKitCaminoBrillante> GetKitProvider(int paisId, int periodoId, int campaniaId)
         {
             _providerCaminoBrillante = _providerCaminoBrillante ?? getCaminoBrillanteProvider(paisId);
             if (_providerCaminoBrillante == null) return null;
 
-            var ofertas = _providerCaminoBrillante.GetOfertas(Util.GetPaisIsoHanna(paisId), campania).Result;
+            var ofertas = _providerCaminoBrillante.GetOfertas(Util.GetPaisIsoHanna(paisId), periodoId).Result;
+            var niveles = GetNiveles(paisId, true) ?? new List<BENivelCaminoBrillante>();
 
-            return ofertas.Select(e => new BEKitCaminoBrillante()
-            {
-                //CodigoKit = e.CodigoKit,
-                //CodigoSap = e.CodigoSap,
-                Cuv = e.Cuv,
-                Descripcion = e.Descripcion,
-                DescripcionOferta = e.DescripcionOferta,
-                Digitable = e.Digitable,
-                Marca = e.Marca,
-                Nivel = e.Nivel,
-                Precio = e.Precio,
-                Imagen = "https://cdn1-prd.somosbelcorp.com/Matriz/PE/PE_2019345307_zvcbmzibzx.png",
+            if (ofertas.Any()) {
+                var cuvsStringList = ofertas.Select(e => e.Cuv).Distinct().ToList().Serialize();
+                var kits = new DACaminoBrillante(paisId).GetKitsCaminoBrillante(201903, 201903, cuvsStringList).MapToCollection<BEKitCaminoBrillante>();
 
+                kits.ForEach(kit => {
+                    var _kitProvider = ofertas.Where(e => e.Cuv == kit.CUV).FirstOrDefault();
+                    if (_kitProvider != null) {
+                        kit.CodigoKit = _kitProvider.CodigoKit;
+                        kit.CodigoSap = _kitProvider.CodigoSap;
+                        kit.DescripcionCUV = _kitProvider.Descripcion;
+                        kit.DescripcionCortaCUV = _kitProvider.Descripcion;
+                        kit.Precio = _kitProvider.Precio;
+                        kit.Digitable = _kitProvider.Digitable;
+                        kit.CodigoNivel = _kitProvider.Nivel;
+                        kit.FlagDigitable = _kitProvider.Digitable;
+                        kit.DescripcionNivel = niveles.Where(e => e.CodigoNivel == _kitProvider.Nivel).Select(e => e.DescripcionNivel).SingleOrDefault();
+                    }
+                });
 
-                //Nueva Estructura
-                EstrategiaID = 1111,
-                CodigoEstrategia = "112",
-                CodigoKit = e.CodigoKit,
-                CodigoSap = e.CodigoSap,
-                CUV = e.Cuv,
-                DescripcionCUV = e.Descripcion,
-                DescripcionCortaCUV = e.Descripcion,
-                MarcaID = 1,
-                DescripcionMarca = e.Marca,
-                CodigoNivel = e.Nivel,
-                DescripcionNivel = e.Nivel,
-                PrecioValorizado = e.Precio,
-                PrecioCatalogo = e.Precio,
-                Ganancia = 0,
-                FotoProductoSmall = "https://cdn1-prd.somosbelcorp.com/Matriz/PE/PE_2019345307_zvcbmzibzx.png",
-                FotoProductoMedium = "https://cdn1-prd.somosbelcorp.com/Matriz/PE/PE_2019345307_zvcbmzibzx.png",
-                TipoEstrategiaID = "1",
-                OrigenPedidoWebFicha = 1,
-                FlagSeleccionado = false,
-                FlagDigitable = e.Digitable,
-                FlagHabilitado = false
+                return kits;
+            }
 
-            }).ToList();
+            return null;
         }
 
 
@@ -602,8 +592,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                     Orden = orden++,
                     Tipo = Constantes.CaminoBrillante.Logros.Indicadores.Medallas.Codes.TIM,
                     Estado = (anios <= aniosConsultora && aniosConsultora != -1),
-                    Titulo = string.Format(e.Valor ?? string.Empty, anios),
-                    //Subtitulo = (anios <= aniosConsultora) ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo,
+                    Titulo = string.Format(e.Valor ?? string.Empty, anios),                    
                     ModalTitulo = e.ComoLograrlo_Estado ? e.ComoLograrlo_Titulo : string.Empty,
                     ModalDescripcion = e.ComoLograrlo_Estado ? e.ComoLograrlo_Descripcion : string.Empty,
                     Valor = e.Codigo
@@ -692,46 +681,13 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             return new CaminoBrillanteProvider(url, usuario, clave);
         }
 
-        /*
         public List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillante(int paisID, string campaniaID)
         {            
-            var demostradores = new List<BEDesmostradoresCaminoBrillante>();
-            var daCaminoBrillante = new DACaminoBrillante(paisID);
-
-            using (IDataReader reader = daCaminoBrillante.GetDemostradoresCaminoBrillante(campaniaID))
-                while (reader.Read())
-                {
-                    demostradores.Add(new BEDesmostradoresCaminoBrillante(reader));
-                }
-
-            return demostradores;
-        }
-        */
-        public List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillante(int paisID, string campaniaID)
-        {            
-            var result =  new DACaminoBrillante(paisID).GetDemostradoresCaminoBrillante(campaniaID)
+            return new DACaminoBrillante(paisID).GetDemostradoresCaminoBrillante(campaniaID)
                         .MapToCollection<BEDesmostradoresCaminoBrillante>();
-
-            /*
-            result.ForEach(e => {
-                e.CUV = e.CUV;
-                e.EstrategiaID = 10;
-                e.CodigoEstrategia = "10";
-                e.DescripcionCortaCUV = e.Descripcion;
-                e.DescripcionCUV = e.Descripcion;
-                e.MarcaID = 1;
-                e.DescripcionMarca = "Esika";
-                e.FotoProductoMedium = "https://cdn1-prd.somosbelcorp.com/Matriz/PE/PE_2019345307_zvcbmzibzx.png";
-                e.FotoProductoSmall = "https://cdn1-prd.somosbelcorp.com/Matriz/PE/PE_2019345307_zvcbmzibzx.png";
-                e.TipoEstrategiaID = "10";
-                e.OrigenPedidoWebFicha = 10;
-            });
-            */
-
-            return result;
         }
 
-        public List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillanteCache(int paisID, string campaniaID)
+        private List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillanteCache(int paisID, string campaniaID)
         {
             return CacheManager<List<BEDesmostradoresCaminoBrillante>>.ValidateDataElement(paisID, ECacheItem.CaminoBrillanteDemostradores, campaniaID, () => GetDemostradoresCaminoBrillante(paisID, campaniaID));
         }
