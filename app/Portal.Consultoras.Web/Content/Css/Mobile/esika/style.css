@@ -50,6 +50,10 @@ h3 {
     font-size: 18px;
 }
 
+.mt-23{
+    margin-top:23px;
+}
+
 .noPadding {
     padding: 0 !important;
 }
@@ -5490,12 +5494,18 @@ body {
 
 .titulo_compartir {
     font-family: 'Lato';
-    font-size: 24px;
+    font-size: 18px;
     font-weight: 300;
     line-height: .82;
-    text-align: center;
+    text-transform: uppercase;
     color: #000000;
     margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+.contet_alert{
+    max-width:300px;
+    margin: 0 auto;
     margin-bottom: 30px;
 }
 
@@ -5850,7 +5860,7 @@ input[type='checkbox']:checked + span:after {
     }
 
     .titulo_compartir {
-        font-size: 19px;
+        font-size: 16px;
         line-height: 28px;
     }
 }

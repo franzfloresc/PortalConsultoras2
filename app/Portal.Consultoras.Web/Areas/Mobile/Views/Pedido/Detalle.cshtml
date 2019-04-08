@@ -42,7 +42,7 @@
                 <input type="hidden" id="hdfSimbolo" value="@Model.Simbolo" />
                 <input type="hidden" id="hdfTotal" value="@Model.Total" />
                 @Html.Partial("~/Areas/Mobile/Views/Util/_barra.cshtml")
-                
+
                 <div id="divPedidoTotalSuperior"></div>
                 <div id="divProductosDetalle" class="contenedor_lista_detalle_productos">
                     <div class="text-center">
@@ -329,7 +329,7 @@
              data-tipoestrategia="{{TipoEstrategiaCodigo}}"
              data-OrigenPedidoWeb="{{OrigenPedidoWeb}}">
             <div class="bloque_descripcion_items_ingresados">
-                <div onclick="javascript: FichaPartialModule.ConstruirFicha(this, '{{TipoAccion}}')"
+                <div onclick="javascript: FichaPartialModule.FichaPreValidar(this, '{{TipoAccion}}', '{{TipoEstrategiaCodigo}}', {{CampaniaID}}, {{SetID}}, {{CUV}})"
                      class="descripcion_item_pedido">
                     <div class="cod_prod text-regular">
                         {{#if detalle.EstadoSimplificacionCuv}}
@@ -345,7 +345,7 @@
                         <span class="texto_rojo">*</span>
                         {{/iff}}
                         <span>{{#iff SetIdentifierNumber '>' '0'}} #{{SetIdentifierNumber}} - {{/iff}} {{Split detalle.DescripcionProd '|' 0}}</span>
-                        
+
                         <span class="precio_oferta_pedido text-regular">
                             {{#if ../EstadoSimplificacionCuv}}
                             {{#if detalle.IndicadorOfertaCUV}}
@@ -373,7 +373,7 @@
                         {{/iff}}
                         {{/IsNullOrEmpty}}
                     </span>
-                    
+
                     {{#if detalle.EsPremioElectivo }}
                     <span class="tooltip_informativo_condicion_regalo_programaNuevas">Sólo si llegas a tu monto</span>
                     {{/if}}
@@ -414,6 +414,7 @@
                                    data-cantidad-input="-"
                                    readonly="readonly"
                                    autocomplete="off">
+                            <i class="arrow-down"></i>
                             {{else iff detalle.TipoEstrategiaID '==' 1}}
                             <input type="tel"
                                    class="ValidaNumeral ValidaPasteNumeral Cantidad"
@@ -425,11 +426,26 @@
                                    data-cantidad-input="-"
                                    readonly="readonly"
                                    autocomplete="off">
+                            <i class="arrow-down"></i>
                             {{else iff detalle.EsPremioElectivo}}
                             <input type="tel"
                                    class="ValidaNumeral ValidaPasteNumeral Cantidad"
                                    maxlength="2"
                                    name="Cantidad_{{detalle.PedidoDetalleID}}"
+                                   value="{{detalle.Cantidad}}"
+                                   data-pedidodetalleid="{{detalle.PedidoDetalleID}}"
+                                   data-setId="{{detalle.SetID}}"
+                                   data-cantidad-input="-"
+                                   readonly="readonly"
+                                   autocomplete="off">
+                            <i class="arrow-down"></i>
+                            {{else iff TipoEstrategiaCodigo '==' @Constantes.TipoEstrategiaCodigo.ArmaTuPack}}
+                            <input type="tel"
+                                   class="ValidaNumeral ValidaPasteNumeral Cantidad"
+                                   maxlength="2"
+                                   name="Cantidad_{{detalle.PedidoDetalleID}}"
+                                   onblur="UpdateLiquidacionEvento(event)"
+                                   onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);"
                                    value="{{detalle.Cantidad}}"
                                    data-pedidodetalleid="{{detalle.PedidoDetalleID}}"
                                    data-setId="{{detalle.SetID}}"
@@ -448,16 +464,27 @@
                                    data-setId="{{detalle.SetID}}"
                                    data-cantidad-input="-"
                                    autocomplete="off">
-                            {{/iff}}
                             <i class="arrow-down"></i>
+                            {{/iff}}
+
                         </div>
                         <div class="clear"></div>
                     </div>
                 </div>
+
                 {{#unless detalle.EsKitNueva}}
                 {{#unless detalle.LockPremioElectivo}}
+
+                <div class="contenedor_espaciocentro">
+                    <div onclick="javascript: FichaPartialModule.FichaPreValidar(this, '{{TipoAccion}}', '{{TipoEstrategiaCodigo}}', {{CampaniaID}}, {{SetID}}, {{CUV}})"
+                         class="contenedor_espaciodimension"></div>
+                </div>
+
                 <div class="icono_eliminar_item_pedido">
-                    <a href="javascript:;" class="border_radius_4 icon_trash" title="Eliminar" onclick="tooltipDelete(event,'{{PedidoDetalleID}}', '{{SetID}}');" data-pedidodetalleid="{{detalle.PedidoDetalleID}}" data-setid="{{detalle.SetID}}"></a>
+                    <a href="javascript:;" class="border_radius_4 icon_trash" title="Eliminar" 
+                       onclick="tooltipDelete(event,'{{PedidoDetalleID}}', '{{SetID}}');" 
+                       data-pedidodetalleid="{{detalle.PedidoDetalleID}}" 
+                       data-setid="{{detalle.SetID}}"></a>
                 </div>
                 {{/unless}}
                 {{/unless}}
@@ -988,10 +1015,10 @@
         var mensajeSinConexionReserva = '@Constantes.MensajesError.SinConexion_Reserva';
         var mensajeElecMultipleEliminar = '@string.Format(Constantes.ProgNuevas.Mensaje.ElecMultiple_ConfirmaEliminar, Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre)';
         var urlObtenerComponentes = '@Url.Action("ObtenerComponentes", "DetalleEstrategia", new { area = "" })';
-        
-        
-        
-        
+
+
+
+
         var tipoOrigenEstrategia = 22;
 
         //OG
@@ -1012,6 +1039,7 @@
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/EstrategiaAgregar")
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/TusClientes")
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Ficha")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Pedido/ArmaTuPack")
 
 
     @if (Model.MostrarPopupPrecargados)

@@ -1,0 +1,78 @@
+﻿
+<script id="seleccionados-template" type="text/x-handlebars-template">
+    <div>
+        <div class="Select_Group" data-carruselseleccionados-container>
+            {{#each this.componentesSeleccionados as |seleccionado|}}
+            <article style="width: 55px;">
+                <div class="Select_Item active">
+                    <div class="product-select">
+                        <button class="product_select_close" data-delete-component data-grupo-componente="{{seleccionado.Grupo}}"
+                                data-cuv-componente="{{seleccionado.Cuv}}"
+                                data-indice-componente="{{@@index}}">
+                            <img data-grupo-componente="{{seleccionado.Grupo}}"
+                                 data-cuv-componente="{{seleccionado.Cuv}}"
+                                 data-indice-componente="{{@@index}}" src="/Content/Images/mobile/Esika/close-button-white.svg">
+                        </button>
+                        <img src="{{seleccionado.ImagenBulk}}" />
+                    </div>
+                </div>
+            </article>
+
+            @*<article>
+                <div class="sym_mas">+</div>
+            </article>*@
+            {{/each}}
+
+            {{#each this.componentesNoSeleccionados as |noSeleccionado|}}
+            <article style="width: 55px;">
+                <div class="Select_Item">
+                    <div class="product-select">
+                        <img src="{{noSeleccionado.ImagenBulk}}" />
+                    </div>
+                </div>
+            </article>
+
+            @*<article>
+                <div class="sym_mas">+</div>
+            </article>*@
+                    {{/each}}
+</div>
+    </div>
+    {{#iff this.componentesSeleccionados.length '>' 0}}
+    {{#each this.componentesSeleccionados as |componente|}}
+    <div data-tono="" data-tono-select="{{componente.Cuv}}" style="display: none;">
+        <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{componente.IdMarca}}" />
+        <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{componente.PrecioCatalogo}}" />
+        <input type="hidden" name="nameDigitable" id="Estrategia_hd_Digitable" value="{{componente.Digitable}}" />
+        <input type="hidden" name="nameGrupo" id="Estrategia_hd_Grupo" value="{{componente.Grupo}}" />
+    </div>
+    {{/each}}
+    {{/iff}}
+    <div class="Agregar_ArmaTuPack_fixed">
+        <div data-tooltip-component class="popover top tooltip_bloqueo" role="tooltip" id="" style="display: none;">
+            <div class="arrow"></div>
+            <div class="popover-content">
+                <ul class="list-inline popover_texto">
+                    <li><img class="icon_alerta" src="../Content/Images/Mobile/Esika/icono-alerta.svg" alt=""></li>
+                    <li>Debes elegir tus opciones para poder<br /> agregar la oferta.</li>
+                </ul>
+            </div>
+        </div>
+        @*<div data-limitepedido="tooltip" class="popover top tooltip_limite_pedidos" role="tooltip" id="" style="display: none;">
+            <div class="arrow"></div>
+            <div class="popover-content">
+                <ul class="list-inline popover_texto">
+                    <li><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt="" /></li>
+                    <li>Lo sentimos <img class="tooltop-emoji" src="/Content/Images/Mobile/Esika/1f615.png" /> Has llegado al límite de pedidos para esta oferta.</li>
+                </ul>
+            </div>
+        </div>*@
+        <input type="hidden" data-input='cantidad' value="1" />
+        <button id="btnAgregalo"
+                class="Agregar_ArmaTuPack btn_desactivado_general disable"
+                data-bloqueada=""
+                onclick="javascript: EstrategiaAgregarModule.EstrategiaAgregar(event, false, 0, true)">
+            Agregar
+        </button>
+    </div>
+</script>
