@@ -1,4 +1,4 @@
-GO
+﻿GO
 USE BelcorpPeru
 GO
 ALTER procedure dbo.GetSolicitudesPedido_SB2
@@ -8,6 +8,7 @@ as
 BEGIN
 	DECLARE @RegionID INT, @ZonaID INT;
 	DECLARE @FechaInicioFact DATETIME, @FechaFinFact DATETIME;
+	DECLARE @HorasVence INT;
 
 	SELECT @RegionID = RegionID, @ZonaID = ZonaID
 	FROM ods.Consultora
@@ -22,7 +23,9 @@ BEGIN
 	FROM ods.Campania c
 	INNER JOIN ods.Cronograma cc ON c.CampaniaID = cc.CampaniaID
 	WHERE c.Codigo = @Campania AND RegionID = @RegionID AND ZonaID = @ZonaID;
-
+	SELECT @HorasVence = ISNULL(Codigo,24)
+	from TablaLogicaDatos
+	where TablaLogicaDatosId = 5603;
 
 	select
 		SolicitudClienteID,
@@ -61,7 +64,7 @@ BEGIN
 		IIF(
 			ISNULL(FlagConsultora,0) = 1,
 			IIF(cast(sc.FechaSolicitud AS DATE) BETWEEN CAST(@FechaInicioFact AS DATE) AND CAST(@FechaFinFact AS DATE), 1, 0),
-			1
+			IIF(sc.FechaSolicitud > DATEADD(HOUR,-@HorasVence,GETDATE()), 1, 0)
 		) = 1
 	ORDER BY
 		ISNULL(FlagConsultora,0) DESC,
@@ -69,7 +72,6 @@ BEGIN
 		FechaSolicitud ASC,
 		PrecioTotal DESC;
 END
-
 
 GO
 USE BelcorpMexico
@@ -81,6 +83,7 @@ as
 BEGIN
 	DECLARE @RegionID INT, @ZonaID INT;
 	DECLARE @FechaInicioFact DATETIME, @FechaFinFact DATETIME;
+	DECLARE @HorasVence INT;
 
 	SELECT @RegionID = RegionID, @ZonaID = ZonaID
 	FROM ods.Consultora
@@ -95,7 +98,9 @@ BEGIN
 	FROM ods.Campania c
 	INNER JOIN ods.Cronograma cc ON c.CampaniaID = cc.CampaniaID
 	WHERE c.Codigo = @Campania AND RegionID = @RegionID AND ZonaID = @ZonaID;
-
+	SELECT @HorasVence = ISNULL(Codigo,24)
+	from TablaLogicaDatos
+	where TablaLogicaDatosId = 5603;
 
 	select
 		SolicitudClienteID,
@@ -134,7 +139,7 @@ BEGIN
 		IIF(
 			ISNULL(FlagConsultora,0) = 1,
 			IIF(cast(sc.FechaSolicitud AS DATE) BETWEEN CAST(@FechaInicioFact AS DATE) AND CAST(@FechaFinFact AS DATE), 1, 0),
-			1
+			IIF(sc.FechaSolicitud > DATEADD(HOUR,-@HorasVence,GETDATE()), 1, 0)
 		) = 1
 	ORDER BY
 		ISNULL(FlagConsultora,0) DESC,
@@ -142,7 +147,6 @@ BEGIN
 		FechaSolicitud ASC,
 		PrecioTotal DESC;
 END
-
 
 GO
 USE BelcorpColombia
@@ -154,6 +158,7 @@ as
 BEGIN
 	DECLARE @RegionID INT, @ZonaID INT;
 	DECLARE @FechaInicioFact DATETIME, @FechaFinFact DATETIME;
+	DECLARE @HorasVence INT;
 
 	SELECT @RegionID = RegionID, @ZonaID = ZonaID
 	FROM ods.Consultora
@@ -168,7 +173,9 @@ BEGIN
 	FROM ods.Campania c
 	INNER JOIN ods.Cronograma cc ON c.CampaniaID = cc.CampaniaID
 	WHERE c.Codigo = @Campania AND RegionID = @RegionID AND ZonaID = @ZonaID;
-
+	SELECT @HorasVence = ISNULL(Codigo,24)
+	from TablaLogicaDatos
+	where TablaLogicaDatosId = 5603;
 
 	select
 		SolicitudClienteID,
@@ -207,7 +214,7 @@ BEGIN
 		IIF(
 			ISNULL(FlagConsultora,0) = 1,
 			IIF(cast(sc.FechaSolicitud AS DATE) BETWEEN CAST(@FechaInicioFact AS DATE) AND CAST(@FechaFinFact AS DATE), 1, 0),
-			1
+			IIF(sc.FechaSolicitud > DATEADD(HOUR,-@HorasVence,GETDATE()), 1, 0)
 		) = 1
 	ORDER BY
 		ISNULL(FlagConsultora,0) DESC,
@@ -215,7 +222,6 @@ BEGIN
 		FechaSolicitud ASC,
 		PrecioTotal DESC;
 END
-
 
 GO
 USE BelcorpSalvador
@@ -227,6 +233,7 @@ as
 BEGIN
 	DECLARE @RegionID INT, @ZonaID INT;
 	DECLARE @FechaInicioFact DATETIME, @FechaFinFact DATETIME;
+	DECLARE @HorasVence INT;
 
 	SELECT @RegionID = RegionID, @ZonaID = ZonaID
 	FROM ods.Consultora
@@ -241,7 +248,9 @@ BEGIN
 	FROM ods.Campania c
 	INNER JOIN ods.Cronograma cc ON c.CampaniaID = cc.CampaniaID
 	WHERE c.Codigo = @Campania AND RegionID = @RegionID AND ZonaID = @ZonaID;
-
+	SELECT @HorasVence = ISNULL(Codigo,24)
+	from TablaLogicaDatos
+	where TablaLogicaDatosId = 5603;
 
 	select
 		SolicitudClienteID,
@@ -280,7 +289,7 @@ BEGIN
 		IIF(
 			ISNULL(FlagConsultora,0) = 1,
 			IIF(cast(sc.FechaSolicitud AS DATE) BETWEEN CAST(@FechaInicioFact AS DATE) AND CAST(@FechaFinFact AS DATE), 1, 0),
-			1
+			IIF(sc.FechaSolicitud > DATEADD(HOUR,-@HorasVence,GETDATE()), 1, 0)
 		) = 1
 	ORDER BY
 		ISNULL(FlagConsultora,0) DESC,
@@ -288,7 +297,6 @@ BEGIN
 		FechaSolicitud ASC,
 		PrecioTotal DESC;
 END
-
 
 GO
 USE BelcorpPuertoRico
@@ -300,6 +308,7 @@ as
 BEGIN
 	DECLARE @RegionID INT, @ZonaID INT;
 	DECLARE @FechaInicioFact DATETIME, @FechaFinFact DATETIME;
+	DECLARE @HorasVence INT;
 
 	SELECT @RegionID = RegionID, @ZonaID = ZonaID
 	FROM ods.Consultora
@@ -314,7 +323,9 @@ BEGIN
 	FROM ods.Campania c
 	INNER JOIN ods.Cronograma cc ON c.CampaniaID = cc.CampaniaID
 	WHERE c.Codigo = @Campania AND RegionID = @RegionID AND ZonaID = @ZonaID;
-
+	SELECT @HorasVence = ISNULL(Codigo,24)
+	from TablaLogicaDatos
+	where TablaLogicaDatosId = 5603;
 
 	select
 		SolicitudClienteID,
@@ -353,7 +364,7 @@ BEGIN
 		IIF(
 			ISNULL(FlagConsultora,0) = 1,
 			IIF(cast(sc.FechaSolicitud AS DATE) BETWEEN CAST(@FechaInicioFact AS DATE) AND CAST(@FechaFinFact AS DATE), 1, 0),
-			1
+			IIF(sc.FechaSolicitud > DATEADD(HOUR,-@HorasVence,GETDATE()), 1, 0)
 		) = 1
 	ORDER BY
 		ISNULL(FlagConsultora,0) DESC,
@@ -361,7 +372,6 @@ BEGIN
 		FechaSolicitud ASC,
 		PrecioTotal DESC;
 END
-
 
 GO
 USE BelcorpPanama
@@ -373,6 +383,7 @@ as
 BEGIN
 	DECLARE @RegionID INT, @ZonaID INT;
 	DECLARE @FechaInicioFact DATETIME, @FechaFinFact DATETIME;
+	DECLARE @HorasVence INT;
 
 	SELECT @RegionID = RegionID, @ZonaID = ZonaID
 	FROM ods.Consultora
@@ -387,7 +398,9 @@ BEGIN
 	FROM ods.Campania c
 	INNER JOIN ods.Cronograma cc ON c.CampaniaID = cc.CampaniaID
 	WHERE c.Codigo = @Campania AND RegionID = @RegionID AND ZonaID = @ZonaID;
-
+	SELECT @HorasVence = ISNULL(Codigo,24)
+	from TablaLogicaDatos
+	where TablaLogicaDatosId = 5603;
 
 	select
 		SolicitudClienteID,
@@ -426,7 +439,7 @@ BEGIN
 		IIF(
 			ISNULL(FlagConsultora,0) = 1,
 			IIF(cast(sc.FechaSolicitud AS DATE) BETWEEN CAST(@FechaInicioFact AS DATE) AND CAST(@FechaFinFact AS DATE), 1, 0),
-			1
+			IIF(sc.FechaSolicitud > DATEADD(HOUR,-@HorasVence,GETDATE()), 1, 0)
 		) = 1
 	ORDER BY
 		ISNULL(FlagConsultora,0) DESC,
@@ -434,7 +447,6 @@ BEGIN
 		FechaSolicitud ASC,
 		PrecioTotal DESC;
 END
-
 
 GO
 USE BelcorpGuatemala
@@ -446,6 +458,7 @@ as
 BEGIN
 	DECLARE @RegionID INT, @ZonaID INT;
 	DECLARE @FechaInicioFact DATETIME, @FechaFinFact DATETIME;
+	DECLARE @HorasVence INT;
 
 	SELECT @RegionID = RegionID, @ZonaID = ZonaID
 	FROM ods.Consultora
@@ -460,7 +473,9 @@ BEGIN
 	FROM ods.Campania c
 	INNER JOIN ods.Cronograma cc ON c.CampaniaID = cc.CampaniaID
 	WHERE c.Codigo = @Campania AND RegionID = @RegionID AND ZonaID = @ZonaID;
-
+	SELECT @HorasVence = ISNULL(Codigo,24)
+	from TablaLogicaDatos
+	where TablaLogicaDatosId = 5603;
 
 	select
 		SolicitudClienteID,
@@ -499,7 +514,7 @@ BEGIN
 		IIF(
 			ISNULL(FlagConsultora,0) = 1,
 			IIF(cast(sc.FechaSolicitud AS DATE) BETWEEN CAST(@FechaInicioFact AS DATE) AND CAST(@FechaFinFact AS DATE), 1, 0),
-			1
+			IIF(sc.FechaSolicitud > DATEADD(HOUR,-@HorasVence,GETDATE()), 1, 0)
 		) = 1
 	ORDER BY
 		ISNULL(FlagConsultora,0) DESC,
@@ -507,7 +522,6 @@ BEGIN
 		FechaSolicitud ASC,
 		PrecioTotal DESC;
 END
-
 
 GO
 USE BelcorpEcuador
@@ -519,6 +533,7 @@ as
 BEGIN
 	DECLARE @RegionID INT, @ZonaID INT;
 	DECLARE @FechaInicioFact DATETIME, @FechaFinFact DATETIME;
+	DECLARE @HorasVence INT;
 
 	SELECT @RegionID = RegionID, @ZonaID = ZonaID
 	FROM ods.Consultora
@@ -533,7 +548,9 @@ BEGIN
 	FROM ods.Campania c
 	INNER JOIN ods.Cronograma cc ON c.CampaniaID = cc.CampaniaID
 	WHERE c.Codigo = @Campania AND RegionID = @RegionID AND ZonaID = @ZonaID;
-
+	SELECT @HorasVence = ISNULL(Codigo,24)
+	from TablaLogicaDatos
+	where TablaLogicaDatosId = 5603;
 
 	select
 		SolicitudClienteID,
@@ -572,7 +589,7 @@ BEGIN
 		IIF(
 			ISNULL(FlagConsultora,0) = 1,
 			IIF(cast(sc.FechaSolicitud AS DATE) BETWEEN CAST(@FechaInicioFact AS DATE) AND CAST(@FechaFinFact AS DATE), 1, 0),
-			1
+			IIF(sc.FechaSolicitud > DATEADD(HOUR,-@HorasVence,GETDATE()), 1, 0)
 		) = 1
 	ORDER BY
 		ISNULL(FlagConsultora,0) DESC,
@@ -580,7 +597,6 @@ BEGIN
 		FechaSolicitud ASC,
 		PrecioTotal DESC;
 END
-
 
 GO
 USE BelcorpDominicana
@@ -592,6 +608,7 @@ as
 BEGIN
 	DECLARE @RegionID INT, @ZonaID INT;
 	DECLARE @FechaInicioFact DATETIME, @FechaFinFact DATETIME;
+	DECLARE @HorasVence INT;
 
 	SELECT @RegionID = RegionID, @ZonaID = ZonaID
 	FROM ods.Consultora
@@ -606,7 +623,9 @@ BEGIN
 	FROM ods.Campania c
 	INNER JOIN ods.Cronograma cc ON c.CampaniaID = cc.CampaniaID
 	WHERE c.Codigo = @Campania AND RegionID = @RegionID AND ZonaID = @ZonaID;
-
+	SELECT @HorasVence = ISNULL(Codigo,24)
+	from TablaLogicaDatos
+	where TablaLogicaDatosId = 5603;
 
 	select
 		SolicitudClienteID,
@@ -645,7 +664,7 @@ BEGIN
 		IIF(
 			ISNULL(FlagConsultora,0) = 1,
 			IIF(cast(sc.FechaSolicitud AS DATE) BETWEEN CAST(@FechaInicioFact AS DATE) AND CAST(@FechaFinFact AS DATE), 1, 0),
-			1
+			IIF(sc.FechaSolicitud > DATEADD(HOUR,-@HorasVence,GETDATE()), 1, 0)
 		) = 1
 	ORDER BY
 		ISNULL(FlagConsultora,0) DESC,
@@ -653,7 +672,6 @@ BEGIN
 		FechaSolicitud ASC,
 		PrecioTotal DESC;
 END
-
 
 GO
 USE BelcorpCostaRica
@@ -665,6 +683,7 @@ as
 BEGIN
 	DECLARE @RegionID INT, @ZonaID INT;
 	DECLARE @FechaInicioFact DATETIME, @FechaFinFact DATETIME;
+	DECLARE @HorasVence INT;
 
 	SELECT @RegionID = RegionID, @ZonaID = ZonaID
 	FROM ods.Consultora
@@ -679,7 +698,9 @@ BEGIN
 	FROM ods.Campania c
 	INNER JOIN ods.Cronograma cc ON c.CampaniaID = cc.CampaniaID
 	WHERE c.Codigo = @Campania AND RegionID = @RegionID AND ZonaID = @ZonaID;
-
+	SELECT @HorasVence = ISNULL(Codigo,24)
+	from TablaLogicaDatos
+	where TablaLogicaDatosId = 5603;
 
 	select
 		SolicitudClienteID,
@@ -718,7 +739,7 @@ BEGIN
 		IIF(
 			ISNULL(FlagConsultora,0) = 1,
 			IIF(cast(sc.FechaSolicitud AS DATE) BETWEEN CAST(@FechaInicioFact AS DATE) AND CAST(@FechaFinFact AS DATE), 1, 0),
-			1
+			IIF(sc.FechaSolicitud > DATEADD(HOUR,-@HorasVence,GETDATE()), 1, 0)
 		) = 1
 	ORDER BY
 		ISNULL(FlagConsultora,0) DESC,
@@ -726,7 +747,6 @@ BEGIN
 		FechaSolicitud ASC,
 		PrecioTotal DESC;
 END
-
 
 GO
 USE BelcorpChile
@@ -738,6 +758,7 @@ as
 BEGIN
 	DECLARE @RegionID INT, @ZonaID INT;
 	DECLARE @FechaInicioFact DATETIME, @FechaFinFact DATETIME;
+	DECLARE @HorasVence INT;
 
 	SELECT @RegionID = RegionID, @ZonaID = ZonaID
 	FROM ods.Consultora
@@ -752,7 +773,9 @@ BEGIN
 	FROM ods.Campania c
 	INNER JOIN ods.Cronograma cc ON c.CampaniaID = cc.CampaniaID
 	WHERE c.Codigo = @Campania AND RegionID = @RegionID AND ZonaID = @ZonaID;
-
+	SELECT @HorasVence = ISNULL(Codigo,24)
+	from TablaLogicaDatos
+	where TablaLogicaDatosId = 5603;
 
 	select
 		SolicitudClienteID,
@@ -791,7 +814,7 @@ BEGIN
 		IIF(
 			ISNULL(FlagConsultora,0) = 1,
 			IIF(cast(sc.FechaSolicitud AS DATE) BETWEEN CAST(@FechaInicioFact AS DATE) AND CAST(@FechaFinFact AS DATE), 1, 0),
-			1
+			IIF(sc.FechaSolicitud > DATEADD(HOUR,-@HorasVence,GETDATE()), 1, 0)
 		) = 1
 	ORDER BY
 		ISNULL(FlagConsultora,0) DESC,
@@ -799,7 +822,6 @@ BEGIN
 		FechaSolicitud ASC,
 		PrecioTotal DESC;
 END
-
 
 GO
 USE BelcorpBolivia
@@ -811,6 +833,7 @@ as
 BEGIN
 	DECLARE @RegionID INT, @ZonaID INT;
 	DECLARE @FechaInicioFact DATETIME, @FechaFinFact DATETIME;
+	DECLARE @HorasVence INT;
 
 	SELECT @RegionID = RegionID, @ZonaID = ZonaID
 	FROM ods.Consultora
@@ -825,7 +848,9 @@ BEGIN
 	FROM ods.Campania c
 	INNER JOIN ods.Cronograma cc ON c.CampaniaID = cc.CampaniaID
 	WHERE c.Codigo = @Campania AND RegionID = @RegionID AND ZonaID = @ZonaID;
-
+	SELECT @HorasVence = ISNULL(Codigo,24)
+	from TablaLogicaDatos
+	where TablaLogicaDatosId = 5603;
 
 	select
 		SolicitudClienteID,
@@ -864,7 +889,7 @@ BEGIN
 		IIF(
 			ISNULL(FlagConsultora,0) = 1,
 			IIF(cast(sc.FechaSolicitud AS DATE) BETWEEN CAST(@FechaInicioFact AS DATE) AND CAST(@FechaFinFact AS DATE), 1, 0),
-			1
+			IIF(sc.FechaSolicitud > DATEADD(HOUR,-@HorasVence,GETDATE()), 1, 0)
 		) = 1
 	ORDER BY
 		ISNULL(FlagConsultora,0) DESC,
@@ -872,6 +897,5 @@ BEGIN
 		FechaSolicitud ASC,
 		PrecioTotal DESC;
 END
-
 
 GO

@@ -1,4 +1,4 @@
-USE BelcorpPeru
+﻿USE BelcorpPeru
 GO
 
 delete from TablaLogicaDatos where TablaLogicaDatosID = 15304

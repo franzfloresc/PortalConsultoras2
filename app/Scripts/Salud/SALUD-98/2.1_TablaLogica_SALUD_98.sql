@@ -1,9 +1,9 @@
-USE BelcorpPeru
+ï»¿USE BelcorpPeru
 GO
 
 if not exists(select 1 from TablaLogica where TablaLogicaID = 163)
 begin
-	insert into TablaLogica values(163, 'Políticas de bloqueo')
+	insert into TablaLogica values(163, 'PolÃ­ticas de bloqueo')
 end
 go
 
@@ -12,7 +12,7 @@ GO
 
 if not exists(select 1 from TablaLogica where TablaLogicaID = 163)
 begin
-	insert into TablaLogica values(163, 'Políticas de bloqueo')
+	insert into TablaLogica values(163, 'PolÃ­ticas de bloqueo')
 end
 go
 
@@ -21,7 +21,7 @@ GO
 
 if not exists(select 1 from TablaLogica where TablaLogicaID = 163)
 begin
-	insert into TablaLogica values(163, 'Políticas de bloqueo')
+	insert into TablaLogica values(163, 'PolÃ­ticas de bloqueo')
 end
 go
 
@@ -30,7 +30,7 @@ GO
 
 if not exists(select 1 from TablaLogica where TablaLogicaID = 163)
 begin
-	insert into TablaLogica values(163, 'Políticas de bloqueo')
+	insert into TablaLogica values(163, 'PolÃ­ticas de bloqueo')
 end
 go
 
@@ -39,7 +39,7 @@ GO
 
 if not exists(select 1 from TablaLogica where TablaLogicaID = 163)
 begin
-	insert into TablaLogica values(163, 'Políticas de bloqueo')
+	insert into TablaLogica values(163, 'PolÃ­ticas de bloqueo')
 end
 go
 
@@ -48,7 +48,7 @@ GO
 
 if not exists(select 1 from TablaLogica where TablaLogicaID = 163)
 begin
-	insert into TablaLogica values(163, 'Políticas de bloqueo')
+	insert into TablaLogica values(163, 'PolÃ­ticas de bloqueo')
 end
 go
 
@@ -57,7 +57,7 @@ GO
 
 if not exists(select 1 from TablaLogica where TablaLogicaID = 163)
 begin
-	insert into TablaLogica values(163, 'Políticas de bloqueo')
+	insert into TablaLogica values(163, 'PolÃ­ticas de bloqueo')
 end
 go
 
@@ -66,7 +66,7 @@ GO
 
 if not exists(select 1 from TablaLogica where TablaLogicaID = 163)
 begin
-	insert into TablaLogica values(163, 'Políticas de bloqueo')
+	insert into TablaLogica values(163, 'PolÃ­ticas de bloqueo')
 end
 go
 
@@ -75,7 +75,7 @@ GO
 
 if not exists(select 1 from TablaLogica where TablaLogicaID = 163)
 begin
-	insert into TablaLogica values(163, 'Políticas de bloqueo')
+	insert into TablaLogica values(163, 'PolÃ­ticas de bloqueo')
 end
 go
 
@@ -84,7 +84,7 @@ GO
 
 if not exists(select 1 from TablaLogica where TablaLogicaID = 163)
 begin
-	insert into TablaLogica values(163, 'Políticas de bloqueo')
+	insert into TablaLogica values(163, 'PolÃ­ticas de bloqueo')
 end
 go
 
@@ -93,7 +93,7 @@ GO
 
 if not exists(select 1 from TablaLogica where TablaLogicaID = 163)
 begin
-	insert into TablaLogica values(163, 'Políticas de bloqueo')
+	insert into TablaLogica values(163, 'PolÃ­ticas de bloqueo')
 end
 go
 
@@ -102,6 +102,6 @@ GO
 
 if not exists(select 1 from TablaLogica where TablaLogicaID = 163)
 begin
-	insert into TablaLogica values(163, 'Políticas de bloqueo')
+	insert into TablaLogica values(163, 'PolÃ­ticas de bloqueo')
 end
 go

@@ -1,4 +1,4 @@
-USE BelcorpPeru
+﻿USE BelcorpPeru
 GO
 
 IF EXISTS (SELECT column_name FROM information_schema.columns WHERE table_name='Usuario' and column_name='CantidadIntentoLogueo') 

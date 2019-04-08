@@ -1,0 +1,20 @@
+1.SB2 WEB
+	Agregar:
+		Dentro de system.webServer (Sólo en PRD)
+			<rewrite>
+				<outboundRules>
+					<rule name="Remove RESPONSE_Server" >
+						<match serverVariable="RESPONSE_SERVER" pattern=".+" />
+						<action type="Rewrite" value="IvanServer" />
+					</rule>
+				</outboundRules>      
+			</rewrite>
+			
+			<!--<httpErrors errorMode="Custom">
+			<remove statusCode="404"/>
+			<error statusCode="404" path="/CustomError.html" responseMode="File"/>
+			</httpErrors>-->
+	
+	Modificar:
+		<httpRuntime targetFramework="4.5" requestValidationMode="4.5" enableVersionHeader="false"/> (Sólo en PRD)
+		<customErrors mode="On" defaultRedirect="CustomError.html" redirectMode="ResponseRewrite"/> (Sólo en PRD)

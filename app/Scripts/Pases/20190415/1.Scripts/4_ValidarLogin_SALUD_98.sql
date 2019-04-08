@@ -1,7 +1,8 @@
-USE BelcorpPeru
+﻿USE BelcorpPeru
 GO
 
 ALTER PROCEDURE [dbo].[ValidarLogin]
+-- exec ValidarLogin '044315718', '1'
 (
 	@CodigoUsuario VARCHAR(50),
 	@Contrasenia VARCHAR(200)
@@ -88,15 +89,60 @@ BEGIN
 		END
 	END
 
-	IF (ISNULL(@CodigoConsultora,'') != '' AND @PaisID != 0)
+	--Validar el # intentos de logueo y tiempo de espera
+	declare @TiempoEsperaLogueo int = (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'TiempoLogueo') --obtener tiempo de espera de logueo
+	declare @FechaUltimoIntentoLogueo datetime = (select FechaUltimoIntentoLogueo from usuario where CodigoUsuario = @CodigoUsuario)
+	declare @UsuarioBloqueado int = (select 1 from Usuario where CodigoUsuario = @CodigoUsuario and Bloqueado = 1)
+
+	if (SELECT DATEDIFF(second, @FechaUltimoIntentoLogueo, getdate())) >  @TiempoEsperaLogueo and isnull(@UsuarioBloqueado,0) = 1
+	begin
+		UPDATE Usuario 
+		set CantidadIntentoLogueo = 0, 
+		Bloqueado = 0,
+		FechaUltimoIntentoLogueo = getdate() 
+		WHERE CodigoUsuario = @CodigoUsuario
+	end
+
+	IF exists(select 1 from Usuario where CodigoUsuario = @CodigoUsuario and Bloqueado = 1)
+	begin			
+		SET @Result = 5 
+		SET @Mensaje = 'Su cuenta fue bloqueada, por superar la cantidad maxima de intento'
+	end
+	ELSE IF (ISNULL(@CodigoConsultora,'') != '' AND @PaisID != 0)
 	BEGIN
 		SELECT @Result = Result, @Mensaje = Mensaje 
 		FROM dbo.fnGetAccesoUsuario(@PaisID,@CodigoUsuarioReal,@CodigoConsultora,@TipoUsuario,@RolID)
+		
+		UPDATE Usuario 
+		set CantidadIntentoLogueo = 0, 
+		FechaUltimoIntentoLogueo = getdate() 
+		WHERE CodigoUsuario = @CodigoUsuario
 	END
 	ELSE
 	BEGIN
-		SET @Result = 4 
-		SET @Mensaje = 'Usuario o Contrase�a Incorrectas'
+		declare @CantidadIntentoLogueo int = (select CantidadIntentoLogueo from Usuario WHERE CodigoUsuario = @CodigoUsuario)
+		
+		IF (@CantidadIntentoLogueo + 1 >= (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'IntentoLogueo'))
+		begin
+			UPDATE Usuario 
+			set Bloqueado = 1,
+			CantidadIntentoLogueo = (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'IntentoLogueo'),
+			FechaUltimoIntentoLogueo = getdate()
+			WHERE CodigoUsuario = @CodigoUsuario
+
+			SET @Result = 5 
+			SET @Mensaje = 'Su cuenta fue bloqueada, por superar la cantidad maxima de intento'
+		end
+		else
+		begin
+			SET @Result = 4 
+			SET @Mensaje = 'Usuario o Contraseña Incorrectas'
+
+			UPDATE Usuario 
+			set CantidadIntentoLogueo = CantidadIntentoLogueo + 1, 
+			FechaUltimoIntentoLogueo = getdate() 
+			WHERE CodigoUsuario = @CodigoUsuario
+		end
 	END
 		
 	SELECT @Result AS Result, 
@@ -107,13 +153,13 @@ BEGIN
 	SET NOCOUNT OFF
 
 END
-
-GO
+go
 
 USE BelcorpMexico
 GO
 
 ALTER PROCEDURE [dbo].[ValidarLogin]
+-- exec ValidarLogin '044315718', '1'
 (
 	@CodigoUsuario VARCHAR(50),
 	@Contrasenia VARCHAR(200)
@@ -200,15 +246,60 @@ BEGIN
 		END
 	END
 
-	IF (ISNULL(@CodigoConsultora,'') != '' AND @PaisID != 0)
+	--Validar el # intentos de logueo y tiempo de espera
+	declare @TiempoEsperaLogueo int = (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'TiempoLogueo') --obtener tiempo de espera de logueo
+	declare @FechaUltimoIntentoLogueo datetime = (select FechaUltimoIntentoLogueo from usuario where CodigoUsuario = @CodigoUsuario)
+	declare @UsuarioBloqueado int = (select 1 from Usuario where CodigoUsuario = @CodigoUsuario and Bloqueado = 1)
+
+	if (SELECT DATEDIFF(second, @FechaUltimoIntentoLogueo, getdate())) >  @TiempoEsperaLogueo and isnull(@UsuarioBloqueado,0) = 1
+	begin
+		UPDATE Usuario 
+		set CantidadIntentoLogueo = 0, 
+		Bloqueado = 0,
+		FechaUltimoIntentoLogueo = getdate() 
+		WHERE CodigoUsuario = @CodigoUsuario
+	end
+
+	IF exists(select 1 from Usuario where CodigoUsuario = @CodigoUsuario and Bloqueado = 1)
+	begin			
+		SET @Result = 5 
+		SET @Mensaje = 'Su cuenta fue bloqueada, por superar la cantidad maxima de intento'
+	end
+	ELSE IF (ISNULL(@CodigoConsultora,'') != '' AND @PaisID != 0)
 	BEGIN
 		SELECT @Result = Result, @Mensaje = Mensaje 
 		FROM dbo.fnGetAccesoUsuario(@PaisID,@CodigoUsuarioReal,@CodigoConsultora,@TipoUsuario,@RolID)
+		
+		UPDATE Usuario 
+		set CantidadIntentoLogueo = 0, 
+		FechaUltimoIntentoLogueo = getdate() 
+		WHERE CodigoUsuario = @CodigoUsuario
 	END
 	ELSE
 	BEGIN
-		SET @Result = 4 
-		SET @Mensaje = 'Usuario o Contrase�a Incorrectas'
+		declare @CantidadIntentoLogueo int = (select CantidadIntentoLogueo from Usuario WHERE CodigoUsuario = @CodigoUsuario)
+		
+		IF (@CantidadIntentoLogueo + 1 >= (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'IntentoLogueo'))
+		begin
+			UPDATE Usuario 
+			set Bloqueado = 1,
+			CantidadIntentoLogueo = (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'IntentoLogueo'),
+			FechaUltimoIntentoLogueo = getdate()
+			WHERE CodigoUsuario = @CodigoUsuario
+
+			SET @Result = 5 
+			SET @Mensaje = 'Su cuenta fue bloqueada, por superar la cantidad maxima de intento'
+		end
+		else
+		begin
+			SET @Result = 4 
+			SET @Mensaje = 'Usuario o Contraseña Incorrectas'
+
+			UPDATE Usuario 
+			set CantidadIntentoLogueo = CantidadIntentoLogueo + 1, 
+			FechaUltimoIntentoLogueo = getdate() 
+			WHERE CodigoUsuario = @CodigoUsuario
+		end
 	END
 		
 	SELECT @Result AS Result, 
@@ -219,13 +310,13 @@ BEGIN
 	SET NOCOUNT OFF
 
 END
-
-GO
+go
 
 USE BelcorpColombia
 GO
 
 ALTER PROCEDURE [dbo].[ValidarLogin]
+-- exec ValidarLogin '044315718', '1'
 (
 	@CodigoUsuario VARCHAR(50),
 	@Contrasenia VARCHAR(200)
@@ -312,15 +403,60 @@ BEGIN
 		END
 	END
 
-	IF (ISNULL(@CodigoConsultora,'') != '' AND @PaisID != 0)
+	--Validar el # intentos de logueo y tiempo de espera
+	declare @TiempoEsperaLogueo int = (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'TiempoLogueo') --obtener tiempo de espera de logueo
+	declare @FechaUltimoIntentoLogueo datetime = (select FechaUltimoIntentoLogueo from usuario where CodigoUsuario = @CodigoUsuario)
+	declare @UsuarioBloqueado int = (select 1 from Usuario where CodigoUsuario = @CodigoUsuario and Bloqueado = 1)
+
+	if (SELECT DATEDIFF(second, @FechaUltimoIntentoLogueo, getdate())) >  @TiempoEsperaLogueo and isnull(@UsuarioBloqueado,0) = 1
+	begin
+		UPDATE Usuario 
+		set CantidadIntentoLogueo = 0, 
+		Bloqueado = 0,
+		FechaUltimoIntentoLogueo = getdate() 
+		WHERE CodigoUsuario = @CodigoUsuario
+	end
+
+	IF exists(select 1 from Usuario where CodigoUsuario = @CodigoUsuario and Bloqueado = 1)
+	begin			
+		SET @Result = 5 
+		SET @Mensaje = 'Su cuenta fue bloqueada, por superar la cantidad maxima de intento'
+	end
+	ELSE IF (ISNULL(@CodigoConsultora,'') != '' AND @PaisID != 0)
 	BEGIN
 		SELECT @Result = Result, @Mensaje = Mensaje 
 		FROM dbo.fnGetAccesoUsuario(@PaisID,@CodigoUsuarioReal,@CodigoConsultora,@TipoUsuario,@RolID)
+		
+		UPDATE Usuario 
+		set CantidadIntentoLogueo = 0, 
+		FechaUltimoIntentoLogueo = getdate() 
+		WHERE CodigoUsuario = @CodigoUsuario
 	END
 	ELSE
 	BEGIN
-		SET @Result = 4 
-		SET @Mensaje = 'Usuario o Contrase�a Incorrectas'
+		declare @CantidadIntentoLogueo int = (select CantidadIntentoLogueo from Usuario WHERE CodigoUsuario = @CodigoUsuario)
+		
+		IF (@CantidadIntentoLogueo + 1 >= (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'IntentoLogueo'))
+		begin
+			UPDATE Usuario 
+			set Bloqueado = 1,
+			CantidadIntentoLogueo = (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'IntentoLogueo'),
+			FechaUltimoIntentoLogueo = getdate()
+			WHERE CodigoUsuario = @CodigoUsuario
+
+			SET @Result = 5 
+			SET @Mensaje = 'Su cuenta fue bloqueada, por superar la cantidad maxima de intento'
+		end
+		else
+		begin
+			SET @Result = 4 
+			SET @Mensaje = 'Usuario o Contraseña Incorrectas'
+
+			UPDATE Usuario 
+			set CantidadIntentoLogueo = CantidadIntentoLogueo + 1, 
+			FechaUltimoIntentoLogueo = getdate() 
+			WHERE CodigoUsuario = @CodigoUsuario
+		end
 	END
 		
 	SELECT @Result AS Result, 
@@ -331,13 +467,13 @@ BEGIN
 	SET NOCOUNT OFF
 
 END
-
-GO
+go
 
 USE BelcorpSalvador
 GO
 
 ALTER PROCEDURE [dbo].[ValidarLogin]
+-- exec ValidarLogin '044315718', '1'
 (
 	@CodigoUsuario VARCHAR(50),
 	@Contrasenia VARCHAR(200)
@@ -424,15 +560,60 @@ BEGIN
 		END
 	END
 
-	IF (ISNULL(@CodigoConsultora,'') != '' AND @PaisID != 0)
+	--Validar el # intentos de logueo y tiempo de espera
+	declare @TiempoEsperaLogueo int = (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'TiempoLogueo') --obtener tiempo de espera de logueo
+	declare @FechaUltimoIntentoLogueo datetime = (select FechaUltimoIntentoLogueo from usuario where CodigoUsuario = @CodigoUsuario)
+	declare @UsuarioBloqueado int = (select 1 from Usuario where CodigoUsuario = @CodigoUsuario and Bloqueado = 1)
+
+	if (SELECT DATEDIFF(second, @FechaUltimoIntentoLogueo, getdate())) >  @TiempoEsperaLogueo and isnull(@UsuarioBloqueado,0) = 1
+	begin
+		UPDATE Usuario 
+		set CantidadIntentoLogueo = 0, 
+		Bloqueado = 0,
+		FechaUltimoIntentoLogueo = getdate() 
+		WHERE CodigoUsuario = @CodigoUsuario
+	end
+
+	IF exists(select 1 from Usuario where CodigoUsuario = @CodigoUsuario and Bloqueado = 1)
+	begin			
+		SET @Result = 5 
+		SET @Mensaje = 'Su cuenta fue bloqueada, por superar la cantidad maxima de intento'
+	end
+	ELSE IF (ISNULL(@CodigoConsultora,'') != '' AND @PaisID != 0)
 	BEGIN
 		SELECT @Result = Result, @Mensaje = Mensaje 
 		FROM dbo.fnGetAccesoUsuario(@PaisID,@CodigoUsuarioReal,@CodigoConsultora,@TipoUsuario,@RolID)
+		
+		UPDATE Usuario 
+		set CantidadIntentoLogueo = 0, 
+		FechaUltimoIntentoLogueo = getdate() 
+		WHERE CodigoUsuario = @CodigoUsuario
 	END
 	ELSE
 	BEGIN
-		SET @Result = 4 
-		SET @Mensaje = 'Usuario o Contrase�a Incorrectas'
+		declare @CantidadIntentoLogueo int = (select CantidadIntentoLogueo from Usuario WHERE CodigoUsuario = @CodigoUsuario)
+		
+		IF (@CantidadIntentoLogueo + 1 >= (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'IntentoLogueo'))
+		begin
+			UPDATE Usuario 
+			set Bloqueado = 1,
+			CantidadIntentoLogueo = (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'IntentoLogueo'),
+			FechaUltimoIntentoLogueo = getdate()
+			WHERE CodigoUsuario = @CodigoUsuario
+
+			SET @Result = 5 
+			SET @Mensaje = 'Su cuenta fue bloqueada, por superar la cantidad maxima de intento'
+		end
+		else
+		begin
+			SET @Result = 4 
+			SET @Mensaje = 'Usuario o Contraseña Incorrectas'
+
+			UPDATE Usuario 
+			set CantidadIntentoLogueo = CantidadIntentoLogueo + 1, 
+			FechaUltimoIntentoLogueo = getdate() 
+			WHERE CodigoUsuario = @CodigoUsuario
+		end
 	END
 		
 	SELECT @Result AS Result, 
@@ -443,13 +624,13 @@ BEGIN
 	SET NOCOUNT OFF
 
 END
-
-GO
+go
 
 USE BelcorpPuertoRico
 GO
 
 ALTER PROCEDURE [dbo].[ValidarLogin]
+-- exec ValidarLogin '044315718', '1'
 (
 	@CodigoUsuario VARCHAR(50),
 	@Contrasenia VARCHAR(200)
@@ -536,15 +717,60 @@ BEGIN
 		END
 	END
 
-	IF (ISNULL(@CodigoConsultora,'') != '' AND @PaisID != 0)
+	--Validar el # intentos de logueo y tiempo de espera
+	declare @TiempoEsperaLogueo int = (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'TiempoLogueo') --obtener tiempo de espera de logueo
+	declare @FechaUltimoIntentoLogueo datetime = (select FechaUltimoIntentoLogueo from usuario where CodigoUsuario = @CodigoUsuario)
+	declare @UsuarioBloqueado int = (select 1 from Usuario where CodigoUsuario = @CodigoUsuario and Bloqueado = 1)
+
+	if (SELECT DATEDIFF(second, @FechaUltimoIntentoLogueo, getdate())) >  @TiempoEsperaLogueo and isnull(@UsuarioBloqueado,0) = 1
+	begin
+		UPDATE Usuario 
+		set CantidadIntentoLogueo = 0, 
+		Bloqueado = 0,
+		FechaUltimoIntentoLogueo = getdate() 
+		WHERE CodigoUsuario = @CodigoUsuario
+	end
+
+	IF exists(select 1 from Usuario where CodigoUsuario = @CodigoUsuario and Bloqueado = 1)
+	begin			
+		SET @Result = 5 
+		SET @Mensaje = 'Su cuenta fue bloqueada, por superar la cantidad maxima de intento'
+	end
+	ELSE IF (ISNULL(@CodigoConsultora,'') != '' AND @PaisID != 0)
 	BEGIN
 		SELECT @Result = Result, @Mensaje = Mensaje 
 		FROM dbo.fnGetAccesoUsuario(@PaisID,@CodigoUsuarioReal,@CodigoConsultora,@TipoUsuario,@RolID)
+		
+		UPDATE Usuario 
+		set CantidadIntentoLogueo = 0, 
+		FechaUltimoIntentoLogueo = getdate() 
+		WHERE CodigoUsuario = @CodigoUsuario
 	END
 	ELSE
 	BEGIN
-		SET @Result = 4 
-		SET @Mensaje = 'Usuario o Contrase�a Incorrectas'
+		declare @CantidadIntentoLogueo int = (select CantidadIntentoLogueo from Usuario WHERE CodigoUsuario = @CodigoUsuario)
+		
+		IF (@CantidadIntentoLogueo + 1 >= (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'IntentoLogueo'))
+		begin
+			UPDATE Usuario 
+			set Bloqueado = 1,
+			CantidadIntentoLogueo = (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'IntentoLogueo'),
+			FechaUltimoIntentoLogueo = getdate()
+			WHERE CodigoUsuario = @CodigoUsuario
+
+			SET @Result = 5 
+			SET @Mensaje = 'Su cuenta fue bloqueada, por superar la cantidad maxima de intento'
+		end
+		else
+		begin
+			SET @Result = 4 
+			SET @Mensaje = 'Usuario o Contraseña Incorrectas'
+
+			UPDATE Usuario 
+			set CantidadIntentoLogueo = CantidadIntentoLogueo + 1, 
+			FechaUltimoIntentoLogueo = getdate() 
+			WHERE CodigoUsuario = @CodigoUsuario
+		end
 	END
 		
 	SELECT @Result AS Result, 
@@ -555,13 +781,13 @@ BEGIN
 	SET NOCOUNT OFF
 
 END
-
-GO
+go
 
 USE BelcorpPanama
 GO
 
 ALTER PROCEDURE [dbo].[ValidarLogin]
+-- exec ValidarLogin '044315718', '1'
 (
 	@CodigoUsuario VARCHAR(50),
 	@Contrasenia VARCHAR(200)
@@ -648,15 +874,60 @@ BEGIN
 		END
 	END
 
-	IF (ISNULL(@CodigoConsultora,'') != '' AND @PaisID != 0)
+	--Validar el # intentos de logueo y tiempo de espera
+	declare @TiempoEsperaLogueo int = (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'TiempoLogueo') --obtener tiempo de espera de logueo
+	declare @FechaUltimoIntentoLogueo datetime = (select FechaUltimoIntentoLogueo from usuario where CodigoUsuario = @CodigoUsuario)
+	declare @UsuarioBloqueado int = (select 1 from Usuario where CodigoUsuario = @CodigoUsuario and Bloqueado = 1)
+
+	if (SELECT DATEDIFF(second, @FechaUltimoIntentoLogueo, getdate())) >  @TiempoEsperaLogueo and isnull(@UsuarioBloqueado,0) = 1
+	begin
+		UPDATE Usuario 
+		set CantidadIntentoLogueo = 0, 
+		Bloqueado = 0,
+		FechaUltimoIntentoLogueo = getdate() 
+		WHERE CodigoUsuario = @CodigoUsuario
+	end
+
+	IF exists(select 1 from Usuario where CodigoUsuario = @CodigoUsuario and Bloqueado = 1)
+	begin			
+		SET @Result = 5 
+		SET @Mensaje = 'Su cuenta fue bloqueada, por superar la cantidad maxima de intento'
+	end
+	ELSE IF (ISNULL(@CodigoConsultora,'') != '' AND @PaisID != 0)
 	BEGIN
 		SELECT @Result = Result, @Mensaje = Mensaje 
 		FROM dbo.fnGetAccesoUsuario(@PaisID,@CodigoUsuarioReal,@CodigoConsultora,@TipoUsuario,@RolID)
+		
+		UPDATE Usuario 
+		set CantidadIntentoLogueo = 0, 
+		FechaUltimoIntentoLogueo = getdate() 
+		WHERE CodigoUsuario = @CodigoUsuario
 	END
 	ELSE
 	BEGIN
-		SET @Result = 4 
-		SET @Mensaje = 'Usuario o Contrase�a Incorrectas'
+		declare @CantidadIntentoLogueo int = (select CantidadIntentoLogueo from Usuario WHERE CodigoUsuario = @CodigoUsuario)
+		
+		IF (@CantidadIntentoLogueo + 1 >= (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'IntentoLogueo'))
+		begin
+			UPDATE Usuario 
+			set Bloqueado = 1,
+			CantidadIntentoLogueo = (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'IntentoLogueo'),
+			FechaUltimoIntentoLogueo = getdate()
+			WHERE CodigoUsuario = @CodigoUsuario
+
+			SET @Result = 5 
+			SET @Mensaje = 'Su cuenta fue bloqueada, por superar la cantidad maxima de intento'
+		end
+		else
+		begin
+			SET @Result = 4 
+			SET @Mensaje = 'Usuario o Contraseña Incorrectas'
+
+			UPDATE Usuario 
+			set CantidadIntentoLogueo = CantidadIntentoLogueo + 1, 
+			FechaUltimoIntentoLogueo = getdate() 
+			WHERE CodigoUsuario = @CodigoUsuario
+		end
 	END
 		
 	SELECT @Result AS Result, 
@@ -667,13 +938,13 @@ BEGIN
 	SET NOCOUNT OFF
 
 END
-
-GO
+go
 
 USE BelcorpGuatemala
 GO
 
 ALTER PROCEDURE [dbo].[ValidarLogin]
+-- exec ValidarLogin '044315718', '1'
 (
 	@CodigoUsuario VARCHAR(50),
 	@Contrasenia VARCHAR(200)
@@ -760,15 +1031,60 @@ BEGIN
 		END
 	END
 
-	IF (ISNULL(@CodigoConsultora,'') != '' AND @PaisID != 0)
+	--Validar el # intentos de logueo y tiempo de espera
+	declare @TiempoEsperaLogueo int = (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'TiempoLogueo') --obtener tiempo de espera de logueo
+	declare @FechaUltimoIntentoLogueo datetime = (select FechaUltimoIntentoLogueo from usuario where CodigoUsuario = @CodigoUsuario)
+	declare @UsuarioBloqueado int = (select 1 from Usuario where CodigoUsuario = @CodigoUsuario and Bloqueado = 1)
+
+	if (SELECT DATEDIFF(second, @FechaUltimoIntentoLogueo, getdate())) >  @TiempoEsperaLogueo and isnull(@UsuarioBloqueado,0) = 1
+	begin
+		UPDATE Usuario 
+		set CantidadIntentoLogueo = 0, 
+		Bloqueado = 0,
+		FechaUltimoIntentoLogueo = getdate() 
+		WHERE CodigoUsuario = @CodigoUsuario
+	end
+
+	IF exists(select 1 from Usuario where CodigoUsuario = @CodigoUsuario and Bloqueado = 1)
+	begin			
+		SET @Result = 5 
+		SET @Mensaje = 'Su cuenta fue bloqueada, por superar la cantidad maxima de intento'
+	end
+	ELSE IF (ISNULL(@CodigoConsultora,'') != '' AND @PaisID != 0)
 	BEGIN
 		SELECT @Result = Result, @Mensaje = Mensaje 
 		FROM dbo.fnGetAccesoUsuario(@PaisID,@CodigoUsuarioReal,@CodigoConsultora,@TipoUsuario,@RolID)
+		
+		UPDATE Usuario 
+		set CantidadIntentoLogueo = 0, 
+		FechaUltimoIntentoLogueo = getdate() 
+		WHERE CodigoUsuario = @CodigoUsuario
 	END
 	ELSE
 	BEGIN
-		SET @Result = 4 
-		SET @Mensaje = 'Usuario o Contrase�a Incorrectas'
+		declare @CantidadIntentoLogueo int = (select CantidadIntentoLogueo from Usuario WHERE CodigoUsuario = @CodigoUsuario)
+		
+		IF (@CantidadIntentoLogueo + 1 >= (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'IntentoLogueo'))
+		begin
+			UPDATE Usuario 
+			set Bloqueado = 1,
+			CantidadIntentoLogueo = (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'IntentoLogueo'),
+			FechaUltimoIntentoLogueo = getdate()
+			WHERE CodigoUsuario = @CodigoUsuario
+
+			SET @Result = 5 
+			SET @Mensaje = 'Su cuenta fue bloqueada, por superar la cantidad maxima de intento'
+		end
+		else
+		begin
+			SET @Result = 4 
+			SET @Mensaje = 'Usuario o Contraseña Incorrectas'
+
+			UPDATE Usuario 
+			set CantidadIntentoLogueo = CantidadIntentoLogueo + 1, 
+			FechaUltimoIntentoLogueo = getdate() 
+			WHERE CodigoUsuario = @CodigoUsuario
+		end
 	END
 		
 	SELECT @Result AS Result, 
@@ -779,13 +1095,13 @@ BEGIN
 	SET NOCOUNT OFF
 
 END
-
-GO
+go
 
 USE BelcorpEcuador
 GO
 
 ALTER PROCEDURE [dbo].[ValidarLogin]
+-- exec ValidarLogin '044315718', '1'
 (
 	@CodigoUsuario VARCHAR(50),
 	@Contrasenia VARCHAR(200)
@@ -872,15 +1188,60 @@ BEGIN
 		END
 	END
 
-	IF (ISNULL(@CodigoConsultora,'') != '' AND @PaisID != 0)
+	--Validar el # intentos de logueo y tiempo de espera
+	declare @TiempoEsperaLogueo int = (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'TiempoLogueo') --obtener tiempo de espera de logueo
+	declare @FechaUltimoIntentoLogueo datetime = (select FechaUltimoIntentoLogueo from usuario where CodigoUsuario = @CodigoUsuario)
+	declare @UsuarioBloqueado int = (select 1 from Usuario where CodigoUsuario = @CodigoUsuario and Bloqueado = 1)
+
+	if (SELECT DATEDIFF(second, @FechaUltimoIntentoLogueo, getdate())) >  @TiempoEsperaLogueo and isnull(@UsuarioBloqueado,0) = 1
+	begin
+		UPDATE Usuario 
+		set CantidadIntentoLogueo = 0, 
+		Bloqueado = 0,
+		FechaUltimoIntentoLogueo = getdate() 
+		WHERE CodigoUsuario = @CodigoUsuario
+	end
+
+	IF exists(select 1 from Usuario where CodigoUsuario = @CodigoUsuario and Bloqueado = 1)
+	begin			
+		SET @Result = 5 
+		SET @Mensaje = 'Su cuenta fue bloqueada, por superar la cantidad maxima de intento'
+	end
+	ELSE IF (ISNULL(@CodigoConsultora,'') != '' AND @PaisID != 0)
 	BEGIN
 		SELECT @Result = Result, @Mensaje = Mensaje 
 		FROM dbo.fnGetAccesoUsuario(@PaisID,@CodigoUsuarioReal,@CodigoConsultora,@TipoUsuario,@RolID)
+		
+		UPDATE Usuario 
+		set CantidadIntentoLogueo = 0, 
+		FechaUltimoIntentoLogueo = getdate() 
+		WHERE CodigoUsuario = @CodigoUsuario
 	END
 	ELSE
 	BEGIN
-		SET @Result = 4 
-		SET @Mensaje = 'Usuario o Contrase�a Incorrectas'
+		declare @CantidadIntentoLogueo int = (select CantidadIntentoLogueo from Usuario WHERE CodigoUsuario = @CodigoUsuario)
+		
+		IF (@CantidadIntentoLogueo + 1 >= (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'IntentoLogueo'))
+		begin
+			UPDATE Usuario 
+			set Bloqueado = 1,
+			CantidadIntentoLogueo = (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'IntentoLogueo'),
+			FechaUltimoIntentoLogueo = getdate()
+			WHERE CodigoUsuario = @CodigoUsuario
+
+			SET @Result = 5 
+			SET @Mensaje = 'Su cuenta fue bloqueada, por superar la cantidad maxima de intento'
+		end
+		else
+		begin
+			SET @Result = 4 
+			SET @Mensaje = 'Usuario o Contraseña Incorrectas'
+
+			UPDATE Usuario 
+			set CantidadIntentoLogueo = CantidadIntentoLogueo + 1, 
+			FechaUltimoIntentoLogueo = getdate() 
+			WHERE CodigoUsuario = @CodigoUsuario
+		end
 	END
 		
 	SELECT @Result AS Result, 
@@ -891,13 +1252,13 @@ BEGIN
 	SET NOCOUNT OFF
 
 END
-
-GO
+go
 
 USE BelcorpDominicana
 GO
 
 ALTER PROCEDURE [dbo].[ValidarLogin]
+-- exec ValidarLogin '044315718', '1'
 (
 	@CodigoUsuario VARCHAR(50),
 	@Contrasenia VARCHAR(200)
@@ -984,15 +1345,60 @@ BEGIN
 		END
 	END
 
-	IF (ISNULL(@CodigoConsultora,'') != '' AND @PaisID != 0)
+	--Validar el # intentos de logueo y tiempo de espera
+	declare @TiempoEsperaLogueo int = (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'TiempoLogueo') --obtener tiempo de espera de logueo
+	declare @FechaUltimoIntentoLogueo datetime = (select FechaUltimoIntentoLogueo from usuario where CodigoUsuario = @CodigoUsuario)
+	declare @UsuarioBloqueado int = (select 1 from Usuario where CodigoUsuario = @CodigoUsuario and Bloqueado = 1)
+
+	if (SELECT DATEDIFF(second, @FechaUltimoIntentoLogueo, getdate())) >  @TiempoEsperaLogueo and isnull(@UsuarioBloqueado,0) = 1
+	begin
+		UPDATE Usuario 
+		set CantidadIntentoLogueo = 0, 
+		Bloqueado = 0,
+		FechaUltimoIntentoLogueo = getdate() 
+		WHERE CodigoUsuario = @CodigoUsuario
+	end
+
+	IF exists(select 1 from Usuario where CodigoUsuario = @CodigoUsuario and Bloqueado = 1)
+	begin			
+		SET @Result = 5 
+		SET @Mensaje = 'Su cuenta fue bloqueada, por superar la cantidad maxima de intento'
+	end
+	ELSE IF (ISNULL(@CodigoConsultora,'') != '' AND @PaisID != 0)
 	BEGIN
 		SELECT @Result = Result, @Mensaje = Mensaje 
 		FROM dbo.fnGetAccesoUsuario(@PaisID,@CodigoUsuarioReal,@CodigoConsultora,@TipoUsuario,@RolID)
+		
+		UPDATE Usuario 
+		set CantidadIntentoLogueo = 0, 
+		FechaUltimoIntentoLogueo = getdate() 
+		WHERE CodigoUsuario = @CodigoUsuario
 	END
 	ELSE
 	BEGIN
-		SET @Result = 4 
-		SET @Mensaje = 'Usuario o Contrase�a Incorrectas'
+		declare @CantidadIntentoLogueo int = (select CantidadIntentoLogueo from Usuario WHERE CodigoUsuario = @CodigoUsuario)
+		
+		IF (@CantidadIntentoLogueo + 1 >= (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'IntentoLogueo'))
+		begin
+			UPDATE Usuario 
+			set Bloqueado = 1,
+			CantidadIntentoLogueo = (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'IntentoLogueo'),
+			FechaUltimoIntentoLogueo = getdate()
+			WHERE CodigoUsuario = @CodigoUsuario
+
+			SET @Result = 5 
+			SET @Mensaje = 'Su cuenta fue bloqueada, por superar la cantidad maxima de intento'
+		end
+		else
+		begin
+			SET @Result = 4 
+			SET @Mensaje = 'Usuario o Contraseña Incorrectas'
+
+			UPDATE Usuario 
+			set CantidadIntentoLogueo = CantidadIntentoLogueo + 1, 
+			FechaUltimoIntentoLogueo = getdate() 
+			WHERE CodigoUsuario = @CodigoUsuario
+		end
 	END
 		
 	SELECT @Result AS Result, 
@@ -1003,13 +1409,13 @@ BEGIN
 	SET NOCOUNT OFF
 
 END
-
-GO
+go
 
 USE BelcorpCostaRica
 GO
 
 ALTER PROCEDURE [dbo].[ValidarLogin]
+-- exec ValidarLogin '044315718', '1'
 (
 	@CodigoUsuario VARCHAR(50),
 	@Contrasenia VARCHAR(200)
@@ -1096,15 +1502,60 @@ BEGIN
 		END
 	END
 
-	IF (ISNULL(@CodigoConsultora,'') != '' AND @PaisID != 0)
+	--Validar el # intentos de logueo y tiempo de espera
+	declare @TiempoEsperaLogueo int = (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'TiempoLogueo') --obtener tiempo de espera de logueo
+	declare @FechaUltimoIntentoLogueo datetime = (select FechaUltimoIntentoLogueo from usuario where CodigoUsuario = @CodigoUsuario)
+	declare @UsuarioBloqueado int = (select 1 from Usuario where CodigoUsuario = @CodigoUsuario and Bloqueado = 1)
+
+	if (SELECT DATEDIFF(second, @FechaUltimoIntentoLogueo, getdate())) >  @TiempoEsperaLogueo and isnull(@UsuarioBloqueado,0) = 1
+	begin
+		UPDATE Usuario 
+		set CantidadIntentoLogueo = 0, 
+		Bloqueado = 0,
+		FechaUltimoIntentoLogueo = getdate() 
+		WHERE CodigoUsuario = @CodigoUsuario
+	end
+
+	IF exists(select 1 from Usuario where CodigoUsuario = @CodigoUsuario and Bloqueado = 1)
+	begin			
+		SET @Result = 5 
+		SET @Mensaje = 'Su cuenta fue bloqueada, por superar la cantidad maxima de intento'
+	end
+	ELSE IF (ISNULL(@CodigoConsultora,'') != '' AND @PaisID != 0)
 	BEGIN
 		SELECT @Result = Result, @Mensaje = Mensaje 
 		FROM dbo.fnGetAccesoUsuario(@PaisID,@CodigoUsuarioReal,@CodigoConsultora,@TipoUsuario,@RolID)
+		
+		UPDATE Usuario 
+		set CantidadIntentoLogueo = 0, 
+		FechaUltimoIntentoLogueo = getdate() 
+		WHERE CodigoUsuario = @CodigoUsuario
 	END
 	ELSE
 	BEGIN
-		SET @Result = 4 
-		SET @Mensaje = 'Usuario o Contrase�a Incorrectas'
+		declare @CantidadIntentoLogueo int = (select CantidadIntentoLogueo from Usuario WHERE CodigoUsuario = @CodigoUsuario)
+		
+		IF (@CantidadIntentoLogueo + 1 >= (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'IntentoLogueo'))
+		begin
+			UPDATE Usuario 
+			set Bloqueado = 1,
+			CantidadIntentoLogueo = (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'IntentoLogueo'),
+			FechaUltimoIntentoLogueo = getdate()
+			WHERE CodigoUsuario = @CodigoUsuario
+
+			SET @Result = 5 
+			SET @Mensaje = 'Su cuenta fue bloqueada, por superar la cantidad maxima de intento'
+		end
+		else
+		begin
+			SET @Result = 4 
+			SET @Mensaje = 'Usuario o Contraseña Incorrectas'
+
+			UPDATE Usuario 
+			set CantidadIntentoLogueo = CantidadIntentoLogueo + 1, 
+			FechaUltimoIntentoLogueo = getdate() 
+			WHERE CodigoUsuario = @CodigoUsuario
+		end
 	END
 		
 	SELECT @Result AS Result, 
@@ -1115,13 +1566,13 @@ BEGIN
 	SET NOCOUNT OFF
 
 END
-
-GO
+go
 
 USE BelcorpChile
 GO
 
 ALTER PROCEDURE [dbo].[ValidarLogin]
+-- exec ValidarLogin '044315718', '1'
 (
 	@CodigoUsuario VARCHAR(50),
 	@Contrasenia VARCHAR(200)
@@ -1208,15 +1659,60 @@ BEGIN
 		END
 	END
 
-	IF (ISNULL(@CodigoConsultora,'') != '' AND @PaisID != 0)
+	--Validar el # intentos de logueo y tiempo de espera
+	declare @TiempoEsperaLogueo int = (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'TiempoLogueo') --obtener tiempo de espera de logueo
+	declare @FechaUltimoIntentoLogueo datetime = (select FechaUltimoIntentoLogueo from usuario where CodigoUsuario = @CodigoUsuario)
+	declare @UsuarioBloqueado int = (select 1 from Usuario where CodigoUsuario = @CodigoUsuario and Bloqueado = 1)
+
+	if (SELECT DATEDIFF(second, @FechaUltimoIntentoLogueo, getdate())) >  @TiempoEsperaLogueo and isnull(@UsuarioBloqueado,0) = 1
+	begin
+		UPDATE Usuario 
+		set CantidadIntentoLogueo = 0, 
+		Bloqueado = 0,
+		FechaUltimoIntentoLogueo = getdate() 
+		WHERE CodigoUsuario = @CodigoUsuario
+	end
+
+	IF exists(select 1 from Usuario where CodigoUsuario = @CodigoUsuario and Bloqueado = 1)
+	begin			
+		SET @Result = 5 
+		SET @Mensaje = 'Su cuenta fue bloqueada, por superar la cantidad maxima de intento'
+	end
+	ELSE IF (ISNULL(@CodigoConsultora,'') != '' AND @PaisID != 0)
 	BEGIN
 		SELECT @Result = Result, @Mensaje = Mensaje 
 		FROM dbo.fnGetAccesoUsuario(@PaisID,@CodigoUsuarioReal,@CodigoConsultora,@TipoUsuario,@RolID)
+		
+		UPDATE Usuario 
+		set CantidadIntentoLogueo = 0, 
+		FechaUltimoIntentoLogueo = getdate() 
+		WHERE CodigoUsuario = @CodigoUsuario
 	END
 	ELSE
 	BEGIN
-		SET @Result = 4 
-		SET @Mensaje = 'Usuario o Contrase�a Incorrectas'
+		declare @CantidadIntentoLogueo int = (select CantidadIntentoLogueo from Usuario WHERE CodigoUsuario = @CodigoUsuario)
+		
+		IF (@CantidadIntentoLogueo + 1 >= (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'IntentoLogueo'))
+		begin
+			UPDATE Usuario 
+			set Bloqueado = 1,
+			CantidadIntentoLogueo = (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'IntentoLogueo'),
+			FechaUltimoIntentoLogueo = getdate()
+			WHERE CodigoUsuario = @CodigoUsuario
+
+			SET @Result = 5 
+			SET @Mensaje = 'Su cuenta fue bloqueada, por superar la cantidad maxima de intento'
+		end
+		else
+		begin
+			SET @Result = 4 
+			SET @Mensaje = 'Usuario o Contraseña Incorrectas'
+
+			UPDATE Usuario 
+			set CantidadIntentoLogueo = CantidadIntentoLogueo + 1, 
+			FechaUltimoIntentoLogueo = getdate() 
+			WHERE CodigoUsuario = @CodigoUsuario
+		end
 	END
 		
 	SELECT @Result AS Result, 
@@ -1227,13 +1723,13 @@ BEGIN
 	SET NOCOUNT OFF
 
 END
-
-GO
+go
 
 USE BelcorpBolivia
 GO
 
 ALTER PROCEDURE [dbo].[ValidarLogin]
+-- exec ValidarLogin '044315718', '1'
 (
 	@CodigoUsuario VARCHAR(50),
 	@Contrasenia VARCHAR(200)
@@ -1320,15 +1816,60 @@ BEGIN
 		END
 	END
 
-	IF (ISNULL(@CodigoConsultora,'') != '' AND @PaisID != 0)
+	--Validar el # intentos de logueo y tiempo de espera
+	declare @TiempoEsperaLogueo int = (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'TiempoLogueo') --obtener tiempo de espera de logueo
+	declare @FechaUltimoIntentoLogueo datetime = (select FechaUltimoIntentoLogueo from usuario where CodigoUsuario = @CodigoUsuario)
+	declare @UsuarioBloqueado int = (select 1 from Usuario where CodigoUsuario = @CodigoUsuario and Bloqueado = 1)
+
+	if (SELECT DATEDIFF(second, @FechaUltimoIntentoLogueo, getdate())) >  @TiempoEsperaLogueo and isnull(@UsuarioBloqueado,0) = 1
+	begin
+		UPDATE Usuario 
+		set CantidadIntentoLogueo = 0, 
+		Bloqueado = 0,
+		FechaUltimoIntentoLogueo = getdate() 
+		WHERE CodigoUsuario = @CodigoUsuario
+	end
+
+	IF exists(select 1 from Usuario where CodigoUsuario = @CodigoUsuario and Bloqueado = 1)
+	begin			
+		SET @Result = 5 
+		SET @Mensaje = 'Su cuenta fue bloqueada, por superar la cantidad maxima de intento'
+	end
+	ELSE IF (ISNULL(@CodigoConsultora,'') != '' AND @PaisID != 0)
 	BEGIN
 		SELECT @Result = Result, @Mensaje = Mensaje 
 		FROM dbo.fnGetAccesoUsuario(@PaisID,@CodigoUsuarioReal,@CodigoConsultora,@TipoUsuario,@RolID)
+		
+		UPDATE Usuario 
+		set CantidadIntentoLogueo = 0, 
+		FechaUltimoIntentoLogueo = getdate() 
+		WHERE CodigoUsuario = @CodigoUsuario
 	END
 	ELSE
 	BEGIN
-		SET @Result = 4 
-		SET @Mensaje = 'Usuario o Contrase�a Incorrectas'
+		declare @CantidadIntentoLogueo int = (select CantidadIntentoLogueo from Usuario WHERE CodigoUsuario = @CodigoUsuario)
+		
+		IF (@CantidadIntentoLogueo + 1 >= (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'IntentoLogueo'))
+		begin
+			UPDATE Usuario 
+			set Bloqueado = 1,
+			CantidadIntentoLogueo = (select cast(Valor as int) from TablaLogicaDatos where Codigo = 'IntentoLogueo'),
+			FechaUltimoIntentoLogueo = getdate()
+			WHERE CodigoUsuario = @CodigoUsuario
+
+			SET @Result = 5 
+			SET @Mensaje = 'Su cuenta fue bloqueada, por superar la cantidad maxima de intento'
+		end
+		else
+		begin
+			SET @Result = 4 
+			SET @Mensaje = 'Usuario o Contraseña Incorrectas'
+
+			UPDATE Usuario 
+			set CantidadIntentoLogueo = CantidadIntentoLogueo + 1, 
+			FechaUltimoIntentoLogueo = getdate() 
+			WHERE CodigoUsuario = @CodigoUsuario
+		end
 	END
 		
 	SELECT @Result AS Result, 
@@ -1339,5 +1880,5 @@ BEGIN
 	SET NOCOUNT OFF
 
 END
+go
 
-GO

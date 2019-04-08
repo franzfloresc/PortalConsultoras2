@@ -1,4 +1,4 @@
-USE BelcorpPeru
+﻿USE BelcorpPeru
 GO
 
 ALTER PROCEDURE [dbo].[ValidarLogin]
@@ -136,7 +136,7 @@ BEGIN
 		else
 		begin
 			SET @Result = 4 
-			SET @Mensaje = 'Usuario o Contrase�a Incorrectas'
+			SET @Mensaje = 'Usuario o Contraseña Incorrectas'
 
 			UPDATE Usuario 
 			set CantidadIntentoLogueo = CantidadIntentoLogueo + 1, 
@@ -293,7 +293,7 @@ BEGIN
 		else
 		begin
 			SET @Result = 4 
-			SET @Mensaje = 'Usuario o Contrase�a Incorrectas'
+			SET @Mensaje = 'Usuario o Contraseña Incorrectas'
 
 			UPDATE Usuario 
 			set CantidadIntentoLogueo = CantidadIntentoLogueo + 1, 
@@ -450,7 +450,7 @@ BEGIN
 		else
 		begin
 			SET @Result = 4 
-			SET @Mensaje = 'Usuario o Contrase�a Incorrectas'
+			SET @Mensaje = 'Usuario o Contraseña Incorrectas'
 
 			UPDATE Usuario 
 			set CantidadIntentoLogueo = CantidadIntentoLogueo + 1, 
@@ -607,7 +607,7 @@ BEGIN
 		else
 		begin
 			SET @Result = 4 
-			SET @Mensaje = 'Usuario o Contrase�a Incorrectas'
+			SET @Mensaje = 'Usuario o Contraseña Incorrectas'
 
 			UPDATE Usuario 
 			set CantidadIntentoLogueo = CantidadIntentoLogueo + 1, 
@@ -764,7 +764,7 @@ BEGIN
 		else
 		begin
 			SET @Result = 4 
-			SET @Mensaje = 'Usuario o Contrase�a Incorrectas'
+			SET @Mensaje = 'Usuario o Contraseña Incorrectas'
 
 			UPDATE Usuario 
 			set CantidadIntentoLogueo = CantidadIntentoLogueo + 1, 
@@ -921,7 +921,7 @@ BEGIN
 		else
 		begin
 			SET @Result = 4 
-			SET @Mensaje = 'Usuario o Contrase�a Incorrectas'
+			SET @Mensaje = 'Usuario o Contraseña Incorrectas'
 
 			UPDATE Usuario 
 			set CantidadIntentoLogueo = CantidadIntentoLogueo + 1, 
@@ -1078,7 +1078,7 @@ BEGIN
 		else
 		begin
 			SET @Result = 4 
-			SET @Mensaje = 'Usuario o Contrase�a Incorrectas'
+			SET @Mensaje = 'Usuario o Contraseña Incorrectas'
 
 			UPDATE Usuario 
 			set CantidadIntentoLogueo = CantidadIntentoLogueo + 1, 
@@ -1235,7 +1235,7 @@ BEGIN
 		else
 		begin
 			SET @Result = 4 
-			SET @Mensaje = 'Usuario o Contrase�a Incorrectas'
+			SET @Mensaje = 'Usuario o Contraseña Incorrectas'
 
 			UPDATE Usuario 
 			set CantidadIntentoLogueo = CantidadIntentoLogueo + 1, 
@@ -1392,7 +1392,7 @@ BEGIN
 		else
 		begin
 			SET @Result = 4 
-			SET @Mensaje = 'Usuario o Contrase�a Incorrectas'
+			SET @Mensaje = 'Usuario o Contraseña Incorrectas'
 
 			UPDATE Usuario 
 			set CantidadIntentoLogueo = CantidadIntentoLogueo + 1, 
@@ -1549,7 +1549,7 @@ BEGIN
 		else
 		begin
 			SET @Result = 4 
-			SET @Mensaje = 'Usuario o Contrase�a Incorrectas'
+			SET @Mensaje = 'Usuario o Contraseña Incorrectas'
 
 			UPDATE Usuario 
 			set CantidadIntentoLogueo = CantidadIntentoLogueo + 1, 
@@ -1706,7 +1706,7 @@ BEGIN
 		else
 		begin
 			SET @Result = 4 
-			SET @Mensaje = 'Usuario o Contrase�a Incorrectas'
+			SET @Mensaje = 'Usuario o Contraseña Incorrectas'
 
 			UPDATE Usuario 
 			set CantidadIntentoLogueo = CantidadIntentoLogueo + 1, 
@@ -1863,7 +1863,7 @@ BEGIN
 		else
 		begin
 			SET @Result = 4 
-			SET @Mensaje = 'Usuario o Contrase�a Incorrectas'
+			SET @Mensaje = 'Usuario o Contraseña Incorrectas'
 
 			UPDATE Usuario 
 			set CantidadIntentoLogueo = CantidadIntentoLogueo + 1, 
