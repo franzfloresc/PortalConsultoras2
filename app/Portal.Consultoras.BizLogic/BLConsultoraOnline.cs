@@ -18,6 +18,37 @@ namespace Portal.Consultoras.BizLogic
 {
     public class BLConsultoraOnline
     {
+
+        public IList<BEMisPedidos> GetSolicitudesPedidoPendiente(int PaisID, long ConsultoraId, int Campania)
+        {
+            var daMisPedidos = new DAConsultoraOnline(PaisID);
+            var misPedidos = new List<BEMisPedidos>();
+            using (IDataReader reader = daMisPedidos.GetSolicitudesPedidoPendiente(ConsultoraId, Campania))
+            {
+                while (reader.Read())
+                {
+                    var entidad = new BEMisPedidos(reader);
+                    misPedidos.Add(entidad);
+                }
+
+                return misPedidos;
+            }
+        }
+
+        //public IList<string> GetSapFromCuvlist(string cuvList, int campaniaid, int paisId)
+        //{
+        //    var daMisPedidos = new DAConsultoraOnline(paisId);
+        //    var result = new List<string>();
+        //    using (IDataReader reader = daMisPedidos.GetSapFromCuvlist(cuvList, campaniaid))
+        //    {
+        //        while (reader.Read())
+        //        {                  
+        //            result.Add(reader[0].ToString());
+        //        }
+        //        return result;
+        //    }
+        //}
+
         public IList<BEMisPedidos> GetMisPedidos(int PaisID, long ConsultoraId, int Campania)
         {
             var daMisPedidos = new DAConsultoraOnline(PaisID);
@@ -49,6 +80,23 @@ namespace Portal.Consultoras.BizLogic
                 return miPedidoDetalles;
             }
         }
+
+        public IList<BEMisPedidosDetalle> GetMisPedidosDetalleAll(int paisId, int campaniaId, long consultoraId)
+        {
+            var daMisPedidos = new DAConsultoraOnline(paisId);
+            var detalles = new List<BEMisPedidosDetalle>();
+            using (IDataReader reader = daMisPedidos.GetSolicitudesPedidoDetalleAll(campaniaId, consultoraId))
+            {
+                while (reader.Read())
+                {
+                    var entidad = new BEMisPedidosDetalle(reader);
+                    detalles.Add(entidad);
+                }
+
+                return detalles;
+            }
+        }
+
 
         public IList<BEMisPedidos> GetMisPedidosClienteOnline(int paisID, long consultoraId, int campania)
         {
@@ -157,9 +205,21 @@ namespace Portal.Consultoras.BizLogic
             RecomendadoRequest.codigoPais = "pe";
             RecomendadoRequest.codigocampania = "201905";
             RecomendadoRequest.codigoZona = "1714";
-            RecomendadoRequest.origen = "sb-desktop";
+            //RecomendadoRequest.origen = "sb-desktop";
             RecomendadoRequest.codigoConsultora = "0033938";
-            RecomendadoRequest.cuv = "14647";
+            //RecomendadoRequest.cuv = "14647";
+            //RecomendadoRequest.personalizaciones = "";
+            //RecomendadoRequest.configuracion = new Configuracion();
+            //RecomendadoRequest.configuracion.sociaEmpresaria = "0";
+            //RecomendadoRequest.configuracion.diaFacturacion = 1;
+
+            //RecomendadoRequest.configuracion.suscripcionActiva = "False";
+            //RecomendadoRequest.configuracion.mdo = "True";
+            //RecomendadoRequest.configuracion.rd = "False";
+            //RecomendadoRequest.configuracion.rdi = "False";
+            //RecomendadoRequest.configuracion.rdr = "False";
+            //RecomendadoRequest.configuracion.mostrarProductoConsultado = "True";
+
             RecomendadoRequest.codigoProducto = new List<string>();
             RecomendadoRequest.codigoProducto.Add("210090349");
             RecomendadoRequest.codigoProducto.Add("210090295");

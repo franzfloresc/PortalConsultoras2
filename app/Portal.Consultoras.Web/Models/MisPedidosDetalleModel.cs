@@ -45,6 +45,7 @@ namespace Portal.Consultoras.Web.Models
         public int PedidoWebID { get; set; }
         public int PedidoWebDetalleID { get; set; }
         public string CodigoIso { get; set; }
+        public string Url { get; set; }
 
         public string FormatoPrecioUnitario
         {

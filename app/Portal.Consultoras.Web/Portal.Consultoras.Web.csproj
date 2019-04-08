@@ -299,9 +299,11 @@
     <Compile Include="Controllers\MasGanadorasController.cs" />
     <Compile Include="Controllers\PedidoRegistroController.cs" />
     <Compile Include="Infraestructure\Excel\ExcelProtectionProcessor.cs" />
+    <Compile Include="Models\BonificacionesModel.cs" />
     <Compile Include="Models\AdministrarEstrategia\EstrategiaGrupoModel.cs" />
     <Compile Include="Models\ArmaTuPackModel.cs" />
     <Compile Include="Models\BuscadorYFiltrosCategoriaModel.cs" />
+    <Compile Include="Models\PedidosPendientesMedioPagoModel.cs" />
     <Compile Include="Models\PremioNuevaModel.cs" />
     <Compile Include="Models\BuscadorYFiltrosConfiguracionModel.cs" />
     <Compile Include="Controllers\BusquedaProductosController.cs" />
@@ -335,6 +337,7 @@
     <Compile Include="Models\Config\ResponseReporte\OutputReporteValidacion.cs" />
     <Compile Include="Models\Config\Response\ResponseStatus.cs" />
     <Compile Include="Models\ConsultaCrediticiaExternaMX.cs" />
+    <Compile Include="Models\EscalaDescuentoModel.cs" />
     <Compile Include="Models\DireccionEntregaModel.cs" />
     <Compile Include="Models\ConsultaProl\ConsultaStockModel.cs" />
     <Compile Include="Models\ConsultaProl\RespuestaStockModel.cs" />
@@ -830,6 +833,7 @@
     <Compile Include="Providers\ConfiguracionPaisDatosProvider.cs" />
     <Compile Include="Providers\ConfiguracionPaisProvider.cs" />
     <Compile Include="Providers\ConsultaProlProvider.cs" />
+    <Compile Include="Providers\ConsultoraOnlineProvider.cs" />
     <Compile Include="Providers\EstadoCuentaProvider.cs" />
     <Compile Include="Providers\EstrategiaComponenteProvider.cs" />
     <Compile Include="Providers\EventoFestivoProvider.cs" />
@@ -975,6 +979,7 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="SessionManager\ISessionManager.cs" />
+    <Compile Include="TempDataManager\ITempDataManager.cs" />
     <Compile Include="SessionManager\MasGanadoras\IMasGanadoras.cs" />
     <Compile Include="SessionManager\MasGanadoras\MasGanadoras.cs" />
     <Compile Include="SessionManager\OfertaDelDia\IOfertaDelDia.cs" />
@@ -982,6 +987,7 @@
     <Compile Include="SessionManager\ShowRoom\IShowRoom.cs" />
     <Compile Include="SessionManager\SessionManager.cs" />
     <Compile Include="SessionManager\ShowRoom\ShowRoom.cs" />
+    <Compile Include="TempDataManager\TempDataManager.cs" />
     <Compile Include="Set.aspx.cs">
       <DependentUpon>Set.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1453,6 +1459,7 @@
     <Content Include="Content\Css\Site\Contenedor\BannerInteractivo.css" />
     <Content Include="Content\Css\Site\BusquedaProductos\filtros-busqueda.css" />
     <Content Include="Content\Css\Site\Contenedor\Index.css" />
+    <Content Include="Content\Css\Site\EscalaDescuentos\escala-descuentos.css" />
     <Content Include="Content\Css\Site\Esika\buscador-filtros.css" />
     <Content Include="Content\Css\Site\Esika\campania-navidenia.css" />
     <Content Include="Content\Css\Site\Esika\mi-perfil.css" />
@@ -1752,6 +1759,7 @@
     <Content Include="Content\Images\icono_comunidad_virtual.svg" />
     <Content Include="Content\Images\icono_editar.svg" />
     <Content Include="Content\Images\icono_esika_responde.png" />
+    <Content Include="Content\Images\icono_infoImportante.svg" />
     <Content Include="Content\Images\icono_limpiar_busqueda.svg" />
     <Content Include="Content\Images\icono_lupa_gris.svg" />
     <Content Include="Content\Images\icono_lupa_blanco.svg" />
@@ -1765,6 +1773,7 @@
     <Content Include="Content\Images\icono_regalo.png" />
     <Content Include="Content\Images\icono_salvavidas.svg" />
     <Content Include="Content\Images\icono_sin_resultados_busqueda.svg" />
+    <Content Include="Content\Images\icono_titulo_ganaMas.svg" />
     <Content Include="Content\Images\icono_tooltip_informativo.svg" />
     <Content Include="Content\Images\icono_tu_voz_online.svg" />
     <Content Include="Content\Images\icon_xls.svg" />
@@ -4158,6 +4167,7 @@
     <Content Include="Scripts\PortalConsultoras\MiPerfil\Base.js" />
     <Content Include="Scripts\PortalConsultoras\MiPerfil\Index.js" />
     <Content Include="Scripts\PortalConsultoras\MisCatalogosRevistas\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\Mobile\ConsultoraOnline\PedidoPendienteMedioCompra.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\GuiaNegocio\GuiaNegocio-Landing.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\PedidoFIC\Detalle.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\PedidoFIC\Index.js" />
@@ -4594,6 +4604,8 @@
     <Content Include="Areas\Mobile\Views\Pedido\_PopupDescuento.cshtml" />
     <Content Include="Views\Shared\VistaParcialResponisve\_MenuContenedorResponsive.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-bannerInteractivo.cshtml" />
+    <Content Include="Areas\Mobile\Views\ConsultoraOnline\PendientesMedioDeCompra.cshtml" />
+    <Content Include="Areas\Mobile\Views\ConsultoraOnline\DetallePedidoPendienteClientes.cshtml" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>
@@ -5112,6 +5124,9 @@
     <None Include="Service References\ServiceUsuario\UsuarioService61.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServiceUsuario\UsuarioService610.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServiceUsuario\UsuarioService62.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -5485,7 +5500,7 @@
     <Content Include="Web References\ServiceCatalogosIssuu\Reference.map" />
     <Content Include="Views\Notificaciones\ListadoDetalleCatalogo.cshtml" />
     <Content Include="Views\ABCProducto\Index.cshtml" />
-    <Content Include="Views\EscalaDescuentos\Index.cshtml" />
+    <Content Include="Views\EscalaDescuentos\--Index.cshtml" />
     <Content Include="Views\ConsultoraOnline\Index.cshtml" />
     <Content Include="Views\ConsultoraOnline\Informacion.cshtml" />
     <Content Include="Views\ConsultoraOnline\_MenuConsultoraOnline.cshtml" />
@@ -5739,8 +5754,10 @@
     <Content Include="Views\TusClientes\PanelLista.cshtml" />
     <Content Include="Views\TusClientes\PanelMantener.cshtml" />
     <Content Include="Views\TusClientes\PanelTest.cshtml" />
+    <Content Include="Views\EscalaDescuentos\Index.cshtml" />
     <Content Include="Views\TusClientes\_Mantener.cshtml" />
     <Content Include="Views\Unete\ReporteTipoConsultora.cshtml" />
+    <Content Include="Views\Bonificaciones\IndexExterno.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaTemplate.cshtml" />
     <Content Include="Views\DetalleEstrategia\ProductoTemplate.cshtml" />
     <Content Include="Views\ArmaTuPack\Detalle.cshtml" />
@@ -5817,10 +5834,10 @@
     <Content Include="Views\Unete\NivelesRiesgo.cshtml" />
     <Content Include="Views\Unete\_RechazarPostulante.cshtml" />
     <Content Include="Views\Unete\_AprobarPostulante.cshtml" />
-    <Content Include="Web References\ServiceLMS\Reference.map">
+    <None Include="Web References\ServiceLMS\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
-    </Content>
+    </None>
     <None Include="Web References\ServiceLMS\ws_server.wsdl" />
     <None Include="Web References\ServicePROLArchivoReserva\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>

@@ -330,6 +330,10 @@ namespace Portal.Consultoras.Web.SessionManager
 
         List<BEMisPedidosDetalle> GetobjMisPedidosDetalle();
 
+        void SetobjMisPedidosCliente(List<BEMisPedidos> val);
+
+        List<BEMisPedidos> GetobjMisPedidosCliente();
+
         void SetobjMisPedidosDetalleVal(List<ServiceODS.BEProducto> val);
 
         List<ServiceODS.BEProducto> GetobjMisPedidosDetalleVal();
@@ -362,14 +366,6 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetListaCDRDetalle(CDRWebModel val);
 
         CDRWebModel GetListaCDRDetalle();
-
-        void SetfechaGetNotificacionesSinLeer(dynamic val);
-
-        dynamic GetfechaGetNotificacionesSinLeer();
-
-        void SetcantidadGetNotificacionesSinLeer(dynamic val);
-
-        dynamic GetcantidadGetNotificacionesSinLeer();
 
         void SetPedidoFIC(List<BEPedidoFICDetalle> val);
 

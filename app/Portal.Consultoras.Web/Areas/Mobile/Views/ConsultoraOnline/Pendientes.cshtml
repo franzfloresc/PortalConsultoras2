@@ -1,8 +1,8 @@
 ﻿@using Portal.Consultoras.Web.CustomHelpers
-
 @model Portal.Consultoras.Web.Models.MisPedidosModel
 
 @{
+
     var layout = ViewContext.MobileLayout();
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
     var mobileConfiguracion = Html.MobileAppConfiguracion();
@@ -24,7 +24,6 @@
         <div class="pestana_lbel"></div>
     }
 }
-
 
 <!-- Vista por cliente / producto -->
 
@@ -55,8 +54,6 @@
 
                     @foreach (var item in Model.ListaPedidos)
                     {
-
-
                         <div class="container vc-box vc-box--shadow">
                             <!--   Pedidos   -->
                             <div class="row align-items-center">
@@ -84,7 +81,7 @@
                                 <div class="col-4 ">
                                     <div class=" vc-box">
                                         <div class="vc-box--action">
-                                            <a class="vc-box--btn vc-box--title" href="@Url.Action("DetallePedidoPendiente", "ConsultoraOnline", new { pedidoId = item.PedidoId })">Confirmar productos</a>
+                                            <a class="vc-box--btn vc-box--title" href="@Url.Action("DetallePedidoPendiente", "ConsultoraOnline", new { ids = item.PedidoId })">Confirmar productos</a>
                                         </div>
                                     </div>
                                 </div>
@@ -111,7 +108,7 @@
                                 <div class="col-10">
                                     <div class=" vc-box">
                                         <div class="vc-box--header">
-                                            <span class="vc-box--title">x @item2.Cantidad @item2.Producto</span>
+                                            <span class="vc-box--title">x @item2.CantidadTotal @item2.Producto</span>
                                         </div>
                                         <div class="vc-box--content">
                                             <p><strong>Precio total: </strong>@ViewBag.Simbolo @item2.FormatoPrecioTotal</p>
@@ -125,7 +122,7 @@
                                             }
                                             <p>Ver más...</p>
                                             <div class="vc-box--button">
-                                                <a class="vc-box--btn vc-box--title" href="@Url.Action("DetallePedidoPendienteCliente", "ConsultoraOnline", new { pedidoId = item2.CUV })">Confirmar clientes</a>
+                                                <a class="vc-box--btn vc-box--title" href="@Url.Action("DetallePedidoPendienteClientes", "ConsultoraOnline", new { cuv = item2.CUV })">Confirmar clientes</a>
                                             </div>
 
                                         </div>

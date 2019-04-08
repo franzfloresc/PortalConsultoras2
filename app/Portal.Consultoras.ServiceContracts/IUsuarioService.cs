@@ -180,6 +180,9 @@ namespace Portal.Consultoras.ServiceContracts
         IList<BEMisPedidosDetalle> GetMisPedidosDetalleConsultoraOnline(int PaisID, long PedidoID);
 
         [OperationContract]
+        IList<BEMisPedidosDetalle> GetMisPedidosDetallePendientesAll(int paisId, int campaniaId, long consultoraId);
+
+        [OperationContract]
         int GetCantidadSolicitudesPedido(int PaisID, long ConsultoraId, int Campania);
 
         [OperationContract]
@@ -443,5 +446,11 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         void RegistrarDireccionEntrega(string codigoISO, BEDireccionEntrega direccionEntrega);
         #endregion
+
+        [OperationContract]
+        IList<BEMisPedidos> GetSolicitudesPedidoPendiente(int PaisID, long ConsultoraId, int Campania);
+
+        //[OperationContract]
+        //IList<string> GetSapFromCuvlist(string cuvList, int campaniaid, int paisId);
     }
 }

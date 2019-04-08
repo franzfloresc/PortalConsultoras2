@@ -805,6 +805,18 @@ namespace Portal.Consultoras.Web.SessionManager
             return (List<BEMisPedidosDetalle>)val;
         }
 
+        void ISessionManager.SetobjMisPedidosCliente(List<BEMisPedidos> val)
+        {
+            HttpContext.Current.Session["objMisPedidosCliente"] = val;
+        }
+
+        List<BEMisPedidos> ISessionManager.GetobjMisPedidosCliente()
+        {
+            var val = HttpContext.Current.Session["objMisPedidosCliente"];
+
+            return (List<BEMisPedidos>)val;
+        }
+
         void ISessionManager.SetobjMisPedidosDetalleVal(List<ServiceODS.BEProducto> val)
         {
             HttpContext.Current.Session["objMisPedidosDetalleVal"] = val;
@@ -899,30 +911,6 @@ namespace Portal.Consultoras.Web.SessionManager
             var val = HttpContext.Current.Session["ListaCDRDetalle"];
 
             return (CDRWebModel)val;
-        }
-
-        void ISessionManager.SetfechaGetNotificacionesSinLeer(dynamic val)
-        {
-            HttpContext.Current.Session["fechaGetNotificacionesSinLeer"] = val;
-        }
-
-        dynamic ISessionManager.GetfechaGetNotificacionesSinLeer()
-        {
-            var val = HttpContext.Current.Session["fechaGetNotificacionesSinLeer"];
-
-            return (dynamic)val;
-        }
-
-        void ISessionManager.SetcantidadGetNotificacionesSinLeer(dynamic val)
-        {
-            HttpContext.Current.Session["cantidadGetNotificacionesSinLeer"] = val;
-        }
-
-        dynamic ISessionManager.GetcantidadGetNotificacionesSinLeer()
-        {
-            var val = HttpContext.Current.Session["cantidadGetNotificacionesSinLeer"];
-
-            return (dynamic)val;
         }
 
         void ISessionManager.SetPedidoFIC(List<BEPedidoFICDetalle> val)

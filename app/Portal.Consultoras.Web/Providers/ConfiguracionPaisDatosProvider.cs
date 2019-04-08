@@ -200,8 +200,9 @@ namespace Portal.Consultoras.Web.Providers
         public string GetValorDato(IList<ConfiguracionPaisDatosModel> configuracionesPaisDatos, string codigo, bool esMobile, int valor = 1)
         {
             var valorDato = "";
+            codigo = Util.Trim(codigo);
             configuracionesPaisDatos = configuracionesPaisDatos ?? new List<ConfiguracionPaisDatosModel>();
-            if (configuracionesPaisDatos.Any())
+            if (configuracionesPaisDatos.Any() || codigo == "")
             {
                 return valorDato;
             }

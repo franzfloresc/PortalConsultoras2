@@ -17,6 +17,8 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class ConsultoraOnlineController : BaseController
     {
+
+
         #region Configuracion de Paginado
 
         MisPedidosModel objMisPedidos;
@@ -1525,16 +1527,16 @@ namespace Portal.Consultoras.Web.Controllers
 
                     try
                     {
-                        if (pedido.Accion == 1)
-                        {
-                            Util.EnviarMail3(emailDe, pedidoAux.Email, titulocliente, mensajecliente.ToString(), true,
-                                pedidoAux.Email);
-                        }
-                        else
-                        {
-                            Util.EnviarMail3Mobile(emailDe, pedidoAux.Email, titulocliente, mensajecliente.ToString(),
-                                true, pedidoAux.Email);
-                        }
+                        //if (pedido.Accion == 1)
+                        //{
+                        //    Util.EnviarMail3(emailDe, pedidoAux.Email, titulocliente, mensajecliente.ToString(), true,
+                        //        pedidoAux.Email);
+                        //}
+                        //else
+                        //{
+                        //    Util.EnviarMail3Mobile(emailDe, pedidoAux.Email, titulocliente, mensajecliente.ToString(),
+                        //        true, pedidoAux.Email);
+                        //}
                     }
                     catch (Exception ex)
                     {
@@ -1556,15 +1558,15 @@ namespace Portal.Consultoras.Web.Controllers
 
                     try
                     {
-                        if (pedido.Accion == 1)
-                        {
-                            Util.EnviarMail3(emailDe, pedidoAux.Email, titulo, mensaje.ToString(), true, string.Empty);
-                        }
-                        else
-                        {
-                            Util.EnviarMail3Mobile(emailDe, pedidoAux.Email, titulo, mensaje.ToString(), true,
-                                string.Empty);
-                        }
+                        //if (pedido.Accion == 1)
+                        //{
+                        //    Util.EnviarMail3(emailDe, pedidoAux.Email, titulo, mensaje.ToString(), true, string.Empty);
+                        //}
+                        //else
+                        //{
+                        //    Util.EnviarMail3Mobile(emailDe, pedidoAux.Email, titulo, mensaje.ToString(), true,
+                        //        string.Empty);
+                        //}
                     }
                     catch (Exception ex)
                     {
@@ -2211,5 +2213,267 @@ namespace Portal.Consultoras.Web.Controllers
 
             return origenPedidoWeb;
         }
+
+
+
+        [HttpPost]
+        public JsonResult AceptarPedidoPendiente(ConsultoraOnlinePedidoModel parametros)
+        {
+            string mensajeR;    
+            var noPasa = ReservadoEnHorarioRestringido(out mensajeR);
+            if (noPasa)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = mensajeR,
+                    code = 2
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+            List<BEMisPedidos> pedidosSesion;
+            pedidosSesion = SessionManager.GetobjMisPedidos().ListaPedidos;
+
+
+            #region Logica Cliente existe
+            using (ServiceCliente.ClienteServiceClient svc = new ServiceCliente.ClienteServiceClient())
+            {
+
+
+                pedidosSesion.ForEach(pedido =>
+                {
+                    if (pedido.DetallePedido.Any(i => i.Elegido == true))
+                    {
+                        var a = new ServiceCliente.BECliente
+                        {
+                            ConsultoraID = userData.ConsultoraID,
+                            eMail = pedido.Email
+                        };
+                        int xclienteId = svc.GetExisteClienteConsultora(userData.PaisID, a);
+
+
+                        if (xclienteId == 0)
+                        {
+                            var pedidoAux = pedidosSesion.FirstOrDefault(x => x.Email == pedido.Email);
+                            var beCliente = new ServiceCliente.BECliente
+                            {
+                                ConsultoraID = userData.ConsultoraID,
+                                eMail = pedidoAux.Email,
+                                Nombre = pedidoAux.Cliente,
+                                PaisID = userData.PaisID,
+                                Activo = true
+                            };
+                            xclienteId = svc.Insert(beCliente);
+                        }
+
+                       
+                                pedido.ClienteId = xclienteId;
+                            
+
+                    }
+                });
+
+
+                //parametros.CorreoClientes.ForEach(correo =>
+                //{
+
+                //    var a = new ServiceCliente.BECliente
+                //    {
+                //        ConsultoraID = userData.ConsultoraID,
+                //        eMail = correo
+                //    };
+                //    int xclienteId = svc.GetExisteClienteConsultora(userData.PaisID, a);
+
+
+                //    if (xclienteId == 0)
+                //    {
+                //        var pedidoAux = pedidosSesion.FirstOrDefault(x => x.Email == correo);
+                //        var beCliente = new ServiceCliente.BECliente
+                //        {
+                //            ConsultoraID = userData.ConsultoraID,
+                //            eMail = pedidoAux.Email,
+                //            Nombre = pedidoAux.Cliente,
+                //            PaisID = userData.PaisID,
+                //            Activo = true
+                //        };
+                //        xclienteId = svc.Insert(beCliente);
+                //    }
+
+                //    pedidosSesion.Update(x =>
+                //    {
+                //        if (x.Email == correo)
+                //        {
+                //            x.ClienteId = xclienteId;
+                //        }
+
+                //    });
+
+                //});
+            }
+
+            #endregion
+
+            #region Logica Grabado
+
+
+            if (parametros.Accion == Constantes.OpcionesIngresoPendientes.ingrgana)
+            {
+
+            }
+            else if (parametros.Accion == Constantes.OpcionesIngresoPendientes.ingrped)
+            {
+                using (ServiceSAC.SACServiceClient svc = new ServiceSAC.SACServiceClient())
+                {
+                    pedidosSesion.ForEach(pedido =>
+                    {
+                        if (pedido.DetallePedido.Any(i => i.Elegido == true))
+                        {
+                            var olstMisProductos = GetValidarCuvMisPedidos(pedido.DetallePedido.Where(i => i.Elegido == true).ToList());
+
+                            pedido.DetallePedido.Where(i => i.Elegido == true).ToList().ForEach(detalle =>
+                            {
+
+                                ServiceODS.BEProducto productoVal =
+                                        olstMisProductos.FirstOrDefault(j => j.CUV == detalle.CUV);
+
+                                var model = new PedidoSb2Model
+                                {
+                                    TipoOfertaSisID = productoVal.TipoOfertaSisID,
+                                    ConfiguracionOfertaID = productoVal.ConfiguracionOfertaID,
+                                    ClienteID = pedido.ClienteId.ToString(),
+                                    OfertaWeb = false,
+                                    IndicadorMontoMinimo = productoVal.IndicadorMontoMinimo.ToString(),
+                                    EsSugerido = false,
+                                    EsKitNueva = false,
+                                    MarcaID = detalle.MarcaID,
+                                    Cantidad = detalle.Cantidad.ToString(),
+                                    PrecioUnidad = Convert.ToDecimal(detalle.PrecioUnitario),
+                                    CUV = detalle.CUV,
+                                    DescripcionProd = detalle.Producto,
+                                    ClienteDescripcion = pedido.Cliente,
+                                    OrigenPedidoWeb = GetOrigenPedidoWeb(pedido.FlagMedio, detalle.MarcaID, parametros.Dispositivo)
+                                };
+
+                                var olstPedidoWebDetalle = AgregarDetallePedido(model);
+
+                                if (olstPedidoWebDetalle != null)
+                                {
+                                    var bePedidoWebDetalle = olstPedidoWebDetalle.FirstOrDefault(x =>
+                                       x.CUV == detalle.CUV && x.MarcaID == detalle.MarcaID &&
+                                       x.ClienteID == Convert.ToInt16(pedido.ClienteId));
+
+                                    var beSolicitudDetalle = new ServiceSAC.BESolicitudClienteDetalle
+                                    {
+                                        SolicitudClienteDetalleID = detalle.PedidoDetalleId,
+                                        TipoAtencion = 1,
+                                        PedidoWebID = bePedidoWebDetalle.PedidoID,
+                                        PedidoWebDetalleID = bePedidoWebDetalle.PedidoDetalleID
+                                    };
+                                    svc.UpdSolicitudClienteDetalle(userData.PaisID, beSolicitudDetalle);
+                                }
+                            });
+                        }
+                    });
+                }
+            }
+            else if (parametros.Accion == Constantes.OpcionesIngresoPendientes.ingrten)
+            {
+                using (ServiceSAC.SACServiceClient svc = new ServiceSAC.SACServiceClient())
+                {
+                    pedidosSesion.ForEach(x =>
+                    {
+
+                        if (x.DetallePedido.Any(i => i.Elegido == true))
+                        {
+                            x.DetallePedido.Where(i => i.Elegido == true).ToList().ForEach(detalle =>
+                            {
+                                var beSolicitudDetalle = new ServiceSAC.BESolicitudClienteDetalle
+                                {
+                                    SolicitudClienteDetalleID = detalle.PedidoDetalleId,
+                                    TipoAtencion = 2,
+                                    PedidoWebID = 0,
+                                    PedidoWebDetalleID = 0
+                                };
+
+                                detalle.TipoAtencion = 2;
+                                detalle.PedidoWebDetalleID = 0;
+                                detalle.PedidoWebID = 0;
+                                svc.UpdSolicitudClienteDetalle(userData.PaisID, beSolicitudDetalle);
+                            });
+                        }
+                    });
+                }
+            }
+
+            #endregion
+            
+            #region Revision cabecera
+
+
+            using (ServiceSAC.SACServiceClient svc = new ServiceSAC.SACServiceClient())
+            {
+
+                pedidosSesion.ForEach(pedido =>
+                {
+
+                    if (!pedido.DetallePedido.ToList().Where(k => k.Estado != 0).Any(i => i.TipoAtencion == 0))
+                    {
+                        string mensajeaCliente =
+                       string.Format(
+                           "Gracias por haber escogido a {0} como tu Consultora. Pronto se pondrá en contacto contigo para coordinar la hora y lugar de entrega.",
+                           userData.NombreConsultora);
+
+                        var beSolicitudCliente = new ServiceSAC.BESolicitudCliente
+                        {
+                            SolicitudClienteID = pedido.PedidoId,
+                            CodigoConsultora = userData.ConsultoraID.ToString(),
+                            MensajeaCliente = mensajeaCliente,
+                            UsuarioModificacion = userData.CodigoUsuario,
+                            Estado = "A"
+                        };
+
+                        svc.UpdSolicitudCliente(userData.PaisID, beSolicitudCliente);
+                    }
+
+                });
+
+
+               
+            }
+
+            #endregion
+             
+
+ 
+            try
+            {
+                  
+                return Json(new
+                {
+                    success = true,
+                    message = "OK",
+                    DataBarra = GetDataBarra(),
+                    code = 1
+                }, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (FaultException e)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(e, userData.CodigoConsultora, userData.CodigoISO);
+
+                return Json(new
+                {
+                    success = false,
+                    message = e.Message,
+                    code = 1
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+          
+
+
+
+        }
+
     }
 }

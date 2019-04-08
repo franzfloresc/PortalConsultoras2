@@ -85,6 +85,7 @@ namespace Portal.Consultoras.Web.Controllers
         protected readonly ComunicadoProvider _comunicadoProvider;
         protected readonly ProgramaNuevasProvider _programaNuevasProvider;
         protected readonly MiPerfilProvider _miPerfilProvider;
+        private TempDataManager.TempDataManager _tempData;
         protected MasGanadorasModel MasGanadoras
         {
             get
@@ -110,11 +111,11 @@ namespace Portal.Consultoras.Web.Controllers
             _showRoomProvider = new ShowRoomProvider(_tablaLogicaProvider);
             _baseProvider = new BaseProvider();
             _guiaNegocioProvider = new GuiaNegocioProvider();
-            _ofertaPersonalizadaProvider = new OfertaPersonalizadaProvider();
+            _ofertaPersonalizadaProvider = new OfertaPersonalizadaProvider(this.TempData);
             _configuracionManagerProvider = new ConfiguracionManagerProvider();
             _ofertasViewProvider = new OfertaViewProvider();
             _revistaDigitalProvider = new RevistaDigitalProvider();
-            _ofertaDelDiaProvider = new OfertaDelDiaProvider();
+            _ofertaDelDiaProvider = new OfertaDelDiaProvider(this.TempData);
             _logDynamoProvider = new LogDynamoProvider();
             _eventoFestivoProvider = new EventoFestivoProvider();
             _pedidoWebProvider = new PedidoWebProvider();
@@ -127,6 +128,7 @@ namespace Portal.Consultoras.Web.Controllers
             _comunicadoProvider = new ComunicadoProvider();
             _programaNuevasProvider = new ProgramaNuevasProvider(SessionManager);
             _miPerfilProvider = new MiPerfilProvider();
+            _tempData = new TempDataManager.TempDataManager(this.TempData);
         }
 
         public BaseController(ISessionManager sessionManager)
@@ -187,31 +189,8 @@ namespace Portal.Consultoras.Web.Controllers
                 ObtenerPedidoWebDetalle();
 
                 bool esMobile = EsDispositivoMovil();
-                bool actualizaBase = true; //actualizar session de ODD desde BD
-
-                if (esMobile)
-                {
-                    if (filterContext.ActionDescriptor.ControllerDescriptor.ControllerName == "DescargarApp")
-                    {
-                        TempData["CallBase"] = "DescargarApp";
-                        actualizaBase = true;
-                    }
-                    else
-                    {
-                        if ((TempData["CallBase"] ?? "").ToString() == "DescargarApp")
-                        {
-                            //Valida si ya se ha cargado la data desde el controlador "DescargarApp", para no volver a actualizar data
-                            actualizaBase = false;
-                            TempData["CallBase"] = null;
-                        }
-                        else
-                        {
-                            actualizaBase = true;
-                        }
-                    }
-                }
-
-                GetUserDataViewBag(actualizaBase);
+                
+                GetUserDataViewBag();
 
                 var controllerName = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
                 var actionName = filterContext.ActionDescriptor.ActionName;
@@ -575,6 +554,60 @@ namespace Portal.Consultoras.Web.Controllers
         }
         #endregion  
 
+        private bool ActualizarODDBase(bool esMobile)
+        {
+            bool actualizaBaseODD = !(new OfertaBaseProvider().UsarSession(Constantes.TipoEstrategiaCodigo.OfertaDelDia)); //actualizar session de ODD desde BD
+
+            if (actualizaBaseODD)
+            {
+                if (esMobile)
+                {
+                    if (GetControllerActual() == "DescargarApp")
+                    {
+                        _tempData.SetMobileBaseODD("1");
+                    }
+                    else
+                    {
+                        if (_tempData.GetMobileBaseODD() == "1")
+                        {
+                            //Valida si ya se ha cargado la data desde el controlador "DescargarApp", para no volver a actualizar data
+                            actualizaBaseODD = false;
+                            _tempData.RemoveMobileBaseODD();
+                        }
+                    }
+                }
+                else
+                { 
+                    string controlador = GetControllerActual();
+
+                    if (!Constantes.Controlador.ActualizacionODD.Contains(controlador))
+                    {
+                        actualizaBaseODD = false;
+                    }
+
+                    switch (controlador)
+                    {
+                        //case "Ofertas":
+                        //    if (_tempData.ExistTDListODD())
+                        //    {
+                        //        actualizaBaseODD = false;
+                        //    }
+                        //    break;
+                        case "DetalleEstrategia":
+                            string accion = (ControllerContext.RouteData.Values["action"] ?? "").ToString();
+                            string palanca = (ControllerContext.RouteData.Values["palanca"] ?? "").ToString();
+                            if(accion == "Ficha" && palanca != Constantes.NombrePalanca.OfertaDelDia)
+                            {
+                                actualizaBaseODD = false;
+                            }
+                            break;
+                    }
+                }
+            }
+
+            return actualizaBaseODD;
+        }
+
         public BarraConsultoraModel GetDataBarra(bool inEscala = true, bool inMensaje = false, bool Agrupado = false)
         {
             var objR = new BarraConsultoraModel
@@ -934,10 +967,10 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region Cargar ViewBag
 
-        private void GetUserDataViewBag(bool actualizaBaseODD)
+        private void GetUserDataViewBag()
         {
             var esMobile = IsMobile();
-
+            ViewBag.PseudoParamNotif = userData.PseudoParamNotif; //SALUD-58
             ViewBag.EstadoInscripcionEpm = revistaDigital.EstadoRdcAnalytics;
             ViewBag.UsuarioNombre = (Util.Trim(userData.Sobrenombre) == "" ? userData.NombreConsultora : userData.Sobrenombre);
             ViewBag.Usuario = "Hola, " + userData.UsuarioNombre;
@@ -1086,7 +1119,8 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.GPRBannerUrl = userData.GPRBannerUrl;
 
                 // odd
-                ViewBag.OfertaDelDia = _ofertaDelDiaProvider.GetOfertaDelDiaConfiguracion(userData, actualizaBaseODD);
+                bool actualizaODDBase = ActualizarODDBase(esMobile);
+                ViewBag.OfertaDelDia = _ofertaDelDiaProvider.GetOfertaDelDiaConfiguracion(userData, true, actualizaODDBase);
                 ViewBag.TieneOfertaDelDia = _ofertaDelDiaProvider.CumpleOfertaDelDia(userData, GetControllerActual());
                 ViewBag.MostrarBannerSuperiorOdd = _ofertaDelDiaProvider.MostrarBannerSuperiorOdd(userData, GetControllerActual());
             }
@@ -1159,6 +1193,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             ViewBag.MostrarBuscadorYFiltros = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.MostrarBuscador).ToBool();
             ViewBag.CaracteresBuscador = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.CaracteresBuscador);
+            ViewBag.CaracteresBuscadorNumerico = ObtenerConfiguracionBuscadorNumerico(Constantes.TipoConfiguracionBuscador.CaracteresBuscador);
             ViewBag.TotalListadorBuscador = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.TotalResultadosBuscador);
             ViewBag.CaracteresBuscadorMostrar = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.CaracteresBuscadorMostrar);
             ViewBag.CantidadVecesInicioSesionNovedad = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.CantidadInicioSesionNovedadBuscador);
@@ -1232,7 +1267,12 @@ namespace Portal.Consultoras.Web.Controllers
             var valor = (from item in buscadorYFiltro.ConfiguracionPaisDatos where item.Codigo == codigo select item.Valor1).FirstOrDefault();
             return valor == null ? ObtenerValorPorDefecto(codigo) : valor.ToInt();
         }
-
+        public int ObtenerConfiguracionBuscadorNumerico(string codigo)
+        {
+            if (!buscadorYFiltro.ConfiguracionPaisDatos.Any()) return ObtenerValorPorDefecto(codigo);
+            var valor = (from item in buscadorYFiltro.ConfiguracionPaisDatos where item.Codigo == codigo select item.Valor2).FirstOrDefault();
+            return valor == null ? ObtenerValorPorDefecto(codigo) : valor.ToInt();
+        }
         private int ObtenerValorPorDefecto(string codigo)
         {
             switch (codigo)
@@ -1390,6 +1430,35 @@ namespace Portal.Consultoras.Web.Controllers
                 .FirstOrDefault(a => a.Codigo.Equals(Constantes.CodigoConfiguracionRecomendaciones.CaracteresDescripcion));
             if (esMobile) return configuracionPaisDatos != null ? configuracionPaisDatos.Valor2.ToInt() : 35;
             return configuracionPaisDatos != null ? configuracionPaisDatos.Valor1.ToInt() : 37;
+        }
+
+        public bool IndicadorConsultoraDigital()
+        {
+            bool r = false;
+            try
+            {
+                ServiceUsuario.BEUsuario beusuario;
+
+                using (var sv = new ServiceUsuario.UsuarioServiceClient())
+                {
+                    beusuario = sv.Select(userData.PaisID, userData.CodigoUsuario);
+                }
+
+                if (beusuario != null)
+                {
+                    r = beusuario.IndicadorConsultoraDigital > 0;
+                }
+                else
+                {
+                    r = false;
+                }
+            }
+            catch (Exception e)
+            {
+                r = false;
+            }
+
+            return r;
         }
     }
 }

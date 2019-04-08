@@ -1236,6 +1236,11 @@ namespace Portal.Consultoras.Service
             BLSolicitudCliente.RechazarSolicitudCliente(paisID, solicitudId, definitivo, opcionRechazo, razonMotivoRechazo);
         }
 
+        public void RechazarSolicitudVistaCliente(int paisID, long solicitudId, int cuv)
+        {
+            BLSolicitudCliente.RechazarSolicitudVistaCliente(paisID, solicitudId, cuv);
+        }
+
         public BESolicitudNuevaConsultora ReasignarSolicitudCliente(int paisID, long solicitudId, string codigoUbigeo, string campania, int marcaId, int opcionRechazo, string razonMotivoRechazo)
         {
             return BLSolicitudCliente.ReasignarSolicitudCliente(paisID, solicitudId, codigoUbigeo, campania, marcaId, opcionRechazo, razonMotivoRechazo);

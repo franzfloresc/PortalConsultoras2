@@ -249,6 +249,13 @@ namespace Portal.Consultoras.BizLogic
             daSolicitudCliente.RechazarSolicitudCliente(solicitudId, definitivo, opcionRechazo, razonMotivoRechazo);
         }
 
+        public void RechazarSolicitudVistaCliente(int paisID, long solicitudId, int cuv)
+        {
+            var daSolicitudCliente = new DASolicitudCliente(paisID);
+            daSolicitudCliente.RechazarSolicitudVistaCliente(solicitudId, cuv);
+        }
+
+
         public BESolicitudNuevaConsultora ReasignarSolicitudCliente(int paisID, long solicitudId, string codigoUbigeo, string campania, int marcaId, int opcionRechazo, string razonMotivoRechazo)
         {
             BESolicitudNuevaConsultora consultoraReasignada = null;
