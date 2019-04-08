@@ -1341,6 +1341,7 @@ namespace Portal.Consultoras.Common
             public const string ActualizaDatos = "ACTUALIZADATOS";
             public const string Notificaciones = "NOTIFICACIONES";
             public const string MasGanadoras = "MASGANADORAS";
+            public const string ArmaTuPack = "ARMATUPACK";
         }
 
         public static class IngresoExternoOrigen
