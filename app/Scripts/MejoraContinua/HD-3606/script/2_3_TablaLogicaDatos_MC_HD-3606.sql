@@ -4,8 +4,8 @@ GO
 IF NOT EXISTS (
 		SELECT 1
 		FROM TablaLogicaDatos
-		WHERE TablaLogicaID = 200
-			AND Descripcion LIKE '%Activaci髇 nueva trama YOBEL%'
+		WHERE TablaLogicaID = 170
+			AND Descripcion LIKE '%Activaci贸n nueva trama YOBEL%'
 		)
 BEGIN
 	INSERT INTO dbo.TablaLogicaDatos (
@@ -16,10 +16,10 @@ BEGIN
 		,Valor
 		) 
 	VALUES (
-		20001
-		,200
+		17001
+		,170
 		,'01'
-		,'Activaci髇 nueva trama YOBEL'
+		,'Activaci贸n nueva trama YOBEL'
 		,'INACTIVO'
 		);
 END
@@ -31,8 +31,8 @@ GO
 IF NOT EXISTS (
 		SELECT 1
 		FROM TablaLogicaDatos
-		WHERE TablaLogicaID = 200
-			AND Descripcion LIKE '%Activaci髇 nueva trama YOBEL%'
+		WHERE TablaLogicaID = 170
+			AND Descripcion LIKE '%Activaci贸n nueva trama YOBEL%'
 		)
 BEGIN
 	INSERT INTO dbo.TablaLogicaDatos (
@@ -43,10 +43,10 @@ BEGIN
 		,Valor
 		)
 	VALUES (
-		20001
-		,200
+		17001
+		,170
 		,'01'
-		,'Activaci髇 nueva trama YOBEL'
+		,'Activaci贸n nueva trama YOBEL'
 		,'INACTIVO'
 		);
 END
@@ -58,8 +58,8 @@ GO
 IF NOT EXISTS (
 		SELECT 1
 		FROM TablaLogicaDatos
-		WHERE TablaLogicaID = 200
-			AND Descripcion LIKE '%Activaci髇 nueva trama YOBEL%'
+		WHERE TablaLogicaID = 170
+			AND Descripcion LIKE '%Activaci贸n nueva trama YOBEL%'
 		)
 BEGIN
 	INSERT INTO dbo.TablaLogicaDatos (
@@ -70,10 +70,10 @@ BEGIN
 		,Valor
 		)
 	VALUES (
-		20001
-		,200
+		17001
+		,170
 		,'01'
-		,'Activaci髇 nueva trama YOBEL'
+		,'Activaci贸n nueva trama YOBEL'
 		,'INACTIVO'
 		);
 END
@@ -85,8 +85,8 @@ GO
 IF NOT EXISTS (
 		SELECT 1
 		FROM TablaLogicaDatos
-		WHERE TablaLogicaID = 200
-			AND Descripcion LIKE '%Activaci髇 nueva trama YOBEL%'
+		WHERE TablaLogicaID = 170
+			AND Descripcion LIKE '%Activaci贸n nueva trama YOBEL%'
 		)
 BEGIN
 	INSERT INTO dbo.TablaLogicaDatos (
@@ -97,10 +97,10 @@ BEGIN
 		,Valor
 		)
 	VALUES (
-		20001
-		,200
+		17001
+		,170
 		,'01'
-		,'Activaci髇 nueva trama YOBEL'
+		,'Activaci贸n nueva trama YOBEL'
 		,'INACTIVO'
 		);
 END
@@ -112,8 +112,8 @@ GO
 IF NOT EXISTS (
 		SELECT 1
 		FROM TablaLogicaDatos
-		WHERE TablaLogicaID = 200
-			AND Descripcion LIKE '%Activaci髇 nueva trama YOBEL%'
+		WHERE TablaLogicaID = 170
+			AND Descripcion LIKE '%Activaci贸n nueva trama YOBEL%'
 		)
 BEGIN
 	INSERT INTO dbo.TablaLogicaDatos (
@@ -124,10 +124,10 @@ BEGIN
 		,Valor
 		)
 	VALUES (
-		20001
-		,200
+		17001
+		,170
 		,'01'
-		,'Activaci髇 nueva trama YOBEL'
+		,'Activaci贸n nueva trama YOBEL'
 		,'INACTIVO'
 		);
 END
@@ -139,8 +139,8 @@ GO
 IF NOT EXISTS (
 		SELECT 1
 		FROM TablaLogicaDatos
-		WHERE TablaLogicaID = 200
-			AND Descripcion LIKE '%Activaci髇 nueva trama YOBEL%'
+		WHERE TablaLogicaID = 170
+			AND Descripcion LIKE '%Activaci贸n nueva trama YOBEL%'
 		)
 BEGIN
 	INSERT INTO dbo.TablaLogicaDatos (
@@ -151,10 +151,10 @@ BEGIN
 		,Valor
 		)
 	VALUES (
-		20001
-		,200
+		17001
+		,170
 		,'01'
-		,'Activaci髇 nueva trama YOBEL'
+		,'Activaci贸n nueva trama YOBEL'
 		,'INACTIVO'
 		);
 END
@@ -166,8 +166,8 @@ GO
 IF NOT EXISTS (
 		SELECT 1
 		FROM TablaLogicaDatos
-		WHERE TablaLogicaID = 200
-			AND Descripcion LIKE '%Activaci髇 nueva trama YOBEL%'
+		WHERE TablaLogicaID = 170
+			AND Descripcion LIKE '%Activaci贸n nueva trama YOBEL%'
 		)
 BEGIN
 	INSERT INTO dbo.TablaLogicaDatos (
@@ -178,10 +178,10 @@ BEGIN
 		,Valor
 		)
 	VALUES (
-		20001
-		,200
+		17001
+		,170
 		,'01'
-		,'Activaci髇 nueva trama YOBEL'
+		,'Activaci贸n nueva trama YOBEL'
 		,'INACTIVO'
 		);
 END
@@ -193,8 +193,8 @@ GO
 IF NOT EXISTS (
 		SELECT 1
 		FROM TablaLogicaDatos
-		WHERE TablaLogicaID = 200
-			AND Descripcion LIKE '%Activaci髇 nueva trama YOBEL%'
+		WHERE TablaLogicaID = 170
+			AND Descripcion LIKE '%Activaci贸n nueva trama YOBEL%'
 		)
 BEGIN
 	INSERT INTO dbo.TablaLogicaDatos (
@@ -205,10 +205,10 @@ BEGIN
 		,Valor
 		)
 	VALUES (
-		20001
-		,200
+		17001
+		,170
 		,'01'
-		,'Activaci髇 nueva trama YOBEL'
+		,'Activaci贸n nueva trama YOBEL'
 		,'INACTIVO'
 		);
 END
@@ -220,8 +220,8 @@ GO
 IF NOT EXISTS (
 		SELECT 1
 		FROM TablaLogicaDatos
-		WHERE TablaLogicaID = 200
-			AND Descripcion LIKE '%Activaci髇 nueva trama YOBEL%'
+		WHERE TablaLogicaID = 170
+			AND Descripcion LIKE '%Activaci贸n nueva trama YOBEL%'
 		)
 BEGIN
 	INSERT INTO dbo.TablaLogicaDatos (
@@ -232,10 +232,10 @@ BEGIN
 		,Valor
 		)
 	VALUES (
-		20001
-		,200
+		17001
+		,170
 		,'01'
-		,'Activaci髇 nueva trama YOBEL'
+		,'Activaci贸n nueva trama YOBEL'
 		,'INACTIVO'
 		);
 END
@@ -247,8 +247,8 @@ GO
 IF NOT EXISTS (
 		SELECT 1
 		FROM TablaLogicaDatos
-		WHERE TablaLogicaID = 200
-			AND Descripcion LIKE '%Activaci髇 nueva trama YOBEL%'
+		WHERE TablaLogicaID = 170
+			AND Descripcion LIKE '%Activaci贸n nueva trama YOBEL%'
 		)
 BEGIN
 	INSERT INTO dbo.TablaLogicaDatos (
@@ -259,10 +259,10 @@ BEGIN
 		,Valor
 		)
 	VALUES (
-		20001
-		,200
+		17001
+		,170
 		,'01'
-		,'Activaci髇 nueva trama YOBEL'
+		,'Activaci贸n nueva trama YOBEL'
 		,'ACTIVO'
 		);
 END
@@ -274,8 +274,8 @@ GO
 IF NOT EXISTS (
 		SELECT 1
 		FROM TablaLogicaDatos
-		WHERE TablaLogicaID = 200
-			AND Descripcion LIKE '%Activaci髇 nueva trama YOBEL%'
+		WHERE TablaLogicaID = 170
+			AND Descripcion LIKE '%Activaci贸n nueva trama YOBEL%'
 		)
 BEGIN
 	INSERT INTO dbo.TablaLogicaDatos (
@@ -286,10 +286,10 @@ BEGIN
 		,Valor
 		)
 	VALUES (
-		20001
-		,200
+		17001
+		,170
 		,'01'
-		,'Activaci髇 nueva trama YOBEL'
+		,'Activaci贸n nueva trama YOBEL'
 		,'INACTIVO'
 		);
 END
@@ -301,8 +301,8 @@ GO
 IF NOT EXISTS (
 		SELECT 1
 		FROM TablaLogicaDatos
-		WHERE TablaLogicaID = 200
-			AND Descripcion LIKE '%Activaci髇 nueva trama YOBEL%'
+		WHERE TablaLogicaID = 170
+			AND Descripcion LIKE '%Activaci贸n nueva trama YOBEL%'
 		)
 BEGIN
 	INSERT INTO dbo.TablaLogicaDatos (
@@ -313,10 +313,10 @@ BEGIN
 		,Valor
 		)
 	VALUES (
-		20001
-		,200
+		17001
+		,170
 		,'01'
-		,'Activaci髇 nueva trama YOBEL'
+		,'Activaci贸n nueva trama YOBEL'
 		,'INACTIVO'
 		);
 END

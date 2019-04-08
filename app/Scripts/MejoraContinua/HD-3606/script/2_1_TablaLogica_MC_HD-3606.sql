@@ -4,7 +4,7 @@ GO
 IF NOT EXISTS (
 		SELECT *
 		FROM dbo.TablaLogica
-		WHERE TablaLogicaID = 190
+		WHERE TablaLogicaID = 169
 		)
 BEGIN
 	INSERT INTO dbo.TablaLogica (
@@ -12,8 +12,8 @@ BEGIN
 		,Descripcion
 		)
 	VALUES (
-		190
-		,'Seg Pedido Regi髇 y Zona'
+		169
+		,'Seg Pedido Regi贸n y Zona'
 		)
 END
 GO
@@ -24,7 +24,7 @@ GO
 IF NOT EXISTS (
 		SELECT *
 		FROM dbo.TablaLogica
-		WHERE TablaLogicaID = 190
+		WHERE TablaLogicaID = 169
 		)
 BEGIN
 	INSERT INTO dbo.TablaLogica (
@@ -32,8 +32,8 @@ BEGIN
 		,Descripcion
 		)
 	VALUES (
-		190
-		,'Seg Pedido Regi髇 y Zona'
+		169
+		,'Seg Pedido Regi贸n y Zona'
 		)
 END
 GO
@@ -44,7 +44,7 @@ GO
 IF NOT EXISTS (
 		SELECT *
 		FROM dbo.TablaLogica
-		WHERE TablaLogicaID = 190
+		WHERE TablaLogicaID = 169
 		)
 BEGIN
 	INSERT INTO dbo.TablaLogica (
@@ -52,8 +52,8 @@ BEGIN
 		,Descripcion
 		)
 	VALUES (
-		190
-		,'Seg Pedido Regi髇 y Zona'
+		169
+		,'Seg Pedido Regi贸n y Zona'
 		)
 END
 GO
@@ -64,7 +64,7 @@ GO
 IF NOT EXISTS (
 		SELECT *
 		FROM dbo.TablaLogica
-		WHERE TablaLogicaID = 190
+		WHERE TablaLogicaID = 169
 		)
 BEGIN
 	INSERT INTO dbo.TablaLogica (
@@ -72,8 +72,8 @@ BEGIN
 		,Descripcion
 		)
 	VALUES (
-		190
-		,'Seg Pedido Regi髇 y Zona'
+		169
+		,'Seg Pedido Regi贸n y Zona'
 		)
 END
 GO
@@ -84,7 +84,7 @@ GO
 IF NOT EXISTS (
 		SELECT *
 		FROM dbo.TablaLogica
-		WHERE TablaLogicaID = 190
+		WHERE TablaLogicaID = 169
 		)
 BEGIN
 	INSERT INTO dbo.TablaLogica (
@@ -92,8 +92,8 @@ BEGIN
 		,Descripcion
 		)
 	VALUES (
-		190
-		,'Seg Pedido Regi髇 y Zona'
+		169
+		,'Seg Pedido Regi贸n y Zona'
 		)
 END
 GO
@@ -104,7 +104,7 @@ GO
 IF NOT EXISTS (
 		SELECT *
 		FROM dbo.TablaLogica
-		WHERE TablaLogicaID = 190
+		WHERE TablaLogicaID = 169
 		)
 BEGIN
 	INSERT INTO dbo.TablaLogica (
@@ -112,8 +112,8 @@ BEGIN
 		,Descripcion
 		)
 	VALUES (
-		190
-		,'Seg Pedido Regi髇 y Zona'
+		169
+		,'Seg Pedido Regi贸n y Zona'
 		)
 END
 GO
@@ -124,7 +124,7 @@ GO
 IF NOT EXISTS (
 		SELECT *
 		FROM dbo.TablaLogica
-		WHERE TablaLogicaID = 190
+		WHERE TablaLogicaID = 169
 		)
 BEGIN
 	INSERT INTO dbo.TablaLogica (
@@ -132,8 +132,8 @@ BEGIN
 		,Descripcion
 		)
 	VALUES (
-		190
-		,'Seg Pedido Regi髇 y Zona'
+		169
+		,'Seg Pedido Regi贸n y Zona'
 		)
 END
 GO
@@ -144,7 +144,7 @@ GO
 IF NOT EXISTS (
 		SELECT *
 		FROM dbo.TablaLogica
-		WHERE TablaLogicaID = 190
+		WHERE TablaLogicaID = 169
 		)
 BEGIN
 	INSERT INTO dbo.TablaLogica (
@@ -152,8 +152,8 @@ BEGIN
 		,Descripcion
 		)
 	VALUES (
-		190
-		,'Seg Pedido Regi髇 y Zona'
+		169
+		,'Seg Pedido Regi贸n y Zona'
 		)
 END
 GO
@@ -164,7 +164,7 @@ GO
 IF NOT EXISTS (
 		SELECT *
 		FROM dbo.TablaLogica
-		WHERE TablaLogicaID = 190
+		WHERE TablaLogicaID = 169
 		)
 BEGIN
 	INSERT INTO dbo.TablaLogica (
@@ -172,8 +172,8 @@ BEGIN
 		,Descripcion
 		)
 	VALUES (
-		190
-		,'Seg Pedido Regi髇 y Zona'
+		169
+		,'Seg Pedido Regi贸n y Zona'
 		)
 END
 GO
@@ -184,7 +184,7 @@ GO
 IF NOT EXISTS (
 		SELECT *
 		FROM dbo.TablaLogica
-		WHERE TablaLogicaID = 190
+		WHERE TablaLogicaID = 169
 		)
 BEGIN
 	INSERT INTO dbo.TablaLogica (
@@ -192,8 +192,8 @@ BEGIN
 		,Descripcion
 		)
 	VALUES (
-		190
-		,'Seg Pedido Regi髇 y Zona'
+		169
+		,'Seg Pedido Regi贸n y Zona'
 		)
 END
 GO
@@ -204,7 +204,7 @@ GO
 IF NOT EXISTS (
 		SELECT *
 		FROM dbo.TablaLogica
-		WHERE TablaLogicaID = 190
+		WHERE TablaLogicaID = 169
 		)
 BEGIN
 	INSERT INTO dbo.TablaLogica (
@@ -212,8 +212,8 @@ BEGIN
 		,Descripcion
 		)
 	VALUES (
-		190
-		,'Seg Pedido Regi髇 y Zona'
+		169
+		,'Seg Pedido Regi贸n y Zona'
 		)
 END
 GO
@@ -224,7 +224,7 @@ GO
 IF NOT EXISTS (
 		SELECT *
 		FROM dbo.TablaLogica
-		WHERE TablaLogicaID = 190
+		WHERE TablaLogicaID = 169
 		)
 BEGIN
 	INSERT INTO dbo.TablaLogica (
@@ -232,8 +232,8 @@ BEGIN
 		,Descripcion
 		)
 	VALUES (
-		190
-		,'Seg Pedido Regi髇 y Zona'
+		169
+		,'Seg Pedido Regi贸n y Zona'
 		)
 END
 GO
