@@ -472,7 +472,8 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaModel>();
 
             Mapper.CreateMap<UsuarioModel, ServicePedido.BEConsultoraProgramaNuevas>();
-            
+            Mapper.CreateMap<UsuarioModel, ServiceODS.BEConsultoraProgramaNuevas>();
+
             Mapper.CreateMap<PagoEnLineaTipoPagoModel, BEPagoEnLineaTipoPago>();
             Mapper.CreateMap<PagoEnLineaMedioPagoModel, BEPagoEnLineaMedioPago>();
             Mapper.CreateMap<PagoEnLineaMedioPagoDetalleModel, BEPagoEnLineaMedioPagoDetalle>();

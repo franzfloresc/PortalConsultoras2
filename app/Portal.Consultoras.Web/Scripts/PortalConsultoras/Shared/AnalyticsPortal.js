@@ -43,7 +43,8 @@ var AnalyticsPortalModule = (function () {
         contenedorfichaProducto: "Contenedor - Ficha de producto",
         CarritoCompras: "Carrito de compras",
         siguiente: "Ver siguiente",
-        anterior: "Ver anterior"
+        anterior: "Ver anterior",
+        palancaLasMasGandoras: "Más Ganadoras"
         // Fin - Analytics Ofertas (Miguel)
     };
 
@@ -242,7 +243,7 @@ var AnalyticsPortalModule = (function () {
             }
         }
 
-        console.log("_getEstructuraOrigenPedidoWeb", origen, origenEstructura);
+        //console.log("_getEstructuraOrigenPedidoWeb", origen, origenEstructura);
 
         return origenEstructura;
     }
@@ -371,7 +372,7 @@ var AnalyticsPortalModule = (function () {
             ? ((palanca != "" ? separador : "") + palanca)
             : palanca;
 
-        console.log("_getParametroListSegunOrigen = " + texto, origenEstructura, url);
+        //console.log("_getParametroListSegunOrigen = " + texto, origenEstructura, url);
 
         return texto;
     }
@@ -645,7 +646,8 @@ var AnalyticsPortalModule = (function () {
                 'DescripcionMarca': estrategia.CUV2,
                 'CodigoTipoEstrategia': estrategia.CodigoEstrategia,
                 'MarcaId': estrategia.MarcaID,
-                'Cantidad': estrategia.Cantidad
+                'Cantidad': estrategia.Cantidad,
+                'Palanca': estrategia.Palanca
             };
 
             var _pagina = pagina.Pagina;
@@ -701,21 +703,21 @@ var AnalyticsPortalModule = (function () {
 
     var _obtenerNombrePalanca = function (tipoEstrategiaId) {
         switch (tipoEstrategiaId) {
-            case ConstantesModule.ConstantesPalanca.GuiaDeNegocioDigitalizada:
+            case ConstantesModule.TipoEstrategia.GuiaDeNegocioDigitalizada:
                 return "Guía de negocio";
-            case ConstantesModule.ConstantesPalanca.HerramientasVenta:
+            case ConstantesModule.TipoEstrategia.HerramientasVenta:
                 return "Herramientas de Venta";
-            case ConstantesModule.ConstantesPalanca.ShowRoom:
+            case ConstantesModule.TipoEstrategia.ShowRoom:
                 return "ShowRoom";
-            case ConstantesModule.ConstantesPalanca.OfertaDelDia:
+            case ConstantesModule.TipoEstrategia.OfertaDelDia:
                 return "Oferta del Día";
-            case ConstantesModule.ConstantesPalanca.OfertaParaTi:
+            case ConstantesModule.TipoEstrategia.OfertaParaTi:
                 return "Oferta para Ti";
-            case ConstantesModule.ConstantesPalanca.OfertasParaMi:
+            case ConstantesModule.TipoEstrategia.OfertasParaMi:
                 return "Oferta para Mi";
-            case ConstantesModule.ConstantesPalanca.Lanzamiento:
+            case ConstantesModule.TipoEstrategia.Lanzamiento:
                 return "Lanzamiento";
-            case ConstantesModule.ConstantesPalanca.PackAltoDesembolso:
+            case ConstantesModule.TipoEstrategia.PackAltoDesembolso:
                 return "Packs Ganadores";
             default:
                 return "Gana+";
@@ -730,6 +732,9 @@ var AnalyticsPortalModule = (function () {
             var palanca;
             if (model.CodigoTipoEstrategia === "0") palanca = model.DescripcionEstrategia;
             else palanca = _obtenerNombrePalanca(model.CodigoTipoEstrategia);
+
+            if (model.MaterialGanancia || model.Palanca == 'Ganadoras') palanca = _texto.palancaLasMasGandoras;
+
             var lista = "Buscador - " + palanca + " - " + origen + desplegable;
             dataLayer.push({
                 'event': _evento.addToCart,
@@ -804,7 +809,7 @@ var AnalyticsPortalModule = (function () {
             dataLayer.push({
                 'event': _evento.virtualEvent,
                 'category': 'Buscador SB',
-                'action': 'Ver todos los resultados',
+                'action': 'Ver más resultados',
                 'label': busqueda
             });
         } catch (e) {
@@ -1534,11 +1539,10 @@ var AnalyticsPortalModule = (function () {
                 'event': _evento.virtualEvent,
                 'category': textoCategory,
                 'action': 'Click Botón',
-                'label': titulo,
-                'eventCallback': function () {
-                    document.location = url;
-                }
+                'label': titulo
             });
+
+            document.location = url;
 
         } catch (e) {
             console.log(_texto.excepcion + e);
@@ -2283,6 +2287,50 @@ var AnalyticsPortalModule = (function () {
         });
     }
 
+    var marcaFichaDetalleRecomendado = function (strData, position) {
+
+        var jsonData = jQuery.parseJSON(strData);
+
+        var _localEvent = _evento.productClick;
+        var _currencyCode = _getCurrencyCodes();
+        var _productName = jsonData.Descripcion;
+        var _id = jsonData.CUV;
+        var _price = jsonData.Precio;
+        var _brand = _getMarca(jsonData.MarcaId);
+        var _category = _texto.notavaliable;
+        var _variant = _texto.estandar;
+        var _position = position.toString();
+        var _list = "Pedido - Ofertas Relacionadas";
+
+        try {
+            dataLayer.push({
+                "event": _localEvent,
+                "ecommerce": {
+                    "currencyCode": _currencyCode,
+                    "click": {
+                        "actionField": {
+                            "list": _list
+                        },
+                        "products": [{
+                            "name": _productName,
+                            "id": _id,
+                            "price": _price,
+                            "brand": _brand,
+                            "category": _category,
+                            "variant": _variant,
+                            "position": _position
+                        }]
+                    }
+                },
+                'eventCallback': function () {
+                    //console.log('msg');
+                }
+            });
+        } catch (e) {
+            console.log(_texto.exception + e);
+        }
+    }
+
     ////////////////////////////////////////////////////////////////////////////////////////
     // Fin - Analytics Buscador
     ////////////////////////////////////////////////////////////////////////////////////////
@@ -2388,6 +2436,7 @@ var AnalyticsPortalModule = (function () {
         MarcaEliminarEtiqueta: marcaEliminarEtiqueta,
         MarcaLimpiarFiltros: marcaLimpiarFiltros,
         MarcaBotonFiltro: marcaBotonFiltro,
-        MarcaBotonAplicarFiltro: marcaBotonAplicarFiltro
+        MarcaBotonAplicarFiltro: marcaBotonAplicarFiltro,
+        MarcaFichaDetalleRecomendado: marcaFichaDetalleRecomendado
     }
 })();
