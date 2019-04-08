@@ -484,6 +484,7 @@ input[type=checkbox] {
 .subbox {
     display: block !important;
     position: fixed;
+    top: 64px;
 }
 
     .subbox .op-menu-horizontal {
@@ -503,3 +504,14 @@ div .cartbtn {
     div .cartbtn i {
         left: -12px;
     }
+
+
+.menu__link, .submenu__link {
+    text-decoration: none !important;
+}
+#seccion-menu-mobile {
+    display:none !important;
+}
+.layout__view__breadcrumbs__wrapper {
+    margin-top: 140px;
+}

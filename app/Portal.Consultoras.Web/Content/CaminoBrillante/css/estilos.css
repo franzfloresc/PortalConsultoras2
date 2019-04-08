@@ -1515,3 +1515,9 @@ header.layout__header {
     font-size: 24px;
     line-height: 80px;
 }
+.menu__link, .submenu__link {
+    text-decoration: none !important;
+}
+#seccion-menu-mobile {
+    display:none;
+}
