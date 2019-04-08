@@ -69,9 +69,9 @@ namespace Portal.Consultoras.Web.SessionManager
 
         void SetListaCDRWebCargaInicial(List<CDRWebModel> lista);//HD-3412 EINCA
 
-        bool GetFlagIsSetsOrPack(); //HD-3703 EINCA
+        bool? GetFlagIsSetsOrPack(); //HD-3703 EINCA
 
-        void SetFlagIsSetsOrPack(bool flag); //HD-3703 EINCA
+        void SetFlagIsSetsOrPack(bool? flag); //HD-3703 EINCA
 
         #endregion
 
