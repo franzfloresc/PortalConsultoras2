@@ -31,7 +31,8 @@ namespace Portal.Consultoras.Web.Providers
         }
         
         public EstrategiaPersonalizadaProductoModel ObtenerModeloOfertaDesdeApi(EstrategiaPersonalizadaProductoModel estrategiaModelo, string codigoIso)
-        {                                                                       
+        {
+            //var taskApi = Task.Run(() => ObtenerOfertaDesdeApi("30820", "201907", "SR", "PE"));
             var taskApi = Task.Run(() => ObtenerOfertaDesdeApi(estrategiaModelo.CUV2, estrategiaModelo.CampaniaID.ToString(), estrategiaModelo.CodigoEstrategia, codigoIso));
             Task.WhenAll(taskApi);
             Estrategia estrategia = taskApi.Result ?? new Estrategia();
