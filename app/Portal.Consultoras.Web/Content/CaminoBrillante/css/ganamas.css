@@ -515,6 +515,13 @@ div .cartbtn {
     -moz-box-shadow: 0 4px 4px 0 rgba(126,126,126,.5);
     box-shadow: 0 4px 4px 0 rgba(126,126,126,.1);
 }
+#divresultadosDemostradores {
+    display: block;
+    margin-right: auto;
+    text-align: left;
+    margin-bottom: 6px;
+}
+
 @media (max-width: 950px) {
     .op-menu-horizontal .subnavegador li {
         padding: 0px 15px;
