@@ -22,7 +22,7 @@ namespace Portal.Consultoras.Web.Providers
             sessionManager = SessionManager.SessionManager.Instance;
         }
 
-        public List<UsuarioOpcionesModel> GetUsuarioOpciones(int paisId, string codigoUsuario , bool sesion)
+        public List<UsuarioOpcionesModel> GetUsuarioOpciones(int paisId, string codigoUsuario, bool sesion)
         {
             var datos = sesion ? sessionManager.GetUsuarioOpciones() : null;
             if (datos == null)
@@ -35,19 +35,19 @@ namespace Portal.Consultoras.Web.Providers
             }
             return datos;
         }
-        public List<ParametroUneteBE> ObtenerUbigeoPrincipal(string CodigoISO)
-        {
-            List<ParametroUneteBE> result;
-            int IdPadre = 0;
-            using (var sv = new PortalServiceClient())
-            {
-                
-                result =  sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel1, IdPadre);
-            }
+        //public List<ParametroUneteBE> ObtenerUbigeoPrincipal(string CodigoISO)
+        //{
+        //    List<ParametroUneteBE> result;
+        //    int IdPadre = 0;
+        //    using (var sv = new PortalServiceClient())
+        //    {
 
-            return result;
-        }
-        
+        //        result = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel1, IdPadre);
+        //    }
+
+        //    return result;
+        //}
+
         public async Task<List<ParametroUneteBE>> ObtenerUbigeoPrincipalAsync(string CodigoISO)
         {
             List<ParametroUneteBE> result;
@@ -68,7 +68,7 @@ namespace Portal.Consultoras.Web.Providers
                 return Mapper.Map<IEnumerable<BEUsuarioOpciones>, List<UsuarioOpcionesModel>>(datos);
             }
         }
-        public async Task<List<ParametroUneteBE>> ObtenerUbigeoDependiente(string CodigoISO , int Nivel , int IdPadre)
+        public async Task<List<ParametroUneteBE>> ObtenerUbigeoDependiente(string CodigoISO, int Nivel, int IdPadre)
         {
             List<ParametroUneteBE> result;
             using (var sv = new PortalServiceClient())
@@ -110,7 +110,7 @@ namespace Portal.Consultoras.Web.Providers
             return response;
 
         }
-    
+
         private async Task<BEDireccionEntrega> BinderDireccionAsync(DireccionEntregaModel model)
         {
             if (model == null) return null;
@@ -180,9 +180,9 @@ namespace Portal.Consultoras.Web.Providers
                 }
                 sessionManager.SetUsuarioOpciones(null);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-
+                //
             }
             return resultado;
         }

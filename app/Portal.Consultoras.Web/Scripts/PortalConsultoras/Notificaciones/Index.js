@@ -16,7 +16,11 @@
     if (Visualizado == "False") {
         $.ajaxSetup({ cache: false });
         $.get(baseUrl + "Notificaciones/ActualizarEstadoNotificacion?ProcesoId=" + ProcesoId + "&TipoOrigen=" + TipoOrigen)
-            .success(function (data) { if (checkTimeout(data) && data.success) $(obj).removeClass("no_leido"); });
+            .success(function (data) {
+                if (checkTimeout(data) && data.success)
+                    $(obj).removeClass("no_leido");
+                localStorage.setItem('KeyPseudoParam', new Date().getTime()); //SALUD-58
+            });
     }
 
     if (TipoOrigen == 6) {
@@ -26,6 +30,7 @@
                 $('#divDetalleNotificacionCatalogo').html(data);
                 $('#divNotificacionCatalogo').show();
                 $('.content_left_pagos').hide();
+                localStorage.setItem('KeyPseudoParam', new Date().getTime());//SALUD-58
                 CargarCantidadNotificacionesSinLeer();
                 closeWaitingDialog();
             }
@@ -37,7 +42,8 @@
             if (checkTimeout(data)) {
                 $('#divDetalleNotificacionCatalogo').html(data);
                 $('#divNotificacionCatalogo').show();
-                $('.content_left_pagos').hide();
+                $('.content_left_pagos').hide();                
+                localStorage.setItem('KeyPseudoParam', new Date().getTime());//SALUD-58
                 CargarCantidadNotificacionesSinLeer();
                 closeWaitingDialog();
             }
@@ -56,6 +62,8 @@
                 $('#divListadoObservaciones').html(data);
                 $('#divObservaciones').show();
                 $('.content_left_pagos').hide();
+                
+                localStorage.setItem('KeyPseudoParam', new Date().getTime());//SALUD-58
                 CargarCantidadNotificacionesSinLeer();
                 closeWaitingDialog();
             }
@@ -69,6 +77,8 @@
                 $('#divListadoObservaciones').html(data);
                 $('#divObservaciones').show();
                 $('.content_left_pagos').hide();
+               
+                localStorage.setItem('KeyPseudoParam', new Date().getTime()); //SALUD-58
                 CargarCantidadNotificacionesSinLeer();
                 closeWaitingDialog();
             }
@@ -82,6 +92,8 @@
                 $('#divListadoObservaciones').html(data);
                 $('#divObservaciones').show();
                 $('.content_left_pagos').hide();
+              
+                localStorage.setItem('KeyPseudoParam', new Date().getTime());//SALUD-58           
                 CargarCantidadNotificacionesSinLeer();
                 closeWaitingDialog();
             }
@@ -94,7 +106,8 @@
 
                 $('#divListadoObservaciones').html(data);
                 $('#divObservaciones').show();
-                $('.content_left_pagos').hide();
+                $('.content_left_pagos').hide();               
+                localStorage.setItem('KeyPseudoParam', new Date().getTime()); //SALUD-58
                 CargarCantidadNotificacionesSinLeer();
                 closeWaitingDialog();
             }
@@ -123,7 +136,8 @@
                         var Mensaje = "Será enviado a Belcorp " + DescripcionFacturacion(FacturaHoy, DiaFact, MesFact) + ", siempre y cuando cumplas con el monto mínimo y no tengas deuda pendiente.";
                         $('#sMensajeFacturacion').html(Mensaje);
                         break;
-                }
+                }                
+                localStorage.setItem('KeyPseudoParam', new Date().getTime());//SALUD-58
                 CargarCantidadNotificacionesSinLeer()
                 closeWaitingDialog();
             }

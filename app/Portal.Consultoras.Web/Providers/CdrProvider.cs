@@ -538,7 +538,7 @@ namespace Portal.Consultoras.Web.Providers
                 using (var sv = new ServiceSAC.SACServiceClient())
                 {
                     var serviceResult = sv.GetTablaLogicaDatos(paisID, Constantes.TablaLogica.NroReclamosPorPedidoCDR).ToList();
-                    var cantidad = serviceResult.Where(a => a.Codigo == "01").FirstOrDefault().Valor;
+                    var cantidad = serviceResult.FirstOrDefault(a => a.Codigo == "01").Valor;
                     int.TryParse(cantidad, out result);
                 }
             }

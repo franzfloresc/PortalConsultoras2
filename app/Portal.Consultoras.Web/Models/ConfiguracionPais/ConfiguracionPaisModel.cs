@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using System;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -32,12 +33,14 @@ namespace Portal.Consultoras.Web.Models
         public string DesktopLogoBanner { get; set; }
         public string MobileLogoBanner { get; set; }
 
+
+        public bool EsMobile { get; set; }
         public string UrlMenu { get; set; }
         public string UrlMenuMobile
         {
             get
             {
-                return "/Mobile/" + UrlMenu ?? string.Empty;
+                return (Codigo == Constantes.ConfiguracionPais.ArmaTuPack ? "/" :  "/Mobile/") + UrlMenu ?? string.Empty;
             }
         }
 
