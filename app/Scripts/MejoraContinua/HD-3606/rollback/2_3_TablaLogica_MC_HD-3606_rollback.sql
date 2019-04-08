@@ -4,14 +4,14 @@ GO
 IF EXISTS (
 		SELECT 1
 		FROM TablaLogica
-		WHERE TablaLogicaID = 200
-			AND descripcion LIKE '%Activaci髇 nueva trama YOBEL%'
+		WHERE TablaLogicaID = 170
+			AND descripcion LIKE '%Activaci贸n nueva trama YOBEL%'
 		)
 BEGIN
 	DELETE
 	FROM dbo.TablaLogica
-	WHERE TablaLogicaID = 200
-		AND descripcion LIKE '%Activaci髇 nueva trama YOBEL%'
+	WHERE TablaLogicaID = 170
+		AND descripcion LIKE '%Activaci贸n nueva trama YOBEL%'
 END
 GO
 
@@ -21,14 +21,14 @@ GO
 IF EXISTS (
 		SELECT 1
 		FROM TablaLogica
-		WHERE TablaLogicaID = 200
-			AND descripcion LIKE '%Activaci髇 nueva trama YOBEL%'
+		WHERE TablaLogicaID = 170
+			AND descripcion LIKE '%Activaci贸n nueva trama YOBEL%'
 		)
 BEGIN
 	DELETE
 	FROM dbo.TablaLogica
-	WHERE TablaLogicaID = 200
-		AND descripcion LIKE '%Activaci髇 nueva trama YOBEL%'
+	WHERE TablaLogicaID = 170
+		AND descripcion LIKE '%Activaci贸n nueva trama YOBEL%'
 END
 GO
 
@@ -38,14 +38,14 @@ GO
 IF EXISTS (
 		SELECT 1
 		FROM TablaLogica
-		WHERE TablaLogicaID = 200
-			AND descripcion LIKE '%Activaci髇 nueva trama YOBEL%'
+		WHERE TablaLogicaID = 170
+			AND descripcion LIKE '%Activaci贸n nueva trama YOBEL%'
 		)
 BEGIN
 	DELETE
 	FROM dbo.TablaLogica
-	WHERE TablaLogicaID = 200
-		AND descripcion LIKE '%Activaci髇 nueva trama YOBEL%'
+	WHERE TablaLogicaID = 170
+		AND descripcion LIKE '%Activaci贸n nueva trama YOBEL%'
 END
 GO
 
@@ -55,14 +55,14 @@ GO
 IF EXISTS (
 		SELECT 1
 		FROM TablaLogica
-		WHERE TablaLogicaID = 200
-			AND descripcion LIKE '%Activaci髇 nueva trama YOBEL%'
+		WHERE TablaLogicaID = 170
+			AND descripcion LIKE '%Activaci贸n nueva trama YOBEL%'
 		)
 BEGIN
 	DELETE
 	FROM dbo.TablaLogica
-	WHERE TablaLogicaID = 200
-		AND descripcion LIKE '%Activaci髇 nueva trama YOBEL%'
+	WHERE TablaLogicaID = 170
+		AND descripcion LIKE '%Activaci贸n nueva trama YOBEL%'
 END
 GO
 
@@ -72,14 +72,14 @@ GO
 IF EXISTS (
 		SELECT 1
 		FROM TablaLogica
-		WHERE TablaLogicaID = 200
-			AND descripcion LIKE '%Activaci髇 nueva trama YOBEL%'
+		WHERE TablaLogicaID = 170
+			AND descripcion LIKE '%Activaci贸n nueva trama YOBEL%'
 		)
 BEGIN
 	DELETE
 	FROM dbo.TablaLogica
-	WHERE TablaLogicaID = 200
-		AND descripcion LIKE '%Activaci髇 nueva trama YOBEL%'
+	WHERE TablaLogicaID = 170
+		AND descripcion LIKE '%Activaci贸n nueva trama YOBEL%'
 END
 GO
 
@@ -89,14 +89,14 @@ GO
 IF EXISTS (
 		SELECT 1
 		FROM TablaLogica
-		WHERE TablaLogicaID = 200
-			AND descripcion LIKE '%Activaci髇 nueva trama YOBEL%'
+		WHERE TablaLogicaID = 170
+			AND descripcion LIKE '%Activaci贸n nueva trama YOBEL%'
 		)
 BEGIN
 	DELETE
 	FROM dbo.TablaLogica
-	WHERE TablaLogicaID = 200
-		AND descripcion LIKE '%Activaci髇 nueva trama YOBEL%'
+	WHERE TablaLogicaID = 170
+		AND descripcion LIKE '%Activaci贸n nueva trama YOBEL%'
 END
 GO
 
@@ -106,14 +106,14 @@ GO
 IF EXISTS (
 		SELECT 1
 		FROM TablaLogica
-		WHERE TablaLogicaID = 200
-			AND descripcion LIKE '%Activaci髇 nueva trama YOBEL%'
+		WHERE TablaLogicaID = 170
+			AND descripcion LIKE '%Activaci贸n nueva trama YOBEL%'
 		)
 BEGIN
 	DELETE
 	FROM dbo.TablaLogica
-	WHERE TablaLogicaID = 200
-		AND descripcion LIKE '%Activaci髇 nueva trama YOBEL%'
+	WHERE TablaLogicaID = 170
+		AND descripcion LIKE '%Activaci贸n nueva trama YOBEL%'
 END
 GO
 
@@ -123,14 +123,14 @@ GO
 IF EXISTS (
 		SELECT 1
 		FROM TablaLogica
-		WHERE TablaLogicaID = 200
-			AND descripcion LIKE '%Activaci髇 nueva trama YOBEL%'
+		WHERE TablaLogicaID = 170
+			AND descripcion LIKE '%Activaci贸n nueva trama YOBEL%'
 		)
 BEGIN
 	DELETE
 	FROM dbo.TablaLogica
-	WHERE TablaLogicaID = 200
-		AND descripcion LIKE '%Activaci髇 nueva trama YOBEL%'
+	WHERE TablaLogicaID = 170
+		AND descripcion LIKE '%Activaci贸n nueva trama YOBEL%'
 END
 GO
 
@@ -140,14 +140,14 @@ GO
 IF EXISTS (
 		SELECT 1
 		FROM TablaLogica
-		WHERE TablaLogicaID = 200
-			AND descripcion LIKE '%Activaci髇 nueva trama YOBEL%'
+		WHERE TablaLogicaID = 170
+			AND descripcion LIKE '%Activaci贸n nueva trama YOBEL%'
 		)
 BEGIN
 	DELETE
 	FROM dbo.TablaLogica
-	WHERE TablaLogicaID = 200
-		AND descripcion LIKE '%Activaci髇 nueva trama YOBEL%'
+	WHERE TablaLogicaID = 170
+		AND descripcion LIKE '%Activaci贸n nueva trama YOBEL%'
 END
 GO
 
@@ -157,14 +157,14 @@ GO
 IF EXISTS (
 		SELECT 1
 		FROM TablaLogica
-		WHERE TablaLogicaID = 200
-			AND descripcion LIKE '%Activaci髇 nueva trama YOBEL%'
+		WHERE TablaLogicaID = 170
+			AND descripcion LIKE '%Activaci贸n nueva trama YOBEL%'
 		)
 BEGIN
 	DELETE
 	FROM dbo.TablaLogica
-	WHERE TablaLogicaID = 200
-		AND descripcion LIKE '%Activaci髇 nueva trama YOBEL%'
+	WHERE TablaLogicaID = 170
+		AND descripcion LIKE '%Activaci贸n nueva trama YOBEL%'
 END
 GO
 
@@ -174,14 +174,14 @@ GO
 IF EXISTS (
 		SELECT 1
 		FROM TablaLogica
-		WHERE TablaLogicaID = 200
-			AND descripcion LIKE '%Activaci髇 nueva trama YOBEL%'
+		WHERE TablaLogicaID = 170
+			AND descripcion LIKE '%Activaci贸n nueva trama YOBEL%'
 		)
 BEGIN
 	DELETE
 	FROM dbo.TablaLogica
-	WHERE TablaLogicaID = 200
-		AND descripcion LIKE '%Activaci髇 nueva trama YOBEL%'
+	WHERE TablaLogicaID = 170
+		AND descripcion LIKE '%Activaci贸n nueva trama YOBEL%'
 END
 GO
 
@@ -191,13 +191,13 @@ GO
 IF EXISTS (
 		SELECT 1
 		FROM TablaLogica
-		WHERE TablaLogicaID = 200
-			AND descripcion LIKE '%Activaci髇 nueva trama YOBEL%'
+		WHERE TablaLogicaID = 170
+			AND descripcion LIKE '%Activaci贸n nueva trama YOBEL%'
 		)
 BEGIN
 	DELETE
 	FROM dbo.TablaLogica
-	WHERE TablaLogicaID = 200
-		AND descripcion LIKE '%Activaci髇 nueva trama YOBEL%'
+	WHERE TablaLogicaID = 170
+		AND descripcion LIKE '%Activaci贸n nueva trama YOBEL%'
 END
 GO
