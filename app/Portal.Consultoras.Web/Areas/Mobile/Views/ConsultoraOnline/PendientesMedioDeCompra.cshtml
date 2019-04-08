@@ -62,7 +62,7 @@
           @foreach (var x in Model.ListaGana)
             {
               <div class="col products-item">
-                  <img src="https://i.ibb.co/MVyDK3j/square-3x.jpg" class="img-fluid products-img" alt="Producto">
+                  <img src="@x.FotoProducto01" class="img-fluid products-img" alt="Producto">
                   <p class="text-12 text-gray"> @x.DescripcionCUV2</p>
                   <span class="text-12 text-gray">@ViewBag.Simbolo @x.PrecioString</span>
               </div>
@@ -96,7 +96,7 @@
           @foreach (var x in Model.ListaCatalogo)
             {
               <div class="col">
-                  <img src="https://i.ibb.co/MVyDK3j/square-3x.jpg" class="img-fluid products-img" alt="Producto">
+                  <img src="@x.Url" class="img-fluid products-img" alt="Producto">
                   <p class="text-12 text-gray"> @x.Producto</p>
                   <span class="text-12 text-gray">@ViewBag.Simbolo @x.FormatoPrecioTotal</span>
               </div>
@@ -180,7 +180,7 @@
       <div class="row">
         <div class="col">
           <div id="btnAceptarPedido" onclick="AceptarPedidoPendiente()"  class="vc-box text-14 text-700">
-            <a href="#"  class="action-btn action-btn_continue " data-toggle="modal" data-target="#aprobarPedido">Aprobar pedido</a>
+            <a href="#"  class="action-btn action-btn_continue " data-toggle="modal" @*data-target="#aprobarPedido"*@>Aprobar pedido</a>
           </div>
         </div>
       </div>

@@ -211,16 +211,16 @@ namespace Portal.Consultoras.BizLogic
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
 
-            // RecomendadoRequest.codigoPais = "pe";
-            // RecomendadoRequest.codigocampania = "201905";
-            //RecomendadoRequest.codigoZona = "1714";
+            //RecomendadoRequest.codigoPais = "pe";
+           RecomendadoRequest.codigocampania = "201905";
+            RecomendadoRequest.codigoZona = "1714";
             //RecomendadoRequest.origen = "sb-desktop";
-            //RecomendadoRequest.codigoConsultora = "0033938";
-            //  RecomendadoRequest.cuv = "14647";
-            // RecomendadoRequest.personalizaciones = "";
-            //    RecomendadoRequest.configuracion = new Configuracion();
-            //  RecomendadoRequest.configuracion.sociaEmpresaria = "0";
-            //   RecomendadoRequest.configuracion.diaFacturacion = 1;
+            RecomendadoRequest.codigoConsultora = "0033938";
+            //RecomendadoRequest.cuv = "14647";
+            //RecomendadoRequest.personalizaciones = "";
+            //RecomendadoRequest.configuracion = new Configuracion();
+            //RecomendadoRequest.configuracion.sociaEmpresaria = "0";
+            //RecomendadoRequest.configuracion.diaFacturacion = 1;
 
             //RecomendadoRequest.configuracion.suscripcionActiva = "False";
             //RecomendadoRequest.configuracion.mdo = "True";

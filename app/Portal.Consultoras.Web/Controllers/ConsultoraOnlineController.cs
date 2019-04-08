@@ -2238,44 +2238,81 @@ namespace Portal.Consultoras.Web.Controllers
             #region Logica Cliente existe
             using (ServiceCliente.ClienteServiceClient svc = new ServiceCliente.ClienteServiceClient())
             {
-                parametros.CorreoClientes.ForEach(correo =>
+
+
+                pedidosSesion.ForEach(pedido =>
                 {
-
-                    var a = new ServiceCliente.BECliente
+                    if (pedido.DetallePedido.Any(i => i.Elegido == true))
                     {
-                        ConsultoraID = userData.ConsultoraID,
-                        eMail = correo
-                    };
-                    int xclienteId = svc.GetExisteClienteConsultora(userData.PaisID, a);
-
-
-                    if (xclienteId == 0)
-                    {
-                        var pedidoAux = pedidosSesion.FirstOrDefault(x => x.Email == correo);
-                        var beCliente = new ServiceCliente.BECliente
+                        var a = new ServiceCliente.BECliente
                         {
                             ConsultoraID = userData.ConsultoraID,
-                            eMail = pedidoAux.Email,
-                            Nombre = pedidoAux.Cliente,
-                            PaisID = userData.PaisID,
-                            Activo = true
+                            eMail = pedido.Email
                         };
-                        xclienteId = svc.Insert(beCliente);
-                    }
+                        int xclienteId = svc.GetExisteClienteConsultora(userData.PaisID, a);
 
-                    pedidosSesion.Update(x => {
-                        if (x.Email == correo)
+
+                        if (xclienteId == 0)
                         {
-                            x.ClienteId = xclienteId;
+                            var pedidoAux = pedidosSesion.FirstOrDefault(x => x.Email == pedido.Email);
+                            var beCliente = new ServiceCliente.BECliente
+                            {
+                                ConsultoraID = userData.ConsultoraID,
+                                eMail = pedidoAux.Email,
+                                Nombre = pedidoAux.Cliente,
+                                PaisID = userData.PaisID,
+                                Activo = true
+                            };
+                            xclienteId = svc.Insert(beCliente);
                         }
 
-                    });
+                       
+                                pedido.ClienteId = xclienteId;
+                            
 
+                    }
                 });
+
+
+                //parametros.CorreoClientes.ForEach(correo =>
+                //{
+
+                //    var a = new ServiceCliente.BECliente
+                //    {
+                //        ConsultoraID = userData.ConsultoraID,
+                //        eMail = correo
+                //    };
+                //    int xclienteId = svc.GetExisteClienteConsultora(userData.PaisID, a);
+
+
+                //    if (xclienteId == 0)
+                //    {
+                //        var pedidoAux = pedidosSesion.FirstOrDefault(x => x.Email == correo);
+                //        var beCliente = new ServiceCliente.BECliente
+                //        {
+                //            ConsultoraID = userData.ConsultoraID,
+                //            eMail = pedidoAux.Email,
+                //            Nombre = pedidoAux.Cliente,
+                //            PaisID = userData.PaisID,
+                //            Activo = true
+                //        };
+                //        xclienteId = svc.Insert(beCliente);
+                //    }
+
+                //    pedidosSesion.Update(x =>
+                //    {
+                //        if (x.Email == correo)
+                //        {
+                //            x.ClienteId = xclienteId;
+                //        }
+
+                //    });
+
+                //});
             }
 
             #endregion
-            
+
             #region Logica Grabado
 
 
@@ -2358,6 +2395,9 @@ namespace Portal.Consultoras.Web.Controllers
                                     PedidoWebDetalleID = 0
                                 };
 
+                                detalle.TipoAtencion = 2;
+                                detalle.PedidoWebDetalleID = 0;
+                                detalle.PedidoWebID = 0;
                                 svc.UpdSolicitudClienteDetalle(userData.PaisID, beSolicitudDetalle);
                             });
                         }
@@ -2376,7 +2416,7 @@ namespace Portal.Consultoras.Web.Controllers
                 pedidosSesion.ForEach(pedido =>
                 {
 
-                    if (!pedido.DetallePedido.Any(i => i.TipoAtencion == 0 && i.Estado!=0))
+                    if (!pedido.DetallePedido.ToList().Where(k => k.Estado != 0).Any(i => i.TipoAtencion == 0))
                     {
                         string mensajeaCliente =
                        string.Format(

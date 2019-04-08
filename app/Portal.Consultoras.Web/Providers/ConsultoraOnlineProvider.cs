@@ -57,11 +57,12 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     resultServicelist.Each(x=> {
 
-                        response.Add( new EstrategiaPedidoModel() {
+                        response.Add(new EstrategiaPedidoModel() {
                             DescripcionCUV2 = x.DescripcionCUV2,
                             PrecioString = x.PrecioString,
                             Precio2 = x.Precio2,
-                            Ganancia = x.Ganancia
+                            Ganancia = x.Ganancia,
+                            FotoProducto01 = ConfigCdn.GetUrlFileCdnMatriz(recomendado.codigoPais, x.FotoProducto01)
 
                         });
 

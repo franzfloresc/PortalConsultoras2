@@ -31,17 +31,18 @@ function AceptarPedidoPendiente(id, tipo) {
 
     if (btn)
     {
+        debugger;
        
 
         var pedido = {
-            PedidoId: id,
-            ClienteId: 0,
-            ListaDetalleModel: detalle,
+            //PedidoId: id,
+            //ClienteId: 0,
+            //ListaDetalleModel: detalle,
             Accion: $(btn).parent().data('accion'),  ///Accion: 'ingrgana',   
-            Tipo: tipo,
-            Ingresos: ing,
-            Dispositivo: glbDispositivo,
-            CorreoClientes:['abc@a.com', 'bcd@g.com']
+            //Tipo: tipo,
+            //Ingresos: ing,
+            //Dispositivo: glbDispositivo,
+           // CorreoClientes:['abc@a.com', 'bcd@g.com']
         }
 
 
