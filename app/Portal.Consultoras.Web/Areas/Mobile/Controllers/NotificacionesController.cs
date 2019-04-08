@@ -34,22 +34,14 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult Index()
         {
-            SessionManager.SetfechaGetNotificacionesSinLeer(null);
-            SessionManager.SetcantidadGetNotificacionesSinLeer(null);
-
             var model = new NotificacionesModel { ListaNotificaciones = ObtenerNotificaciones() };
             return View(model);
         }
 
         public ActionResult IndexExterno(int IdOrigen = 0)
         {
-            SessionManager.SetfechaGetNotificacionesSinLeer(null);
-            SessionManager.SetcantidadGetNotificacionesSinLeer(null);
-
             var model = new NotificacionesModel { ListaNotificaciones = ObtenerNotificaciones() };
-
             model.Origen = IdOrigen;
-
             return View("Index", model);
         }
 
@@ -236,21 +228,21 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (!string.IsNullOrEmpty(Campania))
             {
                 int campaniaId = int.Parse(Campania);
-                var detallesPedidoWeb = new List<Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle>();
+
+                var parametros = new BEPedidoWebDetalleParametros
+                {
+                    PaisId = userData.PaisID,
+                    CampaniaId = campaniaId,
+                    ConsultoraId = userData.ConsultoraID,
+                    Consultora = userData.NombreConsultora,
+                    EsBpt = true,
+                    CodigoPrograma = userData.CodigoPrograma,
+                    NumeroPedido = userData.ConsecutivoNueva,
+                    AgruparSet = true
+                };
+                List<ServicePedido.BEPedidoWebDetalle> detallesPedidoWeb;
                 using (var pedidoServiceClient = new PedidoServiceClient())
                 {
-                    var parametros = new BEPedidoWebDetalleParametros
-                    {
-                        PaisId = userData.PaisID,
-                        CampaniaId = campaniaId,
-                        ConsultoraId = userData.ConsultoraID,
-                        Consultora = userData.NombreConsultora,
-                        EsBpt = true,
-                        CodigoPrograma = userData.CodigoPrograma,
-                        NumeroPedido = userData.ConsecutivoNueva,
-                        AgruparSet = true
-                    };
-
                     detallesPedidoWeb = pedidoServiceClient.SelectByCampania(parametros).ToList();
                 }
 
@@ -299,7 +291,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.Total = model.SubTotal + model.Descuento;
             }
             else model.Total = model.ListaNotificacionesDetallePedido.Sum(p => p.ImporteTotal);
-            model.DecimalToString = _notificacionProvider.CreateConverterDecimalToString(userData.PaisID);
 
             return View("ListadoObservaciones", model);
         }

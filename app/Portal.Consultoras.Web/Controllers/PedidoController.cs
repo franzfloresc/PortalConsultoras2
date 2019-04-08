@@ -2,7 +2,9 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.PublicService.Cryptography;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.Oferta.ResponseOfertaGenerico;
 using Portal.Consultoras.Web.Models.ProgramaNuevas;
+using Portal.Consultoras.Web.Models.Search.ResponseOferta.Estructura;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceCliente;
 using Portal.Consultoras.Web.ServiceContenido;
@@ -15,6 +17,8 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.ServiceModel;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -37,21 +41,23 @@ namespace Portal.Consultoras.Web.Controllers
         private readonly int CUV_NO_TIENE_CREDITO = 2;
 
         private readonly PedidoSetProvider _pedidoSetProvider;
+        private readonly OfertaBaseProvider _ofertaBaseProvider;
         protected ProductoFaltanteProvider _productoFaltanteProvider;
         private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatosProvider;
 
         public PedidoController()
             : this(new PedidoSetProvider(),
                   new ProductoFaltanteProvider(),
-                  new ConfiguracionPaisDatosProvider())
+                  new ConfiguracionPaisDatosProvider(), new OfertaBaseProvider())
         {
         }
 
         public PedidoController(PedidoSetProvider pedidoSetProvider,
             ProductoFaltanteProvider productoFaltanteProvider,
-            ConfiguracionPaisDatosProvider configuracionPaisDatosProvider)
+            ConfiguracionPaisDatosProvider configuracionPaisDatosProvider, OfertaBaseProvider ofertaBaseProvider)
         {
             _pedidoSetProvider = pedidoSetProvider;
+            _ofertaBaseProvider = ofertaBaseProvider;
             _productoFaltanteProvider = productoFaltanteProvider;
             _configuracionPaisDatosProvider = configuracionPaisDatosProvider;
         }
@@ -2702,7 +2708,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var pedidoWeb = ObtenerPedidoWeb();
 
-                int result = 0;
+                //int result = 0;
 
                 pedidoModelo.ListaDetalle = lstPedidoWebDetalle;
 
@@ -3682,7 +3688,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             var pedidoEditable = _tablaLogicaProvider.GetTablaLogicaDatoValorBool(
                             userData.PaisID,
-                            ConsTablaLogica.PasePedido.TablaLogicaID,
+                            ConsTablaLogica.PasePedido.TablaLogicaId,
                             ConsTablaLogica.PasePedido.CuvEditable,
                             true
                             );
@@ -4797,6 +4803,84 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     success = true,
                     pedidoSet
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult ObtenerOfertaByCUVSet(string campaniaId, int set, string cuv)
+        {
+            try
+            {
+                var pedidoSet = _pedidoSetProvider.ObtenerPorId(userData.PaisID, set);
+
+                var estrategiaModelo = new EstrategiaPersonalizadaProductoModel
+                {
+                    CUV2 = cuv,
+                    CampaniaID = campaniaId.ToInt(),
+                    CodigoEstrategia = Constantes.TipoPersonalizacion.ArmaTuPack
+                };
+
+                var estrategia = _ofertaBaseProvider.ObtenerModeloOfertaDesdeApi(estrategiaModelo, userData.CodigoISO);
+
+                if (estrategia.Hermanos.Any())
+                {
+                    var componentesNivel01 = new List<EstrategiaComponenteModel>();
+
+                    estrategia.Hermanos.Each(x =>
+                    {
+                        if (x.Hermanos.Any())
+                        {
+                            componentesNivel01.AddRange(x.Hermanos);
+                        }
+                    });
+
+                    pedidoSet.Detalles.Update(x =>
+                    {
+                        var item = componentesNivel01.FirstOrDefault(i => i.Cuv == x.CUV);
+                        x.NombreProducto = item != null ? item.NombreComercial : string.Empty;
+                    });
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    pedidoSet
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        /// <summary>
+        /// Valida si la palanca tiene pedidos
+        /// </summary>
+        /// <param name="te">Tipo de estrategia</param>
+        /// <returns></returns>
+        public JsonResult ValidaExisteTipoEstrategiaEnPedido(string te)
+        {
+            try
+            {
+                var lstPedidoAgrupado = ObtenerPedidoWebSetDetalleAgrupado(false);
+                var packAgregado = lstPedidoAgrupado != null ? lstPedidoAgrupado.FirstOrDefault(x => x.TipoEstrategiaCodigo == te) : null;
+
+                return Json(new
+                {
+                    success = true,
+                    TienePedido = packAgregado != null
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

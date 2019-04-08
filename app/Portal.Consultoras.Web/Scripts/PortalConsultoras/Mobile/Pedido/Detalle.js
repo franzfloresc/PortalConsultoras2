@@ -1169,4 +1169,3 @@ function closeDialogObservacionesProl() {
 function PedidosPendientesPorAprobar() {
     DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras', 'Click Botón', 'Pedidos por aprobar');
 }
-

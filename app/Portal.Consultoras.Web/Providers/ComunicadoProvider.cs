@@ -13,7 +13,7 @@ namespace Portal.Consultoras.Web.Providers
             using (var sac = new SACServiceClient())
             {
                 var lstComunicados = sac.ObtenerComunicadoPorConsultora(userSession.PaisID, userSession.CodigoConsultora,
-                        (esMobile)?Constantes.ComunicadoTipoDispositivo.Mobile:Constantes.ComunicadoTipoDispositivo.Desktop, 
+                        (esMobile) ? Constantes.ComunicadoTipoDispositivo.Mobile : Constantes.ComunicadoTipoDispositivo.Desktop,
                         userSession.CodigorRegion, userSession.CodigoZona, userSession.ConsultoraNueva);
 
                 return lstComunicados.ToList();
