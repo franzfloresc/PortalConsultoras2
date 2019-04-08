@@ -3333,7 +3333,7 @@ namespace Portal.Consultoras.Common
                 response = (HttpWebResponse)request.GetResponse();
                 result = true;
             }
-            catch (WebException webException)
+            catch (WebException)
             {
                 LogManager.SaveLog(new Exception("URL " + url + " no encontrada"), "", "");
                 result = false;
@@ -3469,9 +3469,6 @@ namespace Portal.Consultoras.Common
                 case Constantes.PaisID.Bolivia:
                 case Constantes.PaisID.Guatemala:
                 case Constantes.PaisID.ElSalvador:
-                    limiteMinimoTelef = 5;
-                    limiteMaximoTelef = 8;
-                    break;
                 case Constantes.PaisID.Panama:
                 case Constantes.PaisID.CostaRica:
                     limiteMinimoTelef = 5;
@@ -3945,6 +3942,9 @@ namespace Portal.Consultoras.Common
                     break;
                 case Constantes.TipoEstrategiaCodigo.OfertaDelDia:
                     tipoPersonalizacion = Constantes.TipoPersonalizacion.OfertaDelDia;
+                    break; 
+                case Constantes.TipoEstrategiaCodigo.ArmaTuPack:
+                    tipoPersonalizacion = Constantes.TipoPersonalizacion.ArmaTuPack;
                     break;
                 default:
                     break;

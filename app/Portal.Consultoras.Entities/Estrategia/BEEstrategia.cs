@@ -321,6 +321,12 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int FlagSeleccionado { get; set; }
 
+        /// <summary>
+        /// Calculo del factor cuadre
+        /// </summary>
+        [DataMember]
+        public int CantidadPack { get; set; }
+
         public BEEstrategia()
         { }
 
