@@ -212,7 +212,7 @@ div .btn-principal {
         color: black;
     }
 
-.box-crecimiento, .box-compromiso {
+.box-crecimiento, .  {
     display: block;
     float: left;
 }
@@ -1349,7 +1349,7 @@ header.layout__header {
         margin-top: 4px !important;
         line-height: 11px;
     }
-    .box-Crecimiento .text-bold {
+    .box-Crecimiento .text-bold, .box-Compromiso .text-bold {
         margin-bottom: 0;
     }
 }
