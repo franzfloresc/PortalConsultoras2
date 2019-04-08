@@ -89,5 +89,10 @@ namespace Portal.Consultoras.Web.Models
         public bool TieneStock { get; set; } //flag para controlar si el producto cuenta con stock
         public bool EsDuoPerfecto { get; set; }
 
+        // TODO: liberar comentario
+        /// <summary>
+        /// Calculo del factor cuadre
+        /// </summary>
+        public int CantidadPack { get; set; }
     }
 }

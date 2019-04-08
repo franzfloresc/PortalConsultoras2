@@ -4,6 +4,7 @@
 }
 
 @Html.HiddenFor(m => m.ConfiguracionPaisID)
+@Html.HiddenFor(m => m.Codigo)
 <div class="div-3">
     <div class="titG">Palanca:</div>
     <div class="borde_redondeado">
@@ -27,7 +28,7 @@
     </div>
 </div>
 <div class="div-3">
-    <div class="titG">Desde Campaña:</div>
+    <div class="titG">Desde campaña:</div>
     <div class="selectP2 borde_redondeado">
         @Html.DropDownListFor(model => model.DesdeCampania, new SelectList(Model.ListaCampanias, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { id = "ddlCampania" })
     </div>
@@ -44,8 +45,8 @@
     </div>
 </div>
 <div class="div-3">
-    <div class="titG">URL Menu:</div>
-    <div class="titG selectP2 borde_redondeado">
+    <div id="divUrlMenu" class="titG">URL Menu:</div>
+    <div id="divUrlMenuTxt" class="titG selectP2 borde_redondeado">
         @Html.TextBoxFor(m => m.UrlMenu, false)
     </div>
     <div class="titG" style="width: 100px; display: inline-block;">
@@ -67,21 +68,21 @@
 <div id="div-revista-digital" class="div-3 Content_modal" style="margin-left: 12px; width: 94%; padding-top: 10px; padding-bottom: 0; margin-bottom: 10px;">
     <div style="color: white;">
         <div style="display: inline-block; width:97%; text-align: center; padding: 8px; background: #00A2E8; border-top-left-radius: 10px; border-top-right-radius: 10px">
-            Datos Generales
+            Datos generales
         </div>
     </div>
     <div class="fontColorAdm">
         <div class="sideLeft">
-            <h4>Desktop</h4>
+            <h4><span id="lblDesktop">Desktop</span></h4>
         </div>
-        <div class="sideRight">
+        <div id="divSeccionMobileTitulo" class="sideRight">
             <h4>Mobile</h4>
         </div>
     </div>
     <div class="clear-fix"></div>
     <div class="fontColorAdm">
         <div class="sideLeft">
-            <div class="div-3" style="display: inline-block; text-align: left; margin-bottom: 15px;">
+            <div id="divDesktopFondo" class="div-3" style="display: inline-block; text-align: left; margin-bottom: 15px;">
                 <div class="titG">Fondo Banner:</div>
                 <div style="display: inline-block;">
                     @Html.HiddenFor(m => m.DesktopFondoBanner, new { id = "nombre-desktop-fondo-banner" })
@@ -91,7 +92,7 @@
                     </div>
                 </div>
             </div>
-            <div class="div-3" style="display: inline-block; text-align: left; margin-bottom: 15px;">
+            <div id="divDesktopLogo" class="div-3" style="display: inline-block; text-align: left; margin-bottom: 15px;">
                 <div class="titG">Logo Banner:</div>
                 <div style="display: inline-block;">
                     @Html.HiddenFor(m => m.DesktopLogoBanner, new { id = "nombre-desktop-logo-banner" })
@@ -102,30 +103,30 @@
                 </div>
             </div>
 
-			<div class="div-3">
-                <div class="titG" style="padding-bottom: 0;">Orden:</div>    
-                <br />  
+            <div class="div-3">
+                <div class="titG" style="padding-bottom: 0;">Orden:</div>
+                <br />
                 <div class="titG selectP2 borde_redondeado" style="width: 312px;">
                     @Html.TextBoxFor(m => m.Orden, new { @style = "width: 312px;" })
                 </div>
             </div>
 
-			<div class="div-3">
-                <div class="titG" style="padding-bottom: 0;">OrdenBPT:</div>    
-                <br />  
+            <div id="divOrdenBPT" class="div-3">
+                <div class="titG" style="padding-bottom: 0;">OrdenBPT:</div>
+                <br />
                 <div class="titG selectP2 borde_redondeado" style="width: 312px;">
                     @Html.TextBoxFor(m => m.OrdenBpt, new { @style = "width: 312px;" })
                 </div>
             </div>
 
             <div class="div-3">
-                <div class="titG" style="padding-bottom: 0;">Título Menu:</div>    
-                <br />  
+                <div class="titG" style="padding-bottom: 0;">Título del menú:</div>
+                <br />
                 <div class="titG selectP2 borde_redondeado" style="width: 312px;">
                     @Html.TextBoxFor(m => m.DesktopTituloMenu, new { @style = "width: 312px;" })
                 </div>
             </div>
-            <div class="div-3">
+            <div id="divDesktopSubTituloMenu" class="div-3">
                 <div class="titG" style="padding-bottom: 0;">Sub Título Menu:</div>
                 <br />
                 <div class="titG selectP2 borde_redondeado" style="width: 312px;">
@@ -133,14 +134,14 @@
                 </div>
 
             </div>
-            <div class="div-3">
+            <div id="divDesktopTituloBanner" class="div-3">
                 <div class="titG" style="padding-bottom: 0;">Título Banner:</div>
                 <br />
                 <div class="titG selectP2 borde_redondeado" style="width: 312px;">
                     @Html.TextBoxFor(m => m.DesktopTituloBanner, new { @style = "width: 312px;" })
                 </div>
             </div>
-            <div class="div-3">
+            <div id="divDesktopSubTituloBanner" class="div-3">
                 <div class="titG" style="padding-bottom: 0;">Sub Título Banner:</div>
                 <br />
                 <div class="titG selectP2 borde_redondeado" style="width: 312px;">
@@ -148,9 +149,9 @@
                 </div>
             </div>
         </div>
-        <div class="sideRight">
-            <div class="div-3" style="display: inline-block; text-align: left; margin-bottom: 15px;">
-                <div class="titG">Fondo Banner:</div>
+        <div id="divSeccionMobile" class="sideRight">
+            <div  class="div-3" style="display: inline-block; text-align: left; margin-bottom: 15px;">
+                <div  class="titG">Fondo Banner:</div>
                 <div style="display: inline-block;">
                     @Html.HiddenFor(m => m.MobileFondoBanner, new { id = "nombre-mobile-fondo-banner" })
                     <div id="img-mobile-fondo-banner" style="display: inline-block;vertical-align: middle;"></div>
@@ -170,17 +171,17 @@
                 </div>
             </div>
 
-			<div class="div-3">
-                <div class="titG" style="padding-bottom: 0;">Orden:</div>    
-                <br />  
+            <div class="div-3">
+                <div class="titG" style="padding-bottom: 0;">Orden:</div>
+                <br />
                 <div class="titG selectP2 borde_redondeado" style="width: 312px;">
                     @Html.TextBoxFor(m => m.MobileOrden, new { @style = "width: 312px;" })
                 </div>
             </div>
 
-			<div class="div-3">
-                <div class="titG" style="padding-bottom: 0;">OrdenBPT:</div>    
-                <br />  
+            <div class="div-3">
+                <div class="titG" style="padding-bottom: 0;">OrdenBPT:</div>
+                <br />
                 <div class="titG selectP2 borde_redondeado" style="width: 312px;">
                     @Html.TextBoxFor(m => m.MobileOrdenBpt, new { @style = "width: 312px;" })
                 </div>
