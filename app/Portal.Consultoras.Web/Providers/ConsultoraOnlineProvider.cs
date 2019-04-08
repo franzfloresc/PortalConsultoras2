@@ -62,7 +62,24 @@ namespace Portal.Consultoras.Web.Providers
                             PrecioString = x.PrecioString,
                             Precio2 = x.Precio2,
                             Ganancia = x.Ganancia,
-                            FotoProducto01 = ConfigCdn.GetUrlFileCdnMatriz(recomendado.codigoPais, x.FotoProducto01)
+                            FotoProducto01 = ConfigCdn.GetUrlFileCdnMatriz(recomendado.codigoPais, x.FotoProducto01),
+                             EstrategiaID = x.EstrategiaID,
+                             TipoEstrategiaID = x.TipoEstrategiaID,
+                               TipoOfertaSisID = 0,
+                            //ConfiguracionOfertaID = x.ConfiguracionOfertaID
+                            //pedidoDetalle.Producto.CUV = Util.Trim(model.CuvTonos);
+                            IndicadorMontoMinimo = x.IndicadorMontoMinimo,
+                            FlagNueva = x.FlagNueva,
+                          Cantidad =x.Cantidad,
+                            //OrigenPedidoWeb = x.OrigenPedidoWeb
+                            //EsCuponNuevas = x.EsCuponNuevas
+                            //pedidoDetalle.EsSugerido = model.EsSugerido;
+                            //pedidoDetalle.EsKitNueva = model.EsKitNueva;
+                            //pedidoDetalle.EsKitNuevaAuto = model.EsKitNuevaAuto;                            
+                            //pedidoDetalle.OfertaWeb = model.OfertaWeb;                   
+                            //pedidoDetalle.EsEditable = model.EsEditable;
+                            //pedidoDetalle.SetID = model.SetId;
+                          //  sap
 
                         });
 

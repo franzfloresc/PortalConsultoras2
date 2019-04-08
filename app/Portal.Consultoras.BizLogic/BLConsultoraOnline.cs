@@ -212,10 +212,10 @@ namespace Portal.Consultoras.BizLogic
 
 
             //RecomendadoRequest.codigoPais = "pe";
-           RecomendadoRequest.codigocampania = "201905";
-            RecomendadoRequest.codigoZona = "1714";
+           //RecomendadoRequest.codigocampania = "201905";
+           // RecomendadoRequest.codigoZona = "1714";
             //RecomendadoRequest.origen = "sb-desktop";
-            RecomendadoRequest.codigoConsultora = "0033938";
+        //    RecomendadoRequest.codigoConsultora = "0033938";
             //RecomendadoRequest.cuv = "14647";
             //RecomendadoRequest.personalizaciones = "";
             //RecomendadoRequest.configuracion = new Configuracion();
@@ -228,6 +228,7 @@ namespace Portal.Consultoras.BizLogic
             //RecomendadoRequest.configuracion.rdi = "False";
             //RecomendadoRequest.configuracion.rdr = "False";
             //RecomendadoRequest.configuracion.mostrarProductoConsultado = "True";
+        
 
             RecomendadoRequest.codigoProducto = new List<string>();
             RecomendadoRequest.codigoProducto.Add("210090349");

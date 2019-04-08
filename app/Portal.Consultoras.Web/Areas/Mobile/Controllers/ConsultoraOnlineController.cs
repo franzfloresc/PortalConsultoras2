@@ -1155,6 +1155,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var parametrosRecomendado = new RecomendadoRequest();
             List<BEMisPedidos> pedidosSesion;
             var oListaCatalogo = new List<MisPedidosDetalleModel2>();
+            var productosSolicitados = new List<ProductoSolicitado>();
           
 
             ///////////////////////////////////////////////////////////////////////////
@@ -1166,13 +1167,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 oListaPedidos = svc.GetSolicitudesPedidoPendiente(userData.PaisID, userData.ConsultoraID, userData.CampaniaID).ToList();
 
-
                 if (oListaPedidos.Any())
                 {
                     oListaPedidos.ForEach(x => 
                     {
-
-
                         var oDetallesTemporal = svc.GetMisPedidosDetalleConsultoraOnline(userData.PaisID, x.PedidoId).ToList();
                         if (oDetallesTemporal.Any())
                         {
@@ -1214,7 +1212,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             parametrosRecomendado.origen = "sb-desktop";
             parametrosRecomendado.codigoConsultora = userData.CodigoConsultora;
             parametrosRecomendado.cuv = string.Empty;
-            parametrosRecomendado.codigoProducto = new string[10];
             parametrosRecomendado.personalizaciones = string.Empty;
             parametrosRecomendado.configuracion = new Configuracion()
             {
@@ -1228,6 +1225,16 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 mostrarProductoConsultado = IsMobile().ToString()
 
             };
+
+            oListaCatalogo.ForEach(x=> {
+                productosSolicitados.Add(new ProductoSolicitado() {
+                    Cantidad = x.Cantidad,
+                    CodigoSap = x.CodigoSap
+                });
+
+            });
+            parametrosRecomendado.productosSolicitados = productosSolicitados.ToArray();
+
 
             var oListaGana = _consultoraOnlineProvider.GetRecomendados(parametrosRecomendado);
             model.ListaCatalogo = oListaCatalogo;

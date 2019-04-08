@@ -31,7 +31,7 @@ function AceptarPedidoPendiente(id, tipo) {
 
     if (btn)
     {
-        debugger;
+         
        
 
         var pedido = {
@@ -39,12 +39,15 @@ function AceptarPedidoPendiente(id, tipo) {
             //ClienteId: 0,
             //ListaDetalleModel: detalle,
             Accion: $(btn).parent().data('accion'),  ///Accion: 'ingrgana',   
-            //Tipo: tipo,
+             ListaGana: $(btn).parent().data('accion') == 'ingrgana' ? $('.conGanaMas').data('listagana') : []
+          //  ListaGana:  $('.conGanaMas').data('listagana') 
+                         //Tipo: tipo,
             //Ingresos: ing,
             //Dispositivo: glbDispositivo,
            // CorreoClientes:['abc@a.com', 'bcd@g.com']
         }
 
+      
 
         ShowLoading({});
         $.ajax({
@@ -58,6 +61,18 @@ function AceptarPedidoPendiente(id, tipo) {
                 CloseLoading();
                 if (checkTimeout(response)) {
                     if (response.success) {
+
+
+
+                        debugger;
+
+                        $('#popuplink').click();
+
+                        e.preventDefault();
+                        return false;
+
+
+
                         if (pedido.Tipo == 1) {
                             $('#detallePedidoAceptado').text('Has agregado ' + pedido.Ingresos.toString() + ' producto(s) a tu pedido');
                         }

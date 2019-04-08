@@ -2273,42 +2273,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 });
 
-
-                //parametros.CorreoClientes.ForEach(correo =>
-                //{
-
-                //    var a = new ServiceCliente.BECliente
-                //    {
-                //        ConsultoraID = userData.ConsultoraID,
-                //        eMail = correo
-                //    };
-                //    int xclienteId = svc.GetExisteClienteConsultora(userData.PaisID, a);
-
-
-                //    if (xclienteId == 0)
-                //    {
-                //        var pedidoAux = pedidosSesion.FirstOrDefault(x => x.Email == correo);
-                //        var beCliente = new ServiceCliente.BECliente
-                //        {
-                //            ConsultoraID = userData.ConsultoraID,
-                //            eMail = pedidoAux.Email,
-                //            Nombre = pedidoAux.Cliente,
-                //            PaisID = userData.PaisID,
-                //            Activo = true
-                //        };
-                //        xclienteId = svc.Insert(beCliente);
-                //    }
-
-                //    pedidosSesion.Update(x =>
-                //    {
-                //        if (x.Email == correo)
-                //        {
-                //            x.ClienteId = xclienteId;
-                //        }
-
-                //    });
-
-                //});
+ 
             }
 
             #endregion
@@ -2319,8 +2284,122 @@ namespace Portal.Consultoras.Web.Controllers
             if (parametros.Accion == Constantes.OpcionesIngresoPendientes.ingrgana)
             {
 
-            }
-            else if (parametros.Accion == Constantes.OpcionesIngresoPendientes.ingrped)
+                if (parametros.ListaGana.Any())
+                {
+
+
+                    parametros.ListaGana.ForEach(model=> {
+
+                        string mensaje = "", urlRedireccionar = "";
+                        BEPedidoDetalle pedidoDetalle = new BEPedidoDetalle();
+                        //pedidoDetalle.Producto = new ServicePedido.BEProducto();
+                        //model.CuvTonos = Util.Trim(model.CuvTonos);   
+
+                        pedidoDetalle.Producto.EstrategiaID = model.EstrategiaID;
+                       pedidoDetalle.Producto.TipoEstrategiaID = model.TipoEstrategiaID.ToString();
+                        pedidoDetalle.Producto.TipoOfertaSisID = model.TipoOfertaSisID;
+                        pedidoDetalle.Producto.ConfiguracionOfertaID = model.ConfiguracionOfertaID;
+                    //    pedidoDetalle.Producto.CUV = Util.Trim(model.CuvTonos);
+                        pedidoDetalle.Producto.IndicadorMontoMinimo = string.IsNullOrEmpty(model.IndicadorMontoMinimo.ToString()) ? 0 : Convert.ToInt32(model.IndicadorMontoMinimo);
+                        pedidoDetalle.Producto.FlagNueva = model.FlagNueva.ToString();
+                        pedidoDetalle.Producto.Descripcion = model.DescripcionCUV2 ?? "";
+                        pedidoDetalle.Usuario = Mapper.Map<ServicePedido.BEUsuario>(userData);
+                        pedidoDetalle.Cantidad = Convert.ToInt32(model.Cantidad);
+                        pedidoDetalle.PaisID = userData.PaisID;
+                        pedidoDetalle.IPUsuario = GetIPCliente();
+                     //   pedidoDetalle.OrigenPedidoWeb = ProcesarOrigenPedido(model.OrigenPedidoWeb);
+                      //  pedidoDetalle.ClienteID = string.IsNullOrEmpty(model.ClienteID) ? (short)0 : Convert.ToInt16(model.ClienteID);
+                        pedidoDetalle.Identifier = SessionManager.GetTokenPedidoAutentico() != null ? SessionManager.GetTokenPedidoAutentico().ToString() : string.Empty;
+                        //pedidoDetalle.EsCuponNuevas = model.EsCuponNuevas || model.FlagNueva == 1;
+                        //pedidoDetalle.EsSugerido = model.EsSugerido;
+                        //pedidoDetalle.EsKitNueva = model.EsKitNueva;
+                        //pedidoDetalle.EsKitNuevaAuto = model.EsKitNuevaAuto;
+                        //pedidoDetalle.OfertaWeb = model.OfertaWeb;
+                        //pedidoDetalle.EsEditable = model.EsEditable;
+                        //pedidoDetalle.SetID = model.SetId;
+                        //var pedidoDetalleResult = _pedidoWebProvider.InsertPedidoDetalle(pedidoDetalle);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        ///////////////////////////////////////////////////
+
+
+
+                        //try
+                        //{
+                        //   BEPedidoDetalle pedidoDetalle = new BEPedidoDetalle();
+                        //    pedidoDetalle.Producto = new ServicePedido.BEProducto();
+
+                        //    pedidoDetalle.Estrategia = new ServicePedido.BEEstrategia();
+                        //    pedidoDetalle.Estrategia.Cantidad = Convert.ToInt32(model.Cantidad);
+                        //    pedidoDetalle.Estrategia.LimiteVenta = 99;
+                        //    pedidoDetalle.Estrategia.DescripcionCUV2 = Util.Trim(model.DescripcionProd);
+                        //    pedidoDetalle.Estrategia.FlagNueva = 0;
+                        //    pedidoDetalle.Estrategia.Precio2 = model.PrecioUnidad;
+                        //    pedidoDetalle.Estrategia.TipoEstrategiaID = 0;
+                        //    pedidoDetalle.Estrategia.IndicadorMontoMinimo = string.IsNullOrEmpty(model.IndicadorMontoMinimo) ? 0 : Convert.ToInt32(model.IndicadorMontoMinimo);
+                        //    pedidoDetalle.Estrategia.CUV2 = model.CUV;
+                        //    pedidoDetalle.Estrategia.MarcaID = model.MarcaID;
+
+                        //    pedidoDetalle.Producto.TipoOfertaSisID = model.TipoOfertaSisID;
+                        //    pedidoDetalle.Producto.ConfiguracionOfertaID = model.ConfiguracionOfertaID;
+                        //    pedidoDetalle.Producto.CUV = "";
+                        //    pedidoDetalle.Producto.IndicadorMontoMinimo = string.IsNullOrEmpty(model.IndicadorMontoMinimo) ? 0 : Convert.ToInt32(model.IndicadorMontoMinimo);
+                        //    pedidoDetalle.Producto.FlagNueva = "0";
+                        //    pedidoDetalle.Usuario = Mapper.Map<ServicePedido.BEUsuario>(userData);
+                        //    pedidoDetalle.Cantidad = Convert.ToInt32(model.Cantidad);
+                        //    pedidoDetalle.PaisID = userData.PaisID;
+                        //    pedidoDetalle.IPUsuario = GetIPCliente();
+                        //    pedidoDetalle.OrigenPedidoWeb = ProcesarOrigenPedido(model.OrigenPedidoWeb);
+                        //    pedidoDetalle.ClienteID = string.IsNullOrEmpty(model.ClienteID) ? (short)0 : Convert.ToInt16(model.ClienteID);
+                        //    pedidoDetalle.Identifier = SessionManager.GetTokenPedidoAutentico() != null ? SessionManager.GetTokenPedidoAutentico().ToString() : string.Empty;
+                        //    pedidoDetalle.EsSugerido = model.EsSugerido;
+                        //    pedidoDetalle.EsKitNueva = model.EsKitNueva;
+                        //    pedidoDetalle.OfertaWeb = model.OfertaWeb;
+
+                        var pedidoDetalleResult = _pedidoWebProvider.InsertPedidoDetalle(pedidoDetalle);
+
+                        if (pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS))
+                        {
+                            SessionManager.SetPedidoWeb(null);
+                            SessionManager.SetDetallesPedido(null);
+                            SessionManager.SetDetallesPedidoSetAgrupado(null);
+
+                            // return ObtenerPedidoWebDetalle();
+                        }
+                        else
+                        {
+                            //  return null;
+                        }
+
+                    });
+
+
+
+                }
+
+               
+            
+
+        }
+            else if (parametros.Accion == Constantes.OpcionesIngresoPendientes.ingrped )
             {
                 using (ServiceSAC.SACServiceClient svc = new ServiceSAC.SACServiceClient())
                 {
@@ -2416,7 +2495,7 @@ namespace Portal.Consultoras.Web.Controllers
                 pedidosSesion.ForEach(pedido =>
                 {
 
-                    if (!pedido.DetallePedido.ToList().Where(k => k.Estado != 0).Any(i => i.TipoAtencion == 0))
+                    if (!pedido.DetallePedido.ToList().Where(k => k.Estado == 0).Any(i => i.TipoAtencion == 0))
                     {
                         string mensajeaCliente =
                        string.Format(

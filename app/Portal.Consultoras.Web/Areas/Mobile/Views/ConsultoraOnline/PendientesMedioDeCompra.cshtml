@@ -47,7 +47,7 @@
           </div>
         </div>
       </div>
-      <div class="row conGanaMas vc-box vc-box--shadow  @if (Model.ListaGana.Count>2){  <text>brokenBox</text> 	} ">
+      <div class="row conGanaMas  vc-box vc-box--shadow  @if (Model.ListaGana.Count>2){  <text>brokenBox</text> 	} "  data-listagana="@Json.Encode(Model.ListaGana)" >
           @*<div class="col products-item">
               <img src="https://i.ibb.co/MVyDK3j/square-3x.jpg" class="img-fluid products-img" alt="Producto">
               <p class="text-12 text-gray">Pack 4 Delineadores Líquido Punta Plumón Marrón otoño</p>
@@ -95,43 +95,24 @@
 
           @foreach (var x in Model.ListaCatalogo)
             {
-              <div class="col">
-                  <img src="@x.Url" class="img-fluid products-img" alt="Producto">
-                  <p class="text-12 text-gray"> @x.Producto</p>
-                  <span class="text-12 text-gray">@ViewBag.Simbolo @x.FormatoPrecioTotal</span>
-              </div>
-        }
 
-          @*<div class="col">
-              <img src="https://i.ibb.co/MVyDK3j/square-3x.jpg" class="img-fluid products-img" alt="Producto">
-              <p class="text-12 text-gray">Pack 4 Delineadores Líquido Punta Plumón Marrón otoño</p>
-              <span class="text-12 text-gray">S/. 50.80</span>
-          </div>
-          <div class="col">
-              <img src="https://i.ibb.co/MVyDK3j/square-3x.jpg" class="img-fluid products-img" alt="Producto">
-              <p class="text-12 text-gray">Delineador Líquido Punta Plumón Marrón otoño + Natural Care Coconut Ocean</p>
-              <span class="text-12 text-gray">S/. 15.80</span>
-          </div>
-          <div class="col">
-              <img src="https://i.ibb.co/MVyDK3j/square-3x.jpg" class="img-fluid products-img" alt="Producto">
-              <p class="text-12 text-gray">Pack 4 Delineadores Líquido Punta Plumón Marrón otoño</p>
-              <span class="text-12 text-gray">S/. 15.80</span>
-          </div>
-          <div class="col">
-              <img src="https://i.ibb.co/MVyDK3j/square-3x.jpg" class="img-fluid products-img" alt="Producto">
-              <p class="text-12 text-gray">Pack 4 Delineadores Líquido Punta Plumón Marrón otoño</p>
-              <span class="text-12 text-gray">S/. 50.80</span>
-          </div>
-          <div class="col">
-              <img src="https://i.ibb.co/MVyDK3j/square-3x.jpg" class="img-fluid products-img" alt="Producto">
-              <p class="text-12 text-gray">Delineador Líquido Punta Plumón Marrón otoño + Natural Care Coconut Ocean</p>
-              <span class="text-12 text-gray">S/. 15.80</span>
-          </div>
-          <div class="col">
-              <img src="https://i.ibb.co/MVyDK3j/square-3x.jpg" class="img-fluid products-img" alt="Producto">
-              <p class="text-12 text-gray">Pack 4 Delineadores Líquido Punta Plumón Marrón otoño</p>
-              <span class="text-12 text-gray">S/. 15.80</span>
-          </div>*@
+                 for (int i = 0; i < x.Cantidad; i++)
+                    {
+                          <div class="col">
+                              <img src="@x.Url" class="img-fluid products-img" alt="Producto">
+                              <p class="text-12 text-gray"> @x.Producto</p>
+                              <span class="text-12 text-gray">@ViewBag.Simbolo @x.FormatoPrecioTotal</span>
+                          </div>
+
+                    }
+            }
+
+          @*
+        <div class="col">
+            <img src="https://i.ibb.co/MVyDK3j/square-3x.jpg" class="img-fluid products-img" alt="Producto">
+            <p class="text-12 text-gray">Pack 4 Delineadores Líquido Punta Plumón Marrón otoño</p>
+            <span class="text-12 text-gray">S/. 15.80</span>
+        </div>*@
       </div>
 
     </div>
@@ -178,11 +159,12 @@
   <div class="bt-1 ptb-8 mt-32">
     <div class="container">
       <div class="row">
-        <div class="col">
-          <div id="btnAceptarPedido" onclick="AceptarPedidoPendiente()"  class="vc-box text-14 text-700">
-            <a href="#"  class="action-btn action-btn_continue " data-toggle="modal" @*data-target="#aprobarPedido"*@>Aprobar pedido</a>
+          <div class="col">
+              <div id="btnAceptarPedido" onclick="AceptarPedidoPendiente()" class="vc-box text-14 text-700">
+                  <a href="#" class="action-btn action-btn_continue " data-toggle="modal" >Aprobar pedido</a>
+              </div>
+              <a href="#"style="display:none" id="popuplink" class="action-btn action-btn_continue " data-toggle="modal" data-target="#aprobarPedido"></a>
           </div>
-        </div>
       </div>
     </div>
   </div>

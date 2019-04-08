@@ -10,6 +10,8 @@ namespace Portal.Consultoras.Web.Models
         public string Accion { get; set; }
         public int Dispositivo { get; set; }
 
+        public List<EstrategiaPedidoModel> ListaGana { get; set; }        
+
         public List<string> CorreoClientes { get; set; }
     }
 }
