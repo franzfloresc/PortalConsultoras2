@@ -8231,7 +8231,7 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private decimal PrecioValorizadoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string TipoEstrategiaIDField;
+        private int TipoEstrategiaIDField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -8465,12 +8465,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string TipoEstrategiaID {
+        public int TipoEstrategiaID {
             get {
                 return this.TipoEstrategiaIDField;
             }
             set {
-                if ((object.ReferenceEquals(this.TipoEstrategiaIDField, value) != true)) {
+                if ((this.TipoEstrategiaIDField.Equals(value) != true)) {
                     this.TipoEstrategiaIDField = value;
                     this.RaisePropertyChanged("TipoEstrategiaID");
                 }

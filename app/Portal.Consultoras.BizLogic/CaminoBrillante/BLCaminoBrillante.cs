@@ -712,7 +712,9 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             var result =  new DACaminoBrillante(paisID).GetDemostradoresCaminoBrillante(campaniaID)
                         .MapToCollection<BEDesmostradoresCaminoBrillante>();
 
+            /*
             result.ForEach(e => {
+                e.CUV = e.CUV;
                 e.EstrategiaID = 10;
                 e.CodigoEstrategia = "10";
                 e.DescripcionCortaCUV = e.Descripcion;
@@ -724,6 +726,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 e.TipoEstrategiaID = "10";
                 e.OrigenPedidoWebFicha = 10;
             });
+            */
 
             return result;
         }
