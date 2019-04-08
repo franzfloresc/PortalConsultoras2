@@ -23,8 +23,8 @@
                     </li>
                     {{else}}
                     <li id="div_ficha_tab1">
-                        <a class="tab-link">{{seccion.Titulo}}</a>
-                        <ul class="tabs_container">
+                        <a class="tab-link active">{{seccion.Titulo}}</a>
+                        <ul class="tabs_container" style="display:block;">
                             <div style="@*width:95% !important*@">
                                 <div id="carouselIndividualVideo">
                                     {{#each seccion.Detalles as |detalle index|}}

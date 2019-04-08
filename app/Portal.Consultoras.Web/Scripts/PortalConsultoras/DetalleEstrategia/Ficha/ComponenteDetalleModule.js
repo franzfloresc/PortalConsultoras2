@@ -144,9 +144,13 @@
                 var clase = $this.attr("class");
                 if (clase === "active") {
                     $this.attr("class", "tab-link");
+                    this.setCarrusel(_template.CarruselIndividualVideo);
+                    this.setCarrusel(_template.CarruselVideo);
                 }
                 else {
                     $this.attr("class", "active");
+                    this.setCarrusel(_template.CarruselIndividualVideo);
+                    this.setCarrusel(_template.CarruselVideo);
                 }
             });
         },
