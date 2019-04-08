@@ -131,7 +131,7 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
-        public List<EstrategiaComponenteModel> ActualizarComponenteStockPROL(List<EstrategiaComponenteModel> lista, string cuvPadre, string paisISO, int campaniaID, string codigoConsultora)
+        public List<EstrategiaComponenteModel> ActualizarComponenteStockPROL(List<EstrategiaComponenteModel> lista, string cuvPadre, string paisISO, int campaniaID, string codigoConsultora, bool esFacturacion)
         {
             if (lista.Count == 0) return lista;
 
@@ -142,7 +142,8 @@ namespace Portal.Consultoras.Web.Providers
                     PaisISO = paisISO,
                     CampaniaID = campaniaID,
                     ListaCUVs = cuvPadre,
-                    FlagDetalle = Constantes.ConsultaPROL.StockHijo
+                    FlagDetalle = Constantes.ConsultaPROL.StockHijo,
+                    EsFacturacion = esFacturacion
                 };
 
                 string requestUrl = Constantes.ConsultaPROL.ConsultaStockProl;
