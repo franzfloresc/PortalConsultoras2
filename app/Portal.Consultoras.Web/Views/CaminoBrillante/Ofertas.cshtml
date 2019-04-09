@@ -47,7 +47,7 @@
 
                 <a href="javascript:void(0);"
                    class="default-dorado activado-dorado" id="Tab-kits">
-                    Kit
+                    Kits
                 </a>
 
             </li>
@@ -191,13 +191,13 @@
                 foreach (var item in Model)
                 {
 
-                    var FlagHabilitado = item.FlagHabilitado ? "producto_desactivado" : "";
+                    var FlagHabilitado = item.FlagHabilitado ? "" : "producto_desactivado";
 
 
                     <article class="ficha__producto @FlagHabilitado" data-item="BuscadorFichasProductos">
 
                         <input type="hidden" id="hdCuv" value="@item.CUV" />
-                        <div>
+                        <div style="text-align:right;">
                             @{var image = "/Content/CaminoBrillante/imgs/Nivel_0" + item.CodigoNivel + ".svg";}
 
                             <img src="@image" />
@@ -216,8 +216,16 @@
                                 </div>
                             </div>
                             <div class="row flex-row align-items-end align-items-md-baseline ml-0 mr-0 col-12 pl-0 pr-0 ficha__producto__precio">
-                                <div class="ficha__producto__precio__normal text-left">@ViewBag.Moneda @item.PrecioCatalogo</div>
-                                <div class="ficha__producto__precio__oferta text-bold text-left">@ViewBag.Moneda @item.Ganancia</div>
+
+                                <div>
+                                    <div class="text-left">Precio para ti <br /> @ViewBag.Moneda @item.PrecioCatalogo</div> @*ficha__producto__precio__normal*@
+                                </div>
+                                <div>
+                                    <div class="text-bold text-left">Ganancia <br /> @ViewBag.Moneda @item.Ganancia</div> @*ficha__producto__precio__oferta*@
+                                </div>
+
+                                
+                                
                             </div>
                             <div class="row flex-row justify-content-between ml-0 mr-0 pl-0 pr-0 ficha__producto__agregar__producto">
                                 <div class="col-12 col-md col-lg col-xl pl-0 pr-0" style="display:none;">
@@ -241,11 +249,20 @@
                             </div>
 
                             @{
-                                var Seleccionado = item.FlagSeleccionado ? "style='display:block;'" : "style='display:none;'";
+                                if (item.FlagSeleccionado)
+                                {
+                                    <div class="col-12 pl-0 pr-0 etiqueta_buscador_producto ficha__producto__etiqueta text-center" data-Agregado="DivAgregado">
+                                        <span class="text-uppercase text-bold d-inline-block">Agregado</span>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="col-12 pl-0 pr-0 etiqueta_buscador_producto ficha__producto__etiqueta text-center" style="display:none;" data-Agregado="DivAgregado">
+                                        <span class="text-uppercase text-bold d-inline-block">Agregado</span>
+                                    </div>
+                                }
                             }
-                            <div class="col-12 pl-0 pr-0 etiqueta_buscador_producto ficha__producto__etiqueta text-center" @Seleccionado data-Agregado="DivAgregado">
-                                <span class="text-uppercase text-bold d-inline-block">Agregado</span>
-                            </div>
+
                         </div>
                     </article>
                 }
