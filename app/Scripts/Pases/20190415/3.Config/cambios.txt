@@ -5,17 +5,12 @@
 				<outboundRules>
 					<rule name="Remove RESPONSE_Server" >
 						<match serverVariable="RESPONSE_SERVER" pattern=".+" />
-						<action type="Rewrite" value="IvanServer" />
+						<action type="Rewrite" value="." />
 					</rule>
 				</outboundRules>      
 			</rewrite>
-			
-			<!--<httpErrors errorMode="Custom">
-			<remove statusCode="404"/>
-			<error statusCode="404" path="/CustomError.html" responseMode="File"/>
-			</httpErrors>-->
 	
 	Modificar:
-		<httpRuntime targetFramework="4.5" requestValidationMode="4.5" enableVersionHeader="false"/> (Sólo en PRD)
+		<httpRuntime targetFramework="4.5" requestValidationMode="4.5" maxRequestLength="8192" executionTimeout="300" enableVersionHeader="false" /> (Sólo en PRD)
 		<customErrors mode="On" defaultRedirect="CustomError.html" redirectMode="ResponseRewrite"/> (Sólo en PRD)
 		<add key="Permisos_CCC" value="PE,CL,CO,MX,EC,CR,BO,PR,GT,DO,SV,PA" />
