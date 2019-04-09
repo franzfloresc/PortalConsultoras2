@@ -89,8 +89,8 @@
                 <div class="subtitulo_reclamo">Escoge una solución</div>
                 <div id="divOperacion" class="text-center lista_opciones_cdr_wrapper">
                 </div>
-                    <div id="infoOpcionesDeCambio" class="text-center" style="display:none;">
-                        <div id="OpcionCambioPorOtroProducto" class="opcion_cdr_seleccionada_info_wrapper" style="display:none;">
+                <div id="infoOpcionesDeCambio" class="text-center" style="display:none;">
+                    <div id="OpcionCambioPorOtroProducto" class="opcion_cdr_seleccionada_info_wrapper" style="display:none;">
                         <!-- INFORMACIÓN CUANDO SE SELECCIONA LA OPCIÓN DE CAMBIAR POR OTRO PRODUCTO -->
                         <div class="opcion_cdr_seleccionada_info opcion_cdr_seleccionada_info--cambiarPorOtroProducto">
                             <p>Puedes cambiarlo por otro producto(s) cuyo monto sea mayor o igual al que reclamas (<span id="spnSimboloMonedaReclamo">S/.</span><span id="spnMontoMinimoReclamoFormato">15</span>)</p>
@@ -120,38 +120,41 @@
                         </div>
                         <!-- FIN - INFORMACIÓN CUANDO SE SELECCIONA LA OPCIÓN DE CAMBIAR POR OTRO PRODUCTO -->
                     </div>
-                        <div id="OpcionCambioMismoProducto" class="opcion_cdr_seleccionada_info_wrapper" style="display:none;">
+                    <div id="OpcionCambioMismoProducto" class="opcion_cdr_seleccionada_info_wrapper" style="display:none;">
                         <div class="opcion_cdr_seleccionada_info opcion_cdr_seleccionada_info--cambioMismoProducto">
                             <p class="text-bold">Vamos a reenviarte el mismo producto:</p>
                             <p class="text-bold">
                                 <span id="spnDescProdDevolucionC" class="text-bold producto_nom"></span>
+                                <span id="spnCantidad">x Unidades</span>
                             </p>
                         </div>
                     </div>
-                        <div id="OpcionEnvioDelProducto" class="opcion_cdr_seleccionada_info_wrapper" style="display:none;">
+                    <div id="OpcionEnvioDelProducto" class="opcion_cdr_seleccionada_info_wrapper" style="display:none;">
                         <div class="opcion_cdr_seleccionada_info opcion_cdr_seleccionada_info--envioProducto">
                             <p class="text-bold">Vamos a enviarte el siguiente producto:</p>
                             <p class="text-bold">
                                 <span class="text-bold producto_nom" id="spnDescripcionProductoOpcionF"></span>
+                                <span id="spnCantidad">x Unidades</span>
                             </p>
                         </div>
                     </div>
-                        <div id="OpcionDevolucionDinero" class="opcion_cdr_seleccionada_info_wrapper" style="display:none;">
+                    <div id="OpcionDevolucionDinero" class="opcion_cdr_seleccionada_info_wrapper" style="display:none;">
                         <div class="opcion_cdr_seleccionada_info opcion_cdr_seleccionada_info--devolucionDinero">
                             <p class="text-bold">Vamos a descontar el siguiente producto en tu próximo pedido:</p>
                             <p class="text-bold">
                                 <span class="text-bold producto_nom" id="spnDescripcionProductoOpcionG"></span>
+                                <span id="spnCantidad">x Unidades</span>
                             </p>
                         </div>
                     </div>
-                        <div id="OpcionDevolucion" class="opcion_cdr_seleccionada_info_wrapper" style="display:none;">
+                    <div id="OpcionDevolucion" class="opcion_cdr_seleccionada_info_wrapper" style="display:none;">
                         <!-- INFORMACIÓN CUANDO SE SELECCIONA LA OPCIÓN DE DEVOLUCIÓN Y EL PRODUCTO FORMA PARTE DE UN SET -->
                         <div id="divDevolucionSetsOrPack" class="opcion_cdr_seleccionada_info opcion_cdr_seleccionada_info--devolucionCasoSetProducto">
                         </div>
                         <!-- FIN - INFORMACIÓN CUANDO SE SELECCIONA LA OPCIÓN DE DEVOLUCIÓN Y EL PRODUCTO FORMA PARTE DE UN SET -->
                     </div>
                 </div>
-                    <button type="button" id="btnIrPaso3" class="border-radius-4 text-bold btn_cdr btn_solucion_reclamo" style="display:none;" onclick="IrAFinalizar()" id="btnSiguiente">Siguiente</button>
+                <button type="button" id="btnIrPaso3" class="border-radius-4 text-bold btn_cdr btn_solucion_reclamo" style="display:none;" onclick="IrAFinalizar()" id="btnSiguiente">Siguiente</button>
                 @*<div class="content_reclamo" id="Cambio2" style="display: none;">
                         <div class="subtitulo_reclamo_light">ELEGISTE</div>
                         <div class="titulo_belcorp_reclamo">CAMBIARLO POR OTRO PRODUCTO</div>
@@ -543,7 +546,7 @@
             {{/if_eq}}
         </div>
         <div class="listado_eliminar_reclamo">
-            <a data-pedidodetalleid="{{item.CDRWebDetalleID}}" data-accion="x" style="background-image: url('/Content/Images/Esika/tacho-copy.png'); background-repeat:no-repeat; width: 17px; height: 22px; margin: 0 auto;" title="Eliminar"></a>
+            <a data-pedidodetalleid="{{item.CDRWebDetalleID}}" data-detalle-grupoid="{{item.GrupoID}}" href="javascript:void(0);" onclick="EliminarDetalle(this);" style="background-image: url('/Content/Images/Esika/tacho-copy.png'); background-repeat:no-repeat; width: 17px; height: 22px; margin: 0 auto;" title="Eliminar"></a>
         </div>
     </div>
     {{/each}}
@@ -602,7 +605,7 @@
 @*HD-3703 EINCA*@
 <script id="template-opcion-devolucion" type="text/x-handlebars-template">
     <div>
-        <p class="text-bold">El producto <span class="text-bold producto_set_nom">{{ProductoSeleccionado.CUV}} - {{ProductoSeleccionado.Descripcion}}</span> pertenece al pack:</p>
+        <p class="text-bold">El producto <span class="text-bold producto_set_nom">{{ProductoSeleccionado.CUV}} - {{ProductoSeleccionado.Descripcion}} (<span id="spnCantidad">x Unidades</span> </span>) pertenece al pack:</p>
         <p class="text-left producto_set_lista">
             {{#each DataRespuestaServicio as |item|}}
             <span class="text-bold">{{item.cuv}} - {{item.descripcion}}</span>

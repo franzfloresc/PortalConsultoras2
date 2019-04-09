@@ -481,6 +481,9 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         private string FormatoPrecio2Field;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string GrupoIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string MotivoRechazoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -702,6 +705,19 @@ namespace Portal.Consultoras.Web.ServiceCDR {
                 if ((object.ReferenceEquals(this.FormatoPrecio2Field, value) != true)) {
                     this.FormatoPrecio2Field = value;
                     this.RaisePropertyChanged("FormatoPrecio2");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string GrupoID {
+            get {
+                return this.GrupoIDField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.GrupoIDField, value) != true)) {
+                    this.GrupoIDField = value;
+                    this.RaisePropertyChanged("GrupoID");
                 }
             }
         }
@@ -2408,6 +2424,12 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICDRService/GetCDRWebMobile", ReplyAction="http://tempuri.org/ICDRService/GetCDRWebMobileResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCDR.BECDRWeb[]> GetCDRWebMobileAsync(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWeb entity);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICDRService/InsCDRWebDetalleList", ReplyAction="http://tempuri.org/ICDRService/InsCDRWebDetalleListResponse")]
+        int InsCDRWebDetalleList(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[] detalle);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICDRService/InsCDRWebDetalleList", ReplyAction="http://tempuri.org/ICDRService/InsCDRWebDetalleListResponse")]
+        System.Threading.Tasks.Task<int> InsCDRWebDetalleListAsync(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[] detalle);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICDRService/UpdEstadoCDRWeb", ReplyAction="http://tempuri.org/ICDRService/UpdEstadoCDRWebResponse")]
         int UpdEstadoCDRWeb(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWeb entity);
         
@@ -2425,6 +2447,12 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICDRService/DelCDRWebDetalle", ReplyAction="http://tempuri.org/ICDRService/DelCDRWebDetalleResponse")]
         System.Threading.Tasks.Task<int> DelCDRWebDetalleAsync(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle entity);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICDRService/DelCDRWebDetalleList", ReplyAction="http://tempuri.org/ICDRService/DelCDRWebDetalleListResponse")]
+        int DelCDRWebDetalleList(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[] detalle);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICDRService/DelCDRWebDetalleList", ReplyAction="http://tempuri.org/ICDRService/DelCDRWebDetalleListResponse")]
+        System.Threading.Tasks.Task<int> DelCDRWebDetalleListAsync(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[] detalle);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICDRService/GetCDRWebDetalle", ReplyAction="http://tempuri.org/ICDRService/GetCDRWebDetalleResponse")]
         Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[] GetCDRWebDetalle(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle entity, int pedidoId);
@@ -2606,6 +2634,14 @@ namespace Portal.Consultoras.Web.ServiceCDR {
             return base.Channel.GetCDRWebMobileAsync(PaisID, entity);
         }
         
+        public int InsCDRWebDetalleList(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[] detalle) {
+            return base.Channel.InsCDRWebDetalleList(PaisID, detalle);
+        }
+        
+        public System.Threading.Tasks.Task<int> InsCDRWebDetalleListAsync(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[] detalle) {
+            return base.Channel.InsCDRWebDetalleListAsync(PaisID, detalle);
+        }
+        
         public int UpdEstadoCDRWeb(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWeb entity) {
             return base.Channel.UpdEstadoCDRWeb(PaisID, entity);
         }
@@ -2628,6 +2664,14 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         
         public System.Threading.Tasks.Task<int> DelCDRWebDetalleAsync(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle entity) {
             return base.Channel.DelCDRWebDetalleAsync(PaisID, entity);
+        }
+        
+        public int DelCDRWebDetalleList(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[] detalle) {
+            return base.Channel.DelCDRWebDetalleList(PaisID, detalle);
+        }
+        
+        public System.Threading.Tasks.Task<int> DelCDRWebDetalleListAsync(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[] detalle) {
+            return base.Channel.DelCDRWebDetalleListAsync(PaisID, detalle);
         }
         
         public Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[] GetCDRWebDetalle(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle entity, int pedidoId) {

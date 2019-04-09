@@ -712,6 +712,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                bool? IsSetsOrPack = false;
+                var arrComplemento = new ServiceCDR.BECDRWebDetalle[] { };
                 model.Accion = "I";
                 var rpta = ValidarDetalleGuardar(ref model);
 
@@ -724,24 +726,62 @@ namespace Portal.Consultoras.Web.Controllers
                     }, JsonRequestBehavior.AllowGet);
                 }
 
-                var entidadDetalle = new ServiceCDR.BECDRWebDetalle
-                {
-                    CDRWebID = model.CDRWebID,
-                    CodigoReclamo = model.Motivo,
-                    CodigoOperacion = model.Operacion,
-                    CUV = model.CUV,
-                    Cantidad = model.Cantidad
-                };
 
-                if (model.Operacion == Constantes.CodigoOperacionCDR.Canje)
+                if (SessionManager.GetFlagIsSetsOrPack() != null)
+                    IsSetsOrPack = SessionManager.GetFlagIsSetsOrPack();
+
+                if (IsSetsOrPack == true)
                 {
-                    entidadDetalle.CUV2 = model.CUV;
-                    entidadDetalle.Cantidad2 = model.Cantidad;
+                    if (model.Complemento.Any())
+                    {
+
+                        var cantidad = model.Complemento.Count();
+                        var grupoId = Guid.NewGuid().ToString().ToUpper();
+                        Array.Resize(ref arrComplemento, cantidad);
+                        var i = 0;
+                        foreach (var item in model.Complemento)
+                        {
+
+                            arrComplemento[i] = new ServiceCDR.BECDRWebDetalle()
+                            {
+                                CDRWebID = model.CDRWebID,
+                                CodigoReclamo = model.Motivo,
+                                CodigoOperacion = model.Operacion,
+                                CUV = item.CUV,
+                                Cantidad = model.Cantidad,
+                                CUV2 = item.CUV,
+                                Cantidad2 = model.Cantidad,
+                                GrupoID = grupoId
+                            };
+                            i++;
+                        }
+                    }
                 }
                 else
                 {
-                    entidadDetalle.CUV2 = model.CUV2;
-                    entidadDetalle.Cantidad2 = model.CUV2 == "" ? 0 : model.Cantidad2;
+                    //Productos individuales
+                    Array.Resize(ref arrComplemento, 1);
+                    arrComplemento[0] = new ServiceCDR.BECDRWebDetalle()
+                    {
+                        CDRWebID = model.CDRWebID,
+                        CodigoReclamo = model.Motivo,
+                        CodigoOperacion = model.Operacion,
+                        CUV = model.CUV,
+                        Cantidad = model.Cantidad,
+                        GrupoID = null
+
+                    };
+
+                    if (model.Operacion == Constantes.CodigoOperacionCDR.Canje)
+                    {
+                        arrComplemento[0].CUV2 = model.CUV;
+                        arrComplemento[0].Cantidad2 = model.Cantidad;
+                    }
+                    else
+                    {
+                        arrComplemento[0].CUV2 = model.CUV2;
+                        arrComplemento[0].Cantidad2 = model.CUV2 == "" ? 0 : model.Cantidad2;
+                    }
                 }
 
                 int id;
@@ -754,7 +794,7 @@ namespace Portal.Consultoras.Web.Controllers
                         PedidoNumero = model.NumeroPedido,
                         ConsultoraID = Int32.Parse(userData.ConsultoraID.ToString()),
                         EsMovilOrigen = Convert.ToBoolean(model.EsMovilOrigen),
-                        CDRWebDetalle = new ServiceCDR.BECDRWebDetalle[] { entidadDetalle },
+                        CDRWebDetalle = arrComplemento, //HD-3703 EINCA
                         TipoDespacho = model.TipoDespacho,
                         FleteDespacho = userData.EsConsecutivoNueva ? 0 : model.FleteDespacho,
                         MensajeDespacho = model.MensajeDespacho
@@ -770,7 +810,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     using (CDRServiceClient sv = new CDRServiceClient())
                     {
-                        id = sv.InsCDRWebDetalle(userData.PaisID, entidadDetalle);
+                        id = sv.InsCDRWebDetalleList(userData.PaisID, arrComplemento);
                     }
                     model.CDRWebDetalleID = id;
                 }
@@ -838,13 +878,11 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var entidadDetalle = new ServiceCDR.BECDRWebDetalle { CDRWebDetalleID = model.CDRWebDetalleID };
-
+                var entidadDetalle = new ServiceCDR.BECDRWebDetalle { CDRWebDetalleID = model.CDRWebDetalleID, GrupoID = model.GrupoID };//HD-3703 EINCA
                 using (CDRServiceClient sv = new CDRServiceClient())
                 {
                     sv.DelCDRWebDetalle(userData.PaisID, entidadDetalle);
                 }
-
                 return Json(new
                 {
                     success = true,

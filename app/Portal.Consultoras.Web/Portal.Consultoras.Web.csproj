@@ -333,6 +333,7 @@
     <Compile Include="Models\DireccionEntregaModel.cs" />
     <Compile Include="Models\ConsultaProl\ConsultaStockModel.cs" />
     <Compile Include="Models\ConsultaProl\RespuestaStockModel.cs" />
+    <Compile Include="Models\ProductoComplementarioModel.cs" />
     <Compile Include="Models\ProgramaNuevas\ConfigPremioProgNuevasModel.cs" />
     <Compile Include="Models\ProgramaNuevas\PremioProgNuevasOFModel.cs" />
     <Compile Include="Models\ProgramaNuevas\PremioProgNuevasModel.cs" />
