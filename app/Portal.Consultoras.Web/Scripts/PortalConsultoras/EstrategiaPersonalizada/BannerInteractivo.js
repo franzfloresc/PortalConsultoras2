@@ -36,7 +36,8 @@
         var popup = $(objeto).data('popup');
         var landing = $(objeto).data('landing');
         var url = baseUrl + landing;
-
+        
+        fnLunchAnalytics($(objeto));
         if (popup) {
             _fnMensaje(function () {
                 window.location.href = url;
@@ -46,6 +47,19 @@
             window.location.href = url;
         }
     };
+    var fnLunchAnalytics = function (obj) {
+        
+        var codigoubigeoPortal = $('#ATP').attr('data-codigoubigeoportal')+ "";
+        
+        if (codigoubigeoPortal !== "")
+            if (!(typeof AnalyticsPortalModule === 'undefined')) {
+                if (codigoubigeoPortal === ConstantesModule.CodigoUbigeoPortal.GuionContenedorGuionArmaTuPack) {
+                    var textButton = $('button.atp_button').text();
+                    AnalyticsPortalModule.MarcaPromotionClickArmaTuPack(codigoubigeoPortal, textButton);
+                    AnalyticsPortalModule.MarcaPromotionViewArmaTuPack(codigoubigeoPortal, textButton == "Comienza", true);
+                }
+            }
+    }
     var fnConsultaAjaxRedireccionaLanding = function (fn) {
         var promesa = _fnValidaExisteTipoEstrategiaEnPedido();
 

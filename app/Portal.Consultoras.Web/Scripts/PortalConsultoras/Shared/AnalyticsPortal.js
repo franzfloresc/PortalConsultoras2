@@ -2397,13 +2397,13 @@ var AnalyticsPortalModule = (function () {
         }
         
     }
-    var marcaPromotionViewArmaTuPack = function (origenPedido, productos, esInPedido) {
+    var marcaPromotionViewArmaTuPack = function (origenPedido, esInPedido, isClick = false) {
         
         if (origenPedido !== "") {
             if (origenPedido == ConstantesModule.CodigoUbigeoPortal.GuionContenedorGuionArmaTuPack) {
                 textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(origenPedido) + ""; //using new function
                 dataLayer.push({
-                    'event': "promotionView",
+                    'event': !isClick ? _evento.promotionView : _evento.promotionClick,
                     'ecommerce': {
                         'promoView': {
                             'promotions': [
@@ -2418,6 +2418,18 @@ var AnalyticsPortalModule = (function () {
                     }
                 });
             }
+        }
+    }
+    var marcaPromotionClickArmaTuPack = function (origenPedido, textoBoton) {
+        
+        if (origenPedido !== "") {            
+                var textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(origenPedido) + ""; //using new function
+                dataLayer.push({
+                    'event': _evento.virtualEvent,
+                    "category": textoCategory,
+                    "action": 'Click Botón',
+                    "label": textoBoton + ""
+                });
         }
     }
     ////////////////////////////////////////////////////////////////////////////////////////
@@ -2530,6 +2542,7 @@ var AnalyticsPortalModule = (function () {
         MarcaFichaResumidaClickDetalleProducto: marcaFichaResumidaClickDetalleProducto,
         MarcaFichaResumidaClickDetalleCliente: marcaFichaResumidaClickDetalleCliente,
         MarcaFichaResumidaClickModificar: marcaFichaResumidaClickModificar,
-        MarcaPromotionViewArmaTuPack: marcaPromotionViewArmaTuPack
+        MarcaPromotionViewArmaTuPack: marcaPromotionViewArmaTuPack,
+        MarcaPromotionClickArmaTuPack: marcaPromotionClickArmaTuPack
     }
 })();
