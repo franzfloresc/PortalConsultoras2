@@ -51,14 +51,9 @@ namespace Portal.Consultoras.Web.Providers
                 var ofertas = sessionManager.GetKitCaminoBrillante();
                 if (ofertas == null || ofertas.Count == 0)
                 {
-                    var user = new BEUsuario()
-                    {
-                        CampaniaID = _userData.CampaniaID
-                    };
-
                     var oConsultora = sessionManager.GetConsultoraCaminoBrillante();
                     using (var svc = new UsuarioServiceClient())
-                        ofertas = svc.GetKitsCaminoBrillante(user, 201903, Convert.ToInt32(codigoNivel)).ToList();
+                        ofertas = svc.GetKitsCaminoBrillante(_userData, 201903, Convert.ToInt32(codigoNivel)).ToList();
                     if (ofertas != null)
                         sessionManager.SetKitCaminoBrillante(ofertas);
                 }
