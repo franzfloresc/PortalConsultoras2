@@ -197,7 +197,7 @@
                     <article class="ficha__producto @FlagHabilitado" data-item="BuscadorFichasProductos">
 
                         <input type="hidden" id="hdCuv" value="@item.CUV" />
-                        <div style="text-align:right;">
+                        <div class="etiq-producto">
                             @{var image = "/Content/CaminoBrillante/imgs/Nivel_0" + item.CodigoNivel + ".svg";}
 
                             <img src="@image" />
@@ -205,7 +205,7 @@
                         </div>
                         <div class="row flex-row justify-content-center ml-0 mr-0">
                             <figure class="col-12 pl-0 pr-0 row flex-row ml-0 mr-0 justify-content-center align-items-end ficha__producto__imagen text-center">
-                                <img data-src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201905/E/productos/PE_200094549.jpg" data-src-error="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201905/E/productos/PE_200094549.jpg" class="lazy redireccionarFicha" src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201905/E/productos/PE_200094549.jpg">
+                                <img class="lazy redireccionarFicha" src="@item.FotoProductoMedium">
                             </figure>
                             <div class="col-12 pl-0 pr-0 ficha__producto__descrip d-block mx-auto text-left">
                                 <div class="col-12 pl-0 pr-0 ficha__producto__descrip__marca__pais text-uppercase">
@@ -277,7 +277,7 @@
                         <input type="hidden" id="hdCuv" value="@item.Cuv1" />
                         <div class="row flex-row justify-content-center ml-0 mr-0">
                             <figure class="col-12 pl-0 pr-0 row flex-row ml-0 mr-0 justify-content-center align-items-end ficha__producto__imagen text-center">
-                                <img data-src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201905/E/productos/PE_200094549.jpg" data-src-error="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201905/E/productos/PE_200094549.jpg" class="lazy redireccionarFicha" src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201905/E/productos/PE_200094549.jpg">
+                                <img class="lazy redireccionarFicha" src="@item.FotoProductoMedium">
                             </figure>
                             <div class="col-12 pl-0 pr-0 ficha__producto__descrip d-block mx-auto text-left">
                                 <div class="col-12 pl-0 pr-0 ficha__producto__descrip__marca__pais text-uppercase">
