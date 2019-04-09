@@ -45,7 +45,7 @@ var varContenedor = {
     CargoLan: false
 }
 
-var _constantesPalanca = ConstantesModule.ConstantesPalanca;
+var _constantesPalanca = ConstantesModule.TipoEstrategia;
 
 $(document).ready(function () {
     SeccionRender();
