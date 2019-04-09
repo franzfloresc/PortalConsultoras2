@@ -139,6 +139,7 @@ var AnalyticsPortalModule = (function () {
         // Ini - Analytics Ofertas
         campania: "Campaña ",
         IdBannerGanadorasVerMas: "000123",
+        IdBannerArmaTuPack: "000124",
         // Fin - Analytics Ofertas
     };
 
@@ -2396,6 +2397,29 @@ var AnalyticsPortalModule = (function () {
         }
         
     }
+    var marcaPromotionViewArmaTuPack = function (origenPedido, productos, esInPedido) {
+        
+        if (origenPedido !== "") {
+            if (origenPedido == ConstantesModule.CodigoUbigeoPortal.GuionContenedorGuionArmaTuPack) {
+                textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(origenPedido) + ""; //using new function
+                dataLayer.push({
+                    'event': "promotionView",
+                    'ecommerce': {
+                        'promoView': {
+                            'promotions': [
+                                {
+                                    'id': _constantes.IdBannerArmaTuPack,
+                                    'name': 'Arma tu Pack - ' + (esInPedido ? "Modifica" : "Comienza"),
+                                    'position': textoCategory,
+                                    'creative': "Banner"
+                                }
+                            ]
+                        }
+                    }
+                });
+            }
+        }
+    }
     ////////////////////////////////////////////////////////////////////////////////////////
     // Fin - Analytics Ficha Resumida
     ////////////////////////////////////////////////////////////////////////////////////////
@@ -2505,6 +2529,7 @@ var AnalyticsPortalModule = (function () {
 
         MarcaFichaResumidaClickDetalleProducto: marcaFichaResumidaClickDetalleProducto,
         MarcaFichaResumidaClickDetalleCliente: marcaFichaResumidaClickDetalleCliente,
-        MarcaFichaResumidaClickModificar: marcaFichaResumidaClickModificar
+        MarcaFichaResumidaClickModificar: marcaFichaResumidaClickModificar,
+        MarcaPromotionViewArmaTuPack: marcaPromotionViewArmaTuPack
     }
 })();
