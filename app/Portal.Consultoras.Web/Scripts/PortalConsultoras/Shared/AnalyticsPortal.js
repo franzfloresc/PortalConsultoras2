@@ -2420,18 +2420,19 @@ var AnalyticsPortalModule = (function () {
             }
         }
     }
-    var marcaPromotionClickArmaTuPack = function (origenPedido, textoBoton) {
+    var marcaPromotionClickArmaTuPack = function (origenPedido, textoLabel, actionText) {
         
         if (origenPedido !== "") {            
                 var textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(origenPedido) + ""; //using new function
                 dataLayer.push({
                     'event': _evento.virtualEvent,
                     "category": textoCategory,
-                    "action": 'Click Botón',
-                    "label": textoBoton + ""
+                    "action": actionText,
+                    "label": textoLabel + ""
                 });
         }
     }
+
     ////////////////////////////////////////////////////////////////////////////////////////
     // Fin - Analytics Ficha Resumida
     ////////////////////////////////////////////////////////////////////////////////////////

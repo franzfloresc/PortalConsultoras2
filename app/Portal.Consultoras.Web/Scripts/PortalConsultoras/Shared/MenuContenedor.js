@@ -248,10 +248,16 @@ var menuModule = (function () {
             url = $.trim(url);
             url = url[0] !== "/" ? "/" + url : url;
             if (window.location.pathname.toLowerCase() === url.toLowerCase()) return;
-
+            
             if (ConstantesModule.CodigoPalanca.ATP == codigo) {
                 BannerInteractivo.ConsultaAjaxRedireccionaLanding(function () {
-                    console.log('analytic2-aceptar [menu contenedor]');
+                    //console.log('analytic2-aceptar [menu contenedor] ONT');
+                    //Analytics (averiguar si llega a usarse este método de boton aceptar del Popup)
+                    var codigoubigeoPortal = $('#ATP').attr('data-codigoubigeoportal') + "";
+                    if (!(typeof AnalyticsPortalModule === 'undefined'))
+                        if (codigoubigeoPortal === ConstantesModule.CodigoUbigeoPortal.GuionContenedorGuionArmaTuPack)
+                            AnalyticsPortalModule.MarcaPromotionClickArmaTuPack(codigoubigeoPortal, "Aceptar", "Pop up Modifica tu Pack");
+                    
                     window.location = window.location.origin + url;
                 });
                 return false;
