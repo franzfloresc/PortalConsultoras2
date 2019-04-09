@@ -2627,7 +2627,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult ContinuarPedidos(List<BEMisPedidosDetalle> detallelista)
+        public JsonResult ContinuarPedidos(List<BEMisPedidosDetalle> detallelista)
         {
             //List<BEMisPedidosDetalle> pedidosdetalle = SessionManager.GetobjMisPedidosDetalle();
             MisPedidosModel model = new MisPedidosModel();
@@ -2650,6 +2650,7 @@ namespace Portal.Consultoras.Web.Controllers
             var Listadetalle = new List<BEMisPedidosDetalle>();
             var Listadetallefinal = new List<BEMisPedidosDetalle>();
             var Listapedido = new List<BEMisPedidos>();
+
 
             foreach (var cuv in detallelista)
             {
@@ -2675,16 +2676,21 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 foreach (var cuv in detallelista)
                 {
-                    var detalles = cab.DetallePedido.Where(x => x.CUV == cuv.CUV).ToList();
-                    if (detalles.Any())
+                    //var detalles = cab.DetallePedido.Where(x => x.CUV == cuv.CUV).ToList();
+                    Listadetallefinal = cab.DetallePedido.ToList();
+                    if (Listadetallefinal.Any())
                     {
                         //arrCuvs.Add(cab.PedidoId.ToString());
-                        foreach (var item in detalles)
+                        foreach (var item in Listadetallefinal)
                         {
-                            Listadetallefinal.Add(item);
+                            if (item.CUV==cuv.CUV)
+                            {
+                                item.Elegido = true;
+                            }
+                            //item.Elegido = true;
+                            //Listadetallefinal.Add(item);
                         }
-                    }
-                   
+                    }                  
                 }
                 cab.DetallePedido = Listadetallefinal.ToArray();
 
@@ -2705,12 +2711,12 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
 
-            return RedirectToAction("PendientesMedioDeCompra", "ConsultoraOnline", new { area = "Mobile" });
-            //return Json(new
-            //{
-            //    success = true,
-            //    message = "OK"
-            //}, JsonRequestBehavior.AllowGet);
+            //return RedirectToAction("PendientesMedioDeCompra", "ConsultoraOnline", new { area = "Mobile" });
+            return Json(new
+            {
+                success = true,
+                message = "OK"
+            }, JsonRequestBehavior.AllowGet);
         }
 
     }

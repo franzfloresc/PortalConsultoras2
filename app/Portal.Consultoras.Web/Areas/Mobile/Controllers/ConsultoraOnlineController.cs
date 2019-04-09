@@ -1167,7 +1167,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             pedidosSesion.ForEach(pedido =>
             {
-                if (pedido.DetallePedido.Any(i => i.Elegido == true))
+                if (pedido.DetallePedido.Any(i => i.Elegido = true))
                 {
                     var odetalleTemporal = CargarMisPedidosDetalleDatos(pedido.MarcaID, pedido.DetallePedido.Where(i => i.Elegido == true).ToList());
                     var detallePedidos = Mapper.Map<List<BEMisPedidosDetalle>, List<MisPedidosDetalleModel2>>(odetalleTemporal);
