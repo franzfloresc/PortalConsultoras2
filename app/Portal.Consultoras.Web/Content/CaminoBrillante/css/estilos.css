@@ -1347,7 +1347,7 @@ header.layout__header {
     }
     .cambio-crec .como-log {
         margin-top: 4px !important;
-        line-height: 11px;
+        line-height: 13px;
     }
     .box-Crecimiento .text-bold, .box-Compromiso .text-bold {
         margin-bottom: 0;
@@ -1517,7 +1517,6 @@ header.layout__header {
     width: 80px;
     height: 80px;
 }
-
 .cambio-crec .modal-content .circle-porcent span, .indicador-nivel .circle-porcent span {
     font-size: 24px;
     line-height: 80px;

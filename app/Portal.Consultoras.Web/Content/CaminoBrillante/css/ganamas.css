@@ -553,16 +553,30 @@ div .cartbtn {
 
 .etiq-producto {
     position: absolute;
-    top: 4px;
-    right: 4px;
+    top: 5px;
+    right: 5px;
     max-width: 100px;
+    z-index: 2;
 }
 
-.ficha__producto__precio__normal span {
+
+.ficha__producto__precio > div {
     display: block;
     /* display: inline-block; */
-    font-size: 11px;
     width: 100%;
-    text-align: left;
     text-decoration: none;
+}
+.ficha__producto__precio > div span {
+    font-size: 11px;
+    display:block;
+    text-align: left;
+}
+div .ficha__producto__precio__normal {
+    text-decoration: none;
+}
+
+@media screen and (max-width: 620px) {
+    .ficha__producto__precio {
+        min-height: inherit;
+    }
 }
