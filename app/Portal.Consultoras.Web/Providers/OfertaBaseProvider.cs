@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.Estrategia;
 using Portal.Consultoras.Web.Models.Oferta.ResponseOfertaGenerico;
 using Portal.Consultoras.Web.Models.Search.ResponseOferta.Estructura;
 using Portal.Consultoras.Web.SessionManager;
@@ -307,34 +308,49 @@ namespace Portal.Consultoras.Web.Providers
         {
             if (dbDefault) return false;
 
-            bool paisHabilitado = _sessionManager.GetConfigMicroserviciosPersonalizacion().PaisHabilitado.Contains(pais);
-            bool tipoEstrategiaHabilitado = _sessionManager.GetConfigMicroserviciosPersonalizacion().EstrategiaHabilitado.Contains(tipoEstrategia);
+            var configMs = GetConfigMicroserviciosPersonalizacion();
+
+            bool paisHabilitado = configMs.PaisHabilitado.Contains(pais);
+            bool tipoEstrategiaHabilitado = configMs.EstrategiaHabilitado.Contains(tipoEstrategia);
 
             return paisHabilitado && tipoEstrategiaHabilitado;
         }
 
         public bool UsarMsPersonalizacion(string tipoEstrategia)
         {
-            bool tipoEstrategiaHabilitado = _sessionManager.GetConfigMicroserviciosPersonalizacion().EstrategiaHabilitado.Contains(tipoEstrategia);
+            bool tipoEstrategiaHabilitado = GetConfigMicroserviciosPersonalizacion().EstrategiaHabilitado.Contains(tipoEstrategia);
             return tipoEstrategiaHabilitado;
         }
 
         public bool UsarLocalStorage(string tipoEstrategia)
         {
-            if (_sessionManager.GetConfigMicroserviciosPersonalizacion().GuardaDataEnLocalStorage.IsNullOrEmptyTrim())
+            var configMs = GetConfigMicroserviciosPersonalizacion();
+            if (configMs.GuardaDataEnLocalStorage.IsNullOrEmptyTrim())
                 return false;
 
-            bool usaLocalStorage = _sessionManager.GetConfigMicroserviciosPersonalizacion().GuardaDataEnLocalStorage.Contains(tipoEstrategia);
+            bool usaLocalStorage = configMs.GuardaDataEnLocalStorage.Contains(tipoEstrategia);
             return usaLocalStorage;
         }
 
         public bool UsarSession(string tipoEstrategia)
         {
-            if (_sessionManager.GetConfigMicroserviciosPersonalizacion().GuardaDataEnSession.IsNullOrEmptyTrim())
+            var configMs = GetConfigMicroserviciosPersonalizacion();
+            if (configMs.GuardaDataEnSession.IsNullOrEmptyTrim())
                 return false;
 
-            bool usaSession = _sessionManager.GetConfigMicroserviciosPersonalizacion().GuardaDataEnSession.Contains(tipoEstrategia);
+            bool usaSession = configMs.GuardaDataEnSession.Contains(tipoEstrategia);
             return usaSession;
+        }
+
+        public MSPersonalizacionConfiguracionModel GetConfigMicroserviciosPersonalizacion()
+        {
+            var msPersonalizacionConfi = _sessionManager.GetConfigMicroserviciosPersonalizacion();
+            msPersonalizacionConfi.PaisHabilitado = msPersonalizacionConfi.PaisHabilitado ?? "";
+            msPersonalizacionConfi.EstrategiaHabilitado = msPersonalizacionConfi.EstrategiaHabilitado ?? "";
+            msPersonalizacionConfi.GuardaDataEnLocalStorage = msPersonalizacionConfi.GuardaDataEnLocalStorage ?? "";
+            msPersonalizacionConfi.GuardaDataEnSession = msPersonalizacionConfi.GuardaDataEnSession ?? "";
+            
+            return msPersonalizacionConfi;
         }
     }
 }
