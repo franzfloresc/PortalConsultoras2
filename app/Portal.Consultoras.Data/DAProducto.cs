@@ -70,7 +70,7 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        public IDataReader GetProductoComercialByCampaniaBySearchRegionZona(int CampaniaID, int RowCount, int Criterio, string CodigoDescripcion, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona, bool validarOpt)
+        public IDataReader GetProductoComercialByCampaniaBySearchRegionZona(int CampaniaID, int RowCount, int Criterio, string CodigoDescripcion, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona, bool validarOpt, string CodigoPrograma, int NumeroPedido)
         {
             bool busquedaCuv = Criterio == 1;
 
@@ -87,6 +87,8 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@ZonaID", DbType.Int32, ZonaID);
             Context.Database.AddInParameter(command, "@CodigoRegion", DbType.AnsiString, CodigoRegion);
             Context.Database.AddInParameter(command, "@CodigoZona", DbType.AnsiString, CodigoZona);
+            Context.Database.AddInParameter(command, "@CodigoPrograma", DbType.AnsiString, CodigoPrograma);
+            Context.Database.AddInParameter(command, "@NumeroPedido", DbType.Int32, NumeroPedido);
 
             return Context.ExecuteReader(command);
         }

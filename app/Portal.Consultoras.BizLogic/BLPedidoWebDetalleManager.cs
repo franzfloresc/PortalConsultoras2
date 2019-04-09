@@ -61,7 +61,7 @@ namespace Portal.Consultoras.BizLogic
                 return BEPedidoWebResult.BuildError(code: validacionHorario.MotivoPedidoLock.ToString(), message: validacionHorario.Mensaje);
 
             var producto = _blProducto.SelectProductoByCodigoDescripcionSearchRegionZona(model.PaisID, model.CampaniaID, model.CUV,
-                usuario.RegionID, usuario.ZonaID, usuario.CodigorRegion, usuario.CodigoZona, 1, 5, true).FirstOrDefault();
+                usuario.RegionID, usuario.ZonaID, usuario.CodigorRegion, usuario.CodigoZona, 1, 5, true, string.Empty, 0).FirstOrDefault();
             if (producto == null)
                 return BEPedidoWebResult.BuildError(code: ResponseCode.ERROR_PRODUCTO_NO_ENCONTRADO, message: Resources.PedidoInsertMessages.ValidacionProductoByCUVNoEncontrado);
 

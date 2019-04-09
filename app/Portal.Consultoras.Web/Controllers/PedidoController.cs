@@ -1841,10 +1841,12 @@ namespace Portal.Consultoras.Web.Controllers
                     userModel.RegionID,
                     userModel.ZonaID,
                     userModel.CodigorRegion,
-                    userModel.CodigoZona,
+                    userModel.CodigoZona,                    
                     criterioBusqueda,
                     cantidadFilas,
-                    true).ToList();
+                    true,
+                    userModel.CodigoPrograma,
+                    userModel.ConsecutivoNueva + 1).ToList();
             }
 
             return productos;

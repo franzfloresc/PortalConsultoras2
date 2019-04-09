@@ -27,7 +27,8 @@ namespace Portal.Consultoras.Web.Controllers
                 List<BEProducto> listProducto;
                 using (ODSServiceClient sv = new ODSServiceClient())
                 {
-                    listProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(userData.PaisID, userData.CampaniaID, IncentivoCUV, userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, 1, 1, true).ToList();
+                    listProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(userData.PaisID, userData.CampaniaID, IncentivoCUV, userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, 1, 1, true,
+                        userData.CodigoPrograma, userData.ConsecutivoNueva + 1).ToList();
                 }
                 if (listProducto.Count == 0) return RedirectToAction("Index", "Bienvenida");
 

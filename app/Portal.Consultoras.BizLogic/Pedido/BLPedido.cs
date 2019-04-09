@@ -1012,7 +1012,9 @@ namespace Portal.Consultoras.BizLogic.Pedido
                                     usuario.CodigoZona,
                                     productoBuscar.Criterio,
                                     productoBuscar.RowCount,
-                                    productoBuscar.ValidarOpt);
+                                    productoBuscar.ValidarOpt,
+                                    usuario.CodigoPrograma,
+                                    usuario.ConsecutivoNueva + 1);
 
                 if (!lstProducto.Any()) return ProductoBuscarRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_NOEXISTE);
 
