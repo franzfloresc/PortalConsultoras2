@@ -66,7 +66,7 @@ namespace Portal.Consultoras.Web.Controllers
             int cantKit = lstKit.Count();
             int cantDemo = lstDemo.Count();
             ViewBag.Moneda = userData.Simbolo;
-            ViewBag.RutaImagenNoDisponible = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.rutaImagenNotFoundAppCatalogo);
+            ViewBag.RutaImagenNoDisponible = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.urlSinImagenTiposyTonos);
 
             if (lstKit != null || lstDemo != null)
             {
