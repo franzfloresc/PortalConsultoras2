@@ -79,7 +79,6 @@ namespace Portal.Consultoras.Web.Controllers
         protected readonly EstrategiaComponenteProvider _estrategiaComponenteProvider;
         protected readonly ConfiguracionPaisProvider _configuracionPaisProvider;
         protected readonly ConfiguracionManagerProvider _configuracionManagerProvider;
-        protected readonly AdministrarEstrategiaProvider administrarEstrategiaProvider;
         protected readonly MenuProvider _menuProvider;
         protected readonly ChatEmtelcoProvider _chatEmtelcoProvider;
         protected readonly ComunicadoProvider _comunicadoProvider;
@@ -107,7 +106,6 @@ namespace Portal.Consultoras.Web.Controllers
         public BaseController() : this(Web.SessionManager.SessionManager.Instance, LogManager.LogManager.Instance)
         {
             _tablaLogicaProvider = new TablaLogicaProvider();
-            administrarEstrategiaProvider = new AdministrarEstrategiaProvider();
             _showRoomProvider = new ShowRoomProvider(_tablaLogicaProvider);
             _baseProvider = new BaseProvider();
             _guiaNegocioProvider = new GuiaNegocioProvider();
@@ -1437,20 +1435,20 @@ namespace Portal.Consultoras.Web.Controllers
             bool r = false;
             try
             {
-                ServiceUsuario.BEUsuario beusuario;
+                string region = ConfigurationManager.AppSettings.Get(Constantes.ConfiguracionManager.BonificacionesRegiones);
+                List<string> ListRegion = region == null ? new List<string>() : region.Split(new char[] { ',' }).ToList();
+                var validaRegion = ListRegion.Where(x => x.Contains(userData.CodigorRegion));
 
-                using (var sv = new ServiceUsuario.UsuarioServiceClient())
+                if (validaRegion.Any())
                 {
-                    beusuario = sv.Select(userData.PaisID, userData.CodigoUsuario);
-                }
-
-                if (beusuario != null)
-                {
-                    r = beusuario.IndicadorConsultoraDigital > 0;
-                }
-                else
-                {
-                    r = false;
+                    using (var sv = new ServiceUsuario.UsuarioServiceClient())
+                    {
+                        ServiceUsuario.BEUsuario beusuario = sv.Select(userData.PaisID, userData.CodigoUsuario);
+                        if (beusuario != null)
+                        {
+                            r = beusuario.IndicadorConsultoraDigital > 0;
+                        }
+                    }
                 }
             }
             catch (Exception e)

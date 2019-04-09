@@ -1,18 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web.Mvc;
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.AdministrarEstrategia;
 using Portal.Consultoras.Web.Models.Estrategia;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceSAC;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class AdministrarEstrategiaMasivoController : BaseController
+    public class AdministrarEstrategiaMasivoController : BaseAdmController
     {
         protected OfertaBaseProvider _ofertaBaseProvider;
 
