@@ -251,6 +251,7 @@ var menuModule = (function () {
 
             if (ConstantesModule.CodigoPalanca.ATP == codigo) {
                 BannerInteractivo.ConsultaAjaxRedireccionaLanding(function () {
+                    console.log('analytic2-aceptar [menu contenedor]');
                     window.location = window.location.origin + url;
                 });
                 return false;

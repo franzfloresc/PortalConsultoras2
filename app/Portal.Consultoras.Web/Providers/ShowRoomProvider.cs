@@ -26,11 +26,11 @@ namespace Portal.Consultoras.Web.Providers
     /// </summary>
     public class ShowRoomProvider : OfertaBaseProvider
     {
-        private const string ImageUrlCode = "bar_in_img";
-        private const string RedirectCode = "bar_in_url";
-        private const string EnabledCode = "bar_in_act";
-        private const string NoUrlAllowed = "bar_in_no";
-        private const short Pl50Key = 98;
+        //private const string ImageUrlCode = "bar_in_img";
+        //private const string RedirectCode = "bar_in_url";
+        //private const string EnabledCode = "bar_in_act";
+        //private const string NoUrlAllowed = "bar_in_no";
+        //private const short Pl50Key = 98;
         const int SHOWROOM_ESTADO_ACTIVO = 1;
 
         private readonly TablaLogicaProvider _tablaLogicaProvider;
@@ -76,18 +76,18 @@ namespace Portal.Consultoras.Web.Providers
         /// <returns>Configuracion de Banner inferior</returns>
         public IBannerInferiorConfiguracion ObtenerBannerConfiguracion(int paisId)
         {
-            var pl50configs = _tablaLogicaProvider.GetTablaLogicaDatos(paisId, Pl50Key);
-            var enabledObject = pl50configs.FirstOrDefault(c => c.Codigo == EnabledCode);
-            var redirectUrlObject = pl50configs.FirstOrDefault(c => c.Codigo == RedirectCode);
-            var imageUrlObject = pl50configs.FirstOrDefault(c => c.Codigo == ImageUrlCode);
-            var NoUrlPermitidasObject = pl50configs.FirstOrDefault(c => c.Codigo == NoUrlAllowed);
+            var pl50configs = _tablaLogicaProvider.GetTablaLogicaDatos(paisId, ConsTablaLogica.Plan20Activacion.TablaLogicaId);
+            var enabledObject = _tablaLogicaProvider.GatCampoValorBool(pl50configs, ConsTablaLogica.Plan20Activacion.EnabledCode);
+            var redirectUrlObject = _tablaLogicaProvider.GatCampoValor(pl50configs, ConsTablaLogica.Plan20Activacion.RedirectCode);
+            var imageUrlObject = _tablaLogicaProvider.GatCampoValor(pl50configs, ConsTablaLogica.Plan20Activacion.ImageUrlCode);
+            var NoUrlPermitidasObject = _tablaLogicaProvider.GatCampoValor(pl50configs, ConsTablaLogica.Plan20Activacion.NoUrlAllowed);
 
             return new BannerInferiorConfiguracion
             {
-                Activo = enabledObject != null && bool.Parse(enabledObject.Valor),
-                UrlImagen = imageUrlObject != null ? imageUrlObject.Valor : string.Empty,
-                UrlRedireccion = redirectUrlObject != null ? redirectUrlObject.Valor : string.Empty,
-                RutasParcialesExcluidas = NoUrlPermitidasObject != null ? NoUrlPermitidasObject.Valor.Split(';') : new string[0]
+                Activo = enabledObject,
+                UrlImagen = imageUrlObject,
+                UrlRedireccion = redirectUrlObject,
+                RutasParcialesExcluidas = NoUrlPermitidasObject != "" ? NoUrlPermitidasObject.Split(';') : new string[0]
             };
         }
 

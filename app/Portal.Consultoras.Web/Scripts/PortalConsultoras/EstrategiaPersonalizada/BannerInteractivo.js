@@ -5,11 +5,16 @@
         //Landing: '/ArmaTuPack/Detalle'
     };
 
+    var fnCancelar = function () {
+        console.log('analytic2-cancelar');
+    };
+
     var _fnMensaje = function (fn) {
+         
         messageConfirmacion(
             '¿Quieres eliminar el pack que tienes y empezar de nuevo?',
             'Recuerda que solo puedes armar 1 pack',
-            fn
+            fn, fnCancelar
         );
     }
     var _fnValidaExisteTipoEstrategiaEnPedido = function () {
@@ -40,6 +45,7 @@
         fnLunchAnalytics($(objeto));
         if (popup) {
             _fnMensaje(function () {
+                console.log('analytic2-aceptar [banner interactivo]');
                 window.location.href = url;
             });
         }

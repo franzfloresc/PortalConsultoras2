@@ -95,13 +95,24 @@ namespace Portal.Consultoras.Web.Providers
             return GatCampoValor(datos, codigo);
         }
 
-        private string GatCampoValor(List<TablaLogicaDatosModel> datos, string codigo)
+        public string GatCampoValor(List<TablaLogicaDatosModel> datos, string codigo)
         {
             datos = datos ?? new List<TablaLogicaDatosModel>();
 
             var par = datos.FirstOrDefault(d => d.Codigo == codigo) ?? new TablaLogicaDatosModel();
 
             return Util.Trim(par.Valor);
+        }
+        
+        public bool GatCampoValorBool(List<TablaLogicaDatosModel> datos, string codigo)
+        {
+            var strCodigo = GatCampoValor(datos, codigo);
+            bool valor = false;
+            if (strCodigo != "")
+            {
+                bool.TryParse(strCodigo, out valor);
+            }
+            return valor;
         }
 
         public bool GetTablaLogicaDatoValorBool(int paisId, short tablaLogicaId, string codigo, bool saveInSession = false)
