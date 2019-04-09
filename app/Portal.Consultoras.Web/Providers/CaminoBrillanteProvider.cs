@@ -51,7 +51,11 @@ namespace Portal.Consultoras.Web.Providers
                 var ofertas = sessionManager.GetKitCaminoBrillante();
                 if (ofertas == null || ofertas.Count == 0)
                 {
-                    var oConsultora = sessionManager.GetConsultoraCaminoBrillante();
+                    //var oConsultora = sessionManager.GetConsultoraCaminoBrillante();
+                    var oConsultora = ResumenConsultoraCaminoBrillante();
+                    if (oConsultora == null || oConsultora.NivelConsultora.Count() == 0 || oConsultora.Niveles.Count() == 0) return null;
+                    codigoNivel = oConsultora.NivelConsultora.Where(x => x.EsActual).Select(z => z.Nivel).FirstOrDefault();
+
                     using (var svc = new UsuarioServiceClient())
                         ofertas = svc.GetKitsCaminoBrillante(_userData, 201903, Convert.ToInt32(codigoNivel)).ToList();
                     if (ofertas != null)
