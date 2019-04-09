@@ -2,7 +2,18 @@
 USE BelcorpPeru
 GO
 GO
-ALTER PROCEDURE [dbo].[usp_SBMicroservicios_TipoEstrategia]
+IF EXISTS (
+		SELECT 1
+		FROM sys.procedures
+		WHERE name = N'usp_SBMicroservicios_TipoEstrategia'
+		)
+BEGIN
+	DROP PROCEDURE usp_SBMicroservicios_TipoEstrategia
+END
+GO
+
+
+CREATE PROCEDURE [dbo].[usp_SBMicroservicios_TipoEstrategia]
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -40,13 +51,25 @@ BEGIN
     FechaModificacion
     FROM TipoEstrategia WITH (NOLOCK)
 END
-GO
+
+
 
 GO
 USE BelcorpMexico
 GO
 GO
-ALTER PROCEDURE [dbo].[usp_SBMicroservicios_TipoEstrategia]
+IF EXISTS (
+		SELECT 1
+		FROM sys.procedures
+		WHERE name = N'usp_SBMicroservicios_TipoEstrategia'
+		)
+BEGIN
+	DROP PROCEDURE usp_SBMicroservicios_TipoEstrategia
+END
+GO
+
+
+CREATE PROCEDURE [dbo].[usp_SBMicroservicios_TipoEstrategia]
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -84,13 +107,25 @@ BEGIN
     FechaModificacion
     FROM TipoEstrategia WITH (NOLOCK)
 END
-GO
+
+
 
 GO
 USE BelcorpColombia
 GO
 GO
-ALTER PROCEDURE [dbo].[usp_SBMicroservicios_TipoEstrategia]
+IF EXISTS (
+		SELECT 1
+		FROM sys.procedures
+		WHERE name = N'usp_SBMicroservicios_TipoEstrategia'
+		)
+BEGIN
+	DROP PROCEDURE usp_SBMicroservicios_TipoEstrategia
+END
+GO
+
+
+CREATE PROCEDURE [dbo].[usp_SBMicroservicios_TipoEstrategia]
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -128,13 +163,25 @@ BEGIN
     FechaModificacion
     FROM TipoEstrategia WITH (NOLOCK)
 END
-GO
+
+
 
 GO
 USE BelcorpSalvador
 GO
 GO
-ALTER PROCEDURE [dbo].[usp_SBMicroservicios_TipoEstrategia]
+IF EXISTS (
+		SELECT 1
+		FROM sys.procedures
+		WHERE name = N'usp_SBMicroservicios_TipoEstrategia'
+		)
+BEGIN
+	DROP PROCEDURE usp_SBMicroservicios_TipoEstrategia
+END
+GO
+
+
+CREATE PROCEDURE [dbo].[usp_SBMicroservicios_TipoEstrategia]
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -172,13 +219,25 @@ BEGIN
     FechaModificacion
     FROM TipoEstrategia WITH (NOLOCK)
 END
-GO
+
+
 
 GO
 USE BelcorpPuertoRico
 GO
 GO
-ALTER PROCEDURE [dbo].[usp_SBMicroservicios_TipoEstrategia]
+IF EXISTS (
+		SELECT 1
+		FROM sys.procedures
+		WHERE name = N'usp_SBMicroservicios_TipoEstrategia'
+		)
+BEGIN
+	DROP PROCEDURE usp_SBMicroservicios_TipoEstrategia
+END
+GO
+
+
+CREATE PROCEDURE [dbo].[usp_SBMicroservicios_TipoEstrategia]
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -216,13 +275,25 @@ BEGIN
     FechaModificacion
     FROM TipoEstrategia WITH (NOLOCK)
 END
-GO
+
+
 
 GO
 USE BelcorpPanama
 GO
 GO
-ALTER PROCEDURE [dbo].[usp_SBMicroservicios_TipoEstrategia]
+IF EXISTS (
+		SELECT 1
+		FROM sys.procedures
+		WHERE name = N'usp_SBMicroservicios_TipoEstrategia'
+		)
+BEGIN
+	DROP PROCEDURE usp_SBMicroservicios_TipoEstrategia
+END
+GO
+
+
+CREATE PROCEDURE [dbo].[usp_SBMicroservicios_TipoEstrategia]
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -260,13 +331,25 @@ BEGIN
     FechaModificacion
     FROM TipoEstrategia WITH (NOLOCK)
 END
-GO
+
+
 
 GO
 USE BelcorpGuatemala
 GO
 GO
-ALTER PROCEDURE [dbo].[usp_SBMicroservicios_TipoEstrategia]
+IF EXISTS (
+		SELECT 1
+		FROM sys.procedures
+		WHERE name = N'usp_SBMicroservicios_TipoEstrategia'
+		)
+BEGIN
+	DROP PROCEDURE usp_SBMicroservicios_TipoEstrategia
+END
+GO
+
+
+CREATE PROCEDURE [dbo].[usp_SBMicroservicios_TipoEstrategia]
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -304,13 +387,25 @@ BEGIN
     FechaModificacion
     FROM TipoEstrategia WITH (NOLOCK)
 END
-GO
+
+
 
 GO
 USE BelcorpEcuador
 GO
 GO
-ALTER PROCEDURE [dbo].[usp_SBMicroservicios_TipoEstrategia]
+IF EXISTS (
+		SELECT 1
+		FROM sys.procedures
+		WHERE name = N'usp_SBMicroservicios_TipoEstrategia'
+		)
+BEGIN
+	DROP PROCEDURE usp_SBMicroservicios_TipoEstrategia
+END
+GO
+
+
+CREATE PROCEDURE [dbo].[usp_SBMicroservicios_TipoEstrategia]
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -348,13 +443,25 @@ BEGIN
     FechaModificacion
     FROM TipoEstrategia WITH (NOLOCK)
 END
-GO
+
+
 
 GO
 USE BelcorpDominicana
 GO
 GO
-ALTER PROCEDURE [dbo].[usp_SBMicroservicios_TipoEstrategia]
+IF EXISTS (
+		SELECT 1
+		FROM sys.procedures
+		WHERE name = N'usp_SBMicroservicios_TipoEstrategia'
+		)
+BEGIN
+	DROP PROCEDURE usp_SBMicroservicios_TipoEstrategia
+END
+GO
+
+
+CREATE PROCEDURE [dbo].[usp_SBMicroservicios_TipoEstrategia]
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -392,13 +499,25 @@ BEGIN
     FechaModificacion
     FROM TipoEstrategia WITH (NOLOCK)
 END
-GO
+
+
 
 GO
 USE BelcorpCostaRica
 GO
 GO
-ALTER PROCEDURE [dbo].[usp_SBMicroservicios_TipoEstrategia]
+IF EXISTS (
+		SELECT 1
+		FROM sys.procedures
+		WHERE name = N'usp_SBMicroservicios_TipoEstrategia'
+		)
+BEGIN
+	DROP PROCEDURE usp_SBMicroservicios_TipoEstrategia
+END
+GO
+
+
+CREATE PROCEDURE [dbo].[usp_SBMicroservicios_TipoEstrategia]
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -436,13 +555,25 @@ BEGIN
     FechaModificacion
     FROM TipoEstrategia WITH (NOLOCK)
 END
-GO
+
+
 
 GO
 USE BelcorpChile
 GO
 GO
-ALTER PROCEDURE [dbo].[usp_SBMicroservicios_TipoEstrategia]
+IF EXISTS (
+		SELECT 1
+		FROM sys.procedures
+		WHERE name = N'usp_SBMicroservicios_TipoEstrategia'
+		)
+BEGIN
+	DROP PROCEDURE usp_SBMicroservicios_TipoEstrategia
+END
+GO
+
+
+CREATE PROCEDURE [dbo].[usp_SBMicroservicios_TipoEstrategia]
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -480,13 +611,25 @@ BEGIN
     FechaModificacion
     FROM TipoEstrategia WITH (NOLOCK)
 END
-GO
+
+
 
 GO
 USE BelcorpBolivia
 GO
 GO
-ALTER PROCEDURE [dbo].[usp_SBMicroservicios_TipoEstrategia]
+IF EXISTS (
+		SELECT 1
+		FROM sys.procedures
+		WHERE name = N'usp_SBMicroservicios_TipoEstrategia'
+		)
+BEGIN
+	DROP PROCEDURE usp_SBMicroservicios_TipoEstrategia
+END
+GO
+
+
+CREATE PROCEDURE [dbo].[usp_SBMicroservicios_TipoEstrategia]
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -524,6 +667,7 @@ BEGIN
     FechaModificacion
     FROM TipoEstrategia WITH (NOLOCK)
 END
-GO
+
+
 
 GO

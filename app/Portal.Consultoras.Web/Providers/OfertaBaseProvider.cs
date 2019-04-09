@@ -77,7 +77,7 @@ namespace Portal.Consultoras.Web.Providers
             try
             {
                 respuesta = JsonConvert.DeserializeObject<OutputOferta>(jsonString);
-                estrategia = respuesta.Result;
+                estrategia = respuesta.Result ?? new Estrategia();
             }
             catch (Exception ex)
             {
@@ -124,6 +124,11 @@ namespace Portal.Consultoras.Web.Providers
 
             //List<string> listaCuvPrecio0 = new List<string>();
             string codTipoEstrategia = string.Empty, codCampania = string.Empty;
+
+            if (respuesta.Result == null)
+            {
+                return estrategias;
+            }
 
             foreach (Models.Search.ResponseOferta.Estructura.Estrategia item in respuesta.Result)
             {

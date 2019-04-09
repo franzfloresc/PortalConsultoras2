@@ -263,6 +263,30 @@
   <wsdl:message name="IPedidoService_GetConfiguracionOfertaFinalCarrusel_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetConfiguracionOfertaFinalCarruselResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_GetRegaloOfertaFinal_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetRegaloOfertaFinal" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetRegaloOfertaFinal_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetRegaloOfertaFinalResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ValidaRegaloPedido_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidaRegaloPedido" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ValidaRegaloPedido_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidaRegaloPedidoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_AgregaRegaloDefault_InputMessage">
+    <wsdl:part name="parameters" element="tns:AgregaRegaloDefault" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_AgregaRegaloDefault_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AgregaRegaloDefaultResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ListaRegalosApp_InputMessage">
+    <wsdl:part name="parameters" element="tns:ListaRegalosApp" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ListaRegalosApp_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ListaRegalosAppResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_InsertOfertaFinalCarrusel_InputMessage">
     <wsdl:part name="parameters" element="tns:InsertOfertaFinalCarrusel" />
   </wsdl:message>
@@ -2682,6 +2706,22 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetConfiguracionOfertaFinalCarrusel" message="tns:IPedidoService_GetConfiguracionOfertaFinalCarrusel_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetConfiguracionOfertaFinalCarruselResponse" message="tns:IPedidoService_GetConfiguracionOfertaFinalCarrusel_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetRegaloOfertaFinal">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetRegaloOfertaFinal" message="tns:IPedidoService_GetRegaloOfertaFinal_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetRegaloOfertaFinalResponse" message="tns:IPedidoService_GetRegaloOfertaFinal_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidaRegaloPedido">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ValidaRegaloPedido" message="tns:IPedidoService_ValidaRegaloPedido_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ValidaRegaloPedidoResponse" message="tns:IPedidoService_ValidaRegaloPedido_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AgregaRegaloDefault">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/AgregaRegaloDefault" message="tns:IPedidoService_AgregaRegaloDefault_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/AgregaRegaloDefaultResponse" message="tns:IPedidoService_AgregaRegaloDefault_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ListaRegalosApp">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ListaRegalosApp" message="tns:IPedidoService_ListaRegalosApp_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ListaRegalosAppResponse" message="tns:IPedidoService_ListaRegalosApp_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="InsertOfertaFinalCarrusel">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertOfertaFinalCarrusel" message="tns:IPedidoService_InsertOfertaFinalCarrusel_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsertOfertaFinalCarruselResponse" message="tns:IPedidoService_InsertOfertaFinalCarrusel_OutputMessage" />
@@ -4518,6 +4558,42 @@
     </wsdl:operation>
     <wsdl:operation name="GetConfiguracionOfertaFinalCarrusel">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetConfiguracionOfertaFinalCarrusel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRegaloOfertaFinal">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetRegaloOfertaFinal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidaRegaloPedido">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ValidaRegaloPedido" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AgregaRegaloDefault">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/AgregaRegaloDefault" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListaRegalosApp">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ListaRegalosApp" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -8257,6 +8333,42 @@
     </wsdl:operation>
     <wsdl:operation name="GetConfiguracionOfertaFinalCarrusel">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetConfiguracionOfertaFinalCarrusel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRegaloOfertaFinal">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetRegaloOfertaFinal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidaRegaloPedido">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ValidaRegaloPedido" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AgregaRegaloDefault">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/AgregaRegaloDefault" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListaRegalosApp">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ListaRegalosApp" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
