@@ -1832,7 +1832,8 @@ function EscogerSolucion(opcion, event) {
     var id = opcion.id;
     var isChecked = tagCheck.is(':checked');
     if (id == "" || !isChecked) {
-        tagDivInfo.hide().children().hide(); //ocultamos la capa padre y los hijos
+        $("#btnIrPaso3").fadeOut(100);
+        tagDivInfo.fadeOut(100).children().fadeOut(100); //ocultamos la capa padre y los hijos
         $(opcion).parents(".opcion_cdr").removeClass("opcion_cdr_seleccionada");
         return false;
     }

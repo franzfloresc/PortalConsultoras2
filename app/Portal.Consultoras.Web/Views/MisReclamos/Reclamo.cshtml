@@ -77,15 +77,13 @@
                     </div>
                 </div>
                 <div class="text-center">
-                    <button type="button" class="border-radius-4 text-bold btn_cdr btn_ir_paso_2" id="IrPAso2">SIGUIENTE</button>
+                    <button type="button" class="border-radius-4 text-bold btn_cdr btn_ir_paso_2" id="IrPAso2">Siguiente</button>
                 </div>
                 <br />
             </div>
             <div class="content_reclamo" id="Paso2" style="display: none; max-width: 890px;">
                 @*<div class="content_reclamo" id="Cambio1" style="display: none; max-width: 890px;">
-                    </div>*@
-
-
+                </div>*@
                 <div class="subtitulo_reclamo">Escoge una solución</div>
                 <div id="divOperacion" class="text-center lista_opciones_cdr_wrapper">
                 </div>
@@ -154,95 +152,103 @@
                         <!-- FIN - INFORMACIÓN CUANDO SE SELECCIONA LA OPCIÓN DE DEVOLUCIÓN Y EL PRODUCTO FORMA PARTE DE UN SET -->
                     </div>
                 </div>
+                <div class="text-center">
                 <button type="button" id="btnIrPaso3" class="border-radius-4 text-bold btn_cdr btn_solucion_reclamo" style="display:none;" onclick="IrAFinalizar()" id="btnSiguiente">Siguiente</button>
+                    <a class="enlace__regresar_paso_anterior" title="Regresar a paso anterior">
+                        <span class="icono_back_arrow">
+                            <img src="@Url.Content("~/Content/Images/icono_volver.svg")" alt="Regresar a paso anterior" />
+                        </span>
+                        <span class="text-bold">Regresar a paso anterior</span>
+                    </a>
+                </div>
                 @*<div class="content_reclamo" id="Cambio2" style="display: none;">
-                        <div class="subtitulo_reclamo_light">ELEGISTE</div>
-                        <div class="titulo_belcorp_reclamo">CAMBIARLO POR OTRO PRODUCTO</div>
-                        <div class="linea_gris" style="height: 1px;"></div>
-                        <div class="texto_reclamo">
-                            <input type="hidden" id="hdMontoMinimoReclamo" />
-                            Puedes cambiarlo por otro producto(s) cuyo monto sea mayor o igual al que reclamas (<span id="spnSimboloMonedaReclamo">S/.</span><span id="spnMontoMinimoReclamoFormato">15</span>)<br />
-                            Búscalo en tus catálogos de Campaña <span id="spnNumeroCampaniaReclamo">15</span>:
-                        </div>
-                        <div class="text-center">
-                            <input type="text" placeholder="Código" class="codigo_reclamo ValidaNumeral ValidaPasteNumeral valid" id="txtCUV2_2" />
-                            <input type="text" placeholder="Descripción del producto" id="txtCUVDescripcion2_2" readonly="readonly" class="descripcion_reclamo" style="width: 369px;" />
-                            <input type="text" placeholder="Precio" class="precio_reclamo" id="txtCUVPrecio2_2" readonly="readonly" />
-                            <input type="hidden" id="hdCuvPrecio2_2" />
-                            <input type="hidden" id="hdParametriaCdr_2" />
-                            <input type="hidden" id="hdParametriaAbsCdr_2" />
-                            <input type="hidden" id="hdCuvPrecio2_2" />
-                            <input type="hidden" id="hdCdrWebDatos_Ssic_2" />
-                            <div class="rango_reclamo" data-cantidad-contenedor="">
-                                <input type="text" name="Cantidad" id="txtCantidad2_2" value="1" data-input="cantidad" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid"
+            <div class="subtitulo_reclamo_light">ELEGISTE</div>
+            <div class="titulo_belcorp_reclamo">CAMBIARLO POR OTRO PRODUCTO</div>
+            <div class="linea_gris" style="height: 1px;"></div>
+            <div class="texto_reclamo">
+                <input type="hidden" id="hdMontoMinimoReclamo" />
+                Puedes cambiarlo por otro producto(s) cuyo monto sea mayor o igual al que reclamas (<span id="spnSimboloMonedaReclamo">S/.</span><span id="spnMontoMinimoReclamoFormato">15</span>)<br />
+                Búscalo en tus catálogos de Campaña <span id="spnNumeroCampaniaReclamo">15</span>:
+            </div>
+            <div class="text-center">
+                <input type="text" placeholder="Código" class="codigo_reclamo ValidaNumeral ValidaPasteNumeral valid" id="txtCUV2_2" />
+                <input type="text" placeholder="Descripción del producto" id="txtCUVDescripcion2_2" readonly="readonly" class="descripcion_reclamo" style="width: 369px;" />
+                <input type="text" placeholder="Precio" class="precio_reclamo" id="txtCUVPrecio2_2" readonly="readonly" />
+                <input type="hidden" id="hdCuvPrecio2_2" />
+                <input type="hidden" id="hdParametriaCdr_2" />
+                <input type="hidden" id="hdParametriaAbsCdr_2" />
+                <input type="hidden" id="hdCuvPrecio2_2" />
+                <input type="hidden" id="hdCdrWebDatos_Ssic_2" />
+                <div class="rango_reclamo" data-cantidad-contenedor="">
+                    <input type="text" name="Cantidad" id="txtCantidad2_2" value="1" data-input="cantidad" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid"
 
-                                       attrKey="PreValidarCUV"
-                                       onfocus=" SeleccionarContenido(this) ">
-                                <div class="liquidacion_rango_right_pedido">
-                                    <a class="mas modificarPrecioMas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                                    <a class="menos modificarPrecioMenos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="/Content/Images/Esika/menos.png" alt=""></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="total_precio_reclamo">
-                            <input type="hidden" id="hdImporteTotal2" />
-                            Total: <span id="spnImporteTotal2"></span>
-                        </div>
-                        <hr class="clear" />
-                        <div class="linea_separadora_roja" style="height: 2px;"></div>
-                        <a class="btn_paso_anterior" href="javascript:;" id="RegresarPaso2">REGRESAR</a>
-                        <a class="btn_si_stock_cdr" href="javascript:;" style="width: 296px;" id="CambioProducto2">CÁMBIALO POR ESTE PRODUCTO</a>
-                        <hr class="clear" />
+                           attrKey="PreValidarCUV"
+                           onfocus=" SeleccionarContenido(this) ">
+                    <div class="liquidacion_rango_right_pedido">
+                        <a class="mas modificarPrecioMas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                        <a class="menos modificarPrecioMenos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="/Content/Images/Esika/menos.png" alt=""></a>
                     </div>
-                    <div id="Cambio3">
-                        <div class="content_reclamo" data-tipo-confirma="cambio" style="display: none;">
-                            <div class="subtitulo_reclamo">Confirma tu elección</div>
-                            <div data-detalle-confirma="" data-detalle-confirma-tipo2="cambio2">
-                                <div class="content_resumen_cambio">
-                                    <div class="titulo_resumen">VAS A CAMBIAR:</div>
-                                    <div class="descri_producto_reclamo">
-                                        <span id="spnCuv1">00411</span> <br />
-                                        <b><span id="spnDescripcionCuv1">Berrylicious shampoo rojo 375 ml</span></b><br />
-                                        x<span id="spnCantidadCuv1">2</span> unidades
-                                    </div>
-                                </div>
-                                <div class="indicador_reclamo"></div>
-                                <div class="content_resumen_cambio">
-                                    <div class="titulo_resumen">POR:</div>
-                                    <div class="descri_producto_reclamo">
-                                        <span id="spnCuv2">00411</span> <br />
-                                        <b><span id="spnDescripcionCuv2">Berrylicious shampoo rojo 375 ml</span></b><br />
-                                        x<span id="spnCantidadCuv2">2</span> unidades
-                                    </div>
-                                </div>
-                            </div>
-                            <hr class="clear" />
-                            <div class="linea_gris"></div>
-                            <div class="mensaje_advertencia_reclamo">
-                                <span style="margin-bottom: 10px; display: block">TEN EN CUENTA: </span>
-                                <span id="spnMensajeTenerEnCuentaCambio"></span>
-                            </div>
-                            <div class="linea_separadora_roja" style="height: 2px;"></div>
-                            <a class="btn_paso_anterior" href="javascript:;" id="RegresarCambio1">REGRESAR</a>
-                            <a class="btn_si_stock_cdr" href="javascript:;" style="width: 296px;" id="IrPaso3" data-cambiopaso="3">ACEPTAR LA SOLUCIÓN</a>
-                            <hr class="clear" />
+                </div>
+            </div>
+            <div class="total_precio_reclamo">
+                <input type="hidden" id="hdImporteTotal2" />
+                Total: <span id="spnImporteTotal2"></span>
+            </div>
+            <hr class="clear" />
+            <div class="linea_separadora_roja" style="height: 2px;"></div>
+            <a class="btn_paso_anterior" href="javascript:;" id="RegresarPaso2">REGRESAR</a>
+            <a class="btn_si_stock_cdr" href="javascript:;" style="width: 296px;" id="CambioProducto2">CÁMBIALO POR ESTE PRODUCTO</a>
+            <hr class="clear" />
+        </div>
+        <div id="Cambio3">
+            <div class="content_reclamo" data-tipo-confirma="cambio" style="display: none;">
+                <div class="subtitulo_reclamo">Confirma tu elección</div>
+                <div data-detalle-confirma="" data-detalle-confirma-tipo2="cambio2">
+                    <div class="content_resumen_cambio">
+                        <div class="titulo_resumen">VAS A CAMBIAR:</div>
+                        <div class="descri_producto_reclamo">
+                            <span id="spnCuv1">00411</span> <br />
+                            <b><span id="spnDescripcionCuv1">Berrylicious shampoo rojo 375 ml</span></b><br />
+                            x<span id="spnCantidadCuv1">2</span> unidades
                         </div>
-                        <div class="content_reclamo" data-tipo-confirma="canje" style="display: none;">
-                            <div class="subtitulo_reclamo" style="margin-bottom: 15px;">Te proponemos la siguiente solución</div>
-                            <div data-detalle-confirma="" class="descripcion_eleccion_cdr tipografia_lato tipografia_lato_regular">
-                            </div>
-                            <br />
-                            <div class="linea_gris" style="height: 1px;"></div>
-                            <div class="mensaje_advertencia_reclamo">
-                                <span style="margin-bottom: 10px; display: block">TENER EN CUENTA: </span>
-                                <span id="spnMensajeTenerEnCuentaCanje"></span>
-                            </div>
-                            <div class="linea_separadora_roja" style="height: 2px;"></div>
-                            <span class="btn_paso_anterior" id="RegresarCanje1">REGRESAR</span>
-                            <span class="btn_si_stock_cdr" style="width: 296px;" id="IrPaso3" data-cambiopaso="3">ACEPTAR LA SOLUCIÓN</span>
-                            <hr class="clear" />
+                    </div>
+                    <div class="indicador_reclamo"></div>
+                    <div class="content_resumen_cambio">
+                        <div class="titulo_resumen">POR:</div>
+                        <div class="descri_producto_reclamo">
+                            <span id="spnCuv2">00411</span> <br />
+                            <b><span id="spnDescripcionCuv2">Berrylicious shampoo rojo 375 ml</span></b><br />
+                            x<span id="spnCantidadCuv2">2</span> unidades
                         </div>
-                    </div>*@
+                    </div>
+                </div>
+                <hr class="clear" />
+                <div class="linea_gris"></div>
+                <div class="mensaje_advertencia_reclamo">
+                    <span style="margin-bottom: 10px; display: block">TEN EN CUENTA: </span>
+                    <span id="spnMensajeTenerEnCuentaCambio"></span>
+                </div>
+                <div class="linea_separadora_roja" style="height: 2px;"></div>
+                <a class="btn_paso_anterior" href="javascript:;" id="RegresarCambio1">REGRESAR</a>
+                <a class="btn_si_stock_cdr" href="javascript:;" style="width: 296px;" id="IrPaso3" data-cambiopaso="3">ACEPTAR LA SOLUCIÓN</a>
+                <hr class="clear" />
+            </div>
+            <div class="content_reclamo" data-tipo-confirma="canje" style="display: none;">
+                <div class="subtitulo_reclamo" style="margin-bottom: 15px;">Te proponemos la siguiente solución</div>
+                <div data-detalle-confirma="" class="descripcion_eleccion_cdr tipografia_lato tipografia_lato_regular">
+                </div>
+                <br />
+                <div class="linea_gris" style="height: 1px;"></div>
+                <div class="mensaje_advertencia_reclamo">
+                    <span style="margin-bottom: 10px; display: block">TENER EN CUENTA: </span>
+                    <span id="spnMensajeTenerEnCuentaCanje"></span>
+                </div>
+                <div class="linea_separadora_roja" style="height: 2px;"></div>
+                <span class="btn_paso_anterior" id="RegresarCanje1">REGRESAR</span>
+                <span class="btn_si_stock_cdr" style="width: 296px;" id="IrPaso3" data-cambiopaso="3">ACEPTAR LA SOLUCIÓN</span>
+                <hr class="clear" />
+            </div>
+        </div>*@
 
             </div>
             <div class="content_reclamo" id="Paso3" style="display: none;">
@@ -343,14 +349,14 @@
             <br />
             <div id="divDetalleUltimasSolicitudes" class="detalle_solicitudes_wrapper">
             </div>
-            <a class="btn_ver_solicitudes" id="btn_ver_solicitudes" href="javascript:void(0);" onclick="CambioPaso(3)" style="width:100px;margin-top:11px;">IR AL FINAL</a>
+            <a class="btn_ver_solicitudes" id="btn_ver_solicitudes btn_ver_solicitudes--paso3" href="javascript:void(0);" onclick="CambioPaso(3)" style="width:100px;margin-top:11px;">IR AL FINAL</a>
         </div>
 
     </div>
 
     <div class="content_reclamo" id="SolicitudEnviada" style="display:none;  margin-right: auto;">
         <br /><br />
-        <div class="icono_mensaje_alerta icono_check_alerta"></div>
+        <div class="icono_mensaje_alerta icono_check_alerta icono_check_alerta--paso3"></div>
         <div class="texto_mensaje_alerta" id="mensaje_exclamacion_titulo">¡SOLICITUD<b> ENVIADA</b>!</div>
         <div class="sub_texto_alerta" id="mensaje_exclamacion_texto">Vamos a evaluarla y en un plazo de 30 minutos te enviaremos una respuesta a tu correo electrónico</div>
         <div class="content_btn_imprimir">
@@ -372,7 +378,7 @@
             <div class="grilla_detalle_reclamo">
                 <div class="content_listado_reclamo">
                     <div class="listado_producto_reclamo text_gris_reclamo">PRODUCTO</div>
-                    <div class="listado_solicitud_reclamo text_gris_reclamo">SOLICITUD</div>
+                    <div class="listado_solicitud_reclamo listado_solicitud_reclamo--paso3 text_gris_reclamo">SOLICITUD</div>
                     <div class="listado_solicitada_reclamo text_gris_reclamo">SOLUCION SOLICITADA</div>
                 </div>
                 <div id="divDetalleEnviar">
