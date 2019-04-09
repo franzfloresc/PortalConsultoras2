@@ -595,7 +595,7 @@ div .ficha__producto__precio__normal {
         min-height: inherit;
     }
         .ficha__producto__precio > div > div {
-            padding-right: 0 !important!important;
+            padding-right: 0 !important;
             font-size: 11px;
         }
 
