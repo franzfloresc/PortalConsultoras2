@@ -1044,17 +1044,27 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     x.CodigoPalanca = Constantes.ConfiguracionPais.MasGanadoras;
                 }
-                //INI HD-MDRR
+                //INI HD-3908
                 else if (palanca == Constantes.TipoEstrategiaCodigo.PackNuevas)
                 {
                     x.CodigoPalanca = Constantes.ConfiguracionPais.PackNuevas;
                 }
-                //FIN HD-MDRR
+                //FIN HD-3908
             });
 
             return listaProducto;
         }
-
+        //INI HD-3908
+        public string getCodigoPalanca(string Codigo)
+        {
+            return (Codigo == Constantes.TipoEstrategiaCodigo.RevistaDigital) ? Constantes.ConfiguracionPais.RevistaDigital :
+                             ((Codigo == Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada) ? Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada :
+                             ((Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento) ? Constantes.ConfiguracionPais.Lanzamiento :
+                             ((Codigo == Constantes.TipoEstrategiaCodigo.HerramientasVenta) ? Constantes.ConfiguracionPais.HerramientasVenta :
+                             ((Codigo == Constantes.TipoEstrategiaCodigo.MasGanadoras) ? Constantes.ConfiguracionPais.MasGanadoras :
+                             ((Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas) ? Constantes.ConfiguracionPais.PackNuevas : "")))));
+        }
+        //FIN HD-3908
         public List<EstrategiaPersonalizadaProductoModel> FormatearModelo1ToPersonalizado(List<EstrategiaPedidoModel> listaProductoModel, List<BEPedidoWebDetalle> listaPedido, string codigoISO, int campaniaID, int tipo, bool esConsultoraLider, string simbolo)
         {
             var listaRetorno = new List<EstrategiaPersonalizadaProductoModel>();
@@ -1083,6 +1093,9 @@ namespace Portal.Consultoras.Web.Providers
                     || tipo == 1
                     || tipo == 2
                     ? "revistadigital-landing" : "";
+                //INI HD-3908
+                prodModel.CodigoPalanca = getCodigoPalanca(estrategia.TipoEstrategia.Codigo);
+                //FIN HD-3908
                 prodModel.FotoProducto01 = estrategia.FotoProducto01;
                 prodModel.ImagenURL = estrategia.ImagenURL;
                 prodModel.DescripcionMarca = estrategia.DescripcionMarca;

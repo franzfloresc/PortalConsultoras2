@@ -296,7 +296,7 @@ namespace Portal.Consultoras.Web.Controllers
                         total = Total,
                         formatoTotal = FormatoTotal,
                         listCuvEliminar = pedidoDetalleResult.ListCuvEliminar.ToList()
-                    }, JsonRequestBehavior.AllowGet);
+                }, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {

@@ -232,6 +232,7 @@
                 }
             }
 
+
             if (typeof filtroCampania !== "undefined") {
                 var nombreKeyJs = nombreKey + (indCampania || 0);
                 var listaPalanca = filtroCampania[nombreKeyJs];
@@ -309,6 +310,9 @@ function ActualizarLocalStoragePalancas(cuv, valor) {
     ActualizarLocalStorageAgregado("HV", cuv, valor);
     ActualizarLocalStorageAgregado("LAN", cuv, valor);
     ActualizarLocalStorageAgregado("MG", cuv, valor);
+    //INI HD-3908
+    ActualizarLocalStorageAgregado("PN", cuv, valor);
+    //FIN HD-3908
 }
 
 function ActualizarLocalStorageAgregado(tipo, cuv, valor) {
@@ -338,7 +342,11 @@ function ActualizarLocalStorageAgregado(tipo, cuv, valor) {
         else if (tipo == "MG") {
             var lista = "MGLista";
         }
-
+        //INI HD-3908
+        else if (tipo == ConstantesModule.TipoEstrategia.PN) {
+            var lista = ConstantesModule.KeysLocalStorage.PackNuevas;
+        }
+        //FIN HD-3908
         $.each(listaCuv, function (ind, cuvItem) {
             var cuvx = cuvItem.split(';')[0];
             ok = ActualizarLocalStorageIsAgregado(cuvx, valor, lista, indCampania);

@@ -1136,6 +1136,7 @@ var PedidoRegistroModule = function () {
 
                 var seccionProductosRecomendados = $('.divProductosRecomendados');
                 seccionProductosRecomendados.slideUp(200);
+
             },
             error: function (data, error) {
                 CloseLoading();
@@ -1258,7 +1259,11 @@ var PedidoRegistroModule = function () {
                 PedidoOnSuccess();
 
 
-              
+
+                //INI HD-3908
+                var localStorageModule = new LocalStorageModule();
+                localStorageModule.ActualizarCheckAgregado($.trim($("#hdfEstrategiaId").val()), $("#hdfCampaniaID").val(), $("#hdfCodigoPalanca").val(), true);
+                //FIN HD-3908
                    
                 if (data.modificoBackOrder) showDialog("divBackOrderModificado");
                 CargarDetallePedido();
@@ -1344,6 +1349,7 @@ var PedidoRegistroModule = function () {
                             }
                         }
                     });
+
                 }
                 else {
                     var errorCliente = response.errorCliente || false;

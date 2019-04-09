@@ -444,6 +444,7 @@ $(document).ready(function () {
             PedidoRegistroModule.AgregarProductoZonaEstrategia(flagNueva == "1" ? 2 : flagNueva);
         }
 
+
         if (cuv.substring(0, 3) == '999') {//OG
             sessionStorage.setItem('cuvPack', cuv);
         }
@@ -1416,6 +1417,8 @@ function BuscarByCUV(CUV) {
                 }
                 //INI HD-3908
                 _flagNueva = (data[0].FlagNueva == "1") ? true : false;
+                $("#hdfCodigoPalanca").val(data[0].CodigoPalanca);
+                $("#hdfCampaniaID").val(data[0].CampaniaID);
                 //FIN HD-3908
                 CargarProductosRecomendados(data[0]);
 

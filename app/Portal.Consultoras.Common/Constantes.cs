@@ -1471,9 +1471,9 @@ namespace Portal.Consultoras.Common
             public const string MicroserviciosPersonalizacion = "MSPersonalizacion";
             public const string Datami = "DATAMI";
             public const string DireccionEntrega = "DIRECCION_ENTREGA";
-            //INI HD-MDRR
+            //INI HD-3908
             public const string PackNuevas = "PN";
-            //FIN HD-MDRR
+            //FIN HD-3908
         }
 
 
