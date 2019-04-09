@@ -246,6 +246,11 @@ namespace Portal.Consultoras.Entities
             EsConsultoraOficina = row.ToInt32("IndicadorConsultoraOficina") == 1;
             PromedioVenta = row.ToDouble("PromedioVenta");
             NovedadBuscador = row.ToInt32("NovedadBuscador");
+            /*HD-3777*/
+            CodigoClasificacion = row.ToString("CodigoClasificacion");
+            CodigoSubClasificacion = row.ToString("CodigoSubClasificacion");
+            DescripcionClasificacion = row.ToString("DescripcionClasificacion");
+            /*Fin*/
         }
 
         [Column("ConsultoraAsociadoID")]
@@ -957,5 +962,16 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "HoraCierreZonaDemAnti")) HoraCierreZonaDemAnti = DbConvert.ToTimeSpan(row["HoraCierreZonaDemAnti"]);
             if (DataRecord.HasColumn(row, "HoraCierreZonaNormal")) HoraCierreZonaNormal = DbConvert.ToTimeSpan(row["HoraCierreZonaNormal"]);
         }
+
+        /*HD-3777*/
+        [DataMember]
+        public string CodigoClasificacion { get; set; }
+
+        [DataMember]
+        public string CodigoSubClasificacion { get; set; }
+
+        [DataMember]
+        public string DescripcionClasificacion { get; set; }
+        /*Fin*/
     }
 }
