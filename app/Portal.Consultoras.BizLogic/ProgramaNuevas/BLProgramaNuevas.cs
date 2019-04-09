@@ -300,7 +300,7 @@ namespace Portal.Consultoras.BizLogic
                     x.ActiveDesc = x.ActivePremioAuto == true ? "Si" : "No";
                     x.ActiveTooltipDesc = x.ActiveTooltip ? "Si" : "No";
                     x.ActiveTooltipMontoDesc = x.ActiveMonto ? "Si" : "No";
-                    x.Ind_Cup_ElecDesc = x.ActivePremioElectivo ? "Si" : "No";
+                    x.Ind_Cup_ElecDesc = x.ActivePremioElectivo == true ? "Si" : "No";
                 });
                 return listPaginado;
             }
