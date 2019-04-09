@@ -2051,76 +2051,31 @@ namespace Portal.Consultoras.Web.Controllers
             };
         }
 
+        #region "HD-3680 --- P.S.O"
         public JsonResult ObtenerActualizacionEmailSms(string pagina = "1")
         {
+            int resultadoActivoPopup = 0;
             string[] ValidacionDatos = new string[2];
             try
             {
                 BEMensajeToolTip obj;
-
                 using (var sv = new UsuarioServiceClient())
                     obj = sv.GetActualizacionEmailySms(userData.PaisID, userData.CodigoUsuario);
 
-                if (userData.PaisID == Convert.ToInt32(Constantes.PaisID.Peru))
-                    ValidacionDatos = ValidacionPerfilConsultoraPeru(obj);
-                else
-                    ValidacionDatos = ValidacionPerfilConsultorOtrosPaises(obj);
+                using (var sv = new UsuarioServiceClient())
+                    resultadoActivoPopup = sv.ValidaEstadoPopup(userData.PaisID);
 
-            if (Convert.ToInt32(ValidacionDatos[0]) == 0)
-            {
-                if (obj == null) { ValidacionDatos[0] = "0"; ValidacionDatos[1]= pagina == "1" ? "" : "|"; return Json(new { valor=ValidacionDatos[0], mensaje=ValidacionDatos[1].ToString() }, JsonRequestBehavior.AllowGet); }
-                if (obj.oDatosPerfil == null) { ValidacionDatos[0] = "0"; ValidacionDatos[1] = pagina == "1" ? "" : "|"; return Json(new { valor=ValidacionDatos[0], mensaje=ValidacionDatos[1].ToString() }, JsonRequestBehavior.AllowGet); }
-
-                string pendiente = string.Empty;
-                string tieneMensajes = string.Empty;
-
-                if (!string.IsNullOrEmpty(obj.MensajeCelular)) tieneMensajes = "1"; //1 => SMS; 2 => Email; 3 => Ambos
-                if (!string.IsNullOrEmpty(obj.MensajeEmail)) tieneMensajes = tieneMensajes == "1" ? "3" : "2";
-
-                string nuevoDatoCelular = !string.IsNullOrEmpty(obj.MensajeCelular) ? obj.oDatosPerfil.Where(a => a.TipoEnvio == "SMS" && a.Estado == "P").Select(b => b.DatoNuevo).FirstOrDefault() : "";
-                string nuevoDatoEmail = !string.IsNullOrEmpty(obj.MensajeEmail) ? obj.oDatosPerfil.Where(a => a.TipoEnvio == "Email" && a.Estado == "P").Select(b => b.DatoNuevo).FirstOrDefault() : "";
-                nuevoDatoCelular = nuevoDatoCelular ?? "";
-                nuevoDatoEmail = nuevoDatoEmail ?? "";
-
-                if (nuevoDatoCelular == "" && !obj.oDatosPerfil.Any(a => a.TipoEnvio == "SMS" && a.Estado == "A")) pendiente = "c";
-                if (nuevoDatoEmail == "" && !obj.oDatosPerfil.Any(a => a.TipoEnvio == "Email" && a.Estado == "A")) pendiente = "e";
-
-                bool menSms = pendiente == "c";
-                if (!menSms) menSms = nuevoDatoCelular != "";
-                bool menEmail = pendiente == "e";
-                if (!menEmail) menEmail = nuevoDatoEmail != "";
-
-                switch (tieneMensajes)
+                if (resultadoActivoPopup == 1)
                 {
-                    case "1":
-                            if (obj.oDatosPerfil[0].TipoEnvio == "1") { ValidacionDatos[0] = "0"; ValidacionDatos[1] = pagina == "1" ? obj.MensajeCelular : nuevoDatoCelular + "|"; return Json(new { valor=ValidacionDatos[0], mensaje=ValidacionDatos[1].ToString() }, JsonRequestBehavior.AllowGet); }  ;
-                            if (menSms) { ValidacionDatos[0] = "0"; ValidacionDatos[1]= pagina == "1" ? obj.MensajeCelular : nuevoDatoCelular + "|"; return Json(new { valor=ValidacionDatos[0], mensaje=ValidacionDatos[1].ToString() }, JsonRequestBehavior.AllowGet); }
-                            ValidacionDatos[0] = "0";
-                            ValidacionDatos[1] =pagina == "1" ? "" : " | ";
-                            return Json(new { valor=ValidacionDatos[0], mensaje=ValidacionDatos[1].ToString() }, JsonRequestBehavior.AllowGet);
-                        case "2":
-                            if (obj.oDatosPerfil[0].TipoEnvio == "1") { ValidacionDatos[0] = "0"; ValidacionDatos[1] = pagina == "1" ? obj.MensajeEmail : "|" + nuevoDatoEmail; return Json(new { valor=ValidacionDatos[0], mensaje=ValidacionDatos[1].ToString() }, JsonRequestBehavior.AllowGet); }
-                            if (menEmail) { ValidacionDatos[0] = "0"; ValidacionDatos[1] = pagina == "1" ? obj.MensajeEmail : "|" + nuevoDatoEmail; return Json(new { valor=ValidacionDatos[0], mensaje=ValidacionDatos[1].ToString() }, JsonRequestBehavior.AllowGet); }
-                            ValidacionDatos[0] = "0";
-                            ValidacionDatos[1] = pagina == "1" ? "" : " | ";
-                            return Json(new { valor = ValidacionDatos[0], mensaje = ValidacionDatos[1].ToString() }, JsonRequestBehavior.AllowGet);
-                        case "3":
-                        {
-                                if (obj.oDatosPerfil[0].TipoEnvio == "1") { ValidacionDatos[0] = "0"; ValidacionDatos[1] = pagina == "1" ? obj.MensajeAmbos : "|"; return Json(new { valor=ValidacionDatos[0], mensaje=ValidacionDatos[1].ToString() }, JsonRequestBehavior.AllowGet); }
-                                if (menSms && !menEmail) { ValidacionDatos[0] = "0"; ValidacionDatos[1] = pagina == "1" ? obj.MensajeCelular : nuevoDatoCelular + "|"; return Json(new { valor=ValidacionDatos[0], mensaje=ValidacionDatos[1].ToString() }, JsonRequestBehavior.AllowGet); }
-                                if (!menSms && menEmail) { ValidacionDatos[0] = "0"; ValidacionDatos[1] = pagina == "1" ? obj.MensajeEmail : "|" + nuevoDatoEmail; return Json(new { valor=ValidacionDatos[0], mensaje=ValidacionDatos[1].ToString() }, JsonRequestBehavior.AllowGet); }
-                                if (menSms && menEmail) { ValidacionDatos[0] = "0"; ValidacionDatos[1] = pagina == "1" ? obj.MensajeAmbos : nuevoDatoCelular + "|" + nuevoDatoEmail; return Json(new { valor=ValidacionDatos[0], mensaje=ValidacionDatos[1].ToString() }, JsonRequestBehavior.AllowGet); }
-                                ValidacionDatos[0] = "0";
-                                ValidacionDatos[1] = pagina == "1" ? "" : " | ";
-                                return Json(new { valor = ValidacionDatos[0], mensaje = ValidacionDatos[1].ToString() }, JsonRequestBehavior.AllowGet);
-                            }
-                }
-                    ValidacionDatos[0] = "0";
-                    ValidacionDatos[1] = pagina == "1" ? "" : " | ";
-                    return Json(new { valor = ValidacionDatos[0], mensaje = ValidacionDatos[1].ToString() }, JsonRequestBehavior.AllowGet);
+                    if (userData.PaisID == Convert.ToInt32(Constantes.PaisID.Peru))
+                        ValidacionDatos = ValidacionPerfilConsultoraPeru(obj);
+                    else
+                        ValidacionDatos = ValidacionPerfilConsultorOtrosPaises(obj);
                 }
                 else
-                    return Json(new { valor = ValidacionDatos[0], mensaje = ValidacionDatos[1].ToString() }, JsonRequestBehavior.AllowGet);
+                    ValidacionDatos = ValidacionperfilConsultoraToolTip(obj, pagina);
+           
+            return Json(new { valor = ValidacionDatos[0], mensaje = ValidacionDatos[1].ToString(), tipoMostrador= resultadoActivoPopup }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -2131,163 +2086,143 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private string[] ValidacionPerfilConsultorOtrosPaises(BEMensajeToolTip obj)
+        public string[] ValidacionperfilConsultoraToolTip(BEMensajeToolTip obj, string pagina)
         {
-            string[] tipoEnvio = new string[2];
-            string[] estado = new string[2];
-            string[] resultadoValidacionPerfil = new string[2];
-            int resultadoActivoPopup = 0;
-            List<BEValidacionDatos> listBEValidacionDatos;
-            tipoEnvio[0] = Constantes.TipoEnvio.SMS.ToString();
-            tipoEnvio[1] = Constantes.TipoEnvio.EMAIL.ToString();
+            string[] ValidacionDatos = new string[2];
 
-            estado[0] = "A";
-            estado[1] = "S";
+            if (obj == null) { ValidacionDatos[0] = "0"; ValidacionDatos[1] = pagina == "1" ? "" : "|";  return ValidacionDatos; }
+            if (obj.oDatosPerfil == null) { ValidacionDatos[0] = "0"; ValidacionDatos[1] = pagina == "1" ? "" : "|"; return ValidacionDatos; ; }
 
+            string pendiente = string.Empty;
+            string tieneMensajes = string.Empty;
 
-            using (var sv = new UsuarioServiceClient())
-                resultadoActivoPopup = sv.ValidaEstadoPopup(userData.PaisID);
+            if (!string.IsNullOrEmpty(obj.MensajeCelular)) tieneMensajes = "1"; //1 => SMS; 2 => Email; 3 => Ambos
+            if (!string.IsNullOrEmpty(obj.MensajeEmail)) tieneMensajes = tieneMensajes == "1" ? "3" : "2";
 
-            if (resultadoActivoPopup == 1)/*Si el popup está activo ingresa, pasará por demás validaciones para saber si quedará activo*/
+            string nuevoDatoCelular = !string.IsNullOrEmpty(obj.MensajeCelular) ? obj.oDatosPerfil.Where(a => a.TipoEnvio == "SMS" && a.Estado == "P").Select(b => b.DatoNuevo).FirstOrDefault() : "";
+            string nuevoDatoEmail = !string.IsNullOrEmpty(obj.MensajeEmail) ? obj.oDatosPerfil.Where(a => a.TipoEnvio == "Email" && a.Estado == "P").Select(b => b.DatoNuevo).FirstOrDefault() : "";
+            nuevoDatoCelular = nuevoDatoCelular ?? "";
+            nuevoDatoEmail = nuevoDatoEmail ?? "";
+
+            if (nuevoDatoCelular == "" && !obj.oDatosPerfil.Any(a => a.TipoEnvio == "SMS" && a.Estado == "A")) pendiente = "c";
+            if (nuevoDatoEmail == "" && !obj.oDatosPerfil.Any(a => a.TipoEnvio == "Email" && a.Estado == "A")) pendiente = "e";
+
+            bool menSms = pendiente == "c";
+            if (!menSms) menSms = nuevoDatoCelular != "";
+            bool menEmail = pendiente == "e";
+            if (!menEmail) menEmail = nuevoDatoEmail != "";
+
+            switch (tieneMensajes)
             {
-                using (var sv = new UsuarioServiceClient())
-                    listBEValidacionDatos = sv.GetTipoEnvioActivos(userData.PaisID, userData.CodigoUsuario).ToList();
-
-                if (listBEValidacionDatos.Count() <= 0)
-                {
-                    resultadoValidacionPerfil[0] = "1";
-                    resultadoValidacionPerfil[1] = obj.MensajeAmbos;
-                }
-                else
-                {
-                    var tipoenvioContainActivo = from t in listBEValidacionDatos
-                                                 where tipoEnvio.Contains(t.TipoEnvio) && estado.Contains(t.Estado)
-                                                 select t;
-
-                    if (tipoenvioContainActivo.Count() == tipoEnvio.Length)
+                case "1":
+                    if (obj.oDatosPerfil[0].TipoEnvio == "1") { ValidacionDatos[0] = "0"; ValidacionDatos[1] = pagina == "1" ? obj.MensajeCelular : nuevoDatoCelular + "|"; return ValidacionDatos; };
+                    if (menSms) { ValidacionDatos[0] = "0"; ValidacionDatos[1] = pagina == "1" ? obj.MensajeCelular : nuevoDatoCelular + "|"; return ValidacionDatos; }
+                    ValidacionDatos[0] = "0";
+                    ValidacionDatos[1] = pagina == "1" ? "" : " | ";
+                    return  ValidacionDatos; ;
+                case "2":
+                    if (obj.oDatosPerfil[0].TipoEnvio == "1") { ValidacionDatos[0] = "0"; ValidacionDatos[1] = pagina == "1" ? obj.MensajeEmail : "|" + nuevoDatoEmail; return ValidacionDatos; }
+                    if (menEmail) { ValidacionDatos[0] = "0"; ValidacionDatos[1] = pagina == "1" ? obj.MensajeEmail : "|" + nuevoDatoEmail; return ValidacionDatos; }
+                    ValidacionDatos[0] = "0";
+                    ValidacionDatos[1] = pagina == "1" ? "" : " | ";
+                    return ValidacionDatos;
+                case "3":
                     {
-                        resultadoValidacionPerfil[0] = "2";
-                        resultadoValidacionPerfil[1] = string.Empty;
-
+                        if (obj.oDatosPerfil[0].TipoEnvio == "1") { ValidacionDatos[0] = "0"; ValidacionDatos[1] = pagina == "1" ? obj.MensajeAmbos : "|"; return ValidacionDatos; }
+                        if (menSms && !menEmail) { ValidacionDatos[0] = "0"; ValidacionDatos[1] = pagina == "1" ? obj.MensajeCelular : nuevoDatoCelular + "|"; return ValidacionDatos; }
+                        if (!menSms && menEmail) { ValidacionDatos[0] = "0"; ValidacionDatos[1] = pagina == "1" ? obj.MensajeEmail : "|" + nuevoDatoEmail; return ValidacionDatos; }
+                        if (menSms && menEmail) { ValidacionDatos[0] = "0"; ValidacionDatos[1] = pagina == "1" ? obj.MensajeAmbos : nuevoDatoCelular + "|" + nuevoDatoEmail; return ValidacionDatos; }
+                        ValidacionDatos[0] = "0";
+                        ValidacionDatos[1] = pagina == "1" ? "" : " | ";
+                        return ValidacionDatos;
                     }
-                    else
-                    {
-                        /*Validamos si no cuenta con SMS*/
-                        if (listBEValidacionDatos.Where(x => x.TipoEnvio.Contains(Constantes.TipoEnvio.SMS.ToString())).ToList().Count < 0)
-                        {
-                            resultadoValidacionPerfil[0] = "1";
-                            resultadoValidacionPerfil[1] = obj.MensajeCelular;
-                        }
-                        else
-                        if (listBEValidacionDatos.Where(x => x.TipoEnvio.Contains(Constantes.TipoEnvio.EMAIL.ToString()) && x.TipoEnvio == "P").ToList().Count > 0)
-                        {
-                            resultadoValidacionPerfil[0] = "1";
-                            resultadoValidacionPerfil[1] = obj.MensajeEmail;
-                        }
-                        else
-                        {
-                            var tipoenvioContainPendiente = from t in listBEValidacionDatos
-                                                            where tipoEnvio.Contains(t.TipoEnvio) && t.Estado == "P"
-                                                            select t;
-
-                            var telefonoCount = listBEValidacionDatos.Where(x => x.TipoEnvio.Contains(Constantes.TipoEnvio.SMS.ToString())).ToList().Count < 0 ? 1 : 0; ;
-
-                            if (tipoenvioContainPendiente.Count() ==( Convert.ToInt32( tipoenvioContainPendiente.Count() )  + Convert.ToInt32( telefonoCount)))
-                            {
-                                resultadoValidacionPerfil[0] = "1";
-                                resultadoValidacionPerfil[1] = obj.MensajeAmbos;
-                            }
-
-                        }
-                    }
-
-                }
-
             }
-            /*Significa que el popup está en estado inactivo*/
-            else
-            {
-                resultadoValidacionPerfil[0] = "0"; resultadoValidacionPerfil[0] = string.Empty;
-            }
-
-            return resultadoValidacionPerfil;
+            ValidacionDatos[0] = "0";
+            ValidacionDatos[1] = pagina == "1" ? "" : " | ";
+            return ValidacionDatos;
         }
 
         private string[] ValidacionPerfilConsultoraPeru(BEMensajeToolTip obj)
         {
             string[] tipoEnvio= new string[2];
             string[] resultadoValidacionPerfil = new string[2];
-            int resultadoActivoPopup = 0;
+           
             List<BEValidacionDatos> listBEValidacionDatos;
             tipoEnvio[0] = Constantes.TipoEnvio.SMS.ToString();
             tipoEnvio[1] = Constantes.TipoEnvio.EMAIL.ToString();
 
-            using (var sv = new UsuarioServiceClient())
-                   resultadoActivoPopup = sv.ValidaEstadoPopup(userData.PaisID);
-
-            if (resultadoActivoPopup == 1)/*Si el popup está activo ingresa, pasará por demás validaciones para saber si quedará activo*/
-            {
                 using (var sv = new UsuarioServiceClient())
                     listBEValidacionDatos = sv.GetTipoEnvioActivos(userData.PaisID, userData.CodigoUsuario).ToList();
 
-              
-                    if (listBEValidacionDatos.Count() <= 0)
+                /*Validamos si existen registros de validaciones para el email y el celular o estos están en estado pendiente*/
+                if ((listBEValidacionDatos.Count() <= 0) ||
+                    (from t in listBEValidacionDatos where tipoEnvio.Contains(t.TipoEnvio) && t.Estado == "P" select t).Count() == tipoEnvio.Length ||
+                    (listBEValidacionDatos.Where(X=>X.TipoEnvio == Constantes.TipoEnvio.SMS.ToString()).Count() <=0 && listBEValidacionDatos.Where(C=>C.TipoEnvio== Constantes.TipoEnvio.EMAIL.ToString() && C.Estado=="P").Count() > 0) ||
+                     (listBEValidacionDatos.Where(X => X.TipoEnvio == Constantes.TipoEnvio.EMAIL.ToString()).Count() <= 0 && listBEValidacionDatos.Where(C => C.TipoEnvio == Constantes.TipoEnvio.SMS.ToString() && C.Estado == "P").Count() > 0)
+                    )
+                {
+                    resultadoValidacionPerfil[0] = "1"; resultadoValidacionPerfil[1] = obj.MensajeAmbos;
+
+                } else /*Validamso si existe registros de validación para el celular/email o está en pendiente*/
+                for (int i = 0; i < tipoEnvio.Length; i++)
+                {
+                    if ((listBEValidacionDatos.Where(x => x.TipoEnvio == tipoEnvio[i]).Count() <= 0) || (listBEValidacionDatos.Where(x => x.TipoEnvio == tipoEnvio[i] && x.Estado == "P").Count() > 0))
                     {
                         resultadoValidacionPerfil[0] = "1";
-                        resultadoValidacionPerfil[1] = obj.MensajeAmbos;
+                        resultadoValidacionPerfil[1] = tipoEnvio[i].ToString() == Constantes.TipoEnvio.SMS.ToString() ? obj.MensajeCelular : obj.MensajeEmail;
+                        break;
                     }
-                    else
-                    {
-                        var tipoenvioContainActivo = from t in listBEValidacionDatos
-                                                     where tipoEnvio.Contains(t.TipoEnvio) && t.Estado == "A"
-                                                     select t;
-
-                        if (tipoenvioContainActivo.Count() == tipoEnvio.Length)
-                        {
-                            resultadoValidacionPerfil[0] = "2";
-                            resultadoValidacionPerfil[1] = string.Empty;
-
-                        }
-                        else
-                        {
-                            /*Validamos si no cuenta con SMS*/
-                            if (listBEValidacionDatos.Where(x => x.TipoEnvio.Contains(Constantes.TipoEnvio.SMS.ToString()) && x.TipoEnvio=="P").ToList().Count > 0)
-                            {
-                                resultadoValidacionPerfil[0] = "1";
-                                resultadoValidacionPerfil[1] = obj.MensajeCelular;
-                            }
-                            else
-                            if (listBEValidacionDatos.Where(x => x.TipoEnvio.Contains(Constantes.TipoEnvio.EMAIL.ToString()) && x.TipoEnvio == "P").ToList().Count > 0)
-                            {
-                                resultadoValidacionPerfil[0] = "1";
-                                resultadoValidacionPerfil[1] = obj.MensajeEmail;
-                            }
-                            else 
-                            {
-                                var tipoenvioContainPendiente = from t in listBEValidacionDatos
-                                                             where tipoEnvio.Contains(t.TipoEnvio) && t.Estado == "P"
-                                                             select t;
-
-                                if (tipoenvioContainPendiente.Count() == tipoEnvio.Length)
-                                {
-                                    resultadoValidacionPerfil[0] = "1";
-                                    resultadoValidacionPerfil[1] = obj.MensajeAmbos;
-                                }
-
-                            }
-                        }
-
-                    }
-                
-            }
-            /*Significa que el popup está en estado inactivo*/
-            else {
-                resultadoValidacionPerfil[0] = "0"; resultadoValidacionPerfil[0] = string.Empty;
+                }
+            if (string.IsNullOrEmpty(resultadoValidacionPerfil[0]))
+            {
+                resultadoValidacionPerfil[0] = "0";
+                resultadoValidacionPerfil[1] = string.Empty;
             }
 
             return resultadoValidacionPerfil;
         }
 
+        private string[] ValidacionPerfilConsultorOtrosPaises(BEMensajeToolTip obj)
+        {
+            string[] tipoEnvio = new string[2];
+            string[] resultadoValidacionPerfil = new string[2];
+            List<BEValidacionDatos> listBEValidacionDatos;
+            tipoEnvio[0] = Constantes.TipoEnvio.SMS.ToString();
+            tipoEnvio[1] = Constantes.TipoEnvio.EMAIL.ToString();
+
+                using (var sv = new UsuarioServiceClient())
+                    listBEValidacionDatos = sv.GetTipoEnvioActivos(userData.PaisID, userData.CodigoUsuario).ToList();
+
+                /*Validamos si existen registros de validaciones para el email y el celular o estos están en estado pendiente*/
+                if ((listBEValidacionDatos.Count() <= 0) ||
+                    ((listBEValidacionDatos.Where(X=>X.TipoEnvio== tipoEnvio[1].ToString() && X.Estado=="P").Count()) >0 &&
+                     (listBEValidacionDatos.Where(X => X.TipoEnvio == tipoEnvio[0].ToString()).Count() <=0))
+                    )
+                {
+                    resultadoValidacionPerfil[0] = "1"; resultadoValidacionPerfil[1] = obj.MensajeAmbos;
+
+                }
+                else /*Validamso si existe registros de validación para el celular o está en pendiente*/
+                 if (listBEValidacionDatos.Where(x => x.TipoEnvio == tipoEnvio[0]).Count() <= 0)
+                    {
+                      resultadoValidacionPerfil[0] = "1";
+                      resultadoValidacionPerfil[1] = obj.MensajeCelular;
+                }
+                else /*Validamso si existe registros de validación para el email o está en pendiente*/
+                if (listBEValidacionDatos.Where(x => x.TipoEnvio == tipoEnvio[1] && x.Estado=="P").Count() > 0)
+                {
+                    resultadoValidacionPerfil[0] = "1";
+                    resultadoValidacionPerfil[1] = obj.MensajeEmail;
+                }
+                else
+                {
+                    resultadoValidacionPerfil[0] = "0";
+                    resultadoValidacionPerfil[1] = string.Empty;
+                }
+
+            return resultadoValidacionPerfil;
+        }
+        #endregion
         public JsonResult ObtenerEstadoContrato()
         {
             try
@@ -2311,4 +2246,4 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
     }
-}
+} 

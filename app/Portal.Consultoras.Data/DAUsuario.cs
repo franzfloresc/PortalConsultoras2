@@ -1070,5 +1070,14 @@ namespace Portal.Consultoras.Data
 
             Context.ExecuteNonQuery(command);
         }
+
+        public IDataReader CargaEstadoValidadorDatos()
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.CargaEstadoValidadorDatos");
+            return Context.ExecuteReader(command);
+        }
+
+
+
     }
 }

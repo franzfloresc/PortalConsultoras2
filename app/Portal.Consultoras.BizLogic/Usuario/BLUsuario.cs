@@ -753,11 +753,22 @@ namespace Portal.Consultoras.BizLogic
             return daUsuario.ActualizarSMS(codigoConsultora, tipoEnvio, celularAnterior, celularActual);
         }
 
+     
+
         public int ValidaEstadoPopup(int paisID)
         {
-            var tablaLogica = _tablaLogicaDatosBusinessLogic.GetList(paisID, Constantes.TablaLogicaDato.TablaLogicaestadoPopupInformativoID);
-            return Convert.ToInt32( tablaLogica.FirstOrDefault().Valor);
+            int estado = 0;
+            var daUsuario = new DAUsuario(paisID);
+            using (IDataReader reader = daUsuario.CargaEstadoValidadorDatos())
+            {
+                while (reader.Read())
+                {
+                    estado = reader[0] == DBNull.Value ? 0 : int.Parse(reader[0].ToString());
+                }
+            }
+            return estado;
         }
+
 
         public List<BEValidacionDatos> ListarValidacionDatos(BEValidacionDatos beValidacionDatos)
         {
@@ -772,17 +783,19 @@ namespace Portal.Consultoras.BizLogic
 
             using (IDataReader reader = daUsuario.GetTipoEnvioActivos(codigoUsuario))
             {
-                BEValidacionDatos validacionDato;
-
                 while (reader.Read())
                 {
-                    validacionDato = MapUtil.MapToObject<BEValidacionDatos>(reader, true, true);
-                    lista.Add(new BEValidacionDatos() { TipoEnvio=validacionDato.TipoEnvio, DatoNuevo=validacionDato.DatoNuevo, DatoAntiguo=validacionDato.DatoAntiguo, Estado=validacionDato.Estado});
+                    lista.Add(new BEValidacionDatos()
+                    {
+                        TipoEnvio = reader[0] == DBNull.Value ? string.Empty: reader[0].ToString(),
+                        DatoNuevo = reader[1] == DBNull.Value ? string.Empty : reader[1].ToString(),
+                        DatoAntiguo = reader[2] == DBNull.Value ? string.Empty: reader[2].ToString(),
+                        Estado = reader[3] == DBNull.Value ? string.Empty : reader[3].ToString(),
+                    });
                 }
-                
-            }
 
             return lista;
+        }
         }
 
         public int ActualizarValidacionDatos(bool isMobile, string ipDispositivo, string codigoConsultora,  int paisID, string CodigoUsuario, string tipoEnvio1, string tipoEnvio2)

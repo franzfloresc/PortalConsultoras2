@@ -738,7 +738,7 @@ function VerTutorialMobile() {
 }
 
 function ConsultarEmailPendiente() {
-    debugger;
+
     var item = {
         pagina: "1"
     }
@@ -750,19 +750,26 @@ function ConsultarEmailPendiente() {
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(item),
         success: function (data) {
-            debugger;
             if (checkTimeout(data)) {
-                if (parseInt(data[0]) == 0) {
-                    document.getElementById('mensajeToolTip').innerHTML = data;
-                    document.getElementsByClassName('tooltip_info_revision_correo')[0].style.display = 'block';
-                } else if (parseInt(data[0]) == 1) {
-                   // document.getElementById('mensajeToolTip').innerHTML = data;
+                if (parseInt(data.tipoMostrador) == 0) {
+                    if (data.mensaje.length > 0) {
+                        document.getElementsByClassName('popup__wrapper')[0].style.display = 'none';
+                        document.getElementById('mensajeToolTip').innerHTML = data.mensaje;
+                        document.getElementsByClassName('tooltip_info_revision_correo')[0].style.display = 'block';
+                    } else {
+                        document.getElementsByClassName('popup__wrapper')[0].style.display = 'none';
+                        document.getElementsByClassName('tooltip_info_revision_correo')[0].style.display = 'none';
+                    }
+
+                } else {
                     document.getElementsByClassName('tooltip_info_revision_correo')[0].style.display = 'none';
-                    document.getElementsByClassName('popup__wrapper')[0].style.display = 'block';
-                } else if (parseInt(data[0]) == 2) {
-                    //document.getElementById('mensajeToolTip').innerHTML = data;
-                    document.getElementsByClassName('tooltip_info_revision_correo')[0].style.display = 'none';
-                    document.getElementsByClassName('popup__wrapper')[0].style.display = 'none';
+                    if (parseInt(data.valor) == 0)
+                        document.getElementsByClassName('popup__wrapper')[0].style.display = 'none';
+                    else if (parseInt(data.valor) == 1) {
+                        document.getElementsByClassName('popup__wrapper')[0].style.display = 'block';
+                        document.getElementById("mensaje").innerHTML = "";
+                        document.getElementById("mensaje").innerHTML = data.mensaje;
+                    }
                 }
             }
         },
