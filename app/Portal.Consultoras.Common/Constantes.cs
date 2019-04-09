@@ -3193,6 +3193,7 @@ namespace Portal.Consultoras.Common
             public const string FlagFiltrosBuscador = "FlagFiltrosBuscador";
             public const string FlagBuscarPorCategoria = "BuscarPorCategoria";
             public const string FlagBuscarPorCategoriaTotalProductos = "BuscarPorCategoriaTotalProductos";
+            public const string MostrarPalabrasMenoresACuatro = "MostrarPalabrasMenoresACuatro";
         }
 
         public static class CodigoConfiguracionMSPersonalizacion
