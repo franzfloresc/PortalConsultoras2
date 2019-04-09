@@ -22,7 +22,7 @@ namespace Portal.Consultoras.Web.Controllers
         private readonly BienvenidaProvider _bienvenidaProvider;
         protected TablaLogicaProvider _tablaLogica;
         private readonly ZonificacionProvider _zonificacionProvider;
-        CaminoBrillanteProvider _caminoBrillanteProvider;
+        private readonly CaminoBrillanteProvider _caminoBrillanteProvider;
 
         public BienvenidaController()
         {
