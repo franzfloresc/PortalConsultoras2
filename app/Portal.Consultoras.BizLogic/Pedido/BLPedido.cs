@@ -230,10 +230,48 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
         private BEPedidoDetalleResult PedidoAgregarProductoTransaction(BEPedidoDetalle pedidoDetalle)
         {
+            /*
+            #region Camino Brillante
+            if (pedidoDetalle.OrigenPedidoWeb == 1181901)
+            {
+                pedidoDetalle.Producto.EstrategiaID = 322735;
+            }
+            #endregion
+            */
+
             pedidoDetalle = PedidoAgregar_ObtenerEstrategia(pedidoDetalle);
             var usuario = pedidoDetalle.Usuario;
 
             var estrategia = PedidoAgregar_FiltrarEstrategiaPedido(pedidoDetalle, usuario.PaisID);
+
+            #region CaminoBrillante
+            if (pedidoDetalle.OrigenPedidoWeb == 1181901)
+            {
+                var caminoBrillante = new Portal.Consultoras.BizLogic.CaminoBrillante.BLCaminoBrillante();
+                List<Entities.CaminoBrillante.BEKitCaminoBrillante> kits = null;
+                try
+                {
+                    kits = caminoBrillante.GetKit(pedidoDetalle.Usuario, 201903, 6) ?? new List<Entities.CaminoBrillante.BEKitCaminoBrillante>();
+                }
+                catch (Exception ex) {
+                    kits = new List<Entities.CaminoBrillante.BEKitCaminoBrillante>();
+                }
+                var kit = kits.Where(e => e.CUV == pedidoDetalle.Producto.CUV).FirstOrDefault();
+                if (kit != null)
+                {
+                    //pedidoDetalle.Producto.Descripcion = kit.DescripcionCUV;
+                    //pedidoDetalle.Producto.PrecioCatalogo = kit.PrecioCatalogo;
+                    estrategia.CUV2 = kit.CUV;
+                    estrategia.DescripcionCUV2 = kit.DescripcionCUV;
+                    estrategia.Precio2 = kit.PrecioCatalogo;
+                }
+                else
+                {
+                    //return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_GUARDAR_OBS, "Kit no válido.");
+                }
+            }
+            #endregion
+
             if (string.IsNullOrEmpty(estrategia.CUV2))
             {
                 return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_ESTRATEGIA, "El producto no fué encontrado.");
@@ -262,7 +300,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 }
             }
             #endregion
-
+            
             #region Editar Pedido con set
 
             if (pedidoDetalle.EsEditable)
@@ -391,8 +429,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             }
             #endregion
 
-
-
+           
             #region PrepararPedidoDetalle
             //Preparar Pedido Detalle
             pedidoDetalle.Producto.TipoEstrategiaID = string.IsNullOrEmpty(pedidoDetalle.Producto.TipoEstrategiaID) ? "0" : pedidoDetalle.Producto.TipoEstrategiaID;
@@ -1129,6 +1166,24 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     lstDetalle.Where(x => x.EsKitNueva).Update(x => x.DescripcionEstrategia = Constantes.PedidoDetalleApp.DescripcionKitInicio);
                     lstDetalle.Where(x => x.IndicadorOfertaCUV && x.TipoEstrategiaID == 0).Update
                                     (x => x.DescripcionEstrategia = Constantes.PedidoDetalleApp.OfertaNiveles);
+
+                    #region Camino Brillante
+                    if (lstDetalle.Where(e => e.OrigenPedidoWeb == 1181901).Any()) {
+                        var caminoBrillante = new CaminoBrillante.BLCaminoBrillante();
+                        List<Entities.CaminoBrillante.BEKitCaminoBrillante> kits = null;
+                        try
+                        {
+                            kits = caminoBrillante.GetKit(usuario, 201906, 4) ?? new List<Entities.CaminoBrillante.BEKitCaminoBrillante>();
+                        }
+                        catch (Exception ex) {
+                            kits = new List<Entities.CaminoBrillante.BEKitCaminoBrillante>();
+                        }
+                        lstDetalle.Where(e => e.OrigenPedidoWeb == 1181901).ToList().ForEach(e => {
+                            e.DescripcionEstrategia = "CAMINO BRILLANTE";
+                            e.EsKitCaminoBrillante = kits.Where(k => k.CUV == e.CUV).Any();
+                        });
+                    }
+                    #endregion
 
                     pedido.olstBEPedidoWebDetalle = lstDetalle;
 

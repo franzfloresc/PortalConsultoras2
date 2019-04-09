@@ -342,6 +342,8 @@ namespace Portal.Consultoras.Entities
         public int SetIdentifierNumber { get; set; }
         [DataMember]
         public bool EsRegalo { get; set; }
+        [DataMember]
+        public bool EsKitCaminoBrillante { get; set; }
     }
 
 }

@@ -47,7 +47,7 @@
 
                 <a href="javascript:void(0);"
                    class="default-dorado activado-dorado" id="Tab-kits">
-                    Kit
+                    Kits
                 </a>
 
             </li>
@@ -119,15 +119,15 @@
         </section>*@
 
     <section class="row flex-row justify-content-lg-between justify-content-xl-between align-self-start ml-0 mr-0 mx-auto layout__content__fichaProductos">
-        @*<section class="col-12 col-lg-6 col-xl-6 busqueda__productos__encontrados__wrapper pr-lg-0 pr-xl-0">
-                <br />
-                <h1 class="col-12 pl-0 pr-0 busqueda__productos__titulo">
-                    Resultado de Demostradores
-                </h1>
-                <p class="col-12 pl-0 pr-0 busqueda__productos__encontrados">
-                    <span id="TotalProductos" class="busqueda__num__productos__encontrados">Estos son los kits según tu nivel</span>
-                </p>
-            </section>*@
+        <section class="col-12 col-lg-6 col-xl-6 busqueda__productos__encontrados__wrapper pr-lg-0 pr-xl-0">
+            <br />
+            <h1 class="col-12 pl-0 pr-0 busqueda__productos__titulo">
+                @*Resultado de Demostradores*@
+            </h1>
+            <p class="col-12 pl-0 pr-0 busqueda__productos__encontrados">
+                @*<span id="TotalProductos" class="busqueda__num__productos__encontrados">Estos son los kits según tu nivel</span>*@
+            </p>
+        </section>
 
 
         @*<section class="col-12 col-lg-6 col-xl-6 lista__opciones__ordenamiento__y__filtrar pl-lg-0 pl-xl-0">
@@ -190,19 +190,22 @@
             @{
                 foreach (var item in Model)
                 {
-                    <article class="ficha__producto" data-item="BuscadorFichasProductos">
+
+                    var FlagHabilitado = item.FlagHabilitado ? "" : "producto_desactivado";
+
+
+                    <article class="ficha__producto @FlagHabilitado" data-item="BuscadorFichasProductos">
 
                         <input type="hidden" id="hdCuv" value="@item.CUV" />
-                        <div>
-                            @{
-                                var image = "/Content/CaminoBrillante/imgs/Nivel_0" + item.CodigoNivel + ".svg";
-                            }
+                        <div style="text-align:right;">
+                            @{var image = "/Content/CaminoBrillante/imgs/Nivel_0" + item.CodigoNivel + ".svg";}
+
                             <img src="@image" />
                             @*<span class="etiqueta">@item.DescripcionNivel</span>*@
                         </div>
                         <div class="row flex-row justify-content-center ml-0 mr-0">
                             <figure class="col-12 pl-0 pr-0 row flex-row ml-0 mr-0 justify-content-center align-items-end ficha__producto__imagen text-center">
-                                <img data-src="@item.FotoProductoMedium" class="lazy redireccionarFicha" src="@item.FotoProductoMedium">
+                                <img data-src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201905/E/productos/PE_200094549.jpg" data-src-error="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201905/E/productos/PE_200094549.jpg" class="lazy redireccionarFicha" src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201905/E/productos/PE_200094549.jpg">
                             </figure>
                             <div class="col-12 pl-0 pr-0 ficha__producto__descrip d-block mx-auto text-left">
                                 <div class="col-12 pl-0 pr-0 ficha__producto__descrip__marca__pais text-uppercase">
@@ -213,8 +216,12 @@
                                 </div>
                             </div>
                             <div class="row flex-row align-items-end align-items-md-baseline ml-0 mr-0 col-12 pl-0 pr-0 ficha__producto__precio">
-                                <div class="ficha__producto__precio__normal text-left">@ViewBag.Moneda @item.PrecioCatalogo</div>
-                                <div class="ficha__producto__precio__oferta text-bold text-left">@ViewBag.Moneda @item.Ganancia</div>
+                                <div>
+                                    <div style="text-align: left;padding-right: 15px;font-size: 12px;">Precio para ti <br /> @ViewBag.Moneda @item.PrecioCatalogo</div> @*ficha__producto__precio__normal*@
+                                </div>
+                                <div>
+                                    <div style="font-size: 12px;text-align: left;">Ganancia<br />@ViewBag.Moneda <b>@item.Ganancia</b></div> @*ficha__producto__precio__oferta*@
+                                </div>
                             </div>
                             <div class="row flex-row justify-content-between ml-0 mr-0 pl-0 pr-0 ficha__producto__agregar__producto">
                                 <div class="col-12 col-md col-lg col-xl pl-0 pr-0" style="display:none;">
@@ -238,11 +245,20 @@
                             </div>
 
                             @{
-                                var Seleccionado = item.FlagSeleccionado ? "style='display:block;'" : "style='display:none;'";
+                                if (item.FlagSeleccionado)
+                                {
+                                    <div class="col-12 pl-0 pr-0 etiqueta_buscador_producto ficha__producto__etiqueta text-center" data-Agregado="DivAgregado">
+                                        <span class="text-uppercase text-bold d-inline-block">Agregado</span>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="col-12 pl-0 pr-0 etiqueta_buscador_producto ficha__producto__etiqueta text-center" style="display:none;" data-Agregado="DivAgregado">
+                                        <span class="text-uppercase text-bold d-inline-block">Agregado</span>
+                                    </div>
+                                }
                             }
-                            <div class="col-12 pl-0 pr-0 etiqueta_buscador_producto ficha__producto__etiqueta text-center" @Seleccionado data-Agregado="DivAgregado">
-                                <span class="text-uppercase text-bold d-inline-block">Agregado</span>
-                            </div>
+
                         </div>
                     </article>
                 }
@@ -258,10 +274,10 @@
                 {
                     <article class="ficha__producto " data-item="BuscadorFichasProductos">
 
-                        <input type="hidden" id="hdCuv" value="@item.CUV" />
+                        <input type="hidden" id="hdCuv" value="@item.Cuv1" />
                         <div class="row flex-row justify-content-center ml-0 mr-0">
                             <figure class="col-12 pl-0 pr-0 row flex-row ml-0 mr-0 justify-content-center align-items-end ficha__producto__imagen text-center">
-                                <img data-src="@item.FotoProductoMedium" class="lazy redireccionarFicha" src="@item.FotoProductoMedium">
+                                <img data-src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201905/E/productos/PE_200094549.jpg" data-src-error="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201905/E/productos/PE_200094549.jpg" class="lazy redireccionarFicha" src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201905/E/productos/PE_200094549.jpg">
                             </figure>
                             <div class="col-12 pl-0 pr-0 ficha__producto__descrip d-block mx-auto text-left">
                                 <div class="col-12 pl-0 pr-0 ficha__producto__descrip__marca__pais text-uppercase">
@@ -269,12 +285,25 @@
                                 </div>
                                 <div class="col-12 pl-0 pr-0 ficha__producto__descrip__nom text-bold redireccionarFicha">
                                     @item.DescripcionCUV
+                                </div> 
+
+                            </div>
+                            @*<div class="row flex-row align-items-end align-items-md-baseline ml-0 mr-0 col-12 pl-0 pr-0 ficha__producto__precio">
+                                    <div class="ficha__producto__precio__normal text-left">@ViewBag.Moneda @item.PrecioValorizado</div>
+                                    <div class="ficha__producto__precio__oferta text-bold text-left">@ViewBag.Moneda @item.PrecioCatalogo</div>
+                                </div>*@
+
+                            <div class="row flex-row align-items-end align-items-md-baseline ml-0 mr-0 col-12 pl-0 pr-0 ficha__producto__precio">
+                                <div>
+                                    <div style="text-align: left;padding-right: 15px; font-size: 12px;">Precio normal<br /><div style="text-decoration:line-through;">@ViewBag.Moneda @item.PrecioValorizado</div></div>
+                                </div>
+                                <div>
+                                    <div style="font-size: 12px;text-align: left;">Precio para ti<br />@ViewBag.Moneda <b>@item.PrecioCatalogo</b></div>
                                 </div>
                             </div>
-                            <div class="row flex-row align-items-end align-items-md-baseline ml-0 mr-0 col-12 pl-0 pr-0 ficha__producto__precio">
-                                <div class="ficha__producto__precio__normal text-left">@ViewBag.Moneda @item.PrecioValorizado</div>
-                                <div class="ficha__producto__precio__oferta text-bold text-left">@ViewBag.Moneda @item.PrecioCatalogo</div>
-                            </div>
+
+
+
                             <div class="row flex-row justify-content-between ml-0 mr-0 pl-0 pr-0 ficha__producto__agregar__producto">
                                 <div class="col-12 col-md col-lg col-xl pl-0 pr-0">
                                     <div class="row flex-row justify-content-between ml-0 mr-0 ficha__producto__rango__cantidad js-no-popup" data-cantidad-contenedor="">
@@ -309,6 +338,7 @@
 <script src="https://www.somosbelcorp.com/Bundle/Js/Desktop/JQuery3Js?v=6K-kHHuzTBQeaIUNJP1kR-uZJRJv9nA2SlHvYURb6j41"></script>
 @*<script src="https://www.somosbelcorp.com/Bundle/Js/Mixto/PageResponsive?v=UnwRHvNM2IKDp7bnVYbR9vzcKjvNhncrgvXVwHUULCg1"></script>*@
 
+
 <script type='text/javascript'>
     (function () {
         var proto = document.location.protocol || 'http:';
@@ -325,17 +355,104 @@
     }
 </script>
 
+
 <script src="~/Scripts/PortalConsultoras/Cliente/Index.js"></script>
 <script src="~/Scripts/PortalConsultoras/Pedido/ofertafinal.js"></script>
 <script src="~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js"></script>
 <script src="~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js"></script>
 <script src="~/Scripts/PortalConsultoras/EstrategiaAgregar/PedidoRegistro.js"></script>
-<script src="~/Scripts/PortalConsultoras/CaminoBrillante/Ofertas.js"></script>
 
-<script>
+<script type="text/javascript">
+    var tipoOrigen = "1";
+    var reservaResponse = {
+        data: { Reserva: false }
+    };
+    var baseUrl = "/";
+
+    function AgregarProducto() {
+
+
+        var items = document.getElementsByClassName('boton_Agregalo_home boton__agregalo--fichaProducto text-center d-block FichaAgregarProductoBuscador');
+
+        for (var i = 0; i < items.length; i++) {
+            items[i].onclick = function (e) {
+                e.preventDefault();
+                AbrirSplash();
+                var cuvCapturado = this.parentElement.parentElement.parentElement.parentElement.children[0].value;
+                var cantidadCapturado = this.parentElement.parentElement.children[0].children[0].children[1].value;
+
+                var params = {
+                    CuvTonos: cuvCapturado,
+                    CUV: cuvCapturado,
+                    Cantidad: cantidadCapturado,
+                    TipoEstrategiaID: 3014,
+                    EstrategiaID: "34076",
+                    OrigenPedidoWeb: "1181901",
+                    TipoEstrategiaImagen: "6",
+                    FlagNueva: false,
+                    EsEditable: false,
+                    SetId: null,
+                    ClienteID: 0
+                };
+
+                var resultado = e.target;
+
+                jQuery.ajax({
+                    type: "POST",
+                    url: baseUrl + "PedidoRegistro/PedidoAgregarProductoTransaction",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(params),
+                    async: true,
+                    cache: false,
+                    success: function (data) {
+                        //dfd.resolve(data);
+                        resultado.parentElement.parentElement.parentElement.lastElementChild.style.display = 'block';
+                        CerrarSplash();
+                        CargarResumenCampaniaHeader(true);
+
+                    },
+                    error: function (data, error) {
+                        alert("error");
+                        // dfd.reject(data, error);
+                    }
+                });
+            }
+        }
+    }
+
+
+    function CambiarOferta() {
+
+
+        $('#Tab-kits').click(function () {
+            $('#kits').show();
+            $('#Demostradores').hide();
+            $("#Tab-kits").addClass("activado-dorado");
+            $("#Tab-Demostradores").removeClass("activado-dorado");
+            $("#divresultadosDemostradores").hide();
+            $("#divresultadosKit").show();
+        });
+
+
+        $('#Tab-Demostradores').click(function () {
+            $('#Demostradores').show();
+            $('#kits').hide();
+
+            $("#Tab-kits").removeClass("activado-dorado");
+            $("#Tab-Demostradores").addClass("activado-dorado");            
+            $("#divresultadosKit").hide();
+            $("#divresultadosDemostradores").show();
+        });
+    }
+
+
+
+
+
     AgregarProducto();
     CambiarOferta();
-</script>
 
+</script>
 
 <script src="~/Scripts/PortalConsultoras/Buscador/BusquedaProductoModule.js"></script>

@@ -3721,7 +3721,7 @@ namespace Portal.Consultoras.Common
             var demo = Constantes.NuevoCatalogoProducto.ESCAMINOBRILLANTE.Split(',');
             for(int i = 0; i< demo.Length; i++)
                 if(demo[i] == OrigenPedidoWeb.ToString())
-                    return "CAMINOBRILLANTE";
+                    return "CAMINO BRILLANTE";
 
             var result = "";
             if (pedidoValidado)
