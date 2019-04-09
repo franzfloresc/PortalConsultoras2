@@ -1,6 +1,6 @@
 ﻿use [BelcorpBolivia_MC] 
 go
-CREATE PROCEDURE dbo.UpdValAutoPROLPedidoWeb
+ALTER PROCEDURE dbo.UpdValAutoPROLPedidoWeb
     @CampaniaId int,
     @PedidoId int,
     @EstadoPedido int,
@@ -53,7 +53,7 @@ GO
 
 use [BelcorpChile_MC]
 go
-CREATE PROCEDURE dbo.UpdValAutoPROLPedidoWeb
+ALTER PROCEDURE dbo.UpdValAutoPROLPedidoWeb
     @CampaniaId int,
     @PedidoId int,
     @EstadoPedido int,
@@ -105,7 +105,7 @@ go
 
 use [BelcorpColombia_MC]
 go
-CREATE PROCEDURE dbo.UpdValAutoPROLPedidoWeb
+ALTER PROCEDURE dbo.UpdValAutoPROLPedidoWeb
     @CampaniaId int,
     @PedidoId int,
     @EstadoPedido int,
@@ -157,7 +157,7 @@ go
 
 use [BelcorpCostaRica_MC]
 go
-CREATE PROCEDURE dbo.UpdValAutoPROLPedidoWeb
+ALTER PROCEDURE dbo.UpdValAutoPROLPedidoWeb
     @CampaniaId int,
     @PedidoId int,
     @EstadoPedido int,
@@ -209,7 +209,7 @@ go
 
 use [BelcorpDominicana_MC]
 go
-CREATE PROCEDURE dbo.UpdValAutoPROLPedidoWeb
+ALTER PROCEDURE dbo.UpdValAutoPROLPedidoWeb
     @CampaniaId int,
     @PedidoId int,
     @EstadoPedido int,
@@ -261,7 +261,7 @@ go
 
 use [BelcorpEcuador_MC]
 go
-CREATE PROCEDURE dbo.UpdValAutoPROLPedidoWeb
+ALTER PROCEDURE dbo.UpdValAutoPROLPedidoWeb
     @CampaniaId int,
     @PedidoId int,
     @EstadoPedido int,
@@ -313,7 +313,7 @@ go
 
 use [BelcorpGuatemala_MC]
 go
-CREATE PROCEDURE dbo.UpdValAutoPROLPedidoWeb
+ALTER PROCEDURE dbo.UpdValAutoPROLPedidoWeb
     @CampaniaId int,
     @PedidoId int,
     @EstadoPedido int,
@@ -365,7 +365,7 @@ go
 
 use [BelcorpMexico_MC]
 go
-CREATE PROCEDURE dbo.UpdValAutoPROLPedidoWeb
+ALTER PROCEDURE dbo.UpdValAutoPROLPedidoWeb
     @CampaniaId int,
     @PedidoId int,
     @EstadoPedido int,
@@ -417,7 +417,7 @@ go
 
 use [BelcorpPanama_MC]
 go
-CREATE PROCEDURE dbo.UpdValAutoPROLPedidoWeb
+ALTER PROCEDURE dbo.UpdValAutoPROLPedidoWeb
     @CampaniaId int,
     @PedidoId int,
     @EstadoPedido int,
@@ -469,7 +469,7 @@ go
 
 use [BelcorpPeru_MC]
 go
-CREATE PROCEDURE dbo.UpdValAutoPROLPedidoWeb
+ALTER PROCEDURE dbo.UpdValAutoPROLPedidoWeb
     @CampaniaId int,
     @PedidoId int,
     @EstadoPedido int,
@@ -521,7 +521,7 @@ go
 
 use [BelcorpPuertoRico_MC]
 go
-CREATE PROCEDURE dbo.UpdValAutoPROLPedidoWeb
+ALTER PROCEDURE dbo.UpdValAutoPROLPedidoWeb
     @CampaniaId int,
     @PedidoId int,
     @EstadoPedido int,
@@ -573,7 +573,7 @@ go
 
 use [BelcorpSalvador_MC]
 go
-CREATE PROCEDURE dbo.UpdValAutoPROLPedidoWeb
+ALTER PROCEDURE dbo.UpdValAutoPROLPedidoWeb
     @CampaniaId int,
     @PedidoId int,
     @EstadoPedido int,
