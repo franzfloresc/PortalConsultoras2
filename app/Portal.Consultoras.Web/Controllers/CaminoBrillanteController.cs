@@ -106,11 +106,21 @@ namespace Portal.Consultoras.Web.Controllers
                 if (ofertas == null || ofertas.Count == 0)
                 {
                     var user = new BEUsuario() {
-                        CampaniaID = userData.CampaniaID
+                        CampaniaID = userData.CampaniaID,
+                        PaisID = userData.PaisID
                     };
 
+                    var consultoraNivel = SessionManager.GetConsultoraCaminoBrillante();
+                    if (consultoraNivel == null) return null;
+                    var nivelConsultora = consultoraNivel.NivelConsultora.Where(e => e.EsActual).FirstOrDefault();
+                    if (nivelConsultora == null) return null;
+                    int nivel = 0;
+                    int periodo = 0;
+                    int.TryParse(nivelConsultora.Nivel ?? string.Empty, out nivel);
+                    int.TryParse(nivelConsultora.PeriodoCae ?? string.Empty, out periodo);
+
                     using (var svc = new UsuarioServiceClient())
-                        ofertas = svc.GetKitCaminoBrillante(userData.PaisID, user, 201903).ToList();
+                        ofertas = svc.GetKitsCaminoBrillante(user, periodo, nivel).ToList(); //
                     if (ofertas != null)
                         SessionManager.SetKitCaminoBrillante(ofertas);
                 }
