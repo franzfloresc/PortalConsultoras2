@@ -205,7 +205,10 @@
                         </div>
                         <div class="row flex-row justify-content-center ml-0 mr-0">
                             <figure class="col-12 pl-0 pr-0 row flex-row ml-0 mr-0 justify-content-center align-items-end ficha__producto__imagen text-center">
-                                <img class="lazy redireccionarFicha" src="@item.FotoProductoMedium">
+                                @{
+                                    var imagenKit = string.IsNullOrEmpty(item.FotoProductoMedium) ? ViewBag.RutaImagenNoDisponible : item.FotoProductoMedium;
+                                }
+                                <img class="lazy redireccionarFicha" src="@Url.Content(imagenKit)">
                             </figure>
                             <div class="col-12 pl-0 pr-0 ficha__producto__descrip d-block mx-auto text-left">
                                 <div class="col-12 pl-0 pr-0 ficha__producto__descrip__marca__pais text-uppercase">
@@ -273,11 +276,13 @@
                 foreach (var item in Demostradores)
                 {
                     <article class="ficha__producto " data-item="BuscadorFichasProductos">
-
                         <input type="hidden" id="hdCuv" value="@item.Cuv1" />
                         <div class="row flex-row justify-content-center ml-0 mr-0">
                             <figure class="col-12 pl-0 pr-0 row flex-row ml-0 mr-0 justify-content-center align-items-end ficha__producto__imagen text-center">
-                                <img class="lazy redireccionarFicha" src="@item.FotoProductoMedium">
+                                @{ 
+                                    var imagenDemostrador = string.IsNullOrEmpty(item.FotoProductoMedium) ? ViewBag.RutaImagenNoDisponible : item.FotoProductoMedium;
+                                }
+                                <img class="lazy redireccionarFicha" src="@Url.Content(imagenDemostrador)"> 
                             </figure>
                             <div class="col-12 pl-0 pr-0 ficha__producto__descrip d-block mx-auto text-left">
                                 <div class="col-12 pl-0 pr-0 ficha__producto__descrip__marca__pais text-uppercase">
@@ -285,7 +290,7 @@
                                 </div>
                                 <div class="col-12 pl-0 pr-0 ficha__producto__descrip__nom text-bold redireccionarFicha">
                                     @item.DescripcionCUV
-                                </div> 
+                                </div>
 
                             </div>
                             @*<div class="row flex-row align-items-end align-items-md-baseline ml-0 mr-0 col-12 pl-0 pr-0 ficha__producto__precio">
@@ -298,7 +303,7 @@
                                     <div style="text-align: left;padding-right: 15px; font-size: 12px;">Precio normal<br /><div style="text-decoration:line-through;">@ViewBag.Moneda @item.PrecioValorizado</div></div>
                                 </div>
                                 <div>
-                                    <div style="font-size: 12px;text-align: left;">Precio para ti<br />@ViewBag.Moneda <b>@item.PrecioCatalogo</b></div>
+                                    <div style="font-size: 12px;text-align: left;">Precio para ti<br /><b>@ViewBag.Moneda @item.PrecioCatalogo</b></div>
                                 </div>
                             </div>
 
@@ -363,6 +368,9 @@
 <script src="~/Scripts/PortalConsultoras/EstrategiaAgregar/PedidoRegistro.js"></script>
 
 <script type="text/javascript">
+    var TabUno = 0;
+    var TabDos = 0;
+
     var tipoOrigen = "1";
     var reservaResponse = {
         data: { Reserva: false }
@@ -407,7 +415,7 @@
                     cache: false,
                     success: function (data) {
                         //dfd.resolve(data);
-                        
+
                         resultado.parentElement.parentElement.parentElement.lastElementChild.style.display = 'block';
                         resultado.parentElement.parentElement.parentElement.parentElement.className += " producto_desactivado";
 
@@ -435,17 +443,26 @@
             $("#Tab-Demostradores").removeClass("activado-dorado");
             $("#divresultadosDemostradores").hide();
             $("#divresultadosKit").show();
+
+            debugger;
+
+            document.body.scrollTop = TabUno;
+
+
         });
 
 
         $('#Tab-Demostradores').click(function () {
+            debugger;
             $('#Demostradores').show();
             $('#kits').hide();
 
             $("#Tab-kits").removeClass("activado-dorado");
-            $("#Tab-Demostradores").addClass("activado-dorado");            
+            $("#Tab-Demostradores").addClass("activado-dorado");
             $("#divresultadosKit").hide();
             $("#divresultadosDemostradores").show();
+
+            document.body.scrollTop = TabDos;
         });
     }
 
@@ -455,6 +472,15 @@
 
     AgregarProducto();
     CambiarOferta();
+
+
+    $(window).scroll(function (event) {
+        if ($("#Tab-kits").hasClass('activado-dorado'))
+            TabUno = $(window).scrollTop();;
+
+        if ($("#Tab-Demostradores").hasClass('activado-dorado'))
+            TabDos = $(window).scrollTop();;
+    });
 
 </script>
 

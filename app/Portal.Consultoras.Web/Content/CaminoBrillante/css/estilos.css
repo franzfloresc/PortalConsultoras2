@@ -1506,7 +1506,6 @@ header.layout__header {
         }
     }
 }
-
 .modal.fade:not(.show) {
     opacity:1;
 }
@@ -1527,4 +1526,3 @@ header.layout__header {
 #seccion-menu-mobile {
     display:none;
 }
-
