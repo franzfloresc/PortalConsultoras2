@@ -4,7 +4,6 @@
     var Demostradores = ViewBag.Demostradores;
 }
 
-@*<link href="@Url.Content("~/Content/Css/Site/BusquedaProductos/busqueda-productos.css")" rel="stylesheet" />*@
 <link href="@Url.Content("~/Content/Css/Site/BusquedaProductos/filtros-busqueda.css")" rel="stylesheet" />
 <link href="@Url.Content("~/Content/Css/Site/FichaProductoResponsive/ficha-producto-responsive.css")" rel="stylesheet" />
 <link href="~/Content/CaminoBrillante/css/ganamas.css" rel="stylesheet" />
@@ -340,12 +339,16 @@
     </section>
 </div>
 
-@*<script src="~/Scripts/PortalConsultoras/Buscador/BusquedaProductoModule.js"></script>*@
 <script src="https://www.somosbelcorp.com/Bundle/Js/Desktop/JQuery3Js?v=6K-kHHuzTBQeaIUNJP1kR-uZJRJv9nA2SlHvYURb6j41"></script>
-@*<script src="https://www.somosbelcorp.com/Bundle/Js/Mixto/PageResponsive?v=UnwRHvNM2IKDp7bnVYbR9vzcKjvNhncrgvXVwHUULCg1"></script>*@
+<script src="~/Scripts/PortalConsultoras/CaminoBrillante/Ofertas.js"></script>
+<script src="~/Scripts/PortalConsultoras/Cliente/Index.js"></script>
+<script src="~/Scripts/PortalConsultoras/Pedido/ofertafinal.js"></script>
+<script src="~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js"></script>
+<script src="~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js"></script>
+<script src="~/Scripts/PortalConsultoras/EstrategiaAgregar/PedidoRegistro.js"></script>
 
 
-<script type='text/javascript'>
+@*<script type='text/javascript'>
     (function () {
         var proto = document.location.protocol || 'http:';
         var trme = document.createElement('script');
@@ -359,116 +362,52 @@
     function Buscador() {
         location.href = baseUrl + 'Mobile/Buscador';
     }
-</script>
+</script>*@
 
+@*<script type="text/javascript">
+    //var TabUno = 0;
+    //var TabDos = 0;
 
-@*<script src="~/Scripts/PortalConsultoras/Cliente/Index.js"></script>
-<script src="~/Scripts/PortalConsultoras/Pedido/ofertafinal.js"></script>
-<script src="~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js"></script>
-<script src="~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js"></script>
-<script src="~/Scripts/PortalConsultoras/EstrategiaAgregar/PedidoRegistro.js"></script>*@
+    //var tipoOrigen = "1";
+    //var reservaResponse = {
+    //    data: { Reserva: false }
+    //};
+    //var baseUrl = "/";
 
-<script type="text/javascript">
-    var TabUno = 0;
-    var TabDos = 0;
+    //function CambiarOferta() {
+    //    $('#Tab-kits').click(function () {
+    //        $('#kits').show();
+    //        $('#Demostradores').hide();
+    //        $("#Tab-kits").addClass("activado-dorado");
+    //        $("#Tab-Demostradores").removeClass("activado-dorado");
+    //        $("#divresultadosDemostradores").hide();
+    //        $("#divresultadosKit").show();
+    //        document.body.scrollTop = TabUno;
+    //    });
 
-    var tipoOrigen = "1";
-    var reservaResponse = {
-        data: { Reserva: false }
-    };
-    var baseUrl = "/";
+    //    $('#Tab-Demostradores').click(function () {
+    //        $('#Demostradores').show();
+    //        $('#kits').hide();
 
-    //function AgregarProducto() {
+    //        $("#Tab-kits").removeClass("activado-dorado");
+    //        $("#Tab-Demostradores").addClass("activado-dorado");
+    //        $("#divresultadosKit").hide();
+    //        $("#divresultadosDemostradores").show();
 
-
-    //    var items = document.getElementsByClassName('boton_Agregalo_home boton__agregalo--fichaProducto text-center d-block FichaAgregarProductoBuscador');
-
-    //    for (var i = 0; i < items.length; i++) {
-    //        items[i].onclick = function (e) {
-    //            e.preventDefault();
-    //            AbrirSplash();
-    //            var cuvCapturado = this.parentElement.parentElement.parentElement.parentElement.children[0].value;
-    //            var cantidadCapturado = this.parentElement.parentElement.children[0].children[0].children[1].value;
-
-    //            var params = {
-    //                CuvTonos: cuvCapturado,
-    //                CUV: cuvCapturado,
-    //                Cantidad: cantidadCapturado,
-    //                TipoEstrategiaID: 3014,
-    //                EstrategiaID: "34076",
-    //                OrigenPedidoWeb: "1181901",
-    //                TipoEstrategiaImagen: "6",
-    //                FlagNueva: false,
-    //                EsEditable: false,
-    //                SetId: null,
-    //                ClienteID: 0
-    //            };
-
-    //            var resultado = e.target;
-
-    //            jQuery.ajax({
-    //                type: "POST",
-    //                url: baseUrl + "PedidoRegistro/PedidoAgregarProductoTransaction",
-    //                dataType: "json",
-    //                contentType: "application/json; charset=utf-8",
-    //                data: JSON.stringify(params),
-    //                async: true,
-    //                cache: false,
-    //                success: function (data) {
-    //                    //dfd.resolve(data);
-
-    //                    resultado.parentElement.parentElement.parentElement.lastElementChild.style.display = 'block';
-    //                    resultado.parentElement.parentElement.parentElement.parentElement.className += " producto_desactivado";
-
-    //                    CerrarSplash();
-    //                    CargarResumenCampaniaHeader(true);
-
-    //                },
-    //                error: function (data, error) {
-    //                    alert("error");
-    //                    // dfd.reject(data, error);
-    //                }
-    //            });
-    //        }
-    //    }
+    //        document.body.scrollTop = TabDos;
+    //    });
     //}
 
+    //CambiarOferta();
 
-    function CambiarOferta() {
-        $('#Tab-kits').click(function () {
-            $('#kits').show();
-            $('#Demostradores').hide();
-            $("#Tab-kits").addClass("activado-dorado");
-            $("#Tab-Demostradores").removeClass("activado-dorado");
-            $("#divresultadosDemostradores").hide();
-            $("#divresultadosKit").show();
-            document.body.scrollTop = TabUno;
-        });
+    //$(window).scroll(function (event) {
+    //    if ($("#Tab-kits").hasClass('activado-dorado'))
+    //        TabUno = $(window).scrollTop();;
 
-        $('#Tab-Demostradores').click(function () {
-            $('#Demostradores').show();
-            $('#kits').hide();
+    //    if ($("#Tab-Demostradores").hasClass('activado-dorado'))
+    //        TabDos = $(window).scrollTop();;
+    //});
 
-            $("#Tab-kits").removeClass("activado-dorado");
-            $("#Tab-Demostradores").addClass("activado-dorado");
-            $("#divresultadosKit").hide();
-            $("#divresultadosDemostradores").show();
-
-            document.body.scrollTop = TabDos;
-        });
-    }
-
-    //AgregarProducto();
-    CambiarOferta();
-
-    $(window).scroll(function (event) {
-        if ($("#Tab-kits").hasClass('activado-dorado'))
-            TabUno = $(window).scrollTop();;
-
-        if ($("#Tab-Demostradores").hasClass('activado-dorado'))
-            TabDos = $(window).scrollTop();;
-    });
-
-</script>
+</script>*@
 
 

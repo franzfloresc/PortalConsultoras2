@@ -1,12 +1,24 @@
-﻿var tipoOrigen = "1";
+﻿var TabUno = 0;
+var TabDos = 0;
+var tipoOrigen = "1";
 var reservaResponse = {
     data: { Reserva: false }
 };
 var baseUrl = "/";
 
+$(document).ready(function () {
+    CambiarOferta();
+});
+
+$(window).scroll(function (event) {
+    if ($("#Tab-kits").hasClass('activado-dorado'))
+        TabUno = $(window).scrollTop();;
+
+    if ($("#Tab-Demostradores").hasClass('activado-dorado'))
+        TabDos = $(window).scrollTop();;
+});
+
 function AgregarProducto() {
-
-
     var items = document.getElementsByClassName('boton_Agregalo_home boton__agregalo--fichaProducto text-center d-block FichaAgregarProductoBuscador');
 
     for (var i = 0; i < items.length; i++) {
@@ -60,8 +72,6 @@ function AgregarProducto() {
 
 
 function CambiarOferta() {
-
-
     $('#Tab-kits').click(function () {
         $('#kits').show();
         $('#Demostradores').hide();
@@ -70,7 +80,6 @@ function CambiarOferta() {
         $("#divresultadosDemostradores").hide();
         $("#divresultadosKit").show();
     });
-
 
     $('#Tab-Demostradores').click(function () {
         
