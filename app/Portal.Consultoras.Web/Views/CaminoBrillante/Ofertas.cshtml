@@ -217,10 +217,10 @@
                             </div>
                             <div class="row flex-row align-items-end align-items-md-baseline ml-0 mr-0 col-12 pl-0 pr-0 ficha__producto__precio">
                                 <div>
-                                    <div style="text-align: left;padding-right: 15px;font-size: 12px;">Precio para ti <br /> @ViewBag.Moneda @item.PrecioCatalogo</div> @*ficha__producto__precio__normal*@
+                                    <div style="text-align: left;padding-right: 15px;font-size: 12px;">Precio para ti<br /><b>@ViewBag.Moneda @item.PrecioCatalogo</b></div> @*ficha__producto__precio__normal*@
                                 </div>
                                 <div>
-                                    <div style="font-size: 12px;text-align: left;">Ganancia<br />@ViewBag.Moneda <b>@item.Ganancia</b></div> @*ficha__producto__precio__oferta*@
+                                    <div style="font-size: 12px;text-align: left;">Ganancia<br />@ViewBag.Moneda @item.Ganancia</div> @*ficha__producto__precio__oferta*@
                                 </div>
                             </div>
                             <div class="row flex-row justify-content-between ml-0 mr-0 pl-0 pr-0 ficha__producto__agregar__producto">
@@ -407,7 +407,10 @@
                     cache: false,
                     success: function (data) {
                         //dfd.resolve(data);
+                        
                         resultado.parentElement.parentElement.parentElement.lastElementChild.style.display = 'block';
+                        resultado.parentElement.parentElement.parentElement.parentElement.className += " producto_desactivado";
+
                         CerrarSplash();
                         CargarResumenCampaniaHeader(true);
 
