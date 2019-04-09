@@ -27,7 +27,7 @@ namespace Portal.Consultoras.Entities
         public int DesdeCampania { get; set; }
 
         [DataMember]
-        public List<BEContenidoAppDeta> DetalleContenido { get; set; }
+        public List<BEContenidoAppDetalle> DetalleContenido { get; set; }
 
         public BEContenidoAppResumen() { }
         public BEContenidoAppResumen(IDataRecord row)
@@ -36,7 +36,7 @@ namespace Portal.Consultoras.Entities
             DesdeCampania = row.ToInt32("Codigo");
             Estado = row.ToBoolean("Est_Banner");
             UrlMiniatura = row.ToString("UrlMiniatura");
-            DetalleContenido = new List<BEContenidoAppDeta>();
+            DetalleContenido = new List<BEContenidoAppDetalle>();
         }
     }
 }

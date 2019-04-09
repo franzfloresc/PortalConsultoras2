@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 namespace Portal.Consultoras.Entities
 {
     [DataContract]
-    public class BEContenidoAppDeta
+    public class BEContenidoAppDetalle
     {
         [DataMember]
         public int IdContenidoDeta { get; set; }
@@ -31,9 +31,9 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool ContenidoVisto { get; set; }
 
-        public BEContenidoAppDeta() { }
+        public BEContenidoAppDetalle() { }
 
-        public BEContenidoAppDeta(IDataRecord row)
+        public BEContenidoAppDetalle(IDataRecord row)
         {
             IdContenidoDeta = row.ToInt32("IdContenidoDeta");
             CodigoDetalle = row.ToString("CodigoDetalle");

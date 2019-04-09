@@ -20,7 +20,7 @@ namespace Portal.Consultoras.BizLogic.Contenido
                 while (reader.Read())
                 {
                     var itmResumen = listaContenido.Where(x => x.Codigo == reader.ToString("Codigo")).FirstOrDefault();
-                    var itmDetalle = new BEContenidoAppDeta(reader);
+                    var itmDetalle = new BEContenidoAppDetalle(reader);
 
                     if (itmResumen != null)
                         itmResumen.DetalleContenido.Add(itmDetalle);
