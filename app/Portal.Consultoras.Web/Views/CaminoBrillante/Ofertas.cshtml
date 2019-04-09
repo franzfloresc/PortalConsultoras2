@@ -190,16 +190,15 @@
             @{
                 foreach (var item in Model)
                 {
-                    <article class="ficha__producto " data-item="BuscadorFichasProductos">
+                    <article class="ficha__producto" data-item="BuscadorFichasProductos">
 
                         <input type="hidden" id="hdCuv" value="@item.CUV" />
-                        <div class="etiqueta-box etiq-coral">
-
-                            @if (Portal.Consultoras.Common.Constantes.CaminoBrillante.Niveles.Iconos.Keys.Contains((string)item.CodigoNivel))
-                            {
-                                <img src='@Portal.Consultoras.Common.Constantes.CaminoBrillante.Niveles.Iconos[item.CodigoNivel][1]'>
+                        <div>
+                            @{
+                                var image = "/Content/CaminoBrillante/imgs/Nivel_0" + item.CodigoNivel + ".svg";
                             }
-                            <span class="etiqueta">@item.DescripcionNivel</span>
+                            <img src="@image" />
+                            @*<span class="etiqueta">@item.DescripcionNivel</span>*@
                         </div>
                         <div class="row flex-row justify-content-center ml-0 mr-0">
                             <figure class="col-12 pl-0 pr-0 row flex-row ml-0 mr-0 justify-content-center align-items-end ficha__producto__imagen text-center">
@@ -237,7 +236,11 @@
                                     </a>
                                 </div>
                             </div>
-                            <div class="col-12 pl-0 pr-0 etiqueta_buscador_producto ficha__producto__etiqueta text-center" style="display:none;" data-Agregado="DivAgregado">
+
+                            @{
+                                var Seleccionado = item.FlagSeleccionado ? "style='display:block;'" : "style='display:none;'";
+                            }
+                            <div class="col-12 pl-0 pr-0 etiqueta_buscador_producto ficha__producto__etiqueta text-center" @Seleccionado data-Agregado="DivAgregado">
                                 <span class="text-uppercase text-bold d-inline-block">Agregado</span>
                             </div>
                         </div>
@@ -304,7 +307,7 @@
 </div>
 
 <script src="https://www.somosbelcorp.com/Bundle/Js/Desktop/JQuery3Js?v=6K-kHHuzTBQeaIUNJP1kR-uZJRJv9nA2SlHvYURb6j41"></script>
-<script src="https://www.somosbelcorp.com/Bundle/Js/Mixto/PageResponsive?v=UnwRHvNM2IKDp7bnVYbR9vzcKjvNhncrgvXVwHUULCg1"></script>
+@*<script src="https://www.somosbelcorp.com/Bundle/Js/Mixto/PageResponsive?v=UnwRHvNM2IKDp7bnVYbR9vzcKjvNhncrgvXVwHUULCg1"></script>*@
 
 <script type='text/javascript'>
     (function () {

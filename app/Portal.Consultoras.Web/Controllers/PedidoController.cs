@@ -355,6 +355,7 @@ namespace Portal.Consultoras.Web.Controllers
                     CampaniaID = userData.CampaniaID
                 };
                 ViewBag.KitsCaminoBrillante = _caminoBrillanteProvider.GetKitCaminoBrillante().ToList();
+                    ViewBag.KitsCaminoBrillante = sv.GetKitsCaminoBrillante(user, 201903, 4).ToList();
                 #endregion
 
             }

@@ -46,7 +46,7 @@ namespace Portal.Consultoras.Web.Providers
                 usuarioDatos.ConsecutivoNueva = UsuarioDatos.ConsecutivoNueva;
 
                 using (var svc = new UsuarioServiceClient())
-                    resumen = svc.GetConsultoraNivelCaminoBrillante(usuarioDatos);
+                return svc.GetConsultoraNivelCaminoBrillante(usuarioDatos);
             }
 
             if (resumen != null) sessionManager.SetConsultoraCaminoBrillante(resumen);
