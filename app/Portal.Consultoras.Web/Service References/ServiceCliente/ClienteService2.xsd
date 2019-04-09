@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:41615/ClienteService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cliente" />
+  <xs:import schemaLocation="http://localhost:41615/ClienteService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR" />
   <xs:complexType name="BECliente">
     <xs:sequence>
       <xs:element minOccurs="0" name="Activo" type="xs:boolean" />
@@ -41,9 +42,8 @@
   <xs:element name="ArrayOfBEPedidoWeb" nillable="true" type="tns:ArrayOfBEPedidoWeb" />
   <xs:complexType name="BEPedidoWeb">
     <xs:sequence>
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR" minOccurs="0" name="BECDRWeb" nillable="true" type="q2:ArrayOfBECDRWeb" />
       <xs:element minOccurs="0" name="Bloqueado" type="xs:short" />
-      <xs:element minOccurs="0" name="CDRWebEstado" type="xs:int" />
-      <xs:element minOccurs="0" name="CDRWebID" type="xs:int" />
       <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
       <xs:element minOccurs="0" name="CanalIngreso" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CantidadCuv" type="xs:int" />
@@ -76,6 +76,7 @@
       <xs:element minOccurs="0" name="MontoPedido" type="xs:decimal" />
       <xs:element minOccurs="0" name="MontoTotalProl" type="xs:decimal" />
       <xs:element minOccurs="0" name="MotivoCreditoID" type="xs:short" />
+      <xs:element minOccurs="0" name="MuestraRegalo" type="xs:boolean" />
       <xs:element minOccurs="0" name="Nombres" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NumeroPedido" type="xs:int" />
       <xs:element minOccurs="0" name="PaisID" type="xs:int" />
@@ -129,6 +130,7 @@
       <xs:element minOccurs="0" name="EsKitNueva" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsOfertaIndependiente" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsPremioElectivo" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EsRegalo" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsSugerido" type="xs:boolean" />
       <xs:element minOccurs="0" name="EstadoItem" type="xs:short" />
       <xs:element minOccurs="0" name="EstrategiaId" type="xs:int" />
@@ -267,13 +269,13 @@
       <xs:element minOccurs="0" name="Insertado" type="xs:boolean" />
       <xs:element minOccurs="0" name="MensajeRespuesta" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MontoPedido" type="xs:decimal" />
-      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cliente" minOccurs="0" name="Movimientos" nillable="true" type="q2:ArrayOfBEMovimiento" />
+      <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cliente" minOccurs="0" name="Movimientos" nillable="true" type="q3:ArrayOfBEMovimiento" />
       <xs:element minOccurs="0" name="NombreCompleto" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Nombres" nillable="true" type="xs:string" />
-      <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cliente" minOccurs="0" name="Notas" nillable="true" type="q3:ArrayOfBENota" />
+      <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cliente" minOccurs="0" name="Notas" nillable="true" type="q4:ArrayOfBENota" />
       <xs:element minOccurs="0" name="Origen" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PaisID" type="xs:int" />
-      <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cliente" minOccurs="0" name="Recordatorios" nillable="true" type="q4:ArrayOfBEClienteRecordatorio" />
+      <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cliente" minOccurs="0" name="Recordatorios" nillable="true" type="q5:ArrayOfBEClienteRecordatorio" />
       <xs:element minOccurs="0" name="Saldo" type="xs:decimal" />
       <xs:element minOccurs="0" name="Sexo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoContactoFavorito" type="xs:short" />
