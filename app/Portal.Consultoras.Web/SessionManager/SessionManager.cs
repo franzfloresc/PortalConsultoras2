@@ -1221,17 +1221,17 @@ namespace Portal.Consultoras.Web.SessionManager
         }
        
 
-        void ISessionManager.SetCDRExpressMensajes(List<BETablaLogicaDatos> val)
-        {
-            HttpContext.Current.Session["CDRExpressMensajes"] = val;
-        }
+        //void ISessionManager.SetCDRExpressMensajes(List<BETablaLogicaDatos> val)
+        //{
+        //    HttpContext.Current.Session["CDRExpressMensajes"] = val;
+        //}
 
-        List<BETablaLogicaDatos> ISessionManager.GetCDRExpressMensajes()
-        {
-            var val = HttpContext.Current.Session["CDRExpressMensajes"];
+        //List<BETablaLogicaDatos> ISessionManager.GetCDRExpressMensajes()
+        //{
+        //    var val = HttpContext.Current.Session["CDRExpressMensajes"];
 
-            return (List<BETablaLogicaDatos>)val;
-        }
+        //    return (List<BETablaLogicaDatos>)val;
+        //}
 
         void ISessionManager.SetOcultarBannerTop(bool val)
         {
