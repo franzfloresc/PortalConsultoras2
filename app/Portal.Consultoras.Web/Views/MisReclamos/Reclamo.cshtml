@@ -125,6 +125,7 @@
                             <p class="text-bold">Vamos a reenviarte el mismo producto:</p>
                             <p class="text-bold">
                                 <span id="spnDescProdDevolucionC" class="text-bold producto_nom"></span>
+                                <span id="spnCantidad">x Unidades</span>
                             </p>
                         </div>
                     </div>
@@ -133,6 +134,7 @@
                             <p class="text-bold">Vamos a enviarte el siguiente producto:</p>
                             <p class="text-bold">
                                 <span class="text-bold producto_nom" id="spnDescripcionProductoOpcionF"></span>
+                                <span id="spnCantidad">x Unidades</span>
                             </p>
                         </div>
                     </div>
@@ -141,6 +143,7 @@
                             <p class="text-bold">Vamos a descontar el siguiente producto en tu próximo pedido:</p>
                             <p class="text-bold">
                                 <span class="text-bold producto_nom" id="spnDescripcionProductoOpcionG"></span>
+                                <span id="spnCantidad">x Unidades</span>
                             </p>
                         </div>
                     </div>
@@ -152,7 +155,7 @@
                     </div>
                 </div>
                 <div class="text-center">
-                    <button type="button" id="btnIrPaso3" class="border-radius-4 text-bold btn_cdr btn_solucion_reclamo" style="display:none;" onclick="IrAFinalizar()" id="btnSiguiente">Siguiente</button>
+                <button type="button" id="btnIrPaso3" class="border-radius-4 text-bold btn_cdr btn_solucion_reclamo" style="display:none;" onclick="IrAFinalizar()" id="btnSiguiente">Siguiente</button>
                     <a class="enlace__regresar_paso_anterior" title="Regresar a paso anterior">
                         <span class="icono_back_arrow">
                             <img src="@Url.Content("~/Content/Images/icono_volver.svg")" alt="Regresar a paso anterior" />
@@ -551,7 +554,7 @@
             {{/if_eq}}
         </div>
         <div class="listado_eliminar_reclamo">
-            <a data-pedidodetalleid="{{item.CDRWebDetalleID}}" data-accion="x" style="background-image: url('/Content/Images/Esika/tacho-copy.png'); background-repeat:no-repeat; width: 17px; height: 22px; margin: 0 auto;" title="Eliminar"></a>
+            <a data-pedidodetalleid="{{item.CDRWebDetalleID}}" data-detalle-grupoid="{{item.GrupoID}}" href="javascript:void(0);" onclick="EliminarDetalle(this);" style="background-image: url('/Content/Images/Esika/tacho-copy.png'); background-repeat:no-repeat; width: 17px; height: 22px; margin: 0 auto;" title="Eliminar"></a>
         </div>
     </div>
     {{/each}}
@@ -610,7 +613,7 @@
 @*HD-3703 EINCA*@
 <script id="template-opcion-devolucion" type="text/x-handlebars-template">
     <div>
-        <p class="text-bold">El producto <span class="text-bold producto_set_nom">{{ProductoSeleccionado.CUV}} - {{ProductoSeleccionado.Descripcion}}</span> pertenece al pack:</p>
+        <p class="text-bold">El producto <span class="text-bold producto_set_nom">{{ProductoSeleccionado.CUV}} - {{ProductoSeleccionado.Descripcion}} (<span id="spnCantidad">x Unidades</span> </span>) pertenece al pack:</p>
         <p class="text-left producto_set_lista">
             {{#each DataRespuestaServicio as |item|}}
             <span class="text-bold">{{item.cuv}} - {{item.descripcion}}</span>

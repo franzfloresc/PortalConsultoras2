@@ -4,6 +4,10 @@ namespace Portal.Consultoras.Web.Models
 {
     public class MisReclamosModel
     {
+        public MisReclamosModel()
+        {
+            Complemento = new HashSet<ProductoComplementarioModel>();
+        }
         public int CDRWebID { get; set; }
         public int PedidoID { get; set; }
         public int NumeroPedido { get; set; }
@@ -25,7 +29,7 @@ namespace Portal.Consultoras.Web.Models
         public string Operacion { get; set; }
         public List<Campo> ListaMotivo { get; set; }
         public int CDRWebDetalleID { get; set; }
-
+        public string GrupoID { get; set; } //HD-3703 EINCA
         public string Accion { get; set; }
         public string Email { get; set; }
         public string Telefono { get; set; }
@@ -50,5 +54,6 @@ namespace Portal.Consultoras.Web.Models
         public bool EsMovilFin { get; set; }
         public MensajesCDRExpressModel MensajesExpress { get; set; }
         public int? CantidadReclamosPorPedido { get; set; }
+        public ICollection<ProductoComplementarioModel> Complemento { get; set; }
     }
 }

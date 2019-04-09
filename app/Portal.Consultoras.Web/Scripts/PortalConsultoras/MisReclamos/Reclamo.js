@@ -201,6 +201,8 @@ $(document).ready(function () {
         $('#ddlnumPedido').append($('<option></option>').val($("#txtPedidoID").val()).html("N° " + $("#txtNumeroPedido").val()));
         $("#ddlnumPedido").show();
         $("#ddlnumPedido").attr("disabled", "disabled");
+        $('#hdfCUV').val('');
+        $('#ddlCuv').val('');
         BuscarCUV();
         $("#divUltimasSolicitudes").show();
         $("#ddlCampania").attr("disabled", "disabled");
@@ -227,10 +229,9 @@ $(document).ready(function () {
         }
     });
 
-    $(document).on('click', '[data-accion]', function () {
-        DetalleAccion(this);
-    });
-
+    //$(document).on('click', '[data-accion]', function () {
+    //    DetalleAccion(this);
+    //});
     $("#btnAceptoPoliticas").on("click", function () {
         if ($(this).hasClass("politica_reclamos_icono_active")) {
             $(this).removeClass("politica_reclamos_icono_active");
@@ -339,6 +340,8 @@ $(document).ready(function () {
     });
 });
 
+
+
 function CambiarVistaPaso(paso) {
     var tagContenedorPasos = $('#contenedor_paso .content_reclamo');
     var tagContenedorBarraPasos = $('#barra_progreso .paso_reclamo');
@@ -372,6 +375,11 @@ function CambiarVistaPaso(paso) {
         $(reclamo.progreso.tres_finalizar).addClass(reclamo.clasesCss.activo);
         $(lineaProgresoPasos).css('width', '100%');
     }
+
+    if (paso === reclamo.pasos.dos_seleccion_de_solucion) {
+        $('#infoOpcionesDeCambio').children('div').hide();
+    }
+
     //no visible vista actual
     tagContenedorPasos.each(function (index, el) {
         if ($(el).is(':visible')) {
@@ -836,6 +844,7 @@ function CargarOperacion() {
                 alert_msg(data.message);
                 return false;
             }
+            $("#divOperacion input[type=checkbox]").prop('checked', false);
             SetHandlebars("#template-operacion", data.detalle, "#divOperacion");
 
         },
@@ -1037,6 +1046,21 @@ function DetalleGuardar(operacionId, callbackWhenFinish) {
         }
     });
 
+    var Complemento = [];
+
+    if (dataCdrServicio != null) {
+        if (dataCdrServicio.DataRespuestaServicio.length > 0) {
+            $.each(dataCdrServicio.DataRespuestaServicio, function (index, value) {
+                var obj = {
+                    cuv: value.cuv,
+                    descripcion: value.descripcion
+                }
+                Complemento.push(obj);
+            });
+
+        }
+    }
+
     var item = {
         CDRWebID: $("#CDRWebID").val() || 0,
         PedidoID: $("#txtPedidoID").val() || 0,
@@ -1047,7 +1071,8 @@ function DetalleGuardar(operacionId, callbackWhenFinish) {
         CUV: $.trim($("#hdfCUV").val()),
         Cantidad: $("#txtCantidad").val(),
         CUV2: $("#txtCUV2").val(),
-        Cantidad2: $("#txtCantidad2").val()
+        Cantidad2: $("#txtCantidad2").val(),
+        Complemento: Complemento
     };
 
     $.ajax({
@@ -1295,10 +1320,6 @@ function DetalleAccion(obj) {
 }
 
 function DetalleEliminar(objItem) {
-    var item = {
-        CDRWebDetalleID: objItem.CDRWebDetalleID
-    };
-
     waitingDialog();
 
     jQuery.ajax({
@@ -1306,7 +1327,7 @@ function DetalleEliminar(objItem) {
         url: baseUrl + 'MisReclamos/DetalleEliminar',
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(item),
+        data: JSON.stringify(objItem),
         async: true,
         cache: false,
         success: function (data) {
@@ -1843,7 +1864,7 @@ function EscogerSolucion(opcion, event) {
         $(opcion).parents(".opcion_cdr").addClass("opcion_cdr_seleccionada");
         $('#OpcionCambioMismoProducto').fadeIn(200);
         //$('#spnDescProdDevolucion').html($('#hdfCUVDescripcion').val());
-        $('#spnDescProdDevolucionC').html($('#ddlCuv').val()); 
+        $('#spnDescProdDevolucionC').html($('#ddlCuv').val());
     } else if (id == "D") {
         $(".opcion_cdr").removeClass("opcion_cdr_seleccionada");
         $(opcion).parents(".opcion_cdr").addClass("opcion_cdr_seleccionada");
@@ -1931,6 +1952,29 @@ function IrAFinalizar() {
             return false;
         }
     });
+}
+
+//HD-3703 EINCA 
+function EliminarDetalle(el) {
+    var pedidodetalleid = $.trim($(el).attr("data-pedidodetalleid"));
+    var grupoid = $.trim($(el).attr("data-detalle-grupoid"));
+
+    var item = {
+        CDRWebDetalleID: pedidodetalleid,
+        GrupoID: grupoid
+    };
+
+    var functionEliminar = function () {
+        DetalleEliminar(item);
+    };
+
+    var msg = "";
+    if (grupoid.length > 0) {
+        msg = "Se eliminaran todos los registros relacionados al producto(Sets o Packs). ¿Deseas continuar?";
+    } else {
+        msg = "Se eliminará el registro seleccionado. ¿Deseas continuar ?";
+    }
+    messageConfirmacion("", msg, functionEliminar);
 }
 
 //$('body').on('keypress', 'input[attrKey="PreValidarCUV"]', function (event) {
