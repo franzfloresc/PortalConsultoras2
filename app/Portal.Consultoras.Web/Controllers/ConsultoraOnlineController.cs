@@ -2304,7 +2304,7 @@ namespace Portal.Consultoras.Web.Controllers
                         pedidoDetalle.Producto.FlagNueva = model.FlagNueva.ToString();
                         pedidoDetalle.Producto.Descripcion = model.DescripcionCUV2 ?? "";
                         pedidoDetalle.Usuario = Mapper.Map<ServicePedido.BEUsuario>(userData);
-                        pedidoDetalle.Cantidad = Convert.ToInt32(model.Cantidad);
+                        pedidoDetalle.Cantidad = model.Cantidad==0?1: Convert.ToInt32(model.Cantidad);
                         pedidoDetalle.PaisID = userData.PaisID;
                         pedidoDetalle.IPUsuario = GetIPCliente();
                      //   pedidoDetalle.OrigenPedidoWeb = ProcesarOrigenPedido(model.OrigenPedidoWeb);
