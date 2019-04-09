@@ -267,7 +267,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 }
                 else
                 {
-                    return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_GUARDAR_OBS, "Kit no válido.");
+                    //return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_GUARDAR_OBS, "Kit no válido.");
                 }
             }
             #endregion

@@ -102,7 +102,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
             //Si es null reintentar la llamada al servicio
             var kits = GetKitCache(entidad.PaisID, periodoId, entidad.CampaniaID) ?? new List<BEKitCaminoBrillante>();
-            var historicoKits = GetConsultoraKitHistorico(entidad, periodoId);
+            var historicoKits = nivelId != 6 ? GetConsultoraKitHistorico(entidad, periodoId) : new List<BEKitsHistoricoConsultora>();
 
             /* Deshabilitamos de acuerdo al Nievel */
             kits.Where(e => int.TryParse(e.CodigoNivel, out nivelKit)).ForEach(e => {
