@@ -17,7 +17,21 @@ $(document).ready(function () {
 
 });
 
-function RechazarPedido(id) {
+function RechazarPedido(id, origenBoton) {
+    var opcionRechazo = ($('.opcion_rechazo_select').text()) ? $('.opcion_rechazo_select').text() : "";
+    if (origenBoton) {
+        switch (origenBoton) {
+            case 1: /*boton enviar*/
+                DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras - Pedidos Pendientes', 'Pop up ¡Cuéntanos porqué lo Rechazaste! - Click Botón Enviar', opcionRechazo);
+                break;
+            case 2:/*boton cerrar*/
+                DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras - Pedidos Pendientes', 'Pop up ¡Cuéntanos porqué lo Rechazaste!', 'cerrar');
+                break;
+            default:
+                break;
+        }
+    }
+
 
     var optr = $('.opcion_rechazo_select').data('id');
     if (typeof optr == 'undefined') {
@@ -58,6 +72,7 @@ function RechazarPedido(id) {
                     $('#PedidoRechazado').hide();
                     $('#PedidoRechazadoDetalle').hide();
                     $('#MensajePedidoRechazado').show();
+                    DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras - Pedidos Pendientes', 'Pop up Pedido Rechazado', opcionRechazo);
                 }
                 else {
                     $('#PedidoRechazado').hide();
@@ -82,17 +97,29 @@ function AceptarPedido(id, tipo) {
     var isOk = true;
     var detalle = [];
     var ing = 0;
+    var opciones = "";
 
-    $('div.detalle_pedido_reservado').each(function () {
+    $('div.detalle_pedido_reservado').each(function () {        
         var id = $(this).find("input[id*='soldet_']").val();
         var cant = $(this).find('#soldet_qty_' + id).text();
         var opt = $(this).find('#soldet_tipoate_' + id).val();
+        var cuv = $(this).find("input[id*='soldet_cuv_']").val();
+        var nombre = $(this).find("input[id*='soldet_nom_']").val();
+        var precio = $(this).find("input[id*='soldet_precio_']").val();
+        var marca = $(this).find("input[id*='soldet_mrc_']").val();
+        var opcion = $(this).find("#soldet_tipoate_" + id + " option[value='" + opt + "']").text();
         var k = 0;
+
+
+
+        opciones = (opciones.length) ? (opciones + ", ") : opciones;
+        opciones = opciones + opcion;
 
         if (typeof opt !== 'undefined') {
             if (opt == "") {
                 $('#ComoloAtenderas').show();
                 isOk = false;
+                DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras - PopUp Pedidos Pendientes', 'Click Botón', 'Acepto Todo el Pedido - ' + opciones);
                 return false;
             }
             else {
@@ -106,11 +133,21 @@ function AceptarPedido(id, tipo) {
         if (typeof id !== 'undefined' && id !== "") {
             var d = {
                 PedidoDetalleId: id,
-                OpcionAcepta: k
+                OpcionAcepta: k,
+                Nombre: nombre,
+                Precio: precio,
+                Marca: marca,
+                CUV: cuv,
+                Categoria: 'No Disponible',
+                Variante: 'Estándar',
+                Cantidad: cant,
+                OpcionCod: opt,
+                OpcionString: opcion
             }
             detalle.push(d);
         }
     });
+    DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras - PopUp Pedidos Pendientes', 'Click Botón', 'Acepto Todo el Pedido - ' + opciones);
 
     if (isOk && detalle.length > 0) {
         var name = $('#sc-nombre').text();
@@ -144,8 +181,7 @@ function AceptarPedido(id, tipo) {
                             Tipo: tipo,
                             Ingresos: ing,
                             Dispositivo: glbDispositivo
-                        }
-
+                        }                        
                         if (response.codigo == 0) {
                             _pedido = pedido;
 
@@ -199,6 +235,48 @@ function ProcesarAceptarPedido(pedido) {
 
                     ActualizarGanancia(response.DataBarra);
                     $('#PedidoAceptado').show();
+                   
+                    var opciones = "";
+                    $.each(pedido.ListaDetalleModel, function (i, item) {
+                        opciones = (opciones.length) ? (opciones + ", ") : opciones;
+                        opciones += item.OpcionString;
+                    });
+                    DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras - Pedidos Pendientes', 'Pop up Pedido Aceptado', opciones);
+
+                    var PedidosIngresarAMiPedido = $.grep(pedido.ListaDetalleModel, function (n, i) {
+                        return n.OpcionCod === 'ingrped';
+                    });
+
+
+                    if (PedidosIngresarAMiPedido.length) {
+                        var productos = [];
+
+                        $.each(PedidosIngresarAMiPedido, function (i, item) {
+                            var producto = {}
+                            producto["name"] = item.Nombre;
+                            producto["price"] = item.Precio;
+                            producto["brand"] = item.Marca;
+                            producto["id"] = item.CUV;
+                            producto["category"] = item.Categoria;
+                            producto["variant"] = item.Variante;
+                            producto["quantity"] = item.Cantidad;
+
+                            productos.push(producto);
+                        });
+
+                        dataLayer.push({
+                            'event': 'addToCart',
+                            'ecommerce': {
+                                'currencyCode': AnalyticsPortalModule.GetCurrencyCode(),
+                                'add': {
+                                    'actionField': { 'list': 'Pedidos Pendientes - Pedidos Aceptados' },
+                                    'products': productos
+                                }
+                            }
+                        });
+
+                    }
+
                 }
                 else {
                     if (response.code == 1) {
@@ -248,7 +326,19 @@ function showClienteDetalle(pcliente, pClienteDetalleOK) {
     });
 }
 
-function CerrarMensajeRechazado() {
+function CerrarMensajeRechazado(origenBoton) {
+    if (origenBoton) {
+        switch (origenBoton) {
+            case 1: /*boton ok*/
+                DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras - Pedidos Pendientes', 'Pop up Pedido Rechazado - Click Botón', 'Ok');
+                break;
+            case 2:/*boton cerrar*/
+                DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras - Pedidos Pendientes', 'Pop up Pedido Rechazado', 'cerrar');
+                break;
+            default:
+                break;
+        }
+    }
     document.location.href = urlPendientes;
 }
 
@@ -297,4 +387,30 @@ function HorarioRestringido(mostrarAlerta) {
 function CerrarAlertaPedidoReservado() {
     $('#AlertaPedidoReservado').hide();
     document.location.href = urlPedido;
+}
+
+function RechazoPedidosPendientes() {
+    DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras - Detalle Pedidos Pendientes', 'Click Botón', 'Rechazo el Pedido');
+}
+
+function AceptoTodoElPedidoTipoAtencion() {
+    var tipoAtencion = ""
+
+    if ($('.ddlAtenderPedidosPend').prop('selectedIndex') > 0) {
+        tipoAtencion = $('.ddlAtenderPedidosPend').text();
+    }
+
+    DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras - Pedidos Pendientes', 'Click Botón', 'Acepto Todo el Pedido - ' + tipoAtencion);
+}
+
+function DialogComoAtenderPedidoPend(etiqueta) {
+    DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras - Pedidos Pendientes', 'Pop up Alerta: No escogió tipo de Atención', etiqueta);
+}
+
+function VasARechazarelPedido(etiqueta) {
+    DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras - Pedidos Pendientes', 'Pop up ¿Vas a Rechazar el Pedido? - Click Botón', etiqueta);
+}
+
+function PedidoAceptado() {
+
 }
