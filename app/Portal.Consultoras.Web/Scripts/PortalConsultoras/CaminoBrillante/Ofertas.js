@@ -14,6 +14,7 @@ function AgregarProducto() {
             e.preventDefault();
             AbrirSplash();
             
+            
             var cuvCapturado = this.parentElement.parentElement.parentElement.parentElement.children[0].value;
             var cantidadCapturado = this.parentElement.parentElement.children[0].children[0].children[1].value;
 
