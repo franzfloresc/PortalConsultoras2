@@ -340,6 +340,11 @@ namespace Portal.Consultoras.Common
         public static class Plan20Activacion
         {
             public const int TablaLogicaId = 98;
+            
+            public const string ImageUrlCode = "bar_in_img";
+            public const string RedirectCode = "bar_in_url";
+            public const string EnabledCode = "bar_in_act";
+            public const string NoUrlAllowed = "bar_in_no";
         }
 
         public static class OrdenamientoShowRoom
