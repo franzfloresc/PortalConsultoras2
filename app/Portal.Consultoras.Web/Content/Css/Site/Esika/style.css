@@ -31612,6 +31612,12 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     background: #d1d1d1;
     z-index:-1;
 }
+
+    .progreso_pasos{
+        width:0%;
+        height:100%;
+    }
+
 /*POP UP PRODUCTO FALTANTE*/
 .producto_faltante {
     height: 32px;

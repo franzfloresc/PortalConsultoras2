@@ -342,6 +342,7 @@ $(document).ready(function () {
 function CambiarVistaPaso(paso) {
     var tagContenedorPasos = $('#contenedor_paso .content_reclamo');
     var tagContenedorBarraPasos = $('#barra_progreso .paso_reclamo');
+    var lineaProgresoPasos = $('.progreso_pasos');
 
 
     //seteamos la barra
@@ -361,6 +362,7 @@ function CambiarVistaPaso(paso) {
     if (paso === reclamo.pasos.dos_seleccion_de_solucion) {
         $(reclamo.progreso.uno_producto).addClass(reclamo.clasesCss.completado);
         $(reclamo.progreso.dos_solucion).addClass(reclamo.clasesCss.activo);
+        $(lineaProgresoPasos).css('width', '50%');
     }
 
 
@@ -368,6 +370,7 @@ function CambiarVistaPaso(paso) {
         $(reclamo.progreso.uno_producto).addClass(reclamo.clasesCss.completado);
         $(reclamo.progreso.dos_solucion).addClass(reclamo.clasesCss.completado);
         $(reclamo.progreso.tres_finalizar).addClass(reclamo.clasesCss.activo);
+        $(lineaProgresoPasos).css('width', '100%');
     }
     //no visible vista actual
     tagContenedorPasos.each(function (index, el) {
