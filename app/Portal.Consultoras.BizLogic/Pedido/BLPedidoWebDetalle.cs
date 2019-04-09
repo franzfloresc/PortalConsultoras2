@@ -485,6 +485,35 @@ namespace Portal.Consultoras.BizLogic
             }
             #endregion
 
+            #region Camino Brillante
+            if (detParametros.NivelCaminoBrillante > 0) {
+                if (listpedidoDetalle.Where(e => e.OrigenPedidoWeb == 1181901).Any())
+                {
+                    var caminoBrillante = new CaminoBrillante.BLCaminoBrillante();
+                    List<Entities.CaminoBrillante.BEKitCaminoBrillante> kits = null;
+                    try
+                    {
+                        kits = caminoBrillante.GetKit(detParametros.PaisId, detParametros.CampaniaId, 201903, detParametros.NivelCaminoBrillante) 
+                            ?? new List<Entities.CaminoBrillante.BEKitCaminoBrillante>();
+                    }
+                    catch (Exception ex)
+                    {
+                        kits = new List<Entities.CaminoBrillante.BEKitCaminoBrillante>();
+                    }
+                    listpedidoDetalle.Where(e => e.OrigenPedidoWeb == 1181901).ToList().ForEach(e => {
+                        e.DescripcionEstrategia = "CAMINO BRILLANTE";
+                        var kit = kits.Where(k => k.CUV == e.CUV).FirstOrDefault();
+                        if (kit != null)
+                        {
+                            e.EsKitCaminoBrillante = true;
+                            e.DescripcionProd = kit.DescripcionCUV;
+                            e.DescripcionCortadaProd = kit.DescripcionCUV;
+                        }
+                    });
+                }                
+            }
+            #endregion
+
             if (WebConfig.SetIdentifierNumberFlag == "1" && detParametros.AgruparSet)
             {
                 var PedidoDetalleIdentifierNumber = listpedidoDetalle.Where(x => x.EstrategiaId != 0).Reverse().GroupBy(x => new { x.ClienteID, x.EstrategiaId }).Where(x => x.Count() > 1)
