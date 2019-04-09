@@ -1156,37 +1156,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             List<BEMisPedidos> pedidosSesion;
             var oListaCatalogo = new List<MisPedidosDetalleModel2>();
             var productosSolicitados = new List<ProductoSolicitado>();
-
-            ///////////////////////////////////////////////////////////////////////////
-            var oListaPedidosDetalle = new List<BEMisPedidosDetalle>();
-            // var oListaPedidosDetalleConEstado = new List<BEMisPedidosDetalle>();
-            List<BEMisPedidos> oListaPedidos;
-            MisPedidosModel modelPedido = new MisPedidosModel();
-            using (UsuarioServiceClient svc = new UsuarioServiceClient())
-            {
-                oListaPedidos = svc.GetSolicitudesPedidoPendiente(userData.PaisID, userData.ConsultoraID, userData.CampaniaID).ToList();
-
-                if (oListaPedidos.Any())
-                {
-                    oListaPedidos.ForEach(x =>
-                    {
-                        var oDetallesTemporal = svc.GetMisPedidosDetalleConsultoraOnline(userData.PaisID, x.PedidoId).ToList();
-                        if (oDetallesTemporal.Any())
-                        {
-                            oDetallesTemporal.Take(2).Update(u => { u.Elegido = true; });
-                            x.DetallePedido = oDetallesTemporal.ToArray();
-                            oListaPedidosDetalle.AddRange(oDetallesTemporal);
-                            //  modelPedido
-                        }
-                    });
-                }
-                modelPedido.ListaPedidos = oListaPedidos;
-                SessionManager.SetobjMisPedidos(modelPedido);
-            }
-
-            ////////////////////////////////////////////////////////
-            ///
+          
             pedidosSesion = SessionManager.GetobjMisPedidos().ListaPedidos;
+
+            ///////////////////////////////
+            pedidosSesion.ForEach(x=> { x.DetallePedido.FirstOrDefault().Elegido = true; });
+            //////////////////////////////////
 
             pedidosSesion.ForEach(pedido =>
             {
@@ -1211,7 +1186,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             parametrosRecomendado.configuracion = new Configuracion()
             {
                 sociaEmpresaria = userData.Lider.ToString(),
-                suscripcionActiva = userData.ToString(),
+                suscripcionActiva = (revistaDigital.EsSuscrita && revistaDigital.EsActiva).ToString(),
                 mdo = revistaDigital.ActivoMdo.ToString(),
                 rd = revistaDigital.TieneRDC.ToString(),
                 rdi = revistaDigital.TieneRDI.ToString(),
@@ -1220,21 +1195,28 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 mostrarProductoConsultado = IsMobile().ToString()
 
             };
-
             oListaCatalogo.ForEach(x=> {
-                productosSolicitados.Add(new ProductoSolicitado() {
-                    Cantidad = x.Cantidad,
-                    CodigoSap = x.CodigoSap
-                });
 
+                if (productosSolicitados.Any(i => i.CodigoSap == x.CodigoSap))
+                {
+                    productosSolicitados.FirstOrDefault(i => i.CodigoSap == x.CodigoSap).Cantidad = productosSolicitados.FirstOrDefault(i => i.CodigoSap == x.CodigoSap).Cantidad + x.Cantidad;
+                }
+                else
+                {
+                    productosSolicitados.Add(new ProductoSolicitado() {
+                        Cantidad = x.Cantidad,
+                        CodigoSap = x.CodigoSap
+                    });
+                }
             });
             parametrosRecomendado.productosSolicitados = productosSolicitados.ToArray();
+            parametrosRecomendado.codigoProducto = productosSolicitados.Select(x=>x.CodigoSap).ToArray();
 
 
             var oListaGana = _consultoraOnlineProvider.GetRecomendados(parametrosRecomendado);
             model.ListaCatalogo = oListaCatalogo;
             model.TotalCatalogo = oListaCatalogo.Sum(x => x.Cantidad*x.PrecioTotal);
-            model.ListaGana = oListaGana.Take(10).ToList();
+            model.ListaGana = oListaGana;
             model.TotalGana = oListaGana.Sum(x =>x.Cantidad* x.Precio2);
             model.GananciaGana = oListaGana.Sum(x => x.Ganancia);
 

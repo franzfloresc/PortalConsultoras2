@@ -2239,7 +2239,6 @@ namespace Portal.Consultoras.Web.Controllers
             using (ServiceCliente.ClienteServiceClient svc = new ServiceCliente.ClienteServiceClient())
             {
 
-
                 pedidosSesion.ForEach(pedido =>
                 {
                     if (pedido.DetallePedido.Any(i => i.Elegido == true))
@@ -2290,11 +2289,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                     parametros.ListaGana.ForEach(model=> {
 
-                        string mensaje = "", urlRedireccionar = "";
                         BEPedidoDetalle pedidoDetalle = new BEPedidoDetalle();
-                        pedidoDetalle.Producto = new ServicePedido.BEProducto();
-                        //model.CuvTonos = Util.Trim(model.CuvTonos);   
-
+                        pedidoDetalle.Producto = new ServicePedido.BEProducto(); 
                         pedidoDetalle.Producto.EstrategiaID = model.EstrategiaID;
                        pedidoDetalle.Producto.TipoEstrategiaID = model.TipoEstrategiaID.ToString();
                         pedidoDetalle.Producto.TipoOfertaSisID = model.TipoOfertaSisID;
@@ -2513,11 +2509,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                         svc.UpdSolicitudCliente(userData.PaisID, beSolicitudCliente);
                     }
-
-                });
-
-
-               
+                });               
             }
 
             #endregion
@@ -2525,8 +2517,7 @@ namespace Portal.Consultoras.Web.Controllers
 
  
             try
-            {
-                  
+            {                  
                 return Json(new
                 {
                     success = true,
@@ -2534,7 +2525,6 @@ namespace Portal.Consultoras.Web.Controllers
                     DataBarra = GetDataBarra(),
                     code = 1
                 }, JsonRequestBehavior.AllowGet);
-
             }
             catch (FaultException e)
             {

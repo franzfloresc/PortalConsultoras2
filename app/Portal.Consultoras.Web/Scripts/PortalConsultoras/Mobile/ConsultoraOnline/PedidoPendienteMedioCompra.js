@@ -26,30 +26,24 @@
         window.location.href = baseUrl + "Mobile/Pedido/Detalle";
     });
 
+    $('#btnIrPedidoAprobar').click(function () {
+        document.location.href = urlPendientes;
+    });
+    $('#btnIrPedido').click(function () {
+        document.location.href = urlPedido;
+    });
 
 });
 
 
 function AceptarPedidoPendiente(id, tipo) {
 
-
     var btn = $('.btnAccion a').not('.active')[0];
 
-    if (btn) {
-         
-
-
-        var pedido = {
-            //PedidoId: id,
-            //ClienteId: 0,
-            //ListaDetalleModel: detalle,
-            Accion: $(btn).parent().data('accion'),  ///Accion: 'ingrgana',   
-             ListaGana: $(btn).parent().data('accion') == 'ingrgana' ? $('.conGanaMas').data('listagana') : []
-          //  ListaGana:  $('.conGanaMas').data('listagana') 
-                         //Tipo: tipo,
-            //Ingresos: ing,
-            //Dispositivo: glbDispositivo,
-            // CorreoClientes:['abc@a.com', 'bcd@g.com']
+    if (btn) {       
+        var pedido = {           
+            Accion: $(btn).parent().data('accion'),  
+             ListaGana: $(btn).parent().data('accion') == 'ingrgana' ? $('.conGanaMas').data('listagana') : []        
         }
 
       
@@ -65,12 +59,10 @@ function AceptarPedidoPendiente(id, tipo) {
             success: function (response) {
                 CloseLoading();
                 if (checkTimeout(response)) {
-                    if (response.success) { 
+                    if (response.success) {
 
                         $('#popuplink').click(); 
-                        return false; 
-
-                       
+                        return false;                        
                     }
                     else {
                         if (response.code == 1) {
