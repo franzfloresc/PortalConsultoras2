@@ -1,97 +1,119 @@
-GO
 USE BelcorpPeru
 GO
-If  exists (select * from ConfiguracionPaisDatos where codigo = 'MostrarPalabrasMenoresACuatro')
-begin
- delete from ConfiguracionPaisDatos where codigo = 'MostrarPalabrasMenoresACuatro'
-end
-
+if exists (select * from ConfiguracionPaisDatos where codigo = 'CaracteresBuscador')
+	update ConfiguracionPaisDatos set valor1=3     where codigo = 'CaracteresBuscador'
 GO
+if  exists (select * from ConfiguracionPaisDatos where codigo = 'MostrarPalabrasMenoresACuatro')
+	delete from ConfiguracionPaisDatos where codigo = 'MostrarPalabrasMenoresACuatro'
+GO
+
 USE BelcorpMexico
 GO
-If  exists (select * from ConfiguracionPaisDatos where codigo = 'MostrarPalabrasMenoresACuatro')
-begin
- delete from ConfiguracionPaisDatos where codigo = 'MostrarPalabrasMenoresACuatro'
-end
 
+if exists (select * from ConfiguracionPaisDatos where codigo = 'CaracteresBuscador')
+	update ConfiguracionPaisDatos set valor1=3     where codigo = 'CaracteresBuscador'
 GO
+if  exists (select * from ConfiguracionPaisDatos where codigo = 'MostrarPalabrasMenoresACuatro')
+	delete from ConfiguracionPaisDatos where codigo = 'MostrarPalabrasMenoresACuatro'
+GO
+
 USE BelcorpColombia
 GO
-If  exists (select * from ConfiguracionPaisDatos where codigo = 'MostrarPalabrasMenoresACuatro')
-begin
- delete from ConfiguracionPaisDatos where codigo = 'MostrarPalabrasMenoresACuatro'
-end
 
+if exists (select * from ConfiguracionPaisDatos where codigo = 'CaracteresBuscador')
+	update ConfiguracionPaisDatos set valor1=3     where codigo = 'CaracteresBuscador'
 GO
+if  exists (select * from ConfiguracionPaisDatos where codigo = 'MostrarPalabrasMenoresACuatro')
+	delete from ConfiguracionPaisDatos where codigo = 'MostrarPalabrasMenoresACuatro'
+GO
+
 USE BelcorpSalvador
 GO
-If  exists (select * from ConfiguracionPaisDatos where codigo = 'MostrarPalabrasMenoresACuatro')
-begin
- delete from ConfiguracionPaisDatos where codigo = 'MostrarPalabrasMenoresACuatro'
-end
 
+if exists (select * from ConfiguracionPaisDatos where codigo = 'CaracteresBuscador')
+	update ConfiguracionPaisDatos set valor1=3     where codigo = 'CaracteresBuscador'
 GO
+if  exists (select * from ConfiguracionPaisDatos where codigo = 'MostrarPalabrasMenoresACuatro')
+	delete from ConfiguracionPaisDatos where codigo = 'MostrarPalabrasMenoresACuatro'
+GO
+
 USE BelcorpPuertoRico
 GO
-If  exists (select * from ConfiguracionPaisDatos where codigo = 'MostrarPalabrasMenoresACuatro')
-begin
- delete from ConfiguracionPaisDatos where codigo = 'MostrarPalabrasMenoresACuatro'
-end
 
+if exists (select * from ConfiguracionPaisDatos where codigo = 'CaracteresBuscador')
+	update ConfiguracionPaisDatos set valor1=3     where codigo = 'CaracteresBuscador'
 GO
+if  exists (select * from ConfiguracionPaisDatos where codigo = 'MostrarPalabrasMenoresACuatro')
+	delete from ConfiguracionPaisDatos where codigo = 'MostrarPalabrasMenoresACuatro'
+GO
+
 USE BelcorpPanama
 GO
-If  exists (select * from ConfiguracionPaisDatos where codigo = 'MostrarPalabrasMenoresACuatro')
-begin
- delete from ConfiguracionPaisDatos where codigo = 'MostrarPalabrasMenoresACuatro'
-end
 
+if exists (select * from ConfiguracionPaisDatos where codigo = 'CaracteresBuscador')
+	update ConfiguracionPaisDatos set valor1=3     where codigo = 'CaracteresBuscador'
 GO
+if  exists (select * from ConfiguracionPaisDatos where codigo = 'MostrarPalabrasMenoresACuatro')
+	delete from ConfiguracionPaisDatos where codigo = 'MostrarPalabrasMenoresACuatro'
+GO
+
 USE BelcorpGuatemala
 GO
-If  exists (select * from ConfiguracionPaisDatos where codigo = 'MostrarPalabrasMenoresACuatro')
-begin
- delete from ConfiguracionPaisDatos where codigo = 'MostrarPalabrasMenoresACuatro'
-end
 
+if exists (select * from ConfiguracionPaisDatos where codigo = 'CaracteresBuscador')
+	update ConfiguracionPaisDatos set valor1=3     where codigo = 'CaracteresBuscador'
 GO
+if  exists (select * from ConfiguracionPaisDatos where codigo = 'MostrarPalabrasMenoresACuatro')
+	delete from ConfiguracionPaisDatos where codigo = 'MostrarPalabrasMenoresACuatro'
+GO
+
 USE BelcorpEcuador
 GO
-If  exists (select * from ConfiguracionPaisDatos where codigo = 'MostrarPalabrasMenoresACuatro')
-begin
- delete from ConfiguracionPaisDatos where codigo = 'MostrarPalabrasMenoresACuatro'
-end
 
+if exists (select * from ConfiguracionPaisDatos where codigo = 'CaracteresBuscador')
+	update ConfiguracionPaisDatos set valor1=3     where codigo = 'CaracteresBuscador'
 GO
+if  exists (select * from ConfiguracionPaisDatos where codigo = 'MostrarPalabrasMenoresACuatro')
+	delete from ConfiguracionPaisDatos where codigo = 'MostrarPalabrasMenoresACuatro'
+GO
+
 USE BelcorpDominicana
 GO
-If  exists (select * from ConfiguracionPaisDatos where codigo = 'MostrarPalabrasMenoresACuatro')
-begin
- delete from ConfiguracionPaisDatos where codigo = 'MostrarPalabrasMenoresACuatro'
-end
 
+if exists (select * from ConfiguracionPaisDatos where codigo = 'CaracteresBuscador')
+	update ConfiguracionPaisDatos set valor1=3     where codigo = 'CaracteresBuscador'
 GO
+if  exists (select * from ConfiguracionPaisDatos where codigo = 'MostrarPalabrasMenoresACuatro')
+	delete from ConfiguracionPaisDatos where codigo = 'MostrarPalabrasMenoresACuatro'
+GO
+
 USE BelcorpCostaRica
 GO
-If  exists (select * from ConfiguracionPaisDatos where codigo = 'MostrarPalabrasMenoresACuatro')
-begin
- delete from ConfiguracionPaisDatos where codigo = 'MostrarPalabrasMenoresACuatro'
-end
 
+if exists (select * from ConfiguracionPaisDatos where codigo = 'CaracteresBuscador')
+	update ConfiguracionPaisDatos set valor1=3     where codigo = 'CaracteresBuscador'
 GO
+if  exists (select * from ConfiguracionPaisDatos where codigo = 'MostrarPalabrasMenoresACuatro')
+	delete from ConfiguracionPaisDatos where codigo = 'MostrarPalabrasMenoresACuatro'
+GO
+
 USE BelcorpChile
 GO
-If  exists (select * from ConfiguracionPaisDatos where codigo = 'MostrarPalabrasMenoresACuatro')
-begin
- delete from ConfiguracionPaisDatos where codigo = 'MostrarPalabrasMenoresACuatro'
-end
 
+if exists (select * from ConfiguracionPaisDatos where codigo = 'CaracteresBuscador')
+	update ConfiguracionPaisDatos set valor1=3     where codigo = 'CaracteresBuscador'
 GO
+if  exists (select * from ConfiguracionPaisDatos where codigo = 'MostrarPalabrasMenoresACuatro')
+	delete from ConfiguracionPaisDatos where codigo = 'MostrarPalabrasMenoresACuatro'
+GO
+
 USE BelcorpBolivia
 GO
-If  exists (select * from ConfiguracionPaisDatos where codigo = 'MostrarPalabrasMenoresACuatro')
-begin
- delete from ConfiguracionPaisDatos where codigo = 'MostrarPalabrasMenoresACuatro'
-end
 
+if exists (select * from ConfiguracionPaisDatos where codigo = 'CaracteresBuscador')
+	update ConfiguracionPaisDatos set valor1=3     where codigo = 'CaracteresBuscador'
 GO
+if  exists (select * from ConfiguracionPaisDatos where codigo = 'MostrarPalabrasMenoresACuatro')
+	delete from ConfiguracionPaisDatos where codigo = 'MostrarPalabrasMenoresACuatro'
+GO
+
