@@ -360,7 +360,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     //ViewBag.DemostradoresCaminoBrillante = sv.GetKitCaminoBrillante(userData.PaisID, Convert.ToString(userData.CampaniaID));
                     //ViewBag.KitsCaminoBrillante = sv.GetKitCaminoBrillante(userData.PaisID, "201904");
-                    ViewBag.KitsCaminoBrillante = sv.GetKitCaminoBrillante(userData.PaisID, user, 201903).ToList();
+                    ViewBag.KitsCaminoBrillante = sv.GetKitsCaminoBrillante(user, 201903, 4).ToList();
                 }
                 #endregion
 

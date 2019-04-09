@@ -110,7 +110,7 @@ namespace Portal.Consultoras.Web.Controllers
                     };
 
                     using (var svc = new UsuarioServiceClient())
-                        ofertas = svc.GetKitCaminoBrillante(userData.PaisID, user, 201903).ToList();
+                        ofertas = svc.GetKitsCaminoBrillante(user, 201903, 000).ToList(); //
                     if (ofertas != null)
                         SessionManager.SetKitCaminoBrillante(ofertas);
                 }

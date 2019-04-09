@@ -446,10 +446,10 @@ namespace Portal.Consultoras.ServiceContracts
         List<BENivelCaminoBrillante> GetNivelesCaminoBrillante(int paisId);
         [OperationContract]
         BEConsultoraCaminoBrillante GetConsultoraNivelCaminoBrillante(BEUsuario entidad);
+        //[OperationContract]
+        //List<BELogroCaminoBrillante> GetConsultoraLogrosCaminoBrillante(BEUsuario entidad);
         [OperationContract]
-        List<BELogroCaminoBrillante> GetConsultoraLogrosCaminoBrillante(BEUsuario entidad);
-        [OperationContract]
-        List<BEKitCaminoBrillante> GetKitCaminoBrillante(BEUsuario entidad, int periodoId, int nivel);
+        List<BEKitCaminoBrillante> GetKitsCaminoBrillante(BEUsuario entidad, int periodoId, int nivel);
         [OperationContract]
         List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillante(int paisID, string campaniaID);
         #endregion
