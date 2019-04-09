@@ -1233,9 +1233,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             var oListaGana = _consultoraOnlineProvider.GetRecomendados(parametrosRecomendado);
             model.ListaCatalogo = oListaCatalogo;
-            model.TotalCatalogo = oListaCatalogo.Sum(x => x.PrecioTotal);
-            model.ListaGana = oListaGana;
-            model.TotalGana = oListaGana.Sum(x => x.Precio2);
+            model.TotalCatalogo = oListaCatalogo.Sum(x => x.Cantidad*x.PrecioTotal);
+            model.ListaGana = oListaGana.Take(10).ToList();
+            model.TotalGana = oListaGana.Sum(x =>x.Cantidad* x.Precio2);
             model.GananciaGana = oListaGana.Sum(x => x.Ganancia);
 
             return View(model);

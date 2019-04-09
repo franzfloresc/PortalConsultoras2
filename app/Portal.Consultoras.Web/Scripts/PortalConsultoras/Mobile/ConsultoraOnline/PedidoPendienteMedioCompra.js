@@ -21,6 +21,12 @@
         return false;
     });
 
+
+    $(".btn_verMiPedido").on("click", function () {
+        window.location.href = baseUrl + "Mobile/Pedido/Detalle";
+    });
+
+
 });
 
 
@@ -59,28 +65,12 @@ function AceptarPedidoPendiente(id, tipo) {
             success: function (response) {
                 CloseLoading();
                 if (checkTimeout(response)) {
-                    if (response.success) {
+                    if (response.success) { 
 
+                        $('#popuplink').click(); 
+                        return false; 
 
-
-                        debugger;
-
-                        $('#popuplink').click();
-
-                        e.preventDefault();
-                        return false;
-
-
-
-                        if (pedido.Tipo == 1) {
-                            $('#detallePedidoAceptado').text('Has agregado ' + pedido.Ingresos.toString() + ' producto(s) a tu pedido');
-                        }
-                        else {
-                            $('#detallePedidoAceptado').text('No te olvides de ingresar en tu pedido los productos de este cliente.');
-                        }
-
-                        ActualizarGanancia(response.DataBarra);
-                        $('#PedidoAceptado').show();
+                       
                     }
                     else {
                         if (response.code == 1) {
