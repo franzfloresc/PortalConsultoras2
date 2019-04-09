@@ -101,21 +101,22 @@
         });
 
         $(_elements.grupos.id).on("click", "[data-add-component]", function (e) {
-
-            
-            console.log('analytic_3.2: Elígelo', codigoGrupo, cuvComponente);
-
+              
             var $btn = $(e.target);
             var codigoGrupo = $btn.data("grupo");
             var cuvComponente = $btn.data("cuv-componente");
             _presenter.addComponente(codigoGrupo, cuvComponente);
+             
         });
 
         $(_elements.grupos.id).on("click", "[data-delete-component]", function (e) {
+             
             var $btn = $(e.target);
             var codigoGrupo = $btn.data("grupo");
             var cuvComponente = $btn.data("cuv-componente");
             _presenter.deleteComponente(codigoGrupo, cuvComponente);
+
+            
         });
 
         var slickSettings = {

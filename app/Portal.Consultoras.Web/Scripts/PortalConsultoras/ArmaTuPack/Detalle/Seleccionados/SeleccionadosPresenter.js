@@ -106,6 +106,10 @@
 
         _packComponents(model);
         _config.armaTuPackDetalleEvents.applyChanges(_config.armaTuPackDetalleEvents.eventName.onSelectedComponentsChanged, model);
+
+
+        console.log('analytic_3.2: quitar componente', grupoComponente, cuvComponente, indiceComponente);
+
     };
 
     var _addPack = function () {
