@@ -29,6 +29,7 @@ namespace Portal.Consultoras.Common
             public const string Otras = "09";
             public const string LandingBuscador = "10";
             public const string LandingGanadoras = "11";
+            public const string ArmaTuPackDetalle = "12"; //Manda cuando estemos dentro de armatupack
         }
 
         public static class SeccionFuncional {
@@ -47,8 +48,8 @@ namespace Portal.Consultoras.Common
             public const string CatalogoEsika= "12";
             public const string CatalogoCyzone= "13";
             public const string Ganadoras= "14";
-
             public const string Grilla= "15";
+            public const string ArmaTuPack = "16";
         }
 
         public static class Seccion {
@@ -61,11 +62,19 @@ namespace Portal.Consultoras.Common
             public const string SubCampania= "07";
             public const string Recomendados= "08";
             public const string FichaResumida= "09";
+            
         }
 
         public static string GuionPedidoGuionFichaResumida
         {
             get { return Guion + Pagina.Pedido + Guion + Seccion.FichaResumida; }
+        }
+        /// <summary>
+        /// Ubigeo Arma tu Pack para Banner 
+        /// </summary>
+        public static string GuionContenedorGuionArmaTuPack
+        {
+            get { return Guion + Pagina.Contenedor + SeccionFuncional.ArmaTuPack + Guion; }
         }
     }
 }
