@@ -142,6 +142,22 @@ namespace Portal.Consultoras.Web.Controllers
                  
                 #endregion
 
+                var fichaEnriquecidaEstaActiva = _tablaLogicaProvider.GetTablaLogicaDatoValorBool(
+                            userData.PaisID,
+                            ConsTablaLogica.FlagFuncional.TablaLogicaId,
+                            ConsTablaLogica.FlagFuncional.FichaEnriquecida,
+                            true
+                            );
+
+                if (!fichaEnriquecidaEstaActiva)
+                {
+                    componentes.ForEach(x =>
+                    {
+                        x.MostrarVerDetalle = false;
+                        x.Secciones = null;
+                    });
+                }
+
                 return Json(new
                 {
                     success = true,

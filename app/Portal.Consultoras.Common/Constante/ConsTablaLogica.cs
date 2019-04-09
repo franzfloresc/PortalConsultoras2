@@ -19,6 +19,7 @@ namespace Portal.Consultoras.Common
         {
             public const int TablaLogicaId = 158;
             public const string MisClientes = "MisClientes";
+            public const string FichaEnriquecida = "FichaEnriquecida";
         }
 
         public static class MotivoFlexipago
