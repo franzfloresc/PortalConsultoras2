@@ -79,7 +79,8 @@ var ConstantesModule = (function () {
         { codigo: _codigoTipoEstrategia.GuiaDeNegocioDigitalizada, texto: _codigoTipoEstrategiaTexto.GuiaNegocio },
         { codigo: _codigoTipoEstrategia.HerramientasVenta, texto: _codigoTipoEstrategiaTexto.HerramientasVenta },
         { codigo: _codigoTipoEstrategia.ShowRoom, texto: _codigoTipoEstrategiaTexto.ShowRoom },
-        { codigo: _codigoTipoEstrategia.RevistaDigital, texto: _codigoTipoEstrategiaTexto.RevistaDigital }
+        { codigo: _codigoTipoEstrategia.RevistaDigital, texto: _codigoTipoEstrategiaTexto.RevistaDigital },
+        { codigo: _codigoTipoEstrategia.MasGanadoras, texto: _codigoTipoEstrategiaTexto.Ganadoras },
     ];
 
     var _configuracionOferta = {
@@ -227,6 +228,7 @@ var ConstantesModule = (function () {
         EditarItemPedido: _editarItemPedido,
         UrlObtenerEstrategia: _urlObtenerEstrategia,
         UrlDetalleEstrategia: _urlDetalleEstrategia,
-        UrlPedido: _urlPedido
+        UrlPedido: _urlPedido,
+        DiccionarioTipoEstrategia: _diccionarioTipoEstrategia
     }
 })();

@@ -13,5 +13,6 @@ namespace Portal.Consultoras.Web.Models
         public string PaisISO { get; set; }
         public string MsTiposEstrategias { get; set; }
         public string MsPais { get; set; }
+        public string MsFichaEstrategias { get; set; }
     }
 }

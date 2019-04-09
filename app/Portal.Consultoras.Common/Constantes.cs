@@ -379,6 +379,7 @@ namespace Portal.Consultoras.Common
                         {NombrePalanca.ShowRoom, TipoEstrategiaCodigo.ShowRoom},
                         {NombrePalanca.HerramientasVenta, TipoEstrategiaCodigo.HerramientasVenta},
                         {NombrePalanca.NotParticipaProgramaNuevas, TipoEstrategiaCodigo.NotParticipaProgramaNuevas},
+                        {NombrePalanca.MasGanadoras, TipoEstrategiaCodigo.OfertasParaMi},
                     });
                 }
             }

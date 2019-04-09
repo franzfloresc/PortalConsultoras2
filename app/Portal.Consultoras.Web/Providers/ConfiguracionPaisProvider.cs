@@ -62,7 +62,8 @@ namespace Portal.Consultoras.Web.Providers
                 SimboloMoneda = Simbolo,
                 PaisISO = CodigoISO,
                 MsTiposEstrategias = _sessionManager.GetConfigMicroserviciosPersonalizacion().EstrategiaHabilitado, //WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion;
-                MsPais = _sessionManager.GetConfigMicroserviciosPersonalizacion().PaisHabilitado //WebConfig.PaisesMicroservicioPersonalizacion;
+                MsPais = _sessionManager.GetConfigMicroserviciosPersonalizacion().PaisHabilitado, //WebConfig.PaisesMicroservicioPersonalizacion;
+                MsFichaEstrategias = _sessionManager.GetConfigMicroserviciosPersonalizacion().EstrategiaDisponibleParaFicha
             };
 
             return baseVariablesGeneral;

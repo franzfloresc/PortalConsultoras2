@@ -725,8 +725,14 @@ namespace Portal.Consultoras.Web.Controllers
 
         private DetalleEstrategiaFichaModel GetEstrategiaInicial(string palanca, int campaniaId, string cuv)
         {
-            //colocar bifurcacion
-            bool esFichaApi = true;
+            string codigoPalanca;
+            bool esFichaApi = false;
+            bool tieneCodigoPalanca = Constantes.NombrePalanca.PalancasbyCodigo.TryGetValue(palanca, out codigoPalanca);
+
+            if (tieneCodigoPalanca)
+            {
+                esFichaApi = new OfertaBaseProvider().UsaFichaMsPersonalizacion(codigoPalanca);
+            }
 
             var modelo = new DetalleEstrategiaFichaModel();
 
@@ -754,9 +760,8 @@ namespace Portal.Consultoras.Web.Controllers
             else
             {
                 string mensaje;
-                string codigoPalanca;
 
-                if (!Constantes.NombrePalanca.PalancasbyCodigo.TryGetValue(palanca, out codigoPalanca)) return null;
+                if (!tieneCodigoPalanca) return null;
 
                 modelo = _ofertaPersonalizadaProvider.GetEstrategiaFicha(cuv, campaniaId.ToString(), codigoPalanca, out mensaje);
 
@@ -767,10 +772,14 @@ namespace Portal.Consultoras.Web.Controllers
                     modelo.TipoEstrategiaDetalle.Slogan = "Contenido del Set:";
                     modelo.ListaDescripcionDetalle = modelo.ArrayContenidoSet;
                 }
+                modelo.Hermanos = _estrategiaComponenteProvider.FormatterEstrategiaComponentes(modelo.Hermanos, modelo.CUV2, modelo.CampaniaID, esFichaApi);
+                modelo = _ofertaPersonalizadaProvider.FormatterEstrategiaFicha(modelo, userData.CampaniaID);
             }
 
             return modelo;
         }
+
+        
 
         private int GetTipoAccionNavegar(int origen, bool esMobile, bool esEditar)
         {

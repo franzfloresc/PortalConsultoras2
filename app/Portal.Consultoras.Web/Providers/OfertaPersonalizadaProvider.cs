@@ -1077,6 +1077,31 @@ namespace Portal.Consultoras.Web.Providers
             return listaProductoModel;
         }
 
+        public DetalleEstrategiaFichaModel FormatterEstrategiaFicha(DetalleEstrategiaFichaModel estrategia, int campaniaID)
+        {
+            var claseBloqueada = "btn_desactivado_general";
+
+            if (estrategia.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.OfertaParaTi)
+            {
+                estrategia.ClaseEstrategia = "revistadigital-landing";
+            }
+            else
+            {
+                estrategia.ClaseEstrategia = string.Empty;
+            }
+            estrategia.TipoAccionAgregar = Constantes.TipoAccionAgregar.AgregaloNormal;
+            estrategia.TextoLibre = estrategia.TextoLibre ?? string.Empty;
+
+            if (estrategia.TipoEstrategiaDetalle == null) estrategia.TipoEstrategiaDetalle = new EstrategiaDetalleModelo();
+
+            var listaPedido = _pedidoWeb.ObtenerPedidoWebDetalle(0);
+
+            estrategia.ClaseBloqueada = estrategia.CampaniaID > 0 && estrategia.CampaniaID != campaniaID ? claseBloqueada : "";
+            estrategia.IsAgregado = estrategia.ClaseBloqueada != claseBloqueada && listaPedido.Any(p => p.EstrategiaId == estrategia.EstrategiaID);
+
+            return estrategia;
+        }
+
         public List<EstrategiaPersonalizadaProductoModel> SetCodigoPalancaMostrar(List<EstrategiaPersonalizadaProductoModel> listaProducto, string palanca)
         {
             if (!listaProducto.Any())

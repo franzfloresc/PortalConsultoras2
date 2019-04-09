@@ -57,5 +57,9 @@
         public string DescripcionDetalle { get; set; }
         public string DescripcionResumen { get; set; }
         public string TipoPersonalizacion { get; set; }
+        public bool EsMultiMarca { get; set; }
+        public List<string> ListaDescripcionDetalle { get; set; }
+        public EstrategiaDetalleModelo TipoEstrategiaDetalle { get; set; }
+        public List<string> ListaPrecioNiveles { get; set; }
     }
 }

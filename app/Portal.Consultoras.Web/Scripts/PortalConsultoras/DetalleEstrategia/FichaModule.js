@@ -107,7 +107,9 @@ var FichaModule = (function (config) {
     var _tipoEstrategiaTexto = ConstantesModule.TipoEstrategiaTexto;
     var _tipoEstrategia = ConstantesModule.TipoEstrategia;
     var _tipoAccionNavegar = ConstantesModule.TipoAccionNavegar;
-    var _fichaServicioApi = true;
+
+    var _objTipoPalanca = ConstantesModule.DiccionarioTipoEstrategia.find(function (x) { return x.texto === _config.palanca });
+    var _fichaServicioApi = (variablesPortal.MsFichaEstrategias && _objTipoPalanca) ? (variablesPortal.MsFichaEstrategias.indexOf(_objTipoPalanca.codigo) > -1) : false;
 
     var _elementos = {
         hdCampaniaCodigo: {
@@ -485,28 +487,6 @@ var FichaModule = (function (config) {
         }
     };
 
-    var _getEstrategiaFicha = function () {
-        var param = {
-            cuv: '00798',
-            campania: '201906',
-            tipoEstrategia: '011'
-        };
-
-        var errorRespuesta = false;
-        _config.detalleEstrategiaProvider
-            .promiseObtenerEstrategiaFicha(param)
-            .done(function (data) {
-                return data;
-            }).fail(function (data, error) {
-                errorRespuesta = true;
-            });
-
-        if (errorRespuesta) {
-            _redireccionar("_getComponentesAndUpdateEsMultimarca, promiseObternerComponentes");
-            return false;
-        }
-    };
-
     var _getEstrategia = function () {
         var estrategia;
 
@@ -538,7 +518,18 @@ var FichaModule = (function (config) {
         }
         else {
             estrategia = _modeloFicha;
-            ////////////////////////var estrategiaFichaxxx = _getEstrategiaFicha();
+            _esMultimarca = estrategia.EsMultimarca;
+
+            estrategia.esCampaniaSiguiente = estrategia.CampaniaID !== _obtenerCampaniaActual();
+            $.each(estrategia.Hermanos, function (idx, hermano) {
+                hermano = estrategia.Hermanos[idx];
+                hermano.esCampaniaSiguiente = estrategia.esCampaniaSiguiente;
+            });
+
+            if (!estrategia || !estrategia.EstrategiaID) {
+                _redireccionar('_getEstrategia, no obtiene oferta desde api');
+                return false;
+            }
         }
 
         _actualizarCodigoVariante(estrategia);
@@ -552,6 +543,7 @@ var FichaModule = (function (config) {
 
         estrategia = $.extend(_modeloFicha, estrategia);
         _estrategia = estrategia;
+
         return estrategia;
     };
 
