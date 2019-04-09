@@ -21,7 +21,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Index()
         {
-            var informacion = SessionManager.GetConsultoraCaminoBrillante() ?? new ServiceUsuario.BEConsultoraCaminoBrillante();
+            var informacion = SessionManager.GetConsultoraCaminoBrillante();
+                //?? new ServiceUsuario.BEConsultoraCaminoBrillante();
             if (informacion == null || informacion.NivelConsultora == null || informacion.NivelConsultora.Count() == 0) return RedirectToAction("Index", "Bienvenida");
 
             int nivelActual = 0;

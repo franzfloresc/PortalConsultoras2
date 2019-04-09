@@ -36,8 +36,9 @@ namespace Portal.Consultoras.Web.Providers
             var resumen = sessionManager.GetConsultoraCaminoBrillante();
             if (resumen == null)
             {
+                var user = _userData;
                 using (var svc = new UsuarioServiceClient())
-                return svc.GetConsultoraNivelCaminoBrillante(_userData);
+                    resumen = svc.GetConsultoraNivelCaminoBrillante(_userData);
             }
 
             if (resumen != null) sessionManager.SetConsultoraCaminoBrillante(resumen);
