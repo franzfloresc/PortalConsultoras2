@@ -111,9 +111,15 @@
                         <br class="clear" />
                     </div>
                     <div class="row">
+                        {{#iff componente.MostrarVerDetalle '==' true}}
                         <div id="btnVerDetalle" onclick="javascript:componenteDetalleModule.VerDetalle({{{json this}}})" class="col-md-12 text-right">
                             <a class="btn_detalle" data-toggle="modal">Ver detalle <img src="/Content/Images/General/Icons/arrow_down.svg"></a>
-                        </div>                         
+                        </div>
+                        {{else}}
+                        @*<div id="btnVerDetalle"  class="col-md-12 text-right">
+                            <a class="btn_detalle" data-toggle="modal">Sin detalle <img src="/Content/Images/General/Icons/arrow_down.svg"></a>
+                        </div>*@
+                        {{/iff}}
                     </div>
                         <div class="clear"></div>
                         {{#iff componente.Digitable '==' '1'}}

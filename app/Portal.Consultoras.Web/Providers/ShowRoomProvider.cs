@@ -21,7 +21,6 @@ using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Web.Providers
 {
-
     /// <summary>
     /// Propiedades y metodos de ShowRoom
     /// </summary>
@@ -404,61 +403,61 @@ namespace Portal.Consultoras.Web.Providers
 
         public void CargarEventoPersonalizacion(UsuarioModel model)
         {
-            var configEstrategiaSR = _sessionManager.GetEstrategiaSR() ?? new ConfigModel();
+            var configEstrategiaSR = new ConfigModel();
             try
             {
-                if (model == null)
+                configEstrategiaSR = _sessionManager.GetEstrategiaSR() ?? new ConfigModel();
+
+                if (model == null || configEstrategiaSR.CargoEntidadEventoPersonalizacion)
                 {
                     return;
                 }
 
-                if (!configEstrategiaSR.CargoEntidadEventoPersonalizacion)
+                _sessionManager.SetEsShowRoom("0");
+                _sessionManager.SetMostrarShowRoomProductos("0");
+                _sessionManager.SetMostrarShowRoomProductosExpiro("0");
+
+                if (UsarMsPersonalizacion(model.CodigoISO, Constantes.TipoEstrategiaCodigo.ShowRoom))
                 {
-                    _sessionManager.SetEsShowRoom("0");
-                    _sessionManager.SetMostrarShowRoomProductos("0");
-                    _sessionManager.SetMostrarShowRoomProductosExpiro("0");
+                    OutputEvento eventoPersonalizacions = ApiEventoPersonalizacion(model);
 
-                    if (UsarMsPersonalizacion(model.CodigoISO, Constantes.TipoEstrategiaCodigo.ShowRoom))
-                    {
-                        OutputEvento eventoPersonalizacions = ApiEventoPersonalizacion(model);
-
-                        configEstrategiaSR.BeShowRoom = ObtieneEventoModel(eventoPersonalizacions.Result);
-                        var eventoX = eventoPersonalizacions.Result.FirstOrDefault() ?? new Evento();
-                        configEstrategiaSR.ListaPersonalizacionConsultora = ObtienePersonalizacionesModel(eventoX.PersonalizacionNivel);
-                    }
-                    else
-                    {
-                        configEstrategiaSR.BeShowRoom = GetShowRoomEventoByCampaniaId(model);
-                        configEstrategiaSR.ListaPersonalizacionConsultora = GetShowRoomPersonalizacion(model);
-                    }
-
-                    if (model.CampaniaID != 0
-                        && configEstrategiaSR.BeShowRoom != null
-                        && configEstrategiaSR.BeShowRoom.Estado == SHOWROOM_ESTADO_ACTIVO)
-                    {
-                        CargarNivelShowRoom(model);
-                        ActualizarValorPersonalizacionesShowRoom(model, configEstrategiaSR);
-
-                        _sessionManager.SetEsShowRoom("1");
-                        var fechaHoy = model.FechaHoy;
-
-                        if (fechaHoy >= model.FechaInicioCampania.AddDays(-configEstrategiaSR.BeShowRoom.DiasAntes).Date
-                            && fechaHoy <= model.FechaInicioCampania.AddDays(configEstrategiaSR.BeShowRoom.DiasDespues).Date)
-                        {
-                            _sessionManager.SetMostrarShowRoomProductos("1");
-                        }
-
-                        if (fechaHoy > model.FechaInicioCampania.AddDays(configEstrategiaSR.BeShowRoom.DiasDespues).Date)
-                        {
-                            _sessionManager.SetMostrarShowRoomProductosExpiro("1");
-                            configEstrategiaSR.ConfiguracionPaisDatos = new List<ConfiguracionPaisDatosModel>();
-                        }
-                    }
-
-                    configEstrategiaSR.CargoEntidadEventoPersonalizacion = configEstrategiaSR.BeShowRoom != null &&
-                                                                           configEstrategiaSR.ListaPersonalizacionConsultora != null;
-                    _sessionManager.SetEstrategiaSR(configEstrategiaSR);
+                    configEstrategiaSR.BeShowRoom = ObtieneEventoModel(eventoPersonalizacions.Result);
+                    var eventoX = eventoPersonalizacions.Result.FirstOrDefault() ?? new Evento();
+                    configEstrategiaSR.ListaPersonalizacionConsultora = ObtienePersonalizacionesModel(eventoX.PersonalizacionNivel);
                 }
+                else
+                {
+                    configEstrategiaSR.BeShowRoom = GetShowRoomEventoByCampaniaId(model);
+                    configEstrategiaSR.ListaPersonalizacionConsultora = GetShowRoomPersonalizacion(model);
+                }
+
+                if (model.CampaniaID != 0
+                    && configEstrategiaSR.BeShowRoom != null
+                    && configEstrategiaSR.BeShowRoom.Estado == SHOWROOM_ESTADO_ACTIVO)
+                {
+                    CargarNivelShowRoom(model);
+                    ActualizarValorPersonalizacionesShowRoom(model, configEstrategiaSR);
+
+                    _sessionManager.SetEsShowRoom("1");
+                    var fechaHoy = model.FechaHoy;
+
+                    if (fechaHoy >= model.FechaInicioCampania.AddDays(-configEstrategiaSR.BeShowRoom.DiasAntes).Date
+                        && fechaHoy <= model.FechaInicioCampania.AddDays(configEstrategiaSR.BeShowRoom.DiasDespues).Date)
+                    {
+                        _sessionManager.SetMostrarShowRoomProductos("1");
+                    }
+
+                    if (fechaHoy > model.FechaInicioCampania.AddDays(configEstrategiaSR.BeShowRoom.DiasDespues).Date)
+                    {
+                        _sessionManager.SetMostrarShowRoomProductosExpiro("1");
+                        configEstrategiaSR.ConfiguracionPaisDatos = new List<ConfiguracionPaisDatosModel>();
+                    }
+                }
+
+                configEstrategiaSR.CargoEntidadEventoPersonalizacion = configEstrategiaSR.BeShowRoom != null &&
+                                                                       configEstrategiaSR.ListaPersonalizacionConsultora != null;
+                _sessionManager.SetEstrategiaSR(configEstrategiaSR);
+
             }
             catch (Exception ex)
             {

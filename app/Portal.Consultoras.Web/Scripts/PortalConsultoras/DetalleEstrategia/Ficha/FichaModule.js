@@ -240,17 +240,17 @@ var FichaModule = (function (config) {
         //    }
         //}
 
-        $("ul.ficha_tabs li a").click(function () {
-            var $this = $(this);
-            $this.parent().children("ul").slideToggle();
-            var clase = $this.attr("class");
-            if (clase === "active") {
-                $this.attr("class", "tab-link");
-            }
-            else {
-                $this.attr("class", "active");
-            }
-        });
+        //$("ul.ficha_tabs li a").click(function () {
+        //    var $this = $(this);
+        //    $this.parent().children("ul").slideToggle();
+        //    var clase = $this.attr("class");
+        //    if (clase === "active") {
+        //        $this.attr("class", "tab-link");
+        //    }
+        //    else {
+        //        $this.attr("class", "active");
+        //    }
+        //});
     };
 
     var _ocultarSecciones = function () {

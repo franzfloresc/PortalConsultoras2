@@ -36,7 +36,7 @@
         componenteDetalle: "componenteDetalle-template",
         componenteDetalleIndividual: "componenteDetalleIndividual-template",
         ContenidoProducto: "#ContenidoProducto",
-        BotonVerDetalle: "div[id='btnVerDetalle']",
+        BotonVerDetalle: "[id='btnVerDetalle']",
         MenuDetalleComponente: "#mnuDetalleComponente li a",
         CarruselVideo: '#carouselVideo',
         CarruselIndividualVideo: '#carouselIndividualVideo',
@@ -64,11 +64,13 @@
         mostrarDetalleModal: function (data) {
             _util.setHandlebars(_template.componenteDetalle, data);
 
-            this.setAcordionDetalleComponente();//eventos de acordio
-
             if (!_config.generalModule.isMobile()) {
+                _events.bindClosePopup();
+                this.setTabDetalleComponente();
+                $("body").css("overflow", "hidden");
                 $(_template.ModalProductoDetalle).show();
             } else {
+                this.setAcordionDetalleComponente();//eventos de acordio
                 $(_template.ModalProductoDetalle).modal();
             }
 
@@ -79,8 +81,14 @@
             //Este método asigna los datos del componente individual a _template.componenteDetalleIndividual
 
             //estrategia.Hermanos por default es solo 1
-            if (estrategia.Hermanos.length > 0) {
+            if (estrategia.Hermanos.length== 1) {
                 _util.setHandlebars(_template.componenteDetalleIndividual, estrategia.Hermanos[0]);
+                if (!_config.generalModule.isMobile()) {
+                    this.setTabDetalleComponente();
+                }
+                else {
+                    this.setAcordionDetalleComponente();//eventos de acordio
+                }
                 this.setCarrusel(_template.CarruselIndividualVideo);
                 this.setYoutubeApi();
             } else {
@@ -91,9 +99,42 @@
             $(id).slick({
                 infinite: false,
                 speed: 300,
-                slidesToShow: 1,
+                slidesToShow: 3,
                 centerMode: false,
-                variableWidth: true
+                variableWidth: false,
+                responsive: [
+                    {
+                        breakpoint: 1024,
+                        settings: {
+                            slidesToShow: 3,
+                        }
+                    },
+                    {
+                        breakpoint: 700,
+                        settings: {
+                            slidesToShow: 1,
+                        }
+                    },
+                ],
+                prevArrow:
+                    "<a id=\"opciones-seleccionadas-prev\" class=\"flecha_ofertas-tipo prev\" style=\"left:-5%; text-align:left;display:none;\">" +
+                    "<img src=\"" + baseUrl + "Content/Images/Esika/previous_ofertas_home.png\")\" alt=\"\" />" +
+                    "</a>",
+                nextArrow:
+                    "<a id=\"opciones-seleccionadas-next\" class=\"flecha_ofertas-tipo\" style=\"display: block; right:-5%; text-align:right;display:none;\">" +
+                    "<img src=\"" + baseUrl + "Content/Images/Esika/next.png\")\" alt=\"\" />" +
+                    "</a>"
+            });
+        },
+        setTabDetalleComponente: function () {
+            $("body").off("click", "[data-tab-header]");
+            $("body").on("click", "[data-tab-header]", function (e) {
+                e.preventDefault();
+                var numTab = $(e.target).data("num-tab");
+                $("[data-tab-header]").removeClass("active");
+                $("[data-tab-header][data-num-tab=" + numTab + "]").addClass("active");
+                $("[data-tab-body]").hide();
+                $("[data-tab-body][data-num-tab=" + numTab + "]").show();
             });
         },
         setAcordionDetalleComponente: function () {
@@ -103,9 +144,13 @@
                 var clase = $this.attr("class");
                 if (clase === "active") {
                     $this.attr("class", "tab-link");
+                    this.setCarrusel(_template.CarruselIndividualVideo);
+                    this.setCarrusel(_template.CarruselVideo);
                 }
                 else {
-                    $this.attr("class", "active");                     
+                    $this.attr("class", "active");
+                    this.setCarrusel(_template.CarruselIndividualVideo);
+                    this.setCarrusel(_template.CarruselVideo);
                 }
             });
         },
@@ -120,10 +165,8 @@
     };
 
     var _VerDetalle = function (componente) {
-         
         console.log('componente', componente);         
         _util.mostrarDetalleModal(componente);
-         
     };
 
     var _VerDetalleIndividual = function (estrategia) {
@@ -147,7 +190,6 @@
             _validator.mostrarContenidoProducto(true);
 
             if ($(_template.BotonVerDetalle).length > 1) {
-
                 _validator.mostrarBotoneraVerDetalle(true);
                 _validator.mostrarContenidoProducto(false);
 
@@ -160,6 +202,17 @@
             _validator.mostrarBotoneraVerDetalle(false);
         }
 
+    };
+
+    var _events = {
+        bindClosePopup: function () {
+            $("body").off("click", "[data-close-product-detail-popup]");
+            $("body").on("click", "[data-close-product-detail-popup]", function (e) {
+                e.preventDefault();
+                $("[data-product-detail-popup]").hide();
+                $("body").css("overflow", "auto");
+            });
+        }
     };
 
     return {

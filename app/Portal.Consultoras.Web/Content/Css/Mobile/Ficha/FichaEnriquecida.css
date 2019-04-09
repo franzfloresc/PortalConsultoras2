@@ -147,3 +147,7 @@
     margin: 10px 0px 0px 0px;
 }
 /* fin Tabs */
+
+.flecha_ofertas-tipo {
+    display: none !important;
+}

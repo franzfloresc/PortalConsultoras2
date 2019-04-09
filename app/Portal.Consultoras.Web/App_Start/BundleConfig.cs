@@ -45,7 +45,6 @@ namespace Portal.Consultoras.Web
                "~/Scripts/donetyping.js",
                "~/Scripts/jquery.lazy.js"
             ));
-
             bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/JQuery3Js").Include(
                 "~/Scripts/jquery-3.3.1.js",
                 "~/Scripts/jquery-migrate-1.2.1.js",
@@ -790,7 +789,7 @@ namespace Portal.Consultoras.Web
             #endregion
 
             #region DetalleEstrategia
-
+            
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mixto/EstrategiaAgregar").Include(
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js",
                 "~/Scripts/PortalConsultoras/Shared/CodigoUbigeoPortal.js",
@@ -810,7 +809,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/Ficha/OpcionesSeleccionadasModule.js",
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/Ficha/TituloOpcionesSeleccionadasModule.js",
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/Ficha/ResumenOpcionesModule.js",
-
+                
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js",
                 "~/Scripts/PortalConsultoras/Shared/CodigoUbigeoPortal.js",
                 "~/Scripts/PortalConsultoras/Shared/AnalyticsPortal.js",
@@ -1048,7 +1047,7 @@ namespace Portal.Consultoras.Web
             ));
 
             #region ArmaTuPack
-
+            
             bundles.Add(new StyleBundle("~/Bundle/Css/Responsive/ArmaTuPack").Include(
                 "~/Content/Css/Site/ArmaTuPack/ArmaTuPack_Responsive.css",
                 "~/Content/Css/Site/ficha/SeleccionarTipo.css"
@@ -1075,7 +1074,7 @@ namespace Portal.Consultoras.Web
              ));
             #endregion
 
-            bundles.IgnoreList.Clear();
+
 #if DEBUG
             BundleTable.EnableOptimizations = false;
 #else

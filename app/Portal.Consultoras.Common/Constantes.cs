@@ -595,6 +595,9 @@ namespace Portal.Consultoras.Common
 
             public const string PaisesEscalaDescuento = "PaisesEscalaDescuento";
 
+            public const string BonificacionesURL = "BonificacionesURL";
+            public const string BonificacionesRegiones = "BonificacionesRegiones";
+            public const string JsonWebTokenSecretKey = "JsonWebTokenSecretKey";
         }
 
         public static class TipoOfertaFinalCatalogoPersonalizado
@@ -1785,6 +1788,9 @@ namespace Portal.Consultoras.Common
             public const int StockDiasAntes = 181;
             public const int CorreoFeedbackAppConsultora = 105;
 
+            public const int EscalaDescuentoMensajeImportante = 160;
+
+
             /// <summary>
             /// Variables configurables del app
             /// </summary>
@@ -2272,6 +2278,11 @@ namespace Portal.Consultoras.Common
             public const string AppConsultora = "App Consultora";
             public const string BannerDescargarAppNuevas = "BannerDescargarAppNuevas";
             public const string Extraordinarios = "App Consultora,BannerDescargarAppNuevas";
+            //HD-3550 EINCA
+            public static class TipoComunicado {
+                public const int Banner = 1;
+                public const int PopUp = 2;
+            }
         }
         public static class ColumnsSetStrategyShowroom
         {
@@ -3155,6 +3166,8 @@ namespace Portal.Consultoras.Common
         public static class CodigoConfiguracionMSPersonalizacion
         {
             public const string EstrategiaDisponible = "EstrategiaDisponible";
+            public const string GuardaDataEnLocalStorage = "GuardaDataEnLocalStorage";
+            public const string GuardaDataEnSession = "GuardaDataEnSession";
         }
 
         public static class CodigoConfiguracionRecomendaciones
@@ -3398,6 +3411,12 @@ namespace Portal.Consultoras.Common
             public const string ConsultaStockProl = "api/Pedido/ValidacionStockPalancas";
             public const int StockPadre = 0;
             public const int StockHijo = 1;
+        }
+
+        public static class Controlador
+        {
+            public static readonly string[] ActualizacionODD = { "Bienvenida", "Ofertas", "DetalleEstrategia", "Pedido" };
+            public const string Pedido = "Pedido";
         }
 
         public static class EstrategiaDetalleCamposID

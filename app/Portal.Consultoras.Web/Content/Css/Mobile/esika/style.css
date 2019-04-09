@@ -50,6 +50,10 @@ h3 {
     font-size: 18px;
 }
 
+.mt-23{
+    margin-top:23px;
+}
+
 .noPadding {
     padding: 0 !important;
 }
@@ -4926,6 +4930,13 @@ body {
     margin: 0 auto;
     border: 0;
 }
+
+.bonificaciones_digital {
+    width: 128px;
+    height: 76px;
+    background: url('/Content/Images/Mobile/Esika/bonificaciones_digital.png') no-repeat right bottom;
+    margin-bottom: 0;
+} 
 
 .catalogo_esika {
     width: 128px;

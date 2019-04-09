@@ -242,7 +242,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             var mensaje = string.Empty;
             var cuvSet = estrategia.CUV2;
             var pedidoID = 0;
-            var lstDetalleAgrupado = ObtenerPedidoWebSetDetalleAgrupado(usuario, out pedidoID);
+            List<BEPedidoWebDetalle> lstDetalleAgrupado = null;// ObtenerPedidoWebSetDetalleAgrupado(usuario, out pedidoID);
 
             usuario.PaisID = pedidoDetalle.PaisID;
             usuario.TieneValidacionMontoMaximo = _usuarioBusinessLogic.ConfiguracionPaisUsuario(usuario, Constantes.ConfiguracionPais.ValidacionMontoMaximo).TieneValidacionMontoMaximo;
@@ -250,6 +250,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
             #region ArmaTuPack
             if (pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopContenedorArmaTuPack || pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobileContenedorArmaTuPack)
             {
+                lstDetalleAgrupado = ObtenerPedidoWebSetDetalleAgrupado(usuario, out pedidoID);
+
                 var packAgregado = lstDetalleAgrupado != null ? lstDetalleAgrupado.FirstOrDefault(x => x.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.ArmaTuPack) : null;
 
                 if (packAgregado != null && packAgregado.CUV == estrategia.CUV2)
@@ -340,6 +342,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             }
             else
             {
+                lstDetalleAgrupado = lstDetalleAgrupado != null ? ObtenerPedidoWebSetDetalleAgrupado(usuario, out pedidoID) : lstDetalleAgrupado;
                 var validacionLimiteVenta = ValidarLimiteVenta(estrategia, lstDetalleAgrupado);
                 if (validacionLimiteVenta != null) return validacionLimiteVenta;
 
@@ -1513,6 +1516,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             try
             {
                 List<BEEstrategia> LstEstrategia = _estrategiaBusinessLogic.GetEstrategiaPremiosElectivos(usuario.PaisID, usuario.CodigoPrograma, usuario.CampaniaID, usuario.Nivel);
+                if (LstEstrategia == null) LstEstrategia = new List<BEEstrategia>();
                 BEPedidoWeb objPedidoDetalle = Get(usuario);
 
                 if (objPedidoDetalle.olstBEPedidoWebDetalle == null) objPedidoDetalle.olstBEPedidoWebDetalle = new List<BEPedidoWebDetalle>();
@@ -1526,6 +1530,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 else
                 {
                     var prodRegalo = LstEstrategia.FirstOrDefault(x => x.CuponElectivoDefault);
+                    if (prodRegalo == null) prodRegalo = new BEEstrategia() { CUV2 = string.Empty, DescripcionCUV2 = string.Empty };
                     ProductoRegalo.CUV = prodRegalo.CUV2;
                     ProductoRegalo.DescripcionProducto = prodRegalo.DescripcionCUV2;
                 }
@@ -2633,6 +2638,16 @@ namespace Portal.Consultoras.BizLogic.Pedido
         {
             BEPedidoDetalleResult objRerun = null;
             var lisRegalos = _estrategiaBusinessLogic.GetEstrategiaPremiosElectivos(pedidoDetalle.Usuario.PaisID, pedidoDetalle.Usuario.CodigoPrograma, pedidoDetalle.Usuario.CampaniaID, pedidoDetalle.Usuario.Nivel).ToList();
+            if (lisRegalos == null) lisRegalos = new List<BEEstrategia>();
+
+            if (lisRegalos.Count == 0)
+            {
+                objRerun = new BEPedidoDetalleResult();
+                objRerun.CodigoRespuesta = Constantes.PedidoValidacion.Code.SUCCESS;
+
+                return objRerun;
+            }
+
             var reqPedidoDetalle = Get(pedidoDetalle.Usuario);
 
             if (reqPedidoDetalle.olstBEPedidoWebDetalle == null) reqPedidoDetalle.olstBEPedidoWebDetalle = new List<BEPedidoWebDetalle>();

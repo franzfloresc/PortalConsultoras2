@@ -9,7 +9,7 @@ namespace Portal.Consultoras.Common
         {
             get { return Singleton.instance; }
         }
-        private static class Singleton
+        private abstract class Singleton
         {
             static Singleton() { }
             public static readonly JwtContext instance = new JwtContext();
