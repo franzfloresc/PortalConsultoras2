@@ -249,10 +249,10 @@ namespace Portal.Consultoras.BizLogic
             daSolicitudCliente.RechazarSolicitudCliente(solicitudId, definitivo, opcionRechazo, razonMotivoRechazo);
         }
 
-        public void RechazarSolicitudVistaCliente(int paisID, long solicitudId, int cuv)
+        public void RechazarSolicitudVistaCliente(int paisID, long solicitudId,int estado, string cuv)
         {
             var daSolicitudCliente = new DASolicitudCliente(paisID);
-            daSolicitudCliente.RechazarSolicitudVistaCliente(solicitudId, cuv);
+            daSolicitudCliente.RechazarSolicitudVistaCliente(solicitudId,estado, cuv);
         }
 
 

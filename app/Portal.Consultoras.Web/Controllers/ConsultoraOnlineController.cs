@@ -2542,9 +2542,176 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
 
-        public ActionResult Pendientes()
+
+        [HttpPost]
+        public JsonResult RechazarPedidoVistas(string pedido,string cuv)
         {
-            return View();
+            int paisId = userData.PaisID;
+            DateTime fechaActual = DateTime.Now;
+            int _pedido = pedido.ToInt();
+
+            using (ServiceSAC.SACServiceClient sv = new ServiceSAC.SACServiceClient())
+            {
+                //MisPedidosModel consultoraOnlineMisPedidos = SessionManager.GetobjMisPedidos();
+
+                //ServiceSAC.BETablaLogicaDatos[] tablalogicaDatos = sv.GetTablaLogicaDatos(paisId, 56);
+                //var numIteracionMaximo =
+                //    Convert.ToInt32(tablalogicaDatos.First(x => x.TablaLogicaDatosID == 5601).Codigo);
+                var estado = 1;
+                sv.RechazarSolicitudVistaCliente(paisId, _pedido, estado,cuv);
+            }
+
+            return Json(new
+            {
+                success = true,
+                message = "OK"
+            }, JsonRequestBehavior.AllowGet);
         }
+
+
+        [HttpPost]
+        public JsonResult RechazarTodoPedidoVistasProductos(MisPedidosDetalleModel pedido )
+        {
+            List<BEMisPedidosDetalle> pedidosdetalle = SessionManager.GetobjMisPedidosDetalle();
+            int paisId = userData.PaisID;
+            DateTime fechaActual = DateTime.Now;
+           
+            //int _pedido = pedido.ToInt();
+
+            using (ServiceSAC.SACServiceClient sv = new ServiceSAC.SACServiceClient())
+            {
+                var estado = 1;
+                foreach (BEMisPedidosDetalle item in pedidosdetalle)
+                {
+                    sv.RechazarSolicitudVistaCliente(paisId, item.PedidoDetalleId, estado, item.CUV);
+
+                }
+                    //MisPedidosModel consultoraOnlineMisPedidos = SessionManager.GetobjMisPedidos();
+
+                    //ServiceSAC.BETablaLogicaDatos[] tablalogicaDatos = sv.GetTablaLogicaDatos(paisId, 56);
+                    //var numIteracionMaximo =
+                    //    Convert.ToInt32(tablalogicaDatos.First(x => x.TablaLogicaDatosID == 5601).Codigo);
+
+                //sv.RechazarSolicitudVistaCliente(paisId, _pedido, estado, cuv);
+            }
+
+            return Json(new
+            {
+                success = true,
+                message = "OK"
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult RechazarTodoPedidoVistasClientes(MisPedidosModel pedido)
+        {
+            List<BEMisPedidosDetalle> pedidosdetalle = SessionManager.GetobjMisPedidosDetalle();
+            int paisId = userData.PaisID;
+            DateTime fechaActual = DateTime.Now;
+            //int _pedido = pedido.ToInt();
+
+            using (ServiceSAC.SACServiceClient sv = new ServiceSAC.SACServiceClient())
+            {
+                var estado = 1;
+                foreach (BEMisPedidosDetalle item in pedidosdetalle)
+                {
+                    sv.RechazarSolicitudVistaCliente(paisId, item.PedidoId, estado,item.CUV);
+
+                }
+            }
+            return Json(new
+            {
+                success = true,
+                message = "OK"
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult ContinuarPedidos(List<BEMisPedidosDetalle> detallelista)
+        {
+            //List<BEMisPedidosDetalle> pedidosdetalle = SessionManager.GetobjMisPedidosDetalle();
+            MisPedidosModel model = new MisPedidosModel();
+            int paisId = userData.PaisID;
+            DateTime fechaActual = DateTime.Now;
+            //int _pedido = pedido.ToInt();
+
+            MisPedidosModel pedidos = SessionManager.GetobjMisPedidos();
+            //if (string.IsNullOrEmpty(detallelista))
+            //{
+            //    if (pedidos.ListaPedidos.Any())
+            //        return RedirectToAction("Pendientes", "ConsultoraOnline", new { area = "Mobile" });
+            //    else
+            //        return RedirectToAction("Home", "Bienvenida", new { area = "Mobile" });
+            //}
+
+            //string _cuv = Convert.ToString(cuv);      
+            var arrIds = new List<string>();
+            var arrCuvs = new List<string>();
+            var Listadetalle = new List<BEMisPedidosDetalle>();
+            var Listadetallefinal = new List<BEMisPedidosDetalle>();
+            var Listapedido = new List<BEMisPedidos>();
+
+            foreach (var cuv in detallelista)
+            {
+                foreach (var cab in pedidos.ListaPedidos)
+               {
+            
+                    var detalles = cab.DetallePedido.Where(x => x.CUV == cuv.CUV).ToList();
+                    if (detalles.Any())
+                    {
+                        arrIds.Add(cab.PedidoId.ToString());
+                        foreach (var item in detalles)
+                        {
+                            Listadetalle.Add(item);
+                        }
+                    }
+                   
+                }                  
+            }
+
+            var lstPedidos = pedidos.ListaPedidos.Where(x => arrIds.Contains(x.PedidoId.ToString()));
+
+            foreach (var cab in lstPedidos)
+            {
+                foreach (var cuv in detallelista)
+                {
+                    var detalles = cab.DetallePedido.Where(x => x.CUV == cuv.CUV).ToList();
+                    if (detalles.Any())
+                    {
+                        //arrCuvs.Add(cab.PedidoId.ToString());
+                        foreach (var item in detalles)
+                        {
+                            Listadetallefinal.Add(item);
+                        }
+                    }
+                   
+                }
+                cab.DetallePedido = Listadetallefinal.ToArray();
+
+            }
+
+            model.ListaPedidos = lstPedidos.ToList();
+            model.RegistrosTotal = model.ListaPedidos.Count.ToString();
+            SessionManager.SetobjMisPedidos(model);
+            SessionManager.SetobjMisPedidosDetalle(Listadetalle);
+
+            using (ServiceSAC.SACServiceClient sv = new ServiceSAC.SACServiceClient())
+            {
+                var estado = 1;
+                foreach (BEMisPedidosDetalle item in Listadetalle)
+                {
+                    sv.RechazarSolicitudVistaCliente(paisId, item.PedidoId, estado, item.CUV);
+                    
+                }
+            }
+
+            return RedirectToAction("PendientesMedioDeCompra", "ConsultoraOnline", new { area = "Mobile" });
+            //return Json(new
+            //{
+            //    success = true,
+            //    message = "OK"
+            //}, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

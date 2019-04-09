@@ -71,7 +71,7 @@
     <div class="container">
         @foreach (var item in Model.ListaDetalle2)
         {
-            <div class="container vc-box vc-box--shadow">
+            <div id="pedidos" class="container vc-box vc-box--shadow pedidos">
                 <!--   Order title   -->
 
 
@@ -84,6 +84,7 @@
                             <div class="vc-box--content">
                                 <p style="margin-bottom: 16px;">@item.Tono</p>
                             </div>
+                            <input type="hidden" id="solped_@item.CUV" value="@item.CUV" />
                         </div>
                     </div>
                     <div class="col-3">
@@ -99,7 +100,7 @@
                 <div class="row align-items-center">
                     <div class="col-4">
                         <div class="vc-box ipt-tel">
-                            <input type="tel" value="@item.Cantidad" placeholder="1" class="text-center text-14 text-700">
+                            <input id="cantidad" type="tel" value="@item.Cantidad" placeholder="1" class="text-center text-14 text-700">
                         </div>
                     </div>
 
@@ -117,6 +118,7 @@
 
                 <!--   /Order Action   -->
                 <!--  Order Delete Popup      -->
+
                 <div id=@item.CUV class="row align-items-center" style="display:none;">
                     <div class="col mt-16">
                         <div class="tooltip-primary tooltip-arrow_top ptb-16 ">
@@ -129,7 +131,7 @@
                                         <a href="javascript:;" onclick="OcultarMensajedeRechazoPedido('@item.CUV')" class="action-btn action-btn_refuse no-border">No, gracias</a>
                                     </div>
                                     <div class="col text-14 text-700">
-                                        <a href="javascript:;" class="action-btn action-btn_continue active">Sí, eliminar</a>
+                                        <a href="javascript:;" onclick="ProcesarRechazarPedido('@solicitud.PedidoId', '@item.CUV')" class="action-btn action-btn_continue active">Sí, eliminar</a>
 
                                     </div>
                                 </div>
@@ -244,7 +246,7 @@
                 </div>
                 <div class="col">
                     <div class="vc-box text-14 text-700">
-                        <a href="javascript:;" onclick="AceptarPedido('@solicitud.PedidoId', '@tiposoli')" class="action-btn action-btn_continue active">Continuar</a>
+                        <a href="javascript:;" onclick="ContinuarPedido()" class="action-btn action-btn_continue active">Continuar</a>
                     </div>
                 </div>
             </div>
@@ -283,7 +285,7 @@
                     <button class="btn btn-default" data-dismiss="modal" aria-label="Close" style="font-size: 14px; letter-spacing: 1px;font-weight:700;">
                         No gracias
                     </button>
-                    <button class="btn btn-primary" style="font-size: 14px; letter-spacing: 1px;font-weight:700; background-color: #b9007e; border: #b9007e; color: white;">
+                    <button onclick="RechazarTodoPedidoProductos('@Model')" class="btn btn-primary" style="font-size: 14px; letter-spacing: 1px;font-weight:700; background-color: #b9007e; border: #b9007e; color: white;">
                         Sí Rechazar
                     </button>
                 </div>

@@ -1040,8 +1040,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         return RedirectToAction("Pendientes", "ConsultoraOnline", new { area = "Mobile" });
                     else
                         return RedirectToAction("Home", "Bienvenida", new { area = "Mobile" });
+                   
                 }
-
+                pedidos.ListaPedidos = lstPedido.ToList();
                 var lstMisPedidosDet = new List<BEMisPedidosDetalle>();
                 foreach (var cab in lstPedido)
                 {
@@ -1061,9 +1062,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     var firstPedido = pedidos.ListaPedidos.FirstOrDefault();
                     model.MiPedido = firstPedido;
 
-                    //SessionManager.SetobjMisPedidosDetalle(olstMisPedidosDet);
+                  
                     lstMisPedidosDet = CargarMisPedidosDetalleDatos(firstPedido.MarcaID, lstMisPedidosDet);
-
+                    SessionManager.SetobjMisPedidosDetalle(lstMisPedidosDet);
+                    SessionManager.SetobjMisPedidos(pedidos);
                     var detallePedidos = Mapper.Map<List<BEMisPedidosDetalle>, List<MisPedidosDetalleModel2>>(lstMisPedidosDet);
                     detallePedidos.Update(p => p.CodigoIso = userData.CodigoISO);
                     model.ListaDetalle2 = detallePedidos;
@@ -1242,10 +1244,19 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 //string _cuv = Convert.ToString(cuv);      
                 var arrIds = new List<string>();
+                var Listadetalle = new List<BEMisPedidosDetalle>();
                 foreach (var cab in pedidos.ListaPedidos)
                 {
                     var detalles = cab.DetallePedido.Where(x => x.CUV == cuv);
-                    if (detalles.Any()) arrIds.Add(cab.PedidoId.ToString());
+                    if (detalles.Any())
+                    {
+                        arrIds.Add(cab.PedidoId.ToString());
+                        foreach(var item in detalles)
+                        {
+                            Listadetalle.Add(item);
+                        }                      
+                    }
+              
                 }
 
                 if (!arrIds.Any())
@@ -1263,7 +1274,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     cab.CantidadTotal = cab.DetallePedido.Where(x => x.CUV == cuv).Sum(x => x.Cantidad);
                 }
                 model.ListaPedidos = lstPedidos.ToList();
+                model.ListaPedidos[0].DetallePedido = Listadetalle.ToArray();
                 model.RegistrosTotal = model.ListaPedidos.Count.ToString();
+                SessionManager.SetobjMisPedidos(model);
+                SessionManager.SetobjMisPedidosDetalle(Listadetalle);
             }
             catch (Exception ex)
             {
