@@ -1,4 +1,4 @@
-USE BelcorpPeru
+﻿USE BelcorpPeru
 GO
 
 if exists (select * from ConfiguracionPaisDatos where codigo = 'CaracteresBuscador')
