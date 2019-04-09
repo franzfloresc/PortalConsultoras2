@@ -201,74 +201,82 @@ namespace Portal.Consultoras.BizLogic
 
         public IList<BEEstrategia> GetRecomendados(RecomendadoRequest RecomendadoRequest)
         {
-
-            //RecomendadoRequest.codigoPais = "pe";
-            //RecomendadoRequest.codigocampania = "201905";
-            //RecomendadoRequest.codigoZona = "1714";
-            //RecomendadoRequest.origen = "sb-desktop";
-            //RecomendadoRequest.codigoConsultora = "0033938";
-            //RecomendadoRequest.cuv = "14647";
-            //RecomendadoRequest.personalizaciones = "";
-            //RecomendadoRequest.configuracion = new Configuracion();
-            //RecomendadoRequest.configuracion.sociaEmpresaria = "0";
-            //RecomendadoRequest.configuracion.diaFacturacion = 1;
-
-            //RecomendadoRequest.configuracion.suscripcionActiva = "False";
-            //RecomendadoRequest.configuracion.mdo = "True";
-            //RecomendadoRequest.configuracion.rd = "False";
-            //RecomendadoRequest.configuracion.rdi = "False";
-            //RecomendadoRequest.configuracion.rdr = "False";
-            //RecomendadoRequest.configuracion.mostrarProductoConsultado = "True";
-
-
-            //RecomendadoRequest.codigoProducto = new List<string>();
-            //RecomendadoRequest.codigoProducto.Add("210090349");
-            //RecomendadoRequest.codigoProducto.Add("210090295");
-            //RecomendadoRequest.codigoProducto.Add("200088604");
-            //RecomendadoRequest.cantidadProductos = 1000;
-            //RecomendadoRequest.personalizaciones = "";
-            //RecomendadoRequest.configuracion = new Configuracion();
-            //RecomendadoRequest.configuracion.sociaEmpresaria = "0";
-            //RecomendadoRequest.configuracion.suscripcionActiva = "False";
-            //RecomendadoRequest.configuracion.mdo = "True";
-            //RecomendadoRequest.configuracion.rd = "False";
-            //RecomendadoRequest.configuracion.rdi = "False";
-            //RecomendadoRequest.configuracion.rdr = "False";
-            //RecomendadoRequest.configuracion.diaFacturacion = 1;
-            //RecomendadoRequest.configuracion.mostrarProductoConsultado = "True";
-            RecomendadoRequest.productosSolicitados = new List<ProductoSolicitado>()
+            try
             {
-                new ProductoSolicitado
-                {
-                    CodigoSap = "210090349",
-                    Cantidad = 6
-                },
-                new ProductoSolicitado
-                {
-                    CodigoSap = "210090295",
-                    Cantidad = 6
-                }
-                //new ProductoSolicitado
+                //RecomendadoRequest.codigoPais = "pe";
+                //RecomendadoRequest.codigocampania = "201905";
+                //RecomendadoRequest.codigoZona = "1714";
+                //RecomendadoRequest.origen = "sb-desktop";
+                //RecomendadoRequest.codigoConsultora = "0033938";
+                //RecomendadoRequest.cuv = "14647";
+                //RecomendadoRequest.personalizaciones = "";
+                //RecomendadoRequest.configuracion = new Configuracion();
+                //RecomendadoRequest.configuracion.sociaEmpresaria = "0";
+                //RecomendadoRequest.configuracion.diaFacturacion = 1;
+
+                //RecomendadoRequest.configuracion.suscripcionActiva = "False";
+                //RecomendadoRequest.configuracion.mdo = "True";
+                //RecomendadoRequest.configuracion.rd = "False";
+                //RecomendadoRequest.configuracion.rdi = "False";
+                //RecomendadoRequest.configuracion.rdr = "False";
+                //RecomendadoRequest.configuracion.mostrarProductoConsultado = "True";
+
+
+                //RecomendadoRequest.codigoProducto = new List<string>();
+                //RecomendadoRequest.codigoProducto.Add("210090349");
+                //RecomendadoRequest.codigoProducto.Add("210090295");
+                //RecomendadoRequest.codigoProducto.Add("200088604");
+                //RecomendadoRequest.cantidadProductos = 1000;
+                //RecomendadoRequest.personalizaciones = "";
+                //RecomendadoRequest.configuracion = new Configuracion();
+                //RecomendadoRequest.configuracion.sociaEmpresaria = "0";
+                //RecomendadoRequest.configuracion.suscripcionActiva = "False";
+                //RecomendadoRequest.configuracion.mdo = "True";
+                //RecomendadoRequest.configuracion.rd = "False";
+                //RecomendadoRequest.configuracion.rdi = "False";
+                //RecomendadoRequest.configuracion.rdr = "False";
+                //RecomendadoRequest.configuracion.diaFacturacion = 1;
+                //RecomendadoRequest.configuracion.mostrarProductoConsultado = "True";
+                //RecomendadoRequest.productosSolicitados = new List<ProductoSolicitado>()
                 //{
-                //    CodigoSap = "200088604",
-                //    Cantidad = 1
-                //}
-            };
+                    //new ProductoSolicitado
+                    //{
+                    //    CodigoSap = "210090349",
+                    //    Cantidad = 6
+                    //},
+                    //new ProductoSolicitado
+                    //{
+                    //    CodigoSap = "210090295",
+                    //    Cantidad = 6
+                    //}
+                    //new ProductoSolicitado
+                    //{
+                    //    CodigoSap = "200088604",
+                    //    Cantidad = 1
+                    //}
+                //};
 
-            var EstrategiasMs = GetRecomendadosApiMS(RecomendadoRequest);
+                var EstrategiasMs = GetRecomendadosApiMS(RecomendadoRequest);
 
-            EstrategiasMs = EstrategiasMs.Where(x => x.CodigoEstrategia != 2003).ToList();
+                EstrategiasMs = EstrategiasMs.Where(x => x.CodigoEstrategia != 2003).ToList();
 
-            EstrategiasMs = GetRecomendadosAlgorithm(RecomendadoRequest, EstrategiasMs);
+                EstrategiasMs = GetRecomendadosAlgorithm(RecomendadoRequest, EstrategiasMs);
 
-            var Estrategias = MapearRecomendados(EstrategiasMs, RecomendadoRequest);
+                var Estrategias = MapearRecomendados(EstrategiasMs, RecomendadoRequest);
 
-            return Estrategias;
+                return Estrategias;
+            }
+            catch (Exception)
+            {
+                return new List<BEEstrategia>();
+            }
         }
 
         public List<ResponseRecomendacion.Estrategia> GetRecomendadosApiMS(RecomendadoRequest RecomendadoRequest)
         {
-            var httpClient = new HttpClient { BaseAddress = new Uri("http://localhost:5000/") };
+            
+
+            var httpClient = new HttpClient { BaseAddress = new Uri(System.Configuration.ConfigurationManager.AppSettings["UrlMicroservicioPersonalizacionSearch"]) };
             httpClient.DefaultRequestHeaders.Accept.Clear();
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
