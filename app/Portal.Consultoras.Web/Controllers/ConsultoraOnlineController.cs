@@ -2214,8 +2214,6 @@ namespace Portal.Consultoras.Web.Controllers
             return origenPedidoWeb;
         }
 
-
-
         [HttpPost]
         public JsonResult AceptarPedidoPendiente(ConsultoraOnlinePedidoModel parametros)
         {
@@ -2554,5 +2552,9 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
 
+        public ActionResult Pendientes()
+        {
+            return View();
+        }
     }
 }
