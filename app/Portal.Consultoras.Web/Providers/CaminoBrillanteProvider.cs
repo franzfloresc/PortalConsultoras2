@@ -4,29 +4,29 @@ using System.Linq;
 using System;
 using Portal.Consultoras.Web.SessionManager;
 using Portal.Consultoras.Web.Models;
+using AutoMapper;
 
 namespace Portal.Consultoras.Web.Providers
 {
     public class CaminoBrillanteProvider
     {
         protected ISessionManager sessionManager = SessionManager.SessionManager.Instance;
-        public UsuarioModel UsuarioDatos
-        {
-            get { return sessionManager.GetUserData(); }
-        }
+        private UsuarioModel usuarioModel { get { return sessionManager.GetUserData(); }}
+        private BEUsuario _userData { get { return Mapper.Map<BEUsuario>(usuarioModel); }}
+        private string codigoNivel;
 
         public BENivelCaminoBrillante ObtenerNivelActualConsultora()
         {
             try
             {
                 var oConsultora = ResumenConsultoraCaminoBrillante();  
-                if (oConsultora == null || oConsultora.NivelConsultora.Count() == 0 || oConsultora.Niveles.Count() == 0) return null;                
-                var codNivel = oConsultora.NivelConsultora.Where(x => x.EsActual).Select(z => z.Nivel).FirstOrDefault();
-                return oConsultora.Niveles.Where(x => x.CodigoNivel == codNivel).FirstOrDefault();
+                if (oConsultora == null || oConsultora.NivelConsultora.Count() == 0 || oConsultora.Niveles.Count() == 0) return null;
+                codigoNivel = oConsultora.NivelConsultora.Where(x => x.EsActual).Select(z => z.Nivel).FirstOrDefault();
+                return oConsultora.Niveles.Where(x => x.CodigoNivel == codigoNivel).FirstOrDefault();
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UsuarioDatos.CodigoConsultora, UsuarioDatos.CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, _userData.CodigoConsultora, _userData.CodigoISO);
                 return null;
             }
         }
@@ -36,17 +36,8 @@ namespace Portal.Consultoras.Web.Providers
             var resumen = sessionManager.GetConsultoraCaminoBrillante();
             if (resumen == null)
             {
-                var usuarioDatos = new BEUsuario();
-                usuarioDatos.CodigoConsultora = UsuarioDatos.CodigoConsultora;
-                usuarioDatos.CampaniaID = UsuarioDatos.CampaniaID;
-                usuarioDatos.Region = UsuarioDatos.CodigorRegion;
-                usuarioDatos.Zona = UsuarioDatos.CodigoZona;
-                usuarioDatos.PaisID = UsuarioDatos.PaisID;
-                usuarioDatos.ConsultoraNueva = UsuarioDatos.ConsultoraNueva; //ConsultoraNueva Validar con Victor
-                usuarioDatos.ConsecutivoNueva = UsuarioDatos.ConsecutivoNueva;
-
                 using (var svc = new UsuarioServiceClient())
-                return svc.GetConsultoraNivelCaminoBrillante(usuarioDatos);
+                return svc.GetConsultoraNivelCaminoBrillante(_userData);
             }
 
             if (resumen != null) sessionManager.SetConsultoraCaminoBrillante(resumen);
@@ -62,12 +53,12 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     var user = new BEUsuario()
                     {
-                        CampaniaID = UsuarioDatos.CampaniaID
+                        CampaniaID = _userData.CampaniaID
                     };
 
                     var oConsultora = sessionManager.GetConsultoraCaminoBrillante();
                     using (var svc = new UsuarioServiceClient())
-                        ofertas = svc.GetKitCaminoBrillante(user, 201903, 0).ToList();
+                        ofertas = svc.GetKitsCaminoBrillante(user, 201903, Convert.ToInt32(codigoNivel)).ToList();
                     if (ofertas != null)
                         sessionManager.SetKitCaminoBrillante(ofertas);
                 }
@@ -76,7 +67,7 @@ namespace Portal.Consultoras.Web.Providers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UsuarioDatos.CodigoConsultora, UsuarioDatos.CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, _userData.CodigoConsultora, _userData.CodigoISO);
                 return null;
             }
         }
@@ -89,7 +80,7 @@ namespace Portal.Consultoras.Web.Providers
                 if (ofertas == null || ofertas.Count == 0)
                 {
                     using (var svc = new UsuarioServiceClient())
-                        ofertas = svc.GetDemostradoresCaminoBrillante(UsuarioDatos.PaisID, "201904").ToList();
+                        ofertas = svc.GetDemostradoresCaminoBrillante(_userData.PaisID, "201904").ToList();
                     if (ofertas != null)
                         sessionManager.SetDemostradoresCaminoBrillante(ofertas);
                 }
@@ -98,7 +89,7 @@ namespace Portal.Consultoras.Web.Providers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UsuarioDatos.CodigoConsultora, UsuarioDatos.CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, _userData.CodigoConsultora, _userData.CodigoISO);
                 return null;
             }
         }

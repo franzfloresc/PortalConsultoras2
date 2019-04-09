@@ -98,7 +98,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             return Json(new { Niveles = Beneficios, Moneda }, JsonRequestBehavior.AllowGet);
         }        
-                        ofertas = svc.GetKitsCaminoBrillante(user, 201903, 000).ToList(); //
         #endregion
     }
 }
