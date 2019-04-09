@@ -98,6 +98,16 @@ namespace Portal.Consultoras.Web.Controllers
 
             return Json(new { Niveles = Beneficios, Moneda }, JsonRequestBehavior.AllowGet);
         }        
+                        PaisID = userData.PaisID
+                    var consultoraNivel = SessionManager.GetConsultoraCaminoBrillante();
+                    if (consultoraNivel == null) return null;
+                    var nivelConsultora = consultoraNivel.NivelConsultora.Where(e => e.EsActual).FirstOrDefault();
+                    if (nivelConsultora == null) return null;
+                    int nivel = 0;
+                    int periodo = 0;
+                    int.TryParse(nivelConsultora.Nivel ?? string.Empty, out nivel);
+                    int.TryParse(nivelConsultora.PeriodoCae ?? string.Empty, out periodo);
+
         #endregion
     }
 }

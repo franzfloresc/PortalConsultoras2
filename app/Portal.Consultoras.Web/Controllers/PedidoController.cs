@@ -352,9 +352,17 @@ namespace Portal.Consultoras.Web.Controllers
                 #region Camino Brillante 
                 var user = new Portal.Consultoras.Web.ServiceUsuario.BEUsuario()
                 {
-                    CampaniaID = userData.CampaniaID
+                    CampaniaID = userData.CampaniaID,
+                    PaisID = userData.PaisID
                 };
                 ViewBag.KitsCaminoBrillante = _caminoBrillanteProvider.GetKitCaminoBrillante().ToList();
+                var consultoraNivel = SessionManager.GetConsultoraCaminoBrillante();
+                var nivelConsultora = consultoraNivel.NivelConsultora.Where(e => e.EsActual).FirstOrDefault();
+                int nivel = 0;
+                int periodo = 0;
+                int.TryParse(nivelConsultora.Nivel ?? string.Empty, out nivel);
+                int.TryParse(nivelConsultora.PeriodoCae ?? string.Empty, out periodo);
+
                 #endregion
 
             }
