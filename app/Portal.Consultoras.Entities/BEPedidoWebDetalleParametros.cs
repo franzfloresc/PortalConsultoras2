@@ -22,5 +22,8 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public bool AgruparSet { get; set; }
+
+        [DataMember]
+        public int NivelCaminoBrillante { get; set; }
     }
 }

@@ -76,19 +76,14 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 Logros = logros
             };
         }
-
-        //Pendiente Implementar - Eliminar
-        public List<BELogroCaminoBrillante> GetConsultoraLogros(BEUsuario entidad)
-        {
-            return null;
-        }
-
-        public List<BELogroCaminoBrillante> GetConsultoraLogros(BEUsuario entidad, List<BENivelCaminoBrillante> nivelesCaminoBrillantes, NivelConsultoraCaminoBrillante nivelConsultora, List<NivelConsultoraCaminoBrillante> nivelesConsultora, BEPeriodoCaminoBrillante periodoActual)
+        
+        private List<BELogroCaminoBrillante> GetConsultoraLogros(BEUsuario entidad, List<BENivelCaminoBrillante> nivelesCaminoBrillantes, NivelConsultoraCaminoBrillante nivelConsultora, List<NivelConsultoraCaminoBrillante> nivelesConsultora, BEPeriodoCaminoBrillante periodoActual)
         {
             return new List<BELogroCaminoBrillante> {
                 GetConsultoraLogrosCrecimiento(entidad.PaisID, entidad, nivelesCaminoBrillantes, nivelConsultora, nivelesConsultora, periodoActual),
                 GetConsultoraLogrosCompromiso(entidad.PaisID, entidad, nivelConsultora) };
         }
+        
 
         public List<BEKitCaminoBrillante> GetKit(BEUsuario entidad, int periodoId, int nivelId)
         {
@@ -102,7 +97,8 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
             //Si es null reintentar la llamada al servicio
             var kits = GetKitCache(entidad.PaisID, periodoId, entidad.CampaniaID) ?? new List<BEKitCaminoBrillante>();
-            var historicoKits = nivelId != 6 ? GetConsultoraKitHistorico(entidad, periodoId) : new List<BEKitsHistoricoConsultora>();
+            //var historicoKits = nivelId != 6 ? GetConsultoraKitHistorico(entidad, periodoId) : new List<BEKitsHistoricoConsultora>();
+            var historicoKits = GetConsultoraKitHistorico(entidad, periodoId);
 
             /* Deshabilitamos de acuerdo al Nievel */
             kits.Where(e => int.TryParse(e.CodigoNivel, out nivelKit)).ForEach(e => {
@@ -122,6 +118,41 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             return kits.OrderBy(e => e.CodigoNivel).ToList();
         }
 
+        public List<BEKitCaminoBrillante> GetKit(int paisId, int campaniaId, int periodoId, int nivelId)
+        {
+            periodoId = 201903; //Para Prueba quitar luego
+            //var kits =  GetKitCache(paisId, campania);
+            //var kits = GetKitProvider(paisId, periodoId, entidad.CampaniaID);
+            //var codNivel = "4";
+            var nivel = nivelId;
+            var nivelKit = 0;
+            //int.TryParse(codNivel, out nivel); 
+
+            //Si es null reintentar la llamada al servicio
+            var kits = GetKitCache(paisId, periodoId, campaniaId) ?? new List<BEKitCaminoBrillante>();
+            //var historicoKits = nivelId != 6 ? GetConsultoraKitHistorico(entidad, periodoId) : new List<BEKitsHistoricoConsultora>();
+            //var historicoKits = GetConsultoraKitHistorico(entidad, periodoId);
+            var historicoKits = new List<BEKitsHistoricoConsultora>();
+
+            /* Deshabilitamos de acuerdo al Nievel */
+            kits.Where(e => int.TryParse(e.CodigoNivel, out nivelKit)).ForEach(e => {
+                e.FlagHabilitado = int.Parse(e.CodigoNivel) <= nivel && nivel != 0;
+            });
+
+            /* Deshabilitamos de acuerdo al Historico */
+            if (historicoKits != null)
+            {
+                var codKits = historicoKits.Select(e => e.CodigoKit).ToList();
+                kits.Where(e => codKits.Contains(e.CodigoKit))
+                    .ForEach(e => {
+                        e.FlagSeleccionado = true;
+                        e.FlagHabilitado = false;
+                    });
+            }
+
+            return kits.OrderBy(e => e.CodigoNivel).ToList();
+        }
+
         public List<BEKitCaminoBrillante> GetKits(int paisId, int campaniaId, int nivelId) {
             var periodos = GetPeriodosCache(paisId) ?? new List<BEPeriodoCaminoBrillante>();
             var periodo = periodos.Where(e => e.CampanaInicial >= campaniaId && e.CampanaFinal <= campaniaId).FirstOrDefault();
@@ -129,9 +160,11 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             return GetKit(paisId, campaniaId, periodo.Periodo, nivelId);
         }
 
+        /*
         private List<BEKitCaminoBrillante> GetKit(int paisId, int campaniaId, int periodoId, int nivelId) {
             return null;
         }
+        */
 
         private List<BEKitCaminoBrillante> GetKitCache(int paisId, int periodoId, int campaniaId)
         {
@@ -149,7 +182,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
             if (ofertas.Any()) {
                 var cuvsStringList = ofertas.Select(e => e.Cuv).Distinct().ToList().Serialize();
-                var kits = new DACaminoBrillante(paisId).GetKitsCaminoBrillante(201903, 201903, cuvsStringList).MapToCollection<BEKitCaminoBrillante>();
+                var kits = new DACaminoBrillante(paisId).GetKitsCaminoBrillante(periodoId, campaniaId, cuvsStringList).MapToCollection<BEKitCaminoBrillante>(closeReaderFinishing: true);
 
                 kits.ForEach(kit => {
                     var _kitProvider = ofertas.Where(e => e.Cuv == kit.CUV).FirstOrDefault();
@@ -173,29 +206,14 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             return null;
         }
 
-
-        //Pendiente Implementar 
-        public void GetConsultoraOfertas(BEUsuario entidad)
-        {
-            throw new NotImplementedException();
-        }
-
-        //Pendiente Implementar 
-        public void GetConsultoraKits(BEUsuario entidad)
-        {
-            throw new NotImplementedException();
-        }
-
         private List<BEKitsHistoricoConsultora> GetConsultoraKitHistorico(BEUsuario entidad, int periodoId)
         {
             _providerCaminoBrillante = _providerCaminoBrillante ?? getCaminoBrillanteProvider(entidad.PaisID);
             if (_providerCaminoBrillante == null) return null;
 
             var kitsHistoricos = _providerCaminoBrillante.GetKitHistoricoConsultora(Util.GetPaisIsoHanna(entidad.PaisID), entidad.CodigoConsultora, periodoId).Result;
-
-            //Llamar al detalle del pedido
             var kitsEnPedido = new DACaminoBrillante(entidad.PaisID).GetPedidoWebDetalleCaminoBrillante(periodoId, entidad.CampaniaID, entidad.ConsultoraID)
-                .MapToCollection<BEKitsHistoricoConsultora>() ?? new List<BEKitsHistoricoConsultora>();
+                                   .MapToCollection<BEKitsHistoricoConsultora>(closeReaderFinishing: true) ?? new List<BEKitsHistoricoConsultora>();
 
             if (kitsHistoricos != null)
                 kitsEnPedido.AddRange(kitsHistoricos.Select( e => new BEKitsHistoricoConsultora() {
@@ -205,29 +223,6 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
             return kitsEnPedido;
         }
-
-        /*
-        private List<BEKitsHistoricoConsultora> GetConsultoraKitHistorico(int paisId, string codigoConsultora, int campaniaId, int periodoId, long consultoraId)
-        {
-            _providerCaminoBrillante = _providerCaminoBrillante ?? getCaminoBrillanteProvider(paisId);
-            if (_providerCaminoBrillante == null) return null;
-
-            var kitsHistoricos = _providerCaminoBrillante.GetKitHistoricoConsultora(Util.GetPaisIsoHanna(paisId), codigoConsultora, periodoId).Result;
-
-            //Llamar al detalle del pedido
-            var kitsEnPedido = new DACaminoBrillante(paisId).GetPedidoWebDetalleCaminoBrillante(periodoId, campaniaId, consultoraId)
-                .MapToCollection<BEKitsHistoricoConsultora>() ?? new List<BEKitsHistoricoConsultora>();
-
-            if (kitsHistoricos != null)
-                kitsEnPedido.AddRange(kitsHistoricos.Select(e => new BEKitsHistoricoConsultora()
-                {
-                    CodigoKit = e.CodigoKit,
-                    CampaniaAtencion = e.CampaniaAtencion,
-                }));
-
-            return kitsEnPedido;
-        }
-        */
 
         //Constantes
         //Validar Nuevas
@@ -694,7 +689,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         private List<BEConfiguracionMedallaCaminoBrillante> GetGetConfiguracionMedallaCaminoBrillante(int paisId)
         {
             return new DACaminoBrillante(paisId).GetConfiguracionMedallaCaminoBrillante()
-                .MapToCollection<BEConfiguracionMedallaCaminoBrillante>();
+                .MapToCollection<BEConfiguracionMedallaCaminoBrillante>(closeReaderFinishing: true);
         }
 
         //Pendiente Quitar la Data Simulada de los beneficios
@@ -720,7 +715,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         private List<BEBeneficioCaminoBrillante> GetBeneficiosCaminoBrillante(int paisId)
         {
             return new DACaminoBrillante(paisId).GetBeneficiosCaminoBrillante()
-                .MapToCollection<BEBeneficioCaminoBrillante>();
+                .MapToCollection<BEBeneficioCaminoBrillante>(closeReaderFinishing:true);
         }
 
         private List<BETablaLogicaDatos> GetDatosTablaLogica(int paisId, short tablaLogicaId)
@@ -747,7 +742,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         public List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillante(int paisID, string campaniaID)
         {            
             return new DACaminoBrillante(paisID).GetDemostradoresCaminoBrillante(campaniaID)
-                        .MapToCollection<BEDesmostradoresCaminoBrillante>();
+                        .MapToCollection<BEDesmostradoresCaminoBrillante>(closeReaderFinishing: true);
         }
 
         private List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillanteCache(int paisID, string campaniaID)
