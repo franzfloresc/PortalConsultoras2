@@ -213,11 +213,11 @@ strong {
         background: rgba(255, 255, 255, 0.1);
     }
 
-    .producto_desactivado .boton__agregalo--fichaProducto {
+.producto_desactivado .boton__agregalo--fichaProducto {
         background: #848484;
         color: black !important;
         border: transparent;
-    }
+}
 
 
 
@@ -547,5 +547,36 @@ div .cartbtn {
         float: left;
         text-align: center;
         line-height: 50px;
+    }
+}
+
+
+.etiq-producto {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    max-width: 100px;
+    z-index: 2;
+}
+
+
+.ficha__producto__precio > div {
+    display: block;
+    /* display: inline-block; */
+    width: 100%;
+    text-decoration: none;
+}
+.ficha__producto__precio > div span {
+    font-size: 11px;
+    display:block;
+    text-align: left;
+}
+div .ficha__producto__precio__normal {
+    text-decoration: none;
+}
+
+@media screen and (max-width: 620px) {
+    .ficha__producto__precio {
+        min-height: inherit;
     }
 }
