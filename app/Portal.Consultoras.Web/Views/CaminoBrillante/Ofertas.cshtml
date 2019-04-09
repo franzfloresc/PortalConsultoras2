@@ -205,7 +205,10 @@
                         </div>
                         <div class="row flex-row justify-content-center ml-0 mr-0">
                             <figure class="col-12 pl-0 pr-0 row flex-row ml-0 mr-0 justify-content-center align-items-end ficha__producto__imagen text-center">
-                                <img class="lazy redireccionarFicha" src="@item.FotoProductoMedium">
+                                @{
+                                    var imagenKit = string.IsNullOrEmpty(item.FotoProductoMedium) ? ViewBag.RutaImagenNoDisponible : item.FotoProductoMedium;
+                                }
+                                <img class="lazy redireccionarFicha" src="@Url.Content(imagenKit)">
                             </figure>
                             <div class="col-12 pl-0 pr-0 ficha__producto__descrip d-block mx-auto text-left">
                                 <div class="col-12 pl-0 pr-0 ficha__producto__descrip__marca__pais text-uppercase">
@@ -273,11 +276,13 @@
                 foreach (var item in Demostradores)
                 {
                     <article class="ficha__producto " data-item="BuscadorFichasProductos">
-
                         <input type="hidden" id="hdCuv" value="@item.Cuv1" />
                         <div class="row flex-row justify-content-center ml-0 mr-0">
                             <figure class="col-12 pl-0 pr-0 row flex-row ml-0 mr-0 justify-content-center align-items-end ficha__producto__imagen text-center">
-                                <img class="lazy redireccionarFicha" src="@item.FotoProductoMedium">
+                                @{ 
+                                    var imagenDemostrador = string.IsNullOrEmpty(item.FotoProductoMedium) ? ViewBag.RutaImagenNoDisponible : item.FotoProductoMedium;
+                                }
+                                <img class="lazy redireccionarFicha" src="@Url.Content(imagenDemostrador)"> 
                             </figure>
                             <div class="col-12 pl-0 pr-0 ficha__producto__descrip d-block mx-auto text-left">
                                 <div class="col-12 pl-0 pr-0 ficha__producto__descrip__marca__pais text-uppercase">
