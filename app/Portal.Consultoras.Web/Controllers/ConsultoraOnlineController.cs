@@ -2292,7 +2292,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                         string mensaje = "", urlRedireccionar = "";
                         BEPedidoDetalle pedidoDetalle = new BEPedidoDetalle();
-                        //pedidoDetalle.Producto = new ServicePedido.BEProducto();
+                        pedidoDetalle.Producto = new ServicePedido.BEProducto();
                         //model.CuvTonos = Util.Trim(model.CuvTonos);   
 
                         pedidoDetalle.Producto.EstrategiaID = model.EstrategiaID;

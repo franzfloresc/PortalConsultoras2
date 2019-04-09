@@ -59,6 +59,7 @@ namespace Portal.Consultoras.Web.Providers
 
                         response.Add(new EstrategiaPedidoModel() {
                             DescripcionCUV2 = x.DescripcionCUV2,
+                            CantidadPack = x.CantidadPack,
                             PrecioString = x.PrecioString,
                             Precio2 = x.Precio2,
                             Ganancia = x.Ganancia,
@@ -66,6 +67,7 @@ namespace Portal.Consultoras.Web.Providers
                              EstrategiaID = x.EstrategiaID,
                              TipoEstrategiaID = x.TipoEstrategiaID,
                                TipoOfertaSisID = 0,
+                               MarcaID = x.MarcaID,
                             //ConfiguracionOfertaID = x.ConfiguracionOfertaID
                             //pedidoDetalle.Producto.CUV = Util.Trim(model.CuvTonos);
                             IndicadorMontoMinimo = x.IndicadorMontoMinimo,
