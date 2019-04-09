@@ -353,14 +353,22 @@ namespace Portal.Consultoras.Web.Controllers
                  // Se debe de invocar desde el provider coordinar con JOse
                 var user = new Portal.Consultoras.Web.ServiceUsuario.BEUsuario()
                 {
-                    CampaniaID = userData.CampaniaID
+                    CampaniaID = userData.CampaniaID,
+                    PaisID = userData.PaisID
                 };
+
+                var consultoraNivel = SessionManager.GetConsultoraCaminoBrillante();
+                var nivelConsultora = consultoraNivel.NivelConsultora.Where(e => e.EsActual).FirstOrDefault();
+                int nivel = 0;
+                int periodo = 0;
+                int.TryParse(nivelConsultora.Nivel ?? string.Empty, out nivel);
+                int.TryParse(nivelConsultora.PeriodoCae ?? string.Empty, out periodo);
 
                 using (var sv = new UsuarioServiceClient())
                 {
                     //ViewBag.DemostradoresCaminoBrillante = sv.GetKitCaminoBrillante(userData.PaisID, Convert.ToString(userData.CampaniaID));
                     //ViewBag.KitsCaminoBrillante = sv.GetKitCaminoBrillante(userData.PaisID, "201904");
-                    ViewBag.KitsCaminoBrillante = sv.GetKitsCaminoBrillante(user, 201903, 4).ToList();
+                    ViewBag.KitsCaminoBrillante = sv.GetKitsCaminoBrillante(user, periodo, nivel).ToList();
                 }
                 #endregion
 

@@ -92,6 +92,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
         public List<BEKitCaminoBrillante> GetKit(BEUsuario entidad, int periodoId, int nivelId)
         {
+            periodoId = 201903; //Para Prueba quitar luego
             //var kits =  GetKitCache(paisId, campania);
             //var kits = GetKitProvider(paisId, periodoId, entidad.CampaniaID);
             //var codNivel = "4";
