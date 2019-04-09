@@ -1162,7 +1162,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             pedidosSesion = SessionManager.GetobjMisPedidos().ListaPedidos;
 
             ///////////////////////////////
-            pedidosSesion.ForEach(x=> { x.DetallePedido.FirstOrDefault().Elegido = true; });
+            //pedidosSesion.ForEach(x=> { x.DetallePedido.FirstOrDefault().Elegido = true; });
             //////////////////////////////////
 
             pedidosSesion.ForEach(pedido =>
