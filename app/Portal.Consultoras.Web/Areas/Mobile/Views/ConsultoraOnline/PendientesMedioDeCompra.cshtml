@@ -52,7 +52,7 @@
                 @foreach (var itemGana in Model.ListaGana)
                 {
                     <div class="col products-item">
-                        <img srcset="https://i.ibb.co/MVyDK3j/square-3x.jpg" @*src="@itemGana.FotoProducto01"*@ class="img-fluid products-img" alt="Producto">
+                        <img src="https://i.ibb.co/MVyDK3j/square-3x.jpg" @*src="@itemGana.ImagenURL"*@ class="img-fluid products-img" alt="Producto">
                         <p class="text-12 text-gray"> @itemGana.DescripcionCUV2</p>
                         <span class="text-12 text-gray">@ViewBag.Simbolo @itemGana.PrecioString</span>
                     </div>

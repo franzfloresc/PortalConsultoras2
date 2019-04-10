@@ -55,24 +55,24 @@ namespace Portal.Consultoras.Web.Providers
 
                 if (resultServicelist != null)
                 {
-                    resultServicelist.Each(x=> {
+                    resultServicelist.Each(item=> {
 
                         response.Add(new EstrategiaPedidoModel() {
-                            DescripcionCUV2 = x.DescripcionCUV2,
-                            CantidadPack = x.CantidadPack,
-                            PrecioString = x.PrecioString,
-                            Precio2 = x.Precio2,
-                            Ganancia = x.Ganancia,
-                            FotoProducto01 = ConfigCdn.GetUrlFileCdnMatriz(recomendado.codigoPais, x.FotoProducto01),
-                             EstrategiaID = x.EstrategiaID,
-                             TipoEstrategiaID = x.TipoEstrategiaID,
+                            DescripcionCUV2 = item.DescripcionCUV2,
+                            CantidadPack = item.CantidadPack,
+                            PrecioString = item.PrecioString,
+                            Precio2 = item.Precio2,
+                            Ganancia = item.Ganancia,
+                            ImagenURL = ConfigCdn.GetUrlFileCdnMatriz(recomendado.codigoPais, item.FotoProducto01),
+                             EstrategiaID = item.EstrategiaID,
+                             TipoEstrategiaID = item.TipoEstrategiaID,
                                TipoOfertaSisID = 0,
-                               MarcaID = x.MarcaID,
+                               MarcaID = item.MarcaID,
                             //ConfiguracionOfertaID = x.ConfiguracionOfertaID
                             //pedidoDetalle.Producto.CUV = Util.Trim(model.CuvTonos);
-                            IndicadorMontoMinimo = x.IndicadorMontoMinimo,
-                            FlagNueva = x.FlagNueva,
-                          Cantidad =x.Cantidad,
+                            IndicadorMontoMinimo = item.IndicadorMontoMinimo,
+                            FlagNueva = item.FlagNueva,
+                          Cantidad =item.Cantidad,
                             //OrigenPedidoWeb = x.OrigenPedidoWeb
                             //EsCuponNuevas = x.EsCuponNuevas
                             //pedidoDetalle.EsSugerido = model.EsSugerido;

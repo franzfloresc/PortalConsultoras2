@@ -41,8 +41,10 @@ function AceptarPedidoPendiente(id, tipo) {
     var btn = $('.btnAccion a').not('.active')[0];
 
     if (btn) {       
-        var pedido = {           
-            Accion: $(btn).parent().data('accion'),  
+        var pedido = {
+            Accion: 2,          
+            Dispositivo: glbDispositivo,
+            AccionTipo: $(btn).parent().data('accion'),  
              ListaGana: $(btn).parent().data('accion') == 'ingrgana' ? $('.conGanaMas').data('listagana') : []        
         }
 

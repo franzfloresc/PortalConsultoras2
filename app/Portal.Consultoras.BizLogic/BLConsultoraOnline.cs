@@ -203,58 +203,58 @@ namespace Portal.Consultoras.BizLogic
         {
             try
             {
-                RecomendadoRequest.codigoPais = "pe";
-                RecomendadoRequest.codigocampania = "201905";
-                RecomendadoRequest.codigoZona = "1714";
-                RecomendadoRequest.origen = "sb-desktop";
-                RecomendadoRequest.codigoConsultora = "0033938";
-                RecomendadoRequest.cuv = "14647";
-                RecomendadoRequest.personalizaciones = "";
-                RecomendadoRequest.configuracion = new Configuracion();
-                RecomendadoRequest.configuracion.sociaEmpresaria = "0";
-                RecomendadoRequest.configuracion.diaFacturacion = 1;
+                //RecomendadoRequest.codigoPais = "pe";
+                //RecomendadoRequest.codigocampania = "201905";
+                //RecomendadoRequest.codigoZona = "1714";
+                //RecomendadoRequest.origen = "sb-desktop";
+                //RecomendadoRequest.codigoConsultora = "0033938";
+                //RecomendadoRequest.cuv = "14647";
+                //RecomendadoRequest.personalizaciones = "";
+                //RecomendadoRequest.configuracion = new Configuracion();
+                //RecomendadoRequest.configuracion.sociaEmpresaria = "0";
+                //RecomendadoRequest.configuracion.diaFacturacion = 1;
 
-                RecomendadoRequest.configuracion.suscripcionActiva = "False";
-                RecomendadoRequest.configuracion.mdo = "True";
-                RecomendadoRequest.configuracion.rd = "False";
-                RecomendadoRequest.configuracion.rdi = "False";
-                RecomendadoRequest.configuracion.rdr = "False";
-                RecomendadoRequest.configuracion.mostrarProductoConsultado = "True";
+                //RecomendadoRequest.configuracion.suscripcionActiva = "False";
+                //RecomendadoRequest.configuracion.mdo = "True";
+                //RecomendadoRequest.configuracion.rd = "False";
+                //RecomendadoRequest.configuracion.rdi = "False";
+                //RecomendadoRequest.configuracion.rdr = "False";
+                //RecomendadoRequest.configuracion.mostrarProductoConsultado = "True";
 
 
-                RecomendadoRequest.codigoProducto = new List<string>();
-                RecomendadoRequest.codigoProducto.Add("210090349");
-                RecomendadoRequest.codigoProducto.Add("210090295");
-                RecomendadoRequest.codigoProducto.Add("200088604");
+                //RecomendadoRequest.codigoProducto = new List<string>();
+                //RecomendadoRequest.codigoProducto.Add("210090349");
+                //RecomendadoRequest.codigoProducto.Add("210090295");
+                //RecomendadoRequest.codigoProducto.Add("200088604");
                 RecomendadoRequest.cantidadProductos = 1000;
-                RecomendadoRequest.personalizaciones = "";
-                RecomendadoRequest.configuracion = new Configuracion();
-                RecomendadoRequest.configuracion.sociaEmpresaria = "0";
-                RecomendadoRequest.configuracion.suscripcionActiva = "False";
-                RecomendadoRequest.configuracion.mdo = "True";
-                RecomendadoRequest.configuracion.rd = "False";
-                RecomendadoRequest.configuracion.rdi = "False";
-                RecomendadoRequest.configuracion.rdr = "False";
-                RecomendadoRequest.configuracion.diaFacturacion = 1;
-                RecomendadoRequest.configuracion.mostrarProductoConsultado = "True";
-                RecomendadoRequest.productosSolicitados = new List<ProductoSolicitado>()
-                {
-                    new ProductoSolicitado
-                    {
-                        CodigoSap = "210090349",
-                        Cantidad = 6
-                    },
-                    new ProductoSolicitado
-                    {
-                        CodigoSap = "210090295",
-                        Cantidad = 6
-                    }
-                    //new ProductoSolicitado
-                    //{
-                    //    CodigoSap = "200088604",
-                    //    Cantidad = 1
-                    //}
-                };
+                //RecomendadoRequest.personalizaciones = "";
+                //RecomendadoRequest.configuracion = new Configuracion();
+                //RecomendadoRequest.configuracion.sociaEmpresaria = "0";
+                //RecomendadoRequest.configuracion.suscripcionActiva = "False";
+                //RecomendadoRequest.configuracion.mdo = "True";
+                //RecomendadoRequest.configuracion.rd = "False";
+                //RecomendadoRequest.configuracion.rdi = "False";
+                //RecomendadoRequest.configuracion.rdr = "False";
+                //RecomendadoRequest.configuracion.diaFacturacion = 1;
+                //RecomendadoRequest.configuracion.mostrarProductoConsultado = "True";
+                //RecomendadoRequest.productosSolicitados = new List<ProductoSolicitado>()
+                //{
+                //    new ProductoSolicitado
+                //    {
+                //        CodigoSap = "210090349",
+                //        Cantidad = 6
+                //    },
+                //    new ProductoSolicitado
+                //    {
+                //        CodigoSap = "210090295",
+                //        Cantidad = 6
+                //    }
+                //    //new ProductoSolicitado
+                //    //{
+                //    //    CodigoSap = "200088604",
+                //    //    Cantidad = 1
+                //    //}
+                //};
 
                 var EstrategiasMs = GetRecomendadosApiMS(RecomendadoRequest);
 
