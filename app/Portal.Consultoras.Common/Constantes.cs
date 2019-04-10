@@ -1821,7 +1821,7 @@ namespace Portal.Consultoras.Common
             //public const short ExtensionBannerGanaMasApp = 136;
             //public const short MontoLimiteCupon = 103;
             public const int ValoresPagoEnLinea = 122;
-            public const int CantidadCuvMasivo = 137;
+            //public const int CantidadCuvMasivo = 137;
             public const short ProlObsCod = 5;
             public const int ActualizaDatosEnabled = 143;
             public const short HabilitarChatEmtelco = 144;
