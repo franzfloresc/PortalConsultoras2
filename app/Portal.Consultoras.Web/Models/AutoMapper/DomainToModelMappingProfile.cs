@@ -18,6 +18,7 @@ using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Portal.Consultoras.Web.Models.Search.ResponseOferta.Estructura;
 
 namespace Portal.Consultoras.Web.Models.AutoMapper
 {
@@ -666,6 +667,24 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.Opcion, f => f.MapFrom(c => c.Opcion))
                 .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo))
                 .ForMember(t => t.CheckBox, f => f.MapFrom(c => c.CheckBox));
+
+            Mapper.CreateMap<Componente, EstrategiaComponenteModel>()
+                //.ForMember(t => t.Id, f => f.MapFrom(c => Convert.ToInt32((c._id))));
+                //.ForMember(t => t.Id, f => f.Ignore())
+                .ForMember(t => t.Cantidad, f => f.MapFrom(c => c.Cantidad))
+                .ForMember(t => t.DescripcionMarca, f => f.MapFrom(c => c.NombreMarca))
+                .ForMember(t => t.FactorCuadre, f => f.MapFrom(c => c.FactorCuadre))
+                .ForMember(t => t.Grupo, f => f.MapFrom(c => c.Grupo))
+                .ForMember(t => t.IdMarca, f => f.MapFrom(c => c.MarcaId))
+                .ForMember(t => t.NombreComercial, f => f.MapFrom(c => c.NombreComercial))
+                .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion1))
+                .ForMember(t => t.PrecioCatalogo, f => f.MapFrom(c => c.PrecioUnitario))
+                .ForMember(t => t.Digitable, f => f.MapFrom(c => c.IndicadorDigitable ? 1 : 0 ))
+
+                .ForMember(t => t.DescripcionPlural, f => f.MapFrom(c => c.DescripcionPlural))
+                .ForMember(t => t.DescripcionSingular, f => f.MapFrom(c => c.DescripcionSingular));
+
+
         }
     }
 }

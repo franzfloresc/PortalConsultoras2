@@ -59,7 +59,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return View(listaPedidos);
         }
 
-        decimal descuento = 0;
+        //decimal descuento = 0;
         [HttpGet]
         public PartialViewResult IngresadoDetalle()
         {
@@ -67,7 +67,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             try
             {
-                var mobileConfiguracion = this.GetUniqueSession<MobileAppConfiguracionModel>("MobileAppConfiguracion");
+                //var mobileConfiguracion = this.GetUniqueSession<MobileAppConfiguracionModel>("MobileAppConfiguracion");
 
                 using (var service = new PedidoServiceClient())
                 {
@@ -101,7 +101,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                     var totalImportePedido = detallePedido.Sum(x => x.ImporteTotal);
                     var descuentoProl = detallePedido.Sum(x => x.DescuentoProl);
-                    var descuentoTotal = descuentoProl / detallePedido.Count();
+                    var descuentoTotal = descuentoProl / detallePedido.Count;
                     ViewBag.descuento = descuentoTotal;
                     var totalPedido = totalImportePedido - descuentoTotal;
                     ViewBag.SubtotalPedido = Util.DecimalToStringFormat(totalImportePedido, userData.CodigoISO, userData.Simbolo);
