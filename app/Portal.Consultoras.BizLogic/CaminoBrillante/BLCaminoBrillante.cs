@@ -375,6 +375,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 Tipo = Constantes.CaminoBrillante.Logros.Indicadores.Medallas.Codes.CIRC,
                 Estado = (e.PorDescuento <= nivelConsultora.CambioEscala),
                 Valor = e.PorDescuento + string.Empty,
+                MontoSuperior = e.MontoHasta,
             }).ToList();
 
             medallaEscalas.ForEach(e =>
@@ -384,8 +385,8 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 {
                     e.Subtitulo = e.Estado ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo;
                     e.Valor = string.Format(configMedalla.Valor ?? string.Empty, e.Valor);
-                    e.ModalTitulo = configMedalla.ComoLograrlo_Estado ? configMedalla.ComoLograrlo_Titulo : string.Empty;
-                    e.ModalDescripcion = configMedalla.ComoLograrlo_Estado ? configMedalla.ComoLograrlo_Descripcion : string.Empty;
+                    e.ModalTitulo = configMedalla.ComoLograrlo_Estado ? configMedalla.ComoLograrlo_Titulo.Replace("{0}", e.Valor) : string.Empty;
+                    e.ModalDescripcion = configMedalla.ComoLograrlo_Estado ? (configMedalla.ComoLograrlo_Descripcion).Replace("{0}", entidad.Simbolo  + e.MontoSuperior.ToString("0.00")) : string.Empty;
                 }
                 else
                 {
@@ -420,20 +421,23 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             {
                 Orden = idx++,
                 Tipo = Constantes.CaminoBrillante.Logros.Indicadores.Medallas.Codes.NIV,
-                //Titulo = e.DescripcionNivel,
                 Estado = (short.TryParse(e.CodigoNivel, out nivelCodigo) ? nivelCodigo <= nivelActual : false),
                 Subtitulo = (nivelCodigo <= nivelActual ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo),
                 Valor = e.CodigoNivel,
+                DescripcionNivel = e.DescripcionNivel,
+                MontoAcumulado = e.MontoMinimo,
+
             }).ToList();
 
             medallaNiveles.ForEach(e =>
             {
-                var configMedalla = configsMedalla.Where(p => p.Valor == e.Valor).FirstOrDefault();
+                var configMedalla = configsMedalla.Where(p => p.Codigo == e.Valor).FirstOrDefault();
                 if (configMedalla != null)
                 {
+                    //pvc-27
                     e.Subtitulo = e.Estado ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo;
-                    e.ModalTitulo = configMedalla.ComoLograrlo_Estado ? configMedalla.ComoLograrlo_Titulo : string.Empty;
-                    e.ModalDescripcion = configMedalla.ComoLograrlo_Estado ? configMedalla.ComoLograrlo_Descripcion : string.Empty;
+                    e.ModalTitulo = configMedalla.ComoLograrlo_Estado ? configMedalla.ComoLograrlo_Titulo.Replace("{0}", e.DescripcionNivel) : string.Empty;
+                    e.ModalDescripcion = configMedalla.ComoLograrlo_Estado ? configMedalla.ComoLograrlo_Descripcion.Replace("{0}", e.DescripcionNivel).Replace("{1}", entidad.Simbolo  + string.Format("{0:0.00}", e.MontoAcumulado)) : string.Empty;
                 }
             });
 
@@ -544,8 +548,8 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                     Estado = (nivelConsultora.PorcentajeIncremento <= int.Parse(e.Codigo)),
                     Subtitulo = (nivelConsultora.PorcentajeIncremento <= int.Parse(e.Codigo)) ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo,
                     Valor = string.Format(e.Valor ?? string.Empty, e.Codigo),                    
-                    ModalTitulo = e.ComoLograrlo_Estado ? e.ComoLograrlo_Titulo : string.Empty,
-                    ModalDescripcion = e.ComoLograrlo_Estado ? e.ComoLograrlo_Descripcion : string.Empty,
+                    ModalTitulo = e.ComoLograrlo_Estado ? e.ComoLograrlo_Titulo.Replace("{0}",e.Valor) : string.Empty,
+                    ModalDescripcion = e.ComoLograrlo_Estado ? e.ComoLograrlo_Descripcion.Replace("{0}", e.Valor) : string.Empty,
                 }).ToList();
 
             var tablaLogicaDatos = (GetDatosTablaLogica(paisId, Constantes.TablaLogica.CaminoBrillanteIndicadores) ?? new List<BETablaLogicaDatos>())
