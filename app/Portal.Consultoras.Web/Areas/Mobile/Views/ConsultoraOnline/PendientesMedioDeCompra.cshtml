@@ -2,7 +2,6 @@
 @model Portal.Consultoras.Web.Models.PedidosPendientesMedioPagoModel
 
 @{
-    /**/
 
     var layout = ViewContext.MobileLayout();
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
@@ -192,7 +191,7 @@
                     <div class="w-100"></div>
                     <div class="col-10">
                         <div class="vc-box text-14 text-700">
-                            <a  id="btnIrPedido" href="/Mobile/Pedido/Detalle" class="action-btn action-btn_refuse " data-toggle="modal" data-target="#rechazarTodo">Ir a mis pedidos</a>
+                            <a id="btnIrPedido" href="/Mobile/Pedido/Detalle" class="action-btn action-btn_refuse " data-toggle="modal" data-target="#rechazarTodo">Ir a mis pedidos</a>
                         </div>
                     </div>
                 </div>
@@ -213,20 +212,16 @@
 
 @section scripts {
 
-
     <script type="text/javascript">
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
         var urlPendientes = '@Url.Action("Pendientes", "ConsultoraOnline")';
-        var urlPedido = '@Url.Action("Detalle", "Pedido")'; 
+        var urlPedido = '@Url.Action("Detalle", "Pedido")';
 
     </script>
 
-
-  
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/ConsultoraOnline/PedidoPendienteMedioCompra.js")"></script>
 
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mobile/SugerenciaPendientes")
-
 
     <script type="text/javascript">
 

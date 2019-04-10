@@ -70,7 +70,7 @@
     <div class="container">
         @foreach (var item in Model.ListaPedidos)
         {
-            <div class="container vc-box vc-box--shadow pedidos">
+            <div id="pedidos" class="container vc-box vc-box--shadow pedidos">
                 <!--   Order title   -->
 
                 <div class="row align-items-start">
@@ -82,7 +82,10 @@
                             <div class="vc-box--content">
                                 <p style="margin-bottom: 16px;">@item.Telefono</p>
                             </div>
-                            <input type="hidden" id="solped_@item.DetallePedido[0].CUV" value="@item.DetallePedido[0].CUV" />
+                            
+                            <input type="hidden" class="pedidoId" value="@item.PedidoId" />
+                            <input type="hidden" class="cuv" value="@item.DetallePedido[0].CUV" />
+                            <input type="hidden" class="cantidad" value="@item.DetallePedido[0].Cantidad" />
                         </div>
                     </div>
                     <div class="col-3">
@@ -98,7 +101,7 @@
                 <div class="row align-items-center">
                     <div class="col-4">
                         <div class="vc-box ipt-tel">
-                            <input type="tel" value="@item.CantidadTotal" placeholder="1" class="text-center text-14 text-700">
+                            <input data-cantNew="@item.DetallePedido[0].Cantidad" type="tel" value="@item.CantidadTotal" placeholder="1" class="text-center text-14 text-700">
                         </div>
                     </div>
 

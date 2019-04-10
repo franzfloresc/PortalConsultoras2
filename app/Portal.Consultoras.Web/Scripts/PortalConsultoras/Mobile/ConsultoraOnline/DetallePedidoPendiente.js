@@ -304,6 +304,7 @@ function MostrarMensajedeRechazoPedido(cuv) {
     $(mensaje).show();
     //document.location.href = urlPedido;
 }
+
 function OcultarMensajedeRechazoPedido(cuv) {
     var mensaje = '#' + cuv;
     $(mensaje).hide();
@@ -330,65 +331,27 @@ function AceptarPedidoProducto(id) {
 }
 
 function ProcesarRechazarPedido(pedido, cuv) {
+    //var cantidad = $('div.detalle_pedido_reservado').find('#cantidad').text();
+    var obj = {
+        pedido: pedido,
+        cuv: cuv
+    };
 
-    var cantidad = $('div.detalle_pedido_reservado').find('#cantidad').text();
     $.ajax({
         type: "POST",
         url: "/ConsultoraOnline/RechazarPedidoVistas",
-        //dataType: "json",
-        //contentType: "application/json; charset=utf-8",
-        data: { pedido: pedido, cuv: cuv },
-        async: true,
-        success: function (response) {
-            var mensaje = '#' + cuv;
-            $(mensaje).hide();
-            //CloseLoading();
-            //if (checkTimeout(response)) {
-            //    if (response.success) {
-            //        if (pedido.Tipo == 1) {
-            //            $('#detallePedidoAceptado').text('Has agregado ' + pedido.Ingresos.toString() + ' producto(s) a tu pedido');
-            //        }
-            //        else {
-            //            $('#detallePedidoAceptado').text('No te olvides de ingresar en tu pedido los productos de este cliente.');
-            //        }
-
-            //        ActualizarGanancia(response.DataBarra);
-            //        $('#PedidoAceptado').show();
-            //    }
-            //    else {
-            //        if (response.code == 1) {
-            //            AbrirMensaje(response.message);
-            //        }
-            //        else if (response.code == 2) {
-            //            $('#MensajePedidoReservado').text(response.message);
-            //            $('#AlertaPedidoReservado').show();
-            //        }
-            //    }
-            //}
-        },
-        error: function (data, error) {
-            //CloseLoading();
-            //if (checkTimeout(data)) {
-            //    AbrirMensaje("Ocurrió un error inesperado al momento de aceptar el pedido. Consulte con su administrador del sistema para obtener mayor información");
-            //}
-        }
-    });
-}
-
-
-function RechazarTodoPedidoProductos(obj) {
-
-    var cantidad = $('div.detalle_pedido_reservado').find('#cantidad').text();
-    $.ajax({
-        type: "POST",
-        url: "/ConsultoraOnline/RechazarTodoPedidoVistasProductos",
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
         data: JSON.stringify(obj),
-        async: true,
         success: function (response) {
-            //var mensaje = '#' + cuv;
-            //$(mensaje).hide();
+            if (response.success) {
+                var mensaje = '#' + cuv;
+                $(mensaje).hide();
+            }
+            else {
+
+            }
+            
             //CloseLoading();
             //if (checkTimeout(response)) {
             //    if (response.success) {
@@ -413,7 +376,8 @@ function RechazarTodoPedidoProductos(obj) {
             //    }
             //}
         },
-        error: function (data, error) {
+        error: function (err) {
+            console.log(err);
             //CloseLoading();
             //if (checkTimeout(data)) {
             //    AbrirMensaje("Ocurrió un error inesperado al momento de aceptar el pedido. Consulte con su administrador del sistema para obtener mayor información");
@@ -422,51 +386,97 @@ function RechazarTodoPedidoProductos(obj) {
     });
 }
 
-function RechazarTodoPedidoClientes(obj) {
+//function RechazarTodoPedidoProductos(obj) {
 
-    var cantidad = $('div.detalle_pedido_reservado').find('#cantidad').text();
-    $.ajax({
-        type: "POST",
-        url: "/ConsultoraOnline/RechazarTodoPedidoVistasClientes",
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(obj),
-        async: true,
-        success: function (response) {
-            //var mensaje = '#' + cuv;
-            //$(mensaje).hide();
-            //CloseLoading();
-            //if (checkTimeout(response)) {
-            //    if (response.success) {
-            //        if (pedido.Tipo == 1) {
-            //            $('#detallePedidoAceptado').text('Has agregado ' + pedido.Ingresos.toString() + ' producto(s) a tu pedido');
-            //        }
-            //        else {
-            //            $('#detallePedidoAceptado').text('No te olvides de ingresar en tu pedido los productos de este cliente.');
-            //        }
+//    var cantidad = $('div.detalle_pedido_reservado').find('#cantidad').text();
+//    $.ajax({
+//        type: "POST",
+//        url: "/ConsultoraOnline/RechazarTodoPedidoVistasProductos",
+//        dataType: 'json',
+//        contentType: 'application/json; charset=utf-8',
+//        data: JSON.stringify(obj),
+//        async: true,
+//        success: function (response) {
+//            //var mensaje = '#' + cuv;
+//            //$(mensaje).hide();
+//            //CloseLoading();
+//            //if (checkTimeout(response)) {
+//            //    if (response.success) {
+//            //        if (pedido.Tipo == 1) {
+//            //            $('#detallePedidoAceptado').text('Has agregado ' + pedido.Ingresos.toString() + ' producto(s) a tu pedido');
+//            //        }
+//            //        else {
+//            //            $('#detallePedidoAceptado').text('No te olvides de ingresar en tu pedido los productos de este cliente.');
+//            //        }
 
-            //        ActualizarGanancia(response.DataBarra);
-            //        $('#PedidoAceptado').show();
-            //    }
-            //    else {
-            //        if (response.code == 1) {
-            //            AbrirMensaje(response.message);
-            //        }
-            //        else if (response.code == 2) {
-            //            $('#MensajePedidoReservado').text(response.message);
-            //            $('#AlertaPedidoReservado').show();
-            //        }
-            //    }
-            //}
-        },
-        error: function (data, error) {
-            //CloseLoading();
-            //if (checkTimeout(data)) {
-            //    AbrirMensaje("Ocurrió un error inesperado al momento de aceptar el pedido. Consulte con su administrador del sistema para obtener mayor información");
-            //}
-        }
-    });
-}
+//            //        ActualizarGanancia(response.DataBarra);
+//            //        $('#PedidoAceptado').show();
+//            //    }
+//            //    else {
+//            //        if (response.code == 1) {
+//            //            AbrirMensaje(response.message);
+//            //        }
+//            //        else if (response.code == 2) {
+//            //            $('#MensajePedidoReservado').text(response.message);
+//            //            $('#AlertaPedidoReservado').show();
+//            //        }
+//            //    }
+//            //}
+//        },
+//        error: function (data, error) {
+//            //CloseLoading();
+//            //if (checkTimeout(data)) {
+//            //    AbrirMensaje("Ocurrió un error inesperado al momento de aceptar el pedido. Consulte con su administrador del sistema para obtener mayor información");
+//            //}
+//        }
+//    });
+//}
+
+//function RechazarTodoPedidoClientes(obj) {
+
+//    var cantidad = $('div.detalle_pedido_reservado').find('#cantidad').text();
+//    $.ajax({
+//        type: "POST",
+//        url: "/ConsultoraOnline/RechazarTodoPedidoVistasClientes",
+//        dataType: 'json',
+//        contentType: 'application/json; charset=utf-8',
+//        data: JSON.stringify(obj),
+//        async: true,
+//        success: function (response) {
+//            //var mensaje = '#' + cuv;
+//            //$(mensaje).hide();
+//            //CloseLoading();
+//            //if (checkTimeout(response)) {
+//            //    if (response.success) {
+//            //        if (pedido.Tipo == 1) {
+//            //            $('#detallePedidoAceptado').text('Has agregado ' + pedido.Ingresos.toString() + ' producto(s) a tu pedido');
+//            //        }
+//            //        else {
+//            //            $('#detallePedidoAceptado').text('No te olvides de ingresar en tu pedido los productos de este cliente.');
+//            //        }
+
+//            //        ActualizarGanancia(response.DataBarra);
+//            //        $('#PedidoAceptado').show();
+//            //    }
+//            //    else {
+//            //        if (response.code == 1) {
+//            //            AbrirMensaje(response.message);
+//            //        }
+//            //        else if (response.code == 2) {
+//            //            $('#MensajePedidoReservado').text(response.message);
+//            //            $('#AlertaPedidoReservado').show();
+//            //        }
+//            //    }
+//            //}
+//        },
+//        error: function (data, error) {
+//            //CloseLoading();
+//            //if (checkTimeout(data)) {
+//            //    AbrirMensaje("Ocurrió un error inesperado al momento de aceptar el pedido. Consulte con su administrador del sistema para obtener mayor información");
+//            //}
+//        }
+//    });
+//}
 
 function ContinuarPedido() {
     //var cantidad = $('div.detalle_pedido_reservado').find('#cantidad').text();
@@ -479,19 +489,16 @@ function ContinuarPedido() {
             var pedidoId = $(this).find(".pedidoId").val();
             var cuv = $(this).find(".cuv").val();
             //var cantidad = $(this).find(".cantidad").val();
-            var cantElegida = $(this).find('[data-cantElegida]').val();
+            var cantNew = $(this).find('[data-cantNew]').val();
 
             var detalle = {
                 PedidoId: pedidoId,
                 CUV: cuv,
-                //CantOriginal: cantidad,
-                Cantidad: cantElegida
+                Cantidad: cantNew
             }
             lstDetalle.push(detalle);
         }
     });
-
-    console.log(lstDetalle);
 
     if (lstDetalle, length > 0) {
         $.ajax({
@@ -500,10 +507,9 @@ function ContinuarPedido() {
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(lstDetalle),
-            async: true,
             success: function (response) {
 
-                if (response.success == true) {
+                if (response.success) {
                     document.location.href = '/Mobile/ConsultoraOnline/PendientesMedioDeCompra';
                 }
                 else {
@@ -535,12 +541,12 @@ function ContinuarPedido() {
                 //    }
                 //}
             },
-            error: function (data, error) {
+            error: function (err) {
                 //CloseLoading();
                 //if (checkTimeout(data)) {
                 //    AbrirMensaje("Ocurrió un error inesperado al momento de aceptar el pedido. Consulte con su administrador del sistema para obtener mayor información");
                 //}
-                console.log(error);
+                console.log(err);
             }
         });
     }
@@ -549,3 +555,34 @@ function ContinuarPedido() {
     }
 
 }
+
+function EliminarSolicitudDetalle(pedidoId, cuv) {
+    // validar los parametros
+    var obj = {
+        pedidoId: pedidoId,
+        cuv: cuv
+    }
+
+    $.ajax({
+        type: "POST",
+        url: "/ConsultoraOnline/EliminarSolicitudDetalle",
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(obj),
+        success: function (response) {
+
+            if (response.success) {
+                // ocultar div
+            }
+            else {
+                alert(response.message);
+            }
+                
+        },
+        error: function (err) {
+            console.log(err);
+        }
+    });
+
+}
+

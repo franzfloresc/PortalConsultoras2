@@ -2,7 +2,6 @@
 @model Portal.Consultoras.Web.Models.MisPedidosDetalleModel
 
 @{
-
     var layout = ViewContext.MobileLayout();
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
     var mobileConfiguracion = Html.MobileAppConfiguracion();
@@ -83,6 +82,7 @@
                             <div class="vc-box--content">
                                 <p style="margin-bottom: 16px;">@item.Tono</p>
                             </div>
+
                             <input type="hidden" class="pedidoId" value="@item.PedidoId" />
                             <input type="hidden" class="cuv" value="@item.CUV" />
                             <input type="hidden" class="cantidad" value="@item.Cantidad" />
@@ -101,7 +101,7 @@
                 <div class="row align-items-center">
                     <div class="col-4">
                         <div class="vc-box ipt-tel">
-                            <input data-cantElegida="@item.Cantidad" type="tel" value="@item.Cantidad" placeholder="1" class="text-center text-14 text-700">
+                            <input data-cantNew="@item.Cantidad" type="tel" value="@item.Cantidad" placeholder="1" class="text-center text-14 text-700">
                         </div>
                     </div>
 
@@ -223,7 +223,7 @@
             </div>*@
     </div>
     <!-- / Orders    -->
-    <div  id="mensajepedido" class="container position-absolute" style="display:none;">
+    <div id="mensajepedido" class="container position-absolute" style="display:none;">
         <!--   Tooltip bottom     -->
         <div class="row align-items-center position-relative action-continue">
             <div class="col mb-16">
