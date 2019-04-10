@@ -1,8 +1,8 @@
 ﻿
 var cuvKeyUp = false, cuv2KeyUp = false;
 var cuvPrevVal = '', cuv2PrevVal = '';
-var pasoActual = 1;
-var paso2Actual = 1;
+//var pasoActual = 1;
+//var paso2Actual = 1;
 var listaPedidos = new Array();
 var codigoSsic = "";
 var tipoDespacho = false;
@@ -23,12 +23,16 @@ var reclamo = {
         activo: 'paso_active_reclamo'
     },
     operacion: {
-
+        faltante: "F",
+        faltanteAbono: "G",
+        devolucion: "D",
+        trueque: "T",
+        canje: "C"
     }
 };
 
 var dataCdrServicio = {};
-
+var flagSetsOrPack = false;
 $(document).ready(function () {
 
     $("#ddlCampania").on("change", function () {
@@ -102,9 +106,9 @@ $(document).ready(function () {
         if (ValidarPasoUno()) {
             //HD-3412 EINCA
             //validar lado del server
-            ValidarPasoUnoServer(function (result, msg, data) {
-                if (!result) {
-                    alert_msg(msg);
+            ValidarPasoUnoServer(function (d) {
+                if (!d.success) {
+                    alert_msg(d.message);
                 } else {
                     //Seteamos la data de la respuesta del servicio de cdr
                     var ProductoSeleccionado = {
@@ -113,12 +117,10 @@ $(document).ready(function () {
                     };
 
                     dataCdrServicio.ProductoSeleccionado = ProductoSeleccionado;
-                    dataCdrServicio.DataRespuestaServicio = data[0].LProductosComplementos;
-                    paso2Actual = 1;
-                    //$.when(CambioPaso()).then(function () {
-                    //    CargarOperacion();
-                    //});
-
+                    if (d != null) {
+                        dataCdrServicio.DataRespuestaServicio = d.data[0].LProductosComplementos;
+                        flagSetsOrPack = d.flagSetsOrPack;
+                    }
                     $.when(CambiarVistaPaso(reclamo.pasos.dos_seleccion_de_solucion)).then(function () {
                         CargarOperacion();
                     });
@@ -525,7 +527,7 @@ function BuscarCUV() {
                 $("#ResultadosBusquedaCUV").empty();
                 var divPadre = $('#ResultadosBusquedaCUV');
                 $(data.detalle).each(function (index, item) {
-                    divPadre.append('<li class="resultado_busqueda_por_cuv" data-value-producto="' + item.DescripcionProd + '" data-value-cuv="' + item.CUV + '"><a onclick="SeleccionarCUVBusqueda($(this).parent());" class="resultado_busqueda_por_cuv_enlace" title="' + item.DescripcionProd + '"><div class="resultado_busqueda_por_cuv_datos_imagen"><img src="https://cdn1-prd.somosbelcorp.com/Matriz/PE/PE_201905_30709.jpg" alt="' + item.DescripcionProd + '" /></div><div class="resultado_busqueda_por_cuv_datos_prod">' + '<div class="resultado_busqueda_por_cuv_codigo_prod">' + item.CUV + '</div>' + '<div class="resultado_busqueda_por_cuv_descrip_prod">' + item.DescripcionProd + '</div>' + '</div></a></li>');
+                    divPadre.append('<li class="resultado_busqueda_por_cuv" data-value-cantidad="' + item.Cantidad + '"  data-value-producto="' + item.DescripcionProd + '" data-value-cuv="' + item.CUV + '"><a onclick="SeleccionarCUVBusqueda($(this).parent());" class="resultado_busqueda_por_cuv_enlace" title="' + item.DescripcionProd + '"><div class="resultado_busqueda_por_cuv_datos_imagen"><img src="https://cdn1-prd.somosbelcorp.com/Matriz/PE/PE_201905_30709.jpg" alt="' + item.DescripcionProd + '" /></div><div class="resultado_busqueda_por_cuv_datos_prod">' + '<div class="resultado_busqueda_por_cuv_codigo_prod">' + item.CUV + '</div>' + '<div class="resultado_busqueda_por_cuv_descrip_prod">' + item.DescripcionProd + '</div>' + '</div></a></li>');
                 });
             }
         },
@@ -810,7 +812,7 @@ function ValidarPasoUnoServer(callbackWhenFinish) {
         success: function (d) {
             if (checkTimeout(d)) {
                 if (callbackWhenFinish && typeof callbackWhenFinish === "function") {
-                    callbackWhenFinish(d.success, d.message, d.data);
+                    callbackWhenFinish(d);
                 }
             }
         },
@@ -991,7 +993,7 @@ function ObtenerValorCDRWebDatos(codigoSsic) {
 }
 
 function CargarPropuesta(codigoSsic) {
-    var tipo = (codigoSsic == "C" || codigoSsic == "D" || codigoSsic == "F" || codigoSsic == "G") ? "canje" : "cambio";
+    var tipo = (codigoSsic == reclamo.operacion.canje || codigoSsic == reclamo.operacion.devolucion || codigoSsic == reclamo.operacion.faltante || codigoSsic == reclamo.operacion.faltanteAbono) ? "canje" : "cambio";
 
     var item = {
         CUV: $.trim($("#hdfCUV").val()),// $.trim($("#ddlCuv").val()),//$.trim($("#txtCuv").text()),
@@ -1096,7 +1098,7 @@ function DetalleGuardar(operacionId, callbackWhenFinish) {
     });
 }
 
-function ValidarPaso2Devolucion(codigoSsic) {
+function ValidarPasoDosDevolucion(codigoSsic) {
     var montoMinimoPedido = $("#hdMontoMinimoPedido").val();
     var montoTotalPedido = $("#hdImporteTotalPedido").val();
     var montoProductosDevolverActual = ObtenerMontoProductosDevolver(codigoSsic);
@@ -1111,7 +1113,9 @@ function ValidarPaso2Devolucion(codigoSsic) {
         return false;
     }
 
-    ObtenerValorParametria(codigoSsic);
+    alert($("#hdParametriaCdr").val());
+    alert($("#hdParametriaAbsCdr").val());
+    //ObtenerValorParametria(codigoSsic);
     var valorParametria = $("#hdParametriaCdr").val() || 0;
 
     valorParametria = parseFloat(valorParametria);
@@ -1125,6 +1129,60 @@ function ValidarPaso2Devolucion(codigoSsic) {
 
     return true;
 }
+
+
+//function ValidarPaso2Devolucion(codigoSsic) {
+//    var montoMinimoPedido = $("#hdMontoMinimoPedido").val();
+//    var montoTotalPedido = $("#hdImporteTotalPedido").val();
+//    var montoProductosDevolverActual = ObtenerMontoProductosDevolver(codigoSsic);
+
+//    var diferenciaMonto = montoTotalPedido - montoMinimoPedido;
+//    var montoCuvActual = (parseFloat($("#txtPrecioUnidad").val()) || 0) * (parseInt($("#txtCantidad").val()) || 0);
+
+//    var montoDevolver = montoProductosDevolverActual + montoCuvActual;
+
+//    if (diferenciaMonto < montoDevolver) {
+//        alert_msg("Por favor, selecciona otra solución, ya que tu pedido está quedando por debajo del monto mínimo permitido");
+//        return false;
+//    }
+
+//    ObtenerValorParametria(codigoSsic);
+//    var valorParametria = $("#hdParametriaCdr").val() || 0;
+
+//    valorParametria = parseFloat(valorParametria);
+
+//    var montoMaximoDevolver = montoTotalPedido * valorParametria / 100;
+
+//    if (montoMaximoDevolver < montoDevolver) {
+//        alert_msg("Por favor, selecciona otra solución, ya que superas el porcentaje de devolución permitido en tu pedido facturado");
+//        return false;
+//    }
+
+//    return true;
+//}
+
+
+function ValidarPasoDosFaltante(codigoSsic) {
+    var esCantidadPermitidaValida = ValidarCantidadMaximaPermitida(codigoSsic);
+
+    if (esCantidadPermitidaValida) {
+        var montoTotalPedido = $("#hdImporteTotalPedido").val();
+        var montoProductosFaltanteActual = ObtenerMontoProductosDevolver(codigoSsic);
+        var montoCuvActual = (parseFloat($("#txtPrecioUnidad").val()) || 0) * (parseInt($("#txtCantidad").val()) || 0);
+        var montoDevolver = montoProductosFaltanteActual + montoCuvActual;
+        var valorParametria = $("#hdParametriaCdr").val() || 0;
+        valorParametria = parseFloat(valorParametria);
+        var montoMaximoDevolver = montoTotalPedido * valorParametria / 100;
+        if (montoMaximoDevolver < montoDevolver) {
+            alert_msg("Por favor, selecciona otra solución, ya que superas el porcentaje de faltante permitido en tu pedido facturado");
+            return false;
+        }
+
+        return true;
+    } else
+        return false;
+}
+
 
 function ValidarPaso2Faltante(codigoSsic) {
     var esCantidadPermitidaValida = ValidarCantidadMaximaPermitida(codigoSsic);
@@ -1152,9 +1210,14 @@ function ValidarPaso2Faltante(codigoSsic) {
         return false;
 }
 
-function ValidarPaso2FaltanteAbono(codigoSsic) {
+function ValidarPasoDosFaltanteAbono(codigoSsic) {
     return ValidarCantidadMaximaPermitida(codigoSsic);
 }
+
+
+//function ValidarPaso2FaltanteAbono(codigoSsic) {
+//    return ValidarCantidadMaximaPermitida(codigoSsic);
+//}
 
 function ValidarPasoDosTrueque() {
     if ($.trim($("#txtCUV2").val()) == "") {
@@ -1567,52 +1630,52 @@ function SolicitudCDREnviar(callbackWhenFinish) {
 
 }
 
-function CambioPaso(paso) {
-    paso = paso || 1;
-    pasoActual = pasoActual + paso || 1;
-    pasoActual = pasoActual < 1 ? 1 : pasoActual > 3 ? 3 : pasoActual;
+//function CambioPaso(paso) {
+//    paso = paso || 1;
+//    pasoActual = pasoActual + paso || 1;
+//    pasoActual = pasoActual < 1 ? 1 : pasoActual > 3 ? 3 : pasoActual;
 
-    $(".paso_reclamo[data-paso]").removeClass("paso_active_reclamo");
-    $(".paso_reclamo[data-paso]").each(function (ind, tag) {
-        var pasoTag = $(tag).attr("data-paso");
-        if (pasoTag < pasoActual) {
-            $(tag).addClass("paso_reclamo_completado");
-        }
-        else if (pasoTag == pasoActual) {
-            $(tag).addClass("paso_active_reclamo");
-        }
-        else $(tag).removeClass("paso_active_reclamo");
-    });
+//    $(".paso_reclamo[data-paso]").removeClass("paso_active_reclamo");
+//    $(".paso_reclamo[data-paso]").each(function (ind, tag) {
+//        var pasoTag = $(tag).attr("data-paso");
+//        if (pasoTag < pasoActual) {
+//            $(tag).addClass("paso_reclamo_completado");
+//        }
+//        else if (pasoTag == pasoActual) {
+//            $(tag).addClass("paso_active_reclamo");
+//        }
+//        else $(tag).removeClass("paso_active_reclamo");
+//    });
 
-    $('div[id^=Cambio]').hide();
-    $('div[id^=Paso]').hide();
-    $('[id=Paso' + pasoActual + ']').show();
-    $('[id=Paso' + pasoActual + '] #Cambio' + paso2Actual).show();
+//    $('div[id^=Cambio]').hide();
+//    $('div[id^=Paso]').hide();
+//    $('[id=Paso' + pasoActual + ']').show();
+//    $('[id=Paso' + pasoActual + '] #Cambio' + paso2Actual).show();
 
-    ValidarVisualizacionBannerResumen();
-}
+//    ValidarVisualizacionBannerResumen();
+//}
 
-function BarraImagenProgresoCambio() {
+//function BarraImagenProgresoCambio() {
 
-    $(".paso_reclamo[data-paso]").removeClass("paso_active_reclamo");
-    $(".paso_reclamo[data-paso]").each(function (ind, tag) {
-        var pasoTag = $(tag).attr("data-paso");
-        if (pasoTag < pasoActual) {
-            $(tag).addClass("paso_reclamo_completado");
-        }
-        else if (pasoTag == pasoActual) {
-            $(tag).addClass("paso_active_reclamo");
-        }
-        else $(tag).removeClass("paso_active_reclamo");
-    });
+//    $(".paso_reclamo[data-paso]").removeClass("paso_active_reclamo");
+//    $(".paso_reclamo[data-paso]").each(function (ind, tag) {
+//        var pasoTag = $(tag).attr("data-paso");
+//        if (pasoTag < pasoActual) {
+//            $(tag).addClass("paso_reclamo_completado");
+//        }
+//        else if (pasoTag == pasoActual) {
+//            $(tag).addClass("paso_active_reclamo");
+//        }
+//        else $(tag).removeClass("paso_active_reclamo");
+//    });
 
-    $('div[id^=Cambio]').hide();
-    $('div[id^=Paso]').hide();
-    $('[id=Paso' + pasoActual + ']').show();
-    $('[id=Paso' + pasoActual + '] #Cambio' + paso2Actual).show();
+//    $('div[id^=Cambio]').hide();
+//    $('div[id^=Paso]').hide();
+//    $('[id=Paso' + pasoActual + ']').show();
+//    $('[id=Paso' + pasoActual + '] #Cambio' + paso2Actual).show();
 
-    ValidarVisualizacionBannerResumen();
-}
+//    ValidarVisualizacionBannerResumen();
+//}
 
 function ObtenerMontoProductosDevolver(codigoOperacion) {
     var resultado = 0;
@@ -1834,6 +1897,7 @@ function SeleccionarContenido(control) {
 function EscogerSolucion(opcion, event) {
     var tagCheck = $("#divOperacion input[type=checkbox]");
     var tagDivInfo = $('#infoOpcionesDeCambio');
+    var cantidad = $('#txtCantidad').val() == "" ? 1 : parseInt($('#txtCantidad').val());
     tagCheck.not(opcion).prop('checked', false);
     var id = opcion.id;
     var isChecked = tagCheck.is(':checked');
@@ -1854,37 +1918,47 @@ function EscogerSolucion(opcion, event) {
     });
 
     $("#btnIrPaso3").fadeIn(100);
+    var textoUnidades = " X " + cantidad + " Unidad(es)";
 
     //en base al id, mostramos la capa correspondiente
-    if (id == "T") {
-        $(".opcion_cdr").removeClass("opcion_cdr_seleccionada");
-        $(opcion).parents(".opcion_cdr").addClass("opcion_cdr_seleccionada");
-        $('#OpcionCambioPorOtroProducto').fadeIn(200);
-        SetMontoCampaniaTotal();
-        ObtenerValorParametria(id);
-    } else if (id == "C") {
+    if (id == reclamo.operacion.trueque) {
+        $.when(ObtenerValorParametria(id)).then(function () {
+            $(".opcion_cdr").removeClass("opcion_cdr_seleccionada");
+            $(opcion).parents(".opcion_cdr").addClass("opcion_cdr_seleccionada");
+            $('#OpcionCambioPorOtroProducto').fadeIn(200);
+            SetMontoCampaniaTotal();
+        });
+    } else if (id == reclamo.operacion.canje) {
         $(".opcion_cdr").removeClass("opcion_cdr_seleccionada");
         $(opcion).parents(".opcion_cdr").addClass("opcion_cdr_seleccionada");
         $('#OpcionCambioMismoProducto').fadeIn(200);
-        //$('#spnDescProdDevolucion').html($('#hdfCUVDescripcion').val());
         $('#spnDescProdDevolucionC').html($('#ddlCuv').val());
-    } else if (id == "D") {
-        $(".opcion_cdr").removeClass("opcion_cdr_seleccionada");
-        $(opcion).parents(".opcion_cdr").addClass("opcion_cdr_seleccionada");
-        $('#divDevolucionSetsOrPack').show();
-        $('#OpcionDevolucion').fadeIn(200);
-        SetHandlebars("#template-opcion-devolucion", dataCdrServicio, "#divDevolucionSetsOrPack");
-    } else if (id == "F") {
-        $(".opcion_cdr").removeClass("opcion_cdr_seleccionada");
-        $(opcion).parents(".opcion_cdr").addClass("opcion_cdr_seleccionada");
-        $('#spnDescripcionProductoOpcionF').text($('#ddlCuv').val());
-        //$('#spnDescripcionProductoOpcionF').val($('#hdfCUVDescripcion').val());
-        $('#OpcionEnvioDelProducto').fadeIn(200);
+        $('#spnCantidadC').html(textoUnidades);
+    } else if (id == reclamo.operacion.devolucion) {
+        $.when(ObtenerValorParametria(id)).then(function () {
+            $(".opcion_cdr").removeClass("opcion_cdr_seleccionada");
+            $(opcion).parents(".opcion_cdr").addClass("opcion_cdr_seleccionada");
+            $('#divDevolucionSetsOrPack').show();
+            $('#OpcionDevolucion').fadeIn(200);
+            $('#spnCantidadD').html(textoUnidades);
+            SetHandlebars("#template-opcion-devolucion", dataCdrServicio, "#divDevolucionSetsOrPack");
+            (flagSetsOrPack) ? $('#spnCantidadDVarios').text(textoUnidades) : $('#spnCantidadIndividual').text(textoUnidades);
+        });
+    } else if (id == reclamo.operacion.faltante) {
+        $.when(ObtenerValorParametria(id)).then(function () {
+            $(".opcion_cdr").removeClass("opcion_cdr_seleccionada");
+            $(opcion).parents(".opcion_cdr").addClass("opcion_cdr_seleccionada");
+            $('#spnDescripcionProductoOpcionF').text($('#ddlCuv').val());
+            $('#spnCantidadF').html(textoUnidades);
+            $('#OpcionEnvioDelProducto').fadeIn(200);
+        });
     } else {
         $(".opcion_cdr").removeClass("opcion_cdr_seleccionada");
         $(opcion).parents(".opcion_cdr").addClass("opcion_cdr_seleccionada");
         $('#spnDescripcionProductoOpcionG').html($('#ddlCuv').val());
+        $('#spnCantidadG').html(textoUnidades);
         $('#OpcionDevolucionDinero').fadeIn(200);
+
     }
 }
 
@@ -1921,6 +1995,24 @@ function AgregarODisminuirCantidad(event, opcion) {
 
 //HD-3703 EINCA
 function IrAFinalizar() {
+    var fnPreValidacion = PreValidacionIrFinalizar();
+    if (fnPreValidacion.result) {
+        DetalleGuardar(fnPreValidacion.id, function (data) {
+            if (data.success) {
+                $("#CDRWebID").val(data.detalle);
+                $.when(CambiarVistaPaso(reclamo.pasos.tres_finalizar_envio_solicitud)).then(function () {
+                    DetalleCargar();
+                });
+            } else {
+                alert_msg(data.message);
+                return false;
+            }
+        });
+    }
+}
+
+
+function PreValidacionIrFinalizar() {
     var id = "";
     var tag = $("#divOperacion input[type=checkbox]");
     var isChecked = tag.is(':checked');
@@ -1937,24 +2029,37 @@ function IrAFinalizar() {
         }
     });
 
-    //validaciones
-    if (id == "T") {
+    //Validaciones
+
+    //Trueque
+    if (id === reclamo.operacion.trueque) {
         if (!ValidarPasoDosTrueque()) {
             return false;
         }
     }
 
-    DetalleGuardar(id, function (data) {
-        if (data.success) {
-            $("#CDRWebID").val(data.detalle);
-            $.when(CambiarVistaPaso(reclamo.pasos.tres_finalizar_envio_solicitud)).then(function () {
-                DetalleCargar();
-            });
-        } else {
-            alert_msg(data.message);
+    //Devolución
+    if (id === reclamo.operacion.devolucion) {
+        if (!ValidarPasoDosDevolucion(id)) {
             return false;
         }
-    });
+    }
+
+    //Faltante
+    if (id === reclamo.operacion.faltante) {
+        if (!ValidarPasoDosFaltante(id)) {
+            return false;
+        }
+    }
+
+    //Faltante de abono
+    if (id === reclamo.operacion.faltanteAbono) {
+        if (!ValidarPasoDosFaltanteAbono(id)) {
+            return false;
+        }
+    }
+
+    return { result: true, id: id };
 }
 
 //HD-3703 EINCA 
