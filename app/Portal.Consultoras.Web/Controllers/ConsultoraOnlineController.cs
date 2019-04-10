@@ -2274,55 +2274,77 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (parametros.AccionTipo == Constantes.OpcionesIngresoPendientes.ingrgana)
             {
+                int pedidoWebId = 0;
                 if (parametros.ListaGana.Any())
                 {
                     parametros.ListaGana.ForEach(model =>
+                   {
+                       BEPedidoDetalle pedidoDetalle = new BEPedidoDetalle();
+                       pedidoDetalle.Producto = new ServicePedido.BEProducto();
+                       pedidoDetalle.Producto.EstrategiaID = model.EstrategiaID;
+                       pedidoDetalle.Producto.TipoEstrategiaID = model.TipoEstrategiaID.ToString();
+                       pedidoDetalle.Producto.TipoOfertaSisID = model.TipoOfertaSisID;
+                       pedidoDetalle.Producto.ConfiguracionOfertaID = model.ConfiguracionOfertaID;
+                       //    pedidoDetalle.Producto.CUV = Util.Trim(model.CuvTonos);
+                       pedidoDetalle.Producto.IndicadorMontoMinimo = string.IsNullOrEmpty(model.IndicadorMontoMinimo.ToString()) ? 0 : Convert.ToInt32(model.IndicadorMontoMinimo);
+                       pedidoDetalle.Producto.FlagNueva = model.FlagNueva.ToString();
+                       pedidoDetalle.Producto.Descripcion = model.DescripcionCUV2 ?? "";
+                       pedidoDetalle.Usuario = Mapper.Map<ServicePedido.BEUsuario>(userData);
+                       pedidoDetalle.Cantidad = model.Cantidad == 0 ? 1 : Convert.ToInt32(model.Cantidad);
+                       pedidoDetalle.PaisID = userData.PaisID;
+                       pedidoDetalle.IPUsuario = GetIPCliente();
+                       //pedidoDetalle.OrigenPedidoWeb = GetOrigenPedidoWeb("", 0, 1);
+                       //  pedidoDetalle.ClienteID = string.IsNullOrEmpty(model.ClienteID) ? (short)0 : Convert.ToInt16(model.ClienteID);
+                       pedidoDetalle.Identifier = SessionManager.GetTokenPedidoAutentico() != null ? SessionManager.GetTokenPedidoAutentico().ToString() : string.Empty;
+                       //pedidoDetalle.EsCuponNuevas = model.EsCuponNuevas || model.FlagNueva == 1;
+                       //pedidoDetalle.EsSugerido = model.EsSugerido;
+                       //pedidoDetalle.EsKitNueva = model.EsKitNueva;
+                       //pedidoDetalle.EsKitNuevaAuto = model.EsKitNuevaAuto;
+                       //pedidoDetalle.OfertaWeb = model.OfertaWeb;
+                       //pedidoDetalle.EsEditable = model.EsEditable;
+                       //pedidoDetalle.SetID = model.SetId;
+                       //var pedidoDetalleResult = _pedidoWebProvider.InsertPedidoDetalle(pedidoDetalle);
+
+                       ///////////////////////////////////////////////////
+                       ///
+                       var pedidoDetalleResult = _pedidoWebProvider.InsertPedidoDetalle(pedidoDetalle);
+                       pedidoWebId = (pedidoDetalleResult.PedidoWebDetalle != null ? pedidoDetalleResult.PedidoWebDetalle.PedidoID : pedidoWebId);
+
+                       if (pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS))
+                       {
+                           SessionManager.SetPedidoWeb(null);
+                           SessionManager.SetDetallesPedido(null);
+                           SessionManager.SetDetallesPedidoSetAgrupado(null);
+                       }
+                   });
+
+
+                    using (ServiceSAC.SACServiceClient svc = new ServiceSAC.SACServiceClient())
                     {
-                        BEPedidoDetalle pedidoDetalle = new BEPedidoDetalle();
-                        pedidoDetalle.Producto = new ServicePedido.BEProducto();
-                        pedidoDetalle.Producto.EstrategiaID = model.EstrategiaID;
-                        pedidoDetalle.Producto.TipoEstrategiaID = model.TipoEstrategiaID.ToString();
-                        pedidoDetalle.Producto.TipoOfertaSisID = model.TipoOfertaSisID;
-                        pedidoDetalle.Producto.ConfiguracionOfertaID = model.ConfiguracionOfertaID;
-                        //    pedidoDetalle.Producto.CUV = Util.Trim(model.CuvTonos);
-                        pedidoDetalle.Producto.IndicadorMontoMinimo = string.IsNullOrEmpty(model.IndicadorMontoMinimo.ToString()) ? 0 : Convert.ToInt32(model.IndicadorMontoMinimo);
-                        pedidoDetalle.Producto.FlagNueva = model.FlagNueva.ToString();
-                        pedidoDetalle.Producto.Descripcion = model.DescripcionCUV2 ?? "";
-                        pedidoDetalle.Usuario = Mapper.Map<ServicePedido.BEUsuario>(userData);
-                        pedidoDetalle.Cantidad = model.Cantidad == 0 ? 1 : Convert.ToInt32(model.Cantidad);
-                        pedidoDetalle.PaisID = userData.PaisID;
-                        pedidoDetalle.IPUsuario = GetIPCliente();
-                        //pedidoDetalle.OrigenPedidoWeb = GetOrigenPedidoWeb("", 0, 1);
-                        //  pedidoDetalle.ClienteID = string.IsNullOrEmpty(model.ClienteID) ? (short)0 : Convert.ToInt16(model.ClienteID);
-                        pedidoDetalle.Identifier = SessionManager.GetTokenPedidoAutentico() != null ? SessionManager.GetTokenPedidoAutentico().ToString() : string.Empty;
-                        //pedidoDetalle.EsCuponNuevas = model.EsCuponNuevas || model.FlagNueva == 1;
-                        //pedidoDetalle.EsSugerido = model.EsSugerido;
-                        //pedidoDetalle.EsKitNueva = model.EsKitNueva;
-                        //pedidoDetalle.EsKitNuevaAuto = model.EsKitNuevaAuto;
-                        //pedidoDetalle.OfertaWeb = model.OfertaWeb;
-                        //pedidoDetalle.EsEditable = model.EsEditable;
-                        //pedidoDetalle.SetID = model.SetId;
-                        //var pedidoDetalleResult = _pedidoWebProvider.InsertPedidoDetalle(pedidoDetalle);
-
-                        ///////////////////////////////////////////////////
-                        ///
-                        var pedidoDetalleResult = _pedidoWebProvider.InsertPedidoDetalle(pedidoDetalle);
-
-                        if (pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS))
+                        pedidosSesion.ForEach(pedido =>
                         {
-                            SessionManager.SetPedidoWeb(null);
-                            SessionManager.SetDetallesPedido(null);
-                            SessionManager.SetDetallesPedidoSetAgrupado(null);
+                            if (pedido.DetallePedido.Any(i => i.Elegido == true))
+                            {
 
-                            // return ObtenerPedidoWebDetalle();
-                        }
-                        else
-                        {
-                            //  return null;
-                        }
-                    });
+                                pedido.DetallePedido.Where(i=> i.Elegido).Each(detalle =>
+                                {
 
-                }
+                                    var beSolicitudDetalle = new ServiceSAC.BESolicitudClienteDetalle
+                                    {
+                                        SolicitudClienteDetalleID = detalle.PedidoDetalleId,
+                                        TipoAtencion = 3,
+                                        PedidoWebID = pedidoWebId,
+                                        PedidoWebDetalleID = 0
+                                    };
+                                    svc.UpdSolicitudClienteDetalle(userData.PaisID, beSolicitudDetalle);
+                                    detalle.TipoAtencion = 3;
+                                });
+                            }
+                        });
+
+                    }
+
+                }                  
             }
             else if (parametros.AccionTipo == Constantes.OpcionesIngresoPendientes.ingrped)
             {
@@ -2373,6 +2395,7 @@ namespace Portal.Consultoras.Web.Controllers
                                         PedidoWebDetalleID = bePedidoWebDetalle.PedidoDetalleID
                                     };
                                     svc.UpdSolicitudClienteDetalle(userData.PaisID, beSolicitudDetalle);
+                                    detalle.TipoAtencion = 2;
                                 }
                             });
                         }
@@ -2415,7 +2438,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 pedidosSesion.ForEach(pedido =>
                 {
-                    if (!pedido.DetallePedido.ToList().Where(k => k.Estado == 0).Any(i => i.TipoAtencion == 0))
+                    if (!pedido.DetallePedido.ToList().Where(k => k.Estado == 1).Any(i => i.TipoAtencion == 0))
                     {
                         var beSolicitudCliente = new ServiceSAC.BESolicitudCliente
                         {
@@ -2454,7 +2477,7 @@ namespace Portal.Consultoras.Web.Controllers
                     marcaPedido = pedidoAux.Marca;
                 }
 
-                if (pedidoAux.DetallePedido.Any(i => i.Elegido == true))
+                if (pedidoAux.DetallePedido.Any(i => i.Elegido == true )&& pedidoAux.FlagMedio=="01")
                 {
                     double totalPedido = 0;
 
@@ -2634,23 +2657,23 @@ namespace Portal.Consultoras.Web.Controllers
                     mensajecliente.Append("</tr>");
                     mensajecliente.Append("</tbody></table>");
 
-                    try
-                    {
-                        if (parametros.Accion == 1)
-                        {
-                            Util.EnviarMail3(emailDe, pedidoAux.Email, titulocliente, mensajecliente.ToString(), true,
-                                pedidoAux.Email);
-                        }
-                        else
-                        {
-                            Util.EnviarMail3Mobile(emailDe, pedidoAux.Email, titulocliente, mensajecliente.ToString(),
-                                true, pedidoAux.Email);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                    }
+                    //try
+                    //{
+                    //    if (parametros.Accion == 1)
+                    //    {
+                    //        Util.EnviarMail3(emailDe, pedidoAux.Email, titulocliente, mensajecliente.ToString(), true,
+                    //            pedidoAux.Email);
+                    //    }
+                    //    else
+                    //    {
+                    //        Util.EnviarMail3Mobile(emailDe, pedidoAux.Email, titulocliente, mensajecliente.ToString(),
+                    //            true, pedidoAux.Email);
+                    //    }
+                    //}
+                    //catch (Exception ex)
+                    //{
+                    //    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                    //}
                 }
                 else
                 {
@@ -2665,22 +2688,22 @@ namespace Portal.Consultoras.Web.Controllers
                         "<td><p style='text-align: center;'><strong>{0}<br/>{1}<br/>Consultora</strong></p></td></tr></table>",
                         userData.NombreConsultora, userData.EMail);
 
-                    try
-                    {
-                        if (parametros.Accion == 1)
-                        {
-                            Util.EnviarMail3(emailDe, pedidoAux.Email, titulo, mensaje.ToString(), true, string.Empty);
-                        }
-                        else
-                        {
-                            Util.EnviarMail3Mobile(emailDe, pedidoAux.Email, titulo, mensaje.ToString(), true,
-                                string.Empty);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                    }
+                    //try
+                    //{
+                    //    if (parametros.Accion == 1)
+                    //    {
+                    //        Util.EnviarMail3(emailDe, pedidoAux.Email, titulo, mensaje.ToString(), true, string.Empty);
+                    //    }
+                    //    else
+                    //    {
+                    //        Util.EnviarMail3Mobile(emailDe, pedidoAux.Email, titulo, mensaje.ToString(), true,
+                    //            string.Empty);
+                    //    }
+                    //}
+                    //catch (Exception ex)
+                    //{
+                    //    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                    //}
                 }
 
             });
