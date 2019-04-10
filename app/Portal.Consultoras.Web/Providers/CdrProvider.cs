@@ -12,10 +12,12 @@ namespace Portal.Consultoras.Web.Providers
     public class CdrProvider
     {
         protected readonly ISessionManager sessionManager;
+        protected TablaLogicaProvider _tablaLogicaProvider;
 
         public CdrProvider()
         {
             sessionManager = SessionManager.SessionManager.Instance;
+            _tablaLogicaProvider = new TablaLogicaProvider();
         }
 
         public List<ServiceCDR.BECDRWeb> CargarBECDRWeb(MisReclamosModel model, int paisId, long consultoraId)
@@ -527,13 +529,15 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     return sessionManager.GetNroPedidosCDRConfig();
                 }
+                
+                result = _tablaLogicaProvider.GetTablaLogicaDatoValorInt(paisID, ConsTablaLogica.NroSolicitudePedido.TablaLogicaId, ConsTablaLogica.NroSolicitudePedido.Cod01);
 
-                using (var sv = new ServiceSAC.SACServiceClient())
-                {
-                    var serviceResult = sv.GetTablaLogicaDatos(paisID, Constantes.TablaLogica.NroReclamosPorPedidoCDR).ToList();
-                    var cantidad = serviceResult.FirstOrDefault(a => a.Codigo == "01").Valor;
-                    int.TryParse(cantidad, out result);
-                }
+                //using (var sv = new ServiceSAC.SACServiceClient())
+                //{
+                //    var serviceResult = sv.GetTablaLogicaDatos(paisID, Constantes.TablaLogica.NroReclamosPorPedidoCDR).ToList();
+                //    var cantidad = serviceResult.FirstOrDefault(a => a.Codigo == "01").Valor;
+                //    int.TryParse(cantidad, out result);
+                //}
             }
             catch (Exception ex)
             {

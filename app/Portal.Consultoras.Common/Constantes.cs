@@ -1781,14 +1781,14 @@ namespace Portal.Consultoras.Common
         [Obsolete("Use ConsTablaLogica")]
         public struct TablaLogica
         {
-            public const int NroReclamosPorPedidoCDR = 161;
-            public const int PersonalizacionODD = 93;
+            //public const int NroReclamosPorPedidoCDR = 161;
+            //public const int PersonalizacionODD = 93;
             public const int Plan20 = 98;
-            public const int CDRExpress = 104;
+            //public const int CDRExpress = 104;
             public const int StockDiasAntes = 181;
-            public const int CorreoFeedbackAppConsultora = 105;
+            //public const int CorreoFeedbackAppConsultora = 105;
 
-            public const int EscalaDescuentoMensajeImportante = 160;
+            //public const int EscalaDescuentoMensajeImportante = 160;
 
 
             /// <summary>
@@ -1815,15 +1815,15 @@ namespace Portal.Consultoras.Common
             }
 
             public const short RevistaDigital = 131;
-            public const short CodigoRevistaFisica = 132;
-            public const short Palanca = 135;
-            public const int ValoresImagenesResize = 121;
-            public const short ExtensionBannerGanaMasApp = 136;
-            public const short MontoLimiteCupon = 103;
+            //public const short CodigoRevistaFisica = 132;
+            //public const short Palanca = 135;
+            //public const int ValoresImagenesResize = 121;
+            //public const short ExtensionBannerGanaMasApp = 136;
+            //public const short MontoLimiteCupon = 103;
             public const int ValoresPagoEnLinea = 122;
-            public const int CantidadCuvMasivo = 137;
-            public const short ProlObsCod = 5;
-            public const int ActualizaDatosEnabled = 143;
+            //public const int CantidadCuvMasivo = 137;
+            //public const short ProlObsCod = 5;
+            //public const int ActualizaDatosEnabled = 143;
             public const short HabilitarChatEmtelco = 144;
             public const short OrdenamientoShowRoom = 99;
             public const short NuevaDescripcionProductos = 145;

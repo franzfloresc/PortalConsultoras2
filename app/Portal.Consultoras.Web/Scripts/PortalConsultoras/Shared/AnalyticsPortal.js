@@ -2397,8 +2397,10 @@ var AnalyticsPortalModule = (function () {
         }
         
     }
-    var marcaPromotionViewArmaTuPack = function (origenPedido, esInPedido, isClick = false) {
-        
+    var marcaPromotionViewArmaTuPack = function (origenPedido, esInPedido, isClick) {
+
+        isClick = isClick || false;
+
         if (origenPedido !== "") {
             if (origenPedido == ConstantesModule.CodigoUbigeoPortal.GuionContenedorGuionArmaTuPack) {
                 textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(origenPedido) + ""; //using new function

@@ -393,6 +393,11 @@ namespace Portal.Consultoras.Common
             public const int TablaLogicaId = 120;
         }
 
+        public static class ImagenesResize
+        {
+            public const int TablaLogicaId = 121;
+        }
+
         public static class ValoresPagoLinea
         {
             public const int TablaLogicaId = 122;
@@ -502,10 +507,17 @@ namespace Portal.Consultoras.Common
         {
             public const int TablaLogicaId = 159;
         }
+        
+        public static class EscalaDescuento
+        {
+            public const int TablaLogicaId = 160;
+            public const string Cod01 = "01";
+        }
 
         public static class NroSolicitudePedido
         {
             public const int TablaLogicaId = 161;
+            public const string Cod01 = "01";
         }
 
         public static class ResizeImagenesAppGana
