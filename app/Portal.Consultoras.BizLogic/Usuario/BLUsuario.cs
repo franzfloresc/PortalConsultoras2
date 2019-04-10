@@ -553,7 +553,7 @@ namespace Portal.Consultoras.BizLogic
 
                 var terminosCondicionesTask = Task.Run(() => GetTerminosCondiciones(paisID, usuario.CodigoConsultora, Constantes.TipoTerminosCondiciones.AppTerminosCondiciones));
                 var politicaPrivacidadTask = Task.Run(() => GetTerminosCondiciones(paisID, usuario.CodigoConsultora, Constantes.TipoTerminosCondiciones.AppPoliticaPrivacidad));
-                var destinatariosFeedBack = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetList(paisID, Constantes.TablaLogica.CorreoFeedbackAppConsultora));
+                var destinatariosFeedBack = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetList(paisID, ConsTablaLogica.CorreoFeedBackAppConsultora.TablaLogicaId));
                 var gprBannerTask = Task.Run(() => GetGPRBanner(usuario));
                 var usuarioConsultoraTask = Task.Run(() => GetUsuarioConsultora(usuario));
                 var consultoraAniversarioTask = Task.Run(() => GetConsultoraAniversario(usuario));

@@ -1786,7 +1786,7 @@ namespace Portal.Consultoras.Common
             public const int Plan20 = 98;
             //public const int CDRExpress = 104;
             public const int StockDiasAntes = 181;
-            public const int CorreoFeedbackAppConsultora = 105;
+            //public const int CorreoFeedbackAppConsultora = 105;
 
             //public const int EscalaDescuentoMensajeImportante = 160;
 
