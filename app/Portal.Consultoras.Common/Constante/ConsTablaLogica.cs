@@ -392,6 +392,11 @@ namespace Portal.Consultoras.Common
             public const int TablaLogicaId = 120;
         }
 
+        public static class ImagenesResize
+        {
+            public const int TablaLogicaId = 121;
+        }
+
         public static class ValoresPagoLinea
         {
             public const int TablaLogicaId = 122;
