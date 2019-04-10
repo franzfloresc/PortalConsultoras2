@@ -29143,7 +29143,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 
 .listado_solicitud_reclamo_descrip_solucion {
     font-size: 14px;
-    max-width: 100px;
+    max-width: 103px;
     line-height: 17px;
 }
 
@@ -29162,6 +29162,82 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     font-size: 13px;
     font-weight: 300;
 }
+
+.tooltip_confirmacion_eliminacion_producto_grilla,
+.tooltip_acciones_eliminacion_producto {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.tooltip_confirmacion_eliminacion_producto_grilla {
+    display: none;
+    justify-content: space-between;
+    height: 86px;
+    background-color: #ebebeb;
+    margin-bottom: 20px;
+    position: relative;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+    .tooltip_confirmacion_eliminacion_producto_grilla:before {
+        bottom: 100%;
+        left: 50px;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+        border-color: rgba(136, 183, 213, 0);
+        border-bottom-color: #ebebeb;
+        border-width: 10px;
+        z-index: 2;
+    }
+
+.btn_acciones {
+    height: 45px;
+    color: #FFF;
+}
+
+.btn_acciones--eliminar {
+    width: 130px;
+}
+
+.tooltip_informacion_eliminacion_producto_texto,
+.enlace_tooltip_informacion {
+    display: block;
+}
+
+.tooltip_informacion_eliminacion_producto_texto {
+    margin: 0;
+    font-size: 14px;
+}
+
+.enlace_tooltip_informacion {
+    font-size: 13px;
+    text-decoration: underline;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.tag_sb {
+    display: inline-block;
+    border-radius: 10.5px;
+    width: auto;
+    height: 24px;
+    line-height: 23px;
+    margin-bottom: 8px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+    .tag_sb--standard {
+        background-color: #000;
+        color: #FFF;
+    }
 
 .subtitulo_listado {
     margin-top: 15px;
