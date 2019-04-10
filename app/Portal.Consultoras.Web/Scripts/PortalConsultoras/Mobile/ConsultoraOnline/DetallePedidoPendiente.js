@@ -81,7 +81,7 @@ function RechazarPedido(id) {
 function AceptarPedido(id, tipo) {
     var isOk = true;
     var detalle = [];
-    var ing = 0;  
+    var ing = 0;
 
     $('div.detalle_pedido_reservado').each(function () {
         var id = $(this).find("input[id*='soldet_']").val();
@@ -300,7 +300,7 @@ function CerrarAlertaPedidoReservado() {
 }
 
 function MostrarMensajedeRechazoPedido(cuv) {
-    var mensaje ='#' + cuv;
+    var mensaje = '#' + cuv;
     $(mensaje).show();
     //document.location.href = urlPedido;
 }
@@ -313,7 +313,7 @@ function OcultarMensajedeRechazoPedido(cuv) {
 function AceptarPedidoProducto(id) {
     var texto = '#texto_' + id;
     var aceptado = '#aceptar_' + id;
-    if ($(aceptado).hasClass("active")){
+    if ($(aceptado).hasClass("active")) {
         $(texto).removeClass('text-white');
         $(texto).addClass('text-black');
         $(aceptado).removeClass('active');
@@ -324,20 +324,20 @@ function AceptarPedidoProducto(id) {
         $(texto).addClass('text-white');
         $(aceptado).addClass('active');
         $(aceptado).text('Aceptar');
-    //document.location.href = urlPedido;
+        //document.location.href = urlPedido;
     }
 
 }
 
-function ProcesarRechazarPedido(pedido,cuv) {
+function ProcesarRechazarPedido(pedido, cuv) {
 
     var cantidad = $('div.detalle_pedido_reservado').find('#cantidad').text();
     $.ajax({
         type: "POST",
-        url:  "/ConsultoraOnline/RechazarPedidoVistas",
+        url: "/ConsultoraOnline/RechazarPedidoVistas",
         //dataType: "json",
         //contentType: "application/json; charset=utf-8",
-        data: {pedido: pedido, cuv: cuv},
+        data: { pedido: pedido, cuv: cuv },
         async: true,
         success: function (response) {
             var mensaje = '#' + cuv;
@@ -469,32 +469,46 @@ function RechazarTodoPedidoClientes(obj) {
 }
 
 function ContinuarPedido() {
-
-    var cantidad = $('div.detalle_pedido_reservado').find('#cantidad').text();
-    var detallelista = [];
+    //var cantidad = $('div.detalle_pedido_reservado').find('#cantidad').text();
+    var lstDetalle = [];
 
     $('.pedidos').each(function () {
 
-        if ($(this).find("a[id*='aceptar_']").hasClass('active')==false){
+        if ($(this).find('a[id*="aceptar_"]').hasClass('active') == false) {
             //$(aceptado).addClass('active');
-            var cuvactual = $(this).find("input[id*='solped_']").val();
+            var pedidoId = $(this).find(".pedidoId").val();
+            var cuv = $(this).find(".cuv").val();
+            //var cantidad = $(this).find(".cantidad").val();
+            var cantElegida = $(this).find('[data-cantElegida]').val();
+
             var detalle = {
-                CUV: cuvactual
+                PedidoId: pedidoId,
+                CUV: cuv,
+                //CantOriginal: cantidad,
+                Cantidad: cantElegida
             }
-            detallelista.push(detalle);
+            lstDetalle.push(detalle);
         }
     });
 
-    if (detallelista, length > 0) {
+    console.log(lstDetalle);
+
+    if (lstDetalle, length > 0) {
         $.ajax({
             type: "POST",
             url: "/ConsultoraOnline/ContinuarPedidos",
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(detallelista),
+            data: JSON.stringify(lstDetalle),
             async: true,
             success: function (response) {
-                document.location.href = '/Mobile/ConsultoraOnline/PendientesMedioDeCompra';
+
+                if (response.success == true) {
+                    document.location.href = '/Mobile/ConsultoraOnline/PendientesMedioDeCompra';
+                }
+                else {
+                    alert(response.message);
+                }
                 //var mensaje = '#' + cuv;
                 //$(mensaje).hide();
                 //CloseLoading();
@@ -526,6 +540,7 @@ function ContinuarPedido() {
                 //if (checkTimeout(data)) {
                 //    AbrirMensaje("Ocurrió un error inesperado al momento de aceptar el pedido. Consulte con su administrador del sistema para obtener mayor información");
                 //}
+                console.log(error);
             }
         });
     }

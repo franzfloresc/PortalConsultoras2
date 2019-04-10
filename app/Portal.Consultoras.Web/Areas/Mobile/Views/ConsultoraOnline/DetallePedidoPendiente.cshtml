@@ -74,7 +74,6 @@
             <div id="pedidos" class="container vc-box vc-box--shadow pedidos">
                 <!--   Order title   -->
 
-
                 <div class="row align-items-start">
                     <div class="col-9">
                         <div class=" vc-box">
@@ -84,7 +83,9 @@
                             <div class="vc-box--content">
                                 <p style="margin-bottom: 16px;">@item.Tono</p>
                             </div>
-                            <input type="hidden" id="solped_@item.CUV" value="@item.CUV" />
+                            <input type="hidden" class="pedidoId" value="@item.PedidoId" />
+                            <input type="hidden" class="cuv" value="@item.CUV" />
+                            <input type="hidden" class="cantidad" value="@item.Cantidad" />
                         </div>
                     </div>
                     <div class="col-3">
@@ -100,7 +101,7 @@
                 <div class="row align-items-center">
                     <div class="col-4">
                         <div class="vc-box ipt-tel">
-                            <input id="cantidad" type="tel" value="@item.Cantidad" placeholder="1" class="text-center text-14 text-700">
+                            <input data-cantElegida="@item.Cantidad" type="tel" value="@item.Cantidad" placeholder="1" class="text-center text-14 text-700">
                         </div>
                     </div>
 
