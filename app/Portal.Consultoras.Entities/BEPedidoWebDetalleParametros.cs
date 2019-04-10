@@ -19,11 +19,7 @@ namespace Portal.Consultoras.Entities
         public string CodigoPrograma { get; set; }
         [DataMember]
         public int NumeroPedido { get; set; }
-
         [DataMember]
         public bool AgruparSet { get; set; }
-
-        [DataMember]
-        public int NivelCaminoBrillante { get; set; }
     }
 }
