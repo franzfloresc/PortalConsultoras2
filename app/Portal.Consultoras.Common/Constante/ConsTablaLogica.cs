@@ -501,6 +501,12 @@ namespace Portal.Consultoras.Common
         {
             public const int TablaLogicaId = 159;
         }
+        
+        public static class EscalaDescuento
+        {
+            public const int TablaLogicaId = 160;
+            public const string Cod01 = "01";
+        }
 
         public static class NroSolicitudePedido
         {
