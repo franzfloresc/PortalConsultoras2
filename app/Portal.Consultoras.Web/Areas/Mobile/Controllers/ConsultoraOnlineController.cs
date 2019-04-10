@@ -1129,7 +1129,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     cab.CantidadTotal = cab.DetallePedido.Where(x => x.CUV == cuv).Sum(x => x.Cantidad);
                 }
                 model.ListaPedidos = lstPedidos.ToList();
-                model.ListaPedidos[0].DetallePedido = lstdetalle.ToArray();
+                //model.ListaPedidos[0].DetallePedido = lstdetalle.ToArray();
                 model.RegistrosTotal = model.ListaPedidos.Count.ToString();
                 SessionManager.SetobjMisPedidos(model);
                 //SessionManager.SetobjMisPedidosDetalle(lstdetalle);
@@ -1289,7 +1289,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         /////////Lista por clientes ///////
 
-        
+
 
         //private List<BEMisPedidos> CargarMisPedidosDatosClientes(int marcaId,List<BEMisPedidos> olstMisPedidos)
         //{
