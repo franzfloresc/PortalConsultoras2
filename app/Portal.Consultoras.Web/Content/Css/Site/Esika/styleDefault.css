@@ -29,8 +29,28 @@
 }
 
 .multimarca-background-color {
-    background-color: #b9007e;
+    background-color: #b9007e!important;
 }
+
+.multimarca-border-color {
+    border-color: #b9007e;
+}
+
+.tag_sb {
+    display: inline-block;
+    border-radius: 10.5px;
+    width: auto;
+    height: 24px;
+    line-height: 23px;
+    margin-bottom: 8px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+    .tag_sb--standard {
+        background-color: #000;
+        color: #FFF;
+    }
 
 /* POPUP GENERAL (ACCIONES ACEPTAR Y CANCELAR) */
 

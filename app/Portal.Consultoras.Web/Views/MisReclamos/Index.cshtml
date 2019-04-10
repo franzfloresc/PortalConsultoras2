@@ -23,7 +23,7 @@
     else
     {
         <div class="texto_titulo_reclamos" id="TituloReclamo">
-            Queremos verte siempre satisfecha con nuestros productos y servicio <br />
+            Queremos verte siempre satisfecha con nuestros productos y servicios <br />
             <span>
                 Si tuviste inconvenientes con algún producto y estás dentro del
                 <a href="@Model.UrlPoliticaCdr" style="text-decoration: underline; font-weight: bold; display: inline;" target="_blank">plazo permitido</a>
@@ -32,20 +32,19 @@
         </div>
         <div class="content_registro_reclamos">
             <div class="texto_solicitud_registrada">Tienes @Model.ListaCDRWeb.Count() solicitudes registradas:</div>
-            <a class="border-radius-4 btn_si_stock_cdr" href="javascript:;" style="width: 296px;" id="IrPaso1">REGISTRAR SOLICITUD</a>
+            <a class="border-radius-4 multimarca-background-color btn_si_stock_cdr" href="javascript:;" style="width: 296px;" id="IrPaso1">REGISTRAR SOLICITUD</a>
             <hr class="clear" />
             <br />
             <br />
             <div class="grilla_detalle_reclamo">
-                <div class="content_listado_reclamo">
-                    <div class="listado_fecha_general text_gris_reclamo">FECHA REGISTRO</div>
-                    <div class="listado_campana_general text_gris_reclamo">CAMPAÑA</div>
-                    <div class="listado_solicitud_general text_gris_reclamo">Nº SOLICITUD</div>
-                    <div class="listado_resolucion_general text_gris_reclamo">FECHA RESOLUCIÓN</div>
-                    <div class="listado_resumen_general text_gris_reclamo">RESUMEN DE RESOLUCIÓN</div>
-                    <div class="listado_estado_general text_gris_reclamo">ESTADO</div>
+                <div class="content_listado_reclamo content_listado_reclamo--header">
+                    <div class="text-bold listado_fecha_general">FECHA REGISTRO</div>
+                    <div class="text-bold listado_campana_general">CAMPAÑA</div>
+                    <div class="text-bold listado_solicitud_general">Nº SOLICITUD</div>
+                    <div class="text-bold listado_resolucion_general">FECHA RESOLUCIÓN</div>
+                    <div class="text-bold listado_resumen_general">RESUMEN DE RESOLUCIÓN</div>
+                    <div class="text-bold listado_estado_general">ESTADO</div>
                 </div>
-                <div class="linea_separadora"></div>
                 @foreach (var item in Model.ListaCDRWeb)
                 {
                     var horaRegistro = item.FechaRegistro.Hour > 12 ? item.FechaRegistro.Hour - 12 : item.FechaRegistro.Hour;
@@ -85,7 +84,7 @@
                                     ? "estado_detalleObservado"
                                     : "";
 
-                    <div class="content_listado_reclamo">
+                    <div class="content_listado_reclamo content_listado_reclamo--contenido">
                         <input type="hidden" class="cdrweb_id" value="@item.CDRWebID" />
                         <input type="hidden" class="cdrweb_pedidoid" value="@item.PedidoID" />
                         <input type="hidden" class="cdrweb_estado" value="@item.Estado" />
@@ -122,7 +121,7 @@
                         }
                         <div class="listado_estado_general">
                             <div class="verDetalle">
-                                <span class="estado_texto @claseEstado">
+                                <span class="border-radius-4 estado_texto @claseEstado">
                                     @item.EstadoDescripcion
                                 </span>
                                 <span>
@@ -133,7 +132,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="linea_separadora"></div>
                 }
             </div>
         </div>

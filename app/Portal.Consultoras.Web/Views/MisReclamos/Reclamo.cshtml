@@ -34,7 +34,7 @@
         <div id="contenedor_paso" style="display: block;">
             <div id="barra_progreso" class="content_pasos">
                 <div class="content_pasos_linea">
-                    <div class="progreso_pasos default-background-color"></div>
+                    <div class="multimarca-background-color progreso_pasos"></div>
                 </div>
                 <div class="paso_reclamo paso_reclamo_1 paso_active_reclamo" id="Selector1" data-paso="1"></div>
                 <div class="paso_reclamo paso_reclamo_2" id="Selector2" data-paso="2"></div>
@@ -266,7 +266,7 @@
                         <div class="listado_solicitada_reclamo text_gris_reclamo">SOLUCION SOLICITADA</div>
                         <div class="listado_eliminar_reclamo text_gris_reclamo">ELIMINAR</div>
                     </div>
-                    <div class="linea_separadora"></div>
+                    <div class="multimarca-background-color linea_separadora"></div>
                     <div id="divDetallePaso3">
                     </div>
                 </div>
@@ -274,7 +274,7 @@
                 @if (Model.TieneCDRExpress)
                 {
                     <div id="TipoDespacho">
-                        <div class="linea_separadora_roja" style="height: 2px;"></div>
+                        <div class="multimarca-background-color linea_separadora_roja" style="height: 2px;"></div>
                         <div class="content_tipo_despacho">
                             <div style="padding-bottom:10px">
                                 <div id="btnDespachoNormal" class="cdr_tipo_despacho_icono_active"></div>
@@ -304,14 +304,14 @@
                     <input type="hidden" id="hdFleteDespacho" value="@Model.FleteDespacho" />
                 </div>
 
-                <div class="linea_separadora_roja" style="height: 2px;"></div>
+                <div class="multimarca-background-color linea_separadora_roja" style="height: 2px;"></div>
                 <div class="subtitulo_listado">VALIDA TUS DATOS</div>
                 <div class="texto_valida_datos">En caso de necesitar contactarnos contigo, lo haremos a través de:</div>
                 <div class="text-center validacion_datos_wrapper">
                     <div class="validacion_datos_correo_electronico">
                         <span class="text-left texto_correo">Correo Electrónico</span>
                         <input type="hidden" id="hdEmail" value="@Model.Email" />
-                        <input type="text" name="txtEmail" id="txtEmail" value="@Model.Email" class="correo_reclamo" onkeydown="return limitarMaximo(event,this.value,100,'txtTelefono')" />
+                        <input type="text" name="txtEmail" id="txtEmail" value="@Model.Email" class="border-radius-4 correo_reclamo" onkeydown="return limitarMaximo(event,this.value,100,'txtTelefono')" />
                         <br />
                         <div class="correo_reclamo_error">
                             <span id="spnEmailError" style="display: none;">
@@ -322,7 +322,7 @@
                     <div class="validacion_datos_celular_contacto">
                         <span class="text-left texto_correo">Celular de contacto</span>
                         <input type="hidden" id="hdTelefono" value="@Model.Telefono" />
-                        <input type="text" name="txtTelefono" id="txtTelefono" value="@Model.Telefono" class="correo_reclamo" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefono')" />
+                        <input type="text" name="txtTelefono" id="txtTelefono" value="@Model.Telefono" class="border-radius-4 correo_reclamo" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefono')" />
                         <br />
                         <div class="correo_reclamo_error">
                             <span id="spnTelefonoError" style="display: none;">
@@ -332,7 +332,7 @@
                     </div>
                 </div>
                 <hr class="clear" />
-                <div class="linea_separadora_roja" style="height: 2px;"></div>
+                <div class="multimarca-background-color linea_separadora_roja" style="height: 2px;"></div>
                 <div class="politica_reclamos">
                     <div id="btnAceptoPoliticas" class="politica_reclamos_icono"></div>
                     <div class="politica_reclamos_texto">
@@ -341,7 +341,7 @@
                 </div>
                 <div class="text-right">
                     <a class="border-radius-4 btn_agrega_otro_reclamo" id="IrSolicitudInicial">AGREGA OTRO PRODUCTO A LA SOLICITUD</a>
-                    <a class="border-radius-4 btn_si_stock_cdr" href="javascript:;" style="width: 296px; margin-top: 2px;" id="IrSolicitudEnviada">FINALIZA Y ENVÍA TU SOLICITUD</a>
+                    <a class="border-radius-4 multimarca-background-color btn_si_stock_cdr" href="javascript:;" style="width: 296px; margin-top: 2px;" id="IrSolicitudEnviada">FINALIZA Y ENVÍA TU SOLICITUD</a>
                 </div>
                 <hr class="clear" />
             </div>
