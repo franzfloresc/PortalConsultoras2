@@ -1100,17 +1100,17 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 //string _cuv = Convert.ToString(cuv);      
                 var arrIds = new List<string>();
-                var lstdetalle = new List<BEMisPedidosDetalle>();
+                //var lstdetalle = new List<BEMisPedidosDetalle>();
                 foreach (var cab in pedidos.ListaPedidos)
                 {
                     var detalles = cab.DetallePedido.Where(x => x.CUV == cuv);
                     if (detalles.Any())
                     {
                         arrIds.Add(cab.PedidoId.ToString());
-                        foreach (var item in detalles)
-                        {
-                            lstdetalle.Add(item);
-                        }
+                        //foreach (var item in detalles)
+                        //{
+                        //    lstdetalle.Add(item);
+                        //}
                     }
                 }
 

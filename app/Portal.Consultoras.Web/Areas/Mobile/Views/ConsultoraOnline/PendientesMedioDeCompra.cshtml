@@ -2,7 +2,6 @@
 @model Portal.Consultoras.Web.Models.PedidosPendientesMedioPagoModel
 
 @{
-
     var layout = ViewContext.MobileLayout();
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
     var mobileConfiguracion = Html.MobileAppConfiguracion();
@@ -48,7 +47,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row conGanaMas  vc-box vc-box--shadow  @if (Model.ListaGana.Count>2){  <text>brokenBox</text> 	} " data-listagana="@Json.Encode(Model.ListaGana)">
+            <div class="row conGanaMas vc-box vc-box--shadow  @if (Model.ListaGana.Count > 2){ <text>brokenBox</text> } " data-listagana="@Json.Encode(Model.ListaGana)">
                 @foreach (var itemGana in Model.ListaGana)
                 {
                     <div class="col products-item">
@@ -79,11 +78,10 @@
                     </div>
                 </div>
             </div>
-            <div class="row conCatalogo vc-box vc-box--shadow  @if (Model.ListaGana.Count>2){  <text>brokenBox</text> 	} ">
+            <div class="row conCatalogo vc-box vc-box--shadow  @if (Model.ListaGana.Count > 2){ <text>brokenBox</text> } ">
 
                 @foreach (var x in Model.ListaCatalogo)
                 {
-
                     for (int i = 0; i < x.Cantidad; i++)
                     {
                         <div class="col">
