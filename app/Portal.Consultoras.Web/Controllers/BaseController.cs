@@ -196,7 +196,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ObtenerPedidoWebDetalle();
 
                 bool esMobile = EsDispositivoMovil();
-                
+
                 GetUserDataViewBag();
 
                 var controllerName = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
@@ -584,7 +584,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
                 else
-                { 
+                {
                     string controlador = GetControllerActual();
 
                     if (!Constantes.Controlador.ActualizacionODD.Contains(controlador))
@@ -603,7 +603,7 @@ namespace Portal.Consultoras.Web.Controllers
                         case "DetalleEstrategia":
                             string accion = (ControllerContext.RouteData.Values["action"] ?? "").ToString();
                             string palanca = (ControllerContext.RouteData.Values["palanca"] ?? "").ToString();
-                            if(accion == "Ficha" && palanca != Constantes.NombrePalanca.OfertaDelDia)
+                            if (accion == "Ficha" && palanca != Constantes.NombrePalanca.OfertaDelDia)
                             {
                                 actualizaBaseODD = false;
                             }
@@ -629,7 +629,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var listMontosProl = ServicioProl_CalculoMontosProl(userData.EjecutaProl);
                 userData.EjecutaProl = true;
                 if (!listMontosProl.Any()) return objR;
-                
+
                 var montosProl = listMontosProl[0];
                 SetBarraConsultoraMontosTotales(objR, montosProl, Agrupado);
 
@@ -977,6 +977,13 @@ namespace Portal.Consultoras.Web.Controllers
         private void GetUserDataViewBag()
         {
             var esMobile = IsMobile();
+
+            #region bonificaciones 
+
+            ViewBag.esConsultoraDigital = IndicadorConsultoraDigital();
+
+            #endregion
+
             ViewBag.PseudoParamNotif = userData.PseudoParamNotif; //SALUD-58
             ViewBag.EstadoInscripcionEpm = revistaDigital.EstadoRdcAnalytics;
             ViewBag.UsuarioNombre = (Util.Trim(userData.Sobrenombre) == "" ? userData.NombreConsultora : userData.Sobrenombre);
@@ -1444,21 +1451,27 @@ namespace Portal.Consultoras.Web.Controllers
             bool r = false;
             try
             {
-                string region = ConfigurationManager.AppSettings.Get(Constantes.ConfiguracionManager.BonificacionesRegiones);
-                List<string> ListRegion = region == null ? new List<string>() : region.Split(new char[] { ',' }).ToList();
-                var validaRegion = ListRegion.Where(x => x.Contains(userData.CodigorRegion));
-
-                if (validaRegion.Any())
+                if (SessionManager.GetConsultoraDigital() == null)
                 {
-                    using (var sv = new ServiceUsuario.UsuarioServiceClient())
+                    string region = ConfigurationManager.AppSettings.Get(Constantes.ConfiguracionManager.BonificacionesRegiones);
+                    List<string> ListRegion = region == null ? new List<string>() : region.Split(new char[] { ',' }).ToList();
+                    var validaRegion = ListRegion.Where(x => x.Contains(userData.CodigorRegion));
+
+                    if (validaRegion.Any())
                     {
-                        ServiceUsuario.BEUsuario beusuario = sv.Select(userData.PaisID, userData.CodigoUsuario);
-                        if (beusuario != null)
+                        using (var sv = new ServiceUsuario.UsuarioServiceClient())
                         {
-                            r = beusuario.IndicadorConsultoraDigital > 0;
+                            ServiceUsuario.BEUsuario beusuario = sv.Select(userData.PaisID, userData.CodigoUsuario);
+                            if (beusuario != null)
+                            {
+                                r = beusuario.IndicadorConsultoraDigital > 0;
+                                SessionManager.SetConsultoraDigital(r);
+                            }
                         }
                     }
                 }
+                else
+                    r = SessionManager.GetConsultoraDigital().Value;
             }
             catch (Exception e)
             {
