@@ -1112,10 +1112,6 @@ function ValidarPasoDosDevolucion(codigoSsic) {
         alert_msg("Por favor, selecciona otra solución, ya que tu pedido está quedando por debajo del monto mínimo permitido");
         return false;
     }
-
-    alert($("#hdParametriaCdr").val());
-    alert($("#hdParametriaAbsCdr").val());
-    //ObtenerValorParametria(codigoSsic);
     var valorParametria = $("#hdParametriaCdr").val() || 0;
 
     valorParametria = parseFloat(valorParametria);

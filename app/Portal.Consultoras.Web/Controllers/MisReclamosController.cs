@@ -859,6 +859,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult DetalleCargar(MisReclamosModel model)
         {
+
             SessionManager.SetCDRWebDetalle(null);
             var lista = _cdrProvider.CargarDetalle(model, userData.PaisID, userData.CodigoISO);
 
