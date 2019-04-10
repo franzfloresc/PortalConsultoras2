@@ -68,34 +68,34 @@ namespace Portal.Consultoras.Web.Providers
             var userData = SessionManager.GetUserData();
             List<EstrategiaComponenteModel> listaEstrategiaComponente;
             List<EstrategiaComponenteSeccionModel> listEstrategiaComponenteSeccion;
-            //if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, codigoTipoEstrategia)
-            //    && codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.ArmaTuPack)
-            //{
+            if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, codigoTipoEstrategia)
+                && codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.ArmaTuPack)
+            {
                 mensaje += "SiMongo|";
                 estrategiaModelo.CodigoEstrategia = Util.GetTipoPersonalizacionByCodigoEstrategia(codigoTipoEstrategia);
                 EstrategiaPersonalizadaProductoModel estrategia = _ofertaBaseProvider.ObtenerModeloOfertaDesdeApi(estrategiaModelo, userData.CodigoISO);
 
                 listaEstrategiaComponente = estrategia.Hermanos;
-                  
+
                 mensaje += "ObtenerModeloOfertaDesdeApi = " + listaEstrategiaComponente.Count + "|";
-            //}
-            //else
-            //{
-            //    mensaje += "NoMongo|";
+            }
+            else
+            {
+                mensaje += "NoMongo|";
 
-            //    List<BEEstrategiaProducto> listaBeEstrategiaProductos;
-            //    listaBeEstrategiaProductos = GetEstrategiaProductos(estrategiaModelo);
+                List<BEEstrategiaProducto> listaBeEstrategiaProductos;
+                listaBeEstrategiaProductos = GetEstrategiaProductos(estrategiaModelo);
 
-            //    if (!listaBeEstrategiaProductos.Any()) return new List<EstrategiaComponenteModel>();
+                if (!listaBeEstrategiaProductos.Any()) return new List<EstrategiaComponenteModel>();
 
-            //    mensaje += "GetEstrategiaProductos = " + listaBeEstrategiaProductos.Count + "|";
+                mensaje += "GetEstrategiaProductos = " + listaBeEstrategiaProductos.Count + "|";
 
-            //    listaEstrategiaComponente = GetEstrategiaDetalleCompuesta(estrategiaModelo, listaBeEstrategiaProductos);
-            //    mensaje += "GetEstrategiaDetalleCompuesta = " + listaEstrategiaComponente.Count + "|";
+                listaEstrategiaComponente = GetEstrategiaDetalleCompuesta(estrategiaModelo, listaBeEstrategiaProductos);
+                mensaje += "GetEstrategiaDetalleCompuesta = " + listaEstrategiaComponente.Count + "|";
 
-            //    listaEstrategiaComponente = OrdenarComponentesPorMarca(listaEstrategiaComponente, out esMultimarca);
-            //    mensaje += "OrdenarComponentesPorMarca = " + listaEstrategiaComponente.Count + "|";
-            //}
+                listaEstrategiaComponente = OrdenarComponentesPorMarca(listaEstrategiaComponente, out esMultimarca);
+                mensaje += "OrdenarComponentesPorMarca = " + listaEstrategiaComponente.Count + "|";
+            }
 
             if (listaEstrategiaComponente.Any())
             {
@@ -131,7 +131,7 @@ namespace Portal.Consultoras.Web.Providers
         //        mensaje += "SiMongo|";
         //        estrategiaModelo.CodigoEstrategia = Util.GetTipoPersonalizacionByCodigoEstrategia(codigoTipoEstrategia);
         //        estrategia = _ofertaBaseProvider.ObtenerModeloOfertaDesdeApi(estrategiaModelo, userData.CodigoISO);
-                  
+
         //        mensaje += "ObtenerModeloOfertaDesdeApi = " + estrategia.Hermanos.Count + "|";
         //    }
         //    else
@@ -144,7 +144,7 @@ namespace Portal.Consultoras.Web.Providers
         //        if (!listaBeEstrategiaProductos.Any()) return estrategia;
 
         //        mensaje += "GetEstrategiaProductos = " + listaBeEstrategiaProductos.Count + "|";
-                
+
         //        estrategia.Hermanos = GetEstrategiaDetalleCompuesta(estrategiaModelo, listaBeEstrategiaProductos);
         //        mensaje += "GetEstrategiaDetalleCompuesta = " + estrategia.Hermanos.Count + "|";
 
@@ -197,6 +197,9 @@ namespace Portal.Consultoras.Web.Providers
             var codigoIsoAppCatalogo = System.Configuration.ConfigurationManager.AppSettings.Get("AppCatalogo_" + codigoIsoPais);
             codigoIsoPais = (codigoIsoAppCatalogo == null) ? codigoIsoPais : codigoIsoAppCatalogo;
 
+            var urlApp = _configuracionManagerProvider.GetRutaImagenesAppCatalogo();
+            var urlAppB = _configuracionManagerProvider.GetRutaImagenesAppCatalogoBulk();
+
             listaProducto.ForEach(x =>
             {
                 x.NombreComercial = x.NombreComercial ?? string.Empty;
@@ -213,11 +216,11 @@ namespace Portal.Consultoras.Web.Providers
                 // Cuando NombreBulk igual a NombreComercial se entiende que es Tipo, caso contrario Tono
                 if ((x.NombreComercial.Equals(x.NombreBulk)))
                 {
-                    x.ImagenBulk = string.IsNullOrEmpty(x.ImagenProducto) ? "" : string.Format(_configuracionManagerProvider.GetRutaImagenesAppCatalogo(), codigoIsoPais, campaniaId, codigoMarca, x.ImagenProducto);
+                    x.ImagenBulk = string.IsNullOrEmpty(x.ImagenProducto) ? "" : string.Format(urlApp, codigoIsoPais, x.CampaniaApp, codigoMarca, x.ImagenProducto);
                 }
                 else
                 {
-                    x.ImagenBulk = string.IsNullOrEmpty(x.ImagenBulk) ? "" : string.Format(_configuracionManagerProvider.GetRutaImagenesAppCatalogoBulk(), codigoIsoPais, x.CampaniaApp, codigoMarca, x.ImagenBulk);
+                    x.ImagenBulk = string.IsNullOrEmpty(x.ImagenBulk) ? "" : string.Format(urlAppB, codigoIsoPais, x.CampaniaApp, codigoMarca, x.ImagenBulk);
                 }
             });
 

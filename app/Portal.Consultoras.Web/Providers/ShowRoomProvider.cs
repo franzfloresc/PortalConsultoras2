@@ -26,11 +26,11 @@ namespace Portal.Consultoras.Web.Providers
     /// </summary>
     public class ShowRoomProvider : OfertaBaseProvider
     {
-        private const string ImageUrlCode = "bar_in_img";
-        private const string RedirectCode = "bar_in_url";
-        private const string EnabledCode = "bar_in_act";
-        private const string NoUrlAllowed = "bar_in_no";
-        private const short Pl50Key = 98;
+        //private const string ImageUrlCode = "bar_in_img";
+        //private const string RedirectCode = "bar_in_url";
+        //private const string EnabledCode = "bar_in_act";
+        //private const string NoUrlAllowed = "bar_in_no";
+        //private const short Pl50Key = 98;
         const int SHOWROOM_ESTADO_ACTIVO = 1;
 
         private readonly TablaLogicaProvider _tablaLogicaProvider;
@@ -76,18 +76,18 @@ namespace Portal.Consultoras.Web.Providers
         /// <returns>Configuracion de Banner inferior</returns>
         public IBannerInferiorConfiguracion ObtenerBannerConfiguracion(int paisId)
         {
-            var pl50configs = _tablaLogicaProvider.GetTablaLogicaDatos(paisId, Pl50Key);
-            var enabledObject = pl50configs.FirstOrDefault(c => c.Codigo == EnabledCode);
-            var redirectUrlObject = pl50configs.FirstOrDefault(c => c.Codigo == RedirectCode);
-            var imageUrlObject = pl50configs.FirstOrDefault(c => c.Codigo == ImageUrlCode);
-            var NoUrlPermitidasObject = pl50configs.FirstOrDefault(c => c.Codigo == NoUrlAllowed);
+            var pl50configs = _tablaLogicaProvider.GetTablaLogicaDatos(paisId, ConsTablaLogica.Plan20Activacion.TablaLogicaId);
+            var enabledObject = _tablaLogicaProvider.GatCampoValorBool(pl50configs, ConsTablaLogica.Plan20Activacion.EnabledCode);
+            var redirectUrlObject = _tablaLogicaProvider.GatCampoValor(pl50configs, ConsTablaLogica.Plan20Activacion.RedirectCode);
+            var imageUrlObject = _tablaLogicaProvider.GatCampoValor(pl50configs, ConsTablaLogica.Plan20Activacion.ImageUrlCode);
+            var NoUrlPermitidasObject = _tablaLogicaProvider.GatCampoValor(pl50configs, ConsTablaLogica.Plan20Activacion.NoUrlAllowed);
 
             return new BannerInferiorConfiguracion
             {
-                Activo = enabledObject != null && bool.Parse(enabledObject.Valor),
-                UrlImagen = imageUrlObject != null ? imageUrlObject.Valor : string.Empty,
-                UrlRedireccion = redirectUrlObject != null ? redirectUrlObject.Valor : string.Empty,
-                RutasParcialesExcluidas = NoUrlPermitidasObject != null ? NoUrlPermitidasObject.Valor.Split(';') : new string[0]
+                Activo = enabledObject,
+                UrlImagen = imageUrlObject,
+                UrlRedireccion = redirectUrlObject,
+                RutasParcialesExcluidas = NoUrlPermitidasObject != "" ? NoUrlPermitidasObject.Split(';') : new string[0]
             };
         }
 
@@ -403,61 +403,61 @@ namespace Portal.Consultoras.Web.Providers
 
         public void CargarEventoPersonalizacion(UsuarioModel model)
         {
-            var configEstrategiaSR = _sessionManager.GetEstrategiaSR() ?? new ConfigModel();
+            var configEstrategiaSR = new ConfigModel();
             try
             {
-                if (model == null)
+                configEstrategiaSR = _sessionManager.GetEstrategiaSR() ?? new ConfigModel();
+
+                if (model == null || configEstrategiaSR.CargoEntidadEventoPersonalizacion)
                 {
                     return;
                 }
 
-                if (!configEstrategiaSR.CargoEntidadEventoPersonalizacion)
+                _sessionManager.SetEsShowRoom("0");
+                _sessionManager.SetMostrarShowRoomProductos("0");
+                _sessionManager.SetMostrarShowRoomProductosExpiro("0");
+
+                if (UsarMsPersonalizacion(model.CodigoISO, Constantes.TipoEstrategiaCodigo.ShowRoom))
                 {
-                    _sessionManager.SetEsShowRoom("0");
-                    _sessionManager.SetMostrarShowRoomProductos("0");
-                    _sessionManager.SetMostrarShowRoomProductosExpiro("0");
+                    OutputEvento eventoPersonalizacions = ApiEventoPersonalizacion(model);
 
-                    if (UsarMsPersonalizacion(model.CodigoISO, Constantes.TipoEstrategiaCodigo.ShowRoom))
-                    {
-                        OutputEvento eventoPersonalizacions = ApiEventoPersonalizacion(model);
-
-                        configEstrategiaSR.BeShowRoom = ObtieneEventoModel(eventoPersonalizacions.Result);
-                        var eventoX = eventoPersonalizacions.Result.FirstOrDefault() ?? new Evento();
-                        configEstrategiaSR.ListaPersonalizacionConsultora = ObtienePersonalizacionesModel(eventoX.PersonalizacionNivel);
-                    }
-                    else
-                    {
-                        configEstrategiaSR.BeShowRoom = GetShowRoomEventoByCampaniaId(model);
-                        configEstrategiaSR.ListaPersonalizacionConsultora = GetShowRoomPersonalizacion(model);
-                    }
-
-                    if (model.CampaniaID != 0
-                        && configEstrategiaSR.BeShowRoom != null
-                        && configEstrategiaSR.BeShowRoom.Estado == SHOWROOM_ESTADO_ACTIVO)
-                    {
-                        CargarNivelShowRoom(model);
-                        ActualizarValorPersonalizacionesShowRoom(model, configEstrategiaSR);
-
-                        _sessionManager.SetEsShowRoom("1");
-                        var fechaHoy = model.FechaHoy;
-
-                        if (fechaHoy >= model.FechaInicioCampania.AddDays(-configEstrategiaSR.BeShowRoom.DiasAntes).Date
-                            && fechaHoy <= model.FechaInicioCampania.AddDays(configEstrategiaSR.BeShowRoom.DiasDespues).Date)
-                        {
-                            _sessionManager.SetMostrarShowRoomProductos("1");
-                        }
-
-                        if (fechaHoy > model.FechaInicioCampania.AddDays(configEstrategiaSR.BeShowRoom.DiasDespues).Date)
-                        {
-                            _sessionManager.SetMostrarShowRoomProductosExpiro("1");
-                            configEstrategiaSR.ConfiguracionPaisDatos = new List<ConfiguracionPaisDatosModel>();
-                        }
-                    }
-
-                    configEstrategiaSR.CargoEntidadEventoPersonalizacion = configEstrategiaSR.BeShowRoom != null &&
-                                                                           configEstrategiaSR.ListaPersonalizacionConsultora != null;
-                    _sessionManager.SetEstrategiaSR(configEstrategiaSR);
+                    configEstrategiaSR.BeShowRoom = ObtieneEventoModel(eventoPersonalizacions.Result);
+                    var eventoX = eventoPersonalizacions.Result.FirstOrDefault() ?? new Evento();
+                    configEstrategiaSR.ListaPersonalizacionConsultora = ObtienePersonalizacionesModel(eventoX.PersonalizacionNivel);
                 }
+                else
+                {
+                    configEstrategiaSR.BeShowRoom = GetShowRoomEventoByCampaniaId(model);
+                    configEstrategiaSR.ListaPersonalizacionConsultora = GetShowRoomPersonalizacion(model);
+                }
+
+                if (model.CampaniaID != 0
+                    && configEstrategiaSR.BeShowRoom != null
+                    && configEstrategiaSR.BeShowRoom.Estado == SHOWROOM_ESTADO_ACTIVO)
+                {
+                    CargarNivelShowRoom(model);
+                    ActualizarValorPersonalizacionesShowRoom(model, configEstrategiaSR);
+
+                    _sessionManager.SetEsShowRoom("1");
+                    var fechaHoy = model.FechaHoy;
+
+                    if (fechaHoy >= model.FechaInicioCampania.AddDays(-configEstrategiaSR.BeShowRoom.DiasAntes).Date
+                        && fechaHoy <= model.FechaInicioCampania.AddDays(configEstrategiaSR.BeShowRoom.DiasDespues).Date)
+                    {
+                        _sessionManager.SetMostrarShowRoomProductos("1");
+                    }
+
+                    if (fechaHoy > model.FechaInicioCampania.AddDays(configEstrategiaSR.BeShowRoom.DiasDespues).Date)
+                    {
+                        _sessionManager.SetMostrarShowRoomProductosExpiro("1");
+                        configEstrategiaSR.ConfiguracionPaisDatos = new List<ConfiguracionPaisDatosModel>();
+                    }
+                }
+
+                configEstrategiaSR.CargoEntidadEventoPersonalizacion = configEstrategiaSR.BeShowRoom != null &&
+                                                                       configEstrategiaSR.ListaPersonalizacionConsultora != null;
+                _sessionManager.SetEstrategiaSR(configEstrategiaSR);
+
             }
             catch (Exception ex)
             {

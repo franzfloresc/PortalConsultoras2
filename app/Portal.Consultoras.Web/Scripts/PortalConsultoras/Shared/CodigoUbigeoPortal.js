@@ -9,6 +9,11 @@ if (!jQuery) { throw new Error("AnalyticsPortal.js requires jQuery"); }
 
 
 var CodigoUbigeoPortal = (function () {
+    var _texto = {
+        notavaliable: "(not available)",
+        contenedor: "Contenedor",
+        contenedorHome: "Contenedor - Inicio"
+    };
 
     var estructuraUbigeo = {
         Dispositivo: {
@@ -45,8 +50,8 @@ var CodigoUbigeoPortal = (function () {
             CatalogoEsika: '12',
             CatalogoCyzone: '13',
             Ganadoras: '14',
-
-            Grilla: '15'
+            Grilla: '15',
+            ArmatuPack: '16'
         },
         Seccion: {
             Carrusel: '01',
@@ -62,6 +67,7 @@ var CodigoUbigeoPortal = (function () {
         SubSeccion: {
 
         }
+
     };
     
     var textos = {
@@ -102,8 +108,8 @@ var CodigoUbigeoPortal = (function () {
             { Codigo: "12", CodigoPalanca: "", Texto: "" },
             { Codigo: "13", CodigoPalanca: "", Texto: "" },
             { Codigo: "14", CodigoPalanca: "MG", Texto: "Más Ganadoras" },
-
-            { Codigo: "15", CodigoPalanca: "", Texto: "", Desc: "Grilla" }
+            { Codigo: "15", CodigoPalanca: "", Texto: "", Desc: "Grilla" },
+            { Codigo: "16", CodigoPalanca: "ATP", Texto: "Arma tu Pack", Desc: "Arma tu Pack" }
 
         ],
         Seccion: [
@@ -155,6 +161,7 @@ var CodigoUbigeoPortal = (function () {
             || origenEstructura.Pagina == estructuraUbigeo.Pagina.LandingHerramientasVenta
             || origenEstructura.Pagina == estructuraUbigeo.Pagina.LandingLiquidacion
             || origenEstructura.Pagina == estructuraUbigeo.Pagina.LandingOfertasParaTi
+            || origenEstructura.Seccion == estructuraUbigeo.Pagina.ArmaTuPackDetalle
             || origenEstructura.Pagina == estructuraUbigeo.Pagina.LandingShowroom
             || origenEstructura.Seccion == estructuraUbigeo.Seccion.Ficha
             || origenEstructura.Seccion == estructuraUbigeo.Seccion.CarruselVerMas
@@ -215,7 +222,6 @@ var CodigoUbigeoPortal = (function () {
     var getTextoSegunCodigoUbigeo = function (origenEstructura) {
 
         origenEstructura = getEstructuraSegunCodigoUbigeo(origenEstructura);
-        
         var contendor = getTextoContenedorSegunOrigen(origenEstructura);
         var pagina = getTextoPaginaSegunOrigen(origenEstructura);
         var seccionFuncional = getTextoPalancaSegunOrigen(origenEstructura);

@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Models.DetalleEstrategia
 {
+    [Serializable]
     public class EstrategiaComponenteCabeceraModel
     {
         public string ContenidoNeto { get; set; }
@@ -9,6 +11,7 @@ namespace Portal.Consultoras.Web.Models.DetalleEstrategia
         public string TallaMedidas { get; set; }
     }
 
+    [Serializable]
     public class EstrategiaComponenteSeccionModel
     {
         public string Titulo { get; set; }
@@ -16,6 +19,7 @@ namespace Portal.Consultoras.Web.Models.DetalleEstrategia
         public List<EstrategiaComponenteSeccionDetalleModel> Detalles { get; set; }
     }
 
+    [Serializable]
     public class EstrategiaComponenteSeccionDetalleModel
     {
         public string Titulo { get; set; }

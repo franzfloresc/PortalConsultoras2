@@ -139,6 +139,7 @@ var AnalyticsPortalModule = (function () {
         // Ini - Analytics Ofertas
         campania: "Campaña ",
         IdBannerGanadorasVerMas: "000123",
+        IdBannerArmaTuPack: "000124",
         // Fin - Analytics Ofertas
     };
 
@@ -2396,6 +2397,44 @@ var AnalyticsPortalModule = (function () {
         }
         
     }
+    var marcaPromotionViewArmaTuPack = function (origenPedido, esInPedido, isClick) {
+
+        isClick = isClick || false;
+
+        if (origenPedido !== "") {
+            if (origenPedido == ConstantesModule.CodigoUbigeoPortal.GuionContenedorGuionArmaTuPack) {
+                textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(origenPedido) + ""; //using new function
+                dataLayer.push({
+                    'event': !isClick ? _evento.promotionView : _evento.promotionClick,
+                    'ecommerce': {
+                        'promoView': {
+                            'promotions': [
+                                {
+                                    'id': _constantes.IdBannerArmaTuPack,
+                                    'name': 'Arma tu Pack - ' + (esInPedido ? "Modifica" : "Comienza"),
+                                    'position': textoCategory,
+                                    'creative': "Banner"
+                                }
+                            ]
+                        }
+                    }
+                });
+            }
+        }
+    }
+    var marcaPromotionClickArmaTuPack = function (origenPedido, textoLabel, actionText) {
+        
+        if (origenPedido !== "") {            
+                var textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(origenPedido) + ""; //using new function
+                dataLayer.push({
+                    'event': _evento.virtualEvent,
+                    "category": textoCategory,
+                    "action": actionText,
+                    "label": textoLabel + ""
+                });
+        }
+    }
+
     ////////////////////////////////////////////////////////////////////////////////////////
     // Fin - Analytics Ficha Resumida
     ////////////////////////////////////////////////////////////////////////////////////////
@@ -2505,6 +2544,8 @@ var AnalyticsPortalModule = (function () {
 
         MarcaFichaResumidaClickDetalleProducto: marcaFichaResumidaClickDetalleProducto,
         MarcaFichaResumidaClickDetalleCliente: marcaFichaResumidaClickDetalleCliente,
-        MarcaFichaResumidaClickModificar: marcaFichaResumidaClickModificar
+        MarcaFichaResumidaClickModificar: marcaFichaResumidaClickModificar,
+        MarcaPromotionViewArmaTuPack: marcaPromotionViewArmaTuPack,
+        MarcaPromotionClickArmaTuPack: marcaPromotionClickArmaTuPack
     }
 })();

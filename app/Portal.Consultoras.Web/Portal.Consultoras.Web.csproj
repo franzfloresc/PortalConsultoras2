@@ -189,6 +189,7 @@
     <Compile Include="App_Start\RouteConfig.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Areas\Mobile\Controllers\BonificacionesController.cs" />
     <Compile Include="Areas\Mobile\Controllers\BuscadorController.cs" />
     <Compile Include="Areas\Mobile\Controllers\DetalleEstrategiaController.cs" />
     <Compile Include="Areas\Mobile\Controllers\MasGanadorasController.cs" />
@@ -1823,6 +1824,7 @@
     <Content Include="Content\Images\mas.svg" />
     <Content Include="Content\Images\menos-desplegable-icono.svg" />
     <Content Include="Content\Images\menos.svg" />
+    <Content Include="Content\Images\mobile\Esika\bonificaciones_digital.png" />
     <Content Include="Content\Images\mobile\Esika\emoji-clapping-hands%403x.png" />
     <Content Include="Content\Images\mobile\icono_mas_footer_mobile.png" />
     <Content Include="Content\Images\mobile\icono_menos_footer_mobile.png" />
@@ -4607,6 +4609,8 @@
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-bannerInteractivo.cshtml" />
     <Content Include="Areas\Mobile\Views\DetalleEstrategia\ComponenteDetalleTemplate.cshtml" />
     <Content Include="Areas\Mobile\Views\DetalleEstrategia\ComponenteDetalleIndividualTemplate.cshtml" />
+    <Content Include="Areas\Mobile\Views\Bonificaciones\Index.cshtml" />
+    <Content Include="Areas\Mobile\Views\Bonificaciones\IndexExterno.cshtml" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>
@@ -5752,7 +5756,6 @@
     <Content Include="Views\EscalaDescuentos\Index.cshtml" />
     <Content Include="Views\TusClientes\_Mantener.cshtml" />
     <Content Include="Views\Unete\ReporteTipoConsultora.cshtml" />
-    <Content Include="Views\Bonificaciones\IndexExterno.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaTemplate.cshtml" />
     <Content Include="Views\DetalleEstrategia\ProductoTemplate.cshtml" />
     <Content Include="Views\ArmaTuPack\Detalle.cshtml" />
@@ -5761,6 +5764,7 @@
     <Content Include="Views\ArmaTuPack\Detalle\grupos-template.cshtml" />
     <Content Include="Views\ArmaTuPack\Detalle\seleccionados-template.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-bannerInteractivo.cshtml" />
+    <Content Include="Views\Bonificaciones\IndexExterno.cshtml" />
     <Content Include="Views\DetalleEstrategia\ComponenteDetalleIndividualTemplate.cshtml" />
     <Content Include="Views\DetalleEstrategia\ComponenteDetalleTemplate.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaResponsive.cshtml" />

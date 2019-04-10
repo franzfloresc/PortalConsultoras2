@@ -99,9 +99,31 @@
             $(id).slick({
                 infinite: false,
                 speed: 300,
-                slidesToShow: 1,
+                slidesToShow: 3,
                 centerMode: false,
-                variableWidth: true
+                variableWidth: false,
+                responsive: [
+                    {
+                        breakpoint: 1024,
+                        settings: {
+                            slidesToShow: 3,
+                        }
+                    },
+                    {
+                        breakpoint: 700,
+                        settings: {
+                            slidesToShow: 1,
+                        }
+                    },
+                ],
+                prevArrow:
+                    "<a id=\"opciones-seleccionadas-prev\" class=\"flecha_ofertas-tipo prev\" style=\"left:-5%; text-align:left;display:none;\">" +
+                    "<img src=\"" + baseUrl + "Content/Images/Esika/previous_ofertas_home.png\")\" alt=\"\" />" +
+                    "</a>",
+                nextArrow:
+                    "<a id=\"opciones-seleccionadas-next\" class=\"flecha_ofertas-tipo\" style=\"display: block; right:-5%; text-align:right;display:none;\">" +
+                    "<img src=\"" + baseUrl + "Content/Images/Esika/next.png\")\" alt=\"\" />" +
+                    "</a>"
             });
         },
         setTabDetalleComponente: function () {
@@ -122,9 +144,13 @@
                 var clase = $this.attr("class");
                 if (clase === "active") {
                     $this.attr("class", "tab-link");
+                    this.setCarrusel(_template.CarruselIndividualVideo);
+                    this.setCarrusel(_template.CarruselVideo);
                 }
                 else {
-                    $this.attr("class", "active");                     
+                    $this.attr("class", "active");
+                    this.setCarrusel(_template.CarruselIndividualVideo);
+                    this.setCarrusel(_template.CarruselVideo);
                 }
             });
         },

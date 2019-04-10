@@ -125,7 +125,8 @@ namespace Portal.Consultoras.Web.Controllers
                 var componentes = _estrategiaComponenteProvider.GetListaComponentes(estrategiaModelo, codigoEstrategia, out esMultimarca, out mensaje);
 
                 #region AGana 399: data tmp
-                //componentes.ForEach(x => {
+                //componentes.ForEach(x =>
+                //{
 
                 //    x.Cabecera = new EstrategiaComponenteCabeceraModel { ContenidoNeto = "80 ml", Dimensiones = "15 x 20 x 25 milímetros", TallaMedidas = "Talla medida ejm 1" };
                 //    x.Secciones = new List<EstrategiaComponenteSeccionModel>(){
@@ -159,9 +160,30 @@ namespace Portal.Consultoras.Web.Controllers
                 #endregion
 
                 #region Agana 399
-                componentes.ForEach(c => { c.Secciones.ForEach(x => { x.EsVideos = x.Detalles.FindAll(y => !string.IsNullOrEmpty(y.Key)).Count > 0; }); });
-                #endregion
+
+                //validación 'tiene videos'                
+                componentes.ForEach(c => { (c.Secciones ?? new List<EstrategiaComponenteSeccionModel>()).ForEach(x => { x.EsVideos = (x.Detalles ?? new List<EstrategiaComponenteSeccionDetalleModel>()).FindAll(y => !string.IsNullOrEmpty(y.Key)).Count > 0; }); });
+                //validación 'tiene detalle de sección'
+                componentes.ForEach(c => { (c.Secciones ?? new List<EstrategiaComponenteSeccionModel>()).ForEach(x => { c.MostrarVerDetalle = (x.Detalles ?? new List<EstrategiaComponenteSeccionDetalleModel>()).Count > 0; }); });
                  
+                #endregion
+
+                var fichaEnriquecidaEstaActiva = _tablaLogicaProvider.GetTablaLogicaDatoValorBool(
+                            userData.PaisID,
+                            ConsTablaLogica.FlagFuncional.TablaLogicaId,
+                            ConsTablaLogica.FlagFuncional.FichaEnriquecida,
+                            true
+                            );
+
+                if (!fichaEnriquecidaEstaActiva)
+                {
+                    componentes.ForEach(x =>
+                    {
+                        x.MostrarVerDetalle = false;
+                        x.Secciones = null;
+                    });
+                }
+
                 return Json(new
                 {
                     success = true,
@@ -181,6 +203,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
         }
-         
+
     }
 }

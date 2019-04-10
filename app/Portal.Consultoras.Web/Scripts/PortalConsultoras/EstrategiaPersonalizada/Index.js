@@ -78,6 +78,7 @@ function VerificarSecciones() {
 }
 
 function SeccionObtenerSeccion(seccion) {
+    
     var codigo = $.trim($(seccion).attr("data-seccion"));
     var campania = $.trim($(seccion).attr("data-campania"));
     var detalle = {};
@@ -347,6 +348,13 @@ function SeccionMostrarProductos(data) {
                 btnRedirect.html(btnRedirect.data('crea'));
             }
             $('#' + data.Seccion.Codigo).find('.seccion-content-contenedor').fadeIn();
+            //Analytics ATP
+            if (!(typeof AnalyticsPortalModule === 'undefined'))
+            //data.estaEnPedido = false is new and true is modified
+            {
+                var codigoubigeoportal = $('#' + data.Seccion.Codigo).attr('data-codigoubigeoportal');
+                AnalyticsPortalModule.MarcaPromotionViewArmaTuPack(codigoubigeoportal,data.lista[0], data.estaEnPedido);
+            }               
         }
         else {
             $('.subnavegador').find('[data-codigo=' + data.Seccion.Codigo + ']').fadeOut();

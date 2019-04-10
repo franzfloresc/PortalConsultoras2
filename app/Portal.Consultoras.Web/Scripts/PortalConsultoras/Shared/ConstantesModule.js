@@ -147,7 +147,8 @@ var ConstantesModule = (function () {
         MobileLandingBuscadorGanadorasFicha: "2101402"
     }
     var _codigoUbigeoPortal = {
-        GuionPedidoGuionFichaResumida : "--02--09"
+        GuionPedidoGuionFichaResumida: "--02--00",
+        GuionContenedorGuionArmaTuPack: "--0816--"
 }
 
     // en AnaluticsPortal.js tambiar actualizar los valores

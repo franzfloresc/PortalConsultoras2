@@ -98,6 +98,10 @@
         codigoGrupo = $.trim(codigoGrupo);
         cuvComponente = $.trim(cuvComponente);
 
+
+        console.log('analytic_3.2: Elígelo', codigoGrupo, cuvComponente);
+
+
         var model = _packComponents();
         var compSelCounter = model.componentesSeleccionados.length;
 

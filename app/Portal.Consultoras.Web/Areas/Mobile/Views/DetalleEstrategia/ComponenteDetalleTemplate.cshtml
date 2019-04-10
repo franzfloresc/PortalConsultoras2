@@ -28,9 +28,9 @@
                         {{Descripcion}}
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12 descripcion_item">
-                        <p>{{Cabecera.ContenidoNeto}}</p>
-                        <p>{{Cabecera.Dimensiones}}</p>
-                        <p>{{Cabecera.TallaMedidas}}</p>
+                        <p style="margin-bottom: 3px">{{Cabecera.ContenidoNeto}}</p>
+                        <p style="margin-bottom: 3px">>{{Cabecera.Dimensiones}}</p>
+                        <p style="margin-bottom: 3px">>{{Cabecera.TallaMedidas}}</p>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12 descripcion_item precio">
                         Para tu cliente <b>{{SimboloMoneda}} {{PrecioCatalogo}}</b>
@@ -55,8 +55,8 @@
                                 </li>
                                 {{else}}                                 
                                 <li id="div_ficha_tab1">
-                                    <a class="tab-link">{{seccion.Titulo}}</a>
-                                    <ul class="tabs_container">
+                                    <a class="tab-link active">{{seccion.Titulo}}</a>
+                                    <ul class="tabs_container" style="display:block;">
                                         <div style="@*width:95% !important*@">
                                             <div id="carouselVideo">
                                                 {{#each seccion.Detalles as |detalle index|}}

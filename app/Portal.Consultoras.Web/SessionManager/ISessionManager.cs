@@ -471,9 +471,9 @@ namespace Portal.Consultoras.Web.SessionManager
 
         int GetMisPedidosDetallePorCampaniaPedidoId();
 
-        void SetCDRExpressMensajes(List<BETablaLogicaDatos> val);
+        //void SetCDRExpressMensajes(List<BETablaLogicaDatos> val);
 
-        List<BETablaLogicaDatos> GetCDRExpressMensajes();
+        //List<BETablaLogicaDatos> GetCDRExpressMensajes();
 
         void SetOcultarBannerTop(bool val);
 
