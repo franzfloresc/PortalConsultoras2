@@ -51,11 +51,11 @@
                                 }
                                 else if (item2.Tipo == "NIV")
                                 {
-                                    if (Portal.Consultoras.Common.Constantes.CaminoBrillante.Niveles.Iconos.Keys.Contains((string)@item2.Valor))
+                                    if (Portal.Consultoras.Common.Constantes.CaminoBrillante.Niveles.Iconos.Keys.Contains((string)item2.Valor))
                                     {
                                         int estado = item2.Estado ? 1 : 0;
                                         <div class="circle-porcent imgpizz">
-                                            <img src='@Portal.Consultoras.Common.Constantes.CaminoBrillante.Niveles.Iconos[(string)@item2.Valor][estado]'>
+                                            <img src='@Portal.Consultoras.Common.Constantes.CaminoBrillante.Niveles.Iconos[(string)item2.Valor][estado]'>
                                         </div>
                                     }
                                     else
