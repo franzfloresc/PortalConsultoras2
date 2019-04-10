@@ -80,9 +80,24 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                               createUser.codigo == "002" || createUser.codigo == "003" || createUser.codigo == "004");
 
                 /*HD-3777*/
-                if (codigoClasificacion.Length > 0 && codigoSubClasificacion.Length > 0)
+                if (userData.esConsultoraLider)
                 {
-                    urlLms = IdCurso == 0 ? String.Format(urlLms, isoUsuario, token, codigoClasificacion, codigoSubClasificacion, descripcionSubClasificacion) : String.Format(urlLms, isoUsuario, token, userData.CodigoClasificacion, codigoClasificacion, codigoSubClasificacion, descripcionSubClasificacion, IdCurso);   
+                    if (codigoClasificacion.Trim().Length > 0 && codigoSubClasificacion.Trim().Length > 0)
+                    {
+                        urlLms = IdCurso == 0 ? String.Format(urlLms, isoUsuario, token, codigoClasificacion, codigoSubClasificacion, descripcionSubClasificacion) : String.Format(urlLms, isoUsuario, token, userData.CodigoClasificacion, codigoClasificacion, codigoSubClasificacion, descripcionSubClasificacion, IdCurso);
+                    }
+                    else
+                    {
+                        if (codigoClasificacion.Trim().Length == 0)
+                        {
+                            codigoClasificacion = "00";
+                        }
+                        else
+                        {
+                            codigoSubClasificacion = "00";
+                        }
+                        urlLms = IdCurso == 0 ? String.Format(urlLms, isoUsuario, token, codigoClasificacion, codigoSubClasificacion, descripcionSubClasificacion) : String.Format(urlLms, isoUsuario, token, userData.CodigoClasificacion, codigoClasificacion, codigoSubClasificacion, descripcionSubClasificacion, IdCurso);
+                    }
                 }
                 else
                 {
