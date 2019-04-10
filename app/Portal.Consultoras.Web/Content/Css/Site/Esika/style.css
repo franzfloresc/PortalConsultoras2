@@ -28174,7 +28174,7 @@ div.motivoRechazo textarea {
 }
 
 .paso_reclamo_1.paso_active_reclamo{
-    background-image: url(/Content/Images/Esika/icono_cosmeticos.svg);
+    background-image: url(/Content/Images/icono_cosmeticos.svg);
 }
 
 .paso_reclamo_2 {
@@ -28182,7 +28182,7 @@ div.motivoRechazo textarea {
 }
 
 .paso_reclamo_2.paso_active_reclamo {
-    background-image: url(/Content/Images/Esika/icono_foco_activo.svg);
+    background-image: url(/Content/Images/icono_foco_activo.svg);
 }
 
 .paso_reclamo_3 {
@@ -28190,12 +28190,12 @@ div.motivoRechazo textarea {
 }
 
 .paso_reclamo_3.paso_active_reclamo {
-    background-image: url(/Content/Images/Esika/icono_mail_cdr_activo.svg);
+    background-image: url(/Content/Images/icono_mail_cdr_activo.svg);
 }
 
 .paso_reclamo_completado {
-    background-color: #e81c36;
-    border: 1px solid #e81c36;
+    background-color: #b9007e;
+    border: 1px solid #b9007e;
     background-image: url(/Content/Images/icono_check_cdr.svg);
 }
 
@@ -28956,11 +28956,12 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     background: #e81c36;
     line-height: 45px;
     cursor: pointer;
+    letter-spacing:0.5px;
 }
 
 .paso_active_reclamo {
     background: #FFF;
-    border: 1px solid #e81c36;
+    border: 1px solid #b9007e;
 }
 
 *::-webkit-input-placeholder {
@@ -29137,13 +29138,28 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 }
 
 .content_listado_reclamo {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: center;
     position: relative;
     overflow: hidden;
-    border-bottom: 1px solid #c9c9c9;
+    border-bottom: 1px solid #d8d8d8;
 }
 
     .content_listado_reclamo:last-child {
         border-bottom: 0;
+    }
+
+    .content_listado_reclamo--header {
+        border-bottom: 1px solid #000;
+        border-top: 1px solid #000;
+    }
+
+    .content_listado_reclamo--contenido,
+    .content_listado_reclamo--contenido:last-child{
+        border-bottom: 1px solid #d8d8d8;
     }
 
 .listado_producto_reclamo,
@@ -29267,22 +29283,6 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     margin-right: 20px;
     cursor:pointer;
 }
-
-.tag_sb {
-    display: inline-block;
-    border-radius: 10.5px;
-    width: auto;
-    height: 24px;
-    line-height: 23px;
-    margin-bottom: 8px;
-    padding-left: 15px;
-    padding-right: 15px;
-}
-
-    .tag_sb--standard {
-        background-color: #000;
-        color: #FFF;
-    }
 
 .subtitulo_listado {
     margin-top: 15px;
@@ -29650,13 +29650,19 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     margin-top: 43px;
 }
 
-.listado_fecha_general, .listado_campana_general, .listado_solicitud_general, .listado_resolucion_general, .listado_resumen_general, .listado_estado_general {
-    font-family: 'Lato';
-    font-size: 15px;
-    padding-top: 30px;
+.listado_fecha_general,
+.listado_campana_general,
+.listado_solicitud_general,
+.listado_resolucion_general,
+.listado_resumen_general,
+.listado_estado_general {
     display: inline-block;
-    padding-bottom: 15px;
     vertical-align: top;
+    font-family: 'Lato', sans-serif;
+    font-size: 13px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    letter-spacing:0.5px;
 }
 
 .listado_solicitud_general, .listado_resolucion_general {
@@ -29707,10 +29713,11 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     font-size: 13px;
     display: inline-block;
     margin: 0;
-    padding: 3px 7px;
+    padding: 5px 7px;
     vertical-align: middle;
     margin-right: 15px;
     width: 118px;
+    letter-spacing: 0.5px;
 }
 
 .estado_detalleObservado {
@@ -29719,26 +29726,26 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     color: #e81c36;
 }
 
-.listado_estado_general div:hover .icono_verDetalle {
-    margin-top: -10px;
-    opacity: .4;
-}
-
 .listado_estado_general div .icono_verDetalle {
-    width: 21px;
     display: block;
+    margin: auto 0;
+    width: 21px;
+    height: 21px;
     position: absolute;
-    top: 50%;
-    left: 56%;
+    top: 0;
+    bottom: 0;
+    left: 82%;
     opacity: 1;
-    margin-top: -5px;
-    margin-left: 46.5px !important;
     transition: all .3s ease;
     -moz-transition: all .3s ease;
     -o-transition: all .3s ease;
     -ms-transition: all .3s ease;
     -webkit-transition: all .3s ease;
 }
+
+    .listado_estado_general div:hover .icono_verDetalle {
+        opacity: .4;
+    }
 
 .icono_verDetalle img {
     width: 100%;
