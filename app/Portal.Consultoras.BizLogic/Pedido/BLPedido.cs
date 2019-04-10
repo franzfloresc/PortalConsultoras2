@@ -342,7 +342,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             }
             else
             {
-                lstDetalleAgrupado = lstDetalleAgrupado != null ? ObtenerPedidoWebSetDetalleAgrupado(usuario, out pedidoID) : lstDetalleAgrupado;
+                lstDetalleAgrupado = lstDetalleAgrupado == null ? ObtenerPedidoWebSetDetalleAgrupado(usuario, out pedidoID) : lstDetalleAgrupado;
                 var validacionLimiteVenta = ValidarLimiteVenta(estrategia, lstDetalleAgrupado);
                 if (validacionLimiteVenta != null) return validacionLimiteVenta;
 
