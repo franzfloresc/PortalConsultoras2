@@ -28101,7 +28101,7 @@ div.motivoRechazo textarea {
 .content_pasos_linea {
     position: absolute;
     width: 99%;
-    height: 2px;
+    height: 1px;
     top:0;
     left: 0;
     right:0;
@@ -28832,17 +28832,24 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 .producto_nom,
 .producto_set_lista {
     margin-top: 8px;
-    margin-bottom: 18px;
 }
 
+    .producto_nom,
     .producto_nom span,
     .producto_set_lista span {
-        display:block;
         margin-bottom: 5px;
+    }
+
+    .producto_nom,
+    .producto_nom span,
+    .producto_set_lista span,
+    .cantidad_und_producto {
+        display: block;
     }
 
 .producto_set_lista {
     text-align: left;
+    margin-bottom: 18px;
 }
 
 .opcion_cdr_checkbox--terminosEntregaProductoSet,
