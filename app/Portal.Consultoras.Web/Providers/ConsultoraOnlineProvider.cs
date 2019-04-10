@@ -72,7 +72,7 @@ namespace Portal.Consultoras.Web.Providers
                             //pedidoDetalle.Producto.CUV = Util.Trim(model.CuvTonos);
                             IndicadorMontoMinimo = item.IndicadorMontoMinimo,
                             FlagNueva = item.FlagNueva,
-                          Cantidad =item.Cantidad,
+                          Cantidad =1,
                             //OrigenPedidoWeb = x.OrigenPedidoWeb
                             //EsCuponNuevas = x.EsCuponNuevas
                             //pedidoDetalle.EsSugerido = model.EsSugerido;
