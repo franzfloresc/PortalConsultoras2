@@ -965,7 +965,7 @@ namespace Portal.Consultoras.BizLogic
                 oResponse = _cuponConsultoraBusinessLogic.GetCuponConsultoraByCodigoConsultoraCampaniaId(usuario.PaisID, oRequest);
                 if (oResponse != null)
                 {
-                    var lst = _tablaLogicaDatosBusinessLogic.GetList(usuario.PaisID, Constantes.TablaLogica.MontoLimiteCupon);
+                    var lst = _tablaLogicaDatosBusinessLogic.GetList(usuario.PaisID, ConsTablaLogica.MontoLimiteImpuestoCupon.TablaLogicaId);
                     var result = lst.FirstOrDefault(x => x.Codigo == usuario.CampaniaID.ToString());
                     if (result != null)
                     {
