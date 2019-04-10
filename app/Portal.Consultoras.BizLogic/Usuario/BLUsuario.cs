@@ -332,7 +332,7 @@ namespace Portal.Consultoras.BizLogic
 
                 var tabla = new BLTablaLogicaDatos();
 
-                var valores = tabla.GetListCache(usuario.PaisID, Convert.ToInt16(Constantes.TablaLogica.ActualizaDatosEnabled));
+                var valores = tabla.GetListCache(usuario.PaisID, Convert.ToInt16(ConsTablaLogica.ActualizacionDatosEnabled.TablaLogicaId));
                 var listado = valores.FirstOrDefault(p => p.TablaLogicaDatosID == Convert.ToInt16(Constantes.TablaLogicaDato.ActualizaDatosEnabled));
                 usuario.PuedeActualizar = Convert.ToBoolean(listado.Valor.ToInt());
 
@@ -562,7 +562,7 @@ namespace Portal.Consultoras.BizLogic
                 var revistaDigitalSuscripcionTask = Task.Run(() => GetRevistaDigitalSuscripcion(usuario));
                 var cuponTask = Task.Run(() => GetCupon(usuario));
                 var actualizacionEmailTask = Task.Run(() => GetActualizacionEmail(paisID, usuario.CodigoUsuario));
-                var actualizaDatosTask = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetListCache(paisID, Constantes.TablaLogica.ActualizaDatosEnabled));
+                var actualizaDatosTask = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetListCache(paisID, ConsTablaLogica.ActualizacionDatosEnabled.TablaLogicaId));
                 var actualizaDatosConfigTask = Task.Run(() => GetOpcionesVerificacion(paisID, Constantes.OpcionesDeVerificacion.OrigenActulizarDatos));
                 var contratoAceptacionTask = Task.Run(() => GetContratoAceptacion(paisID, usuario.ConsultoraID));
                 var pagoEnLineaTask = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetListCache(paisID, Constantes.TablaLogica.ValoresPagoEnLinea));
@@ -1957,7 +1957,7 @@ namespace Portal.Consultoras.BizLogic
         public BERespuestaServicio ActualizarEmailWS(BEUsuario usuario, string correoNuevo)
         {
 
-            var actualizaDatosPais = _tablaLogicaDatosBusinessLogic.GetListCache(usuario.PaisID, Constantes.TablaLogica.ActualizaDatosEnabled).FirstOrDefault();
+            var actualizaDatosPais = _tablaLogicaDatosBusinessLogic.GetListCache(usuario.PaisID, ConsTablaLogica.ActualizacionDatosEnabled.TablaLogicaId).FirstOrDefault();
             usuario.PuedeActualizar = (actualizaDatosPais != null && actualizaDatosPais.Valor == "1");
             if (!usuario.PuedeActualizar)
                 return ActualizacionDatosRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_CAMBIO_NO_AUTORIZADO);
