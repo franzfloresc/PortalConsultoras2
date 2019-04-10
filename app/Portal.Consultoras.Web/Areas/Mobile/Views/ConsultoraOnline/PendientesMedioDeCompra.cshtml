@@ -240,3 +240,15 @@
 
     </script>
 }
+<script>
+    var glbDispositivo = 3;
+</script>
+
+@{
+    if (!mobileConfiguracion.EsAppMobile)
+    {
+        <script>
+            glbDispositivo = 2;
+        </script>     
+    }
+}
