@@ -47,15 +47,53 @@
     position: absolute;
 }
 
+
+/*breadcumbs*/
+
+ul.breadcumbs {
+    padding: 0;
+    list-style: none;
+    margin: 0;
+    position: absolute;
+    left: 0;
+    top: -10px;
+}
+
+.breadcumbs li{
+    display: inline-block;
+}
+
+ul.breadcumbs li a::before {
+    content: '';
+    background: url(/Content/Images/mobile/Esika/right-arrow.svg);
+    width: 9px;
+    height: 9px;
+    display: inline-block;
+    background-size: cover;
+    margin-right: 3px;
+    margin-left: 1px;
+    opacity: .4;
+}
+
+ul.breadcumbs li a {
+    display: block;
+    color: gray;
+    font-size: 12px;
+}
+
 /*Detalle de la Ficha*/
-.ficha_detalle{
+.ficha_detalle {
     padding: 30px 30px 0px 30px;
     background-color: #fff;
 }
 
-.contenedor_etiquetas{
+.contenedor_nombre_precio {
+    margin-bottom: 30px;
+}
+
+.contenedor_etiquetas {
     height: 32px;
-    margin-bottom:10px;
+    margin-bottom: 10px;
 }
 
 .etiqueta_nuevo {
@@ -73,4 +111,60 @@
     letter-spacing: .9px;
     line-height: 24px;
     text-transform: uppercase;
+}
+
+.precio_valorizado {
+    font-size: 13px;
+    margin-bottom: 7px;
+    line-height: normal;
+}
+
+    .precio_valorizado span {
+        font-size: 13px;
+        line-height: normal;
+    }
+
+.precio_venta_oferta {
+    font-size: 13px;
+    margin-bottom: 7px;
+    line-height: normal;
+}
+
+    .precio_venta_oferta span {
+        font-weight: bold;
+        font-size: 19px;
+        padding-left: 5px;
+        line-height: normal;
+    }
+
+.ganancia, .ganancia span {
+    color: #b9007e;
+    font-size: 13px;
+    line-height: normal;
+}
+
+.descripcion_lanzamiento{
+    margin-bottom: 30px;
+}
+
+    .descripcion_lanzamiento p {
+        font-size: 13.5px;
+        font-weight: bold;
+    }
+
+    .descripcion_lanzamiento ul {
+        font-weight: bold;
+        margin: 3px 0 0 0;
+    }
+
+    .descripcion_lanzamiento ul li {
+        font-size: 13px;
+    }
+.contenido_titulo {
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: .5px;
+    color: #000;
+    margin: 0 0 12px 0;
+    line-height: normal;
 }
