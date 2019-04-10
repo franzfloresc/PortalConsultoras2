@@ -1180,7 +1180,12 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         }
                         lstDetalle.Where(e => e.OrigenPedidoWeb == 1181901).ToList().ForEach(e => {
                             e.DescripcionEstrategia = "CAMINO BRILLANTE";
-                            e.EsKitCaminoBrillante = kits.Where(k => k.CUV == e.CUV).Any();
+                            var kit = kits.Where(k => k.CUV == e.CUV).FirstOrDefault();                            
+                            if (kit != null) {
+                                e.EsKitCaminoBrillante = true;
+                                e.DescripcionProd = kit.DescripcionCUV;
+                                e.DescripcionCortadaProd = kit.DescripcionCUV;
+                            }
                         });
                     }
                     #endregion

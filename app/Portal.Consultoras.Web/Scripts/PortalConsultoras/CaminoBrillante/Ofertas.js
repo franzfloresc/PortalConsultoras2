@@ -1,12 +1,27 @@
-﻿var tipoOrigen = "1";
+﻿var TabUno = 0;
+var TabDos = 0;
+var tipoOrigen = "1";
 var reservaResponse = {
     data: { Reserva: false }
 };
 var baseUrl = "/";
 
+$(document).ready(function () {
+    CambiarOferta();
+    AgregarProducto();
+});
+
+$(window).scroll(function (event) {
+    if ($("#Tab-kits").hasClass('activado-dorado')) {
+        TabUno = $(window).scrollTop();
+    }
+
+    if ($("#Tab-Demostradores").hasClass('activado-dorado')) {
+        TabDos = $(window).scrollTop();
+    }    
+});
+
 function AgregarProducto() {
-
-
     var items = document.getElementsByClassName('boton_Agregalo_home boton__agregalo--fichaProducto text-center d-block FichaAgregarProductoBuscador');
 
     for (var i = 0; i < items.length; i++) {
@@ -43,11 +58,10 @@ function AgregarProducto() {
                 async: true,
                 cache: false,
                 success: function (data) {
-                    //dfd.resolve(data);
                     resultado.parentElement.parentElement.parentElement.lastElementChild.style.display = 'block';
+                    resultado.parentElement.parentElement.parentElement.parentElement.className += " producto_desactivado";
                     CerrarSplash();
                     CargarResumenCampaniaHeader(true);
-
                 },
                 error: function (data, error) {
                     alert("error");
@@ -58,10 +72,7 @@ function AgregarProducto() {
     }
 }
 
-
 function CambiarOferta() {
-
-
     $('#Tab-kits').click(function () {
         $('#kits').show();
         $('#Demostradores').hide();
@@ -69,17 +80,18 @@ function CambiarOferta() {
         $("#Tab-Demostradores").removeClass("activado-dorado");
         $("#divresultadosDemostradores").hide();
         $("#divresultadosKit").show();
+        document.body.scrollTop = TabUno;
+        $(window).scrollTop(TabUno);
     });
 
-
     $('#Tab-Demostradores').click(function () {
-        
         $('#Demostradores').show();
         $('#kits').hide();
-
         $("#Tab-kits").removeClass("activado-dorado");
         $("#Tab-Demostradores").addClass("activado-dorado");
         $("#divresultadosKit").hide();
         $("#divresultadosDemostradores").show();
+        document.body.scrollTop = TabDos;
+        $(window).scrollTop(TabDos);
     });
 }

@@ -7,6 +7,7 @@
     var urlDomain = Util.GetUrlHost(Request);
     var tipoUsuario = ViewBag.TipoUsuario;
 
+    var esDigital = ViewBag.esConsultoraDigital == null ? false : ViewBag.esConsultoraDigital;
 }
 
 <div class="menu">
@@ -44,6 +45,10 @@
             {
                 if (item.Descripcion != "¿Necesitas ayuda?")
                 {
+                    if (!esDigital && item.Descripcion == "Bonificaciones")
+                    {
+                        continue;
+                    }
                     <a role="menu" region="Menú Lateral" parent="@item.MenuPadreDescripcion" title="@item.Descripcion"
                        class="menu_mobile_belcorp @item.ClaseMenu @item.ClaseMenuItem" target="@item.PageTarget"
                        href="@item.UrlItem" @item.OnClickFunt data-orden="@item.OrdenItem"
