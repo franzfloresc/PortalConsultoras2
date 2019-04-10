@@ -21,6 +21,9 @@ var reclamo = {
     clasesCss: {
         completado: 'paso_reclamo_completado',
         activo: 'paso_active_reclamo'
+    },
+    operacion: {
+
     }
 };
 

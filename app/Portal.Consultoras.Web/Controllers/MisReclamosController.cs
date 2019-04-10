@@ -730,7 +730,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (SessionManager.GetFlagIsSetsOrPack() != null)
                     IsSetsOrPack = SessionManager.GetFlagIsSetsOrPack();
 
-                if (IsSetsOrPack == true)
+                if (IsSetsOrPack == true && model.Operacion == Constantes.CodigoOperacionCDR.Devolucion)
                 {
                     if (model.Complemento.Any())
                     {
