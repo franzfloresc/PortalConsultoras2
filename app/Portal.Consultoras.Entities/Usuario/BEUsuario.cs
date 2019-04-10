@@ -249,7 +249,7 @@ namespace Portal.Consultoras.Entities
             /*HD-3777*/
             CodigoClasificacion = row.ToString("CodigoClasificacion");
             CodigoSubClasificacion = row.ToString("CodigoSubClasificacion");
-            DescripcionClasificacion = row.ToString("DescripcionClasificacion");
+            DescripcionSubClasificacion = row.ToString("DescripcionSubClasificacion");
             /*Fin*/
         }
 
@@ -971,7 +971,7 @@ namespace Portal.Consultoras.Entities
         public string CodigoSubClasificacion { get; set; }
 
         [DataMember]
-        public string DescripcionClasificacion { get; set; }
+        public string DescripcionSubClasificacion { get; set; }
         /*Fin*/
     }
 }

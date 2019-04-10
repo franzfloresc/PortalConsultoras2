@@ -38,6 +38,12 @@ namespace Portal.Consultoras.Web.Controllers
                 string nivelProyectado = "";
                 DataSet parametros;
 
+                /*HD-3777*/
+                string codigoClasificacion = userData.CodigoClasificacion;
+                string codigoSubClasificacion = userData.CodigoSubClasificacion;
+                string descripcionSubClasificacion = userData.DescripcionSubclasificacion;
+                /*Fin*/
+
                 using (ContenidoServiceClient csv = new ContenidoServiceClient())
                 {
                     parametros = csv.ObtenerParametrosSuperateLider(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
@@ -87,8 +93,16 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else
                 {
-                    urlLms = IdCurso == 0 ? String.Format(urlLms, isoUsuario, token) : String.Format(urlLms, isoUsuario, token, IdCurso);
-                    UrlCursoMiAcademiaVideo = IdCurso == 0 ? String.Format(urlLms, isoUsuario, token) : String.Format(UrlCursoMiAcademiaVideo, isoUsuario, token, IdCurso);
+                    if (codigoClasificacion.Length > 0 && codigoSubClasificacion.Length > 0)
+                    {
+                        urlLms = IdCurso == 0 ? String.Format(urlLms, isoUsuario, token, codigoClasificacion, codigoSubClasificacion, descripcionSubClasificacion) : String.Format(urlLms, isoUsuario, token, userData.CodigoClasificacion, codigoClasificacion, codigoSubClasificacion, descripcionSubClasificacion, IdCurso);
+                        UrlCursoMiAcademiaVideo = IdCurso == 0 ? String.Format(urlLms, isoUsuario, token, codigoClasificacion, codigoSubClasificacion, descripcionSubClasificacion) : String.Format(UrlCursoMiAcademiaVideo, isoUsuario, token, codigoClasificacion, codigoSubClasificacion, descripcionSubClasificacion, IdCurso);
+                    }
+                    else
+                    {
+                        urlLms = IdCurso == 0 ? String.Format(urlLms, isoUsuario, token) : String.Format(urlLms, isoUsuario, token, IdCurso);
+                        UrlCursoMiAcademiaVideo = IdCurso == 0 ? String.Format(urlLms, isoUsuario, token) : String.Format(UrlCursoMiAcademiaVideo, isoUsuario, token, IdCurso);
+                    }
                 }
 
 
