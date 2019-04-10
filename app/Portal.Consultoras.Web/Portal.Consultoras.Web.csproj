@@ -1471,6 +1471,7 @@
     <Content Include="Content\Css\Site\FichaProductoResponsive\ficha-producto-responsive.css" />
     <Content Include="Content\Css\Site\Ficha\Carrusel.css" />
     <Content Include="Content\Css\Site\Ficha\Esika\FichaEsika.css" />
+    <Content Include="Content\Css\Site\Ficha\FichaRensponsive.css" />
     <Content Include="Content\Css\Site\Ficha\Lbel\FichaLbel.css" />
     <Content Include="Content\Css\Site\Ficha\PopoverTooltip.css" />
     <Content Include="Content\Css\Site\Ficha\RedesSociales.css" />
