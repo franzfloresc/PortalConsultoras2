@@ -123,6 +123,19 @@
                                                                     <img src="~/Content/CaminoBrillante/imgs/PIZZA_@imagen" />
                                                                 </div>
                                                             }
+                                                            else if (item2.Tipo == "NIV")
+                                                            {
+                                                                if (Portal.Consultoras.Common.Constantes.CaminoBrillante.Niveles.Iconos.Keys.Contains((string)item2.Valor))
+                                                                {
+                                                                    <div class="circle-porcent imgpizz">
+                                                                        <img src='@Portal.Consultoras.Common.Constantes.CaminoBrillante.Niveles.Iconos[(string)item2.Valor][1]'>
+                                                                    </div>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <img src=''>
+                                                                }
+                                                            }
                                                             else
                                                             {
                                                                 <div class="circle-porcent crec-activo doble">
