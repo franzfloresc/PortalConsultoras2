@@ -17,8 +17,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpGet]
         public ActionResult InternalServerError()
         {
-            string valor = null;
-            string valor1 = valor.ToString();
+            InternalError();
 
             return new  EmptyResult();
         }
@@ -45,6 +44,11 @@ namespace Portal.Consultoras.Web.Controllers
             HttpStatusCode StatusCode = (HttpStatusCode)id;
             result = new HttpStatusCodeResult(StatusCode);
             return result;
+        }
+
+        void InternalError()
+        {
+            throw new DivideByZeroException();
         }
     }
 }
