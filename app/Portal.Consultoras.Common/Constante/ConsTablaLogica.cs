@@ -506,6 +506,7 @@ namespace Portal.Consultoras.Common
         public static class NroSolicitudePedido
         {
             public const int TablaLogicaId = 161;
+            public const string Cod01 = "01";
         }
 
         public static class ResizeImagenesAppGana

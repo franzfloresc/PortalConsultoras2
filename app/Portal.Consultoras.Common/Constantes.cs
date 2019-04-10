@@ -1781,10 +1781,10 @@ namespace Portal.Consultoras.Common
         [Obsolete("Use ConsTablaLogica")]
         public struct TablaLogica
         {
-            public const int NroReclamosPorPedidoCDR = 161;
-            public const int PersonalizacionODD = 93;
+            //public const int NroReclamosPorPedidoCDR = 161;
+            //public const int PersonalizacionODD = 93;
             public const int Plan20 = 98;
-            public const int CDRExpress = 104;
+            //public const int CDRExpress = 104;
             public const int StockDiasAntes = 181;
             public const int CorreoFeedbackAppConsultora = 105;
 
