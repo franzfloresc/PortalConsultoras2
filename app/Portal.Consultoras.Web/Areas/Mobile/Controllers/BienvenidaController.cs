@@ -145,6 +145,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 #endregion
 
+                #region bonificaciones 
+
+                ViewBag.esConsultoraDigital = IndicadorConsultoraDigital();
+
+                #endregion
             }
             catch (FaultException ex)
             {
