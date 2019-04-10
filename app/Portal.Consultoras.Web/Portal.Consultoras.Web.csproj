@@ -4003,7 +4003,6 @@
     <Content Include="EsikaConmigo.html" />
     <Content Include="Global.asax" />
     <Content Include="google04fc719c24157f19.html" />
-    <Content Include="gulpfile.js" />
     <Content Include="karma.conf.js" />
     <Content Include="Key\KeyPrivadaEnvioCadena.xml" />
     <Content Include="Key\KeyPublicaEnvioCadena.xml" />
