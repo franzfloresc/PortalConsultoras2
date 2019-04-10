@@ -2159,8 +2159,15 @@ namespace Portal.Consultoras.Common
             public const string ProgramaNuevas = "/programanuevas";
             public const string ProgramaNuevasIndex = "/programanuevas/index";
             public const string DetalleMasGanadoras = "/detalle/ganadoras";
-
         }
+
+        public static class UrlDatsoPendientes
+        {
+            public const string MiPerfilDesktop = "/MiPerfil";
+            public const string MiPerfilMobile = "/Mobile/MiPerfil";
+        }
+
+
 
         public static class TipoVistaEstrategia
         {

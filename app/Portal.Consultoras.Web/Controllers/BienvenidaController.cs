@@ -2054,6 +2054,8 @@ namespace Portal.Consultoras.Web.Controllers
         #region "HD-3680 --- P.S.O"
         public JsonResult ObtenerActualizacionEmailSms(string pagina = "1")
         {
+            string urlMuestraPopup = string.Empty;
+            int paginaPopup = 1;
             int resultadoActivoPopup = 0;
             string[] ValidacionDatos = new string[2];
             try
@@ -2064,18 +2066,25 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (var sv = new UsuarioServiceClient())
                     resultadoActivoPopup = sv.ValidaEstadoPopup(userData.PaisID);
-
-                if (resultadoActivoPopup == 1)
+                if (Convert.ToInt32(pagina)== paginaPopup)
                 {
-                    if (userData.PaisID == Convert.ToInt32(Constantes.PaisID.Peru))
-                        ValidacionDatos = ValidacionPerfilConsultoraPeru(obj);
+                    if (resultadoActivoPopup == 1)
+                    {
+                        if (userData.PaisID == Convert.ToInt32(Constantes.PaisID.Peru))
+                            ValidacionDatos = ValidacionPerfilConsultoraPeru(obj);
+                        else
+                            ValidacionDatos = ValidacionPerfilConsultorOtrosPaises(obj);
+                    }
                     else
-                        ValidacionDatos = ValidacionPerfilConsultorOtrosPaises(obj);
+                        ValidacionDatos = ValidacionperfilConsultoraToolTip(obj, pagina);
                 }
                 else
                     ValidacionDatos = ValidacionperfilConsultoraToolTip(obj, pagina);
-           
-            return Json(new { valor = ValidacionDatos[0], mensaje = ValidacionDatos[1].ToString(), tipoMostrador= resultadoActivoPopup }, JsonRequestBehavior.AllowGet);
+
+                if (EsDispositivoMovil()) urlMuestraPopup = Constantes.UrlDatsoPendientes.MiPerfilMobile;
+                else urlMuestraPopup = Constantes.UrlDatsoPendientes.MiPerfilDesktop;
+
+                return Json(new { valor = ValidacionDatos[0], mensaje = ValidacionDatos[1].ToString(), tipoMostrador= resultadoActivoPopup, urlDispositivo=urlMuestraPopup }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -2118,13 +2127,13 @@ namespace Portal.Consultoras.Web.Controllers
                     if (obj.oDatosPerfil[0].TipoEnvio == "1") { ValidacionDatos[0] = "0"; ValidacionDatos[1] = pagina == "1" ? obj.MensajeCelular : nuevoDatoCelular + "|"; return ValidacionDatos; };
                     if (menSms) { ValidacionDatos[0] = "0"; ValidacionDatos[1] = pagina == "1" ? obj.MensajeCelular : nuevoDatoCelular + "|"; return ValidacionDatos; }
                     ValidacionDatos[0] = "0";
-                    ValidacionDatos[1] = pagina == "1" ? "" : " | ";
+                    ValidacionDatos[1] = pagina == "1" ? "" : "|";
                     return  ValidacionDatos; ;
                 case "2":
                     if (obj.oDatosPerfil[0].TipoEnvio == "1") { ValidacionDatos[0] = "0"; ValidacionDatos[1] = pagina == "1" ? obj.MensajeEmail : "|" + nuevoDatoEmail; return ValidacionDatos; }
                     if (menEmail) { ValidacionDatos[0] = "0"; ValidacionDatos[1] = pagina == "1" ? obj.MensajeEmail : "|" + nuevoDatoEmail; return ValidacionDatos; }
                     ValidacionDatos[0] = "0";
-                    ValidacionDatos[1] = pagina == "1" ? "" : " | ";
+                    ValidacionDatos[1] = pagina == "1" ? "" : "|";
                     return ValidacionDatos;
                 case "3":
                     {
@@ -2133,12 +2142,12 @@ namespace Portal.Consultoras.Web.Controllers
                         if (!menSms && menEmail) { ValidacionDatos[0] = "0"; ValidacionDatos[1] = pagina == "1" ? obj.MensajeEmail : "|" + nuevoDatoEmail; return ValidacionDatos; }
                         if (menSms && menEmail) { ValidacionDatos[0] = "0"; ValidacionDatos[1] = pagina == "1" ? obj.MensajeAmbos : nuevoDatoCelular + "|" + nuevoDatoEmail; return ValidacionDatos; }
                         ValidacionDatos[0] = "0";
-                        ValidacionDatos[1] = pagina == "1" ? "" : " | ";
+                        ValidacionDatos[1] = pagina == "1" ? "" : "|";
                         return ValidacionDatos;
                     }
             }
             ValidacionDatos[0] = "0";
-            ValidacionDatos[1] = pagina == "1" ? "" : " | ";
+            ValidacionDatos[1] = pagina == "1" ? "" : "|";
             return ValidacionDatos;
         }
 

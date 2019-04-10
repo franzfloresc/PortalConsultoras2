@@ -3513,8 +3513,9 @@ a.subir_carousel, a.bajar_carousel {
         margin-right: 10px;
         margin-bottom: 10px;
         border-radius: 3px;
-        background: transparent;
-        border: 1px solid #FFF;
+        /*background: transparent; border: 1px solid #FFF;*/
+        background: #fff; /*HD-3680 ---P.S.O*/
+        border: 2px solid #bababa; /*HD-3680 ---P.S.O*/
         cursor: pointer;
         z-index: 10;
     }
