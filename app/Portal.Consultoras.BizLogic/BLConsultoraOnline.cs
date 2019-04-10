@@ -258,7 +258,12 @@ namespace Portal.Consultoras.BizLogic
 
                 var EstrategiasMs = GetRecomendadosApiMS(RecomendadoRequest);
 
-                EstrategiasMs = EstrategiasMs.Where(x => x.CodigoEstrategia != 2003).ToList();
+                var CodigoTipoEstrategiasNoAplica = new List<String>() {
+                    Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada,
+                    Constantes.TipoEstrategiaCodigo.OfertaDelDia,
+                    Constantes.TipoEstrategiaCodigo.PackNuevas
+                };
+                EstrategiasMs = EstrategiasMs.Where(x => x.CodigoEstrategia != 2003 && !CodigoTipoEstrategiasNoAplica.Contains(x.CodigoTipoEstrategia)).ToList();
 
                 EstrategiasMs = GetRecomendadosAlgorithm(RecomendadoRequest, EstrategiasMs);
 
