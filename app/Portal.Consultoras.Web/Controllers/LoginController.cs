@@ -1902,14 +1902,14 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (usuarioModel == null)
                 {
-                    SetUserError(usuarioModel);
+                    SetUserError();
                     return usuarioModel;
                 }
            
 
                 if (usuarioModel.TipoUsuario == Constantes.TipoUsuario.Postulante)
                 {
-                    SetUserError(usuarioModel);
+                    SetUserError();
                     return usuarioModel;
                 }
                     
@@ -2063,7 +2063,7 @@ namespace Portal.Consultoras.Web.Controllers
                     codigoConsultora = usuarioModel.CodigoConsultora;
                     pais = usuarioModel.PaisID.ToString();
                 }
-                SetUserError(usuarioModel);
+                SetUserError();
                 logManager.LogErrorWebServicesBusWrap(ex, codigoConsultora, pais, "LoginController.ConfiguracionPaisUsuario");
                 
             }
@@ -2091,7 +2091,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return usuario;
             }
         }
-        private void SetUserError(UsuarioModel usuarioModel )
+        private void SetUserError()
         {
         
             sessionManager.SetGuiaNegocio(new GuiaNegocioModel());
