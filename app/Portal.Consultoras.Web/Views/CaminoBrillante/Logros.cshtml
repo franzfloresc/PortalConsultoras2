@@ -36,7 +36,7 @@
 
                                 @if (item2.Tipo == "PIE")
                                 {
-                                    string[] torta = @item2.Valor.Split('-');
+                                    string[] torta = item2.Valor.Split('-');
                                     var imagen = torta[1].PadLeft(2, '0') + "_" + torta[2].PadLeft(2, '0') + ".svg";
                                     <div class="circle-porcent imgpizz">
                                         <img src="~/Content/CaminoBrillante/imgs/PIZZA_@imagen" />
@@ -113,6 +113,14 @@
                                                             {
                                                                 <div class="circle-porcent imgpizz">
                                                                     <img src="~/Content/CaminoBrillante/imgs/pedido_activo.svg" />
+                                                                </div>
+                                                            }
+                                                            else if (item2.Tipo == "PIE")
+                                                            {
+                                                                string[] torta = item2.Valor.Split('-');
+                                                                var imagen = torta[1].PadLeft(2, '0') + "_" + torta[2].PadLeft(2, '0') + ".svg";
+                                                                <div class="circle-porcent imgpizz">
+                                                                    <img src="~/Content/CaminoBrillante/imgs/PIZZA_@imagen" />
                                                                 </div>
                                                             }
                                                             else
