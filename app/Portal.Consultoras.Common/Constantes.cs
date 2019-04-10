@@ -357,6 +357,32 @@ namespace Portal.Consultoras.Common
                 }
             }
 
+            private static Dictionary<string, string> _palancasbyCodigo;
+            public static Dictionary<string, string> PalancasbyCodigo
+            {
+                get
+                {
+                    return _Palancas ?? (_Palancas = new Dictionary<string, string>
+                    {
+                        {NombrePalanca.OfertaParaTi, TipoEstrategiaCodigo.OfertaParaTi},
+                        {NombrePalanca.PackNuevas, TipoEstrategiaCodigo.PackNuevas},
+                        {NombrePalanca.OfertaWeb, TipoEstrategiaCodigo.OfertaWeb},
+                        {NombrePalanca.Lanzamiento, TipoEstrategiaCodigo.Lanzamiento},
+                        {NombrePalanca.OfertasParaMi, TipoEstrategiaCodigo.OfertasParaMi},
+                        {NombrePalanca.PackAltoDesembolso, TipoEstrategiaCodigo.PackAltoDesembolso},
+                        {NombrePalanca.RevistaDigital, TipoEstrategiaCodigo.RevistaDigital},
+                        {NombrePalanca.LosMasVendidos, TipoEstrategiaCodigo.LosMasVendidos},
+                        {NombrePalanca.IncentivosProgramaNuevas, TipoEstrategiaCodigo.IncentivosProgramaNuevas},
+                        {NombrePalanca.OfertaDelDia, TipoEstrategiaCodigo.OfertaDelDia},
+                        {NombrePalanca.GuiaDeNegocioDigitalizada, TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada},
+                        {NombrePalanca.Incentivos, TipoEstrategiaCodigo.Incentivos},
+                        {NombrePalanca.ShowRoom, TipoEstrategiaCodigo.ShowRoom},
+                        {NombrePalanca.HerramientasVenta, TipoEstrategiaCodigo.HerramientasVenta},
+                        {NombrePalanca.NotParticipaProgramaNuevas, TipoEstrategiaCodigo.NotParticipaProgramaNuevas},
+                        {NombrePalanca.MasGanadoras, TipoEstrategiaCodigo.OfertasParaMi},
+                    });
+                }
+            }
         }
         public static class ConstSession
         {
@@ -3169,6 +3195,7 @@ namespace Portal.Consultoras.Common
             public const string EstrategiaDisponible = "EstrategiaDisponible";
             public const string GuardaDataEnLocalStorage = "GuardaDataEnLocalStorage";
             public const string GuardaDataEnSession = "GuardaDataEnSession";
+            public const string EstrategiaDisponibleParaFicha = "EstrategiaDisponibleParaFicha";
         }
 
         public static class CodigoConfiguracionRecomendaciones
