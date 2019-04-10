@@ -334,21 +334,47 @@ function AbrirVentanaBelcorpChat(url) {
 function messageInfoError(message, titulo, fnAceptar) {
     message = $.trim(message);
     if (message != "") {
-        $('#dialog_ErrorMainLayout #mensajeInformacionSB2_Error').html(message);
-        $('#dialog_ErrorMainLayout').show();
 
-        $('#dialog_ErrorMainLayout .btn_ok').off('click');
-        $('#dialog_ErrorMainLayout .btn_cerrar_agregarUnidades a').off('click');
+        //$('#dialog_ErrorMainLayout #mensajeInformacionSB2_Error').html(message);
+        //$('#dialog_ErrorMainLayout').show();
 
-        $('#dialog_ErrorMainLayout .btn_ok').on('click', function () {
-            $('#dialog_ErrorMainLayout').hide();
-            if ($.isFunction(fnAceptar)) fnAceptar();
-        });
+        //$('#dialog_ErrorMainLayout .btn_ok').off('click');
+        //$('#dialog_ErrorMainLayout .btn_cerrar_agregarUnidades a').off('click');
 
-        $('#dialog_ErrorMainLayout .btn_cerrar_agregarUnidades a').on('click', function () {
-            $('#dialog_ErrorMainLayout').hide();
-            if ($.isFunction(fnAceptar)) fnAceptar();
-        });
+        //$('#dialog_ErrorMainLayout .btn_ok').on('click', function () {
+        //    $('#dialog_ErrorMainLayout').hide();
+        //    if ($.isFunction(fnAceptar)) fnAceptar();
+        //});
+
+        //$('#dialog_ErrorMainLayout .btn_cerrar_agregarUnidades a').on('click', function () {
+        //    $('#dialog_ErrorMainLayout').hide();
+        //    if ($.isFunction(fnAceptar)) fnAceptar();
+        //});
+
+        //INI HD-3693
+        var msjBloq = validarpopupBloqueada(message);
+        if (msjBloq != "") {
+            alert_msg_bloqueadas(msjBloq);
+        } else {
+            $('#dialog_ErrorMainLayout #mensajeInformacionSB2_Error').html(message);
+            $('#dialog_ErrorMainLayout').show();
+
+            $('#dialog_ErrorMainLayout .btn_ok').off('click');
+            $('#dialog_ErrorMainLayout .btn_cerrar_agregarUnidades a').off('click');
+
+            $('#dialog_ErrorMainLayout .btn_ok').on('click', function () {
+                $('#dialog_ErrorMainLayout').hide();
+                if ($.isFunction(fnAceptar)) fnAceptar();
+            });
+
+            $('#dialog_ErrorMainLayout .btn_cerrar_agregarUnidades a').on('click', function () {
+                $('#dialog_ErrorMainLayout').hide();
+                if ($.isFunction(fnAceptar)) fnAceptar();
+            });
+        }
+        //FIN HD-3693
+
+
     }
 }
 
@@ -655,6 +681,7 @@ function alert_msg_com(message) {
     $('#DialogMensajesCom .message_text').html(message);
     $('#DialogMensajesCom').dialog('open');
 }
+
 
 function AbrirModalRegistroComunidad() {
 
@@ -1221,3 +1248,9 @@ function OcultarChatEmtelco() {
         $(".CMXD-help").hide();
     }
 }
+//INI HD-3693
+function alert_msg_bloqueadas(message) {
+    $('#PopupBloqueoPorSistema .message_text_bloqueada').html(message);
+    $('#PopupBloqueoPorSistema').show();
+}
+//FIN HD-3693

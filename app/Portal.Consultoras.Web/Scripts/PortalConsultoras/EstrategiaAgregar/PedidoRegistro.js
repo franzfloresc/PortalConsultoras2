@@ -58,10 +58,16 @@ var PedidoRegistroModule = function () {
     var _mensajeRespuestaError = function (data) {
         if (data.success == true) return false;
         if (!IsNullOrEmpty(data.mensajeAviso)) {
+
             AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
             return false;
         }
-
+        //INI HD-3693
+        var msjBloq = validarpopupBloqueada(data.message);
+        if (msjBloq != "") {
+            alert_msg_bloqueadas(msjBloq);
+            return false;
+        }
         data.message = data.message || 'Error al realizar proceso, inténtelo más tarde.';
         messageInfoError(data.message);
         CerrarLoad();
@@ -1061,7 +1067,14 @@ var PedidoRegistroModule = function () {
                     $("#btnAgregarProducto").show();
                     var errorCliente = data.errorCliente || false;
 
-                    if (!errorCliente) AbrirMensaje(data.message, data.tituloMensaje);
+                    //INI HD-3693
+                    //if (!errorCliente) AbrirMensaje(data.message, data.tituloMensaje);
+                    if (!errorCliente) {
+                        var msjBloq = validarpopupBloqueada(data.message);
+                        if (msjBloq != "") alert_msg_bloqueadas(msjBloq);
+                        else AbrirMensaje(data.message, data.tituloMensaje);
+                    }
+                    //FIN HD-3693
                     else {
                         $.each(lstClientes, function (ind, cli) {
                             if (cli.ClienteID == $("#txtClienteId").val()) {
@@ -1327,8 +1340,14 @@ var PedidoRegistroModule = function () {
                 }
                 else {
                     var errorCliente = response.errorCliente || false;
-
-                    if (!errorCliente) AbrirMensaje(response.message, response.tituloMensaje);
+                    //INI HD-3693
+                    //if (!errorCliente) AbrirMensaje(response.message, response.tituloMensaje);
+                    if (!errorCliente) {
+                        var msjBloq = validarpopupBloqueada(response.message);
+                        if (msjBloq != "") alert_msg_bloqueadas(msjBloq);
+                        else AbrirMensaje(response.message, response.tituloMensaje);
+                    }
+                    //FIN HD-3693
                     else {
                         messageInfoError(response.message, null, function () {
                             showClienteDetalle(currentClienteCreate, function (cliente) {

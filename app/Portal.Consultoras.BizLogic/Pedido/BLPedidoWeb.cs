@@ -21,6 +21,15 @@ namespace Portal.Consultoras.BizLogic
 {
     public class BLPedidoWeb : IPedidoWebBusinessLogic
     {
+        //INI HD-3693
+        private readonly ITablaLogicaDatosBusinessLogic _tablaLogicaDatosBusinessLogic;
+        public BLPedidoWeb() : this(new BLTablaLogicaDatos())
+        { }
+        public BLPedidoWeb(ITablaLogicaDatosBusinessLogic tablaLogicaDatosBusinessLogic)
+        {
+            _tablaLogicaDatosBusinessLogic = tablaLogicaDatosBusinessLogic;
+        }
+        //FIN HD-3693
         public int ValidarCargadePedidos(int paisID, int TipoCronograma, int MarcaPedido, DateTime FechaFactura)
         {
             var DAPedidoWeb = new DAPedidoWeb(paisID);
@@ -2127,11 +2136,12 @@ namespace Portal.Consultoras.BizLogic
                     //INI HD-3693 
                     if (usuario.AutorizaPedido == "0")
                     {
+                        
                         return new BEValidacionModificacionPedido
                         {
                             MotivoPedidoLock = Enumeradores.MotivoPedidoLock.Bloqueado,
-                            Mensaje = Constantes.MensajesError.Pedido_ConsultoraBloqueada
-                        };
+                            Mensaje = "HD3693~"+_tablaLogicaDatosBusinessLogic.GetList(paisID, Constantes.TablaLogica.MsjPopupBloqueadas).FirstOrDefault(a => a.Codigo == "01").Valor
+                    };
                     }
                     else
                     {

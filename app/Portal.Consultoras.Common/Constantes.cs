@@ -1457,9 +1457,6 @@ namespace Portal.Consultoras.Common
             public const string ExcedioLimiteVenta = "Las unidades ingresadas exceden el máximo permitido ({0}) en esta campaña.";
             public const string StockLimiteVenta = "En esta campaña nuestro producto <b>{0} – {1}</b> ha tenido una gran acogida. Sin embargo hemos reservado una ({2}) unidad(es) para ti. Por favor modifica las unidades ingresadas.";
             public const string Pedido_NoAgregarLiquidacion = "No se puede agregar una Oferta Liquidacion por este medio.";
-            //INI HD-3693
-            public const string Pedido_ConsultoraBloqueada = "Pedido Bloqueado.";
-            //FIN HD-3693
         }
 
         public static class MensajesExito
@@ -1818,6 +1815,9 @@ namespace Portal.Consultoras.Common
             public const short GanaMasNativo = 159;
             public const short ResizeImagenesAppGanaMas = 162;
             public const short TiempoMaximoSP = 180;
+            //INI HD-3693
+            public const int MsjPopupBloqueadas = 230;
+            //FIN HD-3693
         }
 
         public struct MensajesCDRExpress

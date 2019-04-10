@@ -20,6 +20,15 @@ namespace Portal.Consultoras.BizLogic.Reserva
 {
     public class BLReserva : IReservaBusinessLogic
     {
+        //INI HD-3693
+        private readonly ITablaLogicaDatosBusinessLogic _tablaLogicaDatosBusinessLogic;
+        public BLReserva() : this(new BLTablaLogicaDatos())
+        { }
+        public BLReserva(ITablaLogicaDatosBusinessLogic tablaLogicaDatosBusinessLogic)
+        {
+            _tablaLogicaDatosBusinessLogic = tablaLogicaDatosBusinessLogic;
+        }
+        //FIN HD-3693
         #region Public Functions
 
         public string CargarSesionAndDeshacerPedidoValidado(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, string tipo)
@@ -65,7 +74,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
             }
             if (userBloqueado != null)
             {
-                if (userBloqueado.AutorizaPedido == "0") return Constantes.MensajesError.Pedido_ConsultoraBloqueada;
+                if (userBloqueado.AutorizaPedido == "0") return "HD3693~" + _tablaLogicaDatosBusinessLogic.GetList(usuario.PaisID, Constantes.TablaLogica.MsjPopupBloqueadas).FirstOrDefault(a => a.Codigo == "01").Valor;
             }
             //FIN HD-3693
 

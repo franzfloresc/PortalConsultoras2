@@ -349,8 +349,16 @@ var EstrategiaAgregarModule = (function () {
                 }
 
                 if (data.success === false) {
+                    //INI HD-3693
+                    //if (!IsNullOrEmpty(data.mensajeAviso)) AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
+                    //else abrirMensajeEstrategia(data.message, esFicha);
                     if (!IsNullOrEmpty(data.mensajeAviso)) AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
-                    else abrirMensajeEstrategia(data.message, esFicha);
+                    else {
+                        var msjBloq = validarpopupBloqueada(data.message);
+                        if (msjBloq != "") alert_msg_bloqueadas(msjBloq);
+                        else abrirMensajeEstrategia(data.message, esFicha);
+                    }
+                    //FIN HD-3693
 
                     CerrarLoad();
                     return false;

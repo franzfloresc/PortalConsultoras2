@@ -2079,3 +2079,11 @@ function microefectoPedidoGuardado() {
         divCirculos.fadeOut();
     }, 2700);
 }
+
+//INI HD-3693
+function validarpopupBloqueada(message) {
+    if (message.indexOf("HD3693~")!=-1) return message.split("~")[1];
+    else return "";
+    
+}
+//FIN HD-3693
