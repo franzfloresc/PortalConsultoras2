@@ -34,6 +34,7 @@ namespace Portal.Consultoras.Web.Models
 
         public string DescripcionMarca { get; set; }
         public string DescripcionResumen { get; set; }
+        public string DescripcionCategoria { get; set; }
         public bool EsMultimarca { get; set; }
         public bool EsOfertaIndependiente { get; set; }
         public bool EsSubcampania { get; set; }

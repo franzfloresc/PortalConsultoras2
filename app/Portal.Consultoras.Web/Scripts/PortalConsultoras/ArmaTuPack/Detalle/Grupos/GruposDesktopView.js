@@ -62,8 +62,16 @@
     };
 
     var _collapseGroup = function (grupo) {
-        console.log('analytic_3.1: contraer', grupo);
-
+                                      
+        //Analytics ATP Boton Descontraer
+        if (!(typeof AnalyticsPortalModule === 'undefined')) {
+            var codigoubigeoportal = JSON.parse($("#data-estrategia").attr("data-estrategia")).CodigoUbigeoPortal + "";
+            if (codigoubigeoportal !== "") {
+                var label = $("[data-group-header][data-grupo=" + grupo + "]").find("h3").text();
+                
+                AnalyticsPortalModule.MarcaPromotionClickArmaTuPack(codigoubigeoportal, label, "Clic en Categoría");
+            }
+        } 
 
         if (grupo === undefined ||
             grupo === null ||
@@ -71,12 +79,19 @@
 
         $(_elements.grupo.header(grupo)).addClass("active");
         $(_elements.grupo.body(grupo)).css("display", "block");
-
-        
     };
 
     var _uncollapseGroup = function (grupo) {
-        console.log('analytic_3.1: expandir', grupo);
+        //Analytics ATP Boton Contraer
+        
+        if (!(typeof AnalyticsPortalModule === 'undefined')) {
+            var codigoubigeoportal = JSON.parse($("#data-estrategia").attr("data-estrategia")).CodigoUbigeoPortal + "";
+            if (codigoubigeoportal !== "") {
+                var label = $("[data-group-header][data-grupo=" + grupo + "]").find("h3").text();
+
+                AnalyticsPortalModule.MarcaPromotionClickArmaTuPack(codigoubigeoportal, label, "Clic en Categoría");
+            }
+        }
 
         if (grupo === undefined ||
             grupo === null ||

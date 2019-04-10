@@ -2422,15 +2422,58 @@ var AnalyticsPortalModule = (function () {
     }
     var marcaPromotionClickArmaTuPack = function (origenPedido, textoLabel, actionText) {
         
-        if (origenPedido !== "") {            
-                var textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(origenPedido) + ""; //using new function
+        if (origenPedido !== "") {
+            if (origenPedido == ConstantesModule.CodigoUbigeoPortal.GuionContenedorArmaTuPackGuion) {
+                var textoCategory = "Contenedor - Arma tu Pack";
                 dataLayer.push({
                     'event': _evento.virtualEvent,
                     "category": textoCategory,
                     "action": actionText,
                     "label": textoLabel + ""
                 });
+            }
         }
+    }
+    var marcaEligeloClickArmaTuPack = function (origenPedido, estrategia, textoLabel, actionText) {
+
+        var estoyEnLaFicha = isFicha();
+        var list = "Contenedor - Arma tu Pack";
+        
+        //var item = JSON.parse($("#data-estrategia").attr("data-estrategia"));
+        var item = estrategia;
+
+        try {
+            if (origenPedido !== "") {
+                if (origenPedido == ConstantesModule.CodigoUbigeoPortal.GuionContenedorArmaTuPackGuion) {
+                    var textoCategory = "Contenedor - Arma tu Pack";
+                    dataLayer.push({
+                        'event': _evento.productClick,
+                        'ecommerce': {
+                            'currencyCode': _getCurrencyCodes(),
+                            'click': {
+                                'actionField': { 'list': list },
+                                'products': [{
+                                    'name': item.DescripcionCompleta,
+                                    'id': item.CUV2,
+                                    'price': item.Precio2,
+                                    'brand': item.DescripcionMarca,
+                                    'category': _texto.notavaliable,
+                                    'variant': _texto.estandar,
+                                    'position': item.Posicion
+                                }]
+                            }
+                        }
+                    });
+                }
+            }
+           
+
+            
+
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////
@@ -2544,6 +2587,7 @@ var AnalyticsPortalModule = (function () {
         MarcaFichaResumidaClickDetalleCliente: marcaFichaResumidaClickDetalleCliente,
         MarcaFichaResumidaClickModificar: marcaFichaResumidaClickModificar,
         MarcaPromotionViewArmaTuPack: marcaPromotionViewArmaTuPack,
-        MarcaPromotionClickArmaTuPack: marcaPromotionClickArmaTuPack
+        MarcaPromotionClickArmaTuPack: marcaPromotionClickArmaTuPack,
+        MarcaEligeloClickArmaTuPack: marcaEligeloClickArmaTuPack
     }
 })();

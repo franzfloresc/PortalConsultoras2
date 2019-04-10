@@ -220,7 +220,7 @@ var CodigoUbigeoPortal = (function () {
     }
     
     var getTextoSegunCodigoUbigeo = function (origenEstructura) {
-
+        
         origenEstructura = getEstructuraSegunCodigoUbigeo(origenEstructura);
         var contendor = getTextoContenedorSegunOrigen(origenEstructura);
         var pagina = getTextoPaginaSegunOrigen(origenEstructura);

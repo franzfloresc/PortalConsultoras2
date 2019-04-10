@@ -50,7 +50,13 @@ namespace Portal.Consultoras.Web.Controllers
                 EsEditable = packAgregado != null,
                 IsMobile = esMobile,
                 CampaniaID = userData.CampaniaID,
-                CodigoEstrategia = Constantes.TipoEstrategiaCodigo.ArmaTuPack
+                CodigoEstrategia = Constantes.TipoEstrategiaCodigo.ArmaTuPack,
+                CodigoUbigeoPortal = CodigoUbigeoPortal.GuionContenedorArmaTuPackGuion,
+                Precio = OfertaATP.Precio,
+                Precio2 =  OfertaATP.Precio2,
+                DescripcionResumen = OfertaATP.DescripcionResumen,
+                DescripcionMarca =  OfertaATP.DescripcionMarca,
+                DescripcionCategoria = OfertaATP.DescripcionCategoria
             };
             return View(DetalleEstrategiaFichaModel);
         }

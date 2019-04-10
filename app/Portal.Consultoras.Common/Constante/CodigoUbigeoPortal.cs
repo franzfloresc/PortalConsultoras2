@@ -72,9 +72,16 @@ namespace Portal.Consultoras.Common
         /// <summary>
         /// Ubigeo Arma tu Pack para Banner 
         /// </summary>
-        public static string GuionContenedorGuionArmaTuPack
+        public static string GuionContenedorArmaTuPackGuion
         {
             get { return Guion + Pagina.Contenedor + SeccionFuncional.ArmaTuPack + Guion; }
         }
+        // <summary>
+        // Ubigeo Arma tu Pack para Landing 
+        // </summary>
+        //public static string GuionContenedorGuionArmaTuPack
+        //{
+        //    get { return Guion + Guion + SeccionFuncional.ArmaTuPack + Guion; }
+        //}
     }
 }
