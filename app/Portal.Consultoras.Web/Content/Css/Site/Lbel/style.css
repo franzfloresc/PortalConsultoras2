@@ -28112,6 +28112,11 @@ div.motivoRechazo textarea {
     z-index:-1;
 }
 
+    .progreso_pasos {
+        width: 0%;
+        height: 100%;
+    }
+
 .paso_reclamo {
     position: relative;
     width: 43px;
