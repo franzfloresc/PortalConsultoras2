@@ -89,7 +89,7 @@ namespace Portal.Consultoras.Web.Providers
 
         #region Get Valor Segun Codigo
 
-        private string GetTablaLogicaDatoValorCodigo(int paisId, short tablaLogicaId, string codigo, bool saveInSession = false)
+        public string GetTablaLogicaDatoValorCodigo(int paisId, short tablaLogicaId, string codigo, bool saveInSession = false)
         {
             var datos = GetTablaLogicaDatos(paisId, tablaLogicaId, saveInSession);
             return GatCampoValor(datos, codigo);
