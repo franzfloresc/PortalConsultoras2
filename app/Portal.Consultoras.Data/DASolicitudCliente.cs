@@ -190,11 +190,22 @@ namespace Portal.Consultoras.Data
             Context.ExecuteReader(command);
         }
 
-        public void RechazarSolicitudVistaCliente(long solicitudId, int cuv)
+        public void UpdSolicitudClienteDetalleEstado(long solicitudId, string cuv, bool estado)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdRechazarSolicitudCliente");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdSolicitudClienteDetalleEstado");
             Context.Database.AddInParameter(command, "@SolicitudId", DbType.Int64, solicitudId);
-            Context.Database.AddInParameter(command, "@Cuv", DbType.Int32, cuv);
+            Context.Database.AddInParameter(command, "@Cuv", DbType.String, cuv);
+            Context.Database.AddInParameter(command, "@Estado", DbType.Boolean, estado);
+            
+            Context.ExecuteReader(command);
+        }
+
+        public void UpdSolicitudClienteDetalleCantidad(long solicitudId, string cuv, int cantidad)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdSolicitudClienteDetalleCantidad");
+            Context.Database.AddInParameter(command, "@SolicitudId", DbType.Int64, solicitudId);
+            Context.Database.AddInParameter(command, "@Cuv", DbType.String, cuv);
+            Context.Database.AddInParameter(command, "@Cantidad", DbType.Int32, cantidad);
 
             Context.ExecuteReader(command);
         }
