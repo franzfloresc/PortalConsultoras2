@@ -1168,6 +1168,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                                     (x => x.DescripcionEstrategia = Constantes.PedidoDetalleApp.OfertaNiveles);
 
                     #region Camino Brillante
+                    /*
                     if (lstDetalle.Where(e => e.OrigenPedidoWeb == 1181901).Any()) {
                         var caminoBrillante = new CaminoBrillante.BLCaminoBrillante();
                         List<Entities.CaminoBrillante.BEKitCaminoBrillante> kits = null;
@@ -1188,6 +1189,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                             }
                         });
                     }
+                    */
                     #endregion
 
                     pedido.olstBEPedidoWebDetalle = lstDetalle;

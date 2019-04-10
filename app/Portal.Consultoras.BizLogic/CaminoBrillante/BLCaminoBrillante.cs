@@ -541,7 +541,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 {
                     Orden = idx++,
                     Tipo = Constantes.CaminoBrillante.Logros.Indicadores.Medallas.Codes.CIRC,
-                    Estado = (nivelConsultora.PorcentajeIncremento <= int.Parse(e.Codigo)),
+                    Estado = (int.Parse(e.Codigo) <= nivelConsultora.PorcentajeIncremento),
                     Subtitulo = (nivelConsultora.PorcentajeIncremento <= int.Parse(e.Codigo)) ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo,
                     Valor = string.Format(e.Valor ?? string.Empty, e.Codigo),                    
                     ModalTitulo = e.ComoLograrlo_Estado ? e.ComoLograrlo_Titulo : string.Empty,
