@@ -380,7 +380,7 @@ var menuModule = (function () {
         if (typeof AnalyticsPortalModule !== "undefined") {
             titulo = titulo || "";
             var OrigenPedidoWeb = "";
-            var texto = sectionClickTexto(elem);
+            var texto = _sectionClickTexto(elem);
             var clicEnBanner = false;
 
             OrigenPedidoWeb = EstrategiaAgregarModule.GetOrigenPedidoWeb($(elem), false);
