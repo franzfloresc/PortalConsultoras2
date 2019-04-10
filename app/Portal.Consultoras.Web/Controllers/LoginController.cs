@@ -2774,8 +2774,7 @@ namespace Portal.Consultoras.Web.Controllers
                 BETablaLogicaDatos[] listDatos;
                 using (var svc = new SACServiceClient())
                 {
-                    listDatos = svc.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.Palanca);
-
+                    listDatos = svc.GetTablaLogicaDatos(paisId, ConsTablaLogica.Palanca.TablaLogicaId);
                 }
                 if (!listDatos.Any()) return false;
                 var first = listDatos.FirstOrDefault();
@@ -2783,7 +2782,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-
                 logManager.LogErrorWebServicesBusWrap(ex, string.Empty, string.Empty,
                    "LoginController.HabilitarLogCargaOfertas");
             }
