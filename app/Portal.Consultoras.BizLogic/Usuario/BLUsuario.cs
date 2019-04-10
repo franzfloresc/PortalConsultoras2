@@ -919,7 +919,7 @@ namespace Portal.Consultoras.BizLogic
 
                 lst.Add(resultado);
 
-                var tablaLogica = _tablaLogicaDatosBusinessLogic.GetList(usuario.PaisID, Constantes.TablaLogica.ExtensionBannerGanaMasApp);
+                var tablaLogica = _tablaLogicaDatosBusinessLogic.GetList(usuario.PaisID, ConsTablaLogica.ExtensionBannerGanaApp.TablaLogicaId);
                 var oSuscrita = tablaLogica.FirstOrDefault(x => x.Codigo == Constantes.GanaMas.Banner.TablaLogicaSuscrita);
                 var extensionSuscrita = oSuscrita == null ? string.Empty : oSuscrita.Descripcion;
                 var oNoSuscrita = tablaLogica.FirstOrDefault(x => x.Codigo == Constantes.GanaMas.Banner.TablaLogicaNoSuscrita);

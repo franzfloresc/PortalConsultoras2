@@ -1818,7 +1818,7 @@ namespace Portal.Consultoras.Common
             //public const short CodigoRevistaFisica = 132;
             //public const short Palanca = 135;
             //public const int ValoresImagenesResize = 121;
-            public const short ExtensionBannerGanaMasApp = 136;
+            //public const short ExtensionBannerGanaMasApp = 136;
             public const short MontoLimiteCupon = 103;
             public const int ValoresPagoEnLinea = 122;
             public const int CantidadCuvMasivo = 137;
