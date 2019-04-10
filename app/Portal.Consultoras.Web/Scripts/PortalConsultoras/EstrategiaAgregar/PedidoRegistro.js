@@ -1209,6 +1209,7 @@ var PedidoRegistroModule = function () {
             PrecioUnidad: $("#hdfPrecioUnidad").val(),
             TipoEstrategiaID: $("#hdTipoEstrategiaID").val(),
             MarcaID: $("#hdfMarcaID").val(),
+            EstrategiaID: $("#hdfEstrategiaId").val(),
             DescripcionProd: $("#txtDescripcionProd").val(),
             IndicadorMontoMinimo: $("#hdfIndicadorMontoMinimo").val(),
             TipoEstrategiaImagen: tipoEstrategiaImagen || 0,
