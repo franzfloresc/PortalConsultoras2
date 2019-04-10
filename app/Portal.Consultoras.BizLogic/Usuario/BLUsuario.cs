@@ -3498,7 +3498,7 @@ namespace Portal.Consultoras.BizLogic
 
             try
             {
-                var lst = _tablaLogicaDatosBusinessLogic.GetList(paisId, Constantes.TablaLogica.CodigoRevistaFisica);
+                var lst = _tablaLogicaDatosBusinessLogic.GetList(paisId, ConsTablaLogica.CodigosRevistaImpresa.TablaLogicaId);
                 var tablaLogicaDatos = lst.FirstOrDefault();
                 result = (tablaLogicaDatos == null ? string.Empty : tablaLogicaDatos.Codigo);
             }

@@ -1794,7 +1794,7 @@ namespace Portal.Consultoras.Web.Controllers
             BETablaLogicaDatos tablaLogicaDatos;
             using (var svc = new SACServiceClient())
             {
-                var lst = await svc.GetTablaLogicaDatosAsync(paisId, Constantes.TablaLogica.CodigoRevistaFisica);
+                var lst = await svc.GetTablaLogicaDatosAsync(paisId, ConsTablaLogica.CodigosRevistaImpresa.TablaLogicaId);
 
                 tablaLogicaDatos = lst.FirstOrDefault();
             }
