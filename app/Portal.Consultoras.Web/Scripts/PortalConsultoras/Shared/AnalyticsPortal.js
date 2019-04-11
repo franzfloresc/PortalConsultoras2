@@ -276,7 +276,7 @@ var AnalyticsPortalModule = (function () {
             }
         }
 
-        console.log("_getEstructuraOrigenPedidoWeb", origen, origenEstructura);
+        //console.log("_getEstructuraOrigenPedidoWeb", origen, origenEstructura);
 
         return origenEstructura;
     }
@@ -407,7 +407,7 @@ var AnalyticsPortalModule = (function () {
             ? ((palanca != "" ? separador : "") + palanca)
             : palanca;
 
-        console.log("_getParametroListSegunOrigen = " + texto, origenEstructura, url);
+        //console.log("_getParametroListSegunOrigen = " + texto, origenEstructura, url);
 
         return texto;
     }
@@ -740,21 +740,21 @@ var AnalyticsPortalModule = (function () {
 
     var _obtenerNombrePalanca = function (tipoEstrategiaId) {
         switch (tipoEstrategiaId) {
-            case ConstantesModule.ConstantesPalanca.GuiaDeNegocioDigitalizada:
+            case ConstantesModule.TipoEstrategia.GuiaDeNegocioDigitalizada:
                 return "Guía de negocio";
-            case ConstantesModule.ConstantesPalanca.HerramientasVenta:
+            case ConstantesModule.TipoEstrategia.HerramientasVenta:
                 return "Herramientas de Venta";
-            case ConstantesModule.ConstantesPalanca.ShowRoom:
+            case ConstantesModule.TipoEstrategia.ShowRoom:
                 return "ShowRoom";
-            case ConstantesModule.ConstantesPalanca.OfertaDelDia:
+            case ConstantesModule.TipoEstrategia.OfertaDelDia:
                 return "Oferta del Día";
-            case ConstantesModule.ConstantesPalanca.OfertaParaTi:
+            case ConstantesModule.TipoEstrategia.OfertaParaTi:
                 return "Oferta para Ti";
-            case ConstantesModule.ConstantesPalanca.OfertasParaMi:
+            case ConstantesModule.TipoEstrategia.OfertasParaMi:
                 return "Oferta para Mi";
-            case ConstantesModule.ConstantesPalanca.Lanzamiento:
+            case ConstantesModule.TipoEstrategia.Lanzamiento:
                 return "Lanzamiento";
-            case ConstantesModule.ConstantesPalanca.PackAltoDesembolso:
+            case ConstantesModule.TipoEstrategia.PackAltoDesembolso:
                 return "Packs Ganadores";
             default:
                 return "Gana+";
@@ -1148,8 +1148,6 @@ var AnalyticsPortalModule = (function () {
     //HD-3473 EINCA 
     var marcaPromotionViewBanner = function (pos) {
         try {
-            if (_constantes.isTest)
-                alert("Marcación promotion view Banner.");
             dataLayer.push({
                 'event': _evento.promotionView,
                 'ecommerce': {
@@ -1173,8 +1171,6 @@ var AnalyticsPortalModule = (function () {
     //HD-3473 EINCA 
     var marcaPromotionClicBanner = function (OrigenPedidoWeb, texto, url) {
         try {
-            if (_constantes.isTest)
-                alert("Marcación promotion view Banner.");
             var pos = _getParametroListSegunOrigen(OrigenPedidoWeb, url);
             dataLayer.push({
                 'event': 'promotionClick',
@@ -1555,9 +1551,10 @@ var AnalyticsPortalModule = (function () {
 
     var _autoMapperV2 = function (codigoSeccion, data, pos) {
         var collection = [];
+        var element;
 
         if (codigoSeccion == _codigoSeccion.LAN) {
-            var element = $("[data-seccion=" + codigoSeccion + "]");
+            element = $("[data-seccion=" + codigoSeccion + "]");
             var codigo = element.data("origenpedidoweb");
             $.each(data, function (index) {
                 var item = data[index];
@@ -1573,10 +1570,10 @@ var AnalyticsPortalModule = (function () {
 
         //HD-3473 EINCA para duo solo se registra uno
         if (codigoSeccion == _codigoSeccion.DP) {
-            var element = {
+            element = {
                 'id': _constantes.IdBennerDuoPerfecto,
                 'name': 'Arma tu Dúo Perfecto - Dúo Perfecto',
-                'position': (pos !== undefined || pos !== "undefined") ? pos + ' - Dúo Perfecto' : '',
+                'position': (pos !== undefined) ? pos + ' - Dúo Perfecto' : '',
                 'creative': "Banner"
             };
             collection.push(element);
@@ -1647,11 +1644,10 @@ var AnalyticsPortalModule = (function () {
                 'event': _evento.virtualEvent,
                 'category': textoCategory,
                 'action': 'Click Botón',
-                'label': titulo,
-                'eventCallback': function () {
-                    document.location = url;
-                }
+                'label': titulo
             });
+
+            document.location = url;
 
         } catch (e) {
             console.log(_texto.excepcion + e);

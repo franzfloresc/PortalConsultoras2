@@ -4,7 +4,7 @@ Stylesheet Guide
 -------------------------
 
 01. Reset
-
+     
 02. Basic Elements
 	1. Clearfix
 	2. Floating & Alignment
@@ -1557,7 +1557,7 @@ ul.tabs {
 
 .div-3 .titG {
     float: left;
-    width: 125px;
+    width: 140px;
     height: auto;
     padding: 9px;
     background: none;

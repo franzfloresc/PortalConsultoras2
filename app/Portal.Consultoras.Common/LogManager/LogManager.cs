@@ -118,102 +118,101 @@ namespace Portal.Consultoras.Common
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-
                 //EventLog.WriteEntry("SomosBelcorp - LogManager", string.Format("Mensaje: {0} \nTrace: {1}", ex.Message, ex.StackTrace), EventLogEntryType.Error);
             }
         }
 
-        private static void RegistrarDynamoDB(LogError logError)
-        {
-            var dataString = string.Empty;
-            try
-            {
-                var urlRequest = string.Empty;
-                var browserRequest = string.Empty;
-                var ctrl = string.Empty;
-                var acti = string.Empty;
-                string Token = string.Empty;
-                if (HttpContext.Current != null && HttpContext.Current.Request != null)
-                {
-                    urlRequest = HttpContext.Current.Request.Url.ToString();
-                    browserRequest = HttpContext.Current.Request.UserAgent;
+        //private static void RegistrarDynamoDB(LogError logError)
+        //{
+        //    var dataString = string.Empty;
+        //    try
+        //    {
+        //        var urlRequest = string.Empty;
+        //        var browserRequest = string.Empty;
+        //        var ctrl = string.Empty;
+        //        var acti = string.Empty;
+        //        string Token = string.Empty;
+        //        if (HttpContext.Current != null && HttpContext.Current.Request != null)
+        //        {
+        //            urlRequest = HttpContext.Current.Request.Url.ToString();
+        //            browserRequest = HttpContext.Current.Request.UserAgent;
 
-                    var routeValues = HttpContext.Current.Request.RequestContext.RouteData.Values;
-                    ctrl = routeValues.ContainsKey("controller") ? routeValues["controller"].ToString() : "CtrlNoRoute";
-                    acti = routeValues.ContainsKey("action") ? routeValues["action"].ToString() : "ActiNoRoute";
-                    Token = (string)HttpContext.Current.Session[Constantes.ConstSession.JwtApiSomosBelcorp] ?? "";
-                }
+        //            var routeValues = HttpContext.Current.Request.RequestContext.RouteData.Values;
+        //            ctrl = routeValues.ContainsKey("controller") ? routeValues["controller"].ToString() : "CtrlNoRoute";
+        //            acti = routeValues.ContainsKey("action") ? routeValues["action"].ToString() : "ActiNoRoute";
+        //            Token = (string)HttpContext.Current.Session[Constantes.ConstSession.JwtApiSomosBelcorp] ?? "";
+        //        }
 
-                var exceptionMessage = string.Empty;
-                var exceptionStackTrace = string.Empty;
+        //        var exceptionMessage = string.Empty;
+        //        var exceptionStackTrace = string.Empty;
 
-                if (logError.Exception != null)
-                {
-                    exceptionMessage = logError.Exception.Message;
-                    exceptionStackTrace = logError.Exception.StackTrace;
+        //        if (logError.Exception != null)
+        //        {
+        //            exceptionMessage = logError.Exception.Message;
+        //            exceptionStackTrace = logError.Exception.StackTrace;
 
-                    var innerException = logError.Exception.InnerException;
-                    while (innerException != null)
-                    {
-                        exceptionStackTrace = logError.Exception.ToString();
-                        exceptionMessage = string.Format("{0}, InnerException: {1}", exceptionMessage, innerException.Message);
+        //            var innerException = logError.Exception.InnerException;
+        //            while (innerException != null)
+        //            {
+        //                exceptionStackTrace = logError.Exception.ToString();
+        //                exceptionMessage = string.Format("{0}, InnerException: {1}", exceptionMessage, innerException.Message);
 
-                        innerException = innerException.InnerException;
-                    }
-                }
+        //                innerException = innerException.InnerException;
+        //            }
+        //        }
 
-                var data = new
-                {
-                    Aplicacion = Constantes.LogDynamoDB.AplicacionPortalConsultoras,
-                    Pais = logError.IsoPais,
-                    Usuario = logError.CodigoUsuario,
-                    Mensaje = exceptionMessage,
-                    StackTrace = exceptionStackTrace,
+        //        var data = new
+        //        {
+        //            Aplicacion = Constantes.LogDynamoDB.AplicacionPortalConsultoras,
+        //            Pais = logError.IsoPais,
+        //            Usuario = logError.CodigoUsuario,
+        //            Mensaje = exceptionMessage,
+        //            StackTrace = exceptionStackTrace,
 
-                    CurrentUrl = urlRequest,
-                    ControllerName = ctrl.ToLower(),
-                    ActionName = acti.ToLower(),
+        //            CurrentUrl = urlRequest,
+        //            ControllerName = ctrl.ToLower(),
+        //            ActionName = acti.ToLower(),
 
-                    Extra = new Dictionary<string, string>() {
-                        { "Origen", logError.Origen },
-                        //{ "Url", urlRequest },
-                        { "Browser", browserRequest },
-                        { "TipoTrace", "LogManager" },
-                        { "Server", Environment.MachineName }
-                    }
-                };
+        //            Extra = new Dictionary<string, string>() {
+        //                { "Origen", logError.Origen },
+        //                //{ "Url", urlRequest },
+        //                { "Browser", browserRequest },
+        //                { "TipoTrace", "LogManager" },
+        //                { "Server", Environment.MachineName }
+        //            }
+        //        };
 
-                var urlApi = ConfigurationManager.AppSettings.Get("UrlLogDynamo");
+        //        var urlApi = ConfigurationManager.AppSettings.Get("UrlLogDynamo");
 
-                if (string.IsNullOrEmpty(urlApi)) return;
+        //        if (string.IsNullOrEmpty(urlApi)) return;
 
-                using (HttpClient httpClient = new HttpClient())
-                {
-                    httpClient.BaseAddress = new Uri(urlApi);
-                    httpClient.DefaultRequestHeaders.Accept.Clear();
-                    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        //        using (HttpClient httpClient = new HttpClient())
+        //        {
+        //            httpClient.BaseAddress = new Uri(urlApi);
+        //            httpClient.DefaultRequestHeaders.Accept.Clear();
+        //            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                    dataString = JsonConvert.SerializeObject(data);
+        //            dataString = JsonConvert.SerializeObject(data);
 
-                    HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
-                    //httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer { Globals.JwtToken }");
-                    httpClient.DefaultRequestHeaders.Add("Authorization", string.Format("Bearer {0}", Token));
-                    HttpResponseMessage response = httpClient.PostAsync("Api/LogError", contentPost).GetAwaiter().GetResult();
+        //            HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
+        //            //httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer { Globals.JwtToken }");
+        //            httpClient.DefaultRequestHeaders.Add("Authorization", string.Format("Bearer {0}", Token));
+        //            HttpResponseMessage response = httpClient.PostAsync("Api/LogError", contentPost).GetAwaiter().GetResult();
 
-                    var noQuitar = response.IsSuccessStatusCode;
-                }
-            }
-            catch (Exception ex)
-            {
-                logError.Exception = ex;
-                logError.InformacionAdicional = dataString;
-                logError.Titulo = "Seguimiento de Errores DynamoDB";
+        //            var noQuitar = response.IsSuccessStatusCode;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        logError.Exception = ex;
+        //        logError.InformacionAdicional = dataString;
+        //        logError.Titulo = "Seguimiento de Errores DynamoDB";
 
-                RegistrarArchivoTexto(logError);
-            }
-        }
+        //        RegistrarArchivoTexto(logError);
+        //    }
+        //}
 
         private static void RegistrarElastic(LogError logError)
         {
