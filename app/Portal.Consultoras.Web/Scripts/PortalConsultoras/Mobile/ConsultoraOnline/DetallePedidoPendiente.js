@@ -94,6 +94,7 @@ function RechazarPedido(id, origenBoton) {
 };
 
 function AceptarPedido(id, tipo) {
+    debugger;
     var isOk = true;
     var detalle = [];
     var ing = 0;
@@ -118,8 +119,7 @@ function AceptarPedido(id, tipo) {
         if (typeof opt !== 'undefined') {
             if (opt == "") {
                 $('#ComoloAtenderas').show();
-                isOk = false;
-                DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras - PopUp Pedidos Pendientes', 'Click Botón', 'Acepto Todo el Pedido - ' + opciones);
+                isOk = false;                
                 return false;
             }
             else {

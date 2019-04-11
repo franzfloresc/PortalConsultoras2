@@ -395,8 +395,7 @@ function AceptarPedido(pedidoId, tipo) {
             if (typeof opt !== 'undefined') {
                 if (opt == "") {
                     $('#dialog_mensajeComoAtender').show();
-                    isOk = false;
-                    DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras - PopUp Pedidos Pendientes', 'Click Botón', 'Acepto Todo el Pedido - ' + opciones);
+                    isOk = false;                    
                     return false;
                 }
                 else {
