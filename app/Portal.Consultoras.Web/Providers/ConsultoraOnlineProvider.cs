@@ -27,7 +27,7 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     resultServicelist.Each(item =>
                     {
-                        response.Add(new EstrategiaPedidoModel()
+                        var nuevo = new EstrategiaPedidoModel()
                         {
                             DescripcionCUV2 = item.DescripcionCUV2,
                             CantidadPack = item.CantidadPack,
@@ -43,7 +43,7 @@ namespace Portal.Consultoras.Web.Providers
                             //pedidoDetalle.Producto.CUV = Util.Trim(model.CuvTonos);
                             IndicadorMontoMinimo = item.IndicadorMontoMinimo,
                             FlagNueva = item.FlagNueva,
-                          Cantidad =1,
+                            Cantidad = 1,
                             //OrigenPedidoWeb = x.OrigenPedidoWeb
                             //EsCuponNuevas = x.EsCuponNuevas
                             //pedidoDetalle.EsSugerido = model.EsSugerido;
@@ -54,7 +54,29 @@ namespace Portal.Consultoras.Web.Providers
                             //pedidoDetalle.SetID = model.SetId;
                             //  sap
 
-                        });
+                        };
+
+
+                        if (item.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.Lanzamiento)
+                        {
+                            var listadescr = item.DescripcionCUV2.Split('|');
+                            nuevo.DescripcionCUV2 = listadescr.Length > 0 ? listadescr[0] : "";
+                        }
+                        else if (item.FlagNueva == 1)
+                        {
+                            nuevo.DescripcionCUV2 = item.DescripcionCUV2.Split('|')[0];
+                        }
+                        else if (item.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertaDelDia)
+                        {
+                            var listadescr = item.DescripcionCUV2.Split('|');
+                            nuevo.DescripcionCUV2 = listadescr.Length > 0 ? listadescr[0] : "";
+                        }
+                        else
+                        {
+                            nuevo.DescripcionCUV2 = Util.SubStrCortarNombre(item.DescripcionCUV2, 40);
+                        }
+
+                        response.Add(nuevo);
 
                     });
                 }

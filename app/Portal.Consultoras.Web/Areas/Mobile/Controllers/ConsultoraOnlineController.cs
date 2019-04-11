@@ -1282,7 +1282,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.TotalCatalogo = oListaCatalogo.Sum(x => x.Cantidad * x.PrecioTotal);
             model.ListaGana = oListaGana;
             model.TotalGana = oListaGana.Sum(x => x.Cantidad * x.Precio2);
-            model.GananciaGana = oListaGana.Sum(x => x.Ganancia);
+            model.GananciaGana = model.TotalCatalogo - model.TotalGana;
 
             return View(model);
         }
