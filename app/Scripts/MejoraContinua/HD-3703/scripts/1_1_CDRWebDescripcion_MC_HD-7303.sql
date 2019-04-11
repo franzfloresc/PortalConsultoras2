@@ -8,11 +8,3 @@ and tipo = 'Finalizado'
 
 update CDRWebDescripcion set Descripcion =  'Devolución del mismo producto' WHERE CDRWebDescripcionID in (10,30) AND CodigoSSIC in ('D','G')
 and tipo = 'Finalizado'
-
-
-
-
-
-
-
-
