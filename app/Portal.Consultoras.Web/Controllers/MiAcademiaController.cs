@@ -117,8 +117,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     else
                     {
-                        urlLms = IdCurso == 0 ? String.Format(urlLms, isoUsuario, token) : String.Format(urlLms, isoUsuario, token, IdCurso);
-                        UrlCursoMiAcademiaVideo = IdCurso == 0 ? String.Format(urlLms, isoUsuario, token) : String.Format(UrlCursoMiAcademiaVideo, isoUsuario, token, IdCurso);
+                        return RedirectToAction("Index", "Bienvenida");
                     }
                     /*Fin*/
                 }

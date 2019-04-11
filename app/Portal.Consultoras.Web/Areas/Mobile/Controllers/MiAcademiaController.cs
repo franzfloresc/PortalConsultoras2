@@ -101,7 +101,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
                 else
                 {
-                    urlLms = IdCurso == 0 ? String.Format(urlLms, isoUsuario, token) : String.Format(urlLms, isoUsuario, token, IdCurso);
+                    return RedirectToAction("Index", "Bienvenida");
                 }
                 /*Fin*/
 
