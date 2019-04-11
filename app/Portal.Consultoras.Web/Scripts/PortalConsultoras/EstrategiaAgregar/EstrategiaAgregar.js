@@ -430,9 +430,7 @@ var EstrategiaAgregarModule = (function () {
 							} else {
 								if (estrategia.CodigoEstrategia === ConstantesModule.TipoEstrategia.ArmaTuPack) {
 									window.location = "/ArmaTuPack/AgregarATPApp";
-								} else {
-									window.location = "/mobile/ofertas";
-								}
+                                }
 							}
                         }, 2500);
                         if (!(origenPedidoWebEstrategia === _OrigenPedido.DesktopContenedorArmaTuPack || origenPedidoWebEstrategia === _OrigenPedido.MobileContenedorArmaTuPack)) {
