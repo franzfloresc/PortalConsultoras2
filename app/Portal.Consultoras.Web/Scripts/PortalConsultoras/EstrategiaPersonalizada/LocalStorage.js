@@ -343,14 +343,15 @@ function ActualizarLocalStorageAgregado(tipo, cuv, valor) {
         else if (tipo == ConstantesModule.CodigoPalanca.MG) {
             lista = ConstantesModule.KeysLocalStorage.Ganadoras;
         }
-        if (lista == "") {
-            return;
-        }
         //INI HD-3908
         else if (tipo == ConstantesModule.CodigoPalanca.PN) {
             var lista = ConstantesModule.KeysLocalStorage.PackNuevas;
         }
         //FIN HD-3908
+        if (lista == "") {
+            return;
+        }
+
         $.each(listaCuv, function (ind, cuvItem) {
             var cuvx = cuvItem.split(';')[0];
             ok = ActualizarLocalStorageIsAgregado(cuvx, valor, lista, indCampania);
