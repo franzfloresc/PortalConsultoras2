@@ -107,12 +107,14 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
             /* Deshabilitamos de acuerdo al Historico */
             if (historicoKits != null) {
-                var codKits = historicoKits.Select(e => e.CodigoKit).ToList();
-                kits.Where(e => codKits.Contains(e.CodigoKit))
-                    .ForEach(e => {
-                        e.FlagSeleccionado = true;
+                var codKits = historicoKits.Select(e => e.CUV).ToList();                
+                if (kits.Where(e => codKits.Contains(e.CUV)).Any()) {
+                    kits.ForEach(e =>
+                    {
                         e.FlagHabilitado = false;
+                        e.FlagSeleccionado = codKits.Contains(e.CUV);
                     });
+                }
             }
 
             return kits.OrderBy(e => e.CodigoNivel).ToList();
