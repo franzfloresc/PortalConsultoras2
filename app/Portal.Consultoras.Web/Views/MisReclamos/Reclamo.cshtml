@@ -260,11 +260,11 @@
                     Asegúrate tener todos los incovenientes registrados porque <b>sólo puedes hacer @Model.CantidadReclamosPorPedido solicitud web por pedido</b>
                 </div>
                 <div>
-                    <div class="content_listado_reclamo">
-                        <div class="listado_producto_reclamo text_gris_reclamo">PRODUCTO</div>
-                        <div class="listado_solicitud_reclamo text_gris_reclamo text-center">SOLICITUD</div>
-                        <div class="listado_solicitada_reclamo text_gris_reclamo">SOLUCION SOLICITADA</div>
-                        <div class="listado_eliminar_reclamo text_gris_reclamo">ELIMINAR</div>
+                    <div class="content_listado_reclamo content_listado_reclamo--header">
+                        <div class="text-bold listado_producto_reclamo">PRODUCTO</div>
+                        <div class="text-bold listado_solicitud_reclamo text-center">SOLICITUD</div>
+                        <div class="text-bold listado_solicitada_reclamo">SOLUCION SOLICITADA</div>
+                        <div class="text-bold listado_eliminar_reclamo">ELIMINAR</div>
                     </div>
                     <div class="multimarca-background-color linea_separadora"></div>
                     <div id="divDetallePaso3">
@@ -309,9 +309,11 @@
                 <div class="texto_valida_datos">En caso de necesitar contactarnos contigo, lo haremos a través de:</div>
                 <div class="text-center validacion_datos_wrapper">
                     <div class="validacion_datos_correo_electronico">
-                        <span class="text-left texto_correo">Correo Electrónico</span>
+                        <div>
+                            <input type="text" name="txtEmail" id="txtEmail" value="@Model.Email" class="border-radius-4 correo_reclamo" onkeydown="return limitarMaximo(event,this.value,100,'txtTelefono')" />
+                            <span class="text-left texto_correo">Correo Electrónico</span>
+                        </div>
                         <input type="hidden" id="hdEmail" value="@Model.Email" />
-                        <input type="text" name="txtEmail" id="txtEmail" value="@Model.Email" class="border-radius-4 correo_reclamo" onkeydown="return limitarMaximo(event,this.value,100,'txtTelefono')" />
                         <br />
                         <div class="correo_reclamo_error">
                             <span id="spnEmailError" style="display: none;">
@@ -320,9 +322,11 @@
                         </div>
                     </div>
                     <div class="validacion_datos_celular_contacto">
-                        <span class="text-left texto_correo">Celular de contacto</span>
+                        <div>
+                            <input type="text" name="txtTelefono" id="txtTelefono" value="@Model.Telefono" class="border-radius-4 correo_reclamo" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefono')" />
+                            <span class="text-left texto_correo">Celular de contacto</span>
+                        </div>
                         <input type="hidden" id="hdTelefono" value="@Model.Telefono" />
-                        <input type="text" name="txtTelefono" id="txtTelefono" value="@Model.Telefono" class="border-radius-4 correo_reclamo" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefono')" />
                         <br />
                         <div class="correo_reclamo_error">
                             <span id="spnTelefonoError" style="display: none;">
@@ -332,7 +336,7 @@
                     </div>
                 </div>
                 <hr class="clear" />
-                <div class="multimarca-background-color linea_separadora_roja" style="height: 2px;"></div>
+                <div class="multimarca-background-color linea_separadora_roja" style="height:2px;"></div>
                 <div class="politica_reclamos">
                     <div id="btnAceptoPoliticas" class="politica_reclamos_icono"></div>
                     <div class="politica_reclamos_texto">
@@ -509,7 +513,7 @@
 </script>
 <script id="template-detalle-paso3" type="text/x-handlebars-template">
     {{#each detalle as |item|}}
-    <div class="content_listado_reclamo" data-item="{{item.CUV}}">
+    <div class="content_listado_reclamo content_listado_reclamo--content" data-item="{{item.CUV}}">
         <div style="display:none;">
             <input type="hidden" name="id" value="{{item.CDRWebDetalleID}}" />
         </div>
