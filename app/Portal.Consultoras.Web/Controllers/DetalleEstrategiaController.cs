@@ -97,19 +97,12 @@ namespace Portal.Consultoras.Web.Controllers
                 bool esMultimarca = false;
                 string mensaje = "";
                 var componentes = _estrategiaComponenteProvider.GetListaComponentes(estrategiaModelo, codigoEstrategia, out esMultimarca, out mensaje);
-
-                //var fichaEnriquecidaEstaActiva = _tablaLogicaProvider.GetTablaLogicaDatoValorBool(
-                //            userData.PaisID,
-                //            ConsTablaLogica.FlagFuncional.TablaLogicaId,
-                //            ConsTablaLogica.FlagFuncional.FichaEnriquecida,
-                //            true
-                //            );
-                 
+  
                 componentes.ForEach(c =>
                 {                 
-                    //validación 'tiene detalle de sección'
+                    //validación 'tiene detalle de sección?'
                     (c.Secciones ?? new List<EstrategiaComponenteSeccionModel>())
-                    .ForEach(x => { c.MostrarVerDetalle = (x.Detalles ?? new List<EstrategiaComponenteSeccionDetalleModel>()).Any(); });
+                    .ForEach(x => { c.TieneDetalleSeccion = (x.Detalles ?? new List<EstrategiaComponenteSeccionDetalleModel>()).Any(); });
                 });
 
                 return Json(new

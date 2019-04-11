@@ -104,7 +104,7 @@
                 </div>
             </div>
             {{#iff ../MostrarFichaEnriquecida '==' true }}
-            {{#iff componente.MostrarVerDetalle '==' true}}
+            {{#iff componente.TieneDetalleSeccion '==' true}}
             <a id="btnVerDetalle" class="button_ver_detalle" onclick="javascript:componenteDetalleModule.VerDetalle({{{json this}}})">Ver detalle <img src="/Content/Images/General/Icons/arrow_down.svg"></a>
             {{/iff}}
             {{/iff}}

@@ -35,7 +35,7 @@ namespace Portal.Consultoras.Web.Models
         public EstrategiaComponenteCabeceraModel Cabecera { get; set; }
         public List<EstrategiaComponenteSeccionModel> Secciones { get; set; }
         public List<EstrategiaComponenteModel> Hermanos { get; set; }
-        public bool MostrarVerDetalle { get; set; }
+        public bool TieneDetalleSeccion { get; set; }
 
         public bool TieneStock { get; set; }
 
