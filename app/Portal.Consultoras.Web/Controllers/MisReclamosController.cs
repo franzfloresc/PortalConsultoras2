@@ -748,9 +748,9 @@ namespace Portal.Consultoras.Web.Controllers
                                 CodigoReclamo = model.Motivo,
                                 CodigoOperacion = model.Operacion,
                                 CUV = item.CUV,
-                                Cantidad = model.Cantidad,
-                                CUV2 = item.CUV,
-                                Cantidad2 = model.Cantidad,
+                                Cantidad = item.Cantidad,
+                                CUV2 = null,
+                                Cantidad2 = 0,
                                 GrupoID = grupoId
                             };
                             i++;

@@ -157,7 +157,7 @@
                 </div>
                 <div class="text-center">
                     <a id="btnIrPaso3" class="border-radius-4 text-bold btn_cdr btn_solucion_reclamo" href="javascript:void(0);" style="display:none;" onclick="IrAFinalizar()">Siguiente</a>
-                    <a class="enlace__regresar_paso_anterior" title="Regresar a paso anterior">
+                    <a id="btnRegresarPasoUno" class="enlace__regresar_paso_anterior" title="Regresar a paso anterior">
                         <span class="icono_back_arrow">
                             <img src="@Url.Content("~/Content/Images/icono_volver.svg")" alt="Regresar a paso anterior" />
                         </span>
@@ -618,7 +618,7 @@
             </div>
         </div>
         <div class="float_left">
-            <a data-accion="x" data-pedidodetalleid="{{item.CDRWebDetalleID}}" style="background-image: url('/Content/Images/Esika/tacho-copy.png');background-repeat:no-repeat;width: 17px;height: 22px;margin: 0 auto; opacity:0.5;" title="Eliminar"></a>
+            <a data-accion="x" data-detalle-grupoid="{{item.GrupoID}}" data-pedidodetalleid="{{item.CDRWebDetalleID}}" href="javascript:void(0);" onclick="EliminarDetalle(this);" style="background-image: url('/Content/Images/Esika/tacho-copy.png');background-repeat:no-repeat;width: 17px;height: 22px;margin: 0 auto; opacity:0.5;" title="Eliminar"></a>
         </div>
     </div>
     {{/each}}
