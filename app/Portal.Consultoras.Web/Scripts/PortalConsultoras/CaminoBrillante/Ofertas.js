@@ -93,3 +93,23 @@ function CambiarOferta() {
         $(window).scrollTop(TabDos);
     });
 }
+
+function TagImpresionProductos(pen, nombrelista, nombreProducto, idProducto, precioProducto, marcaProducto, categoriaProducto, varianteProducto, posicionProducto) {
+    dataLayer.push({
+        'event': 'productImpression', 'ecommerce': {
+            'currencyCode': pen,
+            'impressions': {
+                'actionField': { 'list': nombrelista },
+                'products': [{
+                    'name': nombreProducto,
+                    'id': idProducto,
+                    'price': precioProducto,
+                    'brand': marcaProducto,
+                    'category': categoriaProducto,
+                    'variant': varianteProducto,
+                    'position': posicionProducto
+                }]
+            }
+        }
+    });
+}
