@@ -68,7 +68,7 @@ namespace Portal.Consultoras.Web.Providers
 
             var userData = SessionManager.GetUserData();
             List<EstrategiaComponenteModel> listaEstrategiaComponente;
-            List<EstrategiaComponenteSeccionModel> listEstrategiaComponenteSeccion;
+
             if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, codigoTipoEstrategia))
             {
                 mensaje += "SiMongo|";
