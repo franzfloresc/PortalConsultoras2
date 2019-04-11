@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace Portal.Consultoras.Web.Models
 {
     [Serializable]
-    public class EstrategiaPersonalizadaProductoModel 
+    public class EstrategiaPersonalizadaProductoModel
     {
         public EstrategiaPersonalizadaProductoModel()
         {
@@ -44,8 +44,8 @@ namespace Portal.Consultoras.Web.Models
         public decimal Ganancia { get; set; }
         public string GananciaString { get; set; }
         public List<EstrategiaComponenteModel> Hermanos { get; set; }
-        public  EstrategiaComponenteCabeceraModel  Cabecera { get; set; }
-        public List<EstrategiaComponenteSeccionModel> Secciones { get; set; }
+        //public EstrategiaComponenteCabeceraModel Cabecera { get; set; }
+        //public List<EstrategiaComponenteSeccionModel> Secciones { get; set; }
 
         // se usa para filtrar los productos por categoria en ShowRoom
         public string ImagenProductoMini { get; set; }
@@ -86,7 +86,7 @@ namespace Portal.Consultoras.Web.Models
         public int TipoEstrategiaID { get; set; }
 
         public int TipoEstrategiaImagenMostrar { get; set; } // puede controlarse con el codigo de tipo estrategia
-        
+
 
         public bool EsBannerProgNuevas { get; set; } // Se usa para mostrar carrusel en el carrusel de Ofertas
         public string CodigoPalanca { get; set; } // codigo donde se van a mostrar los productos

@@ -100,7 +100,7 @@
          
         console.log('analytic_3.2: Elígelo', codigoGrupo, cuvComponente);
         //Analytics ATP Elígelo
-        
+
         if (!(typeof AnalyticsPortalModule === 'undefined')) {
             var estrategia = JSON.parse($("#data-estrategia").attr("data-estrategia"));
             var codigoubigeoportal = estrategia.CodigoUbigeoPortal + "";

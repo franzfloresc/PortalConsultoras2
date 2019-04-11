@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.DetalleEstrategia;
@@ -67,7 +68,7 @@ namespace Portal.Consultoras.Web.Providers
 
             var userData = SessionManager.GetUserData();
             List<EstrategiaComponenteModel> listaEstrategiaComponente;
-            List<EstrategiaComponenteSeccionModel> listEstrategiaComponenteSeccion;
+
             if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, codigoTipoEstrategia))
             {
                 mensaje += "SiMongo|";
@@ -76,7 +77,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 listaEstrategiaComponente = estrategia.Hermanos;
 
-                mensaje += "ObtenerModeloOfertaDesdeApi = " + listaEstrategiaComponente.Count + "|";
+                mensaje += "ObtenerModeloOfertaDesdeApi = " + listaEstrategiaComponente.Count + "|serie = \n " + JsonConvert.SerializeObject(listaEstrategiaComponente) + " \n";
             }
             else
             {
