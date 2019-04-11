@@ -9,61 +9,112 @@
 
 <div id="ImagenDeFondo" class="imagen_fondo_detalle" style="background-image: url('https://cdn1-prd.somosbelcorp.com/Matriz/PE/PE_2019424344_dkvuwesndt.png');"></div>
 <section class="contenedor_detalle">
-    <ul class="breadcumbs">
-        <li><a href="">Inicio</a></li>
-        <li><a href="">Gana +</a></li>
-        <li><a href="">Lo nuevo ¡Nuevo!</a></li>
-        <li><a href="">EAU DE PARFUM...</a></li>
-    </ul>
-    <div class="row scontenedor_fichas">
-        <article class="col-12 col-md-5 ficha_producto">
-            <div class="contenedor_imagen">
-                <img src="https://cdn1-prd.somosbelcorp.com/Matriz/PE/PE_201907_34059.png" />
-                <p>* Foto Referencial</p>
-            </div>
-            <div class="redes_sociales">
-                Comparte este producto con tus clientes
-                <a href="#">
-                    <img src="/Content/Images/Esika/facebook.png" />
-                </a>
-            </div>
-        </article>
-
-        <article class="col-12 col-md-7 ficha_detalle">
-            <div class="contenedor_etiquetas">
-                <img class="etiqueta_nuevo" src="https://cdn1-prd.somosbelcorp.com/Matriz/PE/PE_2019424281_tfnowzyllw.png" />
-            </div>
-            <div class="row contenedor_nombre_precio">
-                <div class="col-md-8">
-                    <div class="nombre_marca">
-                        Ésika
-                    </div>
-                    <div class="descripcion">EAU DE PARFUM VALENTÍA</div>
+    <div class="container">
+        <ul class="breadcumbs">
+            <li><a href="">Inicio</a></li>
+            <li><a href="">Gana +</a></li>
+            <li><a href="">Lo nuevo ¡Nuevo!</a></li>
+            <li><a href="">EAU DE PARFUM...</a></li>
+        </ul>
+        <div class="row scontenedor_fichas">
+            <article class="col-12 col-md-5 ficha_producto">
+                <div class="contenedor_imagen">
+                    <img src="https://cdn1-prd.somosbelcorp.com/Matriz/PE/PE_201907_34059.png" />
+                    <p>* Foto Referencial</p>
                 </div>
-                <div class="col-md-4 text-right">
-                    <div class="precio_valorizado">
-                        Precio catálogo <span>S/. 26.90</span>
+                <div class="redes_sociales">
+                    Comparte este producto con tus clientes
+                    <a href="#">
+                        <img src="/Content/Images/Esika/facebook.png" />
+                    </a>
+                </div>
+            </article>
+
+            <article class="col-12 col-md-7 ficha_detalle">
+                <div class="contenedor_etiquetas">
+                    <img class="etiqueta_nuevo" src="https://cdn1-prd.somosbelcorp.com/Matriz/PE/PE_2019424281_tfnowzyllw.png" />
+                </div>
+                <div class="ficha_detalle_cuerpo">
+                    <div class="row contenedor_nombre_precio">
+                        <div class="col-md-8">
+                            <div class="nombre_marca">
+                                Ésika
+                            </div>
+                            <div class="descripcion">EAU DE PARFUM VALENTÍA</div>
+                        </div>
+                        <div class="col-md-4 text-md-right">
+                            <div class="precio_valorizado">
+                                Precio catálogo <span>S/. 26.90</span>
+                            </div>
+                            <div class="precio_venta_oferta">
+                                Precio para ti <span>S/. 16.90</span>
+                            </div>
+                            <div class="ganancia">
+                                GANA <span>S/. 10.00</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="precio_venta_oferta">
-                        Precio para ti <span>S/. 16.90</span>
+                    <div class="descripcion_lanzamiento">
+                        <p>Déjate seducir por el dulce aroma de la noche</p>
+                        <ul class="descripcion_detalle_producto_tono">
+                            <li>- 200 ml. / 6,7 fl. oz</li>
+                            <li>- 200 ml. / 6,7 fl. oz</li>
+                        </ul>
                     </div>
-                    <div class="ganancia">
-                        GANA <span>S/. 10.00</span>
+                    <div class="producto_componentes">
+                        <h3 class="contenido_titulo">CONTENIDO:</h3>
                     </div>
                 </div>
-            </div>
-            <div class="descripcion_lanzamiento">
-                <p>Déjate seducir por el dulce aroma de la noche</p>
-                <ul class="descripcion_detalle_producto_tono">
-                    <li>- 200 ml. / 6,7 fl. oz</li>
-                    <li>- 200 ml. / 6,7 fl. oz</li>
-                </ul>
-            </div>
-            <div class="producto_componentes">
-                <h3 class="contenido_titulo">CONTENIDO:</h3>
-            </div>
 
-        </article>
+                <!--Botón Agregar-->
+                <div id="dvContenedorAgregar" class="contenedor_agregar">
+                    <div data-selecciontono="tooltip" class="popover top tooltip_agregar_desabilitado" role="tooltip" id="" style="display: none;">
+                        <div class="arrow" style="left: 20%;"></div>
+                        <div class="popover-content">
+                            <ul class="list-inline popover_texto">
+                                <li><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt=""></li>
+                                <li>Debes elegir tus opciones para poder agregar la oferta.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div data-limitepedido="tooltip" class="popover top tooltip_limite_pedidos" role="tooltip" id="" style="display: none;">
+                        <div class="arrow"></div>
+                        <div class="popover-content">
+                            <ul class="list-inline popover_texto">
+                                <li><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt=""></li>
+                                <li>Lo sentimos <img class="tooltop-emoji" src="/Content/Images/Mobile/Esika/1f615.png"> Has llegado al límite de pedidos para esta oferta.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="contenedor_rangos " id="idcontenedor_rangos" data-cantidad-contenedor="">
+                        <input class="txt_cantidad_pedido ValidaNumeral ValidaPasteNumeral" type="text" value="1" onkeyup="EstrategiaAgregarModule.ValidaCantidad(event);" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" data-cantidad-input="-">
+                        <div>
+                            <a class="txt_menos" data-cantidad-agregar="-" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
+                                <div class="dibujar_linea dibujar_menos"></div>
+                            </a>
+                            <a class="txt_mas" data-cantidad-agregar="+" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
+                                <div class="dibujar_linea dibujar_mas"></div>
+                            </a>
+                        </div>
+                    </div>
+                    <a id="btnAgregalo" class="btn_agregalo" onclick="javascript: EstrategiaAgregarModule.EstrategiaAgregar(event, false, 0, true, false); ">AGRÉGALO</a>
+
+                    <div class="ficha_div_libre_agregado">
+                        <div id="ContenedorAgregado" class="ficha_agregado" style="display:none;">
+                            <div class="txt_agregado" data-txt_agregado="">
+                                <span class="span_agregado">AGREGADO</span>
+                                <div class="check_agregado">
+                                    <div class="dibujar_linea dibujar_check_agregado"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Fin Botón Agregar-->
+
+            </article>
+        </div>
     </div>
 </section>
 
