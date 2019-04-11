@@ -40,8 +40,7 @@
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <ul id="mnuDetalleComponente" class="tabs ficha_tabs">
                                 {{#each this.Secciones as |seccion|}}
-
-                                {{#iff seccion.EsVideos '==' false }}
+                                {{#iff seccion.Tipo '==' '@Constantes.TipoSeccion.Texto' }}
                                 <li id="div_ficha_tab1">
                                     <a class="tab-link">{{seccion.Titulo}}</a>
                                     <ul class="tabs_container">
@@ -53,7 +52,7 @@
                                         {{/each}}
                                     </ul>
                                 </li>
-                                {{else}}                                 
+                                {{else}}
                                 <li id="div_ficha_tab1">
                                     <a class="tab-link active">{{seccion.Titulo}}</a>
                                     <ul class="tabs_container" style="display:block;">
@@ -84,13 +83,11 @@
                                             </div>
                                         </div>
                                     </ul>
-                                </li>                             
+                                </li>
                                 {{/iff}}
                                 {{/each}}
-                                  
                             </ul>
-                        </div>
-                          
+                        </div>                          
                     </div>
                 </div>
             </div>

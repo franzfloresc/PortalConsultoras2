@@ -677,7 +677,6 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<EstrategiaComponenteSeccion, EstrategiaComponenteSeccionModel>()
                 .ForMember(t => t.Tipo, f => f.MapFrom(c => c.Tipo))
                 .ForMember(t => t.Titulo, f => f.MapFrom(c => c.Titulo))
-                .ForMember(t => t.EsVideos, f => f.MapFrom(c => c.EsVideos))
                 .ForMember(t => t.Detalles, f => f.MapFrom(c => c.Detalles));
 
             Mapper.CreateMap<EstrategiaComponenteSeccionDetalle, EstrategiaComponenteSeccionDetalleModel>()

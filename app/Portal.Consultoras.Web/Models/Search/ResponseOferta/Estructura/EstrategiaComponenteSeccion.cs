@@ -15,7 +15,6 @@ namespace Portal.Consultoras.Web.Models.Search.ResponseOferta.Estructura
     {
         public string Tipo { get; set; }
         public string Titulo { get; set; }
-        public bool EsVideos { get; set; }
         public List<EstrategiaComponenteSeccionDetalle> Detalles { get; set; }
     }
 
