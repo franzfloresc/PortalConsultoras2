@@ -1436,6 +1436,7 @@
     <Content Include="Content\Css\Mobile\RevistaDigital\PopupSuscripcion.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\RedimensionLandingRD.css" />
     <Content Include="Content\Css\Site\AdministracionPopups\administracion-popups.css" />
+    <Content Include="Content\Css\Site\AdministracionPopups\administracion-popus-informativo.css" />
     <Content Include="Content\Css\Site\Admin\Estrategias\UpSelling.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\index.css" />
     <Content Include="Content\Css\Site\bootstrap\bootstrap-chosen.css" />
