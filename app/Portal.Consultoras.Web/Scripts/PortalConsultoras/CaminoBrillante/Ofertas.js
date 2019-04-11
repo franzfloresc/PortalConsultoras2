@@ -23,18 +23,11 @@ $(window).scroll(function (event) {
 
 function AgregarProducto() {
     var items = document.getElementsByClassName('boton_Agregalo_home');
-
-    alert("hola : " + items.length);
-
     for (var i = 0; i < items.length; i++) {
         items[i].onclick = function (e) {
-
-            alert("hola : Click " );
-
             e.preventDefault();
             AbrirSplash();
-            
-            
+                        
             var cuvCapturado = this.parentElement.parentElement.parentElement.parentElement.children[0].value;
             var cantidadCapturado = this.parentElement.parentElement.children[0].children[0].children[1].value;
 
@@ -42,8 +35,8 @@ function AgregarProducto() {
                 CuvTonos: cuvCapturado,
                 CUV: cuvCapturado,
                 Cantidad: cantidadCapturado,
-                TipoEstrategiaID: 3014,
-                EstrategiaID: "34076",
+                TipoEstrategiaID: 0,
+                EstrategiaID: "0",
                 OrigenPedidoWeb: "1181901",
                 TipoEstrategiaImagen: "6",
                 FlagNueva: false,

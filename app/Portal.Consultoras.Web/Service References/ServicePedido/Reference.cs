@@ -15518,6 +15518,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private bool EsCuponNuevasField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsDemCaminoBrillanteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EsDuoPerfectoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -16030,6 +16033,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.EsCuponNuevasField.Equals(value) != true)) {
                     this.EsCuponNuevasField = value;
                     this.RaisePropertyChanged("EsCuponNuevas");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsDemCaminoBrillante {
+            get {
+                return this.EsDemCaminoBrillanteField;
+            }
+            set {
+                if ((this.EsDemCaminoBrillanteField.Equals(value) != true)) {
+                    this.EsDemCaminoBrillanteField = value;
+                    this.RaisePropertyChanged("EsDemCaminoBrillante");
                 }
             }
         }

@@ -160,6 +160,18 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             return GetKit(paisId, campaniaId, periodo.Periodo, nivelId);
         }
 
+        public List<BEKitCaminoBrillante> GetKits(int paisId, int campaniaId)
+        {
+            try
+            {
+                return GetKits(paisId, campaniaId, 6);
+            }
+            catch (Exception ex) {
+
+                return null;
+            }
+        }
+
         /*
         private List<BEKitCaminoBrillante> GetKit(int paisId, int campaniaId, int periodoId, int nivelId) {
             return null;
@@ -743,6 +755,12 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             return new CaminoBrillanteProvider(url, usuario, clave);
         }
 
+        public List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillante(int paisID, int campaniaID)
+        {
+            return new DACaminoBrillante(paisID).GetDemostradoresCaminoBrillante(""+campaniaID)
+                        .MapToCollection<BEDesmostradoresCaminoBrillante>(closeReaderFinishing: true);
+        }
+
         public List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillante(int paisID, string campaniaID)
         {            
             return new DACaminoBrillante(paisID).GetDemostradoresCaminoBrillante(campaniaID)
@@ -752,6 +770,15 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         private List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillanteCache(int paisID, string campaniaID)
         {
             return CacheManager<List<BEDesmostradoresCaminoBrillante>>.ValidateDataElement(paisID, ECacheItem.CaminoBrillanteDemostradores, campaniaID, () => GetDemostradoresCaminoBrillante(paisID, campaniaID));
+        }
+
+        public void UpdFlagsKitsOrDemostradores(BEPedidoWebDetalle bEPedidoWebDetalle, int paisId, int campaniaId) {
+            var demostradores = GetDemostradoresCaminoBrillante(paisId, campaniaId) ?? new List<Entities.CaminoBrillante.BEDesmostradoresCaminoBrillante>();
+            bEPedidoWebDetalle.EsDemCaminoBrillante = demostradores.Where(k => k.CUV == bEPedidoWebDetalle.CUV).Any();
+            if (!bEPedidoWebDetalle.EsDemCaminoBrillante)
+            {
+                bEPedidoWebDetalle.EsKitCaminoBrillante = true;
+            }
         }
 
     }

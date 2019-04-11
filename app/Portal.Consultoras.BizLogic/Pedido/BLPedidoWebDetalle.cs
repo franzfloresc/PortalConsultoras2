@@ -1,3 +1,4 @@
+using Portal.Consultoras.BizLogic.CaminoBrillante;
 using Portal.Consultoras.BizLogic.Reserva;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
@@ -494,8 +495,17 @@ namespace Portal.Consultoras.BizLogic
             #region Camino Brillante
             if (updLabelCaminoBrillante) {
                 var origenPedidoWeb = new int[] { 1181901, 2181901, 4181901 };
+                var blCaminoBrillante = new BLCaminoBrillante();
                 listpedidoDetalle.Where(e => origenPedidoWeb.Contains(e.OrigenPedidoWeb)).ToList().ForEach(e => {
-                    e.DescripcionEstrategia = "CAMINO BRILLANTE";
+                    //var blCaminoBrillante = new BLCaminoBrillante();
+                    /*
+                    var demostradores = blCaminoBrillante.GetDemostradoresCaminoBrillante(detParametros.PaisId, detParametros.CampaniaId) ?? new List<Entities.CaminoBrillante.BEDesmostradoresCaminoBrillante>();
+                    e.EsDemCaminoBrillante = demostradores.Where(k => k.CUV == e.CUV).Any();
+                    if (!e.EsDemCaminoBrillante) {
+                        e.EsKitCaminoBrillante = true;
+                    }
+                    */
+                    blCaminoBrillante.UpdFlagsKitsOrDemostradores(e, detParametros.PaisId, detParametros.CampaniaId);
                 });
             }
             #endregion
