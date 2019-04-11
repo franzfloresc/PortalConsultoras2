@@ -2231,6 +2231,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
 
+         
             List<BEMisPedidos> pedidosSesion;
             pedidosSesion = SessionManager.GetobjMisPedidos().ListaPedidos;
 
@@ -2277,6 +2278,34 @@ namespace Portal.Consultoras.Web.Controllers
                 int pedidoWebId = 0;
                 if (parametros.ListaGana.Any())
                 {
+                    var listaClientesId = new List<short>();
+
+                    using (ServiceSAC.SACServiceClient svc = new ServiceSAC.SACServiceClient())
+                    {
+                        pedidosSesion.ForEach(pedido =>
+                        {
+                            if (pedido.DetallePedido.Any(i => i.Elegido == true))
+                            {
+                                listaClientesId.Add(short.Parse(pedido.ClienteId.ToString()));
+
+                                pedido.DetallePedido.Where(i => i.Elegido).Each(detalle =>
+                                {
+
+                                    var beSolicitudDetalle = new ServiceSAC.BESolicitudClienteDetalle
+                                    {
+                                        SolicitudClienteDetalleID = detalle.PedidoDetalleId,
+                                        TipoAtencion = 3,
+                                        PedidoWebID = pedidoWebId,
+                                        PedidoWebDetalleID = 0
+                                    };
+                                    svc.UpdSolicitudClienteDetalle(userData.PaisID, beSolicitudDetalle);
+                                    detalle.TipoAtencion = 3;
+                                });
+                            }
+                        });
+
+                    }
+
                     parametros.ListaGana.ForEach(model =>
                    {
                        BEPedidoDetalle pedidoDetalle = new BEPedidoDetalle();
@@ -2306,43 +2335,16 @@ namespace Portal.Consultoras.Web.Controllers
                        //var pedidoDetalleResult = _pedidoWebProvider.InsertPedidoDetalle(pedidoDetalle);
 
                        ///////////////////////////////////////////////////
-                       ///
-                       var pedidoDetalleResult = _pedidoWebProvider.InsertPedidoDetalle(pedidoDetalle);
-                       pedidoWebId = (pedidoDetalleResult.PedidoWebDetalle != null ? pedidoDetalleResult.PedidoWebDetalle.PedidoID : pedidoWebId);
-
-                       if (pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS))
-                       {
-                           SessionManager.SetPedidoWeb(null);
-                           SessionManager.SetDetallesPedido(null);
-                           SessionManager.SetDetallesPedidoSetAgrupado(null);
-                       }
-                   });
-
-
-                    using (ServiceSAC.SACServiceClient svc = new ServiceSAC.SACServiceClient())
-                    {
-                        pedidosSesion.ForEach(pedido =>
-                        {
-                            if (pedido.DetallePedido.Any(i => i.Elegido == true))
-                            {
-
-                                pedido.DetallePedido.Where(i=> i.Elegido).Each(detalle =>
-                                {
-
-                                    var beSolicitudDetalle = new ServiceSAC.BESolicitudClienteDetalle
-                                    {
-                                        SolicitudClienteDetalleID = detalle.PedidoDetalleId,
-                                        TipoAtencion = 3,
-                                        PedidoWebID = pedidoWebId,
-                                        PedidoWebDetalleID = 0
-                                    };
-                                    svc.UpdSolicitudClienteDetalle(userData.PaisID, beSolicitudDetalle);
-                                    detalle.TipoAtencion = 3;
-                                });
-                            }
-                        });
-
-                    }
+                       listaClientesId.ForEach(clienteId=> {
+                           pedidoDetalle.ClienteID = clienteId;
+                           var pedidoDetalleResult = _pedidoWebProvider.InsertPedidoDetalle(pedidoDetalle);
+                           pedidoWebId = (pedidoDetalleResult.PedidoWebDetalle != null ? pedidoDetalleResult.PedidoWebDetalle.PedidoID : pedidoWebId);
+                       });
+                 
+                   });                  
+                        SessionManager.SetPedidoWeb(null);
+                        SessionManager.SetDetallesPedido(null);
+                        SessionManager.SetDetallesPedidoSetAgrupado(null);
 
                 }                  
             }
