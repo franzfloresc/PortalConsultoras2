@@ -22,10 +22,15 @@ $(window).scroll(function (event) {
 });
 
 function AgregarProducto() {
-    var items = document.getElementsByClassName('boton_Agregalo_home boton__agregalo--fichaProducto text-center d-block FichaAgregarProductoBuscador');
+    var items = document.getElementsByClassName('boton_Agregalo_home');
+
+    alert("hola : " + items.length);
 
     for (var i = 0; i < items.length; i++) {
         items[i].onclick = function (e) {
+
+            alert("hola : Click " );
+
             e.preventDefault();
             AbrirSplash();
             
