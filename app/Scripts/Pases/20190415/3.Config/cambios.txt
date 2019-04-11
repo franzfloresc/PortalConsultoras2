@@ -14,3 +14,7 @@
 		<httpRuntime targetFramework="4.5" requestValidationMode="4.5" maxRequestLength="8192" executionTimeout="300" enableVersionHeader="false" /> (Sólo en PRD)
 		<customErrors mode="On" defaultRedirect="CustomError.html" redirectMode="ResponseRewrite"/> (Sólo en PRD)
 		<add key="Permisos_CCC" value="PE,CL,CO,MX,EC,CR,BO,PR,GT,DO,SV,PA" />
+		
+2.MS Search
+	Modificar:
+		Personalizacion: ['GND', 'LAN', 'ODD', 'OPM', 'SR', 'HV', 'MG', 'ATP', 'RD']
