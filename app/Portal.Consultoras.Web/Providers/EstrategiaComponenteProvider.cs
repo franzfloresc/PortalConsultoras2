@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.DetalleEstrategia;
@@ -76,7 +77,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 listaEstrategiaComponente = estrategia.Hermanos;
 
-                mensaje += "ObtenerModeloOfertaDesdeApi = " + listaEstrategiaComponente.Count + "|";
+                mensaje += "ObtenerModeloOfertaDesdeApi = " + listaEstrategiaComponente.Count + "|serie = \n " + JsonConvert.SerializeObject(listaEstrategiaComponente) + " \n";
             }
             else
             {
