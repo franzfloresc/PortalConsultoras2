@@ -69,8 +69,8 @@ namespace Portal.Consultoras.Web.Providers
             var userData = SessionManager.GetUserData();
             List<EstrategiaComponenteModel> listaEstrategiaComponente;
 
-            if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, codigoTipoEstrategia))
-            {
+            //if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, codigoTipoEstrategia))
+            //{
                 mensaje += "SiMongo|";
                 estrategiaModelo.CodigoEstrategia = Util.GetTipoPersonalizacionByCodigoEstrategia(codigoTipoEstrategia);
                 EstrategiaPersonalizadaProductoModel estrategia = _ofertaBaseProvider.ObtenerModeloOfertaDesdeApi(estrategiaModelo, userData.CodigoISO);
@@ -81,24 +81,24 @@ namespace Portal.Consultoras.Web.Providers
                 listaEstrategiaComponente.ForEach(c => { (c.Secciones ?? new List<EstrategiaComponenteSeccionModel>()).ForEach(x => { c.TieneDetalleSeccion = (x.Detalles ?? new List<EstrategiaComponenteSeccionDetalleModel>()).Any(); }); });
 
                 mensaje += "ObtenerModeloOfertaDesdeApi = " + listaEstrategiaComponente.Count;
-            }
-            else
-            {
-                mensaje += "NoMongo|";
+            //}
+            //else
+            //{
+            //    mensaje += "NoMongo|";
 
-                List<BEEstrategiaProducto> listaBeEstrategiaProductos;
-                listaBeEstrategiaProductos = GetEstrategiaProductos(estrategiaModelo);
+            //    List<BEEstrategiaProducto> listaBeEstrategiaProductos;
+            //    listaBeEstrategiaProductos = GetEstrategiaProductos(estrategiaModelo);
 
-                if (!listaBeEstrategiaProductos.Any()) return new List<EstrategiaComponenteModel>();
+            //    if (!listaBeEstrategiaProductos.Any()) return new List<EstrategiaComponenteModel>();
 
-                mensaje += "GetEstrategiaProductos = " + listaBeEstrategiaProductos.Count + "|";
+            //    mensaje += "GetEstrategiaProductos = " + listaBeEstrategiaProductos.Count + "|";
 
-                listaEstrategiaComponente = GetEstrategiaDetalleCompuesta(estrategiaModelo, listaBeEstrategiaProductos);
-                mensaje += "GetEstrategiaDetalleCompuesta = " + listaEstrategiaComponente.Count + "|";
+            //    listaEstrategiaComponente = GetEstrategiaDetalleCompuesta(estrategiaModelo, listaBeEstrategiaProductos);
+            //    mensaje += "GetEstrategiaDetalleCompuesta = " + listaEstrategiaComponente.Count + "|";
 
-                listaEstrategiaComponente = OrdenarComponentesPorMarca(listaEstrategiaComponente, out esMultimarca);
-                mensaje += "OrdenarComponentesPorMarca = " + listaEstrategiaComponente.Count + "|";
-            }
+            //    listaEstrategiaComponente = OrdenarComponentesPorMarca(listaEstrategiaComponente, out esMultimarca);
+            //    mensaje += "OrdenarComponentesPorMarca = " + listaEstrategiaComponente.Count + "|";
+            //}
 
             if (listaEstrategiaComponente.Any())
             {
