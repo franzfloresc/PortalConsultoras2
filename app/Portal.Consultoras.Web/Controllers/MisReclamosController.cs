@@ -47,7 +47,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return RedirectToAction("Index", "Bienvenida");
 
             MisReclamosModel model = new MisReclamosModel();
-            List<CDRWebModel> listaCdrWebModel;
+            List<CDRWebModel> listaCdrWebModel = new List<CDRWebModel>();
             try
             {
                 SessionManager.SetListaCDRWebCargaInicial(null);//HD-3412 EINCA
