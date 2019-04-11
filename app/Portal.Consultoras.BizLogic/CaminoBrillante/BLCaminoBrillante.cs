@@ -772,13 +772,13 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         private List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillanteCache(int paisID, string campaniaID)
         {
             return CacheManager<List<BEDesmostradoresCaminoBrillante>>.ValidateDataElement(paisID, ECacheItem.CaminoBrillanteDemostradores, campaniaID, () => GetDemostradoresCaminoBrillante(paisID, campaniaID));
-        }
+        }  
 
         public void UpdFlagsKitsOrDemostradores(BEPedidoWebDetalle bEPedidoWebDetalle, int paisId, int campaniaId) {
             var demostradores = GetDemostradoresCaminoBrillante(paisId, campaniaId) ?? new List<Entities.CaminoBrillante.BEDesmostradoresCaminoBrillante>();
             bEPedidoWebDetalle.EsDemCaminoBrillante = demostradores.Where(k => k.CUV == bEPedidoWebDetalle.CUV).Any();
             if (!bEPedidoWebDetalle.EsDemCaminoBrillante)
-            {
+            { 
                 bEPedidoWebDetalle.EsKitCaminoBrillante = true;
             }
         }
