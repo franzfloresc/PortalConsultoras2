@@ -157,7 +157,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
         public List<BEKitCaminoBrillante> GetKits(int paisId, int campaniaId, int nivelId) {
             var periodos = GetPeriodosCache(paisId) ?? new List<BEPeriodoCaminoBrillante>();
-            var periodo = periodos.Where(e => e.CampanaInicial >= campaniaId && e.CampanaFinal <= campaniaId).FirstOrDefault();
+            var periodo = periodos.Where(e => e.CampanaInicial >= campaniaId &&  campaniaId <= e.CampanaFinal).FirstOrDefault();
             if (periodo == null) return null;
             return GetKit(paisId, campaniaId, periodo.Periodo, nivelId);
         }
@@ -780,6 +780,34 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             if (!bEPedidoWebDetalle.EsDemCaminoBrillante)
             {
                 bEPedidoWebDetalle.EsKitCaminoBrillante = true;
+            }
+        }
+
+        public void UpdEstragiaCaminiBrillante(BEEstrategia estrategia, int paisId, int campaniaId, string cuv) {
+            try
+            {
+                var demostradores = GetDemostradoresCaminoBrillanteCache(paisId, ""+campaniaId) ?? new List<BEDesmostradoresCaminoBrillante>();
+                var demostrador = demostradores.Where(e => e.CUV == cuv).FirstOrDefault();
+                if (demostrador != null) {
+                    estrategia.CUV2 = demostrador.CUV;
+                    estrategia.DescripcionCUV2 = demostrador.DescripcionCUV;
+                    estrategia.Precio2 = demostrador.PrecioCatalogo;
+                    return;
+                }
+                //Kitar
+                //campaniaId = 201903;
+                var kits = GetKits(paisId, campaniaId) ?? new List<BEKitCaminoBrillante>();
+                var kit = kits.Where(e => e.CUV == cuv).FirstOrDefault();
+                if (kit != null)
+                {
+                    estrategia.CUV2 = kit.CUV;
+                    estrategia.DescripcionCUV2 = kit.DescripcionCUV;
+                    estrategia.Precio2 = kit.PrecioCatalogo;
+                    return;
+                }
+            }
+            catch (Exception ex) {
+
             }
         }
 

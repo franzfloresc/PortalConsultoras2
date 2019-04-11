@@ -39,7 +39,7 @@ function AgregarProducto() {
                 EstrategiaID: "0",
                 OrigenPedidoWeb: "1181901",
                 TipoEstrategiaImagen: "6",
-                FlagNueva: false,
+                FlagNueva: "0",
                 EsEditable: false,
                 SetId: null,
                 ClienteID: 0

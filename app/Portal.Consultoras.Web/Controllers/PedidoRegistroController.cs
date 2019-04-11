@@ -225,8 +225,29 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
+                var esCaminoBrillante = false;
+                #region Camino Brillante
+                if (model.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido ||
+                    model.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido)
+                {
+                    esCaminoBrillante = true;
+                    /*
+                    //pedidoDetalle.EsVirtualCoach = true;
+                    pedidoDetalle.Estrategia = new ServicePedido.BEEstrategia();
+                    pedidoDetalle.Estrategia.Cantidad = Convert.ToInt32(model.Cantidad);
+                    pedidoDetalle.Estrategia.LimiteVenta = 0;
+                    pedidoDetalle.Estrategia.DescripcionCUV2 = "HOla";
+                    pedidoDetalle.Estrategia.FlagNueva = 0;
+                    pedidoDetalle.Estrategia.Precio2 = 120;
+                    pedidoDetalle.Estrategia.TipoEstrategiaID = 0;
+                    pedidoDetalle.Estrategia.IndicadorMontoMinimo = 0;
+                    pedidoDetalle.Estrategia.CUV2 = model.CUV;
+                    */
+                }
+                #endregion
+
                 #region OfertaFinal/LiquidacionWeb
-                if (model.EstrategiaID <= 0 && !pedidoDetalle.EsVirtualCoach)
+                if (model.EstrategiaID <= 0 && !pedidoDetalle.EsVirtualCoach && !esCaminoBrillante)
                 {
                     pedidoDetalle.Estrategia = new ServicePedido.BEEstrategia();
                     pedidoDetalle.Estrategia.Cantidad = Convert.ToInt32(model.Cantidad);
