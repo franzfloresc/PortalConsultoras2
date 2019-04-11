@@ -1,4 +1,4 @@
-﻿use [BelcorpBolivia_MC] 
+﻿use BelcorpBolivia
 go
 ALTER PROCEDURE dbo.UpdValAutoPROLPedidoWeb
     @CampaniaId int,
@@ -50,7 +50,7 @@ BEGIN
 END
 go
 
-use [BelcorpChile_MC]
+use BelcorpChile
 go
 ALTER PROCEDURE dbo.UpdValAutoPROLPedidoWeb
     @CampaniaId int,
@@ -102,7 +102,7 @@ BEGIN
 END
 go
 
-use [BelcorpColombia_MC]
+use BelcorpColombia
 go
 ALTER PROCEDURE dbo.UpdValAutoPROLPedidoWeb
     @CampaniaId int,
@@ -154,7 +154,7 @@ BEGIN
 END
 go
 
-use [BelcorpCostaRica_MC]
+use BelcorpCostaRica
 go
 ALTER PROCEDURE dbo.UpdValAutoPROLPedidoWeb
     @CampaniaId int,
@@ -206,7 +206,7 @@ BEGIN
 END
 go
 
-use [BelcorpDominicana_MC]
+use BelcorpDominicana
 go
 ALTER PROCEDURE dbo.UpdValAutoPROLPedidoWeb
     @CampaniaId int,
@@ -258,7 +258,7 @@ BEGIN
 END
 go
 
-use [BelcorpEcuador_MC]
+use BelcorpEcuador
 go
 ALTER PROCEDURE dbo.UpdValAutoPROLPedidoWeb
     @CampaniaId int,
@@ -310,7 +310,7 @@ BEGIN
 END
 go
 
-use [BelcorpGuatemala_MC]
+use BelcorpGuatemala
 go
 ALTER PROCEDURE dbo.UpdValAutoPROLPedidoWeb
     @CampaniaId int,
@@ -362,7 +362,7 @@ BEGIN
 END
 go
 
-use [BelcorpMexico_MC]
+use BelcorpMexico
 go
 ALTER PROCEDURE dbo.UpdValAutoPROLPedidoWeb
     @CampaniaId int,
@@ -414,7 +414,7 @@ BEGIN
 END
 go
 
-use [BelcorpPanama_MC]
+use BelcorpPanama
 go
 ALTER PROCEDURE dbo.UpdValAutoPROLPedidoWeb
     @CampaniaId int,
@@ -466,7 +466,7 @@ BEGIN
 END
 go
 
-use [BelcorpPeru_MC]
+use BelcorpPeru
 go
 ALTER PROCEDURE dbo.UpdValAutoPROLPedidoWeb
     @CampaniaId int,
@@ -518,7 +518,7 @@ BEGIN
 END
 go
 
-use [BelcorpPuertoRico_MC]
+use BelcorpPuertoRico
 go
 ALTER PROCEDURE dbo.UpdValAutoPROLPedidoWeb
     @CampaniaId int,
@@ -570,7 +570,7 @@ BEGIN
 END
 go
 
-use [BelcorpSalvador_MC]
+use BelcorpSalvador
 go
 ALTER PROCEDURE dbo.UpdValAutoPROLPedidoWeb
     @CampaniaId int,
