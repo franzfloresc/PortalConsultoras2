@@ -103,16 +103,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         else
                         {
-                            if (codigoClasificacion.Trim().Length == 0)
-                            {
-                                codigoClasificacion = "00";
-                            }
-                            else
-                            {
-                                codigoSubClasificacion = "00";
-                            }
-                            urlLms = IdCurso == 0 ? String.Format(urlLms, isoUsuario, token, codigoClasificacion, codigoSubClasificacion, descripcionSubClasificacion) : String.Format(urlLms, isoUsuario, token, userData.CodigoClasificacion, codigoClasificacion, codigoSubClasificacion, descripcionSubClasificacion, IdCurso);
-                            UrlCursoMiAcademiaVideo = IdCurso == 0 ? String.Format(urlLms, isoUsuario, token, codigoClasificacion, codigoSubClasificacion, descripcionSubClasificacion) : String.Format(UrlCursoMiAcademiaVideo, isoUsuario, token, codigoClasificacion, codigoSubClasificacion, descripcionSubClasificacion, IdCurso);
+                            return RedirectToAction("Index", "Bienvenida");
                         }
                     }
                     else
