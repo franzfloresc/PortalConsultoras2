@@ -18,23 +18,16 @@ $(window).scroll(function (event) {
 
     if ($("#Tab-Demostradores").hasClass('activado-dorado')) {
         TabDos = $(window).scrollTop();
-    }    
+    }
 });
 
 function AgregarProducto() {
     var items = document.getElementsByClassName('boton_Agregalo_home');
-
-    alert("hola : " + items.length);
-
     for (var i = 0; i < items.length; i++) {
         items[i].onclick = function (e) {
-
-            alert("hola : Click " );
-
             e.preventDefault();
             AbrirSplash();
-            
-            
+
             var cuvCapturado = this.parentElement.parentElement.parentElement.parentElement.children[0].value;
             var cantidadCapturado = this.parentElement.parentElement.children[0].children[0].children[1].value;
 
@@ -42,11 +35,11 @@ function AgregarProducto() {
                 CuvTonos: cuvCapturado,
                 CUV: cuvCapturado,
                 Cantidad: cantidadCapturado,
-                TipoEstrategiaID: 3014,
-                EstrategiaID: "34076",
+                TipoEstrategiaID: 0,
+                EstrategiaID: "0",
                 OrigenPedidoWeb: "1181901",
                 TipoEstrategiaImagen: "6",
-                FlagNueva: false,
+                FlagNueva: "0",
                 EsEditable: false,
                 SetId: null,
                 ClienteID: 0
@@ -63,14 +56,20 @@ function AgregarProducto() {
                 async: true,
                 cache: false,
                 success: function (data) {
-                    resultado.parentElement.parentElement.parentElement.lastElementChild.style.display = 'block';
-                    resultado.parentElement.parentElement.parentElement.parentElement.className += " producto_desactivado";
+                    if ($("#Tab-kits").hasClass('activado-dorado')) {
+                        resultado.parentElement.parentElement.parentElement.lastElementChild.style.display = 'block';
+                        //resultado.parentElement.parentElement.parentElement.parentElement.className += " producto_desactivado";
+                        var articulos = document.getElementsByClassName('col-12 fichas__productos__wrapper text-center');
+                        for (var i = 0; i < articulos[0].childElementCount; i++) {
+                            articulos[0].children[i].className += " producto_desactivado"
+                        }
+
+                    }
                     CerrarSplash();
                     CargarResumenCampaniaHeader(true);
                 },
                 error: function (data, error) {
                     alert("error");
-                    // dfd.reject(data, error);
                 }
             });
         }
