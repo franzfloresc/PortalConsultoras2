@@ -261,7 +261,7 @@ var EstrategiaAgregarModule = (function () {
         var $btnAgregar = $(event.target);
         //console.log($btnAgregar);
         var origenPedidoWebEstrategia = getOrigenPedidoWeb($btnAgregar);
-
+        
         //*****ANALYTICS ******
         if (AnalyticsPortalModule != 'undefined') {
             if (typeof (fichaModule) != "undefined") {
@@ -270,12 +270,19 @@ var EstrategiaAgregarModule = (function () {
                     AnalyticsPortalModule.MarcaFichaResumidaClickModificar(estrategia.CodigoUbigeoPortal, isChangeTono, isChangeCantidad, isChangeCliente);
                 }
             }
+            var seleccionados = seleccionadosPresenter.packComponents().componentesSeleccionados;
+            var estrategia = JSON.parse($("#data-estrategia").attr("data-estrategia"));
+            var codigoubigeoportal = estrategia.CodigoUbigeoPortal + "";
             
+            if (codigoubigeoportal !== "") {
+                AnalyticsPortalModule.MarcarAddCarArmaTuPack(codigoubigeoportal, seleccionados);
+                AnalyticsPortalModule.MarcaClickAgregarArmaTuPack(codigoubigeoportal, "Agregar", "Click Botón" );
+            }
         }
         //**FIN ANALYTICS *****
-
+        
         var estrategia = getEstrategia($btnAgregar, origenPedidoWebEstrategia);
-
+        
         if (estrategiaEstaBloqueada($btnAgregar, estrategia.CampaniaID)) {
             estrategia.OrigenPedidoWebEstrategia = origenPedidoWebEstrategia;
             getDivMsgBloqueado($btnAgregar, estrategia).show();
@@ -318,7 +325,7 @@ var EstrategiaAgregarModule = (function () {
             }
         }
         var divAgregado = $(itemClone).find(".agregado.product-add");
-
+        
         var cuvs = "";
         var codigoVariante = estrategia.CodigoVariante;
         if ((_codigoVariedad.IndividualVariable == codigoVariante || _codigoVariedad.CompuestaVariable == codigoVariante)) {
@@ -378,7 +385,7 @@ var EstrategiaAgregarModule = (function () {
                 if (cuv.substring(0, 3) == '999') {
                     sessionStorage.setItem('cuvPack', cuv);
                 }
-
+                
                 try {
                     if (!(typeof AnalyticsPortalModule === 'undefined')) {
                         AnalyticsPortalModule.MarcaAnadirCarritoGenerico(event, origenPedidoWebEstrategia, estrategia);
