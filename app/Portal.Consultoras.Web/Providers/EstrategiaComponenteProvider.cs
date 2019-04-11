@@ -77,6 +77,9 @@ namespace Portal.Consultoras.Web.Providers
 
                 listaEstrategiaComponente = estrategia.Hermanos;
 
+                //validación 'tiene detalle de sección?'
+                listaEstrategiaComponente.ForEach(c =>{(c.Secciones ?? new List<EstrategiaComponenteSeccionModel>()).ForEach(x => { c.TieneDetalleSeccion = (x.Detalles ?? new List<EstrategiaComponenteSeccionDetalleModel>()).Any(); });});
+
                 mensaje += "ObtenerModeloOfertaDesdeApi = " + listaEstrategiaComponente.Count;
             }
             else

@@ -5,6 +5,12 @@ namespace Portal.Consultoras.Common
 {
     public class Constantes
     {
+        public static class TipoSeccion
+        {
+            public const string Video = "01";
+            public const string Texto = "02";
+        }
+
         public static class TipoLink
         {
             public const int Ayuda = 301;

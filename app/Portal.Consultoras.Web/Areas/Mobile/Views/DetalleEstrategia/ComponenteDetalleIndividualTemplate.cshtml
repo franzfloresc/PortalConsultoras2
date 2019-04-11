@@ -6,10 +6,8 @@
         <div class="row tabs">
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <ul id="mnuDetalleComponente" class="tabs ficha_tabs">
-
                     {{#each this.Secciones as |seccion|}}
-
-                    {{#iff seccion.EsVideos '==' false }}
+                    {{#iff seccion.Tipo '==' '@Constantes.TipoSeccion.Texto' }}
                     <li id="div_ficha_tab1">
                         <a class="tab-link">{{seccion.Titulo}}</a>
                         <ul class="tabs_container">
@@ -48,7 +46,7 @@
                                             <h3 class="video_title">{{detalle.Titulo}}</h3>
                                         </div>
                                     </div>
-                                    
+
                                     {{/each}}
                                 </div>
                             </div>

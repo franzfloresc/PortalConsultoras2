@@ -1,8 +1,9 @@
-﻿<div data-ficha-contenido="componenteDetalle-template"></div>
+﻿﻿@using Portal.Consultoras.Common
+<div data-ficha-contenido="componenteDetalle-template"></div>
 <script id="componenteDetalle-template" type="text/x-handlebars-template">
-    <div id="modal_producto_detalle" class="Modal_Editar_Producto" style="display:none" data-product-detail-popup >
+    <div id="modal_producto_detalle" class="Modal_Editar_Producto" style="display:none" data-product-detail-popup>
         <div class="contenedor_detalle texto_font">
-            <a class="boton_volver_ficha" href="" data-close-product-detail-popup >
+            <a class="boton_volver_ficha" href="" data-close-product-detail-popup>
                 <img src="/Content/Images/mobile/Esika/right-arrow.svg">Volver
             </a>
             <div class="producto_detalle_content">
@@ -42,16 +43,14 @@
                         </div>
                     </div>
                     {{#each this.Secciones as |seccion|}}
-                    {{#iff seccion.EsVideos '!=' true }}
+                    {{#iff seccion.Tipo '==' '@Constantes.TipoSeccion.Texto' }}
                     <section class="seccion_tab" {{#if @@first}} style="display:block" {{/if}} data-tab-body data-num-tab="{{@@index}}">
                         {{#each seccion.Detalles as |detalle|}}
                         <h3>{{detalle.Titulo}}</h3>
                         <p>{{detalle.Descripcion}}</p>
                         {{/each}}
                     </section>
-                    {{/iff}}
-
-                    {{#iff seccion.EsVideos '==' true }}
+                    {{else}}
                     <section class="seccion_tab" {{#if @@first}} style="display:block" {{/if}} data-tab-body data-num-tab="{{@@index}}">
                         <div id="carouselVideo">
                             {{#each seccion.Detalles as |detalle|}}
@@ -76,6 +75,7 @@
                         </div>
                     </section>
                     {{/iff}}
+
                     {{/each}}
                 </div>
             </div>
