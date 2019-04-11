@@ -1110,7 +1110,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         arrIds.Add(cab.PedidoId.ToString());
                         //foreach (var item in detalles)
                         //{
-                            item.Elegido = false;
+                            //item.Elegido = false;
                         //}
                     }
                 }
