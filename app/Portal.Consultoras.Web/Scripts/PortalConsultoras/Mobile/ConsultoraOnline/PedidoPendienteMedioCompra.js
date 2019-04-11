@@ -1,20 +1,24 @@
 ﻿$(document).ready(function () {
 
     $('.btnAccion').click(function (e) {
-
+        
         if (!$(e.target).hasClass('active')) {
             $(e.target).addClass('active');
+            $(e.target).html('Elegir');
         }
         else {
-            $('.btnAccion').find('a').addClass('active');
+            $('.btnAccion').find('span').addClass('active');
             $(e.target).removeClass('active');
+            $(e.target).html('Elegido');
         }
 
-        if ($('.btnAccion a.active').length == $('.btnAccion a').length) {
+        if ($('.btnAccion span.active').length == $('.btnAccion span').length) {
             $('#btnAceptarPedido a').removeClass('active');
+            $('#btnAceptarPedido a').html('Elegido');
         }
         else {
             $('#btnAceptarPedido a').addClass('active');
+            $('#btnAceptarPedido a').html('Elegir');
         }
 
         e.preventDefault();
