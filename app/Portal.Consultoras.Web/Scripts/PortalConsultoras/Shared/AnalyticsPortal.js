@@ -1901,14 +1901,15 @@ var AnalyticsPortalModule = (function () {
         }
     }
     var marcarCambiarOpcion = function (opcion) {
-        var origenPedido = opcion.OrigenPedidoEditar || 0;
-        if (origenPedido > 0) {
-            if (origenPedido == ConstantesModule.OrigenPedidoWeb.DesktopPedidoEditarFicha || 
-                origenPedido == ConstantesModule.OrigenPedidoWeb.MobilePedidoEditarFicha) {
+
+        var codUbigeo = opcion.CodigoUbigeoPortal || "";
+        if (codUbigeo !== "") {
+            if (codUbigeo === ConstantesModule.CodigoUbigeoPortal.GuionCarritoComprasGuionFichaResumida) {
+                var textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(codUbigeo); //using new function
                 try {
                     dataLayer.push({
                         'event': _evento.virtualEvent,
-                        'category': _texto.CarritoCompras + " - Ficha Resumida",
+                        'category': textoCategory,
                         'action': 'Ver Popup Cambiar opciones',
                         'label': opcion.DescripcionCompleta
                     });
@@ -1929,7 +1930,6 @@ var AnalyticsPortalModule = (function () {
                 console.log(_texto.excepcion + e);
             }
         }
-        
     }
     var marcarPopupEligeXOpciones = function (opcion) {
         try {
@@ -2006,13 +2006,33 @@ var AnalyticsPortalModule = (function () {
         }
     }
     var marcarCambiarOpcionVariasOpciones = function (opcion) {
+        
         try {
-            dataLayer.push({
-                'event': _evento.virtualEvent,
-                'category': 'Contenedor - Ficha de producto',
-                'action': 'Cambiar opciones',
-                'label': opcion.DescripcionCompleta
-            });
+            codUbigeo = opcion.CodigoUbigeoPortal || "";
+            //var origenPedido = opcion.OrigenPedidoEditar || 0;
+            if (codUbigeo !== "") {
+                if (codUbigeo === ConstantesModule.CodigoUbigeoPortal.GuionCarritoComprasGuionFichaResumida ) {
+                    var textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(codUbigeo); //using new function
+                    try {
+                        dataLayer.push({
+                            'event': _evento.virtualEvent,
+                            'category': textoCategory,
+                            'action': 'Ver Popup Cambiar opciones',
+                            'label': opcion.DescripcionCompleta
+                        });
+                    } catch (e) {
+                        console.log(_texto.excepcion + e);
+                    }
+                }
+
+            } else { //Cambia Opcione normal
+                dataLayer.push({
+                    'event': _evento.virtualEvent,
+                    'category': 'Contenedor - Ficha de producto',
+                    'action': 'Cambiar opciones',
+                    'label': opcion.DescripcionCompleta
+                });
+            }
         } catch (e) {
             console.log(_texto.excepcion + e);
         }

@@ -270,14 +270,22 @@ var EstrategiaAgregarModule = (function () {
                     AnalyticsPortalModule.MarcaFichaResumidaClickModificar(estrategia.CodigoUbigeoPortal, isChangeTono, isChangeCantidad, isChangeCliente);
                 }
             }
-            var seleccionados = seleccionadosPresenter.packComponents().componentesSeleccionados;
-            var estrategia = JSON.parse($("#data-estrategia").attr("data-estrategia"));
-            var codigoubigeoportal = estrategia.CodigoUbigeoPortal + "";
             
-            if (codigoubigeoportal !== "") {
-                AnalyticsPortalModule.MarcarAddCarArmaTuPack(codigoubigeoportal, seleccionados);
-                AnalyticsPortalModule.MarcaClickAgregarArmaTuPack(codigoubigeoportal, "Agregar", "Click Botón" );
+            if (typeof(seleccionadosPresenter) !== 'undefined')
+            {
+                if (seleccionadosPresenter.packComponents() !== 'undefined') {
+                    var seleccionados = seleccionadosPresenter.packComponents().componentesSeleccionados;
+                    var estrategia = JSON.parse($("#data-estrategia").attr("data-estrategia"));
+                    var codigoubigeoportal = estrategia.CodigoUbigeoPortal + "";
+
+                    if (codigoubigeoportal !== "") {
+                        AnalyticsPortalModule.MarcarAddCarArmaTuPack(codigoubigeoportal, seleccionados);
+                        AnalyticsPortalModule.MarcaClickAgregarArmaTuPack(codigoubigeoportal, "Agregar", "Click Botón");
+                    }
+                }
+                
             }
+            
         }
         //**FIN ANALYTICS *****
         
