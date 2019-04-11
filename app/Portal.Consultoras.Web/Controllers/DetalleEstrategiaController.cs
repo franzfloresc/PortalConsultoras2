@@ -122,14 +122,14 @@ namespace Portal.Consultoras.Web.Controllers
                             true
                             );
 
-                if (!fichaEnriquecidaEstaActiva)
-                {
-                    componentes.ForEach(x =>
-                    {
-                        x.MostrarVerDetalle = false;
-                        x.Secciones = null;
-                    });
-                }
+                //if (!fichaEnriquecidaEstaActiva)
+                //{
+                //    componentes.ForEach(x =>
+                //    {
+                //        x.MostrarVerDetalle = false;
+                //        x.Secciones = null;
+                //    });
+                //}
 
                 return Json(new
                 {
