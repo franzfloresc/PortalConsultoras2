@@ -30,7 +30,8 @@ var CONS_CODIGO_SECCION = {
     DES: "DES-NAV",
     HV: "HV",
     MG: 'MG',
-    ATP: 'ATP'
+    ATP: 'ATP',
+    DP: 'DP' //HD-3473 EINCA 
 };
 
 var listaSeccion = {};
@@ -122,7 +123,10 @@ function SeccionCargarProductos(objConsulta) {
         $("#" + objConsulta.Codigo).find(".seccion-loading-contenedor").fadeOut();
         $("#" + objConsulta.Codigo).find(".seccion-content-contenedor").fadeIn();
     }
-
+    //HD-3473 EINCA 
+    if (objConsulta.Codigo === CONS_CODIGO_SECCION.DP) {
+        AnalyticsPortalModule.MarcaPromotionViewBanner('Contenedor - Inicio');
+    }
     if (objConsulta.UrlObtenerProductos === "")
         return false;
 

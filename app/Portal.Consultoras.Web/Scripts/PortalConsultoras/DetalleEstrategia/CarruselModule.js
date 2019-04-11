@@ -65,6 +65,24 @@ var CarruselAyuda = function () {
         return pagina;
     }
 
+    var _eliminarDuplicadosArray = function (arr, comp) {
+        //emac5
+        var unique = arr.map(function (e) {
+            return e[comp];
+        }).map(function (e, i, final) {
+            return final.indexOf(e) === i && i;
+        }).filter(function (e) {
+            return arr[e];
+        }).map(function (e) {
+            return arr[e];
+        });
+        //emac6
+        //const unique = arr.map(e => e[comp]).map((e, i, final) => final.indexOf(e) === i && i).filter(e => arr[e]).map(e => arr[e]);
+        return unique;
+
+    }
+
+
     var _obtenerEstrategiaLiquidacion = function (objMostrar) {
         var estrategia = "";
         var recomendado = arrayLiquidaciones[objMostrar.IndexMostrar] || {};
@@ -106,6 +124,21 @@ var CarruselAyuda = function () {
 
                 //console.log('marcarAnalyticsInicio - fin', obj);
                 AnalyticsPortalModule.MarcaGenericaLista("", obj);
+
+                //INI DH-3473 EINCA Marcar las estrategias de programas nuevas(dúo perfecto)
+                var programNuevas = arrayItems.filter(function (pn) {
+                    return pn.EsBannerProgNuevas == true;
+                });
+
+                if (programNuevas) {
+                    if (programNuevas.length > 0) {
+                        var uniqueProgramNuevas = _eliminarDuplicadosArray(programNuevas, "CUV2");
+
+                        var pos = (isHome()) ? "Home" : "Pedido";
+                        AnalyticsPortalModule.MarcaGenericaLista(ConstantesModule.TipoEstrategia.DP, uniqueProgramNuevas, pos);
+                    }
+                }
+                //FIN DH-3473 EINCA Marcar las estrategias de programas nuevas(dúo perfecto)
             }
 
         } catch (e) {
@@ -269,12 +302,37 @@ var CarruselAyuda = function () {
         }
     }
 
+    //HD-3473 EINCA Marcar Analytic, cuando se hace clic en el banner de duo perfecto
+    var marcaAnalycticCarruselProgramasNuevas = function (e, url) {
+        try {
+            var category = (isHome()) ? "Home - Dúo Perfecto" : "Pedido - Dúo Perfecto";
+            var pagina = isHome() ? ConstantesModule.OrigenPedidoWebEstructura.Pagina.Home : ConstantesModule.OrigenPedidoWebEstructura.Pagina.Pedido;
+            var OrigenPedidoWeb = ConstantesModule.OrigenPedidoWebEstructura.Dispositivo.Desktop
+                + pagina + ConstantesModule.OrigenPedidoWebEstructura.Palanca.DuoPerfecto
+                + ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel;
+            AnalyticsPortalModule.MarcaPromotionClicBanner(OrigenPedidoWeb, "", url);
+
+            dataLayer.push({
+                'event': 'virtualEvent',
+                'category': category,
+                'action': 'Click Botón',
+                'label': 'Elegir Ahora'
+            });
+            document.location.href = url;
+            return false;
+        } catch (e) {
+
+        }
+
+    }
+
     return {
         MarcarAnalyticsChange: marcarAnalyticsChange,
         MarcarAnalyticsInicio: marcarAnalyticsInicio,
         MarcarAnalyticsContenedor: marcarAnalyticsContenedor,
         MarcarAnalyticsLiquidacion: marcarAnalyticsLiquidacion,
-        MostrarFlechaCarrusel: mostrarFlechaCarrusel
+        MostrarFlechaCarrusel: mostrarFlechaCarrusel,
+        MarcaAnalycticCarruselProgramasNuevas: marcaAnalycticCarruselProgramasNuevas//HD-3473 EINCA
     };
 }();
 
@@ -865,4 +923,3 @@ function ArmarCarouselLiquidaciones(data) {
 ////////////////////////////////////////////////////////////////////
 //// Fin - Home Liquidacion
 ////////////////////////////////////////////////////////////////////
-
