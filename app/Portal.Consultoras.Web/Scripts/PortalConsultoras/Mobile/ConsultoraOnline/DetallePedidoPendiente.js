@@ -388,7 +388,6 @@ function RechazarSolicitudClientePorCuv(cuv) {
 
 }
 
-
 function ContinuarPedido() {
     var lstDetalle = [];
     ShowLoading();
@@ -474,72 +473,3 @@ function EliminarSolicitudDetalle(pedidoId, cuv, origen) {
     });
 
 }
-
-
-//function RechazarTodoPedidoProductos(obj) {
-//    $.ajax({
-//        type: "POST",
-//        url: "/ConsultoraOnline/RechazarTodoPedidoVistasProductos",
-//        dataType: 'json',
-//        contentType: 'application/json; charset=utf-8',
-//        data: JSON.stringify(obj),
-//        //async: true,
-//        success: function (response) {
-
-//            if (response.success) {
-
-//            } else {
-//                alert(response.mensaje);
-//            }
-
-//            error: function (err) {
-//                console.log(err);
-//        }
-//    });
-//}
-
-//function RechazarTodoPedidoClientes(obj) {
-
-//    var cantidad = $('div.detalle_pedido_reservado').find('#cantidad').text();
-//    $.ajax({
-//        type: "POST",
-//        url: "/ConsultoraOnline/RechazarTodoPedidoVistasClientes",
-//        dataType: 'json',
-//        contentType: 'application/json; charset=utf-8',
-//        data: JSON.stringify(obj),
-//        async: true,
-//        success: function (response) {
-//            //var mensaje = '#' + cuv;
-//            //$(mensaje).hide();
-//            //CloseLoading();
-//            //if (checkTimeout(response)) {
-//            //    if (response.success) {
-//            //        if (pedido.Tipo == 1) {
-//            //            $('#detallePedidoAceptado').text('Has agregado ' + pedido.Ingresos.toString() + ' producto(s) a tu pedido');
-//            //        }
-//            //        else {
-//            //            $('#detallePedidoAceptado').text('No te olvides de ingresar en tu pedido los productos de este cliente.');
-//            //        }
-
-//            //        ActualizarGanancia(response.DataBarra);
-//            //        $('#PedidoAceptado').show();
-//            //    }
-//            //    else {
-//            //        if (response.code == 1) {
-//            //            AbrirMensaje(response.message);
-//            //        }
-//            //        else if (response.code == 2) {
-//            //            $('#MensajePedidoReservado').text(response.message);
-//            //            $('#AlertaPedidoReservado').show();
-//            //        }
-//            //    }
-//            //}
-//        },
-//        error: function (data, error) {
-//            //CloseLoading();
-//            //if (checkTimeout(data)) {
-//            //    AbrirMensaje("Ocurrió un error inesperado al momento de aceptar el pedido. Consulte con su administrador del sistema para obtener mayor información");
-//            //}
-//        }
-//    });
-//}
