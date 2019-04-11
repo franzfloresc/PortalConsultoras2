@@ -28298,11 +28298,10 @@ div.motivoRechazo textarea {
 }
 
 .select_reclamo,
-.elige_num_pedido
-{
-    background-image:url(/Content/Images/flecha-campo-select.svg);
-    background-repeat:no-repeat;
-    background-position:95.8% center;
+.elige_num_pedido {
+    background-image: url(/Content/Images/flecha_despliegue_campo_select.svg);
+    background-repeat: no-repeat;
+    background-position: 97.3% center;
 }
 
 .elige_num_pedido{
@@ -28645,9 +28644,21 @@ div.motivoRechazo textarea {
     vertical-align:top;
 }
 
+    .validacion_datos_correo_electronico > div,
+    .validacion_datos_celular_contacto > div {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+    .validacion_datos_correo_electronico .texto_correo,
+    .validacion_datos_celular_contacto .texto_correo {
+        order: -1;
+    }
+
 .opcion_cdr,
-.opcion_cdr_seleccionada_campo_busqueda{
-    vertical-align:middle;
+.opcion_cdr_seleccionada_campo_busqueda {
+    vertical-align: middle;
 }
 
 .opcion_cdr {
@@ -29303,15 +29314,28 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 .correo_reclamo {
     width: 276px;
     height: 45px;
-    border: 1px solid #cccccc;
-    font-family: 'Lato';
+    border: 1px solid #808080;
+    font-family: 'Lato', sans-serif;
     font-size: 15px;
-    color: #b5b5b5;
+    color: #000;
     line-height: 45px;
     float: left;
-    padding: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
     margin-left: 50px;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease 0.3s ease;
 }
+
+    .correo_reclamo:focus{
+        border-color: #000;
+    }
+
+    .correo_reclamo:focus + .texto_correo {
+        color: #000;
+    }
 
 .correo_reclamo_error {
     display: inline-block;
@@ -29335,7 +29359,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     margin-left: 51px;
     font-family: 'Lato';
     font-size: 15px;
-    color: #b5b5b5;
+    color: #808080;
     margin-top: 18px;
     margin-bottom: 12px;
 }
@@ -29348,7 +29372,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     font-size: 15px;
     line-height: 30px;
     width: 330px;
-    text-decoration:none;
+    text-decoration: none;
 }
 
 .politica_reclamos_icono,
