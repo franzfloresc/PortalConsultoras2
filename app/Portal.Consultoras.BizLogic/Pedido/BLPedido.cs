@@ -248,6 +248,9 @@ namespace Portal.Consultoras.BizLogic.Pedido
             if (pedidoDetalle.OrigenPedidoWeb == 1181901)
             {
                 var caminoBrillante = new Portal.Consultoras.BizLogic.CaminoBrillante.BLCaminoBrillante();
+                caminoBrillante.UpdEstragiaCaminiBrillante(estrategia, usuario.PaisID, usuario.CampaniaID, pedidoDetalle.Producto.CUV);
+
+                /*
                 List<Entities.CaminoBrillante.BEKitCaminoBrillante> kits = null;
                 try
                 {
@@ -269,6 +272,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 {
                     //return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_GUARDAR_OBS, "Kit no válido.");
                 }
+                */
             }
             #endregion
 

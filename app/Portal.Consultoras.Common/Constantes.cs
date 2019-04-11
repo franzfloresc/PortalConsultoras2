@@ -1027,6 +1027,13 @@ namespace Portal.Consultoras.Common
             public const int AppConsultoraPedidoCatalogoEsikaCatalogoDigitalPendienteDeAprobar = 4021211;
             public const int AppConsultoraPedidoCatalogoCyzoneCatalogoDigitalPendienteDeAprobar = 4021311;
             #endregion
+
+            #region CaminoBrillante
+            public const int CaminoBrillanteDesktopPedido = 1181901;
+            public const int CaminoBrillanteMobilePedido = 2181901;
+            public const int CaminoBrillanteAppConsultorasPedido = 4181901;
+            #endregion
+
         }
 
         public static class TipoTutorial
