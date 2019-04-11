@@ -1094,6 +1094,9 @@ var AnalyticsPortalModule = (function () {
         try {
             //console.log('marcaGenericaLista- ini', seccion, data, pos);
             // mantener la seccion para LAN, luego ponerlo dentro de data como origen
+            if (typeof seccion === "undefined")
+                return false;
+
             seccion = seccion.replace("Lista", "");
 
             switch (seccion) {
