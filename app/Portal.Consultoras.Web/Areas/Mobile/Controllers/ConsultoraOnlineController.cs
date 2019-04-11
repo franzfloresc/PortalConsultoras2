@@ -1045,6 +1045,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 {
                     foreach (var det in cab.DetallePedido)
                     {
+                        det.Elegido = false;
                         lstPedidosDetatalle.Add(det);
                     }
                 }
@@ -1109,7 +1110,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         arrIds.Add(cab.PedidoId.ToString());
                         //foreach (var item in detalles)
                         //{
-                        //    lstdetalle.Add(item);
+                            //item.Elegido = false;
                         //}
                     }
                 }

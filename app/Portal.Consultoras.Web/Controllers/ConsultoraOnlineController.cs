@@ -2900,12 +2900,19 @@ namespace Portal.Consultoras.Web.Controllers
                 //var Listadetalle = new List<BEMisPedidosDetalle>();
                 //var Listadetallefinal = new List<BEMisPedidosDetalle>();
                 //var Listapedido = new List<BEMisPedidos>();
+                foreach (var lp in pedidos.ListaPedidos)
+                {
+                    foreach (var flag in lp.DetallePedido)
+                    {
+                        flag.Elegido = false;
+                    }
+                }
 
-                foreach (var det in lstDetalle)
+               foreach (var det in lstDetalle)
                 {
                     foreach (var cab in pedidos.ListaPedidos)
                     {
-                        var tmpDet = cab.DetallePedido.Where(x => x.PedidoId == det.PedidoId && x.CUV == det.CUV).FirstOrDefault();
+                         var tmpDet = cab.DetallePedido.Where(x => x.PedidoId == det.PedidoId && x.CUV == det.CUV).FirstOrDefault();
                         if (tmpDet != null)
                         {
                             //arrIds.Add(cab.PedidoId.ToString());
