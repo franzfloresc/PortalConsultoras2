@@ -2436,24 +2436,22 @@ var AnalyticsPortalModule = (function () {
             }
         }
     }
-    var marcaEligeloClickArmaTuPack = function (origenPedido, estrategia, textoLabel, actionText) {
-
-        var estoyEnLaFicha = isFicha();
-        var list = "Contenedor - Arma tu Pack";
-        
+    var marcaEligeloClickArmaTuPack = function (origenPedido, estrategia) {
         //var item = JSON.parse($("#data-estrategia").attr("data-estrategia"));
         var item = estrategia;
 
         try {
             if (origenPedido !== "") {
-                if (origenPedido == ConstantesModule.CodigoUbigeoPortal.GuionContenedorArmaTuPackGuion) {
-                    var textoCategory = "Contenedor - Arma tu Pack";
+                
+                if (origenPedido === ConstantesModule.CodigoUbigeoPortal.GuionContenedorArmaTuPack) {
+                    //var textoCategory = "Contenedor - Arma tu Pack";
+                    var textoCategory =  CodigoUbigeoPortal.GetTextoSegunCodigo(origenPedido) + ""; //using new function
                     dataLayer.push({
                         'event': _evento.productClick,
                         'ecommerce': {
                             'currencyCode': _getCurrencyCodes(),
                             'click': {
-                                'actionField': { 'list': list },
+                                'actionField': { 'list': textoCategory },
                                 'products': [{
                                     'name': item.DescripcionCompleta,
                                     'id': item.CUV2,
@@ -2478,6 +2476,20 @@ var AnalyticsPortalModule = (function () {
 
     }
 
+    var marcaEliminaClickArmaTuPack = function (origenPedido, estrategia) {
+
+        if (origenPedido !== "") {
+            if (origenPedido === ConstantesModule.CodigoUbigeoPortal.GuionContenedorArmaTuPack) {
+                var textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(origenPedido) + ""; //using new function
+                dataLayer.push({
+                    'event': _evento.virtualEvent,
+                    "category": textoCategory,
+                    "action": 'Eliminar Producto',
+                    "label": estrategia.DescripcionCompleta + ""
+                });
+            }
+        }
+    }
     ////////////////////////////////////////////////////////////////////////////////////////
     // Fin - Analytics Ficha Resumida
     ////////////////////////////////////////////////////////////////////////////////////////
@@ -2590,6 +2602,7 @@ var AnalyticsPortalModule = (function () {
         MarcaFichaResumidaClickModificar: marcaFichaResumidaClickModificar,
         MarcaPromotionViewArmaTuPack: marcaPromotionViewArmaTuPack,
         MarcaPromotionClickArmaTuPack: marcaPromotionClickArmaTuPack,
-        MarcaEligeloClickArmaTuPack: marcaEligeloClickArmaTuPack
+        MarcaEligeloClickArmaTuPack: marcaEligeloClickArmaTuPack,
+        MarcaEliminaClickArmaTuPack: marcaEliminaClickArmaTuPack
     }
 })();

@@ -148,7 +148,8 @@ var ConstantesModule = (function () {
     }
     var _codigoUbigeoPortal = {
         GuionPedidoGuionFichaResumida: "--02--00",
-        GuionContenedorArmaTuPackGuion: "--0816--"
+        GuionContenedorArmaTuPackGuion: "--0816--",
+        GuionContenedorArmaTuPack: "--12----" 
 }
 
     // en AnaluticsPortal.js tambiar actualizar los valores

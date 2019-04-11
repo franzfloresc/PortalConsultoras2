@@ -100,13 +100,13 @@
          
         console.log('analytic_3.2: Elígelo', codigoGrupo, cuvComponente);
         //Analytics ATP Elígelo
-        debugger;
+        
         if (!(typeof AnalyticsPortalModule === 'undefined')) {
             var estrategia = JSON.parse($("#data-estrategia").attr("data-estrategia"));
             var codigoubigeoportal = estrategia.CodigoUbigeoPortal + "";
             if (codigoubigeoportal !== "") {
                 //var label = $("[data-group-header][data-grupo=" + grupo + "]").find("h3").text();
-                AnalyticsPortalModule.MarcaEligeloClickArmaTuPack(codigoubigeoportal, estrategia, "", "");
+                AnalyticsPortalModule.MarcaEligeloClickArmaTuPack(codigoubigeoportal, estrategia);
             }
         }
         var model = _packComponents();
