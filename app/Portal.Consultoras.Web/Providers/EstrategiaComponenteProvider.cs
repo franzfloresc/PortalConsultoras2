@@ -77,7 +77,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 listaEstrategiaComponente = estrategia.Hermanos;
 
-                mensaje += "ObtenerModeloOfertaDesdeApi = " + listaEstrategiaComponente.Count + "|serie = \n " + JsonConvert.SerializeObject(listaEstrategiaComponente) + " \n";
+                mensaje += "ObtenerModeloOfertaDesdeApi = " + listaEstrategiaComponente.Count;
             }
             else
             {
