@@ -64,14 +64,13 @@ function AgregarProducto() {
                         for (var i = 0; i < articulos[0].childElementCount; i++) {
                             articulos[0].children[i].className += " producto_desactivado"
                         }
-                    }
 
+                    }
                     CerrarSplash();
                     CargarResumenCampaniaHeader(true);
                 },
                 error: function (data, error) {
                     alert("error");
-                    // dfd.reject(data, error);
                 }
             });
         }
