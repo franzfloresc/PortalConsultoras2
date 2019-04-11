@@ -1,8 +1,8 @@
 ﻿var LocalStorageModule = (function () {
     'use strict';
-    var _codigoPalanca = ConstantesModule.CodigosPalanca;
-    var _constantesPalanca = ConstantesModule.ConstantesPalanca;
-    var _tipoEstrategiaPalanca = ConstantesModule.TipoEstrategia;
+    var _tipoEstrategiaTexto = ConstantesModule.TipoEstrategiaTexto;
+    var _tipoEstrategia = ConstantesModule.TipoEstrategia;
+    var _codigoPalanca = ConstantesModule.CodigoPalanca;
     var _keyLocalStorage = ConstantesModule.KeysLocalStorage;
 
     var _urlObtenerEstrategia = ConstantesModule.UrlObtenerEstrategia;
@@ -10,17 +10,17 @@
     var _obtenerKey = function (palanca, campania) {
 
         switch (palanca) {
-            case _codigoPalanca.RevistaDigital:
-            case _codigoPalanca.OfertaParaTi:
-            case _codigoPalanca.OfertasParaMi:
+            case _tipoEstrategiaTexto.RevistaDigital:
+            case _tipoEstrategiaTexto.OfertaParaTi:
+            case _tipoEstrategiaTexto.OfertasParaMi:
                 return _keyLocalStorage.RevistaDigital + campania;
-            case _codigoPalanca.GuiaDeNegocioDigitalizada:
+            case _tipoEstrategiaTexto.GuiaDeNegocioDigitalizada:
                 return _keyLocalStorage.GuiaDeNegocio + campania;
-            case _codigoPalanca.Lanzamiento:
+            case _tipoEstrategiaTexto.Lanzamiento:
                 return _keyLocalStorage.Lanzamiento + campania;
-            case _codigoPalanca.HerramientasVenta:
+            case _tipoEstrategiaTexto.HerramientasVenta:
                 return _keyLocalStorage.HerramientasVenta + campania;
-            case _codigoPalanca.Ganadoras:
+            case _tipoEstrategiaTexto.Ganadoras:
                 return _keyLocalStorage.Ganadoras + campania;
 
             default:
@@ -30,16 +30,16 @@
 
     var _obtenerKeyName = function (codigoPalanaca, campania) {
         switch (codigoPalanaca) {
-            case _constantesPalanca.RevistaDigital:
-            case _constantesPalanca.OfertaParaTi:
-            case _constantesPalanca.OfertasParaMi:
-            case _constantesPalanca.PackAltoDesembolso:
+            case _tipoEstrategia.RevistaDigital:
+            case _tipoEstrategia.OfertaParaTi:
+            case _tipoEstrategia.OfertasParaMi:
+            case _tipoEstrategia.PackAltoDesembolso:
                 return _keyLocalStorage.RevistaDigital;
-            case _constantesPalanca.GuiaDeNegocioDigitalizada:
+            case _tipoEstrategia.GuiaDeNegocioDigitalizada:
                 return _keyLocalStorage.GuiaDeNegocio;
-            case _constantesPalanca.Lanzamiento:
+            case _tipoEstrategia.Lanzamiento:
                 return _keyLocalStorage.Lanzamiento;
-            case _constantesPalanca.HerramientasVenta:
+            case _tipoEstrategia.HerramientasVenta:
                 return _keyLocalStorage.HerramientasVenta;
             default:
                 return null;
@@ -48,23 +48,23 @@
 
     var _obtenerKeyName2 = function (codigoPalanaca, campania) {
         switch (codigoPalanaca) {
-            case _tipoEstrategiaPalanca.RD:
-            case _constantesPalanca.RevistaDigital:
-            case _constantesPalanca.OfertaParaTi:
-            case _constantesPalanca.OfertasParaMi:
-            case _constantesPalanca.PackAltoDesembolso:
+            case _codigoPalanca.RD:
+            case _tipoEstrategia.RevistaDigital:
+            case _tipoEstrategia.OfertaParaTi:
+            case _tipoEstrategia.OfertasParaMi:
+            case _tipoEstrategia.PackAltoDesembolso:
                 return _keyLocalStorage.RevistaDigital;
-            case _tipoEstrategiaPalanca.GND:
-            case _constantesPalanca.GuiaDeNegocioDigitalizada:
+            case _codigoPalanca.GND:
+            case _tipoEstrategia.GuiaDeNegocioDigitalizada:
                 return _keyLocalStorage.GuiaDeNegocio;
-            case _tipoEstrategiaPalanca.LAN:
-            case _constantesPalanca.Lanzamiento:
+            case _codigoPalanca.LAN:
+            case _tipoEstrategia.Lanzamiento:
                 return _keyLocalStorage.Lanzamiento;
-            case _tipoEstrategiaPalanca.HV:
-            case _constantesPalanca.HerramientasVenta:
+            case _codigoPalanca.HV:
+            case _tipoEstrategia.HerramientasVenta:
                 return _keyLocalStorage.HerramientasVenta;
-            case _tipoEstrategiaPalanca.MG:
-            case _constantesPalanca.MasGanadoras:
+            case _codigoPalanca.MG:
+            case _tipoEstrategia.MasGanadoras:
                 return _keyLocalStorage.Ganadoras;
             //INI HD-3908
             case _tipoEstrategiaPalanca.PN:
@@ -105,7 +105,7 @@
     var _buscarEstrategiaPorCuv = function (cuv, palanca, listaLocalStorage) {
         var arrayEstrategia;
 
-        if (palanca === _codigoPalanca.Lanzamiento) {
+        if (palanca === _tipoEstrategiaTexto.Lanzamiento) {
             arrayEstrategia = (listaLocalStorage.response.listaLan || []).Find("CUV2", cuv) || new Array();
         } else {
             arrayEstrategia = (listaLocalStorage.response.lista || []).Find("CUV2", cuv) || new Array();
@@ -117,18 +117,18 @@
 
     var _obtenerUrlEstrategia = function (palanca) {
         switch (palanca) {
-            case _codigoPalanca.RevistaDigital:
-            case _codigoPalanca.OfertasParaMi:
+            case _tipoEstrategiaTexto.RevistaDigital:
+            case _tipoEstrategiaTexto.OfertasParaMi:
                 return _urlObtenerEstrategia.OfertasParaMi;
-            case _codigoPalanca.OfertaParaTi:
+            case _tipoEstrategiaTexto.OfertaParaTi:
                 return _urlObtenerEstrategia.OfertaParaTi;
-            case _codigoPalanca.GuiaDeNegocioDigitalizada:
+            case _tipoEstrategiaTexto.GuiaDeNegocioDigitalizada:
                 return _urlObtenerEstrategia.GuiaDeNegocioDigitalizada;
-            case _codigoPalanca.Lanzamiento:
+            case _tipoEstrategiaTexto.Lanzamiento:
                 return _urlObtenerEstrategia.Lanzamiento;
-            case _codigoPalanca.HerramientasVenta:
+            case _tipoEstrategiaTexto.HerramientasVenta:
                 return _urlObtenerEstrategia.HerrameintasVenta;
-            case _codigoPalanca.Ganadoras:
+            case _tipoEstrategiaTexto.Ganadoras:
                 return _urlObtenerEstrategia.MasGanadoras;
             default:
                 return null;
@@ -220,14 +220,14 @@
             if (valLocalStorage != null) {
                 var data = JSON.parse(valLocalStorage);
                 var updated;
-                if (codigoPalanaca === _constantesPalanca.Lanzamiento || codigoPalanaca === _tipoEstrategiaPalanca.LAN)
+                if (codigoPalanaca === _tipoEstrategia.Lanzamiento || codigoPalanaca === _codigoPalanca.LAN)
                     updated = _actualizarAgregado(data.response.listaLan, estrategiaId, valor);
                 else
                     updated = _actualizarAgregado(data.response.lista, estrategiaId, valor);
 
                 if (updated) localStorage.setItem(nombreKeyLocalStorage, JSON.stringify(data));
 
-                if (!updated && codigoPalanaca == "007") {
+                if (!updated && codigoPalanaca == _tipoEstrategia.OfertasParaMi) {
                     ActualizarCheckAgregado(estrategiaId, campania, "MG", valor);
                 }
             }
@@ -327,20 +327,24 @@ function ActualizarLocalStorageAgregado(tipo, cuv, valor) {
 
         var listaCuv = cuv.split('|');
         var indCampania = indCampania || 0;
-        if (tipo == "RD") {
-            var lista = "RDLista";
+        var lista = "";
+        if (tipo == ConstantesModule.CodigoPalanca.RD) {
+            lista = ConstantesModule.KeysLocalStorage.RevistaDigital;
         }
-        else if (tipo == "GND") {
-            var lista = "GNDLista";
+        else if (tipo == ConstantesModule.CodigoPalanca.GND) {
+            lista = ConstantesModule.KeysLocalStorage.GuiaDeNegocio;
         }
-        else if (tipo == "HV") {
-            var lista = "HVLista";
+        else if (tipo == ConstantesModule.CodigoPalanca.HV) {
+            lista = ConstantesModule.KeysLocalStorage.HerramientasVenta;
         }
-        else if (tipo == "LAN") {
-            var lista = "LANLista";
+        else if (tipo == ConstantesModule.CodigoPalanca.LAN) {
+            lista = ConstantesModule.KeysLocalStorage.Lanzamiento;
         }
-        else if (tipo == "MG") {
-            var lista = "MGLista";
+        else if (tipo == ConstantesModule.CodigoPalanca.MG) {
+            lista = ConstantesModule.KeysLocalStorage.Ganadoras;
+        }
+        if (lista == "") {
+            return;
         }
         //INI HD-3908
         else if (tipo == ConstantesModule.TipoEstrategia.PN) {

@@ -150,26 +150,25 @@
                     <p class="notificaciones notificaciones_existentes js-notificaciones" onclick="Notificaciones();">0</p>
                 </a>
             </div>
-            <div class="mensajes_home"><span id="mensajeNotificaciones">Tienes <span class="js-cantidad_notificaciones">-</span> notificaciones sin leer. </span><a role="link" region="Cuerpo" parent="Ver Notificaciones" title="Abrir" onclick="Notificaciones();">ABRIR</a></div>
-
+            <div class="mensajes_home"><span id="mensajeSinNotificaciones">No tienes notificaciones.</span> <span id="mensajeNotificaciones" style="display:none">Tienes <span class="js-cantidad_notificaciones">-</span> notificación(es) nueva(s). </span><a role="link" region="Cuerpo" parent="Ver Notificaciones" title="Abrir" onclick="Notificaciones();">ABRIR</a></div>
             <hr class="clear" />
             @if (Model.TieneCaminoExito)
-            {
-                <!--  INICIO - ENLACE CAMINO AL ÉXITO -->
-                <a role="link" region="Cuerpo" parent="Camino al Éxito" title="Camino al Éxito" href="@Model.urlCaminoExito" target="_blank" class="enlace_camino_al_exito">CAMINO<br />&nbsp;&nbsp;&nbsp;&nbsp;AL ÉXITO</a>
-                <a role="link" region="Cuerpo" parent="Seguimiento a tu Pedido" title="Seguimiento a tu Pedido" class="seguir_pedido" href="@Url.Action("Index", "Tracking")">SEGUIMIENTO<br /> A TU PEDIDO</a>
-                <!--  FIN - ENLACE CAMINO AL ÉXITO  -->
-            }
-            else
-            {
-                <a role="link" region="Cuerpo" parent="Seguimiento a tu Pedido" title="Seguimiento a tu Pedido" class="seguir_pedido" href="@Url.Action("Index", "Tracking")">SEGUIMIENTO<br /> A TU PEDIDO</a>
-                <a role="link" region="Cuerpo" parent="Mira el Video de Bienvenida" title="Mira el Video de Bienvenida" class="seguir_pedido ver_video_introductorio">MIRA EL VIDEO<br /> DE BIENVENIDA</a>
-            }
+    {
+        <!--  INICIO - ENLACE CAMINO AL ÉXITO -->
+        <a role="link" region="Cuerpo" parent="Camino al Éxito" title="Camino al Éxito" href="@Model.urlCaminoExito" target="_blank" class="enlace_camino_al_exito">CAMINO<br />&nbsp;&nbsp;&nbsp;&nbsp;AL ÉXITO</a>
+        <a role="link" region="Cuerpo" parent="Seguimiento a tu Pedido" title="Seguimiento a tu Pedido" class="seguir_pedido" href="@Url.Action("Index", "Tracking")">SEGUIMIENTO<br /> A TU PEDIDO</a>
+        <!--  FIN - ENLACE CAMINO AL ÉXITO  -->
+}
+else
+{
+        <a role="link" region="Cuerpo" parent="Seguimiento a tu Pedido" title="Seguimiento a tu Pedido" class="seguir_pedido" href="@Url.Action("Index", "Tracking")">SEGUIMIENTO<br /> A TU PEDIDO</a>
+        <a role="link" region="Cuerpo" parent="Mira el Video de Bienvenida" title="Mira el Video de Bienvenida" class="seguir_pedido ver_video_introductorio">MIRA EL VIDEO<br /> DE BIENVENIDA</a>
+}
 
             @if (ViewBag.IndicadorPermisoFIC == 1)
-            {
-                <a class="seguir_pedido enlace_pedido_fic" href="@Url.Action("Index", "PedidoFIC")">INGRESA TU PEDIDO FIC</a>
-            }
+    {
+        <a class="seguir_pedido enlace_pedido_fic" href="@Url.Action("Index", "PedidoFIC")">INGRESA TU PEDIDO FIC</a>
+}
         </div>
         <div class="clear"></div>
     </div>
@@ -208,15 +207,8 @@
         @{
             var marginTopFacturaE = "";
             marginTopFacturaE = verUltmPagos == "1" ? "margin-top: 0px" : marginTopFacturaE;
-            var marginTopPagoLinea = Model.TieneFacturacionElectronica == true ? "margin-top: 10px;" : "";
-            if (Model.TienePagoEnLinea && Model.MostrarPagoEnLinea)
-            {
-                <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Paga en línea"
-                   href="@Url.Action("MetodoPago","PagoEnLinea")" class="btn_paga_online btn_100_paga"
-                   style="margin-top: 12px;">PAGA EN L&Iacute;NEA</a><!-- AGREGAR LA CLASES="btn_100_paga"-->
-                marginTopFacturaE = "margin-top: 10px";
-            }
-            else
+            var marginTopPagoLinea = Model.TieneFacturacionElectronica ? "margin-top: 10px;" : "";
+            if (Model.MostrarPagoEnLinea)
             {
                 if (Model.PaisID == Constantes.PaisID.Chile)
                 {
@@ -233,8 +225,15 @@
                     <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Paga en línea" class="btn_paga_online btn_100_paga" href="@Url.Action("Index", "Paypal")" style="@marginTopPagoLinea"> PAGA EN L&Iacute;NEA</a>
                     marginTopFacturaE = "margin-top: 10px";
                 }
+                else if (Model.TienePagoEnLinea)
+                {
+                    <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Paga en línea"
+                       href="@Url.Action("MetodoPago","PagoEnLinea")" class="btn_paga_online btn_100_paga"
+                       style="margin-top: 12px;">PAGA EN L&Iacute;NEA</a>
+                    marginTopFacturaE = "margin-top: 10px";
+                }
             }
-
+            
             if (Model.TieneFacturacionElectronica)
             {
                 <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Facturación Electrónica" class="boton_facturacion_e btn_100_facturacion" href="@Url.Action("Index", "FacturaElectronica")" target="_blank" style="@marginTopFacturaE"> FACTURACI&Oacute;N ELECTR&Oacute;NICA</a>

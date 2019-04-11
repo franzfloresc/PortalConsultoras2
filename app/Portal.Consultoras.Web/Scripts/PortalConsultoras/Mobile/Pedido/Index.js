@@ -394,6 +394,7 @@ function ValidarPermiso(obj) {
 }
 
 function BuscarByCUV(cuv) {
+    $("div.producto_por_agregar_imagen").find("img").attr("src", "/Content/Images/imagen_prod_no_disponible.jpg");
     if (cuv == $('#hdfCUV').val()) {
         if (productoSugerido) {
             if (productoAgotado) MostrarMensaje("mensajeCUVAgotado");
@@ -1070,12 +1071,12 @@ function RegistrarDemandaTotalReemplazoSugerido(cuvSugerido, precio, cantidad, e
 }
 
 function CargarProductosRecomendados(item) {
+    ProductoRecomendadoModule.ObtenerProductos(item.CodigoCatalago, item.EstrategiaIDSicc, item.CUV, item.CodigoProducto);
+    //if (activarRecomendaciones == 1) {
+    //    if ((item.CodigoCatalago == 9 || item.CodigoCatalago == 10 || item.CodigoCatalago == 13) &&
+    //        (item.EstrategiaIDSicc == 2001)) {
 
-    if (activarRecomendaciones == 1) {
-        if ((item.CodigoCatalago == 9 || item.CodigoCatalago == 10 || item.CodigoCatalago == 13) &&
-            (item.EstrategiaIDSicc == 2001)) {
-
-            ProductoRecomendadoModule.ObtenerProductos(item.CUV, item.CodigoProducto);
-        }
-    }
+    //        ProductoRecomendadoModule.ObtenerProductos(item.CUV, item.CodigoProducto);
+    //    }
+    //}
 }

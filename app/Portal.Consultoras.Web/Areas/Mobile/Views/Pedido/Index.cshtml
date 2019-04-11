@@ -57,7 +57,7 @@
     </div>
     <div class="contenedor_producto">
         <div class="content_320 ingresoPedidom quitarPaddingSuperior" id="divContentBarra">
-            @*@Html.Partial("~/Areas/Mobile/Views/Util/_barra.cshtml")*@
+            @Html.Partial("~/Areas/Mobile/Views/Util/_barra.cshtml")
             <div class="producto_por_agregar_wrapper" id="divProductoMantenedor" style="display: none;">
                 <div style="display: none;">
                     <input type="hidden" id="hdfCUV" />
@@ -136,7 +136,7 @@
             <div id="divResumenPedido">
                 <div class="contenedor_resumenPedido montosIngresoPedido">
                     <div class="textos_resumen">
-                        <span id="lblProductosResumen" style="margin-left: 30px;">HAS AGREGADO :</span>
+                        <span id="lblProductosResumen" style="margin-left: 30px;">Has agregado:</span>
                         <span id="lblTotalResumen">
 
                             <div class="info_validado">
@@ -144,8 +144,8 @@
                                 <div class="tooltip_validado_importe">
                                     <div class="left_reservado">
                                         <div class="datos_Reservado">
-                                            <span>Total sin Dscto. </span>
-                                            <span>Dscto por niveles</span>
+                                            <span>Subtotal: </span>
+                                            <span>Descuento ofertas por niveles:</span>
                                         </div>
                                     </div>
                                     <div class="right_reservado">
@@ -158,7 +158,7 @@
                             </div>
 
 
-                            MONTO TOTAL :
+                            Total:
                         </span>
                         @{
                             string cabezaEscala = null, pieEscala = null;
@@ -220,17 +220,17 @@
                         <input type="hidden" id="hdeLbl2Ganancia" value="@lbl2Ganancia" />
                         <input type="hidden" id="hdfEsBusquedaSR" />
                         <input type="hidden" id="hdfEstrategiaId" value="0" />
-                        <span class="mi_ganancia" style="margin-left:30px;">@(cabezaEscala.ToUpper().Trim()) :</span>
+                        <span class="mi_ganancia" style="margin-left:30px;">@(cabezaEscala.Trim()) :</span>
                     </div>
 
                     <div class="montos_resumen">
-                        <span><b data-cantidadproducto="">@Model.CantidadProductos</b>&nbsp;&nbsp;UNIDADES</span>
+                        <span><b data-cantidadproducto="">@Model.CantidadProductos</b>&nbsp;&nbsp;Unidad(es)</span>
                         <span><b>@Model.Simbolo&nbsp;&nbsp;</b><b data-pedidocondescuento="">@Model.MontoConDsctoStr</b></span>
                         <span class="mi_ganancia"><b>@Model.Simbolo&nbsp;&nbsp;</b><b data-ganancia="">@Model.GananciaFormat</b></span>
                     </div>
                 </div>
                 <button type="button" class="btn_verMiPedido boton_ingresa_tu_pedido_navidenio">
-                    VER MI PEDIDO
+                    Ver mi pedido
                 </button>
             </div>
 
@@ -444,6 +444,11 @@
 @{ Html.RenderPartial("_PopupPremio");}
 @{ Html.RenderPartial("_PopupDescuento");}
 
+<div id="DivPopupFichaResumida" class="Modal_Editar_Producto" style="display: none">
+    @Html.Partial("~/Areas/Mobile/Views/DetalleEstrategia/FichaTemplate.cshtml")
+</div>
+@Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpLoadingMobile.cshtml")
+
 @section scripts
 {
     <script type="text/javascript">
@@ -521,8 +526,10 @@
         var dataBarra = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(ViewBag.DataBarra).ToString().Replace("'", @"\'"))');
         var listaMensajeMeta = dataBarra == null ? null : dataBarra.ListaMensajeMeta;
         var urlInsertarDemandaTotalReemplazoSugerido = '@Url.Action("InsertarDemandaTotalReemplazoSugerido", "Pedido", new { area = "" })';
+
         var activarRecomendaciones = '@ViewBag.ActivarRecomendaciones';
         var maxCaracteresRecomendaciones = '@ViewBag.MaxCaracteresRecomendaciones';
+
         var listaIconoLluvia = [
             '@Url.Content("~/Content/Images/lluvia/ov-d.svg")',
             '@Url.Content("~/Content/Images/lluvia/ov-r.svg")',
@@ -547,6 +554,9 @@
     }
 
     @Scripts.Render("~/Bundle/Js/Mobile/Pedido")
+    @Scripts.Render("~/Bundle/Js/Mixto/EstrategiaAgregar")
+    @Scripts.Render("~/Bundle/Js/Mixto/TusClientes")
+    @Scripts.Render("~/Bundle/Js/Mixto/Ficha")
 
     @if (Model.MostrarPopupPrecargados)
     {
