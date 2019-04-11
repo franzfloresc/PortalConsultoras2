@@ -2903,6 +2903,11 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     foreach (var cab in pedidos.ListaPedidos)
                     {
+
+                        foreach(var flag in cab.DetallePedido)
+                        {
+                            flag.Elegido = false;
+                        }
                         var tmpDet = cab.DetallePedido.Where(x => x.PedidoId == det.PedidoId && x.CUV == det.CUV).FirstOrDefault();
                         if (tmpDet != null)
                         {
