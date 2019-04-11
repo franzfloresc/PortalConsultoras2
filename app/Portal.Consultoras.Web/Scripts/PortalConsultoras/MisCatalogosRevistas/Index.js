@@ -559,7 +559,7 @@ function CopiarEnlaceActual(catalogo, campania) {
         'event': 'virtualEvent',
         'category': 'Catálogos y revistas',
         'action': 'Catálogo Digital - Copiar Enlace - clic botón',
-        'label': catalogo
+        'label': campania
     });
     // fin 
 
