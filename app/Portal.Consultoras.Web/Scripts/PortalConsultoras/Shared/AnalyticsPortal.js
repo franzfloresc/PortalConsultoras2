@@ -2490,6 +2490,55 @@ var AnalyticsPortalModule = (function () {
             }
         }
     }
+    function marcarAddCarArmaTuPack(codigoubigeoportal, estrategia) {
+        try {
+            
+            var textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(codigoubigeoportal) + ""; //using new function
+
+            var products = [];
+            $.each(estrategia, function (index) {
+                var item = estrategia[index];
+                var product = {
+                    "name": item.NombreComercial,
+                    "price": item.PrecioCatalogo,
+                    "brand": item.DescripcionMarca,
+                    "id": item.Cuv,
+                    category: _texto.notavaliable,
+                    variant: item.NombreBulk,
+                    quantity: item.Cantidad
+                };
+                products.push(product);
+            });
+
+            dataLayer.push({
+                'event': _evento.addToCart,
+                'ecommerce': {
+                    'currencyCode': _getCurrencyCodes(),
+                    'add': {
+                        'actionField': { 'list': textoCategory },
+                        'products': products
+                    }
+                }
+            });
+
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+    }
+    var marcaClickAgregarArmaTuPack = function (codigoubigeoportal, textoLabel, actionText) {
+
+        if (codigoubigeoportal !== "") {
+            if (codigoubigeoportal == ConstantesModule.CodigoUbigeoPortal.GuionContenedorArmaTuPack) {
+                var textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(codigoubigeoportal) + ""; //using new function
+                dataLayer.push({
+                    'event': _evento.virtualEvent,
+                    "category": textoCategory,
+                    "action": actionText,
+                    "label": textoLabel + ""
+                });
+            }
+        }
+    }
     ////////////////////////////////////////////////////////////////////////////////////////
     // Fin - Analytics Ficha Resumida
     ////////////////////////////////////////////////////////////////////////////////////////
@@ -2603,6 +2652,8 @@ var AnalyticsPortalModule = (function () {
         MarcaPromotionViewArmaTuPack: marcaPromotionViewArmaTuPack,
         MarcaPromotionClickArmaTuPack: marcaPromotionClickArmaTuPack,
         MarcaEligeloClickArmaTuPack: marcaEligeloClickArmaTuPack,
-        MarcaEliminaClickArmaTuPack: marcaEliminaClickArmaTuPack
+        MarcaEliminaClickArmaTuPack: marcaEliminaClickArmaTuPack,
+        MarcarAddCarArmaTuPack: marcarAddCarArmaTuPack,
+        MarcaClickAgregarArmaTuPack: marcaClickAgregarArmaTuPack
     }
 })();
