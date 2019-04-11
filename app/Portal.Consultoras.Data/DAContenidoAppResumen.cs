@@ -1,21 +1,44 @@
-﻿using System.Data;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Entities;
+using System.Collections.Generic;
+using System.Data;
 using System.Data.Common;
 
 namespace Portal.Consultoras.Data
 {
     public class DAContenidoAppResumen : DataAccess
     {
-        public DAContenidoAppResumen()
-            : base()
+        public DAContenidoAppResumen(int paisId)
+            : base(paisId, EDbSource.Portal)
         {
 
         }
 
-        public IDataReader GetContenidoAppResumen()
+        public IDataReader GetContenidoApp(string CodigoConsultora)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.Lista_BannerAPP");
-            
-            return Context.ExecuteReader(command);
+
+            using (var command = Context.Database.GetStoredProcCommand("dbo.Lista_BannerAPP"))
+            {
+                Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, CodigoConsultora);
+
+                return Context.ExecuteReader(command);
+            }
+        }
+
+        public int CheckContenidoApp(string CodigoConsultora, int idContenidoDetalle)
+        {
+            using (var command = Context.Database.GetStoredProcCommand("dbo.MarcaContenidoVisto"))
+            {
+                Context.Database.AddInParameter(command, "@IdContenidoDeta", DbType.Int32, idContenidoDetalle);
+                Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, CodigoConsultora);
+
+                var reader = Context.ExecuteReader(command);
+
+                var data = reader.RecordsAffected;
+
+                reader.Close();
+                return data;
+            }
         }
     }
 }

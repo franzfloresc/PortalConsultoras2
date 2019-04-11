@@ -21,7 +21,7 @@ namespace Portal.Consultoras.Service
             _BLNavidadConsultora = new BLNavidadConsultora();
             _BLItemCarruselInicio = new BLItemCarruselInicio();
             _BLMailing = new BLMailing();
-            _BLContenidoAppResumenBusinessLogic = new Bl_Conte.BLContenidoAppResumen();
+            _BLContenidoAppResumenBusinessLogic = new Bl_Conte.BLContenidoApp();
         }
 
         #region Gestion Banners
@@ -493,10 +493,14 @@ namespace Portal.Consultoras.Service
 
         #endregion
 
-        public List<BEContenidoAppResumen> GetContenidoApp(BEUsuario itmFilter)
+        public List<BEContenidoApp> GetContenidoApp(BEUsuario itmFilter)
         {
             return _BLContenidoAppResumenBusinessLogic.GetContenidoApp(itmFilter);
         }
 
+        public int CheckContenidoApp(BEUsuario itmFilter, int idContenidoDetalle)
+        {
+            return _BLContenidoAppResumenBusinessLogic.CheckContenidoApp(itmFilter, idContenidoDetalle);
+        }
     }
 }

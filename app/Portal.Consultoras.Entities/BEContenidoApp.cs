@@ -1,42 +1,42 @@
-﻿using Portal.Consultoras.Common;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities
 {
     [DataContract]
-    public class BEContenidoAppResumen
+    public class BEContenidoApp
     {
         [DataMember]
+        [Column("IdContenido")]
         public int IdContenido { get; set; }
 
         [DataMember]
+        [Column("Codigo")]
         public string Codigo { get; set; }
 
         [DataMember]
+        [Column("UrlMiniatura")]
         public string UrlMiniatura { get; set; }
 
         [DataMember]
+        [Column("Estado")]
         public bool Estado { get; set; }
 
         [DataMember]
         public int CantidadContenido { get; set; }
 
         [DataMember]
+        [Column("DesdeCampania")]
         public int DesdeCampania { get; set; }
 
         [DataMember]
         public List<BEContenidoAppDetalle> DetalleContenido { get; set; }
 
-        public BEContenidoAppResumen() { }
-        public BEContenidoAppResumen(IDataRecord row)
-        {
-            Codigo = row.ToString("Codigo");
-            DesdeCampania = row.ToInt32("Codigo");
-            Estado = row.ToBoolean("Est_Banner");
-            UrlMiniatura = row.ToString("UrlMiniatura");
-            DetalleContenido = new List<BEContenidoAppDetalle>();
-        }
+        [DataMember]
+        [Column("RutaImagen")]
+        public string RutaImagen { get; set; }
+
+        public BEContenidoApp() { }
     }
 }

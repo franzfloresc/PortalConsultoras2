@@ -1,5 +1,4 @@
-﻿using Portal.Consultoras.Common;
-using System.Data;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities
@@ -8,41 +7,40 @@ namespace Portal.Consultoras.Entities
     public class BEContenidoAppDetalle
     {
         [DataMember]
+        [Column("IdContenidoDeta")]
         public int IdContenidoDeta { get; set; }
 
+        [Column("IdContenido")]
+        public int IdContenido { get; set; }
+
         [DataMember]
+        [Column("CodigoDetalle")]
         public string CodigoDetalle { get; set; }
 
         [DataMember]
+        [Column("RutaContenido")]
         public string RutaContenido { get; set; }
 
         [DataMember]
+        [Column("Accion")]
         public string Accion { get; set; }
 
         [DataMember]
+        [Column("Orden")]
         public int Orden { get; set; }
 
         [DataMember]
+        [Column("Tipo")]
         public string Tipo { get; set; }
 
         [DataMember]
-        public bool Estado { get; set; }
+        [Column ("EstadoDetalle")]
+        public bool EstadoDetalle { get; set; }
 
         [DataMember]
+        [Column("ContenidoVisto")]
         public bool ContenidoVisto { get; set; }
 
         public BEContenidoAppDetalle() { }
-
-        public BEContenidoAppDetalle(IDataRecord row)
-        {
-            IdContenidoDeta = row.ToInt32("IdContenidoDeta");
-            CodigoDetalle = row.ToString("CodigoDetalle");
-            RutaContenido = row.ToString("RutaContenido");
-            Accion = row.ToString("Accion");
-            Orden = row.ToInt32("Orden");
-            Tipo = row.ToString("Tipo");
-            Estado = row.ToBoolean("Est_Cont");
-            ContenidoVisto = row.ToBoolean("ContenidoVisto");
-        }
     }
 }

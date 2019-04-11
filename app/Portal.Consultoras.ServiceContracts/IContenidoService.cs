@@ -281,6 +281,9 @@ namespace Portal.Consultoras.ServiceContracts
         #endregion
 
         [OperationContract]
-        List<BEContenidoAppResumen> GetContenidoApp(BEUsuario itmFilter);
+        List<BEContenidoApp> GetContenidoApp(BEUsuario itmFilter);
+
+        [OperationContract]
+        int CheckContenidoApp(BEUsuario itmFilter, int idContenidoDetalle);
     }
 }
