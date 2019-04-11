@@ -97,14 +97,7 @@ namespace Portal.Consultoras.Web.Controllers
                 bool esMultimarca = false;
                 string mensaje = "";
                 var componentes = _estrategiaComponenteProvider.GetListaComponentes(estrategiaModelo, codigoEstrategia, out esMultimarca, out mensaje);
-  
-                componentes.ForEach(c =>
-                {                 
-                    //validación 'tiene detalle de sección?'
-                    (c.Secciones ?? new List<EstrategiaComponenteSeccionModel>())
-                    .ForEach(x => { c.TieneDetalleSeccion = (x.Detalles ?? new List<EstrategiaComponenteSeccionDetalleModel>()).Any(); });
-                });
-
+   
                 return Json(new
                 {
                     success = true,
