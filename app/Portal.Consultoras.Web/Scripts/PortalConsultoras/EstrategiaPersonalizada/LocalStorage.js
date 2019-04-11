@@ -67,8 +67,8 @@
             case _tipoEstrategia.MasGanadoras:
                 return _keyLocalStorage.Ganadoras;
             //INI HD-3908
-            case _tipoEstrategiaPalanca.PN:
-            case _constantesPalanca.PackNuevas:
+            case _codigoPalanca.PN:
+            case _tipoEstrategia.PackNuevas:
                 return _keyLocalStorage.PackNuevas;
             //FIN HD-3908
             default:
@@ -347,7 +347,7 @@ function ActualizarLocalStorageAgregado(tipo, cuv, valor) {
             return;
         }
         //INI HD-3908
-        else if (tipo == ConstantesModule.TipoEstrategia.PN) {
+        else if (tipo == ConstantesModule.CodigoPalanca.PN) {
             var lista = ConstantesModule.KeysLocalStorage.PackNuevas;
         }
         //FIN HD-3908
