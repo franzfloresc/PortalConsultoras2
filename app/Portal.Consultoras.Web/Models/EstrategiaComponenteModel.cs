@@ -46,5 +46,7 @@ namespace Portal.Consultoras.Web.Models
         {
             return this.MemberwiseClone();
         }
+
+        public bool TieneFichaEnriquecidaActiva { get; set; }
     }
 }

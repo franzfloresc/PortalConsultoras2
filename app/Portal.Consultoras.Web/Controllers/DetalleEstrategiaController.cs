@@ -97,49 +97,38 @@ namespace Portal.Consultoras.Web.Controllers
                 bool esMultimarca = false;
                 string mensaje = "";
                 var componentes = _estrategiaComponenteProvider.GetListaComponentes(estrategiaModelo, codigoEstrategia, out esMultimarca, out mensaje);
-                
-                var fichaEnriquecidaEstaActiva = _tablaLogicaProvider.GetTablaLogicaDatoValorBool(
-                            userData.PaisID,
-                            ConsTablaLogica.FlagFuncional.TablaLogicaId,
-                            ConsTablaLogica.FlagFuncional.FichaEnriquecida,
-                            true
-                            );
 
-                if (!fichaEnriquecidaEstaActiva)
-                {
-                    componentes.ForEach(x =>
-                    {
-                        x.MostrarVerDetalle = false;
-                        x.Secciones = null;
-                    });
-                }
-                else
+                //var fichaEnriquecidaEstaActiva = _tablaLogicaProvider.GetTablaLogicaDatoValorBool(
+                //            userData.PaisID,
+                //            ConsTablaLogica.FlagFuncional.TablaLogicaId,
+                //            ConsTablaLogica.FlagFuncional.FichaEnriquecida,
+                //            true
+                //            );
+
+
+                componentes.ForEach(c =>
                 {
                     //validación 'tiene videos'                
-                    componentes.ForEach(c =>
+
+                    (c.Secciones ?? new List<EstrategiaComponenteSeccionModel>())
+                    .ForEach(x =>
                     {
-                        (c.Secciones ?? new List<EstrategiaComponenteSeccionModel>())
-                        .ForEach(x =>
-                        {
-                            x.EsVideos = (x.Detalles ?? new List<EstrategiaComponenteSeccionDetalleModel>()).
-                            Any(y => !string.IsNullOrEmpty(y.Key));
-                        });
+                        x.EsVideos = (x.Detalles ?? new List<EstrategiaComponenteSeccionDetalleModel>()).
+                        Any(y => !string.IsNullOrEmpty(y.Key));
                     });
                     //validación 'tiene detalle de sección'
-                    componentes.ForEach(c =>
-                    {
-                        (c.Secciones ?? new List<EstrategiaComponenteSeccionModel>())
-                        .ForEach(x => { c.MostrarVerDetalle = (x.Detalles ?? new List<EstrategiaComponenteSeccionDetalleModel>()).Any(); });
-                    });
-
-                }
+                    (c.Secciones ?? new List<EstrategiaComponenteSeccionModel>())
+                    .ForEach(x => { c.MostrarVerDetalle = (x.Detalles ?? new List<EstrategiaComponenteSeccionDetalleModel>()).Any(); });
+                    //
+                    //c.TieneFichaEnriquecidaActiva = fichaEnriquecidaEstaActiva;
+                });
 
                 return Json(new
                 {
                     success = true,
                     esMultimarca,
                     componentes,
-                    mensaje
+                    mensaje,
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

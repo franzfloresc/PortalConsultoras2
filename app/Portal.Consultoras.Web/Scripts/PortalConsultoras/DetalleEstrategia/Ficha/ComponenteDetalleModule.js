@@ -81,16 +81,18 @@
             //Este método asigna los datos del componente individual a _template.componenteDetalleIndividual
 
             //estrategia.Hermanos por default es solo 1
-            if (estrategia.Hermanos.length== 1) {
-                _util.setHandlebars(_template.componenteDetalleIndividual, estrategia.Hermanos[0]);
-                if (!_config.generalModule.isMobile()) {
-                    this.setTabDetalleComponente();
+            if (estrategia.Hermanos.length == 1) {
+                if (estrategia.MostrarFichaEnriquecida) {
+                    _util.setHandlebars(_template.componenteDetalleIndividual, estrategia.Hermanos[0]);
+                    if (!_config.generalModule.isMobile()) {
+                        this.setTabDetalleComponente();
+                    }
+                    else {
+                        this.setAcordionDetalleComponente();//eventos de acordio
+                    }
+                    this.setCarrusel(_template.CarruselIndividualVideo);
+                    this.setYoutubeApi();
                 }
-                else {
-                    this.setAcordionDetalleComponente();//eventos de acordio
-                }
-                this.setCarrusel(_template.CarruselIndividualVideo);
-                this.setYoutubeApi();
             } else {
                 console.log('estrategia.Hermanos no tiene items');
             }

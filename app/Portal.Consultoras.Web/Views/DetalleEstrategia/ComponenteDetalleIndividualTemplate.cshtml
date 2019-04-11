@@ -26,7 +26,7 @@
         {{#each this.Secciones as |seccion|}}
 
         {{#iff seccion.EsVideos '!=' true }}
-        <section class="seccion_tab"  style="display:none"  data-tab-body data-num-tab="{{@@index}}">
+        <section class="seccion_tab" style="display:none" data-tab-body data-num-tab="{{@@index}}">
             {{#each seccion.Detalles as |detalle|}}
             <h3>{{detalle.Titulo}}</h3>
             <p>{{detalle.Descripcion}}</p>
@@ -36,7 +36,7 @@
 
         {{#iff seccion.EsVideos '==' true }}
         <section class="seccion_tab" style="display:block" data-tab-body data-num-tab="{{@@index}}">
-            <div id="carouselIndividualVideo" class="items_video" >
+            <div id="carouselIndividualVideo" class="items_video">
                 {{#each seccion.Detalles as |detalle|}}
                 <div @*style="width:350px;height:350px;"*@>
                     <div id="ytFichax"
