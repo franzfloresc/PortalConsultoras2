@@ -56,7 +56,6 @@ function AgregarProducto() {
                 async: true,
                 cache: false,
                 success: function (data) {
-                    debugger;
                     if ($("#Tab-kits").hasClass('activado-dorado')) {
                         resultado.parentElement.parentElement.parentElement.lastElementChild.style.display = 'block';
                         //resultado.parentElement.parentElement.parentElement.parentElement.className += " producto_desactivado";

@@ -52,6 +52,7 @@ namespace Portal.Consultoras.Web.Providers
                 //if (ofertas == null || ofertas.Count == 0)
                 //{
                 //var oConsultora = sessionManager.GetConsultoraCaminoBrillante();
+                //}
                 var ofertas = (dynamic)null;
                 var oConsultora = ResumenConsultoraCaminoBrillante();
                 if (oConsultora == null || oConsultora.NivelConsultora.Count() == 0 || oConsultora.Niveles.Count() == 0) return null;
@@ -61,7 +62,6 @@ namespace Portal.Consultoras.Web.Providers
                     ofertas = svc.GetKitsCaminoBrillante(_userData, 201903, Convert.ToInt32(codigoNivel)).ToList();
                 if (ofertas != null)
                     sessionManager.SetKitCaminoBrillante(ofertas);
-                //}
                 return ofertas;
             }
             catch (Exception ex)
