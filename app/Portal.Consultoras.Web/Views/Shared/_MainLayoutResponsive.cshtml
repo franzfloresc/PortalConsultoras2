@@ -141,7 +141,7 @@
                     </section>
                     @Html.Partial("~/Views/Shared/_MenuPrincipalResponsive.cshtml")
                     <section class="row flex-row justify-content-center align-items-center flex-grow-1 header__buscador__productos">
-                        @if (ViewBag.MostrarBuscadorYFiltros != null)
+                        @if (ViewBag.MostrarBuscadorYFiltros == true)
                         {
                             @Html.Partial("~/Views/Shared/_BuscadorResponsive.cshtml")
                         }

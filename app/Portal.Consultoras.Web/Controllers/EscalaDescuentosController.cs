@@ -30,11 +30,11 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (var srv = new PedidoServiceClient())
             {
-                var List = srv.GetEscalaDescuento(userData.PaisID, userData.CampaniaID, userData.CodigorRegion, userData.CodigoZona).OrderBy(a => a.MontoDesde);
+                var List = srv.GetEscalaDescuento(userData.PaisID, userData.CampaniaID, userData.CodigorRegion, userData.CodigoZona).OrderBy(a => a.MontoDesde).ToList();
 
                 var montoMinimo = string.Format("{0} {1}", userData.Simbolo, Util.DecimalToStringFormat(userData.MontoMinimo, userData.CodigoISO));
-                var simbolo = userData.Simbolo;
-                if (List != null && List.Any())
+                
+                if (List.Any())
                 {
                     decimal montoMinimoEscala = 0;
                     int i = 0;
