@@ -156,7 +156,7 @@
                     </div>
                 </div>
                 <div class="text-center">
-                    <a  id="btnIrPaso3" class="border-radius-4 text-bold btn_cdr btn_solucion_reclamo" href="javascript:void(0);" style="display:none;" onclick="IrAFinalizar()">Siguiente</a>
+                    <a id="btnIrPaso3" class="border-radius-4 text-bold btn_cdr btn_solucion_reclamo" href="javascript:void(0);" style="display:none;" onclick="IrAFinalizar()">Siguiente</a>
                     <a class="enlace__regresar_paso_anterior" title="Regresar a paso anterior">
                         <span class="icono_back_arrow">
                             <img src="@Url.Content("~/Content/Images/icono_volver.svg")" alt="Regresar a paso anterior" />
@@ -518,7 +518,11 @@
             <input type="hidden" name="id" value="{{item.CDRWebDetalleID}}" />
         </div>
         <div class="listado_producto_reclamo">
-            <div class="text-bold text-center tag_sb tag_sb--standard">Set o Pack</div><br/>
+            {{#iff item.GrupoID '!=' ''}}
+            <div class="text-bold text-center tag_sb tag_sb--standard">Set o Pack</div><br />
+            {{else}}
+
+            {{/iff}}
             {{item.CUV}}<br />
             <b>{{item.Descripcion}}</b> <br />
             {{item.Cantidad}} unidades<br />
