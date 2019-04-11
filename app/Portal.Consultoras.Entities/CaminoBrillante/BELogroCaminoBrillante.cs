@@ -31,5 +31,8 @@ namespace Portal.Consultoras.Entities.CaminoBrillante
         public bool Estado { get; set; }
         public string ModalTitulo { get; set; }
         public string ModalDescripcion { get; set; }
+        public decimal MontoSuperior { get; set; }
+        public string DescripcionNivel { get; set; }
+        public string MontoAcumulado { get; set; }
     }
 }
