@@ -93,8 +93,7 @@ function RechazarPedido(id, origenBoton) {
 
 };
 
-function AceptarPedido(id, tipo) {
-    debugger;
+function AceptarPedido(id, tipo) {    
     var isOk = true;
     var detalle = [];
     var ing = 0;
