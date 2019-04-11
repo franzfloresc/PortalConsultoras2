@@ -473,6 +473,12 @@
   <wsdl:message name="IContenidoService_GuardarPopups_OutputMessage">
     <wsdl:part name="parameters" element="tns:GuardarPopupsResponse" />
   </wsdl:message>
+  <wsdl:message name="IContenidoService_GuardarPopupsValidador_InputMessage">
+    <wsdl:part name="parameters" element="tns:GuardarPopupsValidador" />
+  </wsdl:message>
+  <wsdl:message name="IContenidoService_GuardarPopupsValidador_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GuardarPopupsValidadorResponse" />
+  </wsdl:message>
   <wsdl:message name="IContenidoService_ActualizaOrden_InputMessage">
     <wsdl:part name="parameters" element="tns:ActualizaOrden" />
   </wsdl:message>
@@ -484,12 +490,6 @@
   </wsdl:message>
   <wsdl:message name="IContenidoService_EliminarArchivoCsv_OutputMessage">
     <wsdl:part name="parameters" element="tns:EliminarArchivoCsvResponse" />
-  </wsdl:message>
-  <wsdl:message name="IContenidoService_ActivaPopupValidador_InputMessage">
-    <wsdl:part name="parameters" element="tns:ActivaPopupValidador" />
-  </wsdl:message>
-  <wsdl:message name="IContenidoService_ActivaPopupValidador_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ActivaPopupValidadorResponse" />
   </wsdl:message>
   <wsdl:message name="IContenidoService_CargaEstadoValidadorDatos_InputMessage">
     <wsdl:part name="parameters" element="tns:CargaEstadoValidadorDatos" />
@@ -790,6 +790,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/GuardarPopups" message="tns:IContenidoService_GuardarPopups_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/GuardarPopupsResponse" message="tns:IContenidoService_GuardarPopups_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GuardarPopupsValidador">
+      <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/GuardarPopupsValidador" message="tns:IContenidoService_GuardarPopupsValidador_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/GuardarPopupsValidadorResponse" message="tns:IContenidoService_GuardarPopupsValidador_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="ActualizaOrden">
       <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/ActualizaOrden" message="tns:IContenidoService_ActualizaOrden_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/ActualizaOrdenResponse" message="tns:IContenidoService_ActualizaOrden_OutputMessage" />
@@ -797,10 +801,6 @@
     <wsdl:operation name="EliminarArchivoCsv">
       <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/EliminarArchivoCsv" message="tns:IContenidoService_EliminarArchivoCsv_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/EliminarArchivoCsvResponse" message="tns:IContenidoService_EliminarArchivoCsv_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="ActivaPopupValidador">
-      <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/ActivaPopupValidador" message="tns:IContenidoService_ActivaPopupValidador_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/ActivaPopupValidadorResponse" message="tns:IContenidoService_ActivaPopupValidador_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="CargaEstadoValidadorDatos">
       <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/CargaEstadoValidadorDatos" message="tns:IContenidoService_CargaEstadoValidadorDatos_InputMessage" />
@@ -1466,6 +1466,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GuardarPopupsValidador">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/GuardarPopupsValidador" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ActualizaOrden">
       <soap:operation soapAction="http://tempuri.org/IContenidoService/ActualizaOrden" style="document" />
       <wsdl:input>
@@ -1477,15 +1486,6 @@
     </wsdl:operation>
     <wsdl:operation name="EliminarArchivoCsv">
       <soap:operation soapAction="http://tempuri.org/IContenidoService/EliminarArchivoCsv" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ActivaPopupValidador">
-      <soap:operation soapAction="http://tempuri.org/IContenidoService/ActivaPopupValidador" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2163,6 +2163,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GuardarPopupsValidador">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/GuardarPopupsValidador" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ActualizaOrden">
       <soap:operation soapAction="http://tempuri.org/IContenidoService/ActualizaOrden" style="document" />
       <wsdl:input>
@@ -2174,15 +2183,6 @@
     </wsdl:operation>
     <wsdl:operation name="EliminarArchivoCsv">
       <soap:operation soapAction="http://tempuri.org/IContenidoService/EliminarArchivoCsv" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ActivaPopupValidador">
-      <soap:operation soapAction="http://tempuri.org/IContenidoService/ActivaPopupValidador" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

@@ -177,7 +177,6 @@
                 /*******************************************************************HD-3344*/
                 if (parseInt(valueActive) > 0)
                     document.getElementById("btnActualizaOrden").style.display = "block";
-                    document.getElementById("divValidador").style.marginRight = "35%";
             }
 
 

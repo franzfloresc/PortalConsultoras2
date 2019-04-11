@@ -1100,6 +1100,22 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GuardarPopupsValidador">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="checkDesktop" type="xs:boolean" />
+        <xs:element minOccurs="0" name="datosCSV" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GuardarPopupsValidadorResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GuardarPopupsValidadorResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="ActualizaOrden">
     <xs:complexType>
       <xs:sequence>
@@ -1128,21 +1144,6 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="EliminarArchivoCsvResult" type="xs:int" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ActivaPopupValidador">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
-        <xs:element minOccurs="0" name="estado" type="xs:int" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ActivaPopupValidadorResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="ActivaPopupValidadorResult" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

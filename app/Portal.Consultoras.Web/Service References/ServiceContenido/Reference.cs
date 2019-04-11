@@ -3985,6 +3985,12 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/GuardarPopups", ReplyAction="http://tempuri.org/IContenidoService/GuardarPopupsResponse")]
         System.Threading.Tasks.Task<int> GuardarPopupsAsync(string tituloPrincipal, string descripcion, string Url, string fechaMaxima, string fechaMinima, bool checkDesktop, bool checkMobile, int accionID, string datosCSV, string comunicadoId, string nombreArchivo, string codigoCampania, string descripcionAccion, int PaisID);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/GuardarPopupsValidador", ReplyAction="http://tempuri.org/IContenidoService/GuardarPopupsValidadorResponse")]
+        int GuardarPopupsValidador(bool checkDesktop, string datosCSV, int PaisID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/GuardarPopupsValidador", ReplyAction="http://tempuri.org/IContenidoService/GuardarPopupsValidadorResponse")]
+        System.Threading.Tasks.Task<int> GuardarPopupsValidadorAsync(bool checkDesktop, string datosCSV, int PaisID);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/ActualizaOrden", ReplyAction="http://tempuri.org/IContenidoService/ActualizaOrdenResponse")]
         int ActualizaOrden(string Comunicado, string Orden, int PaisID);
         
@@ -3996,12 +4002,6 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/EliminarArchivoCsv", ReplyAction="http://tempuri.org/IContenidoService/EliminarArchivoCsvResponse")]
         System.Threading.Tasks.Task<int> EliminarArchivoCsvAsync(int Comunicadoid, int PaisID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/ActivaPopupValidador", ReplyAction="http://tempuri.org/IContenidoService/ActivaPopupValidadorResponse")]
-        int ActivaPopupValidador(int PaisID, int estado);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/ActivaPopupValidador", ReplyAction="http://tempuri.org/IContenidoService/ActivaPopupValidadorResponse")]
-        System.Threading.Tasks.Task<int> ActivaPopupValidadorAsync(int PaisID, int estado);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/CargaEstadoValidadorDatos", ReplyAction="http://tempuri.org/IContenidoService/CargaEstadoValidadorDatosResponse")]
         int CargaEstadoValidadorDatos(int PaisID);
@@ -4681,6 +4681,14 @@ namespace Portal.Consultoras.Web.ServiceContenido {
             return base.Channel.GuardarPopupsAsync(tituloPrincipal, descripcion, Url, fechaMaxima, fechaMinima, checkDesktop, checkMobile, accionID, datosCSV, comunicadoId, nombreArchivo, codigoCampania, descripcionAccion, PaisID);
         }
         
+        public int GuardarPopupsValidador(bool checkDesktop, string datosCSV, int PaisID) {
+            return base.Channel.GuardarPopupsValidador(checkDesktop, datosCSV, PaisID);
+        }
+        
+        public System.Threading.Tasks.Task<int> GuardarPopupsValidadorAsync(bool checkDesktop, string datosCSV, int PaisID) {
+            return base.Channel.GuardarPopupsValidadorAsync(checkDesktop, datosCSV, PaisID);
+        }
+        
         public int ActualizaOrden(string Comunicado, string Orden, int PaisID) {
             return base.Channel.ActualizaOrden(Comunicado, Orden, PaisID);
         }
@@ -4695,14 +4703,6 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         
         public System.Threading.Tasks.Task<int> EliminarArchivoCsvAsync(int Comunicadoid, int PaisID) {
             return base.Channel.EliminarArchivoCsvAsync(Comunicadoid, PaisID);
-        }
-        
-        public int ActivaPopupValidador(int PaisID, int estado) {
-            return base.Channel.ActivaPopupValidador(PaisID, estado);
-        }
-        
-        public System.Threading.Tasks.Task<int> ActivaPopupValidadorAsync(int PaisID, int estado) {
-            return base.Channel.ActivaPopupValidadorAsync(PaisID, estado);
         }
         
         public int CargaEstadoValidadorDatos(int PaisID) {

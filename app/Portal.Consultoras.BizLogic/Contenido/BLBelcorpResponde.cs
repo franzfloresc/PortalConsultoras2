@@ -160,12 +160,7 @@ namespace Portal.Consultoras.BizLogic
             return daBelcorpResponde.EliminarArchivoCsv(comunicadoid);
         }
 
-        public int ActivaPopupValidador(int paisId, int estado)
-        {
-            var daBelcorpResponde = new DABelcorpResponde(paisId);
-            return daBelcorpResponde.ActivaPopupValidador(estado);
-        }
-
+    
         public int CargaEstadoValidadorDatos(int paisId)
         {
             int estado = 0;
@@ -178,6 +173,14 @@ namespace Portal.Consultoras.BizLogic
                 }
             }
             return estado;
+        }
+
+        public int GuardarPopupsValidador(bool checkDesktop,List<BEComunicadoSegmentacion> listdatosCSV, int paisID)
+        {
+            var daBelcorpResponde = new DABelcorpResponde(paisID);
+            string[] arrayColumnasBEComunicadoSegmentacion = GetArrayColumnas(listdatosCSV);
+            return daBelcorpResponde.GuardarPopupsValidador( checkDesktop, arrayColumnasBEComunicadoSegmentacion,  paisID);
+
         }
         #endregion
     }

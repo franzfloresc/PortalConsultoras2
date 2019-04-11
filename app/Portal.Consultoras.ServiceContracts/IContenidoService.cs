@@ -291,14 +291,14 @@ namespace Portal.Consultoras.ServiceContracts
         int GuardarPopups(string tituloPrincipal, string descripcion, string Url, string fechaMaxima, string fechaMinima, bool checkDesktop, bool checkMobile, int accionID, string datosCSV, string comunicadoId, string nombreArchivo, string codigoCampania, string descripcionAccion, int PaisID);
 
         [OperationContract]
+        int GuardarPopupsValidador(bool checkDesktop, string datosCSV, int PaisID);
+
+            
+        [OperationContract]
         int ActualizaOrden(string Comunicado, string Orden, int PaisID);
 
         [OperationContract]
         int EliminarArchivoCsv(int Comunicadoid, int PaisID);
-
-        [OperationContract]
-        int ActivaPopupValidador(int PaisID, int estado);
-
 
         [OperationContract]
         int CargaEstadoValidadorDatos(int PaisID);

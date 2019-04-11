@@ -118,27 +118,27 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
 
-
-        public JsonResult ActivaPopupValidador(int estado)
+        [HttpPost]
+        public JsonResult GetGuardarPopupValidador()
         {
-            int respuestaActualizacion = 0;
-            ComunicadoModel objetoComunicadoModel;
-
+            string UrlImagen = string.Empty;
+            int result = 0;
             try
             {
-                using (ContenidoServiceClient sv = new ContenidoServiceClient())
+                bool checkPopup = Convert.ToBoolean(Request.Form["checkPopup"]);
+
+                using (ContenidoServiceClient svr = new ContenidoServiceClient())
                 {
-                    respuestaActualizacion = sv.ActivaPopupValidador(userData.PaisID, estado);
+                    result = svr.GuardarPopupsValidador(checkPopup, Request.Form["datosCSVValidador"], userData.PaisID);
                 }
 
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                objetoComunicadoModel = new ComunicadoModel();
             }
+            return Json(result, JsonRequestBehavior.AllowGet);
 
-            return Json(respuestaActualizacion, JsonRequestBehavior.AllowGet);
         }
         #endregion
 

@@ -5,6 +5,7 @@
 var VistaAdministracionPopups
     , URL_ADJUNTAR_ARCHIVO = baseUrl + 'AdministracionPopups/GetCargarArchivoCSV'
     , URL_GUARDAR_POPUT = baseUrl + 'AdministracionPopups/GetGuardarPopup'
+    , URL_GUARDAR_POPUT_VALIDADOR = baseUrl + 'AdministracionPopups/GetGuardarPopupValidador'
     , URL_DETALLE_POPUT = baseUrl + 'AdministracionPopups/GetDetallePopup'
     , URL_ACTUALIZA_ORDEN = baseUrl + 'AdministracionPopups/ActualizaOrden'
     , URL_ELIMINA_ARCHIVOCSV = baseUrl + 'AdministracionPopups/EliminarArchivoCsv'
@@ -56,6 +57,8 @@ $(document).ready(function () {
                 $('body').on('click', '.btn__agregar', me.Eventos.AbrirPopupNuevo);
                 $('body').on('click', '.enlace__editar', me.Eventos.AbrirPopupModificar);
                 $('body').on('click', '.btn__modal--descartar', me.Eventos.CerrarPopup);
+                $('body').on('click', '.btn-abrir-popupValidador', me.Eventos.AbrirPoupValidador);
+                $('body').on('click', '.btn-cerrar-popupValidador', me.Eventos.CerrarPoupValidador);
             },
             CargarDatePicker: function () {
                 var dateFormat = "mm/dd/yy",
@@ -130,6 +133,21 @@ $(document).ready(function () {
                 e.preventDefault();
                 $('#AgregarPopup').fadeOut(100);
                 $('body').css('overflow-y', '');
+            },
+            AbrirPoupValidador: function (e) {
+               var overlay = document.getElementById('overlay'),
+                   popup = document.getElementById('popup');
+                   overlay.classList.add('active');
+                   popup.classList.add('active');
+                   // CargarCamposPpupValidador();
+            },
+            CerrarPoupValidador: function (e) {
+                var overlay = document.getElementById('overlay'),
+                    popup = document.getElementById('popup');
+                    e.preventDefault();
+                    overlay.classList.remove('active');
+                    popup.classList.remove('active');
+                   // LimpiarCamposPoputValidador();
             }
         },
             me.Inicializar = function () {
@@ -138,9 +156,6 @@ $(document).ready(function () {
             }
     }
     CargaEstadoValidadorDatos();
-
-
-
     VistaAdministracionPopups = new vistaAdPop();
     VistaAdministracionPopups.Inicializar();
 
@@ -201,6 +216,79 @@ $(document).ready(function () {
     });
 
 });
+
+
+
+    /*Carga del popup informativo*/
+function CargarCamposPpupValidador() {
+    CargaEstadoValidadorDatos();
+}
+
+function CargaEstadoValidadorDatos() {
+    $.ajax({
+        type: "POST",
+        url: URL_POPUPVALIDADOR_CARGA,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        cache: false,
+        success: function (data) {
+            if (checkTimeout(data)) {
+                document.getElementById('checkPopup').checked = parseInt(data) == 1 ? true : false;
+            }
+        },
+        error: function (x, xh, xhr) {
+            if (checkTimeout(x)) {
+                closeWaitingDialog();
+            }
+        }
+    });
+
+}
+
+$("#btnGuardarPopupValidador").click(function () {
+    GuardarDatosPopupValidador();
+});
+
+
+
+function GuardarDatosPopupValidador(valor) {
+
+    var bool = confirm(OBJETO_MENJASE.mensajeActivadorPopupValidador);
+
+    if (bool) {
+
+        var frmData = new FormData();
+        frmData.append("checkPopup", document.getElementById('checkPopup').checked);
+        if (localStorage.getItem("datosCSV") != null)
+            frmData.append("datosCSVValidador", localStorage.getItem("datosCSVValidador"));
+        else
+            frmData.append("datosCSVValidador", null);
+
+        $.ajax({
+            type: "POST",
+            url: URL_GUARDAR_POPUT_VALIDADOR,
+            data: frmData,
+            dataType: 'json',
+            contentType: false,
+            processData: false,
+            success: function (msg) {
+                if (parseInt(msg) > 0) {
+                    alert(OBJETO_MENJASE.registroSatisfactorio);
+                    window.location.reload(true);
+                } else {
+                    alert(OBJETO_MENJASE.errorRegistro);
+                    closeWaitingDialog();
+                }
+            },
+            error: function (error) {
+                alert("errror");
+            }
+        });
+
+    }
+
+}
+ /*Fin de carga popup informativo*/
 
 function GetCargaDetallePoput(comunicadoid) {
 
@@ -368,61 +456,7 @@ function getFileCSV() {
     });
 }
 
-function CargaEstadoValidadorDatos() {
-    $.ajax({
-        type: "POST",
-        url: URL_POPUPVALIDADOR_CARGA,
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        cache: false,
-        success: function (data) {
-            if (checkTimeout(data)) {
-                document.getElementById('checkValidador').checked = parseInt(data) == 1 ? true : false;
-            }
-        },
-        error: function (x, xh, xhr) {
-            if (checkTimeout(x)) {
-                closeWaitingDialog();
-            }
-        }
-    });
 
-}
-
-
-
-
-function activarPopupValidador(valor) {
-
-    var bool = confirm(OBJETO_MENJASE.mensajeActivadorPopupValidador);
-    if (bool) {
-        var estado = document.getElementById(valor.id).checked ? 1 : 0;
-        var object = {
-            estado: estado,
-        };
-
-        $.ajax({
-            type: "POST",
-            url: URL_POPUPVALIDADOR_ESTADO,
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(object),
-            dataType: "json",
-            cache: false,
-            success: function (data) {
-                if (checkTimeout(data)) {
-                    alert(OBJETO_MENJASE.activaPopupValidador);
-                }
-            },
-            error: function (x, xh, xhr) {
-                if (checkTimeout(x)) {
-                    closeWaitingDialog();
-                }
-            }
-        });
-
-    }
-
-}
 
 $("#btnGuardar").click(function () {
 

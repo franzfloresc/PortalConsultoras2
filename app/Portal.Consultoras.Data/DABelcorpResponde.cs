@@ -107,17 +107,25 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteNonQuery(command);
         }
 
-        public int ActivaPopupValidador(int estado)
-        {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ActivaPopupValidador");
-            Context.Database.AddInParameter(command, "@estado", DbType.Int32, estado);
-            return Context.ExecuteNonQuery(command);
-        }
 
         public IDataReader CargaEstadoValidadorDatos()
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.CargaEstadoValidadorDatos");
             return Context.ExecuteReader(command);
+        }
+
+        public int GuardarPopupsValidador(bool checkDesktop, string[] arrayColumnasBEComunicadoSegmentacion, int paisID)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GuardarPopupsValidador");
+            Context.Database.AddInParameter(command, "@estado", DbType.AnsiString, checkDesktop ? "1" :"0");
+           
+            /*Detalle*/
+            Context.Database.AddInParameter(command, "@RegionId", DbType.AnsiString, arrayColumnasBEComunicadoSegmentacion[0] != null ? arrayColumnasBEComunicadoSegmentacion[0].ToString() : string.Empty);
+            Context.Database.AddInParameter(command, "@ZonaId", DbType.AnsiString, arrayColumnasBEComunicadoSegmentacion[1] != null ? arrayColumnasBEComunicadoSegmentacion[1].ToString() : string.Empty);
+            Context.Database.AddInParameter(command, "@Estado", DbType.AnsiString, arrayColumnasBEComunicadoSegmentacion[2] != null ? arrayColumnasBEComunicadoSegmentacion[2].ToString() : string.Empty);
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, arrayColumnasBEComunicadoSegmentacion[3] != null ? arrayColumnasBEComunicadoSegmentacion[3].ToString() : string.Empty);
+
+            return Context.ExecuteNonQuery(command);
         }
         #endregion
     }

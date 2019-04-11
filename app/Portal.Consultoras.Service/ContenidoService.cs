@@ -526,14 +526,24 @@ namespace Portal.Consultoras.Service
         }
 
 
-        public int ActivaPopupValidador(int PaisId, int estado)
-        {
-            return _BLBelcorpResponde.ActivaPopupValidador(PaisId, estado);
-        }
+
 
         public int CargaEstadoValidadorDatos(int PaisId)
         {
             return _BLBelcorpResponde.CargaEstadoValidadorDatos(PaisId);
+        }
+
+        public int GuardarPopupsValidador(bool checkDesktop, string datosCSV, int PaisID)
+        {
+            List<BEComunicadoSegmentacion> listdatosCSV = new List<BEComunicadoSegmentacion>();
+            if (datosCSV != "null")
+            {
+                MemoryStream ms = new MemoryStream(System.Text.ASCIIEncoding.ASCII.GetBytes(datosCSV));
+                ms.Position = 0;
+                DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(List<BEComunicadoSegmentacion>));
+                listdatosCSV = (List<BEComunicadoSegmentacion>)ser.ReadObject(ms);
+            }
+            return _BLBelcorpResponde.GuardarPopupsValidador( checkDesktop, listdatosCSV,  PaisID);
         }
         #endregion
 
