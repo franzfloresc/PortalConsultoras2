@@ -6,6 +6,10 @@ var codigoSsic = "";
 var tipoDespacho = false;
 
 var reclamo = {
+    form: {
+        resultadosBusquedaCuv: "#ResultadosBusquedaCUV",
+        txtCuv: "#ddlCuv",
+    },
     pasos: {
         uno_seleccion_de_producto: "#Paso1",
         dos_seleccion_de_solucion: "#Paso2",
@@ -37,18 +41,18 @@ $(document).ready(function () {
     $("#ddlCampania").on("change", function () {
         $("#txtCantidad").val("1");
         $("#divMotivo").html("");
-        $("#ResultadosBusquedaCUV").empty(); //HD-7303 EINCA
+        $(reclamo.form.resultadosBusquedaCuv).empty(); //HD-7303 EINCA
         $(".lista_resultados_busqueda_por_cuv_wrapper").fadeOut(100);
-        $("#ddlCuv").val("");
+        $(reclamo.form.txtCuv).val("");
         if ($(this).val() == "0") {
             $("#ddlnumPedido").html("");
             $("#ddlnumPedido").hide();
-            $("#ddlCuv").html("");
-            $("#ddlCuv").addClass("btn_deshabilitado");
+            $(reclamo.form.txtCuv).html("");
+            $(reclamo.form.txtCuv).addClass("btn_deshabilitado");
             $("#RangoCantidad").addClass("btn_deshabilitado");
             return false;
         } else {
-            $("#ddlCuv").removeClass("btn_deshabilitado");
+            $(reclamo.form.txtCuv).removeClass("btn_deshabilitado");
             $("#RangoCantidad").removeClass("btn_deshabilitado");
         }
         $("#txtPedidoID").val(0);
@@ -59,8 +63,8 @@ $(document).ready(function () {
     $("#ddlnumPedido").on("change", function () {
         $("#divMotivo").html("");
         $("#txtCantidad").val("1");
-        $("#ddlCuv").val("");
-        $('#ResultadosBusquedaCUV').empty(); //HD-7303 EINCA
+        $(reclamo.form.txtCuv).val("");
+        $(reclamo.form.resultadosBusquedaCuv).empty(); //HD-7303 EINCA
         $(".lista_resultados_busqueda_por_cuv_wrapper").fadeOut(100);
         if ($(this).val() == "0") {
             $("#txtPedidoID").val("");
@@ -133,26 +137,25 @@ $(document).ready(function () {
     $("#RegresarPaso1, #RegresarPaso2, #RegresarCambio1, #RegresarCanje1").on("click", function () {
         CambiarVistaPaso(reclamo.pasos.uno_seleccion_de_producto);
     });
-    $("#ddlCuv").on("click", function () {
+    $(reclamo.form.txtCuv).on("click", function () {
         if ($("#ddlCampania").val() != 0) {
-            $("#ResultadosBusquedaCUV").fadeIn(100);
+            $(reclamo.form.resultadosBusquedaCuv).fadeIn(100);
             $(".lista_resultados_busqueda_por_cuv_wrapper").fadeIn(100);
         }
     }).on("keyup", function () {
-        console.log('ddlCuv keypup');
         if ($(this).val().length === 0) {
-            $(".lista_resultados_busqueda_por_cuv_wrapper").fadeOut(100);
-            $("#ResultadosBusquedaCUV").fadeOut(100);
+            //$(".lista_resultados_busqueda_por_cuv_wrapper").fadeOut(100);
+            //$(reclamo.form.resultadosBusquedaCuv).fadeOut(100);
+            $(".resultado_busqueda_por_cuv").fadeIn(100);
         } else {
-            $("#ResultadosBusquedaCUV").fadeIn(100);
+            $(reclamo.form.resultadosBusquedaCuv).fadeIn(100);
             $(".lista_resultados_busqueda_por_cuv_wrapper").fadeIn(100);
-            var cuvIngresado = $(this).val();
-            $("#ResultadosBusquedaCUV").find("li").filter(function () {
-                $(this).toggle($(this).attr("data-value-cuv").indexOf(cuvIngresado) > -1);
+            var texto = $(this).val();            
+            $(reclamo.form.resultadosBusquedaCuv).find("li").filter(function () {
+                $(this).toggle($(this).attr("data-value-cuv").indexOf(texto) > -1 || $(this).attr("data-value-producto").indexOf(texto.toUpperCase()) > -1);
             });
         }
     }).on("focusout", function () {
-        console.log('ddlCuv focusout');
         $(".lista_resultados_busqueda_por_cuv_wrapper").fadeOut(100);
     });
 
@@ -182,7 +185,7 @@ $(document).ready(function () {
         $("#ddlnumPedido").show();
         $("#ddlnumPedido").attr("disabled", "disabled");
         $("#hdfCUV").val("");
-        $('#ddlCuv').val("");
+        $(reclamo.form.txtCuv).val("");
         BuscarCUV();
         $("#divUltimasSolicitudes").show();
         $("#ddlCampania").attr("disabled", "disabled");
@@ -471,9 +474,9 @@ function BuscarCUV() {
             if (data.detalle == null) return false;
 
             if (data.detalle.length > 1) {
-                $("#ddlCuv").html("");
-                $("#ResultadosBusquedaCUV").empty();
-                var divPadre = $('#ResultadosBusquedaCUV');
+                $(reclamo.form.txtCuv).html("");
+                $(reclamo.form.resultadosBusquedaCuv).empty();
+                var divPadre = $(reclamo.form.resultadosBusquedaCuv);
                 $(data.detalle).each(function (index, item) {
                     divPadre.append('<li class="resultado_busqueda_por_cuv" data-value-cantidad="' + item.Cantidad + '"  data-value-producto="' + item.DescripcionProd + '" data-value-cuv="' + item.CUV + '"><a onclick="SeleccionarCUVBusqueda($(this).parent());" class="resultado_busqueda_por_cuv_enlace" title="' + item.DescripcionProd + '"><div class="resultado_busqueda_por_cuv_datos_imagen"><img src="https://cdn1-prd.somosbelcorp.com/Matriz/PE/PE_201905_30709.jpg" alt="' + item.DescripcionProd + '" /></div><div class="resultado_busqueda_por_cuv_datos_prod">' + '<div class="resultado_busqueda_por_cuv_codigo_prod">' + item.CUV + '</div>' + '<div class="resultado_busqueda_por_cuv_descrip_prod">' + item.DescripcionProd + '</div>' + '</div></a></li>');
                 });
@@ -722,7 +725,7 @@ function ValidarPasoUno() {
     }
 
 
-    if ($("#ddlCuv").val() == "") {
+    if ($(reclamo.form.txtCuv).val() == "") {
         alert_msg("por favor, seleccionar un CUV.");
         $(this).focus();
         return false;

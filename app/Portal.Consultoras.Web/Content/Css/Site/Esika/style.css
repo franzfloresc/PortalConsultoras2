@@ -28363,10 +28363,13 @@ div.motivoRechazo textarea {
     }
 
 .resultado_busqueda_por_cuv_enlace {
-    display: block;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
     width: 100%;
-    min-height: 77px;
-    padding: 15px 10px 15px 20px;
+    min-height: 80px;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 .resultado_busqueda_por_cuv_datos_imagen,
