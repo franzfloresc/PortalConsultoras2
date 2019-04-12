@@ -1146,8 +1146,9 @@ var FichaPartialModule = (function () {
         }, 10);
     };
 
-    var _showDivFichaResumida = function (isShow) {
-
+    var _showDivFichaResumida = function (isShow, marcaAnalytics) {
+        
+        marcaAnalytics = marcaAnalytics || false;
         isShow = isShow == undefined || isShow;
         if (isShow) {
             $('body').css('overflow', 'hidden');
@@ -1157,6 +1158,15 @@ var FichaPartialModule = (function () {
             $("[data-ficha-contenido='ofertadeldia-template-style']").html("");
             $('#DivPopupFichaResumida').hide();
             $("body").css("overflow", "scroll");
+            //Analytics cuando cierrar si esta en pedido ficha resumida y hace clic en boton cerrar
+            if (marcaAnalytics) {
+                var estrategia = JSON.parse($("#data-estrategia").attr("data-estrategia"));
+                var codigoubigeoportal = estrategia.CodigoUbigeoPortal + "";
+                if (codigoubigeoportal !== "") {
+                    AnalyticsPortalModule.MarcaClickCerrarPopupArmaTuPack(codigoubigeoportal, 'Volver', 'Clic Botón');
+                }
+            }
+            
         }
     };
 

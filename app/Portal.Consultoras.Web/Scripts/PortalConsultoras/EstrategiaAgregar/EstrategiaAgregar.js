@@ -379,7 +379,7 @@ var EstrategiaAgregarModule = (function () {
                     CerrarLoad();
                     return false;
                 }
-
+                
                 if (data.success === false) {
                     if (!IsNullOrEmpty(data.mensajeAviso)) AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
                     else abrirMensajeEstrategia(data.message, esFicha);

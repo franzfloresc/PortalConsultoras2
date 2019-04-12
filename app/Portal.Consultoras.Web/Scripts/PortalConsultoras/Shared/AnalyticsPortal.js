@@ -2400,8 +2400,10 @@ var AnalyticsPortalModule = (function () {
     var marcaFichaResumidaClickModificar = function (origenPedido, isChangeTono, isChangeCantidad, isChangeCliente) {
         var origenPedido = origenPedido || "";
         var textoCategory = "";
+        
         if (origenPedido != "") {
-            if (origenPedido == ConstantesModule.CodigoUbigeoPortal.GuionPedidoGuionFichaResumida) {
+            //if (origenPedido == ConstantesModule.CodigoUbigeoPortal.GuionPedidoGuionFichaResumida) {
+            if (origenPedido == ConstantesModule.CodigoUbigeoPortal.GuionCarritoComprasGuionFichaResumida) {
                 textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(origenPedido);  //using new function
                 
                 var label = isChangeTono ? "Tono " : "";
@@ -2559,6 +2561,20 @@ var AnalyticsPortalModule = (function () {
             }
         }
     }
+    var marcaClickCerrarPopupArmaTuPack = function (codigoubigeoportal, textoLabel, actionText) {
+
+        if (codigoubigeoportal !== "") {
+            if (codigoubigeoportal == ConstantesModule.CodigoUbigeoPortal.GuionCarritoComprasGuionFichaResumida) {
+                var textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(codigoubigeoportal) + ""; //using new function
+                dataLayer.push({
+                    'event': _evento.virtualEvent,
+                    "category": textoCategory,
+                    "action": actionText,
+                    "label": textoLabel + ""
+                });
+            }
+        }
+    }
     ////////////////////////////////////////////////////////////////////////////////////////
     // Fin - Analytics Ficha Resumida
     ////////////////////////////////////////////////////////////////////////////////////////
@@ -2674,6 +2690,7 @@ var AnalyticsPortalModule = (function () {
         MarcaEligeloClickArmaTuPack: marcaEligeloClickArmaTuPack,
         MarcaEliminaClickArmaTuPack: marcaEliminaClickArmaTuPack,
         MarcarAddCarArmaTuPack: marcarAddCarArmaTuPack,
-        MarcaClickAgregarArmaTuPack: marcaClickAgregarArmaTuPack
+        MarcaClickAgregarArmaTuPack: marcaClickAgregarArmaTuPack,
+        MarcaClickCerrarPopupArmaTuPack: marcaClickCerrarPopupArmaTuPack
     }
 })();
