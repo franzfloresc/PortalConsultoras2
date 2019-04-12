@@ -32,11 +32,7 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "@IdContenidoDeta", DbType.Int32, idContenidoDetalle);
                 Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, CodigoConsultora);
 
-                var reader = Context.ExecuteReader(command);
-
-                var data = reader.RecordsAffected;
-
-                reader.Close();
+                Context.ExecuteNonQuery(command);
             }
         }
     }
