@@ -21,7 +21,7 @@
 }
 
 .popup__somos__belcorp__mensaje--cierreSesion {
-    margin-bottom: 27px;
+    margin-bottom: 27px!important;
 }
 
 .info__tiempo__cierreSesion,
@@ -42,7 +42,7 @@
 .popup__somos__belcorp__icono--alertaCierreSesion {
     width: 56px;
     height: 56px;
-    margin-bottom: 17px;
+    margin-bottom: 17px!important;
     background-position: center;
     background-repeat: no-repeat;
     background-size: 100%;
