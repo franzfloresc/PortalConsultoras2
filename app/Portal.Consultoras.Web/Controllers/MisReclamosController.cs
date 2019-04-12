@@ -575,21 +575,29 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult BuscarPropuesta(MisReclamosModel model)
         {
-            model = model ?? new MisReclamosModel();
-            var desc = _cdrProvider.ObtenerDescripcion(model.EstadoSsic, Constantes.TipoMensajeCDR.Propuesta, userData.PaisID);
-            model.DescripcionConfirma = desc.Descripcion;
-            model.CUV = Util.SubStr(model.CUV, 0);
-            model.CUV2 = Util.SubStr(model.CUV2, 0);
-
-            var descripcionTenerEnCuenta = _cdrProvider.ObtenerDescripcion(model.EstadoSsic, Constantes.TipoMensajeCDR.TenerEnCuenta, userData.PaisID).Descripcion;
-
-            return Json(new
+            try
             {
-                success = true,
-                message = "",
-                detalle = model,
-                descripcionTenerEnCuenta
-            }, JsonRequestBehavior.AllowGet);
+                model = model ?? new MisReclamosModel();
+                var descripcionTenerEnCuenta = _cdrProvider.ObtenerDescripcion(model.EstadoSsic, Constantes.TipoMensajeCDR.TenerEnCuenta, userData.PaisID).Descripcion;
+                return Json(new
+                {
+                    success = true,
+                    message = "",
+                    texto = descripcionTenerEnCuenta
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            { 
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO, "MisReclamosController.BuscarPropuesta");
+                return Json(new
+                {
+                    success = false,
+                    message = "",
+                    texto = ""
+                }, JsonRequestBehavior.AllowGet);
+                throw;
+            }
+
         }
 
         public JsonResult BuscarParametria(MisReclamosModel model)

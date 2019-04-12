@@ -102,6 +102,7 @@ $(document).ready(function () {
         $("#txtCUVDescripcion2").val("")
         $("#txtCUV2").val("");
         $("#txtCUVPrecio2").val("");
+        $("#MensajeTenerEncuenta").fadeOut(100);
         if (ValidarPasoUno()) {
             //HD-3412 EINCA
             //validar lado del server
@@ -612,7 +613,7 @@ function ObtenerDatosCuv() {
                         pedidoId: value.PedidoID,
                         CampaniaId: value.CampaniaID,
                         precioUnidad: value.PrecioUnidad,
-                        cantidad : value.Cantidad
+                        cantidad: value.Cantidad
                     };
                     reclamo.datosCuv.push(obj);
                 });
@@ -886,8 +887,7 @@ function ObtenerValorCDRWebDatos(codigoSsic) {
 }
 
 function CargarPropuesta(codigoSsic) {
-    var tipo = (codigoSsic == reclamo.operacion.canje || codigoSsic == reclamo.operacion.devolucion || codigoSsic == reclamo.operacion.faltante || codigoSsic == reclamo.operacion.faltanteAbono) ? "canje" : "cambio";
-
+    $("#MensajeTenerEncuenta").fadeOut(100);
     var item = {
         CUV: $.trim($("#hdfCUV").val()),
         DescripcionProd: $.trim($("#hdfCUVDescripcion").val()),
@@ -909,18 +909,15 @@ function CargarPropuesta(codigoSsic) {
             closeWaitingDialog();
             if (!checkTimeout(data))
                 return false;
-
             if (data.success == false) {
-                alert_msg(data.message);
                 return false;
             }
-
-            if (tipo == "canje")
-                SetHandlebars("#template-confirmacion", data.detalle, "[data-tipo-confirma='" + tipo + "'] [data-detalle-confirma]");
-            $("#spnMensajeTenerEnCuentaCanje").html(data.descripcionTenerEnCuenta);
-            $("#spnMensajeTenerEnCuentaCambio").html(data.descripcionTenerEnCuenta);
+            console.log(data.texto);
+            $("#MensajeTenerEncuenta").fadeIn(100);
+            $('#spnMensajeTenerCuenta').html(data.texto);
         },
         error: function (data, error) {
+            $("#MensajeTenerEncuenta").hide();
             closeWaitingDialog();
         }
     });
@@ -1756,8 +1753,8 @@ function EscogerSolucion(opcion, event) {
         $('#spnDescripcionProductoOpcionG').html($('#ddlCuv').val());
         $('#spnCantidadG').html(textoUnidades);
         $('#OpcionDevolucionDinero').fadeIn(200);
-
     }
+    CargarPropuesta(id);
 }
 
 function SetMontoCampaniaTotal() {
