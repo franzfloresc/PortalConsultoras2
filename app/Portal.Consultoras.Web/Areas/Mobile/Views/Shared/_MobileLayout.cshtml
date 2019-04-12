@@ -2,7 +2,6 @@
 @using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Models;
 
-
 @{
     ShowRoomBannerLateralModel showRoomBannerLateral = new ShowRoomBannerLateralModel();
     if (ViewBag.MostrarShowRoomBannerLateral == true) { showRoomBannerLateral = ViewBag.ShowRoomBannerLateral; }
@@ -105,16 +104,15 @@
             <div class="banner_app"><div>X</div></div>
         }
 
-
         @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileMenu/_MobileMenu.cshtml", new ViewDataDictionary {
-        { "vbEsContenedor", 0 },
-        { "vbEsMostrarBuscadorYFiltros", ViewBag.MostrarBuscadorYFiltros }
-    })
-
+            { "vbEsContenedor", 0 },
+            { "vbEsMostrarBuscadorYFiltros", ViewBag.MostrarBuscadorYFiltros }
+        })
 
     </header>
 
-    <section style="min-height: 380px;">
+    <section data-layout="contenido" 
+             style="min-height: 380px;">
         <div id="contentmobile" data-content="">
 
             @if (ViewBag.MostrarBannerPL20 == true && ViewBag.MostrarBannerOtros == false)
@@ -146,7 +144,7 @@
                     </div>
                 }
             }
-            <div id="mob-content-layout">
+            <div data-layout="body" id="mob-content-layout">
                 @RenderBody()
             </div>
         </div>
@@ -167,8 +165,9 @@
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupPostulante.cshtml")
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupComunidad.cshtml")
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupSesionFinalizada.cshtml")
+    @*INI HD-3693*@
     @Html.Partial("~/Views/Shared/PopupsResponsive/_PopupBloqueoPorSistema.cshtml")
-
+    @*FIN HD-3693*@
     <div style="display:none">
         <a id="HiddenRedesSocialesWA" href="#" data-action="share/whatsapp/share">WA</a>
     </div>
@@ -194,6 +193,18 @@
         @*var urlPedidoInsertZe = '@Url.Action("AgregarProductoZE", "Pedido", new { area = "" })';*@
         var baseUrl = "@Url.Content("~")";
         var tipoOfertaFinalCatalogoPersonalizado = '@Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore';
+
+       
+
+        //INI SALUD-58
+        var codigoConsultora = '@ViewBag.CodigoConsultoraDL';
+        var pseudoParamNotif = '@ViewBag.PseudoParamNotif';
+        var inicial = localStorage.getItem('KeyPseudoParam');
+        if (inicial === 'undefinied' || inicial === undefined || inicial === null)
+            localStorage.setItem('KeyPseudoParam', pseudoParamNotif); //se almacena por primera vez
+        //FIN SALUD-58
+
+
 
         var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
         //var esPaisTrackingJetlore = '@ViewBag.PaisesConTrackingJetlore';
@@ -490,7 +501,6 @@
         }
     </script>
     @RenderSection("scripts", required: false)
-
 
     @{
         // ViewBag.HabilitarChatEmtelco : Oculta boton que lanza chat.

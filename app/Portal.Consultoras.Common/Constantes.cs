@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Portal.Consultoras.Common
 {
@@ -140,6 +141,7 @@ namespace Portal.Consultoras.Common
             public const int IdMaximo = 502;
         }
 
+        [Obsolete("Use ConsTablaLogica")]
         public static class TablaLogicaDato
         {
             // PackNuevas-PedidoAsociado.
@@ -191,6 +193,7 @@ namespace Portal.Consultoras.Common
             {
                 public const int Habilitar_App = 12213;
                 public const int Habilitar_App_PBI_ExternalApp = 12214;
+                public const decimal MontoMinimoPago = 0.50m;
             }
 
             public static class ArmaTuPack
@@ -246,19 +249,22 @@ namespace Portal.Consultoras.Common
             public const string OfertaParaTi = "001";
             public const string PackNuevas = "002"; // Oferta Nueva Esika
             public const string OfertaWeb = "003";
+            public const string ArmaTuPack = "004";
             public const string Lanzamiento = "005";
             public const string OfertasParaMi = "007";
             public const string PackAltoDesembolso = "008";
-            public const string RevistaDigital = "101"; // No tiene referecia con BD, es un grupo de estrategias
-            public const string LosMasVendidos = "020";
-            public const string IncentivosProgramaNuevas = "021";
             public const string OfertaDelDia = "009";
             public const string GuiaDeNegocioDigitalizada = "010";
+            public const string HerramientasVenta = "011";
+            public const string LosMasVendidos = "020";
+            public const string IncentivosProgramaNuevas = "021";
             public const string Incentivos = "022";
             public const string ShowRoom = "030";
-            public const string HerramientasVenta = "011";
+
+            public const string RevistaDigital = "101"; // No tiene referecia con BD, es un grupo de estrategias
+            public const string MasGanadoras = "201"; // No tiene referecia con BD, caso particular de OfertasParaMi 007
+
             public const string NotParticipaProgramaNuevas = "0";
-            public const string MasGanadoras = "201"; // No tiene referecia con BD, es un grupo de estrategias
         }
 
         public static class TipoPersonalizacion
@@ -271,6 +277,7 @@ namespace Portal.Consultoras.Common
             public const string GuiaDeNegocioDigitalizada = "GND";
             public const string ShowRoom = "SR";
             public const string HerramientasVenta = "HV";
+            public const string ArmaTuPack = "ATP";
         }
 
         public static class TipoAccionAgregar
@@ -407,6 +414,7 @@ namespace Portal.Consultoras.Common
             public const string RevistaDigital = "RevistaDigital";
             public const string HerramientasVenta = "HerramientasVenta";
             public const string ConfiguracionPaises = "ConfiguracionPaises";
+            public const string ArmaTuPack = "ArmaTuPack";
 
             public const string EventoFestivo = "EventoFestivo";
 
@@ -419,6 +427,7 @@ namespace Portal.Consultoras.Common
             public const string TieneHv = "TieneHv";
             public const string TieneHvX1 = "TieneHvX1";
             public const string TieneMg = "TieneMg";
+            public const string TieneAPT = "TieneAPT";
 
             public const string MisCertificados = "MisCertificados";
             public const string MisCertificadosData = "MisCertificadosData";
@@ -586,6 +595,9 @@ namespace Portal.Consultoras.Common
 
             public const string PaisesEscalaDescuento = "PaisesEscalaDescuento";
 
+            public const string BonificacionesURL = "BonificacionesURL";
+            public const string BonificacionesRegiones = "BonificacionesRegiones";
+            public const string JsonWebTokenSecretKey = "JsonWebTokenSecretKey";
         }
 
         public static class TipoOfertaFinalCatalogoPersonalizado
@@ -639,7 +651,7 @@ namespace Portal.Consultoras.Common
             public const string DGuiaNegocio = "1I0";
             public const string MGuiaNegocio = "2I0";
             public const string DHerramientaVenta = "1J0";
-            public const string MHerramientaVenta = "2J0";  
+            public const string MHerramientaVenta = "2J0";
             public const string DMasGanadoras = "1K0";
             public const string MMasGanadoras = "2K0";
             public const string DDuoPerfecto = "1L0";
@@ -951,6 +963,9 @@ namespace Portal.Consultoras.Common
 
             public const int DesktopPedidoProductoRecomendadoOpmFicha = 1020009;
             public const int DesktopPedidoProductoRecomendadoShowRoomFicha = 1020109;
+
+            public const int MobileContenedorArmaTuPack = 2131502;
+            public const int DesktopContenedorArmaTuPack = 1131502;
 
             public const int AppConsultoraContenedorShowroomFicha = 4080102;
             public const int DesktopPedidoProductoRecomendadoLanFicha = 1020209;
@@ -1325,6 +1340,7 @@ namespace Portal.Consultoras.Common
             public const string PedidosPendientes = "PEDIDOSPENDIENTES";
             public const string ActualizaDatos = "ACTUALIZADATOS";
             public const string Notificaciones = "NOTIFICACIONES";
+            public const string MasGanadoras = "MASGANADORAS";
         }
 
         public static class IngresoExternoOrigen
@@ -1455,11 +1471,8 @@ namespace Portal.Consultoras.Common
             public const string InsertarValidarKitInicio = "No está permitido agregar el Kit de un programa obligatorio.";
             public const string ValidarAgregarProgNuevas = "Sucedió un error al validar el programa de nuevas. Inténtenlo más tarde.";
             public const string ExcedioLimiteVenta = "Las unidades ingresadas exceden el máximo permitido ({0}) en esta campaña.";
-            public const string StockLimiteVenta = "En esta campaña nuestro producto <b>{0} – {1}</b> ha tenido una gran acogida. Sin embargo hemos reservado una ({2}) unidad(es) para ti. Por favor modifica las unidades ingresadas.";
+            public const string StockLimiteVenta = "En esta campaña nuestro producto <b>{0} – {1}</b> ha tenido una gran acogida. Sin embargo hemos reservado {2} unidad(es) para ti. Por favor modifica las unidades ingresadas.";
             public const string Pedido_NoAgregarLiquidacion = "No se puede agregar una Oferta Liquidacion por este medio.";
-            //INI HD-3693
-            public const string Pedido_ConsultoraBloqueada = "Pedido Bloqueado.";
-            //FIN HD-3693
         }
 
         public static class MensajesExito
@@ -1498,6 +1511,7 @@ namespace Portal.Consultoras.Common
             public const string MicroserviciosPersonalizacion = "MSPersonalizacion";
             public const string Datami = "DATAMI";
             public const string DireccionEntrega = "DIRECCION_ENTREGA";
+            public const string ArmaTuPack = "ATP";
         }
 
 
@@ -1691,6 +1705,7 @@ namespace Portal.Consultoras.Common
                 public const int DescagablesNavidenos = 7;
                 public const int CarruselIndividuales = 8; // Ejm LAN
                 public const int CarruselIndividualesV2 = 9; // Ejm GM
+                public const int BannerInteractivo = 10;
             }
         }
 
@@ -1764,14 +1779,18 @@ namespace Portal.Consultoras.Common
             public const int NoPopUp = 3;
         }
 
+        [Obsolete("Use ConsTablaLogica")]
         public struct TablaLogica
         {
-            public const int NroReclamosPorPedidoCDR = 161; //HD-3412 EINCA
+            public const int NroReclamosPorPedidoCDR = 161;
             public const int PersonalizacionODD = 93;
             public const int Plan20 = 98;
             public const int CDRExpress = 104;
             public const int StockDiasAntes = 181;
             public const int CorreoFeedbackAppConsultora = 105;
+
+            public const int EscalaDescuentoMensajeImportante = 160;
+
 
             /// <summary>
             /// Variables configurables del app
@@ -1818,6 +1837,9 @@ namespace Portal.Consultoras.Common
             public const short GanaMasNativo = 159;
             public const short ResizeImagenesAppGanaMas = 162;
             public const short TiempoMaximoSP = 180;
+            //INI HD-3693
+            public const int MsjPopupBloqueadas = 230;
+            //FIN HD-3693
         }
 
         public struct MensajesCDRExpress
@@ -2133,6 +2155,7 @@ namespace Portal.Consultoras.Common
             public const string HerramientasVentaComprar = "/herramientasventa/comprar";
             public const string MasGanadorasIndex = "/masganadoras/index";
             public const string MasGanadoras = "/masganadoras";
+            public const string ArmaTuPackDetalle = "/armatupack/detalle";
             // Url Ficha
             public const string DetalleHerramientasVenta = "/detalle/demostradores";
             public const string DetalleLanzamiento = "/detalle/lonuevonuevo";
@@ -2259,6 +2282,11 @@ namespace Portal.Consultoras.Common
             public const string AppConsultora = "App Consultora";
             public const string BannerDescargarAppNuevas = "BannerDescargarAppNuevas";
             public const string Extraordinarios = "App Consultora,BannerDescargarAppNuevas";
+            //HD-3550 EINCA
+            public static class TipoComunicado {
+                public const int Banner = 1;
+                public const int PopUp = 2;
+            }
         }
         public static class ColumnsSetStrategyShowroom
         {
@@ -2348,6 +2376,7 @@ namespace Portal.Consultoras.Common
                 public const string SUCCESS = "0000";
                 public const string SUCCESS_DUOPERFECTO_AGREGADO_UNO = "0010";
                 public const string SUCCESS_DUOPERFECTO_AGREGADO_COMPLETADO = "0011";
+                public const string SUCCESS_REGALO = "0012";
                 public const string ERROR_INTERNO = "9999";
                 public const string ERROR_PRODUCTO_NOEXISTE = "1101";
                 public const string ERROR_PRODUCTO_AGOTADO = "1102";
@@ -2379,7 +2408,7 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_UNIDAD_SOBREPASA_PERMITIDO = "2116";
                 public const string ERROR_UNIDAD_SINSALDO = "2117";
                 public const string ERROR_UNIDAD_CONSALDO = "2118";
-                public const string ERROR_UNIDAD_SOBREPASA_STOCK = "2119";               
+                public const string ERROR_UNIDAD_SOBREPASA_STOCK = "2119";
 
                 public const string ERROR_RESERVA_NINGUNO = "2010";
                 public const string SUCCESS_RESERVA = "2011";
@@ -2443,7 +2472,7 @@ namespace Portal.Consultoras.Common
                             {Code.ERROR_ELIMINAR_SET, new PedidoValidacionConfiguracion(){ Mensaje ="Ocurrió un error al eliminar el detalle del set."} },
                             {Code.ERROR_ELIMINAR_TODO, new PedidoValidacionConfiguracion(){ Mensaje ="Ocurrió un error al eliminar el pedido." } },
                             {Code.ERROR_ELIMINAR_TODO_SET, new PedidoValidacionConfiguracion(){ Mensaje ="Ocurrió un error al eliminar el set." } },
-                            {Code.ERROR_CANTIDAD_LIMITE, new PedidoValidacionConfiguracion(){ Mensaje ="La cantidad no debe ser mayor que la cantidad limite ( {0} )." } },
+                            {Code.ERROR_CANTIDAD_LIMITE, new PedidoValidacionConfiguracion(){ Mensaje ="Excediste el límite de compras de este producto. (Máx.: {0} unidades)" } },
 
                             {Code.ERROR_RESERVA_NINGUNO, new PedidoValidacionConfiguracion(){ Mensaje ="El pedido no se reservó." } },
                             {Code.SUCCESS_RESERVA, new PedidoValidacionConfiguracion(){ Mensaje ="Pedido reservado." } },
@@ -2704,6 +2733,7 @@ namespace Portal.Consultoras.Common
             public const int NuevasObtenerProductos = 6;
             public const int MGObtenerProductos = 7;
             public const int SRObtenerProductos = 8;
+            public const int ATPObtenerProductos = 9;
         };
 
         #region PagoEnLinea
@@ -3017,6 +3047,29 @@ namespace Portal.Consultoras.Common
             /// api/Evento/editarConsultora/{pais}/{tipo}
             /// </summary>
             public const string UrlEditarEventoConsultora = "api/Evento/editarConsultora/{0}/{1}";
+
+            /// <summary>
+            /// api/EstrategiaGrupo/{pais}/{estrategiaId}
+            /// </summary>        
+            public const string UrlInsertEstrategiaGrupo = "api/EstrategiaGrupo";
+
+
+            /// <summary>
+            /// api/EstrategiaGrupo/{pais}/{estrategiaId}
+            /// </summary>        
+            public const string UrlGuardarEstrategiaGrupo = "api/EstrategiaGrupo/Guardar";
+
+            /// <summary>
+            /// api/EstrategiaGrupo/{pais}/{estrategiaId}
+            /// </summary>        
+            public const string UrlUpdateEstrategiaGrupo = "api/EstrategiaGrupo";
+
+            /// <summary>
+            /// api/EstrategiaGrupo/GetEstrategiaGrupoByEstrategiaId/{pais}/{estrategiaId}
+            /// </summary>
+            public const string UrlGetEstrategiaGrupoByEstrategiaId = "api/EstrategiaGrupo/{0}/{1}";
+
+
             #endregion
 
             #region Oferta
@@ -3025,6 +3078,11 @@ namespace Portal.Consultoras.Common
             /// </summary>
             public const string UrlObtenerOfertas = "Oferta/{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}";
 
+            /// <summary>
+            /// Oferta/ByCuv/{pais}/{tipoPersonalizacion}/{codigoCampania}/{cuv}
+            /// </summary>
+            public const string UrlObtenerOfertaByCuv = "Oferta/ByCuv/{0}/{1}/{2}/{3}";
+            
             /// <summary>
             /// Evento/Get/{pais}/{campania}
             /// </summary>
@@ -3045,9 +3103,9 @@ namespace Portal.Consultoras.Common
             /// <summary>
             /// api/Evento/listarConsultora/{isoPais}/{codigoConsultora}/{codigoCampania}
             /// </summary>
-            public const string UrlObtenerPersonalizacion= "api/Personalizacion/{0}/{1}/{2}";
+            public const string UrlObtenerPersonalizacion = "api/Personalizacion/{0}/{1}/{2}";
             #endregion
-            
+
             #region Reporte
             /// <summary>
             /// /api/Reporte/ReporteValidacion/{pais}/{tipo}/{campania}
@@ -3106,10 +3164,12 @@ namespace Portal.Consultoras.Common
             public const string FlagBuscarPorCategoria = "BuscarPorCategoria";
             public const string FlagBuscarPorCategoriaTotalProductos = "BuscarPorCategoriaTotalProductos";
         }
-        
+
         public static class CodigoConfiguracionMSPersonalizacion
         {
             public const string EstrategiaDisponible = "EstrategiaDisponible";
+            public const string GuardaDataEnLocalStorage = "GuardaDataEnLocalStorage";
+            public const string GuardaDataEnSession = "GuardaDataEnSession";
         }
 
         public static class CodigoConfiguracionRecomendaciones
@@ -3355,6 +3415,12 @@ namespace Portal.Consultoras.Common
             public const int StockHijo = 1;
         }
 
+        public static class Controlador
+        {
+            public static readonly string[] ActualizacionODD = { "Bienvenida", "Ofertas", "DetalleEstrategia", "Pedido" };
+            public const string Pedido = "Pedido";
+        }
+
         public static class EstrategiaDetalleCamposID
         {
             public const int FlagIndividual = 10212;
@@ -3373,7 +3439,8 @@ namespace Portal.Consultoras.Common
             public const int ColorTextoApp = 10215;
         }
 
-        public static class Formatos {
+        public static class Formatos
+        {
             public const string Fecha = "dd/MM/yyyy";
             public const string FechaHora = "dd/MM/yyyy HH:mm";
         }
@@ -3408,7 +3475,7 @@ namespace Portal.Consultoras.Common
                 public const string MaquilladorVirtual = "04";
             }
         }
-        
+
         public static class OpcionesUsuario
         {
             public const int BoletaImpresa = 1;

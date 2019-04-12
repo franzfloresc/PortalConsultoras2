@@ -2048,7 +2048,7 @@ $(document).ready(function () {
                         CDRWebDetalleID: pedidodetalleid
                     };
 
-                    messageConfirmacion("Se eliminará el registro seleccionado. <br/>¿Deseas continuar?", function () {
+                    messageConfirmacion("","Se eliminará el registro seleccionado. <br/>¿Deseas continuar?", function () {
                         me.Funciones.DetalleEliminar(item);
                     });
                 }

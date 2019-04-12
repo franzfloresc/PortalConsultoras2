@@ -58,10 +58,16 @@ var PedidoRegistroModule = function () {
     var _mensajeRespuestaError = function (data) {
         if (data.success == true) return false;
         if (!IsNullOrEmpty(data.mensajeAviso)) {
+
             AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
             return false;
         }
-
+        //INI HD-3693
+        var msjBloq = validarpopupBloqueada(data.message);
+        if (msjBloq != "") {
+            alert_msg_bloqueadas(msjBloq);
+            return false;
+        }
         data.message = data.message || 'Error al realizar proceso, inténtelo más tarde.';
         messageInfoError(data.message);
         CerrarLoad();
@@ -77,6 +83,7 @@ var PedidoRegistroModule = function () {
 
     /* Ini - Region BannerPedido */
     var _insertarPedidoCuvBanner = function (CUVpedido, CantCUVpedido) {
+        
         var item = {
             CUV: CUVpedido,
             CantCUVpedido: CantCUVpedido
@@ -158,7 +165,7 @@ var PedidoRegistroModule = function () {
     }
 
     var AgregarCUVBannerPedido = function () {
-
+        
         var Id = $("#divConfirmarCUVBanner").data().Id;
         var link = $("#divConfirmarCUVBanner").data().link;
         var CUVpedido = $("#divConfirmarCUVBanner").data().cuvPedido;
@@ -816,16 +823,16 @@ var PedidoRegistroModule = function () {
                 return false;
             }
 
-            dataAgregarOF = _agregarOfertaFinal(model);
-            if (dataAgregarOF.success) {
+            window.dataAgregarOF = _agregarOfertaFinal(model);
+            if (window.dataAgregarOF.success) {
                 if (typeof MostrarBarra === 'function') {
                     var prevTotal = mtoLogroBarra;
-                    MostrarBarra(dataAgregarOF);
-                    showPopupNivelSuperado(dataAgregarOF.DataBarra, prevTotal);
+                    MostrarBarra(window.dataAgregarOF);
+                    showPopupNivelSuperado(window.dataAgregarOF.DataBarra, prevTotal);
                 }
 
                 AgregarOfertaFinalLog(model.CUV, model.Cantidad, tipoOfertaFinal_Log, gap_Log, 1, 'Producto Agregado');
-                ActualizarValoresPopupOfertaFinal(dataAgregarOF);
+                ActualizarValoresPopupOfertaFinal(window.dataAgregarOF);
                 objDivPadre.find('.agregado').show();
                 if ($.isFunction(fnFinal)) fnFinal();
             }
@@ -1061,7 +1068,14 @@ var PedidoRegistroModule = function () {
                     $("#btnAgregarProducto").show();
                     var errorCliente = data.errorCliente || false;
 
-                    if (!errorCliente) AbrirMensaje(data.message, data.tituloMensaje);
+                    //INI HD-3693
+                    //if (!errorCliente) AbrirMensaje(data.message, data.tituloMensaje);
+                    if (!errorCliente) {
+                        var msjBloq = validarpopupBloqueada(data.message);
+                        if (msjBloq != "") alert_msg_bloqueadas(msjBloq);
+                        else AbrirMensaje(data.message, data.tituloMensaje);
+                    }
+                    //FIN HD-3693
                     else {
                         $.each(lstClientes, function (ind, cli) {
                             if (cli.ClienteID == $("#txtClienteId").val()) {
@@ -1279,6 +1293,7 @@ var PedidoRegistroModule = function () {
         if (flag == "true") {
             form.url = baseUrl + _url.urlAgregarUnico;
             form.data.EstrategiaID = $("#hdfEstrategiaId").val();
+            form.data.DescripcionProd = $("#DescripcionProd").val();
         }
 
         AbrirSplash();
@@ -1327,8 +1342,14 @@ var PedidoRegistroModule = function () {
                 }
                 else {
                     var errorCliente = response.errorCliente || false;
-
-                    if (!errorCliente) AbrirMensaje(response.message, response.tituloMensaje);
+                    //INI HD-3693
+                    //if (!errorCliente) AbrirMensaje(response.message, response.tituloMensaje);
+                    if (!errorCliente) {
+                        var msjBloq = validarpopupBloqueada(response.message);
+                        if (msjBloq != "") alert_msg_bloqueadas(msjBloq);
+                        else AbrirMensaje(response.message, response.tituloMensaje);
+                    }
+                    //FIN HD-3693
                     else {
                         messageInfoError(response.message, null, function () {
                             showClienteDetalle(currentClienteCreate, function (cliente) {
@@ -1455,52 +1476,14 @@ var PedidoRegistroModule = function () {
     }
 }();
 
-
-function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi, setId, esCuponNuevas) {
-    var rowElement = $(event.target).closest(".contenido_ingresoPedido");
-    var txtLPCant = $(rowElement).find(".txtLPCant");
-    var txtLPTempCant = $(rowElement).find(".txtLPTempCant");
-
-    AbrirSplash();
-    var CantidadAnti, PROL, CliID, CliDes, Cantidad, DesProd, Flag, StockNuevo, PrecioUnidad;
-    if (HorarioRestringido()) {
-        CantidadAnti = $(txtLPTempCant).val();
-        $(txtLPCant).val(CantidadAnti);
-        CerrarSplash();
-        return false;
-    }
-
-    var cant = $(txtLPCant).val();
-    var cantAnti = $(txtLPTempCant).val();
-
-    if (cant == cantAnti) {
-        CerrarSplash();
-        return false;
-    }
-
-    if (cant == "" || cant == "0") {
-        AbrirMensaje("Ingrese una cantidad mayor que cero.");
-        $(txtLPCant).val(cantAnti);
-        CerrarSplash();
-        return false;
-    }
-
-    if (isNaN(cant)) {
-        CerrarSplash();
-        return false;
-    }
-
-    var val = ValidarUpdate(PedidoDetalleID, FlagValidacion, rowElement);
-    if (!val) {
-        CerrarSplash();
-        return false;
-    }
-
+function UpdateTransaction(CantidadActual, CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, esCuponNuevas, rowElement, txtLPCant, setId, txtLPTempCant) {
+    
     var CliID = $(rowElement).find(".hdfLPCli").val();
     var CliDes = $(rowElement).find(".txtLPCli").val();
     var Cantidad = $(txtLPCant).val();
     var CantidadAnti = $(txtLPTempCant).val();
     var DesProd = $(rowElement).find(".lblLPDesProd").html();
+
     var ClienteID_ = $("#ddlClientes").val();
     var PrecioUnidad = $(rowElement).find(".hdfLPPrecioU").val();
     if (CliDes.length == 0) { CliID = 0; }
@@ -1517,7 +1500,7 @@ function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfe
         PedidoID: PedidoID,
         PedidoDetalleID: PedidoDetalleID,
         ClienteID: CliID,
-        Cantidad: Cantidad,
+        Cantidad: CantidadActual,
         PrecioUnidad: PrecioUnidad,
         Stock: StockNuevo,
         Nombre: CliDes,
@@ -1540,12 +1523,13 @@ function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfe
         async: true,
         success: function (data) {
             CerrarSplash();
-
             if (!checkTimeout(data))
                 return false;
 
             if (data.success != true) {
-                $(txtLPCant).val(cantAnti);
+                var regex = /(\d+)/g;
+                var cantLimitada = parseInt(datos.message.match(regex)[1]);
+                $(txtLPCant).val(cantLimitada);
                 var errorCliente = data.errorCliente || false;
                 if (!errorCliente) {
                     messageInfoError(data.message);
@@ -1619,4 +1603,95 @@ function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfe
             CerrarSplash();
         }
     });
+}
+
+
+function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi, setId, esCuponNuevas) {
+    //
+    var rowElement = $(event.target).closest(".contenido_ingresoPedido");
+    var txtLPCant = $(rowElement).find(".txtLPCant");
+    var txtLPTempCant = $(rowElement).find(".txtLPTempCant");
+    AbrirSplash();
+    var CantidadAnti, PROL, CliID, CliDes, Cantidad, DesProd, Flag, StockNuevo, PrecioUnidad;
+    if (HorarioRestringido()) {
+        CantidadAnti = $(txtLPTempCant).val();
+        $(txtLPCant).val(CantidadAnti);
+        CerrarSplash();
+        return false;
+    }
+
+    var cant = $(txtLPCant).val();
+    var cantAnti = $(txtLPTempCant).val();
+
+    if (cant == cantAnti) {
+        CerrarSplash();
+        return false;
+    }
+
+    if (cant == "" || cant == "0") {
+        AbrirMensaje("Ingrese una cantidad mayor que cero.");
+        $(txtLPCant).val(cantAnti);
+        CerrarSplash();
+        return false;
+    }
+
+    if (isNaN(cant)) {
+        CerrarSplash();
+        return false;
+    }
+
+    var val = ValidarUpdate(PedidoDetalleID, FlagValidacion, rowElement);
+    if (!val) {
+        CerrarSplash();
+        return false;
+    }
+
+    /*Agregado el 13/03/2019*/
+    var CantidadSoli = (cant - cantAnti);
+    PrecioUnidad = $(rowElement).find(".hdfLPPrecioU").val();
+    var param = ({
+        CUV: CUV,
+        PrecioUnidad: PrecioUnidad,
+        Cantidad: CantidadSoli,
+        TipoOferta: TipoOfertaSisID || 0,
+        EsCuponNuevas: esCuponNuevas
+    });
+
+    jQuery.ajax({
+        type: "POST",
+        url: baseUrl + "Pedido/ValidarStockEstrategia",
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(param),
+        async: true,
+        success: function (datos) {
+            
+            if (checkTimeout(datos)) {
+                if (!datos.result) {
+                    var regex = /(\d+)/g;
+                    var cantLimitada = parseInt(datos.message.match(regex)[1]);
+                    if (parseInt( cantAnti) == cantLimitada) {
+                        AbrirMensajeEstrategia(datos.message);
+                        CerrarSplash();
+                        $(txtLPCant).val(cantAnti);
+                    } else {
+                        AbrirMensajeEstrategia(datos.message);
+                        UpdateTransaction(cantLimitada, CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, esCuponNuevas, rowElement, txtLPCant, setId, txtLPTempCant);
+                    }
+                    return false;
+                } else {
+                    UpdateTransaction(cant, CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, esCuponNuevas, rowElement, txtLPCant, setId, txtLPTempCant);
+                }
+            }
+        },
+        error: function (data, error) {
+            if (checkTimeout(data)) {
+                HideDialog("divVistaPrevia");
+                CerrarSplash();
+            }
+        }
+    });
+
+    /*Fin*/
+
 }

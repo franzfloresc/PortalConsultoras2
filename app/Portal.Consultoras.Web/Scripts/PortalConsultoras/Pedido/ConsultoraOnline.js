@@ -389,11 +389,13 @@ function AceptarPedido(pedidoId, tipo) {
             var key = (tipo == 1) ? '#sc-d1' : '#sc-d2';
             var name = $(popup).find(key + '-nombre').text();
             var email = $(popup).find(key + '-correo').text();
+            var telefono = $(popup).find(key + '-telefono').text();            
 
             var cliente = {
                 ConsultoraId: 0,
                 NombreCliente: name,
                 Nombre: name,
+                Celular: telefono,
                 eMail: email
             };
 
@@ -471,7 +473,14 @@ function ProcesarAceptarPedido(pedido) {
                     }
                 }
                 else {
-                    alert_msg(response.message);
+                    //INI HD-3693
+                    //alert_msg(response.message);
+                    var msjBloq = validarpopupBloqueada(response.message);
+                    if (msjBloq != "") alert_msg_bloqueadas(msjBloq);
+                    else alert_msg(response.message);
+                    //FIN HD-3693
+
+
                 }
             }
         },

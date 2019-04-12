@@ -2,6 +2,7 @@
 var showDisplayODD = 0;
 var ventanaChat = null;
 
+
 $(document).ready(function () {
 
     LayoutHeader();
@@ -215,11 +216,11 @@ $(document).ready(function () {
         draggable: true,
         title: "Comunidad SomosBelcorp",
         buttons:
-            {
-                "Aceptar": function () {
-                    HideDialog("DialogMensajesCom");
-                }
+        {
+            "Aceptar": function () {
+                HideDialog("DialogMensajesCom");
             }
+        }
     });
 
     $('#divMensajeConfirmacion').dialog({
@@ -334,21 +335,47 @@ function AbrirVentanaBelcorpChat(url) {
 function messageInfoError(message, titulo, fnAceptar) {
     message = $.trim(message);
     if (message != "") {
-        $('#dialog_ErrorMainLayout #mensajeInformacionSB2_Error').html(message);
-        $('#dialog_ErrorMainLayout').show();
 
-        $('#dialog_ErrorMainLayout .btn_ok').off('click');
-        $('#dialog_ErrorMainLayout .btn_cerrar_agregarUnidades a').off('click');
+        //$('#dialog_ErrorMainLayout #mensajeInformacionSB2_Error').html(message);
+        //$('#dialog_ErrorMainLayout').show();
 
-        $('#dialog_ErrorMainLayout .btn_ok').on('click', function () {
-            $('#dialog_ErrorMainLayout').hide();
-            if ($.isFunction(fnAceptar)) fnAceptar();
-        });
+        //$('#dialog_ErrorMainLayout .btn_ok').off('click');
+        //$('#dialog_ErrorMainLayout .btn_cerrar_agregarUnidades a').off('click');
 
-        $('#dialog_ErrorMainLayout .btn_cerrar_agregarUnidades a').on('click', function () {
-            $('#dialog_ErrorMainLayout').hide();
-            if ($.isFunction(fnAceptar)) fnAceptar();
-        });
+        //$('#dialog_ErrorMainLayout .btn_ok').on('click', function () {
+        //    $('#dialog_ErrorMainLayout').hide();
+        //    if ($.isFunction(fnAceptar)) fnAceptar();
+        //});
+
+        //$('#dialog_ErrorMainLayout .btn_cerrar_agregarUnidades a').on('click', function () {
+        //    $('#dialog_ErrorMainLayout').hide();
+        //    if ($.isFunction(fnAceptar)) fnAceptar();
+        //});
+
+        //INI HD-3693
+        var msjBloq = validarpopupBloqueada(message);
+        if (msjBloq != "") {
+            alert_msg_bloqueadas(msjBloq);
+        } else {
+            $('#dialog_ErrorMainLayout #mensajeInformacionSB2_Error').html(message);
+            $('#dialog_ErrorMainLayout').show();
+
+            $('#dialog_ErrorMainLayout .btn_ok').off('click');
+            $('#dialog_ErrorMainLayout .btn_cerrar_agregarUnidades a').off('click');
+
+            $('#dialog_ErrorMainLayout .btn_ok').on('click', function () {
+                $('#dialog_ErrorMainLayout').hide();
+                if ($.isFunction(fnAceptar)) fnAceptar();
+            });
+
+            $('#dialog_ErrorMainLayout .btn_cerrar_agregarUnidades a').on('click', function () {
+                $('#dialog_ErrorMainLayout').hide();
+                if ($.isFunction(fnAceptar)) fnAceptar();
+            });
+        }
+        //FIN HD-3693
+
+
     }
 }
 
@@ -407,11 +434,12 @@ function CargarResumenCampaniaHeader(showPopup) {
 }
 
 function CargarCantidadNotificacionesSinLeer() {
-    jQuery.ajax({
-        type: 'POST',
-        url: baseUrl + "Notificaciones/GetNotificacionesSinLeer",
-        data: '',
-        cache: false,
+    var sparam = localStorage.getItem('KeyPseudoParam'); //SALUD-58
+    $.ajax({
+        type: 'GET',
+        url: baseUrl + "Notificaciones/GetNotificacionesSinLeer?pseudoParam=" + sparam + "&codigoUsuario=" + codigoConsultora + "",
+        data: {},
+        cache: true,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
@@ -438,7 +466,7 @@ function CargarCantidadNotificacionesSinLeer() {
             }
         },
         error: function (data, error) { }
-    });
+    })
 }
 
 function AbrirModalFeErratas() {
@@ -488,7 +516,7 @@ function SeparadorMiles(pnumero) {
 
     if (numero.indexOf(",") >= 0) nuevoNumero = nuevoNumero.substring(0, nuevoNumero.indexOf(","));
 
-    for (var i = nuevoNumero.length - 1, j = 0; i >= 0; i--, j++)
+    for (var i = nuevoNumero.length - 1, j = 0; i >= 0; i-- , j++)
         resultado = nuevoNumero.charAt(i) + ((j > 0) && (j % 3 == 0) ? "." : "") + resultado;
 
     if (numero.indexOf(",") >= 0) resultado += numero.substring(numero.indexOf(","));
@@ -655,6 +683,7 @@ function alert_msg_com(message) {
     $('#DialogMensajesCom .message_text').html(message);
     $('#DialogMensajesCom').dialog('open');
 }
+
 
 function AbrirModalRegistroComunidad() {
 
@@ -1221,3 +1250,9 @@ function OcultarChatEmtelco() {
         $(".CMXD-help").hide();
     }
 }
+//INI HD-3693
+function alert_msg_bloqueadas(message) {
+    $('#PopupBloqueoPorSistema .message_text_bloqueada').html(message);
+    $('#PopupBloqueoPorSistema').show();
+}
+//FIN HD-3693
