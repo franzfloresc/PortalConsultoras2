@@ -32,10 +32,11 @@
                         <p style="margin-bottom: 3px">>{{Cabecera.Dimensiones}}</p>
                         <p style="margin-bottom: 3px">>{{Cabecera.TallaMedidas}}</p>
                     </div>
+                    {{#iff PrecioCatalogo '>' 0}}
                     <div class="col-md-12 col-sm-12 col-xs-12 descripcion_item precio">
                         Para tu cliente <b>{{SimboloMoneda}} {{PrecioCatalogo}}</b>
                     </div>
-
+                    {{/iff}}
                     <div class="tabs">
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <ul id="mnuDetalleComponente" class="tabs ficha_tabs">
@@ -56,7 +57,7 @@
                                 <li id="div_ficha_tab1">
                                     <a class="tab-link active">{{seccion.Titulo}}</a>
                                     <ul class="tabs_container" style="display:block;">
-                                        <div style="@*width:95% !important*@" >
+                                        <div style="@*width:95% !important*@">
                                             <div id="carouselVideo">
                                                 {{#each seccion.Detalles as |detalle index|}}
                                                 <div style="">
@@ -88,7 +89,7 @@
                                 {{/iff}}
                                 {{/each}}
                             </ul>
-                        </div>                          
+                        </div>
                     </div>
                 </div>
             </div>

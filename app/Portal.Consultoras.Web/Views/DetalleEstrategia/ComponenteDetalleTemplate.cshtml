@@ -16,7 +16,9 @@
                         <div class="descripcion_item">{{Cabecera.ContenidoNeto}}</div>
                         <div class="descripcion_item">{{Cabecera.Dimensiones}}</div>
                         <div class="descripcion_item">{{Cabecera.TallaMedidas}}</div>
+                        {{#iff PrecioCatalogo '>' 0}}
                         <div class="precio_cliente">Para tu cliente <span>{{SimboloMoneda}} {{PrecioCatalogo}}</span></div>
+                        {{/iff}}
                     </div>
                 </div>
                 <div class="ficha_content_rigth">
