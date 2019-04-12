@@ -55,7 +55,6 @@
     <!-- / Pending title   -->
     <!--  Pending subtitle  -->
     @{
-
         //var solicitud = Model.ListaPedidos.ToList();
         //var tiposoli = (solicitud. == 0) ? 1 : 2;
     }
@@ -90,8 +89,12 @@
                             </div>
 
                             <input type="hidden" class="pedidoId" value="@item.PedidoId" />
-                            <input type="hidden" class="cuv" value="@item.DetallePedido[0].CUV" />
-                            <input type="hidden" class="cantidad" value="@item.DetallePedido[0].Cantidad" />
+                            <input type="hidden" class="cuv" value="@ViewBag.CUVx" />
+                            @{
+                                var tmp = item.DetallePedido.Where(x => x.CUV == ViewBag.CUVx).FirstOrDefault();
+                                var cantx = (tmp != null) ? tmp.Cantidad : 0;
+                            }
+                            <input type="hidden" class="cantidad" value="@cantx" />
                         </div>
                     </div>
                     <div class="col-3">

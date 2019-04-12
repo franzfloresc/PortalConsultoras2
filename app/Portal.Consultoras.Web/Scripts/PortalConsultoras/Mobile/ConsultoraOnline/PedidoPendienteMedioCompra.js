@@ -1,7 +1,7 @@
 ﻿$(document).ready(function () {
 
     $('.btnAccion').click(function (e) {
-        
+
         if (!$(e.target).hasClass('active')) {
             $(e.target).addClass('active');
             $(e.target).html('Elegir');
@@ -39,20 +39,17 @@
 
 });
 
-
 function AceptarPedidoPendiente(id, tipo) {
 
-    var btn = $('.btnAccion a').not('.active')[0];
+    var btn = $('.btnAccion span').not('.active')[0];
 
-    if (btn) {       
+    if (btn) {
         var pedido = {
-            Accion: 2,          
+            Accion: 2,
             Dispositivo: glbDispositivo,
-            AccionTipo: $(btn).parent().data('accion'),  
-             ListaGana: $(btn).parent().data('accion') == 'ingrgana' ? $('.conGanaMas').data('listagana') : []        
+            AccionTipo: $(btn).parent().data('accion'),
+            ListaGana: $(btn).parent().data('accion') == 'ingrgana' ? $('.conGanaMas').data('listagana') : []
         }
-
-      
 
         ShowLoading({});
         $.ajax({
@@ -67,8 +64,8 @@ function AceptarPedidoPendiente(id, tipo) {
                 if (checkTimeout(response)) {
                     if (response.success) {
 
-                        $('#popuplink').click(); 
-                        return false;                        
+                        $('#popuplink').click();
+                        return false;
                     }
                     else {
                         if (response.code == 1) {

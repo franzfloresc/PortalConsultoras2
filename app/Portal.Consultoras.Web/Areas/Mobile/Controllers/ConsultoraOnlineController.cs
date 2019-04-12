@@ -960,7 +960,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         var ids = lstCuv.Where(x => x.CUV == cuv).Select(x => x.PedidoId.ToString()).ToArray();
                         //item.Cantidad = lst1.Count();
                         det.CantidadTotal = lstCuv.Sum(x => x.Cantidad);
-                        det.PrecioTotal = lstCuv.Sum(x => x.PrecioUnitario);
+                        //det.PrecioTotal = (lstCuv.Sum(x => x.PrecioUnitario) * lstCuv.Sum(x => x.Cantidad));
+                        det.PrecioTotal = (det.CantidadTotal * det.PrecioUnitario);
                         det.FormatoPrecioTotal = Util.DecimalToStringFormat(det.PrecioTotal.ToDecimal(), userData.CodigoISO);
                         det.ListaClientes = lstPedidos.Where(x => ids.Contains(x.PedidoId.ToString())).ToArray();
                         lstByProductos.Add(det);
@@ -1138,6 +1139,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.RegistrosTotal = model.ListaPedidos.Count.ToString();
                 SessionManager.SetobjMisPedidos(model);
                 //SessionManager.SetobjMisPedidosDetalle(lstdetalle);
+                ViewBag.CUVx = cuv;
             }
             catch (Exception ex)
             {
@@ -1232,7 +1234,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             pedidosSesion.ForEach(pedido =>
             {
-                if (pedido.DetallePedido.Any(i => i.Elegido = true))
+                if (pedido.DetallePedido.Any(i => i.Elegido == true))
                 {
                     var odetalleTemporal = CargarMisPedidosDetalleDatos(pedido.MarcaID, pedido.DetallePedido.Where(i => i.Elegido == true).ToList());
                     var detallePedidos = Mapper.Map<List<BEMisPedidosDetalle>, List<MisPedidosDetalleModel2>>(odetalleTemporal);
@@ -1284,10 +1286,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             var oListaGana = _consultoraOnlineProvider.GetRecomendados(parametrosRecomendado);
             model.ListaCatalogo = oListaCatalogo;
-            model.TotalCatalogo = oListaCatalogo.Sum(x => x.Cantidad * x.PrecioTotal);
+            model.TotalCatalogo = oListaCatalogo.Sum(x => x.Cantidad * x.PrecioUnitario);
             model.ListaGana = oListaGana;
             model.TotalGana = oListaGana.Sum(x => x.Cantidad * x.Precio2);
             model.GananciaGana = model.TotalCatalogo - model.TotalGana;
+            ViewBag.PaisISOx = userData.CodigoISO;
 
             return View(model);
         }
