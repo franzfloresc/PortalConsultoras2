@@ -271,11 +271,13 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
                 var pagoBancaPorInternet = result.ListaMedioPago.FirstOrDefault(e => e.Codigo == Constantes.PagoEnLineaPasarela.PBI && e.Estado);
                 if (pagoBancaPorInternet != null) pagoBancaPorInternet.Estado = false;
             }
-        
-            //Paises con comision 0
-            var lstPaises = WebConfig.GetByTagName("PaisesComisionCero").Split(',');
-            
-            var Evaluacion = (esDigital == 1) && (fechaVencimiento >= DateTime.Now.Date) && lstPaises.Any(x => x == paisId.ToString());
+
+            //Paises con comision 0 para consultora digital y que no pasen su fecha de vencimiento
+            var Comision = listaConfiguracion.FirstOrDefault(e => e.Codigo == Constantes.TablaLogicaDato.PagoEnLinea.Habilitar_Comision_Cero);
+
+            Comision = Comision ?? new BETablaLogicaDatos();
+
+            var Evaluacion = (esDigital == 1) && (fechaVencimiento >= DateTime.Now.Date) && (string.IsNullOrEmpty(Comision.Valor) ? false : Comision.Valor=="1" ? true : false);
 
             if (Evaluacion)
             {
