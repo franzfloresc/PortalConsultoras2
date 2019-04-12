@@ -145,11 +145,6 @@ div .btn-principal {
     text-decoration: none;
     overflow: inherit;
     background: #b9007e;
-    /*    background: #e81c36;
-   background: -moz-linear-gradient(left, #e81c36 0%, #613c87 100%);
-   background: -webkit-linear-gradient(left, #e81c36 0%,#613c87 100%);
-   background: linear-gradient(to right, #e81c36 0%,#613c87 100%);
-   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e81c36', endColorstr='#613c87',GradientType=1 );*/
 }
 
     .btn-principal:hover {
@@ -1000,10 +995,6 @@ button.close {
         text-decoration: none !important;
     }
 
-/*.owl-carousel .owl-item {
-    width: 46% !important;
-    margin: 0 2% !important;
-}*/
 
 /*CRECIMIENTO*/
 .max750 {
@@ -1011,8 +1002,7 @@ button.close {
 }
 
 .box-camb {
-    /*padding-left: 30px !important;
-    padding-right: 30px !important;*/
+
     margin: 20px auto;
 }
 
