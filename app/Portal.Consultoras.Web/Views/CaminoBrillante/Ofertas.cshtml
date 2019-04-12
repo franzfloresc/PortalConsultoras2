@@ -271,13 +271,13 @@
             @ViewBag.CantidadDemostradores
         </div>
         <section class="col-12 fichas__productos__wrapper text-center" id="Demostradores" style="display:none;">
-
+                
         </section>
     </section>
 </div>
 
 <script id="template-Demostradores" type="text/x-handlebars-template">
-    {{#each this as |item|}}
+    {{#each this}}
     <article class="ficha__producto " data-item="BuscadorFichasProductos">
         <input type="hidden" id="hdCuv" value="{{Cuv}}" />
         <div class="row flex-row justify-content-center ml-0 mr-0">
@@ -285,14 +285,19 @@
                 @*@{
                     var imagenDemostrador = string.IsNullOrEmpty(item.FotoProductoMedium) ? ViewBag.RutaImagenNoDisponible : item.FotoProductoMedium;
                 }*@
-                <img class="lazy redireccionarFicha" src="{{urlImagenDemostrador}}">
+                {{#IsNullOrEmpty FotoProductoMedium '!='}}
+                <img class="lazy redireccionarFicha" src="{{FotoProductoMedium}}">
+                {{/IsNullOrEmpty}}
+                {{#IsNullOrEmpty FotoProductoMedium '=='}}
+                <img class="lazy redireccionarFicha" src="@ViewBag.RutaImagenNoDisponible">
+                {{/IsNullOrEmpty}}
             </figure>
             <div class="col-12 pl-0 pr-0 ficha__producto__descrip d-block mx-auto text-left">
                 <div class="col-12 pl-0 pr-0 ficha__producto__descrip__marca__pais text-uppercase">
                     {{DescripcionMarca}}
                 </div>
                 <div class="col-12 pl-0 pr-0 ficha__producto__descrip__nom text-bold redireccionarFicha">
-                    {{DescripcionCuv}}
+                    {{DescripcionCUV}}
                 </div>
 
             </div>
@@ -302,10 +307,10 @@
                 </div>*@
             <div class="row flex-row align-items-end align-items-md-baseline ml-0 mr-0 col-12 pl-0 pr-0 ficha__producto__precio">
                 <div>
-                    <div style="text-align: left;padding-right: 15px; font-size: 12px;">Precio normal<br /><div style="text-decoration:line-through;">{{simboloMoneda}} {{precioValorizado}}</div></div>
+                    <div style="text-align: left;padding-right: 15px; font-size: 12px;">Precio normal<br /><div style="text-decoration:line-through;">@ViewBag.Moneda {{PrecioValorizado}}</div></div>
                 </div>
                 <div>
-                    <div style="font-size: 12px;text-align: left;">Precio para ti<br /><b>{{simboloMoneda}} {{precioCatalogo}}</b></div>
+                    <div style="font-size: 12px;text-align: left;">Precio para ti<br /><b> @ViewBag.Moneda {{PrecioCatalogo}}</b></div>
                 </div>
             </div>
             <div class="row flex-row justify-content-between ml-0 mr-0 pl-0 pr-0 ficha__producto__agregar__producto">
@@ -339,3 +344,10 @@
 <script src="https://www.somosbelcorp.com/Bundle/Js/Desktop/JQuery3Js?v=6K-kHHuzTBQeaIUNJP1kR-uZJRJv9nA2SlHvYURb6j41"></script>
 <script src="~/Scripts/PortalConsultoras/CaminoBrillante/Ofertas.js"></script>
 <script src="~/Scripts/PortalConsultoras/Cliente/Index.js"></script>
+
+@section scripts{
+    <script type="text/javascript">
+        var urlGetKits = '@Url.Action("GetKits", "CaminoBrillante", new { area = "" })';
+        var urlGetDemostradores = '@Url.Action("GetDemostradores", "CaminoBrillante", new { area = "" })';
+    </script>
+}
