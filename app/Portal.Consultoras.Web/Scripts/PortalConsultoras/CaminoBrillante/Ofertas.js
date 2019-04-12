@@ -46,8 +46,7 @@ function CargarDemostradores() {
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
             if (checkTimeout(data)) {
-                debugger
-                if (data.lista.length > 0) ListarOfertasDemostradores(data.lista);
+                if (data.lista.length > 0) ArmarProductoLiquidaciones(data.lista);
                 //if (!data.verMas) UnlinkCargarOfertasToScroll();
                 //offsetRegistros += cantidadRegistros;
             }
@@ -155,7 +154,6 @@ function CambiarOferta() {
         $("#divresultadosDemostradores").show();
         document.body.scrollTop = TabDos;
         $(window).scrollTop(TabDos);
-        debugger
         Inicializar();
     });
 }

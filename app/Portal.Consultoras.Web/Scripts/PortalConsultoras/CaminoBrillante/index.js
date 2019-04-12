@@ -25,7 +25,6 @@ function ModalBeneficios(index) {
         dataType: "json",
         contentType: "application/json; charset=utf-8",
         success: function (data) {
-            debugger
             TagClickSeleccionNivel(data.Niveles[0].DescripcionNivel)
             $("#m_titulo").text(data.Niveles[0].DescripcionNivel);
             $("#m_montoMinimo").append("Monto mínimo para lograr <span>" + data.Moneda + " " + data.Niveles[0].MontoMinimo + ".00</span>");
