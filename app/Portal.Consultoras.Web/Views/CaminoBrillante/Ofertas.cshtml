@@ -271,143 +271,83 @@
             @ViewBag.CantidadDemostradores
         </div>
         <section class="col-12 fichas__productos__wrapper text-center" id="Demostradores" style="display:none;">
-            @{
-                foreach (var item in Demostradores)
-                {
-                    <article class="ficha__producto " data-item="BuscadorFichasProductos">
-                        <input type="hidden" id="hdCuv" value="@item.Cuv1" />
-                        <div class="row flex-row justify-content-center ml-0 mr-0">
-                            <figure class="col-12 pl-0 pr-0 row flex-row ml-0 mr-0 justify-content-center align-items-end ficha__producto__imagen text-center">
-                                @{ 
-                                    var imagenDemostrador = string.IsNullOrEmpty(item.FotoProductoMedium) ? ViewBag.RutaImagenNoDisponible : item.FotoProductoMedium;
-                                }
-                                <img class="lazy redireccionarFicha" src="@Url.Content(imagenDemostrador)"> 
-                            </figure>
-                            <div class="col-12 pl-0 pr-0 ficha__producto__descrip d-block mx-auto text-left">
-                                <div class="col-12 pl-0 pr-0 ficha__producto__descrip__marca__pais text-uppercase">
-                                    @item.DescripcionMarca
-                                </div>
-                                <div class="col-12 pl-0 pr-0 ficha__producto__descrip__nom text-bold redireccionarFicha">
-                                    @item.DescripcionCUV
-                                </div>
-
-                            </div>
-                            @*<div class="row flex-row align-items-end align-items-md-baseline ml-0 mr-0 col-12 pl-0 pr-0 ficha__producto__precio">
-                                    <div class="ficha__producto__precio__normal text-left">@ViewBag.Moneda @item.PrecioValorizado</div>
-                                    <div class="ficha__producto__precio__oferta text-bold text-left">@ViewBag.Moneda @item.PrecioCatalogo</div>
-                                </div>*@
-
-                            <div class="row flex-row align-items-end align-items-md-baseline ml-0 mr-0 col-12 pl-0 pr-0 ficha__producto__precio">
-                                <div>
-                                    <div style="text-align: left;padding-right: 15px; font-size: 12px;">Precio normal<br /><div style="text-decoration:line-through;">@ViewBag.Moneda @item.PrecioValorizado</div></div>
-                                </div>
-                                <div>
-                                    <div style="font-size: 12px;text-align: left;">Precio para ti<br /><b>@ViewBag.Moneda @item.PrecioCatalogo</b></div>
-                                </div>
-                            </div>
-
-
-
-                            <div class="row flex-row justify-content-between ml-0 mr-0 pl-0 pr-0 ficha__producto__agregar__producto">
-                                <div class="col-12 col-md col-lg col-xl pl-0 pr-0">
-                                    <div class="row flex-row justify-content-between ml-0 mr-0 ficha__producto__rango__cantidad js-no-popup" data-cantidad-contenedor="">
-                                        <a class="col-4 col-md-4 col-lg-4 col-xl-4 pl-0 pr-0 menos d-block js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
-                                            <img class="d-block js-no-popup" src="https://www.somosbelcorp.com/Content/Images/menos.svg" alt="">
-                                        </a>
-                                        <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="col-4 col-md-8 col-lg-8 col-xl-8 pl-0 pr-0 d-block text-center text-bold ValidaNumeral ValidaPasteNumeral js-no-popup">
-                                        <a class="col-4 col-md-4 col-lg-4 col-xl-4 pl-0 pr-0 mas d-block js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
-                                            <img class="d-block js-no-popup" src="https://www.somosbelcorp.com/Content/Images/mas.svg" alt="">
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-md-7 col-lg-7 col-xl-7 pl-0 pr-0 flex-grow-1">
-                                    <a class="boton_Agregalo_home boton__agregalo--fichaProducto text-center d-block FichaAgregarProductoBuscador act cartbtn">
-                                        <i>
-                                            <img src="~/Content/CaminoBrillante/imgs/add_to_cart2.svg" />
-                                        </i> Agregar
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-12 pl-0 pr-0 etiqueta_buscador_producto ficha__producto__etiqueta text-center" style="display:none;" data-Agregado="DivAgregado">
-                                <span class="text-uppercase text-bold d-inline-block">Agregado</span>
-                            </div>
-                        </div>
-                    </article>
-                }
-            }
+                
         </section>
     </section>
 </div>
 
+<script id="template-Demostradores" type="text/x-handlebars-template">
+    {{#each this}}
+    <article class="ficha__producto " data-item="BuscadorFichasProductos">
+        <input type="hidden" id="hdCuv" value="{{Cuv}}" />
+        <div class="row flex-row justify-content-center ml-0 mr-0">
+            <figure class="col-12 pl-0 pr-0 row flex-row ml-0 mr-0 justify-content-center align-items-end ficha__producto__imagen text-center">
+                @*@{
+                    var imagenDemostrador = string.IsNullOrEmpty(item.FotoProductoMedium) ? ViewBag.RutaImagenNoDisponible : item.FotoProductoMedium;
+                }*@
+                {{#IsNullOrEmpty FotoProductoMedium '!='}}
+                <img class="lazy redireccionarFicha" src="{{FotoProductoMedium}}">
+                {{/IsNullOrEmpty}}
+                {{#IsNullOrEmpty FotoProductoMedium '=='}}
+                <img class="lazy redireccionarFicha" src="@ViewBag.RutaImagenNoDisponible">
+                {{/IsNullOrEmpty}}
+            </figure>
+            <div class="col-12 pl-0 pr-0 ficha__producto__descrip d-block mx-auto text-left">
+                <div class="col-12 pl-0 pr-0 ficha__producto__descrip__marca__pais text-uppercase">
+                    {{DescripcionMarca}}
+                </div>
+                <div class="col-12 pl-0 pr-0 ficha__producto__descrip__nom text-bold redireccionarFicha">
+                    {{DescripcionCUV}}
+                </div>
+
+            </div>
+            @*<div class="row flex-row align-items-end align-items-md-baseline ml-0 mr-0 col-12 pl-0 pr-0 ficha__producto__precio">
+                    <div class="ficha__producto__precio__normal text-left">@ViewBag.Moneda @item.PrecioValorizado</div>
+                    <div class="ficha__producto__precio__oferta text-bold text-left">@ViewBag.Moneda @item.PrecioCatalogo</div>
+                </div>*@
+            <div class="row flex-row align-items-end align-items-md-baseline ml-0 mr-0 col-12 pl-0 pr-0 ficha__producto__precio">
+                <div>
+                    <div style="text-align: left;padding-right: 15px; font-size: 12px;">Precio normal<br /><div style="text-decoration:line-through;">@ViewBag.Moneda {{PrecioValorizado}}</div></div>
+                </div>
+                <div>
+                    <div style="font-size: 12px;text-align: left;">Precio para ti<br /><b> @ViewBag.Moneda {{PrecioCatalogo}}</b></div>
+                </div>
+            </div>
+            <div class="row flex-row justify-content-between ml-0 mr-0 pl-0 pr-0 ficha__producto__agregar__producto">
+                <div class="col-12 col-md col-lg col-xl pl-0 pr-0">
+                    <div class="row flex-row justify-content-between ml-0 mr-0 ficha__producto__rango__cantidad js-no-popup" data-cantidad-contenedor="">
+                        <a class="col-4 col-md-4 col-lg-4 col-xl-4 pl-0 pr-0 menos d-block js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
+                            <img class="d-block js-no-popup" src="https://www.somosbelcorp.com/Content/Images/menos.svg" alt="">
+                        </a>
+                        <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="col-4 col-md-8 col-lg-8 col-xl-8 pl-0 pr-0 d-block text-center text-bold ValidaNumeral ValidaPasteNumeral js-no-popup">
+                        <a class="col-4 col-md-4 col-lg-4 col-xl-4 pl-0 pr-0 mas d-block js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
+                            <img class="d-block js-no-popup" src="https://www.somosbelcorp.com/Content/Images/mas.svg" alt="">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-12 col-md-7 col-lg-7 col-xl-7 pl-0 pr-0 flex-grow-1">
+                    <a class="boton_Agregalo_home boton__agregalo--fichaProducto text-center d-block FichaAgregarProductoBuscador act cartbtn">
+                        <i>
+                            <img src="~/Content/CaminoBrillante/imgs/add_to_cart2.svg" />
+                        </i> Agregar
+                    </a>
+                </div>
+            </div>
+            <div class="col-12 pl-0 pr-0 etiqueta_buscador_producto ficha__producto__etiqueta text-center" style="display:none;" data-Agregado="DivAgregado">
+                <span class="text-uppercase text-bold d-inline-block">Agregado</span>
+            </div>
+        </div>
+    </article>
+    {{/each}}
+</script>
+
 <script src="https://www.somosbelcorp.com/Bundle/Js/Desktop/JQuery3Js?v=6K-kHHuzTBQeaIUNJP1kR-uZJRJv9nA2SlHvYURb6j41"></script>
 <script src="~/Scripts/PortalConsultoras/CaminoBrillante/Ofertas.js"></script>
-@*<script src="~/Scripts/PortalConsultoras/Cliente/Index.js"></script>
-<script src="~/Scripts/PortalConsultoras/Pedido/ofertafinal.js"></script>
-<script src="~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js"></script>
-<script src="~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js"></script>
-<script src="~/Scripts/PortalConsultoras/EstrategiaAgregar/PedidoRegistro.js"></script>*@
+<script src="~/Scripts/PortalConsultoras/Cliente/Index.js"></script>
 
-
-@*<script type='text/javascript'>
-    (function () {
-        var proto = document.location.protocol || 'http:';
-        var trme = document.createElement('script');
-        trme.type = 'text/javascript';
-        trme.async = true;
-        trme.src = proto + '//trackme-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/trackme/js/tm.js';
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(trme, s);
-    })();
-
-    function Buscador() {
-        location.href = baseUrl + 'Mobile/Buscador';
-    }
-</script>*@
-
-@*<script type="text/javascript">
-    //var TabUno = 0;
-    //var TabDos = 0;
-
-    //var tipoOrigen = "1";
-    //var reservaResponse = {
-    //    data: { Reserva: false }
-    //};
-    //var baseUrl = "/";
-
-    //function CambiarOferta() {
-    //    $('#Tab-kits').click(function () {
-    //        $('#kits').show();
-    //        $('#Demostradores').hide();
-    //        $("#Tab-kits").addClass("activado-dorado");
-    //        $("#Tab-Demostradores").removeClass("activado-dorado");
-    //        $("#divresultadosDemostradores").hide();
-    //        $("#divresultadosKit").show();
-    //        document.body.scrollTop = TabUno;
-    //    });
-
-    //    $('#Tab-Demostradores').click(function () {
-    //        $('#Demostradores').show();
-    //        $('#kits').hide();
-
-    //        $("#Tab-kits").removeClass("activado-dorado");
-    //        $("#Tab-Demostradores").addClass("activado-dorado");
-    //        $("#divresultadosKit").hide();
-    //        $("#divresultadosDemostradores").show();
-
-    //        document.body.scrollTop = TabDos;
-    //    });
-    //}
-
-    //CambiarOferta();
-
-    //$(window).scroll(function (event) {
-    //    if ($("#Tab-kits").hasClass('activado-dorado'))
-    //        TabUno = $(window).scrollTop();;
-
-    //    if ($("#Tab-Demostradores").hasClass('activado-dorado'))
-    //        TabDos = $(window).scrollTop();;
-    //});
-
-</script>*@
-
-
+@section scripts{
+    <script type="text/javascript">
+        var urlGetKits = '@Url.Action("GetKits", "CaminoBrillante", new { area = "" })';
+        var urlGetDemostradores = '@Url.Action("GetDemostradores", "CaminoBrillante", new { area = "" })';
+    </script>
+}

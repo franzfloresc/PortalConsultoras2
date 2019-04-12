@@ -28,30 +28,28 @@
         <div id="ProgressBar">
 
             <div class="Progress medal-@NivelActual"></div>
-
             @{
                 var estilo = 0;
                 var otroEstilo = "";
                 var estiloClase = "";
-            }
-            @for (int i = 0; i < Niveles.Length; i++)
-            {
-                estilo = Convert.ToInt32(i) + Convert.ToInt32(1);
 
-                estiloClase = "pt" + estilo;
-
-                if (estilo <= NivelActual)
+                for (int i = 0; i < Niveles.Length; i++)
                 {
-                    otroEstilo = "";
+                    estilo = Convert.ToInt32(i) + Convert.ToInt32(1);
+                    estiloClase = "pt" + estilo;
+                    if (estilo <= NivelActual)
+                    {
+                        otroEstilo = "";
+                    }
+                    else
+                    {
+                        otroEstilo = "onclick=ModalBeneficios(" + @Niveles[i].CodigoNivel + ") data-toggle=modal data-target=#BenefNivel";
+                    }
+                    <span class="point @estiloClase" @otroEstilo>
+                        <img src=@Niveles[i].UrlImagenNivel>
+                        <em>@Niveles[i].DescripcionNivel</em>
+                    </span>
                 }
-                else
-                {
-                    otroEstilo = "onclick=ModalBeneficios(" + @Niveles[i].CodigoNivel + ") data-toggle=modal data-target=#BenefNivel";
-                }
-                <span class="point @estiloClase" @otroEstilo>
-                    <img src=@Niveles[i].UrlImagenNivel>
-                    <em>@Niveles[i].DescripcionNivel</em>
-                </span>
             }
         </div>
     </div>
@@ -258,15 +256,18 @@
     </div>
 </div>
 
-
-@*@System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante")*@
-
 <script src="~/Scripts/jquery-1.11.2.min.js"></script>
 <script src="~/Scripts/bootstrap.min.js"></script>
 <script src="~/Scripts/owl.carousel.js"></script>
 <script src="~/Scripts/PortalConsultoras/CaminoBrillante/index.js"></script>
 
 
+@section scripts{
+    <script type="text/javascript">
+        var baseUrl = "@Url.Content("~")";
+        var urlGetNiveles = '@Url.Action("GetNiveles", "CaminoBrillante", new { area = "" })';
+    </script>
+}
 
 <script>
     (function ($) {

@@ -80,6 +80,46 @@ namespace Portal.Consultoras.Web.Controllers
                 return RedirectToAction("Index", "CaminoBrillante");
         }
 
+        public JsonResult GetKits(int cantidadRegistros)
+        {
+            var lstKits = _caminoBrillanteProvider.GetKitCaminoBrillante();
+            var estado = false;
+            try
+            {
+                if (lstKits.Count > cantidadRegistros) estado = true;
+            }
+            catch (Exception ex)
+            {
+               LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
+            return Json(new
+            {
+                lista = lstKits,
+                verMas = estado
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetDemostradores(int cantidadRegistros)
+        {
+            var lstDemostrador = _caminoBrillanteProvider.GetDemostradoresCaminoBrillante();
+            var estado = false;
+            try
+            {
+                if (lstDemostrador.Count > cantidadRegistros) estado = true;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
+            return Json(new
+            {
+                lista = lstDemostrador,
+                verMas = estado
+            }, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         public JsonResult GetNiveles(string nivel)
         {

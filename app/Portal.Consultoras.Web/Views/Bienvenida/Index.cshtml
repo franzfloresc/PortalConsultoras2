@@ -3,10 +3,6 @@
 @using Portal.Consultoras.Web.Models
 @model BienvenidaHomeModel
 
-
-
-
-
 @section styles{
 
     @System.Web.Optimization.Styles.Render("~/Bundle/Css/Mixto/CssBienvenida")
@@ -26,9 +22,6 @@
     var nroCampania = Util.SubStr(Model.CampaniaActual.ToString(), 4, 2);
     var revistaDigital = Model.PartialSectionBpt.RevistaDigital ?? new RevistaDigitalModel();
 }
-
-
-
 
 <input type="hidden" id="hdTipoEstrategiaID" value="0" />
 
@@ -1845,7 +1838,6 @@
             </form>
         </div>
     </div>
-
 </script>
 
 <script id="template-fichaproductofav" type="text/x-handlebars-template">

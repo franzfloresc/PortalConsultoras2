@@ -1,3 +1,4 @@
+using Portal.Consultoras.BizLogic.CaminoBrillante;
 using Portal.Consultoras.BizLogic.Reserva;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
@@ -436,7 +437,13 @@ namespace Portal.Consultoras.BizLogic
         {
             return GetPedidoWebDetalleByCampania(detParametros, true, false);
         }
+
         public IList<BEPedidoWebDetalle> GetPedidoWebDetalleByCampania(BEPedidoWebDetalleParametros detParametros, bool consultoraOnLine, bool updLabelNuevas)
+        {
+            return GetPedidoWebDetalleByCampania(detParametros, true, false, false);
+        }
+
+        public IList<BEPedidoWebDetalle> GetPedidoWebDetalleByCampania(BEPedidoWebDetalleParametros detParametros, bool consultoraOnLine, bool updLabelNuevas, bool updLabelCaminoBrillante)
         {
             var listpedidoDetalle = new List<BEPedidoWebDetalle>();
             var daPedidoWebDetalle = new DAPedidoWebDetalle(detParametros.PaisId);
@@ -486,31 +493,20 @@ namespace Portal.Consultoras.BizLogic
             #endregion
 
             #region Camino Brillante
-            if (detParametros.NivelCaminoBrillante > 0) {
-                if (listpedidoDetalle.Where(e => e.OrigenPedidoWeb == 1181901).Any())
-                {
-                    var caminoBrillante = new CaminoBrillante.BLCaminoBrillante();
-                    List<Entities.CaminoBrillante.BEKitCaminoBrillante> kits = null;
-                    try
-                    {
-                        kits = caminoBrillante.GetKit(detParametros.PaisId, detParametros.CampaniaId, 201903, detParametros.NivelCaminoBrillante) 
-                            ?? new List<Entities.CaminoBrillante.BEKitCaminoBrillante>();
+            if (updLabelCaminoBrillante) {
+                var origenPedidoWeb = new int[] { 1181901, 2181901, 4181901 };
+                var blCaminoBrillante = new BLCaminoBrillante();
+                listpedidoDetalle.Where(e => origenPedidoWeb.Contains(e.OrigenPedidoWeb)).ToList().ForEach(e => {
+                    //var blCaminoBrillante = new BLCaminoBrillante();
+                    /*
+                    var demostradores = blCaminoBrillante.GetDemostradoresCaminoBrillante(detParametros.PaisId, detParametros.CampaniaId) ?? new List<Entities.CaminoBrillante.BEDesmostradoresCaminoBrillante>();
+                    e.EsDemCaminoBrillante = demostradores.Where(k => k.CUV == e.CUV).Any();
+                    if (!e.EsDemCaminoBrillante) {
+                        e.EsKitCaminoBrillante = true;
                     }
-                    catch (Exception ex)
-                    {
-                        kits = new List<Entities.CaminoBrillante.BEKitCaminoBrillante>();
-                    }
-                    listpedidoDetalle.Where(e => e.OrigenPedidoWeb == 1181901).ToList().ForEach(e => {
-                        e.DescripcionEstrategia = "CAMINO BRILLANTE";
-                        var kit = kits.Where(k => k.CUV == e.CUV).FirstOrDefault();
-                        if (kit != null)
-                        {
-                            e.EsKitCaminoBrillante = true;
-                            e.DescripcionProd = kit.DescripcionCUV;
-                            e.DescripcionCortadaProd = kit.DescripcionCUV;
-                        }
-                    });
-                }                
+                    */
+                    blCaminoBrillante.UpdFlagsKitsOrDemostradores(e, detParametros.PaisId, detParametros.CampaniaId);
+                });
             }
             #endregion
 

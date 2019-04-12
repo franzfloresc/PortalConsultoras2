@@ -4,6 +4,10 @@
         $(".pt" + i).addClass("activo");
 
     $(".pt" + nivelactual).addClass("brillante");
+
+    $('#OfertasEspeciales').click(function () {
+        TagClickBotonVerOfertas();
+    });
 });
 
 function ModalBeneficios(index) {
@@ -12,14 +16,16 @@ function ModalBeneficios(index) {
     $("#m_titulo").text("");
     $("#m_imagen").attr("src", "");
 
+    var params = { nivel: index };
+
     $.ajax({
         type: "POST",
-        url: "/CaminoBrillante/GetNiveles",
-        data: '{nivel: ' + index + '}',
+        url: urlGetNiveles,
+        data: JSON.stringify(params),
         dataType: "json",
         contentType: "application/json; charset=utf-8",
         success: function (data) {
-            
+            TagClickSeleccionNivel(data.Niveles[0].DescripcionNivel)
             $("#m_titulo").text(data.Niveles[0].DescripcionNivel);
             $("#m_montoMinimo").append("Monto mínimo para lograr <span>" + data.Moneda + " " + data.Niveles[0].MontoMinimo + ".00</span>");
             $("#m_imagen").attr("src", data.Niveles[0].UrlImagenNivel.replace("_I", "_A"));
@@ -36,9 +42,37 @@ function ModalBeneficios(index) {
                 Html += "</li>";
             }
             $("#ListaBeneficios").append(Html);
+            TagMostrarPopupNivel(data.Niveles[0].DescripcionNivel);
         },
         error: function () {
             alert("Error while inserting data");
         }
+    });
+}
+
+function TagClickSeleccionNivel(nivelConsultora){
+    dataLayer.push ({
+            'event': 'virtualEvent',
+            'category': 'Nivel y beneficios',
+            'action': 'Seleccionar nivel',
+            'label': 'Nivel: ' + nivelConsultora
+        });
+}
+
+function TagMostrarPopupNivel(nivelConsultora) {
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Nivel y beneficios',
+        'action': 'Ver Pop-up del nivel',
+        'label': 'Nivel: ' + nivelConsultora
+    });
+}
+
+function TagClickBotonVerOfertas() {
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Nivel y beneficios–Mis beneficios de nivel',
+        'action': 'Selección: Ver Ofertas',
+        'label': '(not available)'
     });
 }
