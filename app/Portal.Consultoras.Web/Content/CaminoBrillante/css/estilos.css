@@ -110,7 +110,7 @@ strong {
             width: 82%;
         }
 
-.text-bold {
+.txt-benf .text-bold, .owl-stage-outer .text-bold, .box-camb .text-bold {
     color: black;
     font-size: 14px;
     text-align: left;
@@ -1026,9 +1026,9 @@ button.close {
 header.layout__header {
     z-index:200;
 }
-
-
-
+div .footer__link, div .sub_footer a, div .btn__productos__agregados--verMiPedido {
+    text-decoration: none;
+}
 
 
 
@@ -1543,4 +1543,8 @@ header.layout__header {
 }
 .owl-stage .owl-item .text-bold {
     margin-bottom:0;
+}
+.productos__agregados {
+    max-height: inherit;
+
 }
