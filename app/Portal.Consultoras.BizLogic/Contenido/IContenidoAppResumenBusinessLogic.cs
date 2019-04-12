@@ -6,6 +6,6 @@ namespace Portal.Consultoras.BizLogic.Contenido
     public interface IContenidoAppResumenBusinessLogic
     {
         List<BEContenidoApp> GetContenidoApp(BEUsuario itmFilter);
-        int CheckContenidoApp(BEUsuario itmFilter, int idContenidoDetalle);
+        void CheckContenidoApp(BEUsuario itmFilter, int idContenidoDetalle);
     }
 }

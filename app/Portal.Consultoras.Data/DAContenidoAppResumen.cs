@@ -25,7 +25,7 @@ namespace Portal.Consultoras.Data
             }
         }
 
-        public int CheckContenidoApp(string CodigoConsultora, int idContenidoDetalle)
+        public void CheckContenidoApp(string CodigoConsultora, int idContenidoDetalle)
         {
             using (var command = Context.Database.GetStoredProcCommand("dbo.MarcaContenidoVisto"))
             {
@@ -37,7 +37,6 @@ namespace Portal.Consultoras.Data
                 var data = reader.RecordsAffected;
 
                 reader.Close();
-                return data;
             }
         }
     }

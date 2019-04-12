@@ -498,9 +498,9 @@ namespace Portal.Consultoras.Service
             return _BLContenidoAppResumenBusinessLogic.GetContenidoApp(itmFilter);
         }
 
-        public int CheckContenidoApp(BEUsuario itmFilter, int idContenidoDetalle)
+        public void CheckContenidoApp(BEUsuario itmFilter, int idContenidoDetalle)
         {
-            return _BLContenidoAppResumenBusinessLogic.CheckContenidoApp(itmFilter, idContenidoDetalle);
+            _BLContenidoAppResumenBusinessLogic.CheckContenidoApp(itmFilter, idContenidoDetalle);
         }
     }
 }

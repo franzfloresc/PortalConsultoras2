@@ -284,6 +284,6 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEContenidoApp> GetContenidoApp(BEUsuario itmFilter);
 
         [OperationContract]
-        int CheckContenidoApp(BEUsuario itmFilter, int idContenidoDetalle);
+        void CheckContenidoApp(BEUsuario itmFilter, int idContenidoDetalle);
     }
 }

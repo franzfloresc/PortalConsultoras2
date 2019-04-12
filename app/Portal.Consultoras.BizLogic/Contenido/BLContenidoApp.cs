@@ -11,10 +11,10 @@ namespace Portal.Consultoras.BizLogic.Contenido
 {
     public class BLContenidoApp : IContenidoAppResumenBusinessLogic
     {
-        public int CheckContenidoApp(BEUsuario itmFilter, int idContenidoDetalle)
+        public void CheckContenidoApp(BEUsuario itmFilter, int idContenidoDetalle)
         {
             var daContenidoApp = new DAContenidoAppResumen(itmFilter.PaisID);
-            return daContenidoApp.CheckContenidoApp(itmFilter.CodigoConsultora, idContenidoDetalle);
+            daContenidoApp.CheckContenidoApp(itmFilter.CodigoConsultora, idContenidoDetalle);
         }
 
         public List<BEContenidoApp> GetContenidoApp(BEUsuario itmFilter)
@@ -44,7 +44,7 @@ namespace Portal.Consultoras.BizLogic.Contenido
 
             if (BannerBonifica != null)
             {
-                var secretKey = WebConfig.GetByTagName("JsonWebTokenSecretKey") ?? string.Empty;
+                var secretKey = WebConfig.JsonWebTokenSecret;
 
                 var data = new
                 {
@@ -71,9 +71,9 @@ namespace Portal.Consultoras.BizLogic.Contenido
                 {
                     x.DetalleContenido.ForEach(y =>
                     {
-                        y.RutaContenido = string.Format(x.RutaImagen ?? string.Empty, WebConfig.GetByTagName("RutaCDN"), itmFilter.CodigoISO, y.RutaContenido);
+                        y.RutaContenido = string.Format(x.RutaImagen ?? string.Empty, WebConfig.RutaCDN, itmFilter.CodigoISO, y.RutaContenido);
                     });
-                    x.UrlMiniatura = string.IsNullOrEmpty(x.UrlMiniatura) ? string.Empty : string.Format(x.UrlMiniatura, WebConfig.GetByTagName("RutaCDN"), itmFilter.CodigoISO);
+                    x.UrlMiniatura = string.IsNullOrEmpty(x.UrlMiniatura) ? string.Empty : string.Format(x.UrlMiniatura, WebConfig.RutaCDN, itmFilter.CodigoISO);
                 });
             }
 
