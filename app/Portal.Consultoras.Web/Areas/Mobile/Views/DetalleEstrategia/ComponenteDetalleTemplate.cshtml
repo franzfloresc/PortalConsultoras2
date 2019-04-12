@@ -56,23 +56,24 @@
                                 <li id="div_ficha_tab1">
                                     <a class="tab-link active">{{seccion.Titulo}}</a>
                                     <ul class="tabs_container" style="display:block;">
-                                        <div style="@*width:95% !important*@">
+                                        <div style="@*width:95% !important*@" >
                                             <div id="carouselVideo">
                                                 {{#each seccion.Detalles as |detalle index|}}
                                                 <div style="">
                                                     <div>
                                                         <div id="ytFichax"
+                                                             data-youtube-key="{{detalle.Key}}"
                                                              @*class="video_item"*@
                                                              data-youtube="{
-                                                     height:'173',
-                                                     width:'100%',
-                                                     enablejsapi:1,
-                                                     fs:0,
-                                                     showinfo:0,
-                                                     modestbranding:1,
-                                                     loop:1,
-                                                     videoId: '{{detalle.Key}}',
-                                                     playerVars:{autoplay:0,rel:0}}"
+                                                                 height:'173',
+                                                                 width:'100%',
+                                                                 enablejsapi:1,
+                                                                 fs:0,
+                                                                 showinfo:0,
+                                                                 modestbranding:1,
+                                                                 loop:1,
+                                                                 videoId: '{{detalle.Key}}',
+                                                                 playerVars:{autoplay:0,rel:0}}"
                                                              data-extra="{'descripcionResumen':'{{detalle.Titulo}}'}"
                                                              class="yt-video">
                                                         </div>

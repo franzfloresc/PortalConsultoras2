@@ -63,7 +63,8 @@
     var _util = {
         mostrarDetalleModal: function (data) {
             _util.setHandlebars(_template.componenteDetalle, data);
-
+            console.log(1, _template.componenteDetalle);
+            this.setYoutubeId();
             if (!_config.generalModule.isMobile()) {
                 _events.bindClosePopup();
                 this.setTabDetalleComponente();
@@ -74,8 +75,8 @@
                 $(_template.ModalProductoDetalle).modal();
             }
 
-            this.setCarrusel(_template.CarruselVideo);
             this.setYoutubeApi();
+            this.setCarrusel(_template.CarruselVideo);
         },
         mostrarDetalleIndividual: function (estrategia) {
             //Este método asigna los datos del componente individual a _template.componenteDetalleIndividual
@@ -84,6 +85,8 @@
             if (estrategia.Hermanos.length == 1) {
                 if (estrategia.MostrarFichaEnriquecida) {
                     _util.setHandlebars(_template.componenteDetalleIndividual, estrategia.Hermanos[0]);
+                    console.log(1, _template.componenteDetalleIndividual);
+                    this.setYoutubeId();
                     if (!_config.generalModule.isMobile()) {
                         this.setTabDetalleComponente();
                     }
@@ -103,7 +106,7 @@
                 speed: 300,
                 slidesToShow: 3,
                 centerMode: false,
-                variableWidth: false,
+                variableWidth: true,
                 responsive: [
                     {
                         breakpoint: 1024,
@@ -146,33 +149,38 @@
                 var clase = $this.attr("class");
                 if (clase === "active") {
                     $this.attr("class", "tab-link");
-                    this.setCarrusel(_template.CarruselIndividualVideo);
-                    this.setCarrusel(_template.CarruselVideo);
                 }
                 else {
                     $this.attr("class", "active");
-                    this.setCarrusel(_template.CarruselIndividualVideo);
-                    this.setCarrusel(_template.CarruselVideo);
                 }
+                this.setCarrusel(_template.CarruselIndividualVideo);
+                this.setCarrusel(_template.CarruselVideo);
             });
         },
         setHandlebars: function (idTemplate, modelo) {
             SetHandlebars("#" + idTemplate, modelo, _template.getTagDataHtml(idTemplate));
         },
+        setYoutubeId: function () {
+            $.each($("[data-youtube-key]"), function (i, ytEle) {
+                var idyt = $(ytEle).attr('id') + "-" + i;
+                $(ytEle).attr('id', idyt);
+            });
+        },
         setYoutubeApi: function () {
             if (youtubeModule) {
                 youtubeModule.Inicializar();
+                window.onYouTubeIframeAPIReady();
             }
         }
     };
 
     var _VerDetalle = function (componente) {
-        console.log('componente', componente);         
+        console.log('componente', componente);
         _util.mostrarDetalleModal(componente);
     };
 
     var _VerDetalleIndividual = function (estrategia) {
-  
+
         console.log('estrategia', estrategia);
         _util.mostrarDetalleIndividual(estrategia);
 

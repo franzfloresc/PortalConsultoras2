@@ -100,7 +100,7 @@ var FichaModule = (function (config) {
         } else {
             _modeloFichaTemp = value;
         }
-    } 
+    }
 
     var _config = {
         esMobile: null,
@@ -213,7 +213,12 @@ var FichaModule = (function (config) {
     //    }
     //};
 
-
+    var videoBuild = function () {
+        console.log('videoBuild');
+        if (youtubeModule) {
+            youtubeModule.Inicializar();
+        }
+    };
 
     var _crearTabs = function () {
 
@@ -337,10 +342,7 @@ var FichaModule = (function (config) {
 
             SetHandlebars("#template-fichadetallevideo", pEstrategia, "#contenedor-tab-video");
 
-            if (youtubeModule) {
-
-                youtubeModule.Inicializar();
-            }
+            videoBuild();
         }
 
         _ocultarSecciones();
@@ -583,7 +585,7 @@ var FichaModule = (function (config) {
         //estrategia.MostrarCliente = modeloFicha.MostrarCliente;
         //console.log('estrategia ---', estrategia);
 
-        
+
         //INI Agana 456: para setear valores del detalle individual
         if (config.componenteDetalleModule === null || typeof config.componenteDetalleModule === "undefined") {
             //throw "config.componenteDetalleModule is null or undefined";
@@ -994,7 +996,7 @@ var FichaModule = (function (config) {
             if (AnalyticsPortalModule != 'undefined') {
                 AnalyticsPortalModule.MarcaFichaResumidaClickDetalleCliente(nombreButton);
             }
-           
+
             panelCliente.Abrir();
             console.log('_initCliente - DivPopupFichaResumida overflow hidden');
             $("#DivPopupFichaResumida").css("overflow", "hidden");
@@ -1054,10 +1056,10 @@ var FichaModule = (function (config) {
         _config.mostrarCliente = modeloFicha.MostrarCliente || _config.mostrarCliente;
 
         //if (!isInt(modeloFicha.EstrategiaID)) {
-            modeloFicha = _getEstrategia(modeloFicha);
+        modeloFicha = _getEstrategia(modeloFicha);
         //}
         _modeloFicha(modeloFicha);
-        
+
 
         _construirSeccionFicha();
         _construirSeccionEstrategia();
@@ -1109,7 +1111,7 @@ var FichaPartialModule = (function () {
             analyticsPortalModule: AnalyticsPortalModule,
             generalModule: GeneralModule,
             detalleEstrategiaProvider: DetalleEstrategiaProvider,
-            componenteDetalleModule : null,
+            componenteDetalleModule: null,
 
             palanca: palanca,
             campania: campania,
@@ -1159,9 +1161,9 @@ var FichaPartialModule = (function () {
     };
 
     var _fichaPreValidar = function (event, tipoAccion, tipoEstrategiaCodigo, campaniaId, setid, cuv) {
-        
+
         var producto = $(event).find(".lblLPDesProd").html() + "";
-        if(producto === 'undefined')
+        if (producto === 'undefined')
             producto = $(event).find(".desc_prod").find("span").html();
 
         isChangeTono = false;
@@ -1171,7 +1173,7 @@ var FichaPartialModule = (function () {
         if (typeof AnalyticsPortalModule !== 'undefined') {
             AnalyticsPortalModule.MarcaFichaResumidaClickDetalleProducto(producto);
         }
-        
+
         if (tipoEstrategiaCodigo == ConstantesModule.TipoEstrategia.ArmaTuPack) {
             _mostrarPopupAtp(campaniaId, setid, cuv);
         }

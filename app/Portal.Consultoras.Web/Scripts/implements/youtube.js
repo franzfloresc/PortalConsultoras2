@@ -55,25 +55,25 @@ var YoutubeModule = (function (config) {
 
         // ---------------------------------------------------------------------------------------------------------------
         // ID del Reproductor 1
-        ytId = "ytRevistaDigitalDetalle";
-        // Si existe el ID del elemento 
-        if (oYTPlayers.hasOwnProperty(ytId)) {
-            ytParams = oYTPlayers[ytId].params; // parametros para YT.Player
-            ytExtra = oYTPlayers[ytId].extra;
-            ytPlayer = oYTPlayers[ytId].instance; // instancia de Youtube Player
-            ytParams.events = {
-                'onStateChange': function (event) {
-                    if (ytPlayer && ytExtra) {
-                        if (event.data == YT.PlayerState.PLAYING) {
-                            rdAnalyticsModule.CompartirProducto("YTI", ytPlayer.getVideoUrl(), ytExtra.descripcionResumen);
-                        }
-                        if (event.data == YT.PlayerState.ENDED) {
-                            rdAnalyticsModule.CompartirProducto("YTF", ytPlayer.getVideoUrl(), ytExtra.descripcionResumen);
-                        }
-                    }
-                }
-            };
-        }
+        //ytId = "ytRevistaDigitalDetalle";
+        //// Si existe el ID del elemento 
+        //if (oYTPlayers.hasOwnProperty(ytId)) {
+        //    ytParams = oYTPlayers[ytId].params; // parametros para YT.Player
+        //    ytExtra = oYTPlayers[ytId].extra;
+        //    ytPlayer = oYTPlayers[ytId].instance; // instancia de Youtube Player
+        //    ytParams.events = {
+        //        'onStateChange': function (event) {
+        //            if (ytPlayer && ytExtra) {
+        //                if (event.data == YT.PlayerState.PLAYING) {
+        //                    rdAnalyticsModule.CompartirProducto("YTI", ytPlayer.getVideoUrl(), ytExtra.descripcionResumen);
+        //                }
+        //                if (event.data == YT.PlayerState.ENDED) {
+        //                    rdAnalyticsModule.CompartirProducto("YTF", ytPlayer.getVideoUrl(), ytExtra.descripcionResumen);
+        //                }
+        //            }
+        //        }
+        //    };
+        //}
 
         // ---------------------------------------------------------------------------------------------------------------
         // ID del Reproductor 2
@@ -108,33 +108,12 @@ var YoutubeModule = (function (config) {
             }
         });
 
-
-        // ---------------------------------------------------------------------------------------------------------------
-        // ID del Reproductor 3
-        /*ytId = "ytMobileRevistaDigitalDetalle";
-        // Si existe el ID del elemento 
-        if (oYTPlayers.hasOwnProperty(ytId)) {
-            ytParams = oYTPlayers[ytId].params; // parametros para YT.Player
-            ytExtra = oYTPlayers[ytId].extra;
-            ytPlayer = oYTPlayers[ytId].instance; // instancia de Youtube Player
-            ytParams.events = {
-                'onStateChange': function (event) {
-                    if (event.data == YT.PlayerState.PLAYING) {
-                        rdAnalyticsModule.CompartirProducto("YTI", player.getVideoUrl(), ytExtra.descripcionResumen);
-                    }
-                    if (event.data == YT.PlayerState.ENDED) {
-                        rdAnalyticsModule.CompartirProducto("YTF", player.getVideoUrl(), ytExtra.descripcionResumen);
-                    }
-                }
-            };
-        }*/
-
         // ---------------------------------------------------------------------------------------------------------------
         // ID del Reproductor 3   
         // (se repetia este codigo para: Detalle.cshtml, template-informativa.cshtml)
         //ytId = "ytMobileRevistaDigitalDetalle";
         $.each([
-            "ytMobileRevistaDigitalDetalle",            // i:0 (videoKey ?) mobile/views/revistadigital/Detalle.cshtml
+            //"ytMobileRevistaDigitalDetalle",            // i:0 (videoKey ?) mobile/views/revistadigital/Detalle.cshtml
             "ytMobileRevistaDigitalTemplateInformativa",// i:1  mobile/views/revistadigital/template-informativa.cshtml
             "ytRevistaDigitalTemplateInformativa",
             "ytFicha"
@@ -142,56 +121,69 @@ var YoutubeModule = (function (config) {
 
             // Si existe el ID del elemento 
             if (oYTPlayers.hasOwnProperty(ytId)) {
-                ytParams = oYTPlayers[ytId].params; // parametros para YT.Player
-                ytExtra = oYTPlayers[ytId].hasOwnProperty("extra") ? oYTPlayers[ytId].extra : false;
-                ytPlayer = oYTPlayers[ytId].instance; // instancia de Youtube Player
-
-                if (typeof videoKey == "undefined") {
-
-                }
-                else {
-                    // para i=0, videoId depende del @Model.TipoEstrategiaDetalle.UrlVideoMobile del view o de videoKey del JS ??
-                    if (i > 0 && videoKey) { ytParams.videoId = videoKey; }
-                }
-
-                ytParams.events = {
-                    'onReady': function (event) { //onScrollDown
-                        $(window).scroll(function () {
-                            var windowHeight = $(window).scrollTop();
-                            var contenido2 = ($("#saber-mas-uno").offset() || {}).top || 0;
-
-                            if (windowHeight >= contenido2) {
-                                event.target.pauseVideo();
-                            }
-                        });
-                    },
-                    // when video ends
-                    'onStateChange': function onPlayerStateChange(event) {
-                        var esFicha = false;
-                        if (typeof window.fichaModule !== "undefined")  //Sólo reproducir cuando esta dentro de la ficha
-                            esFicha = true;
-                        if (event.data === YT.PlayerState.UNSTARTED && esFicha) {
-                            AnalyticsPortalModule.MarcarIniciarPlayVideo(ytExtra);
-                        }
-
-                        if (typeof estaSuscrita == "undefined")
-                            return false;
-
-                        if (event.data === 0 && estaSuscrita === "False") {
-                            $("a.btn-suscribete-video").animate({
-                                bottom: "0%"
-                            });
-                            $("#div-suscribite").hide();
-                        }
-                        if (event.data == YT.PlayerState.PLAYING /*&& !done*/) {
-                            rdAnalyticsModule.CompartirProducto("YTI", event.target.getVideoUrl(), "");
-                            /*done = true;*/
-                        }
-                    }
-                };
+                demo(i, ytId);
             }
         });
 
+        // De manera general para varios videos en la pagina
+        $.each($("[data-youtube-key]"), function (i, ytEle) {
+            var idyt = $(ytEle).attr('id');
+            // Si existe el ID del elemento 
+            if (oYTPlayers.hasOwnProperty(idyt)) {
+                demo(i, idyt);
+            }
+        });
+
+        function demo(ind, ytIdx) {
+            console.log(ytIdx);
+            ytParams = oYTPlayers[ytIdx].params; // parametros para YT.Player
+            ytExtra = oYTPlayers[ytIdx].hasOwnProperty("extra") ? oYTPlayers[ytIdx].extra : false;
+            ytPlayer = oYTPlayers[ytIdx].instance; // instancia de Youtube Player
+
+            if (typeof videoKey == "undefined") {
+
+            }
+            else {
+                // para ind=0, videoId depende del @Model.TipoEstrategiaDetalle.UrlVideoMobile del view o de videoKey del JS ??
+                if (ind > 0 && videoKey) { ytParams.videoId = videoKey; }
+            }
+
+            ytParams.events = {
+                'onReady': function (event) { //onScrollDown
+                    $(window).scroll(function () {
+                        var windowHeight = $(window).scrollTop();
+                        var contenido2 = ($("#saber-mas-uno").offset() || {}).top || 0;
+
+                        if (windowHeight >= contenido2) {
+                            event.target.pauseVideo();
+                        }
+                    });
+                },
+                // when video ends
+                'onStateChange': function onPlayerStateChange(event) {
+                    var esFicha = false;
+                    if (typeof window.fichaModule !== "undefined")  //Sólo reproducir cuando esta dentro de la ficha
+                        esFicha = true;
+                    if (event.data === YT.PlayerState.UNSTARTED && esFicha) {
+                        AnalyticsPortalModule.MarcarIniciarPlayVideo(ytExtra);
+                    }
+
+                    if (typeof estaSuscrita == "undefined")
+                        return false;
+
+                    if (event.data === 0 && estaSuscrita === "False") {
+                        $("a.btn-suscribete-video").animate({
+                            bottom: "0%"
+                        });
+                        $("#div-suscribite").hide();
+                    }
+                    if (event.data == YT.PlayerState.PLAYING /*&& !done*/) {
+                        rdAnalyticsModule.CompartirProducto("YTI", event.target.getVideoUrl(), "");
+                        /*done = true;*/
+                    }
+                }
+            };
+        }
 
         // ---------------------------------------------------------------------------------------------------------------
 

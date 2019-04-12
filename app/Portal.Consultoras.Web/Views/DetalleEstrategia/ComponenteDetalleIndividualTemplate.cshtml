@@ -30,9 +30,10 @@
                 {{#each seccion.Detalles as |detalle|}}
                 <div @*style="width:350px;height:350px;"*@>
                     <div id="ytFichax"
+                         data-youtube-key="{{detalle.Key}}"
                          data-youtube="{
-                          @*height:'350',
-                          width:'350',*@
+                          height:'165',
+                          width:'190',
                           enablejsapi:1,
                           fs:0,
                           showinfo:0,
