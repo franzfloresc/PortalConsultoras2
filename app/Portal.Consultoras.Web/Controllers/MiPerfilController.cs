@@ -383,8 +383,8 @@ namespace Portal.Consultoras.Web.Controllers
                 Mobile = EsDispositivoMovil()
             };
             string tipoEnvio = Constantes.TipoEnvio.SMS.ToString();
-            ActualizarValidacionDatosUnique(EsDispositivoMovil(), userData.CodigoUsuario, tipoEnvio);
             result = await sender.Send(celular);
+            ActualizarValidacionDatosUnique(EsDispositivoMovil(), userData.CodigoUsuario, tipoEnvio);
             return Json(result);
         }
 
