@@ -70,6 +70,9 @@
             case _codigoPalanca.PN:
             case _tipoEstrategia.PackNuevas:
                 return _keyLocalStorage.PackNuevas;
+            case _codigoPalanca.DP:
+                //case _tipoEstrategia.PackNuevas:
+                return _keyLocalStorage.DuoPerfecto;
             //FIN HD-3908
             default:
                 return null;
@@ -217,6 +220,13 @@
             var nombreKeyLocalStorage = nombreKey + campania;
             var valLocalStorage = localStorage.getItem(nombreKeyLocalStorage);
 
+            //INI HD-3908
+            if (valLocalStorage == null && codigoPalanaca === _tipoEstrategia.PackNuevas) {
+                nombreKey = _keyLocalStorage.DuoPerfecto;
+                nombreKeyLocalStorage = nombreKey + campania;
+                valLocalStorage = localStorage.getItem(nombreKeyLocalStorage);
+            }
+            //FIN HD-3908
             if (valLocalStorage != null) {
                 var data = JSON.parse(valLocalStorage);
                 var updated;
@@ -312,6 +322,7 @@ function ActualizarLocalStoragePalancas(cuv, valor) {
     ActualizarLocalStorageAgregado("MG", cuv, valor);
     //INI HD-3908
     ActualizarLocalStorageAgregado("PN", cuv, valor);
+    ActualizarLocalStorageAgregado("DP", cuv, valor);
     //FIN HD-3908
 }
 
@@ -346,6 +357,9 @@ function ActualizarLocalStorageAgregado(tipo, cuv, valor) {
         //INI HD-3908
         else if (tipo == ConstantesModule.CodigoPalanca.PN) {
             var lista = ConstantesModule.KeysLocalStorage.PackNuevas;
+        }
+        else if (tipo == ConstantesModule.CodigoPalanca.DP) {
+            var lista = ConstantesModule.KeysLocalStorage.DuoPerfecto;
         }
         //FIN HD-3908
         if (lista == "") {

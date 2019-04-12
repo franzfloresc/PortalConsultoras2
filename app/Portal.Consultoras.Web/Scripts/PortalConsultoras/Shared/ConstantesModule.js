@@ -33,7 +33,8 @@ var ConstantesModule = (function () {
         RevistaDigital: "RDLista",
         Ganadoras: "MGLista",
         //INI HD-3908
-        PackNuevas: "PNLista"
+        PackNuevas: "PNLista",
+        DuoPerfecto: "DPLista"
         //FIN HD-3908
     }
 

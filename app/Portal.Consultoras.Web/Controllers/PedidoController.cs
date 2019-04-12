@@ -1787,6 +1787,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var revistaGana = ValidarDesactivaRevistaGana(userModel);
 
+               
+
                 productosModel.Add(new ProductoModel()
                 {
                     CUV = producto.CUV.Trim(),

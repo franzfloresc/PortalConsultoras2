@@ -1542,9 +1542,6 @@ namespace Portal.Consultoras.Common
             public const string Datami = "DATAMI";
             public const string DireccionEntrega = "DIRECCION_ENTREGA";
             public const string ArmaTuPack = "ATP";
-            //INI HD-3908
-            public const string PackNuevas = "PN";
-            //FIN HD-3908
         }
 
 
