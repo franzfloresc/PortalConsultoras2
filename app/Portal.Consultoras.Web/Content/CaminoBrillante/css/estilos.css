@@ -1541,3 +1541,6 @@ header.layout__header {
 .textlogras p {
     font-weight:bold;
 }
+.owl-stage .owl-item .text-bold {
+    margin-bottom:0;
+}

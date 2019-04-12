@@ -601,3 +601,9 @@ div .ficha__producto__precio__normal {
 
 }
 
+div div .ficha__producto__descrip__marca__pais {
+    height: 14px;
+}
+ul li .menu__link--pedido {
+    font-weight:bold;
+}
