@@ -58,19 +58,19 @@
     <div class="contenedor_proceso_registro_cdr">
         <div class="pasos_proceso_registro texto-mensaje-cdr">
             <div class="icono_paso icono_producto icono_paso_activo">
-                <img src="@Url.Content("~/Content/Images/mobile/cdr_paso1_activo.png")" />
+                <img src="@Url.Content("~/Content/Images/icono_cosmeticos.svg")" />
             </div>
             <div id="pasodos" class="icono_paso icono_solucion_elegida">
-                <img src="@Url.Content("~/Content/Images/mobile/cdr_paso2.png")" />
+                <img src="@Url.Content("~/Content/Images/icono_foco.svg")" />
             </div>
             <div id="pasodosactivo" class="icono_paso icono_solucion_elegida icono_paso_activo" style="display:none;">
-                <img src="@Url.Content("~/Content/Images/mobile/cdr_paso2_activo.png")" />
+                <img src="@Url.Content("~/Content/Images/icono_foco_activo.svg")" />
             </div>
             <div id="pasotres" class="icono_paso icono_solucion_elegida">
-                <img src="@Url.Content("~/Content/Images/mobile/cdr_paso3.png")" />
+                <img src="@Url.Content("~/Content/Images/icono_mail_cdr.svg")" />
             </div>
             <div id="pasotresactivo" class="icono_paso icono_envio_solicitud_cdr icono_paso_activo" style="display:none;">
-                <img src="@Url.Content("~/Content/Images/mobile/cdr_paso3_activo.png")" />
+                <img src="@Url.Content("~/Content/Images/icono_mail_cdr_activo.svg")" />
             </div>
             <div class="linea_conexion_pasos"></div>
         </div>
@@ -108,12 +108,12 @@
         </div>
         <div class="campos_registro_solicitud_cdr Registro1">
             <div class="formulario_inscripcion_cdr">
-                @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.ListaCampania, "CampaniaID", "NombreCorto", Model.CampaniaID), new { id = "ddlCampania", @class = "select_reclamo", @required = "required" })
-                <select class="elige_num_pedido" id="ddlnumPedido" name="numPedido" required="required" style="display:none;"></select>
+                @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.ListaCampania, "CampaniaID", "NombreCorto", Model.CampaniaID), new { id = "ddlCampania", @class = "border-radius-4 select_reclamo", @required = "required" })
+                <select class="border-radius-4 elige_num_pedido" id="ddlnumPedido" name="numPedido" required="required" style="display:none;"></select>
                 <input id="txtNumPedido" type="text" style="text-align:center;display:none;" />
-                <input id="cuvmobile" class="tipografia_lato tipografia_lato_regular ValidaNumeral ValidaPasteNumeral valid" type="text" value="" placeholder="Código o Descripción del producto" />
+                <input id="cuvmobile" class="border-radius-4 tipografia_lato tipografia_lato_regular ValidaNumeral ValidaPasteNumeral valid" type="text" value="" placeholder="Código o Descripción del producto" />
 
-                <div id="DescripcionCuv" class="producto_cdr" style="font-size:13px;display:none">
+                <div id="DescripcionCuv" class="producto_cdr" style="font-size:13px;display:none;">
                     <span id="txtCuv" class="codigo_producto_cdr tipografia_lato_bold"></span>
                     - <span id="txtDescripcionCuv" class="nom_producto_cdr tipografia_lato_bold"></span>
                     <a id="aCambiarProducto" class="enlace_cambiar_producto tipografia_lato_regular" title="Cambiar producto">MODIFICAR PRODUCTO</a>
@@ -121,11 +121,10 @@
                 <div class="contenedor_cantidadProductos contenedor_campo_cantidad_productos">
                     <span class="texto_cantidad_productos tipografia_lato tipografia_lato_regular">Cantidad:</span>
                     <div id="divCantidad" data-cantidad-contenedor="">
-                        <a class="cantidad_menos_home" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
                         <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad1" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
                                data-input="cantidad" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
+                        <a class="cantidad_menos_home" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
                         <a class="cantidad_mas_home" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
-                        <div style="clear:both;"></div>
                     </div>
                 </div>
             </div>
@@ -165,7 +164,7 @@
                 <span>VER SOLICITUDES ANTERIORES</span>
             </a>
         </div>
-        <div class="pregunta_inconveniente_producto tipografia_lato tipografia_lato_bold mb-23 Registro3" style="display:none;">
+        <div class="pregunta_inconveniente_producto tipografia_lato tipografia_lato_bold mb-29 Registro3" style="display:none;">
             Escoge una solución
         </div>
         <div class="listado_soluciones_cdr tipografia_lato Registro3" id="divlistado_soluciones_cdr" style="display:none;">
@@ -417,10 +416,12 @@
     </div>
 </div>
 
-<button id="btnSiguiente1"
-        class="btn_cta_cdr tipografia_lato tipografia_lato_bold">
-    SIGUIENTE
-</button>
+<div class="btn_cta_wrapper">
+    <button id="btnSiguiente1"
+            class="border-radius-4 btn_cta_cdr btn_cta_cdr--siguiente tipografia_lato tipografia_lato_bold">
+        SIGUIENTE
+    </button>
+</div>
 <button id="btnCambioProducto"
         class="btn_cta_cdr tipografia_lato tipografia_lato_bold"
         style="display:none;">
@@ -444,17 +445,22 @@
 </button>
 
 <div id="PopupBusquedaCuvDescripcionProductoCdr" class="buscar_producto_cdr_popup d-block w-100" style="display:none;">
-    <div class="buscar_producto_cdr_cabecera_popup">
+    @*<div class="buscar_producto_cdr_cabecera_popup">
         <div class="buscar_producto_cdr_titulo_popup text-center">
             <h2 class="text-uppercase">Buscar producto</h2>
             <a href="javascript:;" onclick="javascript: $('#PopupBusquedaCuvDescripcionProductoCdr').fadeOut(200); $('#PopupBusquedaCuvDescripcionProductoCdr').scrollTop(0);" title="Cerrar" class="enlace_cerrar_popup_buscar_producto_cdr">
                 <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
             </a>
         </div>
-    </div>
+    </div>*@
     <div class="buscar_producto_cdr_contenido_popup text-center">
         <div class="busqueda_codigo_o_descripcion_wrapper d-block">
-            <input type="text" value="" id="CampoBusquedaCuvDescripcion" class="campo_busqueda_codigo_o_descripcion_producto" placeholder="Escribe el código o descripción" />
+            <div class="campo_busqueda_codigo_o_descripcion_producto_wrapper">
+                <a href="javascript:;" onclick="javascript: $('#PopupBusquedaCuvDescripcionProductoCdr').fadeOut(100); $('#PopupBusquedaCuvDescripcionProductoCdr').scrollTop(0);" class="d-block enlace_cerrar_popup" title="Cerrar">
+                    <img src="@Url.Content("~/Content/Images/icono_volver.svg")" alt="Cerrar" />
+                </a>
+                <input type="text" value="" id="CampoBusquedaCuvDescripcion" class="campo_busqueda_codigo_o_descripcion_producto" placeholder="Escribe el código o descripción" />
+            </div>
             <ul id="ListaCoincidenciasBusquedaProductosCdr" class="lista_coincidencias_busqueda_productos d-block text-left"></ul>
         </div>
     </div>
@@ -511,14 +517,39 @@
     {{/each}}
 </script>
 <script id="template-operacion" type="text/x-handlebars-template">
-    {{#each this as |item|}}
-    <a id="{{item.CodigoOperacion}}"
-       data-tipo="{{item.Tipo}}"
-       class="solucion_cdr tipografia_lato_bold"
-       title="{{item.CDRTipoOperacion.DescripcionOperacion}}">
-        {{item.CDRTipoOperacion.DescripcionOperacion}}
-    </a>
-    {{/each}}
+    <ul class="text-center lista_opciones_cdr">
+        {{#each this as |item|}}
+        <li class="border-radius-4 opcion_cdr">
+            <a title="{{item.CDRTipoOperacion.DescripcionOperacion}}" data-tipo="{{item.Tipo}}" class="text-center opcion_cdr_enlace">
+                <div class="opcion_cdr_icono_wrapper">
+                    {{#if_eq item.CodigoOperacion 'D'}}
+                    <img src="@Url.Content("~/Content/Images/opcion_devolucion_cdr.svg")" alt="" class="opcion_cdr_icono" />
+                    {{else if_eq item.CodigoOperacion 'T'}}
+                    <img src="@Url.Content("~/Content/Images/opcion_cambio_otro_producto_cdr.svg")" alt="" class="opcion_cdr_icono" />
+                    {{else if_eq item.CodigoOperacion 'C' }}
+                    <img src="@Url.Content("~/Content/Images/opcion_cambio_mismo_producto_cdr.svg")" alt="" class="opcion_cdr_icono" />
+                    {{else if_eq item.CodigoOperacion 'F' }}
+                    <img src="@Url.Content("~/Content/Images/opcion_cambio_mismo_producto_cdr.svg")" alt="" class="opcion_cdr_icono" />
+                    {{else if_eq item.CodigoOperacion 'G' }}
+                    <img src="@Url.Content("~/Content/Images/opcion_devolucion_cdr.svg")" alt="" class="opcion_cdr_icono" />
+                    {{/if_eq}}
+                </div>
+                <div class="text-bold opcion_cdr_seleccion_wrapper">
+                    <input id="{{item.CodigoOperacion}}" style="display:none!important;" type="checkbox" onchange="EscogerSolucion(this,event)" data-tipo="{{item.Tipo}}">
+                    {{item.CDRTipoOperacion.DescripcionOperacion}}
+                    <label for="{{item.CodigoOperacion}}" class="border-radius-4 opcion_cdr_checkbox">
+                    </label>
+                </div>
+            </a>
+        </li>
+        @*<a id="{{item.CodigoOperacion}}"
+           data-tipo="{{item.Tipo}}"
+           class="solucion_cdr tipografia_lato_bold"
+           title="{{item.CDRTipoOperacion.DescripcionOperacion}}">
+            {{item.CDRTipoOperacion.DescripcionOperacion}}
+        </a>*@
+        {{/each}}
+    </ul>
 </script>
 
 <script id="template-detalle-banner" type="text/x-handlebars-template">

@@ -822,7 +822,7 @@ $(document).ready(function () {
                             });
                             $(me.Variables.ListaCoincidenciasBusquedaProductosCdr).html("");
                             $(data.detalle).each(function (index, item) {
-                                $(me.Variables.ListaCoincidenciasBusquedaProductosCdr).append("<li class='coincidencia_busqueda_producto d-block text-uppercase' data-descr='" + item.DescripcionProd + "' data-codigo=" + item.CUV + " data-value='" + item.CUV + " - " + item.DescripcionProd + "'> <div>" + item.CUV + "</div> <div id='CuvPopup" + index + "'>" + item.DescripcionProd + "</div></li >");
+                                $(me.Variables.ListaCoincidenciasBusquedaProductosCdr).append("<li class='coincidencia_busqueda_producto d-block text-uppercase' data-descr='" + item.DescripcionProd + "' data-codigo=" + item.CUV + " data-value='" + item.CUV + " - " + item.DescripcionProd + "'><div class='resultado_busqueda_por_cuv_datos_imagen'><img src='https://cdn1-prd.somosbelcorp.com/Matriz/PE/PE_201905_30709.jpg' alt='" + item.DescripcionProd + "'/></div><div class='resultado_busqueda_por_cuv_datos_prod'><div class='resultado_busqueda_por_cuv_codigo_prod'>" + item.CUV + "</div> <div class='resultado_busqueda_por_cuv_descrip_prod' id='CuvPopup" + index + "'>" + item.DescripcionProd + "</div></div></li >");
                             });
                         }
                     },
