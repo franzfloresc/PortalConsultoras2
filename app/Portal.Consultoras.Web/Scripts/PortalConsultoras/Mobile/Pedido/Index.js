@@ -455,7 +455,9 @@ function BuscarByCUV(cuv) {
             ObservacionesProducto(item);
             //INI HD-3908
             _flagNueva = (item.FlagNueva == "1") ? true : false;
-                //FIN HD-3908
+            $("#hdfCodigoPalanca").val(item.CodigoPalanca);
+            $("#hdfCampaniaID").val(item.CampaniaID);
+            //FIN HD-3908
             CargarProductosRecomendados(productoEcontrado);
         },
         error: function (data, error) {
