@@ -3,8 +3,6 @@ using System.Web.Mvc;
 using System.Linq;
 using Portal.Consultoras.Common;
 using System;
-using System.Collections.Generic;
-using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.Providers;
 
 namespace Portal.Consultoras.Web.Controllers
