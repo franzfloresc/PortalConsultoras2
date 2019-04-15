@@ -367,7 +367,11 @@ var menuModule = (function () {
     //    window.location = window.location.origin + url;
     //}
 
-    function sectionClick(url, titulo, e) {
+    function sectionClick(url, titulo, elem, event) {
+        if (typeof event !== "undefined") {
+            event.stopPropagation();
+        }
+
         url = url || "";
         if (_var.Mobile && url.indexOf("Mobile") < 0) {
             url = "/Mobile" + url;
@@ -376,7 +380,10 @@ var menuModule = (function () {
         if (typeof AnalyticsPortalModule !== "undefined") {
             titulo = titulo || "";
             var OrigenPedidoWeb = "";
-            OrigenPedidoWeb = EstrategiaAgregarModule.GetOrigenPedidoWeb($(e), false);
+            var texto = _sectionClickTexto(elem);
+            var clicEnBanner = false;
+
+            OrigenPedidoWeb = EstrategiaAgregarModule.GetOrigenPedidoWeb($(elem), false);
 
             if (url.indexOf(ConstantesModule.TipoEstrategiaTexto.Ganadoras) > 0) {
                 if (titulo === "BannerMG") {
@@ -412,11 +419,18 @@ var menuModule = (function () {
                     + ConstantesModule.OrigenPedidoWebEstructura.Palanca.Lanzamientos
                     + ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel;
             }
-
+            //HD-3473 EINCA 
+            else if (url.includes(ConstantesModule.TipoEstrategia.DP)) {
+                OrigenPedidoWeb = ConstantesModule.OrigenPedidoWebEstructura.Dispositivo.Desktop
+                    + ConstantesModule.OrigenPedidoWebEstructura.Pagina.Contenedor
+                    + ConstantesModule.OrigenPedidoWebEstructura.Palanca.DuoPerfecto
+                    + ConstantesModule.OrigenPedidoWebEstructura.Seccion.Banner;
+                if (titulo !== "ClicVerMas") {
+                    clicEnBanner = true;
+                }
+            }
             OrigenPedidoWeb = OrigenPedidoWeb || "";
-            var texto = _sectionClickTexto(e);
-            AnalyticsPortalModule.MarcaClicVerMasOfertas(url, OrigenPedidoWeb, texto);
-
+            AnalyticsPortalModule.MarcaClicVerMasOfertas(url, OrigenPedidoWeb, texto, clicEnBanner);
         }
         else {
             document.location = url;
