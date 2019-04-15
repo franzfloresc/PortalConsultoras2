@@ -160,11 +160,11 @@ $(document).ready(function () {
                     $(contenidoTabAMostrar).fadeIn(100);
                     if (contenidoTabAMostrar == '#VistaReclamo') {
                         $('#btnAgregarSolicitud').fadeOut(100);
-                        $('#btnSiguiente1').delay(50);
+                        $('#btnSiguiente1').delay(80);
                         $('#btnSiguiente1').fadeIn(100);
                     } else {
                         $('#btnSiguiente1').fadeOut(100);
-                        $('#btnAgregarSolicitud').delay(50);
+                        $('#btnAgregarSolicitud').delay(80);
                         $('#btnAgregarSolicitud').fadeIn(100);
                     }
                 });
