@@ -160,12 +160,6 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             return GetKit(paisId, campaniaId, periodo.Periodo, nivelId);
         }
 
-        /*
-        private List<BEKitCaminoBrillante> GetKit(int paisId, int campaniaId, int periodoId, int nivelId) {
-            return null;
-        }
-        */
-
         private List<BEKitCaminoBrillante> GetKitCache(int paisId, int periodoId, int campaniaId)
         {
             return CacheManager<List<BEKitCaminoBrillante>>.ValidateDataElement(paisId, ECacheItem.CaminoBrillanteOfertas, string.Format("{0}-{1}", periodoId, campaniaId) , () => GetKitProvider(paisId, periodoId, campaniaId));
@@ -386,7 +380,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                     e.Subtitulo = e.Estado ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo;
                     e.Valor = string.Format(configMedalla.Valor ?? string.Empty, e.Valor);
                     e.ModalTitulo = configMedalla.ComoLograrlo_Estado ? configMedalla.ComoLograrlo_Titulo.Replace("{0}", e.Valor) : string.Empty;
-                    e.ModalDescripcion = configMedalla.ComoLograrlo_Estado ? (configMedalla.ComoLograrlo_Descripcion).Replace("{0}", entidad.Simbolo  + e.MontoSuperior.ToString("0.00")) : string.Empty;
+                    e.ModalDescripcion = configMedalla.ComoLograrlo_Estado ? (configMedalla.ComoLograrlo_Descripcion).Replace("{0}", "<b>" +  entidad.Simbolo  + Convert.ToDecimal(e.MontoSuperior).ToString("#,##0.00") + "</b>") : string.Empty;
                 }
                 else
                 {
@@ -434,10 +428,11 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 var configMedalla = configsMedalla.Where(p => p.Codigo == e.Valor).FirstOrDefault();
                 if (configMedalla != null)
                 {
+                  
                     //pvc-27
                     e.Subtitulo = e.Estado ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo;
-                    e.ModalTitulo = configMedalla.ComoLograrlo_Estado ? configMedalla.ComoLograrlo_Titulo.Replace("{0}", e.DescripcionNivel) : string.Empty;
-                    e.ModalDescripcion = configMedalla.ComoLograrlo_Estado ? configMedalla.ComoLograrlo_Descripcion.Replace("{0}", e.DescripcionNivel).Replace("{1}", entidad.Simbolo  + string.Format("{0:0.00}", e.MontoAcumulado)) : string.Empty;
+                    e.ModalTitulo = configMedalla.ComoLograrlo_Estado ? configMedalla.ComoLograrlo_Titulo.Replace("{0}",  (e.DescripcionNivel) ) : string.Empty;
+                    e.ModalDescripcion = configMedalla.ComoLograrlo_Estado ? configMedalla.ComoLograrlo_Descripcion.Replace("{0}", e.DescripcionNivel).Replace("{1}", "<b>" + entidad.Simbolo  + Convert.ToDecimal(e.MontoAcumulado).ToString("#,##0.00")  + "</b>") : string.Empty;
                 }
             });
 
@@ -702,7 +697,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         {
             var lstBeneficios = GetBeneficiosCaminoBrillante(paisId) ?? new List<BEBeneficioCaminoBrillante>();
             var lstNiveles = _providerCaminoBrillante.GetNivel(Util.GetPaisIsoHanna(paisId)).Result;
-            
+
             return lstNiveles.Select(e => new BENivelCaminoBrillante()
             {
                 CodigoNivel = e.CodigoNivel,
@@ -710,9 +705,14 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 MontoMaximo = e.MontoMaximo,
                 MontoMinimo = e.MontoMinimo,
                 TieneOfertasEspeciales = !("1" == e.CodigoNivel), //Usar Configuracion
+
+                MontoFaltante = int.Parse(e.MontoMinimo) - 5  ,
+
                 Beneficios = lstBeneficios.Where(b => b.CodigoNivel == e.CodigoNivel && !(string.IsNullOrEmpty(b.NombreBeneficio)
                                                       && Constantes.CaminoBrillante.CodigoBeneficio.Beneficios.Contains(b.CodigoBeneficio))
                                                       ).ToList()
+                
+
             }).ToList();
         }
 
