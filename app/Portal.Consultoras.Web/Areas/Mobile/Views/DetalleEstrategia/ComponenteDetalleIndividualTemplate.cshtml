@@ -23,17 +23,16 @@
                     <li id="div_ficha_tab1">
                         <a class="tab-link active">{{seccion.Titulo}}</a>
                         <ul class="tabs_container" style="display:block;">
-                            <div style="@*width:95% !important*@">
+                            <div>
                                 <div id="carouselIndividualVideo">
                                     {{#each seccion.Detalles as |detalle index|}}
                                     <div style="">
                                         <div>
                                             <div id="ytFichax"
                                                  data-youtube-key="{{detalle.Key}}"
-                                                 @*class="video_item"*@
                                                  data-youtube="{
                                                      height:'173',
-                                                     width:'100%',
+                                                     width:'300',
                                                      enablejsapi:1,
                                                      fs:0,
                                                      showinfo:0,
