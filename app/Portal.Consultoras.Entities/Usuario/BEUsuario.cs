@@ -246,6 +246,9 @@ namespace Portal.Consultoras.Entities
             EsConsultoraOficina = row.ToInt32("IndicadorConsultoraOficina") == 1;
             PromedioVenta = row.ToDouble("PromedioVenta");
             NovedadBuscador = row.ToInt32("NovedadBuscador");
+            //INI HD-3693
+            AutorizaPedido = row.ToString("AutorizaPedido");
+            //FIN HD-3693
         }
 
         [Column("ConsultoraAsociadoID")]
