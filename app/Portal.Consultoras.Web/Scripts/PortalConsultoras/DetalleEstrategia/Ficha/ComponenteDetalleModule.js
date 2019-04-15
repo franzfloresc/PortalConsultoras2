@@ -170,9 +170,13 @@
             });
         },
         setYoutubeApi: function () {
-            if (youtubeModule) {
-                youtubeModule.Inicializar();
-                window.onYouTubeIframeAPIReady();
+            try {
+                if (youtubeModule) {
+                    youtubeModule.Inicializar();
+                    window.onYouTubeIframeAPIReady();
+                }
+            } catch (e) {
+                console.log('setYoutubeApi => ', e);
             }
         }
     };
