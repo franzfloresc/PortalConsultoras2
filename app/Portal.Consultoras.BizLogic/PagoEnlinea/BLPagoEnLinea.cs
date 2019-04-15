@@ -9,21 +9,26 @@ using System.Data;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Portal.Consultoras.Entities.RevistaDigital;
+using Portal.Consultoras.BizLogic.RevistaDigital;
+using Portal.Consultoras.Data;
 
 namespace Portal.Consultoras.BizLogic.PagoEnlinea
 {
     public class BLPagoEnLinea : IPagoEnLineaBusinessLogic
     {
         private readonly ITablaLogicaDatosBusinessLogic _tablaLogicaDatosBusinessLogic;
+        private readonly IRevistaDigitalSuscripcionBusinessLogic _revistaDigitalSuscripcionBusinessLogic;
 
-        public BLPagoEnLinea() : this(new BLTablaLogicaDatos())
+        public BLPagoEnLinea() : this(new BLTablaLogicaDatos(), new BLRevistaDigitalSuscripcion())
         {
 
         }
 
-        public BLPagoEnLinea(ITablaLogicaDatosBusinessLogic tablaLogicaDatosBusinessLogic)
+        public BLPagoEnLinea(ITablaLogicaDatosBusinessLogic tablaLogicaDatosBusinessLogic, IRevistaDigitalSuscripcionBusinessLogic revistaDigitalSuscripcionBusinessLogic)
         {
             _tablaLogicaDatosBusinessLogic = tablaLogicaDatosBusinessLogic;
+            _revistaDigitalSuscripcionBusinessLogic = revistaDigitalSuscripcionBusinessLogic;
         }
 
         public int InsertPagoEnLineaResultadoLog(int paisId, BEPagoEnLineaResultadoLog entidad)
@@ -145,10 +150,12 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
 
         private void CargarConfiguracion_MedioPagoDetalle(int paisId, List<BEPagoEnLineaMedioPagoDetalle> pagoEnLineaMedioPagoDetalles)
         {
-            pagoEnLineaMedioPagoDetalles.ForEach(item => {
-                switch (item.TipoPasarelaCodigoPlataforma) {
+            pagoEnLineaMedioPagoDetalles.ForEach(item =>
+            {
+                switch (item.TipoPasarelaCodigoPlataforma)
+                {
                     case Constantes.PagoEnLineaMetodoPago.PasarelaVisa:
-                        if(item.TipoTarjeta == Constantes.PagoEnLineaTipoTarjeta.Credito) CargarConfiguracion_MedioPagoDetalle_Visa(paisId, item);
+                        if (item.TipoTarjeta == Constantes.PagoEnLineaTipoTarjeta.Credito) CargarConfiguracion_MedioPagoDetalle_Visa(paisId, item);
                         break;
                     case Constantes.PagoEnLineaMetodoPago.PasarelaBelcorpPayU:
                         CargarConfiguracion_MedioPagoDetalle_Payu(paisId, item);
@@ -238,10 +245,12 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
             return new BLResumenCampania().GetMontoDeuda(paisId, 0, (int)consultoraId, codigoUsuario, true);
         }
 
-        public BEPagoEnLinea ObtenerPagoEnLineaConfiguracion(int paisId, long consultoraId, string codigoUsuario)
+        public BEPagoEnLinea ObtenerPagoEnLineaConfiguracion(int paisId, long consultoraId, string codigoUsuario, int esDigital, DateTime fechaVencimiento)
         {
             var result = new BEPagoEnLinea();
             List<BETablaLogicaDatos> listaConfiguracion = null;
+            int campaniaActual = 0;
+            var resultado = Constantes.GanaMas.PaisSinRD;
 
             var listaMetodoPagoTask = Task.Run(() => result.ListaMetodoPago = ObtenerPagoEnLineaMedioPagoDetalle(paisId));
             var listaMedioPagoTask = Task.Run(() => result.ListaMedioPago = ObtenerPagoEnLineaMedioPago(paisId));
@@ -261,6 +270,21 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
             {
                 var pagoBancaPorInternet = result.ListaMedioPago.FirstOrDefault(e => e.Codigo == Constantes.PagoEnLineaPasarela.PBI && e.Estado);
                 if (pagoBancaPorInternet != null) pagoBancaPorInternet.Estado = false;
+            }
+
+            //Paises con comision 0 para consultora digital y que no pasen su fecha de vencimiento
+            var Comision = listaConfiguracion.FirstOrDefault(e => e.Codigo == Constantes.TablaLogicaDato.PagoEnLinea.Habilitar_Comision_Cero);
+
+            Comision = Comision ?? new BETablaLogicaDatos();
+
+            var Evaluacion = (esDigital == 1) && (fechaVencimiento >= DateTime.Now.Date) && (string.IsNullOrEmpty(Comision.Valor) ? false : Comision.Valor=="1" ? true : false);
+
+            if (Evaluacion)
+            {
+                result.ListaMetodoPago.ForEach(e =>
+                {
+                    e.PorcentajeGastosAdministrativos = Evaluacion ? 0 : e.PorcentajeGastosAdministrativos;
+                });
             }
 
             result.ListaMedioPago.ForEach(e =>

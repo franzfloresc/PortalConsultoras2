@@ -1550,7 +1550,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             return usuario;
         }
 
-        public async Task<BEProducto> GetRegaloOfertaFinal(BEUsuario usuario)
+        public BEProducto GetRegaloOfertaFinal(BEUsuario usuario)
         {
             var ProductoRegalo = new BEProducto();
             try
