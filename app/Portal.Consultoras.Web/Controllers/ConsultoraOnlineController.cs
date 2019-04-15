@@ -2964,5 +2964,10 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
 
+        public ActionResult Pendientes()
+        {
+            return View();
+        }
+
     }
 }
