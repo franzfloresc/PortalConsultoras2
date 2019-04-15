@@ -961,7 +961,7 @@ namespace Portal.Consultoras.Service
         }
 
         public List<BEKitCaminoBrillante> GetKitsCaminoBrillante(BEUsuario entidad, int periodoId, int nivel) {
-            return _caminoBrillanteBusinessLogic.GetKit(entidad, periodoId, nivel);
+            return _caminoBrillanteBusinessLogic.GetKit(entidad, nivel);
         }
 
         public List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillante(int paisID, string campaniaID)
