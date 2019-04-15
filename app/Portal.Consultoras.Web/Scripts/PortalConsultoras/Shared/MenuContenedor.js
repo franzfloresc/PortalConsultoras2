@@ -323,7 +323,7 @@ var menuModule = (function () {
             url = url[0] !== "/" ? "/" + url : url;
             if (window.location.pathname.toLowerCase() === url.toLowerCase()) return;
 
-            if (ConstantesModule.TipoEstrategia.ATP == codigo) {
+            if (ConstantesModule.CodigoPalanca.ATP == codigo) {
                 BannerInteractivo.ConsultaAjaxRedireccionaLanding(function () {
                     window.location = window.location.origin + url;
                 });
@@ -367,7 +367,11 @@ var menuModule = (function () {
     //    window.location = window.location.origin + url;
     //}
 
-    function sectionClick(url, titulo, e) {
+    function sectionClick(url, titulo, elem, event) {
+        if (typeof event !== "undefined") {
+            event.stopPropagation();
+        }
+
         url = url || "";
         if (_var.Mobile && url.indexOf("Mobile") < 0) {
             url = "/Mobile" + url;
@@ -376,22 +380,25 @@ var menuModule = (function () {
         if (typeof AnalyticsPortalModule !== "undefined") {
             titulo = titulo || "";
             var OrigenPedidoWeb = "";
-            OrigenPedidoWeb = EstrategiaAgregarModule.GetOrigenPedidoWeb($(e), false);
+            var texto = _sectionClickTexto(elem);
+            var clicEnBanner = false;
 
-            if (url.indexOf(ConstantesModule.CodigosPalanca.Ganadoras) > 0) {
+            OrigenPedidoWeb = EstrategiaAgregarModule.GetOrigenPedidoWeb($(elem), false);
+
+            if (url.indexOf(ConstantesModule.TipoEstrategiaTexto.Ganadoras) > 0) {
                 if (titulo === "BannerMG") {
                     AnalyticsPortalModule.MarcarClickMasOfertasPromotionClickMG();
                 }
             }
 
-            if (url.indexOf(ConstantesModule.CodigosPalanca.LiquidacionWeb) > 0) {
+            if (url.indexOf(ConstantesModule.TipoEstrategiaTexto.LiquidacionWeb) > 0) {
                 OrigenPedidoWeb = ConstantesModule.OrigenPedidoWebEstructura.Dispositivo.Desktop
                     + ConstantesModule.OrigenPedidoWebEstructura.Pagina.Home
                     + ConstantesModule.OrigenPedidoWebEstructura.Palanca.Liquidacion
                     + ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel;
             }
 
-            else if (url.indexOf(ConstantesModule.CodigosPalanca.SR) > 0) {
+            else if (url.indexOf(ConstantesModule.TipoEstrategiaTexto.SR) > 0) {
                 if (titulo === "BotonVerMasEspecialesHome") {
                     OrigenPedidoWeb = ConstantesModule.OrigenPedidoWebEstructura.Dispositivo.Desktop
                         + ConstantesModule.OrigenPedidoWebEstructura.Pagina.Home
@@ -400,23 +407,30 @@ var menuModule = (function () {
                 }
             }
 
-            else if (url.indexOf(ConstantesModule.CodigosPalanca.GuiaNegocio) > 0) {
+            else if (url.indexOf(ConstantesModule.TipoEstrategiaTexto.GuiaNegocio) > 0) {
                 OrigenPedidoWeb = ConstantesModule.OrigenPedidoWebEstructura.Dispositivo.Desktop
                     + ConstantesModule.OrigenPedidoWebEstructura.Pagina.Contenedor
                     + ConstantesModule.OrigenPedidoWebEstructura.Palanca.GND
                     + ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel;
             }
-            else if (url.indexOf(ConstantesModule.TipoEstrategia.LAN) > 0) {
+            else if (url.indexOf(ConstantesModule.CodigoPalanca.LAN) > 0) {
                 OrigenPedidoWeb = ConstantesModule.OrigenPedidoWebEstructura.Dispositivo.Desktop
                     + ConstantesModule.OrigenPedidoWebEstructura.Pagina.Home
                     + ConstantesModule.OrigenPedidoWebEstructura.Palanca.Lanzamientos
                     + ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel;
             }
-
+            //HD-3473 EINCA 
+            else if (url.includes(ConstantesModule.TipoEstrategia.DP)) {
+                OrigenPedidoWeb = ConstantesModule.OrigenPedidoWebEstructura.Dispositivo.Desktop
+                    + ConstantesModule.OrigenPedidoWebEstructura.Pagina.Contenedor
+                    + ConstantesModule.OrigenPedidoWebEstructura.Palanca.DuoPerfecto
+                    + ConstantesModule.OrigenPedidoWebEstructura.Seccion.Banner;
+                if (titulo !== "ClicVerMas") {
+                    clicEnBanner = true;
+                }
+            }
             OrigenPedidoWeb = OrigenPedidoWeb || "";
-            var texto = _sectionClickTexto(e);
-            AnalyticsPortalModule.MarcaClicVerMasOfertas(url, OrigenPedidoWeb, texto);
-
+            AnalyticsPortalModule.MarcaClicVerMasOfertas(url, OrigenPedidoWeb, texto, clicEnBanner);
         }
         else {
             document.location = url;

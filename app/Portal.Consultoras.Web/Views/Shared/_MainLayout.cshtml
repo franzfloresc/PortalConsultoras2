@@ -39,6 +39,14 @@
         var gTipoUsuario = '@ViewBag.TipoUsuario';
         var IsoPais = '@ViewBag.CodigoISODL';
 
+        //INI SALUD-58
+        var codigoConsultora = '@ViewBag.CodigoConsultoraDL';
+        var pseudoParamNotif = '@ViewBag.PseudoParamNotif';
+        var inicial = localStorage.getItem('KeyPseudoParam');
+        if (inicial === 'undefinied' || inicial === undefined || inicial === null)
+            localStorage.setItem('KeyPseudoParam', pseudoParamNotif); //se almacena por primera vez
+         //FIN SALUD-58
+
         //Postulante
         var mostrarBannerPostulante = '@ViewBag.MostrarBannerPostulante';
 
@@ -245,9 +253,11 @@
         var NovedadBuscadorVisitasUsuario = '@ViewBag.NovedadBuscador';
         var OrigenDesktopODD = 0;
         var CaracteresBuscador = '@ViewBag.CaracteresBuscador';
+         var CaracteresBuscadorNumerico = '@ViewBag.CaracteresBuscadorNumerico';
         var TotalCaracteresEnListaBuscador = '@ViewBag.CaracteresBuscadorMostrar';
         var TotalResultadosBuscador = '@ViewBag.TotalListadorBuscador';
         var AplicarLogicaCantidadBotonVerTodos = '@ViewBag.AplicarLogicaCantidadBotonVerTodos'.toLowerCase();
+        var MostrarPalabrasMenoresACuatro = '@ViewBag.MostrarPalabrasMenoresACuatro';
     </script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/SB2")
     <script type='text/javascript'>

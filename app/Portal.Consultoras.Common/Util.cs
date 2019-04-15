@@ -3333,7 +3333,7 @@ namespace Portal.Consultoras.Common
                 response = (HttpWebResponse)request.GetResponse();
                 result = true;
             }
-            catch (WebException webException)
+            catch (WebException)
             {
                 LogManager.SaveLog(new Exception("URL " + url + " no encontrada"), "", "");
                 result = false;
@@ -3705,9 +3705,10 @@ namespace Portal.Consultoras.Common
 
         public static string obtenerNuevaDescripcionProductoDetalle(int ofertaId, bool pedidoValidado,
             bool consultoraOnline, int origenPedido, Dictionary<string, string> lista, bool suscripcion, string tipoEstrategiaCodigo,
-            int marcaId, int codigoCatalogo, string descripcion, bool esCuponNuevas, bool EsElecMultipleNuevas, bool esPremioElec)
+            int marcaId, int codigoCatalogo, string descripcion, bool esCuponNuevas, bool EsElecMultipleNuevas, bool esPremioElec, bool esCuponIndependiente)
         {
             if (esPremioElec) return lista[Constantes.NuevoCatalogoProducto.ESPREMIOELEC];
+            if (esCuponIndependiente) return lista[Constantes.NuevoCatalogoProducto.ESCUPONINDEPENDIENTE];
             if (EsElecMultipleNuevas) return lista[Constantes.NuevoCatalogoProducto.ESELECMULTIPLENUEVAS];
             if (esCuponNuevas) return lista[Constantes.NuevoCatalogoProducto.ESCUPONNUEVAS];
 
@@ -3978,6 +3979,100 @@ namespace Portal.Consultoras.Common
 
             return result;
         }
+
+        public static string DecryptCryptoJs(string CipherText, string Password, string Salt, string Key, string Iv)
+        {
+            var cipherText = Convert.FromBase64String(CipherText);
+            var password = Encoding.UTF8.GetBytes(Password);
+            var salt = Convert.FromBase64String(Salt);
+
+            var crypto = new SimpleCrypto(password, salt);
+
+            var iv = Convert.FromBase64String(Iv);
+            if (!Enumerable.SequenceEqual(iv, crypto.IV))
+            {
+                throw new Exception("IVs do not match");
+            }
+
+            var key = Convert.FromBase64String(Key);
+            if (!Enumerable.SequenceEqual(key, crypto.Key))
+            {
+                throw new Exception("Keys do not match");
+            }
+
+            var plainText = crypto.Decrypt(cipherText);
+
+            return Encoding.UTF8.GetString(plainText);
+        }
+    }
+
+    public class SimpleCrypto
+    {
+        private readonly Encoding encoder = Encoding.Default;
+        private readonly SymmetricAlgorithm algorithm;
+
+        private const int ivBitLength = 128;
+        private const int keyBitLength = 256;
+
+        private const int Iterations = 1000;
+
+        public SimpleCrypto(byte[] password, byte[] salt)
+        {
+            algorithm = Rijndael.Create();
+            algorithm.Padding = PaddingMode.PKCS7;
+            algorithm.Mode = CipherMode.CBC;
+            algorithm.BlockSize = 128;
+            algorithm.KeySize = 256;
+
+            using (var rfc2898DeriveBytes = new Rfc2898DeriveBytes(password, salt, Iterations))
+            {
+                algorithm.IV = rfc2898DeriveBytes.GetBytes(ivBitLength / 8);
+                algorithm.Key = rfc2898DeriveBytes.GetBytes(keyBitLength / 8);
+            }
+        }
+
+        public byte[] IV
+        {
+            get { return algorithm.IV; }
+        }
+
+        public byte[] Key
+        {
+            get { return algorithm.Key; }
+        }
+
+        private static byte[] Transform(byte[] bytes, Func<ICryptoTransform> selectCryptoTransform)
+        {
+            using (var memoryStream = new MemoryStream())
+            {
+                using (var cryptoStream = new CryptoStream(memoryStream, selectCryptoTransform(), CryptoStreamMode.Write))
+                {
+                    cryptoStream.Write(bytes, 0, bytes.Length);
+                }
+                return memoryStream.ToArray();
+            }
+        }
+
+        public string Encrypt(string unencrypted)
+        {
+            return Convert.ToBase64String(Encrypt(encoder.GetBytes(unencrypted)));
+        }
+
+        public string Decrypt(string encrypted)
+        {
+            return encoder.GetString(Decrypt(Convert.FromBase64String(encrypted)));
+        }
+
+        public byte[] Encrypt(byte[] buffer)
+        {
+            return Transform(buffer, algorithm.CreateEncryptor);
+        }
+
+        public byte[] Decrypt(byte[] buffer)
+        {
+            return Transform(buffer, algorithm.CreateDecryptor);
+        }
+
     }
 
     public static class DataRecord
@@ -4215,7 +4310,7 @@ namespace Portal.Consultoras.Common
             return valorDefecto;
         }
 
-        #endregion
+        #endregion        
     }
 
     public static class LinqExtensions
@@ -4227,6 +4322,5 @@ namespace Portal.Consultoras.Common
                 updator(item);
             }
         }
-    }
-
+    }    
 }

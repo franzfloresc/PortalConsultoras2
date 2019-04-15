@@ -912,30 +912,6 @@ namespace Portal.Consultoras.Web.SessionManager
             return (CDRWebModel)val;
         }
 
-        void ISessionManager.SetfechaGetNotificacionesSinLeer(dynamic val)
-        {
-            HttpContext.Current.Session["fechaGetNotificacionesSinLeer"] = val;
-        }
-
-        dynamic ISessionManager.GetfechaGetNotificacionesSinLeer()
-        {
-            var val = HttpContext.Current.Session["fechaGetNotificacionesSinLeer"];
-
-            return (dynamic)val;
-        }
-
-        void ISessionManager.SetcantidadGetNotificacionesSinLeer(dynamic val)
-        {
-            HttpContext.Current.Session["cantidadGetNotificacionesSinLeer"] = val;
-        }
-
-        dynamic ISessionManager.GetcantidadGetNotificacionesSinLeer()
-        {
-            var val = HttpContext.Current.Session["cantidadGetNotificacionesSinLeer"];
-
-            return (dynamic)val;
-        }
-
         void ISessionManager.SetPedidoFIC(List<BEPedidoFICDetalle> val)
         {
             HttpContext.Current.Session["PedidoFIC"] = val;

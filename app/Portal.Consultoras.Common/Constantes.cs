@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Portal.Consultoras.Common
 {
@@ -140,6 +141,7 @@ namespace Portal.Consultoras.Common
             public const int IdMaximo = 502;
         }
 
+        [Obsolete("Use ConsTablaLogica")]
         public static class TablaLogicaDato
         {
             // PackNuevas-PedidoAsociado.
@@ -192,6 +194,7 @@ namespace Portal.Consultoras.Common
                 public const int Habilitar_App = 12213;
                 public const int Habilitar_App_PBI_ExternalApp = 12214;
                 public const string Habilitar_Comision_Cero = "DESACTIVA_COMISION_VISA";
+                public const decimal MontoMinimoPago = 0.50m;
             }
 
             public static class ArmaTuPack
@@ -593,6 +596,9 @@ namespace Portal.Consultoras.Common
 
             public const string PaisesEscalaDescuento = "PaisesEscalaDescuento";
 
+            public const string BonificacionesURL = "BonificacionesURL";
+            public const string BonificacionesRegiones = "BonificacionesRegiones";
+            public const string JsonWebTokenSecretKey = "JsonWebTokenSecretKey";
         }
 
         public static class TipoOfertaFinalCatalogoPersonalizado
@@ -747,6 +753,36 @@ namespace Portal.Consultoras.Common
             public const int MobileContenedorGanadorasFicha = 2081402; // Esta en duro en ConstantesModule
             public const int MobileLandingGanadorasGanadorasCarrusel = 2111401; // Esta en duro en ConstantesModule
             public const int MobileLandingGanadorasGanadorasFicha = 2111402; // Esta en duro en ConstantesModule
+            #endregion
+
+            #region Duo Perfecto
+            public const int DesktopLandingDuoPerfectoCarrusel = 1141601;
+            public const int DesktopLandingDuoPerfectoFicha = 1141602;
+            public const int DesktopHomeDuoPerfectoCarrusel = 1011601;
+            public const int DesktopHomeDuoPerfectoFicha = 1011602;
+            public const int DesktopPedidoDuoPerfectoCarrusel = 1021601;
+            public const int DesktopPedidoDuoPerfectoFicha = 1021602;
+            public const int MobileLandingDuoPerfectoCarrusel = 2141601;
+            public const int MobileLandingDuoPerfectoFicha = 2141602;
+            public const int MobileHomeDuoPerfectoCarrusel = 2011601;
+            public const int MobileHomeDuoPerfectoFicha = 2011602;
+            public const int MobilePedidoDuoPerfectoCarrusel = 2021601;
+            public const int MobilePedidoDuoPerfectoFicha = 2021602;
+            #endregion
+
+            #region Pack Nuevas
+            public const int DesktopLandingPackNuevasCarrusel = 1151701;
+            public const int DesktopLandingPackNuevasFicha = 1151702;
+            public const int DesktopHomePackNuevasCarrusel = 1011701;
+            public const int DesktopHomePackNuevasFicha = 1011702;
+            public const int DesktopPedidoPackNuevasCarrusel = 1021701;
+            public const int DesktopPedidoPackNuevasFicha = 1021702;
+            public const int MobileLandingPackNuevasCarrusel = 2151701;
+            public const int MobileLandingPackNuevasFicha = 2151702;
+            public const int MobileHomePackNuevasCarrusel = 2011701;
+            public const int MobileHomePackNuevasFicha = 2011702;
+            public const int MobilePedidoPackNuevasCarrusel = 2021701;
+            public const int MobilePedidoPackNuevasFicha = 2021702;
             #endregion
 
             #region VirtualCoach
@@ -1336,6 +1372,7 @@ namespace Portal.Consultoras.Common
             public const string ActualizaDatos = "ACTUALIZADATOS";
             public const string Notificaciones = "NOTIFICACIONES";
             public const string MasGanadoras = "MASGANADORAS";
+            public const string ArmaTuPack = "ARMATUPACK";
         }
 
         public static class IngresoExternoOrigen
@@ -1466,7 +1503,7 @@ namespace Portal.Consultoras.Common
             public const string InsertarValidarKitInicio = "No está permitido agregar el Kit de un programa obligatorio.";
             public const string ValidarAgregarProgNuevas = "Sucedió un error al validar el programa de nuevas. Inténtenlo más tarde.";
             public const string ExcedioLimiteVenta = "Las unidades ingresadas exceden el máximo permitido ({0}) en esta campaña.";
-            public const string StockLimiteVenta = "En esta campaña nuestro producto <b>{0} – {1}</b> ha tenido una gran acogida. Sin embargo hemos reservado una ({2}) unidad(es) para ti. Por favor modifica las unidades ingresadas.";
+            public const string StockLimiteVenta = "En esta campaña nuestro producto <b>{0} – {1}</b> ha tenido una gran acogida. Sin embargo hemos reservado {2} unidad(es) para ti. Por favor modifica las unidades ingresadas.";
             public const string Pedido_NoAgregarLiquidacion = "No se puede agregar una Oferta Liquidacion por este medio.";
         }
 
@@ -1774,14 +1811,18 @@ namespace Portal.Consultoras.Common
             public const int NoPopUp = 3;
         }
 
+        [Obsolete("Use ConsTablaLogica")]
         public struct TablaLogica
         {
-            public const int NroReclamosPorPedidoCDR = 161; //HD-3412 EINCA
+            public const int NroReclamosPorPedidoCDR = 161;
             public const int PersonalizacionODD = 93;
             public const int Plan20 = 98;
             public const int CDRExpress = 104;
             public const int StockDiasAntes = 181;
             public const int CorreoFeedbackAppConsultora = 105;
+
+            public const int EscalaDescuentoMensajeImportante = 160;
+
 
             /// <summary>
             /// Variables configurables del app
@@ -2270,6 +2311,11 @@ namespace Portal.Consultoras.Common
             public const string AppConsultora = "App Consultora";
             public const string BannerDescargarAppNuevas = "BannerDescargarAppNuevas";
             public const string Extraordinarios = "App Consultora,BannerDescargarAppNuevas";
+            //HD-3550 EINCA
+            public static class TipoComunicado {
+                public const int Banner = 1;
+                public const int PopUp = 2;
+            }
         }
         public static class ColumnsSetStrategyShowroom
         {
@@ -3148,11 +3194,14 @@ namespace Portal.Consultoras.Common
             public const string FlagFiltrosBuscador = "FlagFiltrosBuscador";
             public const string FlagBuscarPorCategoria = "BuscarPorCategoria";
             public const string FlagBuscarPorCategoriaTotalProductos = "BuscarPorCategoriaTotalProductos";
+            public const string MostrarPalabrasMenoresACuatro = "MostrarPalabrasMenoresACuatro";
         }
 
         public static class CodigoConfiguracionMSPersonalizacion
         {
             public const string EstrategiaDisponible = "EstrategiaDisponible";
+            public const string GuardaDataEnLocalStorage = "GuardaDataEnLocalStorage";
+            public const string GuardaDataEnSession = "GuardaDataEnSession";
         }
 
         public static class CodigoConfiguracionRecomendaciones
@@ -3307,6 +3356,7 @@ namespace Portal.Consultoras.Common
             public const string ESPECIALES = "ESPECIALES";
             public const string OFERTASFLEXIPAGO = "OFERTASFLEXIPAGO";
             public const string ESPREMIOELEC = "ESPREMIOELEC";
+            public const string ESCUPONINDEPENDIENTE = "ESCUPONINDEPENDIENTE";
             public const string ESCUPONNUEVAS = "ESCUPONNUEVAS";
             public const string ESELECMULTIPLENUEVAS = "ESELECMULTIPLENUEVAS";
         }
@@ -3398,6 +3448,12 @@ namespace Portal.Consultoras.Common
             public const int StockHijo = 1;
         }
 
+        public static class Controlador
+        {
+            public static readonly string[] ActualizacionODD = { "Bienvenida", "Ofertas", "DetalleEstrategia", "Pedido" };
+            public const string Pedido = "Pedido";
+        }
+
         public static class EstrategiaDetalleCamposID
         {
             public const int FlagIndividual = 10212;
@@ -3481,6 +3537,11 @@ namespace Portal.Consultoras.Common
             public const int Inconstantes = 7;
             public const int PosibleEgreso = 8;
             public const int Reingreso = 9;
+        }
+
+        public static class CodigoContenido
+        {
+            public const string Lanzamiento = "BONIFICACIONES_RESUMEN";
         }
     }
 }

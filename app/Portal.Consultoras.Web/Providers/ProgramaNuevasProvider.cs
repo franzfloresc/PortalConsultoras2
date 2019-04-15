@@ -2,7 +2,7 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.ProgramaNuevas;
-using Portal.Consultoras.Web.ServiceODS;
+using ODS = Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.SessionManager;
@@ -178,9 +178,31 @@ namespace Portal.Consultoras.Web.Providers
         {
             return Util.GetOrCalcValue(sessionManager.GetLimElectivosProgNuevas, sessionManager.SetLimElectivosProgNuevas, (i) => i == 0, CalcLimElectivos);
         }
+
+        public bool TieneDuoPerfecto()
+        {
+            return GetLimElectivos() > 1;
+        }
+
         public List<PremioElectivoModel> GetListPremioElectivo()
         {
             return Util.GetOrCalcValue(sessionManager.GetListPremioElectivo, sessionManager.SetListPremioElectivo, (i) => i == null, CalcListPremioElectivo);
+        }
+        public List<ODS.BEProductoEstraProgNuevas> GetListCuvEstrategia()
+        {
+            try
+            {
+                var consultoraNuevas = Mapper.Map<ODS.BEConsultoraProgramaNuevas>(userData);
+                using (var sv = new ODS.ODSServiceClient())
+                {
+                    return sv.GetListCuvProgNuevasEstrategia(consultoraNuevas).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return new List<ODS.BEProductoEstraProgNuevas>();
+            }
         }
 
         private BEConfiguracionProgramaNuevas CalcConfiguracion()
@@ -234,7 +256,7 @@ namespace Portal.Consultoras.Web.Providers
         {
             try
             {
-                using (var sv = new ODSServiceClient())
+                using (var sv = new ODS.ODSServiceClient())
                 {
                     return sv.GetLimElectivosProgNuevas(userData.PaisID, userData.CampaniaID, userData.ConsecutivoNueva, userData.CodigoPrograma);
                 }

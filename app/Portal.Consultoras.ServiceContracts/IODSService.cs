@@ -177,6 +177,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         int GetLimElectivosProgNuevas(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma);
+
+        [OperationContract]
+        List<BEProductoEstraProgNuevas> GetListCuvProgNuevasEstrategia(BEConsultoraProgramaNuevas consultoraNueva);
         #endregion
 
         #region ValidarVentaExclusiva

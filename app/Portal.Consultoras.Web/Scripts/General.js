@@ -758,14 +758,14 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
             $('.ui-dialog .ui-button').off('click');
             $('.ui-dialog .ui-icon-closethick').off('click');
 
-            $('.ui-dialog .ui-button').on('click', function () {
+            $('.ui-dialog .ui-button').on('click', function (e) {
                 HideDialog("alertDialogMensajes");
-                if ($.isFunction(fnAceptar)) fnAceptar();
+                if ($.isFunction(fnAceptar)) fnAceptar(e);
             });
 
-            $('.ui-dialog .ui-icon-closethick').on('click', function () {
+            $('.ui-dialog .ui-icon-closethick').on('click', function (e) {
                 HideDialog("alertDialogMensajes");
-                if ($.isFunction(fnAceptar)) fnAceptar();
+                if ($.isFunction(fnAceptar)) fnAceptar(e);
             });
 
             $('.ui-dialog .ui-button').focus();
@@ -1001,11 +1001,11 @@ function ActualizarGanancia(data) {
     $("[data-ganancia]").html(data.MontoGananciaStr || "");
     $("[data-ganancia2]").html(variablesPortal.SimboloMoneda + " " + data.MontoGananciaStr || "");
     $("[data-pedidocondescuento]").html(DecimalToStringFormat(data.TotalPedido - data.MontoDescuento));
-    $("[data-montodescuento]").html(variablesPortal.SimboloMoneda + " " + DecimalToStringFormat(data.MontoDescuentoStr));
+    $("[data-montodescuento]").html(variablesPortal.SimboloMoneda + " " + data.MontoDescuentoStr);
     $("[data-pedidototal]").html(variablesPortal.SimboloMoneda + " " + data.TotalPedidoStr);
     $("[data-cantidadproducto]").html(data.CantidadProductos);
-    $("[data-montoahorrocatalogo]").html(variablesPortal.SimboloMoneda + " " + DecimalToStringFormat(data.MontoAhorroCatalogoStr));
-    $("[data-montoahorrorevista]").html(variablesPortal.SimboloMoneda + " " + DecimalToStringFormat(data.MontoAhorroRevistaStr));
+    $("[data-montoahorrocatalogo]").html(variablesPortal.SimboloMoneda + " " + data.MontoAhorroCatalogoStr);
+    $("[data-montoahorrorevista]").html(variablesPortal.SimboloMoneda + " " + data.MontoAhorroRevistaStr);
 
     $(".num-menu-shop").html(data.CantidadProductos);
     $(".js-span-pedidoingresado").html(data.TotalPedidoStr);
@@ -1975,6 +1975,15 @@ function microefectoPedidoGuardado() {
     setTimeout(function () {
         divCirculos.fadeOut();
     }, 2700);
+}
+
+function DataLayerPedidosPendientes(evento, categoria, accion, etiqueta) {
+    dataLayer.push({
+        'event': evento,
+        'category': categoria,
+        'action': accion,
+        'label': etiqueta
+    });
 }
 
 /**

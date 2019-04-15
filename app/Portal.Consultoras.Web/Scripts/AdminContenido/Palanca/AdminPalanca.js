@@ -1,5 +1,4 @@
-﻿
-var _toastHelper = ToastHelper();
+﻿var _toastHelper = ToastHelper();
 var _listPalanca = ["LAN", "RDR", "RD", "OPT"];
 var _palanca = {
     showroom: "SR",
@@ -21,6 +20,7 @@ jQuery(document).ready(function () {
     UpdateGrillaOfertas();
     UpdateGrillaPalanca();
     IniDialogs();
+    IniDialogOfertasHome();
 
     //$("#btnBuscar").click(function () {
     //    UpdateGrillaOfertas();
@@ -71,26 +71,19 @@ jQuery(document).ready(function () {
     });
 
     $("body").on("change", "#ddlConfiguracionIdOfertas", function () {
-        if (_listPalanca.indexOf($(this).find("option:selected").attr("data-codigo")) > -1) {
-            $(".hide-configuration").show();
-        } else {
-            $(".hide-configuration").hide();
-        }
 
-        if ($(this).find("option:selected").attr("data-codigo") === _palanca.odd) {
-            $(".hide-config-image-odd").show();
-        } else {
-            $(".hide-config-image-odd").hide();
-        }
+
+        OfertasHomeMostrarCampos();
+
 
         ConfigSeccionApp($(this).val());
-        
-        if ($(this).find("option:selected").attr("data-codigo") == ConstantesModule.TipoEstrategia.ATP) {
+
+        if ($(this).find("option:selected").attr("data-codigo") == ConstantesModule.CodigoPalanca.ATP) {
             if ($("#ConfiguracionOfertasHomeID").val() == 0) {
-                $(".div-disenio-atp-visible").show();
-                $(".div-disenio-atp-oculto").hide();
+
+
                 $("#tituloSeccionDesktop").html("Desktop/Mobile");
-                $("#titColorTexto").html("Color de títulos");
+
                 $("#DesktopTitulo").val("ARMA TU PACK");
                 $("#DesktopColorFondo").val("#fa1702");
                 $("#DesktopSubTitulo").val("Elige tus productos favoritos y llévatelos al #PrecioTotal");
@@ -107,10 +100,9 @@ jQuery(document).ready(function () {
                 $("#titTamanioImagenFondo").html("(Ancho: 1920 px x Alto: 300 px)");
             }
         } else {
-            $(".div-disenio-atp-visible").hide();
-            $(".div-disenio-atp-oculto").show();
+
             $("#tituloSeccionDesktop").html("Desktop");
-            $("#titColorTexto").html("Color Texto:");
+
         }
     });
 });
@@ -137,21 +129,19 @@ function ConfigSeccionApp(configuracionPaisID) {
                 return;
             }
 
-            if (result.data.AppOfertasHomeActivo == "1") {
-                if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") != ConstantesModule.TipoEstrategia.ATP)
-                    $("#divMantApp").show();
-            }
-            else { $("#divMantApp").hide(); }
+            if (result.data.AppOfertasHomeActivo === "1") $("#divMantApp").show();
+            else $("#divMantApp").hide();
 
-            if (result.data.AppOfertasHomeImgExtension != "") $("#nombre-fondo-app").attr("imageextension", result.data.AppOfertasHomeImgExtension);
-            if (result.data.AppOfertasHomeImgAncho != "") $("#nombre-fondo-app").attr("imagewidth", result.data.AppOfertasHomeImgAncho);
-            if (result.data.AppOfertasHomeImgAlto != "") $("#nombre-fondo-app").attr("imageheight", result.data.AppOfertasHomeImgAlto);
-            if (result.data.AppOfertasHomeMsjMedida != "") $("#nombre-fondo-app").attr("messageSize", result.data.AppOfertasHomeMsjMedida);
-            if (result.data.AppOfertasHomeMsjFormato != "") $("#nombre-fondo-app").attr("messageFormat", result.data.AppOfertasHomeMsjFormato);
 
+            if (result.data.AppOfertasHomeImgExtension !== "") $("#nombre-fondo-app").attr("imageextension", result.data.AppOfertasHomeImgExtension);
+            if (result.data.AppOfertasHomeImgAncho !== "") $("#nombre-fondo-app").attr("imagewidth", result.data.AppOfertasHomeImgAncho);
+            if (result.data.AppOfertasHomeImgAlto !== "") $("#nombre-fondo-app").attr("imageheight", result.data.AppOfertasHomeImgAlto);
+            if (result.data.AppOfertasHomeMsjMedida !== "") $("#nombre-fondo-app").attr("messageSize", result.data.AppOfertasHomeMsjMedida);
+            if (result.data.AppOfertasHomeMsjFormato !== "") $("#nombre-fondo-app").attr("messageFormat", result.data.AppOfertasHomeMsjFormato);
+    
             var palanca = $("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo");
-            if (palanca == _palanca.pn || palanca == _palanca.dp) {
-                $("#AdministrarOfertasHomeAppModel_AppColorFondo").parent().parent().hide();
+            if (palanca === _palanca.pn || palanca === _palanca.dp) {
+                    $("#AdministrarOfertasHomeAppModel_AppColorFondo").parent().parent().hide();
                 $("#AdministrarOfertasHomeAppModel_AppColorTexto").parent().parent().hide();
                 $("#AdministrarOfertasHomeAppModel_AppCantidadProductos").parent().parent().hide();
 
@@ -162,10 +152,27 @@ function ConfigSeccionApp(configuracionPaisID) {
             else {
                 $("#AdministrarOfertasHomeAppModel_AppColorFondo").parent().parent().show();
                 $("#AdministrarOfertasHomeAppModel_AppColorTexto").parent().parent().show();
-                $("#AdministrarOfertasHomeAppModel_AppCantidadProductos").parent().parent().show();
 
-                if ($("#AdministrarOfertasHomeAppModel_AppColorFondo").val() === "") $("#AdministrarOfertasHomeAppModel_AppColorFondo").val("#000000");
-                if ($("#AdministrarOfertasHomeAppModel_AppColorTexto").val() === "") $("#AdministrarOfertasHomeAppModel_AppColorTexto").val("#ffffff");
+                if (palanca === ConstantesModule.CodigoPalanca.ATP) {
+                    $("#AdministrarOfertasHomeAppModel_AppSubTitulo").parent().parent().show();
+                    $("#AdministrarOfertasHomeAppModel_AppCantidadProductos").parent().parent().hide();
+                    $("#AdministrarOfertasHomeAppModel_AppCantidadProductos").val("");
+                }
+                else {
+                    $("#AdministrarOfertasHomeAppModel_AppSubTitulo").parent().parent().hide();
+                    $("#AdministrarOfertasHomeAppModel_AppSubTitulo").val("");
+
+                    $("#AdministrarOfertasHomeAppModel_AppCantidadProductos").parent().parent().show();
+                }
+
+                if ($("#AdministrarOfertasHomeAppModel_AppColorFondo").val() === "") {
+                    if (palanca === ConstantesModule.CodigoPalanca.ATP) $("#AdministrarOfertasHomeAppModel_AppColorFondo").val("#be9040");
+                    else $("#AdministrarOfertasHomeAppModel_AppColorFondo").val("#000000");
+                }
+                if ($("#AdministrarOfertasHomeAppModel_AppColorTexto").val() === "") {
+                    if (palanca === ConstantesModule.CodigoPalanca.ATP) $("#AdministrarOfertasHomeAppModel_AppColorTexto").val("#000000");
+                    else $("#AdministrarOfertasHomeAppModel_AppColorTexto").val("#ffffff");
+                }
             }
 
             $("#lblBannerApp").html("Banner&nbsp;Informativo&nbsp;(" + result.data.AppOfertasHomeImgExtension + "):");
@@ -174,12 +181,12 @@ function ConfigSeccionApp(configuracionPaisID) {
             UploadFilePalancaApp("fondo-app");
         },
         error: function (request, status, error) {
-            closeWaitingDialog();
-            _toastHelper.error("Error al procesar la Solicitud.");
-        }
-    });
-}
-
+                    closeWaitingDialog();
+                _toastHelper.error("Error al procesar la Solicitud.");
+            }
+        });
+    }
+    
 function Modificar(idConfiguracionPais, event) {
     $.ajax({
         url: baseUrl + "AdministrarPalanca/GetPalanca",
@@ -204,7 +211,7 @@ function Modificar(idConfiguracionPais, event) {
 
             /*INIT Agana 159*/
 
-            var esATP = $.trim($("#Codigo").val()) === ConstantesModule.TipoEstrategia.ATP;
+            var esATP = $.trim($("#Codigo").val()) === ConstantesModule.CodigoPalanca.ATP;
 
             if (esATP) {
                 $("#lblDesktop").html('Desktop/Mobile');
@@ -241,80 +248,13 @@ function Modificar(idConfiguracionPais, event) {
 
             /*END Agana 159*/
 
-            /*Ini Agana 186*/
 
-            if ($(this).find("option:selected").attr("data-codigo") == ConstantesModule.TipoEstrategia.ATP) {
-                $(".div-disenio-atp-visible").show();
-                $(".div-disenio-atp-oculto").hide();
-                $("#tituloSeccionDesktop").html("Desktop/Mobile");
-                $("#titColorTexto").html("Color de títulos");
-                $("#titTamanioImagenFondo").html("(Ancho: 1920 px x Alto: 300 px)");
-            }
-
-            /*Fin Agana 186*/
         },
         error: function (request, status, error) { }
     });
 }
-
-function NuevoOfertaHome() {
-    ModificarOfertas(0);
-}
-function ModificarOfertas(idOfertasHome) {
-    waitingDialog({});
-
-    $.ajax({
-        url: baseUrl + "AdministrarPalanca/GetOfertasHome",
-        type: "GET",
-        dataType: "html",
-        data: { idOfertasHome: idOfertasHome },
-        contentType: "application/json; charset=utf-8",
-        success: function (result) {
-            
-            closeWaitingDialog();
-
-            $("#dialog-content-ofertas-home").empty();
-            $("#dialog-content-ofertas-home").html(result).ready(function () {
-                UploadFilePalanca("fondo-mobile");
-                UploadFilePalanca("fondo-desktop");
-            });
-
-            showDialog("DialogMantenimientoOfertasHome");
-
-            var esTrueDesktopCantidad = $.trim($("#DesktopCantidadProductos").val()) == "0";
-            if (esTrueDesktopCantidad) {
-                $("#cbDesktopCantidadTodos").prop("checked", true);
-                $("#DesktopCantidadProductos").attr("disabled", "disabled");
-            }
-
-            var esTrueMobileCantidad = $.trim($("#MobileCantidadProductos").val()) == "0";
-            if (esTrueMobileCantidad) {
-                $("#cbMobileCantidadTodos").prop("checked", true);
-                $("#MobileCantidadProductos").attr("disabled", "disabled");
-            }
-            if (_listPalanca.indexOf($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo")) > -1) {
-                $(".hide-configuration").show();
-            } else {
-                $(".hide-configuration").hide();
-            }
-
-            /*Inicia Agana 186 */
-            if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") == ConstantesModule.TipoEstrategia.ATP) {
-                $(".div-disenio-atp-visible").show();
-                $(".div-disenio-atp-oculto").hide();
-
-                $("#divMantApp").hide();
-
-                $("#tituloSeccionDesktop").html("Desktop/Mobile");
-                $("#titColorTexto").html("Color de títulos");
-                $("#titTamanioImagenFondo").html("(Ancho: 1920 px x Alto: 300 px)");
-            }
-            /*Fin Agana 186 */
-
-        },
-        error: function (request, status, error) { closeWaitingDialog(); _toastHelper.error("Error al cargar la ventana."); }
-    });
-}
+                
+                
 function IniDialogs() {
     $("#DialogMantenimientoPalanca").dialog({
         autoOpen: false,
@@ -340,7 +280,7 @@ function IniDialogs() {
                 }
 
                 /*INIT AGANA 159 */
-                var esATP = $.trim($("#Codigo").val()) === ConstantesModule.TipoEstrategia.ATP;
+                var esATP = $.trim($("#Codigo").val()) === ConstantesModule.CodigoPalanca.ATP;
 
                 if (esATP) {
                     //valores a replicar
@@ -407,6 +347,171 @@ function IniDialogs() {
             }
         }
     });
+}
+                
+function UpdateGrillaPalanca() {
+    $("#list").jqGrid("GridUnload");
+
+    jQuery("#list").jqGrid({
+        url: baseUrl + "AdministrarPalanca/ListPalanca",
+        hidegrid: false,
+        datatype: "json",
+        mtype: "GET",
+        contentType: "application/json; charset=utf-8",
+        multiselect: false,
+        colNames: ["ConfiguracionPaisID", "Orden", "Código", "Descripción", "Acción"],
+        colModel: [
+        {
+                name: "ConfiguracionPaisID",
+            index: "ConfiguracionPaisID",
+            width: 20,
+            editable: true,
+            resizable: false,
+            hidden: true
+
+        },
+        {
+                name: "Orden",
+            index: "Orden",
+            width: 40,
+            ConfiguracionPaisID: true,
+            resizable: false,
+            hidden: false,
+            sortable: false
+        },
+        {name: "Codigo", index: "Codigo", width: 40, editable: true, hidden: false, sortable: false },
+        {name: "Descripcion", index: "Descripcion", width: 280, editable: true, hidden: false, sortable: false },
+        {
+                name: "Activo",
+            index: "Activo",
+            width: 30,
+            align: "center",
+            editable: true,
+            resizable: false,
+            sortable: false,
+            formatter: ShowActions
+        }
+        ],
+        pager: false,
+        loadtext: "Cargando datos...",
+        recordtext: "{0} - {1} de {2} Registros",
+        emptyrecords: "No hay resultados",
+        rowNum: 100,
+        scrollOffset: 0,
+        sortname: "Orden",
+        sortorder: "asc",
+        height: "auto",
+        width: 930,
+        altRows: true,
+        altclass: "jQGridAltRowClass",
+        pgbuttons: false,
+        viewrecords: false,
+        pgtext: "",
+        pginput: false
+    });
+    jQuery("#list").jqGrid("navGrid", "#pager", {edit: false, add: false, refresh: false, del: false, search: false });
+}
+            
+function ShowActions(cellvalue, options, rowObject) {
+    var des = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + rowObject[0] + "',event);\" >" + "<img src='" + rutaImagenEdit + "' alt='Editar' title='Editar' border='0' /></a>";
+    if (rowObject[10] === "1") {
+        des += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + rowObject[0] + "',event);\" >" + "<img src='" + rutaImagenDelete + "' alt='Deshabilitar' title='Deshabilitar' border='0' /></a>";
+    }
+    return des;
+}
+
+function ShowActionsOfertas(cellvalue, options, rowObject) {
+
+            var des = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listOfertas').EditarOfertas('" + rowObject[0] + "');\" >" + "<img src='" + rutaImagenEdit + "' alt='Editar' title='Editar' border='0' /></a>";
+            if(rowObject[10] === "1") {
+        des += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + rowObject[0] + "');\" >" + "<img src='" + rutaImagenDelete + "' alt='Deshabilitar' title='Deshabilitar' border='0' /></a>";
+    }
+    return des;
+}
+
+function UploadFilePalanca(tag) {
+    var tipoFile = ["jpg", "png", "jpeg"];
+    var tipoFileTag = $("#nombre-" + tag).attr("data-tipofile");
+    if (tipoFileTag === "imggif") {
+        tipoFile.push("gif");
+    }
+
+    new qq.FileUploader({
+        allowedExtensions: tipoFile,
+        element: document.getElementById("img-" + tag),
+        action: rutaFileUpload,
+        onComplete: function (id, fileName, responseJSON) {
+            if (checkTimeout(responseJSON)) {
+                if (responseJSON.success) {
+                    $("#nombre-" + tag).val(responseJSON.name);
+                    $("#src-" + tag).attr("src", rutaTemporal + responseJSON.name);
+                } else alert(responseJSON.message);
+            }
+            return false;
+        },
+        onSubmit: function (id, fileName) { $(".qq-upload-list").remove(); },
+        onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").remove(); },
+        onCancel: function (id, fileName) { $(".qq-upload-list").remove(); }
+    });
+    if ($("#nombre-" + tag).val() !== "") {
+        $("#src-" + tag).attr("src", urlS3 + $("#nombre-" + tag).val());
+    }
+
+    return false;
+}
+
+function UploadFilePalancaApp(tag) {
+    var tipoFileTag = $("#nombre-" + tag).attr("imageextension");
+    var tipoFile = tipoFileTag.split(",");
+
+    var params = {};
+    params["width"] = $("#nombre-" + tag).attr("imagewidth");
+    params["height"] = $("#nombre-" + tag).attr("imageheight");
+    params["messageSize"] = $("#nombre-" + tag).attr("messageSize");
+
+    new qq.FileUploader({
+        allowedExtensions: tipoFile,
+        element: document.getElementById("img-" + tag),
+        action: rutaFileUpload,
+        params: params,
+        messages: {
+            typeError: $("#nombre-" + tag).attr("messageFormat")
+        },
+        onComplete: function (id, fileName, responseJSON) {
+            closeWaitingDialog();
+            if (checkTimeout(responseJSON)) {
+                if (responseJSON.success) {
+                    $("#nombre-" + tag).val(responseJSON.name);
+                    $("#src-" + tag).attr("src", rutaTemporal + responseJSON.name);
+                }
+                else {
+                    alert(responseJSON.message);
+                }
+            }
+            return false;
+        },
+        onSubmit: function (id, fileName) { $(".qq-upload-list").remove(); waitingDialog({}); },
+        onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").remove(); },
+        onCancel: function (id, fileName) { $(".qq-upload-list").remove(); }
+    });
+    if ($("#nombre-" + tag).val() !== "") $("#src-" + tag).attr("src", urlS3 + $("#nombre-" + tag).val());
+
+    return false;
+}
+
+function GetStringEstrategia(nameCheckBox) {
+    var estrategias = "";
+    $("input[name='" + nameCheckBox + "']:checked").each(function () {
+        estrategias += $(this).attr("value");
+        estrategias += ",";
+    });
+    return estrategias.slice(0, -1);
+}
+
+/* Ini - Mantenedor Ofertas Home*/
+
+
+function IniDialogOfertasHome() {
 
     $("#DialogMantenimientoOfertasHome").dialog({
         autoOpen: false,
@@ -421,48 +526,7 @@ function IniDialogs() {
             HideDialog("DialogMantenimientoOfertasHome");
         },
         open: function (event, ui) {
-            $(".ui-dialog-titlebar-close", ui.dialog).hide();
-            $("#colorpickerHolder").ColorPicker({ flat: true });
-            $("#DesktopColorFondo, #DesktopColorTexto, #MobileColorFondo, #MobileColorTexto, #AdministrarOfertasHomeAppModel_AppColorFondo, #AdministrarOfertasHomeAppModel_AppColorTexto, #BotonColor, #BotonColorTexto").ColorPicker({
-                onSubmit: function (hsb, hex, rgb, el) {
-                    var newValue = "#" + hex;
-                    $(el).val(newValue);
-                    $(el).ColorPickerHide();
-                },
-                onBeforeShow: function () {
-                    $(this).ColorPickerSetColor(this.value);
-                }
-            })
-                .bind("keyup", function () {
-                    $(this).ColorPickerSetColor(this.value);
-                });
-
-            if ($("#DesktopColorFondo").val() === "") {
-                if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") != ConstantesModule.TipoEstrategia.ATP) {
-                    $("#DesktopColorFondo").val("#000000");
-                }
-            }
-            if ($("#MobileColorFondo").val() === "") {
-                if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") != ConstantesModule.TipoEstrategia.ATP) {
-                    $("#MobileColorFondo").val("#000000");
-                }
-            }
-            if ($("#DesktopColorTexto").val() === "") {
-                if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") != ConstantesModule.TipoEstrategia.ATP) {
-                    $("#DesktopColorTexto").val("#ffffff");
-                }
-            }
-            if ($("#MobileColorTexto").val() === "") {
-                if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") != ConstantesModule.TipoEstrategia.ATP) {
-                    $("#MobileColorTexto").val("#ffffff");
-                }
-            }
-
-            if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") !== _palanca.odd) {
-                $(".hide-config-image-odd").hide();
-            }
-
-            $("#ddlConfiguracionIdOfertas").change();
+            DialogOfertasHomeOpen(event, ui);
         },
         buttons:
         {
@@ -536,7 +600,7 @@ function IniDialogs() {
                     return false;
                 }
 
-                var esATP = $.trim($("#Codigo").val()) === ConstantesModule.TipoEstrategia.ATP;
+                var esATP = $.trim($("#Codigo").val()) === ConstantesModule.CodigoPalanca.ATP;
 
                 if (esATP) {
                     if (!regExpColorHex.test(botonColor) && botonColor !== "") {
@@ -564,7 +628,7 @@ function IniDialogs() {
 
                 /*Inicio Agana 186 - Setear valores por defecto*/
 
-                if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") == ConstantesModule.TipoEstrategia.ATP) {
+                if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") == ConstantesModule.CodigoPalanca.ATP) {
                     desktopColorFondo = $("#DesktopColorFondo").val();
                     mobileColorFondo = desktopColorFondo;
                     desktopColorTexto = $("#DesktopColorTexto").val();
@@ -572,6 +636,8 @@ function IniDialogs() {
                     desktopUsarImagenFondo = $("#DesktopUsarImagenFondo").prop("checked");
                     mobileUsarImagenFondo = desktopUsarImagenFondo;
                     mobileActivo = desktopActivo;
+
+                    mobileTipoPresentacion = desktopTipoPresentacion;
 
                     $("#DesktopOrdenBpt").val($("#DesktopOrden").val());
                     $("#MobileOrden").val($("#DesktopOrden").val());
@@ -648,6 +714,7 @@ function IniDialogs() {
                         ConfiguracionOfertasHomeAppID: $("#AdministrarOfertasHomeAppModel_ConfiguracionOfertasHomeAppID").val(),
                         AppActivo: $("#AdministrarOfertasHomeAppModel_AppActivo").is(":checked"),
                         AppTitulo: $("#AdministrarOfertasHomeAppModel_AppTitulo").val(),
+                        AppSubTitulo: $("#AdministrarOfertasHomeAppModel_AppSubTitulo").val(),
                         AppColorFondo: $("#AdministrarOfertasHomeAppModel_AppColorFondo").val(),
                         AppColorTexto: $("#AdministrarOfertasHomeAppModel_AppColorTexto").val(),
                         AppBannerInformativo: $("#nombre-fondo-app").val(),
@@ -698,67 +765,49 @@ function IniDialogs() {
     });
 }
 
+function DialogOfertasHomeOpen(event, ui) {
+    $(".ui-dialog-titlebar-close", ui.dialog).hide();
+    $("#colorpickerHolder").ColorPicker({ flat: true });
+    $("#DesktopColorFondo, #DesktopColorTexto, #MobileColorFondo, #MobileColorTexto, #AdministrarOfertasHomeAppModel_AppColorFondo, #AdministrarOfertasHomeAppModel_AppColorTexto, #BotonColor, #BotonColorTexto").ColorPicker({
+        onSubmit: function (hsb, hex, rgb, el) {
+            var newValue = "#" + hex;
+            $(el).val(newValue);
+            $(el).ColorPickerHide();
 
-function UpdateGrillaPalanca() {
-    $("#list").jqGrid("GridUnload");
+        },
+        onBeforeShow: function () {
+            $(this).ColorPickerSetColor(this.value);
 
-    jQuery("#list").jqGrid({
-        url: baseUrl + "AdministrarPalanca/ListPalanca",
-        hidegrid: false,
-        datatype: "json",
-        mtype: "GET",
-        contentType: "application/json; charset=utf-8",
-        multiselect: false,
-        colNames: ["ConfiguracionPaisID", "Orden", "Código", "Descripción", "Acción"],
-        colModel: [
-            {
-                name: "ConfiguracionPaisID",
-                index: "ConfiguracionPaisID",
-                width: 20,
-                editable: true,
-                resizable: false,
-                hidden: true
-            },
-            {
-                name: "Orden",
-                index: "Orden",
-                width: 40,
-                ConfiguracionPaisID: true,
-                resizable: false,
-                hidden: false,
-                sortable: false
-            },
-            { name: "Codigo", index: "Codigo", width: 40, editable: true, hidden: false, sortable: false },
-            { name: "Descripcion", index: "Descripcion", width: 280, editable: true, hidden: false, sortable: false },
-            {
-                name: "Activo",
-                index: "Activo",
-                width: 30,
-                align: "center",
-                editable: true,
-                resizable: false,
-                sortable: false,
-                formatter: ShowActions
-            }
-        ],
-        pager: false,
-        loadtext: "Cargando datos...",
-        recordtext: "{0} - {1} de {2} Registros",
-        emptyrecords: "No hay resultados",
-        rowNum: 100,
-        scrollOffset: 0,
-        sortname: "Orden",
-        sortorder: "asc",
-        height: "auto",
-        width: 930,
-        altRows: true,
-        altclass: "jQGridAltRowClass",
-        pgbuttons: false,
-        viewrecords: false,
-        pgtext: "",
-        pginput: false
+        }
+    }).bind("keyup", function () {
+        $(this).ColorPickerSetColor(this.value);
+
     });
-    jQuery("#list").jqGrid("navGrid", "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
+
+    var codigoConfiguracionPais = $("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo");
+
+    if ($("#DesktopColorFondo").val() === "") {
+        if (codigoConfiguracionPais != ConstantesModule.CodigoPalanca.ATP) {
+            $("#DesktopColorFondo").val("#000000");
+        }
+    }
+    if ($("#MobileColorFondo").val() === "") {
+        if (codigoConfiguracionPais != ConstantesModule.CodigoPalanca.ATP) {
+            $("#MobileColorFondo").val("#000000");
+        }
+    }
+    if ($("#DesktopColorTexto").val() === "") {
+        if (codigoConfiguracionPais != ConstantesModule.CodigoPalanca.ATP) {
+            $("#DesktopColorTexto").val("#ffffff");
+        }
+    }
+    if ($("#MobileColorTexto").val() === "") {
+        if (codigoConfiguracionPais != ConstantesModule.CodigoPalanca.ATP) {
+            $("#MobileColorTexto").val("#ffffff");
+        }
+    }
+
+    $("#ddlConfiguracionIdOfertas").change();
 }
 
 function UpdateGrillaOfertas() {
@@ -837,99 +886,115 @@ function UpdateGrillaOfertas() {
     jQuery("#listOfertas").jqGrid("navGrid", "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
 }
 
-function ShowActions(cellvalue, options, rowObject) {
+function NuevoOfertaHome() {
+    ModificarOfertas(0);
 
-    var des = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + rowObject[0] + "',event);\" >" + "<img src='" + rutaImagenEdit + "' alt='Editar' title='Editar' border='0' /></a>";
-    if (rowObject[10] === "1") {
-        des += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + rowObject[0] + "',event);\" >" + "<img src='" + rutaImagenDelete + "' alt='Deshabilitar' title='Deshabilitar' border='0' /></a>";
-    }
-    return des;
 }
 
-function ShowActionsOfertas(cellvalue, options, rowObject) {
+function ModificarOfertas(idOfertasHome) {
+    waitingDialog();
 
-    var des = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listOfertas').EditarOfertas('" + rowObject[0] + "');\" >" + "<img src='" + rutaImagenEdit + "' alt='Editar' title='Editar' border='0' /></a>";
-    if (rowObject[10] === "1") {
-        des += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + rowObject[0] + "');\" >" + "<img src='" + rutaImagenDelete + "' alt='Deshabilitar' title='Deshabilitar' border='0' /></a>";
-    }
-    return des;
-}
-function UploadFilePalanca(tag) {
+    $.ajax({
+        url: baseUrl + "AdministrarPalanca/GetOfertasHome",
+        type: "GET",
+        dataType: "html",
+        data: { idOfertasHome: idOfertasHome },
+        contentType: "application/json; charset=utf-8",
+        success: function (result) {
 
-    var tipoFile = ["jpg", "png", "jpeg"];
-    var tipoFileTag = $("#nombre-" + tag).attr("data-tipofile");
-    if (tipoFileTag === "imggif") {
-        tipoFile.push("gif");
-    }
-
-    new qq.FileUploader({
-        allowedExtensions: tipoFile,
-        element: document.getElementById("img-" + tag),
-        action: rutaFileUpload,
-        onComplete: function (id, fileName, responseJSON) {
-            if (checkTimeout(responseJSON)) {
-                if (responseJSON.success) {
-                    $("#nombre-" + tag).val(responseJSON.name);
-                    $("#src-" + tag).attr("src", rutaTemporal + responseJSON.name);
-                } else alert(responseJSON.message);
-            }
-            return false;
-        },
-        onSubmit: function (id, fileName) { $(".qq-upload-list").remove(); },
-        onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").remove(); },
-        onCancel: function (id, fileName) { $(".qq-upload-list").remove(); }
-    });
-    if ($("#nombre-" + tag).val() !== "") {
-        $("#src-" + tag).attr("src", urlS3 + $("#nombre-" + tag).val());
-    }
-
-    return false;
-}
-
-function UploadFilePalancaApp(tag) {
-    var tipoFileTag = $("#nombre-" + tag).attr("imageextension");
-    var tipoFile = tipoFileTag.split(",");
-
-    var params = {};
-    params["width"] = $("#nombre-" + tag).attr("imagewidth");
-    params["height"] = $("#nombre-" + tag).attr("imageheight");
-    params["messageSize"] = $("#nombre-" + tag).attr("messageSize");
-
-    new qq.FileUploader({
-        allowedExtensions: tipoFile,
-        element: document.getElementById("img-" + tag),
-        action: rutaFileUpload,
-        params: params,
-        messages: {
-            typeError: $("#nombre-" + tag).attr("messageFormat")
-        },
-        onComplete: function (id, fileName, responseJSON) {
             closeWaitingDialog();
-            if (checkTimeout(responseJSON)) {
-                if (responseJSON.success) {
-                    $("#nombre-" + tag).val(responseJSON.name);
-                    $("#src-" + tag).attr("src", rutaTemporal + responseJSON.name);
-                }
-                else {
-                    alert(responseJSON.message);
-                }
+
+            $("#dialog-content-ofertas-home").empty();
+            $("#dialog-content-ofertas-home").html(result).ready(function () {
+                UploadFilePalanca("fondo-mobile");
+                UploadFilePalanca("fondo-desktop");
+            });
+
+            showDialog("DialogMantenimientoOfertasHome");
+
+            var esTrueDesktopCantidad = $.trim($("#DesktopCantidadProductos").val()) == "0";
+            if (esTrueDesktopCantidad) {
+                $("#cbDesktopCantidadTodos").prop("checked", true);
+                $("#DesktopCantidadProductos").attr("disabled", "disabled");
             }
-            return false;
+
+            var esTrueMobileCantidad = $.trim($("#MobileCantidadProductos").val()) == "0";
+            if (esTrueMobileCantidad) {
+                $("#cbMobileCantidadTodos").prop("checked", true);
+                $("#MobileCantidadProductos").attr("disabled", "disabled");
+
+            }
+
+            OfertasHomeMostrarCampos();
+
+
         },
-        onSubmit: function (id, fileName) { $(".qq-upload-list").remove(); waitingDialog({}); },
-        onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").remove(); },
-        onCancel: function (id, fileName) { $(".qq-upload-list").remove(); }
-    });
-    if ($("#nombre-" + tag).val() !== "") $("#src-" + tag).attr("src", urlS3 + $("#nombre-" + tag).val());
+        error: function (request, status, error) { closeWaitingDialog(); _toastHelper.error("Error al cargar la ventana."); }
 
-    return false;
+    });
+
 }
 
-function GetStringEstrategia(nameCheckBox) {
-    var estrategias = "";
-    $("input[name='" + nameCheckBox + "']:checked").each(function () {
-        estrategias += $(this).attr("value");
-        estrategias += ",";
-    });
-    return estrategias.slice(0, -1);
+function OfertasHomeMostrarCampos() {
+    var codigoConfiguracionPais = $("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo");
+
+    if (_listPalanca.indexOf(codigoConfiguracionPais) > -1) {
+        $(".divHomeTipoEstrategia").show();
+    } else {
+        $(".divHomeTipoEstrategia").hide();
+    }
+
+    $(".divHomeUsarImagenFondo").show();
+    $(".divHomeColorFondo").show();
+    $(".divHomeColorTexto").show();
+    $(".divHomeBotonTexto1").show();
+    $(".divHomeBotonTexto2").show();
+    $(".divHomeBotonColor").show();
+    $(".divHomeBotonColorTexto").show();
+    $(".divHomeImagenFondo").show();
+    $(".divHomeSubTitulo").show();
+    $(".divHomeCantidadProductos").show();
+    $(".divHomeTipoPresentacion").show();
+    $("#divTituloMobile").show();
+    $("#divContenidoMobile").show();
+    $("#divHomeUrlSeccion").show();
+    $(".divOrdenBpt").show();
+    $("#divMantApp").show();
+
+    $(".divHomeUsarImagenFondo").hide(); // caso odd
+    /*Inicia Agana 186 */
+    if (codigoConfiguracionPais == ConstantesModule.CodigoPalanca.ATP) {
+        $("#divTituloMobile").hide();
+        $("#divContenidoMobile").hide();
+        $(".divHomeUrlSeccion").hide();
+        $(".divOrdenBpt").hide();
+
+        $("#divMantApp").hide();
+
+        $("#tituloSeccionDesktop").html("Desktop/Mobile");
+        $("#titTamanioImagenFondo").html("(Ancho: 1920 px x Alto: 300 px)");
+
+    }
+    else {
+        if (codigoConfiguracionPais == _palanca.odd) {
+            $(".divHomeUsarImagenFondo").show();
+        }
+        else {
+            $(".divHomeColorFondo").hide();
+            $(".divHomeColorTexto").hide();
+        }
+
+
+        $(".divHomeBotonTexto1").hide();
+        $(".divHomeBotonTexto2").hide();
+        $(".divHomeBotonColor").hide();
+        $(".divHomeBotonColorTexto").hide();
+
+        $("#tituloSeccionDesktop").html("Desktop");
+        $("#titTamanioImagenFondo").html("(1920x500 pixeles)");
+
+    }
+    /*Fin Agana 186 */
 }
+
+/* Fin - Mantenedor Ofertas Home*/

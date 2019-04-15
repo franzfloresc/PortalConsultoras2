@@ -2,7 +2,7 @@
 <script id="grupos-template" type="text/x-handlebars-template">
     {{#each this.componentes as |grupo|}}
     <section class="Sections_Pack" data-group-item data-grupo="{{grupo.Grupo}}" >
-        <div class="Title_pack d-flex" data-group-header data-grupo="{{grupo.Grupo}}" >
+        <div class="Title_pack d-flex active" data-group-header data-grupo="{{grupo.Grupo}}" >
             <h3 data-grupo="{{grupo.Grupo}}">{{grupo.DescripcionSingular}}</h3>
             <span data-options-label-{{grupo.Grupo}} data-grupo="{{grupo.Grupo}}">{{grupo.mensajeEligeopciones}}</span>
             <span class="listo" style="display:none;" data-ready-label-{{grupo.Grupo}} data-grupo="{{grupo.Grupo}}">¡Listo!</span>

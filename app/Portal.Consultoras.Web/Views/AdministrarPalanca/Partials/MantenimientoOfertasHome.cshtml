@@ -24,7 +24,7 @@
         </select>
     </div>
 </div>
-<div class="div-3 div-disenio-atp-oculto">
+<div class="div-3 divHomeUrlSeccion">
     <div class="titG">URL Sección:</div>
     <div class="titG selectP2 borde_redondeado">
         @Html.TextBoxFor(m => m.UrlSeccion)
@@ -37,34 +37,35 @@
         </div>
     </div>
     <div class="fontColorAdm">
-        <div class="sideLeft">
+        <div class="sideLeft" id="divTituloDesktop">
             <h4 id="tituloSeccionDesktop">Desktop</h4>
         </div>
         <div class="sideRight">
-            <h4 class="div-disenio-atp-oculto">Mobile</h4>
+            <h4 id="divTituloMobile">Mobile</h4>
         </div>
     </div>
     <div class="clear-fix"></div>
     <div class="fontColorAdm">
-        <div class="sideLeft">
+        <div class="sideLeft" id="divContenidoDesktop">
             <div class="div-3">
                 <div class="titG">¿Activar?</div>
-                <div class="titG">
+                <div class="titG borde_redondeado">
                     @Html.CheckBoxFor(m => m.DesktopActivo)
                 </div>
             </div>
 
-            <div class="div-3 hide-config-image-odd">
+            <div class="div-3 divHomeUsarImagenFondo">
                 <div class="titG">Usar Imagen Como Fondo: </div>
                 <div class="titG">
                     @Html.CheckBoxFor(m => m.DesktopUsarImagenFondo)
                 </div>
             </div>
 
-            <div class="div-3 div-disenio-atp-visible" style="display: inline-block; text-align: left; margin-bottom: 15px;">
+            <div class="div-3 divHomeImagenFondo"
+                 style="display: inline-block; text-align: left; margin-bottom: 15px;">
                 <div class="titG">
                     Imagen de fondo:
-                    <h6 id="titTamanioImagenFondo" class="hide-config-image-odd div-disenio-atp-visible">(1920x500 pixeles)</h6>
+                    <h6 id="titTamanioImagenFondo">(1920x500 pixeles)</h6>
                 </div>
                 <div style="display: inline-block;">
                     @Html.HiddenFor(m => m.DesktopImagenFondo, new { id = "nombre-fondo-desktop" })
@@ -75,7 +76,7 @@
                 </div>
             </div>
 
-            <div class="div-3 hide-config-image-odd div-disenio-atp-visible">
+            <div class="div-3 divHomeColorFondo">
                 <div class="titG" style="padding-bottom: 0;">
                     Color de fondo:
                     <h6>(#Hexadecimal)</h6>
@@ -86,7 +87,7 @@
                 </div>
             </div>
 
-            <div class="div-3">
+            <div class="div-3 divHomeOrden">
                 <div class="titG" style="padding-bottom: 0;">Orden:</div>
                 <br />
                 <div class="titG selectP2 borde_redondeado" style="width: 312px;">
@@ -94,7 +95,7 @@
                 </div>
             </div>
 
-            <div class="div-3 div-disenio-atp-oculto">
+            <div class="div-3 divOrdenBpt">
                 <div class="titG" style="padding-bottom: 0;">OrdenBPT:</div>
                 <br />
                 <div class="titG selectP2 borde_redondeado" style="width: 312px;">
@@ -102,14 +103,14 @@
                 </div>
             </div>
 
-            <div class="div-3">
+            <div class="div-3 divHomeTitulo">
                 <div class="titG" style="padding-bottom: 0;">Título:</div>
                 <br />
                 <div class="titG selectP2 borde_redondeado" style="width: 312px;">
                     @Html.TextBoxFor(m => m.DesktopTitulo, new { @style = "width: 312px;" })
                 </div>
             </div>
-            <div class="div-3 div-disenio-atp-visible">
+            <div class="div-3 divHomeSubTitulo">
                 <div class="titG" style="padding-bottom: 0;">Subtítulo</div>
                 <br />
                 <div class="titG selectP2 borde_redondeado" style="width: 312px;">
@@ -117,9 +118,9 @@
                 </div>
             </div>
 
-            <div class="div-3 hide-config-image-odd div-disenio-atp-visible">
+            <div class="div-3 divHomeColorTexto">
                 <div class="titG" style="padding-bottom: 0;">
-                    <span id="titColorTexto">Color Texto:</span>
+                    <span id="titColorTexto">Color de títulos:</span>
                     <h6>(#Hexadecimal)</h6>
                 </div>
                 <br />
@@ -128,8 +129,7 @@
                 </div>
             </div>
 
-
-            <div class="div-3 hide-config-image-odd div-disenio-atp-visible">
+            <div class="div-3 divHomeBotonTexto1">
                 <div class="titG" style="padding-bottom: 0;">Texto botón inicial:</div>
                 <br />
                 <div class="titG selectP2 borde_redondeado" style="width: 312px;">
@@ -137,7 +137,7 @@
                 </div>
             </div>
 
-            <div class="div-3 hide-config-image-odd div-disenio-atp-visible">
+            <div class="div-3 divHomeBotonTexto2">
                 <div class="titG" style="padding-bottom: 0;">Texto botón final:</div>
                 <br />
                 <div class="titG selectP2 borde_redondeado" style="width: 312px;">
@@ -145,7 +145,7 @@
                 </div>
             </div>
 
-            <div class="div-3 hide-config-image-odd div-disenio-atp-visible">
+            <div class="div-3 divHomeBotonColor">
                 <div class="titG" style="padding-bottom: 0;">
                     Color del botón:
                     <h6>(#Hexadecimal)</h6>
@@ -156,7 +156,7 @@
                 </div>
             </div>
 
-            <div class="div-3 hide-config-image-odd div-disenio-atp-visible">
+            <div class="div-3 divHomeBotonColorTexto">
                 <div class="titG" style="padding-bottom: 0;">
                     Color mensaje botón:
                     <h6>(#Hexadecimal)</h6>
@@ -167,7 +167,7 @@
                 </div>
             </div>
 
-            <div class="div-3 div-disenio-atp-visible">
+            <div class="div-3 divHomeCantidadProductos">
                 <div class="titG">Cantidad:</div>
                 <div class="titG borde_redondeado" style="width: 50px;">
                     @Html.TextBoxFor(m => m.DesktopCantidadProductos, new { @style = "width: 50px;" })
@@ -178,13 +178,13 @@
                 </div>
             </div>
 
-            <div class="div-3 div-disenio-atp-visible">
+            <div class="div-3 divHomeTipoPresentacion">
                 <div class="titG">Tipo Presentación:</div>
                 <div class="titG selectP2 borde_redondeado" style="width: 164px;">
                     @Html.DropDownListFor(model => model.DesktopTipoPresentacion, new SelectList(Model.ListaTipoPresentacion, "Codigo", "Descripcion"), "-- Seleccionar --", new { id = "ddlDesktopTipoPresentacionOfertas" })
                 </div>
             </div>
-            <div class="hide-configuration">
+            <div class="divHomeTipoEstrategia">
                 <div class="div-3">
                     <div class="titG">Tipo Estrategia:</div>
                 </div>
@@ -202,121 +202,123 @@
                     </div>
                 </div>
             </div>
-
         </div>
         <div class="sideRight">
-            <div class="div-3 div-disenio-atp-oculto">
-                <div class="titG">¿Activar?</div>
-                <div class="titG borde_redondeado">
-                    @Html.CheckBoxFor(m => m.MobileActivo)
-                </div>
-            </div>
-
-            <div class="div-3 hide-config-image-odd div-disenio-atp-oculto">
-                <div class="titG" style="padding-bottom: 0;">
-                    Color Fondo:
-                    <h6>(#F421E7)</h6>
-                </div>
-                <br />
-                <div class="titG selectP2 borde_redondeado" style="width: 312px;">
-                    @Html.TextBoxFor(m => m.MobileColorFondo, new { @maxlength = "7", @size = 7 })
-                </div>
-            </div>
-
-            <div class="div-3 hide-config-image-odd div-disenio-atp-oculto">
-                <div class="titG">Usar Imagen Como Fondo: </div>
-                <div class="titG">
-                    @Html.CheckBoxFor(m => m.MobileUsarImagenFondo)
-                </div>
-            </div>
-
-            <div class="div-3 div-disenio-atp-oculto" style="display: inline-block; text-align: left; margin-bottom: 15px;">
-                <div class="titG">
-                    Imagen Fondo:
-                    <h6 class="hide-config-image-odd">(1024x190 pixeles)</h6>
-                </div>
-                <div style="display: inline-block;">
-                    @Html.HiddenFor(m => m.MobileImagenFondo, new { id = "nombre-fondo-mobile" })
-                    <div id="img-fondo-mobile" style="display: inline-block;vertical-align: middle;"></div>
-                    <div class="pdr_modal2 borde_redondeado alignrigth">
-                        <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="src-fondo-mobile" class="img-matriz-preview2" data-id="">
+            <div id="divContenidoMobile">
+                <div class="div-3">
+                    <div class="titG">¿Activar?</div>
+                    <div class="titG borde_redondeado">
+                        @Html.CheckBoxFor(m => m.MobileActivo)
                     </div>
                 </div>
-            </div>
 
-            <div class="div-3 hide-config-image-odd div-disenio-atp-oculto">
-                <div class="titG" style="padding-bottom: 0;">
-                    Color Texto:
-                    <h6>(#F421E7)</h6>
+                <div class="div-3 divHomeUsarImagenFondo">
+                    <div class="titG">Usar Imagen Como Fondo: </div>
+                    <div class="titG">
+                        @Html.CheckBoxFor(m => m.MobileUsarImagenFondo)
+                    </div>
                 </div>
-                <br />
-                <div class="titG selectP2 borde_redondeado" style="width: 312px;">
-                    @Html.TextBoxFor(m => m.MobileColorTexto, new { @maxlength = "7", @size = 7 })
-                </div>
-            </div>
 
-            <div class="div-3 div-disenio-atp-oculto">
-                <div class="titG" style="padding-bottom: 0;">Orden:</div>
-                <br />
-                <div class="titG selectP2 borde_redondeado" style="width: 312px;">
-                    @Html.TextBoxFor(m => m.MobileOrden, new { @style = "width: 312px;" })
+                <div class="div-3 divHomeImagenFondo"
+                     style="display: inline-block; text-align: left; margin-bottom: 15px;">
+                    <div class="titG">
+                        Imagen de fondo:
+                        <h6>(1024x190 pixeles)</h6>
+                    </div>
+                    <div style="display: inline-block;">
+                        @Html.HiddenFor(m => m.MobileImagenFondo, new { id = "nombre-fondo-mobile" })
+                        <div id="img-fondo-mobile" style="display: inline-block;vertical-align: middle;"></div>
+                        <div class="pdr_modal2 borde_redondeado alignrigth">
+                            <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="src-fondo-mobile" class="img-matriz-preview2" data-id="">
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="div-3 div-disenio-atp-oculto">
-                <div class="titG" style="padding-bottom: 0;">OrdenBPT:</div>
-                <br />
-                <div class="titG selectP2 borde_redondeado" style="width: 312px;">
-                    @Html.TextBoxFor(m => m.MobileOrdenBpt, new { @style = "width: 312px;" })
+                <div class="div-3 divHomeColorFondo">
+                    <div class="titG" style="padding-bottom: 0;">
+                        Color de fondo:
+                        <h6>(#Hexadecimal)</h6>
+                    </div>
+                    <br />
+                    <div class="titG selectP2 borde_redondeado" style="width: 312px;">
+                        @Html.TextBoxFor(m => m.MobileColorFondo, new { @maxlength = "7", @size = 7 })
+                    </div>
                 </div>
-            </div>
 
-            <div class="div-3 div-disenio-atp-oculto">
-                <div class="titG" style="padding-bottom: 0;">Título:</div>
-                <div class="titG selectP2 borde_redondeado" style="width: 312px;">
-                    @Html.TextBoxFor(m => m.MobileTitulo, new { @style = "width: 312px;" })
+                <div class="div-3 divHomeOrden">
+                    <div class="titG" style="padding-bottom: 0;">Orden:</div>
+                    <br />
+                    <div class="titG selectP2 borde_redondeado" style="width: 312px;">
+                        @Html.TextBoxFor(m => m.MobileOrden, new { @style = "width: 312px;" })
+                    </div>
                 </div>
-            </div>
-            <div class="div-3 div-disenio-atp-oculto">
-                <div class="titG" style="padding-bottom: 0;">Sub Título:</div>
-                <div class="titG selectP2 borde_redondeado" style="width: 312px;">
-                    @Html.TextBoxFor(m => m.MobileSubTitulo, new { @style = "width: 312px;" })
-                </div>
-            </div>
-            <div class="div-3 div-disenio-atp-oculto">
-                <div class="titG">Cantidad:</div>
-                <div class="titG borde_redondeado" style="width: 50px;">
-                    @Html.TextBoxFor(m => m.MobileCantidadProductos, new { @style = "width: 50px;" })
-                </div>
-                <div class="titG" style="width: 100px; display: inline-block;">
-                    Todos <input type="checkbox" id="cbMobileCantidadTodos"
-                                 style="display: inline-block !important; margin: 5px; vertical-align: middle; height: 15px !important;" />
-                </div>
-            </div>
 
-            <div class="div-3 div-disenio-atp-oculto">
-                <div class="titG">Tipo Presentación:</div>
-                <div class="titG borde_redondeado">
-                    @Html.DropDownListFor(model => model.MobileTipoPresentacion, new SelectList(Model.ListaTipoPresentacion, "Codigo", "Descripcion"), "-- Seleccionar --", new { id = "ddlMobileTipoPresentacionOfertas" })
+                <div class="div-3 divHomeOrdenBpt">
+                    <div class="titG" style="padding-bottom: 0;">OrdenBPT:</div>
+                    <br />
+                    <div class="titG selectP2 borde_redondeado" style="width: 312px;">
+                        @Html.TextBoxFor(m => m.MobileOrdenBpt, new { @style = "width: 312px;" })
+                    </div>
                 </div>
-            </div>
 
-            <div class="hide-configuration div-disenio-atp-oculto">
-                <div class="div-3">
-                    <div class="titG">Tipo Estrategia:</div>
-
+                <div class="div-3 divHomeTitulo">
+                    <div class="titG" style="padding-bottom: 0;">Título:</div>
+                    <br />
+                    <div class="titG selectP2 borde_redondeado" style="width: 312px;">
+                        @Html.TextBoxFor(m => m.MobileTitulo, new { @style = "width: 312px;" })
+                    </div>
                 </div>
-                <div class="div-3">
-                    <div class="borde_redondeado">
-                        @foreach (var estrategia in Model.ListaTipoEstrategia)
-                        {
-                            if (!string.IsNullOrEmpty(estrategia.Codigo))
+                <div class="div-3 divHomeSubTitulo">
+                    <div class="titG" style="padding-bottom: 0;">Subtítulo:</div>
+                    <br />
+                    <div class="titG selectP2 borde_redondeado" style="width: 312px;">
+                        @Html.TextBoxFor(m => m.MobileSubTitulo, new { @style = "width: 312px;" })
+                    </div>
+                </div>
+
+                <div class="div-3 divHomeColorTexto">
+                    <div class="titG" style="padding-bottom: 0;">
+                        <span>Color de títulos:</span>
+                        <h6>(#Hexadecimal)</h6>
+                    </div>
+                    <br />
+                    <div class="titG selectP2 borde_redondeado" style="width: 312px;">
+                        @Html.TextBoxFor(m => m.MobileColorTexto, new { @maxlength = "7", @size = 7 })
+                    </div>
+                </div>
+                <div class="div-3 divHomeCantidadProductos">
+                    <div class="titG">Cantidad:</div>
+                    <div class="titG borde_redondeado" style="width: 50px;">
+                        @Html.TextBoxFor(m => m.MobileCantidadProductos, new { @style = "width: 50px;" })
+                    </div>
+                    <div class="titG" style="width: 100px; display: inline-block;">
+                        Todos <input type="checkbox" id="cbMobileCantidadTodos"
+                                     style="display: inline-block !important; margin: 5px; vertical-align: middle; height: 15px !important;" />
+                    </div>
+                </div>
+
+                <div class="div-3 divHomeTipoPresentacion">
+                    <div class="titG">Tipo Presentación:</div>
+                    <div class="titG borde_redondeado" style="width: 164px;">
+                        @Html.DropDownListFor(model => model.MobileTipoPresentacion, new SelectList(Model.ListaTipoPresentacion, "Codigo", "Descripcion"), "-- Seleccionar --", new { id = "ddlMobileTipoPresentacionOfertas" })
+                    </div>
+                </div>
+                <div class="divHomeTipoEstrategia">
+                    <div class="div-3">
+                        <div class="titG">Tipo Estrategia:</div>
+                    </div>
+                    <div class="div-3">
+                        <div class="borde_redondeado">
+                            @foreach (var estrategia in Model.ListaTipoEstrategia)
                             {
-                                bool checked1 = Model.MobileTipoEstrategia.Trim().Contains(estrategia.Codigo);
-                                <input name="mobile-tipo-estrategia" type="checkbox" value="@estrategia.Codigo" checked="@checked1" style="display: inline-block !important;height: 13px !important;">
-                                <label>@estrategia.Descripcion</label> <br />
+                                if (!string.IsNullOrEmpty(estrategia.Codigo))
+                                {
+                                    bool checked1 = Model.MobileTipoEstrategia.Trim().Contains(estrategia.Codigo);
+                                    <input name="mobile-tipo-estrategia" type="checkbox" value="@estrategia.Codigo" checked="@checked1" style="display: inline-block !important;height: 13px !important;">
+                                    <label>@estrategia.Descripcion</label> <br />
+                                }
                             }
-                        }
+                        </div>
                     </div>
                 </div>
             </div>
@@ -324,7 +326,7 @@
     </div>
 </div>
 @Html.HiddenFor(m => m.AdministrarOfertasHomeAppModel.ConfiguracionOfertasHomeAppID)
-<div id="divMantApp" class="div-3 Content_modal div-disenio-atp-oculto" style="margin-left: 12px; width: 94%; padding-top: 10px; padding-bottom: 0; margin-bottom: 10px;">
+<div id="divMantApp" class="div-3 Content_modal" style="margin-left: 12px; width: 94%; padding-top: 10px; padding-bottom: 0; margin-bottom: 10px;">
     <div class="fontColorAdm">
         <h4>App</h4>
     </div>
@@ -342,6 +344,13 @@
                 <br />
                 <div class="titG selectP2 borde_redondeado" style="width: 312px;">
                     @Html.TextBoxFor(m => m.AdministrarOfertasHomeAppModel.AppTitulo, new { @style = "width: 312px;" })
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titG" style="padding-bottom: 0;padding-top:16px">Subtítulo:</div>
+                <br />
+                <div class="titG selectP2 borde_redondeado" style="width: 312px;">
+                    @Html.TextBoxFor(m => m.AdministrarOfertasHomeAppModel.AppSubTitulo, new { @style = "width: 312px;" })
                 </div>
             </div>
             <div class="div-3">

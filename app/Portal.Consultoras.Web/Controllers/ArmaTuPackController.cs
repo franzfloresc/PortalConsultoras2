@@ -6,32 +6,20 @@ using System.Web.Mvc;
 using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.CustomFilters;
+using Portal.Consultoras.Web.Infraestructure;
 using Portal.Consultoras.Web.Models.Search.ResponseOferta.Estructura;
 
 namespace Portal.Consultoras.Web.Controllers
 {
+    [UniqueSession("UniqueRoute", UniqueRoute.IdentifierKey, "/g/")]
+    [ClearSessionMobileApp(UniqueRoute.IdentifierKey, "MobileAppConfiguracion", "StartSession")]
     [RoutePrefix("ArmaTuPack")]
     public class ArmaTuPackController : BaseController
     {
         public ActionResult Index()
         {
-            var cuv = Request.QueryString["cuv"];
-
-            if (String.IsNullOrEmpty(cuv))
-            {
-                //var estrategia = PreparListaModel(
-                //    new BusquedaProductoModel()
-                //    {
-                //        CampaniaID = userData.CampaniaID
-                //    },
-                //    Constantes.TipoConsultaOfertaPersonalizadas.ATPObtenerProductos);
-
-                return Json(new { respuesta = true }, JsonRequestBehavior.AllowGet);
-            }
-            else
-            {
-                return RedirectToAction("Detalle", "ArmaTuPack", new { cuv = cuv });
-            }
+            return RedirectToAction("Detalle", "ArmaTuPack");
         }
 
         [HttpGet()]
@@ -69,6 +57,11 @@ namespace Portal.Consultoras.Web.Controllers
                 CodigoEstrategia = Constantes.TipoEstrategiaCodigo.ArmaTuPack
             };
             return View(DetalleEstrategiaFichaModel);
+        }
+
+        public ActionResult AgregarATPApp()
+        {
+            return new EmptyResult();
         }
     }
 }

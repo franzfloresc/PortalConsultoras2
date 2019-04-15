@@ -21,7 +21,7 @@
         CantidadCuv: 0
     }
 
-    var _codigoEstrategia = ConstantesModule.ConstantesPalanca;
+    var _codigoTipoEstrategia = ConstantesModule.TipoEstrategia;
 
 
     var _showActionsVer1 = function (cellvalue, options, rowObject) {
@@ -29,7 +29,7 @@
         var cantidad = rowObject[2];
         var tipo = rowObject[3];
         var _codigoEstrategiaCombo = $("#ddlTipoEstrategia option:selected").data("codigo");
-        var esArmaTuPack = (_codigoEstrategiaCombo == ConstantesModule.ConstantesPalanca.ArmaTuPack);       
+        var esArmaTuPack = (_codigoEstrategiaCombo == _codigoTipoEstrategia.ArmaTuPack);       
 
         if (tipo == "2")
             _variables.cantidadPrecargar = parseInt(cantidad);
@@ -49,7 +49,7 @@
         var cantidad = rowObject[2];
         var tipo = rowObject[3];
         var _codigoEstrategiaCombo = $("#ddlTipoEstrategia option:selected").data("codigo");
-        var esArmaTuPack = (_codigoEstrategiaCombo == ConstantesModule.ConstantesPalanca.ArmaTuPack);
+        var esArmaTuPack = (_codigoEstrategiaCombo == _codigoTipoEstrategia.ArmaTuPack);
 
         if (tipo == "1") {
             _variables.cantidadPrecargar2 = parseInt(cantidad);
@@ -385,16 +385,16 @@
 
         var estrategiaCodigo = $("#ddlTipoEstrategia option:selected").data("codigo") || "";
         if (!estrategiaCodigo.in(
-            _codigoEstrategia.OfertaParaTi,
-            _codigoEstrategia.GuiaDeNegocioDigitalizada,
-            _codigoEstrategia.LosMasVendidos,
-            _codigoEstrategia.Lanzamiento,
-            _codigoEstrategia.OfertasParaMi,
-            _codigoEstrategia.PackAltoDesembolso,
-            _codigoEstrategia.OfertaDelDia,
-            _codigoEstrategia.ShowRoom,
-            _codigoEstrategia.HerramientasVenta,
-            _codigoEstrategia.ArmaTuPack)) {
+            _codigoTipoEstrategia.OfertaParaTi,
+            _codigoTipoEstrategia.GuiaDeNegocioDigitalizada,
+            _codigoTipoEstrategia.LosMasVendidos,
+            _codigoTipoEstrategia.Lanzamiento,
+            _codigoTipoEstrategia.OfertasParaMi,
+            _codigoTipoEstrategia.PackAltoDesembolso,
+            _codigoTipoEstrategia.OfertaDelDia,
+            _codigoTipoEstrategia.ShowRoom,
+            _codigoTipoEstrategia.HerramientasVenta,
+            _codigoTipoEstrategia.ArmaTuPack)) {
 
             _toastHelper.error("Debe seleccionar el tipo de Estrategia que permita esta funcionalidad.");
             return false;

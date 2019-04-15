@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using ClosedXML.Excel;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.PublicService.Cryptography;
@@ -230,8 +230,12 @@ namespace Portal.Consultoras.Web.Controllers
                 if (model.PaisID == 0)
                     model.PaisID = Util.GetPaisID(model.CodigoISO);
 
-                var resultadoInicioSesion = await ObtenerResultadoInicioSesion(model);
+                #region DesencriptarClaveSecreta
+                var PasswordCjs = ConfigurationManager.AppSettings.Get("CryptoJSPassword");
+                model.ClaveSecreta = Util.DecryptCryptoJs(model.ClaveSecreta, PasswordCjs, model.Salt, model.Key, model.Iv);
+                #endregion
 
+                var resultadoInicioSesion = await ObtenerResultadoInicioSesion(model);
 
                 if (resultadoInicioSesion != null && resultadoInicioSesion.Result == USUARIO_VALIDO)
                 {
@@ -866,8 +870,11 @@ namespace Portal.Consultoras.Web.Controllers
                         return RedirectToUniqueRoute("ConsultoraOnline", "Pendientes");
                     case Constantes.IngresoExternoPagina.Notificaciones:
                         return RedirectToUniqueRoute("Notificaciones", "IndexExterno", new { IdOrigen = model.OrigenPedido });
-                    case Constantes.IngresoExternoPagina.MasGanadoras: 
+                    case Constantes.IngresoExternoPagina.MasGanadoras:
                         return RedirectToUniqueRoute("MasGanadoras", "Index");
+                    case Constantes.IngresoExternoPagina.ArmaTuPack:
+                        return RedirectToUniqueRoute("ArmaTuPack", "Detalle");
+
                 }
             }
             catch (Exception ex)
@@ -995,6 +1002,7 @@ namespace Portal.Consultoras.Web.Controllers
             pasoLog = "Login.GetUserData";
             sessionManager.SetIsContrato(1);
             sessionManager.SetIsOfertaPack(1);
+            var pseudoParamNotif = (DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds;//SALUD-58       
 
             var usuarioModel = (UsuarioModel)null;
 
@@ -1012,6 +1020,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     #region
                     usuarioModel = new UsuarioModel();
+                    usuarioModel.PseudoParamNotif = pseudoParamNotif.ToString().Replace("-", ""); //SALUD-58
                     usuarioModel.NovedadBuscador = usuario.NovedadBuscador;
                     usuarioModel.CompraVDirectaCer = usuario.CompraVDirecta;
                     usuarioModel.IVACompraVDirectaCer = usuario.IVACompraVDirecta;
@@ -1204,6 +1213,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     usuarioModel.DocumentoIdentidad = usuario.DocumentoIdentidad;
                     usuarioModel.PromedioVenta = usuario.PromedioVenta;
+
                     #endregion
 
                     if (usuarioModel.RolID == Constantes.Rol.Consultora)
@@ -1340,9 +1350,15 @@ namespace Portal.Consultoras.Web.Controllers
                         var lista = linkPaisTask.Result;
                         if (lista.Count > 0)
                         {
-                            usuarioModel.UrlAyuda = lista.Find(x => x.TipoLinkID == 301).Url;
-                            usuarioModel.UrlCapedevi = lista.Find(x => x.TipoLinkID == 302).Url;
-                            usuarioModel.UrlTerminos = lista.Find(x => x.TipoLinkID == 303).Url;
+                            usuarioModel.UrlAyuda = lista.Find(x => x.TipoLinkID == 301) != null
+                                ? lista.Find(x => x.TipoLinkID == 301).Url
+                                : null;
+                            usuarioModel.UrlCapedevi = lista.Find(x => x.TipoLinkID == 302) != null
+                                ? lista.Find(x => x.TipoLinkID == 302).Url
+                                : null;
+                            usuarioModel.UrlTerminos = lista.Find(x => x.TipoLinkID == 303) != null
+                                ? lista.Find(x => x.TipoLinkID == 303).Url
+                                : null;
                         }
 
                         usuarioModel.EsUsuarioComunidad = usuarioComunidadTask.Result;
@@ -1383,11 +1399,17 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 msPersonalizacionModel.PaisHabilitado = usuarioModel.CodigoISO;
                             }
+
+                            msPersonalizacionModel.GuardaDataEnLocalStorage = configuracionPaisDatos.Where(config => config.Codigo == Constantes.CodigoConfiguracionMSPersonalizacion.GuardaDataEnLocalStorage).Select(config => config.Valor1).FirstOrDefault() ?? string.Empty; ;
+                            msPersonalizacionModel.GuardaDataEnSession = configuracionPaisDatos.Where(config => config.Codigo == Constantes.CodigoConfiguracionMSPersonalizacion.GuardaDataEnSession).Select(config => config.Valor1).FirstOrDefault() ?? string.Empty; ;
                         }
                         catch (Exception ex)
                         {
                             msPersonalizacionModel.PaisHabilitado = WebConfig.PaisesMicroservicioPersonalizacion;
                             msPersonalizacionModel.EstrategiaHabilitado = WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion;
+                            msPersonalizacionModel.GuardaDataEnLocalStorage = string.Empty;
+                            msPersonalizacionModel.GuardaDataEnSession = string.Empty;
+
                             Common.LogManager.SaveLog(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
                         }
 
@@ -1395,6 +1417,8 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             msPersonalizacionModel.EstrategiaHabilitado = string.Empty;
                             msPersonalizacionModel.PaisHabilitado = string.Empty;
+                            msPersonalizacionModel.GuardaDataEnLocalStorage = string.Empty;
+                            msPersonalizacionModel.GuardaDataEnSession = string.Empty;
                             Common.LogManager.SaveLog(new Exception("La configuración MSPersonalizacion se encuentra deshabilitado en la tabla configuracionpais.", null), usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
                         }
 
@@ -1411,7 +1435,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     using (var usuarioCliente = new UsuarioServiceClient())
                     {
-                        usuarioCliente.ActualizarNovedadBuscadorAsync(usuarioModel.PaisID, usuarioModel.CodigoUsuario);
+                        var noQuitar = await usuarioCliente.ActualizarNovedadBuscadorAsync(usuarioModel.PaisID, usuarioModel.CodigoUsuario);
                     }
 
                     usuarioModel.EsLebel = GetPaisesLbelFromConfig().Contains(usuarioModel.CodigoISO);
