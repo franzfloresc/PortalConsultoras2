@@ -73,6 +73,51 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(new { Paginamaximas = PAGINAS_MAXIMAS, listaComunicadoModel = listaComunicadoModel }, JsonRequestBehavior.AllowGet);
         }
 
+
+        public JsonResult GetCargaListadoPopupValidador()
+        {
+            List<SegmentacionComunicadoModel> listaComunicadoSegmentacionModel;
+
+            try
+            {
+                using (ContenidoServiceClient sv = new ContenidoServiceClient())
+                {
+                    var listComunicadoSegmentacion = sv.GetCargaListadoPopupValidador(userData.PaisID).ToList();
+                    listaComunicadoSegmentacionModel = GetAutoMapperManualComunicadoSegmentacion(listComunicadoSegmentacion);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                listaComunicadoSegmentacionModel = new List<SegmentacionComunicadoModel>();
+            }
+
+            return Json(new { Paginamaximas = PAGINAS_MAXIMAS, listaComunicadoSegmentacionModel = listaComunicadoSegmentacionModel }, JsonRequestBehavior.AllowGet);
+        }
+
+        private List<SegmentacionComunicadoModel> GetAutoMapperManualComunicadoSegmentacion(List<ServiceContenido.BEComunicadoSegmentacion> listComunicadoSegmentacion)
+        {
+            List<SegmentacionComunicadoModel> listComunicadoModelSegmentacion = new List<SegmentacionComunicadoModel>();
+
+            foreach (var item in listComunicadoSegmentacion)
+            {
+                listComunicadoModelSegmentacion.Add(
+                    new SegmentacionComunicadoModel()
+                    {
+                        CodigoRegion =item.CodigoRegion,
+                        CodigoZona = item.CodigoRegion,
+                        IdEstadoActividad = Convert.ToInt32(item.IdEstadoActividad),
+                        CodigoConsultora = item.CodigoConsultora
+                    }
+                    );
+
+            }
+            return listComunicadoModelSegmentacion;
+
+
+        }
+
         public JsonResult GetDetallePopup(int Comunicadoid)
         {
             ComunicadoModel objetoComunicadoModel;
@@ -214,6 +259,26 @@ namespace Portal.Consultoras.Web.Controllers
                 using (ContenidoServiceClient sv = new ContenidoServiceClient())
                 {
                     respuesta = sv.EliminarArchivoCsv(Comunicadoid, userData.PaisID);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                listaComunicadoModel = new List<ComunicadoModel>();
+            }
+
+            return Json(respuesta, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult EliminarArchivoCsvValidador()
+        {
+            List<ComunicadoModel> listaComunicadoModel;
+            int respuesta = 0;
+            try
+            {
+                using (ContenidoServiceClient sv = new ContenidoServiceClient())
+                {
+                    respuesta = sv.EliminarArchivoCsvValidador(userData.PaisID);
                 }
             }
             catch (Exception ex)

@@ -117,7 +117,7 @@ namespace Portal.Consultoras.Data
         public int GuardarPopupsValidador(bool checkDesktop, string[] arrayColumnasBEComunicadoSegmentacion, int paisID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GuardarPopupsValidador");
-            Context.Database.AddInParameter(command, "@estado", DbType.AnsiString, checkDesktop ? "1" :"0");
+            Context.Database.AddInParameter(command, "@estadoValidador", DbType.AnsiString, checkDesktop ? "1" :"0");
            
             /*Detalle*/
             Context.Database.AddInParameter(command, "@RegionId", DbType.AnsiString, arrayColumnasBEComunicadoSegmentacion[0] != null ? arrayColumnasBEComunicadoSegmentacion[0].ToString() : string.Empty);
@@ -127,6 +127,19 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteNonQuery(command);
         }
+
+        public int EliminarArchivoCsvValidador()
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.EliminarArchivoCsvValidador");
+            return Context.ExecuteNonQuery(command);
+        }
+
+        public IDataReader GetCargaListadoPopupValidador()
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCargaListadoPopupValidador");
+            return Context.ExecuteReader(command);
+        }
+
         #endregion
     }
 }

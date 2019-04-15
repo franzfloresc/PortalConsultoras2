@@ -15,4 +15,26 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEComunicadoVista" nillable="true" type="tns:BEComunicadoVista" />
+  <xs:complexType name="ArrayOfBEComunicadoSegmentacion">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEComunicadoSegmentacion" nillable="true" type="tns:BEComunicadoSegmentacion" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEComunicadoSegmentacion" nillable="true" type="tns:ArrayOfBEComunicadoSegmentacion" />
+  <xs:complexType name="BEComunicadoSegmentacion">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoRegion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoZona" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ComunicadoId" type="xs:long" />
+      <xs:element minOccurs="0" name="Consultoraid" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Estado" type="xs:int" />
+      <xs:element minOccurs="0" name="IdEstadoActividad" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="RegionId" type="xs:int" />
+      <xs:element minOccurs="0" name="SegmentacionComunicadoId" type="xs:int" />
+      <xs:element minOccurs="0" name="SegmentacionID" type="xs:int" />
+      <xs:element minOccurs="0" name="ZonaId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEComunicadoSegmentacion" nillable="true" type="tns:BEComunicadoSegmentacion" />
 </xs:schema>

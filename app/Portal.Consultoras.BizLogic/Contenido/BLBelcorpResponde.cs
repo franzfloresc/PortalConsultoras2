@@ -182,6 +182,39 @@ namespace Portal.Consultoras.BizLogic
             return daBelcorpResponde.GuardarPopupsValidador( checkDesktop, arrayColumnasBEComunicadoSegmentacion,  paisID);
 
         }
+
+        public int EliminarArchivoCsvValidador(int paisId)
+        {
+            var daBelcorpResponde = new DABelcorpResponde(paisId);
+            return daBelcorpResponde.EliminarArchivoCsvValidador();
+        }
+
+        public List<BEComunicadoSegmentacion> GetCargaListadoPopupValidador(int paisID)
+        {
+
+            List<BEComunicadoSegmentacion> listsBEComunicado = new List<BEComunicadoSegmentacion>();
+
+            var daBelcorpResponde = new DABelcorpResponde(paisID);
+
+            using (IDataReader reader = daBelcorpResponde.GetCargaListadoPopupValidador())
+            {
+                while (reader.Read())
+                {
+                    listsBEComunicado.Add(new BEComunicadoSegmentacion()
+                    {
+                        CodigoRegion = reader[0] == null ? string.Empty : reader[0].ToString(),
+                        CodigoZona = reader[1] == null ? string.Empty : reader[1].ToString(),
+                        IdEstadoActividad = reader[2] == DBNull.Value ? 0 : int.Parse(reader[2].ToString()),
+                        CodigoConsultora = reader[3] == null ? string.Empty : reader[3].ToString(),
+                    });
+                }
+
+            }
+            return listsBEComunicado;
+
+        }
+
+
         #endregion
     }
 }

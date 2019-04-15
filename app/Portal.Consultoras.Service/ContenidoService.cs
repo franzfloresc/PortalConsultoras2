@@ -526,6 +526,11 @@ namespace Portal.Consultoras.Service
         }
 
 
+        public int EliminarArchivoCsvValidador( int PaisId)
+        {
+            return _BLBelcorpResponde.EliminarArchivoCsvValidador(PaisId);
+        }
+
 
 
         public int CargaEstadoValidadorDatos(int PaisId)
@@ -545,6 +550,13 @@ namespace Portal.Consultoras.Service
             }
             return _BLBelcorpResponde.GuardarPopupsValidador( checkDesktop, listdatosCSV,  PaisID);
         }
+
+        public List<BEComunicadoSegmentacion> GetCargaListadoPopupValidador(int PaisID)
+        {
+            return _BLBelcorpResponde.GetCargaListadoPopupValidador(PaisID);
+        }
+
+      
         #endregion
 
 
