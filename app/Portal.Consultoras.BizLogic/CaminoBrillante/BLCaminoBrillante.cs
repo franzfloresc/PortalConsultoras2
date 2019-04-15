@@ -394,7 +394,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                     e.Subtitulo = e.Estado ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo;
                     e.Valor = string.Format(configMedalla.Valor ?? string.Empty, e.Valor);
                     e.ModalTitulo = configMedalla.ComoLograrlo_Estado ? configMedalla.ComoLograrlo_Titulo.Replace("{0}", e.Valor) : string.Empty;
-                    e.ModalDescripcion = configMedalla.ComoLograrlo_Estado ? (configMedalla.ComoLograrlo_Descripcion).Replace("{0}", "<b>" +  entidad.Simbolo  + Convert.ToDecimal(e.MontoSuperior).ToString("#,##0.00") + "</b>") : string.Empty;
+                    e.ModalDescripcion = configMedalla.ComoLograrlo_Estado ? (configMedalla.ComoLograrlo_Descripcion).Replace("{0}", "<b>" +  entidad.Simbolo  + Util.DecimalToStringFormat(Convert.ToDecimal(e.MontoSuperior), paisId.ToString()) + "</b>") : string.Empty;
                 }
                 else
                 {
@@ -445,8 +445,8 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                   
                     //pvc-27
                     e.Subtitulo = e.Estado ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo;
-                    e.ModalTitulo = configMedalla.ComoLograrlo_Estado ? configMedalla.ComoLograrlo_Titulo.Replace("{0}",  (e.DescripcionNivel) ) : string.Empty;
-                    e.ModalDescripcion = configMedalla.ComoLograrlo_Estado ? configMedalla.ComoLograrlo_Descripcion.Replace("{0}", e.DescripcionNivel).Replace("{1}", "<b>" + entidad.Simbolo  + Convert.ToDecimal(e.MontoAcumulado).ToString("#,##0.00")  + "</b>") : string.Empty;
+                    e.ModalTitulo = configMedalla.ComoLograrlo_Estado ? configMedalla.ComoLograrlo_Titulo.Replace("{0}",  e.DescripcionNivel ) : string.Empty;
+                    e.ModalDescripcion = configMedalla.ComoLograrlo_Estado ? configMedalla.ComoLograrlo_Descripcion.Replace("{0}", e.DescripcionNivel).Replace("{1}", "<b>" + entidad.Simbolo  + Util.DecimalToStringFormat(Convert.ToDecimal(e.MontoAcumulado), paisId.ToString())  + "</b>") : string.Empty;
                 }
             });
 
@@ -557,8 +557,8 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                     Estado = (int.Parse(e.Codigo) <= nivelConsultora.PorcentajeIncremento),
                     Subtitulo = (nivelConsultora.PorcentajeIncremento <= int.Parse(e.Codigo)) ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo,
                     Valor = string.Format(e.Valor ?? string.Empty, e.Codigo),                    
-                    ModalTitulo = e.ComoLograrlo_Estado ? e.ComoLograrlo_Titulo.Replace("{0}",e.Valor) : string.Empty,
-                    ModalDescripcion = e.ComoLograrlo_Estado ? e.ComoLograrlo_Descripcion.Replace("{0}", e.Valor) : string.Empty,
+                    ModalTitulo = e.ComoLograrlo_Estado ? e.ComoLograrlo_Titulo.Replace("{0}", string.Format("{0}%", e.Codigo) ) : string.Empty,
+                    ModalDescripcion = e.ComoLograrlo_Estado ? e.ComoLograrlo_Descripcion.Replace("{0}", string.Format("{0}%", e.Codigo) ) : string.Empty,
                 }).ToList();
 
             var tablaLogicaDatos = (GetDatosTablaLogica(paisId, Constantes.TablaLogica.CaminoBrillanteIndicadores) ?? new List<BETablaLogicaDatos>())
@@ -719,8 +719,6 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 MontoMaximo = e.MontoMaximo,
                 MontoMinimo = e.MontoMinimo,
                 TieneOfertasEspeciales = !("1" == e.CodigoNivel), //Usar Configuracion
-
-                MontoFaltante = int.Parse(e.MontoMinimo) - 5  ,
 
                 Beneficios = lstBeneficios.Where(b => b.CodigoNivel == e.CodigoNivel && !(string.IsNullOrEmpty(b.NombreBeneficio)
                                                       && Constantes.CaminoBrillante.CodigoBeneficio.Beneficios.Contains(b.CodigoBeneficio))
