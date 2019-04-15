@@ -746,11 +746,11 @@ div .owl-carousel .owl-stage-outer {
     margin: 0 auto;
 }
 
-    .contain-camb:after {
-        content: "";
-        display: block;
-        clear: both;
-    }
+.contain-camb:after {
+    content: "";
+    display: block;
+    clear: both;
+}
 
 .imgpizz {
     background: transparent !important;
@@ -1544,7 +1544,7 @@ div .left-mod .l-mod p {
 
 }
 .submenu__item submenu__item--IngresaTuPedido a {
-    font-weight:bold;
+    font-weight:bold !important;
 }
 .btn__productos__agregados--verMiPedido {
     font-size: 14px;
