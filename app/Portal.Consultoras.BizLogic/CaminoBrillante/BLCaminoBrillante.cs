@@ -82,12 +82,11 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             return new List<BELogroCaminoBrillante> {
                 GetConsultoraLogrosCrecimiento(entidad.PaisID, entidad, nivelesCaminoBrillantes, nivelConsultora, nivelesConsultora, periodoActual),
                 GetConsultoraLogrosCompromiso(entidad.PaisID, entidad, nivelConsultora) };
-        }
-        
+        }        
 
-        public List<BEKitCaminoBrillante> GetKit(BEUsuario entidad, int periodoId, int nivelId)
+        public List<BEKitCaminoBrillante> GetKit(BEUsuario entidad, int nivelId)
         {
-            periodoId = 201903; //Para Prueba quitar luego
+            var periodoId = 201903; //Para Prueba quitar luego
             //var kits =  GetKitCache(paisId, campania);
             //var kits = GetKitProvider(paisId, periodoId, entidad.CampaniaID);
             //var codNivel = "4";

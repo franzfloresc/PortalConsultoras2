@@ -16,9 +16,7 @@ function ModalBeneficios(index) {
     $("#ListaBeneficios").empty();
     $("#m_titulo").text("");
     $("#m_imagen").attr("src", "");
-    $("#ListaBeneficios").empty();
-    $("#m_titulo").text("");
-    $("#m_imagen").attr("src", "");
+  
     
     var params = { nivel: index };
 
