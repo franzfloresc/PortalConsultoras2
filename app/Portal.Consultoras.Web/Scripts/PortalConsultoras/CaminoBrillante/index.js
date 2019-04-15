@@ -16,9 +16,7 @@ function ModalBeneficios(index) {
     $("#ListaBeneficios").empty();
     $("#m_titulo").text("");
     $("#m_imagen").attr("src", "");
-    $("#ListaBeneficios").empty();
-    $("#m_titulo").text("");
-    $("#m_imagen").attr("src", "");
+  
     
     var params = { nivel: index };
 
@@ -42,10 +40,10 @@ function ModalBeneficios(index) {
             }
 
             if ( index == nivelSiguiente ) {
-                $("#m_montoMinimo").append("<b>Lo logras con: </b>" + data.Moneda + " " + parseInt(data.Niveles[0].MontoMinimo).toLocaleString() + ".00");
-                $("#m_montoFaltante").append("<b>Te falta: </b>" + data.Moneda + " " + MontoFaltante.toLocaleString() + ".00");
+                $("#m_montoMinimo").append("<b>Lo Logras con:</b>" + "<span style='float: right'>" + data.Moneda + " " + parseInt(data.Niveles[0].MontoMinimo).toLocaleString() + "</span>");
+                $("#m_montoFaltante").append("<b>Te Falta:</b>" + "<span style='float: right'>" + data.Moneda + " " + MontoFaltante.toLocaleString() + "</span>");
             } else {
-                $("#m_montoMinimo").append("<b>Los logras con: </b>" + data.Moneda + " " + parseInt(data.Niveles[0].MontoMinimo).toLocaleString() + ".00");
+                $("#m_montoMinimo").append("<b>Lo Logras con:</b>" + "<span style='float: right'>" + data.Moneda + " " + parseInt(data.Niveles[0].MontoMinimo).toLocaleString() + "</span> ");
             }
             
             $("#m_imagen").attr("src", data.Niveles[0].UrlImagenNivel.replace("_I", "_A"));
