@@ -2,6 +2,26 @@
 
 /* INICIO VISTA LISTA DE SOLICITUDES CDR */
 
+.mensaje_sin_solicitudes_registradas_wrapper{
+    margin-top:100px;
+}
+
+.mensaje_sin_solicitudes_registradas_icono {
+    width: 80px;
+    height: 80px;
+    margin:0 auto 13px auto;
+}
+
+    .mensaje_sin_solicitudes_registradas_icono img{
+        width:100%;
+        height:auto;
+    }
+
+.mensaje_sin_solicitudes_registradas {
+    font-size: 16px;
+    line-height: 20px;
+}
+
 .fijarTituloMobile {
     position: fixed;
     z-index: 2000;
@@ -563,16 +583,25 @@
     background: #B9007E;
     color: #fff;
     z-index: 998;
-    letter-spacing: .4px;
+    letter-spacing: 1px;
     border: none;
+    cursor:pointer;
 }
 
-    .btn_cta_cdr--siguiente{
-        display:inline-block;
-        position:relative;
-        height:45px;
-        background-color:#000;
-        max-width:276px;
+    .btn_cta_cdr--agregarSolicitud,
+    .btn_cta_cdr--siguiente {
+        display: inline-block;
+        position: relative;
+        height: 45px;
+    }
+
+    .btn_cta_cdr--agregarSolicitud {
+        max-width: 325px;
+    }
+
+    .btn_cta_cdr--siguiente {
+        background-color: #000;
+        max-width: 276px;
     }
 
 .listado_soluciones_cdr, .solucion_cdr {
@@ -1799,6 +1828,13 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 .enlace_cerrar_popup {
     margin-right: 16px;
     cursor:pointer;
+}
+
+@media screen and (orientation:landscape) {
+
+    .mensaje_sin_solicitudes_registradas_wrapper {
+        margin-top: 24px;
+    }
 }
 
 @media screen and (max-width:343px) {
