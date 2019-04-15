@@ -445,7 +445,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                   
                     //pvc-27
                     e.Subtitulo = e.Estado ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo;
-                    e.ModalTitulo = configMedalla.ComoLograrlo_Estado ? configMedalla.ComoLograrlo_Titulo.Replace("{0}",  (e.DescripcionNivel) ) : string.Empty;
+                    e.ModalTitulo = configMedalla.ComoLograrlo_Estado ? configMedalla.ComoLograrlo_Titulo.Replace("{0}",  e.DescripcionNivel ) : string.Empty;
                     e.ModalDescripcion = configMedalla.ComoLograrlo_Estado ? configMedalla.ComoLograrlo_Descripcion.Replace("{0}", e.DescripcionNivel).Replace("{1}", "<b>" + entidad.Simbolo  + Util.DecimalToStringFormat(Convert.ToDecimal(e.MontoAcumulado), paisId.ToString())  + "</b>") : string.Empty;
                 }
             });
@@ -557,8 +557,8 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                     Estado = (int.Parse(e.Codigo) <= nivelConsultora.PorcentajeIncremento),
                     Subtitulo = (nivelConsultora.PorcentajeIncremento <= int.Parse(e.Codigo)) ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo,
                     Valor = string.Format(e.Valor ?? string.Empty, e.Codigo),                    
-                    ModalTitulo = e.ComoLograrlo_Estado ? e.ComoLograrlo_Titulo.Replace("{0}",e.Valor) : string.Empty,
-                    ModalDescripcion = e.ComoLograrlo_Estado ? e.ComoLograrlo_Descripcion.Replace("{0}", e.Valor) : string.Empty,
+                    ModalTitulo = e.ComoLograrlo_Estado ? e.ComoLograrlo_Titulo.Replace("{0}", string.Format("{0}%", e.Codigo) ) : string.Empty,
+                    ModalDescripcion = e.ComoLograrlo_Estado ? e.ComoLograrlo_Descripcion.Replace("{0}", string.Format("{0}%", e.Codigo) ) : string.Empty,
                 }).ToList();
 
             var tablaLogicaDatos = (GetDatosTablaLogica(paisId, Constantes.TablaLogica.CaminoBrillanteIndicadores) ?? new List<BETablaLogicaDatos>())
