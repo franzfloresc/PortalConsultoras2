@@ -39,7 +39,8 @@ if not exists (select 1 from TablaLogicaDatos where TablaLogicaID = @TablaLogica
 	(CONCAT(@TablaLogicaID,'06'), @TablaLogicaID, 'Catalogo_Piloto_Zonas_Esika_CO201905_ESCrdr', '0814,0834,1504,2003,2021', ''),
 	(CONCAT(@TablaLogicaID,'07'), @TablaLogicaID, 'Catalogo_Marca_Piloto_CO201906', 'Esika', ''),
 	(CONCAT(@TablaLogicaID,'08'), @TablaLogicaID, 'Catalogo_Piloto_Grupos_Esika_CO201906', 'ESCrdr', ''),
-	(CONCAT(@TablaLogicaID,'09'), @TablaLogicaID, 'Catalogo_Piloto_Zonas_Esika_CO201906_ESCrdr', '0814,0834,1504,2003,2021', '');
+	(CONCAT(@TablaLogicaID,'09'), @TablaLogicaID, 'Catalogo_Piloto_Zonas_Esika_CO201906_ESCrdr', '0814,0834,1504,2003,2021', '')
+	(CONCAT(@TablaLogicaID,'10'), @TablaLogicaID, 'RevistaPiloto_Zonas_RDR_2_CO', '2604,2606,2610,2625,2612,2613,2614,2623', '');
 GO
 
 USE [BelcorpCostaRica];
