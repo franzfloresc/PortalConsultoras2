@@ -75,7 +75,7 @@ $(document).ready(function () {
         $('.popupPendientesPORTAL').hide();
     });
 
-    CargarPedidosPend();
+    //CargarPedidosPend();
 });
 
 function CargarPedidosPend(page, rows) {
@@ -113,27 +113,27 @@ function CargarPedidosPend(page, rows) {
 
                         $('#penmostreo').show();
 
-                        if (lanzarTabConsultoraOnline == '1') {
-                            $('.content_T_T').addClass("fondo_lateral");
-                            $(".fondo_pendiente").fadeIn();
-                            $(".bloque_left").fadeIn();
-                            $('#pedmostreo').removeClass('bordespacive');
-                            $('#penmostreo').addClass('bordespacive');
-                            $('#penmostreo').removeClass('tab_pendiente_es');
-                            $('#infoPedido').hide();
-                            $('#infoPendientes').show();
-                            $('.paginador_pedidos.mostrarPaginadorPedidos.inferior').hide();
-                            $('ul.paginador_notificaciones').hide();
-                            $('.caja_guardar_pedido').hide();
-                            $('.contenedor_eliminacion_pedido').hide();
-                            $('.contenedor_banners').hide();
-                            $('.info_tiempo_oportunidad.inicial').hide();
-                            $('#pedmostreo').addClass('cambio_bk_pendientes');
-                            $('.datos_para_movil').hide();
+                        //if (lanzarTabConsultoraOnline == '1') {
+                        //    $('.content_T_T').addClass("fondo_lateral");
+                        //    $(".fondo_pendiente").fadeIn();
+                        //    $(".bloque_left").fadeIn();
+                        //    $('#pedmostreo').removeClass('bordespacive');
+                        //    $('#penmostreo').addClass('bordespacive');
+                        //    $('#penmostreo').removeClass('tab_pendiente_es');
+                        //    $('#infoPedido').hide();
+                        //    $('#infoPendientes').show();
+                        //    $('.paginador_pedidos.mostrarPaginadorPedidos.inferior').hide();
+                        //    $('ul.paginador_notificaciones').hide();
+                        //    $('.caja_guardar_pedido').hide();
+                        //    $('.contenedor_eliminacion_pedido').hide();
+                        //    $('.contenedor_banners').hide();
+                        //    $('.info_tiempo_oportunidad.inicial').hide();
+                        //    $('#pedmostreo').addClass('cambio_bk_pendientes');
+                        //    $('.datos_para_movil').hide();
 
-                            $('#penmostreo').attr("data-tab-activo", '1');
-                            $('#pedmostreo').attr("data-tab-activo", '0');
-                        }
+                        //    $('#penmostreo').attr("data-tab-activo", '1');
+                        //    $('#pedmostreo').attr("data-tab-activo", '0');
+                        //}
                     }
                     else {
 

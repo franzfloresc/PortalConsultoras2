@@ -529,7 +529,7 @@
                 </ul>
                 <div class="clear"></div>
             </div>
-            @if (ViewBag.MostrarPedidosPendientes == "1")
+            @*@if (ViewBag.MostrarPedidosPendientes == "1")
             {
                 <div id="infoPendientes" style="background:white; display: none;">
                     <div class="content_datos_pendientes">
@@ -557,7 +557,7 @@
                         }
                     </div>
                 </div>
-            }
+            }*@
         </div>
     </div>
 
@@ -589,10 +589,10 @@
     </div>
 
     <div id="divListaEstrategias" class="caja_carousel_productos">
-        @if (ViewBag.MostrarPedidosPendientes == "1")
+        @*@if (ViewBag.MostrarPedidosPendientes == "1")
         {
             <div class="truco_bloqueo sim2"></div>
-        }
+        }*@
         @Html.Partial("~/Views/Pedido/_PartialSectionBpt.cshtml", Model.PartialSectionBpt)
     </div>
 
@@ -1046,7 +1046,7 @@
     </div>
 }
 
-@if (ViewBag.MostrarPedidosPendientes == "1")
+@*@if (ViewBag.MostrarPedidosPendientes == "1")
 {
     <div id="popup_pendientes" class="contenedor_popup_percepciones" style="display: none;">
         <div class="popup_Pendientes">
@@ -1214,10 +1214,6 @@
         </div>
     </div>
     <div class="tapsPedidos"></div>
-
-
-
-
 
     <script id="pedidopend-template" type="text/x-handlebars-template">
         {{#each this}}
@@ -1467,7 +1463,7 @@
 
         {{/each}}
     </script>
-}
+}*@
 
 <script id="js-CarruselSugerido" type="text/x-handlebars-template">
     {{#each this}}
@@ -1907,7 +1903,8 @@
         var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new {area = ""})';
         var urlValidadoPedido = '@Url.Action("PedidoValidado", "Pedido", new {area = ""})';
         var constConfiguracionOfertaShowRoom = '@Constantes.ConfiguracionOferta.ShowRoom';
-        var lanzarTabConsultoraOnline = '@ViewBag.LanzarTabConsultoraOnline';
+        //var lanzarTabConsultoraOnline = '@ViewBag.LanzarTabConsultoraOnline';
+        var cantPedidosPendientes = '@ViewBag.CantPedidoPendientes';
         var urlMisPedidosClienteOnline = '@Url.Action("", "MisPedidos")';
         var indicadorFlexiPago = '@Model.IndicadorFlexiPago';
         var urlPedido = '@Url.Action("Index", "Pedido")';
@@ -1975,10 +1972,10 @@
             mobileDevice = true;
         </script>
     }
-    @if (ViewBag.MostrarPedidosPendientes == "1")
+    @*@if (ViewBag.MostrarPedidosPendientes == "1")
     {
         <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Pedido/ConsultoraOnline.js")"></script>
-    }
+    }*@
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/FichaProducto/Index.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/nieve.js")?v=2"></script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/TusClientes")

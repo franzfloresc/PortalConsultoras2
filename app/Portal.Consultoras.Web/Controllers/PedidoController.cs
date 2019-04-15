@@ -279,13 +279,12 @@ namespace Portal.Consultoras.Web.Controllers
                 #region Pedidos Pendientes
 
                 ViewBag.MostrarPedidosPendientes = "0";
-                ViewBag.LanzarTabConsultoraOnline = (lanzarTabConsultoraOnline) ? "1" : "0";
+                //ViewBag.LanzarTabConsultoraOnline = (lanzarTabConsultoraOnline) ? "1" : "0";
 
                 if (_configuracionManagerProvider.GetMostrarPedidosPendientesFromConfig())
                 {
                     var paisesConsultoraOnline = _configuracionManagerProvider.GetPaisesConConsultoraOnlineFromConfig();
-                    if (paisesConsultoraOnline.Contains(userData.CodigoISO)
-                        && userData.EsConsultora())
+                    if (paisesConsultoraOnline.Contains(userData.CodigoISO) && userData.EsConsultora())
                     {
                         using (var svc = new UsuarioServiceClient())
                         {
@@ -293,23 +292,23 @@ namespace Portal.Consultoras.Web.Controllers
                             if (cantPedidosPendientes > 0)
                             {
                                 ViewBag.MostrarPedidosPendientes = "1";
+                                ViewBag.CantPedidosPendientes = cantPedidosPendientes;
 
-                                using (var sv = new SACServiceClient())
-                                {
-                                    var motivoSolicitud = sv.GetMotivosRechazo(userData.PaisID).ToList();
-                                    ViewBag.MotivosRechazo = Mapper.Map<List<MisPedidosMotivoRechazoModel>>(motivoSolicitud);
-                                }
+                                //using (var sv = new SACServiceClient())
+                                //{
+                                //    var motivoSolicitud = sv.GetMotivosRechazo(userData.PaisID).ToList();
+                                //    ViewBag.MotivosRechazo = Mapper.Map<List<MisPedidosMotivoRechazoModel>>(motivoSolicitud);
+                                //}
 
 
-                                var olstMisPedidos =
-                                    svc.GetMisPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID, userData.CampaniaID)
-                                        .ToList();
+                                //var olstMisPedidos =
+                                //    svc.GetMisPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID, userData.CampaniaID)
+                                //        .ToList();
 
-                                ViewBag.ListaPedidosPendientesCliente = olstMisPedidos;
+                                //ViewBag.ListaPedidosPendientesCliente = olstMisPedidos;
 
                             }
                         }
-
                     }
                 }
 
@@ -328,12 +327,14 @@ namespace Portal.Consultoras.Web.Controllers
 
                 model.CampaniaActual = userData.CampaniaID;
                 model.Simbolo = userData.Simbolo;
+
                 #region Cupon
                 model.TieneCupon = userData.TieneCupon;
                 model.EMail = userData.EMail;
                 model.Celular = userData.Celular;
                 model.EmailActivo = userData.EMailActivo;
                 #endregion
+
                 ViewBag.paisISO = userData.CodigoISO;
                 ViewBag.Ambiente = _configuracionManagerProvider.GetBucketNameFromConfig();
                 ViewBag.CodigoConsultora = userData.CodigoConsultora;

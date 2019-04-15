@@ -26,6 +26,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         private const int refrescoGetCantidadPedidos = 30;
         MisPedidosModel objMisPedidos;
         readonly bool isEsika = false;
+
         #endregion
 
         public ConsultoraOnlineController()
@@ -951,9 +952,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     }
 
                     model.ListaPedidos = lstPedidos;
-
                     var lstByProductos = new List<BEMisPedidosDetalle>();
                     var grpListCuv = lstPedidosDetalleAll.Select(x => x.CUV).Distinct().ToList();
+
                     foreach (var cuv in grpListCuv)
                     {
                         var lstCuv = lstPedidosDetalleAll.Where(x => x.CUV == cuv);
@@ -967,20 +968,17 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         det.ListaClientes = lstPedidos.Where(x => ids.Contains(x.PedidoId.ToString())).ToArray();
                         lstByProductos.Add(det);
                     }
-                    model.ListaProductos = lstByProductos;
 
+                    model.ListaProductos = lstByProductos;
                     objMisPedidos = model;
                     SessionManager.SetobjMisPedidos(objMisPedidos);
-
-                    model.RegistrosTotal = model.ListaPedidos.Count.ToString();
+                    //model.RegistrosTotal = model.ListaPedidos.Count.ToString();
                 }
                 else
                 {
-                    model.RegistrosTotal = "0";
+                    //model.RegistrosTotal = "0";
                     return RedirectToAction("Detalle", "Pedido", new { area = "Mobile" });
                 }
-
-
             }
             catch (Exception ex)
             {
@@ -1043,7 +1041,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     model.ListaDetalle2 = detallePedidos;
                 }
 
-                model.RegistrosTotal = model.ListaDetalle2.Count.ToString();
+                //model.RegistrosTotal = model.ListaDetalle2.Count.ToString();
             }
             catch (Exception ex)
             {
@@ -1103,7 +1101,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 model.ListaPedidos = lstPedidos.ToList();
                 //model.ListaPedidos[0].DetallePedido = lstdetalle.ToArray();
-                model.RegistrosTotal = model.ListaPedidos.Count.ToString();
+                //model.RegistrosTotal = model.ListaPedidos.Count.ToString();
                 SessionManager.SetobjMisPedidos(model);
                 //SessionManager.SetobjMisPedidosDetalle(lstdetalle);
                 ViewBag.CUVx = cuv;
