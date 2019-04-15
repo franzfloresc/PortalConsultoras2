@@ -1463,6 +1463,11 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.DiaFacturacion = GetDiaFacturacion(usuarioModel.PaisID, usuarioModel.CampaniaID, usuarioModel.ConsultoraID, usuarioModel.ZonaID, usuarioModel.RegionID);
                     usuarioModel.NuevasDescripcionesBuscador = getNuevasDescripcionesBuscador(usuarioModel.PaisID);
 
+                    /*HD-3777*/
+                    usuarioModel.CodigoClasificacion = usuario.CodigoClasificacion;
+                    usuarioModel.CodigoSubClasificacion = usuario.CodigoSubClasificacion;
+                    usuarioModel.DescripcionSubclasificacion = usuario.DescripcionSubClasificacion;
+                    /*Fin*/
                 }
 
                 sessionManager.SetUserData(usuarioModel);
