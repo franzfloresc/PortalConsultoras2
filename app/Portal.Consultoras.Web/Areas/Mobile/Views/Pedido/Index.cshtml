@@ -396,7 +396,7 @@
             </div>
             <div class="producto_nombre_descripcion">
                 <h6>{{DescripcionMarca}}</h6>
-                <p class="nombre_producto">{{Descripcion}}</p>
+                <p class="nombre_producto nombre_producto_sugerido">{{Descripcion}}</p>
                 <div class="producto_precio">
                     <span class="producto_precio_oferta"><b>@Model.Simbolo {{PrecioCatalogoString}}</b></span>
                 </div>
@@ -510,6 +510,8 @@
         var esEmailActivo = '@Model.EmailActivo';
         var viewBagCampaniaActual = '@Model.CampaniaActual';
         var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTiCarrusel;
+        var origenPedidoWebDuoPerfecto = @Constantes.OrigenPedidoWeb.MobilePedidoDuoPerfectoCarrusel;
+        var origenPedidoWebPackNuevas = @Constantes.OrigenPedidoWeb.MobilePedidoPackNuevasCarrusel;
         var origenPedidoWebFichaProducto = @Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTiFicha;
         var MobilePedidoSugerido = @Constantes.OrigenPedidoWeb.MobilePedidoProductoSugeridoCarrusel;
         var origenPedidoWebMobilePedido = @Constantes.OrigenPedidoWeb.MobilePedidoDigitado;
