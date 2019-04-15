@@ -28593,10 +28593,6 @@ div.motivoRechazo textarea {
         left: 0;
     }
 
-/*.lista_opciones_cdr_wrapper {
-    margin-bottom: 70px;
-}*/
-
 .lista_opciones_cdr {
     list-style-type: none;
     margin-bottom: 41px;
@@ -28698,7 +28694,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 }
 
 .opcion_cdr_seleccionada_info_wrapper{
-    margin-bottom:50px;
+    margin-bottom:30px;
 }
 
 .opcion_cdr_seleccionada_info--cambiarPorOtroProducto p,
@@ -28883,6 +28879,37 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 .opcion_cdr_seleccionada_terminos_entrega_producto_texto {
     line-height: 20px;
 }
+
+.info_devolucion_a_tener_en_cuenta {
+    display: inline-block;
+    max-width: 628px;
+    margin-bottom: 16px;
+    border-top: 1px solid #808080;
+    border-bottom: 1px solid #808080;
+}
+
+    .info_devolucion_a_tener_en_cuenta_mensaje {
+        font-family: 'Lato';
+        text-align: center;
+        font-size: 13px;
+        margin-top: 22px;
+        margin-bottom: 22px;
+    }
+
+        .info_devolucion_a_tener_en_cuenta_mensaje span {
+            display: block;
+            font-size: 12px;
+        }
+
+            .info_devolucion_a_tener_en_cuenta_mensaje span:first-child {
+                font-weight: bold;
+                margin-bottom: 6px;
+            }
+
+            .info_devolucion_a_tener_en_cuenta_mensaje span:last-child {
+                letter-spacing: normal;
+                line-height: 19px;
+            }
 
 .btn_no_stock {
     font-family: 'Lato', sans-serif;
