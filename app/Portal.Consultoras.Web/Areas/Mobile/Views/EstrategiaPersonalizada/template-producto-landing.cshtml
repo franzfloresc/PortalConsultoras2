@@ -60,14 +60,14 @@
              {{/if}}
              {{#iff EsSubcampania '==' true}} style="padding-bottom: 30px; height:320px!important;" {{/iff}}>
             <div style="display:none;"><div data-estrategia="{{JSON2string item}}"></div></div>
-                        <a href="javascript:;" data-item-tag="verdetalle"
-                 {{#iff EsSubcampania '==' false}}
-                 {{#iff TipoAccionAgregar 'ContainsArray' '[@Constantes.TipoAccionAgregar.LoQuieres,@Constantes.TipoAccionAgregar.LoQuieresInactivo]' }}
-                 onclick="javascript:VerPopupExpGanaMas();"
-                 {{else}}
-                 onclick="javascript:OnClickFichaDetalle(this);"
-                 {{/iff}}
-                 {{/iff}}>
+            <a href="javascript:;" data-item-tag="verdetalle"
+               {{#iff EsSubcampania '==' false}}
+               {{#iff TipoAccionAgregar 'ContainsArray' '[@Constantes.TipoAccionAgregar.LoQuieres,@Constantes.TipoAccionAgregar.LoQuieresInactivo]' }}
+               onclick="javascript:VerPopupExpGanaMas();"
+               {{else}}
+               onclick="javascript:OnClickFichaDetalle(this);"
+               {{/iff}}
+               {{/iff}}>
                 <div>
                     <div class="producto_img_mobile_bpt">
                         <img data-src="{{ImgSmall FotoProducto01}}" data-img-lazy="1" data-lazy-seccion-revista-digital="" />
@@ -112,7 +112,7 @@
 
                     </div>
                 </div>
-                        </a>
+            </a>
             <div class="clear"></div>
             @if (ViewBag.TieneBotones)
             {
@@ -129,10 +129,19 @@
                                    {{#iff ClaseBloqueada '!=' ''}} disbled="disable" {{/iff}}>
                         </div>
                         <div class="clear"></div>
-                        @if (ViewBag.TieneBotones)
-                        {
-                            <div>
-                                {{#iff TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.AgregaloPackNuevas'}}
+                        <a class="boton_Agregalo_home {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}" onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event); ">
+                            AGR&Eacute;GALO
+                        </a>
+                    </div>
+                    {{else}}
+                    <div class="clear"></div>
+                    <div class="texto_elige_tono" style="height: 55px;padding-top: 16px;"></div>
+                    <div class="clear"></div>
+                    <div class="boton_producto_agotado">
+                        Agotado
+                    </div>
+                    {{/if}}
+                    {{/iff}}
 
                     {{#iff TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.AgregaloNormal'}}
                     <div class="texto_elige_tono">&nbsp;</div>
