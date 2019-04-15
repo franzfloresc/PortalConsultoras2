@@ -63,7 +63,7 @@
     var _util = {
         mostrarDetalleModal: function (data) {
             _util.setHandlebars(_template.componenteDetalle, data);
-            console.log(1, _template.componenteDetalle);
+            //console.log(1, _template.componenteDetalle);
             this.setYoutubeId();
             if (!_config.generalModule.isMobile()) {
                 _events.bindClosePopup();
@@ -82,10 +82,13 @@
             //Este método asigna los datos del componente individual a _template.componenteDetalleIndividual
 
             //estrategia.Hermanos por default es solo 1
-            if (estrategia.Hermanos.length == 1) {
+            console.log(estrategia);
+            //if (estrategia.Hermanos.length == 1) {
+            if (estrategia.CodigoVariante == '2003') {
                 if (estrategia.MostrarFichaEnriquecida) {
+                    //console.log(_template.componenteDetalleIndividual);
                     _util.setHandlebars(_template.componenteDetalleIndividual, estrategia.Hermanos[0]);
-                    console.log(1, _template.componenteDetalleIndividual);
+                    //console.log(1, _template.componenteDetalleIndividual);
                     this.setYoutubeId();
                     if (!_config.generalModule.isMobile()) {
                         this.setTabDetalleComponente();
@@ -97,7 +100,7 @@
                     this.setYoutubeApi();
                 }
             } else {
-                console.log('estrategia.Hermanos no tiene items');
+                //console.log('estrategia.Hermanos no tiene items');
             }
         },
         setCarrusel: function (id) {
@@ -175,19 +178,18 @@
     };
 
     var _VerDetalle = function (componente) {
-        console.log('componente', componente);
+        //console.log('componente', componente);
         _util.mostrarDetalleModal(componente);
     };
 
     var _VerDetalleIndividual = function (estrategia) {
 
-        console.log('estrategia', estrategia);
+        //console.log('estrategia', estrategia);
         _util.mostrarDetalleIndividual(estrategia);
 
     };
 
     var _OcultarControles = function () {
-
         if (_tipoEstrategiaTexto.Ganadoras === _config.palanca ||
             _tipoEstrategiaTexto.ShowRoom === _config.palanca || /*Especiales*/
             _tipoEstrategiaTexto.Lanzamiento === _config.palanca || /*Lo nuevo nuevo*/
@@ -196,13 +198,11 @@
 
             _tipoEstrategiaTexto.GuiaNegocio === _config.palanca ||
             _tipoEstrategiaTexto.GuiaDeNegocioDigitalizada === _config.palanca) {
-
             _validator.mostrarContenidoProducto(true);
 
-            if ($(_template.BotonVerDetalle).length > 1) {
+            if ($(_template.BotonVerDetalle).length > 0) {
                 _validator.mostrarBotoneraVerDetalle(true);
                 _validator.mostrarContenidoProducto(false);
-
             } else {
                 _validator.mostrarBotoneraVerDetalle(false);
             }
@@ -211,7 +211,6 @@
             _validator.mostrarContenidoProducto(false);
             _validator.mostrarBotoneraVerDetalle(false);
         }
-
     };
 
     var _events = {
