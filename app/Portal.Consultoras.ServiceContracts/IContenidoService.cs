@@ -279,5 +279,11 @@ namespace Portal.Consultoras.ServiceContracts
         string ObtenerCorreoEmisor(int PaisID);
 
         #endregion
+
+        [OperationContract]
+        List<BEContenidoApp> GetContenidoApp(BEUsuario itmFilter);
+
+        [OperationContract]
+        void CheckContenidoApp(BEUsuario itmFilter, int idContenidoDetalle);
     }
 }
