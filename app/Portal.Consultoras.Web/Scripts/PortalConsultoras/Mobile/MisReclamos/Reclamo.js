@@ -122,7 +122,9 @@ $(document).ready(function () {
             EleccionTipoEnvio: "#EleccionTipoEnvio",
             hdTieneCDRExpress: "#hdTieneCDRExpress",
             divConfirmEnviarSolicitudCDR: '#divConfirmEnviarSolicitudCDR', //HD-3412 EINCA
-            txtCantidadPedidoConfig: '#txtCantidadPedidoConfig'//HD-3412 EINCA
+            txtCantidadPedidoConfig: '#txtCantidadPedidoConfig',//HD-3412 EINCA
+            tabVistaCdr: '.tab_vista_cdr_enlace_contenido'
+
         };
 
         me.Eventos = {
@@ -146,6 +148,26 @@ $(document).ready(function () {
                         $(me.Variables.Registro1).hide();
                     }
                 }
+
+                // Alternar vistas de tabs Nuevo Cambio y Registradas
+
+                $(me.Variables.tabVistaCdr).click(function (e) {
+                    e.preventDefault();
+                    var contenidoTabAMostrar = $(this).attr('href');
+                    $('.vistas_cdr').fadeOut(100);
+                    $('.tab_vista_cdr').removeClass('tab_vista_cdr--activo');
+                    $(this).parent().addClass('tab_vista_cdr--activo')
+                    $(contenidoTabAMostrar).fadeIn(100);
+                    if (contenidoTabAMostrar == '#VistaReclamo') {
+                        $('#btnAgregarSolicitud').fadeOut(100);
+                        $('#btnSiguiente1').delay(50);
+                        $('#btnSiguiente1').fadeIn(100);
+                    } else {
+                        $('#btnSiguiente1').fadeOut(100);
+                        $('#btnAgregarSolicitud').delay(50);
+                        $('#btnAgregarSolicitud').fadeIn(100);
+                    }
+                });
 
                 // Agregar otro producto.
                 $(me.Variables.IrSolicitudInicial).click(function () {

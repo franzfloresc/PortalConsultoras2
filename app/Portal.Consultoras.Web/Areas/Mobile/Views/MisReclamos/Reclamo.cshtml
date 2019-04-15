@@ -44,6 +44,22 @@
 
 
 <div id="wrpMobile" class="wrapper_resumen_mobile pt-50">
+    <div class="tabs_vista_cdr_wrapper">
+        <ul class="tabs_vista_cdr">
+            <li class="tab_vista_cdr tab_vista_cdr--nuevoCambio tab_vista_cdr--activo">
+                <a href="#VistaReclamo" class="tab_vista_cdr_enlace_contenido">
+                    <span class="text-uppercase tipografia_lato_bold">Nuevo cambio</span>
+                    <span class="barra_estado_tab_cdr"></span>
+                </a>
+            </li>
+            <li class="tab_vista_cdr tab_vista_cdr--solicitudesRegistradas">
+                <a href="#VistaSolicitudesRegistradas" class="text-uppercase tipografia_lato_bold tab_vista_cdr_enlace_contenido">
+                    <span class="text-uppercase tipografia_lato_bold">Registradas</span>
+                    <span class="barra_estado_tab_cdr"></span>
+                </a>
+            </li>
+        </ul>
+    </div>
     <div id="VistaSinSolicitudesRegistradas" style="display:none;">
         <div class="text-center mensaje_sin_solicitudes_registradas_wrapper">
             <div class="mensaje_sin_solicitudes_registradas_icono">
@@ -54,10 +70,10 @@
             </p>
         </div>
     </div>
-    <div id="VistaSolicitudesRegistradas" style="display:none;">
+    <div id="VistaSolicitudesRegistradas" style="display:none;" class="vistas_cdr">
 
     </div>
-    <div id="VistaReclamo">
+    <div id="VistaReclamo" class="vistas_cdr">
         <div class="texto-mensaje-cdr">
             <span class="mensaje_vista_cdr tipografia_lato_bold">
                 Queremos verte siempre satisfecha con nuestros productos y servicio.
