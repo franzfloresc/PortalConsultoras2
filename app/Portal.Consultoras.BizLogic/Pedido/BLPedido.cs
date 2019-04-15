@@ -1166,7 +1166,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         x.EsCuponNuevas,
                         x.EsElecMultipleNuevas,
                         x.EsPremioElectivo,
-                        x.EsCuponIndependiente));
+                        x.EsCuponIndependiente,
                         null,
                         x.EsKitCaminoBrillante || x.EsDemCaminoBrillante));
 
