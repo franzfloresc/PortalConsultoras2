@@ -3545,5 +3545,15 @@ namespace Portal.Consultoras.Common
             public const int PosibleEgreso = 8;
             public const int Reingreso = 9;
         }
+
+        #region
+        public static class CarpetasContenido
+        {
+            public const string Menu = "Menu";
+        }
+
+        #endregion
+
+
     }
 }
