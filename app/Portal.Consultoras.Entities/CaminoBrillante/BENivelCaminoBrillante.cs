@@ -21,6 +21,10 @@ namespace Portal.Consultoras.Entities.CaminoBrillante
         /// </summary>
         public string MontoMaximo { get; set; }
         /// <summary>
+        /// Indica el monto Maximo del siguiente nivel
+        /// </summary>
+        public decimal MontoFaltante { get; set; }
+        /// <summary>
         /// Indica si tendra ofertas o no
         /// </summary>
         public bool TieneOfertasEspeciales { get; set; }

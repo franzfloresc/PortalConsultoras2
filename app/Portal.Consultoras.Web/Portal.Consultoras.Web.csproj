@@ -308,6 +308,7 @@
     <Compile Include="Models\CaminoBrillante\BeneficiosNivelCaminoBrillanteModel.cs" />
     <Compile Include="Models\CaminoBrillante\Indicador.cs" />
     <Compile Include="Models\CaminoBrillante\MisLogrosCaminoBrillanteModel.cs" />
+    <Compile Include="Models\ConfiguracionCaminoBrillanteModel.cs" />
     <Compile Include="Models\PremioNuevaModel.cs" />
     <Compile Include="Models\BuscadorYFiltrosConfiguracionModel.cs" />
     <Compile Include="Controllers\BusquedaProductosController.cs" />
@@ -5832,6 +5833,7 @@
     <Content Include="Views\ArmaTuPack\Detalle\seleccionados-template.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-bannerInteractivo.cshtml" />
     <Content Include="Views\Bonificaciones\IndexExterno.cshtml" />
+    <Content Include="Views\AdministracionMedallaBrillante\Index.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
