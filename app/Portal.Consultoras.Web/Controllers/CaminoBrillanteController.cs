@@ -3,8 +3,6 @@ using System.Web.Mvc;
 using System.Linq;
 using Portal.Consultoras.Common;
 using System;
-using System.Collections.Generic;
-using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.Providers;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -39,6 +37,8 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.ResumenLogros = informacion.ResumenLogros;
             ViewBag.Niveles = informacion.Niveles;
             ViewBag.NivelActual = nivelActual;
+            
+
             return View();
         }
 
@@ -123,11 +123,14 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult GetNiveles(string nivel)
         {
+
             var informacion = SessionManager.GetConsultoraCaminoBrillante() ?? new ServiceUsuario.BEConsultoraCaminoBrillante();
             var Beneficios = informacion.Niveles.Where(
                 e => e.CodigoNivel == nivel.ToString()).Select(z => new { z.Beneficios, z.DescripcionNivel, z.MontoMinimo, z.UrlImagenNivel });
-
+           
+            var MontoAcumuladoPedido = userData.MontoDeuda;
             var Moneda = userData.Simbolo;
+
             Beneficios.ToList().ForEach(
                 e =>
                 {
@@ -137,7 +140,7 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 });
 
-            return Json(new { Niveles = Beneficios, Moneda }, JsonRequestBehavior.AllowGet);
+            return Json(new { Niveles = Beneficios, Moneda, MontoAcumuladoPedido }, JsonRequestBehavior.AllowGet);
         }
         #endregion
     }
