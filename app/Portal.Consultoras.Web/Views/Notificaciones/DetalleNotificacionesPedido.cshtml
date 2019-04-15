@@ -63,7 +63,7 @@
                     Total:
                     </td>
                     <td style="width: 50%; font-family: 'Arial'; font-size: 16px; font-weight: 700; color: #000;padding-right:14%; text-align:right;">
-                        @Model.simbolo <span id="sMontoTotal">@Model.TotalString</span>
+                        @Model.simbolo <span id="sMontoTotal"> @Model.TotalString</span>
                     </td>
                 </tr>
                 <tr>
@@ -80,12 +80,13 @@
                         Detalle
                     </td>
                 </tr>
-                <tr>
-                    <td style="text-align: left; color: #000; font-family: 'Arial'; font-size: 13px; font-weight: 700; padding-top: 15px; padding-left: 10px; padding-right: 10px;">Producto</td>
-                    <td style="text-align: right; color: #000; font-family: 'Arial'; font-size: 13px; font-weight: 700; padding-top: 15px; padding-left: 10px; padding-right: 10px;">Subtotal</td>
-                </tr>
+                
                 @if (Model.ListaNotificacionesDetallePedido.Any())
                 {
+                    <tr>
+                        <td style="text-align: left; color: #000; font-family: 'Arial'; font-size: 13px; font-weight: 700; padding-top: 15px; padding-left: 10px; padding-right: 10px;">Producto</td>
+                        <td style="text-align: right; color: #000; font-family: 'Arial'; font-size: 13px; font-weight: 700; padding-top: 15px; padding-left: 10px; padding-right: 10px;">Subtotal</td>
+                    </tr>
                     <tr>
                         <td colspan="2" style="padding-top: 15px; padding-left: 10px; padding-right: 10px; border-bottom:2px solid #9E9E9E">
                             @foreach (var item in Model.ListaNotificacionesDetallePedido)
@@ -221,7 +222,7 @@ else
                                                 <tr>
                                                     <td style='padding: 0px 0px 15px 0px; text-align: left; display: block;'><span>Te informamos lo siguiente: </span></td>
                                                 </tr>
-                                                @if (Model.ListaNotificacionesDetallePedido.Count != 0)
+                                                @if (Model.ListaNotificacionesDetallePedido.Any())
                                                 {
                                                     <tr>
                                                         <td style='padding: 0px 0px 0px 0px; text-align: left;'>

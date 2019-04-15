@@ -872,6 +872,8 @@ namespace Portal.Consultoras.Web.Controllers
                         return RedirectToUniqueRoute("Notificaciones", "IndexExterno", new { IdOrigen = model.OrigenPedido });
                     case Constantes.IngresoExternoPagina.MasGanadoras: 
                         return RedirectToUniqueRoute("MasGanadoras", "Index");
+                    case Constantes.IngresoExternoPagina.ArmaTuPack:
+                        return RedirectToUniqueRoute("ArmaTuPack", "Detalle");
                 }
             }
             catch (Exception ex)
@@ -999,9 +1001,9 @@ namespace Portal.Consultoras.Web.Controllers
             pasoLog = "Login.GetUserData";
             sessionManager.SetIsContrato(1);
             sessionManager.SetIsOfertaPack(1);
-            var pseudoParamNotif =  (DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds;//SALUD-58       
+            double pseudoParamNotif = (DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds;//SALUD-58     
 
-            var usuarioModel = (UsuarioModel)null;
+            UsuarioModel usuarioModel = (UsuarioModel)null;
 
             try
             {
@@ -3103,8 +3105,5 @@ namespace Portal.Consultoras.Web.Controllers
 
             return result;
         }
-
-
-
     }
 }
