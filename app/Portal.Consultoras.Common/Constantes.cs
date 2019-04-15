@@ -1371,6 +1371,7 @@ namespace Portal.Consultoras.Common
             public const string ActualizaDatos = "ACTUALIZADATOS";
             public const string Notificaciones = "NOTIFICACIONES";
             public const string MasGanadoras = "MASGANADORAS";
+            public const string ArmaTuPack = "ARMATUPACK";
         }
 
         public static class IngresoExternoOrigen
@@ -3192,6 +3193,7 @@ namespace Portal.Consultoras.Common
             public const string FlagFiltrosBuscador = "FlagFiltrosBuscador";
             public const string FlagBuscarPorCategoria = "BuscarPorCategoria";
             public const string FlagBuscarPorCategoriaTotalProductos = "BuscarPorCategoriaTotalProductos";
+            public const string MostrarPalabrasMenoresACuatro = "MostrarPalabrasMenoresACuatro";
         }
 
         public static class CodigoConfiguracionMSPersonalizacion
@@ -3353,6 +3355,7 @@ namespace Portal.Consultoras.Common
             public const string ESPECIALES = "ESPECIALES";
             public const string OFERTASFLEXIPAGO = "OFERTASFLEXIPAGO";
             public const string ESPREMIOELEC = "ESPREMIOELEC";
+            public const string ESCUPONINDEPENDIENTE = "ESCUPONINDEPENDIENTE";
             public const string ESCUPONNUEVAS = "ESCUPONNUEVAS";
             public const string ESELECMULTIPLENUEVAS = "ESELECMULTIPLENUEVAS";
         }

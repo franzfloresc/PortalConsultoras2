@@ -606,7 +606,21 @@ function ObtenerProductosSugeridos(CUV) {
             $("#divCarruselSugerido").html('');
             $('#PopSugerido').show();
             SetHandlebars("#js-CarruselSugerido", lista, '#divCarruselSugerido');
+            $.each($("#divCarruselSugerido .sugerido"), function (index, obj) {
+                var selector = $(obj).find(".nombre_producto_sugerido");
+                var descripcion = selector.text().trim();
+                var wd = descripcion.length;
+                if (wd <= 50) {
+                    selector.html(descripcion);
+                }
+                else {
 
+                    var descripcionNueva = descripcion.substring(0, 50);
+                    descripcionNueva = descripcionNueva + "...";
+                    selector.html(descripcionNueva);
+                }
+                
+            });
             $('#divCarruselSugerido').slick({
                 infinite: true,
                 vertical: false,
