@@ -152,6 +152,7 @@
     -o-box-shadow: 0 1px 18px 1px rgba(0,0,0,.31);
     -ms-box-shadow: 0 1px 18px 1px rgba(0,0,0,.31);
     -webkit-box-shadow: 0 1px 18px 1px rgba(0,0,0,.31);
+    z-index:1000;
 }
 
     .tooltip_kitNuevas:after, .tooltip_kitNuevas:before {
