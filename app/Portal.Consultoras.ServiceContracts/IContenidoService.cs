@@ -1,4 +1,5 @@
 ﻿using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.Comunicado;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -301,7 +302,14 @@ namespace Portal.Consultoras.ServiceContracts
         int EliminarArchivoCsv(int Comunicadoid, int PaisID);
 
         [OperationContract]
+        int EliminarArchivoCsvValidador( int PaisID);
+
+        [OperationContract]
         int CargaEstadoValidadorDatos(int PaisID);
+
+
+        [OperationContract]
+        List<BEComunicadoSegmentacion> GetCargaListadoPopupValidador(int PaisID);
 
         #endregion
 

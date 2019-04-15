@@ -9,8 +9,10 @@ var VistaAdministracionPopups
     , URL_DETALLE_POPUT = baseUrl + 'AdministracionPopups/GetDetallePopup'
     , URL_ACTUALIZA_ORDEN = baseUrl + 'AdministracionPopups/ActualizaOrden'
     , URL_ELIMINA_ARCHIVOCSV = baseUrl + 'AdministracionPopups/EliminarArchivoCsv'
+    , URL_ELIMINA_ARCHIVOCSV_VALIDADOR = baseUrl + 'AdministracionPopups/EliminarArchivoCsvValidador'
     , URL_AGREGAR_IMAGEN = baseUrl + 'AdministracionPopups/AgregarImagenUpload'
     , URL_BUSCAR_POPUTS = baseUrl + 'AdministracionPopups/GetCargaListadoPopup'
+    , URL_BUSCAR_POPUTS_VALIDADOR = baseUrl + 'AdministracionPopups/GetCargaListadoPopupValidador'
     , URL_POPUPVALIDADOR_ESTADO = baseUrl + 'AdministracionPopups/ActivaPopupValidador'
     , URL_POPUPVALIDADOR_CARGA = baseUrl + 'AdministracionPopups/CargaEstadoValidadorDatos'
     , TIPO_ACCION_NUEVO = 1
@@ -44,6 +46,7 @@ function ObjetoMensajes() {
     this.validarFechaPasada = "Ingrese una fecha mayor o igual a la de hoy";
     this.activaPopupValidador = "El estado del popup de validación de datos fue actualizado";
     this.mensajeActivadorPopupValidador = "Desea actualizar el estado del popup de validación de datos?";
+    this.archivoValidador = "Archivo validador cargado";
 }
 
 /******************************************************MÉTODOS Y OPERACIONES*********************************************************************************/
@@ -138,8 +141,10 @@ $(document).ready(function () {
                var overlay = document.getElementById('overlay'),
                    popup = document.getElementById('popup');
                    overlay.classList.add('active');
-                   popup.classList.add('active');
-                   // CargarCamposPpupValidador();
+                popup.classList.add('active');
+                LimpiarCamposPoputValidador();
+                GetCargaListadoPoputValidador();
+                
             },
             CerrarPoupValidador: function (e) {
                 var overlay = document.getElementById('overlay'),
@@ -147,7 +152,7 @@ $(document).ready(function () {
                     e.preventDefault();
                     overlay.classList.remove('active');
                     popup.classList.remove('active');
-                   // LimpiarCamposPoputValidador();
+                    LimpiarCamposPoputValidador();
             }
         },
             me.Inicializar = function () {
@@ -218,12 +223,6 @@ $(document).ready(function () {
 });
 
 
-
-    /*Carga del popup informativo*/
-function CargarCamposPpupValidador() {
-    CargaEstadoValidadorDatos();
-}
-
 function CargaEstadoValidadorDatos() {
     $.ajax({
         type: "POST",
@@ -243,7 +242,107 @@ function CargaEstadoValidadorDatos() {
         }
     });
 
+
+    //if (data.NombreArchivoCCV.length > 0)
+        document.getElementById("EliminarArchivo").style.display = "block";
+    //else
+    //    $("#nameArchivo").html(OBJETO_MENJASE.validaArchivoCsv);
 }
+
+
+function GetCargaListadoPoputValidador() {
+    debugger;
+    $.ajax({
+        type: "POST",
+        url: URL_BUSCAR_POPUTS_VALIDADOR,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        cache: true,
+        success: function (data) {
+            ConstruyeGrillaPoputValidador(data["listaComunicadoSegmentacionModel"], 1);
+            CargaEstadoValidadorDatos();
+            if (data["listaComunicadoSegmentacionModel"].length > 0) {
+                document.getElementById("EliminarArchivoValidador").style.display = "block";
+                $("#nameArchivoValidador").html(OBJETO_MENJASE.archivoValidador);
+            }
+            else
+                $("#nameArchivoValidador").html(OBJETO_MENJASE.validaArchivoCsv);
+            closeWaitingDialog();
+        },
+        error: function (x, xh, xhr) {
+            if (checkTimeout(x)) {
+                closeWaitingDialog();
+            }
+        }
+    });
+}
+function LimpiarCamposPoputValidador() {
+    $("#nameArchivoValidador").html("");
+    document.getElementById('checkPopup').checked = false;
+    document.getElementById("EliminarArchivoValidador").style.display = "none";
+    localStorage.removeItem("datosCSValidador");
+}
+
+
+
+function ConstruyeGrillaPoputValidador(data,valor) {
+    var Region, Zona, Estado, Consultora;
+    $("#divTablaValidador").empty();
+
+    var listColumnas = [
+        {
+            tituloColumna: 'Region',
+            claseColumna: 'col__grilla--fondo'
+        },
+        {
+            tituloColumna: 'Zona',
+            claseColumna: 'col__grilla--titulo'
+        },
+        {
+            tituloColumna: 'Estado de actividad',
+            claseColumna: 'col__grilla--ruta'
+        },
+        {
+            tituloColumna: 'Consultora',
+            claseColumna: 'col__grilla--ruta'
+        },
+    ];
+
+    /*Cabecera*/
+    var cantidadPoputs = "<h2 class='d__block text__bold administracion__popups__grilla__titulo'>" + (parseInt(data.length) + (data.length == 1 ? " Poput" : " Poputs") + " agregados") + "</h2 >";
+    var cabecera = "<div class='background__color__m row__grilla administracion__popups__grilla__cabecera'>";
+    listColumnas.forEach(function (element) {
+        cabecera += "<div class='col__grilla " + (element.claseColumna).toString() + " text__center'>" + (element.tituloColumna).toString() + "</div>";
+    });
+    cabecera += "</div>";
+
+    var detalle = "<div id='swappable' class='d__block administracion__popups__grilla__contenido'>";
+
+    for (var i = 0; i < data.length; i++) {
+        if (valor == 1) {
+            Region = data[i].CodigoRegion;
+            Zona = data[i].CodigoZona;
+            Estado = data[i].IdEstadoActividad;
+            Consultora = data[i].CodigoConsultora;
+        } else {
+            Region = data[i].RegionId;
+            Zona = data[i].ZonaId;
+            Estado = data[i].Estado;
+            Consultora = data[i].Consultoraid;
+        }
+        detalle += "<div class='d__block background__color__m__lighter ui-state-default row__grilla'>";
+        detalle += "<div class='col__grilla col__grilla--fondo'><div class='row__grilla row__grilla__texto text__center' ><span class='d__block w__100'>" + (Region == "0" ? "" : Region) + "</span></div ></div >";
+        detalle += "<div class='col__grilla col__grilla--titulo'><div class='row__grilla row__grilla__texto text__center' ><span class='d__block w__100'>" + (Zona == "0" ? "" : Zona) + "</span></div ></div >";
+        detalle += "<div class='col__grilla col__grilla--ruta'><div class='row__grilla row__grilla__texto text__center' ><span class='d__block w__100'>" + (Estado == 0 ? "" : Estado)+ "</span></div ></div >";
+        detalle += "<div class='col__grilla col__grilla--ruta'><div class='row__grilla row__grilla__texto text__center' ><span class='d__block w__100'>" + (Consultora == "0" ? "" : Consultora)  + "</span></div ></div >";
+        detalle += "</div>";
+        }
+    
+    detalle += "</div>";
+    $("#divTablaValidador").append(cabecera + detalle);
+
+}
+
 
 $("#btnGuardarPopupValidador").click(function () {
     GuardarDatosPopupValidador();
@@ -259,7 +358,7 @@ function GuardarDatosPopupValidador(valor) {
 
         var frmData = new FormData();
         frmData.append("checkPopup", document.getElementById('checkPopup').checked);
-        if (localStorage.getItem("datosCSV") != null)
+        if (localStorage.getItem("datosCSVValidador") != null)
             frmData.append("datosCSVValidador", localStorage.getItem("datosCSVValidador"));
         else
             frmData.append("datosCSVValidador", null);
@@ -428,6 +527,7 @@ function ClearFileView() {
 }
 
 function getFileCSV() {
+   
     var frmData = new FormData();
     var file = document.getElementById("fileCSV").files[0];
     frmData.append("fileCSV", file);
@@ -439,7 +539,7 @@ function getFileCSV() {
         contentType: false,
         processData: false,
         success: function (msg) {
-
+       
             if (msg.dataerror) {
                 alert(msg.archivo);
                 document.getElementById("EliminarArchivo").style.display = "none";
@@ -456,7 +556,42 @@ function getFileCSV() {
     });
 }
 
+function getFileCSVValidador() {
+    var frmData = new FormData();
+    var file = document.getElementById("fileCSVValidador").files[0];
+    frmData.append("fileCSVValidador", file);
+    $.ajax({
+        type: "POST",
+        url: URL_ADJUNTAR_ARCHIVO,
+        data: frmData,
+        dataType: 'json',
+        contentType: false,
+        processData: false,
+        success: function (msg) {
+            debugger;
+            if (msg.dataerror) {
+                alert(msg.archivo);
+                document.getElementById("EliminarArchivoValidador").style.display = "none";
+                $("#nameArchivoValidador").html(OBJETO_MENJASE.validaArchivoCsv);
+            } else {
+                document.getElementById("EliminarArchivoValidador").style.display = "block";
+                $("#nameArchivoValidador").html(msg.archivo);
+            }
+            getCargarArchivoCSVPoputLocalStorageValiddor(msg);
+            ConstruyeGrillaPoputValidador(msg.listArchivo,0);
+        },
+        error: function (error) {
+            alert("errror");
+        }
+    });
+}
 
+function getCargarArchivoCSVPoputLocalStorageValiddor(data) {
+    localStorage.removeItem("datosCSVValidador");
+    if (data["listArchivo"] != undefined) {
+        localStorage.setItem('datosCSVValidador', JSON.stringify(data["listArchivo"]));
+    }
+}
 
 $("#btnGuardar").click(function () {
 
@@ -653,7 +788,7 @@ function ValidaImagen(file) {
 }
 
 $(".eliminarArchivo").click(function () {
-
+    debugger;
     var comunicadoid = $("#hdComunicadoId").val() == "" ? 0 : $("#hdComunicadoId").val();
     var object = {
         Comunicadoid: parseInt(comunicadoid)
@@ -678,6 +813,33 @@ $(".eliminarArchivo").click(function () {
         }
     });
 });
+
+
+
+$(".EliminarArchivoValidador").click(function () {
+    debugger;
+
+    $.ajax({
+        type: "POST",
+        url: URL_ELIMINA_ARCHIVOCSV_VALIDADOR,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        async: true,
+        success: function (msg) {
+            localStorage.removeItem("datosCSVValidador");
+            $("#nameArchivoValidador").html("");
+            $("#fileCSVValidador").val("");
+            document.getElementById("EliminarArchivoValidador").style.display = "none";
+            $("#nameArchivoValidador").html(OBJETO_MENJASE.validaArchivoCsv);
+            $("#divTablaValidador").empty();
+            ConstruyeGrillaPoputValidador([],1)
+        },
+        error: function (error) {
+            alert("errror");
+        }
+    });
+});
+
 
 /***************************************************************************************************************************************/
 
