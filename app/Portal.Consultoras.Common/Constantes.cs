@@ -1430,6 +1430,7 @@ namespace Portal.Consultoras.Common
         public static class Facebook
         {
             public const string FB_AppId = "FB_AppId";
+            public const string FB_Pixel = "168434853695851";
         }
 
         public static class RevistaNombre
