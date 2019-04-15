@@ -2141,7 +2141,7 @@ namespace Portal.Consultoras.BizLogic
                         {
                             MotivoPedidoLock = Enumeradores.MotivoPedidoLock.Bloqueado,
                             Mensaje = "HD3693~"+_tablaLogicaDatosBusinessLogic.GetList(paisID, Constantes.TablaLogica.MsjPopupBloqueadas).FirstOrDefault(a => a.Codigo == "01").Valor
-                    };
+                        };
                     }
                     else
                     {

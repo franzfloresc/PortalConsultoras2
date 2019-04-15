@@ -399,5 +399,9 @@ namespace Portal.Consultoras.Web.Models
         public int IndicadorConsultoraDummy { get; set; }
         
         public string PseudoParamNotif { get; set; } //SALUD-58 
+
+        //INI HD-3693
+        public string AutorizaPedido { get; set; }
+        //FIN HD-3693
     }
 }
