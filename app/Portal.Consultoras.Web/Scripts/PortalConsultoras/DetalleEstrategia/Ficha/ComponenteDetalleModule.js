@@ -134,16 +134,20 @@
         setTabDetalleComponente: function () {
             $("body").off("click", "[data-tab-header]");
             $("body").on("click", "[data-tab-header]", function (e) {
+                console.log('click setTabDetalleComponente');
                 e.preventDefault();
                 var numTab = $(e.target).data("num-tab");
                 $("[data-tab-header]").removeClass("active");
-                $("[data-tab-header][data-num-tab=" + numTab + "]").addClass("active");
+                if ($("[data-tab-header][data-num-tab]").length > 1) {
+                    $("[data-tab-header][data-num-tab=" + numTab + "]").addClass("active");
+                }
                 $("[data-tab-body]").hide();
                 $("[data-tab-body][data-num-tab=" + numTab + "]").show();
             });
         },
         setAcordionDetalleComponente: function () {
             $(_template.MenuDetalleComponente).click(function () {
+                console.log('click setAcordionDetalleComponente');
                 var $this = $(this);
                 $this.parent().children("ul").slideToggle();
                 var clase = $this.attr("class");
