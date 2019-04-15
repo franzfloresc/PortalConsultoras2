@@ -1,3 +1,6 @@
+* {
+    font-family: 'Lato', sans-serif !important;
+}
 html, body, div, span, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 abbr, address, cite, code,
@@ -79,7 +82,7 @@ strong {
     margin-top: 20px;
 }
 
-    .box-beneficios:after, .box-beneficios:after, .list-crec:after, .cont-logros:after, .boxcenter:after, .cont-ganancias:after, .list-ganacias:after, .indicador-nivel:after {
+    .box-beneficios:after, .box-beneficios:after, .list-crec:after, .cont-logros:after, .boxcenter:after, .cont-ganancias:after, .list-ganacias:after, .indicador-nivel:after, .cont-textLograr:after{
         content: "";
         display: block;
         clear: both;
@@ -712,19 +715,12 @@ div .owl-carousel .owl-stage-outer {
 }
 
 
-
-
-
-
-
-
 /*new cambios*/
 
 .box-camb {
     margin: 35px auto;
     width: 50%;
     padding: 0px 3%;
-    /* padding-left: 0; */
     box-sizing: border-box;
     float: left;
 }
@@ -836,10 +832,12 @@ button.close {
         .indicador-nivel .left-mod h2 {
             color: black;
             font-size: 20px;
+            line-height: 22px;
             display: block;
-            text-align:center;
+            text-align: center;
             margin: 0;
             font-weight: bold !important;
+            margin-bottom: 10px;
         }
 
         .indicador-nivel .left-mod p {
@@ -851,14 +849,16 @@ button.close {
         }
 
 .two-colums {
-    margin: 50px auto;
+    margin: 40px auto;
 }
 
     .two-colums li {
         width: 44%;
         margin: 15px 3%;
     }
-
+.modal-body .subtitle {
+    margin-top: 40px;
+}
 .modal .close {
     display: block;
     max-width: 35px;
@@ -1024,6 +1024,9 @@ div .footer__link, div .sub_footer a, div .btn__productos__agregados--verMiPedid
 
 /* MEDIASQUERY CAMINO BRILLANTE */
 @media screen and (max-width: 930px) {
+    .content_responsive {
+        margin-top: 60px;
+    }
 }
 
 @media screen and (max-width: 860px) {
@@ -1098,9 +1101,7 @@ div .footer__link, div .sub_footer a, div .btn__productos__agregados--verMiPedid
         max-width: 90px !important;
     }
 
-    /*    .modal-open .modal {
-        padding-right: 0 !important;
-    }*/
+
 
     .brillante:before {
         width: 41px;
@@ -1108,7 +1109,9 @@ div .footer__link, div .sub_footer a, div .btn__productos__agregados--verMiPedid
         top: -3px;
         left: -3px;
     }
-
+    .title, .subtitle {
+        font-size: 20px;
+    }
     .indicador-nivel, .two-colums {
         margin: 30px auto;
     }
@@ -1517,15 +1520,18 @@ div .footer__link, div .sub_footer a, div .btn__productos__agregados--verMiPedid
 }
 
 .l-mod {
-    display:block;
-    float:left;
-    padding:0 15px;
-    width:50%;
+    display: block;
+    float: left;
+   
+    width: 40%;
 }
-.l-mod p {
+.textlogras {
+    width: 60%;
+}
+div .left-mod .l-mod p {
     color: black;
     font-size: 15px;
-    text-align:left;
+    text-align: left;
 }
 .textlogras p {
     font-weight:bold;
@@ -1536,4 +1542,16 @@ div .footer__link, div .sub_footer a, div .btn__productos__agregados--verMiPedid
 .productos__agregados {
     max-height: inherit;
 
+}
+.submenu__item submenu__item--IngresaTuPedido a {
+    font-weight:bold;
+}
+.btn__productos__agregados--verMiPedido {
+    font-size: 14px;
+    text-decoration: none;
+}
+.cont-textLograr {
+    margin:0 auto;
+    width:80%;
+    margin-top:20px;
 }

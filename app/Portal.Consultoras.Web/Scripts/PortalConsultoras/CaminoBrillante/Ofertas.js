@@ -14,6 +14,10 @@ $(document).ready(function () {
     AgregarProducto();
 });
 
+//$(".boton_Agregalo_home").click(function () {
+//    $(this).toggleClass('check_intriga');
+//});
+
 function Inicializar() {
     ValidarCargaDemostradores();
     LinkCargarDemostradoresToScroll();
@@ -59,7 +63,7 @@ function CargarDemostradores() {
     });
 }
 
-function ListarOfertasDemostradores(data) {
+function ArmarProductoLiquidaciones(data) {
     //data = EstructurarDataCarouselLiquidaciones(data);
     var htmlDiv = SetHandlebars("#template-Demostradores", data);
     $('#Demostradores').append(htmlDiv);
@@ -120,7 +124,6 @@ function AgregarProducto() {
                         for (var i = 0; i < articulos[0].childElementCount; i++) {
                             articulos[0].children[i].className += " producto_desactivado"
                         }
-
                     }
                     CerrarSplash();
                     CargarResumenCampaniaHeader(true);
