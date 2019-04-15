@@ -153,3 +153,6 @@ function CerrarMensajeAceptado() {
     document.location.href = urlPendientes;
 }
 
+function PendientesRevisalo(categoria,accion) {    
+    DataLayerPedidosPendientes('virtualEvent', categoria, accion, 'Revísalo');
+}

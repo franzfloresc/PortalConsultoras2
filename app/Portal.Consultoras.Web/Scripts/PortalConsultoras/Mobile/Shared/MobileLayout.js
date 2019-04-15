@@ -776,13 +776,13 @@ function messageInfo(message, fnAceptar) {
     $('#popupInformacion .btn-aceptar').off('click');
     $('#popupInformacion .cerrar_popMobile').off('click');
 
-    $('#popupInformacion .btn-aceptar').on('click', function () {
+    $('#popupInformacion .btn-aceptar').on('click', function (e) {        
         $('#popupInformacion').hide();
-        if ($.isFunction(fnAceptar)) fnAceptar();
+        if ($.isFunction(fnAceptar)) fnAceptar(e);
     });
-    $('#popupInformacion .cerrar_popMobile').on('click', function () {
+    $('#popupInformacion .cerrar_popMobile').on('click', function (e) {
         $('#popupInformacion').hide();
-        if ($.isFunction(fnAceptar)) fnAceptar();
+        if ($.isFunction(fnAceptar)) fnAceptar(e);
     });
 }
 

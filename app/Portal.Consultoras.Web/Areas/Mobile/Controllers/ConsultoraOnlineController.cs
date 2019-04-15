@@ -920,6 +920,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 if (olstMisPedidos.Count > 0)
                 {
+                    ViewBag.ListaPedidosPendientesCliente = olstMisPedidos;
                     olstMisPedidos.RemoveAll(x => x.Estado.Trim().Length > 0);
 
                     if (olstMisPedidos.Count > 0)
@@ -956,6 +957,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         model.RegistrosTotal = "0";
                         return RedirectToAction("Detalle", "Pedido", new { area = "Mobile" });
                     }
+
+
                 }
                 else
                 {

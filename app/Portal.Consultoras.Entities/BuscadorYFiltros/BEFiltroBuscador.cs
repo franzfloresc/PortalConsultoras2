@@ -33,5 +33,8 @@ namespace Portal.Consultoras.Entities.BuscadorYFiltros
         [DataMember]
         [Column("ColorFondoApp")]
         public string ColorFondoApp { get; set; }
+        [DataMember]
+        [Column("NombreGrupo")]
+        public string NombreGrupo { get; set; }
     }
 }

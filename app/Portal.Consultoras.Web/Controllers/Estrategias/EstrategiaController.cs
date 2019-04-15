@@ -400,6 +400,11 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                             session.TieneLanding = cantidadTotal > 0;
                             SessionManager.SetArmaTuPack(session);
 
+                            if (!session.TieneLanding)
+                            {
+                                SessionManager.SetMenuContenedor(null);
+                            }
+
                             break;
                         }
                 }
