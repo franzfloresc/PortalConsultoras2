@@ -18,6 +18,9 @@ namespace Portal.Consultoras.Entities.Oferta
         [Column("AppTitulo")]
         [DataMember]
         public string AppTitulo { get; set; }
+        [Column("AppSubTitulo")]
+        [DataMember]
+        public string AppSubTitulo { get; set; }
         [Column("AppColorFondo")]
         [DataMember]
         public string AppColorFondo { get; set; }

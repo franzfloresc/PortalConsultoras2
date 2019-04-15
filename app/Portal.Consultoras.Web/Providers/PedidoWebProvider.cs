@@ -184,7 +184,7 @@ namespace Portal.Consultoras.Web.Providers
 
         public virtual List<BEPedidoWebDetalle> GetDetallePedidoAgrupadoByCampania(int campaniaId)
         {
-            var detallePedidoWeb = (List<BEPedidoWebDetalle>)null;
+            List<BEPedidoWebDetalle> detallePedidoWeb;
             var userData = sessionManager.GetUserData();
 
             try
@@ -313,7 +313,7 @@ namespace Portal.Consultoras.Web.Providers
 
             descripcion = Util.obtenerNuevaDescripcionProductoDetalle(item.ConfiguracionOfertaID, pedidoValidado,
                 item.FlagConsultoraOnline, item.OrigenPedidoWeb, lista, suscripcion, item.TipoEstrategiaCodigo, item.MarcaID,
-                item.CodigoCatalago, item.DescripcionOferta, item.EsCuponNuevas, item.EsElecMultipleNuevas, item.EsPremioElectivo);
+                item.CodigoCatalago, item.DescripcionOferta, item.EsCuponNuevas, item.EsElecMultipleNuevas, item.EsPremioElectivo, item.EsCuponIndependiente);
 
             return descripcion;
         }
@@ -411,6 +411,6 @@ namespace Portal.Consultoras.Web.Providers
 
             return result;
         }
-        
+
     }
 }

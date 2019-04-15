@@ -6,6 +6,7 @@ using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServiceOferta;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.SessionManager;
+using Portal.Consultoras.Web.TempDataManager;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -14,6 +15,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -35,6 +37,8 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
+        protected ITempDataManager tempDataManager;
+        private TempDataDictionary _tempDataDictionary;
         protected ConfiguracionManagerProvider _configuracionManager;
         protected readonly PedidoWebProvider _pedidoWeb;
         protected OfertaBaseProvider _ofertaBaseProvider;
@@ -51,6 +55,18 @@ namespace Portal.Consultoras.Web.Providers
             new TablaLogicaProvider(),
             new ProgramaNuevasProvider(Web.SessionManager.SessionManager.Instance))
         {
+        }
+
+        public OfertaPersonalizadaProvider(TempDataDictionary objTempData) : this(Web.SessionManager.SessionManager.Instance,
+            new ConfiguracionManagerProvider(),
+            new PedidoWebProvider(),
+            new OfertaBaseProvider(),
+            new ConsultaProlProvider(),
+            new TablaLogicaProvider(),
+            new ProgramaNuevasProvider(Web.SessionManager.SessionManager.Instance))
+        {
+            _tempDataDictionary = objTempData;
+            tempDataManager = new TempDataManager.TempDataManager(objTempData);
         }
 
         public OfertaPersonalizadaProvider(
@@ -118,6 +134,9 @@ namespace Portal.Consultoras.Web.Providers
                     break;
                 case Constantes.TipoConsultaOfertaPersonalizadas.SRObtenerProductos:
                     palanca = Constantes.TipoEstrategiaCodigo.ShowRoom;
+                    break;
+                case Constantes.TipoConsultaOfertaPersonalizadas.ATPObtenerProductos:
+                    palanca = Constantes.TipoEstrategiaCodigo.ArmaTuPack;
                     break;
             }
 
@@ -209,6 +228,7 @@ namespace Portal.Consultoras.Web.Providers
                 case Constantes.TipoConsultaOfertaPersonalizadas.LANObtenerProductos:
                 case Constantes.TipoConsultaOfertaPersonalizadas.OPTObtenerProductos:
                 case Constantes.TipoConsultaOfertaPersonalizadas.NuevasObtenerProductos:
+                case Constantes.TipoConsultaOfertaPersonalizadas.ATPObtenerProductos:
                     listModel1 = listaFinal1;
                     break;
             }
@@ -429,6 +449,9 @@ namespace Portal.Consultoras.Web.Providers
                     listEstrategia.AddRange(lstTmp.Where(x => x.FlagRevista != Constantes.FlagRevista.Valor2).OrderBy(x => x.Orden));
                     listEstrategia = listEstrategia.OrderBy(x => x.TieneStock, false).ToList();
                     break;
+                case Constantes.TipoEstrategiaCodigo.ArmaTuPack:
+                    listEstrategia.AddRange(ConsultarEstrategiasPorTipo(esMobile, Constantes.TipoEstrategiaCodigo.ArmaTuPack, campaniaId));
+                    break;
             }
 
             return listEstrategia;
@@ -449,11 +472,14 @@ namespace Portal.Consultoras.Web.Providers
                 string varSession = Constantes.ConstSession.ListaEstrategia + tipo;
                 filtrarNuevasAgregadas = tipo == Constantes.TipoEstrategiaCodigo.PackNuevas && filtrarNuevasAgregadas;
 
-                listEstrategia = SessionManager.GetBEEstrategia(varSession);
-                if (listEstrategia != null && campaniaId == userData.CampaniaID)
-                {
-                    listEstrategia = ConsultarEstrategiasFiltrarPackNuevasPedido(filtrarNuevasAgregadas, listEstrategia);
-                    return listEstrategia;
+                if (tipo != Constantes.TipoEstrategiaCodigo.OfertaParaTi || _ofertaBaseProvider.UsarSession(Constantes.TipoEstrategiaCodigo.OfertaParaTi)) //Omitir OPT de uso de sesiones dependiendo del switch
+                {   
+                    listEstrategia = SessionManager.GetBEEstrategia(varSession);
+                    if (listEstrategia != null && campaniaId == userData.CampaniaID)
+                    {
+                        listEstrategia = ConsultarEstrategiasFiltrarPackNuevasPedido(filtrarNuevasAgregadas, listEstrategia);
+                        return listEstrategia;
+                    }
                 }
 
                 var entidad = new ServiceOferta.BEEstrategia
@@ -488,9 +514,9 @@ namespace Portal.Consultoras.Web.Providers
                 }
                 else if (listEstrategia.Any() && GetValidarDiasAntesStock(userData))
                 {
-                    listEstrategia = _consultaProlProvider.ActualizarEstrategiaStockPROL(listEstrategia, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora);
+                    listEstrategia = ActualizarEstrategiaStockPROL(listEstrategia, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora);
                 }
-  
+
                 if (campaniaId == userData.CampaniaID)
                 {
                     SetSessionEstrategia(tipo, varSession, listEstrategia);
@@ -507,7 +533,7 @@ namespace Portal.Consultoras.Web.Providers
             return listEstrategia;
         }
 
-        private bool GetValidarDiasAntesStock(UsuarioModel userData)
+        public bool GetValidarDiasAntesStock(UsuarioModel userData)
         {
             var validar = false;
             var lstTablaLogicaDatos = _tablaLogicaProvider.GetTablaLogicaDatos(userData.PaisID, Constantes.TablaLogica.StockDiasAntes, true);
@@ -548,6 +574,7 @@ namespace Portal.Consultoras.Web.Providers
                     case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada: tipoPersonalizacion = Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada; break;
                     case Constantes.TipoEstrategiaCodigo.ShowRoom: tipoPersonalizacion = Constantes.ConfiguracionPais.ShowRoom; break;
                     case Constantes.TipoEstrategiaCodigo.HerramientasVenta: tipoPersonalizacion = Constantes.ConfiguracionPais.HerramientasVenta; break;
+                    case Constantes.TipoEstrategiaCodigo.ArmaTuPack: tipoPersonalizacion = Constantes.TipoPersonalizacion.ArmaTuPack; break;
                 }
 
                 string pathMS = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertas,
@@ -580,8 +607,8 @@ namespace Portal.Consultoras.Web.Providers
         private void SetSessionEstrategia(string tipo, string varSession, List<ServiceOferta.BEEstrategia> listEstrategia)
         {
             if (tipo == Constantes.TipoEstrategiaCodigo.PackNuevas
-                        || tipo == Constantes.TipoEstrategiaCodigo.OfertaParaTi
-                        || tipo == Constantes.TipoEstrategiaCodigo.OfertaWeb)
+                        || tipo == Constantes.TipoEstrategiaCodigo.OfertaWeb 
+                        || (tipo == Constantes.TipoEstrategiaCodigo.OfertaParaTi && _ofertaBaseProvider.UsarSession(Constantes.TipoEstrategiaCodigo.OfertaParaTi))) //Removió OPT de uso de sesiones + switch
             {
                 SessionManager.SetBEEstrategia(varSession, listEstrategia);
             }
@@ -1089,6 +1116,7 @@ namespace Portal.Consultoras.Web.Providers
                 return listaRetorno;
 
             var claseBloqueada = "btn_desactivado_general";
+            var esDuoPerfecto = _programaNuevasProvider.TieneDuoPerfecto();
             listaProductoModel.ForEach(estrategia =>
             {
                 var prodModel = new EstrategiaPersonalizadaProductoModel();
@@ -1124,11 +1152,12 @@ namespace Portal.Consultoras.Web.Providers
                 prodModel.ClaseBloqueada = tipo == 1 || (estrategia.CampaniaID > 0 && estrategia.CampaniaID != campaniaID) ? claseBloqueada : "";
                 prodModel.TipoEstrategiaID = estrategia.TipoEstrategiaID;
                 prodModel.FlagNueva = estrategia.FlagNueva;
+                prodModel.EsDuoPerfecto = estrategia.FlagNueva == 1 && esDuoPerfecto;
                 prodModel.IsAgregado = prodModel.ClaseBloqueada != claseBloqueada && listaPedido.Any(p => p.EstrategiaId == estrategia.EstrategiaID);
                 prodModel.ArrayContenidoSet = estrategia.FlagNueva == 1 ? estrategia.DescripcionCUV2.Split('|').Skip(1).ToList() : new List<string>();
                 prodModel.ListaDescripcionDetalle = estrategia.ListaDescripcionDetalle ?? new List<string>();
                 prodModel.TextoLibre = Util.Trim(estrategia.TextoLibre);
-
+                prodModel.EsSubcampania = estrategia.EsSubCampania;
                 prodModel.MarcaID = estrategia.MarcaID;
 
                 prodModel.TienePaginaProducto = estrategia.PuedeVerDetalle;
@@ -1144,6 +1173,8 @@ namespace Portal.Consultoras.Web.Providers
                     tipo == 1 || (estrategia.CampaniaID > 0 && estrategia.CampaniaID != campaniaID),
                     estrategia.CodigoEstrategia
                 );
+
+                prodModel.CantidadPack = estrategia.CantidadPack;
 
                 if (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento)
                 {
@@ -1250,7 +1281,7 @@ namespace Portal.Consultoras.Web.Providers
                     return ObtenerListaProductoShowRoom(usuarioModel, campaniaId, codigoConsultora, esDiasFacturacion, 1)
                         .FirstOrDefault(x => x.CUV2 == cuv);
                 case Constantes.NombrePalanca.OfertaDelDia:
-                    var listaProductoODD = RevisarCamposParaMostrar(ObtenerListaProductoODD(), true);
+                    var listaProductoODD = RevisarCamposParaMostrar(ObtenerListaProductoODD(usuarioModel, true), true);
                     return listaProductoODD.FirstOrDefault(x => x.CUV2 == cuv);
                 case Constantes.NombrePalanca.PackNuevas:
                     var varSession = Constantes.ConstSession.ListaEstrategia + Constantes.TipoEstrategiaCodigo.PackNuevas;
@@ -1267,14 +1298,28 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
-        public List<EstrategiaPersonalizadaProductoModel> ObtenerListaProductoODD()
+        public List<EstrategiaPersonalizadaProductoModel> ObtenerListaProductoODD(UsuarioModel usuarioModel, bool persistenciaLista = false)
         {
+            var listODDTempData = tempDataManager.GetListODD(persistenciaLista);
+
             if (SessionManager.OfertaDelDia.Estrategia != null)
             {
-                if (SessionManager.OfertaDelDia.Estrategia.ListaOferta != null)
+                if (_ofertaBaseProvider.UsarSession(Constantes.TipoEstrategiaCodigo.OfertaDelDia) && SessionManager.OfertaDelDia.Estrategia.ListaOferta != null) 
                 {
-                    var ListaOfertaSession = SessionManager.OfertaDelDia.Estrategia.ListaOferta;
-                    return ListaOfertaSession;
+                    return SessionManager.OfertaDelDia.Estrategia.ListaOferta;
+                }
+                else if (!_ofertaBaseProvider.UsarSession(Constantes.TipoEstrategiaCodigo.OfertaDelDia))
+                {
+                    if (listODDTempData != null)
+                    {
+                        return listODDTempData;
+                    }
+                    else
+                    {
+                        listODDTempData = new OfertaDelDiaProvider(_tempDataDictionary).GetOfertaDelDiaConfiguracion(usuarioModel, false, true).ListaOferta;
+                        tempDataManager.RemoveTDListODD();
+                        return listODDTempData;
+                    }
                 }
                 else
                     return new List<EstrategiaPersonalizadaProductoModel>();
@@ -1317,6 +1362,12 @@ namespace Portal.Consultoras.Web.Providers
                     listaProductoRetorno = listaProductoRetorno.Where(x => x.TieneStock).ToList();
                 listaProductoRetorno = listaProductoRetorno.OrderBy(x => x.TieneStock, false).ToList();
 
+                if (!_ofertaBaseProvider.UsarSession(Constantes.TipoEstrategiaCodigo.ShowRoom))
+                {
+                    SessionManager.ShowRoom.CargoOfertas = "0";
+                }
+                   
+
                 return listaProductoRetorno;
             }
 
@@ -1325,9 +1376,10 @@ namespace Portal.Consultoras.Web.Providers
 
             if (listaProducto.Any())
             {
-                if (GetValidarDiasAntesStock(userData))
+                var validarDias = GetValidarDiasAntesStock(userData);
+                if (validarDias)
                 {
-                    listaProducto = _consultaProlProvider.ActualizarEstrategiaStockPROL(listaProducto, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora);
+                    listaProducto = ActualizarEstrategiaStockPROL(listaProducto, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora);
                 }
             }
 
@@ -1347,14 +1399,13 @@ namespace Portal.Consultoras.Web.Providers
                     listaProductoRetorno = SessionManager.ShowRoom.OfertasPerdio;
                     break;
                 default:
-                    listaProductoRetorno =  SessionManager.ShowRoom.Ofertas;
+                    listaProductoRetorno = SessionManager.ShowRoom.Ofertas;
                     break;
             }
 
             if (tipoOferta == 3)
                 listaProductoRetorno = listaProductoRetorno.Where(x => x.TieneStock).ToList();
             listaProductoRetorno = listaProductoRetorno.OrderBy(x => x.TieneStock, false).ToList();
-
             return listaProductoRetorno;
         }
 
@@ -1391,7 +1442,7 @@ namespace Portal.Consultoras.Web.Providers
             SessionManager.ShowRoom.OfertasPerdio = FormatearModelo1ToPersonalizado(listaOfertasPerdio, listaPedido, userData.CodigoISO, userData.CampaniaID, 1, userData.esConsultoraLider, userData.Simbolo);
         }
 
-        private List<EstrategiaPedidoModel> ObtenerListaHermanos(List<EstrategiaPedidoModel> listaSubCampania)
+        public List<EstrategiaPedidoModel> ObtenerListaHermanos(List<EstrategiaPedidoModel> listaSubCampania)
         {
             var userData = SessionManager.GetUserData();
 
@@ -1493,6 +1544,16 @@ namespace Portal.Consultoras.Web.Providers
 
             return tienePalanca;
         }
+
+        public List<ServiceOferta.BEEstrategia> ActualizarEstrategiaStockPROL(List<ServiceOferta.BEEstrategia> listaProducto, string codigoISO, int campaniaID, string codigoConsultora)
+        {
+            return  _consultaProlProvider.ActualizarEstrategiaStockPROL(listaProducto, codigoISO, campaniaID, codigoConsultora);
+        }
+
+        public List<BEPedidoWebDetalle> ObtenerPedidoWebDetalle()
+        {
+            return _pedidoWeb.ObtenerPedidoWebDetalle(0);
+        }
         #endregion
 
         public List<EstrategiaPersonalizadaProductoModel> RevisarCamposParaMostrar(List<EstrategiaPersonalizadaProductoModel> revisarLista, bool ficha = false)
@@ -1516,5 +1577,4 @@ namespace Portal.Consultoras.Web.Providers
             return revisarLista;
         }
     }
-
 }

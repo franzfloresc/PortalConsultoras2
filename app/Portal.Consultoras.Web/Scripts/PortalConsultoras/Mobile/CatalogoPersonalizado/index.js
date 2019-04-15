@@ -3,7 +3,7 @@ function CompartirFacebookSWR(Catalogo, btn) {
     dataLayer.push({
         'event': 'virtualEvent',
         'category': 'Ofertas Showroom',
-        'action': 'Compartir FB',
+        'action': 'Catálogo Digital - Compartir FB - clic botón',
         'label': Catalogo,
         'value': 0
     });

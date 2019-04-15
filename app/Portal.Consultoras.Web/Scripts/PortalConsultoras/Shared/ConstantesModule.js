@@ -1,6 +1,7 @@
 ﻿
 var ConstantesModule = (function () {
-    var _codigosPalanca = {
+    // antiguo var _codigosPalanca = {
+    var _codigoTipoEstrategiaTexto = {
         OfertaParaTi: "OfertaParaTi",
         PackNuevas: "PackNuevas", // Oferta Nueva Esika
         OfertaWeb: "OfertaWeb",
@@ -21,7 +22,8 @@ var ConstantesModule = (function () {
         Ganadoras: "Ganadoras",
         LiquidacionWeb: "OfertasLiquidacion",
         GuiaNegocio: "GuiaNegocio",
-        SR:"ShowRoom"
+        SR: "ShowRoom",
+        DuoPerfecto:"DuoPerfecto" //HD-3473 EINCA
     }
 
     var _keysLocalStorage = {
@@ -38,25 +40,32 @@ var ConstantesModule = (function () {
         CompuestaVariable: "2003"
     }
 
-    var _constantesPalanca = {
+    // es homologo a DB TipoEstrategia, campo Codigo
+    // es homologo a constantes.TipoEstrategiaCodigo
+    // antiguo var _constantesPalanca = {
+    var _codigoTipoEstrategia = {
         OfertaParaTi: "001",
         PackNuevas: "002",
         OfertaWeb: "003",
+        ArmaTuPack: "004",
         Lanzamiento: "005",
         OfertasParaMi: "007",
-        MasGanadoras: "007",
+        MasGanadoras: "007", // No tiene referecia con BD, caso particular de OfertasParaMi 007
         PackAltoDesembolso: "008",
-        RevistaDigital: "101",
-        LosMasVendidos: "020",
-        IncentivosProgramaNuevas: "021",
         OfertaDelDia: "009",
         GuiaDeNegocioDigitalizada: "010",
+        HerramientasVenta: "011",
+        LosMasVendidos: "020",
+        IncentivosProgramaNuevas: "021",
         Incentivos: "022",
         ShowRoom: "030",
-        HerramientasVenta: "011",
+
+        RevistaDigital: "101", // No tiene referecia con BD, caso particular de OfertasParaMi 007
+
         ProgramaNuevasRegalo: "044",
         ParticipaProgramaNuevas: "1",
-        NotParticipaProgramaNuevas: "0"
+        NotParticipaProgramaNuevas: "0",
+        DuoPerfecto:"034"//HD-3473 EINCA
     }
 
     var _configuracionOferta = {
@@ -69,13 +78,19 @@ var ConstantesModule = (function () {
         ShowRoom: 1707,
     }
 
-    var _tipoEstrategia = {
+    // es homologo a DB ConfiguracionPais, campo Codigo
+    // es homologo a constantes.ConfiguracionPais
+    // antiguo var _tipoEstrategia = {
+    var _codigoPalanca = {
         RD: "RD",
         HV: "HV",
-        GND: "GN",
+        GND: "GND",
         LAN: "LAN",
         MG: "MG",
-        SR: "SR"
+        SR: "SR",
+        ATP: "ATP",
+        PN: "PN",
+        DP: "DP"
     }
 
     var _urlObtenerEstrategia = {
@@ -134,7 +149,9 @@ var ConstantesModule = (function () {
             Contenedor: '08',
             Otras: '09',
             LandingBuscador: '10',
-            LandingGanadoras: '11'
+            LandingGanadoras: '11',
+            LandingDuoPerfecto: '14',
+            LandingPackNuevas: '15'
         },
         Palanca: {
             OfertasParaTi: '00',
@@ -151,7 +168,9 @@ var ConstantesModule = (function () {
             CatalogoLbel: '11',
             CatalogoEsika: '12',
             CatalogoCyzone: '13',
-            Ganadoras: '14'
+            Ganadoras: '14',
+            DuoPerfecto: '16',
+            PackNuevas: '17'
         },
         Seccion: {
             Carrusel: '01',
@@ -187,17 +206,17 @@ var ConstantesModule = (function () {
     }
 
     return {
-        CodigosPalanca: _codigosPalanca,
+        CodigoPalanca: _codigoPalanca,
+        TipoEstrategia: _codigoTipoEstrategia,
+        TipoEstrategiaTexto: _codigoTipoEstrategiaTexto,
         KeysLocalStorage: _keysLocalStorage,
         CodigoVariedad: _codigoVariedad,
-        ConstantesPalanca: _constantesPalanca,
-        TipoEstrategia: _tipoEstrategia,
-        UrlObtenerEstrategia: _urlObtenerEstrategia,
         OrigenPedidoWeb: _origenPedidoWeb,
         OrigenPedidoWebEstructura: _origenPedidoWebEstructura,
         ConfiguracionOferta: _configuracionOferta,
         TipoAccionNavegar: _tipoAccionNavegar,
         EditarItemPedido: _editarItemPedido,
+        UrlObtenerEstrategia: _urlObtenerEstrategia,
         UrlDetalleEstrategia: _urlDetalleEstrategia,
         UrlPedido: _urlPedido
     }
