@@ -1146,6 +1146,12 @@ var PedidoRegistroModule = function () {
                 seccionProductosRecomendados.slideUp(200);
 
                 //INI HD-3908
+                if (data.listCuvEliminar != null) {
+                    $.each(data.listCuvEliminar, function (i, cuvElem) {
+
+                        ActualizarLocalStoragePalancas(cuvElem, false);
+                    })
+                }
                 var localStorageModule = new LocalStorageModule();
                 localStorageModule.ActualizarCheckAgregado($.trim($("#hdfEstrategiaId").val()), $("#hdfCampaniaID").val(), $("#hdfCodigoPalanca").val(), true);
                 //FIN HD-3908
@@ -1273,6 +1279,12 @@ var PedidoRegistroModule = function () {
 
 
                 //INI HD-3908
+                if (data.listCuvEliminar != null) {
+                    $.each(data.listCuvEliminar, function (i, cuvElem) {
+
+                        ActualizarLocalStoragePalancas(cuvElem, false);
+                    })
+                }
                 var localStorageModule = new LocalStorageModule();
                 localStorageModule.ActualizarCheckAgregado($.trim($("#hdfEstrategiaId").val()), $("#hdfCampaniaID").val(), $("#hdfCodigoPalanca").val(), true);
                 //FIN HD-3908
