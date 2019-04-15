@@ -544,10 +544,6 @@
                     <div>
                         <div id="divPedidosPend"> </div>
                     </div>
-                    <div class="tiempo_atencionPedido">
-                        <span class="icono_notaDemanda"></span>
-                        <span>Sólo tienes 24 horas para atender los pedidos. No pierdas esta oportunidad de hacer nuevos clientes.</span>
-                    </div>
                     <div class="revision_pedidosAceptados">
                         <span class="texto_revisaPedidos">Revisa tus pedidos aceptados en:</span>
                         <span class="icono_consultoraOnline"></span>
@@ -1061,7 +1057,7 @@
             <div class="btn_cerrar_popupPercepcion">
                 <a class="regresaPendientes" title="Regresar" style="text-align: right;">
                     <div class="icono_regresar"><img src="/Content/Images/btn_regresar.svg" alt="Regresar"></div>
-                    <div class="texto_btn_regresar">REGRESAR</div>
+                    <div class="texto_btn_regresar" onclick="PendientesRegresar();">REGRESAR</div>
                 </a>
             </div>
 
@@ -1074,7 +1070,7 @@
         <div class="popup_agregarUnidades">
 
             <div class="btn_cerrar_agregarUnidades">
-                <a id="aceptandoPendientes_1" onclick="$('#dialog_mensajeComoAtender').hide()">
+                <a id="aceptandoPendientes_1" onclick="DialogComoAtenderPedidoPend('Cerrar Pop up'); $('#dialog_mensajeComoAtender').hide()">
                     <img src="/Content/Images/btn_cerrar_popup.svg" alt="Cerrar">
                 </a>
             </div>
@@ -1082,7 +1078,7 @@
                 <div class="icono_exclamacion" id="apro_o_excla_1"></div>
                 <h1 class="titulo_agregarUnidades"><b>IMPORTANTE</b></h1>
                 <span class="mensaje_agregarUnidades">Por favor elige cómo atenderás todos los productos del pedido.</span>
-                <button type="button" class="btn_ok ok_aceptaPedido" onclick="$('#dialog_mensajeComoAtender').hide()">
+                <button type="button" class="btn_ok ok_aceptaPedido" onclick="DialogComoAtenderPedidoPend('Ok'); $('#dialog_mensajeComoAtender').hide()">
                     OK
                 </button>
             </div>
@@ -1114,7 +1110,7 @@
         <div class="popup_rechazarPendientes">
             <input type="hidden" id="hdePedidoIdRechazo" />
             <div class="btn_cerrar_agregarUnidades">
-                <a id="cierreRechazoPendientes" onclick="$('#dialog_confirmacionRechazo').hide()">
+                <a id="cierreRechazoPendientes" onclick="$('#dialog_confirmacionRechazo').hide(); NoRechazoPedidoDejameVerlo('Cerrar');">
                     <img src="/Content/Images/btn_cerrar_popup.svg" alt="Cerrar">
                 </a>
             </div>
@@ -1122,7 +1118,7 @@
                 <div class="icono_exclamacion" id="apro_o_excla"></div>
                 <h1 class="titulo_confirma"><b>¿VAS A RECHAZAR EL PEDIDO?</b></h1>
                 <span class="mensaje_agregarUnidades">Si rechazas el pedido vas a perderlo</span>
-                <button type="button" class="btn_eliminarCliente venizquierda sedetiene" onclick="$('#dialog_confirmacionRechazo').hide()">
+                <button type="button" class="btn_eliminarCliente venizquierda sedetiene" onclick="$('#dialog_confirmacionRechazo').hide(); NoRechazoPedidoDejameVerlo('No, Déjame verlo');">
                     NO, DÉJAME VERLO
                 </button>
                 <button type="button" class="btn_eliminarCliente venderecha prosigue" onclick="ShowPopupMotivoRechazo()">
@@ -1136,7 +1132,7 @@
         <div class="popup_rechazarPendientes">
 
             <div class="btn_cerrar_agregarUnidades">
-                <a id="cierreRechazoPendientes" onclick="$('#dialog_mensajeRechazado').hide()">
+                <a id="cierreRechazoPendientes" onclick="$('#dialog_mensajeRechazado').hide(); DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras - Pedidos Pendientes', 'Pop up Pedido Rechazado - Click Botón', 'cerrar');">
                     <img src="/Content/Images/btn_cerrar_popup.svg" alt="Cerrar">
                 </a>
             </div>
@@ -1154,7 +1150,7 @@
     <div class="contenedor_popup_agregarUnidades" id="dialog_motivoRechazo" style="display: none;">
         <div class="popup_agregarUnidades mrechaza">
             <div class="btn_cerrar_agregarUnidades">
-                <a id="cierreMotivoRechazo" onclick="RechazarPedido();">
+                <a id="cierreMotivoRechazo" onclick="RechazarPedido(2);">
                     <img src="/Content/Images/btn_cerrar_popup.svg" alt="Cerrar">
                 </a>
             </div>
@@ -1174,7 +1170,7 @@
 
                 <textarea id="txtOtrosRechazo" placeholder="" readonly="readonly" maxlength="300"></textarea>
             </div>
-            <button type="button" class="btn_eliminarCliente btn-negro" id="btnRechazarPedido" onclick="RechazarPedido()">
+            <button type="button" class="btn_eliminarCliente btn-negro" id="btnRechazarPedido" onclick="RechazarPedido(1)">
                 ENVIAR
             </button>
         </div>
@@ -1251,18 +1247,13 @@
 
                 <input type="hidden" id="pedidopend_{{PedidoId}}" value="{{PedidoId}}|{{MarcaID}}|{{Campania}}|{{Cliente}}|{{Telefono}}|{{Direccion}}|{{Email}}|{{Mensaje}}|{{Leido}}|{{NumIteracion}}|{{CodigoUbigeo}}|{{FechaSolicitud}}|{{MedioContacto}}|{{FormatoPrecioTotal}}|{{SaldoHoras}}|{{FlagConsultora}}" />
                 <button type="button" class="btn_revisalo_pendientes1" onclick="CargarPopupPedidoPend('{{PedidoId}}');">
-                    REVÍSALO
+                    <div onclick="PendientesRevisalo('Carrito de Compras - In Tab Pedidos Pendientes','Click Botón');">REVÍSALO</div>
 
                     <div class="info_tiempo_oportunidad">
                         <span class="texto_pedidos_pendientes tips">
                             <label>¡No pierdas esta oportunidad!</label>
                         </span>
-                        {{#if FlagConsultora}}
-                        <h6 class="tiempos_P">Te quedan <span><b>24:00:00</b></span> horas</h6>
-                        {{else}}
-                        <h6 class="tiempos_P">Te quedan <span><b>{{SaldoHoras}}</b></span> horas</h6>
-                        {{/if}}
-                        <h4 class="linkea_Pendientes tooltipPendientes">►REVÍSALO</h4>
+                        <h4 class="linkea_Pendientes tooltipPendientes" onclick="PendientesRevisalo('Carrito de Compras - In Tab Pedidos Pendientes','Click Botón');">►REVÍSALO</h4>
                     </div>
                 </button>
 
@@ -1276,11 +1267,6 @@
         <div class="content_popUp_Pendientes">
             <div class="mensajes_deAtencion">
                 <span>¡No te pierdas esta oportunidad!</span>
-                {{#if FlagConsultora}}
-                <span>Te quedan <br>24:00:00</span>
-                {{else}}
-                <span>Te quedan <br>{{SaldoHoras}}</span>
-                {{/if}}
                 <div class="clear"></div>
             </div>
 
@@ -1341,7 +1327,7 @@
             <div class="linea_separadora_roja" style="height: 2px;"></div>
 
             <div class="btn_grupo_accionesPedido accionesPendientes">
-                <button id="rechazarPendientes" type="button" class="btn_eliminarCliente venizquierda" onclick="ShowPopupRechazoPedido('{{PedidoId}}','1')">
+                <button id="rechazarPendientes" type="button" class="btn_eliminarCliente venizquierda" onclick="RechazoPedidosPendientes(); ShowPopupRechazoPedido('{{PedidoId}}','1')">
                     RECHAZO EL PEDIDO
                 </button>
                 <button id="aceptarPendientes" type="button" class="btn_noEliminarCliente venderecha" onclick="AceptarPedido('{{PedidoId}}', '1')">
@@ -1439,14 +1425,14 @@
 
         <div class="content_datos_percepciones">
             <input type="hidden" value="{{PedidoDetalleId}}" />
-            <div class="padding_tabla_percepcion dinamicostablemini">{{CUV}}</div>
-            <div class="padding_tabla_percepcion dinamicostablemedio">{{Producto}}</div>
+            <div class="padding_tabla_percepcion dinamicostablemini" id="pedpend-deta2-cuv">{{CUV}}</div>
+            <div class="padding_tabla_percepcion dinamicostablemedio" id="pedpend-deta2-nombre">{{Producto}}</div>
             <div class="padding_tabla_percepcion dinamicostable" id="pedpend-deta2-cantidad">{{Cantidad}}</div>
             <div class="padding_tabla_percepcion dinamicostable">{{SimboloMoneda}} {{PrecioUnitario}}</div>
             <div class="padding_tabla_percepcion dinamicostable">{{SimboloMoneda}} {{PrecioTotal}}</div>
             <div class="padding_tabla_percepcion dinamicostablegrande">
                 {{#if_eq TieneStock '1'}}
-                <select class="oscurece" id="ddlAtender_{{@@index}}">
+                <select class="oscurece ddlAtenderPopUpPedidosPend" id="ddlAtender_{{@@index}}">
                     <option value="" selected>¿CÓMO LO ATENDERAS?</option>
                     <option value="ingrped">INGRESAR A MI PEDIDO</option>
                     <option value="ingrten">YA LO TENGO</option>
@@ -1455,6 +1441,8 @@
                 <span>AGOTADO</span>
                 {{/if_eq}}
             </div>
+            <input type="hidden" id="pedpend-deta2-precio" value="{{PrecioUnitario}}" />
+            <input type="hidden" id="pedpend-deta2-marca" value="{{Marca}}" />
 
             {{#if_eq TieneStock '0'}}
             <div class="notiPendientes"><div class="mensajePendientes"><span class="icono_advertencia_notificacion"></span>{{MensajeValidacion}}</div></div>
@@ -1507,7 +1495,7 @@
                 </div>
                 <div class="producto_nombre_descripcion">
                     <h6>{{DescripcionMarca}}</h6>
-                    <p class="nombre_producto" style="display: inline-table;">
+                    <p class="nombre_producto nombre_producto_sugerido" style="display: inline-table;" title="{{Descripcion}}">
                         <b>{{Descripcion}}</b>
                     </p>
                     <div class="producto_precio">
@@ -1929,6 +1917,8 @@
         var origenPagina = 2;
         var tipoOrigenEstrategia = 11;
         var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTiCarrusel;
+        var origenPedidoWebDuoPerfecto = @Constantes.OrigenPedidoWeb.DesktopPedidoDuoPerfectoCarrusel;
+        var origenPedidoWebPackNuevas = @Constantes.OrigenPedidoWeb.DesktopPedidoPackNuevasCarrusel;
         var origenPedidoWebFichaProducto = @Constantes.OrigenPedidoWeb.VirtualCoachDesktopPedido;
         var DesktopPedidoSugerido = @Constantes.OrigenPedidoWeb.DesktopPedidoProductoSugeridoCarrusel;
         var DesktopPedidoOfertaFinal = @Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalCarrusel;
@@ -1961,9 +1951,9 @@
         var mensajeNoAgregarLiquidacion = '@Constantes.MensajesError.Pedido_NoAgregarLiquidacion';
 
         var urlInsertarDemandaTotalReemplazoSugerido = '@Url.Action("InsertarDemandaTotalReemplazoSugerido", "Pedido")';
-        
+
         var urlValidarKitNuevas = '@Url.Action("ValidarKitNuevas", "PedidoRegistro", new { area = "" })';
-        
+
         var urlObtenerComponentes = '@Url.Action("ObtenerComponentes", "DetalleEstrategia")';
         var listaIconoLluvia = [
             '@Url.Content("~/Content/Images/lluvia/ov-d.svg")',

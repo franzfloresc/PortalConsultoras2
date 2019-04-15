@@ -1,10 +1,7 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
-using Portal.Consultoras.PublicService.Cryptography;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.Models.Oferta.ResponseOfertaGenerico;
 using Portal.Consultoras.Web.Models.ProgramaNuevas;
-using Portal.Consultoras.Web.Models.Search.ResponseOferta.Estructura;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceCliente;
 using Portal.Consultoras.Web.ServiceContenido;
@@ -17,8 +14,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.ServiceModel;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -304,6 +299,14 @@ namespace Portal.Consultoras.Web.Controllers
                                     var motivoSolicitud = sv.GetMotivosRechazo(userData.PaisID).ToList();
                                     ViewBag.MotivosRechazo = Mapper.Map<List<MisPedidosMotivoRechazoModel>>(motivoSolicitud);
                                 }
+
+
+                                var olstMisPedidos =
+                                    svc.GetMisPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID, userData.CampaniaID)
+                                        .ToList();
+
+                                ViewBag.ListaPedidosPendientesCliente = olstMisPedidos;
+
                             }
                         }
 
@@ -611,7 +614,7 @@ namespace Portal.Consultoras.Web.Controllers
                 extra = ""
             }, JsonRequestBehavior.AllowGet);
         }
-        
+
         [HttpPost]
         public JsonResult AceptarBackOrder(int campaniaID, int pedidoID, short pedidoDetalleID, string clienteID)
         {
@@ -665,7 +668,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-        
+
         #endregion
 
         #region Ofertas Flexipago
@@ -1915,7 +1918,7 @@ namespace Portal.Consultoras.Web.Controllers
 
 
                 var pedidoWeb = ObtenerPedidoWeb();
-                
+
                 pedidoModelo.ListaDetalle = lstPedidoWebDetalle;
 
                 var pedidoWebDetalleModel = Mapper.Map<List<BEPedidoWebDetalle>, List<PedidoWebDetalleModel>>(pedidoModelo.ListaDetalle);
@@ -2196,7 +2199,7 @@ namespace Portal.Consultoras.Web.Controllers
             SessionManager.SetUserData(userData);
             return "";
         }
-        
+
         #endregion
 
         private List<BEPedidoWebDetalle> PedidoJerarquico(List<BEPedidoWebDetalle> listadoPedidos)
@@ -2213,7 +2216,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return result;
         }
-        
+
         private void CalcularMasivo(List<BEPedidoWebDetalle> pedido, List<BEPedidoWebDetalle> actualizar, out int clientes, out decimal importe)
         {
             var tempPedido = new List<BEPedidoWebDetalle>(pedido);
@@ -2371,7 +2374,7 @@ namespace Portal.Consultoras.Web.Controllers
                 DiaPROL = userData.DiaPROL
             }, JsonRequestBehavior.AllowGet);
         }
-        
+
         [HttpPost]
         public JsonResult ConsultarBannerPedido()
         {
@@ -2442,7 +2445,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return Json(new { success = true });
         }
-        
+
         [HttpPost]
         public JsonResult CargarDetallePedido(string sidx, string sord, int page, int rows, int clienteId, bool mobil = false)
         {
@@ -3057,9 +3060,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-        
+
         #region Nuevo AgregarProducto
-       
+
         private string ValidarStockEstrategiaMensaje(string cuv, int cantidad, int tipoOferta)
         {
             var mensaje = "";
@@ -3184,7 +3187,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return "";
         }
-        
+
         private int GetCantidadCuvPedidoWeb(string cuvIngresado)
         {
             List<BEPedidoWebDetalle> lstPedidoDetalle = ObtenerPedidoWebDetalle();

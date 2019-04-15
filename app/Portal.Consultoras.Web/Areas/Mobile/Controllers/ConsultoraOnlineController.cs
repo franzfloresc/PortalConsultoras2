@@ -979,6 +979,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     model.RegistrosTotal = "0";
                     return RedirectToAction("Detalle", "Pedido", new { area = "Mobile" });
                 }
+
+
             }
             catch (Exception ex)
             {
@@ -1071,7 +1073,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     else
                         return RedirectToAction("Home", "Bienvenida", new { area = "Mobile" });
                 }
-   
+
                 var arrIds = new List<string>();
                 //var lstdetalle = new List<BEMisPedidosDetalle>();
 

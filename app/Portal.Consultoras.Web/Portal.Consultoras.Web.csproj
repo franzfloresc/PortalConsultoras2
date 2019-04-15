@@ -234,6 +234,7 @@
     <Compile Include="Controllers\Administrar\AdministrarComponenteController.cs" />
     <Compile Include="Controllers\BonificacionesController.cs" />
     <Compile Include="Controllers\BaseAdmController.cs" />
+    <Compile Include="Controllers\FakeErrorController.cs" />
     <Compile Include="Controllers\EstrategiaGrupoController.cs" />
     <Compile Include="Controllers\ProductoRecomendadoController.cs" />
     <Compile Include="Controllers\ArmaTuPackController.cs" />
@@ -3999,6 +4000,7 @@
     <Content Include="Content\Template\mailing_pago_percepcion.html" />
     <Content Include="Content\Template\mailing_pago_percepcion_detalle.html" />
     <Content Include="Content\Temporales\FolderContent.txt" />
+    <Content Include="CustomError.html" />
     <Content Include="emt_chat\js\inject.js" />
     <Content Include="EsikaConmigo.html" />
     <Content Include="Global.asax" />
@@ -6081,6 +6083,7 @@
     <Folder Include="Views\Cupon\" />
     <Folder Include="Views\EstrategiaGrupo\" />
     <Folder Include="Views\EstrategiaProductoComentario\" />
+    <Folder Include="Views\FakeError\" />
     <Folder Include="Views\PremioNuevas\Partial\" />
   </ItemGroup>
   <ItemGroup>

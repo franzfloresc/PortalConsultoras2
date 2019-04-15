@@ -5741,6 +5741,9 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         private int AppOrdenField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AppSubTituloField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string AppTituloField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -5836,6 +5839,19 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 if ((this.AppOrdenField.Equals(value) != true)) {
                     this.AppOrdenField = value;
                     this.RaisePropertyChanged("AppOrden");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AppSubTitulo {
+            get {
+                return this.AppSubTituloField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AppSubTituloField, value) != true)) {
+                    this.AppSubTituloField = value;
+                    this.RaisePropertyChanged("AppSubTitulo");
                 }
             }
         }
