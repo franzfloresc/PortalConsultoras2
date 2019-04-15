@@ -1,5 +1,4 @@
 ﻿var ComponenteDetalleModule = (function (config) {
-
     "use strict";
 
     if (config === null || typeof config === "undefined")
@@ -84,7 +83,7 @@
             //estrategia.Hermanos por default es solo 1
             console.log(estrategia);
             //if (estrategia.Hermanos.length == 1) {
-            if (estrategia.CodigoVariante == '2003') {
+            if (estrategia.CodigoVariante == ConstantesModule.CodigoVariedad.IndividualVariable) {
                 if (estrategia.MostrarFichaEnriquecida) {
                     //console.log(_template.componenteDetalleIndividual);
                     _util.setHandlebars(_template.componenteDetalleIndividual, estrategia.Hermanos[0]);
@@ -99,8 +98,6 @@
                     this.setCarrusel(_template.CarruselIndividualVideo);
                     this.setYoutubeApi();
                 }
-            } else {
-                //console.log('estrategia.Hermanos no tiene items');
             }
         },
         setCarrusel: function (id) {
@@ -189,7 +186,8 @@
 
     };
 
-    var _OcultarControles = function () {
+    var _OcultarControles = function (variante) {
+        console.log(variante);
         if (_tipoEstrategiaTexto.Ganadoras === _config.palanca ||
             _tipoEstrategiaTexto.ShowRoom === _config.palanca || /*Especiales*/
             _tipoEstrategiaTexto.Lanzamiento === _config.palanca || /*Lo nuevo nuevo*/
@@ -200,7 +198,7 @@
             _tipoEstrategiaTexto.GuiaDeNegocioDigitalizada === _config.palanca) {
             _validator.mostrarContenidoProducto(true);
 
-            if ($(_template.BotonVerDetalle).length > 0) {
+            if (variante != ConstantesModule.CodigoVariedad.IndividualVariable) {
                 _validator.mostrarBotoneraVerDetalle(true);
                 _validator.mostrarContenidoProducto(false);
             } else {
