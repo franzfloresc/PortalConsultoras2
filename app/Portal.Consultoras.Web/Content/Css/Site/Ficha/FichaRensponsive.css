@@ -15,13 +15,20 @@
 
 
 .contenedor_imagen {
-    text-align: center;
+    text-align: center;   
 }
+
+    .contenedor_imagen > div {
+        height: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
     .contenedor_imagen img {
         text-align: center;
-        height: 300px;
-        width: auto;
+        max-height: 300px;
+        max-width: 100%;
     }
 
     .contenedor_imagen p {
@@ -180,7 +187,40 @@ ul.breadcumbs li a {
     line-height: normal;
 }
 
+.detalle_producto {
+    display: flex;
+    align-items: center;
+    -webkit-flex-flow: row wrap;
+}
 
+.detalle_producto_detalle {
+    width: 53%;
+    margin: 0;
+}
+
+    .detalle_producto_detalle li {
+        display: inline-block;
+        font-size: 14px;
+        font-weight: bold;
+        vertical-align: text-top;
+    }
+
+    .detalle_producto_detalle li:first-child {
+       margin-right: 7px;
+    }
+
+    .detalle_producto_detalle li:last-child {
+       width: 89%;
+    }
+
+.componentes_separador {
+    border-top: 1px solid #ccc;
+    margin: 12px 0px;
+}
+
+.producto_componentes{
+    margin-bottom: 35px;
+}
 /* Botón Agregar*/
 .contenedor_agregar {
     width: 100%;
@@ -365,14 +405,140 @@ ul.breadcumbs li a {
     -o-transform: rotate(134deg);
     transform: rotate(134deg);
 }
-
 /* Fin Botón Agregar*/
 
+
+/* Tipos y tonos*/
+.tiposytonos_componentes{
+    margin-bottom:30px;
+}
+.tono_select_opt {
+    height: auto;
+    margin-bottom: 0px;
+    background: url('/Content/Images/mobile/Esika/right-arrow.svg');
+    background-position: right 15px center;
+    background-repeat: no-repeat;
+    background-size: 13px;
+    cursor: pointer;
+    padding: 13px 15px 13px 14px;
+    line-height: normal;
+    font-weight: bold;
+    border: 1px solid black;
+    border-radius: 4px;
+    width: 100%;
+    display: block;
+    font-size: 13px;
+}
+
+.tonos_seleccionados {
+    border: solid 1px #000000;
+    border-radius: 4px;
+    padding: 15px;
+    margin-top: 10px;
+}
+
+.tonos_seleccionados_item {
+    margin-bottom: .7rem;
+}
+
+.tonos_seleccionados_item li {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.imagen_seleccionado img {
+    width: 30px;
+    height: 30px;
+    display: block;
+}
+
+.titulo_selecionado {
+    font-size: 13px;
+    font-weight: bold;
+    padding-left: 10px;
+    width: 80%;
+    line-height: normal;
+}
+
+    .titulo_selecionado span{
+        font-size: 13px;
+        font-weight: bold;
+    }
+
+    .titulo_selecionado span:first-child {
+        margin-right: 5px;
+    }
+
+.btn_cambiar_opciones {
+    font-size: 13px;
+    font-weight: bold;
+    display: inherit;
+    text-decoration: underline;
+    text-align: right;
+    margin-left: auto;
+    margin-top: 6px;
+}
+
+    .btn_cambiar_opciones img {
+        width: 10px;
+        display: inline-block;
+        margin-top: -1px;
+        margin-left: 3px;
+    }
+
+.content_tonos_maquillaje {
+    margin-top: 13px;
+    overflow: hidden;
+}
+
+.content_tono_detalle {
+    width: 9.6%;
+    display: inline-block;
+    margin: 3px;
+    border: 1px solid white;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+    .content_tono_detalle:hover, .content_tono_detalle.active {
+        border-color: black;
+    }
+
+    .content_tono_detalle img {
+        width: 100%;
+        height: auto !important;
+    }
+
+.detalle_producto .tiposytonos_componentes{
+    margin-top: 10px;
+    margin-bottom: 4px;
+    width: 100%
+}
+/* Tipos y tonos*/
+
+/*Ficha Enrriquecida*/
+.button_ver_detalle {
+    font-size: 13px;
+    font-weight: bold;
+    margin-left: auto;
+    position: relative;
+}
+
+    .button_ver_detalle img {
+        top: -1px;
+        width: 10px;
+        right: 8px;
+    }
+/*Fin Ficha Enrriquecida*/
 
 @media (max-width: 768px) {
 
     footer {
         display: none !important;
+    }
+
+    .contenedor_imagen > div {
+        height: auto;
     }
 
     .imagen_fondo_detalle {
@@ -448,4 +614,8 @@ ul.breadcumbs li a {
     .btn_agregalo{
         width: 66%;
     }
+
+    /*Mobile Ficha Enrriquecida*/
+
+    /*FIn Mobile Ficha Enrriquecida*/
 }
