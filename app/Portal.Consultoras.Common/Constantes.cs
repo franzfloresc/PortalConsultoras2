@@ -530,9 +530,6 @@ namespace Portal.Consultoras.Common
             public const string URL_SB = "URL_SB";
             public const string KeyPaisFormatDecimal = "KeyPaisFormatDecimal";
             public const string PaisesShowRoom = "PaisesShowRoom";
-            public const string RevistaPiloto_Zonas = "RevistaPiloto_Zonas_";
-            public const string RevistaPiloto_Codigo = "RevistaPiloto_Codigo";
-            public const string RevistaPiloto_Zonas_RDR_2 = "RevistaPiloto_Zonas_RDR_2_";
             public const string CodigoRevistaIssuu = "CodigoRevistaIssuu";
             public const string CodigoCatalogoIssuu = "CodigoCatalogoIssuu";
             public const string URL_SUPERATE_NUEVO = "URL_SUPERATE_NUEVO";
@@ -565,11 +562,14 @@ namespace Portal.Consultoras.Common
             public const string RDUrlTerminosCondiciones = "UrlTerminosCondiciones";
             public const string RDUrlPreguntasFrecuentes = "UrlPreguntasFrecuentes";
 
-            public const string RevistaPiloto_Grupos = "RevistaPiloto_Grupos_";
-            public const string RevistaPiloto_Escenario = "ESC";
             public const string PaisesCancelarSuscripcionRDUnete = "PaisesCancelarSuscripcionRDUnete";
             public const string PaisesCancelarSuscripcionRDNuevas = "PaisesCancelarSuscripcionRDNuevas";
 
+            public const int RevistaCatalogoTablaLogicaId = 24; 
+            public const string RevistaPiloto_Escenario = "ESC";
+            public const string RevistaPiloto_Zonas = "RevistaPiloto_Zonas_";
+            public const string RevistaPiloto_Grupos = "RevistaPiloto_Grupos_";
+            public const string RevistaPiloto_Zonas_RDR_2 = "RevistaPiloto_Zonas_RDR_2_";
             public const string Catalogo_Piloto_Escenario = "ESC";
             public const string Catalogo_Piloto_Zonas = "Catalogo_Piloto_Zonas_";
             public const string Catalogo_Piloto_Grupos = "Catalogo_Piloto_Grupos_";
