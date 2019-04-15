@@ -1272,7 +1272,7 @@ namespace Portal.Consultoras.ServiceContracts
         int ObtenerPagoEnLineaNumeroOrden(int paisId);
 
         [OperationContract]
-        BEPagoEnLinea ObtenerPagoEnLineaConfiguracion(int paisId, long consultoraId, string codigoUsuario, int EsDigital, DateTime FechaVencimientoPago);
+        BEPagoEnLinea ObtenerPagoEnLineaConfiguracion(int paisId, long consultoraId, string codigoUsuario, int esDigital, DateTime fechaVencimientoPago);
 
         [OperationContract]
         BEPagoEnLineaVisa ObtenerPagoEnLineaVisaConfiguracion(int paisId, string codigoConsutora);
