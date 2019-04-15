@@ -119,6 +119,9 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string FechaFacturado { get; set; }
 
+        [DataMember]
+        public bool TieneArmaTuPack { get; set; }
+
         public BEPedidoWeb() { }
 
         public BEPedidoWeb(IDataRecord row)

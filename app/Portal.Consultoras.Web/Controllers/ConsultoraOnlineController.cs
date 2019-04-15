@@ -891,7 +891,7 @@ namespace Portal.Consultoras.Web.Controllers
                         olstMisPedidos.ToList().ForEach(y =>
                             y.FormatoPrecioTotal = Util.DecimalToStringFormat(y.PrecioTotal, userData.CodigoISO));
 
-                        model.ListaPedidos = olstMisPedidos;
+                        model.ListaPedidos = olstMisPedidos;                        
 
                         objMisPedidos = model;
                         SessionManager.SetobjMisPedidos(objMisPedidos);

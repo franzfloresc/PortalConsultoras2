@@ -85,9 +85,9 @@ var EstrategiaAgregarModule = (function () {
     var getEstrategia = function ($btnAgregar, origenPedidoWebEstrategia) {
 
         var estrategiaTxt = $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataEstrategia).attr("data-estrategia")
-                || $btnAgregar.parents("div.content_btn_agregar").siblings("#contenedor-showroom-subcampanias-mobile")
-                        .find(".slick-active").find(dataProperties.dataEstrategia).attr("data-estrategia")
-                || "";
+            || $btnAgregar.parents("div.content_btn_agregar").siblings("#contenedor-showroom-subcampanias-mobile")
+                .find(".slick-active").find(dataProperties.dataEstrategia).attr("data-estrategia")
+            || "";
 
         var estrategia = {};
         if (estrategiaTxt != "") {
@@ -241,8 +241,8 @@ var EstrategiaAgregarModule = (function () {
         var clientId = 0;
 
         var $divFichaReumida = $('#DivPopupFichaResumida');
-        if ((typeof $divFichaReumida !== "undefined" || $divFichaReumida !== null) && 
-            $divFichaReumida.find("#hfClienteId").length >0) {
+        if ((typeof $divFichaReumida !== "undefined" || $divFichaReumida !== null) &&
+            $divFichaReumida.find("#hfClienteId").length > 0) {
             clientId = $($divFichaReumida.find("#hfClienteId")[0]).val();
         }
 
@@ -250,7 +250,7 @@ var EstrategiaAgregarModule = (function () {
     }
 
     var estrategiaAgregar = function (event, popup, limite, esFicha, esEditable) {
-          
+
         popup = popup || false;
         limite = limite || 0;
         esEditable = esEditable || false;
@@ -261,7 +261,7 @@ var EstrategiaAgregarModule = (function () {
         var $btnAgregar = $(event.target);
         //console.log($btnAgregar);
         var origenPedidoWebEstrategia = getOrigenPedidoWeb($btnAgregar);
-        
+
         //*****ANALYTICS ******
         if (AnalyticsPortalModule != 'undefined') {
             if (typeof (fichaModule) != "undefined") {
@@ -270,9 +270,8 @@ var EstrategiaAgregarModule = (function () {
                     AnalyticsPortalModule.MarcaFichaResumidaClickModificar(estrategia.CodigoUbigeoPortal, isChangeTono, isChangeCantidad, isChangeCliente);
                 }
             }
-            
-            if (typeof(seleccionadosPresenter) !== 'undefined')
-            {
+
+            if (typeof (seleccionadosPresenter) !== 'undefined') {
                 if (seleccionadosPresenter.packComponents() !== 'undefined') {
                     var seleccionados = seleccionadosPresenter.packComponents().componentesSeleccionados;
                     var estrategia = JSON.parse($("#data-estrategia").attr("data-estrategia"));
@@ -283,14 +282,21 @@ var EstrategiaAgregarModule = (function () {
                         AnalyticsPortalModule.MarcaClickAgregarArmaTuPack(codigoubigeoportal, "Agregar", "Click Botón");
                     }
                 }
-                
+
             }
-            
+
         }
         //**FIN ANALYTICS *****
-        
+
         var estrategia = getEstrategia($btnAgregar, origenPedidoWebEstrategia);
-        
+
+        if (typeof getOrigenPedidoWebDetalle !== 'undefined') {
+            var origenDetalle = getOrigenPedidoWebDetalle(estrategia);
+            if (origenDetalle) {
+                origenPedidoWebEstrategia = origenDetalle;
+            }
+        }
+        console.log(estrategia);
         if (estrategiaEstaBloqueada($btnAgregar, estrategia.CampaniaID)) {
             estrategia.OrigenPedidoWebEstrategia = origenPedidoWebEstrategia;
             getDivMsgBloqueado($btnAgregar, estrategia).show();
@@ -333,7 +339,7 @@ var EstrategiaAgregarModule = (function () {
             }
         }
         var divAgregado = $(itemClone).find(".agregado.product-add");
-        
+
         var cuvs = "";
         var codigoVariante = estrategia.CodigoVariante;
         if ((_codigoVariedad.IndividualVariable == codigoVariante || _codigoVariedad.CompuestaVariable == codigoVariante)) {
@@ -379,7 +385,7 @@ var EstrategiaAgregarModule = (function () {
                     CerrarLoad();
                     return false;
                 }
-                
+
                 if (data.success === false) {
                     if (!IsNullOrEmpty(data.mensajeAviso)) AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
                     else abrirMensajeEstrategia(data.message, esFicha);
@@ -393,7 +399,7 @@ var EstrategiaAgregarModule = (function () {
                 if (cuv.substring(0, 3) == '999') {
                     sessionStorage.setItem('cuvPack', cuv);
                 }
-                
+
                 try {
                     if (!(typeof AnalyticsPortalModule === 'undefined')) {
                         AnalyticsPortalModule.MarcaAnadirCarritoGenerico(event, origenPedidoWebEstrategia, estrategia);
@@ -404,6 +410,7 @@ var EstrategiaAgregarModule = (function () {
                 }
 
                 $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataInputCantidad).val("1");
+
 
                 if (divAgregado != null) {
                     if (typeof divAgregado.length != "undefined" && divAgregado.length > 0) {
@@ -439,11 +446,17 @@ var EstrategiaAgregarModule = (function () {
                         $AgregadoTooltip.show();
                         setTimeout(function () {
                             $AgregadoTooltip.hide();
-                            if (origenPedidoWebEstrategia === _OrigenPedido.DesktopContenedorArmaTuPack) {
-                                window.location = "/ofertas";
-                            } else if (origenPedidoWebEstrategia === _OrigenPedido.MobileContenedorArmaTuPack) {
-                                window.location = "/mobile/ofertas";
+                            if (typeof esAppMobile == 'undefined') {
+                                if (origenPedidoWebEstrategia === _OrigenPedido.DesktopContenedorArmaTuPack) {
+                                    window.location = "/ofertas";
+                                } else if (origenPedidoWebEstrategia === _OrigenPedido.MobileContenedorArmaTuPack) {
+                                    window.location = "/mobile/ofertas";
 
+                                }
+                            } else {
+                                if (estrategia.CodigoEstrategia === ConstantesModule.TipoEstrategia.ArmaTuPack) {
+                                    window.location = "/ArmaTuPack/AgregarATPApp";
+                                }
                             }
                         }, 2500);
                         if (!(origenPedidoWebEstrategia === _OrigenPedido.DesktopContenedorArmaTuPack || origenPedidoWebEstrategia === _OrigenPedido.MobileContenedorArmaTuPack)) {
@@ -460,7 +473,7 @@ var EstrategiaAgregarModule = (function () {
                 var barraJsLoaded = typeof MostrarBarra === 'function';
 
                 if (barraJsLoaded) {
-                    var destino = isPagina('pedido') ? '2': '1';
+                    var destino = isPagina('pedido') ? '2' : '1';
                     var prevTotal = mtoLogroBarra || 0;
                     var issetPopupPremio = $("#popupPremio").length > 0;
 
@@ -486,7 +499,7 @@ var EstrategiaAgregarModule = (function () {
                 } else {
                     CargarResumenCampaniaHeader(true);
                 }
-                
+
                 var tipoOrigenEstrategiaAux = 0;
                 if (typeof tipoOrigenEstrategia != "undefined") {
                     tipoOrigenEstrategiaAux = tipoOrigenEstrategia || 0;
@@ -529,7 +542,7 @@ var EstrategiaAgregarModule = (function () {
                     tipoOrigenEstrategiaAux == 27 ||
                     tipoOrigenEstrategiaAux == 262 ||
                     tipoOrigenEstrategiaAux == 272) {
-                    
+
                     if (isPagina('mobile/pedido/detalle')) CargarPedido(false);
 
                     if (tipoOrigenEstrategiaAux == 262) {
@@ -564,7 +577,7 @@ var EstrategiaAgregarModule = (function () {
 
                 var localStorageModule = new LocalStorageModule();
                 localStorageModule.ActualizarCheckAgregado($.trim(estrategia.EstrategiaID), estrategia.CampaniaID, estrategia.CodigoPalanca, true);
-                
+
                 CerrarLoad();
                 if (popup) {
                     CerrarPopup(elementosPopPup.popupDetalleCarouselLanzamiento);
@@ -596,12 +609,13 @@ var EstrategiaAgregarModule = (function () {
                 if (estrategia.TipoAccionNavegar == ConstantesModule.TipoAccionNavegar.Volver) {
                     FichaPartialModule.ShowDivFichaResumida(false);
                 }
+
                 return false;
             })
             .fail(function (data, error) {
                 CerrarLoad();
             });
-        
+
         return false;
     };
 
