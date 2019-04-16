@@ -20,12 +20,15 @@ $(document).ready((function (cerrarRechazado) {
                 cdrweb_formatoFechaCulminado: ".cdrweb_formatoFechaCulminado",
                 cdrweb_formatocampania: ".cdrweb_formatocampania",
                 cdrweb_CantidadAprobados: ".cdrweb_CantidadAprobados",
-                cdrweb_CantidadRechazados: ".cdrweb_CantidadRechazados"
+                cdrweb_CantidadRechazados: ".cdrweb_CantidadRechazados",
+                footer_page: ".footer-page"
             };
 
             me.Eventos = {
 
                 bindEvents: function () {
+
+                    $(me.Variables.footer_page).hide();
 
                     $(document).on('click', me.Variables.IrPaso1, function () {
                         if (mensajeGestionCdrInhabilitada != '') {
