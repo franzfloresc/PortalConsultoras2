@@ -138,7 +138,7 @@ namespace Portal.Consultoras.Web.Providers
                     };
                     kits = svc.GetKitsCaminoBrillante(usuario, nivel).ToList();
                 }
-                if (kits != null && !kits.Any(e => e.FlagHistorico)) {
+                if (kits != null && kits.Any(e => e.FlagHistorico)) {
                     sessionManager.SetKitCaminoBrillante(kits);
                 }
                 return kits;
