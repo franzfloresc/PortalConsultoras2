@@ -548,6 +548,7 @@ function ContinuarPedido() {
         });
     }
     else {
+        CloseLoading();
         $('#mensajepedido').show();
     }
 }
