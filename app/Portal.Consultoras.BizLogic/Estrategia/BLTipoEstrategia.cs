@@ -31,7 +31,7 @@ namespace Portal.Consultoras.BizLogic
             }
         }
 
-        public BETipoEstrategia GetTipoEstrategias(int paisId, int tipoEntidadId)
+        public BETipoEstrategia GetTipoEstrategiaById(int paisId, int tipoEntidadId)
         {
             var tipoEstrategia = new BETipoEstrategia
             {
