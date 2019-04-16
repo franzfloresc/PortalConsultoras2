@@ -363,7 +363,7 @@ namespace Portal.Consultoras.Web.Controllers
                     CampaniaID = userData.CampaniaID,
                     PaisID = userData.PaisID
                 };
-                ViewBag.KitsCaminoBrillante = _caminoBrillanteProvider.GetKitCaminoBrillante().ToList();
+                ViewBag.KitsCaminoBrillante = _caminoBrillanteProvider.GetKitsCaminoBrillante().ToList();
                 var consultoraNivel = SessionManager.GetConsultoraCaminoBrillante();
                 var nivelConsultora = consultoraNivel.NivelConsultora.Where(e => e.EsActual).FirstOrDefault();
                 int nivel = 0;

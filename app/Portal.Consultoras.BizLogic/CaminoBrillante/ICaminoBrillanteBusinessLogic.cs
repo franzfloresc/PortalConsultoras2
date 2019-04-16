@@ -5,9 +5,10 @@ using System.Collections.Generic;
 namespace Portal.Consultoras.BizLogic.CaminoBrillante
 {
     public interface ICaminoBrillanteBusinessLogic {
+        BEPeriodoCaminoBrillante GetPeriodo(int paisId, int campaniaId);
         List<BENivelCaminoBrillante> GetNiveles(int paisId);
         BEConsultoraCaminoBrillante GetConsultoraNivel(BEUsuario entidad);
-        List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillante(int paisID, string campaniaID);
-        List<BEKitCaminoBrillante> GetKit(BEUsuario entidad, int nivelId);
+        List<BEDesmostradoresCaminoBrillante> GetDemostradores(int paisId, int campaniaId);
+        List<BEKitCaminoBrillante> GetKits(BEUsuario entidad, int nivelId);
     }
 }

@@ -3581,6 +3581,7 @@ namespace Portal.Consultoras.Common
             public const int Reingreso = 9;
         }
 
+        /*
         public static class MetodosInformacionComercial
         {
             public const string GetPeriodo = "GetPeriodo/";
@@ -3589,7 +3590,9 @@ namespace Portal.Consultoras.Common
             public const string GetNivelConsultora = "GetNivelConsultora/";
             public const string GetKitsConsultora = "GetKitsConsultora/";
         }
+        */
 
+        /*
         public static class CodigoIsoHana
         {
             public const string Bolivia = "BOL";
@@ -3605,7 +3608,9 @@ namespace Portal.Consultoras.Common
             public const string PuertoRico = "PRI";
             public const string Dominicana = "DOM";
         }
+        */
 
+        /*
         public static class CaminoBrillanteRepositorioS3
         {
             public const string Patt_Niveles = "{REPO_S3}/CAMINOBRILLANTE/NIVELES/NIVEL_{KEY}_{STATE}.png";
@@ -3615,6 +3620,7 @@ namespace Portal.Consultoras.Common
             public const string Patt_Constancia = "{REPO_S3}/CAMINOBRILLANTE/LOGROS/CONSTANCIA/TORTA_{KEY}.png";
             public const string Patt_Incremento = "{REPO_S3}/CAMINOBRILLANTE/LOGROS/INCREMENTO/PEDIDO_{KEY}.png";
         }
+        */
 
         public static class CaminoBrillante
         {
@@ -3648,6 +3654,7 @@ namespace Portal.Consultoras.Common
                 }
             }
 
+            /*
             public static class CodigoBeneficio
             {
 
@@ -3667,6 +3674,8 @@ namespace Portal.Consultoras.Common
                     }
                 }
             }
+            */
+
 
             public static class Logros
             {
@@ -3677,6 +3686,7 @@ namespace Portal.Consultoras.Common
 
                 public static class Indicadores
                 {
+                    private static Dictionary<string, string> _Titulos;
 
                     public const string ESCALA = "ESCALA";
                     public const string NIVEL = "NIVEL";
@@ -3684,6 +3694,21 @@ namespace Portal.Consultoras.Common
                     public const string INCREMENTO_PEDIDO = "INCREMENTO_PEDIDO";
                     public const string TIEMPO_JUNTOS = "TIEMPO_JUNTOS";
                     public const string PROGRAMA_NUEVAS = "PROGRAMA_NUEVAS";
+
+                    public static Dictionary<string, string> Titulos
+                    {
+                        get
+                        {
+                            return _Titulos ?? (_Titulos = new Dictionary<string, string> {
+                                {ESCALA, "Escala"},
+                                {NIVEL, ""},
+                                {CONSTANCIA, "Constancia"},
+                                {INCREMENTO_PEDIDO, "Incremento"},
+                                {TIEMPO_JUNTOS, ""},
+                                {PROGRAMA_NUEVAS, ""},
+                            });
+                        }
+                    }
 
                     public static class Medallas
                     {
