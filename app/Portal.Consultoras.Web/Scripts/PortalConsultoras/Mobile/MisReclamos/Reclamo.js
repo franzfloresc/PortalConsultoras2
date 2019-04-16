@@ -389,7 +389,7 @@ $(document).ready(function () {
                             me.Funciones.ValidarPasoUnoServer(function (d) {
                                 if (!d.success) {
                                     $.when(me.Funciones.RegresarRegistro1())
-                                        .then(messageInfoValidado(msg));
+                                        .then(messageInfoValidado(d.message));
                                 } else {
                                     paso2Actual = 1;
                                     //Seteamos la data de la respuesta del servicio de cdr
