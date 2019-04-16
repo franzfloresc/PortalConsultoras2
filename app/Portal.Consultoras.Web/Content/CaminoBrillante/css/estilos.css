@@ -957,6 +957,7 @@ button.close {
     .cambio-crec .como-log.inactivo {
         text-decoration: none;
         color: gray;
+        cursor: auto;
     }
 
 .cambio-crec div img {
@@ -1024,9 +1025,9 @@ div .footer__link, div .sub_footer a, div .btn__productos__agregados--verMiPedid
 
 /* MEDIASQUERY CAMINO BRILLANTE */
 @media screen and (max-width: 930px) {
-    .content_responsive {
+    /*.content_responsive {
         margin-top: 60px;
-    }
+    }*/
 }
 
 @media screen and (max-width: 860px) {
@@ -1053,6 +1054,9 @@ div .footer__link, div .sub_footer a, div .btn__productos__agregados--verMiPedid
 }
 
 @media screen and (max-width: 620px) {
+    .title, .subtitle {
+        margin-bottom: 0px;
+    }
     #ProgressBar span {
         width: 35px;
         height: 35px;
@@ -1344,6 +1348,12 @@ div .footer__link, div .sub_footer a, div .btn__productos__agregados--verMiPedid
     .box-Crecimiento .text-bold, .box-Compromiso .text-bold {
         margin-bottom: 0;
     }
+
+    .ficha__producto__precio > div {
+        margin-bottom: 10px;
+        float: none;
+        width: 100%;
+    }
 }
 
 @media screen and (max-width: 600px) {
@@ -1543,7 +1553,7 @@ div .left-mod .l-mod p {
     max-height: inherit;
 
 }
-.submenu__item submenu__item--IngresaTuPedido a, .menu__link, .submenu__link {
+#lnk-pri-ingreso-pedidos {
     font-weight: bold !important;
 }
 
