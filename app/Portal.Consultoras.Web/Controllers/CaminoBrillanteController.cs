@@ -58,8 +58,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Ofertas()
         {
-            var lstKit = _caminoBrillanteProvider.GetKitCaminoBrillante();
-            var lstDemo = _caminoBrillanteProvider.GetDemostradoresCaminoBrillante();
+            var lstKit = _caminoBrillanteProvider.GetKitsCaminoBrillante();
+            var lstDemo = _caminoBrillanteProvider.GetDesmostradoresCaminoBrillante();
             int cantKit = lstKit.Count();
             int cantDemo = lstDemo.Count();
             ViewBag.Moneda = userData.Simbolo;
@@ -79,7 +79,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult GetKits(int cantidadRegistros)
         {
-            var lstKits = _caminoBrillanteProvider.GetKitCaminoBrillante();
+            var lstKits = _caminoBrillanteProvider.GetKitsCaminoBrillante();
             var estado = false;
             try
             {
@@ -99,7 +99,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult GetDemostradores(int cantidadRegistros)
         {
-            var lstDemostrador = _caminoBrillanteProvider.GetDemostradoresCaminoBrillante();
+            var lstDemostrador = _caminoBrillanteProvider.GetDesmostradoresCaminoBrillante();
             var estado = false;
             try
             {
@@ -116,6 +116,7 @@ namespace Portal.Consultoras.Web.Controllers
                 verMas = estado
             }, JsonRequestBehavior.AllowGet);
         }
+
 
         [HttpPost]
         public JsonResult GetNiveles(string nivel)

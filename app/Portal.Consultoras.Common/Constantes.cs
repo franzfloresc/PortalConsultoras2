@@ -3677,6 +3677,7 @@ namespace Portal.Consultoras.Common
 
                 public static class Indicadores
                 {
+                    private static Dictionary<string, string> _Titulos;
 
                     public const string ESCALA = "ESCALA";
                     public const string NIVEL = "NIVEL";
@@ -3684,6 +3685,21 @@ namespace Portal.Consultoras.Common
                     public const string INCREMENTO_PEDIDO = "INCREMENTO_PEDIDO";
                     public const string TIEMPO_JUNTOS = "TIEMPO_JUNTOS";
                     public const string PROGRAMA_NUEVAS = "PROGRAMA_NUEVAS";
+
+                    public static Dictionary<string, string> Titulos
+                    {
+                        get
+                        {
+                            return _Titulos ?? (_Titulos = new Dictionary<string, string> {
+                                {ESCALA, "Escala"},
+                                {NIVEL, ""},
+                                {CONSTANCIA, "Constancia"},
+                                {INCREMENTO_PEDIDO, "Incremento"},
+                                {TIEMPO_JUNTOS, ""},
+                                {PROGRAMA_NUEVAS, ""},
+                            });
+                        }
+                    }
 
                     public static class Medallas
                     {
