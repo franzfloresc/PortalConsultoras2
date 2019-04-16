@@ -22,6 +22,13 @@ $("#Demostradores").on('click', '.boton_agregar_ofertas', function (e) {
     AgregarProducto(obj, cantidad);
 });
 
+$("#kits").on('click', '.boton_agregar_ofertas', function (e) {
+    var contenedor = $(this).parents('[data-item="BuscadorFichasProductos"]');
+    var obj = JSON.parse($(this).parents('[data-item="BuscadorFichasProductos"]').find('div [data-kit]').attr("data-kit"));
+    var cantidad = 1;
+    AgregarProducto(obj, cantidad);
+});
+
 function Inicializar() {
     ValidarCargaDemostradores();
     LinkCargarDemostradoresToScroll();
@@ -132,7 +139,7 @@ function AgregarProducto(data, cantidad) {
             //e.preventDefault();
             AbrirSplash();
 
-    alert("origenPedidoWeb: " + origenPedidoWeb);
+    //alert("origenPedidoWeb: " + origenPedidoWeb);
 
             //var cuvCapturado = this.parentElement.parentElement.parentElement.parentElement.children[0].value;
             //var cantidadCapturado = this.parentElement.parentElement.children[0].children[0].children[1].value;

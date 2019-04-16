@@ -176,16 +176,19 @@
         <div class="row flex-row justify-content-center ml-0 mr-0">
             <figure class="col-12 pl-0 pr-0 row flex-row ml-0 mr-0 justify-content-center align-items-end ficha__producto__imagen text-center">
                 @*@{
-                    var imagenKit = string.IsNullOrEmpty(item.FotoProductoMedium) ? ViewBag.RutaImagenNoDisponible : item.FotoProductoMedium;
-                }*@
+                var imagenKit = string.IsNullOrEmpty(item.FotoProductoMedium) ? ViewBag.RutaImagenNoDisponible : item.FotoProductoMedium;
+            }*@
                 {{#IsNullOrEmpty FotoProductoMedium '!='}}
                 <img class="lazy redireccionarFicha" src="{{FotoProductoMedium}}">
                 {{/IsNullOrEmpty}}
                 {{#IsNullOrEmpty FotoProductoMedium '=='}}
                 <img class="lazy redireccionarFicha" src="@ViewBag.RutaImagenNoDisponible">
                 {{/IsNullOrEmpty}}
-               @* <img class="lazy redireccionarFicha" src="@Url.Content(imagenKit)">*@
+                @* <img class="lazy redireccionarFicha" src="@Url.Content(imagenKit)">*@
             </figure>
+            <div style="display:none;">
+                <div data-kit="{{JSON2string this}}"></div>
+            </div>
             <div class="col-12 pl-0 pr-0 ficha__producto__descrip d-block mx-auto text-left">
                 <div class="col-12 pl-0 pr-0 ficha__producto__descrip__marca__pais text-uppercase">
                     {{DescripcionMarca}}
@@ -233,17 +236,17 @@
             {{/if}}
 
             @*@{
-                if (FlagSeleccionado)
-                {
+            if (FlagSeleccionado)
+            {
 
-                }
-                else
-                {
-                    <div class="col-12 pl-0 pr-0 etiqueta_buscador_producto ficha__producto__etiqueta text-center" style="display:none;" data-Agregado="DivAgregado">
-                        <span class="text-uppercase text-bold d-inline-block">Agregado</span>
-                    </div>
-                }
-            }*@
+            }
+            else
+            {
+                <div class="col-12 pl-0 pr-0 etiqueta_buscador_producto ficha__producto__etiqueta text-center" style="display:none;" data-Agregado="DivAgregado">
+                    <span class="text-uppercase text-bold d-inline-block">Agregado</span>
+                </div>
+            }
+        }*@
         </div>
     </article>
     {{/each}}
