@@ -1,0 +1,19 @@
+﻿/*Ficha Enrriquecida*/
+.button_ver_detalle {
+    font-size: 13px;
+    font-weight: bold;
+    margin-left: auto;
+    position: relative;
+}
+
+    .button_ver_detalle img {
+        top: -1px;
+        width: 10px;
+        right: 8px;
+    }
+/*Fin Ficha Enrriquecida*/
+
+
+@media (max-width: 768px) {
+
+}

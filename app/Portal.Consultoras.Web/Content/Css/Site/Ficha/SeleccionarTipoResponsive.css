@@ -1,0 +1,116 @@
+﻿/* Tipos y tonos*/
+.tiposytonos_componentes {
+    margin-bottom: 30px;
+}
+
+.tono_select_opt {
+    height: auto;
+    margin-bottom: 0px;
+    background: url('/Content/Images/mobile/Esika/right-arrow.svg');
+    background-position: right 15px center;
+    background-repeat: no-repeat;
+    background-size: 13px;
+    cursor: pointer;
+    padding: 13px 15px 13px 14px;
+    line-height: normal;
+    font-weight: bold;
+    border: 1px solid black;
+    border-radius: 4px;
+    width: 100%;
+    display: block;
+    font-size: 13px;
+}
+
+.tonos_seleccionados {
+    border: solid 1px #000000;
+    border-radius: 4px;
+    padding: 15px;
+    margin-top: 10px;
+}
+
+.tonos_seleccionados_item {
+    margin-bottom: .7rem;
+}
+
+    .tonos_seleccionados_item li {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+.imagen_seleccionado img {
+    width: 30px;
+    height: 30px;
+    display: block;
+}
+
+.titulo_selecionado {
+    font-size: 13px;
+    font-weight: bold;
+    padding-left: 10px;
+    width: 80%;
+    line-height: normal;
+}
+
+    .titulo_selecionado span {
+        font-size: 13px;
+        font-weight: bold;
+    }
+
+        .titulo_selecionado span:first-child {
+            margin-right: 5px;
+        }
+
+.btn_cambiar_opciones {
+    font-size: 13px;
+    font-weight: bold;
+    display: inherit;
+    text-decoration: underline;
+    text-align: right;
+    margin-left: auto;
+    margin-top: 6px;
+}
+
+    .btn_cambiar_opciones img {
+        width: 10px;
+        display: inline-block;
+        margin-top: -1px;
+        margin-left: 3px;
+    }
+
+.content_tonos_maquillaje {
+    margin-top: 13px;
+    overflow: hidden;
+}
+
+.content_tono_detalle {
+    width: 9.6%;
+    display: inline-block;
+    margin: 3px;
+    border: 1px solid white;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+    .content_tono_detalle:hover, .content_tono_detalle.active {
+        border-color: black;
+    }
+
+    .content_tono_detalle img {
+        width: 100%;
+        height: auto !important;
+    }
+
+.detalle_producto .tiposytonos_componentes {
+    margin-top: 10px;
+    margin-bottom: 4px;
+    width: 100%
+}
+
+/* Tipos y tonos PopUp*/
+
+
+
+
+@media (max-width: 768px) {
+
+}
