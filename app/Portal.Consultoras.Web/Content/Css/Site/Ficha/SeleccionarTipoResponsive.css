@@ -107,7 +107,34 @@
 }
 
 /* Tipos y tonos PopUp*/
+.contenedor_seleccion {
+    position: fixed;
+    width: 330px;
+    top: 0;
+    right: 0;
+    overflow-y: hidden;
+    transition: all 300ms;
+    z-index: 999999;
+    box-shadow: 0 8px 20px 0px rgba(0, 0, 0, 0.5);
+    background-color: #fff;
+    height: 100vh;
+}
 
+.modal-fondo {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1040;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    z-index: 2;
+    opacity: .8;
+    transition: all 2000ms;
+    z-index: 99999;
+}
 
 
 
