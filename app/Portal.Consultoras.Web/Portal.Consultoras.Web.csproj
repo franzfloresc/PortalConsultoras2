@@ -4196,6 +4196,7 @@
     <Content Include="Scripts\PortalConsultoras\Buscador\BuscadorProvider.js" />
     <Content Include="Scripts\PortalConsultoras\Buscador\BusquedaProductoModule.js" />
     <Content Include="Scripts\PortalConsultoras\CaminoBrillante\index.js" />
+    <Content Include="Scripts\PortalConsultoras\CaminoBrillante\logros.js" />
     <Content Include="Scripts\PortalConsultoras\CaminoBrillante\Ofertas.js" />
     <Content Include="Scripts\PortalConsultoras\Campania\CampaniaModule.js" />
     <Content Include="Scripts\PortalConsultoras\CatalogoPersonalizado\catalogoPersonalizado.js" />

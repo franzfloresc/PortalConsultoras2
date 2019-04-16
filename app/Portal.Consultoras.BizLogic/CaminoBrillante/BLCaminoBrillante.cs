@@ -349,6 +349,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 MontoAcumulado = e.MontoMinimo,
             }).ToList();
 
+
             medallaNiveles.ForEach(e =>
             {
                 var configMedalla = configsMedalla.FirstOrDefault(p => p.Codigo == e.Valor);

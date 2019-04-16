@@ -1583,7 +1583,7 @@ div .left-mod .l-mod p {
     text-align:left;
 }
 .layout__view__breadcrumb, .layout__view__breadcrumb a {
-    font-size:12px;
+    /*font-size:12px;*/
 }
 .indicador-nivel .left-mod p b {
     display:block;
