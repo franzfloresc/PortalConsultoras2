@@ -156,7 +156,6 @@ function AgregarProducto(data, cantidad, contenedor) {
         async: true,
         cache: false,
         success: function (data) {
-            debugger
             $(contenedor).find('[data-Agregado="DivAgregado"]').show();
             if ($("#Tab-kits").hasClass('activado-dorado')) {                       
                 $(contenedor).find('col-12 fichas__productos__wrapper text-center').addClass("producto_desactivado");
@@ -171,7 +170,6 @@ function AgregarProducto(data, cantidad, contenedor) {
 }
 
 function CambiarOferta() {
-    debugger
     $('#Tab-kits').click(function () {
         $('#kits').show();
         $('#Demostradores').hide();

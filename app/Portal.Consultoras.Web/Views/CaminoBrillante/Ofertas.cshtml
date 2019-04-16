@@ -183,9 +183,15 @@
                     </a>
                 </div>
             </div>
+            {{#if FlagSeleccionado}}
+            <div class="col-12 pl-0 pr-0 etiqueta_buscador_producto ficha__producto__etiqueta text-center" data-Agregado="DivAgregado">
+                <span class="text-uppercase text-bold d-inline-block">Agregado</span>
+            </div>
+            {{else}}
             <div class="col-12 pl-0 pr-0 etiqueta_buscador_producto ficha__producto__etiqueta text-center" style="display:none;" data-Agregado="DivAgregado">
                 <span class="text-uppercase text-bold d-inline-block">Agregado</span>
             </div>
+            {{/if}}
         </div>
     </article>
     {{/each}}
