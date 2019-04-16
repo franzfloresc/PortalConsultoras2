@@ -28,6 +28,15 @@ var detallePresenter = DetallePresenter({
     armaTuPackDetalleEvents: armaTuPackDetalleEvents
 });
 
+var cabeceraView = CabeceraView({});
+var cabeceraPresenter = CabeceraPresenter({
+    cabeceraView: cabeceraView,
+    armaTuPackProvider: armaTuPackProvider,
+    generalModule: generalModule,
+    armaTuPackDetalleEvents: armaTuPackDetalleEvents
+});
+cabeceraView.setPresenter(cabeceraPresenter);
+
 var gruposDesktopView = GruposDesktopView({
     generalModule: generalModule,
     gruposContainerId: "#grupos"
@@ -57,6 +66,7 @@ $(document).ready(function () {
 
 
 armaTuPackDetalleEvents.subscribe(armaTuPackDetalleEvents.eventName.onGruposLoaded, function (packComponents) {
+    cabeceraPresenter.onGruposLoaded(packComponents);
     gruposDesktopPresenter.onGruposLoaded(packComponents);
     seleccionadosPresenter.onGruposLoaded(packComponents);
 });
