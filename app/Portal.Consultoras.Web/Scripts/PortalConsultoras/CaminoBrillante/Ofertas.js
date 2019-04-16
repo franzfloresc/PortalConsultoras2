@@ -2,7 +2,8 @@
 var TabDos = 0;
 var tipoOrigen = "1";
 var cargandoRegistros = false;
-var cantidadRegistros = 10;
+
+var offsetRegistros = 0;
 
 var reservaResponse = {
     data: { Reserva: false }
@@ -158,7 +159,7 @@ function AgregarProducto(data, cantidad, contenedor) {
         success: function (data) {
             $(contenedor).find('[data-Agregado="DivAgregado"]').show();
             if ($("#Tab-kits").hasClass('activado-dorado')) {                       
-                $(contenedor).find('col-12 fichas__productos__wrapper text-center').addClass("producto_desactivado");
+                $('#kits').addClass("producto_desactivado");
             }
             CerrarSplash();
             CargarResumenCampaniaHeader(true);
