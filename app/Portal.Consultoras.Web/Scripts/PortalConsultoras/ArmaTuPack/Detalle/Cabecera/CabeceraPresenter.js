@@ -1,4 +1,4 @@
-﻿var CabeceraPresenter = function (config) {
+﻿var CabeceraPresenter = function (config) { 
     if (typeof config === "undefined" || config === null) throw "config is null or undefined";
     if (typeof config.cabeceraView === "undefined" || config.cabeceraView === null) throw "config.gruposView is null or undefined";
     if (typeof config.generalModule === "undefined" || config.generalModule === null) throw "config.generalModule is null or undefined";
@@ -18,6 +18,25 @@
             return _packComponentsModel;
         } else if (value !== null) {
             value.componentes = value.componentes || [];
+            value.subTituloCabecera = "ELIGE : ";
+            $.each(value.componentes, function (idx, grupo) {
+                grupo.FactorCuadre = grupo.FactorCuadre || 0;
+                grupo.DescripcionPlural = grupo.DescripcionPlural || "";
+                grupo.DescripcionSingular = grupo.DescripcionSingular || "";
+
+                value.subTituloCabecera += grupo.FactorCuadre + " ";
+                if (grupo.FactorCuadre > 1) {
+                    value.subTituloCabecera += grupo.DescripcionPlural;
+                } else {
+                    value.subTituloCabecera += grupo.DescripcionSingular;
+                }
+
+                if (idx + 1 < value.componentes.length) {
+                    value.subTituloCabecera += " +"
+                }
+            });
+
+            console.log(value);
             _packComponentsModel = value;
         }
     };
