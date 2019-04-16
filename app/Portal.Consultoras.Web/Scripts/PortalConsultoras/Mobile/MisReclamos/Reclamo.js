@@ -144,7 +144,7 @@ $(document).ready(function () {
             bindEvents: function () {
                 $(me.Variables.footer_page).hide();
                 $(me.Variables.EleccionTipoEnvio).hide();
-                $(me.Variables.btnSiguiente1).hide(100);
+                $(me.Variables.btnSiguiente1).hide();
                 $(me.Variables.txtCuvMobile).addClass(me.Variables.deshabilitarControl);
                 var pedidoId = parseInt($(me.Variables.hdPedidoID).val());
                 if (pedidoId != 0) {
