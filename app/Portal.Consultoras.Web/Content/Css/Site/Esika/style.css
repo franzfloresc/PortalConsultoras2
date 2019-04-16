@@ -28638,22 +28638,26 @@ div.motivoRechazo textarea {
     display: inline-block;
 }
 
-.validacion_datos_correo_electronico,
-.validacion_datos_celular_contacto{
-    vertical-align:top;
+.validacion_datos_wrapper{
+    border-bottom:1px solid #000;
 }
 
-    .validacion_datos_correo_electronico > div,
-    .validacion_datos_celular_contacto > div {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
+    .validacion_datos_correo_electronico,
+    .validacion_datos_celular_contacto {
+        vertical-align: top;
     }
 
-    .validacion_datos_correo_electronico .texto_correo,
-    .validacion_datos_celular_contacto .texto_correo {
-        order: -1;
-    }
+        .validacion_datos_correo_electronico > div,
+        .validacion_datos_celular_contacto > div {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .validacion_datos_correo_electronico .texto_correo,
+        .validacion_datos_celular_contacto .texto_correo {
+            order: -1;
+        }
 
 .opcion_cdr,
 .opcion_cdr_seleccionada_campo_busqueda {
@@ -28954,6 +28958,52 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
                 letter-spacing: normal;
                 line-height: 19px;
             }
+
+/*.ui-dialog {
+    border-radius: 4px !important;
+}
+
+    .terminos_title_2{
+        font-size:18px!important;
+    }
+
+    .pop_pedido_mensaje {
+        margin-left: auto;
+        margin-right: auto;
+        font-size:14px;
+        font-weight:400;
+    }
+
+        .pop_pedido_mensaje p{
+            line-height:21px;
+        }
+
+    .input_modifica_horizontal,
+    .ui-button-text-only .ui-button-text{
+        display:inline-block;
+        vertical-align:middle;
+        min-width: 152px;
+        line-height: 38px;
+        height: 40px;
+        border-radius: 4px;
+    }
+
+        .input_modifica_horizontal:first-child{
+            color:#000;
+            background-color:#FFF;
+            border:1px solid #000;
+        }
+
+        .input_modifica_horizontal:last-child,
+        .ui-button-text-only .ui-button-text {
+            color: #FFF !important;
+            background-color: #b9007e !important;
+            border: 1px solid #b9007e !important;
+        }
+
+        .input_modifica_horizontal:last-child {
+            margin-left: 16px!important;
+        }*/
 
 .btn_no_stock {
     font-family: 'Lato', sans-serif;
@@ -34559,12 +34609,15 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 }
 
 /*EPD-1919 INICIO*/
+
 .content_tipo_despacho {
-    margin-top: 25px;
-    margin-bottom: 15px;
+    padding-top: 25px;
+    padding-bottom: 15px;
     font-family: 'Lato';
     font-size: 15px;
     text-align: left;
+    border-top:1px solid #000;
+    border-bottom:1px solid #000;
 }
 
 .cdr_tipo_despacho_icono {
