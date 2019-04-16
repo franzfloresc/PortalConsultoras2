@@ -83,36 +83,20 @@ namespace Portal.Consultoras.Web.Controllers
                 var exito = !(getUser.codigo == "003" || getUser.codigo == "004" || getUser.codigo == "005" ||
                               createUser.codigo == "002" || createUser.codigo == "003" || createUser.codigo == "004");
 
-
+                /*HD-3777*/
                 if (parametrosSap.Length > 1 && parametrosSap.Contains("SAP"))
                 {
-                    urlLms = IdCurso == 0 ? String.Format(urlLms, isoUsuario, token) : String.Format(urlLms, isoUsuario, token, IdCurso);
+                    urlLms = IdCurso == 0 ? String.Format(urlLms, isoUsuario, token, codigoClasificacion, codigoSubClasificacion, descripcionSubClasificacion) : String.Format(urlLms, isoUsuario, token, codigoClasificacion, codigoSubClasificacion, descripcionSubClasificacion, IdCurso);
                     urlLms = urlLms + "&" + parametrosSap;
-                    UrlCursoMiAcademiaVideo = IdCurso == 0 ? String.Format(urlLms, isoUsuario, token) : String.Format(UrlCursoMiAcademiaVideo, isoUsuario, token, IdCurso);
+                    UrlCursoMiAcademiaVideo = IdCurso == 0 ? String.Format(urlLms, isoUsuario, token, codigoClasificacion, codigoSubClasificacion, descripcionSubClasificacion) : String.Format(UrlCursoMiAcademiaVideo, isoUsuario, token, codigoClasificacion, codigoSubClasificacion, descripcionSubClasificacion, IdCurso);
                     UrlCursoMiAcademiaVideo = UrlCursoMiAcademiaVideo + "&" + parametrosSap;
                 }
                 else
                 {
-                    /*HD-3777*/
-                    if (userData.esConsultoraLider)
-                    {
-                        if (codigoClasificacion.Trim().Length > 0 && codigoSubClasificacion.Trim().Length > 0)
-                        {
-                            urlLms = IdCurso == 0 ? String.Format(urlLms, isoUsuario, token, codigoClasificacion, codigoSubClasificacion, descripcionSubClasificacion) : String.Format(urlLms, isoUsuario, token, userData.CodigoClasificacion, codigoClasificacion, codigoSubClasificacion, descripcionSubClasificacion, IdCurso);
-                            UrlCursoMiAcademiaVideo = IdCurso == 0 ? String.Format(urlLms, isoUsuario, token, codigoClasificacion, codigoSubClasificacion, descripcionSubClasificacion) : String.Format(UrlCursoMiAcademiaVideo, isoUsuario, token, codigoClasificacion, codigoSubClasificacion, descripcionSubClasificacion, IdCurso);
-                        }
-                        else
-                        {
-                            return RedirectToAction("Index", "Bienvenida");
-                        }
-                    }
-                    else
-                    {
-                        return RedirectToAction("Index", "Bienvenida");
-                    }
-                    /*Fin*/
+                    urlLms = IdCurso == 0 ? String.Format(urlLms, isoUsuario, token, codigoClasificacion, codigoSubClasificacion, descripcionSubClasificacion) : String.Format(urlLms, isoUsuario, token, userData.CodigoClasificacion, codigoClasificacion, codigoSubClasificacion, descripcionSubClasificacion, IdCurso);
+                    UrlCursoMiAcademiaVideo = IdCurso == 0 ? String.Format(urlLms, isoUsuario, token, codigoClasificacion, codigoSubClasificacion, descripcionSubClasificacion) : String.Format(UrlCursoMiAcademiaVideo, isoUsuario, token, codigoClasificacion, codigoSubClasificacion, descripcionSubClasificacion, IdCurso);
                 }
-
+                /*Fin*/
 
                 if (exito)
                 {
