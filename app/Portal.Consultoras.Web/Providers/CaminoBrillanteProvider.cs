@@ -29,8 +29,6 @@ namespace Portal.Consultoras.Web.Providers
                 }
                 sessionManager.SetConsultoraCaminoBrillante(resumen);
 
-
-
                 if (resumen.Niveles != null)
                 {
                     var nivelActualConsultora = GetNivelConsultoraCaminoBrillante();
@@ -49,8 +47,6 @@ namespace Portal.Consultoras.Web.Providers
             }
             return resumen;
         }
-
-
 
         public BENivelCaminoBrillante ObtenerNivelActualConsultora()
         {
