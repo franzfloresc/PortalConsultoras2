@@ -52,8 +52,8 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 MontoMaximo = e.MontoMaximo,
                 MontoMinimo = e.MontoMinimo,
                 TieneOfertasEspeciales = !("1" == e.CodigoNivel), //Usar Configuracion
-                Beneficios = lstBeneficios.Where(b => b.CodigoNivel == e.CodigoNivel && !(string.IsNullOrEmpty(b.NombreBeneficio)
-                                                      && Constantes.CaminoBrillante.CodigoBeneficio.Beneficios.Contains(b.CodigoBeneficio))
+                Beneficios = lstBeneficios.Where(b => b.CodigoNivel == e.CodigoNivel && !(string.IsNullOrEmpty(b.NombreBeneficio) && string.IsNullOrEmpty(b.Descripcion))
+                                                     // && Constantes.CaminoBrillante.CodigoBeneficio.Beneficios.Contains(b.CodigoBeneficio))
                                                       ).ToList()
 
 
