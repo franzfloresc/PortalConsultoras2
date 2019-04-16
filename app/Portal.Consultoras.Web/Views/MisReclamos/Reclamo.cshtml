@@ -79,7 +79,7 @@
                 </div>
                 <br />
             </div>
-            <div class="content_reclamo" id="Paso2" style="display: none; max-width: 890px;">
+            <div class="text-center content_reclamo" id="Paso2" style="display: none; max-width: 890px;">
                 @*<div class="content_reclamo" id="Cambio1" style="display: none; max-width: 890px;">
                     </div>*@
                 <div class="subtitulo_reclamo">Escoge una solución</div>
@@ -151,9 +151,8 @@
                         <!-- FIN - INFORMACIÓN CUANDO SE SELECCIONA LA OPCIÓN DE DEVOLUCIÓN Y EL PRODUCTO FORMA PARTE DE UN SET -->
                     </div>
                 </div>
-                <div id="MensajeTenerEncuenta" class="texto-center">
-                    <div class="linea_gris" style="height: 1px;"></div>
-                    <div class="mensaje_advertencia_reclamo">
+                <div id="MensajeTenerEncuenta" class="info_devolucion_a_tener_en_cuenta">
+                    <div class="info_devolucion_a_tener_en_cuenta_mensaje">
                         <span style="margin-bottom: 10px; display: block">TENER EN CUENTA: </span>
                         <span id="spnMensajeTenerCuenta"></span>
                     </div>
@@ -180,7 +179,6 @@
                         <div class="text-bold listado_solicitada_reclamo">SOLUCION SOLICITADA</div>
                         <div class="text-bold listado_eliminar_reclamo">ELIMINAR</div>
                     </div>
-                    <div class="multimarca-background-color linea_separadora"></div>
                     <div id="divDetallePaso3">
                     </div>
                 </div>
@@ -188,7 +186,6 @@
                 @if (Model.TieneCDRExpress)
                 {
                     <div id="TipoDespacho">
-                        <div class="multimarca-background-color linea_separadora_roja" style="height: 2px;"></div>
                         <div class="content_tipo_despacho">
                             <div style="padding-bottom:10px">
                                 <div id="btnDespachoNormal" class="cdr_tipo_despacho_icono_active"></div>
@@ -217,8 +214,6 @@
                     <input type="hidden" id="hdTieneCDRExpress" value="@(Model.TieneCDRExpress ? 1 : 0)" />
                     <input type="hidden" id="hdFleteDespacho" value="@Model.FleteDespacho" />
                 </div>
-
-                <div class="multimarca-background-color linea_separadora_roja" style="height: 2px;"></div>
                 <div class="subtitulo_listado">VALIDA TUS DATOS</div>
                 <div class="texto_valida_datos">En caso de necesitar contactarnos contigo, lo haremos a través de:</div>
                 <div class="text-center validacion_datos_wrapper">
@@ -250,7 +245,6 @@
                     </div>
                 </div>
                 <hr class="clear" />
-                <div class="multimarca-background-color linea_separadora_roja" style="height:2px;"></div>
                 <div class="politica_reclamos">
                     <div id="btnAceptoPoliticas" class="politica_reclamos_icono"></div>
                     <div class="politica_reclamos_texto">
