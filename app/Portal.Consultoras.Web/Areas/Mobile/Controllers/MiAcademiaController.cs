@@ -80,21 +80,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                               createUser.codigo == "002" || createUser.codigo == "003" || createUser.codigo == "004");
 
                 /*HD-3777*/
-                if (userData.esConsultoraLider)
-                {
-                    if (codigoClasificacion.Trim().Length > 0 && codigoSubClasificacion.Trim().Length > 0)
-                    {
-                        urlLms = IdCurso == 0 ? String.Format(urlLms, isoUsuario, token, codigoClasificacion, codigoSubClasificacion, descripcionSubClasificacion) : String.Format(urlLms, isoUsuario, token, userData.CodigoClasificacion, codigoClasificacion, codigoSubClasificacion, descripcionSubClasificacion, IdCurso);
-                    }
-                    else
-                    {
-                        return RedirectToAction("Index", "Bienvenida");
-                    }
-                }
-                else
-                {
-                    return RedirectToAction("Index", "Bienvenida");
-                }
+                urlLms = IdCurso == 0 ? String.Format(urlLms, isoUsuario, token, codigoClasificacion, codigoSubClasificacion, descripcionSubClasificacion) : String.Format(urlLms, isoUsuario, token, userData.CodigoClasificacion, codigoClasificacion, codigoSubClasificacion, descripcionSubClasificacion, IdCurso);
                 /*Fin*/
 
                 if (exito)
