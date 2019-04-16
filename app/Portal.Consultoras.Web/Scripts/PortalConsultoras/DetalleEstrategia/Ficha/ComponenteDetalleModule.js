@@ -106,7 +106,7 @@
                 speed: 300,
                 slidesToShow: 3,
                 centerMode: false,
-                variableWidth: true,
+                variableWidth: false,
                 responsive: [
                     {
                         breakpoint: 1024,
