@@ -19,6 +19,7 @@
         } else if (value !== null) {
             value.componentes = value.componentes || [];
             value.subTituloCabecera = "ELIGE : ";
+
             $.each(value.componentes, function (idx, grupo) {
                 grupo.FactorCuadre = grupo.FactorCuadre || 0;
                 grupo.DescripcionPlural = grupo.DescripcionPlural || "";
@@ -36,7 +37,6 @@
                 }
             });
 
-            console.log(value);
             _packComponentsModel = value;
         }
     };
