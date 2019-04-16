@@ -423,9 +423,7 @@ div .cartbtn {
 }
 
 @media (max-width: 620px) {
-    .layout__content {
-        margin-top: 100px;
-    }
+ 
     div .op-menu-horizontal {
         height:50px;
     }
