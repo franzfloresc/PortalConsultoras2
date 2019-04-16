@@ -23,7 +23,7 @@
 @{
     if (!mobileConfiguracion.EsAppMobile)
     {
-        <div class="titulo_mobile fijarTituloMobile">
+        <div class="titulo_mobile">
             <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
             CAMBIOS Y DEVOLUCIONES
         </div>
@@ -33,7 +33,7 @@
     }
 }
 
-<div class="wrapper_resumen_mobile pt-50">
+<div class="wrapper_resumen_mobile">
     @*@if (!string.IsNullOrEmpty(Model.MensajeGestionCdrInhabilitada) && Model.ListaCDRWeb.Count <= 0)
     {
         <div class="mensaje_vista_cdr">@Html.Raw(Model.MensajeGestionCdrInhabilitada)</div>
