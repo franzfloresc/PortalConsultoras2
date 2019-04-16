@@ -108,8 +108,11 @@
                         {
                             <span data-toggle="modal" data-target="#Modal-@data.Indicadores[i].Codigo-@NombreModal" class="como-log" onclick="ComoLograrlo('@Html.Raw(data.Titulo)','@Html.Raw(data.Indicadores[i].Titulo)','@Html.Raw(item2.ModalTitulo)','@Html.Raw(item2.ModalDescripcion)')">@item2.Subtitulo</span>
 
+                            if (@item2.ModalTitulo == null || item2.ModalTitulo == "" ||  item2.ModalDescripcion == null || item2.ModalDescripcion == "")
+                            {
 
-                            if (@item2.ModalTitulo != null && item2.ModalDescripcion != null)
+                            } else
+
                             {
                                 <div class="modal fade" id="Modal-@data.Indicadores[i].Codigo-@NombreModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" onloadeddata="PopupComoLograrlo('@Html.Raw(data.Titulo)','@Html.Raw(data.Indicadores[i].Titulo)')">
                                     <div class="modal-dialog" role="document">
@@ -120,7 +123,7 @@
                                             <div class="modal-body pad-center">
                                                 <div class="indicador-nivel">
                                                     @if (item2.Tipo == "PED")
-                                                    {
+                                {
                                                         <div class="circle-porcent imgpizz">
                                                             <img src="~/Content/CaminoBrillante/imgs/pedido_activo.svg" />
                                                         </div>
@@ -128,7 +131,7 @@
                                                     else if (item2.Tipo == "PIE")
                                                     {
                                                         string[] torta = item2.Valor.Split('-');
-                                                        var imagen = torta[1].PadLeft(2, '0') + "_" + torta[2].PadLeft(2, '0') + ".svg";
+                            var imagen = torta[1].PadLeft(2, '0') + "_" + torta[2].PadLeft(2, '0') + ".svg";
                                                         <div class="circle-porcent imgpizz">
                                                             <img src="~/Content/CaminoBrillante/imgs/PIZZA_@imagen" />
                                                         </div>
@@ -146,12 +149,7 @@
                                                             <img src=''>
                                                         }
                                                     }
-                                                    else
-                                                    {
-                                                        <div class="circle-porcent crec-activo doble">
-                                                            <span>@item2.Valor</span>
-                                                        </div>
-                                                    }
+                                               
                                                     <div class="left-mod">
                                                         <h2>@item2.ModalTitulo</h2>
                                                         <p>@Html.Raw(item2.ModalDescripcion)</p>

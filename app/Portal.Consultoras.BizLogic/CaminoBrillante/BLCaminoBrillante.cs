@@ -346,6 +346,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 Valor = e.CodigoNivel,
                 DescripcionNivel = e.DescripcionNivel,
                 MontoAcumulado = e.MontoMinimo,
+               
 
             });
 

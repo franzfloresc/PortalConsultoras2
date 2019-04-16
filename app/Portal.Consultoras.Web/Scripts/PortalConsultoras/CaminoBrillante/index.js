@@ -21,12 +21,12 @@
         contenido2 = contenido2.top;
 
         if (windowHeight <= contenido1) {
-            alert(contenido1);
+            //alert("estas en beneficios");
             return;
         }
 
-        if (windowHeight <= contenido2) {
-            alert(contenido2);
+        if (contenido1 <= contenido2) {
+           // alert("estas en logros");
             return;
         }
     });
