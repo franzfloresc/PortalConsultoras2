@@ -178,7 +178,7 @@ namespace Portal.Consultoras.BizLogic
                     var indPedidoAutentico = pedidowebdetalle.IndicadorPedidoAutentico;
                     indPedidoAutentico.PedidoID = pedidowebdetalle.PedidoID;
                     indPedidoAutentico.PedidoDetalleID = bePedidoWebDetalle.PedidoDetalleID;
-                    indPedidoAutentico.IndicadorToken = AESAlgorithm.Decrypt(indPedidoAutentico.IndicadorToken);
+                    indPedidoAutentico.IndicadorToken = string.IsNullOrEmpty(indPedidoAutentico.IndicadorToken) ? string.Empty :  AESAlgorithm.Decrypt(indPedidoAutentico.IndicadorToken);
 
                     daPedidoWeb.InsIndicadorPedidoAutentico(indPedidoAutentico);
                 }
