@@ -324,10 +324,17 @@ namespace Portal.Consultoras.BizLogic
             return productos;
         }
 
-        public int InsProductoCompartido(BEProductoCompartido ProComp)
+        public BEProductoCompartidoResult InsProductoCompartido(BEProductoCompartido ProComp)
         {
             var daProducto = new DAProducto(ProComp.PaisID);
-            return daProducto.InsProductoCompartido(ProComp);
+            var id = daProducto.InsProductoCompartido(ProComp);
+            var codigoISO = Util.GetPaisISO(ProComp.PaisID);
+            var urlCompartir = Util.GetUrlCompartirFB(codigoISO, id);
+            return new BEProductoCompartidoResult()
+            {
+                Id = id,
+                UrlCompartir = urlCompartir
+            };
         }
 
         public BEProductoCompartido GetProductoCompartido(int paisID, int ProCompID)

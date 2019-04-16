@@ -453,12 +453,10 @@ div .ficha__producto__precio__normal {
 .ficha__producto__precio > div > div {
     line-height: 17px !important;
 }
-.layout-somos-belcorp .content_responsive {
-    margin-top: 140px;
-}
-.layout__view__breadcrumbs__wrapper.mostrarEnDesktop {
+
+/*.layout__view__breadcrumbs__wrapper.mostrarEnDesktop {
     display:none!important;
-}
+}*/
 .busqueda__productos__encontrados__wrapper {
     display: none;
 }
@@ -473,6 +471,9 @@ div .ficha__producto__precio__normal {
             padding-right: 0 !important;
             font-size: 11px;
         }
+    .layout-somos-belcorp .content_responsive {
+        margin-top: 140px;
+    }
 }
 
 div div .ficha__producto__descrip__marca__pais {
@@ -480,4 +481,24 @@ div div .ficha__producto__descrip__marca__pais {
 }
 ul li .menu__link--pedido {
     font-weight:bold;
+}
+.desactive-mas-menos {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: gray;
+    opacity: 0.6;
+    cursor: not-allowed;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+
+.desactivo {
+    pointer-events: none;
+    cursor: none;
+    text-decoration: none;
+    opacity: 0.4;
 }

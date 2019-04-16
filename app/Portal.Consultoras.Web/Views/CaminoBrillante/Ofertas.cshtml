@@ -1,70 +1,40 @@
 ﻿@{
-    Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
-    ViewBag.Title = "Ofertas";
+    Layout = "~/Views/Shared/_MainLayoutResponsiveCaminoBrillante.cshtml";
     var Demostradores = ViewBag.Demostradores;
 }
 
 <link href="@Url.Content("~/Content/Css/Site/BusquedaProductos/filtros-busqueda.css")" rel="stylesheet" />
 <link href="@Url.Content("~/Content/Css/Site/FichaProductoResponsive/ficha-producto-responsive.css")" rel="stylesheet" />
-<link href="~/Content/CaminoBrillante/css/ganamas.css" rel="stylesheet" />
-
-<style>
-    .desactive-mas-menos {
-        content: "";
-        display: block;
-        width: 100%;
-        height: 100%;
-        background: gray;
-        opacity: 0.6;
-        cursor: not-allowed;
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 10;
-    }
-
-    .desactivo {
-        pointer-events: none;
-        cursor: none;
-        text-decoration: none;
-        opacity: 0.4;
-    }
-</style>
+<link href="~/Content/CaminoBrillante/css/cb-oferta.css" rel="stylesheet" />
 
 <div class="op-menu-horizonta-fixed subbox" data-menu-codigo="" data-layout-menu2="">
-
-
     <div class="op-menu-horizontal">
-        <ul class="subnavegador"
-            data-es-suscrita=""
-            data-es-activa="">
-
-            <li data-campania=""
-                data-activo="1"
-                data-codigo=""
-                data-es-ancla="">
-
-                <a href="javascript:void(0);"
-                   class="default-dorado activado-dorado" id="Tab-kits">
-                    Kits
-                </a>
-
+        <ul class="subnavegador" data-es-suscrita="" data-es-activa="">
+            <li data-campania="" data-activo="1" data-codigo="" data-es-ancla="">
+                <a href="javascript:void(0);" class="default-dorado activado-dorado" id="Tab-kits">Kits</a>
             </li>
-            <li data-campania=""
-                data-activo="1"
-                data-codigo=""
-                data-es-ancla="">
-
-
+            <li data-campania="" data-activo="1" data-codigo="" data-es-ancla="">
                 <a href="javascript:void(0);"
-                   class="default-dorado" id="Tab-Demostradores">
-                    Demostradores
-                </a>
+                   class="default-dorado" id="Tab-Demostradores">Demostradores</a>
             </li>
         </ul>
     </div>
-
 </div>
+
+
+<section data-layout="ubicacionWeb" class="row flex-row ml-0 mr-0 layout__view__breadcrumbs__wrapper mostrarEnDesktop">
+    <div class="col-12 pl-0 pr-0 mx-auto layout__view__breadcrumbs">
+        <ul class="row flex-row align-items-center ml-0 mr-0 layout__view__lista__breadcrumbs">
+            <li class="layout__view__breadcrumb">
+                <a href="/Bienvenida" class="d-block" title="Home">Home</a>
+            </li>
+
+            <li class="layout__view__breadcrumb">
+                <a href="/CaminoBrillante" class="d-block" title="CaminoBrillante">Camino Brillante</a>
+            </li>
+        </ul>
+    </div>
+</section>
 
 <div class="row flex-row ml-0 mr-0 mx-auto layout__content layout__content--vistaResultadosBusqueda">
 
@@ -183,108 +153,110 @@
         <div id="divresultadosKit">
             @ViewBag.CantidadKit
         </div>
-
         <section class="col-12 fichas__productos__wrapper text-center" id="kits">
 
-            @{
-                foreach (var item in Model)
-                {
-
-                    var FlagHabilitado = item.FlagHabilitado ? "" : "producto_desactivado";
-
-
-                    <article class="ficha__producto @FlagHabilitado" data-item="BuscadorFichasProductos">
-
-                        <input type="hidden" id="hdCuv" value="@item.CUV" />
-                        <div class="etiq-producto">
-                            @{var image = "/Content/CaminoBrillante/imgs/Nivel_0" + item.CodigoNivel + ".svg";}
-
-                            <img src="@image" />
-                            @*<span class="etiqueta">@item.DescripcionNivel</span>*@
-                        </div>
-                        <div class="row flex-row justify-content-center ml-0 mr-0">
-                            <figure class="col-12 pl-0 pr-0 row flex-row ml-0 mr-0 justify-content-center align-items-end ficha__producto__imagen text-center">
-                                @{
-                                    var imagenKit = string.IsNullOrEmpty(item.FotoProductoMedium) ? ViewBag.RutaImagenNoDisponible : item.FotoProductoMedium;
-                                }
-                                <img class="lazy redireccionarFicha" src="@Url.Content(imagenKit)">
-                            </figure>
-                            <div class="col-12 pl-0 pr-0 ficha__producto__descrip d-block mx-auto text-left">
-                                <div class="col-12 pl-0 pr-0 ficha__producto__descrip__marca__pais text-uppercase">
-                                    @item.DescripcionMarca
-                                </div>
-                                <div class="col-12 pl-0 pr-0 ficha__producto__descrip__nom text-bold redireccionarFicha">
-                                    @item.DescripcionCUV
-                                </div>
-                            </div>
-                            <div class="row flex-row align-items-end align-items-md-baseline ml-0 mr-0 col-12 pl-0 pr-0 ficha__producto__precio">
-                                <div>
-                                    <div style="text-align: left;padding-right: 15px;font-size: 12px;">Precio para ti<br /><b>@ViewBag.Moneda @item.PrecioCatalogo</b></div> @*ficha__producto__precio__normal*@
-                                </div>
-                                <div>
-                                    <div style="font-size: 12px;text-align: left;">Ganancia<br />@ViewBag.Moneda @item.Ganancia</div> @*ficha__producto__precio__oferta*@
-                                </div>
-                            </div>
-                            <div class="row flex-row justify-content-between ml-0 mr-0 pl-0 pr-0 ficha__producto__agregar__producto">
-                                <div class="col-12 col-md col-lg col-xl pl-0 pr-0" style="display:none;">
-                                    <div class="row flex-row justify-content-between ml-0 mr-0 ficha__producto__rango__cantidad js-no-popup" data-cantidad-contenedor="">
-                                        <a class="col-4 col-md-4 col-lg-4 col-xl-4 pl-0 pr-0 menos d-block js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
-                                            <img class="d-block js-no-popup" src="https://www.somosbelcorp.com/Content/Images/menos.svg" alt="">
-                                        </a>
-                                        <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="col-4 col-md-8 col-lg-8 col-xl-8 pl-0 pr-0 d-block text-center text-bold ValidaNumeral ValidaPasteNumeral js-no-popup">
-                                        <a class="col-4 col-md-4 col-lg-4 col-xl-4 pl-0 pr-0 mas d-block js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
-                                            <img class="d-block js-no-popup" src="https://www.somosbelcorp.com/Content/Images/mas.svg" alt="">
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-md-12 col-lg-12 col-xl-12 pl-0 pr-0 flex-grow-1">
-                                    <a class="boton_Agregalo_home boton__agregalo--fichaProducto text-center d-block FichaAgregarProductoBuscador act">
-                                        <i>
-                                            <img src="~/Content/CaminoBrillante/imgs/add_to_cart2.svg" />
-                                        </i> Agregar
-                                    </a>
-                                </div>
-                            </div>
-
-                            @{
-                                if (item.FlagSeleccionado)
-                                {
-                                    <div class="col-12 pl-0 pr-0 etiqueta_buscador_producto ficha__producto__etiqueta text-center" data-Agregado="DivAgregado">
-                                        <span class="text-uppercase text-bold d-inline-block">Agregado</span>
-                                    </div>
-                                }
-                                else
-                                {
-                                    <div class="col-12 pl-0 pr-0 etiqueta_buscador_producto ficha__producto__etiqueta text-center" style="display:none;" data-Agregado="DivAgregado">
-                                        <span class="text-uppercase text-bold d-inline-block">Agregado</span>
-                                    </div>
-                                }
-                            }
-
-                        </div>
-                    </article>
-                }
-            }
         </section>
 
         <div id="divresultadosDemostradores" style="display:none;">
             @ViewBag.CantidadDemostradores
         </div>
         <section class="col-12 fichas__productos__wrapper text-center" id="Demostradores" style="display:none;">
-                
+
         </section>
     </section>
 </div>
 
-<script id="template-Demostradores" type="text/x-handlebars-template">
+<script id="template-Kits" type="text/x-handlebars-template">
     {{#each this}}
-    <article class="ficha__producto " data-item="BuscadorFichasProductos">
-        <input type="hidden" id="hdCuv" value="{{Cuv}}" />
+    <article class="ficha__producto {{#if FlagHabilitado}} {{else}} producto_desactivado {{/if}}" data-item="BuscadorFichasProductos">
+        <div class="etiq-producto">
+            @*@{var image = "/Content/CaminoBrillante/imgs/Nivel_0" + item.CodigoNivel + ".svg";}*@
+            <img src="/Content/CaminoBrillante/imgs/Nivel_0{{CodigoNivel}}.svg"  />
+        </div>
         <div class="row flex-row justify-content-center ml-0 mr-0">
             <figure class="col-12 pl-0 pr-0 row flex-row ml-0 mr-0 justify-content-center align-items-end ficha__producto__imagen text-center">
                 @*@{
-                    var imagenDemostrador = string.IsNullOrEmpty(item.FotoProductoMedium) ? ViewBag.RutaImagenNoDisponible : item.FotoProductoMedium;
-                }*@
+                var imagenKit = string.IsNullOrEmpty(item.FotoProductoMedium) ? ViewBag.RutaImagenNoDisponible : item.FotoProductoMedium;
+            }*@
+                {{#IsNullOrEmpty FotoProductoMedium '!='}}
+                <img class="lazy redireccionarFicha" src="{{FotoProductoMedium}}">
+                {{/IsNullOrEmpty}}
+                {{#IsNullOrEmpty FotoProductoMedium '=='}}
+                <img class="lazy redireccionarFicha" src="@ViewBag.RutaImagenNoDisponible">
+                {{/IsNullOrEmpty}}
+                @* <img class="lazy redireccionarFicha" src="@Url.Content(imagenKit)">*@
+            </figure>
+            <div style="display:none;">
+                <div data-kit="{{JSON2string this}}"></div>
+            </div>
+            <div class="col-12 pl-0 pr-0 ficha__producto__descrip d-block mx-auto text-left">
+                <div class="col-12 pl-0 pr-0 ficha__producto__descrip__marca__pais text-uppercase">
+                    {{DescripcionMarca}}
+                </div>
+                <div class="col-12 pl-0 pr-0 ficha__producto__descrip__nom text-bold redireccionarFicha">
+                    {{DescripcionCUV}}
+                </div>
+            </div>
+            <div class="row flex-row align-items-end align-items-md-baseline ml-0 mr-0 col-12 pl-0 pr-0 ficha__producto__precio">
+                <div>
+                    <div style="text-align: left;padding-right: 15px;font-size: 12px;">Precio para ti<br /><b>@ViewBag.Moneda {{PrecioCatalogo}}</b></div>
+                </div>
+                <div>
+                    <div style="font-size: 12px;text-align: left;">Ganancia<br />@ViewBag.Moneda {{Ganancia}}</div>
+                </div>
+            </div>
+            <div class="row flex-row justify-content-between ml-0 mr-0 pl-0 pr-0 ficha__producto__agregar__producto">
+                <div class="col-12 col-md col-lg col-xl pl-0 pr-0" style="display:none;">
+                    <div class="row flex-row justify-content-between ml-0 mr-0 ficha__producto__rango__cantidad js-no-popup" data-cantidad-contenedor="">
+                        <a class="col-4 col-md-4 col-lg-4 col-xl-4 pl-0 pr-0 menos d-block js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
+                            <img class="d-block js-no-popup" src="https://www.somosbelcorp.com/Content/Images/menos.svg" alt="">
+                        </a>
+                        <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="col-4 col-md-8 col-lg-8 col-xl-8 pl-0 pr-0 d-block text-center text-bold ValidaNumeral ValidaPasteNumeral js-no-popup">
+                        <a class="col-4 col-md-4 col-lg-4 col-xl-4 pl-0 pr-0 mas d-block js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
+                            <img class="d-block js-no-popup" src="https://www.somosbelcorp.com/Content/Images/mas.svg" alt="">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-12 col-md-12 col-lg-12 col-xl-12 pl-0 pr-0 flex-grow-1">
+                    <a class="boton_Agregalo_home boton_agregar_ofertas boton__agregalo--fichaProducto text-center d-block FichaAgregarProductoBuscador act">
+                        <i>
+                            <img src="@Url.Content("/Content/CaminoBrillante/imgs/add_to_cart2.svg")" />
+                        </i> Agregar
+                    </a>
+                </div>
+            </div>
+            {{#if FlagSeleccionado}}
+            <div class="col-12 pl-0 pr-0 etiqueta_buscador_producto ficha__producto__etiqueta text-center" data-Agregado="DivAgregado">
+                <span class="text-uppercase text-bold d-inline-block">Agregado</span>
+            </div>
+            {{else}}
+            <div class="col-12 pl-0 pr-0 etiqueta_buscador_producto ficha__producto__etiqueta text-center" style="display:none;" data-Agregado="DivAgregado">
+                <span class="text-uppercase text-bold d-inline-block">Agregado</span>
+            </div>
+            {{/if}}
+
+            @*@{
+            if (FlagSeleccionado)
+            {
+
+            }
+            else
+            {
+                <div class="col-12 pl-0 pr-0 etiqueta_buscador_producto ficha__producto__etiqueta text-center" style="display:none;" data-Agregado="DivAgregado">
+                    <span class="text-uppercase text-bold d-inline-block">Agregado</span>
+                </div>
+            }
+        }*@
+        </div>
+    </article>
+    {{/each}}
+</script>
+
+<script id="template-Demostradores" type="text/x-handlebars-template">
+    {{#each this}}
+    <article class="ficha__producto " data-item="BuscadorFichasProductos">
+        <div class="row flex-row justify-content-center ml-0 mr-0">
+            <figure class="col-12 pl-0 pr-0 row flex-row ml-0 mr-0 justify-content-center align-items-end ficha__producto__imagen text-center">
                 {{#IsNullOrEmpty FotoProductoMedium '!='}}
                 <img class="lazy redireccionarFicha" src="{{FotoProductoMedium}}">
                 {{/IsNullOrEmpty}}
@@ -292,6 +264,9 @@
                 <img class="lazy redireccionarFicha" src="@ViewBag.RutaImagenNoDisponible">
                 {{/IsNullOrEmpty}}
             </figure>
+            <div style="display:none;">
+                <div data-demostrador="{{JSON2string this}}"></div>
+            </div>
             <div class="col-12 pl-0 pr-0 ficha__producto__descrip d-block mx-auto text-left">
                 <div class="col-12 pl-0 pr-0 ficha__producto__descrip__marca__pais text-uppercase">
                     {{DescripcionMarca}}
@@ -326,9 +301,9 @@
                     </div>
                 </div>
                 <div class="col-12 col-md-7 col-lg-7 col-xl-7 pl-0 pr-0 flex-grow-1">
-                    <a class="boton_Agregalo_home boton__agregalo--fichaProducto text-center d-block FichaAgregarProductoBuscador act cartbtn">
+                    <a class="boton_Agregalo_home boton_agregar_ofertas boton__agregalo--fichaProducto text-center d-block FichaAgregarProductoBuscador act cartbtn">
                         <i>
-                            <img src="~/Content/CaminoBrillante/imgs/add_to_cart2.svg" />
+                            <img src="@Url.Content("/Content/CaminoBrillante/imgs/add_to_cart2.svg")" />
                         </i> Agregar
                     </a>
                 </div>
@@ -341,6 +316,7 @@
     {{/each}}
 </script>
 
+
 <script src="https://www.somosbelcorp.com/Bundle/Js/Desktop/JQuery3Js?v=6K-kHHuzTBQeaIUNJP1kR-uZJRJv9nA2SlHvYURb6j41"></script>
 <script src="~/Scripts/PortalConsultoras/CaminoBrillante/Ofertas.js"></script>
 <script src="~/Scripts/PortalConsultoras/Cliente/Index.js"></script>
@@ -349,5 +325,7 @@
     <script type="text/javascript">
         var urlGetKits = '@Url.Action("GetKits", "CaminoBrillante", new { area = "" })';
         var urlGetDemostradores = '@Url.Action("GetDemostradores", "CaminoBrillante", new { area = "" })';
+        var urlAgregarUnico = '@Url.Action("PedidoAgregarProductoTransaction", "PedidoRegistro", new { area = "" })';
+        var origenPedidoWeb = 1181901;
     </script>
 }
