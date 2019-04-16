@@ -4,7 +4,7 @@
 /// <reference path="../../../../../PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js" />
 /// <reference path="../../../../../PortalConsultoras/DetalleEstrategia/DetalleEstrategiaProvider.js" />
 
-///  <reference path="../../../../../PortalConsultoras/ArmaTuPack/Detalle/Grupos/GruposDesktopView.js" />
+///  <reference path="../../../../../PortalConsultoras/ArmaTuPack/Detalle/Grupos/GruposView.js" />
 ///  <reference path="../../../../../PortalConsultoras/ArmaTuPack/Detalle/Grupos/GruposPresenter.js" />
 
 describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
@@ -141,7 +141,7 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
             generalModule = sinon.stub(GeneralModule);
             armaTuPackDetalleEvents = sinon.stub(ArmaTuPackDetalleEvents());
             gruposView = sinon.stub(
-                GruposDesktopView({
+                GruposView({
                     generalModule: generalModule,
                     gruposContainerId: "#grupos"
                 })
@@ -3093,7 +3093,7 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
             
             generalModule = sinon.stub(GeneralModule);
             armaTuPackDetalleEvents = sinon.stub(ArmaTuPackDetalleEvents());
-            gruposView = sinon.stub(GruposDesktopView({
+            gruposView = sinon.stub(GruposView({
                 generalModule: generalModule,
                 gruposContainerId: "#grupos"
             }));
@@ -4922,7 +4922,7 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
             
             generalModule = sinon.stub(GeneralModule);
             armaTuPackDetalleEvents = sinon.stub(ArmaTuPackDetalleEvents());
-            gruposView = sinon.stub(GruposDesktopView({
+            gruposView = sinon.stub(GruposView({
                 generalModule: generalModule,
                 gruposContainerId: "#grupos"
             }));
@@ -5270,7 +5270,7 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
             
             generalModule = sinon.stub(GeneralModule);
             armaTuPackDetalleEvents = sinon.stub(ArmaTuPackDetalleEvents());
-            gruposView = sinon.stub(GruposDesktopView({
+            gruposView = sinon.stub(GruposView({
                 generalModule: generalModule,
                 gruposContainerId: "#grupos"
             }));

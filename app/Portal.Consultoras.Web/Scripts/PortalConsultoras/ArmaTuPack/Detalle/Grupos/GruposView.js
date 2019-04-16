@@ -1,4 +1,4 @@
-﻿var GruposDesktopView = function (config) {
+﻿var GruposView = function (config) {
     if (typeof config === "undefined" || config === null) throw "config is null or undefined";
     if (typeof config.generalModule === "undefined" || config.generalModule === null) throw "config.generalModule is null or undefined";
     if (typeof config.gruposContainerId === "undefined" || config.gruposContainerId === null) throw "config.gruposContainerId is null or undefined";

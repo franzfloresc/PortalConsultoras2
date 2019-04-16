@@ -4,7 +4,7 @@
 /// <reference path="../../../../PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js" />
 /// <reference path="../../../../PortalConsultoras/DetalleEstrategia/DetalleEstrategiaProvider.js" />
 
-/// <reference path="../../../../PortalConsultoras/ArmaTuPack/Detalle/Grupos/GruposDesktopView.js" />
+/// <reference path="../../../../PortalConsultoras/ArmaTuPack/Detalle/Grupos/GruposView.js" />
 /// <reference path="../../../../PortalConsultoras/ArmaTuPack/Detalle/Grupos/GruposPresenter.js" />
 
 /// <reference path="../../../../PortalConsultoras/ArmaTuPack/Detalle/DetallePresenter.js" />
