@@ -25,9 +25,9 @@
 .tabs_vista_cdr_wrapper {
     margin-left: -15px;
     margin-right: -15px;
-    position: sticky;
+    /*position: sticky;
     position: -webkit-sticky;
-    top: 109px;
+    top: 109px;*/
     background-color: #FFF;
     z-index: 1000;
 }
@@ -329,6 +329,10 @@
     position: relative;
 }
 
+    .pregunta_inconveniente_producto.Registro2 {
+        margin-top: 36px;
+    }
+
 .mi_solicitud_cdr {
     display:none;
     position: absolute;
@@ -402,10 +406,13 @@
 
     .formulario_inscripcion_cdr input[type='text'] {
         color: #000;
-        background-image: url(/Content/Images/icono_buscador.svg);
         background-repeat: no-repeat;
         background-position: 96% center;
         background-size: 18px;
+    }
+
+    .formulario_inscripcion--paso1{
+        background-image: url(/Content/Images/icono_buscador.svg);
     }
 
     .formulario_inscripcion_cdr select {
@@ -473,8 +480,9 @@
 
 .texto_cantidad_productos {
     display: block;
-    color: #888;
+    color: #808080;
     margin-bottom: 7px;
+    letter-spacing:0.5px;
 }
 
 .contenedor_campo_cantidad_productos {
@@ -488,11 +496,14 @@
         flex-wrap: nowrap;
         justify-content: space-between;
         align-items: flex-start;
+        margin-left:0;
     }
 
     .contenedor_campo_cantidad_productos .cantidad_menos_home,
     .contenedor_campo_cantidad_productos .cantidad_mas_home,
     .contenedor_campo_cantidad_productos .rango_cantidad_pedido {
+        height: 45px;
+        line-height: 45px;
         float: none;
         transition: all .3s ease;
         -moz-transition: all .3s ease;
@@ -503,7 +514,19 @@
     .contenedor_campo_cantidad_productos .cantidad_menos_home,
     .contenedor_campo_cantidad_productos .cantidad_mas_home {
         border: 1px solid #d1d1d4;
+        position:relative;
     }
+
+        .contenedor_campo_cantidad_productos .cantidad_menos_home img,
+        .contenedor_campo_cantidad_productos .cantidad_mas_home img {
+            display: block;
+            position: absolute;
+            margin: auto;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
 
     .contenedor_campo_cantidad_productos .rango_cantidad_pedido {
         border-top: 1px solid #d1d1d4;
@@ -566,14 +589,14 @@
     display: block;
     width: 100%;
     max-width: 274px;
-    margin: 0 auto 24px auto;
+    margin: 0 auto 30px auto;
 }
 
 .enlace_cambiar_producto {
     display: block;
     font-size: 12px;
     text-decoration: underline;
-    margin-top: 8px;
+    margin-top: 14px;
     cursor:pointer;
 }
 
@@ -678,9 +701,9 @@
     display: block;
 }
 
-.listado_soluciones_cdr {
+/*.listado_soluciones_cdr {
     margin-bottom: 35px;
-}
+}*/
 
 .solucion_cdr {
     margin: 0 auto;
@@ -713,7 +736,6 @@
 
 .lista_opciones_cdr {
     list-style-type: none;
-    margin-bottom: 41px;
 }
 
 .opcion_cdr,
@@ -826,16 +848,21 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 .opcion_cdr_seleccionada_info--cambioMismoProducto p,
 .opcion_cdr_seleccionada_info--envioProducto p,
 .opcion_cdr_seleccionada_info--devolucionDinero p {
-    font-size: 14px;
-    letter-spacing: 0.1px;
+    font-size: 13px;
+    letter-spacing: 0.5px;
 }
 
 .opcion_cdr_seleccionada_info--cambiarPorOtroProducto p {
-    margin-bottom: 12px;
+    margin-bottom: 20px;
 }
+
+    .opcion_cdr_seleccionada_info--cambiarPorOtroProducto p:first-child {
+        margin-bottom: 20px;
+    }
 
 .opcion_cdr_seleccionada_campos_busqueda_producto_a_cambiar,
 .opcion_cdr_seleccionada_info--cambioMismoProducto,
+.opcion_cdr_seleccionada_info--cambiarPorOtroProducto,
 .opcion_cdr_seleccionada_info--envioProducto,
 .opcion_cdr_seleccionada_info--devolucionDinero {
     margin-top: 30px;

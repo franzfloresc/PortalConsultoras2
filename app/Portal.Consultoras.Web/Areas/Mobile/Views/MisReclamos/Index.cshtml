@@ -23,7 +23,7 @@
 @{
     if (!mobileConfiguracion.EsAppMobile)
     {
-        <div class="titulo_mobile fijarTituloMobile">
+        <div class="titulo_mobile">
             <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
             CAMBIOS Y DEVOLUCIONES
         </div>
@@ -33,7 +33,7 @@
     }
 }
 
-<div class="wrapper_resumen_mobile pt-50">
+<div class="wrapper_resumen_mobile">
     @*@if (!string.IsNullOrEmpty(Model.MensajeGestionCdrInhabilitada) && Model.ListaCDRWeb.Count <= 0)
     {
         <div class="mensaje_vista_cdr">@Html.Raw(Model.MensajeGestionCdrInhabilitada)</div>
@@ -103,7 +103,7 @@
                 }
 
                 var formatoCampania = item.CampaniaID.ToString().Substring(0, 4) + "-" + item.CampaniaID.ToString().Substring(4, 2);
-                <h4 class="tipografia_lato_bold titulo_solicitudes_registradas">Solicitudes Registradas</h4>
+                <h4 class="tipografia_lato_bold titulo_solicitudes_registradas">Mis solicitudes registradas</h4>
                 <div class="border-radius-4 registro_solicitud_cdr abrir_detallemb">
                     <input type="hidden" class="cdrweb_id" value="@item.CDRWebID" />
                     <input type="hidden" class="cdrweb_pedidoid" value="@item.PedidoID" />
