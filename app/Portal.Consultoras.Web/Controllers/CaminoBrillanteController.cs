@@ -27,6 +27,8 @@ namespace Portal.Consultoras.Web.Controllers
             var _nivelActual = 1;
             if (nivelActual != null) int.TryParse(nivelActual.Nivel, out _nivelActual);
             ViewBag.NivelActual = _nivelActual;
+
+            ViewBag.CaminoBrillante = true;
             return View();
         }
 
@@ -52,6 +54,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             else
                 return RedirectToAction("Index", "Bienvenida");
+            ViewBag.CaminoBrillante = true;
             return View();
         }
 
@@ -65,6 +68,7 @@ namespace Portal.Consultoras.Web.Controllers
             int cantDemo = lstDemo.Count();
             ViewBag.Moneda = userData.Simbolo;
             ViewBag.RutaImagenNoDisponible = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.urlSinImagenTiposyTonos);
+            ViewBag.CaminoBrillante = true;
 
             if (lstKit != null || lstDemo != null)
             {
