@@ -7,8 +7,7 @@
 /// <reference path="cabecera/cabeceraview.js" />
 /// <reference path="cabecera/cabecerapresenter.js" />
 
-/// <reference path="grupos/gruposdesktopview.js" />
-/// <reference path="grupos/gruposmobileview.js" />
+/// <reference path="grupos/GruposView.js" />
 /// <reference path="grupos/grupospresenter.js" />
 
 /// <reference path="seleccionados/seleccionadosview.js" />
@@ -37,7 +36,7 @@ var cabeceraPresenter = CabeceraPresenter({
 });
 cabeceraView.setPresenter(cabeceraPresenter);
 
-var gruposDesktopView = GruposDesktopView({
+var gruposDesktopView = GruposView({
     generalModule: generalModule,
     gruposContainerId: "#grupos"
 });

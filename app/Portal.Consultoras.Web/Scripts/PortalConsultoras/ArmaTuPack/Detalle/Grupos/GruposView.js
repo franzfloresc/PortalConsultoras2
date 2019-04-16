@@ -1,4 +1,4 @@
-﻿var GruposDesktopView = function (config) {
+﻿var GruposView = function (config) {
     if (typeof config === "undefined" || config === null) throw "config is null or undefined";
     if (typeof config.generalModule === "undefined" || config.generalModule === null) throw "config.generalModule is null or undefined";
     if (typeof config.gruposContainerId === "undefined" || config.gruposContainerId === null) throw "config.gruposContainerId is null or undefined";
@@ -104,6 +104,7 @@
 
     var _renderGrupos = function (packComponents) {
         SetHandlebars(_elements.grupos.templateId, packComponents, _elements.grupos.id);
+        $(_elements.grupos.id).show("Blind", 1000);
 
         $(_elements.grupos.id).on("click", _elements.grupos.headers, function (e) {
             var $header = $(e.target);

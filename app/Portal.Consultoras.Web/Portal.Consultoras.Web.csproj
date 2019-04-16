@@ -4114,8 +4114,7 @@
     <Content Include="Scripts\PortalConsultoras\ArmaTuPack\Detalle\Cabecera\CabeceraPresenter.js" />
     <Content Include="Scripts\PortalConsultoras\ArmaTuPack\Detalle\Cabecera\CabeceraView.js" />
     <Content Include="Scripts\PortalConsultoras\ArmaTuPack\Detalle\DetallePresenter.js" />
-    <Content Include="Scripts\PortalConsultoras\ArmaTuPack\Detalle\Grupos\GruposDesktopView.js" />
-    <Content Include="Scripts\PortalConsultoras\ArmaTuPack\Detalle\Grupos\GruposMobileView.js" />
+    <Content Include="Scripts\PortalConsultoras\ArmaTuPack\Detalle\Grupos\GruposView.js" />
     <Content Include="Scripts\PortalConsultoras\ArmaTuPack\Detalle\Grupos\GruposPresenter.js" />
     <Content Include="Scripts\PortalConsultoras\ArmaTuPack\Detalle\Seleccionados\SeleccionadosPresenter.js" />
     <Content Include="Scripts\PortalConsultoras\ArmaTuPack\Detalle\Seleccionados\SeleccionadosView.js" />
