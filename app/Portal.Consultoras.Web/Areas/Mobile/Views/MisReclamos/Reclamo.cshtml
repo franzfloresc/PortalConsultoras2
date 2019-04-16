@@ -148,6 +148,7 @@
             <input type="hidden" id="hdCdrWebDatos_Ssic" />
             <input type="hidden" id="hdCuvPrecio2" />
             <input type="hidden" id="hdCuvCodigo" />
+            <input type="hidden" id="hdDescripcionCuv" />
         </div>
         <div class="pregunta_inconveniente_producto tipografia_lato tipografia_lato_bold Registro2" style="display:none;">
             ¿Cuál fue el inconveniente?
@@ -169,7 +170,74 @@
         </div>
         <div class="listado_soluciones_cdr tipografia_lato Registro3" id="divlistado_soluciones_cdr" style="display:none;">
         </div>
-        <div class="eleccion_solucion_cdr tipografia_lato Registro4" id="Cambio2" style="display:none;">
+
+        <div id="infoOpcionesDeCambio" style="display:none;">
+            <div id="OpcionCambioPorOtroProducto" style="display:none;">
+                <div class="descripcion_eleccion_cdr tipografia_lato tipografia_lato_regular" data-tipo-confirma="cambio">
+                    <span>
+                        <input type="hidden" id="hdMontoMinimoReclamo" />
+                        Puedes cambiarlo por otro producto(s) cuyo monto sea mayor o igual al que reclamas
+                        (<span id="spnSimboloMonedaReclamo">S/.</span><span id="spnMontoMinimoReclamoFormato">15</span>)
+                    </span>
+                    <span>Búscalo en tus catálogos de Campaña <span id="spnNumeroCampaniaReclamo">15</span>:</span>
+                    <div data-detalle-confirma=""></div>
+                </div>
+
+                <div class="formulario_inscripcion_cdr">
+                    <input id="cuvmobile2" class="tipografia_lato tipografia_lato_regular ValidaNumeral ValidaPasteNumeral" type="text" value="" placeholder="Código del producto" />
+                    <input type="hidden" id="hdImporteTotal2" />
+                    <div id="DescripcionCuv2" class="producto_cdr" style="font-size:13px; display:none;">
+                        <span id="txtCuv2" class="codigo_producto_cdr tipografia_lato_bold">00411</span>
+                        - <span id="txtDescripcionCuv2" class="nom_producto_cdr tipografia_lato_bold">Berrylicious shampoo rojo 375ml</span><br />
+                        <span id="spnSimboloMonedaCuv2"></span> <span id="txtPrecioCuv2">0.00</span>
+                        <a id="aCambiarProducto2" class="enlace_cambiar_producto tipografia_lato_regular" title="Cambiar producto">MODIFICAR PRODUCTO</a>
+                    </div>
+                    <div class="contenedor_cantidadProductos contenedor_campo_cantidad_productos">
+                        <span class="texto_cantidad_productos tipografia_lato tipografia_lato_regular">Cantidad:</span>
+                        <div id="divCantidad2">
+                            <a class="cantidad_menos_home modificarPrecioMenos"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                            <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad2" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
+                                   data-input="cantidad" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
+                            <a class="cantidad_mas_home modificarPrecioMas"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="OpcionCambioMismoProducto" style="display:none;">
+                <div>
+                    <p>Vamos a reenviarte el mismo producto:</p>
+                    <p>
+                        <span id="spnDescProdDevolucionC">Producto OpcionCambioMismoProducto</span>
+                        <span id="spnCantidadC">x Unidades</span>
+                    </p>
+                </div>
+            </div>
+            <div id="OpcionEnvioDelProducto" style="display:none;">
+                <div>
+                    <p>Vamos a enviarte el siguiente producto:</p>
+                    <p>
+                        <span id="spnDescripcionProductoOpcionF">Producto OpcionEnvioDelProducto</span>
+                        <span id="spnCantidadF">x Unidades</span>
+                    </p>
+                </div>
+            </div>
+            <div id="OpcionDevolucionDinero" style="display:none;">
+                <div>
+                    <p>Vamos a descontar el siguiente producto en tu próximo pedido:</p>
+                    <p>
+                        <span id="spnDescripcionProductoOpcionG">Producto X OpcionDevolucionDinero</span>
+                        <span id="spnCantidadG">x Unidades</span>
+                    </p>
+                </div>
+            </div>
+            <div id="OpcionDevolucion" style="display:none;">
+                <div id="divDevolucionSetsOrPack">
+                </div>
+            </div>
+        </div>
+
+        @*<div class="eleccion_solucion_cdr tipografia_lato Registro4" id="Cambio2" style="display:none;">
             <div class="titulo_eleccion_cdr tipografia_lato_bold">
                 <span>ELEGISTE:</span>
                 <span>CAMBIARLO POR OTRO PRODUCTO</span>
@@ -204,7 +272,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>*@
         <div class="eleccion_solucion_cdr tipografia_lato Registro4" id="eleccion" style="display:none;" data-tipo-confirma="canje">
             <div>
                 <span>Te proponemos la siguiente solución</span>
@@ -445,14 +513,6 @@
 </button>
 
 <div id="PopupBusquedaCuvDescripcionProductoCdr" class="buscar_producto_cdr_popup d-block w-100" style="display:none;">
-    @*<div class="buscar_producto_cdr_cabecera_popup">
-        <div class="buscar_producto_cdr_titulo_popup text-center">
-            <h2 class="text-uppercase">Buscar producto</h2>
-            <a href="javascript:;" onclick="javascript: $('#PopupBusquedaCuvDescripcionProductoCdr').fadeOut(200); $('#PopupBusquedaCuvDescripcionProductoCdr').scrollTop(0);" title="Cerrar" class="enlace_cerrar_popup_buscar_producto_cdr">
-                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
-            </a>
-        </div>
-    </div>*@
     <div class="buscar_producto_cdr_contenido_popup text-center">
         <div class="busqueda_codigo_o_descripcion_wrapper d-block">
             <div class="campo_busqueda_codigo_o_descripcion_producto_wrapper">
@@ -535,7 +595,7 @@
                     {{/if_eq}}
                 </div>
                 <div class="text-bold opcion_cdr_seleccion_wrapper">
-                    <input id="{{item.CodigoOperacion}}" style="display:none!important;" type="checkbox" onchange="EscogerSolucion(this,event)" data-tipo="{{item.Tipo}}">
+                    <input id="{{item.CodigoOperacion}}" style="display:none!important;" type="checkbox" onchange="misReclamosRegistro.Funciones.EscogerSolucion(this,event)" data-tipo="{{item.Tipo}}">
                     {{item.CDRTipoOperacion.DescripcionOperacion}}
                     <label for="{{item.CodigoOperacion}}" class="border-radius-4 opcion_cdr_checkbox">
                     </label>
@@ -543,11 +603,11 @@
             </a>
         </li>
         @*<a id="{{item.CodigoOperacion}}"
-           data-tipo="{{item.Tipo}}"
-           class="solucion_cdr tipografia_lato_bold"
-           title="{{item.CDRTipoOperacion.DescripcionOperacion}}">
-            {{item.CDRTipoOperacion.DescripcionOperacion}}
-        </a>*@
+               data-tipo="{{item.Tipo}}"
+               class="solucion_cdr tipografia_lato_bold"
+               title="{{item.CDRTipoOperacion.DescripcionOperacion}}">
+                {{item.CDRTipoOperacion.DescripcionOperacion}}
+            </a>*@
         {{/each}}
     </ul>
 </script>
@@ -670,6 +730,36 @@
             </div>
         </div>
         {{/IsNullOrEmpty}}
+    </div>
+</script>
+
+<script id="template-opcion-devolucion" type="text/x-handlebars-template">
+    <div>
+        {{#if DataRespuestaServicio}}
+        <p class="text-bold">El producto <span class="text-bold producto_set_nom">{{ProductoSeleccionado.CUV}} - {{ProductoSeleccionado.Descripcion}} (<span id="spnCantidadDVarios">x Unidades</span> </span>) pertenece al pack:</p>
+        <p class="text-left producto_set_lista">
+            {{#each DataRespuestaServicio as |item|}}
+            <span class="text-bold">{{item.cuv}} - {{item.descripcion}}</span>
+            {{/each}}
+        </p>
+        <div class="text-center text-bold opcion_cdr_seleccionada_terminos_entrega_producto_set_wrapper">
+            <input id="TerminosEntregaProductoSet" checked style="display:none!important;" type="checkbox" disabled="disabled">
+            <label for="TerminosEntregaProductoSet" class="border-radius-4 opcion_cdr_checkbox opcion_cdr_checkbox--terminosEntregaProductoSet">
+            </label>
+            <span class="text-left default-color opcion_cdr_seleccionada_terminos_entrega_producto_texto">
+                Recuerda al devolver el producto se deberá entregar<br />
+                <span class="text-uppercase">todos los productos que contiene el pack </span> mencionado.
+            </span>
+        </div>
+        {{else}}
+        <div class="opcion_cdr_seleccionada_info opcion_cdr_seleccionada_info--envioProducto">
+            <p class="text-bold">Vas a devolver el siguiente producto:</p>
+            <p class="text-bold">
+                <span class="text-bold producto_nom" id="spnDescripcionProductoOpcionD">{{ProductoSeleccionado.CUV}} - {{ProductoSeleccionado.Descripcion}}</span>
+                <span id="spnCantidadIndividual">x Unidades</span>
+            </p>
+        </div>
+        {{/if}}
     </div>
 </script>
 

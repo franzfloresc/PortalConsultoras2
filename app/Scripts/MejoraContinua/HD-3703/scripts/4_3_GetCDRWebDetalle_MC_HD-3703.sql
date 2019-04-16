@@ -87,6 +87,7 @@ BEGIN
 	LEFT JOIN CDRWebMotivoRechazo cmr ON cd.MotivoRechazo = cmr.CodigoRechazo
 	WHERE cd.CDRWebID = @CDRWebID
 		AND cd.Eliminado = 0
+		AND cd.cantidad <> 0
 END
 GO
 
@@ -179,6 +180,7 @@ BEGIN
 	LEFT JOIN CDRWebMotivoRechazo cmr ON cd.MotivoRechazo = cmr.CodigoRechazo
 	WHERE cd.CDRWebID = @CDRWebID
 		AND cd.Eliminado = 0
+		AND cd.cantidad <> 0
 END
 GO
 
@@ -271,6 +273,7 @@ BEGIN
 	LEFT JOIN CDRWebMotivoRechazo cmr ON cd.MotivoRechazo = cmr.CodigoRechazo
 	WHERE cd.CDRWebID = @CDRWebID
 		AND cd.Eliminado = 0
+		AND cd.cantidad <> 0
 END
 GO
 
@@ -363,6 +366,7 @@ BEGIN
 	LEFT JOIN CDRWebMotivoRechazo cmr ON cd.MotivoRechazo = cmr.CodigoRechazo
 	WHERE cd.CDRWebID = @CDRWebID
 		AND cd.Eliminado = 0
+		AND cd.cantidad <> 0
 END
 GO
 
@@ -455,6 +459,8 @@ BEGIN
 	LEFT JOIN CDRWebMotivoRechazo cmr ON cd.MotivoRechazo = cmr.CodigoRechazo
 	WHERE cd.CDRWebID = @CDRWebID
 		AND cd.Eliminado = 0
+		AND cd.Cantidad > 0
+		AND cd.cantidad <> 0
 END
 GO
 
@@ -547,6 +553,7 @@ BEGIN
 	LEFT JOIN CDRWebMotivoRechazo cmr ON cd.MotivoRechazo = cmr.CodigoRechazo
 	WHERE cd.CDRWebID = @CDRWebID
 		AND cd.Eliminado = 0
+		AND cd.cantidad <> 0
 END
 GO
 
@@ -639,6 +646,7 @@ BEGIN
 	LEFT JOIN CDRWebMotivoRechazo cmr ON cd.MotivoRechazo = cmr.CodigoRechazo
 	WHERE cd.CDRWebID = @CDRWebID
 		AND cd.Eliminado = 0
+		AND cd.cantidad <> 0
 END
 GO
 
@@ -731,6 +739,7 @@ BEGIN
 	LEFT JOIN CDRWebMotivoRechazo cmr ON cd.MotivoRechazo = cmr.CodigoRechazo
 	WHERE cd.CDRWebID = @CDRWebID
 		AND cd.Eliminado = 0
+		AND cd.cantidad <> 0
 END
 GO
 
@@ -823,6 +832,7 @@ BEGIN
 	LEFT JOIN CDRWebMotivoRechazo cmr ON cd.MotivoRechazo = cmr.CodigoRechazo
 	WHERE cd.CDRWebID = @CDRWebID
 		AND cd.Eliminado = 0
+		AND cd.cantidad <> 0
 END
 GO
 
@@ -915,6 +925,7 @@ BEGIN
 	LEFT JOIN CDRWebMotivoRechazo cmr ON cd.MotivoRechazo = cmr.CodigoRechazo
 	WHERE cd.CDRWebID = @CDRWebID
 		AND cd.Eliminado = 0
+		AND cd.cantidad <> 0
 END
 GO
 
@@ -1007,6 +1018,7 @@ BEGIN
 	LEFT JOIN CDRWebMotivoRechazo cmr ON cd.MotivoRechazo = cmr.CodigoRechazo
 	WHERE cd.CDRWebID = @CDRWebID
 		AND cd.Eliminado = 0
+		AND cd.cantidad <> 0
 END
 GO
 
@@ -1099,6 +1111,7 @@ BEGIN
 	LEFT JOIN CDRWebMotivoRechazo cmr ON cd.MotivoRechazo = cmr.CodigoRechazo
 	WHERE cd.CDRWebID = @CDRWebID
 		AND cd.Eliminado = 0
+		AND cd.cantidad <> 0
 END
 GO
 

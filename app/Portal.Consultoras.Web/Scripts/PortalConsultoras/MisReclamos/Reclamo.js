@@ -34,7 +34,7 @@ var reclamo = {
     datosCuv: []
 };
 
-var dataCdrServicio = {};
+var dataCdrDevolucion = {};
 var flagSetsOrPack = false;
 $(document).ready(function () {
 
@@ -120,9 +120,9 @@ $(document).ready(function () {
                         Descripcion: $("#hdfCUVDescripcion").val()
                     };
 
-                    dataCdrServicio.ProductoSeleccionado = ProductoSeleccionado;
-                    if (d != null) {
-                        dataCdrServicio.DataRespuestaServicio = d.data[0].LProductosComplementos;
+                    dataCdrDevolucion.ProductoSeleccionado = ProductoSeleccionado;
+                    if (d !== null) {
+                        dataCdrDevolucion.DataRespuestaServicio = d.data[0].LProductosComplementos;
                         flagSetsOrPack = d.flagSetsOrPack;
                     }
                     $.when(CambiarVistaPaso(reclamo.pasos.dos_seleccion_de_solucion)).then(function () {
@@ -946,9 +946,9 @@ function DetalleGuardar(operacionId, callbackWhenFinish) {
 
     var Complemento = [];
     var cantidad = 0;
-    if (dataCdrServicio !== null) {
-        if (dataCdrServicio.DataRespuestaServicio.length > 0) {
-            $.each(dataCdrServicio.DataRespuestaServicio, function (index, value) {
+    if (dataCdrDevolucion !== null) {
+        if (dataCdrDevolucion.DataRespuestaServicio.length > 0) {
+            $.each(dataCdrDevolucion.DataRespuestaServicio, function (index, value) {
                 arr = $.grep(reclamo.datosCuv, function (item) {
                     return item.cuv === value.cuv;
                 });
@@ -1739,7 +1739,7 @@ function EscogerSolucion(opcion, event) {
             $('#divDevolucionSetsOrPack').show();
             $('#OpcionDevolucion').fadeIn(200);
             $('#spnCantidadD').html(textoUnidades);
-            SetHandlebars("#template-opcion-devolucion", dataCdrServicio, "#divDevolucionSetsOrPack");
+            SetHandlebars("#template-opcion-devolucion", dataCdrDevolucion, "#divDevolucionSetsOrPack");
             (flagSetsOrPack) ? $('#spnCantidadDVarios').text(textoUnidades) : $('#spnCantidadIndividual').text(textoUnidades);
         });
     } else if (id == reclamo.operacion.faltante) {
