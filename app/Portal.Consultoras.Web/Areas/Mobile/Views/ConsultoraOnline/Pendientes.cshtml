@@ -113,7 +113,7 @@
                                             <p><strong>Monto total: </strong>@ViewBag.Simbolo @item2.FormatoPrecioTotal</p>
                                             <p><strong>Origen: </strong>@item2.MedioContacto</p>
                                         </div>
-                                        <div class="cursor onProduct vc-box--action vc-box--radius">
+                                        <div class="cursor onProduct vc-box--action vc-box--radius" onclick="DetallePedidoPendienteClientes(@item2.CUV)">
                                             <p class="vc-box--title"><strong>Te lo pidieron</strong></p>
                                             @foreach (var item3 in item2.ListaClientes.Take(2).ToList())
                                             {
