@@ -3839,6 +3839,7 @@
     <Content Include="Content\Images\select_input_tab.png" />
     <Content Include="Content\Images\separador.png" />
     <Content Include="Content\Images\sesion_icono.png" />
+    <Content Include="Content\Images\Shared\svg\a-icon-call.svg" />
     <Content Include="Content\Images\showroom\banner_intriga_desktop.png" />
     <Content Include="Content\Images\showroom\banner_showroom.jpg" />
     <Content Include="Content\Images\showroom\BARRA SUPERIOR_COMPRA.png" />

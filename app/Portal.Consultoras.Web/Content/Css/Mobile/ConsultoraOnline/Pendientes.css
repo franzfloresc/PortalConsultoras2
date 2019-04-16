@@ -565,5 +565,15 @@ button {
 .nav>li>a:hover{
   background-color: transparent;
 }
+
+.vc-box--content.contact-info img{
+  display: inline-block;
+  margin-top: -5px;
+}
+.vc-box--content.contact-info p{
+  display: inline-block;  
+  margin-top: 8px;
+  text-decoration: underline;
+}
 /* ---------------------------- */
 
