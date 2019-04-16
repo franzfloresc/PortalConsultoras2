@@ -62,24 +62,13 @@
         var scrollTop = window.scrollY;
         var element = document.querySelector(".Select_ArmaTuPack");
         if (scrollTop >= 175) {
-            element.className += " Select_fixed";   
-            document.querySelector("#grupos").style.paddingTop = "185px"; 
+            element.className += " Select_fixed";
+            document.querySelector("#grupos").className += " grupos_top";
         } else {
             element.classList.remove("Select_fixed");
-            document.querySelector("#grupos").style.paddingTop = "15px"; 
+            document.querySelector("#grupos").remove("grupos_top");
         }
     });
 
-    function cortarTexto(id, caracteres) {
-        var textoViejo = document.querySelector(id).innerHTML.substr(0, caracteres);
-        var textCortado = textoViejo + "...";
-
-        document.querySelector(id).innerHTML = textCortado; 
-
-        //var anchoPAgina = window.innerWidth;
-        //if (anchoPAgina <= 750) {
-
-        //}
-    };
  
 </script>
