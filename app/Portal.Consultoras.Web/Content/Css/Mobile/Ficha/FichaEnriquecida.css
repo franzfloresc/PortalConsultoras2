@@ -136,10 +136,11 @@
     margin: 0 0 0 !important;
 }
 
-/*.video_item {
+.video_item {
     width: 300px;
     height: 173px;
-}*/
+    display: inline-block;
+}
 
 .video_title {
     font-size: 14px;

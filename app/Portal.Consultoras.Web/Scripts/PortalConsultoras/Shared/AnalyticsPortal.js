@@ -2529,7 +2529,7 @@ var AnalyticsPortalModule = (function () {
         isClick = isClick || false;
 
         if (origenPedido !== "") {
-            if (origenPedido == ConstantesModule.CodigoUbigeoPortal.GuionContenedorGuionArmaTuPack) {
+            if (origenPedido == ConstantesModule.CodigoUbigeoPortal.GuionContenedorArmaTuPackGuion) {
                 textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(origenPedido) + ""; //using new function
                 dataLayer.push({
                     'event': !isClick ? _evento.promotionView : _evento.promotionClick,
@@ -2552,8 +2552,9 @@ var AnalyticsPortalModule = (function () {
     var marcaPromotionClickArmaTuPack = function (origenPedido, textoLabel, actionText) {
 
         if (origenPedido !== "") {
-            if (origenPedido == ConstantesModule.CodigoUbigeoPortal.GuionContenedorArmaTuPackGuion) {
-                var textoCategory = "Contenedor - Arma tu Pack";
+            if (origenPedido == ConstantesModule.CodigoUbigeoPortal.GuionContenedorArmaTuPack ||
+                origenPedido == ConstantesModule.CodigoUbigeoPortal.GuionContenedorArmaTuPackGuion) {
+                var textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(origenPedido) + ""; //using new function
                 dataLayer.push({
                     'event': _evento.virtualEvent,
                     "category": textoCategory,
