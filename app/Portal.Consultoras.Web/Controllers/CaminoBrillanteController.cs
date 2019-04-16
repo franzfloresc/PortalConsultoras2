@@ -42,7 +42,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (informacion.Logros != null)
                     {
                         ViewBag.Informacion = opcion.ToUpper() == Constantes.CaminoBrillante.Logros.CRECIMIENTO ? informacion.Logros[0] : informacion.Logros[1];
-                        ViewBag.Vista = opcion.ToUpper() == Constantes.CaminoBrillante.Logros.CRECIMIENTO ? Constantes.CaminoBrillante.Logros.CRECIMIENTO : Constantes.CaminoBrillante.Logros.COMPROMISO;
+                        ViewBag.Vista = opcion.ToUpper() == Constantes.CaminoBrillante.Logros.CRECIMIENTO ? Constantes.CaminoBrillante.Logros.CRECIMIENTO.ToLower() : Constantes.CaminoBrillante.Logros.COMPROMISO.ToLower();
                     }
                     else
                         return RedirectToAction("Index", "Bienvenida");
