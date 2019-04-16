@@ -185,23 +185,7 @@ $(document).ready(function () {
                     $('.tab_vista_cdr').removeClass('tab_vista_cdr--activo');
                     $(this).parent().addClass('tab_vista_cdr--activo')
                     $(contenidoTabAMostrar).fadeIn(100);
-                    if (contenidoTabAMostrar == '#VistaReclamo') {
-                        $('#btnAgregarSolicitud').fadeOut(100);
-                        $('#btnSiguiente1').delay(80);
-                        $('#btnSiguiente1').fadeIn(100);
-                    } else {
-                        $('#btnSiguiente1').fadeOut(100);
-                        $('#btnAgregarSolicitud').delay(80);
-                        $('#btnAgregarSolicitud').fadeIn(100);
-                    }
-                });
-
-                //$(document).on('click', me.Variables.opcionCdrEnlace, function (e) {
-                //    e.preventDefault();
-                //    var opcionSeleccionada = $(this).find('input[type="checkbox"]');
-                //    $(opcionSeleccionada).change();
-                //    me.Funciones.EscogerSolucion(opcionSeleccionada);
-                //});
+                 });
 
                 // Agregar otro producto.
                 $(me.Variables.IrSolicitudInicial).click(function () {
@@ -562,28 +546,28 @@ $(document).ready(function () {
                     me.Funciones.EvaluarCUV2();
                 });
 
-                $(me.Variables.btnCambioProducto).click(function (evt) {
-                    if (me.Funciones.ValidarPasoDosTrueque()) {
-                        me.Funciones.ValidarPasoDosTruequeServer(function (result, msg) {
-                            if (!result && msg !== "") {
-                                messageInfoValidado(msg);
-                            } else {
-                                $.when(me.Funciones.CambioPaso2(1)).then(function () {
-                                    $(me.Variables.btnCambioProducto).hide();
-                                    $(me.Variables.btnAceptarSolucion).show();
+                //$(me.Variables.btnCambioProducto).click(function (evt) {
+                //    if (me.Funciones.ValidarPasoDosTrueque()) {
+                //        me.Funciones.ValidarPasoDosTruequeServer(function (result, msg) {
+                //            if (!result && msg !== "") {
+                //                messageInfoValidado(msg);
+                //            } else {
+                //                $.when(me.Funciones.CambioPaso2(1)).then(function () {
+                //                    $(me.Variables.btnCambioProducto).hide();
+                //                    $(me.Variables.btnAceptarSolucion).show();
 
-                                    $(me.Variables.spnCuv1).html($(me.Variables.hdCuvCodigo).val());
-                                    $(me.Variables.spnDescripcionCuv1).html($(me.Variables.txtDescripcionCuv).html());
-                                    $(me.Variables.spnCantidadCuv1).html($(me.Variables.txtCantidad1).val());
+                //                    $(me.Variables.spnCuv1).html($(me.Variables.hdCuvCodigo).val());
+                //                    $(me.Variables.spnDescripcionCuv1).html($(me.Variables.txtDescripcionCuv).html());
+                //                    $(me.Variables.spnCantidadCuv1).html($(me.Variables.txtCantidad1).val());
 
-                                    $(me.Variables.spnCuv2).html($(me.Variables.txtCuvMobile2).val());
-                                    $(me.Variables.spnDescripcionCuv2).html($(me.Variables.txtDescripcionCuv2).html());
-                                    $(me.Variables.spnCantidadCuv2).html($(me.Variables.txtCantidad2).val());
-                                });
-                            }
-                        });
-                    }
-                });
+                //                    $(me.Variables.spnCuv2).html($(me.Variables.txtCuvMobile2).val());
+                //                    $(me.Variables.spnDescripcionCuv2).html($(me.Variables.txtDescripcionCuv2).html());
+                //                    $(me.Variables.spnCantidadCuv2).html($(me.Variables.txtCantidad2).val());
+                //                });
+                //            }
+                //        });
+                //    }
+                //});
 
                 $(me.Variables.modificarPrecioMas).click(function (evt) {
                     var precio = $(me.Variables.hdCuvPrecio2).val();
