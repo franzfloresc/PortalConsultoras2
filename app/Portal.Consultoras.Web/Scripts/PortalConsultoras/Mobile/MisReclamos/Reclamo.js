@@ -32,18 +32,24 @@ $(document).ready(function () {
             Cambio3: "#Cambio3",
             ComboCampania: "#ddlCampania",
             content_solicitud_cdr: ".content_solicitud_cdr",
+            campoBusquedaCuvDescripcionCdr: '#CampoBusquedaCuvDescripcion',
             datosSolicitudOpened: ".datos_solicitud_opened",
             DescripcionCuv: "#DescripcionCuv",
+            ddlnumPedido: "#ddlnumPedido",
             DescripcionCuv2: "#DescripcionCuv2",
+            deshabilitarControl: 'btn_deshabilitado',
             divDetalleEnviar: "#divDetalleEnviar",
             divDetallePaso3: "#divDetallePaso3",
             divDetalleUltimasSolicitudes: "#divDetalleUltimasSolicitudes",
             divlistado_soluciones_cdr: "#divlistado_soluciones_cdr",
             divProcesoReclamo: "#divProcesoReclamo",
             divUltimasSolicitudes: "#divUltimasSolicitudes",
-            TituloPreguntaInconvenientes: ".pregunta_inconveniente_producto_titulo",
+            divConfirmEnviarSolicitudCDR: '#divConfirmEnviarSolicitudCDR', //HD-3412 EINCA
             enlace_ir_al_final: ".enlace_ir_al_final",
+            enlace_quiero_ver_otra_alternativa: ".enlace_quiero_ver_otra_alternativa",
             Enlace_regresar: ".enlace_regresar",
+            EleccionTipoEnvio: "#EleccionTipoEnvio",
+            footer_page: ".footer-page",
             hdCDRID: "#CDRWebID",
             hdCdrWebDatos_Ssic: "#hdCdrWebDatos_Ssic",
             hdEmail: "#hdEmail",
@@ -55,13 +61,33 @@ $(document).ready(function () {
             hdParametriaAbsCdr: "#hdParametriaAbsCdr",
             hdParametriaCdr: "#hdParametriaCdr",
             hdPedidoID: "#hdPedidoID",
+            hdCuvPrecio2: "#hdCuvPrecio2",
+            hdCuvCodigo: "#hdCuvCodigo",
+            hdDescripcionCuv: "#hdDescripcionCuv",
+            hdTieneCDRExpress: "#hdTieneCDRExpress",
             IrSolicitudInicial: "#IrSolicitudInicial",
+            infoOpcionesDeCambio: "#infoOpcionesDeCambio",
             listado_soluciones_cdr: ".listado_soluciones_cdr",
             listadoProductosAgregados: ".listado_productos_agregados",
             listaMotivos: "#listaMotivos",
+            ListaCoincidenciasBusquedaProductosCdr: "#ListaCoincidenciasBusquedaProductosCdr",
             miSolicitudCDR: ".mi_solicitud_cdr",
+            modificarPrecioMas: ".modificarPrecioMas",
+            modificarPrecioMenos: ".modificarPrecioMenos",
             numSolicitudes: ".num_solicitudes",
             ocultar_mi_solicitud: ".ocultar_mi_solicitud",
+            operaciones: {
+                faltante: "F",
+                faltanteAbono: "G",
+                devolucion: "D",
+                trueque: "T",
+                canje: "C"
+            },
+            OpcionEnvioDelProducto: "#OpcionEnvioDelProducto",
+            OpcionDevolucionDinero: "#OpcionDevolucionDinero",
+            OpcionDevolucion: "#OpcionDevolucion",
+            OpcionCambioPorOtroProducto: "#OpcionCambioPorOtroProducto",
+            OpcionCambioMismoProducto: "#OpcionCambioMismoProducto",
             paso_active_reclamo: "paso_active_reclamo",
             pasodos: "#pasodos",
             pasodosactivo: "#pasodosactivo",
@@ -69,7 +95,10 @@ $(document).ready(function () {
             pasotresactivo: "#pasotresactivo",
             pestaniaVerMiSolicitud: ".pestania_ver_mi_solicitud",
             politica_devolucion: "#politica-devolucion",
+            popupCuvDescripcion: ".popupCuvDescripcion",
+            PopupBusquedaCuvDescripcionProductoCdr: "#PopupBusquedaCuvDescripcionProductoCdr",
             producto_agregado: ".producto_agregado",
+            pb120: "pb-120",
             Registro1: ".Registro1",
             Registro2: ".Registro2",
             Registro3: ".Registro3",
@@ -94,7 +123,16 @@ $(document).ready(function () {
             spnSolicitudFechaCulminado: "#spnSolicitudFechaCulminado",
             spnSolicitudNumeroSolicitud: "#spnSolicitudNumeroSolicitud",
             spnTelefonoError: "#spnTelefonoError",
+            spnDescripcionProductoOpcionF: "#spnDescripcionProductoOpcionF",
+            spnCantidadF: "#spnCantidadF",
+            spnDescripcionProductoOpcionG: "#spnDescripcionProductoOpcionG",
+            spnCantidadG: "#spnCantidadG",
+            spnDescProdDevolucionC: "#spnDescProdDevolucionC",
+            spnCantidadC: "#spnCantidadC",
+            spnCantidadD: "spnCantidadD",
+            tabVistaCdr: '.tab_vista_cdr_enlace_contenido',
             textoMensajeCDR: ".texto-mensaje-cdr",
+            TituloPreguntaInconvenientes: ".pregunta_inconveniente_producto_titulo",
             TituloReclamo: "#TituloReclamo",
             txtCantidad1: "#txtCantidad1",
             txtCantidad2: "#txtCantidad2",
@@ -108,36 +146,10 @@ $(document).ready(function () {
             txtPrecioCuv2: "#txtPrecioCuv2",
             txtPrecioUnidad: "#txtPrecioUnidad",
             txtTelefono: "#txtTelefono",
-            UltimasSolicitudes: ".UltimasSolicitudes",
-            modificarPrecioMas: ".modificarPrecioMas",
-            modificarPrecioMenos: ".modificarPrecioMenos",
-            hdCuvPrecio2: "#hdCuvPrecio2",
-            enlace_quiero_ver_otra_alternativa: ".enlace_quiero_ver_otra_alternativa",
-            footer_page: ".footer-page",
-            wrpMobile: "#wrpMobile",
-            pb120: "pb-120",
-            campoBusquedaCuvDescripcionCdr: '#CampoBusquedaCuvDescripcion',
-            ddlnumPedido: "#ddlnumPedido",
+            txtCantidadPedidoConfig: '#txtCantidadPedidoConfig',
             txtNumPedido: "#txtNumPedido",
-            PopupBusquedaCuvDescripcionProductoCdr: "#PopupBusquedaCuvDescripcionProductoCdr",
-            ListaCoincidenciasBusquedaProductosCdr: "#ListaCoincidenciasBusquedaProductosCdr",
-            popupCuvDescripcion: ".popupCuvDescripcion",
-            hdCuvCodigo: "#hdCuvCodigo",
-            hdDescripcionCuv: "#hdDescripcionCuv",
-            EleccionTipoEnvio: "#EleccionTipoEnvio",
-            hdTieneCDRExpress: "#hdTieneCDRExpress",
-            divConfirmEnviarSolicitudCDR: '#divConfirmEnviarSolicitudCDR', //HD-3412 EINCA
-            txtCantidadPedidoConfig: '#txtCantidadPedidoConfig',//HD-3412 EINCA
-            tabVistaCdr: '.tab_vista_cdr_enlace_contenido',
-
-            deshabilitarControl: 'btn_deshabilitado',
-            operaciones: {
-                faltante: "F",
-                faltanteAbono: "G",
-                devolucion: "D",
-                trueque: "T",
-                canje: "C"
-            }
+            UltimasSolicitudes: ".UltimasSolicitudes",
+            wrpMobile: "#wrpMobile"
         };
 
         me.Eventos = {
@@ -377,65 +389,58 @@ $(document).ready(function () {
                 });
 
                 $(me.Variables.btnSiguiente1).click(function (e) {
-                    $(me.Variables.txtDescripcionCuv2).val('');
-                    $(me.Variables.txtCuv2).html('');
-                    $(me.Variables.txtPrecioCuv2).html('');
-                    //HD-3412 EINCA
-                    if (me.Funciones.ValidarPasoUno()) {
-                        me.Funciones.ValidarPasoUnoServer(function (d) {
-                            console.log(d);
-                            if (!d.success) {
-                                $.when(me.Funciones.RegresarRegistro1())
-                                    .then(messageInfoValidado(msg));
-                            } else {
-                                paso2Actual = 1;
+                    if ($(me.Variables.Registro1).is(":visible")) {
+                        $(me.Variables.txtDescripcionCuv2).val('');
+                        $(me.Variables.txtCuv2).html('');
+                        $(me.Variables.txtPrecioCuv2).html('');
+                        if (me.Funciones.ValidarPasoUno()) {
+                            me.Funciones.ValidarPasoUnoServer(function (d) {
+                                console.log(d);
+                                if (!d.success) {
+                                    $.when(me.Funciones.RegresarRegistro1())
+                                        .then(messageInfoValidado(msg));
+                                } else {
+                                    paso2Actual = 1;
+                                    //Seteamos la data de la respuesta del servicio de cdr
+                                    var ProductoSeleccionado = {
+                                        CUV: $(me.Variables.hdCuvCodigo).val(),
+                                        Descripcion: $(me.Variables.hdDescripcionCuv).val()
+                                    };
 
-                                //Seteamos la data de la respuesta del servicio de cdr
-                                var ProductoSeleccionado = {
-                                    CUV: $(me.Variables.hdCuvCodigo).val(),
-                                    Descripcion: $(me.Variables.hdDescripcionCuv).val()
-                                };
+                                    dataCdrDevolucion.ProductoSeleccionado = ProductoSeleccionado;
+                                    if (d !== null) {
+                                        dataCdrDevolucion.DataRespuestaServicio = d.data[0].LProductosComplementos;
+                                        flagSetsOrPack = d.flagSetsOrPack;
+                                    }
 
-                                dataCdrDevolucion.ProductoSeleccionado = ProductoSeleccionado;
-                                if (d !== null) {
-                                    dataCdrDevolucion.DataRespuestaServicio = d.data[0].LProductosComplementos;
-                                    flagSetsOrPack = d.flagSetsOrPack;
+                                    $.when(me.Funciones.CargarOperacion()).then(function () {
+                                        $(me.Variables.Registro1).hide();
+                                        $(me.Variables.Registro2).hide();
+                                        $(me.Variables.Registro3).show();
+                                        $(me.Variables.btnSiguiente1).hide();
+                                    });
                                 }
-
-                                $.when(me.Funciones.CargarOperacion()).then(function () {
-                                    $(me.Variables.Registro1).hide();
-                                    $(me.Variables.Registro2).hide();
-                                    $(me.Variables.Registro3).show();
-                                    $(me.Variables.btnSiguiente1).hide();
-                                });
-                            }
-                        });
+                            });
+                        }
                     }
 
-
-                    //if ($(me.Variables.Registro1).is(":visible")) {
-                    //    console.log('vista Registro1');
-                    //    if (me.Funciones.ValidarCUVCampania()) {
-                    //        $(me.Variables.Enlace_regresar).show();
-                    //        me.Funciones.BuscarMotivo();
-
-                    //        $(me.Variables.pasodos).hide();
-                    //        $(me.Variables.Registro1).hide();
-                    //        $(me.Variables.pasodosactivo).show();
-                    //        $(me.Variables.Registro2).show();
-                    //        return false;
-                    //    }
-                    //}
-
-                    //if ($(me.Variables.Registro2).is(":visible")) {
-
-                    //}
+                    if ($(me.Variables.Registro3).is(":visible")) {
+                        me.Funciones.DetalleGuardar();
+                        $(me.Variables.wrpMobile).removeClass(me.Variables.pb120);
+                        var arrOcultarElementos = [me.Variables.TituloPreguntaInconvenientes, me.Variables.Registro4
+                            , me.Variables.Registro3, me.Variables.infoOpcionesDeCambio, me.Variables.btnSiguiente1, me.Variables.pasotres
+                            , me.Variables.Enlace_regresar];
+                        me.Funciones.HideTags(arrOcultarElementos);
+                        $(me.Variables.infoOpcionesDeCambio).children().hide();
+                        $(me.Variables.pasotresactivo).show();
+                        $(me.Variables.btnSiguiente4).show();
+                        $(me.Variables.RegistroAceptarSolucion).show();
+                        $(me.Variables.EleccionTipoEnvio).show();
+                    }
                 });
 
                 $(me.Variables.btnAceptarSolucion).click(function () {
-
                     me.Funciones.DetalleGuardar();
-
                     $(me.Variables.wrpMobile).removeClass(me.Variables.pb120);
                     $(me.Variables.Cambio3).hide();
                     $(me.Variables.TituloPreguntaInconvenientes).hide();
@@ -443,7 +448,6 @@ $(document).ready(function () {
                     $(me.Variables.btnAceptarSolucion).hide();
                     $(me.Variables.pasotres).hide();
                     $(me.Variables.Enlace_regresar).hide();
-
                     $(me.Variables.pasotresactivo).show();
                     $(me.Variables.btnSiguiente4).show();
                     $(me.Variables.RegistroAceptarSolucion).show();
@@ -1112,7 +1116,6 @@ $(document).ready(function () {
 
                 if (id == 'D') {
                     if (me.Funciones.ValidarPaso2Devolucion(id)) {
-
                         $("[data-tipo-confirma='cambio']").hide();
                         $("[data-tipo-confirma=canje]").show();
                         me.Funciones.CargarPropuesta(id);
@@ -1908,13 +1911,14 @@ $(document).ready(function () {
 
             //HD-3703 EINCA
             EscogerSolucion: function (opcion, event) {
-                var tagCheck = $("#divlistado_soluciones_cdr input[type=checkbox]");
-                var tagDivInfo = $("#infoOpcionesDeCambio");
+                var tagCheck = $(me.Variables.divlistado_soluciones_cdr + " " + "input[type=checkbox]");
+                var tagDivInfo = $(me.Variables.infoOpcionesDeCambio);
                 tagCheck.not(opcion).prop('checked', false);
                 var id = opcion.id;
                 var isChecked = tagCheck.is(':checked');
                 if (id == "" || !isChecked) {
                     var id = opcion.id;
+                    tagDivInfo.fadeOut(100).children().fadeOut(100); //ocultamos la capa padre y los hijos
                     $(me.Variables.btnSiguiente1).fadeOut(100);
                     return false;
                 }
@@ -1930,38 +1934,40 @@ $(document).ready(function () {
                     }
                 });
 
-                var producto = $("#hdCuvCodigo").val() + " - " + $("#hdDescripcionCuv").val();
-                var cantidad = $('#txtCantidad1').val() == "" ? 1 : parseInt($('#txtCantidad1').val());
+                var producto = $(me.Variables.hdCuvCodigo).val() + " - " + $( me.Variables.hdDescripcionCuv).val();
+                var cantidad = $(me.Variables.txtCantidad1).val() == "" ? 1 : parseInt($(me.Variables.txtCantidad1).val());
                 var textoUnidades = " X " + cantidad + " Unidad(es)";
 
                 if (id === me.Variables.operaciones.faltante) {
-                    $('#spnDescripcionProductoOpcionF').text(producto);
-                    $('#spnCantidadF').html(textoUnidades);
-                    $('#OpcionEnvioDelProducto').fadeIn(200);
+                    $.when(me.Funciones.ObtenerValorParametria(id)).then(function () {
+                        $(me.Variables.spnDescripcionProductoOpcionF).text(producto);
+                        $(me.Variables.spnCantidadF).html(textoUnidades);
+                        $(me.Variables.OpcionEnvioDelProducto).fadeIn(200);
+                    });
                 }
-
                 if (id === me.Variables.operaciones.faltanteAbono) {
-                    $('#spnDescripcionProductoOpcionG').text(producto);
-                    $('#spnCantidadG').html(textoUnidades);
-                    $('#OpcionDevolucionDinero').fadeIn(200);
+                    $(me.Variables.spnDescripcionProductoOpcionG).text(producto);
+                    $(me.Variables.spnCantidadG).html(textoUnidades);
+                    $(me.Variables.OpcionDevolucionDinero).fadeIn(200);
                 }
-
                 if (id === me.Variables.operaciones.devolucion) {
-                    $('#spnCantidadD').html(textoUnidades);
-                    SetHandlebars("#template-opcion-devolucion", dataCdrDevolucion, "#divDevolucionSetsOrPack");
-                    $('#OpcionDevolucion').fadeIn(200);
+                    $.when(me.Funciones.ObtenerValorParametria(id)).then(function () {
+                        $(me.Variables.spnCantidadD).html(textoUnidades);
+                        SetHandlebars("#template-opcion-devolucion", dataCdrDevolucion, "#divDevolucionSetsOrPack");
+                        $(me.Variables.OpcionDevolucion).fadeIn(200);
+                    });
                 }
-
                 if (id === me.Variables.operaciones.trueque) {
-                    $('#OpcionCambioPorOtroProducto').fadeIn(200);
+                    $.when(me.Funciones.ObtenerValorParametria(id)).then(function () {
+                        me.Funciones.SetMontoCampaniaTotal();
+                        $(me.Variables.OpcionCambioPorOtroProducto).fadeIn(200);
+                    });
                 }
-
                 if (id === me.Variables.operaciones.canje) {
-                    $('#spnDescProdDevolucionC').html(producto);
-                    $('#spnCantidadC').html(textoUnidades);
-                    $('#OpcionCambioMismoProducto').fadeIn(200);
+                    $(me.Variables.spnDescProdDevolucionC).html(producto);
+                    $(me.Variables.spnCantidadC).html(textoUnidades);
+                    $(me.Variables.OpcionCambioMismoProducto).fadeIn(200);
                 }
-
                 $(me.Variables.btnSiguiente1).fadeIn(100);
             },
 
@@ -1972,7 +1978,32 @@ $(document).ready(function () {
                         $(me.Variables.btnSiguiente1).fadeIn(100);
                     }
                 });
+            },
+
+            SetMontoCampaniaTotal: function () {
+                $(me.Variables.wrpMobile).addClass(me.Variables.pb120);
+                $(me.Variables.spnSimboloMonedaReclamo).html(variablesPortal.SimboloMoneda);
+                var precioUnidad = $(me.Variables.txtPrecioUnidad).val();
+                var cantidad = $(me.Variables.txtCantidad1).val();
+                var totalTrueque = parseFloat(precioUnidad) * parseFloat(cantidad);
+                $(me.Variables.hdMontoMinimoReclamo).val(totalTrueque);
+                $(me.Variables.spnMontoMinimoReclamoFormato).html(DecimalToStringFormat(totalTrueque));
+                var campania = $(me.Variables.ComboCampania).val() || 0;
+                var numeroCampania = '00';
+                if (campania > 0) {
+                    numeroCampania = campania.substring(4);
+                }
+                $(me.Variables.spnNumeroCampaniaReclamo).html(numeroCampania);
+            },
+
+            HideTags: function (arr) {
+                if ($.isArray(arr)) {
+                    $(arr).each(function (i, el) {
+                        $(el).hide();
+                    });
+                }
             }
+
         };
 
         me.Inicializar = function () {
@@ -1983,3 +2014,5 @@ $(document).ready(function () {
     misReclamosRegistro = new PortalConsultorasReclamoRegistro();
     misReclamosRegistro.Inicializar();
 });
+
+
