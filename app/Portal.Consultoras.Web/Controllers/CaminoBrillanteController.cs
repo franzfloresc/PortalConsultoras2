@@ -18,9 +18,13 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Index()
         {
+            /*
             var informacion = _caminoBrillanteProvider.ResumenConsultoraCaminoBrillante();
             if (informacion == null || informacion.NivelConsultora == null || informacion.NivelConsultora.Count() == 0) return RedirectToAction("Index", "Bienvenida");
+            */
+            if(!_caminoBrillanteProvider.ValidacionCaminoBrillante()) return RedirectToAction("Index", "Bienvenida");
 
+            /*
             int nivelActual = 0;
             int.TryParse(informacion.NivelConsultora.Where(x => x.EsActual).Select(z => z.Nivel).FirstOrDefault(), out nivelActual);
 
@@ -30,17 +34,30 @@ namespace Portal.Consultoras.Web.Controllers
                     e.UrlImagenNivel = Constantes.CaminoBrillante.Niveles.Iconos.Keys.Contains(e.CodigoNivel) ? 
                                        Constantes.CaminoBrillante.Niveles.Iconos[e.CodigoNivel][nivel <= nivelActual ? 1 : 0] : string.Empty;
                 });
+            */
 
-            ViewBag.TieneOfertasEspeciales = informacion.Niveles.Where(e => e.CodigoNivel == nivelActual.ToString()).Select(e => e.TieneOfertasEspeciales).FirstOrDefault();
-            ViewBag.ResumenLogros = informacion.ResumenLogros;
-            ViewBag.Niveles = informacion.Niveles;
-            ViewBag.NivelActual = nivelActual;
-            
+
+
+            //ViewBag.TieneOfertasEspeciales = informacion.Niveles.Where(e => e.CodigoNivel == nivelActual.ToString()).Select(e => e.TieneOfertasEspeciales).FirstOrDefault();
+            //ViewBag.ResumenLogros = informacion.ResumenLogros;
+            ViewBag.TieneOfertasEspeciales = _caminoBrillanteProvider.TieneOfertasEspeciles();
+            ViewBag.ResumenLogros = _caminoBrillanteProvider.GetLogroCaminoBrillante(Constantes.CaminoBrillante.Logros.RESUMEN);
+            ViewBag.Niveles = _caminoBrillanteProvider.GetNivelesCaminoBrillante();
+            //ViewBag.Niveles = informacion.Niveles;
+            //ViewBag.NivelActual = nivelActual;
+            var nivelActual = _caminoBrillanteProvider.GetNivelConsultoraCaminoBrillante();
+            var _nivelActual = 1;
+            if(nivelActual != null) int.TryParse(nivelActual.Nivel, out _nivelActual);
+            ViewBag.NivelActual = _nivelActual;
+
             return View();
         }
 
         public ActionResult Logros(string opcion)
         {
+            if (!_caminoBrillanteProvider.ValidacionCaminoBrillante()) return RedirectToAction("Index", "Bienvenida");
+
+
             if (!string.IsNullOrEmpty(opcion))
             {
                 var informacion = SessionManager.GetConsultoraCaminoBrillante() ?? new ServiceUsuario.BEConsultoraCaminoBrillante();
@@ -58,6 +75,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Ofertas()
         {
+            if (!_caminoBrillanteProvider.ValidacionCaminoBrillante()) return RedirectToAction("Index", "Bienvenida");
+
             var lstKit = _caminoBrillanteProvider.GetKitsCaminoBrillante();
             var lstDemo = _caminoBrillanteProvider.GetDesmostradoresCaminoBrillante();
             int cantKit = lstKit.Count();
