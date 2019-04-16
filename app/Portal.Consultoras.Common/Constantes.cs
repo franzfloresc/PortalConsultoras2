@@ -780,6 +780,36 @@ namespace Portal.Consultoras.Common
             public const int MobileLandingGanadorasGanadorasFicha = 2111402; // Esta en duro en ConstantesModule
             #endregion
 
+            #region Duo Perfecto
+            public const int DesktopLandingDuoPerfectoCarrusel = 1141601;
+            public const int DesktopLandingDuoPerfectoFicha = 1141602;
+            public const int DesktopHomeDuoPerfectoCarrusel = 1011601;
+            public const int DesktopHomeDuoPerfectoFicha = 1011602;
+            public const int DesktopPedidoDuoPerfectoCarrusel = 1021601;
+            public const int DesktopPedidoDuoPerfectoFicha = 1021602;
+            public const int MobileLandingDuoPerfectoCarrusel = 2141601;
+            public const int MobileLandingDuoPerfectoFicha = 2141602;
+            public const int MobileHomeDuoPerfectoCarrusel = 2011601;
+            public const int MobileHomeDuoPerfectoFicha = 2011602;
+            public const int MobilePedidoDuoPerfectoCarrusel = 2021601;
+            public const int MobilePedidoDuoPerfectoFicha = 2021602;
+            #endregion
+
+            #region Pack Nuevas
+            public const int DesktopLandingPackNuevasCarrusel = 1151701;
+            public const int DesktopLandingPackNuevasFicha = 1151702;
+            public const int DesktopHomePackNuevasCarrusel = 1011701;
+            public const int DesktopHomePackNuevasFicha = 1011702;
+            public const int DesktopPedidoPackNuevasCarrusel = 1021701;
+            public const int DesktopPedidoPackNuevasFicha = 1021702;
+            public const int MobileLandingPackNuevasCarrusel = 2151701;
+            public const int MobileLandingPackNuevasFicha = 2151702;
+            public const int MobileHomePackNuevasCarrusel = 2011701;
+            public const int MobileHomePackNuevasFicha = 2011702;
+            public const int MobilePedidoPackNuevasCarrusel = 2021701;
+            public const int MobilePedidoPackNuevasFicha = 2021702;
+            #endregion
+
             #region VirtualCoach
             public const int VirtualCoachDesktopPedido = 1231;
             public const int VirtualCoachMobilePedido = 2231;
@@ -1374,6 +1404,7 @@ namespace Portal.Consultoras.Common
             public const string ActualizaDatos = "ACTUALIZADATOS";
             public const string Notificaciones = "NOTIFICACIONES";
             public const string MasGanadoras = "MASGANADORAS";
+            public const string ArmaTuPack = "ARMATUPACK";
         }
 
         public static class IngresoExternoOrigen
@@ -2429,6 +2460,7 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_PRODUCTO_NOPERTENECE_VENTAEXCLUSIVA = "1113";
                 public const string ERROR_PRODUCTO_LIMITE_VENTA = "1114";
                 public const string ERROR_PRODUCTO_DUO_COMPLETO_COMPLETO = "1115";
+                public const string ERROR_PRODUCTO_KIT_CAMINO_BRILLANTE_USADO = "1116";
 
                 public const string ERROR_RESERVADO_HORARIO_RESTRINGIDO = "2101";
                 public const string ERROR_STOCK_ESTRATEGIA = "2102";
@@ -2494,6 +2526,7 @@ namespace Portal.Consultoras.Common
                             {Code.ERROR_PRODUCTO_NONUEVA, new PedidoValidacionConfiguracion(){ Mensaje = ProgNuevas.Mensaje.ConsultoraNoNueva } },
                             {Code.ERROR_PRODUCTO_NUEVA_NOPERTENECE_TUPROGRAMA, new PedidoValidacionConfiguracion(){ Mensaje = ProgNuevas.Mensaje.CuvNoPerteneceASuPrograma } },
                             {Code.ERROR_PRODUCTO_NOPERTENECE_VENTAEXCLUSIVA, new PedidoValidacionConfiguracion(){ Mensaje = VentaExclusiva.CuvNoEsVentaExclusiva } },
+                            {Code.ERROR_PRODUCTO_KIT_CAMINO_BRILLANTE_USADO, new PedidoValidacionConfiguracion(){ Mensaje = "Ya agregaste tu kit." } },
 
                             {Code.ERROR_RESERVADO_HORARIO_RESTRINGIDO, new PedidoValidacionConfiguracion()},
                             {Code.ERROR_STOCK_ESTRATEGIA, new PedidoValidacionConfiguracion()},
@@ -3203,6 +3236,7 @@ namespace Portal.Consultoras.Common
             public const string FlagFiltrosBuscador = "FlagFiltrosBuscador";
             public const string FlagBuscarPorCategoria = "BuscarPorCategoria";
             public const string FlagBuscarPorCategoriaTotalProductos = "BuscarPorCategoriaTotalProductos";
+            public const string MostrarPalabrasMenoresACuatro = "MostrarPalabrasMenoresACuatro";
         }
 
         public static class CodigoConfiguracionMSPersonalizacion
@@ -3364,6 +3398,7 @@ namespace Portal.Consultoras.Common
             public const string ESPECIALES = "ESPECIALES";
             public const string OFERTASFLEXIPAGO = "OFERTASFLEXIPAGO";
             public const string ESPREMIOELEC = "ESPREMIOELEC";
+            public const string ESCUPONINDEPENDIENTE = "ESCUPONINDEPENDIENTE";
             public const string ESCUPONNUEVAS = "ESCUPONNUEVAS";
             public const string ESELECMULTIPLENUEVAS = "ESELECMULTIPLENUEVAS";
             public const string ESCAMINOBRILLANTE = "1181901,2181901";
@@ -3548,6 +3583,7 @@ namespace Portal.Consultoras.Common
             public const int Reingreso = 9;
         }
 
+        /*
         public static class MetodosInformacionComercial
         {
             public const string GetPeriodo = "GetPeriodo/";
@@ -3556,7 +3592,9 @@ namespace Portal.Consultoras.Common
             public const string GetNivelConsultora = "GetNivelConsultora/";
             public const string GetKitsConsultora = "GetKitsConsultora/";
         }
+        */
 
+        /*
         public static class CodigoIsoHana
         {
             public const string Bolivia = "BOL";
@@ -3572,7 +3610,9 @@ namespace Portal.Consultoras.Common
             public const string PuertoRico = "PRI";
             public const string Dominicana = "DOM";
         }
+        */
 
+        /*
         public static class CaminoBrillanteRepositorioS3
         {
             public const string Patt_Niveles = "{REPO_S3}/CAMINOBRILLANTE/NIVELES/NIVEL_{KEY}_{STATE}.png";
@@ -3582,6 +3622,7 @@ namespace Portal.Consultoras.Common
             public const string Patt_Constancia = "{REPO_S3}/CAMINOBRILLANTE/LOGROS/CONSTANCIA/TORTA_{KEY}.png";
             public const string Patt_Incremento = "{REPO_S3}/CAMINOBRILLANTE/LOGROS/INCREMENTO/PEDIDO_{KEY}.png";
         }
+        */
 
         public static class CaminoBrillante
         {
@@ -3615,6 +3656,7 @@ namespace Portal.Consultoras.Common
                 }
             }
 
+            /*
             public static class CodigoBeneficio
             {
 
@@ -3634,6 +3676,8 @@ namespace Portal.Consultoras.Common
                     }
                 }
             }
+            */
+
 
             public static class Logros
             {
@@ -3644,6 +3688,7 @@ namespace Portal.Consultoras.Common
 
                 public static class Indicadores
                 {
+                    private static Dictionary<string, string> _Titulos;
 
                     public const string ESCALA = "ESCALA";
                     public const string NIVEL = "NIVEL";
@@ -3651,6 +3696,21 @@ namespace Portal.Consultoras.Common
                     public const string INCREMENTO_PEDIDO = "INCREMENTO_PEDIDO";
                     public const string TIEMPO_JUNTOS = "TIEMPO_JUNTOS";
                     public const string PROGRAMA_NUEVAS = "PROGRAMA_NUEVAS";
+
+                    public static Dictionary<string, string> Titulos
+                    {
+                        get
+                        {
+                            return _Titulos ?? (_Titulos = new Dictionary<string, string> {
+                                {ESCALA, "Escala"},
+                                {NIVEL, ""},
+                                {CONSTANCIA, "Constancia"},
+                                {INCREMENTO_PEDIDO, "Incremento"},
+                                {TIEMPO_JUNTOS, ""},
+                                {PROGRAMA_NUEVAS, ""},
+                            });
+                        }
+                    }
 
                     public static class Medallas
                     {

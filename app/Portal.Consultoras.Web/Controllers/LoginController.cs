@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using ClosedXML.Excel;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.PublicService.Cryptography;
@@ -870,8 +870,11 @@ namespace Portal.Consultoras.Web.Controllers
                         return RedirectToUniqueRoute("ConsultoraOnline", "Pendientes");
                     case Constantes.IngresoExternoPagina.Notificaciones:
                         return RedirectToUniqueRoute("Notificaciones", "IndexExterno", new { IdOrigen = model.OrigenPedido });
-                    case Constantes.IngresoExternoPagina.MasGanadoras: 
+                    case Constantes.IngresoExternoPagina.MasGanadoras:
                         return RedirectToUniqueRoute("MasGanadoras", "Index");
+                    case Constantes.IngresoExternoPagina.ArmaTuPack:
+                        return RedirectToUniqueRoute("ArmaTuPack", "Detalle");
+
                 }
             }
             catch (Exception ex)
@@ -999,7 +1002,7 @@ namespace Portal.Consultoras.Web.Controllers
             pasoLog = "Login.GetUserData";
             sessionManager.SetIsContrato(1);
             sessionManager.SetIsOfertaPack(1);
-            var pseudoParamNotif =  (DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds;//SALUD-58       
+            var pseudoParamNotif = (DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds;//SALUD-58       
 
             var usuarioModel = (UsuarioModel)null;
 
@@ -1347,8 +1350,8 @@ namespace Portal.Consultoras.Web.Controllers
                         var lista = linkPaisTask.Result;
                         if (lista.Count > 0)
                         {
-                            usuarioModel.UrlAyuda = lista.Find(x => x.TipoLinkID == 301) != null 
-                                ? lista.Find(x => x.TipoLinkID == 301).Url 
+                            usuarioModel.UrlAyuda = lista.Find(x => x.TipoLinkID == 301) != null
+                                ? lista.Find(x => x.TipoLinkID == 301).Url
                                 : null;
                             usuarioModel.UrlCapedevi = lista.Find(x => x.TipoLinkID == 302) != null
                                 ? lista.Find(x => x.TipoLinkID == 302).Url

@@ -1,5 +1,6 @@
 ﻿@using System.Web.Optimization
 @using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.CustomHelpers
 
 <!DOCTYPE html>
 <html lang="es" class="no-js">
@@ -11,6 +12,7 @@
     <meta name="author" content="Belcorp" />
 
     <title>Belcorp | Portal Consultoras</title>
+
 
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManagerHeader.cshtml")
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_GoogleOptimize.cshtml")
@@ -32,6 +34,28 @@
     }
 
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpVariablesGeneralesPortal.cshtml")
+
+    @if (ViewContext.EsIngresoUnico())
+    {
+        <style type="text/css">
+            .content_responsive {
+                margin-top: 0 !important;
+            }
+
+            body {
+                margin-top: 0 !important;
+            }
+
+            .Select_fixed {
+                top: 0 !important;
+            }
+        </style>
+
+        <script>
+            var esAppMobile = true;
+        </script>
+    }
+
     <script type="text/javascript">
         var baseUrl = "@Url.Content("~")";
         var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))' == "True";
@@ -94,7 +118,7 @@
         var usuarioNombre = '@ViewBag.UsuarioNombre';
         var controllerName = '@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower()';
 
-        var revistaDigital = @Html.Raw(Json.Encode(ViewBag.revistaDigital));
+		var revistaDigital = @Html.Raw(Json.Encode(ViewBag.revistaDigital));
 
     </script>
 </head>
@@ -114,64 +138,80 @@
         }
     </script>
 
-    <div class="layout-somos-belcorp container-fluid pl-0 pr-0">
-        <header class="layout__header row flex-column flex-nowrap justify-content-between justify-content-lg-start justify-content-xl-start align-items-center ml-0 mr-0">
-            <div data-layout="menu"
-                 class="col-12 d-flex flex-row flex-nowrap pl-lg-0 pr-lg-0 layout__header--menuSomosBelcorp">
-                <div class="row flex-row flex-nowrap justify-content-between justify-content-lg-start justify-content-xl-start align-items-center ml-0 mr-0 mx-auto layout__container">
-                    <section class="header__icono__menu mostrarEnMobile pl-0 pr-0">
-                        <img class="w-100" src="@Url.Content("~/Content/images/mobile/icono-menu-mobile.svg")" alt="Abrir Menú">
-                    </section>
-                    <section class="header__marca__pais text-left">
-                        @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
-                        {
-                            <picture class="d-block w-100">
-                                <source media="(min-width: 992px)" srcset="@Url.Content("~/Content/images/Esika/logo_marca_pais_desktop.svg")">
-                                <source media="(max-width: 991px)" srcset="@Url.Content("~/Content/images/Esika/logo_marca_pais_mobile.svg")">
-                                <img class="logoPaginaResponsive pointer" src="@Url.Content("~/Content/images/Esika/logo_marca_pais_desktop.svg")" alt="Ésika">
-                            </picture>
-                        }
-                        else
-                        {
-                            <picture class="d-block w-100">
-                                <source media="(min-width: 992px)" srcset="@Url.Content("~/Content/images/Lbel/logo_marca_pais.svg")">
-                                <img class="logoPaginaResponsive pointer" src="@Url.Content("~/Content/images/Lbel/logo_marca_pais.svg")">
-                            </picture>
-                        }
-                    </section>
-                    @Html.Partial("~/Views/Shared/_MenuPrincipalResponsive.cshtml")
-                    <section class="row flex-row justify-content-center align-items-center flex-grow-1 header__buscador__productos">
-                        @if (ViewBag.MostrarBuscadorYFiltros)
-                        {
-                            @Html.Partial("~/Views/Shared/_BuscadorResponsive.cshtml")
-                        }
-                    </section>
-                    @Html.Partial("~/Views/Shared/_MenuSecundarioResponsive.cshtml")
-                </div>
-            </div>
-            @Html.Partial("~/Views/Shared/VistaParcialResponisve/_MenuContenedorResponsive.cshtml")
-        </header>
 
-        @if (!string.IsNullOrEmpty(ViewBag.Title))
+
+    <div class="layout-somos-belcorp container-fluid pl-0 pr-0">
+
+
+
+        @if (!ViewContext.EsIngresoUnico())
         {
-            <section data-layout="ubicacionWeb"
-                     class="row flex-row ml-0 mr-0 layout__view__breadcrumbs__wrapper mostrarEnDesktop">
-                <div class="col-12 pl-0 pr-0 mx-auto layout__view__breadcrumbs">
-                    <ul class="row flex-row align-items-center ml-0 mr-0 layout__view__lista__breadcrumbs">
-                        <li class="layout__view__breadcrumb">
-                            <a href="@Url.Action("Index", "Bienvenida")" class="d-block" title="Home">Home</a>
-                        </li>
-                        <li class="layout__view__breadcrumb layout__view__breadcrumb--active__view">
-                            <span class="d-block">@ViewBag.Title</span>
-                        </li>
-                    </ul>
+            <header class="layout__header row flex-column flex-nowrap justify-content-between justify-content-lg-start justify-content-xl-start align-items-center ml-0 mr-0">
+                <div data-layout="menu"
+                     class="col-12 d-flex flex-row flex-nowrap pl-lg-0 pr-lg-0 layout__header--menuSomosBelcorp">
+                    <div class="row flex-row flex-nowrap justify-content-between justify-content-lg-start justify-content-xl-start align-items-center ml-0 mr-0 mx-auto layout__container">
+                        <section class="header__icono__menu mostrarEnMobile pl-0 pr-0">
+                            <img class="w-100" src="@Url.Content("~/Content/images/mobile/icono-menu-mobile.svg")" alt="Abrir Menú">
+                        </section>
+                        <section class="header__marca__pais text-left">
+                            @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
+                            {
+                                <picture class="d-block w-100">
+                                    <source media="(min-width: 992px)" srcset="@Url.Content("~/Content/images/Esika/logo_marca_pais_desktop.svg")">
+                                    <source media="(max-width: 991px)" srcset="@Url.Content("~/Content/images/Esika/logo_marca_pais_mobile.svg")">
+                                    <img class="logoPaginaResponsive pointer" src="@Url.Content("~/Content/images/Esika/logo_marca_pais_desktop.svg")" alt="Ésika">
+                                </picture>
+                            }
+                            else
+                            {
+                                <picture class="d-block w-100">
+                                    <source media="(min-width: 992px)" srcset="@Url.Content("~/Content/images/Lbel/logo_marca_pais.svg")">
+                                    <img class="logoPaginaResponsive pointer" src="@Url.Content("~/Content/images/Lbel/logo_marca_pais.svg")">
+                                </picture>
+                            }
+                        </section>
+                        @Html.Partial("~/Views/Shared/_MenuPrincipalResponsive.cshtml")
+                        <section class="row flex-row justify-content-center align-items-center flex-grow-1 header__buscador__productos">
+                            @if (ViewBag.MostrarBuscadorYFiltros)
+                            {
+                                @Html.Partial("~/Views/Shared/_BuscadorResponsive.cshtml")
+                            }
+                        </section>
+                        @Html.Partial("~/Views/Shared/_MenuSecundarioResponsive.cshtml")
+                    </div>
                 </div>
-            </section>
+
+
+                @if (!ViewBag.CaminoBrillante)
+                {
+                    @Html.Partial("~/Views/Shared/VistaParcialResponisve/_MenuContenedorResponsive.cshtml")
+                }
+
+            </header>
+
+            if (!string.IsNullOrEmpty(ViewBag.Title))
+            {
+                <section data-layout="ubicacionWeb"
+                         class="row flex-row ml-0 mr-0 layout__view__breadcrumbs__wrapper mostrarEnDesktop">
+                    <div class="col-12 pl-0 pr-0 mx-auto layout__view__breadcrumbs">
+                        <ul class="row flex-row align-items-center ml-0 mr-0 layout__view__lista__breadcrumbs">
+                            <li class="layout__view__breadcrumb">
+                                <a href="@Url.Action("Index", "Bienvenida")" class="d-block" title="Home">Home</a>
+                            </li>
+                            <li class="layout__view__breadcrumb layout__view__breadcrumb--active__view">
+                                <span class="d-block">@ViewBag.Title</span>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+            }
         }
+
+
         <div class="content_responsive" data-layout="body">
             @RenderBody()
         </div>
-        
+
         @Html.Partial("~/Views/Shared/_FooterResponsive.cshtml")
     </div>
 
@@ -221,6 +261,7 @@
         var CantidadVecesInicioSesionNovedad = '@ViewBag.CantidadVecesInicioSesionNovedad';
         var NovedadBuscadorVisitasUsuario = '@ViewBag.NovedadBuscador';
         var AplicarLogicaCantidadBotonVerTodos = '@ViewBag.AplicarLogicaCantidadBotonVerTodos'.toLowerCase();
+        var MostrarPalabrasMenoresACuatro = '@ViewBag.MostrarPalabrasMenoresACuatro';
 
         function ShowLoading() {
             $("#loading-spin").css('visibility', 'visible').fadeIn();

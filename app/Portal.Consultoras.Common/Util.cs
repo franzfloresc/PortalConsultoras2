@@ -3711,10 +3711,11 @@ namespace Portal.Consultoras.Common
 
         public static string obtenerNuevaDescripcionProductoDetalle(int ofertaId, bool pedidoValidado,
             bool consultoraOnline, int origenPedido, Dictionary<string, string> lista, bool suscripcion, string tipoEstrategiaCodigo,
-            int marcaId, int codigoCatalogo, string descripcion, bool esCuponNuevas, bool EsElecMultipleNuevas, bool esPremioElec, int? OrigenPedidoWeb = null, 
+            int marcaId, int codigoCatalogo, string descripcion, bool esCuponNuevas, bool EsElecMultipleNuevas, bool esPremioElec, bool esCuponIndependiente, int? OrigenPedidoWeb = null,
             bool esCaminoBrillante = false)
         {
             if (esPremioElec) return lista[Constantes.NuevoCatalogoProducto.ESPREMIOELEC];
+            if (esCuponIndependiente) return lista[Constantes.NuevoCatalogoProducto.ESCUPONINDEPENDIENTE];
             if (EsElecMultipleNuevas) return lista[Constantes.NuevoCatalogoProducto.ESELECMULTIPLENUEVAS];
             if (esCuponNuevas) return lista[Constantes.NuevoCatalogoProducto.ESCUPONNUEVAS];
             if (esCaminoBrillante) return "CAMINO BRILLANTE";

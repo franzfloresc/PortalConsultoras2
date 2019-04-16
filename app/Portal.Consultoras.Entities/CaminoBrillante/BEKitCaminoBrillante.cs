@@ -25,6 +25,8 @@ namespace Portal.Consultoras.Entities.CaminoBrillante
         public string DescripcionOferta { get; set; }
         [DataMember]
         public string Imagen { get; set; }
+
+
         //Ok
         //public string CodigoKit { get; set; }
         //public string CodigoSap { get; set; }
@@ -97,5 +99,7 @@ namespace Portal.Consultoras.Entities.CaminoBrillante
         public int FlagDigitable { get; set; }
         [DataMember]
         public bool FlagHabilitado { get; set; }
+        [DataMember]
+        public bool FlagHistorico { get; set; }
     }
 }

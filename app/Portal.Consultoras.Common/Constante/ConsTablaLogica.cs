@@ -517,5 +517,12 @@ namespace Portal.Consultoras.Common
             public const int TablaLogicaId = 181;
         }
 
+        public static class CaminoBrillante {
+            public const short CaminoBrillanteInfoComercial = 165;
+            public const short CaminoBrillanteLogros = 166;
+            public const short CaminoBrillanteIndicadores = 167;
+            public const short CaminoBrillanteOfertasEspeciales = 167; //Pendiente
+        }
+
     }
 }

@@ -15,7 +15,7 @@ namespace Portal.Consultoras.Data.CaminoBrillante
             return Context.ExecuteReader(command);
         }
 
-        public IDataReader GetDemostradoresCaminoBrillante(string campaniaId)
+        public IDataReader GetDemostradoresCaminoBrillante(int campaniaId)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetDemostradoresCaminoBrillante");
             Context.Database.AddInParameter(command, "@AnoCampania", DbType.Int32, campaniaId);

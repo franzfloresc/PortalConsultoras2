@@ -158,5 +158,8 @@ namespace Portal.Consultoras.Web.Models
         public int TipoAccion { get; set; }
         public bool EsPremioElectivo { get; set; }
         public bool LockPremioElectivo { get; set; }
+        public bool EsCuponIndependiente { get; set; }
+
+        public bool EsKitCaminoBrillante { get; set; }
     }
 }
