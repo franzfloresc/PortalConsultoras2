@@ -19,7 +19,7 @@ $("#Demostradores").on('click', '.boton_agregar_ofertas', function (e) {
     var contenedor = $(this).parents('[data-item="BuscadorFichasProductos"]');
     var obj = JSON.parse($(this).parents('[data-item="BuscadorFichasProductos"]').find('div [data-demostrador]').attr("data-demostrador")); 
     var cantidad = $(contenedor).find("#txtCantidad").val();
-    AgregarProducto(obj, cantidad);
+    AgregarProducto(obj, cantidad, contenedor);
 });
 
 $("#kits").on('click', '.boton_agregar_ofertas', function (e) {
@@ -132,63 +132,44 @@ function ArmarOfertaDemostradores(data) {
 //    }
 //});
 
-function AgregarProducto(data, cantidad) {
-    //var items = document.getElementsByClassName('boton_Agregalo_home');
-    //for (var i = 0; i < items.length; i++) {
-    //    items[i].onclick = function (e) {
-            //e.preventDefault();
-            AbrirSplash();
-
-    //alert("origenPedidoWeb: " + origenPedidoWeb);
-
-            //var cuvCapturado = this.parentElement.parentElement.parentElement.parentElement.children[0].value;
-            //var cantidadCapturado = this.parentElement.parentElement.children[0].children[0].children[1].value;
-            var params = {
-                CuvTonos: data.CUV,
-                CUV: data.CUV,
-                Cantidad: cantidad,
-                TipoEstrategiaID: 0,
-                EstrategiaID: "0",
-                OrigenPedidoWeb: origenPedidoWeb,
-                TipoEstrategiaImagen: "",
-                //FlagNueva: "",
-                EsEditable: false,
-                SetId: null,
-                ClienteID: 0
-            };
-
-            //var resultado = e.target;
-
-            jQuery.ajax({
-                type: "POST",
-                url: urlAgregarUnico,
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                data: JSON.stringify(params),
-                async: true,
-                cache: false,
-                success: function (data) {
-                    //if ($("#Tab-kits").hasClass('activado-dorado')) {
-                    //    resultado.parentElement.parentElement.parentElement.lastElementChild.style.display = 'block';
-                    //    //resultado.parentElement.parentElement.parentElement.parentElement.className += " producto_desactivado";
-                    //    var articulos = document.getElementsByClassName('col-12 fichas__productos__wrapper text-center');
-                    //    //for (var i = 0; i < articulos[0].childElementCount; i++) {
-                    //    //    articulos[0].children[i].className += " producto_desactivado"
-                    //    //}
-                    //}
-                    CerrarSplash();
-                    CargarResumenCampaniaHeader(true);
-                },
-                error: function (data, error) {
-                    alert("error");
-                }
-            });
-    //    }
-    //}
+function AgregarProducto(data, cantidad, contenedor) {
+    AbrirSplash();
+    var params = {
+        CuvTonos: data.CUV,
+        CUV: data.CUV,
+        Cantidad: cantidad,
+        TipoEstrategiaID: 0,
+        EstrategiaID: "0",
+        OrigenPedidoWeb: origenPedidoWeb,
+        TipoEstrategiaImagen: "",
+        EsEditable: false,
+        SetId: null,
+        ClienteID: 0
+    };
+    
+    jQuery.ajax({
+        type: "POST",
+        url: urlAgregarUnico,
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(params),
+        async: true,
+        cache: false,
+        success: function (data) {
+            $(contenedor).find('[data-Agregado="DivAgregado"]').show();
+            if ($("#Tab-kits").hasClass('activado-dorado')) {                       
+                $(contenedor).find('col-12 fichas__productos__wrapper text-center').addClass("producto_desactivado");
+            }
+            CerrarSplash();
+            CargarResumenCampaniaHeader(true);
+        },
+        error: function (data, error) {
+            alert("error");
+        }
+    });
 }
 
 function CambiarOferta() {
-    debugger
     $('#Tab-kits').click(function () {
         $('#kits').show();
         $('#Demostradores').hide();

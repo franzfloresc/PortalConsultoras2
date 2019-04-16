@@ -9,6 +9,7 @@ using Portal.Consultoras.Entities.CaminoBrillante;
 using Microsoft.Practices.EnterpriseLibrary.Common.Utility;
 using System.Globalization;
 using Portal.Consultoras.Common.Serializer;
+using Portal.Consultoras.Entities.Pedido;
 
 namespace Portal.Consultoras.BizLogic.CaminoBrillante
 {
@@ -334,7 +335,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             short.TryParse(nivelConsultora.NivelActual, out nivelActual);
 
             var configsMedalla = (GetGetConfiguracionMedallaCaminoBrillanteCache(paisId) ?? new List<BEConfiguracionMedallaCaminoBrillante>())
-                .Where(e => e.Logro == Constantes.CaminoBrillante.Logros.CRECIMIENTO && e.Indicador == Constantes.CaminoBrillante.Logros.Indicadores.NIVEL);
+                                .Where(e => e.Logro == Constantes.CaminoBrillante.Logros.CRECIMIENTO && e.Indicador == Constantes.CaminoBrillante.Logros.Indicadores.NIVEL);
 
             var idx = 0;
             var medallaNiveles = nivelesCaminoBrillantes.Select(e => new BEMedallaCaminoBrillante()
@@ -346,9 +347,8 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 Valor = e.CodigoNivel,
                 DescripcionNivel = e.DescripcionNivel,
                 MontoAcumulado = e.MontoMinimo,
-               
+            }).ToList();
 
-            });
 
             medallaNiveles.ForEach(e =>
             {
@@ -756,7 +756,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             }
         }
 
-        public void UpdEstragiaCaminiBrillante(BEEstrategia estrategia, int paisId, int campaniaId, string cuv)
+        public bool UpdEstragiaCaminiBrillante(BEEstrategia estrategia, int paisId, int campaniaId, string cuv)
         {
             try
             {
@@ -768,27 +768,61 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                     estrategia.DescripcionCUV2 = demostrador.DescripcionCUV;
                     estrategia.Precio2 = demostrador.PrecioCatalogo;
                     estrategia.LimiteVenta = 99;
-                    return;
+                    return true;
                 }
 
                 var periodo = GetPeriodo(paisId, campaniaId);
-                if (periodo == null) return;
+                if (periodo == null) return false;
+
+                //Quitar 
+                periodo.Periodo = 201903;
 
                 var kits = GetKits(paisId, campaniaId, periodo.Periodo, -1);
-                if (kits == null) return;
+                if (kits == null) return false;
 
                 var kit = kits.FirstOrDefault(e => e.CUV == cuv);
-                if (kit == null) return;
+                if (kit == null) return false;
 
                 estrategia.CUV2 = kit.CUV;
                 estrategia.DescripcionCUV2 = kit.DescripcionCUV;
                 estrategia.Precio2 = kit.PrecioCatalogo;
                 estrategia.LimiteVenta = 1;
+
+                return true;
             }
             catch (Exception ex)
             {
                 //LogManager.SaveLog .LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
             }
+            return false;
+        }
+
+        public string ValAgregarCaminiBrillante(BEEstrategia estrategia, BEUsuario usuario, BEPedidoDetalle pedidoDetalle, List<BEPedidoWebDetalle> lstDetalle) {
+            if (pedidoDetalle.Cantidad > estrategia.Cantidad ) return Constantes.PedidoValidacion.Code.ERROR_CANTIDAD_LIMITE;
+            var cantidad = lstDetalle.Where(e => e.CUV == pedidoDetalle.Producto.CUV).Sum( e => e.Cantidad) + pedidoDetalle.Cantidad;
+            if (cantidad > estrategia.Cantidad) return Constantes.PedidoValidacion.Code.ERROR_CANTIDAD_LIMITE;
+
+            var periodo = GetPeriodo(usuario.PaisID, usuario.CampaniaID);
+            if (periodo == null) return Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_NOEXISTE;
+
+            //Detectar que es un Kit
+            if (estrategia.LimiteVenta == 1) {
+                //Quitar 
+                periodo.Periodo = 201903;
+
+                //Agregar al objeto Usuario el Nievel de COnsultora
+                //Pendiente el nivel de la consultora
+                var kits = GetKits(usuario.PaisID, usuario.CampaniaID, periodo.Periodo, 6);
+                if (kits == null) return Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_NOEXISTE;
+
+                var ofertasHistoricos = GeOfertasHistoricos(usuario.PaisID, usuario.ConsultoraID, usuario.CodigoConsultora, usuario.CampaniaID, periodo.Periodo);
+                if (ofertasHistoricos != null && ofertasHistoricos.Any(e => kits.Any(k => k.CUV == e.CUV)))
+                {
+                    return Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_KIT_CAMINO_BRILLANTE_USADO;
+                }
+            }
+
+            return null;
         }
 
         #endregion
