@@ -176,8 +176,9 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
-        public bool TieneOfertasEspeciles() {
-            return true;
+        public bool TieneOfertasEspeciles(int nivelActual) {
+            var informacion = ResumenConsultoraCaminoBrillante();
+            return informacion.Niveles.Where(e => e.CodigoNivel == nivelActual.ToString()).Select(e => e.TieneOfertasEspeciales).FirstOrDefault();
         }
 
         public bool ValidacionCaminoBrillante() {
