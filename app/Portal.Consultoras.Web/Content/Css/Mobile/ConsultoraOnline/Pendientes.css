@@ -548,5 +548,23 @@ button {
   display: none;
 }
 
+/* Modificaciones - hacks */
+/* Ampliar la zona de acción */
+.cursor{
+  cursor: pointer;
+}
+.nav-tabs .nav-item{
+  width:50%;
+}
+.nav-tabs .nav-link{
+  text-align: center;
+}
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover{
+  color: #000;
+}
+.nav>li>a:hover{
+  background-color: transparent;
+}
+
 /* ---------------------------- */
 
