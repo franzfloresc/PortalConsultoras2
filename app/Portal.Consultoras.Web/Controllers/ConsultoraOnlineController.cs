@@ -2142,12 +2142,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Pendientes()
         {
-            return View();
-        }
-
-        [HttpPost]
-        public JsonResult GetPendientes()
-        {
             MisPedidosModel model = new MisPedidosModel();
 
             try
@@ -2201,25 +2195,18 @@ namespace Portal.Consultoras.Web.Controllers
                     SessionManager.SetobjMisPedidos(objMisPedidos);
                     //model.RegistrosTotal = model.ListaPedidos.Count.ToString();
                 }
-
-                return Json(new
+                else
                 {
-                    success = true,
-                    data = model
-                }, JsonRequestBehavior.AllowGet);
+                    model.RegistrosTotal = "0";
+                    return RedirectToAction("Detalle", "Pedido", new { area = "" });
+                }
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-
-                return Json(new
-                {
-                    success = true,
-                    message = "Error al procesar la solicitud"
-                }, JsonRequestBehavior.AllowGet);
             }
 
-            //return View(model);
+            return View();
         }
 
         [HttpPost]
