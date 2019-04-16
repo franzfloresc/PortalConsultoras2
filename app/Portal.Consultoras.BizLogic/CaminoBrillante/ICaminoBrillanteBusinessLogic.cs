@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.CaminoBrillante;
+using Portal.Consultoras.Entities.Pedido;
 using System.Collections.Generic;
 
 namespace Portal.Consultoras.BizLogic.CaminoBrillante
@@ -12,6 +13,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         List<BEDesmostradoresCaminoBrillante> GetDemostradores(int paisId, int campaniaId);
         List<BEKitCaminoBrillante> GetKits(BEUsuario entidad, int nivelId);
         void UpdFlagsKitsOrDemostradores(BEPedidoWebDetalle bEPedidoWebDetalle, int paisId, int campaniaId);
-        void UpdEstragiaCaminiBrillante(BEEstrategia estrategia, int paisId, int campaniaId, string cuv);
+        bool UpdEstragiaCaminiBrillante(BEEstrategia estrategia, int paisId, int campaniaId, string cuv);
+        string ValAgregarCaminiBrillante(BEEstrategia estrategia, BEUsuario usuario, BEPedidoDetalle pedidoDetalle, List<BEPedidoWebDetalle> lstDetalle);
     }
 }

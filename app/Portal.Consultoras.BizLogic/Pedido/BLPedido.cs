@@ -1,4 +1,5 @@
 ﻿using Portal.Consultoras.BizLogic.ArmaTuPack;
+using Portal.Consultoras.BizLogic.CaminoBrillante;
 using Portal.Consultoras.BizLogic.LimiteVenta;
 using Portal.Consultoras.BizLogic.ProgramaNuevas;
 using Portal.Consultoras.BizLogic.Reserva;
@@ -46,6 +47,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
         private readonly ILimiteVentaBusinessLogic _limiteVentaBusinessLogic;
         private readonly IArmaTuPackBusinessLogic _BLArmaTuPack;
         private readonly IActivarPremioNuevasBusinessLogic _bLActivarPremioNuevas;
+        private readonly ICaminoBrillanteBusinessLogic _bLCaminoBrillante;
 
         public BLPedido() : this(new BLProducto(),
                                     new BLPedidoWeb(),
@@ -66,7 +68,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                                     new BLProgramaNuevas(),
                                     new BLLimiteVenta(),
                                     new BLArmaTuPack(),
-                                    new BLActivarPremioNuevas())
+                                    new BLActivarPremioNuevas(),
+                                    new BLCaminoBrillante())
         { }
 
         public BLPedido(IProductoBusinessLogic productoBusinessLogic,
@@ -88,7 +91,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                             IProgramaNuevasBusinessLogic programaNuevasBusinessLogic,
                             ILimiteVentaBusinessLogic limiteVentaBusinessLogic,
                             IArmaTuPackBusinessLogic BLArmaTuPack,
-                            IActivarPremioNuevasBusinessLogic bLActivarPremioNuevas)
+                            IActivarPremioNuevasBusinessLogic bLActivarPremioNuevas,
+                            ICaminoBrillanteBusinessLogic bLCaminoBrillante)
         {
             _productoBusinessLogic = productoBusinessLogic;
             _pedidoWebBusinessLogic = pedidoWebBusinessLogic;
@@ -110,6 +114,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             _limiteVentaBusinessLogic = limiteVentaBusinessLogic;
             _BLArmaTuPack = BLArmaTuPack;
             _bLActivarPremioNuevas = bLActivarPremioNuevas;
+            _bLCaminoBrillante = bLCaminoBrillante;
         }
 
         #region Pedido Registro Insertar-Actualizar-Eliminar
@@ -230,51 +235,10 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
         private BEPedidoDetalleResult PedidoAgregarProductoTransaction(BEPedidoDetalle pedidoDetalle)
         {
-            /*
-            #region Camino Brillante
-            if (pedidoDetalle.OrigenPedidoWeb == 1181901)
-            {
-                pedidoDetalle.Producto.EstrategiaID = 322735;
-            }
-            #endregion
-            */
-
             pedidoDetalle = PedidoAgregar_ObtenerEstrategia(pedidoDetalle);
             var usuario = pedidoDetalle.Usuario;
 
             var estrategia = PedidoAgregar_FiltrarEstrategiaPedido(pedidoDetalle, usuario.PaisID);
-
-            #region CaminoBrillante
-            if (pedidoDetalle.OrigenPedidoWeb == 1181901)
-            {
-                var caminoBrillante = new Portal.Consultoras.BizLogic.CaminoBrillante.BLCaminoBrillante();
-                caminoBrillante.UpdEstragiaCaminiBrillante(estrategia, usuario.PaisID, usuario.CampaniaID, pedidoDetalle.Producto.CUV);
-
-                /*
-                List<Entities.CaminoBrillante.BEKitCaminoBrillante> kits = null;
-                try
-                {
-                    kits = caminoBrillante.GetKit(pedidoDetalle.Usuario, 201903, 6) ?? new List<Entities.CaminoBrillante.BEKitCaminoBrillante>();
-                }
-                catch (Exception ex) {
-                    kits = new List<Entities.CaminoBrillante.BEKitCaminoBrillante>();
-                }
-                var kit = kits.Where(e => e.CUV == pedidoDetalle.Producto.CUV).FirstOrDefault();
-                if (kit != null)
-                {
-                    //pedidoDetalle.Producto.Descripcion = kit.DescripcionCUV;
-                    //pedidoDetalle.Producto.PrecioCatalogo = kit.PrecioCatalogo;
-                    estrategia.CUV2 = kit.CUV;
-                    estrategia.DescripcionCUV2 = kit.DescripcionCUV;
-                    estrategia.Precio2 = kit.PrecioCatalogo;
-                }
-                else
-                {
-                    //return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_GUARDAR_OBS, "Kit no válido.");
-                }
-                */
-            }
-            #endregion
 
             if (string.IsNullOrEmpty(estrategia.CUV2))
             {
@@ -304,7 +268,26 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 }
             }
             #endregion
-            
+
+            #region CaminoBrillante
+
+            if (pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido ||
+                pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido ||
+                pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteAppConsultorasPedido)
+            {
+                if (_bLCaminoBrillante.UpdEstragiaCaminiBrillante(estrategia, usuario.PaisID, usuario.CampaniaID, pedidoDetalle.Producto.CUV)) {
+                    var codError = _bLCaminoBrillante.ValAgregarCaminiBrillante(estrategia, usuario, pedidoDetalle, lstDetalleAgrupado);
+                    if (!string.IsNullOrEmpty(codError)) {
+                        if(codError == Constantes.PedidoValidacion.Code.ERROR_CANTIDAD_LIMITE)
+                            return PedidoDetalleRespuesta(codError, args: estrategia.Cantidad);
+                        return PedidoDetalleRespuesta(codError);
+                    }
+                }
+            }
+
+            #endregion
+
+
             #region Editar Pedido con set
 
             if (pedidoDetalle.EsEditable)
