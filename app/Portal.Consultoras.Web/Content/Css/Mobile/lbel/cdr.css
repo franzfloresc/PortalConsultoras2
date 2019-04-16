@@ -852,8 +852,13 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     letter-spacing: 0.5px;
 }
 
-.opcion_cdr_seleccionada_info--cambiarPorOtroProducto p {
+.opcion_cdr_seleccionada_info--cambioMismoProducto p:first-child,
+.opcion_cdr_seleccionada_info--envioProducto p:first-child{
     margin-bottom: 20px;
+}
+
+.opcion_cdr_seleccionada_info--cambiarPorOtroProducto p {
+    margin-bottom: 12px;
 }
 
     .opcion_cdr_seleccionada_info--cambiarPorOtroProducto p:first-child {
