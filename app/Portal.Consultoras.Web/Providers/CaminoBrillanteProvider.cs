@@ -46,7 +46,6 @@ namespace Portal.Consultoras.Web.Providers
                                            Constantes.CaminoBrillante.Niveles.Iconos[item.CodigoNivel][nivel <= nivelActual ? 1 : 0] : string.Empty;
                     }
                 }
-
             }
             return resumen;
         }
@@ -186,6 +185,8 @@ namespace Portal.Consultoras.Web.Providers
         }
 
         public bool ValidacionCaminoBrillante() {
+            var informacion = ResumenConsultoraCaminoBrillante();
+            if (informacion == null || informacion.NivelConsultora == null || informacion.NivelConsultora.Count() == 0) return false;
             return true;
         }
 

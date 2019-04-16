@@ -1,6 +1,5 @@
 ﻿@{
     Layout = "~/Views/Shared/_MainLayoutResponsiveCaminoBrillante.cshtml";
-    ViewBag.Title = "Ofertas";
     var Demostradores = ViewBag.Demostradores;
 }
 
@@ -21,6 +20,21 @@
         </ul>
     </div>
 </div>
+
+
+<section data-layout="ubicacionWeb" class="row flex-row ml-0 mr-0 layout__view__breadcrumbs__wrapper mostrarEnDesktop">
+    <div class="col-12 pl-0 pr-0 mx-auto layout__view__breadcrumbs">
+        <ul class="row flex-row align-items-center ml-0 mr-0 layout__view__lista__breadcrumbs">
+            <li class="layout__view__breadcrumb">
+                <a href="/Bienvenida" class="d-block" title="Home">Home</a>
+            </li>
+
+            <li class="layout__view__breadcrumb">
+                <a href="/CaminoBrillante" class="d-block" title="CaminoBrillante">Camino Brillante</a>
+            </li>
+        </ul>
+    </div>
+</section>
 
 <div class="row flex-row ml-0 mr-0 mx-auto layout__content layout__content--vistaResultadosBusqueda">
 
@@ -232,7 +246,7 @@
 
 <script id="template-Demostradores" type="text/x-handlebars-template">
     {{#each this}}
-    <article class="ficha__producto " data-item="BuscadorFichasProductos">        
+    <article class="ficha__producto " data-item="BuscadorFichasProductos">
         <div class="row flex-row justify-content-center ml-0 mr-0">
             <figure class="col-12 pl-0 pr-0 row flex-row ml-0 mr-0 justify-content-center align-items-end ficha__producto__imagen text-center">
                 {{#IsNullOrEmpty FotoProductoMedium '!='}}
@@ -275,9 +289,9 @@
                             <img class="d-block js-no-popup" src="https://www.somosbelcorp.com/Content/Images/mas.svg" alt="">
                         </a>
                     </div>
-                </div>                
-                <div class="col-12 col-md-7 col-lg-7 col-xl-7 pl-0 pr-0 flex-grow-1">                    
-                    <a class="boton_Agregalo_home boton_agregar_ofertas boton__agregalo--fichaProducto text-center d-block FichaAgregarProductoBuscador act cartbtn" >
+                </div>
+                <div class="col-12 col-md-7 col-lg-7 col-xl-7 pl-0 pr-0 flex-grow-1">
+                    <a class="boton_Agregalo_home boton_agregar_ofertas boton__agregalo--fichaProducto text-center d-block FichaAgregarProductoBuscador act cartbtn">
                         <i>
                             <img src="@Url.Content("/Content/CaminoBrillante/imgs/add_to_cart2.svg")" />
                         </i> Agregar

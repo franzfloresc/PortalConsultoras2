@@ -459,7 +459,7 @@ var BuscadorModule = (function () {
                 window.location.href = baseUrl+'Bienvenida';
             }
             else {
-                window.location.href = baseUrl +'/Mobile/Bienvenida';
+                window.location.href = baseUrl +'Mobile/Bienvenida';
             }
         }
     };
