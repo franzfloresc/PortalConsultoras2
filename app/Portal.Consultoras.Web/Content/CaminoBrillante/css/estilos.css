@@ -1582,3 +1582,6 @@ div .left-mod .l-mod p {
 .indicador-nivel .cont-textLograr p {
     text-align:left;
 }
+.layout__view__breadcrumb, .layout__view__breadcrumb a {
+    font-size:12px;
+}
