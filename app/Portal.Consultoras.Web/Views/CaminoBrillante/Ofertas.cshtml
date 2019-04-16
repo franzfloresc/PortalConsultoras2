@@ -6,30 +6,7 @@
 
 <link href="@Url.Content("~/Content/Css/Site/BusquedaProductos/filtros-busqueda.css")" rel="stylesheet" />
 <link href="@Url.Content("~/Content/Css/Site/FichaProductoResponsive/ficha-producto-responsive.css")" rel="stylesheet" />
-<link href="~/Content/CaminoBrillante/css/ganamas.css" rel="stylesheet" />
-
-<style>
-    .desactive-mas-menos {
-        content: "";
-        display: block;
-        width: 100%;
-        height: 100%;
-        background: gray;
-        opacity: 0.6;
-        cursor: not-allowed;
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 10;
-    }
-
-    .desactivo {
-        pointer-events: none;
-        cursor: none;
-        text-decoration: none;
-        opacity: 0.4;
-    }
-</style>
+<link href="~/Content/CaminoBrillante/css/cb-oferta.css" rel="stylesheet" />
 
 <div class="op-menu-horizonta-fixed subbox" data-menu-codigo="" data-layout-menu2="">
 
@@ -238,7 +215,7 @@
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-12 col-lg-12 col-xl-12 pl-0 pr-0 flex-grow-1">
-                                    <a class="boton_Agregalo_home boton__agregalo--fichaProducto text-center d-block FichaAgregarProductoBuscador act">
+                                    <a class="boton_Agregalo_home boton_agregar_ofertas boton__agregalo--fichaProducto text-center d-block FichaAgregarProductoBuscador act">
                                         <i>
                                             <img src="@Url.Content("/Content/CaminoBrillante/imgs/add_to_cart2.svg")" />
                                         </i> Agregar
@@ -278,13 +255,9 @@
 
 <script id="template-Demostradores" type="text/x-handlebars-template">
     {{#each this}}
-    <article class="ficha__producto " data-item="BuscadorFichasProductos">
-        <input type="hidden" id="hdCuv" value="{{Cuv}}" />
+    <article class="ficha__producto " data-item="BuscadorFichasProductos">        
         <div class="row flex-row justify-content-center ml-0 mr-0">
             <figure class="col-12 pl-0 pr-0 row flex-row ml-0 mr-0 justify-content-center align-items-end ficha__producto__imagen text-center">
-                @*@{
-                    var imagenDemostrador = string.IsNullOrEmpty(item.FotoProductoMedium) ? ViewBag.RutaImagenNoDisponible : item.FotoProductoMedium;
-                }*@
                 {{#IsNullOrEmpty FotoProductoMedium '!='}}
                 <img class="lazy redireccionarFicha" src="{{FotoProductoMedium}}">
                 {{/IsNullOrEmpty}}
@@ -292,6 +265,7 @@
                 <img class="lazy redireccionarFicha" src="@ViewBag.RutaImagenNoDisponible">
                 {{/IsNullOrEmpty}}
             </figure>
+            <div style="display:none;" data-demostrador="{{JSON2string this}}"></div>
             <div class="col-12 pl-0 pr-0 ficha__producto__descrip d-block mx-auto text-left">
                 <div class="col-12 pl-0 pr-0 ficha__producto__descrip__marca__pais text-uppercase">
                     {{DescripcionMarca}}
@@ -324,9 +298,9 @@
                             <img class="d-block js-no-popup" src="https://www.somosbelcorp.com/Content/Images/mas.svg" alt="">
                         </a>
                     </div>
-                </div>
-                <div class="col-12 col-md-7 col-lg-7 col-xl-7 pl-0 pr-0 flex-grow-1">
-                    <a class="boton_Agregalo_home boton__agregalo--fichaProducto text-center d-block FichaAgregarProductoBuscador act cartbtn">
+                </div>                
+                <div class="col-12 col-md-7 col-lg-7 col-xl-7 pl-0 pr-0 flex-grow-1">                    
+                    <a class="boton_Agregalo_home boton_agregar_ofertas boton__agregalo--fichaProducto text-center d-block FichaAgregarProductoBuscador act cartbtn" >
                         <i>
                             <img src="@Url.Content("/Content/CaminoBrillante/imgs/add_to_cart2.svg")" />
                         </i> Agregar
@@ -349,5 +323,6 @@
     <script type="text/javascript">
         var urlGetKits = '@Url.Action("GetKits", "CaminoBrillante", new { area = "" })';
         var urlGetDemostradores = '@Url.Action("GetDemostradores", "CaminoBrillante", new { area = "" })';
+        var urlAgregarUnico = '@Url.Action("PedidoAgregarProductoTransaction", "PedidoRegistro", new { area = "" })';
     </script>
 }

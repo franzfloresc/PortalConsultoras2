@@ -5653,7 +5653,10 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EsCuponNuevasField;
-        
+
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsCuponIndependienteField;
+
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EsEditableField;
         
@@ -5778,7 +5781,24 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 }
             }
         }
-        
+
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsCuponIndependiente
+        {
+            get
+            {
+                return this.EsCuponIndependienteField;
+            }
+            set
+            {
+                if ((this.EsCuponIndependienteField.Equals(value) != true))
+                {
+                    this.EsCuponIndependienteField = value;
+                    this.RaisePropertyChanged("EsCuponIndependiente");
+                }
+            }
+        }
+
         [System.Runtime.Serialization.DataMemberAttribute()]
         public bool EsEditable {
             get {
@@ -15516,7 +15536,10 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EsCuponNuevasField;
-        
+
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsCuponIndependienteField;
+
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EsDemCaminoBrillanteField;
         
@@ -16036,7 +16059,24 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 }
             }
         }
-        
+
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsCuponIndependiente
+        {
+            get
+            {
+                return this.EsCuponIndependienteField;
+            }
+            set
+            {
+                if ((this.EsCuponIndependienteField.Equals(value) != true))
+                {
+                    this.EsCuponIndependienteField = value;
+                    this.RaisePropertyChanged("EsCuponIndependiente");
+                }
+            }
+        }
+
         [System.Runtime.Serialization.DataMemberAttribute()]
         public bool EsDemCaminoBrillante {
             get {
@@ -16725,7 +16765,8 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 }
             }
         }
-        
+
+
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         protected void RaisePropertyChanged(string propertyName) {
