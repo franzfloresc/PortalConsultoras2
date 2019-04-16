@@ -149,7 +149,8 @@ $(document).ready(function () {
             txtCantidadPedidoConfig: '#txtCantidadPedidoConfig',
             txtNumPedido: "#txtNumPedido",
             UltimasSolicitudes: ".UltimasSolicitudes",
-            wrpMobile: "#wrpMobile"
+            wrpMobile: "#wrpMobile",
+            opcionCdrEnlace: ".opcion_cdr_enlace"
         };
 
         me.Eventos = {
@@ -194,6 +195,13 @@ $(document).ready(function () {
                         $('#btnAgregarSolicitud').fadeIn(100);
                     }
                 });
+
+                //$(document).on('click', me.Variables.opcionCdrEnlace, function (e) {
+                //    e.preventDefault();
+                //    var opcionSeleccionada = $(this).find('input[type="checkbox"]');
+                //    $(opcionSeleccionada).change();
+                //    me.Funciones.EscogerSolucion(opcionSeleccionada);
+                //});
 
                 // Agregar otro producto.
                 $(me.Variables.IrSolicitudInicial).click(function () {
@@ -838,7 +846,7 @@ $(document).ready(function () {
                 $(me.Variables.hdCuvCodigo).val(cuv);
                 $(me.Variables.hdDescripcionCuv).val(desc);
                 $(me.Variables.PopupBusquedaCuvDescripcionProductoCdr).hide();
-                $(me.Variables.txtCuvMobile).val(cuv + " - " + desc);
+                $(me.Variables.txtCuvMobile).val(cuv + " - " + desc).focus();
                 $(me.Variables.Registro2).show();
             },
 
@@ -1963,7 +1971,7 @@ $(document).ready(function () {
                 });
             },
             //HD-3703 EINCA
-            EscogerSolucion: function (opcion, event) {
+            EscogerSolucion: function (opcion) {
                 var tagCheck = $(me.Variables.divlistado_soluciones_cdr + " " + "input[type=checkbox]");
                 var tagDivInfo = $(me.Variables.infoOpcionesDeCambio);
                 tagCheck.not(opcion).prop('checked', false);
