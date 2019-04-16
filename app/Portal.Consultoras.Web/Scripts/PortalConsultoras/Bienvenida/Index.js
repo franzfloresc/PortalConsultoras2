@@ -3328,7 +3328,7 @@ function GetNivelConsultoraCaminoBrillante() {
     });
 }
 
-function BotonAbrirCaminoBrillante(){
+function BotonAbrirCaminoBrillante() {
     dataLayer.push(
         {
             'event': 'virtualEvent',

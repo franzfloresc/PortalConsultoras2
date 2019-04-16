@@ -1,4 +1,6 @@
 ﻿$(document).ready(function () {
+    $('#aviso').hide(0);
+
     var nivelactual = $("#hfNivelActual").val();
     for (var i = 1; i <= nivelactual; i++)
         $(".pt" + i).addClass("activo");
@@ -8,6 +10,30 @@
     $('#OfertasEspeciales').click(function () {
         TagClickBotonVerOfertas();
     });
+
+    $(window).scroll(function (event) {
+        var windowHeight = $(window).scrollTop(); 
+
+        var contenido1 = $("#BeneficiosPrincipal").offset();
+        contenido1 = contenido1.top;
+
+        var contenido2 = $("#cont-logros").offset();
+        contenido2 = contenido2.top;
+
+        if (windowHeight <= contenido1) {
+            alert(contenido1);
+            return;
+        }
+
+        if (windowHeight <= contenido2) {
+            alert(contenido2);
+            return;
+        }
+    });
+});
+
+$('#btnCerarNiveles').click(function () {
+    CerrarBeneficios();
 });
 
 function ModalBeneficios(index) {
@@ -68,7 +94,8 @@ function ModalBeneficios(index) {
     });
 }
 
-function TagClickSeleccionNivel(nivelConsultora){
+function TagClickSeleccionNivel(nivelConsultora) {
+    
     dataLayer.push ({
             'event': 'virtualEvent',
             'category': 'Nivel y beneficios',
@@ -78,6 +105,7 @@ function TagClickSeleccionNivel(nivelConsultora){
 }
 
 function TagMostrarPopupNivel(nivelConsultora) {
+   
     dataLayer.push({
         'event': 'virtualEvent',
         'category': 'Nivel y beneficios',
@@ -94,3 +122,14 @@ function TagClickBotonVerOfertas() {
         'label': '(not available)'
     });
 }
+
+function CerrarBeneficios() {
+    var nivelconsultora = $("#hfNivelActual").val();
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Nivel y beneficios',
+        'action': 'Cerrar Pop-up del nivel',
+        'label': 'Nivel: ' + nivelconsultora
+    });
+}
+
