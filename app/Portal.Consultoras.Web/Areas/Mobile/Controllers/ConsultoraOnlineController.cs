@@ -919,6 +919,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return View(model);
         }
 
+
+        #region New Pedidos Pendientes
+
         public ActionResult Pendientes()
         {
             MisPedidosModel model = new MisPedidosModel();
@@ -1255,6 +1258,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return View(model);
         }
+
+        #endregion
 
     }
 }
