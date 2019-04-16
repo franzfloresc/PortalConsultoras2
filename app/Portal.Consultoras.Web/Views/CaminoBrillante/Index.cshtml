@@ -13,27 +13,17 @@
     @System.Web.Optimization.Styles.Render("~/Bundle/Css/CaminoBrillante")
 }
 <br />
-<style>
-    .OfertasEspecialesBlock {
-        background: #d1d1d4 !important;
-        color: #909094 !important;
-        font-weight: bolder !important;
-        font-size: 14px !important;
-    }
-</style>
 
 <div class="container ">
     <h2 class="title">Mi nivel</h2>
     <div id="box-niveles">
         <div id="ProgressBar">
-
             <div class="Progress medal-@NivelActual"></div>
             @{
                 var estilo = 0;
                 var otroEstilo = "";
                 var estiloClase = "";
-
-                for (int i = 0; i < Niveles.Length; i++)
+                for (int i = 0; i < Niveles.Count; i++)
                 {
                     estilo = Convert.ToInt32(i) + Convert.ToInt32(1);
                     estiloClase = "pt" + estilo;
@@ -54,7 +44,6 @@
         </div>
     </div>
     <input type="hidden" id="hfNivelActual" value="@NivelActual" />
-
     <div class="modal fade" id="BenefNivel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -66,9 +55,12 @@
                         <center>
                             <img id="m_imagen" style="float: unset; max-width: 100px !important;" />
                         </center>
-                        <div class="left-mod" style="width: 100%; margin-left: 0px;">
+                        <div class="left-mod" style="width: 100%; margin-left: 0px; ">
                             <h2 id="m_titulo" style="color: black; font-size: 20px; font-weight: bold;"></h2>
-                            <p id="m_montoMinimo"></p>
+                            <div class="cont-textLograr">
+                                <p id="m_montoMinimo"></p>
+                                <p id="m_montoFaltante" ></p>
+                            </div>
                         </div>
                     </div>
                     <h4 class="subtitle text-center">Conoce los beneficios:</h4>

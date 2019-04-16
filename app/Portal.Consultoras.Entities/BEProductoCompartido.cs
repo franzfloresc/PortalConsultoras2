@@ -40,4 +40,13 @@ namespace Portal.Consultoras.Entities
             PcApp = row.ToString("Applicacion");
         }
     }
+
+    [DataContract]
+    public class BEProductoCompartidoResult
+    {
+        [DataMember]
+        public int Id { get; set; }
+        [DataMember]
+        public string UrlCompartir { get; set; }
+    }
 }

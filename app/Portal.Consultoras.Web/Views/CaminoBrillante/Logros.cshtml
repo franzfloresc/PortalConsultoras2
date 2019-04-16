@@ -1,18 +1,32 @@
 ﻿
 @{
     Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
-    ViewBag.Title = ViewBag.Vista;
     var data = ViewBag.Informacion;
 }
 
-<link href="~/Content/CaminoBrillante/css/estilos.css" rel="stylesheet" />
+@section css{
+    <link href="~/Content/CaminoBrillante/css/estilos.css" rel="stylesheet" />
+}
+
+<section data-layout="ubicacionWeb" class="row flex-row ml-0 mr-0 layout__view__breadcrumbs__wrapper mostrarEnDesktop">
+    <div class="col-12 pl-0 pr-0 mx-auto layout__view__breadcrumbs">
+        <ul class="row flex-row align-items-center ml-0 mr-0 layout__view__lista__breadcrumbs">
+            <li class="layout__view__breadcrumb">
+                <a href="/Bienvenida" class="d-block" title="Home">Home</a>
+            </li>
+            <li class="layout__view__breadcrumb">
+                <a href="/CaminoBrillante" class="d-block" title="CaminoBrillante">Camino Brillante</a>
+            </li>
+            <li class="layout__view__breadcrumb layout__view__breadcrumb--active__view">
+                <span class="d-block">@ViewBag.Vista</span>
+            </li>
+        </ul>
+    </div>
+</section>
+
 <br />
-
-
 <div class="container">
-
     <h2 class="title">@data.Titulo</h2>
-
     <div class="contain-camb">
 
         @for (int i = 0; i < data.Indicadores.Length; i++)
@@ -23,17 +37,11 @@
                     @{
                         var NombreModal = 1;
                     }
-
                     @foreach (var item2 in data.Indicadores[i].Medallas)
                     {
-
-
-
                         if (item2 != null)
                         {
-
                             <div class="itm">
-
                                 @if (item2.Tipo == "PIE")
                                 {
                                     string[] torta = item2.Valor.Split('-');
@@ -144,7 +152,7 @@
                                                             }
                                                             <div class="left-mod">
                                                                 <h2>@item2.ModalTitulo</h2>
-                                                                <p>@item2.ModalDescripcion</p>
+                                                                <p>@Html.Raw(item2.ModalDescripcion)</p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -163,6 +171,11 @@
     </div>
 </div>
 
+<script>
 
-<script src="~/Scripts/jquery-1.11.2.min.js"></script>
-<script src="~/Scripts/bootstrap.min.js"></script>
+</script>
+
+@section scripts{
+    <script src="~/Scripts/jquery-1.11.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+}

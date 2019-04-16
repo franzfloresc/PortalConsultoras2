@@ -309,6 +309,14 @@ namespace Portal.Consultoras.Web.Controllers
                                     var motivoSolicitud = sv.GetMotivosRechazo(userData.PaisID).ToList();
                                     ViewBag.MotivosRechazo = Mapper.Map<List<MisPedidosMotivoRechazoModel>>(motivoSolicitud);
                                 }
+
+
+                                var olstMisPedidos =
+                                    svc.GetMisPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID, userData.CampaniaID)
+                                        .ToList();
+
+                                ViewBag.ListaPedidosPendientesCliente = olstMisPedidos;
+
                             }
                         }
 
@@ -355,7 +363,7 @@ namespace Portal.Consultoras.Web.Controllers
                     CampaniaID = userData.CampaniaID,
                     PaisID = userData.PaisID
                 };
-                ViewBag.KitsCaminoBrillante = _caminoBrillanteProvider.GetKitCaminoBrillante().ToList();
+                ViewBag.KitsCaminoBrillante = _caminoBrillanteProvider.GetKitsCaminoBrillante().ToList();
                 var consultoraNivel = SessionManager.GetConsultoraCaminoBrillante();
                 var nivelConsultora = consultoraNivel.NivelConsultora.Where(e => e.EsActual).FirstOrDefault();
                 int nivel = 0;
@@ -4669,7 +4677,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult CargarPremiosElectivos()
         {
-           var premios = _programaNuevasProvider.GetListPremioElectivo();
+            var premios = _programaNuevasProvider.GetListPremioElectivo();
 
             var details = ObtenerPedidoWebSetDetalleAgrupado(true) ?? new List<BEPedidoWebDetalle>();
 

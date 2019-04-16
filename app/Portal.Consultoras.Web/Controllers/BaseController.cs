@@ -1137,6 +1137,8 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.OfertaDelDia = _ofertaDelDiaProvider.GetOfertaDelDiaConfiguracion(userData, true, actualizaODDBase);
                 ViewBag.TieneOfertaDelDia = _ofertaDelDiaProvider.CumpleOfertaDelDia(userData, GetControllerActual());
                 ViewBag.MostrarBannerSuperiorOdd = _ofertaDelDiaProvider.MostrarBannerSuperiorOdd(userData, GetControllerActual());
+
+                ViewBag.CaminoBrillante = ViewBag.CaminoBrillante ?? false;
             }
             catch (Exception ex)
             {
@@ -1217,6 +1219,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.FlagFiltrosBuscador = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.FlagFiltrosBuscador).ToBool();
             ViewBag.FlagBuscarPorCategoria = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.FlagBuscarPorCategoria).ToBool();
             ViewBag.FlagBuscarPorCategoriaTotalProductos = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.FlagBuscarPorCategoriaTotalProductos).ToBool();
+            ViewBag.MostrarPalabrasMenoresACuatro = ObtenerConfiguracionBuscadorCaracteresMenoresACuatro(Constantes.TipoConfiguracionBuscador.MostrarPalabrasMenoresACuatro);
         }
 
         #endregion
@@ -1295,6 +1298,13 @@ namespace Portal.Consultoras.Web.Controllers
             var valor = (from item in buscadorYFiltro.ConfiguracionPaisDatos where item.Codigo == codigo select item.Valor2).FirstOrDefault();
             return valor == null ? ObtenerValorPorDefecto(codigo) : valor.ToInt();
         }
+        public string ObtenerConfiguracionBuscadorCaracteresMenoresACuatro(string codigo)
+        {
+            if (!buscadorYFiltro.ConfiguracionPaisDatos.Any()) return string.Empty;
+            var valor = (from item in buscadorYFiltro.ConfiguracionPaisDatos where item.Codigo == codigo select item.Valor1).FirstOrDefault();
+            return valor ?? string.Empty;
+        }
+
         private int ObtenerValorPorDefecto(string codigo)
         {
             switch (codigo)
