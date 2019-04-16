@@ -2218,7 +2218,9 @@ namespace Portal.Consultoras.Web.Controllers
                       resultadoValidacionPerfil[1] = obj.MensajeCelular;
                 }
                 else /*Validamso si existe registros de validación para el email o está en pendiente*/
-                if (listBEValidacionDatos.Where(x => x.TipoEnvio == tipoEnvio[1] && x.Estado=="P").Count() > 0)
+                if (listBEValidacionDatos.Where(x => x.TipoEnvio == tipoEnvio[1] && x.Estado=="P").Count() > 0 ||
+                    listBEValidacionDatos.Where(x => x.TipoEnvio == tipoEnvio[1]).Count() <= 0
+                )
                 {
                     resultadoValidacionPerfil[0] = "1";
                     resultadoValidacionPerfil[1] = obj.MensajeEmail;
