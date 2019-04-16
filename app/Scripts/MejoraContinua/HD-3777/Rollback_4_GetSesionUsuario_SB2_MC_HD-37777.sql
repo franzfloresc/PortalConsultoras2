@@ -81,7 +81,7 @@ BEGIN
 			co.ConsultoraID=@ConsultoraID and P.CampaniaID <> @ODSCampaniaID and
 			co.RegionID=@RegionID and CO.ZonaID=@ZonaID
 		order by PedidoID desc;
-		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campaÃ±a facturada */
+		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campaña facturada */
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
@@ -200,10 +200,7 @@ BEGIN
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(c.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
-			@IndicadorConsultoraDigital as IndicadorConsultoraDigital,
-			ISNULL(c.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
-			
-			
+			@IndicadorConsultoraDigital as IndicadorConsultoraDigital
 			
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
@@ -336,10 +333,7 @@ BEGIN
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(cons.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
-			@IndicadorConsultoraDigital as IndicadorConsultoraDigital,
-			ISNULL(cons.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
-			
-			
+			@IndicadorConsultoraDigital as IndicadorConsultoraDigital
 			
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
@@ -449,7 +443,7 @@ BEGIN
 			co.ConsultoraID=@ConsultoraID and P.CampaniaID <> @ODSCampaniaID and
 			co.RegionID=@RegionID and CO.ZonaID=@ZonaID
 		order by PedidoID desc;
-		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campaÃ±a facturada */
+		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campaña facturada */
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
@@ -568,10 +562,7 @@ BEGIN
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(c.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
-			@IndicadorConsultoraDigital as IndicadorConsultoraDigital,
-			ISNULL(c.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
-			
-			
+			@IndicadorConsultoraDigital as IndicadorConsultoraDigital
 			
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
@@ -704,10 +695,7 @@ BEGIN
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(cons.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
-			@IndicadorConsultoraDigital as IndicadorConsultoraDigital,
-			ISNULL(cons.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
-			
-			
+			@IndicadorConsultoraDigital as IndicadorConsultoraDigital
 			
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
@@ -817,7 +805,7 @@ BEGIN
 			co.ConsultoraID=@ConsultoraID and P.CampaniaID <> @ODSCampaniaID and
 			co.RegionID=@RegionID and CO.ZonaID=@ZonaID
 		order by PedidoID desc;
-		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campaÃ±a facturada */
+		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campaña facturada */
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
@@ -936,10 +924,7 @@ BEGIN
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(c.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
-			@IndicadorConsultoraDigital as IndicadorConsultoraDigital,
-			ISNULL(c.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
-			
-			
+			@IndicadorConsultoraDigital as IndicadorConsultoraDigital
 			
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
@@ -1072,10 +1057,7 @@ BEGIN
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(cons.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
-			@IndicadorConsultoraDigital as IndicadorConsultoraDigital,
-			ISNULL(cons.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
-			
-			
+			@IndicadorConsultoraDigital as IndicadorConsultoraDigital
 			
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
@@ -1185,7 +1167,7 @@ BEGIN
 			co.ConsultoraID=@ConsultoraID and P.CampaniaID <> @ODSCampaniaID and
 			co.RegionID=@RegionID and CO.ZonaID=@ZonaID
 		order by PedidoID desc;
-		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campaÃ±a facturada */
+		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campaña facturada */
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
@@ -1304,10 +1286,7 @@ BEGIN
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(c.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
-			@IndicadorConsultoraDigital as IndicadorConsultoraDigital,
-			ISNULL(c.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
-			
-			
+			@IndicadorConsultoraDigital as IndicadorConsultoraDigital
 			
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
@@ -1440,10 +1419,7 @@ BEGIN
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(cons.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
-			@IndicadorConsultoraDigital as IndicadorConsultoraDigital,
-			ISNULL(cons.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
-			
-			
+			@IndicadorConsultoraDigital as IndicadorConsultoraDigital
 			
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
@@ -1553,7 +1529,7 @@ BEGIN
 			co.ConsultoraID=@ConsultoraID and P.CampaniaID <> @ODSCampaniaID and
 			co.RegionID=@RegionID and CO.ZonaID=@ZonaID
 		order by PedidoID desc;
-		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campaÃ±a facturada */
+		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campaña facturada */
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
@@ -1672,10 +1648,7 @@ BEGIN
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(c.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
-			@IndicadorConsultoraDigital as IndicadorConsultoraDigital,
-			ISNULL(c.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
-			
-			
+			@IndicadorConsultoraDigital as IndicadorConsultoraDigital
 			
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
@@ -1808,10 +1781,7 @@ BEGIN
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(cons.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
-			@IndicadorConsultoraDigital as IndicadorConsultoraDigital,
-			ISNULL(cons.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
-			
-			
+			@IndicadorConsultoraDigital as IndicadorConsultoraDigital
 			
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
@@ -1921,7 +1891,7 @@ BEGIN
 			co.ConsultoraID=@ConsultoraID and P.CampaniaID <> @ODSCampaniaID and
 			co.RegionID=@RegionID and CO.ZonaID=@ZonaID
 		order by PedidoID desc;
-		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campaÃ±a facturada */
+		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campaña facturada */
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
@@ -2040,10 +2010,7 @@ BEGIN
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(c.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
-			@IndicadorConsultoraDigital as IndicadorConsultoraDigital,
-			ISNULL(c.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
-			
-			
+			@IndicadorConsultoraDigital as IndicadorConsultoraDigital
 			
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
@@ -2176,10 +2143,7 @@ BEGIN
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(cons.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
-			@IndicadorConsultoraDigital as IndicadorConsultoraDigital,
-			ISNULL(cons.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
-			
-			
+			@IndicadorConsultoraDigital as IndicadorConsultoraDigital
 			
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
@@ -2289,7 +2253,7 @@ BEGIN
 			co.ConsultoraID=@ConsultoraID and P.CampaniaID <> @ODSCampaniaID and
 			co.RegionID=@RegionID and CO.ZonaID=@ZonaID
 		order by PedidoID desc;
-		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campaÃ±a facturada */
+		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campaña facturada */
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
@@ -2408,10 +2372,7 @@ BEGIN
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(c.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
-			@IndicadorConsultoraDigital as IndicadorConsultoraDigital,
-			ISNULL(c.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
-			
-			
+			@IndicadorConsultoraDigital as IndicadorConsultoraDigital
 			
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
@@ -2544,10 +2505,7 @@ BEGIN
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(cons.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
-			@IndicadorConsultoraDigital as IndicadorConsultoraDigital,
-			ISNULL(cons.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
-			
-			
+			@IndicadorConsultoraDigital as IndicadorConsultoraDigital
 			
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
@@ -2657,7 +2615,7 @@ BEGIN
 			co.ConsultoraID=@ConsultoraID and P.CampaniaID <> @ODSCampaniaID and
 			co.RegionID=@RegionID and CO.ZonaID=@ZonaID
 		order by PedidoID desc;
-		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campaÃ±a facturada */
+		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campaña facturada */
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
@@ -2776,10 +2734,7 @@ BEGIN
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(c.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
-			@IndicadorConsultoraDigital as IndicadorConsultoraDigital,
-			ISNULL(c.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
-			
-			
+			@IndicadorConsultoraDigital as IndicadorConsultoraDigital
 			
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
@@ -2912,10 +2867,7 @@ BEGIN
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(cons.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
-			@IndicadorConsultoraDigital as IndicadorConsultoraDigital,
-			ISNULL(cons.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
-			
-			
+			@IndicadorConsultoraDigital as IndicadorConsultoraDigital
 			
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
@@ -3025,7 +2977,7 @@ BEGIN
 			co.ConsultoraID=@ConsultoraID and P.CampaniaID <> @ODSCampaniaID and
 			co.RegionID=@RegionID and CO.ZonaID=@ZonaID
 		order by PedidoID desc;
-		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campaÃ±a facturada */
+		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campaña facturada */
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
@@ -3144,10 +3096,7 @@ BEGIN
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(c.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
-			@IndicadorConsultoraDigital as IndicadorConsultoraDigital,
-			ISNULL(c.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
-			
-			
+			@IndicadorConsultoraDigital as IndicadorConsultoraDigital
 			
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
@@ -3280,10 +3229,7 @@ BEGIN
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(cons.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
-			@IndicadorConsultoraDigital as IndicadorConsultoraDigital,
-			ISNULL(cons.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
-			
-			
+			@IndicadorConsultoraDigital as IndicadorConsultoraDigital
 			
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
@@ -3393,7 +3339,7 @@ BEGIN
 			co.ConsultoraID=@ConsultoraID and P.CampaniaID <> @ODSCampaniaID and
 			co.RegionID=@RegionID and CO.ZonaID=@ZonaID
 		order by PedidoID desc;
-		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campaÃ±a facturada */
+		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campaña facturada */
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
@@ -3512,10 +3458,7 @@ BEGIN
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(c.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
-			@IndicadorConsultoraDigital as IndicadorConsultoraDigital,
-			ISNULL(c.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
-			
-			
+			@IndicadorConsultoraDigital as IndicadorConsultoraDigital
 			
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
@@ -3648,11 +3591,8 @@ BEGIN
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(cons.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
-			@IndicadorConsultoraDigital as IndicadorConsultoraDigital,
-			ISNULL(cons.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
-			
-			
-			
+			@IndicadorConsultoraDigital as IndicadorConsultoraDigital
+				
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
 		LEFT JOIN [dbo].[UsuarioRol] ur (nolock) ON u.CodigoUsuario = ur.CodigoUsuario
@@ -3761,7 +3701,7 @@ BEGIN
 			co.ConsultoraID=@ConsultoraID and P.CampaniaID <> @ODSCampaniaID and
 			co.RegionID=@RegionID and CO.ZonaID=@ZonaID
 		order by PedidoID desc;
-		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campaÃ±a facturada */
+		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campaña facturada */
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
@@ -3880,11 +3820,8 @@ BEGIN
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(c.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
-			@IndicadorConsultoraDigital as IndicadorConsultoraDigital,
-			ISNULL(c.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
-			
-			
-			
+			@IndicadorConsultoraDigital as IndicadorConsultoraDigital
+				
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
 			select *
@@ -4016,11 +3953,8 @@ BEGIN
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(cons.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
-			@IndicadorConsultoraDigital as IndicadorConsultoraDigital,
-			ISNULL(cons.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
-			
-			
-			
+			@IndicadorConsultoraDigital as IndicadorConsultoraDigital
+				
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
 		LEFT JOIN [dbo].[UsuarioRol] ur (nolock) ON u.CodigoUsuario = ur.CodigoUsuario
@@ -4129,7 +4063,7 @@ BEGIN
 			co.ConsultoraID=@ConsultoraID and P.CampaniaID <> @ODSCampaniaID and
 			co.RegionID=@RegionID and CO.ZonaID=@ZonaID
 		order by PedidoID desc;
-		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campaÃ±a facturada */
+		/* Se toma en cuenta la Fecha de Vencimiento sobre la ultima campaña facturada */
 		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
@@ -4248,11 +4182,8 @@ BEGIN
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(c.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
-			@IndicadorConsultoraDigital as IndicadorConsultoraDigital,
-			ISNULL(c.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
-			
-			
-			
+			@IndicadorConsultoraDigital as IndicadorConsultoraDigital
+				
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
 			select *
@@ -4384,11 +4315,8 @@ BEGIN
 			ISNULL(ctd.IvaTotal, 0) IvaTotal, /*HD-2192*/
 			ISNULL(cons.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
-			@IndicadorConsultoraDigital as IndicadorConsultoraDigital,
-			ISNULL(cons.MontoMaximoDesviacion, 0) MontoMaximoDesviacion
-			
-			
-			
+			@IndicadorConsultoraDigital as IndicadorConsultoraDigital
+				
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
 		LEFT JOIN [dbo].[UsuarioRol] ur (nolock) ON u.CodigoUsuario = ur.CodigoUsuario
