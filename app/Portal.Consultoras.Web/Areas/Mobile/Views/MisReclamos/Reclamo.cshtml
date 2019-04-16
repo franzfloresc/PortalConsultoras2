@@ -66,7 +66,7 @@
                 <img src="@Url.Content("~/Content/Images/icono_notificacion_negativa.svg")" alt="No tiene ningún cambio y devolución" />
             </div>
             <p class="tipografia_lato_bold mensaje_sin_solicitudes_registradas">
-                No tienes ningún<br/>cambio y devolución
+                No tienes ningún<br />cambio y devolución
             </p>
         </div>
     </div>
@@ -178,7 +178,7 @@
                 <input type="hidden" id="hdCdrWebDatos_Ssic" />
                 <input type="hidden" id="hdCuvPrecio2" />
                 <input type="hidden" id="hdCuvCodigo" />
-            <input type="hidden" id="hdDescripcionCuv" />
+                <input type="hidden" id="hdDescripcionCuv" />
             </div>
             <div class="pregunta_inconveniente_producto tipografia_lato tipografia_lato_bold Registro2" style="display:none;">
                 ¿Cuál fue el inconveniente?
@@ -201,108 +201,71 @@
             <div class="listado_soluciones_cdr tipografia_lato Registro3" id="divlistado_soluciones_cdr" style="display:none;">
             </div>
 
-        <div id="infoOpcionesDeCambio" style="display:none;">
-            <div id="OpcionCambioPorOtroProducto" style="display:none;">
-                <div class="descripcion_eleccion_cdr tipografia_lato tipografia_lato_regular" data-tipo-confirma="cambio">
-                    <span>
-                        <input type="hidden" id="hdMontoMinimoReclamo" />
-                        Puedes cambiarlo por otro producto(s) cuyo monto sea mayor o igual al que reclamas
-                        (<span id="spnSimboloMonedaReclamo">S/.</span><span id="spnMontoMinimoReclamoFormato">15</span>)
-                    </span>
-                    <span>Búscalo en tus catálogos de Campaña <span id="spnNumeroCampaniaReclamo">15</span>:</span>
-                    <div data-detalle-confirma=""></div>
-                </div>
-
-                <div class="formulario_inscripcion_cdr">
-                    <input id="cuvmobile2" class="tipografia_lato tipografia_lato_regular ValidaNumeral ValidaPasteNumeral" type="text" value="" placeholder="Código del producto" />
-                    <input type="hidden" id="hdImporteTotal2" />
-                    <div id="DescripcionCuv2" class="producto_cdr" style="font-size:13px; display:none;">
-                        <span id="txtCuv2" class="codigo_producto_cdr tipografia_lato_bold">00411</span>
-                        - <span id="txtDescripcionCuv2" class="nom_producto_cdr tipografia_lato_bold">Berrylicious shampoo rojo 375ml</span><br />
-                        <span id="spnSimboloMonedaCuv2"></span> <span id="txtPrecioCuv2">0.00</span>
-                        <a id="aCambiarProducto2" class="enlace_cambiar_producto tipografia_lato_regular" title="Cambiar producto">MODIFICAR PRODUCTO</a>
+            <div id="infoOpcionesDeCambio" style="display:none;">
+                <div id="OpcionCambioPorOtroProducto" style="display:none;">
+                    <div class="descripcion_eleccion_cdr tipografia_lato tipografia_lato_regular" data-tipo-confirma="cambio">
+                        <span>
+                            <input type="hidden" id="hdMontoMinimoReclamo" />
+                            Puedes cambiarlo por otro producto(s) cuyo monto sea mayor o igual al que reclamas
+                            (<span id="spnSimboloMonedaReclamo">S/.</span><span id="spnMontoMinimoReclamoFormato">15</span>)
+                        </span>
+                        <span>Búscalo en tus catálogos de Campaña <span id="spnNumeroCampaniaReclamo">15</span>:</span>
+                        <div data-detalle-confirma=""></div>
                     </div>
-                    <div class="contenedor_cantidadProductos contenedor_campo_cantidad_productos">
-                        <span class="texto_cantidad_productos tipografia_lato tipografia_lato_regular">Cantidad:</span>
-                        <div id="divCantidad2">
-                            <a class="cantidad_menos_home modificarPrecioMenos"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                            <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad2" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
-                                   data-input="cantidad" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
-                            <a class="cantidad_mas_home modificarPrecioMas"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
-                            <div class="clear"></div>
+
+                    <div class="formulario_inscripcion_cdr">
+                        <input id="cuvmobile2" class="tipografia_lato tipografia_lato_regular ValidaNumeral ValidaPasteNumeral" type="text" value="" placeholder="Código del producto" />
+                        <input type="hidden" id="hdImporteTotal2" />
+                        <div id="DescripcionCuv2" class="producto_cdr" style="font-size:13px; display:none;">
+                            <span id="txtCuv2" class="codigo_producto_cdr tipografia_lato_bold">00411</span>
+                            - <span id="txtDescripcionCuv2" class="nom_producto_cdr tipografia_lato_bold">Berrylicious shampoo rojo 375ml</span><br />
+                            <span id="spnSimboloMonedaCuv2"></span> <span id="txtPrecioCuv2">0.00</span>
+                            <a id="aCambiarProducto2" class="enlace_cambiar_producto tipografia_lato_regular" title="Cambiar producto">MODIFICAR PRODUCTO</a>
+                        </div>
+                        <div class="contenedor_cantidadProductos contenedor_campo_cantidad_productos">
+                            <span class="texto_cantidad_productos tipografia_lato tipografia_lato_regular">Cantidad:</span>
+                            <div id="divCantidad2">
+                                <a class="cantidad_menos_home modificarPrecioMenos"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                                <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad2" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
+                                       data-input="cantidad" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
+                                <a class="cantidad_mas_home modificarPrecioMas"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                                <div class="clear"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div id="OpcionCambioMismoProducto" style="display:none;">
-                <div>
-                    <p>Vamos a reenviarte el mismo producto:</p>
-                    <p>
-                        <span id="spnDescProdDevolucionC">Producto OpcionCambioMismoProducto</span>
-                        <span id="spnCantidadC">x Unidades</span>
-                    </p>
-                </div>
-            </div>
-            <div id="OpcionEnvioDelProducto" style="display:none;">
-                <div>
-                    <p>Vamos a enviarte el siguiente producto:</p>
-                    <p>
-                        <span id="spnDescripcionProductoOpcionF">Producto OpcionEnvioDelProducto</span>
-                        <span id="spnCantidadF">x Unidades</span>
-                    </p>
-                </div>
-            </div>
-            <div id="OpcionDevolucionDinero" style="display:none;">
-                <div>
-                    <p>Vamos a descontar el siguiente producto en tu próximo pedido:</p>
-                    <p>
-                        <span id="spnDescripcionProductoOpcionG">Producto X OpcionDevolucionDinero</span>
-                        <span id="spnCantidadG">x Unidades</span>
-                    </p>
-                </div>
-            </div>
-            <div id="OpcionDevolucion" style="display:none;">
-                <div id="divDevolucionSetsOrPack">
-                </div>
-            </div>
-        </div>
-
-        @*<div class="eleccion_solucion_cdr tipografia_lato Registro4" id="Cambio2" style="display:none;">
-                <div class="titulo_eleccion_cdr tipografia_lato_bold">
-                    <span>ELEGISTE:</span>
-                    <span>CAMBIARLO POR OTRO PRODUCTO</span>
-                </div>
-                <div class="descripcion_eleccion_cdr tipografia_lato tipografia_lato_regular" data-tipo-confirma="cambio">
-                    <span>
-                        <input type="hidden" id="hdMontoMinimoReclamo" />
-                        Puedes cambiarlo por otro producto(s) cuyo monto sea mayor o igual al que reclamas
-                        (<span id="spnSimboloMonedaReclamo">S/.</span><span id="spnMontoMinimoReclamoFormato">15</span>)
-                    </span>
-                    <span>Búscalo en tus catálogos de Campaña <span id="spnNumeroCampaniaReclamo">15</span>:</span>
-                    <div data-detalle-confirma=""></div>
-                </div>
-
-                <div class="formulario_inscripcion_cdr">
-                    <input id="cuvmobile2" class="tipografia_lato tipografia_lato_regular ValidaNumeral ValidaPasteNumeral" type="text" value="" placeholder="Código del producto" />
-                    <input type="hidden" id="hdImporteTotal2" />
-                    <div id="DescripcionCuv2" class="producto_cdr" style="font-size:13px; display:none;">
-                        <span id="txtCuv2" class="codigo_producto_cdr tipografia_lato_bold">00411</span>
-                        - <span id="txtDescripcionCuv2" class="nom_producto_cdr tipografia_lato_bold">Berrylicious shampoo rojo 375ml</span><br />
-                        <span id="spnSimboloMonedaCuv2"></span> <span id="txtPrecioCuv2">0.00</span>
-                        <a id="aCambiarProducto2" class="enlace_cambiar_producto tipografia_lato_regular" title="Cambiar producto">MODIFICAR PRODUCTO</a>
-                    </div>
-                    <div class="contenedor_cantidadProductos contenedor_campo_cantidad_productos">
-                        <span class="texto_cantidad_productos tipografia_lato tipografia_lato_regular">Cantidad:</span>
-                        <div id="divCantidad2">
-                            <a class="cantidad_menos_home modificarPrecioMenos"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                            <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad2" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
-                                   data-input="cantidad" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
-                            <a class="cantidad_mas_home modificarPrecioMas"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
-                            <div class="clear"></div>
-                        </div>
+                <div id="OpcionCambioMismoProducto" style="display:none;">
+                    <div>
+                        <p>Vamos a reenviarte el mismo producto:</p>
+                        <p>
+                            <span id="spnDescProdDevolucionC">Producto OpcionCambioMismoProducto</span>
+                            <span id="spnCantidadC">x Unidades</span>
+                        </p>
                     </div>
                 </div>
-        </div>*@
+                <div id="OpcionEnvioDelProducto" style="display:none;">
+                    <div>
+                        <p>Vamos a enviarte el siguiente producto:</p>
+                        <p>
+                            <span id="spnDescripcionProductoOpcionF">Producto OpcionEnvioDelProducto</span>
+                            <span id="spnCantidadF">x Unidades</span>
+                        </p>
+                    </div>
+                </div>
+                <div id="OpcionDevolucionDinero" style="display:none;">
+                    <div>
+                        <p>Vamos a descontar el siguiente producto en tu próximo pedido:</p>
+                        <p>
+                            <span id="spnDescripcionProductoOpcionG">Producto X OpcionDevolucionDinero</span>
+                            <span id="spnCantidadG">x Unidades</span>
+                        </p>
+                    </div>
+                </div>
+                <div id="OpcionDevolucion" style="display:none;">
+                    <div id="divDevolucionSetsOrPack">
+                    </div>
+                </div>
+            </div>
             <div class="eleccion_solucion_cdr tipografia_lato Registro4" id="eleccion" style="display:none;" data-tipo-confirma="canje">
                 <div>
                     <span>Te proponemos la siguiente solución</span>
@@ -420,18 +383,18 @@
                 </label>
             </div>
             @*<div class="tooltip_btn_reportar_inconveniente tipografia_lato AceptarSolucion" style="display:none;">
-                <span class="icono_alerta_cdr">
-                    <img src="@Url.Content("~/Content/Images/Esika/icono_advertencia_notificacion.svg")" alt="reportar inconveniente">
-                </span>
-                <span class="tipografia_lato tipografia_lato_regular texto_tooltip_reportar_inconveniente">
-                    Si tuviste otro inconveniente en la misma campaña repórtalo ahora.
-                </span>
-            </div>
-            <div class="AceptarSolucion listado_soluciones_cdr tipografia_lato" style="display:none;margin-top:15px; margin-bottom:85px;">
-                <a class="btn_agrega_otro_reclamo solucion_cdr tipografia_lato_bold" id="IrSolicitudInicial" title="Agrega otro producto a la solicitud">
-                    <span>AGREGA OTRO PRODUCTO A LA SOLICITUD</span>
-                </a>
-            </div>*@
+                    <span class="icono_alerta_cdr">
+                        <img src="@Url.Content("~/Content/Images/Esika/icono_advertencia_notificacion.svg")" alt="reportar inconveniente">
+                    </span>
+                    <span class="tipografia_lato tipografia_lato_regular texto_tooltip_reportar_inconveniente">
+                        Si tuviste otro inconveniente en la misma campaña repórtalo ahora.
+                    </span>
+                </div>
+                <div class="AceptarSolucion listado_soluciones_cdr tipografia_lato" style="display:none;margin-top:15px; margin-bottom:85px;">
+                    <a class="btn_agrega_otro_reclamo solucion_cdr tipografia_lato_bold" id="IrSolicitudInicial" title="Agrega otro producto a la solicitud">
+                        <span>AGREGA OTRO PRODUCTO A LA SOLICITUD</span>
+                    </a>
+                </div>*@
             <div class="wrapper_resumen_mobile tipografia_lato bloqueCDRRegistro" id="SolicitudEnviada" style="display:none;">
                 <div class="content_mensaje_solicitud_enviada">
                     <div class="icono_solicitud_enviada">
@@ -505,11 +468,11 @@
                 </div>
             </div>
 
-            <div class="listado_soluciones_cdr tipografia_lato">
+            @*<div class="listado_soluciones_cdr tipografia_lato">
                 <a class="btn_agrega_otro_reclamo solucion_cdr tipografia_lato_bold" id="IrSolicitudInicial" title="Agrega otro producto a la solicitud" style="display:none;">
                     <span>AGREGA OTRO PRODUCTO A LA SOLICITUD</span>
                 </a>
-            </div>
+            </div>*@
 
         </div>
     </div>
