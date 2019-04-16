@@ -29,7 +29,7 @@ namespace Portal.Consultoras.BizLogic.Producto
 
             try
             {
-                var listaDescripciones = _tablaLogicaDatosBusinessLogic.GetListCache(paisID, Constantes.TablaLogica.NuevaDescripcionProductos);
+                var listaDescripciones = _tablaLogicaDatosBusinessLogic.GetListCache(paisID, ConsTablaLogica.DescripcionProducto.TablaLogicaId);
 
                 foreach (var item in listaDescripciones)
                 {
@@ -39,13 +39,9 @@ namespace Portal.Consultoras.BizLogic.Producto
                 lst.Update(item =>
                 {
                     item.DescripcionEstrategia = Util.obtenerNuevaDescripcionProducto(listaDescripcionesDic, suscripcionActiva, item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaID, 0, true);
-                    item.OrigenPedidoWeb = Util.obtenerCodigoOrigenWeb(item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaID, true, false, false, false, suscripcionActiva);
-
-                    if (isApp)
-                    {
-                        item.OrigenPedidoWeb = Util.ProcesarOrigenPedidoApp(item.OrigenPedidoWeb);
-                        item.OrigenPedidoWebFicha = Util.ProcesarOrigenPedidoAppFicha(item.OrigenPedidoWeb);
-                    }
+                    item.OrigenPedidoWeb = Util.obtenerCodigoOrigenWebApp(item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaID, true, false, false, item.MaterialGanancia);
+                    item.OrigenPedidoWebLanding = Util.obtenerCodigoOrigenWebApp(item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaID, false, true, false, item.MaterialGanancia);
+                    item.OrigenPedidoWebFicha = Util.obtenerCodigoOrigenWebApp(item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaID, false, false, true, item.MaterialGanancia);
                 });
             }
             catch (Exception ex)
