@@ -55,13 +55,13 @@
                                 </li>
                                 {{else}}
                                 <li id="div_ficha_tab1">
-                                    <a class="tab-link active">{{seccion.Titulo}}</a>
+                                    <a class="active">{{seccion.Titulo}}</a>
                                     <ul class="tabs_container" style="display:block;">
                                         <div>
                                             <div id="carouselVideo">
                                                 {{#each seccion.Detalles as |detalle index|}}
                                                 <div style="">
-                                                    <div>
+                                                    <div class="video_item">
                                                         <div id="ytFichax"
                                                              data-youtube-key="{{detalle.Key}}"
                                                              data-youtube="{
@@ -74,8 +74,7 @@
                                                                  loop:1,
                                                                  videoId: '{{detalle.Key}}',
                                                                  playerVars:{autoplay:0,rel:0}}"
-                                                             data-extra="{'descripcionResumen':'{{detalle.Titulo}}'}"
-                                                             class="yt-video">
+                                                             data-extra="{'descripcionResumen':'{{detalle.Titulo}}'}">
                                                         </div>
                                                         <h3 class="video_title">{{detalle.Titulo}}</h3>
                                                     </div>

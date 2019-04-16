@@ -78,7 +78,10 @@ namespace Portal.Consultoras.Web.Providers
                 listaEstrategiaComponente = estrategia.Hermanos;
 
                 //validación 'tiene detalle de sección?'
-                listaEstrategiaComponente.ForEach(c => { (c.Secciones ?? new List<EstrategiaComponenteSeccionModel>()).ForEach(x => { c.TieneDetalleSeccion = (x.Detalles ?? new List<EstrategiaComponenteSeccionDetalleModel>()).Any(); }); });
+                listaEstrategiaComponente.ForEach(c =>
+                {
+                    c.TieneDetalleSeccion = (c.Secciones ?? new List<EstrategiaComponenteSeccionModel>()).Any() && c.Cabecera != null;
+                });
 
                 mensaje += "ObtenerModeloOfertaDesdeApi = " + listaEstrategiaComponente.Count;
             }
@@ -283,21 +286,34 @@ namespace Portal.Consultoras.Web.Providers
                 default:
                     var listaComponentes = new List<EstrategiaComponenteModel>();
                     EstrategiaComponenteModel hermano;
+
+                    var grupos = new List<EstrategiaComponenteModel>();
                     foreach (var item in listaEstrategiaComponenteProductos)
+                    {
+                        hermano = (EstrategiaComponenteModel)item.Clone();
+                        if (!grupos.Any(g => g.Grupo == hermano.Grupo))
+                        {
+                            grupos.Add(hermano);
+                        }
+                    }
+
+                    foreach (var item in grupos)
                     {
                         hermano = (EstrategiaComponenteModel)item.Clone();
                         hermano.Hermanos = new List<EstrategiaComponenteModel>();
                         if (hermano.Digitable == 1)
                         {
-                            var existe = false;
-                            foreach (var itemR in listaComponentes)
-                            {
-                                existe = itemR.Hermanos.Any(h => h.Cuv == hermano.Cuv || h.Grupo == hermano.Grupo);
-                                if (existe) break;
-                            }
-                            if (existe) continue;
+                            //var existe = false;
+                            //foreach (var itemR in listaComponentes)
+                            //{
+                            //    existe = itemR.Hermanos.Any(h => h.Cuv == hermano.Cuv || h.Grupo == hermano.Grupo);
+                            //    if (existe) break;
+                            //}
+                            //if (existe) continue;
 
-                            hermano.Hermanos = listaEstrategiaComponenteProductos.Where(p => p.Grupo == hermano.Grupo && p.NombreBulk != "").OrderBy(p => p.Orden).ToList();
+                            hermano.Hermanos = listaEstrategiaComponenteProductos
+                                .Where(p => p.Grupo == hermano.Grupo && p.NombreBulk != "" && p.Digitable == 1)
+                                .OrderBy(p => p.Orden).ToList();
                         }
 
                         if (hermano.Hermanos.Any())
