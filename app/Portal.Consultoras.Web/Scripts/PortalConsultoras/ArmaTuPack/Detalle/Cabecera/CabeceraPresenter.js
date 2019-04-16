@@ -20,6 +20,7 @@
             value.componentes = value.componentes || [];
             value.subTituloCabecera = value.subTituloCabecera || "";
             value.eligeComponentes = "ELIGE :";
+            value.colorTexto = 'color: ' + value.colorTexto + ';';
 
             $.each(value.componentes, function (idx, grupo) {
                 grupo.FactorCuadre = grupo.FactorCuadre || 0;

@@ -51,6 +51,7 @@
                 }
                 var dataClone = jQuery.extend(true, {}, data);
                 dataClone.subTituloCabecera = estrategia.SubTitulo || "";
+                dataClone.colorTexto = estrategia.ColorTexto;
 
                 $.each(data.componentes, function (idx, grupo) {
                     if (typeof grupo.Hermanos === "undefined" || grupo.Hermanos === null || 
