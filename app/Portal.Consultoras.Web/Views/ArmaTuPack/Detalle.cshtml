@@ -5,7 +5,22 @@
 @{
     Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
 
+    List<string> lStylePanel = new List<string>();
     var OrigenPedidoWeb = Model.IsMobile ? Constantes.OrigenPedidoWeb.MobileContenedorArmaTuPack : Constantes.OrigenPedidoWeb.DesktopContenedorArmaTuPack;
+
+    #region Diseño de panel
+    if (!String.IsNullOrEmpty(Model.ImagenFondo) && Model.ImagenFondo.Trim().Length > 0)
+    {
+        lStylePanel.Add("background: url(" + Model.ImagenFondo + ") center center no-repeat;");
+        lStylePanel.Add("background-position: center !important;");
+        lStylePanel.Add("background-size: cover;");
+        lStylePanel.Add("vertical-align: middle;");
+    }
+    else if (!String.IsNullOrEmpty(Model.ColorFondo) && Model.ColorFondo.Replace("#", "").Trim().Length > 0)
+    {
+        lStylePanel.Add("background: " + Model.ColorFondo + ";");
+    }
+    #endregion
 }
 
 
@@ -14,7 +29,7 @@
 }
 
 
-<div id="cabecera" class="banner_armaTuPack" style="display:none;">
+<div id="cabecera" class="banner_armaTuPack" style="@Html.Raw(String.Join("", lStylePanel))">
 </div>
 
 <div class="Select_ArmaTuPack" data-OrigenPedidoWeb="@OrigenPedidoWeb" data-item="">
