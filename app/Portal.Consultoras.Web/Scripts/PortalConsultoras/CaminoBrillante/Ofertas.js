@@ -92,6 +92,8 @@ function AgregarProducto(data, cantidad) {
             //e.preventDefault();
             AbrirSplash();
 
+    alert("origenPedidoWeb: " + origenPedidoWeb);
+
             //var cuvCapturado = this.parentElement.parentElement.parentElement.parentElement.children[0].value;
             //var cantidadCapturado = this.parentElement.parentElement.children[0].children[0].children[1].value;
             var params = {
@@ -100,9 +102,9 @@ function AgregarProducto(data, cantidad) {
                 Cantidad: cantidad,
                 TipoEstrategiaID: 0,
                 EstrategiaID: "0",
-                OrigenPedidoWeb: data.OrigenPedidoWeb,
+                OrigenPedidoWeb: origenPedidoWeb,
                 TipoEstrategiaImagen: "",
-                FlagNueva: "",
+                //FlagNueva: "",
                 EsEditable: false,
                 SetId: null,
                 ClienteID: 0
