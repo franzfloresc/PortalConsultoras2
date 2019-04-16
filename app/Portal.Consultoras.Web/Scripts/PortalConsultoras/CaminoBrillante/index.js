@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+    Carusel();
     var nivelactual = $("#hfNivelActual").val();
     for (var i = 1; i <= nivelactual; i++)
         $(".pt" + i).addClass("activo");
@@ -10,14 +11,54 @@
     });
 });
 
+function Carusel() {
+    var owl = $('.owl-crec');
+    owl.owlCarousel({
+        stagePadding: 35,
+        margin: 20,
+        nav: true,
+        loop: false,
+        responsive: {
+            0: {
+                items: 1
+            },
+            600: {
+                items: 2
+            },
+            1000: {
+                items: 2
+            }
+        }
+    })
+
+    var mont = $('.owl-mont');
+    mont.owlCarousel({
+        stagePadding: 30,
+        margin: 10,
+        nav: true,
+        loop: false,
+        responsive: {
+            0: {
+                items: 1
+            },
+            410: {
+                items: 2
+            },
+            1500: {
+                items: 1
+            }
+        }
+    })
+}
+
 function ModalBeneficios(index) {
     $("#m_montoMinimo").empty();
     $("#m_montoFaltante").empty();
     $("#ListaBeneficios").empty();
     $("#m_titulo").text("");
     $("#m_imagen").attr("src", "");
-  
-    
+
+
     var params = { nivel: index };
 
 
@@ -36,16 +77,16 @@ function ModalBeneficios(index) {
             $("#m_titulo").text(data.Niveles[0].DescripcionNivel);
 
             if (data.Niveles[0].MontoMinimo >= data.MontoAcumuladoPedido) {
-                MontoFaltante  = parseInt(data.Niveles[0].MontoMinimo - data.MontoAcumuladoPedido)
+                MontoFaltante = parseInt(data.Niveles[0].MontoMinimo - data.MontoAcumuladoPedido)
             }
 
-            if ( index == nivelSiguiente ) {
+            if (index == nivelSiguiente) {
                 $("#m_montoMinimo").append("<b>Lo Logras con:</b>" + "<span style='float: right'>" + data.Moneda + " " + parseInt(data.Niveles[0].MontoMinimo).toLocaleString() + "</span>");
                 $("#m_montoFaltante").append("<b>Te Falta:</b>" + "<span style='float: right'>" + data.Moneda + " " + MontoFaltante.toLocaleString() + "</span>");
             } else {
                 $("#m_montoMinimo").append("<b>Lo Logras con:</b>" + "<span style='float: right'>" + data.Moneda + " " + parseInt(data.Niveles[0].MontoMinimo).toLocaleString() + "</span> ");
             }
-            
+
             $("#m_imagen").attr("src", data.Niveles[0].UrlImagenNivel.replace("_I", "_A"));
             var Html = "";
             for (var i = 0; i <= data.Niveles[0].Beneficios.length - 1; i++) {
@@ -68,13 +109,13 @@ function ModalBeneficios(index) {
     });
 }
 
-function TagClickSeleccionNivel(nivelConsultora){
-    dataLayer.push ({
-            'event': 'virtualEvent',
-            'category': 'Nivel y beneficios',
-            'action': 'Seleccionar nivel',
-            'label': 'Nivel: ' + nivelConsultora
-        });
+function TagClickSeleccionNivel(nivelConsultora) {
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Nivel y beneficios',
+        'action': 'Seleccionar nivel',
+        'label': 'Nivel: ' + nivelConsultora
+    });
 }
 
 function TagMostrarPopupNivel(nivelConsultora) {
