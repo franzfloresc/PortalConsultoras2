@@ -198,7 +198,8 @@ function CambiarOferta() {
 
 function TagImpresionProductos(pen, nombrelista, nombreProducto, idProducto, precioProducto, marcaProducto, categoriaProducto, varianteProducto, posicionProducto) {
     dataLayer.push({
-        'event': 'productImpression', 'ecommerce': {
+        'event': 'productImpression',
+        'ecommerce': {
             'currencyCode': pen,
             'impressions': {
                 'actionField': { 'list': nombrelista },
