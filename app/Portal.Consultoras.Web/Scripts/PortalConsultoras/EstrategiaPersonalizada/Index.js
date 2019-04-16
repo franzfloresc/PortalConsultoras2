@@ -332,6 +332,7 @@ function SeccionMostrarProductos(data) {
         }
     }
     else if (data.Seccion.Codigo === CONS_CODIGO_SECCION.ATP) {
+        
         if (data.lista.length > 0) {
             var btnRedirect = htmlSeccion.find('button.atp_button'),
                 pSubtitulo = htmlSeccion.find('p[data-subtitulo]');
