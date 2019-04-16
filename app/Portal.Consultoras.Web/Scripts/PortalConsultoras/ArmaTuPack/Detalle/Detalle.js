@@ -8,7 +8,6 @@
 /// <reference path="cabecera/cabecerapresenter.js" />
 
 /// <reference path="grupos/gruposdesktopview.js" />
-/// <reference path="grupos/gruposmobileview.js" />
 /// <reference path="grupos/grupospresenter.js" />
 
 /// <reference path="seleccionados/seleccionadosview.js" />

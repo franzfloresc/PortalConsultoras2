@@ -48,7 +48,6 @@ module.exports = function (config) {
             'Scripts/PortalConsultoras/ArmaTuPack/Detalle/Cabecera/CabeceraPresenter.js',
             'Scripts/PortalConsultoras/ArmaTuPack/Detalle/Cabecera/CabeceraView.js',
             'Scripts/PortalConsultoras/ArmaTuPack/Detalle/Grupos/GruposPresenter.js',
-            'Scripts/PortalConsultoras/ArmaTuPack/Detalle/Grupos/GruposMobileView.js',
             'Scripts/PortalConsultoras/ArmaTuPack/Detalle/Grupos/GruposDesktopView.js',
             'Scripts/PortalConsultoras/ArmaTuPack/Detalle/Seleccionados/SeleccionadosPresenter.js',
             'Scripts/PortalConsultoras/ArmaTuPack/Detalle/Seleccionados/SeleccionadosView.js',
