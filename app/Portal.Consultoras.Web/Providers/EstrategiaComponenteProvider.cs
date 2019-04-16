@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.DetalleEstrategia;
@@ -67,9 +68,8 @@ namespace Portal.Consultoras.Web.Providers
 
             var userData = SessionManager.GetUserData();
             List<EstrategiaComponenteModel> listaEstrategiaComponente;
-            List<EstrategiaComponenteSeccionModel> listEstrategiaComponenteSeccion;
-            if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, codigoTipoEstrategia)
-                && codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.ArmaTuPack)
+
+            if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, codigoTipoEstrategia))
             {
                 mensaje += "SiMongo|";
                 estrategiaModelo.CodigoEstrategia = Util.GetTipoPersonalizacionByCodigoEstrategia(codigoTipoEstrategia);
@@ -77,7 +77,13 @@ namespace Portal.Consultoras.Web.Providers
 
                 listaEstrategiaComponente = estrategia.Hermanos;
 
-                mensaje += "ObtenerModeloOfertaDesdeApi = " + listaEstrategiaComponente.Count + "|";
+                //validación 'tiene detalle de sección?'
+                listaEstrategiaComponente.ForEach(c =>
+                {
+                    c.TieneDetalleSeccion = (c.Secciones ?? new List<EstrategiaComponenteSeccionModel>()).Any() && c.Cabecera != null;
+                });
+
+                mensaje += "ObtenerModeloOfertaDesdeApi = " + listaEstrategiaComponente.Count;
             }
             else
             {
@@ -207,7 +213,6 @@ namespace Portal.Consultoras.Web.Providers
                 x.ImagenProducto = x.ImagenProducto ?? string.Empty;
                 x.ImagenBulk = x.ImagenBulk ?? string.Empty;
                 if (string.IsNullOrWhiteSpace(x.ImagenProducto) && string.IsNullOrWhiteSpace(x.ImagenBulk)) return;
-                var campaniaId = estrategiaModelo.CampaniaID;
                 var codigoMarca = string.Empty;
                 if (x.IdMarca == Constantes.Marca.LBel) codigoMarca = "L";
                 if (x.IdMarca == Constantes.Marca.Esika) codigoMarca = "E";
@@ -281,21 +286,34 @@ namespace Portal.Consultoras.Web.Providers
                 default:
                     var listaComponentes = new List<EstrategiaComponenteModel>();
                     EstrategiaComponenteModel hermano;
+
+                    var grupos = new List<EstrategiaComponenteModel>();
                     foreach (var item in listaEstrategiaComponenteProductos)
+                    {
+                        hermano = (EstrategiaComponenteModel)item.Clone();
+                        if (!grupos.Any(g => g.Grupo == hermano.Grupo))
+                        {
+                            grupos.Add(hermano);
+                        }
+                    }
+
+                    foreach (var item in grupos)
                     {
                         hermano = (EstrategiaComponenteModel)item.Clone();
                         hermano.Hermanos = new List<EstrategiaComponenteModel>();
                         if (hermano.Digitable == 1)
                         {
-                            var existe = false;
-                            foreach (var itemR in listaComponentes)
-                            {
-                                existe = itemR.Hermanos.Any(h => h.Cuv == hermano.Cuv || h.Grupo == hermano.Grupo);
-                                if (existe) break;
-                            }
-                            if (existe) continue;
+                            //var existe = false;
+                            //foreach (var itemR in listaComponentes)
+                            //{
+                            //    existe = itemR.Hermanos.Any(h => h.Cuv == hermano.Cuv || h.Grupo == hermano.Grupo);
+                            //    if (existe) break;
+                            //}
+                            //if (existe) continue;
 
-                            hermano.Hermanos = listaEstrategiaComponenteProductos.Where(p => p.Grupo == hermano.Grupo && p.NombreBulk != "").OrderBy(p => p.Orden).ToList();
+                            hermano.Hermanos = listaEstrategiaComponenteProductos
+                                .Where(p => p.Grupo == hermano.Grupo && p.NombreBulk != "" && p.Digitable == 1)
+                                .OrderBy(p => p.Orden).ToList();
                         }
 
                         if (hermano.Hermanos.Any())

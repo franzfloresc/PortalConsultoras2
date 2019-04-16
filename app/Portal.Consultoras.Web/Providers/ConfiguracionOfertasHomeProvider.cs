@@ -244,7 +244,7 @@ namespace Portal.Consultoras.Web.Providers
                             seccion.UrlLandig = "ArmaTuPack/Detalle";
                             seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.MobileContenedorArmaTuPack : Constantes.OrigenPedidoWeb.DesktopContenedorArmaTuPack;
                             seccion.VerMas = false;
-                            seccion.CodigoUbigeoPortal = CodigoUbigeoPortal.GuionContenedorGuionArmaTuPack;
+                            seccion.CodigoUbigeoPortal = CodigoUbigeoPortal.GuionContenedorArmaTuPackGuion;
                             break;
                     }
 

@@ -1,5 +1,4 @@
-﻿
-var _toastHelper = ToastHelper();
+﻿var _toastHelper = ToastHelper();
 var _listPalanca = ["LAN", "RDR", "RD", "OPT"];
 var _palanca = {
     showroom: "SR",
@@ -22,7 +21,7 @@ jQuery(document).ready(function () {
     UpdateGrillaPalanca();
     IniDialogs();
     IniDialogOfertasHome();
-    
+
     $("#ddlTipoEstrategia").change(function () {
 
     });
@@ -68,14 +67,18 @@ jQuery(document).ready(function () {
 
     $("body").on("change", "#ddlConfiguracionIdOfertas", function () {
 
+
         OfertasHomeMostrarCampos();
+
 
         ConfigSeccionApp($(this).val());
 
         if ($(this).find("option:selected").attr("data-codigo") == ConstantesModule.CodigoPalanca.ATP) {
             if ($("#ConfiguracionOfertasHomeID").val() == 0) {
 
+
                 $("#tituloSeccionDesktop").html("Desktop/Mobile");
+
                 $("#DesktopTitulo").val("ARMA TU PACK");
                 $("#DesktopColorFondo").val("#fa1702");
                 $("#DesktopSubTitulo").val("Elige tus productos favoritos y llévatelos al #PrecioTotal");
@@ -92,7 +95,9 @@ jQuery(document).ready(function () {
                 $("#titTamanioImagenFondo").html("(Ancho: 1920 px x Alto: 300 px)");
             }
         } else {
+
             $("#tituloSeccionDesktop").html("Desktop");
+
         }
     });
 });
@@ -119,20 +124,18 @@ function ConfigSeccionApp(configuracionPaisID) {
                 return;
             }
 
-            if (result.data.AppOfertasHomeActivo == "1") {
-                if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") != ConstantesModule.CodigoPalanca.ATP)
-                    $("#divMantApp").show();
-            }
-            else { $("#divMantApp").hide(); }
+            if (result.data.AppOfertasHomeActivo === "1") $("#divMantApp").show();
+            else $("#divMantApp").hide();
 
-            if (result.data.AppOfertasHomeImgExtension != "") $("#nombre-fondo-app").attr("imageextension", result.data.AppOfertasHomeImgExtension);
-            if (result.data.AppOfertasHomeImgAncho != "") $("#nombre-fondo-app").attr("imagewidth", result.data.AppOfertasHomeImgAncho);
-            if (result.data.AppOfertasHomeImgAlto != "") $("#nombre-fondo-app").attr("imageheight", result.data.AppOfertasHomeImgAlto);
-            if (result.data.AppOfertasHomeMsjMedida != "") $("#nombre-fondo-app").attr("messageSize", result.data.AppOfertasHomeMsjMedida);
-            if (result.data.AppOfertasHomeMsjFormato != "") $("#nombre-fondo-app").attr("messageFormat", result.data.AppOfertasHomeMsjFormato);
+
+            if (result.data.AppOfertasHomeImgExtension !== "") $("#nombre-fondo-app").attr("imageextension", result.data.AppOfertasHomeImgExtension);
+            if (result.data.AppOfertasHomeImgAncho !== "") $("#nombre-fondo-app").attr("imagewidth", result.data.AppOfertasHomeImgAncho);
+            if (result.data.AppOfertasHomeImgAlto !== "") $("#nombre-fondo-app").attr("imageheight", result.data.AppOfertasHomeImgAlto);
+            if (result.data.AppOfertasHomeMsjMedida !== "") $("#nombre-fondo-app").attr("messageSize", result.data.AppOfertasHomeMsjMedida);
+            if (result.data.AppOfertasHomeMsjFormato !== "") $("#nombre-fondo-app").attr("messageFormat", result.data.AppOfertasHomeMsjFormato);
 
             var palanca = $("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo");
-            if (palanca == _palanca.pn || palanca == _palanca.dp) {
+            if (palanca === _palanca.pn || palanca === _palanca.dp) {
                 $("#AdministrarOfertasHomeAppModel_AppColorFondo").parent().parent().hide();
                 $("#AdministrarOfertasHomeAppModel_AppColorTexto").parent().parent().hide();
                 $("#AdministrarOfertasHomeAppModel_AppCantidadProductos").parent().parent().hide();
@@ -144,10 +147,27 @@ function ConfigSeccionApp(configuracionPaisID) {
             else {
                 $("#AdministrarOfertasHomeAppModel_AppColorFondo").parent().parent().show();
                 $("#AdministrarOfertasHomeAppModel_AppColorTexto").parent().parent().show();
-                $("#AdministrarOfertasHomeAppModel_AppCantidadProductos").parent().parent().show();
 
-                if ($("#AdministrarOfertasHomeAppModel_AppColorFondo").val() === "") $("#AdministrarOfertasHomeAppModel_AppColorFondo").val("#000000");
-                if ($("#AdministrarOfertasHomeAppModel_AppColorTexto").val() === "") $("#AdministrarOfertasHomeAppModel_AppColorTexto").val("#ffffff");
+                if (palanca === ConstantesModule.CodigoPalanca.ATP) {
+                    $("#AdministrarOfertasHomeAppModel_AppSubTitulo").parent().parent().show();
+                    $("#AdministrarOfertasHomeAppModel_AppCantidadProductos").parent().parent().hide();
+                    $("#AdministrarOfertasHomeAppModel_AppCantidadProductos").val("");
+                }
+                else {
+                    $("#AdministrarOfertasHomeAppModel_AppSubTitulo").parent().parent().hide();
+                    $("#AdministrarOfertasHomeAppModel_AppSubTitulo").val("");
+
+                    $("#AdministrarOfertasHomeAppModel_AppCantidadProductos").parent().parent().show();
+                }
+
+                if ($("#AdministrarOfertasHomeAppModel_AppColorFondo").val() === "") {
+                    if (palanca === ConstantesModule.CodigoPalanca.ATP) $("#AdministrarOfertasHomeAppModel_AppColorFondo").val("#be9040");
+                    else $("#AdministrarOfertasHomeAppModel_AppColorFondo").val("#000000");
+                }
+                if ($("#AdministrarOfertasHomeAppModel_AppColorTexto").val() === "") {
+                    if (palanca === ConstantesModule.CodigoPalanca.ATP) $("#AdministrarOfertasHomeAppModel_AppColorTexto").val("#000000");
+                    else $("#AdministrarOfertasHomeAppModel_AppColorTexto").val("#ffffff");
+                }
             }
 
             $("#lblBannerApp").html("Banner&nbsp;Informativo&nbsp;(" + result.data.AppOfertasHomeImgExtension + "):");
@@ -223,10 +243,12 @@ function Modificar(idConfiguracionPais, event) {
 
             /*END Agana 159*/
 
+
         },
         error: function (request, status, error) { }
     });
 }
+
 
 function IniDialogs() {
     $("#DialogMantenimientoPalanca").dialog({
@@ -251,7 +273,7 @@ function IniDialogs() {
                         _toastHelper.error("El valor del orden tiene que ser numerico.");
                         return false;
                     }
-                    
+
                     var esATP = $.trim($("#Codigo").val()) === ConstantesModule.CodigoPalanca.ATP;
 
                     if (esATP) {
@@ -337,6 +359,7 @@ function UpdateGrillaPalanca() {
                 editable: true,
                 resizable: false,
                 hidden: true
+
             },
             {
                 name: "Orden",
@@ -381,7 +404,6 @@ function UpdateGrillaPalanca() {
 }
 
 function ShowActions(cellvalue, options, rowObject) {
-
     var des = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + rowObject[0] + "',event);\" >" + "<img src='" + rutaImagenEdit + "' alt='Editar' title='Editar' border='0' /></a>";
     if (rowObject[10] === "1") {
         des += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + rowObject[0] + "',event);\" >" + "<img src='" + rutaImagenDelete + "' alt='Deshabilitar' title='Deshabilitar' border='0' /></a>";
@@ -397,8 +419,8 @@ function ShowActionsOfertas(cellvalue, options, rowObject) {
     }
     return des;
 }
-function UploadFilePalanca(tag) {
 
+function UploadFilePalanca(tag) {
     var tipoFile = ["jpg", "png", "jpeg"];
     var tipoFileTag = $("#nombre-" + tag).attr("data-tipofile");
     if (tipoFileTag === "imggif") {
@@ -683,6 +705,7 @@ function IniDialogOfertasHome() {
                                 ConfiguracionOfertasHomeAppID: $("#AdministrarOfertasHomeAppModel_ConfiguracionOfertasHomeAppID").val(),
                                 AppActivo: $("#AdministrarOfertasHomeAppModel_AppActivo").is(":checked"),
                                 AppTitulo: $("#AdministrarOfertasHomeAppModel_AppTitulo").val(),
+                                AppSubTitulo: $("#AdministrarOfertasHomeAppModel_AppSubTitulo").val(),
                                 AppColorFondo: $("#AdministrarOfertasHomeAppModel_AppColorFondo").val(),
                                 AppColorTexto: $("#AdministrarOfertasHomeAppModel_AppColorTexto").val(),
                                 AppBannerInformativo: $("#nombre-fondo-app").val(),
@@ -739,12 +762,15 @@ function DialogOfertasHomeOpen(event, ui) {
             var newValue = "#" + hex;
             $(el).val(newValue);
             $(el).ColorPickerHide();
+
         },
         onBeforeShow: function () {
             $(this).ColorPickerSetColor(this.value);
+
         }
     }).bind("keyup", function () {
         $(this).ColorPickerSetColor(this.value);
+
     });
 
     var codigoConfiguracionPais = $("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo");
@@ -851,6 +877,7 @@ function UpdateGrillaOfertas() {
 
 function NuevoOfertaHome() {
     ModificarOfertas(0);
+
 }
 
 function ModificarOfertas(idOfertasHome) {
@@ -884,6 +911,7 @@ function ModificarOfertas(idOfertasHome) {
             if (esTrueMobileCantidad) {
                 $("#cbMobileCantidadTodos").prop("checked", true);
                 $("#MobileCantidadProductos").attr("disabled", "disabled");
+
             }
 
             OfertasHomeMostrarCampos();
@@ -891,7 +919,9 @@ function ModificarOfertas(idOfertasHome) {
 
         },
         error: function (request, status, error) { closeWaitingDialog(); _toastHelper.error("Error al cargar la ventana."); }
+
     });
+
 }
 
 function OfertasHomeMostrarCampos() {
@@ -921,7 +951,7 @@ function OfertasHomeMostrarCampos() {
     $("#divMantApp").show();
 
     $(".divHomeUsarImagenFondo").hide(); // caso odd
-    
+
     if (codigoConfiguracionPais == ConstantesModule.CodigoPalanca.ATP) {
         $("#divTituloMobile").hide();
         $("#divContenidoMobile").hide();
@@ -932,6 +962,7 @@ function OfertasHomeMostrarCampos() {
 
         $("#tituloSeccionDesktop").html("Desktop/Mobile");
         $("#titTamanioImagenFondo").html("(Ancho: 1920 px x Alto: 300 px)");
+
     }
     else {
         if (codigoConfiguracionPais == _palanca.odd) {
@@ -942,6 +973,7 @@ function OfertasHomeMostrarCampos() {
             $(".divHomeColorTexto").hide();
         }
 
+
         $(".divHomeBotonTexto1").hide();
         $(".divHomeBotonTexto2").hide();
         $(".divHomeBotonColor").hide();
@@ -949,6 +981,7 @@ function OfertasHomeMostrarCampos() {
 
         $("#tituloSeccionDesktop").html("Desktop");
         $("#titTamanioImagenFondo").html("(1920x500 pixeles)");
+
     }
     /*Fin Agana 186 */
 }

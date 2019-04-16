@@ -17,6 +17,8 @@ namespace Portal.Consultoras.Web
     {
         protected void Application_Start()
         {
+            MvcHandler.DisableMvcResponseHeader = true;
+
             AreaRegistration.RegisterAllAreas();
 
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
@@ -75,16 +77,13 @@ namespace Portal.Consultoras.Web
         {
             var exception = Server.GetLastError();
 
+            var userData = new UsuarioModel();
             if (HttpContext.Current != null && HttpContext.Current.Session != null)
             {
-                var userData = SessionManager.SessionManager.Instance.GetUserData();
+                userData = SessionManager.SessionManager.Instance.GetUserData() ?? new UsuarioModel();
+            }
 
-                LogManager.LogManager.LogErrorWebServicesBus(exception, userData.CodigoUsuario, userData.CodigoISO);
-            }
-            else
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(exception, "", "");
-            }
+            LogManager.LogManager.LogErrorWebServicesBus(exception, userData.CodigoUsuario ?? "", userData.CodigoISO ?? "");
         }
     }
 }

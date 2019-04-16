@@ -29,7 +29,7 @@ namespace Portal.Consultoras.Common
             public const string Otras = "09";
             public const string LandingBuscador = "10";
             public const string LandingGanadoras = "11";
-            public const string ArmaTuPackDetalle = "12"; //Manda cuando estemos dentro de armatupack
+            public const string ArmaTuPack = "12"; //Manda cuando estemos dentro de armatupack
         }
 
         public static class SeccionFuncional {
@@ -72,9 +72,16 @@ namespace Portal.Consultoras.Common
         /// <summary>
         /// Ubigeo Arma tu Pack para Banner 
         /// </summary>
-        public static string GuionContenedorGuionArmaTuPack
+        public static string GuionContenedorArmaTuPackGuion
         {
             get { return Guion + Pagina.Contenedor + SeccionFuncional.ArmaTuPack + Guion; }
+        }
+         /// <summary>
+         /// Ubigeo Arma tu Pack para Landing
+         /// </summary>
+        public static string GuionContenedorArmaTuPack
+        {
+            get { return Guion + Pagina.ArmaTuPack + Guion + Guion; }
         }
     }
 }

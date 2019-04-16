@@ -45,8 +45,7 @@
                     {{DescripcionCompleta}}
                 </div>
                 <!--INI AGANA 456 -->
-                {{#iff componente.MostrarVerDetalle '==' true}}
-
+                {{#iff MostrarFichaEnriquecida '==' true }}
                 {{#iff this.Hermanos.length '==' 1}}
                 {{#each this.Hermanos as |componente|}}
                 <div class="col-md-12 col-sm-12 col-xs-12 descripcion_item">
@@ -60,7 +59,6 @@
                 </div>
                 {{/each}}
                 {{/iff}}
-
                 {{/iff}}
                 <!--END AGANA 456 -->
             </div>
@@ -103,7 +101,7 @@
                         GANA
                         {{/iff}}
                         {{#iff CodigoVariante '==' '@Constantes.TipoEstrategiaSet.CompuestaVariable'}}
-                        GANA
+                        GANA HASTA
                         {{/iff}} {{SimboloMoneda}} {{GananciaString}}
                     </p>
                 </li>

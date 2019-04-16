@@ -2033,6 +2033,13 @@ a.subir_carousel, a.bajar_carousel {
         font-family: 'Lato';
         font-size: 13px;
     }
+
+        .popup_agregarCliente .btnCliente_agregar--vistaPedido {
+            margin-top: 0;
+            border-radius: 0;
+            line-height: normal;
+        }
+
 /* POPUP PRODUCTOS AGOTADOS */
 .contenedor_popup_productosAgotados {
     display: block;
@@ -17879,6 +17886,10 @@ label.checkpop.c_on {
     height: 40px;
 }
 
+.nombre_producto_sugerido {
+    height: 60px;
+}
+
 .boton_Agregalo_home {
     display: block;
     margin-top: 7px;
@@ -24954,6 +24965,7 @@ span.datoPedidoCliente {
     font-weight: normal;
     padding-left: 16px;
     padding-bottom: 40px;
+    margin-top:15px;
 }
 
     .revision_pedidosAceptados .texto_revisaPedidos {
@@ -25522,7 +25534,7 @@ a#cierreMotivoRechazo img {
     position: absolute;
     padding: 0 8px;
     background: #fff;
-    height: 80px;
+    height: auto;
     min-width: 200px;
     margin-top: -58px;
     z-index: 9;
@@ -25988,6 +26000,7 @@ div.motivoRechazo textarea {
     margin-left: 56px;
     padding-left: 5px;
     border-left: 1px solid #d4d4d4;
+    height: 100%;
 }
 
 #slide1_images .img_slide2Pedido {

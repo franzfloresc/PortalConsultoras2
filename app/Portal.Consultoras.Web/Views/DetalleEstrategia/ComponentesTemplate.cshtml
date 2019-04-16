@@ -81,7 +81,15 @@
         {{#ifVerificarMarcaLast componente.DescripcionMarca}}
         <div style="border-bottom: 1px solid #ccc; margin:15px 0px;"></div>
         {{/ifVerificarMarcaLast}}
-        <div class="content_producto_tono detalle_producto" data-opciones-seleccionadas="0" data-tono-digitable="{{componente.Digitable}}" style="border-bottom: {{../Linea}}; margin-bottom: 10px">
+        <div class="content_producto_tono detalle_producto" 
+             data-opciones-seleccionadas="0" 
+             data-tono-digitable="{{componente.Digitable}}" 
+             style="border-bottom: {{../Linea}}; margin-bottom: 10px"
+             data-componente-grupo="{{componente.Grupo}}">
+
+            <div style="display:none">
+                <div data-componente="{{{json this}}}"></div>
+            </div>
 
             <div style="display: none;">
                 <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{componente.MarcaID}}" />
@@ -103,8 +111,10 @@
                     </div>
                 </div>
             </div>
-            {{#iff componente.MostrarVerDetalle '==' true}}
-            <a id="btnVerDetalle" class="button_ver_detalle" onclick="javascript:componenteDetalleModule.VerDetalle({{{json this}}})">Ver detalle <img src="/Content/Images/General/Icons/arrow_down.svg"></a>    
+            {{#iff ../MostrarFichaEnriquecida '==' true }}
+            {{#iff componente.TieneDetalleSeccion '==' true}}
+            <a id="btnVerDetalle" class="button_ver_detalle" onclick="javascript:componenteDetalleModule.VerDetalle(event)">Ver detalle <img src="/Content/Images/General/Icons/arrow_down.svg"></a>
+            {{/iff}}
             {{/iff}}
 
             {{#iff componente.Digitable '==' '1'}}

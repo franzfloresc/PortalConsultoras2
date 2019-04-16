@@ -6,10 +6,8 @@
         <div class="row tabs">
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <ul id="mnuDetalleComponente" class="tabs ficha_tabs">
-
                     {{#each this.Secciones as |seccion|}}
-
-                    {{#iff seccion.EsVideos '==' false }}
+                    {{#iff seccion.Tipo '==' '@Constantes.TipoSeccion.Texto' }}
                     <li id="div_ficha_tab1">
                         <a class="tab-link">{{seccion.Titulo}}</a>
                         <ul class="tabs_container">
@@ -23,18 +21,18 @@
                     </li>
                     {{else}}
                     <li id="div_ficha_tab1">
-                        <a class="tab-link active">{{seccion.Titulo}}</a>
+                        <a class="active">{{seccion.Titulo}}</a>
                         <ul class="tabs_container" style="display:block;">
-                            <div style="@*width:95% !important*@">
+                            <div>
                                 <div id="carouselIndividualVideo">
                                     {{#each seccion.Detalles as |detalle index|}}
                                     <div style="">
-                                        <div>
+                                        <div class="video_item">
                                             <div id="ytFichax"
-                                                 @*class="video_item"*@
+                                                 data-youtube-key="{{detalle.Key}}"
                                                  data-youtube="{
                                                      height:'173',
-                                                     width:'100%',
+                                                     width:'300',
                                                      enablejsapi:1,
                                                      fs:0,
                                                      showinfo:0,
@@ -42,13 +40,12 @@
                                                      loop:1,
                                                      videoId: '{{detalle.Key}}',
                                                      playerVars:{autoplay:0,rel:0}}"
-                                                 data-extra="{'descripcionResumen':'{{detalle.Titulo}}'}"
-                                                 class="yt-video">
+                                                 data-extra="{'descripcionResumen':'{{detalle.Titulo}}'}">
                                             </div>
                                             <h3 class="video_title">{{detalle.Titulo}}</h3>
                                         </div>
                                     </div>
-                                    
+
                                     {{/each}}
                                 </div>
                             </div>

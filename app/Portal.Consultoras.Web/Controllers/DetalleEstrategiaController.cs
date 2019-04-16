@@ -123,73 +123,13 @@ namespace Portal.Consultoras.Web.Controllers
                 bool esMultimarca = false;
                 string mensaje = "";
                 var componentes = _estrategiaComponenteProvider.GetListaComponentes(estrategiaModelo, codigoEstrategia, out esMultimarca, out mensaje);
-
-                #region AGana 399: data tmp
-                //componentes.ForEach(x =>
-                //{
-
-                //    x.Cabecera = new EstrategiaComponenteCabeceraModel { ContenidoNeto = "80 ml", Dimensiones = "15 x 20 x 25 milímetros", TallaMedidas = "Talla medida ejm 1" };
-                //    x.Secciones = new List<EstrategiaComponenteSeccionModel>(){
-                //new EstrategiaComponenteSeccionModel()
-                //{
-                //    Titulo = "Modo de uso",
-                //    Detalles = new List<EstrategiaComponenteSeccionDetalleModel>() { new EstrategiaComponenteSeccionDetalleModel { Titulo = "modo uso 1", Descripcion = "valor 1", Key = "" } }
-                //},
-                //new EstrategiaComponenteSeccionModel()
-                //{
-                //    Titulo = "Descubre más",
-                //    Detalles = new List<EstrategiaComponenteSeccionDetalleModel>() { new EstrategiaComponenteSeccionDetalleModel { Titulo = "Descubre más 1", Descripcion = "valor 1", Key = "" } }
-                //},
-                //new EstrategiaComponenteSeccionModel()
-                //{
-                //    Titulo = "Tips de venta",
-                //    Detalles = new List<EstrategiaComponenteSeccionDetalleModel>() { new EstrategiaComponenteSeccionDetalleModel { Titulo = "Tips de venta 1", Descripcion = "valor 1", Key = "" } }
-                //},
-                //new EstrategiaComponenteSeccionModel()
-                //{
-                //    Titulo = "Videos",
-                //    Detalles = new List<EstrategiaComponenteSeccionDetalleModel>() {
-                //        new EstrategiaComponenteSeccionDetalleModel { Titulo = "Videos 1", Descripcion = "", Key = "X_-W9qt0IMg" },
-                //        new EstrategiaComponenteSeccionDetalleModel { Titulo = "Videos 2", Descripcion = "", Key = "lhitIQ0i5gI" },
-                //        new EstrategiaComponenteSeccionDetalleModel { Titulo = "Videos 3", Descripcion = "", Key = "ELi-pF0Onog" }
-                //    }
-                //}
-                //};
-
-                //});
-                #endregion
-
-                #region Agana 399
-
-                //validación 'tiene videos'                
-                componentes.ForEach(c => { (c.Secciones ?? new List<EstrategiaComponenteSeccionModel>()).ForEach(x => { x.EsVideos = (x.Detalles ?? new List<EstrategiaComponenteSeccionDetalleModel>()).FindAll(y => !string.IsNullOrEmpty(y.Key)).Count > 0; }); });
-                //validación 'tiene detalle de sección'
-                componentes.ForEach(c => { (c.Secciones ?? new List<EstrategiaComponenteSeccionModel>()).ForEach(x => { c.MostrarVerDetalle = (x.Detalles ?? new List<EstrategiaComponenteSeccionDetalleModel>()).Count > 0; }); });
-                 
-                #endregion
-
-                var fichaEnriquecidaEstaActiva = _tablaLogicaProvider.GetTablaLogicaDatoValorBool(
-                            userData.PaisID,
-                            ConsTablaLogica.FlagFuncional.TablaLogicaId,
-                            ConsTablaLogica.FlagFuncional.FichaEnriquecida,
-                            true
-                            );
-
-                if (!fichaEnriquecidaEstaActiva)
-                {
-                    componentes.ForEach(x =>
-                    {
-                        x.MostrarVerDetalle = false;
-                        x.Secciones = null;
-                    });
-                }
-
+   
                 return Json(new
                 {
                     success = true,
                     esMultimarca,
                     componentes,
-                    mensaje
+                    mensaje,
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

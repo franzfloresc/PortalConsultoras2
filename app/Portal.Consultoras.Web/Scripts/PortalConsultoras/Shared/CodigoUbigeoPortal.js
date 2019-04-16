@@ -32,7 +32,8 @@ var CodigoUbigeoPortal = (function () {
             Contenedor: '08',
             Otras: '09',
             LandingBuscador: '10',
-            LandingGanadoras: '11'
+            LandingGanadoras: '11',
+            ArmaTuPack: '12'
         },
         SeccionFuncional: {
             OfertasParaTi: '00',
@@ -89,7 +90,9 @@ var CodigoUbigeoPortal = (function () {
             { Codigo: "08", Texto: "Inicio" },
             { Codigo: "09", Texto: "Otras Paginas" },
             { Codigo: "10", Texto: "" },
-            { Codigo: "11", Texto: "" }
+            { Codigo: "11", Texto: "" },
+            { Codigo: "12", Texto: "Arma tu Pack" }
+
         ],
         SeccionFuncional: [
             { Codigo: "--", CodigoPalanca: "--", Texto: "" },
@@ -161,7 +164,7 @@ var CodigoUbigeoPortal = (function () {
             || origenEstructura.Pagina == estructuraUbigeo.Pagina.LandingHerramientasVenta
             || origenEstructura.Pagina == estructuraUbigeo.Pagina.LandingLiquidacion
             || origenEstructura.Pagina == estructuraUbigeo.Pagina.LandingOfertasParaTi
-            || origenEstructura.Seccion == estructuraUbigeo.Pagina.ArmaTuPackDetalle
+            || origenEstructura.Pagina == estructuraUbigeo.Pagina.ArmaTuPack
             || origenEstructura.Pagina == estructuraUbigeo.Pagina.LandingShowroom
             || origenEstructura.Seccion == estructuraUbigeo.Seccion.Ficha
             || origenEstructura.Seccion == estructuraUbigeo.Seccion.CarruselVerMas
@@ -220,7 +223,7 @@ var CodigoUbigeoPortal = (function () {
     }
     
     var getTextoSegunCodigoUbigeo = function (origenEstructura) {
-
+        
         origenEstructura = getEstructuraSegunCodigoUbigeo(origenEstructura);
         var contendor = getTextoContenedorSegunOrigen(origenEstructura);
         var pagina = getTextoPaginaSegunOrigen(origenEstructura);

@@ -14,8 +14,8 @@ namespace Portal.Consultoras.Web.Models.DetalleEstrategia
     [Serializable]
     public class EstrategiaComponenteSeccionModel
     {
+        public string Tipo { get; set; }
         public string Titulo { get; set; }
-        public bool EsVideos { get; set; }
         public List<EstrategiaComponenteSeccionDetalleModel> Detalles { get; set; }
     }
 

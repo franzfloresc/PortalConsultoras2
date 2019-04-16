@@ -764,14 +764,14 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
             $('.ui-dialog .ui-button').off('click');
             $('.ui-dialog .ui-icon-closethick').off('click');
 
-            $('.ui-dialog .ui-button').on('click', function () {
+            $('.ui-dialog .ui-button').on('click', function (e) {
                 HideDialog("alertDialogMensajes");
-                if ($.isFunction(fnAceptar)) fnAceptar();
+                if ($.isFunction(fnAceptar)) fnAceptar(e);
             });
 
-            $('.ui-dialog .ui-icon-closethick').on('click', function () {
+            $('.ui-dialog .ui-icon-closethick').on('click', function (e) {
                 HideDialog("alertDialogMensajes");
-                if ($.isFunction(fnAceptar)) fnAceptar();
+                if ($.isFunction(fnAceptar)) fnAceptar(e);
             });
 
             $('.ui-dialog .ui-button').focus();
@@ -1979,6 +1979,15 @@ function microefectoPedidoGuardado() {
     setTimeout(function () {
         divCirculos.fadeOut();
     }, 2700);
+}
+
+function DataLayerPedidosPendientes(evento, categoria, accion, etiqueta) {
+    dataLayer.push({
+        'event': evento,
+        'category': categoria,
+        'action': accion,
+        'label': etiqueta
+    });
 }
 
 /**

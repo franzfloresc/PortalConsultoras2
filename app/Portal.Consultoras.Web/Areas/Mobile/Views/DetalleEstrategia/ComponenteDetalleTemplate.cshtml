@@ -25,23 +25,23 @@
                 </div>
                 <div class="descripcion_producto">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        {{Descripcion}}
+                        {{NombreComercial}}
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12 descripcion_item">
                         <p style="margin-bottom: 3px">{{Cabecera.ContenidoNeto}}</p>
                         <p style="margin-bottom: 3px">>{{Cabecera.Dimensiones}}</p>
                         <p style="margin-bottom: 3px">>{{Cabecera.TallaMedidas}}</p>
                     </div>
+                    {{#iff PrecioCatalogo '>' 0}}
                     <div class="col-md-12 col-sm-12 col-xs-12 descripcion_item precio">
                         Para tu cliente <b>{{SimboloMoneda}} {{PrecioCatalogo}}</b>
                     </div>
-
+                    {{/iff}}
                     <div class="tabs">
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <ul id="mnuDetalleComponente" class="tabs ficha_tabs">
                                 {{#each this.Secciones as |seccion|}}
-
-                                {{#iff seccion.EsVideos '==' false }}
+                                {{#iff seccion.Tipo '==' '@Constantes.TipoSeccion.Texto' }}
                                 <li id="div_ficha_tab1">
                                     <a class="tab-link">{{seccion.Titulo}}</a>
                                     <ul class="tabs_container">
@@ -53,29 +53,28 @@
                                         {{/each}}
                                     </ul>
                                 </li>
-                                {{else}}                                 
+                                {{else}}
                                 <li id="div_ficha_tab1">
-                                    <a class="tab-link active">{{seccion.Titulo}}</a>
+                                    <a class="active">{{seccion.Titulo}}</a>
                                     <ul class="tabs_container" style="display:block;">
-                                        <div style="@*width:95% !important*@">
+                                        <div>
                                             <div id="carouselVideo">
                                                 {{#each seccion.Detalles as |detalle index|}}
                                                 <div style="">
-                                                    <div>
+                                                    <div class="video_item">
                                                         <div id="ytFichax"
-                                                             @*class="video_item"*@
+                                                             data-youtube-key="{{detalle.Key}}"
                                                              data-youtube="{
-                                                     height:'173',
-                                                     width:'100%',
-                                                     enablejsapi:1,
-                                                     fs:0,
-                                                     showinfo:0,
-                                                     modestbranding:1,
-                                                     loop:1,
-                                                     videoId: '{{detalle.Key}}',
-                                                     playerVars:{autoplay:0,rel:0}}"
-                                                             data-extra="{'descripcionResumen':'{{detalle.Titulo}}'}"
-                                                             class="yt-video">
+                                                                 height:'173',
+                                                                 width:'300',
+                                                                 enablejsapi:1,
+                                                                 fs:0,
+                                                                 showinfo:0,
+                                                                 modestbranding:1,
+                                                                 loop:1,
+                                                                 videoId: '{{detalle.Key}}',
+                                                                 playerVars:{autoplay:0,rel:0}}"
+                                                             data-extra="{'descripcionResumen':'{{detalle.Titulo}}'}">
                                                         </div>
                                                         <h3 class="video_title">{{detalle.Titulo}}</h3>
                                                     </div>
@@ -84,13 +83,11 @@
                                             </div>
                                         </div>
                                     </ul>
-                                </li>                             
+                                </li>
                                 {{/iff}}
                                 {{/each}}
-                                  
                             </ul>
                         </div>
-                          
                     </div>
                 </div>
             </div>

@@ -86,7 +86,7 @@ var menuModule = (function () {
             }
         }
     }
-    
+
     function _animateScrollTo(codigo, topHeight) {
         var top = $(codigo).length > 0 ? $(codigo).offset().top - topHeight : 0;
         $(elementos.html).animate({ scrollTop: top }, 1000);
@@ -153,7 +153,7 @@ var menuModule = (function () {
         }
         return false;
     }
-    
+
     function checkAnchor() {
         if (urlIni.indexOf(anchorMark) > -1) {
 
@@ -248,7 +248,7 @@ var menuModule = (function () {
             url = $.trim(url);
             url = url[0] !== "/" ? "/" + url : url;
             if (window.location.pathname.toLowerCase() === url.toLowerCase()) return;
-            
+
             if (ConstantesModule.CodigoPalanca.ATP == codigo) {
                 BannerInteractivo.ConsultaAjaxRedireccionaLanding(function () {
                     //console.log('analytic2-aceptar [menu contenedor] ONT');
@@ -257,7 +257,7 @@ var menuModule = (function () {
                     if (!(typeof AnalyticsPortalModule === 'undefined'))
                         if (codigoubigeoPortal === ConstantesModule.CodigoUbigeoPortal.GuionContenedorGuionArmaTuPack)
                             AnalyticsPortalModule.MarcaPromotionClickArmaTuPack(codigoubigeoPortal, "Aceptar", "Pop up Modifica tu Pack");
-                    
+
                     window.location = window.location.origin + url;
                 });
                 return false;
@@ -269,7 +269,7 @@ var menuModule = (function () {
     function _mostrarConfirmar(codigo, confirmar) {
 
         confirmar = confirmar === undefined ? true : confirmar;
-        if (confirmar ) {
+        if (confirmar) {
 
             if (typeof BannerInteractivo != "undefined") {
                 //BannerInteractivo.ConsultaRedireccionaLanding(this);
@@ -290,7 +290,11 @@ var menuModule = (function () {
         }
     }
 
-    function sectionClick(url, titulo, e) {
+    function sectionClick(url, titulo, elem, event) {
+        if (typeof event !== "undefined") {
+            event.stopPropagation();
+        }
+
         url = url || "";
         if (_var.Mobile && url.indexOf("Mobile") < 0) {
             url = "/Mobile" + url;
@@ -299,7 +303,10 @@ var menuModule = (function () {
         if (typeof AnalyticsPortalModule !== "undefined") {
             titulo = titulo || "";
             var OrigenPedidoWeb = "";
-            OrigenPedidoWeb = EstrategiaAgregarModule.GetOrigenPedidoWeb($(e), false);
+            var texto = _sectionClickTexto(elem);
+            var clicEnBanner = false;
+
+            OrigenPedidoWeb = EstrategiaAgregarModule.GetOrigenPedidoWeb($(elem), false);
 
             if (url.indexOf(ConstantesModule.TipoEstrategiaTexto.Ganadoras) > 0) {
                 if (titulo === "BannerMG") {
@@ -335,11 +342,18 @@ var menuModule = (function () {
                     + ConstantesModule.OrigenPedidoWebEstructura.Palanca.Lanzamientos
                     + ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel;
             }
-
+            //HD-3473 EINCA 
+            else if (url.includes(ConstantesModule.TipoEstrategia.DP)) {
+                OrigenPedidoWeb = ConstantesModule.OrigenPedidoWebEstructura.Dispositivo.Desktop
+                    + ConstantesModule.OrigenPedidoWebEstructura.Pagina.Contenedor
+                    + ConstantesModule.OrigenPedidoWebEstructura.Palanca.DuoPerfecto
+                    + ConstantesModule.OrigenPedidoWebEstructura.Seccion.Banner;
+                if (titulo !== "ClicVerMas") {
+                    clicEnBanner = true;
+                }
+            }
             OrigenPedidoWeb = OrigenPedidoWeb || "";
-            var texto = _sectionClickTexto(e);
-            AnalyticsPortalModule.MarcaClicVerMasOfertas(url, OrigenPedidoWeb, texto);
-
+            AnalyticsPortalModule.MarcaClicVerMasOfertas(url, OrigenPedidoWeb, texto, clicEnBanner);
         }
         else {
             document.location = url;
@@ -353,7 +367,7 @@ var menuModule = (function () {
         }
         return texto.replace('+', '');
     }
-    
+
     return {
         init: init,
         setCarrouselMenu: setCarrouselMenu,
