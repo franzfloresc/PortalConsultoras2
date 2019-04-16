@@ -5,22 +5,6 @@ var urlPasarelaPago = urlPasarelaPago || '';
 var rutaGuardarDatosPago = rutaGuardarDatosPago || '';
 var tipoOrigenPantalla = tipoOrigenPantalla || 0;
 
-// FechaActual
-var diaActual = new Date();
-var day = diaActual.getDate();
-var month = diaActual.getMonth() + 1;
-var year = diaActual.getFullYear();
-
-if (day < 10) {
-    day = "0" + day;
-}
-if (month < 10) {
-    month = "0" + month;
-}
-
-var fechaHoy = day + '/' + month + '/' + year;
-//fin fecha hoy ------------
-
 $(document).ready(function () {
     'use strict';
     var mainPL;
@@ -176,17 +160,17 @@ $(document).ready(function () {
                     var porcentaje = parseFloat($("#hdPorcentajeGastosAdministrativos").val());
 
                     /*Validación si se le aplica el 3% de gastos Adm. HD-3804 */
-                    var CodigoIso = $.trim($("#hdCodigoIso").val());
-                    var IndicadorConsultoraDigital = $.trim($("#hdIndicadorConsultoraDigital").val());
-                    var Aplica3Porciento = $.trim($("#hdAplica3Porciento").val());
+                    var codigoIso = $.trim($("#hdCodigoIso").val());
+                    var indicadorConsultoraDigital = $.trim($("#hdIndicadorConsultoraDigital").val());
+                    var aplica3Porciento = $.trim($("#hdAplica3Porciento").val());
 
-                    var dia = $.trim($("#hdFechaVencimiento").val()).substr(0,2);
-                    var mes = $.trim($("#hdFechaVencimiento").val()).substr(3, 2);
-                    var año = $.trim($("#hdFechaVencimiento").val()).substr(6,4);
+                    var fechaVencimiento = new Date($("#hdFechaVencimiento").val());
+                    console.log(fechaVencimiento);
+                    var now = new Date();
+                    now.setHours(0, 0, 0, 0);
+                    console.log(now);
 
-                    var FechaVencimiento = dia + '/' + mes + '/' + año;
-
-                    if (CodigoIso == 'PE' && new Date(FechaVencimiento).getTime() >= new Date(fechaHoy).getTime() && IndicadorConsultoraDigital == '1' && Aplica3Porciento == '1') {
+                    if (codigoIso == 'PE' && fechaVencimiento.getTime() >= now.getTime() && indicadorConsultoraDigital == '1' && aplica3Porciento == '1') {
                          montoGastos = 0 ;
                     } else {
                          montoGastos = montoParcial * (porcentaje / 100);
