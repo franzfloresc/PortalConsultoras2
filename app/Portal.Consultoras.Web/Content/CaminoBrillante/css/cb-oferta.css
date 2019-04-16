@@ -256,6 +256,16 @@ input[type=checkbox] {
         display: block;
         float: left;
     }
+    .layout__content {
+        margin-top: 0;
+    }
+    #divresultadosKit {
+        margin-left: 10px;
+    }
+    .ficha__producto__precio > div {
+        width: 100%;
+        margin-top: 6px;
+    }
 }
 
 
