@@ -93,7 +93,11 @@
                 </div>
                 <!-- / Vista por cliente -->
                 <!-- Vista por producto -->
+<<<<<<< HEAD
                 <div class="tab-pane fade" id="producto" role="tabpanel" aria-labelledby="producto-tab">
+=======
+                <div class="tab-pane fade" id="product" role="tabpanel" aria-labelledby="product-tab">
+>>>>>>> 47fb1abd8300531ee0b69b1952957cdda1bc36eb
                     <!--   Productos   -->
                     @foreach (var item2 in Model.ListaProductos)
                     {
@@ -113,7 +117,11 @@
                                             <p><strong>Monto total: </strong>@ViewBag.Simbolo @item2.FormatoPrecioTotal</p>
                                             <p><strong>Origen: </strong>@item2.MedioContacto</p>
                                         </div>
+<<<<<<< HEAD
                                         <div class="cursor onProduct vc-box--action vc-box--radius">
+=======
+                                        <div class="cursor onProductvc-box--action vc-box--radius">
+>>>>>>> 47fb1abd8300531ee0b69b1952957cdda1bc36eb
                                             <p class="vc-box--title"><strong>Te lo pidieron</strong></p>
                                             @foreach (var item3 in item2.ListaClientes)
                                             {
