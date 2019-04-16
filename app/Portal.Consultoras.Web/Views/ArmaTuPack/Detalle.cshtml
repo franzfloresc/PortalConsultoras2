@@ -44,16 +44,30 @@
 
 <script>
 
+
+
     window.addEventListener("scroll", function () {
         var scrollTop = window.scrollY;
         var element = document.querySelector(".Select_ArmaTuPack");
         if (scrollTop >= 175) {
-            element.className += " Select_fixed";
+            element.className += " Select_fixed";   
             document.querySelector("#grupos").style.paddingTop = "185px"; 
         } else {
             element.classList.remove("Select_fixed");
             document.querySelector("#grupos").style.paddingTop = "15px"; 
         }
     });
+
+    function cortarTexto(id, caracteres) {
+        var textoViejo = document.querySelector(id).innerHTML.substr(0, caracteres);
+        var textCortado = textoViejo + "...";
+
+        document.querySelector(id).innerHTML = textCortado; 
+
+        //var anchoPAgina = window.innerWidth;
+        //if (anchoPAgina <= 750) {
+
+        //}
+    };
  
 </script>
