@@ -717,7 +717,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             modelo.MostrarCliente = GetMostrarCliente(esEditar);
             modelo.MostrarAdicional = GetInformacionAdicional(esEditar);
-            modelo.MostrarFichaEnriquecida = _tablaLogicaProvider.GetTablaLogicaDatoValorBool(
+            modelo.MostrarFichaEnriquecida = !esEditar && _tablaLogicaProvider.GetTablaLogicaDatoValorBool(
                             userData.PaisID,
                             ConsTablaLogica.FlagFuncional.TablaLogicaId,
                             ConsTablaLogica.FlagFuncional.FichaEnriquecida,

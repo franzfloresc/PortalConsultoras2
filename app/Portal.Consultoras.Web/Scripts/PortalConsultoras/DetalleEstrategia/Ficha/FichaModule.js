@@ -214,7 +214,7 @@ var FichaModule = (function (config) {
     //};
 
     var videoBuild = function () {
-        console.log('videoBuild');
+        //console.log('videoBuild');
         if (youtubeModule) {
             youtubeModule.Inicializar();
         }
@@ -352,7 +352,7 @@ var FichaModule = (function (config) {
         if (config.componenteDetalleModule === null || typeof config.componenteDetalleModule === "undefined") {
             throw "config.componenteDetalleModule is null or undefined";
         } else {
-            _config.componenteDetalleModule.OcultarControles();
+            _config.componenteDetalleModule.OcultarControles(pEstrategia.CodigoVariante);
         }
 
         _modeloFicha(pEstrategia);
@@ -427,8 +427,8 @@ var FichaModule = (function (config) {
                             _asignaDetallePedido(data.pedidoSet, pEstrategia);
                         }
                     }).fail(function (data, error) {
-                        console.log(data);
-                        console.log(error);
+                        //console.log(data);
+                        //console.log(error);
                         errorRespuesta = true;
                     });
 
