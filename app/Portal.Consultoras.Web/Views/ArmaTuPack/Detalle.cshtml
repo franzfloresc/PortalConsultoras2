@@ -51,24 +51,22 @@
 
 @section scripts{
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/ArmaTuPack")
-}
-
-
 <script>
-
-
 
     window.addEventListener("scroll", function () {
         var scrollTop = window.scrollY;
-        var element = document.querySelector(".Select_ArmaTuPack");
+        var element = $(".Select_ArmaTuPack");
         if (scrollTop >= 175) {
-            element.className += " Select_fixed";
-            document.querySelector("#grupos").className += " grupos_top";
+            element.addClass("Select_fixed");
+            $("#grupos").addClass("grupos_top");
         } else {
-            element.classList.remove("Select_fixed");
-            document.querySelector("#grupos").remove("grupos_top");
+            element.removeClass("Select_fixed");
+            $("#grupos").removeClass("grupos_top");
         }
     });
 
- 
+
 </script>
+}
+
+
