@@ -71,7 +71,7 @@ namespace Portal.Consultoras.BizLogic.Contenido
                 {
                     x.DetalleContenido.ForEach(y =>
                     {
-                        y.RutaContenido = string.Format(x.RutaImagen ?? string.Empty, WebConfig.RutaCDN, itmFilter.CodigoISO, y.RutaContenido);
+                        y.RutaContenido = string.Format(x.RutaImagen ?? y.RutaContenido, WebConfig.RutaCDN, itmFilter.CodigoISO, y.RutaContenido);
                     });
                     x.UrlMiniatura = string.IsNullOrEmpty(x.UrlMiniatura) ? string.Empty : string.Format(x.UrlMiniatura, WebConfig.RutaCDN, itmFilter.CodigoISO);
                 });
