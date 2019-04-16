@@ -104,7 +104,7 @@
 
     var _renderGrupos = function (packComponents) {
         SetHandlebars(_elements.grupos.templateId, packComponents, _elements.grupos.id);
-        $(_elements.grupos.id).show("Blind", 1000);
+        $(_elements.grupos.id).show();
 
         $(_elements.grupos.id).on("click", _elements.grupos.headers, function (e) {
             var $header = $(e.target);
