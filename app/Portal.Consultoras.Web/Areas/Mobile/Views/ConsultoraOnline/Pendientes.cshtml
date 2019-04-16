@@ -53,7 +53,7 @@
 
                     @foreach (var item in Model.ListaPedidos)
                     {
-                        <div class="cursor onClient container vc-box vc-box--shadow">
+                        <div class="cursor onClient container vc-box vc-box--shadow" onclick="DetallePedidoPendiente(@item.PedidoId)">
                             <!--   Pedidos   -->
                             <div class="row align-items-center">
                                 <div class="col-8">
