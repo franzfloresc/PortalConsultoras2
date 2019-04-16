@@ -631,6 +631,10 @@ footer {
         .Agregar_ArmaTuPack_fixed .popover.top {
             margin-top: -78px;
         }
+
+    .grupos_top {
+        margin-top: 185px;
+    }
 }
 
 

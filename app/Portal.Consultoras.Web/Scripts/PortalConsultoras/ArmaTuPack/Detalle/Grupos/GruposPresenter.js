@@ -50,6 +50,7 @@
         if (!Array.isArray(packComponents.componentes) || packComponents.componentes.length === 0) {
             throw "packComponents has no components";
         }
+        
         _packComponents(packComponents);
         _config.gruposView.renderGrupos(packComponents);
     };

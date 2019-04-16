@@ -18,14 +18,14 @@
             return _packComponentsModel;
         } else if (value !== null) {
             value.componentes = value.componentes || [];
-            value.subTituloCabecera = "ELIGE : ";
+            value.subTituloCabecera = "ELIGE :";
 
             $.each(value.componentes, function (idx, grupo) {
                 grupo.FactorCuadre = grupo.FactorCuadre || 0;
                 grupo.DescripcionPlural = grupo.DescripcionPlural || "";
                 grupo.DescripcionSingular = grupo.DescripcionSingular || "";
 
-                value.subTituloCabecera += grupo.FactorCuadre + " ";
+                value.subTituloCabecera += " " + grupo.FactorCuadre + " ";
                 if (grupo.FactorCuadre > 1) {
                     value.subTituloCabecera += grupo.DescripcionPlural;
                 } else {

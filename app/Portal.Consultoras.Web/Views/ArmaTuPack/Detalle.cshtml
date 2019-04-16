@@ -29,7 +29,7 @@
 }
 
 
-<div id="cabecera" class="banner_armaTuPack" style="@Html.Raw(String.Join("", lStylePanel))">
+<div id="cabecera" class="banner_armaTuPack" style="display:none;@Html.Raw(String.Join("", lStylePanel))">
 </div>
 
 <div class="Select_ArmaTuPack" data-OrigenPedidoWeb="@OrigenPedidoWeb" data-item="">
@@ -56,16 +56,19 @@
 
 <script>
 
+
+
     window.addEventListener("scroll", function () {
         var scrollTop = window.scrollY;
         var element = document.querySelector(".Select_ArmaTuPack");
         if (scrollTop >= 175) {
             element.className += " Select_fixed";
-            document.querySelector("#grupos").style.paddingTop = "185px"; 
+            document.querySelector("#grupos").className += " grupos_top";
         } else {
             element.classList.remove("Select_fixed");
-            document.querySelector("#grupos").style.paddingTop = "15px"; 
+            document.querySelector("#grupos").remove("grupos_top");
         }
     });
+
  
 </script>
