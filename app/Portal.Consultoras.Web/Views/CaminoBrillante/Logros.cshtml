@@ -1,13 +1,19 @@
 ﻿
 @{
     Layout = "~/Views/Shared/_MainLayoutResponsiveCaminoBrillante.cshtml";
-    ViewBag.Title = ViewBag.Vista;
+    //ViewBag.Title = ViewBag.Vista;
     var data = ViewBag.Informacion;
 }
 
 <link href="~/Content/CaminoBrillante/css/estilos.css" rel="stylesheet" />
 <br />
 
+
+<ul class="breadcumbs">
+    <li data-opcion="AA"><a href="javascript:;" onclick="eventBreadCumb('', '' )">AA</a></li>
+    <li data-opcion="BB"><a href="javascript:;" onclick="eventBreadCumb('', '')">BB</a></li>
+    <li data-opcion="CC"><a href="javascript:;" onclick="eventBreadCumb('','')">CC</a></li>
+</ul>
 
 <div class="container">
 
