@@ -56,13 +56,13 @@
                     <section class="seccion_tab" {{#if @@first}} style="display:block" {{/if}} data-tab-body data-num-tab="{{@@index}}">
                         <div id="carouselVideo">
                             {{#each seccion.Detalles as |detalle|}}
-                            <div style="width:350px;height:350px;display: inline-block;">
+                            <div class="video_item">
                                 <p>{{detalle.Titulo}}</p>
                                 <div id="ytFichax"
                                      data-youtube-key="{{detalle.Key}}"
                                      data-youtube="{
                                             height:'165',
-                                            width:'190',
+                                            width:'300',
                                             enablejsapi:1,
                                             fs:0,
                                             showinfo:0,
@@ -70,8 +70,7 @@
                                             loop:1,
                                             videoId: '{{detalle.Key}}',
                                             playerVars:{autoplay:0,rel:0}}"
-                                     data-extra="{'descripcionResumen':'{{detalle.Titulo}}'}"
-                                     class="yt-video">
+                                     data-extra="{'descripcionResumen':'{{detalle.Titulo}}'}">
                                 </div>
                             </div>
                             {{/each}}
