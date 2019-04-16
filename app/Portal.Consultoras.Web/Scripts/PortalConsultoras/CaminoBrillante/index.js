@@ -14,19 +14,27 @@
     $(window).scroll(function (event) {
         var windowHeight = $(window).scrollTop(); 
 
+        var contenido0 = $("#ProgressBar").offset();
+        contenido0 = contenido0.top;
+
         var contenido1 = $("#BeneficiosPrincipal").offset();
         contenido1 = contenido1.top;
 
         var contenido2 = $("#cont-logros").offset();
         contenido2 = contenido2.top;
 
-        if (windowHeight <= contenido1) {
+        if (windowHeight < contenido0) {
+            //alert(contenido0);
+            return;
+        }
+
+        if (windowHeight <= contenido1 && contenido1 < contenido2) {
             //alert("estas en beneficios");
             return;
         }
 
-        if (contenido1 <= contenido2) {
-           // alert("estas en logros");
+        if (contenido2 > contenido1) {
+           //alert("estas en logros");
             return;
         }
     });
