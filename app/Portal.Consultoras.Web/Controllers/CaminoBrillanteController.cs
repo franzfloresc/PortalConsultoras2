@@ -1,5 +1,4 @@
-﻿
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Linq;
 using Portal.Consultoras.Common;
 using System;
@@ -10,8 +9,8 @@ namespace Portal.Consultoras.Web.Controllers
     //[RoutePrefix("CaminoBrillante")]
     public class CaminoBrillanteController : BaseController
     {
-        #region CaminoBrillante
         private readonly CaminoBrillanteProvider _caminoBrillanteProvider;
+
         public CaminoBrillanteController()
         {
             _caminoBrillanteProvider = new CaminoBrillanteProvider();
@@ -25,12 +24,11 @@ namespace Portal.Consultoras.Web.Controllers
             int nivelActual = 0;
             int.TryParse(informacion.NivelConsultora.Where(x => x.EsActual).Select(z => z.Nivel).FirstOrDefault(), out nivelActual);
 
-            informacion.Niveles.ToList().ForEach(
-                e =>
-                {
+            informacion.Niveles.ToList().ForEach(e => {
                     int nivel = 0;
                     int.TryParse(e.CodigoNivel, out nivel);
-                    e.UrlImagenNivel = Constantes.CaminoBrillante.Niveles.Iconos.Keys.Contains(e.CodigoNivel) ? Constantes.CaminoBrillante.Niveles.Iconos[e.CodigoNivel][nivel <= nivelActual ? 1 : 0] : "";
+                    e.UrlImagenNivel = Constantes.CaminoBrillante.Niveles.Iconos.Keys.Contains(e.CodigoNivel) ? 
+                                       Constantes.CaminoBrillante.Niveles.Iconos[e.CodigoNivel][nivel <= nivelActual ? 1 : 0] : string.Empty;
                 });
 
             ViewBag.TieneOfertasEspeciales = informacion.Niveles.Where(e => e.CodigoNivel == nivelActual.ToString()).Select(e => e.TieneOfertasEspeciales).FirstOrDefault();
@@ -38,7 +36,6 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.Niveles = informacion.Niveles;
             ViewBag.NivelActual = nivelActual;
             
-
             return View();
         }
 
@@ -142,6 +139,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             return Json(new { Niveles = Beneficios, Moneda, MontoAcumuladoPedido }, JsonRequestBehavior.AllowGet);
         }
-        #endregion
+
     }
 }

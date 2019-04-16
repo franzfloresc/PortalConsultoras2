@@ -966,7 +966,7 @@ namespace Portal.Consultoras.Service
 
         public List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillante(int paisID, string campaniaID)
         {
-            return _caminoBrillanteBusinessLogic.GetDemostradoresCaminoBrillante(paisID, campaniaID);
+            return _caminoBrillanteBusinessLogic.GetDemostradoresCaminoBrillante(paisID, Int32.Parse(campaniaID));
         }
 
         #endregion
