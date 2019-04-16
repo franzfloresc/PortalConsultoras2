@@ -18,22 +18,23 @@
             return _packComponentsModel;
         } else if (value !== null) {
             value.componentes = value.componentes || [];
-            value.subTituloCabecera = "ELIGE :";
+            value.subTituloCabecera = value.subTituloCabecera || "";
+            value.eligeComponentes = "ELIGE :";
 
             $.each(value.componentes, function (idx, grupo) {
                 grupo.FactorCuadre = grupo.FactorCuadre || 0;
                 grupo.DescripcionPlural = grupo.DescripcionPlural || "";
                 grupo.DescripcionSingular = grupo.DescripcionSingular || "";
 
-                value.subTituloCabecera += " " + grupo.FactorCuadre + " ";
+                value.eligeComponentes += " " + grupo.FactorCuadre + " ";
                 if (grupo.FactorCuadre > 1) {
-                    value.subTituloCabecera += grupo.DescripcionPlural;
+                    value.eligeComponentes += grupo.DescripcionPlural;
                 } else {
-                    value.subTituloCabecera += grupo.DescripcionSingular;
+                    value.eligeComponentes += grupo.DescripcionSingular;
                 }
 
                 if (idx + 1 < value.componentes.length) {
-                    value.subTituloCabecera += " +"
+                    value.eligeComponentes += " +"
                 }
             });
 
