@@ -20,12 +20,15 @@ $(document).ready((function (cerrarRechazado) {
                 cdrweb_formatoFechaCulminado: ".cdrweb_formatoFechaCulminado",
                 cdrweb_formatocampania: ".cdrweb_formatocampania",
                 cdrweb_CantidadAprobados: ".cdrweb_CantidadAprobados",
-                cdrweb_CantidadRechazados: ".cdrweb_CantidadRechazados"
+                cdrweb_CantidadRechazados: ".cdrweb_CantidadRechazados",
+                footer_page: ".footer-page"
             };
 
             me.Eventos = {
 
                 bindEvents: function () {
+
+                    $(me.Variables.footer_page).hide();
 
                     $(document).on('click', me.Variables.IrPaso1, function () {
                         if (mensajeGestionCdrInhabilitada != '') {
@@ -40,15 +43,15 @@ $(document).ready((function (cerrarRechazado) {
 
                     $(document).on("click", me.Variables.VerDetalleCDR, function () {
                         var elemento = $(this);
-                        var parent = $(elemento).parents(".registro_solicitud_cdr");
+                        //var parent = $(elemento).parents(".registro_solicitud_cdr");
                         var _OrigenDetalle = "1";
-                        var _CDRWebID = $(parent).find(me.Variables.cdrweb_id).val();
-                        var _PedidoID = $(parent).find(me.Variables.cdrweb_pedidoid).val();
-                        var _Estado = $(parent).find(me.Variables.cdrweb_estado).val();
-                        var _FechaCulminado = $(parent).find(me.Variables.cdrweb_formatoFechaCulminado).val();
-                        var _Campania = $(parent).find(me.Variables.cdrweb_formatocampania).val();
-                        var _CantidadAprobados = $(parent).find(me.Variables.cdrweb_CantidadAprobados).val();
-                        var _CantidadRechazados = $(parent).find(me.Variables.cdrweb_CantidadRechazados).val();
+                        var _CDRWebID = $(elemento).find(me.Variables.cdrweb_id).val();
+                        var _PedidoID = $(elemento).find(me.Variables.cdrweb_pedidoid).val();
+                        var _Estado = $(elemento).find(me.Variables.cdrweb_estado).val();
+                        var _FechaCulminado = $(elemento).find(me.Variables.cdrweb_formatoFechaCulminado).val();
+                        var _Campania = $(elemento).find(me.Variables.cdrweb_formatocampania).val();
+                        var _CantidadAprobados = $(elemento).find(me.Variables.cdrweb_CantidadAprobados).val();
+                        var _CantidadRechazados = $(elemento).find(me.Variables.cdrweb_CantidadRechazados).val();
 
                         if (_Estado === "1") {
                             window.location.href = urlReclamo + "?p=" + _PedidoID + "&c=" + _CDRWebID;

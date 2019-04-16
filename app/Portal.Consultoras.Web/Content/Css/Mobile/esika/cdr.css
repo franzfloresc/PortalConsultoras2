@@ -153,18 +153,36 @@
     height: auto;
     margin-top: 30px;
     margin-bottom: 52px;
-    padding: 0 5px;
+    padding-left:10px;
+    padding-right:10px;
+    padding-bottom:50px;
+}
+
+.titulo_solicitudes_registradas {
+    margin-top: 0;
+    margin-bottom: 23px;
+    font-size: 18px;
 }
 
 .registro_solicitud_cdr {
-    display: block;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
     height: auto;
-    min-height: 63px;
-    border-top: 1px solid #979797;
-    padding: 17px 0;
-    text-align: left;
+    min-height: 70px;
+    margin-bottom: 16px;
+    padding: 0 15px;
     position: relative;
+    -moz-box-shadow: 0 2px 1px rgba(144,144,148,.20), 0 1px 2px rgba(144,144,148,.14), 0 0 5px rgba(144,144,148, .12);
+    -webkit-box-shadow: 0 2px 1px rgba(144,144,148,.20), 0 1px 2px rgba(144,144,148,.14), 0 0 5px rgba(144,144,148, .12);
+    box-shadow: 0 2px 1px rgba(144,144,148,.20), 0 1px 2px rgba(144,144,148,.14), 0 0 5px rgba(144,144,148, .12);
 }
+
+    .registro_solicitud_cdr:last-child {
+        margin-bottom: 0;
+    }
 
 .datos_solicitud_cdr {
     display: block;
@@ -185,16 +203,15 @@
 
 .estado_registro_solicitud_cdr {
     display: block;
-    width: 82.6px;
-    height: 22px;
-    position: absolute;
-    top: 19px;
-    right: 27px;
-    font-family: 'Lato';
+    min-width: 93.48px;
+    height: 24px;
+    font-family: 'Lato', sans-serif;
     font-size: 11px;
     text-align: center;
-    line-height: 21px;
+    line-height: 22px;
     text-transform: uppercase;
+    border-radius: 10.5px;
+    letter-spacing:0.5px;
 }
 
 .estado_pendiente {
@@ -203,8 +220,8 @@
 }
 
 .estado_observado {
-    border: 1px solid #e81c36;
-    color: #e81c36;
+    border: 1px solid #B9007E;
+    color: #B9007E;
 }
 
 .estado_rechazado, .estado_aprobado {
@@ -212,13 +229,13 @@
 }
 
 .estado_rechazado {
-    border: 1px solid #777777;
-    background: #777777;
+    border: 1px solid #E81C36;
+    background-color: #E81C36;
 }
 
 .estado_aprobado {
-    border: 1px solid #a18328;
-    background: #a18328;
+    border: 1px solid #569C04;
+    background: #569C04;
 }
 
 .icono_busqueda {
@@ -373,6 +390,7 @@
         height: 45px;
         border: solid 1px #d1d1d4;
         padding-left: 15px;
+        padding-right:41px;
         margin-bottom: 28px;
         -webkit-appearance: none;
         -moz-transition: all 0.3s ease;
@@ -386,8 +404,12 @@
             border:1px solid #000;
         }
 
-    .formulario_inscripcion_cdr input[type='text']{
-        color:#808080;
+    .formulario_inscripcion_cdr input[type='text'] {
+        color: #000;
+        background-image: url(/Content/Images/icono_buscador.svg);
+        background-repeat: no-repeat;
+        background-position: 96% center;
+        background-size: 18px;
     }
 
     .formulario_inscripcion_cdr select {
@@ -615,6 +637,7 @@
     position: fixed;
     left: 0;
     bottom: 0;
+    z-index:1000;
     background-color: #F5F5F5;
     width: 100%;
     height: 66px;
@@ -638,13 +661,16 @@
 }
 
     .btn_cta_cdr--agregarSolicitud,
-    .btn_cta_cdr--siguiente {
+    .btn_cta_cdr--siguiente,
+    .btn_cta_cdr--finalizaSolicitud{
         display: inline-block;
         position: relative;
         height: 45px;
     }
 
-    .btn_cta_cdr--agregarSolicitud {
+    .btn_cta_cdr--agregarSolicitud,
+    .btn_cta_cdr--finalizaSolicitud{
+        width:90%;
         max-width: 325px;
     }
 
@@ -1152,8 +1178,8 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     margin-bottom: 36px;
     padding-top:32px;
     padding-bottom:32px;
-    border-top: 1px solid #808080;
-    border-bottom: 1px solid #e81c36;
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
 }
 
 .validacion_seccion_titulo {
@@ -1194,10 +1220,16 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     display: block;
     margin-bottom: 39px;
 }
-    
+
+    .content_politica_devolucion label{
+        display:flex;
+        flex-direction:row-reverse;
+        flex-wrap:nowrap;
+        justify-content:center;
+    }
+
     .tipo_envio_checkbox input[type="radio"],
-    .content_politica_devolucion input[type='checkbox']
-    {
+    .content_politica_devolucion input[type='checkbox'] {
         display: none;
     }
         
@@ -1211,8 +1243,6 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
         .tipo_envio_checkbox input[type="radio"] + label span,
         .content_politica_devolucion input[type='checkbox'] + label span
         {
-            border:1px solid #d8d8d8;
-            background-color: #d8d8d8;
             background-image:url('/Content/Images/Esika/icono_input_radio_cdr.svg');
             background-repeat: no-repeat;
             position: relative;
@@ -1224,35 +1254,35 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
             -webkit-transition: background-color .3s ease;
         }
 
-        .content_politica_devolucion input[type='checkbox'] + label span{
-            width:18px;
-            height:18px;
-            border-radius:4px;
+        .content_politica_devolucion input[type='checkbox'] + label span {
+            border: 1px solid #000;
+            background-color: #FFF;
+            width: 18px;
+            height: 18px;
+            border-radius: 4px;
             background-position: center 2px;
-            margin-left:7px;
+            margin-right: 8px;
         }
 
-        .tipo_envio_checkbox input[type="radio"] + label span{
+        .tipo_envio_checkbox input[type="radio"] + label span {
+            border: 1px solid #d8d8d8;
+            background-color: #d8d8d8;
             width: 26px;
             height: 26px;
             background-position: center 6px;
             border-radius: 100%;
-            margin-right: 7px;
+            margin-right: 8px;
         }
 
-        .tipo_envio_checkbox input[type="radio"]:checked + label span,
-        .content_politica_devolucion input[type='checkbox']:checked + label span
-        {
-            border-color: #e81c36;
-            background-color:#FFF;
+        .content_politica_devolucion input[type='checkbox']:checked + label span {
+            border-color: #000;
+            background-color: #000;
         }
 
-        .content_politica_devolucion input[type='checkbox']:checked + label span{
-            background-color:#e81c36;
-        }
-
-        .tipo_envio_checkbox input[type="radio"]:checked + label span{
+        .tipo_envio_checkbox input[type="radio"]:checked + label span {
             background-position: center -19.5px;
+            border-color: #B9007E;
+            background-color: #FFF;
         }
 
     .content_politica_devolucion a, .content_politica_devolucion a:hover {

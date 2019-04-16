@@ -419,7 +419,7 @@
                     <span></span>
                 </label>
             </div>
-            <div class="tooltip_btn_reportar_inconveniente tipografia_lato AceptarSolucion" style="display:none;">
+            @*<div class="tooltip_btn_reportar_inconveniente tipografia_lato AceptarSolucion" style="display:none;">
                 <span class="icono_alerta_cdr">
                     <img src="@Url.Content("~/Content/Images/Esika/icono_advertencia_notificacion.svg")" alt="reportar inconveniente">
                 </span>
@@ -431,7 +431,7 @@
                 <a class="btn_agrega_otro_reclamo solucion_cdr tipografia_lato_bold" id="IrSolicitudInicial" title="Agrega otro producto a la solicitud">
                     <span>AGREGA OTRO PRODUCTO A LA SOLICITUD</span>
                 </a>
-            </div>
+            </div>*@
             <div class="wrapper_resumen_mobile tipografia_lato bloqueCDRRegistro" id="SolicitudEnviada" style="display:none;">
                 <div class="content_mensaje_solicitud_enviada">
                     <div class="icono_solicitud_enviada">
@@ -517,13 +517,18 @@
 
 
 <div class="btn_cta_wrapper">
-    <button id="btnAgregarSolicitud" style="display:none;"
+    <button id="IrPaso1" style="display:none;"
             class="text-uppercase tipografia_lato tipografia_lato_bold border-radius-4 btn_cta_cdr btn_cta_cdr--agregarSolicitud">
         Agregar cambio
     </button>
     <button id="btnSiguiente1"
             class="text-uppercase tipografia_lato tipografia_lato_bold border-radius-4 btn_cta_cdr btn_cta_cdr--siguiente">
         Siguiente
+    </button>
+    <button id="btnSiguiente4"
+            class="text-uppercase tipografia_lato tipografia_lato_bold border-radius-4 btn_cta_cdr btn_cta_cdr--finalizaSolicitud"
+            style="display:none;">
+        Finaliza y envía tu solicitud
     </button>
 </div>
 <button id="btnCambioProducto"
@@ -541,11 +546,6 @@
         data-cambiopaso="3"
         style="display:none;">
     ACEPTAR LA SOLUCIÓN
-</button>
-<button id="btnSiguiente4"
-        class="btn_cta_cdr tipografia_lato tipografia_lato_bold"
-        style="display:none;">
-    FINALIZA Y ENVÍA TU SOLICITUD
 </button>
 
 <div id="PopupBusquedaCuvDescripcionProductoCdr" class="buscar_producto_cdr_popup d-block w-100" style="display:none;">
