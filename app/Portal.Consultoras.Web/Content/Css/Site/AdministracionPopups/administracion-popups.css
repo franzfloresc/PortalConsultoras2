@@ -456,9 +456,17 @@ div.ui-state-highlight {
     margin-bottom: 16px;
 }
 
+    .administracion__popups__paginacion__grilla:first-child{
+        justify-content:space-between;
+    }
+
     .administracion__popups__paginacion__grilla:last-child {
         margin-top: 16px;
         margin-bottom: 6px;
+    }
+
+    .btn-abrir-popupValidador{
+        margin-left:0;
     }
 
 .administracion__popups__paginacion__componentes,
@@ -531,6 +539,13 @@ div.ui-state-highlight {
 .paginacion__actual,
 .num__total__paginas {
     margin-right: 3px;
+}
+
+.administracion__popups__grilla__wrapper {
+    height: 200px;
+    overflow: auto;
+    margin-left: 10px;
+    margin-right: 5px;
 }
 
 .administracion__popups__grilla {

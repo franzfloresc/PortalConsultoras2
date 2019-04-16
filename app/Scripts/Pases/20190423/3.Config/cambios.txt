@@ -1,7 +1,7 @@
 1.PortalConsultoras2
 Actualizar:
 	<add key="UrlLMS" value="http://miscursos.somosbelcorp.com/auth/consultoralogin/ingresar.php?usuario={0}&amp;token={1}&amp;codcla={2}&amp;codsub={3}&amp;desc={4}" />
-    	<add key="CursosMarquesina" value="http://qasucb.cyzone.com/moodleventas/auth/consultoralogin/ingresar.php?usuario={0}&amp;token={1}&amp;codcla={2}&amp;codsub={3}&amp;desc={4}&amp;course={5}" />
+    	<add key="CursosMarquesina" value="http://miscursos.somosbelcorp.com/auth/consultoralogin/ingresar.php?usuario={0}&token={1}&codcla={2}&codsub={3}&desc={4}&course={5}" />
 
 Eliminar:
 	// (*) Incluir todos lo que cumplan el patron

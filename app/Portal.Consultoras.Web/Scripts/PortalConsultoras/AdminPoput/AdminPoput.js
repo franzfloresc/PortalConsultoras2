@@ -249,9 +249,7 @@ function CargaEstadoValidadorDatos() {
     //    $("#nameArchivo").html(OBJETO_MENJASE.validaArchivoCsv);
 }
 
-
 function GetCargaListadoPoputValidador() {
-    debugger;
     $.ajax({
         type: "POST",
         url: URL_BUSCAR_POPUTS_VALIDADOR,
@@ -276,14 +274,13 @@ function GetCargaListadoPoputValidador() {
         }
     });
 }
+
 function LimpiarCamposPoputValidador() {
     $("#nameArchivoValidador").html("");
     document.getElementById('checkPopup').checked = false;
     document.getElementById("EliminarArchivoValidador").style.display = "none";
     localStorage.removeItem("datosCSValidador");
 }
-
-
 
 function ConstruyeGrillaPoputValidador(data,valor) {
     var Region, Zona, Estado, Consultora;
@@ -343,12 +340,32 @@ function ConstruyeGrillaPoputValidador(data,valor) {
 
 }
 
-
 $("#btnGuardarPopupValidador").click(function () {
     GuardarDatosPopupValidador();
 });
 
+$(".EliminarArchivoValidador").click(function () {
 
+    $.ajax({
+        type: "POST",
+        url: URL_ELIMINA_ARCHIVOCSV_VALIDADOR,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        async: true,
+        success: function (msg) {
+            localStorage.removeItem("datosCSVValidador");
+            $("#nameArchivoValidador").html("");
+            $("#fileCSVValidador").val("");
+            document.getElementById("EliminarArchivoValidador").style.display = "none";
+            $("#nameArchivoValidador").html(OBJETO_MENJASE.validaArchivoCsv);
+            $("#divTablaValidador").empty();
+            ConstruyeGrillaPoputValidador([], 1)
+        },
+        error: function (error) {
+            alert("errror");
+        }
+    });
+});
 
 function GuardarDatosPopupValidador(valor) {
 
@@ -386,6 +403,42 @@ function GuardarDatosPopupValidador(valor) {
 
     }
 
+}
+
+function getFileCSVValidador() {
+    var frmData = new FormData();
+    var file = document.getElementById("fileCSVValidador").files[0];
+    frmData.append("fileCSVValidador", file);
+    $.ajax({
+        type: "POST",
+        url: URL_ADJUNTAR_ARCHIVO,
+        data: frmData,
+        dataType: 'json',
+        contentType: false,
+        processData: false,
+        success: function (msg) {
+            if (msg.dataerror) {
+                alert(msg.archivo);
+                document.getElementById("EliminarArchivoValidador").style.display = "none";
+                $("#nameArchivoValidador").html(OBJETO_MENJASE.validaArchivoCsv);
+            } else {
+                document.getElementById("EliminarArchivoValidador").style.display = "block";
+                $("#nameArchivoValidador").html(msg.archivo);
+            }
+            getCargarArchivoCSVPoputLocalStorageValidador(msg);
+            ConstruyeGrillaPoputValidador(msg.listArchivo, 0);
+        },
+        error: function (error) {
+            alert("errror");
+        }
+    });
+}
+
+function getCargarArchivoCSVPoputLocalStorageValidador(data) {
+    localStorage.removeItem("datosCSVValidador");
+    if (data["listArchivo"] != undefined) {
+        localStorage.setItem('datosCSVValidador', JSON.stringify(data["listArchivo"]));
+    }
 }
  /*Fin de carga popup informativo*/
 
@@ -554,43 +607,6 @@ function getFileCSV() {
             alert("errror");
         }
     });
-}
-
-function getFileCSVValidador() {
-    var frmData = new FormData();
-    var file = document.getElementById("fileCSVValidador").files[0];
-    frmData.append("fileCSVValidador", file);
-    $.ajax({
-        type: "POST",
-        url: URL_ADJUNTAR_ARCHIVO,
-        data: frmData,
-        dataType: 'json',
-        contentType: false,
-        processData: false,
-        success: function (msg) {
-            debugger;
-            if (msg.dataerror) {
-                alert(msg.archivo);
-                document.getElementById("EliminarArchivoValidador").style.display = "none";
-                $("#nameArchivoValidador").html(OBJETO_MENJASE.validaArchivoCsv);
-            } else {
-                document.getElementById("EliminarArchivoValidador").style.display = "block";
-                $("#nameArchivoValidador").html(msg.archivo);
-            }
-            getCargarArchivoCSVPoputLocalStorageValiddor(msg);
-            ConstruyeGrillaPoputValidador(msg.listArchivo,0);
-        },
-        error: function (error) {
-            alert("errror");
-        }
-    });
-}
-
-function getCargarArchivoCSVPoputLocalStorageValiddor(data) {
-    localStorage.removeItem("datosCSVValidador");
-    if (data["listArchivo"] != undefined) {
-        localStorage.setItem('datosCSVValidador', JSON.stringify(data["listArchivo"]));
-    }
 }
 
 $("#btnGuardar").click(function () {
@@ -788,7 +804,6 @@ function ValidaImagen(file) {
 }
 
 $(".eliminarArchivo").click(function () {
-    debugger;
     var comunicadoid = $("#hdComunicadoId").val() == "" ? 0 : $("#hdComunicadoId").val();
     var object = {
         Comunicadoid: parseInt(comunicadoid)
@@ -813,33 +828,6 @@ $(".eliminarArchivo").click(function () {
         }
     });
 });
-
-
-
-$(".EliminarArchivoValidador").click(function () {
-    debugger;
-
-    $.ajax({
-        type: "POST",
-        url: URL_ELIMINA_ARCHIVOCSV_VALIDADOR,
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        async: true,
-        success: function (msg) {
-            localStorage.removeItem("datosCSVValidador");
-            $("#nameArchivoValidador").html("");
-            $("#fileCSVValidador").val("");
-            document.getElementById("EliminarArchivoValidador").style.display = "none";
-            $("#nameArchivoValidador").html(OBJETO_MENJASE.validaArchivoCsv);
-            $("#divTablaValidador").empty();
-            ConstruyeGrillaPoputValidador([],1)
-        },
-        error: function (error) {
-            alert("errror");
-        }
-    });
-});
-
 
 /***************************************************************************************************************************************/
 
