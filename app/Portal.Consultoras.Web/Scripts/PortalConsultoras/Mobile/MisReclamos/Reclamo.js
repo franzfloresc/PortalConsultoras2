@@ -426,7 +426,7 @@ $(document).ready(function () {
 
                     if ($(me.Variables.Registro3).is(":visible")) {
                         me.Funciones.DetalleGuardar();
-                        $(me.Variables.wrpMobile).removeClass(me.Variables.pb120);
+                        //$(me.Variables.wrpMobile).removeClass(me.Variables.pb120);
                         var arrOcultarElementos = [me.Variables.TituloPreguntaInconvenientes, me.Variables.Registro4
                             , me.Variables.Registro3, me.Variables.infoOpcionesDeCambio, me.Variables.btnSiguiente1, me.Variables.pasotres
                             , me.Variables.Enlace_regresar];
@@ -441,7 +441,7 @@ $(document).ready(function () {
 
                 $(me.Variables.btnAceptarSolucion).click(function () {
                     me.Funciones.DetalleGuardar();
-                    $(me.Variables.wrpMobile).removeClass(me.Variables.pb120);
+                    //$(me.Variables.wrpMobile).removeClass(me.Variables.pb120);
                     $(me.Variables.Cambio3).hide();
                     $(me.Variables.TituloPreguntaInconvenientes).hide();
                     $(me.Variables.Registro4).hide();
@@ -1151,7 +1151,7 @@ $(document).ready(function () {
                     me.Funciones.CambioPaso2();
                     $("[data-tipo-confirma='canje']").hide();
                     $("[data-tipo-confirma=cambio]").show();
-                    $(me.Variables.wrpMobile).addClass(me.Variables.pb120);
+                    //$(me.Variables.wrpMobile).addClass(me.Variables.pb120);
 
                     $(me.Variables.spnSimboloMonedaReclamo).html(variablesPortal.SimboloMoneda);
 
@@ -1981,7 +1981,7 @@ $(document).ready(function () {
             },
 
             SetMontoCampaniaTotal: function () {
-                $(me.Variables.wrpMobile).addClass(me.Variables.pb120);
+                //$(me.Variables.wrpMobile).addClass(me.Variables.pb120);
                 $(me.Variables.spnSimboloMonedaReclamo).html(variablesPortal.SimboloMoneda);
                 var precioUnidad = $(me.Variables.txtPrecioUnidad).val();
                 var cantidad = $(me.Variables.txtCantidad1).val();

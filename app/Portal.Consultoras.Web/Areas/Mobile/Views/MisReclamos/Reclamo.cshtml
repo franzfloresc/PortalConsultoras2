@@ -137,7 +137,7 @@
                 </div>
             </div>
             <div class="campos_registro_solicitud_cdr Registro1">
-                <div class="formulario_inscripcion_cdr">
+                <div class="formulario_inscripcion_cdr formulario_inscripcion_cdr--paso1">
                     @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.ListaCampania, "CampaniaID", "NombreCorto", Model.CampaniaID), new { id = "ddlCampania", @class = "border-radius-4 select_reclamo", @required = "required" })
                     <select class="border-radius-4 elige_num_pedido" id="ddlnumPedido" name="numPedido" required="required" style="display:none;"></select>
                     <input id="txtNumPedido" type="text" style="text-align:center;display:none;" />
@@ -202,21 +202,20 @@
             </div>
 
         <div id="infoOpcionesDeCambio" style="display:none;">
-            <div id="OpcionCambioPorOtroProducto" style="display:none;">
-                <div class="descripcion_eleccion_cdr tipografia_lato tipografia_lato_regular" data-tipo-confirma="cambio">
-                    <span>
+            <div id="OpcionCambioPorOtroProducto" class="opcion_cdr_seleccionada_info_wrapper" style="display:none;">
+                <div class="opcion_cdr_seleccionada_info opcion_cdr_seleccionada_info--cambiarPorOtroProducto" data-tipo-confirma="cambio">
+                    <p>
                         <input type="hidden" id="hdMontoMinimoReclamo" />
                         Puedes cambiarlo por otro producto(s) cuyo monto sea mayor o igual al que reclamas
                         (<span id="spnSimboloMonedaReclamo">S/.</span><span id="spnMontoMinimoReclamoFormato">15</span>)
-                    </span>
-                    <span>Búscalo en tus catálogos de Campaña <span id="spnNumeroCampaniaReclamo">15</span>:</span>
+                    </p>
+                    <p class="text-bold">Búscalo en tus catálogos de Campaña <span id="spnNumeroCampaniaReclamo">15</span>:</p>
                     <div data-detalle-confirma=""></div>
                 </div>
-
                 <div class="formulario_inscripcion_cdr">
-                    <input id="cuvmobile2" class="tipografia_lato tipografia_lato_regular ValidaNumeral ValidaPasteNumeral" type="text" value="" placeholder="Código del producto" />
+                    <input id="cuvmobile2" class="border-radius-4 tipografia_lato tipografia_lato_regular ValidaNumeral ValidaPasteNumeral" type="text" value="" placeholder="Código del producto" />
                     <input type="hidden" id="hdImporteTotal2" />
-                    <div id="DescripcionCuv2" class="producto_cdr" style="font-size:13px; display:none;">
+                    <div id="DescripcionCuv2" class="producto_cdr" style="font-size:15px; display:none;">
                         <span id="txtCuv2" class="codigo_producto_cdr tipografia_lato_bold">00411</span>
                         - <span id="txtDescripcionCuv2" class="nom_producto_cdr tipografia_lato_bold">Berrylicious shampoo rojo 375ml</span><br />
                         <span id="spnSimboloMonedaCuv2"></span> <span id="txtPrecioCuv2">0.00</span>
@@ -225,38 +224,37 @@
                     <div class="contenedor_cantidadProductos contenedor_campo_cantidad_productos">
                         <span class="texto_cantidad_productos tipografia_lato tipografia_lato_regular">Cantidad:</span>
                         <div id="divCantidad2">
-                            <a class="cantidad_menos_home modificarPrecioMenos"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
                             <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad2" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
                                    data-input="cantidad" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
+                            <a class="cantidad_menos_home modificarPrecioMenos"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
                             <a class="cantidad_mas_home modificarPrecioMas"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
-                            <div class="clear"></div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div id="OpcionCambioMismoProducto" style="display:none;">
-                <div>
-                    <p>Vamos a reenviarte el mismo producto:</p>
-                    <p>
-                        <span id="spnDescProdDevolucionC">Producto OpcionCambioMismoProducto</span>
-                        <span id="spnCantidadC">x Unidades</span>
+            <div id="OpcionCambioMismoProducto" class="opcion_cdr_seleccionada_info_wrapper" style="display:none;">
+                <div class="opcion_cdr_seleccionada_info opcion_cdr_seleccionada_info--cambioMismoProducto">
+                    <p class="text-bold">Te reenviaremos el siguiente producto:</p>
+                    <p class="text-bold">
+                        <span id="spnDescProdDevolucionC" class="text-bold producto_nom">Producto OpcionCambioMismoProducto</span>
+                        <span id="spnCantidadC" class="text-bold cantidad_und_producto">x Unidades</span>
                     </p>
                 </div>
             </div>
-            <div id="OpcionEnvioDelProducto" style="display:none;">
-                <div>
-                    <p>Vamos a enviarte el siguiente producto:</p>
-                    <p>
-                        <span id="spnDescripcionProductoOpcionF">Producto OpcionEnvioDelProducto</span>
+            <div id="OpcionEnvioDelProducto" class="opcion_cdr_seleccionada_info_wrapper" style="display:none;">
+                <div class="opcion_cdr_seleccionada_info opcion_cdr_seleccionada_info--envioProducto">
+                    <p class="text-bold">Vamos a enviarte el siguiente producto:</p>
+                    <p class="text-bold">
+                        <span class="text-bold producto_nom" id="spnDescripcionProductoOpcionF">Producto OpcionEnvioDelProducto</span>
                         <span id="spnCantidadF">x Unidades</span>
                     </p>
                 </div>
             </div>
-            <div id="OpcionDevolucionDinero" style="display:none;">
-                <div>
-                    <p>Vamos a descontar el siguiente producto en tu próximo pedido:</p>
-                    <p>
-                        <span id="spnDescripcionProductoOpcionG">Producto X OpcionDevolucionDinero</span>
+            <div id="OpcionDevolucionDinero" class="opcion_cdr_seleccionada_info_wrapper" style="display:none;">
+                <div class="opcion_cdr_seleccionada_info opcion_cdr_seleccionada_info--devolucionDinero">
+                    <p class="text-bold">Vamos a descontar el siguiente producto en tu próximo pedido:</p>
+                    <p class="text-bold">
+                        <span id="spnDescripcionProductoOpcionG" class="text-bold producto_nom">Producto X OpcionDevolucionDinero</span>
                         <span id="spnCantidadG">x Unidades</span>
                     </p>
                 </div>
@@ -770,7 +768,7 @@
 </script>
 
 <script id="template-opcion-devolucion" type="text/x-handlebars-template">
-    <div>
+    <div class="opcion_cdr_seleccionada_info opcion_cdr_seleccionada_info--devolucionCasoSetProducto">
         {{#if DataRespuestaServicio}}
         <p class="text-bold">El producto <span class="text-bold producto_set_nom">{{ProductoSeleccionado.CUV}} - {{ProductoSeleccionado.Descripcion}} (<span id="spnCantidadDVarios">x Unidades</span> </span>) pertenece al pack:</p>
         <p class="text-left producto_set_lista">
