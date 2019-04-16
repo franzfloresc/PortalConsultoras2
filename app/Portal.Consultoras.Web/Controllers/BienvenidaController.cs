@@ -2064,34 +2064,46 @@ namespace Portal.Consultoras.Web.Controllers
                 using (var sv = new UsuarioServiceClient())
                     obj = sv.GetActualizacionEmailySms(userData.PaisID, userData.CodigoUsuario);
 
-                using (var sv = new UsuarioServiceClient())
-                    resultadoActivoPopup = sv.ValidaEstadoPopup(userData.PaisID);
-                if (Convert.ToInt32(pagina)== paginaPopup)
+                var tempComunicados = _comunicadoProvider.ObtenerSegmentacionInformativaPorConsultora(userData, EsDispositivoMovil());
+
+                if (tempComunicados.Count > 0)
                 {
-                    if (resultadoActivoPopup == 1)
+                    using (var sv = new UsuarioServiceClient())
+                        resultadoActivoPopup = sv.ValidaEstadoPopup(userData.PaisID);
+                    if (Convert.ToInt32(pagina) == paginaPopup)
                     {
-                        if (userData.PaisID == Convert.ToInt32(Constantes.PaisID.Peru))
-                            ValidacionDatos = ValidacionPerfilConsultoraPeru(obj);
+                        if (resultadoActivoPopup == 1)
+                        {
+                            if (userData.PaisID == Convert.ToInt32(Constantes.PaisID.Peru))
+                                ValidacionDatos = ValidacionPerfilConsultoraPeru(obj);
+                            else
+                                ValidacionDatos = ValidacionPerfilConsultorOtrosPaises(obj);
+                        }
                         else
-                            ValidacionDatos = ValidacionPerfilConsultorOtrosPaises(obj);
+                            ValidacionDatos = ValidacionperfilConsultoraToolTip(obj, pagina);
                     }
                     else
                         ValidacionDatos = ValidacionperfilConsultoraToolTip(obj, pagina);
+
+                    if (EsDispositivoMovil()) urlMuestraPopup = Constantes.UrlDatsoPendientes.MiPerfilMobile;
+                    else urlMuestraPopup = Constantes.UrlDatsoPendientes.MiPerfilDesktop;
+
+                    return Json(new { valor = ValidacionDatos[0], mensaje = ValidacionDatos[1].ToString(), tipoMostrador = resultadoActivoPopup, urlDispositivo = urlMuestraPopup }, JsonRequestBehavior.AllowGet);
                 }
                 else
-                    ValidacionDatos = ValidacionperfilConsultoraToolTip(obj, pagina);
+                {
+                    ValidacionDatos[0] = "0";
+                    ValidacionDatos[1] = string.Empty;
+                }
+                return Json(new { valor = ValidacionDatos[0], mensaje = ValidacionDatos[1].ToString(), tipoMostrador = resultadoActivoPopup, urlDispositivo = urlMuestraPopup }, JsonRequestBehavior.AllowGet);
 
-                if (EsDispositivoMovil()) urlMuestraPopup = Constantes.UrlDatsoPendientes.MiPerfilMobile;
-                else urlMuestraPopup = Constantes.UrlDatsoPendientes.MiPerfilDesktop;
-
-                return Json(new { valor = ValidacionDatos[0], mensaje = ValidacionDatos[1].ToString(), tipoMostrador= resultadoActivoPopup, urlDispositivo=urlMuestraPopup }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 ValidacionDatos[0] = "0";
                 ValidacionDatos[1] = pagina == "1" ? "" : " | ";
-                return Json(new { valor=ValidacionDatos[0], mensaje=ValidacionDatos[1].ToString() }, JsonRequestBehavior.AllowGet);
+                return Json(new { valor = ValidacionDatos[0], mensaje = ValidacionDatos[1].ToString() }, JsonRequestBehavior.AllowGet);
             }
         }
 
