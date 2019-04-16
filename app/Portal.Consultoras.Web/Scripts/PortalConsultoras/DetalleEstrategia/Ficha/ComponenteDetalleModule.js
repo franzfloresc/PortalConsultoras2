@@ -182,8 +182,9 @@
         }
     };
 
-    var _VerDetalle = function (componente) {
+    var _VerDetalle = function (event) {
         //console.log('componente', componente);
+        var componente = $(event.target).parents("[data-componente-grupo]").find("[data-componente]").data("componente");;
         _util.mostrarDetalleModal(componente);
     };
 
