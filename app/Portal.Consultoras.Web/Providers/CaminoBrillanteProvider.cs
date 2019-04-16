@@ -29,8 +29,6 @@ namespace Portal.Consultoras.Web.Providers
                 }
                 sessionManager.SetConsultoraCaminoBrillante(resumen);
 
-
-
                 if (resumen.Niveles != null)
                 {
                     var nivelActualConsultora = GetNivelConsultoraCaminoBrillante();
@@ -46,12 +44,9 @@ namespace Portal.Consultoras.Web.Providers
                                            Constantes.CaminoBrillante.Niveles.Iconos[item.CodigoNivel][nivel <= nivelActual ? 1 : 0] : string.Empty;
                     }
                 }
-
             }
             return resumen;
         }
-
-
 
         public BENivelCaminoBrillante ObtenerNivelActualConsultora()
         {
@@ -143,7 +138,7 @@ namespace Portal.Consultoras.Web.Providers
                     };
                     kits = svc.GetKitsCaminoBrillante(usuario, nivel).ToList();
                 }
-                if (kits != null && !kits.Any(e => e.FlagHistorico)) {
+                if (kits != null && kits.Any(e => e.FlagHistorico)) {
                     sessionManager.SetKitCaminoBrillante(kits);
                 }
                 return kits;
@@ -186,6 +181,8 @@ namespace Portal.Consultoras.Web.Providers
         }
 
         public bool ValidacionCaminoBrillante() {
+            var informacion = ResumenConsultoraCaminoBrillante();
+            if (informacion == null || informacion.NivelConsultora == null || informacion.NivelConsultora.Count() == 0) return false;
             return true;
         }
 

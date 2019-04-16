@@ -1,16 +1,31 @@
 ﻿
 @{
     Layout = "~/Views/Shared/_MainLayoutResponsiveCaminoBrillante.cshtml";
-    ViewBag.Title = ViewBag.Vista;
     var data = ViewBag.Informacion;
 }
 
 <link href="~/Content/CaminoBrillante/css/estilos.css" rel="stylesheet" />
-<br />
+
+<section data-layout="ubicacionWeb" class="row flex-row ml-0 mr-0 layout__view__breadcrumbs__wrapper mostrarEnDesktop">
+    <div class="col-12 pl-0 pr-0 mx-auto layout__view__breadcrumbs">
+        <ul class="row flex-row align-items-center ml-0 mr-0 layout__view__lista__breadcrumbs">
+            <li class="layout__view__breadcrumb">
+                <a href="/Bienvenida" class="d-block" title="Home">Home</a>
+            </li>
+
+            <li class="layout__view__breadcrumb">
+                <a href="/CaminoBrillante" class="d-block" title="CaminoBrillante">Camino Brillante</a>
+            </li>
+
+            <li class="layout__view__breadcrumb layout__view__breadcrumb--active__view">
+                <span class="d-block">@ViewBag.Vista</span>
+            </li>
+        </ul>
+    </div>
+</section>
 
 
 <div class="container">
-
     <h2 class="title">@data.Titulo</h2>
 
     <div class="contain-camb">
@@ -23,17 +38,11 @@
                     @{
                         var NombreModal = 1;
                     }
-
                     @foreach (var item2 in data.Indicadores[i].Medallas)
                     {
-
-
-
                         if (item2 != null)
                         {
-
                             <div class="itm">
-
                                 @if (item2.Tipo == "PIE")
                                 {
                                     string[] torta = item2.Valor.Split('-');

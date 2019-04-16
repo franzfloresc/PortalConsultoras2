@@ -602,12 +602,12 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             var kits = GetKits(entidad.PaisID, entidad.CampaniaID, periodo.Periodo, nivelId);
             if (kits == null) return null;
 
-            var kitsHistoricos = GeKitsHistoricos(entidad.PaisID, entidad.ConsultoraID, entidad.CodigoConsultora, entidad.CampaniaID, periodo.Periodo);
+            var ofertasHistoricos = GeOfertasHistoricos(entidad.PaisID, entidad.ConsultoraID, entidad.CodigoConsultora, entidad.CampaniaID, periodo.Periodo);
             /* Deshabilitamos de acuerdo al Historico de la Consultora */
-            if (kitsHistoricos != null && kitsHistoricos.Any())
+            if (ofertasHistoricos != null && ofertasHistoricos.Any(e => kits.Any(k => k.CUV == e.CUV)))
             {
-                var codKits = kitsHistoricos.Select(e => e.CUV);
-                var codKitsProviders = kitsHistoricos.Where(e => e.FlagHistorico).Select(e => e.CUV);
+                var codKits = ofertasHistoricos.Select(e => e.CUV);
+                var codKitsProviders = ofertasHistoricos.Where(e => e.FlagHistorico).Select(e => e.CUV);
 
                 kits.ForEach(e =>
                 {
@@ -665,8 +665,8 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                         kit.CodigoNivel = _kitProvider.Nivel;
                         kit.FlagDigitable = _kitProvider.Digitable;
                         kit.DescripcionNivel = niveles.Where(e => e.CodigoNivel == _kitProvider.Nivel).Select(e => e.DescripcionNivel).SingleOrDefault();
-                        kit.FotoProductoSmall = !string.IsNullOrEmpty(kit.FotoProductoSmall) ? ConfigS3.GetUrlFileS3Matriz(paisISO, kit.FotoProductoSmall) : string.Empty;
-                        kit.FotoProductoMedium = !string.IsNullOrEmpty(kit.FotoProductoMedium) ? ConfigS3.GetUrlFileS3Matriz(paisISO, kit.FotoProductoMedium) : string.Empty;
+                        kit.FotoProductoSmall = !string.IsNullOrEmpty(kit.FotoProductoSmall) ? ConfigCdn.GetUrlFileCdnMatriz(paisISO, kit.FotoProductoSmall) : string.Empty;
+                        kit.FotoProductoMedium = !string.IsNullOrEmpty(kit.FotoProductoMedium) ? ConfigCdn.GetUrlFileCdnMatriz(paisISO, kit.FotoProductoMedium) : string.Empty;
                     }
                 });
 
@@ -681,7 +681,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             return CacheManager<List<BEKitCaminoBrillante>>.ValidateDataElement(paisId, ECacheItem.CaminoBrillanteOfertas, string.Format("{0}-{1}", periodoId, campaniaId), () => GetKitsProvider(paisId, periodoId, campaniaId));
         }
 
-        private List<BEKitsHistoricoConsultora> GeKitsHistoricos(int paisId, long consultoraId, string codigoConsultora, int CampaniaId, int periodoId)
+        private List<BEKitsHistoricoConsultora> GeOfertasHistoricos(int paisId, long consultoraId, string codigoConsultora, int CampaniaId, int periodoId)
         {
             _providerCaminoBrillante = _providerCaminoBrillante ?? GetCaminoBrillanteProvider(paisId);
             if (_providerCaminoBrillante == null) return null;
@@ -727,8 +727,8 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
                 demostradores.ForEach(e =>
                 {
-                    e.FotoProductoSmall = !string.IsNullOrEmpty(e.FotoProductoSmall) ? ConfigS3.GetUrlFileS3Matriz(paisISO, e.FotoProductoSmall) : string.Empty;
-                    e.FotoProductoMedium = !string.IsNullOrEmpty(e.FotoProductoMedium) ? ConfigS3.GetUrlFileS3Matriz(paisISO, e.FotoProductoMedium) : string.Empty;
+                    e.FotoProductoSmall = !string.IsNullOrEmpty(e.FotoProductoSmall) ? ConfigCdn.GetUrlFileCdnMatriz(paisISO, e.FotoProductoSmall) : string.Empty;
+                    e.FotoProductoMedium = !string.IsNullOrEmpty(e.FotoProductoMedium) ? ConfigCdn.GetUrlFileCdnMatriz(paisISO, e.FotoProductoMedium) : string.Empty;
                 });
             }
 
@@ -766,6 +766,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                     estrategia.CUV2 = demostrador.CUV;
                     estrategia.DescripcionCUV2 = demostrador.DescripcionCUV;
                     estrategia.Precio2 = demostrador.PrecioCatalogo;
+                    estrategia.LimiteVenta = 99;
                     return;
                 }
 
@@ -781,10 +782,11 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 estrategia.CUV2 = kit.CUV;
                 estrategia.DescripcionCUV2 = kit.DescripcionCUV;
                 estrategia.Precio2 = kit.PrecioCatalogo;
+                estrategia.LimiteVenta = 1;
             }
             catch (Exception ex)
             {
-
+                //LogManager.SaveLog .LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
             }
         }
 
