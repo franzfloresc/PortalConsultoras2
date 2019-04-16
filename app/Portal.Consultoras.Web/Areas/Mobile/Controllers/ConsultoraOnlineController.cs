@@ -975,11 +975,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     model.ListaProductos = lstByProductos;
                     objMisPedidos = model;
                     SessionManager.SetobjMisPedidos(objMisPedidos);
-                    //model.RegistrosTotal = model.ListaPedidos.Count.ToString();
+                    model.RegistrosTotal = model.ListaPedidos.Count.ToString();
                 }
                 else
                 {
-                    //model.RegistrosTotal = "0";
+                    model.RegistrosTotal = "0";
                     return RedirectToAction("Detalle", "Pedido", new { area = "Mobile" });
                 }
             }
@@ -1051,11 +1051,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
 
-            using (SACServiceClient sv = new SACServiceClient())
-            {
-                var lsMotivos = sv.GetMotivosRechazo(userData.PaisID).ToList();
-                ViewBag.MotivosRechazo = Mapper.Map<List<MisPedidosMotivoRechazoModel>>(lsMotivos);
-            }
+            //using (SACServiceClient sv = new SACServiceClient())
+            //{
+            //    var lsMotivos = sv.GetMotivosRechazo(userData.PaisID).ToList();
+            //    ViewBag.MotivosRechazo = Mapper.Map<List<MisPedidosMotivoRechazoModel>>(lsMotivos);
+            //}
 
             return View(model);
         }
@@ -1114,11 +1114,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
 
-            using (SACServiceClient svc = new SACServiceClient())
-            {
-                var lstMotivos = svc.GetMotivosRechazo(userData.PaisID).ToList();
-                ViewBag.MotivosRechazo = Mapper.Map<List<MisPedidosMotivoRechazoModel>>(lstMotivos);
-            }
+            //using (SACServiceClient svc = new SACServiceClient())
+            //{
+            //    var lstMotivos = svc.GetMotivosRechazo(userData.PaisID).ToList();
+            //    ViewBag.MotivosRechazo = Mapper.Map<List<MisPedidosMotivoRechazoModel>>(lstMotivos);
+            //}
 
             return View(model);
         }

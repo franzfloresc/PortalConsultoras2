@@ -53,7 +53,7 @@
 
                     @foreach (var item in Model.ListaPedidos)
                     {
-                        <div class="cursor onClient container vc-box vc-box--shadow">
+                        <div class="cursor onClient container vc-box vc-box--shadow" onclick="DetallePedidoPendiente(@item.PedidoId)">
                             <!--   Pedidos   -->
                             <div class="row align-items-center">
                                 <div class="col-8">
@@ -113,13 +113,16 @@
                                             <p><strong>Monto total: </strong>@ViewBag.Simbolo @item2.FormatoPrecioTotal</p>
                                             <p><strong>Origen: </strong>@item2.MedioContacto</p>
                                         </div>
-                                        <div class="cursor onProduct vc-box--action vc-box--radius">
+                                        <div class="cursor onProduct vc-box--action vc-box--radius" onclick="DetallePedidoPendienteClientes(@item2.CUV)">
                                             <p class="vc-box--title"><strong>Te lo pidieron</strong></p>
-                                            @foreach (var item3 in item2.ListaClientes)
+                                            @foreach (var item3 in item2.ListaClientes.Take(2).ToList())
                                             {
                                                 <p>@item3.Cliente</p>
                                             }
-                                            <p>Ver más...</p>
+                                            @if (item2.ListaClientes.Count() > 2)
+                                            {
+                                                <p>Ver más...</p>
+                                            }
                                             <div class="vc-box--button">
                                                 <a class="vc-box--btn vc-box--title" href="@Url.Action("DetallePedidoPendienteClientes", "ConsultoraOnline", new { cuv = item2.CUV })">Confirmar clientes</a>
                                             </div>

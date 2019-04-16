@@ -151,3 +151,11 @@ function CerrarMensajeAceptado() {
 function PendientesRevisalo(categoria,accion) {    
     DataLayerPedidosPendientes('virtualEvent', categoria, accion, 'Revísalo');
 }
+
+function DetallePedidoPendienteClientes(cuv) {
+    window.location = (isMobileNative.any() ? "/Mobile" : "") + "/ConsultoraOnline/DetallePedidoPendienteClientes?cuv=" + cuv;
+}
+
+function DetallePedidoPendiente(ids) {
+    window.location = (isMobileNative.any() ? "/Mobile" : "") + "/ConsultoraOnline/DetallePedidoPendiente?ids=" + ids;
+}
