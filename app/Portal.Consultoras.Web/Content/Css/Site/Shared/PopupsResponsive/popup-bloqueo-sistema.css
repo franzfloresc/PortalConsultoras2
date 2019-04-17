@@ -41,13 +41,13 @@
 @media screen and (max-width:991px){
 
     .popup__somos__belcorp--bloqueoSistema {
-        width: 100%;
+        width: 100%!important;
         height: 100%;
         max-width:none;
         padding: 69px 31px 22px;
-        top: 0;
-        border-radius: 0;
-        margin-bottom: 0;
+        top: 0!important;
+        border-radius: 0!important;
+        margin-bottom: 0!important;
     }
 
         .popup__somos__belcorp--bloqueoSistema .popup__somos__belcorp__icono__cerrar {
