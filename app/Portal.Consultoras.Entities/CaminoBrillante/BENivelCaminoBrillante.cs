@@ -23,7 +23,7 @@ namespace Portal.Consultoras.Entities.CaminoBrillante
         /// <summary>
         /// Indica el monto Maximo del siguiente nivel
         /// </summary>
-        public decimal MontoFaltante { get; set; }
+        public decimal? MontoFaltante { get; set; }
         /// <summary>
         /// Indica si tendra ofertas o no
         /// </summary>
@@ -31,7 +31,7 @@ namespace Portal.Consultoras.Entities.CaminoBrillante
         /// <summary>
         /// Url de imagen del Nivel
         /// </summary>
-        public string UrlImagenNivel { get; set; }
+        //public string UrlImagenNivel { get; set; }
         /// <summary>
         /// Listado de beneficos para cada Nivel
         /// </summary>
