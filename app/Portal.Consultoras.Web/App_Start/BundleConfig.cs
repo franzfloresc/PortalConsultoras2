@@ -1030,7 +1030,18 @@ namespace Portal.Consultoras.Web
             ));
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mobile/SugerenciaPendientes").Include(
                "~/Scripts/slick.js"
-           ));
+            ));
+
+            bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/SugerenciaPendientes").Include(
+                "~/Content/Css/Site/slick.css",
+                "~/Content/Css/Site/ConsultoraOnline/Pendientes.css",
+                "~/Content/Css/Site/ConsultoraOnline/Pendientes.rewrite.css"
+            ));
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/SugerenciaPendientes").Include(
+               "~/Scripts/PortalConsultoras/ConsultoraOnline/assets/bootstrap.min.js",
+               "~/Scripts/PortalConsultoras/ConsultoraOnline/Pendientes-ui.min.js"
+            ));
+
 
             #region ArmaTuPack
 

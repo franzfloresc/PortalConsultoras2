@@ -1,7 +1,300 @@
-﻿
+﻿@section styles{    
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/SugerenciaPendientes")
+}
+
 @{
     ViewBag.Title = "Pendientes";
 }
 
-<h2>Pendientes</h2>
+    <div class="position-absolute modal-right top-0 modal-content">
+      <div class="container-fluid pr-0">
+        <div class="row no-gutters">
+          <div class="col">            
+            <div class="mobile">
+              <div class="container-aceptar-pedidos position-relative">
+                <div class="container border-bottom position-sticky top">
+                  <div class="row align-items-center">
+                    <div class="col">
+                      <div class="position-relative text-right mt-3"><a class="close-modal" href="#" alt="Cerrar">Cerrar    </a></div>
+                    </div>
+                  </div>
+                  <div class="row align-items-center">
+                    <div class="col">
+                      <h3 class="mt-2 mb-2">Paso 1: Acepta los pedidos que deseas atender      </h3>
+                    </div>
+                  </div>
+                </div>
+                <div class="container-flex border-bottom mb-1 background color-third">
+                  <div class="container mb-2 pt-2">
+                    <div class="row">
+                      <div class="col color-text">         <span class="medium t-w700">Producto pedido:              </span><span class="medium">Delineador Líquido Punta Plumón Marrón otoño                </span></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="container background color-white">
+                  <div class="row align-items-start">
+                    <div class="col">
+                      <div class="card--content">
+                        <div class="row align-items-start">
+                          <div class="col-9"><span class="t3 color-text">Katherine Lorenzo</span><span class="medium color-text">999956799</span></div>
+                          <div class="col-3 text-right"><a href="#"> <img class="img-fluid icon-32" src="https://i.ibb.co/jTXwndP/trash-3x.png" alt="Borrar"></a></div>
+                        </div>
+                        <div class="row align-items-center mt-2">
+                          <div class="col-4 pr-0">
+                            <div class="position-relative">
+                              <input type="text" value="1" size="2" maxlength="2"><span class="son position-absolute"><a class="es mas" href="#">+</a><a class="es menos" href="#">-</a></span>
+                            </div>
+                          </div>
+                          <div class="col-8 text-right"><a class="btn full ghost dark-color" href="#">Aceptado</a>
+                          </div>
+                        </div>
+                        <div class="row align-items-center mt-3">
+                          <div class="col">
+                            <div class="tooltip-primary tooltip-arrow_top p-3"><span class="medium">¿Quieres eliminar este pedido?</span>
+                              <div class="row mt-3">
+                                <div class="col pl-0 pr-0"><a class="pr-0 btn no-border dark-color" href="#">No, gracias</a></div>
+                                <div class="col pl-0"><a class="btn second-color" href="#">Sí, eliminar</a></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="card--content">
+                        <div class="row align-items-start">
+                          <div class="col-9"><span class="t3 color-text">Grecia Gabriel</span><span class="medium color-text">999956799</span></div>
+                          <div class="col-3 text-right"><a href="#"> <img class="img-fluid icon-32" src="https://i.ibb.co/jTXwndP/trash-3x.png" alt="Borrar"></a></div>
+                        </div>
+                        <div class="row align-items-center mt-2">
+                          <div class="col-4 pr-0">
+                            <div class="position-relative">
+                              <input type="text" value="1" size="2" maxlength="2"><span class="son position-absolute"><a class="es mas" href="#">+</a><a class="es menos" href="#">-</a></span>
+                            </div>
+                          </div>
+                          <div class="col-8 text-right"><a class="btn full dark-color" href="#">Aceptar</a>
+                          </div>
+                        </div>
+                        <div class="row align-items-center mt-3 hide">
+                          <div class="col">
+                            <div class="tooltip-primary tooltip-arrow_top p-3"><span class="medium">¿Quieres eliminar este pedido?</span>
+                              <div class="row mt-3">
+                                <div class="col pl-0 pr-0"><a class="btn no-border dark-color" href="#">No, gracias</a></div>
+                                <div class="col"><a class="btn second-color" href="#">Sí, eliminar</a></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="card--content">
+                        <div class="row align-items-start">
+                          <div class="col-9"><span class="t3 color-text">Mariana Zumarán</span><span class="medium color-text">999956799</span></div>
+                          <div class="col-3 text-right"><a href="#"> <img class="img-fluid icon-32" src="https://i.ibb.co/jTXwndP/trash-3x.png" alt="Borrar"></a></div>
+                        </div>
+                        <div class="row align-items-center mt-2">
+                          <div class="col-4 pr-0">
+                            <div class="position-relative">
+                              <input type="text" value="1" size="2" maxlength="2"><span class="son position-absolute"><a class="es mas" href="#">+</a><a class="es menos" href="#">-</a></span>
+                            </div>
+                          </div>
+                          <div class="col-8 text-right"><a class="btn full dark-color" href="#">Aceptar</a>
+                          </div>
+                        </div>
+                        <div class="row align-items-center mt-3 hide">
+                          <div class="col">
+                            <div class="tooltip-primary tooltip-arrow_top p-3"><span class="medium">¿Quieres eliminar este pedido?</span>
+                              <div class="row mt-3">
+                                <div class="col pl-0 pr-0"><a class="btn no-border dark-color" href="#">No, gracias</a></div>
+                                <div class="col"><a class="btn second-color" href="#">Sí, eliminar</a></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="container-flex border mt-2 position-sticky bottom">
+                  <div class="container position-absolute top-50">
+                    <div class="row align-items-center position-relative">
+                      <div class="col">
+                        <div class="tooltip-secondary tooltip-arrow_bottom p-3"><span class="tooltip-info medium t-w700">Debes aceptar mínimo un pedido para continuar.</span></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="container mt-2 mb-2">
+                    <div class="row">
+                      <div class="col pr-7"><a class="btn ghost full dark-color" href="#" data-action="reject">Rechazar todo</a></div>
+                      <div class="col pl-7">
+                        <!--Botón activo-->
+                        <!--<a class="btn full second-color" href="#">Continuar</a>--><a class="btn full disabled" href="#" disabled>Continuar</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col">      
+            <div class="mobile hide rechazar">    
+              <div class="container position-sticky top">
+                <div class="row align-items-center">
+                  <div class="col">
+                    <div class="position-relative text-right mt-3"><a class="close-modal" href="#" alt="Cerrar">Cerrar          </a></div>
+                  </div>
+                </div>
+              </div>
+              <div class="vertical-center">                
+                <div class="container fix-mt">
+                  <div class="row">           
+                    <div class="info text-center pr-5 pl-5"><img class="img-fluid" src="https://i.ibb.co/4jKbTqS/error-outline-3x.png" alt="Aviso">
+                      <p class="font-big t-w700 mt-2 mb-2">¿Deseas rechazar todos los pedidos de tus clientes?</p>
+                    </div>
+                  </div>
+                  <div class="row mt-3">
+                    <div class="col ml-3"><a class="btn ghost no-border full" href="#" data-action="not-reject">No, gracias</a></div>
+                    <div class="col mr-3"><a class="btn full second-color" href="#">Sí, rechazar</a></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div style="margin-top:20px"></div>
+    <div class="container-fluid b-btm btm-2">
+      <div class="row no-gutter">
+        <div class="col-6 col-md-6 col-lg-4 col-xl-3 return-box">
+          <div class="return-skew">       <a class="return-skew_content" href="#">         
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                <path fill="#fff" fill-rule="evenodd" d="M5.174 11l4.585-5.35a1 1 0 1 0-1.518-1.302l-6 7c-.042.048-.063.106-.094.16-.024.042-.055.08-.073.126a.976.976 0 0 0-.073.36L2 12c.001.128.028.25.074.365.018.047.049.084.073.127.031.053.052.111.094.16l6 7a.999.999 0 0 0 1.41.107 1 1 0 0 0 .108-1.41L5.174 13H21a1 1 0 0 0 0-2H5.174z"></path>
+              </svg><span>Pedidos por aprobar</span></a></div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid b-btm">
+      <div class="container"> 
+        <ul class="nav nav-tabs" id="vpcp" role="tablist">
+          <li class="nav-item"><a class="nav-link active" id="por-cliente-tab" data-toggle="tab" href="#por-cliente" role="tab" aria-controls="cliente" aria-selected="true">Vista por cliente</a></li>
+          <li class="nav-item"><a class="nav-link" id="por-producto-tab" data-toggle="tab" href="#por-producto" role="tab" aria-controls="producto" aria-selected="false">Vista por producto</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="tab-content" id="vpcpContent">
+      <div class="tab-pane fade show active" id="por-cliente" role="tabpanel" aria-labelledby="por-cliente-tab">
+        <div class="container-fluid">
+          <div class="container">
+            <div class="card">
+              <div class="card--title">
+                <div class="row">
+                  <div class="col-3">Nombre del cliente</div>
+                  <div class="col-2">Precio total</div>
+                  <div class="col-2">Origen</div>
+                </div>
+              </div>
+              <div class="card--content">
+                <div class="row">
+                  <div class="col-3 t-w700">Katherine Lorenzo</div>
+                  <div class="col-2">S/. 140.50</div>
+                  <div class="col-2">Catálogo Digital</div>
+                  <div class="col text-right"><a class="open-modal btn--arrow" href="#">Confirmar productos</a></div>
+                </div>
+              </div>
+              <div class="card--content">
+                <div class="row">
+                  <div class="col-3 t-w700">Katherine Lorenzo</div>
+                  <div class="col-2">S/. 140.50</div>
+                  <div class="col-2">Catálogo Digital</div>
+                  <div class="col text-right"><a class="open-modal btn--arrow" href="#">Confirmar productos</a></div>
+                </div>
+              </div>
+              <div class="card--content">
+                <div class="row">
+                  <div class="col-3 t-w700">Katherine Lorenzo</div>
+                  <div class="col-2">S/. 140.50</div>
+                  <div class="col-2">Catálogo Digital</div>
+                  <div class="col text-right"><a class="open-modal btn--arrow" href="#">Confirmar productos</a></div>
+                </div>
+              </div>
+              <div class="card--content">
+                <div class="row">
+                  <div class="col-3 t-w700">Katherine Lorenzo</div>
+                  <div class="col-2">S/. 140.50</div>
+                  <div class="col-2">Catálogo Digital</div>
+                  <div class="col text-right"><a class="open-modal btn--arrow" href="#">Confirmar productos</a></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="por-producto" role="tabpanel" aria-labelledby="por-producto-tab">
+        <div class="container-fluid">
+          <div class="container">
+            <div class="card">
+              <div class="card--title">
+                <div class="row">
+                  <div class="col-1"></div>
+                  <div class="col-3">Nombre del cliente</div>
+                  <div class="col-2">Precio total</div>
+                  <div class="col-2">Origen</div>
+                  <div class="col">Clientes que te lo pidieron</div>
+                </div>
+              </div>
+              <div class="card--content card--content__no-shadow">
+                <div class="row">
+                  <div class="col-1">img</div>
+                  <div class="col-3 t-w700">              <span>x 6 Delineador Líquido Punta Plumón Marrón otoño</span></div>
+                  <div class="col-2">S/. 140.50</div>
+                  <div class="col-2">Catálogo Digital</div>
+                  <div class="col"> 
+                    <div class="card--box t-black"><span class="card--box__info">Katherine Lorenzo</span><span class="card--box__info">Grecia  Gabriel</span><span class="card--box__info">Ver más…</span><a class="open-modal btn--arrow btn--arrow__right" href="#">Confirmar productos</a></div>
+                  </div>
+                </div>
+              </div>
+              <div class="card--content card--content__no-shadow">
+                <div class="row">
+                  <div class="col-1">img</div>
+                  <div class="col-3 t-w700">              <span>x 6 Delineador Líquido Punta Plumón Marrón otoño</span></div>
+                  <div class="col-2">S/. 140.50</div>
+                  <div class="col-2">Catálogo Digital</div>
+                  <div class="col"> 
+                    <div class="card--box t-black"><span class="card--box__info">Katherine Lorenzo</span><span class="card--box__info">Grecia  Gabriel</span><span class="card--box__info">Ver más…</span><a class="open-modal btn--arrow btn--arrow__right" href="#">Confirmar productos</a></div>
+                  </div>
+                </div>
+              </div>
+              <div class="card--content card--content__no-shadow">
+                <div class="row">
+                  <div class="col-1">img</div>
+                  <div class="col-3 t-w700">              <span>x 6 Delineador Líquido Punta Plumón Marrón otoño</span></div>
+                  <div class="col-2">S/. 140.50</div>
+                  <div class="col-2">Catálogo Digital</div>
+                  <div class="col"> 
+                    <div class="card--box t-black"><span class="card--box__info">Katherine Lorenzo</span><span class="card--box__info">Grecia  Gabriel</span><span class="card--box__info">Ver más…</span><a class="open-modal btn--arrow btn--arrow__right" href="#">Confirmar productos</a></div>
+                  </div>
+                </div>
+              </div>
+              <div class="card--content card--content__no-shadow">
+                <div class="row">
+                  <div class="col-1">img</div>
+                  <div class="col-3 t-w700">              <span>x 6 Delineador Líquido Punta Plumón Marrón otoño</span></div>
+                  <div class="col-2">S/. 140.50</div>
+                  <div class="col-2">Catálogo Digital</div>
+                  <div class="col"> 
+                    <div class="card--box t-black"><span class="card--box__info">Katherine Lorenzo</span><span class="card--box__info">Grecia  Gabriel</span><span class="card--box__info">Ver más…</span><a class="open-modal btn--arrow btn--arrow__right" href="#">Confirmar productos</a></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
+
+@section scripts {
+    
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/SugerenciaPendientes")
+    
+    
+}

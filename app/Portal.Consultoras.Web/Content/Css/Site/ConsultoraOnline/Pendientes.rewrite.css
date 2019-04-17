@@ -1,0 +1,23 @@
+﻿.btn {
+    /* float: inherit;
+    width: inherit;
+    height: inherit;
+    line-height: inherit;
+    padding: inherit;
+    background: inherit;
+    color: inherit;
+    font-size: inherit;
+    border: inherit;
+    margin-top: inherit; */
+    float: unset;
+    margin-top: inherit;
+    height: unset;
+    background-image: none;
+    width: unset;
+}
+.CMXD-btn-help{
+    position : relative !important;
+}
+.mobile{
+    top: -61px;
+}
