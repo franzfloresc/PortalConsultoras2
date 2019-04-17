@@ -62,6 +62,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Ofertas()
         {
             if (!_caminoBrillanteProvider.ValidacionCaminoBrillante()) return RedirectToAction("Index", "Bienvenida");
+            if(!_caminoBrillanteProvider.TieneOfertasEspeciales()) return RedirectToAction("Index", "CaminoBrillante");
 
             var lstKit = _caminoBrillanteProvider.GetKitsCaminoBrillante();
             var lstDemo = _caminoBrillanteProvider.GetDesmostradoresCaminoBrillante();
@@ -131,7 +132,11 @@ namespace Portal.Consultoras.Web.Controllers
             var Beneficios = informacion.Niveles.Where(
                 e => e.CodigoNivel == nivel.ToString()).Select(z => new { z.Beneficios, z.DescripcionNivel, z.MontoMinimo, z.UrlImagenNivel });
 
-            var MontoAcumuladoPedido = userData.MontoDeuda;
+            //var MontoAcumuladoPedido = userData.MontoDeuda;
+            string nivelSiguiente = null;
+            //var MontoAcumuladoPedido = _caminoBrillanteProvider.MontoFaltanteSiguienteNivel(out nivelSiguiente);
+            var MontoFaltante = _caminoBrillanteProvider.MontoFaltanteSiguienteNivel(out nivelSiguiente);
+
             var Moneda = userData.Simbolo;
 
             Beneficios.ToList().ForEach(
@@ -143,7 +148,7 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 });
 
-            return Json(new { Niveles = Beneficios, Moneda, MontoAcumuladoPedido }, JsonRequestBehavior.AllowGet);
+            return Json(new { Niveles = Beneficios, Moneda = Moneda, MontoFaltante = MontoFaltante, NivelSiguiente = nivelSiguiente }, JsonRequestBehavior.AllowGet);
         }
 
     }
