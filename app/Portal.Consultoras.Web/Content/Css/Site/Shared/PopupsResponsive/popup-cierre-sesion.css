@@ -10,7 +10,7 @@
 }
 
     .popup__somos__belcorp--cierreSesion .popup__somos__belcorp__icono__cerrar {
-        top: -38px;
+        top: -56px;
         right: -13px;
     }
 
@@ -94,10 +94,18 @@
     margin-bottom: 30px;
 }
 
+@media screen and (max-width:991px){
+
+    .popup__somos__belcorp--cierreSesion {
+        padding: 69px 19px;
+    }
+
+}
+
 @media screen and (max-width:324px) {
 
     .popup__somos__belcorp--cierreSesion {
-        padding: 50px 16px;
+        padding: 69px 16px;
     }
 
     .popup__somos__belcorp__btn--cerrarSesion {
