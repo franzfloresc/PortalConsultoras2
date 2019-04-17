@@ -614,6 +614,11 @@
     <div class="content_solicitud_cdr tipografia_lato">
         <div class="contenedor_info_cdr">
             <div class="listado_producto_reclamo">
+                {{#iff item.GrupoID '!=' ''}}
+                <div class="text-bold text-center tag_sb tag_sb--standard">Set o Pack</div><br/>
+                {{else}}
+
+                {{/iff}}
                 <b>{{item.SolucionSolicitada}}</b><br />
                 {{item.CUV}} - {{item.Descripcion}}<br />
                 {{item.Cantidad}} unidades<br />
@@ -638,11 +643,6 @@
                 Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio2}}
                 {{else}}
                 {{/if_eq}}
-                {{#iff item.GrupoID '!=' ''}}
-                <div>Set o Pack</div><br />
-                {{else}}
-
-                {{/iff}}
             </div>
             <div class="icono_eliminar_solic_cdr">
                 <a class="icono_eliminar_solic_cdr eliminar-solicitud" href="javascript:void(0);" onclick="misReclamosRegistro.Funciones.PreEliminarDetalle(this);" data-detalle-grupoid="{{item.GrupoID}}" data-pedidodetalleid="{{item.CDRWebDetalleID}}"
@@ -734,8 +734,7 @@
             <label for="TerminosEntregaProductoSet" class="border-radius-4 opcion_cdr_checkbox opcion_cdr_checkbox--terminosEntregaProductoSet">
             </label>
             <span class="text-left default-color opcion_cdr_seleccionada_terminos_entrega_producto_texto">
-                Recuerda al devolver el producto se deberá entregar<br />
-                <span class="text-uppercase">todos los productos que contiene el pack </span> mencionado.
+                Recuerda al devolver el producto se deberá entregar <span class="text-uppercase">todos los productos que contiene el pack </span> mencionado.
             </span>
         </div>
         {{else}}
