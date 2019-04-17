@@ -27,7 +27,7 @@ $(document).ready(function () {
             btn_ver_solicitudes: "#btn_ver_solicitudes",
             btnAceptarSolucion: "[data-cambiopaso]",
             btnCambioProducto: "#btnCambioProducto",
-            btnSiguiente0: '#btnSiguiente0',//HD-3412 EINCA
+            btnSiguiente0: "#btnSiguiente0",//HD-3412 EINCA
             btnSiguiente1: "#btnSiguiente1",
             btnSiguiente4: "#btnSiguiente4",
             Cambio3: "#Cambio3",
@@ -92,6 +92,7 @@ $(document).ready(function () {
             OpcionCambioPorOtroProducto: "#OpcionCambioPorOtroProducto",
             OpcionCambioMismoProducto: "#OpcionCambioMismoProducto",
             paso_active_reclamo: "paso_active_reclamo",
+            icono_paso_completado:"icono_paso_completado",
             pasodos: "#pasodos",
             pasodosactivo: "#pasodosactivo",
             pasotres: "#pasotres",
@@ -217,16 +218,16 @@ $(document).ready(function () {
                     $(me.Variables.hdImporteTotal2).val(0);
                     $(me.Variables.txtDescripcionCuv2).html("");
                     $(me.Variables.txtCantidad2).val("1");
-                    me.Funciones.CambioPaso(-100);
-                    me.Funciones.BuscarMotivo();
-
+                    $(me.Variables.txtCuvMobile).val("");
+                    //me.Funciones.CambioPaso(-100);
+                    //me.Funciones.BuscarMotivo();
                     $(me.Variables.divUltimasSolicitudes).show();
+                    $("#VistaPaso3").hide();
                     $(me.Variables.Registro1).show();
                     $(me.Variables.btnSiguiente1).show();
-
-                    $(me.Variables.RegistroAceptarSolucion).hide();
-                    $(me.Variables.btnSiguiente4).hide();
-
+                    $("#VistaPaso1y2").show();
+                    //$(me.Variables.RegistroAceptarSolucion).hide();
+                    //$(me.Variables.btnSiguiente4).hide();
                     $(me.Variables.DescripcionCuv).hide();
                     $(me.Variables.txtCuvMobile).fadeIn();
 
@@ -237,9 +238,8 @@ $(document).ready(function () {
                     $(me.Variables.pasotresactivo).hide();
                     $(me.Variables.pasodos).show();
                     $(me.Variables.pasotres).show();
-
                     $(me.Variables.ComboCampania).attr("disabled", "disabled");
-                    me.Funciones.BuscarCUV();
+                    //me.Funciones.BuscarCUV();
                 });
 
                 $(me.Variables.miSolicitudCDR).click(function (e) {
@@ -437,7 +437,7 @@ $(document).ready(function () {
                                         $("#VistaPaso3").show();
                                         $(me.Variables.RegistroAceptarSolucion).show();
                                         $(me.Variables.EleccionTipoEnvio).show();
-                                        
+
                                     });
                                 } else {
                                     messageInfoValidado(data.message);
@@ -1086,7 +1086,6 @@ $(document).ready(function () {
             },
 
             ValidarPasoUno: function () {
-
                 if ($(".lista_opciones_motivo_cdr input[name='motivo-cdr']:checked").size() == 0) {
                     messageInfoValidado("por favor, seleccione el motivo del cambio.");
                     return false;
@@ -1126,7 +1125,7 @@ $(document).ready(function () {
                         }
                     },
                     error: function (data, error) {
-                        CloseLoading()
+                        CloseLoading();
                     }
                 });
             },
@@ -1205,42 +1204,42 @@ $(document).ready(function () {
                 }
             },
 
-            CambioPaso: function (paso) {
-                paso = paso || 1;
-                pasoActual = pasoActual + paso || 1;
-                pasoActual = pasoActual < 1 ? 1 : pasoActual > 3 ? 3 : pasoActual;
+            //CambioPaso: function (paso) {
+            //    paso = paso || 1;
+            //    pasoActual = pasoActual + paso || 1;
+            //    pasoActual = pasoActual < 1 ? 1 : pasoActual > 3 ? 3 : pasoActual;
 
-                $(".paso_reclamo[data-paso]").removeClass(me.Variables.paso_active_reclamo);
-                $(".paso_reclamo[data-paso] span").html("");
+            //    $(".paso_reclamo[data-paso]").removeClass(me.Variables.paso_active_reclamo);
+            //    $(".paso_reclamo[data-paso] span").html("");
 
-                $(".paso_reclamo[data-paso]").each(function (ind, tag) {
-                    var pasoTag = $(tag).attr("data-paso");
-                    if (pasoTag < pasoActual) {
-                        $(tag).addClass(me.Variables.paso_active_reclamo);
-                        $(tag).find("span").html("<img src='" + imgCheck + "' />");
-                    }
-                    else if (pasoTag == pasoActual) {
-                        $(tag).addClass(me.Variables.paso_active_reclamo);
-                        $(tag).find("span").html("<img src='" + imgPasos.replace("{0}", "cdr_paso" + pasoActual + "_activo") + "' />");
-                    }
-                    else $(tag).find("span").html("<img src='" + imgPasos.replace("{0}", "cdr_paso" + pasoTag) + "' />");
-                });
+            //    $(".paso_reclamo[data-paso]").each(function (ind, tag) {
+            //        var pasoTag = $(tag).attr("data-paso");
+            //        if (pasoTag < pasoActual) {
+            //            $(tag).addClass(me.Variables.paso_active_reclamo);
+            //            $(tag).find("span").html("<img src='" + imgCheck + "' />");
+            //        }
+            //        else if (pasoTag == pasoActual) {
+            //            $(tag).addClass(me.Variables.paso_active_reclamo);
+            //            $(tag).find("span").html("<img src='" + imgPasos.replace("{0}", "cdr_paso" + pasoActual + "_activo") + "' />");
+            //        }
+            //        else $(tag).find("span").html("<img src='" + imgPasos.replace("{0}", "cdr_paso" + pasoTag) + "' />");
+            //    });
 
-                $('div[id^=Cambio]').hide();
-                $('div[id^=Paso]').hide();
-                $('[id=Paso' + pasoActual + ']').show();
-                $('[id=Paso' + pasoActual + '] #Cambio' + paso2Actual).show();
+            //    $('div[id^=Cambio]').hide();
+            //    $('div[id^=Paso]').hide();
+            //    $('[id=Paso' + pasoActual + ']').show();
+            //    $('[id=Paso' + pasoActual + '] #Cambio' + paso2Actual).show();
 
-                me.Funciones.ValidarVisualizacionBannerResumen();
-            },
+            //    me.Funciones.ValidarVisualizacionBannerResumen();
+            //},
 
-            CambioPaso2: function (paso) {
+            //CambioPaso2: function (paso) {
 
-                paso2Actual = paso2Actual + (paso || 1);
-                paso2Actual = paso2Actual < 1 ? 1 : paso2Actual > 3 ? 3 : paso2Actual;
-                $('div[id^=Cambio]').hide();
-                $('[id=Cambio' + paso2Actual + ']').show();
-            },
+            //    paso2Actual = paso2Actual + (paso || 1);
+            //    paso2Actual = paso2Actual < 1 ? 1 : paso2Actual > 3 ? 3 : paso2Actual;
+            //    $('div[id^=Cambio]').hide();
+            //    $('[id=Cambio' + paso2Actual + ']').show();
+            //},
 
             ValidarPasoDosFaltante: function (codigoSsic) {
                 var esCantidadPermitidaValida = me.Funciones.ValidarCantidadMaximaPermitida(codigoSsic);
