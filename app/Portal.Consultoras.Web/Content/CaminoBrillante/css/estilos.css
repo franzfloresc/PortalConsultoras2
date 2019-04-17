@@ -1563,7 +1563,7 @@ div .left-mod .l-mod p {
 }
 .cont-textLograr {
     margin:0 auto;
-    width:80%;
+    width:90%;
     margin-top:20px;
 }
 .OfertasEspecialesBlock {
@@ -1587,4 +1587,8 @@ div .left-mod .l-mod p {
 }
 .indicador-nivel .left-mod p b {
     display:block;
+}
+.cont-textLograr #m_montoMinimo span {
+    display: block;
+    float: left;
 }
