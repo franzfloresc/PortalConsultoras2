@@ -1567,3 +1567,6 @@ div .left-mod .l-mod p {
     display: block;
     float: right
 }
+.indicador-nivel .left-mod p b {
+    float:left;
+}
