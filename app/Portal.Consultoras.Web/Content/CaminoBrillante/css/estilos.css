@@ -82,7 +82,7 @@ strong {
     margin-top: 20px;
 }
 
-    .box-beneficios:after, .box-beneficios:after, .list-crec:after, .cont-logros:after, .boxcenter:after, .cont-ganancias:after, .list-ganacias:after, .indicador-nivel:after, .cont-textLograr:after{
+    .box-beneficios:after, .box-beneficios:after, .list-crec:after, .cont-logros:after, .boxcenter:after, .cont-ganancias:after, .list-ganacias:after, .indicador-nivel:after, .cont-textLograr:after, #m_montoMinimo:after, #m_montoFaltante:after{
         content: "";
         display: block;
         clear: both;
@@ -1559,10 +1559,14 @@ div .left-mod .l-mod p {
 .indicador-nivel .cont-textLograr p {
     text-align:left;
 }
-.indicador-nivel .left-mod p b {
-    display:block;
-}
+    .indicador-nivel .cont-textLograr p b {
+        display: block;
+        float: left;
+    }
 .cont-textLograr #m_montoMinimo span {
     display: block;
+    float: right
+}
+.indicador-nivel .cont-textLograr p b {
     float: left;
 }
