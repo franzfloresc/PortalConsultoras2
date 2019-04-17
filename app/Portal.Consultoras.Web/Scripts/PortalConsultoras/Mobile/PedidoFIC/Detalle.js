@@ -8,8 +8,8 @@ $(document).ready(function () {
         if (mostrar.css("display") == "none") mostrar.fadeIn(200);
         else mostrar.fadeOut(200);
     });
-
-    //ValidarKitNuevas();
+    
+    CargarPedido(true);
 
     $("#suma, #resta").click(function (event) {
         if (!ValidarPermiso(this)) {
@@ -174,7 +174,7 @@ function UpdateLiquidacionSegunTipoOfertaSis(CampaniaID, PedidoID, PedidoDetalle
             PrecioUnidad: PrecioUnidad,
             Cantidad: CantidadSoli,
             TipoOferta: TipoOfertaSisID || 0,
-            enRangoProgNuevas: false
+            esCuponNuevas: false
         });
         ShowLoading();
 

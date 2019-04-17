@@ -3,7 +3,6 @@
 
     if (typeof config === "undefined" || config === null) throw "config parameter is null";
 
-
     var _config = {
         tusClientesProvider: config.tusClientesProvider || TusClientesProvider(),
         setNombreClienteCallback: config.setNombreClienteCallback,
@@ -18,11 +17,13 @@
     var _elements = {
         btnCancelarCliente: "#btnPanelMantenerCerrar",
         btnGuardarCliente: "#btnPanelMantenerAgregar",
-        //
+
         divErrorNombre: "#divNotiNombre",
+        divErrorApellido: "#divNotiApellido",
+        divErrorTelefono: "#divNotiTelefono",
+        divErrorCelular: "#divNotiCelular",
         divErrorCorreo: "#divNotiCorreo",
-        divErrorTelefonos: "#divValidationSummary",
-        //
+
         hdnId: "#ClienteID",
         hdnCodigo: "#CodigoCliente",
         txtNombre: "#NombreCliente",
@@ -34,12 +35,14 @@
 
     var _ocultarMensajesError = function () {
         $(_elements.divErrorNombre).hide();
+        $(_elements.divErrorApellido).hide();
+        $(_elements.divErrorTelefono).hide();
+        $(_elements.divErrorCelular).hide();
         $(_elements.divErrorCorreo).hide();
-        $(_elements.divErrorTelefonos).hide();
     };
 
-    var _btnGuardarClienteOnClick = function (e) {
-        _ocultarMensajesError();
+    var _getCliente = function () {
+
         var id = $.trim($(_elements.hdnId).val());
         var codigo = $.trim($(_elements.hdnCodigo).val());
         var nombreCliente = $.trim($(_elements.txtNombre).val());
@@ -48,65 +51,99 @@
         var telefono = $.trim($(_elements.txtTelefono).val());
         var celular = $.trim($(_elements.txtCelular).val());
 
-        if (nombreCliente === "") {
-            $(_elements.divErrorNombre).show();
-            return;
-        }
-
-        if (telefono === "" && celular === "") {
-            $(_elements.divErrorTelefonos).show();
-            return;
-        }
-
-        if (correo !== "" && !validateEmail(correo)) {
-            $(_elements.divErrorCorreo).show();
-            return;
-        }
-
         var cliente = {
             ClienteID: id,
             CodigoCliente: codigo,
             NombreCliente: nombreCliente,
             ApellidoCliente: apellidoCliente,
-            Nombre: jQuery.trim(nombreCliente + " " + apellidoCliente),
+            Nombre: $.trim(nombreCliente + " " + apellidoCliente),
             eMail: correo,
             Telefono: telefono,
             Celular: celular
         };
 
+        return cliente;
+    };
+
+    var _btnGuardarClienteOnClick = function (e) {
+        console.log('_btnGuardarClienteOnClick');
+        _ocultarMensajesError();
+
+        var cliente = _getCliente();
+        var errorDatos = false;
+        if (cliente.NombreCliente === "") {
+            $(_elements.divErrorNombre).show();
+            var errorDatos = true;
+        }
+
+        if (cliente.ApellidoCliente === "") {
+            $(_elements.divErrorApellido).show();
+            var errorDatos = true;
+        }
+
+        if (cliente.Telefono === "") {
+            $(_elements.divErrorTelefono).show();
+            var errorDatos = true;
+        }
+
+        if (cliente.Celular === "") {
+            $(_elements.divErrorCelular).show();
+            var errorDatos = true;
+        }
+
+        if (cliente.eMail !== "" && !validateEmail(cliente.eMail)) {
+            $(_elements.divErrorCorreo).show();
+            return;
+        }
+
+        if (errorDatos) {
+            return;
+        }
+
         $(_elements.btnGuardarCliente).hide();
-        //AbrirSplash();
+
+        AbrirLoad();
+
         _config
             .tusClientesProvider
             .mantenerPromise(cliente)
             .done(function (data) {
-                //if (checkTimeout(data)) {
-                console.log(data);
 
                 if (data.success == true) {
-                    console.log(data);
-                    //
-                    alert(data.message);
                     if (typeof _config.setNombreClienteCallback === "function") {
                         if (_config.seleccionarClienteDespuesEditar) {
                             _config.setNombreClienteCallback(cliente.NombreCliente);
+
+                            //todo: improve this call
+                            _seteoCerrarPanelLista(data);//asignar datos a los controles
                         } else {
                             _config.setNombreClienteCallback("");
                         }
                     }
-                    if (typeof _config.mostrarTusClientesCallback === "function")_config.mostrarTusClientesCallback();
-                    if (typeof _config.panelRegistroHideCallback === "function")_config.panelRegistroHideCallback();
+                    if (typeof _config.panelRegistroHideCallback === "function") _config.panelRegistroHideCallback();
                 }
-                else {
-                    alert(data.message);
-                }
-                //}
-                $(_elements.btnGuardarCliente).show();
             })
             .fail(function (data, error) {
+                console.log(data, error);
+            })
+            .then(function () {
+                CerrarLoad();
                 $(_elements.btnGuardarCliente).show();
-            });;
-        //CerrarSplash();
+            });
+
+    };
+
+
+    //todo : move this method to another component
+    var _seteoCerrarPanelLista = function (data) {
+
+        $("#hfClienteID").val(data.ClienteID);
+        $("#hfCodigoCliente").val(data.CodigoCliente);
+        $("#hfNombreCliente").val(data.NombreCompleto);
+        $("#hfNombre").val(data.NombreCompleto);
+
+        $("#btnPanelListaAceptar").click();
+
     };
 
     var _btnCancelarClienteOnClick = function (e) {
@@ -143,10 +180,23 @@
     var _init = function () {
         $("body").on("click", _elements.btnGuardarCliente, _btnGuardarClienteOnClick);
         $("body").on("click", _elements.btnCancelarCliente, _btnCancelarClienteOnClick);
+
+        $('.ImputForm-item input').blur(function () {
+            if ($(this).val().length !== 0) {
+                $(this).addClass('ActiveLabel');
+                $(this).addClass('bar-imputActive');
+            }
+            else {
+                $(this).removeClass('ActiveLabel');
+                $(this).removeClass('bar-imputActive');
+            }
+        });
+
+
     };
 
     return {
         init: _init,
-        setCliente : _setCliente
+        setCliente: _setCliente
     };
 };

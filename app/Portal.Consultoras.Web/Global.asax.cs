@@ -9,7 +9,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 
 
-[assembly: PreApplicationStartMethod(typeof(Portal.Consultoras.Web.PreApplicationStart), "Start")]
+//[assembly: PreApplicationStartMethod(typeof(Portal.Consultoras.Web.PreApplicationStart), "Start")]
 namespace Portal.Consultoras.Web
 {
 
@@ -17,6 +17,8 @@ namespace Portal.Consultoras.Web
     {
         protected void Application_Start()
         {
+            MvcHandler.DisableMvcResponseHeader = true;
+
             AreaRegistration.RegisterAllAreas();
 
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
@@ -61,6 +63,7 @@ namespace Portal.Consultoras.Web
 
         protected void Session_Start(object sender, EventArgs e)
         {
+            //
         }
 
         private void Application_BeginRequest(object sender, EventArgs e)
@@ -74,25 +77,13 @@ namespace Portal.Consultoras.Web
         {
             var exception = Server.GetLastError();
 
+            var userData = new UsuarioModel();
             if (HttpContext.Current != null && HttpContext.Current.Session != null)
             {
-                var userData = SessionManager.SessionManager.Instance.GetUserData();
-
-                LogManager.LogManager.LogErrorWebServicesBus(exception, userData.CodigoUsuario, userData.CodigoISO);
+                userData = SessionManager.SessionManager.Instance.GetUserData() ?? new UsuarioModel();
             }
-            else
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(exception, "", "");
-            }
-        }
-    }
 
-    public class PreApplicationStart
-    {
-        public static void Start()
-        {
-
-            Microsoft.Web.Infrastructure.DynamicModuleHelper.DynamicModuleUtility.RegisterModule(typeof(Portal.Consultoras.Common.JwtModule));
+            LogManager.LogManager.LogErrorWebServicesBus(exception, userData.CodigoUsuario ?? "", userData.CodigoISO ?? "");
         }
     }
 }

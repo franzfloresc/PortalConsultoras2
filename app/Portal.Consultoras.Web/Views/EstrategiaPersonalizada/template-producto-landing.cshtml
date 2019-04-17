@@ -27,28 +27,30 @@
                     <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
                     <div class="content_item_carrusel content_item_carrusel_clubganamas content_item_carrusel_clubganamas_off caja-borde" style="cursor:pointer; ">
                         {{#iff TipoEstrategiaDetalle.ImgFichaDesktop '!=' ''}}
-                            <img src="{{TipoEstrategiaDetalle.ImgFichaDesktop}}" alt="" class="clubganamas_logo" />
+                        <img src="{{TipoEstrategiaDetalle.ImgFichaDesktop}}" alt="" class="clubganamas_logo" />
                         {{/iff}}
                         {{#iff TipoEstrategiaDetalle.ImgHomeDesktop '!=' ''}}
-                            <img src="{{TipoEstrategiaDetalle.ImgHomeDesktop}}" alt="" class="portada" />
+                        <img src="{{TipoEstrategiaDetalle.ImgHomeDesktop}}" alt="" class="portada" />
                         {{/iff}}
                         <p class="tercero">Conoce {{DescripcionResumen}}</p>
-                        <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeLanzamiento, '@Constantes.ConfiguracionPais.Lanzamiento')" class="portada portada_off">VER LANZAMIENTOS</a>
+                        <a onclick="javascript: menuModule.sectionClick('/Ofertas#LAN', 'BotonVerMas', this);"
+                           class="portada portada_off">VER LANZAMIENTOS</a>
                     </div>
                 </div>
             {{else}}
                 {{#if EsBannerProgNuevas}}
                     <div data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" class="{{ClaseEstrategia}}">
                         <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
-                        <a href="@Url.Action("Index", "ProgramaNuevas" )">
-                            <div class="content_item_carrusel content_item_carrusel_prog_nuevas" style="cursor:pointer;">
-                                <img src="{{ImagenURL}}" alt="" class="clubganamas_logo" />
-                                <div class="container_text">
-                                    <p class="primero">ELIGE DOS PRODUCTOS</p>
-                                    <p class="segundo">Y ARMA TU DÚO PERFECTO</p>
-                                    <p class="boton">ELEGIR AHORA</p>
-                                </div>
-                            </div>
+        @*<a href="@Url.Action("Index", "ProgramaNuevas" )">*@
+        <a href="javascript:void(0);" onclick="javascript:CarruselAyuda.MarcaAnalycticCarruselProgramasNuevas(this,'@Url.Action("Index", "ProgramaNuevas")');">
+        <div class="content_item_carrusel content_item_carrusel_prog_nuevas" style="cursor:pointer;">
+            <img src="{{ImagenURL}}" alt="" class="clubganamas_logo" />
+            <div class="container_text">
+                <p class="primero">ELIGE DOS PRODUCTOS</p>
+                <p class="segundo">Y ARMA TU DÚO PERFECTO</p>
+                <p class="boton">ELEGIR AHORA</p>
+            </div>
+        </div>
                         </a>
                     </div>
                 {{else}}
@@ -90,7 +92,7 @@
                                         <img class="imagen_producto" style="max-width: 100% !important;" data-src="{{ImgUrl FotoProducto01}}" data-img-lazy="1" data-lazy-seccion-revista-digital="" alt="" />
                                         {{#iff EsSubcampania '==' false}}
                                             {{#iff TipoAccionAgregar 'ContainsArray' '[@Constantes.TipoAccionAgregar.AgregaloPackNuevas,@Constantes.TipoAccionAgregar.AgregaloNormal,@Constantes.TipoAccionAgregar.EligeOpcion]'}}
-                                                <a href="javascript:;" class="ver_detalle_carrusel" data-item-tag="verdetalle">VER DETALLE</a>
+                                              <a href="javascript:;" class="ver_detalle_carrusel" data-item-tag="verdetalle">VER DETALLE</a>
                                             {{/iff}}
                                         {{/iff}}
                                     </div>

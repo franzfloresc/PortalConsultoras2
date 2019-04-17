@@ -40,13 +40,16 @@
       <xs:element minOccurs="0" name="MarcaID" type="xs:int" />
       <xs:element minOccurs="0" name="MensajeEstaEnRevista1" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MensajeEstaEnRevista2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MensajeOfertaFinal" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PermiteAgregarPedido" type="xs:boolean" />
       <xs:element minOccurs="0" name="PrecioCatalogo" type="xs:decimal" />
       <xs:element minOccurs="0" name="PrecioValorizado" type="xs:decimal" />
+      <xs:element minOccurs="0" name="RestanteTippingPoint" type="xs:decimal" />
       <xs:element minOccurs="0" name="TextoBusqueda" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TieneLanzamientoCatalogoPersonalizado" type="xs:boolean" />
       <xs:element minOccurs="0" name="TieneOfertaRevista" type="xs:boolean" />
+      <xs:element minOccurs="0" name="TieneOfertasRelacionadas" type="xs:boolean" />
       <xs:element minOccurs="0" name="TieneStock" type="xs:boolean" />
       <xs:element minOccurs="0" name="TieneSugerido" type="xs:int" />
       <xs:element minOccurs="0" name="TipoEstrategiaCodigo" nillable="true" type="xs:string" />
@@ -309,4 +312,11 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEProductoCompartido" nillable="true" type="tns:BEProductoCompartido" />
+  <xs:complexType name="BEProductoCompartidoResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="UrlCompartir" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEProductoCompartidoResult" nillable="true" type="tns:BEProductoCompartidoResult" />
 </xs:schema>

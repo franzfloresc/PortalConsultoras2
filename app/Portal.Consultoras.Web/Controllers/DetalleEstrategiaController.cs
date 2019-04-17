@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.SessionManager;
+using Portal.Consultoras.Web.Models.DetalleEstrategia;
+using System.Linq;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -26,6 +28,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
         }
 
+        [HttpGet]
         public override ActionResult Ficha(string palanca, int campaniaId, string cuv, string origen)
         {
             try
@@ -46,9 +49,10 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return base.Ficha(palanca, campaniaId, cuv, origen);
-            
+
         }
 
+        [HttpPost]
         public JsonResult ObtenerModelo(string palanca, int campaniaId, string cuv, string origen, bool esEditable = false)
         {
             try
@@ -59,7 +63,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     return Json(new
                     {
-                        success = true,
+                        success = !modelo.Error,
                         data = modelo
                     }, JsonRequestBehavior.AllowGet);
                 }
@@ -76,6 +80,7 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
         public JsonResult ObtenerComponentes(string estrategiaId, string cuv2, string campania, string codigoVariante, string codigoEstrategia = "", List<EstrategiaComponenteModel> lstHermanos = null)
         {
             try
@@ -92,13 +97,13 @@ namespace Portal.Consultoras.Web.Controllers
                 bool esMultimarca = false;
                 string mensaje = "";
                 var componentes = _estrategiaComponenteProvider.GetListaComponentes(estrategiaModelo, codigoEstrategia, out esMultimarca, out mensaje);
-
+   
                 return Json(new
                 {
                     success = true,
                     esMultimarca,
                     componentes,
-                    mensaje
+                    mensaje,
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -113,33 +118,5 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
 
-        /// <summary>
-        /// Obtiene informacion de componentes seleccionados en el pedido
-        /// </summary>
-        /// <param name="CampaniaID">Campania</param>
-        /// <param name="SetID">Set</param>
-        /// <returns></returns>
-        public JsonResult ObtenerComponentePedido(int campaniaId, int set)
-        {
-            try
-            {
-                var componentes = _pedidoWebProvider.GetListaPedidoWebSetDetalle(userData.PaisID, campaniaId, userData.ConsultoraID, set);
-
-                return Json(new
-                {
-                    success = true,
-                    componentes
-                }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-
-                return Json(new
-                {
-                    success = false
-                }, JsonRequestBehavior.AllowGet);
-            }
-        }
     }
 }

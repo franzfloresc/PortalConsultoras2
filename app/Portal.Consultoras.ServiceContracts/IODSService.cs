@@ -148,7 +148,7 @@ namespace Portal.Consultoras.ServiceContracts
         IList<BEProductoAppCatalogo> GetNombreProducto048ByListaCUV(int paisID, int campaniaId, string listaCUV);
 
         [OperationContract]
-        int InsProductoCompartido(BEProductoCompartido ProComp);
+        BEProductoCompartidoResult InsProductoCompartido(BEProductoCompartido ProComp);
 
         [OperationContract]
         BEProductoCompartido GetProductoCompartido(int paisID, int ProCompID);
@@ -158,7 +158,10 @@ namespace Portal.Consultoras.ServiceContracts
 
         #region ProgramaNuevas
         [OperationContract]
-        Enumeradores.ValidacionProgramaNuevas ValidarBusquedaProgramaNuevas(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv);
+        Enumeradores.ValidacionProgramaNuevas ValidarBusquedaProgramaNuevas(int paisID, int campaniaID, string codigoPrograma, int consecutivoNueva, string cuv);
+
+        [OperationContract]
+        Dictionary<string, Enumeradores.ValidacionProgramaNuevas> ValidarBusquedaProgramaNuevasList(int paisID, int campaniaID, string codigoPrograma, int consecutivoNueva, List<string> listCuv);
 
         [OperationContract]
         int ValidarCantidadMaximaProgramaNuevas(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, int cantidadEnPedido, string cuvIngresado, int cantidadIngresada);
@@ -167,13 +170,16 @@ namespace Portal.Consultoras.ServiceContracts
         BERespValidarElectivos ValidaCuvElectivo(int paisID, int campaniaID, string cuvIngresado, int consecutivoNueva, string codigoPrograma, List<string> lstCuvPedido);
 
         [OperationContract]
-        bool EsCuvDuoPerfecto(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv);
+        bool EsCuvElecMultiple(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv);
 
         [OperationContract]
-        bool TieneListaEstrategiaDuoPerfecto(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, List<string> lstCuv);
+        bool TieneListaEstrategiaElecMultiple(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, List<string> lstCuv);
 
         [OperationContract]
         int GetLimElectivosProgNuevas(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma);
+
+        [OperationContract]
+        List<BEProductoEstraProgNuevas> GetListCuvProgNuevasEstrategia(BEConsultoraProgramaNuevas consultoraNueva);
         #endregion
 
         #region ValidarVentaExclusiva
@@ -190,5 +196,12 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         bool CuvArmaTuPackEstaEnLimite(int paisID, int campaniaID, string zona, string cuv, int cantidadIngresada, int cantidadActual);
         #endregion
+
+        [OperationContract]
+        List<BEPremioNuevas> ListarPremioNuevasPaginado(BEPremioNuevas premio);
+        [OperationContract]
+        BEPremioNuevas Insertar(BEPremioNuevas premio);
+        [OperationContract]
+        BEPremioNuevas Editar(BEPremioNuevas premio);
     }
 }

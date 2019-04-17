@@ -6,17 +6,31 @@
     var PanelContenedorId = "#" + config.panelContenedorId;
 
     var _config = {
-        tusClientesProvider: config.tusClientesProvider /*|| TusClientesProvider()*/,
-        panelListaModule: config.panelListaModule /*|| PanelListaModule()*/,
-        panelMantenerModule: config.panelMantenerModule /*|| PanelMantenerModule()*/,
+        tusClientesProvider: config.tusClientesProvider,
+        panelListaModule: config.panelListaModule,
+        panelMantenerModule: config.panelMantenerModule
     };
- 
+
     var _abrir = function () {
-        $(PanelId).css("width", "400px");
+
+        $('.modal-fondo').css('opacity', '.7');
+        $('.modal-fondo').show();
+        $(PanelId).show();
+        $(PanelId).css('margin-right', '0');
+        $(PanelId).css('opacity', '1'); 
+
+        _config.panelListaModule.setNombreCliente('');
+        _config.panelListaModule.mostrarTusClientes();
     };
 
     var _cerrar = function () {
-        $(PanelId).css("width", "0");
+ 
+        $(PanelId).css('margin-right', '-330px');
+        $(PanelId).css('opacity', '.0');
+        $(PanelId).hide();
+        $('.modal-fondo').hide();
+        $('.modal-fondo').css('opacity', '.0');
+       
     };
 
     var _configuracionInicial = function () {
@@ -25,6 +39,7 @@
         }
 
         $("#btnPanelListaAceptar").click(function () {
+
             var clienteSeleccion =
             {
                 PaisID: $("#hfPaisID").val(),
@@ -34,19 +49,19 @@
                 Nombre: $("#hfNombre").val()
             };
 
+
             if (clienteSeleccion.ClienteID != "") {
                 console.log("Selección: ", clienteSeleccion);
-
+                
                 _cerrar();
-                if ($.isFunction(_aceptaClick)) {
-                    _aceptaClick(clienteSeleccion);
-                }
-            } else {
-                alert('Seleccione un Cliente');
-            }
+                _aceptaClick(clienteSeleccion);
+
+            } 
         });
 
         $("#btnPanelListaCerrar").click(function () {
+            console.log('btnPanelListaCerrar - DivPopupFichaResumida overflow auto');
+            $("#DivPopupFichaResumida").css("overflow", "auto");
             _cerrar();
         });
     };
@@ -73,13 +88,13 @@
     var _init = function () {
         _renderizarPagina();
         _config.panelListaModule.init();
-        _config.panelMantenerModule.init();        
+        _config.panelMantenerModule.init();
     };
 
     return {
         Abrir: _abrir,
         Cerrar: _cerrar,
         init: _init,
-        AceptaClick: _aceptaClick  
+        AceptaClick: _aceptaClick
     };
 };

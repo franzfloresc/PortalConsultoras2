@@ -3,6 +3,7 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Layout;
 using Portal.Consultoras.Web.Models.MisCertificados;
 using Portal.Consultoras.Web.Models.PagoEnLinea;
+using Portal.Consultoras.Web.Models.ProgramaNuevas;
 using Portal.Consultoras.Web.ServiceCDR;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
@@ -14,6 +15,7 @@ using Portal.Consultoras.Web.SessionManager.ShowRoom;
 using System;
 using System.Collections.Generic;
 using Portal.Consultoras.Web.Models.Recomendaciones;
+using Portal.Consultoras.Web.Models.Estrategia;
 
 namespace Portal.Consultoras.Web.SessionManager
 {
@@ -31,26 +33,26 @@ namespace Portal.Consultoras.Web.SessionManager
 
         #region CDR
 
-        List<BECDRWebDetalle> GetCDRWebDetalle();
-        
-        void SetCDRWebDetalle(List<BECDRWebDetalle> datos);
-        
-        List<BECDRWeb> GetCdrWeb();
+        List<ServiceCDR.BECDRWebDetalle> GetCDRWebDetalle();
 
-        void SetCdrWeb(List<BECDRWeb> datos);
-        
+        void SetCDRWebDetalle(List<ServiceCDR.BECDRWebDetalle> datos);
+
+        List<ServiceCDR.BECDRWeb> GetCdrWeb();
+
+        void SetCdrWeb(List<ServiceCDR.BECDRWeb> datos);
+
         List<CampaniaModel> GetCdrCampanias();
 
         void SetCdrCampanias(List<CampaniaModel> datos);
-        
+
         List<BECDRParametria> GetCdrParametria();
 
         void SetCdrParametria(List<BECDRParametria> datos);
-        
+
         List<BECDRWebDatos> GetCdrWebDatos();
 
         void SetCdrWebDatos(List<BECDRWebDatos> datos);
-        
+
         List<BECDRWebDescripcion> GetCdrDescripcion();
 
         void SetCdrDescripcion(List<BECDRWebDescripcion> datos);
@@ -59,6 +61,14 @@ namespace Portal.Consultoras.Web.SessionManager
 
         void SetCdrMotivoOperacion(List<BECDRWebMotivoOperacion> datos);
         #endregion
+
+        int? GetNroPedidosCDRConfig();
+
+        void SetNroPedidosCDRConfig(int cantidad);
+
+        List<CDRWebModel> GetListaCDRWebCargaInicial();
+
+        void SetListaCDRWebCargaInicial(List<CDRWebModel> lista);
 
         BEPedidoWeb GetPedidoWeb();
 
@@ -193,13 +203,13 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetStartSession(DateTime startSession);
 
         DateTime GetStartSession();
-        
+
         IShowRoom ShowRoom { get; }
 
         void SetDatosPagoVisa(PagoEnLineaModel model);
 
         PagoEnLineaModel GetDatosPagoVisa();
-        
+
         void SetListadoEstadoCuenta(List<EstadoCuentaModel> model);
 
         List<EstadoCuentaModel> GetListadoEstadoCuenta();
@@ -211,7 +221,11 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetEstrategiaSR(Models.Estrategia.ShowRoom.ConfigModel data);
 
         Models.Estrategia.ShowRoom.ConfigModel GetEstrategiaSR();
-        
+
+        void SetArmaTuPack(ArmaTuPackModel data);
+
+        ArmaTuPackModel GetArmaTuPack();
+
         void SetBEEstrategia(string key, List<ServiceOferta.BEEstrategia> data);
 
         List<ServiceOferta.BEEstrategia> GetBEEstrategia(string key);
@@ -244,7 +258,7 @@ namespace Portal.Consultoras.Web.SessionManager
 
         bool GetPedidoValidado();
 
-        void setBEUsuarioModel (List<ServiceUsuario.BEUsuario> model);
+        void setBEUsuarioModel(List<ServiceUsuario.BEUsuario> model);
 
         List<ServiceUsuario.BEUsuario> getBEUsuarioModel();
 
@@ -260,10 +274,17 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetMensajeKitNuevas(string mensajeKit);
         int GetLimElectivosProgNuevas();
         void SetLimElectivosProgNuevas(int limElectivos);
+        List<PremioElectivoModel> GetListPremioElectivo();
+        void SetListPremioElectivo(List<PremioElectivoModel> listPremioElectivo);
+        Dictionary<string, PremioProgNuevasOFModel> GetDictPremioProgNuevasOF();
+        void SetDictPremioProgNuevasOF(Dictionary<string, PremioProgNuevasOFModel> listPremioProgNuevasOF);
 
         void SetBuscadorYFiltrosConfig(BuscadorYFiltrosConfiguracionModel buscadorYFiltrosModel);
 
         BuscadorYFiltrosConfiguracionModel GetBuscadorYFiltrosConfig();
+
+        void SetConfigMicroserviciosPersonalizacion(MSPersonalizacionConfiguracionModel msPersonalizacionModel);
+        MSPersonalizacionConfiguracionModel GetConfigMicroserviciosPersonalizacion();
 
         void SetRecomendacionesConfig(RecomendacionesConfiguracionModel recomendacionesConfiguracionModel);
 
@@ -342,14 +363,6 @@ namespace Portal.Consultoras.Web.SessionManager
 
         CDRWebModel GetListaCDRDetalle();
 
-        void SetfechaGetNotificacionesSinLeer(dynamic val);
-
-        dynamic GetfechaGetNotificacionesSinLeer();
-
-        void SetcantidadGetNotificacionesSinLeer(dynamic val);
-
-        dynamic GetcantidadGetNotificacionesSinLeer();
-
         void SetPedidoFIC(List<BEPedidoFICDetalle> val);
 
         List<BEPedidoFICDetalle> GetPedidoFIC();
@@ -373,10 +386,6 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetcarpetaPais(string val);
 
         string GetcarpetaPais();
-
-        void SetCdrPedidosFacturado(List<ServicePedido.BEPedidoWeb> datos);
-
-        List<ServicePedido.BEPedidoWeb> GetCdrPedidosFacturado();
 
         void SetCDRMotivoOperacion(List<BECDRWebMotivoOperacion> val);
 
@@ -462,9 +471,9 @@ namespace Portal.Consultoras.Web.SessionManager
 
         int GetMisPedidosDetallePorCampaniaPedidoId();
 
-        void SetCDRExpressMensajes(List<BETablaLogicaDatos> val);
+        //void SetCDRExpressMensajes(List<BETablaLogicaDatos> val);
 
-        List<BETablaLogicaDatos> GetCDRExpressMensajes();
+        //List<BETablaLogicaDatos> GetCDRExpressMensajes();
 
         void SetOcultarBannerTop(bool val);
 
@@ -487,15 +496,16 @@ namespace Portal.Consultoras.Web.SessionManager
         List<List<BEEstadoServicio>> GetListaRango();
 
         BEUsuarioDatos GetDatosUsuario();
-        
-        IMasGanadoras MasGanadoras { get;  }
+
+        IMasGanadoras MasGanadoras { get; }
         bool GetMostrarBannerNuevas();
 
         void SetMostrarBannerNuevas(bool mostrarBannerNuevas);
-        
-        void SetJwtApiSomosBelcorp(string token);
-        
-        string GetJwtApiSomosBelcorp();
 
+        void SetJwtApiSomosBelcorp(string token);
+
+        string GetJwtApiSomosBelcorp();
+        void SetUsuarioOpciones(List<UsuarioOpcionesModel> val);
+        List<UsuarioOpcionesModel> GetUsuarioOpciones();
     }
 }

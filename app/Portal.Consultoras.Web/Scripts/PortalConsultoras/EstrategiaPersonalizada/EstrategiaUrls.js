@@ -1,12 +1,15 @@
 ﻿
 function OnClickFichaDetalle(e) {
-    var estoyEnLaFicha = typeof fichaModule !== "undefined"; //una forma de identificar si estoy en la ficha o no.    
     //el objeto e debe ser establecido con target  (e.target)
     var infoCuvItem = EstrategiaAgregarModule.EstrategiaObtenerObj($(e));
     var codigoEstrategia = $.trim(infoCuvItem.CodigoEstrategia);
     var codigoCampania = $.trim(infoCuvItem.CampaniaID);
     var codigoCuv = $.trim(infoCuvItem.CUV2);
-    var OrigenPedidoWeb = EstrategiaAgregarModule.GetOrigenPedidoWeb($(e), true);
+    var OrigenPedidoWeb = getOrigenPedidoWebDetalle(infoCuvItem);
+
+    if (!OrigenPedidoWeb) {
+        OrigenPedidoWeb = EstrategiaAgregarModule.GetOrigenPedidoWeb($(e), true);
+    }
 
     var UrlDetalle = GetPalanca(codigoEstrategia, OrigenPedidoWeb);
 
@@ -19,15 +22,26 @@ function OnClickFichaDetalle(e) {
     UrlDetalle += codigoCampania + "/" + codigoCuv + "/" + OrigenPedidoWeb;
 
     if (!(typeof AnalyticsPortalModule === 'undefined')) {
-        if (estoyEnLaFicha)
-            AnalyticsPortalModule.MarcarClicSetProductos(infoCuvItem, e, OrigenPedidoWeb, estoyEnLaFicha);
-        else
-            AnalyticsPortalModule.MarcaGenericaClic(e, OrigenPedidoWeb);
+        AnalyticsPortalModule.MarcaVerDetalleProducto(e, OrigenPedidoWeb, UrlDetalle);
     }
 
     window.location = UrlDetalle;
 
     return true;
+}
+
+function getOrigenPedidoWebDetalle(item) {
+    if (!item) return;
+
+    if (item.FlagNueva) {
+        if (item.EsDuoPerfecto && typeof origenPedidoWebDuoPerfecto !== 'undefined') {
+            return origenPedidoWebDuoPerfecto;
+        } else if (typeof origenPedidoWebPackNuevas !== 'undefined') {
+            return origenPedidoWebPackNuevas;
+        }
+    }
+
+    return '';
 }
 
 function BuscadorFichaDetalle(codigoCampania, codigoCuv, OrigenPedidoWeb, codigoEstrategia) {
@@ -39,165 +53,103 @@ function BuscadorFichaDetalle(codigoCampania, codigoCuv, OrigenPedidoWeb, codigo
     return true;
 }
 
-function GetPalanca(codigoEstrategia, OrigenPedidoWeb) {
-    OrigenPedidoWeb = OrigenPedidoWeb || -1;
+function GetPalanca(codigoEstrategia, origenPedidoWeb, esUrl) {
 
     var url = "";
 
     if (codigoEstrategia == null || typeof codigoEstrategia === "undefined") {
-
         return url;
     }
 
-    url = isMobile() ? "/Mobile/Detalle/" : "/Detalle/";
+    origenPedidoWeb = origenPedidoWeb || -1;
+    esUrl = esUrl === undefined || esUrl;
+    if (esUrl) {
+        url = isMobile() ? "/Mobile/Detalle/" : "/Detalle/";
+    }
+
 
     switch (codigoEstrategia) {
 
-        case ConstantesModule.ConstantesPalanca.OfertaParaTi:
-            url += ConstantesModule.CodigosPalanca.OfertaParaTi + "/";
+        case ConstantesModule.TipoEstrategia.OfertaParaTi:
+            url += ConstantesModule.TipoEstrategiaTexto.OfertaParaTi;
             break;
-        case ConstantesModule.ConstantesPalanca.PackNuevas:
-            url += ConstantesModule.CodigosPalanca.PackNuevas + "/";
+        case ConstantesModule.TipoEstrategia.PackNuevas:
+            url += ConstantesModule.TipoEstrategiaTexto.PackNuevas;
             break;
-        case ConstantesModule.ConstantesPalanca.OfertaWeb:
-            url += ConstantesModule.CodigosPalanca.OfertaWeb + "/";
+        case ConstantesModule.TipoEstrategia.OfertaWeb:
+            url += ConstantesModule.TipoEstrategiaTexto.OfertaWeb;
             break;
-        case ConstantesModule.ConstantesPalanca.Lanzamiento:
-            url += ConstantesModule.CodigosPalanca.Lanzamiento + "/";
+        case ConstantesModule.TipoEstrategia.Lanzamiento:
+            url += ConstantesModule.TipoEstrategiaTexto.Lanzamiento;
             break;
-        case ConstantesModule.ConstantesPalanca.OfertasParaMi:
+        case ConstantesModule.TipoEstrategia.OfertasParaMi:
             {
-                if (OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopContenedorGanadorasCarrusel ||
-                    OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopContenedorGanadorasFicha ||
-                    OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopLandingGanadorasGanadorasCarrusel ||
-                    OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopLandingGanadorasGanadorasFicha ||
-                    OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileContenedorGanadorasCarrusel ||
-                    OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileContenedorGanadorasFicha ||
-                    OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileLandingGanadorasGanadorasCarrusel ||
-                    OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileLandingGanadorasGanadorasFicha)
-                    url += ConstantesModule.CodigosPalanca.Ganadoras + "/";
+                if (origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopContenedorGanadorasCarrusel
+                    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopContenedorGanadorasFicha
+                    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopLandingGanadorasGanadorasCarrusel
+                    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopLandingGanadorasGanadorasFicha
+                    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileContenedorGanadorasCarrusel
+                    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileContenedorGanadorasFicha
+                    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileLandingGanadorasGanadorasCarrusel
+                    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileLandingGanadorasGanadorasFicha
+                    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopBuscadorGanadorasDesplegable
+                    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopBuscadorGanadorasCarrusel
+                    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopBuscadorGanadorasFicha
+                    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopLandingBuscadorGanadorasFicha
+                    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileBuscadorGanadorasDesplegable
+                    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileBuscadorGanadorasCarrusel
+                    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileBuscadorGanadorasFicha
+                    || origenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileLandingBuscadorGanadorasFicha
+                    )
+                    url += ConstantesModule.TipoEstrategiaTexto.Ganadoras;
                 else
-                    url += ConstantesModule.CodigosPalanca.OfertaParaTi + "/";
+                    url += ConstantesModule.TipoEstrategiaTexto.OfertaParaTi;
             }
             break;
-        case ConstantesModule.ConstantesPalanca.PackAltoDesembolso:
-            url += ConstantesModule.CodigosPalanca.OfertaParaTi + "/";
+        case ConstantesModule.TipoEstrategia.PackAltoDesembolso:
+            url += ConstantesModule.TipoEstrategiaTexto.OfertaParaTi;
             break;
-        case ConstantesModule.ConstantesPalanca.RevistaDigital:
-            url += ConstantesModule.CodigosPalanca.OfertaParaTi + "/";
+        case ConstantesModule.TipoEstrategia.RevistaDigital:
+            url += ConstantesModule.TipoEstrategiaTexto.OfertaParaTi;
             break;
-        case ConstantesModule.ConstantesPalanca.LosMasVendidos:
-            url += ConstantesModule.CodigosPalanca.LosMasVendidos + "/";
+        case ConstantesModule.TipoEstrategia.LosMasVendidos:
+            url += ConstantesModule.TipoEstrategiaTexto.LosMasVendidos;
             break;
-        case ConstantesModule.ConstantesPalanca.IncentivosProgramaNuevas:
-            url += ConstantesModule.CodigosPalanca.IncentivosProgramaNuevas + "/";
+        case ConstantesModule.TipoEstrategia.IncentivosProgramaNuevas:
+            url += ConstantesModule.TipoEstrategiaTexto.IncentivosProgramaNuevas;
             break;
-        case ConstantesModule.ConstantesPalanca.OfertaDelDia:
-            url += ConstantesModule.CodigosPalanca.OfertaDelDia + "/";
+        case ConstantesModule.TipoEstrategia.OfertaDelDia:
+            url += ConstantesModule.TipoEstrategiaTexto.OfertaDelDia;
             break;
-        case ConstantesModule.ConstantesPalanca.GuiaDeNegocioDigitalizada:
-            url += ConstantesModule.CodigosPalanca.GuiaDeNegocioDigitalizada + "/";
+        case ConstantesModule.TipoEstrategia.GuiaDeNegocioDigitalizada:
+            url += ConstantesModule.TipoEstrategiaTexto.GuiaDeNegocioDigitalizada;
             break;
-        case ConstantesModule.ConstantesPalanca.Incentivos:
-            url += ConstantesModule.CodigosPalanca.Incentivos + "/";
+        case ConstantesModule.TipoEstrategia.Incentivos:
+            url += ConstantesModule.TipoEstrategiaTexto.Incentivos;
             break;
-        case ConstantesModule.ConstantesPalanca.ShowRoom:
-            url += ConstantesModule.CodigosPalanca.ShowRoom + "/";
+        case ConstantesModule.TipoEstrategia.ShowRoom:
+            url += ConstantesModule.TipoEstrategiaTexto.ShowRoom;
             break;
-        case ConstantesModule.ConstantesPalanca.HerramientasVenta:
-            url += ConstantesModule.CodigosPalanca.HerramientasVenta + "/";
+        case ConstantesModule.TipoEstrategia.HerramientasVenta:
+            url += ConstantesModule.TipoEstrategiaTexto.HerramientasVenta;
             break;
-        case ConstantesModule.ConstantesPalanca.ProgramaNuevasRegalo:
-            url += ConstantesModule.CodigosPalanca.ProgramaNuevasRegalo + "/";
+        case ConstantesModule.TipoEstrategia.ProgramaNuevasRegalo:
+            url += ConstantesModule.TipoEstrategiaTexto.ProgramaNuevasRegalo;
             break;
-        case ConstantesModule.ConstantesPalanca.ParticipaProgramaNuevas:
-            url += ConstantesModule.CodigosPalanca.ParticipaProgramaNuevas + "/";
+        case ConstantesModule.TipoEstrategia.ParticipaProgramaNuevas:
+            url += ConstantesModule.TipoEstrategiaTexto.ParticipaProgramaNuevas;
             break;
-        case ConstantesModule.ConstantesPalanca.NotParticipaProgramaNuevas:
-            url += ConstantesModule.CodigosPalanca.NotParticipaProgramaNuevas + "/";
+        case ConstantesModule.TipoEstrategia.NotParticipaProgramaNuevas:
+            url += ConstantesModule.TipoEstrategiaTexto.NotParticipaProgramaNuevas;
             break;
         default:
-            return "";
+            url = "";
+    }
+
+    if (url != "" && esUrl) {
+        url = url + "/";
     }
 
     return url;
 }
 
-function GetNombrePalanca(codigoEstrategia, OrigenPedidoWeb) {
-    OrigenPedidoWeb = OrigenPedidoWeb || -1;
-
-    var palanca = "";
-
-    if (codigoEstrategia != null && typeof codigoEstrategia !== "undefined")
-
-        switch (codigoEstrategia) {
-
-            case ConstantesModule.ConstantesPalanca.OfertaParaTi:
-                palanca += ConstantesModule.CodigosPalanca.OfertaParaTi;
-                break;
-            case ConstantesModule.ConstantesPalanca.PackNuevas:
-                palanca += ConstantesModule.CodigosPalanca.PackNuevas;
-                break;
-            case ConstantesModule.ConstantesPalanca.OfertaWeb:
-                palanca += ConstantesModule.CodigosPalanca.OfertaWeb;
-                break;
-            case ConstantesModule.ConstantesPalanca.Lanzamiento:
-                palanca += ConstantesModule.CodigosPalanca.Lanzamiento;
-                break;
-            case ConstantesModule.ConstantesPalanca.OfertasParaMi:
-                {
-                    if (OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopContenedorGanadorasCarrusel ||
-                        OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopContenedorGanadorasFicha ||
-                        OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopLandingGanadorasGanadorasCarrusel ||
-                        OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopLandingGanadorasGanadorasFicha ||
-                        OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileContenedorGanadorasCarrusel ||
-                        OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileContenedorGanadorasFicha ||
-                        OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileLandingGanadorasGanadorasCarrusel ||
-                        OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileLandingGanadorasGanadorasFicha)
-                        palanca += ConstantesModule.CodigosPalanca.Ganadoras;
-                    else
-                        palanca += ConstantesModule.CodigosPalanca.OfertaParaTi;
-                }
-                break;
-            case ConstantesModule.ConstantesPalanca.PackAltoDesembolso:
-                palanca += ConstantesModule.CodigosPalanca.OfertaParaTi;
-                break;
-            case ConstantesModule.ConstantesPalanca.RevistaDigital:
-                palanca += ConstantesModule.CodigosPalanca.OfertaParaTi;
-                break;
-            case ConstantesModule.ConstantesPalanca.LosMasVendidos:
-                palanca += ConstantesModule.CodigosPalanca.LosMasVendidos;
-                break;
-            case ConstantesModule.ConstantesPalanca.IncentivosProgramaNuevas:
-                palanca += ConstantesModule.CodigosPalanca.IncentivosProgramaNuevas;
-                break;
-            case ConstantesModule.ConstantesPalanca.OfertaDelDia:
-                palanca += ConstantesModule.CodigosPalanca.OfertaDelDia;
-                break;
-            case ConstantesModule.ConstantesPalanca.GuiaDeNegocioDigitalizada:
-                palanca += ConstantesModule.CodigosPalanca.GuiaDeNegocioDigitalizada;
-                break;
-            case ConstantesModule.ConstantesPalanca.Incentivos:
-                palanca += ConstantesModule.CodigosPalanca.Incentivos;
-                break;
-            case ConstantesModule.ConstantesPalanca.ShowRoom:
-                palanca += ConstantesModule.CodigosPalanca.ShowRoom;
-                break;
-            case ConstantesModule.ConstantesPalanca.HerramientasVenta:
-                palanca += ConstantesModule.CodigosPalanca.HerramientasVenta;
-                break;
-            case ConstantesModule.ConstantesPalanca.ProgramaNuevasRegalo:
-                palanca += ConstantesModule.CodigosPalanca.ProgramaNuevasRegalo;
-                break;
-            case ConstantesModule.ConstantesPalanca.ParticipaProgramaNuevas:
-                palanca += ConstantesModule.CodigosPalanca.ParticipaProgramaNuevas;
-                break;
-            case ConstantesModule.ConstantesPalanca.NotParticipaProgramaNuevas:
-                url += ConstantesModule.CodigosPalanca.NotParticipaProgramaNuevas;
-                break;
-            default:
-                return "";
-        }
-
-    return palanca;
-}

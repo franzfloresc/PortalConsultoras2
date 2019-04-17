@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:tns3="urn:errorActualizarFlagImpBoleta.beans.ws.web.mae.spusicc.ssicc.belcorp.biz" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:intf="http://pelnx2138:7003/ssiccclespdp/services/ProcesoMAEActualizaFlagImpBoletasWebService" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns1="urn:consultoraFlagImpBoleta.beans.ws.web.mae.spusicc.ssicc.belcorp.biz" xmlns:tns2="urn:actualizarFlagImpBoletaResultado.beans.ws.web.mae.spusicc.ssicc.belcorp.biz" xmlns:impl="http://pelnx2138:7003/ssiccclespdp/services/ProcesoMAEActualizaFlagImpBoletasWebService" targetNamespace="http://pelnx2138:7003/ssiccclespdp/services/ProcesoMAEActualizaFlagImpBoletasWebService" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:consultoraFlagImpBoleta.beans.ws.web.mae.spusicc.ssicc.belcorp.biz">
+      <xsd:import namespace="urn:errorActualizarFlagImpBoleta.beans.ws.web.mae.spusicc.ssicc.belcorp.biz" />
+      <xsd:import namespace="http://pelnx2138:7003/ssiccclespdp/services/ProcesoMAEActualizaFlagImpBoletasWebService" />
+      <xsd:import namespace="urn:actualizarFlagImpBoletaResultado.beans.ws.web.mae.spusicc.ssicc.belcorp.biz" />
+      <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+      <xsd:complexType name="ConsultoraFlagImpBoleta">
+        <xsd:sequence>
+          <xsd:element name="codigoConsultora" nillable="true" type="soapenc:string" />
+          <xsd:element name="indImprimeBoleta" nillable="true" type="soapenc:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://pelnx2138:7003/ssiccclespdp/services/ProcesoMAEActualizaFlagImpBoletasWebService">
+      <xsd:import namespace="urn:errorActualizarFlagImpBoleta.beans.ws.web.mae.spusicc.ssicc.belcorp.biz" />
+      <xsd:import namespace="urn:actualizarFlagImpBoletaResultado.beans.ws.web.mae.spusicc.ssicc.belcorp.biz" />
+      <xsd:import namespace="urn:consultoraFlagImpBoleta.beans.ws.web.mae.spusicc.ssicc.belcorp.biz" />
+      <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+      <xsd:complexType name="ArrayOf_tns1_ConsultoraFlagImpBoleta">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="tns1:ConsultoraFlagImpBoleta[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOf_tns3_ErrorActualizarFlagImpBoleta">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="tns3:ErrorActualizarFlagImpBoleta[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+    </xsd:schema>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:errorActualizarFlagImpBoleta.beans.ws.web.mae.spusicc.ssicc.belcorp.biz">
+      <xsd:import namespace="http://pelnx2138:7003/ssiccclespdp/services/ProcesoMAEActualizaFlagImpBoletasWebService" />
+      <xsd:import namespace="urn:actualizarFlagImpBoletaResultado.beans.ws.web.mae.spusicc.ssicc.belcorp.biz" />
+      <xsd:import namespace="urn:consultoraFlagImpBoleta.beans.ws.web.mae.spusicc.ssicc.belcorp.biz" />
+      <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+      <xsd:complexType name="ErrorActualizarFlagImpBoleta">
+        <xsd:sequence>
+          <xsd:element name="codigoConsultora" nillable="true" type="soapenc:string" />
+          <xsd:element name="mensajeError" nillable="true" type="soapenc:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:actualizarFlagImpBoletaResultado.beans.ws.web.mae.spusicc.ssicc.belcorp.biz">
+      <xsd:import namespace="urn:errorActualizarFlagImpBoleta.beans.ws.web.mae.spusicc.ssicc.belcorp.biz" />
+      <xsd:import namespace="http://pelnx2138:7003/ssiccclespdp/services/ProcesoMAEActualizaFlagImpBoletasWebService" />
+      <xsd:import namespace="urn:consultoraFlagImpBoleta.beans.ws.web.mae.spusicc.ssicc.belcorp.biz" />
+      <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+      <xsd:complexType name="ActualizarFlagImpBoletaResultado">
+        <xsd:sequence>
+          <xsd:element name="estado" nillable="true" type="soapenc:int" />
+          <xsd:element name="listaError" nillable="true" type="impl:ArrayOf_tns3_ErrorActualizarFlagImpBoleta" />
+          <xsd:element name="mensaje" nillable="true" type="soapenc:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="actualizaFlagImpBoletasResponse">
+    <wsdl:part name="actualizaFlagImpBoletasReturn" type="tns2:ActualizarFlagImpBoletaResultado" />
+  </wsdl:message>
+  <wsdl:message name="actualizaFlagImpBoletasRequest">
+    <wsdl:part name="consultoraFlagImpBoletas" type="impl:ArrayOf_tns1_ConsultoraFlagImpBoleta" />
+  </wsdl:message>
+  <wsdl:portType name="ProcesoMAEActualizaFlagImpBoletasWebServiceImpl">
+    <wsdl:operation name="actualizaFlagImpBoletas" parameterOrder="consultoraFlagImpBoletas">
+      <wsdl:input name="actualizaFlagImpBoletasRequest" message="impl:actualizaFlagImpBoletasRequest" />
+      <wsdl:output name="actualizaFlagImpBoletasResponse" message="impl:actualizaFlagImpBoletasResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ProcesoMAEActualizaFlagImpBoletasWebServiceSoapBinding" type="impl:ProcesoMAEActualizaFlagImpBoletasWebServiceImpl">
+    <wsdlsoap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <wsdl:operation name="actualizaFlagImpBoletas">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="actualizaFlagImpBoletasRequest">
+        <wsdlsoap:body use="encoded" namespace="http://impl.ws.mae.spusicc.service.ssicc.belcorp.biz" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output name="actualizaFlagImpBoletasResponse">
+        <wsdlsoap:body use="encoded" namespace="http://pelnx2138:7003/ssiccclespdp/services/ProcesoMAEActualizaFlagImpBoletasWebService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ProcesoMAEActualizaFlagImpBoletasWebServiceImplService">
+    <wsdl:port name="ProcesoMAEActualizaFlagImpBoletasWebService" binding="impl:ProcesoMAEActualizaFlagImpBoletasWebServiceSoapBinding">
+      <wsdlsoap:address location="http://pelnx2138:7003/ssiccclespdp/services/ProcesoMAEActualizaFlagImpBoletasWebService" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

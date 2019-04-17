@@ -11,24 +11,39 @@ namespace Portal.Consultoras.Web.Providers
 {
     public class ClienteProvider
     {
+        protected readonly TablaLogicaProvider _tablaLogicaProvider;
+
+        public ClienteProvider()
+        {
+            _tablaLogicaProvider = new TablaLogicaProvider();
+        }
+
+        public virtual bool ValidarFlagFuncional(int paisId)
+        {
+           return _tablaLogicaProvider.GetTablaLogicaDatoValorBool(
+                            paisId,
+                            ConsTablaLogica.FlagFuncional.TablaLogicaId,
+                            ConsTablaLogica.FlagFuncional.MisClientes,
+                            true
+                            );
+        }
+
         public virtual List<ClienteModel> SelectByConsultora(int paisId, long consultoraId)
         {
-            var clientesResult = (List<ClienteModel>)null;
-            var clientes = (List<BECliente>)null;
+            List<BECliente> clientes;
 
             using (var serviceClient = new ClienteServiceClient())
             {
                 clientes = serviceClient.SelectByConsultora(paisId, consultoraId).ToList();
             }
-            clientesResult = Mapper.Map<List<ClienteModel>>(clientes);
+            var clientesResult = Mapper.Map<List<ClienteModel>>(clientes);
 
             return clientesResult;
         }
 
-        public virtual string SaveDB(int paisId, long consultoraId, ClienteModel client)
+        public virtual BEClienteDB SaveDB(int paisId, long consultoraId, ClienteModel client)
         {
 
-            List<BEClienteDB> clientes = new List<BEClienteDB>();
             List<BEClienteContactoDB> contactos = new List<BEClienteContactoDB>();
 
             if (!string.IsNullOrEmpty(client.Celular))
@@ -64,17 +79,20 @@ namespace Portal.Consultoras.Web.Providers
                 });
             }
 
-            clientes.Add(new BEClienteDB()
+            List<BEClienteDB> clientes = new List<BEClienteDB>
             {
-                CodigoCliente = client.CodigoCliente,
-                ClienteID = client.ClienteID,
-                Nombres = client.NombreCliente,
-                Apellidos = client.ApellidoCliente,
-                ConsultoraID = consultoraId,
-                Origen = Constantes.ClienteOrigen.Desktop,
-                Estado = Constantes.ClienteEstado.Activo,
-                Contactos = contactos.ToArray()
-            });
+                new BEClienteDB()
+                {
+                    CodigoCliente = client.CodigoCliente,
+                    ClienteID = client.ClienteID,
+                    Nombres = client.NombreCliente,
+                    Apellidos = client.ApellidoCliente,
+                    ConsultoraID = consultoraId,
+                    Origen = client.Origen,
+                    Estado = Constantes.ClienteEstado.Activo,
+                    Contactos = contactos.ToArray()
+                }
+            };
 
             List<BEClienteDB> response;
             using (var serviceClient = new ClienteServiceClient())
@@ -82,7 +100,7 @@ namespace Portal.Consultoras.Web.Providers
                 response = serviceClient.SaveDB(paisId, clientes.ToArray()).ToList();
             }
 
-            return response.First().CodigoRespuesta;
+            return response.First();
         }
 
         public virtual bool Eliminar(int paisId, long consultoraId, int clientId)

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
+using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceCliente;
 using System;
 using System.Collections.Generic;
@@ -12,15 +13,16 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
     public class ClienteController : BaseMobileController
     {
+        private readonly ClienteProvider _clienteProvider;
+
+        public ClienteController()
+        {
+            _clienteProvider = new ClienteProvider();
+        }
+
         public ActionResult Index()
         {
-            if (_tablaLogicaProvider
-                .GetTablaLogicaDatoValorBool(
-                userData.PaisID,
-                Constantes.TablaLogica.PantallaResponsive,
-                Constantes.TablaLogicaDato.PantallasResponsive.MisClientes,
-                false
-                ))
+            if (_clienteProvider.ValidarFlagFuncional(userData.PaisID))
             {
                 return RedirectToAction("Index", "TusClientes", new { area = string.Empty });
             }

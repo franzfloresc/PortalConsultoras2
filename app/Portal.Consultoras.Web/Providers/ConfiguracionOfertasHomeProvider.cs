@@ -7,6 +7,7 @@ using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -231,6 +232,20 @@ namespace Portal.Consultoras.Web.Providers
                                     : Constantes.OrigenPedidoWeb.DesktopContenedorGanadorasFicha;
                             seccion.VerMas = SessionManager.MasGanadoras.GetModel().TieneLanding;
                             break;
+                        case Constantes.ConfiguracionPais.ArmaTuPack:
+
+                            var sessionAtp = SessionManager.GetArmaTuPack();
+                            if (!sessionAtp.TieneAtp || !sessionAtp.TieneLanding)
+                            {
+                                continue;
+                            }
+
+                            seccion.UrlObtenerProductos = "Estrategia/ATPObtenerProductos";
+                            seccion.UrlLandig = "ArmaTuPack/Detalle";
+                            seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.MobileContenedorArmaTuPack : Constantes.OrigenPedidoWeb.DesktopContenedorArmaTuPack;
+                            seccion.VerMas = false;
+                            seccion.CodigoUbigeoPortal = CodigoUbigeoPortal.GuionContenedorArmaTuPackGuion;
+                            break;
                     }
 
                     #endregion
@@ -277,6 +292,9 @@ namespace Portal.Consultoras.Web.Providers
                                 isMobile ? "seccion-carrusel-individuales-v2" : "seccion-simple-centrado";
                             seccion.TemplateProducto =
                                 isMobile ? "#template-producto-v2" : "#producto-landing-template";
+                            break;
+                        case Constantes.ConfiguracionSeccion.TipoPresentacion.BannerInteractivo:
+                            seccion.TemplatePresentacion = "seccion-bannerInteractivo";
                             break;
                     }
 
@@ -408,7 +426,12 @@ namespace Portal.Consultoras.Web.Providers
                             ? entConf.MobileCantidadProductos
                             : entConf.DesktopCantidadProductos,
                 UrlLandig = "/" + (isMobile ? "Mobile/" : "") + entConf.UrlSeccion,
-                VerMas = true
+                VerMas = true,
+
+                BotonColor = BotonColorCss(entConf.BotonColor, entConf.BotonColorTexto),
+                //BotonColorTexto = entConf.BotonColorTexto,
+                BotonTexto1 = entConf.BotonTexto1,
+                BotonTexto2 = entConf.BotonTexto2
             };
 
             seccion.TituloBtnAnalytics = seccion.Titulo.Replace("'", "");
@@ -498,6 +521,20 @@ namespace Portal.Consultoras.Web.Providers
             }
 
             return seccion;
+        }
+
+        private string BotonColorCss(string botonColor, string botonColorTexto)
+        {
+            var estilo = new StringBuilder();
+            if (!String.IsNullOrEmpty(botonColor) && botonColor.Replace("#", "").Trim().Length > 0)
+            {
+                estilo.Append("background-color: " + botonColor + ";");
+            }
+            if (!String.IsNullOrEmpty(botonColorTexto) && botonColorTexto.Replace("#", "").Trim().Length > 0)
+            {
+                estilo.Append("color: " + botonColorTexto + ";");
+            }
+            return estilo.ToString();
         }
     }
 }

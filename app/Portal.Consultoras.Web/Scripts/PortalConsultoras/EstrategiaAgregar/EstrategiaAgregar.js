@@ -24,7 +24,7 @@ var EstrategiaAgregarModule = (function () {
         CampaniaCodigo: "",
         esFicha: false
     };
-
+    var _codigoVariedad = ConstantesModule.CodigoVariedad;
     var dataProperties = {
         dataItem: "[data-item]",
         dataContenedorCantidad: "[data-cantidad-contenedor]",
@@ -40,7 +40,10 @@ var EstrategiaAgregarModule = (function () {
         dataItemTagContenido: "[data-item-tag=\"contenido\"]",
         dataTono: "[data-tono]",
         dataTonoSelect: "[data-tono-select]",
-        dataItemHtml: "[data-item-html]"
+        dataItemHtml: "[data-item-html]",
+        tooltip: "[data-agregado=\"tooltip\"]",
+        tooltipMensaje1: "[data-agregado=\"mensaje1\"]",
+        tooltipMensaje2: "[data-agregado=\"mensaje2\"]",
     };
 
     var constantes = {
@@ -74,12 +77,22 @@ var EstrategiaAgregarModule = (function () {
         }
     }
 
+    var _OrigenPedido = {
+        MobileContenedorArmaTuPack: "2131502",
+        DesktopContenedorArmaTuPack: "1131502"
+    }
+
     var getEstrategia = function ($btnAgregar, origenPedidoWebEstrategia) {
 
-        var estrategia = $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataEstrategia).data("estrategia")
-                || $btnAgregar.parents("div.content_btn_agregar").siblings("#contenedor-showroom-subcampanias-mobile")
-                        .find(".slick-active").find(dataProperties.dataEstrategia).data("estrategia")
-                || {};
+        var estrategiaTxt = $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataEstrategia).attr("data-estrategia")
+            || $btnAgregar.parents("div.content_btn_agregar").siblings("#contenedor-showroom-subcampanias-mobile")
+                .find(".slick-active").find(dataProperties.dataEstrategia).attr("data-estrategia")
+            || "";
+
+        var estrategia = {};
+        if (estrategiaTxt != "") {
+            estrategia = JSON.parse(estrategiaTxt);
+        }
 
         return estrategia;
     };
@@ -224,10 +237,23 @@ var EstrategiaAgregarModule = (function () {
         }
     };
 
-    var estrategiaAgregar = function (event, popup, limite, esFicha) {
+    var _getClienteIdSelected = function () {
+        var clientId = 0;
+
+        var $divFichaReumida = $('#DivPopupFichaResumida');
+        if ((typeof $divFichaReumida !== "undefined" || $divFichaReumida !== null) &&
+            $divFichaReumida.find("#hfClienteId").length > 0) {
+            clientId = $($divFichaReumida.find("#hfClienteId")[0]).val();
+        }
+
+        return clientId;
+    }
+
+    var estrategiaAgregar = function (event, popup, limite, esFicha, esEditable) {
 
         popup = popup || false;
         limite = limite || 0;
+        esEditable = esEditable || false;
 
         _config.esFicha = esFicha || _config.esFicha;
         _config.CampaniaCodigo = $(elementosDiv.hdCampaniaCodigo).val() || _config.CampaniaCodigo;
@@ -235,9 +261,42 @@ var EstrategiaAgregarModule = (function () {
         var $btnAgregar = $(event.target);
         //console.log($btnAgregar);
         var origenPedidoWebEstrategia = getOrigenPedidoWeb($btnAgregar);
-        //console.log(origenPedidoWebEstrategia);
+
+        //*****ANALYTICS ******
+        if (AnalyticsPortalModule != 'undefined') {
+            if (typeof (fichaModule) != "undefined") {
+                if (typeof (fichaModule.GetEstrategia) != "undefined") {
+                    var estrategia = fichaModule.GetEstrategia();
+                    AnalyticsPortalModule.MarcaFichaResumidaClickModificar(estrategia.CodigoUbigeoPortal, isChangeTono, isChangeCantidad, isChangeCliente);
+                }
+            }
+
+            if (typeof (seleccionadosPresenter) !== 'undefined') {
+                if (seleccionadosPresenter.packComponents() !== 'undefined') {
+                    var seleccionados = seleccionadosPresenter.packComponents().componentesSeleccionados;
+                    var estrategia = JSON.parse($("#data-estrategia").attr("data-estrategia"));
+                    var codigoubigeoportal = estrategia.CodigoUbigeoPortal + "";
+
+                    if (codigoubigeoportal !== "") {
+                        AnalyticsPortalModule.MarcarAddCarArmaTuPack(codigoubigeoportal, seleccionados);
+                        AnalyticsPortalModule.MarcaClickAgregarArmaTuPack(codigoubigeoportal, "Agregar", "Click Botón");
+                    }
+                }
+
+            }
+
+        }
+        //**FIN ANALYTICS *****
+
         var estrategia = getEstrategia($btnAgregar, origenPedidoWebEstrategia);
-        //console.log(estrategia);
+
+        if (typeof getOrigenPedidoWebDetalle !== 'undefined') {
+            var origenDetalle = getOrigenPedidoWebDetalle(estrategia);
+            if (origenDetalle) {
+                origenPedidoWebEstrategia = origenDetalle;
+            }
+        }
+        console.log(estrategia);
         if (estrategiaEstaBloqueada($btnAgregar, estrategia.CampaniaID)) {
             estrategia.OrigenPedidoWebEstrategia = origenPedidoWebEstrategia;
             getDivMsgBloqueado($btnAgregar, estrategia).show();
@@ -283,7 +342,7 @@ var EstrategiaAgregarModule = (function () {
 
         var cuvs = "";
         var codigoVariante = estrategia.CodigoVariante;
-        if ((ConstantesModule.CodigoVariedad.IndividualVariable == codigoVariante || ConstantesModule.CodigoVariedad.CompuestaVariable == codigoVariante)) {
+        if ((_codigoVariedad.IndividualVariable == codigoVariante || _codigoVariedad.CompuestaVariable == codigoVariante)) {
             var listaCuvs = $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataTono.concat(dataProperties.dataTonoSelect));
             if (listaCuvs.length > 0) {
                 $.each(listaCuvs,
@@ -291,13 +350,13 @@ var EstrategiaAgregarModule = (function () {
                         var cuv = $(item).attr("data-tono-select");
                         if (cuv != "") {
                             cuvs = cuvs + (cuvs == "" ? "" : "|") + cuv;
-                            //if (ConstantesModule.CodigoVariedad.CompuestaVariable == codigoVariante) {
+
                             cuvs = cuvs + ";" + $(item).find(elementosDiv.EstrategiaHdMarcaID).val();
                             cuvs = cuvs + ";" + $(item).find(elementosDiv.EstrategiaHdPrecioCatalogo).val();
                             cuvs = cuvs + ";" + "";
                             cuvs = cuvs + ";" + $(item).find(elementosDiv.Estrategia_hd_Digitable).val();
                             cuvs = cuvs + ";" + $(item).find(elementosDiv.Estrategia_hd_Grupo).val();
-                            //}
+
                         }
                     });
             }
@@ -313,198 +372,255 @@ var EstrategiaAgregarModule = (function () {
             EstrategiaID: $.trim(estrategia.EstrategiaID),
             OrigenPedidoWeb: $.trim(origenPedidoWebEstrategia),
             TipoEstrategiaImagen: tipoEstrategiaImagen || 0,
-            FlagNueva: $.trim(estrategia.FlagNueva)
+            FlagNueva: $.trim(estrategia.FlagNueva),
+            EsEditable: estrategia.esEditable,
+            SetId: estrategia.setId,
+            ClienteID: _getClienteIdSelected()
         };
 
-        EstrategiaAgregarProvider.pedidoAgregarProductoPromise(params).done(function (data) {
-            if (!checkTimeout(data)) {
-                CerrarLoad();
-                return false;
-            }
-
-            if (data.success === false) {
-                abrirMensajeEstrategia(data.message, esFicha);
-                CerrarLoad();
-                return false;
-            }
-
-            $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataInputCantidad).val("1");
-
-            if (divAgregado != null) {
-                if (typeof divAgregado.length != "undefined" && divAgregado.length > 0) {
-                    divAgregado.each(function (index, element) {
-                        $(element).show();
-                    });
+        EstrategiaAgregarProvider
+            .pedidoAgregarProductoPromise(params)
+            .done(function (data) {
+                if (!checkTimeout(data)) {
+                    CerrarLoad();
+                    return false;
                 }
 
-                $(divAgregado).show();
+                if (data.success === false) {
+                    if (!IsNullOrEmpty(data.mensajeAviso)) AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
+                    else abrirMensajeEstrategia(data.message, esFicha);
 
-                if ($btnAgregar[0]) {
-                    var contenedorAgregado = $($btnAgregar).parent().find('#ContenedorAgregado')[0];
-
-                    if (!contenedorAgregado) {
-                        contenedorAgregado = $($btnAgregar).parent().parent().find('.contenedor_agregado');
-                    }
-
-
-                    if (contenedorAgregado) {
-                        $(contenedorAgregado).show();
-                    }
+                    CerrarLoad();
+                    return false;
                 }
-            }
 
-            //Tooltip de agregado
-            if (esFicha) {
-                var $AgregadoTooltip = $("[data-agregado='tooltip']");
-                $AgregadoTooltip.show();
-                setTimeout(function () { $AgregadoTooltip.hide(); }, 4000);
+
+                var cuv = estrategia.CUV2;
+                if (cuv.substring(0, 3) == '999') {
+                    sessionStorage.setItem('cuvPack', cuv);
+                }
+
                 try {
-                    ResumenOpcionesModule.LimpiarOpciones();
+                    if (!(typeof AnalyticsPortalModule === 'undefined')) {
+                        AnalyticsPortalModule.MarcaAnadirCarritoGenerico(event, origenPedidoWebEstrategia, estrategia);
+                    }
+                    TrackingJetloreAdd(cantidad, $(elementosDiv.hdCampaniaCodigo).val(), cuv);
                 } catch (e) {
-                    console.error(e);
+                    console.log(e);
                 }
 
-            }
+                $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataInputCantidad).val("1");
 
-            if (isMobile()) {
-                ActualizarGanancia(data.DataBarra);
-                CargarCantidadProductosPedidos(true);
-                microefectoPedidoGuardado();
-            } else {
-                CargarResumenCampaniaHeader(true);
-            }
 
-            var cuv = estrategia.CUV2;
-            if (cuv.substring(0, 3) == '999') {
-                sessionStorage.setItem('cuvPack', cuv);
-            }
-
-            var tipoOrigenEstrategiaAux = 0;
-            if (typeof tipoOrigenEstrategia != "undefined") {
-                tipoOrigenEstrategiaAux = tipoOrigenEstrategia || 0;
-            }
-
-            if (tipoOrigenEstrategiaAux == 1) {
-                if (typeof MostrarBarra != constantes.undefined())
-                    MostrarBarra(data, "1");
-
-                if (estrategia.CodigoEstrategia == ConstantesModule.ConstantesPalanca.PackNuevas) {
-                    if (typeof CargarCarouselEstrategias != constantes.undefined())
-                        CargarCarouselEstrategias();
-                }
-
-                if (typeof tieneMasVendidos != constantes.undefined()) {
-                    if (tieneMasVendidos === 1) {
-                        if (typeof CargarCarouselMasVendidos != constantes.undefined())
-                            CargarCarouselMasVendidos("desktop");
-                    }
-                }
-            } else if (tipoOrigenEstrategiaAux == 11) {
-
-                $(elementosDiv.hdErrorInsertarProducto).val(data.errorInsertarProducto);
-
-                cierreCarouselEstrategias();
-                if (estrategia.CodigoEstrategia == ConstantesModule.ConstantesPalanca.PackNuevas) {
-                    if (typeof CargarCarouselEstrategias != constantes.undefined())
-                        CargarCarouselEstrategias();
-                }
-                HideDialog(elementosDiv.divVistaPrevia.substring(1));
-
-                CargarDetallePedido();
-                MostrarBarra(data);
-            } else if (tipoOrigenEstrategiaAux == 2 ||
-                tipoOrigenEstrategiaAux == 21 ||
-                tipoOrigenEstrategiaAux == 27 ||
-                tipoOrigenEstrategiaAux == 262 ||
-                tipoOrigenEstrategiaAux == 272) {
-
-                if (tipoOrigenEstrategiaAux == 262) {
-
-                    var origenRetornoAux = $.trim(origenRetorno);
-                    if (origenRetornoAux != "") {
-                        setTimeout(function () {
-                            window.location = origenRetornoAux;
-                        },
-                            3700);
-
-                    }
-                } else if (tipoOrigenEstrategiaAux != 272) {
-                    if (estrategia.CodigoEstrategia == ConstantesModule.ConstantesPalanca.PackNuevas) {
-                        CargarCarouselEstrategias();
+                if (divAgregado != null) {
+                    if (typeof divAgregado.length != "undefined" && divAgregado.length > 0) {
+                        divAgregado.each(function (index, element) {
+                            $(element).show();
+                        });
                     }
 
-                    if (tieneMasVendidos === 1) {
-                        CargarCarouselMasVendidos("mobile");
-                    }
-                }
-            }
+                    $(divAgregado).show();
 
-            try {
-                if (!(typeof AnalyticsPortalModule === 'undefined')) {
-                    AnalyticsPortalModule.MarcaAnadirCarritoGenerico(event, origenPedidoWebEstrategia, estrategia);
-                }
-                TrackingJetloreAdd(cantidad, $(elementosDiv.hdCampaniaCodigo).val(), cuv);
-            } catch (e) {
-                console.log(e);
-            }
-            if (data.listCuvEliminar != null) {
-                $.each(data.listCuvEliminar, function (i, cuv) {
+                    if ($btnAgregar[0]) {
+                        var contenedorAgregado = $($btnAgregar).parent().find('#ContenedorAgregado')[0];
 
-                    itemClone.parent().find('[data-item-cuv=' + cuv + '] .agregado.product-add').hide();
-
-                    ActualizarLocalStoragePalancas(cuv, false);
-                })
-            }
-
-            var localStorageModule = new LocalStorageModule();
-            localStorageModule.ActualizarCheckAgregado($.trim(estrategia.EstrategiaID), estrategia.CampaniaID, estrategia.CodigoPalanca, true);
-
-
-            //if (belcorp.estrategia.applyChanges){
-            //    belcorp.estrategia.applyChanges("onProductoAgregado", data);
-            //}
-
-            CerrarLoad();
-            if (popup) {
-                CerrarPopup(elementosPopPup.popupDetalleCarouselLanzamiento);
-                $(elementosPopPup.popupDetalleCarouselPackNuevas).hide();
-            }
-            else {
-                if (_config.esFicha) {
-                    if (params.CuvTonos != "") {
-                        var listaCuvs = $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataTono.concat(dataProperties.dataTonoSelect));
-                        if (listaCuvs.length > 0) {
-                            $(".texto_sin_tono").find(".tono_seleccionado").hide();
-                            var $ContentTonoDetalle = $(".content_tono_detalle");
-                            if ($ContentTonoDetalle.length > 0) {
-                                $ContentTonoDetalle.removeClass("borde_seleccion_tono");
-                            }
-                            $btnAgregar.addClass("btn_desactivado_general");
-
-                            $.each(listaCuvs,
-                                function (i, item) {
-                                    if (!(item.hasAttribute('data-tono-digitable')))
-                                        var cuv = $(item).attr("data-tono-select", "");
-                                });
+                        if (!contenedorAgregado) {
+                            contenedorAgregado = $($btnAgregar).parent().parent().find('.contenedor_agregado');
                         }
 
+
+                        if (contenedorAgregado) {
+                            $(contenedorAgregado).show();
+                        }
                     }
                 }
-            }
-            if (!IsNullOrEmpty(data.mensajeAviso)) AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
 
-            return false;
-        })
-        .fail(function (data, error) {
-            CerrarLoad();
-        });
+                //Tooltip de agregado
+                if (esFicha) {
+                    try {
+                        var $AgregadoTooltip = $(dataProperties.tooltip);
+                        if (params.EsEditable) {
+                            $AgregadoTooltip.find(dataProperties.tooltipMensaje1).html("¡Listo! ");
+                            $AgregadoTooltip.find(dataProperties.tooltipMensaje2).html(" Modificaste tu pedido");
+                        }
+                        $AgregadoTooltip.show();
+                        setTimeout(function () {
+                            $AgregadoTooltip.hide();
+                            if (typeof esAppMobile == 'undefined') {
+                                if (origenPedidoWebEstrategia === _OrigenPedido.DesktopContenedorArmaTuPack) {
+                                    window.location = "/ofertas";
+                                } else if (origenPedidoWebEstrategia === _OrigenPedido.MobileContenedorArmaTuPack) {
+                                    window.location = "/mobile/ofertas";
+
+                                }
+                            } else {
+                                if (estrategia.CodigoEstrategia === ConstantesModule.TipoEstrategia.ArmaTuPack) {
+                                    window.location = "/ArmaTuPack/AgregarATPApp";
+                                }
+                            }
+                        }, 2500);
+                        if (!(origenPedidoWebEstrategia === _OrigenPedido.DesktopContenedorArmaTuPack || origenPedidoWebEstrategia === _OrigenPedido.MobileContenedorArmaTuPack)) {
+                            ResumenOpcionesModule.LimpiarOpciones();
+                        }
+                        else {
+                            return;
+                        }
+                    } catch (e) {
+                        console.error(e);
+                    }
+
+                }
+                var barraJsLoaded = typeof MostrarBarra === 'function';
+
+                if (barraJsLoaded) {
+                    var destino = isPagina('pedido') ? '2' : '1';
+                    var prevTotal = mtoLogroBarra || 0;
+                    var issetPopupPremio = $("#popupPremio").length > 0;
+
+                    if ($("#divBarra").length > 0) {
+                        MostrarBarra(data, destino);
+
+                        if (issetPopupPremio) {
+                            showPopupNivelSuperado(data.DataBarra, prevTotal);
+                        } else {
+                            addPremioDefaultSuperado(data.DataBarra, prevTotal);
+                        }
+                    } else {
+                        ActualizarGanancia(data.DataBarra);
+                        calcMtoLogro(data, destino);
+                        addPremioDefaultSuperado(data.DataBarra, prevTotal);
+                    }
+                }
+
+                if (isMobile()) {
+                    CargarCantidadProductosPedidos(true);
+                    microefectoPedidoGuardado();
+
+                } else {
+                    CargarResumenCampaniaHeader(true);
+                }
+
+                var tipoOrigenEstrategiaAux = 0;
+                if (typeof tipoOrigenEstrategia != "undefined") {
+                    tipoOrigenEstrategiaAux = tipoOrigenEstrategia || 0;
+                }
+
+                if (tipoOrigenEstrategiaAux == 1) {
+                    if (typeof MostrarBarra != constantes.undefined()) {
+                        MostrarBarra(data, "1");
+                    }
+
+                    if (estrategia.CodigoEstrategia == ConstantesModule.TipoEstrategia.PackNuevas) {
+                        if (typeof CargarCarouselEstrategias != constantes.undefined())
+                            CargarCarouselEstrategias();
+                    }
+
+                    if (typeof tieneMasVendidos != constantes.undefined()) {
+                        if (tieneMasVendidos === 1) {
+                            if (typeof CargarCarouselMasVendidos != constantes.undefined())
+                                CargarCarouselMasVendidos("desktop");
+                        }
+                    }
+                }
+                else if (tipoOrigenEstrategiaAux == 11) {
+
+                    $(elementosDiv.hdErrorInsertarProducto).val(data.errorInsertarProducto);
+
+                    cierreCarouselEstrategias();
+                    if (estrategia.CodigoEstrategia == ConstantesModule.TipoEstrategia.PackNuevas) {
+                        if (typeof CargarCarouselEstrategias != constantes.undefined())
+                            CargarCarouselEstrategias();
+                    }
+                    HideDialog(elementosDiv.divVistaPrevia.substring(1));
+                    CargarDetallePedido();
+                    var previousTotal = mtoLogroBarra || 0;
+                    MostrarBarra(data);
+                    showPopupNivelSuperado(data.DataBarra, previousTotal);
+                } else if (tipoOrigenEstrategiaAux == 2 ||
+                    tipoOrigenEstrategiaAux == 21 ||
+                    tipoOrigenEstrategiaAux == 22 ||
+                    tipoOrigenEstrategiaAux == 27 ||
+                    tipoOrigenEstrategiaAux == 262 ||
+                    tipoOrigenEstrategiaAux == 272) {
+
+                    if (isPagina('mobile/pedido/detalle')) CargarPedido(false);
+
+                    if (tipoOrigenEstrategiaAux == 262) {
+
+                        var origenRetornoAux = $.trim(origenRetorno);
+                        if (origenRetornoAux != "") {
+                            setTimeout(function () {
+                                window.location = origenRetornoAux;
+                            },
+                                3700);
+
+                        }
+                    } else if (tipoOrigenEstrategiaAux != 272) {
+                        if (estrategia.CodigoEstrategia == ConstantesModule.TipoEstrategia.PackNuevas) {
+                            CargarCarouselEstrategias();
+                        }
+
+                        if (typeof tieneMasVendidos !== "undefined" && tieneMasVendidos === 1) {
+                            CargarCarouselMasVendidos("mobile");
+                        }
+                    }
+                }
+
+                if (data.listCuvEliminar != null) {
+                    $.each(data.listCuvEliminar, function (i, cuvElem) {
+
+                        itemClone.parent().find('[data-item-cuv=' + cuvElem + '] .agregado.product-add').hide();
+
+                        ActualizarLocalStoragePalancas(cuvElem, false);
+                    })
+                }
+
+                var localStorageModule = new LocalStorageModule();
+                localStorageModule.ActualizarCheckAgregado($.trim(estrategia.EstrategiaID), estrategia.CampaniaID, estrategia.CodigoPalanca, true);
+
+                CerrarLoad();
+                if (popup) {
+                    CerrarPopup(elementosPopPup.popupDetalleCarouselLanzamiento);
+                    $(elementosPopPup.popupDetalleCarouselPackNuevas).hide();
+                }
+                else {
+                    if (_config.esFicha) {
+                        if (params.CuvTonos != "") {
+                            var listaCuvs = $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataTono.concat(dataProperties.dataTonoSelect));
+                            if (listaCuvs.length > 0) {
+                                $(".texto_sin_tono").find(".tono_seleccionado").hide();
+                                var $ContentTonoDetalle = $(".content_tono_detalle");
+                                if ($ContentTonoDetalle.length > 0) {
+                                    $ContentTonoDetalle.removeClass("borde_seleccion_tono");
+                                }
+                                $btnAgregar.addClass("btn_desactivado_general");
+
+                                $.each(listaCuvs,
+                                    function (i, item) {
+                                        if (!(item.hasAttribute('data-tono-digitable')))
+                                            var cuv = $(item).attr("data-tono-select", "");
+                                    });
+                            }
+
+                        }
+                    }
+                }
+                if (!IsNullOrEmpty(data.mensajeAviso)) AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
+                if (estrategia.TipoAccionNavegar == ConstantesModule.TipoAccionNavegar.Volver) {
+                    FichaPartialModule.ShowDivFichaResumida(false);
+                }
+
+                return false;
+            })
+            .fail(function (data, error) {
+                CerrarLoad();
+            });
 
         return false;
     };
 
     var selectorCantidadEstaBloquedo = function ($element) {
         var result = false;
-
         var dataBloquedaAttrValue = $element.data("bloqueada");
         if (typeof dataBloquedaAttrValue !== "undefined" &&
             $.trim(dataBloquedaAttrValue) !== "") {
@@ -516,7 +632,6 @@ var EstrategiaAgregarModule = (function () {
     var adicionarCantidad = function (e) {
 
         e.stopPropagation();
-
         var $this = $(e.target);
         if (selectorCantidadEstaBloquedo($this)) return false;
         var $inputCantidad = $this.parents(dataProperties.dataContenedorCantidad).find(dataProperties.dataInputCantidad);
@@ -524,10 +639,21 @@ var EstrategiaAgregarModule = (function () {
         cantidad = isNaN(cantidad) ? 0 : cantidad;
         cantidad = cantidad < 99 ? (cantidad + 1) : 99;
         $inputCantidad.val(cantidad);
-
+        _verificarActivarBtn();   //habilitar botón solo cuando está en la ficha resumida
         return false;
     };
 
+    var _verificarActivarBtn = function (codigoVariante) {
+        if (typeof (fichaModule) != "undefined") {
+            if (typeof (fichaModule.GetEstrategia) != "undefined") {
+                var estrategia = fichaModule.GetEstrategia();
+                if (estrategia.esEditable) { //todos menos la 2003 (tipos&tonos)
+                    EstrategiaAgregarModule.HabilitarBoton();
+                    isChangeCantidad = true; //para hacer seguimiento al marcar analytics
+                }
+            }
+        }
+    };
 
     var disminuirCantidad = function (e) {
 
@@ -540,10 +666,13 @@ var EstrategiaAgregarModule = (function () {
         cantidad = isNaN(cantidad) ? 0 : cantidad;
         cantidad = cantidad > 1 ? (cantidad - 1) : 1;
         $inputCantidad.val(cantidad);
-
+        _verificarActivarBtn(); //habilitar botón solo cuando está en la ficha resumida
         return false;
     };
+    var validaCantidad = function (e) {
+        _verificarActivarBtn(); //habilitar botón solo cuando está en la ficha resumida
 
+    }
     var deshabilitarBoton = function () {
         $(_elementos.btnAgregar.id).addClass(_elementos.btnAgregar.classDesactivado);
     };
@@ -590,6 +719,7 @@ var EstrategiaAgregarModule = (function () {
         GetOrigenPedidoWeb: getOrigenPedidoWeb,
         AdicionarCantidad: adicionarCantidad,
         DisminuirCantidad: disminuirCantidad,
+        ValidaCantidad: validaCantidad,
         ElementosDiv: elementosDiv,
         DeshabilitarBoton: deshabilitarBoton,
         HabilitarBoton: habilitarBoton

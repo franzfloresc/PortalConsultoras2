@@ -1,6 +1,7 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Common.MagickNet;
 using Portal.Consultoras.Web.Models;
+
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -17,6 +18,50 @@ namespace Portal.Consultoras.Web.Providers
         public RenderImgProvider()
         {
             _tablaLogicaProvider = new TablaLogicaProvider();
+        }
+
+        public string ImagenesResizeProcesoApp(string urlImagen, string codigoIso, int paisID, string palanca)
+        {
+            var mensajeErrorImagenResize = string.Empty;
+
+            var lstImagenResize = _tablaLogicaProvider.GetTablaLogicaDatos(paisID, Constantes.TablaLogica.ResizeImagenesAppGanaMas, true);
+
+            lstImagenResize = lstImagenResize.Where(x => x.Codigo.StartsWith(palanca)).ToList();
+
+            if (lstImagenResize.Any())
+            {
+                var lstFinal = lstImagenResize.Select(x =>
+                {
+                    var tipo = x.Codigo.Replace(palanca, string.Empty);
+                    var ancho = 0;
+                    var alto = 0;
+                    var medidas = x.Descripcion.Split('x');
+
+                    int.TryParse(medidas[0], out ancho);
+                    int.TryParse(medidas[1], out alto);
+
+                    var soloImagen = Path.GetFileNameWithoutExtension(urlImagen);
+                    var soloExtension = Path.GetExtension(urlImagen);
+                    var fileName = string.Concat(soloImagen, tipo, soloExtension);
+                    var rutaImagenResize = ConfigS3.GetUrlFileS3Matriz(codigoIso, fileName);
+
+                    var entidad = new EntidadMagickResize
+                    {
+                        RutaImagenOriginal = urlImagen,
+                        RutaImagenResize = rutaImagenResize,
+                        Width = ancho,
+                        Height = alto,
+                        TipoImagen = tipo,
+                        CodigoIso = codigoIso
+                    };
+
+                    return entidad;
+                }).ToList();
+
+                MagickNetLibrary.GuardarImagenesResizeParalelo(lstFinal, true);
+            }
+
+            return mensajeErrorImagenResize;
         }
 
         public string ImagenesResizeProceso(string urlImagen, string codigoIso, bool esAppCalatogo = false)
@@ -117,13 +162,13 @@ namespace Portal.Consultoras.Web.Providers
             var wMax = 0;
             if (tipoImg == Constantes.ConfiguracionImagenResize.TipoImagenSmall)
             {
-                hBase = _tablaLogicaProvider.GetTablaLogicaDatoCodigoInt(Constantes.PaisID.Peru, Constantes.TablaLogica.ValoresImagenesResize, Constantes.TablaLogicaDato.ValoresImagenesResizeHeightSmall, true);
-                wMax = _tablaLogicaProvider.GetTablaLogicaDatoCodigoInt(Constantes.PaisID.Peru, Constantes.TablaLogica.ValoresImagenesResize, Constantes.TablaLogicaDato.ValoresImagenesResizeWitdhMaxSmall, true);
+                hBase = _tablaLogicaProvider.GetTablaLogicaDatoCodigoInt(Constantes.PaisID.Peru, ConsTablaLogica.ImagenesResize.TablaLogicaId, Constantes.TablaLogicaDato.ValoresImagenesResizeHeightSmall, true);
+                wMax = _tablaLogicaProvider.GetTablaLogicaDatoCodigoInt(Constantes.PaisID.Peru,  ConsTablaLogica.ImagenesResize.TablaLogicaId, Constantes.TablaLogicaDato.ValoresImagenesResizeWitdhMaxSmall, true);
             }
             else if (tipoImg == Constantes.ConfiguracionImagenResize.TipoImagenMedium)
             {
-                hBase = _tablaLogicaProvider.GetTablaLogicaDatoCodigoInt(Constantes.PaisID.Peru, Constantes.TablaLogica.ValoresImagenesResize, Constantes.TablaLogicaDato.ValoresImagenesResizeHeightMedium, true);
-                wMax = _tablaLogicaProvider.GetTablaLogicaDatoCodigoInt(Constantes.PaisID.Peru, Constantes.TablaLogica.ValoresImagenesResize, Constantes.TablaLogicaDato.ValoresImagenesResizeWitdhMaxMedium, true);
+                hBase = _tablaLogicaProvider.GetTablaLogicaDatoCodigoInt(Constantes.PaisID.Peru, ConsTablaLogica.ImagenesResize.TablaLogicaId, Constantes.TablaLogicaDato.ValoresImagenesResizeHeightMedium, true);
+                wMax = _tablaLogicaProvider.GetTablaLogicaDatoCodigoInt(Constantes.PaisID.Peru, ConsTablaLogica.ImagenesResize.TablaLogicaId, Constantes.TablaLogicaDato.ValoresImagenesResizeWitdhMaxMedium, true);
             }
 
             if (hBase == 0 && wMax == 0)

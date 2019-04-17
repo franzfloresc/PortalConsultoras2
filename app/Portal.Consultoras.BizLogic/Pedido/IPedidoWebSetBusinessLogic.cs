@@ -1,7 +1,6 @@
 ﻿using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Pedido;
 using System;
-using System.Collections.Generic;
 
 namespace Portal.Consultoras.BizLogic.Pedido
 {
@@ -15,8 +14,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
         /// <returns>PedidoSet object</returns>
         BEPedidoWebSet Obtener(int paisId,  int id);
         
-        List<BEPedidoWebSetDetalle> GetSetDetalle(int paisId, int campaniaId, long consultoraId, int setId);
-
         /// <summary>
         /// Elimina el Set por id, incluido sus detalles
         /// </summary>

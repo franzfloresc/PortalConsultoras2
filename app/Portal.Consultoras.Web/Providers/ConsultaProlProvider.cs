@@ -130,12 +130,12 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
-        public List<EstrategiaComponenteModel> ActualizarComponenteStockPROL(List<EstrategiaComponenteModel> lista ,string cuvPadre,string paisISO, int campaniaID, string codigoConsultora)
+        public List<EstrategiaComponenteModel> ActualizarComponenteStockPROL(List<EstrategiaComponenteModel> lista, string cuvPadre, string paisISO, int campaniaID, string codigoConsultora)
         {
-            if (lista.Count == 0) return lista;
-
             try
             {
+                if (!lista.Any()) return lista;
+
                 ConsultaStockModel stock = new ConsultaStockModel
                 {
                     PaisISO = paisISO,

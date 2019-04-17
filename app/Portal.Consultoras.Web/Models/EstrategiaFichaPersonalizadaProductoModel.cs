@@ -1,5 +1,4 @@
 ﻿using Portal.Consultoras.Web.Models.DetalleEstrategia;
-using System;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -9,10 +8,13 @@ namespace Portal.Consultoras.Web.Models
         public string OrigenUrl { get; set; }
         public int OrigenAgregar { get; set; }
         public int OrigenAgregarCarrusel { get; set; }
+        public string CodigoUbigeoPortal { get; set; } //util para la marcación analytics de Ficha Resumida
         public string Palanca { get; set; }
         public bool TieneSession { get; set; }
         public int Campania { get; set; }
         public string Cuv { get; set; }
+        public bool EsEditable { get; set; }
+        public bool IsMobile { get; set; }
 
         public bool TieneReloj { get; set; }
         public bool TieneCompartir { get; set; }
@@ -36,5 +38,19 @@ namespace Portal.Consultoras.Web.Models
 
         public bool Error { get; set; }
         public int Cantidad { get; set; }
+
+        public bool MostrarCliente { get; set; }
+
+        public bool MostrarAdicional { get; set; }
+
+        public bool MostrarFichaEnriquecida { get; set; }
+    }
+
+    public class DetalleEstrategiaFichaDisenoModel : DetalleEstrategiaFichaModel
+    {
+        public string ImagenFondo { get; set; }
+        public string ColorFondo { get; set; }
+        public string SubTitulo { get; set; }
+        public string ColorTexto { get; set; }
     }
 }

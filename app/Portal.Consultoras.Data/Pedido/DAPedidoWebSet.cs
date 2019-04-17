@@ -24,17 +24,7 @@ namespace Portal.Consultoras.Data.Pedido
                 return data;
             }
         }
-
-        public IDataReader GetSetDetalle(int campaniaId, long consultoraId, int setId)
-        {
-            var command = Context.Database.GetStoredProcCommand("dbo.GetEstrategiaProductoComponenteSeleccionado");
-            Context.Database.AddInParameter(command, "@pCampaniaID", DbType.Int32, campaniaId);
-            Context.Database.AddInParameter(command, "@pConsultoraID", DbType.Int64, consultoraId);
-            Context.Database.AddInParameter(command, "@pSetID", DbType.Int32, setId);
-
-            return Context.ExecuteReader(command);
-        }
-
+        
         public IEnumerable<BEPedidoWebSetDetalle> ObtenerDetalles(int setId)
         {
             using (var command = Context.Database.GetStoredProcCommand("dbo.PedidoWebSetDetalle_Select"))

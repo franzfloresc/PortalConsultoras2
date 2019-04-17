@@ -313,7 +313,6 @@
             ConsultoraNoNueva = 2,
             NoParticipaEnProgramaNuevas = 3,
             CuvNoPerteneceASuPrograma = 4,
-            ExisteUnElectivoEnPedido = 5,
             CuvPerteneceProgramaNuevas = 6
         }
 

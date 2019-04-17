@@ -6,17 +6,16 @@ var TusClientesModule = function (config) {
     "use strict";
 
     var _config = {
-        tusClientesProvider: config.tusClientesProvider /*|| TusClientesProvider()*/,
+        tusClientesProvider: config.tusClientesProvider,
         checkTimeout: checkTimeout
     };
 
     var _elements = {
         txtNombreCliente: "#txtNombreCliente",
+        btnExportarClientes: "#btnExportarClientes",
         divClientes: "#divClientes",
         hbsClientes: "#hbsClientes",
-        //
         divPopupEditarCliente: "#divPopupEditarCliente",
-        //
         divConfirmarEliminarCliente: "#divConfirmarEliminarCliente",
         btnConfirmarEliminarCliente: "#btnConfirmarEliminarCliente",
         btnCancelarEliminarCliente: "#btnCancelarEliminarCliente",
@@ -27,6 +26,7 @@ var TusClientesModule = function (config) {
     var _buscarClientes = function () {
         var nombreCliente = $.trim($(_elements.txtNombreCliente).val());
 
+        if (!checkTimeout()) return false;
         _config.tusClientesProvider
             .consultarPromise(nombreCliente)
             .done(function (result) {
@@ -41,41 +41,63 @@ var TusClientesModule = function (config) {
 
     var _setNombreCliente = function (nombreCliente) {
         $(_elements.txtNombreCliente).val(nombreCliente);
+        _buscarClientes();
     };
 
     var _ocultarEditarCliente = function () {
-        $(_elements.divPopupEditarCliente).hide();
+
+        $(_elements.divPopupEditarCliente).removeClass("show_PopupEditarCliente");
+        setTimeout(function () {
+            $(_elements.divPopupEditarCliente).hide();
+            $("body").css("overflow", "auto");
+            $("#modal-fondo-form").hide();
+        }, 450);
     };
 
     var _editarCliente = function (cliente) {
         _panelMantenerCliente.setCliente(cliente)
+        $("body").css("overflow", "hidden");
         $(_elements.divPopupEditarCliente).show();
+        $(_elements.divPopupEditarCliente).addClass("show_PopupEditarCliente");
+
+        $('.ImputForm-item input').each(function () {
+            if ($(this).val().length !== 0) {
+                $(this).addClass('ActiveLabel');
+                $(this).addClass('bar-imputActive');
+            }
+            else {
+                $(this).removeClass('ActiveLabel');
+                $(this).removeClass('bar-imputActive');
+            }
+        });
+
+        $("#modal-fondo-form").show();
     };
 
-    var _eliminarCliente = function () {
-        var clientId = parseInt($(_elements.divConfirmarEliminarCliente).data("clienteId"));
+    var _eliminarCliente = function (clienteId) {
+        AbrirLoad();
         _config
             .tusClientesProvider
-            .eliminarClientePromise(clientId)
+            .eliminarClientePromise(clienteId)
             .done(function (data) {
-                alert(data.message);
-                _ocultarConfirmarEliminarCliente();
+                AbrirMensaje(data.message)
+                _ocultarConfirmarEliminarCliente(clienteId);
                 _buscarClientes();
-                
             })
             .fail(function (data, error) {
 
+            })
+            .then(function () {
+                CerrarLoad();
             });
     };
 
     var _mostarConfirmarEliminarCliente = function (clienteId) {
-        $(_elements.divConfirmarEliminarCliente).show();
-        $(_elements.divConfirmarEliminarCliente).data("clienteId", clienteId);
+        $(_elements.divConfirmarEliminarCliente + "-" + clienteId).show();
     };
 
-    var _ocultarConfirmarEliminarCliente = function () {
-        $(_elements.divConfirmarEliminarCliente).hide();
-        $(_elements.divConfirmarEliminarCliente).data("clienteId", "");
+    var _ocultarConfirmarEliminarCliente = function (clienteId) {
+        $(_elements.divConfirmarEliminarCliente + "-" + clienteId).hide();
     };
 
     var _init = function () {
@@ -97,7 +119,66 @@ var TusClientesModule = function (config) {
             }
         });
 
+        $(_elements.btnExportarClientes).click(function (e) {
+
+            var content = "/TusClientes/ExportarExcelMisClientes";
+            var iframe_ = document.createElement("iframe");
+            iframe_.style.display = "none";
+            iframe_.setAttribute("src", content);
+
+            if (navigator.userAgent.indexOf("MSIE") > -1 && !window.opera) {
+                iframe_.onreadystatechange = function () {
+                    switch (this.readyState) {
+                        case "loading":
+                            waitingDialog({});
+                            break;
+                        case "complete":
+                        case "interactive":
+                        case "uninitialized":
+                            closeWaitingDialog();
+                            break;
+                        default:
+                            closeWaitingDialog();
+                            break;
+                    }
+                };
+            }
+            else {
+                // Si es Firefox o Chrome
+                $(iframe_).ready(function () {
+                    closeWaitingDialog();
+                });
+            }
+            document.body.appendChild(iframe_);
+        });
+
         _ocultarEditarCliente();
+
+        $(window).scroll(function () {
+            var scrollTop = $(this).scrollTop();
+
+            if (scrollTop > 230) {
+                $("#fitros_fixed").addClass("fitros_fixed");
+                $("#fitros_fixed").fadeIn();
+            }
+            else {
+                $("#fitros_fixed").removeClass("fitros_fixed");
+                $("#fitros_fixed").removeAttr('style');
+            }
+        });
+
+        $(window).scroll(function () {
+            var hT = $('#content_boton_agregar_ancla').offset().top,
+                hH = $('#content_boton_agregar_ancla').outerHeight(),
+                wH = $(window).height(),
+                wS = $(this).scrollTop();
+
+            if (wS > (hT + hH - wH)) {
+                $("#content_boton_agregar").addClass("content_boton_agregar_ancla");
+            } else {
+                $("#content_boton_agregar").removeClass("content_boton_agregar_ancla");
+            }
+        });
     };
 
     return {

@@ -2,6 +2,7 @@
 using ClosedXML.Excel;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceCliente;
 using System;
 using System.Collections.Generic;
@@ -15,17 +16,18 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class ClienteController : BaseController
     {
+        private readonly ClienteProvider _clienteProvider;
+
+        public ClienteController()
+        {
+            _clienteProvider = new ClienteProvider();
+        }
+
         #region Actions
 
         public ActionResult Index()
         {
-            if(_tablaLogicaProvider
-                .GetTablaLogicaDatoValorBool(
-                userData.PaisID,
-                Constantes.TablaLogica.PantallaResponsive,
-                Constantes.TablaLogicaDato.PantallasResponsive.MisClientes,
-                false
-                ))
+            if(_clienteProvider.ValidarFlagFuncional(userData.PaisID))
             {
                 return RedirectToAction("Index", "TusClientes", new { area = string.Empty });
             }

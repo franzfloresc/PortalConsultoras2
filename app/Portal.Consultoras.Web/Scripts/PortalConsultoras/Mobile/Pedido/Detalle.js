@@ -1,4 +1,6 @@
-﻿var tipoOfertaFinal_Log = "";
+﻿/// <reference path="../../pedido/pedidoprovider.js" />
+
+var tipoOfertaFinal_Log = "";
 var gap_Log = 0;
 var tipoOrigen = '2';
 var arrayProductosGuardadoExito = [];
@@ -82,8 +84,10 @@ $(document).ready(function () {
     });
 });
 
+var pedidoProvider = PedidoProvider();
+
 function CargarPedido(firstLoad) {
-    var obj = {
+    var pageParams = {
         sidx: "",
         sord: "",
         page: 1,
@@ -92,28 +96,22 @@ function CargarPedido(firstLoad) {
         mobil: true
     };
     ShowLoading();
-
-    jQuery.ajax({
-        type: 'POST',
-        url: urlDetallePedido,
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(obj),
-        success: function (data) {
+    pedidoProvider
+        .cargarDetallePedidoPromise(pageParams)
+        .done(function (data) {
             if (!checkTimeout(data)) {
                 return false;
             }
             CargarPedidoRespuesta(data, firstLoad);
-            
-        },
-        error: function (data, error) {
+        })
+        .fail(function (data, error) {
             if (checkTimeout(data)) {
                 messageInfo('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
             }
-        }
-    }).always(function () {
-        CloseLoading();
-    });
+        })
+        .then(function () {
+            CloseLoading();
+        });
 }
 
 function CargarPedidoRespuesta(data, firstLoad) {
@@ -121,6 +119,7 @@ function CargarPedidoRespuesta(data, firstLoad) {
     SetHandlebars("#template-detalle", data.data, '#divProductosDetalle');
     SetHandlebars("#template-pedidototal-inferior", data.data, '#divPedidoTotalInferior');
     belcorp.mobile.pedido.setDetalles(data.data.ListaDetalleModel);
+    MostrarBarra(data);
 
     if ($('#divContenidoDetalle').find(".icono_advertencia_notificacion").length > 0) {
         $("#iconoAdvertenciaNotificacion").show();
@@ -226,7 +225,7 @@ function UpdateLiquidacionSegunTipoOfertaSis(obj, elementRow) {
             PrecioUnidad: obj.PrecioUnidad,
             Cantidad: CantidadSoli,
             TipoOferta: obj.TipoOfertaSisID || 0,
-            enRangoProgNuevas: obj.EnRangoProgNuevas
+            esCuponNuevas: obj.EsCuponNuevas
         });
         ShowLoading();
 
@@ -449,33 +448,9 @@ function EliminarPedidoEvento(evento, esBackOrder) {
 
 function ValidDeleteElectivoNuevas(obj, fnDelete) {
     if (!$.isFunction(fnDelete)) fnDelete = function () { };
-    if (!obj.EnRangoProgNuevas) {
-        fnDelete(false);
-        return;
-    }
 
-    ShowLoading();
-    jQuery.ajax({
-        type: 'POST',
-        url: urlEsPedidoDetalleElecMultiple,
-        dataType: 'json',
-        data: JSON.stringify({ cuv: obj.CUV }),
-        contentType: 'application/json; charset=utf-8',
-        async: true,
-        cache: false
-    })
-        .always(CloseLoading)
-        .done(function (response) {
-            if (!checkTimeout(response)) return;
-            if (!response.success) {
-                messageInfoError(response.message);
-                return;
-            }
-
-            if (!response.esElecMultiple) fnDelete(false);
-            else messageConfirmacionDuoPerfecto(response.message, function () { fnDelete(true); });
-        })
-        .fail(function () { messageInfoError(mensajeSinConexionGenerico); });
+    if (!obj.EsElecMultipleNuevas) fnDelete(false);
+    else messageConfirmacionDuoPerfecto(mensajeElecMultipleEliminar, function () { fnDelete(true); });
 }
 
 function ConfigurarFnEliminarProducto(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, Cantidad, DescripcionProd, PrecioUnidad, MarcaID, DescripcionOferta, esBackOrder, setId) {
@@ -515,7 +490,7 @@ function ConfigurarFnEliminarProducto(CampaniaID, PedidoID, PedidoDetalleID, Tip
                     return false;
                 }
 
-                ActualizarGanancia(data.DataBarra);
+                MostrarBarra(data);
                 CargarPedido();
                 TrackingJetloreRemove(Cantidad, $("#hdCampaniaCodigo").val(), CUV);
                 dataLayer.push({
@@ -587,7 +562,7 @@ function AceptarBackOrder(campaniaId, pedidoId, pedidoDetalleId, clienteId) {
 
             ShowLoading();
 
-            ActualizarGanancia(data.DataBarra);
+            MostrarBarra(data);
             CargarPedido();
             CloseLoading();
         },
@@ -668,7 +643,7 @@ function PedidoDetalleEliminarTodo() {
             }
 
 
-            ActualizarGanancia(data.DataBarra);
+            MostrarBarra(data);
             TrackingJetloreRemoveAll(listaDetallePedido);
 
             if (!(typeof AnalyticsPortalModule === 'undefined'))
@@ -773,7 +748,6 @@ function PedidoUpdate(item, PROL, detalleObj, elementRow) {
 
     ShowLoading();
     PROL = PROL || "0";
-
     jQuery.ajax({
         type: 'POST',
         url: baseUrl + "PedidoRegistro/UpdateTransaction",
@@ -791,8 +765,18 @@ function PedidoUpdate(item, PROL, detalleObj, elementRow) {
                 return false;
             }
 
-            ActualizarGanancia(data.DataBarra);
+            var prevTotal = mtoLogroBarra || 0;
+            MostrarBarra(data);
+            showPopupNivelSuperado(data.DataBarra, prevTotal);
 
+            var tooltip = $('[data-agregado="tooltip"]');
+            if (typeof tooltip !== 'undefined') {
+                $('[data-agregado="mensaje1"]').html("¡Listo! ");
+                $('[data-agregado="mensaje2"]').html(" Modificaste tu pedido");
+                tooltip.show();
+                setTimeout(function () { tooltip.hide(); }, 4000);
+            }
+            
             if (PROL == "0") {
                 detalleObj.CantidadTemporal = $(cantidadElement).val();
                 belcorp.mobile.pedido.setDetalleById(detalleObj);
@@ -913,15 +897,10 @@ function EjecutarServicioPROL() {
 
 function EjecutarServicioPROLSinOfertaFinal() {
     ShowLoading();
-    jQuery.ajax({
-        type: 'POST',
-        url: urlEjecutarServicioPROL,
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        async: true,
-        cache: false,
-        success: function (response) {
-            CloseLoading();
+    pedidoProvider
+        .ejecutarServicioProlPromise()
+        .done(function (response) {
+            
             if (!checkTimeout(response)) return;
             if (!response.success) {
                 messageInfoMalo(mensajeErrorReserva);
@@ -929,12 +908,13 @@ function EjecutarServicioPROLSinOfertaFinal() {
             }
 
             RespuestaEjecutarServicioPROL(response, function () { return false; });
-        },
-        error: function (data, error) {
-            CloseLoading();
+        })
+        .fail(function (data, error) {
             messageInfoMalo(mensajeSinConexionReserva);
-        }
-    });
+        })
+        .then(function () {
+            CloseLoading();
+        })
 }
 
 function RespuestaEjecutarServicioPROL(response, fnOfertaFinal) {
@@ -1125,7 +1105,6 @@ function MostrarDetalleGanancia() {
 //            CloseLoading();
 
 //            setTimeout(function () { }, 2000);
-
 //            ActualizarGanancia(data.DataBarra);
 
 //            TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
@@ -1185,4 +1164,8 @@ function closeDialogObservacionesProl() {
 
 
     $('#popup-observaciones-prol').hide();
+}
+
+function PedidosPendientesPorAprobar() {
+    DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras', 'Click Botón', 'Pedidos por aprobar');
 }

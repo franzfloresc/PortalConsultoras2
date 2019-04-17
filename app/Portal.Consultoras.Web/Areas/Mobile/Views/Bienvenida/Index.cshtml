@@ -18,6 +18,7 @@
     Model.NombreConsultora = Util.SubStr(Model.NombreConsultora, 0).ToUpper();
     var nombreConsultoraSin = Util.SubStrCortarNombre(Model.NombreConsultora, 10, "");
 
+    var esDigital = ViewBag.esConsultoraDigital == null ? false : ViewBag.esConsultoraDigital;
 }
 
 @section styles{
@@ -287,8 +288,12 @@
                     @Util.DecimalToStringFormat(Convert.ToDecimal(Model.MontoAhorroCatalogo + Model.MontoAhorroRevista), Model.CodigoISO)
                 </span>
             </div>
-            <div role="link" region="Central" parent="Ganancia Estimada Total" title="Pedido ingresado" class="texto_inferior" style="text-decoration:underline;"><a href="@Url.Action("Index", "Pedido")">Pedido ingresado: @Model.Simbolo <span class="js-span-pedidoingresado">@Util.DecimalToStringFormat(Model.MontoPedido, Model.CodigoISO)</span></a></div>
-
+            <div role="link" region="Central" parent="Ganancia Estimada Total" title="Pedido ingresado" class="texto_inferior" style="text-decoration:underline;">
+                <a href="@Url.Action("Index", "Pedido")">
+                    Pedido ingresado: @Model.Simbolo <span class="js-span-pedidoingresado">@Util.DecimalToStringFormat(Model.MontoPedido, Model.CodigoISO)</span>
+                </a>
+            </div>
+            <a role="link" region="Central" title="Ver más" class="btn_borde_black mt-23 mb-0" href="@Url.Action("Index", "EscalaDescuentos", new { area = "" })"> VER M&Aacute;S</a>
         </div>
     </div>
     <div class="linea_separadora_mobile" style="margin-top:16px"></div>
@@ -301,15 +306,7 @@
                 @Model.Simbolo <span>@Util.DecimalToStringFormat(Model.MontoDeuda, Model.CodigoISO)</span>
             </div>
             <div class="texto_inferior js-div-vencimiento">Vencimiento: <span>@Model.FechaVencimiento</span></div>
-            @if (Model.TienePagoEnLinea && Model.MostrarPagoEnLinea)
-            {
-                <a role="link" region="Central" parent="Mi Estado de Cuenta" title="Paga en línea" class="btn_paga_online_mobile" href="@Url.Action("MetodoPago","PagoEnLinea")">
-                    <div class="texto_btn_pago_en_linea">
-                        <span>PAGA EN LÍNEA</span>
-                    </div>
-                </a>
-            }
-            else
+            @if (Model.MostrarPagoEnLinea)
             {
                 if (Model.PaisID == Constantes.PaisID.Chile)
                 {
@@ -322,6 +319,14 @@
                 else if (Model.PaisID == Constantes.PaisID.PuertoRico)
                 {
                     <a role="link" region="Central" parent="Mi Estado de Cuenta" title="Paga en línea" class="btn_paga_online_mobile" href="@Url.Action("Index", "Paypal", new { area = "Mobile" })"> PAGA EN L&Iacute;NEA</a>
+                }
+                else if (Model.TienePagoEnLinea)
+                {
+                    <a role="link" region="Central" parent="Mi Estado de Cuenta" title="Paga en línea" class="btn_paga_online_mobile" href="@Url.Action("MetodoPago","PagoEnLinea")">
+                        <div class="texto_btn_pago_en_linea">
+                            <span>PAGA EN L&Iacute;NEA</span>
+                        </div>
+                    </a>
                 }
             }
         </div>
@@ -357,10 +362,10 @@
 {
     <div class="wrapper_resumen_mobile">
         <div class="comartir_home_mobile">
-            HAZ CRECER TU NEGOCIO CON<br />
-            EL APP DE CATÁLOGOS
+            COMPARTE TU CATÁLOGO DIGITAL<br />
+            Y GANA MÁS
             <a role="link" region="Central" parent="App de Catálogos" title="Entérate Más"
-               class="btn_compartelos" href="@Url.Action("EnterateMas", "Catalogo", new { area = "Mobile" })">ENTÉRATE MÁS</a>
+               class="btn_compartelos" href="@Url.Action("Index", "MisCatalogosRevistas", new { area = "" })">ENTÉRATE MÁS</a>
 
             @if (Model.IsConsultoraOnline != -1)
             {
@@ -404,7 +409,7 @@
             }
         </div>
         <a role="link" region="Central" parent="App de Catálogos" title="Entérate Más"
-           class="btn_compartelos" href="@Url.Action("EnterateMas", "Catalogo", new { area = "Mobile" })">
+           class="btn_compartelos" href="@Url.Action("Index", "MisCatalogosRevistas", new { area = "" })">
             <div class="imagen_catalogo celular_esika"><img data-src="@Model.UrlImagenAppCatalogo" alt="-" data-lazy-seccion-banner-home="" /></div>
         </a>
         <hr class="clear" />
@@ -485,9 +490,25 @@
         <hr class="clear" />
         <div class="linea_separadora_mobile mg_bottom"></div>
     </div>
+</div>
 
-</div>
-</div>
+@if (esDigital)
+{
+    <div class="wrapper_resumen_mobile">
+        <div class="comartir_home_mobile">
+            BONIFICACIONES
+            <a role="link" region="Central" parent="Comparte tus Catálogos" title="Comparte tus Catálogos"
+               class="btn_compartelos" href="@Url.Action("IndexExterno", "Bonificaciones", new { area = "Mobile" })">VER MAS</a>
+        </div>
+        <a role="link" region="Central" parent="Comparte tus Catálogos" title="Comparte tus Catálogos"
+           class="btn_compartelos" href="@Url.Action("IndexExterno", "Bonificaciones", new { area = "Mobile" })">
+            <div class="imagen_catalogo bonificaciones_digital"></div>
+        </a>
+        <hr class="clear" />
+        <div class="linea_separadora_mobile"></div>
+    </div>
+}
+
 <input type="hidden" id="hdTipoEstrategiaID" value="0" />
 <input type="hidden" id="hdPosicion" value="0" />
 <div id="divVistaPrevia" class="Content_modal_ZE" style="display: none; background-color: #fff; overflow: hidden;">
@@ -863,8 +884,10 @@
         var urlCatalogoPersonalizado = '@Url.Action("Index", "CatalogoPersonalizado", new { area = "Mobile" })';
         var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "Estrategia", new { area = "" })';
 
-        var tipoOrigenEstrategia = 2; 
+        var tipoOrigenEstrategia = 2;
         var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.MobileHomeOfertaDelDiaCarrusel';
+        var origenPedidoWebDuoPerfecto = @Constantes.OrigenPedidoWeb.MobileHomeDuoPerfectoCarrusel;
+        var origenPedidoWebPackNuevas = @Constantes.OrigenPedidoWeb.MobileHomePackNuevasCarrusel;
         var noMostrarPopUpRevistaDig = '@Model.RevistaDigital.NoVolverMostrar';
 
         var vbFotoPerfil = '@ViewBag.FotoPerfil';
