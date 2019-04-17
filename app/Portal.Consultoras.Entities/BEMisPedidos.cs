@@ -136,6 +136,12 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int PedidoWebDetalleID { get; set; }
 
+        [DataMember]
+        public string OptAtender { get; set; }
+
+        [DataMember]
+        public int Index { get; set; }
+
         public BEMisPedidosDetalle()
         {
         }
@@ -151,21 +157,13 @@ namespace Portal.Consultoras.Entities
             PrecioUnitario = row.ToDouble("Precio");
             Cantidad = row.ToInt32("Cantidad");
             PrecioTotal = PrecioUnitario * Cantidad;
-
-
-                MarcaID = row.ToInt32("MarcaID");
-
-
-                MedioContacto = row.ToString("MContacto");
-
-
-                TipoAtencion = row.ToInt32("TipoAtencion");
-
-
-                PedidoWebID = row.ToInt32("PedidoWebID");
-
-
-                PedidoWebDetalleID = row.ToInt32("PedidoWebDetalleID");
+            MarcaID = row.ToInt32("MarcaID");
+            MedioContacto = row.ToString("MContacto");
+            TipoAtencion = row.ToInt32("TipoAtencion");
+            PedidoWebID = row.ToInt32("PedidoWebID");
+            PedidoWebDetalleID = row.ToInt32("PedidoWebDetalleID");
+            OptAtender = row.ToString("OptAtender");
+            Index = row.ToInt32("Index");
         }
     }
 }

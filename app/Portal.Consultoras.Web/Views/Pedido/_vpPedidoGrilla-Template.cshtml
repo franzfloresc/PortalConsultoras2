@@ -9,7 +9,7 @@
             &nbsp;productos
         </li>
         <li class="seleccion_pagina">
-            <select data-paginacion="rows" style="height: 24px;" data-val="{{PageSize}}">
+            <select data-paginacion="rows" style="height: 24px;" data-val="{{PageSize}}" data-tipo="{{TipoPaginador}}">
                 <option value="10">ver 10 filas</option>
                 <option value="20">ver 20 filas</option>
                 <option value="30">ver 30 filas</option>
@@ -22,7 +22,7 @@
 
     <ul class="paginador_notificaciones right" data-paginacion="block">
         <li class="texto_pagina">Página</li>
-        <li class="flecha_paginador_atras" data-paginacion="back"></li>
+        <li class="flecha_paginador_atras" data-paginacion="back" data-tipo="{{TipoPaginador}}"></li>
         <li style="margin-right: 6px;">
             <span class="paginas_pedidos">
                 <span class="pagina_actual">
@@ -31,7 +31,7 @@
                 <span class="paginas_totales" id="spnPedidoPaginarPaginaDe" data-paginacion='pageCount'>{{PaginaDe}}</span>
             </span>
         </li>
-        <li class="flecha_paginador_adelante" data-paginacion="next"></li>
+        <li class="flecha_paginador_adelante" data-paginacion="next" data-tipo="{{TipoPaginador}}"></li>
     </ul>
     <div class="clear"></div>
 </script>

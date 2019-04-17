@@ -991,8 +991,8 @@ namespace Portal.Consultoras.Web.Controllers
                     BEGrid grid = new BEGrid(sidx, sord, page, rows);
                     BEPager pag = Util.PaginadorGenerico(grid, model.ListaDetalle);
 
-                    model.ListaDetalle = model.ListaDetalle.Skip((grid.CurrentPage - 1) * grid.PageSize)
-                        .Take(grid.PageSize).ToList();
+                    //model.ListaDetalle = model.ListaDetalle.Skip((grid.CurrentPage - 1) * grid.PageSize)
+                    //    .Take(grid.PageSize).ToList();
 
                     model.Registros = grid.PageSize.ToString();
                     model.RegistrosTotal = pag.RecordCount.ToString();
@@ -1005,6 +1005,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.Pagina = "0";
                     model.PaginaDe = "0";
                 }
+                model.TipoPaginador = Constantes.ClasificadorPedido.PedidoDetallePoputPendiente;
 
                 return Json(new
                 {

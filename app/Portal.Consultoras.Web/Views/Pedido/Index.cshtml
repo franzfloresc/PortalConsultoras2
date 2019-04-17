@@ -1245,7 +1245,7 @@
             <div class="padding_tabla_percepcion dinamicostablegrande grillaPendientes">
 
                 <input type="hidden" id="pedidopend_{{PedidoId}}" value="{{PedidoId}}|{{MarcaID}}|{{Campania}}|{{Cliente}}|{{Telefono}}|{{Direccion}}|{{Email}}|{{Mensaje}}|{{Leido}}|{{NumIteracion}}|{{CodigoUbigeo}}|{{FechaSolicitud}}|{{MedioContacto}}|{{FormatoPrecioTotal}}|{{SaldoHoras}}|{{FlagConsultora}}" />
-                <button type="button" class="btn_revisalo_pendientes1" onclick="CargarPopupPedidoPend('{{PedidoId}}');">
+                <button type="button" class="btn_revisalo_pendientes1" onclick="CargarPopupPedidoPend('1', '10', '{{PedidoId}}', '0');">
                     <div onclick="PendientesRevisalo('Carrito de Compras - In Tab Pedidos Pendientes','Click Botón');">REVÍSALO</div>
 
                     <div class="info_tiempo_oportunidad">
@@ -1264,8 +1264,11 @@
 
     <script id="popup-pedidopend-template" type="text/x-handlebars-template">
         <div class="content_popUp_Pendientes">
+            <div style="display: none;">
+                <input type="hidden" id="hdPedidoPendPoputPedidoId" value="{{PedidoId}}" />
+            </div>
             <div class="mensajes_deAtencion">
-                <span>¡No te pierdas esta oportunidad!</span>                
+                <span>¡No te pierdas esta oportunidad!</span>
                 <div class="clear"></div>
             </div>
 
@@ -1303,6 +1306,9 @@
 
             </div>
 
+            <div id="paginadorCabPendPoput">
+            </div>
+
             <div class="content_datos_pendientes">
                 <div class="texto_gris_popup padding_tabla_pendientes dinamicostablemini">Código</div>
                 <div class="texto_gris_popup padding_tabla_pendientes dinamicostablemedio">Producto</div>
@@ -1338,6 +1344,9 @@
 
     <script id="popup2-pedidopend-template" type="text/x-handlebars-template">
         <div class="content_popUp_Pendientes">
+            <div style="display: none;">
+                <input type="hidden" id="hdPedidoPendPoputPedidoId2" value="{{PedidoId}}" />
+            </div>
             <div class="mensajes_deAtencion">
 
                 <span>¡No te pierdas esta oportunidad!</span>
@@ -1389,6 +1398,9 @@
 
             </div>
 
+            <div id="paginadorCabPendPoput2">
+            </div>
+
             <div class="content_datos_pendientes">
                 <div class="texto_gris_popup padding_tabla_pendientes dinamicostableextragrande izq">Producto</div>
                 <div class="texto_gris_popup padding_tabla_pendientes dinamicostableextragrande">Unidades</div>
@@ -1431,7 +1443,7 @@
             <div class="padding_tabla_percepcion dinamicostable">{{SimboloMoneda}} {{PrecioTotal}}</div>
             <div class="padding_tabla_percepcion dinamicostablegrande">
                 {{#if_eq TieneStock '1'}}
-                <select class="oscurece ddlAtenderPopUpPedidosPend" id="ddlAtender_{{@@index}}">
+                <select class="oscurece ddlAtenderPopUpPedidosPend" id="ddlAtender_{{Index}}" onchange="javascript:SelectOptAtender(this)">
                     <option value="" selected>¿CÓMO LO ATENDERAS?</option>
                     <option value="ingrped">INGRESAR A MI PEDIDO</option>
                     <option value="ingrten">YA LO TENGO</option>
@@ -1966,6 +1978,7 @@
 
         var activarRecomendaciones = '@ViewBag.ActivarRecomendaciones';
         var maxCaracteresRecomendaciones = '@ViewBag.MaxCaracteresRecomendaciones';
+        var ClasPedidoPopupPedidoPend = '@Constantes.ClasificadorPedido.PedidoDetallePoputPendiente';
     </script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/SB2-Pedido")
     @if (HttpContext.Current.Request.Browser.IsMobileDevice)

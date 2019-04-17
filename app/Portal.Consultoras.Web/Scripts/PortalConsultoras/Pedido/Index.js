@@ -462,16 +462,18 @@ $(document).ready(function () {
         e.preventDefault();
         var obj = $(this);
         var accion = obj.attr("data-paginacion");
+        var tipoPaginador = obj.attr("data-tipo");
         if (accion === "back" || accion === "next") {
-            CambioPagina(obj);
+            CambioPagina(obj, tipoPaginador);
         }
     });
     $("body").on("change", "[data-paginacion]", function (e) {
         e.preventDefault();
         var obj = $(this);
         var accion = obj.attr("data-paginacion");
+        var tipoPaginador = obj.attr("data-tipo");
         if (accion === "page" || accion === "rows") {
-            CambioPagina(obj);
+            CambioPagina(obj, tipoPaginador);
         }
     });
 
@@ -3269,13 +3271,16 @@ function InfoCommerceGoogleDestacadoNextCarrusel() {
     }
 }
 
-function CambioPagina(obj) {
+function CambioPagina(obj, tipoPaginador) {
     var rpt = paginadorAccionGenerico(obj);
     if (rpt.page == undefined) {
         return false;
     }
 
-    CargarDetallePedido(rpt.page, rpt.rows);
+    var PedidoPendPoputPedidoId = $("#hdPedidoPendPoputPedidoId").val() == 0 ? $("#hdPedidoPendPoputPedidoId2").val() : $("#hdPedidoPendPoputPedidoId").val();
+    switch (tipoPaginador) {        
+        case ClasPedidoPopupPedidoPend: CargarPopupPedidoPend(rpt.page, rpt.rows, PedidoPendPoputPedidoId, '1'); break;
+    }  
     return true;
 }
 
