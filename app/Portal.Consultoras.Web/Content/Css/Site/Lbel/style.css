@@ -29196,9 +29196,9 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     border-bottom: 1px solid #d8d8d8;
 }
 
-    .content_listado_reclamo:last-child {
+    /*.content_listado_reclamo:last-child {
         border-bottom: 0;
-    }
+    }*/
 
     .content_listado_reclamo--header {
         border-bottom: 1px solid #000;
