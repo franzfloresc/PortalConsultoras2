@@ -17,7 +17,31 @@
 }
 .CMXD-btn-help{
     position : relative !important;
+    display:none;
 }
 .mobile{
     top: -61px;
+}
+
+footer, .SubHeader{
+    display : none;
+}
+body{
+    background-color: var(--color-body-bg)
+}
+.nav > li > a{
+    border-radius: 0;
+    color: var(--color);
+}
+.nav > li > a:hover{
+    background-image: none;
+    color: var(--color);
+    
+}
+.nav a {
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+#CampoBuscadorProductos{
+    border : 0 solid var(--border-color)
 }
