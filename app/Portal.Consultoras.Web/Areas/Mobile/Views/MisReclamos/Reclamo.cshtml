@@ -47,13 +47,13 @@
     <div class="tabs_vista_cdr_wrapper">
         <ul class="tabs_vista_cdr">
             <li class="tab_vista_cdr tab_vista_cdr--nuevoCambio tab_vista_cdr--activo">
-                <a href="#VistaReclamo" class="tab_vista_cdr_enlace_contenido">
+                <a href="#VistaReclamo" id="linkNuevoCambio" class="tab_vista_cdr_enlace_contenido">
                     <span class="text-uppercase tipografia_lato_bold">Nuevo cambio</span>
                     <span class="barra_estado_tab_cdr"></span>
                 </a>
             </li>
             <li class="tab_vista_cdr tab_vista_cdr--solicitudesRegistradas">
-                <a href="#VistaSolicitudesRegistradas" class="text-uppercase tipografia_lato_bold tab_vista_cdr_enlace_contenido">
+                <a href="#VistaSolicitudesRegistradas" id="linkSolicitudesRegistradas" class="text-uppercase tipografia_lato_bold tab_vista_cdr_enlace_contenido">
                     <span class="text-uppercase tipografia_lato_bold">Registradas</span>
                     <span class="barra_estado_tab_cdr"></span>
                 </a>
@@ -646,9 +646,14 @@
                 Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio2}}
                 {{else}}
                 {{/if_eq}}
+                {{#iff item.GrupoID '!=' ''}}
+                <div>Set o Pack</div><br />
+                {{else}}
+
+                {{/iff}}
             </div>
             <div class="icono_eliminar_solic_cdr">
-                <a class="icono_eliminar_solic_cdr eliminar-solicitud" data-pedidodetalleid="{{item.CDRWebDetalleID}}" data-accion="x"
+                <a class="icono_eliminar_solic_cdr eliminar-solicitud" href="javascript:void(0);" onclick="misReclamosRegistro.Funciones.PreEliminarDetalle(this);"  data-detalle-grupoid="{{item.GrupoID}}" data-pedidodetalleid="{{item.CDRWebDetalleID}}"
                    style="background-image: url('/Content/Images/Esika/tacho-copy.png'); background-repeat:no-repeat; width: 17px; height: 22px; margin: 0 auto;"
                    title="Eliminar solicitud"></a>
             </div>
@@ -746,7 +751,7 @@
             <p class="text-bold">Vas a devolver el siguiente producto:</p>
             <p class="text-bold">
                 <span class="text-bold producto_nom" id="spnDescripcionProductoOpcionD">{{ProductoSeleccionado.CUV}} - {{ProductoSeleccionado.Descripcion}}</span>
-                <span id="spnCantidadIndividual">x Unidades</span>
+                <span id="spnCantidadDIndividual">x Unidades</span>
             </p>
         </div>
         {{/if}}

@@ -928,7 +928,6 @@ function CargarPropuesta(codigoSsic) {
 
 
 function DetalleGuardar(operacionId, callbackWhenFinish) {
-
     $.ajaxSetup({
         global: false,
         type: "POST",
@@ -949,7 +948,7 @@ function DetalleGuardar(operacionId, callbackWhenFinish) {
     if (dataCdrDevolucion !== null) {
         if (dataCdrDevolucion.DataRespuestaServicio.length > 0) {
             $.each(dataCdrDevolucion.DataRespuestaServicio, function (index, value) {
-                arr = $.grep(reclamo.datosCuv, function (item) {
+               var arr = $.grep(reclamo.datosCuv, function (item) {
                     return item.cuv === value.cuv;
                 });
                 cantidad = arr.length > 0 ? arr[0].cantidad : 1;
