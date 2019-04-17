@@ -2206,7 +2206,7 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
 
-            return View();
+            return View(model);
         }
 
         [HttpPost]

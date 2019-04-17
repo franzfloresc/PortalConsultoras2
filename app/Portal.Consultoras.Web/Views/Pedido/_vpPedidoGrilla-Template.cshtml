@@ -22,7 +22,12 @@
 
     <ul class="paginador_notificaciones right" data-paginacion="block">
         {{#if footer}}
-        <li class="texto_pagina"><a href="#"  class="btn--pedidos"> Pedidos por aprobar (10) </a></li>        
+        @if (ViewBag.MostrarPedidosPendientes == "1")
+        {
+            <li class="texto_pagina">
+                <span onclick="window.location.href = '/ConsultoraOnline/Pendientes'" class="btn--pedidos">Pedidos por aprobar (@ViewBag.CantPedidosPendientes)</span>
+            </li>
+        }
         {{/if}}
         {{#unless footer}}
         <li class="texto_pagina">Página</li>
@@ -237,7 +242,7 @@
             </li>
             <li class="boton-primaria">
                 <button class="default-background"
-                            onclick="ValidDeletePedido('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '{{Cantidad}}', '{{ClienteID_}}', '{{CUVReco}}', null, '{{SetID}}', {{EsElecMultipleNuevas}});">
+                        onclick="ValidDeletePedido('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '{{Cantidad}}', '{{ClienteID_}}', '{{CUVReco}}', null, '{{SetID}}', {{EsElecMultipleNuevas}});">
                     SÍ, ELIMINAR
                 </button>
             </li>
