@@ -421,41 +421,47 @@ $(document).ready(function () {
                     }
 
                     if ($(me.Variables.Registro3).is(":visible")) {
-                        //validaciones pre finalizar
                         var fnPreValidacion = me.Funciones.PreValidacionIrFinalizar();
                         if (fnPreValidacion.result) {
-                            $.when(me.Funciones.DetalleGuardar(fnPreValidacion.id)).then(function () {
-                                $(me.Variables.wrpMobile).removeClass(me.Variables.pb120);
-                                var arrOcultarElementos = [me.Variables.TituloPreguntaInconvenientes, me.Variables.Registro4
-                                    , me.Variables.Registro3, me.Variables.infoOpcionesDeCambio, me.Variables.pasotres
-                                    , me.Variables.Enlace_regresar];
-                                $(me.Variables.btnSiguiente1).addClass(me.Variables.deshabilitarControl);
-                                $(me.Variables.btnSiguiente1).hide();
-                                me.Funciones.HideTags(arrOcultarElementos);
-                                $(me.Variables.infoOpcionesDeCambio).children().hide();
-                                $(me.Variables.pasotresactivo).show();
-                                $(me.Variables.btnSiguiente4).show();
-                                $(me.Variables.RegistroAceptarSolucion).show();
-                                $(me.Variables.EleccionTipoEnvio).show();
+                            me.Funciones.DetalleGuardar(fnPreValidacion.id, function (data) {
+                                if (data.success) {
+                                    $.when(me.Funciones.DetalleCargar()).done(function () {
+                                        $(me.Variables.wrpMobile).removeClass(me.Variables.pb120);
+                                        var arrOcultarElementos = [me.Variables.TituloPreguntaInconvenientes, me.Variables.Registro4
+                                            , me.Variables.Registro3, me.Variables.infoOpcionesDeCambio, me.Variables.pasotres
+                                            , me.Variables.Enlace_regresar];
+                                        $(me.Variables.btnSiguiente1).hide().addClass(me.Variables.deshabilitarControl);
+                                        //$(me.Variables.btnSiguiente1).hide();
+                                        me.Funciones.HideTags(arrOcultarElementos);
+                                        $(me.Variables.infoOpcionesDeCambio).children().hide();
+                                        $(me.Variables.pasotresactivo).show();
+                                        $(me.Variables.btnSiguiente4).show();
+                                        $(me.Variables.RegistroAceptarSolucion).show();
+                                        $(me.Variables.EleccionTipoEnvio).show();
+                                    });
+                                } else {
+                                    messageInfoValidado(data.message);
+                                    return false;
+                                }
                             });
                         }
                     }
                 });
 
-                $(me.Variables.btnAceptarSolucion).click(function () {
-                    me.Funciones.DetalleGuardar();
-                    //$(me.Variables.wrpMobile).removeClass(me.Variables.pb120);
-                    $(me.Variables.Cambio3).hide();
-                    $(me.Variables.TituloPreguntaInconvenientes).hide();
-                    $(me.Variables.Registro4).hide();
-                    $(me.Variables.btnAceptarSolucion).hide();
-                    $(me.Variables.pasotres).hide();
-                    $(me.Variables.Enlace_regresar).hide();
-                    $(me.Variables.pasotresactivo).show();
-                    $(me.Variables.btnSiguiente4).show();
-                    $(me.Variables.RegistroAceptarSolucion).show();
-                    $(me.Variables.EleccionTipoEnvio).show();
-                });
+                //$(me.Variables.btnAceptarSolucion).click(function () {
+                //    me.Funciones.DetalleGuardar();
+                //    //$(me.Variables.wrpMobile).removeClass(me.Variables.pb120);
+                //    $(me.Variables.Cambio3).hide();
+                //    $(me.Variables.TituloPreguntaInconvenientes).hide();
+                //    $(me.Variables.Registro4).hide();
+                //    $(me.Variables.btnAceptarSolucion).hide();
+                //    $(me.Variables.pasotres).hide();
+                //    $(me.Variables.Enlace_regresar).hide();
+                //    $(me.Variables.pasotresactivo).show();
+                //    $(me.Variables.btnSiguiente4).show();
+                //    $(me.Variables.RegistroAceptarSolucion).show();
+                //    $(me.Variables.EleccionTipoEnvio).show();
+                //});
 
                 $(me.Variables.Enlace_regresar).click(function (e) {
 
@@ -855,7 +861,7 @@ $(document).ready(function () {
                         datosCuv = [];
                         if (arrCuv.length > 0) {
                             $.each(arrCuv, function (index, value) {
-                               var obj = {
+                                var obj = {
                                     cuv: value.CUV,
                                     descripcion: value.DescripcionProd,
                                     pedidoId: value.PedidoID,
@@ -1431,7 +1437,22 @@ $(document).ready(function () {
                 });
             },
 
-            DetalleGuardar: function (operacion) {
+            DetalleGuardar: function (operacion, callbackWhenFinish) {
+                $.ajaxSetup({
+                    global: false,
+                    type: "POST",
+                    url: UrlDetalleGuardar,
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    cache: false,
+                    beforeSend: function () {
+                        ShowLoading();
+                    },
+                    complete: function () {
+                        CloseLoading();
+                    }
+                });
+
 
                 var Complemento = [];
                 var cantidad = 0;
@@ -1468,28 +1489,18 @@ $(document).ready(function () {
                     Complemento: Complemento
                 };
 
-                ShowLoading();
+               
 
-                jQuery.ajax({
-                    type: 'POST',
-                    url: UrlDetalleGuardar,
-                    dataType: 'json',
-                    contentType: 'application/json; charset=utf-8',
+                $.ajax({
                     data: JSON.stringify(item),
-                    async: true,
-                    cache: false,
+                    async: true,                   
                     success: function (data) {
-                        CloseLoading();
                         if (!checkTimeout(data)) {
                             return false;
                         }
-                        if (data.success == false) {
-                            messageInfoValidado(data.message);
-                            return false;
+                        if (callbackWhenFinish && typeof callbackWhenFinish === "function") {
+                            callbackWhenFinish(data);
                         }
-
-                        $(me.Variables.hdCDRID).val(data.detalle);
-                        me.Funciones.DetalleCargar();
                     },
                     error: function (data, error) {
                         CloseLoading();
