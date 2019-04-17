@@ -438,16 +438,11 @@ ul.breadcumbs li a {
 /* Fin Botón Agregar*/
 @media (max-width: 768px) {
 
-<<<<<<< HEAD
     .contenedor_detalle {
         background: url('/Content/Images/etiqueta_nuevo.svg');
         background-position: top right;
         background-repeat: no-repeat;
         background-size: 60px;
-=======
-    .contenedor_detalle{
-
->>>>>>> 0b870343d5649359cc07d254df29f50a13cf85e7
     }
     footer {
         display: none !important;

@@ -101,12 +101,8 @@ ul.breadcumbs li a {
 }
 
 .ficha_detalle {
-    padding: 62px 40px 0px 40px;
-    background: url('/Content/Images/etiqueta_nuevo.svg');
-    background-position: top right;
-    background-repeat: no-repeat;
+    padding: 30px 30px 0px 30px;
     background-color: #fff;
-    background-size: 70px;
 }
 
 .contenedor_nombre_precio {
@@ -435,20 +431,12 @@ ul.breadcumbs li a {
     transform: rotate(134deg);
 }
 
+.ficha_detalle {
+    background: url('/Content/Images/mobile/Esika/etiqueta_nuevo.svg');
+    background-position: top right;
+}
 /* Fin Botón Agregar*/
 @media (max-width: 768px) {
-
-<<<<<<< HEAD
-    .contenedor_detalle {
-        background: url('/Content/Images/etiqueta_nuevo.svg');
-        background-position: top right;
-        background-repeat: no-repeat;
-        background-size: 60px;
-=======
-    .contenedor_detalle{
-
->>>>>>> 0b870343d5649359cc07d254df29f50a13cf85e7
-    }
     footer {
         display: none !important;
     }
@@ -481,8 +469,7 @@ ul.breadcumbs li a {
     }
 
     .ficha_detalle {
-        padding: 30px 15px 0px 15px !important;
-        background: none;
+        padding: 30px 15px 0px 15px;
     }
     .descripcion {
         font-size: 14px;
