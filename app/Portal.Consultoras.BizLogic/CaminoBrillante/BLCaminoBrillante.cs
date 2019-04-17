@@ -346,7 +346,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 Subtitulo = (nivelCodigo <= nivelActual ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo),
                 Valor = e.CodigoNivel,
                 DescripcionNivel = e.DescripcionNivel,
-                MontoAcumulado = Util.DecimalToStringFormat(Convert.ToDecimal(e.MontoMinimo), entidad.CodigoISO) ,
+                MontoAcumulado = e.MontoMinimo,
             }).ToList();
 
 
