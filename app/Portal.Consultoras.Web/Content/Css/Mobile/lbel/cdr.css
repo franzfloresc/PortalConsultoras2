@@ -1157,9 +1157,17 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 }
 
 .content_solicitud_cdr{
-    padding-top:9px;
+    padding-top:24px;
     padding-bottom:24px;
 }
+
+    .UltimasSolicitudes .content_solicitud_cdr {
+        border-top: 1px solid #d8d8d8;
+    }
+
+    .UltimasSolicitudes .content_solicitud_cdr:last-child {
+        border-bottom: 1px solid #d8d8d8;
+    }
 
 .content_pasos {
     width: 170px;
@@ -1299,9 +1307,8 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 .validacion_datos {
     display: block;
     margin-bottom: 36px;
-    padding-top: 32px;
-    padding-bottom: 32px;
-    border-top: 1px solid #000;
+    padding-top: 24px;
+    padding-bottom: 24px;
     border-bottom: 1px solid #000;
 }
 
@@ -1980,11 +1987,11 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     flex-wrap: nowrap;
     justify-content: space-around;
     align-items: center;
-    min-height: 90px;
+    min-height: 80px;
     border-bottom: 1px solid #b0b0b0;
     color: #000;
-    padding-left: 18px;
-    padding-right: 18px;
+    padding-left: 16px;
+    padding-right: 16px;
 }
 
     .coincidencia_busqueda_producto:last-child {
