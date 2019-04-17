@@ -49,6 +49,8 @@ namespace Portal.Consultoras.Web.Providers
             return resumen;
         }
 
+
+
         public BENivelCaminoBrillante ObtenerNivelActualConsultora()
         {
             try
@@ -57,6 +59,23 @@ namespace Portal.Consultoras.Web.Providers
                 if (oConsultora == null || oConsultora.NivelConsultora.Count() == 0 || oConsultora.Niveles.Count() == 0) return null;
                 codigoNivel = oConsultora.NivelConsultora.Where(x => x.EsActual).Select(z => z.Nivel).FirstOrDefault();
                 return oConsultora.Niveles.FirstOrDefault(x => x.CodigoNivel == codigoNivel);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
+                return null;
+            }
+        }
+
+        public List<BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante> GetNivelesHistoricosConsultora()
+        {
+            try
+            {
+                var consultoraCaminoBrillante = ResumenConsultoraCaminoBrillante();
+                if (consultoraCaminoBrillante == null) return new List<BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante>();
+
+                return consultoraCaminoBrillante.NivelConsultora == null ? new List<BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante>() 
+                                : consultoraCaminoBrillante.NivelConsultora.ToList();
             }
             catch (Exception ex)
             {
@@ -182,10 +201,54 @@ namespace Portal.Consultoras.Web.Providers
             return informacion.Niveles.Where(e => e.CodigoNivel == nivelActual.ToString()).Select(e => e.TieneOfertasEspeciales).FirstOrDefault();
         }
 
+        public bool TieneOfertasEspeciales()
+        {
+            var nivelConsultora = GetNivelConsultoraCaminoBrillante();
+            if (nivelConsultora == null) return false;
+
+            var nivelesCaminoBrillante = GetNivelesCaminoBrillante();
+            if (nivelesCaminoBrillante == null) return false;
+
+            return nivelesCaminoBrillante.Where(e => e.CodigoNivel == nivelConsultora.Nivel)
+                        .Select(e => e.TieneOfertasEspeciales).FirstOrDefault();
+        }
+
         public bool ValidacionCaminoBrillante() {
             var informacion = ResumenConsultoraCaminoBrillante();
             if (informacion == null || informacion.NivelConsultora == null || informacion.NivelConsultora.Count() == 0) return false;
             return true;
+        }
+
+        public decimal? MontoFaltanteSiguienteNivel(out string nivelSiguiente) {
+            nivelSiguiente = null;
+
+            var nivelConsultora = GetNivelConsultoraCaminoBrillante();
+            if (nivelConsultora == null) return null;
+
+            var nivelesCaminoBrillante = GetNivelesCaminoBrillante();
+            if (nivelesCaminoBrillante == null) return null;
+            
+            var nivelActual = nivelesCaminoBrillante.Where(e => e.CodigoNivel == nivelConsultora.Nivel).FirstOrDefault();
+            if (nivelActual == null) return null;
+
+            int idxNIvel = nivelesCaminoBrillante.IndexOf(nivelActual);
+            if (idxNIvel + 1 > nivelesCaminoBrillante.Count) return null;
+
+            var _nivelSiguiente = nivelesCaminoBrillante[idxNIvel + 1];
+
+            var consultoraHistoricos = GetNivelesHistoricosConsultora();
+            decimal _montoPedido = 0;
+            var montoPedido = consultoraHistoricos.Where(e => decimal.TryParse(e.MontoPedido, out _montoPedido)).Sum(e => decimal.Parse(e.MontoPedido));
+           
+            decimal montoMinimo = 0;
+            if (decimal.TryParse(_nivelSiguiente.MontoMinimo, out montoMinimo))
+            {
+                nivelSiguiente = _nivelSiguiente.CodigoNivel;
+                return montoMinimo - montoPedido;
+            }
+            
+            return null;
+
         }
 
     }
