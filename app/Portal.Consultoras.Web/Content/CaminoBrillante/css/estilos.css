@@ -943,7 +943,9 @@ button.close {
     text-decoration: none;
     color: black;
 }
-
+.cambio-crec .inactivo {
+    cursor:auto !important;
+}
 
 
 .cambio-crec .como-log {
