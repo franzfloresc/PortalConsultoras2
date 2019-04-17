@@ -25,11 +25,11 @@
 .tabs_vista_cdr_wrapper {
     margin-left: -15px;
     margin-right: -15px;
-    /*position: sticky;
+    position: sticky;
     position: -webkit-sticky;
-    top: 109px;*/
+    z-index:999;
+    top: 0px;
     background-color: #FFF;
-    z-index: 1000;
 }
 
     .tabs_vista_cdr,
@@ -669,9 +669,14 @@
     box-shadow: 0 -1px 4px rgba(216, 216, 216, 1);
 }
 
-#VistaPaso1y2{
+.vistas_cdr{
     position:relative;
-    z-index:1000;
+    z-index:998;
+}
+
+#VistaPaso1y2 {
+    position: relative;
+    z-index: 1000;
 }
 
 #VistaPaso3 {
@@ -883,7 +888,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 .opcion_cdr_seleccionada_campos_busqueda_producto_a_cambiar,
 .opcion_cdr_seleccionada_info--cambioMismoProducto,
 .opcion_cdr_seleccionada_info--cambiarPorOtroProducto,
-.opcion_cdr_seleccionada_info--envioProducto,
+.opcion_cdr_seleccionada_info--devolucionCasoSetProducto,
 .opcion_cdr_seleccionada_info--devolucionDinero {
     margin-top: 30px;
     margin-bottom: 20px;
