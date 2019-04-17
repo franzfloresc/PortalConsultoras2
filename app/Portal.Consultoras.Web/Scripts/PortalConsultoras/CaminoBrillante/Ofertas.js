@@ -2,7 +2,8 @@
 var TabDos = 0;
 var tipoOrigen = "1";
 var cargandoRegistros = false;
-var cantidadRegistros = 10;
+
+var offsetRegistros = 0;
 
 var reservaResponse = {
     data: { Reserva: false }
@@ -19,14 +20,14 @@ $("#Demostradores").on('click', '.boton_agregar_ofertas', function (e) {
     var contenedor = $(this).parents('[data-item="BuscadorFichasProductos"]');
     var obj = JSON.parse($(this).parents('[data-item="BuscadorFichasProductos"]').find('div [data-demostrador]').attr("data-demostrador")); 
     var cantidad = $(contenedor).find("#txtCantidad").val();
-    AgregarProducto(obj, cantidad, contenedor);
+    AgregarProducto(obj, cantidad, contenedor, false);
 });
 
 $("#kits").on('click', '.boton_agregar_ofertas', function (e) {
     var contenedor = $(this).parents('[data-item="BuscadorFichasProductos"]');
     var obj = JSON.parse($(this).parents('[data-item="BuscadorFichasProductos"]').find('div [data-kit]').attr("data-kit"));
     var cantidad = 1;
-    AgregarProducto(obj, cantidad);
+    AgregarProducto(obj, cantidad, contenedor, true);
 });
 
 function Inicializar() {
@@ -132,7 +133,7 @@ function ArmarOfertaDemostradores(data) {
 //    }
 //});
 
-function AgregarProducto(data, cantidad, contenedor) {
+function AgregarProducto(data, cantidad, contenedor, isKit) {
     AbrirSplash();
     var params = {
         CuvTonos: data.CUV,
@@ -156,12 +157,18 @@ function AgregarProducto(data, cantidad, contenedor) {
         async: true,
         cache: false,
         success: function (data) {
-            $(contenedor).find('[data-Agregado="DivAgregado"]').show();
-            if ($("#Tab-kits").hasClass('activado-dorado')) {                       
-                $(contenedor).find('col-12 fichas__productos__wrapper text-center').addClass("producto_desactivado");
+            if (data.success) {                
+                $(contenedor).find('[data-Agregado="DivAgregado"]').show();
+                if (isKit) {
+                    $(".ficha__producto__kit").addClass("producto_desactivado");
+                    $('.ficha__producto__tag_enable').hide();
+                    $('.ficha__producto__tag_disable').show();
+                }                
+            } else {
+                alert(data.message); //Temportal
             }
             CerrarSplash();
-            CargarResumenCampaniaHeader(true);
+            CargarResumenCampaniaHeader(true);            
         },
         error: function (data, error) {
             alert("error");
@@ -197,7 +204,8 @@ function CambiarOferta() {
 
 function TagImpresionProductos(pen, nombrelista, nombreProducto, idProducto, precioProducto, marcaProducto, categoriaProducto, varianteProducto, posicionProducto) {
     dataLayer.push({
-        'event': 'productImpression', 'ecommerce': {
+        'event': 'productImpression',
+        'ecommerce': {
             'currencyCode': pen,
             'impressions': {
                 'actionField': { 'list': nombrelista },
