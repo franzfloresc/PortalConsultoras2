@@ -120,7 +120,6 @@ function ArmarOfertaDemostradores(data) {
 
 function AgregarProducto(data, cantidad, contenedor, tab) {
 
-    alert(tab);
     AbrirSplash();
     var categoria = tab;
     var nombre_producto = data.DescripcionCUV;
