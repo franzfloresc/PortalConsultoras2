@@ -364,8 +364,10 @@ namespace Portal.Consultoras.Web.Controllers
         {
             mensajeError = "";
 
-            if (model.Cantidad <= 0)
+            if (model.Cantidad <= 0) { 
+                mensajeError = "La cantidad debe ser mayor a 0";
                 return false;
+            }
 
             model.CUV = Util.SubStr(model.CUV, 0);
 
