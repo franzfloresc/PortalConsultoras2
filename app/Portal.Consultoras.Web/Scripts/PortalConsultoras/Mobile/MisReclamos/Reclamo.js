@@ -102,7 +102,7 @@ $(document).ready(function () {
                 tres_finalizar_envio_solicitud: "3"
             },
             paso_active_reclamo: "paso_active_reclamo",
-            icono_paso_completado: "icono_paso_completado",
+            paso_reclamo_completado: "paso_reclamo_completado",
             //pasodos: "#pasodos",
             //pasodosactivo: "#pasodosactivo",
             //pasotres: "#pasotres",
@@ -228,6 +228,7 @@ $(document).ready(function () {
                     $(me.Variables.txtDescripcionCuv2).html("");
                     $(me.Variables.txtCantidad2).val("1");
                     $(me.Variables.txtCuvMobile).val("");
+                    me.Funciones.CambiarEstadoBarraProgreso(me.Variables.pasos.uno_seleccion_de_producto);
                     //me.Funciones.CambioPaso(-100);
                     //me.Funciones.BuscarMotivo();
                     $(me.Variables.divUltimasSolicitudes).show();
@@ -2128,24 +2129,25 @@ $(document).ready(function () {
                     var elBarra = $(element);
                     if (elBarra.hasClass(me.Variables.paso_active_reclamo))
                         elBarra.removeClass(me.Variables.paso_active_reclamo);
-                    if (elBarra.hasClass(me.Variables.icono_paso_completado))
-                        elBarra.removeClass(me.Variables.icono_paso_completado);
+                    if (elBarra.hasClass(me.Variables.paso_reclamo_completado))
+                        elBarra.removeClass(me.Variables.paso_reclamo_completado);
                 });
 
                 //agregamos las clases según paso a cambiar
                 if (paso === me.Variables.pasos.uno_seleccion_de_producto) {
                     $(me.Variables.progreso.uno_producto).addClass(me.Variables.paso_active_reclamo);
+                    $(lineaProgresoPasos).css("width", "0");
                 }
                 if (paso === me.Variables.pasos.dos_seleccion_de_solucion) {
-                    $(me.Variables.progreso.uno_producto).addClass(me.Variables.icono_paso_completado);
+                    $(me.Variables.progreso.uno_producto).addClass(me.Variables.paso_reclamo_completado);
                     $(me.Variables.progreso.dos_solucion).addClass(me.Variables.paso_active_reclamo);
-                    $(lineaProgresoPasos).css('width', '50%');
+                    $(lineaProgresoPasos).css("width", "50%");
                 }
                 if (paso === me.Variables.pasos.tres_finalizar_envio_solicitud) {
-                    $(me.Variables.progreso.uno_producto).addClass(me.Variables.icono_paso_completado);
-                    $(me.Variables.progreso.dos_solucion).addClass(me.Variables.icono_paso_completado);
+                    $(me.Variables.progreso.uno_producto).addClass(me.Variables.paso_reclamo_completado);
+                    $(me.Variables.progreso.dos_solucion).addClass(me.Variables.paso_reclamo_completado);
                     $(me.Variables.progreso.tres_finalizar).addClass(me.Variables.paso_active_reclamo);
-                    $(lineaProgresoPasos).css('width', '100%');
+                    $(lineaProgresoPasos).css("width", "100%");
                 }
             },
 
