@@ -25,7 +25,10 @@
 }
 
 .popup__somos__belcorp__mensaje--bloqueoSistema {
-    margin-bottom: 18px!important;
+    margin-bottom: 18px !important;
+    max-width: 284px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .popup__somos__belcorp__btn--entendido {
@@ -47,7 +50,7 @@
         margin-bottom: 0;
     }
 
-        .popup__somos__belcorp--cierreSesion .popup__somos__belcorp__icono__cerrar--bloqueoSistema {
+        .popup__somos__belcorp--bloqueoSistema .popup__somos__belcorp__icono__cerrar {
             top: -56px;
         }
 
