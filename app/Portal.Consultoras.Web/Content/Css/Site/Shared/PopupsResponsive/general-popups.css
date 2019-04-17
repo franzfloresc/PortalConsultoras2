@@ -122,12 +122,14 @@
     }
 
 @media screen and (max-width:991px) {
+
     .popup__somos__belcorp {
         width: 90%;
         position: relative;
         top: 70px;
         margin-bottom: 70px;
     }
+
 }
 
 /* FIN - ESTILOS GENERALES POPUPS SOMOS BELCORP */
