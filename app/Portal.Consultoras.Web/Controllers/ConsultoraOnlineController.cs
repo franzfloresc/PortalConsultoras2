@@ -29,6 +29,7 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
 
         public ConsultoraOnlineController()
+               : this(new ConsultoraOnlineProvider())
         {
             this.registrosPagina = 5;
 
@@ -2153,7 +2154,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Pendientes()
         {
             MisPedidosModel model = new MisPedidosModel();
-
+            ViewBag.PaisISOx = userData.CodigoISO;
             try
             {
                 var lstPedidos = new List<BEMisPedidos>();
@@ -3217,6 +3218,12 @@ namespace Portal.Consultoras.Web.Controllers
                 var productosSolicitados = new List<ProductoSolicitado>();
 
                 var pedidosSesion = SessionManager.GetobjMisPedidos().ListaPedidos;
+
+
+                ///////////////////////////////
+                pedidosSesion.ForEach(x=> { x.DetallePedido.FirstOrDefault().Elegido = true; });
+                //////////////////////////////////
+
 
                 pedidosSesion.ForEach(pedido =>
                 {

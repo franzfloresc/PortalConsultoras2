@@ -397,8 +397,12 @@
                                 <!-- Clase asociada al plugin slick                -->
                                 <div class="conGanaMas card--content mt-0">
                                     <!-- Bloques para repetir-->
+                                    {{#each this.ListaGana as |item|}}
+                                    <div class="col pr-2 pl-2 color-dark"><img class="img-fluid icon-80" src="{{item.ImagenURL}}" alt="Producto"><span class="smaller">{{item.DescripcionCUV2}}</span><span class="smaller">@ViewBag.Simbolo {{item.PrecioString}}</span></div>
+                                    {{/each}}
                                     <div class="col pr-2 pl-2 color-dark"><img class="img-fluid icon-80" src="https://i.ibb.co/MVyDK3j/square-3x.jpg" alt="Producto"><span class="smaller">Pack 4 Delineadores Líquido Punta Plumón Marrón otoño</span><span class="smaller">S/. 50.80</span></div>
                                     <div class="col pr-2 pl-2 color-dark"><img class="img-fluid icon-80" src="https://i.ibb.co/MVyDK3j/square-3x.jpg" alt="Producto"><span class="smaller">Delineador Líquido Punta Plumón Marrón otoño + Natural Care Coconut Ocean *</span><span class="smaller">S/. 15.80</span></div>
+
                                 </div><span class="smaller color-second mt-2 mb-4">* Contiene productos extras</span>
                             </div>
                         </div>
@@ -415,9 +419,14 @@
                                 <!-- Clase asociada al plugin slick                -->
                                 <div class="conCatalogo card--content mt-0">
                                     <!-- Bloques para repetir-->
+                                    {{#each this.ListaCatalogo as |item|}}
+                                    <div class="col pr-2 pl-2"><img class="img-fluid icon-80" src="{{item.Url}}" alt="Producto"><span class="smaller">{{item.Producto}}</span><span class="smaller">{{item.PrecioUnitario}}</span></div>
+                                    {{/each}}
                                     <div class="col pr-2 pl-2"><img class="img-fluid icon-80" src="https://i.ibb.co/MVyDK3j/square-3x.jpg" alt="Producto"><span class="smaller">Delineador Líquido Punta Plumón Marrón otoño</span><span class="smaller">S/. 26.90</span></div>
                                     <div class="col pr-2 pl-2"><img class="img-fluid icon-80" src="https://i.ibb.co/MVyDK3j/square-3x.jpg" alt="Producto"><span class="smaller">Delineador Líquido Punta Plumón Marrón otoño</span><span class="smaller">S/. 26.90</span></div>
                                     <div class="col pr-2 pl-2"><img class="img-fluid icon-80" src="https://i.ibb.co/MVyDK3j/square-3x.jpg" alt="Producto"><span class="smaller">Delineador Líquido Punta Plumón Marrón otoño</span><span class="smaller">S/. 26.90</span></div>
+
+
                                 </div>
                             </div>
                         </div>
@@ -447,35 +456,77 @@
 @section scripts {
     <script>
         $(document).ready(function () {
+          //  debugger;
+            // CargarPaso2();
+
 
             SetHandlebars("#template-paso-2", null, "#contenedor-paso-2");
+      });
 
+        
 
-            $('.conGanaMas').slick({
-            arrows: true,
-            mobileFirst: true,
-            infinite: false,
-            centerPadding: '40px',
-            slidesToShow: 2,
-            prevArrow:'<a class="btn btn-circle left white-color" href="#"><</a>',
-            nextArrow: '<a class="btn btn-circle right white-color" href="#">></a>'
-            // slidesToShow: 2.3
-            });      
-            
-            $('.conCatalogo').slick({
-            arrows: true,
-            mobileFirst: true,
-            infinite: false,
-            centerPadding: '40px',
-            // slidesToShow: 2
-            slidesToShow: 2.3,
-            prevArrow:'<a class="btn btn-circle left white-color" href="#"><</a>',
-            nextArrow: '<a class="btn btn-circle right white-color" href="#">></a>'
+        function CargarPaso2() {
+
+                
+
+            //ShowLoading({});
+            $.ajax({
+                type: 'POST',
+                url: '/ConsultoraOnline/PendientesMedioDeCompra',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                async: true,
+                success: function (response) {
+                   // CloseLoading();
+                    if (checkTimeout(response)) {
+                        if (response.success) {                                     
+                            debugger;
+                            SetHandlebars("#template-paso-2", response.result, "#contenedor-paso-2");
+                            cargarGaleria()
+
+                            return false;
+                        }
+                               
+                    }
+                },
+                error: function (data, error) {
+                    CloseLoading();
+                    if (checkTimeout(data)) {
+                        AbrirMensaje("Ocurrió un error inesperado al momento de aceptar el pedido. Consulte con su administrador del sistema para obtener mayor información");
+                    }
+                }
             });
 
+        }
 
-           //
-        });
+
+        function cargarGaleria()
+        {
+
+            $('.conGanaMas').slick({
+                arrows: true,
+                mobileFirst: true,
+                infinite: false,
+                centerPadding: '40px',
+                slidesToShow: 2,
+                prevArrow: '<a class="btn btn-circle left white-color" href="#"><</a>',
+                nextArrow: '<a class="btn btn-circle right white-color" href="#">></a>'
+                // slidesToShow: 2.3
+            });
+
+            $('.conCatalogo').slick({
+                arrows: true,
+                mobileFirst: true,
+                infinite: false,
+                centerPadding: '40px',
+                // slidesToShow: 2
+                slidesToShow: 2.3,
+                prevArrow: '<a class="btn btn-circle left white-color" href="#"><</a>',
+                nextArrow: '<a class="btn btn-circle right white-color" href="#">></a>'
+            });
+
+        }
+
     </script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/SugerenciaPendientes")
     
