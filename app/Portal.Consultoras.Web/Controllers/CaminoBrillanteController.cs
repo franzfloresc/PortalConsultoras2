@@ -23,7 +23,7 @@ namespace Portal.Consultoras.Web.Controllers
             
 
             ViewBag.ResumenLogros = _caminoBrillanteProvider.GetLogroCaminoBrillante(Constantes.CaminoBrillante.Logros.RESUMEN);
-            ViewBag.Niveles = _caminoBrillanteProvider.GetNivelesCaminoBrillante();
+            ViewBag.Niveles = _caminoBrillanteProvider.GetNivelesCaminoBrillante(true);
             var nivelActual = _caminoBrillanteProvider.GetNivelConsultoraCaminoBrillante();
             var _nivelActual = 1;
             if (nivelActual != null) int.TryParse(nivelActual.Nivel, out _nivelActual);
@@ -128,27 +128,12 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult GetNiveles(string nivel)
         {
-            var informacion = SessionManager.GetConsultoraCaminoBrillante() ?? new ServiceUsuario.BEConsultoraCaminoBrillante();
-            var Beneficios = informacion.Niveles.Where(
-                e => e.CodigoNivel == nivel.ToString()).Select(z => new { z.Beneficios, z.DescripcionNivel, z.MontoMinimo, z.UrlImagenNivel });
-
-            //var MontoAcumuladoPedido = userData.MontoDeuda;
+            if (!_caminoBrillanteProvider.ValidacionCaminoBrillante()) {
+                //No alowed
+                return Json(new {}, JsonRequestBehavior.AllowGet);
+            }
             string nivelSiguiente = null;
-            //var MontoAcumuladoPedido = _caminoBrillanteProvider.MontoFaltanteSiguienteNivel(out nivelSiguiente);
-            var MontoFaltante = _caminoBrillanteProvider.MontoFaltanteSiguienteNivel(out nivelSiguiente);
-
-            var Moneda = userData.Simbolo;
-
-            Beneficios.ToList().ForEach(
-                e =>
-                {
-                    e.Beneficios.ToList().ForEach(x =>
-                    {
-                        x.Icono = Constantes.CaminoBrillante.Beneficios.Iconos.Keys.Contains(x.Icono) ? Constantes.CaminoBrillante.Beneficios.Iconos[x.Icono] : x.Icono;
-                    });
-                });
-
-            return Json(new { Niveles = Beneficios, Moneda = Moneda, MontoFaltante = MontoFaltante, NivelSiguiente = nivelSiguiente }, JsonRequestBehavior.AllowGet);
+            return Json(new { Niveles = _caminoBrillanteProvider.GetNivelesCaminoBrillante(true).Where(e => e.CodigoNivel == nivel).ToList(), Moneda = userData.Simbolo, MontoFaltante = _caminoBrillanteProvider.MontoFaltanteSiguienteNivel(out nivelSiguiente), NivelSiguiente = nivelSiguiente }, JsonRequestBehavior.AllowGet);
         }
 
     }

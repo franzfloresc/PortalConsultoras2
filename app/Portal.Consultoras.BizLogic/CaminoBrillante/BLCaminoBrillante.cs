@@ -800,9 +800,9 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         }
 
         public string ValAgregarCaminiBrillante(BEEstrategia estrategia, BEUsuario usuario, BEPedidoDetalle pedidoDetalle, List<BEPedidoWebDetalle> lstDetalle) {
-            if (pedidoDetalle.Cantidad > estrategia.Cantidad ) return Constantes.PedidoValidacion.Code.ERROR_CANTIDAD_LIMITE;
+            if (pedidoDetalle.Cantidad > estrategia.LimiteVenta ) return Constantes.PedidoValidacion.Code.ERROR_CANTIDAD_LIMITE;
             var cantidad = lstDetalle.Where(e => e.CUV == pedidoDetalle.Producto.CUV).Sum( e => e.Cantidad) + pedidoDetalle.Cantidad;
-            if (cantidad > estrategia.Cantidad) return Constantes.PedidoValidacion.Code.ERROR_CANTIDAD_LIMITE;
+            if (cantidad > estrategia.LimiteVenta) return Constantes.PedidoValidacion.Code.ERROR_CANTIDAD_LIMITE;
 
             var periodo = GetPeriodo(usuario.PaisID, usuario.CampaniaID);
             if (periodo == null) return Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_NOEXISTE;
