@@ -2080,7 +2080,12 @@ namespace Portal.Consultoras.Web.Controllers
                                 ValidacionDatos = ValidacionPerfilConsultorOtrosPaises(obj);
                         }
                         else
-                            ValidacionDatos = ValidacionperfilConsultoraToolTip(obj, pagina);
+                        {
+                            if (userData.PaisID == Convert.ToInt32(Constantes.PaisID.Peru))
+                                ValidacionDatos = ValidacionperfilConsultoraToolTip(obj, pagina);
+                            else
+                                ValidacionDatos = ValidacionPerfilConsultorOtrosPaises(obj);
+                        }
                     }
                     else
                         ValidacionDatos = ValidacionperfilConsultoraToolTip(obj, pagina);
