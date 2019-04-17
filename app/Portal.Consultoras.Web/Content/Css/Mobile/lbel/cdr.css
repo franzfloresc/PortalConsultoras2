@@ -411,7 +411,7 @@
         background-size: 18px;
     }
 
-    .formulario_inscripcion--paso1{
+    .formulario_inscripcion_cdr--paso1 #cuvmobile {
         background-image: url(/Content/Images/icono_buscador.svg);
     }
 
@@ -2009,7 +2009,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 }
 
 .resultado_busqueda_por_cuv_datos_imagen {
-    height: 40px;
+    height: 56px;
     margin-right: 16px;
 }
 
