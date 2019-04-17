@@ -91,12 +91,22 @@ $(document).ready(function () {
             OpcionDevolucion: "#OpcionDevolucion",
             OpcionCambioPorOtroProducto: "#OpcionCambioPorOtroProducto",
             OpcionCambioMismoProducto: "#OpcionCambioMismoProducto",
+            progreso: {
+                uno_producto: "#Selector1",
+                dos_solucion: "#Selector2",
+                tres_finalizar: "#Selector3"
+            },
+            pasos: {
+                uno_seleccion_de_producto: "1",
+                dos_seleccion_de_solucion: "2",
+                tres_finalizar_envio_solicitud: "3"
+            },
             paso_active_reclamo: "paso_active_reclamo",
-            icono_paso_completado:"icono_paso_completado",
-            pasodos: "#pasodos",
-            pasodosactivo: "#pasodosactivo",
-            pasotres: "#pasotres",
-            pasotresactivo: "#pasotresactivo",
+            icono_paso_completado: "icono_paso_completado",
+            //pasodos: "#pasodos",
+            //pasodosactivo: "#pasodosactivo",
+            //pasotres: "#pasotres",
+            //pasotresactivo: "#pasotresactivo",
             pestaniaVerMiSolicitud: ".pestania_ver_mi_solicitud",
             politica_devolucion: "#politica-devolucion",
             popupCuvDescripcion: ".popupCuvDescripcion",
@@ -171,11 +181,10 @@ $(document).ready(function () {
                     $(me.Variables.btnSiguiente4).show();
                     $(me.Variables.RegistroAceptarSolucion).show();
                     $(me.Variables.Cambio3).hide();
-                    $(me.Variables.pasodos).hide();
-                    $(me.Variables.pasotres).hide();
-                    $(me.Variables.pasodosactivo).show();
-                    $(me.Variables.pasotresactivo).show();
-
+                    //$(me.Variables.pasodos).hide();
+                    //$(me.Variables.pasotres).hide();
+                    //$(me.Variables.pasodosactivo).show();
+                    //$(me.Variables.pasotresactivo).show();
                     if ($(me.Variables.Registro1).is(":visible")) {
                         $(me.Variables.Registro1).hide();
                     }
@@ -234,10 +243,10 @@ $(document).ready(function () {
                     $(me.Variables.DescripcionCuv2).hide();
                     $(me.Variables.txtCuvMobile2).fadeIn();
 
-                    $(me.Variables.pasodosactivo).hide();
-                    $(me.Variables.pasotresactivo).hide();
-                    $(me.Variables.pasodos).show();
-                    $(me.Variables.pasotres).show();
+                    //$(me.Variables.pasodosactivo).hide();
+                    //$(me.Variables.pasotresactivo).hide();
+                    //$(me.Variables.pasodos).show();
+                    //$(me.Variables.pasotres).show();
                     $(me.Variables.ComboCampania).attr("disabled", "disabled");
                     //me.Funciones.BuscarCUV();
                 });
@@ -412,6 +421,7 @@ $(document).ready(function () {
                                         $(me.Variables.Registro2).hide();
                                         $(me.Variables.Registro3).show();
                                         $(me.Variables.btnSiguiente1).addClass(me.Variables.deshabilitarControl);
+                                        me.Funciones.CambiarEstadoBarraProgreso(me.Variables.pasos.dos_seleccion_de_solucion);
                                     });
                                 }
                             });
@@ -427,17 +437,15 @@ $(document).ready(function () {
                                         $(me.Variables.hdCDRID).val(data.detalle);
                                         $(me.Variables.wrpMobile).removeClass(me.Variables.pb120);
                                         var arrOcultarElementos = [me.Variables.TituloPreguntaInconvenientes, me.Variables.Registro4
-                                            , me.Variables.Registro3, me.Variables.infoOpcionesDeCambio, me.Variables.pasotres
-                                            , me.Variables.Enlace_regresar, "#VistaPaso1y2"];
+                                            , me.Variables.Registro3, me.Variables.infoOpcionesDeCambio, me.Variables.Enlace_regresar, "#VistaPaso1y2"];
                                         $(me.Variables.btnSiguiente1).addClass(me.Variables.deshabilitarControl);
                                         me.Funciones.HideTags(arrOcultarElementos);
                                         $(me.Variables.infoOpcionesDeCambio).children().hide();
-                                        $(me.Variables.pasotresactivo).show();
                                         $(me.Variables.btnSiguiente4).show();
                                         $("#VistaPaso3").show();
                                         $(me.Variables.RegistroAceptarSolucion).show();
                                         $(me.Variables.EleccionTipoEnvio).show();
-
+                                        me.Funciones.CambiarEstadoBarraProgreso(me.Variables.pasos.tres_finalizar_envio_solicitud);
                                     });
                                 } else {
                                     messageInfoValidado(data.message);
@@ -469,14 +477,14 @@ $(document).ready(function () {
                     $(me.Variables.Registro3).hide();
                     $(me.Variables.Registro4).hide();
                     $(me.Variables.Cambio3).hide();
-                    $(me.Variables.pasodosactivo).hide();
-                    $(me.Variables.pasotresactivo).hide();
+                    //$(me.Variables.pasodosactivo).hide();
+                    //$(me.Variables.pasotresactivo).hide();
 
                     $(me.Variables.Enlace_regresar).hide();
                     $(me.Variables.btnAceptarSolucion).hide();
                     $(me.Variables.btnCambioProducto).hide();
-                    $(me.Variables.pasodos).show();
-                    $(me.Variables.pasotres).show();
+                    //$(me.Variables.pasodos).show();
+                    //$(me.Variables.pasotres).show();
 
                     $(me.Variables.hdCuvCodigo).val("");
                     $(me.Variables.txtCantidad1).val("1");
@@ -627,10 +635,12 @@ $(document).ready(function () {
                     $(me.Variables.hdPedidoID).val(0);
                     $(me.Variables.hdNumeroPedido).val(0);
                     $("#VistaPaso3").hide();
-                    $("#VistaPaso1y2").show();
+                    me.Funciones.CambiarEstadoBarraProgreso(me.Variables.pasos.uno_seleccion_de_producto);
+                    $("#VistaPaso1y2").show();                  
                     $(me.Variables.ListaCoincidenciasBusquedaProductosCdr).empty();
                     $(me.Variables.linkNuevoCambio).click();
                     $(me.Variables.Registro1).fadeIn(100);
+                   
                 });
             }
         };
@@ -1080,8 +1090,8 @@ $(document).ready(function () {
 
             RegresarRegistro1: function () {
                 $(me.Variables.Registro2).hide();
-                $(me.Variables.pasodosactivo).hide();
-                $(me.Variables.pasodos).show();
+                //$(me.Variables.pasodosactivo).hide();
+                //$(me.Variables.pasodos).show();
                 $(me.Variables.Registro1).show();
             },
 
@@ -1907,11 +1917,11 @@ $(document).ready(function () {
                 $/*("#divPopupPedido").hide();*/
                 me.Funciones.AsignarCUV(pedido);
             },
-            //HD-3412 EINCA 
+
             CancelarConfirmEnvioSolicitudCDR: function () {
                 $(me.Variables.divConfirmEnviarSolicitudCDR).hide();
             },
-            //HD-3412 EINCA
+
             ContinuarConfirmEnvioSolicitudCDR: function () {
                 $.when(me.Funciones.CancelarConfirmEnvioSolicitudCDR()).then(function () {
                     me.Funciones.ValidarTelefonoServer($.trim($(me.Variables.txtTelefono).val()), function (data) {
@@ -1965,7 +1975,7 @@ $(document).ready(function () {
                     });
                 });
             },
-            //HD-3703 EINCA
+
             EscogerSolucion: function (opcion) {
                 var tagCheck = $(me.Variables.divlistado_soluciones_cdr + " " + "input[type=checkbox]");
                 var tagDivInfo = $(me.Variables.infoOpcionesDeCambio);
@@ -2026,7 +2036,7 @@ $(document).ready(function () {
                 }
                 $(me.Variables.btnSiguiente1).removeClass(me.Variables.deshabilitarControl);
             },
-            //HD-3703 EINCA
+
             AgregarEventoMostrarBotonSiguiente: function () {
                 $("#listaMotivos input[name=motivo-cdr]").on('click', function () {
                     if ($(me.Variables.btnSiguiente1).hasClass(me.Variables.deshabilitarControl)) {
@@ -2034,7 +2044,7 @@ $(document).ready(function () {
                     }
                 });
             },
-            //HD-3703 EINCA
+
             SetMontoCampaniaTotal: function () {
                 //$(me.Variables.wrpMobile).addClass(me.Variables.pb120);
                 $(me.Variables.spnSimboloMonedaReclamo).html(variablesPortal.SimboloMoneda);
@@ -2050,7 +2060,7 @@ $(document).ready(function () {
                 }
                 $(me.Variables.spnNumeroCampaniaReclamo).html(numeroCampania);
             },
-            //HD-3703 EINCA
+
             HideTags: function (arr) {
                 if ($.isArray(arr)) {
                     $(arr).each(function (i, el) {
@@ -2058,7 +2068,7 @@ $(document).ready(function () {
                     });
                 }
             },
-            //HD-3703 EINCA
+
             PreValidacionIrFinalizar: function () {
                 var id = "";
                 var tag = $(me.Variables.divlistado_soluciones_cdr + " " + "input[type=checkbox]");
@@ -2107,7 +2117,37 @@ $(document).ready(function () {
                 }
 
                 return { result: true, id: id };
-            }
+            },
+
+            CambiarEstadoBarraProgreso: function (paso) {
+                var tagContenedorBarraPasos = $('#barra_progreso .paso_reclamo');
+                var lineaProgresoPasos = $('.progreso_pasos');
+
+                //seteamos la barra
+                tagContenedorBarraPasos.each(function (index, element) {
+                    var elBarra = $(element);
+                    if (elBarra.hasClass(me.Variables.paso_active_reclamo))
+                        elBarra.removeClass(me.Variables.paso_active_reclamo);
+                    if (elBarra.hasClass(me.Variables.icono_paso_completado))
+                        elBarra.removeClass(me.Variables.icono_paso_completado);
+                });
+
+                //agregamos las clases según paso a cambiar
+                if (paso === me.Variables.pasos.uno_seleccion_de_producto) {
+                    $(me.Variables.progreso.uno_producto).addClass(me.Variables.paso_active_reclamo);
+                }
+                if (paso === me.Variables.pasos.dos_seleccion_de_solucion) {
+                    $(me.Variables.progreso.uno_producto).addClass(me.Variables.icono_paso_completado);
+                    $(me.Variables.progreso.dos_solucion).addClass(me.Variables.paso_active_reclamo);
+                    $(lineaProgresoPasos).css('width', '50%');
+                }
+                if (paso === me.Variables.pasos.tres_finalizar_envio_solicitud) {
+                    $(me.Variables.progreso.uno_producto).addClass(me.Variables.icono_paso_completado);
+                    $(me.Variables.progreso.dos_solucion).addClass(me.Variables.icono_paso_completado);
+                    $(me.Variables.progreso.tres_finalizar).addClass(me.Variables.paso_active_reclamo);
+                    $(lineaProgresoPasos).css('width', '100%');
+                }
+            },
 
         };
 
