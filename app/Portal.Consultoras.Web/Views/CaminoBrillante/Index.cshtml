@@ -47,7 +47,7 @@
     <div class="modal fade" id="BenefNivel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button id="btnCerarNiveles" type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="CerrarBeneficios()">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <div class="modal-body pad-center">
@@ -59,7 +59,7 @@
                             <h2 id="m_titulo" style="color: black; font-size: 20px; font-weight: bold;"></h2>
                             <div class="cont-textLograr">
                                 <p id="m_montoMinimo"></p>
-                                <p id="m_montoFaltante" ></p>
+                                <p id="m_montoFaltante"></p>
                             </div>
                         </div>
                     </div>
@@ -69,6 +69,7 @@
             </div>
         </div>
     </div>
+
     <div class="cont-benf" id="BeneficiosPrincipal">
         <h2 class='title'>Mis beneficios</h2>
         <ul class='box-beneficios' id='BeneficiosPrincipal'>
@@ -103,7 +104,7 @@
         <a id="OfertasEspeciales" href="@Url.Action("Ofertas", "CaminoBrillante")" class="btn-principal">Ver ofertas</a>
     }
 
-    <div class="cont-logros">
+    <div id="cont-logros" class="cont-logros">
         <h2 class="title" id="TituloLogros">@data.Titulo</h2>
         @*<p class="text" id="DescripcionLogros">@data.Descripcion</p>*@
         <div class="boxcenter">
@@ -174,119 +175,17 @@
         </div>
     </div>
 
-    <div class="cont-ganancias" style="display:none">
-        <div class="left-ganancias">
-            <h2 class="title">MIS GANANCIAS</h2>
-            <p class="text">Mira las ganancias que has obtenido durante una campaña o en lo que va del año</p>
-            <ul class="list-ganacias">
-                <li class="shad">
-                    <p class="text-bold">Monto de  mi pedido C03-C08</p>
-                    <span>S/ 250</span>
-                </li>
-                <li class="shad">
-                    <p class="text-bold">Monto de  mi pedido C03-C08</p>
-                    <span>S/ 250</span>
-                </li>
-                <li class="shad">
-                    <p class="text-bold">Monto de  mi pedido C03-C08</p>
-                    <span>S/ 250</span>
-                </li>
-                <li class="shad">
-                    <p class="text-bold">Monto de  mi pedido C03-C08</p>
-                    <span>S/ 250</span>
-                </li>
-            </ul>
-            <div class="owl-carousel owl-mont" id="mov-mont">
-                <div class="item">
-                    <div class="shad">
-                        <p class="text-bold">Monto de  mi pedido C03-C08</p>
-                        <span>S/ 250</span>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="shad">
-                        <p class="text-bold">Monto de  mi pedido C03-C08</p>
-                        <span>S/ 250</span>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="shad">
-                        <p class="text-bold">Monto de  mi pedido C03-C08</p>
-                        <span>S/ 250</span>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="shad">
-                        <p class="text-bold">Monto de  mi pedido C03-C08</p>
-                        <span>S/ 250</span>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <div class="shad right-ganancias">
-            <p class="text-bold">Monto de mi  pedido C13-C18</p>
-            <span class="text-down">Avance por campaña</span>
-            <div id="chart-montos">
-                <img src="~/Content/CaminoBrillante/imgs/barchar.png">
-            </div>
-        </div>
-    </div>
 </div>
 
-<script src="~/Scripts/jquery-1.11.2.min.js"></script>
+@*<script src="~/Scripts/jquery-1.11.2.min.js"></script>
 <script src="~/Scripts/bootstrap.min.js"></script>
 <script src="~/Scripts/owl.carousel.js"></script>
-<script src="~/Scripts/PortalConsultoras/CaminoBrillante/index.js"></script>
-
+<script src="~/Scripts/PortalConsultoras/CaminoBrillante/index.js"></script>*@          
 
 @section scripts{
     <script type="text/javascript">
         var baseUrl = "@Url.Content("~")";
         var urlGetNiveles = '@Url.Action("GetNiveles", "CaminoBrillante", new { area = "" })';
     </script>
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante")
 }
-
-<script>
-    (function ($) {
-        $(document).ready(function () {
-            var owl = $('.owl-crec');
-            owl.owlCarousel({
-                stagePadding: 35,
-                margin: 20,
-                nav: true,
-                loop: false,
-                responsive: {
-                    0: {
-                        items: 1
-                    },
-                    600: {
-                        items: 2
-                    },
-                    1000: {
-                        items: 2
-                    }
-                }
-            })
-
-            var mont = $('.owl-mont');
-            mont.owlCarousel({
-                stagePadding: 30,
-                margin: 10,
-                nav: true,
-                loop: false,
-                responsive: {
-                    0: {
-                        items: 1
-                    },
-                    410: {
-                        items: 2
-                    },
-                    1500: {
-                        items: 1
-                    }
-                }
-            })
-        });
-    })(jQuery);
-</script>

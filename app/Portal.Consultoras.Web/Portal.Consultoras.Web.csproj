@@ -308,6 +308,7 @@
     <Compile Include="Models\BuscadorYFiltrosCategoriaModel.cs" />
     <Compile Include="Models\CaminoBrillante\BeneficiosNivelCaminoBrillanteModel.cs" />
     <Compile Include="Models\CaminoBrillante\Indicador.cs" />
+    <Compile Include="Models\CaminoBrillante\KitCaminoBrillanteModel.cs" />
     <Compile Include="Models\CaminoBrillante\MisLogrosCaminoBrillanteModel.cs" />
     <Compile Include="Models\ConfiguracionCaminoBrillanteModel.cs" />
     <Compile Include="Models\PremioNuevaModel.cs" />
@@ -4196,6 +4197,7 @@
     <Content Include="Scripts\PortalConsultoras\Buscador\BuscadorProvider.js" />
     <Content Include="Scripts\PortalConsultoras\Buscador\BusquedaProductoModule.js" />
     <Content Include="Scripts\PortalConsultoras\CaminoBrillante\index.js" />
+    <Content Include="Scripts\PortalConsultoras\CaminoBrillante\logros.js" />
     <Content Include="Scripts\PortalConsultoras\CaminoBrillante\Ofertas.js" />
     <Content Include="Scripts\PortalConsultoras\Campania\CampaniaModule.js" />
     <Content Include="Scripts\PortalConsultoras\CatalogoPersonalizado\catalogoPersonalizado.js" />

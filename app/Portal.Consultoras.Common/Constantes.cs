@@ -3777,6 +3777,30 @@ namespace Portal.Consultoras.Common
 
             }
 
+
+            public static class EtiquetaNiveles
+            {
+
+                private static Dictionary<string, string[]> _Iconos;
+                private static string path = "CAMINOBRILLANTE/NIVELES/Etiqueta_Nivel_0{0}_{1}.svg";
+
+                public static Dictionary<string, string[]> Iconos
+                {
+                    get
+                    {
+                        return _Iconos ?? (_Iconos = new Dictionary<string, string[]> {
+                            { "1", new string[]{ string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "1", "I"), string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "1", "A") } },
+                            { "2", new string[]{ string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "2", "I"), string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "2", "A") } },
+                            { "3", new string[]{ string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "3", "I"), string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "3", "A") } },
+                            { "4", new string[]{ string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "4", "I"), string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "4", "A") } },
+                            { "5", new string[]{ string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "5", "I"), string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "5", "A") } },
+                            { "6", new string[]{ string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "6", "I"), string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "6", "A") } },
+                        });
+                    }
+                }
+
+            }
+
         }
     }
 }
