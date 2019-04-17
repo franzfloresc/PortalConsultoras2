@@ -321,8 +321,6 @@ $(document).ready(function () {
                     $(me.Variables.Registro2).hide();
                     if ($(me.Variables.ComboCampania).val() == 0) {
                         $(me.Variables.ddlnumPedido).hide();
-                        //$(me.Variables.DescripcionCuv).hide();
-                        //$(me.Variables.txtCuvMobile).show();
                         $(me.Variables.txtCuvMobile).addClass(me.Variables.deshabilitarControl);
                         return false;
                     }
@@ -426,18 +424,20 @@ $(document).ready(function () {
                             me.Funciones.DetalleGuardar(fnPreValidacion.id, function (data) {
                                 if (data.success) {
                                     $.when(me.Funciones.DetalleCargar()).done(function () {
+                                        $(me.Variables.hdCDRID).val(data.detalle);
                                         $(me.Variables.wrpMobile).removeClass(me.Variables.pb120);
                                         var arrOcultarElementos = [me.Variables.TituloPreguntaInconvenientes, me.Variables.Registro4
                                             , me.Variables.Registro3, me.Variables.infoOpcionesDeCambio, me.Variables.pasotres
-                                            , me.Variables.Enlace_regresar];
-                                        $(me.Variables.btnSiguiente1).hide().addClass(me.Variables.deshabilitarControl);
-                                        //$(me.Variables.btnSiguiente1).hide();
+                                            , me.Variables.Enlace_regresar, "#VistaPaso1y2"];
+                                        $(me.Variables.btnSiguiente1).addClass(me.Variables.deshabilitarControl);
                                         me.Funciones.HideTags(arrOcultarElementos);
                                         $(me.Variables.infoOpcionesDeCambio).children().hide();
                                         $(me.Variables.pasotresactivo).show();
                                         $(me.Variables.btnSiguiente4).show();
+                                        $("#VistaPaso3").show();
                                         $(me.Variables.RegistroAceptarSolucion).show();
                                         $(me.Variables.EleccionTipoEnvio).show();
+                                        
                                     });
                                 } else {
                                     messageInfoValidado(data.message);
@@ -617,9 +617,20 @@ $(document).ready(function () {
                         return re.test(keyChar);
                     }
                 });
-
                 $(me.Variables.IrPaso1).on("click", function () {
+                    $(me.Variables.Registro2).hide();
+                    $(me.Variables.Registro3).hide();
+                    $(me.Variables.txtCantidad1).val("1");
+                    $(me.Variables.txtCuvMobile).val("");
+                    $(me.Variables.txtCuvMobile).addClass(me.Variables.deshabilitarControl);
+                    $(me.Variables.ComboCampania).val("0");
+                    $(me.Variables.hdPedidoID).val(0);
+                    $(me.Variables.hdNumeroPedido).val(0);
+                    $("#VistaPaso3").hide();
+                    $("#VistaPaso1y2").show();
+                    $(me.Variables.ListaCoincidenciasBusquedaProductosCdr).empty();
                     $(me.Variables.linkNuevoCambio).click();
+                    $(me.Variables.Registro1).fadeIn(100);
                 });
             }
         };
@@ -1485,11 +1496,11 @@ $(document).ready(function () {
                     Complemento: Complemento
                 };
 
-               
+
 
                 $.ajax({
                     data: JSON.stringify(item),
-                    async: true,                   
+                    async: true,
                     success: function (data) {
                         if (!checkTimeout(data)) {
                             return false;
