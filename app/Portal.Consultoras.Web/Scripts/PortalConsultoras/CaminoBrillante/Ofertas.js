@@ -2,7 +2,6 @@
 var TabDos = 0;
 var tipoOrigen = "1";
 var cargandoRegistros = false;
-
 var offsetRegistros = 0;
 
 var reservaResponse = {
@@ -123,6 +122,7 @@ function AgregarProducto(data, cantidad, contenedor, tab, isKit) {
 
     AbrirSplash();
     var categoria = tab;
+    var moneda = ($('#moneda').val());
     var nombre_producto = data.DescripcionCUV;
     var precio_producto = data.PrecioCatalogo;
     var marca_producto = data.DescripcionMarca;
@@ -160,14 +160,14 @@ function AgregarProducto(data, cantidad, contenedor, tab, isKit) {
             } else {
                 $("#Mensaje").append(data.message);
                 $("#alertDialogMensajes").fadeIn();
-            }
+            } 
             CerrarSplash();
             CargarResumenCampaniaHeader(true);
 
             dataLayer.push({
                 'event': 'addToCart',
                 'ecommerce': {
-                    'currencyCode': 'PEN',
+                    'currencyCode': moneda,
                     'add': {
                         'actionField': { 'list': 'Ofertas-CaminoBrillante' },
                         'products': [{
