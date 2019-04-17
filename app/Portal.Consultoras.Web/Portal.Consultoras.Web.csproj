@@ -308,6 +308,7 @@
     <Compile Include="Models\BuscadorYFiltrosCategoriaModel.cs" />
     <Compile Include="Models\CaminoBrillante\BeneficiosNivelCaminoBrillanteModel.cs" />
     <Compile Include="Models\CaminoBrillante\Indicador.cs" />
+    <Compile Include="Models\CaminoBrillante\KitCaminoBrillanteModel.cs" />
     <Compile Include="Models\CaminoBrillante\MisLogrosCaminoBrillanteModel.cs" />
     <Compile Include="Models\ConfiguracionCaminoBrillanteModel.cs" />
     <Compile Include="Models\PremioNuevaModel.cs" />

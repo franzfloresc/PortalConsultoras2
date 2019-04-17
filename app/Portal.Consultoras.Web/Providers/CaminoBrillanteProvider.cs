@@ -7,6 +7,7 @@ using Portal.Consultoras.Web.Models;
 using AutoMapper;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Models.CaminoBrillante;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -115,17 +116,17 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
-        public List<BEKitCaminoBrillante> GetKitsCaminoBrillante()
+        public List<KitCaminoBrillanteModel> GetKitsCaminoBrillante()
         {
             try
             {
                 var kits = sessionManager.GetKitCaminoBrillante();
-                if (kits != null) return kits;
+                if (kits != null) return Mapper.Map<List<KitCaminoBrillanteModel>>(kits);
 
                 int nivel = 0;
                 var nivelConsultora = GetNivelConsultoraCaminoBrillante();
                 if (nivelConsultora != null) {
-                    Int32.TryParse(nivelConsultora.PeriodoCae, out nivel);
+                    Int32.TryParse(nivelConsultora.Nivel, out nivel);
                 }
 
                 using (var svc = new PedidoServiceClient())
@@ -141,12 +142,12 @@ namespace Portal.Consultoras.Web.Providers
                 if (kits != null && kits.Any(e => e.FlagHistorico)) {
                     sessionManager.SetKitCaminoBrillante(kits);
                 }
-                return kits;
+                return Mapper.Map<List<KitCaminoBrillanteModel>>(kits);
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
-                return new List<BEKitCaminoBrillante>();
+                return new List<KitCaminoBrillanteModel>();
             }
         }
 

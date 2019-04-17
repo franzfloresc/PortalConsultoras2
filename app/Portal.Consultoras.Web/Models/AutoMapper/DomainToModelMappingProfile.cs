@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Portal.Consultoras.Web.Models.Search.ResponseOferta.Estructura;
+using Portal.Consultoras.Web.Models.CaminoBrillante;
 
 namespace Portal.Consultoras.Web.Models.AutoMapper
 {
@@ -684,6 +685,10 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.DescripcionPlural, f => f.MapFrom(c => c.DescripcionPlural))
                 .ForMember(t => t.DescripcionSingular, f => f.MapFrom(c => c.DescripcionSingular));
 
+
+            #region Camino Brillante
+            Mapper.CreateMap<BEKitCaminoBrillante, KitCaminoBrillanteModel>();
+            #endregion
 
         }
     }
