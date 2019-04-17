@@ -646,6 +646,10 @@ $(document).ready(function () {
 
         me.Funciones = {
 
+            SeccionTabsFijoSegunAltoHeader: function () {
+                $('.tabs_vista_cdr_wrapper').css('top', $('#new-header').outerHeight());
+            },
+
             ObtenerPedidosID: function () {
                 $(me.Variables.hdPedidoID).val("");
                 $(me.Variables.hdNumeroPedido).val("");
@@ -2110,6 +2114,7 @@ $(document).ready(function () {
 
         me.Inicializar = function () {
             me.Eventos.bindEvents();
+            me.Funciones.SeccionTabsFijoSegunAltoHeader();
         };
     };
 
