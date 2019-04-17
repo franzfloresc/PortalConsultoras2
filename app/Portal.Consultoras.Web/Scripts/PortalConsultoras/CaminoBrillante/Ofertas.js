@@ -12,21 +12,22 @@ var baseUrl = "/";
 $(document).ready(function () {
     CargarKits();
     CambiarOferta();
-    //AgregarProducto();
 });
 
 $("#Demostradores").on('click', '.boton_agregar_ofertas', function (e) {
     var contenedor = $(this).parents('[data-item="BuscadorFichasProductos"]');
     var obj = JSON.parse($(this).parents('[data-item="BuscadorFichasProductos"]').find('div [data-demostrador]').attr("data-demostrador")); 
     var cantidad = $(contenedor).find("#txtCantidad").val();
-    AgregarProducto(obj, cantidad, contenedor);
+    var tab = $("#Demostradores").attr('id');
+    AgregarProducto(obj, cantidad, contenedor, tab);
 });
 
 $("#kits").on('click', '.boton_agregar_ofertas', function (e) {
     var contenedor = $(this).parents('[data-item="BuscadorFichasProductos"]');
     var obj = JSON.parse($(this).parents('[data-item="BuscadorFichasProductos"]').find('div [data-kit]').attr("data-kit"));
     var cantidad = 1;
-    AgregarProducto(obj, cantidad);
+    var tab = $("#kits").attr('id');
+    AgregarProducto(obj, cantidad, contenedor, tab);
 });
 
 function Inicializar() {
@@ -69,13 +70,14 @@ function CargarKits() {
         data: { cantidadregistros: cantidadRegistros },
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
+        
         success: function (data) {
+
             if (checkTimeout(data)) {
                 if (data.lista.length > 0) ArmarOfertaKits(data.lista);
-                //if (!data.verMas) UnlinkCargarOfertasToScroll();
-                //offsetRegistros += cantidadRegistros;
             }
         },
+
         error: function (data, error) { },
         complete: function (data) {
             closeWaitingDialog();
@@ -85,11 +87,9 @@ function CargarKits() {
 }
 
 function ArmarOfertaKits(data) {
-    //data = EstructurarDataCarouselLiquidaciones(data);
     var htmlDiv = SetHandlebars("#template-Kits", data);
     $('#kits').append(htmlDiv);
     $('#kits').show();
-    //EstablecerAccionLazyImagen("img[data-lazy-seccion-liquidacion]");
 }
 
 function CargarDemostradores() {
@@ -102,8 +102,6 @@ function CargarDemostradores() {
         success: function (data) {
             if (checkTimeout(data)) {
                 if (data.lista.length > 0) ArmarOfertaDemostradores(data.lista);
-                //if (!data.verMas) UnlinkCargarOfertasToScroll();
-                //offsetRegistros += cantidadRegistros;
             }
         },
         error: function (data, error) { },
@@ -115,25 +113,21 @@ function CargarDemostradores() {
 }
 
 function ArmarOfertaDemostradores(data) {
-    //data = EstructurarDataCarouselLiquidaciones(data);
     var htmlDiv = SetHandlebars("#template-Demostradores", data);
     $('#Demostradores').append(htmlDiv);
     $('#Demostradores').show();
-    //EstablecerAccionLazyImagen("img[data-lazy-seccion-liquidacion]");
 }
 
-//$(window).scroll(function (event) {
-//    if ($("#Tab-kits").hasClass('activado-dorado')) {
-//        TabUno = $(window).scrollTop();
-//    }
+function AgregarProducto(data, cantidad, contenedor, tab) {
 
-//    if ($("#Tab-Demostradores").hasClass('activado-dorado')) {
-//        TabDos = $(window).scrollTop();
-//    }
-//});
-
-function AgregarProducto(data, cantidad, contenedor) {
+    alert(tab);
     AbrirSplash();
+    var categoria = tab;
+    var nombre_producto = data.DescripcionCUV;
+    var precio_producto = data.PrecioCatalogo;
+    var marca_producto = data.DescripcionMarca;
+    var id_producto = data.CUV;
+
     var params = {
         CuvTonos: data.CUV,
         CUV: data.CUV,
@@ -146,7 +140,7 @@ function AgregarProducto(data, cantidad, contenedor) {
         SetId: null,
         ClienteID: 0
     };
-    
+
     jQuery.ajax({
         type: "POST",
         url: urlAgregarUnico,
@@ -162,6 +156,26 @@ function AgregarProducto(data, cantidad, contenedor) {
             }
             CerrarSplash();
             CargarResumenCampaniaHeader(true);
+
+            dataLayer.push({
+                'event': 'addToCart',
+                'ecommerce': {
+                    'currencyCode': 'PEN',
+                    'add': {
+                        'actionField': { 'list': 'Ofertas-CaminoBrillante' },
+                        'products': [{
+                            'name': nombre_producto,
+                            'price': precio_producto,
+                            'brand': marca_producto,
+                            'id': id_producto,
+                            'category': categoria,
+                            'variant': 'Estándar',
+                            'quantity': Cantidad
+                        }]
+                    }
+                }
+            })
+
         },
         error: function (data, error) {
             alert("error");
