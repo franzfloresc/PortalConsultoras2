@@ -157,9 +157,7 @@ function AgregarProducto(data, cantidad, contenedor, tab) {
                     $('.ficha__producto__tag_enable').hide();
                     $('.ficha__producto__tag_disable').show();
                 }                
-            } else {
-                alert(data.message); //Temportal
-            }
+            } 
             CerrarSplash();
             CargarResumenCampaniaHeader(true);            
 
