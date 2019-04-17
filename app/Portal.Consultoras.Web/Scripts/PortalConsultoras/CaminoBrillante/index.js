@@ -123,7 +123,7 @@ function ModalBeneficios(index) {
             for (var i = 0; i <= data.Niveles[0].Beneficios.length - 1; i++) {
 
                 Html += "<li>";
-                Html += "<img src='" + data.Niveles[0].Beneficios[i].Icono + "'>";
+                Html += "<img src='" + data.Niveles[0].Beneficios[i].UrlIcono + "'>";
                 if (data.Niveles[0].Beneficios[i].Descripcion == "" || data.Niveles[0].Beneficios[i].Descripcion == null) {
                     Html += "<div class='txt-benf'><p class='text-bold'><span>" + data.Niveles[0].Beneficios[i].NombreBeneficio + "</span></p></div>";
                 } else {

@@ -30,6 +30,7 @@ namespace Portal.Consultoras.Web.Providers
                 }
                 sessionManager.SetConsultoraCaminoBrillante(resumen);
 
+                /*
                 if (resumen.Niveles != null)
                 {
                     var nivelActualConsultora = GetNivelConsultoraCaminoBrillante();
@@ -45,6 +46,7 @@ namespace Portal.Consultoras.Web.Providers
                                            Constantes.CaminoBrillante.Niveles.Iconos[item.CodigoNivel][nivel <= nivelActual ? 1 : 0] : string.Empty;
                     }
                 }
+                */
             }
             return resumen;
         }
@@ -84,19 +86,34 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
-        public List<BENivelCaminoBrillante> GetNivelesCaminoBrillante()
+        public List<NivelCaminoBrillanteModel> GetNivelesCaminoBrillante(bool matchNivelConsultora = false)
         {
             try
             {
                 var consultoraCaminoBrillante = ResumenConsultoraCaminoBrillante();
-                if (consultoraCaminoBrillante == null) return new List<BENivelCaminoBrillante>();
+                if (consultoraCaminoBrillante == null) return new List<NivelCaminoBrillanteModel>();
 
-                return consultoraCaminoBrillante.Niveles.ToList();
+                var result = Mapper.Map<List<NivelCaminoBrillanteModel>>(consultoraCaminoBrillante.Niveles.ToList());
+
+                if (matchNivelConsultora) {
+                    var nivelActualConsultora = GetNivelConsultoraCaminoBrillante();
+                    if(nivelActualConsultora == null) return result;
+
+                    int nivel = 0;
+                    int nivelActual = 0;
+                    if (int.TryParse(nivelActualConsultora.Nivel, out nivelActual)) {
+                        result.Each(e => {
+                            e.EsPasado = int.TryParse(e.CodigoNivel, out nivel) ? (nivel <= nivelActual) : false;
+                        });
+                    }
+                }
+
+                return result;
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
-                return new List<BENivelCaminoBrillante>();
+                return new List<NivelCaminoBrillanteModel>();
             }
         }
 
@@ -170,12 +187,12 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
-        public List<BEDesmostradoresCaminoBrillante> GetDesmostradoresCaminoBrillante()
+        public List<DemostradorCaminoBrillanteModel> GetDesmostradoresCaminoBrillante()
         {
             try
             {
                 var demostradores = sessionManager.GetDemostradoresCaminoBrillante();
-                if (demostradores != null) return demostradores;
+                if (demostradores != null) return Mapper.Map<List<DemostradorCaminoBrillanteModel>>(demostradores);
 
                 using (var svc = new PedidoServiceClient())
                 {
@@ -187,12 +204,12 @@ namespace Portal.Consultoras.Web.Providers
                     sessionManager.SetDemostradoresCaminoBrillante(demostradores);
                 }
 
-                return demostradores;
+                return Mapper.Map<List<DemostradorCaminoBrillanteModel>>(demostradores);
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
-                return new List<BEDesmostradoresCaminoBrillante>();
+                return new List<DemostradorCaminoBrillanteModel>();
             }
         }
 
