@@ -9,6 +9,11 @@ IF EXISTS (
 	DROP PROCEDURE [dbo].[GuardarPopup]
 GO
 
+/*   
+CREADO POR  : PAQUIRRI SEPERAK   
+FECHA : 20/02/2019   
+DESCRIPCIÓN : REGISTRA UN POPUP DE CONTENIDO 
+*/ 
 CREATE PROCEDURE [dbo].[GuardarPopup] 
 @COMUNICADOID      INT, 
 @TITULOPRINCIPAL   VARCHAR(128), 
@@ -87,7 +92,7 @@ AS
 
             SELECT @IDENTITY = SCOPE_IDENTITY() 
 
-            /*TABLA SEGMENTACION*/ 
+            /*TABLA SEGMENTACIÓN*/ 
             IF ( @REGIONID != '@' 
                  AND @ZONAID != '@' 
                  AND @ESTADO != '@' 
@@ -152,7 +157,7 @@ AS
             SELECT @IDENTITY = @COMUNICADOID 
 
         /*TABLA SEGMENATCIONCOMUNICADO*/ 
-            /*TABLA SEGMENTACI�N*/ 
+            /*TABLA SEGMENTACIÓN*/ 
             IF ( @REGIONID != '@' 
                  AND @ZONAID != '@' 
                  AND @ESTADO != '@' 
@@ -221,7 +226,7 @@ AS
               END 
         END 
 
-      /*ACTUALIZAMOS LA ZONA, REGION, SEGMENTACION CONSULTORA*/ 
+      /*ACTUALIZAMOS LA ZONA, REGIÓN, SEGMENTACIÓN CONSULTORA*/ 
       SELECT @SEGMENTACIONCONSULTORA = CASE 
                                          WHEN CAST(CONSULTORA.VALOR AS INT) != 0 
                                        THEN 
@@ -265,13 +270,23 @@ AS
                          FROM   DBO.SPLIT (@CODIGOCONSULTORA, '@')) CONSULTORA 
                      ON ESTADO.ID = CONSULTORA.ID 
 
+        IF ( @REGIONID != '@' 
+                 AND @ZONAID != '@' 
+                 AND @ESTADO != '@' 
+                 AND @CODIGOCONSULTORA != '@' ) 
+              BEGIN 
+
       UPDATE COMUNICADO 
       SET    SEGMENTACIONCONSULTORA = @SEGMENTACIONCONSULTORA, 
              SEGMENTACIONREGIONZONA = @SEGMENTACIONREGIONZONA, 
              SEGMENTACIONESTADOACTIVIDAD = @SEGMENTACIONESTADOACTIVIDAD 
       WHERE  COMUNICADOID = @IDENTITY 
+
+	  END
  
   END 
+
+ 
 GO
 USE [BelcorpChile];
 GO
@@ -284,6 +299,11 @@ IF EXISTS (
 	DROP PROCEDURE [dbo].[GuardarPopup]
 GO
 
+/*   
+CREADO POR  : PAQUIRRI SEPERAK   
+FECHA : 20/02/2019   
+DESCRIPCIÓN : REGISTRA UN POPUP DE CONTENIDO 
+*/ 
 CREATE PROCEDURE [dbo].[GuardarPopup] 
 @COMUNICADOID      INT, 
 @TITULOPRINCIPAL   VARCHAR(128), 
@@ -362,7 +382,7 @@ AS
 
             SELECT @IDENTITY = SCOPE_IDENTITY() 
 
-            /*TABLA SEGMENTACION*/ 
+            /*TABLA SEGMENTACIÓN*/ 
             IF ( @REGIONID != '@' 
                  AND @ZONAID != '@' 
                  AND @ESTADO != '@' 
@@ -427,7 +447,7 @@ AS
             SELECT @IDENTITY = @COMUNICADOID 
 
         /*TABLA SEGMENATCIONCOMUNICADO*/ 
-            /*TABLA SEGMENTACI�N*/ 
+            /*TABLA SEGMENTACIÓN*/ 
             IF ( @REGIONID != '@' 
                  AND @ZONAID != '@' 
                  AND @ESTADO != '@' 
@@ -496,7 +516,7 @@ AS
               END 
         END 
 
-      /*ACTUALIZAMOS LA ZONA, REGION, SEGMENTACION CONSULTORA*/ 
+      /*ACTUALIZAMOS LA ZONA, REGIÓN, SEGMENTACIÓN CONSULTORA*/ 
       SELECT @SEGMENTACIONCONSULTORA = CASE 
                                          WHEN CAST(CONSULTORA.VALOR AS INT) != 0 
                                        THEN 
@@ -540,13 +560,23 @@ AS
                          FROM   DBO.SPLIT (@CODIGOCONSULTORA, '@')) CONSULTORA 
                      ON ESTADO.ID = CONSULTORA.ID 
 
+        IF ( @REGIONID != '@' 
+                 AND @ZONAID != '@' 
+                 AND @ESTADO != '@' 
+                 AND @CODIGOCONSULTORA != '@' ) 
+              BEGIN 
+
       UPDATE COMUNICADO 
       SET    SEGMENTACIONCONSULTORA = @SEGMENTACIONCONSULTORA, 
              SEGMENTACIONREGIONZONA = @SEGMENTACIONREGIONZONA, 
              SEGMENTACIONESTADOACTIVIDAD = @SEGMENTACIONESTADOACTIVIDAD 
       WHERE  COMUNICADOID = @IDENTITY 
+
+	  END
  
   END 
+
+ 
 GO
 USE [BelcorpColombia];
 GO
@@ -559,6 +589,11 @@ IF EXISTS (
 	DROP PROCEDURE [dbo].[GuardarPopup]
 GO
 
+/*   
+CREADO POR  : PAQUIRRI SEPERAK   
+FECHA : 20/02/2019   
+DESCRIPCIÓN : REGISTRA UN POPUP DE CONTENIDO 
+*/ 
 CREATE PROCEDURE [dbo].[GuardarPopup] 
 @COMUNICADOID      INT, 
 @TITULOPRINCIPAL   VARCHAR(128), 
@@ -637,7 +672,7 @@ AS
 
             SELECT @IDENTITY = SCOPE_IDENTITY() 
 
-            /*TABLA SEGMENTACION*/ 
+            /*TABLA SEGMENTACIÓN*/ 
             IF ( @REGIONID != '@' 
                  AND @ZONAID != '@' 
                  AND @ESTADO != '@' 
@@ -702,7 +737,7 @@ AS
             SELECT @IDENTITY = @COMUNICADOID 
 
         /*TABLA SEGMENATCIONCOMUNICADO*/ 
-            /*TABLA SEGMENTACI�N*/ 
+            /*TABLA SEGMENTACIÓN*/ 
             IF ( @REGIONID != '@' 
                  AND @ZONAID != '@' 
                  AND @ESTADO != '@' 
@@ -771,7 +806,7 @@ AS
               END 
         END 
 
-      /*ACTUALIZAMOS LA ZONA, REGION, SEGMENTACION CONSULTORA*/ 
+      /*ACTUALIZAMOS LA ZONA, REGIÓN, SEGMENTACIÓN CONSULTORA*/ 
       SELECT @SEGMENTACIONCONSULTORA = CASE 
                                          WHEN CAST(CONSULTORA.VALOR AS INT) != 0 
                                        THEN 
@@ -815,13 +850,23 @@ AS
                          FROM   DBO.SPLIT (@CODIGOCONSULTORA, '@')) CONSULTORA 
                      ON ESTADO.ID = CONSULTORA.ID 
 
+        IF ( @REGIONID != '@' 
+                 AND @ZONAID != '@' 
+                 AND @ESTADO != '@' 
+                 AND @CODIGOCONSULTORA != '@' ) 
+              BEGIN 
+
       UPDATE COMUNICADO 
       SET    SEGMENTACIONCONSULTORA = @SEGMENTACIONCONSULTORA, 
              SEGMENTACIONREGIONZONA = @SEGMENTACIONREGIONZONA, 
              SEGMENTACIONESTADOACTIVIDAD = @SEGMENTACIONESTADOACTIVIDAD 
       WHERE  COMUNICADOID = @IDENTITY 
+
+	  END
  
   END 
+
+ 
 GO
 USE [BelcorpCostaRica];
 GO
@@ -834,6 +879,11 @@ IF EXISTS (
 	DROP PROCEDURE [dbo].[GuardarPopup]
 GO
 
+/*   
+CREADO POR  : PAQUIRRI SEPERAK   
+FECHA : 20/02/2019   
+DESCRIPCIÓN : REGISTRA UN POPUP DE CONTENIDO 
+*/ 
 CREATE PROCEDURE [dbo].[GuardarPopup] 
 @COMUNICADOID      INT, 
 @TITULOPRINCIPAL   VARCHAR(128), 
@@ -912,7 +962,7 @@ AS
 
             SELECT @IDENTITY = SCOPE_IDENTITY() 
 
-            /*TABLA SEGMENTACION*/ 
+            /*TABLA SEGMENTACIÓN*/ 
             IF ( @REGIONID != '@' 
                  AND @ZONAID != '@' 
                  AND @ESTADO != '@' 
@@ -977,7 +1027,7 @@ AS
             SELECT @IDENTITY = @COMUNICADOID 
 
         /*TABLA SEGMENATCIONCOMUNICADO*/ 
-            /*TABLA SEGMENTACI�N*/ 
+            /*TABLA SEGMENTACIÓN*/ 
             IF ( @REGIONID != '@' 
                  AND @ZONAID != '@' 
                  AND @ESTADO != '@' 
@@ -1046,7 +1096,7 @@ AS
               END 
         END 
 
-      /*ACTUALIZAMOS LA ZONA, REGION, SEGMENTACION CONSULTORA*/ 
+      /*ACTUALIZAMOS LA ZONA, REGIÓN, SEGMENTACIÓN CONSULTORA*/ 
       SELECT @SEGMENTACIONCONSULTORA = CASE 
                                          WHEN CAST(CONSULTORA.VALOR AS INT) != 0 
                                        THEN 
@@ -1090,13 +1140,23 @@ AS
                          FROM   DBO.SPLIT (@CODIGOCONSULTORA, '@')) CONSULTORA 
                      ON ESTADO.ID = CONSULTORA.ID 
 
+        IF ( @REGIONID != '@' 
+                 AND @ZONAID != '@' 
+                 AND @ESTADO != '@' 
+                 AND @CODIGOCONSULTORA != '@' ) 
+              BEGIN 
+
       UPDATE COMUNICADO 
       SET    SEGMENTACIONCONSULTORA = @SEGMENTACIONCONSULTORA, 
              SEGMENTACIONREGIONZONA = @SEGMENTACIONREGIONZONA, 
              SEGMENTACIONESTADOACTIVIDAD = @SEGMENTACIONESTADOACTIVIDAD 
       WHERE  COMUNICADOID = @IDENTITY 
+
+	  END
  
   END 
+
+ 
 GO
 USE [BelcorpDominicana];
 GO
@@ -1109,6 +1169,11 @@ IF EXISTS (
 	DROP PROCEDURE [dbo].[GuardarPopup]
 GO
 
+/*   
+CREADO POR  : PAQUIRRI SEPERAK   
+FECHA : 20/02/2019   
+DESCRIPCIÓN : REGISTRA UN POPUP DE CONTENIDO 
+*/ 
 CREATE PROCEDURE [dbo].[GuardarPopup] 
 @COMUNICADOID      INT, 
 @TITULOPRINCIPAL   VARCHAR(128), 
@@ -1187,7 +1252,7 @@ AS
 
             SELECT @IDENTITY = SCOPE_IDENTITY() 
 
-            /*TABLA SEGMENTACION*/ 
+            /*TABLA SEGMENTACIÓN*/ 
             IF ( @REGIONID != '@' 
                  AND @ZONAID != '@' 
                  AND @ESTADO != '@' 
@@ -1252,7 +1317,7 @@ AS
             SELECT @IDENTITY = @COMUNICADOID 
 
         /*TABLA SEGMENATCIONCOMUNICADO*/ 
-            /*TABLA SEGMENTACI�N*/ 
+            /*TABLA SEGMENTACIÓN*/ 
             IF ( @REGIONID != '@' 
                  AND @ZONAID != '@' 
                  AND @ESTADO != '@' 
@@ -1321,7 +1386,7 @@ AS
               END 
         END 
 
-      /*ACTUALIZAMOS LA ZONA, REGION, SEGMENTACION CONSULTORA*/ 
+      /*ACTUALIZAMOS LA ZONA, REGIÓN, SEGMENTACIÓN CONSULTORA*/ 
       SELECT @SEGMENTACIONCONSULTORA = CASE 
                                          WHEN CAST(CONSULTORA.VALOR AS INT) != 0 
                                        THEN 
@@ -1365,13 +1430,23 @@ AS
                          FROM   DBO.SPLIT (@CODIGOCONSULTORA, '@')) CONSULTORA 
                      ON ESTADO.ID = CONSULTORA.ID 
 
+        IF ( @REGIONID != '@' 
+                 AND @ZONAID != '@' 
+                 AND @ESTADO != '@' 
+                 AND @CODIGOCONSULTORA != '@' ) 
+              BEGIN 
+
       UPDATE COMUNICADO 
       SET    SEGMENTACIONCONSULTORA = @SEGMENTACIONCONSULTORA, 
              SEGMENTACIONREGIONZONA = @SEGMENTACIONREGIONZONA, 
              SEGMENTACIONESTADOACTIVIDAD = @SEGMENTACIONESTADOACTIVIDAD 
       WHERE  COMUNICADOID = @IDENTITY 
+
+	  END
  
   END 
+
+ 
 GO
 USE [BelcorpEcuador];
 GO
@@ -1384,6 +1459,11 @@ IF EXISTS (
 	DROP PROCEDURE [dbo].[GuardarPopup]
 GO
 
+/*   
+CREADO POR  : PAQUIRRI SEPERAK   
+FECHA : 20/02/2019   
+DESCRIPCIÓN : REGISTRA UN POPUP DE CONTENIDO 
+*/ 
 CREATE PROCEDURE [dbo].[GuardarPopup] 
 @COMUNICADOID      INT, 
 @TITULOPRINCIPAL   VARCHAR(128), 
@@ -1462,7 +1542,7 @@ AS
 
             SELECT @IDENTITY = SCOPE_IDENTITY() 
 
-            /*TABLA SEGMENTACION*/ 
+            /*TABLA SEGMENTACIÓN*/ 
             IF ( @REGIONID != '@' 
                  AND @ZONAID != '@' 
                  AND @ESTADO != '@' 
@@ -1527,7 +1607,7 @@ AS
             SELECT @IDENTITY = @COMUNICADOID 
 
         /*TABLA SEGMENATCIONCOMUNICADO*/ 
-            /*TABLA SEGMENTACI�N*/ 
+            /*TABLA SEGMENTACIÓN*/ 
             IF ( @REGIONID != '@' 
                  AND @ZONAID != '@' 
                  AND @ESTADO != '@' 
@@ -1596,7 +1676,7 @@ AS
               END 
         END 
 
-      /*ACTUALIZAMOS LA ZONA, REGION, SEGMENTACION CONSULTORA*/ 
+      /*ACTUALIZAMOS LA ZONA, REGIÓN, SEGMENTACIÓN CONSULTORA*/ 
       SELECT @SEGMENTACIONCONSULTORA = CASE 
                                          WHEN CAST(CONSULTORA.VALOR AS INT) != 0 
                                        THEN 
@@ -1640,13 +1720,23 @@ AS
                          FROM   DBO.SPLIT (@CODIGOCONSULTORA, '@')) CONSULTORA 
                      ON ESTADO.ID = CONSULTORA.ID 
 
+        IF ( @REGIONID != '@' 
+                 AND @ZONAID != '@' 
+                 AND @ESTADO != '@' 
+                 AND @CODIGOCONSULTORA != '@' ) 
+              BEGIN 
+
       UPDATE COMUNICADO 
       SET    SEGMENTACIONCONSULTORA = @SEGMENTACIONCONSULTORA, 
              SEGMENTACIONREGIONZONA = @SEGMENTACIONREGIONZONA, 
              SEGMENTACIONESTADOACTIVIDAD = @SEGMENTACIONESTADOACTIVIDAD 
       WHERE  COMUNICADOID = @IDENTITY 
+
+	  END
  
   END 
+
+ 
 GO
 USE [BelcorpGuatemala];
 GO
@@ -1659,6 +1749,11 @@ IF EXISTS (
 	DROP PROCEDURE [dbo].[GuardarPopup]
 GO
 
+/*   
+CREADO POR  : PAQUIRRI SEPERAK   
+FECHA : 20/02/2019   
+DESCRIPCIÓN : REGISTRA UN POPUP DE CONTENIDO 
+*/ 
 CREATE PROCEDURE [dbo].[GuardarPopup] 
 @COMUNICADOID      INT, 
 @TITULOPRINCIPAL   VARCHAR(128), 
@@ -1737,7 +1832,7 @@ AS
 
             SELECT @IDENTITY = SCOPE_IDENTITY() 
 
-            /*TABLA SEGMENTACION*/ 
+            /*TABLA SEGMENTACIÓN*/ 
             IF ( @REGIONID != '@' 
                  AND @ZONAID != '@' 
                  AND @ESTADO != '@' 
@@ -1802,7 +1897,7 @@ AS
             SELECT @IDENTITY = @COMUNICADOID 
 
         /*TABLA SEGMENATCIONCOMUNICADO*/ 
-            /*TABLA SEGMENTACI�N*/ 
+            /*TABLA SEGMENTACIÓN*/ 
             IF ( @REGIONID != '@' 
                  AND @ZONAID != '@' 
                  AND @ESTADO != '@' 
@@ -1871,7 +1966,7 @@ AS
               END 
         END 
 
-      /*ACTUALIZAMOS LA ZONA, REGION, SEGMENTACION CONSULTORA*/ 
+      /*ACTUALIZAMOS LA ZONA, REGIÓN, SEGMENTACIÓN CONSULTORA*/ 
       SELECT @SEGMENTACIONCONSULTORA = CASE 
                                          WHEN CAST(CONSULTORA.VALOR AS INT) != 0 
                                        THEN 
@@ -1915,13 +2010,23 @@ AS
                          FROM   DBO.SPLIT (@CODIGOCONSULTORA, '@')) CONSULTORA 
                      ON ESTADO.ID = CONSULTORA.ID 
 
+        IF ( @REGIONID != '@' 
+                 AND @ZONAID != '@' 
+                 AND @ESTADO != '@' 
+                 AND @CODIGOCONSULTORA != '@' ) 
+              BEGIN 
+
       UPDATE COMUNICADO 
       SET    SEGMENTACIONCONSULTORA = @SEGMENTACIONCONSULTORA, 
              SEGMENTACIONREGIONZONA = @SEGMENTACIONREGIONZONA, 
              SEGMENTACIONESTADOACTIVIDAD = @SEGMENTACIONESTADOACTIVIDAD 
       WHERE  COMUNICADOID = @IDENTITY 
+
+	  END
  
   END 
+
+ 
 GO
 USE [BelcorpMexico];
 GO
@@ -1934,6 +2039,11 @@ IF EXISTS (
 	DROP PROCEDURE [dbo].[GuardarPopup]
 GO
 
+/*   
+CREADO POR  : PAQUIRRI SEPERAK   
+FECHA : 20/02/2019   
+DESCRIPCIÓN : REGISTRA UN POPUP DE CONTENIDO 
+*/ 
 CREATE PROCEDURE [dbo].[GuardarPopup] 
 @COMUNICADOID      INT, 
 @TITULOPRINCIPAL   VARCHAR(128), 
@@ -2012,7 +2122,7 @@ AS
 
             SELECT @IDENTITY = SCOPE_IDENTITY() 
 
-            /*TABLA SEGMENTACION*/ 
+            /*TABLA SEGMENTACIÓN*/ 
             IF ( @REGIONID != '@' 
                  AND @ZONAID != '@' 
                  AND @ESTADO != '@' 
@@ -2077,7 +2187,7 @@ AS
             SELECT @IDENTITY = @COMUNICADOID 
 
         /*TABLA SEGMENATCIONCOMUNICADO*/ 
-            /*TABLA SEGMENTACI�N*/ 
+            /*TABLA SEGMENTACIÓN*/ 
             IF ( @REGIONID != '@' 
                  AND @ZONAID != '@' 
                  AND @ESTADO != '@' 
@@ -2146,7 +2256,7 @@ AS
               END 
         END 
 
-      /*ACTUALIZAMOS LA ZONA, REGION, SEGMENTACION CONSULTORA*/ 
+      /*ACTUALIZAMOS LA ZONA, REGIÓN, SEGMENTACIÓN CONSULTORA*/ 
       SELECT @SEGMENTACIONCONSULTORA = CASE 
                                          WHEN CAST(CONSULTORA.VALOR AS INT) != 0 
                                        THEN 
@@ -2190,13 +2300,23 @@ AS
                          FROM   DBO.SPLIT (@CODIGOCONSULTORA, '@')) CONSULTORA 
                      ON ESTADO.ID = CONSULTORA.ID 
 
+        IF ( @REGIONID != '@' 
+                 AND @ZONAID != '@' 
+                 AND @ESTADO != '@' 
+                 AND @CODIGOCONSULTORA != '@' ) 
+              BEGIN 
+
       UPDATE COMUNICADO 
       SET    SEGMENTACIONCONSULTORA = @SEGMENTACIONCONSULTORA, 
              SEGMENTACIONREGIONZONA = @SEGMENTACIONREGIONZONA, 
              SEGMENTACIONESTADOACTIVIDAD = @SEGMENTACIONESTADOACTIVIDAD 
       WHERE  COMUNICADOID = @IDENTITY 
+
+	  END
  
   END 
+
+ 
 GO
 USE [BelcorpPanama];
 GO
@@ -2209,6 +2329,11 @@ IF EXISTS (
 	DROP PROCEDURE [dbo].[GuardarPopup]
 GO
 
+/*   
+CREADO POR  : PAQUIRRI SEPERAK   
+FECHA : 20/02/2019   
+DESCRIPCIÓN : REGISTRA UN POPUP DE CONTENIDO 
+*/ 
 CREATE PROCEDURE [dbo].[GuardarPopup] 
 @COMUNICADOID      INT, 
 @TITULOPRINCIPAL   VARCHAR(128), 
@@ -2287,7 +2412,7 @@ AS
 
             SELECT @IDENTITY = SCOPE_IDENTITY() 
 
-            /*TABLA SEGMENTACION*/ 
+            /*TABLA SEGMENTACIÓN*/ 
             IF ( @REGIONID != '@' 
                  AND @ZONAID != '@' 
                  AND @ESTADO != '@' 
@@ -2352,7 +2477,7 @@ AS
             SELECT @IDENTITY = @COMUNICADOID 
 
         /*TABLA SEGMENATCIONCOMUNICADO*/ 
-            /*TABLA SEGMENTACI�N*/ 
+            /*TABLA SEGMENTACIÓN*/ 
             IF ( @REGIONID != '@' 
                  AND @ZONAID != '@' 
                  AND @ESTADO != '@' 
@@ -2421,7 +2546,7 @@ AS
               END 
         END 
 
-      /*ACTUALIZAMOS LA ZONA, REGION, SEGMENTACION CONSULTORA*/ 
+      /*ACTUALIZAMOS LA ZONA, REGIÓN, SEGMENTACIÓN CONSULTORA*/ 
       SELECT @SEGMENTACIONCONSULTORA = CASE 
                                          WHEN CAST(CONSULTORA.VALOR AS INT) != 0 
                                        THEN 
@@ -2465,13 +2590,23 @@ AS
                          FROM   DBO.SPLIT (@CODIGOCONSULTORA, '@')) CONSULTORA 
                      ON ESTADO.ID = CONSULTORA.ID 
 
+        IF ( @REGIONID != '@' 
+                 AND @ZONAID != '@' 
+                 AND @ESTADO != '@' 
+                 AND @CODIGOCONSULTORA != '@' ) 
+              BEGIN 
+
       UPDATE COMUNICADO 
       SET    SEGMENTACIONCONSULTORA = @SEGMENTACIONCONSULTORA, 
              SEGMENTACIONREGIONZONA = @SEGMENTACIONREGIONZONA, 
              SEGMENTACIONESTADOACTIVIDAD = @SEGMENTACIONESTADOACTIVIDAD 
       WHERE  COMUNICADOID = @IDENTITY 
+
+	  END
  
   END 
+
+ 
 GO
 USE [BelcorpPeru];
 GO
@@ -2484,6 +2619,11 @@ IF EXISTS (
 	DROP PROCEDURE [dbo].[GuardarPopup]
 GO
 
+/*   
+CREADO POR  : PAQUIRRI SEPERAK   
+FECHA : 20/02/2019   
+DESCRIPCIÓN : REGISTRA UN POPUP DE CONTENIDO 
+*/ 
 CREATE PROCEDURE [dbo].[GuardarPopup] 
 @COMUNICADOID      INT, 
 @TITULOPRINCIPAL   VARCHAR(128), 
@@ -2562,7 +2702,7 @@ AS
 
             SELECT @IDENTITY = SCOPE_IDENTITY() 
 
-            /*TABLA SEGMENTACION*/ 
+            /*TABLA SEGMENTACIÓN*/ 
             IF ( @REGIONID != '@' 
                  AND @ZONAID != '@' 
                  AND @ESTADO != '@' 
@@ -2627,7 +2767,7 @@ AS
             SELECT @IDENTITY = @COMUNICADOID 
 
         /*TABLA SEGMENATCIONCOMUNICADO*/ 
-            /*TABLA SEGMENTACI�N*/ 
+            /*TABLA SEGMENTACIÓN*/ 
             IF ( @REGIONID != '@' 
                  AND @ZONAID != '@' 
                  AND @ESTADO != '@' 
@@ -2696,7 +2836,7 @@ AS
               END 
         END 
 
-      /*ACTUALIZAMOS LA ZONA, REGION, SEGMENTACION CONSULTORA*/ 
+      /*ACTUALIZAMOS LA ZONA, REGIÓN, SEGMENTACIÓN CONSULTORA*/ 
       SELECT @SEGMENTACIONCONSULTORA = CASE 
                                          WHEN CAST(CONSULTORA.VALOR AS INT) != 0 
                                        THEN 
@@ -2740,13 +2880,23 @@ AS
                          FROM   DBO.SPLIT (@CODIGOCONSULTORA, '@')) CONSULTORA 
                      ON ESTADO.ID = CONSULTORA.ID 
 
+        IF ( @REGIONID != '@' 
+                 AND @ZONAID != '@' 
+                 AND @ESTADO != '@' 
+                 AND @CODIGOCONSULTORA != '@' ) 
+              BEGIN 
+
       UPDATE COMUNICADO 
       SET    SEGMENTACIONCONSULTORA = @SEGMENTACIONCONSULTORA, 
              SEGMENTACIONREGIONZONA = @SEGMENTACIONREGIONZONA, 
              SEGMENTACIONESTADOACTIVIDAD = @SEGMENTACIONESTADOACTIVIDAD 
       WHERE  COMUNICADOID = @IDENTITY 
+
+	  END
  
   END 
+
+ 
 GO
 USE [BelcorpPuertoRico];
 GO
@@ -2759,6 +2909,11 @@ IF EXISTS (
 	DROP PROCEDURE [dbo].[GuardarPopup]
 GO
 
+/*   
+CREADO POR  : PAQUIRRI SEPERAK   
+FECHA : 20/02/2019   
+DESCRIPCIÓN : REGISTRA UN POPUP DE CONTENIDO 
+*/ 
 CREATE PROCEDURE [dbo].[GuardarPopup] 
 @COMUNICADOID      INT, 
 @TITULOPRINCIPAL   VARCHAR(128), 
@@ -2837,7 +2992,7 @@ AS
 
             SELECT @IDENTITY = SCOPE_IDENTITY() 
 
-            /*TABLA SEGMENTACION*/ 
+            /*TABLA SEGMENTACIÓN*/ 
             IF ( @REGIONID != '@' 
                  AND @ZONAID != '@' 
                  AND @ESTADO != '@' 
@@ -2902,7 +3057,7 @@ AS
             SELECT @IDENTITY = @COMUNICADOID 
 
         /*TABLA SEGMENATCIONCOMUNICADO*/ 
-            /*TABLA SEGMENTACI�N*/ 
+            /*TABLA SEGMENTACIÓN*/ 
             IF ( @REGIONID != '@' 
                  AND @ZONAID != '@' 
                  AND @ESTADO != '@' 
@@ -2971,7 +3126,7 @@ AS
               END 
         END 
 
-      /*ACTUALIZAMOS LA ZONA, REGION, SEGMENTACION CONSULTORA*/ 
+      /*ACTUALIZAMOS LA ZONA, REGIÓN, SEGMENTACIÓN CONSULTORA*/ 
       SELECT @SEGMENTACIONCONSULTORA = CASE 
                                          WHEN CAST(CONSULTORA.VALOR AS INT) != 0 
                                        THEN 
@@ -3015,13 +3170,23 @@ AS
                          FROM   DBO.SPLIT (@CODIGOCONSULTORA, '@')) CONSULTORA 
                      ON ESTADO.ID = CONSULTORA.ID 
 
+        IF ( @REGIONID != '@' 
+                 AND @ZONAID != '@' 
+                 AND @ESTADO != '@' 
+                 AND @CODIGOCONSULTORA != '@' ) 
+              BEGIN 
+
       UPDATE COMUNICADO 
       SET    SEGMENTACIONCONSULTORA = @SEGMENTACIONCONSULTORA, 
              SEGMENTACIONREGIONZONA = @SEGMENTACIONREGIONZONA, 
              SEGMENTACIONESTADOACTIVIDAD = @SEGMENTACIONESTADOACTIVIDAD 
       WHERE  COMUNICADOID = @IDENTITY 
+
+	  END
  
   END 
+
+ 
 GO
 USE [BelcorpSalvador];
 GO
@@ -3034,6 +3199,11 @@ IF EXISTS (
 	DROP PROCEDURE [dbo].[GuardarPopup]
 GO
 
+/*   
+CREADO POR  : PAQUIRRI SEPERAK   
+FECHA : 20/02/2019   
+DESCRIPCIÓN : REGISTRA UN POPUP DE CONTENIDO 
+*/ 
 CREATE PROCEDURE [dbo].[GuardarPopup] 
 @COMUNICADOID      INT, 
 @TITULOPRINCIPAL   VARCHAR(128), 
@@ -3112,7 +3282,7 @@ AS
 
             SELECT @IDENTITY = SCOPE_IDENTITY() 
 
-            /*TABLA SEGMENTACION*/ 
+            /*TABLA SEGMENTACIÓN*/ 
             IF ( @REGIONID != '@' 
                  AND @ZONAID != '@' 
                  AND @ESTADO != '@' 
@@ -3177,7 +3347,7 @@ AS
             SELECT @IDENTITY = @COMUNICADOID 
 
         /*TABLA SEGMENATCIONCOMUNICADO*/ 
-            /*TABLA SEGMENTACI�N*/ 
+            /*TABLA SEGMENTACIÓN*/ 
             IF ( @REGIONID != '@' 
                  AND @ZONAID != '@' 
                  AND @ESTADO != '@' 
@@ -3246,7 +3416,7 @@ AS
               END 
         END 
 
-      /*ACTUALIZAMOS LA ZONA, REGION, SEGMENTACION CONSULTORA*/ 
+      /*ACTUALIZAMOS LA ZONA, REGIÓN, SEGMENTACIÓN CONSULTORA*/ 
       SELECT @SEGMENTACIONCONSULTORA = CASE 
                                          WHEN CAST(CONSULTORA.VALOR AS INT) != 0 
                                        THEN 
@@ -3290,11 +3460,21 @@ AS
                          FROM   DBO.SPLIT (@CODIGOCONSULTORA, '@')) CONSULTORA 
                      ON ESTADO.ID = CONSULTORA.ID 
 
+        IF ( @REGIONID != '@' 
+                 AND @ZONAID != '@' 
+                 AND @ESTADO != '@' 
+                 AND @CODIGOCONSULTORA != '@' ) 
+              BEGIN 
+
       UPDATE COMUNICADO 
       SET    SEGMENTACIONCONSULTORA = @SEGMENTACIONCONSULTORA, 
              SEGMENTACIONREGIONZONA = @SEGMENTACIONREGIONZONA, 
              SEGMENTACIONESTADOACTIVIDAD = @SEGMENTACIONESTADOACTIVIDAD 
       WHERE  COMUNICADOID = @IDENTITY 
+
+	  END
  
   END 
+
+ 
 GO

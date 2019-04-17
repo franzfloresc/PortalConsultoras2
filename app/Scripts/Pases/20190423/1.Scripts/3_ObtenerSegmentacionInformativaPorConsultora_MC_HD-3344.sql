@@ -1,5 +1,19 @@
 ﻿USE [BelcorpBolivia];
 GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects 
+	WHERE object_id = 
+	OBJECT_ID(N'[dbo].[Obtenersegmentacioninformativaporconsultora]') 
+	AND type in (N'P', N'PC')
+) 
+	DROP PROCEDURE [dbo].[Obtenersegmentacioninformativaporconsultora]
+GO
+/*
+-- Nombre				: Obtenersegmentacioninformativaporconsultora									 
+-- Objetivo				: Retorna las configuraciones para la vista del popup informativo
+-- Creacion				: P.S.O HD-3680 MC 20190416									  							  
+*/
 CREATE PROCEDURE DBO.Obtenersegmentacioninformativaporconsultora 
 AS 
   BEGIN 
@@ -11,9 +25,9 @@ AS
       DECLARE @SEGMENTACIONREGIONZONA INT 
       DECLARE @SEGMENTACIONESTADOACTIVIDAD INT 
 
-      SELECT @TABLALOGICADATOSID = TABLALOGICADATOSID 
+      SELECT  @TABLALOGICADATOSID=TABLALOGICADATOSID 
       FROM   TABLALOGICADATOS 
-      WHERE  CODIGO = '9000' 
+      WHERE  TablaLogicaID=171
 
       SELECT @SEGMENTACIONID = CASE 
                                  WHEN (SELECT COUNT(1) 
@@ -92,10 +106,25 @@ AS
 
       SET NOCOUNT OFF 
   END 
+  GO
 
 GO
 USE [BelcorpChile];
 GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects 
+	WHERE object_id = 
+	OBJECT_ID(N'[dbo].[Obtenersegmentacioninformativaporconsultora]') 
+	AND type in (N'P', N'PC')
+) 
+	DROP PROCEDURE [dbo].[Obtenersegmentacioninformativaporconsultora]
+GO
+/*
+-- Nombre				: Obtenersegmentacioninformativaporconsultora									 
+-- Objetivo				: Retorna las configuraciones para la vista del popup informativo
+-- Creacion				: P.S.O HD-3680 MC 20190416									  							  
+*/
 CREATE PROCEDURE DBO.Obtenersegmentacioninformativaporconsultora 
 AS 
   BEGIN 
@@ -107,9 +136,9 @@ AS
       DECLARE @SEGMENTACIONREGIONZONA INT 
       DECLARE @SEGMENTACIONESTADOACTIVIDAD INT 
 
-      SELECT @TABLALOGICADATOSID = TABLALOGICADATOSID 
+      SELECT  @TABLALOGICADATOSID=TABLALOGICADATOSID 
       FROM   TABLALOGICADATOS 
-      WHERE  CODIGO = '9000' 
+      WHERE  TablaLogicaID=171
 
       SELECT @SEGMENTACIONID = CASE 
                                  WHEN (SELECT COUNT(1) 
@@ -188,10 +217,25 @@ AS
 
       SET NOCOUNT OFF 
   END 
+  GO
 
 GO
 USE [BelcorpColombia];
 GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects 
+	WHERE object_id = 
+	OBJECT_ID(N'[dbo].[Obtenersegmentacioninformativaporconsultora]') 
+	AND type in (N'P', N'PC')
+) 
+	DROP PROCEDURE [dbo].[Obtenersegmentacioninformativaporconsultora]
+GO
+/*
+-- Nombre				: Obtenersegmentacioninformativaporconsultora									 
+-- Objetivo				: Retorna las configuraciones para la vista del popup informativo
+-- Creacion				: P.S.O HD-3680 MC 20190416									  							  
+*/
 CREATE PROCEDURE DBO.Obtenersegmentacioninformativaporconsultora 
 AS 
   BEGIN 
@@ -203,9 +247,9 @@ AS
       DECLARE @SEGMENTACIONREGIONZONA INT 
       DECLARE @SEGMENTACIONESTADOACTIVIDAD INT 
 
-      SELECT @TABLALOGICADATOSID = TABLALOGICADATOSID 
+      SELECT  @TABLALOGICADATOSID=TABLALOGICADATOSID 
       FROM   TABLALOGICADATOS 
-      WHERE  CODIGO = '9000' 
+      WHERE  TablaLogicaID=171
 
       SELECT @SEGMENTACIONID = CASE 
                                  WHEN (SELECT COUNT(1) 
@@ -284,10 +328,25 @@ AS
 
       SET NOCOUNT OFF 
   END 
+  GO
 
 GO
 USE [BelcorpCostaRica];
 GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects 
+	WHERE object_id = 
+	OBJECT_ID(N'[dbo].[Obtenersegmentacioninformativaporconsultora]') 
+	AND type in (N'P', N'PC')
+) 
+	DROP PROCEDURE [dbo].[Obtenersegmentacioninformativaporconsultora]
+GO
+/*
+-- Nombre				: Obtenersegmentacioninformativaporconsultora									 
+-- Objetivo				: Retorna las configuraciones para la vista del popup informativo
+-- Creacion				: P.S.O HD-3680 MC 20190416									  							  
+*/
 CREATE PROCEDURE DBO.Obtenersegmentacioninformativaporconsultora 
 AS 
   BEGIN 
@@ -299,9 +358,9 @@ AS
       DECLARE @SEGMENTACIONREGIONZONA INT 
       DECLARE @SEGMENTACIONESTADOACTIVIDAD INT 
 
-      SELECT @TABLALOGICADATOSID = TABLALOGICADATOSID 
+      SELECT  @TABLALOGICADATOSID=TABLALOGICADATOSID 
       FROM   TABLALOGICADATOS 
-      WHERE  CODIGO = '9000' 
+      WHERE  TablaLogicaID=171
 
       SELECT @SEGMENTACIONID = CASE 
                                  WHEN (SELECT COUNT(1) 
@@ -380,10 +439,25 @@ AS
 
       SET NOCOUNT OFF 
   END 
+  GO
 
 GO
 USE [BelcorpDominicana];
 GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects 
+	WHERE object_id = 
+	OBJECT_ID(N'[dbo].[Obtenersegmentacioninformativaporconsultora]') 
+	AND type in (N'P', N'PC')
+) 
+	DROP PROCEDURE [dbo].[Obtenersegmentacioninformativaporconsultora]
+GO
+/*
+-- Nombre				: Obtenersegmentacioninformativaporconsultora									 
+-- Objetivo				: Retorna las configuraciones para la vista del popup informativo
+-- Creacion				: P.S.O HD-3680 MC 20190416									  							  
+*/
 CREATE PROCEDURE DBO.Obtenersegmentacioninformativaporconsultora 
 AS 
   BEGIN 
@@ -395,9 +469,9 @@ AS
       DECLARE @SEGMENTACIONREGIONZONA INT 
       DECLARE @SEGMENTACIONESTADOACTIVIDAD INT 
 
-      SELECT @TABLALOGICADATOSID = TABLALOGICADATOSID 
+      SELECT  @TABLALOGICADATOSID=TABLALOGICADATOSID 
       FROM   TABLALOGICADATOS 
-      WHERE  CODIGO = '9000' 
+      WHERE  TablaLogicaID=171
 
       SELECT @SEGMENTACIONID = CASE 
                                  WHEN (SELECT COUNT(1) 
@@ -476,10 +550,25 @@ AS
 
       SET NOCOUNT OFF 
   END 
+  GO
 
 GO
 USE [BelcorpEcuador];
 GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects 
+	WHERE object_id = 
+	OBJECT_ID(N'[dbo].[Obtenersegmentacioninformativaporconsultora]') 
+	AND type in (N'P', N'PC')
+) 
+	DROP PROCEDURE [dbo].[Obtenersegmentacioninformativaporconsultora]
+GO
+/*
+-- Nombre				: Obtenersegmentacioninformativaporconsultora									 
+-- Objetivo				: Retorna las configuraciones para la vista del popup informativo
+-- Creacion				: P.S.O HD-3680 MC 20190416									  							  
+*/
 CREATE PROCEDURE DBO.Obtenersegmentacioninformativaporconsultora 
 AS 
   BEGIN 
@@ -491,9 +580,9 @@ AS
       DECLARE @SEGMENTACIONREGIONZONA INT 
       DECLARE @SEGMENTACIONESTADOACTIVIDAD INT 
 
-      SELECT @TABLALOGICADATOSID = TABLALOGICADATOSID 
+      SELECT  @TABLALOGICADATOSID=TABLALOGICADATOSID 
       FROM   TABLALOGICADATOS 
-      WHERE  CODIGO = '9000' 
+      WHERE  TablaLogicaID=171
 
       SELECT @SEGMENTACIONID = CASE 
                                  WHEN (SELECT COUNT(1) 
@@ -572,10 +661,25 @@ AS
 
       SET NOCOUNT OFF 
   END 
+  GO
 
 GO
 USE [BelcorpGuatemala];
 GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects 
+	WHERE object_id = 
+	OBJECT_ID(N'[dbo].[Obtenersegmentacioninformativaporconsultora]') 
+	AND type in (N'P', N'PC')
+) 
+	DROP PROCEDURE [dbo].[Obtenersegmentacioninformativaporconsultora]
+GO
+/*
+-- Nombre				: Obtenersegmentacioninformativaporconsultora									 
+-- Objetivo				: Retorna las configuraciones para la vista del popup informativo
+-- Creacion				: P.S.O HD-3680 MC 20190416									  							  
+*/
 CREATE PROCEDURE DBO.Obtenersegmentacioninformativaporconsultora 
 AS 
   BEGIN 
@@ -587,9 +691,9 @@ AS
       DECLARE @SEGMENTACIONREGIONZONA INT 
       DECLARE @SEGMENTACIONESTADOACTIVIDAD INT 
 
-      SELECT @TABLALOGICADATOSID = TABLALOGICADATOSID 
+      SELECT  @TABLALOGICADATOSID=TABLALOGICADATOSID 
       FROM   TABLALOGICADATOS 
-      WHERE  CODIGO = '9000' 
+      WHERE  TablaLogicaID=171
 
       SELECT @SEGMENTACIONID = CASE 
                                  WHEN (SELECT COUNT(1) 
@@ -668,10 +772,25 @@ AS
 
       SET NOCOUNT OFF 
   END 
+  GO
 
 GO
 USE [BelcorpMexico];
 GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects 
+	WHERE object_id = 
+	OBJECT_ID(N'[dbo].[Obtenersegmentacioninformativaporconsultora]') 
+	AND type in (N'P', N'PC')
+) 
+	DROP PROCEDURE [dbo].[Obtenersegmentacioninformativaporconsultora]
+GO
+/*
+-- Nombre				: Obtenersegmentacioninformativaporconsultora									 
+-- Objetivo				: Retorna las configuraciones para la vista del popup informativo
+-- Creacion				: P.S.O HD-3680 MC 20190416									  							  
+*/
 CREATE PROCEDURE DBO.Obtenersegmentacioninformativaporconsultora 
 AS 
   BEGIN 
@@ -683,9 +802,9 @@ AS
       DECLARE @SEGMENTACIONREGIONZONA INT 
       DECLARE @SEGMENTACIONESTADOACTIVIDAD INT 
 
-      SELECT @TABLALOGICADATOSID = TABLALOGICADATOSID 
+      SELECT  @TABLALOGICADATOSID=TABLALOGICADATOSID 
       FROM   TABLALOGICADATOS 
-      WHERE  CODIGO = '9000' 
+      WHERE  TablaLogicaID=171
 
       SELECT @SEGMENTACIONID = CASE 
                                  WHEN (SELECT COUNT(1) 
@@ -764,10 +883,25 @@ AS
 
       SET NOCOUNT OFF 
   END 
+  GO
 
 GO
 USE [BelcorpPanama];
 GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects 
+	WHERE object_id = 
+	OBJECT_ID(N'[dbo].[Obtenersegmentacioninformativaporconsultora]') 
+	AND type in (N'P', N'PC')
+) 
+	DROP PROCEDURE [dbo].[Obtenersegmentacioninformativaporconsultora]
+GO
+/*
+-- Nombre				: Obtenersegmentacioninformativaporconsultora									 
+-- Objetivo				: Retorna las configuraciones para la vista del popup informativo
+-- Creacion				: P.S.O HD-3680 MC 20190416									  							  
+*/
 CREATE PROCEDURE DBO.Obtenersegmentacioninformativaporconsultora 
 AS 
   BEGIN 
@@ -779,9 +913,9 @@ AS
       DECLARE @SEGMENTACIONREGIONZONA INT 
       DECLARE @SEGMENTACIONESTADOACTIVIDAD INT 
 
-      SELECT @TABLALOGICADATOSID = TABLALOGICADATOSID 
+      SELECT  @TABLALOGICADATOSID=TABLALOGICADATOSID 
       FROM   TABLALOGICADATOS 
-      WHERE  CODIGO = '9000' 
+      WHERE  TablaLogicaID=171
 
       SELECT @SEGMENTACIONID = CASE 
                                  WHEN (SELECT COUNT(1) 
@@ -860,10 +994,25 @@ AS
 
       SET NOCOUNT OFF 
   END 
+  GO
 
 GO
 USE [BelcorpPeru];
 GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects 
+	WHERE object_id = 
+	OBJECT_ID(N'[dbo].[Obtenersegmentacioninformativaporconsultora]') 
+	AND type in (N'P', N'PC')
+) 
+	DROP PROCEDURE [dbo].[Obtenersegmentacioninformativaporconsultora]
+GO
+/*
+-- Nombre				: Obtenersegmentacioninformativaporconsultora									 
+-- Objetivo				: Retorna las configuraciones para la vista del popup informativo
+-- Creacion				: P.S.O HD-3680 MC 20190416									  							  
+*/
 CREATE PROCEDURE DBO.Obtenersegmentacioninformativaporconsultora 
 AS 
   BEGIN 
@@ -875,9 +1024,9 @@ AS
       DECLARE @SEGMENTACIONREGIONZONA INT 
       DECLARE @SEGMENTACIONESTADOACTIVIDAD INT 
 
-      SELECT @TABLALOGICADATOSID = TABLALOGICADATOSID 
+      SELECT  @TABLALOGICADATOSID=TABLALOGICADATOSID 
       FROM   TABLALOGICADATOS 
-      WHERE  CODIGO = '9000' 
+      WHERE  TablaLogicaID=171
 
       SELECT @SEGMENTACIONID = CASE 
                                  WHEN (SELECT COUNT(1) 
@@ -956,10 +1105,25 @@ AS
 
       SET NOCOUNT OFF 
   END 
+  GO
 
 GO
 USE [BelcorpPuertoRico];
 GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects 
+	WHERE object_id = 
+	OBJECT_ID(N'[dbo].[Obtenersegmentacioninformativaporconsultora]') 
+	AND type in (N'P', N'PC')
+) 
+	DROP PROCEDURE [dbo].[Obtenersegmentacioninformativaporconsultora]
+GO
+/*
+-- Nombre				: Obtenersegmentacioninformativaporconsultora									 
+-- Objetivo				: Retorna las configuraciones para la vista del popup informativo
+-- Creacion				: P.S.O HD-3680 MC 20190416									  							  
+*/
 CREATE PROCEDURE DBO.Obtenersegmentacioninformativaporconsultora 
 AS 
   BEGIN 
@@ -971,9 +1135,9 @@ AS
       DECLARE @SEGMENTACIONREGIONZONA INT 
       DECLARE @SEGMENTACIONESTADOACTIVIDAD INT 
 
-      SELECT @TABLALOGICADATOSID = TABLALOGICADATOSID 
+      SELECT  @TABLALOGICADATOSID=TABLALOGICADATOSID 
       FROM   TABLALOGICADATOS 
-      WHERE  CODIGO = '9000' 
+      WHERE  TablaLogicaID=171
 
       SELECT @SEGMENTACIONID = CASE 
                                  WHEN (SELECT COUNT(1) 
@@ -1052,10 +1216,25 @@ AS
 
       SET NOCOUNT OFF 
   END 
+  GO
 
 GO
 USE [BelcorpSalvador];
 GO
+
+IF EXISTS (
+	SELECT * FROM sys.objects 
+	WHERE object_id = 
+	OBJECT_ID(N'[dbo].[Obtenersegmentacioninformativaporconsultora]') 
+	AND type in (N'P', N'PC')
+) 
+	DROP PROCEDURE [dbo].[Obtenersegmentacioninformativaporconsultora]
+GO
+/*
+-- Nombre				: Obtenersegmentacioninformativaporconsultora									 
+-- Objetivo				: Retorna las configuraciones para la vista del popup informativo
+-- Creacion				: P.S.O HD-3680 MC 20190416									  							  
+*/
 CREATE PROCEDURE DBO.Obtenersegmentacioninformativaporconsultora 
 AS 
   BEGIN 
@@ -1067,9 +1246,9 @@ AS
       DECLARE @SEGMENTACIONREGIONZONA INT 
       DECLARE @SEGMENTACIONESTADOACTIVIDAD INT 
 
-      SELECT @TABLALOGICADATOSID = TABLALOGICADATOSID 
+      SELECT  @TABLALOGICADATOSID=TABLALOGICADATOSID 
       FROM   TABLALOGICADATOS 
-      WHERE  CODIGO = '9000' 
+      WHERE  TablaLogicaID=171
 
       SELECT @SEGMENTACIONID = CASE 
                                  WHEN (SELECT COUNT(1) 
@@ -1148,5 +1327,6 @@ AS
 
       SET NOCOUNT OFF 
   END 
+  GO
 
 GO
