@@ -1033,19 +1033,20 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 
 .opcion_cdr_checkbox--terminosEntregaProductoSet,
 .opcion_cdr_seleccionada_terminos_entrega_producto_texto {
-    vertical-align: middle;
+    vertical-align: top;
 }
 
 .opcion_cdr_checkbox--terminosEntregaProductoSet {
     position: relative;
     width: 20px;
     height: 20px;
-    top: 0;
+    top: 5px;
     right: 0;
     margin-right: 8px;
 }
 
 .opcion_cdr_seleccionada_terminos_entrega_producto_texto {
+    width: 89%;
     line-height: 20px;
 }
 
