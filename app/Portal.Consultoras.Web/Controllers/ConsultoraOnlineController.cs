@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceUsuario;
@@ -18,7 +19,7 @@ namespace Portal.Consultoras.Web.Controllers
     public class ConsultoraOnlineController : BaseController
     {
         #region Configuracion de Paginado
-
+        private readonly ConsultoraOnlineProvider _consultoraOnlineProvider;
         MisPedidosModel objMisPedidos;
         readonly int registrosPagina = 5;
         int indiceActualPagina = 0;
@@ -28,6 +29,7 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
 
         public ConsultoraOnlineController()
+               : this(new ConsultoraOnlineProvider())
         {
             this.registrosPagina = 5;
 
@@ -42,6 +44,15 @@ namespace Portal.Consultoras.Web.Controllers
             SessionManager.SetobjMisPedidos(null);
             SessionManager.SetobjMisPedidosDetalle(null);
             SessionManager.SetobjMisPedidosDetalleVal(null);
+        }
+
+        public ConsultoraOnlineController(ConsultoraOnlineProvider consultoraOnlineProvider)
+        {
+            if (_configuracionManagerProvider.GetPaisesEsikaFromConfig().Contains(userData.CodigoISO))
+            {
+                isEsika = true;
+            }
+            _consultoraOnlineProvider = consultoraOnlineProvider;
         }
 
         public ActionResult Index(string activation)
@@ -2143,7 +2154,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Pendientes()
         {
             MisPedidosModel model = new MisPedidosModel();
-
+            ViewBag.PaisISOx = userData.CodigoISO;
             try
             {
                 var lstPedidos = new List<BEMisPedidos>();
@@ -3192,5 +3203,107 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #endregion
+
+
+
+
+        [HttpPost]
+        public JsonResult PendientesMedioDeCompra()
+        {
+            try
+            {
+                var model = new PedidosPendientesMedioPagoModel();
+                var parametrosRecomendado = new RecomendadoRequest();
+                var oListaCatalogo = new List<MisPedidosDetalleModel2>();
+                var productosSolicitados = new List<ProductoSolicitado>();
+
+                var pedidosSesion = SessionManager.GetobjMisPedidos().ListaPedidos;
+
+
+                ///////////////////////////////
+                pedidosSesion.ForEach(x=> { x.DetallePedido.FirstOrDefault().Elegido = true; });
+                //////////////////////////////////
+
+
+                pedidosSesion.ForEach(pedido =>
+                {
+                    if (pedido.DetallePedido.Any(i => i.Elegido == true))
+                    {
+                        var odetalleTemporal = CargarMisPedidosDetalleDatos(pedido.MarcaID, pedido.DetallePedido.Where(i => i.Elegido == true).ToList());
+                        var detallePedidos = Mapper.Map<List<BEMisPedidosDetalle>, List<MisPedidosDetalleModel2>>(odetalleTemporal);
+                        detallePedidos.Update(p => p.CodigoIso = userData.CodigoISO);
+                        oListaCatalogo.AddRange(detallePedidos);
+                    }
+                });
+
+                model.ListaCatalogo = new List<MisPedidosDetalleModel2>();
+
+                parametrosRecomendado.codigoPais = userData.CodigoISO;
+                parametrosRecomendado.codigocampania = userData.CampaniaID.ToString();
+                parametrosRecomendado.codigoZona = userData.CodigoZona;
+                parametrosRecomendado.origen = "sb-desktop";
+                parametrosRecomendado.codigoConsultora = userData.CodigoConsultora;
+                parametrosRecomendado.cuv = string.Empty;
+                parametrosRecomendado.personalizaciones = string.Empty;
+
+                parametrosRecomendado.configuracion = new Configuracion()
+                {
+                    sociaEmpresaria = userData.Lider.ToString(),
+                    suscripcionActiva = (revistaDigital.EsSuscrita && revistaDigital.EsActiva).ToString(),
+                    mdo = revistaDigital.ActivoMdo.ToString(),
+                    rd = revistaDigital.TieneRDC.ToString(),
+                    rdi = revistaDigital.TieneRDI.ToString(),
+                    rdr = revistaDigital.TieneRDCR.ToString(),
+                    diaFacturacion = userData.DiaFacturacion,
+                    mostrarProductoConsultado = IsMobile().ToString()
+                };
+
+                oListaCatalogo.ForEach(x =>
+                {
+                    if (productosSolicitados.Any(i => i.CodigoSap == x.CodigoSap))
+                    {
+                        productosSolicitados.FirstOrDefault(i => i.CodigoSap == x.CodigoSap).Cantidad = productosSolicitados.FirstOrDefault(i => i.CodigoSap == x.CodigoSap).Cantidad + x.Cantidad;
+                    }
+                    else
+                    {
+                        productosSolicitados.Add(new ProductoSolicitado()
+                        {
+                            Cantidad = x.Cantidad,
+                            CodigoSap = x.CodigoSap
+                        });
+                    }
+                });
+
+                parametrosRecomendado.productosSolicitados = productosSolicitados.ToArray();
+                parametrosRecomendado.codigoProducto = productosSolicitados.Select(x => x.CodigoSap).ToArray();
+
+                var oListaGana = _consultoraOnlineProvider.GetRecomendados(parametrosRecomendado);
+                model.ListaCatalogo = oListaCatalogo;
+                model.TotalCatalogo = oListaCatalogo.Sum(x => x.Cantidad * x.PrecioUnitario);
+                model.ListaGana = oListaGana;
+                model.TotalGana = oListaGana.Sum(x => x.Cantidad * x.Precio2);
+                model.GananciaGana = model.TotalCatalogo - model.TotalGana;
+               // ViewBag.PaisISOx = userData.CodigoISO;
+               
+
+                return Json(new
+                {
+                    result= model,
+                    success = true,
+                    message = "OK",
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (FaultException e)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(e, userData.CodigoConsultora, userData.CodigoISO);
+
+                return Json(new
+                {
+                    success = false,
+                    message = e.Message
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
     }
 }
