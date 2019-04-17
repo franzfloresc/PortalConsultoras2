@@ -777,6 +777,8 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 //Quitar 
                 periodo.Periodo = 201903;
 
+                //Producto comercial obtener la info
+
                 var kits = GetKits(paisId, campaniaId, periodo.Periodo, -1);
                 if (kits == null) return false;
 
