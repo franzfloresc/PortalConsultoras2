@@ -1,132 +1,408 @@
 ﻿USE [BelcorpBolivia];
 GO
-CREATE PROCEDURE ActivaPopupValidador
+IF EXISTS (
+	SELECT * FROM sys.objects 
+	WHERE object_id = 
+	OBJECT_ID(N'[dbo].[ActivaPopupValidador]') 
+	AND type in (N'P', N'PC')
+) 
+	DROP PROCEDURE [dbo].[ActivaPopupValidador]
+GO
+/*   
+CREADO POR  : PAQUIRRI SEPERAK   
+FECHA : 03/04/2019   
+DESCRIPCIÓN : Activa el popup para que informe sobre datos pendientes por actualizar
+*/ 
+
+CREATE PROCEDURE ActivaPopupValidador 
 	@estado INT
 AS
 BEGIN
 DECLARE @TablaLogicaDatosID  INT
-SELECT  @TablaLogicaDatosID=TablaLogicaDatosID FROM TABLALOGICADATOS WHERE Codigo='9000'
+SELECT  @TablaLogicaDatosID=TablaLogicaDatosID FROM TABLALOGICADATOS WHERE TablaLogicaID=171
 UPDATE TABLALOGICADATOS SET VALOR=@estado  WHERE TablaLogicaDatosID=@TablaLogicaDatosID
 END
+GO
+
+
+
+
+
+
+
+
 GO
 USE [BelcorpChile];
 GO
-CREATE PROCEDURE ActivaPopupValidador
+IF EXISTS (
+	SELECT * FROM sys.objects 
+	WHERE object_id = 
+	OBJECT_ID(N'[dbo].[ActivaPopupValidador]') 
+	AND type in (N'P', N'PC')
+) 
+	DROP PROCEDURE [dbo].[ActivaPopupValidador]
+GO
+/*   
+CREADO POR  : PAQUIRRI SEPERAK   
+FECHA : 03/04/2019   
+DESCRIPCIÓN : Activa el popup para que informe sobre datos pendientes por actualizar
+*/ 
+
+CREATE PROCEDURE ActivaPopupValidador 
 	@estado INT
 AS
 BEGIN
 DECLARE @TablaLogicaDatosID  INT
-SELECT  @TablaLogicaDatosID=TablaLogicaDatosID FROM TABLALOGICADATOS WHERE Codigo='9000'
+SELECT  @TablaLogicaDatosID=TablaLogicaDatosID FROM TABLALOGICADATOS WHERE TablaLogicaID=171
 UPDATE TABLALOGICADATOS SET VALOR=@estado  WHERE TablaLogicaDatosID=@TablaLogicaDatosID
 END
+GO
+
+
+
+
+
+
+
+
 GO
 USE [BelcorpColombia];
 GO
-CREATE PROCEDURE ActivaPopupValidador
+IF EXISTS (
+	SELECT * FROM sys.objects 
+	WHERE object_id = 
+	OBJECT_ID(N'[dbo].[ActivaPopupValidador]') 
+	AND type in (N'P', N'PC')
+) 
+	DROP PROCEDURE [dbo].[ActivaPopupValidador]
+GO
+/*   
+CREADO POR  : PAQUIRRI SEPERAK   
+FECHA : 03/04/2019   
+DESCRIPCIÓN : Activa el popup para que informe sobre datos pendientes por actualizar
+*/ 
+
+CREATE PROCEDURE ActivaPopupValidador 
 	@estado INT
 AS
 BEGIN
 DECLARE @TablaLogicaDatosID  INT
-SELECT  @TablaLogicaDatosID=TablaLogicaDatosID FROM TABLALOGICADATOS WHERE Codigo='9000'
+SELECT  @TablaLogicaDatosID=TablaLogicaDatosID FROM TABLALOGICADATOS WHERE TablaLogicaID=171
 UPDATE TABLALOGICADATOS SET VALOR=@estado  WHERE TablaLogicaDatosID=@TablaLogicaDatosID
 END
+GO
+
+
+
+
+
+
+
+
 GO
 USE [BelcorpCostaRica];
 GO
-CREATE PROCEDURE ActivaPopupValidador
+IF EXISTS (
+	SELECT * FROM sys.objects 
+	WHERE object_id = 
+	OBJECT_ID(N'[dbo].[ActivaPopupValidador]') 
+	AND type in (N'P', N'PC')
+) 
+	DROP PROCEDURE [dbo].[ActivaPopupValidador]
+GO
+/*   
+CREADO POR  : PAQUIRRI SEPERAK   
+FECHA : 03/04/2019   
+DESCRIPCIÓN : Activa el popup para que informe sobre datos pendientes por actualizar
+*/ 
+
+CREATE PROCEDURE ActivaPopupValidador 
 	@estado INT
 AS
 BEGIN
 DECLARE @TablaLogicaDatosID  INT
-SELECT  @TablaLogicaDatosID=TablaLogicaDatosID FROM TABLALOGICADATOS WHERE Codigo='9000'
+SELECT  @TablaLogicaDatosID=TablaLogicaDatosID FROM TABLALOGICADATOS WHERE TablaLogicaID=171
 UPDATE TABLALOGICADATOS SET VALOR=@estado  WHERE TablaLogicaDatosID=@TablaLogicaDatosID
 END
+GO
+
+
+
+
+
+
+
+
 GO
 USE [BelcorpDominicana];
 GO
-CREATE PROCEDURE ActivaPopupValidador
+IF EXISTS (
+	SELECT * FROM sys.objects 
+	WHERE object_id = 
+	OBJECT_ID(N'[dbo].[ActivaPopupValidador]') 
+	AND type in (N'P', N'PC')
+) 
+	DROP PROCEDURE [dbo].[ActivaPopupValidador]
+GO
+/*   
+CREADO POR  : PAQUIRRI SEPERAK   
+FECHA : 03/04/2019   
+DESCRIPCIÓN : Activa el popup para que informe sobre datos pendientes por actualizar
+*/ 
+
+CREATE PROCEDURE ActivaPopupValidador 
 	@estado INT
 AS
 BEGIN
 DECLARE @TablaLogicaDatosID  INT
-SELECT  @TablaLogicaDatosID=TablaLogicaDatosID FROM TABLALOGICADATOS WHERE Codigo='9000'
+SELECT  @TablaLogicaDatosID=TablaLogicaDatosID FROM TABLALOGICADATOS WHERE TablaLogicaID=171
 UPDATE TABLALOGICADATOS SET VALOR=@estado  WHERE TablaLogicaDatosID=@TablaLogicaDatosID
 END
+GO
+
+
+
+
+
+
+
+
 GO
 USE [BelcorpEcuador];
 GO
-CREATE PROCEDURE ActivaPopupValidador
+IF EXISTS (
+	SELECT * FROM sys.objects 
+	WHERE object_id = 
+	OBJECT_ID(N'[dbo].[ActivaPopupValidador]') 
+	AND type in (N'P', N'PC')
+) 
+	DROP PROCEDURE [dbo].[ActivaPopupValidador]
+GO
+/*   
+CREADO POR  : PAQUIRRI SEPERAK   
+FECHA : 03/04/2019   
+DESCRIPCIÓN : Activa el popup para que informe sobre datos pendientes por actualizar
+*/ 
+
+CREATE PROCEDURE ActivaPopupValidador 
 	@estado INT
 AS
 BEGIN
 DECLARE @TablaLogicaDatosID  INT
-SELECT  @TablaLogicaDatosID=TablaLogicaDatosID FROM TABLALOGICADATOS WHERE Codigo='9000'
+SELECT  @TablaLogicaDatosID=TablaLogicaDatosID FROM TABLALOGICADATOS WHERE TablaLogicaID=171
 UPDATE TABLALOGICADATOS SET VALOR=@estado  WHERE TablaLogicaDatosID=@TablaLogicaDatosID
 END
+GO
+
+
+
+
+
+
+
+
 GO
 USE [BelcorpGuatemala];
 GO
-CREATE PROCEDURE ActivaPopupValidador
+IF EXISTS (
+	SELECT * FROM sys.objects 
+	WHERE object_id = 
+	OBJECT_ID(N'[dbo].[ActivaPopupValidador]') 
+	AND type in (N'P', N'PC')
+) 
+	DROP PROCEDURE [dbo].[ActivaPopupValidador]
+GO
+/*   
+CREADO POR  : PAQUIRRI SEPERAK   
+FECHA : 03/04/2019   
+DESCRIPCIÓN : Activa el popup para que informe sobre datos pendientes por actualizar
+*/ 
+
+CREATE PROCEDURE ActivaPopupValidador 
 	@estado INT
 AS
 BEGIN
 DECLARE @TablaLogicaDatosID  INT
-SELECT  @TablaLogicaDatosID=TablaLogicaDatosID FROM TABLALOGICADATOS WHERE Codigo='9000'
+SELECT  @TablaLogicaDatosID=TablaLogicaDatosID FROM TABLALOGICADATOS WHERE TablaLogicaID=171
 UPDATE TABLALOGICADATOS SET VALOR=@estado  WHERE TablaLogicaDatosID=@TablaLogicaDatosID
 END
+GO
+
+
+
+
+
+
+
+
 GO
 USE [BelcorpMexico];
 GO
-CREATE PROCEDURE ActivaPopupValidador
+IF EXISTS (
+	SELECT * FROM sys.objects 
+	WHERE object_id = 
+	OBJECT_ID(N'[dbo].[ActivaPopupValidador]') 
+	AND type in (N'P', N'PC')
+) 
+	DROP PROCEDURE [dbo].[ActivaPopupValidador]
+GO
+/*   
+CREADO POR  : PAQUIRRI SEPERAK   
+FECHA : 03/04/2019   
+DESCRIPCIÓN : Activa el popup para que informe sobre datos pendientes por actualizar
+*/ 
+
+CREATE PROCEDURE ActivaPopupValidador 
 	@estado INT
 AS
 BEGIN
 DECLARE @TablaLogicaDatosID  INT
-SELECT  @TablaLogicaDatosID=TablaLogicaDatosID FROM TABLALOGICADATOS WHERE Codigo='9000'
+SELECT  @TablaLogicaDatosID=TablaLogicaDatosID FROM TABLALOGICADATOS WHERE TablaLogicaID=171
 UPDATE TABLALOGICADATOS SET VALOR=@estado  WHERE TablaLogicaDatosID=@TablaLogicaDatosID
 END
+GO
+
+
+
+
+
+
+
+
 GO
 USE [BelcorpPanama];
 GO
-CREATE PROCEDURE ActivaPopupValidador
+IF EXISTS (
+	SELECT * FROM sys.objects 
+	WHERE object_id = 
+	OBJECT_ID(N'[dbo].[ActivaPopupValidador]') 
+	AND type in (N'P', N'PC')
+) 
+	DROP PROCEDURE [dbo].[ActivaPopupValidador]
+GO
+/*   
+CREADO POR  : PAQUIRRI SEPERAK   
+FECHA : 03/04/2019   
+DESCRIPCIÓN : Activa el popup para que informe sobre datos pendientes por actualizar
+*/ 
+
+CREATE PROCEDURE ActivaPopupValidador 
 	@estado INT
 AS
 BEGIN
 DECLARE @TablaLogicaDatosID  INT
-SELECT  @TablaLogicaDatosID=TablaLogicaDatosID FROM TABLALOGICADATOS WHERE Codigo='9000'
+SELECT  @TablaLogicaDatosID=TablaLogicaDatosID FROM TABLALOGICADATOS WHERE TablaLogicaID=171
 UPDATE TABLALOGICADATOS SET VALOR=@estado  WHERE TablaLogicaDatosID=@TablaLogicaDatosID
 END
+GO
+
+
+
+
+
+
+
+
 GO
 USE [BelcorpPeru];
 GO
-CREATE PROCEDURE ActivaPopupValidador
+IF EXISTS (
+	SELECT * FROM sys.objects 
+	WHERE object_id = 
+	OBJECT_ID(N'[dbo].[ActivaPopupValidador]') 
+	AND type in (N'P', N'PC')
+) 
+	DROP PROCEDURE [dbo].[ActivaPopupValidador]
+GO
+/*   
+CREADO POR  : PAQUIRRI SEPERAK   
+FECHA : 03/04/2019   
+DESCRIPCIÓN : Activa el popup para que informe sobre datos pendientes por actualizar
+*/ 
+
+CREATE PROCEDURE ActivaPopupValidador 
 	@estado INT
 AS
 BEGIN
 DECLARE @TablaLogicaDatosID  INT
-SELECT  @TablaLogicaDatosID=TablaLogicaDatosID FROM TABLALOGICADATOS WHERE Codigo='9000'
+SELECT  @TablaLogicaDatosID=TablaLogicaDatosID FROM TABLALOGICADATOS WHERE TablaLogicaID=171
 UPDATE TABLALOGICADATOS SET VALOR=@estado  WHERE TablaLogicaDatosID=@TablaLogicaDatosID
 END
+GO
+
+
+
+
+
+
+
+
 GO
 USE [BelcorpPuertoRico];
 GO
-CREATE PROCEDURE ActivaPopupValidador
+IF EXISTS (
+	SELECT * FROM sys.objects 
+	WHERE object_id = 
+	OBJECT_ID(N'[dbo].[ActivaPopupValidador]') 
+	AND type in (N'P', N'PC')
+) 
+	DROP PROCEDURE [dbo].[ActivaPopupValidador]
+GO
+/*   
+CREADO POR  : PAQUIRRI SEPERAK   
+FECHA : 03/04/2019   
+DESCRIPCIÓN : Activa el popup para que informe sobre datos pendientes por actualizar
+*/ 
+
+CREATE PROCEDURE ActivaPopupValidador 
 	@estado INT
 AS
 BEGIN
 DECLARE @TablaLogicaDatosID  INT
-SELECT  @TablaLogicaDatosID=TablaLogicaDatosID FROM TABLALOGICADATOS WHERE Codigo='9000'
+SELECT  @TablaLogicaDatosID=TablaLogicaDatosID FROM TABLALOGICADATOS WHERE TablaLogicaID=171
 UPDATE TABLALOGICADATOS SET VALOR=@estado  WHERE TablaLogicaDatosID=@TablaLogicaDatosID
 END
+GO
+
+
+
+
+
+
+
+
 GO
 USE [BelcorpSalvador];
 GO
-CREATE PROCEDURE ActivaPopupValidador
+IF EXISTS (
+	SELECT * FROM sys.objects 
+	WHERE object_id = 
+	OBJECT_ID(N'[dbo].[ActivaPopupValidador]') 
+	AND type in (N'P', N'PC')
+) 
+	DROP PROCEDURE [dbo].[ActivaPopupValidador]
+GO
+/*   
+CREADO POR  : PAQUIRRI SEPERAK   
+FECHA : 03/04/2019   
+DESCRIPCIÓN : Activa el popup para que informe sobre datos pendientes por actualizar
+*/ 
+
+CREATE PROCEDURE ActivaPopupValidador 
 	@estado INT
 AS
 BEGIN
 DECLARE @TablaLogicaDatosID  INT
-SELECT  @TablaLogicaDatosID=TablaLogicaDatosID FROM TABLALOGICADATOS WHERE Codigo='9000'
+SELECT  @TablaLogicaDatosID=TablaLogicaDatosID FROM TABLALOGICADATOS WHERE TablaLogicaID=171
 UPDATE TABLALOGICADATOS SET VALOR=@estado  WHERE TablaLogicaDatosID=@TablaLogicaDatosID
 END
+GO
+
+
+
+
+
+
+
+
 GO
