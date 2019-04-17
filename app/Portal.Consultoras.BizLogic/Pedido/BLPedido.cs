@@ -283,6 +283,10 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         return PedidoDetalleRespuesta(codError);
                     }
                 }
+                else
+                {
+                    return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_NOEXISTE);
+                }
             }
 
             #endregion
@@ -1154,8 +1158,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         x.EsKitCaminoBrillante || x.EsDemCaminoBrillante));
 
                     lstDetalle.Where(x => x.EsKitNueva).Update(x => x.DescripcionEstrategia = Constantes.PedidoDetalleApp.DescripcionKitInicio);
-                    lstDetalle.Where(x => x.IndicadorOfertaCUV && x.TipoEstrategiaID == 0).Update
-                                    (x => x.DescripcionEstrategia = Constantes.PedidoDetalleApp.OfertaNiveles);                    
+                    lstDetalle.Where(x => x.IndicadorOfertaCUV && x.TipoEstrategiaID == 0 && !x.EsKitCaminoBrillante && !x.EsDemCaminoBrillante )
+                        .Update(x => x.DescripcionEstrategia = Constantes.PedidoDetalleApp.OfertaNiveles);                    
 
                     lstDetalle.Where(x => x.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.ArmaTuPack).Update(item => item.EsArmaTuPack = true);
 
