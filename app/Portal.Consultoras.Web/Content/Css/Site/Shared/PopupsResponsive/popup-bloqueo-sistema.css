@@ -35,4 +35,22 @@
     max-width: 216px;
 }
 
+@media screen and (max-width:991px){
+
+    .popup__somos__belcorp--bloqueoSistema {
+        width: 100%;
+        height: 100%;
+        max-width:none;
+        padding: 69px 31px 22px;
+        top: 0;
+        border-radius: 0;
+        margin-bottom: 0;
+    }
+
+        .popup__somos__belcorp--cierreSesion .popup__somos__belcorp__icono__cerrar--bloqueoSistema {
+            top: -56px;
+        }
+
+}
+
 /* FIN - MC - HD-3693 - POPUP BLOQUE POR SISTEMA */
