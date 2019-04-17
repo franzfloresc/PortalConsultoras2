@@ -19,7 +19,7 @@ BEGIN
 		 @varTablaLogicaID,
 		 '01',
 		 'Mensaje en Pop-up Bloqueo para consultoras bloqueadas.',
-		 'Si deseas mayor información contáctate con el call center.')
+		 'Si deseas mayor información contáctate con el call center: 080 -11-3030 Provincias ó al 2113614 Lima')
 	END
 END
 
@@ -44,7 +44,7 @@ BEGIN
 		 @varTablaLogicaID,
 		 '01',
 		 'Mensaje en Pop-up Bloqueo para consultoras bloqueadas.',
-		 'Si deseas mayor información contáctate con el call center.')
+		 'Si deseas mayor información contáctate con el call center: 01-800-2352677')
 	END
 END
 
@@ -69,7 +69,7 @@ BEGIN
 		 @varTablaLogicaID,
 		 '01',
 		 'Mensaje en Pop-up Bloqueo para consultoras bloqueadas.',
-		 'Si deseas mayor información contáctate con el call center.')
+		 'Si deseas mayor información contáctate con el call center: 01-8000-9-37452 ó al 5948060 (Bogotá)')
 	END
 END
 
@@ -94,7 +94,7 @@ BEGIN
 		 @varTablaLogicaID,
 		 '01',
 		 'Mensaje en Pop-up Bloqueo para consultoras bloqueadas.',
-		 'Si deseas mayor información contáctate con el call center.')
+		 'Si deseas mayor información contáctate con el call center: 800-37452-000 ó al 25101198 o 25101199 locales')
 	END
 END
 
@@ -119,7 +119,7 @@ BEGIN
 		 @varTablaLogicaID,
 		 '01',
 		 'Mensaje en Pop-up Bloqueo para consultoras bloqueadas.',
-		 'Si deseas mayor información contáctate con el call center.')
+		 'Si deseas mayor información contáctate con el call center: 1-866-366-3235 (Isla) ó al 622-3235 (Área Metropolitana)')
 	END
 END
 
@@ -144,7 +144,7 @@ BEGIN
 		 @varTablaLogicaID,
 		 '01',
 		 'Mensaje en Pop-up Bloqueo para consultoras bloqueadas.',
-		 'Si deseas mayor información contáctate con el call center.')
+		 'Si deseas mayor información contáctate con el call center: 800-5235 Línea Gratuita ó al 377-9399 (Línea local)')
 	END
 END
 
@@ -169,7 +169,7 @@ BEGIN
 		 @varTablaLogicaID,
 		 '01',
 		 'Mensaje en Pop-up Bloqueo para consultoras bloqueadas.',
-		 'Si deseas mayor información contáctate con el call center.')
+		 'Si deseas mayor información contáctate con el call center: 1-801-81-37452 ó al 22856185 o 23843795 Locales')
 	END
 END
 
@@ -194,7 +194,7 @@ BEGIN
 		 @varTablaLogicaID,
 		 '01',
 		 'Mensaje en Pop-up Bloqueo para consultoras bloqueadas.',
-		 'Si deseas mayor información contáctate con el call center.')
+		 'Si deseas mayor información contáctate con el call center: 3-3150600 (Fijo de Santa Cruz) o al 800-10-5678 (desde un celular)')
 	END
 END
 
@@ -219,7 +219,7 @@ BEGIN
 		 @varTablaLogicaID,
 		 '01',
 		 'Mensaje en Pop-up Bloqueo para consultoras bloqueadas.',
-		 'Si deseas mayor información contáctate con el call center.')
+		 'Si deseas mayor información contáctate con el call center: 1-809-200-5235 ó al 809-620-5235 (Santo Domingo)')
 	END
 END
 
@@ -244,7 +244,7 @@ BEGIN
 		 @varTablaLogicaID,
 		 '01',
 		 'Mensaje en Pop-up Bloqueo para consultoras bloqueadas.',
-		 'Si deseas mayor información contáctate con el call center.')
+		 'Si deseas mayor información contáctate con el call center: 800-000-5235 ó al 22019601 o 22019602')
 	END
 END
 
@@ -269,7 +269,7 @@ BEGIN
 		 @varTablaLogicaID,
 		 '01',
 		 'Mensaje en Pop-up Bloqueo para consultoras bloqueadas.',
-		 'Si deseas mayor información contáctate con el call center.')
+		 'Si deseas mayor información contáctate con el call center:  800-210-207 ó al 02-28762100 (desde un celular)')
 	END
 END
 
@@ -294,7 +294,7 @@ BEGIN
 		 @varTablaLogicaID,
 		 '01',
 		 'Mensaje en Pop-up Bloqueo para consultoras bloqueadas.',
-		 'Si deseas mayor información contáctate con el call center.')
+		 'Si deseas mayor información contáctate con el call center: 3-3150600 (Santa Cruz) ó al 901-10-5678 (provincias)')
 	END
 END
 
