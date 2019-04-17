@@ -17,6 +17,8 @@ namespace Portal.Consultoras.Web
     {
         protected void Application_Start()
         {
+            MvcHandler.DisableMvcResponseHeader = true;
+
             AreaRegistration.RegisterAllAreas();
 
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

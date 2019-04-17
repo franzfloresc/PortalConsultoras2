@@ -328,6 +328,7 @@ namespace Portal.Consultoras.Web.Providers
                           (!usuario.ValidacionAbierta && usuario.EstadoPedido == 202 && usuario.IndicadorGPRSB == 2 || usuario.IndicadorGPRSB == 0)
                           ) && tieneOfertaDelDia;
             }
+            sessionManager.OfertaDelDia.Estrategia.TieneOfertaDelDia = result;
 
             return result;
         }

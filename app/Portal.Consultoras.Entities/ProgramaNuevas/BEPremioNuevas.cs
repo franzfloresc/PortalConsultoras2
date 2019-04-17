@@ -25,7 +25,7 @@ namespace Portal.Consultoras.Entities.ProgramaNuevas
         [DataMember]
         public bool? ActivePremioAuto { get; set; }
         [DataMember]
-        public bool ActivePremioElectivo { get; set; }
+        public bool? ActivePremioElectivo { get; set; }
         [DataMember]
         public int NumeroPagina { get; set; }
         [DataMember]
