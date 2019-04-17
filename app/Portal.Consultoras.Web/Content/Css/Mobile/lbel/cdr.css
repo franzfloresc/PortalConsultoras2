@@ -666,6 +666,16 @@
     box-shadow: 0 -1px 4px rgba(216, 216, 216, 1);
 }
 
+#VistaPaso1y2 {
+    position: relative;
+    z-index: 1000;
+}
+
+#VistaPaso3 {
+    position: relative;
+    z-index: 999;
+}
+
 .btn_cta_cdr {
     display: block;
     position: fixed;
