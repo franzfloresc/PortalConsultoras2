@@ -21,6 +21,10 @@
     </ul>
 
     <ul class="paginador_notificaciones right" data-paginacion="block">
+        {{#if footer}}
+        <li class="texto_pagina"><a href="#"  class="btn--pedidos"> Pedidos por aprobar (10) </a></li>        
+        {{/if}}
+        {{#unless footer}}
         <li class="texto_pagina">Página</li>
         <li class="flecha_paginador_atras" data-paginacion="back"></li>
         <li style="margin-right: 6px;">
@@ -32,6 +36,7 @@
             </span>
         </li>
         <li class="flecha_paginador_adelante" data-paginacion="next"></li>
+        {{/unless}}
     </ul>
     <div class="clear"></div>
 </script>
