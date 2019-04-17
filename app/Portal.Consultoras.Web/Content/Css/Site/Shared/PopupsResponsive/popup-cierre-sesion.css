@@ -97,13 +97,13 @@
 @media screen and (max-width:991px){
 
     .popup__somos__belcorp--cierreSesion {
-        width: 100%;
+        width: 100%!important;
         height: 100%;
         max-width:none;
         padding: 69px 19px;
-        top: 0;
-        border-radius: 0;
-        margin-bottom: 0;
+        top: 0!important;
+        border-radius: 0!important;
+        margin-bottom: 0!important;
     }
 
         .popup__somos__belcorp--cierreSesion .popup__somos__belcorp__icono__cerrar {
