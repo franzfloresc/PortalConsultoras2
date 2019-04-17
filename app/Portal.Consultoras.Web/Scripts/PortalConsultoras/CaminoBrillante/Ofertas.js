@@ -20,7 +20,7 @@ $("#Demostradores").on('click', '.boton_agregar_ofertas', function (e) {
     var obj = JSON.parse($(this).parents('[data-item="BuscadorFichasProductos"]').find('div [data-demostrador]').attr("data-demostrador")); 
     var cantidad = $(contenedor).find("#txtCantidad").val();
     var tab = $("#Demostradores").attr('id');
-    AgregarProducto(obj, cantidad, contenedor, tab);
+    AgregarProducto(obj, cantidad, contenedor, tab, false);
 });
 
 $("#kits").on('click', '.boton_agregar_ofertas', function (e) {
@@ -28,7 +28,7 @@ $("#kits").on('click', '.boton_agregar_ofertas', function (e) {
     var obj = JSON.parse($(this).parents('[data-item="BuscadorFichasProductos"]').find('div [data-kit]').attr("data-kit"));
     var cantidad = 1;
     var tab = $("#kits").attr('id');
-    AgregarProducto(obj, cantidad, contenedor, tab);
+    AgregarProducto(obj, cantidad, contenedor, tab, true );
 });
 
 function Inicializar() {
@@ -119,7 +119,7 @@ function ArmarOfertaDemostradores(data) {
     $('#Demostradores').show();
 }
 
-function AgregarProducto(data, cantidad, contenedor, tab) {
+function AgregarProducto(data, cantidad, contenedor, tab, isKit) {
 
     AbrirSplash();
     var categoria = tab;
