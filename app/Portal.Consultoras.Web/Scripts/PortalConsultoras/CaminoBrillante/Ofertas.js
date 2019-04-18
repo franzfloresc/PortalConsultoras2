@@ -176,6 +176,7 @@ function AgregarProducto(data, cantidad, contenedor, tab, isKit) {
                     $('.ficha__producto__tag_disable').show();
                 }
             } else {
+                alert(data.message);
                 $("#Mensaje").append(data.message);
                 $("#alertDialogMensajes").fadeIn();
             }

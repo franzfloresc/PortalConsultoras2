@@ -7,6 +7,11 @@
 
 @section css{
     <link href="~/Content/CaminoBrillante/css/estilos.css" rel="stylesheet" />
+    <style>
+        .modal .crec-activo img {
+            max-width: inherit !important;
+        }
+    </style>
 }
 
 <section data-layout="ubicacionWeb" class="row flex-row ml-0 mr-0 layout__view__breadcrumbs__wrapper mostrarEnDesktop">
@@ -85,24 +90,24 @@
                             <div class="modal-body pad-center">
                                 <div class="indicador-nivel">
                                     {{#if_eq Tipo 'PIE'}}
-                                    <div class="circle-porcent imgpizz">
-                                        <img src="{{UrlMedallaFull}}"/>
+                                    <div class="circle-porcent imgpizz crec-activo">
+                                        <img src="{{UrlMedallaFull}}" />
                                     </div>
                                     {{else if_eq Tipo 'CIRC'}}
                                     <div class="circle-porcent crec-activo">
                                         <span>{{Valor}}</span>
                                     </div>
                                     {{else if_eq Tipo 'NIV'}}
-                                    <div class="circle-porcent imgpizz">
+                                    <div class="circle-porcent imgpizz crec-activo">
                                         <img src='{{UrlMedallaFull}}'>
                                     </div>
                                     {{else if_eq Tipo 'PED'}}
-                                    <div class="circle-porcent imgpizz">
-                                        <img src="{{UrlMedallaFull}}"/>
+                                    <div class="circle-porcent imgpizz crec-activo">
+                                        <img src="{{UrlMedallaFull}}" />
                                     </div>
                                     {{else if_eq Tipo 'TIME'}}
-                                    <div class="circle-porcent imgpizz">
-                                        <img src="{{UrlMedallaFull}}"/>
+                                    <div class="circle-porcent imgpizz crec-activo">
+                                        <img src="{{UrlMedallaFull}}" />
                                     </div>
                                     {{/if_eq}}
                                     <div class="left-mod">
