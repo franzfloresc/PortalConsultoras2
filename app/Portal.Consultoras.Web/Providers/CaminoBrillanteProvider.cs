@@ -82,7 +82,7 @@ namespace Portal.Consultoras.Web.Providers
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
-                return null;
+                return new List<BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante>();
             }
         }
 
@@ -213,7 +213,7 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
-        public bool TieneOfertasEspeciles(int nivelActual) {
+        private bool TieneOfertasEspeciles(int nivelActual) {
             var informacion = ResumenConsultoraCaminoBrillante();
             return informacion.Niveles.Where(e => e.CodigoNivel == nivelActual.ToString()).Select(e => e.TieneOfertasEspeciales).FirstOrDefault();
         }
@@ -235,6 +235,10 @@ namespace Portal.Consultoras.Web.Providers
             if (informacion == null || informacion.NivelConsultora == null || informacion.NivelConsultora.Count() == 0) return false;
             return true;
         }
+
+
+
+
 
         public decimal? MontoFaltanteSiguienteNivel(out string nivelSiguiente) {
             nivelSiguiente = null;
