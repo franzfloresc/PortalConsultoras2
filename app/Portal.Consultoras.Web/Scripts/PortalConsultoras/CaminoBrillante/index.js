@@ -112,8 +112,8 @@ function ModalBeneficios(index) {
             MontoFaltante = data.MontoFaltante;
 
             if (index == nivelSiguiente && MontoFaltante) {
-                $("#m_montoMinimo").append("<b>Lo Logras con:</b>" + "<span style='float: right'>" + data.Moneda + " " + parseInt(data.Niveles[0].MontoMinimo).toLocaleString() + "</span>");
-                $("#m_montoFaltante").append("<b>Te Falta:</b>" + "<span style='float: right'>" + data.Moneda + " " + MontoFaltante.toLocaleString() + "</span>");
+                $("#m_montoMinimo").append("<b>Lo logras con:</b>" + "<span style='float: right'>" + data.Moneda + " " + parseInt(data.Niveles[0].MontoMinimo).toLocaleString() + "</span>");
+                $("#m_montoFaltante").append("<b>Te falta:</b>" + "<span style='float: right'>" + data.Moneda + " " + MontoFaltante.toLocaleString() + "</span>");
             } else {
                 $("#m_montoMinimo").append("<b>Lo Logras con:</b>" + "<span style='float: right'>" + data.Moneda + " " + parseInt(data.Niveles[0].MontoMinimo).toLocaleString() + "</span> ");
             }
