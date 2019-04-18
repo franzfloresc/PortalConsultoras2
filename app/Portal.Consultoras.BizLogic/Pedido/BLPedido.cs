@@ -279,7 +279,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     var codError = _bLCaminoBrillante.ValAgregarCaminiBrillante(estrategia, usuario, pedidoDetalle, lstDetalleAgrupado);
                     if (!string.IsNullOrEmpty(codError)) {
                         if(codError == Constantes.PedidoValidacion.Code.ERROR_CANTIDAD_LIMITE)
-                            return PedidoDetalleRespuesta(codError, args: estrategia.Cantidad);
+                            return PedidoDetalleRespuesta(codError, args: estrategia.LimiteVenta);
                         return PedidoDetalleRespuesta(codError);
                     }
                 }
