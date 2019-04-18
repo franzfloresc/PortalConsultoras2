@@ -207,16 +207,6 @@ $(window).scroll(function (event) {
     });
 }
 
-$(window).scroll(function (event) {
-    if ($("#Tab-kits").hasClass('activado-dorado')) {
-        TabUno = $(window).scrollTop();
-    }
-
-    if ($("#Tab-Demostradores").hasClass('activado-dorado')) {
-        TabDos = $(window).scrollTop();
-    }
-});
-
 function CambiarOferta() {
     $("#Tab-kits").trigger("click");
     $('#Tab-kits').click(function () {
