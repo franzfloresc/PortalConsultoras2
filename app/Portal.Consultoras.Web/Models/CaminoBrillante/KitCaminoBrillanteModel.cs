@@ -15,13 +15,18 @@ namespace Portal.Consultoras.Web.Models.CaminoBrillante
         public string FotoProductoMedium { get; set; }
         public bool FlagSeleccionado { get; set; }
         public bool FlagHabilitado { get; set; }
-        public string FotoTagEnable { get
+        public int OrigenPedidoWeb { get; set; }
+
+        public string FotoTagEnable
+        {
+            get
             {
-                if(Constantes.CaminoBrillante.EtiquetaNiveles.Iconos.ContainsKey(CodigoNivel))
+                if (Constantes.CaminoBrillante.EtiquetaNiveles.Iconos.ContainsKey(CodigoNivel))
                     return Constantes.CaminoBrillante.EtiquetaNiveles.Iconos[CodigoNivel][1];
                 return null;
             }
         }
+
         public string FotoTagDisable
         {
             get

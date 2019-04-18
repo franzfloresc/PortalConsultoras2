@@ -46,16 +46,16 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             var lstBeneficios = GetBeneficiosCaminoBrillante(paisId) ?? new List<BEBeneficioCaminoBrillante>();
             var lstNiveles = _providerCaminoBrillante.GetNivel(Util.GetPaisIsoHanna(paisId)).Result;
 
+
+
             return lstNiveles.Select(e => new BENivelCaminoBrillante()
             {
                 CodigoNivel = e.CodigoNivel,
                 DescripcionNivel = e.DescripcionNivel,
                 MontoMaximo = e.MontoMaximo,
                 MontoMinimo = e.MontoMinimo,
-                TieneOfertasEspeciales = !("1" == e.CodigoNivel), //Usar Configuracion
-                Beneficios = lstBeneficios.Where(b => b.CodigoNivel == e.CodigoNivel && !(string.IsNullOrEmpty(b.NombreBeneficio) && string.IsNullOrEmpty(b.Descripcion)
-                                                      //&& Constantes.CaminoBrillante.CodigoBeneficio.Beneficios.Contains(b.CodigoBeneficio)
-                                                      )).ToList()
+                TieneOfertasEspeciales = !("1" == e.CodigoNivel),
+                Beneficios = lstBeneficios.Where(b => b.CodigoNivel == e.CodigoNivel && !(string.IsNullOrEmpty(b.NombreBeneficio) && string.IsNullOrEmpty(b.Descripcion) )).ToList()
             }).ToList();
         }
 
@@ -308,7 +308,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                     e.Subtitulo = e.Estado ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo;
                     e.Valor = string.Format(configMedalla.Valor ?? string.Empty, e.Valor);
                     e.ModalTitulo = configMedalla.ComoLograrlo_Estado ? configMedalla.ComoLograrlo_Titulo.Replace("{0}", e.Valor) : string.Empty;
-                    e.ModalDescripcion = configMedalla.ComoLograrlo_Estado ? (configMedalla.ComoLograrlo_Descripcion).Replace("{0}", string.Format("<b>{0} {1}</b>", entidad.Simbolo, Util.DecimalToStringFormat(Convert.ToDecimal(e.MontoSuperior), paisId.ToString()))) : string.Empty;
+                    e.ModalDescripcion = configMedalla.ComoLograrlo_Estado ? (configMedalla.ComoLograrlo_Descripcion).Replace("{0}", string.Format("<b>{0} {1}</b>", entidad.Simbolo, Util.DecimalToStringFormat(Convert.ToDecimal(e.MontoSuperior),entidad.CodigoISO))) : string.Empty;
                 }
                 else
                 {
@@ -357,7 +357,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 {
                     e.Subtitulo = e.Estado ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo;
                     e.ModalTitulo = configMedalla.ComoLograrlo_Estado ? configMedalla.ComoLograrlo_Titulo.Replace("{0}", e.DescripcionNivel) : string.Empty;
-                    e.ModalDescripcion = configMedalla.ComoLograrlo_Estado ? configMedalla.ComoLograrlo_Descripcion.Replace("{0}", e.DescripcionNivel).Replace("{1}", string.Format("<b>{0} {1}</b>", entidad.Simbolo, Util.DecimalToStringFormat(Convert.ToDecimal(e.MontoAcumulado), paisId.ToString()))) : string.Empty;
+                    e.ModalDescripcion = configMedalla.ComoLograrlo_Estado ? configMedalla.ComoLograrlo_Descripcion.Replace("{0}", e.DescripcionNivel).Replace("{1}", string.Format("<b>{0} {1}</b>", entidad.Simbolo, Util.DecimalToStringFormat(Convert.ToDecimal(e.MontoAcumulado), entidad.CodigoISO))) : string.Empty;
                 }
             });
 
@@ -798,9 +798,9 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         }
 
         public string ValAgregarCaminiBrillante(BEEstrategia estrategia, BEUsuario usuario, BEPedidoDetalle pedidoDetalle, List<BEPedidoWebDetalle> lstDetalle) {
-            if (pedidoDetalle.Cantidad > estrategia.Cantidad ) return Constantes.PedidoValidacion.Code.ERROR_CANTIDAD_LIMITE;
+            if (pedidoDetalle.Cantidad > estrategia.LimiteVenta ) return Constantes.PedidoValidacion.Code.ERROR_CANTIDAD_LIMITE;
             var cantidad = lstDetalle.Where(e => e.CUV == pedidoDetalle.Producto.CUV).Sum( e => e.Cantidad) + pedidoDetalle.Cantidad;
-            if (cantidad > estrategia.Cantidad) return Constantes.PedidoValidacion.Code.ERROR_CANTIDAD_LIMITE;
+            if (cantidad > estrategia.LimiteVenta) return Constantes.PedidoValidacion.Code.ERROR_CANTIDAD_LIMITE;
 
             var periodo = GetPeriodo(usuario.PaisID, usuario.CampaniaID);
             if (periodo == null) return Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_NOEXISTE;

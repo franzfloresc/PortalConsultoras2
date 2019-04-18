@@ -108,12 +108,10 @@ function ModalBeneficios(index) {
             var nivelSiguiente = nivelactual + 1;
 
             $("#m_titulo").text(data.Niveles[0].DescripcionNivel);
+            
+            MontoFaltante = data.MontoFaltante;
 
-            if (data.Niveles[0].MontoMinimo >= data.MontoAcumuladoPedido) {
-                MontoFaltante = parseInt(data.Niveles[0].MontoMinimo - data.MontoAcumuladoPedido)
-            }
-
-            if (index == nivelSiguiente) {
+            if (index == nivelSiguiente && MontoFaltante) {
                 $("#m_montoMinimo").append("<b>Lo Logras con:</b>" + "<span style='float: right'>" + data.Moneda + " " + parseInt(data.Niveles[0].MontoMinimo).toLocaleString() + "</span>");
                 $("#m_montoFaltante").append("<b>Te Falta:</b>" + "<span style='float: right'>" + data.Moneda + " " + MontoFaltante.toLocaleString() + "</span>");
             } else {
@@ -125,7 +123,7 @@ function ModalBeneficios(index) {
             for (var i = 0; i <= data.Niveles[0].Beneficios.length - 1; i++) {
 
                 Html += "<li>";
-                Html += "<img src='" + data.Niveles[0].Beneficios[i].Icono + "'>";
+                Html += "<img src='" + data.Niveles[0].Beneficios[i].UrlIcono + "'>";
                 if (data.Niveles[0].Beneficios[i].Descripcion == "" || data.Niveles[0].Beneficios[i].Descripcion == null) {
                     Html += "<div class='txt-benf'><p class='text-bold'><span>" + data.Niveles[0].Beneficios[i].NombreBeneficio + "</span></p></div>";
                 } else {

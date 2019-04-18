@@ -6746,7 +6746,7 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string DescripcionNivelField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private decimal MontoFaltanteField;
+        private System.Nullable<decimal> MontoFaltanteField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string MontoMaximoField;
@@ -6756,9 +6756,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool TieneOfertasEspecialesField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string UrlImagenNivelField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -6810,7 +6807,7 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public decimal MontoFaltante {
+        public System.Nullable<decimal> MontoFaltante {
             get {
                 return this.MontoFaltanteField;
             }
@@ -6857,19 +6854,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.TieneOfertasEspecialesField.Equals(value) != true)) {
                     this.TieneOfertasEspecialesField = value;
                     this.RaisePropertyChanged("TieneOfertasEspeciales");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string UrlImagenNivel {
-            get {
-                return this.UrlImagenNivelField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.UrlImagenNivelField, value) != true)) {
-                    this.UrlImagenNivelField = value;
-                    this.RaisePropertyChanged("UrlImagenNivel");
                 }
             }
         }

@@ -381,9 +381,7 @@ div .cartbtn {
     text-indent: 20px !important;
     position: relative !important;
 }
-    /*div .cartbtn i {
-        left: -12px;
-    }*/
+
 
 
 .menu__link, .submenu__link {
@@ -464,9 +462,7 @@ div .ficha__producto__precio__normal {
     line-height: 17px !important;
 }
 
-/*.layout__view__breadcrumbs__wrapper.mostrarEnDesktop {
-    display:none!important;
-}*/
+
 .busqueda__productos__encontrados__wrapper {
     display: none;
 }
