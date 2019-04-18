@@ -141,6 +141,8 @@ function AgregarProducto(data, cantidad, contenedor, tab, isKit) {
         ClienteID: 0
     };
 
+    $("#Mensaje").empty();
+
     jQuery.ajax({
         type: "POST",
         url: urlAgregarUnico,
