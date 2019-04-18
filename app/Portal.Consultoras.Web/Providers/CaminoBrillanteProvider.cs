@@ -133,17 +133,17 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
-        public BELogroCaminoBrillante GetLogroCaminoBrillante(string key)
+        public LogroCaminoBrillanteModel GetLogroCaminoBrillante(string key)
         {
             try
             {
                 var consultoraCaminoBrillante = ResumenConsultoraCaminoBrillante();
                 if (consultoraCaminoBrillante == null) return null;
-
-                if (key == Constantes.CaminoBrillante.Logros.RESUMEN) return consultoraCaminoBrillante.ResumenLogros;
+                
+                if (key == Constantes.CaminoBrillante.Logros.RESUMEN) return Mapper.Map<LogroCaminoBrillanteModel>(consultoraCaminoBrillante.ResumenLogros);
                 if (consultoraCaminoBrillante.Logros == null) return null;
 
-                return consultoraCaminoBrillante.Logros.FirstOrDefault(e => e.Id == key);
+                return Mapper.Map<LogroCaminoBrillanteModel>(consultoraCaminoBrillante.Logros.FirstOrDefault(e => e.Id == key));
             }
             catch (Exception ex)
             {
