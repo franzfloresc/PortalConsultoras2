@@ -1,19 +1,21 @@
-﻿var TabUno = 0;
+﻿var baseUrl = "/";
+var TabUno = 0;
 var TabDos = 0;
 var tipoOrigen = "1";
 var cargandoRegistros = false;
-
-var offsetRegistros = 0;
-
+var offsetRegistrosDemo = 0;
+var offsetRegistrosKits = 0;
+var verMasKits = false;
+var verMasDemostradores = false;
 var reservaResponse = {
     data: { Reserva: false }
 };
-var baseUrl = "/";
 
-$(document).ready(function () {
-    CargarKits();
+$(document).ready(function () {    
     CambiarOferta();
-    //AgregarProducto();
+    //CargarKits();
+    //CargarDemostradores
+    Inicializar();
 });
 
 $("#Demostradores").on('click', '.boton_agregar_ofertas', function (e) {
@@ -31,50 +33,49 @@ $("#kits").on('click', '.boton_agregar_ofertas', function (e) {
 });
 
 function Inicializar() {
-    ValidarCargaDemostradores();
-    LinkCargarDemostradoresToScroll();
+    ValidarCargaOfertas();
+    LinkCargarOfertasToScroll();
 }
 
-function LinkCargarDemostradoresToScroll() {
-    $(window).scroll(CargarDemostradoresScroll);
+function LinkCargarOfertasToScroll() {
+    $(window).scroll(CargarOfertasScroll);
 }
 
-function CargarDemostradoresScroll() {
+function UnlinkCargarOfertasToScroll() {
+    $(window).off("scroll", CargarOfertasScroll);
+    cargandoRegistros = false;
+}
+
+function CargarOfertasScroll() {
     if ($(window).scrollTop() + $(window).height() > $(document).height() - $('footer').outerHeight()) {
-        ValidarCargaDemostradores();
+        ValidarCargaOfertas();
     }
 }
 
-function ValidarCargaDemostradores() {
+function ValidarCargaOfertas() {
     if (cargandoRegistros) return false;
     cargandoRegistros = true;
 
     waitingDialog();
-    CargarDemostradores();
+    if ($('#Demostradores').is(':visible'))
+        CargarDemostradores();
+    else if ($('#kits').is(':visible'))
+        CargarKits();
 }
 
-function CargarKits() {
-    $('#kits').show();
-    $('#Demostradores').hide();
-    $("#Tab-kits").addClass("activado-dorado");
-    $("#Tab-Demostradores").removeClass("activado-dorado");
-    $("#divresultadosDemostradores").hide();
-    $("#divresultadosKit").show();
-    document.body.scrollTop = TabUno;
-    $(window).scrollTop(TabUno);
-
-    
+function CargarKits() {   
     $.ajax({
         type: 'GET',
         url: urlGetKits,
-        data: { cantidadregistros: cantidadRegistros },
+        data: { offset: offsetRegistrosKits, cantidadregistros: nroRegistrosKits},
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
             if (checkTimeout(data)) {
                 if (data.lista.length > 0) ArmarOfertaKits(data.lista);
-                //if (!data.verMas) UnlinkCargarOfertasToScroll();
-                //offsetRegistros += cantidadRegistros;
+                verMasKits = data.verMas;
+                if (!verMasKits) UnlinkCargarOfertasToScroll();
+                offsetRegistrosKits += nroRegistrosKits;
             }
         },
         error: function (data, error) { },
@@ -86,25 +87,24 @@ function CargarKits() {
 }
 
 function ArmarOfertaKits(data) {
-    //data = EstructurarDataCarouselLiquidaciones(data);
     var htmlDiv = SetHandlebars("#template-Kits", data);
     $('#kits').append(htmlDiv);
     $('#kits').show();
-    //EstablecerAccionLazyImagen("img[data-lazy-seccion-liquidacion]");
 }
 
 function CargarDemostradores() {
     $.ajax({
         type: 'GET',
         url: urlGetDemostradores,
-        data: { cantidadregistros: cantidadRegistros },
+        data: { offset: offsetRegistrosDemo, cantidadregistros: nroRegistrosDemostradores },
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
             if (checkTimeout(data)) {
                 if (data.lista.length > 0) ArmarOfertaDemostradores(data.lista);
-                //if (!data.verMas) UnlinkCargarOfertasToScroll();
-                //offsetRegistros += cantidadRegistros;
+                verMasDemostradores = data.verMas;
+                if (!verMasDemostradores) UnlinkCargarOfertasToScroll();
+                offsetRegistrosDemo += nroRegistrosDemostradores;
             }
         },
         error: function (data, error) { },
@@ -116,22 +116,20 @@ function CargarDemostradores() {
 }
 
 function ArmarOfertaDemostradores(data) {
-    //data = EstructurarDataCarouselLiquidaciones(data);
     var htmlDiv = SetHandlebars("#template-Demostradores", data);
     $('#Demostradores').append(htmlDiv);
     $('#Demostradores').show();
-    //EstablecerAccionLazyImagen("img[data-lazy-seccion-liquidacion]");
 }
 
-//$(window).scroll(function (event) {
-//    if ($("#Tab-kits").hasClass('activado-dorado')) {
-//        TabUno = $(window).scrollTop();
-//    }
+$(window).scroll(function (event) {
+    if ($("#Tab-kits").hasClass('activado-dorado')) {
+        TabUno = $(window).scrollTop();
+    }
 
-//    if ($("#Tab-Demostradores").hasClass('activado-dorado')) {
-//        TabDos = $(window).scrollTop();
-//    }
-//});
+    if ($("#Tab-Demostradores").hasClass('activado-dorado')) {
+        TabDos = $(window).scrollTop();
+    }
+});
 
 function AgregarProducto(data, cantidad, contenedor, isKit) {
     AbrirSplash();
@@ -177,6 +175,7 @@ function AgregarProducto(data, cantidad, contenedor, isKit) {
 }
 
 function CambiarOferta() {
+    $("#Tab-kits").trigger("click");
     $('#Tab-kits').click(function () {
         $('#kits').show();
         $('#Demostradores').hide();
@@ -186,7 +185,7 @@ function CambiarOferta() {
         $("#divresultadosKit").show();
         document.body.scrollTop = TabUno;
         $(window).scrollTop(TabUno);
-        CargarKits();
+        if (!verMasKits) CargarKits();
     });
 
     $('#Tab-Demostradores').click(function () {
@@ -198,7 +197,7 @@ function CambiarOferta() {
         $("#divresultadosDemostradores").show();
         document.body.scrollTop = TabDos;
         $(window).scrollTop(TabDos);
-        CargarDemostradores();
+        if (!verMasDemostradores) CargarDemostradores();
     });
 }
 

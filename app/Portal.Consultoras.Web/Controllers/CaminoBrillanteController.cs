@@ -83,9 +83,11 @@ namespace Portal.Consultoras.Web.Controllers
                 return RedirectToAction("Index", "CaminoBrillante");
         }
 
-        public JsonResult GetKits(int cantidadRegistros)
+        public JsonResult GetKits(int offset, int cantidadRegistros)
         {
             var lstKits = _caminoBrillanteProvider.GetKitsCaminoBrillante();
+            lstKits = lstKits.Skip(offset).Take(cantidadRegistros).ToList();
+
             var estado = false;
             try
             {
@@ -99,13 +101,15 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(new
             {
                 lista = lstKits,
-                verMas = estado
+                verMas = true
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetDemostradores(int cantidadRegistros)
+        public JsonResult GetDemostradores(int offset, int cantidadRegistros)
         {
             var lstDemostrador = _caminoBrillanteProvider.GetDesmostradoresCaminoBrillante();
+            lstDemostrador = lstDemostrador.Skip(offset).Take(cantidadRegistros).ToList();
+
             var estado = false;
             try
             {
@@ -119,10 +123,9 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(new
             {
                 lista = lstDemostrador,
-                verMas = estado
+                verMas = true
             }, JsonRequestBehavior.AllowGet);
         }
-
 
         [HttpPost]
         public JsonResult GetNiveles(string nivel)
