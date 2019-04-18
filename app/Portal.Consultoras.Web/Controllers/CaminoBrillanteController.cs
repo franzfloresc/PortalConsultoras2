@@ -141,5 +141,16 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(new { Niveles = _caminoBrillanteProvider.GetNivelesCaminoBrillante(true).Where(e => e.CodigoNivel == nivel).ToList(), Moneda = userData.Simbolo, MontoFaltante = _caminoBrillanteProvider.MontoFaltanteSiguienteNivel(out nivelSiguiente), NivelSiguiente = nivelSiguiente }, JsonRequestBehavior.AllowGet);
         }
 
+        //[HttpPost]
+        public JsonResult GetLogros(string category)
+        {
+            if (!_caminoBrillanteProvider.ValidacionCaminoBrillante())
+            {
+                //No alowed
+                return Json(new { }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { data = _caminoBrillanteProvider.GetLogroCaminoBrillante(category) }, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }
