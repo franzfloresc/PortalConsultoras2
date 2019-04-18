@@ -179,9 +179,7 @@ function AgregarProducto(data, cantidad, contenedor, tab, isKit) {
                 CargarResumenCampaniaHeader(true);
             } else {
                 CerrarSplash();
-                AbrirMensaje(data.message, "MENSAJE", function () {
-
-                });
+                AbrirMensaje(data.message);
             }
             
             dataLayer.push({
