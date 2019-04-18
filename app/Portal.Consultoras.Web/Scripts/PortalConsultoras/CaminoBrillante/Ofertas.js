@@ -135,6 +135,7 @@ $(window).scroll(function (event) {
     }
 });
 
+function AgregarProducto(data, cantidad, contenedor, tab, isKit) {
     AbrirSplash();
     var categoria = tab;
     var moneda = ($('#moneda').val());
@@ -177,7 +178,7 @@ $(window).scroll(function (event) {
             } else {
                 $("#Mensaje").append(data.message);
                 $("#alertDialogMensajes").fadeIn();
-            } 
+            }
             CerrarSplash();
             CargarResumenCampaniaHeader(true);
 
@@ -194,7 +195,7 @@ $(window).scroll(function (event) {
                             'id': id_producto,
                             'category': categoria,
                             'variant': 'Estándar',
-                            'quantity': Cantidad
+                            'quantity': cantidad
                         }]
                     }
                 }
