@@ -1567,6 +1567,9 @@ div .left-mod .l-mod p {
     display: block;
     float: right
 }
+.indicador-nivel .left-mod p b {
+    display:block;
+}
 .indicador-nivel .cont-textLograr p b {
     float: left;
 }
