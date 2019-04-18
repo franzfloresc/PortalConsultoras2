@@ -3726,7 +3726,62 @@ namespace Portal.Consultoras.Common
                             public const string TIM = "TIME";
                             public const string PED = "PED";
                         }
+
+                        public static Dictionary<string, string[]> Niveles
+                        {
+                            get
+                            {
+                                return CaminoBrillante.Niveles.Iconos;
+                            }
+                        }
+
+                        private static Dictionary<string, string> _Constancia;
+                        private static string pathContanica = "CAMINOBRILLANTE/LOGROS/CONSTANCIA/PIZZA_06_0{0}.png";
+                        public static Dictionary<string, string> Constancia
+                        {
+                            get
+                            {
+                                return _Constancia ?? (_Constancia = new Dictionary<string, string> {
+                                    { "0", string.Format(ConfigS3.GetUrlFileS3("Iconos", pathContanica), "0")},
+                                    { "1", string.Format(ConfigS3.GetUrlFileS3("Iconos", pathContanica), "1")},
+                                    { "2", string.Format(ConfigS3.GetUrlFileS3("Iconos", pathContanica), "2")},
+                                    { "3", string.Format(ConfigS3.GetUrlFileS3("Iconos", pathContanica), "3")},
+                                    { "4", string.Format(ConfigS3.GetUrlFileS3("Iconos", pathContanica), "4")},
+                                    { "5", string.Format(ConfigS3.GetUrlFileS3("Iconos", pathContanica), "5")},
+                                    { "6", string.Format(ConfigS3.GetUrlFileS3("Iconos", pathContanica), "6")}
+                                });
+                            }
+                        }
+
+                        private static Dictionary<string, string> _Corazon;
+                        private static string pathCorazon = "CAMINOBRILLANTE/LOGROS/COMPROMISO/CORAZON_{0}.png";
+                        public static Dictionary<string, string> Corazon
+                        {
+                            get
+                            {
+                                return _Corazon ?? (_Corazon = new Dictionary<string, string> {
+                                    { "0", string.Format(ConfigS3.GetUrlFileS3("Iconos", pathCorazon), "I")},
+                                    { "1", string.Format(ConfigS3.GetUrlFileS3("Iconos", pathCorazon), "A")}
+                                });
+                            }
+                        }
+
+                        private static Dictionary<string, string> _Pedido;
+                        private static string pathPedido = "CAMINOBRILLANTE/LOGROS/COMPROMISO/PEDIDO_{0}.png";
+                        public static Dictionary<string, string> Pedido
+                        {
+                            get
+                            {
+                                return _Pedido ?? (_Pedido = new Dictionary<string, string> {
+                                    { "0", string.Format(ConfigS3.GetUrlFileS3("Iconos", pathPedido), "I")},
+                                    { "1", string.Format(ConfigS3.GetUrlFileS3("Iconos", pathPedido), "A")}
+                                });
+                            }
+                        }
+
+
                     }
+
                 }
             }
 
@@ -3776,6 +3831,9 @@ namespace Portal.Consultoras.Common
                 }
 
             }
+
+
+
 
 
             public static class EtiquetaNiveles

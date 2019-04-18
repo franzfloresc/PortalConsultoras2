@@ -109,7 +109,7 @@
         @*<p class="text" id="DescripcionLogros">@data.Descripcion</p>*@
         <div class="boxcenter">
             <div class="owl-carousel owl-crec" id="Carusel-Logros">
-                @for (int i = 0; i < data.Indicadores.Length; i++)
+                @for (int i = 0; i < data.Indicadores.Count; i++)
                 {
                     <div class="item">
                         <div class="shad box-@data.Indicadores[i].Titulo">
