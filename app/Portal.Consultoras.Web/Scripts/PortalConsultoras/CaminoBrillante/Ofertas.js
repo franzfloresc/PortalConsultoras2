@@ -175,14 +175,13 @@ function AgregarProducto(data, cantidad, contenedor, tab, isKit) {
                     $('.ficha__producto__tag_enable').hide();
                     $('.ficha__producto__tag_disable').show();
                 }
+                CerrarSplash();
+                CargarResumenCampaniaHeader(true);
             } else {
-                alert(data.message);
-                $("#Mensaje").append(data.message);
-                $("#alertDialogMensajes").fadeIn();
+                CerrarSplash();
+                AbrirMensaje(data.message);
             }
-            CerrarSplash();
-            CargarResumenCampaniaHeader(true);
-
+            
             dataLayer.push({
                 'event': 'addToCart',
                 'ecommerce': {
@@ -204,7 +203,7 @@ function AgregarProducto(data, cantidad, contenedor, tab, isKit) {
 
         },
         error: function (data, error) {
-            alert("error");
+            
         }
     });
 }

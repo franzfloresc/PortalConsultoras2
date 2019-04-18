@@ -688,13 +688,15 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
 
 
             #region Camino Brillante
+
             Mapper.CreateMap<BEKitCaminoBrillante, KitCaminoBrillanteModel>();
             Mapper.CreateMap<BEDesmostradoresCaminoBrillante, DemostradorCaminoBrillanteModel>();
             Mapper.CreateMap<BENivelCaminoBrillante, NivelCaminoBrillanteModel>();
             Mapper.CreateMap<BEBeneficioCaminoBrillante, NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel>();
             Mapper.CreateMap<BELogroCaminoBrillante, LogroCaminoBrillanteModel>();
-            Mapper.CreateMap<BEIndicadorCaminoBrillante, IndicadorCaminoBrillanteModel>();
-            Mapper.CreateMap<BEMedallaCaminoBrillante, MedallaCaminoBrillanteModel>();            
+            Mapper.CreateMap<BEIndicadorCaminoBrillante, LogroCaminoBrillanteModel.IndicadorCaminoBrillanteModel>();
+            Mapper.CreateMap<BEMedallaCaminoBrillante, LogroCaminoBrillanteModel.IndicadorCaminoBrillanteModel.MedallaCaminoBrillanteModel>();
+
             #endregion
 
         }
