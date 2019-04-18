@@ -139,30 +139,11 @@ namespace Portal.Consultoras.Web.Providers
             {
                 var consultoraCaminoBrillante = ResumenConsultoraCaminoBrillante();
                 if (consultoraCaminoBrillante == null) return null;
+                
+                if (key == Constantes.CaminoBrillante.Logros.RESUMEN) return Mapper.Map<LogroCaminoBrillanteModel>(consultoraCaminoBrillante.ResumenLogros);
+                if (consultoraCaminoBrillante.Logros == null) return null;
 
-                LogroCaminoBrillanteModel logro = null;
-
-                if (key == Constantes.CaminoBrillante.Logros.RESUMEN) logro = Mapper.Map<LogroCaminoBrillanteModel>(consultoraCaminoBrillante.ResumenLogros);
-                else if (consultoraCaminoBrillante.Logros != null) logro = Mapper.Map<LogroCaminoBrillanteModel>(consultoraCaminoBrillante.Logros.FirstOrDefault(e => e.Id == key));
-
-                /*
-                if (logro != null) {
-                    foreach (var indicador in logro.Indicadores)
-                    {
-                        foreach (var medalla in indicador.Medallas)
-                        {
-                            switch (medalla.Tipo)
-                            {
-                                case Constantes.CaminoBrillante.Logros.Indicadores.Medallas.Codes.CIRC:
-                                    medalla.UrlMedalla = Constantes.CaminoBrillante.Logros.Indicadores.Medallas.
-                                    break;
-                            }
-                        }
-                    }
-                }
-                */
-
-                return logro;
+                return Mapper.Map<LogroCaminoBrillanteModel>(consultoraCaminoBrillante.Logros.FirstOrDefault(e => e.Id == key));
             }
             catch (Exception ex)
             {

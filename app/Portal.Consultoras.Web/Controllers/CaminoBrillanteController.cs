@@ -144,12 +144,12 @@ namespace Portal.Consultoras.Web.Controllers
         //[HttpPost]
         public JsonResult GetLogros(string category)
         {
-            if (!_caminoBrillanteProvider.ValidacionCaminoBrillante())
+            if ( string.IsNullOrEmpty(category) || !_caminoBrillanteProvider.ValidacionCaminoBrillante())
             {
                 //No alowed
                 return Json(new { }, JsonRequestBehavior.AllowGet);
             }
-            return Json(new { data = _caminoBrillanteProvider.GetLogroCaminoBrillante(category) }, JsonRequestBehavior.AllowGet);
+            return Json(new { data = _caminoBrillanteProvider.GetLogroCaminoBrillante(category.ToUpper()) }, JsonRequestBehavior.AllowGet);
         }
 
     }

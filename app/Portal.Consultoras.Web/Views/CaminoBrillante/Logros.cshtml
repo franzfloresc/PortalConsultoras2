@@ -2,6 +2,7 @@
 @{
     Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
     var data = ViewBag.Informacion;
+    var categoria = ViewBag.Vista;
 }
 
 @section css{
@@ -25,167 +26,18 @@
 </section>
 
 <br />
-<div class="container">
-    <h2 class="title">@data.Titulo</h2>
-    <div class="contain-camb">
-
-        @for (int i = 0; i < data.Indicadores.Length; i++)
-        {
-            <div class="box-camb">
-                <p class="text-bold">@data.Indicadores[i].Titulo</p>
-                <div class="cambio-crec">
-                    @{
-                        var NombreModal = 1;
-                    }
-                    @foreach (var item2 in data.Indicadores[i].Medallas)
-                    {
-                        if (item2 != null)
-                        {
-                            <div class="itm">
-                                @if (item2.Tipo == "PIE")
-                                {
-                                    string[] torta = item2.Valor.Split('-');
-                                    var imagen = torta[1].PadLeft(2, '0') + "_" + torta[2].PadLeft(2, '0') + ".svg";
-                                    <div class="circle-porcent imgpizz">
-                                        <img src="~/Content/CaminoBrillante/imgs/PIZZA_@imagen" />
-                                    </div>
-                                }
-                                else if (item2.Tipo == "CIRC")
-                                {
-                                    string Estilo = item2.Estado ? "crec-activo" : "crec-inactivo";
-                                    <div class="circle-porcent @Estilo">
-                                        <span>@item2.Valor</span>
-                                    </div>
-                                }
-                                else if (item2.Tipo == "NIV")
-                                {
-                                    if (Portal.Consultoras.Common.Constantes.CaminoBrillante.Niveles.Iconos.Keys.Contains((string)item2.Valor))
-                                    {
-                                        int estado = item2.Estado ? 1 : 0;
-                                        <div class="circle-porcent imgpizz">
-                                            <img src='@Portal.Consultoras.Common.Constantes.CaminoBrillante.Niveles.Iconos[(string)item2.Valor][estado]'>
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <img src=''>
-                                    }
-                                }
-                                else if (item2.Tipo == "PED")
-                                {
-                                    if (item2.Estado)
-                                    {
-                                        <img src="~/Content/CaminoBrillante/imgs/pedido_activo.svg" />
-                                    }
-                                    else
-                                    {
-                                        <img src="~/Content/CaminoBrillante/imgs/pedido_desactivo.svg" />
-                                    }
-                                }
-                                else if (item2.Tipo == "TIME")
-                                {
-                                    if (item2.Estado)
-                                    {
-                                        <img src="~/Content/CaminoBrillante/imgs/Tiempojuntos_activo.svg" />
-                                    }
-                                    else
-                                    {
-                                        <img src="~/Content/CaminoBrillante/imgs/Tiempojuntos_inactivo.svg" />
-                                    }
-                                }
-
-                                @if (item2.Tipo != "NIV")
-                                {
-                                    <a href="#" class="inactivo">@item2.Titulo</a>
-                                }
-
-                                @if (@item2.Estado)
-                                {
-                                    <span class="como-log inactivo">@item2.Subtitulo</span>
-                                }
-                                else
-                                {
-                                    <span data-toggle="modal" data-target="#Modal-@data.Indicadores[i].Codigo-@NombreModal" class="como-log" onclick="ComoLograrlo('@Html.Raw(data.Titulo)','@Html.Raw(data.Indicadores[i].Titulo)','@Html.Raw(item2.ModalTitulo)','@Html.Raw(item2.ModalDescripcion)')">@item2.Subtitulo</span>
-
-                                    if (@item2.ModalTitulo == null || item2.ModalTitulo == "" || item2.ModalDescripcion == null || item2.ModalDescripcion == "")
-                                    {
-
-                                    }
-                                    else
-
-                                    {
-                                        <div class="modal fade" id="Modal-@data.Indicadores[i].Codigo-@NombreModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" onloadeddata="PopupComoLograrlo('@Html.Raw(data.Titulo)','@Html.Raw(data.Indicadores[i].Titulo)')">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="CerrarComoLograrlo('@Html.Raw(data.Titulo)','@Html.Raw(data.Indicadores[i].Titulo)')">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                    <div class="modal-body pad-center">
-                                                        <div class="indicador-nivel">
-                                                            @if (item2.Tipo == "PED")
-                                                            {
-                                                                <div class="circle-porcent imgpizz">
-                                                                    <img src="~/Content/CaminoBrillante/imgs/pedido_activo.svg" />
-                                                                </div>
-                                                            }
-                                                            else if (item2.Tipo == "PIE")
-                                                            {
-                                                                string[] torta = item2.Valor.Split('-');
-                                                                var imagen = torta[1].PadLeft(2, '0') + "_" + torta[2].PadLeft(2, '0') + ".svg";
-                                                                <div class="circle-porcent imgpizz">
-                                                                    <img src="~/Content/CaminoBrillante/imgs/PIZZA_@imagen" />
-                                                                </div>
-                                                            }
-                                                            else if (item2.Tipo == "NIV")
-                                                            {
-                                                                if (Portal.Consultoras.Common.Constantes.CaminoBrillante.Niveles.Iconos.Keys.Contains((string)item2.Valor))
-                                                                {
-                                                                    <div class="circle-porcent imgpizz">
-                                                                        <img src='@Portal.Consultoras.Common.Constantes.CaminoBrillante.Niveles.Iconos[(string)item2.Valor][1]'>
-                                                                    </div>
-                                                                }
-                                                                else
-                                                                {
-                                                                    <img src=''>
-                                                                }
-                                                            }
-
-                                                            <div class="left-mod">
-                                                                <h2>@item2.ModalTitulo</h2>
-                                                                <p>@Html.Raw(item2.ModalDescripcion)</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    }
-                                }
-                            </div>
-                        }
-                        NombreModal = NombreModal + 1;
-                    }
-                </div>
-            </div>
-        }
-    </div>
-
-    <section class="col-12 text-center" id="logros" style="display:none;"></section>
-</div>
-
-
-
+<div class="container" id="logros"></div>
+<br />
 
 <script id="template-logros" type="text/x-handlebars-template">
     <h2 class="title">{{Titulo}}</h2>
     {{#IsNullOrEmpty Descripcion '!='}}
-    <p>{{Descripcion}}</p>
     {{/IsNullOrEmpty}}
     {{#each Indicadores}}
     <div class="box-camb">
         <p class="text-bold">{{Titulo}}</p>
         <div class="cambio-crec">
-            {{each Medallas}}
+            {{#each Medallas }}
             <div class="itm">
                 {{#if_eq Tipo 'PIE'}}
                 <div class="circle-porcent imgpizz">
@@ -200,28 +52,31 @@
                     <img src="{{UrlMedalla}}" />
                 </div>
                 {{else if_eq Tipo 'PED'}}
-                <img src="{{UrlMedalla}}" />
+                <div class="circle-porcent imgpizz">
+                    <img src="{{UrlMedalla}}" />
+                </div>
                 {{else if_eq Tipo 'TIME'}}
-                <img src="{{UrlMedalla}}" />
+                <div class="circle-porcent imgpizz">
+                    <img src="{{UrlMedalla}}" />
+                </div>
                 {{/if_eq}}
 
-                {{#if_neq Tipo 'NIV'}}
+                {{#if_eq Tipo 'NIV'}}
+                {{else}}
                 <a href="#" class="inactivo">{{Titulo}}</a>
-                {{/if_neq}}
+                {{/if_eq}}
 
                 {{#if Estado}}
                 <span class="como-log inactivo">{{Subtitulo}}</span>
                 {{else}}
-                <span data-toggle="modal" class="como-log"
-                      {{#IsNullOrEmpty ModalTitulo '!='}}
-                      {{#IsNullOrEmpty ModalDescripcion '!='}}
-                      data-target="#Modal-{{Codigo}}-{{Id}}"
+                <span data-toggle="modal" class=" como-log {{#IsNullOrEmpty ModalTitulo}}{{#IsNullOrEmpty ModalDescripcion}}inactivo{{/IsNullOrEmpty}}{{/IsNullOrEmpty}}"
+                      {{#IsNullOrEmpty ModalTitulo '!='}} {{#IsNullOrEmpty ModalDescripcion '!='}}
+                      data-target="#medalla-{{../Codigo}}-{{@Html.Raw("@index")}}"
                       onclick="ComoLograrlo('@Html.Raw(data.Titulo)','{{Titulo}}','{{ModalTitulo}}','{{ModalDescripcion}}')"
-                      {{/IsNullOrEmpty}}
-                      {{/IsNullOrEmpty}}>{{Subtitulo}}</span>
+                      {{/IsNullOrEmpty}} {{/IsNullOrEmpty}}>{{Subtitulo}}</span>
                 {{#IsNullOrEmpty ModalTitulo '!='}}
                 {{#IsNullOrEmpty ModalDescripcion '!='}}
-                <div class="modal fade" id="Modal-{{Codigo}}-{{Id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" onloadeddata="PopupComoLograrlo('@Html.Raw(data.Titulo)','{{Titulo}}')">
+                <div class="modal fade" id="medalla-{{../Codigo}}-{{@Html.Raw("@index")}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" onloadeddata="PopupComoLograrlo('@Html.Raw(data.Titulo)','{{Titulo}}')">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="CerrarComoLograrlo('@Html.Raw(data.Titulo)','{{Titulo}}')">
@@ -231,7 +86,7 @@
                                 <div class="indicador-nivel">
                                     {{#if_eq Tipo 'PIE'}}
                                     <div class="circle-porcent imgpizz">
-                                        <img src="{{UrlMedallaFull}}" />
+                                        <img src="{{UrlMedallaFull}}"/>
                                     </div>
                                     {{else if_eq Tipo 'CIRC'}}
                                     <div class="circle-porcent crec-activo">
@@ -243,14 +98,16 @@
                                     </div>
                                     {{else if_eq Tipo 'PED'}}
                                     <div class="circle-porcent imgpizz">
-                                        <img src="{{UrlMedallaFull}}" />
+                                        <img src="{{UrlMedallaFull}}"/>
                                     </div>
                                     {{else if_eq Tipo 'TIME'}}
-                                    <img src="{{UrlMedallaFull}}" />
+                                    <div class="circle-porcent imgpizz">
+                                        <img src="{{UrlMedallaFull}}"/>
+                                    </div>
                                     {{/if_eq}}
                                     <div class="left-mod">
                                         <h2>{{ModalTitulo}}</h2>
-                                        <p>{{ModalDescripcion}}</p>
+                                        <p>{{{ModalDescripcion}}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -265,12 +122,15 @@
         </div>
     </div>
     {{/each}}
+    <div class="clear"></div>
 </script>
 
-
-
-
 @section scripts{
+    <script>
+    var urlGetLogros = '@Url.Action("GetLogros", "CaminoBrillante")';
+    var categoriaLogro = "@categoria";
+    </script>
+
     <script src="~/Scripts/jquery-1.11.2.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="~/Scripts/PortalConsultoras/CaminoBrillante/logros.js"></script>
