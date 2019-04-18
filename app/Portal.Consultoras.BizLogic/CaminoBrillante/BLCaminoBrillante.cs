@@ -401,7 +401,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                             medallaConstancia.Add(new BEMedallaCaminoBrillante()
                             {
                                 Tipo = Constantes.CaminoBrillante.Logros.Indicadores.Medallas.Codes.PIE,
-                                Estado = estado,
+                                Estado = true,
                                 Titulo = string.Format(configMedalla.Valor ?? string.Empty, (periodoCaminoBrillante.CampanaInicial % 100), (periodoCaminoBrillante.CampanaFinal % 100)),
                                 Subtitulo = Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo,
                                 ModalTitulo = configMedalla.ComoLograrlo_Estado && estado ? configMedalla.ComoLograrlo_Titulo : string.Empty,
@@ -430,7 +430,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 medallaConstancia.Add(new BEMedallaCaminoBrillante()
                 {
                     Tipo = Constantes.CaminoBrillante.Logros.Indicadores.Medallas.Codes.PIE,
-                    Estado = true,
+                    //Estado = true,
                     Titulo = string.Format(configMedalla.Valor ?? string.Empty, (periodoActual.CampanaInicial % 100), (periodoActual.CampanaFinal % 100)),
                     Subtitulo = Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo,
                     ModalTitulo = configMedalla.ComoLograrlo_Estado ? configMedalla.ComoLograrlo_Titulo : string.Empty,
@@ -439,6 +439,14 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 });
             }
 
+            if (periodoActual != null )
+            {
+                medallaConstancia.Where(e => e.Valor.StartsWith(periodoActual.Periodo.ToString()))
+                    .Update(e => {
+                        e.Estado = false;
+                    });
+            }
+            
             var orden = 0;
             medallaConstancia = medallaConstancia.OrderBy(e => e.Valor).ToList();
             medallaConstancia.ForEach(e => { e.Orden = orden++; });
