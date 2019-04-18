@@ -16,7 +16,7 @@ $(document).ready(function () {
 
 $("#Demostradores").on('click', '.boton_agregar_ofertas', function (e) {
     var contenedor = $(this).parents('[data-item="BuscadorFichasProductos"]');
-    var obj = JSON.parse($(this).parents('[data-item="BuscadorFichasProductos"]').find('div [data-demostrador]').attr("data-demostrador")); 
+    var obj = JSON.parse($(this).parents('[data-item="BuscadorFichasProductos"]').find('div [data-demostrador]').attr("data-demostrador"));
     var cantidad = $(contenedor).find("#txtCantidad").val();
     var tab = $("#Demostradores").attr('id');
     AgregarProducto(obj, cantidad, contenedor, tab, false);
@@ -27,7 +27,7 @@ $("#kits").on('click', '.boton_agregar_ofertas', function (e) {
     var obj = JSON.parse($(this).parents('[data-item="BuscadorFichasProductos"]').find('div [data-kit]').attr("data-kit"));
     var cantidad = 1;
     var tab = $("#kits").attr('id');
-    AgregarProducto(obj, cantidad, contenedor, tab, true );
+    AgregarProducto(obj, cantidad, contenedor, tab, true);
 });
 
 function Inicializar() {
@@ -63,14 +63,14 @@ function CargarKits() {
     document.body.scrollTop = TabUno;
     $(window).scrollTop(TabUno);
 
-    
+
     $.ajax({
         type: 'GET',
         url: urlGetKits,
         data: { cantidadregistros: cantidadRegistros },
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
-        
+
         success: function (data) {
 
             if (checkTimeout(data)) {
@@ -150,16 +150,19 @@ function AgregarProducto(data, cantidad, contenedor, tab, isKit) {
         async: true,
         cache: false,
         success: function (data) {
-            if (data.success) {                
+            if (data.success) {
                 $(contenedor).find('[data-Agregado="DivAgregado"]').show();
                 if (isKit) {
                     $(".ficha__producto__kit").addClass("producto_desactivado");
                     $('.ficha__producto__tag_enable').hide();
                     $('.ficha__producto__tag_disable').show();
-                }                
+                }
+            } else {
+                $("#Mensaje").append(data.message);
+                $("#alertDialogMensajes").fadeIn();
             } 
             CerrarSplash();
-            CargarResumenCampaniaHeader(true);            
+            CargarResumenCampaniaHeader(true);
 
             dataLayer.push({
                 'event': 'addToCart',
@@ -186,6 +189,16 @@ function AgregarProducto(data, cantidad, contenedor, tab, isKit) {
         }
     });
 }
+
+$(window).scroll(function (event) {
+    if ($("#Tab-kits").hasClass('activado-dorado')) {
+        TabUno = $(window).scrollTop();
+    }
+
+    if ($("#Tab-Demostradores").hasClass('activado-dorado')) {
+        TabDos = $(window).scrollTop();
+    }
+});
 
 function CambiarOferta() {
     $('#Tab-kits').click(function () {
