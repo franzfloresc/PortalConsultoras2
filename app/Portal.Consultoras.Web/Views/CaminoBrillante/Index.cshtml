@@ -17,170 +17,6 @@
 }
 <br />
 
-<div class="container ">
-    <h2 class="title">Mi nivel</h2>
-    <div id="box-niveles">
-        <div id="ProgressBar">
-            <div class="Progress medal-@NivelActual"></div>
-            @{
-                var estilo = 0;
-                var otroEstilo = "";
-                var estiloClase = "";
-                for (int i = 0; i < Niveles.Count; i++)
-                {
-                    estilo = Convert.ToInt32(i) + Convert.ToInt32(1);
-                    estiloClase = "pt" + estilo;
-                    if (estilo <= NivelActual)
-                    {
-                        otroEstilo = "";
-                    }
-                    else
-                    {
-                        otroEstilo = "onclick=ModalBeneficios(" + @Niveles[i].CodigoNivel + ") data-toggle=modal data-target=#BenefNivel";
-                    }
-                    <span class="point @estiloClase" @otroEstilo>
-                        <img src=@Niveles[i].UrlImagenNivel>
-                        <em>@Niveles[i].DescripcionNivel</em>
-                    </span>
-                }
-            }
-        </div>
-    </div>
-    <input type="hidden" id="hfNivelActual" value="@NivelActual" />
-    <div class="modal fade" id="BenefNivel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <button id="btnCerarNiveles" type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="CerrarBeneficios()">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <div class="modal-body pad-center">
-                    <div class="indicador-nivel" style="text-align:center; margin-bottom: 20px;">
-                        <center>
-                            <img id="m_imagen" style="float: unset; max-width: 100px !important;" />
-                        </center>
-                        <div class="left-mod" style="width: 100%; margin-left: 0px; ">
-                            <h2 id="m_titulo" style="color: black; font-size: 20px; font-weight: bold;"></h2>
-                            <div class="cont-textLograr">
-                                <p id="m_montoMinimo"></p>
-                                <p id="m_montoFaltante"></p>
-                            </div>
-                        </div>
-                    </div>
-                    <h4 class="subtitle text-center">Conoce los beneficios:</h4>
-                    <ul class="box-beneficios two-colums" id="ListaBeneficios"></ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="cont-benf" id="BeneficiosPrincipal">
-        <h2 class='title'>Mis beneficios</h2>
-        <ul class='box-beneficios' id='BeneficiosPrincipal'>
-            @foreach (var beneficio in Niveles[NivelActual - 1].Beneficios)
-            {
-                <li>
-                    @if (Portal.Consultoras.Common.Constantes.CaminoBrillante.Beneficios.Iconos.Keys.Contains((string)beneficio.Icono))
-                    {
-                        <img src='@Portal.Consultoras.Common.Constantes.CaminoBrillante.Beneficios.Iconos[(string)beneficio.Icono]'>
-                    }
-                    else
-                    {
-                        <img src=''>
-                    }
-                    <div class="txt-benf">
-                        @if (string.IsNullOrEmpty(@beneficio.Descripcion))
-                        {
-                            <p class="text-bold"><span>@beneficio.NombreBeneficio</span></p>
-                        }
-                        else
-                        {
-                            <p class="text-bold">@beneficio.NombreBeneficio<span>@beneficio.Descripcion</span></p>
-                        }
-                    </div>
-                </li>
-            }
-        </ul>
-    </div>
-
-    @if (TieneOfertasEspeciales)
-    {
-        <a id="OfertasEspeciales" href="@Url.Action("Ofertas", "CaminoBrillante")" class="btn-principal">Ver ofertas</a>
-    }
-
-    <div id="cont-logros" class="cont-logros">
-        <h2 class="title" id="TituloLogros">@data.Titulo</h2>
-        @*<p class="text" id="DescripcionLogros">@data.Descripcion</p>*@
-        <div class="boxcenter">
-            <div class="owl-carousel owl-crec" id="Carusel-Logros">
-                @for (int i = 0; i < data.Indicadores.Count; i++)
-                {
-                    <div class="item">
-                        <div class="shad box-@data.Indicadores[i].Titulo">
-                            <p class="text-bold">@data.Indicadores[i].Titulo</p>
-                            <span class="text-down">@data.Indicadores[i].Descripcion</span>
-                            <ul class="list-crec">
-                                @foreach (var item2 in data.Indicadores[i].Medallas)
-                                {
-                                    if (item2 != null)
-                                    {
-                                        <li>
-                                            @{
-                                                if (item2 != null)
-                                                {
-                                                    if (item2.Tipo == "PIE")
-                                                    {
-                                                        string[] torta = @item2.Valor.Split('-');
-                                                        var imagen = torta[1].PadLeft(2, '0') + "_" + torta[2].PadLeft(2, '0') + ".svg";
-                                                        <img src="~/Content/CaminoBrillante/imgs/PIZZA_@imagen" />
-                                                    }
-                                                    else if (item2.Tipo == "CIRC")
-                                                    {
-                                                        string Estilo = item2.Estado ? "crec-activo" : "crec-inactivo";
-
-                                                        <div class="circle-porcent @Estilo">
-                                                            <span>@item2.Valor</span>
-                                                        </div>
-                                                    }
-                                                    else if (item2.Tipo == "PED")
-                                                    {
-                                                        if (item2.Estado)
-                                                        {
-                                                            <img src="~/Content/CaminoBrillante/imgs/pedido_activo.svg" />
-                                                        }
-                                                        else
-                                                        {
-                                                            <img src="~/Content/CaminoBrillante/imgs/pedido_desactivo.svg" />
-                                                        }
-                                                    }
-                                                    else if (item2.Tipo == "TIME")
-                                                    {
-                                                        if (item2.Estado)
-                                                        {
-                                                            <img src="~/Content/CaminoBrillante/imgs/Tiempojuntos_activo.svg" />
-                                                        }
-                                                        else
-                                                        {
-                                                            <img src="~/Content/CaminoBrillante/imgs/Tiempojuntos_inactivo.svg" />
-                                                        }
-                                                    }
-                                                    <p>@item2.Titulo</p>
-                                                }
-                                            }
-                                        </li>
-                                    }
-                                }
-                            </ul>
-                            <a href="@Url.Action("Logros", "CaminoBrillante", new { opcion = @data.Indicadores[i].Titulo })" class="btn-link">Ver todos</a>
-                        </div>
-                    </div>
-                }
-            </div>
-        </div>
-    </div>
-
-</div>
-
-
 
 
 
@@ -204,7 +40,8 @@
             @foreach (var nivel in @ViewBag.Niveles as List<NivelCaminoBrillanteModel>)
             {
                 var decorador = nivel.EsPasado ? "" : "onclick=ModalBeneficios('" + nivel.CodigoNivel + "') data-toggle='modal' data-target='#Nivel_" + nivel.CodigoNivel + "_Bnf'";
-                <span class='point @{"pt" + nivel.CodigoNivel}' @decorador>
+                var estilos = "pt" + nivel.CodigoNivel;
+                <span class='point @estilos' @decorador>
                     <img src=@nivel.UrlImagenNivel>
                     <em>@nivel.DescripcionNivel</em>
                 </span>
@@ -241,7 +78,8 @@
         }
         else if (!nivel.EsPasado)
         {
-            <div class="modal fade" id='@{"#Nivel_"+nivel.CodigoNivel+"_Bnf"}' tabindex="-1" role="dialog" aria-labelledby="@nivel.DescripcionNivel" aria-hidden="true">
+            var idModal = "Nivel_" + nivel.CodigoNivel + "_Bnf";
+            <div class="modal fade" id='@idModal' tabindex="-1" role="dialog" aria-labelledby="@nivel.DescripcionNivel" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <button id="btnCerarNiveles" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -323,7 +161,7 @@
                                     </li>
                                     }
                                 </ul>
-                                <a href="@Url.Action("Logros", "CaminoBrillante", new { opcion = @data.Indicadores[i].Titulo })" class="btn-link">Ver todos</a>
+                                <a href="@Url.Action("Logros", "CaminoBrillante", new { opcion = indicador.Codigo })" class="btn-link">Ver todos</a>
                             </div>
                         </div>
                     }
