@@ -103,7 +103,11 @@ namespace Portal.Consultoras.Web.Providers
                     int nivelActual = 0;
                     if (int.TryParse(nivelActualConsultora.Nivel, out nivelActual)) {
                         result.Each(e => {
-                            e.EsPasado = int.TryParse(e.CodigoNivel, out nivel) ? (nivel <= nivelActual) : false;
+                            if(int.TryParse(e.CodigoNivel, out nivel))
+                            {
+                                e.EsPasado = nivel <= nivelActual;
+                                e.EsActual = nivel == nivelActual;
+                            }
                         });
                     }
                 }

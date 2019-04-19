@@ -5799,6 +5799,7 @@
     <Content Include="Views\Bonificaciones\IndexExterno.cshtml" />
     <Content Include="Views\AdministracionMedallaBrillante\Index.cshtml" />
     <Content Include="Views\Shared\_MainLayoutResponsiveCaminoBrillante.cshtml" />
+    <Content Include="Views\CaminoBrillante\Index - Copia.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

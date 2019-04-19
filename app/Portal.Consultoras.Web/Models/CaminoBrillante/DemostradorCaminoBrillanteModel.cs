@@ -1,6 +1,4 @@
-﻿using Portal.Consultoras.Common;
-
-namespace Portal.Consultoras.Web.Models.CaminoBrillante
+﻿namespace Portal.Consultoras.Web.Models.CaminoBrillante
 {
     public class DemostradorCaminoBrillanteModel
     {
@@ -11,6 +9,7 @@ namespace Portal.Consultoras.Web.Models.CaminoBrillante
         public decimal PrecioValorizado { get; set; }
         public decimal PrecioCatalogo { get; set; }
         public string FotoProductoMedium { get; set; }
+        public bool FlagSeleccionado { get; set; }
         public int OrigenPedidoWeb { get; set; }
     }
 }

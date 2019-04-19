@@ -13,12 +13,22 @@ namespace Portal.Consultoras.Web.Models.CaminoBrillante
         public bool TieneOfertasEspeciales { get; set; }
         public List<BeneficioCaminoBrillanteModel> Beneficios { get; set; }
         public bool EsPasado { get; set; }
+        public bool EsActual { get; set; }
         public string UrlImagenNivel
         {
             get
             {
                 if (Constantes.CaminoBrillante.Niveles.Iconos.ContainsKey(CodigoNivel))
                     return Constantes.CaminoBrillante.Niveles.Iconos[CodigoNivel][EsPasado ? 1 : 0];
+                return null;
+            }
+        }
+        public string UrlImagenNivelFull
+        {
+            get
+            {
+                if (Constantes.CaminoBrillante.Niveles.Iconos.ContainsKey(CodigoNivel))
+                    return Constantes.CaminoBrillante.Niveles.Iconos[CodigoNivel][0];
                 return null;
             }
         }
