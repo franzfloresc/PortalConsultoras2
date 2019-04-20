@@ -32,6 +32,7 @@ namespace Portal.Consultoras.Web.Controllers
                                      new ServiceUsuario.BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante()).Nivel;
             ViewBag.ResumenLogros = _caminoBrillanteProvider.GetLogroCaminoBrillante(Constantes.CaminoBrillante.Logros.RESUMEN);
             ViewBag.TieneOfertasEspeciales = _caminoBrillanteProvider.TieneOfertasEspeciales();
+            ViewBag.SimboloMoneda = userData.Simbolo;
 
             return View();
         }
@@ -76,6 +77,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.Moneda = userData.Simbolo;
             ViewBag.RutaImagenNoDisponible = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.urlSinImagenTiposyTonos);
             ViewBag.CaminoBrillante = true;
+            ViewBag.EsMobile = EsDispositivoMovil() || IsMobile();
 
             if (lstKit != null || lstDemo != null)
             {
@@ -135,6 +137,7 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        /*
         [HttpPost]
         public JsonResult GetNiveles(string nivel)
         {
@@ -143,8 +146,12 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new {}, JsonRequestBehavior.AllowGet);
             }
             string nivelSiguiente = null;
-            return Json(new { Niveles = _caminoBrillanteProvider.GetNivelesCaminoBrillante(true).Where(e => e.CodigoNivel == nivel).ToList(), Moneda = userData.Simbolo, MontoFaltante = _caminoBrillanteProvider.MontoFaltanteSiguienteNivel(out nivelSiguiente), NivelSiguiente = nivelSiguiente }, JsonRequestBehavior.AllowGet);
+            return Json(new { Niveles = _caminoBrillanteProvider.GetNivelesCaminoBrillante(true).Where(e => e.CodigoNivel == nivel).ToList(), Moneda = userData.Simbolo,
+                MontoFaltante = _caminoBrillanteProvider.MontoFaltanteSiguienteNivel(out nivelSiguiente), NivelSiguiente = nivelSiguiente }, JsonRequestBehavior.AllowGet);
         }
+
+        */
+
 
         //[HttpPost]
         public JsonResult GetLogros(string category)

@@ -4,33 +4,13 @@
 @{
     Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
     ViewBag.Title = "Camino Brillante";
-
-
-    var data = ViewBag.ResumenLogros;
-    var Niveles = ViewBag.Niveles;
-    var TieneOfertasEspeciales = ViewBag.TieneOfertasEspeciales;
-    var NivelActual = ViewBag.NivelActual;
 }
 
 @section css{
     @System.Web.Optimization.Styles.Render("~/Bundle/Css/CaminoBrillante")
 }
+
 <br />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <div class="container ">
     <h2 class="title">Mi nivel</h2>
     <input type="hidden" id="hfNivelActual" value="@ViewBag.NivelActual" />
@@ -39,7 +19,7 @@
             <div class="Progress medal-@ViewBag.NivelActual"></div>
             @foreach (var nivel in @ViewBag.Niveles as List<NivelCaminoBrillanteModel>)
             {
-                var decorador = nivel.EsPasado ? "" : "onclick=ModalBeneficios('" + nivel.CodigoNivel + "') data-toggle='modal' data-target='#Nivel_" + nivel.CodigoNivel + "_Bnf'";
+                var decorador = nivel.EsPasado ? "" : "onclick=TagMostrarPopupNivel('" + nivel.DescripcionNivel + "') data-toggle=modal data-target=#Nivel_" + nivel.CodigoNivel + "_Bnf";
                 var estilos = "pt" + nivel.CodigoNivel;
                 <span class='point @estilos' @decorador>
                     <img src=@nivel.UrlImagenNivel>
@@ -89,8 +69,11 @@
                                 <div class="left-mod" style="width: 100%; margin-left: 0px; ">
                                     <h2 id="m_titulo" style="color: black; font-size: 20px; font-weight: bold;">@nivel.DescripcionNivel</h2>
                                     <div class="cont-textLograr">
-                                        <p id="m_montoMinimo"><b>Lo logras con:</b><span style='float: right'>@nivel.MontoMinimo</span></p>
-                                        <p id="m_montoFaltante"><b>Te falta:</b><span style='float: right'>@nivel.MontoFaltante</span></p>
+                                        <p id="m_montoMinimo"><b>Lo logras con:</b><span style='float: right'>@ViewBag.SimboloMoneda @nivel.MontoMinimo</span></p>
+                                        @if (nivel.MontoFaltante.HasValue)
+                                        {
+                                           <p id="m_montoFaltante"><b>Te falta:</b><span style='float: right'>@ViewBag.SimboloMoneda @nivel.MontoFaltante</span></p>
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -171,32 +154,7 @@
     }
 </div>
 
-
-
-
-
-
-
-
-
-
-
-@*<script src="~/Scripts/jquery-1.11.2.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    <script src="~/Scripts/owl.carousel.js"></script>
-    <script src="~/Scripts/PortalConsultoras/CaminoBrillante/index.js"></script>*@
-
-
-
-
-
-
 @section scripts{
-
-    <script type="text/javascript">
-        var baseUrl = "@Url.Content("~")";
-        var urlGetNiveles = '@Url.Action("GetNiveles", "CaminoBrillante", new { area = "" })';
-    </script>
 
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante")
 

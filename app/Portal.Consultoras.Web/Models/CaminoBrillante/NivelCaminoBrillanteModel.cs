@@ -28,7 +28,7 @@ namespace Portal.Consultoras.Web.Models.CaminoBrillante
             get
             {
                 if (Constantes.CaminoBrillante.Niveles.Iconos.ContainsKey(CodigoNivel))
-                    return Constantes.CaminoBrillante.Niveles.Iconos[CodigoNivel][0];
+                    return Constantes.CaminoBrillante.Niveles.Iconos[CodigoNivel][1];
                 return null;
             }
         }
