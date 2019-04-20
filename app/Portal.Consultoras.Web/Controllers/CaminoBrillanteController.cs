@@ -20,17 +20,20 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (!_caminoBrillanteProvider.ValidacionCaminoBrillante()) return RedirectToAction("Index", "Bienvenida");
 
-            
-
-            ViewBag.ResumenLogros = _caminoBrillanteProvider.GetLogroCaminoBrillante(Constantes.CaminoBrillante.Logros.RESUMEN);
             ViewBag.Niveles = _caminoBrillanteProvider.GetNivelesCaminoBrillante(true);
-            var nivelActual = _caminoBrillanteProvider.GetNivelConsultoraCaminoBrillante();
-            var _nivelActual = 1;
-            if (nivelActual != null) int.TryParse(nivelActual.Nivel, out _nivelActual);
-            ViewBag.NivelActual = _nivelActual;
+            //var nivelActual = _caminoBrillanteProvider.GetNivelConsultoraCaminoBrillante();
+            //var _nivelActual = 1;
+            //if (nivelActual != null) int.TryParse(nivelActual.Nivel, out _nivelActual);
+            //ViewBag.NivelActual = _nivelActual;
             //ViewBag.TieneOfertasEspeciales = _caminoBrillanteProvider.TieneOfertasEspeciles(_nivelActual);
+            //ViewBag.CaminoBrillante = true;
+
+            ViewBag.NivelActual = (_caminoBrillanteProvider.GetNivelConsultoraCaminoBrillante() ?? 
+                                     new ServiceUsuario.BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante()).Nivel;
+            ViewBag.ResumenLogros = _caminoBrillanteProvider.GetLogroCaminoBrillante(Constantes.CaminoBrillante.Logros.RESUMEN);
             ViewBag.TieneOfertasEspeciales = _caminoBrillanteProvider.TieneOfertasEspeciales();
-            ViewBag.CaminoBrillante = true;
+            ViewBag.SimboloMoneda = userData.Simbolo;
+
             return View();
         }
 
@@ -74,6 +77,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.Moneda = userData.Simbolo;
             ViewBag.RutaImagenNoDisponible = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.urlSinImagenTiposyTonos);
             ViewBag.CaminoBrillante = true;
+            ViewBag.EsMobile = EsDispositivoMovil() || IsMobile();
 
             if (lstKit != null || lstDemo != null)
             {
@@ -86,6 +90,8 @@ namespace Portal.Consultoras.Web.Controllers
             else
                 return RedirectToAction("Index", "CaminoBrillante");
         }
+
+
 
         public JsonResult GetKits(int offset, int cantidadRegistros)
         {
@@ -131,6 +137,7 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        /*
         [HttpPost]
         public JsonResult GetNiveles(string nivel)
         {
@@ -139,8 +146,12 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new {}, JsonRequestBehavior.AllowGet);
             }
             string nivelSiguiente = null;
-            return Json(new { Niveles = _caminoBrillanteProvider.GetNivelesCaminoBrillante(true).Where(e => e.CodigoNivel == nivel).ToList(), Moneda = userData.Simbolo, MontoFaltante = _caminoBrillanteProvider.MontoFaltanteSiguienteNivel(out nivelSiguiente), NivelSiguiente = nivelSiguiente }, JsonRequestBehavior.AllowGet);
+            return Json(new { Niveles = _caminoBrillanteProvider.GetNivelesCaminoBrillante(true).Where(e => e.CodigoNivel == nivel).ToList(), Moneda = userData.Simbolo,
+                MontoFaltante = _caminoBrillanteProvider.MontoFaltanteSiguienteNivel(out nivelSiguiente), NivelSiguiente = nivelSiguiente }, JsonRequestBehavior.AllowGet);
         }
+
+        */
+
 
         //[HttpPost]
         public JsonResult GetLogros(string category)
@@ -152,6 +163,96 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return Json(new { data = _caminoBrillanteProvider.GetLogroCaminoBrillante(category.ToUpper()) }, JsonRequestBehavior.AllowGet);
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //Nuevo
+
+        [HttpPost]
+        public JsonResult ObtenerNiveles()
+        {
+            if (!_caminoBrillanteProvider.ValidacionCaminoBrillante())
+            {
+                //No alowed
+                return Json(new { }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(_caminoBrillanteProvider.GetNivelesCaminoBrillante(true), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult ObtenerLogros(string category)
+        {
+            if (string.IsNullOrEmpty(category) || !_caminoBrillanteProvider.ValidacionCaminoBrillante())
+            {
+                //No alowed
+                return Json(new { }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(_caminoBrillanteProvider.GetLogroCaminoBrillante(category.ToUpper()), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult ObtenerKits(int offset, int cantidadRegistros)
+        {
+            var lstKits = _caminoBrillanteProvider.GetKitsCaminoBrillante();
+            lstKits = lstKits.Skip(offset).Take(cantidadRegistros).ToList();
+
+            var estado = false;
+            try
+            {
+                if (lstKits.Count > cantidadRegistros) estado = true;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
+            return Json(new
+            {
+                lista = lstKits,
+                verMas = true
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult ObtenerDemostradores(int offset, int cantidadRegistros)
+        {
+            var lstDemostrador = _caminoBrillanteProvider.GetDesmostradoresCaminoBrillante();
+            lstDemostrador = lstDemostrador.Skip(offset).Take(cantidadRegistros).ToList();
+
+            var estado = false;
+            try
+            {
+                if (lstDemostrador.Count > cantidadRegistros) estado = true;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
+            return Json(new
+            {
+                lista = lstDemostrador,
+                verMas = true
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        
+
+
+
+
 
     }
 }

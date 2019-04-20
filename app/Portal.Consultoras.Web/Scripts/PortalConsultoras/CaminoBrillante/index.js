@@ -40,9 +40,11 @@
     });
 });
 
+/*
 $('#btnCerarNiveles').click(function () {
     CerrarBeneficios();
 });
+*/
 
 function Carusel() {
     var owl = $('.owl-crec');
@@ -84,7 +86,10 @@ function Carusel() {
     })
 }
 
+/*
 function ModalBeneficios(index) {
+
+
     $("#m_montoMinimo").empty();
     $("#m_montoFaltante").empty();
     $("#ListaBeneficios").empty();
@@ -138,7 +143,10 @@ function ModalBeneficios(index) {
             alert("Error while inserting data");
         }
     });
+
+
 }
+*/
 
 function TagClickSeleccionNivel(nivelConsultora) {
     

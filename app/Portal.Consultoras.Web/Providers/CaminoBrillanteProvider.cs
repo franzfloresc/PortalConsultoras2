@@ -103,7 +103,22 @@ namespace Portal.Consultoras.Web.Providers
                     int nivelActual = 0;
                     if (int.TryParse(nivelActualConsultora.Nivel, out nivelActual)) {
                         result.Each(e => {
-                            e.EsPasado = int.TryParse(e.CodigoNivel, out nivel) ? (nivel <= nivelActual) : false;
+                            if(int.TryParse(e.CodigoNivel, out nivel))
+                            {
+                                e.EsPasado = nivel <= nivelActual;
+                                e.EsActual = nivel == nivelActual;
+                                if (nivel == nivelActual + 1) {
+                                    var consultoraHistoricos = GetNivelesHistoricosConsultora();
+                                    decimal _montoPedido = 0;
+                                    var montoPedido = consultoraHistoricos.Where(h => decimal.TryParse(h.MontoPedido, out _montoPedido)).Sum(h => decimal.Parse(h.MontoPedido));
+
+                                    decimal montoMinimo = 0;
+                                    if (decimal.TryParse(e.MontoMinimo, out montoMinimo))
+                                    {
+                                        e.MontoFaltante = montoMinimo - montoPedido;
+                                    }                                    
+                                }
+                            }
                         });
                     }
                 }
@@ -240,7 +255,7 @@ namespace Portal.Consultoras.Web.Providers
 
 
 
-        public decimal? MontoFaltanteSiguienteNivel(out string nivelSiguiente) {
+        public decimal? _MontoFaltanteSiguienteNivel(out string nivelSiguiente) {
             nivelSiguiente = null;
 
             var nivelConsultora = GetNivelConsultoraCaminoBrillante();
