@@ -36,10 +36,10 @@
         <div class="vc-tabs">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item active">
-                    <a class="nav-link " id="cliente-tab" data-toggle="tab" href="#cliente" role="tab" aria-controls="cliente" aria-selected="true">Vista por cliente</a>
+                    <a class="nav-link " id="cliente-tab" onclick="javascript:PedidosPendientesVistaCliente();" data-toggle="tab" href="#cliente" role="tab" aria-controls="cliente" aria-selected="true">Vista por cliente</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " id="producto-tab" data-toggle="tab" href="#producto" role="tab" aria-controls="producto" aria-selected="false">Vista por producto</a>
+                    <a class="nav-link " id="producto-tab" onclick="javascript:PedidosPendientesVistaProducto();" data-toggle="tab" href="#producto" role="tab" aria-controls="producto" aria-selected="false">Vista por producto</a>
                 </li>
             </ul>
         </div>
@@ -85,13 +85,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- / Pedidos -->
                         </div>
-
-
                     }
                 </div>
                 <!-- / Vista por cliente -->
+
                 <!-- Vista por producto -->
                 <div class="tab-pane fade" id="producto" role="tabpanel" aria-labelledby="producto-tab">
                     <!--   Productos   -->

@@ -95,7 +95,7 @@
                             <div class="col">
                                 <img src="@x.Url" class="img-fluid products-img" alt="Producto">
                                 <p class="text-12 text-gray"> @x.Producto</p>
-                                @*<span class="text-12 text-gray">@ViewBag.Simbolo @x.FormatoPrecioTotal</span>*@
+                               
                                 <span class="text-12 text-gray">@Util.DecimalToStringFormat(x.PrecioUnitario, ViewBag.PaisISOx)</span>
                             </div>
                         }

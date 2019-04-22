@@ -2440,6 +2440,22 @@ var AnalyticsPortalModule = (function () {
     ////////////////////////////////////////////////////////////////////////////////////////
 
 
+    ////////////////////////////////////////////////////////////////////////////////////////
+    // Inicio - Analytics PedidoPendientes
+    ////////////////////////////////////////////////////////////////////////////////////////
+
+    var clickBotonPedidosPorAprobar = function (action, label) {
+        dataLayer.push({
+            'event': _evento.virtualEvent,
+            "category": _texto.CarritoCompras,
+            "action": action,
+            "label": label
+        });
+    }
+    ////////////////////////////////////////////////////////////////////////////////////////
+    // Fin - Analytics PedidoPendientes
+    ////////////////////////////////////////////////////////////////////////////////////////
+
     return {
         // Ini - Metodos Iniciales
         MarcarIniciarPlayVideo: marcarIniciarPlayVideo,
@@ -2526,6 +2542,10 @@ var AnalyticsPortalModule = (function () {
         ClickAddCartFicha: clickAddCartFicha,
         ClickTabGanadoras: clickTabGanadoras,
         // Fin - Analytics Ganadoras
+
+        // Ini - Analytics PedidoPendientes
+        ClickBotonPedidosPorAprobar: clickBotonPedidosPorAprobar,
+        // Fin - Analytics PedidoPendientes
 
         MarcaProductImpressionRecomendaciones: marcaProductImpressionRecomendaciones,
         MarcaProductImpressionViewRecomendaciones: marcaProductImpressionViewRecomendaciones,

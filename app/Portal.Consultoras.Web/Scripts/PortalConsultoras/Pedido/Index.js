@@ -2965,3 +2965,27 @@ function CargarProductosRecomendados(item) {
     ProductoRecomendadoModule.ObtenerProductos(item.CodigoCatalago, item.EstrategiaIDSicc, item.CUV, item.CodigoProducto);
     
 }
+
+function PedidosPendientesPorAprobar() {
+
+    if (!(typeof AnalyticsPortalModule === 'undefined')) {
+        AnalyticsPortalModule.ClickBotonPedidosPorAprobar('Click Botón', 'Pedidos por aprobar');
+    }
+    window.location.href = '/ConsultoraOnline/Pendientes';
+}
+
+function PedidosPendientesVistaCliente() {
+
+    if (!(typeof AnalyticsPortalModule === 'undefined')) {
+        AnalyticsPortalModule.ClickBotonPedidosPorAprobar('Click Tab', 'Vista por Cliente');
+    }
+}
+
+function PedidosPendientesVistaProducto() {
+
+    if (!(typeof AnalyticsPortalModule === 'undefined')) {
+        AnalyticsPortalModule.ClickBotonPedidosPorAprobar('Click Tab', 'Vista por Producto');
+    }
+}
+
+

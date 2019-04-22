@@ -159,3 +159,17 @@ function DetallePedidoPendienteClientes(cuv) {
 function DetallePedidoPendiente(ids) {
     window.location = (isMobileNative.any() ? "/Mobile" : "") + "/ConsultoraOnline/DetallePedidoPendiente?ids=" + ids;
 }
+
+function PedidosPendientesVistaCliente() {
+
+    if (!(typeof AnalyticsPortalModule === 'undefined')) {
+        AnalyticsPortalModule.ClickBotonPedidosPorAprobar('Click Tab', 'Vista por Cliente');
+    }
+}
+
+function PedidosPendientesVistaProducto() {
+
+    if (!(typeof AnalyticsPortalModule === 'undefined')) {
+        AnalyticsPortalModule.ClickBotonPedidosPorAprobar('Click Tab', 'Vista por Producto');
+    }
+}
