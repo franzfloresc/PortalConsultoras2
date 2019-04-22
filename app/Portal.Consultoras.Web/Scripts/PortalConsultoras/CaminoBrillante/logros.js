@@ -19,7 +19,7 @@ function cargarLogros(category) {
                 $('#logros').append(htmlDiv);
                 $('#logros').show();
                 closeWaitingDialog();
-                $('#loadingScreen').hide()
+                $('#loadingScreen').hide();
             }
             //}
         },

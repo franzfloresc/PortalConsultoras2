@@ -38,6 +38,8 @@
             return;
         }
     });
+
+    $('#loadingScreen').hide();
 });
 
 /*

@@ -14,11 +14,14 @@
     </style>
 }
 
+
+
 <section data-layout="ubicacionWeb" class="row flex-row ml-0 mr-0 layout__view__breadcrumbs__wrapper mostrarEnDesktop">
     <div class="col-12 pl-0 pr-0 mx-auto layout__view__breadcrumbs">
         <ul class="row flex-row align-items-center ml-0 mr-0 layout__view__lista__breadcrumbs">
             <li class="layout__view__breadcrumb">
-                <a href="@Url.Action("Index", "Bienvenida" )" class="d-block" title="Home">Home</a>
+                <a id="is-mobile" href="@Url.Action("Index", "Bienvenida", new { area = "Mobile" })" title="Home">Home</a>
+                <a id="is-desktop" href="@Url.Action("Index", "Bienvenida")" title="Home">Home</a>
             </li>
             <li class="layout__view__breadcrumb">
                 <a href="@Url.Action("Index","CaminoBrillante")" class="d-block" title="CaminoBrillante">Camino Brillante</a>
@@ -134,6 +137,21 @@
     <script>
         var urlGetLogros = '@Url.Action("GetLogros", "CaminoBrillante")';
         var categoriaLogro = "@categoria";
+        debugger;
+        var isMobile = {
+            Android: function () { return navigator.userAgent.match(/Android/i); },
+            BlackBerry: function () { return navigator.userAgent.match(/BlackBerry/i); },
+            iOS: function () { return navigator.userAgent.match(/iPhone|iPad|iPod/i); },
+            Opera: function () { return navigator.userAgent.match(/Opera Mini/i); },
+            Windows: function () { return navigator.userAgent.match(/IEMobile/i); },
+            any: function () { return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows()); }
+        };
+
+        if (isMobile.any())
+            $('#is-desktop').toggleClass('show hide');
+        else
+            $('#is-mobile').toggleClass('show hide');
+
     </script>
 
     <script src="~/Scripts/jquery-1.11.2.min.js"></script>
