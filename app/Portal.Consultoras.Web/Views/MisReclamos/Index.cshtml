@@ -75,11 +75,11 @@
                     var formatoCampania = item.CampaniaID.ToString().Substring(0, 4) + "-" + item.CampaniaID.ToString().Substring(4, 2);
 
                     var claseEstado = item.Estado == Constantes.EstadoCDRWeb.Pendiente
-                        ? ""
+                        ? "EstadoPendiente"
                         : item.Estado == Constantes.EstadoCDRWeb.Enviado
-                            ? "EstadoRechazado"
+                            ? "EstadoEnviado"
                             : item.Estado == Constantes.EstadoCDRWeb.Aceptado
-                                ? "estado_detalleFacturado"
+                                ? "EstadoAceptado"
                                 : item.Estado == Constantes.EstadoCDRWeb.Observado
                                     ? "estado_detalleObservado"
                                     : "";
@@ -121,7 +121,7 @@
                         }
                         <div class="listado_estado_general">
                             <div class="verDetalle">
-                                <span class="border-radius-4 estado_texto @claseEstado">
+                                <span class="estado_texto @claseEstado">
                                     @item.EstadoDescripcion
                                 </span>
                                 <span>
