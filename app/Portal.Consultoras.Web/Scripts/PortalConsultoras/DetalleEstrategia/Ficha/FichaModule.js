@@ -607,7 +607,7 @@ var FichaModule = (function (config) {
 
         if (estrategia.TieneReloj) {
             _crearReloj(estrategia);
-            _setHandlebars(_template.styleOdd, modeloFicha);
+            _setHandlebars(_template.styleOdd, estrategia);
         }
 
         if (!_config.esMobile) {
