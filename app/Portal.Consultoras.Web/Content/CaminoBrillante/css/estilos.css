@@ -1579,3 +1579,17 @@ div .left-mod .l-mod p {
 .indicador-nivel .cont-textLograr p b {
     float: left;
 }
+
+
+
+div ul .menu__item--lateralDerechoIcono {
+    width: 63px;
+}
+
+div .menu__link--carrito:before {
+    width: 63px;
+}
+
+li .productos__agregados {
+    right: 1px;
+}
