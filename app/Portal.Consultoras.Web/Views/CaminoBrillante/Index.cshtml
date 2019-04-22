@@ -79,17 +79,17 @@
             <div class="modal fade" id='@idModal' tabindex="-1" role="dialog" aria-labelledby="@nivel.DescripcionNivel" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
-                        <button id="btnCerarNiveles" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <button id="btnCerrarNiveles" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <div class="modal-body pad-center">
                             <div class="indicador-nivel" style="text-align:center; margin-bottom: 20px;">
                                 <center><img id="m_imagen" style="float: unset; max-width: 100px !important;" src="@nivel.UrlImagenNivelFull" /></center>
                                 <div class="left-mod" style="width: 100%; margin-left: 0px; ">
-                                    <h2 id="m_titulo" style="color: black; font-size: 20px; font-weight: bold;">@nivel.DescripcionNivel</h2>
+                                    <h2 id="m_titulo" style="color: black; font-size: 20px; font-weight: bold;">@nivel.DescripcionNivel</h2>@ViewBag.Pais
                                     <div class="cont-textLograr">
-                                        <p id="m_montoMinimo"><b>Lo logras con:</b><span style='float: right'>@ViewBag.SimboloMoneda @nivel.MontoMinimo</span></p>
+                                        <p id="m_montoMinimo"><b>Lo logras con:</b><span style='float: right'>@ViewBag.SimboloMoneda @Util.DecimalToStringFormat(Convert.ToDecimal(nivel.MontoMinimo), @ViewBag.CodigoISODL)</span></p>
                                         @if (nivel.MontoFaltante.HasValue)
                                         {
-                                            <p id="m_montoFaltante"><b>Te falta:</b><span style='float: right'>@ViewBag.SimboloMoneda @nivel.MontoFaltante</span></p>
+                                            <p id="m_montoFaltante"><b>Te falta:</b><span style='float: right'>@ViewBag.SimboloMoneda @Util.DecimalToStringFormat(Convert.ToDecimal(nivel.MontoFaltante), @ViewBag.CodigoISODL)</span></p>
                                         }
                                     </div>
                                 </div>
