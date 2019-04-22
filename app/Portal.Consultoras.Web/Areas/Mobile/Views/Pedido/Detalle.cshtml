@@ -439,6 +439,18 @@
                                    readonly="readonly"
                                    autocomplete="off">
                             <i class="arrow-down"></i>
+                            {{else iff detalle.EsKitCaminoBrillante}}
+                            <input type="tel"
+                                   class="ValidaNumeral ValidaPasteNumeral Cantidad"
+                                   maxlength="2"
+                                   name="Cantidad_{{detalle.PedidoDetalleID}}"
+                                   value="{{detalle.Cantidad}}"
+                                   data-pedidodetalleid="{{detalle.PedidoDetalleID}}"
+                                   data-setId="{{detalle.SetID}}"
+                                   data-cantidad-input="-"
+                                   readonly="readonly"
+                                   autocomplete="off">
+                            <i class="arrow-down"></i>
                             {{else iff TipoEstrategiaCodigo '==' @Constantes.TipoEstrategiaCodigo.ArmaTuPack}}
                             <input type="tel"
                                    class="ValidaNumeral ValidaPasteNumeral Cantidad"
