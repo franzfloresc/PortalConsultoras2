@@ -30,7 +30,7 @@ namespace Portal.Consultoras.Common
             public const string LandingBuscador = "10";
             public const string LandingGanadoras = "11";
             public const string ArmaTuPack = "12"; //Manda cuando estemos dentro de armatupack
-            public const string Catalogo = "13"; //Catalogo
+            public const string MisCatalogosRevista = "13"; //Catalogo
         }
 
         public static class SeccionFuncional {
