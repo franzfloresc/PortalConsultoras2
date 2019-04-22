@@ -106,7 +106,7 @@
     <Compile Include="BLReporteRevisionIncidencias.cs" />
     <Compile Include="Cache\BLCache.cs" />
     <Compile Include="CaminoBrillante\BLCaminoBrillante.cs" />
-    <Compile Include="CaminoBrillante\CaminoBrillanteProvider.cs" />
+    <Compile Include="CaminoBrillante\Rest\CaminoBrillanteProvider.cs" />
     <Compile Include="CaminoBrillante\ICaminoBrillanteBusinessLogic.cs" />
     <Compile Include="Cliente\BLClienteDB.cs" />
     <Compile Include="Cliente\IClienteBusinessLogic.cs" />

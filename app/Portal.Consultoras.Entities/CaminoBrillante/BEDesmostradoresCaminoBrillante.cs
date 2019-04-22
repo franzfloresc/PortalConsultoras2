@@ -1,6 +1,4 @@
-﻿using Portal.Consultoras.Common;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Data;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities.CaminoBrillante
@@ -8,6 +6,7 @@ namespace Portal.Consultoras.Entities.CaminoBrillante
     [DataContract]
     public class BEDesmostradoresCaminoBrillante
     {
+        /*
         [DataMember]
         //[Column("CUV")]
         [Column("Cuv")]
@@ -23,12 +22,11 @@ namespace Portal.Consultoras.Entities.CaminoBrillante
         [Column("PrecioCatalogo")]
         public decimal PrecioCatalogo { get; set; }
 
-        
-
         [DataMember]
         //[Column("Descripcion")]
         [Column("Descripcion")]
         public string Descripcion { get; set; }
+        */
 
         /*
         public BEDesmostradoresCaminoBrillante(IDataRecord row)
@@ -67,11 +65,14 @@ namespace Portal.Consultoras.Entities.CaminoBrillante
         [Column("PrecioValorizado")]
         public decimal PrecioValorizado { get; set; }
         [DataMember]
-        [Column("PrecioFinal")]
-        public decimal PrecioFinal { get; set; }
-        [DataMember]
-        [Column("Ganancia")]
-        public decimal Ganancia { get; set; }
+        [Column("PrecioCatalogo")]
+        public decimal PrecioCatalogo { get; set; }
+        //[DataMember]
+        //[Column("PrecioFinal")]
+        //public decimal PrecioFinal { get; set; }
+        //[DataMember]
+        //[Column("Ganancia")]
+        //public decimal Ganancia { get; set; }
         [DataMember]
         [Column("FotoProductoSmall")]
         public string FotoProductoSmall { get; set; }
@@ -81,9 +82,9 @@ namespace Portal.Consultoras.Entities.CaminoBrillante
         [DataMember]
         [Column("TipoEstrategiaID")]
         public int TipoEstrategiaID { get; set; }
-        [DataMember]
-        [Column("OrigenPedidoWebFicha")]
-        public int OrigenPedidoWebFicha { get; set; }
+        //[DataMember]
+        //[Column("OrigenPedidoWebFicha")]
+        //public int OrigenPedidoWebFicha { get; set; }
 
     }
 }
