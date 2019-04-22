@@ -2009,7 +2009,7 @@ var AnalyticsPortalModule = (function () {
 
         var codUbigeo = opcion.CodigoUbigeoPortal || "";
         if (codUbigeo !== "") {
-            if (codUbigeo === ConstantesModule.CodigoUbigeoPortal.GuionCarritoComprasGuionFichaResumida) {
+            if (codUbigeo === CodigoUbigeoPortal.MaestroCodigoUbigeo.GuionCarritoComprasGuionFichaResumida) {
                 var textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(codUbigeo); //using new function
                 try {
                     dataLayer.push({
@@ -2116,7 +2116,7 @@ var AnalyticsPortalModule = (function () {
             codUbigeo = opcion.CodigoUbigeoPortal || "";
             //var origenPedido = opcion.OrigenPedidoEditar || 0;
             if (codUbigeo !== "") {
-                if (codUbigeo === ConstantesModule.CodigoUbigeoPortal.GuionCarritoComprasGuionFichaResumida) {
+                if (codUbigeo === CodigoUbigeoPortal.MaestroCodigoUbigeo.GuionCarritoComprasGuionFichaResumida) {
                     var textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(codUbigeo); //using new function
                     try {
                         dataLayer.push({
@@ -2507,9 +2507,7 @@ var AnalyticsPortalModule = (function () {
         var textoCategory = "";
 
         if (origenPedido != "") {
-            //if (origenPedido == ConstantesModule.CodigoUbigeoPortal.GuionPedidoGuionFichaResumida) {
-            //if (origenPedido == ConstantesModule.CodigoUbigeoPortal.GuionCarritoComprasGuionFichaResumida) {
-            if (origenPedido == CodigoUbigeoPortal.MaestroCodigoUbigeo.CodigoUbigeoPortal.GuionCarritoComprasGuionFichaResumida) {
+            if (origenPedido == CodigoUbigeoPortal.MaestroCodigoUbigeo.GuionCarritoComprasGuionFichaResumida) {
                 textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(origenPedido);  //using new function
 
                 var label = isChangeTono ? "Tono " : "";
@@ -2530,7 +2528,6 @@ var AnalyticsPortalModule = (function () {
         isClick = isClick || false;
 
         if (origenPedido !== "") {
-            //if (origenPedido == ConstantesModule.CodigoUbigeoPortal.GuionContenedorArmaTuPackGuion) {
             if (origenPedido == CodigoUbigeoPortal.MaestroCodigoUbigeo.GuionContenedorArmaTuPackGuion) {
                 textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(origenPedido) + ""; //using new function
                 dataLayer.push({
@@ -2572,9 +2569,8 @@ var AnalyticsPortalModule = (function () {
 
         try {
             if (origenPedido !== "") {
-
-                if (origenPedido === ConstantesModule.CodigoUbigeoPortal.GuionContenedorArmaTuPack) {
-                    //var textoCategory = "Contenedor - Arma tu Pack";
+                
+                if (origenPedido === CodigoUbigeoPortal.MaestroCodigoUbigeo.GuionContenedorArmaTuPack) {
                     var textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(origenPedido) + ""; //using new function
                     dataLayer.push({
                         'event': _evento.productClick,
@@ -2609,7 +2605,7 @@ var AnalyticsPortalModule = (function () {
     var marcaEliminaClickArmaTuPack = function (origenPedido, estrategia) {
 
         if (origenPedido !== "") {
-            if (origenPedido === ConstantesModule.CodigoUbigeoPortal.GuionContenedorArmaTuPack) {
+            if (origenPedido === CodigoUbigeoPortal.MaestroCodigoUbigeo.GuionContenedorArmaTuPack) {
                 var textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(origenPedido) + ""; //using new function
                 dataLayer.push({
                     'event': _evento.virtualEvent,
@@ -2658,7 +2654,7 @@ var AnalyticsPortalModule = (function () {
     var marcaClickAgregarArmaTuPack = function (codigoubigeoportal, textoLabel, actionText) {
 
         if (codigoubigeoportal !== "") {
-            if (codigoubigeoportal == ConstantesModule.CodigoUbigeoPortal.GuionContenedorArmaTuPack) {
+            if (codigoubigeoportal == CodigoUbigeoPortal.MaestroCodigoUbigeo.GuionContenedorArmaTuPack) {
                 var textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(codigoubigeoportal) + ""; //using new function
                 dataLayer.push({
                     'event': _evento.virtualEvent,
@@ -2672,7 +2668,7 @@ var AnalyticsPortalModule = (function () {
     var marcaClickCerrarPopupArmaTuPack = function (codigoubigeoportal, textoLabel, actionText) {
 
         if (codigoubigeoportal !== "") {
-            if (codigoubigeoportal == ConstantesModule.CodigoUbigeoPortal.GuionCarritoComprasGuionFichaResumida) {
+            if (codigoubigeoportal == CodigoUbigeoPortal.MaestroCodigoUbigeo.GuionCarritoComprasGuionFichaResumida) {
                 var textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(codigoubigeoportal) + ""; //using new function
                 dataLayer.push({
                     'event': _evento.virtualEvent,

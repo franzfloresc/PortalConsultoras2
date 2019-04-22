@@ -150,16 +150,7 @@ var ConstantesModule = (function () {
         DesktopLandingBuscadorGanadorasFicha: "1101402",
         MobileLandingBuscadorGanadorasFicha: "2101402"
     }
-    /** BORRAR L **/
-    var _codigoUbigeoPortal = {
-        GuionPedidoGuionFichaResumida: _origenPedidoWebEstructura.Guion + _origenPedidoWebEstructura.Pedido +
-            _origenPedidoWebEstructura.Guion +  "--02--00",
-        GuionContenedorArmaTuPackGuion: "--0816--",
-        GuionContenedorArmaTuPack: "--12----",
-        GuionCarritoComprasGuionFichaResumida: "--02--09" 
-    }
-       
-
+    
     // en AnaluticsPortal.js tambiar actualizar los valores
     var _origenPedidoWebEstructura = {
         Guion: '--',
@@ -264,7 +255,6 @@ var ConstantesModule = (function () {
         UrlObtenerEstrategia: _urlObtenerEstrategia,
         UrlDetalleEstrategia: _urlDetalleEstrategia,
         UrlPedido: _urlPedido,
-        GetTipoPersonalizacionByTipoEstrategia: _getTipoPersonalizacionByTipoEstrategia,
-        CodigoUbigeoPortal: _codigoUbigeoPortal
+        GetTipoPersonalizacionByTipoEstrategia: _getTipoPersonalizacionByTipoEstrategia
     }
 })();
