@@ -895,6 +895,10 @@ function EstructurarDataCarouselLiquidaciones(array) {
             item.TextoBotonTallaColor = "";
             item.TieneTallaColor = false;
         }
+        /* INI HD-4009 */
+        item.ValPUM = (item.UnidadMedida == "" || item.PUM == "") ? false : true;
+        /* FIN HD-4009 */
+
     });
 
     return array;

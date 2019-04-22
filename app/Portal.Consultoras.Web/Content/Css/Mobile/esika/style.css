@@ -4429,6 +4429,20 @@ table > thead > tr > th {
     cursor: pointer;
 }
 
+/* INI HD-4009 */
+.producto_pum {
+    text-align: center;
+    visibility: visible;
+}
+
+    .producto_pum span {
+        color: #9468b3;
+    }
+
+.producto_pum_hidden {
+    visibility: hidden;
+}
+/* FIN HD-4009 */
 .producto_precio_oferta {
     margin: 0;
     padding: 0;
