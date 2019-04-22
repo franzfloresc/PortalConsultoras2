@@ -20,8 +20,8 @@ namespace Portal.Consultoras.Web.Models.CaminoBrillante
         {
             get
             {
-                if (Constantes.CaminoBrillante.EtiquetaNiveles.Iconos.ContainsKey(CodigoNivel))
-                    return Constantes.CaminoBrillante.EtiquetaNiveles.Iconos[CodigoNivel][1];
+                if (Constantes.CaminoBrillante.Niveles.Etiquetas.ContainsKey(CodigoNivel))
+                    return Constantes.CaminoBrillante.Niveles.Etiquetas[CodigoNivel][1];
                 return null;
             }
         }
@@ -29,8 +29,8 @@ namespace Portal.Consultoras.Web.Models.CaminoBrillante
         {
             get
             {
-                if (Constantes.CaminoBrillante.EtiquetaNiveles.Iconos.ContainsKey(CodigoNivel))
-                    return Constantes.CaminoBrillante.EtiquetaNiveles.Iconos[CodigoNivel][0];
+                if (Constantes.CaminoBrillante.Niveles.Etiquetas.ContainsKey(CodigoNivel))
+                    return Constantes.CaminoBrillante.Niveles.Etiquetas[CodigoNivel][0];
                 return null;
             }
         }

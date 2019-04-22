@@ -3,12 +3,29 @@
 
 @{
     Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
-    ViewBag.Title = "Camino Brillante";
 }
 
 @section css{
     @System.Web.Optimization.Styles.Render("~/Bundle/Css/CaminoBrillante")
 }
+
+
+
+<section data-layout="ubicacionWeb" class="row flex-row ml-0 mr-0 layout__view__breadcrumbs__wrapper mostrarEnDesktop">
+    <div class="col-12 pl-0 pr-0 mx-auto layout__view__breadcrumbs">
+        <ul class="row flex-row align-items-center ml-0 mr-0 layout__view__lista__breadcrumbs">
+            <li class="layout__view__breadcrumb">
+                <a id="is-mobile" href="@Url.Action("Index", "Bienvenida", new { area = "Mobile" })" title="Home">Home</a>
+                <a id="is-desktop" href="@Url.Action("Index", "Bienvenida")" title="Home">Home</a>
+
+            </li>
+            <li class="layout__view__breadcrumb layout__view__breadcrumb--active__view">
+                <span class="d-block">Camino Brillante</span>
+            </li>
+
+        </ul>
+    </div>
+</section>
 
 <br />
 <div class="container ">
@@ -72,7 +89,7 @@
                                         <p id="m_montoMinimo"><b>Lo logras con:</b><span style='float: right'>@ViewBag.SimboloMoneda @nivel.MontoMinimo</span></p>
                                         @if (nivel.MontoFaltante.HasValue)
                                         {
-                                           <p id="m_montoFaltante"><b>Te falta:</b><span style='float: right'>@ViewBag.SimboloMoneda @nivel.MontoFaltante</span></p>
+                                            <p id="m_montoFaltante"><b>Te falta:</b><span style='float: right'>@ViewBag.SimboloMoneda @nivel.MontoFaltante</span></p>
                                         }
                                     </div>
                                 </div>
@@ -104,7 +121,7 @@
             </div>
         }
     }
-    
+
     @if (@ViewBag.TieneOfertasEspeciales)
     {
         <a id="OfertasEspeciales" href="@Url.Action("Ofertas", "CaminoBrillante")" class="btn-principal">Ver ofertas</a>
@@ -126,22 +143,22 @@
                                 <ul class="list-crec">
                                     @foreach (var medalla in indicador.Medallas)
                                     {
-                                    <li>
-                                        @if (medalla.Tipo == Constantes.CaminoBrillante.Logros.Indicadores.Medallas.Codes.CIRC)
-                                        {
-                                            var decorator = medalla.Estado ? "crec-activo" : "crec-inactivo";
-                                            <div class="circle-porcent @decorator">
-                                                <span>@medalla.Valor</span>
-                                            </div>
-                                        }
-                                        else if (medalla.Tipo == Constantes.CaminoBrillante.Logros.Indicadores.Medallas.Codes.PIE 
-                                            || medalla.Tipo == Constantes.CaminoBrillante.Logros.Indicadores.Medallas.Codes.PED 
-                                            || medalla.Tipo == Constantes.CaminoBrillante.Logros.Indicadores.Medallas.Codes.TIM)
-                                        {
-                                            <img src="@medalla.UrlMedalla" />
-                                        }
-                                        <p>@medalla.Titulo</p>
-                                    </li>
+                                        <li>
+                                            @if (medalla.Tipo == Constantes.CaminoBrillante.Logros.Indicadores.Medallas.Codes.CIRC)
+                                            {
+                                                var decorator = medalla.Estado ? "crec-activo" : "crec-inactivo";
+                                                <div class="circle-porcent @decorator">
+                                                    <span>@medalla.Valor</span>
+                                                </div>
+                                            }
+                                            else if (medalla.Tipo == Constantes.CaminoBrillante.Logros.Indicadores.Medallas.Codes.PIE
+                                                || medalla.Tipo == Constantes.CaminoBrillante.Logros.Indicadores.Medallas.Codes.PED
+                                                || medalla.Tipo == Constantes.CaminoBrillante.Logros.Indicadores.Medallas.Codes.TIM)
+                                            {
+                                                <img src="@medalla.UrlMedalla" />
+                                            }
+                                            <p>@medalla.Titulo</p>
+                                        </li>
                                     }
                                 </ul>
                                 <a href="@Url.Action("Logros", "CaminoBrillante", new { opcion = indicador.Codigo })" class="btn-link">Ver todos</a>
