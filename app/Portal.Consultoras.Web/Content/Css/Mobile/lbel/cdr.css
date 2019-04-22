@@ -3,12 +3,12 @@
 /* INICIO VISTA LISTA DE SOLICITUDES CDR */
 
 .mensaje_sin_solicitudes_registradas_wrapper {
-    margin-top: 100px;
+    margin-top: 50px;
 }
 
 .mensaje_sin_solicitudes_registradas_icono {
-    width: 80px;
-    height: 80px;
+    width: 64px;
+    height: 64px;
     margin: 0 auto 13px auto;
 }
 
