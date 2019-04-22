@@ -10,6 +10,8 @@ var verMasDemostradores = false;
 var reservaResponse = {
     data: { Reserva: false }
 };
+var contadorkit = 0
+var contadordemo = 0
 
 $(document).ready(function () {    
     CambiarOferta();
@@ -65,22 +67,22 @@ function ValidarCargaOfertas() {
         CargarKits();
 }
 
-function CargarKits() {   
+function CargarKits() {
     $.ajax({
         type: 'GET',
         url: urlGetKits,
         data: { offset: offsetRegistrosKits, cantidadregistros: nroRegistrosKits},
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
-
         success: function (data) {
-
             if (checkTimeout(data)) {
-                if (data.lista.length > 0) ArmarOfertaKits(data.lista);
+                if (data.lista.length > 0) ArmarOfertaKits(data.lista);   
+                contadorkit = contadorkit + data.lista.length;
                 verMasKits = data.verMas;
                 $(window).scroll(CargarOfertasScroll);
                 if (!verMasKits) UnlinkCargarOfertasToScroll();
                 offsetRegistrosKits += nroRegistrosKits;
+                $("#divresultadosKit").html("Mostrando " + contadorkit + " de " + data.total);
             }
         },
 
@@ -99,6 +101,7 @@ function ArmarOfertaKits(data) {
 }
 
 function CargarDemostradores() {
+    var contador = 0;
     $.ajax({
         type: 'GET',
         url: urlGetDemostradores,
@@ -107,11 +110,13 @@ function CargarDemostradores() {
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
             if (checkTimeout(data)) {
-                if (data.lista.length > 0) ArmarOfertaDemostradores(data.lista);
+                if (data.lista.length > 0) ArmarOfertaDemostradores(data.lista);    
+                contadordemo = contadordemo + data.lista.length;
                 verMasDemostradores = data.verMas;   
                 $(window).scroll(CargarOfertasScroll);
                 if (!verMasDemostradores) UnlinkCargarOfertasToScroll();
                 offsetRegistrosDemo += nroRegistrosDemostradores;
+                $("#divresultadosDemostradores").html("Mostrando " + contadordemo   + " de " + data.total);
             }
         },
         error: function (data, error) { },
