@@ -165,7 +165,7 @@ $(document).ready(function () {
             txtNumPedido: "#txtNumPedido",
             UltimasSolicitudes: ".UltimasSolicitudes",
             wrpMobile: "#wrpMobile",
-            opcionCdrEnlace: ".opcion_cdr_enlace"
+            opcionCdr: ".opcion_cdr"
         };
 
         me.Eventos = {
@@ -199,6 +199,13 @@ $(document).ready(function () {
                     $('.tab_vista_cdr').removeClass('tab_vista_cdr--activo');
                     $(this).parent().addClass('tab_vista_cdr--activo')
                     $(contenidoTabAMostrar).fadeIn(100);
+                });
+
+                // Seleccionar opción haciendo click en el área que conforma la opción cdr elegida, no sólo en el checkbox
+                $(me.Variables.divlistado_soluciones_cdr).on('click', me.Variables.opcionCdr, function (e) {
+                    e.preventDefault();
+                    // Se dispara el evento change del checkbox que llama a la función EscogerSolucion que se lanza al seleccionar y deseleccionar el checkbox
+                    $(this).find('input[type="checkbox"]').change();
                 });
 
                 // Agregar otro producto.
@@ -1981,6 +1988,11 @@ $(document).ready(function () {
                 var tagCheck = $(me.Variables.divlistado_soluciones_cdr + " " + "input[type=checkbox]");
                 var tagDivInfo = $(me.Variables.infoOpcionesDeCambio);
                 tagCheck.not(opcion).prop('checked', false);
+                if ($(opcion).is(':checked')) {
+                    $(opcion).prop('checked', false);
+                } else {
+                    $(opcion).prop('checked', true);
+                }
                 var id = opcion.id;
                 var isChecked = tagCheck.is(':checked');
                 if (id == "" || !isChecked) {
