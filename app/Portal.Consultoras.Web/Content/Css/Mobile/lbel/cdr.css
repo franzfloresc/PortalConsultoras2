@@ -795,6 +795,7 @@
     display: block;
     padding: 8px 6px 11px 6px;
     height: 100%;
+    cursor:pointer;
 }
 
 .opcion_cdr_icono_wrapper {
