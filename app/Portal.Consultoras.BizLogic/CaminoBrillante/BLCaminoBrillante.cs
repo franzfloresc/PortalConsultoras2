@@ -48,6 +48,8 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             var tablaLogicaDatosDV = tablaLogicaDatos.FirstOrDefault(e => e.TablaLogicaDatosID == Constantes.CaminoBrillante.Niveles.OfertasEspeciales_TablaLogicaDatos) ?? new BETablaLogicaDatos();
             var TieneOfertasEspecialesDV = "1".Equals(tablaLogicaDatosDV.Valor);
 
+            var paisISO = Util.GetPaisISO(paisId);
+
             return lstNiveles.Select(e => new BENivelCaminoBrillante()
             {
                 CodigoNivel = e.CodigoNivel,
@@ -705,8 +707,8 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                         kit.CodigoSap = _kitProvider.CodigoSap;
                         kit.DescripcionCUV = _kitProvider.Descripcion;
                         kit.DescripcionCortaCUV = _kitProvider.Descripcion;
-                        kit.PrecioCatalogo = _kitProvider.Precio;
-                        kit.Ganancia = kit.PrecioValorizado - kit.PrecioCatalogo;
+                        kit.PrecioCatalogo = Util.DecimalToStringFormat(_kitProvider.Precio, paisISO).ToDecimal(); 
+                        kit.Ganancia = Util.DecimalToStringFormat(kit.PrecioValorizado, paisISO).ToDecimal()  - kit.PrecioCatalogo;
                         kit.FlagDigitable = _kitProvider.Digitable;
                         kit.CodigoNivel = _kitProvider.Nivel;
                         kit.FlagDigitable = _kitProvider.Digitable;
