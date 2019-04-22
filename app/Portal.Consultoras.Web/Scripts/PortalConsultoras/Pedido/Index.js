@@ -2969,23 +2969,8 @@ function CargarProductosRecomendados(item) {
 function PedidosPendientesPorAprobar() {
 
     if (!(typeof AnalyticsPortalModule === 'undefined')) {
-        AnalyticsPortalModule.ClickBotonPedidosPorAprobar('Click Botón', 'Pedidos por aprobar');
+        AnalyticsPortalModule.ClickBotonPedidosPendientes('Click Botón', 'Pedidos por aprobar');
     }
     window.location.href = '/ConsultoraOnline/Pendientes';
 }
-
-function PedidosPendientesVistaCliente() {
-
-    if (!(typeof AnalyticsPortalModule === 'undefined')) {
-        AnalyticsPortalModule.ClickBotonPedidosPorAprobar('Click Tab', 'Vista por Cliente');
-    }
-}
-
-function PedidosPendientesVistaProducto() {
-
-    if (!(typeof AnalyticsPortalModule === 'undefined')) {
-        AnalyticsPortalModule.ClickBotonPedidosPorAprobar('Click Tab', 'Vista por Producto');
-    }
-}
-
 

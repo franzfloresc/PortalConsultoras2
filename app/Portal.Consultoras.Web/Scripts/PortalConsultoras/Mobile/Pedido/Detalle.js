@@ -1169,5 +1169,5 @@ function closeDialogObservacionesProl() {
 function PedidosPendientesPorAprobar() {
     //DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras', 'Click Botón', 'Pedidos por aprobar');
     if (!(typeof AnalyticsPortalModule === 'undefined'))
-        AnalyticsPortalModule.ClickBotonPedidosPorAprobar('Click Botón', 'Pedidos por aprobar');
+        AnalyticsPortalModule.ClickBotonPedidosPendientes('Click Botón', 'Pedidos por aprobar');
 }

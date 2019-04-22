@@ -163,13 +163,13 @@ function DetallePedidoPendiente(ids) {
 function PedidosPendientesVistaCliente() {
 
     if (!(typeof AnalyticsPortalModule === 'undefined')) {
-        AnalyticsPortalModule.ClickBotonPedidosPorAprobar('Click Tab', 'Vista por Cliente');
+        AnalyticsPortalModule.clickTabPedidosPendientes('Click Tab', 'Vista por Cliente');
     }
 }
 
 function PedidosPendientesVistaProducto() {
 
     if (!(typeof AnalyticsPortalModule === 'undefined')) {
-        AnalyticsPortalModule.ClickBotonPedidosPorAprobar('Click Tab', 'Vista por Producto');
+        AnalyticsPortalModule.clickTabPedidosPendientes('Click Tab', 'Vista por Producto');
     }
 }

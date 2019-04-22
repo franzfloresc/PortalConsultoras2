@@ -2444,10 +2444,19 @@ var AnalyticsPortalModule = (function () {
     // Inicio - Analytics PedidoPendientes
     ////////////////////////////////////////////////////////////////////////////////////////
 
-    var clickBotonPedidosPorAprobar = function (action, label) {
+    var clickBotonPedidosPendientes = function (action, label) {
         dataLayer.push({
             'event': _evento.virtualEvent,
             "category": _texto.CarritoCompras,
+            "action": action,
+            "label": label
+        });
+    }
+
+    var clickTabPedidosPendientes = function (action, label) {
+        dataLayer.push({
+            'event': _evento.virtualEvent,
+            "category": "Carrito de Compras - Pedidos Pendientes",
             "action": action,
             "label": label
         });
@@ -2544,7 +2553,8 @@ var AnalyticsPortalModule = (function () {
         // Fin - Analytics Ganadoras
 
         // Ini - Analytics PedidoPendientes
-        ClickBotonPedidosPorAprobar: clickBotonPedidosPorAprobar,
+        ClickBotonPedidosPendientes: clickBotonPedidosPendientes,
+        ClickTabPedidosPendientes: clickTabPedidosPendientes,
         // Fin - Analytics PedidoPendientes
 
         MarcaProductImpressionRecomendaciones: marcaProductImpressionRecomendaciones,
