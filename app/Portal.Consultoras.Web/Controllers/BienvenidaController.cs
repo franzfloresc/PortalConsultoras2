@@ -238,16 +238,20 @@ namespace Portal.Consultoras.Web.Controllers
                 model.TienePagoEnLinea = userData.TienePagoEnLinea;
                 model.MostrarPagoEnLinea = (userData.MontoDeuda > 0);
 
-                #region Camino al Éxito
-                model.TieneCaminoBrillante = userData.CaminoBrillante;
+                #region Camino Brillante
+                if (userData.CaminoBrillante) {
+                    model.TieneCaminoBrillante = userData.CaminoBrillante;
 
-                var NivelCaminoBrillante = _caminoBrillanteProvider.ObtenerNivelActualConsultora();
-                if (NivelCaminoBrillante != null) 
-                {
-                    model.CaminoBrillanteMsg = userData.CaminoBrillanteMsg.Replace("{0}", "<b>" + NivelCaminoBrillante.DescripcionNivel + "</b>");
-                    model.UrlLogoCaminoBrillante = Constantes.CaminoBrillante.Niveles.Iconos.Keys.Contains(NivelCaminoBrillante.CodigoNivel) ? Constantes.CaminoBrillante.Niveles.Iconos[NivelCaminoBrillante.CodigoNivel][1] : "";
+                    var nivelConsultoraCaminoBrillante = _caminoBrillanteProvider.GetNivelActual();
+                    if (nivelConsultoraCaminoBrillante != null)
+                    {
+                        model.CaminoBrillanteMsg = userData.CaminoBrillanteMsg.Replace("{0}", "<b>" + nivelConsultoraCaminoBrillante.DescripcionNivel + "</b>");
+                        model.UrlLogoCaminoBrillante = nivelConsultoraCaminoBrillante.UrlImagenNivelFull;                        
+                    }
                 }
+                #endregion
 
+                #region Camino al Éxito
                 var LogicaCaminoExisto = _tablaLogica.GetTablaLogicaDatos(userData.PaisID, Constantes.TablaLogica.EscalaDescuentoDestokp);
                 if (LogicaCaminoExisto.Any())
                 {

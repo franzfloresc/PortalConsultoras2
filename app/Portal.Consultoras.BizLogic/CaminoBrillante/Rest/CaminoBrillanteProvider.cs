@@ -13,8 +13,8 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
     /// </summary>
     public class CaminoBrillanteProvider
     {
-        private string Url;
-        private string Token;
+        private readonly string Url;
+        private readonly string Token;
 
         public CaminoBrillanteProvider(string url, string usuario, string clave)
         {

@@ -3,6 +3,7 @@ using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities.CaminoBrillante
 {
+    /*
     [DataContract]
     public class BEBeneficioCaminoBrillante
     {
@@ -26,4 +27,5 @@ namespace Portal.Consultoras.Entities.CaminoBrillante
         [Column("Icono")]
         public string Icono { get; set; }
     }
+    */
 }

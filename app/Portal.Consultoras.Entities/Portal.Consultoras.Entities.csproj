@@ -89,7 +89,7 @@
     <Compile Include="CaminoBrillante\BEDesmostradoresCaminoBrillante.cs" />
     <Compile Include="CaminoBrillante\BEKitsHistoricoConsultora.cs" />
     <Compile Include="CaminoBrillante\BELogroCaminoBrillante.cs" />
-    <Compile Include="CaminoBrillante\BEMedallaLogroCaminoBrillante.cs" />
+    <Compile Include="CaminoBrillante\BEConfiguracionMedallaCaminoBrillante.cs" />
     <Compile Include="CaminoBrillante\BENivelCaminoBrillante.cs" />
     <Compile Include="CaminoBrillante\BEKitCaminoBrillante.cs" />
     <Compile Include="CaminoBrillante\BEPeriodoCaminoBrillante.cs" />

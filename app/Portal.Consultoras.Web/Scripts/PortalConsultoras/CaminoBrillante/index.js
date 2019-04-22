@@ -38,6 +38,8 @@
             return;
         }
     });
+
+    $('#loadingScreen').hide();
 });
 
 /*
@@ -149,7 +151,6 @@ function ModalBeneficios(index) {
 */
 
 function TagClickSeleccionNivel(nivelConsultora) {
-    
     dataLayer.push({
         'event': 'virtualEvent',
         'category': 'Nivel y beneficios',
@@ -158,8 +159,7 @@ function TagClickSeleccionNivel(nivelConsultora) {
     });
 }
 
-function TagMostrarPopupNivel(nivelConsultora) {
-   
+function TagMostrarPopupNivel(nivelConsultora) {   
     dataLayer.push({
         'event': 'virtualEvent',
         'category': 'Nivel y beneficios',

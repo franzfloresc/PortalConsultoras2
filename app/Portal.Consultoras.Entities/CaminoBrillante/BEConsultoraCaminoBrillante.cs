@@ -22,6 +22,7 @@ namespace Portal.Consultoras.Entities.CaminoBrillante
         public List<BELogroCaminoBrillante> Logros { get; set; }
 
         public class BENivelConsultoraCaminoBrillante {
+
             /// <summary>
             /// Obtiene el periodo al que pertence la consultora de acuerdo a su campaña
             /// </summary>
