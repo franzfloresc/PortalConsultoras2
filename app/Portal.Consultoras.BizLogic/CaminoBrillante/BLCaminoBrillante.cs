@@ -49,6 +49,8 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             var tablaLogicaDatosDV = tablaLogicaDatos.FirstOrDefault(e => e.TablaLogicaDatosID == Constantes.CaminoBrillante.Niveles.OfertasEspeciales_TablaLogicaDatos) ?? new BETablaLogicaDatos();
             var TieneOfertasEspecialesDV = "1".Equals(tablaLogicaDatosDV.Valor);
 
+            var paisISO = Util.GetPaisISO(paisId);
+
             return lstNiveles.Select(e => new BENivelCaminoBrillante()
             {
                 CodigoNivel = e.CodigoNivel,
@@ -149,18 +151,21 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
         private List<BENivelCaminoBrillante> CalcularCuantoFalta(List<BENivelCaminoBrillante> niveles, BEPeriodoCaminoBrillante periodo, NivelConsultoraCaminoBrillante nivelActualConsutora, List<NivelConsultoraCaminoBrillante> consultoraHistoricos) {
             if (niveles != null && periodo != null && nivelActualConsutora != null) {
+
                 int nivel = 0;
                 if (int.TryParse(nivelActualConsutora.NivelActual, out nivel)) {
                     nivel = nivel + 1;
                     
                     decimal montoPedido = 0;
                     decimal _montoPedido = 0;
+
                     if (consultoraHistoricos != null){
                         var peridoStr = periodo.Periodo.ToString();
                         montoPedido = consultoraHistoricos.Where(h => decimal.TryParse(h.MontoPedido, out _montoPedido) && h.PeriodoCae == peridoStr).Sum(h => decimal.Parse(h.MontoPedido));
                     }
                     
                     niveles.Where(e => e.CodigoNivel == nivel.ToString()).Update(e => {
+
                         decimal montoMinimo = 0;
                         if (decimal.TryParse(e.MontoMinimo, out montoMinimo))
                         {
@@ -702,8 +707,8 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                         kit.CodigoSap = _kitProvider.CodigoSap;
                         kit.DescripcionCUV = _kitProvider.Descripcion;
                         kit.DescripcionCortaCUV = _kitProvider.Descripcion;
-                        kit.PrecioCatalogo = _kitProvider.Precio;
-                        kit.Ganancia = kit.PrecioValorizado - kit.PrecioCatalogo;
+                        kit.PrecioCatalogo = Util.DecimalToStringFormat(_kitProvider.Precio, paisISO).ToDecimal(); 
+                        kit.Ganancia = Util.DecimalToStringFormat(kit.PrecioValorizado, paisISO).ToDecimal()  - kit.PrecioCatalogo;
                         kit.FlagDigitable = _kitProvider.Digitable;
                         kit.CodigoNivel = _kitProvider.Nivel;
                         kit.FlagDigitable = _kitProvider.Digitable;
