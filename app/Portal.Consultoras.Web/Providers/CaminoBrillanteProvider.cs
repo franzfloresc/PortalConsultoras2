@@ -48,6 +48,7 @@ namespace Portal.Consultoras.Web.Providers
                                 {
                                     var consultoraHistoricos = GetNivelesHistoricosConsultora();
                                     decimal _montoPedido = 0;
+                                    //Valiadr por periodo
                                     var montoPedido = consultoraHistoricos.Where(h => decimal.TryParse(h.MontoPedido, out _montoPedido)).Sum(h => decimal.Parse(h.MontoPedido));
 
                                     decimal montoMinimo = 0;
