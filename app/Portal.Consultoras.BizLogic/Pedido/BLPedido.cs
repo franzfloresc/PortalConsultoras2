@@ -1073,9 +1073,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 //Validación ofertas relacionadas
                 producto.TieneOfertasRelacionadas = TieneOfertasRelacionadas(usuario, producto);
 
-                //Tendra ofertas relacionada solo si (tiene ofertas relacionadas y esta suscrita a gana+)
-                producto.TieneOfertasRelacionadas = producto.TieneOfertasRelacionadas ? (productoBuscar.rdEsActiva && producto.TieneOfertasRelacionadas) : producto.TieneOfertasRelacionadas;
-
                 return ProductoBuscarRespuesta(Constantes.PedidoValidacion.Code.SUCCESS, null, producto);
             }
             catch (Exception ex)
@@ -2045,7 +2042,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 esCatalogo = lstCodigoCatalogo.Any(x => x == producto.CodigoCatalogo.ToString());
             }
 
-            return activarRecomendaciones && esCatalogo && esIndividual;
+            return activarRecomendaciones && esCatalogo && esIndividual && usuario.RevistaDigital.EsActiva;
         }
         #endregion
 
