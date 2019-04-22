@@ -28484,12 +28484,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string CodigoSapField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string Cuv1Field;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string DescripcionField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DescripcionCUVField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -28502,16 +28496,7 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string DescripcionNivelField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string DescripcionOfertaField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int DigitableField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int EstrategiaIDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int EstrategiaId1Field;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int FlagDigitableField;
@@ -28535,34 +28520,16 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private decimal GananciaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string ImagenField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string MarcaField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int MarcaIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string NivelField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int OrigenPedidoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int OrigenPedidoWebFichaField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private decimal PrecioField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal PrecioCatalogoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal PrecioValorizadoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int TipoEstrategiaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int TipoEstrategiaIDField;
@@ -28642,32 +28609,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(Name="Cuv")]
-        public string Cuv1 {
-            get {
-                return this.Cuv1Field;
-            }
-            set {
-                if ((object.ReferenceEquals(this.Cuv1Field, value) != true)) {
-                    this.Cuv1Field = value;
-                    this.RaisePropertyChanged("Cuv1");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Descripcion {
-            get {
-                return this.DescripcionField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.DescripcionField, value) != true)) {
-                    this.DescripcionField = value;
-                    this.RaisePropertyChanged("Descripcion");
-                }
-            }
-        }
-        
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string DescripcionCUV {
             get {
@@ -28721,32 +28662,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string DescripcionOferta {
-            get {
-                return this.DescripcionOfertaField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.DescripcionOfertaField, value) != true)) {
-                    this.DescripcionOfertaField = value;
-                    this.RaisePropertyChanged("DescripcionOferta");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Digitable {
-            get {
-                return this.DigitableField;
-            }
-            set {
-                if ((this.DigitableField.Equals(value) != true)) {
-                    this.DigitableField = value;
-                    this.RaisePropertyChanged("Digitable");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public int EstrategiaID {
             get {
                 return this.EstrategiaIDField;
@@ -28755,19 +28670,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.EstrategiaIDField.Equals(value) != true)) {
                     this.EstrategiaIDField = value;
                     this.RaisePropertyChanged("EstrategiaID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(Name="EstrategiaId")]
-        public int EstrategiaId1 {
-            get {
-                return this.EstrategiaId1Field;
-            }
-            set {
-                if ((this.EstrategiaId1Field.Equals(value) != true)) {
-                    this.EstrategiaId1Field = value;
-                    this.RaisePropertyChanged("EstrategiaId1");
                 }
             }
         }
@@ -28864,32 +28766,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Imagen {
-            get {
-                return this.ImagenField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.ImagenField, value) != true)) {
-                    this.ImagenField = value;
-                    this.RaisePropertyChanged("Imagen");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Marca {
-            get {
-                return this.MarcaField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.MarcaField, value) != true)) {
-                    this.MarcaField = value;
-                    this.RaisePropertyChanged("Marca");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public int MarcaID {
             get {
                 return this.MarcaIDField;
@@ -28903,32 +28779,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Nivel {
-            get {
-                return this.NivelField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.NivelField, value) != true)) {
-                    this.NivelField = value;
-                    this.RaisePropertyChanged("Nivel");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int OrigenPedido {
-            get {
-                return this.OrigenPedidoField;
-            }
-            set {
-                if ((this.OrigenPedidoField.Equals(value) != true)) {
-                    this.OrigenPedidoField = value;
-                    this.RaisePropertyChanged("OrigenPedido");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public int OrigenPedidoWebFicha {
             get {
                 return this.OrigenPedidoWebFichaField;
@@ -28937,19 +28787,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.OrigenPedidoWebFichaField.Equals(value) != true)) {
                     this.OrigenPedidoWebFichaField = value;
                     this.RaisePropertyChanged("OrigenPedidoWebFicha");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public decimal Precio {
-            get {
-                return this.PrecioField;
-            }
-            set {
-                if ((this.PrecioField.Equals(value) != true)) {
-                    this.PrecioField = value;
-                    this.RaisePropertyChanged("Precio");
                 }
             }
         }
@@ -28976,19 +28813,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.PrecioValorizadoField.Equals(value) != true)) {
                     this.PrecioValorizadoField = value;
                     this.RaisePropertyChanged("PrecioValorizado");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int TipoEstrategia {
-            get {
-                return this.TipoEstrategiaField;
-            }
-            set {
-                if ((this.TipoEstrategiaField.Equals(value) != true)) {
-                    this.TipoEstrategiaField = value;
-                    this.RaisePropertyChanged("TipoEstrategia");
                 }
             }
         }
@@ -29033,15 +28857,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string CodigoEstrategiaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CodigoProductoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string Cuv1Field;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string DescripcionField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DescripcionCUVField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -29060,19 +28875,10 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string FotoProductoSmallField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private decimal GananciaField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int MarcaIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int OrigenPedidoWebFichaField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal PrecioCatalogoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private decimal PrecioFinalField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal PrecioValorizadoField;
@@ -29112,45 +28918,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.CodigoEstrategiaField, value) != true)) {
                     this.CodigoEstrategiaField = value;
                     this.RaisePropertyChanged("CodigoEstrategia");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CodigoProducto {
-            get {
-                return this.CodigoProductoField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CodigoProductoField, value) != true)) {
-                    this.CodigoProductoField = value;
-                    this.RaisePropertyChanged("CodigoProducto");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(Name="Cuv")]
-        public string Cuv1 {
-            get {
-                return this.Cuv1Field;
-            }
-            set {
-                if ((object.ReferenceEquals(this.Cuv1Field, value) != true)) {
-                    this.Cuv1Field = value;
-                    this.RaisePropertyChanged("Cuv1");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Descripcion {
-            get {
-                return this.DescripcionField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.DescripcionField, value) != true)) {
-                    this.DescripcionField = value;
-                    this.RaisePropertyChanged("Descripcion");
                 }
             }
         }
@@ -29234,19 +29001,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public decimal Ganancia {
-            get {
-                return this.GananciaField;
-            }
-            set {
-                if ((this.GananciaField.Equals(value) != true)) {
-                    this.GananciaField = value;
-                    this.RaisePropertyChanged("Ganancia");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public int MarcaID {
             get {
                 return this.MarcaIDField;
@@ -29260,19 +29014,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int OrigenPedidoWebFicha {
-            get {
-                return this.OrigenPedidoWebFichaField;
-            }
-            set {
-                if ((this.OrigenPedidoWebFichaField.Equals(value) != true)) {
-                    this.OrigenPedidoWebFichaField = value;
-                    this.RaisePropertyChanged("OrigenPedidoWebFicha");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public decimal PrecioCatalogo {
             get {
                 return this.PrecioCatalogoField;
@@ -29281,19 +29022,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.PrecioCatalogoField.Equals(value) != true)) {
                     this.PrecioCatalogoField = value;
                     this.RaisePropertyChanged("PrecioCatalogo");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public decimal PrecioFinal {
-            get {
-                return this.PrecioFinalField;
-            }
-            set {
-                if ((this.PrecioFinalField.Equals(value) != true)) {
-                    this.PrecioFinalField = value;
-                    this.RaisePropertyChanged("PrecioFinal");
                 }
             }
         }

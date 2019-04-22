@@ -3812,6 +3812,8 @@ namespace Portal.Consultoras.Common
 
             public static class Niveles {
 
+                public const int OfertasEspeciales_TablaLogicaDatos = 16800;
+
                 private static Dictionary<string, string[]> _Iconos;
                 private static string path = "CAMINOBRILLANTE/NIVELES/NIVEL_0{0}_{1}.svg";
 
@@ -3830,9 +3832,7 @@ namespace Portal.Consultoras.Common
                     }
                 }
 
-
-
-
+            }
                 private static Dictionary<string, string[]> _Etiquetas;
                 private static string path_etiquetas = "CAMINOBRILLANTE/NIVELES/Etiqueta_Nivel_0{0}_{1}.svg";
 

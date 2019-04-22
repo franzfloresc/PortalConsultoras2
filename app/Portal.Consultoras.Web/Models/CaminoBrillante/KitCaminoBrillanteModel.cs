@@ -15,7 +15,7 @@ namespace Portal.Consultoras.Web.Models.CaminoBrillante
         public string FotoProductoMedium { get; set; }
         public bool FlagSeleccionado { get; set; }
         public bool FlagHabilitado { get; set; }
-        public int OrigenPedidoWeb { get; set; }
+        //public int OrigenPedidoWeb { get; set; }
         public string FotoTagEnable
         {
             get

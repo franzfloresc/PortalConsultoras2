@@ -520,3 +520,16 @@ ul li .menu__link--pedido {
     text-decoration: none;
     opacity: 0.4;
 }
+div.ui-dialog.ui-widget-content {
+    z-index: 9999999900 !important;
+}
+
+div ul .menu__item--lateralDerechoIcono {
+    width: 63px;
+}
+div .menu__link--carrito:before {
+    width: 63px;
+}
+li .productos__agregados {
+    right: 1px;
+}
