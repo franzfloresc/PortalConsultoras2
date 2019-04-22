@@ -1339,7 +1339,7 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEKitCaminoBrillante> GetKitsCaminoBrillante(BEUsuario entidad, int nivel);
 
         [OperationContract]
-        List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillante(int paisId, int campaniaId);
+        List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillante(BEUsuario entidad, int nivel);
         
         #endregion
 

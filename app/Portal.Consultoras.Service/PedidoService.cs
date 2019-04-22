@@ -2460,9 +2460,9 @@ namespace Portal.Consultoras.Service
             return _caminoBrillanteBusinessLogic.GetKits(entidad, nivel);
         }
 
-        public List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillante(int paisId, int campaniaId)
+        public List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillante(BEUsuario entidad, int nivel)
         {
-            return _caminoBrillanteBusinessLogic.GetDemostradores(paisId, campaniaId);
+            return _caminoBrillanteBusinessLogic.GetDemostradores(entidad, nivel);
         }
 
         #endregion

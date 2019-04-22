@@ -7,6 +7,7 @@ namespace Portal.Consultoras.Entities.CaminoBrillante
     public class BEKitCaminoBrillante
     {
         //Quitar
+        /*
         [DataMember]
         public int EstrategiaId { get; set; }
         [DataMember]
@@ -25,16 +26,17 @@ namespace Portal.Consultoras.Entities.CaminoBrillante
         public string DescripcionOferta { get; set; }
         [DataMember]
         public string Imagen { get; set; }
-
+        */
 
         //Ok
         //public string CodigoKit { get; set; }
         //public string CodigoSap { get; set; }
+        /*
         [DataMember]
         public string Nivel { get; set; }
         [DataMember]
         public int Digitable { get; set; }
-
+        */
 
         //Nueva Estructura
         [DataMember]

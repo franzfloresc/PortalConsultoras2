@@ -14,110 +14,51 @@ namespace Portal.Consultoras.Web.Providers
     public class CaminoBrillanteProvider
     {
         protected ISessionManager sessionManager = SessionManager.SessionManager.Instance;
-
         private UsuarioModel usuarioModel { get { return sessionManager.GetUserData(); } }
-        private ServiceUsuario.BEUsuario _userData { get { return Mapper.Map<ServiceUsuario.BEUsuario>(usuarioModel); } }
-        private string codigoNivel;
 
-        public BEConsultoraCaminoBrillante ResumenConsultoraCaminoBrillante()
-        {
-            var resumen = sessionManager.GetConsultoraCaminoBrillante();
-            if (resumen == null)
-            {
-                using (var svc = new UsuarioServiceClient())
-                {
-                    resumen = svc.GetConsultoraNivelCaminoBrillante(_userData);
-                }
-                sessionManager.SetConsultoraCaminoBrillante(resumen);
-
-                /*
-                if (resumen.Niveles != null)
-                {
-                    var nivelActualConsultora = GetNivelConsultoraCaminoBrillante();
-
-                    int nivel = 0;
-                    int nivelActual = 0;
-                    int.TryParse(nivelActualConsultora.Nivel, out nivelActual);
-
-                    foreach (var item in resumen.Niveles)
-                    {
-                        int.TryParse(item.CodigoNivel, out nivel);
-                        item.UrlImagenNivel = Constantes.CaminoBrillante.Niveles.Iconos.Keys.Contains(item.CodigoNivel) ?
-                                           Constantes.CaminoBrillante.Niveles.Iconos[item.CodigoNivel][nivel <= nivelActual ? 1 : 0] : string.Empty;
-                    }
-                }
-                */
-            }
-            return resumen;
-        }
-
-
-
-        public BENivelCaminoBrillante ObtenerNivelActualConsultora()
-        {
-            try
-            {
-                var oConsultora = ResumenConsultoraCaminoBrillante();
-                if (oConsultora == null || oConsultora.NivelConsultora.Count() == 0 || oConsultora.Niveles.Count() == 0) return null;
-                codigoNivel = oConsultora.NivelConsultora.Where(x => x.EsActual).Select(z => z.Nivel).FirstOrDefault();
-                return oConsultora.Niveles.FirstOrDefault(x => x.CodigoNivel == codigoNivel);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
-                return null;
-            }
-        }
-
-        public List<BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante> GetNivelesHistoricosConsultora()
-        {
-            try
-            {
-                var consultoraCaminoBrillante = ResumenConsultoraCaminoBrillante();
-                if (consultoraCaminoBrillante == null) return new List<BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante>();
-
-                return consultoraCaminoBrillante.NivelConsultora == null ? new List<BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante>() 
-                                : consultoraCaminoBrillante.NivelConsultora.ToList();
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
-                return new List<BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante>();
-            }
-        }
-
+        /// <summary>
+        /// Obtiene la escala de niveles del programa de Camino Brillante
+        /// <paramref name="matchNivelConsultora"/>
+        /// </summary>
         public List<NivelCaminoBrillanteModel> GetNivelesCaminoBrillante(bool matchNivelConsultora = false)
         {
             try
             {
-                var consultoraCaminoBrillante = ResumenConsultoraCaminoBrillante();
+                var consultoraCaminoBrillante = GetConsultoraNivelCaminoBrillante();
                 if (consultoraCaminoBrillante == null) return new List<NivelCaminoBrillanteModel>();
 
                 var result = Mapper.Map<List<NivelCaminoBrillanteModel>>(consultoraCaminoBrillante.Niveles.ToList());
 
-                if (matchNivelConsultora) {
-                    var nivelActualConsultora = GetNivelConsultoraCaminoBrillante();
-                    if(nivelActualConsultora == null) return result;
+                if (matchNivelConsultora)
+                {
+                    var nivelActualConsultora = GetNivelActualConsultora();
+                    if (nivelActualConsultora == null) return result;
 
                     int nivel = 0;
                     int nivelActual = 0;
-                    if (int.TryParse(nivelActualConsultora.Nivel, out nivelActual)) {
-                        result.Each(e => {
-                            if(int.TryParse(e.CodigoNivel, out nivel))
+                    if (int.TryParse(nivelActualConsultora.Nivel, out nivelActual))
+                    {
+                        result.Each(e =>
+                        {
+                            if (int.TryParse(e.CodigoNivel, out nivel))
                             {
                                 e.EsPasado = nivel <= nivelActual;
                                 e.EsActual = nivel == nivelActual;
-                                if (nivel == nivelActual + 1) {
+                                /*
+                                if (nivel == nivelActual + 1)
+                                {
                                     var consultoraHistoricos = GetNivelesHistoricosConsultora();
                                     decimal _montoPedido = 0;
+                                    //Valiadr por periodo
                                     var montoPedido = consultoraHistoricos.Where(h => decimal.TryParse(h.MontoPedido, out _montoPedido)).Sum(h => decimal.Parse(h.MontoPedido));
 
                                     decimal montoMinimo = 0;
                                     if (decimal.TryParse(e.MontoMinimo, out montoMinimo))
                                     {
                                         e.MontoFaltante = montoMinimo - montoPedido;
-                                    }                                    
+                                    }
                                 }
+                                */
                             }
                         });
                     }
@@ -132,11 +73,54 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
-        public BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante GetNivelConsultoraCaminoBrillante()
+        /// <summary>
+        /// Obtiene el Nivel Actual
+        /// </summary>
+        public NivelCaminoBrillanteModel GetNivelActual()
         {
             try
             {
-                var consultoraCaminoBrillante = ResumenConsultoraCaminoBrillante();
+                var oConsultora = GetConsultoraNivelCaminoBrillante();
+                if (oConsultora == null || oConsultora.Niveles == null) return null;
+
+                var codigoNivel = oConsultora.NivelConsultora.Where(x => x.EsActual).Select(z => z.Nivel).FirstOrDefault();
+                return Mapper.Map<NivelCaminoBrillanteModel>(oConsultora.Niveles.FirstOrDefault(x => x.CodigoNivel == codigoNivel));
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Obtiene los niveles historico de los Consultora en el programa de Camino Brillante
+        /// </summary>
+        public List<BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante> GetNivelesHistoricosConsultora()
+        {
+            try
+            {
+                var consultoraCaminoBrillante = GetConsultoraNivelCaminoBrillante();
+                if (consultoraCaminoBrillante == null) return new List<BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante>();
+
+                return consultoraCaminoBrillante.NivelConsultora == null ? new List<BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante>()
+                                : consultoraCaminoBrillante.NivelConsultora.ToList();
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
+                return new List<BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante>();
+            }
+        }
+
+        /// <summary>
+        /// Obtiene el nivel actual de la Consultora en el programa de Camino Brillante
+        /// </summary>
+        public BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante GetNivelActualConsultora()
+        {
+            try
+            {
+                var consultoraCaminoBrillante = GetConsultoraNivelCaminoBrillante();
                 if (consultoraCaminoBrillante == null) return null;
 
                 return consultoraCaminoBrillante.NivelConsultora.FirstOrDefault(x => x.EsActual);
@@ -148,13 +132,16 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
+        /// <summary>
+        /// Obtiene Logros Consultora
+        /// </summary>
         public LogroCaminoBrillanteModel GetLogroCaminoBrillante(string key)
         {
             try
             {
-                var consultoraCaminoBrillante = ResumenConsultoraCaminoBrillante();
+                var consultoraCaminoBrillante = GetConsultoraNivelCaminoBrillante();
                 if (consultoraCaminoBrillante == null) return null;
-                
+
                 if (key == Constantes.CaminoBrillante.Logros.RESUMEN) return Mapper.Map<LogroCaminoBrillanteModel>(consultoraCaminoBrillante.ResumenLogros);
                 if (consultoraCaminoBrillante.Logros == null) return null;
 
@@ -167,6 +154,9 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
+        /// <summary>
+        /// Obtiene Kits disponibles para la consultora
+        /// </summary>
         public List<KitCaminoBrillanteModel> GetKitsCaminoBrillante()
         {
             try
@@ -175,14 +165,16 @@ namespace Portal.Consultoras.Web.Providers
                 if (kits != null) return Mapper.Map<List<KitCaminoBrillanteModel>>(kits);
 
                 int nivel = 0;
-                var nivelConsultora = GetNivelConsultoraCaminoBrillante();
-                if (nivelConsultora != null) {
-                    Int32.TryParse(nivelConsultora.Nivel, out nivel);
+                var nivelConsultora = GetNivelActualConsultora();
+                if (nivelConsultora != null)
+                {
+                    int.TryParse(nivelConsultora.Nivel, out nivel);
                 }
 
                 using (var svc = new PedidoServiceClient())
                 {
-                    var usuario = new ServicePedido.BEUsuario() {
+                    var usuario = new ServicePedido.BEUsuario()
+                    {
                         PaisID = usuarioModel.PaisID,
                         CampaniaID = usuarioModel.CampaniaID,
                         ConsultoraID = usuarioModel.ConsultoraID,
@@ -190,7 +182,8 @@ namespace Portal.Consultoras.Web.Providers
                     };
                     kits = svc.GetKitsCaminoBrillante(usuario, nivel).ToList();
                 }
-                if (kits != null && kits.Any(e => e.FlagHistorico)) {
+                if (kits != null && kits.Any(e => e.FlagHistorico))
+                {
                     sessionManager.SetKitCaminoBrillante(kits);
                 }
                 return Mapper.Map<List<KitCaminoBrillanteModel>>(kits);
@@ -202,6 +195,9 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
+        /// <summary>
+        /// Obtiene Demostradores disponibles para la consultora
+        /// </summary>
         public List<DemostradorCaminoBrillanteModel> GetDesmostradoresCaminoBrillante()
         {
             try
@@ -209,15 +205,27 @@ namespace Portal.Consultoras.Web.Providers
                 var demostradores = sessionManager.GetDemostradoresCaminoBrillante();
                 if (demostradores != null) return Mapper.Map<List<DemostradorCaminoBrillanteModel>>(demostradores);
 
-                using (var svc = new PedidoServiceClient())
+                int nivel = 0;
+                var nivelConsultora = GetNivelActualConsultora();
+                if (nivelConsultora != null)
                 {
-                    demostradores = svc.GetDemostradoresCaminoBrillante(usuarioModel.PaisID, usuarioModel.CampaniaID).ToList();
+                    int.TryParse(nivelConsultora.Nivel, out nivel);
                 }
 
-                if (demostradores != null)
+                using (var svc = new PedidoServiceClient())
                 {
-                    sessionManager.SetDemostradoresCaminoBrillante(demostradores);
+                    var usuario = new ServicePedido.BEUsuario()
+                    {
+                        PaisID = usuarioModel.PaisID,
+                        CampaniaID = usuarioModel.CampaniaID,
+                        ConsultoraID = usuarioModel.ConsultoraID,
+                        CodigoConsultora = usuarioModel.CodigoConsultora
+                    };
+
+                    demostradores = svc.GetDemostradoresCaminoBrillante(usuario, nivel).ToList();
                 }
+
+                sessionManager.SetDemostradoresCaminoBrillante(demostradores);
 
                 return Mapper.Map<List<DemostradorCaminoBrillanteModel>>(demostradores);
             }
@@ -228,63 +236,36 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
-        private bool TieneOfertasEspeciles(int nivelActual) {
-            var informacion = ResumenConsultoraCaminoBrillante();
-            return informacion.Niveles.Where(e => e.CodigoNivel == nivelActual.ToString()).Select(e => e.TieneOfertasEspeciales).FirstOrDefault();
-        }
-
+        /// <summary>
+        /// Obtiene el Flag si tiene ofertas especiales
+        /// </summary>
         public bool TieneOfertasEspeciales()
         {
-            var nivelConsultora = GetNivelConsultoraCaminoBrillante();
-            if (nivelConsultora == null) return false;
-
-            var nivelesCaminoBrillante = GetNivelesCaminoBrillante();
-            if (nivelesCaminoBrillante == null) return false;
-
-            return nivelesCaminoBrillante.Where(e => e.CodigoNivel == nivelConsultora.Nivel)
-                        .Select(e => e.TieneOfertasEspeciales).FirstOrDefault();
+            return (GetNivelActual() ?? new NivelCaminoBrillanteModel()).TieneOfertasEspeciales;
         }
 
-        public bool ValidacionCaminoBrillante() {
-            var informacion = ResumenConsultoraCaminoBrillante();
+        /// <summary>
+        /// Validación si puede acceder a Camino Brillante
+        /// </summary>
+        public bool ValidacionCaminoBrillante()
+        {
+            var informacion = GetConsultoraNivelCaminoBrillante();
             if (informacion == null || informacion.NivelConsultora == null || informacion.NivelConsultora.Count() == 0) return false;
             return true;
         }
 
-
-
-
-
-        public decimal? _MontoFaltanteSiguienteNivel(out string nivelSiguiente) {
-            nivelSiguiente = null;
-
-            var nivelConsultora = GetNivelConsultoraCaminoBrillante();
-            if (nivelConsultora == null) return null;
-
-            var nivelesCaminoBrillante = GetNivelesCaminoBrillante();
-            if (nivelesCaminoBrillante == null) return null;
-            
-            var nivelActual = nivelesCaminoBrillante.Where(e => e.CodigoNivel == nivelConsultora.Nivel).FirstOrDefault();
-            if (nivelActual == null) return null;
-
-            int idxNIvel = nivelesCaminoBrillante.IndexOf(nivelActual);
-            if (idxNIvel + 1 > nivelesCaminoBrillante.Count) return null;
-
-            var _nivelSiguiente = nivelesCaminoBrillante[idxNIvel + 1];
-
-            var consultoraHistoricos = GetNivelesHistoricosConsultora();
-            decimal _montoPedido = 0;
-            var montoPedido = consultoraHistoricos.Where(e => decimal.TryParse(e.MontoPedido, out _montoPedido)).Sum(e => decimal.Parse(e.MontoPedido));
-           
-            decimal montoMinimo = 0;
-            if (decimal.TryParse(_nivelSiguiente.MontoMinimo, out montoMinimo))
+        private BEConsultoraCaminoBrillante GetConsultoraNivelCaminoBrillante()
+        {
+            var resumen = sessionManager.GetConsultoraCaminoBrillante();
+            if (resumen == null)
             {
-                nivelSiguiente = _nivelSiguiente.CodigoNivel;
-                return montoMinimo - montoPedido;
+                using (var svc = new UsuarioServiceClient())
+                {
+                    resumen = svc.GetConsultoraNivelCaminoBrillante(Mapper.Map<ServiceUsuario.BEUsuario>(usuarioModel));
+                }
+                sessionManager.SetConsultoraCaminoBrillante(resumen);
             }
-            
-            return null;
-
+            return resumen;
         }
 
     }
