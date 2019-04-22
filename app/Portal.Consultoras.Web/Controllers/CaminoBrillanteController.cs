@@ -87,8 +87,8 @@ namespace Portal.Consultoras.Web.Controllers
                 int cantDemo = lstDemo.Count();
                 var model = lstKit;
                 ViewBag.Demostradores = lstDemo; //temporal
-                ViewBag.CantidadKit = "Mostrando " + cantKit + " de " + cantKit;  //temporal
-                ViewBag.CantidadDemostradores = "Mostrando " + cantDemo + " de " + cantDemo;  //temporal              
+                //ViewBag.CantidadKit = "Mostrando " + cantKit + " de " + cantKit;  //temporal
+                //ViewBag.CantidadDemostradores = "Mostrando " + cantDemo + " de " + cantDemo;  //temporal              
                 return View(model);
             }
             else
@@ -99,7 +99,8 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult GetKits(int offset, int cantidadRegistros)
         {
             var lstKits = _caminoBrillanteProvider.GetKitsCaminoBrillante();
-            lstKits = lstKits.Skip(offset).Take(cantidadRegistros).ToList();
+            int total = lstKits.Count();
+            lstKits = lstKits.Skip(offset).Take(cantidadRegistros).ToList();           
 
             var estado = true;
             try
@@ -114,7 +115,8 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(new
             {
                 lista = lstKits,
-                verMas = estado
+                verMas = estado,
+                total = total
             }, JsonRequestBehavior.AllowGet);
         }
 
@@ -122,6 +124,7 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult GetDemostradores(int offset, int cantidadRegistros)
         {
             var lstDemostrador = _caminoBrillanteProvider.GetDesmostradoresCaminoBrillante();
+            int total = lstDemostrador.Count();
             lstDemostrador = lstDemostrador.Skip(offset).Take(cantidadRegistros).ToList();
 
             var estado = true;
@@ -137,7 +140,8 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(new
             {
                 lista = lstDemostrador,
-                verMas = estado
+                verMas = estado,
+                total = total
             }, JsonRequestBehavior.AllowGet);
         }
 
