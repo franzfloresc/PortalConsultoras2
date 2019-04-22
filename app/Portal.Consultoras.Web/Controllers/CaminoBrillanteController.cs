@@ -98,10 +98,10 @@ namespace Portal.Consultoras.Web.Controllers
             var lstKits = _caminoBrillanteProvider.GetKitsCaminoBrillante();
             lstKits = lstKits.Skip(offset).Take(cantidadRegistros).ToList();
 
-            var estado = false;
+            var estado = true;
             try
             {
-                if (lstKits.Count > cantidadRegistros) estado = true;
+                if (lstKits.Count < cantidadRegistros) estado = false;
             }
             catch (Exception ex)
             {
@@ -111,7 +111,7 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(new
             {
                 lista = lstKits,
-                verMas = true
+                verMas = estado
             }, JsonRequestBehavior.AllowGet);
         }
 
@@ -120,10 +120,10 @@ namespace Portal.Consultoras.Web.Controllers
             var lstDemostrador = _caminoBrillanteProvider.GetDesmostradoresCaminoBrillante();
             lstDemostrador = lstDemostrador.Skip(offset).Take(cantidadRegistros).ToList();
 
-            var estado = false;
+            var estado = true;
             try
             {
-                if (lstDemostrador.Count > cantidadRegistros) estado = true;
+                if (lstDemostrador.Count < cantidadRegistros) estado = false;
             }
             catch (Exception ex)
             {
@@ -133,7 +133,7 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(new
             {
                 lista = lstDemostrador,
-                verMas = true
+                verMas = estado
             }, JsonRequestBehavior.AllowGet);
         }
 
