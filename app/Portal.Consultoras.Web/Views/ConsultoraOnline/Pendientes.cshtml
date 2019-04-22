@@ -172,8 +172,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col" style="left: -330px;">
-                <div class="mobile continuar">
+            <div class="col" id="contenedor-paso-2" style="left: -330px;">
+                @*<div class="mobile continuar">
                     <div class="container-aceptar-pedidos position-relative">
                         <div class="container border-bottom position-sticky top">
                             <div class="row align-items-center">
@@ -249,7 +249,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>*@
             </div>
         </div>
     </div>
@@ -453,6 +453,42 @@
         var urlDetallePedidoPendienteClientes = "/ConsultoraOnline/DetallePedidoPendienteClientes";
 
         $(document).ready(function () {
+            //  debugger;
+            // CargarPaso2();            
+            SetHandlebars("#template-paso-2", null, "#contenedor-paso-2");
+        });
+        
+        function CargarPaso2() {
+            //ShowLoading({});
+            $.ajax({
+                type: 'POST',
+                url: '/ConsultoraOnline/PendientesMedioDeCompra',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                async: true,
+                success: function (response) {
+                    // CloseLoading();
+                    if (checkTimeout(response)) {
+                        if (response.success) {
+                            debugger;
+                            SetHandlebars("#template-paso-2", response.result, "#contenedor-paso-2");
+                            cargarGaleria()
+
+                            return false;
+                        }
+
+                    }
+                },
+                error: function (data, error) {
+                    CloseLoading();
+                    if (checkTimeout(data)) {
+                        AbrirMensaje("Ocurrió un error inesperado al momento de aceptar el pedido. Consulte con su administrador del sistema para obtener mayor información");
+                    }
+                }
+            });
+        }
+        
+        function cargarGaleria() {
             $('.conGanaMas').slick({
                 arrows: true,
                 mobileFirst: true,
