@@ -21,17 +21,6 @@ namespace Portal.Consultoras.Web.Controllers
             if (!_caminoBrillanteProvider.ValidacionCaminoBrillante()) return RedirectToAction("Index", "Bienvenida");
 
             ViewBag.Niveles = _caminoBrillanteProvider.GetNivelesCaminoBrillante(true);
-            //var nivelActual = _caminoBrillanteProvider.GetNivelConsultoraCaminoBrillante();
-            //var _nivelActual = 1;
-            //if (nivelActual != null) int.TryParse(nivelActual.Nivel, out _nivelActual);
-            //ViewBag.NivelActual = _nivelActual;
-            //ViewBag.TieneOfertasEspeciales = _caminoBrillanteProvider.TieneOfertasEspeciles(_nivelActual);
-            //ViewBag.CaminoBrillante = true;
-
-            /*
-            ViewBag.NivelActual = (_caminoBrillanteProvider.GetNivelConsultoraCaminoBrillante() ?? 
-                                     new ServiceUsuario.BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante()).Nivel;
-            */
             ViewBag.NivelActual = (_caminoBrillanteProvider.GetNivelActualConsultora() ??
                                      new ServiceUsuario.BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante()).Nivel;
             ViewBag.ResumenLogros = _caminoBrillanteProvider.GetLogroCaminoBrillante(Constantes.CaminoBrillante.Logros.RESUMEN);
@@ -145,22 +134,6 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        /*
-        [HttpPost]
-        public JsonResult GetNiveles(string nivel)
-        {
-            if (!_caminoBrillanteProvider.ValidacionCaminoBrillante()) {
-                //No alowed
-                return Json(new {}, JsonRequestBehavior.AllowGet);
-            }
-            string nivelSiguiente = null;
-            return Json(new { Niveles = _caminoBrillanteProvider.GetNivelesCaminoBrillante(true).Where(e => e.CodigoNivel == nivel).ToList(), Moneda = userData.Simbolo,
-                MontoFaltante = _caminoBrillanteProvider.MontoFaltanteSiguienteNivel(out nivelSiguiente), NivelSiguiente = nivelSiguiente }, JsonRequestBehavior.AllowGet);
-        }
-
-        */
-
-
         //[HttpPost]
         public JsonResult GetLogros(string category)
         {
@@ -171,20 +144,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return Json(new { data = _caminoBrillanteProvider.GetLogroCaminoBrillante(category.ToUpper()) }, JsonRequestBehavior.AllowGet);
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         //Nuevo
         [HttpPost]
