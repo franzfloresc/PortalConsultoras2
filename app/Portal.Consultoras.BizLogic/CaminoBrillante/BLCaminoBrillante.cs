@@ -29,7 +29,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             _escalaDescuentoBusinessLogic = escalaDescuentoBusinessLogic;
         }
 
-        //Leer Flags de tiene ofertas especiales
+
         #region Niveles
 
         public List<BENivelCaminoBrillante> GetNiveles(int paisId)
@@ -37,7 +37,6 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             return GetNivelesCache(paisId);
         }
 
-        //Leer Flags de tiene ofertas especiales
         private List<BENivelCaminoBrillante> GetNivelesProvider(int paisId)
         {
             _providerCaminoBrillante = _providerCaminoBrillante ?? GetCaminoBrillanteProvider(paisId);
@@ -46,7 +45,9 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             var lstBeneficios = GetBeneficiosCaminoBrillante(paisId) ?? new List<BENivelCaminoBrillante.BEBeneficioCaminoBrillante>();
             var lstNiveles = _providerCaminoBrillante.GetNivel(Util.GetPaisIsoHanna(paisId)).Result;
 
-
+            var tablaLogicaDatos = (GetDatosTablaLogica(paisId, ConsTablaLogica.CaminoBrillante.CaminoBrillanteOfertasEspeciales) ?? new List<BETablaLogicaDatos>());
+            var tablaLogicaDatosDV = tablaLogicaDatos.FirstOrDefault(e => e.TablaLogicaDatosID == Constantes.CaminoBrillante.Niveles.OfertasEspeciales_TablaLogicaDatos) ?? new BETablaLogicaDatos();
+            var TieneOfertasEspecialesDV = "1".Equals(tablaLogicaDatosDV.Valor);
 
             return lstNiveles.Select(e => new BENivelCaminoBrillante()
             {
@@ -54,9 +55,14 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 DescripcionNivel = e.DescripcionNivel,
                 MontoMaximo = e.MontoMaximo,
                 MontoMinimo = e.MontoMinimo,
-                TieneOfertasEspeciales = !("1" == e.CodigoNivel),
+                TieneOfertasEspeciales = Niveles_TIeneOfertasEspeciales(tablaLogicaDatos,e.CodigoNivel, TieneOfertasEspecialesDV),
                 Beneficios = lstBeneficios.Where(b => b.CodigoNivel == e.CodigoNivel && !(string.IsNullOrEmpty(b.NombreBeneficio) && string.IsNullOrEmpty(b.Descripcion) )).ToList()
             }).ToList();
+        }
+
+        private bool Niveles_TIeneOfertasEspeciales(List<BETablaLogicaDatos> bETablaLogicaDatos, string codNivel, bool defValor) {
+            var bETablaLogicaDato = bETablaLogicaDatos.FirstOrDefault(e => e.Codigo == codNivel);
+            return bETablaLogicaDato != null ? "1".Equals(bETablaLogicaDato.Valor) : defValor;
         }
 
         private List<BENivelCaminoBrillante> GetNivelesCache(int paisId)
@@ -117,7 +123,8 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             if (nivelesConsultora == null) return null;
 
             var nivelConsultora = (nivelesConsultora.FirstOrDefault(e => ((e.Campania == entidad.CampaniaID.ToString()) || (e.Campania == entidad.Campania))) ?? (nivelesConsultora.Count > 0 ? nivelesConsultora.First() : new NivelConsultoraCaminoBrillante()));
-            var logros = GetConsultoraLogros(entidad, GetNiveles(entidad.PaisID), nivelConsultora, nivelesConsultora, periodo);
+            var niveles = GetNiveles(entidad.PaisID);
+            var logros = GetConsultoraLogros(entidad, niveles, nivelConsultora, nivelesConsultora, periodo);
 
             return new BEConsultoraCaminoBrillante()
             {
@@ -134,10 +141,32 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                     PeriodoCae = e.PeriodoCae,
                     EsActual = (e == nivelConsultora)
                 }).OrderByDescending(e => e.Campania).ToList(),
-                Niveles = GetNiveles(entidad.PaisID),
+                Niveles = CalcularCuantoFalta(niveles,periodo, nivelConsultora, nivelesConsultora),
                 ResumenLogros = GetResumenLogros(entidad.PaisID, logros),
                 Logros = logros
             };
+        }
+
+        private List<BENivelCaminoBrillante> CalcularCuantoFalta(List<BENivelCaminoBrillante> niveles, BEPeriodoCaminoBrillante periodo, NivelConsultoraCaminoBrillante nivelActualConsutora, List<NivelConsultoraCaminoBrillante> consultoraHistoricos) {
+            if (niveles != null && periodo != null && nivelActualConsutora != null) {
+                int nivel = 0;
+                if (int.TryParse(nivelActualConsutora.NivelActual, out nivel)) {
+                    nivel = nivel + 1;
+
+                    /*
+                    decimal montoFaltante = 0;
+                    if (consultoraHistoricos != null){
+                        var montoPedido = consultoraHistoricos.Where(h => decimal.TryParse(h.MontoPedido, out _montoPedido)).Sum(h => decimal.Parse(h.MontoPedido));
+                    }
+                    */
+                    /*
+                    niveles.Where(e => e.CodigoNivel == nivel.ToString()).Update(e => {
+                        e.MontoFaltante = montoFaltante;
+                    });
+                    */
+                }
+            }
+            return niveles;
         }
 
         private List<BELogroCaminoBrillante> GetConsultoraLogros(BEUsuario entidad, List<BENivelCaminoBrillante> nivelesCaminoBrillantes,
