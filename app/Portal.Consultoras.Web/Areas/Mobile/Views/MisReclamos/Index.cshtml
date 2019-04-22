@@ -34,9 +34,13 @@
 }
 
 <div class="wrapper_resumen_mobile">
+    <div id="divMisReclamos" data-url="MisReclamos/GetReclamos">
+    </div>
     @if (Model.ListaCDRWeb.Count > 0)
     {
-        @Html.Partial("~/Areas/Mobile/Views/MisReclamos/_ListaMisReclamos.cshtml", listaCdr)
+        <div id="divMisReclamos" data-url="MisReclamos/GetReclamos">
+            @Html.Partial("~/Areas/Mobile/Views/MisReclamos/_ListaMisReclamos.cshtml", listaCdr)
+        </div>
     }
     else
     {

@@ -319,6 +319,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var textoFlete = GetMensajeCDRExpress(Constantes.MensajesCDRExpress.ExpressFlete);
             return string.Format(textoFlete, userData.Simbolo, Util.DecimalToStringFormat(flete, userData.CodigoISO));
         }
-      
+
+        public ActionResult GetReclamos() {
+            var misReclamos =  _cdrProvider.ObtenerCDRWebCargaInicial(userData.ConsultoraID, userData.PaisID);
+            return PartialView("_ListaMisReclamos",misReclamos);
+        }
     }
 }

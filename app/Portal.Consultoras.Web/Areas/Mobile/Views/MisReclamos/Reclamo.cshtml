@@ -60,25 +60,10 @@
             </li>
         </ul>
     </div>
-   
+
     <div id="VistaSolicitudesRegistradas" style="display:none;" class="vistas_cdr">
-        @if (Model.ListaCDRWeb.Any())
-        {
-            @Html.Partial("~/Views/MisReclamos/_ListaMisReclamos.cshtml", Model.ListaCDRWeb)
-        }
-        else
-        {
-            <div id="VistaSinSolicitudesRegistradas">
-                <div class="text-center mensaje_sin_solicitudes_registradas_wrapper">
-                    <div class="mensaje_sin_solicitudes_registradas_icono">
-                        <img src="@Url.Content("~/Content/Images/icono_notificacion_negativa.svg")" alt="No tiene ningún cambio y devolución" />
-                    </div>
-                    <p class="tipografia_lato_bold mensaje_sin_solicitudes_registradas">
-                        No tienes ningún<br />cambio y devolución
-                    </p>
-                </div>
-            </div>
-        }
+        <div id="divMisReclamos">
+        </div>
         <div class="btn_cta_wrapper">
             <button id="IrPaso1"
                     class="text-uppercase tipografia_lato tipografia_lato_bold border-radius-4 btn_cta_cdr btn_cta_cdr--agregarSolicitud">
@@ -623,7 +608,7 @@
         <div class="contenedor_info_cdr">
             <div class="listado_producto_reclamo">
                 {{#iff item.GrupoID '!=' ''}}
-                <div class="text-bold text-center tag_sb tag_sb--standard">Set o Pack</div><br/>
+                <div class="text-bold text-center tag_sb tag_sb--standard">Set o Pack</div><br />
                 {{else}}
 
                 {{/iff}}
@@ -780,6 +765,7 @@
         var UrlDetalleEliminar = '@Url.Action("DetalleEliminar", "MisReclamos", new { area = "" })';
         var UrlObtenerListarNumPedido = '@Url.Action("ObtenerNumeroPedidos", "Misreclamos", new { area = ""})';
         var UrlObtenerDatosCuv = '@Url.Action("ObtenerDatosCuv", "Misreclamos", new { area = ""})';
+        var UrlGetMisReclamos = '@Url.Action("GetReclamos","MisReclamos", new { area = "mobile"})';
 
         var mensajeGestionCdrInhabilitada = '@Html.Raw(Model.MensajeGestionCdrInhabilitada)';
         var mensajeCdrFueraDeFechaCompleto = '@Html.Raw(Constantes.CdrWebMensajes.FueraDeFecha)';

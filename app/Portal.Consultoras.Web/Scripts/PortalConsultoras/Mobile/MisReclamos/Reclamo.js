@@ -181,10 +181,6 @@ $(document).ready(function () {
                     $(me.Variables.btnSiguiente4).show();
                     $(me.Variables.RegistroAceptarSolucion).show();
                     $(me.Variables.Cambio3).hide();
-                    //$(me.Variables.pasodos).hide();
-                    //$(me.Variables.pasotres).hide();
-                    //$(me.Variables.pasodosactivo).show();
-                    //$(me.Variables.pasotresactivo).show();
                     if ($(me.Variables.Registro1).is(":visible")) {
                         $(me.Variables.Registro1).hide();
                     }
@@ -193,12 +189,17 @@ $(document).ready(function () {
                 // Alternar vistas de tabs Nuevo Cambio y Registradas
 
                 $(me.Variables.tabVistaCdr).click(function (e) {
+                    ShowLoading();
                     e.preventDefault();
                     var contenidoTabAMostrar = $(this).attr('href');
                     $('.vistas_cdr').fadeOut(100);
                     $('.tab_vista_cdr').removeClass('tab_vista_cdr--activo');
                     $(this).parent().addClass('tab_vista_cdr--activo')
                     $(contenidoTabAMostrar).fadeIn(100);
+                    $.when($('#divMisReclamos').load(UrlGetMisReclamos)).then(function () {
+                        CloseLoading();
+                    });
+                   
                 });
 
                 // Agregar otro producto.
@@ -229,27 +230,18 @@ $(document).ready(function () {
                     $(me.Variables.txtCantidad2).val("1");
                     $(me.Variables.txtCuvMobile).val("");
                     me.Funciones.CambiarEstadoBarraProgreso(me.Variables.pasos.uno_seleccion_de_producto);
-                    //me.Funciones.CambioPaso(-100);
-                    //me.Funciones.BuscarMotivo();
                     $(me.Variables.divUltimasSolicitudes).show();
                     $("#VistaPaso3").hide();
                     $(me.Variables.Registro1).show();
                     $(me.Variables.btnSiguiente1).show();
                     $("#VistaPaso1y2").show();
-                    //$(me.Variables.RegistroAceptarSolucion).hide();
-                    //$(me.Variables.btnSiguiente4).hide();
                     $(me.Variables.DescripcionCuv).hide();
                     $(me.Variables.txtCuvMobile).fadeIn();
 
                     $(me.Variables.DescripcionCuv2).hide();
                     $(me.Variables.txtCuvMobile2).fadeIn();
-
-                    //$(me.Variables.pasodosactivo).hide();
-                    //$(me.Variables.pasotresactivo).hide();
-                    //$(me.Variables.pasodos).show();
-                    //$(me.Variables.pasotres).show();
                     $(me.Variables.ComboCampania).attr("disabled", "disabled");
-                    //me.Funciones.BuscarCUV();
+
                 });
 
                 $(me.Variables.miSolicitudCDR).click(function (e) {
