@@ -10,6 +10,7 @@ var tipoDespacho = false;
 
 var dataCdrDevolucion = {};
 var flagSetsOrPack = false;
+var flagSolicitudEnviada = false;
 
 
 $(document).ready(function () {
@@ -104,10 +105,6 @@ $(document).ready(function () {
             },
             paso_active_reclamo: "paso_active_reclamo",
             paso_reclamo_completado: "paso_reclamo_completado",
-            //pasodos: "#pasodos",
-            //pasodosactivo: "#pasodosactivo",
-            //pasotres: "#pasotres",
-            //pasotresactivo: "#pasotresactivo",
             pestaniaVerMiSolicitud: ".pestania_ver_mi_solicitud",
             politica_devolucion: "#politica-devolucion",
             popupCuvDescripcion: ".popupCuvDescripcion",
@@ -146,7 +143,8 @@ $(document).ready(function () {
             spnCantidadC: "#spnCantidadC",
             spnCantidadDVarios: "#spnCantidadDVarios",
             spnCantidadDIndividual: "#spnCantidadIndividual",
-            tabVistaCdr: '.tab_vista_cdr_enlace_contenido',
+            tabVistaCdr: ".tab_vista_cdr_enlace_contenido",
+            tabs_vista_cdr_wrapper: ".tabs_vista_cdr_wrapper",
             textoMensajeCDR: ".texto-mensaje-cdr",
             TituloPreguntaInconvenientes: ".pregunta_inconveniente_producto_titulo",
             TituloReclamo: "#TituloReclamo",
@@ -175,6 +173,9 @@ $(document).ready(function () {
                 $(me.Variables.EleccionTipoEnvio).hide();
                 $(me.Variables.btnSiguiente1).addClass(me.Variables.deshabilitarBoton);
                 $(me.Variables.txtCuvMobile).addClass(me.Variables.deshabilitarControl);
+                if (mostrarTab === 0 || mostrarTab === "0")
+                    $(me.Variables.tabs_vista_cdr_wrapper).hide();
+
                 var pedidoId = parseInt($(me.Variables.hdPedidoID).val());
                 if (pedidoId != 0) {
                     ShowLoading();
@@ -190,17 +191,19 @@ $(document).ready(function () {
                 // Alternar vistas de tabs Nuevo Cambio y Registradas
 
                 $(me.Variables.tabVistaCdr).click(function (e) {
-                    ShowLoading();
                     e.preventDefault();
                     var contenidoTabAMostrar = $(this).attr('href');
+                    var $tab = $(this).attr("id");
+                    if ($tab === "linkSolicitudesRegistradas") {
+                        ShowLoading();
+                        $.when($('#divMisReclamos').load(UrlGetMisReclamos)).done(function () {
+                            CloseLoading();
+                        });
+                    }
                     $('.vistas_cdr').fadeOut(100);
                     $('.tab_vista_cdr').removeClass('tab_vista_cdr--activo');
                     $(this).parent().addClass('tab_vista_cdr--activo')
                     $(contenidoTabAMostrar).fadeIn(100);
-                    $.when($('#divMisReclamos').load(UrlGetMisReclamos)).then(function () {
-                        CloseLoading();
-                    });
-                   
                 });
 
                 // Seleccionar opción haciendo click en el área que conforma la opción cdr elegida, no sólo en el checkbox
@@ -457,21 +460,6 @@ $(document).ready(function () {
                     }
                 });
 
-                //$(me.Variables.btnAceptarSolucion).click(function () {
-                //    me.Funciones.DetalleGuardar();
-                //    //$(me.Variables.wrpMobile).removeClass(me.Variables.pb120);
-                //    $(me.Variables.Cambio3).hide();
-                //    $(me.Variables.TituloPreguntaInconvenientes).hide();
-                //    $(me.Variables.Registro4).hide();
-                //    $(me.Variables.btnAceptarSolucion).hide();
-                //    $(me.Variables.pasotres).hide();
-                //    $(me.Variables.Enlace_regresar).hide();
-                //    $(me.Variables.pasotresactivo).show();
-                //    $(me.Variables.btnSiguiente4).show();
-                //    $(me.Variables.RegistroAceptarSolucion).show();
-                //    $(me.Variables.EleccionTipoEnvio).show();
-                //});
-
                 $(me.Variables.Enlace_regresar).click(function (e) {
 
                     $(me.Variables.Registro2).hide();
@@ -637,11 +625,11 @@ $(document).ready(function () {
                     $(me.Variables.hdNumeroPedido).val(0);
                     $("#VistaPaso3").hide();
                     me.Funciones.CambiarEstadoBarraProgreso(me.Variables.pasos.uno_seleccion_de_producto);
-                    $("#VistaPaso1y2").show();                  
+                    $("#VistaPaso1y2").show();
                     $(me.Variables.ListaCoincidenciasBusquedaProductosCdr).empty();
                     $(me.Variables.linkNuevoCambio).click();
                     $(me.Variables.Registro1).fadeIn(100);
-                   
+
                 });
             }
         };
@@ -657,9 +645,9 @@ $(document).ready(function () {
 
         me.Funciones = {
 
-            SeccionTabsFijoSegunAltoHeader: function () {
+            SeccionTabsFijoSegunAltoHeader: function () {   
                 $('.fijarTituloMobile').css('top', $('#new-header').outerHeight());
-                $('.tabs_vista_cdr_wrapper').css('top', $('#new-header').outerHeight() + 50);
+                $(me.Variables.tabs_vista_cdr_wrapper).css('top', $('#new-header').outerHeight() + 50);
             },
 
             ObtenerPedidosID: function () {
@@ -1782,6 +1770,9 @@ $(document).ready(function () {
                                 $(me.Variables.RegistroAceptarSolucion).hide();
                                 $(me.Variables.textoMensajeCDR).hide();
                                 $(me.Variables.SolicitudEnviada).show();
+                                $(me.Variables.tabs_vista_cdr_wrapper).show();
+                                flagSolicitudEnviada = true;
+                                mostrarTab = 1;
                                 if (callbackWhenFinish && typeof callbackWhenFinish === "function") {
                                     callbackWhenFinish(data);
                                 }
@@ -1832,26 +1823,6 @@ $(document).ready(function () {
                     $(spanId).html(message);
                 }
             },
-
-            //DetalleAccion: function (obj) {
-
-            //    var accion = $.trim($(obj).attr("data-accion"));
-            //    if (accion == "") {
-            //        return false;
-            //    }
-
-            //    if (accion == "x") {
-            //        var pedidodetalleid = $.trim($(obj).attr("data-pedidodetalleid"));
-
-            //        var item = {
-            //            CDRWebDetalleID: pedidodetalleid
-            //        };
-
-            //        messageConfirmacion("Se eliminará el registro seleccionado. <br/>¿Deseas continuar?", function () {
-            //            me.Funciones.DetalleEliminar(item);
-            //        });
-            //    }
-            //},
 
             PreEliminarDetalle: function (el) {
                 var pedidodetalleid = $.trim($(el).attr("data-pedidodetalleid"));
@@ -1929,13 +1900,13 @@ $(document).ready(function () {
                     me.Funciones.ValidarTelefonoServer($.trim($(me.Variables.txtTelefono).val()), function (data) {
                         if (!data.success) {
                             me.Funciones.ControlSetError(me.Variables.txtTelefono, me.Variables.spnTelefonoError, '*Este número de celular ya está siendo utilizado. Intenta con otro.');
-                            $(me.Variables.btnSiguiente4).removeClass('btn_deshabilitado');
+                            //$(me.Variables.btnSiguiente4).removeClass('btn_deshabilitado');
                             return false;
                         } else if ($.trim($(me.Variables.txtEmail).val()) != $.trim($(me.Variables.hdEmail).val())) {
                             me.Funciones.ValidarCorreoDuplicadoServer($.trim($(me.Variables.txtEmail).val()), function (data) {
                                 if (!data.success) {
                                     me.Funciones.ControlSetError(me.Variables.txtEmail, me.Variables.spnEmailError, '*Este correo ya está siendo utilizado. Intenta con otro');
-                                    $(me.Variables.btnSiguiente4).removeClass('btn_deshabilitado');
+                                    //$(me.Variables.btnSiguiente4).removeClass('btn_deshabilitado');
                                     return false;
                                 } else {
                                     me.Funciones.SolicitudCDREnviar(function (data) {
@@ -1945,12 +1916,16 @@ $(document).ready(function () {
                                                 mensajeInfo = data.message.replace(mensajeChatEnLinea, "").trim();
                                             } else mensajeInfo = data.message;
                                             messageInfo(mensajeInfo);
-                                            $(me.Variables.btnSiguiente4).removeClass('btn_deshabilitado');
+                                            //$(me.Variables.btnSiguiente4).removeClass('btn_deshabilitado');
                                             return false;
                                         } else {
                                             if (data.Cantidad == 1) {
-                                                $(me.Variables.btnSiguiente4).removeClass('btn_deshabilitado');
+                                                //$(me.Variables.btnSiguiente4).removeClass('btn_deshabilitado');
+                                                $(me.Variables.tabs_vista_cdr_wrapper).show();
                                                 messageInfoValidado(data.message, "MENSAJE");
+                                            } else {
+                                                //Redireccionar a la vista index de reclamo
+                                                window.location.href = UrlVistaSolicitudesRegistradas;
                                             }
                                         }
                                     });
@@ -1964,12 +1939,15 @@ $(document).ready(function () {
                                         mensajeInfo = data.message.replace(mensajeChatEnLinea, "").trim();
                                     } else mensajeInfo = data.message;
                                     messageInfo(mensajeInfo);
-                                    $(me.Variables.btnSiguiente4).removeClass('btn_deshabilitado');
+                                    //$(me.Variables.btnSiguiente4).removeClass('btn_deshabilitado');
                                     return false;
                                 } else {
                                     if (data.Cantidad == 1) {
-                                        $(me.Variables.btnSiguiente4).removeClass('btn_deshabilitado');
+                                        //$(me.Variables.btnSiguiente4).removeClass('btn_deshabilitado');                                        
                                         messageInfoValidado(data.message, "MENSAJE");
+                                    } else {
+                                        //Redireccionar a la vista index de reclamo
+                                        window.location.href = UrlVistaSolicitudesRegistradas;
                                     }
                                 }
                             });

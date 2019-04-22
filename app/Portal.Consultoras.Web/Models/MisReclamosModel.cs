@@ -55,5 +55,6 @@ namespace Portal.Consultoras.Web.Models
         public MensajesCDRExpressModel MensajesExpress { get; set; }
         public int? CantidadReclamosPorPedido { get; set; }
         public ICollection<ProductoComplementarioModel> Complemento { get; set; }
+        public int MostrarTab { get; set; }
     }
 }

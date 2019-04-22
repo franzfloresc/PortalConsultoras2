@@ -426,12 +426,12 @@
                     <div class="detalle_solicitud_listado" id="divDetalleEnviar">
                     </div>
                 </div>
-                <a class="enlace_solicitudes_anteriores tipografia_lato tipografia_lato_regular" title="Ver solicitudes" href="@Url.Action("Index")">
+                @*<a class="enlace_solicitudes_anteriores tipografia_lato tipografia_lato_regular" title="Ver solicitudes" href="@Url.Action("Index")">
                     <span class="icono_arrow_left">
                         <img src="@Url.Content("~/Content/Images/mobile/left-arrow.png")" alt="Ver tus solicitudes" />
                     </span>
                     <span>VER TUS SOLICITUDES</span>
-                </a>
+                </a>*@
             </div>
             <div id="Cambio3" style="display:none;">
                 <div class="pregunta_inconveniente_producto tipografia_lato tipografia_lato_bold mb-23">
@@ -766,17 +766,18 @@
         var UrlObtenerListarNumPedido = '@Url.Action("ObtenerNumeroPedidos", "Misreclamos", new { area = ""})';
         var UrlObtenerDatosCuv = '@Url.Action("ObtenerDatosCuv", "Misreclamos", new { area = ""})';
         var UrlGetMisReclamos = '@Url.Action("GetReclamos","MisReclamos", new { area = "mobile"})';
+        var UrlVistaSolicitudesRegistradas  =  '@Url.Action("Index","MisReclamos", new { area = "mobile"})';
 
         var mensajeGestionCdrInhabilitada = '@Html.Raw(Model.MensajeGestionCdrInhabilitada)';
+        var mostrarTab = '@Html.Raw(Model.MostrarTab)';
         var mensajeCdrFueraDeFechaCompleto = '@Html.Raw(Constantes.CdrWebMensajes.FueraDeFecha)';
         var mensajeChatEnLinea = '@Html.Raw(Constantes.CdrWebMensajes.ContactateChatEnLinea)';
-
         var flagAppMobile = @(!mobileConfiguracion.EsAppMobile ? 0 : 1);
         if (flagAppMobile == 0) mensajeCdrFueraDeFechaCompleto = mensajeCdrFueraDeFechaCompleto + " " + mensajeChatEnLinea;
         var CantidadReclamosPorPedidoConfig = '@Html.Raw(Model.CantidadReclamosPorPedido)';
         var OrigenCDR = true;
 
     </script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/MisReclamos/Reclamo.js")?v3"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/MisReclamos/Reclamo.js")?v4"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js")"></script>
 }

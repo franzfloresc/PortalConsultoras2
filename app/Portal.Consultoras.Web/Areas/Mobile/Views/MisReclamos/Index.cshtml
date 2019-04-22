@@ -57,7 +57,7 @@
     }
 </div>
 <div class="btn_cta_wrapper">
-    <a href="@Url.Action("Reclamo","MisReclamos",new { area = "mobile" })"
+    <a href="@Url.Action("Reclamo","MisReclamos", new { area = "mobile", t = (Model.ListaCDRWeb.Count > 0 )? 1:0 })"
        class="text-uppercase tipografia_lato tipografia_lato_bold border-radius-4 btn_cta_cdr btn_cta_cdr--agregarSolicitud">
         Agregar cambio
     </a>
