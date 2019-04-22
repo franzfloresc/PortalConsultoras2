@@ -38,7 +38,8 @@ $(document).ready(function () {
             DescripcionCuv: "#DescripcionCuv",
             ddlnumPedido: "#ddlnumPedido",
             DescripcionCuv2: "#DescripcionCuv2",
-            deshabilitarControl: "btn_deshabilitado",
+            deshabilitarControl: "campo_deshabilitado",
+            deshabilitarBoton: "btn_deshabilitado",
             divDetalleEnviar: "#divDetalleEnviar",
             divDetallePaso3: "#divDetallePaso3",
             divDetalleUltimasSolicitudes: "#divDetalleUltimasSolicitudes",
@@ -172,7 +173,7 @@ $(document).ready(function () {
             bindEvents: function () {
                 $(me.Variables.footer_page).hide();
                 $(me.Variables.EleccionTipoEnvio).hide();
-                $(me.Variables.btnSiguiente1).addClass(me.Variables.deshabilitarControl);
+                $(me.Variables.btnSiguiente1).addClass(me.Variables.deshabilitarBoton);
                 $(me.Variables.txtCuvMobile).addClass(me.Variables.deshabilitarControl);
                 var pedidoId = parseInt($(me.Variables.hdPedidoID).val());
                 if (pedidoId != 0) {
@@ -336,7 +337,7 @@ $(document).ready(function () {
                     $(me.Variables.hdPedidoID).val(0);
                     $(me.Variables.hdNumeroPedido).val(0);
                     $.when(me.Funciones.ObtenerPedidosID()).then(function () {
-                        $(me.Variables.txtCuvMobile).removeClass('btn_deshabilitado');
+                        $(me.Variables.txtCuvMobile).removeClass('campo_deshabilitado');
                     });
                 });
 
@@ -420,7 +421,7 @@ $(document).ready(function () {
                                         $(me.Variables.Registro1).hide();
                                         $(me.Variables.Registro2).hide();
                                         $(me.Variables.Registro3).show();
-                                        $(me.Variables.btnSiguiente1).addClass(me.Variables.deshabilitarControl);
+                                        $(me.Variables.btnSiguiente1).addClass(me.Variables.deshabilitarBoton);
                                         me.Funciones.CambiarEstadoBarraProgreso(me.Variables.pasos.dos_seleccion_de_solucion);
                                     });
                                 }
@@ -438,7 +439,7 @@ $(document).ready(function () {
                                         $(me.Variables.wrpMobile).removeClass(me.Variables.pb120);
                                         var arrOcultarElementos = [me.Variables.TituloPreguntaInconvenientes, me.Variables.Registro4
                                             , me.Variables.Registro3, me.Variables.infoOpcionesDeCambio, me.Variables.Enlace_regresar, "#VistaPaso1y2"];
-                                        $(me.Variables.btnSiguiente1).addClass(me.Variables.deshabilitarControl);
+                                        $(me.Variables.btnSiguiente1).addClass(me.Variables.deshabilitarBoton);
                                         me.Funciones.HideTags(arrOcultarElementos);
                                         $(me.Variables.infoOpcionesDeCambio).children().hide();
                                         $(me.Variables.btnSiguiente4).show();
@@ -1992,7 +1993,7 @@ $(document).ready(function () {
                     var id = opcion.id;
                     //ocultamos la capa padre y los hijos
                     tagDivInfo.fadeOut(100).children().fadeOut(100);
-                    $(me.Variables.btnSiguiente1).addClass(me.Variables.deshabilitarControl);
+                    $(me.Variables.btnSiguiente1).addClass(me.Variables.deshabilitarBoton);
                     return false;
                 }
                 //Mostramos la capa padre
@@ -2040,13 +2041,13 @@ $(document).ready(function () {
                     $(me.Variables.spnCantidadC).html(textoUnidades);
                     $(me.Variables.OpcionCambioMismoProducto).fadeIn(200);
                 }
-                $(me.Variables.btnSiguiente1).removeClass(me.Variables.deshabilitarControl);
+                $(me.Variables.btnSiguiente1).removeClass(me.Variables.deshabilitarBoton);
             },
 
             AgregarEventoMostrarBotonSiguiente: function () {
                 $("#listaMotivos input[name=motivo-cdr]").on('click', function () {
-                    if ($(me.Variables.btnSiguiente1).hasClass(me.Variables.deshabilitarControl)) {
-                        $(me.Variables.btnSiguiente1).removeClass(me.Variables.deshabilitarControl);
+                    if ($(me.Variables.btnSiguiente1).hasClass(me.Variables.deshabilitarBoton)) {
+                        $(me.Variables.btnSiguiente1).removeClass(me.Variables.deshabilitarBoton);
                     }
                 });
             },

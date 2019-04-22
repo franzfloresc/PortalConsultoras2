@@ -53,12 +53,12 @@
                         <input type="hidden" id="hdfCUV" value="0" />
                         <select class="elige_num_pedido" id="ddlnumPedido" name="numPedido" required="required" style="display:none;"></select>
                         <div class="contenedor_descripcion_reclamo">
-                            <input type="text" placeholder="Ingresa el código o el nombre del producto" class="descripcion_reclamo btn_deshabilitado" id="ddlCuv" name="txtCUVDescripcion" required="required" />
+                            <input type="text" placeholder="Ingresa el código o el nombre del producto" class="descripcion_reclamo campo_deshabilitado" id="ddlCuv" name="txtCUVDescripcion" required="required" />
                             <div class="border-radius-4 lista_resultados_busqueda_por_cuv_wrapper">
                                 <ul id="ResultadosBusquedaCUV" class="lista_resultados_busqueda_por_cuv"></ul>
                             </div>
                         </div>
-                        <div class="rango_reclamo btn_deshabilitado" data-cantidad-contenedor="" id="RangoCantidad">
+                        <div class="rango_reclamo campo_deshabilitado" data-cantidad-contenedor="" id="RangoCantidad">
                             <input type="text" name="Cantidad" id="txtCantidad" data-input="cantidad" value="1" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid" onfocus="SeleccionarContenido(this) ">
                             <div class="liquidacion_rango_right_pedido">
                                 <a class="mas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Esika/mas.png" alt=""></a>

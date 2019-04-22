@@ -28510,7 +28510,7 @@ div.motivoRechazo textarea {
         padding-bottom: 3px;
     }
 
-    .rango_reclamo.btn_deshabilitado .liquidacion_rango_cantidad_pedido {
+    .rango_reclamo.campo_deshabilitado .liquidacion_rango_cantidad_pedido {
         border-right: 1px solid rgba(128, 128, 128, 0.5) !important;
         opacity:0.5;
     }
@@ -28533,8 +28533,8 @@ div.motivoRechazo textarea {
         height: 50%;
     }
 
-    .rango_reclamo.btn_deshabilitado .mas,
-    .rango_reclamo.btn_deshabilitado .menos{
+    .rango_reclamo.campo_deshabilitado .mas,
+    .rango_reclamo.campo_deshabilitado .menos{
         opacity:0.5;
     }
 
@@ -28542,7 +28542,7 @@ div.motivoRechazo textarea {
         border-bottom: 1px solid #000;
     }
 
-    .rango_reclamo.btn_deshabilitado .mas {
+    .rango_reclamo.campo_deshabilitado .mas {
         border-bottom: 1px solid rgba(128, 128, 128, 0.5) !important;
     }
 

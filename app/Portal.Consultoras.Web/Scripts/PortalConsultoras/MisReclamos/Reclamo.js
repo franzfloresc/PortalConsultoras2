@@ -48,12 +48,12 @@ $(document).ready(function () {
             $("#ddlnumPedido").html("");
             $("#ddlnumPedido").hide();
             $(reclamo.form.txtCuv).html("");
-            $(reclamo.form.txtCuv).addClass("btn_deshabilitado");
-            $("#RangoCantidad").addClass("btn_deshabilitado");
+            $(reclamo.form.txtCuv).addClass("campo_deshabilitado");
+            $("#RangoCantidad").addClass("campo_deshabilitado");
             return false;
         } else {
-            $(reclamo.form.txtCuv).removeClass("btn_deshabilitado");
-            $("#RangoCantidad").removeClass("btn_deshabilitado");
+            $(reclamo.form.txtCuv).removeClass("campo_deshabilitado");
+            $("#RangoCantidad").removeClass("campo_deshabilitado");
         }
         $("#txtPedidoID").val(0);
         $("#txtNumeroPedido").val(0);
@@ -74,13 +74,13 @@ $(document).ready(function () {
             $("#txtPrecioUnidad").val("0");
             $("#txtNumeroPedido").val("0");
             $('#txtPedidoID').val("");
-            $('#ddlCuv').addClass("btn_deshabilitado");
-            $("#RangoCantidad").addClass("btn_deshabilitado");
+            $('#ddlCuv').addClass("campo_deshabilitado");
+            $("#RangoCantidad").addClass("campo_deshabilitado");
             return false;
         } else {
             $("#txtPedidoID").val($.trim($("#ddlnumPedido").val()));
-            $('#ddlCuv').removeClass("btn_deshabilitado");
-            $("#RangoCantidad").removeClass("btn_deshabilitado");
+            $('#ddlCuv').removeClass("campo_deshabilitado");
+            $("#RangoCantidad").removeClass("campo_deshabilitado");
             BuscarCUV();
         }
     });
@@ -189,7 +189,7 @@ $(document).ready(function () {
         BuscarCUV();
         $("#divUltimasSolicitudes").show();
         $("#ddlCampania").attr("disabled", "disabled");
-        $("#ddlCuv,#RangoCantidad").removeClass("btn_deshabilitado");
+        $("#ddlCuv,#RangoCantidad").removeClass("campo_deshabilitado");
     });
 
     $("#IrSolicitudEnviada").on("click", function () {
