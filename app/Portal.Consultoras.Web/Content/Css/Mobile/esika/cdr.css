@@ -701,15 +701,25 @@
     .btn_cta_cdr--agregarSolicitud,
     .btn_cta_cdr--siguiente,
     .btn_cta_cdr--finalizaSolicitud{
-        display: inline-block;
         position: relative;
         height: 45px;
+    }
+
+    .btn_cta_cdr--siguiente,
+    .btn_cta_cdr--finalizaSolicitud{
+        display: inline-block;
     }
 
     .btn_cta_cdr--agregarSolicitud,
     .btn_cta_cdr--finalizaSolicitud{
         width:90%;
         max-width: 325px;
+    }
+
+    .btn_cta_cdr--agregarSolicitud{
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     .btn_cta_cdr--siguiente {
