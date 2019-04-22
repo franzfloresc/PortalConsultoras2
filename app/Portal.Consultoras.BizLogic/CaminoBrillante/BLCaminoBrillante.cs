@@ -594,24 +594,22 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             return null;
         }
 
-        //Formato de fecha
         private BELogroCaminoBrillante.BEIndicadorCaminoBrillante GetConsultoraLogrosCompromiso_TiempoJuntos(int paisId, NivelConsultoraCaminoBrillante nivelConsultora)
         {
             var aniosConsultora = -1;
             if (!string.IsNullOrEmpty(nivelConsultora.FechaIngreso))
             {
-                DateTime anioIngreso = DateTime.MinValue;
-                //var format = Constantes.Formatos.FechaHoraUTC;
-                var format = "yyyy-MM-ddThh:mm:ss";
                 if (nivelConsultora.FechaIngreso != null)
                 {
-                    //Corregir 
-                    nivelConsultora.FechaIngreso = nivelConsultora.FechaIngreso.Substring(0, Math.Min(19, nivelConsultora.FechaIngreso.Length));
-                }
-                if (DateTime.TryParseExact(nivelConsultora.FechaIngreso, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out anioIngreso))
-                {                    
-                    aniosConsultora = Math.Max(0, DateTime.Today.AddTicks(-anioIngreso.Ticks).Year - 1);
-                }
+                    var strFechaIngreso = nivelConsultora.FechaIngreso.Substring(0, Math.Min(19, nivelConsultora.FechaIngreso.Length));
+                    var format = Constantes.Formatos.FechaHoraUTC;
+                    DateTime anioIngreso;
+
+                    if (DateTime.TryParseExact(strFechaIngreso, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out anioIngreso))
+                    {
+                        aniosConsultora = Math.Max(0, DateTime.Today.AddTicks(-anioIngreso.Ticks).Year - 1);
+                    }
+                }                
             }
 
             var configMedalla = (GetGetConfiguracionMedallaCaminoBrillanteCache(paisId) ?? new List<BEConfiguracionMedallaCaminoBrillante>())
