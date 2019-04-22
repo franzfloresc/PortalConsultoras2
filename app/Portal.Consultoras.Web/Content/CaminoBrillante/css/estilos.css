@@ -279,8 +279,10 @@ div .owl-carousel .owl-stage-outer {
 
 .owl-carousel .owl-item img {
     display: block;
-    max-width: 60px !important;
-    min-width: 51px;
+    /*max-width: 60px !important;
+    min-width: 51px;*/
+    max-width: 50px !important;
+    min-width: 52px;
 }
 
 .owl-nav {
@@ -1299,6 +1301,7 @@ div .footer__link, div .sub_footer a, div .btn__productos__agregados--verMiPedid
     .cont-logros .owl-item ul li img {
         width: 39px !important;
         height: 39px;
+        min-width: inherit;
     }
 
     .owl-carousel .owl-item .circle-porcent span {
@@ -1330,6 +1333,9 @@ div .footer__link, div .sub_footer a, div .btn__productos__agregados--verMiPedid
         margin-bottom: 10px;
         float: none;
         width: 100%;
+    }
+    .text-down {
+        line-height: 15px;
     }
 }
 
