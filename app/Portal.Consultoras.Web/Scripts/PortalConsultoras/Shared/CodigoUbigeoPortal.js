@@ -19,7 +19,11 @@ var CodigoUbigeoPortal = (function () {
         GuionPedidoGuionFichaResumida: estructuraUbigeo.Guion + estructuraUbigeo.Pagina.Pedido + estructuraUbigeo.Guion + estructuraUbigeo.SeccionFuncional.OfertasParaTi, //"--02--00",
         GuionContenedorArmaTuPackGuion: "--0816--",
         GuionContenedorArmaTuPack: "--12----",
-        GuionCarritoComprasGuionFichaResumida: "--02--09"
+        GuionCarritoComprasGuionFichaResumida: "--02--09",
+
+        GuionRevistaDigitalMobileCatalogoSeccion: estructuraUbigeo.Guion + estructuraUbigeo.Pagina.MisCatalogosRevista + estructuraUbigeo.SeccionFuncional.OfertasParaTi + estructuraUbigeo.Guion,
+        MobileRevistaDigitalMobileCatalogoSeccion: estructuraUbigeo.Dispositivo + estructuraUbigeo.Pagina.MisCatalogosRevista + estructuraUbigeo.SeccionFuncional.OfertasParaTi + estructuraUbigeo.Guion,
+        DesktopRevistaDigitalMobileCatalogoSeccion: estructuraUbigeo.Desktop + estructuraUbigeo.Pagina.MisCatalogosRevista + estructuraUbigeo.SeccionFuncional.OfertasParaTi + estructuraUbigeo.Guion
     }
 
     var estructuraUbigeo = {
@@ -41,7 +45,8 @@ var CodigoUbigeoPortal = (function () {
             Otras: '09',
             LandingBuscador: '10',
             LandingGanadoras: '11',
-            ArmaTuPack: '12'
+            ArmaTuPack: '12',
+            MisCatalogosRevista:'13'
         },
         SeccionFuncional: {
             OfertasParaTi: '00',
