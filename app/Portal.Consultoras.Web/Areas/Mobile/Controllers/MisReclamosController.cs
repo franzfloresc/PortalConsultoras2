@@ -42,7 +42,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.UrlPoliticaCdr = string.Format(urlPoliticaCdr, userData.CodigoISO);
                 model.ListaCDRWeb = listaCdrWebModel.FindAll(p => p.CantidadDetalle > 0);
                 model.CantidadReclamosPorPedido = _cdrProvider.GetNroSolicitudesReclamoPorPedido(userData.PaisID,userData.CodigoConsultora,userData.CodigoISO);
-
                 if (listaCdrWebModel.Any())
                 {
                     var resultado = _cdrProvider.ValidarCantidadSolicitudesPerPedido(model.ListaCDRWeb, ObtenerCampaniaPedidos, model.CantidadReclamosPorPedido);
@@ -66,7 +65,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return View(model);
         }
 
-        public ActionResult Reclamo(int p = 0, int c = 0)
+        public ActionResult Reclamo(int p = 0, int c = 0,int t = 1)
         {
             var mobileConfiguracion = this.GetUniqueSession<MobileAppConfiguracionModel>("MobileAppConfiguracion");
             var ListaCDRWeb = new List<CDRWebModel>();
@@ -121,8 +120,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             Util.GetLimitNumberPhone(userData.PaisID, out limiteMinimoTelef, out limiteMaximoTelef);
             model.limiteMinimoTelef = limiteMinimoTelef;
             model.limiteMaximoTelef = limiteMaximoTelef;
-            model.ListaCDRWeb = ListaCDRWeb;
-
+            model.MostrarTab = t;//mostrar tab 0 no mostrar 1 mostrar
             return View(model);
         }
 
