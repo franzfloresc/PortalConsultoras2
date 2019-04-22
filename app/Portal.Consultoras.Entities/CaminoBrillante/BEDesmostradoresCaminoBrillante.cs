@@ -85,6 +85,7 @@ namespace Portal.Consultoras.Entities.CaminoBrillante
         //[DataMember]
         //[Column("OrigenPedidoWebFicha")]
         //public int OrigenPedidoWebFicha { get; set; }
-
+        [DataMember]
+        public bool FlagSeleccionado { get; set; }
     }
 }

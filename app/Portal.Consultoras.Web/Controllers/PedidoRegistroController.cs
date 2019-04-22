@@ -243,6 +243,8 @@ namespace Portal.Consultoras.Web.Controllers
                     pedidoDetalle.Estrategia.IndicadorMontoMinimo = 0;
                     pedidoDetalle.Estrategia.CUV2 = model.CUV;
                     */
+                    SessionManager.SetDemostradoresCaminoBrillante(null);
+                    //sessionManager.GetDemostradoresCaminoBrillante();
                 }
                 #endregion
 

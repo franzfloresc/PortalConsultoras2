@@ -29,7 +29,6 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             _escalaDescuentoBusinessLogic = escalaDescuentoBusinessLogic;
         }
 
-
         #region Niveles
 
         public List<BENivelCaminoBrillante> GetNiveles(int paisId)
@@ -108,7 +107,6 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
         #endregion
 
-        //Where X FirstOrDefault
         #region Consultora
 
         public BEConsultoraCaminoBrillante GetConsultoraNivel(BEUsuario entidad)
@@ -630,7 +628,6 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
         #endregion
 
-        //Pendiente cargar imagenes
         #region Kits
 
         public List<BEKitCaminoBrillante> GetKits(BEUsuario entidad, int nivelId)
@@ -638,8 +635,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             var periodo = GetPeriodo(entidad.PaisID, entidad.CampaniaID);
             if (periodo == null) return null;
 
-            //Quitar 
-            periodo.Periodo = 201903;
+            UpdateFortest(periodo);
 
             var kits = GetKits(entidad.PaisID, entidad.CampaniaID, periodo.Periodo, nivelId);
             if (kits == null) return null;
@@ -678,7 +674,6 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             return kits.OrderBy(e => e.CodigoNivel).ToList();
         }
 
-        //Pendiente cargar imagenes
         private List<BEKitCaminoBrillante> GetKitsProvider(int paisId, int periodoId, int campaniaId)
         {
             _providerCaminoBrillante = _providerCaminoBrillante ?? GetCaminoBrillanteProvider(paisId);
@@ -752,8 +747,29 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
         #endregion
 
-        //Pendiente cargar imagenes
         #region Demostradores
+
+        public List<BEDesmostradoresCaminoBrillante> GetDemostradores(BEUsuario entidad, int periodoId)
+        {
+            var demostradores =  GetDemostradoresCaminoBrillanteCache(entidad.PaisID, entidad.CampaniaID);
+            var demostradoresEnPedido = new DACaminoBrillante(entidad.PaisID).GetPedidoWebDetalleCaminoBrillante(periodoId, entidad.CampaniaID, entidad.ConsultoraID).MapToCollection<BEKitsHistoricoConsultora>(closeReaderFinishing: true) ?? new List<BEKitsHistoricoConsultora>();
+
+            return demostradores.Select(e => new BEDesmostradoresCaminoBrillante() {
+                CodigoEstrategia = e.CodigoEstrategia,
+                CUV = e.CUV,
+                DescripcionCortaCUV = e.DescripcionCortaCUV,
+                DescripcionCUV = e.DescripcionCUV,
+                DescripcionMarca = e.DescripcionMarca,
+                EstrategiaID = e.EstrategiaID,
+                FotoProductoMedium = e.FotoProductoMedium,
+                FotoProductoSmall = e.FotoProductoSmall,
+                MarcaID = e.MarcaID,
+                PrecioCatalogo = e.PrecioCatalogo,
+                PrecioValorizado = e.PrecioValorizado,
+                TipoEstrategiaID = e.TipoEstrategiaID,
+                FlagSeleccionado = demostradoresEnPedido.Where(h => h.CUV == e.CUV).Any()
+            }).ToList();
+        }
 
         public List<BEDesmostradoresCaminoBrillante> GetDemostradores(int paisId, int campaniaId)
         {
@@ -816,11 +832,9 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 var periodo = GetPeriodo(paisId, campaniaId);
                 if (periodo == null) return false;
 
-                //Quitar 
-                periodo.Periodo = 201903;
+                UpdateFortest(periodo);
 
                 //Producto comercial obtener la info
-
                 var kits = GetKits(paisId, campaniaId, periodo.Periodo, -1);
                 if (kits == null) return false;
 
@@ -851,8 +865,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
             //Detectar que es un Kit
             if (estrategia.LimiteVenta == 1) {
-                //Quitar 
-                periodo.Periodo = 201903;
+                UpdateFortest(periodo);
 
                 //Agregar al objeto Usuario el Nievel de COnsultora
                 //Pendiente el nivel de la consultora
@@ -899,6 +912,12 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         }
 
         #endregion
+
+        private void UpdateFortest(BEPeriodoCaminoBrillante periodo) {
+            //Quitar 
+            periodo.Periodo = 201903;
+
+        }
 
     }
 }
