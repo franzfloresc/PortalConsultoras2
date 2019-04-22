@@ -131,16 +131,21 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.ConsultoraNuevaBannerAppMostrar = SessionManager.GetConsultoraNuevaBannerAppMostrar();
                 model.MostrarPagoEnLinea = (userData.MontoDeuda > 0);
 
-                #region Camino al Exito
-                model.TieneCaminoBrillante = userData.CaminoBrillante;
-                var NivelCaminoBrillante = _caminoBrillanteProvider.ObtenerNivelActualConsultora();
-                if (NivelCaminoBrillante != null)
+                #region Camino al Exito                
+                if (userData.CaminoBrillante)
                 {
-                    model.CaminoBrillanteMsg = userData.CaminoBrillanteMsg.Replace("{0}", "<b>" + NivelCaminoBrillante.DescripcionNivel + "</b>");
-
-                    model.UrlLogoCaminoBrillante = Constantes.CaminoBrillante.Niveles.Iconos.Keys.Contains(NivelCaminoBrillante.CodigoNivel) ? Constantes.CaminoBrillante.Niveles.Iconos[NivelCaminoBrillante.CodigoNivel][1] : "";
+                    model.TieneCaminoBrillante = userData.CaminoBrillante;
+                    var nivelConsultoraCaminoBrillante = _caminoBrillanteProvider.GetNivelActual();
+                    if (nivelConsultoraCaminoBrillante != null)
+                    {
+                        model.CaminoBrillanteMsg = userData.CaminoBrillanteMsg.Replace("{0}", "<b>" + nivelConsultoraCaminoBrillante.DescripcionNivel + "</b>");
+                        model.UrlLogoCaminoBrillante = nivelConsultoraCaminoBrillante.UrlImagenNivelFull;                        
+                    }
                 }
+                #endregion
 
+
+                #region Camino al Exito 
                 var LogicaCaminoExisto = _tablaLogica.GetTablaLogicaDatos(userData.PaisID, Constantes.TablaLogica.EscalaDescuentoMobile);
                 if (LogicaCaminoExisto.Any())
                 {
@@ -153,7 +158,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         model.urlCaminoExito = accesoCaminoExito.Item2 ?? "";
                     }
                 }
-
                 #endregion
 
                 #region bonificaciones 

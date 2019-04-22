@@ -1,6 +1,4 @@
-﻿
-
-$(document).ready(function () {
+﻿$(document).ready(function () {
     cargarLogros(categoriaLogro)
 });
 
@@ -13,25 +11,23 @@ function cargarLogros(category) {
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
-            //if (checkTimeout(data)) {
-            if (data.data) {
+            if (checkTimeout(data)) {
+            //if (data.data) {
                 var htmlDiv = SetHandlebars("#template-logros", data.data);
                 $('#logros').append(htmlDiv);
-                $('#logros').show();
-                closeWaitingDialog();
-                $('#loadingScreen').hide()
-            }
+                $('#logros').show();                
             //}
+            }
         },
-
         error: function (data, error) { },
         complete: function (data) {
+            closeWaitingDialog();
+            $('#loadingScreen').hide();
             //closeWaitingDialog();
             //cargandoRegistros = false;
         }
     });
 }
-
 
 function ComoLograrlo(categoria, caracteristica,titulo,descripcion) {
    

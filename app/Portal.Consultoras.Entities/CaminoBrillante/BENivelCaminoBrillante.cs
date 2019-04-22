@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities.CaminoBrillante
 {
@@ -36,5 +38,30 @@ namespace Portal.Consultoras.Entities.CaminoBrillante
         /// Listado de beneficos para cada Nivel
         /// </summary>
         public List<BEBeneficioCaminoBrillante> Beneficios { get; set; }
+
+        [DataContract]
+        public class BEBeneficioCaminoBrillante
+        {
+            [DataMember]
+            [Column("CodigoNivel")]
+            public string CodigoNivel { get; set; }
+
+            [DataMember]
+            [Column("CodigoBeneficio")]
+            public string CodigoBeneficio { get; set; }
+
+            [DataMember]
+            [Column("NombreBeneficio")]
+            public string NombreBeneficio { get; set; }
+
+            [DataMember]
+            [Column("Descripcion")]
+            public string Descripcion { get; set; }
+
+            [DataMember]
+            [Column("Icono")]
+            public string Icono { get; set; }
+        }
+
     }
 }
