@@ -657,7 +657,8 @@ $(document).ready(function () {
         me.Funciones = {
 
             SeccionTabsFijoSegunAltoHeader: function () {
-                $('.tabs_vista_cdr_wrapper').css('top', $('#new-header').outerHeight());
+                $('.fijarTituloMobile').css('top', $('#new-header').outerHeight());
+                $('.tabs_vista_cdr_wrapper').css('top', $('#new-header').outerHeight() + 50);
             },
 
             ObtenerPedidosID: function () {

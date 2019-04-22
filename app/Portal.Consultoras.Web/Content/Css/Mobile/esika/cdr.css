@@ -28,7 +28,7 @@
     position: sticky;
     position: -webkit-sticky;
     z-index:999;
-    top: 0px;
+    top: 0;
     background-color: #FFF;
 }
 
@@ -72,7 +72,9 @@
                 }
 
 .fijarTituloMobile {
-    position: fixed;
+    position: sticky;
+    position:-webkit-sticky;
+    top:0;
     z-index: 2000;
     padding-left: 8px;
     box-sizing: border-box;
@@ -215,8 +217,8 @@
 }
 
 .estado_pendiente {
-    border: 1px solid #c1c1c1;
-    color: #c1c1c1;
+    border: 1px solid #808080;
+    color: #808080;
 }
 
 .estado_observado {
@@ -224,8 +226,15 @@
     color: #B9007E;
 }
 
-.estado_rechazado, .estado_aprobado {
+.estado_rechazado,
+.estado_aprobado,
+.estado_enviado{
     color: #fff;
+}
+
+.estado_enviado {
+    border: 1px solid #626262;
+    background-color: #626262;
 }
 
 .estado_rechazado {
