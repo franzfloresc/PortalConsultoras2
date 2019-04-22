@@ -10,10 +10,10 @@
 @{
     ViewBag.Title = "Pendientes";
 }
-
+<script id="DetallePendientes-template" type="text/x-handlebars-template">
 <div class="position-absolute modal-right top-0 modal-content">
     <div class="container-fluid pr-0">
-        <div class="row no-gutters">
+            <div class="row no-gutters">
             <div class="col">
                 <div class="mobile">
                     <div class="container-aceptar-pedidos position-relative">
@@ -39,6 +39,9 @@
                                 </div>
                             </div>
                         </div>
+                            </div>
+
+                            {{#each this.ListaPedidos}}
                         <div class="container background color-white">
                             <div class="row align-items-start">
                                 <div class="col">
@@ -46,6 +49,11 @@
                                         <div class="row align-items-start">
                                             <div class="col-9"><span class="t3 color-text">Katherine Lorenzo</span><span class="medium color-text">999956799</span></div>
                                             <div class="col-3 text-right"><a href="#"> <img class="img-fluid icon-32" src="https://i.ibb.co/jTXwndP/trash-3x.png" alt="Borrar"></a></div>
+                                                    <span class="medium color-text">{{Telefono}}</span>
+                                                </div>
+                                                <div class="col-3 text-right">
+                                                    <img class="img-fluid icon-32" onclick="MostrarMensajedeRechazoPedido('{{PedidoId}}')" src="https://i.ibb.co/jTXwndP/trash-3x.png" alt="Borrar"></a>
+                                                </div>
                                         </div>
                                         <div class="row align-items-center mt-2">
                                             <div class="col-4 pr-0">
@@ -55,6 +63,7 @@
                                             </div>
                                             <div class="col-8 text-right">
                                                 <a class="btn full ghost dark-color" href="#">Aceptado</a>
+                                                    <a class="btn full dark-color" id="aceptar_{{PedidoId}}" href="javascript:;" onclick="AceptarPedidoProducto('{{PedidoId}}')">Aceptar</a>
                                             </div>
                                         </div>
                                         <div class="row align-items-center mt-3">
@@ -65,11 +74,15 @@
                                                         <div class="col pl-0 pr-0"><a class="pr-0 btn no-border dark-color" href="#">No, gracias</a></div>
                                                         <div class="col pl-0"><a class="btn second-color" href="#">Sí, eliminar</a></div>
                                                     </div>
+                                                            <div class="col pl-0">
+                                                                <a href="javascript:;" onclick="EliminarSolicitudDetalle('{{PedidoId}}', '{{DetallePedido[0].CUV}}', 'P')" class="btn second-color">Sí, eliminar</a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="card--content">
+                                        </div>
+                                        @*<div class="card--content">
                                         <div class="row align-items-start">
                                             <div class="col-9"><span class="t3 color-text">Grecia Gabriel</span><span class="medium color-text">999956799</span></div>
                                             <div class="col-3 text-right"><a href="#"> <img class="img-fluid icon-32" src="https://i.ibb.co/jTXwndP/trash-3x.png" alt="Borrar"></a></div>
@@ -122,6 +135,7 @@
                                                 </div>
                                             </div>
                                         </div>
+                    </div>*@
                                     </div>
                                 </div>
                             </div>
@@ -259,7 +273,7 @@
 <div style="margin-top:20px"></div>
 <div class="container-fluid b-btm btm-2">
     <div class="row no-gutter">
-        <div class="col-6 col-md-6 col-lg-4 col-xl-3 return-box">
+            <div class="col-6 col-md-6 col-lg-4 col-xl-3 return-box">
             <div class="return-skew">
                 <a class="return-skew_content" href="#">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -267,20 +281,20 @@
                     </svg><span>Pedidos por aprobar</span>
                 </a>
             </div>
-        </div>
+            </div>
     </div>
 </div>
 <div class="container-fluid b-btm">
     <div class="container">
-        <ul class="nav nav-tabs" id="vpcp" role="tablist">
+            <ul class="nav nav-tabs" id="vpcp" role="tablist">
             <li class="nav-item"><a class="nav-link active" id="por-cliente-tab" data-toggle="tab" href="#por-cliente" role="tab" aria-controls="cliente" aria-selected="true">Vista por cliente</a></li>
             <li class="nav-item"><a class="nav-link" id="por-producto-tab" data-toggle="tab" href="#por-producto" role="tab" aria-controls="producto" aria-selected="false">Vista por producto</a></li>
-        </ul>
+            </ul>
     </div>
 </div>
 <div class="tab-content" id="vpcpContent">
     <div class="tab-pane fade show active" id="por-cliente" role="tabpanel" aria-labelledby="por-cliente-tab">
-        <div class="container-fluid">
+            <div class="container-fluid">
             <div class="container">
                 <div class="card">
                     <div class="card--title">
@@ -313,11 +327,11 @@
                     }
                 </div>
                 </div>
-        </div>
+            </div>
     </div>
 
     <div class="tab-pane fade" id="por-producto" role="tabpanel" aria-labelledby="por-producto-tab">
-        <div class="container-fluid">
+            <div class="container-fluid">
             <div class="container">
                 <div class="card">
                     <div class="card--title">
@@ -444,7 +458,7 @@
         </div>
     </script>
 
-@section scripts {
+    @section scripts {
     <script>
         var urlDetallePedidoPendiente = "/ConsultoraOnline/DetallePedidoPendiente"
         var urlDetallePedidoPendienteClientes = "/ConsultoraOnline/DetallePedidoPendienteClientes";
@@ -602,4 +616,4 @@
   
     </script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/SugerenciaPendientes")
-}
+    }
