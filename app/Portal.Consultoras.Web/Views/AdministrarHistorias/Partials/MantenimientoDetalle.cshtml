@@ -1,0 +1,23 @@
+﻿
+@model Portal.Consultoras.Web.Models.AdministrarHistorialDetaListModel
+@{
+    string imagenVacia = "prod_grilla_vacio.png";
+}
+<div class="div-12">
+    <div class="div-3 divHomeImagenFondo"
+         style="display: inline-block; text-align: left; margin-bottom: 15px;">
+        <div class="titG">
+            Imagen:
+            <h6 id="titTamanioImagenFondo"></h6>
+        </div>
+        <div style="display: inline-block;">
+            @Html.HiddenFor(m => m.RutaContenido, new { id = "nombre-desktop-detalle" })
+            <div id="img-desktop-detalle" style="display: inline-block; vertical-align: middle;"></div>
+            <div class="pdr_modal2 borde_redondeado alignrigth">
+                <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="src-desktop-detalle" class="img-matriz-preview2" data-id="">
+            </div>
+        </div>
+    </div>
+
+
+</div>

@@ -61,6 +61,9 @@
     <Compile Include="AsesoraOnline\BEAsesoraOnline.cs" />
     <Compile Include="Auditoria.cs" />
     <Compile Include="BEBuscadorYFiltros.cs" />
+    <Compile Include="BEContenidoAppDeta.cs" />
+    <Compile Include="BEContenidoAppList.cs" />
+    <Compile Include="BEContenidoApp.cs" />
     <Compile Include="BeReporteContrato.cs" />
     <Compile Include="BEContrato.cs" />
     <Compile Include="BEReporteRevisionIncidencias.cs" />

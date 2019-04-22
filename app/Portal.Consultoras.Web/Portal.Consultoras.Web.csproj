@@ -231,6 +231,7 @@
     <Compile Include="Areas\Mobile\Controllers\SeguimientoPedidoController.cs" />
     <Compile Include="Areas\Mobile\Controllers\ShowRoomController.cs" />
     <Compile Include="Areas\Mobile\Controllers\TerminosYCondicionesController.cs" />
+    <Compile Include="Controllers\AdministrarHistoriasController.cs" />
     <Compile Include="Controllers\Administrar\AdministrarComponenteController.cs" />
     <Compile Include="Controllers\BonificacionesController.cs" />
     <Compile Include="Controllers\BaseAdmController.cs" />
@@ -300,6 +301,9 @@
     <Compile Include="Controllers\MasGanadorasController.cs" />
     <Compile Include="Controllers\PedidoRegistroController.cs" />
     <Compile Include="Infraestructure\Excel\ExcelProtectionProcessor.cs" />
+    <Compile Include="Models\AdministrarHistorialDetaUpdModel.cs" />
+    <Compile Include="Models\AdministrarHistorialDetaListModel.cs" />
+    <Compile Include="Models\AdministrarHistorialModel.cs" />
     <Compile Include="Models\BonificacionesModel.cs" />
     <Compile Include="Models\AdministrarEstrategia\EstrategiaGrupoModel.cs" />
     <Compile Include="Models\ArmaTuPackModel.cs" />
@@ -4011,6 +4015,8 @@
     <Content Include="Scripts\AdminContenido\AdministrarEstrategia\AdmEstrategiaConfig.js" />
     <Content Include="Scripts\AdminContenido\AdministrarEstrategia\AdmEstrategiaGrupo.js" />
     <Content Include="Scripts\AdminContenido\AdministrarEstrategia\NuevoMasivo.js" />
+    <Content Include="Scripts\AdminContenido\AdministrarHistorias\AdminHistoria.js" />
+    <Content Include="Scripts\AdminContenido\AdministrarHistorias\AdminHistoriaDatos.js" />
     <Content Include="Scripts\AdminContenido\DescripcionComercial.js" />
     <Content Include="Scripts\AdminContenido\General.js" />
     <Content Include="Scripts\AdminContenido\Palanca\AdminPalancaDatos.js" />
@@ -5758,6 +5764,9 @@
     <Content Include="Views\ArmaTuPack\Detalle\seleccionados-template.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-bannerInteractivo.cshtml" />
     <Content Include="Views\Bonificaciones\IndexExterno.cshtml" />
+    <Content Include="Views\AdministrarHistorias\Index.cshtml" />
+    <Content Include="Views\AdministrarHistorias\Partials\MantenimientoEstado.cshtml" />
+    <Content Include="Views\AdministrarHistorias\Partials\MantenimientoDetalle.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

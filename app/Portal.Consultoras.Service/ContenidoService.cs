@@ -490,5 +490,36 @@ namespace Portal.Consultoras.Service
 
         #endregion
 
+        public BEContenidoApp GetContenidoApp(string Codigo)
+        {
+            var bl = new BLContenidoApp();
+            return bl.Get(Codigo);
+        }
+
+        public void UpdateContenidoApp(BEContenidoApp formularioDato)
+        {
+            var bl = new BLContenidoApp();
+            bl.UpdateContenidoApp(formularioDato);
+        }
+       
+        public List<BEContenidoAppList> ListContenidoApp(BEContenidoAppList entidad)
+        {
+            var bl = new BLContenidoApp();
+            return bl.GetList(entidad);
+        }
+        
+        public void InsertContenidoAppDeta(BEContenidoAppDeta p)
+        {
+            var bl = new BLContenidoApp();
+            bl.InsertContenidoAppDeta(p);
+        }
+
+        public int UpdateContenidoAppDeta(BEContenidoAppDeta p)
+        {
+            var bl = new BLContenidoApp();
+           return bl.UpdateContenidoAppDeta(p);
+        }
+
+
     }
 }
