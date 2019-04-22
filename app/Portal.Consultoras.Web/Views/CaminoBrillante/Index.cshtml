@@ -89,7 +89,7 @@
                                         <p id="m_montoMinimo"><b>Lo logras con:</b><span style='float: right'>@ViewBag.SimboloMoneda @Util.DecimalToStringFormat(Convert.ToDecimal(nivel.MontoMinimo), @ViewBag.CodigoISODL)</span></p>
                                         @if (nivel.MontoFaltante.HasValue)
                                         {
-                                            <p id="m_montoFaltante"><b>Te falta:</b><span style='float: right'>@ViewBag.SimboloMoneda @nivel.MontoFaltante</span></p>
+                                            <p id="m_montoFaltante"><b>Te falta:</b><span style='float: right'>@ViewBag.SimboloMoneda @Util.DecimalToStringFormat(Convert.ToDecimal(nivel.MontoFaltante), @ViewBag.CodigoISODL)</span></p>
                                         }
                                     </div>
                                 </div>
