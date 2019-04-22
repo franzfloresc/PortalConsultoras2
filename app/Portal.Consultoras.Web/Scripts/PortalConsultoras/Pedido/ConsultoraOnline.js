@@ -236,8 +236,8 @@ function CargarPopupPedidoPend(page, rows, pedidoId, estado) {
                                 FlagConsultora: (arr[15] == 'true') ? 1 : 0,
                             }
 
-                            let htmlPaginadorPendH = '';
-                            let jsonDetallePedido = PaginacionDetallePedido(data.ListaDetalle, data.Pagina, data.Registros);
+                            var htmlPaginadorPendH = '';
+                            var jsonDetallePedido = PaginacionDetallePedido(data.ListaDetalle, data.Pagina, data.Registros);
                             if (t == 1) {
                                 var html = SetHandlebars("#popup-pedidopend-template", d1);
                                 $('#divPopupPedidoPend').html(html);
@@ -291,20 +291,20 @@ function CargarPopupPedidoPend(page, rows, pedidoId, estado) {
 
         if (lstDetallePedidoPoput.length > 0) {
 
-            let data = lstDetallePedidoPoput[0];
+            var data = lstDetallePedidoPoput[0];
             data.Pagina = obj.page;
             data.PaginaDe = parseInt((((data.ListaDetalle.length - 1) / obj.rows) + 1), 10);
-            let row = $('#pedidopend_' + pedidoId).val();
-            let arr = row.split('|');
-            let t = 1;
+            var row = $('#pedidopend_' + pedidoId).val();
+            var arr = row.split('|');
+            var t = 1;
             if (arr[1] > 0) {
                 t = 2;
             }
 
-            let htmlPaginadorPendH = '';
-            let jsonDetallePedido = PaginacionDetallePedido(data.ListaDetalle, obj.page, obj.rows);
+            var htmlPaginadorPendH = '';
+            var jsonDetallePedido = PaginacionDetallePedido(data.ListaDetalle, obj.page, obj.rows);
             if (t == 1) {
-                let html2 = SetHandlebars("#detalle-pedidopend-template", jsonDetallePedido);
+                var html2 = SetHandlebars("#detalle-pedidopend-template", jsonDetallePedido);
                 $('#divDetPedidoPend').html(html2);                
 
                 data.footer = true;
@@ -316,7 +316,7 @@ function CargarPopupPedidoPend(page, rows, pedidoId, estado) {
                 CargarCombosPedidoDetallePoput(jsonDetallePedido, obj.page, obj.rows);
             }
             else {
-                let html2 = SetHandlebars("#detalle2-pedidopend-template", jsonDetallePedido);
+                var html2 = SetHandlebars("#detalle2-pedidopend-template", jsonDetallePedido);
                 $('#divDet2PedidoPend').html(html2);
 
                 data.footer = true;
@@ -336,12 +336,12 @@ function CargarPopupPedidoPend(page, rows, pedidoId, estado) {
 }
 
 function CargarCombosPedidoDetallePoput(data, page, per_page) {
-    let index = (page - 1) * per_page;
-    let namecombo = '#ddlAtender_';
-    for (let i = 0; i < data.length; i++) {
-        let combo = data[i].OptAtender === null ? '' : '#' + data[i].OptAtender.split('|')[0];
-        let value = data[i].OptAtender === null ? '' : data[i].OptAtender.split('|')[1];
-        let id = index + i;
+    var index = (page - 1) * per_page;
+    var namecombo = '#ddlAtender_';
+    for (var i = 0; i < data.length; i++) {
+        var combo = data[i].OptAtender === null ? '' : '#' + data[i].OptAtender.split('|')[0];
+        var value = data[i].OptAtender === null ? '' : data[i].OptAtender.split('|')[1];
+        var id = index + i;
         if (combo.length > 0)
             $(combo).val(value);
         else 
@@ -462,13 +462,13 @@ function CerrarMensajeRechazado() {
 }
 
 function SelectOptAtender(event) {
-    let id = event.id;
-    let value = $(event).val();
-    let descripcion = event.options[event.selectedIndex].text;
-    let divpadre = $(event).parent().parent();
-    let pedidoDetalleId = $(divpadre).find(":nth-child(1)").val();
+    var id = event.id;
+    var value = $(event).val();
+    var descripcion = event.options[event.selectedIndex].text;
+    var divpadre = $(event).parent().parent();
+    var pedidoDetalleId = $(divpadre).find(":nth-child(1)").val();
     
-    for (let i = 0; i < lstDetallePedidoPoput[0].ListaDetalle.length; i++) {
+    for (var i = 0; i < lstDetallePedidoPoput[0].ListaDetalle.length; i++) {
         if (lstDetallePedidoPoput[0].ListaDetalle[i].PedidoDetalleId == pedidoDetalleId)
             lstDetallePedidoPoput[0].ListaDetalle[i].OptAtender = id + '|' + value + '|' + descripcion;
     }
@@ -476,7 +476,7 @@ function SelectOptAtender(event) {
 
 function AceptarPedido(pedidoId, tipo) {
 
-    let data = lstDetallePedidoPoput[0].ListaDetalle;
+    var data = lstDetallePedidoPoput[0].ListaDetalle;
     var popup = (tipo == 1) ? $('#divPopupPedidoPend') : $('#divPopup2PedidoPend');
     var container = (tipo == 1) ? $('#divDetPedidoPend') : $('#divDet2PedidoPend');
 
@@ -486,15 +486,15 @@ function AceptarPedido(pedidoId, tipo) {
         var ing = 0;
         var opciones = "";
 
-        for (let i = 0; i < data.length; i++) {
-            let id = data[i].PedidoDetalleId;
-            let opt = data[i].OptAtender === null ? '' : data[i].OptAtender.split('|')[1];
-            let cant = data[i].Cantidad;
-            let cuv = data[i].CUV;
-            let nombre = data[i].Producto;
-            let precio = data[i].PrecioUnitario;
-            let marca = data[i].Marca;
-            let opcion = data[i].OptAtender === null ? '' : data[i].OptAtender.split('|')[2];
+        for (var i = 0; i < data.length; i++) {
+            var id = data[i].PedidoDetalleId;
+            var opt = data[i].OptAtender === null ? '' : data[i].OptAtender.split('|')[1];
+            var cant = data[i].Cantidad;
+            var cuv = data[i].CUV;
+            var nombre = data[i].Producto;
+            var precio = data[i].PrecioUnitario;
+            var marca = data[i].Marca;
+            var opcion = data[i].OptAtender === null ? '' : data[i].OptAtender.split('|')[2];
 
             var k = 0;
 
