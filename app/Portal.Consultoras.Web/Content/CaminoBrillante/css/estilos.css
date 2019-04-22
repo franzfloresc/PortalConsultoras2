@@ -1012,6 +1012,8 @@ div .footer__link, div .sub_footer a, div .btn__productos__agregados--verMiPedid
 #is-mobile {
     display:none;
 }
+
+
 /* MEDIASQUERY CAMINO BRILLANTE */
 
 @media screen and (min-width: 861px) {
