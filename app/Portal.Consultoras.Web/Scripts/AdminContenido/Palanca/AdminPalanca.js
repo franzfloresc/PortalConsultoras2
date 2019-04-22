@@ -509,8 +509,7 @@ function IniDialogOfertasHome() {
         buttons:
             {
                 "Guardar": function () {
-                    //valores para seccion de home del contenedor de ofertas
-
+                    //valores para seccion de home del contenedor de ofertas                    
                     if ($("#ddlConfiguracionIdOfertas").val() == "" || isNaN($("#ddlConfiguracionIdOfertas").val())) {
                         _toastHelper.error("Selecione una Configuracion Oferta.");
                         return false;

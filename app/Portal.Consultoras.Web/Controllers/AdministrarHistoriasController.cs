@@ -347,16 +347,16 @@ namespace Portal.Consultoras.Web.Controllers
             var resizeImagenApp = false;
 
             
-                model.RutaContenido = SaveFileS3(model.RutaContenido);
+                model.RutaContenido = SaveFileS3(model.RutaContenido,true);
                 //model.MobileImagenFondo = SaveFileS3(model.MobileImagenFondo);
                 //model.AdministrarOfertasHomeAppModel.AppBannerInformativo = SaveFileS3(model.AdministrarOfertasHomeAppModel.AppBannerInformativo, true);
-                //if (model.AdministrarOfertasHomeAppModel.AppBannerInformativo != string.Empty) resizeImagenApp = true;
+                if (model.RutaContenido != string.Empty) resizeImagenApp = true;
             
 
             if (resizeImagenApp)
             {
-               // var urlImagen = ConfigS3.GetUrlFileS3Matriz(userData.CodigoISO, model.AdministrarOfertasHomeAppModel.AppBannerInformativo);
-                //new Providers.RenderImgProvider().ImagenesResizeProcesoApp(urlImagen, userData.CodigoISO, userData.PaisID, model.Codigo);
+                var urlImagen = ConfigS3.GetUrlFileS3Matriz(userData.CodigoISO, model.RutaContenido);
+                new Providers.RenderImgProvider().ImagenesResizeProcesoApp(urlImagen, userData.CodigoISO, userData.PaisID, "GND");
             }
 
             return model;
