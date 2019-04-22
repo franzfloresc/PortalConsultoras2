@@ -1576,8 +1576,8 @@ namespace Portal.Consultoras.Common
             public const string Datami = "DATAMI";
             public const string DireccionEntrega = "DIRECCION_ENTREGA";
             public const string ArmaTuPack = "ATP";
-            public const string CaminoBrillante = "CAMINOBRILLANTE"; 
-            public const string CaminoBrillanteMsg = "HomeCaminoBrillante"; 
+            public const string CaminoBrillante = "CAMINOBRILLANTE";
+            public const string CaminoBrillanteMsg = "HomeCaminoBrillante";
         }
 
 
@@ -2352,7 +2352,8 @@ namespace Portal.Consultoras.Common
             public const string BannerDescargarAppNuevas = "BannerDescargarAppNuevas";
             public const string Extraordinarios = "App Consultora,BannerDescargarAppNuevas";
             //HD-3550 EINCA
-            public static class TipoComunicado {
+            public static class TipoComunicado
+            {
                 public const int Banner = 1;
                 public const int PopUp = 2;
             }
@@ -3155,7 +3156,7 @@ namespace Portal.Consultoras.Common
             /// Oferta/ByCuv/{pais}/{tipoPersonalizacion}/{codigoCampania}/{cuv}
             /// </summary>
             public const string UrlObtenerOfertaByCuv = "Oferta/ByCuv/{0}/{1}/{2}/{3}";
-            
+
             /// <summary>
             /// Evento/Get/{pais}/{campania}
             /// </summary>
@@ -3785,7 +3786,8 @@ namespace Portal.Consultoras.Common
                 }
             }
 
-            public static class Beneficios {
+            public static class Beneficios
+            {
 
                 private static Dictionary<string, string> _Iconos;
                 private static string path = "CAMINOBRILLANTE/BENEFICIOS/{0}";
@@ -3810,7 +3812,8 @@ namespace Portal.Consultoras.Common
 
             }
 
-            public static class Niveles {
+            public static class Niveles
+            {
 
                 public const int OfertasEspeciales_TablaLogicaDatos = 16800;
 
@@ -3832,7 +3835,7 @@ namespace Portal.Consultoras.Common
                     }
                 }
 
-            }
+
                 private static Dictionary<string, string[]> _Etiquetas;
                 private static string path_etiquetas = "CAMINOBRILLANTE/NIVELES/Etiqueta_Nivel_0{0}_{1}.svg";
 
@@ -3850,8 +3853,9 @@ namespace Portal.Consultoras.Common
                         });
                     }
                 }
-
             }
+
         }
     }
+}
 }
