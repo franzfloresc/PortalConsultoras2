@@ -2042,7 +2042,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 esCatalogo = lstCodigoCatalogo.Any(x => x == producto.CodigoCatalogo.ToString());
             }
 
-            return activarRecomendaciones && esCatalogo && esIndividual;
+            return activarRecomendaciones && esCatalogo && esIndividual && usuario.RevistaDigital.EsActiva;
         }
         #endregion
 
