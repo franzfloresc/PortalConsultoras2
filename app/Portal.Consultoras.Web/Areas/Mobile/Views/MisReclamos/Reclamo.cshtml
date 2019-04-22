@@ -60,17 +60,25 @@
             </li>
         </ul>
     </div>
-    <div id="VistaSinSolicitudesRegistradas" style="display:none;">
-        <div class="text-center mensaje_sin_solicitudes_registradas_wrapper">
-            <div class="mensaje_sin_solicitudes_registradas_icono">
-                <img src="@Url.Content("~/Content/Images/icono_notificacion_negativa.svg")" alt="No tiene ningún cambio y devolución" />
-            </div>
-            <p class="tipografia_lato_bold mensaje_sin_solicitudes_registradas">
-                No tienes ningún<br />cambio y devolución
-            </p>
-        </div>
-    </div>
+   
     <div id="VistaSolicitudesRegistradas" style="display:none;" class="vistas_cdr">
+        @if (Model.ListaCDRWeb.Any())
+        {
+            @Html.Partial("~/Views/MisReclamos/_ListaMisReclamos.cshtml", Model.ListaCDRWeb)
+        }
+        else
+        {
+            <div id="VistaSinSolicitudesRegistradas">
+                <div class="text-center mensaje_sin_solicitudes_registradas_wrapper">
+                    <div class="mensaje_sin_solicitudes_registradas_icono">
+                        <img src="@Url.Content("~/Content/Images/icono_notificacion_negativa.svg")" alt="No tiene ningún cambio y devolución" />
+                    </div>
+                    <p class="tipografia_lato_bold mensaje_sin_solicitudes_registradas">
+                        No tienes ningún<br />cambio y devolución
+                    </p>
+                </div>
+            </div>
+        }
         <div class="btn_cta_wrapper">
             <button id="IrPaso1"
                     class="text-uppercase tipografia_lato tipografia_lato_bold border-radius-4 btn_cta_cdr btn_cta_cdr--agregarSolicitud">

@@ -54,7 +54,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
                 model.MensajeGestionCdrInhabilitada = _cdrProvider.MensajeGestionCdrInhabilitadaYChatEnLinea(userData.EsCDRWebZonaValida, userData.IndicadorBloqueoCDR, userData.FechaInicioCampania, userData.ZonaHoraria, userData.PaisID, userData.CampaniaID, userData.ConsultoraID, mobileConfiguracion.EsAppMobile);
                 if (!string.IsNullOrEmpty(model.MensajeGestionCdrInhabilitada)) return View(model);
-                if (model.ListaCDRWeb.Count == 0) return RedirectToAction("Reclamo");
+                if (model.ListaCDRWeb.Count == 0) return View(model);
             }
             catch (Exception ex)
             {
@@ -69,6 +69,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public ActionResult Reclamo(int p = 0, int c = 0)
         {
             var mobileConfiguracion = this.GetUniqueSession<MobileAppConfiguracionModel>("MobileAppConfiguracion");
+            var ListaCDRWeb = new List<CDRWebModel>();
             var model = new MisReclamosModel
             {
                 PedidoID = p,
@@ -120,6 +121,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             Util.GetLimitNumberPhone(userData.PaisID, out limiteMinimoTelef, out limiteMaximoTelef);
             model.limiteMinimoTelef = limiteMinimoTelef;
             model.limiteMaximoTelef = limiteMaximoTelef;
+            model.ListaCDRWeb = ListaCDRWeb;
 
             return View(model);
         }
