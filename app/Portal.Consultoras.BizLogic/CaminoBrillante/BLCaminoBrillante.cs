@@ -257,7 +257,6 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             return funcUltimaMedalla;
         }
 
-        //Optimizar
         private Func<List<BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante>> GetResumenCompromiso(Func<string, string, BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante> funcUltimaMedalla, List<BELogroCaminoBrillante> logros) {
             Func<List<BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante>> funcResumenCompromiso = () =>
             {
@@ -272,14 +271,6 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                         var _logro = logros.FirstOrDefault(e => e.Id == logro) ?? new BELogroCaminoBrillante();
                         var _indicador = _logro.Indicadores.FirstOrDefault(e => e.Codigo == indicador) ?? new BELogroCaminoBrillante.BEIndicadorCaminoBrillante();
                         var index = _indicador.Medallas.IndexOf(medalla);
-
-                        //Optimizar
-                        /*
-                        if (index - 1 >= 0 && medallas.Count < 3) medallas.Add(_indicador.Medallas[index - 1]);
-                        if (medallas.Count < 3) medallas.Add(medalla);
-                        if (index + 1 < _indicador.Medallas.Count && medallas.Count < 3) medallas.Add(_indicador.Medallas[index + 1]);
-                        if (medallas.Count < 3 && index + 2 < _indicador.Medallas.Count) medallas.Add(_indicador.Medallas[index + 2]);
-                        */
 
                         var start = Math.Min(Math.Max(index - 1, 0), index);
                         var elements = Math.Min(Math.Max(3 - medallas.Count, 0), _indicador.Medallas.Count);
@@ -378,14 +369,12 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
         private BELogroCaminoBrillante.BEIndicadorCaminoBrillante GetConsultoraLogrosCrecimiento_CambioNivel(int paisId, BEUsuario entidad, NivelConsultoraCaminoBrillante nivelConsultora, List<BENivelCaminoBrillante> nivelesCaminoBrillantes)
         {
-            short nivelActual = 0;
-            short nivelCodigo = 0;
+            short nivelActual = 0; short nivelCodigo = 0; var idx = 0;
             short.TryParse(nivelConsultora.NivelActual, out nivelActual);
 
             var configsMedalla = (GetGetConfiguracionMedallaCaminoBrillanteCache(paisId) ?? new List<BEConfiguracionMedallaCaminoBrillante>())
                                 .Where(e => e.Logro == Constantes.CaminoBrillante.Logros.CRECIMIENTO && e.Indicador == Constantes.CaminoBrillante.Logros.Indicadores.NIVEL);
-
-            var idx = 0;
+            
             var medallaNiveles = nivelesCaminoBrillantes.Select(e => new BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante()
             {
                 Orden = idx++,
@@ -396,7 +385,6 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 DescripcionNivel = e.DescripcionNivel,
                 MontoAcumulado = e.MontoMinimo,
             }).ToList();
-
 
             medallaNiveles.ForEach(e =>
             {
@@ -478,7 +466,6 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 medallaConstancia.Add(new BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante()
                 {
                     Tipo = Constantes.CaminoBrillante.Logros.Indicadores.Medallas.Codes.PIE,
-                    //Estado = true,
                     Titulo = string.Format(configMedalla.Valor ?? string.Empty, (periodoActual.CampanaInicial % 100), (periodoActual.CampanaFinal % 100)),
                     Subtitulo = Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo,
                     ModalTitulo = configMedalla.ComoLograrlo_Estado ? configMedalla.ComoLograrlo_Titulo : string.Empty,
@@ -782,7 +769,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 PrecioCatalogo = e.PrecioCatalogo,
                 PrecioValorizado = e.PrecioValorizado,
                 TipoEstrategiaID = e.TipoEstrategiaID,
-                FlagSeleccionado = demostradoresEnPedido.Where(h => h.CUV == e.CUV).Any()
+                FlagSeleccionado = demostradoresEnPedido.Any(h => h.CUV == e.CUV)
             }).ToList();
         }
 
