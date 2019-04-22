@@ -152,18 +152,22 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 int nivel = 0;
                 if (int.TryParse(nivelActualConsutora.NivelActual, out nivel)) {
                     nivel = nivel + 1;
-
-                    /*
-                    decimal montoFaltante = 0;
+                    
+                    decimal montoPedido = 0;
+                    decimal _montoPedido = 0;
                     if (consultoraHistoricos != null){
-                        var montoPedido = consultoraHistoricos.Where(h => decimal.TryParse(h.MontoPedido, out _montoPedido)).Sum(h => decimal.Parse(h.MontoPedido));
+                        var peridoStr = periodo.Periodo.ToString();
+                        montoPedido = consultoraHistoricos.Where(h => decimal.TryParse(h.MontoPedido, out _montoPedido) && h.PeriodoCae == peridoStr).Sum(h => decimal.Parse(h.MontoPedido));
                     }
-                    */
-                    /*
+                    
                     niveles.Where(e => e.CodigoNivel == nivel.ToString()).Update(e => {
-                        e.MontoFaltante = montoFaltante;
+                        decimal montoMinimo = 0;
+                        if (decimal.TryParse(e.MontoMinimo, out montoMinimo))
+                        {
+                            e.MontoFaltante = montoMinimo - montoPedido;
+                        }                        
                     });
-                    */
+                    
                 }
             }
             return niveles;
