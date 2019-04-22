@@ -29,8 +29,6 @@
     var _url = {
         UrlGrilla: baseUrl + 'AdministrarHistorias/ComponenteListar?IdContenido=' + $('#IdContenido').val(),
         UrlGrillaEditar: baseUrl + 'AdministrarHistorias/ComponenteObtenerViewDatos',
-        UrlComponentePorPalanca: baseUrl + 'AdministrarPalanca/ComponentePorPalanca',
-        UrlComponenteDatosPorPalancaCampania: baseUrl + 'AdministrarPalanca/ComponenteDatosPorPalancaCampania',
         UrlComponenteDatosGuardar: baseUrl + 'AdministrarHistorias/ComponenteDatosGuardar'
     };
 
@@ -60,8 +58,13 @@
     };
 
     var _GrillaImagen = function (cellvalue, options, rowObject) {
-        var act = "<img src='" + urlS3 + cellvalue + "' border='0' style='max-width: 40px; max-height: 40px;' />";
-        return act;
+        var act = "";
+        if (cellvalue == "") {
+            act = "<img src='" + rutaImagenVacia + "' border='0' style='max-width: 40px; max-height: 40px;' />";
+        } else {
+            act = "<img src='" + urlDetalleS3 + cellvalue + "' border='0' style='max-width: 40px; max-height: 40px;' />";
+        }
+       return act;
     };
 
     var CargarGrilla = function () {
@@ -163,53 +166,6 @@
         _RegistroObterner(entidad);
     }
 
-    var GrillaDeshabilitar = function (event) {
-        var rowId = $(event.path[1]).parents('tr').attr('id');
-        var row = jQuery(_elemento.TablaId).getRowData(rowId);
-
-        var entidad = {
-            ConfiguracionPaisID: row['ConfiguracionPaisID'],
-            PalancaCodigo: row['PalancaCodigo'],
-            Codigo: row['Componente'],
-            CampaniaID: row['CampaniaID'],
-            Accion: _accion.Deshabilitar
-        };
-
-        _RegistroObterner(entidad);
-    }
-
-
-    var _RegistroObternerImagen = function () {
-        var frmDatos = $(_elemento.DivFormulario);
-        if (frmDatos.length == 0) {
-            return false;
-        }
-        var listaFrmDatos = frmDatos.find("div[data-tipodato='img']");
-        if (listaFrmDatos.length == 0) {
-            return false;
-        }
-
-        $.each(listaFrmDatos, function (ind, datox) {
-            var idConca = $.trim($(datox).attr('id')).split('-');
-            if (idConca.length != 4) {
-                return false;
-            }
-            var codigoDato = $.trim(idConca[3]);
-            if (codigoDato != "") {
-                UploadFilePalanca(codigoDato);
-            }
-        });
-    };
-
-
-
-    var CrearRegistro = function () {
-        var entidad = {
-            PalancaCodigo: '',
-            Accion: _accion.Nuevo
-        };
-        _RegistroObterner(entidad);
-    };
 
     var _RegistroObterner = function (modelo) {
 
@@ -271,70 +227,7 @@
         });
     };
 
-    var _RegistroObternerValidar = function (modelo) {
-
-        if (modelo.Accion === _accion.NuevoDatos) {
-            if ($.trim(modelo.PalancaCodigo) === '' || $.trim(modelo.Codigo) === '') {
-                return false;
-            }
-        }
-
-        return true;
-    };
-
-   
-
-    var _CargarComponente = function () {
-
-        var params = {
-            Codigo: $(_elemento.DdlPalanca).val()
-        };
-
-        jQuery.ajax({
-            type: 'POST',
-            url: _url.UrlComponentePorPalanca,
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(params),
-            async: true,
-            success: function (data) {
-                if (data.success) {
-                    if (data.ListaComponente) {
-                        $(_elemento.DdlComponente + ' option').remove();
-                        $(_elemento.DdlComponente).html("<option value=''>-- Seleccionar --</option>");
-                        $.each(data.ListaComponente, function (ind, comp) {
-                            var existe = $(_elemento.DdlComponente).find("option[value='" + comp.Codigo + "']");
-                            if (existe.length === 0) {
-                                var opt = document.createElement('option');
-                                opt.value = comp.Codigo;
-                                opt.innerHTML = comp.Nombre;
-                                $(_elemento.DdlComponente).append(opt);
-                            }
-                        });
-                    }
-                }
-                else {
-                    _toastHelper.error(_texto.ProcesoError);
-                }
-            },
-            error: function (data, error) {
-                _toastHelper.error(_texto.ProcesoError);
-            }
-        });
-    };
-
-    var _CargarDatos = function () {
-
-        var params = {
-            PalancaCodigo: $(_elemento.DdlPalanca).val(),
-            Codigo: $(_elemento.DdlComponente).val(),
-            CampaniaID: $(_elemento.DdlCampania).val(),
-            Accion: _accion.NuevoDatos
-        };
-
-        _RegistroObterner(params);
-    };
-
+     
     var _DialogCrear = function () {
         $('#' + _elemento.DialogRegistro).dialog({
             autoOpen: false,
@@ -406,7 +299,6 @@
             _initializar(param);
         },
         Editar: GrillaEditar,
-        Deshabilitar: GrillaDeshabilitar
     };
 
 })();

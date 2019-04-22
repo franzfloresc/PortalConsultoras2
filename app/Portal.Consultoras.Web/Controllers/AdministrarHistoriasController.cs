@@ -34,6 +34,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!UsuarioModel.HasAcces(ViewBag.Permiso, "AdministrarHistorias/Index"))
                     return RedirectToAction("Index", "Bienvenida");
                 ViewBag.UrlS3 = GetUrlS3();
+                ViewBag.UrlDetalleS3 = GetUrlDetalleS3();
                 model.ListaCampanias = _zonificacionProvider.GetCampanias(userData.PaisID, true);
 
                 BEContenidoApp entidad;
@@ -73,6 +74,11 @@ namespace Portal.Consultoras.Web.Controllers
             var paisIso = Util.GetPaisISO(userData.PaisID);
             return ConfigCdn.GetUrlCdnAppConsultora(paisIso);
         }
+        private string GetUrlDetalleS3()
+        {
+            var paisIso = Util.GetPaisISO(userData.PaisID);
+            return ConfigCdn.GetUrlCdnAppConsultoraDetalle(paisIso);
+        }
 
         [HttpPost]
         public ActionResult Update(AdministrarHistorialModel form)
@@ -92,15 +98,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 entidad.IdContenido = form.IdContenido;
                 entidad.DesdeCampania = form.DesdeCampania;
-
-                //var entidad = new BEContenidoApp
-                //{
-                //    IdContenido = form.IdContenido,
-                //    DesdeCampania = form.DesdeCampania,
-                //    UrlMiniatura = NombreImagen
-                //    //UrlMiniatura = FileManager.CopyImages(Globals.RutaImagenesFondoLogin, tempNombreImagen,
-                //    //Globals.RutaImagenesTemp)
-                //};
 
                 using (ContenidoServiceClient sv = new ServiceContenido.ContenidoServiceClient())
                 {
@@ -347,7 +344,7 @@ namespace Portal.Consultoras.Web.Controllers
             var resizeImagenApp = false;
 
             
-                model.RutaContenido = SaveFileS3(model.RutaContenido);
+                model.RutaContenido = SaveFileDetalleS3(model.RutaContenido);
                 //model.MobileImagenFondo = SaveFileS3(model.MobileImagenFondo);
                 //model.AdministrarOfertasHomeAppModel.AppBannerInformativo = SaveFileS3(model.AdministrarOfertasHomeAppModel.AppBannerInformativo, true);
                 //if (model.AdministrarOfertasHomeAppModel.AppBannerInformativo != string.Empty) resizeImagenApp = true;
@@ -382,6 +379,27 @@ namespace Portal.Consultoras.Web.Controllers
             return newfilename;
         }
 
-  
+        private string SaveFileDetalleS3(string imagenEstrategia, bool mantenerExtension = false)
+        {
+            imagenEstrategia = Util.Trim(imagenEstrategia);
+            if (imagenEstrategia == string.Empty)
+                return string.Empty;
+
+            var path = Path.Combine(Globals.RutaTemporales, imagenEstrategia);
+
+            string cadena = Globals.UrlMatrizAppConsultora;
+            string[] arrCadena;
+            arrCadena = cadena.Split(',');
+            var carpetaPais = string.Format("{0}/{1}/{2}", arrCadena[0], userData.CodigoISO, arrCadena[1]);
+
+            var time = string.Concat(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Minute, DateTime.Now.Millisecond);
+            var ext = !mantenerExtension ? ".png" : Path.GetExtension(path);
+            var newfilename = string.Concat(userData.CodigoISO, "_", time, "_", FileManager.RandomString(), ext);
+            ConfigS3.SetFileS3(path, carpetaPais, newfilename);
+            return newfilename;
+        }
+
+
+
     }
 }
