@@ -390,20 +390,21 @@
     font-family: 'Lato';
 }
 
+.campo_orden_solicitudes_cdr_wrapper,
 .formulario_inscripcion_cdr {
     display: block;
     font-size: 14px;
 }
 
+    .campo_orden_solicitudes_cdr_wrapper select,
     .formulario_inscripcion_cdr select,
     .formulario_inscripcion_cdr input[type='text'] {
         display: block;
         margin: 0 auto;
-        width: 276px;
         height: 45px;
         border: solid 1px #d1d1d4;
         padding-left: 15px;
-        padding-right:41px;
+        padding-right: 41px;
         margin-bottom: 28px;
         -webkit-appearance: none;
         -moz-transition: all 0.3s ease;
@@ -411,10 +412,20 @@
         -webkit-transition: all 0.3s ease;
         transition: all 0.3s ease;
     }
+    
+    .campo_orden_solicitudes_cdr_wrapper select{
+        width:100%;
+    }
 
+    .formulario_inscripcion_cdr select,
+    .formulario_inscripcion_cdr input[type='text']{
+        width:276px;
+    }
+
+        .campo_orden_solicitudes_cdr_wrapper select:focus,
         .formulario_inscripcion_cdr select:focus,
-        .formulario_inscripcion_cdr input[type='text']:focus{
-            border:1px solid #000;
+        .formulario_inscripcion_cdr input[type='text']:focus {
+            border: 1px solid #000;
         }
 
     .formulario_inscripcion_cdr input[type='text'] {
@@ -428,6 +439,7 @@
         background-image: url(/Content/Images/icono_buscador.svg);
     }
 
+    .campo_orden_solicitudes_cdr_wrapper select,
     .formulario_inscripcion_cdr select {
         color:#000;
         background: url('/Content/Images/flecha_despliegue_campo_select.svg');
@@ -806,7 +818,7 @@
     border: 2px solid #000;
     -moz-box-shadow: 1px 1px 10px -2px rgba(0,0,0,.7);
     -webkit-box-shadow: 1px 1px 10px -2px rgba(0,0,0,.7);
-    box-shadow: 1px 1px 10px -2px rgba(0,0,0,.7);
+    box-shadow: 0 2px 1px rgba(0,0,0,.7);
 }
 
 .opcion_cdr_enlace,

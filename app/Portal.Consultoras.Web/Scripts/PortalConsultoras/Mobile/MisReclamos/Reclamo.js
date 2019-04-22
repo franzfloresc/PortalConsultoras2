@@ -1982,9 +1982,12 @@ $(document).ready(function () {
                 var tagCheck = $(me.Variables.divlistado_soluciones_cdr + " " + "input[type=checkbox]");
                 var tagDivInfo = $(me.Variables.infoOpcionesDeCambio);
                 tagCheck.not(opcion).prop('checked', false);
+                $(".opcion_cdr").removeClass("opcion_cdr_seleccionada");
                 if ($(opcion).is(':checked')) {
+                    $(opcion).parents(".opcion_cdr").removeClass("opcion_cdr_seleccionada");
                     $(opcion).prop('checked', false);
                 } else {
+                    $(opcion).parents(".opcion_cdr").addClass("opcion_cdr_seleccionada");
                     $(opcion).prop('checked', true);
                 }
                 var id = opcion.id;
@@ -1993,7 +1996,7 @@ $(document).ready(function () {
                     var id = opcion.id;
                     //ocultamos la capa padre y los hijos
                     tagDivInfo.fadeOut(100).children().fadeOut(100);
-                    $(me.Variables.btnSiguiente1).addClass(me.Variables.deshabilitarBoton);
+                     $(me.Variables.btnSiguiente1).addClass(me.Variables.deshabilitarBoton);
                     return false;
                 }
                 //Mostramos la capa padre
