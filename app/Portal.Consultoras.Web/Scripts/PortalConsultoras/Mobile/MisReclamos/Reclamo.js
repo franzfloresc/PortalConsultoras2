@@ -165,7 +165,7 @@ $(document).ready(function () {
             txtNumPedido: "#txtNumPedido",
             UltimasSolicitudes: ".UltimasSolicitudes",
             wrpMobile: "#wrpMobile",
-            opcionCdr: ".opcion_cdr"
+            opcionCdrEnlace: ".opcion_cdr_enlace"
         };
 
         me.Eventos = {
@@ -202,7 +202,7 @@ $(document).ready(function () {
                 });
 
                 // Seleccionar opción haciendo click en el área que conforma la opción cdr elegida, no sólo en el checkbox
-                $(me.Variables.divlistado_soluciones_cdr).on('click', me.Variables.opcionCdr, function (e) {
+                $(me.Variables.divlistado_soluciones_cdr).on('click', me.Variables.opcionCdrEnlace, function (e) {
                     e.preventDefault();
                     // Se dispara el evento change del checkbox que llama a la función EscogerSolucion que se lanza al seleccionar y deseleccionar el checkbox
                     $(this).find('input[type="checkbox"]').change();
