@@ -78,6 +78,7 @@ function CargarKits() {
             if (checkTimeout(data)) {
                 if (data.lista.length > 0) ArmarOfertaKits(data.lista);
                 verMasKits = data.verMas;
+                $(window).scroll(CargarOfertasScroll);
                 if (!verMasKits) UnlinkCargarOfertasToScroll();
                 offsetRegistrosKits += nroRegistrosKits;
             }
@@ -107,7 +108,8 @@ function CargarDemostradores() {
         success: function (data) {
             if (checkTimeout(data)) {
                 if (data.lista.length > 0) ArmarOfertaDemostradores(data.lista);
-                verMasDemostradores = data.verMas;
+                verMasDemostradores = data.verMas;   
+                $(window).scroll(CargarOfertasScroll);
                 if (!verMasDemostradores) UnlinkCargarOfertasToScroll();
                 offsetRegistrosDemo += nroRegistrosDemostradores;
             }
@@ -209,7 +211,7 @@ function AgregarProducto(data, cantidad, contenedor, tab, isKit) {
 }
 
 function CambiarOferta() {
-    $("#Tab-kits").trigger("click");
+    $("#Tab-kits").trigger("click");    
     $('#Tab-kits').click(function () {
         $('#kits').show();
         $('#Demostradores').hide();
