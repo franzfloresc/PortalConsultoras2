@@ -44,6 +44,7 @@ namespace Portal.Consultoras.Web.Providers
                             {
                                 e.EsPasado = nivel <= nivelActual;
                                 e.EsActual = nivel == nivelActual;
+                                /*
                                 if (nivel == nivelActual + 1)
                                 {
                                     var consultoraHistoricos = GetNivelesHistoricosConsultora();
@@ -57,6 +58,7 @@ namespace Portal.Consultoras.Web.Providers
                                         e.MontoFaltante = montoMinimo - montoPedido;
                                     }
                                 }
+                                */
                             }
                         });
                     }
