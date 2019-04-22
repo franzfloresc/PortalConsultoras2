@@ -31,6 +31,8 @@ namespace Portal.Consultoras.Common
             public const string LandingGanadoras = "11";
             public const string ArmaTuPack = "12"; //Manda cuando estemos dentro de armatupack
             public const string MisCatalogosRevista = "13"; //Catalogo
+            public const string LandingDuoPerfecto= "14";
+            public const string LandingPackNuevas= "15";
         }
 
         public static class SeccionFuncional {

@@ -150,15 +150,19 @@ var ConstantesModule = (function () {
         DesktopLandingBuscadorGanadorasFicha: "1101402",
         MobileLandingBuscadorGanadorasFicha: "2101402"
     }
+    /** BORRAR L **/
     var _codigoUbigeoPortal = {
-        GuionPedidoGuionFichaResumida: "--02--00",
+        GuionPedidoGuionFichaResumida: _origenPedidoWebEstructura.Guion + _origenPedidoWebEstructura.Pedido +
+            _origenPedidoWebEstructura.Guion +  "--02--00",
         GuionContenedorArmaTuPackGuion: "--0816--",
         GuionContenedorArmaTuPack: "--12----",
         GuionCarritoComprasGuionFichaResumida: "--02--09" 
-}
+    }
+       
 
     // en AnaluticsPortal.js tambiar actualizar los valores
     var _origenPedidoWebEstructura = {
+        Guion: '--',
         Dimension: 7,
         Dispositivo: {
             Desktop: '1',

@@ -2508,7 +2508,8 @@ var AnalyticsPortalModule = (function () {
 
         if (origenPedido != "") {
             //if (origenPedido == ConstantesModule.CodigoUbigeoPortal.GuionPedidoGuionFichaResumida) {
-            if (origenPedido == ConstantesModule.CodigoUbigeoPortal.GuionCarritoComprasGuionFichaResumida) {
+            //if (origenPedido == ConstantesModule.CodigoUbigeoPortal.GuionCarritoComprasGuionFichaResumida) {
+            if (origenPedido == CodigoUbigeoPortal.MaestroCodigoUbigeo.CodigoUbigeoPortal.GuionCarritoComprasGuionFichaResumida) {
                 textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(origenPedido);  //using new function
 
                 var label = isChangeTono ? "Tono " : "";
@@ -2529,7 +2530,8 @@ var AnalyticsPortalModule = (function () {
         isClick = isClick || false;
 
         if (origenPedido !== "") {
-            if (origenPedido == ConstantesModule.CodigoUbigeoPortal.GuionContenedorArmaTuPackGuion) {
+            //if (origenPedido == ConstantesModule.CodigoUbigeoPortal.GuionContenedorArmaTuPackGuion) {
+            if (origenPedido == CodigoUbigeoPortal.MaestroCodigoUbigeo.GuionContenedorArmaTuPackGuion) {
                 textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(origenPedido) + ""; //using new function
                 dataLayer.push({
                     'event': !isClick ? _evento.promotionView : _evento.promotionClick,
@@ -2552,8 +2554,8 @@ var AnalyticsPortalModule = (function () {
     var marcaPromotionClickArmaTuPack = function (origenPedido, textoLabel, actionText) {
 
         if (origenPedido !== "") {
-            if (origenPedido == ConstantesModule.CodigoUbigeoPortal.GuionContenedorArmaTuPack ||
-                origenPedido == ConstantesModule.CodigoUbigeoPortal.GuionContenedorArmaTuPackGuion) {
+            if (origenPedido == CodigoUbigeoPortal.MaestroCodigoUbigeo.GuionContenedorArmaTuPack ||
+                origenPedido == CodigoUbigeoPortal.MaestroCodigoUbigeo.GuionContenedorArmaTuPackGuion) {
                 var textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(origenPedido) + ""; //using new function
                 dataLayer.push({
                     'event': _evento.virtualEvent,

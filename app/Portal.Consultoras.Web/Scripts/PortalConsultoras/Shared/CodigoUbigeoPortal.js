@@ -15,7 +15,15 @@ var CodigoUbigeoPortal = (function () {
         contenedorHome: "Contenedor - Inicio"
     };
 
+    var maestroCodigoUbigeo = {
+        GuionPedidoGuionFichaResumida: estructuraUbigeo.Guion + estructuraUbigeo.Pagina.Pedido + estructuraUbigeo.Guion + estructuraUbigeo.SeccionFuncional.OfertasParaTi, //"--02--00",
+        GuionContenedorArmaTuPackGuion: "--0816--",
+        GuionContenedorArmaTuPack: "--12----",
+        GuionCarritoComprasGuionFichaResumida: "--02--09"
+    }
+
     var estructuraUbigeo = {
+        Guion: '--',
         Dispositivo: {
             Desktop: '01',
             Mobile: '02'
@@ -250,6 +258,7 @@ var CodigoUbigeoPortal = (function () {
     }
 
     return {
+        MaestroCodigoUbigeo: maestroCodigoUbigeo,
         EstructuraUbigeo: estructuraUbigeo,
         GetEstructuraSegunCodigo: getEstructuraSegunCodigoUbigeo,
         GetTextoSegunCodigo: getTextoSegunCodigoUbigeo
