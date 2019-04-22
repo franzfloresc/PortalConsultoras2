@@ -87,5 +87,27 @@ namespace Portal.Consultoras.Common
             get { return Guion + Pagina.ArmaTuPack + Guion + Guion; }
         }
 
+         
+        #region RevistaDigitalMobileCatalogoSeccion
+        //Antes: RevistaDigitalMobileCatalogoSeccion = 2401 RedireccionarContenedorComprar, RedireccionarContenedorInformativa
+
+        public static string GuionRevistaDigitalMobileCatalogoSeccion
+        {
+            get { return Guion + Pagina.MisCatalogosRevista + SeccionFuncional.OfertasParaTi + Guion; }
+        }
+
+        public static string MobileRevistaDigitalMobileCatalogoSeccion
+        {
+            get { return Dispositivo.Mobile + Pagina.MisCatalogosRevista + SeccionFuncional.OfertasParaTi + Guion; }
+        }
+
+        public static string DesktopRevistaDigitalMobileCatalogoSeccion
+        {
+            get { return Dispositivo.Desktop + Pagina.MisCatalogosRevista + SeccionFuncional.OfertasParaTi + Guion; }
+        }
+        #endregion
+
+
+
     }
 }
