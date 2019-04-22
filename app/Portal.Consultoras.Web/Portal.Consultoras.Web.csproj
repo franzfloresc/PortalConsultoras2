@@ -4138,7 +4138,9 @@
     <Content Include="Scripts\PortalConsultoras\CatalogoPersonalizado\catalogoPersonalizado.js" />
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
     <Content Include="Scripts\PortalConsultoras\ConsultoraOnline\assets\bootstrap.min.js" />
+    <Content Include="Scripts\PortalConsultoras\ConsultoraOnline\DetallePedidoPendiente.js" />
     <Content Include="Scripts\PortalConsultoras\ConsultoraOnline\Pendientes-ui.min.js" />
+    <Content Include="Scripts\PortalConsultoras\ConsultoraOnline\Pendientes.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\CarruselModule.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\DetalleEstrategiaProvider.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaModule.js" />
