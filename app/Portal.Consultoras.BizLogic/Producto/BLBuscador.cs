@@ -39,9 +39,18 @@ namespace Portal.Consultoras.BizLogic.Producto
                 lst.Update(item =>
                 {
                     item.DescripcionEstrategia = Util.obtenerNuevaDescripcionProducto(listaDescripcionesDic, suscripcionActiva, item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaID, 0, true);
-                    item.OrigenPedidoWeb = Util.obtenerCodigoOrigenWebApp(item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaID, true, false, false, item.MaterialGanancia);
+                    item.OrigenPedidoWeb = Util.obtenerCodigoOrigenWeb(item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaID, true, false, false, false, suscripcionActiva);
+
+                    if (isApp)
+                    {
+                        item.OrigenPedidoWeb = Util.ProcesarOrigenPedidoApp(item.OrigenPedidoWeb);
+                        item.OrigenPedidoWebFicha = Util.ProcesarOrigenPedidoAppFicha(item.OrigenPedidoWeb);
+                    }
+
+                    item.OrigenPedidoWebDesplegable = Util.obtenerCodigoOrigenWebApp(item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaID, true, false, false, item.MaterialGanancia);
                     item.OrigenPedidoWebLanding = Util.obtenerCodigoOrigenWebApp(item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaID, false, true, false, item.MaterialGanancia);
-                    item.OrigenPedidoWebFicha = Util.obtenerCodigoOrigenWebApp(item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaID, false, false, true, item.MaterialGanancia);
+                    item.OrigenPedidoWebDesplegableFicha = Util.obtenerCodigoOrigenWebApp(item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaID, true, false, true, item.MaterialGanancia);
+                    item.OrigenPedidoWebLandingFicha = Util.obtenerCodigoOrigenWebApp(item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaID, false, true, true, item.MaterialGanancia);
                 });
             }
             catch (Exception ex)
