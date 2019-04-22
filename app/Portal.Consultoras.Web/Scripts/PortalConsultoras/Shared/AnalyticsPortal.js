@@ -2789,6 +2789,7 @@ var AnalyticsPortalModule = (function () {
         MarcaBotonAplicarFiltro: marcaBotonAplicarFiltro,
         MarcaFichaDetalleRecomendado: marcaFichaDetalleRecomendado,
         GetCurrencyCode: _getCurrencyCodes,
+
         MarcaFichaResumidaClickDetalleProducto: marcaFichaResumidaClickDetalleProducto,
         MarcaFichaResumidaClickDetalleCliente: marcaFichaResumidaClickDetalleCliente,
         MarcaFichaResumidaClickModificar: marcaFichaResumidaClickModificar,

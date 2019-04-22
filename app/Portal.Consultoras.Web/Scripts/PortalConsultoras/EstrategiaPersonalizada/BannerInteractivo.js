@@ -50,8 +50,7 @@
         fnLunchAnalytics($(objeto));
         if (popup) {
             _fnMensaje(function () {
-
-                
+                           
                 //**ANALYTICS**//
                 //console.log('analytic2-aceptar [banner interactivo] ANT');
                 var codigoubigeoPortal = $('#ATP').attr('data-codigoubigeoportal') + "";

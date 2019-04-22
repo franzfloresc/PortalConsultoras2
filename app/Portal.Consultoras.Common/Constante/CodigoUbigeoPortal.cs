@@ -30,10 +30,11 @@ namespace Portal.Consultoras.Common
             public const string LandingBuscador = "10";
             public const string LandingGanadoras = "11";
             public const string ArmaTuPack = "12"; //Manda cuando estemos dentro de armatupack
+            public const string Catalogo = "13"; //Catalogo
         }
 
         public static class SeccionFuncional {
-            public const string OfertasParaTi= "00";
+            public const string OfertasParaTi= "00";   //Revista digital
             public const string Showroom= "01";
             public const string Lanzamientos= "02";
             public const string OfertaDelDia= "03";
@@ -77,11 +78,12 @@ namespace Portal.Consultoras.Common
             get { return Guion + Pagina.Contenedor + SeccionFuncional.ArmaTuPack + Guion; }
         }
          /// <summary>
-         /// Ubigeo Arma tu Pack para Landing
+         /// Ubigeo Arma tu Pack para Landing0
          /// </summary>
         public static string GuionContenedorArmaTuPack
         {
             get { return Guion + Pagina.ArmaTuPack + Guion + Guion; }
         }
+
     }
 }

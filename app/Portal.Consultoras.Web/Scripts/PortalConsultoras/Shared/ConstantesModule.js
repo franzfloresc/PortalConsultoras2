@@ -154,7 +154,7 @@ var ConstantesModule = (function () {
         GuionPedidoGuionFichaResumida: "--02--00",
         GuionContenedorArmaTuPackGuion: "--0816--",
         GuionContenedorArmaTuPack: "--12----",
-        GuionCarritoComprasGuionFichaResumida: "--02--09"
+        GuionCarritoComprasGuionFichaResumida: "--02--09" 
 }
 
     // en AnaluticsPortal.js tambiar actualizar los valores

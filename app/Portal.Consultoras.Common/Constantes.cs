@@ -705,7 +705,7 @@ namespace Portal.Consultoras.Common
             // 5: Producto Sugerido         6: Oferta Final
             // 7: ShowRoom                  8: Consultora Online
             // 9: Oferta del dia            0: Revista Digital
-            // 1: index
+            // 1: index                                           RedireccionarContenedorComprar
             // 2: OfertaParaTi Detalle
 
             // Cuarto Dígito
