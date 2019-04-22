@@ -8412,6 +8412,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string DatoNuevoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescripcionDispositivoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool DispositivoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string EstadoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -8425,6 +8431,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.DateTime FechaModificacionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string IpDispositivoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int PaisIDField;
@@ -8504,6 +8513,32 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DescripcionDispositivo {
+            get {
+                return this.DescripcionDispositivoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescripcionDispositivoField, value) != true)) {
+                    this.DescripcionDispositivoField = value;
+                    this.RaisePropertyChanged("DescripcionDispositivo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Dispositivo {
+            get {
+                return this.DispositivoField;
+            }
+            set {
+                if ((this.DispositivoField.Equals(value) != true)) {
+                    this.DispositivoField = value;
+                    this.RaisePropertyChanged("Dispositivo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string Estado {
             get {
                 return this.EstadoField;
@@ -8564,6 +8599,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.FechaModificacionField.Equals(value) != true)) {
                     this.FechaModificacionField = value;
                     this.RaisePropertyChanged("FechaModificacion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string IpDispositivo {
+            get {
+                return this.IpDispositivoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.IpDispositivoField, value) != true)) {
+                    this.IpDispositivoField = value;
+                    this.RaisePropertyChanged("IpDispositivo");
                 }
             }
         }

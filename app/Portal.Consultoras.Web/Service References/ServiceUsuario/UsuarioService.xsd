@@ -629,11 +629,14 @@
       <xs:element minOccurs="0" name="CodigoUsuario" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DatoAntiguo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DatoNuevo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DescripcionDispositivo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Dispositivo" type="xs:boolean" />
       <xs:element minOccurs="0" name="Estado" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FechaCreacion" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaFin" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FechaInicio" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FechaModificacion" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="IpDispositivo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PaisID" type="xs:int" />
       <xs:element minOccurs="0" name="TipoEnvio" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UsuarioCreacion" nillable="true" type="xs:string" />

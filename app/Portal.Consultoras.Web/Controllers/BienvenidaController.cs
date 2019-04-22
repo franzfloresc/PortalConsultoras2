@@ -1367,6 +1367,15 @@ namespace Portal.Consultoras.Web.Controllers
                         case "FechaModificacion":
                             items = lst.OrderBy(x => x.FechaModificacion);
                             break;
+
+                        case "IpDispositivo":
+                            items = lst.OrderBy(x => x.IpDispositivo);
+                            break;
+
+
+                        case "DescripcionDispositivo":
+                            items = lst.OrderBy(x => x.DescripcionDispositivo);
+                            break;
                     }
                 }
                 else
@@ -1400,6 +1409,15 @@ namespace Portal.Consultoras.Web.Controllers
                         case "FechaModificacion":
                             items = lst.OrderByDescending(x => x.FechaModificacion);
                             break;
+
+                        case "IpDispositivo":
+                            items = lst.OrderBy(x => x.IpDispositivo);
+                            break;
+
+
+                        case "DescripcionDispositivo":
+                            items = lst.OrderBy(x => x.DescripcionDispositivo);
+                            break;
                     }
                 }
                 #endregion
@@ -1427,6 +1445,8 @@ namespace Portal.Consultoras.Web.Controllers
                                    a.CodigoUsuario,
                                    a.FechaCreacion.ToString(),
                                    a.FechaModificacion.ToString(),
+                                   a.IpDispositivo.ToString(),
+                                   a.DescripcionDispositivo.ToString(),
                                }
                            }
                 };
@@ -1453,15 +1473,18 @@ namespace Portal.Consultoras.Web.Controllers
                 lst = sv.ListarValidacionDatos(beValidacionDatos).ToList();
             }
 
+
             var dic = new Dictionary<string, string>
             {
                 {"Tipo de Envìo", "TipoEnvio"},
                 {"Dato Antiguo", "DatoAntiguo"},
                 {"Dato Nuevo", "DatoNuevo"},
                 {"Estado", "Estado"},
-                {"Codigo de Consultora", "CodigoConsultora"},
+                {"Codigo de Usuario", "CodigoUsuario"},
                 {"Fecha de Creacion", "FechaCreacion"},
-                {"Fecha de Modificacion", "FechaModificacion"}
+                {"Fecha de Modificacion", "FechaModificacion"},
+                {"Ip del dispositivo", "IpDispositivo"},
+                {"Dispositivo", "DescripcionDispositivo"}
             };
 
             Util.ExportToExcel("ValidacionDatos", lst, dic, GetExcelSecureCallback());

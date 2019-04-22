@@ -65,5 +65,19 @@ namespace Portal.Consultoras.Entities
         [Column("PaisID")]
         public int PaisID { get; set; }
 
+        [DataMember]
+        [Column("IpDispositivo")]
+        public string IpDispositivo { get; set; }
+
+        [DataMember]
+        [Column("Dispositivo")]
+        public bool Dispositivo { get; set; }
+
+
+        [DataMember]
+        [Column("DescripcionDispositivo")]
+        public string DescripcionDispositivo { get; set; }
+
+
     }
 }

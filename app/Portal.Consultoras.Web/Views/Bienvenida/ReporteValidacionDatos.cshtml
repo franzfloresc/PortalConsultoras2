@@ -72,7 +72,7 @@
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
-            colNames: ['Tipo de envío', 'Dato antiguo', 'Dato nuevo', 'Estado', 'Código de consultora', 'Fecha de creación', 'Fecha de modificación'],
+            colNames: ['Tipo de envío', 'Dato antiguo', 'Dato nuevo', 'Estado', 'Código de consultora', 'Fecha de creación', 'Fecha de modificación','Ip dispositivo','Dispositivo'],
             colModel: [
                 { name: 'TipoEnvio', index: 'TipoEnvio', width: 40, editable: true, resizable: false, hidden: false, align: "center" },
                 { name: 'DatoAntiguo', index: 'DatoAntiguo', width: 40, editable: true, resizable: false, hidden: false, align: "center" },
@@ -80,7 +80,9 @@
                 { name: 'Estado', index: 'Estado', width: 40, editable: true, resizable: false, align: "center" },
                 { name: 'CodigoConsultora', index: 'CodigoConsultora', width: 60, editable: true, resizable: false, align: "center" },
                 { name: 'FechaCreacion', index: 'FechaCreacion', width: 60, editable: true, resizable: false},
-                { name: 'FechaModificacion', index: 'FechaModificacion', width: 60, editable: true, resizable: false},
+                { name: 'FechaModificacion', index: 'FechaModificacion', width: 60, editable: true, resizable: false },
+                { name: 'IpDispositivo', index: 'IpDispositivo', width: 60, editable: true, resizable: false },
+                { name: 'DescripcionDispositivo', index: 'DescripcionDispositivo', width: 60, editable: true, resizable: false }
             ],
             jsonReader:
             {
