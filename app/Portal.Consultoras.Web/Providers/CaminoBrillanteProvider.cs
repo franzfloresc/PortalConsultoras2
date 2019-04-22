@@ -205,9 +205,24 @@ namespace Portal.Consultoras.Web.Providers
                 var demostradores = sessionManager.GetDemostradoresCaminoBrillante();
                 if (demostradores != null) return Mapper.Map<List<DemostradorCaminoBrillanteModel>>(demostradores);
 
+                int nivel = 0;
+                var nivelConsultora = GetNivelActualConsultora();
+                if (nivelConsultora != null)
+                {
+                    int.TryParse(nivelConsultora.Nivel, out nivel);
+                }
+
                 using (var svc = new PedidoServiceClient())
                 {
-                    demostradores = svc.GetDemostradoresCaminoBrillante(usuarioModel.PaisID, usuarioModel.CampaniaID).ToList();
+                    var usuario = new ServicePedido.BEUsuario()
+                    {
+                        PaisID = usuarioModel.PaisID,
+                        CampaniaID = usuarioModel.CampaniaID,
+                        ConsultoraID = usuarioModel.ConsultoraID,
+                        CodigoConsultora = usuarioModel.CodigoConsultora
+                    };
+
+                    demostradores = svc.GetDemostradoresCaminoBrillante(usuario, nivel).ToList();
                 }
 
                 sessionManager.SetDemostradoresCaminoBrillante(demostradores);
