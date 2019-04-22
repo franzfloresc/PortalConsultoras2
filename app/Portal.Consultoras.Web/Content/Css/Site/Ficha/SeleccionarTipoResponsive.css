@@ -107,7 +107,9 @@
 }
 
 /* Tipos y tonos PopUp*/
-.contenedor_seleccion {
+.popup_lateral {
+    opacity: 0;
+    margin-right: -330px;
     position: fixed;
     width: 330px;
     top: 0;
@@ -118,6 +120,11 @@
     box-shadow: 0 8px 20px 0px rgba(0, 0, 0, 0.5);
     background-color: #fff;
     height: 100vh;
+}
+
+.popup_active {
+    opacity: 1;
+    margin-right: 0px;
 }
 
 .modal-fondo {
@@ -306,6 +313,19 @@
     margin-left: auto;
 }
 
+    .selecion_item button:hover, .selecion_item button.active {
+        background-color: #000;
+        color: #fff;
+    }
+
+    .selecion_item button.disabled {
+        background-color: rgba(216, 216, 216, 0.5) !important;
+        cursor: auto;
+        color: rgba(128, 128, 128, 0.5);
+        pointer-events: none;
+        border-color: rgba(128, 128, 128, 0.5) !important;
+    }
+
 .aplicar_seleccion {
     padding: 8px 15px;
     width: 100%;
@@ -328,5 +348,14 @@
     }
 
 @media (max-width: 768px) {
+    .popup_lateral {
+        display: none;
+        margin: 0;
+        width: 100%;
+        opacity: 1
+    }
 
+    .popup_active{
+        display: block;
+    }
 }

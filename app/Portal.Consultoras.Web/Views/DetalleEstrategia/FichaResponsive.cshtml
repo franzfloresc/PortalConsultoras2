@@ -256,8 +256,8 @@
 
 
 
-<section class="contenedor_seleccion">
-    <button onclick="javascript: ListaOpcionesModule.CloseElegirOpcionesModal();" class="button_cerrar">
+<section id="popup_tonos" class="popup_lateral">
+    <button class="button_cerrar">
         <img src="/Content/Images/mobile/Esika/close-button.svg" alt="">
     </button>
 
@@ -323,7 +323,7 @@
                 <img src="https://s3.amazonaws.com/catalogodigitalbelcorp/PE/201908/C/productos/PE_200092022.jpg" alt="">
             </div>
             <div class="seleccion_title">miss sexy shine</div>
-            <button>
+            <button class="active">
                 Elígelo
             </button>
         </article>
@@ -341,7 +341,7 @@
                 <img src="https://s3.amazonaws.com/catalogodigitalbelcorp/PE/201908/C/productos/PE_200092022.jpg" alt="">
             </div>
             <div class="seleccion_title">miss sexy shine</div>
-            <button>
+            <button class="disabled">
                 Elígelo
             </button>
         </article>
@@ -380,7 +380,6 @@
     </div>
 </section>
 
-<div class="modal-fondo"></div>
 
 
 
@@ -399,4 +398,43 @@
         </script>
         <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/Ficha/Ficha.js"></script>
     *@
+
+<script>
+    $(document).ready(function () {
+
+        function modal_lateral(id, disparador) {   
+
+            if ($("body").find(".modal-fondo").length == 0) {
+                $("body").append('<div class="modal-fondo" style="opacity: 0.8; display:none"></div>'); 
+            };
+
+            $(disparador).on("click", function () {
+                $("body").css('overflow', 'hidden');
+                $('.modal-fondo').css('opacity', '.8');
+                $('.modal-fondo').show();
+                $(id).addClass("popup_active");  
+            });
+
+            var selector_cerrar = id + " .button_cerrar"
+            function cerra_modal() {
+                $(id).removeClass('popup_active')
+                $('.modal-fondo').css('opacity', '0');
+                $('.modal-fondo').hide();
+                $("body").css('overflow', 'auto');
+            }
+
+            $(selector_cerrar).on("click", function () {
+                cerra_modal();    
+            });
+
+            $(document).on('keyup', function (evt) {
+                if (evt.keyCode == 27) {
+                    cerra_modal();
+                }
+            });
+        };
+
+        modal_lateral("#popup_tonos", ".tono_select_opt");
+    });
+</script>
 }
