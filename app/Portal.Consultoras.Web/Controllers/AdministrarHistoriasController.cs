@@ -34,7 +34,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!UsuarioModel.HasAcces(ViewBag.Permiso, "AdministrarHistorias/Index"))
                     return RedirectToAction("Index", "Bienvenida");
                 ViewBag.UrlS3 = GetUrlS3();
-                model.ListaCampanias = _zonificacionProvider.GetCampanias(userData.PaisID);
+                model.ListaCampanias = _zonificacionProvider.GetCampanias(userData.PaisID, true);
 
                 BEContenidoApp entidad;
                 using (var sv = new ServiceContenido.ContenidoServiceClient())
@@ -87,7 +87,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var entidad = new BEContenidoApp();
                 entidad.UrlMiniatura = beContenidoApp.UrlMiniatura;
-                if (form.NombreImagen != string.Empty) {
+                if (form.NombreImagen != null) {
                     entidad.UrlMiniatura = SaveFileS3(form.NombreImagen);
                 }
                 entidad.IdContenido = form.IdContenido;
@@ -298,26 +298,10 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
         
-        public ActionResult GetDetalle(int id)
+        public ActionResult GetDetalle(int id, int IdContenido)
         {
             var model = new AdministrarHistorialDetaListModel();
-
-            //if (idOfertasHome > 0)
-            //{
-            //    using (var sv = new SACServiceClient())
-            //    {
-            //        var beConfiguracionOfertas = sv.GetConfiguracionOfertasHome(userData.PaisID, idOfertasHome);
-            //        model = Mapper.Map<AdministrarOfertasHomeModel>(beConfiguracionOfertas);
-            //    }
-            //}
-            
-            //model.DesktopTipoEstrategia = model.DesktopTipoEstrategia ?? string.Empty;
-            //model.MobileTipoEstrategia = model.MobileTipoEstrategia ?? string.Empty;
-            //model.ListaCampanias = _zonificacionProvider.GetCampanias(userData.PaisID);
-            //model.ListaTipoPresentacion = ListTipoPresentacion();
-            //model.ListaConfiguracionPais = ListarConfiguracionPais();
-            //model.ListaTipoEstrategia = ListTipoEstrategia();
-
+            model.IdContenido = IdContenido;
             return PartialView("Partials/MantenimientoDetalle", model);
         }
 
@@ -325,18 +309,15 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult Detalle(AdministrarHistorialDetaListModel model)
         {
             try
-            {
-                
+            {                
                
                 model = UpdateFilesDetalles(model);
-
 
                 using (ContenidoServiceClient sv = new ContenidoServiceClient())
                 {
                     var entidad = new BEContenidoAppDeta
                     {
-                        //IdContenido = form.IdContenido,
-                        IdContenido = 3,
+                        IdContenido = model.IdContenido,
                         RutaContenido = model.RutaContenido,
                         Tipo = "IMAGEN"
                     };

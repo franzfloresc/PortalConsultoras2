@@ -50,22 +50,6 @@
     var _evento = function () {
 
         CargarGrilla();
-
-        $('body').on('click', _elemento.BtnNuevo, function () {
-            CrearRegistro();
-        });
-
-        $('body').on('change', _elemento.DdlPalanca, function () {
-            _CargarComponente();
-        });
-
-        $('body').on('change', _elemento.DdlComponente, function () {
-            _CargarDatos();
-        });
-
-        $('body').on('change', _elemento.DdlCampania, function () {
-            _CargarDatos();
-        });
         
     };
 

@@ -11,6 +11,7 @@
             <h6 id="titTamanioImagenFondo"></h6>
         </div>
         <div style="display: inline-block;">
+            @Html.HiddenFor(model => model.IdContenido)
             @Html.HiddenFor(m => m.RutaContenido, new { id = "nombre-desktop-detalle" })
             <div id="img-desktop-detalle" style="display: inline-block; vertical-align: middle;"></div>
             <div class="pdr_modal2 borde_redondeado alignrigth">

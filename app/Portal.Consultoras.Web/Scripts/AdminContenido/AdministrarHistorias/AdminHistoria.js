@@ -514,7 +514,7 @@ function IniDialogOfertasHome() {
                 
                     var params = {
                         RutaContenido: $("#nombre-desktop-detalle").val(),
-                      
+                        IdContenido: $("#IdContenido").val()                      
                 };
           
                     waitingDialog({});
@@ -672,18 +672,21 @@ function UpdateGrillaOfertas() {
     jQuery("#listOfertas").jqGrid("navGrid", "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
 }
 
-function NuevoDetalle() {
-    ModificarDetalle(0);
+function NuevoDetalle(IdContenido) {
+    ModificarDetalle(0, IdContenido);
 }
 
-function ModificarDetalle(id) {
+function ModificarDetalle(id, IdContenido) {
     waitingDialog();
 
     $.ajax({
         url: baseUrl + "AdministrarHistorias/GetDetalle",
         type: "GET",
         dataType: "html",
-        data: { id: id },
+        data: {
+            id: id,
+            IdContenido: IdContenido 
+        },
         contentType: "application/json; charset=utf-8",
         success: function (result) {
            
