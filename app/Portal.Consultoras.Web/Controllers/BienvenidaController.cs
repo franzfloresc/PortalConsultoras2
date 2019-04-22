@@ -238,7 +238,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.TienePagoEnLinea = userData.TienePagoEnLinea;
                 model.MostrarPagoEnLinea = (userData.MontoDeuda > 0);
 
-                #region Camino al Éxito
+                #region Camino Brillante
                 if (userData.CaminoBrillante) {
                     model.TieneCaminoBrillante = userData.CaminoBrillante;
 
@@ -246,12 +246,12 @@ namespace Portal.Consultoras.Web.Controllers
                     if (nivelConsultoraCaminoBrillante != null)
                     {
                         model.CaminoBrillanteMsg = userData.CaminoBrillanteMsg.Replace("{0}", "<b>" + nivelConsultoraCaminoBrillante.DescripcionNivel + "</b>");
-                        model.UrlLogoCaminoBrillante = nivelConsultoraCaminoBrillante.UrlImagenNivelFull;
-                        //model.UrlLogoCaminoBrillante = Constantes.CaminoBrillante.Niveles.Iconos.Keys.Contains(nivelConsultoraCaminoBrillante.CodigoNivel) ? Constantes.CaminoBrillante.Niveles.Iconos[nivelConsultoraCaminoBrillante.CodigoNivel][1] : "";
+                        model.UrlLogoCaminoBrillante = nivelConsultoraCaminoBrillante.UrlImagenNivelFull;                        
                     }
-                }                
+                }
+                #endregion
 
-                //Para que se usa ??????
+                #region Camino al Éxito
                 var LogicaCaminoExisto = _tablaLogica.GetTablaLogicaDatos(userData.PaisID, Constantes.TablaLogica.EscalaDescuentoDestokp);
                 if (LogicaCaminoExisto.Any())
                 {
