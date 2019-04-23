@@ -103,7 +103,17 @@ namespace Portal.Consultoras.Common
         }
         #endregion
 
+        #region RevistaDigitalMobileHomeSeccion
+        public static string MobileRevistaDigitalHomeSeccion
+        {
+            get { return Dispositivo.Mobile + Pagina.Home + SeccionFuncional.OfertasParaTi + Guion; }
+        }
 
+        public static string DesktopRevistaDigitalHomeSeccion
+        {
+            get { return Dispositivo.Desktop + Pagina.Home + SeccionFuncional.OfertasParaTi + Guion; }
+        }
+        #endregion
 
     }
 }
