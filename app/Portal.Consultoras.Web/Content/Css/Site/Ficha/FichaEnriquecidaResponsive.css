@@ -13,7 +13,73 @@
     }
 /*Fin Ficha Enrriquecida*/
 
+/*Tabs*/
+.tabs_ficha {
+    text-align: center;
+    border-bottom: solid 1px #979797;   
+}
+    .tabs_ficha li {
+        display: inline-block;
+        width: 21%;
+    }
+    .tabs_ficha li a {
+        width: 100%;
+        color: #909094 !important;
+        font-size: 16px;
+        font-weight: bold;
+        line-height: 50px;
+        height: 50px;
+        display: block;
+     }
+
+    .tabs_ficha li a.active {
+        border-bottom: solid 2px #b9007e;
+        color: #b9007e !important;
+     }
+
+.seciones_tabs article {
+    padding: 20px 0px;
+    
+}
+.tabs_ficha li > div{
+    padding-bottom: 15px;
+}
+
+.seciones_tabs article h4, .tabs_ficha li > div h4 {
+    font-size: 14.5px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    padding-top: 15px;
+}
+
+        .seciones_tabs article h4:first-child, .tabs_ficha li > div h4:first-child {
+            padding-top: 0px;
+        }
+
+    .seciones_tabs article p, .tabs_ficha li > div p {
+        font-size: 13.5px;
+        margin-bottom: 8px;
+    }
+
+
+
+
+
+
 
 @media (max-width: 768px) {
+
+    .tabs_ficha li {
+        width: 100%;
+        text-align: left;
+        border-bottom: solid 1px #d8d8d8;
+    }
+        .tabs_ficha li a {
+            line-height: 42px;
+            height: 42px;
+        }
+        .tabs_ficha li a.active {
+            border-bottom: none;
+        }
 
 }
