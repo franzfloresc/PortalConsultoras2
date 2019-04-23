@@ -352,8 +352,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (resizeImagenApp)
             {
-                var urlImagen = ConfigS3.GetUrlFileS3Matriz(userData.CodigoISO, model.RutaContenido);
-                new Providers.RenderImgProvider().ImagenesResizeProcesoApp(urlImagen, userData.CodigoISO, userData.PaisID, "GND");
+                var urlImagen = ConfigS3.GetUrlFileHistDetalle(userData.CodigoISO, model.RutaContenido);
+                new Providers.RenderImgProvider().ImagenesResizeProcesoAppHistDetalle(urlImagen, userData.CodigoISO, userData.PaisID, "HIST");
             }
 
             return model;

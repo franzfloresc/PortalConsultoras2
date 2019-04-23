@@ -212,6 +212,16 @@ namespace Portal.Consultoras.Common
             {
                 throw;
             }
-        }        
+        }
+
+        public static string GetUrlFileHistDetalle(string isoPais, string fileName)
+        {
+            string cadena = Globals.UrlMatrizAppConsultora;
+            string[] arrCadena;
+            arrCadena = cadena.Split(',');
+            var carpetaPais = string.Format("{0}/{1}/{2}", arrCadena[0], isoPais, arrCadena[1]);
+
+            return GetUrlFileS3(carpetaPais, fileName);
+        }
     }
 }

@@ -227,6 +227,28 @@
         });
     };
 
+    var _RegistroObternerImagen = function () {
+        var frmDatos = $(_elemento.DivFormulario);
+        if (frmDatos.length == 0) {
+            return false;
+        }
+        var listaFrmDatos = frmDatos.find("div[data-tipodato='img']");
+        if (listaFrmDatos.length == 0) {
+            return false;
+        }
+
+        $.each(listaFrmDatos, function (ind, datox) {
+            var idConca = $.trim($(datox).attr('id')).split('-');
+            if (idConca.length != 4) {
+                return false;
+            }
+            var codigoDato = $.trim(idConca[3]);
+            if (codigoDato != "") {
+                UploadFilePalanca(codigoDato);
+            }
+        });
+    };
+
      
     var _DialogCrear = function () {
         $('#' + _elemento.DialogRegistro).dialog({
