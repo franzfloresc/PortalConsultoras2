@@ -358,6 +358,7 @@ namespace Portal.Consultoras.Web.Providers
             var diasFaltantes = Util.GetDiasFaltantesFacturacion(fechaInicioCampania, zonaHoraria);
 
 #if DEBUG
+
             diasFaltantes = 5;
 #endif
 

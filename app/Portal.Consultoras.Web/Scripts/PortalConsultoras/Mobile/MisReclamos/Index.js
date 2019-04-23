@@ -95,6 +95,17 @@ $(document).ready((function (cerrarRechazado) {
             };
 
             me.Funciones = {
+                NuevaSolicitud: function () {
+                    var nroSolicitudes = $("#hdNroSolicitudes").val() == "" ? 0 : parseInt($("#hdNroSolicitudes").val());
+                    if (mensajeGestionCdrInhabilitada.length > 0) {
+                        messageInfo(mensajeGestionCdrInhabilitada);
+                        return false;
+                    } else {
+                        var flagMostrarTab = nroSolicitudes > 0 ? "1" : "0";
+                        var url = urlReclamo + "?t=" + flagMostrarTab;
+                        window.location.href = url;
+                    }
+                }
             };
 
             me.Inicializar = function () {

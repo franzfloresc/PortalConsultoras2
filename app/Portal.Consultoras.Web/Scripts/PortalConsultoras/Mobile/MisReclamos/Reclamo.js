@@ -126,7 +126,7 @@ $(document).ready(function () {
             spnDescripcionCuv1: "#spnDescripcionCuv1",
             spnDescripcionCuv2: "#spnDescripcionCuv2",
             spnEmailError: "#spnEmailError",
-            spnMensajeTenerEnCuentaCambio: "#spnMensajeTenerEnCuentaCambio",
+            spnMensajeTenerCuenta: "#spnMensajeTenerCuenta",
             spnMontoMinimoReclamoFormato: "#spnMontoMinimoReclamoFormato",
             spnNumeroCampaniaReclamo: "#spnNumeroCampaniaReclamo",
             spnSimboloMonedaCuv2: "#spnSimboloMonedaCuv2",
@@ -311,16 +311,16 @@ $(document).ready(function () {
                     $(me.Variables.btnSiguiente4).show();
                 });
 
-                $(me.Variables.listado_soluciones_cdr).on('click', me.Variables.solucion_cdr, function () {
+                //$(me.Variables.listado_soluciones_cdr).on('click', me.Variables.solucion_cdr, function () {
 
-                    $(me.Variables.solucion_cdr).attr("data-check", "0");
+                //    $(me.Variables.solucion_cdr).attr("data-check", "0");
 
-                    var id = $.trim($(this).attr("id"));
-                    if (id == "") return false;
+                //    var id = $.trim($(this).attr("id"));
+                //    if (id == "") return false;
 
-                    $(this).attr("data-check", "1");
-                    me.Funciones.AnalizarOperacion(id);
-                });
+                //    $(this).attr("data-check", "1");
+                //    me.Funciones.AnalizarOperacion(id);
+                //});
 
                 $(me.Variables.UltimasSolicitudes).on('click', 'a[data-accion]', function (e) {
 
@@ -840,6 +840,7 @@ $(document).ready(function () {
                 $(me.Variables.PopupBusquedaCuvDescripcionProductoCdr).hide();
                 $(me.Variables.txtCuvMobile).val(cuv + " - " + desc).focus();
                 $(me.Variables.Registro2).show();
+                $(me.Variables.txtCantidad1).focus();
             },
 
             ObtenerDatosCuv: function () {
@@ -1130,79 +1131,79 @@ $(document).ready(function () {
                 });
             },
 
-            AnalizarOperacion: function (id) {
+            //AnalizarOperacion: function (id) {
 
-                if (id == "C") {
-                    $("[data-tipo-confirma='cambio']").hide();
-                    $("[data-tipo-confirma=canje]").show();
+            //    if (id == "C") {
+            //        $("[data-tipo-confirma='cambio']").hide();
+            //        $("[data-tipo-confirma=canje]").show();
 
-                    me.Funciones.CargarPropuesta(id);
-                    $(me.Variables.Registro3).hide();
-                    $(me.Variables.btnAceptarSolucion).show();
-                }
+            //        me.Funciones.CargarPropuesta(id);
+            //        $(me.Variables.Registro3).hide();
+            //        $(me.Variables.btnAceptarSolucion).show();
+            //    }
 
-                if (id == 'D') {
-                    if (me.Funciones.ValidarPaso2Devolucion(id)) {
-                        $("[data-tipo-confirma='cambio']").hide();
-                        $("[data-tipo-confirma=canje]").show();
-                        me.Funciones.CargarPropuesta(id);
+            //    if (id == 'D') {
+            //        if (me.Funciones.ValidarPaso2Devolucion(id)) {
+            //            $("[data-tipo-confirma='cambio']").hide();
+            //            $("[data-tipo-confirma=canje]").show();
+            //            me.Funciones.CargarPropuesta(id);
 
-                        $(me.Variables.Registro3).hide();
-                        $(me.Variables.btnAceptarSolucion).show();
-                    }
-                }
+            //            $(me.Variables.Registro3).hide();
+            //            $(me.Variables.btnAceptarSolucion).show();
+            //        }
+            //    }
 
-                if (id == "F") {
-                    if (me.Funciones.ValidarPaso2Faltante(id)) {
-                        $("[data-tipo-confirma='cambio']").hide();
-                        $("[data-tipo-confirma=canje]").show();
+            //    if (id == "F") {
+            //        if (me.Funciones.ValidarPaso2Faltante(id)) {
+            //            $("[data-tipo-confirma='cambio']").hide();
+            //            $("[data-tipo-confirma=canje]").show();
 
-                        me.Funciones.CargarPropuesta(id);
-                        $(me.Variables.Registro3).hide();
-                        $(me.Variables.btnAceptarSolucion).show()
-                    }
-                }
+            //            me.Funciones.CargarPropuesta(id);
+            //            $(me.Variables.Registro3).hide();
+            //            $(me.Variables.btnAceptarSolucion).show()
+            //        }
+            //    }
 
-                if (id == "G") {
-                    if (me.Funciones.ValidarPaso2FaltanteAbono(id)) {
-                        $("[data-tipo-confirma='cambio']").hide();
-                        $("[data-tipo-confirma=canje]").show();
+            //    if (id == "G") {
+            //        if (me.Funciones.ValidarPaso2FaltanteAbono(id)) {
+            //            $("[data-tipo-confirma='cambio']").hide();
+            //            $("[data-tipo-confirma=canje]").show();
 
-                        $(me.Variables.Registro3).hide();
-                        me.Funciones.CargarPropuesta(id);
-                        $(me.Variables.btnAceptarSolucion).show();
-                    }
-                }
+            //            $(me.Variables.Registro3).hide();
+            //            me.Funciones.CargarPropuesta(id);
+            //            $(me.Variables.btnAceptarSolucion).show();
+            //        }
+            //    }
 
-                if (id == "T") {
-                    me.Funciones.CambioPaso2();
-                    $("[data-tipo-confirma='canje']").hide();
-                    $("[data-tipo-confirma=cambio]").show();
-                    //$(me.Variables.wrpMobile).addClass(me.Variables.pb120);
+            //    if (id == "T") {
+            //        me.Funciones.CambioPaso2();
+            //        $("[data-tipo-confirma='canje']").hide();
+            //        $("[data-tipo-confirma=cambio]").show();
+            //        //$(me.Variables.wrpMobile).addClass(me.Variables.pb120);
 
-                    $(me.Variables.spnSimboloMonedaReclamo).html(variablesPortal.SimboloMoneda);
+            //        $(me.Variables.spnSimboloMonedaReclamo).html(variablesPortal.SimboloMoneda);
 
-                    var precioUnidad = $(me.Variables.txtPrecioUnidad).val();
-                    var cantidad = $(me.Variables.txtCantidad1).val();
-                    var totalTrueque = parseFloat(precioUnidad) * parseFloat(cantidad);
+            //        var precioUnidad = $(me.Variables.txtPrecioUnidad).val();
+            //        var cantidad = $(me.Variables.txtCantidad1).val();
+            //        var totalTrueque = parseFloat(precioUnidad) * parseFloat(cantidad);
 
-                    $(me.Variables.hdMontoMinimoReclamo).val(totalTrueque);
-                    $(me.Variables.spnMontoMinimoReclamoFormato).html(DecimalToStringFormat(totalTrueque));
+            //        $(me.Variables.hdMontoMinimoReclamo).val(totalTrueque);
+            //        $(me.Variables.spnMontoMinimoReclamoFormato).html(DecimalToStringFormat(totalTrueque));
 
-                    var campania = $(me.Variables.ComboCampania).val() || 0;
-                    var numeroCampania = '00';
-                    if (campania > 0) {
-                        numeroCampania = campania.substring(4);
-                    }
-                    $(me.Variables.Registro3).hide();
+            //        var campania = $(me.Variables.ComboCampania).val() || 0;
+            //        var numeroCampania = '00';
+            //        if (campania > 0) {
+            //            numeroCampania = campania.substring(4);
+            //        }
+            //        $(me.Variables.Registro3).hide();
 
-                    $(me.Variables.spnNumeroCampaniaReclamo).html(numeroCampania);
-                    $(me.Variables.btnCambioProducto).show();
+            //        $(me.Variables.spnNumeroCampaniaReclamo).html(numeroCampania);
+            //        $(me.Variables.btnCambioProducto).show();
 
-                    me.Funciones.ObtenerValorParametria(id);
-                    me.Funciones.CargarPropuesta(id);
-                }
-            },
+            //        me.Funciones.ObtenerValorParametria(id);
+            //        me.Funciones.CargarPropuesta(id);
+            //    }
+            //},
 
             //CambioPaso: function (paso) {
             //    paso = paso || 1;
@@ -1377,7 +1378,7 @@ $(document).ready(function () {
 
             CargarPropuesta: function (codigoSsic) {
 
-                var tipo = (codigoSsic == "C" || codigoSsic == "D" || codigoSsic == "F" || codigoSsic == "G") ? "canje" : "cambio";
+                //var tipo = (codigoSsic == "C" || codigoSsic == "D" || codigoSsic == "F" || codigoSsic == "G") ? "canje" : "cambio";
 
                 var item = {
                     CUV: $.trim($(me.Variables.txtCuv).text()),
@@ -1404,12 +1405,8 @@ $(document).ready(function () {
                             return false;
                         }
 
-
-                        if (tipo == "canje") {
-                            SetHandlebars("#template-confirmacion", data.detalle, "[data-tipo-confirma='" + tipo + "'] [data-detalle-confirma]");
-                        }
-
-                        $(me.Variables.spnMensajeTenerEnCuentaCambio).html(data.descripcionTenerEnCuenta);
+                        $("#MensajeTenerEncuenta").fadeIn(100);
+                        $(me.Variables.spnMensajeTenerCuenta).html(data.descripcionTenerEnCuenta);
                     },
                     error: function (data, error) { }
                 });
@@ -2020,6 +2017,8 @@ $(document).ready(function () {
                     $(me.Variables.OpcionCambioMismoProducto).fadeIn(200);
                 }
                 $(me.Variables.btnSiguiente1).removeClass(me.Variables.deshabilitarBoton);
+
+                me.Funciones.CargarPropuesta(id);
             },
 
             AgregarEventoMostrarBotonSiguiente: function () {

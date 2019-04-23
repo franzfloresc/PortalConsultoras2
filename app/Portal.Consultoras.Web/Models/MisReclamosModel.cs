@@ -7,6 +7,7 @@ namespace Portal.Consultoras.Web.Models
         public MisReclamosModel()
         {
             Complemento = new HashSet<ProductoComplementarioModel>();
+            flagLimiteReclamo = false;
         }
         public int CDRWebID { get; set; }
         public int PedidoID { get; set; }
@@ -56,5 +57,6 @@ namespace Portal.Consultoras.Web.Models
         public int? CantidadReclamosPorPedido { get; set; }
         public ICollection<ProductoComplementarioModel> Complemento { get; set; }
         public int MostrarTab { get; set; }
+        public bool flagLimiteReclamo { get; set; }
     }
 }

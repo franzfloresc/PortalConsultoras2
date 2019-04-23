@@ -44,10 +44,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.CantidadReclamosPorPedido = _cdrProvider.GetNroSolicitudesReclamoPorPedido(userData.PaisID,userData.CodigoConsultora,userData.CodigoISO);
                 if (listaCdrWebModel.Any())
                 {
+                    model.flagLimiteReclamo = false;
                     var resultado = _cdrProvider.ValidarCantidadSolicitudesPerPedido(model.ListaCDRWeb, ObtenerCampaniaPedidos, model.CantidadReclamosPorPedido);
                     if (resultado)
                     {
                         model.MensajeGestionCdrInhabilitada = Constantes.CdrWebMensajes.ExcedioLimiteReclamo;
+                        model.flagLimiteReclamo = true;
                         return View(model);
                     }
                 }
@@ -319,6 +321,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         }
 
         public ActionResult GetReclamos() {
+            SessionManager.SetListaCDRWebCargaInicial(null);
             var misReclamos =  _cdrProvider.ObtenerCDRWebCargaInicial(userData.ConsultoraID, userData.PaisID);
             return PartialView("_ListaMisReclamos",misReclamos);
         }

@@ -1,10 +1,33 @@
+USE BelcorpPeru
+GO
 
-update CDRWebDescripcion set Descripcion =  'CAMBIARLO POR EL MISMO PRODUCTO' WHERE CDRWebDescripcionID = 6 AND CodigoSSIC = 'C'
+UPDATE CDRWebDescripcion
+SET Descripcion = 'CAMBIARLO POR EL MISMO PRODUCTO'
+WHERE CDRWebDescripcionID = 6
+	AND CodigoSSIC = 'C'
 
-update CDRWebDescripcion set Descripcion =  'DEVOLUCIÓN' WHERE CDRWebDescripcionID = 7 AND CodigoSSIC = 'D'
+UPDATE CDRWebDescripcion
+SET Descripcion = 'DEVOLUCIÓN'
+WHERE CDRWebDescripcionID = 7
+	AND CodigoSSIC = 'D'
 
-update CDRWebDescripcion set Descripcion =  'Reenvío del mismo producto' WHERE CDRWebDescripcionID = 5 AND CodigoSSIC = 'C'
-and tipo = 'Finalizado'
+UPDATE CDRWebDescripcion
+SET Descripcion = 'Reenvío del mismo producto'
+WHERE CDRWebDescripcionID = 5
+	AND CodigoSSIC = 'C'
+	AND tipo = 'Finalizado'
 
-update CDRWebDescripcion set Descripcion =  'Devolución del mismo producto' WHERE CDRWebDescripcionID in (10,30) AND CodigoSSIC in ('D','G')
-and tipo = 'Finalizado'
+UPDATE CDRWebDescripcion
+SET Descripcion = 'Devolución del mismo producto'
+WHERE CDRWebDescripcionID IN (
+		10
+		,30
+		)
+	AND CodigoSSIC IN (
+		'D'
+		,'G'
+		)
+	AND tipo = 'Finalizado'
+GO
+
+

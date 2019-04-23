@@ -7,6 +7,7 @@
     var layout = ViewContext.MobileLayout();
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
     MobileAppConfiguracionModel mobileConfiguracion = Html.MobileAppConfiguracion();
+
 }
 
 @section styles
@@ -257,11 +258,11 @@
                         <div data-detalle-confirma=""></div>
                     </div>
 
-                    <div class="info_importante_cdr tipografia_lato">
+                    <div id="MensajeTenerEncuenta" class="info_importante_cdr tipografia_lato">
                         <div class="titulo_info_cdr tipografia_lato_regular">
                             TEN EN CUENTA
                         </div>
-                        <div id="spnMensajeTenerEnCuentaCambio" class="content_info_cdr tipografia_lato_regular">
+                        <div id="spnMensajeTenerCuenta" class="content_info_cdr tipografia_lato_regular">
                         </div>
                     </div>
                     <a href="#" class="enlace_quiero_ver_otra_alternativa tipografia_lato tipografia_lato_regular" title="Quiero ver otra alternativa">
