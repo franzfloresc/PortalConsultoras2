@@ -79,7 +79,7 @@ namespace Portal.Consultoras.Web.Controllers
                 FiltersByBrand = _ofertasViewProvider.GetFiltersByBrand(),
                 Success = true,
                 MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(IsMobile()),
-                CantidadFilas = 20
+                CantidadFilas = 30
             };
 
             var dato = _ofertasViewProvider.ObtenerPerdioTitulo(model.CampaniaID, IsMobile());
@@ -358,7 +358,7 @@ namespace Portal.Consultoras.Web.Controllers
                 { Constantes.NombrePalanca.GuiaDeNegocioDigitalizada, "Guía De Negocio" },
                 { Constantes.NombrePalanca.HerramientasVenta, "Demostradores" },
                 { Constantes.NombrePalanca.MasGanadoras, "Las más ganadoras" },
-                { Constantes.NombrePalanca.PackNuevas, _programaNuevasProvider.GetLimElectivos() > 1 ? "Dúo Perfecto" : "Programa Nuevas" }
+                { Constantes.NombrePalanca.PackNuevas, _programaNuevasProvider.TieneDuoPerfecto() ? "Dúo Perfecto" : "Programa Nuevas" }
             };
 
             return nombresPalancas.ContainsKey(palanca) ? nombresPalancas[palanca] : string.Empty;
@@ -550,6 +550,48 @@ namespace Portal.Consultoras.Web.Controllers
                     break;
                 #endregion Buscador Mobile
 
+                #region Duo Perfecto
+                case Constantes.OrigenPedidoWeb.DesktopHomeDuoPerfectoCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopHomeDuoPerfectoFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopLandingDuoPerfectoCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopLandingDuoPerfectoFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopPedidoDuoPerfectoCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopPedidoDuoPerfectoFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobileHomeDuoPerfectoCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobileHomeDuoPerfectoFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobilePedidoDuoPerfectoCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobilePedidoDuoPerfectoFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobileLandingDuoPerfectoCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobileLandingDuoPerfectoFicha;
+                    break;
+                #endregion
+
+                #region Pack de Nuevas
+                case Constantes.OrigenPedidoWeb.DesktopHomePackNuevasCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopHomePackNuevasFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopLandingPackNuevasCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopLandingPackNuevasFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopPedidoPackNuevasCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopPedidoPackNuevasFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobileHomePackNuevasCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobileHomePackNuevasFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobilePedidoPackNuevasCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobilePedidoPackNuevasFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobileLandingPackNuevasCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobileLandingDuoPerfectoFicha;
+                    break;
+                #endregion
+
                 #region Mas Ganadoras
                 case Constantes.OrigenPedidoWeb.DesktopContenedorGanadorasCarrusel:
                     result = Constantes.OrigenPedidoWeb.DesktopContenedorGanadorasFicha;
@@ -725,26 +767,61 @@ namespace Portal.Consultoras.Web.Controllers
 
         private DetalleEstrategiaFichaModel GetEstrategiaInicial(string palanca, int campaniaId, string cuv)
         {
-            var modelo = new DetalleEstrategiaFichaModel();
-            if (_ofertaPersonalizadaProvider.PalancasConSesion(palanca))
+            string codigoPalanca;
+            bool esFichaApi = false;
+            bool tieneCodigoPalanca = Constantes.NombrePalanca.PalancasbyCodigo.TryGetValue(palanca, out codigoPalanca);
+
+            if (tieneCodigoPalanca)
             {
-                var estrategiaPresonalizada = _ofertaPersonalizadaProvider.ObtenerEstrategiaPersonalizada(userData, palanca, cuv, campaniaId);
+                esFichaApi = new OfertaBaseProvider().UsaFichaMsPersonalizacion(codigoPalanca);
+            }
 
-                if (estrategiaPresonalizada == null)
+            var modelo = new DetalleEstrategiaFichaModel();
+
+            if (!esFichaApi)
+            {
+                if (_ofertaPersonalizadaProvider.PalancasConSesion(palanca))
                 {
-                    return null;
-                }
+                    var estrategiaPresonalizada = _ofertaPersonalizadaProvider.ObtenerEstrategiaPersonalizada(userData, palanca, cuv, campaniaId);
 
-                if (userData.CampaniaID != campaniaId) estrategiaPresonalizada.ClaseBloqueada = "btn_desactivado_general";
-                modelo = Mapper.Map<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaModel>(estrategiaPresonalizada);
+                    if (estrategiaPresonalizada == null)
+                    {
+                        return null;
+                    }
+
+                    if (userData.CampaniaID != campaniaId) estrategiaPresonalizada.ClaseBloqueada = "btn_desactivado_general";
+                    modelo = Mapper.Map<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaModel>(estrategiaPresonalizada);
+
+                    if (palanca == Constantes.NombrePalanca.PackNuevas)
+                    {
+                        modelo.TipoEstrategiaDetalle.Slogan = "Contenido del Set:";
+                        modelo.ListaDescripcionDetalle = modelo.ArrayContenidoSet;
+                    }
+                }
+            }
+            else
+            {
+                string mensaje;
+
+                if (!tieneCodigoPalanca) return null;
+
+                modelo = _ofertaPersonalizadaProvider.GetEstrategiaFicha(cuv, campaniaId.ToString(), codigoPalanca, out mensaje);
+
+                if (userData.CampaniaID != campaniaId) modelo.ClaseBloqueada = "btn_desactivado_general";
+
                 if (palanca == Constantes.NombrePalanca.PackNuevas)
                 {
                     modelo.TipoEstrategiaDetalle.Slogan = "Contenido del Set:";
                     modelo.ListaDescripcionDetalle = modelo.ArrayContenidoSet;
                 }
+                modelo.Hermanos = _estrategiaComponenteProvider.FormatterEstrategiaComponentes(modelo.Hermanos, modelo.CUV2, modelo.CampaniaID, esFichaApi);
+                modelo = _ofertaPersonalizadaProvider.FormatterEstrategiaFicha(modelo, userData.CampaniaID);
             }
+
             return modelo;
         }
+
+        
 
         private int GetTipoAccionNavegar(int origen, bool esMobile, bool esEditar)
         {

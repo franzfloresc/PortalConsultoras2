@@ -626,7 +626,16 @@ namespace Portal.Consultoras.BizLogic.Reserva
                     mailBody.AppendFormat("<td style = 'width: 50%; text-align: right; color: #000; font-family: Arial; font-size: 14px; font-weight:700;' > {1} {0} </td></tr> ", Util.DecimalToStringFormat(pedidoDetalle.ImporteTotal, input.PaisISO), simbolo);
                     rowPrecioUnitario = String.Format("<tr> <td colspan = '2' style = 'width: 100%;text-align: left; color: #4d4d4e; font-family: Arial; font-size: 13px; padding-top: 2px; padding-bottom:30px;' > Precio unitario: {1} {0} </td></tr>", Util.DecimalToStringFormat(pedidoDetalle.PrecioUnidad, input.PaisISO), simbolo);
                 }
+                //Inicio HD-3757
+                if (!string.IsNullOrEmpty(pedidoDetalle.ObservacionPROL))
+                {
+                    foreach (string ob in pedidoDetalle.ObservacionPROL.Split('|'))
+                    {
+                        if (!string.IsNullOrEmpty(ob)) mailBody.AppendFormat("<tr style='background-color:#eeeeee' ><td colspan = '2' style = 'text-align:left;color: #000; font-family: 'Arial'; padding:4px 7px 2px' >{0}</td></tr>", ob);
 
+                    }
+                }
+                //FIN HD-3757
                 mailBody.AppendFormat("<tr> <td colspan = '2' style = 'width: 100%; text-align: left; color: #4d4d4e; font-family: Arial; font-size: 13px; padding-top: 2px;' > Cliente: {0} </td></tr>", !string.IsNullOrEmpty(pedidoDetalle.Nombre) ? CultureInfo.InvariantCulture.TextInfo.ToTitleCase(pedidoDetalle.Nombre.ToLower()) : CultureInfo.InvariantCulture.TextInfo.ToTitleCase(input.Sobrenombre.ToLower()));
                 mailBody.AppendFormat("<tr><td colspan = '2' style = 'width: 100%; text-align: left; color: #4d4d4e; font-family: Arial; font-size: 13px; padding-top: 2px;' > Cantidad: {0} </td></tr>", pedidoDetalle.Cantidad);
                 mailBody.Append(rowPrecioUnitario);
