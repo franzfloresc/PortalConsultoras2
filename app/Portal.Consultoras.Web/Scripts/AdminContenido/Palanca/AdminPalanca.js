@@ -132,7 +132,6 @@ function ConfigSeccionApp(configuracionPaisID) {
             if (result.data.AppOfertasHomeActivo === "1") $("#divMantApp").show();
             else $("#divMantApp").hide();
 
-
             if (result.data.AppOfertasHomeImgExtension !== "") $("#nombre-fondo-app").attr("imageextension", result.data.AppOfertasHomeImgExtension);
             if (result.data.AppOfertasHomeImgAncho !== "") $("#nombre-fondo-app").attr("imagewidth", result.data.AppOfertasHomeImgAncho);
             if (result.data.AppOfertasHomeImgAlto !== "") $("#nombre-fondo-app").attr("imageheight", result.data.AppOfertasHomeImgAlto);
@@ -141,13 +140,23 @@ function ConfigSeccionApp(configuracionPaisID) {
     
             var palanca = $("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo");
             if (palanca === _palanca.pn || palanca === _palanca.dp) {
-                    $("#AdministrarOfertasHomeAppModel_AppColorFondo").parent().parent().hide();
+                $("#AdministrarOfertasHomeAppModel_AppColorFondo").parent().parent().hide();
                 $("#AdministrarOfertasHomeAppModel_AppColorTexto").parent().parent().hide();
                 $("#AdministrarOfertasHomeAppModel_AppCantidadProductos").parent().parent().hide();
+                $("#AdministrarOfertasHomeAppModel_AppTextoBotonInicial").parent().parent().hide();
+                $("#AdministrarOfertasHomeAppModel_AppTextoBotonFinal").parent().parent().hide();
+                $("#AdministrarOfertasHomeAppModel_AppColorFondoBoton").parent().parent().hide();
+                $("#AdministrarOfertasHomeAppModel_AppColorTextoBoton").parent().parent().hide();
+
+                $("#divAppComplementoDerecha").hide();
 
                 $("#AdministrarOfertasHomeAppModel_AppColorFondo").val("");
                 $("#AdministrarOfertasHomeAppModel_AppColorTexto").val("");
                 $("#AdministrarOfertasHomeAppModel_AppCantidadProductos").val("");
+                $("#AdministrarOfertasHomeAppModel_AppTextoBotonInicial").val("");
+                $("#AdministrarOfertasHomeAppModel_AppTextoBotonFinal").val("");
+                $("#AdministrarOfertasHomeAppModel_AppColorFondoBoton").val("");
+                $("#AdministrarOfertasHomeAppModel_AppColorTextoBoton").val("");
             }
             else {
                 $("#AdministrarOfertasHomeAppModel_AppColorFondo").parent().parent().show();
@@ -155,23 +164,44 @@ function ConfigSeccionApp(configuracionPaisID) {
 
                 if (palanca === ConstantesModule.CodigoPalanca.ATP) {
                     $("#AdministrarOfertasHomeAppModel_AppSubTitulo").parent().parent().show();
+                    $("#AdministrarOfertasHomeAppModel_AppTextoBotonInicial").parent().parent().show();
+                    $("#AdministrarOfertasHomeAppModel_AppTextoBotonFinal").parent().parent().show();
+                    $("#AdministrarOfertasHomeAppModel_AppColorFondoBoton").parent().parent().show();
+                    $("#AdministrarOfertasHomeAppModel_AppColorTextoBoton").parent().parent().show();
+
+                    $("#AdministrarOfertasHomeAppModel_AppTextoBotonInicial").val("Comenzar");
+                    $("#AdministrarOfertasHomeAppModel_AppTextoBotonFinal").val("Modificar");
+
                     $("#AdministrarOfertasHomeAppModel_AppCantidadProductos").parent().parent().hide();
                     $("#AdministrarOfertasHomeAppModel_AppCantidadProductos").val("");
+
+                    $("#divAppComplementoDerecha").show();
+
+                    if ($("#AdministrarOfertasHomeAppModel_AppSubTitulo").val() === "") $("#AdministrarOfertasHomeAppModel_AppSubTitulo").val("Elige tus #Cantidad productos favoritos y llévatelos a #PrecioTotal");
+                    if ($("#AdministrarOfertasHomeAppModel_AppColorFondo").val() === "") $("#AdministrarOfertasHomeAppModel_AppColorFondo").val("#be9040");
+                    if ($("#AdministrarOfertasHomeAppModel_AppColorTexto").val() === "") $("#AdministrarOfertasHomeAppModel_AppColorTexto").val("#000000");
+                    if ($("#AdministrarOfertasHomeAppModel_AppColorFondoBoton").val() === "") $("#AdministrarOfertasHomeAppModel_AppColorFondoBoton").val("#000000");
+                    if ($("#AdministrarOfertasHomeAppModel_AppColorTextoBoton").val() === "") $("#AdministrarOfertasHomeAppModel_AppColorTextoBoton").val("#ffffff");
                 }
                 else {
+                    $("#AdministrarOfertasHomeAppModel_AppTextoBotonInicial").parent().parent().hide();
+                    $("#AdministrarOfertasHomeAppModel_AppTextoBotonFinal").parent().parent().hide();
+                    $("#AdministrarOfertasHomeAppModel_AppColorFondoBoton").parent().parent().hide();
+                    $("#AdministrarOfertasHomeAppModel_AppColorTextoBoton").parent().parent().hide();
                     $("#AdministrarOfertasHomeAppModel_AppSubTitulo").parent().parent().hide();
+
+                    $("#AdministrarOfertasHomeAppModel_AppTextoBotonInicial").val("");
+                    $("#AdministrarOfertasHomeAppModel_AppTextoBotonFinal").val("");
+                    $("#AdministrarOfertasHomeAppModel_AppColorFondoBoton").val("");
+                    $("#AdministrarOfertasHomeAppModel_AppColorTextoBoton").val("");
                     $("#AdministrarOfertasHomeAppModel_AppSubTitulo").val("");
 
                     $("#AdministrarOfertasHomeAppModel_AppCantidadProductos").parent().parent().show();
-                }
 
-                if ($("#AdministrarOfertasHomeAppModel_AppColorFondo").val() === "") {
-                    if (palanca === ConstantesModule.CodigoPalanca.ATP) $("#AdministrarOfertasHomeAppModel_AppColorFondo").val("#be9040");
-                    else $("#AdministrarOfertasHomeAppModel_AppColorFondo").val("#000000");
-                }
-                if ($("#AdministrarOfertasHomeAppModel_AppColorTexto").val() === "") {
-                    if (palanca === ConstantesModule.CodigoPalanca.ATP) $("#AdministrarOfertasHomeAppModel_AppColorTexto").val("#000000");
-                    else $("#AdministrarOfertasHomeAppModel_AppColorTexto").val("#ffffff");
+                    $("#divAppComplementoDerecha").hide();
+
+                    if ($("#AdministrarOfertasHomeAppModel_AppColorFondo").val() === "") $("#AdministrarOfertasHomeAppModel_AppColorFondo").val("#000000");
+                    if ($("#AdministrarOfertasHomeAppModel_AppColorTexto").val() === "") $("#AdministrarOfertasHomeAppModel_AppColorTexto").val("#ffffff");
                 }
             }
 
@@ -670,12 +700,22 @@ function IniDialogOfertasHome() {
                 }
                 var AppColorFondo = $("#AdministrarOfertasHomeAppModel_AppColorFondo").val();
                 var AppColorTexto = $("#AdministrarOfertasHomeAppModel_AppColorTexto").val();
+                var AppColorFondoBoton = $("#AdministrarOfertasHomeAppModel_AppColorFondoBoton").val();
+                var AppColorTextoBoton = $("#AdministrarOfertasHomeAppModel_AppColorTextoBoton").val();
                 if (!regExpColorHex.test(AppColorFondo) && AppColorFondo !== "") {
                     _toastHelper.error("El color de fondo para app debe tener un código hexadecimal válido.");
                     return false;
                 }
                 if (!regExpColorHex.test(AppColorTexto) && AppColorTexto !== "") {
                     _toastHelper.error("El color de texto para app debe tener un código hexadecimal válido.");
+                    return false;
+                }
+                if (!regExpColorHex.test(AppColorFondoBoton) && AppColorFondoBoton !== "") {
+                    _toastHelper.error("El color del boton para app debe tener un código hexadecimal válido.");
+                    return false;
+                }
+                if (!regExpColorHex.test(AppColorTextoBoton) && AppColorTextoBoton !== "") {
+                    _toastHelper.error("El color de mensaje boton para app debe tener un código hexadecimal válido.");
                     return false;
                 }
 
@@ -720,6 +760,10 @@ function IniDialogOfertasHome() {
                         AppBannerInformativo: $("#nombre-fondo-app").val(),
                         AppOrden: $("#AdministrarOfertasHomeAppModel_AppOrden").val(),
                         AppCantidadProductos: $("#AdministrarOfertasHomeAppModel_AppCantidadProductos").val(),
+                        AppTextoBotonInicial: $("#AdministrarOfertasHomeAppModel_AppTextoBotonInicial").val(),
+                        AppTextoBotonFinal: $("#AdministrarOfertasHomeAppModel_AppTextoBotonFinal").val(),
+                        AppColorFondoBoton: $("#AdministrarOfertasHomeAppModel_AppColorFondoBoton").val(),
+                        AppColorTextoBoton: $("#AdministrarOfertasHomeAppModel_AppColorTextoBoton").val(),
                     },
                     BotonTexto1: $("#BotonTexto1").val(),
                     BotonTexto2: $("#BotonTexto2").val(),
@@ -768,7 +812,7 @@ function IniDialogOfertasHome() {
 function DialogOfertasHomeOpen(event, ui) {
     $(".ui-dialog-titlebar-close", ui.dialog).hide();
     $("#colorpickerHolder").ColorPicker({ flat: true });
-    $("#DesktopColorFondo, #DesktopColorTexto, #MobileColorFondo, #MobileColorTexto, #AdministrarOfertasHomeAppModel_AppColorFondo, #AdministrarOfertasHomeAppModel_AppColorTexto, #BotonColor, #BotonColorTexto").ColorPicker({
+    $("#DesktopColorFondo, #DesktopColorTexto, #MobileColorFondo, #MobileColorTexto, #AdministrarOfertasHomeAppModel_AppColorFondo, #AdministrarOfertasHomeAppModel_AppColorTexto, #BotonColor, #BotonColorTexto, #AdministrarOfertasHomeAppModel_AppColorFondoBoton, #AdministrarOfertasHomeAppModel_AppColorTextoBoton").ColorPicker({
         onSubmit: function (hsb, hex, rgb, el) {
             var newValue = "#" + hex;
             $(el).val(newValue);
