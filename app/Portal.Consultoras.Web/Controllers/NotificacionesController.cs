@@ -376,7 +376,6 @@ namespace Portal.Consultoras.Web.Controllers
                     model.SubTotal = Convert.ToDecimal(0);
                     model.Descuento = Convert.ToDecimal(0);
                     model.Total = Convert.ToDecimal(0);
-                    model.ListaNotificacionesDetallePedido.Add(new NotificacionesModelDetallePedido() { ImporteTotal = 0, PrecioUnidad = 0 });
                 }
 
                 model.SubTotalString = Util.DecimalToStringFormat(model.SubTotal, userData.CodigoISO);

@@ -26,7 +26,7 @@ Setup(ctx =>
    // Executed BEFORE the first task.
    var repositoryDirectoryPath = DirectoryPath.FromString("../");
    var currentBranch = GitBranchCurrent(repositoryDirectoryPath);
-   branch = currentBranch.FriendlyName;
+   branch = "DEV";//currentBranch.FriendlyName;
    var commit = GitLog(repositoryDirectoryPath, 1).FirstOrDefault();
    if (commit != null) {
        hash = commit.Sha.Substring(0, 11);
@@ -116,6 +116,7 @@ Task("SonarJS")
             {"sonar.login", sonarLogin},
             {"sonar.password", sonarPassword},
             {"sonar.branch", branch},
+            {"sonar.projectVersion", hash},
             {"project.settings", "../sonar-project-js.properties"},
         }
     });

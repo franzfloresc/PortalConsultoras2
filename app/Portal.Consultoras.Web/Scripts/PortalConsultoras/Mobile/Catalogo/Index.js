@@ -558,6 +558,15 @@ function CatalogoEnviarEmail() {
                 $('#MensajeAlertaMobile .mensaje_alerta').html(data.message);
                 $('#MensajeAlertaMobile').show();
                 if (!data.success) {
+                    /*evento luego de enviar el correo satisfacoriamente - HD-3694*/
+                    dataLayer.push({
+                        'event': 'virtualEvent',
+                        'category': 'Catálogos y revistas',
+                        'action': 'Catálogo digital - Compartir email',
+                        'label': campaniaEmail,
+                        'value': 1,
+                        'gtm.uniqueEventId': 7292
+                    });
                     if (data.extra == "R") {
                         location.href = urlBienvenidaMobile;
                     }
