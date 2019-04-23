@@ -2256,6 +2256,7 @@ namespace Portal.Consultoras.Web.Controllers
                     foreach (var det in cab.DetallePedido)
                     {
                         det.Elegido = false;
+                        det.ListaClientes = null;
                         lstPedidosDetatalle.Add(det);
                     }
                 }
