@@ -1686,7 +1686,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     background: #f7f7f7;
     position: relative;
     top: -26px;
-    padding: 22px 0 18px 0;
+    padding: 32px 0 18px 0;
     margin-bottom: 4px;
 }
 
