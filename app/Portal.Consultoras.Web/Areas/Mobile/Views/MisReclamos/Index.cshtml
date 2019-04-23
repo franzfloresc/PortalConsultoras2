@@ -57,8 +57,21 @@
         if (Model.ListaCDRWeb.Count > 0)
         {
             <input id="hdNroSolicitudes" type="hidden" value="@Cantidad" />
-            <div id="divMisReclamos" data-url="MisReclamos/GetReclamos">
-
+            <div id="divMisReclamos" class="grilla_registros_solicitud_cdr" data-url="MisReclamos/GetReclamos">
+                <h4 class="tipografia_lato_bold titulo_solicitudes_registradas">Mis solicitudes registradas</h4>
+                <!-- Este filtro se muestra cuando la cantidad de solicitudes excede a 6 -->
+                <div class="campo_orden_solicitudes_cdr_wrapper">
+                    <label>Filtrar por :</label>
+                    <select id="OrdenarSolicitudesRegistradasPor" class="border-radius-4 campo_ordenar_solicitudes_por">
+                        <option value="0">Todos</option>
+                        <option value="1">Enviados</option>
+                        <option value="2">Pendientes</option>
+                        <option value="3">Observados</option>
+                        <option value="4">Rechazados</option>
+                        <option value="5">Aceptados</option>
+                    </select>
+                </div>
+                <!-- Fin - Este filtro se muestra cuando la cantidad de solicitudes excede a 6 -->
                 @Html.Partial("~/Areas/Mobile/Views/MisReclamos/_ListaMisReclamos.cshtml", listaCdr)
             </div>
         }
