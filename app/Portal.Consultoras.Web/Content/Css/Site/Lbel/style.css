@@ -1147,15 +1147,16 @@ header {
     }
 
 /* INI HD-4009 */
-.liquidacion_pum {
+.liquidacion_pum,
+.liquidacion_pum_hidden {
     margin-bottom: 0;
-    min-height: 18px;
+    min-height:18px;
 }
     .liquidacion_pum span {
         color: #000;
     }
 .liquidacion_pum_hidden {
-    display:none;
+    visibility: hidden;
 }
 /* FIN HD-4009 */
 
@@ -1702,7 +1703,8 @@ a.subir_carousel, a.bajar_carousel {
 }
 
 /* INI HD-4009 */
-.producto_pum {
+.producto_pum,
+.producto_pum_hidden {
     margin-bottom: 0;
     min-height:18px;
 }

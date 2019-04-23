@@ -4417,7 +4417,8 @@ table > thead > tr > th {
 }
 
 /* INI HD-4009 */
-.producto_pum {
+.producto_pum,
+.producto_pum_hidden {
     margin-top: 5px;
     margin-bottom: 0;
     font-size: 12px;
