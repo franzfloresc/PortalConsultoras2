@@ -689,7 +689,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             _providerCaminoBrillante = _providerCaminoBrillante ?? GetCaminoBrillanteProvider(paisId);
             if (_providerCaminoBrillante == null) return null;
 
-            var kitsProvider = _providerCaminoBrillante.GetOfertas(Util.GetPaisIsoHanna(paisId), periodoId).Result;
+            var kitsProvider = _providerCaminoBrillante.GetOfertas(Util.GetPaisIsoHanna(paisId), campaniaId).Result;
             var niveles = GetNiveles(paisId) ?? new List<BENivelCaminoBrillante>();
 
             if (kitsProvider.Any())
