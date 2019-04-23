@@ -1990,8 +1990,6 @@ namespace Portal.Consultoras.Web.Controllers
         public async Task<ActionResult> ListarPagodeKit(string sidx, string sord, int page, int rows,
                 string codigoiso,
                 int idcampaña,
-                int idregion,
-                int idzona,
                 string documentoidentidad,
                 int idestado,
                 string fpagoinicio,
@@ -2002,12 +2000,12 @@ namespace Portal.Consultoras.Web.Controllers
             string[] parameter = new string[9];
 
             parameter[0] = Convert.ToString(idcampaña);
-            parameter[1] = Convert.ToString(idregion);
-            parameter[2] = Convert.ToString(idzona);
+            parameter[1] = string.Empty;
+            parameter[2] = string.Empty;
             parameter[3] = documentoidentidad;
             parameter[4] = Convert.ToString(idestado);
-            parameter[5] = Convert.ToDateTime(fpagoinicio).ToString("yyyy/MM/dd");
-            parameter[6] = Convert.ToDateTime(fpagofin).ToString("yyyy/MM/dd");
+            parameter[5] = string.IsNullOrEmpty(fpagoinicio) ? null : Convert.ToDateTime(fpagoinicio).ToString("yyyy/MM/dd");
+            parameter[6] = string.IsNullOrEmpty(fpagofin) ? null : Convert.ToDateTime(fpagofin).ToString("yyyy/MM/dd");
             parameter[7] = string.IsNullOrEmpty(fprocesoinicio) ? null : Convert.ToDateTime(fprocesoinicio).ToString("yyyy/MM/dd");
             parameter[8] = string.IsNullOrEmpty(fprocesofin) ? null : Convert.ToDateTime(fprocesofin).ToString("yyyy/MM/dd");
 
@@ -2049,11 +2047,11 @@ namespace Portal.Consultoras.Web.Controllers
                                    a.FechaPago ==  null  ? "" : a.FechaPago.Value.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture),
                                    a.HoraPago,
                                    a.FleteMonto.ToString(),
-                                   a.iva.ToString(),
+                                   //a.iva.ToString(),
                                    a.TransaccionMontoPagadoTotal.ToString(),
                                    a.TransaccionMontoRecibido.ToString(),
-                                   a.CodigoRegion ?? "",
-                                   a.CodigoZona ?? "",
+                                   /*a.CodigoRegion ?? "",
+                                   a.CodigoZona ?? "",*/
                                    a.TipoTarjeta ?? "",
                                    a.TarjetaNumero ?? "" ,
                                    a.PagoDeKitLogId.ToString(),
@@ -2072,8 +2070,6 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult ExportarPagokitLog(
             string codigo,
             int Campaña,
-            string Region,
-            string Zona,
             int Estado,
             string CodigoConsutlora,
             string FechaInicioPago,
@@ -2088,8 +2084,8 @@ namespace Portal.Consultoras.Web.Controllers
                 string[] parameter = new string[9];
 
                 parameter[0] = Convert.ToString(Campaña);
-                parameter[1] = Convert.ToString(Region);
-                parameter[2] = Convert.ToString(Zona);
+                parameter[1] = string.Empty;
+                parameter[2] = string.Empty;
                 parameter[3] = CodigoConsutlora;
                 parameter[4] = Convert.ToString(Estado);
                 parameter[5] = Convert.ToDateTime(FechaInicioPago).ToString("yyyy/MM/dd");
@@ -2098,30 +2094,26 @@ namespace Portal.Consultoras.Web.Controllers
                 parameter[8] = string.IsNullOrEmpty(FechaFinProceso) ? null : Convert.ToDateTime(FechaFinProceso).ToString("yyyy/MM/dd");
 
                 List<ReportePagoDeKitLog> lst = sv.ConsultarPagodeKitLog(codigo, parameter).ToList();
-
                 Dictionary<string, string> dic = new Dictionary<string, string>
                 {
-                    {"Campania", "CampaniaId"},
-                    {"Banco", "MetodoPagoId"},
+                    {"Campaña", "CampaniaId"},
+                    {"Metodo Pago", "MetodoPagoId"},
                     {"Pago", "PagoId"},
                     {"Nombre Consultora", "NombresCompletos"},
-                    {"Codigo Consultora", "CodigoConsultora"},
-                    {"Numero Documento", "NumeroDocumento"},
+                    {"Código Consultora", "CodigoConsultora"},
+                    {"Número Documento", "NumeroDocumento"},
                     {"Fecha Pago", "FechaPago"},
                     {"Hora Pago", "HoraPago"},
                     {"Flete", "FleteMonto"},
-                    {"iva", "iva"},
                     {"Monto Pagado Total", "TransaccionMontoPagadoTotal"},
                     {"Monto Recibido", "TransaccionMontoRecibido"},
-                    {"Region", "CodigoRegion"},
-                    {"Zona", "CodigoZona"},
-                    {"Origen Trajeta", "TipoTarjeta"},
+                    {"Tarjeta", "TipoTarjeta"},
                     {"Número de Trajeta", "TarjetaNumero"},
-                    {"Numero de Operacion", "PagoDeKitLogId"},
-                    {"Descripción de transaccion", "EstatusDetalle"},
-                    {"Estado Transaccion", "Estatus"},
-                    {"Fecha Proceso", "FechaProceso"},
-                    {"Hora Proceso", "HoraProceso"},
+                    {"Número de Operación", "PagoDeKitLogId"},
+                    {"Descripción de Transacción", "EstatusDetalle"},
+                    {"Estado Transacción", "Estatus"},
+                    {"Fecha Envio Sicc", "FechaProceso"},
+                    {"Hora Envio Sicc", "HoraProceso"},
                     {"Origen", "Origen"},
                 };
                
@@ -2130,12 +2122,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
         }
-
-        // LMH
-
-
-
-
 
         [HttpPost]
         public JsonResult ConsultarSolicitudesPostulanteV2(GestionaPostulanteModelSAC model)

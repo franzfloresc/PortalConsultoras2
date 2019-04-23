@@ -1,0 +1,67 @@
+﻿@model Portal.Consultoras.Web.Models.ConfiguracionSeccionHomeModel
+
+@{
+    //List<string> lStyleBoton = new List<string>();
+    List<string> lStylePanel = new List<string>();
+    //List<string> lStyleText = new List<string>();
+
+    #region Diseño de boton
+    //if (!String.IsNullOrEmpty(Model.BotonColor) && Model.BotonColor.Replace("#", "").Trim().Length > 0)
+    //{
+    //    lStyleBoton.Add("background-color: " + Model.BotonColor + ";");
+    //}
+    //if (!String.IsNullOrEmpty(Model.BotonColorTexto) && Model.BotonColorTexto.Replace("#", "").Trim().Length > 0)
+    //{
+    //    lStyleBoton.Add("color: " + Model.BotonColorTexto + ";");
+    //}
+    #endregion
+    #region Diseño de panel
+    if (!String.IsNullOrEmpty(Model.ImagenFondo) && Model.ImagenFondo.Trim().Length > 0)
+    {
+        lStylePanel.Add("background: url(" + Model.ImagenFondo + ") center center no-repeat;");
+        lStylePanel.Add("background-position: center !important;");
+        lStylePanel.Add("background-size: cover;");
+        lStylePanel.Add("vertical-align: middle;");
+    }
+    else if (!String.IsNullOrEmpty(Model.ColorFondo) && Model.ColorFondo.Replace("#", "").Trim().Length > 0)
+    {
+        lStylePanel.Add("background: " + Model.ColorFondo + ";");
+    }
+    #endregion
+    //#region Diseño de texto en panel
+    //if (!String.IsNullOrEmpty(Model.ColorTexto) && Model.ColorTexto.Replace("#", "").Trim().Length > 0)
+    //{
+    //    lStyleText.Add("color: " + Model.ColorTexto + ";");
+    //}
+    //#endregion
+}
+
+<div class="container-flex atp_container" style="@Html.Raw(String.Join("", lStylePanel))">
+    <div class="atp_main">
+        <div>
+
+            <div class="atp_main_content">
+                <h2 class="atp_title text-upper" style="color: @Model.ColorTexto">@Model.Titulo</h2>
+                <div class="atp_content">
+                    <p data-subtitulo="@Model.SubTitulo"
+                       style="color: @Model.ColorTexto">
+                        @Model.SubTitulo
+                    </p>
+                </div>
+            </div>
+            <div class="atp_action">
+                <button class="atp_button atp_button_center text-upper"
+                    style="@Model.BotonColor"
+                    data-crea="@Model.BotonTexto1"
+                    data-modifica="@Model.BotonTexto2"
+                    data-landing="@Model.UrlLandig"
+                    data-popup="false"
+                    data-cuv=""
+                    onclick="javascript: BannerInteractivo.ConsultaRedireccionaLanding(this);">
+                    @Model.BotonTexto1
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>

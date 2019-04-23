@@ -10,11 +10,12 @@
 <style>
     .agotado_consultora {
         background: #f3f3f3;
-        padding:10px 10px
+        padding: 10px 10px
     }
-    .agotado_consultora img {
-        height:36px
-    }
+
+        .agotado_consultora img {
+            height: 36px
+        }
 </style>
 
 <script>
@@ -53,15 +54,7 @@
     }
 
     <div class="content_320">
-        <div class="tiempo_restante">
-            @if (solicitud.FlagConsultora)
-            {
-                <text> Te quedan <b>24:00:00</b> horas</text>
-            }
-            else
-            {
-                <text>Te quedan <b>@solicitud.SaldoHoras</b> horas</text>
-            }
+        <div class="tiempo_restante">          
         </div>
         <div class="contacte_cliente">CONTÁCTATE CON @contacto </div>
         <div class="texto_detalle_pedido">
@@ -107,66 +100,70 @@
 
     @foreach (var item in Model.ListaDetalle2)
     {
-        <div class="detalle_pedido_reservado">
-            <input type="hidden" value="@item.PedidoDetalleId" id="soldet_@item.PedidoDetalleId" />
-            <div class="left_reservado" style="width:228px;">
-                @if (solicitud.MarcaID == 0)
-                {
-                    <div class="datos_Reservado">
-                        <span>@item.CUV</span>
-                        <span>@item.Producto</span>
-                    </div>
-                }
-                else
-                {
-                    <div class="datos_Reservado">
-                        <span>@item.Producto</span>
-                    </div>
-                }
-            </div>
-            <div class="right_reservado">
-                <div class="texto_reservado">CANT</div>
-                <div class="datos_Reservado" id="soldet_qty_@item.PedidoDetalleId"><b>@item.Cantidad</b></div>
-            </div>
-            <hr class="clear"><br>
-            <div class="left_reservado">
-                <div class="texto_reservado">
-                    <span>Precio Unitario</span>
-                    <span>Sub-total</span>
-                </div>
-            </div>
-            <div class="right_reservado">
-                <div class="texto_reservado">
-                    <span>@ViewBag.Simbolo @item.FormatoPrecioUnitario</span>
-                    <span>@ViewBag.Simbolo @item.FormatoPrecioTotal</span>
-                </div>
-            </div>
-            <hr class="clear">
+    <div class="detalle_pedido_reservado">
+        <input type="hidden" value="@item.PedidoDetalleId" id="soldet_@item.PedidoDetalleId" />
+        <input type="hidden" value="@item.CUV" id="soldet_cuv_@item.PedidoDetalleId" />        
+        <input type="hidden" value="@item.Producto" id="soldet_nom_@item.PedidoDetalleId" />
+        <input type="hidden" value="@item.PrecioUnitario" id="soldet_precio_@item.PedidoDetalleId" />
+        <input type="hidden" value="@item.Marca" id="soldet_mrc_@item.PedidoDetalleId" />
+        <div class="left_reservado" style="width:228px;">
             @if (solicitud.MarcaID == 0)
             {
-                if (@item.TieneStock == 1)
-                {
-                    <select class="select_detalle" id="soldet_tipoate_@item.PedidoDetalleId">
-                        <option value="" selected>¿CÓMO LO ATENDERÁS?</option>
-                        <option value="ingrped">INGRESAR A MI PEDIDO</option>
-                        <option value="ingrten">YA LO TENGO</option>
-                    </select>
-                }
-                else
-                {
-                    <span class="btn_ingreso_pedido" style="text-align: center;">AGOTADO</span>
-                }
-
-                if (item.TieneStock == 0)
-                {
-                    <span class="agotado_consultora" style="font-size: 12px;"><img src="/Content/Images/RevistaDigital/icono_advertencia_notificacion_esika.svg" /> @item.MensajeValidacion</span>
-                }
-                else if (item.EstaEnRevista == 1)
-                {
-                    <span class="agotado_consultora" style="font-size: 12px;"><img src="/Content/Images/RevistaDigital/icono_advertencia_notificacion_esika.svg" /> @item.MensajeValidacion</span>
-                }
+                <div class="datos_Reservado">
+                    <span>@item.CUV</span>
+                    <span>@item.Producto</span>
+                </div>
+            }
+            else
+            {
+                <div class="datos_Reservado">
+                    <span>@item.Producto</span>
+                </div>
             }
         </div>
+        <div class="right_reservado">
+            <div class="texto_reservado">CANT</div>
+            <div class="datos_Reservado" id="soldet_qty_@item.PedidoDetalleId"><b>@item.Cantidad</b></div>
+        </div>
+        <hr class="clear"><br>
+        <div class="left_reservado">
+            <div class="texto_reservado">
+                <span>Precio Unitario</span>
+                <span>Sub-total</span>
+            </div>
+        </div>
+        <div class="right_reservado">
+            <div class="texto_reservado">
+                <span>@ViewBag.Simbolo @item.FormatoPrecioUnitario</span>
+                <span>@ViewBag.Simbolo @item.FormatoPrecioTotal</span>
+            </div>
+        </div>
+        <hr class="clear">
+        @if (solicitud.MarcaID == 0)
+        {
+            if (@item.TieneStock == 1)
+            {
+                <select class="select_detalle ddlAtenderPedidosPend" id="soldet_tipoate_@item.PedidoDetalleId">
+                    <option value="" selected>¿CÓMO LO ATENDERÁS?</option>
+                    <option value="ingrped">INGRESAR A MI PEDIDO</option>
+                    <option value="ingrten">YA LO TENGO</option>
+                </select>
+            }
+            else
+            {
+                <span class="btn_ingreso_pedido" style="text-align: center;">AGOTADO</span>
+            }
+
+            if (item.TieneStock == 0)
+            {
+                <span class="agotado_consultora" style="font-size: 12px;"><img src="/Content/Images/RevistaDigital/icono_advertencia_notificacion_esika.svg" /> @item.MensajeValidacion</span>
+            }
+            else if (item.EstaEnRevista == 1)
+            {
+                <span class="agotado_consultora" style="font-size: 12px;"><img src="/Content/Images/RevistaDigital/icono_advertencia_notificacion_esika.svg" /> @item.MensajeValidacion</span>
+            }
+        }
+    </div>
     }
 
     <div class="left_reservado">
@@ -178,19 +175,19 @@
     <hr class="clear" />
     <div class="linea_separadora_roja" style="margin-top:20px;"></div>
     <a class="btn_acepto_pedido" href="javascript:;" onclick="AceptarPedido('@solicitud.PedidoId', '@tiposoli')">ACEPTO TODO EL PEDIDO</a>
-    <a class="btn_rechazo_pedido" href="javascript:;" onclick="javascript: $('#PedidoRechazado').show();">RECHAZO EL PEDIDO</a>
+    <a class="btn_rechazo_pedido" href="javascript:;" onclick="javascript: RechazoPedidosPendientes(); $('#PedidoRechazado').show();">RECHAZO EL PEDIDO</a>
 </div>
 
 <div id="ComoloAtenderas" class="MensajeAlertaMobile">
     <div class="content_mensajeAlerta">
-        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#ComoloAtenderas').hide();">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript:DialogComoAtenderPedidoPend('Cerrar Pop up'); $('#ComoloAtenderas').hide();">
             <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
         </a>
         <hr class="clear">
         <div class="icono_alerta exclamacion_icono_mobile"></div>
         <div class="titulo_compartir"><b>IMPORTANTE</b></div>
         <div class="mensaje_alerta">Por favor elige cómo atenderás todos los productos del pedido</div>
-        <a class="btn_ok_mobile" onclick="javascript: $('#ComoloAtenderas').hide();">OK</a>
+        <a class="btn_ok_mobile" onclick="javascript:DialogComoAtenderPedidoPend('Ok'); $('#ComoloAtenderas').hide();">OK</a>
     </div>
 </div>
 
@@ -209,7 +206,7 @@
 
 <div id="PedidoRechazado" class="MensajeAlertaMobile">
     <div class="content_mensajeAlerta">
-        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#PedidoRechazado').hide();">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#PedidoRechazado').hide(); VasARechazarelPedido('cerrar');">
             <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
         </a>
         <hr class="clear">
@@ -217,10 +214,10 @@
         <div class="titulo_compartir">¿VAS A <b>RECHAZAR EL PEDIDO</b>?</div>
         <div class="mensaje_alerta">Si rechazas el pedido vas a perderlo</div>
         <div class="col-xs-12 col-sm-6">
-            <a class="btn_acepto_pedido" href="javascript:;" onclick="javascript: $('#PedidoRechazado').hide();">NO, DÉJAME VERLO</a>
+            <a class="btn_acepto_pedido" href="javascript:;" onclick="javascript: $('#PedidoRechazado').hide(); VasARechazarelPedido('No, Déjame verlo');">NO, DÉJAME VERLO</a>
         </div>
         <div class="col-xs-12 col-sm-6">
-            <a class="btn_rechazo_pedido" href="javascript:;" onclick="javascript: $('#PedidoRechazadoDetalle').show();">SÍ, RECHAZO EL PEDIDO</a>
+            <a class="btn_rechazo_pedido" href="javascript:;" onclick="javascript: $('#PedidoRechazadoDetalle').show();  VasARechazarelPedido('Sí, Rechazo el Pedido');">SÍ, RECHAZO EL PEDIDO</a>
         </div>
 
     </div>
@@ -241,7 +238,7 @@
 
 <div id="PedidoRechazadoDetalle" class="MensajeAlertaMobile" style="padding:10px;">
     <div class="content_mensajeAlerta">
-        <a class="cerrar_popMobile" href="javascript:;" onclick="RechazarPedido('@solicitud.PedidoId');">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="RechazarPedido('@solicitud.PedidoId',2);">
             <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
         </a>
         <hr class="clear">
@@ -255,20 +252,20 @@
             }
         </div>
         <textarea rows="10" class="comentario_rechazados" id="txtOtrosRechazo" readonly="readonly" maxlength="300"></textarea>
-        <a class="btn_acepto_pedido" href="#" onclick="RechazarPedido('@solicitud.PedidoId');">ENVIAR</a>
+        <a class="btn_acepto_pedido" href="#" onclick="RechazarPedido('@solicitud.PedidoId',1);">ENVIAR</a>
     </div>
 </div>
 
 <div id="MensajePedidoRechazado" class="MensajeAlertaMobile">
     <div class="content_mensajeAlerta">
-        <a class="cerrar_popMobile" href="javascript:;" onclick="CerrarMensajeRechazado();">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="CerrarMensajeRechazado(2);">
             <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
         </a>
         <hr class="clear">
         <div class="icono_alerta exclamacion_icono_mobile"></div>
         <div class="titulo_compartir"><b>RECHAZASTE</b> EL PEDIDO</div>
         <div class="mensaje_alerta">Ya está eliminado de tu lista de pendientes</div>
-        <a class="btn_ok_mobile" onclick="CerrarMensajeRechazado();">OK</a>
+        <a class="btn_ok_mobile" onclick="CerrarMensajeRechazado(1);">OK</a>
     </div>
 </div>
 

@@ -158,9 +158,11 @@ namespace Portal.Consultoras.Service
 
         private List<BEConsultoraCatalogo> GetConsultorasCatalogos(string codigoPais, string codigoUbigeo, int idPais, int marcaId, string nombres, string apellidos, int tipoFiltroUbigeo)
         {
-            var lista = new List<BEConsultoraCatalogo>();
+            List<BEConsultoraCatalogo> lista;
 
-            if (codigoPais == Constantes.CodigosISOPais.Peru || codigoPais == Constantes.CodigosISOPais.Ecuador || codigoPais == Constantes.CodigosISOPais.Bolivia)
+            if (codigoPais == Constantes.CodigosISOPais.Peru 
+                || codigoPais == Constantes.CodigosISOPais.Ecuador 
+                || codigoPais == Constantes.CodigosISOPais.Bolivia)
             {
                 if (codigoUbigeo.Length == 18) lista = new BLConsultoraCatalogo().GetConsultorasCatalogosPorUbigeoAndNombresAndApellidos(idPais, codigoUbigeo, nombres, apellidos, marcaId, tipoFiltroUbigeo);
                 else if (codigoUbigeo.Length == 12) lista = new BLConsultoraCatalogo().GetConsultorasCatalogosPorUbigeo12AndNombresAndApellidos(idPais, codigoUbigeo, nombres, apellidos, marcaId, tipoFiltroUbigeo);

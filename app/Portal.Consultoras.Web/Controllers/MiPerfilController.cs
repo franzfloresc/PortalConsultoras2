@@ -133,10 +133,10 @@ namespace Portal.Consultoras.Web.Controllers
             record.DropDownUbigeo1 = await _miPerfilProvider.ObtenerUbigeoPrincipalAsync(userData.CodigoISO);
         }
 
-        private  async Task<List<ParametroUneteBE>>DropDownUbigeoPrincipalAsync()
-        {
-            return  await _miPerfilProvider.ObtenerUbigeoPrincipalAsync(userData.CodigoISO);
-        }
+        //private  async Task<List<ParametroUneteBE>>DropDownUbigeoPrincipalAsync()
+        //{
+        //    return  await _miPerfilProvider.ObtenerUbigeoPrincipalAsync(userData.CodigoISO);
+        //}
        
         [HttpGet]
         public async Task<JsonResult> ObtenerUbigeoDependiente(int Nivel, int IdPadre)

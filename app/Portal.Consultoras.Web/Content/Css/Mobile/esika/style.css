@@ -50,6 +50,10 @@ h3 {
     font-size: 18px;
 }
 
+.mt-23{
+    margin-top:23px;
+}
+
 .noPadding {
     padding: 0 !important;
 }
@@ -4392,6 +4396,14 @@ table > thead > tr > th {
     font-weight: 900;
 }
 
+.sugerido .content_item_home{
+    padding-bottom: 20px
+}
+
+.nombre_producto_sugerido {
+    height: 60px !important;
+}
+
 .producto_precio {   
     width: 100%;
     padding-left: 10px;
@@ -4926,6 +4938,13 @@ body {
     margin: 0 auto;
     border: 0;
 }
+
+.bonificaciones_digital {
+    width: 128px;
+    height: 76px;
+    background: url('/Content/Images/Mobile/Esika/bonificaciones_digital.png') no-repeat right bottom;
+    margin-bottom: 0;
+} 
 
 .catalogo_esika {
     width: 128px;
@@ -5490,12 +5509,18 @@ body {
 
 .titulo_compartir {
     font-family: 'Lato';
-    font-size: 24px;
+    font-size: 18px;
     font-weight: 300;
     line-height: .82;
-    text-align: center;
+    text-transform: uppercase;
     color: #000000;
     margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+.contet_alert{
+    max-width:300px;
+    margin: 0 auto;
     margin-bottom: 30px;
 }
 
@@ -5850,7 +5875,7 @@ input[type='checkbox']:checked + span:after {
     }
 
     .titulo_compartir {
-        font-size: 19px;
+        font-size: 16px;
         line-height: 28px;
     }
 }
