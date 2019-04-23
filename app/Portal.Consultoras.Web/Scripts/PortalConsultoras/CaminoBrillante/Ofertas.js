@@ -60,11 +60,11 @@ function ValidarCargaOfertas() {
     if (cargandoRegistros) return false;
     cargandoRegistros = true;
 
-    waitingDialog();
-    if ($('#Demostradores').is(':visible'))
-        CargarDemostradores();
-    else if ($('#kits').is(':visible'))
+    if ($('#kits').is(':visible')) {
+        waitingDialog();
         CargarKits();
+    } else if ($('#Demostradores').is(':visible'))
+        CargarDemostradores();        
 }
 
 function CargarKits() {
@@ -121,7 +121,7 @@ function CargarDemostradores() {
         },
         error: function (data, error) { },
         complete: function (data) {
-            closeWaitingDialog();
+            //closeWaitingDialog();
             cargandoRegistros = false;
         }
     });
