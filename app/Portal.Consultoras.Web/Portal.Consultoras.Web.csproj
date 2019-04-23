@@ -5767,6 +5767,7 @@
     <Content Include="Views\AdministrarHistorias\Index.cshtml" />
     <Content Include="Views\AdministrarHistorias\Partials\MantenimientoEstado.cshtml" />
     <Content Include="Views\AdministrarHistorias\Partials\MantenimientoDetalle.cshtml" />
+    <Content Include="Views\AdministrarHistorias\Partials\PopupImagen.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

@@ -271,6 +271,26 @@ namespace Portal.Consultoras.Web.Controllers
             return PartialView("Partials/MantenimientoEstado", modelo);
         }
 
+        public ActionResult ComponenteObtenerVerImagen(AdministrarHistorialDetaUpdModel entidad)
+        {
+            AdministrarHistorialDetaUpdModel modelo;
+            try
+            {
+                modelo = new AdministrarHistorialDetaUpdModel
+                {
+                    IdContenidoDeta = entidad.IdContenidoDeta,
+                    IdContenido = entidad.IdContenido,
+                    RutaImagen = entidad.RutaImagen,                    
+                };
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                modelo = new AdministrarHistorialDetaUpdModel();
+            }
+            return PartialView("Partials/PopupImagen", modelo);
+        }
+
         public JsonResult ComponenteDatosGuardar(AdministrarHistorialDetaUpdModel form)
         {
             int valRespuesta = 0;

@@ -7,7 +7,7 @@ namespace Portal.Consultoras.Web.Models
     {
         public int IdContenidoDeta { get; set; }
         public int IdContenido { get; set; }
- 
+        public string RutaImagen { get; set; }
     }
 
 }

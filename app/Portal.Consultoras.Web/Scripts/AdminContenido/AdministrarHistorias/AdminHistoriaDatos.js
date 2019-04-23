@@ -29,6 +29,7 @@
     var _url = {
         UrlGrilla: baseUrl + 'AdministrarHistorias/ComponenteListar?IdContenido=' + $('#IdContenido').val(),
         UrlGrillaEditar: baseUrl + 'AdministrarHistorias/ComponenteObtenerViewDatos',
+        UrlGrillaVerImagen: baseUrl + 'AdministrarHistorias/ComponenteObtenerVerImagen',
         UrlComponenteDatosGuardar: baseUrl + 'AdministrarHistorias/ComponenteDatosGuardar'
     };
 
@@ -48,7 +49,7 @@
     var _evento = function () {
 
         CargarGrilla();
-        
+
     };
 
     var _GrillaAcciones = function (cellvalue, options, rowObject) {
@@ -59,12 +60,13 @@
 
     var _GrillaImagen = function (cellvalue, options, rowObject) {
         var act = "";
+
         if (cellvalue == "") {
             act = "<img src='" + rutaImagenVacia + "' border='0' style='max-width: 40px; max-height: 40px;' />";
         } else {
-            act = "<img src='" + urlDetalleS3 + cellvalue + "' border='0' style='max-width: 40px; max-height: 40px;' />";
+            act = "<a href='javascript:;' onclick=\'return admHistoriaDatos.VerImagen(event, \" " + urlDetalleS3 + cellvalue + " \");\' >" + "<img src='" + urlDetalleS3 + cellvalue + "' border='0' style='max-width: 40px; max-height: 40px;' /></a>";
         }
-       return act;
+        return act;
     };
 
     var CargarGrilla = function () {
@@ -130,7 +132,8 @@
                     sortable: false,
                     formatter: _GrillaAcciones
                 },
-               
+
+
             ],
             pager: jQuery(_elemento.TablaPagina),
             loadtext: _texto.Cargando,
@@ -152,7 +155,7 @@
     };
 
     var GrillaEditar = function (event) {
-       
+
         var rowId = $(event.path[1]).parents('tr').attr('id');
         var row = jQuery(_elemento.TablaId).getRowData(rowId);
         //console.log("rowId",rowId);
@@ -166,6 +169,50 @@
         _RegistroObterner(entidad);
     }
 
+    var GrillaVerImagen = function (event, img) {
+        debugger;
+        var rowId = $(event.path[1]).parents('tr').attr('id');
+        var row = jQuery(_elemento.TablaId).getRowData(rowId);
+        var entidad = {
+            IdContenidoDeta: row['IdContenidoDeta'],
+            IdContenido: row['IdContenido'],
+            RutaImagen: img
+        };
+        _RegistroObtenerPopupImagen(entidad);
+    }
+
+    var _RegistroObtenerPopupImagen = function (modelo) {
+
+        //console.log(modelo);
+        //return;
+        waitingDialog();
+        $.ajax({
+            url: _url.UrlGrillaVerImagen,
+            type: 'GET',
+            dataType: 'html',
+            data: modelo,
+            contentType: 'application/json; charset=utf-8',
+            success: function (result) {
+                debugger;
+                closeWaitingDialog();
+
+                $(_elemento.DialogRegistroHtml).empty();
+                $(_elemento.DialogRegistroHtml).html(result);
+                showDialog(_elemento.DialogRegistro);
+                $('body').css({ 'overflow-x': 'hidden' });
+                $('body').css({ 'overflow-y': 'hidden' });
+
+                $(_elemento.PopupTitulo).html(_texto.PopupTituloNuevo);
+                $(_elemento.ChbxEstado).prop("checked", true);
+
+            },
+            error: function (request, status, error) {
+                if (modelo.Accion === _accion.Deshabilitar) {
+                    _toastHelper.error(_texto.ProcesoError);
+                }
+            }
+        });
+    };
 
     var _RegistroObterner = function (modelo) {
 
@@ -206,7 +253,7 @@
                     $(_elemento.PopupTitulo).html(_texto.PopupTituloEditar);
                     $(_elemento.DdlPalanca).attr("disabled", "disabled");
                     $(_elemento.DdlComponente).attr("disabled", "disabled");
-                    $(_elemento.DdlCampania).attr("disabled", "disabled");    
+                    $(_elemento.DdlCampania).attr("disabled", "disabled");
                 }
                 else {
                     $(_elemento.DialogRegistroHtml).empty();
@@ -249,7 +296,7 @@
         });
     };
 
-     
+
     var _DialogCrear = function () {
         $('#' + _elemento.DialogRegistro).dialog({
             autoOpen: false,
@@ -321,6 +368,7 @@
             _initializar(param);
         },
         Editar: GrillaEditar,
+        VerImagen: GrillaVerImagen,
     };
 
 })();
