@@ -197,47 +197,34 @@ namespace Portal.Consultoras.Web.Controllers
                 List<Catalogo> catalogos;
                 string campaniaId;
                 string fechaFacturacion;
-                try
-                {
-                    if (Campania == userData.CampaniaID.ToString())
-                    {
-                        campaniaId = userData.CampaniaID.ToString();
 
-                        if (!userData.DiaPROL) fechaFacturacion = userData.FechaFacturacion.ToShortDateString();
-                        else
-                        {
-                            DateTime fechaHoraActual = DateTime.Now.AddHours(userData.ZonaHoraria);
-                            if (userData.DiasCampania != 0 && fechaHoraActual < userData.FechaInicioCampania)
-                            {
-                                fechaFacturacion = userData.FechaInicioCampania.ToShortDateString();
-                            }
-                            else
-                            {
-                                fechaFacturacion = fechaHoraActual.ToShortDateString();
-                            }
-                        }
-                    }
+                if (Campania == userData.CampaniaID.ToString())
+                {
+                    campaniaId = userData.CampaniaID.ToString();
+
+                    if (!userData.DiaPROL) fechaFacturacion = userData.FechaFacturacion.ToShortDateString();
                     else
                     {
-                        campaniaId = Campania;
-                        using (UsuarioServiceClient sv = new UsuarioServiceClient())
+                        DateTime fechaHoraActual = DateTime.Now.AddHours(userData.ZonaHoraria);
+                        if (userData.DiasCampania != 0 && fechaHoraActual < userData.FechaInicioCampania)
                         {
-                            fechaFacturacion = sv.GetFechaFacturacion(campaniaId, userData.ZonaID, userData.PaisID).ToShortDateString();
+                            fechaFacturacion = userData.FechaInicioCampania.ToShortDateString();
+                        }
+                        else
+                        {
+                            fechaFacturacion = fechaHoraActual.ToShortDateString();
                         }
                     }
-
-                    catalogos = this.GetCatalogosPublicados(userData.CodigoISO, campaniaId);
                 }
-                catch (Exception ex)
+                else
                 {
-                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                    return Json(new
+                    campaniaId = Campania;
+                    using (UsuarioServiceClient sv = new UsuarioServiceClient())
                     {
-                        success = false,
-                        message = "Por favor vuelva ingresar en unos momentos, ya que el servicio de catálogos virtuales está teniendo problemas.",
-                        extra = string.Empty
-                    });
+                        fechaFacturacion = sv.GetFechaFacturacion(campaniaId, userData.ZonaID, userData.PaisID).ToShortDateString();
+                    }
                 }
+                catalogos = this.GetCatalogosPublicados(userData.CodigoISO, campaniaId);
 
                 if (catalogos.Count <= 0)
                 {
@@ -504,7 +491,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = ex.Message,
+                    message = Constantes.MensajesError.ServicioCatalogoVirtuales,
                     extra = ""
                 });
             }
@@ -526,6 +513,36 @@ namespace Portal.Consultoras.Web.Controllers
                     urlIconEmail = Globals.RutaCdn + "/ImagenesPortal/Iconos/mensaje_mail_lbel.png";
                     urlIconTelefono = Globals.RutaCdn + "/ImagenesPortal/Iconos/celu_mail_lbel.png";
                 }
+
+                string fechaFacturacion;
+                if (Campania == userData.CampaniaID.ToString())
+                {
+                    if (!userData.DiaPROL) fechaFacturacion = userData.FechaFacturacion.ToShortDateString();
+                    else
+                    {
+                        DateTime fechaHoraActual = DateTime.Now.AddHours(userData.ZonaHoraria);
+                        if (userData.DiasCampania != 0 && fechaHoraActual < userData.FechaInicioCampania)
+                        {
+                            fechaFacturacion = userData.FechaInicioCampania.ToShortDateString();
+                        }
+                        else
+                        {
+                            fechaFacturacion = fechaHoraActual.ToShortDateString();
+                        }
+                    }
+                }
+                else
+                {
+                    using (UsuarioServiceClient sv = new UsuarioServiceClient())
+                    {
+                        fechaFacturacion = sv.GetFechaFacturacion(Campania, userData.ZonaID, userData.PaisID).ToShortDateString();
+                    }
+                }
+
+                DateTime dd = DateTime.Parse(fechaFacturacion, new CultureInfo("es-ES"));
+                string fdf = dd.ToString("dd", new CultureInfo("es-ES"));
+                string fmf = dd.ToString("MMMM", new CultureInfo("es-ES"));
+                string ffechaFact = fdf + " de " + char.ToUpper(fmf[0]) + fmf.Substring(1);
 
                 Mensaje = Mensaje.Replace("\n", "<br/>");
                 var txtBuil = new StringBuilder();
@@ -555,6 +572,7 @@ namespace Portal.Consultoras.Web.Controllers
                     mailBody += "</tr>";
                     mailBody += "<tr>";
                     mailBody += "<td style=\"text-align:center; font-family:'Calibri'; color:#000; font-weight:500; font-size:14px; padding-bottom:30px;\">" + (Mensaje ?? "");
+                    mailBody += "<br/><br/>Recuerda que tienes hasta el " + ffechaFact + " para enviarme tu pedido.</td>";
                     mailBody += "</tr>";
                     mailBody += "<tr>";
                     mailBody += "<td>";
@@ -711,7 +729,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = ex.Message,
+                    message = Constantes.MensajesError.ServicioCatalogoVirtuales,
                     extra = ""
                 });
             }
