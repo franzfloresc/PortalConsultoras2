@@ -211,7 +211,7 @@ namespace Portal.Consultoras.Web.Controllers
                                cell = new string[]
                                 {
                                     a.IdContenidoDeta.ToString(),
-                                    a.CodigoDetalle,
+                                    a.Tipo,
                                     a.Orden.ToString(),
                                     a.RutaContenido,
                                     a.IdContenido.ToString()

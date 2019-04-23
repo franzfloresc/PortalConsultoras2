@@ -79,7 +79,7 @@
             mtype: 'GET',
             contentType: 'application/json; charset=utf-8',
             multiselect: false,
-            colNames: ['ID', 'Url', 'Orden', 'Imagen', 'IdContenido', 'Acción'],
+            colNames: ['ID', 'Tipo', 'Orden', 'Contenido', 'IdContenido', 'Acción'],
             colModel: [
                 {
                     name: 'IdContenidoDeta',
@@ -90,8 +90,8 @@
                     sortable: false
                 },
                 {
-                    name: 'CodigoDetalle',
-                    index: 'CodigoDetalle',
+                    name: 'Tipo',
+                    index: 'Tipo',
                     width: 100,
                     align: 'center',
                     resizable: false,
