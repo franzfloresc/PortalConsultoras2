@@ -46,6 +46,8 @@ var varContenedor = {
     CargoLan: false
 }
 
+var _constantesPalanca = ConstantesModule.TipoEstrategia;
+
 $(document).ready(function () {
     SeccionRender();
 });
@@ -132,16 +134,14 @@ function SeccionCargarProductos(objConsulta) {
 
     listaSeccion[objConsulta.Codigo + "-" + objConsulta.CampaniaId] = objConsulta;
 
-    var paisHabilitado = typeof variableEstrategia.PaisHabilitado == "string" && variableEstrategia.PaisHabilitado.indexOf(IsoPais) > -1
-
     var guardaEnLS = true;
 
     if (objConsulta.Codigo === CONS_CODIGO_SECCION.RDR || objConsulta.Codigo === CONS_CODIGO_SECCION.RD) {
         if (!varContenedor.CargoRevista) {
             varContenedor.CargoRevista = true;
 
-            var tipoEstrategiaHabilitado = typeof variableEstrategia.TipoEstrategiaHabilitado == "string" && variableEstrategia.TipoEstrategiaHabilitado.indexOf('101') > -1
-            if (paisHabilitado && tipoEstrategiaHabilitado) {
+            var tipoEstrategiaHabilitado = typeof variableEstrategia.TipoEstrategiaHabilitado == "string" && variableEstrategia.TipoEstrategiaHabilitado.indexOf(_constantesPalanca.RevistaDigital) > -1
+            if (!tipoEstrategiaHabilitado) {
                 guardaEnLS = false;
             }
             OfertaCargarProductos({
@@ -158,6 +158,10 @@ function SeccionCargarProductos(objConsulta) {
     if (objConsulta.Codigo === CONS_CODIGO_SECCION.HV) {
         if (!varContenedor.CargoHv) {
             varContenedor.CargoHv = true;
+            var tipoEstrategiaHabilitado = typeof variableEstrategia.TipoEstrategiaHabilitado == "string" && variableEstrategia.TipoEstrategiaHabilitado.indexOf(_constantesPalanca.HerramientasVenta) > -1
+            if (!tipoEstrategiaHabilitado) {
+                guardaEnLS = false;
+            }
             OfertaCargarProductos({
                 VarListaStorage: "HVLista",
                 UrlCargarProductos: baseUrl + objConsulta.UrlObtenerProductos,
@@ -184,6 +188,10 @@ function SeccionCargarProductos(objConsulta) {
     if (objConsulta.Codigo === CONS_CODIGO_SECCION.LAN) {
         if (!varContenedor.CargoLan) {
             varContenedor.CargoLan = true;
+            var tipoEstrategiaHabilitado = typeof variableEstrategia.TipoEstrategiaHabilitado == "string" && variableEstrategia.TipoEstrategiaHabilitado.indexOf(_constantesPalanca.Lanzamiento) > -1
+            if (!tipoEstrategiaHabilitado) {
+                guardaEnLS = false;
+            }
             OfertaCargarProductos({
                 VarListaStorage: listaLAN,
                 UrlCargarProductos: baseUrl + objConsulta.UrlObtenerProductos,
@@ -326,7 +334,9 @@ function SeccionMostrarProductos(data) {
         data.lista = new Array();
         data.lista = data.listaLan;
         if (data.listaLan !== undefined && data.listaLan.length > 0 && tieneIndividual) {
-            RDLocalStorageListado(listaLAN + data.campaniaId, data, CONS_CODIGO_SECCION.LAN);
+            if (data.guardaEnLocalStorage) {
+                RDLocalStorageListado(listaLAN + data.campaniaId, data, CONS_CODIGO_SECCION.LAN);
+            }
             $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
         }
         else {

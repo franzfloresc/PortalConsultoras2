@@ -81,6 +81,16 @@ namespace Portal.Consultoras.Web.Controllers
                 return RedirectToAction("Index", "CaminoBrillante");
         }
 
+        public ActionResult Crecimiento()
+        {
+            return RedirectToAction("Logros", "CaminoBrillante", new { opcion = "CRECIMIENTO" });
+        }
+
+        public ActionResult Compromiso()
+        {
+            return RedirectToAction("Logros", "CaminoBrillante", new { opcion = "COMPROMISO" });
+        }
+
         public JsonResult GetKits(int offset, int cantidadRegistros)
         {
             var lstKits = _caminoBrillanteProvider.GetKitsCaminoBrillante();
