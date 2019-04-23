@@ -356,10 +356,10 @@ function ActualizarLocalStorageAgregado(tipo, cuv, valor) {
         }
         //INI HD-3908
         else if (tipo == ConstantesModule.CodigoPalanca.PN) {
-            var lista = ConstantesModule.KeysLocalStorage.PackNuevas;
+            lista = ConstantesModule.KeysLocalStorage.PackNuevas;
         }
         else if (tipo == ConstantesModule.CodigoPalanca.DP) {
-            var lista = ConstantesModule.KeysLocalStorage.DuoPerfecto;
+            lista = ConstantesModule.KeysLocalStorage.DuoPerfecto;
         }
         //FIN HD-3908
         if (lista == "") {
