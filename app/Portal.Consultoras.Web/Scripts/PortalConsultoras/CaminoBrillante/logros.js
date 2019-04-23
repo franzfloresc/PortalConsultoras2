@@ -12,19 +12,15 @@ function cargarLogros(category) {
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
             if (checkTimeout(data)) {
-            //if (data.data) {
                 var htmlDiv = SetHandlebars("#template-logros", data.data);
                 $('#logros').append(htmlDiv);
                 $('#logros').show();                
-            //}
-            }
+             }
         },
         error: function (data, error) { },
         complete: function (data) {
             closeWaitingDialog();
             $('#loadingScreen').hide();
-            //closeWaitingDialog();
-            //cargandoRegistros = false;
         }
     });
 }

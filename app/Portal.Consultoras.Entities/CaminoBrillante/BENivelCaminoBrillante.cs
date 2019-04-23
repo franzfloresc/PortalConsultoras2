@@ -31,10 +31,6 @@ namespace Portal.Consultoras.Entities.CaminoBrillante
         /// </summary>
         public bool TieneOfertasEspeciales { get; set; }
         /// <summary>
-        /// Url de imagen del Nivel
-        /// </summary>
-        //public string UrlImagenNivel { get; set; }
-        /// <summary>
         /// Listado de beneficos para cada Nivel
         /// </summary>
         public List<BEBeneficioCaminoBrillante> Beneficios { get; set; }

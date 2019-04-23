@@ -3584,47 +3584,6 @@ namespace Portal.Consultoras.Common
             public const int Reingreso = 9;
         }
 
-        /*
-        public static class MetodosInformacionComercial
-        {
-            public const string GetPeriodo = "GetPeriodo/";
-            public const string GetNivel = "GetNivel/";
-            public const string GetOfertas = "GetOfertas/";
-            public const string GetNivelConsultora = "GetNivelConsultora/";
-            public const string GetKitsConsultora = "GetKitsConsultora/";
-        }
-        */
-
-        /*
-        public static class CodigoIsoHana
-        {
-            public const string Bolivia = "BOL";
-            public const string Chile = "CHL";
-            public const string Colombia = "COL";
-            public const string CostaRica = "CRI";
-            public const string Ecuador = "ECU";
-            public const string Salvador = "SLV";
-            public const string Guatemala = "GTM";
-            public const string Mexico = "MEX";
-            public const string Panama = "PAN";
-            public const string Peru = "PER";
-            public const string PuertoRico = "PRI";
-            public const string Dominicana = "DOM";
-        }
-        */
-
-        /*
-        public static class CaminoBrillanteRepositorioS3
-        {
-            public const string Patt_Niveles = "{REPO_S3}/CAMINOBRILLANTE/NIVELES/NIVEL_{KEY}_{STATE}.png";
-            public const string Patt_Beneficios = "{REPO_S3}/CAMINOBRILLANTE/BENEFICIOS/TIPO_{KEY}";
-            public const string Patt_Crecimiento = "{REPO_S3}/CAMINOBRILLANTE/LOGROS/CRECIMIENTO/ESCALA_{KEY}_{STATE}.png";
-            public const string Patt_Compromiso = "{REPO_S3}/CAMINOBRILLANTE/LOGROS/COMPROMISO/PEDIDO_{STATE}.png";
-            public const string Patt_Constancia = "{REPO_S3}/CAMINOBRILLANTE/LOGROS/CONSTANCIA/TORTA_{KEY}.png";
-            public const string Patt_Incremento = "{REPO_S3}/CAMINOBRILLANTE/LOGROS/INCREMENTO/PEDIDO_{KEY}.png";
-        }
-        */
-
         public static class CaminoBrillante
         {
 
@@ -3656,29 +3615,6 @@ namespace Portal.Consultoras.Common
                     public const string NumeroCampaniasEnPeriodo = "num_cam_per";
                 }
             }
-
-            /*
-            public static class CodigoBeneficio
-            {
-
-                public const string BENEFICIO01 = "BENEFICIO01";
-                public const string BENEFICIO02 = "BENEFICIO02";
-                public const string BENEFICIO03 = "BENEFICIO03";
-                public const string BENEFICIO04 = "BENEFICIO04";
-                public const string BENEFICIO05 = "BENEFICIO05";
-
-                private static List<string> _Beneficios;
-
-                public static List<string> Beneficios
-                {
-                    get
-                    {
-                        return _Beneficios ?? (_Beneficios = new List<string> { BENEFICIO01, BENEFICIO02, BENEFICIO03, BENEFICIO04, BENEFICIO05 });
-                    }
-                }
-            }
-            */
-
 
             public static class Logros
             {

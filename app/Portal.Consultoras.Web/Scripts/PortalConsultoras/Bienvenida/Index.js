@@ -3315,19 +3315,6 @@ function ObtenerEstadoContrato() {
     return re;
 }
 
-function GetNivelConsultoraCaminoBrillante() {
-    $.ajax({
-        url: "/Bienvenida/GetNivelConsultoras",
-        type: "GET",
-        dataType: "json",
-        success: function (data) {
-            $("#TextoCaminoBrillante").append(data.CaminoBrillanteMsg);
-        }, error: function (xhr, status, error) {
-
-        }
-    });
-}
-
 function BotonAbrirCaminoBrillante() {
     dataLayer.push(
         {

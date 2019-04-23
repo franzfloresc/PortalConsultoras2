@@ -44,21 +44,6 @@ namespace Portal.Consultoras.Web.Providers
                             {
                                 e.EsPasado = nivel <= nivelActual;
                                 e.EsActual = nivel == nivelActual;
-                                /*
-                                if (nivel == nivelActual + 1)
-                                {
-                                    var consultoraHistoricos = GetNivelesHistoricosConsultora();
-                                    decimal _montoPedido = 0;
-                                    //Valiadr por periodo
-                                    var montoPedido = consultoraHistoricos.Where(h => decimal.TryParse(h.MontoPedido, out _montoPedido)).Sum(h => decimal.Parse(h.MontoPedido));
-
-                                    decimal montoMinimo = 0;
-                                    if (decimal.TryParse(e.MontoMinimo, out montoMinimo))
-                                    {
-                                        e.MontoFaltante = montoMinimo - montoPedido;
-                                    }
-                                }
-                                */
                             }
                         });
                     }
