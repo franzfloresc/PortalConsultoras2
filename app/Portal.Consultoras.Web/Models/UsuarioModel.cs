@@ -68,6 +68,12 @@ namespace Portal.Consultoras.Web.Models
             this.TieneCDRExpress = false;
             this.PopupBienvenidaCerrado = false;
             this.FotoPerfil = string.Empty;
+
+            /*HD-3777*/
+            this.CodigoClasificacion = string.Empty;
+            this.CodigoSubClasificacion = string.Empty;
+            this.DescripcionSubclasificacion = string.Empty;
+            /*Fin*/
         }
 
         public string Celular { get; set; }
@@ -399,5 +405,11 @@ namespace Portal.Consultoras.Web.Models
         public int IndicadorConsultoraDummy { get; set; }
         
         public string PseudoParamNotif { get; set; } //SALUD-58 
+
+        /*HD-3777*/
+        public string CodigoClasificacion { get; set; }
+        public string CodigoSubClasificacion { get; set; }
+        public string DescripcionSubclasificacion { get; set; }
+        /*Fin*/
     }
 }

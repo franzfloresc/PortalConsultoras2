@@ -161,6 +161,33 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         }
 
         /// <summary>
+        /// Obtener oferta de ficha
+        /// </summary>
+        /// <param name="cuv"></param>
+        /// <param name="campania"></param>
+        /// <param name="codigoISO"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult ObtenerOfertaFicha(string cuv, string campania, string tipoEstrategia)
+        {
+            string message;
+            try
+            {
+                DetalleEstrategiaFichaModel model = new DetalleEstrategiaFichaModel();
+
+                model = _ofertaPersonalizadaProvider.GetEstrategiaFicha(cuv, campania, tipoEstrategia, out message);
+
+                //ir al provider para obtener el resultado del servicio 
+
+                return Json(new { success = true, data = model, message }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message });
+            }
+        }
+
+        /// <summary>
         /// Función unificada
         /// </summary>
         private JsonResult PreparListaModel(BusquedaProductoModel model, int tipoConsulta)
@@ -272,7 +299,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
                 var cantidadTotal = listModel.Count + listPerdio.Count;
 
-                var guarda = !_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, palanca);
+                bool guardaEnLS = _ofertaBaseProvider.UsarLocalStorage(palanca);
 
                 var objBannerCajaProducto = _configuracionPaisDatosProvider.GetBannerCajaProducto(tipoConsulta, esMobile);
 
@@ -292,7 +319,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                     cantidadTotal0,
                     codigo = palanca,
                     codigoOrigen = model.Codigo,
-                    guardaEnLocalStorage = guarda,
+                    guardaEnLocalStorage = guardaEnLS,
                     objBannerCajaProducto,
                     estaEnPedido
                 });
