@@ -587,7 +587,6 @@ div .owl-carousel .owl-stage-outer {
     align-items: center;
     min-height: calc(100% - (0.5rem * 2));
 }
-
 .modal-content {
     position: relative;
     display: -webkit-box;
@@ -616,13 +615,13 @@ div .owl-carousel .owl-stage-outer {
     background-color: #000;
 }
 
-    .modal-backdrop.fade {
-        opacity: 0;
-    }
+.modal-backdrop.fade {
+    opacity: 0;
+}
 
-    .modal-backdrop.in {
-        opacity: 0.5;
-    }
+.modal-backdrop.in {
+    opacity: 0.5;
+}
 
 .modal-header {
     display: -webkit-box;
@@ -640,10 +639,10 @@ div .owl-carousel .owl-stage-outer {
     border-top-right-radius: 0.3rem;
 }
 
-    .modal-header .close {
-        padding: 1rem;
-        margin: -1rem -1rem -1rem auto;
-    }
+.modal-header .close {
+    padding: 1rem;
+    margin: -1rem -1rem -1rem auto;
+}
 
 .modal-title {
     margin-bottom: 0;
@@ -672,13 +671,13 @@ div .owl-carousel .owl-stage-outer {
     border-top: 1px solid #e9ecef;
 }
 
-    .modal-footer > :not(:first-child) {
-        margin-left: .25rem;
-    }
+.modal-footer > :not(:first-child) {
+    margin-left: .25rem;
+}
 
-    .modal-footer > :not(:last-child) {
-        margin-right: .25rem;
-    }
+.modal-footer > :not(:last-child) {
+    margin-right: .25rem;
+}
 
 .modal-scrollbar-measure {
     position: absolute;
