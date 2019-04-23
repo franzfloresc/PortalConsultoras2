@@ -125,6 +125,9 @@ var FichaModule = (function (config) {
     var _tipoEstrategia = ConstantesModule.TipoEstrategia;
     var _tipoAccionNavegar = ConstantesModule.TipoAccionNavegar;
 
+    var _objTipoPalanca = ConstantesModule.DiccionarioTipoEstrategia.find(function (x) { return x.texto === _config.palanca });
+    var _fichaServicioApi = (variablesPortal.MsFichaEstrategias && _objTipoPalanca) ? (variablesPortal.MsFichaEstrategias.indexOf(_objTipoPalanca.codigo) > -1) : false;
+
     var _elementos = {
         hdCampaniaCodigo: {
             id: "#hdCampaniaCodigo"
@@ -520,30 +523,48 @@ var FichaModule = (function (config) {
     var _getEstrategia = function (modeloFicha) {
         var estrategia;
 
-        if (_config.tieneSession) {
-            if (_config.esEditable || modeloFicha.TipoAccionNavegar === _tipoAccionNavegar.Volver) {
-                estrategia = modeloFicha;
-            }
-            else {
-                var valData = $(_elementos.dataEstrategia.id).attr(_elementos.dataEstrategia.dataEstrategia) || "";
-                if (valData != "") {
-                    estrategia = JSON.parse(valData);
-                }
-                else {
+        if (!_fichaServicioApi) {
+            if (_config.tieneSession) {
+                if (_config.esEditable || modeloFicha.TipoAccionNavegar === _tipoAccionNavegar.Volver) {
                     estrategia = modeloFicha;
                 }
+                else {
+                    var valData = $(_elementos.dataEstrategia.id).attr(_elementos.dataEstrategia.dataEstrategia) || "";
+                    if (valData != "") {
+                        estrategia = JSON.parse(valData);
+                    }
+                    else {
+                        estrategia = modeloFicha;
+                    }
+                }
             }
+            else {
+                estrategia = _config.localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
+                if ((typeof estrategia === "undefined" || estrategia === null) && _config.palanca === _tipoEstrategiaTexto.OfertasParaMi) {
+                    estrategia = _config.localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _tipoEstrategiaTexto.Ganadoras);
+                }
+            }
+
+            if (typeof estrategia === "undefined" || estrategia == null) return estrategia;
+
+            _getComponentesAndUpdateEsMultimarca(estrategia);
         }
         else {
-            estrategia = _config.localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
-            if ((typeof estrategia === "undefined" || estrategia === null) && _config.palanca === _tipoEstrategiaTexto.OfertasParaMi) {
-                estrategia = _config.localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _tipoEstrategiaTexto.Ganadoras);
+            estrategia = _modeloFicha;
+            _esMultimarca = estrategia.EsMultimarca;
+
+            estrategia.esCampaniaSiguiente = estrategia.CampaniaID !== _obtenerCampaniaActual();
+            $.each(estrategia.Hermanos, function (idx, hermano) {
+                hermano = estrategia.Hermanos[idx];
+                hermano.esCampaniaSiguiente = estrategia.esCampaniaSiguiente;
+            });
+
+            if (!estrategia || !estrategia.EstrategiaID) {
+                _redireccionar('_getEstrategia, no obtiene oferta desde api');
+                return false;
             }
         }
 
-        if (typeof estrategia === "undefined" || estrategia == null) return estrategia;
-
-        _getComponentesAndUpdateEsMultimarca(estrategia);
         _actualizarCodigoVariante(estrategia);
 
         estrategia.ClaseBloqueada = "btn_desactivado_general";
@@ -1147,7 +1168,7 @@ var FichaPartialModule = (function () {
     };
 
     var _showDivFichaResumida = function (isShow, marcaAnalytics) {
-        
+
         marcaAnalytics = marcaAnalytics || false;
         isShow = isShow == undefined || isShow;
         if (isShow) {
@@ -1166,7 +1187,7 @@ var FichaPartialModule = (function () {
                     AnalyticsPortalModule.MarcaClickCerrarPopupArmaTuPack(codigoubigeoportal, 'Volver', 'Clic Botón');
                 }
             }
-            
+
         }
     };
 
