@@ -52,8 +52,8 @@ namespace Portal.Consultoras.Web.Models
 
         public AdministrarOfertasHomeModel()
         {
-            DesktopTipoEstrategia = "";
-            MobileTipoEstrategia = "";
+            DesktopTipoEstrategia = string.Empty;
+            MobileTipoEstrategia = string.Empty;
             AdministrarOfertasHomeAppModel = new AdministrarOfertasHomeAppModel();
         }
     }
@@ -63,6 +63,7 @@ namespace Portal.Consultoras.Web.Models
         public int ConfiguracionOfertasHomeAppID { get; set; }
         public bool AppActivo { get; set; }
         public string AppTitulo { get; set; }
+        public string AppSubTitulo { get; set; }
         public string AppColorFondo { get; set; }
         public string AppColorTexto { get; set; }
         public string AppBannerInformativo { get; set; }

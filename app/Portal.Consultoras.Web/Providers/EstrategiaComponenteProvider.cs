@@ -100,6 +100,15 @@ namespace Portal.Consultoras.Web.Providers
                 mensaje += "OrdenarComponentesPorMarca = " + listaEstrategiaComponente.Count + "|";
             }
 
+            listaEstrategiaComponente = FormatterEstrategiaComponentes(listaEstrategiaComponente, estrategiaModelo.CUV2, estrategiaModelo.CampaniaID);
+
+            return listaEstrategiaComponente;
+        }
+
+        public List<EstrategiaComponenteModel> FormatterEstrategiaComponentes(List<EstrategiaComponenteModel> listaEstrategiaComponente, string cuv2, int campania, bool esApiFicha = false)
+        {
+            var userData = SessionManager.GetUserData();
+
             if (listaEstrategiaComponente.Any())
             {
                 listaEstrategiaComponente.ForEach(x => {
@@ -107,15 +116,21 @@ namespace Portal.Consultoras.Web.Providers
                     if (x.Hermanos != null && x.Hermanos.Any())
                     {
                         x.Hermanos.ForEach(y => y.TieneStock = true);
+                        
+                        if(esApiFicha)
+                        {
+                            //Temporal mientras se utiliza el Grupo como identificador en vez del Cuv
+                            x.Cuv = x.Hermanos[0].Cuv;
+                        }
                     }
                 });
 
                 if (GetValidarDiasAntesStock(userData))
                 {
-                    _consultaProlProvider.ActualizarComponenteStockPROL(listaEstrategiaComponente, estrategiaModelo.CUV2, userData.CodigoISO, estrategiaModelo.CampaniaID, userData.GetCodigoConsultora());
+                    _consultaProlProvider.ActualizarComponenteStockPROL(listaEstrategiaComponente, cuv2, userData.CodigoISO, campania, userData.GetCodigoConsultora());
                 }
             }
-           
+
             return listaEstrategiaComponente;
         }
 
@@ -144,6 +159,9 @@ namespace Portal.Consultoras.Web.Providers
             var codigoIsoAppCatalogo = System.Configuration.ConfigurationManager.AppSettings.Get("AppCatalogo_" + codigoIsoPais);
             codigoIsoPais = (codigoIsoAppCatalogo == null) ? codigoIsoPais : codigoIsoAppCatalogo;
 
+            var urlApp = _configuracionManagerProvider.GetRutaImagenesAppCatalogo();
+            var urlAppB = _configuracionManagerProvider.GetRutaImagenesAppCatalogoBulk();
+
             listaProducto.ForEach(x =>
             {
                 x.NombreComercial = x.NombreComercial ?? string.Empty;
@@ -151,7 +169,6 @@ namespace Portal.Consultoras.Web.Providers
                 x.ImagenProducto = x.ImagenProducto ?? string.Empty;
                 x.ImagenBulk = x.ImagenBulk ?? string.Empty;
                 if (string.IsNullOrWhiteSpace(x.ImagenProducto) && string.IsNullOrWhiteSpace(x.ImagenBulk)) return;
-                var campaniaId = estrategiaModelo.CampaniaID;
                 var codigoMarca = string.Empty;
                 if (x.IdMarca == Constantes.Marca.LBel) codigoMarca = "L";
                 if (x.IdMarca == Constantes.Marca.Esika) codigoMarca = "E";
@@ -160,11 +177,11 @@ namespace Portal.Consultoras.Web.Providers
                 // Cuando NombreBulk igual a NombreComercial se entiende que es Tipo, caso contrario Tono
                 if ((x.NombreComercial.Equals(x.NombreBulk)))
                 {
-                    x.ImagenBulk = string.IsNullOrEmpty(x.ImagenProducto) ? "" : string.Format(_configuracionManagerProvider.GetRutaImagenesAppCatalogo(), codigoIsoPais, campaniaId, codigoMarca, x.ImagenProducto);
+                    x.ImagenBulk = string.IsNullOrEmpty(x.ImagenProducto) ? "" : string.Format(urlApp, codigoIsoPais, x.CampaniaApp, codigoMarca, x.ImagenProducto);
                 }
                 else
                 {
-                    x.ImagenBulk = string.IsNullOrEmpty(x.ImagenBulk) ? "" : string.Format(_configuracionManagerProvider.GetRutaImagenesAppCatalogoBulk(), codigoIsoPais, x.CampaniaApp, codigoMarca, x.ImagenBulk);
+                    x.ImagenBulk = string.IsNullOrEmpty(x.ImagenBulk) ? "" : string.Format(urlAppB, codigoIsoPais, x.CampaniaApp, codigoMarca, x.ImagenBulk);
                 }
             });
 

@@ -1210,6 +1210,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.FlagFiltrosBuscador = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.FlagFiltrosBuscador).ToBool();
             ViewBag.FlagBuscarPorCategoria = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.FlagBuscarPorCategoria).ToBool();
             ViewBag.FlagBuscarPorCategoriaTotalProductos = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.FlagBuscarPorCategoriaTotalProductos).ToBool();
+            ViewBag.MostrarPalabrasMenoresACuatro = ObtenerConfiguracionBuscadorCaracteresMenoresACuatro(Constantes.TipoConfiguracionBuscador.MostrarPalabrasMenoresACuatro);
         }
 
         #endregion
@@ -1280,6 +1281,13 @@ namespace Portal.Consultoras.Web.Controllers
             var valor = (from item in buscadorYFiltro.ConfiguracionPaisDatos where item.Codigo == codigo select item.Valor2).FirstOrDefault();
             return valor == null ? ObtenerValorPorDefecto(codigo) : valor.ToInt();
         }
+        public string ObtenerConfiguracionBuscadorCaracteresMenoresACuatro(string codigo)
+        {
+            if (!buscadorYFiltro.ConfiguracionPaisDatos.Any()) return string.Empty;
+            var valor = (from item in buscadorYFiltro.ConfiguracionPaisDatos where item.Codigo == codigo select item.Valor1).FirstOrDefault();
+            return valor ?? string.Empty;
+        }
+
         private int ObtenerValorPorDefecto(string codigo)
         {
             switch (codigo)
@@ -1370,12 +1378,11 @@ namespace Portal.Consultoras.Web.Controllers
             return ControllerContext.RouteData.Values["controller"].ToString();
         }
 
-        public VariablesGeneralEstrategiaModel GetVariableEstrategia()
+        public VariablesGeneralEstrategiaModel GetEstrategiaHabilitado()
         {
-            var variableEstrategia = new VariablesGeneralEstrategiaModel
+            VariablesGeneralEstrategiaModel variableEstrategia = new VariablesGeneralEstrategiaModel
             {
-                PaisHabilitado = SessionManager.GetConfigMicroserviciosPersonalizacion().PaisHabilitado, //WebConfig.PaisesMicroservicioPersonalizacion,
-                TipoEstrategiaHabilitado = SessionManager.GetConfigMicroserviciosPersonalizacion().EstrategiaHabilitado //WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion
+                TipoEstrategiaHabilitado = SessionManager.GetConfigMicroserviciosPersonalizacion().GuardaDataEnLocalStorage
             };
             return variableEstrategia;
         }
@@ -1444,20 +1451,20 @@ namespace Portal.Consultoras.Web.Controllers
             bool r = false;
             try
             {
-                ServiceUsuario.BEUsuario beusuario;
+                string region = ConfigurationManager.AppSettings.Get(Constantes.ConfiguracionManager.BonificacionesRegiones);
+                List<string> ListRegion = region == null ? new List<string>() : region.Split(new char[] { ',' }).ToList();
+                var validaRegion = ListRegion.Where(x => x.Contains(userData.CodigorRegion));
 
-                using (var sv = new ServiceUsuario.UsuarioServiceClient())
+                if (validaRegion.Any())
                 {
-                    beusuario = sv.Select(userData.PaisID, userData.CodigoUsuario);
-                }
-
-                if (beusuario != null)
-                {
-                    r = beusuario.IndicadorConsultoraDigital > 0;
-                }
-                else
-                {
-                    r = false;
+                    using (var sv = new ServiceUsuario.UsuarioServiceClient())
+                    {
+                        ServiceUsuario.BEUsuario beusuario = sv.Select(userData.PaisID, userData.CodigoUsuario);
+                        if (beusuario != null)
+                        {
+                            r = beusuario.IndicadorConsultoraDigital > 0;
+                        }
+                    }
                 }
             }
             catch (Exception e)

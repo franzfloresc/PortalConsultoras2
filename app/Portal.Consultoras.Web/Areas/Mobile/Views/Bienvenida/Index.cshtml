@@ -18,6 +18,7 @@
     Model.NombreConsultora = Util.SubStr(Model.NombreConsultora, 0).ToUpper();
     var nombreConsultoraSin = Util.SubStrCortarNombre(Model.NombreConsultora, 10, "");
 
+    var esDigital = ViewBag.esConsultoraDigital == null ? false : ViewBag.esConsultoraDigital;
 }
 
 @section styles{
@@ -489,9 +490,25 @@
         <hr class="clear" />
         <div class="linea_separadora_mobile mg_bottom"></div>
     </div>
+</div>
 
-</div>
-</div>
+@if (esDigital)
+{
+    <div class="wrapper_resumen_mobile">
+        <div class="comartir_home_mobile">
+            BONIFICACIONES
+            <a role="link" region="Central" parent="Comparte tus Catálogos" title="Comparte tus Catálogos"
+               class="btn_compartelos" href="@Url.Action("IndexExterno", "Bonificaciones", new { area = "Mobile" })">VER MAS</a>
+        </div>
+        <a role="link" region="Central" parent="Comparte tus Catálogos" title="Comparte tus Catálogos"
+           class="btn_compartelos" href="@Url.Action("IndexExterno", "Bonificaciones", new { area = "Mobile" })">
+            <div class="imagen_catalogo bonificaciones_digital"></div>
+        </a>
+        <hr class="clear" />
+        <div class="linea_separadora_mobile"></div>
+    </div>
+}
+
 <input type="hidden" id="hdTipoEstrategiaID" value="0" />
 <input type="hidden" id="hdPosicion" value="0" />
 <div id="divVistaPrevia" class="Content_modal_ZE" style="display: none; background-color: #fff; overflow: hidden;">
@@ -869,6 +886,8 @@
 
         var tipoOrigenEstrategia = 2;
         var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.MobileHomeOfertaDelDiaCarrusel';
+        var origenPedidoWebDuoPerfecto = @Constantes.OrigenPedidoWeb.MobileHomeDuoPerfectoCarrusel;
+        var origenPedidoWebPackNuevas = @Constantes.OrigenPedidoWeb.MobileHomePackNuevasCarrusel;
         var noMostrarPopUpRevistaDig = '@Model.RevistaDigital.NoVolverMostrar';
 
         var vbFotoPerfil = '@ViewBag.FotoPerfil';
