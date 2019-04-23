@@ -21,22 +21,17 @@ var CodigoUbigeoPortal = (function () {
         GuionContenedorArmaTuPack: "--12----",
         GuionCarritoComprasGuionFichaResumida: "--02--09",
 
-        /*RevistaDigitalMobileCatalogoSeccion = 2401*/
         MobileRevistaDigitalMobileCatalogoSeccion: estructuraUbigeo.Dispositivo.Mobile + estructuraUbigeo.Pagina.MisCatalogosRevista + estructuraUbigeo.SeccionFuncional.OfertasParaTi + estructuraUbigeo.Guion,
         DesktopRevistaDigitalMobileCatalogoSeccion: estructuraUbigeo.Dispositivo.Desktop + estructuraUbigeo.Pagina.MisCatalogosRevista + estructuraUbigeo.SeccionFuncional.OfertasParaTi + estructuraUbigeo.Guion,
-         
-        /*RevistaDigitalMobileHomeSeccion = 2101*/
+
         MobileRevistaDigitalHomeSeccion: estructuraUbigeo.Dispositivo.Mobile + estructuraUbigeo.Pagina.Home + estructuraUbigeo.SeccionFuncional.OfertasParaTi + estructuraUbigeo.Guion,
         DesktopRevistaDigitalHomeSeccion: estructuraUbigeo.Dispositivo.Desktop + estructuraUbigeo.Pagina.Home + estructuraUbigeo.SeccionFuncional.OfertasParaTi + estructuraUbigeo.Guion,
 
-        /*RevistaDigitalMobileHomeSeccion = 2101*/
-        MobileRevistaDigitalResumenBelcorp: estructuraUbigeo.Dispositivo.Mobile + estructuraUbigeo.Pagina.Home + estructuraUbigeo.SeccionFuncional.ResumenBelcorp + estructuraUbigeo.Guion,
-        DesktopRevistaDigitalResumenBelcorp: estructuraUbigeo.Dispositivo.Desktop + estructuraUbigeo.Pagina.Home + estructuraUbigeo.SeccionFuncional.ResumenBelcorp + estructuraUbigeo.Guion,
+        MobileRevistaDigitalResumenBelcorp: estructuraUbigeo.Dispositivo.Mobile + estructuraUbigeo.Pagina.MisCatalogosRevista + estructuraUbigeo.SeccionFuncional.OfertasParaTi + estructuraUbigeo.Guion,
+        DesktopRevistaDigitalResumenBelcorp: estructuraUbigeo.Dispositivo.Mobile + estructuraUbigeo.Pagina.MisCatalogosRevista + estructuraUbigeo.SeccionFuncional.OfertasParaTi + estructuraUbigeo.Guion,
 
-        /*RevistaDigitalDesktopPedidoSeccion = 1201*/
         MobilePedidoRevistaDigital: estructuraUbigeo.Dispositivo.Mobile + estructuraUbigeo.Pagina.Pedido + estructuraUbigeo.SeccionFuncional.OfertasParaTi + estructuraUbigeo.Guion,
-        DesktopPedidoRevistaDigital: estructuraUbigeo.Dispositivo.Desktop + estructuraUbigeo.Pagina.Pedido + estructuraUbigeo.SeccionFuncional.OfertasParaTi + estructuraUbigeo.Guion
-
+        DesktopPedidoRevistaDigital: estructuraUbigeo.Dispositivo.Mobile + estructuraUbigeo.Pagina.Pedido + estructuraUbigeo.SeccionFuncional.OfertasParaTi + estructuraUbigeo.Guion
     }
 
     var estructuraUbigeo = {
@@ -59,7 +54,7 @@ var CodigoUbigeoPortal = (function () {
             LandingBuscador: '10',
             LandingGanadoras: '11',
             ArmaTuPack: '12',
-            MisCatalogosRevista: '13'
+            MisCatalogosRevista:'13'
         },
         SeccionFuncional: {
             OfertasParaTi: '00',
@@ -97,7 +92,7 @@ var CodigoUbigeoPortal = (function () {
         }
 
     };
-
+    
     var textos = {
         Dispositivo: [
             { Codigo: "--", Texto: "" },
@@ -156,7 +151,7 @@ var CodigoUbigeoPortal = (function () {
 
         ]
     };
-
+    
     var getEstructuraSegunCodigoUbigeo = function (codigo) {
         var origenEstructura = {};
 
@@ -169,14 +164,14 @@ var CodigoUbigeoPortal = (function () {
 
         origenEstructura.CodigoUbigeoPortal = (origenEstructura.CodigoUbigeoPortal || "").toString().trim();
         origenEstructura.CodigoPalanca = (origenEstructura.CodigoPalanca || "").toString().trim();
-
+        
         var codigoUbigeoPortal = origenEstructura.CodigoUbigeoPortal;
 
         origenEstructura.Dispositivo = (origenEstructura.Pagina || codigoUbigeoPortal.substring(0, 2)).toString().trim();
         origenEstructura.Pagina = (origenEstructura.Pagina || codigoUbigeoPortal.substring(2, 4)).toString().trim();
         origenEstructura.SeccionFuncional = (origenEstructura.SeccionFuncional || codigoUbigeoPortal.substring(4, 6)).toString().trim();
         origenEstructura.Seccion = (origenEstructura.Seccion || codigoUbigeoPortal.substring(6, 8)).toString().trim();
-
+                             
         return origenEstructura;
     }
 
@@ -184,7 +179,7 @@ var CodigoUbigeoPortal = (function () {
 
         origenEstructura.CodigoPalanca = origenEstructura.CodigoPalanca || "";
         var contendor =
-            origenEstructura.Pagina == estructuraUbigeo.Pagina.Contenedor
+               origenEstructura.Pagina == estructuraUbigeo.Pagina.Contenedor
             || origenEstructura.Pagina == estructuraUbigeo.Pagina.LandingBuscador
             || origenEstructura.Pagina == estructuraUbigeo.Pagina.LandingGanadoras
             || origenEstructura.Pagina == estructuraUbigeo.Pagina.LandingGnd
@@ -248,9 +243,9 @@ var CodigoUbigeoPortal = (function () {
 
         return obj.Texto || "";
     }
-
+    
     var getTextoSegunCodigoUbigeo = function (origenEstructura) {
-
+        
         origenEstructura = getEstructuraSegunCodigoUbigeo(origenEstructura);
         var contendor = getTextoContenedorSegunOrigen(origenEstructura);
         var pagina = getTextoPaginaSegunOrigen(origenEstructura);
