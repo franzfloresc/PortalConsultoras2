@@ -10067,7 +10067,24 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 }
             }
         }
-        
+
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ShowContrasenia
+        {
+            get
+            {
+                return this.ShowContraseniaField;
+            }
+            set
+            {
+                if ((object.ReferenceEquals(this.ShowContraseniaField, value) != true))
+                {
+                    this.ShowContraseniaField = value;
+                    this.RaisePropertyChanged("ShowContrasenia");
+                }
+            }
+        }
+
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string ShowDocs {
             get {
