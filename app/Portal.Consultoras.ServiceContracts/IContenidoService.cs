@@ -1,4 +1,5 @@
 ﻿using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.Comunicado;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -285,5 +286,36 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         void CheckContenidoApp(BEUsuario itmFilter, int idContenidoDetalle);
+
+        #region Gestor de Poputs
+        [OperationContract]
+        List<BEComunicado> GetListaPopup(int Estado, string Campania, int Paginas, int Filas, int PaisID);
+
+        [OperationContract]
+        BEComunicado GetDetallePopup(int Comunicadoid, int PaisID);
+
+        [OperationContract]
+        int GuardarPopups(string tituloPrincipal, string descripcion, string Url, string fechaMaxima, string fechaMinima, bool checkDesktop, bool checkMobile, int accionID, string datosCSV, string comunicadoId, string nombreArchivo, string codigoCampania, string descripcionAccion, int PaisID);
+
+        [OperationContract]
+        int GuardarPopupsValidador(bool checkDesktop, string datosCSV, int PaisID);
+
+            
+        [OperationContract]
+        int ActualizaOrden(string Comunicado, string Orden, int PaisID);
+
+        [OperationContract]
+        int EliminarArchivoCsv(int Comunicadoid, int PaisID);
+
+        [OperationContract]
+        int EliminarArchivoCsvValidador( int PaisID);
+
+        [OperationContract]
+        int CargaEstadoValidadorDatos(int PaisID);
+
+
+        [OperationContract]
+        List<BEComunicadoSegmentacion> GetCargaListadoPopupValidador(int PaisID);
+        #endregion
     }
 }

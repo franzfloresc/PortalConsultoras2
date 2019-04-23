@@ -358,6 +358,32 @@ namespace Portal.Consultoras.Common
                 }
             }
 
+            private static Dictionary<string, string> _palancasbyCodigo;
+            public static Dictionary<string, string> PalancasbyCodigo
+            {
+                get
+                {
+                    return _Palancas ?? (_Palancas = new Dictionary<string, string>
+                    {
+                        {NombrePalanca.OfertaParaTi, TipoEstrategiaCodigo.OfertaParaTi},
+                        {NombrePalanca.PackNuevas, TipoEstrategiaCodigo.PackNuevas},
+                        {NombrePalanca.OfertaWeb, TipoEstrategiaCodigo.OfertaWeb},
+                        {NombrePalanca.Lanzamiento, TipoEstrategiaCodigo.Lanzamiento},
+                        {NombrePalanca.OfertasParaMi, TipoEstrategiaCodigo.OfertasParaMi},
+                        {NombrePalanca.PackAltoDesembolso, TipoEstrategiaCodigo.PackAltoDesembolso},
+                        {NombrePalanca.RevistaDigital, TipoEstrategiaCodigo.RevistaDigital},
+                        {NombrePalanca.LosMasVendidos, TipoEstrategiaCodigo.LosMasVendidos},
+                        {NombrePalanca.IncentivosProgramaNuevas, TipoEstrategiaCodigo.IncentivosProgramaNuevas},
+                        {NombrePalanca.OfertaDelDia, TipoEstrategiaCodigo.OfertaDelDia},
+                        {NombrePalanca.GuiaDeNegocioDigitalizada, TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada},
+                        {NombrePalanca.Incentivos, TipoEstrategiaCodigo.Incentivos},
+                        {NombrePalanca.ShowRoom, TipoEstrategiaCodigo.ShowRoom},
+                        {NombrePalanca.HerramientasVenta, TipoEstrategiaCodigo.HerramientasVenta},
+                        {NombrePalanca.NotParticipaProgramaNuevas, TipoEstrategiaCodigo.NotParticipaProgramaNuevas},
+                        {NombrePalanca.MasGanadoras, TipoEstrategiaCodigo.OfertasParaMi},
+                    });
+                }
+            }
         }
         public static class ConstSession
         {
@@ -531,9 +557,6 @@ namespace Portal.Consultoras.Common
             public const string URL_SB = "URL_SB";
             public const string KeyPaisFormatDecimal = "KeyPaisFormatDecimal";
             public const string PaisesShowRoom = "PaisesShowRoom";
-            public const string RevistaPiloto_Zonas = "RevistaPiloto_Zonas_";
-            public const string RevistaPiloto_Codigo = "RevistaPiloto_Codigo";
-            public const string RevistaPiloto_Zonas_RDR_2 = "RevistaPiloto_Zonas_RDR_2_";
             public const string CodigoRevistaIssuu = "CodigoRevistaIssuu";
             public const string CodigoCatalogoIssuu = "CodigoCatalogoIssuu";
             public const string URL_SUPERATE_NUEVO = "URL_SUPERATE_NUEVO";
@@ -566,11 +589,14 @@ namespace Portal.Consultoras.Common
             public const string RDUrlTerminosCondiciones = "UrlTerminosCondiciones";
             public const string RDUrlPreguntasFrecuentes = "UrlPreguntasFrecuentes";
 
-            public const string RevistaPiloto_Grupos = "RevistaPiloto_Grupos_";
-            public const string RevistaPiloto_Escenario = "ESC";
             public const string PaisesCancelarSuscripcionRDUnete = "PaisesCancelarSuscripcionRDUnete";
             public const string PaisesCancelarSuscripcionRDNuevas = "PaisesCancelarSuscripcionRDNuevas";
 
+            public const int RevistaCatalogoTablaLogicaId = 24; 
+            public const string RevistaPiloto_Escenario = "ESC";
+            public const string RevistaPiloto_Zonas = "RevistaPiloto_Zonas_";
+            public const string RevistaPiloto_Grupos = "RevistaPiloto_Grupos_";
+            public const string RevistaPiloto_Zonas_RDR_2 = "RevistaPiloto_Zonas_RDR_2_";
             public const string Catalogo_Piloto_Escenario = "ESC";
             public const string Catalogo_Piloto_Zonas = "Catalogo_Piloto_Zonas_";
             public const string Catalogo_Piloto_Grupos = "Catalogo_Piloto_Grupos_";
@@ -1431,6 +1457,7 @@ namespace Portal.Consultoras.Common
         public static class Facebook
         {
             public const string FB_AppId = "FB_AppId";
+            public const string FB_Pixel = "168434853695851";
         }
 
         public static class RevistaNombre
@@ -1505,6 +1532,7 @@ namespace Portal.Consultoras.Common
             public const string ExcedioLimiteVenta = "Las unidades ingresadas exceden el máximo permitido ({0}) en esta campaña.";
             public const string StockLimiteVenta = "En esta campaña nuestro producto <b>{0} – {1}</b> ha tenido una gran acogida. Sin embargo hemos reservado {2} unidad(es) para ti. Por favor modifica las unidades ingresadas.";
             public const string Pedido_NoAgregarLiquidacion = "No se puede agregar una Oferta Liquidacion por este medio.";
+            public const string ServicioCatalogoVirtuales = "Por favor vuelva ingresar en unos momentos, ya que el servicio de catálogos virtuales está teniendo problemas.";
         }
 
         public static class MensajesExito
@@ -2562,6 +2590,12 @@ namespace Portal.Consultoras.Common
             public const string UPDATESET = "US";
         }
 
+        public static class ClasificadorPedido
+        {
+            public const string PedidoDetalle = "DetPedido";
+            public const string PedidoDetallePendiente = "DetPedidoPend";
+        }
+
         public static class FlagRevista
         {
             public const int Valor0 = 0;
@@ -3202,6 +3236,7 @@ namespace Portal.Consultoras.Common
             public const string EstrategiaDisponible = "EstrategiaDisponible";
             public const string GuardaDataEnLocalStorage = "GuardaDataEnLocalStorage";
             public const string GuardaDataEnSession = "GuardaDataEnSession";
+            public const string EstrategiaDisponibleParaFicha = "EstrategiaDisponibleParaFicha";
         }
 
         public static class CodigoConfiguracionRecomendaciones
@@ -3543,5 +3578,12 @@ namespace Portal.Consultoras.Common
         {
             public const string Lanzamiento = "BONIFICACIONES_RESUMEN";
         }
+
+        #region
+        public static class CarpetasContenido
+        {
+            public const string Menu = "Menu";
+        }
+        #endregion
     }
 }
