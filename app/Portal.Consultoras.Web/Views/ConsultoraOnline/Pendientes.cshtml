@@ -10,10 +10,198 @@
 @{
     ViewBag.Title = "Pendientes";
 }
-<script id="DetallePendientes-template" type="text/x-handlebars-template">
-<div class="position-absolute modal-right top-0 modal-content">
-    <div class="container-fluid pr-0">
+<script id="template-paso-1-Clientes" type="text/x-handlebars-template">
+        <div class="container-fluid pr-0">
             <div class="row no-gutters">
+                <div class="col">
+                    <div class="mobile">
+                        <div class="container-aceptar-pedidos position-relative">
+                            <div class="container border-bottom position-sticky top">
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        <div class="position-relative text-right mt-3"><a class="close-modal" href="#" alt="Cerrar">Cerrar    </a></div>
+                                    </div>
+                                </div>
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        <h3 class="mt-2 mb-2">Paso 1: Acepta los pedidos que deseas atender</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container-flex border-bottom mb-1 background color-third">
+                                <div class="container mb-2 pt-2">
+                                    <div class="row">
+                                        <div class="col color-text">
+                                            <span class="medium t-w700">Producto pedido:</span>
+                                            <span class="medium">{{this.ListaPedidos.0.DetallePedido.0.Producto}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{#each this.ListaPedidos as |item|}}
+                        <div id="vp_pedido_{{item.PedidoId}}" class="container background color-white">
+                            <div class="row align-items-start">
+                                <div class="col">
+                                    <div class="card--content">
+                                        <div class="row align-items-start">
+                                            <div class="col-9">
+                                                <span class="t3 color-text">{{item.Cliente}}</span>
+                                                <span class="medium color-text">{{item.Telefono}}</span>
+                                            </div>
+                                            <div class="col-3 text-right">
+                                                <a href="#"> <img class="img-fluid icon-32" src="https://i.ibb.co/jTXwndP/trash-3x.png" onclick="MostrarMensajedeRechazoPedido('{{item.PedidoId}}')" alt="Borrar"></a>
+                                            </div>
+                                            @*<span class="medium color-text">{{item.Telefono}}</span>*@
+                                        </div>
+                                        @*<div class="col-3 text-right">
+                <img class="img-fluid icon-32" onclick="MostrarMensajedeRechazoPedido('{{item.PedidoId}}')" src="https://i.ibb.co/jTXwndP/trash-3x.png" alt="Borrar"></a>
+            </div>*@
+                                    </div>
+                                    <input type="hidden" class="pedidoId" value="{{item.PedidoId}}" />
+                                    <input type="hidden" class="cuv" value="{{this.ListaPedidos.0.DetallePedido.0.CUV}}" />
+                                    <input type="hidden" class="cantidad" value="{{this.ListaPedidos.0.DetallePedido.0.Cantidad}}" />
+                                    <div class="row align-items-center mt-2">
+                                        <div class="col-4 pr-0">
+                                            <div class="position-relative">
+                                                <input data-cantNew="{{item.DetallePedido.0.Cantidad}}" type="text" value='{{item.CantidadTotal}}' size="2" maxlength="2">
+                                                <span class="son position-absolute"><a class="es mas" href="#">+</a><a class="es menos" href="#">-</a></span>
+                                            </div>
+                                        </div>
+                                        <div id="texto_{{item.PedidoId}}" class="col-8 text-right">
+                                            @*<a class="btn full ghost dark-color" href="#">Aceptado</a>*@
+                                            <a class="btn full dark-color" id="aceptar_{{item.PedidoId}}" href="javascript:;" onclick="AceptarPedidoProducto('{{item.PedidoId}}')">Aceptar</a>
+                                        </div>
+                                    </div>
+                                    <div id={{item.PedidoId}} class="row align-items-center mt-3" style="display:none;">
+                                        <div class="col">
+                                            <div class="tooltip-primary tooltip-arrow_top p-3">
+                                                <span class="medium">¿Quieres eliminar este pedido?</span>
+                                                <div class="row mt-3">
+                                                    <div class="col pl-0 pr-0"><a class="pr-0 btn no-border dark-color" href="javascript:;" onclick="OcultarMensajedeRechazoPedido('{{item.PedidoId}}')">No, gracias</a></div>
+                                                    <div class="col pl-0">
+                                                    <a class="btn second-color" href="javascript:;" onclick="EliminarSolicitudDetalle('{{item.PedidoId}}', '{{this.ListaPedidos.0.DetallePedido.0.CUV}}', 'P')">Sí, eliminar</a></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @*<div class="card--content">
+                            <div class="row align-items-start">
+                                <div class="col-9">
+                              <span class="t3 color-text">Grecia Gabriel</span>
+                               <span class="medium color-text">999956799</span></div>
+                                <div class="col-3 text-right"><a href="#">
+                            <img class="img-fluid icon-32" src="https://i.ibb.co/jTXwndP/trash-3x.png" alt="Borrar"></a></div>
+                            </div>
+                            <div class="row align-items-center mt-2">
+                                <div class="col-4 pr-0">
+                                    <div class="position-relative">
+                                        <input type="text" value="1" size="2" maxlength="2"><span class="son position-absolute"><a class="es mas" href="#">+</a><a class="es menos" href="#">-</a></span>
+                                    </div>
+                                </div>
+                                <div class="col-8 text-right">
+                                    <a class="btn full dark-color" href="#">Aceptar</a>
+                                </div>
+                            </div>
+                            <div class="row align-items-center mt-3 hide">
+                                <div class="col">
+                                    <div class="tooltip-primary tooltip-arrow_top p-3">
+                                        <span class="medium">¿Quieres eliminar este pedido?</span>
+                                        <div class="row mt-3">
+                                            <div class="col pl-0 pr-0"><a class="btn no-border dark-color" href="#">No, gracias</a></div>
+                                            <div class="col"><a class="btn second-color" href="#">Sí, eliminar</a></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card--content">
+                            <div class="row align-items-start">
+                                <div class="col-9"><span class="t3 color-text">Mariana Zumarán</span><span class="medium color-text">999956799</span></div>
+                                <div class="col-3 text-right"><a href="#"> <img class="img-fluid icon-32" src="https://i.ibb.co/jTXwndP/trash-3x.png" alt="Borrar"></a></div>
+                            </div>
+                            <div class="row align-items-center mt-2">
+                                <div class="col-4 pr-0">
+                                    <div class="position-relative">
+                                        <input type="text" value="1" size="2" maxlength="2"><span class="son position-absolute"><a class="es mas" href="#">+</a><a class="es menos" href="#">-</a></span>
+                                    </div>
+                                </div>
+                                <div class="col-8 text-right">
+                                    <a class="btn full dark-color" href="#">Aceptar</a>
+                                </div>
+                            </div>
+                            <div class="row align-items-center mt-3 hide">
+                                <div class="col">
+                                    <div class="tooltip-primary tooltip-arrow_top p-3">
+                                        <span class="medium">¿Quieres eliminar este pedido?</span>
+                                        <div class="row mt-3">
+                                            <div class="col pl-0 pr-0"><a class="btn no-border dark-color" href="#">No, gracias</a></div>
+                                            <div class="col"><a class="btn second-color" href="#">Sí, eliminar</a></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+        </div>*@
+                                </div>
+                            </div>
+                        </div>
+                        {{/each}}
+                        <div class="container-flex border mt-2 position-sticky bottom">
+                            <div class="container position-absolute top-50" style="display:none;">
+                                <div class="row align-items-center position-relative">
+                                    <div class="col">
+                                        <div class="tooltip-secondary tooltip-arrow_bottom p-3"><span class="tooltip-info medium t-w700">Debes aceptar mínimo un pedido para continuar.</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container mt-2 mb-2">
+                                <div class="row">
+                                    <div class="col pr-7"><a class="btn ghost full dark-color" href="#" data-action="reject" onclick="$('#rechazarTodo').show();">Rechazar todo</a></div>
+                                    <div class="col pl-7">
+                                        <!--Botón activo-->
+                                        <!--<a class="btn full second-color" href="#">Continuar</a>-->
+                                        <a class="btn full disabled" href="javascript:;" onclick="ContinuarPedido()">Continuar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div id="rechazarTodo" class="col">
+            <div class="mobile hide rechazar">
+                <div class="container position-sticky top">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <div class="position-relative text-right mt-3"><a class="close-modal" href="#" alt="Cerrar">Cerrar          </a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="vertical-center">
+                    <div class="container fix-mt">
+                        <div class="row">
+                            <div class="info text-center pr-5 pl-5">
+                                <img class="img-fluid" src="https://i.ibb.co/4jKbTqS/error-outline-3x.png" alt="Aviso">
+                                <p class="font-big t-w700 mt-2 mb-2">¿Deseas rechazar todos los pedidos de tus clientes?</p>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col ml-3"><a class="btn ghost no-border full" href="#" data-action="not-reject">No, gracias</a></div>
+                            <div class="col mr-3"><a class="btn full second-color" onclick="RechazarSolicitudClientePorCuv('{{this.ListaPedidos.0.DetallePedido.0.Producto.CUV}}')">Sí, rechazar</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</script>
+<script id="template-paso-1-Producto" type="text/x-handlebars-template">
+    <div class="container-fluid pr-0">
+        <div class="row no-gutters">
             <div class="col">
                 <div class="mobile">
                     <div class="container-aceptar-pedidos position-relative">
@@ -34,246 +222,178 @@
                                 <div class="row">
                                     <div class="col color-text">
                                         <span class="medium t-w700">Producto pedido:</span>
-                                        <span class="medium">Delineador Líquido Punta Plumón Marrón otoño</span>
+                                        <span class="medium">{{this.ListaPedidos.0.DetallePedido.0.Producto}}</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                            </div>
+                    </div>
 
-                            {{#each this.ListaPedidos}}
-                        <div class="container background color-white">
-                            <div class="row align-items-start">
-                                <div class="col">
-                                    <div class="card--content">
-                                        <div class="row align-items-start">
-                                            <div class="col-9"><span class="t3 color-text">Katherine Lorenzo</span><span class="medium color-text">999956799</span></div>
-                                            <div class="col-3 text-right"><a href="#"> <img class="img-fluid icon-32" src="https://i.ibb.co/jTXwndP/trash-3x.png" alt="Borrar"></a></div>
-                                                    <span class="medium color-text">{{Telefono}}</span>
-                                                </div>
-                                                <div class="col-3 text-right">
-                                                    <img class="img-fluid icon-32" onclick="MostrarMensajedeRechazoPedido('{{PedidoId}}')" src="https://i.ibb.co/jTXwndP/trash-3x.png" alt="Borrar"></a>
-                                                </div>
-                                        </div>
-                                        <div class="row align-items-center mt-2">
-                                            <div class="col-4 pr-0">
-                                                <div class="position-relative">
-                                                    <input type="text" value="1" size="2" maxlength="2"><span class="son position-absolute"><a class="es mas" href="#">+</a><a class="es menos" href="#">-</a></span>
-                                                </div>
-                                            </div>
-                                            <div class="col-8 text-right">
-                                                <a class="btn full ghost dark-color" href="#">Aceptado</a>
-                                                    <a class="btn full dark-color" id="aceptar_{{PedidoId}}" href="javascript:;" onclick="AceptarPedidoProducto('{{PedidoId}}')">Aceptar</a>
-                                            </div>
-                                        </div>
-                                        <div class="row align-items-center mt-3">
-                                            <div class="col">
-                                                <div class="tooltip-primary tooltip-arrow_top p-3">
-                                                    <span class="medium">¿Quieres eliminar este pedido?</span>
-                                                    <div class="row mt-3">
-                                                        <div class="col pl-0 pr-0"><a class="pr-0 btn no-border dark-color" href="#">No, gracias</a></div>
-                                                        <div class="col pl-0"><a class="btn second-color" href="#">Sí, eliminar</a></div>
-                                                    </div>
-                                                            <div class="col pl-0">
-                                                                <a href="javascript:;" onclick="EliminarSolicitudDetalle('{{PedidoId}}', '{{DetallePedido[0].CUV}}', 'P')" class="btn second-color">Sí, eliminar</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card--content">
-                                        </div>
-                                        @*<div class="card--content">
-                                        <div class="row align-items-start">
-                                            <div class="col-9"><span class="t3 color-text">Grecia Gabriel</span><span class="medium color-text">999956799</span></div>
-                                            <div class="col-3 text-right"><a href="#"> <img class="img-fluid icon-32" src="https://i.ibb.co/jTXwndP/trash-3x.png" alt="Borrar"></a></div>
-                                        </div>
-                                        <div class="row align-items-center mt-2">
-                                            <div class="col-4 pr-0">
-                                                <div class="position-relative">
-                                                    <input type="text" value="1" size="2" maxlength="2"><span class="son position-absolute"><a class="es mas" href="#">+</a><a class="es menos" href="#">-</a></span>
-                                                </div>
-                                            </div>
-                                            <div class="col-8 text-right">
-                                                <a class="btn full dark-color" href="#">Aceptar</a>
-                                            </div>
-                                        </div>
-                                        <div class="row align-items-center mt-3 hide">
-                                            <div class="col">
-                                                <div class="tooltip-primary tooltip-arrow_top p-3">
-                                                    <span class="medium">¿Quieres eliminar este pedido?</span>
-                                                    <div class="row mt-3">
-                                                        <div class="col pl-0 pr-0"><a class="btn no-border dark-color" href="#">No, gracias</a></div>
-                                                        <div class="col"><a class="btn second-color" href="#">Sí, eliminar</a></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card--content">
-                                        <div class="row align-items-start">
-                                            <div class="col-9"><span class="t3 color-text">Mariana Zumarán</span><span class="medium color-text">999956799</span></div>
-                                            <div class="col-3 text-right"><a href="#"> <img class="img-fluid icon-32" src="https://i.ibb.co/jTXwndP/trash-3x.png" alt="Borrar"></a></div>
-                                        </div>
-                                        <div class="row align-items-center mt-2">
-                                            <div class="col-4 pr-0">
-                                                <div class="position-relative">
-                                                    <input type="text" value="1" size="2" maxlength="2"><span class="son position-absolute"><a class="es mas" href="#">+</a><a class="es menos" href="#">-</a></span>
-                                                </div>
-                                            </div>
-                                            <div class="col-8 text-right">
-                                                <a class="btn full dark-color" href="#">Aceptar</a>
-                                            </div>
-                                        </div>
-                                        <div class="row align-items-center mt-3 hide">
-                                            <div class="col">
-                                                <div class="tooltip-primary tooltip-arrow_top p-3">
-                                                    <span class="medium">¿Quieres eliminar este pedido?</span>
-                                                    <div class="row mt-3">
-                                                        <div class="col pl-0 pr-0"><a class="btn no-border dark-color" href="#">No, gracias</a></div>
-                                                        <div class="col"><a class="btn second-color" href="#">Sí, eliminar</a></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                    </div>*@
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="container-flex border mt-2 position-sticky bottom">
-                            <div class="container position-absolute top-50">
-                                <div class="row align-items-center position-relative">
-                                    <div class="col">
-                                        <div class="tooltip-secondary tooltip-arrow_bottom p-3"><span class="tooltip-info medium t-w700">Debes aceptar mínimo un pedido para continuar.</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="container mt-2 mb-2">
-                                <div class="row">
-                                    <div class="col pr-7"><a class="btn ghost full dark-color" href="#" data-action="reject">Rechazar todo</a></div>
-                                    <div class="col pl-7">
-                                        <!--Botón activo-->
-                                        <!--<a class="btn full second-color" href="#">Continuar</a>--><a class="btn full disabled" href="#" disabled>Continuar</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="mobile hide rechazar">
-                    <div class="container position-sticky top">
-                        <div class="row align-items-center">
+                    {{#each this.ListaPedidos as |item|}}
+                    <div id="vp_pedido_{{item.PedidoId}}" class="container background color-white">
+                        <div class="row align-items-start">
                             <div class="col">
-                                <div class="position-relative text-right mt-3"><a class="close-modal" href="#" alt="Cerrar">Cerrar          </a></div>
+                                <div class="card--content">
+                                    <div class="row align-items-start">
+                                        <div class="col-9">
+                                            <span class="t3 color-text">{{item.Cliente}}</span>
+                                            <span class="medium color-text">{{item.Telefono}}</span>
+                                        </div>
+                                        <div class="col-3 text-right">
+                                            <a href="#"> <img class="img-fluid icon-32" src="https://i.ibb.co/jTXwndP/trash-3x.png" onclick="MostrarMensajedeRechazoPedido('{{item.PedidoId}}')" alt="Borrar"></a>
+                                        </div>
+                                        @*<span class="medium color-text">{{item.Telefono}}</span>*@
+                                    </div>
+                                    @*<div class="col-3 text-right">
+                                            <img class="img-fluid icon-32" onclick="MostrarMensajedeRechazoPedido('{{item.PedidoId}}')" src="https://i.ibb.co/jTXwndP/trash-3x.png" alt="Borrar"></a>
+                                        </div>*@
+                                </div>
+                                <input type="hidden" class="pedidoId" value="{{item.PedidoId}}" />
+                                <input type="hidden" class="cuv" value="{{this.ListaPedidos.0.DetallePedido.0.Producto.CUV}}" />
+                                <input type="hidden" class="cantidad" value="{{this.ListaPedidos.0.DetallePedido.0.Producto.Cantidad}}" />
+                                <div class="row align-items-center mt-2">
+                                    <div class="col-4 pr-0">
+                                        <div class="position-relative">
+                                            <input type="text" value='{{item.CantidadTotal}}' size="2" maxlength="2"><span class="son position-absolute"><a class="es mas" href="#">+</a><a class="es menos" href="#">-</a></span>
+                                        </div>
+                                    </div>
+                                    <div id="texto_{{item.PedidoId}}" class="col-8 text-right">
+                                        @*<a class="btn full ghost dark-color" href="#">Aceptado</a>*@
+                                        <a class="btn full dark-color" id="aceptar_{{item.PedidoId}}" href="javascript:;" onclick="AceptarPedidoProducto('{{item.PedidoId}}')">Aceptar</a>
+                                    </div>
+                                </div>
+                                <div id={{item.PedidoId}} class="row align-items-center mt-3" style="display:none;">
+                                    <div class="col">
+                                        <div class="tooltip-primary tooltip-arrow_top p-3">
+                                            <span class="medium">¿Quieres eliminar este pedido?</span>
+                                            <div class="row mt-3">
+                                                <div class="col pl-0 pr-0"><a class="pr-0 btn no-border dark-color" href="javascript:;" onclick="OcultarMensajedeRechazoPedido('{{item.PedidoId}}')">No, gracias</a></div>
+                                                <div class="col pl-0">
+                                                    <a class="btn second-color" href="javascript:;" onclick="EliminarSolicitudDetalle('{{item.PedidoId}}', '{{this.ListaPedidos.0.DetallePedido.0.CUV}}', 'P')">Sí, eliminar</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @*<div class="card--content">
+                                                        <div class="row align-items-start">
+                                                            <div class="col-9">
+                                                          <span class="t3 color-text">Grecia Gabriel</span>
+                                                           <span class="medium color-text">999956799</span></div>
+                                                            <div class="col-3 text-right"><a href="#">
+                                                        <img class="img-fluid icon-32" src="https://i.ibb.co/jTXwndP/trash-3x.png" alt="Borrar"></a></div>
+                                                        </div>
+                                                        <div class="row align-items-center mt-2">
+                                                            <div class="col-4 pr-0">
+                                                                <div class="position-relative">
+                                                                    <input type="text" value="1" size="2" maxlength="2"><span class="son position-absolute"><a class="es mas" href="#">+</a><a class="es menos" href="#">-</a></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-8 text-right">
+                                                                <a class="btn full dark-color" href="#">Aceptar</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row align-items-center mt-3 hide">
+                                                            <div class="col">
+                                                                <div class="tooltip-primary tooltip-arrow_top p-3">
+                                                                    <span class="medium">¿Quieres eliminar este pedido?</span>
+                                                                    <div class="row mt-3">
+                                                                        <div class="col pl-0 pr-0"><a class="btn no-border dark-color" href="#">No, gracias</a></div>
+                                                                        <div class="col"><a class="btn second-color" href="#">Sí, eliminar</a></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card--content">
+                                                        <div class="row align-items-start">
+                                                            <div class="col-9"><span class="t3 color-text">Mariana Zumarán</span><span class="medium color-text">999956799</span></div>
+                                                            <div class="col-3 text-right"><a href="#"> <img class="img-fluid icon-32" src="https://i.ibb.co/jTXwndP/trash-3x.png" alt="Borrar"></a></div>
+                                                        </div>
+                                                        <div class="row align-items-center mt-2">
+                                                            <div class="col-4 pr-0">
+                                                                <div class="position-relative">
+                                                                    <input type="text" value="1" size="2" maxlength="2"><span class="son position-absolute"><a class="es mas" href="#">+</a><a class="es menos" href="#">-</a></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-8 text-right">
+                                                                <a class="btn full dark-color" href="#">Aceptar</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row align-items-center mt-3 hide">
+                                                            <div class="col">
+                                                                <div class="tooltip-primary tooltip-arrow_top p-3">
+                                                                    <span class="medium">¿Quieres eliminar este pedido?</span>
+                                                                    <div class="row mt-3">
+                                                                        <div class="col pl-0 pr-0"><a class="btn no-border dark-color" href="#">No, gracias</a></div>
+                                                                        <div class="col"><a class="btn second-color" href="#">Sí, eliminar</a></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                    </div>*@
                             </div>
                         </div>
                     </div>
-                    <div class="vertical-center">
-                        <div class="container fix-mt">
-                            <div class="row">
-                                <div class="info text-center pr-5 pl-5">
-                                    <img class="img-fluid" src="https://i.ibb.co/4jKbTqS/error-outline-3x.png" alt="Aviso">
-                                    <p class="font-big t-w700 mt-2 mb-2">¿Deseas rechazar todos los pedidos de tus clientes?</p>
+                    {{/each}}
+                    <div class="container-flex border mt-2 position-sticky bottom">
+                        <div class="container position-absolute top-50" style="display:none;">
+                            <div class="row align-items-center position-relative">
+                                <div class="col">
+                                    <div class="tooltip-secondary tooltip-arrow_bottom p-3"><span class="tooltip-info medium t-w700">Debes aceptar mínimo un pedido para continuar.</span></div>
                                 </div>
                             </div>
-                            <div class="row mt-3">
-                                <div class="col ml-3"><a class="btn ghost no-border full" href="#" data-action="not-reject">No, gracias</a></div>
-                                <div class="col mr-3"><a class="btn full second-color" href="#">Sí, rechazar</a></div>
+                        </div>
+                        <div class="container mt-2 mb-2">
+                            <div class="row">
+                                <div class="col pr-7"><a class="btn ghost full dark-color" href="#" data-action="reject" onclick="$('#rechazarTodo').show();">Rechazar todo</a></div>
+                                <div class="col pl-7">
+                                    <!--Botón activo-->
+                                    <!--<a class="btn full second-color" href="#">Continuar</a>-->
+                                    <a class="btn full disabled" href="javascript:;" onclick="ContinuarPedido()">Continuar</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col" id="contenedor-paso-2" style="left: -330px;">
-                @*<div class="mobile continuar">
-                    <div class="container-aceptar-pedidos position-relative">
-                        <div class="container border-bottom position-sticky top">
-                            <div class="row align-items-center">
-                                <div class="col">
-                                    <div class="position-relative text-right mt-3"><a class="close-modal" href="#" alt="Cerrar">Cerrar   </a></div>
-                                </div>
-                            </div>
-                            <div class="row align-items-center">
-                                <div class="col">
-                                    <h3 class="mt-2 mb-1">Paso 2: Elige cómo atender</h3><span class="smaller mb-3">Delineador Líquido Punta Plumón Marrón otoño</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="container background color-white">
-                            <div class="porGanaMas">
-                                <div class="row align-items-center pt-4 pb-3">
-                                    <div class="col-8 pr-0"><span class="t3 color-text">Por Gana+ S/. 66.60</span><span class="medium color-second">Gana S/. 67.90</span></div>
-                                    <div class="col"><a class="btn dark-color" href="#">Elegir</a></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <!-- Clase asociada al plugin slick                -->
-                                        <div class="conGanaMas card--content mt-0">
-                                            <!-- Bloques para repetir-->
-                                            <div class="col pr-2 pl-2 color-dark"><img class="img-fluid icon-80" src="https://i.ibb.co/MVyDK3j/square-3x.jpg" alt="Producto"><span class="smaller">Pack 4 Delineadores Líquido Punta Plumón Marrón otoño</span><span class="smaller">S/. 50.80</span></div>
-                                            <div class="col pr-2 pl-2 color-dark"><img class="img-fluid icon-80" src="https://i.ibb.co/MVyDK3j/square-3x.jpg" alt="Producto"><span class="smaller">Delineador Líquido Punta Plumón Marrón otoño + Natural Care Coconut Ocean *</span><span class="smaller">S/. 15.80</span></div>
-                                        </div><span class="smaller color-second mt-2 mb-4">* Contiene productos extras</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="container border-top">
-                            <div class="porCatalogo">
-                                <div class="row align-items-center mt-4 mb-3">
-                                    <div class="col-8 pr-0"><span class="t3 color-text">Por Catálogo+ S/. 134.50                  </span></div>
-                                    <div class="col"><a class="btn dark-color" href="#">Elegir</a></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <!-- Clase asociada al plugin slick                -->
-                                        <div class="conCatalogo card--content mt-0">
-                                            <!-- Bloques para repetir-->
-                                            <div class="col pr-2 pl-2"><img class="img-fluid icon-80" src="https://i.ibb.co/MVyDK3j/square-3x.jpg" alt="Producto"><span class="smaller">Delineador Líquido Punta Plumón Marrón otoño</span><span class="smaller">S/. 26.90</span></div>
-                                            <div class="col pr-2 pl-2"><img class="img-fluid icon-80" src="https://i.ibb.co/MVyDK3j/square-3x.jpg" alt="Producto"><span class="smaller">Delineador Líquido Punta Plumón Marrón otoño</span><span class="smaller">S/. 26.90</span></div>
-                                            <div class="col pr-2 pl-2"><img class="img-fluid icon-80" src="https://i.ibb.co/MVyDK3j/square-3x.jpg" alt="Producto"><span class="smaller">Delineador Líquido Punta Plumón Marrón otoño</span><span class="smaller">S/. 26.90</span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="container mt-4 mb-32 border-top border-bottom">
-                            <div class="porCatalogo">
-                                <div class="row align-items-center mt-4 mb-4">
-                                    <div class="col-8 pr-0"><span class="t3 color-text">Ya lo tengo en stock                 </span></div>
-                                    <div class="col"><a class="btn dark-color" href="#">Elegir</a></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="container-flex position-sticky bottom">
-                            <div class="container position-absolute top-50">
-                                <div class="row align-items-center position-relative">
-                                    <div class="col">
-                                        <div class="tooltip-secondary tooltip-arrow_bottom p-3"><span class="tooltip-info medium t-w700">Debes aceptar mínimo un pedido para continuar.</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="container pt-2 pb-2 border-top">
-                                <div class="row mt-2 mb-2">
-                                    <div class="col">
-                                        <a class="btn full second-color" href="#">Continuar</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>*@
+
             </div>
         </div>
     </div>
-</div>
+
+    <div id="rechazarTodo" class="col">
+        <div class="mobile hide rechazar">
+            <div class="container position-sticky top">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <div class="position-relative text-right mt-3"><a class="close-modal" href="#" alt="Cerrar">Cerrar          </a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="vertical-center">
+                <div class="container fix-mt">
+                    <div class="row">
+                        <div class="info text-center pr-5 pl-5">
+                            <img class="img-fluid" src="https://i.ibb.co/4jKbTqS/error-outline-3x.png" alt="Aviso">
+                            <p class="font-big t-w700 mt-2 mb-2">¿Deseas rechazar todos los pedidos de tus clientes?</p>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col ml-3"><a class="btn ghost no-border full" href="#" data-action="not-reject">No, gracias</a></div>
+                        <div class="col mr-3"><a class="btn full second-color" onclick="RechazarSolicitudClientePorCuv('{{this.ListaPedidos.0.DetallePedido.0.Producto.CUV}}')">Sí, rechazar</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</script>
 
 
 <div style="margin-top:20px"></div>
 <div class="container-fluid b-btm btm-2">
     <div class="row no-gutter">
-            <div class="col-6 col-md-6 col-lg-4 col-xl-3 return-box">
+        <div class="col-6 col-md-6 col-lg-4 col-xl-3 return-box">
             <div class="return-skew">
                 <a class="return-skew_content" href="#">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -281,20 +401,20 @@
                     </svg><span>Pedidos por aprobar</span>
                 </a>
             </div>
-            </div>
+        </div>
     </div>
 </div>
 <div class="container-fluid b-btm">
     <div class="container">
-            <ul class="nav nav-tabs" id="vpcp" role="tablist">
+        <ul class="nav nav-tabs" id="vpcp" role="tablist">
             <li class="nav-item"><a class="nav-link active" id="por-cliente-tab" data-toggle="tab" href="#por-cliente" role="tab" aria-controls="cliente" aria-selected="true">Vista por cliente</a></li>
             <li class="nav-item"><a class="nav-link" id="por-producto-tab" data-toggle="tab" href="#por-producto" role="tab" aria-controls="producto" aria-selected="false">Vista por producto</a></li>
-            </ul>
+        </ul>
     </div>
 </div>
 <div class="tab-content" id="vpcpContent">
     <div class="tab-pane fade show active" id="por-cliente" role="tabpanel" aria-labelledby="por-cliente-tab">
-            <div class="container-fluid">
+        <div class="container-fluid">
             <div class="container">
                 <div class="card">
                     <div class="card--title">
@@ -326,12 +446,12 @@
                         </div>
                     }
                 </div>
-                </div>
             </div>
+        </div>
     </div>
 
     <div class="tab-pane fade" id="por-producto" role="tabpanel" aria-labelledby="por-producto-tab">
-            <div class="container-fluid">
+        <div class="container-fluid">
             <div class="container">
                 <div class="card">
                     <div class="card--title">
@@ -377,88 +497,93 @@
     </div>
 </div>
 
+<div id="Paso1-Clientes" class="position-absolute modal-right top-0 modal-content"></div>
+<div id="Paso1-Productos" class="position-absolute modal-right top-0 modal-content"></div>
 
-
-    <script id="template-paso-2" type="text/x-handlebars-template">
-        <div class="mobile continuar">
-            <div class="container-aceptar-pedidos position-relative">
-                <div class="container border-bottom position-sticky top">
-                    <div class="row align-items-center">
-                        <div class="col">
-                            <div class="position-relative text-right mt-3"><a class="close-modal" href="#" alt="Cerrar">Cerrar   </a></div>
-                        </div>
-                    </div>
-                    <div class="row align-items-center">
-                        <div class="col">
-                            <h3 class="mt-2 mb-1">Paso 2: Elige cómo atender</h3><span class="smaller mb-3">Delineador Líquido Punta Plumón Marrón otoñoOO</span>
-                        </div>
+<script id="template-paso-2" type="text/x-handlebars-template">
+    <div class="mobile continuar">
+        <div class="container-aceptar-pedidos position-relative">
+            <div class="container border-bottom position-sticky top">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <div class="position-relative text-right mt-3"><a class="close-modal" href="#" alt="Cerrar">Cerrar   </a></div>
                     </div>
                 </div>
-                <div class="container background color-white">
-                    <div class="porGanaMas">
-                        <div class="row align-items-center pt-4 pb-3">
-                            <div class="col-8 pr-0"><span class="t3 color-text">Por Gana+ @ViewBag.Simbolo {{this.TotalGana}}</span><span class="medium color-second">@ViewBag.Simbolo {{this.GananciaGana}}</span></div>
-                            <div class="col btnAccion"><a class="btn dark-color" href="#">Elegir</a></div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <!-- Clase asociada al plugin slick                -->
-                                <div class="conGanaMas card--content mt-0">
-                                    <!-- Bloques para repetir-->
-                                    {{#each this.ListaGana as |item|}}
-                                    <div class="col pr-2 pl-2 color-dark"><img class="img-fluid icon-80" src="{{item.ImagenURL}}" alt="Producto"><span class="smaller">{{item.DescripcionCUV2}}</span><span class="smaller">@ViewBag.Simbolo {{item.PrecioString}}</span></div>
-                                    {{/each}}
-                                    <div class="col pr-2 pl-2 color-dark"><img class="img-fluid icon-80" src="https://i.ibb.co/MVyDK3j/square-3x.jpg" alt="Producto"><span class="smaller">Pack 4 Delineadores Líquido Punta Plumón Marrón otoño</span><span class="smaller">S/. 50.80</span></div>
+                <div class="row align-items-center">
+                    <div class="col">
+                        <h3 class="mt-2 mb-1">Paso 2: Elige cómo atender</h3><span class="smaller mb-3">Delineador Líquido Punta Plumón Marrón otoñoOO</span>
+                    </div>
+                </div>
+            </div>
+            <div class="container background color-white">
+                <div class="porGanaMas">
+                    <div class="row align-items-center pt-4 pb-3">
+                        <div class="col-8 pr-0"><span class="t3 color-text">Por Gana+ S/. 66.60</span><span class="medium color-second">Gana S/. 67.90</span></div>
+                        <div class="col"><a class="btn dark-color" href="#">Elegir</a></div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <!-- Clase asociada al plugin slick                -->
+                            <div class="conGanaMas card--content mt-0">
+                                <!-- Bloques para repetir-->
+                                {{#each this.ListaGana as |item|}}
+                                <div class="col pr-2 pl-2 color-dark"><img class="img-fluid icon-80" src="{{item.ImagenURL}}" alt="Producto"><span class="smaller">{{item.DescripcionCUV2}}</span><span class="smaller">@ViewBag.Simbolo {{item.PrecioString}}</span></div>
+                                {{/each}}
+                                <div class="col pr-2 pl-2 color-dark"><img class="img-fluid icon-80" src="https://i.ibb.co/MVyDK3j/square-3x.jpg" alt="Producto"><span class="smaller">Pack 4 Delineadores Líquido Punta Plumón Marrón otoño</span><span class="smaller">S/. 50.80</span></div>
+                                <div class="col pr-2 pl-2 color-dark"><img class="img-fluid icon-80" src="https://i.ibb.co/MVyDK3j/square-3x.jpg" alt="Producto"><span class="smaller">Delineador Líquido Punta Plumón Marrón otoño + Natural Care Coconut Ocean *</span><span class="smaller">S/. 15.80</span></div>
                                   
-                                </div><span class="smaller color-second mt-2 mb-4">* Contiene productos extras</span>
-                            </div>
+                            </div><span class="smaller color-second mt-2 mb-4">* Contiene productos extras</span>
                         </div>
                     </div>
                 </div>
-                <div class="container border-top">
-                    <div class="porCatalogo">
-                        <div class="row align-items-center mt-4 mb-3">
-                            <div class="col-8 pr-0"><span class="t3 color-text">Por Catálogo+  @ViewBag.Simbolo {{this.TotalCatalogo}}               </span></div>
-                            <div class="col btnAccion"><a class="btn dark-color" href="#">Elegir</a></div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <!-- Clase asociada al plugin slick                -->
-                                <div class="conCatalogo card--content mt-0">
-                                    <!-- Bloques para repetir-->
-                                    {{#each this.ListaCatalogo as |item|}}
-                                    <div class="col pr-2 pl-2"><img class="img-fluid icon-80" src="{{item.Url}}" alt="Producto"><span class="smaller">{{item.Producto}}</span><span class="smaller">{{item.PrecioUnitario}}</span></div>
-                                    {{/each}}
-                                    <div class="col pr-2 pl-2"><img class="img-fluid icon-80" src="https://i.ibb.co/MVyDK3j/square-3x.jpg" alt="Producto"><span class="smaller">Delineador Líquido Punta Plumón Marrón otoño</span><span class="smaller">S/. 26.90</span></div>
+            </div>
+            <div class="container border-top">
+                <div class="porCatalogo">
+                    <div class="row align-items-center mt-4 mb-3">
+                        <div class="col-8 pr-0"><span class="t3 color-text">Por Catálogo+ S/. 134.50                  </span></div>
+                        <div class="col"><a class="btn dark-color" href="#">Elegir</a></div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <!-- Clase asociada al plugin slick                -->
+                            <div class="conCatalogo card--content mt-0">
+                                <!-- Bloques para repetir-->
+                                {{#each this.ListaCatalogo as |item|}}
+                                <div class="col pr-2 pl-2"><img class="img-fluid icon-80" src="{{item.Url}}" alt="Producto"><span class="smaller">{{item.Producto}}</span><span class="smaller">{{item.PrecioUnitario}}</span></div>
+                                {{/each}}
+                                <div class="col pr-2 pl-2"><img class="img-fluid icon-80" src="https://i.ibb.co/MVyDK3j/square-3x.jpg" alt="Producto"><span class="smaller">Delineador Líquido Punta Plumón Marrón otoño</span><span class="smaller">S/. 26.90</span></div>
+                                <div class="col pr-2 pl-2"><img class="img-fluid icon-80" src="https://i.ibb.co/MVyDK3j/square-3x.jpg" alt="Producto"><span class="smaller">Delineador Líquido Punta Plumón Marrón otoño</span><span class="smaller">S/. 26.90</span></div>
+                                <div class="col pr-2 pl-2"><img class="img-fluid icon-80" src="https://i.ibb.co/MVyDK3j/square-3x.jpg" alt="Producto"><span class="smaller">Delineador Líquido Punta Plumón Marrón otoño</span><span class="smaller">S/. 26.90</span></div>
                                  
 
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-        
-                <div class="container-flex position-sticky bottom">
-                    @*<div class="container position-absolute top-50">
-                        <div class="row align-items-center position-relative">
-                            <div class="col">
-                                <div class="tooltip-secondary tooltip-arrow_bottom p-3"><span class="tooltip-info medium t-w700">Debes aceptar mínimo un pedido para continuar.</span></div>
-                            </div>
-                        </div>
-                    </div>*@
-                    <div class="container pt-2 pb-2 border-top">
-                        <div class="row mt-2 mb-2">
-                            <div class="col">
-                                <a class="btn full second-color" href="#">Continuar</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </script>
 
-    @section scripts {
+            <div class="container-flex position-sticky bottom">
+                <div class="container position-absolute top-50">
+                    <div class="row align-items-center position-relative">
+                        <div class="col">
+                            <div class="tooltip-secondary tooltip-arrow_bottom p-3"><span class="tooltip-info medium t-w700">Debes aceptar mínimo un pedido para continuar.</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container pt-2 pb-2 border-top">
+                    <div class="row mt-2 mb-2">
+                        <div class="col">
+                            <a class="btn full second-color" href="#">Continuar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+@section scripts {
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/SugerenciaPendientes")
     <script>
         var urlDetallePedidoPendiente = "/ConsultoraOnline/DetallePedidoPendiente"
         var urlDetallePedidoPendienteClientes = "/ConsultoraOnline/DetallePedidoPendienteClientes";
@@ -567,53 +692,235 @@
         }
 
         function DetallePedidoPendienteClientes(cuv) {
+            debugger;
             console.log(JSON.stringify(cuv));
-            jQuery.ajax({
+            var obj = {
+                cuv: cuv
+            }
+            $.ajax({
                 type: 'POST',
                 url: urlDetallePedidoPendienteClientes,
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(cuv),
+                data: JSON.stringify(obj),
                 async: true,
-                success: function (data) {
-                    if (checkTimeout(data)) {
-                        console.log(data)
+                success: function (response) {
+
+                    console.log(response);
+                    if (response.success) {
+                        debugger;
+                        console.log(response);
+                        SetHandlebars("#template-paso-1-Clientes",response.data,"#Paso1-Clientes");
+                        $('#Paso1-Clientes').show();
                     }
                 },
-                error: function (data, error) {
-                    if (checkTimeout(data)) {
-                        CloseLoading();
-                        messageInfo("Ocurrió un Error pedido pendiente cliente");
-                    }
+                error: function (error) {
+                    //CloseLoading();
+                    //messageInfo("Ocurrió un Error pedido pendiente cliente");
+                    console.log(error);
                 }
             });
         }
 
         function DetallePedidoPendiente(ids) {
             console.log(JSON.stringify(ids));
-            jQuery.ajax({
+            $.ajax({
                 type: 'POST',
                 url: urlDetallePedidoPendiente,
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
                 data: JSON.stringify(ids),
                 async: true,
-                success: function (data) {
-                    if (checkTimeout(data)) {
-                        console.log(data)
+                success: function (response) {
+                    if (response.success) {
+                        console.log(response)
                     }
                 },
-                error: function (data, error) {
-                    if (checkTimeout(data)) {
-                        CloseLoading();
-                        messageInfo("Ocurrió un Error pedido pendiente");
-                    }
+                error: function (error) {
+                    //CloseLoading();
+                    //messageInfo("Ocurrió un Error pedido pendiente cliente");
+                    console.log(error);
                 }
             });
         }
 
+        function MostrarMensajedeRechazoPedido(cuv) {
+            var mensaje = '#' + cuv;
+            $(mensaje).show();
+            //document.location.href = urlPedido;
+        }
 
-  
+        function OcultarMensajedeRechazoPedido(cuv) {
+            var mensaje = '#' + cuv;
+            $(mensaje).hide();
+            //document.location.href = urlPedido;
+        }
+
+        function AceptarPedidoProducto(id) {
+            debugger;
+            //var texto = '#texto_' + id;
+            var aceptado = '#aceptar_' + id;
+            if ($(aceptado).hasClass("ghost")) {
+                //$(texto).removeClass('text-white');
+                //$(texto).addClass('ghost');
+                $(aceptado).removeClass('ghost');
+                $(aceptado).text('Aceptar');
+            }
+            else {
+                //$(texto).removeClass('text-black');
+                //$(texto).addClass('text-white');
+                $(aceptado).addClass('ghost');
+                $(aceptado).text('Aceptado');
+                //document.location.href = urlPedido;
+            }
+
+        }
+
+        function RechazarSolicitudCliente(pedidoId) {
+            var obj = {
+                pedidoId: pedidoId,
+            };
+
+            //ShowLoading();
+            $.ajax({
+                type: "POST",
+                url: "/ConsultoraOnline/RechazarSolicitudCliente",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(obj),
+                success: function (response) {
+                    //CloseLoading();
+
+                    if (response.success) {
+                        //document.location.href = '/ConsultoraOnline/Pendientes';
+                    }
+                    else {
+                        alert(response.message);
+                    }
+                },
+                error: function (err) {
+                    CloseLoading();
+                    console.log(err);
+                }
+            });
+        }
+
+        function RechazarSolicitudClientePorCuv(cuv) {
+            var obj = {
+                cuv: cuv,
+            };
+
+            //ShowLoading();
+            $.ajax({
+                type: "POST",
+                url: "/ConsultoraOnline/RechazarSolicitudClientePorCuv",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(obj),
+                success: function (response) {
+                    /*CloseLoading*/();
+                    if (response.success) {
+                        //document.location.href = '/ConsultoraOnline/Pendientes';
+                    }
+                    else {
+                        alert(response.message);
+                    }
+                },
+                error: function (err) {
+                    //CloseLoading();
+                    console.log(err);
+                }
+            });
+
+        }
+
+        function ContinuarPedido() {
+            var lstDetalle = [];
+            ShowLoading();
+
+            $('.pedidos').each(function () {
+
+                if ($(this).find('a[id*="aceptar_"]').hasClass('active') == false) {
+                    //$(aceptado).addClass('active');
+                    var pedidoId = $(this).find(".pedidoId").val();
+                    var cuv = $(this).find(".cuv").val();
+                    //var cantidad = $(this).find(".cantidad").val();
+                    var cantNew = $(this).find('[data-cantNew]').val();
+
+                    var detalle = {
+                        PedidoId: pedidoId,
+                        CUV: cuv,
+                        Cantidad: cantNew
+                    }
+                    lstDetalle.push(detalle);
+                }
+            });
+
+            if (lstDetalle.length > 0) {
+                $.ajax({
+                    type: "POST",
+                    url: "/ConsultoraOnline/ContinuarPedidos",
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(lstDetalle),
+                    success: function (response) {
+                        CloseLoading();
+                        if (response.success) {
+                            //document.location.href = '/ConsultoraOnline/PendientesMedioDeCompra';
+                        }
+                        else {
+                            alert(response.message);
+                        }
+                    },
+                    error: function (err) {
+                        CloseLoading();
+                        console.log(err);
+                    }
+                });
+            }
+            else {
+                CloseLoading();
+                $('#mensajepedido').show();
+            }
+        }
+
+        function EliminarSolicitudDetalle(pedidoId, cuv, origen) {
+            var obj = {
+                pedidoId: pedidoId,
+                cuv: cuv
+            }
+
+            //ShowLoading();
+            $.ajax({
+                type: "POST",
+                url: "/ConsultoraOnline/EliminarSolicitudDetalle",
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(obj),
+                success: function (response) {
+                    CloseLoading();
+                    if (response.success) {
+                        // ocultar div
+                        if (origen == 'C') {
+                            var id = '#vc_pedido_' + cuv;
+                            $(id).hide();
+                        } else if (origen == 'P') {
+                            var id = '#vp_pedido_' + pedidoId;
+                            $(id).hide();
+                        }
+                    }
+                    else {
+                        alert(response.message);
+                    }
+                },
+                error: function (err) {
+                    CloseLoading();
+                    console.log(err);
+                }
+            });
+
+        }
+
     </script>
-    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/SugerenciaPendientes")
-    }
+
+}
