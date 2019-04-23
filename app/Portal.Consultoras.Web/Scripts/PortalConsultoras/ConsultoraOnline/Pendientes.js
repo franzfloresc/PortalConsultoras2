@@ -150,7 +150,10 @@ function DetallePedidoPendiente(ids) {
         async: true,
         success: function (response) {
             if (response.success) {
-                console.log(response)
+                debugger;
+                console.log(response);
+                SetHandlebars("#template-paso-1-Producto", response.data, "#Paso1-Productos");
+                $('#Paso1-Productos').show();
             }
         },
         error: function (error) {
@@ -235,7 +238,7 @@ function RechazarSolicitudClientePorCuv(cuv) {
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify(obj),
         success: function (response) {
-                    /*CloseLoading*/();
+                    /*CloseLoading*/
             if (response.success) {
                 //document.location.href = '/ConsultoraOnline/Pendientes';
             }
