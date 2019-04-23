@@ -306,6 +306,14 @@ namespace Portal.Consultoras.Web.Controllers
                                     var motivoSolicitud = sv.GetMotivosRechazo(userData.PaisID).ToList();
                                     ViewBag.MotivosRechazo = Mapper.Map<List<MisPedidosMotivoRechazoModel>>(motivoSolicitud);
                                 }
+
+
+                                var olstMisPedidos =
+                                    svc.GetMisPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID, userData.CampaniaID)
+                                        .ToList();
+
+                                ViewBag.ListaPedidosPendientesCliente = olstMisPedidos;
+
                             }
                         }
 
@@ -3620,6 +3628,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.PaginaDe = "1";
                 }
 
+                model.TipoPaginador = Constantes.ClasificadorPedido.PedidoDetalle;
                 model.MensajeCierreCampania = ViewBag.MensajeCierreCampania;
                 model.Simbolo = userData.Simbolo;
 
@@ -4649,7 +4658,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult CargarPremiosElectivos()
         {
-           var premios = _programaNuevasProvider.GetListPremioElectivo();
+            var premios = _programaNuevasProvider.GetListPremioElectivo();
 
             var details = ObtenerPedidoWebSetDetalleAgrupado(true) ?? new List<BEPedidoWebDetalle>();
 

@@ -263,7 +263,14 @@ var EstrategiaAgregarModule = (function () {
         var origenPedidoWebEstrategia = getOrigenPedidoWeb($btnAgregar);
         //console.log(origenPedidoWebEstrategia);
         var estrategia = getEstrategia($btnAgregar, origenPedidoWebEstrategia);
-        //console.log(estrategia);
+
+        if (typeof getOrigenPedidoWebDetalle !== 'undefined') {
+            var origenDetalle = getOrigenPedidoWebDetalle(estrategia);
+            if (origenDetalle) {
+                origenPedidoWebEstrategia = origenDetalle;
+            }
+        }
+        console.log(estrategia);
         if (estrategiaEstaBloqueada($btnAgregar, estrategia.CampaniaID)) {
             estrategia.OrigenPedidoWebEstrategia = origenPedidoWebEstrategia;
             getDivMsgBloqueado($btnAgregar, estrategia).show();
@@ -378,6 +385,7 @@ var EstrategiaAgregarModule = (function () {
 
                 $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataInputCantidad).val("1");
 
+			
                 if (divAgregado != null) {
                     if (typeof divAgregado.length != "undefined" && divAgregado.length > 0) {
                         divAgregado.each(function (index, element) {
@@ -411,13 +419,19 @@ var EstrategiaAgregarModule = (function () {
                         }
                         $AgregadoTooltip.show();
                         setTimeout(function () {
-                            $AgregadoTooltip.hide();
-                            if (origenPedidoWebEstrategia === _OrigenPedido.DesktopContenedorArmaTuPack) {
-                                window.location = "/ofertas";
-                            } else if (origenPedidoWebEstrategia === _OrigenPedido.MobileContenedorArmaTuPack) {
-                                window.location = "/mobile/ofertas";
+							$AgregadoTooltip.hide();
+							if (typeof esAppMobile == 'undefined') {
+								if (origenPedidoWebEstrategia === _OrigenPedido.DesktopContenedorArmaTuPack) {
+									window.location = "/ofertas";
+								} else if (origenPedidoWebEstrategia === _OrigenPedido.MobileContenedorArmaTuPack) {
+									window.location = "/mobile/ofertas";
 
-                            }
+								}
+							} else {
+								if (estrategia.CodigoEstrategia === ConstantesModule.TipoEstrategia.ArmaTuPack) {
+									window.location = "/ArmaTuPack/AgregarATPApp";
+                                }
+							}
                         }, 2500);
                         if (!(origenPedidoWebEstrategia === _OrigenPedido.DesktopContenedorArmaTuPack || origenPedidoWebEstrategia === _OrigenPedido.MobileContenedorArmaTuPack)) {
                             ResumenOpcionesModule.LimpiarOpciones();
@@ -575,7 +589,8 @@ var EstrategiaAgregarModule = (function () {
                 if (!IsNullOrEmpty(data.mensajeAviso)) AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
                 if (estrategia.TipoAccionNavegar == ConstantesModule.TipoAccionNavegar.Volver) {
                     FichaPartialModule.ShowDivFichaResumida(false);
-                }
+				}
+
                 return false;
             })
             .fail(function (data, error) {

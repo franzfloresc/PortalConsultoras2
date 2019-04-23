@@ -22,7 +22,8 @@ var ConstantesModule = (function () {
         Ganadoras: "Ganadoras",
         LiquidacionWeb: "OfertasLiquidacion",
         GuiaNegocio: "GuiaNegocio",
-        SR: "ShowRoom"
+        SR: "ShowRoom",
+        DuoPerfecto:"DuoPerfecto" //HD-3473 EINCA
     }
 
     var _keysLocalStorage = {
@@ -63,8 +64,26 @@ var ConstantesModule = (function () {
 
         ProgramaNuevasRegalo: "044",
         ParticipaProgramaNuevas: "1",
-        NotParticipaProgramaNuevas: "0"
+        NotParticipaProgramaNuevas: "0",
+        DuoPerfecto:"034"//HD-3473 EINCA
     }
+
+    var _diccionarioTipoEstrategia = [
+        { codigo: _codigoTipoEstrategia.OfertaParaTi, texto: _codigoTipoEstrategiaTexto.OfertaParaTi },
+        { codigo: _codigoTipoEstrategia.PackNuevas, texto: _codigoTipoEstrategiaTexto.PackNuevas },
+        { codigo: _codigoTipoEstrategia.OfertaWeb, texto: _codigoTipoEstrategiaTexto.OfertaWeb },
+
+        { codigo: _codigoTipoEstrategia.Lanzamiento, texto: _codigoTipoEstrategiaTexto.Lanzamiento },
+        { codigo: _codigoTipoEstrategia.OfertasParaMi, texto: _codigoTipoEstrategiaTexto.OfertasParaMi },
+        { codigo: _codigoTipoEstrategia.PackAltoDesembolso, texto: _codigoTipoEstrategiaTexto.PackAltoDesembolso },
+        { codigo: _codigoTipoEstrategia.OfertaDelDia, texto: _codigoTipoEstrategiaTexto.OfertaDelDia },
+        { codigo: _codigoTipoEstrategia.GuiaDeNegocioDigitalizada, texto: _codigoTipoEstrategiaTexto.GuiaDeNegocioDigitalizada },
+        { codigo: _codigoTipoEstrategia.GuiaDeNegocioDigitalizada, texto: _codigoTipoEstrategiaTexto.GuiaNegocio },
+        { codigo: _codigoTipoEstrategia.HerramientasVenta, texto: _codigoTipoEstrategiaTexto.HerramientasVenta },
+        { codigo: _codigoTipoEstrategia.ShowRoom, texto: _codigoTipoEstrategiaTexto.ShowRoom },
+        { codigo: _codigoTipoEstrategia.RevistaDigital, texto: _codigoTipoEstrategiaTexto.RevistaDigital },
+        { codigo: _codigoTipoEstrategia.MasGanadoras, texto: _codigoTipoEstrategiaTexto.Ganadoras },
+    ];
 
     var _configuracionOferta = {
         Web: 1701,
@@ -86,7 +105,9 @@ var ConstantesModule = (function () {
         LAN: "LAN",
         MG: "MG",
         SR: "SR",
-        ATP: "ATP"
+        ATP: "ATP",
+        PN: "PN",
+        DP: "DP"
     }
 
     var _urlObtenerEstrategia = {
@@ -145,7 +166,9 @@ var ConstantesModule = (function () {
             Contenedor: '08',
             Otras: '09',
             LandingBuscador: '10',
-            LandingGanadoras: '11'
+            LandingGanadoras: '11',
+            LandingDuoPerfecto: '14',
+            LandingPackNuevas: '15'
         },
         Palanca: {
             OfertasParaTi: '00',
@@ -162,7 +185,9 @@ var ConstantesModule = (function () {
             CatalogoLbel: '11',
             CatalogoEsika: '12',
             CatalogoCyzone: '13',
-            Ganadoras: '14'
+            Ganadoras: '14',
+            DuoPerfecto: '16',
+            PackNuevas: '17'
         },
         Seccion: {
             Carrusel: '01',
@@ -188,13 +213,14 @@ var ConstantesModule = (function () {
     var _urlDetalleEstrategia = {
         obtenerComponentes: '/DetalleEstrategia/ObtenerComponentes',
         obtenerModelo: '/DetalleEstrategia/ObtenerModelo',
-        obtenerPedidoWebSetDetalle: '/Pedido/ObtenerPedidoWebSetDetalle'
+        obtenerPedidoWebSetDetalle: '/Pedido/ObtenerPedidoWebSetDetalle',
+        obtenerEstrategiaFicha: '/Estrategia/ObtenerOfertaFicha'
     }
 
     var _urlPedido = {
         cargarDetallePedido: '/Pedido/CargarDetallePedido',
         ejecutarServicioProl: '/Pedido/EjecutarServicioPROL',
-        updatePostulanteMensaje:'/Pedido/UpdatePostulanteMensaje'
+        updatePostulanteMensaje: '/Pedido/UpdatePostulanteMensaje'
     }
 
     return {
@@ -210,6 +236,7 @@ var ConstantesModule = (function () {
         EditarItemPedido: _editarItemPedido,
         UrlObtenerEstrategia: _urlObtenerEstrategia,
         UrlDetalleEstrategia: _urlDetalleEstrategia,
-        UrlPedido: _urlPedido
+        UrlPedido: _urlPedido,
+        DiccionarioTipoEstrategia: _diccionarioTipoEstrategia
     }
 })();

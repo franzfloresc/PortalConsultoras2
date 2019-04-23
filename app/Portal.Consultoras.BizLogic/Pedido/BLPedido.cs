@@ -241,24 +241,23 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
             var mensaje = string.Empty;
             var cuvSet = estrategia.CUV2;
-            var pedidoID = 0;
+            int pedidoID;
             var lstDetalleAgrupado = ObtenerPedidoWebSetDetalleAgrupado(usuario, out pedidoID);
 
             usuario.PaisID = pedidoDetalle.PaisID;
             usuario.TieneValidacionMontoMaximo = _usuarioBusinessLogic.ConfiguracionPaisUsuario(usuario, Constantes.ConfiguracionPais.ValidacionMontoMaximo).TieneValidacionMontoMaximo;
 
+            var tipoEstrategia = _tipoEstrategiaBusinessLogic.GetTipoEstrategiaById(usuario.PaisID, estrategia.TipoEstrategiaID);
+
             #region ArmaTuPack
-            if (pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopContenedorArmaTuPack || pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobileContenedorArmaTuPack)
+            if (tipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.ArmaTuPack)
             {
                 var packAgregado = lstDetalleAgrupado != null ? lstDetalleAgrupado.FirstOrDefault(x => x.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.ArmaTuPack) : null;
 
-                if (packAgregado != null)
+                if (packAgregado != null && packAgregado.CUV == estrategia.CUV2)
                 {
-                    if(packAgregado.CUV == estrategia.CUV2)
-                    {
-                        pedidoDetalle.EsEditable = true;
-                        pedidoDetalle.SetID = packAgregado.SetID;
-                    }
+                    pedidoDetalle.EsEditable = true;
+                    pedidoDetalle.SetID = packAgregado.SetID;
                 }
             }
             #endregion
@@ -1124,16 +1123,20 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         x.DescripcionOferta,
                         x.EsCuponNuevas,
                         x.EsElecMultipleNuevas,
-                        x.EsPremioElectivo));
+                        x.EsPremioElectivo,
+                        x.EsCuponIndependiente));
 
                     lstDetalle.Where(x => x.EsKitNueva).Update(x => x.DescripcionEstrategia = Constantes.PedidoDetalleApp.DescripcionKitInicio);
                     lstDetalle.Where(x => x.IndicadorOfertaCUV && x.TipoEstrategiaID == 0).Update
                                     (x => x.DescripcionEstrategia = Constantes.PedidoDetalleApp.OfertaNiveles);
 
+                    lstDetalle.Where(x => x.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.ArmaTuPack).Update(item => item.EsArmaTuPack = true);
+
                     pedido.olstBEPedidoWebDetalle = lstDetalle;
 
                     pedido.CantidadProductos = lstDetalle.Sum(p => p.Cantidad);
                     pedido.CantidadCuv = lstDetalle.Count;
+                    pedido.TieneArmaTuPack = lstDetalle.Any(x => x.EsArmaTuPack);
                 }
 
                 //Programa nuevas
@@ -2705,6 +2708,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             }
 
             objRerun.MensajeRespuesta = objRerun.MensajeRespuesta ?? Constantes.PedidoValidacion.Configuracion[Constantes.PedidoValidacion.Code.SUCCESS].Mensaje;
+
             return objRerun;
         }
 

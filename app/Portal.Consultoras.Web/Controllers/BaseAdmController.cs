@@ -35,6 +35,12 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        public IEnumerable<CampaniaModel> ObtenerCampaniasPorPaisPoput(int PaisID)
+        {
+            return _zonificacionProvider.GetCampanias(PaisID);
+        }
+
+
         public JsonResult ObtenerCampaniasNemotecnicoPorPais(int PaisID)
         {
             IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(PaisID);
