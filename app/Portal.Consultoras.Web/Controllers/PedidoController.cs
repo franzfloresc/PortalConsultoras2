@@ -2584,6 +2584,7 @@ namespace Portal.Consultoras.Web.Controllers
                 p.CodigoIso = userData.CodigoISO;
                 p.DescripcionCortadaProd = Util.SubStrCortarNombre(p.DescripcionProd, 73);
                 p.TipoAccion = TipoAccionPedido(p, pedidoEditable);
+                p.FlagModificaCantidad = FlagModificaCantidad(p, pedidoEditable);
                 p.LockPremioElectivo = p.EsPremioElectivo && string.IsNullOrEmpty(p.Mensaje);
             });
 
@@ -2629,6 +2630,19 @@ namespace Portal.Consultoras.Web.Controllers
                 default:
                     return 0;
             }
+        }
+
+        private bool FlagModificaCantidad(PedidoWebDetalleModel producto, bool valorConfi)
+        {
+            bool flag = true;
+            if (producto.TipoEstrategiaCodigo ==  Constantes.TipoEstrategiaCodigo.ArmaTuPack
+                || producto.EsKitNueva
+                || producto.FlagNueva
+                || producto.EsPremioElectivo)
+            {
+                flag = false;
+            }
+            return flag;
         }
 
         private List<BEPedidoWebDetalle> GetPedidoWebDetalle(bool isMobile)
