@@ -21,8 +21,17 @@ var CodigoUbigeoPortal = (function () {
         GuionContenedorArmaTuPack: "--12----",
         GuionCarritoComprasGuionFichaResumida: "--02--09",
 
-        MobileRevistaDigitalMobileCatalogoSeccion: estructuraUbigeo.Dispositivo + estructuraUbigeo.Pagina.MisCatalogosRevista + estructuraUbigeo.SeccionFuncional.OfertasParaTi + estructuraUbigeo.Guion,
-        DesktopRevistaDigitalMobileCatalogoSeccion: estructuraUbigeo.Desktop + estructuraUbigeo.Pagina.MisCatalogosRevista + estructuraUbigeo.SeccionFuncional.OfertasParaTi + estructuraUbigeo.Guion
+        MobileRevistaDigitalMobileCatalogoSeccion: estructuraUbigeo.Dispositivo.Mobile + estructuraUbigeo.Pagina.MisCatalogosRevista + estructuraUbigeo.SeccionFuncional.OfertasParaTi + estructuraUbigeo.Guion,
+        DesktopRevistaDigitalMobileCatalogoSeccion: estructuraUbigeo.Dispositivo.Desktop + estructuraUbigeo.Pagina.MisCatalogosRevista + estructuraUbigeo.SeccionFuncional.OfertasParaTi + estructuraUbigeo.Guion,
+
+        MobileRevistaDigitalHomeSeccion: estructuraUbigeo.Dispositivo.Mobile + estructuraUbigeo.Pagina.Home + estructuraUbigeo.SeccionFuncional.OfertasParaTi + estructuraUbigeo.Guion,
+        DesktopRevistaDigitalHomeSeccion: estructuraUbigeo.Dispositivo.Desktop + estructuraUbigeo.Pagina.Home + estructuraUbigeo.SeccionFuncional.OfertasParaTi + estructuraUbigeo.Guion,
+
+        MobileRevistaDigitalResumenBelcorp: estructuraUbigeo.Dispositivo.Mobile + estructuraUbigeo.Pagina.MisCatalogosRevista + estructuraUbigeo.SeccionFuncional.OfertasParaTi + estructuraUbigeo.Guion,
+        DesktopRevistaDigitalResumenBelcorp: estructuraUbigeo.Dispositivo.Mobile + estructuraUbigeo.Pagina.MisCatalogosRevista + estructuraUbigeo.SeccionFuncional.OfertasParaTi + estructuraUbigeo.Guion,
+
+        MobilePedidoRevistaDigital: estructuraUbigeo.Dispositivo.Mobile + estructuraUbigeo.Pagina.Pedido + estructuraUbigeo.SeccionFuncional.OfertasParaTi + estructuraUbigeo.Guion,
+        DesktopPedidoRevistaDigital: estructuraUbigeo.Dispositivo.Mobile + estructuraUbigeo.Pagina.Pedido + estructuraUbigeo.SeccionFuncional.OfertasParaTi + estructuraUbigeo.Guion
     }
 
     var estructuraUbigeo = {
