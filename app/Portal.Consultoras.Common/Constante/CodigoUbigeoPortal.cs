@@ -115,5 +115,17 @@ namespace Portal.Consultoras.Common
         }
         #endregion
 
+        #region RevistaDigitalMobileHomeSeccion
+        public static string MobileRevistaDigitalResumenBelcorp
+        {
+            get { return Dispositivo.Mobile + Pagina.Home + SeccionFuncional.ResumenBelcorp + Guion; }
+        }
+
+        public static string DesktopRevistaDigitalResumenBelcorp
+        {
+            get { return Dispositivo.Desktop + Pagina.Home + SeccionFuncional.ResumenBelcorp + Guion; }
+        }
+        #endregion
+
     }
 }
