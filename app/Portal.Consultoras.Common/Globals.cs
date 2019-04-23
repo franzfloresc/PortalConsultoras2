@@ -16,7 +16,7 @@ namespace Portal.Consultoras.Common
         private static string _rutaCdn;
         private static string _rutaBuscadorAPI;
         private static string _urlMatrizAppConsultora;
-        
+        private static string _codigoHistoriasResumen;       
         #endregion
 
         #region Propiedades
@@ -203,6 +203,19 @@ namespace Portal.Consultoras.Common
                 return _urlMatrizAppConsultora;
             }
             set { _urlMatrizAppConsultora = value; }
+        }
+        public static string CodigoHistoriasResumen
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_codigoHistoriasResumen))
+                {
+                    _codigoHistoriasResumen = ConfigurationManager.AppSettings["CodigoHistoriasResumen"] ?? string.Empty;
+                }
+
+                return _codigoHistoriasResumen;
+            }
+            set { _codigoHistoriasResumen = value; }
         }
         #endregion
     }

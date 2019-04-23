@@ -29,6 +29,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Index()
         {
             var model = new AdministrarHistorialModel();
+
             try
             {
                 if (!UsuarioModel.HasAcces(ViewBag.Permiso, "AdministrarHistorias/Index"))
@@ -40,12 +41,12 @@ namespace Portal.Consultoras.Web.Controllers
                 BEContenidoApp entidad;
                 using (var sv = new ServiceContenido.ContenidoServiceClient())
                 {
-                    entidad = sv.GetContenidoApp("HISTORIAS_RESUMEN");
+                    entidad = sv.GetContenidoApp(Globals.CodigoHistoriasResumen);
                     model.IdContenido = entidad.IdContenido;
                     model.Codigo = entidad.Codigo;
                     model.Descripcion = entidad.Descripcion;
                     model.Estado = entidad.Estado;
-                    model.DesdeCampania = entidad.DesdeCampania;//201807;
+                    model.DesdeCampania = entidad.DesdeCampania;
                     model.CantidadContenido = entidad.CantidadContenido;
                     model.NombreImagen = entidad.UrlMiniatura;
                 }
@@ -345,8 +346,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             
                 model.RutaContenido = SaveFileDetalleS3(model.RutaContenido);
-                //model.MobileImagenFondo = SaveFileS3(model.MobileImagenFondo);
-                //model.AdministrarOfertasHomeAppModel.AppBannerInformativo = SaveFileS3(model.AdministrarOfertasHomeAppModel.AppBannerInformativo, true);
                 if (model.RutaContenido != string.Empty) resizeImagenApp = true;
             
 
