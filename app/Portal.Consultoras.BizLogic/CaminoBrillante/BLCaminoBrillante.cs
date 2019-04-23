@@ -645,7 +645,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             var periodo = GetPeriodo(entidad.PaisID, entidad.CampaniaID);
             if (periodo == null) return null;
 
-            UpdateFortest(periodo);
+            //UpdateFortest(periodo);
 
             var kits = GetKits(entidad.PaisID, entidad.CampaniaID, periodo.Periodo, nivelId);
             if (kits == null) return null;
@@ -842,7 +842,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 var periodo = GetPeriodo(paisId, campaniaId);
                 if (periodo == null) return false;
 
-                UpdateFortest(periodo);
+                //UpdateFortest(periodo);
 
                 //Producto comercial obtener la info
                 var kits = GetKits(paisId, campaniaId, periodo.Periodo, -1);
@@ -876,7 +876,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
             if (estrategia.LimiteVenta == 1)
             {
-                UpdateFortest(periodo);
+                //UpdateFortest(periodo);
 
                 var kits = GetKits(usuario.PaisID, usuario.CampaniaID, periodo.Periodo, 6);
                 if (kits == null) return Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_NOEXISTE;
@@ -921,13 +921,6 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         }
 
         #endregion
-
-        private void UpdateFortest(BEPeriodoCaminoBrillante periodo)
-        {
-            //Quitar 
-            periodo.Periodo = 201903;
-
-        }
 
     }
 }
