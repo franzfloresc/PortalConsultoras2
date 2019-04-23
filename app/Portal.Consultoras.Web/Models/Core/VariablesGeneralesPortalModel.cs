@@ -11,5 +11,8 @@ namespace Portal.Consultoras.Web.Models
         public string ImgUrlBase { get; set; }
         public string SimboloMoneda { get; set; }
         public string PaisISO { get; set; }
+        public string MsTiposEstrategias { get; set; }
+        public string MsPais { get; set; }
+        public string MsFichaEstrategias { get; set; }
     }
 }

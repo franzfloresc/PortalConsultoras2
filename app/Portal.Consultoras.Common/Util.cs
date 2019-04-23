@@ -3333,7 +3333,7 @@ namespace Portal.Consultoras.Common
                 response = (HttpWebResponse)request.GetResponse();
                 result = true;
             }
-            catch (WebException webException)
+            catch (WebException)
             {
                 LogManager.SaveLog(new Exception("URL " + url + " no encontrada"), "", "");
                 result = false;
@@ -3469,9 +3469,6 @@ namespace Portal.Consultoras.Common
                 case Constantes.PaisID.Bolivia:
                 case Constantes.PaisID.Guatemala:
                 case Constantes.PaisID.ElSalvador:
-                    limiteMinimoTelef = 5;
-                    limiteMaximoTelef = 8;
-                    break;
                 case Constantes.PaisID.Panama:
                 case Constantes.PaisID.CostaRica:
                     limiteMinimoTelef = 5;
@@ -3708,9 +3705,10 @@ namespace Portal.Consultoras.Common
 
         public static string obtenerNuevaDescripcionProductoDetalle(int ofertaId, bool pedidoValidado,
             bool consultoraOnline, int origenPedido, Dictionary<string, string> lista, bool suscripcion, string tipoEstrategiaCodigo,
-            int marcaId, int codigoCatalogo, string descripcion, bool esCuponNuevas, bool EsElecMultipleNuevas, bool esPremioElec)
+            int marcaId, int codigoCatalogo, string descripcion, bool esCuponNuevas, bool EsElecMultipleNuevas, bool esPremioElec, bool esCuponIndependiente)
         {
             if (esPremioElec) return lista[Constantes.NuevoCatalogoProducto.ESPREMIOELEC];
+            if (esCuponIndependiente) return lista[Constantes.NuevoCatalogoProducto.ESCUPONINDEPENDIENTE];
             if (EsElecMultipleNuevas) return lista[Constantes.NuevoCatalogoProducto.ESELECMULTIPLENUEVAS];
             if (esCuponNuevas) return lista[Constantes.NuevoCatalogoProducto.ESCUPONNUEVAS];
 
@@ -3933,6 +3931,9 @@ namespace Portal.Consultoras.Common
                     break;
                 case Constantes.TipoEstrategiaCodigo.OfertaDelDia:
                     tipoPersonalizacion = Constantes.TipoPersonalizacion.OfertaDelDia;
+                    break; 
+                case Constantes.TipoEstrategiaCodigo.ArmaTuPack:
+                    tipoPersonalizacion = Constantes.TipoPersonalizacion.ArmaTuPack;
                     break;
                 default:
                     break;
