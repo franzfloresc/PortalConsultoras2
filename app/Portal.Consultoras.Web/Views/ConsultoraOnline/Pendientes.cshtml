@@ -799,7 +799,7 @@
                     }
                 },
                 error: function (err) {
-                    CloseLoading();
+                    //CloseLoading();
                     console.log(err);
                 }
             });
@@ -836,7 +836,7 @@
 
         function ContinuarPedido() {
             var lstDetalle = [];
-            ShowLoading();
+            //ShowLoading();
 
             $('.pedidos').each(function () {
 
@@ -879,7 +879,7 @@
                 });
             }
             else {
-                CloseLoading();
+                //CloseLoading();
                 $('#mensajepedido').show();
             }
         }
@@ -898,7 +898,7 @@
                 contentType: 'application/json; charset=utf-8',
                 data: JSON.stringify(obj),
                 success: function (response) {
-                    CloseLoading();
+                    //CloseLoading();
                     if (response.success) {
                         // ocultar div
                         if (origen == 'C') {
@@ -914,7 +914,7 @@
                     }
                 },
                 error: function (err) {
-                    CloseLoading();
+                    //CloseLoading();
                     console.log(err);
                 }
             });
