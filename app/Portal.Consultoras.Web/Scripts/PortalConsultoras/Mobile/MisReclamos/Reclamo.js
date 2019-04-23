@@ -1281,7 +1281,7 @@ $(document).ready(function () {
                         }
 
                         $("#MensajeTenerEncuenta").fadeIn(100);
-                        $(me.Variables.spnMensajeTenerCuenta).html(data.descripcionTenerEnCuenta);
+                        $(me.Variables.spnMensajeTenerCuenta).html(data.texto);
                     },
                     error: function (data, error) { }
                 });
