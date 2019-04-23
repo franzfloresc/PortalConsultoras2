@@ -285,7 +285,6 @@ header {
 
 .menu_socia_empresaria > .new_menu {
     margin-left: 2%;
-    margin-top: 21px;
 }
 
 .nav_principal li:hover > ul {
@@ -300,7 +299,7 @@ header {
     position: absolute;
     top: 39px;
     margin-left: -90px;
-    width: 852px;
+    width: 920px;
     height: auto;
     padding-left: 60px;
     padding-right: 32px;
@@ -2048,6 +2047,13 @@ a.subir_carousel, a.bajar_carousel {
         font-family: 'Lato';
         font-size: 13px;
     }
+
+        .popup_agregarCliente .btnCliente_agregar--vistaPedido {
+            margin-top: 0;
+            border-radius: 0;
+            line-height: normal;
+        }
+
 /* POPUP PRODUCTOS AGOTADOS */
 .contenedor_popup_productosAgotados {
     display: block;
@@ -17608,18 +17614,18 @@ label.checkpop.c_on {
     font-weight:900;
 }
 
-.enlace_camino_al_exito::after{
-    position: absolute;
-    top: -6px;
-    right: 53px;
-    content: "";
-    background-image: url(../../../Images/Lbel/estrellas.png);
-    background-position: right top;
-    background-repeat: no-repeat;
-    background-size: 100%;
-    width: 24px;
-    height: 27px;
-}
+    .enlace_camino_al_exito::after {
+        position: absolute;
+        top: -6px;
+        right: 53px;
+        content: "";
+        background-image: url(/Content/Images/Lbel/estrellas.png);
+        background-position: right top;
+        background-repeat: no-repeat;
+        background-size: 100%;
+        width: 24px;
+        height: 27px;
+    }
 
 .mis_datos {
     font-family: 'lato';
@@ -17893,6 +17899,10 @@ label.checkpop.c_on {
 
 .nombre_producto {
     height: 40px;
+}
+
+.nombre_producto_sugerido {
+    height: 60px;
 }
 
 .boton_Agregalo_home {
@@ -25616,6 +25626,7 @@ span.datoPedidoCliente {
     font-weight: normal;
     padding-left: 16px;
     padding-bottom: 40px;
+    margin-top: 15px;
 }
 
     .revision_pedidosAceptados .texto_revisaPedidos {
@@ -25953,7 +25964,7 @@ a#cierreMotivoRechazo img {
     position: absolute;
     padding: 0 8px;
     background: #fff;
-    height: 80px;
+    height: auto;
     min-width: 200px;
     margin-top: -58px;
     z-index: 9;
@@ -26169,6 +26180,7 @@ div.motivoRechazo textarea {
         margin-left: 56px;
         padding-left: 5px;
         border-left: 1px solid #d4d4d4;
+        height: 100%;
     }
 
 .margen-sup {
@@ -28318,20 +28330,20 @@ div.motivoRechazo textarea {
     color:#000;
 }
 
-.descripcion_reclamo + .chosen-container .chosen-search-input[type="text"]{
-    display:block;
-    height:100%;
-    font-family:'Lato', sans-serif;
-    padding-left:18px;
-    padding-right:18px;
-    padding-top:1px;
-    border:1px solid#000;
-    background-color:#FBFBFB;
-    font-size:16px;
-    background-image:url(../../../Images/icono_lupa.svg);
-    background-repeat:no-repeat;
-    background-position:97% center;
-}
+    .descripcion_reclamo + .chosen-container .chosen-search-input[type="text"] {
+        display: block;
+        height: 100%;
+        font-family: 'Lato', sans-serif;
+        padding-left: 18px;
+        padding-right: 18px;
+        padding-top: 1px;
+        border: 1px solid#000;
+        background-color: #FBFBFB;
+        font-size: 16px;
+        background-image: url(/Content/Images/icono_lupa.svg);
+        background-repeat: no-repeat;
+        background-position: 97% center;
+    }
 
 .descripcion_reclamo + .chosen-container .chosen-results{
     height:113px;

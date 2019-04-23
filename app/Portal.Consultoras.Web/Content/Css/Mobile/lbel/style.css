@@ -42,6 +42,10 @@ h3 {
     font-size: 18px;
 }
 
+.mt-23{
+    margin-top:23px;
+}
+
 .noPadding {
     padding: 0 !important;
 }
@@ -4379,6 +4383,14 @@ table > thead > tr > th {
         font-weight: 900;
     }
 
+.sugerido .content_item_home{
+    padding-bottom: 20px
+}
+
+.nombre_producto_sugerido {
+    height: 60px !important;
+}
+
 .producto_precio {
     width: 100%;
     padding-left: 16px;
@@ -4802,14 +4814,14 @@ body {
     color: #b75d9f;
 }
 
-    .bloque_cantidades_precios_items_ingresados .contenedor_cantidadProductos div .signo_menos, .bloque_cantidades_precios_items_ingresados .contenedor_cantidadProductos div .signo_mas {
+    /*.bloque_cantidades_precios_items_ingresados .contenedor_cantidadProductos div .signo_menos, .bloque_cantidades_precios_items_ingresados .contenedor_cantidadProductos div .signo_mas {
         width: 31%;
-    }
+    }*/
 
-    .bloque_cantidades_precios_items_ingresados .contenedor_cantidadProductos div .campo_cantidadProductos {
+    /*.bloque_cantidades_precios_items_ingresados .contenedor_cantidadProductos div .campo_cantidadProductos {
         width: 38%;
         max-width: 55.56px;
-    }
+    }*/
 
     .mensaje_eliminarPedido a {
         color: #642f80;
@@ -5467,14 +5479,21 @@ body {
 
 .titulo_compartir {
     font-family: 'Lato';
-    font-size: 24px;
+    font-size: 18px;
     font-weight: 300;
     line-height: .82;
-    text-align: center;
+    text-transform: uppercase;
     color: #000000;
     margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+.contet_alert {
+    max-width: 300px;
+    margin: 0 auto;
     margin-bottom: 30px;
 }
+
 
 .contrevista p {
 font-size: 13px;
@@ -5840,7 +5859,7 @@ input[type='checkbox']:checked + span:after {
     }
 
     .titulo_compartir {
-        font-size: 19px;
+        font-size: 16px;
         line-height: 28px;
     }
 }
@@ -8456,22 +8475,22 @@ a {
     background-repeat:no-repeat;
 }
 
-.camino_al_exito{
+.camino_al_exito {
     width: 167px;
     color: #613c87;
     font-size: 14px;
     margin-bottom: 3px;
-    background-image: url(../../../Images/Lbel/estrellas.png);
+    background-image: url(/Content/Images/Lbel/estrellas.png);
     background-position: right -2px;
     background-size: 23px;
 }
 
-.enlace_ver_mas_sobre_camino_al_exito{
+.enlace_ver_mas_sobre_camino_al_exito {
     width: 63px;
     margin: 0 auto;
     font-size: 11px;
     text-decoration: underline;
-    background-image: url(../../../Images/mobile/Lbel/indicador_pedido.png);
+    background-image: url(/Content/Images/mobile/Lbel/indicador_pedido.png);
     background-position: left 5px;
     background-size: 6px;
 }
