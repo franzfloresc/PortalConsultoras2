@@ -92,7 +92,18 @@ namespace Portal.Consultoras.Common
             public const int EstadosUnidos = 16;
         }
 
-        public static class CodigosISOPais
+
+        public static class TipoEnvio
+        {
+            public const string SMS = "SMS";
+            public const string FIJO = "FIJO";
+            public const string EMAIL = "Email";    
+            public const string TODO = "todo";
+        }
+
+
+
+            public static class CodigosISOPais
         {
             public const string Peru = "PE";
             public const string Chile = "CL";
@@ -180,6 +191,9 @@ namespace Portal.Consultoras.Common
             public const int MensajeActualizarEmailSms = 1001;
             public const int MensajeActualizarSms = 1002;
             public const int MensajeActualizarEmail = 1003;
+            public const int MensajeActualizarFijo = 16261;
+
+            public const int TablaLogicaestadoPopupInformativoID = 191;
 
             public static class PersonalizacionOdd
             {
@@ -2225,8 +2239,15 @@ namespace Portal.Consultoras.Common
             public const string ProgramaNuevas = "/programanuevas";
             public const string ProgramaNuevasIndex = "/programanuevas/index";
             public const string DetalleMasGanadoras = "/detalle/ganadoras";
-
         }
+
+        public static class UrlDatsoPendientes
+        {
+            public const string MiPerfilDesktop = "/MiPerfil";
+            public const string MiPerfilMobile = "/Mobile/MiPerfil";
+        }
+
+
 
         public static class TipoVistaEstrategia
         {

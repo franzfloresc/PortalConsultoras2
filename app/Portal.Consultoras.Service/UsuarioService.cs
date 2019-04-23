@@ -945,5 +945,43 @@ namespace Portal.Consultoras.Service
             return _usuarioBusinessLogic.GetUsuarioOpciones(paisID, codigoUsuario);
         }
         #endregion
+
+        public int ActualizarValidacionDatos(bool isMobile, string ipDispositivo,  string codigoConsultora, int PaisID, string CodigoUsuario, string tipoEnvio1, string tipoEnvio2)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.ActualizarValidacionDatos(isMobile, ipDispositivo, codigoConsultora, PaisID, CodigoUsuario, tipoEnvio1, tipoEnvio2);
+        }
+
+        public int ActualizarSMS(int PaisID, string codigoUsuario, string tipoEnvio, string celularAnterior, string celularActual)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.ActualizarSMS(PaisID, codigoUsuario, tipoEnvio, celularAnterior, celularActual);
+        }
+
+        public int ActualizarFijo(int PaisID, string codigoUsuario, string tipoEnvio, string telefonoAnterior, string telefonoActual)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.ActualizarFijo(PaisID, codigoUsuario, tipoEnvio, telefonoAnterior, telefonoActual);
+        }
+
+        public int ValidaEstadoPopup(int PaisID)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.ValidaEstadoPopup(PaisID);
+        }
+
+        public List<BEValidacionDatos> GetTipoEnvioActivos(int PaisID, string CodigoUsuario)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.GetTipoEnvioActivos(PaisID, CodigoUsuario);
+        }
+
+        public List<BEValidacionDatos> ListarValidacionDatos(BEValidacionDatos beValidacionDatos)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.ListarValidacionDatos(beValidacionDatos);
+        }
+
+
     }
 }

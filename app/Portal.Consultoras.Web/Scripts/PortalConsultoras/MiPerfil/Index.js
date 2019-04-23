@@ -409,7 +409,7 @@ function actualizarDatos() {
     if ((txtCelularMD == null || txtCelularMD == "")) {
         $('#btnGuardar')[0].disabled = false;
         alert('Debe ingresar un número de celular. \n');
-        return false;
+        return false; 
     }
 
     if ((txtTelefonoMD == null || txtTelefonoMD == "") && hdn_PaisID != 3 ) {
@@ -417,6 +417,7 @@ function actualizarDatos() {
         alert('Debe ingresar un número de teléfono. \n');
         return false;
     }
+
 
     if (txtCelularMD != "") {
         if (!isInt(txtCelularMD)) {
@@ -820,19 +821,19 @@ function ConsultarActualizaEmail() {
         $.ajax({
             type: 'POST',
             url: baseUrl + 'Bienvenida/ObtenerActualizacionEmailSms',
-            dataType: 'Text',
+            dataType: 'Json',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(item),
             success: function (data) {
                 if (checkTimeout(data)) {
                     if (data != "") {
-                        if (data.split('|')[1] != ""){
+                        if (data.mensaje.split('|')[1] != ""){
                             document.getElementsByClassName('toolTipCorreo')[0].style.display = 'block';
-                            document.getElementById('EmailNuevo').innerHTML = data.split('|')[1];
+                            document.getElementById('EmailNuevo').innerHTML = data.mensaje.split('|')[1];
                         }
-                        if (data.split('|')[0] != "") {
+                        if (data.mensaje.split('|')[0] != "") {
                             document.getElementsByClassName('toolTipCelular')[0].style.display = 'block';
-                            document.getElementById('CelularNuevo').innerHTML = data.split('|')[0];
+                            document.getElementById('CelularNuevo').innerHTML = data.mensaje.split('|')[0];
                         }
                     }
                 }

@@ -807,13 +807,14 @@
         <div class="detalle_popup_comunicado">
         </div>
         <div class="pie_popup_comunicado">
-            <div style="display:table">
+            <div style="display:table; width:100%;">
                 <div style="display:table-row">
-                    <div style="display:table-cell">
-                        <input type="checkbox" /><div class="check"></div>
+                    <div style="display:table-cell; display:none;">
+                        <input type="checkbox" />
+                        <div class="check"></div>
                     </div>
                     <div class="check_text">
-                        No volver a mostrar este comunicado
+                        <a href="#" class="enlace_no_volver_a_mostrar_comunicado">No volver a mostrar este anuncio</a>
                     </div>
                 </div>
             </div>
@@ -823,6 +824,10 @@
 
 <!--FIN-->
 <!-- POPUP VERIFICACIÓN DE CORREO ELECTRÓNICO PENDIENTE  -->
+
+<!-- POPUP ACTUALIZACIÓN DE CORREO ECUADOR -->
+@Html.Partial("~/Views/Shared/PopupsResponsive/_PopupActualizacionCorreo.cshtml")
+<!-- FIN - POPUP ACTUALIZACIÓN DE CORREO ECUADOR -->
 
 <div class="contenedor_fondo_popup" id="popupVerificacionCorreoElectronicoPendiente" style="display:none;">
     <div class="popup_correo_pendiente_de_confirmar w-100 text-center">
