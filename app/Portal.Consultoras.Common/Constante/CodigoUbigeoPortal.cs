@@ -127,5 +127,16 @@ namespace Portal.Consultoras.Common
         }
         #endregion
 
+        #region RevistaDigitalDesktopPedidoSeccion
+        public static string MobilePedidoRevistaDigital
+        {
+            get { return Dispositivo.Mobile + Pagina.Pedido + SeccionFuncional.OfertasParaTi + Guion; }
+        }
+
+        public static string DesktopPedidoRevistaDigital
+        {
+            get { return Dispositivo.Desktop + Pagina.Pedido + SeccionFuncional.OfertasParaTi + Guion; }
+        }
+        #endregion
     }
 }
