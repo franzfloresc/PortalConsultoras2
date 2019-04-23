@@ -45,3 +45,7 @@ body{
 #CampoBuscadorProductos{
     border : 0 solid var(--border-color)
 }
+
+*::before, *::after{
+    z-index: unset;
+}
