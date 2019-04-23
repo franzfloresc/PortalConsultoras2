@@ -1,6 +1,5 @@
 ﻿
 var PedidoEnLinea;
-var montoGastos = 0;
 var urlPasarelaPago = urlPasarelaPago || '';
 var rutaGuardarDatosPago = rutaGuardarDatosPago || '';
 var tipoOrigenPantalla = tipoOrigenPantalla || 0;
@@ -158,29 +157,14 @@ $(document).ready(function () {
                 ObtenerMontosPagoParcial: function (e) {
                     var montoParcial = parseFloat($(this).val());
                     var porcentaje = parseFloat($("#hdPorcentajeGastosAdministrativos").val());
+                    var montoGastos = montoParcial * (porcentaje / 100);
 
-                    /*Validación si se le aplica el 3% de gastos Adm. HD-3804 */
-                    var codigoIso = $.trim($("#hdCodigoIso").val());
-                    var indicadorConsultoraDigital = $.trim($("#hdIndicadorConsultoraDigital").val());
-                    var aplica3Porciento = $.trim($("#hdAplica3Porciento").val());
-
-                    var fechaVencimiento = new Date($("#hdFechaVencimiento").val());
-                    console.log(fechaVencimiento);
-                    var now = new Date();
-                    now.setHours(0, 0, 0, 0);
-                    console.log(now);
-
-                    if (codigoIso == 'PE' && fechaVencimiento.getTime() >= now.getTime() && indicadorConsultoraDigital == '1' && aplica3Porciento == '1') {
-                         montoGastos = 0 ;
-                    } else {
-                         montoGastos = montoParcial * (porcentaje / 100);
-                    }
-
-                    // Fin de validacion HD-3804
+                    var aplicaPorciento = $.trim($("#hdAplicaPorciento").val());
+                    var totalConGastos = aplicaPorciento === "1" ? montoParcial + montoGastos : montoParcial;
 
                     $("#spnMontoParcial").html(DecimalToStringFormat(montoParcial));
                     $("#spnMontoGastosAdministrativos").html(DecimalToStringFormat(montoGastos));
-                    $("#spnMontoParcialConGastos").html(DecimalToStringFormat(montoParcial + montoGastos));
+                    $("#spnMontoParcialConGastos").html(DecimalToStringFormat(totalConGastos));
                     ValidarMontoDeuda();
                 },
                 PagoTotal: function (e) {
@@ -260,7 +244,7 @@ $(document).ready(function () {
     }
 
     function LimpiarDatos() {
-        $("#txtMontoParcial").val("")
+	    $("#txtMontoParcial").val("");
     }
 });
 

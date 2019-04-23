@@ -70,10 +70,7 @@ else
 
             <input type="hidden" id="hdMontoDeuda" value="@Model.MontoDeuda" name="MontoDeuda" />
             <input type="hidden" id="hdPorcentajeGastosAdministrativos" value="@Model.PorcentajeGastosAdministrativos" name="PorcentajeGastosAdministrativos" />
-            <input type="hidden" id="hdCodigoIso" value="@Model.CodigoIso" name="CodigoIso" />
-            <input type="hidden" id="hdFechaVencimiento" value="@Model.FechaVencimiento" name="FechaVencimiento" />
-            <input type="hidden" id="hdIndicadorConsultoraDigital" value="@Model.IndicadorConsultoraDigital" name="IndicadorConsultoraDigital" />
-            <input type="hidden" id="hdAplica3Porciento" value="@Model.Aplica3porciento" name="Aplica3Porciento" />
+            <input type="hidden" id="hdAplicaPorciento" value="@Model.AplicaPorcentaje" name="hdAplicaPorciento" />
 
             <ul class="lista_opciones_pago">
                 @foreach (var item in Model.ListaTipoPago)
@@ -110,7 +107,7 @@ else
                                 </div>
                                 <div class="opcion_pago_gastos_administrativos">
                                     <div class="w-53 text-left">@ViewBag.PagoEnLineaGastosLabel (@Model.PorcentajeGastosAdministrativos%) :</div>
-                                    <div class="w-45 text-right">@Model.MontoGastosAdministrativosString</div>
+                                    <div class="w-45 text-right">@Model.MontoGastosAdministrativosBrutoString</div>
                                 </div>
                                 <hr class="linea_separacion_montos_y_total" />
                                 <div class="opcion_pago_total_a_pagar">
