@@ -3,6 +3,8 @@ var listaMensajeMeta = listaMensajeMeta || new Array();
 var dataBarra = dataBarra || new Object();
 var belcorp = belcorp || {};
 var mtoLogroBarra = 0;
+var ConfiguradoRegalo = false;
+
 var tpElectivos = {
     premioSelected: null,
     premios: [],
@@ -32,6 +34,8 @@ function MostrarBarra(datax, destino) {
     datax = datax || new Object();
     var data = datax.dataBarra || datax.DataBarra || dataBarra || new Object();
     dataBarra = data;
+
+    ConfiguradoRegalo = dataBarra.TippingPointBarra.InMinimo;
 
     ActualizarGanancia(dataBarra);
     if (destino == '2') {
@@ -242,7 +246,7 @@ function MostrarBarra(datax, destino) {
             + '<div style="width:{wText}px;position: absolute; color:#808080;" data-texto>{texto}</div>'
             + '<div class="linea_indicador_barra_vista_bienvenida"></div>'
             + '</div>'
-            + '</div>'
+            + '</div>';
 
 
 
@@ -577,13 +581,13 @@ function MostrarBarra(datax, destino) {
             wLogro = wLimiteAnterior;
         }
     }
-
-    if (destino == "1") {
-        if (indPuntoLimite <= 0 && mn > 0) {
-            wLimite = 0;
-            wLogro = 0;
-        }
-    }
+    //SALUD-125 EINCA
+    //if (destino == "1") {
+    //    if (indPuntoLimite <= 0 && mn > 0  ) {
+    //        wLimite = 0;
+    //        wLogro = 0;
+    //    }
+    //}
 
     if (listaLimite.length == 1) {
         if (vLogro > vLimite) {
@@ -609,6 +613,13 @@ function MostrarBarra(datax, destino) {
     if (mn == 0 && vLogro == 0 && !belcorp.barra.settings.isMobile) {
         $("#divBarra #divBarraMensajeLogrado").hide();
 
+        var montoPedidoIngresado = 0;
+        var valorTexto = $.trim($('#spanPedidoIngresado').text().split(' ')[1]);
+
+        if (valorTexto.length > 0) {
+            montoPedidoIngresado = parseFloat(valorTexto);
+        }
+
         if (TieneMontoMaximo()) { // se trata como tipinpoing
             if (dataBarra.TippingPointBarra.Active != null && dataBarra.TippingPointBarra.Active != false) {
                 document.getElementById('punto_0').style = '';
@@ -629,8 +640,7 @@ function MostrarBarra(datax, destino) {
                     document.getElementById('punto_1').className = 'EscalaDescuento';
                 }
             }
-        }
-        else {
+        } else if (montoPedidoIngresado > 0) {
             for (var x = 0; x < dataBarra.ListaEscalaDescuento.length; x++) {
                 if (x == 0) {
                     if (document.getElementById('punto_0')) document.getElementById('punto_0').style = '';
@@ -642,6 +652,7 @@ function MostrarBarra(datax, destino) {
                 }
             }
         }
+
         CalculoPosicionMinimoMaximoDestokp();
         return false;
     }
@@ -1396,7 +1407,7 @@ function setContainerLluvia(containerId) {
 }
 
 
-var ConfiguradoRegalo;
+
 function CalculoLlenadoBarra() {
     var TippingPointBarraActive = dataBarra.TippingPointBarra.Active;
     var montoMaximo = dataBarra.MontoMaximo;
@@ -2372,6 +2383,7 @@ function CalculoPosicionMinimoMaximoDestokp() {
                     if (i == 0) {
                         var montoMaximo1 = dataBarra.ListaEscalaDescuento[i].MontoDesde
                         var AvancePorcentaje1 = CalculoPorcentajeAvance(montoMaximo1, montoMaximo);
+
                         document.getElementById('barra_0').style.left = AvancePorcentaje1;
 
                         var AvancePorcentajeP1 = (AvancePorcentaje1.substring(0, AvancePorcentaje1.length - 1) * 1 - 7) + '%'
