@@ -164,6 +164,8 @@ $(document).ready(function () {
             txtNumPedido: "#txtNumPedido",
             UltimasSolicitudes: ".UltimasSolicitudes",
             wrpMobile: "#wrpMobile",
+            VistaPaso1y2: "#VistaPaso1y2",
+            VistaPaso3: "#VistaPaso3",
             opcionCdrEnlace: ".opcion_cdr_enlace"
         };
 
@@ -424,6 +426,7 @@ $(document).ready(function () {
                                         $(me.Variables.Registro1).hide();
                                         $(me.Variables.Registro2).hide();
                                         $(me.Variables.Registro3).show();
+                                        $(me.Variables.Enlace_regresar).show();
                                         $(me.Variables.btnSiguiente1).addClass(me.Variables.deshabilitarBoton);
                                         me.Funciones.CambiarEstadoBarraProgreso(me.Variables.pasos.dos_seleccion_de_solucion);
                                     });
@@ -461,41 +464,27 @@ $(document).ready(function () {
                 });
 
                 $(me.Variables.Enlace_regresar).click(function (e) {
-
-                    $(me.Variables.Registro2).hide();
-                    $(me.Variables.Registro3).hide();
-                    $(me.Variables.Registro4).hide();
-                    $(me.Variables.Cambio3).hide();
-                    //$(me.Variables.pasodosactivo).hide();
-                    //$(me.Variables.pasotresactivo).hide();
-
-                    $(me.Variables.Enlace_regresar).hide();
-                    $(me.Variables.btnAceptarSolucion).hide();
-                    $(me.Variables.btnCambioProducto).hide();
-                    //$(me.Variables.pasodos).show();
-                    //$(me.Variables.pasotres).show();
+                    var arrHide = [me.Variables.Registro2, me.Variables.Registro3, me.Variables.Registro4, me.Variables.Enlace_regresar, me.Variables.btnAceptarSolucion,
+                        me.Variables.btnCambioProducto, me.Variables.txtNumPedido, me.Variables.ddlnumPedido, me.Variables.DescripcionCuv, me.Variables.DescripcionCuv2,
+                        me.Variables.infoOpcionesDeCambio
+                    ];
+                    me.Funciones.HideTags(arrHide);
+                    me.Funciones.CambiarEstadoBarraProgreso(me.Variables.pasos.uno_seleccion_de_producto);
 
                     $(me.Variables.hdCuvCodigo).val("");
                     $(me.Variables.txtCantidad1).val("1");
                     $(me.Variables.txtCuvMobile2).val("");
                     $(me.Variables.txtPrecioCuv2).html("");
                     $(me.Variables.txtCantidad2).val("1");
-                    $(me.Variables.ComboCampania).val(0);
+                    //$(me.Variables.ComboCampania).val(0);
+                    $(me.Variables.txtCuvMobile).val("");
                     $(me.Variables.txtNumPedido).val("");
-                    $(me.Variables.txtNumPedido).hide();
                     $(me.Variables.ddlnumPedido).val(0);
-                    $(me.Variables.ddlnumPedido).hide();
-
-                    $(me.Variables.DescripcionCuv).hide();
                     $(me.Variables.txtCuvMobile).fadeIn();
-
-                    $(me.Variables.DescripcionCuv2).hide();
                     $(me.Variables.txtCuvMobile2).fadeIn();
-
-                    paso2Actual = 1
-
                     $(me.Variables.btnSiguiente1).show();
-                    $(me.Variables.Registro1).show();
+                    $(me.Variables.btnSiguiente1).addClass(me.Variables.deshabilitarBoton);
+                    $(me.Variables.Registro1).fadeIn(100);
                 });
 
                 $(me.Variables.btnSiguiente4).click(function () {
@@ -1129,118 +1118,7 @@ $(document).ready(function () {
                         CloseLoading();
                     }
                 });
-            },
-
-            //AnalizarOperacion: function (id) {
-
-            //    if (id == "C") {
-            //        $("[data-tipo-confirma='cambio']").hide();
-            //        $("[data-tipo-confirma=canje]").show();
-
-            //        me.Funciones.CargarPropuesta(id);
-            //        $(me.Variables.Registro3).hide();
-            //        $(me.Variables.btnAceptarSolucion).show();
-            //    }
-
-            //    if (id == 'D') {
-            //        if (me.Funciones.ValidarPaso2Devolucion(id)) {
-            //            $("[data-tipo-confirma='cambio']").hide();
-            //            $("[data-tipo-confirma=canje]").show();
-            //            me.Funciones.CargarPropuesta(id);
-
-            //            $(me.Variables.Registro3).hide();
-            //            $(me.Variables.btnAceptarSolucion).show();
-            //        }
-            //    }
-
-            //    if (id == "F") {
-            //        if (me.Funciones.ValidarPaso2Faltante(id)) {
-            //            $("[data-tipo-confirma='cambio']").hide();
-            //            $("[data-tipo-confirma=canje]").show();
-
-            //            me.Funciones.CargarPropuesta(id);
-            //            $(me.Variables.Registro3).hide();
-            //            $(me.Variables.btnAceptarSolucion).show()
-            //        }
-            //    }
-
-            //    if (id == "G") {
-            //        if (me.Funciones.ValidarPaso2FaltanteAbono(id)) {
-            //            $("[data-tipo-confirma='cambio']").hide();
-            //            $("[data-tipo-confirma=canje]").show();
-
-            //            $(me.Variables.Registro3).hide();
-            //            me.Funciones.CargarPropuesta(id);
-            //            $(me.Variables.btnAceptarSolucion).show();
-            //        }
-            //    }
-
-            //    if (id == "T") {
-            //        me.Funciones.CambioPaso2();
-            //        $("[data-tipo-confirma='canje']").hide();
-            //        $("[data-tipo-confirma=cambio]").show();
-            //        //$(me.Variables.wrpMobile).addClass(me.Variables.pb120);
-
-            //        $(me.Variables.spnSimboloMonedaReclamo).html(variablesPortal.SimboloMoneda);
-
-            //        var precioUnidad = $(me.Variables.txtPrecioUnidad).val();
-            //        var cantidad = $(me.Variables.txtCantidad1).val();
-            //        var totalTrueque = parseFloat(precioUnidad) * parseFloat(cantidad);
-
-            //        $(me.Variables.hdMontoMinimoReclamo).val(totalTrueque);
-            //        $(me.Variables.spnMontoMinimoReclamoFormato).html(DecimalToStringFormat(totalTrueque));
-
-            //        var campania = $(me.Variables.ComboCampania).val() || 0;
-            //        var numeroCampania = '00';
-            //        if (campania > 0) {
-            //            numeroCampania = campania.substring(4);
-            //        }
-            //        $(me.Variables.Registro3).hide();
-
-            //        $(me.Variables.spnNumeroCampaniaReclamo).html(numeroCampania);
-            //        $(me.Variables.btnCambioProducto).show();
-
-            //        me.Funciones.ObtenerValorParametria(id);
-            //        me.Funciones.CargarPropuesta(id);
-            //    }
-            //},
-
-            //CambioPaso: function (paso) {
-            //    paso = paso || 1;
-            //    pasoActual = pasoActual + paso || 1;
-            //    pasoActual = pasoActual < 1 ? 1 : pasoActual > 3 ? 3 : pasoActual;
-
-            //    $(".paso_reclamo[data-paso]").removeClass(me.Variables.paso_active_reclamo);
-            //    $(".paso_reclamo[data-paso] span").html("");
-
-            //    $(".paso_reclamo[data-paso]").each(function (ind, tag) {
-            //        var pasoTag = $(tag).attr("data-paso");
-            //        if (pasoTag < pasoActual) {
-            //            $(tag).addClass(me.Variables.paso_active_reclamo);
-            //            $(tag).find("span").html("<img src='" + imgCheck + "' />");
-            //        }
-            //        else if (pasoTag == pasoActual) {
-            //            $(tag).addClass(me.Variables.paso_active_reclamo);
-            //            $(tag).find("span").html("<img src='" + imgPasos.replace("{0}", "cdr_paso" + pasoActual + "_activo") + "' />");
-            //        }
-            //        else $(tag).find("span").html("<img src='" + imgPasos.replace("{0}", "cdr_paso" + pasoTag) + "' />");
-            //    });
-
-            //    $('div[id^=Cambio]').hide();
-            //    $('div[id^=Paso]').hide();
-            //    $('[id=Paso' + pasoActual + ']').show();
-            //    $('[id=Paso' + pasoActual + '] #Cambio' + paso2Actual).show();
-
-            //    me.Funciones.ValidarVisualizacionBannerResumen();
-            //},
-
-            //CambioPaso2: function (paso) {
-
-            //    paso2Actual = paso2Actual + (paso || 1);
-            //    paso2Actual = paso2Actual < 1 ? 1 : paso2Actual > 3 ? 3 : paso2Actual;
-            //    $('div[id^=Cambio]').hide();
-            //    $('[id=Cambio' + paso2Actual + ']').show();
-            //},
+            },           
 
             ValidarPasoDosFaltante: function (codigoSsic) {
                 var esCantidadPermitidaValida = me.Funciones.ValidarCantidadMaximaPermitida(codigoSsic);
@@ -1377,9 +1255,6 @@ $(document).ready(function () {
             },
 
             CargarPropuesta: function (codigoSsic) {
-
-                //var tipo = (codigoSsic == "C" || codigoSsic == "D" || codigoSsic == "F" || codigoSsic == "G") ? "canje" : "cambio";
-
                 var item = {
                     CUV: $.trim($(me.Variables.txtCuv).text()),
                     DescripcionProd: $.trim($(me.Variables.txtDescripcionCuv).text()),
@@ -2028,6 +1903,7 @@ $(document).ready(function () {
                 $("#listaMotivos input[name=motivo-cdr]").on('click', function () {
                     if ($(me.Variables.btnSiguiente1).hasClass(me.Variables.deshabilitarBoton)) {
                         $(me.Variables.btnSiguiente1).removeClass(me.Variables.deshabilitarBoton);
+                        $(me.Variables.btnSiguiente1).removeClass("CampoDeshabilitado");
                     }
                 });
             },
