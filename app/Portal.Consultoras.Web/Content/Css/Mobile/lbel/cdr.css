@@ -707,7 +707,7 @@
 
 .vistas_cdr {
     position: relative;
-    z-index: 998;
+    z-index: 997;
 }
 
 #VistaPaso1y2 {
@@ -1621,6 +1621,8 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 }
 
 .detalle_solicitud_listado {
+    padding-left: 6px;
+    padding-right: 6px;
     font-size: 15px;
 }
 
@@ -1668,7 +1670,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 .detalle_cantidad_producto,
 .detalle_cdr_monto_devolucion {
     margin-bottom: 2px;
-    width: 75%;
+    width: 68%;
 }
 
 .detalle_precio_producto {
