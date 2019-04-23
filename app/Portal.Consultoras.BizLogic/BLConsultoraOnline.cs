@@ -669,6 +669,7 @@ namespace Portal.Consultoras.BizLogic
         {
             var EstrategiasRecomendadas = new List<ResponseRecomendacion.Estrategia>();
             int CantidadAdicionalesGenral = 0;
+            var ExistPacksCombinations = true;
 
             foreach (var ProductoSolicitado in ProductosSolicitados)
             {
@@ -697,11 +698,15 @@ namespace Portal.Consultoras.BizLogic
                             EstrategiasRecomendadas = EstrategiasRecomendadas.Concat(NotExactPackCombination).ToList();
                             CantidadAdicionalesGenral = CantidadAdicionalesGenral + CantidadAdicionales;
                         }
+                        else
+                        {
+                            ExistPacksCombinations = false;
+                        }
                     }
                 }
             }
 
-            if (CantidadAdicionalesGenral > 2)
+            if (!ExistPacksCombinations || CantidadAdicionalesGenral > 2)
             {
                 EstrategiasRecomendadas = new List<ResponseRecomendacion.Estrategia>();
             }

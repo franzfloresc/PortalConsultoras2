@@ -41,6 +41,7 @@ var AnalyticsPortalModule = (function () {
         contenedorMasGanadoras: "Más Ganadoras",
         contenedorfichaProducto: "Contenedor - Ficha de producto",
         CarritoCompras: "Carrito de compras",
+        CarritoComprasPedidosPendientes: "Carrito de Compras - Pedidos Pendientes",
         siguiente: "Ver siguiente",
         anterior: "Ver anterior",
         duoPerfecto: "Dúo Perfecto", //HD-3473 EINCA
@@ -2456,7 +2457,16 @@ var AnalyticsPortalModule = (function () {
     var clickTabPedidosPendientes = function (action, label) {
         dataLayer.push({
             'event': _evento.virtualEvent,
-            "category": "Carrito de Compras - Pedidos Pendientes",
+            "category": _texto.CarritoComprasPedidosPendientes,
+            "action": action,
+            "label": label
+        });
+    }
+
+    var clickBotonTabVistaProducto = function (action, label) {
+        dataLayer.push({
+            'event': _evento.virtualEvent,
+            "category": _texto.CarritoComprasPedidosPendientes,
             "action": action,
             "label": label
         });
@@ -2555,6 +2565,7 @@ var AnalyticsPortalModule = (function () {
         // Ini - Analytics PedidoPendientes
         ClickBotonPedidosPendientes: clickBotonPedidosPendientes,
         ClickTabPedidosPendientes: clickTabPedidosPendientes,
+        ClickBotonTabVistaProducto: clickBotonTabVistaProducto,
         // Fin - Analytics PedidoPendientes
 
         MarcaProductImpressionRecomendaciones: marcaProductImpressionRecomendaciones,

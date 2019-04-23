@@ -104,8 +104,20 @@ function cargarGaleria() {
 }
 
 function DetallePedidoPendienteClientes(cuv) {
-    debugger;
-    console.log(JSON.stringify(cuv));
+    if (!(typeof AnalyticsPortalModule === 'undefined')) {
+        AnalyticsPortalModule.ClickBotonTabVistaProducto('In Tab Vista Producto - Click Botón', 'Confirmar Clientes');
+    }
+    DetallePedidoPendienteClientesService(cuv);
+}
+
+function DetallePedidoPendienteClientesVerMas(cuv) {
+    if (!(typeof AnalyticsPortalModule === 'undefined')) {
+        AnalyticsPortalModule.ClickBotonTabVistaProducto('In Tab Vista Producto - Click Botón', 'Ver más');
+    }
+    DetallePedidoPendienteClientesService(cuv);
+}
+
+function DetallePedidoPendienteClientesService(Cuv) {
     var obj = {
         cuv: cuv
     }

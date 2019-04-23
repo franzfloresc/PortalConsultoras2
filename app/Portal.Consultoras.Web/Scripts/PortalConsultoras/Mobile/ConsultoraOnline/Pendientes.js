@@ -153,6 +153,16 @@ function PendientesRevisalo(categoria,accion) {
 }
 
 function DetallePedidoPendienteClientes(cuv) {
+    if (!(typeof AnalyticsPortalModule === 'undefined')) {
+        AnalyticsPortalModule.ClickBotonTabVistaProducto('In Tab Vista Producto - Click Botón', 'Confirmar Clientes');
+    }
+    window.location = (isMobileNative.any() ? "/Mobile" : "") + "/ConsultoraOnline/DetallePedidoPendienteClientes?cuv=" + cuv;
+}
+
+function DetallePedidoPendienteClientesVerMas(cuv) {
+    if (!(typeof AnalyticsPortalModule === 'undefined')) {
+        AnalyticsPortalModule.ClickBotonTabVistaProducto('In Tab Vista Producto - Click Botón', 'Ver más');
+    }
     window.location = (isMobileNative.any() ? "/Mobile" : "") + "/ConsultoraOnline/DetallePedidoPendienteClientes?cuv=" + cuv;
 }
 
@@ -163,13 +173,13 @@ function DetallePedidoPendiente(ids) {
 function PedidosPendientesVistaCliente() {
 
     if (!(typeof AnalyticsPortalModule === 'undefined')) {
-        AnalyticsPortalModule.clickTabPedidosPendientes('Click Tab', 'Vista por Cliente');
+        AnalyticsPortalModule.ClickTabPedidosPendientes('Click Tab', 'Vista por Cliente');
     }
 }
 
 function PedidosPendientesVistaProducto() {
 
     if (!(typeof AnalyticsPortalModule === 'undefined')) {
-        AnalyticsPortalModule.clickTabPedidosPendientes('Click Tab', 'Vista por Producto');
+        AnalyticsPortalModule.ClickTabPedidosPendientes('Click Tab', 'Vista por Producto');
     }
 }
