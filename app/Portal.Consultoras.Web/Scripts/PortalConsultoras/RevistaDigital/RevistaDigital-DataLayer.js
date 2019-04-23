@@ -306,12 +306,35 @@ var rdAnalyticsModule = (function () {
                     _virtualEventPush(_seccionWeb.pedido, _text.epm, _action.verMas);
                     break;
 
+                 
                 case CodigoUbigeoPortal.MaestroCodigoUbigeo.MobileRevistaDigitalMobileCatalogoSeccion:
                     _virtualEventPush(_seccionWeb.catalogo, _text.epm, _action.clickBanner);
                     break;
                 case CodigoUbigeoPortal.MaestroCodigoUbigeo.DesktopRevistaDigitalMobileCatalogoSeccion:
                     _virtualEventPush(_seccionWeb.catalogo, _text.epm, _action.clickBanner);
                     break;
+                    
+                case CodigoUbigeoPortal.MaestroCodigoUbigeo.MobileRevistaDigitalHomeSeccion:
+                    _virtualEventPush(_seccionWeb.home, _text.epm, _action.verMas);
+                    break;
+                case CodigoUbigeoPortal.MaestroCodigoUbigeo.DesktopRevistaDigitalHomeSeccion:
+                    _virtualEventPush(_seccionWeb.home, _text.epm, _action.verMas);
+                    break;
+
+                case CodigoUbigeoPortal.MaestroCodigoUbigeo.MobileRevistaDigitalResumenBelcorp:
+                    _virtualEventPush(_seccionWeb.home, _text.epm, _action.verMas);
+                    break;
+                case CodigoUbigeoPortal.MaestroCodigoUbigeo.DesktopRevistaDigitalResumenBelcorp:
+                    _virtualEventPush(_seccionWeb.home, _text.epm, _action.verMas);
+                    break;
+                  
+                case CodigoUbigeoPortal.MaestroCodigoUbigeo.MobilePedidoRevistaDigital:
+                    _virtualEventPush(_seccionWeb.pedido, _text.epm, _action.verMas);
+                    break;
+                case CodigoUbigeoPortal.MaestroCodigoUbigeo.DesktopPedidoRevistaDigital:
+                    _virtualEventPush(_seccionWeb.pedido, _text.epm, _action.verMas);
+                    break;
+               
             }
         } catch (e) {
             console.log(_text.exception + e);
