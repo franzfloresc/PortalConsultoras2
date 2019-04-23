@@ -297,11 +297,6 @@ div .owl-carousel .owl-stage-outer {
     display: none;
 }
 
-
-
-
-/*  BARRA DE NIVELES EN LA PARTE DE ARRIBA*/
-
 #box-niveles {
     display: block;
     max-width: 700px;
@@ -423,11 +418,6 @@ div .owl-carousel .owl-stage-outer {
 
 
 
-
-
-
-
-
 .Progress:after {
     position: absolute;
     top: -3px;
@@ -539,14 +529,11 @@ div .owl-carousel .owl-stage-outer {
     display: block;
 }
 
-    #chart-montos img {
-        display: block;
-        max-width: 376px !important;
-        width: 100%;
-    }
-
-
-/*---------------MODAL BOOSTRAP 3-----------------*/
+#chart-montos img {
+    display: block;
+    max-width: 376px !important;
+    width: 100%;
+}
 
 
 .modal-open {
@@ -701,7 +688,6 @@ div .owl-carousel .owl-stage-outer {
     overflow: scroll;
 }
 
-/*nuevos cambios*/
 
 .box-camb {
     margin: 35px auto;
@@ -790,7 +776,6 @@ button.close {
     text-align: center !important;
 }
 
-/*---------------MODAL NIVELES-----------------*/
 
 .pad-center {
     padding: 20px 110px;
@@ -880,7 +865,6 @@ button.close {
     max-width: 800px;
 }
 
-
 .icon-niv {
     display: inline-block;
     background: url(/Content/CaminoBrillante/imgs/icon-s.svg) no-repeat center center;
@@ -898,16 +882,14 @@ button.close {
     font-weight: bold;
 }
 
-    .desactive:hover {
-        cursor: no-drop;
-        color: #888888;
-    }
+.desactive:hover {
+    cursor: no-drop;
+    color: #888888;
+}
 
 .cont-logros .owl-dots, .left-ganancias .owl-dots {
     display: none !important;
 }
-
-/*-----------------PRODUCTOS-----------------------*/
 
 
 .pad-center {
@@ -939,11 +921,11 @@ button.close {
     text-decoration: underline;
 }
 
-    .cambio-crec .como-log.inactivo {
-        text-decoration: none;
-        color: gray;
-        cursor: auto;
-    }
+.cambio-crec .como-log.inactivo {
+    text-decoration: none;
+    color: gray;
+    cursor: auto;
+}
 
 .cambio-crec div img {
     display: block;
@@ -963,26 +945,23 @@ button.close {
     margin-bottom: 6px;
 }
 
-    .circle-porcent.crec-activo {
-        background: #64425e;
-    }
+.circle-porcent.crec-activo {
+    background: #64425e;
+}
 
-    .circle-porcent.crec-inactivo {
-        background: #848484;
-    }
+.circle-porcent.crec-inactivo {
+    background: #848484;
+}
 
-    .owl-carousel .owl-item .circle-porcent span, .cambio-crec .circle-porcent span, .indicador-nivel .circle-porcent span {
-        color: white;
-        font-size: 19px;
-        text-align: center;
-        line-height: 50px;
-        display: block;
-        font-weight: bold;
-        text-decoration: none !important;
-    }
-
-
-/*CRECIMIENTO*/
+.owl-carousel .owl-item .circle-porcent span, .cambio-crec .circle-porcent span, .indicador-nivel .circle-porcent span {
+    color: white;
+    font-size: 19px;
+    text-align: center;
+    line-height: 50px;
+    display: block;
+    font-weight: bold;
+    text-decoration: none !important;
+}
 
 
 .max750 {
@@ -1012,7 +991,6 @@ div .footer__link, div .sub_footer a, div .btn__productos__agregados--verMiPedid
 }
 
 
-/* MEDIASQUERY CAMINO BRILLANTE */
 
 @media screen and (min-width: 861px) {
     div ul .menu__item--lateralDerechoIcono {
@@ -1020,28 +998,28 @@ div .footer__link, div .sub_footer a, div .btn__productos__agregados--verMiPedid
     }
 }
 
-    @media screen and (max-width: 860px) {
-        .box-beneficios li {
-            width: 46%;
-            margin: 20px 2%;
-        }
-
-        .modal-dialog {
-            margin: 1.5rem;
-        }
+@media screen and (max-width: 860px) {
+    .box-beneficios li {
+        width: 46%;
+        margin: 20px 2%;
     }
 
-    @media screen and (max-width: 700px) {
-        .list-ganacias li {
-            width: 98%;
-            margin: 0 1%;
-            margin-bottom: 15px;
-        }
-
-        .pad-center {
-            padding: 20px 60px;
-        }
+    .modal-dialog {
+        margin: 1.5rem;
     }
+}
+
+@media screen and (max-width: 700px) {
+    .list-ganacias li {
+        width: 98%;
+        margin: 0 1%;
+        margin-bottom: 15px;
+    }
+
+    .pad-center {
+        padding: 20px 60px;
+    }
+}
 
     @media screen and (max-width: 620px) {
         div.ui-dialog.ui-widget-content {
@@ -1098,10 +1076,10 @@ div .footer__link, div .sub_footer a, div .btn__productos__agregados--verMiPedid
             float: none;
         }
 
-            .indicador-nivel .left-mod h2, .indicador-nivel .left-mod p {
-                text-align: center;
-                margin-bottom: 8px;
-            }
+        .indicador-nivel .left-mod h2, .indicador-nivel .left-mod p {
+            text-align: center;
+            margin-bottom: 8px;
+        }
 
         .indicador-nivel img {
             max-width: 90px !important;
@@ -1161,12 +1139,10 @@ div .footer__link, div .sub_footer a, div .btn__productos__agregados--verMiPedid
             height: 42px;
         }
 
-            .owl-carousel .owl-item .circle-porcent span {
-                font-size: 14px;
-                line-height: 44px;
-            }
-
-
+        .owl-carousel .owl-item .circle-porcent span {
+            font-size: 14px;
+            line-height: 44px;
+        }
 
         #ProgressBar span.pt1 em {
             left: -12px;
@@ -1422,10 +1398,6 @@ div .footer__link, div .sub_footer a, div .btn__productos__agregados--verMiPedid
         }
     }
 
-    /*.-------------------MODAL VERSION 4---------------------*/
-
-
-
 
     @media screen and (max-width: 330px) {
         .medal-1 {
@@ -1586,7 +1558,7 @@ div .footer__link, div .sub_footer a, div .btn__productos__agregados--verMiPedid
 
     .cont-textLograr {
         margin: 0 auto;
-        width: 90%;
+        width: 87%;
         margin-top: 20px;
     }
 
@@ -1643,12 +1615,6 @@ div .footer__link, div .sub_footer a, div .btn__productos__agregados--verMiPedid
     .modal .crec-activo img {
         max-width: inherit !important;
     }
-
-    /*
-ofertass-------------------------------------------*/
-
-
-
 
     .cont-productos {
         max-width: 1300px;
@@ -1806,16 +1772,14 @@ div .boton__agregalo--fichaProducto, div.btn__elegir__opcion--fichaProducto span
         width: auto !important;
     }
 
-    /*ETIQUETA----------------*/
-
 
     .etiq-coral {
         border: 1px solid #e25757;
     }
 
-        .etiq-coral span {
-            color: #e25757;
-        }
+    .etiq-coral span {
+        color: #e25757;
+    }
 
 
     .etiq-ambar {
@@ -1889,8 +1853,6 @@ div .boton__agregalo--fichaProducto, div.btn__elegir__opcion--fichaProducto span
         }
     }
 
-
-    /*Estilos param barra submenu*/
 
 
     .op-menu-horizonta-fixed {
