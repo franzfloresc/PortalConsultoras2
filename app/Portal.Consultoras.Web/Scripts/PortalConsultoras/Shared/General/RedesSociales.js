@@ -1,4 +1,6 @@
 ﻿var RedesSociales = (function () {
+  
+
 
     var _variables = {
         clickDataCompartir: "[data-compartir]",
@@ -167,7 +169,7 @@
         dataLayer.push({
             'event': 'virtualEvent',
             'category': 'Catálogos y revistas',
-            'action': 'Compartir FB',
+            'action': 'Catálogo Digital - Compartir FB - clic botón',
             'label': catalogo,
             'value': 0
         });
@@ -181,6 +183,7 @@
         var top = (screen.height / 2) - (popHeight / 2);
         var url = "http://www.facebook.com/sharer/sharer.php?u=" + u;
         window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
+
     }
 
     // catalogo email
@@ -190,7 +193,8 @@
             'category': 'Catálogos y revistas',
             'action': 'Compartir email – clic botón',
             'label': tipoCatalogo,
-            'value': 0
+            'value': 0,
+            'gtm.uniqueEventId': 6330
         });
 
         $("#comentarios").val(valContenidoCorreoDefecto);
@@ -210,34 +214,49 @@
         }
 
 
-        $('#CompartirCorreo').show();
-        $('#CompartirCorreoMobile').show();
+        $('#CompartirCorreo').fadeIn(100);
+        $('#CompartirCorreoMobile').fadeIn(100);
 
         var cata = $("#divCatalogo [data-cam='" + campania + "'][data-estado='1']");
-        $("#divCheckbox [data-cat]").hide();
+        $("#divCheckbox [data-cat]").fadeOut(100);
         for (var i = 0; i < cata.length; i++) {
             var cat = $(cata[i]).attr("data-cat");
-            $("#divCheckbox [data-cat='" + cat + "']").show();
+            $("#divCheckbox [data-cat='" + cat + "']").fadeIn(100);
         }
     }
 
+  
     // catalogo compartir por Facebook actual
-    var CompartirFacebookActual = function (catalogo, campaniaCatalogo, texto) {
+    var CompartirMessengerActual = function (/*catalogo,*/ campaniaCatalogo/*, texto, isMovil, FBAppId*/) {
         dataLayer.push({
             'event': 'virtualEvent',
             'category': 'Catálogos y revistas',
-            'action': 'Compartir FB',
+            'action': 'Catálogo digital - Compartir FB - Messenger',
             'label': campaniaCatalogo,
             'value': 0
         });
-        InsertarLogCatalogoDynamo('Facebook', campaniaCatalogo, catalogo, 1);
 
-        var popWwidth = 570;
-        var popHeight = 420;
-        var left = (screen.width / 2) - (popWwidth / 2);
-        var top = (screen.height / 2) - (popHeight / 2);
-        var url = "http://www.facebook.com/sharer/sharer.php?u=" + texto;
-        window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
+        //texto = texto.ReplaceAll("/", "%2F");
+        //texto = texto.ReplaceAll(":", "%3A");
+        //texto = texto.ReplaceAll("?", "%3F");
+        //texto = texto.ReplaceAll("=", "%3D");
+        //texto = texto.ReplaceAll("&", "%26");
+        //texto = texto.ReplaceAll(" ", "%20");
+
+        //var popWwidth = 570;
+        //var popHeight = 420;
+        //var left = (screen.width / 2) - (popWwidth / 2);
+        //var top = (screen.height / 2) - (popHeight / 2);
+        //var url;
+        //if (isMovil == true) {
+        //    url = 'fb-messenger://share?link=' + encodeURIComponent(texto) + '&app_id=' + encodeURIComponent(FBAppId);
+        //    window.open(url);
+        //}
+        //else
+        //{
+        //    url = "https://www.facebook.com/dialog/send?app_id=" + FBAppId + "&link=" + texto + "&redirect_uri=" + texto;
+        //    window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
+        //}
     }
 
     // catalogo email actual
@@ -246,9 +265,10 @@
         dataLayer.push({
             'event': 'virtualEvent',
             'category': 'Catálogos y revistas',
-            'action': 'Compartir email – clic botón',
+            'action': 'Catálogo digital - Compartir email – clic botón',
             'label': tipoCatalogo == 'Todo' ? campania : tipoCatalogo,
-            'value': 0
+            'value': 0,
+            'gtm.uniqueEventId': 6330
         });
 
         $("#comentarios").val(tipoCatalogo == 'Todo' ? valContenidoCorreoPilotoDefecto : valContenidoCorreoDefecto);
@@ -258,14 +278,14 @@
         campaniaEmail = campania;
 
         $("#divCheckbox").find("[type='checkbox']").removeAttr('checked');
-        
+
         if (tipoCatalogo == 'Todo') {
 
             $('#btnEnviarCorreo').data('piloto', '1')
-            $('#divDescEnviar').hide();
-            $('#divCheckbox').hide();
-            $('#CompartirCorreo').show();
-            
+            $('#divDescEnviar').fadeOut(100);
+            $('#divCheckbox').fadeOut(100);
+            $('#CompartirCorreo').fadeIn(100);
+
         }
         else {
 
@@ -279,31 +299,31 @@
             }
 
             $('#btnEnviarCorreo').data('piloto', '0')
-            $('#divDescEnviar').show();
-            $('#divCheckbox').show();
+            $('#divDescEnviar').fadeIn(100);
+            $('#divCheckbox').fadeIn(100);
 
-            $('#CompartirCorreo').show();
-            //$('#CompartirCorreoMobile').show();
-                                
+            $('#CompartirCorreo').fadeIn(100);
+            //$('#CompartirCorreoMobile').fadeIn(100);
+
             for (var i = 0; i < 3; i++) {
                 var cata = $("#divCatalogo" + i + " [data-cam='" + campania + "'][data-estado='1']");
 
                 if (cata.length > 0) {
-                    $("#divCheckbox [data-cat]").hide();
+                    $("#divCheckbox [data-cat]").fadeOut(100);
                     for (var j = 0; j < cata.length; j++) {
                         var cat = $(cata[j]).attr("data-cat");
-                        $("#divCheckbox [data-cat='" + cat + "']").show();
+                        $("#divCheckbox [data-cat='" + cat + "']").fadeIn(100);
                     }
                 }
-            }          
-        }              
+            }
+        }
     }
 
     var CompartirWhatsAppActual = function (catalogo, campania, texto) {
         dataLayer.push({
             'event': 'virtualEvent',
             'category': 'Catálogos y revistas',
-            'action': 'Compartir WhatsApp',
+            'action': 'Catálogo Digital - Compartir WhatsApp',
             'label': campania,
             'value': 0
         });
@@ -319,7 +339,7 @@
 
         var url = "https://api.whatsapp.com/send?text=" + texto;
         window.open(url, 'WhatsApp');
-    }   
+    }
 
     var TagManagerWS = function (catalogo, campaniaCatalogo) {
         dataLayer.push({
@@ -348,9 +368,10 @@
         CompartirTexto: CompartirRedesSocialesTexto,
         CompartirFacebook: CompartirFacebook,
         AbrirCompartirCorreo: AbrirCompartirCorreo,
-        CompartirFacebookActual: CompartirFacebookActual,
+        /*CompartirFacebookActual: CompartirFacebookActual,*/
         AbrirCompartirCorreoActual: AbrirCompartirCorreoActual,
         CompartirWhatsAppActual: CompartirWhatsAppActual,
+        CompartirMessengerActual: CompartirMessengerActual,
         TagManagerWS: TagManagerWS
     }
 })();

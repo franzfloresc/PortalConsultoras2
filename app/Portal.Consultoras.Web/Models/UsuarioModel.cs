@@ -1,7 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
-using Portal.Consultoras.Web.ServicePedido;
-using Portal.Consultoras.Web.ServiceSAC;
+using Portal.Consultoras.Web.Models.ProgramaNuevas;
 using System;
 using System.Collections.Generic;
 
@@ -69,6 +68,12 @@ namespace Portal.Consultoras.Web.Models
             this.TieneCDRExpress = false;
             this.PopupBienvenidaCerrado = false;
             this.FotoPerfil = string.Empty;
+
+            /*HD-3777*/
+            this.CodigoClasificacion = string.Empty;
+            this.CodigoSubClasificacion = string.Empty;
+            this.DescripcionSubclasificacion = string.Empty;
+            /*Fin*/
         }
 
         public string Celular { get; set; }
@@ -331,7 +336,7 @@ namespace Portal.Consultoras.Web.Models
         public int MensajePedidoMobile { get; set; }
 
         public ConsultoraOnlineMenuResumenModel ConsultoraOnlineMenuResumen { get; set; }
-        public ConsultoraRegaloProgramaNuevasModel ConsultoraRegaloProgramaNuevas { get; set; }
+        public ConfigPremioProgNuevasModel ConfigPremioProgNuevas { get; set; }
         public List<MenuMobileModel> MenuMobile { get; set; }
 
         public int OfertaFinal { get; set; }
@@ -347,6 +352,7 @@ namespace Portal.Consultoras.Web.Models
         public string CodigosRevistaImpresa { get; set; }
         public string CodigoPrograma { get; set; }
         public int ConsecutivoNueva { get; set; }
+        public bool TieneDireccionEntrega { get; set; }
 
         public DateTime FechaHoy
         {
@@ -398,5 +404,12 @@ namespace Portal.Consultoras.Web.Models
         public int NovedadBuscador { get; set; }
         public int IndicadorConsultoraDummy { get; set; }
         
+        public string PseudoParamNotif { get; set; } //SALUD-58 
+
+        /*HD-3777*/
+        public string CodigoClasificacion { get; set; }
+        public string CodigoSubClasificacion { get; set; }
+        public string DescripcionSubclasificacion { get; set; }
+        /*Fin*/
     }
 }

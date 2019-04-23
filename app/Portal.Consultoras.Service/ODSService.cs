@@ -252,7 +252,7 @@ namespace Portal.Consultoras.Service
             return BLProducto.GetNombreProducto048ByListaCUV(paisID, campaniaId, listaCUV);
         }
 
-        public int InsProductoCompartido(BEProductoCompartido ProComp)
+        public BEProductoCompartidoResult InsProductoCompartido(BEProductoCompartido ProComp)
         {
             return BLProducto.InsProductoCompartido(ProComp);
         }
@@ -301,6 +301,11 @@ namespace Portal.Consultoras.Service
         {
             return BLProgramaNuevas.GetLimElectivos(paisID, campaniaID, consecutivoNueva, codigoPrograma);
         }
+
+        public List<BEProductoEstraProgNuevas> GetListCuvProgNuevasEstrategia(BEConsultoraProgramaNuevas consultoraNueva)
+        {
+            return BLProgramaNuevas.GetListCuvEstrategia(consultoraNueva);
+        }
         #endregion
 
         #region VentaExclusiva
@@ -324,5 +329,18 @@ namespace Portal.Consultoras.Service
         }
         #endregion
 
+        public List<BEPremioNuevas> ListarPremioNuevasPaginado(BEPremioNuevas premio)
+        {
+            return BLProgramaNuevas.ListarPremioNuevasPaginado(premio);
+        }
+
+        public BEPremioNuevas Insertar(BEPremioNuevas premio)
+        {
+            return BLProgramaNuevas.Insertar(premio);
+        }
+        public BEPremioNuevas Editar(BEPremioNuevas premio)
+        {
+            return BLProgramaNuevas.Editar(premio);
+        }
     }
 }

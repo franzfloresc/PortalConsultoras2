@@ -138,6 +138,7 @@ $(document).ready(function () {
         $("#divResumenPedido").hide();
         $("#btnAgregarProducto").hide();
         $('#PopSugerido').hide();
+        $('#divBarra').hide();
         ProductoRecomendadoModule.OcultarProductosRecomendados();
         
         if (codigo == "") {
@@ -147,6 +148,7 @@ $(document).ready(function () {
             $("#divResumenPedido").show();
             $("footer").show();
             $(".footer-page").css({ "margin-bottom": "0px" });
+            $('#divBarra').show();
         } else {
             VisibleEstrategias(false);
             $("footer").hide();
@@ -371,15 +373,12 @@ function UpdateUsuarioTutoriales() {
     var item = {
         tipo: '2' // Para mOBILE
     };
-    $.ajax({
-        type: 'POST',
-        url: baseUrl + 'Pedido/UpdatePostulanteMensaje',
-        data: JSON.stringify(item),
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        success: function (data) { },
-        error: function (data) { }
-    });
+
+    pedidoProvider
+        .updatePostulanteMensaje(item)
+        .done(function (data) { })
+        .fail(function (data, error) { });
+
     return true;
 }
 
@@ -392,6 +391,7 @@ function ValidarPermiso(obj) {
 }
 
 function BuscarByCUV(cuv) {
+    $("div.producto_por_agregar_imagen").find("img").attr("src", "/Content/Images/imagen_prod_no_disponible.jpg");
     if (cuv == $('#hdfCUV').val()) {
         if (productoSugerido) {
             if (productoAgotado) MostrarMensaje("mensajeCUVAgotado");
@@ -601,7 +601,21 @@ function ObtenerProductosSugeridos(CUV) {
             $("#divCarruselSugerido").html('');
             $('#PopSugerido').show();
             SetHandlebars("#js-CarruselSugerido", lista, '#divCarruselSugerido');
+            $.each($("#divCarruselSugerido .sugerido"), function (index, obj) {
+                var selector = $(obj).find(".nombre_producto_sugerido");
+                var descripcion = selector.text().trim();
+                var wd = descripcion.length;
+                if (wd <= 50) {
+                    selector.html(descripcion);
+                }
+                else {
 
+                    var descripcionNueva = descripcion.substring(0, 50);
+                    descripcionNueva = descripcionNueva + "...";
+                    selector.html(descripcionNueva);
+                }
+                
+            });
             $('#divCarruselSugerido').slick({
                 infinite: true,
                 vertical: false,
@@ -636,7 +650,7 @@ function CancelarProductosSugeridos() {
 //        CloseLoading();
 //        return false;
 //    }
-
+    
 //    jQuery.ajax({
 //        type: 'POST',
 //        url: urlPedidoInsert,
@@ -655,16 +669,16 @@ function CancelarProductosSugeridos() {
 //                CloseLoading();
 //                return false;
 //            }
-
-//            ActualizarGanancia(data.DataBarra);
+//            var prevTotal = mtoLogroBarra || 0;
+//            MostrarBarra(data);          
 //            var existeError = $(data).filter("input[id=hdErrorInsertarProducto]").val();
 //            if (existeError == "1") {
 //                AbrirMensaje("Ocurrió un error al ejecutar la operación.");
 //                CloseLoading();
 //                return false;
 //            }
-
 //            CloseLoading();
+//            showPopupNivelSuperado(data.DataBarra, prevTotal);
 
 //            $("#divProductoObservaciones").html("");
 //            VisibleEstrategias(true);
@@ -785,7 +799,7 @@ function CancelarProductosSugeridos() {
 //		urlInsertar = urlPedidoAgregarProducto;
 //		model.EstrategiaID = $("#hdfEstrategiaId").val();
 //	}
-
+    
 //    jQuery.ajax({
 //        type: 'POST',
 //        url: urlInsertar,
@@ -820,7 +834,28 @@ function CancelarProductosSugeridos() {
 //            }
 
 //            CloseLoading();            
-//            ActualizarGanancia(data.DataBarra);
+//			  var prevTotal = mtoLogroBarra || 0;
+//            MostrarBarra(data);
+//            var existeError = $(data).filter("input[id=hdErrorInsertarProducto]").val();
+//            if (existeError == "1") {
+//                $("#divProductoObservaciones").html('<div class="alert-top-icon text-danger" style="margin-top: 0;"><i class="icon-exclamation-circle"></i><br/>Ocurrió un error al ejecutar la operación.</div>');
+//                $("#btnAgregarProducto").show();
+//                $("#btnAgregarProducto").removeAttr("disabled");
+//                CloseLoading();
+//                return false;
+//            }
+//			  showPopupNivelSuperado(data.DataBarra, prevTotal);
+//            $('#divMensajeCUV').hide();
+//            $("#divProductoObservaciones").html("");
+//            $("#divProductoMantenedor").hide();
+//            $("#btnAgregarProducto").hide();
+//            VisibleEstrategias(true);
+//            $("#divResumenPedido").show();
+//            $("footer").show();
+//            $(".footer-page").css({ "margin-bottom": "0px" });
+//            CloseLoading();            
+//            var prevTotal = mtoLogroBarra || 0;
+//            MostrarBarra(data);
 //            var existeError = $(data).filter("input[id=hdErrorInsertarProducto]").val();
 //            if (existeError == "1") {
 //                $("#divProductoObservaciones").html('<div class="alert-top-icon text-danger" style="margin-top: 0;"><i class="icon-exclamation-circle"></i><br/>Ocurrió un error al ejecutar la operación.</div>');
@@ -1045,12 +1080,12 @@ function RegistrarDemandaTotalReemplazoSugerido(cuvSugerido, precio, cantidad, e
 }
 
 function CargarProductosRecomendados(item) {
+    ProductoRecomendadoModule.ObtenerProductos(item.CodigoCatalago, item.EstrategiaIDSicc, item.CUV, item.CodigoProducto);
+    //if (activarRecomendaciones == 1) {
+    //    if ((item.CodigoCatalago == 9 || item.CodigoCatalago == 10 || item.CodigoCatalago == 13) &&
+    //        (item.EstrategiaIDSicc == 2001)) {
 
-    if (activarRecomendaciones == 1) {
-        if ((item.CodigoCatalago == 9 || item.CodigoCatalago == 10 || item.CodigoCatalago == 13) &&
-            (item.EstrategiaIDSicc == 2001)) {
-
-            ProductoRecomendadoModule.ObtenerProductos(item.CUV, item.CodigoProducto);
-        }
-    }
+    //        ProductoRecomendadoModule.ObtenerProductos(item.CUV, item.CodigoProducto);
+    //    }
+    //}
 }

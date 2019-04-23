@@ -236,7 +236,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #region Camino al Éxito
 
-                var LogicaCaminoExisto = _tablaLogica.ObtenerConfiguracion(userData.PaisID, Constantes.TablaLogica.EscalaDescuentoDestokp);
+                var LogicaCaminoExisto = _tablaLogica.GetTablaLogicaDatos(userData.PaisID, Constantes.TablaLogica.EscalaDescuentoDestokp);
                 if (LogicaCaminoExisto.Any())
                 {
                     var CaminoExistoFirst = LogicaCaminoExisto.FirstOrDefault(x => x.TablaLogicaDatosID == Constantes.TablaLogicaDato.ActualizaEscalaDescuentoDestokp) ?? new TablaLogicaDatosModel();
@@ -251,6 +251,11 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #endregion
 
+                #region bonificaciones 
+
+                ViewBag.esConsultoraDigital = IndicadorConsultoraDigital();
+
+                #endregion
             }
             catch (FaultException ex)
             {

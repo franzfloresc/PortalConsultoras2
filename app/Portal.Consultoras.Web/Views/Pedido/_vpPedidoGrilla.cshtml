@@ -10,15 +10,14 @@
                     <b>PENDIENTES</b>
                     <div class="info_tiempo_oportunidad inicial">
                         <div class="campana">
-                            <a class="" href="javascript:;" role="menu" region="Superior" title="Notificaciones" id="lnk-sup-notificacion">
+                            <a class="" href="javascript:;" onclick="PendientesCampana();" role="menu" region="Superior" title="Notificaciones" id="lnk-sup-notificacion">
                                 <div class="campana_svg mensaje_svg"></div>
                                 <p class="notificaciones notificaciones_existentes notificaciones_activas" id="cont1PedidosPend">0</p>
                             </a>
                         </div>
                         <div class="noticia">
                             <h6>Tienes <span id="cont2PedidosPend">0</span> pedidos pendientes.</h6>
-                            <h6 class="tiempos_P"><span><b>Te quedan <span id="fecPedidoPendRec">00:00:00</span></b></span> horas para atenderlo.</h6>
-                            <h4 class="linkea_Pendientes">►REVÍSALO</h4>
+                            <h4 class="linkea_Pendientes" onclick="PendientesRevisalo('Carrito de Compras - Out Tab Pedidos Pendientes','Click Botón');">►REVÍSALO</h4>
                         </div>
                     </div>
                 </h1>
@@ -39,11 +38,11 @@
         <div class="grilla_pedidos" data-tag="table" id="tbListaPedido">
             <div class="encabezado_ingresoPedido">
                 @*<div class="texto_encabezado_pedidos cabecera_codigo" align="left">Código</div>*@
-                <div class="texto_encabezado_pedidos cabecera_producto" align="left">Producto</div>
+                <div class="texto_encabezado_pedidos cabecera_producto" align="left">Nombre del Producto</div>
                 <div class="texto_encabezado_pedidos cabecera_unidades">Cantidad</div>
-                <div class="texto_encabezado_pedidos precioUnitario cabecera_precioUnitario">Precio Unitario</div>
+                <div class="texto_encabezado_pedidos precioUnitario cabecera_precioUnitario">Precio unitario</div>
                 <div class="texto_encabezado_pedidos subtotal cabecera_subtotal">
-                    <span class="mostrarPrecioUnitario">Precio Unitario</span>
+                    <span class="mostrarPrecioUnitario">Precio unitario</span>
                     <span>Subtotal</span>
                 </div>
                 <div class="texto_encabezado_pedidos cabecera_cliente">

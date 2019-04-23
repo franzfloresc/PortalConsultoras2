@@ -299,7 +299,7 @@
     max-width: 202px;
     height: 98px;
     padding: 22px 22px 18px 22px;
-    background-image: url('../../../Content/Images/img_dialog.png');
+    background-image: url('/Content/Images/img_dialog.png');
     background-repeat: no-repeat;
     background-size: 202px;
     background-position: center;
@@ -308,7 +308,7 @@
 }
 
 .contenedor_titulo_beneficio_ofertas {
-    background-image: url('../../../Content/Images/img_dialog2.png');
+    background-image: url('/Content/Images/img_dialog2.png');
     background-size: 235px;
     max-width: 235px;
 }
@@ -574,7 +574,7 @@
         }
 
         .terminos_condiciones_form input[type='checkbox']:checked + label span {
-            background: url('../../../Content/Images/check-acepto-terminos.png');
+            background: url('/Content/Images/check-acepto-terminos.png');
             background-repeat: no-repeat;
             background-position: center center;
         }
@@ -816,7 +816,7 @@
         display: block;
         width: 285px;
         height: 284px;
-        background: url('../../../Content/Images/img_cabecera_asesora_online_mobile.png');
+        background: url('/Content/Images/img_cabecera_asesora_online_mobile.png');
         background-position: center;
         background-repeat: no-repeat;
         background-size: 285px;
@@ -1161,7 +1161,7 @@
         position: absolute;
         width: 287px;
         height: 361px;
-        background: url('../../../Content/Images/img_cabecera_asesora_online_mobile_landscape.png');
+        background: url('/Content/Images/img_cabecera_asesora_online_mobile_landscape.png');
         background-size: 285px;
         background-repeat: no-repeat;
     }
@@ -1530,7 +1530,7 @@
     display: block;
     width: 30px;
     height: 31px;
-    background: url('../../../Content/Images/icono-cerrar-popup-inscripcion.svg');
+    background: url('/Content/Images/icono-cerrar-popup-inscripcion.svg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: 100%;
@@ -1777,7 +1777,7 @@
 @media screen and (max-width:991px) {
 
     .cerrar_popup_inscripcion {
-        background: url('../../../Content/Images/mobile/icono-cerrar-popup-inscripcion-mobile.svg');
+        background: url('/Content/Images/mobile/icono-cerrar-popup-inscripcion-mobile.svg');
         background-size: 100%;
         background-position: center;
         background-repeat: no-repeat;

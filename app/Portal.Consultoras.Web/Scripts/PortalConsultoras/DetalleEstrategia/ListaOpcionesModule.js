@@ -14,6 +14,7 @@
 /// <reference path="../../../Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js" />
 /// <reference path="../../../Scripts/PortalConsultoras/Shared/ConstantesModule.js" />
 /// <reference path="../../../Scripts/PortalConsultoras/DetalleEstrategia/OpcionesSeleccionadasModule.js" />
+/// <reference path="../../../Scripts/PortalConsultoras/DetalleEstrategia/DetalleEstrategiaProvider.js" />
 /// <reference path="../../../Scripts/PortalConsultoras/DetalleEstrategia/FichaModule.js" />
 
 var opcionesEvents = opcionesEvents || {};
@@ -341,6 +342,8 @@ var ListaOpcionesModule = (function () {
             $(".modal-fondo").css("opacity", "0");
             $(".modal-fondo").hide();
             $("body").removeClass("modal_activado");
+            console.log('CloseElegirOpcionesModal - DivPopupFichaResumida overflow auto');
+            $("#DivPopupFichaResumida").css("overflow", "auto");
         }
         if (!_callFromSeleccionarPaletaOpcion) {
             
@@ -351,9 +354,7 @@ var ListaOpcionesModule = (function () {
                 AnalyticsPortalModule.MarcarPopupCerrarEligeXOpciones(estrategia);
             }
         }
-        
-        
-        
+                
     }
 
     return {

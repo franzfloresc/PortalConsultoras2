@@ -1,12 +1,13 @@
 ﻿using OpenSource.Library.DataAccess;
 
 using Portal.Consultoras.Common;
-
+using Portal.Consultoras.Entities.Pedido;
+using Portal.Consultoras.Entities.Usuario;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Runtime.Serialization;
-using System.Collections.Generic;
 
 namespace Portal.Consultoras.Entities
 {
@@ -245,6 +246,11 @@ namespace Portal.Consultoras.Entities
             EsConsultoraOficina = row.ToInt32("IndicadorConsultoraOficina") == 1;
             PromedioVenta = row.ToDouble("PromedioVenta");
             NovedadBuscador = row.ToInt32("NovedadBuscador");
+            /*HD-3777*/
+            CodigoClasificacion = row.ToString("CodigoClasificacion");
+            CodigoSubClasificacion = row.ToString("CodigoSubClasificacion");
+            DescripcionSubClasificacion = row.ToString("DescripcionSubClasificacion");
+            /*Fin*/
         }
 
         [Column("ConsultoraAsociadoID")]
@@ -929,11 +935,19 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool TieneMG { get; set; }
         [DataMember]
+        public BEDireccionEntrega DireccionEntrega { get; set; }
+        [DataMember]
         public bool TieneChatbot { get; set; }
         [DataMember]
         public List<BEConfiguracionPaisDatos> RecomendacionesConfiguracion { get; set; }
         [DataMember]
         public string SegmentoDatami { get; set; }
+	    [DataMember]
+        public string CorreoAnterior { get; set; }
+        [DataMember]
+        public List<BEUsuarioOpciones> UsuarioOpciones { get; set; }
+        [DataMember]
+        public bool GanaMasNativo { get; set; }
 
         public BEUsuario(IDataRecord row, bool Tipo, bool ValidaHorario)
         {
@@ -948,5 +962,16 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "HoraCierreZonaDemAnti")) HoraCierreZonaDemAnti = DbConvert.ToTimeSpan(row["HoraCierreZonaDemAnti"]);
             if (DataRecord.HasColumn(row, "HoraCierreZonaNormal")) HoraCierreZonaNormal = DbConvert.ToTimeSpan(row["HoraCierreZonaNormal"]);
         }
+
+        /*HD-3777*/
+        [DataMember]
+        public string CodigoClasificacion { get; set; }
+
+        [DataMember]
+        public string CodigoSubClasificacion { get; set; }
+
+        [DataMember]
+        public string DescripcionSubClasificacion { get; set; }
+        /*Fin*/
     }
 }

@@ -148,7 +148,7 @@ namespace Portal.Consultoras.ServiceContracts
         IList<BEProductoAppCatalogo> GetNombreProducto048ByListaCUV(int paisID, int campaniaId, string listaCUV);
 
         [OperationContract]
-        int InsProductoCompartido(BEProductoCompartido ProComp);
+        BEProductoCompartidoResult InsProductoCompartido(BEProductoCompartido ProComp);
 
         [OperationContract]
         BEProductoCompartido GetProductoCompartido(int paisID, int ProCompID);
@@ -177,6 +177,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         int GetLimElectivosProgNuevas(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma);
+
+        [OperationContract]
+        List<BEProductoEstraProgNuevas> GetListCuvProgNuevasEstrategia(BEConsultoraProgramaNuevas consultoraNueva);
         #endregion
 
         #region ValidarVentaExclusiva
@@ -193,5 +196,12 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         bool CuvArmaTuPackEstaEnLimite(int paisID, int campaniaID, string zona, string cuv, int cantidadIngresada, int cantidadActual);
         #endregion
+
+        [OperationContract]
+        List<BEPremioNuevas> ListarPremioNuevasPaginado(BEPremioNuevas premio);
+        [OperationContract]
+        BEPremioNuevas Insertar(BEPremioNuevas premio);
+        [OperationContract]
+        BEPremioNuevas Editar(BEPremioNuevas premio);
     }
 }
