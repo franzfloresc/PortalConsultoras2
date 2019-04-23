@@ -8,230 +8,7 @@
 }
 
 <body>
-    <script>
-        var fbAppId = '@ViewBag.FBAppId';
-        var cargoPluginFacebook = false;
-
-        window.fbAsyncInit = function () {
-            FB.init({
-                appId: fbAppId,
-                cookie: true,
-                xfbml: true,
-                version: 'v3.0'
-            });
-
-            FB.getLoginStatus(function (response) {
-                if (response.status === 'connected') {
-                    getInfoFB(1);
-                }
-            });
-
-            cargoPluginFacebook = true;
-        };
-
-        (function (d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) { return; }
-            js = d.createElement(s); js.id = id;
-            js.src = "//connect.facebook.net/en_US/sdk.js";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
-
-        function loginFB() {
-            existeAccesoFacebook(function(){
-                /*
-                FB.login(
-                    function (response) { if (response.status === 'connected') getInfoFB(2); },
-                    { scope: 'public_profile,email,user_birthday,user_location' }
-                );
-                */
-                FB.getLoginStatus(function (response) {
-                    if (response.status === 'connected') {
-                        getInfoFB(2);
-                    }
-                    else {
-                        FB.login(function (response) {
-                            if (response.status === 'connected')
-                                getInfoFB(2);
-                        });
-                    }
-                });
-            },
-            function () { alert('@Html.Raw(Constantes.MensajesError.SinConexion_LoginChatbot)'); });
-        }
-
-        function getInfoFB(opt) {
-
-            FB.api('/me', 'GET', { fields: 'birthday,email,first_name,gender,hometown,id,last_name,link,location,name,picture.type(large)' }, function (response) {
-
-                if (typeof response.id !== 'undefined' && response.id !== null) {
-                    var exists = checkExternalUser('Facebook', response.id);
-                    var fp = (typeof response.picture === 'object') ? response.picture.data.url : "";
-                    var lc = (typeof response.location === 'object') ? response.location.name : "";
-
-                    if (exists) {
-                        if (opt == 2) {
-                            validExternalUser('Facebook', response.id, fp);
-                        }
-                        else {
-                            var fullname = response.name.trim();
-                            var j = fullname.indexOf(' ');
-                            var fname = fullname;
-                            if (j > 0) {
-                                fname = fullname.substring(0, j).trim();
-                            }
-
-                            $('#hdeNameUserExt').val(fname);
-
-                            $('#btnLoginFB2').removeClass('center_facebook');
-                            $('#btnLoginFB2').text('Continuar como ' + fname);
-                            $('#imgFotoPerfil2').attr('src', fp);
-
-                            $('#_nomusufb').html('¿No eres ' + response.name + '? ');
-                            $('#_nomusufb').append('<a class="_ccfb" onclick="mostrarLoginAnterior()">Cambiar de cuenta</a>');
-
-                            $('.webForm').css('padding-bottom', '75px');
-                            $('#cambcuentaboton').hide();
-                            $('#_olgn').hide();
-                            $('#loginanterior').hide();
-
-                            $('#btnfblogin').show();
-                        }
-                    }
-                    else {
-                        if (opt == 2) {
-                            $('#hdeProveedor').val('Facebook');
-                            $('#hdeIdApp').val(response.id);
-                            $('#hdeLogin').val(response.name);
-                            $('#hdeNombres').val(response.first_name);
-                            $('#hdeApellidos').val(response.last_name);
-                            $('#hdeFechaNacimiento').val(response.birthday);
-                            $('#hdeCorreo').val(response.email);
-                            $('#hdeGenero').val(response.gender);
-                            $('#hdeUbicacion').val(lc);
-                            $('#hdeLinkPerfil').val(response.link);
-                            $('#hdeFotoPerfil').val(fp);
-
-                            $('#txtUsuario2').val('');
-                            $('#txtContrasenia2').val('');
-                            $('#ErrorTextLabel2').html('');
-
-                            $('.nombre_usuario_facebook').text(response.name);
-                            $('.foto_pop_face img').attr('src', fp);
-
-                            $('#divMensajeError2').hide();
-                            $('#popupAsociarUsuarioExt').show();
-                        }
-                    }
-                }
-            });
-        }
-
-        function checkExternalUser(provider, id) {
-            var r = false;
-            var obj = {
-                codigoISO: $('#ddlPais').val(),
-                proveedor: provider,
-                appid: id
-            };
-
-            waitingDialog();
-
-            $.ajax({
-                type: 'POST',
-                url: '/Login/CheckExternalUser',
-                data: JSON.stringify(obj),
-                contentType: 'application/json; charset=utf-8',
-                dataType: 'json',
-                async: false,
-                success: function (response) {
-                    closeWaitingDialog();
-                    if (response.success) {
-                        if (response.exists) {
-                            r = true;
-                        }
-                    }
-                },
-                error: function (response) {
-                    alert("Error al procesar la solicitud");
-                }
-            });
-
-            return r;
-        }
-
-        function validExternalUser(provider, id, fotoperfil) {
-            var obj = {
-                codigoISO: $('#ddlPais').val(),
-                proveedor: provider,
-                appid: id,
-                returnUrl: $('#returnUrl').val(),
-                foto: fotoperfil
-            };
-
-            waitingDialog();
-
-            $.ajax({
-                type: 'POST',
-                url: '/Login/ValidExternalUser',
-                data: JSON.stringify(obj),
-                contentType: 'application/json; charset=utf-8',
-                dataType: 'json',
-                success: function (response) {
-                    if (response.success) {
-                        if (response.redirectTo !== "") {
-                            analytics.invocarEventoPixel("FacebookLoginValidExternalUser");
-                            limpiar_local_storage();
-                            document.location.href = response.redirectTo;
-                        }
-                    }
-                    else {
-                        closeWaitingDialog();
-                        alert(response.message);
-                    }
-                },
-                error: function (response) {
-                    closeWaitingDialog();
-                    alert("Error al procesar la solicitud");
-                },
-            });
-        }
-
-        function mostrarLoginAnterior() {
-            $('.webForm').css('padding-bottom', '10px');
-            $('#btnfblogin').hide();
-            $('#cambcuentaboton').fadeIn('slow');
-            $('#_olgn').fadeIn('slow');
-            $('#loginanterior').fadeIn('slow');
-        }
-
-        function mostrarLoginFB() {
-            $('.webForm').css('padding-bottom', '75px');
-            $('#cambcuentaboton').hide();
-            $('#_olgn').hide();
-            $('#loginanterior').hide();
-            $('#btnfblogin').fadeIn('slow');
-        }
-
-        function existeAccesoFacebook(fnSuccess,fnError)
-        {
-            if (!cargoPluginFacebook) {
-                if ($.isFunction(fnError)) fnError();
-            }
-
-            waitingDialog();
-            FB.api('/me', function (response) {
-                closeWaitingDialog();
-
-                if (response.error != null && response.error.message === 'unknown error') {
-                    if ($.isFunction(fnError)) fnError();
-                }
-                else {
-                    if ($.isFunction(fnSuccess)) fnSuccess();
-                }
-            });
-        }
-    </script>
+    
 </body>
 
 <input type="hidden" id="PaginaLogin" />
@@ -1109,6 +886,7 @@
     </div>
 </div>
 
+
 <script type="text/javascript">
     var paisesEsika = '@System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika")';
     var paisesLBel = '@System.Configuration.ConfigurationManager.AppSettings.Get("PaisesLBel")';
@@ -1159,7 +937,8 @@
 
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Login-Header")
     <script>
-        var configAnalytics = { listPaisAnalytics : [] };
+        var configAnalytics = { listPaisAnalytics: [], pixelId: '@Constantes.Facebook.FB_Pixel' };
+
         @if (Model.ListPaisAnalytics != null)
         {
             foreach (var paisAnalytics in Model.ListPaisAnalytics)
@@ -1181,5 +960,229 @@
 @section scripts {
     <script src="~/Scripts/handlebars.js"></script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Js-Login")
+    <script>
+        var fbAppId = '@ViewBag.FBAppId';
+        var cargoPluginFacebook = false;
+
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: fbAppId,
+                cookie: true,
+                xfbml: true,
+                version: 'v3.0'
+            });
+
+            FB.getLoginStatus(function (response) {
+                if (response.status === 'connected') {
+                    getInfoFB(1);
+                }
+            });
+
+            cargoPluginFacebook = true;
+        };
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) { return; }
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+        function loginFB() {                       
+            existeAccesoFacebook(function(){
+                /*
+                FB.login(
+                    function (response) { if (response.status === 'connected') getInfoFB(2); },
+                    { scope: 'public_profile,email,user_birthday,user_location' }
+                );
+                */
+                FB.getLoginStatus(function (response) {
+                    if (response.status === 'connected') {
+                        getInfoFB(2);
+                    }
+                    else {
+                        FB.login(function (response) {
+                            if (response.status === 'connected')
+                                getInfoFB(2);
+                        });
+                    }
+                });
+            },
+            function () { alert('@Html.Raw(Constantes.MensajesError.SinConexion_LoginChatbot)'); });
+        }
+
+        function getInfoFB(opt) {
+
+            FB.api('/me', 'GET', { fields: 'birthday,email,first_name,gender,hometown,id,last_name,link,location,name,picture.type(large)' }, function (response) {
+
+                if (typeof response.id !== 'undefined' && response.id !== null) {
+                    var exists = checkExternalUser('Facebook', response.id);
+                    var fp = (typeof response.picture === 'object') ? response.picture.data.url : "";
+                    var lc = (typeof response.location === 'object') ? response.location.name : "";
+
+                    if (exists) {
+                        if (opt == 2) {
+                            validExternalUser('Facebook', response.id, fp);
+                        }
+                        else {
+                            var fullname = response.name.trim();
+                            var j = fullname.indexOf(' ');
+                            var fname = fullname;
+                            if (j > 0) {
+                                fname = fullname.substring(0, j).trim();
+                            }
+
+                            $('#hdeNameUserExt').val(fname);
+
+                            $('#btnLoginFB2').removeClass('center_facebook');
+                            $('#btnLoginFB2').text('Continuar como ' + fname);
+                            $('#imgFotoPerfil2').attr('src', fp);
+
+                            $('#_nomusufb').html('¿No eres ' + response.name + '? ');
+                            $('#_nomusufb').append('<a class="_ccfb" onclick="mostrarLoginAnterior()">Cambiar de cuenta</a>');
+
+                            $('.webForm').css('padding-bottom', '75px');
+                            $('#cambcuentaboton').hide();
+                            $('#_olgn').hide();
+                            $('#loginanterior').hide();
+
+                            $('#btnfblogin').show();
+                        }
+                    }
+                    else {
+                        if (opt == 2) {
+                            $('#hdeProveedor').val('Facebook');
+                            $('#hdeIdApp').val(response.id);
+                            $('#hdeLogin').val(response.name);
+                            $('#hdeNombres').val(response.first_name);
+                            $('#hdeApellidos').val(response.last_name);
+                            $('#hdeFechaNacimiento').val(response.birthday);
+                            $('#hdeCorreo').val(response.email);
+                            $('#hdeGenero').val(response.gender);
+                            $('#hdeUbicacion').val(lc);
+                            $('#hdeLinkPerfil').val(response.link);
+                            $('#hdeFotoPerfil').val(fp);
+
+                            $('#txtUsuario2').val('');
+                            $('#txtContrasenia2').val('');
+                            $('#ErrorTextLabel2').html('');
+
+                            $('.nombre_usuario_facebook').text(response.name);
+                            $('.foto_pop_face img').attr('src', fp);
+
+                            $('#divMensajeError2').hide();
+                            $('#popupAsociarUsuarioExt').show();
+                        }
+                    }
+                }
+            });
+        }
+
+        function checkExternalUser(provider, id) {
+            var r = false;
+            var obj = {
+                codigoISO: $('#ddlPais').val(),
+                proveedor: provider,
+                appid: id
+            };
+
+            waitingDialog();
+
+            $.ajax({
+                type: 'POST',
+                url: '/Login/CheckExternalUser',
+                data: JSON.stringify(obj),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                async: false,
+                success: function (response) {
+                    closeWaitingDialog();
+                    if (response.success) {
+                        if (response.exists) {
+                            r = true;
+                        }
+                    }
+                },
+                error: function (response) {
+                    alert("Error al procesar la solicitud");
+                }
+            });
+
+            return r;
+        }
+
+        function validExternalUser(provider, id, fotoperfil) {
+            var obj = {
+                codigoISO: $('#ddlPais').val(),
+                proveedor: provider,
+                appid: id,
+                returnUrl: $('#returnUrl').val(),
+                foto: fotoperfil
+            };
+
+            waitingDialog();
+
+            $.ajax({
+                type: 'POST',
+                url: '/Login/ValidExternalUser',
+                data: JSON.stringify(obj),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (response) {
+                    if (response.success) {
+                        if (response.redirectTo !== "") {
+                            analytics.invocarEventoPixel("FacebookLoginValidExternalUser");
+                            limpiar_local_storage();
+                            document.location.href = response.redirectTo;
+                        }
+                    }
+                    else {
+                        closeWaitingDialog();
+                        alert(response.message);
+                    }
+                },
+                error: function (response) {
+                    closeWaitingDialog();
+                    alert("Error al procesar la solicitud");
+                },
+            });
+        }
+
+        function mostrarLoginAnterior() {
+            $('.webForm').css('padding-bottom', '10px');
+            $('#btnfblogin').hide();
+            $('#cambcuentaboton').fadeIn('slow');
+            $('#_olgn').fadeIn('slow');
+            $('#loginanterior').fadeIn('slow');
+        }
+
+        function mostrarLoginFB() {
+            $('.webForm').css('padding-bottom', '75px');
+            $('#cambcuentaboton').hide();
+            $('#_olgn').hide();
+            $('#loginanterior').hide();
+            $('#btnfblogin').fadeIn('slow');
+        }
+
+        function existeAccesoFacebook(fnSuccess,fnError)
+        {
+            if (!cargoPluginFacebook) {
+                if ($.isFunction(fnError)) fnError();
+            }
+
+            waitingDialog();
+            FB.api('/me', function (response) {
+                closeWaitingDialog();
+
+                if (response.error != null && response.error.message === 'unknown error') {
+                    if ($.isFunction(fnError)) fnError();
+                }
+                else {
+                    if ($.isFunction(fnSuccess)) fnSuccess();
+                }
+            });
+        }
+    </script>
 }
 
