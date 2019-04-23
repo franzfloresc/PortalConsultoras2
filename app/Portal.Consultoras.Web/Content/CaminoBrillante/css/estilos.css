@@ -99,20 +99,20 @@ strong {
         margin-bottom: 15px;
     }
 
-        .box-beneficios li img {
-            display: block;
-            float: left;
-            max-width: 35px;
-            width: 14%;
-        }
+    .box-beneficios li img {
+        display: block;
+        float: left;
+        max-width: 35px;
+        width: 14%;
+    }
 
-        .box-beneficios li .txt-benf {
-            display: block;
-            float: left;
-            margin-left: 4%;
-            margin-top: 6px;
-            width: 82%;
-        }
+    .box-beneficios li .txt-benf {
+        display: block;
+        float: left;
+        margin-left: 4%;
+        margin-top: 6px;
+        width: 82%;
+    }
 
 .txt-benf .text-bold, .owl-stage-outer .text-bold, .box-camb .text-bold {
     color: black;
@@ -182,18 +182,18 @@ div .btn-principal {
         margin: 10px 1.5%;
     }
 
-        .list-crec li img {
-            display: block;
-            margin: 0 auto;
-            margin-bottom: 5px;
-        }
+    .list-crec li img {
+        display: block;
+        margin: 0 auto;
+        margin-bottom: 5px;
+    }
 
-        .list-crec li p {
-            font-size: 12px;
-            font-weight: bold;
-            text-align: center;
-            height: 28px;
-        }
+    .list-crec li p {
+        font-size: 12px;
+        font-weight: bold;
+        text-align: center;
+        height: 28px;
+    }
 
 .btn-link {
     display: block;
