@@ -241,17 +241,17 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
             var mensaje = string.Empty;
             var cuvSet = estrategia.CUV2;
-            var pedidoID = 0;
-            List<BEPedidoWebDetalle> lstDetalleAgrupado = null;// ObtenerPedidoWebSetDetalleAgrupado(usuario, out pedidoID);
+            int pedidoID;
+            var lstDetalleAgrupado = ObtenerPedidoWebSetDetalleAgrupado(usuario, out pedidoID);
 
             usuario.PaisID = pedidoDetalle.PaisID;
             usuario.TieneValidacionMontoMaximo = _usuarioBusinessLogic.ConfiguracionPaisUsuario(usuario, Constantes.ConfiguracionPais.ValidacionMontoMaximo).TieneValidacionMontoMaximo;
 
-            #region ArmaTuPack
-            if (pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopContenedorArmaTuPack || pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobileContenedorArmaTuPack)
-            {
-                lstDetalleAgrupado = ObtenerPedidoWebSetDetalleAgrupado(usuario, out pedidoID);
+            var tipoEstrategia = _tipoEstrategiaBusinessLogic.GetTipoEstrategiaById(usuario.PaisID, estrategia.TipoEstrategiaID);
 
+            #region ArmaTuPack
+            if (tipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.ArmaTuPack)
+            {
                 var packAgregado = lstDetalleAgrupado != null ? lstDetalleAgrupado.FirstOrDefault(x => x.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.ArmaTuPack) : null;
 
                 if (packAgregado != null && packAgregado.CUV == estrategia.CUV2)
@@ -342,7 +342,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
             }
             else
             {
-                lstDetalleAgrupado = lstDetalleAgrupado == null ? ObtenerPedidoWebSetDetalleAgrupado(usuario, out pedidoID) : lstDetalleAgrupado;
                 var validacionLimiteVenta = ValidarLimiteVenta(estrategia, lstDetalleAgrupado);
                 if (validacionLimiteVenta != null) return validacionLimiteVenta;
 

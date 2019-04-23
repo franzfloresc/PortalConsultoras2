@@ -53,6 +53,9 @@ namespace Portal.Consultoras.Web.Models.MisCertificados
             }
         }
 
+        //INI HD-3812
+            public string PaisID { get; set; }
+        //FIN HD-3812
         #endregion
     }
 }

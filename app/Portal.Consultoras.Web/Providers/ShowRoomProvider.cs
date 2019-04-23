@@ -78,9 +78,9 @@ namespace Portal.Consultoras.Web.Providers
         {
             var pl50configs = _tablaLogicaProvider.GetTablaLogicaDatos(paisId, ConsTablaLogica.Plan20Activacion.TablaLogicaId);
             var enabledObject = _tablaLogicaProvider.GatCampoValorBool(pl50configs, ConsTablaLogica.Plan20Activacion.EnabledCode);
-            var redirectUrlObject = _tablaLogicaProvider.GatCampoValor(pl50configs, ConsTablaLogica.Plan20Activacion.RedirectCode);
-            var imageUrlObject = _tablaLogicaProvider.GatCampoValor(pl50configs, ConsTablaLogica.Plan20Activacion.ImageUrlCode);
-            var NoUrlPermitidasObject = _tablaLogicaProvider.GatCampoValor(pl50configs, ConsTablaLogica.Plan20Activacion.NoUrlAllowed);
+            var redirectUrlObject = _tablaLogicaProvider.GetValueByCode(pl50configs, ConsTablaLogica.Plan20Activacion.RedirectCode);
+            var imageUrlObject = _tablaLogicaProvider.GetValueByCode(pl50configs, ConsTablaLogica.Plan20Activacion.ImageUrlCode);
+            var NoUrlPermitidasObject = _tablaLogicaProvider.GetValueByCode(pl50configs, ConsTablaLogica.Plan20Activacion.NoUrlAllowed);
 
             return new BannerInferiorConfiguracion
             {

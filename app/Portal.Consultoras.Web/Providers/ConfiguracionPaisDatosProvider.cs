@@ -202,7 +202,7 @@ namespace Portal.Consultoras.Web.Providers
             var valorDato = "";
             codigo = Util.Trim(codigo);
             configuracionesPaisDatos = configuracionesPaisDatos ?? new List<ConfiguracionPaisDatosModel>();
-            if (configuracionesPaisDatos.Any() || codigo == "")
+            if (!configuracionesPaisDatos.Any() || codigo == "")
             {
                 return valorDato;
             }

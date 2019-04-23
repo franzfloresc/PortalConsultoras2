@@ -23,7 +23,7 @@ var ConstantesModule = (function () {
         LiquidacionWeb: "OfertasLiquidacion",
         GuiaNegocio: "GuiaNegocio",
         SR: "ShowRoom",
-        DuoPerfecto:"DuoPerfecto" //HD-3473 EINCA
+        DuoPerfecto: "DuoPerfecto" //HD-3473 EINCA
     }
 
     var _keysLocalStorage = {
@@ -65,8 +65,25 @@ var ConstantesModule = (function () {
         ProgramaNuevasRegalo: "044",
         ParticipaProgramaNuevas: "1",
         NotParticipaProgramaNuevas: "0",
-        DuoPerfecto:"034"//HD-3473 EINCA
+        DuoPerfecto: "034"//HD-3473 EINCA
     }
+
+    var _diccionarioTipoEstrategia = [
+        { codigo: _codigoTipoEstrategia.OfertaParaTi, texto: _codigoTipoEstrategiaTexto.OfertaParaTi },
+        { codigo: _codigoTipoEstrategia.PackNuevas, texto: _codigoTipoEstrategiaTexto.PackNuevas },
+        { codigo: _codigoTipoEstrategia.OfertaWeb, texto: _codigoTipoEstrategiaTexto.OfertaWeb },
+
+        { codigo: _codigoTipoEstrategia.Lanzamiento, texto: _codigoTipoEstrategiaTexto.Lanzamiento },
+        { codigo: _codigoTipoEstrategia.OfertasParaMi, texto: _codigoTipoEstrategiaTexto.OfertasParaMi },
+        { codigo: _codigoTipoEstrategia.PackAltoDesembolso, texto: _codigoTipoEstrategiaTexto.PackAltoDesembolso },
+        { codigo: _codigoTipoEstrategia.OfertaDelDia, texto: _codigoTipoEstrategiaTexto.OfertaDelDia },
+        { codigo: _codigoTipoEstrategia.GuiaDeNegocioDigitalizada, texto: _codigoTipoEstrategiaTexto.GuiaDeNegocioDigitalizada },
+        { codigo: _codigoTipoEstrategia.GuiaDeNegocioDigitalizada, texto: _codigoTipoEstrategiaTexto.GuiaNegocio },
+        { codigo: _codigoTipoEstrategia.HerramientasVenta, texto: _codigoTipoEstrategiaTexto.HerramientasVenta },
+        { codigo: _codigoTipoEstrategia.ShowRoom, texto: _codigoTipoEstrategiaTexto.ShowRoom },
+        { codigo: _codigoTipoEstrategia.RevistaDigital, texto: _codigoTipoEstrategiaTexto.RevistaDigital },
+        { codigo: _codigoTipoEstrategia.MasGanadoras, texto: _codigoTipoEstrategiaTexto.Ganadoras },
+    ];
 
     var _configuracionOferta = {
         Web: 1701,
@@ -155,7 +172,7 @@ var ConstantesModule = (function () {
         GuionContenedorArmaTuPackGuion: "--0816--",
         GuionContenedorArmaTuPack: "--12----",
         GuionCarritoComprasGuionFichaResumida: "--02--09"
-}
+    }
 
     // en AnaluticsPortal.js tambiar actualizar los valores
     var _origenPedidoWebEstructura = {
@@ -224,7 +241,8 @@ var ConstantesModule = (function () {
         obtenerComponentes: '/DetalleEstrategia/ObtenerComponentes',
         obtenerComponenteDetalle: '/DetalleEstrategia/ObtenerComponenteDetalle',
         obtenerModelo: '/DetalleEstrategia/ObtenerModelo',
-        obtenerPedidoWebSetDetalle: '/Pedido/ObtenerPedidoWebSetDetalle'
+        obtenerPedidoWebSetDetalle: '/Pedido/ObtenerPedidoWebSetDetalle',
+        obtenerEstrategiaFicha: '/Estrategia/ObtenerOfertaFicha'
     }
 
     var _urlPedido = {
@@ -260,6 +278,7 @@ var ConstantesModule = (function () {
         UrlObtenerEstrategia: _urlObtenerEstrategia,
         UrlDetalleEstrategia: _urlDetalleEstrategia,
         UrlPedido: _urlPedido,
+        DiccionarioTipoEstrategia: _diccionarioTipoEstrategia,
         GetTipoPersonalizacionByTipoEstrategia: _getTipoPersonalizacionByTipoEstrategia,
         CodigoUbigeoPortal: _codigoUbigeoPortal
     }

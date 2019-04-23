@@ -19,6 +19,6 @@
 
         public string GuardaDataEnLocalStorage { get; set; }
         public string GuardaDataEnSession { get; set; }
-
+        public string EstrategiaDisponibleParaFicha { get; set; }
     }
 }
