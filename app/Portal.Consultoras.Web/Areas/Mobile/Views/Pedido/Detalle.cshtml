@@ -379,7 +379,7 @@
                     {{/if}}
                 </div>
 
-                {{#if detalle.EsKitNueva}}
+                {{#if detalle.EsKitNueva}}                
                 <div class="icono_kitNuevas">
                     <a href="javascript:;" title="Ver Info Kit Nuevas">
                         <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" alt="Ver Info Kit Nuevas" />
@@ -387,7 +387,7 @@
                     <div class="tooltip_kitNuevas">
                         <span class="icono_notaDemanda" style="display:inline-block;"></span>
                         <span class="texto_tooltipKitNuevas">
-                            @Model.MensajeKitNuevas
+                            @Model.MensajeKitNuevas                            
                         </span>
                     </div>
                 </div>
@@ -481,9 +481,9 @@
                 </div>
 
                 <div class="icono_eliminar_item_pedido">
-                    <a href="javascript:;" class="border_radius_4 icon_trash" title="Eliminar" 
-                       onclick="tooltipDelete(event,'{{PedidoDetalleID}}', '{{SetID}}');" 
-                       data-pedidodetalleid="{{detalle.PedidoDetalleID}}" 
+                    <a href="javascript:;" class="border_radius_4 icon_trash" title="Eliminar"
+                       onclick="tooltipDelete(event,'{{PedidoDetalleID}}', '{{SetID}}');"
+                       data-pedidodetalleid="{{detalle.PedidoDetalleID}}"
                        data-setid="{{detalle.SetID}}"></a>
                 </div>
                 {{/unless}}
