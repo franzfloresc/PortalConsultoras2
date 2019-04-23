@@ -403,7 +403,7 @@ namespace Portal.Consultoras.Web.Models
         public Dictionary<string, string> NuevasDescripcionesBuscador { get; set; }
         public int NovedadBuscador { get; set; }
         public int IndicadorConsultoraDummy { get; set; }
-
+        
         public string PseudoParamNotif { get; set; } //SALUD-58 
 
         /*HD-3777*/
