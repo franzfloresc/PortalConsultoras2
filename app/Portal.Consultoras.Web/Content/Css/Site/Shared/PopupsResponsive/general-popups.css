@@ -42,7 +42,7 @@
 }
 
 .popup__somos__belcorp__icono__cerrar {
-    display: block;
+    display: block!important;
     position: absolute;
     width: 45px;
     height: 45px;
