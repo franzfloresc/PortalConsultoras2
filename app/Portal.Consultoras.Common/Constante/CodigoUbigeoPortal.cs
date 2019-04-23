@@ -53,6 +53,7 @@ namespace Portal.Consultoras.Common
             public const string Ganadoras= "14";
             public const string Grilla= "15";
             public const string ArmaTuPack = "16";
+            public const string ResumenBelcorp = "17";
         }
 
         public static class Seccion {
