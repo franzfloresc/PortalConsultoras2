@@ -10,6 +10,5 @@
         public decimal PrecioCatalogo { get; set; }
         public string FotoProductoMedium { get; set; }
         public bool FlagSeleccionado { get; set; }
-        //public int OrigenPedidoWeb { get; set; }
     }
 }

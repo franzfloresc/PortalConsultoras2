@@ -15,8 +15,6 @@ var contadordemo = 0
 
 $(document).ready(function () {    
     CambiarOferta();
-    //CargarKits();
-    //CargarDemostradores
     Inicializar();
 });
 

@@ -106,8 +106,13 @@
     <Compile Include="BLReporteRevisionIncidencias.cs" />
     <Compile Include="Cache\BLCache.cs" />
     <Compile Include="CaminoBrillante\BLCaminoBrillante.cs" />
-    <Compile Include="CaminoBrillante\Rest\CaminoBrillanteProvider.cs" />
+    <Compile Include="CaminoBrillante\CaminoBrillanteProvider.cs" />
     <Compile Include="CaminoBrillante\ICaminoBrillanteBusinessLogic.cs" />
+    <Compile Include="CaminoBrillante\Rest\KitsHistoricoConsultora.cs" />
+    <Compile Include="CaminoBrillante\Rest\NivelCaminoBrillante.cs" />
+    <Compile Include="CaminoBrillante\Rest\NivelConsultoraCaminoBrillante.cs" />
+    <Compile Include="CaminoBrillante\Rest\OfertaCaminoBrillante.cs" />
+    <Compile Include="CaminoBrillante\Rest\PeriodoCaminoBrillante.cs" />
     <Compile Include="Cliente\BLClienteDB.cs" />
     <Compile Include="Cliente\IClienteBusinessLogic.cs" />
     <Compile Include="Comunicado\IComunicadoBusinessLogic.cs" />
