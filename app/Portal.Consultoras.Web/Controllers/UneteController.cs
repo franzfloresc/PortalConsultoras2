@@ -2575,6 +2575,121 @@ namespace Portal.Consultoras.Web.Controllers
 
             return responseHtml;
         }
+
+
+        #region Kit Inicio
+
+        public ActionResult KitInicio()
+        {
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("KitInicio", "&rol=" + userData.RolDescripcion);
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult KitInicioInit()
+        {
+            var _zonificacionProvider = new ZonificacionProvider();
+            var paisId = userData.PaisID;
+            try
+            {
+                var listas = new List<object>();
+                listas.Add(_zonificacionProvider.GetCampanias(paisId));
+                listas.Add(new PortalServiceClient().ObtenerParametrosUnete(userData.CodigoISO, EnumsTipoParametro.TipoKitInicio, 0));
+                return Json(listas);
+            }
+            catch
+            {
+                return Error();
+            }
+        }
+
+        [HttpPost]
+        public JsonResult GetKitInicio(int campanhia, int kit)
+        {
+            try
+            {
+                var en = new ENTKitInicio
+                {
+                    CUV = "2000",
+                    Precio = (decimal)200.50,
+                    PrecioReal = (decimal)400.10,
+                    Cantidad = 520,
+                    Orden = 7,
+                    Descripcion = "Llega a más clientes y recupera tu inversión",
+                    UrlImagen = "http://www.google.com.pe",
+                    Catalogos = new List<ENTKitInicioCatalogo>
+                    {
+                        new ENTKitInicioCatalogo
+                        {
+                            CodMarca = 1,
+                            CUV = "978944",
+                            Orden = 1,
+                            NomMarca = "Ésika"
+                        },
+                        new ENTKitInicioCatalogo
+                        {
+                            CodMarca = 2,
+                            CUV = "978945",
+                            Orden = 2,
+                            NomMarca = "L'Bel"
+                        },
+                        new ENTKitInicioCatalogo
+                        {
+                            CodMarca = 3,
+                            CUV = "978946",
+                            Orden = 3,
+                            NomMarca = "CyZone"
+                        }
+                    }
+                };
+                return Json(en);
+            }
+            catch
+            {
+                return Error();
+            }
+        }
+
+        [HttpPost]
+        public JsonResult SaveKitInicio(ENTKitInicio en)
+        {
+            try
+            {
+                return Json(true);
+            }
+            catch
+            {
+                return Error();
+            }
+        }
+
+        private JsonResult Error(string error = null)
+        {
+            Response.StatusCode = 500;
+            return Json(error ?? "Ocurrió un error");
+        }
+
+        public struct ENTKitInicio
+        {
+            public string CUV { get; set; }
+            public decimal Precio { get; set; }
+            public decimal PrecioReal { get; set; }
+            public float Cantidad { get; set; }
+            public float Orden { get; set; }
+            public string Descripcion { get; set; }
+            public string UrlImagen { get; set; }
+            public List<ENTKitInicioCatalogo> Catalogos { get; set; }
+
+        }
+        public struct ENTKitInicioCatalogo
+        {
+            public int CodMarca { get; set; }
+            public string CUV { get; set; }
+            public float Orden { get; set; }
+            public string NomMarca { get; set; }
+        }
+
+        #endregion Kit Inicio
     }
 
     public class ParameterPagodeKit

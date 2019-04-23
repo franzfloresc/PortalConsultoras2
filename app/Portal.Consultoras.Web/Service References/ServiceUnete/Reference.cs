@@ -13,6 +13,187 @@ namespace Portal.Consultoras.Web.ServiceUnete {
     using System;
     
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="KitInicioDetalle", Namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais")]
+    [System.SerializableAttribute()]
+    public partial class KitInicioDetalle : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool ActivoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int DetalleKitInicioIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ImagenField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int KitInicioDetalleTipoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int KitInicioTipoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NombreProductoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int OrdenField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal PrecioField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TipoPrecioField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Activo {
+            get {
+                return this.ActivoField;
+            }
+            set {
+                if ((this.ActivoField.Equals(value) != true)) {
+                    this.ActivoField = value;
+                    this.RaisePropertyChanged("Activo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int DetalleKitInicioId {
+            get {
+                return this.DetalleKitInicioIdField;
+            }
+            set {
+                if ((this.DetalleKitInicioIdField.Equals(value) != true)) {
+                    this.DetalleKitInicioIdField = value;
+                    this.RaisePropertyChanged("DetalleKitInicioId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Imagen {
+            get {
+                return this.ImagenField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ImagenField, value) != true)) {
+                    this.ImagenField = value;
+                    this.RaisePropertyChanged("Imagen");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int KitInicioDetalleTipo {
+            get {
+                return this.KitInicioDetalleTipoField;
+            }
+            set {
+                if ((this.KitInicioDetalleTipoField.Equals(value) != true)) {
+                    this.KitInicioDetalleTipoField = value;
+                    this.RaisePropertyChanged("KitInicioDetalleTipo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int KitInicioTipo {
+            get {
+                return this.KitInicioTipoField;
+            }
+            set {
+                if ((this.KitInicioTipoField.Equals(value) != true)) {
+                    this.KitInicioTipoField = value;
+                    this.RaisePropertyChanged("KitInicioTipo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string NombreProducto {
+            get {
+                return this.NombreProductoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NombreProductoField, value) != true)) {
+                    this.NombreProductoField = value;
+                    this.RaisePropertyChanged("NombreProducto");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Orden {
+            get {
+                return this.OrdenField;
+            }
+            set {
+                if ((this.OrdenField.Equals(value) != true)) {
+                    this.OrdenField = value;
+                    this.RaisePropertyChanged("Orden");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal Precio {
+            get {
+                return this.PrecioField;
+            }
+            set {
+                if ((this.PrecioField.Equals(value) != true)) {
+                    this.PrecioField = value;
+                    this.RaisePropertyChanged("Precio");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TipoPrecio {
+            get {
+                return this.TipoPrecioField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TipoPrecioField, value) != true)) {
+                    this.TipoPrecioField = value;
+                    this.RaisePropertyChanged("TipoPrecio");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.CollectionDataContractAttribute(Name="StringCollection", Namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collect" +
+        "ions", ItemName="string")]
+    [System.SerializableAttribute()]
+    public class StringCollection : System.Collections.Generic.List<string> {
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="Enums.TipoParametro", Namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.Utils")]
     public enum EnumsTipoParametro : int {
@@ -115,6 +296,9 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Pagokit = 42,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        TipoKitInicio = 38,
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -6642,9 +6826,9 @@ namespace Portal.Consultoras.Web.ServiceUnete {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="UbigeoTemplate", Namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais")]
     [System.SerializableAttribute()]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUnete.UbigeoPA))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUnete.UbigeoSV))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUnete.UbigeoGT))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUnete.UbigeoPA))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUnete.UbigeoCR))]
     public partial class UbigeoTemplate : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -6763,6 +6947,77 @@ namespace Portal.Consultoras.Web.ServiceUnete {
             System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
             if ((propertyChanged != null)) {
                 propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="UbigeoPA", Namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais")]
+    [System.SerializableAttribute()]
+    public partial class UbigeoPA : Portal.Consultoras.Web.ServiceUnete.UbigeoTemplate {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string BARRIO_COLONIA_URBANIZACION_REFERENCIASField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CORREGIMIENTOField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DISTRITOField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PROVINCIAField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string BARRIO_COLONIA_URBANIZACION_REFERENCIAS {
+            get {
+                return this.BARRIO_COLONIA_URBANIZACION_REFERENCIASField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.BARRIO_COLONIA_URBANIZACION_REFERENCIASField, value) != true)) {
+                    this.BARRIO_COLONIA_URBANIZACION_REFERENCIASField = value;
+                    this.RaisePropertyChanged("BARRIO_COLONIA_URBANIZACION_REFERENCIAS");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CORREGIMIENTO {
+            get {
+                return this.CORREGIMIENTOField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CORREGIMIENTOField, value) != true)) {
+                    this.CORREGIMIENTOField = value;
+                    this.RaisePropertyChanged("CORREGIMIENTO");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DISTRITO {
+            get {
+                return this.DISTRITOField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DISTRITOField, value) != true)) {
+                    this.DISTRITOField = value;
+                    this.RaisePropertyChanged("DISTRITO");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string PROVINCIA {
+            get {
+                return this.PROVINCIAField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PROVINCIAField, value) != true)) {
+                    this.PROVINCIAField = value;
+                    this.RaisePropertyChanged("PROVINCIA");
+                }
             }
         }
     }
@@ -6920,77 +7175,6 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 if ((object.ReferenceEquals(this.ZONA_CIUDADField, value) != true)) {
                     this.ZONA_CIUDADField = value;
                     this.RaisePropertyChanged("ZONA_CIUDAD");
-                }
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="UbigeoPA", Namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais")]
-    [System.SerializableAttribute()]
-    public partial class UbigeoPA : Portal.Consultoras.Web.ServiceUnete.UbigeoTemplate {
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string BARRIO_COLONIA_URBANIZACION_REFERENCIASField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CORREGIMIENTOField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string DISTRITOField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string PROVINCIAField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string BARRIO_COLONIA_URBANIZACION_REFERENCIAS {
-            get {
-                return this.BARRIO_COLONIA_URBANIZACION_REFERENCIASField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.BARRIO_COLONIA_URBANIZACION_REFERENCIASField, value) != true)) {
-                    this.BARRIO_COLONIA_URBANIZACION_REFERENCIASField = value;
-                    this.RaisePropertyChanged("BARRIO_COLONIA_URBANIZACION_REFERENCIAS");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CORREGIMIENTO {
-            get {
-                return this.CORREGIMIENTOField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CORREGIMIENTOField, value) != true)) {
-                    this.CORREGIMIENTOField = value;
-                    this.RaisePropertyChanged("CORREGIMIENTO");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string DISTRITO {
-            get {
-                return this.DISTRITOField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.DISTRITOField, value) != true)) {
-                    this.DISTRITOField = value;
-                    this.RaisePropertyChanged("DISTRITO");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string PROVINCIA {
-            get {
-                return this.PROVINCIAField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.PROVINCIAField, value) != true)) {
-                    this.PROVINCIAField = value;
-                    this.RaisePropertyChanged("PROVINCIA");
                 }
             }
         }
@@ -12572,14 +12756,6 @@ namespace Portal.Consultoras.Web.ServiceUnete {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.CollectionDataContractAttribute(Name="StringCollection", Namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collect" +
-        "ions", ItemName="string")]
-    [System.SerializableAttribute()]
-    public class StringCollection : System.Collections.Generic.List<string> {
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="RegistroEnvioCorreoSmsSolicitudPostulanteBE", Namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE")]
     [System.SerializableAttribute()]
     public partial class RegistroEnvioCorreoSmsSolicitudPostulanteBE : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -12988,6 +13164,15 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         private string CuvField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CuvCatalogoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CuvCatalogo2Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CuvCatalogo3Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DescripcionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -13062,6 +13247,45 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 if ((object.ReferenceEquals(this.CuvField, value) != true)) {
                     this.CuvField = value;
                     this.RaisePropertyChanged("Cuv");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CuvCatalogo {
+            get {
+                return this.CuvCatalogoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CuvCatalogoField, value) != true)) {
+                    this.CuvCatalogoField = value;
+                    this.RaisePropertyChanged("CuvCatalogo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CuvCatalogo2 {
+            get {
+                return this.CuvCatalogo2Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CuvCatalogo2Field, value) != true)) {
+                    this.CuvCatalogo2Field = value;
+                    this.RaisePropertyChanged("CuvCatalogo2");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CuvCatalogo3 {
+            get {
+                return this.CuvCatalogo3Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CuvCatalogo3Field, value) != true)) {
+                    this.CuvCatalogo3Field = value;
+                    this.RaisePropertyChanged("CuvCatalogo3");
                 }
             }
         }
@@ -13222,6 +13446,15 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         private string CuvField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CuvCatalogoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CuvCatalogo2Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CuvCatalogo3Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CvvField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -13235,6 +13468,9 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string InstitucionFinancieraField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string Ip_addressField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int MetodoPagoField;
@@ -13303,6 +13539,45 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CuvCatalogo {
+            get {
+                return this.CuvCatalogoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CuvCatalogoField, value) != true)) {
+                    this.CuvCatalogoField = value;
+                    this.RaisePropertyChanged("CuvCatalogo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CuvCatalogo2 {
+            get {
+                return this.CuvCatalogo2Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CuvCatalogo2Field, value) != true)) {
+                    this.CuvCatalogo2Field = value;
+                    this.RaisePropertyChanged("CuvCatalogo2");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CuvCatalogo3 {
+            get {
+                return this.CuvCatalogo3Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CuvCatalogo3Field, value) != true)) {
+                    this.CuvCatalogo3Field = value;
+                    this.RaisePropertyChanged("CuvCatalogo3");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string Cvv {
             get {
                 return this.CvvField;
@@ -13363,6 +13638,19 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 if ((object.ReferenceEquals(this.InstitucionFinancieraField, value) != true)) {
                     this.InstitucionFinancieraField = value;
                     this.RaisePropertyChanged("InstitucionFinanciera");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Ip_address {
+            get {
+                return this.Ip_addressField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Ip_addressField, value) != true)) {
+                    this.Ip_addressField = value;
+                    this.RaisePropertyChanged("Ip_address");
                 }
             }
         }
@@ -13900,182 +14188,33 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         }
     }
     
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="KitInicioDetalle", Namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais")]
-    [System.SerializableAttribute()]
-    public partial class KitInicioDetalle : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool ActivoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int DetalleKitInicioIdField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string ImagenField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int KitInicioDetalleTipoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int KitInicioTipoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string NombreProductoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int OrdenField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private decimal PrecioField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string TipoPrecioField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool Activo {
-            get {
-                return this.ActivoField;
-            }
-            set {
-                if ((this.ActivoField.Equals(value) != true)) {
-                    this.ActivoField = value;
-                    this.RaisePropertyChanged("Activo");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int DetalleKitInicioId {
-            get {
-                return this.DetalleKitInicioIdField;
-            }
-            set {
-                if ((this.DetalleKitInicioIdField.Equals(value) != true)) {
-                    this.DetalleKitInicioIdField = value;
-                    this.RaisePropertyChanged("DetalleKitInicioId");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Imagen {
-            get {
-                return this.ImagenField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.ImagenField, value) != true)) {
-                    this.ImagenField = value;
-                    this.RaisePropertyChanged("Imagen");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int KitInicioDetalleTipo {
-            get {
-                return this.KitInicioDetalleTipoField;
-            }
-            set {
-                if ((this.KitInicioDetalleTipoField.Equals(value) != true)) {
-                    this.KitInicioDetalleTipoField = value;
-                    this.RaisePropertyChanged("KitInicioDetalleTipo");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int KitInicioTipo {
-            get {
-                return this.KitInicioTipoField;
-            }
-            set {
-                if ((this.KitInicioTipoField.Equals(value) != true)) {
-                    this.KitInicioTipoField = value;
-                    this.RaisePropertyChanged("KitInicioTipo");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string NombreProducto {
-            get {
-                return this.NombreProductoField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.NombreProductoField, value) != true)) {
-                    this.NombreProductoField = value;
-                    this.RaisePropertyChanged("NombreProducto");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Orden {
-            get {
-                return this.OrdenField;
-            }
-            set {
-                if ((this.OrdenField.Equals(value) != true)) {
-                    this.OrdenField = value;
-                    this.RaisePropertyChanged("Orden");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public decimal Precio {
-            get {
-                return this.PrecioField;
-            }
-            set {
-                if ((this.PrecioField.Equals(value) != true)) {
-                    this.PrecioField = value;
-                    this.RaisePropertyChanged("Precio");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string TipoPrecio {
-            get {
-                return this.TipoPrecioField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.TipoPrecioField, value) != true)) {
-                    this.TipoPrecioField = value;
-                    this.RaisePropertyChanged("TipoPrecio");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceUnete.IPortalService")]
     public interface IPortalService {
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/GetKitInicioDetalle", ReplyAction="http://tempuri.org/IPortalService/GetKitInicioDetalleResponse")]
+        Portal.Consultoras.Web.ServiceUnete.KitInicioDetalle[] GetKitInicioDetalle(string CodigoIso, int KitInicioTipo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/GetKitInicioDetalle", ReplyAction="http://tempuri.org/IPortalService/GetKitInicioDetalleResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.KitInicioDetalle[]> GetKitInicioDetalleAsync(string CodigoIso, int KitInicioTipo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/GetFechaPrimerPedido", ReplyAction="http://tempuri.org/IPortalService/GetFechaPrimerPedidoResponse")]
+        string GetFechaPrimerPedido(string CodigoIso, string CodigoZona, string CampaniaId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/GetFechaPrimerPedido", ReplyAction="http://tempuri.org/IPortalService/GetFechaPrimerPedidoResponse")]
+        System.Threading.Tasks.Task<string> GetFechaPrimerPedidoAsync(string CodigoIso, string CodigoZona, string CampaniaId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/GetImageKitInicio", ReplyAction="http://tempuri.org/IPortalService/GetImageKitInicioResponse")]
+        string GetImageKitInicio(string CodigoIso, long SolicitudPostulanteID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/GetImageKitInicio", ReplyAction="http://tempuri.org/IPortalService/GetImageKitInicioResponse")]
+        System.Threading.Tasks.Task<string> GetImageKitInicioAsync(string CodigoIso, long SolicitudPostulanteID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/GetZonasDigitales", ReplyAction="http://tempuri.org/IPortalService/GetZonasDigitalesResponse")]
+        Portal.Consultoras.Web.ServiceUnete.StringCollection GetZonasDigitales(string CodigoIso);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/GetZonasDigitales", ReplyAction="http://tempuri.org/IPortalService/GetZonasDigitalesResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.StringCollection> GetZonasDigitalesAsync(string CodigoIso);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ObtenerParametrosUnete", ReplyAction="http://tempuri.org/IPortalService/ObtenerParametrosUneteResponse")]
         Portal.Consultoras.Web.ServiceUnete.ParametroUneteCollection ObtenerParametrosUnete(string codigoISO, Portal.Consultoras.Web.ServiceUnete.EnumsTipoParametro idTipoParametro, int idTipoParametroUnetePadre);
@@ -14124,10 +14263,10 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         System.Threading.Tasks.Task<int[]> ObtenerCantidadSolicitudesPostulantePorEstadoEnPortalGZAsync(Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteParameter parameter);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ActualizarSolicitudPostulantePaso", ReplyAction="http://tempuri.org/IPortalService/ActualizarSolicitudPostulantePasoResponse")]
-        int ActualizarSolicitudPostulantePaso(string codigoISO, Portal.Consultoras.Web.ServiceUnete.SolicitudPostulante solicitudPostulante, string cadenaPrueba);
+        int ActualizarSolicitudPostulantePaso(string codigoISO, Portal.Consultoras.Web.ServiceUnete.SolicitudPostulante solicitudPostulante);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ActualizarSolicitudPostulantePaso", ReplyAction="http://tempuri.org/IPortalService/ActualizarSolicitudPostulantePasoResponse")]
-        System.Threading.Tasks.Task<int> ActualizarSolicitudPostulantePasoAsync(string codigoISO, Portal.Consultoras.Web.ServiceUnete.SolicitudPostulante solicitudPostulante, string cadenaPrueba);
+        System.Threading.Tasks.Task<int> ActualizarSolicitudPostulantePasoAsync(string codigoISO, Portal.Consultoras.Web.ServiceUnete.SolicitudPostulante solicitudPostulante);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ActualizarSolicitudPostulantePaso5Pasos", ReplyAction="http://tempuri.org/IPortalService/ActualizarSolicitudPostulantePaso5PasosResponse" +
             "")]
@@ -14413,17 +14552,17 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ObtenerReporteDiasEspera", ReplyAction="http://tempuri.org/IPortalService/ObtenerReporteDiasEsperaResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.ResumenDiasEsperaCollection> ObtenerReporteDiasEsperaAsync(string CodigoIso, Portal.Consultoras.Web.ServiceUnete.ResumenDiasEsperaBE[] lista);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ConsultarTipoPostulante", ReplyAction="http://tempuri.org/IPortalService/ConsultarTipoPostulanteResponse")]
-        Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteBE[] ConsultarTipoPostulante(string CodigoIso, string FechaDesde, string FechaHasta);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ConsultarTipoPostulante", ReplyAction="http://tempuri.org/IPortalService/ConsultarTipoPostulanteResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteBE[]> ConsultarTipoPostulanteAsync(string CodigoIso, string FechaDesde, string FechaHasta);
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ConsultarPagodeKitLog", ReplyAction="http://tempuri.org/IPortalService/ConsultarPagodeKitLogResponse")]
         Portal.Consultoras.Web.ServiceUnete.ReportePagoDeKitLog[] ConsultarPagodeKitLog(string CodigoIso, string[] parameter);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ConsultarPagodeKitLog", ReplyAction="http://tempuri.org/IPortalService/ConsultarPagodeKitLogResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.ReportePagoDeKitLog[]> ConsultarPagodeKitLogAsync(string CodigoIso, string[] parameter);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ConsultarTipoPostulante", ReplyAction="http://tempuri.org/IPortalService/ConsultarTipoPostulanteResponse")]
+        Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteBE[] ConsultarTipoPostulante(string CodigoIso, string FechaDesde, string FechaHasta);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ConsultarTipoPostulante", ReplyAction="http://tempuri.org/IPortalService/ConsultarTipoPostulanteResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteBE[]> ConsultarTipoPostulanteAsync(string CodigoIso, string FechaDesde, string FechaHasta);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ConsultarSolicitudesPostulanteV2", ReplyAction="http://tempuri.org/IPortalService/ConsultarSolicitudesPostulanteV2Response")]
         Portal.Consultoras.Web.ServiceUnete.paginacionGrid ConsultarSolicitudesPostulanteV2(Portal.Consultoras.Web.ServiceUnete.GestionaPostulanteModelSAC model);
@@ -14567,6 +14706,12 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ActualizarReferenciaEntregaSAC", ReplyAction="http://tempuri.org/IPortalService/ActualizarReferenciaEntregaSACResponse")]
         System.Threading.Tasks.Task ActualizarReferenciaEntregaSACAsync(Portal.Consultoras.Web.ServiceUnete.SolicitudPostulante solicitudPostulante);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ObtenerEstadoPostulanteActual", ReplyAction="http://tempuri.org/IPortalService/ObtenerEstadoPostulanteActualResponse")]
+        int ObtenerEstadoPostulanteActual(string codigoISO, int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ObtenerEstadoPostulanteActual", ReplyAction="http://tempuri.org/IPortalService/ObtenerEstadoPostulanteActualResponse")]
+        System.Threading.Tasks.Task<int> ObtenerEstadoPostulanteActualAsync(string codigoISO, int id);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ImagenesWhatsApp", ReplyAction="http://tempuri.org/IPortalService/ImagenesWhatsAppResponse")]
         bool ImagenesWhatsApp(string jwtToken);
         
@@ -14580,10 +14725,10 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.ResponseBotmaker> ResponseWhatsAppAsync(string jwtToken);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/GetKitInicio", ReplyAction="http://tempuri.org/IPortalService/GetKitInicioResponse")]
-        Portal.Consultoras.Web.ServiceUnete.KitInicio GetKitInicio(string CodigoISO, int tipo);
+        Portal.Consultoras.Web.ServiceUnete.KitInicio GetKitInicio(string CodigoISO, int tipo, string CampaniaId, string CodigoZona);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/GetKitInicio", ReplyAction="http://tempuri.org/IPortalService/GetKitInicioResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.KitInicio> GetKitInicioAsync(string CodigoISO, int tipo);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.KitInicio> GetKitInicioAsync(string CodigoISO, int tipo, string CampaniaId, string CodigoZona);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ProcesarPagoKitInicio", ReplyAction="http://tempuri.org/IPortalService/ProcesarPagoKitInicioResponse")]
         Portal.Consultoras.Web.ServiceUnete.MercadoPagoResult ProcesarPagoKitInicio(Portal.Consultoras.Web.ServiceUnete.SolicitudPostulante postulante, Portal.Consultoras.Web.ServiceUnete.PagoKitInicioBE model, string CodigoISO);
@@ -14608,30 +14753,6 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ConfirmarTransaccion", ReplyAction="http://tempuri.org/IPortalService/ConfirmarTransaccionResponse")]
         System.Threading.Tasks.Task<int> ConfirmarTransaccionAsync(string CodigoIso, Portal.Consultoras.Web.ServiceUnete.Notification notification);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/GetKitInicioDetalle", ReplyAction="http://tempuri.org/IPortalService/GetKitInicioDetalleResponse")]
-        Portal.Consultoras.Web.ServiceUnete.KitInicioDetalle[] GetKitInicioDetalle(string CodigoIso, int KitInicioTipo);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/GetKitInicioDetalle", ReplyAction="http://tempuri.org/IPortalService/GetKitInicioDetalleResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.KitInicioDetalle[]> GetKitInicioDetalleAsync(string CodigoIso, int KitInicioTipo);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/GetFechaPrimerPedido", ReplyAction="http://tempuri.org/IPortalService/GetFechaPrimerPedidoResponse")]
-        string GetFechaPrimerPedido(string CodigoIso, string CodigoZona, string CampaniaId);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/GetFechaPrimerPedido", ReplyAction="http://tempuri.org/IPortalService/GetFechaPrimerPedidoResponse")]
-        System.Threading.Tasks.Task<string> GetFechaPrimerPedidoAsync(string CodigoIso, string CodigoZona, string CampaniaId);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/GetImageKitInicio", ReplyAction="http://tempuri.org/IPortalService/GetImageKitInicioResponse")]
-        string GetImageKitInicio(string CodigoIso, long SolicitudPostulanteID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/GetImageKitInicio", ReplyAction="http://tempuri.org/IPortalService/GetImageKitInicioResponse")]
-        System.Threading.Tasks.Task<string> GetImageKitInicioAsync(string CodigoIso, long SolicitudPostulanteID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/GetZonasDigitales", ReplyAction="http://tempuri.org/IPortalService/GetZonasDigitalesResponse")]
-        Portal.Consultoras.Web.ServiceUnete.StringCollection GetZonasDigitales(string CodigoIso);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/GetZonasDigitales", ReplyAction="http://tempuri.org/IPortalService/GetZonasDigitalesResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.StringCollection> GetZonasDigitalesAsync(string CodigoIso);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -14659,6 +14780,38 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         
         public PortalServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
+        }
+        
+        public Portal.Consultoras.Web.ServiceUnete.KitInicioDetalle[] GetKitInicioDetalle(string CodigoIso, int KitInicioTipo) {
+            return base.Channel.GetKitInicioDetalle(CodigoIso, KitInicioTipo);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.KitInicioDetalle[]> GetKitInicioDetalleAsync(string CodigoIso, int KitInicioTipo) {
+            return base.Channel.GetKitInicioDetalleAsync(CodigoIso, KitInicioTipo);
+        }
+        
+        public string GetFechaPrimerPedido(string CodigoIso, string CodigoZona, string CampaniaId) {
+            return base.Channel.GetFechaPrimerPedido(CodigoIso, CodigoZona, CampaniaId);
+        }
+        
+        public System.Threading.Tasks.Task<string> GetFechaPrimerPedidoAsync(string CodigoIso, string CodigoZona, string CampaniaId) {
+            return base.Channel.GetFechaPrimerPedidoAsync(CodigoIso, CodigoZona, CampaniaId);
+        }
+        
+        public string GetImageKitInicio(string CodigoIso, long SolicitudPostulanteID) {
+            return base.Channel.GetImageKitInicio(CodigoIso, SolicitudPostulanteID);
+        }
+        
+        public System.Threading.Tasks.Task<string> GetImageKitInicioAsync(string CodigoIso, long SolicitudPostulanteID) {
+            return base.Channel.GetImageKitInicioAsync(CodigoIso, SolicitudPostulanteID);
+        }
+        
+        public Portal.Consultoras.Web.ServiceUnete.StringCollection GetZonasDigitales(string CodigoIso) {
+            return base.Channel.GetZonasDigitales(CodigoIso);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.StringCollection> GetZonasDigitalesAsync(string CodigoIso) {
+            return base.Channel.GetZonasDigitalesAsync(CodigoIso);
         }
         
         public Portal.Consultoras.Web.ServiceUnete.ParametroUneteCollection ObtenerParametrosUnete(string codigoISO, Portal.Consultoras.Web.ServiceUnete.EnumsTipoParametro idTipoParametro, int idTipoParametroUnetePadre) {
@@ -14717,12 +14870,12 @@ namespace Portal.Consultoras.Web.ServiceUnete {
             return base.Channel.ObtenerCantidadSolicitudesPostulantePorEstadoEnPortalGZAsync(parameter);
         }
         
-        public int ActualizarSolicitudPostulantePaso(string codigoISO, Portal.Consultoras.Web.ServiceUnete.SolicitudPostulante solicitudPostulante, string cadenaPrueba) {
-            return base.Channel.ActualizarSolicitudPostulantePaso(codigoISO, solicitudPostulante, cadenaPrueba);
+        public int ActualizarSolicitudPostulantePaso(string codigoISO, Portal.Consultoras.Web.ServiceUnete.SolicitudPostulante solicitudPostulante) {
+            return base.Channel.ActualizarSolicitudPostulantePaso(codigoISO, solicitudPostulante);
         }
         
-        public System.Threading.Tasks.Task<int> ActualizarSolicitudPostulantePasoAsync(string codigoISO, Portal.Consultoras.Web.ServiceUnete.SolicitudPostulante solicitudPostulante, string cadenaPrueba) {
-            return base.Channel.ActualizarSolicitudPostulantePasoAsync(codigoISO, solicitudPostulante, cadenaPrueba);
+        public System.Threading.Tasks.Task<int> ActualizarSolicitudPostulantePasoAsync(string codigoISO, Portal.Consultoras.Web.ServiceUnete.SolicitudPostulante solicitudPostulante) {
+            return base.Channel.ActualizarSolicitudPostulantePasoAsync(codigoISO, solicitudPostulante);
         }
         
         public int ActualizarSolicitudPostulantePaso5Pasos(string codigoISO, Portal.Consultoras.Web.ServiceUnete.SolicitudPostulante solicitudPostulante) {
@@ -15077,20 +15230,20 @@ namespace Portal.Consultoras.Web.ServiceUnete {
             return base.Channel.ObtenerReporteDiasEsperaAsync(CodigoIso, lista);
         }
         
-        public Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteBE[] ConsultarTipoPostulante(string CodigoIso, string FechaDesde, string FechaHasta) {
-            return base.Channel.ConsultarTipoPostulante(CodigoIso, FechaDesde, FechaHasta);
-        }
-        
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteBE[]> ConsultarTipoPostulanteAsync(string CodigoIso, string FechaDesde, string FechaHasta) {
-            return base.Channel.ConsultarTipoPostulanteAsync(CodigoIso, FechaDesde, FechaHasta);
-        }
-        
         public Portal.Consultoras.Web.ServiceUnete.ReportePagoDeKitLog[] ConsultarPagodeKitLog(string CodigoIso, string[] parameter) {
             return base.Channel.ConsultarPagodeKitLog(CodigoIso, parameter);
         }
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.ReportePagoDeKitLog[]> ConsultarPagodeKitLogAsync(string CodigoIso, string[] parameter) {
             return base.Channel.ConsultarPagodeKitLogAsync(CodigoIso, parameter);
+        }
+        
+        public Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteBE[] ConsultarTipoPostulante(string CodigoIso, string FechaDesde, string FechaHasta) {
+            return base.Channel.ConsultarTipoPostulante(CodigoIso, FechaDesde, FechaHasta);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteBE[]> ConsultarTipoPostulanteAsync(string CodigoIso, string FechaDesde, string FechaHasta) {
+            return base.Channel.ConsultarTipoPostulanteAsync(CodigoIso, FechaDesde, FechaHasta);
         }
         
         public Portal.Consultoras.Web.ServiceUnete.paginacionGrid ConsultarSolicitudesPostulanteV2(Portal.Consultoras.Web.ServiceUnete.GestionaPostulanteModelSAC model) {
@@ -15277,6 +15430,14 @@ namespace Portal.Consultoras.Web.ServiceUnete {
             return base.Channel.ActualizarReferenciaEntregaSACAsync(solicitudPostulante);
         }
         
+        public int ObtenerEstadoPostulanteActual(string codigoISO, int id) {
+            return base.Channel.ObtenerEstadoPostulanteActual(codigoISO, id);
+        }
+        
+        public System.Threading.Tasks.Task<int> ObtenerEstadoPostulanteActualAsync(string codigoISO, int id) {
+            return base.Channel.ObtenerEstadoPostulanteActualAsync(codigoISO, id);
+        }
+        
         public bool ImagenesWhatsApp(string jwtToken) {
             return base.Channel.ImagenesWhatsApp(jwtToken);
         }
@@ -15293,12 +15454,12 @@ namespace Portal.Consultoras.Web.ServiceUnete {
             return base.Channel.ResponseWhatsAppAsync(jwtToken);
         }
         
-        public Portal.Consultoras.Web.ServiceUnete.KitInicio GetKitInicio(string CodigoISO, int tipo) {
-            return base.Channel.GetKitInicio(CodigoISO, tipo);
+        public Portal.Consultoras.Web.ServiceUnete.KitInicio GetKitInicio(string CodigoISO, int tipo, string CampaniaId, string CodigoZona) {
+            return base.Channel.GetKitInicio(CodigoISO, tipo, CampaniaId, CodigoZona);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.KitInicio> GetKitInicioAsync(string CodigoISO, int tipo) {
-            return base.Channel.GetKitInicioAsync(CodigoISO, tipo);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.KitInicio> GetKitInicioAsync(string CodigoISO, int tipo, string CampaniaId, string CodigoZona) {
+            return base.Channel.GetKitInicioAsync(CodigoISO, tipo, CampaniaId, CodigoZona);
         }
         
         public Portal.Consultoras.Web.ServiceUnete.MercadoPagoResult ProcesarPagoKitInicio(Portal.Consultoras.Web.ServiceUnete.SolicitudPostulante postulante, Portal.Consultoras.Web.ServiceUnete.PagoKitInicioBE model, string CodigoISO) {
@@ -15331,38 +15492,6 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         
         public System.Threading.Tasks.Task<int> ConfirmarTransaccionAsync(string CodigoIso, Portal.Consultoras.Web.ServiceUnete.Notification notification) {
             return base.Channel.ConfirmarTransaccionAsync(CodigoIso, notification);
-        }
-        
-        public Portal.Consultoras.Web.ServiceUnete.KitInicioDetalle[] GetKitInicioDetalle(string CodigoIso, int KitInicioTipo) {
-            return base.Channel.GetKitInicioDetalle(CodigoIso, KitInicioTipo);
-        }
-        
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.KitInicioDetalle[]> GetKitInicioDetalleAsync(string CodigoIso, int KitInicioTipo) {
-            return base.Channel.GetKitInicioDetalleAsync(CodigoIso, KitInicioTipo);
-        }
-        
-        public string GetFechaPrimerPedido(string CodigoIso, string CodigoZona, string CampaniaId) {
-            return base.Channel.GetFechaPrimerPedido(CodigoIso, CodigoZona, CampaniaId);
-        }
-        
-        public System.Threading.Tasks.Task<string> GetFechaPrimerPedidoAsync(string CodigoIso, string CodigoZona, string CampaniaId) {
-            return base.Channel.GetFechaPrimerPedidoAsync(CodigoIso, CodigoZona, CampaniaId);
-        }
-        
-        public string GetImageKitInicio(string CodigoIso, long SolicitudPostulanteID) {
-            return base.Channel.GetImageKitInicio(CodigoIso, SolicitudPostulanteID);
-        }
-        
-        public System.Threading.Tasks.Task<string> GetImageKitInicioAsync(string CodigoIso, long SolicitudPostulanteID) {
-            return base.Channel.GetImageKitInicioAsync(CodigoIso, SolicitudPostulanteID);
-        }
-        
-        public Portal.Consultoras.Web.ServiceUnete.StringCollection GetZonasDigitales(string CodigoIso) {
-            return base.Channel.GetZonasDigitales(CodigoIso);
-        }
-        
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.StringCollection> GetZonasDigitalesAsync(string CodigoIso) {
-            return base.Channel.GetZonasDigitalesAsync(CodigoIso);
         }
     }
 }
