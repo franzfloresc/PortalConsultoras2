@@ -64,7 +64,8 @@ var CodigoUbigeoPortal = (function () {
             CatalogoCyzone: '13',
             Ganadoras: '14',
             Grilla: '15',
-            ArmatuPack: '16'
+            ArmatuPack: '16',
+            ResumenBelcorp = "17"
         },
         Seccion: {
             Carrusel: '01',
