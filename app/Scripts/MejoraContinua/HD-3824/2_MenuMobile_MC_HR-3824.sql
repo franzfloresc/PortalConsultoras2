@@ -1,4 +1,4 @@
-USE [BelcorpBolivia];
+﻿USE [BelcorpBolivia]
 GO
 IF NOT EXISTS(SELECT MenuMobileID FROM MenuMobile WHERE Descripcion = 'FECHAS DE PROMOCIONES')
 BEGIN
@@ -17,7 +17,7 @@ BEGIN
 END
 GO
 
-USE [BelcorpChile];
+USE [BelcorpChile]
 GO
 IF NOT EXISTS(SELECT MenuMobileID FROM MenuMobile WHERE Descripcion = 'FECHAS DE PROMOCIONES')
 BEGIN
@@ -36,7 +36,7 @@ BEGIN
 END
 GO
 
-USE [BelcorpColombia];
+USE [BelcorpColombia]
 GO
 IF NOT EXISTS(SELECT MenuMobileID FROM MenuMobile WHERE Descripcion = 'FECHAS DE PROMOCIONES')
 BEGIN
@@ -55,7 +55,7 @@ BEGIN
 END
 GO
 
-USE [BelcorpCostaRica];
+USE [BelcorpCostaRica]
 GO
 IF NOT EXISTS(SELECT MenuMobileID FROM MenuMobile WHERE Descripcion = 'FECHAS DE PROMOCIONES')
 BEGIN
@@ -74,7 +74,7 @@ BEGIN
 END
 GO
 
-USE [BelcorpDominicana];
+USE [BelcorpDominicana]
 GO
 IF NOT EXISTS(SELECT MenuMobileID FROM MenuMobile WHERE Descripcion = 'FECHAS DE PROMOCIONES')
 BEGIN
@@ -93,7 +93,7 @@ BEGIN
 END
 GO
 
-USE [BelcorpEcuador];
+USE [BelcorpEcuador]
 GO
 IF NOT EXISTS(SELECT MenuMobileID FROM MenuMobile WHERE Descripcion = 'FECHAS DE PROMOCIONES')
 BEGIN
@@ -112,7 +112,7 @@ BEGIN
 END
 GO
 
-USE [BelcorpGuatemala];
+USE [BelcorpGuatemala]
 GO
 IF NOT EXISTS(SELECT MenuMobileID FROM MenuMobile WHERE Descripcion = 'FECHAS DE PROMOCIONES')
 BEGIN
@@ -139,7 +139,7 @@ BEGIN
 END
 GO
 
-USE [BelcorpMexico];
+USE [BelcorpMexico]
 GO
 IF NOT EXISTS(SELECT MenuMobileID FROM MenuMobile WHERE Descripcion = 'FECHAS DE PROMOCIONES')
 BEGIN
@@ -158,7 +158,7 @@ BEGIN
 END
 GO
 
-USE [BelcorpPanama];
+USE [BelcorpPanama]
 GO
 IF NOT EXISTS(SELECT MenuMobileID FROM MenuMobile WHERE Descripcion = 'FECHAS DE PROMOCIONES')
 BEGIN
@@ -177,7 +177,7 @@ BEGIN
 END
 GO
 
-USE [BelcorpPeru];
+USE [BelcorpPeru]
 GO
 IF NOT EXISTS(SELECT MenuMobileID FROM MenuMobile WHERE Descripcion = 'FECHAS DE PROMOCIONES')
 BEGIN
@@ -196,7 +196,7 @@ BEGIN
 END
 GO
 
-USE [BelcorpPuertoRico];
+USE [BelcorpPuertoRico]
 GO
 IF NOT EXISTS(SELECT MenuMobileID FROM MenuMobile WHERE Descripcion = 'FECHAS DE PROMOCIONES')
 BEGIN
@@ -215,7 +215,7 @@ BEGIN
 END
 GO
 
-USE [BelcorpSalvador];
+USE [BelcorpSalvador]
 GO
 IF NOT EXISTS(SELECT MenuMobileID FROM MenuMobile WHERE Descripcion = 'FECHAS DE PROMOCIONES')
 BEGIN

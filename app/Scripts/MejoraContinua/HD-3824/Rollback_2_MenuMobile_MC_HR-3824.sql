@@ -1,4 +1,4 @@
-USE [BelcorpBolivia];
+﻿USE [BelcorpBolivia]
 GO
 IF EXISTS(SELECT 1 FROM MenuMobile WHERE Descripcion = 'FECHAS DE PROMOCIONES')
 BEGIN
@@ -11,46 +11,7 @@ BEGIN
 END
 GO
 
-USE [BelcorpChile];
-GO
-IF EXISTS(SELECT 1 FROM MenuMobile WHERE Descripcion = 'FECHAS DE PROMOCIONES')
-BEGIN
-
-	DECLARE @MenuMobileID INT = 0
-	SELECT @MenuMobileID = MenuMobileID FROM MenuMobile WHERE Descripcion = 'FECHAS DE PROMOCIONES'
-	
-	DELETE FROM MenuMobile WHERE MenuMobileID = @MenuMobileID
-
-END
-GO
-
-USE [BelcorpColombia];
-GO
-IF EXISTS(SELECT 1 FROM MenuMobile WHERE Descripcion = 'FECHAS DE PROMOCIONES')
-BEGIN
-
-	DECLARE @MenuMobileID INT = 0
-	SELECT @MenuMobileID = MenuMobileID FROM MenuMobile WHERE Descripcion = 'FECHAS DE PROMOCIONES'
-
-	DELETE FROM MenuMobile WHERE MenuMobileID = @MenuMobileID
-
-END
-GO
-
-USE [BelcorpCostaRica];
-GO
-IF EXISTS(SELECT 1 FROM MenuMobile WHERE Descripcion = 'FECHAS DE PROMOCIONES')
-BEGIN
-
-	DECLARE @MenuMobileID INT = 0
-	SELECT @MenuMobileID = MenuMobileID FROM MenuMobile WHERE Descripcion = 'FECHAS DE PROMOCIONES'
-
-	DELETE FROM MenuMobile WHERE MenuMobileID = @MenuMobileID
-
-END
-GO
-
-USE [BelcorpDominicana];
+USE [BelcorpChile]
 GO
 IF EXISTS(SELECT 1 FROM MenuMobile WHERE Descripcion = 'FECHAS DE PROMOCIONES')
 BEGIN
@@ -63,7 +24,33 @@ BEGIN
 END
 GO
 
-USE [BelcorpEcuador];
+USE [BelcorpColombia]
+GO
+IF EXISTS(SELECT 1 FROM MenuMobile WHERE Descripcion = 'FECHAS DE PROMOCIONES')
+BEGIN
+
+	DECLARE @MenuMobileID INT = 0
+	SELECT @MenuMobileID = MenuMobileID FROM MenuMobile WHERE Descripcion = 'FECHAS DE PROMOCIONES'
+
+	DELETE FROM MenuMobile WHERE MenuMobileID = @MenuMobileID
+
+END
+GO
+
+USE [BelcorpCostaRica]
+GO
+IF EXISTS(SELECT 1 FROM MenuMobile WHERE Descripcion = 'FECHAS DE PROMOCIONES')
+BEGIN
+
+	DECLARE @MenuMobileID INT = 0
+	SELECT @MenuMobileID = MenuMobileID FROM MenuMobile WHERE Descripcion = 'FECHAS DE PROMOCIONES'
+
+	DELETE FROM MenuMobile WHERE MenuMobileID = @MenuMobileID
+
+END
+GO
+
+USE [BelcorpDominicana]
 GO
 IF EXISTS(SELECT 1 FROM MenuMobile WHERE Descripcion = 'FECHAS DE PROMOCIONES')
 BEGIN
@@ -76,20 +63,7 @@ BEGIN
 END
 GO
 
-USE [BelcorpGuatemala];
-GO
-IF EXISTS(SELECT 1 FROM MenuMobile WHERE Descripcion = 'FECHAS DE PROMOCIONES')
-BEGIN
-
-	DECLARE @MenuMobileID INT = 0
-	SELECT @MenuMobileID = MenuMobileID FROM MenuMobile WHERE Descripcion = 'FECHAS DE PROMOCIONES'
-
-	DELETE FROM MenuMobile WHERE MenuMobileID = @MenuMobileID
-
-END
-GO
-
-USE [BelcorpMexico];
+USE [BelcorpEcuador]
 GO
 IF EXISTS(SELECT 1 FROM MenuMobile WHERE Descripcion = 'FECHAS DE PROMOCIONES')
 BEGIN
@@ -102,7 +76,20 @@ BEGIN
 END
 GO
 
-USE [BelcorpPanama];
+USE [BelcorpGuatemala]
+GO
+IF EXISTS(SELECT 1 FROM MenuMobile WHERE Descripcion = 'FECHAS DE PROMOCIONES')
+BEGIN
+
+	DECLARE @MenuMobileID INT = 0
+	SELECT @MenuMobileID = MenuMobileID FROM MenuMobile WHERE Descripcion = 'FECHAS DE PROMOCIONES'
+
+	DELETE FROM MenuMobile WHERE MenuMobileID = @MenuMobileID
+
+END
+GO
+
+USE [BelcorpMexico]
 GO
 IF EXISTS(SELECT 1 FROM MenuMobile WHERE Descripcion = 'FECHAS DE PROMOCIONES')
 BEGIN
@@ -115,7 +102,7 @@ BEGIN
 END
 GO
 
-USE [BelcorpPeru];
+USE [BelcorpPanama]
 GO
 IF EXISTS(SELECT 1 FROM MenuMobile WHERE Descripcion = 'FECHAS DE PROMOCIONES')
 BEGIN
@@ -128,7 +115,7 @@ BEGIN
 END
 GO
 
-USE [BelcorpPuertoRico];
+USE [BelcorpPeru]
 GO
 IF EXISTS(SELECT 1 FROM MenuMobile WHERE Descripcion = 'FECHAS DE PROMOCIONES')
 BEGIN
@@ -141,7 +128,20 @@ BEGIN
 END
 GO
 
-USE [BelcorpSalvador];
+USE [BelcorpPuertoRico]
+GO
+IF EXISTS(SELECT 1 FROM MenuMobile WHERE Descripcion = 'FECHAS DE PROMOCIONES')
+BEGIN
+
+	DECLARE @MenuMobileID INT = 0
+	SELECT @MenuMobileID = MenuMobileID FROM MenuMobile WHERE Descripcion = 'FECHAS DE PROMOCIONES'
+	
+	DELETE FROM MenuMobile WHERE MenuMobileID = @MenuMobileID
+
+END
+GO
+
+USE [BelcorpSalvador]
 GO
 IF EXISTS(SELECT 1 FROM MenuMobile WHERE Descripcion = 'FECHAS DE PROMOCIONES')
 BEGIN

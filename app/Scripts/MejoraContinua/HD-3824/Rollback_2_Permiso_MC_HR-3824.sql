@@ -1,4 +1,4 @@
-USE [BelcorpBolivia];
+﻿USE [BelcorpBolivia]
 GO
 IF EXISTS(SELECT 1 FROM Permiso WHERE Descripcion = 'FECHAS DE PROMOCIONES')
 BEGIN
@@ -12,7 +12,7 @@ BEGIN
 END
 GO
 
-USE [BelcorpChile];
+USE [BelcorpChile]
 GO
 IF EXISTS(SELECT 1 FROM Permiso WHERE Descripcion = 'FECHAS DE PROMOCIONES')
 BEGIN
@@ -26,7 +26,7 @@ BEGIN
 END
 GO
 
-USE [BelcorpColombia];
+USE [BelcorpColombia]
 GO
 IF EXISTS(SELECT 1 FROM Permiso WHERE Descripcion = 'FECHAS DE PROMOCIONES')
 BEGIN
@@ -40,7 +40,7 @@ BEGIN
 END
 GO
 
-USE [BelcorpCostaRica];
+USE [BelcorpCostaRica]
 GO
 IF EXISTS(SELECT 1 FROM Permiso WHERE Descripcion = 'FECHAS DE PROMOCIONES')
 BEGIN
@@ -54,7 +54,7 @@ BEGIN
 END
 GO
 
-USE [BelcorpDominicana];
+USE [BelcorpDominicana]
 GO
 IF EXISTS(SELECT 1 FROM Permiso WHERE Descripcion = 'FECHAS DE PROMOCIONES')
 BEGIN
@@ -68,7 +68,7 @@ BEGIN
 END
 GO
 
-USE [BelcorpEcuador];
+USE [BelcorpEcuador]
 GO
 IF EXISTS(SELECT 1 FROM Permiso WHERE Descripcion = 'FECHAS DE PROMOCIONES')
 BEGIN
@@ -82,7 +82,7 @@ BEGIN
 END
 GO
 
-USE [BelcorpGuatemala];
+USE [BelcorpGuatemala]
 GO
 IF EXISTS(SELECT 1 FROM Permiso WHERE Descripcion = 'FECHAS DE PROMOCIONES')
 BEGIN
@@ -96,7 +96,7 @@ BEGIN
 END
 GO
 
-USE [BelcorpMexico];
+USE [BelcorpMexico]
 GO
 IF EXISTS(SELECT 1 FROM Permiso WHERE Descripcion = 'FECHAS DE PROMOCIONES')
 BEGIN
@@ -110,7 +110,7 @@ BEGIN
 END
 GO
 
-USE [BelcorpPanama];
+USE [BelcorpPanama]
 GO
 IF EXISTS(SELECT 1 FROM Permiso WHERE Descripcion = 'FECHAS DE PROMOCIONES')
 BEGIN
@@ -124,7 +124,7 @@ BEGIN
 END
 GO
 
-USE [BelcorpPeru];
+USE [BelcorpPeru]
 GO
 IF EXISTS(SELECT 1 FROM Permiso WHERE Descripcion = 'FECHAS DE PROMOCIONES')
 BEGIN
@@ -138,7 +138,7 @@ BEGIN
 END
 GO
 
-USE [BelcorpPuertoRico];
+USE [BelcorpPuertoRico]
 GO
 IF EXISTS(SELECT 1 FROM Permiso WHERE Descripcion = 'FECHAS DE PROMOCIONES')
 BEGIN
@@ -152,7 +152,7 @@ BEGIN
 END
 GO
 
-USE [BelcorpSalvador];
+USE [BelcorpSalvador]
 GO
 IF EXISTS(SELECT 1 FROM Permiso WHERE Descripcion = 'FECHAS DE PROMOCIONES')
 BEGIN
