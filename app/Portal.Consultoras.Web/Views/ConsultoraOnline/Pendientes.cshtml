@@ -222,22 +222,22 @@
                                 <div class="row">
                                     <div class="col color-text">
                                         <span class="medium t-w700">Cliente:</span>
-                                        <span class="medium">{{this.ListaPedidos.Cliente}}</span>
+                                        <span class="medium">{{this.MiPedido.Cliente}}</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    {{#each this.ListaPedidos as |item|}}
-                    <div id="vp_pedido_{{item.PedidoId}}" class="container background color-white">
+                    {{#each this.ListaDetalle2 as |item|}}
+                    <div id="vp_pedido_{{item.CUV}}" class="container background color-white">
                         <div class="row align-items-start">
                             <div class="col">
                                 <div class="card--content">
                                     <div class="row align-items-start">
                                         <div class="col-9">
-                                            <span class="t3 color-text">{{item.Cliente}}</span>
-                                            <span class="medium color-text">{{item.Telefono}}</span>
+                                            <span class="t3 color-text">{{item.Producto}}</span>
+                                            <span class="medium color-text">{{item.Tono}}</span>
                                         </div>
                                         <div class="col-3 text-right">
                                             <a href="#"> <img class="img-fluid icon-32" src="https://i.ibb.co/jTXwndP/trash-3x.png" onclick="MostrarMensajedeRechazoPedido('{{item.PedidoId}}')" alt="Borrar"></a>
@@ -245,93 +245,94 @@
                                         @*<span class="medium color-text">{{item.Telefono}}</span>*@
                                     </div>
                                     @*<div class="col-3 text-right">
-                                            <img class="img-fluid icon-32" onclick="MostrarMensajedeRechazoPedido('{{item.PedidoId}}')" src="https://i.ibb.co/jTXwndP/trash-3x.png" alt="Borrar"></a>
-                                        </div>*@
+                            <img class="img-fluid icon-32" onclick="MostrarMensajedeRechazoPedido('{{item.PedidoId}}')" src="https://i.ibb.co/jTXwndP/trash-3x.png" alt="Borrar"></a>
+                        </div>*@
                                 </div>
                                 <input type="hidden" class="pedidoId" value="{{item.PedidoId}}" />
-                                <input type="hidden" class="cuv" value="{{this.ListaPedidos.0.DetallePedido.0.Producto.CUV}}" />
-                                <input type="hidden" class="cantidad" value="{{this.ListaPedidos.0.DetallePedido.0.Producto.Cantidad}}" />
+                                <input type="hidden" class="cuv" value="{{this.CUV}}" />
+                                <input type="hidden" class="cantidad" value="{{this.Cantidad}}" />
                                 <div class="row align-items-center mt-2">
                                     <div class="col-4 pr-0">
                                         <div class="position-relative">
-                                            <input type="text" value='{{item.CantidadTotal}}' size="2" maxlength="2"><span class="son position-absolute"><a class="es mas" href="#">+</a><a class="es menos" href="#">-</a></span>
+                                            <input type="text" data-cantNew="{{item.Cantidad}}" value='{{item.Cantidad}}' size="2" maxlength="2">
+                                            <span class="son position-absolute"><a class="es mas" href="#">+</a><a class="es menos" href="#">-</a></span>
                                         </div>
                                     </div>
-                                    <div id="texto_{{item.PedidoId}}" class="col-8 text-right">
+                                    <div id="texto_{{item.CUV}}" class="col-8 text-right">
                                         @*<a class="btn full ghost dark-color" href="#">Aceptado</a>*@
-                                        <a class="btn full dark-color" id="aceptar_{{item.PedidoId}}" href="javascript:;" onclick="AceptarPedidoProducto('{{item.PedidoId}}')">Aceptar</a>
+                                        <a class="btn full dark-color" id="aceptar_{{item.CUV}}" href="javascript:;" onclick="AceptarPedidoProducto('{{item.CUV}}')">Aceptar</a>
                                     </div>
                                 </div>
-                                <div id={{item.PedidoId}} class="row align-items-center mt-3" style="display:none;">
+                                <div id={{item.CUV}} class="row align-items-center mt-3" style="display:none;">
                                     <div class="col">
                                         <div class="tooltip-primary tooltip-arrow_top p-3">
                                             <span class="medium dark-color">¿Quieres eliminar este pedido?</span>
                                             <div class="row mt-3">
-                                                <div class="col pl-0 pr-0"><a class="pr-0 btn no-border dark-color" href="javascript:;" onclick="OcultarMensajedeRechazoPedido('{{item.PedidoId}}')">No, gracias</a></div>
+                                                <div class="col pl-0 pr-0"><a class="pr-0 btn no-border dark-color" href="javascript:;" onclick="OcultarMensajedeRechazoPedido('{{item.CUV}}')">No, gracias</a></div>
                                                 <div class="col pl-0">
-                                                    <a class="btn second-color" href="javascript:;" onclick="EliminarSolicitudDetalle('{{item.PedidoId}}', '{{this.ListaPedidos.0.DetallePedido.0.CUV}}', 'P')">Sí, eliminar</a>
+                                                    <a class="btn second-color" href="javascript:;" onclick="EliminarSolicitudDetalle('{{item.PedidoId}}', '{{item.CUV}}', 'C')">Sí, eliminar</a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 @*<div class="card--content">
-                                                        <div class="row align-items-start">
-                                                            <div class="col-9">
-                                                          <span class="t3 color-text">Grecia Gabriel</span>
-                                                           <span class="medium color-text">999956799</span></div>
-                                                            <div class="col-3 text-right"><a href="#">
-                                                        <img class="img-fluid icon-32" src="https://i.ibb.co/jTXwndP/trash-3x.png" alt="Borrar"></a></div>
-                                                        </div>
-                                                        <div class="row align-items-center mt-2">
-                                                            <div class="col-4 pr-0">
-                                                                <div class="position-relative">
-                                                                    <input type="text" value="1" size="2" maxlength="2"><span class="son position-absolute"><a class="es mas" href="#">+</a><a class="es menos" href="#">-</a></span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-8 text-right">
-                                                                <a class="btn full dark-color" href="#">Aceptar</a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row align-items-center mt-3 hide">
-                                                            <div class="col">
-                                                                <div class="tooltip-primary tooltip-arrow_top p-3">
-                                                                    <span class="medium">¿Quieres eliminar este pedido?</span>
-                                                                    <div class="row mt-3">
-                                                                        <div class="col pl-0 pr-0"><a class="btn no-border dark-color" href="#">No, gracias</a></div>
-                                                                        <div class="col"><a class="btn second-color" href="#">Sí, eliminar</a></div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                        <div class="row align-items-start">
+                                            <div class="col-9">
+                                          <span class="t3 color-text">Grecia Gabriel</span>
+                                           <span class="medium color-text">999956799</span></div>
+                                            <div class="col-3 text-right"><a href="#">
+                                        <img class="img-fluid icon-32" src="https://i.ibb.co/jTXwndP/trash-3x.png" alt="Borrar"></a></div>
+                                        </div>
+                                        <div class="row align-items-center mt-2">
+                                            <div class="col-4 pr-0">
+                                                <div class="position-relative">
+                                                    <input type="text" value="1" size="2" maxlength="2"><span class="son position-absolute"><a class="es mas" href="#">+</a><a class="es menos" href="#">-</a></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-8 text-right">
+                                                <a class="btn full dark-color" href="#">Aceptar</a>
+                                            </div>
+                                        </div>
+                                        <div class="row align-items-center mt-3 hide">
+                                            <div class="col">
+                                                <div class="tooltip-primary tooltip-arrow_top p-3">
+                                                    <span class="medium">¿Quieres eliminar este pedido?</span>
+                                                    <div class="row mt-3">
+                                                        <div class="col pl-0 pr-0"><a class="btn no-border dark-color" href="#">No, gracias</a></div>
+                                                        <div class="col"><a class="btn second-color" href="#">Sí, eliminar</a></div>
                                                     </div>
-                                                    <div class="card--content">
-                                                        <div class="row align-items-start">
-                                                            <div class="col-9"><span class="t3 color-text">Mariana Zumarán</span><span class="medium color-text">999956799</span></div>
-                                                            <div class="col-3 text-right"><a href="#"> <img class="img-fluid icon-32" src="https://i.ibb.co/jTXwndP/trash-3x.png" alt="Borrar"></a></div>
-                                                        </div>
-                                                        <div class="row align-items-center mt-2">
-                                                            <div class="col-4 pr-0">
-                                                                <div class="position-relative">
-                                                                    <input type="text" value="1" size="2" maxlength="2"><span class="son position-absolute"><a class="es mas" href="#">+</a><a class="es menos" href="#">-</a></span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-8 text-right">
-                                                                <a class="btn full dark-color" href="#">Aceptar</a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row align-items-center mt-3 hide">
-                                                            <div class="col">
-                                                                <div class="tooltip-primary tooltip-arrow_top p-3">
-                                                                    <span class="medium">¿Quieres eliminar este pedido?</span>
-                                                                    <div class="row mt-3">
-                                                                        <div class="col pl-0 pr-0"><a class="btn no-border dark-color" href="#">No, gracias</a></div>
-                                                                        <div class="col"><a class="btn second-color" href="#">Sí, eliminar</a></div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                    </div>*@
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card--content">
+                                        <div class="row align-items-start">
+                                            <div class="col-9"><span class="t3 color-text">Mariana Zumarán</span><span class="medium color-text">999956799</span></div>
+                                            <div class="col-3 text-right"><a href="#"> <img class="img-fluid icon-32" src="https://i.ibb.co/jTXwndP/trash-3x.png" alt="Borrar"></a></div>
+                                        </div>
+                                        <div class="row align-items-center mt-2">
+                                            <div class="col-4 pr-0">
+                                                <div class="position-relative">
+                                                    <input type="text" value="1" size="2" maxlength="2"><span class="son position-absolute"><a class="es mas" href="#">+</a><a class="es menos" href="#">-</a></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-8 text-right">
+                                                <a class="btn full dark-color" href="#">Aceptar</a>
+                                            </div>
+                                        </div>
+                                        <div class="row align-items-center mt-3 hide">
+                                            <div class="col">
+                                                <div class="tooltip-primary tooltip-arrow_top p-3">
+                                                    <span class="medium">¿Quieres eliminar este pedido?</span>
+                                                    <div class="row mt-3">
+                                                        <div class="col pl-0 pr-0"><a class="btn no-border dark-color" href="#">No, gracias</a></div>
+                                                        <div class="col"><a class="btn second-color" href="#">Sí, eliminar</a></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                    </div>*@
                             </div>
                         </div>
                     </div>
@@ -380,7 +381,7 @@
                     </div>
                     <div class="row mt-3">
                         <div class="col ml-3"><a class="btn ghost no-border full" href="#" data-action="not-reject">No, gracias</a></div>
-                        <div class="col mr-3"><a class="btn full second-color" onclick="RechazarSolicitudClientePorCuv('{{this.ListaPedidos.0.DetallePedido.0.Producto.CUV}}')">Sí, rechazar</a></div>
+                        <div class="col mr-3"><a class="btn full second-color" onclick="RechazarSolicitudCliente('{{this.MiPedido.PedidoId}}')">Sí, rechazar</a></div>
                     </div>
                 </div>
             </div>

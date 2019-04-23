@@ -135,13 +135,18 @@ function DetallePedidoPendienteClientes(cuv) {
 }
 
 function DetallePedidoPendiente(ids) {
+    debugger;
     console.log(JSON.stringify(ids));
+    //console.log(JSON.stringify(cuv));
+    var obj = {
+        ids: ids
+    }
     $.ajax({
         type: 'POST',
         url: urlDetallePedidoPendiente,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(ids),
+        data: JSON.stringify(obj),
         async: true,
         success: function (response) {
             if (response.success) {
