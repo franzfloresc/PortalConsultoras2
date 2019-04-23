@@ -6,7 +6,6 @@ using Portal.Consultoras.Web.Providers;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    //[RoutePrefix("CaminoBrillante")]
     public class CaminoBrillanteController : BaseController
     {
         private readonly CaminoBrillanteProvider _caminoBrillanteProvider;
@@ -75,16 +74,23 @@ namespace Portal.Consultoras.Web.Controllers
                 int cantKit = lstKit.Count();
                 int cantDemo = lstDemo.Count();
                 var model = lstKit;
-                ViewBag.Demostradores = lstDemo; //temporal
-                //ViewBag.CantidadKit = "Mostrando " + cantKit + " de " + cantKit;  //temporal
-                //ViewBag.CantidadDemostradores = "Mostrando " + cantDemo + " de " + cantDemo;  //temporal              
+                ViewBag.Demostradores = lstDemo;             
                 return View(model);
             }
             else
                 return RedirectToAction("Index", "CaminoBrillante");
         }
 
-        //Usar ObtenerKits
+        public ActionResult Crecimiento()
+        {
+            return RedirectToAction("Logros", "CaminoBrillante", new { opcion = "CRECIMIENTO" });
+        }
+
+        public ActionResult Compromiso()
+        {
+            return RedirectToAction("Logros", "CaminoBrillante", new { opcion = "COMPROMISO" });
+        }
+
         public JsonResult GetKits(int offset, int cantidadRegistros)
         {
             var lstKits = _caminoBrillanteProvider.GetKitsCaminoBrillante();
@@ -109,7 +115,6 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        //Usar ObtenerDemostradores
         public JsonResult GetDemostradores(int offset, int cantidadRegistros)
         {
             var lstDemostrador = _caminoBrillanteProvider.GetDesmostradoresCaminoBrillante();
@@ -134,7 +139,6 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        //[HttpPost]
         public JsonResult GetLogros(string category)
         {
             if ( string.IsNullOrEmpty(category) || !_caminoBrillanteProvider.ValidacionCaminoBrillante())
@@ -145,7 +149,6 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(new { data = _caminoBrillanteProvider.GetLogroCaminoBrillante(category.ToUpper()) }, JsonRequestBehavior.AllowGet);
         }
 
-        //Nuevo
         [HttpPost]
         public JsonResult ObtenerNiveles()
         {

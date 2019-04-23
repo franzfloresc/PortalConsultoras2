@@ -23,20 +23,6 @@
         var contenido2 = $("#cont-logros").offset();
         contenido2 = contenido2.top;
 
-        if (windowHeight < contenido0) {
-            //alert(contenido0);
-            return;
-        }
-
-        if (windowHeight <= contenido1 && contenido1 < contenido2) {
-            //alert("estas en beneficios");
-            return;
-        }
-
-        if (contenido2 > contenido1) {
-           //alert("estas en logros");
-            return;
-        }
     });
 
     $('#loadingScreen').hide();

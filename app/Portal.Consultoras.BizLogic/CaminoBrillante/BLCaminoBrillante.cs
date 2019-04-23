@@ -10,6 +10,7 @@ using Microsoft.Practices.EnterpriseLibrary.Common.Utility;
 using System.Globalization;
 using Portal.Consultoras.Common.Serializer;
 using Portal.Consultoras.Entities.Pedido;
+using Portal.Consultoras.BizLogic.CaminoBrillante.Rest;
 
 namespace Portal.Consultoras.BizLogic.CaminoBrillante
 {
@@ -555,7 +556,6 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             };
         }
 
-        //Pendiente calcular el flag para mostrar y validar el campo consecutivo nuevas (Alexis)
         private BELogroCaminoBrillante.BEIndicadorCaminoBrillante GetConsultoraLogrosCompromiso_ProgramaNuevas(int paisId, BEUsuario entidad)
         {
             var listEstadosValidos = new List<int> { Constantes.EstadoActividadConsultora.Registrada, Constantes.EstadoActividadConsultora.Retirada, Constantes.EstadoActividadConsultora.Ingreso_Nueva };
@@ -645,7 +645,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             var periodo = GetPeriodo(entidad.PaisID, entidad.CampaniaID);
             if (periodo == null) return null;
 
-            UpdateFortest(periodo);
+            //UpdateFortest(periodo);
 
             var kits = GetKits(entidad.PaisID, entidad.CampaniaID, periodo.Periodo, nivelId);
             if (kits == null) return null;
@@ -812,7 +812,6 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
         #endregion
 
-        //Guardar en el Log
         #region Pedido
 
         public void UpdFlagsKitsOrDemostradores(BEPedidoWebDetalle bEPedidoWebDetalle, int paisId, int campaniaId)
@@ -843,7 +842,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 var periodo = GetPeriodo(paisId, campaniaId);
                 if (periodo == null) return false;
 
-                UpdateFortest(periodo);
+                //UpdateFortest(periodo);
 
                 //Producto comercial obtener la info
                 var kits = GetKits(paisId, campaniaId, periodo.Periodo, -1);
@@ -861,7 +860,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             }
             catch (Exception ex)
             {
-                //LogManager.SaveLog .LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
+                
             }
             return false;
         }
@@ -875,13 +874,10 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             var periodo = GetPeriodo(usuario.PaisID, usuario.CampaniaID);
             if (periodo == null) return Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_NOEXISTE;
 
-            //Detectar que es un Kit
             if (estrategia.LimiteVenta == 1)
             {
-                UpdateFortest(periodo);
+                //UpdateFortest(periodo);
 
-                //Agregar al objeto Usuario el Nievel de COnsultora
-                //Pendiente el nivel de la consultora
                 var kits = GetKits(usuario.PaisID, usuario.CampaniaID, periodo.Periodo, 6);
                 if (kits == null) return Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_NOEXISTE;
 
@@ -926,12 +922,6 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
         #endregion
 
-        private void UpdateFortest(BEPeriodoCaminoBrillante periodo)
-        {
-            //Quitar 
-            periodo.Periodo = 201903;
-
-        }
-
+       
     }
 }

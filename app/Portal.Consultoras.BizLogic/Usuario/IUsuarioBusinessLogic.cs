@@ -109,6 +109,5 @@ namespace Portal.Consultoras.BizLogic
         #endregion
         void RegistrarDireccionEntrega(string codigoISO, BEDireccionEntrega direccionEntrega, bool conTransaccion);
         BEUsuario GetBasicSesionUsuario(int paisID, string codigoUsuario);
-        List<BEBeneficiosCaminoBrillante> GetBeneficiosCaminoBrillante(int paisID);
     }
 }
