@@ -208,6 +208,7 @@ namespace Portal.Consultoras.Common
             {
                 public const int Habilitar_App = 12213;
                 public const int Habilitar_App_PBI_ExternalApp = 12214;
+                public const string Habilitar_Comision_Cero = "DESACTIVA_COMISION_VISA";
                 public const decimal MontoMinimoPago = 0.50m;
             }
 
@@ -3595,14 +3596,16 @@ namespace Portal.Consultoras.Common
             public const int Reingreso = 9;
         }
 
+        public static class CodigoContenido
+        {
+            public const string Lanzamiento = "BONIFICACIONES_RESUMEN";
+        }
+
         #region
         public static class CarpetasContenido
         {
             public const string Menu = "Menu";
         }
-
         #endregion
-
-
     }
 }

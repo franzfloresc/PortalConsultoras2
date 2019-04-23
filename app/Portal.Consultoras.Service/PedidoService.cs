@@ -2222,9 +2222,9 @@ namespace Portal.Consultoras.Service
             return _pagoEnLineaBusinessLogic.ObtenerPagoEnLineaURLPaginasBancos(paisId);
         }
 
-        public BEPagoEnLinea ObtenerPagoEnLineaConfiguracion(int paisId, long consultoraId, string codigoUsuario)
+        public BEPagoEnLinea ObtenerPagoEnLineaConfiguracion(int paisId, long consultoraId, string codigoUsuario, int esDigital, DateTime fechaVencimientoPago)
         {
-            return _pagoEnLineaBusinessLogic.ObtenerPagoEnLineaConfiguracion(paisId, consultoraId, codigoUsuario);
+            return _pagoEnLineaBusinessLogic.ObtenerPagoEnLineaConfiguracion(paisId, consultoraId, codigoUsuario, esDigital, fechaVencimientoPago);
         }
 
         public BEPagoEnLineaVisa ObtenerPagoEnLineaVisaConfiguracion(int paisId, string codigoConsutora)
@@ -2355,9 +2355,9 @@ namespace Portal.Consultoras.Service
             return _pedidoBusinessLogic.GetConfiguracionOfertaFinalCarrusel(usuario);
         }
 
-        public async Task<BEProducto> GetRegaloOfertaFinal(BEUsuario usuario)
+        public BEProducto GetRegaloOfertaFinal(BEUsuario usuario)
         {
-            return await _pedidoBusinessLogic.GetRegaloOfertaFinal(usuario);
+            return _pedidoBusinessLogic.GetRegaloOfertaFinal(usuario);
         }
 
         public BEPedidoDetalleResult ValidaRegaloPedido(BEPedidoDetalle pedidoDetalle)
