@@ -342,7 +342,7 @@
         Des += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + rowObject[0] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Delete.png")' alt='Eliminar Mensaje' title='Eliminar Mensaje' border='0' /></a>";
         return Des;
     }
-
+    //      
     function EditarOferta(id) {
         var codigoOferta = jQuery("#listaOfertas").jqGrid('getCell', id, 'CodigoOferta');
         var descripcionOferta = jQuery("#listaOfertas").jqGrid('getCell', id, 'DescripcionOferta');
@@ -446,7 +446,7 @@
             buttons:
             {
                 "Guardar": function () {
-
+                    debugger;
                     var tipoEstrategiaID = $("#hdTipoEstrategiaID").val();
                     var descripcionEstrategia = $("#txtDescripcionOriginalModal").val();
                     var imagenEstrategia = $("#imagenProducto01").val();
@@ -603,6 +603,7 @@
 
     $.jgrid.extend({
         Editar: function (id, codigo, descripcion, orden, imagen, ofertas, flagactivo, codigoPrograma, flagMostrarImg, MostrarImgOfertaIndependiente, ImagenOfertaIndependiente, flagValidarImagen, pesoMaximoImagen) {
+            debugger;
             if (id) {
                 $("#txtPaisModal").val($("#ddlPais option:selected").html());
                 $("#hdPais").val($("#ddlPais").val());
@@ -906,6 +907,7 @@
                             <input type="hidden" id="hdImagenOfertaIndependienteAnterior" />
                             <div id="fpUpload02">
                                 <script type="text/javascript">
+                                    debugger;
                             $.ajaxSetup({ cache: false });
                             var uploader = new qq.FileUploader({
                                 allowedExtensions: ['jpg', 'png', 'jpeg'],

@@ -462,16 +462,18 @@ $(document).ready(function () {
         e.preventDefault();
         var obj = $(this);
         var accion = obj.attr("data-paginacion");
+        var tipoPaginador = obj.attr("data-tipo");
         if (accion === "back" || accion === "next") {
-            CambioPagina(obj);
+            CambioPagina(obj, tipoPaginador);
         }
     });
     $("body").on("change", "[data-paginacion]", function (e) {
         e.preventDefault();
         var obj = $(this);
         var accion = obj.attr("data-paginacion");
+        var tipoPaginador = obj.attr("data-tipo");
         if (accion === "page" || accion === "rows") {
-            CambioPagina(obj);
+            CambioPagina(obj, tipoPaginador);
         }
     });
 
@@ -610,7 +612,7 @@ function CargarDetallePedido(page, rows, asyncrono) {
                 var htmlPaginadorH = ArmarDetallePedidoPaginador(data);
 
                 data.footer = false;
-                var htmlPaginadorF = ArmarDetallePedidoPaginador(data);
+                var htmlPaginadorF = ArmarDetallePedidoPaginador(data);                
 
                 $("#paginadorCab").html(htmlPaginadorH);
                 $("#paginadorPie").html(htmlPaginadorF);
@@ -3269,13 +3271,16 @@ function InfoCommerceGoogleDestacadoNextCarrusel() {
     }
 }
 
-function CambioPagina(obj) {
+function CambioPagina(obj, tipoPaginador) {
     var rpt = paginadorAccionGenerico(obj);
     if (rpt.page == undefined) {
         return false;
     }
 
-    CargarDetallePedido(rpt.page, rpt.rows);
+    switch (tipoPaginador) {
+        case ClasPedidoDetalle: CargarDetallePedido(rpt.page, rpt.rows); break;
+        case ClasPedidoDetallePendiente: CargarPedidosPend(rpt.page, rpt.rows); break;
+    }    
     return true;
 }
 
