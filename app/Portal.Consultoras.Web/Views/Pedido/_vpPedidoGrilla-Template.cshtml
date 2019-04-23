@@ -155,7 +155,23 @@
             </span>
         </div>
         <div class="texto_pedidos clientePedido">
-            {{#iff TipoEstrategiaCodigo '=='  '@Constantes.TipoEstrategiaCodigo.ArmaTuPack'}}
+
+            <input type="hidden" name="hdfLPCliIni{{PedidoDetalleID}}" value="{{ClienteID}}" class="classClienteID hdfLPCliIni" />
+            <input type="hidden" name="hdfLPCli{{PedidoDetalleID}}" value="{{ClienteID}}" class="classClienteID hdfLPCli" />
+            <input type="hidden" name="hdfLPCliDes{{PedidoDetalleID}}" value="{{Nombre}}" class="classClienteID hdfLPCliDes" />
+            <input type="hidden" name="hdfTest" value="{{Nombre}}" class="classClienteID hdfLPCliDes" />
+
+            {{#iff FlagModificaCliente}}
+            <input type="text" name="{{Nombre}}" value="{{Nombre}}" maxlength="50" 
+                   class="classClienteNombre ValidaAlfanumerico txtLPCli"
+                   onblur="BlurF(event, '{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '2', '{{CUV}}', '{{SetID}}')" 
+                   style="width: 90%; padding: 4px;"
+                   datapedido="{{PedidoDetalleID}}" />
+            {{else}}
+            <div class="texto_pedidos texto_pedidos_cliente">{{Nombre}}</div>
+            {{/iff}}
+
+            @*{{#iff TipoEstrategiaCodigo '=='  '@Constantes.TipoEstrategiaCodigo.ArmaTuPack'}}
             <input type="text" name="{{Nombre}}" value="{{Nombre}}" maxlength="50" class="classClienteNombre ValidaAlfanumerico txtLPCli"
                    readonly="readOnly" onkeydown="return false;" style="width:90%; padding:4px;" />
             {{else EsKitNueva}}
@@ -175,7 +191,7 @@
                    datapedido="{{PedidoDetalleID}}" />
             {{/if_eq}}
             {{/unless}}
-            {{/iff}}
+            {{/iff}}*@
         </div>
         <div class="texto_pedidos celda_iconos_acciones">
             {{#if EsKitNueva}}

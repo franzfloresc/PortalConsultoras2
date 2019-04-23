@@ -2585,6 +2585,7 @@ namespace Portal.Consultoras.Web.Controllers
                 p.DescripcionCortadaProd = Util.SubStrCortarNombre(p.DescripcionProd, 73);
                 p.TipoAccion = TipoAccionPedido(p, pedidoEditable);
                 p.FlagModificaCantidad = FlagModificaCantidad(p, pedidoEditable);
+                p.FlagModificaCliente = p.FlagModificaCantidad;
                 p.LockPremioElectivo = p.EsPremioElectivo && string.IsNullOrEmpty(p.Mensaje);
             });
 

@@ -161,5 +161,6 @@ namespace Portal.Consultoras.Web.Models
         public bool EsCuponIndependiente { get; set; }
 
         public bool FlagModificaCantidad { get; set; }
+        public bool FlagModificaCliente { get; set; }
     }
 }
