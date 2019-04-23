@@ -338,7 +338,11 @@
                         <span class="icon-advertencia"></span>
                         {{/if}}
                         {{/if}}
+
+                        {{#iff detalle.FlagVerCuv}}
                         {{detalle.CUV}}
+                        {{/iff}}
+
                     </div>
                     <span class="desc_prod text-bold">
                         {{#iff detalle.IndicadorMontoMinimo '==' 0}}
