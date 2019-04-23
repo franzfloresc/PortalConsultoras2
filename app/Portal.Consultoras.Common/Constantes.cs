@@ -170,6 +170,7 @@ namespace Portal.Consultoras.Common
             public const int UrlLogoPasarelaPago = 12209;
             public const int ColorBotonPagarPasarelaPago = 12210;
             public const int MensajeInformacionPagoExitoso = 12211;
+            public const int Acplica3porciento = 12215;
 
             public const int CantidadCuvMasivo_NuevoMasivo = 13701;
             public const int EstrategiaImagen_NuevoMasivo = 13702;
