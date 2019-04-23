@@ -31,6 +31,12 @@
     }
 }
 
+@{
+
+    var solicitud = Model.MiPedido;
+    //var tiposoli = (solicitud.MarcaID == 0) ? 1 : 2;
+}
+
 <!-- Agregado desplegado con tooltips y modals -->
 <div class="container-flex pending">
     <!-- Pending title   -->
@@ -50,26 +56,23 @@
     <!--  Pending subtitle  -->
     <div class="pending-subtitle pending-bgGray">
         <div class="container">
-        <div class="row">
-            <div class="col">
-                <div class="mtb-16">                
-                    <p class="text-14">Katherine Lorenzo</p>
+            <div class="row">
+                <div class="col">
+                    <div class="mtb-16">
+                        <p class="text-14">@solicitud.Cliente</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="vc-box--content contact-info mt-2 text-right">
+                        <img src="~/Content/Images/Shared/svg/a-icon-call.svg">
+                        <a href="tel:@solicitud.Telefono" onclick="return (navigator.userAgent.match(/Android|iPhone|iPad|iPod|Mobile/i))!=null;">
+                            <p style="margin-bottom: 16px;">@solicitud.Telefono</p>
+                        </a>
+                    </div>
                 </div>
             </div>
-            <div class="col">
-                <div class="vc-box--content contact-info mt-2 text-right">
-                    <img src="~/Content/Images/Shared/svg/a-icon-call.svg">
-                    <p style="margin-bottom: 16px;">987654321</p>
-                </div>
-            </div>            
-        </div>
         </div>
     </div>
-    @{
-
-        var solicitud = Model.MiPedido;
-        //var tiposoli = (solicitud.MarcaID == 0) ? 1 : 2;
-    }
 
     <!-- / Pending subtitle    -->
     <!--  Orders  -->

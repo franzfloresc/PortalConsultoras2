@@ -2344,14 +2344,19 @@ namespace Portal.Consultoras.Web.Controllers
                 foreach (var cab in lstPedidos)
                 {
                     cab.CantidadTotal = cab.DetallePedido.Where(x => x.CUV == cuv).Sum(x => x.Cantidad);
+                    foreach(var det in cab.DetallePedido)
+                    {
+                        det.ListaClientes = null;
+                    }
                 }
 
+               //var model1 = Mapper.Map<ClienteOnlineModel>(lstPedidos);
                 model.ListaPedidos = lstPedidos.ToList();
                 //model.ListaPedidos[0].DetallePedido = lstdetalle.ToArray();
                 //model.RegistrosTotal = model.ListaPedidos.Count.ToString();
                 SessionManager.SetobjMisPedidos(model);
                 //SessionManager.SetobjMisPedidosDetalle(lstdetalle);
-                ViewBag.CUVx = cuv;
+                //ViewBag.CUVx = cuv;
 
                 return Json(new
                 {

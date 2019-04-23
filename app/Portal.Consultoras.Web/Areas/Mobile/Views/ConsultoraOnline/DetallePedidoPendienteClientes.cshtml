@@ -2,9 +2,11 @@
 @model Portal.Consultoras.Web.Models.MisPedidosModel
 
 @{
-    var layout = ViewContext.MobileLayout();
-    Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
-    var mobileConfiguracion = Html.MobileAppConfiguracion();
+                /**/
+
+                var layout = ViewContext.MobileLayout();
+                Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
+                var mobileConfiguracion = Html.MobileAppConfiguracion();
 }
 
 @section styles{
@@ -60,7 +62,7 @@
             <div class="col">
             <div class="mtb-16">
                 <h3 class="text-14 text-700 m-0">Producto pedido:</h3>
-                <p class="text-14">Delineador Líquido Punta Plumón Marrón otoño</p>
+                <p class="text-14">@Model.ListaPedidos[0].DetallePedido[0].Producto</p>
             </div>
             </div>
         </div>
@@ -71,7 +73,16 @@
         //var solicitud = Model.ListaPedidos.ToList();
         //var tiposoli = (solicitud. == 0) ? 1 : 2;
     }
-
+    @*<div class="content_dato_historial">
+            <span class="nom_his">Teléfono:</span>
+            <span class="nom_his_2">
+                <a href="tel:@solicitud.Telefono" onclick="return (navigator.userAgent.match(/Android|iPhone|iPad|iPod|Mobile/i))!=null;">
+                    <b class="color_belcorp" style="vertical-align:top;" id="sc-telefono">@solicitud.Telefono</b>
+                    <span class="icono_telefono"></span>
+                </a>
+            </span>
+            <hr class="clear" />
+        </div>*@
     <!-- / Pending subtitle    -->
     <!--  Orders  -->
     <div class="container">
@@ -88,7 +99,10 @@
                             </div>
                             <div class="vc-box--content contact-info">
                                 <img src="~/Content/Images/Shared/svg/a-icon-call.svg">
-                                <p style="margin-bottom: 16px;">@item.Telefono</p>
+                                <a href="tel:@item.Telefono" onclick="return (navigator.userAgent.match(/Android|iPhone|iPad|iPod|Mobile/i))!=null;">
+                                    <p style="margin-bottom: 16px;">@item.Telefono</p>
+
+                                </a>
                             </div>
 
                             <input type="hidden" class="pedidoId" value="@item.PedidoId" />
