@@ -1,5 +1,5 @@
 GO
-USE BelcorpPeru
+USE BelcorpPeru_MC
 GO
 BEGIN
 	DECLARE @varTablaLogicaDatosID INT=23001
@@ -24,7 +24,7 @@ BEGIN
 END
 
 GO
-USE BelcorpMexico
+USE BelcorpMexico_MC
 GO
 BEGIN
 	DECLARE @varTablaLogicaDatosID INT=23001
@@ -49,7 +49,7 @@ BEGIN
 END
 
 GO
-USE BelcorpColombia
+USE BelcorpColombia_MC
 GO
 BEGIN
 	DECLARE @varTablaLogicaDatosID INT=23001
@@ -74,7 +74,7 @@ BEGIN
 END
 
 GO
-USE BelcorpSalvador
+USE BelcorpSalvador_MC
 GO
 BEGIN
 	DECLARE @varTablaLogicaDatosID INT=23001
@@ -99,7 +99,7 @@ BEGIN
 END
 
 GO
-USE BelcorpPuertoRico
+USE BelcorpPuertoRico_MC
 GO
 BEGIN
 	DECLARE @varTablaLogicaDatosID INT=23001
@@ -124,7 +124,7 @@ BEGIN
 END
 
 GO
-USE BelcorpPanama
+USE BelcorpPanama_MC
 GO
 BEGIN
 	DECLARE @varTablaLogicaDatosID INT=23001
@@ -149,7 +149,7 @@ BEGIN
 END
 
 GO
-USE BelcorpGuatemala
+USE BelcorpGuatemala_MC
 GO
 BEGIN
 	DECLARE @varTablaLogicaDatosID INT=23001
@@ -174,7 +174,7 @@ BEGIN
 END
 
 GO
-USE BelcorpEcuador
+USE BelcorpEcuador_MC
 GO
 BEGIN
 	DECLARE @varTablaLogicaDatosID INT=23001
@@ -194,12 +194,12 @@ BEGIN
 		 @varTablaLogicaID,
 		 '01',
 		 'Mensaje en Pop-up Bloqueo para consultoras bloqueadas.',
-		 'Si deseas mayor información contáctate con el call center: 3-3150600 (Fijo de Santa Cruz) o al 800-10-5678 (desde un celular)')
+		 'Si deseas mayor información contáctate con el call center: 1800-766672')
 	END
 END
 
 GO
-USE BelcorpDominicana
+USE BelcorpDominicana_MC
 GO
 BEGIN
 	DECLARE @varTablaLogicaDatosID INT=23001
@@ -224,7 +224,7 @@ BEGIN
 END
 
 GO
-USE BelcorpCostaRica
+USE BelcorpCostaRica_MC
 GO
 BEGIN
 	DECLARE @varTablaLogicaDatosID INT=23001
@@ -249,7 +249,7 @@ BEGIN
 END
 
 GO
-USE BelcorpChile
+USE BelcorpChile_MC
 GO
 BEGIN
 	DECLARE @varTablaLogicaDatosID INT=23001
@@ -274,7 +274,7 @@ BEGIN
 END
 
 GO
-USE BelcorpBolivia
+USE BelcorpBolivia_MC
 GO
 BEGIN
 	DECLARE @varTablaLogicaDatosID INT=23001
@@ -294,7 +294,7 @@ BEGIN
 		 @varTablaLogicaID,
 		 '01',
 		 'Mensaje en Pop-up Bloqueo para consultoras bloqueadas.',
-		 'Si deseas mayor información contáctate con el call center: 3-3150600 (Santa Cruz) ó al 901-10-5678 (provincias)')
+		 'Si deseas mayor información contáctate con el call center: 3-3150600 (Fijo de Santa Cruz) ó al 800-10-5678 (desde un celular)')
 	END
 END
 
