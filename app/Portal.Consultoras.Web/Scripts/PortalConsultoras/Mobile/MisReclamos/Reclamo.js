@@ -466,7 +466,7 @@ $(document).ready(function () {
                 $(me.Variables.Enlace_regresar).click(function (e) {
                     var arrHide = [me.Variables.Registro2, me.Variables.Registro3, me.Variables.Registro4, me.Variables.Enlace_regresar, me.Variables.btnAceptarSolucion,
                         me.Variables.btnCambioProducto, me.Variables.txtNumPedido, me.Variables.ddlnumPedido, me.Variables.DescripcionCuv, me.Variables.DescripcionCuv2,
-                        me.Variables.infoOpcionesDeCambio
+                        me.Variables.infoOpcionesDeCambio,"#MensajeTenerEncuenta"
                     ];
                     me.Funciones.HideTags(arrHide);
                     me.Funciones.CambiarEstadoBarraProgreso(me.Variables.pasos.uno_seleccion_de_producto);
@@ -1281,7 +1281,7 @@ $(document).ready(function () {
                         }
 
                         $("#MensajeTenerEncuenta").fadeIn(100);
-                        $(me.Variables.spnMensajeTenerCuenta).html(data.descripcionTenerEnCuenta);
+                        $(me.Variables.spnMensajeTenerCuenta).html(data.texto);
                     },
                     error: function (data, error) { }
                 });
