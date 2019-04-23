@@ -21,7 +21,6 @@ var CodigoUbigeoPortal = (function () {
         GuionContenedorArmaTuPack: "--12----",
         GuionCarritoComprasGuionFichaResumida: "--02--09",
 
-        GuionRevistaDigitalMobileCatalogoSeccion: estructuraUbigeo.Guion + estructuraUbigeo.Pagina.MisCatalogosRevista + estructuraUbigeo.SeccionFuncional.OfertasParaTi + estructuraUbigeo.Guion,
         MobileRevistaDigitalMobileCatalogoSeccion: estructuraUbigeo.Dispositivo + estructuraUbigeo.Pagina.MisCatalogosRevista + estructuraUbigeo.SeccionFuncional.OfertasParaTi + estructuraUbigeo.Guion,
         DesktopRevistaDigitalMobileCatalogoSeccion: estructuraUbigeo.Desktop + estructuraUbigeo.Pagina.MisCatalogosRevista + estructuraUbigeo.SeccionFuncional.OfertasParaTi + estructuraUbigeo.Guion
     }

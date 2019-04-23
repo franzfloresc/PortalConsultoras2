@@ -306,9 +306,6 @@ var rdAnalyticsModule = (function () {
                     _virtualEventPush(_seccionWeb.pedido, _text.epm, _action.verMas);
                     break;
 
-                case CodigoUbigeoPortal.MaestroCodigoUbigeo.GuionRevistaDigitalMobileCatalogoSeccion:
-                    _virtualEventPush(_seccionWeb.catalogo, _text.epm, _action.clickBanner);
-                    break;
                 case CodigoUbigeoPortal.MaestroCodigoUbigeo.MobileRevistaDigitalMobileCatalogoSeccion:
                     _virtualEventPush(_seccionWeb.catalogo, _text.epm, _action.clickBanner);
                     break;
