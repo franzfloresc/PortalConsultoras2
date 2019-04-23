@@ -280,8 +280,6 @@ div .owl-carousel .owl-stage-outer {
 
 .owl-carousel .owl-item img {
     display: block;
-    /*max-width: 60px !important;
-    min-width: 51px;*/
     max-width: 50px !important;
     min-width: 52px;
 }
@@ -1046,7 +1044,9 @@ div .footer__link, div .sub_footer a, div .btn__productos__agregados--verMiPedid
     }
 
     @media screen and (max-width: 620px) {
-
+        div.ui-dialog.ui-widget-content {
+                width:100% !important;
+        }
         #is-mobile {
             display: block;
         }
@@ -1688,7 +1688,7 @@ ofertass-------------------------------------------*/
 
     .boton__agregalo--fichaProducto i {
         position: absolute;
-        left: 6px;
+        left: 24%;
         top: 14px;
         width: 21px;
         height: 16px;
@@ -1698,7 +1698,15 @@ ofertass-------------------------------------------*/
         max-width: 25px;
         display: block;
     }
-
+.ficha__producto__agregar__producto .col-md-7 i {
+    left: 10%;
+}
+div .boton__agregalo--fichaProducto, div.btn__elegir__opcion--fichaProducto span {
+    letter-spacing: 0;
+}
+.boton__agregalo--fichaProducto .cartbtn {
+    text-indent: 22px !important;
+}
     .producto_desactivado {
         opacity: 0.9;
     }
@@ -1720,6 +1728,7 @@ ofertass-------------------------------------------*/
             background: #848484;
             color: black !important;
             border: transparent;
+            text-indent: 22px;
         }
 
     .tabs-top {
@@ -2101,24 +2110,20 @@ ofertass-------------------------------------------*/
                 padding-right: 0 !important;
                 font-size: 11px;
             }
-
-        /*.layout-somos-belcorp .content_responsive {
-        margin-top: 140px;
-    }*/
         div ul .menu__item--lateralDerechoIcono {
             width: auto;
         }
 
         .producto_desactivado .boton__agregalo--fichaProducto {
-            text-indent: 20px;
+            text-indent: 22px;
         }
 
         .boton__agregalo--fichaProducto img {
             display: block;
         }
 
-        .boton__agregalo--fichaProducto i {
-            left: 13px;
+        div .boton__agregalo--fichaProducto i {
+            left: 33% !important;
         }
 
         div #divresultadosDemostradores {
@@ -2158,13 +2163,3 @@ ofertass-------------------------------------------*/
     div.ui-dialog.ui-widget-content {
         z-index: 9999999900 !important;
     }
-
-    /*div ul .menu__item--lateralDerechoIcono {
-    width: 63px;
-}
-div .menu__link--carrito:before {
-    width: 63px;
-}
-li .productos__agregados {
-    right: 1px;
-}*/
