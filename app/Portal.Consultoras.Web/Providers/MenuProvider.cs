@@ -149,19 +149,7 @@ namespace Portal.Consultoras.Web.Providers
                         permiso.ClaseMenu = "";
                         permiso.ClaseMenuItem = "";
                         var urlSplit = permiso.UrlItem.Split('/');
-                        permiso.OnClickFunt = "RedirectMenu('" + (urlSplit.Length > 1 ? urlSplit[1] : "") + "', '" + (urlSplit.Length > 0 ? urlSplit[0] : "") + "' , " + Convert.ToInt32(permiso.PaginaNueva) + ", '" + permiso.Descripcion + "')";
-                        
-                        if (description == "MI COMUNIDAD")
-                        {
-                            if (!userSession.EsUsuarioComunidad)
-                            {
-                                permiso.OnClickFunt = "AbrirModalRegistroComunidad()";
-                            }
-                            else
-                            {
-                                permiso.OnClickFunt = "RedirectMenu('" + (urlSplit.Length > 1 ? urlSplit[1] : "") + "', '" + (urlSplit.Length > 0 ? urlSplit[0] : "") + "', '' , " + Convert.ToInt32(permiso.PaginaNueva) + " , '" + permiso.Descripcion + "')";
-                            }
-                        }
+                        permiso.OnClickFunt = "RedirectMenu('" + (urlSplit.Length > 1 ? urlSplit[1] : "") + "', '" + (urlSplit.Length > 0 ? urlSplit[0] : "") + "' , " + Convert.ToInt32(permiso.PaginaNueva) + ", '" + permiso.Descripcion + "')";                                                
 
                         if (description == "TU VOZ ONLINE")
                         {

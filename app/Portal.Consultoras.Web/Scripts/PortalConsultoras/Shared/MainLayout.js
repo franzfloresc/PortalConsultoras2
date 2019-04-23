@@ -658,26 +658,6 @@ function alert_msg_com(message) {
     $('#DialogMensajesCom').dialog('open');
 }
 
-function AbrirModalRegistroComunidad() {
-
-    if (gTipoUsuario == '2') {
-        URL = 'http://comunidad.somosbelcorp.com/';
-        window.open(URL, '_blank');
-        return false;
-    }
-    $.ajaxSetup({
-        cache: false
-    });
-    $('#divRegistroComunidad').dialog('option', 'width', 760);
-    $("#divRegistroComunidad").dialog("option", "position", "center");
-    $("#divRegCom_Form").css({ "display": "block" });
-    $("#divMenCom_Form").css({ "display": "none" });
-    showDialog("divRegistroComunidad");
-    SendPushMiComunidad();
-
-    return false;
-}
-
 function OpenUrl(url, newPage) {
     if (newPage) {
         window.open(url, '_blank');

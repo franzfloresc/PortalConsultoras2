@@ -113,14 +113,7 @@ z-index: 99;
                         </ul>
                         <div id="submenu1" class="submenu subs_marcas submenu_3">
                             <ul>
-                                <li class="field33"><a href="#">Temas de Conversación
-                                    <br />
-                                    <img class="menu_image_description" src="https://cdn1-prd.somosbelcorp.com/Menu/foros.jpg" alt="Temas de Conversación" /></a>
-                                    <ul>
-                                        <li><a href="http://comunidad.somosbelcorp.com/">Entrar a la Comunidad</a></li>
-                                        <li><a href="http://comunidad.somosbelcorp.com/?estadistica=1">Ver mi perfil de Comunidad</a></li>
-                                    </ul>
-                                </li>
+                                
                                 <li class="field33">
                                     <ul>
                                         <li></li>
