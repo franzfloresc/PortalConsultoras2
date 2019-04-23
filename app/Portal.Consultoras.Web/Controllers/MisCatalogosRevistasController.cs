@@ -818,7 +818,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             byte[] encbuff = Encoding.UTF8.GetBytes(userData.CodigoConsultora);
             var encripParams = Convert.ToBase64String(encbuff);
-            var queryString = string.Format(Constantes.CatalogoPiloto.UrlParamEncrip, userData.CodigoISO, encripParams);
+            var queryString = string.Format(Constantes.CatalogoPiloto.UrlParamEncrip, userData.CodigoISO.ToLower(), encripParams);
             /* FIN HD-4015 */
 
             var urlBase = _configuracionManagerProvider.GetConfiguracionManager(Constantes.CatalogoPiloto.UrlCatalogoPiloto);
