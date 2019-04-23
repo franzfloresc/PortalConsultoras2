@@ -9379,7 +9379,10 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ShowConsultarUbicacionField;
-        
+
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ShowContraseniaField;
+
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ShowDocsField;
         
