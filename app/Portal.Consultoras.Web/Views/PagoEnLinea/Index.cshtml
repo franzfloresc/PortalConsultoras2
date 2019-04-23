@@ -89,7 +89,7 @@
                                     <div class="w-53 text-left">Monto :</div>
                                     <div class="w-45 text-right">@Model.MontoDeudaString</div>
                                 </div>
-                                <div class="opcion_pago_gastos_administrativos">
+                                <div class="opcion_pago_gastos_administrativos @(Model.AplicaPorcentaje == 0 ? "childs-tachado" : "")">
                                     <div class="w-53 text-left">@ViewBag.PagoEnLineaGastosLabel (@Model.PorcentajeGastosAdministrativos%) :</div>
                                     <div class="w-45 text-right">@Model.MontoGastosAdministrativosBrutoString</div>
                                 </div>
@@ -148,7 +148,7 @@
                                         @Util.DecimalToStringFormat(0, Model.CodigoIso)
                                     </div>
                                 </div>
-                                <div class="opcion_pago_gastos_administrativos">
+                                <div class="opcion_pago_gastos_administrativos @(Model.AplicaPorcentaje == 0 ? "childs-tachado" : "")">
                                     <div class="w-53 text-left">@ViewBag.PagoEnLineaGastosLabel (@Model.PorcentajeGastosAdministrativos%) :</div>
                                     <div class="w-45 text-right" id="spnMontoGastosAdministrativos">
                                         @Util.DecimalToStringFormat(0, Model.CodigoIso)
