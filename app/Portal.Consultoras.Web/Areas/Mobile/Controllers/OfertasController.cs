@@ -42,7 +42,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 {
                     ListaSeccion = _confiOfertasHomeProvider.ObtenerConfiguracionSeccion(revistaDigital, esMobile),
                     MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(esMobile),
-                    VariablesEstrategia = GetVariableEstrategia(),
+                    VariablesEstrategia = GetEstrategiaHabilitado(),
                     Vc_SinProducto = SessionManager.GetUrlVc()
                 };
 
@@ -71,7 +71,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 {
                     ListaSeccion = _confiOfertasHomeProvider.ObtenerConfiguracionSeccion(revistaDigital, esMobile),
                     MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(esMobile),
-                    VariablesEstrategia = GetVariableEstrategia()
+                    VariablesEstrategia = GetEstrategiaHabilitado()
                 };
 
                 return View("Index", modelo);

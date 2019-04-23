@@ -717,7 +717,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             modelo.MostrarCliente = GetMostrarCliente(esEditar);
             modelo.MostrarAdicional = GetInformacionAdicional(esEditar);
-            modelo.MostrarFichaEnriquecida = _tablaLogicaProvider.GetTablaLogicaDatoValorBool(
+            modelo.MostrarFichaEnriquecida = !esEditar && _tablaLogicaProvider.GetTablaLogicaDatoValorBool(
                             userData.PaisID,
                             ConsTablaLogica.FlagFuncional.TablaLogicaId,
                             ConsTablaLogica.FlagFuncional.FichaEnriquecida,
@@ -767,26 +767,61 @@ namespace Portal.Consultoras.Web.Controllers
 
         private DetalleEstrategiaFichaModel GetEstrategiaInicial(string palanca, int campaniaId, string cuv)
         {
-            var modelo = new DetalleEstrategiaFichaModel();
-            if (_ofertaPersonalizadaProvider.PalancasConSesion(palanca))
+            string codigoPalanca;
+            bool esFichaApi = false;
+            bool tieneCodigoPalanca = Constantes.NombrePalanca.PalancasbyCodigo.TryGetValue(palanca, out codigoPalanca);
+
+            if (tieneCodigoPalanca)
             {
-                var estrategiaPresonalizada = _ofertaPersonalizadaProvider.ObtenerEstrategiaPersonalizada(userData, palanca, cuv, campaniaId);
+                esFichaApi = new OfertaBaseProvider().UsaFichaMsPersonalizacion(codigoPalanca);
+            }
 
-                if (estrategiaPresonalizada == null)
+            var modelo = new DetalleEstrategiaFichaModel();
+
+            if (!esFichaApi)
+            {
+                if (_ofertaPersonalizadaProvider.PalancasConSesion(palanca))
                 {
-                    return null;
-                }
+                    var estrategiaPresonalizada = _ofertaPersonalizadaProvider.ObtenerEstrategiaPersonalizada(userData, palanca, cuv, campaniaId);
 
-                if (userData.CampaniaID != campaniaId) estrategiaPresonalizada.ClaseBloqueada = "btn_desactivado_general";
-                modelo = Mapper.Map<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaModel>(estrategiaPresonalizada);
+                    if (estrategiaPresonalizada == null)
+                    {
+                        return null;
+                    }
+
+                    if (userData.CampaniaID != campaniaId) estrategiaPresonalizada.ClaseBloqueada = "btn_desactivado_general";
+                    modelo = Mapper.Map<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaModel>(estrategiaPresonalizada);
+
+                    if (palanca == Constantes.NombrePalanca.PackNuevas)
+                    {
+                        modelo.TipoEstrategiaDetalle.Slogan = "Contenido del Set:";
+                        modelo.ListaDescripcionDetalle = modelo.ArrayContenidoSet;
+                    }
+                }
+            }
+            else
+            {
+                string mensaje;
+
+                if (!tieneCodigoPalanca) return null;
+
+                modelo = _ofertaPersonalizadaProvider.GetEstrategiaFicha(cuv, campaniaId.ToString(), codigoPalanca, out mensaje);
+
+                if (userData.CampaniaID != campaniaId) modelo.ClaseBloqueada = "btn_desactivado_general";
+
                 if (palanca == Constantes.NombrePalanca.PackNuevas)
                 {
                     modelo.TipoEstrategiaDetalle.Slogan = "Contenido del Set:";
                     modelo.ListaDescripcionDetalle = modelo.ArrayContenidoSet;
                 }
+                modelo.Hermanos = _estrategiaComponenteProvider.FormatterEstrategiaComponentes(modelo.Hermanos, modelo.CUV2, modelo.CampaniaID, esFichaApi);
+                modelo = _ofertaPersonalizadaProvider.FormatterEstrategiaFicha(modelo, userData.CampaniaID);
             }
+
             return modelo;
         }
+
+        
 
         private int GetTipoAccionNavegar(int origen, bool esMobile, bool esEditar)
         {

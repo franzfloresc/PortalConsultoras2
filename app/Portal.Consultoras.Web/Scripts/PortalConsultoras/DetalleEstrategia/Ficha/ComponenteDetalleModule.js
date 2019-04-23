@@ -1,5 +1,4 @@
 ﻿var ComponenteDetalleModule = (function (config) {
-
     "use strict";
 
     if (config === null || typeof config === "undefined")
@@ -63,7 +62,7 @@
     var _util = {
         mostrarDetalleModal: function (data) {
             _util.setHandlebars(_template.componenteDetalle, data);
-            console.log(1, _template.componenteDetalle);
+            //console.log(1, _template.componenteDetalle);
             this.setYoutubeId();
             if (!_config.generalModule.isMobile()) {
                 _events.bindClosePopup();
@@ -82,10 +81,13 @@
             //Este método asigna los datos del componente individual a _template.componenteDetalleIndividual
 
             //estrategia.Hermanos por default es solo 1
-            if (estrategia.Hermanos.length == 1) {
+            console.log(estrategia);
+            //if (estrategia.Hermanos.length == 1) {
+            if (estrategia.CodigoVariante == ConstantesModule.CodigoVariedad.IndividualVariable) {
                 if (estrategia.MostrarFichaEnriquecida) {
+                    //console.log(_template.componenteDetalleIndividual);
                     _util.setHandlebars(_template.componenteDetalleIndividual, estrategia.Hermanos[0]);
-                    console.log(1, _template.componenteDetalleIndividual);
+                    //console.log(1, _template.componenteDetalleIndividual);
                     this.setYoutubeId();
                     if (!_config.generalModule.isMobile()) {
                         this.setTabDetalleComponente();
@@ -96,31 +98,29 @@
                     this.setCarrusel(_template.CarruselIndividualVideo);
                     this.setYoutubeApi();
                 }
-            } else {
-                console.log('estrategia.Hermanos no tiene items');
             }
         },
         setCarrusel: function (id) {
             $(id).slick({
                 infinite: false,
                 speed: 300,
-                slidesToShow: 3,
+                //slidesToShow: 3,
                 centerMode: false,
                 variableWidth: true,
-                responsive: [
-                    {
-                        breakpoint: 1024,
-                        settings: {
-                            slidesToShow: 3,
-                        }
-                    },
-                    {
-                        breakpoint: 700,
-                        settings: {
-                            slidesToShow: 1,
-                        }
-                    },
-                ],
+                //responsive: [
+                //    {
+                //        breakpoint: 1024,
+                //        settings: {
+                //            slidesToShow: 3,
+                //        }
+                //    },
+                //    {
+                //        breakpoint: 700,
+                //        settings: {
+                //            slidesToShow: 1,
+                //        }
+                //    },
+                //],
                 prevArrow:
                     "<a id=\"opciones-seleccionadas-prev\" class=\"flecha_ofertas-tipo prev\" style=\"left:-5%; text-align:left;display:none;\">" +
                     "<img src=\"" + baseUrl + "Content/Images/Esika/previous_ofertas_home.png\")\" alt=\"\" />" +
@@ -134,16 +134,20 @@
         setTabDetalleComponente: function () {
             $("body").off("click", "[data-tab-header]");
             $("body").on("click", "[data-tab-header]", function (e) {
+                console.log('click setTabDetalleComponente');
                 e.preventDefault();
                 var numTab = $(e.target).data("num-tab");
                 $("[data-tab-header]").removeClass("active");
-                $("[data-tab-header][data-num-tab=" + numTab + "]").addClass("active");
+                if ($("[data-tab-header][data-num-tab]").length > 1) {
+                    $("[data-tab-header][data-num-tab=" + numTab + "]").addClass("active");
+                }
                 $("[data-tab-body]").hide();
                 $("[data-tab-body][data-num-tab=" + numTab + "]").show();
             });
         },
         setAcordionDetalleComponente: function () {
             $(_template.MenuDetalleComponente).click(function () {
+                console.log('click setAcordionDetalleComponente');
                 var $this = $(this);
                 $this.parent().children("ul").slideToggle();
                 var clase = $this.attr("class");
@@ -153,8 +157,8 @@
                 else {
                     $this.attr("class", "active");
                 }
-                this.setCarrusel(_template.CarruselIndividualVideo);
-                this.setCarrusel(_template.CarruselVideo);
+                //this.setCarrusel(_template.CarruselIndividualVideo);
+                //this.setCarrusel(_template.CarruselVideo);
             });
         },
         setHandlebars: function (idTemplate, modelo) {
@@ -167,27 +171,32 @@
             });
         },
         setYoutubeApi: function () {
-            if (youtubeModule) {
-                youtubeModule.Inicializar();
-                window.onYouTubeIframeAPIReady();
+            try {
+                if (youtubeModule) {
+                    youtubeModule.Inicializar();
+                    window.onYouTubeIframeAPIReady();
+                }
+            } catch (e) {
+                console.log('setYoutubeApi => ', e);
             }
         }
     };
 
-    var _VerDetalle = function (componente) {
-        console.log('componente', componente);
+    var _VerDetalle = function (event) {
+        //console.log('componente', componente);
+        var componente = $(event.target).parents("[data-componente-grupo]").find("[data-componente]").data("componente");
         _util.mostrarDetalleModal(componente);
     };
 
     var _VerDetalleIndividual = function (estrategia) {
 
-        console.log('estrategia', estrategia);
+        //console.log('estrategia', estrategia);
         _util.mostrarDetalleIndividual(estrategia);
 
     };
 
-    var _OcultarControles = function () {
-
+    var _OcultarControles = function (variante) {
+        console.log(variante);
         if (_tipoEstrategiaTexto.Ganadoras === _config.palanca ||
             _tipoEstrategiaTexto.ShowRoom === _config.palanca || /*Especiales*/
             _tipoEstrategiaTexto.Lanzamiento === _config.palanca || /*Lo nuevo nuevo*/
@@ -196,13 +205,11 @@
 
             _tipoEstrategiaTexto.GuiaNegocio === _config.palanca ||
             _tipoEstrategiaTexto.GuiaDeNegocioDigitalizada === _config.palanca) {
-
             _validator.mostrarContenidoProducto(true);
 
-            if ($(_template.BotonVerDetalle).length > 1) {
+            if (variante != ConstantesModule.CodigoVariedad.IndividualVariable) {
                 _validator.mostrarBotoneraVerDetalle(true);
                 _validator.mostrarContenidoProducto(false);
-
             } else {
                 _validator.mostrarBotoneraVerDetalle(false);
             }
@@ -211,7 +218,6 @@
             _validator.mostrarContenidoProducto(false);
             _validator.mostrarBotoneraVerDetalle(false);
         }
-
     };
 
     var _events = {

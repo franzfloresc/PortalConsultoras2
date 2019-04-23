@@ -73,12 +73,15 @@ namespace Portal.Consultoras.Web.Providers
             {
                 mensaje += "SiMongo|";
                 estrategiaModelo.CodigoEstrategia = Util.GetTipoPersonalizacionByCodigoEstrategia(codigoTipoEstrategia);
-                EstrategiaPersonalizadaProductoModel estrategia = _ofertaBaseProvider.ObtenerModeloOfertaDesdeApi(estrategiaModelo, userData.CodigoISO);
+                var estrategia = _ofertaBaseProvider.ObtenerModeloOfertaDesdeApi(estrategiaModelo, userData.CodigoISO);
 
                 listaEstrategiaComponente = estrategia.Hermanos;
 
                 //validación 'tiene detalle de sección?'
-                listaEstrategiaComponente.ForEach(c => { (c.Secciones ?? new List<EstrategiaComponenteSeccionModel>()).ForEach(x => { c.TieneDetalleSeccion = (x.Detalles ?? new List<EstrategiaComponenteSeccionDetalleModel>()).Any(); }); });
+                listaEstrategiaComponente.ForEach(c =>
+                {
+                    c.TieneDetalleSeccion = (c.Secciones ?? new List<EstrategiaComponenteSeccionModel>()).Any() && c.Cabecera != null;
+                });
 
                 mensaje += "ObtenerModeloOfertaDesdeApi = " + listaEstrategiaComponente.Count;
             }
@@ -100,6 +103,15 @@ namespace Portal.Consultoras.Web.Providers
                 mensaje += "OrdenarComponentesPorMarca = " + listaEstrategiaComponente.Count + "|";
             }
 
+            listaEstrategiaComponente = FormatterEstrategiaComponentes(listaEstrategiaComponente, estrategiaModelo.CUV2, estrategiaModelo.CampaniaID);
+
+            return listaEstrategiaComponente;
+        }
+
+        public List<EstrategiaComponenteModel> FormatterEstrategiaComponentes(List<EstrategiaComponenteModel> listaEstrategiaComponente, string cuv2, int campania, bool esApiFicha = false)
+        {
+            var userData = SessionManager.GetUserData();
+
             if (listaEstrategiaComponente.Any())
             {
                 listaEstrategiaComponente.ForEach(x =>
@@ -108,12 +120,18 @@ namespace Portal.Consultoras.Web.Providers
                     if (x.Hermanos != null && x.Hermanos.Any())
                     {
                         x.Hermanos.ForEach(y => y.TieneStock = true);
+                        
+                        if(esApiFicha)
+                        {
+                            //Temporal mientras se utiliza el Grupo como identificador en vez del Cuv
+                            x.Cuv = x.Hermanos[0].Cuv;
+                        }
                     }
                 });
 
                 if (GetValidarDiasAntesStock(userData))
                 {
-                    _consultaProlProvider.ActualizarComponenteStockPROL(listaEstrategiaComponente, estrategiaModelo.CUV2, userData.CodigoISO, estrategiaModelo.CampaniaID, userData.GetCodigoConsultora());
+                    _consultaProlProvider.ActualizarComponenteStockPROL(listaEstrategiaComponente, cuv2, userData.CodigoISO, campania, userData.GetCodigoConsultora());
                 }
             }
 
@@ -283,21 +301,34 @@ namespace Portal.Consultoras.Web.Providers
                 default:
                     var listaComponentes = new List<EstrategiaComponenteModel>();
                     EstrategiaComponenteModel hermano;
+
+                    var grupos = new List<EstrategiaComponenteModel>();
                     foreach (var item in listaEstrategiaComponenteProductos)
+                    {
+                        hermano = (EstrategiaComponenteModel)item.Clone();
+                        if (!grupos.Any(g => g.Grupo == hermano.Grupo))
+                        {
+                            grupos.Add(hermano);
+                        }
+                    }
+
+                    foreach (var item in grupos)
                     {
                         hermano = (EstrategiaComponenteModel)item.Clone();
                         hermano.Hermanos = new List<EstrategiaComponenteModel>();
                         if (hermano.Digitable == 1)
                         {
-                            var existe = false;
-                            foreach (var itemR in listaComponentes)
-                            {
-                                existe = itemR.Hermanos.Any(h => h.Cuv == hermano.Cuv || h.Grupo == hermano.Grupo);
-                                if (existe) break;
-                            }
-                            if (existe) continue;
+                            //var existe = false;
+                            //foreach (var itemR in listaComponentes)
+                            //{
+                            //    existe = itemR.Hermanos.Any(h => h.Cuv == hermano.Cuv || h.Grupo == hermano.Grupo);
+                            //    if (existe) break;
+                            //}
+                            //if (existe) continue;
 
-                            hermano.Hermanos = listaEstrategiaComponenteProductos.Where(p => p.Grupo == hermano.Grupo && p.NombreBulk != "").OrderBy(p => p.Orden).ToList();
+                            hermano.Hermanos = listaEstrategiaComponenteProductos
+                                .Where(p => p.Grupo == hermano.Grupo && p.NombreBulk != "" && p.Digitable == 1)
+                                .OrderBy(p => p.Orden).ToList();
                         }
 
                         if (hermano.Hermanos.Any())
