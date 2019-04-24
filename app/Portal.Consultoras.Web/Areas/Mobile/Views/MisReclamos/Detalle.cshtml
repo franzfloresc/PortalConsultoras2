@@ -207,7 +207,10 @@ else if (ViewBag.Origen == "1")
                     </div>
                     <div class="detalle_tipo_solicitud">
                         <div class="detalle_producto_cdr">
-                            <div class="text-bold text-center tag_sb tag_sb--standard">Set o Pack</div>
+                            @if (item.GrupoID != "" && item.GrupoID != null)
+                            {
+                                <div class="text-bold text-center tag_sb tag_sb--standard">Set o Pack</div>
+                            }
                             <span class="detalle_cod_producto tipografia_lato_regular">
                                 @item.CUV
                             </span>
