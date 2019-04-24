@@ -165,7 +165,16 @@ var ConstantesModule = (function () {
         DesktopBuscadorGanadorasCarrusel: "1101401",
         MobileBuscadorGanadorasCarrusel: "2101401",
         DesktopLandingBuscadorGanadorasFicha: "1101402",
-        MobileLandingBuscadorGanadorasFicha: "2101402"
+        MobileLandingBuscadorGanadorasFicha: "2101402",
+
+        MobileArmaTuPackFicha: _origenPedidoWebEstructura.Dispositivo.Mobile
+            + _origenPedidoWebEstructura.Pagina.ArmaTuPackDetalle
+            + _origenPedidoWebEstructura.Palanca.ArmaTuPack
+            + _origenPedidoWebEstructura.Seccion.Ficha,
+        DesktopArmaTuPackFicha: _origenPedidoWebEstructura.Dispositivo.Desktop
+            + _origenPedidoWebEstructura.Pagina.ArmaTuPackDetalle
+            + _origenPedidoWebEstructura.Palanca.ArmaTuPack
+            + _origenPedidoWebEstructura.Seccion.Ficha,
     }
     var _codigoUbigeoPortal = {
         GuionPedidoGuionFichaResumida: "--02--00",
@@ -194,6 +203,7 @@ var ConstantesModule = (function () {
             Otras: '09',
             LandingBuscador: '10',
             LandingGanadoras: '11',
+            ArmaTuPackDetalle: '13',
             LandingDuoPerfecto: '14',
             LandingPackNuevas: '15'
         },
@@ -213,6 +223,7 @@ var ConstantesModule = (function () {
             CatalogoEsika: '12',
             CatalogoCyzone: '13',
             Ganadoras: '14',
+            ArmaTuPack: '15',
             DuoPerfecto: '16',
             PackNuevas: '17'
         },

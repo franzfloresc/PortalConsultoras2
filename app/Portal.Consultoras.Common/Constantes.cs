@@ -1025,10 +1025,7 @@ namespace Portal.Consultoras.Common
 
             public const int DesktopPedidoProductoRecomendadoOpmFicha = 1020009;
             public const int DesktopPedidoProductoRecomendadoShowRoomFicha = 1020109;
-
-            public const int MobileContenedorArmaTuPack = 2131502;
-            public const int DesktopContenedorArmaTuPack = 1131502;
-
+            
             public const int AppConsultoraContenedorShowroomFicha = 4080102;
             public const int DesktopPedidoProductoRecomendadoLanFicha = 1020209;
             public const int DesktopPedidoProductoRecomendadoOddFicha = 1020309;
@@ -1063,6 +1060,9 @@ namespace Portal.Consultoras.Common
             public const int AppConsultoraPedidoCatalogoEsikaCatalogoDigitalPendienteDeAprobar = 4021211;
             public const int AppConsultoraPedidoCatalogoCyzoneCatalogoDigitalPendienteDeAprobar = 4021311;
             #endregion
+            
+            public const int MobileArmaTuPackFicha = 2131502;
+            public const int DesktopArmaTuPackFicha = 1131502;
         }
 
         public static class TipoTutorial
