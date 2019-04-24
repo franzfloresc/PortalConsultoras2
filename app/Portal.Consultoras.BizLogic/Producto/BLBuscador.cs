@@ -29,7 +29,7 @@ namespace Portal.Consultoras.BizLogic.Producto
 
             try
             {
-                var listaDescripciones = _tablaLogicaDatosBusinessLogic.GetListCache(paisID, Constantes.TablaLogica.NuevaDescripcionProductos);
+                var listaDescripciones = _tablaLogicaDatosBusinessLogic.GetListCache(paisID, ConsTablaLogica.DescripcionProducto.TablaLogicaId);
 
                 foreach (var item in listaDescripciones)
                 {
@@ -45,6 +45,16 @@ namespace Portal.Consultoras.BizLogic.Producto
                     {
                         item.OrigenPedidoWeb = Util.ProcesarOrigenPedidoApp(item.OrigenPedidoWeb);
                         item.OrigenPedidoWebFicha = Util.ProcesarOrigenPedidoAppFicha(item.OrigenPedidoWeb);
+
+                        var OrigenPedidoWebDesplegable = Util.obtenerCodigoOrigenWebApp(item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaID, true, false, false, item.MaterialGanancia);
+                        var OrigenPedidoWebLanding = Util.obtenerCodigoOrigenWebApp(item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaID, false, true, false, item.MaterialGanancia);
+                        var OrigenPedidoWebDesplegableFicha = Util.obtenerCodigoOrigenWebApp(item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaID, true, false, true, item.MaterialGanancia);
+                        var OrigenPedidoWebLandingFicha = Util.obtenerCodigoOrigenWebApp(item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaID, false, true, true, item.MaterialGanancia);
+
+                        item.OrigenesPedidoWeb.Add(new BEBuscadorResponseOrigen() { Codigo = Constantes.OrigenPedidoBuscadorApp.OrigenPedidoWebDesplegable, Valor = OrigenPedidoWebDesplegable });
+                        item.OrigenesPedidoWeb.Add(new BEBuscadorResponseOrigen() { Codigo = Constantes.OrigenPedidoBuscadorApp.OrigenPedidoWebLanding, Valor = OrigenPedidoWebLanding });
+                        item.OrigenesPedidoWeb.Add(new BEBuscadorResponseOrigen() { Codigo = Constantes.OrigenPedidoBuscadorApp.OrigenPedidoWebDesplegableFicha, Valor = OrigenPedidoWebDesplegableFicha });
+                        item.OrigenesPedidoWeb.Add(new BEBuscadorResponseOrigen() { Codigo = Constantes.OrigenPedidoBuscadorApp.OrigenPedidoWebLandingFicha, Valor = OrigenPedidoWebLandingFicha });
                     }
                 });
             }

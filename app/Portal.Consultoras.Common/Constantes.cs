@@ -1058,6 +1058,53 @@ namespace Portal.Consultoras.Common
             public const int AppConsultoraPedidoCatalogoEsikaCatalogoDigitalPendienteDeAprobar = 4021211;
             public const int AppConsultoraPedidoCatalogoCyzoneCatalogoDigitalPendienteDeAprobar = 4021311;
             #endregion
+
+            #region Buscador App
+            public const int AppBuscadorLiquidacionDesplegable = 4040604;
+            public const int AppBuscadorLiquidacionLanding = 4100601;
+
+            public const int AppBuscadorCatalogoLbelDesplegable = 4041104;
+            public const int AppBuscadorCatalogoLbelLanding = 4101101;
+            public const int AppBuscadorCatalogoEsikaDesplegable = 4041204;
+            public const int AppBuscadorCatalogoEsikaLanding = 4101201;
+            public const int AppBuscadorCatalogoCyzoneDesplegable = 4041304;
+            public const int AppBuscadorCatalogoCyzoneLanding = 4101301;
+
+            public const int AppBuscadorSRDesplegable = 4040104;
+            public const int AppBuscadorSRLanding = 4100101;
+            public const int AppBuscadorSRDesplegableFicha = 4040102;
+            public const int AppBuscadorSRLandingFicha = 4100102;
+
+            public const int AppBuscadorLANDesplegable = 4040204;
+            public const int AppBuscadorLANLanding = 4100201;
+            public const int AppBuscadorLANDesplegableFicha = 4040202;
+            public const int AppBuscadorLANLandingFicha = 4100202;
+
+            public const int AppBuscadorODDDesplegable = 4040304;
+            public const int AppBuscadorODDLanding = 4100301;
+            public const int AppBuscadorODDDesplegableFicha = 4040302;
+            public const int AppBuscadorODDLandingFicha = 4100302;
+
+            public const int AppBuscadorGNDDesplegable = 4040504;
+            public const int AppBuscadorGNDLanding = 4100501;
+            public const int AppBuscadorGNDDesplegableFicha = 4040502;
+            public const int AppBuscadorGNDLandingFicha = 4100502;
+
+            public const int AppBuscadorHVDesplegable = 4040804;
+            public const int AppBuscadorHVLanding = 4100801;
+            public const int AppBuscadorHVDesplegableFicha = 4040802;
+            public const int AppBuscadorHVLandingFicha = 4100802;
+
+            public const int AppBuscadorMGDesplegable = 4041404;
+            public const int AppBuscadorMGLanding = 4101401;
+            public const int AppBuscadorMGDesplegableFicha = 4041402;
+            public const int AppBuscadorMGLandingFicha = 4101402;
+
+            public const int AppBuscadorOPTDesplegable = 4040004;
+            public const int AppBuscadorOPTLanding = 4100001;
+            public const int AppBuscadorOPTDesplegableFicha = 4040002;
+            public const int AppBuscadorOPTLandingFicha = 4100002;
+            #endregion
         }
 
         public static class TipoTutorial
@@ -3585,5 +3632,13 @@ namespace Portal.Consultoras.Common
             public const string Menu = "Menu";
         }
         #endregion
+
+        public static class OrigenPedidoBuscadorApp
+        {
+            public const string OrigenPedidoWebDesplegable = "OrigenPedidoWebDesplegable";
+            public const string OrigenPedidoWebLanding = "OrigenPedidoWebLanding";
+            public const string OrigenPedidoWebDesplegableFicha = "OrigenPedidoWebDesplegableFicha";
+            public const string OrigenPedidoWebLandingFicha = "OrigenPedidoWebLandingFicha";
+        }
     }
 }
