@@ -1,4 +1,4 @@
-USE BelcorpPeru
+﻿USE BelcorpPeru
 GO
 
 If Not Exists(select 1 from SYSOBJECTS where type = 'U' and id = OBJECT_ID('dbo.EstrategiaImagenKit'))

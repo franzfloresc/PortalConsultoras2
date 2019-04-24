@@ -62,7 +62,7 @@
     var _util = {
         mostrarDetalleModal: function (data) {
             _util.setHandlebars(_template.componenteDetalle, data);
-            //console.log(1, _template.componenteDetalle);
+
             this.setYoutubeId();
             if (!_config.generalModule.isMobile()) {
                 _events.bindClosePopup();
@@ -82,18 +82,18 @@
 
             //estrategia.Hermanos por default es solo 1
             console.log(estrategia);
-            //if (estrategia.Hermanos.length == 1) {
+
             if (estrategia.CodigoVariante == ConstantesModule.CodigoVariedad.IndividualVariable) {
                 if (estrategia.MostrarFichaEnriquecida) {
-                    //console.log(_template.componenteDetalleIndividual);
+
                     _util.setHandlebars(_template.componenteDetalleIndividual, estrategia.Hermanos[0]);
-                    //console.log(1, _template.componenteDetalleIndividual);
+
                     this.setYoutubeId();
                     if (!_config.generalModule.isMobile()) {
                         this.setTabDetalleComponente();
                     }
                     else {
-                        this.setAcordionDetalleComponente();//eventos de acordio
+                        this.setAcordionDetalleComponente();
                     }
                     this.setCarrusel(_template.CarruselIndividualVideo);
                     this.setYoutubeApi();
@@ -104,23 +104,8 @@
             $(id).slick({
                 infinite: false,
                 speed: 300,
-                //slidesToShow: 3,
                 centerMode: false,
                 variableWidth: true,
-                //responsive: [
-                //    {
-                //        breakpoint: 1024,
-                //        settings: {
-                //            slidesToShow: 3,
-                //        }
-                //    },
-                //    {
-                //        breakpoint: 700,
-                //        settings: {
-                //            slidesToShow: 1,
-                //        }
-                //    },
-                //],
                 prevArrow:
                     "<a id=\"opciones-seleccionadas-prev\" class=\"flecha_ofertas-tipo prev\" style=\"left:-5%; text-align:left;display:none;\">" +
                     "<img src=\"" + baseUrl + "Content/Images/Esika/previous_ofertas_home.png\")\" alt=\"\" />" +
@@ -157,8 +142,7 @@
                 else {
                     $this.attr("class", "active");
                 }
-                //this.setCarrusel(_template.CarruselIndividualVideo);
-                //this.setCarrusel(_template.CarruselVideo);
+
             });
         },
         setHandlebars: function (idTemplate, modelo) {
@@ -183,16 +167,12 @@
     };
 
     var _VerDetalle = function (event) {
-        //console.log('componente', componente);
         var componente = $(event.target).parents("[data-componente-grupo]").find("[data-componente]").data("componente");
         _util.mostrarDetalleModal(componente);
     };
 
     var _VerDetalleIndividual = function (estrategia) {
-
-        //console.log('estrategia', estrategia);
         _util.mostrarDetalleIndividual(estrategia);
-
     };
 
     var _OcultarControles = function (variante) {

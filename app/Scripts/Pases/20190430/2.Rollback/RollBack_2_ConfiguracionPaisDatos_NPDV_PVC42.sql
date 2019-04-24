@@ -1,4 +1,4 @@
-USE BelcorpPeru
+﻿USE BelcorpPeru
 GO
 
 delete from ConfiguracionPaisDatos where Codigo = 'HomeCaminoBrillante'

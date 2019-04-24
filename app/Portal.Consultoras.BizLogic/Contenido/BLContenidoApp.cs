@@ -20,8 +20,8 @@ namespace Portal.Consultoras.BizLogic.Contenido
         public List<BEContenidoApp> GetContenidoApp(BEUsuario itmFilter)
         {
             var daContenidoApp = new DAContenidoAppResumen(itmFilter.PaisID);
-            var listaContenido = new List<BEContenidoApp>();
-            var contenidoDetalle = new List<BEContenidoAppDetalle>();
+            List<BEContenidoApp> listaContenido = null;
+            List<BEContenidoAppDetalle> contenidoDetalle = null;
 
             using (IDataReader reader = daContenidoApp.GetContenidoApp(itmFilter.CodigoConsultora))
             {
@@ -29,6 +29,9 @@ namespace Portal.Consultoras.BizLogic.Contenido
                 reader.NextResult();
                 contenidoDetalle = reader.MapToCollection<BEContenidoAppDetalle>(closeReaderFinishing: false);
             }
+
+            if (listaContenido == null) listaContenido = new List<BEContenidoApp>();
+            if (contenidoDetalle == null) contenidoDetalle = new List<BEContenidoAppDetalle>();
 
             listaContenido.ForEach(x =>
             {

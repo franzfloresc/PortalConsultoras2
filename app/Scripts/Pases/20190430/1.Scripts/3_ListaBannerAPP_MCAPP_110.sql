@@ -2,7 +2,7 @@
 GO
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Lista_BannerAPP]')  AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[PROCEDURE]
+	DROP PROCEDURE [dbo].[Lista_BannerAPP]
 GO
 
 CREATE PROC [dbo].Lista_BannerAPP
@@ -14,7 +14,7 @@ BEGIN
 	WHERE CP.Estado=1 
 	ORDER BY CP.IdContenido
 	
-	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CodigoDetalle,RutaContenido,Accion,Orden,Tipo,CAD.Estado EstadoDetalle,
+	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CAD.CodigoDetalle,CAD.RutaContenido,CAD.Accion,CAD.Orden,CAD.Tipo,CAD.Estado EstadoDetalle,
 	CAST(CASE 
 		WHEN VC.IdVistoContenido IS NULL THEN 0
 		ELSE 1
@@ -32,7 +32,7 @@ USE BelcorpMexico
 GO
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Lista_BannerAPP]')  AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[PROCEDURE]
+	DROP PROCEDURE [dbo].[Lista_BannerAPP]
 GO
 
 CREATE PROC [dbo].Lista_BannerAPP
@@ -44,7 +44,7 @@ BEGIN
 	WHERE CP.Estado=1 
 	ORDER BY CP.IdContenido
 	
-	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CodigoDetalle,RutaContenido,Accion,Orden,Tipo,CAD.Estado EstadoDetalle,
+	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CAD.CodigoDetalle,CAD.RutaContenido,CAD.Accion,CAD.Orden,CAD.Tipo,CAD.Estado EstadoDetalle,
 	CAST(CASE 
 		WHEN VC.IdVistoContenido IS NULL THEN 0
 		ELSE 1
@@ -62,7 +62,7 @@ USE BelcorpColombia
 GO
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Lista_BannerAPP]')  AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[PROCEDURE]
+	DROP PROCEDURE [dbo].[Lista_BannerAPP]
 GO
 
 CREATE PROC [dbo].Lista_BannerAPP
@@ -74,7 +74,7 @@ BEGIN
 	WHERE CP.Estado=1 
 	ORDER BY CP.IdContenido
 	
-	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CodigoDetalle,RutaContenido,Accion,Orden,Tipo,CAD.Estado EstadoDetalle,
+	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CAD.CodigoDetalle,CAD.RutaContenido,CAD.Accion,CAD.Orden,CAD.Tipo,CAD.Estado EstadoDetalle,
 	CAST(CASE 
 		WHEN VC.IdVistoContenido IS NULL THEN 0
 		ELSE 1
@@ -92,7 +92,7 @@ USE BelcorpSalvador
 GO
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Lista_BannerAPP]')  AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[PROCEDURE]
+	DROP PROCEDURE [dbo].[Lista_BannerAPP]
 GO
 
 CREATE PROC [dbo].Lista_BannerAPP
@@ -104,7 +104,7 @@ BEGIN
 	WHERE CP.Estado=1 
 	ORDER BY CP.IdContenido
 	
-	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CodigoDetalle,RutaContenido,Accion,Orden,Tipo,CAD.Estado EstadoDetalle,
+	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CAD.CodigoDetalle,CAD.RutaContenido,CAD.Accion,CAD.Orden,CAD.Tipo,CAD.Estado EstadoDetalle,
 	CAST(CASE 
 		WHEN VC.IdVistoContenido IS NULL THEN 0
 		ELSE 1
@@ -122,7 +122,7 @@ USE BelcorpPuertoRico
 GO
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Lista_BannerAPP]')  AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[PROCEDURE]
+	DROP PROCEDURE [dbo].[Lista_BannerAPP]
 GO
 
 CREATE PROC [dbo].Lista_BannerAPP
@@ -134,7 +134,7 @@ BEGIN
 	WHERE CP.Estado=1 
 	ORDER BY CP.IdContenido
 	
-	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CodigoDetalle,RutaContenido,Accion,Orden,Tipo,CAD.Estado EstadoDetalle,
+	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CAD.CodigoDetalle,CAD.RutaContenido,CAD.Accion,CAD.Orden,CAD.Tipo,CAD.Estado EstadoDetalle,
 	CAST(CASE 
 		WHEN VC.IdVistoContenido IS NULL THEN 0
 		ELSE 1
@@ -152,7 +152,7 @@ USE BelcorpPanama
 GO
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Lista_BannerAPP]')  AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[PROCEDURE]
+	DROP PROCEDURE [dbo].[Lista_BannerAPP]
 GO
 
 CREATE PROC [dbo].Lista_BannerAPP
@@ -164,7 +164,7 @@ BEGIN
 	WHERE CP.Estado=1 
 	ORDER BY CP.IdContenido
 	
-	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CodigoDetalle,RutaContenido,Accion,Orden,Tipo,CAD.Estado EstadoDetalle,
+	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CAD.CodigoDetalle,CAD.RutaContenido,CAD.Accion,CAD.Orden,CAD.Tipo,CAD.Estado EstadoDetalle,
 	CAST(CASE 
 		WHEN VC.IdVistoContenido IS NULL THEN 0
 		ELSE 1
@@ -182,7 +182,7 @@ USE BelcorpGuatemala
 GO
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Lista_BannerAPP]')  AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[PROCEDURE]
+	DROP PROCEDURE [dbo].[Lista_BannerAPP]
 GO
 
 CREATE PROC [dbo].Lista_BannerAPP
@@ -194,7 +194,7 @@ BEGIN
 	WHERE CP.Estado=1 
 	ORDER BY CP.IdContenido
 	
-	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CodigoDetalle,RutaContenido,Accion,Orden,Tipo,CAD.Estado EstadoDetalle,
+	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CAD.CodigoDetalle,CAD.RutaContenido,CAD.Accion,CAD.Orden,CAD.Tipo,CAD.Estado EstadoDetalle,
 	CAST(CASE 
 		WHEN VC.IdVistoContenido IS NULL THEN 0
 		ELSE 1
@@ -212,7 +212,7 @@ USE BelcorpEcuador
 GO
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Lista_BannerAPP]')  AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[PROCEDURE]
+	DROP PROCEDURE [dbo].[Lista_BannerAPP]
 GO
 
 CREATE PROC [dbo].Lista_BannerAPP
@@ -224,7 +224,7 @@ BEGIN
 	WHERE CP.Estado=1 
 	ORDER BY CP.IdContenido
 	
-	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CodigoDetalle,RutaContenido,Accion,Orden,Tipo,CAD.Estado EstadoDetalle,
+	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CAD.CodigoDetalle,CAD.RutaContenido,CAD.Accion,CAD.Orden,CAD.Tipo,CAD.Estado EstadoDetalle,
 	CAST(CASE 
 		WHEN VC.IdVistoContenido IS NULL THEN 0
 		ELSE 1
@@ -242,7 +242,7 @@ USE BelcorpDominicana
 GO
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Lista_BannerAPP]')  AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[PROCEDURE]
+	DROP PROCEDURE [dbo].[Lista_BannerAPP]
 GO
 
 CREATE PROC [dbo].Lista_BannerAPP
@@ -254,7 +254,7 @@ BEGIN
 	WHERE CP.Estado=1 
 	ORDER BY CP.IdContenido
 	
-	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CodigoDetalle,RutaContenido,Accion,Orden,Tipo,CAD.Estado EstadoDetalle,
+	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CAD.CodigoDetalle,CAD.RutaContenido,CAD.Accion,CAD.Orden,CAD.Tipo,CAD.Estado EstadoDetalle,
 	CAST(CASE 
 		WHEN VC.IdVistoContenido IS NULL THEN 0
 		ELSE 1
@@ -272,7 +272,7 @@ USE BelcorpCostaRica
 GO
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Lista_BannerAPP]')  AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[PROCEDURE]
+	DROP PROCEDURE [dbo].[Lista_BannerAPP]
 GO
 
 CREATE PROC [dbo].Lista_BannerAPP
@@ -284,7 +284,7 @@ BEGIN
 	WHERE CP.Estado=1 
 	ORDER BY CP.IdContenido
 	
-	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CodigoDetalle,RutaContenido,Accion,Orden,Tipo,CAD.Estado EstadoDetalle,
+	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CAD.CodigoDetalle,CAD.RutaContenido,CAD.Accion,CAD.Orden,CAD.Tipo,CAD.Estado EstadoDetalle,
 	CAST(CASE 
 		WHEN VC.IdVistoContenido IS NULL THEN 0
 		ELSE 1
@@ -302,7 +302,7 @@ USE BelcorpChile
 GO
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Lista_BannerAPP]')  AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[PROCEDURE]
+	DROP PROCEDURE [dbo].[Lista_BannerAPP]
 GO
 
 CREATE PROC [dbo].Lista_BannerAPP
@@ -314,7 +314,7 @@ BEGIN
 	WHERE CP.Estado=1 
 	ORDER BY CP.IdContenido
 	
-	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CodigoDetalle,RutaContenido,Accion,Orden,Tipo,CAD.Estado EstadoDetalle,
+	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CAD.CodigoDetalle,CAD.RutaContenido,CAD.Accion,CAD.Orden,CAD.Tipo,CAD.Estado EstadoDetalle,
 	CAST(CASE 
 		WHEN VC.IdVistoContenido IS NULL THEN 0
 		ELSE 1
@@ -332,7 +332,7 @@ USE BelcorpBolivia
 GO
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Lista_BannerAPP]')  AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[PROCEDURE]
+	DROP PROCEDURE [dbo].[Lista_BannerAPP]
 GO
 
 CREATE PROC [dbo].Lista_BannerAPP
@@ -344,7 +344,7 @@ BEGIN
 	WHERE CP.Estado=1 
 	ORDER BY CP.IdContenido
 	
-	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CodigoDetalle,RutaContenido,Accion,Orden,Tipo,CAD.Estado EstadoDetalle,
+	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CAD.CodigoDetalle,CAD.RutaContenido,CAD.Accion,CAD.Orden,CAD.Tipo,CAD.Estado EstadoDetalle,
 	CAST(CASE 
 		WHEN VC.IdVistoContenido IS NULL THEN 0
 		ELSE 1

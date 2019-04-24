@@ -13,7 +13,8 @@ CREATE TABLE dbo.ContenidoAppDeta
 	RutaContenido varchar(250) NULL,
 	Accion varchar(20) NULL,
 	Orden int NULL,
-	Estado bit NULL
+	Estado bit NULL,
+	Tipo VARCHAR(25)
 ) 
 GO
 ALTER TABLE dbo.ContenidoAppDeta ADD CONSTRAINT PK_ContenidoAppDeta PRIMARY KEY (IdContenidoDeta) 
@@ -34,7 +35,8 @@ CREATE TABLE dbo.ContenidoAppDeta
 	RutaContenido varchar(250) NULL,
 	Accion varchar(20) NULL,
 	Orden int NULL,
-	Estado bit NULL
+	Estado bit NULL,
+	Tipo VARCHAR(25)
 ) 
 GO
 ALTER TABLE dbo.ContenidoAppDeta ADD CONSTRAINT PK_ContenidoAppDeta PRIMARY KEY (IdContenidoDeta) 
@@ -55,7 +57,8 @@ CREATE TABLE dbo.ContenidoAppDeta
 	RutaContenido varchar(250) NULL,
 	Accion varchar(20) NULL,
 	Orden int NULL,
-	Estado bit NULL
+	Estado bit NULL,
+	Tipo VARCHAR(25)
 ) 
 GO
 ALTER TABLE dbo.ContenidoAppDeta ADD CONSTRAINT PK_ContenidoAppDeta PRIMARY KEY (IdContenidoDeta) 
@@ -76,7 +79,8 @@ CREATE TABLE dbo.ContenidoAppDeta
 	RutaContenido varchar(250) NULL,
 	Accion varchar(20) NULL,
 	Orden int NULL,
-	Estado bit NULL
+	Estado bit NULL,
+	Tipo VARCHAR(25)
 ) 
 GO
 ALTER TABLE dbo.ContenidoAppDeta ADD CONSTRAINT PK_ContenidoAppDeta PRIMARY KEY (IdContenidoDeta) 
@@ -97,7 +101,8 @@ CREATE TABLE dbo.ContenidoAppDeta
 	RutaContenido varchar(250) NULL,
 	Accion varchar(20) NULL,
 	Orden int NULL,
-	Estado bit NULL
+	Estado bit NULL,
+	Tipo VARCHAR(25)
 ) 
 GO
 ALTER TABLE dbo.ContenidoAppDeta ADD CONSTRAINT PK_ContenidoAppDeta PRIMARY KEY (IdContenidoDeta) 
@@ -118,7 +123,8 @@ CREATE TABLE dbo.ContenidoAppDeta
 	RutaContenido varchar(250) NULL,
 	Accion varchar(20) NULL,
 	Orden int NULL,
-	Estado bit NULL
+	Estado bit NULL,
+	Tipo VARCHAR(25)
 ) 
 GO
 ALTER TABLE dbo.ContenidoAppDeta ADD CONSTRAINT PK_ContenidoAppDeta PRIMARY KEY (IdContenidoDeta) 
@@ -139,7 +145,8 @@ CREATE TABLE dbo.ContenidoAppDeta
 	RutaContenido varchar(250) NULL,
 	Accion varchar(20) NULL,
 	Orden int NULL,
-	Estado bit NULL
+	Estado bit NULL,
+	Tipo VARCHAR(25)
 ) 
 GO
 ALTER TABLE dbo.ContenidoAppDeta ADD CONSTRAINT PK_ContenidoAppDeta PRIMARY KEY (IdContenidoDeta) 
@@ -160,7 +167,8 @@ CREATE TABLE dbo.ContenidoAppDeta
 	RutaContenido varchar(250) NULL,
 	Accion varchar(20) NULL,
 	Orden int NULL,
-	Estado bit NULL
+	Estado bit NULL,
+	Tipo VARCHAR(25)
 ) 
 GO
 ALTER TABLE dbo.ContenidoAppDeta ADD CONSTRAINT PK_ContenidoAppDeta PRIMARY KEY (IdContenidoDeta) 
@@ -181,7 +189,8 @@ CREATE TABLE dbo.ContenidoAppDeta
 	RutaContenido varchar(250) NULL,
 	Accion varchar(20) NULL,
 	Orden int NULL,
-	Estado bit NULL
+	Estado bit NULL,
+	Tipo VARCHAR(25)
 ) 
 GO
 ALTER TABLE dbo.ContenidoAppDeta ADD CONSTRAINT PK_ContenidoAppDeta PRIMARY KEY (IdContenidoDeta) 
@@ -202,7 +211,8 @@ CREATE TABLE dbo.ContenidoAppDeta
 	RutaContenido varchar(250) NULL,
 	Accion varchar(20) NULL,
 	Orden int NULL,
-	Estado bit NULL
+	Estado bit NULL,
+	Tipo VARCHAR(25)
 ) 
 GO
 ALTER TABLE dbo.ContenidoAppDeta ADD CONSTRAINT PK_ContenidoAppDeta PRIMARY KEY (IdContenidoDeta) 
@@ -223,7 +233,8 @@ CREATE TABLE dbo.ContenidoAppDeta
 	RutaContenido varchar(250) NULL,
 	Accion varchar(20) NULL,
 	Orden int NULL,
-	Estado bit NULL
+	Estado bit NULL,
+	Tipo VARCHAR(25)
 ) 
 GO
 ALTER TABLE dbo.ContenidoAppDeta ADD CONSTRAINT PK_ContenidoAppDeta PRIMARY KEY (IdContenidoDeta) 
@@ -244,7 +255,8 @@ CREATE TABLE dbo.ContenidoAppDeta
 	RutaContenido varchar(250) NULL,
 	Accion varchar(20) NULL,
 	Orden int NULL,
-	Estado bit NULL
+	Estado bit NULL,
+	Tipo VARCHAR(25)
 ) 
 GO
 ALTER TABLE dbo.ContenidoAppDeta ADD CONSTRAINT PK_ContenidoAppDeta PRIMARY KEY (IdContenidoDeta) 

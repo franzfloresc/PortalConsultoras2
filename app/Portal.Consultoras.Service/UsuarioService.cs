@@ -952,16 +952,16 @@ namespace Portal.Consultoras.Service
             return BLUsuario.ActualizarValidacionDatos(isMobile, ipDispositivo, codigoConsultora, PaisID, CodigoUsuario, tipoEnvio1, tipoEnvio2);
         }
 
-        public int ActualizarSMS(int PaisID, string codigoUsuario, string tipoEnvio, string celularAnterior, string celularActual)
+        public int ActualizarSMS(int PaisID, string codigoConsultora, string tipoEnvio, string celularAnterior, string celularActual)
         {
             var BLUsuario = new BLUsuario();
-            return BLUsuario.ActualizarSMS(PaisID, codigoUsuario, tipoEnvio, celularAnterior, celularActual);
+            return BLUsuario.ActualizarSMS(PaisID, codigoConsultora, tipoEnvio, celularAnterior, celularActual);
         }
 
-        public int ActualizarFijo(int PaisID, string codigoUsuario, string tipoEnvio, string telefonoAnterior, string telefonoActual)
+        public int ActualizarFijo(int PaisID, string codigoConsultora, string tipoEnvio, string telefonoAnterior, string telefonoActual)
         {
             var BLUsuario = new BLUsuario();
-            return BLUsuario.ActualizarFijo(PaisID, codigoUsuario, tipoEnvio, telefonoAnterior, telefonoActual);
+            return BLUsuario.ActualizarFijo(PaisID, codigoConsultora, tipoEnvio, telefonoAnterior, telefonoActual);
         }
 
         public int ValidaEstadoPopup(int PaisID)

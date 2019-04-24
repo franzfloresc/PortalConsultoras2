@@ -1,4 +1,4 @@
-USE BelcorpPeru
+﻿USE BelcorpPeru
 GO
 
 If Exists(select 1 from SYSOBJECTS where type = 'P' and id = OBJECT_ID('dbo.BeneficioCaminoBrillante'))
