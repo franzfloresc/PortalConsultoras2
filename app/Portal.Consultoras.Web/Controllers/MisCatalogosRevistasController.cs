@@ -812,9 +812,6 @@ namespace Portal.Consultoras.Web.Controllers
         private string GetUrlCatalogoPiloto()
         {
             /* INI HD-4015 */
-            //var queryString = string.Format(Constantes.CatalogoPiloto.UrlParamEncrip, userData.CodigoISO, userData.CodigoConsultora);
-            //byte[] encbuff = Encoding.UTF8.GetBytes(queryString);
-            //var encripParams = Convert.ToBase64String(encbuff);
 
             byte[] encbuff = Encoding.UTF8.GetBytes(userData.CodigoConsultora);
             var encripParams = Convert.ToBase64String(encbuff);
