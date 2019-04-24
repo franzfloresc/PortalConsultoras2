@@ -2669,9 +2669,10 @@ namespace Portal.Consultoras.Web.Controllers
                 model.RegistrosTotal = model.ListaPedidos.Count.ToString();
                 SessionManager.SetobjMisPedidos(model);
                 //SessionManager.SetobjMisPedidosDetalle(Listadetalle);
-
+                var modelList = PendientesMedioDeCompra();
                 return Json(new
                 {
+                    result = modelList,
                     success = true,
                     message = "OK"
                 }, JsonRequestBehavior.AllowGet);
@@ -3211,10 +3212,8 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
 
 
-
-
-        [HttpPost]
-        public JsonResult PendientesMedioDeCompra()
+         
+        public PedidosPendientesMedioPagoModel PendientesMedioDeCompra()
         {
             try
             {
@@ -3292,22 +3291,13 @@ namespace Portal.Consultoras.Web.Controllers
                // ViewBag.PaisISOx = userData.CodigoISO;
                
 
-                return Json(new
-                {
-                    result= model,
-                    success = true,
-                    message = "OK",
-                }, JsonRequestBehavior.AllowGet);
+                return   model ;
             }
             catch (FaultException e)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(e, userData.CodigoConsultora, userData.CodigoISO);
 
-                return Json(new
-                {
-                    success = false,
-                    message = e.Message
-                }, JsonRequestBehavior.AllowGet);
+                return new PedidosPendientesMedioPagoModel();
             }
         }
 

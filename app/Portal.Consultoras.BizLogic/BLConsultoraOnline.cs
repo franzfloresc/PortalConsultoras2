@@ -621,10 +621,14 @@ namespace Portal.Consultoras.BizLogic
             {
                 if (estrategia.Componentes.Exists(comp => !SapList.Contains(comp.CodigoSap))) {
 
-                    ProductosSolicitados.ForEach(y =>
+                    foreach (var productosolicitado in ProductosSolicitados)
                     {
-                        ExisteOfertaNoExacta = estrategia.Componentes.Exists(comp => comp.CodigoSap == y.CodigoSap && comp.Cantidad == y.Cantidad);
-                    });
+                        ExisteOfertaNoExacta = estrategia.Componentes.Exists(comp => comp.CodigoSap == productosolicitado.CodigoSap && comp.Cantidad == productosolicitado.Cantidad);
+                        if (!ExisteOfertaNoExacta)
+                        {
+                            break;
+                        }
+                    }
 
                     if (ExisteOfertaNoExacta)
                     {
