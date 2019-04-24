@@ -67,10 +67,10 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         /// <summary>
         /// Obtiene el listado de Ofertas de acuerdo a la campaña.
         /// </summary>
-        public async Task<List<OfertaCaminoBrillante>> GetOfertas(string isoPais, int periodoId)
+        public async Task<List<OfertaCaminoBrillante>> GetOfertas(string isoPais, int campaniaId)
         {
             var result = new List<OfertaCaminoBrillante>();
-            string urlParameters = string.Format("{0}/{1}", isoPais, periodoId);
+            string urlParameters = string.Format("{0}/{1}", isoPais, campaniaId);
             string jsonString = await CallInformacionComercialServices(Url + Constantes.CaminoBrillante.ServicioComercial.GetOfertas, urlParameters, Token);
             result = JsonConvert.DeserializeObject<List<OfertaCaminoBrillante>>(jsonString) as List<OfertaCaminoBrillante>;
             return result;

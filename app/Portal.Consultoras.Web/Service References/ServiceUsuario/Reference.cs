@@ -1915,6 +1915,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string NivelField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int NivelCaminoBrillanteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int NivelEducacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -3980,6 +3983,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.NivelField, value) != true)) {
                     this.NivelField = value;
                     this.RaisePropertyChanged("Nivel");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int NivelCaminoBrillante {
+            get {
+                return this.NivelCaminoBrillanteField;
+            }
+            set {
+                if ((this.NivelCaminoBrillanteField.Equals(value) != true)) {
+                    this.NivelCaminoBrillanteField = value;
+                    this.RaisePropertyChanged("NivelCaminoBrillante");
                 }
             }
         }
@@ -6348,10 +6364,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDireccion))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BERevistaDigitalSuscripcion))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(int[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BENivelCaminoBrillante[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BENivelCaminoBrillante))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BENivelCaminoBrillante.BEBeneficioCaminoBrillante[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BENivelCaminoBrillante.BEBeneficioCaminoBrillante))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEConsultoraCaminoBrillante))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BELogroCaminoBrillante[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BELogroCaminoBrillante))]
@@ -6361,6 +6373,10 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BENivelCaminoBrillante[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BENivelCaminoBrillante))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BENivelCaminoBrillante.BEBeneficioCaminoBrillante[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BENivelCaminoBrillante.BEBeneficioCaminoBrillante))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEValidaLoginSB2))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExternoPais))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.EAplicacionOrigen))]
@@ -6770,257 +6786,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
             if ((propertyChanged != null)) {
                 propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BENivelCaminoBrillante", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CaminoBrillan" +
-        "te")]
-    [System.SerializableAttribute()]
-    public partial class BENivelCaminoBrillante : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Portal.Consultoras.Web.ServiceUsuario.BENivelCaminoBrillante.BEBeneficioCaminoBrillante[] BeneficiosField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CodigoNivelField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string DescripcionNivelField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<decimal> MontoFaltanteField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string MontoMaximoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string MontoMinimoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool TieneOfertasEspecialesField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public Portal.Consultoras.Web.ServiceUsuario.BENivelCaminoBrillante.BEBeneficioCaminoBrillante[] Beneficios {
-            get {
-                return this.BeneficiosField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.BeneficiosField, value) != true)) {
-                    this.BeneficiosField = value;
-                    this.RaisePropertyChanged("Beneficios");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CodigoNivel {
-            get {
-                return this.CodigoNivelField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CodigoNivelField, value) != true)) {
-                    this.CodigoNivelField = value;
-                    this.RaisePropertyChanged("CodigoNivel");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string DescripcionNivel {
-            get {
-                return this.DescripcionNivelField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.DescripcionNivelField, value) != true)) {
-                    this.DescripcionNivelField = value;
-                    this.RaisePropertyChanged("DescripcionNivel");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<decimal> MontoFaltante {
-            get {
-                return this.MontoFaltanteField;
-            }
-            set {
-                if ((this.MontoFaltanteField.Equals(value) != true)) {
-                    this.MontoFaltanteField = value;
-                    this.RaisePropertyChanged("MontoFaltante");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string MontoMaximo {
-            get {
-                return this.MontoMaximoField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.MontoMaximoField, value) != true)) {
-                    this.MontoMaximoField = value;
-                    this.RaisePropertyChanged("MontoMaximo");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string MontoMinimo {
-            get {
-                return this.MontoMinimoField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.MontoMinimoField, value) != true)) {
-                    this.MontoMinimoField = value;
-                    this.RaisePropertyChanged("MontoMinimo");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool TieneOfertasEspeciales {
-            get {
-                return this.TieneOfertasEspecialesField;
-            }
-            set {
-                if ((this.TieneOfertasEspecialesField.Equals(value) != true)) {
-                    this.TieneOfertasEspecialesField = value;
-                    this.RaisePropertyChanged("TieneOfertasEspeciales");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-        
-        [System.Diagnostics.DebuggerStepThroughAttribute()]
-        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-        [System.Runtime.Serialization.DataContractAttribute(Name="BENivelCaminoBrillante.BEBeneficioCaminoBrillante", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CaminoBrillan" +
-            "te")]
-        [System.SerializableAttribute()]
-        public partial class BEBeneficioCaminoBrillante : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-            
-            [System.NonSerializedAttribute()]
-            private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-            
-            [System.Runtime.Serialization.OptionalFieldAttribute()]
-            private string CodigoBeneficioField;
-            
-            [System.Runtime.Serialization.OptionalFieldAttribute()]
-            private string CodigoNivelField;
-            
-            [System.Runtime.Serialization.OptionalFieldAttribute()]
-            private string DescripcionField;
-            
-            [System.Runtime.Serialization.OptionalFieldAttribute()]
-            private string IconoField;
-            
-            [System.Runtime.Serialization.OptionalFieldAttribute()]
-            private string NombreBeneficioField;
-            
-            public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-                get {
-                    return this.extensionDataField;
-                }
-                set {
-                    this.extensionDataField = value;
-                }
-            }
-            
-            [System.Runtime.Serialization.DataMemberAttribute()]
-            public string CodigoBeneficio {
-                get {
-                    return this.CodigoBeneficioField;
-                }
-                set {
-                    if ((object.ReferenceEquals(this.CodigoBeneficioField, value) != true)) {
-                        this.CodigoBeneficioField = value;
-                        this.RaisePropertyChanged("CodigoBeneficio");
-                    }
-                }
-            }
-            
-            [System.Runtime.Serialization.DataMemberAttribute()]
-            public string CodigoNivel {
-                get {
-                    return this.CodigoNivelField;
-                }
-                set {
-                    if ((object.ReferenceEquals(this.CodigoNivelField, value) != true)) {
-                        this.CodigoNivelField = value;
-                        this.RaisePropertyChanged("CodigoNivel");
-                    }
-                }
-            }
-            
-            [System.Runtime.Serialization.DataMemberAttribute()]
-            public string Descripcion {
-                get {
-                    return this.DescripcionField;
-                }
-                set {
-                    if ((object.ReferenceEquals(this.DescripcionField, value) != true)) {
-                        this.DescripcionField = value;
-                        this.RaisePropertyChanged("Descripcion");
-                    }
-                }
-            }
-            
-            [System.Runtime.Serialization.DataMemberAttribute()]
-            public string Icono {
-                get {
-                    return this.IconoField;
-                }
-                set {
-                    if ((object.ReferenceEquals(this.IconoField, value) != true)) {
-                        this.IconoField = value;
-                        this.RaisePropertyChanged("Icono");
-                    }
-                }
-            }
-            
-            [System.Runtime.Serialization.DataMemberAttribute()]
-            public string NombreBeneficio {
-                get {
-                    return this.NombreBeneficioField;
-                }
-                set {
-                    if ((object.ReferenceEquals(this.NombreBeneficioField, value) != true)) {
-                        this.NombreBeneficioField = value;
-                        this.RaisePropertyChanged("NombreBeneficio");
-                    }
-                }
-            }
-            
-            public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-            
-            protected void RaisePropertyChanged(string propertyName) {
-                System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-                if ((propertyChanged != null)) {
-                    propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-                }
             }
         }
     }
@@ -7711,6 +7476,257 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                     if ((propertyChanged != null)) {
                         propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
                     }
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BENivelCaminoBrillante", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CaminoBrillan" +
+        "te")]
+    [System.SerializableAttribute()]
+    public partial class BENivelCaminoBrillante : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Portal.Consultoras.Web.ServiceUsuario.BENivelCaminoBrillante.BEBeneficioCaminoBrillante[] BeneficiosField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoNivelField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescripcionNivelField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> MontoFaltanteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MontoMaximoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MontoMinimoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool TieneOfertasEspecialesField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Portal.Consultoras.Web.ServiceUsuario.BENivelCaminoBrillante.BEBeneficioCaminoBrillante[] Beneficios {
+            get {
+                return this.BeneficiosField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.BeneficiosField, value) != true)) {
+                    this.BeneficiosField = value;
+                    this.RaisePropertyChanged("Beneficios");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoNivel {
+            get {
+                return this.CodigoNivelField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoNivelField, value) != true)) {
+                    this.CodigoNivelField = value;
+                    this.RaisePropertyChanged("CodigoNivel");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DescripcionNivel {
+            get {
+                return this.DescripcionNivelField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescripcionNivelField, value) != true)) {
+                    this.DescripcionNivelField = value;
+                    this.RaisePropertyChanged("DescripcionNivel");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> MontoFaltante {
+            get {
+                return this.MontoFaltanteField;
+            }
+            set {
+                if ((this.MontoFaltanteField.Equals(value) != true)) {
+                    this.MontoFaltanteField = value;
+                    this.RaisePropertyChanged("MontoFaltante");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string MontoMaximo {
+            get {
+                return this.MontoMaximoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MontoMaximoField, value) != true)) {
+                    this.MontoMaximoField = value;
+                    this.RaisePropertyChanged("MontoMaximo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string MontoMinimo {
+            get {
+                return this.MontoMinimoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MontoMinimoField, value) != true)) {
+                    this.MontoMinimoField = value;
+                    this.RaisePropertyChanged("MontoMinimo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool TieneOfertasEspeciales {
+            get {
+                return this.TieneOfertasEspecialesField;
+            }
+            set {
+                if ((this.TieneOfertasEspecialesField.Equals(value) != true)) {
+                    this.TieneOfertasEspecialesField = value;
+                    this.RaisePropertyChanged("TieneOfertasEspeciales");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+        
+        [System.Diagnostics.DebuggerStepThroughAttribute()]
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+        [System.Runtime.Serialization.DataContractAttribute(Name="BENivelCaminoBrillante.BEBeneficioCaminoBrillante", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CaminoBrillan" +
+            "te")]
+        [System.SerializableAttribute()]
+        public partial class BEBeneficioCaminoBrillante : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+            
+            [System.NonSerializedAttribute()]
+            private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+            
+            [System.Runtime.Serialization.OptionalFieldAttribute()]
+            private string CodigoBeneficioField;
+            
+            [System.Runtime.Serialization.OptionalFieldAttribute()]
+            private string CodigoNivelField;
+            
+            [System.Runtime.Serialization.OptionalFieldAttribute()]
+            private string DescripcionField;
+            
+            [System.Runtime.Serialization.OptionalFieldAttribute()]
+            private string IconoField;
+            
+            [System.Runtime.Serialization.OptionalFieldAttribute()]
+            private string NombreBeneficioField;
+            
+            public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+                get {
+                    return this.extensionDataField;
+                }
+                set {
+                    this.extensionDataField = value;
+                }
+            }
+            
+            [System.Runtime.Serialization.DataMemberAttribute()]
+            public string CodigoBeneficio {
+                get {
+                    return this.CodigoBeneficioField;
+                }
+                set {
+                    if ((object.ReferenceEquals(this.CodigoBeneficioField, value) != true)) {
+                        this.CodigoBeneficioField = value;
+                        this.RaisePropertyChanged("CodigoBeneficio");
+                    }
+                }
+            }
+            
+            [System.Runtime.Serialization.DataMemberAttribute()]
+            public string CodigoNivel {
+                get {
+                    return this.CodigoNivelField;
+                }
+                set {
+                    if ((object.ReferenceEquals(this.CodigoNivelField, value) != true)) {
+                        this.CodigoNivelField = value;
+                        this.RaisePropertyChanged("CodigoNivel");
+                    }
+                }
+            }
+            
+            [System.Runtime.Serialization.DataMemberAttribute()]
+            public string Descripcion {
+                get {
+                    return this.DescripcionField;
+                }
+                set {
+                    if ((object.ReferenceEquals(this.DescripcionField, value) != true)) {
+                        this.DescripcionField = value;
+                        this.RaisePropertyChanged("Descripcion");
+                    }
+                }
+            }
+            
+            [System.Runtime.Serialization.DataMemberAttribute()]
+            public string Icono {
+                get {
+                    return this.IconoField;
+                }
+                set {
+                    if ((object.ReferenceEquals(this.IconoField, value) != true)) {
+                        this.IconoField = value;
+                        this.RaisePropertyChanged("Icono");
+                    }
+                }
+            }
+            
+            [System.Runtime.Serialization.DataMemberAttribute()]
+            public string NombreBeneficio {
+                get {
+                    return this.NombreBeneficioField;
+                }
+                set {
+                    if ((object.ReferenceEquals(this.NombreBeneficioField, value) != true)) {
+                        this.NombreBeneficioField = value;
+                        this.RaisePropertyChanged("NombreBeneficio");
+                    }
+                }
+            }
+            
+            public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+            
+            protected void RaisePropertyChanged(string propertyName) {
+                System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+                if ((propertyChanged != null)) {
+                    propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
                 }
             }
         }
@@ -13893,12 +13909,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/RegistrarDireccionEntrega", ReplyAction="http://tempuri.org/IUsuarioService/RegistrarDireccionEntregaResponse")]
         System.Threading.Tasks.Task RegistrarDireccionEntregaAsync(string codigoISO, Portal.Consultoras.Web.ServiceUsuario.BEDireccionEntrega direccionEntrega);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetNivelesCaminoBrillante", ReplyAction="http://tempuri.org/IUsuarioService/GetNivelesCaminoBrillanteResponse")]
-        Portal.Consultoras.Web.ServiceUsuario.BENivelCaminoBrillante[] GetNivelesCaminoBrillante(int paisId);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetNivelesCaminoBrillante", ReplyAction="http://tempuri.org/IUsuarioService/GetNivelesCaminoBrillanteResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BENivelCaminoBrillante[]> GetNivelesCaminoBrillanteAsync(int paisId);
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetConsultoraNivelCaminoBrillante", ReplyAction="http://tempuri.org/IUsuarioService/GetConsultoraNivelCaminoBrillanteResponse")]
         Portal.Consultoras.Web.ServiceUsuario.BEConsultoraCaminoBrillante GetConsultoraNivelCaminoBrillante(Portal.Consultoras.Web.ServiceUsuario.BEUsuario entidad);
         
@@ -14921,14 +14931,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public System.Threading.Tasks.Task RegistrarDireccionEntregaAsync(string codigoISO, Portal.Consultoras.Web.ServiceUsuario.BEDireccionEntrega direccionEntrega) {
             return base.Channel.RegistrarDireccionEntregaAsync(codigoISO, direccionEntrega);
-        }
-        
-        public Portal.Consultoras.Web.ServiceUsuario.BENivelCaminoBrillante[] GetNivelesCaminoBrillante(int paisId) {
-            return base.Channel.GetNivelesCaminoBrillante(paisId);
-        }
-        
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BENivelCaminoBrillante[]> GetNivelesCaminoBrillanteAsync(int paisId) {
-            return base.Channel.GetNivelesCaminoBrillanteAsync(paisId);
         }
         
         public Portal.Consultoras.Web.ServiceUsuario.BEConsultoraCaminoBrillante GetConsultoraNivelCaminoBrillante(Portal.Consultoras.Web.ServiceUsuario.BEUsuario entidad) {

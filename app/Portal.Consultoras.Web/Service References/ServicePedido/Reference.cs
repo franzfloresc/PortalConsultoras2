@@ -8824,6 +8824,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string ClaveSecretaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoClasificacionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigoConsultoraField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -8834,6 +8837,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigoProgramaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoSubClasificacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigoTerritorioField;
@@ -8909,6 +8915,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DescripcionNivelField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescripcionSubClasificacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DestinatariosFeedbackField;
@@ -9164,6 +9173,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NivelField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int NivelCaminoBrillanteField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int NivelEducacionField;
@@ -9715,6 +9727,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoClasificacion {
+            get {
+                return this.CodigoClasificacionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoClasificacionField, value) != true)) {
+                    this.CodigoClasificacionField = value;
+                    this.RaisePropertyChanged("CodigoClasificacion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string CodigoConsultora {
             get {
                 return this.CodigoConsultoraField;
@@ -9762,6 +9787,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.CodigoProgramaField, value) != true)) {
                     this.CodigoProgramaField = value;
                     this.RaisePropertyChanged("CodigoPrograma");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoSubClasificacion {
+            get {
+                return this.CodigoSubClasificacionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoSubClasificacionField, value) != true)) {
+                    this.CodigoSubClasificacionField = value;
+                    this.RaisePropertyChanged("CodigoSubClasificacion");
                 }
             }
         }
@@ -10087,6 +10125,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.DescripcionNivelField, value) != true)) {
                     this.DescripcionNivelField = value;
                     this.RaisePropertyChanged("DescripcionNivel");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DescripcionSubClasificacion {
+            get {
+                return this.DescripcionSubClasificacionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescripcionSubClasificacionField, value) != true)) {
+                    this.DescripcionSubClasificacionField = value;
+                    this.RaisePropertyChanged("DescripcionSubClasificacion");
                 }
             }
         }
@@ -11192,6 +11243,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.NivelField, value) != true)) {
                     this.NivelField = value;
                     this.RaisePropertyChanged("Nivel");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int NivelCaminoBrillante {
+            get {
+                return this.NivelCaminoBrillanteField;
+            }
+            set {
+                if ((this.NivelCaminoBrillanteField.Equals(value) != true)) {
+                    this.NivelCaminoBrillanteField = value;
+                    this.RaisePropertyChanged("NivelCaminoBrillante");
                 }
             }
         }
@@ -29106,6 +29170,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private bool EsBptField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int NivelCaminoBrillanteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int NumeroPedidoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -29195,6 +29262,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.EsBptField.Equals(value) != true)) {
                     this.EsBptField = value;
                     this.RaisePropertyChanged("EsBpt");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int NivelCaminoBrillante {
+            get {
+                return this.NivelCaminoBrillanteField;
+            }
+            set {
+                if ((this.NivelCaminoBrillanteField.Equals(value) != true)) {
+                    this.NivelCaminoBrillanteField = value;
+                    this.RaisePropertyChanged("NivelCaminoBrillante");
                 }
             }
         }
@@ -46015,16 +46095,16 @@ namespace Portal.Consultoras.Web.ServicePedido {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEEscalaDescuento[]> ListarEscalaDescuentoZonaAsync(int paisID, int campaniaID, string region, string zona);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetKitsCaminoBrillante", ReplyAction="http://tempuri.org/IPedidoService/GetKitsCaminoBrillanteResponse")]
-        Portal.Consultoras.Web.ServicePedido.BEKitCaminoBrillante[] GetKitsCaminoBrillante(Portal.Consultoras.Web.ServicePedido.BEUsuario entidad, int nivel);
+        Portal.Consultoras.Web.ServicePedido.BEKitCaminoBrillante[] GetKitsCaminoBrillante(Portal.Consultoras.Web.ServicePedido.BEUsuario entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetKitsCaminoBrillante", ReplyAction="http://tempuri.org/IPedidoService/GetKitsCaminoBrillanteResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEKitCaminoBrillante[]> GetKitsCaminoBrillanteAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario entidad, int nivel);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEKitCaminoBrillante[]> GetKitsCaminoBrillanteAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetDemostradoresCaminoBrillante", ReplyAction="http://tempuri.org/IPedidoService/GetDemostradoresCaminoBrillanteResponse")]
-        Portal.Consultoras.Web.ServicePedido.BEDesmostradoresCaminoBrillante[] GetDemostradoresCaminoBrillante(Portal.Consultoras.Web.ServicePedido.BEUsuario entidad, int nivel);
+        Portal.Consultoras.Web.ServicePedido.BEDesmostradoresCaminoBrillante[] GetDemostradoresCaminoBrillante(Portal.Consultoras.Web.ServicePedido.BEUsuario entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetDemostradoresCaminoBrillante", ReplyAction="http://tempuri.org/IPedidoService/GetDemostradoresCaminoBrillanteResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEDesmostradoresCaminoBrillante[]> GetDemostradoresCaminoBrillanteAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario entidad, int nivel);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEDesmostradoresCaminoBrillante[]> GetDemostradoresCaminoBrillanteAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetProductosShowRoomDetalle", ReplyAction="http://tempuri.org/IPedidoService/GetProductosShowRoomDetalleResponse")]
         Portal.Consultoras.Web.ServicePedido.BEShowRoomOfertaDetalle[] GetProductosShowRoomDetalle(int paisID, int campaniaId, string cuv);
@@ -48758,20 +48838,20 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.ListarEscalaDescuentoZonaAsync(paisID, campaniaID, region, zona);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEKitCaminoBrillante[] GetKitsCaminoBrillante(Portal.Consultoras.Web.ServicePedido.BEUsuario entidad, int nivel) {
-            return base.Channel.GetKitsCaminoBrillante(entidad, nivel);
+        public Portal.Consultoras.Web.ServicePedido.BEKitCaminoBrillante[] GetKitsCaminoBrillante(Portal.Consultoras.Web.ServicePedido.BEUsuario entidad) {
+            return base.Channel.GetKitsCaminoBrillante(entidad);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEKitCaminoBrillante[]> GetKitsCaminoBrillanteAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario entidad, int nivel) {
-            return base.Channel.GetKitsCaminoBrillanteAsync(entidad, nivel);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEKitCaminoBrillante[]> GetKitsCaminoBrillanteAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario entidad) {
+            return base.Channel.GetKitsCaminoBrillanteAsync(entidad);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEDesmostradoresCaminoBrillante[] GetDemostradoresCaminoBrillante(Portal.Consultoras.Web.ServicePedido.BEUsuario entidad, int nivel) {
-            return base.Channel.GetDemostradoresCaminoBrillante(entidad, nivel);
+        public Portal.Consultoras.Web.ServicePedido.BEDesmostradoresCaminoBrillante[] GetDemostradoresCaminoBrillante(Portal.Consultoras.Web.ServicePedido.BEUsuario entidad) {
+            return base.Channel.GetDemostradoresCaminoBrillante(entidad);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEDesmostradoresCaminoBrillante[]> GetDemostradoresCaminoBrillanteAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario entidad, int nivel) {
-            return base.Channel.GetDemostradoresCaminoBrillanteAsync(entidad, nivel);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEDesmostradoresCaminoBrillante[]> GetDemostradoresCaminoBrillanteAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario entidad) {
+            return base.Channel.GetDemostradoresCaminoBrillanteAsync(entidad);
         }
         
         public Portal.Consultoras.Web.ServicePedido.BEShowRoomOfertaDetalle[] GetProductosShowRoomDetalle(int paisID, int campaniaId, string cuv) {

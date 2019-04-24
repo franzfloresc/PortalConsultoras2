@@ -274,7 +274,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido ||
                 pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteAppConsultorasPedido)
             {
-                if (_bLCaminoBrillante.UpdEstragiaCaminiBrillante(estrategia, usuario.PaisID, usuario.CampaniaID, pedidoDetalle.Producto.CUV)) {
+                if (_bLCaminoBrillante.UpdEstragiaCaminiBrillante(estrategia, usuario.PaisID, usuario.CampaniaID, usuario.NivelCaminoBrillante, pedidoDetalle.Producto.CUV)) {
                     var codError = _bLCaminoBrillante.ValAgregarCaminiBrillante(estrategia, usuario, pedidoDetalle, lstDetalleAgrupado);
                     if (!string.IsNullOrEmpty(codError)) {
                         if(codError == Constantes.PedidoValidacion.Code.ERROR_CANTIDAD_LIMITE)

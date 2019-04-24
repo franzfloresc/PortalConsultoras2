@@ -1336,10 +1336,10 @@ namespace Portal.Consultoras.ServiceContracts
         #region Camino Brillante
 
         [OperationContract]
-        List<BEKitCaminoBrillante> GetKitsCaminoBrillante(BEUsuario entidad, int nivel);
+        List<BEKitCaminoBrillante> GetKitsCaminoBrillante(BEUsuario entidad);
 
         [OperationContract]
-        List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillante(BEUsuario entidad, int nivel);
+        List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillante(BEUsuario entidad);
         
         #endregion
 
