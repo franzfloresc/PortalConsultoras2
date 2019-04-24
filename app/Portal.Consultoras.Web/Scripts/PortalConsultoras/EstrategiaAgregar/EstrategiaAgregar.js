@@ -78,8 +78,8 @@ var EstrategiaAgregarModule = (function () {
     }
 
     var _OrigenPedido = {
-        MobileContenedorArmaTuPack: "2131502",
-        DesktopContenedorArmaTuPack: "1131502"
+        MobileContenedorArmaTuPack: ConstantesModule.OrigenPedidoWeb.MobileArmaTuPackFicha,  // "2131502",
+        DesktopContenedorArmaTuPack: ConstantesModule.OrigenPedidoWeb.DesktopArmaTuPackFicha // "1131502"
     }
 
     var getEstrategia = function ($btnAgregar, origenPedidoWebEstrategia) {

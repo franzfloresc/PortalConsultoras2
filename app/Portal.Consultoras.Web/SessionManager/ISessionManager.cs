@@ -1,9 +1,11 @@
 ﻿using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.Estrategia;
 using Portal.Consultoras.Web.Models.Layout;
 using Portal.Consultoras.Web.Models.MisCertificados;
 using Portal.Consultoras.Web.Models.PagoEnLinea;
 using Portal.Consultoras.Web.Models.ProgramaNuevas;
+using Portal.Consultoras.Web.Models.Recomendaciones;
 using Portal.Consultoras.Web.ServiceCDR;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
@@ -14,8 +16,6 @@ using Portal.Consultoras.Web.SessionManager.OfertaDelDia;
 using Portal.Consultoras.Web.SessionManager.ShowRoom;
 using System;
 using System.Collections.Generic;
-using Portal.Consultoras.Web.Models.Recomendaciones;
-using Portal.Consultoras.Web.Models.Estrategia;
 
 namespace Portal.Consultoras.Web.SessionManager
 {
@@ -470,10 +470,6 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetMisPedidosDetallePorCampaniaPedidoId(int val);
 
         int GetMisPedidosDetallePorCampaniaPedidoId();
-
-        //void SetCDRExpressMensajes(List<BETablaLogicaDatos> val);
-
-        //List<BETablaLogicaDatos> GetCDRExpressMensajes();
 
         void SetOcultarBannerTop(bool val);
 
