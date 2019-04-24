@@ -24,9 +24,6 @@ $(function () {
     }
 
     LayoutHeader();
-    //if (typeof menuModule !== "undefined") {
-    //    menuModule.Resize();
-    //}
 
     OcultarChatEmtelco();
 
@@ -771,7 +768,7 @@ function messageInfo(message, fnAceptar) {
     $('#popupInformacion .btn-aceptar').off('click');
     $('#popupInformacion .cerrar_popMobile').off('click');
 
-    $('#popupInformacion .btn-aceptar').on('click', function (e) {        
+    $('#popupInformacion .btn-aceptar').on('click', function (e) {
         $('#popupInformacion').hide();
         if ($.isFunction(fnAceptar)) fnAceptar(e);
     });
@@ -871,8 +868,8 @@ function messageConfirmacionDuoPerfecto(message, fnAceptar) {
 }
 
 function CargarCantidadProductosPedidos(noMostrarEfecto) {
-    noMostrarEfecto = noMostrarEfecto || false;    
-    
+    noMostrarEfecto = noMostrarEfecto || false;
+
     jQuery.ajax({
         type: 'POST',
         url: urlGetCantidadProductos,
