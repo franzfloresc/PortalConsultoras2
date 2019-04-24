@@ -21,7 +21,8 @@ $(document).ready((function (cerrarRechazado) {
                 cdrweb_formatocampania: ".cdrweb_formatocampania",
                 cdrweb_CantidadAprobados: ".cdrweb_CantidadAprobados",
                 cdrweb_CantidadRechazados: ".cdrweb_CantidadRechazados",
-                footer_page: ".footer-page"
+                footer_page: ".footer-page",
+                OrdenarSolicitudesRegistradasPor: "#OrdenarSolicitudesRegistradasPor"
             };
 
             me.Eventos = {
@@ -86,6 +87,27 @@ $(document).ready((function (cerrarRechazado) {
                                         cerrarRechazado = '0';
                                 }
                             });
+                        }
+                    });
+
+                    $(OrdenarSolicitudesRegistradasPor).on("change", function () {
+                        try {
+                            var $divMisReclamos = $('#divMisReclamos');
+                            $divMisReclamos.empty();
+                            ShowLoading();
+                            var o = $(this).val();
+                            if (o != "" && o != "0")
+                                $("#lblTextoSeleccionado").hide();
+                            else
+                                $("#lblTextoSeleccionado").fadeIn();
+
+                            var url = UrlGetMisReclamos + "?o=" + o;
+                            $.when($divMisReclamos.load(url)).done(function () {
+                                CloseLoading();
+                            });
+
+                        } catch (e) {
+                            CloseLoading();
                         }
                     });
                 }

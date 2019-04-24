@@ -93,6 +93,7 @@ $(document).ready(function () {
             OpcionDevolucion: "#OpcionDevolucion",
             OpcionCambioPorOtroProducto: "#OpcionCambioPorOtroProducto",
             OpcionCambioMismoProducto: "#OpcionCambioMismoProducto",
+            OrdenarSolicitudesRegistradasPor:"#OrdenarSolicitudesRegistradasPor",
             progreso: {
                 uno_producto: "#Selector1",
                 dos_solucion: "#Selector2",
@@ -619,6 +620,27 @@ $(document).ready(function () {
                     $(me.Variables.linkNuevoCambio).click();
                     $(me.Variables.Registro1).fadeIn(100);
 
+                });
+
+                $(me.Variables.OrdenarSolicitudesRegistradasPor).on("change", function () {
+                    try {
+                        var $divMisReclamos = $('#divMisReclamos');
+                        $divMisReclamos.empty();
+                        ShowLoading();
+                        var o = $(this).val();
+                        if (o != "" && o != "0")
+                            $("#lblTextoSeleccionado").hide();
+                        else
+                            $("#lblTextoSeleccionado").fadeIn();
+
+                        var url = UrlGetMisReclamos + "?o=" + o;
+                        $.when($divMisReclamos.load(url)).done(function () {
+                            CloseLoading();
+                        });
+
+                    } catch (e) {
+                        CloseLoading();
+                    }
                 });
             }
         };

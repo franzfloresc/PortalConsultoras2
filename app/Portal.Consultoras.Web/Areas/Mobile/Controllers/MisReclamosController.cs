@@ -320,9 +320,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return string.Format(textoFlete, userData.Simbolo, Util.DecimalToStringFormat(flete, userData.CodigoISO));
         }
 
-        public ActionResult GetReclamos() {
+        public ActionResult GetReclamos(int o = 0) {
             SessionManager.SetListaCDRWebCargaInicial(null);
             var misReclamos =  _cdrProvider.ObtenerCDRWebCargaInicial(userData.ConsultoraID, userData.PaisID);
+            if (o > 0)
+            {
+                misReclamos = misReclamos.Where(a => a.Estado == o).ToList();
+            }
             return PartialView("_ListaMisReclamos",misReclamos);
         }
     }
