@@ -412,5 +412,10 @@ namespace Portal.Consultoras.Web.Models
         public string CodigoSubClasificacion { get; set; }
         public string DescripcionSubclasificacion { get; set; }
         /*Fin*/
+
+        #region Camino Brillante
+        public int NivelCaminoBrillante { get; set; }
+        #endregion
+
     }
 }

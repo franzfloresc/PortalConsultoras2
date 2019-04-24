@@ -952,10 +952,6 @@ namespace Portal.Consultoras.Service
 
         #region Camino Brillante
 
-        public List<BENivelCaminoBrillante> GetNivelesCaminoBrillante(int paisId) {
-            return _caminoBrillanteBusinessLogic.GetNiveles(paisId);
-        }
-
         public BEConsultoraCaminoBrillante GetConsultoraNivelCaminoBrillante(BEUsuario entidad) {
             return _caminoBrillanteBusinessLogic.GetConsultoraNivel(entidad);
         }

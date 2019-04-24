@@ -2455,14 +2455,14 @@ namespace Portal.Consultoras.Service
 
         #region Camino Brillante
 
-        public List<BEKitCaminoBrillante> GetKitsCaminoBrillante(BEUsuario entidad, int nivel)
+        public List<BEKitCaminoBrillante> GetKitsCaminoBrillante(BEUsuario entidad)
         {
-            return _caminoBrillanteBusinessLogic.GetKits(entidad, nivel);
+            return _caminoBrillanteBusinessLogic.GetKits(entidad);
         }
 
-        public List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillante(BEUsuario entidad, int nivel)
+        public List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillante(BEUsuario entidad)
         {
-            return _caminoBrillanteBusinessLogic.GetDemostradores(entidad, nivel);
+            return _caminoBrillanteBusinessLogic.GetDemostradores(entidad);
         }
 
         #endregion

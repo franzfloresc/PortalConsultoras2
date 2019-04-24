@@ -163,9 +163,10 @@ namespace Portal.Consultoras.Web.Providers
                         PaisID = usuarioModel.PaisID,
                         CampaniaID = usuarioModel.CampaniaID,
                         ConsultoraID = usuarioModel.ConsultoraID,
-                        CodigoConsultora = usuarioModel.CodigoConsultora
+                        CodigoConsultora = usuarioModel.CodigoConsultora,
+                        NivelCaminoBrillante = usuarioModel.NivelCaminoBrillante,
                     };
-                    kits = svc.GetKitsCaminoBrillante(usuario, nivel).ToList();
+                    kits = svc.GetKitsCaminoBrillante(usuario).ToList();
                 }
                 if (kits != null && kits.Any(e => e.FlagHistorico))
                 {
@@ -204,10 +205,11 @@ namespace Portal.Consultoras.Web.Providers
                         PaisID = usuarioModel.PaisID,
                         CampaniaID = usuarioModel.CampaniaID,
                         ConsultoraID = usuarioModel.ConsultoraID,
-                        CodigoConsultora = usuarioModel.CodigoConsultora
+                        CodigoConsultora = usuarioModel.CodigoConsultora,
+                        NivelCaminoBrillante = usuarioModel.NivelCaminoBrillante,
                     };
 
-                    demostradores = svc.GetDemostradoresCaminoBrillante(usuario, nivel).ToList();
+                    demostradores = svc.GetDemostradoresCaminoBrillante(usuario).ToList();
                 }
 
                 sessionManager.SetDemostradoresCaminoBrillante(demostradores);
@@ -239,6 +241,22 @@ namespace Portal.Consultoras.Web.Providers
             return true;
         }
 
+        public bool LoadCaminoBrillante() {
+            try
+            {
+                var nivel = GetNivelActual();
+                var userModel = usuarioModel;
+                userModel.NivelCaminoBrillante = int.Parse(nivel.CodigoNivel);
+                sessionManager.SetUserData(userModel);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
+                return false;
+            }
+            return true;
+        }
+
         private BEConsultoraCaminoBrillante GetConsultoraNivelCaminoBrillante()
         {
             var resumen = sessionManager.GetConsultoraCaminoBrillante();
@@ -247,8 +265,8 @@ namespace Portal.Consultoras.Web.Providers
                 using (var svc = new UsuarioServiceClient())
                 {
                     resumen = svc.GetConsultoraNivelCaminoBrillante(Mapper.Map<ServiceUsuario.BEUsuario>(usuarioModel));
-                }
-                sessionManager.SetConsultoraCaminoBrillante(resumen);
+                }                
+                sessionManager.SetConsultoraCaminoBrillante(resumen);                
             }
             return resumen;
         }

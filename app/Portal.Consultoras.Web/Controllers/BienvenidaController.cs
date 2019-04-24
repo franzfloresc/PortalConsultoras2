@@ -242,6 +242,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (userData.CaminoBrillante) {
                     model.TieneCaminoBrillante = userData.CaminoBrillante;
 
+                    _caminoBrillanteProvider.LoadCaminoBrillante();
                     var nivelConsultoraCaminoBrillante = _caminoBrillanteProvider.GetNivelActual();
                     if (nivelConsultoraCaminoBrillante != null)
                     {

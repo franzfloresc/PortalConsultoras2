@@ -500,7 +500,7 @@ namespace Portal.Consultoras.BizLogic
                     Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido };
                 var blCaminoBrillante = new BLCaminoBrillante();
                 listpedidoDetalle.Where(e => origenPedidoWeb.Contains(e.OrigenPedidoWeb)).ToList().ForEach(e => {                    
-                    blCaminoBrillante.UpdFlagsKitsOrDemostradores(e, detParametros.PaisId, detParametros.CampaniaId);
+                    blCaminoBrillante.UpdFlagsKitsOrDemostradores(e, detParametros.PaisId, detParametros.CampaniaId, detParametros.NivelCaminoBrillante);
                 });
             }
             #endregion
