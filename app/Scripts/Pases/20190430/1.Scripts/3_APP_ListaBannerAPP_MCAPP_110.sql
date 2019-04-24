@@ -2,7 +2,7 @@
 GO
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Lista_BannerAPP]')  AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[PROCEDURE]
+	DROP PROCEDURE [dbo].[Lista_BannerAPP]
 GO
 
 CREATE PROC [dbo].Lista_BannerAPP
@@ -32,7 +32,7 @@ USE BelcorpMexico
 GO
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Lista_BannerAPP]')  AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[PROCEDURE]
+	DROP PROCEDURE [dbo].[Lista_BannerAPP]
 GO
 
 CREATE PROC [dbo].Lista_BannerAPP
@@ -62,7 +62,7 @@ USE BelcorpColombia
 GO
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Lista_BannerAPP]')  AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[PROCEDURE]
+	DROP PROCEDURE [dbo].[Lista_BannerAPP]
 GO
 
 CREATE PROC [dbo].Lista_BannerAPP
@@ -92,7 +92,7 @@ USE BelcorpSalvador
 GO
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Lista_BannerAPP]')  AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[PROCEDURE]
+	DROP PROCEDURE [dbo].[Lista_BannerAPP]
 GO
 
 CREATE PROC [dbo].Lista_BannerAPP
@@ -122,7 +122,7 @@ USE BelcorpPuertoRico
 GO
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Lista_BannerAPP]')  AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[PROCEDURE]
+	DROP PROCEDURE [dbo].[Lista_BannerAPP]
 GO
 
 CREATE PROC [dbo].Lista_BannerAPP
@@ -152,7 +152,7 @@ USE BelcorpPanama
 GO
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Lista_BannerAPP]')  AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[PROCEDURE]
+	DROP PROCEDURE [dbo].[Lista_BannerAPP]
 GO
 
 CREATE PROC [dbo].Lista_BannerAPP
@@ -182,7 +182,7 @@ USE BelcorpGuatemala
 GO
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Lista_BannerAPP]')  AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[PROCEDURE]
+	DROP PROCEDURE [dbo].[Lista_BannerAPP]
 GO
 
 CREATE PROC [dbo].Lista_BannerAPP
@@ -212,7 +212,7 @@ USE BelcorpEcuador
 GO
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Lista_BannerAPP]')  AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[PROCEDURE]
+	DROP PROCEDURE [dbo].[Lista_BannerAPP]
 GO
 
 CREATE PROC [dbo].Lista_BannerAPP
@@ -242,7 +242,7 @@ USE BelcorpDominicana
 GO
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Lista_BannerAPP]')  AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[PROCEDURE]
+	DROP PROCEDURE [dbo].[Lista_BannerAPP]
 GO
 
 CREATE PROC [dbo].Lista_BannerAPP
@@ -272,7 +272,7 @@ USE BelcorpCostaRica
 GO
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Lista_BannerAPP]')  AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[PROCEDURE]
+	DROP PROCEDURE [dbo].[Lista_BannerAPP]
 GO
 
 CREATE PROC [dbo].Lista_BannerAPP
@@ -302,7 +302,7 @@ USE BelcorpChile
 GO
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Lista_BannerAPP]')  AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[PROCEDURE]
+	DROP PROCEDURE [dbo].[Lista_BannerAPP]
 GO
 
 CREATE PROC [dbo].Lista_BannerAPP
@@ -332,7 +332,7 @@ USE BelcorpBolivia
 GO
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Lista_BannerAPP]')  AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[PROCEDURE]
+	DROP PROCEDURE [dbo].[Lista_BannerAPP]
 GO
 
 CREATE PROC [dbo].Lista_BannerAPP
