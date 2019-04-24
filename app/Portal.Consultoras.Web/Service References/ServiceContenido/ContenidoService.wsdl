@@ -32,7 +32,11 @@
       <xsd:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
       <xsd:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
       <xsd:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd4" />
-      <xsd:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Comunicado" />
+      <xsd:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido" />
+      <xsd:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
+      <xsd:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" />
+      <xsd:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Usuario" />
+      <xsd:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Comunicado" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IContenidoService_SelectBanner_InputMessage">
@@ -455,6 +459,18 @@
   <wsdl:message name="IContenidoService_ObtenerCorreoEmisor_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerCorreoEmisorResponse" />
   </wsdl:message>
+  <wsdl:message name="IContenidoService_GetContenidoApp_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetContenidoApp" />
+  </wsdl:message>
+  <wsdl:message name="IContenidoService_GetContenidoApp_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetContenidoAppResponse" />
+  </wsdl:message>
+  <wsdl:message name="IContenidoService_CheckContenidoApp_InputMessage">
+    <wsdl:part name="parameters" element="tns:CheckContenidoApp" />
+  </wsdl:message>
+  <wsdl:message name="IContenidoService_CheckContenidoApp_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CheckContenidoAppResponse" />
+  </wsdl:message>
   <wsdl:message name="IContenidoService_GetListaPopup_InputMessage">
     <wsdl:part name="parameters" element="tns:GetListaPopup" />
   </wsdl:message>
@@ -789,6 +805,14 @@
     <wsdl:operation name="ObtenerCorreoEmisor">
       <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/ObtenerCorreoEmisor" message="tns:IContenidoService_ObtenerCorreoEmisor_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/ObtenerCorreoEmisorResponse" message="tns:IContenidoService_ObtenerCorreoEmisor_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetContenidoApp">
+      <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/GetContenidoApp" message="tns:IContenidoService_GetContenidoApp_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/GetContenidoAppResponse" message="tns:IContenidoService_GetContenidoApp_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckContenidoApp">
+      <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/CheckContenidoApp" message="tns:IContenidoService_CheckContenidoApp_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/CheckContenidoAppResponse" message="tns:IContenidoService_CheckContenidoApp_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetListaPopup">
       <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/GetListaPopup" message="tns:IContenidoService_GetListaPopup_InputMessage" />
@@ -1452,6 +1476,24 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerCorreoEmisor">
       <soap:operation soapAction="http://tempuri.org/IContenidoService/ObtenerCorreoEmisor" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetContenidoApp">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/GetContenidoApp" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckContenidoApp">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/CheckContenidoApp" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2167,6 +2209,24 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerCorreoEmisor">
       <soap:operation soapAction="http://tempuri.org/IContenidoService/ObtenerCorreoEmisor" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetContenidoApp">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/GetContenidoApp" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckContenidoApp">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/CheckContenidoApp" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
