@@ -1717,6 +1717,7 @@ function EscogerSolucion(opcion, event) {
         $("#btnIrPaso3").fadeOut(100);
         tagDivInfo.fadeOut(100).children().fadeOut(100); //ocultamos la capa padre y los hijos
         $(opcion).parents(".opcion_cdr").removeClass("opcion_cdr_seleccionada");
+        $("#MensajeTenerEncuenta").fadeOut(100);
         return false;
     }
     tagDivInfo.show();//Mostramos la capa padre
