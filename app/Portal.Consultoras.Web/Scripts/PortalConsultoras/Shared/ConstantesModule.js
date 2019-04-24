@@ -23,7 +23,7 @@ var ConstantesModule = (function () {
         LiquidacionWeb: "OfertasLiquidacion",
         GuiaNegocio: "GuiaNegocio",
         SR: "ShowRoom",
-        DuoPerfecto:"DuoPerfecto" //HD-3473 EINCA
+        DuoPerfecto: "DuoPerfecto" //HD-3473 EINCA
     }
 
     var _keysLocalStorage = {
@@ -65,7 +65,7 @@ var ConstantesModule = (function () {
         ProgramaNuevasRegalo: "044",
         ParticipaProgramaNuevas: "1",
         NotParticipaProgramaNuevas: "0",
-        DuoPerfecto:"034"//HD-3473 EINCA
+        DuoPerfecto: "034"//HD-3473 EINCA
     }
 
     var _diccionarioTipoEstrategia = [
@@ -110,6 +110,28 @@ var ConstantesModule = (function () {
         DP: "DP"
     }
 
+
+    /// los que no tienen TipoPersonalizacion se pone texto
+    var _TipoEstrategiaTipoPersonalizacion = [
+        { TipoEstrategia: "001", TipoPersonalizacion: "OPT", Nombre: "" },
+        { TipoEstrategia: "002", TipoPersonalizacion: "", Nombre: "PackNueva" },
+        { TipoEstrategia: "003", TipoPersonalizacion: "" },
+        { TipoEstrategia: "004", TipoPersonalizacion: "ATP" },
+        { TipoEstrategia: "005", TipoPersonalizacion: "LAN" },
+        { TipoEstrategia: "006", TipoPersonalizacion: "" },
+        { TipoEstrategia: "007", TipoPersonalizacion: "OPM" },
+        { TipoEstrategia: "008", TipoPersonalizacion: "PAD" },
+        { TipoEstrategia: "009", TipoPersonalizacion: "ODD" },
+        { TipoEstrategia: "010", TipoPersonalizacion: "GND" },
+        { TipoEstrategia: "011", TipoPersonalizacion: "HV" },
+        { TipoEstrategia: "020", TipoPersonalizacion: "", Nombre: "MasVendidos" },
+        { TipoEstrategia: "021", TipoPersonalizacion: "", Nombre: "ProgramaNuevas" },
+        { TipoEstrategia: "022", TipoPersonalizacion: "", Nombre: "Incentivos" },
+        { TipoEstrategia: "030", TipoPersonalizacion: "SR" },
+        { TipoEstrategia: "101", TipoPersonalizacion: "", Nombre: "RevistaDigital" },
+        { TipoEstrategia: "201", TipoPersonalizacion: "", Nombre: "MasGanadoras" }
+    ];
+
     var _urlObtenerEstrategia = {
         OfertaParaTi: "/Estrategia/OPTObtenerProductos",
         OfertasParaMi: "/Estrategia/RDObtenerProductos",
@@ -144,7 +166,12 @@ var ConstantesModule = (function () {
         MobileBuscadorGanadorasCarrusel: "2101401",
         DesktopLandingBuscadorGanadorasFicha: "1101402",
         MobileLandingBuscadorGanadorasFicha: "2101402"
-
+    }
+    var _codigoUbigeoPortal = {
+        GuionPedidoGuionFichaResumida: "--02--00",
+        GuionContenedorArmaTuPackGuion: "--0816--",
+        GuionContenedorArmaTuPack: "--12----",
+        GuionCarritoComprasGuionFichaResumida: "--02--09"
     }
 
     // en AnaluticsPortal.js tambiar actualizar los valores
@@ -212,6 +239,7 @@ var ConstantesModule = (function () {
 
     var _urlDetalleEstrategia = {
         obtenerComponentes: '/DetalleEstrategia/ObtenerComponentes',
+        obtenerComponenteDetalle: '/DetalleEstrategia/ObtenerComponenteDetalle',
         obtenerModelo: '/DetalleEstrategia/ObtenerModelo',
         obtenerPedidoWebSetDetalle: '/Pedido/ObtenerPedidoWebSetDetalle',
         obtenerEstrategiaFicha: '/Estrategia/ObtenerOfertaFicha'
@@ -222,6 +250,19 @@ var ConstantesModule = (function () {
         ejecutarServicioProl: '/Pedido/EjecutarServicioPROL',
         updatePostulanteMensaje: '/Pedido/UpdatePostulanteMensaje'
     }
+
+    var _getTipoPersonalizacionByTipoEstrategia = function (codigoTipoEstrategia) {
+
+        var valor = _TipoEstrategiaTipoPersonalizacion.find(function (element) {
+            return element.TipoEstrategia == codigoTipoEstrategia;
+        });
+
+        if (valor == undefined) {
+            return "";
+        }
+
+        valor.TipoPersonalizacion || valor.Nombre || "";
+    };
 
     return {
         CodigoPalanca: _codigoPalanca,
@@ -237,6 +278,8 @@ var ConstantesModule = (function () {
         UrlObtenerEstrategia: _urlObtenerEstrategia,
         UrlDetalleEstrategia: _urlDetalleEstrategia,
         UrlPedido: _urlPedido,
-        DiccionarioTipoEstrategia: _diccionarioTipoEstrategia
+        DiccionarioTipoEstrategia: _diccionarioTipoEstrategia,
+        GetTipoPersonalizacionByTipoEstrategia: _getTipoPersonalizacionByTipoEstrategia,
+        CodigoUbigeoPortal: _codigoUbigeoPortal
     }
 })();

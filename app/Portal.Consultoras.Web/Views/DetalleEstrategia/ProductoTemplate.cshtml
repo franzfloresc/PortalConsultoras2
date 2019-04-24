@@ -1,6 +1,6 @@
 ﻿@using Portal.Consultoras.Common
 <script id="ficha_producto_template" type="text/x-handlebars-template">
-    <div data-OrigenPedidoWeb="{{OrigenUrl}}" data-OrigenPedidoWebAgregar="{{OrigenAgregar}}">
+    <div data-OrigenPedidoWeb="{{OrigenUrl}}" data-OrigenPedidoWebAgregar="{{OrigenAgregar}}" data-OrigenPedidoEditar="{{CodigoUbigeoPortal}}">
         <div id="dvSeccionIzquierdo" class="ficha_producto">
             <div id="dvSeccionFoto">
                 <div id="FichaImagenProducto" class="contenedor_imagen">
@@ -31,7 +31,7 @@
                     <input type="hidden" class="Nombre" value="{{DescripcionCompleta}}" />
                     <input type="hidden" class="ProductoDescripcion" value="" />
                     <input type="hidden" class="Volumen" value="" />
-                    <input type="hidden" class="Palanca" value="{{Palanca}}" />
+                    <input type="hidden" class="Palanca" value="{{TipoPersonalizacion}}" />
                 </div>
                 <div class="texto_redes_sociales">Comparte este producto con tus clientes</div>
                 <a class="btn_compartir_facebook" href="javascript:;" data-compartir="FB">
@@ -69,6 +69,27 @@
                             {{/if}}
                         </div>
                         <div class="descripcion" data-descripcion="">{{DescripcionCompleta}}</div>
+                        @*
+        <div class="descripcion_item" style="margin-top: 8px;">15 gr</div>
+        <div class="descripcion_item">15 x 20 x 25 milimentos</div>
+                        *@
+                        <!--INI AGANA 456 -->
+                        {{#iff MostrarFichaEnriquecida '==' true }}
+                        {{#iff this.Hermanos.length '==' 1}}
+                        {{#each this.Hermanos as |componente|}}
+                        <div class="descripcion_item">
+                            {{componente.Cabecera.ContenidoNeto}}
+                        </div>
+                        <div class="descripcion_item">
+                            {{componente.Cabecera.Dimensiones}}
+                        </div>
+                        <div class="descripcion_item">
+                            {{componente.Cabecera.TallaMedidas}}
+                        </div>
+                        {{/each}}
+                        {{/iff}}
+                        {{/iff}}
+                        <!--END AGANA 456 -->
                     </div>
                     <div class="contenedor_derecho">
                         {{#iff Precio '>' 0}}

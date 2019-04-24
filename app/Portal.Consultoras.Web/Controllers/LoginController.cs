@@ -6,12 +6,13 @@ using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.CustomHelpers;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.Estrategia;
 using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using Portal.Consultoras.Web.Models.ProgramaNuevas;
+using Portal.Consultoras.Web.Models.Recomendaciones;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceContenido;
 using Portal.Consultoras.Web.ServicePedido;
-using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
@@ -28,9 +29,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
-using Portal.Consultoras.Web.Models.Recomendaciones;
 using BEConfiguracionPaisDatos = Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos;
-using Portal.Consultoras.Web.Models.Estrategia;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -870,7 +869,7 @@ namespace Portal.Consultoras.Web.Controllers
                         return RedirectToUniqueRoute("ConsultoraOnline", "Pendientes");
                     case Constantes.IngresoExternoPagina.Notificaciones:
                         return RedirectToUniqueRoute("Notificaciones", "IndexExterno", new { IdOrigen = model.OrigenPedido });
-                    case Constantes.IngresoExternoPagina.MasGanadoras: 
+                    case Constantes.IngresoExternoPagina.MasGanadoras:
                         return RedirectToUniqueRoute("MasGanadoras", "Index");
                     case Constantes.IngresoExternoPagina.ArmaTuPack:
                         return RedirectToUniqueRoute("ArmaTuPack", "Detalle");
@@ -1349,8 +1348,8 @@ namespace Portal.Consultoras.Web.Controllers
                         var lista = linkPaisTask.Result;
                         if (lista.Count > 0)
                         {
-                            usuarioModel.UrlAyuda = lista.Find(x => x.TipoLinkID == 301) != null 
-                                ? lista.Find(x => x.TipoLinkID == 301).Url 
+                            usuarioModel.UrlAyuda = lista.Find(x => x.TipoLinkID == 301) != null
+                                ? lista.Find(x => x.TipoLinkID == 301).Url
                                 : null;
                             usuarioModel.UrlCapedevi = lista.Find(x => x.TipoLinkID == 302) != null
                                 ? lista.Find(x => x.TipoLinkID == 302).Url
@@ -1804,7 +1803,7 @@ namespace Portal.Consultoras.Web.Controllers
             BETablaLogicaDatos tablaLogicaDatos;
             using (var svc = new SACServiceClient())
             {
-                var lst = await svc.GetTablaLogicaDatosAsync(paisId, Constantes.TablaLogica.CodigoRevistaFisica);
+                var lst = await svc.GetTablaLogicaDatosAsync(paisId, ConsTablaLogica.CodigosRevistaImpresa.TablaLogicaId);
 
                 tablaLogicaDatos = lst.FirstOrDefault();
             }
@@ -2784,8 +2783,7 @@ namespace Portal.Consultoras.Web.Controllers
                 BETablaLogicaDatos[] listDatos;
                 using (var svc = new SACServiceClient())
                 {
-                    listDatos = svc.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.Palanca);
-
+                    listDatos = svc.GetTablaLogicaDatos(paisId, ConsTablaLogica.Palanca.TablaLogicaId);
                 }
                 if (!listDatos.Any()) return false;
                 var first = listDatos.FirstOrDefault();
@@ -2793,7 +2791,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-
                 logManager.LogErrorWebServicesBusWrap(ex, string.Empty, string.Empty,
                    "LoginController.HabilitarLogCargaOfertas");
             }

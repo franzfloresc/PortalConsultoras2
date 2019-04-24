@@ -1162,6 +1162,29 @@ function messageConfirmacion(title, message, fnAceptar) {
     }
 }
 
+function messageConfirmacion(title, message, fnAceptar, fnCancelar) {
+    title = $.trim(title);
+    if (title == "")
+        title = "MENSAJE";
+
+    message = $.trim(message);
+    if (message == "") {
+        return false;
+    }
+
+    $('#divMensajeConfirmacion .divTitle').html(title);
+    $('#divMensajeConfirmacion .divTexto p').html(message);
+    $('#divMensajeConfirmacion').dialog('open');
+    if ($.isFunction(fnAceptar)) {
+        $('#divMensajeConfirmacion .btnMensajeAceptar').off('click');
+        $('#divMensajeConfirmacion .btnMensajeAceptar').on('click', fnAceptar);
+    }
+    if ($.isFunction(fnCancelar)) {
+        $('#divMensajeConfirmacion .btnMensajeCancelar').off('click');
+        $('#divMensajeConfirmacion .btnMensajeCancelar').on('click', fnCancelar);
+    }
+}
+
 function closeOfertaDelDia(sender) {
     var nombreProducto = $(sender)
         .parent()

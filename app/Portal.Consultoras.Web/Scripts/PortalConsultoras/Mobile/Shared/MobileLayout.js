@@ -844,6 +844,23 @@ function messageConfirmacion(title, message, fnAceptar) {
     }
 }
 
+function messageConfirmacion(title, message, fnAceptar, fnCancelar) {
+    $('#mensajeInformacionConfirmacion').html(message);
+    $('#popupInformacionConfirmacion').show();
+    title = $.trim(title);
+    title = title == "" ? "MENSAJE" : title;
+    $('#popupInformacionConfirmacion #bTagTitulo').html(title);
+    if ($.isFunction(fnAceptar)) {
+        $('#popupInformacionConfirmacion .aceptar-mobile').off('click');
+        $('#popupInformacionConfirmacion .aceptar-mobile').on('click', fnAceptar);
+    }
+
+    if ($.isFunction(fnCancelar)) {
+        $('#popupInformacionConfirmacion .cancelar-mobile').off('click');
+        $('#popupInformacionConfirmacion .cancelar-mobile').on('click', fnCancelar);
+    }
+}
+
 function messageConfirmacionDuoPerfecto(message, fnAceptar) {
     $('#mensajeInformacionConfDuoPerfecto').html(message);
     $('#popupInformacionConfDuoPerfecto').show();

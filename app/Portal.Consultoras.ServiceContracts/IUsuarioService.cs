@@ -439,5 +439,29 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         void RegistrarDireccionEntrega(string codigoISO, BEDireccionEntrega direccionEntrega);
         #endregion
+
+        [OperationContract]
+        int ActualizarValidacionDatos(bool isMobile, string ipDispositivo, string codigoConsultora, int PaisID, string CodigoUsuario,string tipoEnvio1, string tipoEnvio2);
+
+        [OperationContract]
+        int ActualizarSMS(int PaisID, string codigoConsultora, string tipoEnvio, string celularAnterior, string celularActual);
+
+        [OperationContract]
+        int ActualizarFijo(int PaisID, string codigoConsultora, string tipoEnvio, string telefonoAnterior, string telefonoActual);
+
+        [OperationContract]
+        int ValidaEstadoPopup(int PaisID);
+
+
+        [OperationContract]
+        List<BEValidacionDatos> GetTipoEnvioActivos(int PaisID, string CodigoUsuario);
+
+        [OperationContract]
+        List<BEValidacionDatos> ListarValidacionDatos(BEValidacionDatos beValidacionDatos);
+
+
+
+
+
     }
 }
