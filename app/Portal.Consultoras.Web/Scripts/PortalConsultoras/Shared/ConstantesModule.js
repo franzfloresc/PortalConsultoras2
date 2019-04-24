@@ -170,7 +170,6 @@ var ConstantesModule = (function () {
 
     // en AnaluticsPortal.js tambiar actualizar los valores
     var _origenPedidoWebEstructura = {
-        Guion: '--',
         Dimension: 7,
         Dispositivo: {
             Desktop: '1',
