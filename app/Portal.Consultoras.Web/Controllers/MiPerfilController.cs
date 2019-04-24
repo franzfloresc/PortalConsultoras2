@@ -390,15 +390,13 @@ namespace Portal.Consultoras.Web.Controllers
 
         private void ActualizarValidacionDatosUnique(bool isMobile, string codigoUsuario, string tipoEnvio)
         {
-            int result = 0;
             var request = new HttpRequestWrapper(System.Web.HttpContext.Current.Request);
             string ipDispositivo = request.ClientIPFromRequest(skipPrivate: true);
             ipDispositivo = ipDispositivo == null ? String.Empty : ipDispositivo;
 
             using (UsuarioServiceClient sv = new UsuarioServiceClient())
             {
-                result = sv.ActualizarValidacionDatos(isMobile, ipDispositivo, codigoUsuario, userData.PaisID, codigoUsuario, tipoEnvio, string.Empty);
-
+                sv.ActualizarValidacionDatos(isMobile, ipDispositivo, codigoUsuario, userData.PaisID, codigoUsuario, tipoEnvio, string.Empty);
             }
         }
 
@@ -743,100 +741,50 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
 
-
             return response;
-
         }
-
-
+        
         public void ActualizarValidacionDatos(bool isMobile,string codigoConsultora, string emailNuevo, string celularNuevo, string fijoNuevo )
         {
-            string tipoEnvio1 = string.Empty, tipoEnvio2 = string.Empty;
-            int result = 0;
+            var listTipoEnvio = new List<string>();
+            if (emailNuevo != userData.EMail) listTipoEnvio.Add(Constantes.TipoEnvio.EMAIL);
+            if (celularNuevo != userData.Celular) listTipoEnvio.Add(Constantes.TipoEnvio.SMS);
+            if (fijoNuevo != userData.Telefono) listTipoEnvio.Add(Constantes.TipoEnvio.FIJO);
+            if (!listTipoEnvio.Any()) return;
+
+            string tipoEnvio1, tipoEnvio2 = string.Empty;
+            if (listTipoEnvio.Count == 3) tipoEnvio1 = Constantes.TipoEnvio.TODO;
+            else {
+                tipoEnvio1 = listTipoEnvio[0];
+                if (listTipoEnvio.Count == 2) tipoEnvio2 = listTipoEnvio[1];
+            }
+
             var request = new HttpRequestWrapper(System.Web.HttpContext.Current.Request);
-            string ipDispositivo = request.ClientIPFromRequest(skipPrivate: true);
-                   ipDispositivo = ipDispositivo == null ? String.Empty : ipDispositivo;
-
-            if (emailNuevo != userData.EMail && celularNuevo!=userData.Celular && fijoNuevo!=userData.Telefono)
+            string ipDispositivo = request.ClientIPFromRequest(skipPrivate: true) ?? string.Empty;
+            using (UsuarioServiceClient sv = new UsuarioServiceClient())
             {
-                tipoEnvio1 = Constantes.TipoEnvio.TODO.ToString();
-                tipoEnvio2 = string.Empty;
-            }
-
-            if (emailNuevo == userData.EMail && celularNuevo == userData.Celular && fijoNuevo != userData.Telefono)
-            {
-                tipoEnvio1 = Constantes.TipoEnvio.FIJO.ToString();
-                tipoEnvio2 = string.Empty;
-            }
-
-            if (emailNuevo == userData.EMail && celularNuevo != userData.Celular && fijoNuevo == userData.Telefono)
-            {
-                tipoEnvio1 = Constantes.TipoEnvio.SMS.ToString();
-                tipoEnvio2 = string.Empty;
-            }
-
-            if (emailNuevo != userData.EMail && celularNuevo == userData.Celular && fijoNuevo == userData.Telefono)
-            {
-                tipoEnvio1 = Constantes.TipoEnvio.EMAIL.ToString();
-                tipoEnvio2 = string.Empty;
-            }
-
-            if (emailNuevo != userData.EMail && celularNuevo != userData.Celular && fijoNuevo == userData.Telefono)
-            {
-                tipoEnvio1 = Constantes.TipoEnvio.EMAIL.ToString();
-                tipoEnvio2 = Constantes.TipoEnvio.SMS.ToString();
-            }
-
-            if (emailNuevo != userData.EMail && celularNuevo == userData.Celular && fijoNuevo != userData.Telefono)
-            {
-                tipoEnvio1 = Constantes.TipoEnvio.EMAIL.ToString();
-                tipoEnvio2 = Constantes.TipoEnvio.FIJO.ToString();
-            }
-
-            if (emailNuevo == userData.EMail && celularNuevo != userData.Celular && fijoNuevo != userData.Telefono)
-            {
-                tipoEnvio1 = Constantes.TipoEnvio.SMS.ToString();
-                tipoEnvio2 = Constantes.TipoEnvio.FIJO.ToString();
-            }
-
-            if (tipoEnvio1 == string.Empty && tipoEnvio2 == string.Empty)
-                return;
-            else
-            {
-                using (UsuarioServiceClient sv = new UsuarioServiceClient())
-                {
-                    result = sv.ActualizarValidacionDatos(isMobile, ipDispositivo, codigoConsultora, userData.PaisID, userData.CodigoUsuario, tipoEnvio1, tipoEnvio2);
-
-                }
+                sv.ActualizarValidacionDatos(isMobile, ipDispositivo, codigoConsultora, userData.PaisID, userData.CodigoUsuario, tipoEnvio1, tipoEnvio2);
             }
         }
 
         public void ActualizarSMS(int paisId, string codigoConsultora, string celularAnterior, string celularActual)
         {
-            int result = 0;
-            if (celularActual != celularAnterior)
+            if (celularActual == celularAnterior) return;
+            if (userData.PaisID == Constantes.PaisID.Peru) return;
+
+            using (UsuarioServiceClient sv = new UsuarioServiceClient())
             {
-                string tipoEnvio = Constantes.TipoEnvio.SMS.ToString();
-                if (userData.PaisID != Convert.ToInt32(Constantes.PaisID.Peru))/*Se ejecuta para todos los países menos Perú*/
-                {
-                    using (UsuarioServiceClient sv = new UsuarioServiceClient())
-                    {
-                        result = sv.ActualizarSMS(paisId, codigoConsultora, tipoEnvio, celularAnterior, celularActual);
-                    }
-                }
+                sv.ActualizarSMS(paisId, codigoConsultora, Constantes.TipoEnvio.SMS, celularAnterior, celularActual);
             }
         }
 
         public void ActualizarFijo(int paisId, string codigoConsultora, string telefonoAnterior, string telefonoActual)
         {
-            int result = 0;
-            if (telefonoActual != telefonoAnterior)
+            if (telefonoActual == telefonoAnterior) return;
+
+            using (UsuarioServiceClient sv = new UsuarioServiceClient())
             {
-                string tipoEnvio = Constantes.TipoEnvio.FIJO.ToString();
-                using (UsuarioServiceClient sv = new UsuarioServiceClient())
-                {
-                    result = sv.ActualizarFijo(paisId, codigoConsultora, tipoEnvio, telefonoAnterior, telefonoActual);
-                }
+                sv.ActualizarFijo(paisId, codigoConsultora, Constantes.TipoEnvio.FIJO, telefonoAnterior, telefonoActual);
             }
         }
 
