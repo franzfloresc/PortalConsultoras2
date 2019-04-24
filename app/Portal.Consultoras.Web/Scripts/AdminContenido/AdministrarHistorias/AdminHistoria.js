@@ -38,9 +38,7 @@ function IniDialogDetalle() {
         close: function () {
             HideDialog("DialogMantenimientoDetalle");
         },
-        open: function (event, ui) {
-            DialogOfertasHomeOpen(event, ui);
-        },
+        open: function (event, ui) { },
         buttons:
             {
             "Guardar": function () {

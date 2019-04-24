@@ -5,9 +5,7 @@
         TablaPagina: '#pagerHistoriaDet',
         DialogRegistro: 'DialogMantenimientoHistoriaDatos',
         DialogRegistroHtml: '#dialog-content-historia-datos',
-        DialogRegistroDatosHtml: '#dialog-content-palanca-datos #contenido-palanca-datos',
         BtnNuevo: '#btnCrearRegistro',
-        DdlPalanca: '#ddlPalanca',
         DdlComponente: '#ddlComponente',
         DdlCampania: '#ddlCampania',
         DivFormulario: '#divMantDatos',
@@ -40,16 +38,8 @@
         Deshabilitar: 4
     };
 
-    var _tipoDato = {
-        txt: 'txt',
-        Img: 'img',
-        checkbox: 'checkbox'
-    }
-
     var _evento = function () {
-
         CargarGrilla();
-
     };
 
     var _GrillaAcciones = function (cellvalue, options, rowObject) {
@@ -64,7 +54,8 @@
         if (cellvalue == "") {
             act = "<img src='" + rutaImagenVacia + "' border='0' style='max-width: 40px; max-height: 40px;' />";
         } else {
-            act = "<a href='javascript:;' onclick=\'return admHistoriaDatos.VerImagen(event, \" " + urlDetalleS3 + cellvalue + " \");\' >" + "<img src='" + urlDetalleS3 + cellvalue + "' border='0' style='max-width: 40px; max-height: 40px;' /></a>";
+            act = "<img src='" + urlDetalleS3 + cellvalue + "' border='0' style='max-width: 40px; max-height: 40px;' />";
+            //act = "<a href='javascript:;' onclick=\'return admHistoriaDatos.VerImagen(event, \" " + urlDetalleS3 + cellvalue + " \");\' >" + "<img src='" + urlDetalleS3 + cellvalue + "' border='0' style='max-width: 40px; max-height: 40px;' /></a>";
         }
         return act;
     };
@@ -170,7 +161,6 @@
     }
 
     var GrillaVerImagen = function (event, img) {
-        debugger;
         var rowId = $(event.path[1]).parents('tr').attr('id');
         var row = jQuery(_elemento.TablaId).getRowData(rowId);
         var entidad = {
@@ -182,7 +172,6 @@
     }
 
     var _RegistroObtenerPopupImagen = function (modelo) {
-
         //console.log(modelo);
         //return;
         waitingDialog();
@@ -193,29 +182,20 @@
             data: modelo,
             contentType: 'application/json; charset=utf-8',
             success: function (result) {
-                debugger;
                 closeWaitingDialog();
 
                 $(_elemento.DialogRegistroHtml).empty();
                 $(_elemento.DialogRegistroHtml).html(result);
                 showDialog(_elemento.DialogRegistro);
-                $('body').css({ 'overflow-x': 'hidden' });
-                $('body').css({ 'overflow-y': 'hidden' });
-
-                $(_elemento.PopupTitulo).html(_texto.PopupTituloNuevo);
-                $(_elemento.ChbxEstado).prop("checked", true);
 
             },
             error: function (request, status, error) {
-                if (modelo.Accion === _accion.Deshabilitar) {
                     _toastHelper.error(_texto.ProcesoError);
-                }
             }
         });
     };
 
     var _RegistroObterner = function (modelo) {
-
         //console.log(modelo);
         //return;
         waitingDialog();
@@ -226,50 +206,19 @@
             data: modelo,
             contentType: 'application/json; charset=utf-8',
             success: function (result) {
+ 
                 closeWaitingDialog();
 
-                if (modelo.Accion === _accion.Deshabilitar) {
-                    _toastHelper.success(_texto.ProcesoConforme);
-                }
-                else if (modelo.Accion === _accion.NuevoDatos) {
-                    $(_elemento.DialogRegistroDatosHtml).empty();
-                    $(_elemento.DialogRegistroDatosHtml).
-                        html(result)
-                        .ready(_RegistroObternerImagen());
+                $(_elemento.DialogRegistroHtml).empty();
+                $(_elemento.DialogRegistroHtml)
+                    .html(result)
+                    .ready(_RegistroObternerImagen());
 
-                    $(_elemento.ChbxEstado).prop("checked", $(_elemento.DivFormulario).attr('data-estado') === "True");
-
-                }
-                else if (modelo.Accion === _accion.Editar) {
-                    $(_elemento.DialogRegistroHtml).empty();
-                    $(_elemento.DialogRegistroHtml)
-                        .html(result)
-                        .ready(_RegistroObternerImagen());
-
-                    showDialog(_elemento.DialogRegistro);
-                    $('body').css({ 'overflow-x': 'hidden' });
-                    $('body').css({ 'overflow-y': 'hidden' });
-
-                    $(_elemento.PopupTitulo).html(_texto.PopupTituloEditar);
-                    $(_elemento.DdlPalanca).attr("disabled", "disabled");
-                    $(_elemento.DdlComponente).attr("disabled", "disabled");
-                    $(_elemento.DdlCampania).attr("disabled", "disabled");
-                }
-                else {
-                    $(_elemento.DialogRegistroHtml).empty();
-                    $(_elemento.DialogRegistroHtml).html(result);
-                    showDialog(_elemento.DialogRegistro);
-                    $('body').css({ 'overflow-x': 'hidden' });
-                    $('body').css({ 'overflow-y': 'hidden' });
-
-                    $(_elemento.PopupTitulo).html(_texto.PopupTituloNuevo);
-                    $(_elemento.ChbxEstado).prop("checked", true);
-                }
+                showDialog(_elemento.DialogRegistro);
+                
             },
             error: function (request, status, error) {
-                if (modelo.Accion === _accion.Deshabilitar) {
                     _toastHelper.error(_texto.ProcesoError);
-                }
             }
         });
     };
@@ -324,7 +273,6 @@
     };
 
     var _GuardarDatos = function (dialog) {
-        console.log("Guardar");
         var IdContenidoDeta = $('#IdContenidoDeta').val();
         var IdContenido = $('#IdContenido').val();
         var listaDatos = {
@@ -361,6 +309,33 @@
     var _initializar = function (param) {
         _evento();
         _DialogCrear();
+        _DialogImagen();
+    };
+
+    var _DialogImagen = function () {
+        $('#DialogDialogImagen').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 830,
+            height: 500,
+            close: function () {
+                HideDialog("DialogImagen");
+            },
+            draggable: false,
+            title: "Imagen",
+            open: function (event, ui) { },
+            buttons:
+            {
+                'Guardar': function () {
+                   // _GuardarDatos(this);
+                },
+                'Salir': function () {
+                    HideDialog("DialogImagen");
+                }
+            }
+        });
     };
 
     return {
