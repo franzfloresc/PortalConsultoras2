@@ -904,7 +904,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 }
 
 .opcion_cdr_seleccionada_info_wrapper {
-    margin-bottom: 50px;
+    margin-bottom: 32px;
 }
 
 .opcion_cdr_seleccionada_info--cambiarPorOtroProducto p,
@@ -1191,7 +1191,11 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     padding: 15px 0 25px 0;
     width: 100%;
     max-width: 312px;
-    border-bottom: 1px solid #000;
+    margin-top:24px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    border-top: 1px solid #808080;
+    border-bottom: 1px solid #808080;
 }
 
 .titulo_info_cdr {
@@ -1199,7 +1203,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 }
 
 .titulo_info_cdr, .content_info_cdr {
-    font-size: 13px;
+    font-size: 12px;
 }
 
 .titulo_revision_resumen {
