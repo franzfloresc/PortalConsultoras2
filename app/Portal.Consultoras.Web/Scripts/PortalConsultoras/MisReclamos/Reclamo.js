@@ -667,9 +667,11 @@ function AsignarCUV(pedido) {
         $("#txtPrecioUnidad").val(data.PrecioUnidad);
         $("#hdImporteTotalPedido").val(pedido.ImporteTotal);
         $("#CDRWebID").val(CDRWebID);
-        $.when(BuscarMotivo()).then(function () {
-            DetalleCargar();
-        });
+        BuscarMotivo();
+        DetalleCargar();
+        //$.when().then(function () {
+            
+        //});
 
     }
 }
