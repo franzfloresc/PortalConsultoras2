@@ -26,24 +26,6 @@ SELECT
 FROM [dbo].[MenuApp]
 WHERE VersionMenu = 8 ;
 
-
-
-SELECT 
-      [Codigo]
-      ,[Descripcion]
-      ,[Orden]
-      ,[CodigoMenuPadre]
-      ,[Posicion]
-      ,[Visible]
-      ,9
-      ,[Descripcion2]
-      ,[Descripcion3]
-      ,[VigenciaNueva]
-FROM [dbo].[MenuApp]
-WHERE VersionMenu = 9 
-AND CodigoMenuPadre = 'MEN_LAT_NEGOCIO'
-ORDER BY ORDEN;
-
 UPDATE [dbo].[MenuApp]
 SET Orden = Orden + 1
 WHERE VersionMenu = 9 AND Orden > 4
@@ -80,24 +62,6 @@ SELECT
       ,[VigenciaNueva]
 FROM [dbo].[MenuApp]
 WHERE VersionMenu = 8 ;
-
-
-
-SELECT 
-      [Codigo]
-      ,[Descripcion]
-      ,[Orden]
-      ,[CodigoMenuPadre]
-      ,[Posicion]
-      ,[Visible]
-      ,9
-      ,[Descripcion2]
-      ,[Descripcion3]
-      ,[VigenciaNueva]
-FROM [dbo].[MenuApp]
-WHERE VersionMenu = 9 
-AND CodigoMenuPadre = 'MEN_LAT_NEGOCIO'
-ORDER BY ORDEN;
 
 UPDATE [dbo].[MenuApp]
 SET Orden = Orden + 1
@@ -136,24 +100,6 @@ SELECT
 FROM [dbo].[MenuApp]
 WHERE VersionMenu = 8 ;
 
-
-
-SELECT 
-      [Codigo]
-      ,[Descripcion]
-      ,[Orden]
-      ,[CodigoMenuPadre]
-      ,[Posicion]
-      ,[Visible]
-      ,9
-      ,[Descripcion2]
-      ,[Descripcion3]
-      ,[VigenciaNueva]
-FROM [dbo].[MenuApp]
-WHERE VersionMenu = 9 
-AND CodigoMenuPadre = 'MEN_LAT_NEGOCIO'
-ORDER BY ORDEN;
-
 UPDATE [dbo].[MenuApp]
 SET Orden = Orden + 1
 WHERE VersionMenu = 9 AND Orden > 4
@@ -190,24 +136,6 @@ SELECT
       ,[VigenciaNueva]
 FROM [dbo].[MenuApp]
 WHERE VersionMenu = 8 ;
-
-
-
-SELECT 
-      [Codigo]
-      ,[Descripcion]
-      ,[Orden]
-      ,[CodigoMenuPadre]
-      ,[Posicion]
-      ,[Visible]
-      ,9
-      ,[Descripcion2]
-      ,[Descripcion3]
-      ,[VigenciaNueva]
-FROM [dbo].[MenuApp]
-WHERE VersionMenu = 9 
-AND CodigoMenuPadre = 'MEN_LAT_NEGOCIO'
-ORDER BY ORDEN;
 
 UPDATE [dbo].[MenuApp]
 SET Orden = Orden + 1
@@ -246,24 +174,6 @@ SELECT
 FROM [dbo].[MenuApp]
 WHERE VersionMenu = 8 ;
 
-
-
-SELECT 
-      [Codigo]
-      ,[Descripcion]
-      ,[Orden]
-      ,[CodigoMenuPadre]
-      ,[Posicion]
-      ,[Visible]
-      ,9
-      ,[Descripcion2]
-      ,[Descripcion3]
-      ,[VigenciaNueva]
-FROM [dbo].[MenuApp]
-WHERE VersionMenu = 9 
-AND CodigoMenuPadre = 'MEN_LAT_NEGOCIO'
-ORDER BY ORDEN;
-
 UPDATE [dbo].[MenuApp]
 SET Orden = Orden + 1
 WHERE VersionMenu = 9 AND Orden > 4
@@ -300,24 +210,6 @@ SELECT
       ,[VigenciaNueva]
 FROM [dbo].[MenuApp]
 WHERE VersionMenu = 8 ;
-
-
-
-SELECT 
-      [Codigo]
-      ,[Descripcion]
-      ,[Orden]
-      ,[CodigoMenuPadre]
-      ,[Posicion]
-      ,[Visible]
-      ,9
-      ,[Descripcion2]
-      ,[Descripcion3]
-      ,[VigenciaNueva]
-FROM [dbo].[MenuApp]
-WHERE VersionMenu = 9 
-AND CodigoMenuPadre = 'MEN_LAT_NEGOCIO'
-ORDER BY ORDEN;
 
 UPDATE [dbo].[MenuApp]
 SET Orden = Orden + 1
@@ -356,24 +248,6 @@ SELECT
 FROM [dbo].[MenuApp]
 WHERE VersionMenu = 8 ;
 
-
-
-SELECT 
-      [Codigo]
-      ,[Descripcion]
-      ,[Orden]
-      ,[CodigoMenuPadre]
-      ,[Posicion]
-      ,[Visible]
-      ,9
-      ,[Descripcion2]
-      ,[Descripcion3]
-      ,[VigenciaNueva]
-FROM [dbo].[MenuApp]
-WHERE VersionMenu = 9 
-AND CodigoMenuPadre = 'MEN_LAT_NEGOCIO'
-ORDER BY ORDEN;
-
 UPDATE [dbo].[MenuApp]
 SET Orden = Orden + 1
 WHERE VersionMenu = 9 AND Orden > 4
@@ -410,24 +284,6 @@ SELECT
       ,[VigenciaNueva]
 FROM [dbo].[MenuApp]
 WHERE VersionMenu = 8 ;
-
-
-
-SELECT 
-      [Codigo]
-      ,[Descripcion]
-      ,[Orden]
-      ,[CodigoMenuPadre]
-      ,[Posicion]
-      ,[Visible]
-      ,9
-      ,[Descripcion2]
-      ,[Descripcion3]
-      ,[VigenciaNueva]
-FROM [dbo].[MenuApp]
-WHERE VersionMenu = 9 
-AND CodigoMenuPadre = 'MEN_LAT_NEGOCIO'
-ORDER BY ORDEN;
 
 UPDATE [dbo].[MenuApp]
 SET Orden = Orden + 1
@@ -466,24 +322,6 @@ SELECT
 FROM [dbo].[MenuApp]
 WHERE VersionMenu = 8 ;
 
-
-
-SELECT 
-      [Codigo]
-      ,[Descripcion]
-      ,[Orden]
-      ,[CodigoMenuPadre]
-      ,[Posicion]
-      ,[Visible]
-      ,9
-      ,[Descripcion2]
-      ,[Descripcion3]
-      ,[VigenciaNueva]
-FROM [dbo].[MenuApp]
-WHERE VersionMenu = 9 
-AND CodigoMenuPadre = 'MEN_LAT_NEGOCIO'
-ORDER BY ORDEN;
-
 UPDATE [dbo].[MenuApp]
 SET Orden = Orden + 1
 WHERE VersionMenu = 9 AND Orden > 4
@@ -520,24 +358,6 @@ SELECT
       ,[VigenciaNueva]
 FROM [dbo].[MenuApp]
 WHERE VersionMenu = 8 ;
-
-
-
-SELECT 
-      [Codigo]
-      ,[Descripcion]
-      ,[Orden]
-      ,[CodigoMenuPadre]
-      ,[Posicion]
-      ,[Visible]
-      ,9
-      ,[Descripcion2]
-      ,[Descripcion3]
-      ,[VigenciaNueva]
-FROM [dbo].[MenuApp]
-WHERE VersionMenu = 9 
-AND CodigoMenuPadre = 'MEN_LAT_NEGOCIO'
-ORDER BY ORDEN;
 
 UPDATE [dbo].[MenuApp]
 SET Orden = Orden + 1
@@ -576,24 +396,6 @@ SELECT
 FROM [dbo].[MenuApp]
 WHERE VersionMenu = 8 ;
 
-
-
-SELECT 
-      [Codigo]
-      ,[Descripcion]
-      ,[Orden]
-      ,[CodigoMenuPadre]
-      ,[Posicion]
-      ,[Visible]
-      ,9
-      ,[Descripcion2]
-      ,[Descripcion3]
-      ,[VigenciaNueva]
-FROM [dbo].[MenuApp]
-WHERE VersionMenu = 9 
-AND CodigoMenuPadre = 'MEN_LAT_NEGOCIO'
-ORDER BY ORDEN;
-
 UPDATE [dbo].[MenuApp]
 SET Orden = Orden + 1
 WHERE VersionMenu = 9 AND Orden > 4
@@ -630,24 +432,6 @@ SELECT
       ,[VigenciaNueva]
 FROM [dbo].[MenuApp]
 WHERE VersionMenu = 8 ;
-
-
-
-SELECT 
-      [Codigo]
-      ,[Descripcion]
-      ,[Orden]
-      ,[CodigoMenuPadre]
-      ,[Posicion]
-      ,[Visible]
-      ,9
-      ,[Descripcion2]
-      ,[Descripcion3]
-      ,[VigenciaNueva]
-FROM [dbo].[MenuApp]
-WHERE VersionMenu = 9 
-AND CodigoMenuPadre = 'MEN_LAT_NEGOCIO'
-ORDER BY ORDEN;
 
 UPDATE [dbo].[MenuApp]
 SET Orden = Orden + 1
