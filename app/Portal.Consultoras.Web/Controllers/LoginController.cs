@@ -1000,7 +1000,7 @@ namespace Portal.Consultoras.Web.Controllers
             pasoLog = "Login.GetUserData";
             sessionManager.SetIsContrato(1);
             sessionManager.SetIsOfertaPack(1);
-            double pseudoParamNotif = (DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds;//SALUD-58     
+            double pseudoParamNotif = (DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds;
 
             UsuarioModel usuarioModel = (UsuarioModel)null;
 
@@ -1018,7 +1018,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     #region
                     usuarioModel = new UsuarioModel();
-                    usuarioModel.PseudoParamNotif = pseudoParamNotif.ToString().Replace("-", ""); //SALUD-58
+                    usuarioModel.PseudoParamNotif = pseudoParamNotif.ToString().Replace("-", "");
                     usuarioModel.NovedadBuscador = usuario.NovedadBuscador;
                     usuarioModel.CompraVDirectaCer = usuario.CompraVDirecta;
                     usuarioModel.IVACompraVDirectaCer = usuario.IVACompraVDirecta;
@@ -1462,11 +1462,9 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.DiaFacturacion = GetDiaFacturacion(usuarioModel.PaisID, usuarioModel.CampaniaID, usuarioModel.ConsultoraID, usuarioModel.ZonaID, usuarioModel.RegionID);
                     usuarioModel.NuevasDescripcionesBuscador = getNuevasDescripcionesBuscador(usuarioModel.PaisID);
 
-                    /*HD-3777*/
                     usuarioModel.CodigoClasificacion = usuario.CodigoClasificacion;
                     usuarioModel.CodigoSubClasificacion = usuario.CodigoSubClasificacion;
                     usuarioModel.DescripcionSubclasificacion = usuario.DescripcionSubClasificacion;
-                    /*Fin*/
                 }
 
                 sessionManager.SetUserData(usuarioModel);

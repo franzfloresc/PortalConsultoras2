@@ -687,10 +687,12 @@ namespace Portal.Consultoras.Web.SessionManager
         void ISessionManager.SetLimElectivosProgNuevas(int limElectivos) { HttpContext.Current.Session["LimElectivosProgNuevas"] = limElectivos; }
         List<PremioElectivoModel> ISessionManager.GetListPremioElectivo() { return (List<PremioElectivoModel>)HttpContext.Current.Session["ListPremioElectivo"]; }
         void ISessionManager.SetListPremioElectivo(List<PremioElectivoModel> listPremioElectivo) { HttpContext.Current.Session["ListPremioElectivo"] = listPremioElectivo; }
-        Dictionary<string, PremioProgNuevasOFModel> ISessionManager.GetDictPremioProgNuevasOF() {
+        Dictionary<string, PremioProgNuevasOFModel> ISessionManager.GetDictPremioProgNuevasOF()
+        {
             return (Dictionary<string, PremioProgNuevasOFModel>)HttpContext.Current.Session["DictPremioProgNuevasOF"];
         }
-        void ISessionManager.SetDictPremioProgNuevasOF(Dictionary<string, PremioProgNuevasOFModel> dictPremioProgNuevasOF) {
+        void ISessionManager.SetDictPremioProgNuevasOF(Dictionary<string, PremioProgNuevasOFModel> dictPremioProgNuevasOF)
+        {
             HttpContext.Current.Session["DictPremioProgNuevasOF"] = dictPremioProgNuevasOF;
         }
 
@@ -1219,19 +1221,6 @@ namespace Portal.Consultoras.Web.SessionManager
             if (val == null) { return 0; }
             return (int)val;
         }
-       
-
-        //void ISessionManager.SetCDRExpressMensajes(List<BETablaLogicaDatos> val)
-        //{
-        //    HttpContext.Current.Session["CDRExpressMensajes"] = val;
-        //}
-
-        //List<BETablaLogicaDatos> ISessionManager.GetCDRExpressMensajes()
-        //{
-        //    var val = HttpContext.Current.Session["CDRExpressMensajes"];
-
-        //    return (List<BETablaLogicaDatos>)val;
-        //}
 
         void ISessionManager.SetOcultarBannerTop(bool val)
         {
@@ -1344,7 +1333,7 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             int valor = 0;
             var result = int.TryParse(Convert.ToString(HttpContext.Current.Session["NroPedidosCDRConfig"]), out valor);
-            
+
             if (result)
                 return valor;
             else

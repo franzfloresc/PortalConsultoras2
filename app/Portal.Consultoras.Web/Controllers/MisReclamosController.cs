@@ -1491,25 +1491,17 @@ namespace Portal.Consultoras.Web.Controllers
 
         private List<TablaLogicaDatosModel> GetListMensajeCDRExpress()
         {
-            //if (SessionManager.GetCDRExpressMensajes() != null)
-            //{
-            //    return SessionManager.GetCDRExpressMensajes();
-            //}
 
             var listMensaje = new List<TablaLogicaDatosModel>();
             try
             {
                 listMensaje = _tablaLogicaProvider.GetTablaLogicaDatos(userData.PaisID, ConsTablaLogica.CdrExpress.TablaLogicaId, true);
-                //using (SACServiceClient sv = new SACServiceClient())
-                //{
-                //    listMensaje = sv.GetTablaLogicaDatos(userData.PaisID, Constantes.TablaLogica.CDRExpress).ToList();
-                //}
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
-            //SessionManager.SetCDRExpressMensajes(listMensaje);
+
             return listMensaje;
         }
 

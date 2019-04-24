@@ -922,6 +922,8 @@
         <xs:element minOccurs="0" name="paisId" type="xs:int" />
         <xs:element minOccurs="0" name="consultoraId" type="xs:long" />
         <xs:element minOccurs="0" name="codigoUsuario" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="esDigital" type="xs:int" />
+        <xs:element minOccurs="0" name="fechaVencimientoPago" type="xs:dateTime" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

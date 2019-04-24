@@ -26,11 +26,6 @@ namespace Portal.Consultoras.Web.Providers
     /// </summary>
     public class ShowRoomProvider : OfertaBaseProvider
     {
-        //private const string ImageUrlCode = "bar_in_img";
-        //private const string RedirectCode = "bar_in_url";
-        //private const string EnabledCode = "bar_in_act";
-        //private const string NoUrlAllowed = "bar_in_no";
-        //private const short Pl50Key = 98;
         const int SHOWROOM_ESTADO_ACTIVO = 1;
 
         private readonly TablaLogicaProvider _tablaLogicaProvider;

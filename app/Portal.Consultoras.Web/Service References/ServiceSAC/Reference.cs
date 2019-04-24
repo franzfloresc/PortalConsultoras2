@@ -7771,6 +7771,9 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         private int MarcaIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool MaterialGananciaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string OrigenPedidoWebField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -7917,6 +7920,19 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 if ((this.MarcaIDField.Equals(value) != true)) {
                     this.MarcaIDField = value;
                     this.RaisePropertyChanged("MarcaID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool MaterialGanancia {
+            get {
+                return this.MaterialGananciaField;
+            }
+            set {
+                if ((this.MaterialGananciaField.Equals(value) != true)) {
+                    this.MaterialGananciaField = value;
+                    this.RaisePropertyChanged("MaterialGanancia");
                 }
             }
         }
@@ -8346,6 +8362,9 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         private string NombreField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NombreGrupoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int OrdenAppField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -8438,6 +8457,19 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 if ((object.ReferenceEquals(this.NombreField, value) != true)) {
                     this.NombreField = value;
                     this.RaisePropertyChanged("Nombre");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string NombreGrupo {
+            get {
+                return this.NombreGrupoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NombreGrupoField, value) != true)) {
+                    this.NombreGrupoField = value;
+                    this.RaisePropertyChanged("NombreGrupo");
                 }
             }
         }
@@ -10817,10 +10849,16 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         private string AccionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool ActivoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigoCampaniaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigoConsultoraField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ComentarioField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private long ComunicadoIdField;
@@ -10832,7 +10870,22 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         private string DescripcionAccionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FechaFinField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FechaInicioField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NombreArchivoCCVField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int NumeroField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int OrdenField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PaginasMaximasField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool SegmentacionConsultoraField;
@@ -10848,6 +10901,12 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int TipoComunicadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int TipoDispositivoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TituloField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string UrlImagenField;
@@ -10882,6 +10941,19 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Activo {
+            get {
+                return this.ActivoField;
+            }
+            set {
+                if ((this.ActivoField.Equals(value) != true)) {
+                    this.ActivoField = value;
+                    this.RaisePropertyChanged("Activo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string CodigoCampania {
             get {
                 return this.CodigoCampaniaField;
@@ -10903,6 +10975,19 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 if ((object.ReferenceEquals(this.CodigoConsultoraField, value) != true)) {
                     this.CodigoConsultoraField = value;
                     this.RaisePropertyChanged("CodigoConsultora");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Comentario {
+            get {
+                return this.ComentarioField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ComentarioField, value) != true)) {
+                    this.ComentarioField = value;
+                    this.RaisePropertyChanged("Comentario");
                 }
             }
         }
@@ -10947,6 +11032,58 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FechaFin {
+            get {
+                return this.FechaFinField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FechaFinField, value) != true)) {
+                    this.FechaFinField = value;
+                    this.RaisePropertyChanged("FechaFin");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FechaInicio {
+            get {
+                return this.FechaInicioField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FechaInicioField, value) != true)) {
+                    this.FechaInicioField = value;
+                    this.RaisePropertyChanged("FechaInicio");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string NombreArchivoCCV {
+            get {
+                return this.NombreArchivoCCVField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NombreArchivoCCVField, value) != true)) {
+                    this.NombreArchivoCCVField = value;
+                    this.RaisePropertyChanged("NombreArchivoCCV");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Numero {
+            get {
+                return this.NumeroField;
+            }
+            set {
+                if ((this.NumeroField.Equals(value) != true)) {
+                    this.NumeroField = value;
+                    this.RaisePropertyChanged("Numero");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int Orden {
             get {
                 return this.OrdenField;
@@ -10955,6 +11092,19 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 if ((this.OrdenField.Equals(value) != true)) {
                     this.OrdenField = value;
                     this.RaisePropertyChanged("Orden");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PaginasMaximas {
+            get {
+                return this.PaginasMaximasField;
+            }
+            set {
+                if ((this.PaginasMaximasField.Equals(value) != true)) {
+                    this.PaginasMaximasField = value;
+                    this.RaisePropertyChanged("PaginasMaximas");
                 }
             }
         }
@@ -11020,6 +11170,32 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 if ((this.TipoComunicadoField.Equals(value) != true)) {
                     this.TipoComunicadoField = value;
                     this.RaisePropertyChanged("TipoComunicado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TipoDispositivo {
+            get {
+                return this.TipoDispositivoField;
+            }
+            set {
+                if ((this.TipoDispositivoField.Equals(value) != true)) {
+                    this.TipoDispositivoField = value;
+                    this.RaisePropertyChanged("TipoDispositivo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Titulo {
+            get {
+                return this.TituloField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TituloField, value) != true)) {
+                    this.TituloField = value;
+                    this.RaisePropertyChanged("Titulo");
                 }
             }
         }
