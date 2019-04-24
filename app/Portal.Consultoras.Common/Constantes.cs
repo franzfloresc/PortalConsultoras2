@@ -613,7 +613,7 @@ namespace Portal.Consultoras.Common
             public const string PaisesCancelarSuscripcionRDUnete = "PaisesCancelarSuscripcionRDUnete";
             public const string PaisesCancelarSuscripcionRDNuevas = "PaisesCancelarSuscripcionRDNuevas";
 
-            public const int RevistaCatalogoTablaLogicaId = 24; 
+            public const int RevistaCatalogoTablaLogicaId = 24;
             public const string RevistaPiloto_Escenario = "ESC";
             public const string RevistaPiloto_Zonas = "RevistaPiloto_Zonas_";
             public const string RevistaPiloto_Grupos = "RevistaPiloto_Grupos_";
@@ -1042,9 +1042,6 @@ namespace Portal.Consultoras.Common
             public const int DesktopPedidoProductoRecomendadoOpmFicha = 1020009;
             public const int DesktopPedidoProductoRecomendadoShowRoomFicha = 1020109;
 
-            public const int MobileContenedorArmaTuPack = 2131502;
-            public const int DesktopContenedorArmaTuPack = 1131502;
-
             public const int AppConsultoraContenedorShowroomFicha = 4080102;
             public const int DesktopPedidoProductoRecomendadoLanFicha = 1020209;
             public const int DesktopPedidoProductoRecomendadoOddFicha = 1020309;
@@ -1079,6 +1076,9 @@ namespace Portal.Consultoras.Common
             public const int AppConsultoraPedidoCatalogoEsikaCatalogoDigitalPendienteDeAprobar = 4021211;
             public const int AppConsultoraPedidoCatalogoCyzoneCatalogoDigitalPendienteDeAprobar = 4021311;
             #endregion
+
+            public const int MobileArmaTuPackFicha = 2131502;
+            public const int DesktopArmaTuPackFicha = 1131502;
         }
 
         public static class TipoTutorial
@@ -1862,15 +1862,8 @@ namespace Portal.Consultoras.Common
         [Obsolete("Use ConsTablaLogica")]
         public struct TablaLogica
         {
-            //public const int NroReclamosPorPedidoCDR = 161;
-            //public const int PersonalizacionODD = 93;
             public const int Plan20 = 98;
-            //public const int CDRExpress = 104;
             public const int StockDiasAntes = 181;
-            //public const int CorreoFeedbackAppConsultora = 105;
-
-            //public const int EscalaDescuentoMensajeImportante = 160;
-
 
             /// <summary>
             /// Variables configurables del app
@@ -1896,15 +1889,7 @@ namespace Portal.Consultoras.Common
             }
 
             public const short RevistaDigital = 131;
-            //public const short CodigoRevistaFisica = 132;
-            //public const short Palanca = 135;
-            //public const int ValoresImagenesResize = 121;
-            //public const short ExtensionBannerGanaMasApp = 136;
-            //public const short MontoLimiteCupon = 103;
             public const int ValoresPagoEnLinea = 122;
-            //public const int CantidadCuvMasivo = 137;
-            //public const short ProlObsCod = 5;
-            //public const int ActualizaDatosEnabled = 143;
             public const short HabilitarChatEmtelco = 144;
             public const short OrdenamientoShowRoom = 99;
             public const short NuevaDescripcionProductos = 145;
@@ -2366,8 +2351,9 @@ namespace Portal.Consultoras.Common
             public const string AppConsultora = "App Consultora";
             public const string BannerDescargarAppNuevas = "BannerDescargarAppNuevas";
             public const string Extraordinarios = "App Consultora,BannerDescargarAppNuevas";
-            //HD-3550 EINCA
-            public static class TipoComunicado {
+
+            public static class TipoComunicado
+            {
                 public const int Banner = 1;
                 public const int PopUp = 2;
             }
@@ -3174,7 +3160,7 @@ namespace Portal.Consultoras.Common
             /// Oferta/ByCuv/{pais}/{tipoPersonalizacion}/{codigoCampania}/{cuv}
             /// </summary>
             public const string UrlObtenerOfertaByCuv = "Oferta/ByCuv/{0}/{1}/{2}/{3}";
-            
+
             /// <summary>
             /// Evento/Get/{pais}/{campania}
             /// </summary>
