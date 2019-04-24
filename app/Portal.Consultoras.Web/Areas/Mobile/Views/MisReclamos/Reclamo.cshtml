@@ -65,20 +65,22 @@
     <div id="VistaSolicitudesRegistradas" style="display:none;" class="vistas_cdr">
         <div class="grilla_registros_solicitud_cdr">
             <h4 class="tipografia_lato_bold titulo_solicitudes_registradas">Mis solicitudes registradas</h4>
-            @* Este filtro se muestra cuando la cantidad de solicitudes excede a 6*@
-            <div class="campo_orden_solicitudes_cdr_wrapper">
-                <label id="lblTextoSeleccionado">Filtrar por :</label>
-                <select id="OrdenarSolicitudesRegistradasPor" class="border-radius-4 campo_ordenar_solicitudes_por">
-                    <option value="0">Todos</option>
-                    <option value="1">Pendientes</option>
-                    <option value="2">Enviados</option>
-                    <option value="3">Aceptados</option>
-                    <option value="4">Observados</option>
-                    @*<option value="4">Rechazados</option>*@
-                </select>
-            </div>
-            @* Fin - Este filtro se muestra cuando la cantidad de solicitudes excede a 6*@
-
+            @if (Model.ListaCDRWeb.Count > 6)
+            {
+                //Este filtro se muestra cuando la cantidad de solicitudes excede a 6
+                <div class="campo_orden_solicitudes_cdr_wrapper">
+                    <label id="lblTextoSeleccionado">Filtrar por :</label>
+                    <select id="OrdenarSolicitudesRegistradasPor" class="border-radius-4 campo_ordenar_solicitudes_por">
+                        <option value="0">Todos</option>
+                        <option value="1">Pendientes</option>
+                        <option value="2">Enviados</option>
+                        <option value="3">Aceptados</option>
+                        <option value="4">Observados</option>
+                        @*<option value="4">Rechazados</option>*@
+                    </select>
+                </div>
+                //Fin - Este filtro se muestra cuando la cantidad de solicitudes excede a 6
+            }
             @*INI - Aquí se carga la vista parcial de mis reclamos*@
             <div id="divMisReclamos">
             </div>

@@ -90,7 +90,7 @@ $(document).ready((function (cerrarRechazado) {
                         }
                     });
 
-                    $(OrdenarSolicitudesRegistradasPor).on("change", function () {
+                    $(me.Variables.OrdenarSolicitudesRegistradasPor).on("change", function () {
                         try {
                             var $divMisReclamos = $('#divMisReclamos');
                             $divMisReclamos.empty();

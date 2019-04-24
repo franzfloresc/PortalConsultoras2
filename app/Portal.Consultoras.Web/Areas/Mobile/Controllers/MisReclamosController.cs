@@ -123,6 +123,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.limiteMinimoTelef = limiteMinimoTelef;
             model.limiteMaximoTelef = limiteMaximoTelef;
             model.MostrarTab = t;//mostrar tab 0 no mostrar 1 mostrar
+            model.ListaCDRWeb = _cdrProvider.ObtenerCDRWebCargaInicial(userData.ConsultoraID, userData.PaisID);
             return View(model);
         }
 
