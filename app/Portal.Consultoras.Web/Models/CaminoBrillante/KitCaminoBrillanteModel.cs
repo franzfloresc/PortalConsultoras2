@@ -3,7 +3,8 @@
 namespace Portal.Consultoras.Web.Models.CaminoBrillante
 {
     public class KitCaminoBrillanteModel
-    {        
+    {
+        public string PaisISO { private get; set; }
         public string CUV { get; set; }
         public string DescripcionCUV { get; set; }
         public int MarcaID { get; set; }
@@ -31,6 +32,24 @@ namespace Portal.Consultoras.Web.Models.CaminoBrillante
                 if (Constantes.CaminoBrillante.Niveles.Etiquetas.ContainsKey(CodigoNivel))
                     return Constantes.CaminoBrillante.Niveles.Etiquetas[CodigoNivel][0];
                 return null;
+            }
+        }
+        public string PrecioCatalogoFormat
+        {
+            get
+            {
+                if (PaisISO != null)
+                    return Util.DecimalToStringFormat(PrecioCatalogo, PaisISO);
+                return PrecioCatalogo.ToString();
+            }
+        }
+        public string GananciaFormat
+        {
+            get
+            {
+                if (PaisISO != null)
+                    return Util.DecimalToStringFormat(Ganancia, PaisISO);
+                return Ganancia.ToString();
             }
         }
     }
