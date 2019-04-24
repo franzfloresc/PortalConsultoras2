@@ -1,10 +1,15 @@
 ﻿using System.Runtime.Serialization;
+using System.Collections.Generic;
 
 namespace Portal.Consultoras.Entities.Producto
 {
     [DataContract]
     public class BEBuscadorResponse
     {
+        public BEBuscadorResponse()
+        {
+            OrigenesPedidoWeb = new List<BEBuscadorResponseOrigen>();
+        }
         [DataMember]
         public string CUV { get; set; }
         [DataMember]
@@ -42,12 +47,15 @@ namespace Portal.Consultoras.Entities.Producto
         [DataMember]
         public bool MaterialGanancia { get; set; }
         [DataMember]
-        public string OrigenPedidoWebDesplegable { get; set; }
+        public List<BEBuscadorResponseOrigen> OrigenesPedidoWeb { get; set; }
+    }
+
+    [DataContract]
+    public class BEBuscadorResponseOrigen
+    {
         [DataMember]
-        public string OrigenPedidoWebLanding { get; set; }
+        public string Codigo { get; set; }
         [DataMember]
-        public string OrigenPedidoWebDesplegableFicha { get; set; }
-        [DataMember]
-        public string OrigenPedidoWebLandingFicha { get; set; }
+        public int Valor { get; set; }
     }
 }

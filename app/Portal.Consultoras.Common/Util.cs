@@ -3901,7 +3901,7 @@ namespace Portal.Consultoras.Common
             return result;
         }
 
-        public static string obtenerCodigoOrigenWebApp(string codigoEstrategia, string codigoTipoEstrategia, int marcaId, bool desplegable, bool landing, bool ficha, bool materialGanancia)
+        public static int obtenerCodigoOrigenWebApp(string codigoEstrategia, string codigoTipoEstrategia, int marcaId, bool desplegable, bool landing, bool ficha, bool materialGanancia)
         {
             var result = 0;
 
@@ -3974,7 +3974,7 @@ namespace Portal.Consultoras.Common
                     break;
             }
 
-            return result.ToString();
+            return result;
         }
 
         public static string GetTipoPersonalizacionByCodigoEstrategia(string codigoEstrategia)

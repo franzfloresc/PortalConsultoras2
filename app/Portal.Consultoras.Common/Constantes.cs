@@ -3590,5 +3590,13 @@ namespace Portal.Consultoras.Common
         {
             public const string Lanzamiento = "BONIFICACIONES_RESUMEN";
         }
+
+        public static class OrigenPedidoBuscadorApp
+        {
+            public const string OrigenPedidoWebDesplegable = "OrigenPedidoWebDesplegable";
+            public const string OrigenPedidoWebLanding = "OrigenPedidoWebLanding";
+            public const string OrigenPedidoWebDesplegableFicha = "OrigenPedidoWebDesplegableFicha";
+            public const string OrigenPedidoWebLandingFicha = "OrigenPedidoWebLandingFicha";
+        }
     }
 }
