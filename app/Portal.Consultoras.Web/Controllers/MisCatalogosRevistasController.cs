@@ -48,6 +48,7 @@ namespace Portal.Consultoras.Web.Controllers
             clienteModel.PartialSectionBpt = _configuracionPaisDatosProvider.GetPartialSectionBptModel(Constantes.OrigenPedidoWeb.SectionBptDesktopCatalogo);
                         
             ViewBag.Piloto = GetTienePiloto(userData.PaisID);
+            ViewBag.EsConsultoraBloqueada = userData.AutorizaPedido;
             ViewBag.UrlCatalogoPiloto = GetUrlCatalogoPiloto();
             ViewBag.EsConsultoraNueva = userData.EsConsultoraNueva;
             ViewBag.FBAppId = _configuracionManagerProvider.GetConfiguracionManager(Constantes.Facebook.FB_AppId);
