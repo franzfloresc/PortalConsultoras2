@@ -218,6 +218,8 @@ function RechazarSolicitudCliente(pedidoId) {
             //CloseLoading();
 
             if (response.success) {
+                $('#rechazarTodop').addClass('hide');
+                $('#Paso1-Productos').hide();
                 //document.location.href = '/ConsultoraOnline/Pendientes';
             }
             else {
@@ -246,6 +248,8 @@ function RechazarSolicitudClientePorCuv(cuv) {
         success: function (response) {
                     /*CloseLoading*/
             if (response.success) {
+                $('#rechazarTodo').addClass('hide');
+                $('#Paso1-Clientes').hide();
                 //document.location.href = '/ConsultoraOnline/Pendientes';
             }
             else {
@@ -266,7 +270,7 @@ function ContinuarPedido() {
 
     $('.pedidos').each(function () {
 
-        if ($(this).find('a[id*="aceptar_"]').hasClass('active') == false) {
+        if ($(this).find('a[id*="aceptar_"]').hasClass('ghost') == false) {
             //$(aceptado).addClass('active');
             var pedidoId = $(this).find(".pedidoId").val();
             var cuv = $(this).find(".cuv").val();
@@ -282,6 +286,8 @@ function ContinuarPedido() {
         }
     });
 
+    debugger;
+
     if (lstDetalle.length > 0) {
         $.ajax({
             type: "POST",
@@ -290,7 +296,7 @@ function ContinuarPedido() {
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(lstDetalle),
             success: function (response) {
-                CloseLoading();
+                //CloseLoading();
                 if (response.success) {
                     //document.location.href = '/ConsultoraOnline/PendientesMedioDeCompra';
                 }
@@ -299,7 +305,7 @@ function ContinuarPedido() {
                 }
             },
             error: function (err) {
-                CloseLoading();
+                //CloseLoading();
                 console.log(err);
             }
         });

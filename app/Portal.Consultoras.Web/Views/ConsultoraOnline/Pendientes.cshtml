@@ -41,7 +41,7 @@
                     </div>
 
                     {{#each this.ListaPedidos as |item|}}
-                    <div id="vp_pedido_{{item.PedidoId}}" class="container background color-white">
+                    <div id="vp_pedido_{{item.PedidoId}}" class="container background color-white pedidos">
                         <div class="row align-items-start">
                             <div class="col">
                                 <div class="card--content">
@@ -158,11 +158,12 @@
                         </div>
                         <div class="container mt-2 mb-2">
                             <div class="row">
-                                <div class="col pr-7"><a class="btn ghost full dark-color" href="#" data-action="reject" onclick="$('#rechazarTodo').show();">Rechazar todo</a></div>
+                                <div class="col pr-7"><a class="btn ghost full dark-color" href="#" data-action="reject" onclick=" $('#rechazarTodo').removeClass('hide');">Rechazar todo</a></div>
                                 <div class="col pl-7">
                                     <!--Botón activo-->
                                     <!--<a class="btn full second-color" href="#">Continuar</a>-->
-                                    <a class="btn full disabled" href="javascript:;" onclick="ContinuarPedido()">Continuar</a>
+                                    <a class="btn full second-color" href="javascript:;" onclick="ContinuarPedido()">Continuar</a>
+                                    @*<a class="btn full disabled" href="javascript:;" onclick="ContinuarPedido()">Continuar</a>*@
                                 </div>
                             </div>
                         </div>
@@ -173,8 +174,8 @@
         </div>
     </div>
 
-    <div id="rechazarTodo" class="col">
-        <div class="mobile hide rechazar">
+    <div class="col">
+        <div id="rechazarTodo" class="mobile hide rechazar">
             <div class="container position-sticky top">
                 <div class="row align-items-center">
                     <div class="col">
@@ -191,7 +192,7 @@
                         </div>
                     </div>
                     <div class="row mt-3">
-                        <div class="col ml-3"><a class="btn ghost no-border full" href="#" data-action="not-reject">No, gracias</a></div>
+                        <div class="col ml-3"><a class="btn ghost no-border full" onclick="$('#rechazarTodo').addClass('hide');" data-action="not-reject">No, gracias</a></div>
                         <div class="col mr-3"><a class="btn full second-color" onclick="RechazarSolicitudClientePorCuv('{{this.ListaPedidos.0.DetallePedido.0.Producto.CUV}}')">Sí, rechazar</a></div>
                     </div>
                 </div>
@@ -233,7 +234,7 @@
                     </div>
 
                     {{#each this.ListaDetalle2 as |item|}}
-                    <div id="vp_pedido_{{item.CUV}}" class="container background color-white">
+                    <div id="vp_pedido_{{item.CUV}}" class="container background color-white pedidos">
                         <div class="row align-items-start">
                             <div class="col">
                                 <div class="card--content">
@@ -341,7 +342,7 @@
                     </div>
                     {{/each}}
                     <div class="container-flex border mt-2 position-sticky bottom">
-                        <div class="container position-absolute top-50" style="display:none;">
+                        <div id="mensajepedido" class="container position-absolute top-50" style="display:none;">
                             <div class="row align-items-center position-relative">
                                 <div class="col">
                                     <div class="tooltip-secondary tooltip-arrow_bottom tooltip-validate p-3"><span class="tooltip-info medium t-w700">Debes aceptar mínimo un pedido para continuar.</span></div>
@@ -350,11 +351,12 @@
                         </div>
                         <div class="container mt-2 mb-2">
                             <div class="row">
-                                <div class="col pr-7"><a class="btn ghost full dark-color" href="#" data-action="reject" onclick="$('#rechazarTodo').show();">Rechazar todo</a></div>
+                                <div class="col pr-7"><a class="btn ghost full dark-color"  data-action="reject" onclick=" $('#rechazarTodop').removeClass('hide');">Rechazar todo</a></div>
                                 <div class="col pl-7">
                                     <!--Botón activo-->
                                     <!--<a class="btn full second-color" href="#">Continuar</a>-->
-                                    <a class="btn full disabled" href="javascript:;" onclick="ContinuarPedido()">Continuar</a>
+                                    <a class="btn full second-color" href="javascript:;" onclick="ContinuarPedido()">Continuar</a>
+                                    @*<a class="btn full disabled" href="javascript:;" onclick="ContinuarPedido()">Continuar</a>*@
                                 </div>
                             </div>
                         </div>
@@ -365,8 +367,8 @@
         </div>
     </div>
 
-    <div id="rechazarTodo" class="col">
-        <div class="mobile hide rechazar">
+    <div  class="col">
+        <div id="rechazarTodop" class="mobile hide rechazar">
             <div class="container position-sticky top">
                 <div class="row align-items-center">
                     <div class="col">
@@ -383,7 +385,7 @@
                         </div>
                     </div>
                     <div class="row mt-3">
-                        <div class="col ml-3"><a class="btn ghost no-border full" href="#" data-action="not-reject">No, gracias</a></div>
+                        <div class="col ml-3"><a class="btn ghost no-border full" onclick="$('#rechazarTodop').addClass('hide');" data-action="not-reject">No, gracias</a></div>
                         <div class="col mr-3"><a class="btn full second-color" onclick="RechazarSolicitudCliente('{{this.MiPedido.PedidoId}}')">Sí, rechazar</a></div>
                     </div>
                 </div>
