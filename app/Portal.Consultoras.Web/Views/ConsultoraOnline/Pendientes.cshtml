@@ -659,7 +659,7 @@
                                 <div class="conCatalogo card--content mt-0">
                                     <!-- Bloques para repetir-->
                                     {{#each this.ListaCatalogo as |item|}}
-                                    <div class="col pr-2 pl-2"><img class="img-fluid icon-80" src="{{item.Url}}" alt="Producto"><span class="smaller">{{item.Producto}}</span><span class="smaller">{{item.PrecioUnitario}}</span></div>
+                                    <div class="col pr-2 pl-2"><img class="img-fluid icon-80" src="{{item.Url}}" alt="Producto"><span class="smaller">{{item.Producto}}</span><span class="smaller">@ViewBag.Simbolo  {{item.PrecioUnitario}}</span></div>
                                     {{/each}}<div class="col pr-2 pl-2"><img class="img-fluid icon-80" src="https://i.ibb.co/MVyDK3j/square-3x.jpg" alt="Producto"><span class="smaller">Delineador Líquido Punta Plumón Marrón otoño</span><span class="smaller">S/. 26.90</span></div>
                                 </div>
                             </div>
