@@ -155,7 +155,16 @@ function MostrarBarra(datax, destino) {
             listaEscala[listaEscala.length - 1].MontoHastaStr = data.MontoMaximoStr;
         }
 
-        var textoPunto2 = '<div style="font-weight: bold;">{titulo}</div><div style="font-size: 11px;">{detalle}</div>';
+        if (destino == "1" && caminoBrillante == "True") {
+            if (data.TotalPedido < mn) {
+                var textoPunto2 = '<div style="font-weight: bold;">{titulo}</div><div style="font-size: 11px;">DSCTO</div>';
+            } else {
+                var textoPunto2 = '<div style="font-weight: bold;">{titulo}</div><div style="font-size: 11px;"></div>';
+            }
+        } else {
+                var textoPunto2 = '<div style="font-weight: bold;">{titulo}</div><div style="font-size: 11px;">{detalle}</div>';
+        }
+
         var textoApp = '<div>{titulo}</div><div>{detalle}</div>';
         $.each(listaEscala, function (ind, monto) {
             var montox = ind == 0 ? monto : listaEscala[ind - 1];
