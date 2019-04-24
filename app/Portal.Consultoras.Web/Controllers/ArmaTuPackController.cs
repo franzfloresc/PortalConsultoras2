@@ -62,8 +62,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (listaOfertasATP.Count > 0)
             {
-                var primerItem = listaOfertasATP.First();
-
                 modelo.ImagenFondo = listaSeccion.ImagenFondo;
                 modelo.ColorFondo = listaSeccion.ColorFondo;
                 modelo.SubTitulo = listaSeccion.SubTitulo
