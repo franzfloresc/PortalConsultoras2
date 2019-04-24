@@ -58,7 +58,7 @@ function bindElments() {
 
 function AceptarPedidoPendiente() {
 
-    debugger;
+    
 
     var btn = $('.btnAccion a.ghost')[0];
 
@@ -70,7 +70,7 @@ function AceptarPedidoPendiente() {
             ListaGana: $(btn).parent().data('accion') == 'ingrgana' ? listaGana : []
         }
 
-      //  ShowLoading({});
+        waitingDialog();
         $.ajax({
             type: 'POST',
             url: '/ConsultoraOnline/AceptarPedidoPendiente',
@@ -79,21 +79,18 @@ function AceptarPedidoPendiente() {
             data: JSON.stringify(pedido),
             async: true,
             success: function (response) {
-                CloseLoading();
+                closeWaitingDialog();
                 if (checkTimeout(response)) {
                     if (response.success) {
 
                         
-
+                      
                         if ($('#modal-confirmacion')[0]) {
                             $('#modal-confirmacion').addClass('on');
-
                         }
                         else {
                             $('#popuplink').click();
-                        }
-
-                      
+                        }                      
                         return false;
                     }
                     else {
@@ -108,7 +105,7 @@ function AceptarPedidoPendiente() {
                 }
             },
             error: function (data, error) {
-               // CloseLoading();
+                closeWaitingDialog();
                 if (checkTimeout(data)) {
                     AbrirMensaje("Ocurrió un error inesperado al momento de aceptar el pedido. Consulte con su administrador del sistema para obtener mayor información");
                 }
@@ -336,7 +333,12 @@ function ContinuarPedido() {
                 //CloseLoading();
                 if (response.success) {
                     
+                    
                     SetHandlebars("#template-paso-2", response.result, "#contenedor-paso-2");
+                    if (response.result.ListaGana.length == 0)
+                    {
+                        $('.porGanaMas').parent().remove();
+                    }
                     cargarGaleria()
                     bindElments();
                     return false;

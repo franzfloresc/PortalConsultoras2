@@ -401,8 +401,8 @@
             <div class="text-right mb-3"><a class="close-modal" href="#" alt="Cerrar">Cerrar</a></div>
         </div><img class="img-fluid mb-3" src="https://i.ibb.co/n6p5vcB/check-circle-outline-3x.png" alt="Aprobado"><span class="font-big t-w700 dark-color mb-3">¡Pedido aprobado!</span><span class="small mb-4 dark-color">Has atendido el pedido por Gana+.</span>
         <div class="position-relative container-btn">
-            <div class="position-relative btn-left"><a class="btn full ghost color-dark"  href="/ConsultoraOnline/Pendientes">Ir a mi pedido</a></div>
-            <div class="position-relative btn-right"><a class="btn full second-color" href="/Pedido/Index">Ver pedidos por aprobar</a></div>
+            <div class="position-relative btn-left"><a class="btn full ghost color-dark" href="/Pedido/Index" >Ir a mi pedido</a></div>
+            <div class="position-relative btn-right"><a class="btn full second-color" href="/ConsultoraOnline/Pendientes" >Ver pedidos por aprobar</a></div>
         </div>
     </div>
 </div>
@@ -621,12 +621,16 @@
                         </div>
                     </div>
                 </div>
+
+
                 <div class="container background color-white">
                     <div class="porGanaMas">
                         <div class="row align-items-center pt-4 pb-3">
-                            <div class="col-8 pr-0"><span class="t3 color-text">Por Gana+ @ViewBag.Simbolo {{this.TotalGana}}</span>
-                                                    <span class="medium color-second">Gana @ViewBag.Simbolo  {{this.GananciaGana}}</span></div>
-                            <div data-accion="ingrgana"  class="col btnAccion"><a class="btn dark-color" href="#">Elegir</a></div>
+                            <div class="col-8 pr-0">
+                                <span class="t3 color-text">Por Gana+ @ViewBag.Simbolo {{this.TotalGana}}</span>
+                                <span class="medium color-second">Gana @ViewBag.Simbolo  {{this.GananciaGana}}</span>
+                            </div>
+                            <div data-accion="ingrgana" class="col btnAccion"><a class="btn dark-color" href="#">Elegir</a></div>
                         </div>
                         <div class="row">
                             <div class="col">
@@ -641,12 +645,13 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>             
+
                 <div class="container border-top">
                     <div class="porCatalogo">
                         <div class="row align-items-center mt-4 mb-3">
                             <div class="col-8 pr-0"><span class="t3 color-text">Por Catálogo+ @ViewBag.Simbolo  {{this.TotalCatalogo}}                </span></div>
-                            <div data-accion="ingrped"  class="col btnAccion"><a class="btn dark-color" href="#">Elegir</a></div>
+                            <div data-accion="ingrped" class="col btnAccion"><a class="btn dark-color" href="#">Elegir</a></div>
                         </div>
                         <div class="row">
                             <div class="col">
@@ -656,13 +661,13 @@
                                     {{#each this.ListaCatalogo as |item|}}
                                     <div class="col pr-2 pl-2"><img class="img-fluid icon-80" src="{{item.Url}}" alt="Producto"><span class="smaller">{{item.Producto}}</span><span class="smaller">{{item.PrecioUnitario}}</span></div>
                                     {{/each}}<div class="col pr-2 pl-2"><img class="img-fluid icon-80" src="https://i.ibb.co/MVyDK3j/square-3x.jpg" alt="Producto"><span class="smaller">Delineador Líquido Punta Plumón Marrón otoño</span><span class="smaller">S/. 26.90</span></div>
-                                    <div class="col pr-2 pl-2"><img class="img-fluid icon-80" src="https://i.ibb.co/MVyDK3j/square-3x.jpg" alt="Producto"><span class="smaller">Delineador Líquido Punta Plumón Marrón otoño</span><span class="smaller">S/. 26.90</span></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-               
+
+
                 <div class="container-flex position-sticky bottom">
                     <div class="container position-absolute top-50">
                         <div class="row align-items-center position-relative">
@@ -673,9 +678,9 @@
                     </div>
                     <div class="container pt-2 pb-2 border-top">
                         <div class="row mt-2 mb-2">
-                            <div class="col" id="btnAceptarPedido"  onclick="AceptarPedidoPendiente()" >
-                                <span class="btn full disabled"   >Aceptar Pedido</span>
-                                 
+                            <div class="col" id="btnAceptarPedido" onclick="AceptarPedidoPendiente()">
+                                <span class="btn full disabled">Aceptar Pedido</span>
+
                             </div>
                         </div>
                     </div>
