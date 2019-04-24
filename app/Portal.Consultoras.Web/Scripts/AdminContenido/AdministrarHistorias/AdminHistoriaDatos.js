@@ -10,7 +10,8 @@
         DdlCampania: '#ddlCampania',
         DivFormulario: '#divMantDatos',
         ChbxEstado: '#Estado',
-        PopupTitulo: '#divPalancaDatos_Titulo'
+        PopupTitulo: '#divPalancaDatos_Titulo',
+        DialogImagen: 'DialogImagen',
     }
 
     var _texto = {
@@ -54,8 +55,8 @@
         if (cellvalue == "") {
             act = "<img src='" + rutaImagenVacia + "' border='0' style='max-width: 40px; max-height: 40px;' />";
         } else {
-            act = "<img src='" + urlDetalleS3 + cellvalue + "' border='0' style='max-width: 40px; max-height: 40px;' />";
-            //act = "<a href='javascript:;' onclick=\'return admHistoriaDatos.VerImagen(event, \" " + urlDetalleS3 + cellvalue + " \");\' >" + "<img src='" + urlDetalleS3 + cellvalue + "' border='0' style='max-width: 40px; max-height: 40px;' /></a>";
+            //act = "<img src='" + urlDetalleS3 + cellvalue + "' border='0' style='max-width: 40px; max-height: 40px;' />";
+            act = "<a href='javascript:;' onclick=\'return admHistoriaDatos.VerImagen(event, \"" + cellvalue + "\");\' >" + "<img src='" + urlDetalleS3 + cellvalue + "' border='0' style='max-width: 40px; max-height: 40px;' /></a>";
         }
         return act;
     };
@@ -183,10 +184,13 @@
             contentType: 'application/json; charset=utf-8',
             success: function (result) {
                 closeWaitingDialog();
+                console.log(result);
+                //return;
 
-                $(_elemento.DialogRegistroHtml).empty();
-                $(_elemento.DialogRegistroHtml).html(result);
-                showDialog(_elemento.DialogRegistro);
+                $("#dialog-content-imagen").empty();
+                $("#dialog-content-imagen").html(result);
+
+                showDialog(_elemento.DialogImagen);
 
             },
             error: function (request, status, error) {
@@ -283,20 +287,14 @@
         });
     };
 
-    var _initializar = function (param) {
-        _evento();
-        _DialogCrear();
-        //_DialogImagen();
-    };
-
     var _DialogImagen = function () {
-        $('#DialogDialogImagen').dialog({
+        $('#DialogImagen').dialog({
             autoOpen: false,
             resizable: false,
             modal: true,
             closeOnEscape: true,
-            width: 830,
-            height: 500,
+            width: 'auto',
+            height: 'auto',
             close: function () {
                 HideDialog("DialogImagen");
             },
@@ -305,9 +303,9 @@
             open: function (event, ui) { },
             buttons:
             {
-                'Guardar': function () {
-                   // _GuardarDatos(this);
-                },
+                //'Guardar': function () {
+                //    // _GuardarDatos(this);
+                //},
                 'Salir': function () {
                     HideDialog("DialogImagen");
                 }
@@ -315,6 +313,14 @@
         });
     };
 
+
+    var _initializar = function (param) {
+        _evento();
+        _DialogCrear();
+        _DialogImagen();
+    };
+
+   
     return {
         ini: function (param) {
             _initializar(param);

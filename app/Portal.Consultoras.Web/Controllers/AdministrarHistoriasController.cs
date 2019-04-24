@@ -13,6 +13,8 @@ using System.ServiceModel;
 using System.Web.Mvc;
 using System.Threading.Tasks;
 using Portal.Consultoras.Web.ServiceContenido;
+using System.Configuration;
+using System.Net;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -94,7 +96,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var entidad = new BEContenidoApp();
                 entidad.UrlMiniatura = beContenidoApp.UrlMiniatura;
-                if (form.NombreImagen != null) {
+                if (form.NombreImagen != null)
+                {
                     entidad.UrlMiniatura = SaveFileS3(form.NombreImagen);
                 }
                 entidad.IdContenido = form.IdContenido;
@@ -276,11 +279,12 @@ namespace Portal.Consultoras.Web.Controllers
             AdministrarHistorialDetaUpdModel modelo;
             try
             {
+               string url = GetUrlDetalleS3();
                 modelo = new AdministrarHistorialDetaUpdModel
                 {
                     IdContenidoDeta = entidad.IdContenidoDeta,
                     IdContenido = entidad.IdContenido,
-                    RutaImagen = entidad.RutaImagen,                    
+                    RutaImagen = url + entidad.RutaImagen,
                 };
             }
             catch (Exception ex)
@@ -315,7 +319,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new { success = false });
             }
         }
-        
+
         public ActionResult GetDetalle(int id, int IdContenido)
         {
             var model = new AdministrarHistorialDetaListModel();
@@ -327,8 +331,8 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult Detalle(AdministrarHistorialDetaListModel model)
         {
             try
-            {                
-               
+            {
+
                 model = UpdateFilesDetalles(model);
 
                 using (ContenidoServiceClient sv = new ContenidoServiceClient())
@@ -341,7 +345,7 @@ namespace Portal.Consultoras.Web.Controllers
                     };
                     sv.InsertContenidoAppDeta(entidad);
                 }
-             
+
                 return Json(new
                 {
                     success = true,
@@ -364,15 +368,16 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var resizeImagenApp = false;
 
-            
-                model.RutaContenido = SaveFileDetalleS3(model.RutaContenido);
-                if (model.RutaContenido != string.Empty) resizeImagenApp = true;
-            
+
+            model.RutaContenido = SaveFileDetalleS3(model.RutaContenido);
+            if (model.RutaContenido != string.Empty) resizeImagenApp = true;
+
 
             if (resizeImagenApp)
             {
-                var urlImagen = ConfigS3.GetUrlFileHistDetalle(userData.CodigoISO, model.RutaContenido);
-                new Providers.RenderImgProvider().ImagenesResizeProcesoAppHistDetalle(urlImagen, userData.CodigoISO, userData.PaisID, "HIST");
+                string codeHist = ConfigurationManager.AppSettings["CodeHist"].ToString();
+                var urlImagen = ConfigS3.GetUrlFileHistDetalle(userData.CodigoISO, model.RutaContenido);               
+                new Providers.RenderImgProvider().ImagenesResizeProcesoAppHistDetalle(urlImagen, userData.CodigoISO, userData.PaisID, codeHist);
             }
 
             return model;
@@ -417,8 +422,6 @@ namespace Portal.Consultoras.Web.Controllers
             ConfigS3.SetFileS3(path, carpetaPais, newfilename);
             return newfilename;
         }
-
-
 
     }
 }
