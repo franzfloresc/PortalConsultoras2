@@ -1048,16 +1048,22 @@ namespace Portal.Consultoras.Common
             public const int AppBuscadorSRLanding = 4100101;
             public const int AppBuscadorSRDesplegableFicha = 4040102;
             public const int AppBuscadorSRLandingFicha = 4100102;
+            public const int AppBuscadorSRDesplegableFichaCarrusel = 4040105;
+            public const int AppBuscadorSRLandingFichaCarrusel = 4100105;
 
             public const int AppBuscadorLANDesplegable = 4040204;
             public const int AppBuscadorLANLanding = 4100201;
             public const int AppBuscadorLANDesplegableFicha = 4040202;
             public const int AppBuscadorLANLandingFicha = 4100202;
+            public const int AppBuscadorLANDesplegableFichaCarrusel = 4040205;
+            public const int AppBuscadorLANLandingFichaCarrusel = 4100205;
 
             public const int AppBuscadorODDDesplegable = 4040304;
             public const int AppBuscadorODDLanding = 4100301;
             public const int AppBuscadorODDDesplegableFicha = 4040302;
             public const int AppBuscadorODDLandingFicha = 4100302;
+            public const int AppBuscadorODDDesplegableFichaCarrusel = 4040305;
+            public const int AppBuscadorODDLandingFichaCarrusel = 4100305;
 
             public const int AppBuscadorGNDDesplegable = 4040504;
             public const int AppBuscadorGNDLanding = 4100501;
@@ -3597,6 +3603,8 @@ namespace Portal.Consultoras.Common
             public const string OrigenPedidoWebLanding = "OrigenPedidoWebLanding";
             public const string OrigenPedidoWebDesplegableFicha = "OrigenPedidoWebDesplegableFicha";
             public const string OrigenPedidoWebLandingFicha = "OrigenPedidoWebLandingFicha";
+            public const string OrigenPedidoWebLandingFichaCarrusel = "OrigenPedidoWebLandingFichaCarrusel";
+            public const string OrigenPedidoWebDesplegableFichaCarrusel = "OrigenPedidoWebDesplegableFichaCarrusel";
         }
     }
 }
