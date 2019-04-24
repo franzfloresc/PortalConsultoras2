@@ -563,34 +563,36 @@
                             <div class="col">Clientes que te lo pidieron</div>
                         </div>
                     </div>
-                    <div class="card--content card--content__no-shadow">
+                    
                         @foreach (var item2 in Model.ListaProductos)
                         {
-                            <div class="row">
-                                <div class="col-1">
-                                    <img class="img-fluid" src="@item2.Url">
-                                </div>
-                                <div class="col-3 t-w700">
-                                    <span>x @item2.CantidadTotal @item2.Producto</span>
-                                </div>
-                                <div class="col-2">@ViewBag.Simbolo @item2.FormatoPrecioTotal</div>
-                                <div class="col-2">@item2.MedioContacto</div>
-                                <div class="col">
-                                    <div class="card--box t-black open-modal" onclick="DetallePedidoPendienteClientes(@item2.CUV)">
-                                        @foreach (var item3 in item2.ListaClientes.Take(2).ToList())
-                                        {
-                                            <span class="card--box__info">@item3.Cliente</span>
-                                        }
-                                        @if (item2.ListaClientes.Count() > 2)
-                                        {
-                                            <p>Ver más...</p>
-                                        }
-                                        <a class="btn--arrow btn--arrow__right">Confirmar productos</a>
+                            <div class="card--content card--content__no-shadow">
+                                <div class="row">
+                                    <div class="col-1">
+                                        <img class="img-fluid" src="@item2.Url">
+                                    </div>
+                                    <div class="col-3 t-w700">
+                                        <span>x @item2.CantidadTotal @item2.Producto</span>
+                                    </div>
+                                    <div class="col-2">@ViewBag.Simbolo @item2.FormatoPrecioTotal</div>
+                                    <div class="col-2">@item2.MedioContacto</div>
+                                    <div class="col">
+                                        <div class="card--box t-black open-modal" onclick="DetallePedidoPendienteClientes(@item2.CUV)">
+                                            @foreach (var item3 in item2.ListaClientes.Take(2).ToList())
+                                            {
+                                                <span class="card--box__info">@item3.Cliente</span>
+                                            }
+                                            @if (item2.ListaClientes.Count() > 2)
+                                            {
+                                                <span class="card--box__info">Ver más...</span>
+                                            }
+                                            <a class="btn--arrow btn--arrow__right">Confirmar productos</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         }
-                    </div>
+                    
                 </div>
             </div>
         </div>
