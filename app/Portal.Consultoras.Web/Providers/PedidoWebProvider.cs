@@ -303,7 +303,7 @@ namespace Portal.Consultoras.Web.Providers
                 AgruparSet = agruparSet
             };
 
-            var detallesPedidoWeb = (List<BEPedidoWebDetalle>)null;
+            List<BEPedidoWebDetalle> detallesPedidoWeb;
             using (var pedidoServiceClient = new PedidoServiceClient())
             {
                 detallesPedidoWeb = pedidoServiceClient.SelectByCampaniaWithLabelProgNuevas(bePedidoWebDetalleParametros).ToList();
