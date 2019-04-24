@@ -1,4 +1,4 @@
-﻿USE BelcorpPeru_APP
+﻿USE BelcorpPeru
 GO
 
 if not exists (select 1 from Permiso where Codigo = 'CaminoBrillante')
@@ -13,7 +13,7 @@ begin
 end
 GO
 
-USE BelcorpMexico_APP
+USE BelcorpMexico
 GO
 
 if not exists (select 1 from Permiso where Codigo = 'CaminoBrillante')
@@ -28,7 +28,7 @@ begin
 end
 GO
 
-USE BelcorpColombia_APP
+USE BelcorpColombia
 GO
 
 if not exists (select 1 from Permiso where Codigo = 'CaminoBrillante')
@@ -43,7 +43,7 @@ begin
 end
 GO
 
-USE BelcorpSalvador_APP
+USE BelcorpSalvador
 GO
 
 if not exists (select 1 from Permiso where Codigo = 'CaminoBrillante')
@@ -58,7 +58,7 @@ begin
 end
 GO
 
-USE BelcorpPuertoRico_APP
+USE BelcorpPuertoRico
 GO
 
 if not exists (select 1 from Permiso where Codigo = 'CaminoBrillante')
@@ -73,7 +73,7 @@ begin
 end
 GO
 
-USE BelcorpPanama_APP
+USE BelcorpPanama
 GO
 
 if not exists (select 1 from Permiso where Codigo = 'CaminoBrillante')
@@ -88,7 +88,7 @@ begin
 end
 GO
 
-USE BelcorpGuatemala_APP
+USE BelcorpGuatemala
 GO
 
 if not exists (select 1 from Permiso where Codigo = 'CaminoBrillante')
@@ -103,7 +103,7 @@ begin
 end
 GO
 
-USE BelcorpEcuador_APP
+USE BelcorpEcuador
 GO
 
 if not exists (select 1 from Permiso where Codigo = 'CaminoBrillante')
@@ -118,7 +118,7 @@ begin
 end
 GO
 
-USE BelcorpDominicana_APP
+USE BelcorpDominicana
 GO
 
 if not exists (select 1 from Permiso where Codigo = 'CaminoBrillante')
@@ -133,7 +133,7 @@ begin
 end
 GO
 
-USE BelcorpCostaRica_APP
+USE BelcorpCostaRica
 GO
 
 if not exists (select 1 from Permiso where Codigo = 'CaminoBrillante')
@@ -148,7 +148,7 @@ begin
 end
 GO
 
-USE BelcorpChile_APP
+USE BelcorpChile
 GO
 
 if not exists (select 1 from Permiso where Codigo = 'CaminoBrillante')
@@ -163,7 +163,7 @@ begin
 end
 GO
 
-USE BelcorpBolivia_APP
+USE BelcorpBolivia
 GO
 
 if not exists (select 1 from Permiso where Codigo = 'CaminoBrillante')
