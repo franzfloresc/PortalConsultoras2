@@ -9,6 +9,7 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.CustomFilters;
 using Portal.Consultoras.Web.Infraestructure;
 using Portal.Consultoras.Web.Models.Search.ResponseOferta.Estructura;
+using Portal.Consultoras.Web.Providers;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -17,6 +18,15 @@ namespace Portal.Consultoras.Web.Controllers
     [RoutePrefix("ArmaTuPack")]
     public class ArmaTuPackController : BaseController
     {
+        private readonly ConfiguracionOfertasHomeProvider _confiOfertasHomeProvider;
+
+        public ArmaTuPackController() : this(new ConfiguracionOfertasHomeProvider()) { }
+
+        public ArmaTuPackController(ConfiguracionOfertasHomeProvider configuracionOfertasHomeProvider) : base()
+        {
+            _confiOfertasHomeProvider = configuracionOfertasHomeProvider;
+        }
+
         public ActionResult Index()
         {
             return RedirectToAction("Detalle", "ArmaTuPack");
@@ -43,7 +53,29 @@ namespace Portal.Consultoras.Web.Controllers
             var listModel = _ofertaPersonalizadaProvider.FormatearModelo1ToPersonalizado(listaOfertasATP, lstPedidoAgrupado, userData.CodigoISO, userData.CampaniaID, 0, userData.esConsultoraLider, userData.Simbolo);
 
             var OfertaATP = listModel.FirstOrDefault();
-            var modelo = Mapper.Map<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaModel>(OfertaATP);
+            //var modelo = Mapper.Map<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaModel>(OfertaATP);
+            var modelo = Mapper.Map<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaDisenoModel>(OfertaATP);
+
+            #region Obtiene variables portal
+            var listaVariable = _configuracionPaisProvider.getBaseVariablesPortal(userData.CodigoISO, userData.Simbolo);
+            #endregion
+            #region Asignacion de propiedades de diseño
+            var listaSeccion = _confiOfertasHomeProvider
+                .ObtenerConfiguracionSeccion(revistaDigital, esMobile)
+                .FirstOrDefault(x => x.Codigo == Constantes.TipoPersonalizacion.ArmaTuPack);
+
+            if (listaOfertasATP.Count > 0)
+            {
+                var primerItem = listaOfertasATP.First();
+
+                modelo.ImagenFondo = listaSeccion.ImagenFondo;
+                modelo.ColorFondo = listaSeccion.ColorFondo;
+                modelo.SubTitulo = listaSeccion.SubTitulo
+                    .Replace("#Cantidad", modelo.CantidadPack.ToString())
+                    .Replace("#PrecioTotal", listaVariable.SimboloMoneda + " " + modelo.PrecioVenta);
+                modelo.ColorTexto = listaSeccion.ColorTexto;
+            }
+            #endregion
 
             var packAgregado = lstPedidoAgrupado != null ? lstPedidoAgrupado.FirstOrDefault(x => x.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.ArmaTuPack) : null;
 
