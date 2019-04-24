@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.IO;
-using System.Linq;
-using System.Web.Mvc;
-using System.Web.Security;
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.CustomHelpers;
 using Portal.Consultoras.Web.Infraestructure.Excel;
@@ -17,9 +10,16 @@ using Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia;
 using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServicePedido;
-using Portal.Consultoras.Web.ServicesCalculosPROL;
 using Portal.Consultoras.Web.ServiceSAC;
+using Portal.Consultoras.Web.ServicesCalculosPROL;
 using Portal.Consultoras.Web.SessionManager;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
+using System.Linq;
+using System.Web.Mvc;
+using System.Web.Security;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -176,7 +176,7 @@ namespace Portal.Consultoras.Web.Controllers
                 estrategiaODD = SessionManager.OfertaDelDia.Estrategia;
                 configEstrategiaSR = SessionManager.GetEstrategiaSR() ?? new ConfigModel();
                 buscadorYFiltro = SessionManager.GetBuscadorYFiltrosConfig();
-                
+
                 if (Request.IsAjaxRequest())
                 {
                     base.OnActionExecuting(filterContext);
@@ -187,7 +187,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ObtenerPedidoWebDetalle();
 
                 bool esMobile = EsDispositivoMovil();
-                
+
                 GetUserDataViewBag();
 
                 var controllerName = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
@@ -575,7 +575,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
                 else
-                { 
+                {
                     string controlador = GetControllerActual();
 
                     if (!Constantes.Controlador.ActualizacionODD.Contains(controlador))
@@ -585,16 +585,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                     switch (controlador)
                     {
-                        //case "Ofertas":
-                        //    if (_tempData.ExistTDListODD())
-                        //    {
-                        //        actualizaBaseODD = false;
-                        //    }
-                        //    break;
                         case "DetalleEstrategia":
                             string accion = (ControllerContext.RouteData.Values["action"] ?? "").ToString();
                             string palanca = (ControllerContext.RouteData.Values["palanca"] ?? "").ToString();
-                            if(accion == "Ficha" && palanca != Constantes.NombrePalanca.OfertaDelDia)
+                            if (accion == "Ficha" && palanca != Constantes.NombrePalanca.OfertaDelDia)
                             {
                                 actualizaBaseODD = false;
                             }
@@ -620,7 +614,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var listMontosProl = ServicioProl_CalculoMontosProl(userData.EjecutaProl);
                 userData.EjecutaProl = true;
                 if (!listMontosProl.Any()) return objR;
-                
+
                 var montosProl = listMontosProl[0];
                 SetBarraConsultoraMontosTotales(objR, montosProl, Agrupado);
 
@@ -968,7 +962,7 @@ namespace Portal.Consultoras.Web.Controllers
         private void GetUserDataViewBag()
         {
             var esMobile = IsMobile();
-            ViewBag.PseudoParamNotif = userData.PseudoParamNotif; //SALUD-58
+            ViewBag.PseudoParamNotif = userData.PseudoParamNotif;
             ViewBag.EstadoInscripcionEpm = revistaDigital.EstadoRdcAnalytics;
             ViewBag.UsuarioNombre = (Util.Trim(userData.Sobrenombre) == "" ? userData.NombreConsultora : userData.Sobrenombre);
             ViewBag.Usuario = "Hola, " + userData.UsuarioNombre;

@@ -1,13 +1,13 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Portal.Consultoras.Web.ServiceUsuario;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -82,19 +82,6 @@ namespace Portal.Consultoras.Web.Providers
                 if (detallesPedidoWeb == null)
                 {
                     detallesPedidoWeb = ObtenerPedidoWebDetalleService(userData, false);
-                    //using (var pedidoServiceClient = new PedidoServiceClient())
-                    //{
-                    //    var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
-                    //    {
-                    //        PaisId = userData.PaisID,
-                    //        CampaniaId = userData.CampaniaID,
-                    //        ConsultoraId = userData.ConsultoraID,
-                    //        Consultora = userData.NombreConsultora,
-                    //        CodigoPrograma = userData.CodigoPrograma,
-                    //        NumeroPedido = userData.ConsecutivoNueva
-                    //    };
-                    //    detallesPedidoWeb = pedidoServiceClient.SelectByCampaniaWithLabelProgNuevas(bePedidoWebDetalleParametros).ToList();
-                    //}
                 }
 
                 var pedidoValidado = sessionManager.GetPedidoValidado();
@@ -145,20 +132,6 @@ namespace Portal.Consultoras.Web.Providers
                 if (detallesPedidoWeb == null || noSession)
                 {
                     detallesPedidoWeb = ObtenerPedidoWebDetalleService(userData, true);
-                    //using (var pedidoServiceClient = new PedidoServiceClient())
-                    //{
-                    //    var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
-                    //    {
-                    //        PaisId = userData.PaisID,
-                    //        CampaniaId = userData.CampaniaID,
-                    //        ConsultoraId = userData.ConsultoraID,
-                    //        Consultora = userData.NombreConsultora,
-                    //        CodigoPrograma = userData.CodigoPrograma,
-                    //        NumeroPedido = userData.ConsecutivoNueva,
-                    //        AgruparSet = true
-                    //    };
-                    //    detallesPedidoWeb = pedidoServiceClient.SelectByCampaniaWithLabelProgNuevas(bePedidoWebDetalleParametros).ToList();
-                    //}
                 }
 
                 var pedidoValidado = sessionManager.GetPedidoValidado();

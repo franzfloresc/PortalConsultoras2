@@ -238,13 +238,6 @@ namespace Portal.Consultoras.Web.Providers
             return campaniaIdStr;
         }
 
-        //public virtual string GetOrigenFromQueryString(HttpRequestBase Request)
-        //{
-        //    const string qsOrigen = "origen";
-        //    var pathOrigen = GetQueryStringValue(qsOrigen, Request);
-        //    return pathOrigen;
-        //}
-
         public virtual string GetQueryStringValue(string key, HttpRequestBase Request)
         {
             return Util.Trim(Request.QueryString[key]);

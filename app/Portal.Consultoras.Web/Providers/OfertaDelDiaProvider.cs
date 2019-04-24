@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.LogManager;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia;
 using Portal.Consultoras.Web.ServiceOferta;
@@ -11,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Providers
@@ -33,7 +30,6 @@ namespace Portal.Consultoras.Web.Providers
             _tablaLogica = new TablaLogicaProvider();
             _ofertaPersonalizada = new OfertaPersonalizadaProvider(objTempData);
             _consultaProlProvider = new ConsultaProlProvider();
-            //_tempData = objTempData;
             tempDataManager = new TempDataManager.TempDataManager(objTempData);
             _tablaLogicaProvider = new TablaLogicaProvider();
         }
@@ -55,7 +51,7 @@ namespace Portal.Consultoras.Web.Providers
                     Simbolo = model.Simbolo,
                     CodigoTipoEstrategia = Constantes.TipoEstrategiaCodigo.OfertaDelDia
                 };
-              
+
 
                 if (UsarMsPersonalizacion(model.CodigoISO, Constantes.TipoEstrategiaCodigo.OfertaDelDia))
                 {
@@ -72,9 +68,6 @@ namespace Portal.Consultoras.Web.Providers
                         model.CodigoZona
                      );
                     ofertasDelDia = ObtenerEntidadOfertasDesdeApi(pathOferta, model.CodigoISO);
-                    //var taskApi = Task.Run(() => ObtenerOfertasDesdeApi(pathOferta, model.CodigoISO));
-                    //Task.WhenAll(taskApi);
-                    //ofertasDelDia = taskApi.Result;
                 }
                 else
                 {
@@ -223,7 +216,7 @@ namespace Portal.Consultoras.Web.Providers
                             tempDataManager.SetListODD(oddSession.ListaOferta);
                         }
 
-                        sessionManager.OfertaDelDia.Estrategia = OmitirListaODD(oddSession);                        
+                        sessionManager.OfertaDelDia.Estrategia = OmitirListaODD(oddSession);
                     }
 
                     if (oddSession.TieneOfertaDelDia)
@@ -277,7 +270,7 @@ namespace Portal.Consultoras.Web.Providers
                 oddSession.ColorFondo2 = coloFondoDisplay.Codigo ?? string.Empty;
                 oddSession.ImagenSoloHoy = ObtenerUrlImagenOfertaDelDia(usuario.CodigoISO, oddSession.ListaOferta.Count);
 
-                oddSession.TieneOfertas = oddSession.ListaOferta.Any();                
+                oddSession.TieneOfertas = oddSession.ListaOferta.Any();
 
                 oddSession.TeQuedan = CountdownOdd(usuario);
 
@@ -295,7 +288,7 @@ namespace Portal.Consultoras.Web.Providers
         }
 
         private void AsignarPrimeraOfertaODD(ref DataModel oddSession, UsuarioModel usuario)
-        {     
+        {
             var primeraOferta = oddSession.ListaOferta.FirstOrDefault();
             oddSession.EstrategiaID = primeraOferta.EstrategiaID;
             oddSession.ImagenBanner = primeraOferta.FotoProducto01;
