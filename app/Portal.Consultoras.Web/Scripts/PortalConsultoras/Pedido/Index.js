@@ -226,14 +226,12 @@ $(document).ready(function () {
                 .appendTo(ul);
     };
 
-    $("#txtCUV").on('input', function () {
-        if ($(this).val().length === 5) {
-            if (isNaN($("#txtCUV").val()) == true) {
-                $("#txtCUV").val("");
-                //document.getElementById('divObservaciones').style.display = 'block';
-                //$("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'><span class='icono_advertencia_notificacion'></span>El codigo CUV debe ser un número</div></div>");
-                return false;
-            }
+    $("#txtCUV").on('input', function () {        
+        if (isNaN($("#txtCUV").val()) == true) {
+            $("#txtCUV").val("");
+            //document.getElementById('divObservaciones').style.display = 'block';
+            //$("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'><span class='icono_advertencia_notificacion'></span>El codigo CUV debe ser un número</div></div>");
+            return false;
         }
     });
 
