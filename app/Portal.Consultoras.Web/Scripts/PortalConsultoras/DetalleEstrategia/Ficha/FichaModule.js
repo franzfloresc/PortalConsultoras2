@@ -925,21 +925,21 @@ var FichaModule = (function (config) {
         }
 
         return true;
-    }
+    };
 
     var _setChangeFichaAnalytics = function (_isChangeTono, _isChangeCantidad, _isChangeCliente) {
         isChangeTono = _isChangeTono === true || _isChangeTono === false ? _isChangeTono : isChangeTono;
         isChangeCantidad = _isChangeCantidad === true || _isChangeCantidad === false ? _isChangeCantidad : isChangeCantidad;
         isChangeCliente = _isChangeCliente === true || _isChangeCliente === false ? _isChangeCliente : isChangeCliente;
-    }
+    };
 
-    var _getChangeFichaAnalytics = function (_isChangeTono, _isChangeCantidad, _isChangeCliente) {
+    var _getChangeFichaAnalytics = function () {
         return {
-            isChangeTono: isChangeTono;
-            isChangeCantidad: isChangeCantidad;
-            isChangeCliente: isChangeCliente;
+            isChangeTono: isChangeTono,
+            isChangeCantidad: isChangeCantidad,
+            isChangeCliente: isChangeCliente
         }
-    }
+    };
 
     function _init() {
         _config.esMobile = _config.generalModule.isMobile();
