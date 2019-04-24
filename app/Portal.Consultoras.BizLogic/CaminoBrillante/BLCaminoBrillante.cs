@@ -705,8 +705,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                         kit.CodigoSap = _kitProvider.CodigoSap;
                         kit.DescripcionCUV = _kitProvider.Descripcion;
                         kit.DescripcionCortaCUV = _kitProvider.Descripcion;
-                        kit.PrecioCatalogo = Util.DecimalToStringFormat(_kitProvider.Precio, paisISO).ToDecimal(); 
-                        kit.Ganancia = Util.DecimalToStringFormat(kit.PrecioValorizado, paisISO).ToDecimal()  - kit.PrecioCatalogo;
+                        kit.PrecioCatalogo = _kitProvider.Precio;
                         kit.FlagDigitable = _kitProvider.Digitable;
                         kit.CodigoNivel = _kitProvider.Nivel;
                         kit.FlagDigitable = _kitProvider.Digitable;
@@ -716,8 +715,16 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                     }
                 });
 
-                var kits2 =  kits.Where(e => e.FlagDigitable == 1).ToList();
-                return kits2;
+                var kitsResult =  kits.Where(e => e.FlagDigitable == 1).ToList();
+                kitsResult.ForEach(e => {
+                    //Validar el Calulo del Precio
+                    e.DescripcionCUV = string.Format("Kit {0}", e.DescripcionNivel);
+                    e.DescripcionCortaCUV = e.DescripcionCUV;
+                    e.PrecioValorizado = kits.Where(d => d.CodigoKit == e.CodigoKit).Sum(d => d.PrecioValorizado);
+                    e.PrecioCatalogo = kits.Where(d => d.CodigoKit == e.CodigoKit).Sum(d => d.PrecioCatalogo);
+                    e.Ganancia = e.PrecioValorizado - e.PrecioCatalogo;
+                });
+                return kitsResult;
             }
 
             return null;
@@ -819,7 +826,19 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             bEPedidoWebDetalle.EsDemCaminoBrillante = demostradores.Any(k => k.CUV == bEPedidoWebDetalle.CUV);
             if (!bEPedidoWebDetalle.EsDemCaminoBrillante)
             {
-                bEPedidoWebDetalle.EsKitCaminoBrillante = true;
+                var periodo = GetPeriodo(paisId, campaniaId);
+                if (periodo != null)
+                {
+                    var kits = GetKitsCache(paisId, periodo.Periodo, campaniaId) ?? new List<BEKitCaminoBrillante>();
+                    var kit = kits.FirstOrDefault(k => k.CUV == bEPedidoWebDetalle.CUV);
+                    if (kit != null) {
+                        bEPedidoWebDetalle.EsKitCaminoBrillante = true;
+                        bEPedidoWebDetalle.DescripcionCortadaProd = kit.DescripcionCUV;
+                        bEPedidoWebDetalle.DescripcionProd = kit.DescripcionCUV;
+                    }
+                }
+                //var kits = GetKitsCache
+                //bEPedidoWebDetalle.EsKitCaminoBrillante = true;
             }
         }
 
