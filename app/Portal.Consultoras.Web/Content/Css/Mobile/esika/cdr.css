@@ -234,7 +234,8 @@
     color: #808080;
 }
 
-.estado_observado {
+.estado_observado,
+.estado_en_evaluacion {
     border: 1px solid #B9007E;
     color: #B9007E;
 }
