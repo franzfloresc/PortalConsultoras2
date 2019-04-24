@@ -735,7 +735,9 @@ div .owl-carousel .owl-stage-outer {
 div .layout__view__breadcrumbs__wrapper, div .layout__view__title__wrapper {
     background:transparent;
 }
-
+.ficha__producto__descrip .boxheight {
+    min-height: 30px !important;
+}
 
 
 
@@ -1670,6 +1672,7 @@ div .footer__link, div .sub_footer a, div .btn__productos__agregados--verMiPedid
 }
 div .boton__agregalo--fichaProducto, div.btn__elegir__opcion--fichaProducto span {
     letter-spacing: 0;
+    text-indent: 22px;
 }
 .boton__agregalo--fichaProducto .cartbtn {
     text-indent: 22px !important;
@@ -2065,6 +2068,12 @@ div .boton__agregalo--fichaProducto, div.btn__elegir__opcion--fichaProducto span
 
 
     @media screen and (max-width: 620px) {
+        div .boton__agregalo--fichaProducto, div.btn__elegir__opcion--fichaProducto span {
+            text-indent: 19px;
+        }
+        .ficha__producto__descrip__nom {
+            min-height: 47px !important;
+        }
         .ficha__producto__precio {
             min-height: inherit;
         }
@@ -2085,9 +2094,9 @@ div .boton__agregalo--fichaProducto, div.btn__elegir__opcion--fichaProducto span
             display: block;
         }
 
-        div .boton__agregalo--fichaProducto i {
+        /*div .boton__agregalo--fichaProducto i {
             left: 33% !important;
-        }
+        }*/
 
         div #divresultadosDemostradores {
             margin-left: 13px;
