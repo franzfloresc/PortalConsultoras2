@@ -211,36 +211,13 @@
 
                 $(_elemento.DialogRegistroHtml).empty();
                 $(_elemento.DialogRegistroHtml)
-                    .html(result)
-                    .ready(_RegistroObternerImagen());
+                    .html(result);
 
                 showDialog(_elemento.DialogRegistro);
                 
             },
             error: function (request, status, error) {
                     _toastHelper.error(_texto.ProcesoError);
-            }
-        });
-    };
-
-    var _RegistroObternerImagen = function () {
-        var frmDatos = $(_elemento.DivFormulario);
-        if (frmDatos.length == 0) {
-            return false;
-        }
-        var listaFrmDatos = frmDatos.find("div[data-tipodato='img']");
-        if (listaFrmDatos.length == 0) {
-            return false;
-        }
-
-        $.each(listaFrmDatos, function (ind, datox) {
-            var idConca = $.trim($(datox).attr('id')).split('-');
-            if (idConca.length != 4) {
-                return false;
-            }
-            var codigoDato = $.trim(idConca[3]);
-            if (codigoDato != "") {
-                UploadFilePalanca(codigoDato);
             }
         });
     };
@@ -309,7 +286,7 @@
     var _initializar = function (param) {
         _evento();
         _DialogCrear();
-        _DialogImagen();
+        //_DialogImagen();
     };
 
     var _DialogImagen = function () {
