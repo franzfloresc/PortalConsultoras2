@@ -1,4 +1,4 @@
-USE BelcorpPeru_APP
+﻿USE BelcorpPeru_APP
 GO
 
 if not exists (select 1 from Permiso where Codigo = 'CaminoBrillante')

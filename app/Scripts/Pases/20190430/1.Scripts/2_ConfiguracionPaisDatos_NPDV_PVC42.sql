@@ -1,4 +1,4 @@
-USE BelcorpPeru
+ï»¿USE BelcorpPeru
 GO
 
 IF not exists (select 1 from ConfiguracionPais where Codigo = 'CAMINOBRILLANTE')
@@ -8,7 +8,7 @@ begin
 	values ('CAMINOBRILLANTE', 1,'Camino brillante de las consultoras', 0, 0 , 0, 0, 0, 0, 0)
 	set @ConfiguracionPaisID = SCOPE_IDENTITY()
 	insert into ConfiguracionPaisDatos values (@ConfiguracionPaisID, 'HomeCaminoBrillante', 0, 
-											  '¡Crece como {0} y obtén más beneficios!', NULL, NULL, '0: Mensaje home Camino Brillante 1: -- 2: --', 1, 'CaminoBrillante')
+											  'Â¡Crece como {0} y obtÃ©n mÃ¡s beneficios!', NULL, NULL, '0: Mensaje home Camino Brillante 1: -- 2: --', 1, 'CaminoBrillante')
 
 end
 go
@@ -23,7 +23,7 @@ begin
 	values ('CAMINOBRILLANTE', 1,'Camino brillante de las consultoras', 0, 0 , 0, 0, 0, 0, 0)
 	set @ConfiguracionPaisID = SCOPE_IDENTITY()
 	insert into ConfiguracionPaisDatos values (@ConfiguracionPaisID, 'HomeCaminoBrillante', 0, 
-											  '¡Crece como {0} y obtén más beneficios!', NULL, NULL, '0: Mensaje home Camino Brillante 1: -- 2: --', 1, 'CaminoBrillante')
+											  'Â¡Crece como {0} y obtÃ©n mÃ¡s beneficios!', NULL, NULL, '0: Mensaje home Camino Brillante 1: -- 2: --', 1, 'CaminoBrillante')
 
 end
 go
@@ -38,7 +38,7 @@ begin
 	values ('CAMINOBRILLANTE', 1,'Camino brillante de las consultoras', 0, 0 , 0, 0, 0, 0, 0)
 	set @ConfiguracionPaisID = SCOPE_IDENTITY()
 	insert into ConfiguracionPaisDatos values (@ConfiguracionPaisID, 'HomeCaminoBrillante', 0, 
-											  '¡Crece como {0} y obtén más beneficios!', NULL, NULL, '0: Mensaje home Camino Brillante 1: -- 2: --', 1, 'CaminoBrillante')
+											  'Â¡Crece como {0} y obtÃ©n mÃ¡s beneficios!', NULL, NULL, '0: Mensaje home Camino Brillante 1: -- 2: --', 1, 'CaminoBrillante')
 
 end
 go
@@ -53,7 +53,7 @@ begin
 	values ('CAMINOBRILLANTE', 1,'Camino brillante de las consultoras', 0, 0 , 0, 0, 0, 0, 0)
 	set @ConfiguracionPaisID = SCOPE_IDENTITY()
 	insert into ConfiguracionPaisDatos values (@ConfiguracionPaisID, 'HomeCaminoBrillante', 0, 
-											  '¡Crece como {0} y obtén más beneficios!', NULL, NULL, '0: Mensaje home Camino Brillante 1: -- 2: --', 1, 'CaminoBrillante')
+											  'Â¡Crece como {0} y obtÃ©n mÃ¡s beneficios!', NULL, NULL, '0: Mensaje home Camino Brillante 1: -- 2: --', 1, 'CaminoBrillante')
 
 end
 go
@@ -68,7 +68,7 @@ begin
 	values ('CAMINOBRILLANTE', 1,'Camino brillante de las consultoras', 0, 0 , 0, 0, 0, 0, 0)
 	set @ConfiguracionPaisID = SCOPE_IDENTITY()
 	insert into ConfiguracionPaisDatos values (@ConfiguracionPaisID, 'HomeCaminoBrillante', 0, 
-											  '¡Crece como {0} y obtén más beneficios!', NULL, NULL, '0: Mensaje home Camino Brillante 1: -- 2: --', 1, 'CaminoBrillante')
+											  'Â¡Crece como {0} y obtÃ©n mÃ¡s beneficios!', NULL, NULL, '0: Mensaje home Camino Brillante 1: -- 2: --', 1, 'CaminoBrillante')
 
 end
 go
@@ -83,7 +83,7 @@ begin
 	values ('CAMINOBRILLANTE', 1,'Camino brillante de las consultoras', 0, 0 , 0, 0, 0, 0, 0)
 	set @ConfiguracionPaisID = SCOPE_IDENTITY()
 	insert into ConfiguracionPaisDatos values (@ConfiguracionPaisID, 'HomeCaminoBrillante', 0, 
-											  '¡Crece como {0} y obtén más beneficios!', NULL, NULL, '0: Mensaje home Camino Brillante 1: -- 2: --', 1, 'CaminoBrillante')
+											  'Â¡Crece como {0} y obtÃ©n mÃ¡s beneficios!', NULL, NULL, '0: Mensaje home Camino Brillante 1: -- 2: --', 1, 'CaminoBrillante')
 
 end
 go
@@ -98,7 +98,7 @@ begin
 	values ('CAMINOBRILLANTE', 1,'Camino brillante de las consultoras', 0, 0 , 0, 0, 0, 0, 0)
 	set @ConfiguracionPaisID = SCOPE_IDENTITY()
 	insert into ConfiguracionPaisDatos values (@ConfiguracionPaisID, 'HomeCaminoBrillante', 0, 
-											  '¡Crece como {0} y obtén más beneficios!', NULL, NULL, '0: Mensaje home Camino Brillante 1: -- 2: --', 1, 'CaminoBrillante')
+											  'Â¡Crece como {0} y obtÃ©n mÃ¡s beneficios!', NULL, NULL, '0: Mensaje home Camino Brillante 1: -- 2: --', 1, 'CaminoBrillante')
 
 end
 go
@@ -113,7 +113,7 @@ begin
 	values ('CAMINOBRILLANTE', 1,'Camino brillante de las consultoras', 0, 0 , 0, 0, 0, 0, 0)
 	set @ConfiguracionPaisID = SCOPE_IDENTITY()
 	insert into ConfiguracionPaisDatos values (@ConfiguracionPaisID, 'HomeCaminoBrillante', 0, 
-											  '¡Crece como {0} y obtén más beneficios!', NULL, NULL, '0: Mensaje home Camino Brillante 1: -- 2: --', 1, 'CaminoBrillante')
+											  'Â¡Crece como {0} y obtÃ©n mÃ¡s beneficios!', NULL, NULL, '0: Mensaje home Camino Brillante 1: -- 2: --', 1, 'CaminoBrillante')
 
 end
 go
@@ -128,7 +128,7 @@ begin
 	values ('CAMINOBRILLANTE', 1,'Camino brillante de las consultoras', 0, 0 , 0, 0, 0, 0, 0)
 	set @ConfiguracionPaisID = SCOPE_IDENTITY()
 	insert into ConfiguracionPaisDatos values (@ConfiguracionPaisID, 'HomeCaminoBrillante', 0, 
-											  '¡Crece como {0} y obtén más beneficios!', NULL, NULL, '0: Mensaje home Camino Brillante 1: -- 2: --', 1, 'CaminoBrillante')
+											  'Â¡Crece como {0} y obtÃ©n mÃ¡s beneficios!', NULL, NULL, '0: Mensaje home Camino Brillante 1: -- 2: --', 1, 'CaminoBrillante')
 
 end
 go
@@ -143,7 +143,7 @@ begin
 	values ('CAMINOBRILLANTE', 1,'Camino brillante de las consultoras', 0, 0 , 0, 0, 0, 0, 0)
 	set @ConfiguracionPaisID = SCOPE_IDENTITY()
 	insert into ConfiguracionPaisDatos values (@ConfiguracionPaisID, 'HomeCaminoBrillante', 0, 
-											  '¡Crece como {0} y obtén más beneficios!', NULL, NULL, '0: Mensaje home Camino Brillante 1: -- 2: --', 1, 'CaminoBrillante')
+											  'Â¡Crece como {0} y obtÃ©n mÃ¡s beneficios!', NULL, NULL, '0: Mensaje home Camino Brillante 1: -- 2: --', 1, 'CaminoBrillante')
 
 end
 go
@@ -158,7 +158,7 @@ begin
 	values ('CAMINOBRILLANTE', 1,'Camino brillante de las consultoras', 0, 0 , 0, 0, 0, 0, 0)
 	set @ConfiguracionPaisID = SCOPE_IDENTITY()
 	insert into ConfiguracionPaisDatos values (@ConfiguracionPaisID, 'HomeCaminoBrillante', 0, 
-											  '¡Crece como {0} y obtén más beneficios!', NULL, NULL, '0: Mensaje home Camino Brillante 1: -- 2: --', 1, 'CaminoBrillante')
+											  'Â¡Crece como {0} y obtÃ©n mÃ¡s beneficios!', NULL, NULL, '0: Mensaje home Camino Brillante 1: -- 2: --', 1, 'CaminoBrillante')
 
 end
 go
@@ -173,7 +173,7 @@ begin
 	values ('CAMINOBRILLANTE', 1,'Camino brillante de las consultoras', 0, 0 , 0, 0, 0, 0, 0)
 	set @ConfiguracionPaisID = SCOPE_IDENTITY()
 	insert into ConfiguracionPaisDatos values (@ConfiguracionPaisID, 'HomeCaminoBrillante', 0, 
-											  '¡Crece como {0} y obtén más beneficios!', NULL, NULL, '0: Mensaje home Camino Brillante 1: -- 2: --', 1, 'CaminoBrillante')
+											  'Â¡Crece como {0} y obtÃ©n mÃ¡s beneficios!', NULL, NULL, '0: Mensaje home Camino Brillante 1: -- 2: --', 1, 'CaminoBrillante')
 
 end
 go

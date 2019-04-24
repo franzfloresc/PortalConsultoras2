@@ -1,4 +1,4 @@
-USE BelcorpPeru
+ï»¿USE BelcorpPeru
 GO
 
 DELETE [dbo].[TablaLogicaDatos] WHERE [TablaLogicaID] IN (165, 166, 167, 168);
@@ -8,7 +8,7 @@ INSERT INTO TablaLogica values (165, 'Datos Camino Brillante')
 INSERT INTO [dbo].[TablaLogicaDatos] VALUES (16501, 165, 'url_inf_com', 'url de Informacion Comercial Services', ''),
 							        (16502, 165, 'usu_inf_com', 'usuario', ''),
 							        (16503, 165, 'cla_inf_com', 'clave', ''),
-									(16504, 165, 'num_cam_per', 'Número de campanias a obtener en un Periodo', '6')
+									(16504, 165, 'num_cam_per', 'NÃºmero de campanias a obtener en un Periodo', '6')
 
 INSERT INTO [dbo].[TablaLogica] ([TablaLogicaID] ,[Descripcion]) VALUES ( 166, 'Camino Brillante - Logros'),
 																		( 167, 'Camino Brillante - Indicadores'),
@@ -44,7 +44,7 @@ INSERT INTO TablaLogica values (165, 'Datos Camino Brillante')
 INSERT INTO [dbo].[TablaLogicaDatos] VALUES (16501, 165, 'url_inf_com', 'url de Informacion Comercial Services', ''),
 							        (16502, 165, 'usu_inf_com', 'usuario', ''),
 							        (16503, 165, 'cla_inf_com', 'clave', ''),
-									(16504, 165, 'num_cam_per', 'Número de campanias a obtener en un Periodo', '6')
+									(16504, 165, 'num_cam_per', 'NÃºmero de campanias a obtener en un Periodo', '6')
 
 INSERT INTO [dbo].[TablaLogica] ([TablaLogicaID] ,[Descripcion]) VALUES ( 166, 'Camino Brillante - Logros'),
 																		( 167, 'Camino Brillante - Indicadores'),
@@ -80,7 +80,7 @@ INSERT INTO TablaLogica values (165, 'Datos Camino Brillante')
 INSERT INTO [dbo].[TablaLogicaDatos] VALUES (16501, 165, 'url_inf_com', 'url de Informacion Comercial Services', ''),
 							        (16502, 165, 'usu_inf_com', 'usuario', ''),
 							        (16503, 165, 'cla_inf_com', 'clave', ''),
-									(16504, 165, 'num_cam_per', 'Número de campanias a obtener en un Periodo', '6')
+									(16504, 165, 'num_cam_per', 'NÃºmero de campanias a obtener en un Periodo', '6')
 
 INSERT INTO [dbo].[TablaLogica] ([TablaLogicaID] ,[Descripcion]) VALUES ( 166, 'Camino Brillante - Logros'),
 																		( 167, 'Camino Brillante - Indicadores'),
@@ -116,7 +116,7 @@ INSERT INTO TablaLogica values (165, 'Datos Camino Brillante')
 INSERT INTO [dbo].[TablaLogicaDatos] VALUES (16501, 165, 'url_inf_com', 'url de Informacion Comercial Services', ''),
 							        (16502, 165, 'usu_inf_com', 'usuario', ''),
 							        (16503, 165, 'cla_inf_com', 'clave', ''),
-									(16504, 165, 'num_cam_per', 'Número de campanias a obtener en un Periodo', '6')
+									(16504, 165, 'num_cam_per', 'NÃºmero de campanias a obtener en un Periodo', '6')
 
 INSERT INTO [dbo].[TablaLogica] ([TablaLogicaID] ,[Descripcion]) VALUES ( 166, 'Camino Brillante - Logros'),
 																		( 167, 'Camino Brillante - Indicadores'),
@@ -152,7 +152,7 @@ INSERT INTO TablaLogica values (165, 'Datos Camino Brillante')
 INSERT INTO [dbo].[TablaLogicaDatos] VALUES (16501, 165, 'url_inf_com', 'url de Informacion Comercial Services', ''),
 							        (16502, 165, 'usu_inf_com', 'usuario', ''),
 							        (16503, 165, 'cla_inf_com', 'clave', ''),
-									(16504, 165, 'num_cam_per', 'Número de campanias a obtener en un Periodo', '6')
+									(16504, 165, 'num_cam_per', 'NÃºmero de campanias a obtener en un Periodo', '6')
 
 INSERT INTO [dbo].[TablaLogica] ([TablaLogicaID] ,[Descripcion]) VALUES ( 166, 'Camino Brillante - Logros'),
 																		( 167, 'Camino Brillante - Indicadores'),
@@ -188,7 +188,7 @@ INSERT INTO TablaLogica values (165, 'Datos Camino Brillante')
 INSERT INTO [dbo].[TablaLogicaDatos] VALUES (16501, 165, 'url_inf_com', 'url de Informacion Comercial Services', ''),
 							        (16502, 165, 'usu_inf_com', 'usuario', ''),
 							        (16503, 165, 'cla_inf_com', 'clave', ''),
-									(16504, 165, 'num_cam_per', 'Número de campanias a obtener en un Periodo', '6')
+									(16504, 165, 'num_cam_per', 'NÃºmero de campanias a obtener en un Periodo', '6')
 
 INSERT INTO [dbo].[TablaLogica] ([TablaLogicaID] ,[Descripcion]) VALUES ( 166, 'Camino Brillante - Logros'),
 																		( 167, 'Camino Brillante - Indicadores'),
@@ -224,7 +224,7 @@ INSERT INTO TablaLogica values (165, 'Datos Camino Brillante')
 INSERT INTO [dbo].[TablaLogicaDatos] VALUES (16501, 165, 'url_inf_com', 'url de Informacion Comercial Services', ''),
 							        (16502, 165, 'usu_inf_com', 'usuario', ''),
 							        (16503, 165, 'cla_inf_com', 'clave', ''),
-									(16504, 165, 'num_cam_per', 'Número de campanias a obtener en un Periodo', '6')
+									(16504, 165, 'num_cam_per', 'NÃºmero de campanias a obtener en un Periodo', '6')
 
 INSERT INTO [dbo].[TablaLogica] ([TablaLogicaID] ,[Descripcion]) VALUES ( 166, 'Camino Brillante - Logros'),
 																		( 167, 'Camino Brillante - Indicadores'),
@@ -260,7 +260,7 @@ INSERT INTO TablaLogica values (165, 'Datos Camino Brillante')
 INSERT INTO [dbo].[TablaLogicaDatos] VALUES (16501, 165, 'url_inf_com', 'url de Informacion Comercial Services', ''),
 							        (16502, 165, 'usu_inf_com', 'usuario', ''),
 							        (16503, 165, 'cla_inf_com', 'clave', ''),
-									(16504, 165, 'num_cam_per', 'Número de campanias a obtener en un Periodo', '6')
+									(16504, 165, 'num_cam_per', 'NÃºmero de campanias a obtener en un Periodo', '6')
 
 INSERT INTO [dbo].[TablaLogica] ([TablaLogicaID] ,[Descripcion]) VALUES ( 166, 'Camino Brillante - Logros'),
 																		( 167, 'Camino Brillante - Indicadores'),
@@ -296,7 +296,7 @@ INSERT INTO TablaLogica values (165, 'Datos Camino Brillante')
 INSERT INTO [dbo].[TablaLogicaDatos] VALUES (16501, 165, 'url_inf_com', 'url de Informacion Comercial Services', ''),
 							        (16502, 165, 'usu_inf_com', 'usuario', ''),
 							        (16503, 165, 'cla_inf_com', 'clave', ''),
-									(16504, 165, 'num_cam_per', 'Número de campanias a obtener en un Periodo', '6')
+									(16504, 165, 'num_cam_per', 'NÃºmero de campanias a obtener en un Periodo', '6')
 
 INSERT INTO [dbo].[TablaLogica] ([TablaLogicaID] ,[Descripcion]) VALUES ( 166, 'Camino Brillante - Logros'),
 																		( 167, 'Camino Brillante - Indicadores'),
@@ -332,7 +332,7 @@ INSERT INTO TablaLogica values (165, 'Datos Camino Brillante')
 INSERT INTO [dbo].[TablaLogicaDatos] VALUES (16501, 165, 'url_inf_com', 'url de Informacion Comercial Services', ''),
 							        (16502, 165, 'usu_inf_com', 'usuario', ''),
 							        (16503, 165, 'cla_inf_com', 'clave', ''),
-									(16504, 165, 'num_cam_per', 'Número de campanias a obtener en un Periodo', '6')
+									(16504, 165, 'num_cam_per', 'NÃºmero de campanias a obtener en un Periodo', '6')
 
 INSERT INTO [dbo].[TablaLogica] ([TablaLogicaID] ,[Descripcion]) VALUES ( 166, 'Camino Brillante - Logros'),
 																		( 167, 'Camino Brillante - Indicadores'),
@@ -368,7 +368,7 @@ INSERT INTO TablaLogica values (165, 'Datos Camino Brillante')
 INSERT INTO [dbo].[TablaLogicaDatos] VALUES (16501, 165, 'url_inf_com', 'url de Informacion Comercial Services', ''),
 							        (16502, 165, 'usu_inf_com', 'usuario', ''),
 							        (16503, 165, 'cla_inf_com', 'clave', ''),
-									(16504, 165, 'num_cam_per', 'Número de campanias a obtener en un Periodo', '6')
+									(16504, 165, 'num_cam_per', 'NÃºmero de campanias a obtener en un Periodo', '6')
 
 INSERT INTO [dbo].[TablaLogica] ([TablaLogicaID] ,[Descripcion]) VALUES ( 166, 'Camino Brillante - Logros'),
 																		( 167, 'Camino Brillante - Indicadores'),
@@ -404,7 +404,7 @@ INSERT INTO TablaLogica values (165, 'Datos Camino Brillante')
 INSERT INTO [dbo].[TablaLogicaDatos] VALUES (16501, 165, 'url_inf_com', 'url de Informacion Comercial Services', ''),
 							        (16502, 165, 'usu_inf_com', 'usuario', ''),
 							        (16503, 165, 'cla_inf_com', 'clave', ''),
-									(16504, 165, 'num_cam_per', 'Número de campanias a obtener en un Periodo', '6')
+									(16504, 165, 'num_cam_per', 'NÃºmero de campanias a obtener en un Periodo', '6')
 
 INSERT INTO [dbo].[TablaLogica] ([TablaLogicaID] ,[Descripcion]) VALUES ( 166, 'Camino Brillante - Logros'),
 																		( 167, 'Camino Brillante - Indicadores'),

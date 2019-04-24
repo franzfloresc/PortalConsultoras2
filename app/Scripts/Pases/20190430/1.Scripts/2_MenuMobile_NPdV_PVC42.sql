@@ -1,4 +1,4 @@
-USE BelcorpPeru
+﻿USE BelcorpPeru
 GO
 
 if not exists(select 1 from MenuMobile where Codigo = 'CaminoBrillante')
