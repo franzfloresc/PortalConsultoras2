@@ -170,15 +170,11 @@
         <div class="clear"></div>
     </div>
     <hr class="clear" />
-    @if (Model.TieneCaminoBrillante)
+    @if (Model.TieneCaminoBrillante && !string.IsNullOrEmpty(Model.UrlLogoCaminoBrillante))
     {
         <link href="~/Content/CaminoBrillante/Content.css" rel="stylesheet" />
         <div class="items_belcorp cam-exito">
-            @if (!string.IsNullOrEmpty(Model.UrlLogoCaminoBrillante))
-            {
-                <img src="@Model.UrlLogoCaminoBrillante" />
-            }          
-
+            <img src="@Model.UrlLogoCaminoBrillante" /> 
             <p class="toptext">Camino Brillante</p>
             <p id="TextoCaminoBrillante">
                 @Html.Raw(Model.CaminoBrillanteMsg)
