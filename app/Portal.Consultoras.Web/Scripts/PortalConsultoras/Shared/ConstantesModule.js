@@ -108,7 +108,7 @@ var ConstantesModule = (function () {
         ATP: "ATP",
         PN: "PN",
         DP: "DP"
-    }
+    };
 
 
     /// los que no tienen TipoPersonalizacion se pone texto
@@ -139,49 +139,7 @@ var ConstantesModule = (function () {
         GuiaDeNegocioDigitalizada: "/Estrategia/GNDObtenerProductos",
         HerrameintasVenta: "/Estrategia/HVObtenerProductos",
         MasGanadoras: "/Estrategia/MGObtenerProductos"
-    }
-
-    var _origenPedidoWeb = {
-        //OfertaDelDiaDesktopHomeBanner: "1191",
-        //OfertaDelDiaDesktopPedidoBanner: "1291",
-        //OfertaDelDiaDesktopGeneralBanner: "1991",
-        DesktopHomeOfertaDeliaBannerSuperior: "1010306",
-        DesktopPedidoOfertaDelDiaBannerSuperior: "1020306",
-        DesktopOtrasOfertaDelDiaBannerSuperior: "1090306",
-
-        DesktopContenedorGanadorasCarrusel: "1081401",
-        DesktopContenedorGanadorasFicha: "1081402",
-        DesktopLandingGanadorasGanadorasCarrusel: "1111401",
-        DesktopLandingGanadorasGanadorasFicha: "1111402",
-        MobileContenedorGanadorasCarrusel: "2081401",
-        MobileContenedorGanadorasFicha: "2081402",
-        MobileLandingGanadorasGanadorasCarrusel: "2111401",
-        MobileLandingGanadorasGanadorasFicha: "2111402",
-
-        DesktopBuscadorGanadorasDesplegable: "1041404",
-        MobileBuscadorGanadorasDesplegable: "2041404",
-        DesktopBuscadorGanadorasFicha: "1041402",
-        MobileBuscadorGanadorasFicha: "2041402",
-        DesktopBuscadorGanadorasCarrusel: "1101401",
-        MobileBuscadorGanadorasCarrusel: "2101401",
-        DesktopLandingBuscadorGanadorasFicha: "1101402",
-        MobileLandingBuscadorGanadorasFicha: "2101402",
-
-        MobileArmaTuPackFicha: _origenPedidoWebEstructura.Dispositivo.Mobile
-            + _origenPedidoWebEstructura.Pagina.ArmaTuPackDetalle
-            + _origenPedidoWebEstructura.Palanca.ArmaTuPack
-            + _origenPedidoWebEstructura.Seccion.Ficha,
-        DesktopArmaTuPackFicha: _origenPedidoWebEstructura.Dispositivo.Desktop
-            + _origenPedidoWebEstructura.Pagina.ArmaTuPackDetalle
-            + _origenPedidoWebEstructura.Palanca.ArmaTuPack
-            + _origenPedidoWebEstructura.Seccion.Ficha,
-    }
-    var _codigoUbigeoPortal = {
-        GuionPedidoGuionFichaResumida: "--02--00",
-        GuionContenedorArmaTuPackGuion: "--0816--",
-        GuionContenedorArmaTuPack: "--12----",
-        GuionCarritoComprasGuionFichaResumida: "--02--09"
-    }
+    };
 
     // en AnaluticsPortal.js tambiar actualizar los valores
     var _origenPedidoWebEstructura = {
@@ -236,7 +194,49 @@ var ConstantesModule = (function () {
             BannerSuperior: '06',
             SubCampania: '07'
         }
-    }
+    };
+
+    var _origenPedidoWeb = {
+        //OfertaDelDiaDesktopHomeBanner: "1191",
+        //OfertaDelDiaDesktopPedidoBanner: "1291",
+        //OfertaDelDiaDesktopGeneralBanner: "1991",
+        DesktopHomeOfertaDeliaBannerSuperior: "1010306",
+        DesktopPedidoOfertaDelDiaBannerSuperior: "1020306",
+        DesktopOtrasOfertaDelDiaBannerSuperior: "1090306",
+
+        DesktopContenedorGanadorasCarrusel: "1081401",
+        DesktopContenedorGanadorasFicha: "1081402",
+        DesktopLandingGanadorasGanadorasCarrusel: "1111401",
+        DesktopLandingGanadorasGanadorasFicha: "1111402",
+        MobileContenedorGanadorasCarrusel: "2081401",
+        MobileContenedorGanadorasFicha: "2081402",
+        MobileLandingGanadorasGanadorasCarrusel: "2111401",
+        MobileLandingGanadorasGanadorasFicha: "2111402",
+
+        DesktopBuscadorGanadorasDesplegable: "1041404",
+        MobileBuscadorGanadorasDesplegable: "2041404",
+        DesktopBuscadorGanadorasFicha: "1041402",
+        MobileBuscadorGanadorasFicha: "2041402",
+        DesktopBuscadorGanadorasCarrusel: "1101401",
+        MobileBuscadorGanadorasCarrusel: "2101401",
+        DesktopLandingBuscadorGanadorasFicha: "1101402",
+        MobileLandingBuscadorGanadorasFicha: "2101402",
+
+        MobileArmaTuPackFicha: _origenPedidoWebEstructura.Dispositivo.Mobile
+            + _origenPedidoWebEstructura.Pagina.ArmaTuPackDetalle
+            + _origenPedidoWebEstructura.Palanca.ArmaTuPack
+            + _origenPedidoWebEstructura.Seccion.Ficha,
+        DesktopArmaTuPackFicha: _origenPedidoWebEstructura.Dispositivo.Desktop
+            + _origenPedidoWebEstructura.Pagina.ArmaTuPackDetalle
+            + _origenPedidoWebEstructura.Palanca.ArmaTuPack
+            + _origenPedidoWebEstructura.Seccion.Ficha,
+    };
+    var _codigoUbigeoPortal = {
+        GuionPedidoGuionFichaResumida: "--02--00",
+        GuionContenedorArmaTuPackGuion: "--0816--",
+        GuionContenedorArmaTuPack: "--12----",
+        GuionCarritoComprasGuionFichaResumida: "--02--09"
+    }; 
 
     var _tipoAccionNavegar = {
         BreadCrumbs: 1,
