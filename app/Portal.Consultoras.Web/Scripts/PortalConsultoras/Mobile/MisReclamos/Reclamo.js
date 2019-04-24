@@ -1868,7 +1868,8 @@ $(document).ready(function () {
                     var id = opcion.id;
                     //ocultamos la capa padre y los hijos
                     tagDivInfo.fadeOut(100).children().fadeOut(100);
-                     $(me.Variables.btnSiguiente1).addClass(me.Variables.deshabilitarBoton);
+                    $(me.Variables.btnSiguiente1).addClass(me.Variables.deshabilitarBoton);
+                    $("#MensajeTenerEncuenta").fadeOut(100);
                     return false;
                 }
                 //Mostramos la capa padre

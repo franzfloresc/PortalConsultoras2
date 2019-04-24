@@ -134,6 +134,13 @@ $(document).ready(function () {
         }
     });
 
+    // Seleccionar opción haciendo click en el área que conforma la opción cdr elegida, no sólo en el checkbox
+    $(".lista_opciones_cdr_wrapper").on("click", ".opcion_cdr_enlace", function (e) {
+        e.preventDefault();
+        // Se dispara el evento change del checkbox que llama a la función EscogerSolucion que se lanza al seleccionar y deseleccionar el checkbox
+        $(this).find('input[type="checkbox"]').change();
+    });
+
     $("#RegresarPaso1, #RegresarPaso2, #RegresarCambio1, #RegresarCanje1").on("click", function () {
         CambiarVistaPaso(reclamo.pasos.uno_seleccion_de_producto);
     });
@@ -1696,12 +1703,21 @@ function EscogerSolucion(opcion, event) {
     var tagDivInfo = $('#infoOpcionesDeCambio');
     var cantidad = $('#txtCantidad').val() == "" ? 1 : parseInt($('#txtCantidad').val());
     tagCheck.not(opcion).prop('checked', false);
+    $(".opcion_cdr").removeClass("opcion_cdr_seleccionada");
+    if ($(opcion).is(':checked')) {
+        $(opcion).parents(".opcion_cdr").removeClass("opcion_cdr_seleccionada");
+        $(opcion).prop('checked', false);
+    } else {
+        $(opcion).parents(".opcion_cdr").addClass("opcion_cdr_seleccionada");
+        $(opcion).prop('checked', true);
+    }
     var id = opcion.id;
     var isChecked = tagCheck.is(':checked');
     if (id == "" || !isChecked) {
         $("#btnIrPaso3").fadeOut(100);
         tagDivInfo.fadeOut(100).children().fadeOut(100); //ocultamos la capa padre y los hijos
         $(opcion).parents(".opcion_cdr").removeClass("opcion_cdr_seleccionada");
+        $("#MensajeTenerEncuenta").fadeOut(100);
         return false;
     }
     tagDivInfo.show();//Mostramos la capa padre
@@ -1720,21 +1736,15 @@ function EscogerSolucion(opcion, event) {
     //en base al id, mostramos la capa correspondiente
     if (id == reclamo.operacion.trueque) {
         $.when(ObtenerValorParametria(id)).then(function () {
-            $(".opcion_cdr").removeClass("opcion_cdr_seleccionada");
-            $(opcion).parents(".opcion_cdr").addClass("opcion_cdr_seleccionada");
             $('#OpcionCambioPorOtroProducto').fadeIn(200);
             SetMontoCampaniaTotal();
         });
     } else if (id == reclamo.operacion.canje) {
-        $(".opcion_cdr").removeClass("opcion_cdr_seleccionada");
-        $(opcion).parents(".opcion_cdr").addClass("opcion_cdr_seleccionada");
         $('#OpcionCambioMismoProducto').fadeIn(200);
         $('#spnDescProdDevolucionC').html($('#ddlCuv').val());
         $('#spnCantidadC').html(textoUnidades);
     } else if (id == reclamo.operacion.devolucion) {
         $.when(ObtenerValorParametria(id)).then(function () {
-            $(".opcion_cdr").removeClass("opcion_cdr_seleccionada");
-            $(opcion).parents(".opcion_cdr").addClass("opcion_cdr_seleccionada");
             $('#divDevolucionSetsOrPack').show();
             $('#OpcionDevolucion').fadeIn(200);
             $('#spnCantidadD').html(textoUnidades);
@@ -1743,15 +1753,11 @@ function EscogerSolucion(opcion, event) {
         });
     } else if (id == reclamo.operacion.faltante) {
         $.when(ObtenerValorParametria(id)).then(function () {
-            $(".opcion_cdr").removeClass("opcion_cdr_seleccionada");
-            $(opcion).parents(".opcion_cdr").addClass("opcion_cdr_seleccionada");
             $('#spnDescripcionProductoOpcionF').text($('#ddlCuv').val());
             $('#spnCantidadF').html(textoUnidades);
             $('#OpcionEnvioDelProducto').fadeIn(200);
         });
     } else {
-        $(".opcion_cdr").removeClass("opcion_cdr_seleccionada");
-        $(opcion).parents(".opcion_cdr").addClass("opcion_cdr_seleccionada");
         $('#spnDescripcionProductoOpcionG').html($('#ddlCuv').val());
         $('#spnCantidadG').html(textoUnidades);
         $('#OpcionDevolucionDinero').fadeIn(200);
