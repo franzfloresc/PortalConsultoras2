@@ -3413,7 +3413,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 Consultora = usuario.Nombre,
                 CodigoPrograma = usuario.CodigoPrograma,
                 NumeroPedido = usuario.ConsecutivoNueva,
-                AgruparSet = true
+                AgruparSet = true,
+                NivelCaminoBrillante = usuario.NivelCaminoBrillante
             };
 
             var detallesPedidoWeb = _pedidoWebDetalleBusinessLogic.GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros, true, updLabelNuevas, true).ToList();
