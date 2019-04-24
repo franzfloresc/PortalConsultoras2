@@ -1,4 +1,4 @@
-﻿USE [BelcorpBolivia]
+USE [BelcorpBolivia];
 GO
 IF EXISTS(SELECT 1 FROM Permiso WHERE Descripcion = 'FECHAS DE PROMOCIONES')
 BEGIN
@@ -6,12 +6,12 @@ BEGIN
 	DECLARE @PermisoID INT = 0
 	SELECT @PermisoID = PermisoID FROM Permiso WHERE Descripcion = 'FECHAS DE PROMOCIONES'
 
-	DELETE FROM Permiso WHERE PermisoID = @PermisoID
+	DELETE FROM RolPermiso WHERE PermisoID = @PermisoID
 
 END
 GO
 
-USE [BelcorpChile]
+USE [BelcorpChile];
 GO
 IF EXISTS(SELECT 1 FROM Permiso WHERE Descripcion = 'FECHAS DE PROMOCIONES')
 BEGIN
@@ -19,12 +19,12 @@ BEGIN
 	DECLARE @PermisoID INT = 0
 	SELECT @PermisoID = PermisoID FROM Permiso WHERE Descripcion = 'FECHAS DE PROMOCIONES'
 	
-	DELETE FROM Permiso WHERE PermisoID = @PermisoID
+	DELETE FROM RolPermiso WHERE PermisoID = @PermisoID
 
 END
 GO
 
-USE [BelcorpColombia]
+USE [BelcorpColombia];
 GO
 IF EXISTS(SELECT 1 FROM Permiso WHERE Descripcion = 'FECHAS DE PROMOCIONES')
 BEGIN
@@ -32,38 +32,12 @@ BEGIN
 	DECLARE @PermisoID INT = 0
 	SELECT @PermisoID = PermisoID FROM Permiso WHERE Descripcion = 'FECHAS DE PROMOCIONES'
 
-	DELETE FROM Permiso WHERE PermisoID = @PermisoID
+	DELETE FROM RolPermiso WHERE PermisoID = @PermisoID
 
 END
 GO
 
-USE [BelcorpCostaRica]
-GO
-IF EXISTS(SELECT 1 FROM Permiso WHERE Descripcion = 'FECHAS DE PROMOCIONES')
-BEGIN
-
-	DECLARE @PermisoID INT = 0
-	SELECT @PermisoID = PermisoID FROM Permiso WHERE Descripcion = 'FECHAS DE PROMOCIONES'
-	
-	DELETE FROM Permiso WHERE PermisoID = @PermisoID
-
-END
-GO
-
-USE [BelcorpDominicana]
-GO
-IF EXISTS(SELECT 1 FROM Permiso WHERE Descripcion = 'FECHAS DE PROMOCIONES')
-BEGIN
-
-	DECLARE @PermisoID INT = 0
-	SELECT @PermisoID = PermisoID FROM Permiso WHERE Descripcion = 'FECHAS DE PROMOCIONES'
-
-	DELETE FROM Permiso WHERE PermisoID = @PermisoID
-
-END
-GO
-
-USE [BelcorpEcuador]
+USE [BelcorpCostaRica];
 GO
 IF EXISTS(SELECT 1 FROM Permiso WHERE Descripcion = 'FECHAS DE PROMOCIONES')
 BEGIN
@@ -71,12 +45,25 @@ BEGIN
 	DECLARE @PermisoID INT = 0
 	SELECT @PermisoID = PermisoID FROM Permiso WHERE Descripcion = 'FECHAS DE PROMOCIONES'
 	
-	DELETE FROM Permiso WHERE PermisoID = @PermisoID
+	DELETE FROM RolPermiso WHERE PermisoID = @PermisoID
 
 END
 GO
 
-USE [BelcorpGuatemala]
+USE [BelcorpDominicana];
+GO
+IF EXISTS(SELECT 1 FROM Permiso WHERE Descripcion = 'FECHAS DE PROMOCIONES')
+BEGIN
+
+	DECLARE @PermisoID INT = 0
+	SELECT @PermisoID = PermisoID FROM Permiso WHERE Descripcion = 'FECHAS DE PROMOCIONES'
+
+	DELETE FROM RolPermiso WHERE PermisoID = @PermisoID
+
+END
+GO
+
+USE [BelcorpEcuador];
 GO
 IF EXISTS(SELECT 1 FROM Permiso WHERE Descripcion = 'FECHAS DE PROMOCIONES')
 BEGIN
@@ -84,12 +71,12 @@ BEGIN
 	DECLARE @PermisoID INT = 0
 	SELECT @PermisoID = PermisoID FROM Permiso WHERE Descripcion = 'FECHAS DE PROMOCIONES'
 	
-	DELETE FROM Permiso WHERE PermisoID = @PermisoID
+	DELETE FROM RolPermiso WHERE PermisoID = @PermisoID
 
 END
 GO
 
-USE [BelcorpMexico]
+USE [BelcorpGuatemala];
 GO
 IF EXISTS(SELECT 1 FROM Permiso WHERE Descripcion = 'FECHAS DE PROMOCIONES')
 BEGIN
@@ -97,25 +84,12 @@ BEGIN
 	DECLARE @PermisoID INT = 0
 	SELECT @PermisoID = PermisoID FROM Permiso WHERE Descripcion = 'FECHAS DE PROMOCIONES'
 	
-	DELETE FROM Permiso WHERE PermisoID = @PermisoID
+	DELETE FROM RolPermiso WHERE PermisoID = @PermisoID
 
 END
 GO
 
-USE [BelcorpPanama]
-GO
-IF EXISTS(SELECT 1 FROM Permiso WHERE Descripcion = 'FECHAS DE PROMOCIONES')
-BEGIN
-
-	DECLARE @PermisoID INT = 0
-	SELECT @PermisoID = PermisoID FROM Permiso WHERE Descripcion = 'FECHAS DE PROMOCIONES'
-
-	DELETE FROM Permiso WHERE PermisoID = @PermisoID
-
-END
-GO
-
-USE [BelcorpPeru]
+USE [BelcorpMexico];
 GO
 IF EXISTS(SELECT 1 FROM Permiso WHERE Descripcion = 'FECHAS DE PROMOCIONES')
 BEGIN
@@ -123,12 +97,25 @@ BEGIN
 	DECLARE @PermisoID INT = 0
 	SELECT @PermisoID = PermisoID FROM Permiso WHERE Descripcion = 'FECHAS DE PROMOCIONES'
 	
-	DELETE FROM Permiso WHERE PermisoID = @PermisoID
+	DELETE FROM RolPermiso WHERE PermisoID = @PermisoID
 
 END
 GO
 
-USE [BelcorpPuertoRico]
+USE [BelcorpPanama];
+GO
+IF EXISTS(SELECT 1 FROM Permiso WHERE Descripcion = 'FECHAS DE PROMOCIONES')
+BEGIN
+
+	DECLARE @PermisoID INT = 0
+	SELECT @PermisoID = PermisoID FROM Permiso WHERE Descripcion = 'FECHAS DE PROMOCIONES'
+
+	DELETE FROM RolPermiso WHERE PermisoID = @PermisoID
+
+END
+GO
+
+USE [BelcorpPeru];
 GO
 IF EXISTS(SELECT 1 FROM Permiso WHERE Descripcion = 'FECHAS DE PROMOCIONES')
 BEGIN
@@ -136,12 +123,12 @@ BEGIN
 	DECLARE @PermisoID INT = 0
 	SELECT @PermisoID = PermisoID FROM Permiso WHERE Descripcion = 'FECHAS DE PROMOCIONES'
 	
-	DELETE FROM Permiso WHERE PermisoID = @PermisoID
+	DELETE FROM RolPermiso WHERE PermisoID = @PermisoID
 
 END
 GO
 
-USE [BelcorpSalvador]
+USE [BelcorpPuertoRico];
 GO
 IF EXISTS(SELECT 1 FROM Permiso WHERE Descripcion = 'FECHAS DE PROMOCIONES')
 BEGIN
@@ -149,7 +136,20 @@ BEGIN
 	DECLARE @PermisoID INT = 0
 	SELECT @PermisoID = PermisoID FROM Permiso WHERE Descripcion = 'FECHAS DE PROMOCIONES'
 	
-	DELETE FROM Permiso WHERE PermisoID = @PermisoID
+	DELETE FROM RolPermiso WHERE PermisoID = @PermisoID
+
+END
+GO
+
+USE [BelcorpSalvador];
+GO
+IF EXISTS(SELECT 1 FROM Permiso WHERE Descripcion = 'FECHAS DE PROMOCIONES')
+BEGIN
+
+	DECLARE @PermisoID INT = 0
+	SELECT @PermisoID = PermisoID FROM Permiso WHERE Descripcion = 'FECHAS DE PROMOCIONES'
+	
+	DELETE FROM RolPermiso WHERE PermisoID = @PermisoID
 
 END
 GO
