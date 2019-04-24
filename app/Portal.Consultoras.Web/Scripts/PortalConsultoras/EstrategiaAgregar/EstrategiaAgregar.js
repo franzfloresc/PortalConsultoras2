@@ -267,7 +267,8 @@ var EstrategiaAgregarModule = (function () {
             if (typeof (fichaModule) != "undefined") {
                 if (typeof (fichaModule.GetEstrategia) != "undefined") {
                     var estrategia = fichaModule.GetEstrategia();
-                    AnalyticsPortalModule.MarcaFichaResumidaClickModificar(estrategia.CodigoUbigeoPortal, isChangeTono, isChangeCantidad, isChangeCliente);
+                    var objChangeFicha = fichaModule.GetChangeFichaAnalytics();
+                    AnalyticsPortalModule.MarcaFichaResumidaClickModificar(estrategia.CodigoUbigeoPortal, objChangeFicha.isChangeTono, objChangeFicha.isChangeCantidad, objChangeFicha.isChangeCliente);
                 }
             }
 
@@ -649,7 +650,7 @@ var EstrategiaAgregarModule = (function () {
                 var estrategia = fichaModule.GetEstrategia();
                 if (estrategia.esEditable) { //todos menos la 2003 (tipos&tonos)
                     EstrategiaAgregarModule.HabilitarBoton();
-                    isChangeCantidad = true; //para hacer seguimiento al marcar analytics
+                    fichaModule.SetChangeFichaAnalytics(null, true, null);//para hacer seguimiento al marcar analytics
                 }
             }
         }

@@ -22,10 +22,6 @@ registerEvent.call(opcionesEvents, "onOptionSelected");
 
 var baseUrl = baseUrl || "";
 
-var isChangeTono = false;
-var isChangeCliente = false;
-var isChangeCantidad = false;
-
 var variablesPortal = variablesPortal || {};
 var fichaModule = fichaModule || {};
 var carruselModule = carruselModule || {};
@@ -88,6 +84,10 @@ var FichaModule = (function (config) {
 
     if (config.detalleEstrategiaProvider === null || typeof config.detalleEstrategiaProvider === "undefined")
         throw "config.detalleEstrategiaProvider is null or undefined";
+    
+    var isChangeTono = false;
+    var isChangeCliente = false;
+    var isChangeCantidad = false;
 
     var _primeraMarca = "";
     var _ultimaMarca = "";
@@ -1065,6 +1065,20 @@ var FichaModule = (function (config) {
 
         return true;
     }
+    
+    var _setChangeFichaAnalytics = function (_isChangeTono, _isChangeCantidad, _isChangeCliente) {
+        isChangeTono = _isChangeTono === true || _isChangeTono === false ? _isChangeTono : isChangeTono;
+        isChangeCantidad = _isChangeCantidad === true || _isChangeCantidad === false ? _isChangeCantidad : isChangeCantidad;
+        isChangeCliente = _isChangeCliente === true || _isChangeCliente === false ? _isChangeCliente : isChangeCliente;
+    }
+
+    var _getChangeFichaAnalytics = function (_isChangeTono, _isChangeCantidad, _isChangeCliente) {
+        return {
+            isChangeTono: isChangeTono;
+            isChangeCantidad: isChangeCantidad;
+            isChangeCliente: isChangeCliente;
+        }
+    }
 
     function _init() {
         _config.esMobile = _config.generalModule.isMobile();
@@ -1093,8 +1107,10 @@ var FichaModule = (function (config) {
 
     return {
         Inicializar: _init,
-        GetEstrategia: _modeloFicha//,
-        //GetModeloFicha: _modeloFicha
+        GetEstrategia: _modeloFicha,
+        //GetModeloFicha: _modeloFicha,
+        SetChangeFichaAnalytics: _setChangeFichaAnalytics,
+        GetChangeFichaAnalytics: _getChangeFichaAnalytics
     };
 });
 
