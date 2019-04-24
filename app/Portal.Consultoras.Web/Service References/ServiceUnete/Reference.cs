@@ -8274,7 +8274,10 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string OrigenField;
-        
+
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoCIPField;
+
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int PagoDeKitLogIdField;
         
@@ -8535,7 +8538,24 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 }
             }
         }
-        
+
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoCIP
+        {
+            get
+            {
+                return this.CodigoCIPField;
+            }
+            set
+            {
+                if ((object.ReferenceEquals(this.CodigoCIPField, value) != true))
+                {
+                    this.CodigoCIPField = value;
+                    this.RaisePropertyChanged("Origen");
+                }
+            }
+        }
+
         [System.Runtime.Serialization.DataMemberAttribute()]
         public int PagoDeKitLogId {
             get {
