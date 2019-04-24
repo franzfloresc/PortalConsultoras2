@@ -78,8 +78,8 @@ var EstrategiaAgregarModule = (function () {
     }
 
     var _OrigenPedido = {
-        MobileContenedorArmaTuPack: ConstantesModule.OrigenPedidoWeb.MobileArmaTuPackFicha,  // "2131502",
-        DesktopContenedorArmaTuPack: ConstantesModule.OrigenPedidoWeb.DesktopArmaTuPackFicha // "1131502"
+        MobileContenedorArmaTuPack: ConstantesModule.OrigenPedidoWeb.MobileArmaTuPackFicha,
+        DesktopContenedorArmaTuPack: ConstantesModule.OrigenPedidoWeb.DesktopArmaTuPackFicha
     }
 
     var getEstrategia = function ($btnAgregar, origenPedidoWebEstrategia) {
@@ -259,7 +259,6 @@ var EstrategiaAgregarModule = (function () {
         _config.CampaniaCodigo = $(elementosDiv.hdCampaniaCodigo).val() || _config.CampaniaCodigo;
 
         var $btnAgregar = $(event.target);
-        //console.log($btnAgregar);
         var origenPedidoWebEstrategia = getOrigenPedidoWeb($btnAgregar);
 
         //*****ANALYTICS ******
