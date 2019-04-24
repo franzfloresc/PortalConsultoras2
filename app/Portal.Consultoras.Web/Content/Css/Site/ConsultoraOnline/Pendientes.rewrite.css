@@ -15,6 +15,12 @@
     background-image: none;
     width: unset;
 }
+[class^='btn-']{
+    position: relative;
+    display: initial;
+    overflow: unset;
+    border: unset;
+}
 .CMXD-btn-help{
     position : relative !important;
     display:none;
@@ -49,3 +55,8 @@ body{
 *::before, *::after{
     z-index: unset;
 }
+
+.img-fluid {
+    max-width: 100% !important;
+    height: auto;
+  }
