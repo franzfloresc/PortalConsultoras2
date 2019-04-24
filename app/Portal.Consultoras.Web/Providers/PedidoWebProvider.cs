@@ -84,7 +84,8 @@ namespace Portal.Consultoras.Web.Providers
                             ConsultoraId = userData.ConsultoraID,
                             Consultora = userData.NombreConsultora,
                             CodigoPrograma = userData.CodigoPrograma,
-                            NumeroPedido = userData.ConsecutivoNueva
+                            NumeroPedido = userData.ConsecutivoNueva,
+                            NivelCaminoBrillante = userData.NivelCaminoBrillante
                         };
 
                         detallesPedidoWeb = pedidoServiceClient.SelectByCampaniaWithLabelProgNuevas(bePedidoWebDetalleParametros).ToList();
@@ -145,7 +146,8 @@ namespace Portal.Consultoras.Web.Providers
                             Consultora = userData.NombreConsultora,
                             CodigoPrograma = userData.CodigoPrograma,
                             NumeroPedido = userData.ConsecutivoNueva,
-                            AgruparSet = true
+                            AgruparSet = true,
+                            NivelCaminoBrillante = userData.NivelCaminoBrillante
                         };
 
                         detallesPedidoWeb = pedidoServiceClient.SelectByCampaniaWithLabelProgNuevas(bePedidoWebDetalleParametros).ToList();

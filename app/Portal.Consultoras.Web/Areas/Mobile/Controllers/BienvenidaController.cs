@@ -135,6 +135,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 if (userData.CaminoBrillante)
                 {
                     model.TieneCaminoBrillante = userData.CaminoBrillante;
+                    _caminoBrillanteProvider.LoadCaminoBrillante();
                     var nivelConsultoraCaminoBrillante = _caminoBrillanteProvider.GetNivelActual();
                     if (nivelConsultoraCaminoBrillante != null)
                     {

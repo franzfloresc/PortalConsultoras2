@@ -3616,11 +3616,13 @@ namespace Portal.Consultoras.Common
             }
         }
 
+        
         public static string Base64Encode(string plainText)
         {
             var plainTextBytes = Encoding.UTF8.GetBytes(plainText);
             return System.Convert.ToBase64String(plainTextBytes);
         }
+        
 
         //Validación de la descripción del producto
         public static string obtenerNuevaDescripcionProducto(Dictionary<string, string> lista,

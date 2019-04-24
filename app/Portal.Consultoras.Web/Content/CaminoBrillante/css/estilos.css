@@ -732,7 +732,9 @@ div .owl-carousel .owl-stage-outer {
     margin: 0 auto;
 }
 
-
+div .layout__view__breadcrumbs__wrapper, div .layout__view__title__wrapper {
+    background:transparent;
+}
 
 
 

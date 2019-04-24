@@ -640,14 +640,12 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
         #region Kits
 
-        public List<BEKitCaminoBrillante> GetKits(BEUsuario entidad, int nivelId)
+        public List<BEKitCaminoBrillante> GetKits(BEUsuario entidad)
         {
             var periodo = GetPeriodo(entidad.PaisID, entidad.CampaniaID);
             if (periodo == null) return null;
 
-            //UpdateFortest(periodo);
-
-            var kits = GetKits(entidad.PaisID, entidad.CampaniaID, periodo.Periodo, nivelId);
+            var kits = GetKits(entidad.PaisID, entidad.CampaniaID, periodo.Periodo, entidad.NivelCaminoBrillante);
             if (kits == null) return null;
 
             var ofertasHistoricos = GeOfertasHistoricos(entidad.PaisID, entidad.ConsultoraID, entidad.CodigoConsultora, entidad.CampaniaID, periodo.Periodo);
@@ -707,8 +705,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                         kit.CodigoSap = _kitProvider.CodigoSap;
                         kit.DescripcionCUV = _kitProvider.Descripcion;
                         kit.DescripcionCortaCUV = _kitProvider.Descripcion;
-                        kit.PrecioCatalogo = Util.DecimalToStringFormat(_kitProvider.Precio, paisISO).ToDecimal(); 
-                        kit.Ganancia = Util.DecimalToStringFormat(kit.PrecioValorizado, paisISO).ToDecimal()  - kit.PrecioCatalogo;
+                        kit.PrecioCatalogo = _kitProvider.Precio;
                         kit.FlagDigitable = _kitProvider.Digitable;
                         kit.CodigoNivel = _kitProvider.Nivel;
                         kit.FlagDigitable = _kitProvider.Digitable;
@@ -718,7 +715,15 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                     }
                 });
 
-                return kits;
+                var kitsResult =  kits.Where(e => e.FlagDigitable == 1).ToList();
+                kitsResult.ForEach(e => {
+                    e.DescripcionCUV = string.Format("Kit {0}", e.DescripcionNivel);
+                    e.DescripcionCortaCUV = e.DescripcionCUV;
+                    e.PrecioValorizado = kits.Where(d => d.CodigoKit == e.CodigoKit).Sum(d => d.PrecioValorizado);
+                    e.PrecioCatalogo = kits.Where(d => d.CodigoKit == e.CodigoKit).Sum(d => d.PrecioCatalogo);
+                    e.Ganancia = e.PrecioValorizado - e.PrecioCatalogo;
+                });
+                return kitsResult;
             }
 
             return null;
@@ -743,26 +748,12 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
         #endregion
 
-        #region Medallas
-
-        private List<BEConfiguracionMedallaCaminoBrillante> GetGetConfiguracionMedallaCaminoBrillanteCache(int paisId)
-        {
-            return CacheManager<List<BEConfiguracionMedallaCaminoBrillante>>.ValidateDataElement(paisId, ECacheItem.CaminoBrillanteMedallas, () => GetGetConfiguracionMedallaCaminoBrillante(paisId));
-        }
-
-        private List<BEConfiguracionMedallaCaminoBrillante> GetGetConfiguracionMedallaCaminoBrillante(int paisId)
-        {
-            return new DACaminoBrillante(paisId).GetConfiguracionMedallaCaminoBrillante().MapToCollection<BEConfiguracionMedallaCaminoBrillante>(closeReaderFinishing: true);
-        }
-
-        #endregion
-
         #region Demostradores
 
-        public List<BEDesmostradoresCaminoBrillante> GetDemostradores(BEUsuario entidad, int periodoId)
+        public List<BEDesmostradoresCaminoBrillante> GetDemostradores(BEUsuario entidad)
         {
-            var demostradores = GetDemostradoresCaminoBrillanteCache(entidad.PaisID, entidad.CampaniaID);
-            var demostradoresEnPedido = new DACaminoBrillante(entidad.PaisID).GetPedidoWebDetalleCaminoBrillante(periodoId, entidad.CampaniaID, entidad.ConsultoraID).MapToCollection<BEKitsHistoricoConsultora>(closeReaderFinishing: true) ?? new List<BEKitsHistoricoConsultora>();
+            var demostradores = GetDemostradoresCaminoBrillanteCache(entidad.PaisID, entidad.CampaniaID, entidad.NivelCaminoBrillante);
+            var demostradoresEnPedido = new DACaminoBrillante(entidad.PaisID).GetPedidoWebDetalleCaminoBrillante(entidad.CampaniaID, entidad.CampaniaID, entidad.ConsultoraID).MapToCollection<BEKitsHistoricoConsultora>(closeReaderFinishing: true) ?? new List<BEKitsHistoricoConsultora>();
 
             return demostradores.Select(e => new BEDesmostradoresCaminoBrillante()
             {
@@ -782,14 +773,14 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             }).ToList();
         }
 
-        public List<BEDesmostradoresCaminoBrillante> GetDemostradores(int paisId, int campaniaId)
+        public List<BEDesmostradoresCaminoBrillante> GetDemostradores(int paisId, int campaniaId, int nivelId)
         {
-            return GetDemostradoresCaminoBrillanteCache(paisId, campaniaId);
+            return GetDemostradoresCaminoBrillanteCache(paisId, campaniaId, nivelId);
         }
 
-        private List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillanteBD(int paisId, int campaniaId)
+        private List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillanteBD(int paisId, int campaniaId, int nivelId)
         {
-            var demostradores = new DACaminoBrillante(paisId).GetDemostradoresCaminoBrillante(campaniaId).MapToCollection<BEDesmostradoresCaminoBrillante>(closeReaderFinishing: true);
+            var demostradores = new DACaminoBrillante(paisId).GetDemostradoresCaminoBrillante(campaniaId, nivelId).MapToCollection<BEDesmostradoresCaminoBrillante>(closeReaderFinishing: true);
 
             if (demostradores != null)
             {
@@ -805,30 +796,54 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             return demostradores;
         }
 
-        private List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillanteCache(int paisId, int campaniaId)
+        private List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillanteCache(int paisId, int campaniaId, int nivelId)
         {
-            return CacheManager<List<BEDesmostradoresCaminoBrillante>>.ValidateDataElement(paisId, ECacheItem.CaminoBrillanteDemostradores, string.Format("{0}", campaniaId), () => GetDemostradoresCaminoBrillanteBD(paisId, campaniaId));
+            return CacheManager<List<BEDesmostradoresCaminoBrillante>>.ValidateDataElement(paisId, ECacheItem.CaminoBrillanteDemostradores, string.Format("{0}-{1}", campaniaId, nivelId), () => GetDemostradoresCaminoBrillanteBD(paisId, campaniaId, nivelId));
+        }
+
+        #endregion
+
+        #region Medallas
+
+        private List<BEConfiguracionMedallaCaminoBrillante> GetGetConfiguracionMedallaCaminoBrillanteCache(int paisId)
+        {
+            return CacheManager<List<BEConfiguracionMedallaCaminoBrillante>>.ValidateDataElement(paisId, ECacheItem.CaminoBrillanteMedallas, () => GetGetConfiguracionMedallaCaminoBrillante(paisId));
+        }
+
+        private List<BEConfiguracionMedallaCaminoBrillante> GetGetConfiguracionMedallaCaminoBrillante(int paisId)
+        {
+            return new DACaminoBrillante(paisId).GetConfiguracionMedallaCaminoBrillante().MapToCollection<BEConfiguracionMedallaCaminoBrillante>(closeReaderFinishing: true);
         }
 
         #endregion
 
         #region Pedido
 
-        public void UpdFlagsKitsOrDemostradores(BEPedidoWebDetalle bEPedidoWebDetalle, int paisId, int campaniaId)
+        public void UpdFlagsKitsOrDemostradores(BEPedidoWebDetalle bEPedidoWebDetalle, int paisId, int campaniaId, int nivelId)
         {
-            var demostradores = GetDemostradores(paisId, campaniaId) ?? new List<BEDesmostradoresCaminoBrillante>();
+            var demostradores = GetDemostradores(paisId, campaniaId, nivelId) ?? new List<BEDesmostradoresCaminoBrillante>();
             bEPedidoWebDetalle.EsDemCaminoBrillante = demostradores.Any(k => k.CUV == bEPedidoWebDetalle.CUV);
             if (!bEPedidoWebDetalle.EsDemCaminoBrillante)
             {
-                bEPedidoWebDetalle.EsKitCaminoBrillante = true;
+                var periodo = GetPeriodo(paisId, campaniaId);
+                if (periodo != null)
+                {
+                    var kits = GetKitsCache(paisId, periodo.Periodo, campaniaId) ?? new List<BEKitCaminoBrillante>();
+                    var kit = kits.FirstOrDefault(k => k.CUV == bEPedidoWebDetalle.CUV);
+                    if (kit != null) {
+                        bEPedidoWebDetalle.EsKitCaminoBrillante = true;
+                        bEPedidoWebDetalle.DescripcionCortadaProd = kit.DescripcionCUV;
+                        bEPedidoWebDetalle.DescripcionProd = kit.DescripcionCUV;
+                    }
+                }
             }
         }
 
-        public bool UpdEstragiaCaminiBrillante(BEEstrategia estrategia, int paisId, int campaniaId, string cuv)
+        public bool UpdEstragiaCaminiBrillante(BEEstrategia estrategia, int paisId, int campaniaId, int nivelId, string cuv)
         {
             try
             {
-                var demostradores = GetDemostradoresCaminoBrillanteCache(paisId, campaniaId) ?? new List<BEDesmostradoresCaminoBrillante>();
+                var demostradores = GetDemostradoresCaminoBrillanteCache(paisId, campaniaId, nivelId) ?? new List<BEDesmostradoresCaminoBrillante>();
                 var demostrador = demostradores.FirstOrDefault(e => e.CUV == cuv);
                 if (demostrador != null)
                 {
@@ -841,8 +856,6 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
                 var periodo = GetPeriodo(paisId, campaniaId);
                 if (periodo == null) return false;
-
-                //UpdateFortest(periodo);
 
                 //Producto comercial obtener la info
                 var kits = GetKits(paisId, campaniaId, periodo.Periodo, -1);
@@ -921,6 +934,6 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         }
 
         #endregion
-
+       
     }
 }

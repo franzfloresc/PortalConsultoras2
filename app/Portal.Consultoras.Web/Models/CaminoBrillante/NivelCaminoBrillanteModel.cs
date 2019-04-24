@@ -18,7 +18,7 @@ namespace Portal.Consultoras.Web.Models.CaminoBrillante
         {
             get
             {
-                if (Constantes.CaminoBrillante.Niveles.Iconos.ContainsKey(CodigoNivel))
+                if (CodigoNivel != null && Constantes.CaminoBrillante.Niveles.Iconos.ContainsKey(CodigoNivel))
                     return Constantes.CaminoBrillante.Niveles.Iconos[CodigoNivel][EsPasado ? 1 : 0];
                 return null;
             }
@@ -27,7 +27,7 @@ namespace Portal.Consultoras.Web.Models.CaminoBrillante
         {
             get
             {
-                if (Constantes.CaminoBrillante.Niveles.Iconos.ContainsKey(CodigoNivel))
+                if (CodigoNivel != null &&  Constantes.CaminoBrillante.Niveles.Iconos.ContainsKey(CodigoNivel))
                     return Constantes.CaminoBrillante.Niveles.Iconos[CodigoNivel][1];
                 return null;
             }
