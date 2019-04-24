@@ -6,7 +6,7 @@ BEGIN
 	DECLARE @PermisoID INT = 0
 	SELECT @PermisoID = PermisoID FROM Permiso WHERE Descripcion = 'FECHAS DE PROMOCIONES'
 
-	DELETE FROM RolPermiso WHERE PermisoID = @PermisoID
+	DELETE FROM Permiso WHERE PermisoID = @PermisoID
 
 END
 GO
@@ -19,7 +19,7 @@ BEGIN
 	DECLARE @PermisoID INT = 0
 	SELECT @PermisoID = PermisoID FROM Permiso WHERE Descripcion = 'FECHAS DE PROMOCIONES'
 	
-	DELETE FROM RolPermiso WHERE PermisoID = @PermisoID
+	DELETE FROM Permiso WHERE PermisoID = @PermisoID
 
 END
 GO
@@ -32,7 +32,7 @@ BEGIN
 	DECLARE @PermisoID INT = 0
 	SELECT @PermisoID = PermisoID FROM Permiso WHERE Descripcion = 'FECHAS DE PROMOCIONES'
 
-	DELETE FROM RolPermiso WHERE PermisoID = @PermisoID
+	DELETE FROM Permiso WHERE PermisoID = @PermisoID
 
 END
 GO
@@ -45,7 +45,7 @@ BEGIN
 	DECLARE @PermisoID INT = 0
 	SELECT @PermisoID = PermisoID FROM Permiso WHERE Descripcion = 'FECHAS DE PROMOCIONES'
 	
-	DELETE FROM RolPermiso WHERE PermisoID = @PermisoID
+	DELETE FROM Permiso WHERE PermisoID = @PermisoID
 
 END
 GO
@@ -58,7 +58,7 @@ BEGIN
 	DECLARE @PermisoID INT = 0
 	SELECT @PermisoID = PermisoID FROM Permiso WHERE Descripcion = 'FECHAS DE PROMOCIONES'
 
-	DELETE FROM RolPermiso WHERE PermisoID = @PermisoID
+	DELETE FROM Permiso WHERE PermisoID = @PermisoID
 
 END
 GO
@@ -71,7 +71,7 @@ BEGIN
 	DECLARE @PermisoID INT = 0
 	SELECT @PermisoID = PermisoID FROM Permiso WHERE Descripcion = 'FECHAS DE PROMOCIONES'
 	
-	DELETE FROM RolPermiso WHERE PermisoID = @PermisoID
+	DELETE FROM Permiso WHERE PermisoID = @PermisoID
 
 END
 GO
@@ -84,7 +84,7 @@ BEGIN
 	DECLARE @PermisoID INT = 0
 	SELECT @PermisoID = PermisoID FROM Permiso WHERE Descripcion = 'FECHAS DE PROMOCIONES'
 	
-	DELETE FROM RolPermiso WHERE PermisoID = @PermisoID
+	DELETE FROM Permiso WHERE PermisoID = @PermisoID
 
 END
 GO
@@ -97,7 +97,7 @@ BEGIN
 	DECLARE @PermisoID INT = 0
 	SELECT @PermisoID = PermisoID FROM Permiso WHERE Descripcion = 'FECHAS DE PROMOCIONES'
 	
-	DELETE FROM RolPermiso WHERE PermisoID = @PermisoID
+	DELETE FROM Permiso WHERE PermisoID = @PermisoID
 
 END
 GO
@@ -110,7 +110,7 @@ BEGIN
 	DECLARE @PermisoID INT = 0
 	SELECT @PermisoID = PermisoID FROM Permiso WHERE Descripcion = 'FECHAS DE PROMOCIONES'
 
-	DELETE FROM RolPermiso WHERE PermisoID = @PermisoID
+	DELETE FROM Permiso WHERE PermisoID = @PermisoID
 
 END
 GO
@@ -123,7 +123,7 @@ BEGIN
 	DECLARE @PermisoID INT = 0
 	SELECT @PermisoID = PermisoID FROM Permiso WHERE Descripcion = 'FECHAS DE PROMOCIONES'
 	
-	DELETE FROM RolPermiso WHERE PermisoID = @PermisoID
+	DELETE FROM Permiso WHERE PermisoID = @PermisoID
 
 END
 GO
@@ -136,7 +136,7 @@ BEGIN
 	DECLARE @PermisoID INT = 0
 	SELECT @PermisoID = PermisoID FROM Permiso WHERE Descripcion = 'FECHAS DE PROMOCIONES'
 	
-	DELETE FROM RolPermiso WHERE PermisoID = @PermisoID
+	DELETE FROM Permiso WHERE PermisoID = @PermisoID
 
 END
 GO
@@ -149,7 +149,7 @@ BEGIN
 	DECLARE @PermisoID INT = 0
 	SELECT @PermisoID = PermisoID FROM Permiso WHERE Descripcion = 'FECHAS DE PROMOCIONES'
 	
-	DELETE FROM RolPermiso WHERE PermisoID = @PermisoID
+	DELETE FROM Permiso WHERE PermisoID = @PermisoID
 
 END
 GO
