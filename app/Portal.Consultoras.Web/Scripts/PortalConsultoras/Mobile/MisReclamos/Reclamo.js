@@ -31,7 +31,7 @@ $(document).ready(function () {
             btnSiguiente0: "#btnSiguiente0",//HD-3412 EINCA
             btnSiguiente1: "#btnSiguiente1",
             btnSiguiente4: "#btnSiguiente4",
-            Cambio3: "#Cambio3",
+            //Cambio3: "#Cambio3",
             ComboCampania: "#ddlCampania",
             content_solicitud_cdr: ".content_solicitud_cdr",
             campoBusquedaCuvDescripcionCdr: '#CampoBusquedaCuvDescripcion',
@@ -47,7 +47,8 @@ $(document).ready(function () {
             divlistado_soluciones_cdr: "#divlistado_soluciones_cdr",
             divProcesoReclamo: "#divProcesoReclamo",
             divUltimasSolicitudes: "#divUltimasSolicitudes",
-            divConfirmEnviarSolicitudCDR: '#divConfirmEnviarSolicitudCDR', //HD-3412 EINCA
+            divConfirmEnviarSolicitudCDR: '#divConfirmEnviarSolicitudCDR',
+            divMisReclamos: "#divMisReclamos",
             enlace_ir_al_final: ".enlace_ir_al_final",
             enlace_quiero_ver_otra_alternativa: ".enlace_quiero_ver_otra_alternativa",
             Enlace_regresar: ".enlace_regresar",
@@ -93,7 +94,7 @@ $(document).ready(function () {
             OpcionDevolucion: "#OpcionDevolucion",
             OpcionCambioPorOtroProducto: "#OpcionCambioPorOtroProducto",
             OpcionCambioMismoProducto: "#OpcionCambioMismoProducto",
-            OrdenarSolicitudesRegistradasPor:"#OrdenarSolicitudesRegistradasPor",
+            OrdenarSolicitudesRegistradasPor: "#OrdenarSolicitudesRegistradasPor",
             progreso: {
                 uno_producto: "#Selector1",
                 dos_solucion: "#Selector2",
@@ -167,7 +168,14 @@ $(document).ready(function () {
             wrpMobile: "#wrpMobile",
             VistaPaso1y2: "#VistaPaso1y2",
             VistaPaso3: "#VistaPaso3",
-            opcionCdrEnlace: ".opcion_cdr_enlace"
+            opcionCdrEnlace: ".opcion_cdr_enlace",
+            cdrweb_id: ".cdrweb_id",
+            cdrweb_pedidoid: ".cdrweb_pedidoid",
+            cdrweb_estado: ".cdrweb_estado",
+            cdrweb_formatoFechaCulminado: ".cdrweb_formatoFechaCulminado",
+            cdrweb_formatocampania: ".cdrweb_formatocampania",
+            cdrweb_CantidadAprobados: ".cdrweb_CantidadAprobados",
+            cdrweb_CantidadRechazados: ".cdrweb_CantidadRechazados"
         };
 
         me.Eventos = {
@@ -185,7 +193,9 @@ $(document).ready(function () {
                     me.Funciones.DetalleCargar();
                     $(me.Variables.btnSiguiente4).show();
                     $(me.Variables.RegistroAceptarSolucion).show();
-                    $(me.Variables.Cambio3).hide();
+                    $(me.Variables.btnSiguiente1).hide();
+                    $(me.Variables.VistaPaso1y2).hide();
+                    $(me.Variables.VistaPaso3).show();
                     if ($(me.Variables.Registro1).is(":visible")) {
                         $(me.Variables.Registro1).hide();
                     }
@@ -199,7 +209,11 @@ $(document).ready(function () {
                     var $tab = $(this).attr("id");
                     if ($tab === "linkSolicitudesRegistradas") {
                         ShowLoading();
-                        $.when($('#divMisReclamos').load(UrlGetMisReclamos)).done(function () {
+                        $.when($(me.Variables.divMisReclamos).load(UrlGetMisReclamos, function () {
+                            $(".abrir_detallemb").on("click", function () {
+                                me.Funciones.CargarMisReclamosDetalle(this);
+                            });
+                        })).done(function () {
                             CloseLoading();
                         });
                     }
@@ -313,17 +327,6 @@ $(document).ready(function () {
                     $(me.Variables.RegistroAceptarSolucion).show();
                     $(me.Variables.btnSiguiente4).show();
                 });
-
-                //$(me.Variables.listado_soluciones_cdr).on('click', me.Variables.solucion_cdr, function () {
-
-                //    $(me.Variables.solucion_cdr).attr("data-check", "0");
-
-                //    var id = $.trim($(this).attr("id"));
-                //    if (id == "") return false;
-
-                //    $(this).attr("data-check", "1");
-                //    me.Funciones.AnalizarOperacion(id);
-                //});
 
                 $(me.Variables.UltimasSolicitudes).on('click', 'a[data-accion]', function (e) {
 
@@ -466,8 +469,8 @@ $(document).ready(function () {
 
                 $(me.Variables.Enlace_regresar).click(function (e) {
                     var arrHide = [me.Variables.Registro2, me.Variables.Registro3, me.Variables.Registro4, me.Variables.Enlace_regresar, me.Variables.btnAceptarSolucion,
-                        me.Variables.btnCambioProducto, me.Variables.txtNumPedido, me.Variables.ddlnumPedido, me.Variables.DescripcionCuv, me.Variables.DescripcionCuv2,
-                        me.Variables.infoOpcionesDeCambio,"#MensajeTenerEncuenta"
+                    me.Variables.btnCambioProducto, me.Variables.txtNumPedido, me.Variables.ddlnumPedido, me.Variables.DescripcionCuv, me.Variables.DescripcionCuv2,
+                    me.Variables.infoOpcionesDeCambio, "#MensajeTenerEncuenta"
                     ];
                     me.Funciones.HideTags(arrHide);
                     me.Funciones.CambiarEstadoBarraProgreso(me.Variables.pasos.uno_seleccion_de_producto);
@@ -624,7 +627,7 @@ $(document).ready(function () {
 
                 $(me.Variables.OrdenarSolicitudesRegistradasPor).on("change", function () {
                     try {
-                        var $divMisReclamos = $('#divMisReclamos');
+                        var $divMisReclamos = $(me.Variables.divMisReclamos);
                         $divMisReclamos.empty();
                         ShowLoading();
                         var o = $(this).val();
@@ -634,7 +637,12 @@ $(document).ready(function () {
                             $("#lblTextoSeleccionado").fadeIn();
 
                         var url = UrlGetMisReclamos + "?o=" + o;
-                        $.when($divMisReclamos.load(url)).done(function () {
+                        $.when($divMisReclamos.load(url, function () {
+                            $(".abrir_detallemb").on("click", function () {
+                                me.Funciones.CargarMisReclamosDetalle(this);
+                            });
+                        })).done(function () {
+                           
                             CloseLoading();
                         });
 
@@ -656,7 +664,7 @@ $(document).ready(function () {
 
         me.Funciones = {
 
-            SeccionTabsFijoSegunAltoHeader: function () {   
+            SeccionTabsFijoSegunAltoHeader: function () {
                 $('.fijarTituloMobile').css('top', $('#new-header').outerHeight());
                 $(me.Variables.tabs_vista_cdr_wrapper).css('top', $('#new-header').outerHeight() + 50);
             },
@@ -1140,7 +1148,7 @@ $(document).ready(function () {
                         CloseLoading();
                     }
                 });
-            },           
+            },
 
             ValidarPasoDosFaltante: function (codigoSsic) {
                 var esCantidadPermitidaValida = me.Funciones.ValidarCantidadMaximaPermitida(codigoSsic);
@@ -2035,6 +2043,51 @@ $(document).ready(function () {
                     $(lineaProgresoPasos).css("width", "100%");
                 }
             },
+
+            CargarMisReclamosDetalle: function (el) {
+                var elemento = $(el);
+                var _OrigenDetalle = "1";
+                var _CDRWebID = $(elemento).find(me.Variables.cdrweb_id).val();
+                var _PedidoID = $(elemento).find(me.Variables.cdrweb_pedidoid).val();
+                var _Estado = $(elemento).find(me.Variables.cdrweb_estado).val();
+                var _FechaCulminado = $(elemento).find(me.Variables.cdrweb_formatoFechaCulminado).val();
+                var _Campania = $(elemento).find(me.Variables.cdrweb_formatocampania).val();
+                var _CantidadAprobados = $(elemento).find(me.Variables.cdrweb_CantidadAprobados).val();
+                var _CantidadRechazados = $(elemento).find(me.Variables.cdrweb_CantidadRechazados).val();
+
+                if (_Estado === "1") {
+                    window.location.href = urlReclamo + "?p=" + _PedidoID + "&c=" + _CDRWebID;
+                } else {
+                    var obj = {
+                        OrigenCDRDetalle: _OrigenDetalle,
+                        CDRWebID: _CDRWebID,
+                        PedidoID: _PedidoID,
+                        FormatoFechaCulminado: _FechaCulminado,
+                        FormatoCampaniaID: _Campania,
+                        CantidadAprobados: _CantidadAprobados,
+                        CantidadRechazados: _CantidadRechazados
+                    };
+
+                    ShowLoading();
+                    $.ajax({
+                        type: 'Post',
+                        url: urlValidarCargaDetalle,
+                        data: JSON.stringify(obj),
+                        dataType: 'json',
+                        contentType: 'application/json; charset=utf-8',
+                        success: function (data) {
+                            CloseLoading();
+                            if (checkTimeout(data)) {
+                                if (data.success == true)
+                                    window.location.href = baseUrl + "Mobile/MisReclamos/Detalle";
+                            }
+                        },
+                        error: function (data, error) {
+                            CloseLoading();                            
+                        }
+                    });
+                }
+            }
 
         };
 

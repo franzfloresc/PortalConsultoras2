@@ -2,7 +2,7 @@ USE BelcorpPeru
 GO
 
 UPDATE CDRWebDescripcion
-SET Descripcion = 'CAMBIARLO POR EL MISMO PRODUCTO'
+SET Descripcion = 'REENVÍO DEL MISMO PRODUCTO'
 WHERE CDRWebDescripcionID = 6
 	AND CodigoSSIC = 'C'
 
@@ -29,5 +29,7 @@ WHERE CDRWebDescripcionID IN (
 		)
 	AND tipo = 'Finalizado'
 GO
+
+
 
 

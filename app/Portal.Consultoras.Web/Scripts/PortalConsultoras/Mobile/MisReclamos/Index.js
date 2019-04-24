@@ -44,7 +44,6 @@ $(document).ready((function (cerrarRechazado) {
 
                     $(document).on("click", me.Variables.VerDetalleCDR, function () {
                         var elemento = $(this);
-                        //var parent = $(elemento).parents(".registro_solicitud_cdr");
                         var _OrigenDetalle = "1";
                         var _CDRWebID = $(elemento).find(me.Variables.cdrweb_id).val();
                         var _PedidoID = $(elemento).find(me.Variables.cdrweb_pedidoid).val();
@@ -102,7 +101,11 @@ $(document).ready((function (cerrarRechazado) {
                                 $("#lblTextoSeleccionado").fadeIn();
 
                             var url = UrlGetMisReclamos + "?o=" + o;
-                            $.when($divMisReclamos.load(url)).done(function () {
+                            $.when($divMisReclamos.load(url, function () {
+                                $(".abrir_detallemb").on("click", function () {
+                                    me.Funciones.CargarMisReclamosDetalle(this);
+                                });
+                            })).done(function () {
                                 CloseLoading();
                             });
 
@@ -126,6 +129,53 @@ $(document).ready((function (cerrarRechazado) {
                         var flagMostrarTab = nroSolicitudes > 0 ? "1" : "0";
                         var url = urlReclamo + "?t=" + flagMostrarTab;
                         window.location.href = url;
+                    }
+                },
+
+                CargarMisReclamosDetalle: function (el) {
+                    var elemento = $(el);
+                    var _OrigenDetalle = "1";
+                    var _CDRWebID = $(elemento).find(me.Variables.cdrweb_id).val();
+                    var _PedidoID = $(elemento).find(me.Variables.cdrweb_pedidoid).val();
+                    var _Estado = $(elemento).find(me.Variables.cdrweb_estado).val();
+                    var _FechaCulminado = $(elemento).find(me.Variables.cdrweb_formatoFechaCulminado).val();
+                    var _Campania = $(elemento).find(me.Variables.cdrweb_formatocampania).val();
+                    var _CantidadAprobados = $(elemento).find(me.Variables.cdrweb_CantidadAprobados).val();
+                    var _CantidadRechazados = $(elemento).find(me.Variables.cdrweb_CantidadRechazados).val();
+
+                    if (_Estado === "1") {
+                        window.location.href = urlReclamo + "?p=" + _PedidoID + "&c=" + _CDRWebID;
+                    } else {
+                        var obj = {
+                            OrigenCDRDetalle: _OrigenDetalle,
+                            CDRWebID: _CDRWebID,
+                            PedidoID: _PedidoID,
+                            FormatoFechaCulminado: _FechaCulminado,
+                            FormatoCampaniaID: _Campania,
+                            CantidadAprobados: _CantidadAprobados,
+                            CantidadRechazados: _CantidadRechazados
+                        };
+
+                        ShowLoading();
+                        $.ajax({
+                            type: 'Post',
+                            url: urlValidarCargaDetalle,
+                            data: JSON.stringify(obj),
+                            dataType: 'json',
+                            contentType: 'application/json; charset=utf-8',
+                            success: function (data) {
+                                CloseLoading();
+                                if (checkTimeout(data)) {
+                                    if (data.success == true)
+                                        window.location.href = baseUrl + "Mobile/MisReclamos/Detalle";
+                                }
+                            },
+                            error: function (data, error) {
+                                CloseLoading();
+                                if (checkTimeout(data))
+                                    cerrarRechazado = '0';
+                            }
+                        });
                     }
                 }
             };

@@ -456,40 +456,39 @@
                         <span>VER TUS SOLICITUDES</span>
                     </a>*@
             </div>
-            <div id="Cambio3" style="display:none;">
-                <div class="pregunta_inconveniente_producto tipografia_lato tipografia_lato_bold mb-23">
-                    Confirma tu elección
-                </div>
-                <div>
-                    <div class="contenedor_producto_cambio_por tipografia_lato">
-                        <span class="texto_producto_a_cambiar">Vas a cambiar:</span>
-                        <div class="producto_cdr tipografia_lato">
-                            <span id="spnCuv1" class="codigo_producto_cdr tipografia_lato_bold">00411</span> - <span id="spnDescripcionCuv1" class="nom_producto_cdr tipografia_lato_bold">Berrylicious shampoo rojo 375ml</span>
-                            <span class="cantidad_producto tipografia_lato_regular">
-                                x<span id="spnCantidadCuv1">2</span> unidades
-                            </span>
+            @*<div id="Cambio3" style="display:none;">
+                    <div class="pregunta_inconveniente_producto tipografia_lato tipografia_lato_bold mb-23">
+                        Confirma tu elección
+                    </div>
+                    <div>
+                        <div class="contenedor_producto_cambio_por tipografia_lato">
+                            <span class="texto_producto_a_cambiar">Vas a cambiar:</span>
+                            <div class="producto_cdr tipografia_lato">
+                                <span id="spnCuv1" class="codigo_producto_cdr tipografia_lato_bold">00411</span> - <span id="spnDescripcionCuv1" class="nom_producto_cdr tipografia_lato_bold">Berrylicious shampoo rojo 375ml</span>
+                                <span class="cantidad_producto tipografia_lato_regular">
+                                    x<span id="spnCantidadCuv1">2</span> unidades
+                                </span>
+                            </div>
+                        </div>
+                        <div class="contenedor_producto_cambio_por tipografia_lato">
+                            <span class="texto_producto_a_cambiar">Por:</span>
+                            <div class="producto_cdr tipografia_lato">
+                                <span id="spnCuv2" class="codigo_producto_cdr tipografia_lato_bold">98765</span> - <span id="spnDescripcionCuv2" class="nom_producto_cdr tipografia_lato_bold">Máscara Full Size Negro</span>
+                                <span class="cantidad_producto tipografia_lato_regular">
+                                    x<span id="spnCantidadCuv2">2</span> unidades
+                                </span>
+                            </div>
                         </div>
                     </div>
-                    <div class="contenedor_producto_cambio_por tipografia_lato">
-                        <span class="texto_producto_a_cambiar">Por:</span>
-                        <div class="producto_cdr tipografia_lato">
-                            <span id="spnCuv2" class="codigo_producto_cdr tipografia_lato_bold">98765</span> - <span id="spnDescripcionCuv2" class="nom_producto_cdr tipografia_lato_bold">Máscara Full Size Negro</span>
-                            <span class="cantidad_producto tipografia_lato_regular">
-                                x<span id="spnCantidadCuv2">2</span> unidades
-                            </span>
+                    <div class="info_importante_cdr tipografia_lato">
+                        <div class="titulo_info_cdr tipografia_lato_regular">
+                            TEN EN CUENTA
+                        </div>
+                        <div class="content_info_cdr tipografia_lato_regular">
+                            Es importante que le entregues al transportista el producto a cambiar en la entrega de tu siguiente pedido, en caso contrario, el cambio será anulado y se cargará nuevamente el monto a tu saldo.
                         </div>
                     </div>
-                </div>
-                <div class="info_importante_cdr tipografia_lato">
-                    <div class="titulo_info_cdr tipografia_lato_regular">
-                        TEN EN CUENTA
-                    </div>
-                    <div class="content_info_cdr tipografia_lato_regular">
-                        Es importante que le entregues al transportista el producto a cambiar en la entrega de tu siguiente pedido, en caso contrario, el cambio será anulado y se cargará nuevamente el monto a tu saldo.
-                    </div>
-                </div>
-            </div>
-
+                </div>*@
         </div>
     </div>
 </div>
@@ -789,8 +788,9 @@
         var UrlObtenerListarNumPedido = '@Url.Action("ObtenerNumeroPedidos", "Misreclamos", new { area = ""})';
         var UrlObtenerDatosCuv = '@Url.Action("ObtenerDatosCuv", "Misreclamos", new { area = ""})';
         var UrlGetMisReclamos = '@Url.Action("GetReclamos","MisReclamos", new { area = "mobile"})';
-        var UrlVistaSolicitudesRegistradas  =  '@Url.Action("Index","MisReclamos", new { area = "mobile"})';
-
+        var UrlVistaSolicitudesRegistradas = '@Url.Action("Index","MisReclamos", new { area = "mobile"})';
+        var urlValidarCargaDetalle = '@Url.Action("ValidarCargaDetalle", "MisReclamos", new { area = "Mobile" })';
+        var urlReclamo = '@Url.Action("Reclamo", "MisReclamos", new { area = "Mobile" } )';
         var mensajeGestionCdrInhabilitada = '@Html.Raw(Model.MensajeGestionCdrInhabilitada)';
         var mostrarTab = '@Html.Raw(Model.MostrarTab)';
         var mensajeCdrFueraDeFechaCompleto = '@Html.Raw(Constantes.CdrWebMensajes.FueraDeFecha)';
@@ -804,3 +804,4 @@
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/MisReclamos/Reclamo.js")?v4"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js")"></script>
 }
+
