@@ -18,17 +18,15 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
     public class BLPagoEnLinea : IPagoEnLineaBusinessLogic
     {
         private readonly ITablaLogicaDatosBusinessLogic _tablaLogicaDatosBusinessLogic;
-        private readonly IRevistaDigitalSuscripcionBusinessLogic _revistaDigitalSuscripcionBusinessLogic;
 
-        public BLPagoEnLinea() : this(new BLTablaLogicaDatos(), new BLRevistaDigitalSuscripcion())
+        public BLPagoEnLinea() : this(new BLTablaLogicaDatos())
         {
 
         }
 
-        public BLPagoEnLinea(ITablaLogicaDatosBusinessLogic tablaLogicaDatosBusinessLogic, IRevistaDigitalSuscripcionBusinessLogic revistaDigitalSuscripcionBusinessLogic)
+        public BLPagoEnLinea(ITablaLogicaDatosBusinessLogic tablaLogicaDatosBusinessLogic)
         {
             _tablaLogicaDatosBusinessLogic = tablaLogicaDatosBusinessLogic;
-            _revistaDigitalSuscripcionBusinessLogic = revistaDigitalSuscripcionBusinessLogic;
         }
 
         public int InsertPagoEnLineaResultadoLog(int paisId, BEPagoEnLineaResultadoLog entidad)
@@ -249,8 +247,6 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
         {
             var result = new BEPagoEnLinea();
             List<BETablaLogicaDatos> listaConfiguracion = null;
-            int campaniaActual = 0;
-            var resultado = Constantes.GanaMas.PaisSinRD;
 
             var listaMetodoPagoTask = Task.Run(() => result.ListaMetodoPago = ObtenerPagoEnLineaMedioPagoDetalle(paisId));
             var listaMedioPagoTask = Task.Run(() => result.ListaMedioPago = ObtenerPagoEnLineaMedioPago(paisId));
@@ -277,7 +273,7 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
 
             Comision = Comision ?? new BETablaLogicaDatos();
 
-            var Evaluacion = (esDigital == 1) && (fechaVencimiento >= DateTime.Now.Date) && (string.IsNullOrEmpty(Comision.Valor) ? false : Comision.Valor=="1" ? true : false);
+            var Evaluacion = (esDigital == 1) && (fechaVencimiento >= DateTime.Now.Date) && (string.IsNullOrEmpty(Comision.Valor) ? false : Comision.Valor=="1");
 
             if (Evaluacion)
             {
