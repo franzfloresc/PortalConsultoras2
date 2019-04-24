@@ -306,6 +306,7 @@
     <Compile Include="Models\AdministrarEstrategia\EstrategiaGrupoModel.cs" />
     <Compile Include="Models\ArmaTuPackModel.cs" />
     <Compile Include="Models\BuscadorYFiltrosCategoriaModel.cs" />
+    <Compile Include="Models\DetalleEstrategia\EstrategiaComponenteSeccionModel.cs" />
     <Compile Include="Models\PremioNuevaModel.cs" />
     <Compile Include="Models\AdministracionPoput\ComunicadoModel.cs" />
     <Compile Include="Models\AdministracionPoput\SegmentacionComunicado.cs" />
@@ -549,6 +550,7 @@
     <Compile Include="Models\Search\ResponseNivel\OutputNivel.cs" />
     <Compile Include="Models\Search\ResponseOferta\Estructura\Componente.cs" />
     <Compile Include="Models\Search\ResponseOferta\Estructura\Estrategia.cs" />
+    <Compile Include="Models\Search\ResponseOferta\Estructura\EstrategiaComponenteSeccion.cs" />
     <Compile Include="Models\Search\ResponseOferta\Estructura\EstrategiaDetalle.cs" />
     <Compile Include="Models\Search\ResponseOferta\Estructura\Grupo.cs" />
     <Compile Include="Models\Search\ResponseOferta\OutputOferta.cs" />
@@ -1433,6 +1435,7 @@
     <Content Include="Content\Css\Mobile\Contenedor\carrusel.individual.css" />
     <Content Include="Content\Css\Mobile\esika\mi-perfil.css" />
     <Content Include="Content\Css\Mobile\Ficha\Esika\FichaEsika.css" />
+    <Content Include="Content\Css\Mobile\Ficha\FichaEnriquecida.css" />
     <Content Include="Content\Css\Mobile\Ficha\Lbel\FichaLbel.css" />
     <Content Include="Content\Css\Mobile\Ficha\PopoverTooltip.css" />
     <Content Include="Content\Css\Mobile\Ficha\RedesSociales.css" />
@@ -4015,7 +4018,6 @@
     <Content Include="EsikaConmigo.html" />
     <Content Include="Global.asax" />
     <Content Include="google04fc719c24157f19.html" />
-    <Content Include="gulpfile.js" />
     <Content Include="karma.conf.js" />
     <Content Include="Key\KeyPrivadaEnvioCadena.xml" />
     <Content Include="Key\KeyPublicaEnvioCadena.xml" />
@@ -4150,14 +4152,17 @@
     <Content Include="Scripts\PortalConsultoras\Campania\CampaniaModule.js" />
     <Content Include="Scripts\PortalConsultoras\CatalogoPersonalizado\catalogoPersonalizado.js" />
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
-    <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\CarruselModule.js" />
+    <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\Ficha\CarruselModule.js" />
+    <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\Ficha\ComponenteDetalleModule.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\DetalleEstrategiaProvider.js" />
-    <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaModule.js" />
-    <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\ListaOpcionesModule.js" />
-    <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\ComponentesModule.js" />
-    <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\ResumenOpcionesModule.js" />
-    <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\OpcionesSeleccionadasModule.js" />
-    <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\TituloOpcionesSeleccionadasModule.js" />
+    <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\Ficha\Ficha.js" />
+    <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\Ficha\FichaModule.js" />
+    <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\Ficha\ListaOpcionesModule.js" />
+    <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\Ficha\ComponentesModule.js" />
+    <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\Ficha\OpcionesEvents.js" />
+    <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\Ficha\ResumenOpcionesModule.js" />
+    <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\Ficha\OpcionesSeleccionadasModule.js" />
+    <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\Ficha\TituloOpcionesSeleccionadasModule.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaAgregar\EstrategiaAgregar.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaAgregar\EstrategiaAgregarProvider.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaAgregar\PedidoRegistro.js" />
@@ -4250,6 +4255,7 @@
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-Suscripcion.js" />
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital.js" />
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-DataLayer.js" />
+    <Content Include="Scripts\PortalConsultoras\Shared\CodigoUbigeoPortal.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\AnalyticsPortal.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\ConstantesModule.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\General\RedesSociales.js" />
@@ -4607,9 +4613,6 @@
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileMenu\_MobileMenu.cshtml" />
     <Content Include="Areas\Mobile\Views\ProgramaNuevas\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\Pedido\_PopupEleccionRegalo.cshtml" />
-    <Content Include="Content\Css\owl\docs.theme.min.css" />
-    <Content Include="Content\Css\owl\owl.carousel.min.css" />
-    <Content Include="Content\Css\owl\owl.theme.default.min.css" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Areas\Mobile\Views\MasGanadoras\template-landing.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-carrusel-individuales-v2.cshtml" />
@@ -4623,6 +4626,8 @@
     <Content Include="Areas\Mobile\Views\Pedido\_PopupDescuento.cshtml" />
     <Content Include="Views\Shared\VistaParcialResponisve\_MenuContenedorResponsive.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-bannerInteractivo.cshtml" />
+    <Content Include="Areas\Mobile\Views\DetalleEstrategia\ComponenteDetalleTemplate.cshtml" />
+    <Content Include="Areas\Mobile\Views\DetalleEstrategia\ComponenteDetalleIndividualTemplate.cshtml" />
     <Content Include="Areas\Mobile\Views\Bonificaciones\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\Bonificaciones\IndexExterno.cshtml" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
@@ -5789,6 +5794,8 @@
     <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-bannerInteractivo.cshtml" />
     <Content Include="Views\Bonificaciones\IndexExterno.cshtml" />
     <Content Include="Views\MisCertificados\CAM_NoAdeudoPdf.cshtml" />
+    <Content Include="Views\DetalleEstrategia\ComponenteDetalleIndividualTemplate.cshtml" />
+    <Content Include="Views\DetalleEstrategia\ComponenteDetalleTemplate.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

@@ -5,6 +5,12 @@ namespace Portal.Consultoras.Common
 {
     public class Constantes
     {
+        public static class TipoSeccion
+        {
+            public const string Video = "01";
+            public const string Texto = "02";
+        }
+
         public static class TipoLink
         {
             public const int Ayuda = 301;
@@ -1143,7 +1149,7 @@ namespace Portal.Consultoras.Common
             public const string SinPedidosDisponibles = "Lo sentimos, en estos momentos no cuentas con pedidos disponibles para reclamar.";
             public const string FueraDeFecha = "Tu solicitud se encuentra fuera de fecha para poder ser atendida.";
             public const string ContactateChatEnLinea = "Por favor, contáctate con nuestro <span class=\"enlace_chat belcorpChat\"><a>Chat en Línea</a></span>.";
-            public const string ExcedioLimiteReclamo = "Lo sentimos, usted ha excedido el límite de reclamos por pedido"; //HD-3412 EINCA
+            public const string ExcedioLimiteReclamo = "Lo sentimos, usted ha excedido el límite de reclamos por pedido";
         }
 
         public static class CodigoOperacionCDR
@@ -1272,7 +1278,7 @@ namespace Portal.Consultoras.Common
                 public const string Mobile = "Mobile";
             }
 
-            public static class TipoPersonalizacion
+            public static class TipoPersonalizacionSr
             {
                 public const string Evento = "EVENTO";
                 public const string Categoria = "CATEGORIA";
@@ -1509,7 +1515,6 @@ namespace Portal.Consultoras.Common
 
         public static class MensajesError
         {
-            //public const string InsertarDesglose = "Ocurrió un error al procesar la reserva.";
             public const string CargarProductosShowRoom = "Error al cargar los productos.";
             public const string DeletePedido_CuvNoExiste = "El producto que deseas eliminar ya no se encuentra en tu pedido. Por favor, vuelva a carga la página (F5).";
             public const string RecuperarContrasenia = "Error en la respuesta del servicio de Recuperar Contraseña.";
@@ -1857,14 +1862,14 @@ namespace Portal.Consultoras.Common
         [Obsolete("Use ConsTablaLogica")]
         public struct TablaLogica
         {
-            public const int NroReclamosPorPedidoCDR = 161;
-            public const int PersonalizacionODD = 93;
+            //public const int NroReclamosPorPedidoCDR = 161;
+            //public const int PersonalizacionODD = 93;
             public const int Plan20 = 98;
-            public const int CDRExpress = 104;
+            //public const int CDRExpress = 104;
             public const int StockDiasAntes = 181;
-            public const int CorreoFeedbackAppConsultora = 105;
+            //public const int CorreoFeedbackAppConsultora = 105;
 
-            public const int EscalaDescuentoMensajeImportante = 160;
+            //public const int EscalaDescuentoMensajeImportante = 160;
 
 
             /// <summary>
@@ -1891,15 +1896,15 @@ namespace Portal.Consultoras.Common
             }
 
             public const short RevistaDigital = 131;
-            public const short CodigoRevistaFisica = 132;
-            public const short Palanca = 135;
-            public const int ValoresImagenesResize = 121;
-            public const short ExtensionBannerGanaMasApp = 136;
-            public const short MontoLimiteCupon = 103;
+            //public const short CodigoRevistaFisica = 132;
+            //public const short Palanca = 135;
+            //public const int ValoresImagenesResize = 121;
+            //public const short ExtensionBannerGanaMasApp = 136;
+            //public const short MontoLimiteCupon = 103;
             public const int ValoresPagoEnLinea = 122;
-            public const int CantidadCuvMasivo = 137;
-            public const short ProlObsCod = 5;
-            public const int ActualizaDatosEnabled = 143;
+            //public const int CantidadCuvMasivo = 137;
+            //public const short ProlObsCod = 5;
+            //public const int ActualizaDatosEnabled = 143;
             public const short HabilitarChatEmtelco = 144;
             public const short OrdenamientoShowRoom = 99;
             public const short NuevaDescripcionProductos = 145;

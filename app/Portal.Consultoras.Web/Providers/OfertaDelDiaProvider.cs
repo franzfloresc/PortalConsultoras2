@@ -71,10 +71,10 @@ namespace Portal.Consultoras.Web.Providers
                        model.CodigorRegion,
                         model.CodigoZona
                      );
-
-                    var taskApi = Task.Run(() => ObtenerOfertasDesdeApi(pathOferta, model.CodigoISO));
-                    Task.WhenAll(taskApi);
-                    ofertasDelDia = taskApi.Result;
+                    ofertasDelDia = ObtenerEntidadOfertasDesdeApi(pathOferta, model.CodigoISO);
+                    //var taskApi = Task.Run(() => ObtenerOfertasDesdeApi(pathOferta, model.CodigoISO));
+                    //Task.WhenAll(taskApi);
+                    //ofertasDelDia = taskApi.Result;
                 }
                 else
                 {
@@ -242,7 +242,7 @@ namespace Portal.Consultoras.Web.Providers
                 oddSession = new DataModel();
                 oddSession.TieneOfertaDelDia = true;
 
-                var personalizacionesOdd = _tablaLogica.GetTablaLogicaDatos(usuario.PaisID, Constantes.TablaLogica.PersonalizacionODD);
+                var personalizacionesOdd = _tablaLogica.GetTablaLogicaDatos(usuario.PaisID, ConsTablaLogica.PersonalizacionOdd.TablaLogicaId);
                 if (!personalizacionesOdd.Any())
                 {
                     oddSession.TieneOfertaDelDia = false;

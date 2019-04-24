@@ -19,14 +19,13 @@ var CarruselAyuda = function () {
     };
 
     var _obtenerSlideMostrar = function (slick, currentSlide, nextSlide) {
-        //'slick-current', 'slick-active'
+
         var indexMostrar = nextSlide == undefined ? currentSlide : nextSlide;
         var indexActive = -1;
 
         var cantActive = $(_slick.$slider).find('.slick-active').length;
         var indexCurrent = parseInt($(_slick.$slider).find('.slick-current').attr("data-slick-index"));
-
-        //console.log('_obtenerSlideMostrar', indexMostrar, indexCurrent, indexActive, currentSlide, nextSlide);
+        
         var direccion = CarruselVariable.Direccion.prev;
         if (indexCurrent === 0) {
             if (indexMostrar + 1 != slick.$slides.length) {
@@ -49,7 +48,7 @@ var CarruselAyuda = function () {
         }
 
         var slideMostrar = $(_slick.$slider).find("[data-slick-index='" + indexMostrar + "']");
-        //console.log('_obtenerSlideMostrar', direccion, indexMostrar, $(slideMostrar));
+
         return {
             Direccion: direccion,
             IndexMostrar: indexMostrar,
@@ -99,7 +98,7 @@ var CarruselAyuda = function () {
 
     var marcarAnalyticsInicio = function (idHtmlSeccion, arrayItems, origen, slidesToShow) {
         try {
-            //console.log('marcarAnalyticsInicio - inicio', idHtmlSeccion, arrayItems, origen, slidesToShow);
+
             idHtmlSeccion = idHtmlSeccion || "";
             idHtmlSeccion = idHtmlSeccion[0] == "#" ? idHtmlSeccion : ("#" + idHtmlSeccion);
             var cantActive = slidesToShow || ($(idHtmlSeccion).find(".slick-active") || []).length;
@@ -121,8 +120,7 @@ var CarruselAyuda = function () {
                     CantidadMostrar: cantActive,
                     Origen: origen
                 };
-
-                //console.log('marcarAnalyticsInicio - fin', obj);
+                
                 AnalyticsPortalModule.MarcaGenericaLista("", obj);
 
                 //INI DH-3473 EINCA Marcar las estrategias de programas nuevas(dúo perfecto)
@@ -150,7 +148,6 @@ var CarruselAyuda = function () {
     var marcarAnalyticsChange = function (slick, currentSlide, nextSlide, origen) {
         try {
             _slick = slick;
-            //console.log('marcarAnalyticsChange - Ini ', origen);
 
             if (typeof AnalyticsPortalModule == "undefined") {
                 return;
@@ -160,7 +157,7 @@ var CarruselAyuda = function () {
 
             var item = objMostrar.SlideMostrar;
             var estrategia = $($(item).find("[data-estrategia]")[0]).data("estrategia") || "";
-            //console.log('marcarAnalyticsChange', estrategia);
+
             if (estrategia === "") {
                 if (origen.Palanca == ConstantesModule.OrigenPedidoWebEstructura.Palanca.Liquidacion) {
                     estrategia = _obtenerEstrategiaLiquidacion(objMostrar);
@@ -224,8 +221,6 @@ var CarruselAyuda = function () {
 
                 $(".js-slick-prev-liq").insertBefore('#divCarruselLiquidaciones').hide();
                 $(".js-slick-next-liq").insertAfter('#divCarruselLiquidaciones');
-
-                //console.log('marcarAnalyticsLiquidacion', tipo, data, slick, currentSlide, nextSlide);
 
                 marcarAnalyticsInicio("", data, origen, currentSlide);
 
@@ -705,7 +700,7 @@ function ArmarCarouselEstrategias(data) {
         });
     }
     else if (tipoOrigenEstrategia == 11) {
-        //$("#divListaEstrategias #divListadoEstrategia [data-item] > div").attr("class", "producto_carousel producto-agotado");
+
         var divList = $("#divListaEstrategias #divListadoEstrategia [data-item] > div");
         $.each(divList, function (k, obj) {
             if ($(obj).hasClass('producto-agotado'))

@@ -7,7 +7,7 @@ belcorp.settings.uniquePrefix = "/g/";
 jQuery(document).ready(function () {
 
     CreateLoading();
-    //eventCloseDialogMensaje();
+
 
     if (typeof (tokenPedidoAutenticoOk) !== 'undefined') {
         GuardarIndicadorPedidoAutentico();
@@ -384,6 +384,12 @@ jQuery(document).ready(function () {
             Handlebars.registerHelper('Multiplicar', function (a, b) {
                 return a * b;
             });
+
+            //EAAR
+            Handlebars.registerHelper('json', function (context) {
+                return JSON.stringify(context).replace(/"/g, '&quot;');
+            });
+             
         }
     };
 
@@ -1900,9 +1906,7 @@ function EstablecerLazyCarruselAfterChange(elementoHtml) {
 
 }
 
-/*
-Detectando IE 6 - 11
-*/
+/*  Detectando IE 6 - 11 */
 function isMSIE() {
     return (navigator.userAgent.indexOf('MSIE') !== -1 || navigator.appVersion.indexOf('Trident/') > 0);
 }
@@ -2018,7 +2022,7 @@ var GeneralModule = (function () {
         if (typeof url === "undefined" || url === null || $.trim(url) === "") return false;
 
         var destinationUrl = "/";
-        if (isMobile) destinationUrl += "Mobile/";
+        if (_isMobile()) destinationUrl = destinationUrl + "Mobile/";
         destinationUrl += url;
 
         window.location.href = destinationUrl;

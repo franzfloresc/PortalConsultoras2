@@ -1,8 +1,8 @@
-﻿var GruposDesktopView = function(config) {
+﻿var GruposDesktopView = function (config) {
     if (typeof config === "undefined" || config === null) throw "config is null or undefined";
     if (typeof config.generalModule === "undefined" || config.generalModule === null) throw "config.generalModule is null or undefined";
     if (typeof config.gruposContainerId === "undefined" || config.gruposContainerId === null) throw "config.gruposContainerId is null or undefined";
-    
+
     var _config = {
         generalModule: config.generalModule
     };
@@ -17,21 +17,21 @@
             headers: "[data-group-header]",
         },
         componente: {
-            quantity : function(cuvComponente){ 
+            quantity: function (cuvComponente) {
                 return "[data-quantity-" + cuvComponente + "]";
             },
-            quantitySelector : function(cuvComponente){ 
+            quantitySelector: function (cuvComponente) {
                 return "[data-selector-cantidad-" + cuvComponente + "]";
             },
-            chooseIt : function(cuvComponente){
-                return "[data-eligelo-" + cuvComponente + "]"; 
+            chooseIt: function (cuvComponente) {
+                return "[data-eligelo-" + cuvComponente + "]";
             }
         },
         grupo: {
-            optionsLabel : function(grupo){ 
+            optionsLabel: function (grupo) {
                 return "[data-options-label-" + grupo + "]";
             },
-            readyLabel : function(grupo){ 
+            readyLabel: function (grupo) {
                 return "[data-ready-label-" + grupo + "]";
             },
             blockChooseIt: function (grupo, cuvComponente) {
@@ -42,7 +42,7 @@
                 }
                 return selector;
             },
-            blockQuantitySelector : function(grupo){ 
+            blockQuantitySelector: function (grupo) {
                 return "[data-block-selector-cantidad-" + grupo + "]";
             },
             item: function (grupo) {
@@ -57,29 +57,52 @@
         }
     };
 
-    var _setPresenter = function(presenter){
+    var _setPresenter = function (presenter) {
         _presenter = presenter;
     };
 
-    var _collapseGroup = function(grupo){
+    var _collapseGroup = function (grupo) {
+                                      
+        //Analytics ATP Boton Descontraer
+        if (!(typeof AnalyticsPortalModule === 'undefined')) {
+            var codigoubigeoportal = JSON.parse($("#data-estrategia").attr("data-estrategia")).CodigoUbigeoPortal + "";
+            if (codigoubigeoportal !== "") {
+                var label = $("[data-group-header][data-grupo=" + grupo + "]").find("h3").text();
+                
+                AnalyticsPortalModule.MarcaPromotionClickArmaTuPack(codigoubigeoportal, label, "Clic en Categoría");
+            }
+        } 
+
         if (grupo === undefined ||
             grupo === null ||
             $.trim(grupo) === "") return;
 
-            $(_elements.grupo.header(grupo)).addClass("active");
-            $(_elements.grupo.body(grupo)).css("display", "block");
+        $(_elements.grupo.header(grupo)).addClass("active");
+        $(_elements.grupo.body(grupo)).css("display", "block");
     };
 
-    var _uncollapseGroup = function(grupo){
+    var _uncollapseGroup = function (grupo) {
+        //Analytics ATP Boton Contraer
+        
+        if (!(typeof AnalyticsPortalModule === 'undefined')) {
+            var codigoubigeoportal = JSON.parse($("#data-estrategia").attr("data-estrategia")).CodigoUbigeoPortal + "";
+            if (codigoubigeoportal !== "") {
+                var label = $("[data-group-header][data-grupo=" + grupo + "]").find("h3").text();
+
+                AnalyticsPortalModule.MarcaPromotionClickArmaTuPack(codigoubigeoportal, label, "Clic en Categoría");
+            }
+        }
+
         if (grupo === undefined ||
             grupo === null ||
             $.trim(grupo) === "") return;
 
-            $(_elements.grupo.header(grupo)).removeClass("active");
-            $(_elements.grupo.body(grupo)).css("display", "none");
+        $(_elements.grupo.header(grupo)).removeClass("active");
+        $(_elements.grupo.body(grupo)).css("display", "none");
+       
     };
 
-    var _renderGrupos = function(packComponents) {
+    var _renderGrupos = function (packComponents) {
         SetHandlebars(_elements.grupos.templateId, packComponents, _elements.grupos.id);
 
         $(_elements.grupos.id).on("click", _elements.grupos.headers, function (e) {
@@ -93,17 +116,22 @@
         });
 
         $(_elements.grupos.id).on("click", "[data-add-component]", function (e) {
+              
             var $btn = $(e.target);
             var codigoGrupo = $btn.data("grupo");
             var cuvComponente = $btn.data("cuv-componente");
             _presenter.addComponente(codigoGrupo, cuvComponente);
+             
         });
 
-        $(_elements.grupos.id).on("click","[data-delete-component]",function(e){
+        $(_elements.grupos.id).on("click", "[data-delete-component]", function (e) {
+             
             var $btn = $(e.target);
             var codigoGrupo = $btn.data("grupo");
             var cuvComponente = $btn.data("cuv-componente");
-            _presenter.deleteComponente(codigoGrupo,cuvComponente);
+            _presenter.deleteComponente(codigoGrupo, cuvComponente);
+
+            
         });
 
         var slickSettings = {
@@ -123,11 +151,9 @@
                 "</a>"
         };
         $(_elements.grupos.attrCarruselContainer).slick(slickSettings);
-
-        //if (packComponents.componentes.length > 1) $(_elements.grupos.headers).click();
     };
 
-    var _showQuantitySelector = function (cuvComponent,quantity) {
+    var _showQuantitySelector = function (cuvComponent, quantity) {
         if (cuvComponent === undefined ||
             cuvComponent === null ||
             $.trim(cuvComponent) === "") return;
@@ -211,29 +237,29 @@
         $(_elements.grupo.blockChooseIt(codigoGrupo, cuvComponente)).removeClass("disable");
         $(_elements.grupo.blockQuantitySelector(codigoGrupo)).removeClass("disable");
     };
-    
-    var _addGroupHighlight = function(grupo){
+
+    var _addGroupHighlight = function (grupo) {
         if (grupo === undefined ||
             grupo === null ||
             $.trim(grupo) === "") return;
 
-            $(_elements.grupo.item(grupo)).addClass("error");
+        $(_elements.grupo.item(grupo)).addClass("error");
     };
 
-    var _removeGroupHighlight = function(grupo){
+    var _removeGroupHighlight = function (grupo) {
         if (grupo === undefined ||
             grupo === null ||
             $.trim(grupo) === "") return;
 
-            $(_elements.grupo.item(grupo)).removeClass("error");
+        $(_elements.grupo.item(grupo)).removeClass("error");
     };
 
     return {
         renderGrupos: _renderGrupos,
-        setPresenter : _setPresenter,
-        showChooseIt : _showChooseIt,
-        showChosen : _showChosen,
-        showQuantitySelector : _showQuantitySelector,
+        setPresenter: _setPresenter,
+        showChooseIt: _showChooseIt,
+        showChosen: _showChosen,
+        showQuantitySelector: _showQuantitySelector,
         showGroupOptions: _showGroupOptions,
         hideGroupOptions: _hideGroupOptions,
         showGroupReady: _showGroupReady,

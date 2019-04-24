@@ -1,21 +1,21 @@
 ﻿/// <reference path="../../../Scripts/jquery-1.11.2.js" />
-/// <reference path="../../../Scripts/General.js" />
-/// <reference path="../../../Scripts/PortalConsultoras/Shared/MainLayout.js" />
-/// <reference path="../../../Scripts/PortalConsultoras/Bienvenida/Estrategia.js" />
-/// <reference path="../../../Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js" />
-/// <reference path="../../../Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js" />
-/// <reference path="../../../Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js" />
-/// <reference path="../../../Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js" />
-/// <reference path="../../../Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js" />
-/// <reference path="../../../Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js" />
-/// <reference path="../../../Scripts/PortalConsultoras/Pedido/barra.js" />
-/// <reference path="../../../Scripts/PortalConsultoras/Mobile/Shared/MobileLayout.js" />
-/// <reference path="../../../Scripts/PortalConsultoras/TagManager/Home-Pedido.js" />
-/// <reference path="../../../Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js" />
-/// <reference path="../../../Scripts/PortalConsultoras/Shared/ConstantesModule.js" />
-/// <reference path="../../../Scripts/PortalConsultoras/DetalleEstrategia/OpcionesSeleccionadasModule.js" />
-/// <reference path="../../../Scripts/PortalConsultoras/DetalleEstrategia/DetalleEstrategiaProvider.js" />
-/// <reference path="../../../Scripts/PortalConsultoras/DetalleEstrategia/FichaModule.js" />
+/// <reference path="../../../../Scripts/General.js" />
+/// <reference path="../../../../Scripts/PortalConsultoras/Shared/MainLayout.js" />
+/// <reference path="../../../../Scripts/PortalConsultoras/Bienvenida/Estrategia.js" />
+/// <reference path="../../../../Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js" />
+/// <reference path="../../../../Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js" />
+/// <reference path="../../../../Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js" />
+/// <reference path="../../../../Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js" />
+/// <reference path="../../../../Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js" />
+/// <reference path="../../../../Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js" />
+/// <reference path="../../../../Scripts/PortalConsultoras/Pedido/barra.js" />
+/// <reference path="../../../../Scripts/PortalConsultoras/Mobile/Shared/MobileLayout.js" />
+/// <reference path="../../../../Scripts/PortalConsultoras/TagManager/Home-Pedido.js" />
+/// <reference path="../../../../Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js" />
+/// <reference path="../../../../Scripts/PortalConsultoras/Shared/ConstantesModule.js" />
+/// <reference path="../../../../Scripts/PortalConsultoras/DetalleEstrategia/Ficha/OpcionesSeleccionadasModule.js" />
+/// <reference path="../../../../Scripts/PortalConsultoras/DetalleEstrategia/DetalleEstrategiaProvider.js" />
+/// <reference path="../../../../Scripts/PortalConsultoras/DetalleEstrategia/Ficha/FichaModule.js" />
 
 var opcionesEvents = opcionesEvents || {};
 registerEvent.call(opcionesEvents, "onComponentSelected");
@@ -203,6 +203,7 @@ var ListaOpcionesModule = (function () {
     };
 
     var SeleccionarOpcion = function (cuv, event) {
+        
         if (typeof cuv === "undefined" ||
             cuv === null ||
             $.trim(cuv) === "") throw "param componente is not defined or null";

@@ -106,6 +106,18 @@
 
         _packComponents(model);
         _config.armaTuPackDetalleEvents.applyChanges(_config.armaTuPackDetalleEvents.eventName.onSelectedComponentsChanged, model);
+
+
+        //console.log('analytic_3.2: quitar componente', grupoComponente, cuvComponente, indiceComponente);
+        //Analytics
+
+        if (!(typeof AnalyticsPortalModule === 'undefined')) {
+            var estrategia = JSON.parse($("#data-estrategia").attr("data-estrategia"));
+            var codigoubigeoportal = estrategia.CodigoUbigeoPortal + "";
+            if (codigoubigeoportal !== "") {
+                AnalyticsPortalModule.MarcaEliminaClickArmaTuPack(codigoubigeoportal, estrategia);
+            }
+        }
     };
 
     var _addPack = function () {

@@ -79,7 +79,6 @@ namespace Portal.Consultoras.Web.Controllers
         protected readonly EstrategiaComponenteProvider _estrategiaComponenteProvider;
         protected readonly ConfiguracionPaisProvider _configuracionPaisProvider;
         protected readonly ConfiguracionManagerProvider _configuracionManagerProvider;
-        protected readonly AdministrarEstrategiaProvider administrarEstrategiaProvider;
         protected readonly MenuProvider _menuProvider;
         protected readonly ChatEmtelcoProvider _chatEmtelcoProvider;
         protected readonly ComunicadoProvider _comunicadoProvider;
@@ -107,7 +106,6 @@ namespace Portal.Consultoras.Web.Controllers
         public BaseController() : this(Web.SessionManager.SessionManager.Instance, LogManager.LogManager.Instance)
         {
             _tablaLogicaProvider = new TablaLogicaProvider();
-            administrarEstrategiaProvider = new AdministrarEstrategiaProvider();
             _showRoomProvider = new ShowRoomProvider(_tablaLogicaProvider);
             _baseProvider = new BaseProvider();
             _guiaNegocioProvider = new GuiaNegocioProvider();
@@ -178,14 +176,7 @@ namespace Portal.Consultoras.Web.Controllers
                 estrategiaODD = SessionManager.OfertaDelDia.Estrategia;
                 configEstrategiaSR = SessionManager.GetEstrategiaSR() ?? new ConfigModel();
                 buscadorYFiltro = SessionManager.GetBuscadorYFiltrosConfig();
-
-
-                //if (!configEstrategiaSR.CargoEntidadesShowRoom)
-                //{
-                //    _showRoomProvider.CargarEntidadesShowRoom(userData);
-                //    configEstrategiaSR = SessionManager.GetEstrategiaSR();
-                //}
-
+                
                 if (Request.IsAjaxRequest())
                 {
                     base.OnActionExecuting(filterContext);
@@ -242,7 +233,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public virtual List<BEPedidoWebDetalle> ObtenerPedidoWebSetDetalleAgrupado(bool noSession = false)
         {
-            return _pedidoWebProvider.ObtenerPedidoWebSetDetalleAgrupado(EsOpt(), noSession);
+            return _pedidoWebProvider.ObtenerPedidoWebSetDetalleAgrupado(noSession);
         }
 
         public virtual List<BEPedidoWebDetalle> GetDetallePedidoAgrupadoByCampania(int campaniaId)

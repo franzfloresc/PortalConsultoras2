@@ -37,7 +37,7 @@
             codigoEstrategia: estrategia.CodigoEstrategia
         };
 
-        var urlReturn = !estrategia.IsMobile ? "/ofertas" : "mobile/ofertas";
+        var urlReturn = !estrategia.IsMobile ? "/ofertas" : "/mobile/ofertas";
 
         _config.armaTuPackProvider
             .getPackComponentsPromise(params)
@@ -51,14 +51,15 @@
                 var dataClone = jQuery.extend(true, {}, data);
 
                 $.each(data.componentes, function (idx, grupo) {
-                    if (typeof grupo.Hermanos === "undefined" || grupo.Hermanos === null || grupo.Hermanos.length === 0) {
+                    if (typeof grupo.Hermanos === "undefined" || grupo.Hermanos === null || 
+                    !Array.isArray(grupo.Hermanos) || grupo.Hermanos.length === 0) {
                         $.each(dataClone.componentes, function (idxClone, grupoClone) {
                             if (grupo.Grupo === grupoClone.Grupo) {
                                 dataClone.componentes.splice(idxClone, 1);
                                 return false;
                             }
                         });
-                    };
+                    }
                 });
 
                 _config.armaTuPackDetalleEvents.applyChanges(_config.armaTuPackDetalleEvents.eventName.onGruposLoaded, dataClone);

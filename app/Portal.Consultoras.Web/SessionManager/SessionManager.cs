@@ -1,10 +1,12 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.Estrategia;
 using Portal.Consultoras.Web.Models.Layout;
 using Portal.Consultoras.Web.Models.MisCertificados;
 using Portal.Consultoras.Web.Models.PagoEnLinea;
 using Portal.Consultoras.Web.Models.ProgramaNuevas;
+using Portal.Consultoras.Web.Models.Recomendaciones;
 using Portal.Consultoras.Web.ServiceCDR;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
@@ -16,15 +18,12 @@ using Portal.Consultoras.Web.SessionManager.ShowRoom;
 using System;
 using System.Collections.Generic;
 using System.Web;
-using Portal.Consultoras.Web.Models.Recomendaciones;
-using Portal.Consultoras.Web.Models.Estrategia;
 
 namespace Portal.Consultoras.Web.SessionManager
 {
     public class SessionManager : ISessionManager
     {
         private static ISessionManager _instance;
-        //
         private static IShowRoom _showRoom;
         private static IOfertaDelDia _ofertaDelDia;
         private static IMasGanadoras _masGanadoras;
@@ -123,16 +122,6 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             HttpContext.Current.Session[Constantes.ConstSession.CDRWebDatos] = datos;
         }
-
-        //public List<ServicePedido.BEPedidoWeb> GetCdrPedidosFacturado()
-        //{
-        //    return (List<ServicePedido.BEPedidoWeb>)HttpContext.Current.Session[Constantes.ConstSession.CDRPedidosFacturado];
-        //}
-
-        //public void SetCdrPedidosFacturado(List<ServicePedido.BEPedidoWeb> datos)
-        //{
-        //    HttpContext.Current.Session[Constantes.ConstSession.CDRPedidosFacturado] = datos;
-        //}
 
         public List<BECDRWebDescripcion> GetCdrDescripcion()
         {
@@ -1232,17 +1221,17 @@ namespace Portal.Consultoras.Web.SessionManager
         }
        
 
-        void ISessionManager.SetCDRExpressMensajes(List<BETablaLogicaDatos> val)
-        {
-            HttpContext.Current.Session["CDRExpressMensajes"] = val;
-        }
+        //void ISessionManager.SetCDRExpressMensajes(List<BETablaLogicaDatos> val)
+        //{
+        //    HttpContext.Current.Session["CDRExpressMensajes"] = val;
+        //}
 
-        List<BETablaLogicaDatos> ISessionManager.GetCDRExpressMensajes()
-        {
-            var val = HttpContext.Current.Session["CDRExpressMensajes"];
+        //List<BETablaLogicaDatos> ISessionManager.GetCDRExpressMensajes()
+        //{
+        //    var val = HttpContext.Current.Session["CDRExpressMensajes"];
 
-            return (List<BETablaLogicaDatos>)val;
-        }
+        //    return (List<BETablaLogicaDatos>)val;
+        //}
 
         void ISessionManager.SetOcultarBannerTop(bool val)
         {
