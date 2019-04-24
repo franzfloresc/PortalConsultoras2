@@ -14,7 +14,7 @@ BEGIN
 	WHERE CP.Estado=1 
 	ORDER BY CP.IdContenido
 	
-	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CodigoDetalle,RutaContenido,Accion,Orden,Tipo,CAD.Estado EstadoDetalle,
+	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CAD.CodigoDetalle,CAD.RutaContenido,CAD.Accion,CAD.Orden,CAD.Tipo,CAD.Estado EstadoDetalle,
 	CAST(CASE 
 		WHEN VC.IdVistoContenido IS NULL THEN 0
 		ELSE 1
@@ -44,7 +44,7 @@ BEGIN
 	WHERE CP.Estado=1 
 	ORDER BY CP.IdContenido
 	
-	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CodigoDetalle,RutaContenido,Accion,Orden,Tipo,CAD.Estado EstadoDetalle,
+	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CAD.CodigoDetalle,CAD.RutaContenido,CAD.Accion,CAD.Orden,CAD.Tipo,CAD.Estado EstadoDetalle,
 	CAST(CASE 
 		WHEN VC.IdVistoContenido IS NULL THEN 0
 		ELSE 1
@@ -74,7 +74,7 @@ BEGIN
 	WHERE CP.Estado=1 
 	ORDER BY CP.IdContenido
 	
-	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CodigoDetalle,RutaContenido,Accion,Orden,Tipo,CAD.Estado EstadoDetalle,
+	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CAD.CodigoDetalle,CAD.RutaContenido,CAD.Accion,CAD.Orden,CAD.Tipo,CAD.Estado EstadoDetalle,
 	CAST(CASE 
 		WHEN VC.IdVistoContenido IS NULL THEN 0
 		ELSE 1
@@ -104,7 +104,7 @@ BEGIN
 	WHERE CP.Estado=1 
 	ORDER BY CP.IdContenido
 	
-	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CodigoDetalle,RutaContenido,Accion,Orden,Tipo,CAD.Estado EstadoDetalle,
+	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CAD.CodigoDetalle,CAD.RutaContenido,CAD.Accion,CAD.Orden,CAD.Tipo,CAD.Estado EstadoDetalle,
 	CAST(CASE 
 		WHEN VC.IdVistoContenido IS NULL THEN 0
 		ELSE 1
@@ -134,7 +134,7 @@ BEGIN
 	WHERE CP.Estado=1 
 	ORDER BY CP.IdContenido
 	
-	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CodigoDetalle,RutaContenido,Accion,Orden,Tipo,CAD.Estado EstadoDetalle,
+	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CAD.CodigoDetalle,CAD.RutaContenido,CAD.Accion,CAD.Orden,CAD.Tipo,CAD.Estado EstadoDetalle,
 	CAST(CASE 
 		WHEN VC.IdVistoContenido IS NULL THEN 0
 		ELSE 1
@@ -164,7 +164,7 @@ BEGIN
 	WHERE CP.Estado=1 
 	ORDER BY CP.IdContenido
 	
-	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CodigoDetalle,RutaContenido,Accion,Orden,Tipo,CAD.Estado EstadoDetalle,
+	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CAD.CodigoDetalle,CAD.RutaContenido,CAD.Accion,CAD.Orden,CAD.Tipo,CAD.Estado EstadoDetalle,
 	CAST(CASE 
 		WHEN VC.IdVistoContenido IS NULL THEN 0
 		ELSE 1
@@ -194,7 +194,7 @@ BEGIN
 	WHERE CP.Estado=1 
 	ORDER BY CP.IdContenido
 	
-	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CodigoDetalle,RutaContenido,Accion,Orden,Tipo,CAD.Estado EstadoDetalle,
+	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CAD.CodigoDetalle,CAD.RutaContenido,CAD.Accion,CAD.Orden,CAD.Tipo,CAD.Estado EstadoDetalle,
 	CAST(CASE 
 		WHEN VC.IdVistoContenido IS NULL THEN 0
 		ELSE 1
@@ -224,7 +224,7 @@ BEGIN
 	WHERE CP.Estado=1 
 	ORDER BY CP.IdContenido
 	
-	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CodigoDetalle,RutaContenido,Accion,Orden,Tipo,CAD.Estado EstadoDetalle,
+	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CAD.CodigoDetalle,CAD.RutaContenido,CAD.Accion,CAD.Orden,CAD.Tipo,CAD.Estado EstadoDetalle,
 	CAST(CASE 
 		WHEN VC.IdVistoContenido IS NULL THEN 0
 		ELSE 1
@@ -254,7 +254,7 @@ BEGIN
 	WHERE CP.Estado=1 
 	ORDER BY CP.IdContenido
 	
-	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CodigoDetalle,RutaContenido,Accion,Orden,Tipo,CAD.Estado EstadoDetalle,
+	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CAD.CodigoDetalle,CAD.RutaContenido,CAD.Accion,CAD.Orden,CAD.Tipo,CAD.Estado EstadoDetalle,
 	CAST(CASE 
 		WHEN VC.IdVistoContenido IS NULL THEN 0
 		ELSE 1
@@ -284,7 +284,7 @@ BEGIN
 	WHERE CP.Estado=1 
 	ORDER BY CP.IdContenido
 	
-	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CodigoDetalle,RutaContenido,Accion,Orden,Tipo,CAD.Estado EstadoDetalle,
+	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CAD.CodigoDetalle,CAD.RutaContenido,CAD.Accion,CAD.Orden,CAD.Tipo,CAD.Estado EstadoDetalle,
 	CAST(CASE 
 		WHEN VC.IdVistoContenido IS NULL THEN 0
 		ELSE 1
@@ -314,7 +314,7 @@ BEGIN
 	WHERE CP.Estado=1 
 	ORDER BY CP.IdContenido
 	
-	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CodigoDetalle,RutaContenido,Accion,Orden,Tipo,CAD.Estado EstadoDetalle,
+	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CAD.CodigoDetalle,CAD.RutaContenido,CAD.Accion,CAD.Orden,CAD.Tipo,CAD.Estado EstadoDetalle,
 	CAST(CASE 
 		WHEN VC.IdVistoContenido IS NULL THEN 0
 		ELSE 1
@@ -344,7 +344,7 @@ BEGIN
 	WHERE CP.Estado=1 
 	ORDER BY CP.IdContenido
 	
-	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CodigoDetalle,RutaContenido,Accion,Orden,Tipo,CAD.Estado EstadoDetalle,
+	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CAD.CodigoDetalle,CAD.RutaContenido,CAD.Accion,CAD.Orden,CAD.Tipo,CAD.Estado EstadoDetalle,
 	CAST(CASE 
 		WHEN VC.IdVistoContenido IS NULL THEN 0
 		ELSE 1
