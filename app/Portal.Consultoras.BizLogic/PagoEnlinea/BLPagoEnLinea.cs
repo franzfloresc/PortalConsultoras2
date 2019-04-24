@@ -9,9 +9,7 @@ using System.Data;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
-using Portal.Consultoras.Entities.RevistaDigital;
 using Portal.Consultoras.BizLogic.RevistaDigital;
-using Portal.Consultoras.Data;
 
 namespace Portal.Consultoras.BizLogic.PagoEnlinea
 {
@@ -269,17 +267,17 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
             }
 
             //Paises con comision 0 para consultora digital y que no pasen su fecha de vencimiento
-            var Comision = listaConfiguracion.FirstOrDefault(e => e.Codigo == Constantes.TablaLogicaDato.PagoEnLinea.Habilitar_Comision_Cero);
+            var comision = listaConfiguracion.FirstOrDefault(e => e.Codigo == Constantes.TablaLogicaDato.PagoEnLinea.Habilitar_Comision_Cero);
 
-            Comision = Comision ?? new BETablaLogicaDatos();
+            comision = comision ?? new BETablaLogicaDatos();
 
-            var Evaluacion = (esDigital == 1) && (fechaVencimiento >= DateTime.Now.Date) && (string.IsNullOrEmpty(Comision.Valor) ? false : Comision.Valor=="1");
+            var evaluacion = esDigital == 1 && fechaVencimiento >= DateTime.Now.Date && !string.IsNullOrEmpty(comision.Valor) && comision.Valor=="1";
 
-            if (Evaluacion)
+            if (evaluacion)
             {
                 result.ListaMetodoPago.ForEach(e =>
                 {
-                    e.PorcentajeGastosAdministrativos = Evaluacion ? 0 : e.PorcentajeGastosAdministrativos;
+                    e.PorcentajeGastosAdministrativos = evaluacion ? 0 : e.PorcentajeGastosAdministrativos;
                 });
             }
 

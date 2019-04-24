@@ -130,7 +130,7 @@ var ResumenOpcionesModule = (function () {
         var isDesactivado = $('#btnAgregalo').hasClass('.btn_desactivado_general');
         
         if (!isDesactivado) {
-            isChangeTono = true;
+            fichaModule.SetChangeFichaAnalytics(true, null, null);
         }
 
         return false;
