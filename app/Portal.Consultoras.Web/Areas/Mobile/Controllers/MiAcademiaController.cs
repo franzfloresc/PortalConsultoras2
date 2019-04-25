@@ -34,6 +34,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 string nivelProyectado = "";
                 DataSet parametros;
 
+                /*HD-3777*/
+                string codigoClasificacion = userData.CodigoClasificacion;
+                string codigoSubClasificacion = userData.CodigoSubClasificacion;
+                string descripcionSubClasificacion = userData.DescripcionSubclasificacion;
+                /*Fin*/
+
                 using (ContenidoServiceClient csv = new ContenidoServiceClient())
                 {
                     parametros = csv.ObtenerParametrosSuperateLider(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
@@ -73,7 +79,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 var exito = !(getUser.codigo == "003" || getUser.codigo == "004" || getUser.codigo == "005" ||
                               createUser.codigo == "002" || createUser.codigo == "003" || createUser.codigo == "004");
 
-                urlLms = IdCurso == 0 ? String.Format(urlLms, isoUsuario, token) : String.Format(urlLms, isoUsuario, token, IdCurso);
+                /*HD-3777*/
+                urlLms = IdCurso == 0 ? String.Format(urlLms, isoUsuario, token, codigoClasificacion, codigoSubClasificacion, descripcionSubClasificacion) : String.Format(urlLms, isoUsuario, token, userData.CodigoClasificacion, codigoClasificacion, codigoSubClasificacion, descripcionSubClasificacion, IdCurso);
+                /*Fin*/
 
                 if (exito)
                 {

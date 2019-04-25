@@ -96,6 +96,21 @@ namespace Portal.Consultoras.Web.Controllers
                     if (string.IsNullOrWhiteSpace(certificado.NombreVista)) certificado.NombreVista = "~/Views/MisCertificados/NoAdeudoPdf.cshtml";
 
                     break;
+                //INI HD-3812
+                case Constantes.PaisID.CostaRica:
+                case Constantes.PaisID.Panama:
+                case Constantes.PaisID.ElSalvador:
+                case Constantes.PaisID.Guatemala:
+                    certificado.Nombre = "Constancia No Adeudo";
+                    if (userData.MontoDeuda > 0)
+                    {
+                        certificado.MensajeError = "Tu cuenta tiene saldo pendiente, no es posible expedir un certificado de " + certificado.Nombre;
+                        break;
+                    }
+                    certificado.CertificadoId = 1;
+                    certificado.NombreVista = "~/Views/MisCertificados/CAM_NoAdeudoPdf.cshtml";
+                    break;
+                //FIN HD-3812
                 default:
                     certificado = null;
                     break;
@@ -251,12 +266,25 @@ namespace Portal.Consultoras.Web.Controllers
                         beMiCertificado = listaData.FirstOrDefault(x => x.TipoCert == tipo);
                         model = Mapper.Map<MiCertificadoModel>(beMiCertificado);
                     }
-
                     model.CertificadoId = tmp.CertificadoId;
                     model.Nombre = tmp.Nombre;
                     model.MensajeError = tmp.MensajeError;
                     model.NombreVista = tmp.NombreVista;
 
+                    //INI HD-3812
+                    switch (userData.PaisID)
+                    {
+                        case Constantes.PaisID.CostaRica:
+                            if (model.TipoDocumento == "CCI") model.TipoDocumento = "cédula de identidad";
+                            else if(model.TipoDocumento == "PASP") model.TipoDocumento = "pasaporte";
+                            break;
+                        case Constantes.PaisID.Panama:
+                            if (model.TipoDocumento == "C.Ext") model.TipoDocumento = "cédula externa";
+                            else if (model.TipoDocumento == "PSSPT") model.TipoDocumento = "pasaporte";
+                            else if (model.TipoDocumento == "OTROS" || model.TipoDocumento == "DNI") model.TipoDocumento = "nro. de documento";
+                            break;
+                    }
+                    //FIN HD-3812
                     var numeroDocumento = model.NumeroDocumento;
                     switch (userData.PaisID)
                     {
@@ -303,6 +331,20 @@ namespace Portal.Consultoras.Web.Controllers
                             case Constantes.PaisID.Peru:
                                 model.Pais = "Peru";
                                 break;
+                            //INI HD-3812
+                            case Constantes.PaisID.CostaRica:
+                                model.Pais = "CR";
+                                break;
+                            case Constantes.PaisID.Guatemala:
+                                model.Pais = "GT";
+                                break;
+                            case Constantes.PaisID.Panama:
+                                model.Pais = "PA";
+                                break;
+                            case Constantes.PaisID.ElSalvador:
+                                model.Pais = "ES";
+                                break;
+                            //FIN HD-3812
                             default:
                                 model.Pais = "";
                                 break;
