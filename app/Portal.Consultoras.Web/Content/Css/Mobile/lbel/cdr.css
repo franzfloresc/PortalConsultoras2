@@ -229,7 +229,8 @@
     letter-spacing: 0.5px;
 }
 
-.estado_pendiente {
+.estado_pendiente,
+.estado_en_evaluacion {
     border: 1px solid #808080;
     color: #808080;
 }

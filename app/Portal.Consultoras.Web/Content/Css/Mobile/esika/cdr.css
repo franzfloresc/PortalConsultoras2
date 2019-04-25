@@ -229,20 +229,20 @@
     letter-spacing:0.5px;
 }
 
-.estado_pendiente {
+.estado_pendiente,
+.estado_en_evaluacion {
     border: 1px solid #808080;
     color: #808080;
 }
 
-.estado_observado,
-.estado_en_evaluacion {
+.estado_observado{
     border: 1px solid #B9007E;
     color: #B9007E;
 }
 
 .estado_rechazado,
 .estado_aprobado,
-.estado_enviado{
+.estado_enviado {
     color: #fff;
 }
 
