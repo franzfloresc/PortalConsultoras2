@@ -636,6 +636,7 @@ function CargarDetallePedido(page, rows, asyncrono) {
                 
                 var filas = document.getElementById('tbListaPedido').children[1].getElementsByClassName('contenido_ingresoPedido mouse_encima');
 
+                
                 var Eskits = false;
                 if (filas != null) {
 
@@ -664,6 +665,7 @@ function CargarDetallePedido(page, rows, asyncrono) {
                         }
                     }
                 }
+                
             }
         })
         .fail(function (response, error) {
