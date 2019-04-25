@@ -78,7 +78,9 @@ namespace Portal.Consultoras.Web.Controllers
             modelo.EsEditable = packAgregado != null;
             modelo.IsMobile = esMobile;
             modelo.CodigoUbigeoPortal = CodigoUbigeoPortal.GuionContenedorArmaTuPack;
-            
+
+            modelo.OrigenAgregar = esMobile ? Constantes.OrigenPedidoWeb.MobileArmaTuPackFicha : Constantes.OrigenPedidoWeb.DesktopArmaTuPackFicha;
+
             return View(modelo);
         }
 
