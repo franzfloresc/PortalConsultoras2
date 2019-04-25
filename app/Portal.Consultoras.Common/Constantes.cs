@@ -1936,6 +1936,7 @@ namespace Portal.Consultoras.Common
             public const short PilotoCatalogoDigital = 155;
             public const short GanaMasNativo = 159;
             public const short ResizeImagenesAppGanaMas = 162;
+            public const short SegPedidoRegionZona = 169;//HD-3606 EINCA
             public const short TiempoMaximoSP = 180;
             #region Camino Brillante
             public const short CaminoBrillanteInfoComercial = 165;
@@ -3630,6 +3631,20 @@ namespace Portal.Consultoras.Common
             public const int Inconstantes = 7;
             public const int PosibleEgreso = 8;
             public const int Reingreso = 9;
+        }
+
+        //HD-3606 EINCA
+        public class SegPedidoSituacion
+        {
+            public const int PedidoRecibido = 1;
+            public const int Facturado = 2;
+            public const int InicioArmado = 3;
+            public const int Chequeado = 4;
+            public const int PuestoTransporte = 5;
+            public const int FechaEstimadaEntrega = 6;
+            public const int Entregado = 7;
+            public const int HoraEstimadaEntregaDesde = 8;
+            public const int HoraEstimadaEntregaHasta = 9;
         }
 
         public static class CaminoBrillante
