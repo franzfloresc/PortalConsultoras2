@@ -698,6 +698,86 @@
     </div>
 </script>
 
+<script id="template-vpcpContent" type="text/x-handlebars-template">
+    <div class="tab-pane fade show active" id="por-cliente" role="tabpanel" aria-labelledby="por-cliente-tab">
+        <div class="container-fluid">
+            <div class="container">
+                <div class="card">
+                    <div class="card--title">
+                        <div class="row">
+                            <div class="col-3">Nombre del cliente</div>
+                            <div class="col-2">Precio total</div>
+                            <div class="col-2">Origen</div>
+                        </div>
+                    </div>
+
+                    {{#each this.ListaPedidos as |item|}}
+                        <div class="card--content open-modal" onclick="DetallePedidoPendiente({{ item.PedidoId }})">
+                            <div class="row no-pointer">
+                                <div class="col-3 t-w700">{{item.Cliente}}</div>
+                                <div class="col-2">@ViewBag.Simbolo {{item.FormatoPrecioTotal}}</div>
+                                <div class="col-2">
+                                    {{#iff item.MarcaID '=' 0}}
+                                        {{item.MedioContacto}}
+                                    {{else}}
+                                        <text>Portal {{item.Marca}}</text>
+                                    {{/iff}}
+                                </div>
+                                <div class="col text-right"><a class="btn--arrow">Confirmar productos</a></div>
+                            </div>
+                        </div>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tab-pane fade" id="por-producto" role="tabpanel" aria-labelledby="por-producto-tab">
+        <div class="container-fluid">
+            <div class="container">
+                <div class="card">
+                    <div class="card--title">
+                        <div class="row">
+                            <div class="col-1"></div>
+                            <div class="col-3">Nombre del cliente</div>
+                            <div class="col-2">Precio total</div>
+                            <div class="col-2">Origen</div>
+                            <div class="col">Clientes que te lo pidieron</div>
+                        </div>
+                    </div>
+
+                    {{#each this.ListaProductos as |item2|}}
+                    <div class="card--content card--content__no-shadow">
+                        <div class="row">
+                            <div class="col-1">
+                                <img class="img-fluid" src="{{item2.Url}}">
+                            </div>
+                            <div class="col-3 t-w700">
+                                <span>x {{item2.CantidadTotal}} {{item2.Producto}}</span>
+                            </div>
+                            <div class="col-2">@ViewBag.Simbolo {{item2.FormatoPrecioTotal}}</div>
+                            <div class="col-2">{{item2.MedioContacto}}</div>
+                            <div class="col">
+                                <div class="card--box t-black open-modal" onclick="DetallePedidoPendienteClientes({{ item2.CUV }})">
+                                    {{#each item2.ListaClientes as |item3|}}
+                                    <span class="card--box__info">{{item3.Cliente}}</span>
+                                    {{/each}}
+                                    {{#if item2.MasDeDosClientes}}
+                                    <span class="card--box__info">Ver más...</span>
+                                    {{/if}}
+                                    <a class="btn--arrow btn--arrow__right">Confirmar productos</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{/each}}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
 @section scripts {
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/SugerenciaPendientes")
 }

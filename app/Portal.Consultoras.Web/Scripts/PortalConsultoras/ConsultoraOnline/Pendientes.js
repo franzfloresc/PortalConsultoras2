@@ -255,6 +255,18 @@ function RechazarSolicitudCliente(pedidoId) {
                 $('#rechazarTodop').addClass('hide');
                 $('#Paso1-Productos').hide();
                 //document.location.href = '/ConsultoraOnline/Pendientes';
+
+                //var Pendientes = response.Pendientes || [];
+
+                //$.each(Pendientes, function (index, value) {
+                //    if (value.ListaClientes.length > 2) {
+                //        value.MasDeDosClientes = true;
+                //        value.ListaClientes = value.ListaClientes.slice(0, 1);
+                //    }                    
+                //});
+
+                //SetHandlebars("#template-vpcpContent", Pendientes, "#vpcpContent");
+
             }
             else {
                 alert(response.message);
@@ -285,6 +297,17 @@ function RechazarSolicitudClientePorCuv(cuv) {
                 $('#rechazarTodo').addClass('hide');
                 $('#Paso1-Clientes').hide();
                 //document.location.href = '/ConsultoraOnline/Pendientes';
+
+                //var Pendientes = response.Pendientes || [];
+
+                //$.each(Pendientes, function (index, value) {
+                //    if (value.ListaClientes.length > 2) {
+                //        value.MasDeDosClientes = true;
+                //        value.ListaClientes = value.ListaClientes.slice(0, 1);
+                //    }
+                //});
+
+                //SetHandlebars("#template-vpcpContent", Pendientes, "#vpcpContent");
             }
             else {
                 alert(response.message);
@@ -383,6 +406,17 @@ function EliminarSolicitudDetalle(pedidoId, cuv, origen) {
                     var id = '#vp_pedido_' + pedidoId;
                     $(id).hide();
                 }
+
+                var Pendientes = response.Pendientes || [];
+
+                $.each(Pendientes, function (index, value) {
+                    if (value.ListaClientes.length > 2) {
+                        value.MasDeDosClientes = true;
+                        value.ListaClientes = value.ListaClientes.slice(0, 1);
+                    }
+                });
+
+                SetHandlebars("#template-vpcpContent", Pendientes, "#vpcpContent");
             }
             else {
                 alert(response.message);
