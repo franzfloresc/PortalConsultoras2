@@ -2583,7 +2583,7 @@ namespace Portal.Consultoras.Web.Controllers
                 listas.Add(new PortalServiceClient().ObtenerParametrosUnete(userData.CodigoISO, EnumsTipoParametro.TipoKitInicio, 0));
                 return Json(listas);
             }
-            catch
+            catch (Exception ex)
             {
                 return Error();
             }
@@ -2594,41 +2594,63 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                var enKit = new PortalServiceClient().GetCuvEdit(CodigoISO, campanhia, kit);
                 var en = new ENTKitInicio
                 {
-                    CUV = "2000",
-                    Precio = (decimal)200.50,
-                    PrecioReal = (decimal)400.10,
-                    Cantidad = 520,
-                    Orden = 7,
-                    Descripcion = "Llega a más clientes y recupera tu inversión",
-                    UrlImagen = "http://www.google.com.pe",
-                    Catalogos = new List<ENTKitInicioCatalogo>
-                    {
-                        new ENTKitInicioCatalogo
-                        {
-                            CodMarca = 1,
-                            CUV = "978944",
-                            Orden = 1,
-                            NomMarca = "Ésika"
-                        },
-                        new ENTKitInicioCatalogo
-                        {
-                            CodMarca = 2,
-                            CUV = "978945",
-                            Orden = 2,
-                            NomMarca = "L'Bel"
-                        },
-                        new ENTKitInicioCatalogo
-                        {
-                            CodMarca = 3,
-                            CUV = "978946",
-                            Orden = 3,
-                            NomMarca = "CyZone"
-                        }
-                    }
+                    Codigo = enKit.Codigo,
+                    SAP = enKit.SAP,
+                    CUV = enKit.CUV,
+                    Precio = enKit.Precio,
+                    PrecioReal = enKit.PrecioReal,
+                    Cantidad = enKit.Cantidad,
+                    Orden = enKit.Orden,
+                    Descripcion = enKit.Descripcion,
+                    UrlImagen = enKit.UrlImagen,
+                    Catalogos = new List<ENTKitInicioCatalogo>()
                 };
+                if (enKit.Catalogos != null)
+                {
+                    foreach(var det in enKit.Catalogos)
+                    {
+                        en.Catalogos.Add(new ENTKitInicioCatalogo
+                        {
+                            Codigo = det.Codigo,
+                            SAP = det.SAP,
+                            CUV = det.CUV,
+                            Orden = det.Orden,
+                            NomOrden = det.DescOrden,
+                            NomMarca = det.NomTipoCatalogo
+                        });
+                    }
+                }
                 return Json(en);
+            }
+            catch
+            {
+                return Error();
+            }
+        }
+
+        [HttpPost]
+        public JsonResult GetKitInicioCatalogo(int campanhia)
+        {
+            try
+            {
+                var catalogos = new PortalServiceClient().GetCuvCatalogos(CodigoISO, campanhia);
+                var lista = new List<ENTKitInicioCatalogo>();
+                foreach (var det in catalogos)
+                {
+                    lista.Add(new ENTKitInicioCatalogo
+                    {
+                        Codigo = det.Codigo,
+                        SAP = det.SAP,
+                        CUV = det.CUV,
+                        Orden = det.Orden,
+                        NomOrden = det.DescOrden,
+                        NomMarca = det.NomTipoCatalogo
+                    });
+                }
+                return Json(lista);
             }
             catch
             {
@@ -2657,6 +2679,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         public struct ENTKitInicio
         {
+            public int Codigo { get; set; }
+            public string SAP { get; set; }
             public string CUV { get; set; }
             public decimal Precio { get; set; }
             public decimal PrecioReal { get; set; }
@@ -2669,9 +2693,11 @@ namespace Portal.Consultoras.Web.Controllers
         }
         public struct ENTKitInicioCatalogo
         {
-            public int CodMarca { get; set; }
+            public int Codigo { get; set; }
+            public string SAP { get; set; }
             public string CUV { get; set; }
             public float Orden { get; set; }
+            public string NomOrden { get; set; }
             public string NomMarca { get; set; }
         }
 
