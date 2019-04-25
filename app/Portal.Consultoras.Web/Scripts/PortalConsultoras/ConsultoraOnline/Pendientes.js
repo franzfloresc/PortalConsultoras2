@@ -1,4 +1,4 @@
-﻿var urlDetallePedidoPendiente = "/ConsultoraOnline/DetallePedidoPendiente"
+﻿var urlDetallePedidoPendiente = "/ConsultoraOnline/DetallePedidoPendiente";
 var urlDetallePedidoPendienteClientes = "/ConsultoraOnline/DetallePedidoPendienteClientes";
 var listaGana = [];
 
