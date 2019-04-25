@@ -18,6 +18,7 @@ using Portal.Consultoras.Web.SessionManager.ShowRoom;
 using System;
 using System.Collections.Generic;
 using System.Web;
+using Portal.Consultoras.Web.Models.CaminoBrillante;
 
 namespace Portal.Consultoras.Web.SessionManager
 {
@@ -1354,6 +1355,8 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             HttpContext.Current.Session["ListaCDRWebCargaInicial"] = lista;
         }
+
+
         public void SetUsuarioOpciones(List<UsuarioOpcionesModel> usuarioOpciones)
         {
             HttpContext.Current.Session[Constantes.ConstSession.UsuarioPedidos] = usuarioOpciones;
@@ -1362,5 +1365,35 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return (List<UsuarioOpcionesModel>)HttpContext.Current.Session[Constantes.ConstSession.UsuarioPedidos];
         }
+
+        #region CaminoBrillante
+
+        public void SetConsultoraCaminoBrillante(BEConsultoraCaminoBrillante val)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.NivelConsultoraCaminoBrillante] = val;
+        }
+        public BEConsultoraCaminoBrillante GetConsultoraCaminoBrillante()
+        {
+            return (BEConsultoraCaminoBrillante)HttpContext.Current.Session[Constantes.ConstSession.NivelConsultoraCaminoBrillante];
+        }
+
+        public void SetKitCaminoBrillante(List<BEKitCaminoBrillante> val)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.KitCaminoBrillante] = val;
+        }
+        public List<BEKitCaminoBrillante> GetKitCaminoBrillante()
+        {
+            return (List<BEKitCaminoBrillante>)HttpContext.Current.Session[Constantes.ConstSession.KitCaminoBrillante];
+        }
+
+        public void SetDemostradoresCaminoBrillante(List<BEDesmostradoresCaminoBrillante> val)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.DemostradoresCaminoBrillante] = val;
+        }
+        public List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillante()
+        {
+            return (List<BEDesmostradoresCaminoBrillante>)HttpContext.Current.Session[Constantes.ConstSession.DemostradoresCaminoBrillante];
+        }
+        #endregion
     }
 }

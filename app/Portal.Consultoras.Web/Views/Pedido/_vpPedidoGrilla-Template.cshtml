@@ -118,6 +118,8 @@
             <div class="texto_pedidos texto_cantidad_pedidos">{{Cantidad}}</div>
             {{else if EsPremioElectivo}}
             <div class="texto_pedidos texto_cantidad_pedidos texto_cantidad_regalo">{{Cantidad}}</div>
+            {{else if EsKitCaminoBrillante}}
+            <div class="texto_pedidos texto_cantidad_pedidos texto_cantidad_regalo">{{Cantidad}}</div>
             {{else}}
             <div class="liquidacion_rango_wrapper_pedido cantidad_detalle_focus" data-cantidad-contenedor="">
                 <input type="text" value="{{Cantidad}}" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral txtLPCant"

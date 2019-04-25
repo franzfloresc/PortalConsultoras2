@@ -16,6 +16,7 @@ using Portal.Consultoras.Web.SessionManager.OfertaDelDia;
 using Portal.Consultoras.Web.SessionManager.ShowRoom;
 using System;
 using System.Collections.Generic;
+using Portal.Consultoras.Web.Models.CaminoBrillante;
 
 namespace Portal.Consultoras.Web.SessionManager
 {
@@ -503,5 +504,14 @@ namespace Portal.Consultoras.Web.SessionManager
         string GetJwtApiSomosBelcorp();
         void SetUsuarioOpciones(List<UsuarioOpcionesModel> val);
         List<UsuarioOpcionesModel> GetUsuarioOpciones();
+        
+        void SetConsultoraCaminoBrillante(BEConsultoraCaminoBrillante val);
+        BEConsultoraCaminoBrillante GetConsultoraCaminoBrillante();
+
+        void SetKitCaminoBrillante(List<BEKitCaminoBrillante> val);
+        List<BEKitCaminoBrillante> GetKitCaminoBrillante();
+
+        void SetDemostradoresCaminoBrillante(List<BEDesmostradoresCaminoBrillante> val);
+        List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillante();
     }
 }
