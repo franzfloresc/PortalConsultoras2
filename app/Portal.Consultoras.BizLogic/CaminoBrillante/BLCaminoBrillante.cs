@@ -13,7 +13,7 @@ using Portal.Consultoras.Entities.Pedido;
 using Portal.Consultoras.BizLogic.CaminoBrillante.Rest;
 
 namespace Portal.Consultoras.BizLogic.CaminoBrillante
-{
+{ 
     public class BLCaminoBrillante : ICaminoBrillanteBusinessLogic
     {
         private readonly ITablaLogicaDatosBusinessLogic _tablaLogicaDatosBusinessLogic;
