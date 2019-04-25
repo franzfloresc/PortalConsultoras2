@@ -438,7 +438,7 @@ var FichaModule = (function (config) {
                     }
                 }
                 else {
-                    estrategia.CodigoVariante = _codigoVariedad.IndividualVariable;
+                    estrategia.CodigoVariante = _codigoVariedad.ComuestaFija;
                 }
             }
             else {
