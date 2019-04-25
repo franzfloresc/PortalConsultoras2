@@ -5653,10 +5653,7 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EsCuponNuevasField;
-
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool EsCuponIndependienteField;
-
+        
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EsEditableField;
         
@@ -5781,24 +5778,7 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 }
             }
         }
-
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool EsCuponIndependiente
-        {
-            get
-            {
-                return this.EsCuponIndependienteField;
-            }
-            set
-            {
-                if ((this.EsCuponIndependienteField.Equals(value) != true))
-                {
-                    this.EsCuponIndependienteField = value;
-                    this.RaisePropertyChanged("EsCuponIndependiente");
-                }
-            }
-        }
-
+        
         [System.Runtime.Serialization.DataMemberAttribute()]
         public bool EsEditable {
             get {
@@ -8844,6 +8824,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string ClaveSecretaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoClasificacionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigoConsultoraField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -8854,6 +8837,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigoProgramaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoSubClasificacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigoTerritorioField;
@@ -8929,6 +8915,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DescripcionNivelField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescripcionSubClasificacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DestinatariosFeedbackField;
@@ -9735,6 +9724,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoClasificacion {
+            get {
+                return this.CodigoClasificacionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoClasificacionField, value) != true)) {
+                    this.CodigoClasificacionField = value;
+                    this.RaisePropertyChanged("CodigoClasificacion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string CodigoConsultora {
             get {
                 return this.CodigoConsultoraField;
@@ -9782,6 +9784,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.CodigoProgramaField, value) != true)) {
                     this.CodigoProgramaField = value;
                     this.RaisePropertyChanged("CodigoPrograma");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoSubClasificacion {
+            get {
+                return this.CodigoSubClasificacionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoSubClasificacionField, value) != true)) {
+                    this.CodigoSubClasificacionField = value;
+                    this.RaisePropertyChanged("CodigoSubClasificacion");
                 }
             }
         }
@@ -10107,6 +10122,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.DescripcionNivelField, value) != true)) {
                     this.DescripcionNivelField = value;
                     this.RaisePropertyChanged("DescripcionNivel");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DescripcionSubClasificacion {
+            get {
+                return this.DescripcionSubClasificacionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescripcionSubClasificacionField, value) != true)) {
+                    this.DescripcionSubClasificacionField = value;
+                    this.RaisePropertyChanged("DescripcionSubClasificacion");
                 }
             }
         }
@@ -15529,17 +15557,20 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private bool EliminadoTemporalField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsArmaTuPackField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EsBackOrderField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EsCompraPorCompraField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool EsCuponNuevasField;
-
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EsCuponIndependienteField;
-
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsCuponNuevasField;
+        
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EsDuoPerfectoField;
         
@@ -16016,6 +16047,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsArmaTuPack {
+            get {
+                return this.EsArmaTuPackField;
+            }
+            set {
+                if ((this.EsArmaTuPackField.Equals(value) != true)) {
+                    this.EsArmaTuPackField = value;
+                    this.RaisePropertyChanged("EsArmaTuPack");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public bool EsBackOrder {
             get {
                 return this.EsBackOrderField;
@@ -16042,6 +16086,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsCuponIndependiente {
+            get {
+                return this.EsCuponIndependienteField;
+            }
+            set {
+                if ((this.EsCuponIndependienteField.Equals(value) != true)) {
+                    this.EsCuponIndependienteField = value;
+                    this.RaisePropertyChanged("EsCuponIndependiente");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public bool EsCuponNuevas {
             get {
                 return this.EsCuponNuevasField;
@@ -16053,24 +16110,7 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 }
             }
         }
-
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool EsCuponIndependiente
-        {
-            get
-            {
-                return this.EsCuponIndependienteField;
-            }
-            set
-            {
-                if ((this.EsCuponIndependienteField.Equals(value) != true))
-                {
-                    this.EsCuponIndependienteField = value;
-                    this.RaisePropertyChanged("EsCuponIndependiente");
-                }
-            }
-        }
-
+        
         [System.Runtime.Serialization.DataMemberAttribute()]
         public bool EsDuoPerfecto {
             get {
@@ -16733,8 +16773,7 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 }
             }
         }
-
-
+        
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         protected void RaisePropertyChanged(string propertyName) {
@@ -17235,6 +17274,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal SaldoDeudaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool TieneArmaTuPackField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal TippingPointField;
@@ -17787,6 +17829,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.SaldoDeudaField.Equals(value) != true)) {
                     this.SaldoDeudaField = value;
                     this.RaisePropertyChanged("SaldoDeuda");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool TieneArmaTuPack {
+            get {
+                return this.TieneArmaTuPackField;
+            }
+            set {
+                if ((this.TieneArmaTuPackField.Equals(value) != true)) {
+                    this.TieneArmaTuPackField = value;
+                    this.RaisePropertyChanged("TieneArmaTuPack");
                 }
             }
         }
@@ -30573,6 +30628,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
             private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
             
             [System.Runtime.Serialization.OptionalFieldAttribute()]
+            private int CantidadProductosPedidoField;
+            
+            [System.Runtime.Serialization.OptionalFieldAttribute()]
             private int CantidadclientesField;
             
             [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -30611,6 +30669,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 }
                 set {
                     this.extensionDataField = value;
+                }
+            }
+            
+            [System.Runtime.Serialization.DataMemberAttribute()]
+            public int CantidadProductosPedido {
+                get {
+                    return this.CantidadProductosPedidoField;
+                }
+                set {
+                    if ((this.CantidadProductosPedidoField.Equals(value) != true)) {
+                        this.CantidadProductosPedidoField = value;
+                        this.RaisePropertyChanged("CantidadProductosPedido");
+                    }
                 }
             }
             

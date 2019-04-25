@@ -1041,7 +1041,8 @@ namespace Portal.Consultoras.Web
                "~/Scripts/PortalConsultoras/ConsultoraOnline/assets/bootstrap.min.js",
                "~/Scripts/PortalConsultoras/ConsultoraOnline/DetallePedidoPendiente.js",
                "~/Scripts/PortalConsultoras/ConsultoraOnline/Pendientes.js",
-               "~/Scripts/PortalConsultoras/ConsultoraOnline/Pendientes-ui.min.js"
+               "~/Scripts/PortalConsultoras/ConsultoraOnline/Pendientes-ui.min.js",
+                "~/Scripts/General.js"
             ));
 
 

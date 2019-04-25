@@ -28,7 +28,7 @@ namespace Portal.Consultoras.BizLogic
                 while (reader.Read())
                 {
                     var entidad = new BEMisPedidos(reader);
-                    misPedidos.Add(entidad);
+                    misPedidos.Add((BEMisPedidos)entidad.Clone());
                 }
 
                 return misPedidos;
@@ -58,7 +58,7 @@ namespace Portal.Consultoras.BizLogic
                 while (reader.Read())
                 {
                     var entidad = new BEMisPedidos(reader);
-                    misPedidos.Add(entidad);
+                    misPedidos.Add((BEMisPedidos)entidad.Clone());
                 }
 
                 return misPedidos;
@@ -74,7 +74,7 @@ namespace Portal.Consultoras.BizLogic
                 while (reader.Read())
                 {
                     var entidad = new BEMisPedidosDetalle(reader);
-                    miPedidoDetalles.Add(entidad);
+                    miPedidoDetalles.Add((BEMisPedidosDetalle)entidad.Clone());
                 }
 
                 return miPedidoDetalles;
@@ -90,7 +90,7 @@ namespace Portal.Consultoras.BizLogic
                 while (reader.Read())
                 {
                     var entidad = new BEMisPedidosDetalle(reader);
-                    detalles.Add(entidad);
+                    detalles.Add((BEMisPedidosDetalle)entidad.Clone());
                 }
 
                 return detalles;
@@ -107,7 +107,7 @@ namespace Portal.Consultoras.BizLogic
                 while (reader.Read())
                 {
                     var entidad = new BEMisPedidos(reader);
-                    misPedidos.Add(entidad);
+                    misPedidos.Add((BEMisPedidos)entidad.Clone());
                 }
                 return misPedidos;
             }
@@ -621,10 +621,14 @@ namespace Portal.Consultoras.BizLogic
             {
                 if (estrategia.Componentes.Exists(comp => !SapList.Contains(comp.CodigoSap))) {
 
-                    ProductosSolicitados.ForEach(y =>
+                    foreach (var productosolicitado in ProductosSolicitados)
                     {
-                        ExisteOfertaNoExacta = estrategia.Componentes.Exists(comp => comp.CodigoSap == y.CodigoSap && comp.Cantidad == y.Cantidad);
-                    });
+                        ExisteOfertaNoExacta = estrategia.Componentes.Exists(comp => comp.CodigoSap == productosolicitado.CodigoSap && comp.Cantidad == productosolicitado.Cantidad);
+                        if (!ExisteOfertaNoExacta)
+                        {
+                            break;
+                        }
+                    }
 
                     if (ExisteOfertaNoExacta)
                     {

@@ -953,6 +953,8 @@ namespace Portal.Consultoras.Web.Controllers
                     model.PaginaDe = "0";
                 }
 
+                model.TipoPaginador = Constantes.ClasificadorPedido.PedidoDetallePendiente;
+
                 return Json(new
                 {
                     success = true,
@@ -2155,6 +2157,21 @@ namespace Portal.Consultoras.Web.Controllers
         {
             MisPedidosModel model = new MisPedidosModel();
             ViewBag.PaisISOx = userData.CodigoISO;
+
+            model = GetPendientes();
+
+            if (model.ListaPedidos.Count == 0)
+            {
+                model.RegistrosTotal = "0";
+                return RedirectToAction("Index", "Pedido", new { area = "" });
+            }
+            return View(model);
+        }
+
+        public MisPedidosModel GetPendientes()
+        {
+            MisPedidosModel model = new MisPedidosModel();
+
             try
             {
                 var lstPedidos = new List<BEMisPedidos>();
@@ -2165,59 +2182,53 @@ namespace Portal.Consultoras.Web.Controllers
 
                 // quitar los que ya fueron atendidos
                 lstPedidos.RemoveAll(x => x.Estado.Trim().Length > 0);
-                if (lstPedidos.Count > 0)
+
+                lstPedidos.ForEach(x => x.FormartoFechaSolicitud = x.FechaSolicitud.ToString("dd") + " de " + x.FechaSolicitud.ToString("MMMM", new CultureInfo("es-ES")));
+                lstPedidos.ForEach(x => x.FormatoPrecioTotal = Util.DecimalToStringFormat(x.PrecioTotal, userData.CodigoISO));
+
+                // obtener todo los detalles de los pedidos hechos
+                var lstPedidosDetalleAll = new List<BEMisPedidosDetalle>();
+                using (UsuarioServiceClient svc = new UsuarioServiceClient())
                 {
-                    lstPedidos.ForEach(x => x.FormartoFechaSolicitud = x.FechaSolicitud.ToString("dd") + " de " + x.FechaSolicitud.ToString("MMMM", new CultureInfo("es-ES")));
-                    lstPedidos.ForEach(x => x.FormatoPrecioTotal = Util.DecimalToStringFormat(x.PrecioTotal, userData.CodigoISO));
-
-                    // obtener todo los detalles de los pedidos hechos
-                    var lstPedidosDetalleAll = new List<BEMisPedidosDetalle>();
-                    using (UsuarioServiceClient svc = new UsuarioServiceClient())
-                    {
-                        lstPedidosDetalleAll = svc.GetMisPedidosDetallePendientesAll(userData.PaisID, userData.CampaniaID, userData.ConsultoraID).ToList();
-                    }
-
-                    foreach (var cab in lstPedidos)
-                    {
-                        var detalles = lstPedidosDetalleAll.Where(x => x.PedidoId == cab.PedidoId);
-                        if (detalles.Any()) cab.DetallePedido = detalles.ToArray();
-                    }
-
-                    model.ListaPedidos = lstPedidos;
-                    var lstByProductos = new List<BEMisPedidosDetalle>();
-                    var grpListCuv = lstPedidosDetalleAll.Select(x => x.CUV).Distinct().ToList();
-
-                    foreach (var cuv in grpListCuv)
-                    {
-                        var lstCuv = lstPedidosDetalleAll.Where(x => x.CUV == cuv);
-                        var det = lstPedidosDetalleAll.First(x => x.CUV == cuv);
-                        var ids = lstCuv.Where(x => x.CUV == cuv).Select(x => x.PedidoId.ToString()).ToArray();
-                        //item.Cantidad = lst1.Count();
-                        det.CantidadTotal = lstCuv.Sum(x => x.Cantidad);
-                        //det.PrecioTotal = (lstCuv.Sum(x => x.PrecioUnitario) * lstCuv.Sum(x => x.Cantidad));
-                        det.PrecioTotal = (det.CantidadTotal * det.PrecioUnitario);
-                        det.FormatoPrecioTotal = Util.DecimalToStringFormat(det.PrecioTotal.ToDecimal(), userData.CodigoISO);
-                        det.ListaClientes = lstPedidos.Where(x => ids.Contains(x.PedidoId.ToString())).ToArray();
-                        lstByProductos.Add(det);
-                    }
-
-                    model.ListaProductos = lstByProductos;
-                    objMisPedidos = model;
-                    SessionManager.SetobjMisPedidos(objMisPedidos);
-                    //model.RegistrosTotal = model.ListaPedidos.Count.ToString();
+                    lstPedidosDetalleAll = svc.GetMisPedidosDetallePendientesAll(userData.PaisID, userData.CampaniaID, userData.ConsultoraID).ToList();
                 }
-                else
+
+                foreach (var cab in lstPedidos)
                 {
-                    model.RegistrosTotal = "0";
-                    return RedirectToAction("Detalle", "Pedido", new { area = "" });
+                    var detalles = lstPedidosDetalleAll.Where(x => x.PedidoId == cab.PedidoId);
+                    if (detalles.Any()) cab.DetallePedido = detalles.ToArray();
                 }
+
+                model.ListaPedidos = lstPedidos;
+                var lstByProductos = new List<BEMisPedidosDetalle>();
+                var grpListCuv = lstPedidosDetalleAll.Select(x => x.CUV).Distinct().ToList();
+
+                foreach (var cuv in grpListCuv)
+                {
+                    var lstCuv = lstPedidosDetalleAll.Where(x => x.CUV == cuv);
+                    var det = lstPedidosDetalleAll.First(x => x.CUV == cuv);
+                    var ids = lstCuv.Where(x => x.CUV == cuv).Select(x => x.PedidoId.ToString()).ToArray();
+                    //item.Cantidad = lst1.Count();
+                    det.CantidadTotal = lstCuv.Sum(x => x.Cantidad);
+                    //det.PrecioTotal = (lstCuv.Sum(x => x.PrecioUnitario) * lstCuv.Sum(x => x.Cantidad));
+                    det.PrecioTotal = (det.CantidadTotal * det.PrecioUnitario);
+                    det.FormatoPrecioTotal = Util.DecimalToStringFormat(det.PrecioTotal.ToDecimal(), userData.CodigoISO);
+                    det.ListaClientes = lstPedidos.Where(x => ids.Contains(x.PedidoId.ToString())).ToArray();
+                    lstByProductos.Add(det);
+                }
+
+                model.ListaProductos = lstByProductos;
+                objMisPedidos = model;
+                SessionManager.SetobjMisPedidos(objMisPedidos);
+                //model.RegistrosTotal = model.ListaPedidos.Count.ToString();
+
+                return model;
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return new MisPedidosModel();
             }
-
-            return View(model);
         }
 
         [HttpPost]
@@ -2460,6 +2471,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+
                 if (string.IsNullOrEmpty(pedidoId))
                 {
                     return Json(new
@@ -2486,9 +2498,13 @@ namespace Portal.Consultoras.Web.Controllers
                     svc.UpdSolicitudClienteRechazar(userData.PaisID, pedido.PedidoId);
                 }
 
+                MisPedidosModel model = new MisPedidosModel();
+                model = GetPendientes();
+
                 return Json(new
                 {
                     success = true,
+                    //Pendientes = model,
                     message = "OK"
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -2544,9 +2560,13 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
+                MisPedidosModel model = new MisPedidosModel();
+                model = GetPendientes();
+
                 return Json(new
                 {
                     success = true,
+                    //Pendientes = model,
                     message = "OK"
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -2608,9 +2628,13 @@ namespace Portal.Consultoras.Web.Controllers
                     SessionManager.SetobjMisPedidos(pedidos);
                 }
 
+                MisPedidosModel model = new MisPedidosModel();
+                model = GetPendientes();
+
                 return Json(new
                 {
                     success = true,
+                    //Pendientes = model,
                     message = "OK"
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -2669,9 +2693,10 @@ namespace Portal.Consultoras.Web.Controllers
                 model.RegistrosTotal = model.ListaPedidos.Count.ToString();
                 SessionManager.SetobjMisPedidos(model);
                 //SessionManager.SetobjMisPedidosDetalle(Listadetalle);
-
+                var modelList = PendientesMedioDeCompra();
                 return Json(new
                 {
+                    result = modelList,
                     success = true,
                     message = "OK"
                 }, JsonRequestBehavior.AllowGet);
@@ -3211,10 +3236,8 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
 
 
-
-
-        [HttpPost]
-        public JsonResult PendientesMedioDeCompra()
+         
+        public PedidosPendientesMedioPagoModel PendientesMedioDeCompra()
         {
             try
             {
@@ -3292,22 +3315,13 @@ namespace Portal.Consultoras.Web.Controllers
                // ViewBag.PaisISOx = userData.CodigoISO;
                
 
-                return Json(new
-                {
-                    result= model,
-                    success = true,
-                    message = "OK",
-                }, JsonRequestBehavior.AllowGet);
+                return   model ;
             }
             catch (FaultException e)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(e, userData.CodigoConsultora, userData.CodigoISO);
 
-                return Json(new
-                {
-                    success = false,
-                    message = e.Message
-                }, JsonRequestBehavior.AllowGet);
+                return new PedidosPendientesMedioPagoModel();
             }
         }
 

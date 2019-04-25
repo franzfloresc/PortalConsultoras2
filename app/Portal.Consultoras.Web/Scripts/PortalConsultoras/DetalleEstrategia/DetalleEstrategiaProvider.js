@@ -95,9 +95,32 @@
         return dfd.promise();
     };
 
+    var _promiseObternerEstrategiaFicha = function (params) {
+        var dfd = $.Deferred();
+
+        $.ajax({
+            type: "POST",
+            url: _urlDetalleEstrategia.obtenerEstrategiaFicha,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(params),
+            async: false,
+            cache: false,
+            success: function (data) {
+                dfd.resolve(data);
+            },
+            error: function (data, error) {
+                dfd.reject(data, error);
+            }
+        });
+
+        return dfd.promise();
+    };
+
     return {
         promiseObternerComponentes: _promiseObternerComponentes,
         promiseObternerDetallePedido: _promiseObternerDetallePedido,
-        promiseObternerModelo: _promiseObternerModelo
+        promiseObternerModelo: _promiseObternerModelo,
+        promiseObtenerEstrategiaFicha: _promiseObternerEstrategiaFicha
     };
 }();

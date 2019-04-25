@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Models;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -8,12 +9,12 @@ namespace Portal.Consultoras.Web.Controllers
         // GET: ProgramaNuevas
         public ActionResult Index()
         {
-            ViewBag.variableEstrategia = GetVariableEstrategia();
+            ViewBag.variableEstrategia = GetEstrategiaHabilitado();
             ViewBag.CodPalanca = _programaNuevasProvider.TieneDuoPerfecto()
                                     ? Constantes.ConfiguracionPais.ElecMultiple
                                     : Constantes.ConfiguracionPais.ProgramaNuevas;
 
-            var model = GetLandingModel(1);
+            RevistaDigitalLandingModel model = GetLandingModel(1);
 
             return View(model);
         }

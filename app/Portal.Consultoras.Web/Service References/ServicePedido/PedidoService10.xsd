@@ -620,10 +620,12 @@
       <xs:element minOccurs="0" name="CatalogoPersonalizado" type="xs:int" />
       <xs:element minOccurs="0" name="Celular" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ClaveSecreta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoClasificacion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoFuente" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoISO" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoPrograma" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoSubClasificacion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoTerritorio" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoUsuario" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoZona" nillable="true" type="xs:string" />
@@ -649,6 +651,7 @@
       <xs:element minOccurs="0" name="CuponPctDescuento" type="xs:decimal" />
       <xs:element minOccurs="0" name="CuponTipoCondicion" type="xs:short" />
       <xs:element minOccurs="0" name="DescripcionNivel" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DescripcionSubClasificacion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DestinatariosFeedback" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DiaFacturacion" type="xs:int" />
       <xs:element minOccurs="0" name="DiasAntes" type="xs:int" />
@@ -984,12 +987,13 @@
       <xs:element minOccurs="0" name="DescripcionProd" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DescuentoProl" type="xs:decimal" />
       <xs:element minOccurs="0" name="EliminadoTemporal" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EsArmaTuPack" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsBackOrder" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsCompraPorCompra" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EsCuponIndependiente" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsCuponNuevas" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsDuoPerfecto" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsElecMultipleNuevas" type="xs:boolean" />
-      <xs:element minOccurs="0" name="EsCuponIndependiente" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsKitNueva" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsOfertaIndependiente" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsPremioElectivo" type="xs:boolean" />
@@ -1098,6 +1102,7 @@
       <xs:element minOccurs="0" name="PedidoID" type="xs:int" />
       <xs:element minOccurs="0" name="RutaPaqueteDocumentario" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="SaldoDeuda" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TieneArmaTuPack" type="xs:boolean" />
       <xs:element minOccurs="0" name="TippingPoint" type="xs:decimal" />
       <xs:element minOccurs="0" name="ValidacionAbierta" type="xs:boolean" />
       <xs:element minOccurs="0" name="VersionProl" type="xs:unsignedByte" />
@@ -1409,6 +1414,7 @@
   <xs:element name="BEConsultoraResumen.DeudasResumen" nillable="true" type="tns:BEConsultoraResumen.DeudasResumen" />
   <xs:complexType name="BEConsultoraResumen.PedidoResumen">
     <xs:sequence>
+      <xs:element minOccurs="0" name="CantidadProductosPedido" type="xs:int" />
       <xs:element minOccurs="0" name="Cantidadclientes" type="xs:int" />
       <xs:element minOccurs="0" name="Cantidadproductos" type="xs:int" />
       <xs:element minOccurs="0" name="DescuentoProl" type="xs:decimal" />
