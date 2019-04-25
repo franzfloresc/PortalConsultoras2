@@ -28117,11 +28117,8 @@ div.motivoRechazo textarea {
     width: 310px;
     margin: 34px auto 60px auto;
     position: relative;
-    display: flex;
-    display: -webkit-flex;
-    display: -moz-flex;
     display: -ms-flexbox;
-    display: -o-flex;
+    display: flex;
     justify-content: space-between;
     z-index: 4;
 }
@@ -28364,6 +28361,7 @@ div.motivoRechazo textarea {
         }
 
 .resultado_busqueda_por_cuv_enlace {
+    display: -ms-flexbox;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -28649,7 +28647,9 @@ div.motivoRechazo textarea {
 
         .validacion_datos_correo_electronico > div,
         .validacion_datos_celular_contacto > div {
+            display: -ms-flexbox;
             display: flex;
+            -ms-flex-direction:column;
             flex-direction: column;
             justify-content: flex-start;
         }
@@ -29067,13 +29067,15 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 }
 
 .reclamo_motivo_select {
+    display: -ms-flexbox;
     display: flex;
     justify-content: center;
     align-content: center;
+    -ms-flex-direction: column;
     flex-direction: column;
     width: 48%;
     height: 50px;
-    font-family: 'Lato';
+    font-family: 'Lato', sans-serif;
     font-size: 14px;
     padding-left: 50px;
     background: url('https://cdn1-prd.somosbelcorp.com/ImagenesPortal/Iconos/selector_reclamo.png') no-repeat;
@@ -29214,8 +29216,11 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 }
 
 .content_listado_reclamo {
+    display: -ms-flexbox;
     display: flex;
+    -ms-flex-direction:row;
     flex-direction: row;
+    -ms-flex-wrap:nowrap;
     flex-wrap: nowrap;
     justify-content: space-around;
     align-items: center;

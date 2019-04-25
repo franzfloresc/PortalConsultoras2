@@ -34,8 +34,11 @@
 
     .tabs_vista_cdr,
     .tab_vista_cdr_enlace_contenido{
+        display: -ms-flexbox;
         display: flex;
+        -ms-flex-direction:row;
         flex-direction: row;
+        -ms-flex-wrap:nowrap;
         flex-wrap: nowrap;
         justify-content:center;
         align-items:center;
@@ -180,8 +183,11 @@
 }
 
 .registro_solicitud_cdr {
+    display: -ms-flexbox;
     display: flex;
+    -ms-flex-direction:row;
     flex-direction: row;
+    -ms-flex-wrap:nowrap;
     flex-wrap: nowrap;
     justify-content: space-between;
     align-items: center;
@@ -301,6 +307,7 @@
 }
 
 .pasos_proceso_registro {
+    display: -ms-flexbox;
     display: flex;
     width: 158px;
     justify-content: space-between;
@@ -532,12 +539,15 @@
 }
 
     .contenedor_campo_cantidad_productos > div {
+        display: -ms-flexbox;
         display: flex;
+        -ms-flex-direction:row;
         flex-direction: row;
+        -ms-flex-wrap:nowrap;
         flex-wrap: nowrap;
         justify-content: space-between;
         align-items: flex-start;
-        margin-left:0;
+        margin-left: 0;
     }
 
     .contenedor_campo_cantidad_productos .cantidad_menos_home,
@@ -690,15 +700,18 @@
     }
 
 .btn_cta_wrapper {
+    display: -ms-flexbox;
     display: flex;
+    -ms-flex-direction:row;
     flex-direction: row;
+    -ms-flex-wrap:wrap;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     position: fixed;
     left: 0;
     bottom: 0;
-    z-index:1000;
+    z-index: 1000;
     background-color: #F5F5F5;
     width: 100%;
     height: 66px;
@@ -755,6 +768,7 @@
     }
 
     .btn_cta_cdr--agregarSolicitud{
+        display: -ms-flexbox;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -1231,6 +1245,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     width: 170px;
     margin: 32px auto 32px auto;
     position: relative;
+    display: -ms-flexbox;
     display: flex;
     justify-content: space-between;
     z-index: 4;
@@ -1385,8 +1400,11 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 }
 
 .validacion_seccion_datos div {
+    display: -ms-flexbox;
     display: flex;
+    -ms-flex-direction: column-reverse;
     flex-direction: column-reverse;
+    -ms-flex-wrap:nowrap;
     flex-wrap: nowrap;
     align-items: center;
 }
@@ -1441,8 +1459,11 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 }
 
     .content_politica_devolucion label {
+        display: -ms-flexbox;
         display: flex;
+        -ms-flex-direction: row-reverse;
         flex-direction: row-reverse;
+        -ms-flex-wrap:nowrap;
         flex-wrap: nowrap;
         justify-content: center;
     }
@@ -2049,12 +2070,14 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 }
 
 .campo_busqueda_codigo_o_descripcion_producto_wrapper {
-    display:block;
+    display: block;
     padding-left: 15px;
     padding-right: 15px;
     width: 100%;
     height: 66px;
+    display: -ms-flexbox;
     display: flex;
+    -ms-flex-direction:row;
     flex-direction: row;
     align-items: center;
     border-bottom: 1px solid #d8d8d8;
@@ -2073,8 +2096,11 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 }
 
 .coincidencia_busqueda_producto {
+    display: -ms-flexbox;
     display: flex;
+    -ms-flex-direction:row;
     flex-direction: row;
+    -ms-flex-wrap:nowrap;
     flex-wrap: nowrap;
     justify-content: space-around;
     align-items: center;
