@@ -237,6 +237,7 @@
     <Compile Include="Controllers\BaseAdmController.cs" />
     <Compile Include="Controllers\FakeErrorController.cs" />
     <Compile Include="Controllers\EstrategiaGrupoController.cs" />
+    <Compile Include="Controllers\CaminoBrillanteController.cs" />
     <Compile Include="Controllers\ProductoRecomendadoController.cs" />
     <Compile Include="Controllers\ArmaTuPackController.cs" />
     <Compile Include="Controllers\TusClientesController.cs" />
@@ -307,6 +308,11 @@
     <Compile Include="Models\ArmaTuPackModel.cs" />
     <Compile Include="Models\BuscadorYFiltrosCategoriaModel.cs" />
     <Compile Include="Models\DetalleEstrategia\EstrategiaComponenteSeccionModel.cs" />
+    <Compile Include="Models\CaminoBrillante\DemostradorCaminoBrillanteModel.cs" />
+    <Compile Include="Models\CaminoBrillante\KitCaminoBrillanteModel.cs" />
+    <Compile Include="Models\CaminoBrillante\LogroCaminoBrillanteModel.cs" />
+    <Compile Include="Models\CaminoBrillante\NivelCaminoBrillanteModel.cs" />
+    <Compile Include="Models\ConfiguracionCaminoBrillanteModel.cs" />
     <Compile Include="Models\PremioNuevaModel.cs" />
     <Compile Include="Models\AdministracionPoput\ComunicadoModel.cs" />
     <Compile Include="Models\AdministracionPoput\SegmentacionComunicado.cs" />
@@ -832,6 +838,7 @@
     <Compile Include="Providers\BienvenidaProvider.cs" />
     <Compile Include="Providers\BuscadorBaseProvider.cs" />
     <Compile Include="Providers\BuscadorYFiltrosProvider.cs" />
+    <Compile Include="Providers\CaminoBrillanteProvider.cs" />
     <Compile Include="Providers\CdrProvider.cs" />
     <Compile Include="Providers\ClienteProvider.cs" />
     <Compile Include="Providers\ConfiguracionManagerProvider.cs" />
@@ -1426,6 +1433,14 @@
     <Content Include="Content\Banderas\SV.png" />
     <Content Include="Content\Banderas\VE.png" />
     <Content Include="Content\Banners\FolderContent.txt" />
+    <Content Include="Content\CaminoBrillante\Content.css" />
+    <Content Include="Content\CaminoBrillante\css\estilos.css" />
+    <Content Include="Content\CaminoBrillante\imgs\add-to-cart.svg" />
+    <Content Include="Content\CaminoBrillante\imgs\add_to_cart2.svg" />
+    <Content Include="Content\CaminoBrillante\imgs\bg-modal.png" />
+    <Content Include="Content\CaminoBrillante\imgs\brillo.svg" />
+    <Content Include="Content\CaminoBrillante\imgs\icon-s.svg" />
+    <Content Include="Content\CaminoBrillante\Mobile.css" />
     <Content Include="Content\Css\Button\style.css" />
     <Content Include="Content\Css\colorpicker\colorpicker.css" />
     <Content Include="Content\Css\Mobile\Clientes\Asignarcliente.css" />
@@ -1492,6 +1507,7 @@
     <Content Include="Content\Images\exclamationBuroSAC.svg" />
     <Content Include="Content\Css\Site\Images\gif_de_ofertas_3.gif" />
     <Content Include="Content\Css\Site\Menu\MenuGeneral.css" />
+    <Content Include="Content\Images\CaminoBrillante\medalla.PNG" />
     <Content Include="Content\Css\Site\Menu\MenuContenedorResponsive.css" />
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\popup-actualizacion-correo.css" />
     <Content Include="Content\Images\icono_cerrar_popup.svg" />
@@ -4148,6 +4164,9 @@
     <Content Include="Scripts\PortalConsultoras\Buscador\BuscadorModule.js" />
     <Content Include="Scripts\PortalConsultoras\Buscador\BuscadorProvider.js" />
     <Content Include="Scripts\PortalConsultoras\Buscador\BusquedaProductoModule.js" />
+    <Content Include="Scripts\PortalConsultoras\CaminoBrillante\index.js" />
+    <Content Include="Scripts\PortalConsultoras\CaminoBrillante\logros.js" />
+    <Content Include="Scripts\PortalConsultoras\CaminoBrillante\Ofertas.js" />
     <Content Include="Scripts\PortalConsultoras\Campania\CampaniaModule.js" />
     <Content Include="Scripts\PortalConsultoras\CatalogoPersonalizado\catalogoPersonalizado.js" />
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
@@ -4847,6 +4866,9 @@
     <None Include="Service References\ServicePedido\PedidoService1111.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServicePedido\PedidoService1112.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServicePedido\PedidoService112.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -5181,6 +5203,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceUsuario\UsuarioService68.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUsuario\UsuarioService69.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceZonificacion\ZonificacionService.wsdl" />
@@ -5781,6 +5806,7 @@
       <SubType>Designer</SubType>
     </None>
     <Content Include="Views\Unete\ReportePagoKit.cshtml" />
+    <Content Include="Views\CaminoBrillante\Index.cshtml" />
     <Content Include="Views\TusClientes\Index.cshtml" />
     <Content Include="Views\TusClientes\PanelLista.cshtml" />
     <Content Include="Views\TusClientes\PanelMantener.cshtml" />
@@ -5794,6 +5820,8 @@
     <Content Include="Views\Bienvenida\ReporteValidacionDatos.cshtml" />
     <Content Include="Views\ArmaTuPack\Detalle.cshtml" />
     <Content Include="Views\AdministrarEstrategia\EstrategiaGrupoDialog.cshtml" />
+    <Content Include="Views\CaminoBrillante\Ofertas.cshtml" />
+    <Content Include="Views\CaminoBrillante\Logros.cshtml" />
     <Content Include="Views\ArmaTuPack\Detalle\cabecera-template.cshtml" />
     <Content Include="Views\ArmaTuPack\Detalle\grupos-template.cshtml" />
     <Content Include="Views\ArmaTuPack\Detalle\seleccionados-template.cshtml" />
@@ -5807,6 +5835,8 @@
     <Content Include="Views\MisCertificados\CAM_NoAdeudoPdf.cshtml" />
     <Content Include="Views\DetalleEstrategia\ComponenteDetalleIndividualTemplate.cshtml" />
     <Content Include="Views\DetalleEstrategia\ComponenteDetalleTemplate.cshtml" />
+    <Content Include="Views\AdministracionMedallaBrillante\Index.cshtml" />
+    <Content Include="Views\Shared\_MainLayoutResponsiveCaminoBrillante.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

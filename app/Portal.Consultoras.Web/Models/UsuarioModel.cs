@@ -401,12 +401,18 @@ namespace Portal.Consultoras.Web.Models
         public Dictionary<string, string> NuevasDescripcionesBuscador { get; set; }
         public int NovedadBuscador { get; set; }
         public int IndicadorConsultoraDummy { get; set; }
-
+        public bool CaminoBrillante { get; set; }
+        public string CaminoBrillanteMsg { get; set; }
         public string PseudoParamNotif { get; set; }
 
         public string CodigoClasificacion { get; set; }
         public string CodigoSubClasificacion { get; set; }
         public string DescripcionSubclasificacion { get; set; }
+
+
+        #region Camino Brillante
+        public int NivelCaminoBrillante { get; set; }
+        #endregion
 
     }
 }

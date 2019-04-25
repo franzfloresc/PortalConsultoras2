@@ -968,5 +968,8 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public string DescripcionSubClasificacion { get; set; }
+
+        [DataMember]
+        public int NivelCaminoBrillante { get; set; }
     }
 }
