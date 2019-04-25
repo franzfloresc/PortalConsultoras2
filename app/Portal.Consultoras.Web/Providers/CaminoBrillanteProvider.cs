@@ -147,7 +147,7 @@ namespace Portal.Consultoras.Web.Providers
             try
             {
                 var kits = sessionManager.GetKitCaminoBrillante();
-                if (kits != null) return Mapper.Map<List<KitCaminoBrillanteModel>>(kits);
+                if (kits != null) return Format(Mapper.Map<List<KitCaminoBrillanteModel>>(kits));
 
                 int nivel = 0;
                 var nivelConsultora = GetNivelActualConsultora();
@@ -172,7 +172,7 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     sessionManager.SetKitCaminoBrillante(kits);
                 }
-                return Mapper.Map<List<KitCaminoBrillanteModel>>(kits);
+                return Format(Mapper.Map<List<KitCaminoBrillanteModel>>(kits));
             }
             catch (Exception ex)
             {
@@ -189,7 +189,7 @@ namespace Portal.Consultoras.Web.Providers
             try
             {
                 var demostradores = sessionManager.GetDemostradoresCaminoBrillante();
-                if (demostradores != null) return Mapper.Map<List<DemostradorCaminoBrillanteModel>>(demostradores);
+                if (demostradores != null) return Format(Mapper.Map<List<DemostradorCaminoBrillanteModel>>(demostradores));
 
                 int nivel = 0;
                 var nivelConsultora = GetNivelActualConsultora();
@@ -214,13 +214,34 @@ namespace Portal.Consultoras.Web.Providers
 
                 sessionManager.SetDemostradoresCaminoBrillante(demostradores);
 
-                return Mapper.Map<List<DemostradorCaminoBrillanteModel>>(demostradores);
+                return Format(Mapper.Map<List<DemostradorCaminoBrillanteModel>>(demostradores));
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
                 return new List<DemostradorCaminoBrillanteModel>();
             }
+        }
+
+        private List<DemostradorCaminoBrillanteModel> Format(List<DemostradorCaminoBrillanteModel> items)
+        {
+            if (items != null && usuarioModel != null) {
+                items.Update(e => {
+                    e.PaisISO = usuarioModel.CodigoISO;
+                });
+            }
+            return items;
+        }
+
+        private List<KitCaminoBrillanteModel> Format(List<KitCaminoBrillanteModel> items)
+        {
+            if (items != null && usuarioModel != null)
+            {
+                items.Update(e => {
+                    e.PaisISO = usuarioModel.CodigoISO;
+                });
+            }
+            return items;
         }
 
         /// <summary>

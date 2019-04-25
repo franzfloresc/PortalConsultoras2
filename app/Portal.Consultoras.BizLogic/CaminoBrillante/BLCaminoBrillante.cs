@@ -692,10 +692,10 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
             if (kitsProvider.Any())
             {
-                var paisISO = Util.GetPaisISO(paisId);
+                
                 var cuvsStringList = kitsProvider.Select(e => e.Cuv).Distinct().ToList().Serialize();
                 var kits = new DACaminoBrillante(paisId).GetKitsCaminoBrillante(periodoId, campaniaId, cuvsStringList).MapToCollection<BEKitCaminoBrillante>(closeReaderFinishing: true);
-
+                var paisISO = Util.GetPaisISO(paisId);
                 kits.ForEach(kit =>
                 {
                     var _kitProvider = kitsProvider.FirstOrDefault(e => e.Cuv == kit.CUV);
@@ -716,6 +716,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 });
 
                 var kitsResult =  kits.Where(e => e.FlagDigitable == 1).ToList();
+                
                 kitsResult.ForEach(e => {
                     e.DescripcionCUV = string.Format("Kit {0}", e.DescripcionNivel);
                     e.DescripcionCortaCUV = e.DescripcionCUV;
@@ -754,6 +755,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         {
             var demostradores = GetDemostradoresCaminoBrillanteCache(entidad.PaisID, entidad.CampaniaID, entidad.NivelCaminoBrillante);
             var demostradoresEnPedido = new DACaminoBrillante(entidad.PaisID).GetPedidoWebDetalleCaminoBrillante(entidad.CampaniaID, entidad.CampaniaID, entidad.ConsultoraID).MapToCollection<BEKitsHistoricoConsultora>(closeReaderFinishing: true) ?? new List<BEKitsHistoricoConsultora>();
+            var paisISO = Util.GetPaisISO(entidad.PaisID);
 
             return demostradores.Select(e => new BEDesmostradoresCaminoBrillante()
             {
@@ -766,8 +768,8 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 FotoProductoMedium = e.FotoProductoMedium,
                 FotoProductoSmall = e.FotoProductoSmall,
                 MarcaID = e.MarcaID,
-                PrecioCatalogo = e.PrecioCatalogo,
-                PrecioValorizado = e.PrecioValorizado,
+                PrecioCatalogo = Util.DecimalToStringFormat(e.PrecioCatalogo, paisISO).ToDecimal(),
+                PrecioValorizado = Util.DecimalToStringFormat(e.PrecioValorizado, paisISO).ToDecimal(),
                 TipoEstrategiaID = e.TipoEstrategiaID,
                 FlagSeleccionado = demostradoresEnPedido.Any(h => h.CUV == e.CUV)
             }).ToList();
