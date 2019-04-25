@@ -893,7 +893,7 @@ namespace Portal.Consultoras.Web.Controllers
                     success = false,
                     message = ex.Message,
                     extra = "",
-                    msjError = error
+                    msjError = error.ToString()
                 });
             }
             catch (Exception ex)
@@ -905,7 +905,7 @@ namespace Portal.Consultoras.Web.Controllers
                     success = false,
                     message = ex.Message,
                     extra = "",
-                    msjError = error
+                    msjError = error.ToString()
                 });
             }
         }

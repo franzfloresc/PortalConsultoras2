@@ -1043,14 +1043,20 @@ var FichaPartialModule = (function () {
         window.setTimeout(function () {
             AbrirLoad();
 
-            fichaModule = FichaModule(objFicha);
-
             try {
+                fichaModule = FichaModule(objFicha);
+
                 fichaModule.Inicializar();
                 _showDivFichaResumida(true)
             }
             catch (error) {
                 console.log(error);
+                if (typeof error === "string") {
+                    window.onerror(error);
+                }
+                else if (typeof error === "object") {
+                    registrarLogErrorElastic(error);
+                }
                 _showDivFichaResumida(false);
             }
 
