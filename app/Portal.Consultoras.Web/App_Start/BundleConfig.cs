@@ -1048,6 +1048,7 @@ namespace Portal.Consultoras.Web
 
             #region CaminoBrillante
             bundles.Add(new StyleBundle("~/Bundle/Css/CaminoBrillante").Include(
+                "~/Content/Css/ui.jquery/jquery-ui.css",
                 "~/Content/CaminoBrillante/css/estilos.css",
                 "~/Scripts/owl.carousel.2.0.0-beta.2.4/assets/owl.carousel.css"));
 

@@ -56,7 +56,7 @@ namespace Portal.Consultoras.Entities.CaminoBrillante
             /// </summary>
             public decimal GananciaPeriodo { get; set; }
             /// <summary>
-            /// Ganancia total de todo el año 
+            /// Ganancia total del año 
             /// </summary>
             public decimal GananciaAnual { get; set; }
             /// <summary>

@@ -3736,7 +3736,7 @@ namespace Portal.Consultoras.Common
                         }
 
                         private static Dictionary<string, string> _Constancia;
-                        private static string pathContanica = "CAMINOBRILLANTE/LOGROS/CONSTANCIA/PIZZA_06_0{0}.png";
+                        private static string pathContanica = "CAMINOBRILLANTE/LOGROS/CONSTANCIA/PIZZA_06_0{0}.svg";
                         public static Dictionary<string, string> Constancia
                         {
                             get
@@ -3754,7 +3754,7 @@ namespace Portal.Consultoras.Common
                         }
 
                         private static Dictionary<string, string> _Corazon;
-                        private static string pathCorazon = "CAMINOBRILLANTE/LOGROS/COMPROMISO/CORAZON_{0}.png";
+                        private static string pathCorazon = "CAMINOBRILLANTE/LOGROS/COMPROMISO/CORAZON_{0}.svg";
                         public static Dictionary<string, string> Corazon
                         {
                             get
@@ -3767,7 +3767,7 @@ namespace Portal.Consultoras.Common
                         }
 
                         private static Dictionary<string, string> _Pedido;
-                        private static string pathPedido = "CAMINOBRILLANTE/LOGROS/COMPROMISO/PEDIDO_{0}.png";
+                        private static string pathPedido = "CAMINOBRILLANTE/LOGROS/COMPROMISO/PEDIDO_{0}.svg";
                         public static Dictionary<string, string> Pedido
                         {
                             get
@@ -3836,7 +3836,7 @@ namespace Portal.Consultoras.Common
 
 
                 private static Dictionary<string, string[]> _Etiquetas;
-                private static string path_etiquetas = "CAMINOBRILLANTE/NIVELES/Etiqueta_Nivel_0{0}_{1}.svg";
+                private static string path_etiquetas = "CAMINOBRILLANTE/NIVELES/TAG/Etiqueta_Nivel_0{0}_{1}.png";
 
                 public static Dictionary<string, string[]> Etiquetas
                 {

@@ -3722,13 +3722,6 @@ namespace Portal.Consultoras.Common
             if (esCuponNuevas) return lista[Constantes.NuevoCatalogoProducto.ESCUPONNUEVAS];
             if (esCaminoBrillante) return "CAMINO BRILLANTE";
 
-            /*
-            var demo = Constantes.NuevoCatalogoProducto.ESCAMINOBRILLANTE.Split(',');
-            for(int i = 0; i< demo.Length; i++)
-                if(demo[i] == OrigenPedidoWeb.ToString())
-                    return "CAMINO BRILLANTE";
-            */
-
             var result = "";
             if (pedidoValidado)
             {
