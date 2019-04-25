@@ -406,7 +406,7 @@ var CarruselModule = (function (config) {
             var localStorageModule = new LocalStorageModule();
             lista = localStorageModule.ObtenerEstrategiasNoLS(campaniaId, ConstantesModule.TipoEstrategiaTexto.Lanzamiento);
 
-            if (!lista) {
+            if (lista === []) {
                 return setRelacionados;
             }
         }
