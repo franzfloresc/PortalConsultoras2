@@ -22,7 +22,7 @@ SELECT [CampaniaID] AS CampaniaID
       ,[PedidoID] AS PedidoID
       ,[PedidoDetalleID] AS PedidoDetalleID
 	  ,[CUV] AS CUV
-FROM [dbo].[PedidoWebDetalle]
+FROM [dbo].[PedidoWebDetalle] WITH (NOLOCK)
 WHERE [PedidoID] = @PedidoId AND [OrigenPedidoWeb] in (1181901,2181901 ,4181901)
      AND [CampaniaID] = @CampaniaID AND [ConsultoraID] = @ConsultoraID
 
@@ -53,7 +53,7 @@ SELECT [CampaniaID] AS CampaniaID
       ,[PedidoID] AS PedidoID
       ,[PedidoDetalleID] AS PedidoDetalleID
 	  ,[CUV] AS CUV
-FROM [dbo].[PedidoWebDetalle]
+FROM [dbo].[PedidoWebDetalle] WITH (NOLOCK)
 WHERE [PedidoID] = @PedidoId AND [OrigenPedidoWeb] in (1181901,2181901 ,4181901)
      AND [CampaniaID] = @CampaniaID AND [ConsultoraID] = @ConsultoraID
 
@@ -84,7 +84,7 @@ SELECT [CampaniaID] AS CampaniaID
       ,[PedidoID] AS PedidoID
       ,[PedidoDetalleID] AS PedidoDetalleID
 	  ,[CUV] AS CUV
-FROM [dbo].[PedidoWebDetalle]
+FROM [dbo].[PedidoWebDetalle] WITH (NOLOCK)
 WHERE [PedidoID] = @PedidoId AND [OrigenPedidoWeb] in (1181901,2181901 ,4181901)
      AND [CampaniaID] = @CampaniaID AND [ConsultoraID] = @ConsultoraID
 
@@ -115,7 +115,7 @@ SELECT [CampaniaID] AS CampaniaID
       ,[PedidoID] AS PedidoID
       ,[PedidoDetalleID] AS PedidoDetalleID
 	  ,[CUV] AS CUV
-FROM [dbo].[PedidoWebDetalle]
+FROM [dbo].[PedidoWebDetalle] WITH (NOLOCK)
 WHERE [PedidoID] = @PedidoId AND [OrigenPedidoWeb] in (1181901,2181901 ,4181901)
      AND [CampaniaID] = @CampaniaID AND [ConsultoraID] = @ConsultoraID
 
@@ -146,7 +146,7 @@ SELECT [CampaniaID] AS CampaniaID
       ,[PedidoID] AS PedidoID
       ,[PedidoDetalleID] AS PedidoDetalleID
 	  ,[CUV] AS CUV
-FROM [dbo].[PedidoWebDetalle]
+FROM [dbo].[PedidoWebDetalle] WITH (NOLOCK)
 WHERE [PedidoID] = @PedidoId AND [OrigenPedidoWeb] in (1181901,2181901 ,4181901)
      AND [CampaniaID] = @CampaniaID AND [ConsultoraID] = @ConsultoraID
 
@@ -177,7 +177,7 @@ SELECT [CampaniaID] AS CampaniaID
       ,[PedidoID] AS PedidoID
       ,[PedidoDetalleID] AS PedidoDetalleID
 	  ,[CUV] AS CUV
-FROM [dbo].[PedidoWebDetalle]
+FROM [dbo].[PedidoWebDetalle] WITH (NOLOCK)
 WHERE [PedidoID] = @PedidoId AND [OrigenPedidoWeb] in (1181901,2181901 ,4181901)
      AND [CampaniaID] = @CampaniaID AND [ConsultoraID] = @ConsultoraID
 
@@ -208,7 +208,7 @@ SELECT [CampaniaID] AS CampaniaID
       ,[PedidoID] AS PedidoID
       ,[PedidoDetalleID] AS PedidoDetalleID
 	  ,[CUV] AS CUV
-FROM [dbo].[PedidoWebDetalle]
+FROM [dbo].[PedidoWebDetalle] WITH (NOLOCK)
 WHERE [PedidoID] = @PedidoId AND [OrigenPedidoWeb] in (1181901,2181901 ,4181901)
      AND [CampaniaID] = @CampaniaID AND [ConsultoraID] = @ConsultoraID
 
@@ -239,7 +239,7 @@ SELECT [CampaniaID] AS CampaniaID
       ,[PedidoID] AS PedidoID
       ,[PedidoDetalleID] AS PedidoDetalleID
 	  ,[CUV] AS CUV
-FROM [dbo].[PedidoWebDetalle]
+FROM [dbo].[PedidoWebDetalle] WITH (NOLOCK)
 WHERE [PedidoID] = @PedidoId AND [OrigenPedidoWeb] in (1181901,2181901 ,4181901)
      AND [CampaniaID] = @CampaniaID AND [ConsultoraID] = @ConsultoraID
 
@@ -270,7 +270,7 @@ SELECT [CampaniaID] AS CampaniaID
       ,[PedidoID] AS PedidoID
       ,[PedidoDetalleID] AS PedidoDetalleID
 	  ,[CUV] AS CUV
-FROM [dbo].[PedidoWebDetalle]
+FROM [dbo].[PedidoWebDetalle] WITH (NOLOCK)
 WHERE [PedidoID] = @PedidoId AND [OrigenPedidoWeb] in (1181901,2181901 ,4181901)
      AND [CampaniaID] = @CampaniaID AND [ConsultoraID] = @ConsultoraID
 
@@ -301,7 +301,7 @@ SELECT [CampaniaID] AS CampaniaID
       ,[PedidoID] AS PedidoID
       ,[PedidoDetalleID] AS PedidoDetalleID
 	  ,[CUV] AS CUV
-FROM [dbo].[PedidoWebDetalle]
+FROM [dbo].[PedidoWebDetalle] WITH (NOLOCK)
 WHERE [PedidoID] = @PedidoId AND [OrigenPedidoWeb] in (1181901,2181901 ,4181901)
      AND [CampaniaID] = @CampaniaID AND [ConsultoraID] = @ConsultoraID
 
@@ -332,7 +332,7 @@ SELECT [CampaniaID] AS CampaniaID
       ,[PedidoID] AS PedidoID
       ,[PedidoDetalleID] AS PedidoDetalleID
 	  ,[CUV] AS CUV
-FROM [dbo].[PedidoWebDetalle]
+FROM [dbo].[PedidoWebDetalle] WITH (NOLOCK)
 WHERE [PedidoID] = @PedidoId AND [OrigenPedidoWeb] in (1181901,2181901 ,4181901)
      AND [CampaniaID] = @CampaniaID AND [ConsultoraID] = @ConsultoraID
 
@@ -363,7 +363,7 @@ SELECT [CampaniaID] AS CampaniaID
       ,[PedidoID] AS PedidoID
       ,[PedidoDetalleID] AS PedidoDetalleID
 	  ,[CUV] AS CUV
-FROM [dbo].[PedidoWebDetalle]
+FROM [dbo].[PedidoWebDetalle] WITH (NOLOCK)
 WHERE [PedidoID] = @PedidoId AND [OrigenPedidoWeb] in (1181901,2181901 ,4181901)
      AND [CampaniaID] = @CampaniaID AND [ConsultoraID] = @ConsultoraID
 
