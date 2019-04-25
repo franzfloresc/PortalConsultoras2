@@ -439,6 +439,7 @@
       <xs:element minOccurs="0" name="SegmentacionEstadoActividad" type="xs:boolean" />
       <xs:element minOccurs="0" name="SegmentacionID" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="SegmentacionRegionZona" type="xs:boolean" />
+      <xs:element minOccurs="0" name="TipoComunicado" type="xs:int" />
       <xs:element minOccurs="0" name="TipoDispositivo" type="xs:int" />
       <xs:element minOccurs="0" name="Titulo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UrlImagen" nillable="true" type="xs:string" />
