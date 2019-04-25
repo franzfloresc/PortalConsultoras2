@@ -171,34 +171,37 @@
                 </div>
 
             </div>
+            
+            <div class="col">
+                <div id="rechazarTodo" class="mobile hide rechazar">
+                    <div class="container position-sticky top">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <div class="position-relative text-right mt-3"><a class="close-modal" href="#" alt="Cerrar">Cerrar          </a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="vertical-center">
+                        <div class="container fix-mt">
+                            <div class="row">
+                                <div class="info text-center pr-5 pl-5">
+                                    <img class="img-fluid" src="https://i.ibb.co/4jKbTqS/error-outline-3x.png" alt="Aviso">
+                                    <p class="font-big t-w700 mt-2 mb-2">¿Deseas rechazar todos los pedidos de tus clientes?</p>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col ml-3"><a class="btn ghost no-border full" onclick="$('#rechazarTodo').addClass('hide');" data-action="not-reject">No, gracias</a></div>
+                                <div class="col mr-3"><a class="btn full second-color" onclick="RechazarSolicitudClientePorCuv('{{this.ListaPedidos.0.DetallePedido.0.Producto.CUV}}')">Sí, rechazar</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
-    <div class="col">
-        <div id="rechazarTodo" class="mobile hide rechazar">
-            <div class="container position-sticky top">
-                <div class="row align-items-center">
-                    <div class="col">
-                        <div class="position-relative text-right mt-3"><a class="close-modal" href="#" alt="Cerrar">Cerrar          </a></div>
-                    </div>
-                </div>
-            </div>
-            <div class="vertical-center">
-                <div class="container fix-mt">
-                    <div class="row">
-                        <div class="info text-center pr-5 pl-5">
-                            <img class="img-fluid" src="https://i.ibb.co/4jKbTqS/error-outline-3x.png" alt="Aviso">
-                            <p class="font-big t-w700 mt-2 mb-2">¿Deseas rechazar todos los pedidos de tus clientes?</p>
-                        </div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col ml-3"><a class="btn ghost no-border full" onclick="$('#rechazarTodo').addClass('hide');" data-action="not-reject">No, gracias</a></div>
-                        <div class="col mr-3"><a class="btn full second-color" onclick="RechazarSolicitudClientePorCuv('{{this.ListaPedidos.0.DetallePedido.0.Producto.CUV}}')">Sí, rechazar</a></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 
 
 
@@ -364,34 +367,35 @@
                 </div>
 
             </div>
+            <div  class="col">
+                <div id="rechazarTodop" class="mobile hide rechazar">
+                    <div class="container position-sticky top">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <div class="position-relative text-right mt-3"><a class="close-modal" href="#" alt="Cerrar">Cerrar          </a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="vertical-center">
+                        <div class="container fix-mt">
+                            <div class="row">
+                                <div class="info text-center pr-5 pl-5">
+                                    <img class="img-fluid" src="https://i.ibb.co/4jKbTqS/error-outline-3x.png" alt="Aviso">
+                                    <p class="font-big t-w700 mt-2 mb-2">¿Deseas rechazar todos los pedidos de tus clientes?</p>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col ml-3"><a class="btn ghost no-border full" onclick="$('#rechazarTodop').addClass('hide');" data-action="not-reject">No, gracias</a></div>
+                                <div class="col mr-3"><a class="btn full second-color" onclick="RechazarSolicitudCliente('{{this.MiPedido.PedidoId}}')">Sí, rechazar</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div  class="col">
-        <div id="rechazarTodop" class="mobile hide rechazar">
-            <div class="container position-sticky top">
-                <div class="row align-items-center">
-                    <div class="col">
-                        <div class="position-relative text-right mt-3"><a class="close-modal" href="#" alt="Cerrar">Cerrar          </a></div>
-                    </div>
-                </div>
-            </div>
-            <div class="vertical-center">
-                <div class="container fix-mt">
-                    <div class="row">
-                        <div class="info text-center pr-5 pl-5">
-                            <img class="img-fluid" src="https://i.ibb.co/4jKbTqS/error-outline-3x.png" alt="Aviso">
-                            <p class="font-big t-w700 mt-2 mb-2">¿Deseas rechazar todos los pedidos de tus clientes?</p>
-                        </div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col ml-3"><a class="btn ghost no-border full" onclick="$('#rechazarTodop').addClass('hide');" data-action="not-reject">No, gracias</a></div>
-                        <div class="col mr-3"><a class="btn full second-color" onclick="RechazarSolicitudCliente('{{this.MiPedido.PedidoId}}')">Sí, rechazar</a></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 
 </script>
 <!-- Modal confirmación  -->
@@ -608,81 +612,83 @@
 <div id="Paso1-Productos" class="position-absolute modal-right top-0 modal-content"></div>
 
 <script id="template-paso-2" type="text/x-handlebars-template">
-    <div class="col" style="left: -330px;">
-        <div class="mobile continuar">
-            <div class="container-aceptar-pedidos position-relative">
-                <div class="container border-bottom position-sticky top">
-                    <div class="row align-items-center">
-                        <div class="col">
-                            <div class="position-relative text-right mt-3"><a class="close-modal" href="#" alt="Cerrar">Cerrar   </a></div>
-                        </div>
-                    </div>
-                    <div class="row align-items-center">
-                        <div class="col">
-                            <h3 class="mt-2 mb-1">Paso 2: Elige cómo atender</h3><span class="smaller mb-3">Delineador Líquido Punta Plumón Marrón otoño</span>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="container background color-white">
-                    <div class="porGanaMas">
-                        <div class="row align-items-center pt-4 pb-3">
-                            <div class="col-8 pr-0">
-                                <span class="t3 color-text">Por Gana+ @ViewBag.Simbolo {{this.TotalGana}}</span>
-                                <span class="medium color-second">Gana @ViewBag.Simbolo  {{this.GananciaGana}}</span>
-                            </div>
-                            <div data-accion="ingrgana" class="col btnAccion"><a class="btn dark-color" href="#">Elegir</a></div>
-                        </div>
-                        <div class="row">
+    <div class="row no-gutters">
+        <div class="col" style="left: -330px">
+            <div class="mobile continuar">
+                <div class="container-aceptar-pedidos position-relative">
+                    <div class="container border-bottom position-sticky top">
+                        <div class="row align-items-center">
                             <div class="col">
-                                <!-- Clase asociada al plugin slick                -->
-                                <div class="conGanaMas card--content mt-0">
-                                    <!-- Bloques para repetir-->
-                                    {{#each this.ListaGana as |item|}}
-                                    <div class="col pr-2 pl-2 color-dark"><img class="img-fluid icon-80" src="{{item.ImagenURL}}" alt="Producto"><span class="smaller">{{item.DescripcionCUV2}}</span><span class="smaller">@ViewBag.Simbolo {{item.PrecioString}}</span></div>
-                                    {{/each}}
-                                    <div class="col pr-2 pl-2 color-dark"><img class="img-fluid icon-80" src="https://i.ibb.co/MVyDK3j/square-3x.jpg" alt="Producto"><span class="smaller">Delineador Líquido Punta Plumón Marrón otoño + Natural Care Coconut Ocean *</span><span class="smaller">S/. 15.80</span></div>
-                                </div><span class="smaller color-second mt-2 mb-4">* Contiene productos extras</span>
+                                <div class="position-relative text-right mt-3"><a class="close-modal" href="#" alt="Cerrar">Cerrar   </a></div>
+                            </div>
+                        </div>
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <h3 class="mt-2 mb-1">Paso 2: Elige cómo atender</h3><span class="smaller mb-3">Delineador Líquido Punta Plumón Marrón otoño</span>
                             </div>
                         </div>
                     </div>
-                </div>             
 
-                <div class="container border-top">
-                    <div class="porCatalogo">
-                        <div class="row align-items-center mt-4 mb-3">
-                            <div class="col-8 pr-0"><span class="t3 color-text">Por Catálogo+ @ViewBag.Simbolo  {{this.TotalCatalogo}}                </span></div>
-                            <div data-accion="ingrped" class="col btnAccion"><a class="btn dark-color" href="#">Elegir</a></div>
+
+                    <div class="container background color-white">
+                        <div class="porGanaMas">
+                            <div class="row align-items-center pt-4 pb-3">
+                                <div class="col-8 pr-0">
+                                    <span class="t3 color-text">Por Gana+ @ViewBag.Simbolo {{this.TotalGana}}</span>
+                                    <span class="medium color-second">Gana @ViewBag.Simbolo  {{this.GananciaGana}}</span>
+                                </div>
+                                <div data-accion="ingrgana" class="col btnAccion"><a class="btn dark-color" href="#">Elegir</a></div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <!-- Clase asociada al plugin slick                -->
+                                    <div class="conGanaMas card--content mt-0">
+                                        <!-- Bloques para repetir-->
+                                        {{#each this.ListaGana as |item|}}
+                                        <div class="col pr-2 pl-2 color-dark"><img class="img-fluid icon-80" src="{{item.ImagenURL}}" alt="Producto"><span class="smaller">{{item.DescripcionCUV2}}</span><span class="smaller">@ViewBag.Simbolo {{item.PrecioString}}</span></div>
+                                        {{/each}}
+                                        <div class="col pr-2 pl-2 color-dark"><img class="img-fluid icon-80" src="https://i.ibb.co/MVyDK3j/square-3x.jpg" alt="Producto"><span class="smaller">Delineador Líquido Punta Plumón Marrón otoño + Natural Care Coconut Ocean *</span><span class="smaller">S/. 15.80</span></div>
+                                    </div><span class="smaller color-second mt-2 mb-4">* Contiene productos extras</span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="row">
-                            <div class="col">
-                                <!-- Clase asociada al plugin slick                -->
-                                <div class="conCatalogo card--content mt-0">
-                                    <!-- Bloques para repetir-->
-                                    {{#each this.ListaCatalogo as |item|}}
-                                    <div class="col pr-2 pl-2"><img class="img-fluid icon-80" src="{{item.Url}}" alt="Producto"><span class="smaller">{{item.Producto}}</span><span class="smaller">@ViewBag.Simbolo  {{item.PrecioUnitario}}</span></div>
-                                    {{/each}}<div class="col pr-2 pl-2"><img class="img-fluid icon-80" src="https://i.ibb.co/MVyDK3j/square-3x.jpg" alt="Producto"><span class="smaller">Delineador Líquido Punta Plumón Marrón otoño</span><span class="smaller">S/. 26.90</span></div>
+                    </div>             
+
+                    <div class="container border-top">
+                        <div class="porCatalogo">
+                            <div class="row align-items-center mt-4 mb-3">
+                                <div class="col-8 pr-0"><span class="t3 color-text">Por Catálogo @ViewBag.Simbolo  {{this.TotalCatalogo}}                </span></div>
+                                <div data-accion="ingrped" class="col btnAccion pl-0"><a class="btn full dark-color" href="#">Elegir</a></div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <!-- Clase asociada al plugin slick                -->
+                                    <div class="conCatalogo card--content mt-0">
+                                        <!-- Bloques para repetir-->
+                                        {{#each this.ListaCatalogo as |item|}}
+                                        <div class="col pr-2 pl-2"><img class="img-fluid icon-80" src="{{item.Url}}" alt="Producto"><span class="smaller">{{item.Producto}}</span><span class="smaller">@ViewBag.Simbolo  {{item.PrecioUnitario}}</span></div>
+                                        {{/each}}<div class="col pr-2 pl-2"><img class="img-fluid icon-80" src="https://i.ibb.co/MVyDK3j/square-3x.jpg" alt="Producto"><span class="smaller">Delineador Líquido Punta Plumón Marrón otoño</span><span class="smaller">S/. 26.90</span></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
 
-                <div class="container-flex position-sticky bottom">
-                    <div class="container position-absolute top-50">
-                        <div class="row align-items-center position-relative">
-                            <div class="col">
-                                <div class="tooltip-secondary tooltip-arrow_bottom p-3 tooltip-validate"><span class="tooltip-info medium t-w700">Debes aceptar mínimo un pedido para continuar.</span></div>
+                    <div class="container-flex position-sticky bottom">
+                        <div class="container position-absolute top-50">
+                            <div class="row align-items-center position-relative">
+                                <div class="col">
+                                    <div class="tooltip-secondary tooltip-arrow_bottom p-3 tooltip-validate"><span class="tooltip-info medium t-w700">Debes aceptar mínimo un pedido para continuar.</span></div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="container pt-2 pb-2 border-top">
-                        <div class="row mt-2 mb-2">
-                            <div class="col" id="btnAceptarPedido" onclick="AceptarPedidoPendiente()">
-                                <span class="btn full disabled">Aceptar Pedido</span>
+                        <div class="container pt-2 pb-2 border-top">
+                            <div class="row mt-2 mb-2">
+                                <div class="col" id="btnAceptarPedido" onclick="AceptarPedidoPendiente()">
+                                    <span class="btn full disabled">Aceptar Pedido</span>
 
+                                </div>
                             </div>
                         </div>
                     </div>

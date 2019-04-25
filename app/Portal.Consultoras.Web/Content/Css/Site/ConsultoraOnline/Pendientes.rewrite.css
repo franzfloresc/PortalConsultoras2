@@ -60,3 +60,12 @@ body{
     max-width: 100% !important;
     height: auto;
   }
+.info {
+    border: unset;
+    background-color: unset;
+    color: unset;
+}
+[data-action="not-reject"]{
+    text-decoration: underline;
+}
+

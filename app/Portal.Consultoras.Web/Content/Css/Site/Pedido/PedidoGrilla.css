@@ -1584,7 +1584,9 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     border-radius: 4px; 
     background-color: #000; 
     padding: 10px 14px; 
-    margin-top: -4px
+    margin-top: -4px;
+    cursor: pointer;
+
 }
 .title--middle{
     font-size: 25px; 
