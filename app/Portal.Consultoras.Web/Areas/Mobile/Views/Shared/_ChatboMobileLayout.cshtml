@@ -214,7 +214,7 @@
             var pixelAnalytics = Analytics();
             pixelAnalytics.invocarEventoPixelById('@(TempData["PixelMarcacion"])', '@(TempData["PixelId"])');
         </script>
-        @TempData.Remove("PixelCodigoIso");
+        TempData.Remove("PixelCodigoIso");
     }
 
     <script type="text/javascript" id="lightning_bolt" src="//cdn-akamai.mookie1.com/LB/LightningBolt.js"></script>
