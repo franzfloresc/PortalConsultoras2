@@ -458,34 +458,53 @@ var FichaModule = (function (config) {
 
     var _getEstrategia = function (modeloFicha) {
         var estrategia;
-
+        var mensajeError = "_getEstrategia";
         if (!_fichaServicioApi) {
+            mensajeError += "\n _fichaServicioApi si";
             if (_config.tieneSession) {
+                mensajeError += "\n tieneSession si";
                 if (_config.esEditable || modeloFicha.TipoAccionNavegar === _tipoAccionNavegar.Volver) {
+                    mensajeError += "\n esEditable || TipoAccionNavegar Volver";
                     estrategia = modeloFicha;
                 }
                 else {
                     var valData = $(_elementos.dataEstrategia.id).attr(_elementos.dataEstrategia.dataEstrategia) || "";
                     if (valData != "") {
+                        mensajeError += "\n valData != ''";
                         estrategia = JSON.parse(valData);
                     }
                     else {
+                        mensajeError += "\n valData == ''";
                         estrategia = modeloFicha;
                     }
                 }
             }
             else {
+                mensajeError += "\n tieneSession no"
+                    + "| cuv=" + _config.cuv
+                    + "| campania=" + _config.campania
+                    + "| palanca=" + _config.palanca
+                    + "| OfertasParaMi=" + _tipoEstrategiaTexto.OfertasParaMi;
+
+
                 estrategia = _config.localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
                 if ((typeof estrategia === "undefined" || estrategia === null) && _config.palanca === _tipoEstrategiaTexto.OfertasParaMi) {
+                    mensajeError += "\n estrategia == null 1"
+                        + "| Ganadoras=" + _tipoEstrategiaTexto.Ganadoras;
                     estrategia = _config.localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _tipoEstrategiaTexto.Ganadoras);
                 }
             }
 
-            if (typeof estrategia === "undefined" || estrategia == null) return estrategia;
+            if (typeof estrategia === "undefined" || estrategia == null) {
+                mensajeError += "\n estrategia null 2";
+                throw mensajeError;
+                return false;
+            }
 
             _getComponentesAndUpdateEsMultimarca(estrategia);
         }
         else {
+            mensajeError += "\n _fichaServicioApi no";
             estrategia = _modeloFicha;
             _esMultimarca = estrategia.EsMultimarca;
 
@@ -496,7 +515,8 @@ var FichaModule = (function (config) {
             });
 
             if (!estrategia || !estrategia.EstrategiaID) {
-                _redireccionar('_getEstrategia, no obtiene oferta desde api');
+                mensajeError += '\n no obtiene oferta desde api';
+                throw mensajeError;
                 return false;
             }
         }
@@ -512,6 +532,7 @@ var FichaModule = (function (config) {
 
         estrategia = $.extend(modeloFicha, estrategia);
         estrategia.TipoPersonalizacion = _tipoPersonalizacion(estrategia.CodigoEstrategia);
+
         return estrategia;
     };
 

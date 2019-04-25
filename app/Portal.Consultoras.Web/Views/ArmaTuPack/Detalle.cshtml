@@ -6,7 +6,6 @@
     Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
 
     List<string> lStylePanel = new List<string>();
-    var OrigenPedidoWeb = Model.IsMobile ? Constantes.OrigenPedidoWeb.MobileContenedorArmaTuPack : Constantes.OrigenPedidoWeb.DesktopContenedorArmaTuPack;
 
     #region Diseño de panel
     if (!String.IsNullOrEmpty(Model.ImagenFondo) && Model.ImagenFondo.Trim().Length > 0)
@@ -32,7 +31,7 @@
 <div id="cabecera" class="banner_armaTuPack" style="display:none;@Html.Raw(String.Join("", lStylePanel))">
 </div>
 
-<div class="Select_ArmaTuPack" data-OrigenPedidoWeb="@OrigenPedidoWeb" data-item="">
+<div class="Select_ArmaTuPack" data-OrigenPedidoWeb="@Model.OrigenAgregar" data-item="">
     <div style="display:none;">
         <div id="data-estrategia" data-estrategia='@Html.Raw(Json.Encode(Model))'></div>
     </div>
