@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+    
     Carusel();
 
     var nivelactual = $("#hfNivelActual").val();
@@ -11,19 +12,6 @@
         TagClickBotonVerOfertas();
     });
 
-    $(window).scroll(function (event) {
-        var windowHeight = $(window).scrollTop(); 
-
-        var contenido0 = $("#ProgressBar").offset();
-        contenido0 = contenido0.top;
-
-        var contenido1 = $("#BeneficiosPrincipal").offset();
-        contenido1 = contenido1.top;
-
-        var contenido2 = $("#cont-logros").offset();
-        contenido2 = contenido2.top;
-
-    });
 
     $('#loadingScreen').hide();
 });
@@ -36,6 +24,8 @@ $('#btnCerrarNiveles').click(function () {
 
 function Carusel() {
     var owl = $('.owl-crec');
+
+
     owl.owlCarousel({
         stagePadding: 35,
         margin: 20,

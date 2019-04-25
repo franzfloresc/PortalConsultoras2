@@ -61,5 +61,6 @@ namespace Portal.Consultoras.Entities.CaminoBrillante
         public bool FlagHabilitado { get; set; }
         [DataMember]
         public bool FlagHistorico { get; set; }
+      
     }
 }
