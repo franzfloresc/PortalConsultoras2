@@ -874,11 +874,11 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                
+                return false;
             }
-            return false;
+            
         }
 
         public string ValAgregarCaminiBrillante(BEEstrategia estrategia, BEUsuario usuario, BEPedidoDetalle pedidoDetalle, List<BEPedidoWebDetalle> lstDetalle)
@@ -892,7 +892,6 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
             if (estrategia.LimiteVenta == 1)
             {
-                //UpdateFortest(periodo);
 
                 var kits = GetKits(usuario.PaisID, usuario.CampaniaID, periodo.Periodo, 6);
                 if (kits == null) return Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_NOEXISTE;
