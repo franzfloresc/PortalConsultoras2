@@ -405,6 +405,128 @@ div .owl-carousel .owl-stage-outer {
     }
 }
 
+
+
+@keyframes MovilprogressUno {
+        0% {
+            width: 0%;
+        }
+
+        100% {
+            width: 12%;
+        }
+    }
+
+    @keyframes MovilprogressDos {
+        0% {
+            width: 0%;
+        }
+
+        100% {
+            width: 32%;
+        }
+    }
+
+    @keyframes MovilprogressTres {
+        0% {
+            width: 0%;
+        }
+
+        100% {
+            width: 52%;
+        }
+    }
+
+    @keyframes MovilprogressCuatro {
+        0% {
+            width: 0%;
+        }
+
+        100% {
+            width: 72%;
+        }
+    }
+
+    @keyframes MovilprogressCinco {
+        0% {
+            width: 0%;
+        }
+
+        100% {
+            width: 92%;
+        }
+    }
+
+    @keyframes MovilprogressSeis {
+        0% {
+            width: 0%;
+        }
+
+        100% {
+            width: 100%;
+        }
+    }
+@keyframes MovilDosprogressUno {
+        0% {
+            width: 0%;
+        }
+
+        100% {
+            width: 13%;
+        }
+    }
+
+    @keyframes MovilDosprogressDos {
+        0% {
+            width: 0%;
+        }
+
+        100% {
+            width: 33%;
+        }
+    }
+
+    @keyframes MovilDosprogressTres {
+        0% {
+            width: 0%;
+        }
+
+        100% {
+            width: 53%;
+        }
+    }
+
+    @keyframes MovilDosprogressCuatro {
+        0% {
+            width: 0%;
+        }
+
+        100% {
+            width: 73%;
+        }
+    }
+
+    @keyframes MovilDosprogressCinco {
+        0% {
+            width: 0%;
+        }
+
+        100% {
+            width: 93%;
+        }
+    }
+
+    @keyframes MovilDosprogressSeis {
+        0% {
+            width: 0%;
+        }
+
+        100% {
+            width: 100%;
+        }
+    }
+
+
 .Progress:after {
     position: absolute;
     top: -3px;
@@ -1173,65 +1295,7 @@ div .btn__productos__agregados--verMiPedido, div .footer__link, div .sub_footer 
         animation-name: MovilprogressSeis;
     }
 
-    @keyframes MovilprogressUno {
-        0% {
-            width: 0%;
-        }
 
-        100% {
-            width: 12%;
-        }
-    }
-
-    @keyframes MovilprogressDos {
-        0% {
-            width: 0%;
-        }
-
-        100% {
-            width: 32%;
-        }
-    }
-
-    @keyframes MovilprogressTres {
-        0% {
-            width: 0%;
-        }
-
-        100% {
-            width: 52%;
-        }
-    }
-
-    @keyframes MovilprogressCuatro {
-        0% {
-            width: 0%;
-        }
-
-        100% {
-            width: 72%;
-        }
-    }
-
-    @keyframes MovilprogressCinco {
-        0% {
-            width: 0%;
-        }
-
-        100% {
-            width: 92%;
-        }
-    }
-
-    @keyframes MovilprogressSeis {
-        0% {
-            width: 0%;
-        }
-
-        100% {
-            width: 100%;
-        }
-    }
 
     .cambio-crec .circle-porcent {
         width: 40px;
@@ -1370,93 +1434,35 @@ div .btn__productos__agregados--verMiPedido, div .footer__link, div .sub_footer 
 @media screen and (max-width:330px) {
     .medal-1 {
         width: 13%;
-        animation-name: MovilprogressUno;
+        animation-name: MovilDosprogressUno;
     }
 
     .medal-2 {
         width: 33%;
-        animation-name: MovilprogressDos;
+        animation-name: MovilDosprogressDos;
     }
 
     .medal-3 {
         width: 53%;
-        animation-name: MovilprogressTres;
+        animation-name: MovilDosprogressTres;
     }
 
     .medal-4 {
         width: 73%;
-        animation-name: MovilprogressCuatro;
+        animation-name: MovilDosprogressCuatro;
     }
 
     .medal-5 {
         width: 93%;
-        animation-name: MovilprogressCinco;
+        animation-name: MovilDosprogressCinco;
     }
 
     .medal-6 {
         width: 100%;
-        animation-name: MovilprogressSeis;
+        animation-name: MovilDosprogressSeis;
     }
 
-    @keyframes MovilprogressUno {
-        0% {
-            width: 0%;
-        }
 
-        100% {
-            width: 13%;
-        }
-    }
-
-    @keyframes MovilprogressDos {
-        0% {
-            width: 0%;
-        }
-
-        100% {
-            width: 33%;
-        }
-    }
-
-    @keyframes MovilprogressTres {
-        0% {
-            width: 0%;
-        }
-
-        100% {
-            width: 53%;
-        }
-    }
-
-    @keyframes MovilprogressCuatro {
-        0% {
-            width: 0%;
-        }
-
-        100% {
-            width: 73%;
-        }
-    }
-
-    @keyframes MovilprogressCinco {
-        0% {
-            width: 0%;
-        }
-
-        100% {
-            width: 93%;
-        }
-    }
-
-    @keyframes MovilprogressSeis {
-        0% {
-            width: 0%;
-        }
-
-        100% {
-            width: 100%;
-        }
-    }
 }
 
 .modal.fade:not(.show) {
