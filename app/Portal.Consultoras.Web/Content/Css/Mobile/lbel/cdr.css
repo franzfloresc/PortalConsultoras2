@@ -2011,7 +2011,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     color: #000;
     height: 47px;
     background-color: #FFF;
-    background-image: url(../../../Images/icono_lupa_gris.svg);
+    background-image: url(/Content/Images/icono_lupa_gris.svg);
     background-repeat: no-repeat;
     background-position: 98% center;
 }

@@ -111,6 +111,7 @@
     <Compile Include="LimiteVenta\BERespValidarLimiteVenta.cs" />
     <Compile Include="Producto\BEProductoRecomendado.cs" />
     <Compile Include="ProgramaNuevas\BENivelesProgramaNuevas.cs" />
+    <Compile Include="ProgramaNuevas\BEProductoEstraProgNuevas.cs" />
     <Compile Include="ProgramaNuevas\BERespValidarElectivos.cs" />
     <Compile Include="PagoEnLinea\BEPagoEnLineaMedioPago.cs" />
     <Compile Include="PagoEnLinea\BEPagoEnLineaPasarelaCampos.cs" />
@@ -425,7 +426,9 @@
       <Name>Portal.Consultoras.Common</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="AdministracionPoput\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

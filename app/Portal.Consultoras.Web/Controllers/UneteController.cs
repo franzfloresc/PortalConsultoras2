@@ -6,6 +6,7 @@ using Portal.Consultoras.Web.GestionPasos;
 using Portal.Consultoras.Web.HojaInscripcionBelcorpPais;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceUnete;
+using Portal.Consultoras.Web.ValidacionesUnete;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -1585,6 +1586,11 @@ namespace Portal.Consultoras.Web.Controllers
             return PartialView("_ConsultarEstadoCrediticia");
         }
 
+        public ActionResult MostrarMensajeBuro(string respuestaBuro) {
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("MensajeRespuestaBuro", "&respuestaBuro=" + respuestaBuro);
+            return PartialView("~/Views/Unete/_MensajeRespuestaBuro.cshtml");
+        }
+
         [HttpPost]
         public JsonResult ConsultarEstadoCrediticia(int id, int idEstado)
         {
@@ -1612,77 +1618,97 @@ namespace Portal.Consultoras.Web.Controllers
             using (var sv = new PortalServiceClient())
             {
                 var solicitudPostulante = sv.ObtenerSolicitudPostulante(CodigoISO, id);
-
                 switch (solicitudPostulante.PaisID)
                 {
                     //Mexico
                     case 9:
-                        fechaFormato = solicitudPostulante.FechaNacimiento.Value.ToString("yyyy-MM-dd");
-                        var lugaresNivel1 = sv.ObtenerParametrosUnete(Constantes.CodigosISOPais.Mexico, EnumsTipoParametro.LugarNivel1, 0);
-                        if (solicitudPostulante.Direccion.Contains("|"))
+                        if (solicitudPostulante.ReferenciaEntrega != null)
                         {
-
-                            tercieriaDireccion = solicitudPostulante.Direccion.Split('|');
-                            ciudad = tercieriaDireccion[0];
-                            calleNumero = tercieriaDireccion[2];
-                        }
-                        foreach (var item in lugaresNivel1)
-                        {
-                            if (item.Nombre.Equals(solicitudPostulante.LugarPadre))
+                            fechaFormato = solicitudPostulante.FechaNacimiento.Value.ToString("yyyy-MM-dd");
+                            var lugaresNivel1 = sv.ObtenerParametrosUnete(Constantes.CodigosISOPais.Mexico, EnumsTipoParametro.LugarNivel1, 0);
+                            if (solicitudPostulante.Direccion.Contains("|"))
                             {
-                                abreviationZona = item.Descripcion;
+
+                                tercieriaDireccion = solicitudPostulante.Direccion.Split('|');
+                                ciudad = tercieriaDireccion[0];
+                                calleNumero = tercieriaDireccion[2];
+                            }
+                            foreach (var item in lugaresNivel1)
+                            {
+                                if (item.Nombre.Equals(solicitudPostulante.LugarPadre))
+                                {
+                                    abreviationZona = item.Descripcion;
+                                }
+                            }
+
+                            if (!string.IsNullOrEmpty(solicitudPostulante.CodigoZona)) { codigoZona = solicitudPostulante.CodigoZona; } else { codigoZona = "9999"; };
+                            urlClient = string.Format("/api/ValidacionCrediticiaExterna/Get?codigoISO={0}&numeroDocumento={1}&apellido={2}&codZona={3}&apellidoMaterno={4}&nombres={5}&fechaNacimiento={6}&direccion={7}&delegacionMunicipio={8}&ciudad={9}&estado={10}&cp={11}&tarjetaDeCredito={12}&creditoHipotecario={13}&creditoAutomotriz={14}&tipoIdentificacion={15}",
+                                             Constantes.CodigosISOPais.Mexico, solicitudPostulante.NumeroDocumento, solicitudPostulante.ApellidoPaterno, codigoZona, solicitudPostulante.ApellidoMaterno, solicitudPostulante.PrimerNombre + ' ' + solicitudPostulante.SegundoNombre, fechaFormato, calleNumero, solicitudPostulante.LugarHijo, ciudad, abreviationZona, Convert.ToInt32(solicitudPostulante.CodigoPostal).ToString("D5"), String.Empty, String.Empty, String.Empty, solicitudPostulante.TipoDocumento);
+                            ConsultaCrediticiaExternaMX respuesta = (new Common.Rest()).GetAsync<ConsultaCrediticiaExternaMX>(urlClient);
+                            respuestaBuro = string.IsNullOrWhiteSpace(respuesta.Resultado) ? String.Empty : respuesta.Resultado;
+
+
+                            switch (respuestaBuro)
+                            {
+                                case "R01":
+
+                                    string[] arrayReferenciaEntrega;
+                                    if (solicitudPostulante.ReferenciaEntrega != null)
+                                    {
+                                        arrayReferenciaEntrega = solicitudPostulante.ReferenciaEntrega.Split('|');
+                                        solicitudPostulante.ReferenciaEntrega = arrayReferenciaEntrega[0] + "|" + arrayReferenciaEntrega[1] + "|" + arrayReferenciaEntrega[2] + "|" + "R01";
+
+                                    }
+                                    sv.ActualizarReferenciaEntregaSAC(solicitudPostulante);
+
+                                    break;
+                                case "R03":
+                                    solicitudPostulante.EstadoBurocrediticio = 3;
+                                    solicitudPostulante.SubEstadoPostulante = 11;
+                                    solicitudPostulante.TipoRechazo = "9";
+                                    solicitudPostulante.EstadoPostulante = 4;
+                                    solicitudPostulante.Direccion = null;
+                                    solicitudPostulante.ReferenciaEntrega = null;
+                                    sv.ActualizarReferenciaEntregaSAC(solicitudPostulante);
+                                    EnviarCorreoRechazoBuro(solicitudPostulante);
+                                    break;
                             }
                         }
-
-                        if (!string.IsNullOrEmpty(solicitudPostulante.CodigoZona))
-                        {
-                            codigoZona = solicitudPostulante.CodigoZona;
-                        }
-                        else
-                        {
-                            codigoZona = "9999";
+                        else {
+                            respuestaBuro = "R01";
+                            solicitudPostulante.ReferenciaEntrega = "R01";
+                            sv.ActualizarReferenciaEntregaSAC(solicitudPostulante);
                         }
 
-                        urlClient = string.Format("/api/ValidacionCrediticiaExterna/Get?codigoISO={0}&numeroDocumento={1}&apellido={2}&codZona={3}&apellidoMaterno={4}&nombres={5}&fechaNacimiento={6}&direccion={7}&delegacionMunicipio={8}&ciudad={9}&estado={10}&cp={11}&tarjetaDeCredito={12}&creditoHipotecario={13}&creditoAutomotriz={14}&tipoIdentificacion={15}",
-                                         Constantes.CodigosISOPais.Mexico, solicitudPostulante.NumeroDocumento, solicitudPostulante.ApellidoPaterno, codigoZona, solicitudPostulante.ApellidoMaterno, solicitudPostulante.PrimerNombre + ' ' + solicitudPostulante.SegundoNombre, fechaFormato, calleNumero, solicitudPostulante.LugarHijo, ciudad, abreviationZona, Convert.ToInt32(solicitudPostulante.CodigoPostal).ToString("D5"), String.Empty, String.Empty, String.Empty, solicitudPostulante.TipoDocumento);
-
-
-                        ConsultaCrediticiaExternaMX respuesta = (new Common.Rest()).GetAsync<ConsultaCrediticiaExternaMX>(urlClient);
-
-
-                        respuestaBuro = string.IsNullOrWhiteSpace(respuesta.Resultado) ? String.Empty : respuesta.Resultado;
-                        switch (respuestaBuro)
-                        {
-                            case "R01":
-
-                                string[] arrayReferenciaEntrega;
-
-                                arrayReferenciaEntrega = solicitudPostulante.ReferenciaEntrega.Split('|');
-                                solicitudPostulante.ReferenciaEntrega = arrayReferenciaEntrega[0] + "|" + arrayReferenciaEntrega[1] + "|" + arrayReferenciaEntrega[2] + "|" + "R01";
-                                sv.ActualizarReferenciaEntregaSAC(solicitudPostulante);
-
-                                break;
-                            case "R03":
-                                solicitudPostulante.EstadoBurocrediticio = 3;
-                                solicitudPostulante.SubEstadoPostulante = 11;
-                                solicitudPostulante.TipoRechazo = "9";
-                                solicitudPostulante.EstadoPostulante = 4;
-                                solicitudPostulante.Direccion = null;
-                                solicitudPostulante.ReferenciaEntrega = null;
-                                sv.ActualizarReferenciaEntregaSAC(solicitudPostulante);
-
-                                break;
-                        }
                         break;
 
                     default:
-                        break;
+                    break;
                 }
 
             }
             RegistrarLogGestionSacUnete(id.ToString(), "CONSULTA BURO EXTERNO", "ASIGNAR");
             return Json(respuestaBuro, JsonRequestBehavior.AllowGet);
         }
+
+        public void EnviarCorreoRechazoBuro(SolicitudPostulante solicitante)
+        {
+            using (var sv = new ValidacionesUneteClient())
+            {
+                var parametro = new EmailParameter
+                {
+                    TipoEmail = EnumsTipoEmail.RechazoBuro,
+                    Marca =  EnumsMarca.Lbel,
+                    Nombre = solicitante.PrimerNombre,
+                    CorreoElectronico = solicitante.CorreoElectronico
+                };
+
+                    sv.EnviarEmail(parametro);
+            }
+            
+        }
+        
+
 
         [HttpPost]
         public ActionResult GrabarDatosDireccion(EditarDireccionModel model)
@@ -1964,8 +1990,6 @@ namespace Portal.Consultoras.Web.Controllers
         public async Task<ActionResult> ListarPagodeKit(string sidx, string sord, int page, int rows,
                 string codigoiso,
                 int idcampaña,
-                int idregion,
-                int idzona,
                 string documentoidentidad,
                 int idestado,
                 string fpagoinicio,
@@ -1976,12 +2000,12 @@ namespace Portal.Consultoras.Web.Controllers
             string[] parameter = new string[9];
 
             parameter[0] = Convert.ToString(idcampaña);
-            parameter[1] = Convert.ToString(idregion);
-            parameter[2] = Convert.ToString(idzona);
+            parameter[1] = string.Empty;
+            parameter[2] = string.Empty;
             parameter[3] = documentoidentidad;
             parameter[4] = Convert.ToString(idestado);
-            parameter[5] = Convert.ToDateTime(fpagoinicio).ToString("yyyy/MM/dd");
-            parameter[6] = Convert.ToDateTime(fpagofin).ToString("yyyy/MM/dd");
+            parameter[5] = string.IsNullOrEmpty(fpagoinicio) ? null : Convert.ToDateTime(fpagoinicio).ToString("yyyy/MM/dd");
+            parameter[6] = string.IsNullOrEmpty(fpagofin) ? null : Convert.ToDateTime(fpagofin).ToString("yyyy/MM/dd");
             parameter[7] = string.IsNullOrEmpty(fprocesoinicio) ? null : Convert.ToDateTime(fprocesoinicio).ToString("yyyy/MM/dd");
             parameter[8] = string.IsNullOrEmpty(fprocesofin) ? null : Convert.ToDateTime(fprocesofin).ToString("yyyy/MM/dd");
 
@@ -2023,11 +2047,11 @@ namespace Portal.Consultoras.Web.Controllers
                                    a.FechaPago ==  null  ? "" : a.FechaPago.Value.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture),
                                    a.HoraPago,
                                    a.FleteMonto.ToString(),
-                                   a.iva.ToString(),
+                                   //a.iva.ToString(),
                                    a.TransaccionMontoPagadoTotal.ToString(),
                                    a.TransaccionMontoRecibido.ToString(),
-                                   a.CodigoRegion ?? "",
-                                   a.CodigoZona ?? "",
+                                   /*a.CodigoRegion ?? "",
+                                   a.CodigoZona ?? "",*/
                                    a.TipoTarjeta ?? "",
                                    a.TarjetaNumero ?? "" ,
                                    a.PagoDeKitLogId.ToString(),
@@ -2046,8 +2070,6 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult ExportarPagokitLog(
             string codigo,
             int Campaña,
-            string Region,
-            string Zona,
             int Estado,
             string CodigoConsutlora,
             string FechaInicioPago,
@@ -2062,8 +2084,8 @@ namespace Portal.Consultoras.Web.Controllers
                 string[] parameter = new string[9];
 
                 parameter[0] = Convert.ToString(Campaña);
-                parameter[1] = Convert.ToString(Region);
-                parameter[2] = Convert.ToString(Zona);
+                parameter[1] = string.Empty;
+                parameter[2] = string.Empty;
                 parameter[3] = CodigoConsutlora;
                 parameter[4] = Convert.ToString(Estado);
                 parameter[5] = Convert.ToDateTime(FechaInicioPago).ToString("yyyy/MM/dd");
@@ -2072,30 +2094,26 @@ namespace Portal.Consultoras.Web.Controllers
                 parameter[8] = string.IsNullOrEmpty(FechaFinProceso) ? null : Convert.ToDateTime(FechaFinProceso).ToString("yyyy/MM/dd");
 
                 List<ReportePagoDeKitLog> lst = sv.ConsultarPagodeKitLog(codigo, parameter).ToList();
-
                 Dictionary<string, string> dic = new Dictionary<string, string>
                 {
-                    {"Campania", "CampaniaId"},
-                    {"Banco", "MetodoPagoId"},
+                    {"Campaña", "CampaniaId"},
+                    {"Metodo Pago", "MetodoPagoId"},
                     {"Pago", "PagoId"},
                     {"Nombre Consultora", "NombresCompletos"},
-                    {"Codigo Consultora", "CodigoConsultora"},
-                    {"Numero Documento", "NumeroDocumento"},
+                    {"Código Consultora", "CodigoConsultora"},
+                    {"Número Documento", "NumeroDocumento"},
                     {"Fecha Pago", "FechaPago"},
                     {"Hora Pago", "HoraPago"},
                     {"Flete", "FleteMonto"},
-                    {"iva", "iva"},
                     {"Monto Pagado Total", "TransaccionMontoPagadoTotal"},
                     {"Monto Recibido", "TransaccionMontoRecibido"},
-                    {"Region", "CodigoRegion"},
-                    {"Zona", "CodigoZona"},
-                    {"Origen Trajeta", "TipoTarjeta"},
+                    {"Tarjeta", "TipoTarjeta"},
                     {"Número de Trajeta", "TarjetaNumero"},
-                    {"Numero de Operacion", "PagoDeKitLogId"},
-                    {"Descripción de transaccion", "EstatusDetalle"},
-                    {"Estado Transaccion", "Estatus"},
-                    {"Fecha Proceso", "FechaProceso"},
-                    {"Hora Proceso", "HoraProceso"},
+                    {"Número de Operación", "PagoDeKitLogId"},
+                    {"Descripción de Transacción", "EstatusDetalle"},
+                    {"Estado Transacción", "Estatus"},
+                    {"Fecha Envio Sicc", "FechaProceso"},
+                    {"Hora Envio Sicc", "HoraProceso"},
                     {"Origen", "Origen"},
                 };
                
@@ -2104,12 +2122,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
         }
-
-        // LMH
-
-
-
-
 
         [HttpPost]
         public JsonResult ConsultarSolicitudesPostulanteV2(GestionaPostulanteModelSAC model)

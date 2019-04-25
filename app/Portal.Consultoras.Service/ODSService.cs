@@ -252,7 +252,7 @@ namespace Portal.Consultoras.Service
             return BLProducto.GetNombreProducto048ByListaCUV(paisID, campaniaId, listaCUV);
         }
 
-        public int InsProductoCompartido(BEProductoCompartido ProComp)
+        public BEProductoCompartidoResult InsProductoCompartido(BEProductoCompartido ProComp)
         {
             return BLProducto.InsProductoCompartido(ProComp);
         }
@@ -300,6 +300,11 @@ namespace Portal.Consultoras.Service
         public int GetLimElectivosProgNuevas(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma)
         {
             return BLProgramaNuevas.GetLimElectivos(paisID, campaniaID, consecutivoNueva, codigoPrograma);
+        }
+
+        public List<BEProductoEstraProgNuevas> GetListCuvProgNuevasEstrategia(BEConsultoraProgramaNuevas consultoraNueva)
+        {
+            return BLProgramaNuevas.GetListCuvEstrategia(consultoraNueva);
         }
         #endregion
 

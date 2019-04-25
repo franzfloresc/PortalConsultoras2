@@ -140,8 +140,9 @@ namespace Portal.Consultoras.Web.Providers
                         continue;
                     }
 
+                    var menuClassNegocio = "sub_menu_home1" + (userSession.PaisID == Constantes.PaisID.Peru ? " sub_menu_home_con_enlace_misEventos" : "");
                     permiso.PageTarget = permiso.PaginaNueva ? "_blank" : "_self";
-                    permiso.ClaseSubMenu = description == "MI NEGOCIO" ? "sub_menu_home1" : "sub_menu_home2";
+                    permiso.ClaseSubMenu = description == "MI NEGOCIO" ? menuClassNegocio : "sub_menu_home2";
 
                     if (permiso.IdPadre == 0)
                     {
@@ -470,7 +471,8 @@ namespace Portal.Consultoras.Web.Providers
                 }
             }
 
-            var segmentoServicio = userSession.EsJoven == 1 ? 99 : segmentoId;
+            var segmentoServicio =  segmentoId;
+            
 
             var lstTemp2 = lstTemp1.Where(p => p.ConfiguracionZona == string.Empty || p.ConfiguracionZona.Contains(userSession.ZonaID.ToString())).ToList();
             var lst = lstTemp2.Where(p => p.Segmento == "-1" || p.Segmento == segmentoServicio.ToString()).ToList();

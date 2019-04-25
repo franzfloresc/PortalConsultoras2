@@ -130,7 +130,49 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
-        public List<EstrategiaComponenteModel> ActualizarComponenteStockPROL(List<EstrategiaComponenteModel> lista ,string cuvPadre,string paisISO, int campaniaID, string codigoConsultora)
+        public bool TieneStockPROLEstrategia(string cuv, string paisISO, int campaniaID, string codigoConsultora)
+        {
+            bool result = false;
+            try
+            {
+                ConsultaStockModel stock = new ConsultaStockModel
+                {
+                    PaisISO = paisISO,
+                    CampaniaID = campaniaID,
+                    ListaCUVs = cuv,
+                    FlagDetalle = Constantes.ConsultaPROL.StockPadre
+                };
+
+                string requestUrl = Constantes.ConsultaPROL.ConsultaStockProl;
+                string jsonParameters = JsonConvert.SerializeObject(stock);
+                var taskApi = Task.Run(() => RespMSConsultaProl(jsonParameters, requestUrl, "post", codigoConsultora, paisISO));
+                Task.WhenAll(taskApi);
+                string content = taskApi.Result;
+                var respuesta = JsonConvert.DeserializeObject<List<RespuestaStockModel>>(content);
+
+                if (respuesta.Count == 0)
+                {
+                    LogManager.LogManager.LogErrorWebServicesBus(new Exception("ConsultaProlProvider_ActualizarEstrategiaStockPROL: Null content"), codigoConsultora, paisISO);
+                }
+                else
+                {
+                    var temp = respuesta.FirstOrDefault(r => r.COD_VENTA_PADRE == cuv);
+                    if (temp != null)
+                    {
+                        result = (temp.STOCK == 1);
+                    }
+                }
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, codigoConsultora, paisISO);
+                return false;
+            }
+        }
+
+        public List<EstrategiaComponenteModel> ActualizarComponenteStockPROL(List<EstrategiaComponenteModel> lista, string cuvPadre, string paisISO, int campaniaID, string codigoConsultora)
         {
             if (lista.Count == 0) return lista;
 

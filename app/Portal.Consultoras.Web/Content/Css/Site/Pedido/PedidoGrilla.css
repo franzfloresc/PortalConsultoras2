@@ -301,7 +301,7 @@ div.texto_encabezado_pedidos.cabecera_unidades, div.celda_cantidad_pedidos {
 
 
 .texto_cantidad_pedidos{
-    font-size: 16px !important;
+    font-size: 14px !important;
 }
 
 .texto_pedidos.texto_cantidad_regalo{
@@ -1180,7 +1180,16 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     float: right;
 }
 
-.paginador_pedidos ul {
+.cant_productos_y_paginador_wrapper_top{
+    margin-bottom:17px;
+}
+
+.cant_productos_y_paginador_wrapper_bottom {
+    margin-top: 28px;
+}
+
+.paginador_pedidos ul,
+.info_cant_productos {
     float: left;
 }
 
