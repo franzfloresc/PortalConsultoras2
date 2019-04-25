@@ -443,6 +443,34 @@ namespace Portal.Consultoras.BizLogic
 
             if (EstrategiasRecomendadas.Count == 0)
             {
+                var ExactPacksCombinations = new List<ResponseRecomendacion.Estrategia>();
+                var ExistPacksCombinations = true;
+                var CantidadAdicionalesTotal = 0;
+
+                foreach (var item in RecomendadoRequest.productosSolicitados)
+                {
+                    var CantidadAdicionales = 0;
+                    var EstrategiaCombination = GetNotExactIndividualWithAditionalCombinations(item, Estrategias, out CantidadAdicionales);
+
+                    CantidadAdicionalesTotal = CantidadAdicionalesTotal + CantidadAdicionales;
+                    ExactPacksCombinations = ExactPacksCombinations.Concat(EstrategiaCombination).ToList();
+
+                    if (EstrategiaCombination.Count == 0)
+                    {
+                        ExistPacksCombinations = false;
+                    }
+
+                    if (CantidadAdicionalesTotal > 2)
+                    {
+                        ExistPacksCombinations = false;
+                    }
+                }
+
+                if (ExistPacksCombinations) EstrategiasRecomendadas = EstrategiasRecomendadas.Concat(ExactPacksCombinations).ToList();
+            }
+
+            if (EstrategiasRecomendadas.Count == 0)
+            {
                 var NotExactPacksCombinations = GetNotExactPacksCombinations(RecomendadoRequest.productosSolicitados, Estrategias);
 
                 EstrategiasRecomendadas = EstrategiasRecomendadas.Concat(NotExactPacksCombinations).ToList();
@@ -663,6 +691,43 @@ namespace Portal.Consultoras.BizLogic
                             break;
                         }
                     }
+                }
+            }
+
+            return EstrategiasRecomendadas;
+        }
+
+        public List<ResponseRecomendacion.Estrategia> GetNotExactIndividualWithAditionalCombinations(ProductoSolicitado ProductoSolicitado, List<ResponseRecomendacion.Estrategia> Estrategias, out int CantidadAdicionales)
+        {
+            var EstrategiasRecomendadas = new List<ResponseRecomendacion.Estrategia>();
+
+            var EstrategiasIndividuales = new List<ResponseRecomendacion.Estrategia>();
+            CantidadAdicionales = 0;
+
+            foreach (var estrategia in Estrategias)
+            {
+                if (estrategia.Componentes.Exists(comp => !comp.CodigoSap.Equals(ProductoSolicitado.CodigoSap))) { continue; }
+
+                EstrategiasIndividuales.Add(estrategia);
+            }
+
+            EstrategiasIndividuales = EstrategiasIndividuales.OrderByDescending(x => x.Componentes.Where(y=>y.CodigoSap.Equals(ProductoSolicitado.CodigoSap)).First().Cantidad).ToList();
+
+            foreach (var estrategia in EstrategiasIndividuales)
+            {
+                var residuo = ProductoSolicitado.Cantidad % estrategia.Componentes.Where(y => y.CodigoSap.Equals(ProductoSolicitado.CodigoSap)).First().Cantidad;
+                var cociente = ProductoSolicitado.Cantidad / estrategia.Componentes.Where(y => y.CodigoSap.Equals(ProductoSolicitado.CodigoSap)).First().Cantidad;
+                if (residuo == 0)
+                {
+                    CantidadAdicionales = estrategia.Componentes.Where(y => !y.CodigoSap.Equals(ProductoSolicitado.CodigoSap)).Sum(x => x.Cantidad) * cociente;
+                    if (CantidadAdicionales <= 2)
+                    {
+                        for (int i = 1; i <= cociente; i++)
+                        {
+                            EstrategiasRecomendadas.Add(estrategia);
+                        }
+                        break;
+                    }                    
                 }
             }
 
