@@ -3789,7 +3789,7 @@ namespace Portal.Consultoras.Common
                 public const int OfertasEspeciales_TablaLogicaDatos = 16800;
 
                 private static Dictionary<string, string[]> _Iconos;
-                private static string path = "CAMINOBRILLANTE/NIVELES/NIVEL_0{0}_{1}.png";
+                private static string path = "CAMINOBRILLANTE/NIVELES/NIVEL_0{0}_{1}.svg";
 
                 public static Dictionary<string, string[]> Iconos
                 {
@@ -3808,7 +3808,7 @@ namespace Portal.Consultoras.Common
 
 
                 private static Dictionary<string, string[]> _Etiquetas;
-                private static string path_etiquetas = "CAMINOBRILLANTE/NIVELES/Etiqueta_Nivel_0{0}_{1}.png";
+                private static string path_etiquetas = "CAMINOBRILLANTE/NIVELES/TAG/Etiqueta_Nivel_0{0}_{1}.png";
 
                 public static Dictionary<string, string[]> Etiquetas
                 {
