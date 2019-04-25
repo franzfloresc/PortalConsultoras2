@@ -26,7 +26,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     decimal montoMinimoEscala = 0;
                     int i = 0;
-                    var cantidad = List.Count();
+                    var cantidad = List.Count;
                     foreach (var item in List)
                     {
                         var obj = new EscalaDescuentoModel();

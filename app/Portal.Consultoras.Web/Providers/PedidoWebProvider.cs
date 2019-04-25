@@ -258,7 +258,8 @@ namespace Portal.Consultoras.Web.Providers
 
             descripcion = Util.obtenerNuevaDescripcionProductoDetalle(item.ConfiguracionOfertaID, pedidoValidado,
                 item.FlagConsultoraOnline, item.OrigenPedidoWeb, lista, suscripcion, item.TipoEstrategiaCodigo, item.MarcaID,
-                item.CodigoCatalago, item.DescripcionOferta, item.EsCuponNuevas, item.EsElecMultipleNuevas, item.EsPremioElectivo, item.EsCuponIndependiente);
+                item.CodigoCatalago, item.DescripcionOferta, item.EsCuponNuevas, item.EsElecMultipleNuevas, item.EsPremioElectivo, item.EsCuponIndependiente, item.OrigenPedidoWeb,
+                item.EsKitCaminoBrillante || item.EsDemCaminoBrillante);
 
             return descripcion;
         }
@@ -273,7 +274,8 @@ namespace Portal.Consultoras.Web.Providers
                 Consultora = userModel.NombreConsultora,
                 CodigoPrograma = userModel.CodigoPrograma,
                 NumeroPedido = userModel.ConsecutivoNueva,
-                AgruparSet = agruparSet
+                AgruparSet = agruparSet,
+                NivelCaminoBrillante = userModel.NivelCaminoBrillante
             };
 
             List<BEPedidoWebDetalle> detallesPedidoWeb;

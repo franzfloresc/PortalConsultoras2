@@ -72,9 +72,9 @@
 
         _config.seleccionadosView.refreshSeleccionados(model);
 
-        if(model.componentesSeleccionados.length < model.FactorCuadre){
+        if (model.componentesSeleccionados.length < model.FactorCuadre) {
             _config.seleccionadosView.disableAgregar();
-        }else{
+        } else {
             _config.seleccionadosView.enableAgregar();
         }
 
@@ -95,7 +95,7 @@
                         grupo.cantidadSeleccionados--;
                         componente.cantidadSeleccionados--;
                         grupo.editado = true;
-                        componente.editado  =true;
+                        componente.editado = true;
                         model.componentesSeleccionados.splice(indiceComponente, 1);
                         model.componentesNoSeleccionados.push({ ImagenBulk: "" });
                         return false;
@@ -106,10 +106,6 @@
 
         _packComponents(model);
         _config.armaTuPackDetalleEvents.applyChanges(_config.armaTuPackDetalleEvents.eventName.onSelectedComponentsChanged, model);
-
-
-        //console.log('analytic_3.2: quitar componente', grupoComponente, cuvComponente, indiceComponente);
-        //Analytics
 
         if (!(typeof AnalyticsPortalModule === 'undefined')) {
             var estrategia = JSON.parse($("#data-estrategia").attr("data-estrategia"));
@@ -122,7 +118,7 @@
 
     var _addPack = function () {
         var model = _packComponents();
-        if(model.componentesSeleccionados.length < model.FactorCuadre){
+        if (model.componentesSeleccionados.length < model.FactorCuadre) {
             _config.seleccionadosView.showTooltip();
             _config.armaTuPackDetalleEvents.applyChanges(_config.armaTuPackDetalleEvents.eventName.onShowWarnings, model);
         }

@@ -2,7 +2,7 @@
 GO
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[MarcaContenidoVisto]')  AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[PROCEDURE]
+	DROP PROCEDURE [dbo].[MarcaContenidoVisto]
 GO
 
 CREATE PROC MarcaContenidoVisto
@@ -23,7 +23,7 @@ USE BelcorpMexico
 GO
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[MarcaContenidoVisto]')  AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[PROCEDURE]
+	DROP PROCEDURE [dbo].[MarcaContenidoVisto]
 GO
 
 CREATE PROC MarcaContenidoVisto
@@ -44,7 +44,7 @@ USE BelcorpColombia
 GO
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[MarcaContenidoVisto]')  AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[PROCEDURE]
+	DROP PROCEDURE [dbo].[MarcaContenidoVisto]
 GO
 
 CREATE PROC MarcaContenidoVisto
@@ -65,7 +65,7 @@ USE BelcorpSalvador
 GO
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[MarcaContenidoVisto]')  AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[PROCEDURE]
+	DROP PROCEDURE [dbo].[MarcaContenidoVisto]
 GO
 
 CREATE PROC MarcaContenidoVisto
@@ -86,7 +86,7 @@ USE BelcorpPuertoRico
 GO
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[MarcaContenidoVisto]')  AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[PROCEDURE]
+	DROP PROCEDURE [dbo].[MarcaContenidoVisto]
 GO
 
 CREATE PROC MarcaContenidoVisto
@@ -107,7 +107,7 @@ USE BelcorpPanama
 GO
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[MarcaContenidoVisto]')  AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[PROCEDURE]
+	DROP PROCEDURE [dbo].[MarcaContenidoVisto]
 GO
 
 CREATE PROC MarcaContenidoVisto
@@ -128,7 +128,7 @@ USE BelcorpGuatemala
 GO
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[MarcaContenidoVisto]')  AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[PROCEDURE]
+	DROP PROCEDURE [dbo].[MarcaContenidoVisto]
 GO
 
 CREATE PROC MarcaContenidoVisto
@@ -149,7 +149,7 @@ USE BelcorpEcuador
 GO
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[MarcaContenidoVisto]')  AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[PROCEDURE]
+	DROP PROCEDURE [dbo].[MarcaContenidoVisto]
 GO
 
 CREATE PROC MarcaContenidoVisto
@@ -170,7 +170,7 @@ USE BelcorpDominicana
 GO
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[MarcaContenidoVisto]')  AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[PROCEDURE]
+	DROP PROCEDURE [dbo].[MarcaContenidoVisto]
 GO
 
 CREATE PROC MarcaContenidoVisto
@@ -191,7 +191,7 @@ USE BelcorpCostaRica
 GO
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[MarcaContenidoVisto]')  AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[PROCEDURE]
+	DROP PROCEDURE [dbo].[MarcaContenidoVisto]
 GO
 
 CREATE PROC MarcaContenidoVisto
@@ -212,7 +212,7 @@ USE BelcorpChile
 GO
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[MarcaContenidoVisto]')  AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[PROCEDURE]
+	DROP PROCEDURE [dbo].[MarcaContenidoVisto]
 GO
 
 CREATE PROC MarcaContenidoVisto
@@ -233,7 +233,7 @@ USE BelcorpBolivia
 GO
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[MarcaContenidoVisto]')  AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[PROCEDURE]
+	DROP PROCEDURE [dbo].[MarcaContenidoVisto]
 GO
 
 CREATE PROC MarcaContenidoVisto

@@ -150,26 +150,38 @@
             <div class="mensajes_home"><span id="mensajeSinNotificaciones">No tienes notificaciones.</span> <span id="mensajeNotificaciones" style="display:none">Tienes <span class="js-cantidad_notificaciones">-</span> notificación(es) nueva(s). </span><a role="link" region="Cuerpo" parent="Ver Notificaciones" title="Abrir" onclick="Notificaciones();">ABRIR</a></div>
             <hr class="clear" />
             @if (Model.TieneCaminoExito)
-    {
-        <!--  INICIO - ENLACE CAMINO AL ÉXITO -->
-        <a role="link" region="Cuerpo" parent="Camino al Éxito" title="Camino al Éxito" href="@Model.urlCaminoExito" target="_blank" class="enlace_camino_al_exito">CAMINO<br />&nbsp;&nbsp;&nbsp;&nbsp;AL ÉXITO</a>
-        <a role="link" region="Cuerpo" parent="Seguimiento a tu Pedido" title="Seguimiento a tu Pedido" class="seguir_pedido" href="@Url.Action("Index", "Tracking")">SEGUIMIENTO<br /> A TU PEDIDO</a>
-        <!--  FIN - ENLACE CAMINO AL ÉXITO  -->
-}
-else
-{
-        <a role="link" region="Cuerpo" parent="Seguimiento a tu Pedido" title="Seguimiento a tu Pedido" class="seguir_pedido" href="@Url.Action("Index", "Tracking")">SEGUIMIENTO<br /> A TU PEDIDO</a>
-        <a role="link" region="Cuerpo" parent="Mira el Video de Bienvenida" title="Mira el Video de Bienvenida" class="seguir_pedido ver_video_introductorio">MIRA EL VIDEO<br /> DE BIENVENIDA</a>
-}
+            {
+                <!--  INICIO - ENLACE CAMINO AL ÉXITO -->
+                <a role="link" region="Cuerpo" parent="Camino al Éxito" title="Camino al Éxito" href="@Model.urlCaminoExito" target="_blank" class="enlace_camino_al_exito">CAMINO<br />&nbsp;&nbsp;&nbsp;&nbsp;AL ÉXITO</a>
+                <a role="link" region="Cuerpo" parent="Seguimiento a tu Pedido" title="Seguimiento a tu Pedido" class="seguir_pedido" href="@Url.Action("Index", "Tracking")">SEGUIMIENTO<br /> A TU PEDIDO</a>
+                <!--  FIN - ENLACE CAMINO AL ÉXITO  -->
+            }
+            else
+            {
+                <a role="link" region="Cuerpo" parent="Seguimiento a tu Pedido" title="Seguimiento a tu Pedido" class="seguir_pedido" href="@Url.Action("Index", "Tracking")">SEGUIMIENTO<br /> A TU PEDIDO</a>
+                <a role="link" region="Cuerpo" parent="Mira el Video de Bienvenida" title="Mira el Video de Bienvenida" class="seguir_pedido ver_video_introductorio">MIRA EL VIDEO<br /> DE BIENVENIDA</a>
+            }
 
             @if (ViewBag.IndicadorPermisoFIC == 1)
-    {
-        <a class="seguir_pedido enlace_pedido_fic" href="@Url.Action("Index", "PedidoFIC")">INGRESA TU PEDIDO FIC</a>
-}
+            {
+                <a class="seguir_pedido enlace_pedido_fic" href="@Url.Action("Index", "PedidoFIC")">INGRESA TU PEDIDO FIC</a>
+            }
         </div>
         <div class="clear"></div>
     </div>
     <hr class="clear" />
+    @if (Model.TieneCaminoBrillante && !string.IsNullOrEmpty(Model.UrlLogoCaminoBrillante))
+    {
+        <link href="~/Content/CaminoBrillante/Content.css" rel="stylesheet" />
+        <div class="items_belcorp cam-exito">
+            <img src="@Model.UrlLogoCaminoBrillante" /> 
+            <p class="toptext">Camino Brillante</p>
+            <p id="TextoCaminoBrillante">
+                @Html.Raw(Model.CaminoBrillanteMsg)
+            </p>
+            <a href="@Url.Action("Index", "CaminoBrillante", new { area = "" })">Ver Beneficios</a>
+        </div>
+    }
     <div class="items_belcorp">
         @{
             string verUltmPagos = Model.PaisID == Constantes.PaisID.Chile ||
@@ -230,7 +242,7 @@ else
                     marginTopFacturaE = "margin-top: 10px";
                 }
             }
-            
+
             if (Model.TieneFacturacionElectronica)
             {
                 <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Facturación Electrónica" class="boton_facturacion_e btn_100_facturacion" href="@Url.Action("Index", "FacturaElectronica")" target="_blank" style="@marginTopFacturaE"> FACTURACI&Oacute;N ELECTR&Oacute;NICA</a>
@@ -1823,7 +1835,6 @@ else
             </form>
         </div>
     </div>
-
 </script>
 
 <script id="template-fichaproductofav" type="text/x-handlebars-template">
@@ -1958,6 +1969,8 @@ else
 
 @System.Web.Optimization.Scripts.Render("~/Scripts/PortalConsultoras/Bienvenida/AsesoraOnline.js")
 
+
+
 @section scripts{
     <script type="text/javascript">
         var viewBagInscritaFlexipago = '@Model.InscritaFlexipago';
@@ -2064,6 +2077,7 @@ else
         var showPopupMisDatos = '@(Model.ShowPopupMisDatos ? 1 : 0)';
         var popupInicialCerrado = '@(Model.PopupInicialCerrado ? 1 : 0)';
         var popupCambioClave = '@Model.OpcionCambiaClave';
+        var caminoBrillante = '@Model.TieneCaminoBrillante';
 
         var asesoraOnlineObj = AsesoraOnline({
             asesoraOnlineUrl: '@Url.Action("Index", "AsesoraOnline")',
@@ -2084,8 +2098,4 @@ else
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/SB2-Bienvenida")
 
     <script src="~/Scripts/PortalConsultoras/Bienvenida/PopusJS.js?v=4.2"></script>
-    <script>
-        MostrarPopusEnOrden('@Model.TipoPopUpMostrar', '@Model.VioVideoBienvenidaModel', '@Model.VioTutorialDesktop','@Model.CambioClave');
-    </script>
-
 }

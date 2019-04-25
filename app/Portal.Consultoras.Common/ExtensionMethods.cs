@@ -267,5 +267,6 @@ namespace Portal.Consultoras.Common
             if (list.Length > posicion) return list[posicion];
             return default(T);
         }
+
     }
 }

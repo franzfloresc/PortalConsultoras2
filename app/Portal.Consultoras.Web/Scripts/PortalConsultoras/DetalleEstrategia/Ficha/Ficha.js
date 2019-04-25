@@ -9,39 +9,45 @@ var fichaModule;
 $(document).ready(function () {
     AbrirLoad();
 
-    localStorageModule = LocalStorageModule();
-    analyticsPortalModule = AnalyticsPortalModule;
-    generalModule = GeneralModule;
-    detalleEstrategiaProvider = DetalleEstrategiaProvider;
-
-    componenteDetalleModule = ComponenteDetalleModule({
-        localStorageModule: localStorageModule,
-        analyticsPortalModule: analyticsPortalModule,
-        generalModule: generalModule,
-        palanca: modelPalanca,
-        campania: modelCampania,
-        cuv: modelCuv,
-        origen: modelOrigen
-    });
-
-    fichaModule = FichaModule({
-        localStorageModule: localStorageModule,
-        analyticsPortalModule: analyticsPortalModule,
-        generalModule: generalModule,
-        detalleEstrategiaProvider: detalleEstrategiaProvider,
-        componenteDetalleModule: componenteDetalleModule,
-
-        palanca: modelPalanca,
-        campania: modelCampania,
-        cuv: modelCuv,
-        origen: modelOrigen
-    });
-
     try {
+        localStorageModule = LocalStorageModule();
+        analyticsPortalModule = AnalyticsPortalModule;
+        generalModule = GeneralModule;
+        detalleEstrategiaProvider = DetalleEstrategiaProvider;
+
+        componenteDetalleModule = ComponenteDetalleModule({
+            localStorageModule: localStorageModule,
+            analyticsPortalModule: analyticsPortalModule,
+            generalModule: generalModule,
+            palanca: modelPalanca,
+            campania: modelCampania,
+            cuv: modelCuv,
+            origen: modelOrigen
+        });
+
+        fichaModule = FichaModule({
+            localStorageModule: localStorageModule,
+            analyticsPortalModule: analyticsPortalModule,
+            generalModule: generalModule,
+            detalleEstrategiaProvider: detalleEstrategiaProvider,
+            componenteDetalleModule: componenteDetalleModule,
+
+            palanca: modelPalanca,
+            campania: modelCampania,
+            cuv: modelCuv,
+            origen: modelOrigen
+        });
+
         fichaModule.Inicializar();
     }
     catch (error) {
         console.log(error);
+        if (typeof error === "string") {
+            window.onerror(error);
+        }
+        else if (typeof error === "object") {
+            registrarLogErrorElastic(error);
+        }
         generalModule.redirectTo("ofertas");
     }
 

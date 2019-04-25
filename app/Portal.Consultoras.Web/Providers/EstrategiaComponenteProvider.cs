@@ -76,7 +76,8 @@ namespace Portal.Consultoras.Web.Providers
                 var estrategia = _ofertaBaseProvider.ObtenerModeloOfertaDesdeApi(estrategiaModelo, userData.CodigoISO);
 
                 listaEstrategiaComponente = estrategia.Hermanos;
-                
+                esMultimarca = estrategia.EsMultimarca;
+
                 listaEstrategiaComponente.ForEach(c =>
                 {
                     c.TieneDetalleSeccion = (c.Secciones ?? new List<EstrategiaComponenteSeccionModel>()).Any() && c.Cabecera != null;

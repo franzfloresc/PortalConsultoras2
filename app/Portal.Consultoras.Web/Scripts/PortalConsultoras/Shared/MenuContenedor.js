@@ -24,26 +24,15 @@ var menuModule = (function () {
         claseimgSeleccionado: ".imgSeleccionado",
         claseimgNoSeleccionado: ".imgNoSeleccionado",
         menu2: "[data-layout-menu2]",
-        //menu1: "[data-layout-menu1]",
         menu2Ul: "[data-layout-menu2] ul",
         menu2Li: "[data-layout-menu2] ul li",
-        //menu1Li: "[data-layout-menu1] ul li",
         seccionMenuMobile: "#seccion-menu-mobile",
         seccionMenuMobile2: "#seccion-menu-mobile2",
         seccionMenuMobile2Name: "seccion-menu-mobile2",
-        //seccionBannerMobile: "#seccion-banner-mobile",
         seccionMenuFija: "#seccion-fixed-menu",
         header: "header",
-        //bcMenuEstrategia: ".bc_menu_estrategia",
         subnavegadorUl: "ul.subnavegador",
-        //aHover: "ul.subnavegador li a",
-        //aMenuActivo: function () {
-        //    return "ul.subnavegador li a." + this.claseActivo;
-        //},
-        //bcParaTiMenu: ".op_menu-horizontal ul li a",
-        //bcParaTiMenuActivo: function () {
-        //    return ".op_menu-horizontal ul li a." + this.claseActivo;
-        //},
+
         mobContent: "#mob-content-layout",
         menuMobHome: ".opcion_home_vistaOfertas"
     }
@@ -52,14 +41,9 @@ var menuModule = (function () {
     var anchorValue;
     var tagIsAnchor = "es-ancla";
     var urlIni;
-    //var lastScrollTop = 0;
-    //var delta = 10;
     var navbarHeight;
-    //var seccionMenuMobileHeight;
     var seccionFixedMenuHeigt;
-    //var alturaH;
     var scr = false;
-    //var alturaE;
 
     var _var = {
         Mobile: false,
@@ -95,22 +79,12 @@ var menuModule = (function () {
     function init() {
         _var.Mobile = isMobile();
         navbarHeight = _getHeight(elementos.header);
-        //seccionMenuMobileHeight = _getHeight(elementos.seccionBannerMobile);
         seccionFixedMenuHeigt = _getHeight(elementos.seccionMenuFija) || 0;
-        //alturaH = _getHeight(elementos.header);
-        //alturaE = alturaH + _getHeight(elementos.bcMenuEstrategia);
 
         var esSuscrita = $(elementos.subnavegadorUl).data("es-suscrita");
         if (esSuscrita) {
             elementos.claseActivo = "activado-dorado";
         }
-
-        //$(elementos.seccionMenuMobile).height(_getHeight(elementos.seccionMenuFija) + 5);
-        //if ($(elementos.bcParaTiMenu).hasClass(elementos.claseActivo)) {
-        //    $(elementos.bcParaTiMenuActivo).find("img.hover").css("display", "none");
-        //    $(elementos.bcParaTiMenuActivo).find("img.default").css("display", "none");
-        //    $(elementos.bcParaTiMenuActivo).find("img.click-menu").css("display", "inline");
-        //}
 
         urlIni = document.location.href;
         var currentLocation = window.location.href.toLowerCase();
@@ -251,8 +225,6 @@ var menuModule = (function () {
 
             if (ConstantesModule.CodigoPalanca.ATP == codigo) {
                 BannerInteractivo.ConsultaAjaxRedireccionaLanding(function () {
-                    //console.log('analytic2-aceptar [menu contenedor] ONT');
-                    //Analytics (averiguar si llega a usarse este método de boton aceptar del Popup)
                     var codigoubigeoPortal = $('#ATP').attr('data-codigoubigeoportal') + "";
                     if (!(typeof AnalyticsPortalModule === 'undefined'))
                         if (codigoubigeoPortal === ConstantesModule.CodigoUbigeoPortal.GuionContenedorGuionArmaTuPack)
@@ -272,8 +244,6 @@ var menuModule = (function () {
         if (confirmar) {
 
             if (typeof BannerInteractivo != "undefined") {
-                //BannerInteractivo.ConsultaRedireccionaLanding(this);
-                //return true;
             }
         }
         return false;
@@ -342,7 +312,7 @@ var menuModule = (function () {
                     + ConstantesModule.OrigenPedidoWebEstructura.Palanca.Lanzamientos
                     + ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel;
             }
-            //HD-3473 EINCA 
+
             else if (url.includes(ConstantesModule.TipoEstrategia.DP)) {
                 OrigenPedidoWeb = ConstantesModule.OrigenPedidoWebEstructura.Dispositivo.Desktop
                     + ConstantesModule.OrigenPedidoWebEstructura.Pagina.Contenedor
@@ -379,22 +349,10 @@ var menuModule = (function () {
 
 $(document).ready(function () {
     menuModule.init();
-    //menuModule.Resize();
-    //LayoutHeaderFin();
-    //$(window).on("scroll",
-    //    function () {
-    //        if (isMobile()) {
-    //            menuModule.hasScrolledMobile($(window).scrollTop());
-    //        } else {
-    //            menuModule.hasScrolledDesktop($(window).scrollTop());
-    //        }
-    //    });
-    //menuModule.setCarrouselMenu();
     $(document).ajaxStop(function () {
         menuModule.checkAnchor();
     });
     window.onresize = function (event) {
-        //menuModule.Resize();
         menuModule.setCarrouselMenu();
     };
 });

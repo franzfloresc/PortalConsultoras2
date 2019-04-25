@@ -1,4 +1,4 @@
-USE BelcorpPeru
+﻿USE BelcorpPeru
 GO
 
 DELETE [dbo].[TablaLogicaDatos] WHERE [TablaLogicaID] IN (165, 166, 167, 168);
