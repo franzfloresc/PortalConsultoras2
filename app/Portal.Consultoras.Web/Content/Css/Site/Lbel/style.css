@@ -29791,16 +29791,17 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     cursor: pointer;
 }
 
-.listado_estado_general div .estado_texto {
+.listado_estado_general div .estado_texto,
+.pop_solicitud_resolucion .estado_texto {
     font-weight: 700;
     font-size: 12px;
     display: inline-block;
     margin: 0;
-    padding-left: 16px;
-    padding-right: 16px;
+    padding-left: 12px;
+    padding-right: 12px;
     vertical-align: middle;
-    margin-right: 15px;
-    width: auto;
+    margin-right: 16px;
+    min-width: 105px;
     height: 24px;
     line-height: 22px;
     letter-spacing: 0.5px;
@@ -29884,37 +29885,42 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     font-size: 14px;
     color: black;
     text-align: center;
-    margin-bottom: 11px;
+    margin-bottom: 24px;
 }
 
-.pop_solicitud_producto, .pop_solicitud_tipo, .pop_solicitud_solucion, .pop_solicitud_resolucion {
+.pop_solicitud_producto,
+.pop_solicitud_tipo,
+.pop_solicitud_solucion,
+.pop_solicitud_resolucion {
     float: left;
-    font-family: 'Lato';
+    font-family: 'Lato', sans-serif;
     line-height: 19px;
     font-size: 15px;
-    padding-top: 25px;
-    padding-bottom: 25px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left:16px;
+    padding-right:16px;
     color: black;
 }
 
 .pop_solicitud_producto {
     width: 32%;
-    padding-left: 2%;
+    /*padding-left: 2%;*/
 }
 
 .pop_solicitud_tipo {
     width: 16%;
-    padding-left: 1%;
+    /*padding-left: 1%;*/
 }
 
 .pop_solicitud_solucion {
     width: 22.5%;
-    padding-left: 1%;
+    /*padding-left: 1%;*/
 }
 
 .pop_solicitud_resolucion {
     width: 28.5%;
-    padding-left: 4%;
+    /*padding-left: 4%;*/
 }
 
 .texto_estado_solicitud {
