@@ -358,7 +358,7 @@ function ContinuarPedido() {
                     
                     
                     SetHandlebars("#template-paso-2", response.result, "#contenedor-paso-2");
-                    if (response.result.ListaGana.length == 0)
+                    if (response.result.ListaGana.length == 0 || response.result.GananciaGana<= 0 )
                     {
                         $('.porGanaMas').parent().remove();
                     }
