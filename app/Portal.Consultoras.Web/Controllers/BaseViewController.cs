@@ -770,24 +770,15 @@ namespace Portal.Consultoras.Web.Controllers
             string codigoPalanca;
             bool esFichaApi = false;
             bool tieneCodigoPalanca = Constantes.NombrePalanca.PalancasbyCodigo.TryGetValue(palanca, out codigoPalanca);
-
-            if (tieneCodigoPalanca)
-            {
-                esFichaApi = new OfertaBaseProvider().UsaFichaMsPersonalizacion(codigoPalanca);
-            }
+            if (tieneCodigoPalanca) esFichaApi = new OfertaBaseProvider().UsaFichaMsPersonalizacion(codigoPalanca);
 
             var modelo = new DetalleEstrategiaFichaModel();
-
             if (!esFichaApi)
             {
                 if (_ofertaPersonalizadaProvider.PalancasConSesion(palanca))
                 {
                     var estrategiaPresonalizada = _ofertaPersonalizadaProvider.ObtenerEstrategiaPersonalizada(userData, palanca, cuv, campaniaId);
-
-                    if (estrategiaPresonalizada == null)
-                    {
-                        return null;
-                    }
+                    if (estrategiaPresonalizada == null) return null;
 
                     if (userData.CampaniaID != campaniaId) estrategiaPresonalizada.ClaseBloqueada = "btn_desactivado_general";
                     modelo = Mapper.Map<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaModel>(estrategiaPresonalizada);
@@ -802,13 +793,9 @@ namespace Portal.Consultoras.Web.Controllers
             else
             {
                 string mensaje;
-
-                if (!tieneCodigoPalanca) return null;
-
                 modelo = _ofertaPersonalizadaProvider.GetEstrategiaFicha(cuv, campaniaId.ToString(), codigoPalanca, out mensaje);
 
                 if (userData.CampaniaID != campaniaId) modelo.ClaseBloqueada = "btn_desactivado_general";
-
                 if (palanca == Constantes.NombrePalanca.PackNuevas)
                 {
                     modelo.TipoEstrategiaDetalle.Slogan = "Contenido del Set:";
@@ -817,11 +804,8 @@ namespace Portal.Consultoras.Web.Controllers
                 modelo.Hermanos = _estrategiaComponenteProvider.FormatterEstrategiaComponentes(modelo.Hermanos, modelo.CUV2, modelo.CampaniaID, esFichaApi);
                 modelo = _ofertaPersonalizadaProvider.FormatterEstrategiaFicha(modelo, userData.CampaniaID);
             }
-
             return modelo;
-        }
-
-        
+        }        
 
         private int GetTipoAccionNavegar(int origen, bool esMobile, bool esEditar)
         {
