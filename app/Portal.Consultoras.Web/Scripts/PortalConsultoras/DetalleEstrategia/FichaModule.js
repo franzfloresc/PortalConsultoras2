@@ -88,6 +88,9 @@ var FichaModule = (function (config) {
     var _estrategia = {};
     var _modeloFicha = {};
 
+    var _objTipoPalanca = ConstantesModule.DiccionarioTipoEstrategia.find(function (x) { return x.texto === config.palanca });
+    var _fichaServicioApi = (variablesPortal.MsFichaEstrategias && _objTipoPalanca) ? (variablesPortal.MsFichaEstrategias.indexOf(_objTipoPalanca.codigo) > -1) : false;
+
     var _config = {
         esMobile: null,
         palanca: config.palanca || "",
@@ -100,16 +103,14 @@ var FichaModule = (function (config) {
         tieneCliente: config.tieneCliente || false,
         localStorageModule: config.localStorageModule,
         analyticsPortalModule: config.analyticsPortalModule,
-        detalleEstrategiaProvider: DetalleEstrategiaProvider
+        detalleEstrategiaProvider: DetalleEstrategiaProvider,
+        usaLocalStorage: !_fichaServicioApi
     };
 
     var _codigoVariedad = ConstantesModule.CodigoVariedad;
     var _tipoEstrategiaTexto = ConstantesModule.TipoEstrategiaTexto;
     var _tipoEstrategia = ConstantesModule.TipoEstrategia;
     var _tipoAccionNavegar = ConstantesModule.TipoAccionNavegar;
-
-    var _objTipoPalanca = ConstantesModule.DiccionarioTipoEstrategia.find(function (x) { return x.texto === _config.palanca });
-    var _fichaServicioApi = (variablesPortal.MsFichaEstrategias && _objTipoPalanca) ? (variablesPortal.MsFichaEstrategias.indexOf(_objTipoPalanca.codigo) > -1) : false;
 
     var _elementos = {
         hdCampaniaCodigo: {
@@ -913,7 +914,8 @@ var FichaModule = (function (config) {
             divCarruselContenedor: "#divFichaCarrusel",
             idTituloCarrusel: "#tituloCarrusel",
             divCarruselProducto: "#divFichaCarruselProducto",
-            OrigenPedidoWeb: _config.origen
+            OrigenPedidoWeb: _config.origen,
+            usaLocalStorage: _config.usaLocalStorage
         });
 
         carruselModule.Inicializar();
