@@ -738,7 +738,10 @@ div .layout__view__breadcrumbs__wrapper, div .layout__view__title__wrapper {
 .ficha__producto__descrip .boxheight {
     min-height: 30px !important;
 }
-
+.ficha__producto__tag_enable {
+    display:block;
+    width:100%;
+}
 
 
 
@@ -1399,6 +1402,12 @@ div .footer__link, div .sub_footer a, div .btn__productos__agregados--verMiPedid
         .box-camb {
             margin-bottom: 0;
         }
+        .boton__agregalo--fichaProducto i {
+            left: 21%;
+        }
+        div .ficha__producto__descrip .boxheight {
+            min-height: 17px !important;
+        }
     }
 
 
@@ -1667,9 +1676,7 @@ div .footer__link, div .sub_footer a, div .btn__productos__agregados--verMiPedid
         max-width: 25px;
         display: block;
     }
-.ficha__producto__agregar__producto .col-md-7 i {
-    left: 10%;
-}
+
 div .boton__agregalo--fichaProducto, div.btn__elegir__opcion--fichaProducto span {
     letter-spacing: 0;
     text-indent: 22px;
@@ -1884,6 +1891,9 @@ div .boton__agregalo--fichaProducto, div.btn__elegir__opcion--fichaProducto span
 
                 .op-menu-horizontal .subnavegador li a {
                     text-decoration: none;
+                    color: #9e9e9e !important;  
+                    border-bottom: 2px solid #b9b9b9;
+                    height:53px;
                 }
 
                     .op-menu-horizontal .subnavegador li a img {
@@ -1903,12 +1913,12 @@ div .boton__agregalo--fichaProducto, div.btn__elegir__opcion--fichaProducto span
         height: 13px !important;
     }
 
-    .op-menu-horizontal .subnavegador li .activado-dorado {
-        border-bottom: 3px solid #c39934;
-        color: #c39934 !important;
-        height: 50px;
-        display: block;
-    }
+.op-menu-horizontal .subnavegador li .activado-dorado {
+    border-bottom: 2px solid #b9007e;
+    color: #000000 !important;
+    display: block;
+    height:53px;
+}
 
     .vistaofertas .SubHeader {
         display: none;
