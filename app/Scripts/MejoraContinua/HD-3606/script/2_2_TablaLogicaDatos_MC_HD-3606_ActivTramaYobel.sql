@@ -263,7 +263,7 @@ BEGIN
 		,170
 		,'01'
 		,'Activación nueva trama YOBEL'
-		,'ACTIVO'
+		,'INACTIVO'
 		);
 END
 GO

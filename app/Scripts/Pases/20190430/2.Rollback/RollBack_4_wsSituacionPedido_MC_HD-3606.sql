@@ -1,6 +1,5 @@
-USE [BelcorpPeru]
+﻿USE [BelcorpPeru]
 GO
-
 ALTER view [dbo].[vwSituacionPedido]
 AS
 SELECT 1 AS ID, 'Pedido Recibido' AS Situacion, 'Etapa 1' AS Etapa
@@ -16,10 +15,4 @@ UNION
 SELECT 6 AS ID, 'Fecha Estimada de Entrega' AS Situacion, '' AS Etapa
 UNION
 SELECT 7 AS ID, 'Entregado' AS Situacion, 'Etapa 6' AS Etapa
-UNION
-SELECT 8 AS ID, 'Hora Estimada de Entrega Desde' AS Situacion, '' AS Etapa
-UNION
-SELECT 9 AS ID, 'Hora Estimada de Entrega Hasta' AS Situacion, '' AS Etapa
 GO
-
-

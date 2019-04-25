@@ -1,7 +1,7 @@
-USE BelcorpPeru
+﻿USE BelcorpPeru
 GO
 
-IF EXISTS (
+IF NOT EXISTS (
 		SELECT *
 		FROM sys.columns c
 		INNER JOIN sys.tables t ON c.object_id = t.object_id
@@ -9,12 +9,10 @@ IF EXISTS (
 			AND C.name = 'IndEntregaEstimada'
 		)
 BEGIN
-	ALTER TABLE dbo.YobelPedidoTemp
-
-	DROP COLUMN IndEntregaEstimada;
+	ALTER TABLE dbo.YobelPedidoTemp ADD IndEntregaEstimada VARCHAR(2) NULL;
 END
 
-IF EXISTS (
+IF NOT EXISTS (
 		SELECT *
 		FROM sys.columns c
 		INNER JOIN sys.tables t ON c.object_id = t.object_id
@@ -22,12 +20,10 @@ IF EXISTS (
 			AND C.name = 'FecHoraEntregaEstimadaDesde'
 		)
 BEGIN
-	ALTER TABLE dbo.YobelPedidoTemp
-
-	DROP COLUMN FecHoraEntregaEstimadaDesde;
+	ALTER TABLE dbo.YobelPedidoTemp ADD FecHoraEntregaEstimadaDesde DATETIME NULL;
 END
 
-IF EXISTS (
+IF NOT EXISTS (
 		SELECT *
 		FROM sys.columns c
 		INNER JOIN sys.tables t ON c.object_id = t.object_id
@@ -35,12 +31,10 @@ IF EXISTS (
 			AND C.name = 'FecHoraEntregaEstimadaHasta'
 		)
 BEGIN
-	ALTER TABLE dbo.YobelPedidoTemp
-
-	DROP COLUMN FecHoraEntregaEstimadaHasta;
+	ALTER TABLE dbo.YobelPedidoTemp ADD FecHoraEntregaEstimadaHasta DATETIME NULL;
 END
 
-IF EXISTS (
+IF NOT EXISTS (
 		SELECT *
 		FROM sys.columns c
 		INNER JOIN sys.tables t ON c.object_id = t.object_id
@@ -48,11 +42,7 @@ IF EXISTS (
 			AND C.name = 'IndTipoInformacion'
 		)
 BEGIN
-	ALTER TABLE dbo.YobelPedidoTemp
-
-	DROP COLUMN IndTipoInformacion;
+	ALTER TABLE dbo.YobelPedidoTemp ADD IndTipoInformacion VARCHAR(2) NULL;
 END
-go
-
 
 

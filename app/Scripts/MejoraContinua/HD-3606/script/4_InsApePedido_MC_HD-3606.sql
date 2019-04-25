@@ -1,6 +1,5 @@
-USE BelcorpPeru
+﻿USE BelcorpPeru
 GO
-
 ALTER PROCEDURE [dbo].[InsApePedido]
 AS
 DECLARE @TempCambios TABLE (
@@ -108,3 +107,4 @@ INNER JOIN YobelPedidoTemp T ON A.NroPedido = T.NroPedido
 	AND A.Campana = T.Campana
 	AND A.Codigo = T.Codigo
 WHERE T.Estado = 0
+GO

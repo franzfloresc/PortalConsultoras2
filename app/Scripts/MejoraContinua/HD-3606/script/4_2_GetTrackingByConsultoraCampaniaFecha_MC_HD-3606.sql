@@ -1,6 +1,5 @@
 ﻿USE BelcorpPeru
 GO
-
 ALTER PROCEDURE [dbo].[GetTrackingByConsultoraCampaniaFecha]
 	--GetTrackingByConsultoraCampaniaFecha_V2 '040891803' ,'201903','1900998502' 
 	--GetTrackingByConsultoraCampaniaFecha '000758604',201901,'1808836983'
@@ -72,5 +71,3 @@ BEGIN
 	SET NOCOUNT OFF;
 END
 GO
-
-

@@ -1,6 +1,5 @@
-USE [BelcorpPeru]
+﻿USE [BelcorpPeru]
 GO
-
 ALTER VIEW [dbo].[vwTracking]
 AS
 SELECT oZ.Codigo AS Zona
@@ -81,5 +80,3 @@ LEFT JOIN ods.PedidoSeguimiento PS ON A.Codigo = PS.CodigoConsultora
 WHERE A.NroPedido IS NOT NULL
 	OR P.NroPedido IS NULL
 GO
-
-
