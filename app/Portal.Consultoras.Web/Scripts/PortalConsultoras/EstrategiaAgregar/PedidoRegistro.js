@@ -1438,14 +1438,13 @@ function UpdateTransaction(CantidadActual, CampaniaID, PedidoID, PedidoDetalleID
         data: JSON.stringify(item),
         async: true,
         success: function (data) {
+            
             CerrarSplash();
             if (!checkTimeout(data))
                 return false;
 
             if (data.success != true) {
-                var regex = /(\d+)/g;
-                var cantLimitada = parseInt(datos.message.match(regex)[1]);
-                $(txtLPCant).val(cantLimitada);
+                $(txtLPCant).val(CantidadAnti);
                 var errorCliente = data.errorCliente || false;
                 if (!errorCliente) {
                     messageInfoError(data.message);

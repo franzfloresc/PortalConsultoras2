@@ -532,6 +532,9 @@
             @*@if (ViewBag.MostrarPedidosPendientes == "1")
             {
                 <div id="infoPendientes" style="background:white; display: none;">
+
+                    <div id="paginadorCabPend" class="cant_productos_y_paginador_wrapper_top">
+                    </div>
                     <div class="content_datos_pendientes">
                         <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Tipo y nombre de Cliente</div>
                         <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Origen</div>
@@ -543,6 +546,8 @@
                     <div class="linea_separadora" style="margin-top:-1px"></div>
                     <div>
                         <div id="divPedidosPend"> </div>
+                    </div>
+                    <div id="paginadorPiePend" class="cant_productos_y_paginador_wrapper_bottom">
                     </div>
                     <div class="revision_pedidosAceptados">
                         <span class="texto_revisaPedidos">Revisa tus pedidos aceptados en:</span>
@@ -1964,6 +1969,8 @@
 
         var activarRecomendaciones = '@ViewBag.ActivarRecomendaciones';
         var maxCaracteresRecomendaciones = '@ViewBag.MaxCaracteresRecomendaciones';
+        var ClasPedidoDetalle = '@Constantes.ClasificadorPedido.PedidoDetalle';
+        var ClasPedidoDetallePendiente = '@Constantes.ClasificadorPedido.PedidoDetallePendiente';
     </script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/SB2-Pedido")
     @if (HttpContext.Current.Request.Browser.IsMobileDevice)

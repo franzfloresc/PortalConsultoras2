@@ -18,7 +18,9 @@ $(document).ready(function () {
         $('#infoPedido').show();
         $('#infoPendientes').hide();
         $('.paginador_pedidos.mostrarPaginadorPedidos.inferior').show();
-        $('ul.paginador_notificaciones').show();
+        //$('ul.paginador_notificaciones').show();
+        $("#paginadorCab").show();
+        $("#paginadorCabPend").hide();
         $('.caja_guardar_pedido').show();
         $('.contenedor_eliminacion_pedido').show();
         $('.contenedor_banners').show();
@@ -41,7 +43,9 @@ $(document).ready(function () {
         $('#infoPedido').hide();
         $('#infoPendientes').show();
         $('.paginador_pedidos.mostrarPaginadorPedidos.inferior').hide();
-        $('ul.paginador_notificaciones').hide();
+        //$('ul.paginador_notificaciones').hide();
+        $("#paginadorCab").hide();
+        $("#paginadorCabPend").show();
         $('.caja_guardar_pedido').hide();
         $('.contenedor_eliminacion_pedido').hide();
         $('.contenedor_banners').hide();
@@ -86,7 +90,7 @@ function CargarPedidosPend(page, rows) {
         sidx: "",
         sord: "",
         page: page || 1,
-        rows: rows || $($('[data-paginacion="rows"]')[0]).val() || 10,
+        rows: rows || $($('#paginadorCabPend [data-paginacion="rows"]')[0]).val() || 10,
     };
 
     $.ajax({
@@ -110,6 +114,18 @@ function CargarPedidosPend(page, rows) {
                         $('#divPedidosPend').html(html);
 
                         flagHuboPedidosPend = true;
+
+                        data.footer = true;
+                        var htmlPaginadorPendH = ArmarDetallePedidoPaginador(data);
+
+                        data.footer = false;
+                        var htmlPaginadorPendF = ArmarDetallePedidoPaginador(data);
+
+                        $("#paginadorCabPend").html(htmlPaginadorPendH);
+                        $("#paginadorPiePend").html(htmlPaginadorPendF);
+
+                        $("#paginadorCabPend [data-paginacion='rows']").val(data.Registros || 10);
+                        $("#paginadorPiePend [data-paginacion='rows']").val(data.Registros || 10);
 
                         $('#penmostreo').show();
 
