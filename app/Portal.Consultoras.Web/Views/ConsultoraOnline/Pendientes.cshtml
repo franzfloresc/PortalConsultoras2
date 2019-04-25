@@ -630,49 +630,49 @@
                     </div>
 
 
-                    <div class="container background color-white">
-                        <div class="porGanaMas">
-                            <div class="row align-items-center pt-4 pb-3">
-                                <div class="col-8 pr-0">
-                                    <span class="t3 color-text">Por Gana+ @ViewBag.Simbolo {{this.TotalGana}}</span>
-                                    <span class="medium color-second">Gana @ViewBag.Simbolo  {{this.GananciaGana}}</span>
-                                </div>
-                                <div data-accion="ingrgana" class="col btnAccion"><a class="btn dark-color" href="#">Elegir</a></div>
+                <div class="container background color-white">
+                    <div class="porGanaMas">
+                        <div class="row align-items-center pt-4 pb-3">
+                            <div class="col-8 pr-0">
+                                <span class="t3 color-text">Por Gana+ @ViewBag.Simbolo {{this.TotalGana}}</span>
+                                <span class="medium color-second">Gana @ViewBag.Simbolo  {{this.GananciaGana}}</span>
                             </div>
-                            <div class="row">
-                                <div class="col">
-                                    <!-- Clase asociada al plugin slick                -->
-                                    <div class="conGanaMas card--content mt-0">
-                                        <!-- Bloques para repetir-->
-                                        {{#each this.ListaGana as |item|}}
-                                        <div class="col pr-2 pl-2 color-dark"><img class="img-fluid icon-80" src="{{item.ImagenURL}}" alt="Producto"><span class="smaller">{{item.DescripcionCUV2}}</span><span class="smaller">@ViewBag.Simbolo {{item.PrecioString}}</span></div>
-                                        {{/each}}
-                                        <div class="col pr-2 pl-2 color-dark"><img class="img-fluid icon-80" src="https://i.ibb.co/MVyDK3j/square-3x.jpg" alt="Producto"><span class="smaller">Delineador Líquido Punta Plumón Marrón otoño + Natural Care Coconut Ocean *</span><span class="smaller">S/. 15.80</span></div>
-                                    </div><span class="smaller color-second mt-2 mb-4">* Contiene productos extras</span>
-                                </div>
+                            <div data-accion="ingrgana" class="col btnAccion"><a class="btn dark-color" href="#">Elegir</a></div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <!-- Clase asociada al plugin slick                -->
+                                <div class="conGanaMas card--content mt-0">
+                                    <!-- Bloques para repetir-->
+                                    {{#each this.ListaGana as |item|}}
+                                    <div class="col pr-2 pl-2 color-dark"><img class="img-fluid icon-80" src="{{item.ImagenURL}}" alt="Producto"><span class="smaller">{{item.DescripcionCUV2}}</span><span class="smaller">@ViewBag.Simbolo {{item.PrecioString}}</span></div>
+                                    {{/each}}
+                                 </div><span class="smaller color-second mt-2 mb-4">* Contiene productos extras</span>
                             </div>
                         </div>
-                    </div>             
+                    </div>
+                </div>             
 
-                    <div class="container border-top">
-                        <div class="porCatalogo">
-                            <div class="row align-items-center mt-4 mb-3">
-                                <div class="col-8 pr-0"><span class="t3 color-text">Por Catálogo @ViewBag.Simbolo  {{this.TotalCatalogo}}                </span></div>
-                                <div data-accion="ingrped" class="col btnAccion pl-0"><a class="btn full dark-color" href="#">Elegir</a></div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <!-- Clase asociada al plugin slick                -->
-                                    <div class="conCatalogo card--content mt-0">
-                                        <!-- Bloques para repetir-->
-                                        {{#each this.ListaCatalogo as |item|}}
-                                        <div class="col pr-2 pl-2"><img class="img-fluid icon-80" src="{{item.Url}}" alt="Producto"><span class="smaller">{{item.Producto}}</span><span class="smaller">@ViewBag.Simbolo  {{item.PrecioUnitario}}</span></div>
-                                        {{/each}}<div class="col pr-2 pl-2"><img class="img-fluid icon-80" src="https://i.ibb.co/MVyDK3j/square-3x.jpg" alt="Producto"><span class="smaller">Delineador Líquido Punta Plumón Marrón otoño</span><span class="smaller">S/. 26.90</span></div>
-                                    </div>
+                <div class="container border-top">
+                    <div class="porCatalogo">
+                        <div class="row align-items-center mt-4 mb-3">
+                            <div class="col-8 pr-0"><span class="t3 color-text">Por Catálogo+ @ViewBag.Simbolo  {{this.TotalCatalogo}}                </span></div>
+                            <div data-accion="ingrped" class="col btnAccion"><a class="btn dark-color" href="#">Elegir</a></div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <!-- Clase asociada al plugin slick                -->
+                                <div class="conCatalogo card--content mt-0">
+                                    <!-- Bloques para repetir-->
+                                    {{#each this.ListaCatalogo as |item|}}
+                                    <div class="col pr-2 pl-2"><img class="img-fluid icon-80" src="{{item.Url}}" alt="Producto"><span class="smaller">{{item.Producto}}</span><span class="smaller">@ViewBag.Simbolo  {{item.PrecioUnitario}}</span></div>
+                                    {{/each}}
+                                  
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
 
 
                     <div class="container-flex position-sticky bottom">
