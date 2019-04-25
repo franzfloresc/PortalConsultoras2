@@ -1,4 +1,5 @@
 ﻿using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.CaminoBrillante;
 using Portal.Consultoras.Entities.Cupon;
 using Portal.Consultoras.Entities.Estrategia;
 using Portal.Consultoras.Entities.PagoEnLinea;
@@ -1331,6 +1332,16 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEEscalaDescuento> ListarEscalaDescuentoZona(int paisID, int campaniaID, string region, string zona);
+
+        #region Camino Brillante
+
+        [OperationContract]
+        List<BEKitCaminoBrillante> GetKitsCaminoBrillante(BEUsuario entidad);
+
+        [OperationContract]
+        List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillante(BEUsuario entidad);
+        
+        #endregion
 
     }
 }

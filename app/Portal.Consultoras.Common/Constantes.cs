@@ -179,6 +179,7 @@ namespace Portal.Consultoras.Common
             public const int MensajeActualizarEmailSms = 1001;
             public const int MensajeActualizarSms = 1002;
             public const int MensajeActualizarEmail = 1003;
+            public const int CaminoBrillanteTablaLogica = 165;
 
             public static class PersonalizacionOdd
             {
@@ -199,6 +200,28 @@ namespace Portal.Consultoras.Common
             public static class ArmaTuPack
             {
                 public const string ListCuv = "ListCuv";
+            }
+
+
+
+            public static class CaminoBrillante
+            {
+                /// <summary>
+                /// Url para conexion a informacionComercialServices
+                /// </summary>
+                public const string UrlInformacionComercial = "url_inf_com";
+                /// <summary>
+                /// Usuario para autenticarse en el servicio
+                /// </summary>
+                public const string UsuarioInformacionComercial = "usu_inf_com";
+                /// <summary>
+                /// Clave para autenticarse en el servicio
+                /// </summary>
+                public const string ClaveInformacionComercial = "cla_inf_com";
+                /// <summary>
+                /// Número de campanias a obtener en cada periodo
+                /// </summary>
+                public const string NumeroCampaniasEnPeriodo = "num_cam_per";
             }
 
         }
@@ -483,6 +506,9 @@ namespace Portal.Consultoras.Common
             public const string BuscadorYFiltrosConfig = "BuscadorYFiltros";
             public const string MSPersonalizacionConfig = "MSPersonalizacion";
 
+            public const string NivelConsultoraCaminoBrillante = "NivelConsultoraCaminoBrillante";
+            public const string KitCaminoBrillante = "KitCaminoBrillante";
+            public const string DemostradoresCaminoBrillante = "DemostradoresCaminoBrillante";
         }
 
         public static class ConfiguracionManager
@@ -1057,6 +1083,13 @@ namespace Portal.Consultoras.Common
             public const int AppConsultoraPedidoCatalogoEsikaCatalogoDigitalPendienteDeAprobar = 4021211;
             public const int AppConsultoraPedidoCatalogoCyzoneCatalogoDigitalPendienteDeAprobar = 4021311;
             #endregion
+
+            #region CaminoBrillante
+            public const int CaminoBrillanteDesktopPedido = 1181901;
+            public const int CaminoBrillanteMobilePedido = 2181901;
+            public const int CaminoBrillanteAppConsultorasPedido = 4181901;
+            #endregion
+
         }
 
         public static class TipoTutorial
@@ -1571,6 +1604,8 @@ namespace Portal.Consultoras.Common
             public const string Datami = "DATAMI";
             public const string DireccionEntrega = "DIRECCION_ENTREGA";
             public const string ArmaTuPack = "ATP";
+            public const string CaminoBrillante = "CAMINOBRILLANTE";
+            public const string CaminoBrillanteMsg = "HomeCaminoBrillante";
         }
 
 
@@ -1896,6 +1931,12 @@ namespace Portal.Consultoras.Common
             public const short GanaMasNativo = 159;
             public const short ResizeImagenesAppGanaMas = 162;
             public const short TiempoMaximoSP = 180;
+            #region Camino Brillante
+            public const short CaminoBrillanteInfoComercial = 165;
+            public const short CaminoBrillanteLogros = 166;
+            public const short CaminoBrillanteIndicadores = 167;
+            public const short CaminoBrillanteOfertasEspeciales = 167; //Pendiente
+            #endregion
         }
 
         public struct MensajesCDRExpress
@@ -2339,7 +2380,8 @@ namespace Portal.Consultoras.Common
             public const string BannerDescargarAppNuevas = "BannerDescargarAppNuevas";
             public const string Extraordinarios = "App Consultora,BannerDescargarAppNuevas";
             //HD-3550 EINCA
-            public static class TipoComunicado {
+            public static class TipoComunicado
+            {
                 public const int Banner = 1;
                 public const int PopUp = 2;
             }
@@ -2447,6 +2489,7 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_PRODUCTO_NOPERTENECE_VENTAEXCLUSIVA = "1113";
                 public const string ERROR_PRODUCTO_LIMITE_VENTA = "1114";
                 public const string ERROR_PRODUCTO_DUO_COMPLETO_COMPLETO = "1115";
+                public const string ERROR_PRODUCTO_KIT_CAMINO_BRILLANTE_USADO = "1116";
 
                 public const string ERROR_RESERVADO_HORARIO_RESTRINGIDO = "2101";
                 public const string ERROR_STOCK_ESTRATEGIA = "2102";
@@ -2512,6 +2555,7 @@ namespace Portal.Consultoras.Common
                             {Code.ERROR_PRODUCTO_NONUEVA, new PedidoValidacionConfiguracion(){ Mensaje = ProgNuevas.Mensaje.ConsultoraNoNueva } },
                             {Code.ERROR_PRODUCTO_NUEVA_NOPERTENECE_TUPROGRAMA, new PedidoValidacionConfiguracion(){ Mensaje = ProgNuevas.Mensaje.CuvNoPerteneceASuPrograma } },
                             {Code.ERROR_PRODUCTO_NOPERTENECE_VENTAEXCLUSIVA, new PedidoValidacionConfiguracion(){ Mensaje = VentaExclusiva.CuvNoEsVentaExclusiva } },
+                            {Code.ERROR_PRODUCTO_KIT_CAMINO_BRILLANTE_USADO, new PedidoValidacionConfiguracion(){ Mensaje = "Ya agregaste tu kit." } },
 
                             {Code.ERROR_RESERVADO_HORARIO_RESTRINGIDO, new PedidoValidacionConfiguracion()},
                             {Code.ERROR_STOCK_ESTRATEGIA, new PedidoValidacionConfiguracion()},
@@ -3146,7 +3190,7 @@ namespace Portal.Consultoras.Common
             /// Oferta/ByCuv/{pais}/{tipoPersonalizacion}/{codigoCampania}/{cuv}
             /// </summary>
             public const string UrlObtenerOfertaByCuv = "Oferta/ByCuv/{0}/{1}/{2}/{3}";
-            
+
             /// <summary>
             /// Evento/Get/{pais}/{campania}
             /// </summary>
@@ -3393,6 +3437,7 @@ namespace Portal.Consultoras.Common
             public const string ESCUPONINDEPENDIENTE = "ESCUPONINDEPENDIENTE";
             public const string ESCUPONNUEVAS = "ESCUPONNUEVAS";
             public const string ESELECMULTIPLENUEVAS = "ESELECMULTIPLENUEVAS";
+            public const string ESCAMINOBRILLANTE = "1181901,2181901";
         }
 
         public static class CodigosCatalogos
@@ -3510,6 +3555,7 @@ namespace Portal.Consultoras.Common
         {
             public const string Fecha = "dd/MM/yyyy";
             public const string FechaHora = "dd/MM/yyyy HH:mm";
+            public const string FechaHoraUTC = "yyyy-MM-ddThh:mm:ss";
         }
         public static class OperacionBD
         {
@@ -3571,6 +3617,215 @@ namespace Portal.Consultoras.Common
             public const int Inconstantes = 7;
             public const int PosibleEgreso = 8;
             public const int Reingreso = 9;
+        }
+
+        public static class CaminoBrillante
+        {
+
+            public static class ServicioComercial
+            {
+                public const string GetPeriodo = "GetPeriodo/";
+                public const string GetNivel = "GetNivel/";
+                public const string GetOfertas = "GetOfertas/";
+                public const string GetNivelConsultora = "GetNivelConsultora/";
+                public const string GetKitsConsultora = "GetKitsConsultora/";
+
+                public static class TablaLogicaDatosKey
+                {
+                    /// <summary>
+                    /// Url para conexion a informacionComercialServices
+                    /// </summary>
+                    public const string UrlInformacionComercial = "url_inf_com";
+                    /// <summary>
+                    /// Usuario para autenticarse en el servicio
+                    /// </summary>
+                    public const string UsuarioInformacionComercial = "usu_inf_com";
+                    /// <summary>
+                    /// Clave para autenticarse en el servicio
+                    /// </summary>
+                    public const string ClaveInformacionComercial = "cla_inf_com";
+                    /// <summary>
+                    /// Número de campanias a obtener en cada periodo
+                    /// </summary>
+                    public const string NumeroCampaniasEnPeriodo = "num_cam_per";
+                }
+            }
+
+            public static class Logros
+            {
+
+                public const string COMPROMISO = "COMPROMISO";
+                public const string CRECIMIENTO = "CRECIMIENTO";
+                public const string RESUMEN = "RESUMEN";
+
+                public static class Indicadores
+                {
+                    private static Dictionary<string, string> _Titulos;
+
+                    public const string ESCALA = "ESCALA";
+                    public const string NIVEL = "NIVEL";
+                    public const string CONSTANCIA = "CONSTANCIA";
+                    public const string INCREMENTO_PEDIDO = "INCREMENTO_PEDIDO";
+                    public const string TIEMPO_JUNTOS = "TIEMPO_JUNTOS";
+                    public const string PROGRAMA_NUEVAS = "PROGRAMA_NUEVAS";
+
+                    public static Dictionary<string, string> Titulos
+                    {
+                        get
+                        {
+                            return _Titulos ?? (_Titulos = new Dictionary<string, string> {
+                                {ESCALA, "Escala"},
+                                {NIVEL, ""},
+                                {CONSTANCIA, "Constancia"},
+                                {INCREMENTO_PEDIDO, "Incremento"},
+                                {TIEMPO_JUNTOS, ""},
+                                {PROGRAMA_NUEVAS, ""},
+                            });
+                        }
+                    }
+
+                    public static class Medallas
+                    {
+
+                        public const string YaLoTienes = "¡Ya lo tienes!";
+                        public const string ComoLograrlo = "¿Cómo lograrlo?";
+
+                        public static class Codes
+                        {
+                            public const string CIRC = "CIRC";
+                            public const string NIV = "NIV";
+                            public const string PIE = "PIE";
+                            public const string TIM = "TIME";
+                            public const string PED = "PED";
+                        }
+
+                        public static Dictionary<string, string[]> Niveles
+                        {
+                            get
+                            {
+                                return CaminoBrillante.Niveles.Iconos;
+                            }
+                        }
+
+                        private static Dictionary<string, string> _Constancia;
+                        private static string pathContanica = "CAMINOBRILLANTE/LOGROS/CONSTANCIA/PIZZA_06_0{0}.svg";
+                        public static Dictionary<string, string> Constancia
+                        {
+                            get
+                            {
+                                return _Constancia ?? (_Constancia = new Dictionary<string, string> {
+                                    { "0", string.Format(ConfigS3.GetUrlFileS3("Iconos", pathContanica), "0")},
+                                    { "1", string.Format(ConfigS3.GetUrlFileS3("Iconos", pathContanica), "1")},
+                                    { "2", string.Format(ConfigS3.GetUrlFileS3("Iconos", pathContanica), "2")},
+                                    { "3", string.Format(ConfigS3.GetUrlFileS3("Iconos", pathContanica), "3")},
+                                    { "4", string.Format(ConfigS3.GetUrlFileS3("Iconos", pathContanica), "4")},
+                                    { "5", string.Format(ConfigS3.GetUrlFileS3("Iconos", pathContanica), "5")},
+                                    { "6", string.Format(ConfigS3.GetUrlFileS3("Iconos", pathContanica), "6")}
+                                });
+                            }
+                        }
+
+                        private static Dictionary<string, string> _Corazon;
+                        private static string pathCorazon = "CAMINOBRILLANTE/LOGROS/COMPROMISO/CORAZON_{0}.svg";
+                        public static Dictionary<string, string> Corazon
+                        {
+                            get
+                            {
+                                return _Corazon ?? (_Corazon = new Dictionary<string, string> {
+                                    { "0", string.Format(ConfigS3.GetUrlFileS3("Iconos", pathCorazon), "I")},
+                                    { "1", string.Format(ConfigS3.GetUrlFileS3("Iconos", pathCorazon), "A")}
+                                });
+                            }
+                        }
+
+                        private static Dictionary<string, string> _Pedido;
+                        private static string pathPedido = "CAMINOBRILLANTE/LOGROS/COMPROMISO/PEDIDO_{0}.svg";
+                        public static Dictionary<string, string> Pedido
+                        {
+                            get
+                            {
+                                return _Pedido ?? (_Pedido = new Dictionary<string, string> {
+                                    { "0", string.Format(ConfigS3.GetUrlFileS3("Iconos", pathPedido), "I")},
+                                    { "1", string.Format(ConfigS3.GetUrlFileS3("Iconos", pathPedido), "A")}
+                                });
+                            }
+                        }
+
+
+                    }
+
+                }
+            }
+
+            public static class Beneficios
+            {
+
+                private static Dictionary<string, string> _Iconos;
+                private static string path = "CAMINOBRILLANTE/BENEFICIOS/{0}";
+
+                public static Dictionary<string, string> Iconos
+                {
+                    get
+                    {
+                        return _Iconos ?? (_Iconos = new Dictionary<string, string> {
+                            {"01", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"asesor.svg")},
+                            {"02", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"beneficios.svg")},
+                            {"03", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"call_center.svg")},
+                            {"04", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"catalogo_revista.svg")},
+                            {"05", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"consultora.svg")},
+                            {"06", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"descuento.svg")},
+                            {"07", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"kit.svg")},
+                            {"08", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"productos_especiales.svg")},
+                            {"09", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"regalo.svg")},
+                        });
+                    }
+                }
+
+            }
+
+            public static class Niveles
+            {
+
+                public const int OfertasEspeciales_TablaLogicaDatos = 16800;
+
+                private static Dictionary<string, string[]> _Iconos;
+                private static string path = "CAMINOBRILLANTE/NIVELES/NIVEL_0{0}_{1}.svg";
+
+                public static Dictionary<string, string[]> Iconos
+                {
+                    get
+                    {
+                        return _Iconos ?? (_Iconos = new Dictionary<string, string[]> {
+                            { "1", new string[]{ string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "1", "I"), string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "1", "A") } },
+                            { "2", new string[]{ string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "2", "I"), string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "2", "A") } },
+                            { "3", new string[]{ string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "3", "I"), string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "3", "A") } },
+                            { "4", new string[]{ string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "4", "I"), string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "4", "A") } },
+                            { "5", new string[]{ string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "5", "I"), string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "5", "A") } },
+                            { "6", new string[]{ string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "6", "I"), string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "6", "A") } },
+                        });
+                    }
+                }
+
+
+                private static Dictionary<string, string[]> _Etiquetas;
+                private static string path_etiquetas = "CAMINOBRILLANTE/NIVELES/TAG/Etiqueta_Nivel_0{0}_{1}.png";
+
+                public static Dictionary<string, string[]> Etiquetas
+                {
+                    get
+                    {
+                        return _Etiquetas ?? (_Etiquetas = new Dictionary<string, string[]> {
+                            { "1", new string[]{ string.Format(ConfigS3.GetUrlFileS3("Iconos", path_etiquetas), "1", "I"), string.Format(ConfigS3.GetUrlFileS3("Iconos", path_etiquetas), "1", "A") } },
+                            { "2", new string[]{ string.Format(ConfigS3.GetUrlFileS3("Iconos", path_etiquetas), "2", "I"), string.Format(ConfigS3.GetUrlFileS3("Iconos", path_etiquetas), "2", "A") } },
+                            { "3", new string[]{ string.Format(ConfigS3.GetUrlFileS3("Iconos", path_etiquetas), "3", "I"), string.Format(ConfigS3.GetUrlFileS3("Iconos", path_etiquetas), "3", "A") } },
+                            { "4", new string[]{ string.Format(ConfigS3.GetUrlFileS3("Iconos", path_etiquetas), "4", "I"), string.Format(ConfigS3.GetUrlFileS3("Iconos", path_etiquetas), "4", "A") } },
+                            { "5", new string[]{ string.Format(ConfigS3.GetUrlFileS3("Iconos", path_etiquetas), "5", "I"), string.Format(ConfigS3.GetUrlFileS3("Iconos", path_etiquetas), "5", "A") } },
+                            { "6", new string[]{ string.Format(ConfigS3.GetUrlFileS3("Iconos", path_etiquetas), "6", "I"), string.Format(ConfigS3.GetUrlFileS3("Iconos", path_etiquetas), "6", "A") } },
+                        });
+                    }
+                }
+            }
+
         }
 
         #region

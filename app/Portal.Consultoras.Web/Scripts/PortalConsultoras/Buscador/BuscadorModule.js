@@ -1,6 +1,7 @@
 ﻿var BuscadorPortalConsultoras;
 var CategoriaProductosDatos;
 var xhr = null;
+var baseUrl = baseUrl || "";
 
 var delay = (function () {
     var timer = 0;
@@ -453,11 +454,12 @@ var BuscadorModule = (function () {
         },
         RedireccionarMenuPrincipal: function (e) {
             e.preventDefault();
+             
             if (!_config.isMobile) {
-                window.location.href = '/Bienvenida';
+                window.location.href = baseUrl+'Bienvenida';
             }
             else {
-                window.location.href = '/Mobile/Bienvenida';
+                window.location.href = baseUrl +'Mobile/Bienvenida';
             }
         }
     };

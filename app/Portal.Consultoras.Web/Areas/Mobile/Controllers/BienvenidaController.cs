@@ -10,6 +10,7 @@ using System.ServiceModel;
 using System.Web.Mvc;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.CaminoBrillante;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -18,11 +19,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatosProvider;
         private readonly BienvenidaProvider _bienvenidaProvider;
         protected TablaLogicaProvider _tablaLogica;
+        protected CaminoBrillanteProvider _caminoBrillanteProvider;
         public BienvenidaController()
         {
             _configuracionPaisDatosProvider = new ConfiguracionPaisDatosProvider();
             _tablaLogica = new TablaLogicaProvider();
             _bienvenidaProvider = new BienvenidaProvider();
+            _caminoBrillanteProvider = new CaminoBrillanteProvider();
         }
 
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
@@ -128,8 +131,22 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.ConsultoraNuevaBannerAppMostrar = SessionManager.GetConsultoraNuevaBannerAppMostrar();
                 model.MostrarPagoEnLinea = (userData.MontoDeuda > 0);
 
-                #region Camino al Exito
+                #region Camino al Exito                
+                if (userData.CaminoBrillante)
+                {
+                    model.TieneCaminoBrillante = userData.CaminoBrillante;
+                    _caminoBrillanteProvider.LoadCaminoBrillante();
+                    var nivelConsultoraCaminoBrillante = _caminoBrillanteProvider.GetNivelActual();
+                    if (nivelConsultoraCaminoBrillante != null)
+                    {
+                        model.CaminoBrillanteMsg = userData.CaminoBrillanteMsg.Replace("{0}", "<b>" + nivelConsultoraCaminoBrillante.DescripcionNivel + "</b>");
+                        model.UrlLogoCaminoBrillante = nivelConsultoraCaminoBrillante.UrlImagenNivelFull;                        
+                    }
+                }
+                #endregion
 
+
+                #region Camino al Exito 
                 var LogicaCaminoExisto = _tablaLogica.GetTablaLogicaDatos(userData.PaisID, Constantes.TablaLogica.EscalaDescuentoMobile);
                 if (LogicaCaminoExisto.Any())
                 {
@@ -142,7 +159,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         model.urlCaminoExito = accesoCaminoExito.Item2 ?? "";
                     }
                 }
-
                 #endregion
 
                 #region bonificaciones 
