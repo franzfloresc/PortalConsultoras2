@@ -496,7 +496,7 @@ var FichaModule = (function (config) {
             });
 
             if (!estrategia || !estrategia.EstrategiaID) {
-                _redireccionar('_getEstrategia, no obtiene oferta desde api');
+                throw '_getEstrategia, no obtiene oferta desde api';
                 return false;
             }
         }
