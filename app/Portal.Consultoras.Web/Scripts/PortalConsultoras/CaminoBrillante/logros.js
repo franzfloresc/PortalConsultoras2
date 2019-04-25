@@ -30,7 +30,7 @@ function ComoLograrlo(categoria, caracteristica,titulo,descripcion) {
     dataLayer.push({
         'event': 'virtualEvent',
         'category': 'Nivel y beneficios – Mis Logros',
-        'action': { categoria } + '–' + { caracteristica},
+        'action': { categoria } + '–' + { caracteristica },
         'label': 'Selección: ¿Cómo lograrlo?'
     });
 
