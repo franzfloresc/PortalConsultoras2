@@ -32,7 +32,7 @@ function IniDialogDetalle() {
         resizable: false,
         modal: true,
         closeOnEscape: true,
-        width: 830,
+        width: 550,
         draggable: false,
         title: "Nuevo",
         close: function () {
