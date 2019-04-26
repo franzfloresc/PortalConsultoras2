@@ -110,7 +110,7 @@
                 <div class="row align-items-center">
                     <div class="col-4">
                         <div class="vc-box ipt-tel">
-                            <input data-cantNew="@item.Cantidad" type="tel" value="@item.Cantidad" placeholder="1" class="text-center text-14 text-700">
+                            <input data-cantNew="@item.Cantidad" type="tel" maxlength="2" value="@item.Cantidad" placeholder="1" class="text-center text-14 text-700 ValidaNumeral ValidaPasteNumeral ValidaValor">
                         </div>
                     </div>
 
@@ -216,10 +216,10 @@
                 <p style="text-align: center; font-size: 18px; font-weight:700; width: 85%; margin: 0 auto;">¿Deseas rechazar todos los pedidos de tus clientes?</p>
                 <div style="font-size: 14px; letter-spacing: 1px; font-weight:700; margin: 24px 0; display: flex; justify-content: center; width:100%">
                     <button class="btn btn-default" data-dismiss="modal" aria-label="Close" style="font-size: 14px; letter-spacing: 1px;font-weight:700;">
-                        No gracias
+                        No, gracias
                     </button>
                     <button onclick="RechazarSolicitudCliente('@solicitud.PedidoId')" class="btn btn-primary" style="font-size: 14px; letter-spacing: 1px;font-weight:700; background-color: #b9007e; border: #b9007e; color: white;">
-                        Sí Rechazar
+                        Sí, Rechazar
                     </button>
                 </div>
             </div>

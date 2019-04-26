@@ -550,6 +550,7 @@ function ContinuarPedido() {
     else {
         CloseLoading();
         $('#mensajepedido').show();
+        setTimeout(function () { $('#mensajepedido').hide(); }, 2000);
     }
 }
 
@@ -589,3 +590,13 @@ function EliminarSolicitudDetalle(pedidoId, cuv, origen) {
     });
 
 }
+
+$("body").on('change', ".ValidaValor", function (e) {
+    var $input = $(this);
+    var previousVal = $input.val();
+
+    if (previousVal == 0) {
+
+        $input.val(1);
+    }
+});

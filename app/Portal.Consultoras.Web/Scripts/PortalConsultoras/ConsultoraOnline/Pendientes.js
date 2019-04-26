@@ -1,4 +1,4 @@
-﻿var urlDetallePedidoPendiente = "/ConsultoraOnline/DetallePedidoPendiente"
+﻿var urlDetallePedidoPendiente = "/ConsultoraOnline/DetallePedidoPendiente";
 var urlDetallePedidoPendienteClientes = "/ConsultoraOnline/DetallePedidoPendienteClientes";
 var listaGana = [];
 
@@ -144,7 +144,6 @@ function cargarGaleria() {
 }
 
 function DetallePedidoPendienteClientes(cuv) {
-    
     console.log(JSON.stringify(cuv));
     var obj = {
         cuv: cuv
@@ -160,7 +159,6 @@ function DetallePedidoPendienteClientes(cuv) {
 
             console.log(response);
             if (response.success) {
-                
                 console.log(response);
                 SetHandlebars("#template-paso-1-Clientes", response.data, "#Paso1-Clientes");
                 $('#Paso1-Clientes').show();
@@ -175,7 +173,6 @@ function DetallePedidoPendienteClientes(cuv) {
 }
 
 function DetallePedidoPendiente(ids) {
-    
     console.log(JSON.stringify(ids));
     //console.log(JSON.stringify(cuv));
     var obj = {
@@ -190,7 +187,6 @@ function DetallePedidoPendiente(ids) {
         async: true,
         success: function (response) {
             if (response.success) {
-                
                 console.log(response);
                 SetHandlebars("#template-paso-1-Producto", response.data, "#Paso1-Productos");
                 $('#Paso1-Productos').show();
@@ -217,7 +213,6 @@ function OcultarMensajedeRechazoPedido(cuv) {
 }
 
 function AceptarPedidoProducto(id) {
-    
     //var texto = '#texto_' + id;
     var aceptado = '#aceptar_' + id;
     if ($(aceptado).hasClass("ghost")) {
@@ -343,7 +338,6 @@ function ContinuarPedido() {
         }
     });
 
-    
 
     if (lstDetalle.length > 0) {
         $.ajax({
@@ -355,7 +349,7 @@ function ContinuarPedido() {
             success: function (response) {
                 //CloseLoading();
                 if (response.success) {
-                    
+                    $('#Paso1-Productos').hide();
                     
                     SetHandlebars("#template-paso-2", response.result, "#contenedor-paso-2");
                     if (response.result.ListaGana.length == 0 || response.result.GananciaGana<= 0 )
