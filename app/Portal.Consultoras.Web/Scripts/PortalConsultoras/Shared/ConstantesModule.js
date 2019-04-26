@@ -272,6 +272,7 @@ var ConstantesModule = (function () {
         UrlObtenerEstrategia: _urlObtenerEstrategia,
         UrlDetalleEstrategia: _urlDetalleEstrategia,
         UrlPedido: _urlPedido,
-        GetTipoPersonalizacionByTipoEstrategia: _getTipoPersonalizacionByTipoEstrategia
+        GetTipoPersonalizacionByTipoEstrategia: _getTipoPersonalizacionByTipoEstrategia,
+        DiccionarioTipoEstrategia: _diccionarioTipoEstrategia
     }
 })();
