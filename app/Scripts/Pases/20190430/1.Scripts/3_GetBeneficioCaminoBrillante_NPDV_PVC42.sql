@@ -15,7 +15,7 @@ BEGIN
 		,NombreBeneficio AS NombreBeneficio
 		,Descripcion AS Descripcion
 		,UrlIcono AS Icono
-	FROM  dbo.BeneficioCaminoBrillante
+	FROM  dbo.BeneficioCaminoBrillante WITH (NOLOCK)
 	Order By Orden asc
 END
 GO
@@ -37,7 +37,7 @@ BEGIN
 		,NombreBeneficio AS NombreBeneficio
 		,Descripcion AS Descripcion
 		,UrlIcono AS Icono
-	FROM  dbo.BeneficioCaminoBrillante
+	FROM  dbo.BeneficioCaminoBrillante WITH (NOLOCK)
 	Order By Orden asc
 END
 GO
@@ -59,7 +59,7 @@ BEGIN
 		,NombreBeneficio AS NombreBeneficio
 		,Descripcion AS Descripcion
 		,UrlIcono AS Icono
-	FROM  dbo.BeneficioCaminoBrillante
+	FROM  dbo.BeneficioCaminoBrillante WITH (NOLOCK)
 	Order By Orden asc
 END
 GO
@@ -81,7 +81,7 @@ BEGIN
 		,NombreBeneficio AS NombreBeneficio
 		,Descripcion AS Descripcion
 		,UrlIcono AS Icono
-	FROM  dbo.BeneficioCaminoBrillante
+	FROM  dbo.BeneficioCaminoBrillante WITH (NOLOCK)
 	Order By Orden asc
 END
 GO
@@ -103,7 +103,7 @@ BEGIN
 		,NombreBeneficio AS NombreBeneficio
 		,Descripcion AS Descripcion
 		,UrlIcono AS Icono
-	FROM  dbo.BeneficioCaminoBrillante
+	FROM  dbo.BeneficioCaminoBrillante WITH (NOLOCK)
 	Order By Orden asc
 END
 GO
@@ -125,7 +125,7 @@ BEGIN
 		,NombreBeneficio AS NombreBeneficio
 		,Descripcion AS Descripcion
 		,UrlIcono AS Icono
-	FROM  dbo.BeneficioCaminoBrillante
+	FROM  dbo.BeneficioCaminoBrillante WITH (NOLOCK)
 	Order By Orden asc
 END
 GO
@@ -147,7 +147,7 @@ BEGIN
 		,NombreBeneficio AS NombreBeneficio
 		,Descripcion AS Descripcion
 		,UrlIcono AS Icono
-	FROM  dbo.BeneficioCaminoBrillante
+	FROM  dbo.BeneficioCaminoBrillante WITH (NOLOCK)
 	Order By Orden asc
 END
 GO
@@ -169,7 +169,7 @@ BEGIN
 		,NombreBeneficio AS NombreBeneficio
 		,Descripcion AS Descripcion
 		,UrlIcono AS Icono
-	FROM  dbo.BeneficioCaminoBrillante
+	FROM  dbo.BeneficioCaminoBrillante WITH (NOLOCK)
 	Order By Orden asc
 END
 GO
@@ -191,7 +191,7 @@ BEGIN
 		,NombreBeneficio AS NombreBeneficio
 		,Descripcion AS Descripcion
 		,UrlIcono AS Icono
-	FROM  dbo.BeneficioCaminoBrillante
+	FROM  dbo.BeneficioCaminoBrillante WITH (NOLOCK)
 	Order By Orden asc
 END
 GO
@@ -213,7 +213,7 @@ BEGIN
 		,NombreBeneficio AS NombreBeneficio
 		,Descripcion AS Descripcion
 		,UrlIcono AS Icono
-	FROM  dbo.BeneficioCaminoBrillante
+	FROM  dbo.BeneficioCaminoBrillante WITH (NOLOCK)
 	Order By Orden asc
 END
 GO
@@ -235,7 +235,7 @@ BEGIN
 		,NombreBeneficio AS NombreBeneficio
 		,Descripcion AS Descripcion
 		,UrlIcono AS Icono
-	FROM  dbo.BeneficioCaminoBrillante
+	FROM  dbo.BeneficioCaminoBrillante WITH (NOLOCK)
 	Order By Orden asc
 END
 GO
@@ -257,7 +257,7 @@ BEGIN
 		,NombreBeneficio AS NombreBeneficio
 		,Descripcion AS Descripcion
 		,UrlIcono AS Icono
-	FROM  dbo.BeneficioCaminoBrillante
+	FROM  dbo.BeneficioCaminoBrillante WITH (NOLOCK)
 	Order By Orden asc
 END
 GO

@@ -358,7 +358,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 ViewBag.KitsCaminoBrillante = _caminoBrillanteProvider.GetKitsCaminoBrillante().ToList();
                 var consultoraNivel = SessionManager.GetConsultoraCaminoBrillante();
-                var nivelConsultora = consultoraNivel.NivelConsultora.Where(e => e.EsActual).FirstOrDefault();
+                var nivelConsultora = consultoraNivel.NivelConsultora.FirstOrDefault(e => e.EsActual);
                 int nivel = 0;
                 int periodo = 0;
                 int.TryParse(nivelConsultora.Nivel ?? string.Empty, out nivel);

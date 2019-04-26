@@ -2,8 +2,6 @@
 USE BelcorpPeru
 GO
 
-go
-
 print db_name()
 
 declare @tabla_logica_flag_funcional smallint = 158
@@ -33,21 +31,16 @@ begin
 	,@tabla_logica_flag_funcional
 	,@flag_codigo
 	,'Permite habilitar la funcionalidad de ficha enriquecida para desktop y mobile. 0 : Deshabilitar, 1: Habilitar'
-	,'0'
+	,'1'
 	)
 	print 'end of inserting into TablaLogicaDatos : FichaEnriquecida'
 end
-
-go
-
 
 
 GO
 USE BelcorpMexico
 GO
 
-go
-
 print db_name()
 
 declare @tabla_logica_flag_funcional smallint = 158
@@ -77,21 +70,16 @@ begin
 	,@tabla_logica_flag_funcional
 	,@flag_codigo
 	,'Permite habilitar la funcionalidad de ficha enriquecida para desktop y mobile. 0 : Deshabilitar, 1: Habilitar'
-	,'0'
+	,'1'
 	)
 	print 'end of inserting into TablaLogicaDatos : FichaEnriquecida'
 end
-
-go
-
 
 
 GO
 USE BelcorpColombia
 GO
 
-go
-
 print db_name()
 
 declare @tabla_logica_flag_funcional smallint = 158
@@ -121,21 +109,16 @@ begin
 	,@tabla_logica_flag_funcional
 	,@flag_codigo
 	,'Permite habilitar la funcionalidad de ficha enriquecida para desktop y mobile. 0 : Deshabilitar, 1: Habilitar'
-	,'0'
+	,'1'
 	)
 	print 'end of inserting into TablaLogicaDatos : FichaEnriquecida'
 end
-
-go
-
 
 
 GO
 USE BelcorpSalvador
 GO
 
-go
-
 print db_name()
 
 declare @tabla_logica_flag_funcional smallint = 158
@@ -165,21 +148,16 @@ begin
 	,@tabla_logica_flag_funcional
 	,@flag_codigo
 	,'Permite habilitar la funcionalidad de ficha enriquecida para desktop y mobile. 0 : Deshabilitar, 1: Habilitar'
-	,'0'
+	,'1'
 	)
 	print 'end of inserting into TablaLogicaDatos : FichaEnriquecida'
 end
-
-go
-
 
 
 GO
 USE BelcorpPuertoRico
 GO
 
-go
-
 print db_name()
 
 declare @tabla_logica_flag_funcional smallint = 158
@@ -209,21 +187,16 @@ begin
 	,@tabla_logica_flag_funcional
 	,@flag_codigo
 	,'Permite habilitar la funcionalidad de ficha enriquecida para desktop y mobile. 0 : Deshabilitar, 1: Habilitar'
-	,'0'
+	,'1'
 	)
 	print 'end of inserting into TablaLogicaDatos : FichaEnriquecida'
 end
-
-go
-
 
 
 GO
 USE BelcorpPanama
 GO
 
-go
-
 print db_name()
 
 declare @tabla_logica_flag_funcional smallint = 158
@@ -253,21 +226,16 @@ begin
 	,@tabla_logica_flag_funcional
 	,@flag_codigo
 	,'Permite habilitar la funcionalidad de ficha enriquecida para desktop y mobile. 0 : Deshabilitar, 1: Habilitar'
-	,'0'
+	,'1'
 	)
 	print 'end of inserting into TablaLogicaDatos : FichaEnriquecida'
 end
-
-go
-
 
 
 GO
 USE BelcorpGuatemala
 GO
 
-go
-
 print db_name()
 
 declare @tabla_logica_flag_funcional smallint = 158
@@ -297,21 +265,16 @@ begin
 	,@tabla_logica_flag_funcional
 	,@flag_codigo
 	,'Permite habilitar la funcionalidad de ficha enriquecida para desktop y mobile. 0 : Deshabilitar, 1: Habilitar'
-	,'0'
+	,'1'
 	)
 	print 'end of inserting into TablaLogicaDatos : FichaEnriquecida'
 end
-
-go
-
 
 
 GO
 USE BelcorpEcuador
 GO
 
-go
-
 print db_name()
 
 declare @tabla_logica_flag_funcional smallint = 158
@@ -341,21 +304,16 @@ begin
 	,@tabla_logica_flag_funcional
 	,@flag_codigo
 	,'Permite habilitar la funcionalidad de ficha enriquecida para desktop y mobile. 0 : Deshabilitar, 1: Habilitar'
-	,'0'
+	,'1'
 	)
 	print 'end of inserting into TablaLogicaDatos : FichaEnriquecida'
 end
-
-go
-
 
 
 GO
 USE BelcorpDominicana
 GO
 
-go
-
 print db_name()
 
 declare @tabla_logica_flag_funcional smallint = 158
@@ -385,21 +343,16 @@ begin
 	,@tabla_logica_flag_funcional
 	,@flag_codigo
 	,'Permite habilitar la funcionalidad de ficha enriquecida para desktop y mobile. 0 : Deshabilitar, 1: Habilitar'
-	,'0'
+	,'1'
 	)
 	print 'end of inserting into TablaLogicaDatos : FichaEnriquecida'
 end
-
-go
-
 
 
 GO
 USE BelcorpCostaRica
 GO
 
-go
-
 print db_name()
 
 declare @tabla_logica_flag_funcional smallint = 158
@@ -429,21 +382,16 @@ begin
 	,@tabla_logica_flag_funcional
 	,@flag_codigo
 	,'Permite habilitar la funcionalidad de ficha enriquecida para desktop y mobile. 0 : Deshabilitar, 1: Habilitar'
-	,'0'
+	,'1'
 	)
 	print 'end of inserting into TablaLogicaDatos : FichaEnriquecida'
 end
-
-go
-
 
 
 GO
 USE BelcorpChile
 GO
 
-go
-
 print db_name()
 
 declare @tabla_logica_flag_funcional smallint = 158
@@ -473,21 +421,16 @@ begin
 	,@tabla_logica_flag_funcional
 	,@flag_codigo
 	,'Permite habilitar la funcionalidad de ficha enriquecida para desktop y mobile. 0 : Deshabilitar, 1: Habilitar'
-	,'0'
+	,'1'
 	)
 	print 'end of inserting into TablaLogicaDatos : FichaEnriquecida'
 end
-
-go
-
 
 
 GO
 USE BelcorpBolivia
 GO
 
-go
-
 print db_name()
 
 declare @tabla_logica_flag_funcional smallint = 158
@@ -517,13 +460,10 @@ begin
 	,@tabla_logica_flag_funcional
 	,@flag_codigo
 	,'Permite habilitar la funcionalidad de ficha enriquecida para desktop y mobile. 0 : Deshabilitar, 1: Habilitar'
-	,'0'
+	,'1'
 	)
 	print 'end of inserting into TablaLogicaDatos : FichaEnriquecida'
 end
-
-go
-
 
 
 GO

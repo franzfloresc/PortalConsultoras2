@@ -39,9 +39,9 @@ SELECT
 	,0 AS OrigenPedidoWebFicha
 
 FROM @CuvsKits AS KIT 
-	LEFT JOIN ods.productocomercial AS PROD ON PROD.CUV = KIT.Cuv AND PROD.AnoCampania= @Campania
-	LEFT JOIN Marca MAR ON MAR.MarcaID = PROD.MarcaID
-	LEFT JOIN EstrategiaImagenKit ik on PROD.AnoCampania = ik.CampaniaID and PROD.CUV = ik.CUV	
+	LEFT JOIN ods.productocomercial AS PROD WITH (NOLOCK) ON PROD.CUV = KIT.Cuv AND PROD.AnoCampania= @Campania
+	LEFT JOIN Marca MAR WITH (NOLOCK) ON MAR.MarcaID = PROD.MarcaID
+	LEFT JOIN EstrategiaImagenKit ik WITH (NOLOCK) on PROD.AnoCampania = ik.CampaniaID and PROD.CUV = ik.CUV	
 END
 GO
 
@@ -86,9 +86,9 @@ SELECT
 	,0 AS OrigenPedidoWebFicha
 
 FROM @CuvsKits AS KIT 
-	LEFT JOIN ods.productocomercial AS PROD ON PROD.CUV = KIT.Cuv AND PROD.AnoCampania= @Campania
-	LEFT JOIN Marca MAR ON MAR.MarcaID = PROD.MarcaID
-	LEFT JOIN EstrategiaImagenKit ik on PROD.AnoCampania = ik.CampaniaID and PROD.CUV = ik.CUV	
+	LEFT JOIN ods.productocomercial AS PROD WITH (NOLOCK) ON PROD.CUV = KIT.Cuv AND PROD.AnoCampania= @Campania
+	LEFT JOIN Marca MAR WITH (NOLOCK) ON MAR.MarcaID = PROD.MarcaID
+	LEFT JOIN EstrategiaImagenKit ik WITH (NOLOCK) on PROD.AnoCampania = ik.CampaniaID and PROD.CUV = ik.CUV	
 END
 GO
 
@@ -133,9 +133,9 @@ SELECT
 	,0 AS OrigenPedidoWebFicha
 
 FROM @CuvsKits AS KIT 
-	LEFT JOIN ods.productocomercial AS PROD ON PROD.CUV = KIT.Cuv AND PROD.AnoCampania= @Campania
-	LEFT JOIN Marca MAR ON MAR.MarcaID = PROD.MarcaID
-	LEFT JOIN EstrategiaImagenKit ik on PROD.AnoCampania = ik.CampaniaID and PROD.CUV = ik.CUV	
+	LEFT JOIN ods.productocomercial AS PROD WITH (NOLOCK) ON PROD.CUV = KIT.Cuv AND PROD.AnoCampania= @Campania
+	LEFT JOIN Marca MAR WITH (NOLOCK) ON MAR.MarcaID = PROD.MarcaID
+	LEFT JOIN EstrategiaImagenKit ik WITH (NOLOCK) on PROD.AnoCampania = ik.CampaniaID and PROD.CUV = ik.CUV	
 END
 GO
 
@@ -180,9 +180,9 @@ SELECT
 	,0 AS OrigenPedidoWebFicha
 
 FROM @CuvsKits AS KIT 
-	LEFT JOIN ods.productocomercial AS PROD ON PROD.CUV = KIT.Cuv AND PROD.AnoCampania= @Campania
-	LEFT JOIN Marca MAR ON MAR.MarcaID = PROD.MarcaID
-	LEFT JOIN EstrategiaImagenKit ik on PROD.AnoCampania = ik.CampaniaID and PROD.CUV = ik.CUV	
+	LEFT JOIN ods.productocomercial AS PROD WITH (NOLOCK) ON PROD.CUV = KIT.Cuv AND PROD.AnoCampania= @Campania
+	LEFT JOIN Marca MAR WITH (NOLOCK) ON MAR.MarcaID = PROD.MarcaID
+	LEFT JOIN EstrategiaImagenKit ik WITH (NOLOCK) on PROD.AnoCampania = ik.CampaniaID and PROD.CUV = ik.CUV	
 END
 GO
 
@@ -227,9 +227,9 @@ SELECT
 	,0 AS OrigenPedidoWebFicha
 
 FROM @CuvsKits AS KIT 
-	LEFT JOIN ods.productocomercial AS PROD ON PROD.CUV = KIT.Cuv AND PROD.AnoCampania= @Campania
-	LEFT JOIN Marca MAR ON MAR.MarcaID = PROD.MarcaID
-	LEFT JOIN EstrategiaImagenKit ik on PROD.AnoCampania = ik.CampaniaID and PROD.CUV = ik.CUV	
+	LEFT JOIN ods.productocomercial AS PROD WITH (NOLOCK) ON PROD.CUV = KIT.Cuv AND PROD.AnoCampania= @Campania
+	LEFT JOIN Marca MAR WITH (NOLOCK) ON MAR.MarcaID = PROD.MarcaID
+	LEFT JOIN EstrategiaImagenKit ik WITH (NOLOCK) on PROD.AnoCampania = ik.CampaniaID and PROD.CUV = ik.CUV	
 END
 GO
 
@@ -274,9 +274,9 @@ SELECT
 	,0 AS OrigenPedidoWebFicha
 
 FROM @CuvsKits AS KIT 
-	LEFT JOIN ods.productocomercial AS PROD ON PROD.CUV = KIT.Cuv AND PROD.AnoCampania= @Campania
-	LEFT JOIN Marca MAR ON MAR.MarcaID = PROD.MarcaID
-	LEFT JOIN EstrategiaImagenKit ik on PROD.AnoCampania = ik.CampaniaID and PROD.CUV = ik.CUV	
+	LEFT JOIN ods.productocomercial AS PROD WITH (NOLOCK) ON PROD.CUV = KIT.Cuv AND PROD.AnoCampania= @Campania
+	LEFT JOIN Marca MAR WITH (NOLOCK) ON MAR.MarcaID = PROD.MarcaID
+	LEFT JOIN EstrategiaImagenKit ik WITH (NOLOCK) on PROD.AnoCampania = ik.CampaniaID and PROD.CUV = ik.CUV	
 END
 GO
 
@@ -321,9 +321,9 @@ SELECT
 	,0 AS OrigenPedidoWebFicha
 
 FROM @CuvsKits AS KIT 
-	LEFT JOIN ods.productocomercial AS PROD ON PROD.CUV = KIT.Cuv AND PROD.AnoCampania= @Campania
-	LEFT JOIN Marca MAR ON MAR.MarcaID = PROD.MarcaID
-	LEFT JOIN EstrategiaImagenKit ik on PROD.AnoCampania = ik.CampaniaID and PROD.CUV = ik.CUV	
+	LEFT JOIN ods.productocomercial AS PROD WITH (NOLOCK) ON PROD.CUV = KIT.Cuv AND PROD.AnoCampania= @Campania
+	LEFT JOIN Marca MAR WITH (NOLOCK) ON MAR.MarcaID = PROD.MarcaID
+	LEFT JOIN EstrategiaImagenKit ik WITH (NOLOCK) on PROD.AnoCampania = ik.CampaniaID and PROD.CUV = ik.CUV	
 END
 GO
 
@@ -368,9 +368,9 @@ SELECT
 	,0 AS OrigenPedidoWebFicha
 
 FROM @CuvsKits AS KIT 
-	LEFT JOIN ods.productocomercial AS PROD ON PROD.CUV = KIT.Cuv AND PROD.AnoCampania= @Campania
-	LEFT JOIN Marca MAR ON MAR.MarcaID = PROD.MarcaID
-	LEFT JOIN EstrategiaImagenKit ik on PROD.AnoCampania = ik.CampaniaID and PROD.CUV = ik.CUV	
+	LEFT JOIN ods.productocomercial AS PROD WITH (NOLOCK) ON PROD.CUV = KIT.Cuv AND PROD.AnoCampania= @Campania
+	LEFT JOIN Marca MAR WITH (NOLOCK) ON MAR.MarcaID = PROD.MarcaID
+	LEFT JOIN EstrategiaImagenKit ik WITH (NOLOCK) on PROD.AnoCampania = ik.CampaniaID and PROD.CUV = ik.CUV	
 END
 GO
 
@@ -415,9 +415,9 @@ SELECT
 	,0 AS OrigenPedidoWebFicha
 
 FROM @CuvsKits AS KIT 
-	LEFT JOIN ods.productocomercial AS PROD ON PROD.CUV = KIT.Cuv AND PROD.AnoCampania= @Campania
-	LEFT JOIN Marca MAR ON MAR.MarcaID = PROD.MarcaID
-	LEFT JOIN EstrategiaImagenKit ik on PROD.AnoCampania = ik.CampaniaID and PROD.CUV = ik.CUV	
+	LEFT JOIN ods.productocomercial AS PROD WITH (NOLOCK) ON PROD.CUV = KIT.Cuv AND PROD.AnoCampania= @Campania
+	LEFT JOIN Marca MAR WITH (NOLOCK) ON MAR.MarcaID = PROD.MarcaID
+	LEFT JOIN EstrategiaImagenKit ik WITH (NOLOCK) on PROD.AnoCampania = ik.CampaniaID and PROD.CUV = ik.CUV	
 END
 GO
 
@@ -462,9 +462,9 @@ SELECT
 	,0 AS OrigenPedidoWebFicha
 
 FROM @CuvsKits AS KIT 
-	LEFT JOIN ods.productocomercial AS PROD ON PROD.CUV = KIT.Cuv AND PROD.AnoCampania= @Campania
-	LEFT JOIN Marca MAR ON MAR.MarcaID = PROD.MarcaID
-	LEFT JOIN EstrategiaImagenKit ik on PROD.AnoCampania = ik.CampaniaID and PROD.CUV = ik.CUV	
+	LEFT JOIN ods.productocomercial AS PROD WITH (NOLOCK) ON PROD.CUV = KIT.Cuv AND PROD.AnoCampania= @Campania
+	LEFT JOIN Marca MAR WITH (NOLOCK) ON MAR.MarcaID = PROD.MarcaID
+	LEFT JOIN EstrategiaImagenKit ik WITH (NOLOCK) on PROD.AnoCampania = ik.CampaniaID and PROD.CUV = ik.CUV	
 END
 GO
 
@@ -509,9 +509,9 @@ SELECT
 	,0 AS OrigenPedidoWebFicha
 
 FROM @CuvsKits AS KIT 
-	LEFT JOIN ods.productocomercial AS PROD ON PROD.CUV = KIT.Cuv AND PROD.AnoCampania= @Campania
-	LEFT JOIN Marca MAR ON MAR.MarcaID = PROD.MarcaID
-	LEFT JOIN EstrategiaImagenKit ik on PROD.AnoCampania = ik.CampaniaID and PROD.CUV = ik.CUV	
+	LEFT JOIN ods.productocomercial AS PROD WITH (NOLOCK) ON PROD.CUV = KIT.Cuv AND PROD.AnoCampania= @Campania
+	LEFT JOIN Marca MAR WITH (NOLOCK) ON MAR.MarcaID = PROD.MarcaID
+	LEFT JOIN EstrategiaImagenKit ik WITH (NOLOCK) on PROD.AnoCampania = ik.CampaniaID and PROD.CUV = ik.CUV	
 END
 GO
 
@@ -556,9 +556,9 @@ SELECT
 	,0 AS OrigenPedidoWebFicha
 
 FROM @CuvsKits AS KIT 
-	LEFT JOIN ods.productocomercial AS PROD ON PROD.CUV = KIT.Cuv AND PROD.AnoCampania= @Campania
-	LEFT JOIN Marca MAR ON MAR.MarcaID = PROD.MarcaID
-	LEFT JOIN EstrategiaImagenKit ik on PROD.AnoCampania = ik.CampaniaID and PROD.CUV = ik.CUV	
+	LEFT JOIN ods.productocomercial AS PROD WITH (NOLOCK) ON PROD.CUV = KIT.Cuv AND PROD.AnoCampania= @Campania
+	LEFT JOIN Marca MAR WITH (NOLOCK) ON MAR.MarcaID = PROD.MarcaID
+	LEFT JOIN EstrategiaImagenKit ik WITH (NOLOCK) on PROD.AnoCampania = ik.CampaniaID and PROD.CUV = ik.CUV	
 END
 GO
 

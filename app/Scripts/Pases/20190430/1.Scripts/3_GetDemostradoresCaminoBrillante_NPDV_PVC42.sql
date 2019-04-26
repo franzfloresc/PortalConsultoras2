@@ -43,11 +43,11 @@ SELECT
 	,0 AS TipoEstrategiaID
 	,0 AS OrigenPedidoWebFicha
 
-FROM ods.productocomercial AS PROD LEFT JOIN dbo.Estrategia AS EST
+FROM ods.productocomercial AS PROD WITH (NOLOCK) LEFT JOIN dbo.Estrategia AS EST
 	ON PROD.CUV = EST.CUV2 AND EST.CampaniaID = PROD.AnoCampania 
-	LEFT JOIN Marca MAR 
+	LEFT JOIN Marca MAR WITH (NOLOCK)
 	ON MAR.MarcaID = PROD.MarcaID
-	LEFT JOIN dbo.EstrategiaImagen AS EIM 
+	LEFT JOIN dbo.EstrategiaImagen AS EIM WITH (NOLOCK)
 	ON EIM.CampaniaID = PROD.AnoCampania  AND EIM.CUV = PROD.CUV
 WHERE PROD.AnoCampania = @AnoCampania
 	and PROD.CodigoCatalago = 35 
@@ -101,11 +101,11 @@ SELECT
 	,0 AS TipoEstrategiaID
 	,0 AS OrigenPedidoWebFicha
 
-FROM ods.productocomercial AS PROD LEFT JOIN dbo.Estrategia AS EST
+FROM ods.productocomercial AS PROD WITH (NOLOCK) LEFT JOIN dbo.Estrategia AS EST
 	ON PROD.CUV = EST.CUV2 AND EST.CampaniaID = PROD.AnoCampania 
-	LEFT JOIN Marca MAR 
+	LEFT JOIN Marca MAR WITH (NOLOCK)
 	ON MAR.MarcaID = PROD.MarcaID
-	LEFT JOIN dbo.EstrategiaImagen AS EIM 
+	LEFT JOIN dbo.EstrategiaImagen AS EIM WITH (NOLOCK)
 	ON EIM.CampaniaID = PROD.AnoCampania  AND EIM.CUV = PROD.CUV
 WHERE PROD.AnoCampania = @AnoCampania
 	and PROD.CodigoCatalago = 35 
@@ -159,11 +159,11 @@ SELECT
 	,0 AS TipoEstrategiaID
 	,0 AS OrigenPedidoWebFicha
 
-FROM ods.productocomercial AS PROD LEFT JOIN dbo.Estrategia AS EST
+FROM ods.productocomercial AS PROD WITH (NOLOCK) LEFT JOIN dbo.Estrategia AS EST
 	ON PROD.CUV = EST.CUV2 AND EST.CampaniaID = PROD.AnoCampania 
-	LEFT JOIN Marca MAR 
+	LEFT JOIN Marca MAR WITH (NOLOCK)
 	ON MAR.MarcaID = PROD.MarcaID
-	LEFT JOIN dbo.EstrategiaImagen AS EIM 
+	LEFT JOIN dbo.EstrategiaImagen AS EIM WITH (NOLOCK)
 	ON EIM.CampaniaID = PROD.AnoCampania  AND EIM.CUV = PROD.CUV
 WHERE PROD.AnoCampania = @AnoCampania
 	and PROD.CodigoCatalago = 35 
@@ -217,11 +217,11 @@ SELECT
 	,0 AS TipoEstrategiaID
 	,0 AS OrigenPedidoWebFicha
 
-FROM ods.productocomercial AS PROD LEFT JOIN dbo.Estrategia AS EST
+FROM ods.productocomercial AS PROD WITH (NOLOCK) LEFT JOIN dbo.Estrategia AS EST
 	ON PROD.CUV = EST.CUV2 AND EST.CampaniaID = PROD.AnoCampania 
-	LEFT JOIN Marca MAR 
+	LEFT JOIN Marca MAR WITH (NOLOCK)
 	ON MAR.MarcaID = PROD.MarcaID
-	LEFT JOIN dbo.EstrategiaImagen AS EIM 
+	LEFT JOIN dbo.EstrategiaImagen AS EIM WITH (NOLOCK)
 	ON EIM.CampaniaID = PROD.AnoCampania  AND EIM.CUV = PROD.CUV
 WHERE PROD.AnoCampania = @AnoCampania
 	and PROD.CodigoCatalago = 35 
@@ -275,11 +275,11 @@ SELECT
 	,0 AS TipoEstrategiaID
 	,0 AS OrigenPedidoWebFicha
 
-FROM ods.productocomercial AS PROD LEFT JOIN dbo.Estrategia AS EST
+FROM ods.productocomercial AS PROD WITH (NOLOCK) LEFT JOIN dbo.Estrategia AS EST
 	ON PROD.CUV = EST.CUV2 AND EST.CampaniaID = PROD.AnoCampania 
-	LEFT JOIN Marca MAR 
+	LEFT JOIN Marca MAR WITH (NOLOCK)
 	ON MAR.MarcaID = PROD.MarcaID
-	LEFT JOIN dbo.EstrategiaImagen AS EIM 
+	LEFT JOIN dbo.EstrategiaImagen AS EIM WITH (NOLOCK)
 	ON EIM.CampaniaID = PROD.AnoCampania  AND EIM.CUV = PROD.CUV
 WHERE PROD.AnoCampania = @AnoCampania
 	and PROD.CodigoCatalago = 35 
@@ -333,11 +333,11 @@ SELECT
 	,0 AS TipoEstrategiaID
 	,0 AS OrigenPedidoWebFicha
 
-FROM ods.productocomercial AS PROD LEFT JOIN dbo.Estrategia AS EST
+FROM ods.productocomercial AS PROD WITH (NOLOCK) LEFT JOIN dbo.Estrategia AS EST
 	ON PROD.CUV = EST.CUV2 AND EST.CampaniaID = PROD.AnoCampania 
-	LEFT JOIN Marca MAR 
+	LEFT JOIN Marca MAR WITH (NOLOCK)
 	ON MAR.MarcaID = PROD.MarcaID
-	LEFT JOIN dbo.EstrategiaImagen AS EIM 
+	LEFT JOIN dbo.EstrategiaImagen AS EIM WITH (NOLOCK)
 	ON EIM.CampaniaID = PROD.AnoCampania  AND EIM.CUV = PROD.CUV
 WHERE PROD.AnoCampania = @AnoCampania
 	and PROD.CodigoCatalago = 35 
@@ -391,11 +391,11 @@ SELECT
 	,0 AS TipoEstrategiaID
 	,0 AS OrigenPedidoWebFicha
 
-FROM ods.productocomercial AS PROD LEFT JOIN dbo.Estrategia AS EST
+FROM ods.productocomercial AS PROD WITH (NOLOCK) LEFT JOIN dbo.Estrategia AS EST
 	ON PROD.CUV = EST.CUV2 AND EST.CampaniaID = PROD.AnoCampania 
-	LEFT JOIN Marca MAR 
+	LEFT JOIN Marca MAR WITH (NOLOCK)
 	ON MAR.MarcaID = PROD.MarcaID
-	LEFT JOIN dbo.EstrategiaImagen AS EIM 
+	LEFT JOIN dbo.EstrategiaImagen AS EIM WITH (NOLOCK)
 	ON EIM.CampaniaID = PROD.AnoCampania  AND EIM.CUV = PROD.CUV
 WHERE PROD.AnoCampania = @AnoCampania
 	and PROD.CodigoCatalago = 35 
@@ -449,11 +449,11 @@ SELECT
 	,0 AS TipoEstrategiaID
 	,0 AS OrigenPedidoWebFicha
 
-FROM ods.productocomercial AS PROD LEFT JOIN dbo.Estrategia AS EST
+FROM ods.productocomercial AS PROD WITH (NOLOCK) LEFT JOIN dbo.Estrategia AS EST
 	ON PROD.CUV = EST.CUV2 AND EST.CampaniaID = PROD.AnoCampania 
-	LEFT JOIN Marca MAR 
+	LEFT JOIN Marca MAR WITH (NOLOCK)
 	ON MAR.MarcaID = PROD.MarcaID
-	LEFT JOIN dbo.EstrategiaImagen AS EIM 
+	LEFT JOIN dbo.EstrategiaImagen AS EIM WITH (NOLOCK)
 	ON EIM.CampaniaID = PROD.AnoCampania  AND EIM.CUV = PROD.CUV
 WHERE PROD.AnoCampania = @AnoCampania
 	and PROD.CodigoCatalago = 35 
@@ -507,11 +507,11 @@ SELECT
 	,0 AS TipoEstrategiaID
 	,0 AS OrigenPedidoWebFicha
 
-FROM ods.productocomercial AS PROD LEFT JOIN dbo.Estrategia AS EST
+FROM ods.productocomercial AS PROD WITH (NOLOCK) LEFT JOIN dbo.Estrategia AS EST
 	ON PROD.CUV = EST.CUV2 AND EST.CampaniaID = PROD.AnoCampania 
-	LEFT JOIN Marca MAR 
+	LEFT JOIN Marca MAR WITH (NOLOCK)
 	ON MAR.MarcaID = PROD.MarcaID
-	LEFT JOIN dbo.EstrategiaImagen AS EIM 
+	LEFT JOIN dbo.EstrategiaImagen AS EIM WITH (NOLOCK)
 	ON EIM.CampaniaID = PROD.AnoCampania  AND EIM.CUV = PROD.CUV
 WHERE PROD.AnoCampania = @AnoCampania
 	and PROD.CodigoCatalago = 35 
@@ -565,11 +565,11 @@ SELECT
 	,0 AS TipoEstrategiaID
 	,0 AS OrigenPedidoWebFicha
 
-FROM ods.productocomercial AS PROD LEFT JOIN dbo.Estrategia AS EST
+FROM ods.productocomercial AS PROD WITH (NOLOCK) LEFT JOIN dbo.Estrategia AS EST
 	ON PROD.CUV = EST.CUV2 AND EST.CampaniaID = PROD.AnoCampania 
-	LEFT JOIN Marca MAR 
+	LEFT JOIN Marca MAR WITH (NOLOCK)
 	ON MAR.MarcaID = PROD.MarcaID
-	LEFT JOIN dbo.EstrategiaImagen AS EIM 
+	LEFT JOIN dbo.EstrategiaImagen AS EIM WITH (NOLOCK)
 	ON EIM.CampaniaID = PROD.AnoCampania  AND EIM.CUV = PROD.CUV
 WHERE PROD.AnoCampania = @AnoCampania
 	and PROD.CodigoCatalago = 35 
@@ -623,11 +623,11 @@ SELECT
 	,0 AS TipoEstrategiaID
 	,0 AS OrigenPedidoWebFicha
 
-FROM ods.productocomercial AS PROD LEFT JOIN dbo.Estrategia AS EST
+FROM ods.productocomercial AS PROD WITH (NOLOCK) LEFT JOIN dbo.Estrategia AS EST
 	ON PROD.CUV = EST.CUV2 AND EST.CampaniaID = PROD.AnoCampania 
-	LEFT JOIN Marca MAR 
+	LEFT JOIN Marca MAR WITH (NOLOCK)
 	ON MAR.MarcaID = PROD.MarcaID
-	LEFT JOIN dbo.EstrategiaImagen AS EIM 
+	LEFT JOIN dbo.EstrategiaImagen AS EIM WITH (NOLOCK)
 	ON EIM.CampaniaID = PROD.AnoCampania  AND EIM.CUV = PROD.CUV
 WHERE PROD.AnoCampania = @AnoCampania
 	and PROD.CodigoCatalago = 35 
@@ -681,11 +681,11 @@ SELECT
 	,0 AS TipoEstrategiaID
 	,0 AS OrigenPedidoWebFicha
 
-FROM ods.productocomercial AS PROD LEFT JOIN dbo.Estrategia AS EST
+FROM ods.productocomercial AS PROD WITH (NOLOCK) LEFT JOIN dbo.Estrategia AS EST
 	ON PROD.CUV = EST.CUV2 AND EST.CampaniaID = PROD.AnoCampania 
-	LEFT JOIN Marca MAR 
+	LEFT JOIN Marca MAR WITH (NOLOCK)
 	ON MAR.MarcaID = PROD.MarcaID
-	LEFT JOIN dbo.EstrategiaImagen AS EIM 
+	LEFT JOIN dbo.EstrategiaImagen AS EIM WITH (NOLOCK)
 	ON EIM.CampaniaID = PROD.AnoCampania  AND EIM.CUV = PROD.CUV
 WHERE PROD.AnoCampania = @AnoCampania
 	and PROD.CodigoCatalago = 35 

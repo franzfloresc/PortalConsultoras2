@@ -19,7 +19,7 @@ SELECT
    ComoLograrlo_Titulo AS ComoLograrlo_Titulo, 
    ComoLograrlo_Descripcion AS ComoLograrlo_Descripcion, 
    Estado Estado
- FROM  ConfiguracionMedallaCaminoBrillante  
+ FROM  ConfiguracionMedallaCaminoBrillante  WITH (NOLOCK)
  ORDER BY Logro, Indicador, Orden
 
  END
@@ -46,7 +46,7 @@ SELECT
    ComoLograrlo_Titulo AS ComoLograrlo_Titulo, 
    ComoLograrlo_Descripcion AS ComoLograrlo_Descripcion, 
    Estado Estado
- FROM  ConfiguracionMedallaCaminoBrillante  
+ FROM  ConfiguracionMedallaCaminoBrillante  WITH (NOLOCK)
  ORDER BY Logro, Indicador, Orden
 
  END
@@ -73,7 +73,7 @@ SELECT
    ComoLograrlo_Titulo AS ComoLograrlo_Titulo, 
    ComoLograrlo_Descripcion AS ComoLograrlo_Descripcion, 
    Estado Estado
- FROM  ConfiguracionMedallaCaminoBrillante  
+ FROM  ConfiguracionMedallaCaminoBrillante  WITH (NOLOCK)
  ORDER BY Logro, Indicador, Orden
 
  END
@@ -100,7 +100,7 @@ SELECT
    ComoLograrlo_Titulo AS ComoLograrlo_Titulo, 
    ComoLograrlo_Descripcion AS ComoLograrlo_Descripcion, 
    Estado Estado
- FROM  ConfiguracionMedallaCaminoBrillante  
+ FROM  ConfiguracionMedallaCaminoBrillante  WITH (NOLOCK)
  ORDER BY Logro, Indicador, Orden
 
  END
@@ -127,7 +127,7 @@ SELECT
    ComoLograrlo_Titulo AS ComoLograrlo_Titulo, 
    ComoLograrlo_Descripcion AS ComoLograrlo_Descripcion, 
    Estado Estado
- FROM  ConfiguracionMedallaCaminoBrillante  
+ FROM  ConfiguracionMedallaCaminoBrillante  WITH (NOLOCK)
  ORDER BY Logro, Indicador, Orden
 
  END
@@ -154,7 +154,7 @@ SELECT
    ComoLograrlo_Titulo AS ComoLograrlo_Titulo, 
    ComoLograrlo_Descripcion AS ComoLograrlo_Descripcion, 
    Estado Estado
- FROM  ConfiguracionMedallaCaminoBrillante  
+ FROM  ConfiguracionMedallaCaminoBrillante  WITH (NOLOCK)
  ORDER BY Logro, Indicador, Orden
 
  END
@@ -181,7 +181,7 @@ SELECT
    ComoLograrlo_Titulo AS ComoLograrlo_Titulo, 
    ComoLograrlo_Descripcion AS ComoLograrlo_Descripcion, 
    Estado Estado
- FROM  ConfiguracionMedallaCaminoBrillante  
+ FROM  ConfiguracionMedallaCaminoBrillante  WITH (NOLOCK)
  ORDER BY Logro, Indicador, Orden
 
  END
@@ -208,7 +208,7 @@ SELECT
    ComoLograrlo_Titulo AS ComoLograrlo_Titulo, 
    ComoLograrlo_Descripcion AS ComoLograrlo_Descripcion, 
    Estado Estado
- FROM  ConfiguracionMedallaCaminoBrillante  
+ FROM  ConfiguracionMedallaCaminoBrillante  WITH (NOLOCK)
  ORDER BY Logro, Indicador, Orden
 
  END
@@ -235,7 +235,7 @@ SELECT
    ComoLograrlo_Titulo AS ComoLograrlo_Titulo, 
    ComoLograrlo_Descripcion AS ComoLograrlo_Descripcion, 
    Estado Estado
- FROM  ConfiguracionMedallaCaminoBrillante  
+ FROM  ConfiguracionMedallaCaminoBrillante  WITH (NOLOCK)
  ORDER BY Logro, Indicador, Orden
 
  END
@@ -262,7 +262,7 @@ SELECT
    ComoLograrlo_Titulo AS ComoLograrlo_Titulo, 
    ComoLograrlo_Descripcion AS ComoLograrlo_Descripcion, 
    Estado Estado
- FROM  ConfiguracionMedallaCaminoBrillante  
+ FROM  ConfiguracionMedallaCaminoBrillante  WITH (NOLOCK)
  ORDER BY Logro, Indicador, Orden
 
  END
@@ -289,7 +289,7 @@ SELECT
    ComoLograrlo_Titulo AS ComoLograrlo_Titulo, 
    ComoLograrlo_Descripcion AS ComoLograrlo_Descripcion, 
    Estado Estado
- FROM  ConfiguracionMedallaCaminoBrillante  
+ FROM  ConfiguracionMedallaCaminoBrillante  WITH (NOLOCK)
  ORDER BY Logro, Indicador, Orden
 
  END
@@ -316,7 +316,7 @@ SELECT
    ComoLograrlo_Titulo AS ComoLograrlo_Titulo, 
    ComoLograrlo_Descripcion AS ComoLograrlo_Descripcion, 
    Estado Estado
- FROM  ConfiguracionMedallaCaminoBrillante  
+ FROM  ConfiguracionMedallaCaminoBrillante  WITH (NOLOCK)
  ORDER BY Logro, Indicador, Orden
 
  END

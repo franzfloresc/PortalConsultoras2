@@ -3634,7 +3634,7 @@ namespace Portal.Consultoras.Common
         }
 
         //HD-3606 EINCA
-        public class SegPedidoSituacion
+        public static class SegPedidoSituacion
         {
             public const int PedidoRecibido = 1;
             public const int Facturado = 2;

@@ -34,7 +34,7 @@
                     </div>
                     {{#iff PrecioCatalogo '>' 0}}
                     <div class="col-md-12 col-sm-12 col-xs-12 descripcion_item precio">
-                        Para tu cliente <b>{{SimboloMoneda}} {{PrecioCatalogo}}</b>
+                        Para tu cliente <b>{{SimboloMoneda}} {{DecimalToStringFormat PrecioCatalogo}}</b>
                     </div>
                     {{/iff}}
                     <div class="tabs">

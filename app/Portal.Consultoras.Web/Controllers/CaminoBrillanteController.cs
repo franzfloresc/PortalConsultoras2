@@ -71,13 +71,11 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (lstKit != null || lstDemo != null)
             {
-                int cantDemo = lstDemo.Count();
                 var model = lstKit;
                 ViewBag.Demostradores = lstDemo;             
                 return View(model);
             }
-            else
-                return RedirectToAction("Index", "CaminoBrillante");
+            else return RedirectToAction("Index", "CaminoBrillante");
         }
 
         public ActionResult Crecimiento()

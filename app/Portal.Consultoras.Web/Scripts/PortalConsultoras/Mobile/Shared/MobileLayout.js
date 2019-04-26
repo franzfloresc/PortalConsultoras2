@@ -829,18 +829,6 @@ function messageInfoValidado(message, fnAceptar) {
     }
 }
 
-function messageConfirmacion(title, message, fnAceptar) {
-    $('#mensajeInformacionConfirmacion').html(message);
-    $('#popupInformacionConfirmacion').show();
-    title = $.trim(title);
-    title = title == "" ? "MENSAJE" : title;
-    $('#popupInformacionConfirmacion #bTagTitulo').html(title);
-    if ($.isFunction(fnAceptar)) {
-        $('#popupInformacionConfirmacion .aceptar-mobile').off('click');
-        $('#popupInformacionConfirmacion .aceptar-mobile').on('click', fnAceptar);
-    }
-}
-
 function messageConfirmacion(title, message, fnAceptar, fnCancelar) {
     $('#mensajeInformacionConfirmacion').html(message);
     $('#popupInformacionConfirmacion').show();
