@@ -2863,17 +2863,6 @@ namespace Portal.Consultoras.BizLogic
         {
             var DAUsuario = new DAUsuario(paisID);
             DAUsuario.GetOpcionHabilitada(oDatos.CodigoUsuario, origenID);
-            //using (IDataReader rd = DAUsuario.GetOpcionHabilitada(oDatos.CodigoUsuario, origenID))
-            //{
-            //    if (rd.Read())
-            //    {
-            //        oDatos.OpcionCorreoDesabilitado = rd.GetString(0);
-            //        oDatos.OpcionSmsDesabilitado = rd.GetString(1);
-            //        oDatos.HoraRestanteCorreo = rd.GetInt32(2);
-            //        oDatos.HoraRestanteSms = rd.GetInt32(3);
-            //    }
-            //}
-            //return oDatos;
         }
 
         private bool GetHorarioByCodigo(int paisID, string origen, out string descripcion)
