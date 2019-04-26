@@ -113,6 +113,10 @@ $(document).ready(function () {
         document.getElementsByClassName('tooltip_info_revision_correo')[0].style.display = 'none';
     });
 
+    $('.cam-exito a').click(function () {
+        BotonAbrirCaminoBrillante();
+    });
+
     document.onkeydown = function (evt) {
         evt = evt || window.event;
         if (evt.keyCode == 27) {
@@ -212,6 +216,8 @@ $(document).ready(function () {
 
     });
 
+
+    //GetNivelConsultoraCaminoBrillante();
     CrearDialogs();
     CargarCarouselEstrategias();
     if (_validartieneMasVendidos() === 1) {
@@ -3307,4 +3313,14 @@ function ObtenerEstadoContrato() {
     });
 
     return re;
+}
+
+function BotonAbrirCaminoBrillante() {
+    dataLayer.push(
+        {
+            'event': 'virtualEvent',
+            'category': 'Home',
+            'action': 'Clic botón',
+            'label': 'Ver Beneficios'
+        });
 }

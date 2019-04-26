@@ -2028,6 +2028,17 @@ namespace Portal.Consultoras.Web.Controllers
                             case Constantes.ConfiguracionPais.DireccionEntrega:
                                 usuarioModel.TieneDireccionEntrega = c.Estado;
                                 break;
+                            case Constantes.ConfiguracionPais.CaminoBrillante:
+                                usuarioModel.CaminoBrillante = c.Estado;
+                                var listas = configuracionPaisDatos.Where(n => n.Codigo == Constantes.ConfiguracionPais.CaminoBrillanteMsg).ToList();
+                                if (listas.Any())
+                                {
+                                    usuarioModel.CaminoBrillanteMsg = listas[0].Valor1;
+                                }
+ 
+                                break;
+
+
                         }
 
                         listaConfiPaisModel.Add(c);

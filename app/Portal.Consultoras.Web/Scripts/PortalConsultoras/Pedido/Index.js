@@ -632,6 +632,40 @@ function CargarDetallePedido(page, rows, asyncrono) {
                         $("ul.paginador_notificaciones").hide();
                     }
                 }
+                // camino brillante
+                
+                var filas = document.getElementById('tbListaPedido').children[1].getElementsByClassName('contenido_ingresoPedido mouse_encima');
+
+                
+                var Eskits = false;
+                if (filas != null) {
+
+                    for (var i = 0; i < filas.length; i++) {
+
+                        if (filas[i].children[0].getElementsByClassName('texto_pedidos_ofertas')[0].firstElementChild.innerHTML == 'CAMINOBRILLANTE') {
+
+                            for (var j = 0; j < kitsCaminoBrillante.length; j++) {
+                                if (filas[i].getAttribute('data-cuv') == kitsCaminoBrillante[j].Cuv) {
+                                    Eskits = true;
+                                }
+                            }
+
+                            if (Eskits == true) {
+                                filas[i].children[1].children[1].children[1].children[0].className = 'desactivo';
+                                filas[i].children[1].children[1].children[1].children[0].onclick = function (e) {
+                                    e.preventDefault();
+                                }
+                                filas[i].children[1].children[1].children[1].children[1].className = 'desactivo';
+                                filas[i].children[1].children[1].children[1].children[1].onclick = function (e) {
+                                    e.preventDefault();
+                                }
+
+                                filas[0].children[1].children[1].children[0].disabled = 'disabled';
+                            }
+                        }
+                    }
+                }
+                
             }
         })
         .fail(function (response, error) {

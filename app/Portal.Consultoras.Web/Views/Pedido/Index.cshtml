@@ -4,12 +4,36 @@
 
 @{
     ViewBag.Title = "Ingresa tu Pedido";
+    
 }
 
 @section styles{
     @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/Site-CssPedido")
 
+   
+
 }
+<style>
+    .desactive-mas-menos {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 100%;
+        background: gray;
+        opacity: 0.6;
+        cursor: not-allowed;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 10;
+    }
+    .desactivo {
+        pointer-events: none;
+        cursor:none;
+        text-decoration:none; 
+        opacity: 0.4;
+    }
+</style>
 
 <div class="franja_negra" style="background: #000 url(@ViewBag.UrlFranjaNegra) no-repeat center bottom;"></div>
 <div class="envolvente_pop_up">
@@ -1973,6 +1997,10 @@
         var maxCaracteresRecomendaciones = '@ViewBag.MaxCaracteresRecomendaciones';
         var ClasPedidoDetalle = '@Constantes.ClasificadorPedido.PedidoDetalle';
         var ClasPedidoDetallePendiente = '@Constantes.ClasificadorPedido.PedidoDetallePendiente';
+        var kitsCaminoBrillante = '@ViewBag.KitsCaminoBrillante';
+
+        
+
     </script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/SB2-Pedido")
     @if (HttpContext.Current.Request.Browser.IsMobileDevice)
