@@ -1090,10 +1090,6 @@ var FichaPartialModule = (function () {
         if (producto === 'undefined')
             producto = $(event).find(".desc_prod").find("span").html();
 
-        isChangeTono = false;
-        isChangeCantidad = false;
-        isChangeCliente = false;
-
         if (typeof AnalyticsPortalModule !== 'undefined') {
             AnalyticsPortalModule.MarcaFichaResumidaClickDetalleProducto(producto);
         }
