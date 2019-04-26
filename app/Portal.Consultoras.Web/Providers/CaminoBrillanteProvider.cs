@@ -258,7 +258,7 @@ namespace Portal.Consultoras.Web.Providers
         public bool ValidacionCaminoBrillante()
         {
             var informacion = GetConsultoraNivelCaminoBrillante();
-            if (informacion == null || informacion.NivelConsultora == null || informacion.NivelConsultora.Count() == 0) return false;
+            if (informacion == null || informacion.NivelConsultora == null || !informacion.NivelConsultora.Any()) return false;
             return true;
         }
 
