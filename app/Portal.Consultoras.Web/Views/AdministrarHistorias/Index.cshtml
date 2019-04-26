@@ -50,12 +50,17 @@
                 </div>
 
                 <div class="div-3">
-                    <div class="titG">Imagen:</div>
+                    <div class="titG">
+                        <span id="">Imagen:</span>
+                        <h6 id="">(@Model.Ancho x @Model.Alto pixeles)</h6>
+                    </div>
+
                     <div class="fondo_left">
                         <div class="fondo_image">
                             @Html.HiddenFor(model => model.IdContenido)
                             @Html.HiddenFor(model => model.Codigo)
-                            @Html.HiddenFor(model => model.NombreImagen)
+                            @Html.HiddenFor(model => model.NombreImagen, new { id = "NombreImagen", imageextension = "jpg", imagewidth = @Model.Ancho, imageheight = @Model.Alto, messageSize = "Las medidas no son correctas. Vuelve a intentar, por favor.", messageFormat = "El formato no es correcto. Vuelve a intentar, por favor." })
+
                             <img id="preview" src="@Model.NombreImagenAnterior" alt="Imagen Previa" style="max-width:80px; max-height:100px;" />
                         </div>
                     </div>
@@ -65,29 +70,6 @@
                                 <div id="file-uploader">
                                 </div>
 
-                                <script type="text/javascript">
-                                    var uploader = new qq.FileUploader({
-                                        allowedExtensions: ['jpg', 'png', 'jpeg'],
-                                        element: document.getElementById('file-uploader'),
-                                        action: '@Url.Action("ImageLanzamientoUpload", "FileUpload")',
-                                        onComplete: function (id, fileName, responseJSON) {
-                                            console.log("==>",responseJSON);
-                                            if (checkTimeout(responseJSON)) {
-                                                $(".qq-upload-list").css("display", "none");
-                                                if (responseJSON.success) {
-                                                    $('#NombreImagen').val(responseJSON.name);
-                                                    $('#preview').attr('src', rutaTemporal + responseJSON.name);
-                                                }
-                                                else {
-                                                    alert(responseJSON.message);
-                                                }
-                                            }
-                                        },
-                                        onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); },
-                                        onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
-                                        onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
-                                    });
-                                </script>
                             </div>
                         </div>
 
@@ -124,7 +106,7 @@
             <div class="container clearfix">
                 <div class="border-wrapper">
                     <table id="tblHistoriaDet"></table>
-                    @*<div id="pagerHistoriaDet"></div>*@
+                    <div id="pagerHistoriaDet"></div>
                 </div>
             </div>
         </div>

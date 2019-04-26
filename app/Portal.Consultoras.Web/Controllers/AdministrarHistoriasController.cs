@@ -31,6 +31,8 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Index()
         {
             var model = new AdministrarHistorialModel();
+            string[] arrUrlMiniatura;
+            string[] arrHistAnchoAlto;
 
             try
             {
@@ -40,17 +42,23 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.UrlDetalleS3 = GetUrlDetalleS3();
                 model.ListaCampanias = _zonificacionProvider.GetCampanias(userData.PaisID, true);
 
+                string HistAnchoAlto = ConfigurationManager.AppSettings["HistAnchoAlto"];
+                arrHistAnchoAlto = HistAnchoAlto.Split(',');
+                model.Ancho = arrHistAnchoAlto[0];
+                model.Alto = arrHistAnchoAlto[1];
+
                 BEContenidoApp entidad;
                 using (var sv = new ServiceContenido.ContenidoServiceClient())
                 {
                     entidad = sv.GetContenidoApp(Globals.CodigoHistoriasResumen);
+                    
+
                     model.IdContenido = entidad.IdContenido;
                     model.Codigo = entidad.Codigo;
                     model.Descripcion = entidad.Descripcion;
                     model.Estado = entidad.Estado;
                     model.DesdeCampania = entidad.DesdeCampania;
                     model.CantidadContenido = entidad.CantidadContenido;
-                    model.NombreImagen = entidad.UrlMiniatura;
                 }
 
                 if (entidad.UrlMiniatura == string.Empty)
@@ -60,7 +68,8 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else
                 {
-                    model.NombreImagenAnterior = ViewBag.UrlS3 + entidad.UrlMiniatura;
+                    arrUrlMiniatura = entidad.UrlMiniatura.Split('/');
+                    model.NombreImagenAnterior = ViewBag.UrlS3 + arrUrlMiniatura[5];
                     model.NombreImagen = "";
                 }
                 return View(model);
@@ -98,7 +107,9 @@ namespace Portal.Consultoras.Web.Controllers
                 entidad.UrlMiniatura = beContenidoApp.UrlMiniatura;
                 if (form.NombreImagen != null)
                 {
-                    entidad.UrlMiniatura = SaveFileS3(form.NombreImagen);
+                    string histUrlMiniatura = ConfigurationManager.AppSettings["HistUrlMiniatura"];
+                    entidad.UrlMiniatura = SaveFileS3(form.NombreImagen, true);
+                    entidad.UrlMiniatura = histUrlMiniatura + entidad.UrlMiniatura;
                 }
                 entidad.IdContenido = form.IdContenido;
                 entidad.DesdeCampania = form.DesdeCampania;
@@ -322,8 +333,16 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult GetDetalle(int id, int IdContenido)
         {
+
+            string HistAnchoAlto = ConfigurationManager.AppSettings["HistAnchoAltoDetalle"];
+            string[] arrHistAnchoAlto;
+            arrHistAnchoAlto = HistAnchoAlto.Split(',');
+
             var model = new AdministrarHistorialDetaListModel();
             model.IdContenido = IdContenido;
+            model.Ancho = arrHistAnchoAlto[0];
+            model.Alto = arrHistAnchoAlto[1];
+
             return PartialView("Partials/MantenimientoDetalle", model);
         }
 
@@ -369,13 +388,13 @@ namespace Portal.Consultoras.Web.Controllers
             var resizeImagenApp = false;
 
 
-            model.RutaContenido = SaveFileDetalleS3(model.RutaContenido);
+            model.RutaContenido = SaveFileDetalleS3(model.RutaContenido, true);
             if (model.RutaContenido != string.Empty) resizeImagenApp = true;
 
 
             if (resizeImagenApp)
             {
-                string codeHist = ConfigurationManager.AppSettings["CodeHist"].ToString();
+                string codeHist = ConfigurationManager.AppSettings["CodigoHist"].ToString();
                 var urlImagen = ConfigS3.GetUrlFileHistDetalle(userData.CodigoISO, model.RutaContenido);               
                 new Providers.RenderImgProvider().ImagenesResizeProcesoAppHistDetalle(urlImagen, userData.CodigoISO, userData.PaisID, codeHist);
             }

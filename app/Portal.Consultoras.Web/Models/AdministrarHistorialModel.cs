@@ -13,6 +13,8 @@ namespace Portal.Consultoras.Web.Models
         public int DesdeCampania { set; get; }
         public int CantidadContenido { set; get; }
         public string RutaImagen { set; get; }
+        public string Ancho { get; set; }
+        public string Alto { get; set; }
 
 
         public IEnumerable<CampaniaModel> ListaCampanias { set; get; }

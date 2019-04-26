@@ -14,6 +14,8 @@ namespace Portal.Consultoras.Web.Models
         public int Orden { get; set; }        
         public string Tipo { get; set; }        
         public bool Estado { get; set; }
+        public string Ancho{ get; set; }
+        public string Alto { get; set; }
 
         public object Clone()
         {

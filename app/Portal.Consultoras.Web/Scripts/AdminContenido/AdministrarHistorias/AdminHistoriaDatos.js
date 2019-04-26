@@ -45,7 +45,7 @@
 
     var _GrillaAcciones = function (cellvalue, options, rowObject) {
         var act = "&nbsp;<a href='javascript:;' onclick=\'return admHistoriaDatos.Editar(event);\' >"
-            + "<img src='" + rutaImagenEdit + "' alt='Editar' title='Editar' border='0' /></a>";
+            + "<img src='" + rutaImagenDelete + "' alt='Eliminar' title='Eliminar' border='0' /></a>";
         return act;
     };
 
@@ -239,7 +239,7 @@
                 HideDialog(_elemento.DialogRegistro);
             },
             draggable: false,
-            title: _texto.TituloDialogRegistro,
+            title: "Eliminar",
             open: function (event, ui) { },
             buttons:
             {
@@ -269,7 +269,7 @@
             data: JSON.stringify(listaDatos),
             async: true,
             success: function (data) {
-                console.log(data);
+                //console.log(data);
                 if (data.success) {
                     console.log("exito");
                     HideDialog(_elemento.DialogRegistro);
@@ -293,8 +293,8 @@
             resizable: false,
             modal: true,
             closeOnEscape: true,
-            width: 'auto',
-            height: 'auto',
+            width: 800,
+            height: 570,
             close: function () {
                 HideDialog("DialogImagen");
             },

@@ -18,6 +18,8 @@ var _tipopresentacion = {
 jQuery(document).ready(function () {
     admHistoriaDatos.ini();
     IniDialogDetalle();
+    UploadFile();
+    
 
     $.jgrid.extend({
         EditarOfertas: ModificarDetalle,
@@ -26,7 +28,7 @@ jQuery(document).ready(function () {
 });
 
 function IniDialogDetalle() {
-
+    
     $("#DialogMantenimientoDetalle").dialog({
         autoOpen: false,
         resizable: false,
@@ -126,11 +128,23 @@ function UploadFileDetalle(tag) {
         tipoFile.push("gif");
     }
 
+    var params = {};
+    params["width"] = $("#nombre-" + tag).attr("imagewidth");
+    params["height"] = $("#nombre-" + tag).attr("imageheight");
+    params["messageSize"] = $("#nombre-" + tag).attr("messageSize");
+
+    //console.log(params);
+
     new qq.FileUploader({
         allowedExtensions: tipoFile,
         element: document.getElementById("img-" + tag),
         action: rutaFileUpload,
+        params: params,
+        messages: {
+            typeError: $("#nombre-" + tag).attr("messageFormat")
+        },
         onComplete: function (id, fileName, responseJSON) {
+            //console.log("responseJSON", responseJSON);
             if (checkTimeout(responseJSON)) {
                 if (responseJSON.success) {
                     $("#nombre-" + tag).val(responseJSON.name);
@@ -147,6 +161,42 @@ function UploadFileDetalle(tag) {
     if ($("#nombre-" + tag).val() !== "") {
         $("#src-" + tag).attr("src", urlS3 + $("#nombre-" + tag).val());
     }
+
+    return false;
+}
+function UploadFile() {    
+                      
+    var params = {};
+    params["width"] = $("#NombreImagen").attr("imagewidth");
+    params["height"] = $("#NombreImagen").attr("imageheight");
+    params["messageSize"] = $("#NombreImagen").attr("messageSize");
+    
+    new qq.FileUploader({                                      
+
+        allowedExtensions: ['jpg', 'png', 'jpeg'],
+        element: document.getElementById('file-uploader'),
+        action: rutaFileUpload,
+        params: params,
+        messages: {
+            typeError: $("#NombreImagen").attr("messageFormat")
+        },
+        onComplete: function (id, fileName, responseJSON) {
+            if (checkTimeout(responseJSON)) {
+                $(".qq-upload-list").css("display", "none");
+                if (responseJSON.success) {
+                    $('#NombreImagen').val(responseJSON.name);
+                    $('#preview').attr('src', rutaTemporal + responseJSON.name);
+                }
+                else {
+                    alert(responseJSON.message);
+                }
+            }
+        },
+        onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); },
+        onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
+        onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
+    });
+                     
 
     return false;
 }
