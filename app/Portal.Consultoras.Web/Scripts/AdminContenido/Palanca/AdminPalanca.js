@@ -156,7 +156,7 @@ function ConfigSeccionApp(configuracionPaisID) {
             }
 
             $("#lblBannerApp").html("Banner&nbsp;Informativo&nbsp;(" + result.data.AppOfertasHomeImgExtension + "):");
-            $("#lblMedidasBannerApp").html("(" + result.data.AppOfertasHomeImgAncho + " x " + result.data.AppOfertasHomeImgAlto + " pixelesss)");
+            $("#lblMedidasBannerApp").html("(" + result.data.AppOfertasHomeImgAncho + " x " + result.data.AppOfertasHomeImgAlto + " pixeles)");
 
             UploadFilePalancaApp("fondo-app");
         },
