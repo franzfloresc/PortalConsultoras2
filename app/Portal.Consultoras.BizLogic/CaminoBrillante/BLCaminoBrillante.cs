@@ -49,8 +49,6 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             var tablaLogicaDatosDV = tablaLogicaDatos.FirstOrDefault(e => e.TablaLogicaDatosID == Constantes.CaminoBrillante.Niveles.OfertasEspeciales_TablaLogicaDatos) ?? new BETablaLogicaDatos();
             var TieneOfertasEspecialesDV = "1".Equals(tablaLogicaDatosDV.Valor);
 
-            var paisISO = Util.GetPaisISO(paisId);
-
             return lstNiveles.Select(e => new BENivelCaminoBrillante()
             {
                 CodigoNivel = e.CodigoNivel,
@@ -312,7 +310,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         {
             var _cambioEscalaDescuento = GetConsultoraLogrosCrecimiento_CambioEscalaDescuento(paisId, entidad, nivelConsutora);
             var _cambioNivel = GetConsultoraLogrosCrecimiento_CambioNivel(paisId, entidad, nivelConsutora, nivelesCaminoBrillantes);
-            var _constancia = GetConsultoraLogrosCrecimiento_Constancia(paisId, entidad, nivelConsutora, nivelesConsultora, periodoActual);
+            var _constancia = GetConsultoraLogrosCrecimiento_Constancia(paisId, entidad, nivelesConsultora, periodoActual);
             var _incrementoPedido = GetConsultoraLogrosCrecimiento_IncrementoPedido(paisId, nivelConsutora);
 
             var tablaLogicaDatos = (GetDatosTablaLogica(paisId, ConsTablaLogica.CaminoBrillante.CaminoBrillanteLogros) ?? new List<BETablaLogicaDatos>())
@@ -416,7 +414,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             };
         }
 
-        private BELogroCaminoBrillante.BEIndicadorCaminoBrillante GetConsultoraLogrosCrecimiento_Constancia(int paisId, BEUsuario entidad, NivelConsultoraCaminoBrillante nivelConsultora, List<NivelConsultoraCaminoBrillante> nivelesHistoricosConsultora, BEPeriodoCaminoBrillante periodoActual)
+        private BELogroCaminoBrillante.BEIndicadorCaminoBrillante GetConsultoraLogrosCrecimiento_Constancia(int paisId, BEUsuario entidad, List<NivelConsultoraCaminoBrillante> nivelesHistoricosConsultora, BEPeriodoCaminoBrillante periodoActual)
         {
             var medallaConstancia = new List<BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante>();
             var periodos = GetPeriodos(entidad.PaisID);
@@ -876,11 +874,11 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                
+                return false;
             }
-            return false;
+            
         }
 
         public string ValAgregarCaminiBrillante(BEEstrategia estrategia, BEUsuario usuario, BEPedidoDetalle pedidoDetalle, List<BEPedidoWebDetalle> lstDetalle)
@@ -894,7 +892,6 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
             if (estrategia.LimiteVenta == 1)
             {
-                //UpdateFortest(periodo);
 
                 var kits = GetKits(usuario.PaisID, usuario.CampaniaID, periodo.Periodo, 6);
                 if (kits == null) return Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_NOEXISTE;

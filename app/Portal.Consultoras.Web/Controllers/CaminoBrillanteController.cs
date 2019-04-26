@@ -71,7 +71,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (lstKit != null || lstDemo != null)
             {
-                int cantKit = lstKit.Count();
                 int cantDemo = lstDemo.Count();
                 var model = lstKit;
                 ViewBag.Demostradores = lstDemo;             

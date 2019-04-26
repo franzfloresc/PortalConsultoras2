@@ -32,7 +32,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             if (!flag) return result;
             string urlParameters = isoPais;
             string jsonString = await CallInformacionComercialServices(Url +Constantes.CaminoBrillante.ServicioComercial.GetPeriodo, urlParameters, Token);
-            result = JsonConvert.DeserializeObject<List<PeriodoCaminoBrillante>>(jsonString) as List<PeriodoCaminoBrillante>;
+            result = JsonConvert.DeserializeObject<List<PeriodoCaminoBrillante>>(jsonString);
             return result;
         }
 
@@ -46,7 +46,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             if (!flag) return result;
             string urlParameters = isoPais + "/" + codigoConsultora + "/" + cantidadCampanias;
             string jsonString = await CallInformacionComercialServices(Url + Constantes.CaminoBrillante.ServicioComercial.GetNivelConsultora, urlParameters, Token);
-            result = JsonConvert.DeserializeObject<List<NivelConsultoraCaminoBrillante>>(jsonString) as List<NivelConsultoraCaminoBrillante>;
+            result = JsonConvert.DeserializeObject<List<NivelConsultoraCaminoBrillante>>(jsonString);
             return result;
         }
 
@@ -60,7 +60,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             if (!flag) return result;
             string urlParameters = isoPais;
             string jsonString = await CallInformacionComercialServices(Url + Constantes.CaminoBrillante.ServicioComercial.GetNivel, urlParameters, Token);
-            result = JsonConvert.DeserializeObject<List<NivelCaminoBrillante>>(jsonString) as List<NivelCaminoBrillante>;
+            result = JsonConvert.DeserializeObject<List<NivelCaminoBrillante>>(jsonString);
             return result;
         }
 
@@ -72,7 +72,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             var result = new List<OfertaCaminoBrillante>();
             string urlParameters = string.Format("{0}/{1}", isoPais, campaniaId);
             string jsonString = await CallInformacionComercialServices(Url + Constantes.CaminoBrillante.ServicioComercial.GetOfertas, urlParameters, Token);
-            result = JsonConvert.DeserializeObject<List<OfertaCaminoBrillante>>(jsonString) as List<OfertaCaminoBrillante>;
+            result = JsonConvert.DeserializeObject<List<OfertaCaminoBrillante>>(jsonString);
             return result;
         }
 
@@ -102,7 +102,6 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 client.DefaultRequestHeaders.ConnectionClose = true;
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", token);
                 HttpResponseMessage response = await client.GetAsync(url + urlParameters);
-                HttpContent content = response.Content;
 
                 if (response.IsSuccessStatusCode)
                 {

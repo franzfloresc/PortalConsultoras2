@@ -5,8 +5,8 @@ var tipoOrigen = "1";
 var cargandoRegistros = false;
 var offsetRegistrosDemo = 0;
 var offsetRegistrosKits = 0;
-var verMasKits = false;
-var verMasDemostradores = false;
+var verMasKits = true;
+var verMasDemostradores = true;
 var reservaResponse = {
     data: { Reserva: false }
 };
@@ -236,7 +236,7 @@ function CambiarOferta() {
         $("#divresultadosDemostradores").show();
         document.body.scrollTop = TabDos;
         $(window).scrollTop(TabDos);
-        if (!verMasDemostradores) CargarDemostradores();
+        if (verMasDemostradores) CargarDemostradores();
     });
 }
 
