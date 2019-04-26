@@ -349,6 +349,7 @@ function ContinuarPedido() {
             success: function (response) {
                 //CloseLoading();
                 if (response.success) {
+                    $('#Paso1-Clientes').hide();
                     $('#Paso1-Productos').hide();
                     
                     SetHandlebars("#template-paso-2", response.result, "#contenedor-paso-2");
