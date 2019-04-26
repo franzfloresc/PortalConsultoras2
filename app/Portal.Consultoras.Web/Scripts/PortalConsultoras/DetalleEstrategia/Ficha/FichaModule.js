@@ -267,7 +267,6 @@ var FichaModule = (function (config) {
         var pEstrategia = _modeloFicha();
         if (pEstrategia === null || typeof (pEstrategia) === "undefined") {
             throw "_construirSeccionDetalleFichas, sin Estrategia";
-            return false;
         }
 
         if (!_getModelo().MostrarAdicional) {
@@ -327,7 +326,6 @@ var FichaModule = (function (config) {
         data.Detalles = data.Detalles || [];
         if (data.Detalles.length == 0) {
             throw "_asignaDetallePedido, sin detalles componentes";
-            return false;
         }
         _selectClient(data.ClienteId, data.ClienteNombre);
 
@@ -375,7 +373,6 @@ var FichaModule = (function (config) {
 
                 if (errorRespuesta) {
                     throw "_setPedidoSetDetalle, promiseObternerDetallePedido";
-                    return false;
                 }
             }
         }
@@ -411,7 +408,6 @@ var FichaModule = (function (config) {
 
             if (errorRespuesta) {
                 throw "_getComponentesAndUpdateEsMultimarca, promiseObternerComponentes";
-                return false;
             }
 
         }
@@ -517,7 +513,6 @@ var FichaModule = (function (config) {
             if (!estrategia || !estrategia.EstrategiaID) {
                 mensajeError += '\n no obtiene oferta desde api';
                 throw mensajeError;
-                return false;
             }
         }
 
@@ -538,9 +533,9 @@ var FichaModule = (function (config) {
 
     var _tipoPersonalizacion = function (codigoTipoEstrategia) {
         try {
-            ConstantesModule.GetTipoPersonalizacionByTipoEstrategia(codigoTipoEstrategia);
+            return ConstantesModule.GetTipoPersonalizacionByTipoEstrategia(codigoTipoEstrategia);
         } catch (e) {
-
+            return codigoTipoEstrategia;
         }
     };
 
@@ -553,7 +548,6 @@ var FichaModule = (function (config) {
 
         if (estrategia == null) {
             throw "_construirSeccionEstrategia, sin estrategia";
-            return false;
         }
 
         $(_elementos.dataEstrategia.id).attr(_elementos.dataEstrategia.dataEstrategia, JSON.stringify(estrategia));
@@ -640,7 +634,7 @@ var FichaModule = (function (config) {
         }
 
         if (_config.esMobile) {
-            if (typeof pEstrategia.TieneStock !== undefined) {
+            if (typeof pEstrategia.TieneStock !== "undefined") {
                 if (pEstrategia.TieneStock) $('#div-boton-agregar').show();
                 else $('#div-boton-agotado').show();
             }
@@ -781,7 +775,7 @@ var FichaModule = (function (config) {
             var dvIzquierdoHeight = dvFotoHeight + 45; // 45 es por el padding del padre.
             var dvDerechoHeight = dvDetalleHeight + dvFichaEtiquetaHeight;
             if (dvIzquierdoHeight > dvDerechoHeight) {
-                var dvRedesSocialesHeight = dvRedesSociales.innerHeight();
+                //var dvRedesSocialesHeight = dvRedesSociales.innerHeight();
                 var diferenciaHeight = dvIzquierdoHeight - dvFichaEtiquetaHeight;
                 dvDetalle.removeClass("ficha_detalle_cuerpo");
 
@@ -1096,10 +1090,6 @@ var FichaPartialModule = (function () {
         if (producto === 'undefined')
             producto = $(event).find(".desc_prod").find("span").html();
 
-        isChangeTono = false;
-        isChangeCantidad = false;
-        isChangeCliente = false;
-
         if (typeof AnalyticsPortalModule !== 'undefined') {
             AnalyticsPortalModule.MarcaFichaResumidaClickDetalleProducto(producto);
         }
@@ -1158,7 +1148,7 @@ var FichaPartialModule = (function () {
             error: function (data, error) {
                 CerrarLoad();
                 if (checkTimeout(data)) {
-                    alert("Ocurrió un error al ejecutar la acción. Por favor inténtelo de nuevo.");
+                    AbrirMensaje("Ocurrió un error al ejecutar la acción. Por favor inténtelo de nuevo.");
                 }
             }
         });
