@@ -349,7 +349,7 @@ function ContinuarPedido() {
             success: function (response) {
                 //CloseLoading();
                 if (response.success) {
-                    
+                    $('#Paso1-Productos').hide();
                     
                     SetHandlebars("#template-paso-2", response.result, "#contenedor-paso-2");
                     if (response.result.ListaGana.length == 0 || response.result.GananciaGana<= 0 )
