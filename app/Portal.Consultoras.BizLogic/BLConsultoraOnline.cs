@@ -706,9 +706,9 @@ namespace Portal.Consultoras.BizLogic
 
             foreach (var estrategia in Estrategias)
             {
-                if (estrategia.Componentes.Exists(comp => !comp.CodigoSap.Equals(ProductoSolicitado.CodigoSap))) { continue; }
-
-                EstrategiasIndividuales.Add(estrategia);
+                if (estrategia.Componentes.Exists(comp => comp.CodigoSap.Equals(ProductoSolicitado.CodigoSap))) {
+                    EstrategiasIndividuales.Add(estrategia);
+                }
             }
 
             EstrategiasIndividuales = EstrategiasIndividuales.OrderByDescending(x => x.Componentes.Where(y=>y.CodigoSap.Equals(ProductoSolicitado.CodigoSap)).First().Cantidad).ToList();

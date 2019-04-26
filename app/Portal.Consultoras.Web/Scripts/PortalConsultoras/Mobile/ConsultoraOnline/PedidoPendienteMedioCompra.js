@@ -8,17 +8,19 @@
         }
         else {
             $('.btnAccion').find('span').addClass('active');
+            $('.btnAccion').find('span').html('Elegir');
+
             $(e.target).removeClass('active');
             $(e.target).html('Elegido');
         }
 
         if ($('.btnAccion span.active').length == $('.btnAccion span').length) {
             $('#btnAceptarPedido a').removeClass('active');
-            $('#btnAceptarPedido a').html('Elegido');
+           // $('#btnAceptarPedido a').html('Elegido');
         }
         else {
             $('#btnAceptarPedido a').addClass('active');
-            $('#btnAceptarPedido a').html('Elegir');
+         //   $('#btnAceptarPedido a').html('Elegir');
         }
 
         e.preventDefault();
