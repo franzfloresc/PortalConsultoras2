@@ -197,7 +197,7 @@ var CodigoUbigeoPortal = (function () {
         });
 
         if (obj == undefined && origenEstructura.CodigoPalanca != "") {
-            var obj = textos.SeccionFuncional.find(function (element) {
+            obj = textos.SeccionFuncional.find(function (element) {
                 return element.CodigoPalanca == origenEstructura.CodigoPalanca;
             });
         }
