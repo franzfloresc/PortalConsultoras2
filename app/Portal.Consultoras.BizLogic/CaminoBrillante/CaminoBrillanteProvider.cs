@@ -69,10 +69,9 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         /// </summary>
         public async Task<List<OfertaCaminoBrillante>> GetOfertas(string isoPais, int campaniaId)
         {
-            var result = new List<OfertaCaminoBrillante>();
             string urlParameters = string.Format("{0}/{1}", isoPais, campaniaId);
             string jsonString = await CallInformacionComercialServices(Url + Constantes.CaminoBrillante.ServicioComercial.GetOfertas, urlParameters, Token);
-            result = JsonConvert.DeserializeObject<List<OfertaCaminoBrillante>>(jsonString);
+            var result = JsonConvert.DeserializeObject<List<OfertaCaminoBrillante>>(jsonString);
             return result;
         }
 
@@ -84,9 +83,10 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             var result = new List<KitsHistoricoConsultora>();
             bool flag = isoPais != "";
             if (!flag) return result;
+
             string urlParameters = string.Format("{0}/{1}/{2}", isoPais, consultora, periodoId);
             string jsonString = await CallInformacionComercialServices(Url + Constantes.CaminoBrillante.ServicioComercial.GetKitsConsultora, urlParameters, Token);
-            result = JsonConvert.DeserializeObject<List<KitsHistoricoConsultora>>(jsonString) as List<KitsHistoricoConsultora>;
+            result = JsonConvert.DeserializeObject<List<KitsHistoricoConsultora>>(jsonString);
             return result;
         }
 

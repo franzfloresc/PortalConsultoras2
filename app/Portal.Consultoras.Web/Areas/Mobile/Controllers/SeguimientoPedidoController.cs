@@ -208,7 +208,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             foreach (var item in listaSeguimientoSecundario)
             {
-                //var estadoSeguimiento = Mapper.Map<SeguimientoMobileModel>(item);
                 if (!item.Fecha.HasValue)
                 {
                     listaEstadoSeguimiento.Add(item);
@@ -250,10 +249,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         break;
                 }
 
-                var flag = (horaEstimadaEntregaDesde != string.Empty && horaEstimadaEntregaHasta != string.Empty) ? true : false;
+                var flag = (horaEstimadaEntregaDesde != string.Empty && horaEstimadaEntregaHasta != string.Empty);
 
                 if (item.Etapa == Constantes.SegPedidoSituacion.FechaEstimadaEntrega && flag)
-                    item.HoraEstimadaDesdeHasta = ValidarZonaRegion() == true ? string.Format("{0} - {1}", horaEstimadaEntregaDesde, horaEstimadaEntregaHasta) : "";
+                    item.HoraEstimadaDesdeHasta = ValidarZonaRegion() ? string.Format("{0} - {1}", horaEstimadaEntregaDesde, horaEstimadaEntregaHasta) : "";
 
                 listaEstadoSeguimiento.Add(item);
             }

@@ -278,7 +278,7 @@ namespace Portal.Consultoras.Web.SessionManager
         List<PremioElectivoModel> GetListPremioElectivo();
         void SetListPremioElectivo(List<PremioElectivoModel> listPremioElectivo);
         Dictionary<string, PremioProgNuevasOFModel> GetDictPremioProgNuevasOF();
-        void SetDictPremioProgNuevasOF(Dictionary<string, PremioProgNuevasOFModel> listPremioProgNuevasOF);
+        void SetDictPremioProgNuevasOF(Dictionary<string, PremioProgNuevasOFModel> dictPremioProgNuevasOF);
 
         void SetBuscadorYFiltrosConfig(BuscadorYFiltrosConfiguracionModel buscadorYFiltrosModel);
 
