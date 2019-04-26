@@ -120,7 +120,7 @@ namespace Portal.Consultoras.Web.Providers
                 });
 
                 var validarDias = GetValidarDiasAntesStock(userData);
-                _consultaProlProvider.ActualizarComponenteStockPROL(listaEstrategiaComponente, estrategiaModelo.CUV2, userData.CodigoISO, estrategiaModelo.CampaniaID, userData.GetCodigoConsultora(), validarDias);
+                _consultaProlProvider.ActualizarComponenteStockPROL(listaEstrategiaComponente, cuv2, userData.CodigoISO, campania, userData.GetCodigoConsultora(), validarDias);
             }
            
             return listaEstrategiaComponente;

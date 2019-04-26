@@ -1699,10 +1699,8 @@ namespace Portal.Consultoras.Web.Providers
                     }
                 });
 
-                if (GetValidarDiasAntesStock(userData))
-                {
-                    _consultaProlProvider.ActualizarComponenteStockPROL(estrategia.Hermanos, cuv, userData.CodigoISO, estrategia.CampaniaID, userData.GetCodigoConsultora());
-                }                
+                var validarDias = GetValidarDiasAntesStock(userData);
+                _consultaProlProvider.ActualizarComponenteStockPROL(estrategia.Hermanos, cuv, userData.CodigoISO, estrategia.CampaniaID, userData.GetCodigoConsultora(), validarDias);           
             }
 
             return estrategia;
