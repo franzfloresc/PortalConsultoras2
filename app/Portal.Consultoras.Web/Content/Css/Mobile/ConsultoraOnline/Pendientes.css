@@ -577,3 +577,8 @@ button {
 }
 /* ---------------------------- */
 
+/* Estilos reescritos */
+
+.btn{
+  text-transform: unset;
+}
