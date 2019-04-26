@@ -39,6 +39,16 @@ namespace Portal.Consultoras.Web.Providers
             return modeloEstrategia;
         }
 
+        public DetalleEstrategiaFichaModel ObtenerModeloOfertaFichaDesdeApi(string cuv, string campania, string tipoEstrategia, string codigoIso)
+        {
+            var taskApi = Task.Run(() => ObtenerOfertaDesdeApi(cuv, campania, tipoEstrategia, codigoIso));
+            Task.WhenAll(taskApi);
+            Estrategia estrategia = taskApi.Result ?? new Estrategia();
+            var modeloEstrategia = new DetalleEstrategiaFichaModel();
+            modeloEstrategia = Mapper.Map<Estrategia, DetalleEstrategiaFichaModel>(estrategia ?? new Estrategia());
+            return modeloEstrategia;
+        }
+
         private async Task<Estrategia> ObtenerOfertaDesdeApi(string cuv, string campaniaId, string tipoPersonalizacion, string codigoIso)
         {
             var estrategia = new Estrategia();
@@ -113,7 +123,7 @@ namespace Portal.Consultoras.Web.Providers
             }
             
             string codTipoEstrategia = string.Empty, codCampania = string.Empty;
-
+            respuesta.Result = respuesta.Result ?? new List<Models.Search.ResponseOferta.Estructura.Estrategia>();
             if (respuesta.Result == null)
             {
                 return estrategias;
@@ -334,5 +344,12 @@ namespace Portal.Consultoras.Web.Providers
             bool usaSession = _sessionManager.GetConfigMicroserviciosPersonalizacion().GuardaDataEnSession.Contains(tipoEstrategia);
             return usaSession;
         }
+
+        public bool UsaFichaMsPersonalizacion(string tipoEstrategia)
+        {
+            bool tipoEstrategiaHabilitado = _sessionManager.GetConfigMicroserviciosPersonalizacion().EstrategiaDisponibleParaFicha.Contains(tipoEstrategia); 
+            return tipoEstrategiaHabilitado;
+        }
+
     }
 }

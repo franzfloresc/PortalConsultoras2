@@ -942,6 +942,8 @@ namespace Portal.Consultoras.Web.Controllers
                     model.PaginaDe = "0";
                 }
 
+                model.TipoPaginador = Constantes.ClasificadorPedido.PedidoDetallePendiente;
+
                 return Json(new
                 {
                     success = true,
