@@ -1905,7 +1905,7 @@ namespace Portal.Consultoras.BizLogic
                 if (!usuario.PuedeActualizar) return ActualizacionDatosRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_CAMBIO_NO_AUTORIZADO);
                 if (string.IsNullOrEmpty(correoNuevo)) return ActualizacionDatosRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_VACIO);
 
-                if (usuario.EMail != correoNuevo)
+                if (usuario.EMail.ToLower() != correoNuevo.ToLower())
                 {
                     var dAUsuario = new DAUsuario(usuario.PaisID);
                     if (dAUsuario.ExistsUsuarioEmail(correoNuevo)) return ActualizacionDatosRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_YA_EXISTE);
@@ -1927,7 +1927,7 @@ namespace Portal.Consultoras.BizLogic
                         {
                             TipoEnvio = Constantes.TipoEnvioEmailSms.EnviarPorEmail,
                             DatoAntiguo = usuario.EMail,
-                            DatoNuevo = correoNuevo,
+                            DatoNuevo = correoNuevo.ToLower(),
                             CodigoUsuario = usuario.CodigoUsuario,
                             Estado = Constantes.ValidacionDatosEstado.Pendiente,
                             UsuarioCreacion = usuario.CodigoUsuario
@@ -1936,7 +1936,7 @@ namespace Portal.Consultoras.BizLogic
                     else
                     {
                         validacionDato.DatoAntiguo = usuario.EMail;
-                        validacionDato.DatoNuevo = correoNuevo;
+                        validacionDato.DatoNuevo = correoNuevo.ToLower();
                         validacionDato.Estado = Constantes.ValidacionDatosEstado.Pendiente;
                         validacionDato.UsuarioModificacion = usuario.CodigoUsuario;
                         dAValidacionDatos.UpdValidacionDatos(validacionDato);
