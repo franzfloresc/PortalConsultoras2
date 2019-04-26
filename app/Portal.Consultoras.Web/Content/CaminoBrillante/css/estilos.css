@@ -843,6 +843,14 @@ div .layout__view__breadcrumbs__wrapper, div .layout__view__title__wrapper {
 .ficha__producto__agregar__producto div .cartbtn i {
     left: 11%;
 }
+.etiq-producto img {
+    display: block;
+    width: 100%;
+}
+.hide {
+    display: none !important;
+}
+
 @media (min-width:576px) {
     .modal-dialog {
         max-width: 500px;
