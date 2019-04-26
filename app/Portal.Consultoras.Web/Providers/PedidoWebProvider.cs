@@ -84,8 +84,7 @@ namespace Portal.Consultoras.Web.Providers
                             ConsultoraId = userData.ConsultoraID,
                             Consultora = userData.NombreConsultora,
                             CodigoPrograma = userData.CodigoPrograma,
-                            NumeroPedido = userData.ConsecutivoNueva,
-                            AgruparSet = true
+                            NumeroPedido = userData.ConsecutivoNueva
                         };
 
                         detallesPedidoWeb = pedidoServiceClient.SelectByCampaniaWithLabelProgNuevas(bePedidoWebDetalleParametros).ToList();
