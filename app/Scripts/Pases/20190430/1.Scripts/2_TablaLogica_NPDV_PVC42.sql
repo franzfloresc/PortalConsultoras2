@@ -16,7 +16,7 @@ INSERT INTO [dbo].[TablaLogica] ([TablaLogicaID] ,[Descripcion]) VALUES ( 166, '
 
 INSERT INTO [dbo].[TablaLogicaDatos]([TablaLogicaDatosID] ,[TablaLogicaID] ,[Codigo] ,[Valor] ,[Descripcion])
 	VALUES	(16601,166,'CRECIMIENTO','Crecimiento','Tu progreso tiene recompensas.'),
-			(16602,166,'COMPROMISO','Crompromiso','Tu progreso tiene recompensas.'),
+			(16602,166,'COMPROMISO','Compromiso','Tu progreso tiene recompensas.'),
 			(16603,166,'RESUMEN','Mis logros','')
 
 
