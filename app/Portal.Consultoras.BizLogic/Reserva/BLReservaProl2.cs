@@ -1,4 +1,5 @@
-﻿using Portal.Consultoras.Common;
+﻿using Microsoft.Practices.EnterpriseLibrary.Common.Utility;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Data.ServicePROL;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.ReservaProl;
@@ -60,8 +61,14 @@ namespace Portal.Consultoras.BizLogic.Reserva
 
             if (respuestaProl.ListaMensajeCondicional != null)
             {
-                resultado.CodigoMensajeRxP = string.Join("|", respuestaProl.ListaMensajeCondicional.Select(x => x.CodigoMensaje));
-                resultado.MensajeRxP= string.Join("|", respuestaProl.ListaMensajeCondicional.Select(x => x.Mensaje));
+                respuestaProl.ListaMensajeCondicional.ForEach(x =>
+                {
+                    resultado.ListaMensajeCondicional.Add(new BEMensajeProl()
+                    {
+                        CodigoMensajeRxP = x.CodigoMensaje,
+                        MensajeRxP = x.Mensaje,
+                    });
+                });
             }
             
             return resultado;

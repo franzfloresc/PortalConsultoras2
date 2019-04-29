@@ -41,9 +41,7 @@ namespace Portal.Consultoras.Entities.ReservaProl
         [DataMember]
         public string CodigoMensaje { get; set; }
         [DataMember]
-        public string CodigoMensajeRxP { get; set; }
-        [DataMember]
-        public string MensajeRxP { get; set; }
+        public List<BEMensajeProl> ListaMensajeCondicional { get; set; }
         [DataMember]
         public int PedidoID { get; set; }
         [DataMember]
@@ -79,6 +77,7 @@ namespace Portal.Consultoras.Entities.ReservaProl
             CodigoMensaje = string.Empty;
             ListPedidoObservacion = new List<BEPedidoObservacion>();
             ListDetalleBackOrder = new List<BEPedidoWebDetalle>();
+            ListaMensajeCondicional = new List<BEMensajeProl>();
         }
 
         public BEResultadoReservaProl(string mensajeError, bool aviso)
