@@ -40,7 +40,7 @@ namespace Portal.Consultoras.Web.Providers
             model.FechaVencimiento = userData.FechaLimPago;
             model.AplicaPorcentaje = ObtenerAplicaPorcentaje(userData, model) ? 1 : 0;
 
-            var porcentajeGastosAdministrativosString = _tablaLogica.GetTablaLogicaDatoCodigo(userData.PaisID, Constantes.TablaLogica.ValoresPagoEnLinea, Constantes.TablaLogicaDato.PorcentajeGastosAdministrativos,true);
+            var porcentajeGastosAdministrativosString = _tablaLogica.GetTablaLogicaDatoCodigo(userData.PaisID, ConsTablaLogica.ValoresPagoLinea.TablaLogicaId, Constantes.TablaLogicaDato.PorcentajeGastosAdministrativos,true);
             decimal porcentajeGastosAdministrativos;
             bool esNum = decimal.TryParse(porcentajeGastosAdministrativosString, out porcentajeGastosAdministrativos);
 
@@ -319,7 +319,7 @@ namespace Portal.Consultoras.Web.Providers
                     model.FechaVencimiento = userData.FechaLimPago;
                     model.SaldoPendiente = decimal.Round(userData.MontoDeuda - model.MontoDeuda, 2);
 
-                    var mensajeExitoso = _tablaLogica.GetTablaLogicaDatoCodigo(userData.PaisID, Constantes.TablaLogica.ValoresPagoEnLinea, Constantes.TablaLogicaDato.MensajeInformacionPagoExitoso, true);
+                    var mensajeExitoso = _tablaLogica.GetTablaLogicaDatoCodigo(userData.PaisID, ConsTablaLogica.ValoresPagoLinea.TablaLogicaId, Constantes.TablaLogicaDato.MensajeInformacionPagoExitoso, true);
 
                     if (result.Code == Constantes.PagoEnLineaRespuestaServicio.Code.SUCCESS)
                     {
@@ -618,7 +618,7 @@ namespace Portal.Consultoras.Web.Providers
                 beusuario = sv.Select(userData.PaisID, userData.CodigoUsuario);
             }
 
-            var flag3Porciento = _tablaLogica.GetTablaLogicaDatoCodigo(userData.PaisID, Constantes.TablaLogica.ValoresPagoEnLinea, Constantes.TablaLogicaDato.Acplica3porciento, true);
+            var flag3Porciento = _tablaLogica.GetTablaLogicaDatoCodigo(userData.PaisID, ConsTablaLogica.ValoresPagoLinea.TablaLogicaId, Constantes.TablaLogicaDato.Acplica3porciento, true);
 
            var noAplica = model.FechaVencimiento >= DateTime.Today &&
                           beusuario.IndicadorConsultoraDigital == 1 &&
