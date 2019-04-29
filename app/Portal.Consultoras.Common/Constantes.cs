@@ -1902,23 +1902,23 @@ namespace Portal.Consultoras.Common
             /// </summary>
             //public const short App = 106;
 
-            public static class Keys
-            {
-                /// <summary>
-                /// Codigo de cantidad Maxima de Movimientos
-                /// </summary>
-                public const string MovimientoCantidadMaxima = "mov_max_c";
+            //public static class Keys
+            //{
+            //    /// <summary>
+            //    /// Codigo de cantidad Maxima de Movimientos
+            //    /// </summary>
+            //    public const string MovimientoCantidadMaxima = "mov_max_c";
 
-                /// <summary>
-                /// Codigo de movimientos de meses anteriores a procesar
-                /// </summary>
-                public const string MovimientoHistoricoMes = "mov_max_m";
+            //    /// <summary>
+            //    /// Codigo de movimientos de meses anteriores a procesar
+            //    /// </summary>
+            //    public const string MovimientoHistoricoMes = "mov_max_m";
 
-                /// <summary>
-                /// Codigo de cantidad maxima de Notas
-                /// </summary>
-                public const string NotaCantidadMaxima = "not_max_c";
-            }
+            //    /// <summary>
+            //    /// Codigo de cantidad maxima de Notas
+            //    /// </summary>
+            //    public const string NotaCantidadMaxima = "not_max_c";
+            //}
 
             public const short RevistaDigital = 131;
             //public const int ValoresPagoEnLinea = 122;
