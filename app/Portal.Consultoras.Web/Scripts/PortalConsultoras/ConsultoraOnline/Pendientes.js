@@ -248,19 +248,21 @@ function RechazarSolicitudCliente(pedidoId) {
 
             if (response.success) {
                 $('#rechazarTodop').addClass('hide');
-                $('#Paso1-Productos').hide();
+                $("#Paso1-Productos").hide();
+                $('body').removeClass('visible');
                 //document.location.href = '/ConsultoraOnline/Pendientes';
 
-                //var Pendientes = response.Pendientes || [];
+                var Pendientes = JSON.parse(response.Pendientes) || [];
 
-                //$.each(Pendientes, function (index, value) {
-                //    if (value.ListaClientes.length > 2) {
-                //        value.MasDeDosClientes = true;
-                //        value.ListaClientes = value.ListaClientes.slice(0, 1);
-                //    }                    
-                //});
+                $.each(Pendientes.ListaProductos, function (index, value) {
+                    value.MasDeDosClientes = false;
+                    if (value.ListaClientes.length > 2) {
+                        value.MasDeDosClientes = true;
+                        value.ListaClientes = value.ListaClientes.slice(0, 1);
+                    }                    
+                });
 
-                //SetHandlebars("#template-vpcpContent", Pendientes, "#vpcpContent");
+                SetHandlebars("#template-vpcpContent", Pendientes, "#vpcpContent");
 
             }
             else {
@@ -291,18 +293,20 @@ function RechazarSolicitudClientePorCuv(cuv) {
             if (response.success) {
                 $('#rechazarTodo').addClass('hide');
                 $('#Paso1-Clientes').hide();
+                $('body').removeClass('visible');
                 //document.location.href = '/ConsultoraOnline/Pendientes';
 
-                //var Pendientes = response.Pendientes || [];
+                var Pendientes = JSON.parse(response.Pendientes) || [];
 
-                //$.each(Pendientes, function (index, value) {
-                //    if (value.ListaClientes.length > 2) {
-                //        value.MasDeDosClientes = true;
-                //        value.ListaClientes = value.ListaClientes.slice(0, 1);
-                //    }
-                //});
+                $.each(Pendientes.ListaProductos, function (index, value) {
+                    value.MasDeDosClientes = false;
+                    if (value.ListaClientes.length > 2) {
+                        value.MasDeDosClientes = true;
+                        value.ListaClientes = value.ListaClientes.slice(0, 1);
+                    }
+                });
 
-                //SetHandlebars("#template-vpcpContent", Pendientes, "#vpcpContent");
+                SetHandlebars("#template-vpcpContent", Pendientes, "#vpcpContent");
             }
             else {
                 alert(response.message);
@@ -402,9 +406,10 @@ function EliminarSolicitudDetalle(pedidoId, cuv, origen) {
                     $(id).hide();
                 }
 
-                var Pendientes = response.Pendientes || [];
+                var Pendientes = JSON.parse(response.Pendientes) || [];
 
-                $.each(Pendientes, function (index, value) {
+                $.each(Pendientes.ListaProductos, function (index, value) {
+                    value.MasDeDosClientes = false;
                     if (value.ListaClientes.length > 2) {
                         value.MasDeDosClientes = true;
                         value.ListaClientes = value.ListaClientes.slice(0, 1);
