@@ -1894,7 +1894,7 @@ namespace Portal.Consultoras.Common
         [Obsolete("Use ConsTablaLogica")]
         public struct TablaLogica
         {
-            public const int Plan20 = 98;
+            //public const int Plan20 = 98;
             public const int StockDiasAntes = 181;
 
             /// <summary>

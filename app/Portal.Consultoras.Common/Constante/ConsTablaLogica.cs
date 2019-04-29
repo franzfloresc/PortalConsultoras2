@@ -338,7 +338,7 @@ namespace Portal.Consultoras.Common
             public const int TablaLogicaId = 97;
         }
 
-        public static class Plan20Activacion
+        public static class Plan20
         {
             public const int TablaLogicaId = 98;
             
