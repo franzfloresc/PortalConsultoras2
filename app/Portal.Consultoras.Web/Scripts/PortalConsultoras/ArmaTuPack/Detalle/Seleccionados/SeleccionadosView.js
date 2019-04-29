@@ -83,7 +83,10 @@
     };
 
     var _showTooltip = function () {
-        $(_elements.tooltip.id).show();
+        $(_elements.tooltip.id)
+            .show(0)
+            .delay(3000)
+            .hide(0);
     };
 
     return {
