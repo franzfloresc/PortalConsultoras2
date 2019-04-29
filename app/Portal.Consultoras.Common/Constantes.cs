@@ -103,13 +103,13 @@ namespace Portal.Consultoras.Common
         {
             public const string SMS = "SMS";
             public const string FIJO = "FIJO";
-            public const string EMAIL = "Email";    
+            public const string EMAIL = "Email";
             public const string TODO = "todo";
         }
 
 
 
-            public static class CodigosISOPais
+        public static class CodigosISOPais
         {
             public const string Peru = "PE";
             public const string Chile = "CL";
@@ -223,7 +223,7 @@ namespace Portal.Consultoras.Common
             {
                 public const string ListCuv = "ListCuv";
             }
-            
+
             public static class CaminoBrillante
             {
                 /// <summary>
@@ -1102,7 +1102,7 @@ namespace Portal.Consultoras.Common
 
             public const int MobileArmaTuPackFicha = 2131502;
             public const int DesktopArmaTuPackFicha = 1131502;
-            
+
             #region CaminoBrillante
             public const int CaminoBrillanteDesktopPedido = 1181901;
             public const int CaminoBrillanteMobilePedido = 2181901;
@@ -1924,7 +1924,7 @@ namespace Portal.Consultoras.Common
             public const int ValoresPagoEnLinea = 122;
             public const short HabilitarChatEmtelco = 144;
             public const short OrdenamientoShowRoom = 99;
-            public const short NuevaDescripcionProductos = 145;
+            //public const short NuevaDescripcionProductos = 145;
             public const short MensajesToolTipPerfil = 10;
             public const short EscalaDescuentoDestokp = 72;
             public const short EscalaDescuentoMobile = 73;
@@ -3834,7 +3834,7 @@ namespace Portal.Consultoras.Common
                         });
                     }
                 }
-                
+
                 private static Dictionary<string, string[]> _Etiquetas;
                 private static string path_etiquetas = "CAMINOBRILLANTE/NIVELES/TAG/Etiqueta_Nivel_0{0}_{1}.png";
 
