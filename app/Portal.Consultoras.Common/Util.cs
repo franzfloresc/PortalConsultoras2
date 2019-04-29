@@ -717,6 +717,97 @@ namespace Portal.Consultoras.Common
             return Util.EnviarMailPedido(strDe, strPara, strParaOculto, strTitulo, strMensaje, isHTML, null);
         }
 
+        public static bool EnviarMailPedidoPendienteRechazado(string strDe, string strPara, string strTitulo, string strMensaje, bool isHTML, string strBcc, string displayNameDe)
+        {
+            if (string.IsNullOrEmpty(strPara))
+                return true;
+
+            if (strPara.ToLower().Contains("ñ") || strPara.ToLower().Contains("á") || strPara.ToLower().Contains("é") ||
+                strPara.ToLower().Contains("í") || strPara.ToLower().Contains("ó") || strPara.ToLower().Contains("ú"))
+                return true;
+
+            RegexUtilities emailutil = new RegexUtilities();
+            if (!emailutil.IsValidEmail(strPara))
+                return true;
+
+            string strServidor = ParseString(ConfigurationManager.AppSettings["SMPTServer"]);
+            string strUsuario = ParseString(ConfigurationManager.AppSettings["SMPTUser"]);
+            string strPassword = ParseString(ConfigurationManager.AppSettings["SMPTPassword"]);
+
+            MailMessage objMail = new MailMessage();
+            SmtpClient objClient = new SmtpClient(strServidor);
+
+            AlternateView avHtml = AlternateView.CreateAlternateViewFromString(String.Format(strMensaje, "Logo"), null, MediaTypeNames.Text.Html);
+
+            LinkedResource logo = new LinkedResource(HttpContext.Current.Request.MapPath("../Content/Images/logotipo_belcorp_05.png"), MediaTypeNames.Image.Gif);
+            logo.ContentId = "Logo";
+            avHtml.LinkedResources.Add(logo);
+
+            if (ParseString(ConfigurationManager.AppSettings["flagCorreo"]) == "0")
+            {
+                strPara = strUsuario;
+            }
+            objMail.AlternateViews.Add(avHtml);
+            objMail.To.Add(strPara);
+            objMail.From = string.IsNullOrEmpty(displayNameDe)
+                ? new MailAddress(strDe)
+                : new MailAddress(strDe, displayNameDe);
+
+            var css = "a,body,table,td{-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}table,td{mso-table-lspace:0;mso-table-rspace:0}img{-ms-interpolation-mode:bicubic}img{border:0;height:auto;line-height:100%;outline:0;text-decoration:none}a.disable-link{pointer-events:none;cursor:default}table{border-collapse:collapse!important}body{height:100%!important;margin:0!important;padding:0!important;width:100%!important}a[x-apple-data-detectors=true]{color:inherit!important;text-decoration:none!important;font-size:inherit!important;font-family:inherit!important;font-weight:inherit!important;line-height:inherit!important}@media screen and (max-width:480px){.mobile-hide{display:none!important}.mobile-center{text-align:center!important}.centerImage{width:100%!important}.centerMobile{text-align:center}.noPaddingTop{padding-top:35px!important}a[class=disable-link]{pointer-events:auto!important;cursor:auto!important;text-decoration:underline!important}}div[style*='margin: 16px 0;']{margin:0!important}";
+            var head = "<head> <meta charset = 'UTF-8'>  <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0' >    <meta http-equiv = 'X-UA-Compatible' content = 'ie=edge' ><link href = 'https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i' rel = 'stylesheet'><style type='text/css'>" + css + "</style></head>";
+
+            StringBuilder body = new StringBuilder();
+            body.Append("<HTML>" + head + "<body topmargin='0' leftmargin='0' marginheight='0' marginwidth='0' style='font-family:Lato, Arial, Helvetica, Arial, sans-serif;'> ");
+            body.Append("<div style='display:block;margin-left:auto;margin-right:auto;width:100%; height:596px;'>");
+            body.Append("<table align='center' border='0' cellpadding='0' cellspacing='0' width='600'>");
+            body.Append("<tr>");
+            body.Append("<td height='70' style='background:#b11437; background:linear-gradient(to right, #b11437, #55046d);'>");
+            body.Append("<table align='center' border='0' cellpadding='0' cellspacing='0'>");
+            body.Append("<tr>");
+            body.Append("<td width='108' height='70'>&nbsp;</td><td width = '84' height = '70' ><img src = 'http://www.genesisperu.com/images/logo-esika.png' style = 'display:block; width:85.67px; height:37.73px;' alt = '&Eacute;sika' ></td>");
+            body.Append("<td width='56' height='70'>&nbsp;</td><td width = '107' height = '70' ><img src = 'http://www.genesisperu.com/images/logo-lbel.png' style = 'display:block; width:105.92px; height:22.27px;' alt = 'Lbel' > </td> ");
+            body.Append("<td width='40' height='70'>&nbsp;</td><td width = '116' height = '70' ><img src = 'http://www.genesisperu.com/images/logo-cyzone.png' style = 'display:block; width:100.91px; height:31.75px;margin-top:4px;' alt = 'Cyzone' ></td><td width = '89' height = '70' > &nbsp;</td>");
+            body.Append("</tr>");
+            body.Append("</table>");
+            body.Append("</td>");
+            body.Append("</tr>");
+            body.Append("<tr>");
+            body.Append("<td>");
+            body.Append(String.Format(strMensaje, logo.ContentId));
+            body.Append("</td>");
+            body.Append("</tr>");
+            body.Append("</table>");
+            body.Append("</div>");        
+            body.Append("</body></HTML>");
+
+
+            objMail.Subject = strTitulo;
+            objMail.Body = body.ToString();
+            objMail.IsBodyHtml = isHTML;
+
+            NetworkCredential credentials = new NetworkCredential(strUsuario, strPassword);
+            objClient.EnableSsl = true;
+            objClient.Credentials = credentials;
+
+            try
+            {
+                objClient.Send(objMail);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error al enviar correo electronico:" + ex.Message);
+            }
+            finally
+            {
+                objMail.Dispose();
+            }
+            return true;
+        }
+        public static bool EnviarMailPedidoPendienteRechazado(string strDe, string strPara, string strTitulo, string strMensaje, bool isHTML, string strBcc)
+        {
+            return Util.EnviarMailPedidoPendienteRechazado(strDe, strPara, strTitulo, strMensaje, isHTML, strBcc, null);
+        }
+
 
         public static bool EnviarMail3Mobile(string strDe, string strPara, string strTitulo, string strMensaje, bool isHTML, string strBcc, string displayNameDe)
         {
@@ -2599,9 +2690,9 @@ namespace Portal.Consultoras.Common
             string iso;
             try
             {
-                iso =  (from c in listaPaises
-                        where c.Key == paisID.ToString()
-                        select c.Value).SingleOrDefault();
+                iso = (from c in listaPaises
+                       where c.Key == paisID.ToString()
+                       select c.Value).SingleOrDefault();
             }
             catch (Exception)
             {
@@ -3585,7 +3676,7 @@ namespace Portal.Consultoras.Common
 
             return result;
         }
-     
+
         public static class Security
         {
             public static string ToMd5(string input)
@@ -3785,7 +3876,7 @@ namespace Portal.Consultoras.Common
             return result;
         }
 
-        public static string obtenerCodigoOrigenWeb(string codigoEstrategia,string codigoTipoEstrategia,
+        public static string obtenerCodigoOrigenWeb(string codigoEstrategia, string codigoTipoEstrategia,
             int marcaId, bool mobile, bool home, bool recomendaciones, bool materialGanancia, bool suscripcion)
 
         {
@@ -3795,40 +3886,40 @@ namespace Portal.Consultoras.Common
             {
                 case "LIQ":
                     result = home ?
-                        (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorLiquidacionDesplegableBuscador.ToString() : 
+                        (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorLiquidacionDesplegableBuscador.ToString() :
                             Constantes.OrigenPedidoWeb.DesktopBuscadorLiquidacionDesplegableBuscador.ToString())
                         :
-                        (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorLiquidacionCarrusel.ToString() : 
+                        (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorLiquidacionCarrusel.ToString() :
                             Constantes.OrigenPedidoWeb.DesktopLandingBuscadorLiquidacionCarrusel.ToString());
                     break;
                 case "CAT":
                     result = home ?
-                        ((marcaId == 1 ? (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorCatalogoLbelDesplegableBuscador.ToString() : 
+                        ((marcaId == 1 ? (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorCatalogoLbelDesplegableBuscador.ToString() :
                                 Constantes.OrigenPedidoWeb.DesktopBuscadorCatalogoLbelDesplegableBuscador.ToString()) :
-                        (marcaId == 2 ? (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorCatalogoEsikaDesplegableBuscador.ToString() : 
+                        (marcaId == 2 ? (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorCatalogoEsikaDesplegableBuscador.ToString() :
                                 Constantes.OrigenPedidoWeb.DesktopBuscadorCatalogoEsikaDesplegableBuscador.ToString()) :
-                        (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorCatalogoCyzoneDesplegableBuscador.ToString() : 
+                        (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorCatalogoCyzoneDesplegableBuscador.ToString() :
                             Constantes.OrigenPedidoWeb.DesktopBuscadorCatalogoCyzoneDesplegableBuscador.ToString()))))
                         :
-                         ((marcaId == 1 ? (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorCatalogoLbelCarrusel.ToString() : 
+                         ((marcaId == 1 ? (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorCatalogoLbelCarrusel.ToString() :
                                  Constantes.OrigenPedidoWeb.DesktopLandingBuscadorCatalogoLbelCarrusel.ToString()) :
-                        (marcaId == 2 ? (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorCatalogoEsikaCarrusel.ToString() : 
+                        (marcaId == 2 ? (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorCatalogoEsikaCarrusel.ToString() :
                                 Constantes.OrigenPedidoWeb.DesktopLandingBuscadorCatalogoEsikaCarrusel.ToString()) :
-                        (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorCatalogoCyzoneCarrusel.ToString() : 
+                        (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorCatalogoCyzoneCarrusel.ToString() :
                             Constantes.OrigenPedidoWeb.DesktopLandingBuscadorCatalogoCyzoneCarrusel.ToString()))));
                     break;
                 default:
                     switch (codigoTipoEstrategia)
                     {
                         case Constantes.TipoEstrategiaCodigo.ShowRoom:
-                            result = recomendaciones ? 
-                                (mobile ? Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoShowRoom.ToString() : 
-                                    Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoShowRoom.ToString()) 
+                            result = recomendaciones ?
+                                (mobile ? Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoShowRoom.ToString() :
+                                    Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoShowRoom.ToString())
                                 : home ?
-                                (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorShowroomDesplegableBuscador.ToString() : 
+                                (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorShowroomDesplegableBuscador.ToString() :
                                     Constantes.OrigenPedidoWeb.DesktopBuscadorShowroomDesplegableBuscador.ToString())
                                 :
-                                (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorShowroomCarrusel.ToString() : 
+                                (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorShowroomCarrusel.ToString() :
                                     Constantes.OrigenPedidoWeb.DesktopLandingBuscadorShowroomCarrusel.ToString());
                             break;
                         case Constantes.TipoEstrategiaCodigo.Lanzamiento:
@@ -3836,16 +3927,16 @@ namespace Portal.Consultoras.Common
                                 (mobile ? Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoLan.ToString() :
                                     Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoLan.ToString())
                                 : home ?
-                                (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorLanzamientosDesplegableBuscador.ToString() : 
+                                (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorLanzamientosDesplegableBuscador.ToString() :
                                     Constantes.OrigenPedidoWeb.DesktopBuscadorLanzamientosDesplegableBuscador.ToString())
                                 :
-                                (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorLanzamientosCarrusel.ToString() : 
+                                (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorLanzamientosCarrusel.ToString() :
                                     Constantes.OrigenPedidoWeb.DesktopLandingBuscadorLanzamientosCarrusel.ToString());
                             break;
                         case Constantes.TipoEstrategiaCodigo.OfertaParaTi:
                         case Constantes.TipoEstrategiaCodigo.OfertasParaMi:
                         case Constantes.TipoEstrategiaCodigo.PackAltoDesembolso:
-                            result = recomendaciones && materialGanancia ? 
+                            result = recomendaciones && materialGanancia ?
                                     (mobile ? Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoGanadoras.ToString() :
                                     Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoGanadoras.ToString())
                                 : materialGanancia && suscripcion ? (home ?
@@ -3858,10 +3949,10 @@ namespace Portal.Consultoras.Common
                                 (mobile ? Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoOpm.ToString() :
                                     Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoOpm.ToString())
                                 : home ?
-                                (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorOfertasParaTiDesplegableBuscador.ToString() : 
+                                (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorOfertasParaTiDesplegableBuscador.ToString() :
                                     Constantes.OrigenPedidoWeb.DesktopBuscadorOfertasParaTiDesplegableBuscador.ToString())
                                 :
-                                (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorOfertasParaTiCarrusel.ToString() : 
+                                (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorOfertasParaTiCarrusel.ToString() :
                                     Constantes.OrigenPedidoWeb.DesktopLandingBuscadorOfertasParaTiCarrusel.ToString());
                             break;
                         case Constantes.TipoEstrategiaCodigo.OfertaDelDia:
@@ -3869,18 +3960,18 @@ namespace Portal.Consultoras.Common
                                 (mobile ? Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoOdd.ToString() :
                                     Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoOdd.ToString())
                                 : home ?
-                                 (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorOfertaDelDiaDesplegableBuscador.ToString() : 
+                                 (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorOfertaDelDiaDesplegableBuscador.ToString() :
                                      Constantes.OrigenPedidoWeb.DesktopBuscadorOfertaDelDiaDesplegableBuscador.ToString())
                                  :
-                                 (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorOfertaDelDiaCarrusel.ToString() : 
+                                 (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorOfertaDelDiaCarrusel.ToString() :
                                      Constantes.OrigenPedidoWeb.DesktopLandingBuscadorOfertaDelDiaCarrusel.ToString());
                             break;
                         case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
                             result = home ?
-                                (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorGNDDesplegableBuscador.ToString() : 
+                                (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorGNDDesplegableBuscador.ToString() :
                                     Constantes.OrigenPedidoWeb.DesktopBuscadorGNDDesplegableBuscador.ToString())
                                 :
-                                (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorGNDCarrusel.ToString() : 
+                                (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorGNDCarrusel.ToString() :
                                     Constantes.OrigenPedidoWeb.DesktopLandingBuscadorGNDCarrusel.ToString());
                             break;
                         case Constantes.TipoEstrategiaCodigo.HerramientasVenta:
@@ -3888,10 +3979,10 @@ namespace Portal.Consultoras.Common
                                 (mobile ? Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoHv.ToString() :
                                     Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoHv.ToString())
                                 : home ?
-                               (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorHerramientasdeVentaDesplegableBuscador.ToString() : 
+                               (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorHerramientasdeVentaDesplegableBuscador.ToString() :
                                    Constantes.OrigenPedidoWeb.DesktopBuscadorHerramientasdeVentaDesplegableBuscador.ToString())
                                :
-                               (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorHerramientasDeVentaCarrusel.ToString() : 
+                               (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorHerramientasDeVentaCarrusel.ToString() :
                                    Constantes.OrigenPedidoWeb.DesktopLandingBuscadorHerramientasDeVentaCarrusel.ToString());
                             break;
                     }
@@ -3931,7 +4022,7 @@ namespace Portal.Consultoras.Common
                     break;
                 case Constantes.TipoEstrategiaCodigo.OfertaDelDia:
                     tipoPersonalizacion = Constantes.TipoPersonalizacion.OfertaDelDia;
-                    break; 
+                    break;
                 case Constantes.TipoEstrategiaCodigo.ArmaTuPack:
                     tipoPersonalizacion = Constantes.TipoPersonalizacion.ArmaTuPack;
                     break;
@@ -4322,5 +4413,5 @@ namespace Portal.Consultoras.Common
                 updator(item);
             }
         }
-    }    
+    }
 }
