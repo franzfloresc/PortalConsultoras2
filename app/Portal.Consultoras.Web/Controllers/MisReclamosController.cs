@@ -499,29 +499,38 @@ namespace Portal.Consultoras.Web.Controllers
             var respuestaServiceCdr = new RptCdrReclamo[1];
             var isSetsOrPack = false;
             string[] estrategias = { "2002", "2003" };
-
+            var cuvEnviar = string.Empty;
             try
             {
+                var listaPedidoFacturados = SessionManager.GetCDRPedidoFacturado();
+
+                //lista de cuvs con cantidad 0 y son reemplazados
+                var cuvReemplazados = listaPedidoFacturados
+                    .Where(a => a.CampaniaID == model.CampaniaID && a.PedidoID == model.PedidoID)
+                    .FirstOrDefault()
+                    .olstBEPedidoWebDetalle
+                    .Where(a => a.Cantidad == 0 && a.CUVReemplazo != null);
+
+                //si el cambio es por el cuv que se reemplazò, enviamos el cuv original
+                var reemplazo = cuvReemplazados.Where(a => a.CUVReemplazo == model.CUV).FirstOrDefault();
+                if (reemplazo != null)
+                    cuvEnviar = reemplazo.CUV;
+                else
+                    cuvEnviar = model.CUV;
+
                 using (WsGestionWeb sv = new WsGestionWeb())
                 {
                     respuestaServiceCdr = sv.GetCdrWeb_Reclamo(userData.CodigoISO, model.CampaniaID.ToString(),
-                       userData.CodigoConsultora, model.CUV, model.Cantidad, userData.CodigoZona);
+                       userData.CodigoConsultora, cuvEnviar, model.Cantidad, userData.CodigoZona);
                     isSetsOrPack = (respuestaServiceCdr != null) ? (respuestaServiceCdr[0].LProductosComplementos.Count() > 0
                         && estrategias.Contains(respuestaServiceCdr[0].Estrategia.ToString())) ? true : false : false;
                     SessionManager.SetFlagIsSetsOrPack(isSetsOrPack);
 
                 }
                 //reemplazar si tiene cuv reemplazo
-                if (respuestaServiceCdr.Any())
+                if (respuestaServiceCdr.Any() && isSetsOrPack)
                 {
-                    var listaPedidoFacturados = SessionManager.GetCDRPedidoFacturado();
 
-                    //lista de cuvs con cantidad 0 y son reemplazados
-                    var cuvReemplazados = listaPedidoFacturados
-                        .Where(a => a.CampaniaID == model.CampaniaID && a.PedidoID == model.PedidoID)
-                        .FirstOrDefault()
-                        .olstBEPedidoWebDetalle
-                        .Where(a => a.Cantidad == 0 && a.CUVReemplazo != null);
 
                     if (cuvReemplazados.Any())
                     {
