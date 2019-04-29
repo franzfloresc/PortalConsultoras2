@@ -3056,7 +3056,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (var svc = new SACServiceClient())
             {
-                DataLogica = svc.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.HabilitarChatEmtelco);
+                DataLogica = svc.GetTablaLogicaDatos(paisId, ConsTablaLogica.ChatEmtelco.TablaLogicaId);
 
             }
             if (DataLogica.Any())

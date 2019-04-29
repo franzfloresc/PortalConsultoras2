@@ -463,7 +463,7 @@ namespace Portal.Consultoras.Common
             public const int TablaLogicaId = 143;
         }
 
-        public static class ActivarChatEmtelco
+        public static class ChatEmtelco
         {
             public const int TablaLogicaId = 144;
         }

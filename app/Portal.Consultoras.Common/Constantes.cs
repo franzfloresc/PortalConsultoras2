@@ -1922,7 +1922,7 @@ namespace Portal.Consultoras.Common
 
             public const short RevistaDigital = 131;
             //public const int ValoresPagoEnLinea = 122;
-            public const short HabilitarChatEmtelco = 144;
+            //public const short HabilitarChatEmtelco = 144;
             public const short OrdenamientoShowRoom = 99;
             //public const short NuevaDescripcionProductos = 145;
             public const short MensajesToolTipPerfil = 10;
