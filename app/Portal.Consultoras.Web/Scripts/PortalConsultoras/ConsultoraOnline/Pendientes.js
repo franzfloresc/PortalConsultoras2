@@ -278,6 +278,7 @@ function RechazarSolicitudCliente(pedidoId) {
 
 function ActualizarPendientes() {
     //ShowLoading();
+    AbrirLoad();
     $.ajax({
         type: "POST",
         url: "/ConsultoraOnline/ActualizarPendientes",
@@ -285,7 +286,7 @@ function ActualizarPendientes() {
         contentType: "application/json; charset=utf-8",
         success: function (response) {
             //CloseLoading();
-
+            CerrarLoad();
             if (response.success) {
                 $('#rechazarTodop').addClass('hide');
                 $("#Paso1-Productos").hide();
@@ -468,4 +469,15 @@ function EliminarSolicitudDetalle(pedidoId, cuv, origen) {
         }
     });
 
+}
+
+function CerrarPopupConfirmacion() {
+
+    $("#modal-confirmacion").removeClass("on");
+    $("#modal-confirmacion").addClass("isHide");
+    $("#Paso1-Productos").hide();
+    $("#Paso1-Clientes").hide();
+    $('body').removeClass('visible');
+
+    ActualizarPendientes();
 }

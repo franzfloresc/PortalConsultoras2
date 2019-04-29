@@ -2595,18 +2595,9 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                MisPedidosModel model = new MisPedidosModel();
-                model = GetPendientes();
-
-                var PendientesJson = JsonConvert.SerializeObject(model, Formatting.Indented, new JsonSerializerSettings
-                {
-                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-                });
-
                 return Json(new
                 {
                     success = true,
-                    Pendientes = PendientesJson,
                     message = "OK"
                 }, JsonRequestBehavior.AllowGet);
             }

@@ -19,7 +19,7 @@
                         <div class="container border-bottom position-sticky top">
                             <div class="row align-items-center">
                                 <div class="col">
-                                    <div class="position-relative text-right mt-3"><a class="close-modal" href="#" alt="Cerrar">Cerrar    </a></div>
+                                    <div class="position-relative text-right mt-3"><a class="close-modal" onclick="javascript: ActualizarPendientes();" href="#" alt="Cerrar">Cerrar    </a></div>
                                 </div>
                             </div>
                             <div class="row align-items-center">
@@ -217,7 +217,7 @@
                         <div class="container border-bottom position-sticky top">
                             <div class="row align-items-center">
                                 <div class="col">
-                                    <div class="position-relative text-right mt-3"><a class="close-modal" href="#" alt="Cerrar">Cerrar    </a></div>
+                                    <div class="position-relative text-right mt-3"><a class="close-modal" href="#" onclick="javascript: ActualizarPendientes();" alt="Cerrar">Cerrar    </a></div>
                                 </div>
                             </div>
                             <div class="row align-items-center">
@@ -405,11 +405,11 @@
 <div id="modal-confirmacion" class="position-absolute center modal-exito isHide">
     <div class="modal center column pb-5">
         <div class="position-relative mt-5 modal-close">
-            <div class="text-right mb-3"><a class="close-modal" href="#" alt="Cerrar">Cerrar</a></div>
+            <div class="text-right mb-3"><a class="close-modal" href="#" onclick="javascript: ActualizarPendientes();" alt="Cerrar">Cerrar</a></div>
         </div><img class="img-fluid mb-3" src="https://i.ibb.co/n6p5vcB/check-circle-outline-3x.png" alt="Aprobado"><span class="font-big t-w700 dark-color mb-3">¡Pedido aprobado!</span><span class="small mb-4 dark-color">Has atendido el pedido por Gana+.</span>
         <div class="position-relative container-btn">
             <div class="position-relative btn-left"><a class="btn full ghost color-dark" href="/Pedido/Index" >Ir a mi pedido</a></div>
-            <div class="position-relative btn-right"><a class="btn full second-color" href="/ConsultoraOnline/Pendientes" >Ver pedidos por aprobar</a></div>
+            <div class="position-relative btn-right"><a class="btn full second-color" href="#" onclick="javascript: CerrarPopupConfirmacion();" >Ver pedidos por aprobar</a></div>
         </div>
     </div>
 </div>
@@ -622,7 +622,7 @@
                     <div class="container border-bottom position-sticky top">
                         <div class="row align-items-center">
                             <div class="col">
-                                <div class="position-relative text-right mt-3"><a class="close-modal" href="#" alt="Cerrar">Cerrar   </a></div>
+                                <div class="position-relative text-right mt-3"><a class="close-modal" href="#" onclick="javascript: ActualizarPendientes();" alt="Cerrar">Cerrar   </a></div>
                             </div>
                         </div>
                         <div class="row align-items-center">
