@@ -422,6 +422,11 @@ namespace Portal.Consultoras.Common
         public static class ImagenesResize
         {
             public const int TablaLogicaId = 121;
+
+            public const int WitdhMaxSmall = 12101;
+            public const int HeightSmall = 12102;
+            public const int WitdhMaxMedium = 12103;
+            public const int HeightMedium = 12104;
         }
 
         public static class ValoresPagoLinea
