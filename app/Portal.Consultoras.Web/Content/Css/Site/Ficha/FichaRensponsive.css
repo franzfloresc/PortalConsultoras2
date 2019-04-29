@@ -133,6 +133,7 @@ ul.breadcumbs li a {
     letter-spacing: .9px;
     line-height: 24px;
     text-transform: uppercase;
+    margin-bottom: 3px;
 }
 
 .precio_valorizado {
@@ -437,18 +438,13 @@ ul.breadcumbs li a {
 
 /* Fin Botón Agregar*/
 @media (max-width: 768px) {
-
-<<<<<<< HEAD
     .contenedor_detalle {
         background: url('/Content/Images/etiqueta_nuevo.svg');
         background-position: top right;
         background-repeat: no-repeat;
         background-size: 60px;
-=======
-    .contenedor_detalle{
-
->>>>>>> 0b870343d5649359cc07d254df29f50a13cf85e7
     }
+
     footer {
         display: none !important;
     }
@@ -486,24 +482,28 @@ ul.breadcumbs li a {
     }
     .descripcion {
         font-size: 14px;
-        margin-bottom: 15px;
     }
 
     .precio_venta_oferta span {
-        font-size: 14px;
+        font-size: 13px;
     }
 
-    .precio_venta_oferta {
+    .precio_valorizado {
         padding-right: 8px;
         border-right: 1px solid #cacaca;
+        display: inline-block;
     }
 
     .ganancia {
         padding-left: 5px;
     }
 
-    .ganancia, .precio_venta_oferta {
+    .ganancia{
         display: inline-block;
+    }
+
+    .detalle_producto_detalle {
+        width: 100%;
     }
 
     .contenedor_agregar {
@@ -530,6 +530,11 @@ ul.breadcumbs li a {
 
     .btn_agregalo{
         width: 66%;
+    }
+
+    .precio_venta_oferta {
+        margin-bottom: 0px;
+        margin-top: 10px;
     }
 
     .share{

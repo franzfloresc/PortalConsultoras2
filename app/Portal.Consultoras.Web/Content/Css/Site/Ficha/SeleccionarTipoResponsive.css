@@ -348,6 +348,9 @@
     }
 
 @media (max-width: 768px) {
+    .content_tono_detalle {
+        width: 16.8%;
+    }
     .popup_lateral {
         display: none;
         margin: 0;
