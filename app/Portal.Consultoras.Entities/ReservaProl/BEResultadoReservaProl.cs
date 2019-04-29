@@ -41,6 +41,10 @@ namespace Portal.Consultoras.Entities.ReservaProl
         [DataMember]
         public string CodigoMensaje { get; set; }
         [DataMember]
+        public string CodigoMensajeRxP { get; set; }
+        [DataMember]
+        public string MensajeRxP { get; set; }
+        [DataMember]
         public int PedidoID { get; set; }
         [DataMember]
         public Enumeradores.ResultadoReserva ResultadoReservaEnum { get; set; }

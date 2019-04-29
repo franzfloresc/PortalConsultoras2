@@ -24,5 +24,10 @@ namespace Portal.Consultoras.Entities.Pedido
         public BEPedidoWebDetalle PedidoWebDetalle { get; set; }
         [DataMember]
         public bool ModificoBackOrder { get; set; }
+        [DataMember]
+        public string CodigoProlRxP { get; set; }
+        [DataMember]
+        public string MensajeProlRxP { get; set; }
+
     }
 }
