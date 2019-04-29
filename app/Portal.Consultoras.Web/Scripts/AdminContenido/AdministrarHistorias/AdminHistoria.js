@@ -119,9 +119,6 @@ function ModificarDetalle(id, IdContenido) {
 }
 
 function UploadFileDetalle(tag) {
-    //console.log(tag);
-    //alert(rutaFileUpload);
-    //return;
     var tipoFile = ["jpg", "png", "jpeg"];
     var tipoFileTag = $("#nombre-" + tag).attr("data-tipofile");
     if (tipoFileTag === "imggif") {
@@ -133,8 +130,6 @@ function UploadFileDetalle(tag) {
     params["height"] = $("#nombre-" + tag).attr("imageheight");
     params["messageSize"] = $("#nombre-" + tag).attr("messageSize");
 
-    //console.log(params);
-
     new qq.FileUploader({
         allowedExtensions: tipoFile,
         element: document.getElementById("img-" + tag),
@@ -144,7 +139,6 @@ function UploadFileDetalle(tag) {
             typeError: $("#nombre-" + tag).attr("messageFormat")
         },
         onComplete: function (id, fileName, responseJSON) {
-            //console.log("responseJSON", responseJSON);
             if (checkTimeout(responseJSON)) {
                 if (responseJSON.success) {
                     $("#nombre-" + tag).val(responseJSON.name);
