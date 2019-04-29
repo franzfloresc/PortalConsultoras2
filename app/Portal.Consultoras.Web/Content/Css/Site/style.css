@@ -12143,4 +12143,63 @@ label.checkpop {
         cursor: pointer;
     }
 
-/**/
+/*----Kit de Inicio-----*/
+
+.uneteDashboard__container h1 {
+    font-family: Arial;
+}
+
+.uneteDashboard__container p {
+    font-size: 13px;
+}
+
+.uneteDashboard {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+}
+
+    .uneteDashboard.detalle__kit {
+        border-top: 1px solid #cfcfcf;
+        margin-top: 10px;
+    }
+
+.input__container {
+    display: flex;
+    align-items: baseline;
+    margin-right: 3.3%;
+    width: 30%;
+    padding: 20px 0 5px;
+}
+
+    .input__container.one__six {
+        width: 63.3%;
+    }
+
+    .input__container.one__twelf {
+        width: 100%;
+    }
+
+    .input__container label {
+        min-width: 104px;
+        max-width: 105px;
+        color: #702789;
+        font-size: 14px;
+        text-align: right;
+        padding-right: 10px;
+    }
+
+    .input__container select, .input__container input {
+        width: 100%;
+        padding: 10px 15px;
+        border-radius: 8px;
+        color: #702789;
+    }
+
+    .input__container input {
+        border: 1px solid #cfcfcf;
+    }
+
+.showCuvSap {
+    display: none;
+}
