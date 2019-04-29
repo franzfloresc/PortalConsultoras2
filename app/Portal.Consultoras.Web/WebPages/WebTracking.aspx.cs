@@ -511,11 +511,11 @@ namespace Portal.Consultoras.Web.WebPages
                         }
                         //HD-3606 EINCA
 
-                        var flag = (horaEstimadaEntregaDesde != string.Empty && horaEstimadaEntregaHasta != string.Empty) ? true : false;
+                        var flag = horaEstimadaEntregaDesde != string.Empty && horaEstimadaEntregaHasta != string.Empty;
 
                         if (item.Etapa == Constantes.SegPedidoSituacion.FechaEstimadaEntrega && flag)
                         {
-                            item.HoraEstimadaDesdeHasta = ValidarZonaRegion() == true ? string.Format("{0} - {1}", horaEstimadaEntregaDesde, horaEstimadaEntregaHasta) : "";
+                            item.HoraEstimadaDesdeHasta = ValidarZonaRegion() ? string.Format("{0} - {1}", horaEstimadaEntregaDesde, horaEstimadaEntregaHasta) : "";
                         }
                     }
 
