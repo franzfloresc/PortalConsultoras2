@@ -462,16 +462,18 @@ $(document).ready(function () {
         e.preventDefault();
         var obj = $(this);
         var accion = obj.attr("data-paginacion");
+        var tipoPaginador = obj.attr("data-tipo");
         if (accion === "back" || accion === "next") {
-            CambioPagina(obj);
+            CambioPagina(obj, tipoPaginador);
         }
     });
     $("body").on("change", "[data-paginacion]", function (e) {
         e.preventDefault();
         var obj = $(this);
         var accion = obj.attr("data-paginacion");
+        var tipoPaginador = obj.attr("data-tipo");
         if (accion === "page" || accion === "rows") {
-            CambioPagina(obj);
+            CambioPagina(obj, tipoPaginador);
         }
     });
 
@@ -543,7 +545,7 @@ $(document).ready(function () {
     
 });
 
-function CargarDetallePedido(page, rows, asyncrono) {
+function CargarDetallePedido(page, rows, asyncrono) {    
     $(".pMontoCliente").css("display", "none");
 
     $("#tbobyDetallePedido").html('<div><div style="width:100%;"><div style="text-align: center;"><br>Cargando Detalle de Productos<br><img src="' + urlLoad + '" /></div></div></div>');
@@ -610,7 +612,7 @@ function CargarDetallePedido(page, rows, asyncrono) {
                 var htmlPaginadorH = ArmarDetallePedidoPaginador(data);
 
                 data.footer = false;
-                var htmlPaginadorF = ArmarDetallePedidoPaginador(data);
+                var htmlPaginadorF = ArmarDetallePedidoPaginador(data);                
 
                 $("#paginadorCab").html(htmlPaginadorH);
                 $("#paginadorPie").html(htmlPaginadorF);
@@ -1474,25 +1476,37 @@ function ObtenerProductosSugeridos(CUV) {
             SetHandlebars("#js-CarruselSugerido", lista, "#divCarruselSugerido");
 
             $.each($("#divCarruselSugerido .sugerido"), function (index, obj) {
-                var h = $(obj).find(".nombre_producto").height();
-                if (h > 40) {
-                    var txt = $(obj).find(".nombre_producto b").html();
-                    var splits = txt.split(" ");
-                    var lent = splits.length;
-                    var cont = false;
-                    for (var i = lent; i > 0; i--) {
-                        if (cont) continue;
-                        splits.splice(i - 1, 1);
-                        $(obj).find(".nombre_producto b").html(splits.join(" "));
-                        var hx = $(obj).find(".nombre_producto").height();
-                        if (hx <= 40) {
-                            var txtF = splits.join(" ");
-                            txtF = txtF.substr(0, txtF.length - 3);
-                            $(obj).find(".nombre_producto b").html(txtF + "...");
-                            cont = true;
-                        }
-                    }
+                var selector = $(obj).find(".nombre_producto_sugerido b");
+                var descripcion = selector.text().trim();
+                var wd = descripcion.length;
+                if (wd <= 50) {
+                    selector.html(descripcion);
                 }
+                else {
+
+                    var descripcionNueva = descripcion.substring(0, 50);
+                    descripcionNueva = descripcionNueva + "...";
+                    selector.html(descripcionNueva);
+                }
+                //var h = $(obj).find(".nombre_producto").height();
+                //if (h > 40) {
+                //    var txt = $(obj).find(".nombre_producto b").html();
+                //    var splits = txt.split(" ");
+                //    var lent = splits.length;
+                //    var cont = false;
+                //    for (var i = lent; i > 0; i--) {
+                //        if (cont) continue;
+                //        splits.splice(i - 1, 1);
+                //        $(obj).find(".nombre_producto b").html(splits.join(" "));
+                //        var hx = $(obj).find(".nombre_producto").height();
+                //        if (hx <= 40) {
+                //            var txtF = splits.join(" ");
+                //            txtF = txtF.substr(0, txtF.length - 3);
+                //            $(obj).find(".nombre_producto b").html(txtF + "...");
+                //            cont = true;
+                //        }
+                //    }
+                //}
             });
 
             $("#divObservaciones").html("");
@@ -3257,13 +3271,16 @@ function InfoCommerceGoogleDestacadoNextCarrusel() {
     }
 }
 
-function CambioPagina(obj) {
+function CambioPagina(obj, tipoPaginador) {
     var rpt = paginadorAccionGenerico(obj);
     if (rpt.page == undefined) {
         return false;
     }
 
-    CargarDetallePedido(rpt.page, rpt.rows);
+    switch (tipoPaginador) {
+        case ClasPedidoDetalle: CargarDetallePedido(rpt.page, rpt.rows); break;
+        case ClasPedidoDetallePendiente: CargarPedidosPend(rpt.page, rpt.rows); break;
+    }    
     return true;
 }
 

@@ -233,8 +233,10 @@
     <Compile Include="Areas\Mobile\Controllers\TerminosYCondicionesController.cs" />
     <Compile Include="Controllers\AdministrarHistoriasController.cs" />
     <Compile Include="Controllers\Administrar\AdministrarComponenteController.cs" />
+    <Compile Include="Controllers\AdministracionPopupsController.cs" />
     <Compile Include="Controllers\BonificacionesController.cs" />
     <Compile Include="Controllers\BaseAdmController.cs" />
+    <Compile Include="Controllers\FakeErrorController.cs" />
     <Compile Include="Controllers\EstrategiaGrupoController.cs" />
     <Compile Include="Controllers\ProductoRecomendadoController.cs" />
     <Compile Include="Controllers\ArmaTuPackController.cs" />
@@ -309,6 +311,8 @@
     <Compile Include="Models\ArmaTuPackModel.cs" />
     <Compile Include="Models\BuscadorYFiltrosCategoriaModel.cs" />
     <Compile Include="Models\PremioNuevaModel.cs" />
+    <Compile Include="Models\AdministracionPoput\ComunicadoModel.cs" />
+    <Compile Include="Models\AdministracionPoput\SegmentacionComunicado.cs" />
     <Compile Include="Models\BuscadorYFiltrosConfiguracionModel.cs" />
     <Compile Include="Controllers\BusquedaProductosController.cs" />
     <Compile Include="Controllers\ComunController.cs" />
@@ -1452,6 +1456,8 @@
     <Content Include="Content\Css\Mobile\RevistaDigital\PaginaInformativa.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\PopupSuscripcion.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\RedimensionLandingRD.css" />
+    <Content Include="Content\Css\Site\AdministracionPopups\administracion-popups.css" />
+    <Content Include="Content\Css\Site\AdministracionPopups\administracion-popus-informativo.css" />
     <Content Include="Content\Css\Site\Admin\Estrategias\UpSelling.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\index.css" />
     <Content Include="Content\Css\Site\ArmaTuPack\ArmaTuPack_Responsive.css" />
@@ -1547,6 +1553,8 @@
     <Content Include="Content\Css\Site\ShowRoom.css" />
     <Content Include="Content\Css\Site\TusClientes\TusClientes_Responsive.css" />
     <Content Include="Content\Images\arrow-left.png" />
+    <Content Include="Content\Images\AdministracionPoput\consultora1.jpg" />
+    <Content Include="Content\Images\AdministracionPoput\consultora2.jpg" />
     <Content Include="Content\Images\arrow_left.svg" />
     <Content Include="Content\Images\arrow_right.svg" />
     <Content Include="Content\Images\borrar_tusclientes.svg" />
@@ -1686,6 +1694,7 @@
     <Content Include="Content\Css\Toast\jquery.toast.min.css" />
     <Content Include="Content\Css\Site\calc.css" />
     <Content Include="Content\Css\Site\fonts\icomoon\iconos-cambio-pass.svg" />
+    <Content Include="Content\Images\csv_file_img.svg" />
     <Content Include="Content\Images\dateTimePicker\cal.gif" />
     <Content Include="Content\Images\dateTimePicker\cal_close.gif" />
     <Content Include="Content\Images\dateTimePicker\cal_fastforward.gif" />
@@ -1728,6 +1737,7 @@
     <Content Include="Content\Images\filtrar-icono.svg" />
     <Content Include="Content\Images\Esika\fondo-navidenio.png" />
     <Content Include="Content\Images\Esika\logo_marca_pais_desktop_blanco.svg" />
+    <Content Include="Content\Images\flecha_desplegable_grilla.svg" />
     <Content Include="Content\Images\flecha_icono.svg" />
     <Content Include="Content\Images\General\Icons\arrow_down.svg" />
     <Content Include="Content\Images\icono-carrito-compra-blanco.svg" />
@@ -4000,6 +4010,7 @@
     <Content Include="Content\Template\mailing_pago_percepcion.html" />
     <Content Include="Content\Template\mailing_pago_percepcion_detalle.html" />
     <Content Include="Content\Temporales\FolderContent.txt" />
+    <Content Include="CustomError.html" />
     <Content Include="emt_chat\js\inject.js" />
     <Content Include="EsikaConmigo.html" />
     <Content Include="Global.asax" />
@@ -4089,6 +4100,11 @@
     <Content Include="Scripts\jquery.rateyo.js" />
     <Content Include="Scripts\jquery.tmpl.js" />
     <Content Include="Scripts\jquery.toast.min.js" />
+    <Content Include="Scripts\jquery.ui.core.js" />
+    <Content Include="Scripts\jquery.ui.mouse.js" />
+    <Content Include="Scripts\jquery.ui.sortable.js" />
+    <Content Include="Scripts\jquery.ui.swappable.js" />
+    <Content Include="Scripts\jquery.ui.widget.js" />
     <Content Include="Scripts\LogError.js" />
     <Content Include="Scripts\MultiSelect\css\common.css" />
     <Content Include="Scripts\MultiSelect\css\ui.multiselect.css" />
@@ -4111,6 +4127,7 @@
     <Content Include="Scripts\MultiSelect\js\ui.multiselect.js" />
     <Content Include="Scripts\nieve.js" />
     <Content Include="Scripts\PortalConsultoras\ArmaTuPack\Detalle\ArmaTuPackDetalleEvents.js" />
+    <Content Include="Scripts\PortalConsultoras\AdminPoput\AdminPoput.js" />
     <Content Include="Scripts\PortalConsultoras\ArmaTuPack\Detalle\Detalle.js" />
     <Content Include="Scripts\PortalConsultoras\ArmaTuPack\ArmaTuPackProvider.js" />
     <Content Include="Scripts\PortalConsultoras\ArmaTuPack\Detalle\Cabecera\CabeceraPresenter.js" />
@@ -4690,6 +4707,9 @@
     <None Include="Service References\ServiceContenido\ContenidoService.disco" />
     <None Include="Service References\ServiceContenido\configuration91.svcinfo" />
     <None Include="Service References\ServiceContenido\configuration.svcinfo" />
+    <None Include="Service References\ServiceContenido\ContenidoService5.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServiceContenido\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -5358,6 +5378,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Scripts\AdminContenido\MatrizComercial.js" />
+    <Content Include="Uploads\consultora1.jpg" />
     <Content Include="Views\AdministrarEstrategia\_NuevoMasivo.cshtml" />
     <Content Include="Views\CatalogoPersonalizado\Index.cshtml">
       <SubType>Code</SubType>
@@ -5561,11 +5582,9 @@
     <Content Include="Views\SolicitudCliente\ReporteAfiliadas.cshtml" />
     <Content Include="Views\SolicitudCliente\ReportePedidos.cshtml" />
     <Content Include="Views\MiAcademia\Index.cshtml" />
-    <Content Include="Views\MisReclamos\Index.cshtml" />
     <Content Include="Views\Notificaciones\ListadoDetallePedidoRechazado.cshtml" />
     <Content Include="Views\Unete\TemplatesUbigeos\_UbigeoGrupo5.cshtml" />
     <Content Include="Views\Unete\ReporteConsolidado.cshtml" />
-    <Content Include="Views\MisReclamos\Reclamo.cshtml" />
     <Content Include="Views\Notificaciones\ListaDetalleCdr.cshtml" />
     <None Include="Service References\ValidacionCrediticia\ValidacionCrediticiaService1.xsd">
       <SubType>Designer</SubType>
@@ -5762,8 +5781,14 @@
     <Content Include="Views\ArmaTuPack\Detalle\cabecera-template.cshtml" />
     <Content Include="Views\ArmaTuPack\Detalle\grupos-template.cshtml" />
     <Content Include="Views\ArmaTuPack\Detalle\seleccionados-template.cshtml" />
+    <Content Include="Views\AdministracionPopups\AdministracionPopups.cshtml" />
+    <Content Include="Uploads\Archivoccv.csv" />
+    <Content Include="Views\MisReclamos\Index.cshtml" />
+    <Content Include="Views\MisReclamos\Reclamo.cshtml" />
+    <Content Include="Views\MisReclamos\ReporteDetalle.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-bannerInteractivo.cshtml" />
     <Content Include="Views\Bonificaciones\IndexExterno.cshtml" />
+    <Content Include="Views\MisCertificados\CAM_NoAdeudoPdf.cshtml" />
     <Content Include="Views\AdministrarHistorias\Index.cshtml" />
     <Content Include="Views\AdministrarHistorias\Partials\MantenimientoEstado.cshtml" />
     <Content Include="Views\AdministrarHistorias\Partials\MantenimientoDetalle.cshtml" />
@@ -5775,7 +5800,6 @@
     <Content Include="Views\Unete\NivelesGeograficos.cshtml" />
     <Content Include="Views\Notificaciones\ListaDetalleCdrCulminado.cshtml" />
     <Content Include="Views\Login\Admin.cshtml" />
-    <Content Include="Views\MisReclamos\ReporteDetalle.cshtml" />
     <Content Include="Views\IncentivosSMS\Index.cshtml" />
     <Content Include="Views\MatrizComercial\MatrizComercialDialog.cshtml" />
     <Content Include="Views\AdministrarProductoSugerido\ListadoImagenesMatriz.cshtml" />
@@ -5836,10 +5860,10 @@
     <Content Include="Views\Unete\NivelesRiesgo.cshtml" />
     <Content Include="Views\Unete\_RechazarPostulante.cshtml" />
     <Content Include="Views\Unete\_AprobarPostulante.cshtml" />
-    <Content Include="Web References\ServiceLMS\Reference.map">
+    <None Include="Web References\ServiceLMS\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
-    </Content>
+    </None>
     <None Include="Web References\ServiceLMS\ws_server.wsdl" />
     <None Include="Web References\ServicePROLArchivoReserva\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
@@ -6078,6 +6102,7 @@
     <Folder Include="Views\Cupon\" />
     <Folder Include="Views\EstrategiaGrupo\" />
     <Folder Include="Views\EstrategiaProductoComentario\" />
+    <Folder Include="Views\FakeError\" />
     <Folder Include="Views\PremioNuevas\Partial\" />
   </ItemGroup>
   <ItemGroup>
@@ -6094,7 +6119,7 @@
       <Name>Portal.Consultoras.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Portal.Consultoras.Service\Portal.Consultoras.Service.csproj">
-      <Project>{B3AD057A-2326-4F70-8723-0B2B3AFCE4EA}</Project>
+      <Project>{b3ad057a-2326-4f70-8723-0b2b3afce4ea}</Project>
       <Name>Portal.Consultoras.Service</Name>
     </ProjectReference>
   </ItemGroup>

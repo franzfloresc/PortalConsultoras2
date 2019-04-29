@@ -2,6 +2,7 @@
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
   <xs:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Comunicado" />
   <xs:element name="SelectBanner">
     <xs:complexType>
       <xs:sequence>
@@ -1103,6 +1104,155 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="UpdateContenidoAppDetaResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetListaPopup">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Estado" type="xs:int" />
+        <xs:element minOccurs="0" name="Campania" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Paginas" type="xs:int" />
+        <xs:element minOccurs="0" name="Filas" type="xs:int" />
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetListaPopupResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q63="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetListaPopupResult" nillable="true" type="q63:ArrayOfBEComunicado" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDetallePopup">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Comunicadoid" type="xs:int" />
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDetallePopupResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q64="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetDetallePopupResult" nillable="true" type="q64:BEComunicado" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GuardarPopups">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="tituloPrincipal" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="descripcion" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Url" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="fechaMaxima" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="fechaMinima" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="checkDesktop" type="xs:boolean" />
+        <xs:element minOccurs="0" name="checkMobile" type="xs:boolean" />
+        <xs:element minOccurs="0" name="accionID" type="xs:int" />
+        <xs:element minOccurs="0" name="datosCSV" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="comunicadoId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="nombreArchivo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="codigoCampania" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="descripcionAccion" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GuardarPopupsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GuardarPopupsResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GuardarPopupsValidador">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="checkDesktop" type="xs:boolean" />
+        <xs:element minOccurs="0" name="datosCSV" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GuardarPopupsValidadorResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GuardarPopupsValidadorResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ActualizaOrden">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Comunicado" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Orden" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ActualizaOrdenResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ActualizaOrdenResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EliminarArchivoCsv">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Comunicadoid" type="xs:int" />
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EliminarArchivoCsvResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="EliminarArchivoCsvResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EliminarArchivoCsvValidador">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EliminarArchivoCsvValidadorResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="EliminarArchivoCsvValidadorResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CargaEstadoValidadorDatos">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CargaEstadoValidadorDatosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="CargaEstadoValidadorDatosResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCargaListadoPopupValidador">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCargaListadoPopupValidadorResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q65="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Comunicado" minOccurs="0" name="GetCargaListadoPopupValidadorResult" nillable="true" type="q65:ArrayOfBEComunicadoSegmentacion" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

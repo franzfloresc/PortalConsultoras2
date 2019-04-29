@@ -262,6 +262,7 @@
         var esAppMobile = true;
         var AplicarLogicaCantidadBotonVerTodos = '@ViewBag.AplicarLogicaCantidadBotonVerTodos'.toLowerCase();
         var urlDeshacerReservaPedidoReservado2 = '@Url.Action("PedidoValidadoDeshacerReserva", "Pedido", new { area = "" })';
+        var MostrarPalabrasMenoresACuatro = '@ViewBag.MostrarPalabrasMenoresACuatro';
     </script>
 
     <script type="text/javascript">
@@ -456,16 +457,20 @@
 
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
     @RenderSection("scripts", required: false)
-    @if (TempData.ContainsKey("PixelCodigoIso"))
-    {
-        @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Login-Header")
-        <script>
-            var pixelAnalytics = Analytics();
-            pixelAnalytics.invocarEventoPixelById('@(TempData["PixelMarcacion"])', '@(TempData["PixelId"])');
-        </script>
-        @TempData.Remove("PixelCodigoIso");
-    }
 
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Login-Header")
+    <script>
+
+        var pixelAnalytics = Analytics({ pixelId : '@Constantes.Facebook.FB_Pixel'});
+
+            @if (TempData.ContainsKey("PixelCodigoIso"))
+            {
+                @:pixelAnalytics.invocarEventoPixelById('@(TempData["PixelMarcacion"])', '@(TempData["PixelId"])');
+                TempData.Remove("PixelCodigoIso");
+            }
+        pixelAnalytics.invocarPageViewPixelById();
+    </script>
+    <script type="text/javascript" id="lightning_bolt" src="//cdn-akamai.mookie1.com/LB/LightningBolt.js"></script>
     @{
         if (TempData.ContainsKey("LimpiarLocalStorage"))
         {

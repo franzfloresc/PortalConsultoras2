@@ -339,9 +339,13 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool EsDuoPerfecto { get; set; }
         [DataMember]
+        public bool EsCuponIndependiente { get; set; }
+        
+        [DataMember]
         public int SetIdentifierNumber { get; set; }
         [DataMember]
         public bool EsRegalo { get; set; }
+        [DataMember]
+        public bool EsArmaTuPack { get; set; }
     }
-
 }
