@@ -51,7 +51,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var urlS3 = ConfigCdn.GetUrlCdnMatriz(paisIso);
 
                 var habilitarNemotecnico = _tablaLogicaProvider.GetTablaLogicaDatoCodigo(userData.PaisID, ConsTablaLogica.Plan20.TablaLogicaId,
-                    Constantes.TablaLogicaDato.BusquedaNemotecnicoZonaEstrategia);
+                    ConsTablaLogica.Plan20.BusquedaNemotecnicoZonaEstrategia);
 
                 estrategiaModel = new EstrategiaModel()
                 {
@@ -645,7 +645,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var codigo = _tablaLogicaProvider.GetTablaLogicaDatoCodigo(userData.PaisID, ConsTablaLogica.Plan20.TablaLogicaId,
-                    Constantes.TablaLogicaDato.Tonos, true);
+                    ConsTablaLogica.Plan20.Tonos, true);
 
                 if (Convert.ToInt32(codigo) <= entidad.CampaniaID)
                 {

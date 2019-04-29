@@ -667,7 +667,7 @@ namespace Portal.Consultoras.Web.Controllers
             bool rpta = false;
             try
             {
-                var codigo = _tablaLogicaProvider.GetTablaLogicaDatoCodigoInt(userData.PaisID, ConsTablaLogica.Plan20.TablaLogicaId, Constantes.TablaLogicaDato.Tonos, true);
+                var codigo = _tablaLogicaProvider.GetTablaLogicaDatoCodigoInt(userData.PaisID, ConsTablaLogica.Plan20.TablaLogicaId, ConsTablaLogica.Plan20.Tonos, true);
                 if (codigo > entidadMasivo.CampaniaId)
                     return rpta;
 

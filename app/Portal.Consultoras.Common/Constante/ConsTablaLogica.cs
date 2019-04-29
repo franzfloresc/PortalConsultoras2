@@ -350,6 +350,13 @@ namespace Portal.Consultoras.Common
             public const string RedirectCode = "bar_in_url";
             public const string EnabledCode = "bar_in_act";
             public const string NoUrlAllowed = "bar_in_no";
+
+            public const int Tonos = 9802;
+            public const int PersonalizacionShowroom = 9850;
+            public const int BusquedaNemotecnicoMatriz = 9851;
+            public const int BusquedaNemotecnicoOfertaLiquidacion = 9852;
+            public const int BusquedaNemotecnicoProductoSugerido = 9853;
+            public const int BusquedaNemotecnicoZonaEstrategia = 9854;
         }
 
         public static class OrdenamientoShowRoom
