@@ -53,12 +53,12 @@ namespace Portal.Consultoras.BizLogic.Producto
                         var OrigenPedidoWebDesplegableFichaCarrusel = Util.obtenerCodigoOrigenWebApp(item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaID, true, false, false, true, item.MaterialGanancia);
                         var OrigenPedidoWebLandingFichaCarrusel = Util.obtenerCodigoOrigenWebApp(item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaID, false, true, false, true, item.MaterialGanancia);
 
-                        item.OrigenesPedidoWeb.Add(new BEBuscadorResponseOrigen() { Codigo = Constantes.OrigenPedidoBuscadorApp.OrigenPedidoWebDesplegable, Valor = OrigenPedidoWebDesplegable });
-                        item.OrigenesPedidoWeb.Add(new BEBuscadorResponseOrigen() { Codigo = Constantes.OrigenPedidoBuscadorApp.OrigenPedidoWebLanding, Valor = OrigenPedidoWebLanding });
-                        item.OrigenesPedidoWeb.Add(new BEBuscadorResponseOrigen() { Codigo = Constantes.OrigenPedidoBuscadorApp.OrigenPedidoWebDesplegableFicha, Valor = OrigenPedidoWebDesplegableFicha });
-                        item.OrigenesPedidoWeb.Add(new BEBuscadorResponseOrigen() { Codigo = Constantes.OrigenPedidoBuscadorApp.OrigenPedidoWebLandingFicha, Valor = OrigenPedidoWebLandingFicha });
-                        item.OrigenesPedidoWeb.Add(new BEBuscadorResponseOrigen() { Codigo = Constantes.OrigenPedidoBuscadorApp.OrigenPedidoWebLandingFichaCarrusel, Valor = OrigenPedidoWebDesplegableFichaCarrusel });
-                        item.OrigenesPedidoWeb.Add(new BEBuscadorResponseOrigen() { Codigo = Constantes.OrigenPedidoBuscadorApp.OrigenPedidoWebDesplegableFichaCarrusel, Valor = OrigenPedidoWebLandingFichaCarrusel });
+                        if(OrigenPedidoWebDesplegable > 0) item.OrigenesPedidoWeb.Add(new BEBuscadorResponseOrigen() { Codigo = Constantes.OrigenPedidoBuscadorApp.OrigenPedidoWebDesplegable, Valor = OrigenPedidoWebDesplegable });
+                        if (OrigenPedidoWebLanding > 0) item.OrigenesPedidoWeb.Add(new BEBuscadorResponseOrigen() { Codigo = Constantes.OrigenPedidoBuscadorApp.OrigenPedidoWebLanding, Valor = OrigenPedidoWebLanding });
+                        if (OrigenPedidoWebDesplegableFicha > 0) item.OrigenesPedidoWeb.Add(new BEBuscadorResponseOrigen() { Codigo = Constantes.OrigenPedidoBuscadorApp.OrigenPedidoWebDesplegableFicha, Valor = OrigenPedidoWebDesplegableFicha });
+                        if (OrigenPedidoWebLandingFicha > 0) item.OrigenesPedidoWeb.Add(new BEBuscadorResponseOrigen() { Codigo = Constantes.OrigenPedidoBuscadorApp.OrigenPedidoWebLandingFicha, Valor = OrigenPedidoWebLandingFicha });
+                        if (OrigenPedidoWebDesplegableFichaCarrusel > 0) item.OrigenesPedidoWeb.Add(new BEBuscadorResponseOrigen() { Codigo = Constantes.OrigenPedidoBuscadorApp.OrigenPedidoWebLandingFichaCarrusel, Valor = OrigenPedidoWebDesplegableFichaCarrusel });
+                        if (OrigenPedidoWebLandingFichaCarrusel > 0) item.OrigenesPedidoWeb.Add(new BEBuscadorResponseOrigen() { Codigo = Constantes.OrigenPedidoBuscadorApp.OrigenPedidoWebDesplegableFichaCarrusel, Valor = OrigenPedidoWebLandingFichaCarrusel });
                     }
                 });
             }
