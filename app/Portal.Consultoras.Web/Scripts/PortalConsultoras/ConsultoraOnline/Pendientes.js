@@ -160,7 +160,16 @@ function DetallePedidoPendienteClientes(cuv) {
             console.log(response);
             if (response.success) {
                 console.log(response);
-                SetHandlebars("#template-paso-1-Clientes", response.data, "#Paso1-Clientes");
+
+                $.each(response.data.ListaPedidos, function (index, value) {
+                    value.CUVx = response.CUVx || "";
+                });
+                
+                var objenviar = {
+                    ListaPedidos: response.data.ListaPedidos,
+                    Productox: response.Productox
+                }
+                SetHandlebars("#template-paso-1-Clientes", objenviar, "#Paso1-Clientes");
                 $('#Paso1-Clientes').show();
             }
         },
@@ -481,3 +490,13 @@ function CerrarPopupConfirmacion() {
 
     ActualizarPendientes();
 }
+
+$("body").on('change', ".ValidaValor", function (e) {
+    var $input = $(this);
+    var previousVal = $input.val();
+
+    if (previousVal == 0) {
+
+        $input.val(1);
+    }
+});

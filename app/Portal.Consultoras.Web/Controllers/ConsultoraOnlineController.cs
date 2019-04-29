@@ -2320,6 +2320,7 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult DetallePedidoPendienteClientes(string cuv)
         {
             MisPedidosModel model = new MisPedidosModel();
+            string Producton = "";
 
             try
             {
@@ -2340,6 +2341,7 @@ namespace Portal.Consultoras.Web.Controllers
                     var detalles = cab.DetallePedido.Where(x => x.CUV == cuv);
                     if (detalles.Any())
                     {
+                        Producton = detalles.ToList()[0].Producto;
                         arrIds.Add(cab.PedidoId.ToString());
                     }
                 }
@@ -2374,7 +2376,9 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = true,
-                    data = model
+                    data = model,
+                    CUVx =cuv,
+                    Productox=Producton
                 }, JsonRequestBehavior.AllowGet);
 
             }
