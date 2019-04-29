@@ -34,30 +34,30 @@
         },
         componenteDetalle: "componenteDetalle-template",
         componenteDetalleIndividual: "componenteDetalleIndividual-template",
-        ContenidoProducto: "#ContenidoProducto",
-        BotonVerDetalle: "[id='btnVerDetalle']",
+        //ContenidoProducto: "#ContenidoProducto",
+        //BotonVerDetalle: "[id='btnVerDetalle']",
         MenuDetalleComponente: "#mnuDetalleComponente li a",
         CarruselVideo: '#carouselVideo',
         CarruselIndividualVideo: '#carouselIndividualVideo',
         ModalProductoDetalle: "#modal_producto_detalle"
     };
 
-    var _validator = {
-        mostrarBotoneraVerDetalle: function (valor) {
-            if (valor) {
-                $(_template.BotonVerDetalle).each(function () { $(this).show(); });
-            } else {
-                $(_template.BotonVerDetalle).each(function () { $(this).hide(); });
-            }
-        },
-        mostrarContenidoProducto: function (valor) {
-            if (valor) {
-                $(_template.ContenidoProducto).show();
-            } else {
-                $(_template.ContenidoProducto).hide();
-            }
-        }
-    };
+    //var _validator = {
+    //    mostrarBotoneraVerDetalle: function (valor) {
+    //        if (valor) {
+    //            $(_template.BotonVerDetalle).each(function () { $(this).show(); });
+    //        } else {
+    //            $(_template.BotonVerDetalle).each(function () { $(this).hide(); });
+    //        }
+    //    },
+    //    mostrarContenidoProducto: function (valor) {
+    //        if (valor) {
+    //            $(_template.ContenidoProducto).show();
+    //        } else {
+    //            $(_template.ContenidoProducto).hide();
+    //        }
+    //    }
+    //};
 
     var _util = {
         mostrarDetalleModal: function (data) {
@@ -83,7 +83,7 @@
             //estrategia.Hermanos por default es solo 1
             console.log(estrategia);
 
-            if (estrategia.CodigoVariante == ConstantesModule.CodigoVariedad.IndividualVariable) {
+            if (estrategia.Hermanos.length == 1) {
                 if (estrategia.MostrarFichaEnriquecida) {
 
                     _util.setHandlebars(_template.componenteDetalleIndividual, estrategia.Hermanos[0]);
@@ -175,30 +175,30 @@
         _util.mostrarDetalleIndividual(estrategia);
     };
 
-    var _OcultarControles = function (variante) {
-        console.log(variante);
-        if (_tipoEstrategiaTexto.Ganadoras === _config.palanca ||
-            _tipoEstrategiaTexto.ShowRoom === _config.palanca || /*Especiales*/
-            _tipoEstrategiaTexto.Lanzamiento === _config.palanca || /*Lo nuevo nuevo*/
-            _tipoEstrategiaTexto.OfertasParaMi === _config.palanca ||
-            _tipoEstrategiaTexto.OfertaParaTi === _config.palanca ||
+    //var _OcultarControles = function (variante) {
+    //    console.log(variante);
+    //    if (_tipoEstrategiaTexto.Ganadoras === _config.palanca ||
+    //        _tipoEstrategiaTexto.ShowRoom === _config.palanca || /*Especiales*/
+    //        _tipoEstrategiaTexto.Lanzamiento === _config.palanca || /*Lo nuevo nuevo*/
+    //        _tipoEstrategiaTexto.OfertasParaMi === _config.palanca ||
+    //        _tipoEstrategiaTexto.OfertaParaTi === _config.palanca ||
+    //        _tipoEstrategiaTexto.GuiaNegocio === _config.palanca ||
+    //        _tipoEstrategiaTexto.GuiaDeNegocioDigitalizada === _config.palanca) {
 
-            _tipoEstrategiaTexto.GuiaNegocio === _config.palanca ||
-            _tipoEstrategiaTexto.GuiaDeNegocioDigitalizada === _config.palanca) {
-            _validator.mostrarContenidoProducto(true);
+    //        _validator.mostrarContenidoProducto(true);
 
-            if (variante != ConstantesModule.CodigoVariedad.IndividualVariable) {
-                _validator.mostrarBotoneraVerDetalle(true);
-                _validator.mostrarContenidoProducto(false);
-            } else {
-                _validator.mostrarBotoneraVerDetalle(false);
-            }
-        }
-        else {
-            _validator.mostrarContenidoProducto(false);
-            _validator.mostrarBotoneraVerDetalle(false);
-        }
-    };
+    //        if (variante != ConstantesModule.CodigoVariedad.IndividualVariable) {
+    //            _validator.mostrarBotoneraVerDetalle(true);
+    //            _validator.mostrarContenidoProducto(false);
+    //        } else {
+    //            _validator.mostrarBotoneraVerDetalle(false);
+    //        }
+    //    }
+    //    else {
+    //        _validator.mostrarContenidoProducto(false);
+    //        _validator.mostrarBotoneraVerDetalle(false);
+    //    }
+    //};
 
     var _events = {
         bindClosePopup: function () {
@@ -213,7 +213,7 @@
 
     return {
         VerDetalle: _VerDetalle,
-        VerDetalleIndividual: _VerDetalleIndividual,
-        OcultarControles: _OcultarControles
+        VerDetalleIndividual: _VerDetalleIndividual
+        //OcultarControles: _OcultarControles
     };
 });

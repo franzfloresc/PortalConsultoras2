@@ -29,28 +29,6 @@
         color: white;
     }
 
-/*@media screen and (max-width: 800px) {
-    .mb-left {
-        display: block;
-        float: left;
-    }
-
-    .cam-exito img {
-        display: block;
-        float: left;
-        margin-right: 10px;
-    }
-
-    .cam-exito p {
-        text-align: left;
-    }
-
-    .cam-exito .toptext {
-        margin-bottom: 10px;
-        font-size: 17px;
-        font-weight: bold;
-    }
-}*/
 
 @media screen and (max-width: 800px) {
     .cam-exito {
@@ -74,7 +52,7 @@
         font-size: 15px;
         margin-right: 2%;
         display: inline-block;
-        margin-top: 5px;
+        margin-top: 8px;
         font-weight: bold;
         line-height: 19px;
     }
@@ -99,9 +77,8 @@
         width: 62%;
         box-sizing: border-box;
         display: inline-block;
-        /* line-height: 16px; */
         clear: inherit;
-        margin-top: 8px;
+        margin-top: 10px;
         border-radius: 4px;
         margin-left: 6%;
         text-transform: inherit;

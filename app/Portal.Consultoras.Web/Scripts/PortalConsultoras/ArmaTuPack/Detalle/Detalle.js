@@ -34,7 +34,7 @@ var cabeceraPresenter = CabeceraPresenter({
     generalModule: generalModule,
     armaTuPackDetalleEvents: armaTuPackDetalleEvents
 });
-cabeceraView.setPresenter(cabeceraPresenter);
+//cabeceraView.setPresenter(cabeceraPresenter);
 
 var gruposDesktopView = GruposView({
     generalModule: generalModule,

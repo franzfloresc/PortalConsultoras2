@@ -4,13 +4,15 @@ GO
 DELETE ConfiguracionMedallaCaminoBrillante;
 
 INSERT INTO ConfiguracionMedallaCaminoBrillante(Logro, Indicador, Orden, Codigo, Valor, ComoLograrlo_Estado, ComoLograrlo_Titulo, ComoLograrlo_Descripcion, Estado) 
-	VALUES('CRECIMIENTO','ESCALA',1,'25','{0}%',1,'Cambio de escala {0}', 'Pasa un monto de pedido superior a {0}',1);
+	VALUES('CRECIMIENTO','ESCALA',1,'20','{0}%',1,'Cambio de escala {0}', 'Pasa un monto de pedido superior a {0}',1);
+INSERT INTO ConfiguracionMedallaCaminoBrillante(Logro, Indicador, Orden, Codigo, Valor, ComoLograrlo_Estado, ComoLograrlo_Titulo, ComoLograrlo_Descripcion, Estado) 
+	VALUES('CRECIMIENTO','ESCALA',2,'25','{0}%',1,'Cambio de escala {0}', 'Pasa un monto de pedido superior a {0}',1);
 INSERT INTO ConfiguracionMedallaCaminoBrillante(Logro, Indicador, Orden, Codigo, Valor, ComoLograrlo_Estado, ComoLograrlo_Titulo, ComoLograrlo_Descripcion, Estado)
-	VALUES('CRECIMIENTO','ESCALA',2,'28','{0}%',1,'Cambio de escala {0}', 'Pasa un monto de pedido superior a {0}',1);
+	VALUES('CRECIMIENTO','ESCALA',3,'28','{0}%',1,'Cambio de escala {0}', 'Pasa un monto de pedido superior a {0}',1);
 INSERT INTO ConfiguracionMedallaCaminoBrillante(Logro, Indicador, Orden, Codigo, Valor, ComoLograrlo_Estado, ComoLograrlo_Titulo, ComoLograrlo_Descripcion, Estado)
-	VALUES('CRECIMIENTO','ESCALA',3,'30','{0}%',1,'Cambio de escala {0}', 'Pasa un monto de pedido superior a {0}',1);
+	VALUES('CRECIMIENTO','ESCALA',4,'30','{0}%',1,'Cambio de escala {0}', 'Pasa un monto de pedido superior a {0}',1);
 INSERT INTO ConfiguracionMedallaCaminoBrillante(Logro, Indicador, Orden, Codigo, Valor, ComoLograrlo_Estado, ComoLograrlo_Titulo, ComoLograrlo_Descripcion, Estado)
-	VALUES('CRECIMIENTO','ESCALA',4,'35','{0}%',1,'Cambio de escala {0}', 'Pasa un monto de pedido superior a {0}',1);
+	VALUES('CRECIMIENTO','ESCALA',5,'35','{0}%',1,'Cambio de escala {0}', 'Pasa un monto de pedido superior a {0}',1);
 
 INSERT INTO ConfiguracionMedallaCaminoBrillante(Logro, Indicador, Orden, Codigo, Valor, ComoLograrlo_Estado, ComoLograrlo_Titulo, ComoLograrlo_Descripcion, Estado)
 	VALUES('CRECIMIENTO','NIVEL',1,'1','{0}%',1,'Cambio de nivel {0}', 'Para obtener este porcentaje de descuento tendrás que vender {1} de tu meta de ventas',1);
@@ -90,13 +92,17 @@ GO
 DELETE ConfiguracionMedallaCaminoBrillante;
 
 INSERT INTO ConfiguracionMedallaCaminoBrillante(Logro, Indicador, Orden, Codigo, Valor, ComoLograrlo_Estado, ComoLograrlo_Titulo, ComoLograrlo_Descripcion, Estado) 
-	VALUES('CRECIMIENTO','ESCALA',1,'25','{0}%',1,'Cambio de escala {0}', 'Pasa un monto de pedido superior a {0}',1);
+	VALUES('CRECIMIENTO','ESCALA',1,'20','{0}%',1,'Cambio de escala {0}', 'Pasa un monto de pedido superior a {0}',1);
+INSERT INTO ConfiguracionMedallaCaminoBrillante(Logro, Indicador, Orden, Codigo, Valor, ComoLograrlo_Estado, ComoLograrlo_Titulo, ComoLograrlo_Descripcion, Estado) 
+	VALUES('CRECIMIENTO','ESCALA',2,'25','{0}%',1,'Cambio de escala {0}', 'Pasa un monto de pedido superior a {0}',1);
 INSERT INTO ConfiguracionMedallaCaminoBrillante(Logro, Indicador, Orden, Codigo, Valor, ComoLograrlo_Estado, ComoLograrlo_Titulo, ComoLograrlo_Descripcion, Estado)
-	VALUES('CRECIMIENTO','ESCALA',2,'28','{0}%',1,'Cambio de escala {0}', 'Pasa un monto de pedido superior a {0}',1);
+	VALUES('CRECIMIENTO','ESCALA',3,'28','{0}%',1,'Cambio de escala {0}', 'Pasa un monto de pedido superior a {0}',1);
 INSERT INTO ConfiguracionMedallaCaminoBrillante(Logro, Indicador, Orden, Codigo, Valor, ComoLograrlo_Estado, ComoLograrlo_Titulo, ComoLograrlo_Descripcion, Estado)
-	VALUES('CRECIMIENTO','ESCALA',3,'30','{0}%',1,'Cambio de escala {0}', 'Pasa un monto de pedido superior a {0}',1);
+	VALUES('CRECIMIENTO','ESCALA',4,'30','{0}%',1,'Cambio de escala {0}', 'Pasa un monto de pedido superior a {0}',1);
+	INSERT INTO ConfiguracionMedallaCaminoBrillante(Logro, Indicador, Orden, Codigo, Valor, ComoLograrlo_Estado, ComoLograrlo_Titulo, ComoLograrlo_Descripcion, Estado)
+	VALUES('CRECIMIENTO','ESCALA',5,'32','{0}%',1,'Cambio de escala {0}', 'Pasa un monto de pedido superior a {0}',1);
 INSERT INTO ConfiguracionMedallaCaminoBrillante(Logro, Indicador, Orden, Codigo, Valor, ComoLograrlo_Estado, ComoLograrlo_Titulo, ComoLograrlo_Descripcion, Estado)
-	VALUES('CRECIMIENTO','ESCALA',4,'35','{0}%',1,'Cambio de escala {0}', 'Pasa un monto de pedido superior a {0}',1);
+	VALUES('CRECIMIENTO','ESCALA',6,'35','{0}%',1,'Cambio de escala {0}', 'Pasa un monto de pedido superior a {0}',1);
 
 INSERT INTO ConfiguracionMedallaCaminoBrillante(Logro, Indicador, Orden, Codigo, Valor, ComoLograrlo_Estado, ComoLograrlo_Titulo, ComoLograrlo_Descripcion, Estado)
 	VALUES('CRECIMIENTO','NIVEL',1,'1','{0}%',1,'Cambio de nivel {0}', 'Para obtener este porcentaje de descuento tendrás que vender {1} de tu meta de ventas',1);
@@ -176,13 +182,15 @@ GO
 DELETE ConfiguracionMedallaCaminoBrillante;
 
 INSERT INTO ConfiguracionMedallaCaminoBrillante(Logro, Indicador, Orden, Codigo, Valor, ComoLograrlo_Estado, ComoLograrlo_Titulo, ComoLograrlo_Descripcion, Estado) 
-	VALUES('CRECIMIENTO','ESCALA',1,'25','{0}%',1,'Cambio de escala {0}', 'Pasa un monto de pedido superior a {0}',1);
+	VALUES('CRECIMIENTO','ESCALA',1,'20','{0}%',1,'Cambio de escala {0}', 'Pasa un monto de pedido superior a {0}',1);
+INSERT INTO ConfiguracionMedallaCaminoBrillante(Logro, Indicador, Orden, Codigo, Valor, ComoLograrlo_Estado, ComoLograrlo_Titulo, ComoLograrlo_Descripcion, Estado) 
+	VALUES('CRECIMIENTO','ESCALA',2,'25','{0}%',1,'Cambio de escala {0}', 'Pasa un monto de pedido superior a {0}',1);
 INSERT INTO ConfiguracionMedallaCaminoBrillante(Logro, Indicador, Orden, Codigo, Valor, ComoLograrlo_Estado, ComoLograrlo_Titulo, ComoLograrlo_Descripcion, Estado)
-	VALUES('CRECIMIENTO','ESCALA',2,'28','{0}%',1,'Cambio de escala {0}', 'Pasa un monto de pedido superior a {0}',1);
+	VALUES('CRECIMIENTO','ESCALA',3,'28','{0}%',1,'Cambio de escala {0}', 'Pasa un monto de pedido superior a {0}',1);
 INSERT INTO ConfiguracionMedallaCaminoBrillante(Logro, Indicador, Orden, Codigo, Valor, ComoLograrlo_Estado, ComoLograrlo_Titulo, ComoLograrlo_Descripcion, Estado)
-	VALUES('CRECIMIENTO','ESCALA',3,'30','{0}%',1,'Cambio de escala {0}', 'Pasa un monto de pedido superior a {0}',1);
+	VALUES('CRECIMIENTO','ESCALA',4,'30','{0}%',1,'Cambio de escala {0}', 'Pasa un monto de pedido superior a {0}',1);
 INSERT INTO ConfiguracionMedallaCaminoBrillante(Logro, Indicador, Orden, Codigo, Valor, ComoLograrlo_Estado, ComoLograrlo_Titulo, ComoLograrlo_Descripcion, Estado)
-	VALUES('CRECIMIENTO','ESCALA',4,'35','{0}%',1,'Cambio de escala {0}', 'Pasa un monto de pedido superior a {0}',1);
+	VALUES('CRECIMIENTO','ESCALA',5,'35','{0}%',1,'Cambio de escala {0}', 'Pasa un monto de pedido superior a {0}',1);
 
 INSERT INTO ConfiguracionMedallaCaminoBrillante(Logro, Indicador, Orden, Codigo, Valor, ComoLograrlo_Estado, ComoLograrlo_Titulo, ComoLograrlo_Descripcion, Estado)
 	VALUES('CRECIMIENTO','NIVEL',1,'1','{0}%',1,'Cambio de nivel {0}', 'Para obtener este porcentaje de descuento tendrás que vender {1} de tu meta de ventas',1);
