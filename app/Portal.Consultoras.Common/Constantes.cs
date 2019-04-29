@@ -1926,8 +1926,8 @@ namespace Portal.Consultoras.Common
             public const short OrdenamientoShowRoom = 99;
             //public const short NuevaDescripcionProductos = 145;
             public const short MensajesToolTipPerfil = 10;
-            public const short EscalaDescuentoDestokp = 72;
-            public const short EscalaDescuentoMobile = 73;
+            //public const short EscalaDescuentoDestokp = 72;
+            //public const short EscalaDescuentoMobile = 73;
             public const short ListaOrdenamientoFiltros = 147;
             public const short ArmaTuPack = 14;
             public const short PilotoCatalogoDigital = 155;
