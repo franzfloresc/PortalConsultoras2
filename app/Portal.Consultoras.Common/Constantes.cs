@@ -1920,7 +1920,7 @@ namespace Portal.Consultoras.Common
             //    public const string NotaCantidadMaxima = "not_max_c";
             //}
 
-            public const short RevistaDigital = 131;
+            //public const short RevistaDigital = 131;
             //public const int ValoresPagoEnLinea = 122;
             //public const short HabilitarChatEmtelco = 144;
             //public const short OrdenamientoShowRoom = 99;
@@ -1935,12 +1935,12 @@ namespace Portal.Consultoras.Common
             //public const short ResizeImagenesAppGanaMas = 162;
             //public const short SegPedidoRegionZona = 169;//HD-3606 EINCA
             //public const short TiempoMaximoSP = 180;
-            #region Camino Brillante
-            public const short CaminoBrillanteInfoComercial = 165;
-            public const short CaminoBrillanteLogros = 166;
-            public const short CaminoBrillanteIndicadores = 167;
-            public const short CaminoBrillanteOfertasEspeciales = 167; //Pendiente
-            #endregion
+            //#region Camino Brillante
+            //public const short CaminoBrillanteInfoComercial = 165;
+            //public const short CaminoBrillanteLogros = 166;
+            //public const short CaminoBrillanteIndicadores = 167;
+            //public const short CaminoBrillanteOfertasEspeciales = 167; //Pendiente
+            //#endregion
         }
 
         public struct MensajesCDRExpress
