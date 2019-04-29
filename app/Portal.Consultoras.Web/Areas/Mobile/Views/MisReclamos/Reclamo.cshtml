@@ -366,24 +366,24 @@
                     <div class="validacion_seccion_datos">
                         <form>
                             <div class="mb-27">
-                                <label class="tipografia_lato_regular">Correo electrónico</label>
-                                <input type="hidden" id="hdEmail" value="@Model.Email" />
-                                <input type="text" id="txtEmail" value="@Model.Email" />
                                 <div class="correo_reclamo_error">
                                     <span id="spnEmailError" style="display: none;">
                                         *Correo Electrónico incorrecto
                                     </span>
                                 </div>
+                                <input type="text" id="txtEmail" value="@Model.Email" />
+                                <label class="tipografia_lato_regular">Correo electrónico</label>
+                                <input type="hidden" id="hdEmail" value="@Model.Email" />
                             </div>
                             <div class="mb-23">
-                                <label class="tipografia_lato_regular">Celular</label>
-                                <input type="text" id="txtTelefono" value="@Model.Telefono" />
-                                <input type="hidden" id="hdTelefono" value="@Model.Telefono" />
                                 <div class="correo_reclamo_error">
                                     <span id="spnTelefonoError" style="display: none;">
                                         *Teléfono incorrecto
                                     </span>
                                 </div>
+                                <input type="text" id="txtTelefono" value="@Model.Telefono" />
+                                <label class="tipografia_lato_regular">Celular</label>
+                                <input type="hidden" id="hdTelefono" value="@Model.Telefono" />
                             </div>
                         </form>
                     </div>

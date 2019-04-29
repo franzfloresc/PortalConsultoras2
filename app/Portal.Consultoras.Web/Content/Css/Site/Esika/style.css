@@ -28325,6 +28325,7 @@ div.motivoRechazo textarea {
     }
 
 .resultado_busqueda_por_cuv_enlace {
+    display: -ms-flexbox;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -28611,7 +28612,9 @@ div.motivoRechazo textarea {
 
         .validacion_datos_correo_electronico > div,
         .validacion_datos_celular_contacto > div {
+            display: -ms-flexbox;
             display: flex;
+            -ms-flex-direction: column;
             flex-direction: column;
             justify-content: flex-start;
         }
@@ -29039,13 +29042,15 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 }
 
 .reclamo_motivo_select {
+    display: -ms-flexbox;
     display: flex;
     justify-content: center;
     align-content: center;
+    -ms-flex-direction:column;
     flex-direction: column;
     width: 48%;
     height: 50px;
-    font-family: 'Lato';
+    font-family: 'Lato', sans-serif;
     font-size: 14px;
     padding-left: 50px;
     background: url('https://cdn1-prd.somosbelcorp.com/ImagenesPortal/Iconos/selector_reclamo.png') no-repeat;
@@ -29186,8 +29191,11 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 }
 
 .content_listado_reclamo {
+    display: -ms-flexbox;
     display: flex;
+    -ms-flex-direction:row;
     flex-direction: row;
+    -ms-flex-wrap:nowrap;
     flex-wrap: nowrap;
     justify-content: space-around;
     align-items: center;
@@ -29388,17 +29396,17 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
         font-size: 14px;
         color: red;
         line-height: 18px;
-        margin-top: 5px;
+        margin-top: -8px;
     }
 
 .texto_correo {
     display: block;
     margin-left: 51px;
-    font-family: 'Lato';
+    font-family: 'Lato', sans-serif;
     font-size: 15px;
     color: #808080;
     margin-top: 18px;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
 }
 
 .politica_reclamos {
@@ -29769,16 +29777,17 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     cursor: pointer;
 }
 
-.listado_estado_general div .estado_texto {
+.listado_estado_general div .estado_texto,
+.pop_solicitud_resolucion .estado_texto {
     font-weight: 700;
     font-size: 12px;
     display: inline-block;
     margin: 0;
-    padding-left: 16px;
-    padding-right: 16px;
+    padding-left: 12px;
+    padding-right: 12px;
     vertical-align: middle;
-    margin-right: 15px;
-    width: auto;
+    margin-right: 16px;
+    min-width: 105px;
     height: 24px;
     line-height: 22px;
     letter-spacing: 0.5px;
@@ -29864,37 +29873,42 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     font-size: 14px;
     color: black;
     text-align: center;
-    margin-bottom: 11px;
+    margin-bottom: 24px;
 }
 
-.pop_solicitud_producto, .pop_solicitud_tipo, .pop_solicitud_solucion, .pop_solicitud_resolucion {
+.pop_solicitud_producto,
+.pop_solicitud_tipo,
+.pop_solicitud_solucion,
+.pop_solicitud_resolucion {
     float: left;
-    font-family: 'Lato';
+    font-family: 'Lato', sans-serif;
     line-height: 19px;
     font-size: 15px;
-    padding-top: 25px;
-    padding-bottom: 25px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left:16px;
+    padding-right:16px;
     color: black;
 }
 
 .pop_solicitud_producto {
     width: 32%;
-    padding-left: 2%;
+    /*padding-left: 2%;*/
 }
 
 .pop_solicitud_tipo {
     width: 16%;
-    padding-left: 1%;
+    /*padding-left: 1%;*/
 }
 
 .pop_solicitud_solucion {
     width: 22.5%;
-    padding-left: 1%;
+    /*padding-left: 1%;*/
 }
 
 .pop_solicitud_resolucion {
     width: 28.5%;
-    padding-left: 4%;
+    /*padding-left: 4%;*/
 }
 
 .texto_estado_solicitud {
@@ -31786,11 +31800,8 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     width: 310px;
     margin: 34px auto 60px auto;
     position: relative;
-    display: flex;
-    display: -webkit-flex;
-    display: -moz-flex;
     display: -ms-flexbox;
-    display: -o-flex;
+    display: flex;
     justify-content: space-between;
     z-index: 4;
 }

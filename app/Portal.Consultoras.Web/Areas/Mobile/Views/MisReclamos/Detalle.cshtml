@@ -194,15 +194,15 @@ else if (ViewBag.Origen == "1")
                         <div>
                             @item.SolucionSolicitada
                         </div>
-                        <div class="estado_solic_cdr color_marca  tipografia_lato_bold">
+                        <div class="estado_solic_cdr tipografia_lato_bold">
                             @if (item.Estado == 4)
                             {<span class="tipografia_lato_bold estado_registro_solicitud_cdr estado_rechazado">RECHAZADO</span>}
                             @if (item.Estado == 3)
-                            {<span tipografia_lato_bold estado_registro_solicitud_cdr estado_aprobado>APROBADO</span>}
+                            {<span class="tipografia_lato_bold estado_registro_solicitud_cdr estado_aprobado">APROBADO</span>}
                             @if (item.Estado == 2)
-                            {<span tipografia_lato_bold estado_registro_solicitud_cdr estado_en_evaluacion>EN EVALUACION</span>}
+                            {<span class="tipografia_lato_bold estado_registro_solicitud_cdr estado_en_evaluacion">EN EVALUACION</span>}
                             @if (item.Estado == 1)
-                            {<span tipografia_lato_bold estado_registro_solicitud_cdr estado_pendiente>PENDIENTE</span>}
+                            {<span class="tipografia_lato_bold estado_registro_solicitud_cdr estado_pendiente">PENDIENTE</span>}
                         </div>
                     </div>
                     <div class="detalle_tipo_solicitud">

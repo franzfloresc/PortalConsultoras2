@@ -268,7 +268,7 @@
         </div>
         <div class="pop_solicitud_resolucion">
             {{#if_eq Estado '3'}}
-            <span class="texto_estado_solicitud">APROBADO</span>
+            <span class="estado_texto EstadoAceptado">APROBADO</span>
             {{else}}
             {{/if_eq}}
         </div>
@@ -318,7 +318,7 @@
             {{/if_eq}}
         </div>
         <div class="pop_solicitud_resolucion">
-            <span class="texto_estado_solicitud">RECHAZADO</span>{{item.Observacion}}
+            <span class="estado_texto EstadoRechazado">RECHAZADO</span>{{item.Observacion}}
         </div>
         <hr class="clear" />
         <div class="content_producto_observado">
@@ -394,7 +394,7 @@
             {{else}}
             {{/if_eq}}
         </div>
-        <div class="pop_solicitud_resolucion"><span class="texto_estado_solicitud">APROBADO</span></div>
+        <div class="pop_solicitud_resolucion"><span class="estado_texto EstadoAceptado">APROBADO</span></div>
         <hr class="clear" />
     </div>
     {{/if_eq}}

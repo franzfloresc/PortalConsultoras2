@@ -34,8 +34,11 @@
 
     .tabs_vista_cdr,
     .tab_vista_cdr_enlace_contenido{
+        display: -ms-flexbox;
         display: flex;
+        -ms-flex-direction:row;
         flex-direction: row;
+        -ms-flex-wrap:nowrap;
         flex-wrap: nowrap;
         justify-content:center;
         align-items:center;
@@ -180,8 +183,11 @@
 }
 
 .registro_solicitud_cdr {
+    display: -ms-flexbox;
     display: flex;
+    -ms-flex-direction:row;
     flex-direction: row;
+    -ms-flex-wrap:nowrap;
     flex-wrap: nowrap;
     justify-content: space-between;
     align-items: center;
@@ -229,7 +235,8 @@
     letter-spacing: 0.5px;
 }
 
-.estado_pendiente {
+.estado_pendiente,
+.estado_en_evaluacion {
     border: 1px solid #808080;
     color: #808080;
 }
@@ -300,6 +307,7 @@
 }
 
 .pasos_proceso_registro {
+    display: -ms-flexbox;
     display: flex;
     width: 158px;
     justify-content: space-between;
@@ -531,12 +539,15 @@
 }
 
     .contenedor_campo_cantidad_productos > div {
+        display: -ms-flexbox;
         display: flex;
+        -ms-flex-direction:row;
         flex-direction: row;
+        -ms-flex-wrap:nowrap;
         flex-wrap: nowrap;
         justify-content: space-between;
         align-items: flex-start;
-        margin-left:0;
+        margin-left: 0;
     }
 
     .contenedor_campo_cantidad_productos .cantidad_menos_home,
@@ -689,15 +700,18 @@
     }
 
 .btn_cta_wrapper {
+    display: -ms-flexbox;
     display: flex;
+    -ms-flex-direction:row;
     flex-direction: row;
+    -ms-flex-wrap:wrap;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     position: fixed;
     left: 0;
     bottom: 0;
-    z-index:1000;
+    z-index: 1000;
     background-color: #F5F5F5;
     width: 100%;
     height: 66px;
@@ -754,6 +768,7 @@
     }
 
     .btn_cta_cdr--agregarSolicitud{
+        display: -ms-flexbox;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -1230,6 +1245,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     width: 170px;
     margin: 32px auto 32px auto;
     position: relative;
+    display: -ms-flexbox;
     display: flex;
     justify-content: space-between;
     z-index: 4;
@@ -1383,10 +1399,31 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     font-size: 13px;
 }
 
-.validacion_seccion_datos div label, .validacion_seccion_datos div input[type='text'] {
+.validacion_seccion_datos div {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column-reverse;
+    flex-direction: column-reverse;
+    -ms-flex-wrap:nowrap;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+    .correo_reclamo_error {
+        align-self: flex-start;
+        color: red;
+        padding-left: 28px;
+        margin-top: 8px;
+    }
+
+.validacion_seccion_datos div label,
+.validacion_seccion_datos div input[type='text'] {
     display: block;
-    color: #888;
     font-size: 14px;
+}
+
+.validacion_seccion_datos div label {
+    color: #808080;
 }
 
 .validacion_seccion_datos div input[type='text'] {
@@ -1394,10 +1431,23 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     width: 100%;
     max-width: 276px;
     height: 45px;
-    border: 1px solid #b5b5b5;
+    border: 1px solid #d1d4d4;
     padding: 0 10px;
-    border-radius:4px;
+    border-radius: 4px;
+    color: #000;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
 }
+
+    .validacion_seccion_datos div input[type='text']:focus + label {
+        color: #000!important;
+    }
+
+    .validacion_seccion_datos div input[type='text']:focus{
+        border:1px solid #000!important;
+    }
 
 .mb-27 {
     margin-bottom: 27px;
@@ -1409,8 +1459,11 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 }
 
     .content_politica_devolucion label {
+        display: -ms-flexbox;
         display: flex;
+        -ms-flex-direction: row-reverse;
         flex-direction: row-reverse;
+        -ms-flex-wrap:nowrap;
         flex-wrap: nowrap;
         justify-content: center;
     }
@@ -2017,12 +2070,14 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 }
 
 .campo_busqueda_codigo_o_descripcion_producto_wrapper {
-    display:block;
+    display: block;
     padding-left: 15px;
     padding-right: 15px;
     width: 100%;
     height: 66px;
+    display: -ms-flexbox;
     display: flex;
+    -ms-flex-direction:row;
     flex-direction: row;
     align-items: center;
     border-bottom: 1px solid #d8d8d8;
@@ -2041,8 +2096,11 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 }
 
 .coincidencia_busqueda_producto {
+    display: -ms-flexbox;
     display: flex;
+    -ms-flex-direction:row;
     flex-direction: row;
+    -ms-flex-wrap:nowrap;
     flex-wrap: nowrap;
     justify-content: space-around;
     align-items: center;
