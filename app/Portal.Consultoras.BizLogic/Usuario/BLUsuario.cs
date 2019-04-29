@@ -236,10 +236,10 @@ namespace Portal.Consultoras.BizLogic
                     BEValidacionDatos validacionDato;
                     using (var reader = dAValidacionDatos.GetValidacionDatosByTipoEnvioAndUsuario(Constantes.TipoEnvioEmailSms.EnviarPorEmail, codigoUsuario))
                     {
-                        validacionDato = MapUtil.MapToObject<BEValidacionDatos>(reader, true, true);
+                        validacionDato = MapUtil.MapToObject<BEValidacionDatos>(reader, true, true);    
                     }
 
-                    if (validacionDato == null || validacionDato.DatoNuevo != email)
+                    if (validacionDato == null || validacionDato.DatoNuevo.ToLower() != email.ToLower())
                     {
                         return ActivacionEmailRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_ACTIVACION_NO_EXISTE);
                     }
@@ -251,13 +251,13 @@ namespace Portal.Consultoras.BizLogic
 
                     usuario = GetBasicSesionUsuario(paisID, codigoUsuario);
 
-                    if (!usuario.EMail.Contains(email) && daUsuario.ExistsUsuarioEmail(email)
+                    if (!usuario.EMail.ToLower(). Contains(email.ToLower()) && daUsuario.ExistsUsuarioEmail(email)
                         && daUsuario.ExistsUsuarioEmail(email))
                     {
                         return ActivacionEmailRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_ACTIVACION_DUPLICADO, belcorpResponde: _belcorpRespondeBusinessLogic.GetBelcorpResponde(paisID).FirstOrDefault());
                     }
 
-                    daUsuario.UpdUsuarioEmail(codigoUsuario, validacionDato.DatoNuevo, usuario.CampaniaID);
+                    daUsuario.UpdUsuarioEmail(codigoUsuario, validacionDato.DatoNuevo.ToLower(), usuario.CampaniaID);
                     validacionDato.Estado = Constantes.ValidacionDatosEstado.Activo;
                     validacionDato.UsuarioModificacion = codigoUsuario;
                     validacionDato.CampaniaActivacionEmail = usuario.CampaniaID;
