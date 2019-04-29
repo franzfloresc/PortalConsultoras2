@@ -80,11 +80,13 @@ namespace Portal.Consultoras.Web.Controllers
             else return RedirectToAction("Index", "CaminoBrillante");
         }
 
+       [Route("Indicadores/Crecimiento")]
         public ActionResult Crecimiento()
         {
             return RedirectToAction("Logros", "CaminoBrillante", new { opcion = "CRECIMIENTO" });
         }
 
+        [Route("Indicadores/Compromiso")]
         public ActionResult Compromiso()
         {
             return RedirectToAction("Logros", "CaminoBrillante", new { opcion = "COMPROMISO" });
