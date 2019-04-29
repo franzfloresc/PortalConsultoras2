@@ -1895,7 +1895,7 @@ namespace Portal.Consultoras.Common
         public struct TablaLogica
         {
             //public const int Plan20 = 98;
-            public const int StockDiasAntes = 181;
+            //public const int StockDiasAntes = 181;
 
             /// <summary>
             /// Variables configurables del app

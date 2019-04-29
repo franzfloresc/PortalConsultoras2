@@ -346,7 +346,7 @@ namespace Portal.Consultoras.Web.Providers
         private bool GetValidarDiasAntesStock(UsuarioModel userData)
         {
             var validar = false;
-            var lstTablaLogicaDatos = _tablaLogicaProvider.GetTablaLogicaDatos(userData.PaisID, Constantes.TablaLogica.StockDiasAntes, true);
+            var lstTablaLogicaDatos = _tablaLogicaProvider.GetTablaLogicaDatos(userData.PaisID, ConsTablaLogica.OfertasConsultora.TablaLogicaId, true);
             if (lstTablaLogicaDatos.Any())
             {
                 var diasAntesStock = lstTablaLogicaDatos.FirstOrDefault().Valor;
