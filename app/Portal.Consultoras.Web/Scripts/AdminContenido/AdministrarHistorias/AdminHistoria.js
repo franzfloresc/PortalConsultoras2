@@ -92,6 +92,7 @@ function NuevoDetalle(IdContenido) {
 }
 
 function ModificarDetalle(id, IdContenido) {
+
     waitingDialog();
     $.ajax({
         url: baseUrl + "AdministrarHistorias/GetDetalle",
