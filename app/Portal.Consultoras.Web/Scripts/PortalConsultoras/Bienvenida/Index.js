@@ -897,6 +897,7 @@ function EstructurarDataCarouselLiquidaciones(array) {
         }
         /* INI HD-4009 */
         item.ValPUM = (item.UnidadMedida == "" || item.PUM == "") ? false : true;
+        item.UnidadMedida = item.UnidadMedida.toLowerCase();
         /* FIN HD-4009 */
 
     });
