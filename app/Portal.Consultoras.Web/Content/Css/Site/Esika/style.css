@@ -17517,7 +17517,7 @@ label.checkpop.c_on {
 .precio_ganancia {
     text-align: center;
     font-size: 10px;
-    font-size: 9px\9;
+    font-size: 9px;
     font-family: 'lato';
     margin-top: -6px;
     width: 68px;
@@ -28452,21 +28452,21 @@ div.motivoRechazo textarea {
     color:#000;
 }
 
-.descripcion_reclamo + .chosen-container .chosen-search-input[type="text"] {
-    display: block;
-    height: 100%;
-    font-family: 'Lato', sans-serif;
-    padding-left: 18px;
-    padding-right: 18px;
-    padding-top: 1px;
-    border: 0;
-    /*background-color:#FBFBFB;*/
-    /*background-color:#FBFBFB;*/
+    .descripcion_reclamo + .chosen-container .chosen-search-input[type="text"] {
+        display: block;
+        height: 100%;
+        font-family: 'Lato', sans-serif;
+        padding-left: 18px;
+        padding-right: 18px;
+        padding-top: 1px;
+        border: 0;
+        /*background-color:#FBFBFB;*/
+        /*background-color:#FBFBFB;*/
         background-image: url(/Content/Images/icono_lupa.svg);
-    background-color: #FFF;
-    font-size: 14px;
-    background-repeat: no-repeat;
-    background-position: 97% center;
+        background-color: #FFF;
+        font-size: 14px;
+        background-repeat: no-repeat;
+        background-position: 97% center;
     }
 
 .descripcion_reclamo + .chosen-container .chosen-results{
