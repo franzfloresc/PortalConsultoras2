@@ -24,7 +24,7 @@ namespace Portal.Consultoras.Web.Providers
         {
             var mensajeErrorImagenResize = string.Empty;
 
-            var lstImagenResize = _tablaLogicaProvider.GetTablaLogicaDatos(paisID, Constantes.TablaLogica.ResizeImagenesAppGanaMas, true);
+            var lstImagenResize = _tablaLogicaProvider.GetTablaLogicaDatos(paisID, ConsTablaLogica.ResizeImagenesAppGana.TablaLogicaId, true);
 
             lstImagenResize = lstImagenResize.Where(x => x.Codigo.StartsWith(palanca)).ToList();
 

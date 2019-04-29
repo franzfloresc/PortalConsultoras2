@@ -568,7 +568,7 @@ namespace Portal.Consultoras.BizLogic
                 var contratoAceptacionTask = Task.Run(() => GetContratoAceptacion(paisID, usuario.ConsultoraID));
                 var pagoEnLineaTask = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetListCache(paisID, ConsTablaLogica.ValoresPagoLinea.TablaLogicaId));
                 var tieneChatbotTask = Task.Run(() => usuario.TieneChatbot = TieneChatbot(paisID, usuario.CodigoConsultora));
-                var tieneGanaMasNativo = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetListCache(paisID, Constantes.TablaLogica.GanaMasNativo));
+                var tieneGanaMasNativo = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetListCache(paisID, ConsTablaLogica.GanaNativo.TablaLogicaId));
 
                 var lstConfiguracionPais = new List<string>();
                 lstConfiguracionPais.Add(Constantes.ConfiguracionPais.RevistaDigital);
@@ -3672,7 +3672,7 @@ namespace Portal.Consultoras.BizLogic
                     datosPerfil.Add(new BEUsuarioPerfil(reader));
             }
 
-            var tablaLogica = _tablaLogicaDatosBusinessLogic.GetList(paisID, Constantes.TablaLogica.MensajesToolTipPerfil);
+            var tablaLogica = _tablaLogicaDatosBusinessLogic.GetList(paisID, ConsTablaLogica.MensajesTooltipPerfil.TablaLogicaId);
             oMensaje.oDatosPerfil = datosPerfil;
             oMensaje.MensajeAmbos = tablaLogica.Where(a => a.TablaLogicaDatosID == Constantes.TablaLogicaDato.MensajeActualizarEmailSms).Select(b => b.Valor).FirstOrDefault();
             oMensaje.MensajeCelular = tablaLogica.Where(a => a.TablaLogicaDatosID == Constantes.TablaLogicaDato.MensajeActualizarSms).Select(b => b.Valor).FirstOrDefault();

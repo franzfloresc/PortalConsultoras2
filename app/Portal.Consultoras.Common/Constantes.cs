@@ -1900,7 +1900,7 @@ namespace Portal.Consultoras.Common
             /// <summary>
             /// Variables configurables del app
             /// </summary>
-            public const short App = 106;
+            //public const short App = 106;
 
             public static class Keys
             {
@@ -1923,18 +1923,18 @@ namespace Portal.Consultoras.Common
             public const short RevistaDigital = 131;
             //public const int ValoresPagoEnLinea = 122;
             //public const short HabilitarChatEmtelco = 144;
-            public const short OrdenamientoShowRoom = 99;
+            //public const short OrdenamientoShowRoom = 99;
             //public const short NuevaDescripcionProductos = 145;
-            public const short MensajesToolTipPerfil = 10;
+            //public const short MensajesToolTipPerfil = 10;
             //public const short EscalaDescuentoDestokp = 72;
             //public const short EscalaDescuentoMobile = 73;
-            public const short ListaOrdenamientoFiltros = 147;
-            public const short ArmaTuPack = 14;
-            public const short PilotoCatalogoDigital = 155;
-            public const short GanaMasNativo = 159;
-            public const short ResizeImagenesAppGanaMas = 162;
+            //public const short ListaOrdenamientoFiltros = 147;
+            //public const short ArmaTuPack = 14;
+            //public const short PilotoCatalogoDigital = 155;
+            //public const short GanaMasNativo = 159;
+            //public const short ResizeImagenesAppGanaMas = 162;
             //public const short SegPedidoRegionZona = 169;//HD-3606 EINCA
-            public const short TiempoMaximoSP = 180;
+            //public const short TiempoMaximoSP = 180;
             #region Camino Brillante
             public const short CaminoBrillanteInfoComercial = 165;
             public const short CaminoBrillanteLogros = 166;
