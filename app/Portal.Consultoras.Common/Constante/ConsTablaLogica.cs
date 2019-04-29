@@ -525,6 +525,11 @@ namespace Portal.Consultoras.Common
             public const int TablaLogicaId = 162;
         }
 
+        public static class SegPedidoRegionZona
+        {
+            public const int TablaLogicaId = 169;
+        }
+
         public static class TiempoMaximoDemoraSp
         {
             public const int TablaLogicaId = 180;

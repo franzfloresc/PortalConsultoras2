@@ -1933,7 +1933,7 @@ namespace Portal.Consultoras.Common
             public const short PilotoCatalogoDigital = 155;
             public const short GanaMasNativo = 159;
             public const short ResizeImagenesAppGanaMas = 162;
-            public const short SegPedidoRegionZona = 169;//HD-3606 EINCA
+            //public const short SegPedidoRegionZona = 169;//HD-3606 EINCA
             public const short TiempoMaximoSP = 180;
             #region Camino Brillante
             public const short CaminoBrillanteInfoComercial = 165;
