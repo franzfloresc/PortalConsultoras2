@@ -2468,6 +2468,35 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
+        public JsonResult ActualizarPendientes()
+        {
+            try
+            {
+                var model = GetPendientes();
+
+                var PendientesJson = JsonConvert.SerializeObject(model, Formatting.Indented, new JsonSerializerSettings
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                });
+
+                return Json(new
+                {
+                    success = true,
+                    Pendientes = PendientesJson,
+                    message = "OK"
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
         public JsonResult RechazarSolicitudCliente(string pedidoId)
         {
             try

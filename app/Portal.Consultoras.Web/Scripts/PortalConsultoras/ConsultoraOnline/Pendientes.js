@@ -276,6 +276,46 @@ function RechazarSolicitudCliente(pedidoId) {
     });
 }
 
+function ActualizarPendientes() {
+    //ShowLoading();
+    $.ajax({
+        type: "POST",
+        url: "/ConsultoraOnline/ActualizarPendientes",
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        success: function (response) {
+            //CloseLoading();
+
+            if (response.success) {
+                $('#rechazarTodop').addClass('hide');
+                $("#Paso1-Productos").hide();
+                $('body').removeClass('visible');
+                //document.location.href = '/ConsultoraOnline/Pendientes';
+
+                var Pendientes = JSON.parse(response.Pendientes) || [];
+
+                $.each(Pendientes.ListaProductos, function (index, value) {
+                    value.MasDeDosClientes = false;
+                    if (value.ListaClientes.length > 2) {
+                        value.MasDeDosClientes = true;
+                        value.ListaClientes = value.ListaClientes.slice(0, 1);
+                    }
+                });
+
+                SetHandlebars("#template-vpcpContent", Pendientes, "#vpcpContent");
+
+            }
+            else {
+                alert(response.message);
+            }
+        },
+        error: function (err) {
+            //CloseLoading();
+            console.log(err);
+        }
+    });
+}
+
 function RechazarSolicitudClientePorCuv(cuv) {
     var obj = {
         cuv: cuv,
@@ -296,17 +336,17 @@ function RechazarSolicitudClientePorCuv(cuv) {
                 $('body').removeClass('visible');
                 //document.location.href = '/ConsultoraOnline/Pendientes';
 
-                var Pendientes = JSON.parse(response.Pendientes) || [];
+                //var Pendientes = JSON.parse(response.Pendientes) || [];
 
-                $.each(Pendientes.ListaProductos, function (index, value) {
-                    value.MasDeDosClientes = false;
-                    if (value.ListaClientes.length > 2) {
-                        value.MasDeDosClientes = true;
-                        value.ListaClientes = value.ListaClientes.slice(0, 1);
-                    }
-                });
+                //$.each(Pendientes.ListaProductos, function (index, value) {
+                //    value.MasDeDosClientes = false;
+                //    if (value.ListaClientes.length > 2) {
+                //        value.MasDeDosClientes = true;
+                //        value.ListaClientes = value.ListaClientes.slice(0, 1);
+                //    }
+                //});
 
-                SetHandlebars("#template-vpcpContent", Pendientes, "#vpcpContent");
+                //SetHandlebars("#template-vpcpContent", Pendientes, "#vpcpContent");
             }
             else {
                 alert(response.message);
