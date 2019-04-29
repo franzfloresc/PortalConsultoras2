@@ -17,16 +17,25 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Index()
         {
-            if (!_caminoBrillanteProvider.ValidacionCaminoBrillante()) return RedirectToAction("Index", "Bienvenida");
+            try
+            {
+                if (!_caminoBrillanteProvider.ValidacionCaminoBrillante()) return RedirectToAction("Index", "Bienvenida");
 
-            ViewBag.Niveles = _caminoBrillanteProvider.GetNivelesCaminoBrillante(true);
-            ViewBag.NivelActual = (_caminoBrillanteProvider.GetNivelActualConsultora() ??
-                                     new ServiceUsuario.BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante()).Nivel;
-            ViewBag.ResumenLogros = _caminoBrillanteProvider.GetLogroCaminoBrillante(Constantes.CaminoBrillante.Logros.RESUMEN);
-            ViewBag.TieneOfertasEspeciales = _caminoBrillanteProvider.TieneOfertasEspeciales();
-            ViewBag.SimboloMoneda = userData.Simbolo;
+                ViewBag.Niveles = _caminoBrillanteProvider.GetNivelesCaminoBrillante(true);
+                ViewBag.NivelActual = (_caminoBrillanteProvider.GetNivelActualConsultora() ??
+                                         new ServiceUsuario.BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante()).Nivel;
+                ViewBag.ResumenLogros = _caminoBrillanteProvider.GetLogroCaminoBrillante(Constantes.CaminoBrillante.Logros.RESUMEN);
+                ViewBag.TieneOfertasEspeciales = _caminoBrillanteProvider.TieneOfertasEspeciales();
+                ViewBag.SimboloMoneda = userData.Simbolo;
 
-            return View();
+                return View();
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return RedirectToAction("Index", "Bienvenida");
+            }
+
         }
 
         public ActionResult Logros(string opcion)
