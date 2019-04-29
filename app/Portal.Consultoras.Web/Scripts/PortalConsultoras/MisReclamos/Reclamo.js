@@ -37,7 +37,6 @@ var reclamo = {
 var dataCdrDevolucion = {};
 var flagSetsOrPack = false;
 $(document).ready(function () {
-
     $("#ddlCampania").on("change", function () {
         $("#txtCantidad").val("1");
         $("#divMotivo").html("");
@@ -157,7 +156,7 @@ $(document).ready(function () {
         } else {
             $(reclamo.form.resultadosBusquedaCuv).fadeIn(100);
             $(".lista_resultados_busqueda_por_cuv_wrapper").fadeIn(100);
-            var texto = $(this).val();            
+            var texto = $(this).val();
             $(reclamo.form.resultadosBusquedaCuv).find("li").filter(function () {
                 $(this).toggle($(this).attr("data-value-cuv").indexOf(texto) > -1 || $(this).attr("data-value-producto").indexOf(texto.toUpperCase()) > -1);
             });
@@ -670,7 +669,7 @@ function AsignarCUV(pedido) {
         BuscarMotivo();
         DetalleCargar();
         //$.when().then(function () {
-            
+
         //});
 
     }
@@ -957,7 +956,7 @@ function DetalleGuardar(operacionId, callbackWhenFinish) {
     if (dataCdrDevolucion !== null) {
         if (dataCdrDevolucion.DataRespuestaServicio.length > 0) {
             $.each(dataCdrDevolucion.DataRespuestaServicio, function (index, value) {
-               var arr = $.grep(reclamo.datosCuv, function (item) {
+                var arr = $.grep(reclamo.datosCuv, function (item) {
                     return item.cuv === value.cuv;
                 });
                 cantidad = arr.length > 0 ? arr[0].cantidad : 1;
@@ -1888,4 +1887,28 @@ function EliminarDetalle(el) {
         msg = "Se eliminará el registro seleccionado. ¿Deseas continuar ?";
     }
     messageConfirmacion("", msg, functionEliminar);
+}
+
+//HD-4017 EINCA
+function AgregarCUVTrueque() {
+    var contenedorCuvTrueque = $("#contenedorCuvTrueque");
+    var template = '<div class="text-center opcion_cdr_seleccionada_campos_busqueda_producto_a_cambiar">' +
+        '<input type="text" class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--codigo" value="" id="txtCUV2" placeholder="Código" />' +
+        '<input type="text" class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--descripcion" id="txtCUVDescripcion2" readonly value="" placeholder="Descripción del producto" />' +
+        '<input type = "text" class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--precio" id = "txtCUVPrecio2" readonly value = "" placeholder = "Precio" /> ' +
+        '<div class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad" data - cantidad - contenedor="" > ' +
+        '<input type = "text" name = "Cantidad" id = "txtCantidad2" value = "1" data - input="cantidad" maxlength = "2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid" > ' +
+        '<div class="liquidacion_rango_right_pedido" > ' +
+        '<a class="mas modificarPrecioMas" onclick = "AgregarODisminuirCantidad(event,1)" > <img src="/Content/Images/Esika/mas.png" alt=""></a>' +
+        '<a class="menos modificarPrecioMenos" onclick = "AgregarODisminuirCantidad(event,2)" > <img src="/Content/Images/Esika/menos.png" alt=""></a>' +
+        '</div>' +
+        '</div>' +
+        '<input type="button" name="Eliminar" value="Eliminar" onclick="EliminarCUVTrueque(this);" />' +
+        '</div>';
+    contenedorCuvTrueque.append(template);
+}
+
+//HD-4017 EINCA
+function EliminarCUVTrueque(el) {
+    $(el).parent().html("");
 }
