@@ -77,6 +77,7 @@ BEGIN
 			ELSE (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
 			END AS Precio2
 		,isnull(cd.GrupoID, '') AS GrupoID --HD-3703 EINCA
+		,isnull(pwd.cuvReemplazo,'') as CUVReemplazo --HD-3703 EINCA
 	FROM CDRWebDetalle cd
 	INNER JOIN ods.ProductoComercial pc ON cd.CUV = pc.CUV
 		AND pc.AnoCampania = @CampaniaId
@@ -170,6 +171,7 @@ BEGIN
 			ELSE (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
 			END AS Precio2
 		,isnull(cd.GrupoID, '') AS GrupoID --HD-3703 EINCA
+		,isnull(pwd.cuvReemplazo,'') as CUVReemplazo --HD-3703 EINCA
 	FROM CDRWebDetalle cd
 	INNER JOIN ods.ProductoComercial pc ON cd.CUV = pc.CUV
 		AND pc.AnoCampania = @CampaniaId
@@ -263,6 +265,7 @@ BEGIN
 			ELSE (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
 			END AS Precio2
 		,isnull(cd.GrupoID, '') AS GrupoID --HD-3703 EINCA
+		,isnull(pwd.cuvReemplazo,'') as CUVReemplazo --HD-3703 EINCA
 	FROM CDRWebDetalle cd
 	INNER JOIN ods.ProductoComercial pc ON cd.CUV = pc.CUV
 		AND pc.AnoCampania = @CampaniaId
@@ -356,6 +359,7 @@ BEGIN
 			ELSE (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
 			END AS Precio2
 		,isnull(cd.GrupoID, '') AS GrupoID --HD-3703 EINCA
+		,isnull(pwd.cuvReemplazo,'') as CUVReemplazo --HD-3703 EINCA
 	FROM CDRWebDetalle cd
 	INNER JOIN ods.ProductoComercial pc ON cd.CUV = pc.CUV
 		AND pc.AnoCampania = @CampaniaId
@@ -449,6 +453,7 @@ BEGIN
 			ELSE (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
 			END AS Precio2
 		,isnull(cd.GrupoID, '') AS GrupoID --HD-3703 EINCA
+		,isnull(pwd.cuvReemplazo,'') as CUVReemplazo --HD-3703 EINCA
 	FROM CDRWebDetalle cd
 	INNER JOIN ods.ProductoComercial pc ON cd.CUV = pc.CUV
 		AND pc.AnoCampania = @CampaniaId
@@ -543,6 +548,7 @@ BEGIN
 			ELSE (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
 			END AS Precio2
 		,isnull(cd.GrupoID, '') AS GrupoID --HD-3703 EINCA
+		,isnull(pwd.cuvReemplazo,'') as CUVReemplazo --HD-3703 EINCA
 	FROM CDRWebDetalle cd
 	INNER JOIN ods.ProductoComercial pc ON cd.CUV = pc.CUV
 		AND pc.AnoCampania = @CampaniaId
@@ -636,6 +642,7 @@ BEGIN
 			ELSE (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
 			END AS Precio2
 		,isnull(cd.GrupoID, '') AS GrupoID --HD-3703 EINCA
+		,isnull(pwd.cuvReemplazo,'') as CUVReemplazo --HD-3703 EINCA
 	FROM CDRWebDetalle cd
 	INNER JOIN ods.ProductoComercial pc ON cd.CUV = pc.CUV
 		AND pc.AnoCampania = @CampaniaId
@@ -729,6 +736,7 @@ BEGIN
 			ELSE (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
 			END AS Precio2
 		,isnull(cd.GrupoID, '') AS GrupoID --HD-3703 EINCA
+		,isnull(pwd.cuvReemplazo,'') as CUVReemplazo --HD-3703 EINCA
 	FROM CDRWebDetalle cd
 	INNER JOIN ods.ProductoComercial pc ON cd.CUV = pc.CUV
 		AND pc.AnoCampania = @CampaniaId
@@ -822,6 +830,7 @@ BEGIN
 			ELSE (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
 			END AS Precio2
 		,isnull(cd.GrupoID, '') AS GrupoID --HD-3703 EINCA
+		,isnull(pwd.cuvReemplazo,'') as CUVReemplazo --HD-3703 EINCA
 	FROM CDRWebDetalle cd
 	INNER JOIN ods.ProductoComercial pc ON cd.CUV = pc.CUV
 		AND pc.AnoCampania = @CampaniaId
@@ -915,6 +924,7 @@ BEGIN
 			ELSE (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
 			END AS Precio2
 		,isnull(cd.GrupoID, '') AS GrupoID --HD-3703 EINCA
+		,isnull(pwd.cuvReemplazo,'') as CUVReemplazo --HD-3703 EINCA
 	FROM CDRWebDetalle cd
 	INNER JOIN ods.ProductoComercial pc ON cd.CUV = pc.CUV
 		AND pc.AnoCampania = @CampaniaId
@@ -1008,6 +1018,7 @@ BEGIN
 			ELSE (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
 			END AS Precio2
 		,isnull(cd.GrupoID, '') AS GrupoID --HD-3703 EINCA
+		,isnull(pwd.cuvReemplazo,'') as CUVReemplazo --HD-3703 EINCA
 	FROM CDRWebDetalle cd
 	INNER JOIN ods.ProductoComercial pc ON cd.CUV = pc.CUV
 		AND pc.AnoCampania = @CampaniaId
@@ -1101,6 +1112,7 @@ BEGIN
 			ELSE (pwd.MontoPagar * cd.Cantidad / pwd.Cantidad)
 			END AS Precio2
 		,isnull(cd.GrupoID, '') AS GrupoID --HD-3703 EINCA
+		,isnull(pwd.cuvReemplazo,'') as CUVReemplazo --HD-3703 EINCA
 	FROM CDRWebDetalle cd
 	INNER JOIN ods.ProductoComercial pc ON cd.CUV = pc.CUV
 		AND pc.AnoCampania = @CampaniaId

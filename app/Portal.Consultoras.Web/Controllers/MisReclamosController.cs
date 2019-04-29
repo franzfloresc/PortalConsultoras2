@@ -364,7 +364,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             mensajeError = "";
 
-            if (model.Cantidad <= 0) { 
+            if (model.Cantidad <= 0)
+            {
                 mensajeError = "La cantidad debe ser mayor a 0";
                 return false;
             }
@@ -510,6 +511,63 @@ namespace Portal.Consultoras.Web.Controllers
                     SessionManager.SetFlagIsSetsOrPack(isSetsOrPack);
 
                 }
+                //reemplazar si tiene cuv reemplazo
+                if (respuestaServiceCdr.Any())
+                {
+                    var listaPedidoFacturados = SessionManager.GetCDRPedidoFacturado();
+
+                    //lista de cuvs con cantidad 0 y son reemplazados
+                    var cuvReemplazados = listaPedidoFacturados
+                        .Where(a => a.CampaniaID == model.CampaniaID && a.PedidoID == model.PedidoID)
+                        .FirstOrDefault()
+                        .olstBEPedidoWebDetalle
+                        .Where(a => a.Cantidad == 0 && a.CUVReemplazo != null);
+
+                    if (cuvReemplazados.Any())
+                    {
+
+                        //lista de cuvs en la factura
+                        var cuvFacturados = listaPedidoFacturados
+                            .Where(a => a.CampaniaID == model.CampaniaID && a.PedidoID == model.PedidoID)
+                            .FirstOrDefault()
+                            .olstBEPedidoWebDetalle.ToList();
+
+                        var cantidad = respuestaServiceCdr[0].LProductosComplementos.Count();
+
+                        var ComplementariosReemplazados = new ProductosComplementos[cantidad];
+                        int i = 0;
+                        foreach (var item in respuestaServiceCdr[0].LProductosComplementos)
+                        {
+                            var obj = cuvReemplazados.Where(a => a.CUV == item.cuv).FirstOrDefault();
+                            var objReemplazo = new ProductosComplementos();
+
+                            if (obj != null)
+                            {
+                                //obtener los datos del cuv facturado 
+                                var objFacturado = cuvFacturados.Where(a => a.CUV == obj.CUVReemplazo).FirstOrDefault();
+                                objReemplazo.cuv = objFacturado.CUV;
+                                objReemplazo.cantidad = objFacturado.Cantidad;
+                                objReemplazo.descripcion = objFacturado.DescripcionProd;
+                                objReemplazo.digitable = 0;
+                                objReemplazo.precio = objFacturado.PrecioUnidad;
+                            }
+                            else
+                            {
+                                objReemplazo.cuv = item.cuv;
+                                objReemplazo.cantidad = item.cantidad;
+                                objReemplazo.descripcion = item.descripcion;
+                                objReemplazo.digitable = item.digitable;
+                                objReemplazo.precio = item.precio;
+                            }
+
+                            ComplementariosReemplazados[i] = objReemplazo;
+                            i += 1;
+                        }
+                        respuestaServiceCdr[0].LProductosComplementos = ComplementariosReemplazados;
+                    }
+                }
+
+
             }
             catch (Exception ex)
             {
@@ -589,7 +647,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
-            { 
+            {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO, "MisReclamosController.BuscarPropuesta");
                 return Json(new
                 {
