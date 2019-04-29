@@ -123,7 +123,7 @@
 @if (permisoList.Count > 0)
 {
     var cantsubMenus = permisoList.Count();
-    var MostrarMenuComunidad = true;
+    //var MostrarMenuComunidad = true;
     var MostrarMenuAcademia = false;
     var Lider = ViewBag.Lider == 1 && ViewBag.PortalLideres ? true : false;
     
@@ -150,40 +150,15 @@
 
                         @if (String.IsNullOrWhiteSpace(primerNivelMenu.UrlItem))
                         {
-                            if (ViewBag.EsUsuarioComunidad == 0 && primerNivelMenu.Descripcion.Trim().ToUpper() == "MI COMUNIDAD")
-                            {
-                            <a href="javascript:;" onclick="AbrirModalRegistroComunidad()" target="@pageTarget" role="menu" region="Principal" parent="@primerNivelMenu.Descripcion" title="@primerNivelMenu.Descripcion" id="lnk-pri-@primerNivelMenu.DescripcionFormateada">
-                                @if (!string.IsNullOrEmpty(primerNivelMenu.UrlImagen))
-                                {
-                                <img class="vertical_align_text" src="@primerNivelMenu.UrlImagen" alt="SomosBelcorp" />
-                                }
-                                @primerNivelMenu.Descripcion</a>
-                                MostrarMenuComunidad = false;
-                            }
-                            else
-                            {
                             <a href="#" target="@pageTarget" role="menu" region="Principal" parent="@primerNivelMenu.Descripcion" title="@primerNivelMenu.Descripcion" id="lnk-pri-@primerNivelMenu.DescripcionFormateada">
                                 @if (!string.IsNullOrEmpty(primerNivelMenu.UrlImagen))
                                 {
                                 <img class="vertical_align_text" src="@primerNivelMenu.UrlImagen" alt="SomosBelcorp" />
                                 }
                                 @primerNivelMenu.Descripcion</a>
-                            }
                         }
                         else if (!primerNivelMenu.EsDireccionExterior)
                         {
-                            if (ViewBag.EsUsuarioComunidad == 0 && primerNivelMenu.Descripcion.Trim().ToUpper() == "MI COMUNIDAD")
-                            {
-                            <a href="javascript:;" onclick="AbrirModalRegistroComunidad()" target="@pageTarget" role="menu" region="Principal" parent="@primerNivelMenu.Descripcion" title="@primerNivelMenu.Descripcion" id="lnk-pri-@primerNivelMenu.DescripcionFormateada">
-                                @if (!string.IsNullOrEmpty(primerNivelMenu.UrlImagen))
-                                {
-                                <img class="vertical_align_text" src="@primerNivelMenu.UrlImagen" alt="SomosBelcorp" />
-                                }
-                                @primerNivelMenu.Descripcion</a>
-                                MostrarMenuComunidad = false;
-                            }
-                            else
-                            {
                             <a href="javascript:;" onclick="return SetAnalyticsMenu('@primerNivelMenu.UrlItem.Split('/')[1]', '@primerNivelMenu.UrlItem.Split('/')[0]',@Convert.ToInt32(primerNivelMenu.PaginaNueva), '@primerNivelMenu.Descripcion',1, '@primerNivelMenu.RolId')" target="@pageTarget" role="menu" region="Principal" parent="@primerNivelMenu.Descripcion" title="@primerNivelMenu.Descripcion" id="lnk-pri-@primerNivelMenu.DescripcionFormateada">
                                 @if (!string.IsNullOrEmpty(primerNivelMenu.UrlImagen))
                                 {
@@ -191,7 +166,6 @@
                                 }
                                 @primerNivelMenu.Descripcion
                             </a>
-                            }
                         }
                         else
                         {
@@ -214,11 +188,6 @@
 
         @foreach (var primerNivelMenu in permisoList)
         {
-            if (primerNivelMenu.Descripcion.Trim().ToUpper() == "MI COMUNIDAD" && !MostrarMenuComunidad)
-            {
-                submenu++;
-                continue;
-            }
             if (primerNivelMenu.Descripcion.Trim().ToUpper() == "MI ACADEMIA" && !MostrarMenuAcademia)
             {
                 submenu++;
@@ -244,7 +213,7 @@
                 {
                     classMenu = "subs_marcas " + classMenu;
                 }
-                
+
             <div id="@string.Format("submenu{0}", submenu)" class="submenu @classMenu">
                 <ul>
                     @foreach (var segundoNivelMenu in primerNivelMenu.SubMenus)

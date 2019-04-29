@@ -88,12 +88,6 @@ $(document).ready(function () {
         imgISO = $("#ddlPais").val();
         analytics.invocarAnalyticsByCodigoIso(imgISO);
 
-        if (imgISO == "PE" || imgISO == "CO") {
-            $("#RecuadroComunidad").hide();
-        } else {
-            $("#RecuadroComunidad").show();
-        }
-
         if (imgISO == "MX") {
             $("#AvisoASP").show();
         } else {
