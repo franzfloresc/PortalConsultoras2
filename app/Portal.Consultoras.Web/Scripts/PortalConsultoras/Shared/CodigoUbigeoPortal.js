@@ -1,12 +1,9 @@
 ﻿
 if (!jQuery) { throw new Error("CodigoUbigeoPortal.js requires jQuery"); }
-if (!jQuery) { throw new Error("AnalyticsPortal.js requires jQuery"); }
 
 +function ($) {
     "use strict";
-
 }(window.jQuery);
-
 
 var CodigoUbigeoPortal = (function () {
     var _texto = {
@@ -70,7 +67,7 @@ var CodigoUbigeoPortal = (function () {
         }
 
     };
-    
+
     var textos = {
         Dispositivo: [
             { Codigo: "--", Texto: "" },
@@ -129,7 +126,7 @@ var CodigoUbigeoPortal = (function () {
 
         ]
     };
-    
+
     var getEstructuraSegunCodigoUbigeo = function (codigo) {
         var origenEstructura = {};
 
@@ -142,14 +139,14 @@ var CodigoUbigeoPortal = (function () {
 
         origenEstructura.CodigoUbigeoPortal = (origenEstructura.CodigoUbigeoPortal || "").toString().trim();
         origenEstructura.CodigoPalanca = (origenEstructura.CodigoPalanca || "").toString().trim();
-        
+
         var codigoUbigeoPortal = origenEstructura.CodigoUbigeoPortal;
 
         origenEstructura.Dispositivo = (origenEstructura.Pagina || codigoUbigeoPortal.substring(0, 2)).toString().trim();
         origenEstructura.Pagina = (origenEstructura.Pagina || codigoUbigeoPortal.substring(2, 4)).toString().trim();
         origenEstructura.SeccionFuncional = (origenEstructura.SeccionFuncional || codigoUbigeoPortal.substring(4, 6)).toString().trim();
         origenEstructura.Seccion = (origenEstructura.Seccion || codigoUbigeoPortal.substring(6, 8)).toString().trim();
-                             
+
         return origenEstructura;
     }
 
@@ -157,7 +154,7 @@ var CodigoUbigeoPortal = (function () {
 
         origenEstructura.CodigoPalanca = origenEstructura.CodigoPalanca || "";
         var contendor =
-               origenEstructura.Pagina == estructuraUbigeo.Pagina.Contenedor
+            origenEstructura.Pagina == estructuraUbigeo.Pagina.Contenedor
             || origenEstructura.Pagina == estructuraUbigeo.Pagina.LandingBuscador
             || origenEstructura.Pagina == estructuraUbigeo.Pagina.LandingGanadoras
             || origenEstructura.Pagina == estructuraUbigeo.Pagina.LandingGnd
@@ -221,9 +218,9 @@ var CodigoUbigeoPortal = (function () {
 
         return obj.Texto || "";
     }
-    
+
     var getTextoSegunCodigoUbigeo = function (origenEstructura) {
-        
+
         origenEstructura = getEstructuraSegunCodigoUbigeo(origenEstructura);
         var contendor = getTextoContenedorSegunOrigen(origenEstructura);
         var pagina = getTextoPaginaSegunOrigen(origenEstructura);

@@ -493,7 +493,6 @@ var FichaModule = (function (config) {
             if (typeof estrategia === "undefined" || estrategia == null) {
                 mensajeError += "\n estrategia null 2";
                 throw mensajeError;
-                return false;
             }
 
             _getComponentesAndUpdateEsMultimarca(estrategia);
