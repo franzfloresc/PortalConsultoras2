@@ -1,4 +1,5 @@
-﻿using Portal.Consultoras.BizLogic.ArmaTuPack;
+﻿using Microsoft.Practices.EnterpriseLibrary.Common.Utility;
+using Portal.Consultoras.BizLogic.ArmaTuPack;
 using Portal.Consultoras.BizLogic.LimiteVenta;
 using Portal.Consultoras.BizLogic.ProgramaNuevas;
 using Portal.Consultoras.BizLogic.Reserva;
@@ -511,18 +512,16 @@ namespace Portal.Consultoras.BizLogic.Pedido
             string mensajeObs = "";
             string TituloMensaje = "";
             var modificoBackOrder = false;
-            var codigoMensajeProl = string.Empty;
-            var mensajeProl = string.Empty;
+            var ListaMensajeCondicional = new List<BEMensajeProl>();
 
-            var transactionExitosa = AdministradorPedido(usuario, pedidoDetalle, pedidowebdetalles, estrategia, Componentes, Constantes.PedidoAccion.INSERT, out mensajeObs, out listCuvEliminar, out TituloMensaje, out modificoBackOrder, out codigoMensajeProl, out mensajeProl);
+            var transactionExitosa = AdministradorPedido(usuario, pedidoDetalle, pedidowebdetalles, estrategia, Componentes, Constantes.PedidoAccion.INSERT, out mensajeObs, out listCuvEliminar, out TituloMensaje, out modificoBackOrder, out ListaMensajeCondicional);
 
             var response = PedidoDetalleRespuesta(transactionExitosa ? Constantes.PedidoValidacion.Code.SUCCESS : Constantes.PedidoValidacion.Code.ERROR_GRABAR, mensajeObs);
             response.ListCuvEliminar = listCuvEliminar;
             response.PedidoWebDetalle = pedidowebdetalles[0];
             response.MensajeAviso = mensajeObs;
             response.TituloMensaje = TituloMensaje;
-            response.CodigoProlRxP = codigoMensajeProl;
-            response.MensajeProlRxP = mensajeProl;
+            response.ListaMensajeCondicional = ListaMensajeCondicional;
             return response;
         }
 
@@ -730,15 +729,13 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 string mensajeObs = "";
                 string TituloMensaje = "";
                 var modificoBackOrder = false;
-                var codigoMensajeProl = string.Empty;
-                var mensajeProl = string.Empty;
+                var ListaMensajeCondicional = new List<BEMensajeProl>();
 
-                var transactionExitosa = AdministradorPedido(usuario, pedidoDetalle, pedidoWebDetalles, null, "", Constantes.PedidoAccion.UPDATE, out mensajeObs, out listCuvEliminar, out TituloMensaje, out modificoBackOrder, out codigoMensajeProl, out mensajeProl);
+                var transactionExitosa = AdministradorPedido(usuario, pedidoDetalle, pedidoWebDetalles, null, "", Constantes.PedidoAccion.UPDATE, out mensajeObs, out listCuvEliminar, out TituloMensaje, out modificoBackOrder, out ListaMensajeCondicional);
 
                 var response = PedidoDetalleRespuesta(transactionExitosa ? Constantes.PedidoValidacion.Code.SUCCESS : Constantes.PedidoValidacion.Code.ERROR_GRABAR, mensajeObs);
                 response.ModificoBackOrder = modificoBackOrder;
-                response.CodigoProlRxP = codigoMensajeProl;
-                response.MensajeProlRxP = mensajeProl;
+                ListaMensajeCondicional.ForEach(x => { response.ListaMensajeCondicional.Add(x); });
                 return response;
             }
             catch (Exception ex)
@@ -752,8 +749,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
         public async Task<BEPedidoDetalleResult> PedidoDeleteProductoTransaction(BEPedidoDetalle pedidoDetalle)
         {
             //var lstPedidoDetalleIds = new List<short>();
-            string codigoProl, mensajeProl;
-            codigoProl= mensajeProl =string.Empty;
+            var ListaMensajeCondicional = new List<BEMensajeProl>();
             try
             {
                 var usuario = pedidoDetalle.Usuario;
@@ -772,7 +768,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 {
                     responseCode = await DeleteAll(usuario, pedidoDetalle);
 
-                    UpdateProl(usuario, lstDetalle,out codigoProl,out mensajeProl);
+                    UpdateProl(usuario, lstDetalle, out ListaMensajeCondicional);
                 }
                 else
                 {
@@ -790,8 +786,9 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     lstDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
 
                     var respuesta = PedidoAgregar_EliminarUno(pedidoDetalle, lstDetalle);
-                    codigoProl = respuesta.CodigoProlRxP;
-                    mensajeProl = respuesta.MensajeProlRxP;
+
+                    ListaMensajeCondicional.ForEach(x => { respuesta.ListaMensajeCondicional.Add(x); });
+
                     if (respuesta.CodigoRespuesta != Constantes.PedidoValidacion.Code.SUCCESS)
                     {
                         return respuesta;
@@ -800,8 +797,11 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                 PedidoAgregar_DesReservarPedido(lstDetalle, pedidoDetalle.Producto, usuario);
                 var request = PedidoDetalleRespuesta(responseCode);
-                request.CodigoProlRxP = codigoProl;
-                request.MensajeProlRxP = mensajeProl;
+
+                ListaMensajeCondicional.ForEach(x =>
+                {
+                    request.ListaMensajeCondicional.Add(x);
+                });
 
                 return request;//PedidoDetalleRespuesta(responseCode);
             }
@@ -935,15 +935,18 @@ namespace Portal.Consultoras.BizLogic.Pedido
             string mensajeObs = "";
             string TituloMensaje = "";
             var modificoBackOrder = false;
-            var codigoMensajeProl = string.Empty;
-            var mensajeProl = string.Empty;
+            var ListaMensajeCondicional = new List<BEMensajeProl>();
 
-            var result = AdministradorPedido(usuario, null, lista, null, null, Constantes.PedidoAccion.DELETE, out mensajeObs, out listCuvEliminar, out TituloMensaje, out modificoBackOrder,out codigoMensajeProl, out mensajeProl);
+            var result = AdministradorPedido(usuario, null, lista, null, null, Constantes.PedidoAccion.DELETE, out mensajeObs, out listCuvEliminar, out TituloMensaje, out modificoBackOrder, out ListaMensajeCondicional);
             if (result) responseCode = Constantes.PedidoValidacion.Code.SUCCESS;
             var response = PedidoDetalleRespuesta(responseCode);
-            response.CodigoProlRxP = codigoMensajeProl;
-            response.MensajeProlRxP = mensajeProl;
-            return response;//PedidoDetalleRespuesta(responseCode);
+
+            ListaMensajeCondicional.ForEach(x =>
+            {
+                response.ListaMensajeCondicional.Add(x);
+            });
+
+            return response;
         }
 
         private void PedidoAgregar_DesReservarPedido(List<BEPedidoWebDetalle> lstDetalle, BEProducto producto, BEUsuario usuario)
@@ -1267,10 +1270,9 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         Cantidad = 1,
                         ClienteID = 0
                     });
-                    var codigoRxP = string.Empty;
-                    var mensajeRxP = string.Empty;
+                    var ListMensajeCondicional = new List<BEMensajeProl>();
 
-                    UpdateProl(usuario, lstDetalle,out codigoRxP,out mensajeRxP);
+                    UpdateProl(usuario, lstDetalle, out ListMensajeCondicional);
 
                     return true;
                 }
@@ -1503,10 +1505,9 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     });
                 }
 
-                var codigoRxP = string.Empty;
-                var mensajeRxP = string.Empty;
+                var ListaMensajeCondicional = new List<BEMensajeProl>();
 
-                UpdateProl(usuario, lstDetalle,out codigoRxP,out mensajeRxP);
+                UpdateProl(usuario, lstDetalle, out ListaMensajeCondicional);
 
                 //Agregar sets agrupados
                 var listCuvTonos = pedidoDetalle.Producto.CUV;
@@ -1544,9 +1545,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 }
                 _pedidoWebDetalleBusinessLogic.InsertPedidoWebSet(usuario.PaisID, usuario.CampaniaID, pedidoDetalle.PedidoID, pedidoDetalle.Cantidad, estrategia.CUV2, usuario.ConsultoraID, usuario.CodigoUsuario, componentes, estrategia.EstrategiaID, usuario.Nombre, usuario.CodigoPrograma, usuario.ConsecutivoNueva);
                 var response = PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.SUCCESS);
-                response.MensajeProlRxP = mensajeRxP;
-                response.CodigoProlRxP = codigoRxP; ;
-                return response;//PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.SUCCESS);
+                ListaMensajeCondicional.ForEach(x => { response.ListaMensajeCondicional.Add(x); });
+                return response;
             }
             catch (Exception ex)
             {
@@ -2423,14 +2423,13 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
         //AgregarTransactional
         private bool AdministradorPedido(BEUsuario usuario, BEPedidoDetalle pedidoDetalle, List<BEPedidoWebDetalle> pedidoWebDetalles, BEEstrategia estrategia,
-            string cuvlist, string TipoAdm, out string mensajeObs, out List<string> listCuvEliminar, out string TituloMensaje, out bool modificoBackOrder, out string codigoMensajeRxP,out string mensajeProlRxP)
+            string cuvlist, string TipoAdm, out string mensajeObs, out List<string> listCuvEliminar, out string TituloMensaje, out bool modificoBackOrder, out List<BEMensajeProl> ListMensajeCondicional)
         {
             listCuvEliminar = new List<string>();
             mensajeObs = "";
             TituloMensaje = "";
             modificoBackOrder = false;
-            codigoMensajeRxP = string.Empty; 
-            mensajeProlRxP = string.Empty;
+            ListMensajeCondicional = new List<BEMensajeProl>();
             //TransactionOptions oTransactionOptions = new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted };
             try
             {
@@ -2588,7 +2587,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 }
 
                 lstDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
-                UpdateProl(usuario, lstDetalle, out codigoMensajeRxP, out mensajeProlRxP);
+                UpdateProl(usuario, lstDetalle, out ListMensajeCondicional);
                 //oTransactionScope.Complete();
                 //}
             }
@@ -2995,15 +2994,13 @@ namespace Portal.Consultoras.BizLogic.Pedido
             return montosProl;
         }
 
-        private void UpdateProl(BEUsuario usuario, List<BEPedidoWebDetalle> lstDetalle,out string codigoProl,out string mensajeProl)
+        private void UpdateProl(BEUsuario usuario, List<BEPedidoWebDetalle> lstDetalle, out List<BEMensajeProl> ListMensajeCondicional)
         {
             decimal montoAhorroCatalogo = 0, montoAhorroRevista = 0, montoDescuento = 0, montoEscala = 0;
             string codigoConcursosProl = string.Empty, puntajes = string.Empty, puntajesExigidos = string.Empty;
 
             var lista = ServicioProl_CalculoMontosProl(usuario, lstDetalle);
-            codigoProl = string.Empty;
-            mensajeProl = string.Empty;
-
+            ListMensajeCondicional = new List<BEMensajeProl>();
             if (lista.Any())
             {
                 var oRespuestaProl = lista[0];
@@ -3020,10 +3017,16 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     puntajesExigidos = string.Join("|", oRespuestaProl.ListaConcursoIncentivos.Select(c => (c.puntajeconcurso.IndexOf('|') > -1 ? c.puntajeconcurso.Split('|')[1] : "0")));
                 }
 
-                if (oRespuestaProl.ListaMensajeCondicional!=null)
+                if (oRespuestaProl.ListaMensajeCondicional != null)
                 {
-                    codigoProl = string.Join("|", oRespuestaProl.ListaMensajeCondicional.Select(c => c.CodigoMensaje));
-                    mensajeProl = string.Join("|", oRespuestaProl.ListaMensajeCondicional.Select(c => c.Mensaje));
+                    foreach (var item in oRespuestaProl.ListaMensajeCondicional)
+                    {
+                        ListMensajeCondicional.Add(new BEMensajeProl()
+                        {
+                            CodigoMensajeRxP = item.CodigoMensaje,
+                            MensajeRxP = item.Mensaje,
+                        });
+                    }
                 }
             }
             else
@@ -3555,10 +3558,10 @@ namespace Portal.Consultoras.BizLogic.Pedido
             };
             var lstDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
             pedidoDetalle.PedidoID = pedidoID;
-            var codigoRxP = string.Empty;
-            var mensajeRxP = string.Empty;
+            
+            var ListMensajeCondicional = new List<BEMensajeProl>();
 
-            UpdateProl(usuario, lstDetalle,out codigoRxP,out mensajeRxP);
+            UpdateProl(usuario, lstDetalle, out ListMensajeCondicional);
 
             //Indicador pedido autentico
             if (lstDetalle.Any())
@@ -3681,15 +3684,14 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 });
             }
 
-            var codigoRxP = string.Empty;
-            var mensajeRxP = string.Empty;
-            UpdateProl(usuario, lstDetalle,out codigoRxP,out mensajeRxP);
+            var ListMensajeCondicional = new List<BEMensajeProl>();
+
+            UpdateProl(usuario, lstDetalle, out ListMensajeCondicional);
 
             var response = PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.SUCCESS);
-            response.CodigoProlRxP = codigoRxP;
-            response.MensajeProlRxP = mensajeRxP;
-
-            return response;//PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.SUCCESS);
+            ListMensajeCondicional.ForEach(x => { response.ListaMensajeCondicional.Add(x);});
+            
+            return response;
         }
 
         private BEPedidoDetalleResult PedidoAgregarProducto(BEPedidoDetalle pedidoDetalle)

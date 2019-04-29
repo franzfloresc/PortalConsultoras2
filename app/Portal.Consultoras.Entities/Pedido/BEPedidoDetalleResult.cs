@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Portal.Consultoras.Entities.ReservaProl;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities.Pedido
@@ -25,9 +26,11 @@ namespace Portal.Consultoras.Entities.Pedido
         [DataMember]
         public bool ModificoBackOrder { get; set; }
         [DataMember]
-        public string CodigoProlRxP { get; set; }
-        [DataMember]
-        public string MensajeProlRxP { get; set; }
+        public List<BEMensajeProl> ListaMensajeCondicional { get; set; }
 
+        public BEPedidoDetalleResult()
+        {
+            ListaMensajeCondicional = new List<BEMensajeProl>();
+        }
     }
 }
