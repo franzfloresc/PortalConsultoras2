@@ -7,11 +7,11 @@ go
 delete from OrigenPedidoWeb where CodOrigenPedidoWeb in ('1131502', '2131502')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb, DesOrigenPedidoWeb, CodMedio, DesMedio, CodZona, DesZona, CodSeccion, DesSeccion, CodPopup, DesPopup)
-VALUES ('1131502', 'Desktop Pagina Arma tu Pack Ficha', '1', 'Desktop', '13', 'Arma tu Pack Detalle', '15', 'Arma tu Pack', '05', 'Ficha')
+VALUES ('1131502', 'Desktop Landing Arma Tu Pack Arma Tu Pack Ficha', '1', 'Desktop', '13', 'Landing Arma Tu Pack', '15', 'Arma Tu Pack', '05', 'Ficha')
 
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb, DesOrigenPedidoWeb, CodMedio, DesMedio, CodZona, DesZona, CodSeccion, DesSeccion, CodPopup, DesPopup)
-VALUES ('2131502', 'Desktop Pagina Arma tu Pack Ficha', '2', 'Mobile', '13', 'Arma tu Pack Detalle', '15', 'Arma tu Pack', '05', 'Ficha')
+VALUES ('2131502', 'Mobile Landing Arma Tu Pack Arma Tu Pack Ficha', '2', 'Mobile', '13', 'Landing Arma Tu Pack', '15', 'Arma Tu Pack', '05', 'Ficha')
 
 go
 
@@ -25,11 +25,11 @@ go
 delete from OrigenPedidoWeb where CodOrigenPedidoWeb in ('1131502', '2131502')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb, DesOrigenPedidoWeb, CodMedio, DesMedio, CodZona, DesZona, CodSeccion, DesSeccion, CodPopup, DesPopup)
-VALUES ('1131502', 'Desktop Pagina Arma tu Pack Ficha', '1', 'Desktop', '13', 'Arma tu Pack Detalle', '15', 'Arma tu Pack', '05', 'Ficha')
+VALUES ('1131502', 'Desktop Landing Arma Tu Pack Arma Tu Pack Ficha', '1', 'Desktop', '13', 'Landing Arma Tu Pack', '15', 'Arma Tu Pack', '05', 'Ficha')
 
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb, DesOrigenPedidoWeb, CodMedio, DesMedio, CodZona, DesZona, CodSeccion, DesSeccion, CodPopup, DesPopup)
-VALUES ('2131502', 'Desktop Pagina Arma tu Pack Ficha', '2', 'Mobile', '13', 'Arma tu Pack Detalle', '15', 'Arma tu Pack', '05', 'Ficha')
+VALUES ('2131502', 'Mobile Landing Arma Tu Pack Arma Tu Pack Ficha', '2', 'Mobile', '13', 'Landing Arma Tu Pack', '15', 'Arma Tu Pack', '05', 'Ficha')
 
 go
 
@@ -43,11 +43,11 @@ go
 delete from OrigenPedidoWeb where CodOrigenPedidoWeb in ('1131502', '2131502')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb, DesOrigenPedidoWeb, CodMedio, DesMedio, CodZona, DesZona, CodSeccion, DesSeccion, CodPopup, DesPopup)
-VALUES ('1131502', 'Desktop Pagina Arma tu Pack Ficha', '1', 'Desktop', '13', 'Arma tu Pack Detalle', '15', 'Arma tu Pack', '05', 'Ficha')
+VALUES ('1131502', 'Desktop Landing Arma Tu Pack Arma Tu Pack Ficha', '1', 'Desktop', '13', 'Landing Arma Tu Pack', '15', 'Arma Tu Pack', '05', 'Ficha')
 
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb, DesOrigenPedidoWeb, CodMedio, DesMedio, CodZona, DesZona, CodSeccion, DesSeccion, CodPopup, DesPopup)
-VALUES ('2131502', 'Desktop Pagina Arma tu Pack Ficha', '2', 'Mobile', '13', 'Arma tu Pack Detalle', '15', 'Arma tu Pack', '05', 'Ficha')
+VALUES ('2131502', 'Mobile Landing Arma Tu Pack Arma Tu Pack Ficha', '2', 'Mobile', '13', 'Landing Arma Tu Pack', '15', 'Arma Tu Pack', '05', 'Ficha')
 
 go
 
@@ -61,11 +61,11 @@ go
 delete from OrigenPedidoWeb where CodOrigenPedidoWeb in ('1131502', '2131502')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb, DesOrigenPedidoWeb, CodMedio, DesMedio, CodZona, DesZona, CodSeccion, DesSeccion, CodPopup, DesPopup)
-VALUES ('1131502', 'Desktop Pagina Arma tu Pack Ficha', '1', 'Desktop', '13', 'Arma tu Pack Detalle', '15', 'Arma tu Pack', '05', 'Ficha')
+VALUES ('1131502', 'Desktop Landing Arma Tu Pack Arma Tu Pack Ficha', '1', 'Desktop', '13', 'Landing Arma Tu Pack', '15', 'Arma Tu Pack', '05', 'Ficha')
 
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb, DesOrigenPedidoWeb, CodMedio, DesMedio, CodZona, DesZona, CodSeccion, DesSeccion, CodPopup, DesPopup)
-VALUES ('2131502', 'Desktop Pagina Arma tu Pack Ficha', '2', 'Mobile', '13', 'Arma tu Pack Detalle', '15', 'Arma tu Pack', '05', 'Ficha')
+VALUES ('2131502', 'Mobile Landing Arma Tu Pack Arma Tu Pack Ficha', '2', 'Mobile', '13', 'Landing Arma Tu Pack', '15', 'Arma Tu Pack', '05', 'Ficha')
 
 go
 
@@ -79,11 +79,11 @@ go
 delete from OrigenPedidoWeb where CodOrigenPedidoWeb in ('1131502', '2131502')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb, DesOrigenPedidoWeb, CodMedio, DesMedio, CodZona, DesZona, CodSeccion, DesSeccion, CodPopup, DesPopup)
-VALUES ('1131502', 'Desktop Pagina Arma tu Pack Ficha', '1', 'Desktop', '13', 'Arma tu Pack Detalle', '15', 'Arma tu Pack', '05', 'Ficha')
+VALUES ('1131502', 'Desktop Landing Arma Tu Pack Arma Tu Pack Ficha', '1', 'Desktop', '13', 'Landing Arma Tu Pack', '15', 'Arma Tu Pack', '05', 'Ficha')
 
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb, DesOrigenPedidoWeb, CodMedio, DesMedio, CodZona, DesZona, CodSeccion, DesSeccion, CodPopup, DesPopup)
-VALUES ('2131502', 'Desktop Pagina Arma tu Pack Ficha', '2', 'Mobile', '13', 'Arma tu Pack Detalle', '15', 'Arma tu Pack', '05', 'Ficha')
+VALUES ('2131502', 'Mobile Landing Arma Tu Pack Arma Tu Pack Ficha', '2', 'Mobile', '13', 'Landing Arma Tu Pack', '15', 'Arma Tu Pack', '05', 'Ficha')
 
 go
 
@@ -97,11 +97,11 @@ go
 delete from OrigenPedidoWeb where CodOrigenPedidoWeb in ('1131502', '2131502')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb, DesOrigenPedidoWeb, CodMedio, DesMedio, CodZona, DesZona, CodSeccion, DesSeccion, CodPopup, DesPopup)
-VALUES ('1131502', 'Desktop Pagina Arma tu Pack Ficha', '1', 'Desktop', '13', 'Arma tu Pack Detalle', '15', 'Arma tu Pack', '05', 'Ficha')
+VALUES ('1131502', 'Desktop Landing Arma Tu Pack Arma Tu Pack Ficha', '1', 'Desktop', '13', 'Landing Arma Tu Pack', '15', 'Arma Tu Pack', '05', 'Ficha')
 
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb, DesOrigenPedidoWeb, CodMedio, DesMedio, CodZona, DesZona, CodSeccion, DesSeccion, CodPopup, DesPopup)
-VALUES ('2131502', 'Desktop Pagina Arma tu Pack Ficha', '2', 'Mobile', '13', 'Arma tu Pack Detalle', '15', 'Arma tu Pack', '05', 'Ficha')
+VALUES ('2131502', 'Mobile Landing Arma Tu Pack Arma Tu Pack Ficha', '2', 'Mobile', '13', 'Landing Arma Tu Pack', '15', 'Arma Tu Pack', '05', 'Ficha')
 
 go
 
@@ -115,11 +115,11 @@ go
 delete from OrigenPedidoWeb where CodOrigenPedidoWeb in ('1131502', '2131502')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb, DesOrigenPedidoWeb, CodMedio, DesMedio, CodZona, DesZona, CodSeccion, DesSeccion, CodPopup, DesPopup)
-VALUES ('1131502', 'Desktop Pagina Arma tu Pack Ficha', '1', 'Desktop', '13', 'Arma tu Pack Detalle', '15', 'Arma tu Pack', '05', 'Ficha')
+VALUES ('1131502', 'Desktop Landing Arma Tu Pack Arma Tu Pack Ficha', '1', 'Desktop', '13', 'Landing Arma Tu Pack', '15', 'Arma Tu Pack', '05', 'Ficha')
 
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb, DesOrigenPedidoWeb, CodMedio, DesMedio, CodZona, DesZona, CodSeccion, DesSeccion, CodPopup, DesPopup)
-VALUES ('2131502', 'Desktop Pagina Arma tu Pack Ficha', '2', 'Mobile', '13', 'Arma tu Pack Detalle', '15', 'Arma tu Pack', '05', 'Ficha')
+VALUES ('2131502', 'Mobile Landing Arma Tu Pack Arma Tu Pack Ficha', '2', 'Mobile', '13', 'Landing Arma Tu Pack', '15', 'Arma Tu Pack', '05', 'Ficha')
 
 go
 
@@ -133,11 +133,11 @@ go
 delete from OrigenPedidoWeb where CodOrigenPedidoWeb in ('1131502', '2131502')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb, DesOrigenPedidoWeb, CodMedio, DesMedio, CodZona, DesZona, CodSeccion, DesSeccion, CodPopup, DesPopup)
-VALUES ('1131502', 'Desktop Pagina Arma tu Pack Ficha', '1', 'Desktop', '13', 'Arma tu Pack Detalle', '15', 'Arma tu Pack', '05', 'Ficha')
+VALUES ('1131502', 'Desktop Landing Arma Tu Pack Arma Tu Pack Ficha', '1', 'Desktop', '13', 'Landing Arma Tu Pack', '15', 'Arma Tu Pack', '05', 'Ficha')
 
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb, DesOrigenPedidoWeb, CodMedio, DesMedio, CodZona, DesZona, CodSeccion, DesSeccion, CodPopup, DesPopup)
-VALUES ('2131502', 'Desktop Pagina Arma tu Pack Ficha', '2', 'Mobile', '13', 'Arma tu Pack Detalle', '15', 'Arma tu Pack', '05', 'Ficha')
+VALUES ('2131502', 'Mobile Landing Arma Tu Pack Arma Tu Pack Ficha', '2', 'Mobile', '13', 'Landing Arma Tu Pack', '15', 'Arma Tu Pack', '05', 'Ficha')
 
 go
 
@@ -151,11 +151,11 @@ go
 delete from OrigenPedidoWeb where CodOrigenPedidoWeb in ('1131502', '2131502')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb, DesOrigenPedidoWeb, CodMedio, DesMedio, CodZona, DesZona, CodSeccion, DesSeccion, CodPopup, DesPopup)
-VALUES ('1131502', 'Desktop Pagina Arma tu Pack Ficha', '1', 'Desktop', '13', 'Arma tu Pack Detalle', '15', 'Arma tu Pack', '05', 'Ficha')
+VALUES ('1131502', 'Desktop Landing Arma Tu Pack Arma Tu Pack Ficha', '1', 'Desktop', '13', 'Landing Arma Tu Pack', '15', 'Arma Tu Pack', '05', 'Ficha')
 
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb, DesOrigenPedidoWeb, CodMedio, DesMedio, CodZona, DesZona, CodSeccion, DesSeccion, CodPopup, DesPopup)
-VALUES ('2131502', 'Desktop Pagina Arma tu Pack Ficha', '2', 'Mobile', '13', 'Arma tu Pack Detalle', '15', 'Arma tu Pack', '05', 'Ficha')
+VALUES ('2131502', 'Mobile Landing Arma Tu Pack Arma Tu Pack Ficha', '2', 'Mobile', '13', 'Landing Arma Tu Pack', '15', 'Arma Tu Pack', '05', 'Ficha')
 
 go
 
@@ -169,11 +169,11 @@ go
 delete from OrigenPedidoWeb where CodOrigenPedidoWeb in ('1131502', '2131502')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb, DesOrigenPedidoWeb, CodMedio, DesMedio, CodZona, DesZona, CodSeccion, DesSeccion, CodPopup, DesPopup)
-VALUES ('1131502', 'Desktop Pagina Arma tu Pack Ficha', '1', 'Desktop', '13', 'Arma tu Pack Detalle', '15', 'Arma tu Pack', '05', 'Ficha')
+VALUES ('1131502', 'Desktop Landing Arma Tu Pack Arma Tu Pack Ficha', '1', 'Desktop', '13', 'Landing Arma Tu Pack', '15', 'Arma Tu Pack', '05', 'Ficha')
 
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb, DesOrigenPedidoWeb, CodMedio, DesMedio, CodZona, DesZona, CodSeccion, DesSeccion, CodPopup, DesPopup)
-VALUES ('2131502', 'Desktop Pagina Arma tu Pack Ficha', '2', 'Mobile', '13', 'Arma tu Pack Detalle', '15', 'Arma tu Pack', '05', 'Ficha')
+VALUES ('2131502', 'Mobile Landing Arma Tu Pack Arma Tu Pack Ficha', '2', 'Mobile', '13', 'Landing Arma Tu Pack', '15', 'Arma Tu Pack', '05', 'Ficha')
 
 go
 
@@ -187,11 +187,11 @@ go
 delete from OrigenPedidoWeb where CodOrigenPedidoWeb in ('1131502', '2131502')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb, DesOrigenPedidoWeb, CodMedio, DesMedio, CodZona, DesZona, CodSeccion, DesSeccion, CodPopup, DesPopup)
-VALUES ('1131502', 'Desktop Pagina Arma tu Pack Ficha', '1', 'Desktop', '13', 'Arma tu Pack Detalle', '15', 'Arma tu Pack', '05', 'Ficha')
+VALUES ('1131502', 'Desktop Landing Arma Tu Pack Arma Tu Pack Ficha', '1', 'Desktop', '13', 'Landing Arma Tu Pack', '15', 'Arma Tu Pack', '05', 'Ficha')
 
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb, DesOrigenPedidoWeb, CodMedio, DesMedio, CodZona, DesZona, CodSeccion, DesSeccion, CodPopup, DesPopup)
-VALUES ('2131502', 'Desktop Pagina Arma tu Pack Ficha', '2', 'Mobile', '13', 'Arma tu Pack Detalle', '15', 'Arma tu Pack', '05', 'Ficha')
+VALUES ('2131502', 'Mobile Landing Arma Tu Pack Arma Tu Pack Ficha', '2', 'Mobile', '13', 'Landing Arma Tu Pack', '15', 'Arma Tu Pack', '05', 'Ficha')
 
 go
 
@@ -205,11 +205,11 @@ go
 delete from OrigenPedidoWeb where CodOrigenPedidoWeb in ('1131502', '2131502')
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb, DesOrigenPedidoWeb, CodMedio, DesMedio, CodZona, DesZona, CodSeccion, DesSeccion, CodPopup, DesPopup)
-VALUES ('1131502', 'Desktop Pagina Arma tu Pack Ficha', '1', 'Desktop', '13', 'Arma tu Pack Detalle', '15', 'Arma tu Pack', '05', 'Ficha')
+VALUES ('1131502', 'Desktop Landing Arma Tu Pack Arma Tu Pack Ficha', '1', 'Desktop', '13', 'Landing Arma Tu Pack', '15', 'Arma Tu Pack', '05', 'Ficha')
 
 
 INSERT INTO OrigenPedidoWeb (CodOrigenPedidoWeb, DesOrigenPedidoWeb, CodMedio, DesMedio, CodZona, DesZona, CodSeccion, DesSeccion, CodPopup, DesPopup)
-VALUES ('2131502', 'Desktop Pagina Arma tu Pack Ficha', '2', 'Mobile', '13', 'Arma tu Pack Detalle', '15', 'Arma tu Pack', '05', 'Ficha')
+VALUES ('2131502', 'Mobile Landing Arma Tu Pack Arma Tu Pack Ficha', '2', 'Mobile', '13', 'Landing Arma Tu Pack', '15', 'Arma Tu Pack', '05', 'Ficha')
 
 go
 

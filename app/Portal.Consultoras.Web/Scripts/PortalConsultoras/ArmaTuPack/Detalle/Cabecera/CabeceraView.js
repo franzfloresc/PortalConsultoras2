@@ -10,11 +10,11 @@
         },
     };
     
-    var _presenter = null;
+    //var _presenter = null;
 
-    var _setPresenter = function (presenter) {
-        _presenter = presenter;
-    };
+    //var _setPresenter = function (presenter) {
+    //    _presenter = presenter;
+    //};
 
     var _renderTitle = function (packComponents) {
         SetHandlebars(_elements.cabecera.templateId, packComponents, _elements.cabecera.id);
@@ -22,7 +22,7 @@
     };
 
     return {
-        setPresenter: _setPresenter,
+        //setPresenter: _setPresenter,
         renderTitle: _renderTitle
     };
 };
