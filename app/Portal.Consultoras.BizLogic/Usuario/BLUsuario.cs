@@ -3674,9 +3674,9 @@ namespace Portal.Consultoras.BizLogic
 
             var tablaLogica = _tablaLogicaDatosBusinessLogic.GetList(paisID, ConsTablaLogica.MensajesTooltipPerfil.TablaLogicaId);
             oMensaje.oDatosPerfil = datosPerfil;
-            oMensaje.MensajeAmbos = tablaLogica.Where(a => a.TablaLogicaDatosID == Constantes.TablaLogicaDato.MensajeActualizarEmailSms).Select(b => b.Valor).FirstOrDefault();
-            oMensaje.MensajeCelular = tablaLogica.Where(a => a.TablaLogicaDatosID == Constantes.TablaLogicaDato.MensajeActualizarSms).Select(b => b.Valor).FirstOrDefault();
-            oMensaje.MensajeEmail = tablaLogica.Where(a => a.TablaLogicaDatosID == Constantes.TablaLogicaDato.MensajeActualizarEmail).Select(b => b.Valor).FirstOrDefault();
+            oMensaje.MensajeAmbos = tablaLogica.Where(a => a.TablaLogicaDatosID == ConsTablaLogica.MensajesTooltipPerfil.MensajeActualizarEmailSms).Select(b => b.Valor).FirstOrDefault();
+            oMensaje.MensajeCelular = tablaLogica.Where(a => a.TablaLogicaDatosID == ConsTablaLogica.MensajesTooltipPerfil.MensajeActualizarSms).Select(b => b.Valor).FirstOrDefault();
+            oMensaje.MensajeEmail = tablaLogica.Where(a => a.TablaLogicaDatosID == ConsTablaLogica.MensajesTooltipPerfil.MensajeActualizarEmail).Select(b => b.Valor).FirstOrDefault();
             oMensaje.MensajeFijo = tablaLogica.Where(a => a.TablaLogicaDatosID == Constantes.TablaLogicaDato.MensajeActualizarFijo).Select(b => b.Valor).FirstOrDefault();
 
             return oMensaje;

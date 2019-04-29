@@ -194,9 +194,9 @@ namespace Portal.Consultoras.Common
 
             public const int ActualizaDatosEnabled = 14301;
 
-            public const int MensajeActualizarEmailSms = 1001;
-            public const int MensajeActualizarSms = 1002;
-            public const int MensajeActualizarEmail = 1003;
+            //public const int MensajeActualizarEmailSms = 1001;
+            //public const int MensajeActualizarSms = 1002;
+            //public const int MensajeActualizarEmail = 1003;
             public const int CaminoBrillanteTablaLogica = 165;
             public const int MensajeActualizarFijo = 16261;
 

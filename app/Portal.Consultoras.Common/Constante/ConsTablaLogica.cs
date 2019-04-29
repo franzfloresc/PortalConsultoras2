@@ -65,6 +65,10 @@ namespace Portal.Consultoras.Common
         public static class MensajesTooltipPerfil
         {
             public const int TablaLogicaId = 10;
+
+            public const int MensajeActualizarEmailSms = 1001;
+            public const int MensajeActualizarSms = 1002;
+            public const int MensajeActualizarEmail = 1003;
         }
 
         public static class TipoFormulario
