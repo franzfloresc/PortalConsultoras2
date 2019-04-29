@@ -223,9 +223,7 @@ namespace Portal.Consultoras.Common
             {
                 public const string ListCuv = "ListCuv";
             }
-
-
-
+            
             public static class CaminoBrillante
             {
                 /// <summary>
@@ -245,7 +243,6 @@ namespace Portal.Consultoras.Common
                 /// </summary>
                 public const string NumeroCampaniasEnPeriodo = "num_cam_per";
             }
-
         }
 
         public static class ParametrosNames
@@ -3649,7 +3646,6 @@ namespace Portal.Consultoras.Common
 
         public static class CaminoBrillante
         {
-
             public static class ServicioComercial
             {
                 public const string GetPeriodo = "GetPeriodo/";
@@ -3819,7 +3815,6 @@ namespace Portal.Consultoras.Common
 
             public static class Niveles
             {
-
                 public const int OfertasEspeciales_TablaLogicaDatos = 16800;
 
                 private static Dictionary<string, string[]> _Iconos;
@@ -3839,8 +3834,7 @@ namespace Portal.Consultoras.Common
                         });
                     }
                 }
-
-
+                
                 private static Dictionary<string, string[]> _Etiquetas;
                 private static string path_etiquetas = "CAMINOBRILLANTE/NIVELES/TAG/Etiqueta_Nivel_0{0}_{1}.png";
 
@@ -3859,7 +3853,6 @@ namespace Portal.Consultoras.Common
                     }
                 }
             }
-
         }
 
         public static class CodigoContenido

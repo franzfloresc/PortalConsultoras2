@@ -164,17 +164,11 @@ var menuModule = (function () {
         if (codigo.indexOf("INICIO") > -1) $('ul.subnavegador li a').attr('parent', tituloMenu);
     }
 
-    function menuClick(e, url, confirmar) {
+    function menuClick(e, url) {
         var objHtmlEvent = $(e);
         var esAncla = objHtmlEvent.data(tagIsAnchor);
         var codigo = objHtmlEvent.data("codigo") || "";
         codigo = codigo.toUpperCase();
-
-        confirmar = _mostrarConfirmar(codigo, confirmar);
-
-        if (confirmar) {
-            return false;
-        }
 
         var currentLocation = window.location.href.toLowerCase();
         var originLocation = window.location.origin;
@@ -237,17 +231,6 @@ var menuModule = (function () {
 
             window.location = window.location.origin + url;
         }
-    }
-    function _mostrarConfirmar(codigo, confirmar) {
-
-        confirmar = confirmar === undefined ? true : confirmar;
-        if (confirmar) {
-
-            if (typeof BannerInteractivo != "undefined") {
-            }
-        }
-        return false;
-
     }
     function _claseImgSeleccionado(estado) {
         if (estado) {
