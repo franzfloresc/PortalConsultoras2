@@ -23,21 +23,15 @@ namespace Portal.Consultoras.Web.WebPages
                 Response.Redirect("~/WebPages/UserUnknownLogin.aspx");
                 return;
             }
-
             if (!CargarSessionConsultora(dataQueryString)) return;
 
             var campania = Request.QueryString["campania"];
             var nroPedido = Request.QueryString["nroPedido"];
-            var regionID = Request.QueryString["regionID"];
-            var zonaID = Request.QueryString["zonaID"];
-
-
+            
             if (campania == null) CargarTablasMaestras();
             else CargarPedidoEspecifico(campania, nroPedido);
 
             lnkPoliticasVenta.NavigateUrl = Globals.RutaCdn + "/SeguimientoPedido/" + Convert.ToString(ViewState["PAISISO"]) + "/Politica.pdf";
-
-
         }
 
         protected void gridPedidos_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -94,7 +88,6 @@ namespace Portal.Consultoras.Web.WebPages
             Label lblFecha = (Label)e.Row.FindControl("lblFecha");
             LinkButton botonSegPed = (LinkButton)e.Row.FindControl("imgSegPed");
             Label lblTextoValorTurno = (Label)e.Row.FindControl("lblTextoValorTurno");
-            Label lblHoraEstimadaDesdeHasta = (Label)e.Row.FindControl("lblHoraEstimadaDesdeHasta");
 
             if (lblTextoValorTurno != null)
                 lblTextoValorTurno.ForeColor = System.Drawing.ColorTranslator.FromHtml((ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(paisIso)) ? "#e81c36" : "#b75d9f");
@@ -198,7 +191,6 @@ namespace Portal.Consultoras.Web.WebPages
                     botonNo.Visible = false;
                     break;
             }
-
         }
 
         protected void BtnCancel1_Click(object sender, EventArgs e)
@@ -510,11 +502,11 @@ namespace Portal.Consultoras.Web.WebPages
                         }
                         //HD-3606 EINCA
 
-                        var flag = (horaEstimadaEntregaDesde != string.Empty && horaEstimadaEntregaHasta != string.Empty) ? true : false;
+                        var flag = (horaEstimadaEntregaDesde != string.Empty && horaEstimadaEntregaHasta != string.Empty);
 
                         if (item.Etapa == Constantes.SegPedidoSituacion.FechaEstimadaEntrega && flag)
                         {
-                            item.HoraEstimadaDesdeHasta = ValidarZonaRegion() == true ? string.Format("{0} - {1}", horaEstimadaEntregaDesde, horaEstimadaEntregaHasta) : "";
+                            item.HoraEstimadaDesdeHasta = ValidarZonaRegion() ? string.Format("{0} - {1}", horaEstimadaEntregaDesde, horaEstimadaEntregaHasta) : "";
                         }
                     }
 

@@ -684,7 +684,7 @@ var FichaModule = (function (config) {
             if (imgFondo !== "") {
                 $(_seccionesFichaProducto.ContenedoFichaEtiquetas).addClass("contenedor_ficha_etiquetas_Confondo");
             }
-            setTimeout(_renderImg(), 1000);
+            _renderImg();
         }
 
         if (imgFondo !== "") {
@@ -756,7 +756,7 @@ var FichaModule = (function (config) {
         $(proImg).css("height", "auto");
         $(proImg).css("width", "auto");
 
-        setTimeout(_resizeBotonAgregar(), 1000);
+        _resizeBotonAgregar();
     };
 
     var _resizeBotonAgregar = function () {
