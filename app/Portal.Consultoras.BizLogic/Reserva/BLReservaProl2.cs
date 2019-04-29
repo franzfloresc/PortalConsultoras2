@@ -57,6 +57,12 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 respuestaProl.codigoMensaje.Equals("00") ? Enumeradores.ResultadoReserva.Reservado :
                 reservo ? Enumeradores.ResultadoReserva.ReservadoObservaciones :
                 Enumeradores.ResultadoReserva.NoReservadoObservaciones;
+
+            if (respuestaProl.ListaMensajeCondicional != null)
+            {
+                resultado.CodigoMensajeRxP = string.Join("|", respuestaProl.ListaMensajeCondicional.Select(x => x.CodigoMensaje));
+                resultado.MensajeRxP= string.Join("|", respuestaProl.ListaMensajeCondicional.Select(x => x.Mensaje));
+            }
             
             return resultado;
         }
