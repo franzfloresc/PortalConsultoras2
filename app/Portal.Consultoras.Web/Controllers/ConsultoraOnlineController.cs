@@ -3262,13 +3262,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var oListaCatalogo = new List<MisPedidosDetalleModel2>();
                 var productosSolicitados = new List<ProductoSolicitado>();
 
-                var pedidosSesion = SessionManager.GetobjMisPedidos().ListaPedidos;
-
-
-                ///////////////////////////////
-                pedidosSesion.ForEach(x=> { x.DetallePedido.FirstOrDefault().Elegido = true; });
-                //////////////////////////////////
-
+                var pedidosSesion = SessionManager.GetobjMisPedidos().ListaPedidos; 
 
                 pedidosSesion.ForEach(pedido =>
                 {
