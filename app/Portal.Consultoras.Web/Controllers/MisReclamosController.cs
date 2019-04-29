@@ -522,9 +522,12 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     respuestaServiceCdr = sv.GetCdrWeb_Reclamo(userData.CodigoISO, model.CampaniaID.ToString(),
                        userData.CodigoConsultora, cuvEnviar, model.Cantidad, userData.CodigoZona);
-                    isSetsOrPack = (respuestaServiceCdr != null) ? (respuestaServiceCdr[0].LProductosComplementos.Count() > 0
-                        && estrategias.Contains(respuestaServiceCdr[0].Estrategia.ToString())) ? true : false : false;
-                    SessionManager.SetFlagIsSetsOrPack(isSetsOrPack);
+                    if (respuestaServiceCdr != null)
+                    {
+                        isSetsOrPack = respuestaServiceCdr[0].LProductosComplementos.Count() > 0 && estrategias.Contains(respuestaServiceCdr[0].Estrategia.ToString());
+                        SessionManager.SetFlagIsSetsOrPack(isSetsOrPack);
+                    }
+
 
                 }
                 //reemplazar si tiene cuv reemplazo
