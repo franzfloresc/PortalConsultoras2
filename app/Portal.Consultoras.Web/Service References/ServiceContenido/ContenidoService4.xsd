@@ -413,6 +413,63 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEConsultoraMailing" nillable="true" type="tns:BEConsultoraMailing" />
+  <xs:complexType name="BEContenidoApp">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CantidadContenido" type="xs:int" />
+      <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DesdeCampania" type="xs:int" />
+      <xs:element minOccurs="0" name="Estado" type="xs:int" />
+      <xs:element minOccurs="0" name="IdContenido" type="xs:int" />
+      <xs:element minOccurs="0" name="RutaImagen" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UrlMiniatura" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEContenidoApp" nillable="true" type="tns:BEContenidoApp" />
+  <xs:complexType name="BEContenidoAppList">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseEntidad">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Accion" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CodigoDetalle" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Estado" type="xs:boolean" />
+          <xs:element minOccurs="0" name="IdContenido" type="xs:int" />
+          <xs:element minOccurs="0" name="IdContenidoDeta" type="xs:int" />
+          <xs:element minOccurs="0" name="Orden" type="xs:int" />
+          <xs:element minOccurs="0" name="RutaContenido" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Tipo" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="BEContenidoAppList" nillable="true" type="tns:BEContenidoAppList" />
+  <xs:complexType name="BaseEntidad">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BaseEntidad" nillable="true" type="tns:BaseEntidad" />
+  <xs:complexType name="ArrayOfBEContenidoAppList">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEContenidoAppList" nillable="true" type="tns:BEContenidoAppList" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEContenidoAppList" nillable="true" type="tns:ArrayOfBEContenidoAppList" />
+  <xs:complexType name="BEContenidoAppDeta">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Accion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoDetalle" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Estado" type="xs:int" />
+      <xs:element minOccurs="0" name="IdContenido" type="xs:int" />
+      <xs:element minOccurs="0" name="IdContenidoDeta" type="xs:int" />
+      <xs:element minOccurs="0" name="Orden" type="xs:int" />
+      <xs:element minOccurs="0" name="RutaContenido" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Tipo" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEContenidoAppDeta" nillable="true" type="tns:BEContenidoAppDeta" />
   <xs:complexType name="ArrayOfBEComunicado">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="BEComunicado" nillable="true" type="tns:BEComunicado" />
@@ -439,6 +496,7 @@
       <xs:element minOccurs="0" name="SegmentacionEstadoActividad" type="xs:boolean" />
       <xs:element minOccurs="0" name="SegmentacionID" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="SegmentacionRegionZona" type="xs:boolean" />
+      <xs:element minOccurs="0" name="TipoComunicado" type="xs:int" />
       <xs:element minOccurs="0" name="TipoDispositivo" type="xs:int" />
       <xs:element minOccurs="0" name="Titulo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UrlImagen" nillable="true" type="xs:string" />

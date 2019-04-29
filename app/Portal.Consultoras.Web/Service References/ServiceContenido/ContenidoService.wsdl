@@ -455,6 +455,36 @@
   <wsdl:message name="IContenidoService_ObtenerCorreoEmisor_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerCorreoEmisorResponse" />
   </wsdl:message>
+  <wsdl:message name="IContenidoService_GetContenidoApp_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetContenidoApp" />
+  </wsdl:message>
+  <wsdl:message name="IContenidoService_GetContenidoApp_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetContenidoAppResponse" />
+  </wsdl:message>
+  <wsdl:message name="IContenidoService_UpdateContenidoApp_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateContenidoApp" />
+  </wsdl:message>
+  <wsdl:message name="IContenidoService_UpdateContenidoApp_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateContenidoAppResponse" />
+  </wsdl:message>
+  <wsdl:message name="IContenidoService_ListContenidoApp_InputMessage">
+    <wsdl:part name="parameters" element="tns:ListContenidoApp" />
+  </wsdl:message>
+  <wsdl:message name="IContenidoService_ListContenidoApp_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ListContenidoAppResponse" />
+  </wsdl:message>
+  <wsdl:message name="IContenidoService_InsertContenidoAppDeta_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertContenidoAppDeta" />
+  </wsdl:message>
+  <wsdl:message name="IContenidoService_InsertContenidoAppDeta_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertContenidoAppDetaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IContenidoService_UpdateContenidoAppDeta_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateContenidoAppDeta" />
+  </wsdl:message>
+  <wsdl:message name="IContenidoService_UpdateContenidoAppDeta_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateContenidoAppDetaResponse" />
+  </wsdl:message>
   <wsdl:message name="IContenidoService_GetListaPopup_InputMessage">
     <wsdl:part name="parameters" element="tns:GetListaPopup" />
   </wsdl:message>
@@ -789,6 +819,26 @@
     <wsdl:operation name="ObtenerCorreoEmisor">
       <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/ObtenerCorreoEmisor" message="tns:IContenidoService_ObtenerCorreoEmisor_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/ObtenerCorreoEmisorResponse" message="tns:IContenidoService_ObtenerCorreoEmisor_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetContenidoApp">
+      <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/GetContenidoApp" message="tns:IContenidoService_GetContenidoApp_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/GetContenidoAppResponse" message="tns:IContenidoService_GetContenidoApp_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateContenidoApp">
+      <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/UpdateContenidoApp" message="tns:IContenidoService_UpdateContenidoApp_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/UpdateContenidoAppResponse" message="tns:IContenidoService_UpdateContenidoApp_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ListContenidoApp">
+      <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/ListContenidoApp" message="tns:IContenidoService_ListContenidoApp_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/ListContenidoAppResponse" message="tns:IContenidoService_ListContenidoApp_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertContenidoAppDeta">
+      <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/InsertContenidoAppDeta" message="tns:IContenidoService_InsertContenidoAppDeta_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/InsertContenidoAppDetaResponse" message="tns:IContenidoService_InsertContenidoAppDeta_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateContenidoAppDeta">
+      <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/UpdateContenidoAppDeta" message="tns:IContenidoService_UpdateContenidoAppDeta_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/UpdateContenidoAppDetaResponse" message="tns:IContenidoService_UpdateContenidoAppDeta_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetListaPopup">
       <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/GetListaPopup" message="tns:IContenidoService_GetListaPopup_InputMessage" />
@@ -1452,6 +1502,51 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerCorreoEmisor">
       <soap:operation soapAction="http://tempuri.org/IContenidoService/ObtenerCorreoEmisor" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetContenidoApp">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/GetContenidoApp" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateContenidoApp">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/UpdateContenidoApp" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListContenidoApp">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/ListContenidoApp" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertContenidoAppDeta">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/InsertContenidoAppDeta" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateContenidoAppDeta">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/UpdateContenidoAppDeta" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2167,6 +2262,51 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerCorreoEmisor">
       <soap:operation soapAction="http://tempuri.org/IContenidoService/ObtenerCorreoEmisor" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetContenidoApp">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/GetContenidoApp" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateContenidoApp">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/UpdateContenidoApp" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListContenidoApp">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/ListContenidoApp" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertContenidoAppDeta">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/InsertContenidoAppDeta" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateContenidoAppDeta">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/UpdateContenidoAppDeta" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

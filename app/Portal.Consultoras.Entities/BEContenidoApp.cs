@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using Portal.Consultoras.Common;
+using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities
@@ -8,35 +10,47 @@ namespace Portal.Consultoras.Entities
     public class BEContenidoApp
     {
         [DataMember]
-        [Column("IdContenido")]
         public int IdContenido { get; set; }
 
         [DataMember]
-        [Column("Codigo")]
         public string Codigo { get; set; }
 
         [DataMember]
-        [Column("UrlMiniatura")]
+        public string Descripcion { get; set; }
+
+        [DataMember]
         public string UrlMiniatura { get; set; }
 
         [DataMember]
-        [Column("Estado")]
-        public bool Estado { get; set; }
+        public int Estado { get; set; }
+
+        [DataMember]
+        public int DesdeCampania { get; set; }
 
         [DataMember]
         public int CantidadContenido { get; set; }
 
         [DataMember]
-        [Column("DesdeCampania")]
-        public int DesdeCampania { get; set; }
+        public string RutaImagen { get; set; }
 
         [DataMember]
         public List<BEContenidoAppDetalle> DetalleContenido { get; set; }
 
-        [DataMember]
-        [Column("RutaImagen")]
-        public string RutaImagen { get; set; }
+        public BEContenidoApp(IDataRecord row)
+        {
+            IdContenido = row.ToInt32("IdContenido");
+            Codigo = row.ToString("Codigo");
+            Descripcion = row.ToString("Descripcion");
+            UrlMiniatura = row.ToString("UrlMiniatura");
+            Estado = row.ToInt32("Estado");
+            DesdeCampania = row.ToInt32("DesdeCampania");
+            CantidadContenido = row.ToInt32("CantidadContenido");
+            RutaImagen = row.ToString("RutaImagen");
+        }
 
-        public BEContenidoApp() { }
+        public BEContenidoApp()
+        {
+
+        }
     }
 }

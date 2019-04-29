@@ -1950,6 +1950,7 @@ namespace Portal.Consultoras.Common
             public const short GanaMasNativo = 159;
             public const short ResizeImagenesAppGanaMas = 162;
             public const short TiempoMaximoSP = 180;
+            public const short ResizeImagenesAppHistorias = 162;
         }
 
         public struct MensajesCDRExpress

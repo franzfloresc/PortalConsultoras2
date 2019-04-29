@@ -199,5 +199,51 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
+        public string ImagenesResizeProcesoAppHistDetalle(string urlImagen, string codigoIso, int paisID, string palanca)
+        {
+            var mensajeErrorImagenResize = string.Empty;
+
+            var lstImagenResize = _tablaLogicaProvider.GetTablaLogicaDatos(paisID, Constantes.TablaLogica.ResizeImagenesAppHistorias, true);
+
+            lstImagenResize = lstImagenResize.Where(x => x.Codigo.StartsWith(palanca)).ToList();
+
+            if (lstImagenResize.Any())
+            {
+                var lstFinal = lstImagenResize.Select(x =>
+                {
+                    var tipo = x.Codigo.Replace(palanca, string.Empty);
+                    var ancho = 0;
+                    var alto = 0;
+                    var medidas = x.Descripcion.Split('x');
+
+                    int.TryParse(medidas[0], out ancho);
+                    int.TryParse(medidas[1], out alto);
+
+                    var soloImagen = Path.GetFileNameWithoutExtension(urlImagen);
+                    var soloExtension = Path.GetExtension(urlImagen);
+                    var fileName = string.Concat(soloImagen, tipo, soloExtension);
+                    var rutaImagenResize = ConfigS3.GetUrlFileHistDetalle(codigoIso, fileName);
+                    //var rutaImagenResize = ConfigS3.GetUrlFileS3Matriz(codigoIso, fileName);
+
+                    var entidad = new EntidadMagickResize
+                    {
+                        RutaImagenOriginal = urlImagen,
+                        RutaImagenResize = rutaImagenResize,
+                        Width = ancho,
+                        Height = alto,
+                        TipoImagen = tipo,
+                        CodigoIso = codigoIso
+                    };
+
+                    return entidad;
+                }).ToList();
+
+                MagickNetLibrary.GuardarImagenesResizeParaleloHistDetalle(lstFinal, true);
+            }
+
+            return mensajeErrorImagenResize;
+        }
+
+
     }
 }

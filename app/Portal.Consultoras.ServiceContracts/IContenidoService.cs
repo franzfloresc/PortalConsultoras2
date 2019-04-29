@@ -283,10 +283,24 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEContenidoApp> GetContenidoApp(BEUsuario itmFilter);
+        
+        [OperationContract]
+        BEContenidoApp GetContenidoApp(string Codigo);
 
         [OperationContract]
         void CheckContenidoApp(BEUsuario itmFilter, int idContenidoDetalle);
+        
+        [OperationContract]
+        void UpdateContenidoApp(BEContenidoApp formularioDato);
 
+        [OperationContract]
+        List<BEContenidoAppList> ListContenidoApp(BEContenidoAppList entidad);
+
+        [OperationContract]
+        void InsertContenidoAppDeta(BEContenidoAppDeta p);
+
+        [OperationContract]
+        int UpdateContenidoAppDeta(BEContenidoAppDeta p);
         #region Gestor de Poputs
         [OperationContract]
         List<BEComunicado> GetListaPopup(int Estado, string Campania, int Paginas, int Filas, int PaisID);
