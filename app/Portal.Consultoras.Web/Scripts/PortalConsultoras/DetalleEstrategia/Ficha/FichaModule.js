@@ -163,21 +163,21 @@ var FichaModule = (function (config) {
         dvContenedorAgregar: "#dvContenedorAgregar"
     };
 
-    var _tabsFichaProducto = {
-        detalleProducto: "#div_ficha_tab1",
-        detallePack: "#div_ficha_tab2",
-        tipsVenta: "#div_ficha_tab3",
-        beneficios: "#div_ficha_tab4",
-        video: "#div_ficha_tab5"
-    };
+    //var _tabsFichaProducto = {
+    //    detalleProducto: "#div_ficha_tab1",
+    //    detallePack: "#div_ficha_tab2",
+    //    tipsVenta: "#div_ficha_tab3",
+    //    beneficios: "#div_ficha_tab4",
+    //    video: "#div_ficha_tab5"
+    //};
 
-    var _seccionesFichaTabProducto = {
-        ContenidoProductoDetalleProducto: "#contenido_1",
-        ContenidoProductoDetallePack: "#contenido_2",
-        ContenidoProductoTipsVenta: "#contenido_3",
-        ContenidoProductoBeneficios: "#contenido_4",
-        ContenidoProductoVideo: "#contenido_5"
-    };
+    //var _seccionesFichaTabProducto = {
+    //    ContenidoProductoDetalleProducto: "#contenido_1",
+    //    ContenidoProductoDetallePack: "#contenido_2",
+    //    ContenidoProductoTipsVenta: "#contenido_3",
+    //    ContenidoProductoBeneficios: "#contenido_4",
+    //    ContenidoProductoVideo: "#contenido_5"
+    //};
 
     Handlebars.registerHelper("ifVerificarMarca", function (marca, options) {
         if (_primeraMarca !== marca && _esMultimarca) {
@@ -206,102 +206,101 @@ var FichaModule = (function (config) {
         }
     });
 
-    var videoBuild = function () {
-        if (youtubeModule) {
-            youtubeModule.Inicializar();
-        }
-    };
+    //var videoBuild = function () {
+    //    if (youtubeModule) {
+    //        youtubeModule.Inicializar();
+    //    }
+    //};
 
-    var _crearTabs = function () {
+    //var _crearTabs = function () {
 
-    };
+    //};
 
-    var _ocultarSecciones = function () {
-        if (_config.esMobile) {
-            $(_elementos.footerPage).hide();
-            $(_elementos.marca).hide();
-        }
+    //var _ocultarSecciones = function () {
+    //    if (_config.esMobile) {
+    //        $(_elementos.footerPage).hide();
+    //        $(_elementos.marca).hide();
+    //    }
+    //    if (_tipoEstrategiaTexto.HerramientasVenta === _config.palanca ||
+    //        _tipoEstrategiaTexto.OfertasParaMi === _config.palanca ||
+    //        _tipoEstrategiaTexto.OfertaParaTi === _config.palanca ||
+    //        _tipoEstrategiaTexto.GuiaDeNegocioDigitalizada === _config.palanca ||
+    //        _tipoEstrategiaTexto.OfertaDelDia === _config.palanca ||
+    //        _tipoEstrategiaTexto.ShowRoom === _config.palanca ||
+    //        _tipoEstrategiaTexto.PackNuevas === _config.palanca) {
+    //        $(_seccionesFichaProducto.ContenidoProducto).hide();
+    //    }
+    //    else if (_tipoEstrategiaTexto.Lanzamiento === _config.palanca) {
+    //        $(_seccionesFichaProducto.ContenidoProducto).show();
+    //    }
+    //};
 
-        if (_tipoEstrategiaTexto.HerramientasVenta === _config.palanca ||
-            _tipoEstrategiaTexto.OfertasParaMi === _config.palanca ||
-            _tipoEstrategiaTexto.OfertaParaTi === _config.palanca ||
-            _tipoEstrategiaTexto.GuiaDeNegocioDigitalizada === _config.palanca ||
-            _tipoEstrategiaTexto.OfertaDelDia === _config.palanca ||
-            _tipoEstrategiaTexto.ShowRoom === _config.palanca ||
-            _tipoEstrategiaTexto.PackNuevas === _config.palanca) {
-            $(_seccionesFichaProducto.ContenidoProducto).hide();
-        }
-        else if (_tipoEstrategiaTexto.Lanzamiento === _config.palanca) {
-            $(_seccionesFichaProducto.ContenidoProducto).show();
-        }
-    };
+    //var _ocultarTabs = function () {
 
-    var _ocultarTabs = function () {
+    //    var estrategia = _config.localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
 
-        var estrategia = _config.localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
+    //    var showTabContainer = false;
+    //    if (_tipoEstrategiaTexto.ShowRoom === _config.palanca ||
+    //        _tipoEstrategia.Lanzamiento === _config.palanca) {
+    //        showTabContainer = true;
+    //    }
 
-        var showTabContainer = false;
-        if (_tipoEstrategiaTexto.ShowRoom === _config.palanca ||
-            _tipoEstrategia.Lanzamiento === _config.palanca) {
-            showTabContainer = true;
-        }
+    //    if (_tipoEstrategiaTexto.Lanzamiento === _config.palanca) {
+    //        if (estrategia.TipoEstrategiaDetalle.UrlVideoDesktop && !_config.esMobile) {
+    //            $(_tabsFichaProducto.video).show();
+    //            $(_seccionesFichaTabProducto.ContenidoProductoVideo).show();
+    //            showTabContainer = true;
+    //        }
+    //        if (estrategia.TipoEstrategiaDetalle.UrlVideoMobile && _config.esMobile) {
+    //            $(_tabsFichaProducto.video).show();
+    //            $(_seccionesFichaTabProducto.ContenidoProductoVideo).show();
+    //            showTabContainer = true;
+    //        }
+    //    }
 
-        if (_tipoEstrategiaTexto.Lanzamiento === _config.palanca) {
-            if (estrategia.TipoEstrategiaDetalle.UrlVideoDesktop && !_config.esMobile) {
-                $(_tabsFichaProducto.video).show();
-                $(_seccionesFichaTabProducto.ContenidoProductoVideo).show();
-                showTabContainer = true;
-            }
-            if (estrategia.TipoEstrategiaDetalle.UrlVideoMobile && _config.esMobile) {
-                $(_tabsFichaProducto.video).show();
-                $(_seccionesFichaTabProducto.ContenidoProductoVideo).show();
-                showTabContainer = true;
-            }
-        }
+    //    if (showTabContainer) $(_seccionesFichaProducto.ContenidoProducto).show();
 
-        if (showTabContainer) $(_seccionesFichaProducto.ContenidoProducto).show();
+    //};
 
-    };
+    //var _construirSeccionDetalleFichas = function () {
+    //    var pEstrategia = _modeloFicha();
+    //    if (pEstrategia === null || typeof (pEstrategia) === "undefined") {
+    //        throw "_construirSeccionDetalleFichas, sin Estrategia";
+    //    }
 
-    var _construirSeccionDetalleFichas = function () {
-        var pEstrategia = _modeloFicha();
-        if (pEstrategia === null || typeof (pEstrategia) === "undefined") {
-            throw "_construirSeccionDetalleFichas, sin Estrategia";
-        }
+    //    if (!_getModelo().MostrarAdicional) {
+    //        return false;
+    //    }
 
-        if (!_getModelo().MostrarAdicional) {
-            return false;
-        }
+    //    if (pEstrategia.CodigoEstrategia === _tipoEstrategia.Lanzamiento) {
+    //        if (_config.esMobile) {
+    //            pEstrategia.VideoHeight = 218;
+    //            pEstrategia.TipoEstrategiaDetalle.UrlVideo = pEstrategia.TipoEstrategiaDetalle.UrlVideoMobile;
+    //        }
+    //        else {
+    //            pEstrategia.VideoHeight = 415;
+    //            pEstrategia.TipoEstrategiaDetalle.UrlVideo = pEstrategia.TipoEstrategiaDetalle.UrlVideoDesktop;
+    //        }
 
-        if (pEstrategia.CodigoEstrategia === _tipoEstrategia.Lanzamiento) {
-            if (_config.esMobile) {
-                pEstrategia.VideoHeight = 218;
-                pEstrategia.TipoEstrategiaDetalle.UrlVideo = pEstrategia.TipoEstrategiaDetalle.UrlVideoMobile;
-            }
-            else {
-                pEstrategia.VideoHeight = 415;
-                pEstrategia.TipoEstrategiaDetalle.UrlVideo = pEstrategia.TipoEstrategiaDetalle.UrlVideoDesktop;
-            }
+    //        SetHandlebars("#template-fichadetallevideo", pEstrategia, "#contenedor-tab-video");
 
-            SetHandlebars("#template-fichadetallevideo", pEstrategia, "#contenedor-tab-video");
+    //        videoBuild();
+    //    }
 
-            videoBuild();
-        }
+    //    _ocultarSecciones();
+    //    _crearTabs();
+    //    _ocultarTabs();
 
-        _ocultarSecciones();
-        _crearTabs();
-        _ocultarTabs();
+    //    if (config.componenteDetalleModule === null || typeof config.componenteDetalleModule === "undefined") {
+    //        throw "config.componenteDetalleModule is null or undefined";
+    //    } else {
+    //        _config.componenteDetalleModule.OcultarControles(pEstrategia.CodigoVariante);
+    //    }
 
-        if (config.componenteDetalleModule === null || typeof config.componenteDetalleModule === "undefined") {
-            throw "config.componenteDetalleModule is null or undefined";
-        } else {
-            _config.componenteDetalleModule.OcultarControles(pEstrategia.CodigoVariante);
-        }
+    //    _modeloFicha(pEstrategia);
 
-        _modeloFicha(pEstrategia);
-
-        return true;
-    };
+    //    return true;
+    //};
 
     ////// Ini - Obtener Estrategia
     var _obtenerCampaniaActual = function () {
@@ -555,6 +554,10 @@ var FichaModule = (function (config) {
 
         if (!_config.esMobile) {
             _validarSiEsAgregado(estrategia);
+        }
+        else {
+            $(_elementos.footerPage).hide();
+            $(_elementos.marca).hide();
         }
 
         _modeloFicha(estrategia);
@@ -950,7 +953,7 @@ var FichaModule = (function (config) {
 
         _construirSeccionFicha();
         _construirSeccionEstrategia();
-        _construirSeccionDetalleFichas();
+        //_construirSeccionDetalleFichas();
         _initCliente();
         _initCarrusel();
         _analytics();
