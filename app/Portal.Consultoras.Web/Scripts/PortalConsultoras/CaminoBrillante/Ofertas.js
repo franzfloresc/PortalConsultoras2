@@ -99,7 +99,6 @@ function ArmarOfertaKits(data) {
 }
 
 function CargarDemostradores() {
-    var contador = 0;
     $.ajax({
         type: 'GET',
         url: urlGetDemostradores,

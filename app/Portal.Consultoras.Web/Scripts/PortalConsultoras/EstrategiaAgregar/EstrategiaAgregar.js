@@ -263,28 +263,27 @@ var EstrategiaAgregarModule = (function () {
 
         //*****ANALYTICS ******
         if (AnalyticsPortalModule != 'undefined') {
+            var estrategiaAnalytics;
             if (typeof (fichaModule) != "undefined") {
                 if (typeof (fichaModule.GetEstrategia) != "undefined") {
-                    var estrategia = fichaModule.GetEstrategia();
+                    estrategiaAnalytics = fichaModule.GetEstrategia();
                     var objChangeFicha = fichaModule.GetChangeFichaAnalytics();
-                    AnalyticsPortalModule.MarcaFichaResumidaClickModificar(estrategia.CodigoUbigeoPortal, objChangeFicha.isChangeTono, objChangeFicha.isChangeCantidad, objChangeFicha.isChangeCliente);
+                    AnalyticsPortalModule.MarcaFichaResumidaClickModificar(estrategiaAnalytics.CodigoUbigeoPortal, objChangeFicha.isChangeTono, objChangeFicha.isChangeCantidad, objChangeFicha.isChangeCliente);
                 }
             }
 
             if (typeof (seleccionadosPresenter) !== 'undefined') {
                 if (seleccionadosPresenter.packComponents() !== 'undefined') {
                     var seleccionados = seleccionadosPresenter.packComponents().componentesSeleccionados;
-                    var estrategia = JSON.parse($("#data-estrategia").attr("data-estrategia"));
-                    var codigoubigeoportal = estrategia.CodigoUbigeoPortal + "";
+                    estrategiaAnalytics = JSON.parse($("#data-estrategia").attr("data-estrategia"));
+                    var codigoubigeoportal = estrategiaAnalytics.CodigoUbigeoPortal;
 
                     if (codigoubigeoportal !== "") {
                         AnalyticsPortalModule.MarcarAddCarArmaTuPack(codigoubigeoportal, seleccionados);
                         AnalyticsPortalModule.MarcaClickAgregarArmaTuPack(codigoubigeoportal, "Agregar", "Click Botón");
                     }
                 }
-
             }
-
         }
         //**FIN ANALYTICS *****
 

@@ -1,10 +1,6 @@
 ﻿
 if (!jQuery) { throw new Error("CodigoUbigeoPortal.js requires jQuery"); }
 
-+function ($) {
-    "use strict";
-}(window.jQuery);
-
 var CodigoUbigeoPortal = (function () {
     var _texto = {
         notavaliable: "(not available)",
