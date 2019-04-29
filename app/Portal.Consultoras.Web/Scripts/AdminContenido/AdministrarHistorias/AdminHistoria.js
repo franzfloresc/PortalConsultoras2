@@ -60,7 +60,7 @@ function IniDialogDetalle() {
                         data: JSON.stringify(params),
                         async: true,
                         success: function (data) {
-                            console.log("save=>",data);
+
                             closeWaitingDialog();
                             if (data.success) {
                                 HideDialog("DialogMantenimientoDetalle");
@@ -74,7 +74,6 @@ function IniDialogDetalle() {
                         },
                         error: function (data, error) {
                             closeWaitingDialog();
-                            console.log(data);
                             _toastHelper.error("Error al procesar la Solicitud.");
                         }
                     });
