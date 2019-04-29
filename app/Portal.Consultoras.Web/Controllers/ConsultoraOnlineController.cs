@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Providers;
@@ -2501,10 +2502,15 @@ namespace Portal.Consultoras.Web.Controllers
                 MisPedidosModel model = new MisPedidosModel();
                 model = GetPendientes();
 
+                var PendientesJson = JsonConvert.SerializeObject(model, Formatting.Indented,new JsonSerializerSettings
+                                {
+                                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                                });
+
                 return Json(new
                 {
                     success = true,
-                    //Pendientes = model,
+                    Pendientes = PendientesJson,
                     message = "OK"
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -2563,10 +2569,15 @@ namespace Portal.Consultoras.Web.Controllers
                 MisPedidosModel model = new MisPedidosModel();
                 model = GetPendientes();
 
+                var PendientesJson = JsonConvert.SerializeObject(model, Formatting.Indented, new JsonSerializerSettings
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                });
+
                 return Json(new
                 {
                     success = true,
-                    //Pendientes = model,
+                    Pendientes = PendientesJson,
                     message = "OK"
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -2631,10 +2642,15 @@ namespace Portal.Consultoras.Web.Controllers
                 MisPedidosModel model = new MisPedidosModel();
                 model = GetPendientes();
 
+                var PendientesJson = JsonConvert.SerializeObject(model, Formatting.Indented, new JsonSerializerSettings
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                });
+
                 return Json(new
                 {
                     success = true,
-                    //Pendientes = model,
+                    Pendientes = PendientesJson,
                     message = "OK"
                 }, JsonRequestBehavior.AllowGet);
             }
