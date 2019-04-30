@@ -40,10 +40,10 @@
 }
 
 <!-- Agregado desplegado con tooltips y modals -->
-<div class="container-flex pending">
+<div class="container-flex pending d-flex flex-column vh-100 fix">
     <!-- Pending title   -->
     <div class="container pending-top">
-        <div class="row align-items-center">
+        <div class="row align-items-center mb-1">
             <div class="col-10">
                 <h2 class="attend-title">Paso 1: Acepta los pedidos que deseas atender</h2>
             </div>
@@ -55,37 +55,24 @@
         </div>
     </div>
     <!-- / Pending title   -->
-    <!--  Pending subtitle  -->
-    <div class="pending-subtitle pending-bgGray">
+    <div class="overflow-y auto">
+        <!--  Pending subtitle  -->
+        <div class="pending-subtitle pending-bgGray">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col">
+                    <div class="mtb-16">
+                        <h3 class="text-14 text-700 m-0">Producto pedido:</h3>
+                        <p class="text-14">@ViewBag.Productox</p>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- / Pending subtitle    -->
+
+        <!--  Orders  -->
         <div class="container">
-        <div class="row">
-            <div class="col">
-            <div class="mtb-16">
-                <h3 class="text-14 text-700 m-0">Producto pedido:</h3>
-                <p class="text-14">@ViewBag.Productox</p>
-            </div>
-            </div>
-        </div>
-        </div>
-    </div>
-    
-    @{
-        //var solicitud = Model.ListaPedidos.ToList();
-        //var tiposoli = (solicitud. == 0) ? 1 : 2;
-    }
-    @*<div class="content_dato_historial">
-            <span class="nom_his">Teléfono:</span>
-            <span class="nom_his_2">
-                <a href="tel:@solicitud.Telefono" onclick="return (navigator.userAgent.match(/Android|iPhone|iPad|iPod|Mobile/i))!=null;">
-                    <b class="color_belcorp" style="vertical-align:top;" id="sc-telefono">@solicitud.Telefono</b>
-                    <span class="icono_telefono"></span>
-                </a>
-            </span>
-            <hr class="clear" />
-        </div>*@
-    <!-- / Pending subtitle    -->
-    <!--  Orders  -->
-    <div class="container">
         @foreach (var item in Model.ListaPedidos)
         {
             <div id="vp_pedido_@item.PedidoId" class="container vc-box vc-box--shadow pedidos">
@@ -168,12 +155,30 @@
                 <!--  / Order Delete Popup      -->
             </div>
         }
-
+        </div>
+        <!-- / Orders    -->
     </div>
-    <!-- / Orders    -->
-    <div id="mensajepedido" class="container position-absolute" style="display:none;">
+    
+    
+    @{
+        //var solicitud = Model.ListaPedidos.ToList();
+        //var tiposoli = (solicitud. == 0) ? 1 : 2;
+    }
+    @*<div class="content_dato_historial">
+            <span class="nom_his">Teléfono:</span>
+            <span class="nom_his_2">
+                <a href="tel:@solicitud.Telefono" onclick="return (navigator.userAgent.match(/Android|iPhone|iPad|iPod|Mobile/i))!=null;">
+                    <b class="color_belcorp" style="vertical-align:top;" id="sc-telefono">@solicitud.Telefono</b>
+                    <span class="icono_telefono"></span>
+                </a>
+            </span>
+            <hr class="clear" />
+        </div>*@
+    
+    
+    <div id="mensajepedido" class="container position-absolute" style="display:none; bottom:0;">
         <!--   Tooltip bottom     -->
-        <div class="row align-items-center position-relative action-continue">
+        <div class="row align-items-center position-relative action-continue" style="padding-right:16px;">
             <div class="col mb-16">
                 <div class="tooltip-secondary tooltip-arrow_bottom ptb-16 ">
                     <div class="col-12">
@@ -185,8 +190,8 @@
         <!--  / Tooltip bottom      -->
     </div>
     <!--  / Action buttons  -->
-    <div class="bt-1 ptb-8 mt-32">
-        <div class="container">
+    <div class="bt-1 mt-auto ">
+        <div class="container pt-3 pb-3">
             <div class="row">
                 <div class="col">
                     <div class="vc-box text-14 text-700">
