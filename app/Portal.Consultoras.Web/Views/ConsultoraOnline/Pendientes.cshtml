@@ -19,7 +19,7 @@
                         <div class="container border-bottom position-sticky top">
                             <div class="row align-items-center">
                                 <div class="col">
-                                    <div class="position-relative text-right mt-3"><a class="close-modal" href="#" alt="Cerrar">Cerrar    </a></div>
+                                    <div class="position-relative text-right mt-3"><a class="close-modal" onclick="javascript: ActualizarPendientes();" href="#" alt="Cerrar">Cerrar    </a></div>
                                 </div>
                             </div>
                             <div class="row align-items-center">
@@ -33,7 +33,7 @@
                                 <div class="row">
                                     <div class="col color-text">
                                         <span class="medium t-w700">Producto pedido:</span>
-                                        <span class="medium">{{this.ListaPedidos.0.DetallePedido.0.Producto}}</span>
+                                        <span class="medium">{{this.Productox}}</span>
                                     </div>
                                 </div>
                             </div>
@@ -60,13 +60,13 @@
                 <img class="img-fluid icon-32" onclick="MostrarMensajedeRechazoPedido('{{item.PedidoId}}')" src="https://i.ibb.co/jTXwndP/trash-3x.png" alt="Borrar"></a>
             </div>*@
                                     <input type="hidden" class="pedidoId" value="{{item.PedidoId}}" />
-                                    <input type="hidden" class="cuv" value="{{this.ListaPedidos.0.DetallePedido.0.CUV}}" />
-                                    <input type="hidden" class="cantidad" value="{{this.ListaPedidos.0.DetallePedido.0.Cantidad}}" />
-                                    <div class="row align-items-center mt-2">
+                                    <input type="hidden" class="cuv" value="{{item.CUVx}}" />
+                                    <input type="hidden" class="cantidad" value="{{item.DetallePedido.0.Cantidad}}" />
+                                    <div class="row align-items-center mt-2" data-cantidad-contenedor="">
                                         <div class="col-4 pr-0">
                                             <div class="position-relative">
-                                                <input data-cantNew="{{item.DetallePedido.0.Cantidad}}" type="text" value='{{item.CantidadTotal}}' size="2" maxlength="2">
-                                                <span class="son position-absolute"><a class="es mas" href="#">+</a><a class="es menos" href="#">-</a></span>
+                                                <input data-cantNew="{{item.DetallePedido.0.Cantidad}}" type="text" data-input='cantidad' value='{{item.CantidadTotal}}' size="2" maxlength="2" class="ValidaNumeral ValidaPasteNumeral ValidaValor">
+                                                <span class="son position-absolute"><a class="es mas" href="javascript: void(0);" onclick="javascript: EstrategiaAgregarModule.AdicionarCantidad(event);">+</a><a class="es menos" href="javascript: void(0);" onclick="javascript: EstrategiaAgregarModule.DisminuirCantidad(event);">-</a></span>
                                             </div>
                                         </div>
                                         <div id="texto_{{item.PedidoId}}" class="col-8 text-right">
@@ -81,7 +81,7 @@
                                                 <div class="row mt-3">
                                                     <div class="col pl-0 pr-0"><a class="pr-0 btn no-border dark-color" href="javascript:;" onclick="OcultarMensajedeRechazoPedido('{{item.PedidoId}}')">No, gracias</a></div>
                                                     <div class="col pl-0">
-                                                        <a class="btn second-color" href="javascript:;" onclick="EliminarSolicitudDetalle('{{item.PedidoId}}', '{{this.ListaPedidos.0.DetallePedido.0.CUV}}', 'P')">Sí, eliminar</a>
+                                                        <a class="btn second-color" href="javascript:;" onclick="EliminarSolicitudDetalle('{{item.PedidoId}}', '{{item.CUVx}}', 'P')">Sí, eliminar</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -193,7 +193,7 @@
                             </div>
                             <div class="row mt-3">
                                 <div class="col ml-3"><a class="btn ghost no-border full" onclick="$('#rechazarTodo').addClass('hide');" data-action="not-reject">No, gracias</a></div>
-                                <div class="col mr-3"><a class="btn full second-color" onclick="RechazarSolicitudClientePorCuv('{{this.ListaPedidos.0.DetallePedido.0.Producto.CUV}}')">Sí, rechazar</a></div>
+                                <div class="col mr-3"><a class="btn full second-color" onclick="RechazarSolicitudClientePorCuv('{{this.CUVx}}')">Sí, rechazar</a></div>
                             </div>
                         </div>
                     </div>
@@ -217,7 +217,7 @@
                         <div class="container border-bottom position-sticky top">
                             <div class="row align-items-center">
                                 <div class="col">
-                                    <div class="position-relative text-right mt-3"><a class="close-modal" href="#" alt="Cerrar">Cerrar    </a></div>
+                                    <div class="position-relative text-right mt-3"><a class="close-modal" href="#" onclick="javascript: ActualizarPendientes();" alt="Cerrar">Cerrar    </a></div>
                                 </div>
                             </div>
                             <div class="row align-items-center">
@@ -242,7 +242,7 @@
                         <div class="row align-items-start">
                             <div class="col">
                                 {{#each this.ListaDetalle2 as |item|}}
-                                <div id="vp_pedido_{{item.CUV}}" class="card--content pedidos">
+                                <div id="vc_pedido_{{item.CUV}}" class="card--content pedidos">
                                     <div class="row align-items-start">
                                         <div class="col-9">
                                             <span class="t3 color-text">{{item.Producto}}</span>
@@ -259,11 +259,11 @@
                                     <input type="hidden" class="pedidoId" value="{{item.PedidoId}}" />
                                     <input type="hidden" class="cuv" value="{{this.CUV}}" />
                                     <input type="hidden" class="cantidad" value="{{this.Cantidad}}" />
-                                    <div class="row align-items-center mt-2">
+                                    <div class="row align-items-center mt-2" data-cantidad-contenedor="">
                                         <div class="col-4 pr-0">
                                             <div class="position-relative">
-                                                <input type="text" data-cantNew="{{item.Cantidad}}" value='{{item.Cantidad}}' size="2" maxlength="2">
-                                                <span class="son position-absolute"><a class="es mas" href="#">+</a><a class="es menos" href="#">-</a></span>
+                                                <input type="text" data-cantNew="{{item.Cantidad}}" value='{{item.Cantidad}}' data-input='cantidad' size="2" maxlength="2" class="ValidaNumeral ValidaPasteNumeral ValidaValor">
+                                                <span class="son position-absolute"><a class="es mas" href="javascript: void(0);" onclick="javascript: EstrategiaAgregarModule.AdicionarCantidad(event);">+</a><a class="es menos" href="javascript: void(0);" onclick="javascript: EstrategiaAgregarModule.DisminuirCantidad(event);">-</a></span>
                                             </div>
                                         </div>
                                         <div id="texto_{{item.CUV}}" class="col-8 text-right">
@@ -405,11 +405,11 @@
 <div id="modal-confirmacion" class="position-absolute center modal-exito isHide">
     <div class="modal center column pb-5">
         <div class="position-relative mt-5 modal-close">
-            <div class="text-right mb-3"><a class="close-modal" href="#" alt="Cerrar">Cerrar</a></div>
+            <div class="text-right mb-3"><a class="close-modal" href="#" onclick="javascript: ActualizarPendientes();" alt="Cerrar">Cerrar</a></div>
         </div><img class="img-fluid mb-3" src="https://i.ibb.co/n6p5vcB/check-circle-outline-3x.png" alt="Aprobado"><span class="font-big t-w700 dark-color mb-3">¡Pedido aprobado!</span><span class="small mb-4 dark-color">Has atendido el pedido por Gana+.</span>
         <div class="position-relative container-btn">
             <div class="position-relative btn-left"><a class="btn full ghost color-dark" href="/Pedido/Index" >Ir a mi pedido</a></div>
-            <div class="position-relative btn-right"><a class="btn full second-color" href="/ConsultoraOnline/Pendientes" >Ver pedidos por aprobar</a></div>
+            <div class="position-relative btn-right"><a class="btn full second-color" href="#" onclick="javascript: CerrarPopupConfirmacion();" >Ver pedidos por aprobar</a></div>
         </div>
     </div>
 </div>
@@ -622,7 +622,7 @@
                     <div class="container border-bottom position-sticky top">
                         <div class="row align-items-center">
                             <div class="col">
-                                <div class="position-relative text-right mt-3"><a class="close-modal" href="#" alt="Cerrar">Cerrar   </a></div>
+                                <div class="position-relative text-right mt-3"><a class="close-modal" href="#" onclick="javascript: ActualizarPendientes();" alt="Cerrar">Cerrar   </a></div>
                             </div>
                         </div>
                         <div class="row align-items-center">
@@ -650,7 +650,7 @@
                                     {{#each this.ListaGana as |item|}}
                                     <div class="col pr-2 pl-2 color-dark"><img class="img-fluid icon-80" src="{{item.ImagenURL}}" alt="Producto"><span class="smaller">{{item.DescripcionCUV2}}</span><span class="smaller">@ViewBag.Simbolo {{item.PrecioString}}</span></div>
                                     {{/each}}
-                                 </div><span class="smaller color-second mt-2 mb-4">* Contiene productos extras</span>
+                                 @*</div><span class="smaller color-second mt-2 mb-4">* Contiene productos extras</span>*@
                             </div>
                         </div>
                     </div>

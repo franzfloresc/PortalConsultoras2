@@ -62,7 +62,7 @@
             <div class="col">
             <div class="mtb-16">
                 <h3 class="text-14 text-700 m-0">Producto pedido:</h3>
-                <p class="text-14">@Model.ListaPedidos[0].DetallePedido[0].Producto</p>
+                <p class="text-14">@ViewBag.Productox</p>
             </div>
             </div>
         </div>
@@ -157,7 +157,7 @@
                                         <a href="javascript:;" onclick="OcultarMensajedeRechazoPedido('@item.PedidoId')" class="action-btn action-btn_refuse no-border">No, gracias</a>
                                     </div>
                                     <div class="col text-14 text-700">
-                                        <a href="javascript:;" onclick="EliminarSolicitudDetalle('@item.PedidoId', '@item.DetallePedido[0].CUV', 'P')" class="action-btn action-btn_continue active">Sí, eliminar</a>
+                                        <a href="javascript:;" onclick="EliminarSolicitudDetalle('@item.PedidoId', '@ViewBag.CUVx', 'P')" class="action-btn action-btn_continue active">Sí, eliminar</a>
 
                                     </div>
                                 </div>

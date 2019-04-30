@@ -160,7 +160,16 @@ function DetallePedidoPendienteClientes(cuv) {
             console.log(response);
             if (response.success) {
                 console.log(response);
-                SetHandlebars("#template-paso-1-Clientes", response.data, "#Paso1-Clientes");
+
+                $.each(response.data.ListaPedidos, function (index, value) {
+                    value.CUVx = response.CUVx || "";
+                });
+                
+                var objenviar = {
+                    ListaPedidos: response.data.ListaPedidos,
+                    Productox: response.Productox
+                }
+                SetHandlebars("#template-paso-1-Clientes", objenviar, "#Paso1-Clientes");
                 $('#Paso1-Clientes').show();
             }
         },
@@ -231,6 +240,22 @@ function AceptarPedidoProducto(id) {
 
 }
 
+function RenderizarPendientes(Pendientes) {
+
+    $.each(Pendientes.ListaProductos, function (index, value) {
+        value.MasDeDosClientes = false;
+        if (value.ListaClientes.length > 2) {
+            value.MasDeDosClientes = true;
+            value.ListaClientes = value.ListaClientes.slice(0, 1);
+        }
+    });
+
+    $("#por-producto-tab").removeClass("active");
+    $("#por-cliente-tab").addClass("active");
+
+    SetHandlebars("#template-vpcpContent", Pendientes, "#vpcpContent");
+}
+
 function RechazarSolicitudCliente(pedidoId) {
     var obj = {
         pedidoId: pedidoId,
@@ -253,16 +278,40 @@ function RechazarSolicitudCliente(pedidoId) {
                 //document.location.href = '/ConsultoraOnline/Pendientes';
 
                 var Pendientes = JSON.parse(response.Pendientes) || [];
+                RenderizarPendientes(Pendientes);
 
-                $.each(Pendientes.ListaProductos, function (index, value) {
-                    value.MasDeDosClientes = false;
-                    if (value.ListaClientes.length > 2) {
-                        value.MasDeDosClientes = true;
-                        value.ListaClientes = value.ListaClientes.slice(0, 1);
-                    }                    
-                });
+            }
+            else {
+                alert(response.message);
+            }
+        },
+        error: function (err) {
+            //CloseLoading();
+            console.log(err);
+        }
+    });
+}
 
-                SetHandlebars("#template-vpcpContent", Pendientes, "#vpcpContent");
+function ActualizarPendientes() {
+    //ShowLoading();
+    AbrirLoad();
+    $.ajax({
+        type: "POST",
+        url: "/ConsultoraOnline/ActualizarPendientes",
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        success: function (response) {
+            //CloseLoading();
+            CerrarLoad();
+            if (response.success) {
+                $('#rechazarTodop').addClass('hide');
+                $("#Paso1-Productos").hide();
+                $('body').removeClass('visible');
+                //document.location.href = '/ConsultoraOnline/Pendientes';
+
+                var Pendientes = JSON.parse(response.Pendientes) || [];
+
+                RenderizarPendientes(Pendientes);
 
             }
             else {
@@ -296,17 +345,17 @@ function RechazarSolicitudClientePorCuv(cuv) {
                 $('body').removeClass('visible');
                 //document.location.href = '/ConsultoraOnline/Pendientes';
 
-                var Pendientes = JSON.parse(response.Pendientes) || [];
+                //var Pendientes = JSON.parse(response.Pendientes) || [];
 
-                $.each(Pendientes.ListaProductos, function (index, value) {
-                    value.MasDeDosClientes = false;
-                    if (value.ListaClientes.length > 2) {
-                        value.MasDeDosClientes = true;
-                        value.ListaClientes = value.ListaClientes.slice(0, 1);
-                    }
-                });
+                //$.each(Pendientes.ListaProductos, function (index, value) {
+                //    value.MasDeDosClientes = false;
+                //    if (value.ListaClientes.length > 2) {
+                //        value.MasDeDosClientes = true;
+                //        value.ListaClientes = value.ListaClientes.slice(0, 1);
+                //    }
+                //});
 
-                SetHandlebars("#template-vpcpContent", Pendientes, "#vpcpContent");
+                //SetHandlebars("#template-vpcpContent", Pendientes, "#vpcpContent");
             }
             else {
                 alert(response.message);
@@ -359,7 +408,7 @@ function ContinuarPedido() {
                     SetHandlebars("#template-paso-2", response.result, "#contenedor-paso-2");
                     if (response.result.ListaGana.length == 0 || response.result.GananciaGana<= 0 )
                     {
-                        $('.porGanaMas').parent().remove();
+                        $('.porGanaMas').hide();
                     }
                     cargarGaleria()
                     bindElments();
@@ -407,16 +456,7 @@ function EliminarSolicitudDetalle(pedidoId, cuv, origen) {
                 }
 
                 var Pendientes = JSON.parse(response.Pendientes) || [];
-
-                $.each(Pendientes.ListaProductos, function (index, value) {
-                    value.MasDeDosClientes = false;
-                    if (value.ListaClientes.length > 2) {
-                        value.MasDeDosClientes = true;
-                        value.ListaClientes = value.ListaClientes.slice(0, 1);
-                    }
-                });
-
-                SetHandlebars("#template-vpcpContent", Pendientes, "#vpcpContent");
+                RenderizarPendientes(Pendientes);
             }
             else {
                 alert(response.message);
@@ -429,3 +469,24 @@ function EliminarSolicitudDetalle(pedidoId, cuv, origen) {
     });
 
 }
+
+function CerrarPopupConfirmacion() {
+
+    $("#modal-confirmacion").removeClass("on");
+    $("#modal-confirmacion").addClass("isHide");
+    $("#Paso1-Productos").hide();
+    $("#Paso1-Clientes").hide();
+    $('body').removeClass('visible');
+
+    ActualizarPendientes();
+}
+
+$("body").on('change', ".ValidaValor", function (e) {
+    var $input = $(this);
+    var previousVal = $input.val();
+
+    if (previousVal == 0) {
+
+        $input.val(1);
+    }
+});

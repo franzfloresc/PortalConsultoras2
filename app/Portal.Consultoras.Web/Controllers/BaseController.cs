@@ -230,8 +230,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public virtual List<BEPedidoWebDetalle> ObtenerPedidoWebDetalle()
         {
-            //return _pedidoWebProvider.ObtenerPedidoWebDetalle(EsOpt());
-            return _pedidoWebProvider.ObtenerPedidoWebSetDetalleAgrupado(EsOpt());
+            return _pedidoWebProvider.ObtenerPedidoWebDetalle(EsOpt());
             
         }
 

@@ -2320,6 +2320,7 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult DetallePedidoPendienteClientes(string cuv)
         {
             MisPedidosModel model = new MisPedidosModel();
+            string Producton = "";
 
             try
             {
@@ -2340,6 +2341,7 @@ namespace Portal.Consultoras.Web.Controllers
                     var detalles = cab.DetallePedido.Where(x => x.CUV == cuv);
                     if (detalles.Any())
                     {
+                        Producton = detalles.ToList()[0].Producto;
                         arrIds.Add(cab.PedidoId.ToString());
                     }
                 }
@@ -2374,7 +2376,9 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = true,
-                    data = model
+                    data = model,
+                    CUVx =cuv,
+                    Productox=Producton
                 }, JsonRequestBehavior.AllowGet);
 
             }
@@ -2465,6 +2469,35 @@ namespace Portal.Consultoras.Web.Controllers
             SessionManager.SetobjMisPedidosDetalleVal(olstMisProductos);
 
             return olstMisProductos;
+        }
+
+        [HttpPost]
+        public JsonResult ActualizarPendientes()
+        {
+            try
+            {
+                var model = GetPendientes();
+
+                var PendientesJson = JsonConvert.SerializeObject(model, Formatting.Indented, new JsonSerializerSettings
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                });
+
+                return Json(new
+                {
+                    success = true,
+                    Pendientes = PendientesJson,
+                    message = "OK"
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message
+                }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         [HttpPost]
@@ -2566,18 +2599,9 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                MisPedidosModel model = new MisPedidosModel();
-                model = GetPendientes();
-
-                var PendientesJson = JsonConvert.SerializeObject(model, Formatting.Indented, new JsonSerializerSettings
-                {
-                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-                });
-
                 return Json(new
                 {
                     success = true,
-                    Pendientes = PendientesJson,
                     message = "OK"
                 }, JsonRequestBehavior.AllowGet);
             }
