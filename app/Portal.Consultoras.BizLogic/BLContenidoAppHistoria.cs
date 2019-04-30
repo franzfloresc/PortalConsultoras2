@@ -12,19 +12,19 @@ using System.Linq;
 
 namespace Portal.Consultoras.BizLogic
 {
-    public class BLContenidoApp
+    public class BLContenidoAppHistoria
     {
 
         private readonly DAContenidoApp DAContenidoApp;
 
-        public BLContenidoApp()
+        public BLContenidoAppHistoria()
         {
             DAContenidoApp = new DAContenidoApp();
         }
 
-        public BEContenidoApp Get(string Codigo)
+        public BEContenidoAppHistoria Get(string Codigo)
         {
-            var contenidoApp = new BEContenidoApp();
+            var contenidoApp = new BEContenidoAppHistoria();
 
             try
             {
@@ -32,11 +32,11 @@ namespace Portal.Consultoras.BizLogic
                     
                 var task1 = Task.Run(() =>
                 {
-                    var entidad = new BEContenidoApp();
+                    var entidad = new BEContenidoAppHistoria();
                     using (var reader = da.Get(Codigo))
                     {
                         if (reader.Read()) {
-                            entidad = new BEContenidoApp(reader);
+                            entidad = new BEContenidoAppHistoria(reader);
                         } 
                     }
                     return entidad;
@@ -52,10 +52,9 @@ namespace Portal.Consultoras.BizLogic
             return contenidoApp;
         }
 
-        public void UpdateContenidoApp(BEContenidoApp p)
+        public void UpdateContenidoApp(BEContenidoAppHistoria p)
         {
             DAContenidoApp.UpdContenidoApp(p);
-            //CacheManager<BEFormularioDato>.RemoveData(formularioDato.PaisID, ECacheItem.FormularioDatos);
         }
 
 
@@ -82,13 +81,11 @@ namespace Portal.Consultoras.BizLogic
         public void InsertContenidoAppDeta(BEContenidoAppDeta p)
         {
             DAContenidoApp.InsertContenidoAppDeta(p);
-            //CacheManager<BEFormularioDato>.RemoveData(formularioDato.PaisID, ECacheItem.FormularioDatos);
         }
 
         public int UpdateContenidoAppDeta(BEContenidoAppDeta p)
         {
            return DAContenidoApp.UpdContenidoAppDeta(p);
-            //CacheManager<BEFormularioDato>.RemoveData(formularioDato.PaisID, ECacheItem.FormularioDatos);
         }
     }
 }

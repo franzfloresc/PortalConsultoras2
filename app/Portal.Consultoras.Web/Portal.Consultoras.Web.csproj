@@ -4710,6 +4710,18 @@
     <None Include="Service References\ServiceContenido\ContenidoService5.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServiceContenido\ContenidoService6.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceContenido\ContenidoService61.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceContenido\ContenidoService62.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceContenido\ContenidoService63.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServiceContenido\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

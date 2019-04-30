@@ -47,10 +47,10 @@ namespace Portal.Consultoras.Web.Controllers
                 model.Ancho = arrHistAnchoAlto[0];
                 model.Alto = arrHistAnchoAlto[1];
 
-                BEContenidoApp entidad;
+                BEContenidoAppHistoria entidad;
                 using (var sv = new ServiceContenido.ContenidoServiceClient())
                 {
-                    entidad = sv.GetContenidoApp(Globals.CodigoHistoriasResumen);
+                    entidad = sv.GetContenidoAppHistoria(Globals.CodigoHistoriasResumen);
                     
 
                     model.IdContenido = entidad.IdContenido;
@@ -97,13 +97,13 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                BEContenidoApp beContenidoApp;
+                BEContenidoAppHistoria beContenidoApp;
                 using (ContenidoServiceClient sv = new ServiceContenido.ContenidoServiceClient())
                 {
-                    beContenidoApp = sv.GetContenidoApp(form.Codigo);
+                    beContenidoApp = sv.GetContenidoAppHistoria(form.Codigo);
                 }
 
-                var entidad = new BEContenidoApp();
+                var entidad = new BEContenidoAppHistoria();
                 entidad.UrlMiniatura = beContenidoApp.UrlMiniatura;
                 if (form.NombreImagen != null)
                 {
@@ -158,17 +158,13 @@ namespace Portal.Consultoras.Web.Controllers
                     IdContenido = form.IdContenido,
                     RutaContenido = "1.jpg",
                     Tipo = "IMAGEN"
-
-                    //UrlMiniatura = FileManager.CopyImages(Globals.RutaImagenesFondoLogin, tempNombreImagen,
-                    //  Globals.RutaImagenesTemp)
                 };
 
                 using (ContenidoServiceClient sv = new ContenidoServiceClient())
                 {
                     sv.InsertContenidoAppDeta(entidad);
                 }
-                //FileManager.DeleteImagesInFolder(Globals.RutaImagenesTemp);
-                //FileManager.DeleteFilter(Globals.RutaImagenesFondoLogin, entidad.UrlMiniatura);
+
 
                 return Json(new
                 {

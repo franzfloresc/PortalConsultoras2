@@ -285,13 +285,13 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEContenidoApp> GetContenidoApp(BEUsuario itmFilter);
         
         [OperationContract]
-        BEContenidoApp GetContenidoApp(string Codigo);
+        BEContenidoAppHistoria GetContenidoAppHistoria(string Codigo);
 
         [OperationContract]
         void CheckContenidoApp(BEUsuario itmFilter, int idContenidoDetalle);
         
         [OperationContract]
-        void UpdateContenidoApp(BEContenidoApp formularioDato);
+        void UpdateContenidoApp(BEContenidoAppHistoria formularioDato);
 
         [OperationContract]
         List<BEContenidoAppList> ListContenidoApp(BEContenidoAppList entidad);

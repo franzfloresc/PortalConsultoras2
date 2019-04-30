@@ -24,7 +24,7 @@ namespace Portal.Consultoras.Data
 
         }
 
-        public void UpdContenidoApp(BEContenidoApp p)
+        public void UpdContenidoApp(BEContenidoAppHistoria p)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ContenidoAppUpd");
             Context.Database.AddInParameter(command, "@IdContenido", DbType.Int32, p.IdContenido);
