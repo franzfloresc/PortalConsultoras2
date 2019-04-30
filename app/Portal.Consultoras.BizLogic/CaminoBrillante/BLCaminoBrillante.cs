@@ -762,8 +762,8 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 FotoProductoMedium = e.FotoProductoMedium,
                 FotoProductoSmall = e.FotoProductoSmall,
                 MarcaID = e.MarcaID,
-                PrecioCatalogo = Util.DecimalToStringFormat(e.PrecioCatalogo, paisISO).ToDecimal(),
-                PrecioValorizado = Util.DecimalToStringFormat(e.PrecioValorizado, paisISO).ToDecimal(),
+                PrecioCatalogo = e.PrecioCatalogo,
+                PrecioValorizado = e.PrecioValorizado,
                 TipoEstrategiaID = e.TipoEstrategiaID,
                 FlagSeleccionado = demostradoresEnPedido.Any(h => h.CUV == e.CUV)
             }).ToList();
