@@ -2155,6 +2155,11 @@ function EjecutarServicioPROL() {
                 MostrarPopupErrorReserva(mensajeErrorReserva, false);
                 return;
             }
+
+            if (response.mensajeCondicional) {
+	            AbrirMensaje(response.mensajeCondicional);
+            }
+
             //Marcación Analytics
             arrayProductosGuardadoExito = response;
             AnalyticsPortalModule.MarcarGuardaTuPedido();
@@ -2706,6 +2711,10 @@ function UpdateCliente(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CU
             showPopupNivelSuperado(data.DataBarra, prevTotal);
             if (data.modificoBackOrder) {
                 showDialog("divBackOrderModificado");
+            }
+
+            if (data.mensajeCondicional) {
+	            AbrirMensaje(data.mensajeCondicional);
             }
 
             CargarDetallePedido();

@@ -271,7 +271,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 var pedidoDetalleResult = _pedidoWebProvider.InsertPedidoDetalle(pedidoDetalle);
-
+                
                 if (pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS))
                 {
                     SessionManager.SetPedidoWeb(null);
@@ -285,6 +285,7 @@ namespace Portal.Consultoras.Web.Controllers
                     var CantidadTotalProductos = pedidoWebDetalle.Sum(dp => dp.Cantidad);
                     var Total = pedidoWebDetalle.Sum(p => p.ImporteTotal);
                     var FormatoTotal = Util.DecimalToStringFormat(Total, userData.CodigoISO);
+                    var mensajeCondicional = pedidoDetalleResult.ListaMensajeCondicional != null && pedidoDetalleResult.ListaMensajeCondicional.Any() ? pedidoDetalleResult.ListaMensajeCondicional[0].MensajeRxP: null;
 
                     ObtenerPedidoWeb();
                     return Json(new
@@ -299,7 +300,8 @@ namespace Portal.Consultoras.Web.Controllers
                         cantidadTotalProductos = CantidadTotalProductos,
                         total = Total,
                         formatoTotal = FormatoTotal,
-                        listCuvEliminar = pedidoDetalleResult.ListCuvEliminar.ToList()
+                        listCuvEliminar = pedidoDetalleResult.ListCuvEliminar.ToList(),
+                        mensajeCondicional
                     }, JsonRequestBehavior.AllowGet);
                 }
                 else
@@ -430,6 +432,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var CantidadTotalProductos = pedidoWebDetalle.Sum(dp => dp.Cantidad);
                 var total = pedidoWebDetalle.Sum(p => p.ImporteTotal);
                 var FormatoTotal = Util.DecimalToStringFormat(total, userData.CodigoISO);
+                var mensajeCondicional = pedidoDetalleResult.ListaMensajeCondicional != null && pedidoDetalleResult.ListaMensajeCondicional.Any() ? pedidoDetalleResult.ListaMensajeCondicional[0].MensajeRxP: null;
 
                 txtBuildCliente.Append(PedidoWebTotalClienteFormato(model.ClienteID_, pedidoWebDetalle));
 
@@ -448,7 +451,8 @@ namespace Portal.Consultoras.Web.Controllers
                     tipo = "U",
                     modificoBackOrder = pedidoDetalleResult.ModificoBackOrder,
                     DataBarra = GetDataBarra(),
-                    cantidadTotalProductos = CantidadTotalProductos
+                    cantidadTotalProductos = CantidadTotalProductos,
+                    mensajeCondicional
                 }, JsonRequestBehavior.AllowGet);
 
             }

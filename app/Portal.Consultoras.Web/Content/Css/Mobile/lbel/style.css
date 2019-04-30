@@ -5861,6 +5861,7 @@ input[type='checkbox']:checked + span:after {
     .titulo_compartir {
         font-size: 16px;
         line-height: 28px;
+        text-align: center;
     }
 }
 /*CAMBIO FOOTER*/

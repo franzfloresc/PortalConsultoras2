@@ -2322,6 +2322,7 @@ namespace Portal.Consultoras.Web.Controllers
                     Enumeradores.ResultadoReserva.NoReservadoMontoMinimo
                 };
 
+                var mensajeCondicional = resultado.ListaMensajeCondicional != null && resultado.ListaMensajeCondicional.Any() ? resultado.ListaMensajeCondicional[0].MensajeRxP: null;
                 return Json(new
                 {
                     success = true,
@@ -2338,7 +2339,8 @@ namespace Portal.Consultoras.Web.Controllers
                                         quantity = item.Cantidad
                                     },
                     flagCorreo = resultado.EnviarCorreo ? "1" : "",
-                    permiteOfertaFinal = listPermiteOfertaFinal.Contains(resultado.ResultadoReservaEnum)
+                    permiteOfertaFinal = listPermiteOfertaFinal.Contains(resultado.ResultadoReservaEnum),
+                    mensajeCondicional
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

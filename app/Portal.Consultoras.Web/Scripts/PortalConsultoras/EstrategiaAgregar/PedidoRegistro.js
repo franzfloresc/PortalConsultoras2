@@ -967,6 +967,10 @@ var PedidoRegistroModule = function () {
                     HideDialog(divDialog);
                 }
 
+                if (data.mensajeCondicional) {
+	                AbrirMensaje(data.mensajeCondicional);
+                }
+
                 if (model != null && model != undefined)
                     PedidoOnSuccessSugerido(model);
 
@@ -1104,6 +1108,10 @@ var PedidoRegistroModule = function () {
                 PedidoOnSuccess();
                 if (data.modificoBackOrder) messageInfo('Recuerda que debes volver a validar tu pedido.');
                 else if (!IsNullOrEmpty(data.mensajeAviso)) AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
+
+                if (data.mensajeCondicional) {
+	                AbrirMensaje(data.mensajeCondicional);
+                }
 
                 $("#hdCuvEnSession").val("");
                 ProcesarActualizacionMostrarContenedorCupon();
@@ -1306,6 +1314,9 @@ var PedidoRegistroModule = function () {
                     $("#pCantidadProductosPedido").html(response.cantidadTotalProductos > 0 ? response.cantidadTotalProductos : 0);
                     microefectoPedidoGuardado();
                     if (!IsNullOrEmpty(response.mensajeAviso)) AbrirMensaje(response.mensajeAviso, response.tituloMensaje);
+                    if (response.mensajeCondicional) {
+	                    AbrirMensaje(response.mensajeCondicional);
+                    }
                     TrackingJetloreAdd(form.data.Cantidad, $("#hdCampaniaCodigo").val(), form.data.CUV);
                     dataLayer.push({
                         'event': "addToCart",
@@ -1569,6 +1580,10 @@ function UpdateTransaction(CantidadActual, CampaniaID, PedidoID, PedidoDetalleID
             showPopupNivelSuperado(data.DataBarra, prevTotal);
             if (data.modificoBackOrder) {
                 showDialog("divBackOrderModificado");
+            }
+
+            if (data.mensajeCondicional) {
+	            AbrirMensaje(data.mensajeCondicional);
             }
 
             CargarDetallePedido();
