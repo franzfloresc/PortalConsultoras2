@@ -477,9 +477,12 @@ namespace Portal.Consultoras.Common
             public const int TablaLogicaId = 136;
         }
 
-        public static class CantidadCuvMasivo
+        public static class NuevoMasivo
         {
             public const int TablaLogicaId = 137;
+
+            public const int CantidadCuvMasivo = 13701;
+            public const int EstrategiaImagen = 13702;
         }
 
         public static class LogDynamoPaises
