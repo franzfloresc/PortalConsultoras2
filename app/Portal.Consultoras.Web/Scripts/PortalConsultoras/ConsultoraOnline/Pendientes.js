@@ -490,3 +490,9 @@ $("body").on('change', ".ValidaValor", function (e) {
         $input.val(1);
     }
 });
+
+
+//Renzo
+$(document).ready(function () {
+    
+});
