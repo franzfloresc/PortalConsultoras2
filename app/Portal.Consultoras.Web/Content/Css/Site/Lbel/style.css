@@ -28660,7 +28660,8 @@ div.motivoRechazo textarea {
         }
 
 .opcion_cdr,
-.opcion_cdr_seleccionada_campo_busqueda {
+.opcion_cdr_seleccionada_campo_busqueda,
+.btn_eliminar_trueque {
     vertical-align: middle;
 }
 
@@ -28793,6 +28794,10 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     width: 130px;
 }
 
+.opcion_cdr_seleccionada_campo_busqueda--precio {
+    margin-right: 6px;
+}
+
 .opcion_cdr_seleccionada_campo_busqueda--descripcion {
     width: 261px;
 }
@@ -28861,6 +28866,15 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .menos img {
         left: -1.5px;
     }
+
+.btn_eliminar_trueque {
+    /*border: 1px solid #909094;*/
+    border: 0;
+    background-color: #FFF;
+    width: 40px;
+    height: 40px;
+    margin-left: -8px;
+}
 
 .opcion_cdr_seleccionada_info--devolucionCasoSetProducto {
     margin-bottom: 8px;

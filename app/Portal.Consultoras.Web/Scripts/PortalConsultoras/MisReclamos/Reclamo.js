@@ -1903,7 +1903,9 @@ function AgregarCUVTrueque() {
         '<a class="menos modificarPrecioMenos" onclick = "AgregarODisminuirCantidad(event,2)" > <img src="/Content/Images/Esika/menos.png" alt=""></a>' +
         '</div>' +
         '</div>' +
-        '<input type="button" name="Eliminar" value="Eliminar" onclick="EliminarCUVTrueque(this);" />' +
+        '<button type="button" name="Eliminar" class="border-radius-4 btn_eliminar_trueque" onclick="EliminarCUVTrueque();">' +
+            '<img src="/Content/Images/Esika/icons-trash.svg" alt="Eliminar Cuv Trueque" />' +
+        '</button>' +
         '</div>';
     contenedorCuvTrueque.append(template);
 }
