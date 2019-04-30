@@ -177,6 +177,7 @@ function AgregarProducto(data, cantidad, contenedor, tab, isKit) {
                 if (isKit) {
                     $(".ficha__producto__kit").addClass("producto_desactivado");
                     $('.ficha__producto__tag_enable').hide();
+                    $('.ficha__producto__tag_disable').removeClass("hide");
                     $('.ficha__producto__tag_disable').show();
                 }
                 CerrarSplash();
