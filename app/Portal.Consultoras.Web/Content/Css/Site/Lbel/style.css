@@ -28632,7 +28632,8 @@ div.motivoRechazo textarea {
 .opcion_cdr,
 .opcion_cdr_seleccionada_campo_busqueda,
 .validacion_datos_correo_electronico,
-.validacion_datos_celular_contacto {
+.validacion_datos_celular_contacto,
+.btn_agregar_mas_productos_a_cambiar span{
     display: inline-block;
 }
 
@@ -28661,7 +28662,8 @@ div.motivoRechazo textarea {
 
 .opcion_cdr,
 .opcion_cdr_seleccionada_campo_busqueda,
-.btn_eliminar_trueque {
+.btn_eliminar_trueque,
+.btn_agregar_mas_productos_a_cambiar span{
     vertical-align: middle;
 }
 
@@ -28867,13 +28869,34 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
         left: -1.5px;
     }
 
+.btn_agregar_mas_productos_a_cambiar {
+    margin-top: -8px !important;
+    width: 249px !important;
+    border: 0 !important;
+    background-color: #FFF !important;
+    color: #000 !important;
+}
+
+    .btn_agregar_mas_productos_a_cambiar:hover span:last-child {
+        text-decoration: underline;
+    }
+
+    .btn_agregar_mas_productos_a_cambiar span:first-child{
+        margin-right:8px;
+        height:30px;
+    }
+
+        .btn_agregar_mas_productos_a_cambiar img{
+            width:95%;
+        }
+
 .btn_eliminar_trueque {
     /*border: 1px solid #909094;*/
     border: 0;
     background-color: #FFF;
     width: 40px;
     height: 40px;
-    margin-left: -8px;
+    margin-left: -4px;
 }
 
 .opcion_cdr_seleccionada_info--devolucionCasoSetProducto {

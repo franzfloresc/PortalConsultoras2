@@ -93,29 +93,30 @@
                             <p class="text-bold">
                                 Búscalo en tus catálogos de Campaña <span id="spnNumeroCampaniaReclamo">15</span>:
                             </p>
-                            <div>
-                                <input type="button" name="Agregar" value="Agregar" onclick="AgregarCUVTrueque();" />
-                            </div>
                             @*<div class="text-center opcion_cdr_seleccionada_campos_busqueda_producto_a_cambiar">
-                                    <input type="text" class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--codigo" value="" id="txtCUV2" placeholder="Código" />
-                                    <input type="text" class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--descripcion" id="txtCUVDescripcion2" readonly value="" placeholder="Descripción del producto" />
-                                    <input type="text" class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--precio" id="txtCUVPrecio2" readonly value="" placeholder="Precio" />
-                                    <div class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad" data-cantidad-contenedor="">
-                                        <input type="hidden" id="hdMontoMinimoReclamo" />
-                                        <input type="hidden" id="hdCuvPrecio2">
-                                        <input type="hidden" id="hdParametriaCdr" value="0">
-                                        <input type="hidden" id="hdParametriaAbsCdr" value="1">
-                                        <input type="hidden" id="hdCdrWebDatos_Ssic">
-                                        <input type="text" name="Cantidad" id="txtCantidad2" value="1" data-input="cantidad" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid">
-                                        <div class="liquidacion_rango_right_pedido">
-                                            <a class="mas modificarPrecioMas" onclick="AgregarODisminuirCantidad(event,1)"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                                            <a class="menos modificarPrecioMenos" onclick="AgregarODisminuirCantidad(event,2)"><img src="/Content/Images/Esika/menos.png" alt=""></a>
-                                        </div>
+                                <input type="text" class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--codigo" value="" id="txtCUV2" placeholder="Código" />
+                                <input type="text" class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--descripcion" id="txtCUVDescripcion2" readonly value="" placeholder="Descripción del producto" />
+                                <input type="text" class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--precio" id="txtCUVPrecio2" readonly value="" placeholder="Precio" />
+                                <div class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad" data-cantidad-contenedor="">
+                                    <input type="hidden" id="hdMontoMinimoReclamo" />
+                                    <input type="hidden" id="hdCuvPrecio2">
+                                    <input type="hidden" id="hdParametriaCdr" value="0">
+                                    <input type="hidden" id="hdParametriaAbsCdr" value="1">
+                                    <input type="hidden" id="hdCdrWebDatos_Ssic">
+                                    <input type="text" name="Cantidad" id="txtCantidad2" value="1" data-input="cantidad" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid">
+                                    <div class="liquidacion_rango_right_pedido">
+                                        <a class="mas modificarPrecioMas" onclick="AgregarODisminuirCantidad(event,1)"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                                        <a class="menos modificarPrecioMenos" onclick="AgregarODisminuirCantidad(event,2)"><img src="/Content/Images/Esika/menos.png" alt=""></a>
                                     </div>
-                                </div>*@
+                                </div>
+                            </div>*@
                             <div id="contenedorCuvTrueque">
 
                             </div>
+                            <button type="button" name="Agregar" class="d-block border-radius-4 text-bold text-uppercase btn_cdr btn_agregar_mas_productos_a_cambiar" onclick="AgregarCUVTrueque();">
+                                <span><img src="@Url.Content("~/Content/Images/icono_plus.svg")" alt="Agregar productos" /></span>
+                                <span>Agregar más productos</span>
+                            </button>
                             <div id="MontoTotalProductoACambiar" class="text-bold total_precio_reclamo" style="display:none;">
                                 <input type="hidden" id="hdImporteTotal2" />
                                 Total: <span id="spnImporteTotal2"></span>
