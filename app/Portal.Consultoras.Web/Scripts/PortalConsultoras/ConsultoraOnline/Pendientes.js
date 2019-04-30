@@ -82,11 +82,11 @@ function AceptarPedidoPendiente() {
                 closeWaitingDialog();
                 if (checkTimeout(response)) {
                     if (response.success) {
-
-                        
                       
                         if ($('#modal-confirmacion')[0]) {
-                            $('#modal-confirmacion').addClass('on');
+                            //$('#modal-confirmacion').addClass('on');
+                            $("#contenedor-paso-2").hide();
+                            $("#modal-confirmacion").show();
                         }
                         else {
                             $('#popuplink').click();
@@ -170,7 +170,9 @@ function DetallePedidoPendienteClientes(cuv) {
                     Productox: response.Productox
                 }
                 SetHandlebars("#template-paso-1-Clientes", objenviar, "#Paso1-Clientes");
+                $(".modal-fondo").show();
                 $('#Paso1-Clientes').show();
+                
             }
         },
         error: function (error) {
@@ -199,6 +201,7 @@ function DetallePedidoPendiente(ids) {
                 console.log(response);
                 SetHandlebars("#template-paso-1-Producto", response.data, "#Paso1-Productos");
                 $('#Paso1-Productos').show();
+                $('.modal-fondo').show();
             }
         },
         error: function (error) {
@@ -262,6 +265,7 @@ function RechazarSolicitudCliente(pedidoId) {
     };
 
     //ShowLoading();
+    AbrirLoad();
     $.ajax({
         type: "POST",
         url: "/ConsultoraOnline/RechazarSolicitudCliente",
@@ -270,11 +274,12 @@ function RechazarSolicitudCliente(pedidoId) {
         data: JSON.stringify(obj),
         success: function (response) {
             //CloseLoading();
-
+            CerrarLoad();
             if (response.success) {
                 $('#rechazarTodop').addClass('hide');
                 $("#Paso1-Productos").hide();
                 $('body').removeClass('visible');
+                $(".modal-fondo").hide();
                 //document.location.href = '/ConsultoraOnline/Pendientes';
 
                 var Pendientes = JSON.parse(response.Pendientes) || [];
@@ -304,9 +309,7 @@ function ActualizarPendientes() {
             //CloseLoading();
             CerrarLoad();
             if (response.success) {
-                $('#rechazarTodop').addClass('hide');
-                $("#Paso1-Productos").hide();
-                $('body').removeClass('visible');
+                
                 //document.location.href = '/ConsultoraOnline/Pendientes';
 
                 var Pendientes = JSON.parse(response.Pendientes) || [];
@@ -410,6 +413,7 @@ function ContinuarPedido() {
                     {
                         $('.porGanaMas').hide();
                     }
+                    $('#contenedor-paso-2').show();
                     cargarGaleria()
                     bindElments();
                     return false;
@@ -472,11 +476,14 @@ function EliminarSolicitudDetalle(pedidoId, cuv, origen) {
 
 function CerrarPopupConfirmacion() {
 
-    $("#modal-confirmacion").removeClass("on");
-    $("#modal-confirmacion").addClass("isHide");
+    //$("#modal-confirmacion").removeClass("on");
+    //$("#modal-confirmacion").addClass("isHide");
+    $("#modal-confirmacion").hide();
     $("#Paso1-Productos").hide();
     $("#Paso1-Clientes").hide();
-    $('body').removeClass('visible');
+    $("#rechazarTodop").hide();
+    $("#contenedor-paso-2").hide();
+    $(".modal-fondo").hide();
 
     ActualizarPendientes();
 }
@@ -494,5 +501,16 @@ $("body").on('change', ".ValidaValor", function (e) {
 
 //Renzo
 $(document).ready(function () {
-    
+
+    $("#vpcp li a").click(function () {
+        $("#vpcp li a").removeClass('active');
+        $(this).addClass('active');
+
+        $(".tab-panel").hide();
+        var activeTab = $(this).attr('href');
+        console.log(activeTab);
+        $(activeTab).fadeIn();
+        return false;
+    });
+
 });
