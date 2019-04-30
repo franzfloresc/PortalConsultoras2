@@ -84,15 +84,19 @@ $(document).ready(function () {
         }
     });
 
-    $("#txtCUV2").on("keyup", function (evt) {
-        cuv2KeyUp = true;
-        EvaluarCUV2();
-    });
+    //$(".cls-producto-codigo").on("blur", function () {
 
-    setInterval(function () {
-        if (cuv2KeyUp) cuv2KeyUp = false;
-        else EvaluarCUV2();
-    }, 1000)
+    //})
+
+    //$("#txtCUV2").on("keyup", function (evt) {
+    //    cuv2KeyUp = true;
+    //    EvaluarCUV2();
+    //});
+
+    //setInterval(function () {
+    //    if (cuv2KeyUp) cuv2KeyUp = false;
+    //    else EvaluarCUV2();
+    //}, 1000)
 
     $('#divMotivo').on("click", ".reclamo_motivo_select", function () {
         $(".reclamo_motivo_select").removeClass("reclamo_motivo_select_click");
@@ -1891,24 +1895,79 @@ function EliminarDetalle(el) {
 
 //HD-4017 EINCA
 function AgregarCUVTrueque() {
-    var contenedorCuvTrueque = $("#contenedorCuvTrueque");
-    var template = '<div class="text-center opcion_cdr_seleccionada_campos_busqueda_producto_a_cambiar">' +
-        '<input type="text" class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--codigo" value="" id="txtCUV2" placeholder="Código" />' +
-        '<input type="text" class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--descripcion" id="txtCUVDescripcion2" readonly value="" placeholder="Descripción del producto" />' +
-        '<input type = "text" class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--precio" id = "txtCUVPrecio2" readonly value = "" placeholder = "Precio" /> ' +
-        '<div class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad" data - cantidad - contenedor="" > ' +
-        '<input type = "text" name = "Cantidad" id = "txtCantidad2" value = "1" data - input="cantidad" maxlength = "2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid" > ' +
-        '<div class="liquidacion_rango_right_pedido" > ' +
-        '<a class="mas modificarPrecioMas" onclick = "AgregarODisminuirCantidad(event,1)" > <img src="/Content/Images/Esika/mas.png" alt=""></a>' +
-        '<a class="menos modificarPrecioMenos" onclick = "AgregarODisminuirCantidad(event,2)" > <img src="/Content/Images/Esika/menos.png" alt=""></a>' +
-        '</div>' +
-        '</div>' +
-        '<input type="button" name="Eliminar" value="Eliminar" onclick="EliminarCUVTrueque(this);" />' +
-        '</div>';
-    contenedorCuvTrueque.append(template);
+    $("#contenedorCuvTrueque").append($("#template-cuv-cambio").html());
+}
+
+function BuscarInfoCUV(el) {
+    var $el = $(el);
+    var parent = $el.parent();
+    var $parent = $(parent)
+    if ($el.val().length !== 5) {
+        $($parent[0]).find($("input[type=text]")).val("");
+        $($parent[0]).find("input[name=cantidad]").val("1");
+        return false;
+    }
+
+    BuscarCUVCambiarServer($el.val(), function (data) {
+        if (!data.success) {
+            alert_msg(data.message);
+            return false;
+        }
+        var datosCUV = data.producto[0];
+
+        //obtener los elementos a setear 
+        if (datosCUV.MarcaID != 0) {
+            $($parent[0]).find($("input[name=descripcion]")).val(datosCUV.Descripcion);
+            $($parent[0]).find($("input[name=precio]")).val(datosCUV.PrecioCatalogo);
+            $($parent[0]).find($("input[name=cantidad]")).val("1");
+        }
+    });
 }
 
 //HD-4017 EINCA
 function EliminarCUVTrueque(el) {
-    $(el).parent().html("");
+    $(el).parent().parent().remove();
+}
+
+function BuscarCUVCambiarServer(cuv, callbackWhenFinish) {
+    var CampaniaId = $.trim($("#ddlCampania").val()) || 0;
+    if (CampaniaId <= 0 || cuv.length < 5)
+        return false;
+
+    var PedidoId = $.trim($("#txtPedidoID").val()) || 0;
+
+    var item = {
+        CampaniaID: CampaniaId,
+        PedidoID: PedidoId,
+        CDRWebID: $("#CDRWebID").val(),
+        CUV: cuv
+    };
+
+    $.ajaxSetup({
+        global: false,
+        type: "POST",
+        url: baseUrl + 'MisReclamos/BuscarCuvCambiar',
+        beforeSend: function () {
+            waitingDialog();
+        },
+        complete: function () {
+            closeWaitingDialog();
+        }
+    });
+
+    $.ajax({
+        data: JSON.stringify(item),
+        cache: true,
+        async: true,
+        success: function (data) {
+            if (checkTimeout(data)) {
+                if (callbackWhenFinish && typeof callbackWhenFinish === "function") {
+                    callbackWhenFinish(data);
+                }
+            }
+        },
+        error: function (data, error) {
+            closeWaitingDialog();
+        }
+    });
 }

@@ -348,19 +348,26 @@
     </div>
 </div>
 
-<div class="cuv-item text-center opcion_cdr_seleccionada_campos_busqueda_producto_a_cambiar" style="display:none;">
-    <input type="text" class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--codigo" data-input="codigo" data-cuv-codigo="" value="" placeholder="Código" />
-    <input type="text" class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--descripcion" data-input="descripcion" data-cuv-descripcion="" readonly value="" placeholder="Descripción del producto" />
-    <input type="text" class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--precio" data-input="precio" data-cuv-precio="" readonly value="" placeholder="Precio" />
-    <div class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad" data-cantidad-contenedor="">
-        <input type="text" name="Cantidad" data-cuv-cantidad="" value="1" data-input="cantidad" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid">
-        <div class="liquidacion_rango_right_pedido">
-            <a class="mas modificarPrecioMas" onclick="AgregarODisminuirCantidad(event,1)"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-            <a class="menos modificarPrecioMenos" onclick="AgregarODisminuirCantidad(event,2)"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+<div id="template-cuv-cambio" style="display:none;">
+    <div class="item-producto-cambio">
+        <div class="text-center opcion_cdr_seleccionada_campos_busqueda_producto_a_cambiar">
+            <input type="text" onblur="BuscarInfoCUV(this);" class="cls-producto-codigo border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--codigo" name="codigo" placeholder="Código" />
+            <input type="text" class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--descripcion" name="descripcion" readonly placeholder="Descripción del producto" />
+            <input type="text" class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--precio" name="precio" readonly placeholder="Precio" />
+            <div class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad" data-cantidad-contenedor="">
+                <input type="text" name="cantidad" value="1" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid">
+                <div class="liquidacion_rango_right_pedido">
+                    <a class="mas modificarPrecioMas" onclick="AgregarODisminuirCantidad(event,1)"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                    <a class="menos modificarPrecioMenos" onclick="AgregarODisminuirCantidad(event,2)"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                </div>
+            </div>
+            <input type="button" name="Eliminar" value="Eliminar" onclick="EliminarCUVTrueque(this);" />
         </div>
     </div>
-    <input type="button" name="Eliminar" value="Eliminar" onclick="EliminarCUVTrueque();" />
 </div>
+
+
+
 <div id="alertEMailDialogMensajes" style="display: none;">
     <div class="terminos_title_2">MENSAJE</div>
     <div class="linea_superior margin_10"></div>
@@ -583,22 +590,6 @@
         {{/if}}
     </div>
 </script>
-
-@*<script id="template-producto-cambio" type="text/x-handlebars-template">
-        <div class="cuv-item text-center opcion_cdr_seleccionada_campos_busqueda_producto_a_cambiar">
-            <input type="text" class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--codigo" data-input="codigo" data-cuv-codigo="" value="" placeholder="Código" />
-            <input type="text" class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--descripcion" data-input="descripcion" data-cuv-descripcion="" readonly value="" placeholder="Descripción del producto" />
-            <input type="text" class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--precio" data-input="precio" data-cuv-precio="" readonly value="" placeholder="Precio" />
-            <div class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad" data-cantidad-contenedor="">
-                <input type="text" name="Cantidad" data-cuv-cantidad="" value="1" data-input="cantidad" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid">
-                <div class="liquidacion_rango_right_pedido">
-                    <a class="mas modificarPrecioMas" onclick="AgregarODisminuirCantidad(event,1)"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                    <a class="menos modificarPrecioMenos" onclick="AgregarODisminuirCantidad(event,2)"><img src="/Content/Images/Esika/menos.png" alt=""></a>
-                </div>
-            </div>
-            <input type="button" name="Eliminar" value="Eliminar" onclick="EliminarCUVTrueque();" />
-        </div>
-    </script>*@
 
 @section scripts{
 
