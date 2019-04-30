@@ -440,6 +440,9 @@ function EliminarSolicitudDetalle(pedidoId, cuv, origen) {
         cuv: cuv
     }
 
+    var pedidos = [];
+    var cuvs = [];
+
     //ShowLoading();
     $.ajax({
         type: "POST",
@@ -451,15 +454,36 @@ function EliminarSolicitudDetalle(pedidoId, cuv, origen) {
             //CloseLoading();
             if (response.success) {
                 // ocultar div
+                var Pendientes = JSON.parse(response.Pendientes) || [];
+                $.each(Pendientes.ListaPedidos, function (index, value) {
+                    pedidos.push(value.PedidoId.toString());
+                    $.each(value.DetallePedido, function (index, value) {
+                        cuvs.push(value.CUV.toString());
+                    });
+                });
                 if (origen == 'C') {
                     var id = '#vc_pedido_' + cuv;
-                    $(id).hide();
+                    if (pedidos.indexOf(pedidoId) < 0) {
+                        $('#Paso1-Productos').hide();
+                        $('body').removeClass('visible');
+                    }
+                    else {
+                        $(id).hide();
+                    }
+
+                  
                 } else if (origen == 'P') {
                     var id = '#vp_pedido_' + pedidoId;
-                    $(id).hide();
+                    if (cuvs.indexOf(cuv) < 0) {
+                        $('#Paso1-Clientes').hide();
+                        $('body').removeClass('visible');
+                    }
+                    else {
+                        $(id).hide();
+                    }
                 }
 
-                var Pendientes = JSON.parse(response.Pendientes) || [];
+                
                 RenderizarPendientes(Pendientes);
             }
             else {

@@ -560,6 +560,9 @@ function EliminarSolicitudDetalle(pedidoId, cuv, origen) {
         cuv: cuv
     }
 
+    var pedidos = [];
+    var cuvs = [];
+
     ShowLoading();
     $.ajax({
         type: "POST",
@@ -570,8 +573,15 @@ function EliminarSolicitudDetalle(pedidoId, cuv, origen) {
         success: function (response) {
             CloseLoading();
             if (response.success) {
+
+                var Pendientes = JSON.parse(response.Pendientes) || [];
+                $.each(Pendientes.ListaPedidos, function (index, value) {
+                    pedidos.push(value.PedidoId.toString());
+                    $.each(value.DetallePedido, function (index, value) {
+                        cuvs.push(value.CUV.toString());
+                    });
+                });
                 // ocultar div
-                debugger;
                 if (origen == 'C') {
                     var id = '#vc_pedido_' + cuv;
                     $(id).hide();
