@@ -448,7 +448,7 @@ a{
 .grupo_form_cambio_datos {
     position: relative;
     min-height: 32px;
-    padding: 8px 16px 8px 8px;
+    padding: 14px 16px 8px 8px;
     border-bottom: 1px solid #d8d8d8;
 }
 
@@ -531,13 +531,12 @@ a{
     }
 
     .grupo_form_cambio_datos input,
-    .grupo_form_cambio_datos select
-    {
+    .grupo_form_cambio_datos select{
         background-color:transparent;
         margin-top:18px;
         font-size: 13px;
         font-weight: 400;
-        color: #000;
+        color: #808080;
         border:0;
         height:40px;
         padding-right:25px;
@@ -595,16 +594,16 @@ a{
         font-weight:bold;
     }
 
+    .grupo_form_cambio_datos input:focus,
+    .grupo_form_cambio_datos select:focus,
     .grupo_form_cambio_datos input:focus + label,
-    .grupo_form_cambio_datos select:focus + label
-    {
+    .grupo_form_cambio_datos select:focus + label{
         color:rgba(0,0,0,1);
     }
 
 .enlace_cambiar_dato,
-.enlace_eliminar_numero_adicional
-{
-    font-size:11px;
+.enlace_eliminar_numero_adicional{
+    font-size:13px;
     margin-right:-3px;
     vertical-align:bottom;
     padding-bottom:9px;
@@ -612,12 +611,20 @@ a{
     z-index:3;
 }
 
-.icono_cambiar_dato{
-    width:16px;
-    height:16px;
-    background-image:url("/Content/Images/icono_cambiar_dato.svg");
-    margin-right:2px;
+.enlace_cambiar_dato {
+    color: #B9007E;
 }
+
+    .icono_cambiar_dato{
+        width:16px;
+        height:16px;
+        margin-right:2px;
+    }
+
+        .icono_cambiar_dato img{
+            width:100%;
+            height:auto;
+        }
 
 .enlace_agregar_num_adicional {
     position: absolute;
