@@ -1057,6 +1057,58 @@ namespace Portal.Consultoras.Common
             public const int AppConsultoraPedidoCatalogoEsikaCatalogoDigitalPendienteDeAprobar = 4021211;
             public const int AppConsultoraPedidoCatalogoCyzoneCatalogoDigitalPendienteDeAprobar = 4021311;
             #endregion
+
+
+            public const int DesktopPedidoOfertasParaTiCatálogoDigitalPendientedeAprobarCliente = 1020011;
+            public const int DesktopPedidoShowroomCatálogoDigitalPendientedeprobarCliente = 1020111;
+            public const int DesktopPedidoLanzamientosCatálogoDigitalPendientedeAprobarCliente = 1020211;
+            public const int DesktopPedidoOfertaDelDíaCatálogoDigitalPendientedeAprobarCliente = 1020311;
+            public const int DesktopPedidoGanadorasCatálogoDigitalPendientedeAprobarCliente = 1021411;
+             
+            //1021511	Desktop Pedido Arma Tu Pack Catálogo Digital Pendiente de Aprobar Cliente
+            //1020012	Desktop Pedido Ofertas Para Ti App Maquillador Pendiente de Aprobar Cliente
+            //1020112	Desktop Pedido Showroom App Maquillador Pendiente de Aprobar Cliente
+            //1020212	Desktop Pedido Lanzamientos App Maquillador Pendiente de Aprobar Cliente
+            //1020312	Desktop Pedido Oferta Del Día App Maquillador Pendiente de Aprobar Cliente
+            //1021412	Desktop Pedido Ganadoras App Maquillador Pendiente de Aprobar Cliente
+            //1021512	Desktop Pedido Arma Tu Pack App Maquillador Pendiente de Aprobar Cliente
+            //1020013	Desktop Pedido Ofertas Para Ti Catálogo Digital Pendiente de Aprobar Producto
+            //1020113	Desktop Pedido Showroom Catálogo Digital Pendiente de Aprobar Producto
+            //1020213	Desktop Pedido Lanzamientos Catálogo Digital Pendiente de Aprobar Producto
+            //1020313	Desktop Pedido Oferta Del Día Catálogo Digital Pendiente de Aprobar Producto
+            //1021413	Desktop Pedido Ganadoras Catálogo Digital Pendiente de Aprobar Producto
+            //1021513	Desktop Pedido Arma Tu Pack Catálogo Digital Pendiente de Aprobar Producto
+            //1020014	Desktop Pedido Ofertas Para Ti App Maquillador Pendiente de Aprobar Producto
+            //1020114	Desktop Pedido Showroom App Maquillador Pendiente de Aprobar Producto
+            //1020214	Desktop Pedido Lanzamientos App Maquillador Pendiente de Aprobar Producto
+            //1020314	Desktop Pedido Oferta Del Día App Maquillador Pendiente de Aprobar Producto
+            //1021414	Desktop Pedido Ganadoras App Maquillador Pendiente de Aprobar Producto
+            //1021514	Desktop Pedido Arma Tu Pack App Maquillador Pendiente de Aprobar Producto
+            //2020011	Mobile Pedido Ofertas Para Ti Catálogo Digital Pendiente de Aprobar Cliente
+            //2020111	Mobile Pedido Showroom Catálogo Digital Pendiente de Aprobar Cliente
+            //2020211	Mobile Pedido Lanzamientos Catálogo Digital Pendiente de Aprobar Cliente
+            //2020311	Mobile Pedido Oferta Del Día Catálogo Digital Pendiente de Aprobar Cliente
+            //2021411	Mobile Pedido Ganadoras Catálogo Digital Pendiente de Aprobar Cliente
+            //2021511	Mobile Pedido Arma Tu Pack Catálogo Digital Pendiente de Aprobar Cliente
+            //2020012	Mobile Pedido Ofertas Para Ti App Maquillador Pendiente de Aprobar Cliente
+            //2020112	Mobile Pedido Showroom App Maquillador Pendiente de Aprobar Cliente
+            //2020212	Mobile Pedido Lanzamientos App Maquillador Pendiente de Aprobar Cliente
+            //2020312	Mobile Pedido Oferta Del Día App Maquillador Pendiente de Aprobar Cliente
+            //2021412	Mobile Pedido Ganadoras App Maquillador Pendiente de Aprobar Cliente
+            //2021512	Mobile Pedido Arma Tu Pack App Maquillador Pendiente de Aprobar Cliente
+            //2020013	Mobile Pedido Ofertas Para Ti Catálogo Digital Pendiente de Aprobar Producto
+            //2020113	Mobile Pedido Showroom Catálogo Digital Pendiente de Aprobar Producto
+            //2020213	Mobile Pedido Lanzamientos Catálogo Digital Pendiente de Aprobar Producto
+            //2020313	Mobile Pedido Oferta Del Día Catálogo Digital Pendiente de Aprobar Producto
+            //2021413	Mobile Pedido Ganadoras Catálogo Digital Pendiente de Aprobar Producto
+            //2021513	Mobile Pedido Arma Tu Pack Catálogo Digital Pendiente de Aprobar Producto
+            //2020014	Mobile Pedido Ofertas Para Ti App Maquillador Pendiente de Aprobar Producto
+            //2020114	Mobile Pedido Showroom App Maquillador Pendiente de Aprobar Producto
+            //2020214	Mobile Pedido Lanzamientos App Maquillador Pendiente de Aprobar Producto
+            //2020314	Mobile Pedido Oferta Del Día App Maquillador Pendiente de Aprobar Producto
+            //2021414	Mobile Pedido Ganadoras App Maquillador Pendiente de Aprobar Producto
+            //2021514	Mobile Pedido Arma Tu Pack App Maquillador Pendiente de Aprobar Producto
+
         }
 
         public static class TipoTutorial
