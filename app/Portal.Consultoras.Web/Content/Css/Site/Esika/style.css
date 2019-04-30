@@ -28846,7 +28846,6 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     }
 
 .btn_agregar_mas_productos_a_cambiar {
-    margin-top:-8px!important;
     width: 249px!important;
     border: 0!important;
     background-color: #FFF!important;
