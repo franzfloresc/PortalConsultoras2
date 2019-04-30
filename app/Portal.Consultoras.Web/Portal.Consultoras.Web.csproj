@@ -189,6 +189,7 @@
     <Compile Include="App_Start\RouteConfig.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Areas\Mobile\Controllers\IncentivosController.cs" />
     <Compile Include="Areas\Mobile\Controllers\BonificacionesController.cs" />
     <Compile Include="Areas\Mobile\Controllers\BuscadorController.cs" />
     <Compile Include="Areas\Mobile\Controllers\DetalleEstrategiaController.cs" />
@@ -4621,6 +4622,8 @@
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-bannerInteractivo.cshtml" />
     <Content Include="Areas\Mobile\Views\Bonificaciones\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\Bonificaciones\IndexExterno.cshtml" />
+    <Content Include="Areas\Mobile\Views\Incentivos\Index.cshtml" />
+    <Content Include="Areas\Mobile\Views\Incentivos\IndexExterno.cshtml" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>
@@ -5783,6 +5786,7 @@
     <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-bannerInteractivo.cshtml" />
     <Content Include="Views\Bonificaciones\IndexExterno.cshtml" />
     <Content Include="Views\MisCertificados\CAM_NoAdeudoPdf.cshtml" />
+    <Content Include="Views\Incentivos\IndexExterno.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
