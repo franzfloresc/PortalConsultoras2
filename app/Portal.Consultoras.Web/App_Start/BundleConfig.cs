@@ -1038,10 +1038,8 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/ConsultoraOnline/Pendientes.rewrite.css"
             ));
             bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/SugerenciaPendientes").Include(
-               "~/Scripts/PortalConsultoras/ConsultoraOnline/assets/bootstrap.min.js",
                "~/Scripts/PortalConsultoras/ConsultoraOnline/DetallePedidoPendiente.js",
                "~/Scripts/PortalConsultoras/ConsultoraOnline/Pendientes.js",
-               "~/Scripts/PortalConsultoras/ConsultoraOnline/Pendientes-ui.min.js",
                 "~/Scripts/General.js"
             ));
 
