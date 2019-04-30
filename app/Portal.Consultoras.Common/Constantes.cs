@@ -362,7 +362,7 @@ namespace Portal.Consultoras.Common
             {
                 get
                 {
-                    return _Palancas ?? (_Palancas = new Dictionary<string, string>
+                    return _palancasbyCodigo ?? (_palancasbyCodigo = new Dictionary<string, string>
                     {
                         {NombrePalanca.OfertaParaTi, TipoEstrategiaCodigo.OfertaParaTi},
                         {NombrePalanca.PackNuevas, TipoEstrategiaCodigo.PackNuevas},
