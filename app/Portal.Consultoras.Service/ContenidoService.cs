@@ -562,9 +562,9 @@ namespace Portal.Consultoras.Service
       
         #endregion
 
-        public List<BEContenidoApp> GetContenidoApp(BEUsuario itmFilter)
+        public List<BEContenidoApp> GetContenidoApp(BEUsuario itmFilter, string codigoBanner)
         {
-            return _BLContenidoAppResumenBusinessLogic.GetContenidoApp(itmFilter);
+            return _BLContenidoAppResumenBusinessLogic.GetContenidoApp(itmFilter, codigoBanner);
         }
 
         public void CheckContenidoApp(BEUsuario itmFilter, int idContenidoDetalle)
