@@ -38,7 +38,6 @@
 
     var _limpiarDatos = function () {
         $("#chkActivoOfertaDetalle").removeAttr("checked");
-        //$("#chkEsSubCampania").removeAttr("checked");
     }
 
     var _registrarOfertaShowRoomDetalle = function () {

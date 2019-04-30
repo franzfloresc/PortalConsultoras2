@@ -1092,16 +1092,6 @@ function MonstrarAlerta(texto) {
 
 function MarcarCompartirFbExitoso() {
     
-    //if (window.location.search.includes("catalogo_compartido_fb")) {        
-    //    dataLayer.push({
-    //        'event': 'virtualEvent',
-    //        'category': 'Catálogos y revistas',
-    //        'action': 'Catálogo Digital - Compartir FB',
-    //        'label' : campaniaCodigo
-    //    });
-
-    //    window.close();
-    //}
     if (window.location.search.includes("catalogo_compartido_fb_messenger")) {
         dataLayer.push({
             'event': 'virtualEvent',
