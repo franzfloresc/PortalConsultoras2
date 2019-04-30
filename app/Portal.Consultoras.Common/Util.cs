@@ -764,9 +764,9 @@ namespace Portal.Consultoras.Common
             body.Append("<td height='70' style='background:#b11437; background:linear-gradient(to right, #b11437, #55046d);'>");
             body.Append("<table align='center' border='0' cellpadding='0' cellspacing='0'>");
             body.Append("<tr>");
-            body.Append("<td width='108' height='70'>&nbsp;</td><td width = '84' height = '70' ><img src = 'http://www.genesisperu.com/images/logo-esika.png' style = 'display:block; width:85.67px; height:37.73px;' alt = '&Eacute;sika' ></td>");
-            body.Append("<td width='56' height='70'>&nbsp;</td><td width = '107' height = '70' ><img src = 'http://www.genesisperu.com/images/logo-lbel.png' style = 'display:block; width:105.92px; height:22.27px;' alt = 'Lbel' > </td> ");
-            body.Append("<td width='40' height='70'>&nbsp;</td><td width = '116' height = '70' ><img src = 'http://www.genesisperu.com/images/logo-cyzone.png' style = 'display:block; width:100.91px; height:31.75px;margin-top:4px;' alt = 'Cyzone' ></td><td width = '89' height = '70' > &nbsp;</td>");
+            body.Append("<td width='108' height='70'>&nbsp;</td><td width = '84' height = '70' ><img src = 'https://somosbelcorpqa.s3.amazonaws.com/Correo/PedidoE-Catalog/logo-esika.png' style = 'display:block; width:85.67px; height:37.73px;' alt = '&Eacute;sika' ></td>");
+            body.Append("<td width='56' height='70'>&nbsp;</td><td width = '107' height = '70' ><img src = 'https://somosbelcorpqa.s3.amazonaws.com/Correo/PedidoE-Catalog/logo-lbel.png' style = 'display:block; width:105.92px; height:22.27px;' alt = 'Lbel' > </td> ");
+            body.Append("<td width='40' height='70'>&nbsp;</td><td width = '116' height = '70' ><img src = 'https://somosbelcorpqa.s3.amazonaws.com/Correo/PedidoE-Catalog/logo-cyzone.png' style = 'display:block; width:100.91px; height:31.75px;margin-top:4px;' alt = 'Cyzone' ></td><td width = '89' height = '70' > &nbsp;</td>");
             body.Append("</tr>");
             body.Append("</table>");
             body.Append("</td>");

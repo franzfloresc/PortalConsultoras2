@@ -1355,7 +1355,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     mensajecliente.Append("<table align='center' border='0' cellpadding='0' cellspacing='0'>");
                     mensajecliente.Append("<tr><td width = '100%' height = '64' colspan = '3' > &nbsp;</td></tr>");
-                    mensajecliente.Append("<tr><td width = '256' height = '88' > &nbsp;</td><td width = '88' height = '88'><img src = 'http://www.genesisperu.com/images/icono-notificacion-positiva.png' style = 'display:block; width:88px; height:88px;' alt = 'Pedido rechazado' ></td><td width = '256' height = '88' > &nbsp;</td></tr>");
+                    mensajecliente.Append("<tr><td width = '256' height = '88' > &nbsp;</td><td width = '88' height = '88'><img src = 'https://somosbelcorpqa.s3.amazonaws.com/Correo/PedidoE-Catalog/icono-notificacion-positiva.png' style = 'display:block; width:88px; height:88px;' alt = 'Pedido rechazado' ></td><td width = '256' height = '88' > &nbsp;</td></tr>");
                     mensajecliente.Append("<tr><td width = '100%' height = '32' colspan = '3' > &nbsp;</td></tr>");
                     mensajecliente.Append("<tr>");
                     mensajecliente.Append("<td align='center' width='100%' colspan='3'>");
@@ -1874,7 +1874,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                         mensajecliente.Append("<table align='center' border='0' cellpadding='0' cellspacing='0'>");
                         mensajecliente.Append("<tr><td width = '100%' height = '64' colspan = '3' > &nbsp;</td></tr>");
-                        mensajecliente.Append("<tr><td width = '256' height = '88' > &nbsp;</td><td width = '88' height = '88'><img src = 'http://www.genesisperu.com/images/icono-notificacion-negativa.png' style = 'display:block; width:88px; height:88px;' alt = 'Pedido rechazado' ></td><td width = '256' height = '88' > &nbsp;</td></tr>");
+                        mensajecliente.Append("<tr><td width = '256' height = '88' > &nbsp;</td><td width = '88' height = '88'><img src = 'https://somosbelcorpqa.s3.amazonaws.com/Correo/PedidoE-Catalog/icono-notificacion-negativa.png' style = 'display:block; width:88px; height:88px;' alt = 'Pedido rechazado' ></td><td width = '256' height = '88' > &nbsp;</td></tr>");
                         mensajecliente.Append("<tr><td width = '100%' height = '32' colspan = '3' > &nbsp;</td></tr>");
                         mensajecliente.Append("<tr>");
                         mensajecliente.Append("<td align='center' width='100%' colspan='3'>");
