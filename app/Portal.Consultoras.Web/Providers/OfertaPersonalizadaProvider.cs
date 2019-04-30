@@ -552,25 +552,6 @@ namespace Portal.Consultoras.Web.Providers
             return listEstrategia;
         }
 
-        public bool GetValidarDiasAntesStock(UsuarioModel userData)
-        {
-            var validar = false;
-            var lstTablaLogicaDatos = _tablaLogicaProvider.GetTablaLogicaDatos(userData.PaisID, Constantes.TablaLogica.StockDiasAntes, true);
-            if (lstTablaLogicaDatos.Any())
-            {
-                var diasAntesStock = lstTablaLogicaDatos.FirstOrDefault().Valor;
-                if (!string.IsNullOrEmpty(diasAntesStock))
-                {
-                    var iDiasAntesStock = int.Parse(diasAntesStock);
-                    if (DateTime.Now.Date >= userData.FechaInicioCampania.AddDays(iDiasAntesStock))
-                    {
-                        validar = true;
-                    }
-                }
-            }
-            return validar;
-        }
-
         private List<ServiceOferta.BEEstrategia> GetEstrategiasService(ServiceOferta.BEEstrategia entidad)
         {
             string tipo = entidad.CodigoTipoEstrategia;
@@ -1638,7 +1619,7 @@ namespace Portal.Consultoras.Web.Providers
         {
             if (lstProducto.Any())
             {
-                var validarDias = GetValidarDiasAntesStock(userData);
+                var validarDias = _consultaProlProvider.GetValidarDiasAntesStock(userData);
                 return _consultaProlProvider.ActualizarEstrategiaStockPROL(lstProducto, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora, validarDias);
             }
             return lstProducto;
@@ -1699,7 +1680,7 @@ namespace Portal.Consultoras.Web.Providers
                     }
                 });
 
-                var validarDias = GetValidarDiasAntesStock(userData);
+                var validarDias = _consultaProlProvider.GetValidarDiasAntesStock(userData);
                 _consultaProlProvider.ActualizarComponenteStockPROL(estrategia.Hermanos, cuv, userData.CodigoISO, estrategia.CampaniaID, userData.GetCodigoConsultora(), validarDias);           
             }
 

@@ -18,6 +18,12 @@ namespace Portal.Consultoras.Web.Providers
     public class ConsultaProlProvider
     {
         private readonly static HttpClient httpClient = new HttpClient();
+        protected TablaLogicaProvider _tablaLogicaProvider;
+
+        public ConsultaProlProvider()
+        {
+            _tablaLogicaProvider = new TablaLogicaProvider();
+        }
 
         static ConsultaProlProvider()
         {
@@ -81,6 +87,26 @@ namespace Portal.Consultoras.Web.Providers
                 }
             }
             return "";
+        }
+
+        public bool GetValidarDiasAntesStock(UsuarioModel userData)
+        {
+            var validar = false;
+            var lstTablaLogicaDatos = _tablaLogicaProvider.GetTablaLogicaDatos(userData.PaisID, ConsTablaLogica.OfertasConsultora.TablaLogicaId, true);
+            if (lstTablaLogicaDatos.Any())
+            {
+                var diasAntesStock = lstTablaLogicaDatos.FirstOrDefault(t => t.Codigo == ConsTablaLogica.OfertasConsultora.DiasAntesStock).Valor;
+
+                if (!string.IsNullOrEmpty(diasAntesStock))
+                {
+                    var iDiasAntesStock = int.Parse(diasAntesStock);
+                    if (DateTime.Now.Date >= userData.FechaInicioCampania.AddDays(iDiasAntesStock))
+                    {
+                        validar = true;
+                    }
+                }
+            }
+            return validar;
         }
 
         public List<BEEstrategia> ActualizarEstrategiaStockPROL(List<BEEstrategia> lista, string paisISO, int campaniaID, string codigoConsultora, bool esFacturacion)
