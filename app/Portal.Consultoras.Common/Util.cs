@@ -3947,33 +3947,33 @@ namespace Portal.Consultoras.Common
                             else if (landing && !ficha && fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorODDLandingFichaCarrusel;
                             break;
                         case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
-                            if (desplegable && !ficha) result = Constantes.OrigenPedidoWeb.AppBuscadorGNDDesplegable;
-                            else if (landing && !ficha) result = Constantes.OrigenPedidoWeb.AppBuscadorGNDLanding;
-                            else if (desplegable && ficha) result = Constantes.OrigenPedidoWeb.AppBuscadorGNDDesplegableFicha;
-                            else if (landing && ficha) result = Constantes.OrigenPedidoWeb.AppBuscadorGNDLandingFicha;
+                            if (desplegable && !ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorGNDDesplegable;
+                            else if (landing && !ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorGNDLanding;
+                            else if (desplegable && ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorGNDDesplegableFicha;
+                            else if (landing && ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorGNDLandingFicha;
                             break;
                         case Constantes.TipoEstrategiaCodigo.HerramientasVenta:
-                            if (desplegable && !ficha) result = Constantes.OrigenPedidoWeb.AppBuscadorHVDesplegable;
-                            else if (landing && !ficha) result = Constantes.OrigenPedidoWeb.AppBuscadorHVLanding;
-                            else if (desplegable && ficha) result = Constantes.OrigenPedidoWeb.AppBuscadorHVDesplegableFicha;
-                            else if (landing && ficha) result = Constantes.OrigenPedidoWeb.AppBuscadorHVLandingFicha;
+                            if (desplegable && !ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorHVDesplegable;
+                            else if (landing && !ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorHVLanding;
+                            else if (desplegable && ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorHVDesplegableFicha;
+                            else if (landing && ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorHVLandingFicha;
                             break;
                         case Constantes.TipoEstrategiaCodigo.OfertaParaTi:
                         case Constantes.TipoEstrategiaCodigo.OfertasParaMi:
                         case Constantes.TipoEstrategiaCodigo.PackAltoDesembolso:
                             if (materialGanancia)
                             {
-                                if (desplegable && !ficha) result = Constantes.OrigenPedidoWeb.AppBuscadorMGDesplegable;
-                                else if (landing && !ficha) result = Constantes.OrigenPedidoWeb.AppBuscadorMGLanding;
-                                else if (desplegable && ficha) result = Constantes.OrigenPedidoWeb.AppBuscadorMGDesplegableFicha;
-                                else if (landing && ficha) result = Constantes.OrigenPedidoWeb.AppBuscadorMGLandingFicha;
+                                if (desplegable && !ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorMGDesplegable;
+                                else if (landing && !ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorMGLanding;
+                                else if (desplegable && ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorMGDesplegableFicha;
+                                else if (landing && ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorMGLandingFicha;
                             }
                             else
                             {
-                                if (desplegable && !ficha) result = Constantes.OrigenPedidoWeb.AppBuscadorOPTDesplegable;
-                                else if (landing && !ficha) result = Constantes.OrigenPedidoWeb.AppBuscadorOPTLanding;
-                                else if (desplegable && ficha) result = Constantes.OrigenPedidoWeb.AppBuscadorOPTDesplegableFicha;
-                                else if (landing && ficha) result = Constantes.OrigenPedidoWeb.AppBuscadorOPTLandingFicha;
+                                if (desplegable && !ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorOPTDesplegable;
+                                else if (landing && !ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorOPTLanding;
+                                else if (desplegable && ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorOPTDesplegableFicha;
+                                else if (landing && ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorOPTLandingFicha;
                             }
                             break;
                     }

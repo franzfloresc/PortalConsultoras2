@@ -571,5 +571,36 @@ namespace Portal.Consultoras.Service
         {
             _BLContenidoAppResumenBusinessLogic.CheckContenidoApp(itmFilter, idContenidoDetalle);
         }
+        public BEContenidoAppHistoria GetContenidoAppHistoria(string Codigo)
+        {
+            var bl = new BLContenidoAppHistoria();
+            return bl.Get(Codigo);
+        }
+
+        public void UpdateContenidoApp(BEContenidoAppHistoria formularioDato)
+        {
+            var bl = new BLContenidoAppHistoria();
+            bl.UpdateContenidoApp(formularioDato);
+        }
+       
+        public List<BEContenidoAppList> ListContenidoApp(BEContenidoAppList entidad)
+        {
+            var bl = new BLContenidoAppHistoria();
+            return bl.GetList(entidad);
+        }
+        
+        public void InsertContenidoAppDeta(BEContenidoAppDeta p)
+        {
+            var bl = new BLContenidoAppHistoria();
+            bl.InsertContenidoAppDeta(p);
+        }
+
+        public int UpdateContenidoAppDeta(BEContenidoAppDeta p)
+        {
+            var bl = new BLContenidoAppHistoria();
+           return bl.UpdateContenidoAppDeta(p);
+        }
+
+
     }
 }
