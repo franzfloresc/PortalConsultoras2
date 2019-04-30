@@ -10,6 +10,7 @@ using Portal.Consultoras.Web.Models.PagoEnLinea;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.ServiceODS;
+using Portal.Consultoras.Web.Models.AdministracionPoput;
 
 namespace Portal.Consultoras.Web.Models.AutoMapper
 {
