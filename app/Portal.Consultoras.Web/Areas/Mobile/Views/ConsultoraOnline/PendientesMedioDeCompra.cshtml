@@ -14,11 +14,11 @@
 }
 
 <!-- Paso 2  -->
-<div class="container-flex pending ">
+<div class="container-flex pending d-flex flex-column vh-100 ">
 
-    <!-- Attend title   -->
-    <div class="container pending-top">
-        <div class="row align-items-center">
+    <!-- Attend title  -->
+    <div class="container pending-top mb-5">
+        <div class="row align-items-center mb-2">
             <div class="col-10">
                 <h2 class="attend-title mb-0">Paso 2: Elige cómo atender</h2>
                 <span class="attend-subtitle text-12">Podrás vender todo a @ViewBag.Simbolo @Model.TotalCatalogo</span>
@@ -32,9 +32,9 @@
             </div>
         </div>
     </div>
-    <!-- / Attend title   -->
+    <!-- / Attend title  -->
 
-    <hr class="mt-8">
+    <div class="overflow-y auto">
 
     @if (Model.ListaGana.Any() && Model.GananciaGana >0)
     {
@@ -65,11 +65,14 @@
                 @*<span class="text-12 text-purple">* Incluye productos extras</span>*@
             </div>
         </div>
+
+        <hr>
+
         <!-- / Con Gana+    -->
     }
 
 
-    <hr>
+    
 
 
     @if (Model.ListaCatalogo.Any())
@@ -104,17 +107,17 @@
                     }
 
                 </div>
-
             </div>
         </div>
         <!-- / Con Catálogo    -->
-        <hr>
+        
     }
-
+    </div>
 
 
     <!--  Con Stock  -->
-    @*<div class="container">
+    @*<hr> 
+    <div class="container">
             <div class="yaLoTengo">
                 <div class="row align-items-center">
                     <div class="col-8">
@@ -132,9 +135,9 @@
     @*<hr>*@
 
     <!--  Tooltip  -->
-    <div class="container position-absolute" style="display:none">
+    <div class="container position-absolute" style="display:none; bottom:0;">
         <!--   Tooltip bottom     -->
-        <div class="row align-items-center position-relative action-continue">
+        <div class="row align-items-center position-relative action-continue" style="padding-right:16px;">
             <div class="col mb-16">
                 <div class="tooltip-secondary tooltip-arrow_bottom ptb-16 ">
                     <div class="col-12">
@@ -147,8 +150,8 @@
     </div>
     <!--  / Tooltip  -->
     <!--  / Action buttons  -->
-    <div class="bt-1 ptb-8 mt-32">
-        <div class="container">
+    <div class="bt-1 mt-auto">
+        <div class="container pt-3 pb-3">
             <div class="row">
                 <div class="col">
                     <div id="btnAceptarPedido" onclick="AceptarPedidoPendiente()" class="vc-box text-14 text-700">

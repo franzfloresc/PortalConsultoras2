@@ -503,6 +503,9 @@ button {
 }
 
 /* Paso 2 */
+.b-top{
+  border-top: 1px solid #d1d1d4;
+}
 
 /* Para agregar a los utilitarios */
 .brokenBox {
