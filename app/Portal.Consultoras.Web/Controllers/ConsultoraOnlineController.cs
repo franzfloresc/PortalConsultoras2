@@ -2203,7 +2203,6 @@ namespace Portal.Consultoras.Web.Controllers
                 model.ListaPedidos = lstPedidos;
                 var lstByProductos = new List<BEMisPedidosDetalle>();
                 var grpListCuv = lstPedidosDetalleAll.Select(x => x.CUV).Distinct().ToList();
-
                 foreach (var cuv in grpListCuv)
                 {
                     var lstCuv = lstPedidosDetalleAll.Where(x => x.CUV == cuv);
@@ -2215,6 +2214,11 @@ namespace Portal.Consultoras.Web.Controllers
                     det.PrecioTotal = (det.CantidadTotal * det.PrecioUnitario);
                     det.FormatoPrecioTotal = Util.DecimalToStringFormat(det.PrecioTotal.ToDecimal(), userData.CodigoISO);
                     det.ListaClientes = lstPedidos.Where(x => ids.Contains(x.PedidoId.ToString())).ToArray();
+
+                    if(det.ListaClientes == null || det.ListaClientes.Count() == 0)
+                    {
+                        continue;
+                    }
                     lstByProductos.Add(det);
                 }
 
