@@ -192,7 +192,7 @@ namespace Portal.Consultoras.Common
             //public const int CantidadCuvMasivo_NuevoMasivo = 13701;
             //public const int EstrategiaImagen_NuevoMasivo = 13702;
 
-            public const int ActualizaDatosEnabled = 14301;
+            //public const int ActualizaDatosEnabled = 14301;
 
             //public const int MensajeActualizarEmailSms = 1001;
             //public const int MensajeActualizarSms = 1002;

@@ -512,6 +512,8 @@ namespace Portal.Consultoras.Common
         public static class ActualizacionDatosEnabled
         {
             public const int TablaLogicaId = 143;
+
+            public const int ActualizaDatosEnabled = 14301;
         }
 
         public static class ChatEmtelco

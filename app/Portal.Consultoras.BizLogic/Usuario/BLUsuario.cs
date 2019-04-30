@@ -334,7 +334,7 @@ namespace Portal.Consultoras.BizLogic
                 var tabla = new BLTablaLogicaDatos();
 
                 var valores = tabla.GetListCache(usuario.PaisID, Convert.ToInt16(ConsTablaLogica.ActualizacionDatosEnabled.TablaLogicaId));
-                var listado = valores.FirstOrDefault(p => p.TablaLogicaDatosID == Convert.ToInt16(Constantes.TablaLogicaDato.ActualizaDatosEnabled));
+                var listado = valores.FirstOrDefault(p => p.TablaLogicaDatosID == Convert.ToInt16(ConsTablaLogica.ActualizacionDatosEnabled.ActualizaDatosEnabled));
                 usuario.PuedeActualizar = Convert.ToBoolean(listado.Valor.ToInt());
 
                 var verificacion = new BLOpcionesVerificacion();
@@ -640,7 +640,7 @@ namespace Portal.Consultoras.BizLogic
                 }
                 if (actualizaDatosTask.Result != null)
                 {
-                    var item = actualizaDatosTask.Result.FirstOrDefault(p => p.TablaLogicaDatosID == Convert.ToInt16(Constantes.TablaLogicaDato.ActualizaDatosEnabled));
+                    var item = actualizaDatosTask.Result.FirstOrDefault(p => p.TablaLogicaDatosID == Convert.ToInt16(ConsTablaLogica.ActualizacionDatosEnabled.ActualizaDatosEnabled));
                     usuario.PuedeActualizar = (item != null && item.Valor == "1");
                 }
                 if (actualizaDatosConfigTask.Result != null)
