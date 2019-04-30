@@ -1,4 +1,4 @@
-/* BOLIVIA */
+﻿/* BOLIVIA */
 USE BelcorpBolivia;
 
 DELETE FROM EstrategiaImagenKit;
