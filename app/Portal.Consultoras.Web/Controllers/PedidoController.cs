@@ -2668,7 +2668,7 @@ namespace Portal.Consultoras.Web.Controllers
         private bool FlagVerCuv(PedidoWebDetalleModel producto)
         {
             bool flag = true;
-            if (producto.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.ArmaTuPack)
+            if (producto.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.ArmaTuPack || producto.EsKitCaminoBrillante)
             {
                 flag = false;
             }
