@@ -300,6 +300,9 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         private string CUVField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private float CampanhiaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private float CantidadField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -310,6 +313,9 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DescripcionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EditableField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private float OrdenField;
@@ -324,7 +330,13 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         private string SAPField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private float TipoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string UrlImagenField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UsuModificaField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -345,6 +357,19 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 if ((object.ReferenceEquals(this.CUVField, value) != true)) {
                     this.CUVField = value;
                     this.RaisePropertyChanged("CUV");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public float Campanhia {
+            get {
+                return this.CampanhiaField;
+            }
+            set {
+                if ((this.CampanhiaField.Equals(value) != true)) {
+                    this.CampanhiaField = value;
+                    this.RaisePropertyChanged("Campanhia");
                 }
             }
         }
@@ -402,6 +427,19 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Editable {
+            get {
+                return this.EditableField;
+            }
+            set {
+                if ((this.EditableField.Equals(value) != true)) {
+                    this.EditableField = value;
+                    this.RaisePropertyChanged("Editable");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public float Orden {
             get {
                 return this.OrdenField;
@@ -454,6 +492,19 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public float Tipo {
+            get {
+                return this.TipoField;
+            }
+            set {
+                if ((this.TipoField.Equals(value) != true)) {
+                    this.TipoField = value;
+                    this.RaisePropertyChanged("Tipo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string UrlImagen {
             get {
                 return this.UrlImagenField;
@@ -462,6 +513,19 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 if ((object.ReferenceEquals(this.UrlImagenField, value) != true)) {
                     this.UrlImagenField = value;
                     this.RaisePropertyChanged("UrlImagen");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UsuModifica {
+            get {
+                return this.UsuModificaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UsuModificaField, value) != true)) {
+                    this.UsuModificaField = value;
+                    this.RaisePropertyChanged("UsuModifica");
                 }
             }
         }
@@ -14651,17 +14715,29 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ValidarZonaDigital", ReplyAction="http://tempuri.org/IPortalService/ValidarZonaDigitalResponse")]
         System.Threading.Tasks.Task<bool> ValidarZonaDigitalAsync(string CodigoIso, string seccionZona);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/GetCuvEdit", ReplyAction="http://tempuri.org/IPortalService/GetCuvEditResponse")]
-        Portal.Consultoras.Web.ServiceUnete.KitInicioBE GetCuvEdit(string codigoIso, int campanhia, int kit);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/GetKitInicioEdit", ReplyAction="http://tempuri.org/IPortalService/GetKitInicioEditResponse")]
+        Portal.Consultoras.Web.ServiceUnete.KitInicioBE GetKitInicioEdit(string codigoIso, int campanha, int kit);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/GetCuvEdit", ReplyAction="http://tempuri.org/IPortalService/GetCuvEditResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.KitInicioBE> GetCuvEditAsync(string codigoIso, int campanhia, int kit);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/GetKitInicioEdit", ReplyAction="http://tempuri.org/IPortalService/GetKitInicioEditResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.KitInicioBE> GetKitInicioEditAsync(string codigoIso, int campanha, int kit);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/GetCuvCatalogos", ReplyAction="http://tempuri.org/IPortalService/GetCuvCatalogosResponse")]
-        Portal.Consultoras.Web.ServiceUnete.KitInicioCatalogoBE[] GetCuvCatalogos(string codigoIso, int campanhia);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/GetKitInicioCatalogosEdit", ReplyAction="http://tempuri.org/IPortalService/GetKitInicioCatalogosEditResponse")]
+        Portal.Consultoras.Web.ServiceUnete.KitInicioBE GetKitInicioCatalogosEdit(string codigoIso, int campanha, bool esBasico);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/GetCuvCatalogos", ReplyAction="http://tempuri.org/IPortalService/GetCuvCatalogosResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.KitInicioCatalogoBE[]> GetCuvCatalogosAsync(string codigoIso, int campanhia);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/GetKitInicioCatalogosEdit", ReplyAction="http://tempuri.org/IPortalService/GetKitInicioCatalogosEditResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.KitInicioBE> GetKitInicioCatalogosEditAsync(string codigoIso, int campanha, bool esBasico);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/SaveKitInicio", ReplyAction="http://tempuri.org/IPortalService/SaveKitInicioResponse")]
+        void SaveKitInicio(string codigoIso, Portal.Consultoras.Web.ServiceUnete.KitInicioBE kit);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/SaveKitInicio", ReplyAction="http://tempuri.org/IPortalService/SaveKitInicioResponse")]
+        System.Threading.Tasks.Task SaveKitInicioAsync(string codigoIso, Portal.Consultoras.Web.ServiceUnete.KitInicioBE kit);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/SaveKitInicioCatalogos", ReplyAction="http://tempuri.org/IPortalService/SaveKitInicioCatalogosResponse")]
+        void SaveKitInicioCatalogos(string codigoIso, Portal.Consultoras.Web.ServiceUnete.KitInicioBE kit);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/SaveKitInicioCatalogos", ReplyAction="http://tempuri.org/IPortalService/SaveKitInicioCatalogosResponse")]
+        System.Threading.Tasks.Task SaveKitInicioCatalogosAsync(string codigoIso, Portal.Consultoras.Web.ServiceUnete.KitInicioBE kit);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ObtenerParametrosUnete", ReplyAction="http://tempuri.org/IPortalService/ObtenerParametrosUneteResponse")]
         Portal.Consultoras.Web.ServiceUnete.ParametroUneteCollection ObtenerParametrosUnete(string codigoISO, Portal.Consultoras.Web.ServiceUnete.EnumsTipoParametro idTipoParametro, int idTipoParametroUnetePadre);
@@ -15277,20 +15353,36 @@ namespace Portal.Consultoras.Web.ServiceUnete {
             return base.Channel.ValidarZonaDigitalAsync(CodigoIso, seccionZona);
         }
         
-        public Portal.Consultoras.Web.ServiceUnete.KitInicioBE GetCuvEdit(string codigoIso, int campanhia, int kit) {
-            return base.Channel.GetCuvEdit(codigoIso, campanhia, kit);
+        public Portal.Consultoras.Web.ServiceUnete.KitInicioBE GetKitInicioEdit(string codigoIso, int campanha, int kit) {
+            return base.Channel.GetKitInicioEdit(codigoIso, campanha, kit);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.KitInicioBE> GetCuvEditAsync(string codigoIso, int campanhia, int kit) {
-            return base.Channel.GetCuvEditAsync(codigoIso, campanhia, kit);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.KitInicioBE> GetKitInicioEditAsync(string codigoIso, int campanha, int kit) {
+            return base.Channel.GetKitInicioEditAsync(codigoIso, campanha, kit);
         }
         
-        public Portal.Consultoras.Web.ServiceUnete.KitInicioCatalogoBE[] GetCuvCatalogos(string codigoIso, int campanhia) {
-            return base.Channel.GetCuvCatalogos(codigoIso, campanhia);
+        public Portal.Consultoras.Web.ServiceUnete.KitInicioBE GetKitInicioCatalogosEdit(string codigoIso, int campanha, bool esBasico) {
+            return base.Channel.GetKitInicioCatalogosEdit(codigoIso, campanha, esBasico);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.KitInicioCatalogoBE[]> GetCuvCatalogosAsync(string codigoIso, int campanhia) {
-            return base.Channel.GetCuvCatalogosAsync(codigoIso, campanhia);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.KitInicioBE> GetKitInicioCatalogosEditAsync(string codigoIso, int campanha, bool esBasico) {
+            return base.Channel.GetKitInicioCatalogosEditAsync(codigoIso, campanha, esBasico);
+        }
+        
+        public void SaveKitInicio(string codigoIso, Portal.Consultoras.Web.ServiceUnete.KitInicioBE kit) {
+            base.Channel.SaveKitInicio(codigoIso, kit);
+        }
+        
+        public System.Threading.Tasks.Task SaveKitInicioAsync(string codigoIso, Portal.Consultoras.Web.ServiceUnete.KitInicioBE kit) {
+            return base.Channel.SaveKitInicioAsync(codigoIso, kit);
+        }
+        
+        public void SaveKitInicioCatalogos(string codigoIso, Portal.Consultoras.Web.ServiceUnete.KitInicioBE kit) {
+            base.Channel.SaveKitInicioCatalogos(codigoIso, kit);
+        }
+        
+        public System.Threading.Tasks.Task SaveKitInicioCatalogosAsync(string codigoIso, Portal.Consultoras.Web.ServiceUnete.KitInicioBE kit) {
+            return base.Channel.SaveKitInicioCatalogosAsync(codigoIso, kit);
         }
         
         public Portal.Consultoras.Web.ServiceUnete.ParametroUneteCollection ObtenerParametrosUnete(string codigoISO, Portal.Consultoras.Web.ServiceUnete.EnumsTipoParametro idTipoParametro, int idTipoParametroUnetePadre) {

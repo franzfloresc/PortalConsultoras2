@@ -2583,7 +2583,7 @@ namespace Portal.Consultoras.Web.Controllers
                 listas.Add(new PortalServiceClient().ObtenerParametrosUnete(userData.CodigoISO, EnumsTipoParametro.TipoKitInicio, 0));
                 return Json(listas);
             }
-            catch (Exception ex)
+            catch
             {
                 return Error();
             }
@@ -2594,7 +2594,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var enKit = new PortalServiceClient().GetCuvEdit(CodigoISO, campanhia, kit);
+                var enKit = new PortalServiceClient().GetKitInicioEdit(CodigoISO, campanhia, kit);
                 var en = new ENTKitInicio
                 {
                     Codigo = enKit.Codigo,
@@ -2606,7 +2606,8 @@ namespace Portal.Consultoras.Web.Controllers
                     Orden = enKit.Orden,
                     Descripcion = enKit.Descripcion,
                     UrlImagen = enKit.UrlImagen,
-                    Catalogos = new List<ENTKitInicioCatalogo>()
+                    Catalogos = new List<ENTKitInicioCatalogo>(),
+                    Editable = enKit.Editable
                 };
                 if (enKit.Catalogos != null)
                 {
@@ -2619,6 +2620,7 @@ namespace Portal.Consultoras.Web.Controllers
                             CUV = det.CUV,
                             Orden = det.Orden,
                             NomOrden = det.DescOrden,
+                            CodMarca = det.TipoCatalogo,
                             NomMarca = det.NomTipoCatalogo
                         });
                     }
@@ -2636,21 +2638,26 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var catalogos = new PortalServiceClient().GetCuvCatalogos(CodigoISO, campanhia);
-                var lista = new List<ENTKitInicioCatalogo>();
-                foreach (var det in catalogos)
+                var enResponse = new PortalServiceClient().GetKitInicioCatalogosEdit(CodigoISO, campanhia, false);
+                var en = new ENTKitInicio
                 {
-                    lista.Add(new ENTKitInicioCatalogo
+                    Editable = enResponse.Editable,
+                    Catalogos = new List<ENTKitInicioCatalogo>()
+                };
+                foreach (var det in enResponse.Catalogos)
+                {
+                    en.Catalogos.Add(new ENTKitInicioCatalogo
                     {
                         Codigo = det.Codigo,
                         SAP = det.SAP,
                         CUV = det.CUV,
                         Orden = det.Orden,
                         NomOrden = det.DescOrden,
+                        CodMarca = det.TipoCatalogo,
                         NomMarca = det.NomTipoCatalogo
                     });
                 }
-                return Json(lista);
+                return Json(en);
             }
             catch
             {
@@ -2659,10 +2666,41 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult SaveKitInicio(ENTKitInicio en)
+        public JsonResult SaveKitInicio(int config, ENTKitInicio en)
         {
             try
             {
+                var enRequest = new KitInicioBE
+                {
+                    Precio = en.Precio,
+                    UrlImagen = en.UrlImagen,
+                    Descripcion = en.Descripcion,
+                    CUV = en.CUV,
+                    Orden = en.Orden,
+                    Tipo = en.Kit,
+                    PrecioReal = en.PrecioReal,
+                    Campanhia = en.Campanha,
+                    Cantidad = en.Cantidad,
+                    SAP = en.SAP,
+                    UsuModifica = userData.CodigoUsuario
+                };
+                if (en.Catalogos != null)
+                {
+                    var catalogos = new List<KitInicioCatalogoBE>();
+                    foreach (var c in en.Catalogos)
+                    {
+                        catalogos.Add(new KitInicioCatalogoBE
+                        {
+                            CUV = c.CUV,
+                            Orden = c.Orden,
+                            TipoCatalogo = c.CodMarca,
+                            SAP = c.SAP
+                        });
+                    }
+                    enRequest.Catalogos = catalogos.ToArray();
+                }
+                if (config == 1) new PortalServiceClient().SaveKitInicio(CodigoISO, enRequest);
+                else new PortalServiceClient().SaveKitInicioCatalogos(CodigoISO, enRequest);
                 return Json(true);
             }
             catch
@@ -2680,6 +2718,8 @@ namespace Portal.Consultoras.Web.Controllers
         public struct ENTKitInicio
         {
             public int Codigo { get; set; }
+            public int Campanha { get; set; }
+            public int Kit { get; set; }
             public string SAP { get; set; }
             public string CUV { get; set; }
             public decimal Precio { get; set; }
@@ -2689,6 +2729,7 @@ namespace Portal.Consultoras.Web.Controllers
             public string Descripcion { get; set; }
             public string UrlImagen { get; set; }
             public List<ENTKitInicioCatalogo> Catalogos { get; set; }
+            public bool Editable { get; set; }
 
         }
         public struct ENTKitInicioCatalogo
@@ -2698,6 +2739,7 @@ namespace Portal.Consultoras.Web.Controllers
             public string CUV { get; set; }
             public float Orden { get; set; }
             public string NomOrden { get; set; }
+            public float CodMarca { get; set; }
             public string NomMarca { get; set; }
         }
 
