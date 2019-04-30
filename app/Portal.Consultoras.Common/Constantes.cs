@@ -70,6 +70,7 @@ namespace Portal.Consultoras.Common
             public const short Facturado = 2;
 
             public const string PedidoValidado = "PV";
+            public const string PedidoIngresado = "INGRESADO";
         }
 
         public static class PaisID
