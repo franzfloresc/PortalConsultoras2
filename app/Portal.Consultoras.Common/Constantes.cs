@@ -1064,50 +1064,50 @@ namespace Portal.Consultoras.Common
             public const int DesktopPedidoLanzamientosCatálogoDigitalPendientedeAprobarCliente = 1020211;
             public const int DesktopPedidoOfertaDelDíaCatálogoDigitalPendientedeAprobarCliente = 1020311;
             public const int DesktopPedidoGanadorasCatálogoDigitalPendientedeAprobarCliente = 1021411;
-             
-            //1021511	Desktop Pedido Arma Tu Pack Catálogo Digital Pendiente de Aprobar Cliente
-            //1020012	Desktop Pedido Ofertas Para Ti App Maquillador Pendiente de Aprobar Cliente
-            //1020112	Desktop Pedido Showroom App Maquillador Pendiente de Aprobar Cliente
-            //1020212	Desktop Pedido Lanzamientos App Maquillador Pendiente de Aprobar Cliente
-            //1020312	Desktop Pedido Oferta Del Día App Maquillador Pendiente de Aprobar Cliente
-            //1021412	Desktop Pedido Ganadoras App Maquillador Pendiente de Aprobar Cliente
-            //1021512	Desktop Pedido Arma Tu Pack App Maquillador Pendiente de Aprobar Cliente
-            //1020013	Desktop Pedido Ofertas Para Ti Catálogo Digital Pendiente de Aprobar Producto
-            //1020113	Desktop Pedido Showroom Catálogo Digital Pendiente de Aprobar Producto
-            //1020213	Desktop Pedido Lanzamientos Catálogo Digital Pendiente de Aprobar Producto
-            //1020313	Desktop Pedido Oferta Del Día Catálogo Digital Pendiente de Aprobar Producto
-            //1021413	Desktop Pedido Ganadoras Catálogo Digital Pendiente de Aprobar Producto
-            //1021513	Desktop Pedido Arma Tu Pack Catálogo Digital Pendiente de Aprobar Producto
-            //1020014	Desktop Pedido Ofertas Para Ti App Maquillador Pendiente de Aprobar Producto
-            //1020114	Desktop Pedido Showroom App Maquillador Pendiente de Aprobar Producto
-            //1020214	Desktop Pedido Lanzamientos App Maquillador Pendiente de Aprobar Producto
-            //1020314	Desktop Pedido Oferta Del Día App Maquillador Pendiente de Aprobar Producto
-            //1021414	Desktop Pedido Ganadoras App Maquillador Pendiente de Aprobar Producto
-            //1021514	Desktop Pedido Arma Tu Pack App Maquillador Pendiente de Aprobar Producto
-            //2020011	Mobile Pedido Ofertas Para Ti Catálogo Digital Pendiente de Aprobar Cliente
-            //2020111	Mobile Pedido Showroom Catálogo Digital Pendiente de Aprobar Cliente
-            //2020211	Mobile Pedido Lanzamientos Catálogo Digital Pendiente de Aprobar Cliente
-            //2020311	Mobile Pedido Oferta Del Día Catálogo Digital Pendiente de Aprobar Cliente
-            //2021411	Mobile Pedido Ganadoras Catálogo Digital Pendiente de Aprobar Cliente
-            //2021511	Mobile Pedido Arma Tu Pack Catálogo Digital Pendiente de Aprobar Cliente
-            //2020012	Mobile Pedido Ofertas Para Ti App Maquillador Pendiente de Aprobar Cliente
-            //2020112	Mobile Pedido Showroom App Maquillador Pendiente de Aprobar Cliente
-            //2020212	Mobile Pedido Lanzamientos App Maquillador Pendiente de Aprobar Cliente
-            //2020312	Mobile Pedido Oferta Del Día App Maquillador Pendiente de Aprobar Cliente
-            //2021412	Mobile Pedido Ganadoras App Maquillador Pendiente de Aprobar Cliente
-            //2021512	Mobile Pedido Arma Tu Pack App Maquillador Pendiente de Aprobar Cliente
-            //2020013	Mobile Pedido Ofertas Para Ti Catálogo Digital Pendiente de Aprobar Producto
-            //2020113	Mobile Pedido Showroom Catálogo Digital Pendiente de Aprobar Producto
-            //2020213	Mobile Pedido Lanzamientos Catálogo Digital Pendiente de Aprobar Producto
-            //2020313	Mobile Pedido Oferta Del Día Catálogo Digital Pendiente de Aprobar Producto
-            //2021413	Mobile Pedido Ganadoras Catálogo Digital Pendiente de Aprobar Producto
-            //2021513	Mobile Pedido Arma Tu Pack Catálogo Digital Pendiente de Aprobar Producto
-            //2020014	Mobile Pedido Ofertas Para Ti App Maquillador Pendiente de Aprobar Producto
-            //2020114	Mobile Pedido Showroom App Maquillador Pendiente de Aprobar Producto
-            //2020214	Mobile Pedido Lanzamientos App Maquillador Pendiente de Aprobar Producto
-            //2020314	Mobile Pedido Oferta Del Día App Maquillador Pendiente de Aprobar Producto
-            //2021414	Mobile Pedido Ganadoras App Maquillador Pendiente de Aprobar Producto
-            //2021514	Mobile Pedido Arma Tu Pack App Maquillador Pendiente de Aprobar Producto
+
+            public const int DesktopPedidoArmaTuPackCatálogoDigitalPendientedeAprobarCliente = 1021511;
+           public const int DesktopPedidoOfertasParaTiAppMaquilladorPendientedeAprobarCliente = 1020012;
+            public const int DesktopPedidoShowroomAppMaquilladorPendientedeAprobarCliente  = 1020112;
+            public const int DesktopPedidoLanzamientosAppMaquilladorPendientedeAprobarCliente  = 1020212;
+            public const int DesktopPedidoOfertaDelDíaAppMaquilladorPendientedeAprobarCliente   = 1020312;
+            public const int DesktopPedidoGanadorasAppMaquilladorPendientedeAprobarCliente    = 1021412;
+            public const int DesktopPedidoArmaTuPackAppMaquilladorPendientedeAprobarCliente = 1021512;
+            public const int DesktopPedidoOfertasParaTiCatálogoDigitalPendientedeAprobarProducto = 1020013;
+            public const int DesktopPedidoShowroomCatálogoDigitalPendientedeAprobarProducto= 1020113;
+            public const int DesktopPedidoLanzamientosCatálogoDigitalPendientedeAprobarProducto= 1020213;
+            public const int DesktopPedidoOfertaDelDíaCatálogoDigitalPendientedeAprobarProducto   = 1020313;
+            public const int DesktopPedidoGanadorasCatálogoDigitalPendientedeAprobarProducto    = 1021413;
+            public const int DesktopPedidoArmaTuPackCatálogoDigitalPendientedeAprobarProducto = 1021513;
+            public const int DesktopPedidoOfertasParaTiAppMaquilladorPendientedeAprobarProducto  = 1020014;
+            public const int DesktopPedidoShowroomAppMaquilladorPendientedeAprobarProducto   = 1020114;
+            public const int DesktopPedidoLanzamientosAppMaquilladorPendientedeAprobarProducto = 1020214;
+            public const int DesktopPedidoOfertaDelDíaAppMaquilladorPendientedeAprobarProducto  = 1020314;
+            public const int DesktopPedidoGanadorasAppMaquilladorPendientedeAprobarProducto    = 1021414;
+            public const int DesktopPedidoArmaTuPackAppMaquilladorPendientedeAprobarProducto   = 1021514;
+            public const int MobilePedidoOfertasParaTiCatálogoDigitalPendientedeAprobarCliente   = 2020011;
+            public const int MobilePedidoShowroomCatálogoDigitalPendientedeAprobarCliente  = 2020111;
+            public const int MobilePedidoLanzamientosCatálogoDigitalPendientedeAprobarCliente = 2020211;
+            public const int MobilePedidoOfertaDelDíaCatálogoDigitalPendientedeAprobarCliente = 2020311;
+            public const int MobilePedidoGanadorasCatálogoDigitalPendientedeAprobarCliente  = 2021411;
+            public const int MobilePedidoArmaTuPackCatálogoDigitalPendientedeAprobarCliente  = 2021511;
+            public const int MobilePedidoOfertasParaTiAppMaquilladorPendientedeAprobarCliente  = 2020012;
+            public const int MobilePedidoShowroomAppMaquilladorPendientedeAprobarCliente = 2020112;
+            public const int MobilePedidoLanzamientosAppMaquilladorPendientedeAprobarCliente   = 2020212;
+            public const int MobilePedidoOfertaDelDíaAppMaquilladorPendientedeAprobarCliente   = 2020312;
+            public const int MobilePedidoGanadorasAppMaquilladorPendientedeAprobarCliente  = 2021412;
+            public const int MobilePedidoArmaTuPackAppMaquilladorPendientedeAprobarCliente   = 2021512;
+            public const int MobilePedidoOfertasParaTiCatálogoDigitalPendientedeAprobarProducto = 2020013;
+            public const int MobilePedidoShowroomCatálogoDigitalPendientedeAprobarProducto  = 2020113;
+            public const int MobilePedidoLanzamientosCatálogoDigitalPendientedeAprobarProducto  = 2020213;
+            public const int MobilePedidoOfertaDelDíaCatálogoDigitalPendientedeAprobarProducto = 2020313;
+            public const int MobilePedidoGanadorasCatálogoDigitalPendientedeAprobarProducto   = 2021413;
+            public const int MobilePedidoArmaTuPackCatálogoDigitalPendientedeAprobarProducto  = 2021513;
+            public const int MobilePedidoOfertasParaTiAppMaquilladorPendientedeAprobarProducto  = 2020014;
+            public const int MobilePedidoShowroomAppMaquilladorPendientedeAprobarProducto  = 2020114;
+            public const int MobilePedidoLanzamientosAppMaquilladorPendientedeAprobarProducto    = 2020214;
+            public const int MobilePedidoOfertaDelDíaAppMaquilladorPendientedeAprobarProducto  = 2020314;
+            public const int MobilePedidoGanadorasAppMaquilladorPendientedeAprobarProducto = 2021414;
+            public const int MobilePedidoArmaTuPackAppMaquilladorPendientedeAprobarProducto   = 2021514;
 
         }
 
