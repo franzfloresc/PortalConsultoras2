@@ -208,8 +208,8 @@ namespace Portal.Consultoras.Common
             //    public static readonly int ColorFondoDisplay = 9302;
             //}
 
-            public const int ActualizaEscalaDescuentoDestokp = 7201;
-            public const int ActualizaEscalaDescuentoMobile = 7301;
+            //public const int ActualizaEscalaDescuentoDestokp = 7201;
+            //public const int ActualizaEscalaDescuentoMobile = 7301;
 
             public static class PagoEnLinea
             {

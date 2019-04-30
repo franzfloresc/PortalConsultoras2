@@ -281,14 +281,18 @@ namespace Portal.Consultoras.Common
             public const int TablaLogicaId = 71;
         }
 
-        public static class CaminoAlExitoDestokp
+        public static class CaminoAlExitoDesktop
         {
             public const int TablaLogicaId = 72;
+
+            public const int ActualizaEscalaDescuentoDesktop = 7201;
         }
 
         public static class CaminoAlExitoMobile
         {
             public const int TablaLogicaId = 73;
+
+            public const int ActualizaEscalaDescuentoMobile = 7301;
         }
 
         public static class MedioPedido
