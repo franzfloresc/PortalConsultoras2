@@ -571,6 +571,7 @@ function EliminarSolicitudDetalle(pedidoId, cuv, origen) {
             CloseLoading();
             if (response.success) {
                 // ocultar div
+                debugger;
                 if (origen == 'C') {
                     var id = '#vc_pedido_' + cuv;
                     $(id).hide();
