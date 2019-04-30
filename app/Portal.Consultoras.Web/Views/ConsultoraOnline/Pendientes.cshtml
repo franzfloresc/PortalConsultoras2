@@ -62,11 +62,11 @@
                                     <input type="hidden" class="pedidoId" value="{{item.PedidoId}}" />
                                     <input type="hidden" class="cuv" value="{{item.CUVx}}" />
                                     <input type="hidden" class="cantidad" value="{{item.DetallePedido.0.Cantidad}}" />
-                                    <div class="row align-items-center mt-2">
+                                    <div class="row align-items-center mt-2" data-cantidad-contenedor="">
                                         <div class="col-4 pr-0">
                                             <div class="position-relative">
-                                                <input data-cantNew="{{item.DetallePedido.0.Cantidad}}" type="text" value='{{item.CantidadTotal}}' size="2" maxlength="2" class="ValidaNumeral ValidaPasteNumeral ValidaValor">
-                                                <span class="son position-absolute"><a class="es mas" href="#">+</a><a class="es menos" href="#">-</a></span>
+                                                <input data-cantNew="{{item.DetallePedido.0.Cantidad}}" type="text" data-input='cantidad' value='{{item.CantidadTotal}}' size="2" maxlength="2" class="ValidaNumeral ValidaPasteNumeral ValidaValor">
+                                                <span class="son position-absolute"><a class="es mas" href="javascript: void(0);" onclick="javascript: EstrategiaAgregarModule.AdicionarCantidad(event);">+</a><a class="es menos" href="javascript: void(0);" onclick="javascript: EstrategiaAgregarModule.DisminuirCantidad(event);">-</a></span>
                                             </div>
                                         </div>
                                         <div id="texto_{{item.PedidoId}}" class="col-8 text-right">
@@ -259,11 +259,11 @@
                                     <input type="hidden" class="pedidoId" value="{{item.PedidoId}}" />
                                     <input type="hidden" class="cuv" value="{{this.CUV}}" />
                                     <input type="hidden" class="cantidad" value="{{this.Cantidad}}" />
-                                    <div class="row align-items-center mt-2">
+                                    <div class="row align-items-center mt-2" data-cantidad-contenedor="">
                                         <div class="col-4 pr-0">
                                             <div class="position-relative">
-                                                <input type="text" data-cantNew="{{item.Cantidad}}" value='{{item.Cantidad}}' size="2" maxlength="2" class="ValidaNumeral ValidaPasteNumeral ValidaValor">
-                                                <span class="son position-absolute"><a class="es mas" href="#">+</a><a class="es menos" href="#">-</a></span>
+                                                <input type="text" data-cantNew="{{item.Cantidad}}" value='{{item.Cantidad}}' data-input='cantidad' size="2" maxlength="2" class="ValidaNumeral ValidaPasteNumeral ValidaValor">
+                                                <span class="son position-absolute"><a class="es mas" href="javascript: void(0);" onclick="javascript: EstrategiaAgregarModule.AdicionarCantidad(event);">+</a><a class="es menos" href="javascript: void(0);" onclick="javascript: EstrategiaAgregarModule.DisminuirCantidad(event);">-</a></span>
                                             </div>
                                         </div>
                                         <div id="texto_{{item.CUV}}" class="col-8 text-right">
@@ -650,7 +650,7 @@
                                     {{#each this.ListaGana as |item|}}
                                     <div class="col pr-2 pl-2 color-dark"><img class="img-fluid icon-80" src="{{item.ImagenURL}}" alt="Producto"><span class="smaller">{{item.DescripcionCUV2}}</span><span class="smaller">@ViewBag.Simbolo {{item.PrecioString}}</span></div>
                                     {{/each}}
-                                 </div><span class="smaller color-second mt-2 mb-4">* Contiene productos extras</span>
+                                 @*</div><span class="smaller color-second mt-2 mb-4">* Contiene productos extras</span>*@
                             </div>
                         </div>
                     </div>

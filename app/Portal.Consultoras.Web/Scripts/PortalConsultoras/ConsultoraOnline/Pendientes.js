@@ -240,6 +240,22 @@ function AceptarPedidoProducto(id) {
 
 }
 
+function RenderizarPendientes(Pendientes) {
+
+    $.each(Pendientes.ListaProductos, function (index, value) {
+        value.MasDeDosClientes = false;
+        if (value.ListaClientes.length > 2) {
+            value.MasDeDosClientes = true;
+            value.ListaClientes = value.ListaClientes.slice(0, 1);
+        }
+    });
+
+    $("#por-producto-tab").removeClass("active");
+    $("#por-cliente-tab").addClass("active");
+
+    SetHandlebars("#template-vpcpContent", Pendientes, "#vpcpContent");
+}
+
 function RechazarSolicitudCliente(pedidoId) {
     var obj = {
         pedidoId: pedidoId,
@@ -262,16 +278,7 @@ function RechazarSolicitudCliente(pedidoId) {
                 //document.location.href = '/ConsultoraOnline/Pendientes';
 
                 var Pendientes = JSON.parse(response.Pendientes) || [];
-
-                $.each(Pendientes.ListaProductos, function (index, value) {
-                    value.MasDeDosClientes = false;
-                    if (value.ListaClientes.length > 2) {
-                        value.MasDeDosClientes = true;
-                        value.ListaClientes = value.ListaClientes.slice(0, 1);
-                    }                    
-                });
-
-                SetHandlebars("#template-vpcpContent", Pendientes, "#vpcpContent");
+                RenderizarPendientes(Pendientes);
 
             }
             else {
@@ -304,15 +311,7 @@ function ActualizarPendientes() {
 
                 var Pendientes = JSON.parse(response.Pendientes) || [];
 
-                $.each(Pendientes.ListaProductos, function (index, value) {
-                    value.MasDeDosClientes = false;
-                    if (value.ListaClientes.length > 2) {
-                        value.MasDeDosClientes = true;
-                        value.ListaClientes = value.ListaClientes.slice(0, 1);
-                    }
-                });
-
-                SetHandlebars("#template-vpcpContent", Pendientes, "#vpcpContent");
+                RenderizarPendientes(Pendientes);
 
             }
             else {
@@ -409,7 +408,7 @@ function ContinuarPedido() {
                     SetHandlebars("#template-paso-2", response.result, "#contenedor-paso-2");
                     if (response.result.ListaGana.length == 0 || response.result.GananciaGana<= 0 )
                     {
-                        $('.porGanaMas').parent().remove();
+                        $('.porGanaMas').hide();
                     }
                     cargarGaleria()
                     bindElments();
@@ -457,16 +456,7 @@ function EliminarSolicitudDetalle(pedidoId, cuv, origen) {
                 }
 
                 var Pendientes = JSON.parse(response.Pendientes) || [];
-
-                $.each(Pendientes.ListaProductos, function (index, value) {
-                    value.MasDeDosClientes = false;
-                    if (value.ListaClientes.length > 2) {
-                        value.MasDeDosClientes = true;
-                        value.ListaClientes = value.ListaClientes.slice(0, 1);
-                    }
-                });
-
-                SetHandlebars("#template-vpcpContent", Pendientes, "#vpcpContent");
+                RenderizarPendientes(Pendientes);
             }
             else {
                 alert(response.message);

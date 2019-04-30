@@ -1057,6 +1057,58 @@ namespace Portal.Consultoras.Common
             public const int AppConsultoraPedidoCatalogoEsikaCatalogoDigitalPendienteDeAprobar = 4021211;
             public const int AppConsultoraPedidoCatalogoCyzoneCatalogoDigitalPendienteDeAprobar = 4021311;
             #endregion
+
+
+            public const int DesktopPedidoOfertasParaTiCatálogoDigitalPendientedeAprobarCliente = 1020011;
+            public const int DesktopPedidoShowroomCatálogoDigitalPendientedeprobarCliente = 1020111;
+            public const int DesktopPedidoLanzamientosCatálogoDigitalPendientedeAprobarCliente = 1020211;
+            public const int DesktopPedidoOfertaDelDíaCatálogoDigitalPendientedeAprobarCliente = 1020311;
+            public const int DesktopPedidoGanadorasCatálogoDigitalPendientedeAprobarCliente = 1021411;
+
+            public const int DesktopPedidoArmaTuPackCatálogoDigitalPendientedeAprobarCliente = 1021511;
+           public const int DesktopPedidoOfertasParaTiAppMaquilladorPendientedeAprobarCliente = 1020012;
+            public const int DesktopPedidoShowroomAppMaquilladorPendientedeAprobarCliente  = 1020112;
+            public const int DesktopPedidoLanzamientosAppMaquilladorPendientedeAprobarCliente  = 1020212;
+            public const int DesktopPedidoOfertaDelDíaAppMaquilladorPendientedeAprobarCliente   = 1020312;
+            public const int DesktopPedidoGanadorasAppMaquilladorPendientedeAprobarCliente    = 1021412;
+            public const int DesktopPedidoArmaTuPackAppMaquilladorPendientedeAprobarCliente = 1021512;
+            public const int DesktopPedidoOfertasParaTiCatálogoDigitalPendientedeAprobarProducto = 1020013;
+            public const int DesktopPedidoShowroomCatálogoDigitalPendientedeAprobarProducto= 1020113;
+            public const int DesktopPedidoLanzamientosCatálogoDigitalPendientedeAprobarProducto= 1020213;
+            public const int DesktopPedidoOfertaDelDíaCatálogoDigitalPendientedeAprobarProducto   = 1020313;
+            public const int DesktopPedidoGanadorasCatálogoDigitalPendientedeAprobarProducto    = 1021413;
+            public const int DesktopPedidoArmaTuPackCatálogoDigitalPendientedeAprobarProducto = 1021513;
+            public const int DesktopPedidoOfertasParaTiAppMaquilladorPendientedeAprobarProducto  = 1020014;
+            public const int DesktopPedidoShowroomAppMaquilladorPendientedeAprobarProducto   = 1020114;
+            public const int DesktopPedidoLanzamientosAppMaquilladorPendientedeAprobarProducto = 1020214;
+            public const int DesktopPedidoOfertaDelDíaAppMaquilladorPendientedeAprobarProducto  = 1020314;
+            public const int DesktopPedidoGanadorasAppMaquilladorPendientedeAprobarProducto    = 1021414;
+            public const int DesktopPedidoArmaTuPackAppMaquilladorPendientedeAprobarProducto   = 1021514;
+            public const int MobilePedidoOfertasParaTiCatálogoDigitalPendientedeAprobarCliente   = 2020011;
+            public const int MobilePedidoShowroomCatálogoDigitalPendientedeAprobarCliente  = 2020111;
+            public const int MobilePedidoLanzamientosCatálogoDigitalPendientedeAprobarCliente = 2020211;
+            public const int MobilePedidoOfertaDelDíaCatálogoDigitalPendientedeAprobarCliente = 2020311;
+            public const int MobilePedidoGanadorasCatálogoDigitalPendientedeAprobarCliente  = 2021411;
+            public const int MobilePedidoArmaTuPackCatálogoDigitalPendientedeAprobarCliente  = 2021511;
+            public const int MobilePedidoOfertasParaTiAppMaquilladorPendientedeAprobarCliente  = 2020012;
+            public const int MobilePedidoShowroomAppMaquilladorPendientedeAprobarCliente = 2020112;
+            public const int MobilePedidoLanzamientosAppMaquilladorPendientedeAprobarCliente   = 2020212;
+            public const int MobilePedidoOfertaDelDíaAppMaquilladorPendientedeAprobarCliente   = 2020312;
+            public const int MobilePedidoGanadorasAppMaquilladorPendientedeAprobarCliente  = 2021412;
+            public const int MobilePedidoArmaTuPackAppMaquilladorPendientedeAprobarCliente   = 2021512;
+            public const int MobilePedidoOfertasParaTiCatálogoDigitalPendientedeAprobarProducto = 2020013;
+            public const int MobilePedidoShowroomCatálogoDigitalPendientedeAprobarProducto  = 2020113;
+            public const int MobilePedidoLanzamientosCatálogoDigitalPendientedeAprobarProducto  = 2020213;
+            public const int MobilePedidoOfertaDelDíaCatálogoDigitalPendientedeAprobarProducto = 2020313;
+            public const int MobilePedidoGanadorasCatálogoDigitalPendientedeAprobarProducto   = 2021413;
+            public const int MobilePedidoArmaTuPackCatálogoDigitalPendientedeAprobarProducto  = 2021513;
+            public const int MobilePedidoOfertasParaTiAppMaquilladorPendientedeAprobarProducto  = 2020014;
+            public const int MobilePedidoShowroomAppMaquilladorPendientedeAprobarProducto  = 2020114;
+            public const int MobilePedidoLanzamientosAppMaquilladorPendientedeAprobarProducto    = 2020214;
+            public const int MobilePedidoOfertaDelDíaAppMaquilladorPendientedeAprobarProducto  = 2020314;
+            public const int MobilePedidoGanadorasAppMaquilladorPendientedeAprobarProducto = 2021414;
+            public const int MobilePedidoArmaTuPackAppMaquilladorPendientedeAprobarProducto   = 2021514;
+
         }
 
         public static class TipoTutorial
