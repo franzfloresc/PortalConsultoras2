@@ -756,7 +756,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     TempData["LimpiarLocalStorage"] = true;
                     Session.Clear();
-                    userData = await GetUserData(Util.GetPaisID(model.Pais), model.CodigoUsuario, 0, true);
+                    userData = await GetUserData(Util.GetPaisID(model.Pais), model.CodigoUsuario, 0, true, model.NivelCaminoBrillante);
                 }
 
                 var guid = Session.TryGetUniqueIdenfier("MobileAppConfiguracion");
@@ -995,7 +995,7 @@ namespace Portal.Consultoras.Web.Controllers
             return resultadoInicioSesion;
         }
 
-        public async Task<UsuarioModel> GetUserData(int paisId, string codigoUsuario, int refrescarDatos = 0, bool esAppMobile = false)
+        public async Task<UsuarioModel> GetUserData(int paisId, string codigoUsuario, int refrescarDatos = 0, bool esAppMobile = false, int nivelCaminoBrillante = 0)
         {
             pasoLog = "Login.GetUserData";
             sessionManager.SetIsContrato(1);
@@ -1016,6 +1016,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (usuario != null)
                 {
+                    usuario.NivelCaminoBrillante = nivelCaminoBrillante;
+
                     #region
                     usuarioModel = new UsuarioModel();
                     usuarioModel.PseudoParamNotif = pseudoParamNotif.ToString().Replace("-", "");
@@ -1465,6 +1467,8 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.CodigoClasificacion = usuario.CodigoClasificacion;
                     usuarioModel.CodigoSubClasificacion = usuario.CodigoSubClasificacion;
                     usuarioModel.DescripcionSubclasificacion = usuario.DescripcionSubClasificacion;
+                    usuarioModel.NivelCaminoBrillante = usuario.NivelCaminoBrillante;
+                    
                 }
 
                 sessionManager.SetUserData(usuarioModel);
