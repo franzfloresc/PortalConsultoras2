@@ -2657,7 +2657,8 @@ namespace Portal.Consultoras.Web.Controllers
             if (producto.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.ArmaTuPack
                 || producto.EsKitNueva
                 || producto.FlagNueva
-                || producto.EsPremioElectivo)
+                || producto.EsPremioElectivo
+                || producto.EsKitCaminoBrillante)
             {
                 flag = false;
             }
