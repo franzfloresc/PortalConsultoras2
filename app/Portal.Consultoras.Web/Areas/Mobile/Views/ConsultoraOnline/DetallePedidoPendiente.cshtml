@@ -38,10 +38,10 @@
 }
 
 <!-- Agregado desplegado con tooltips y modals -->
-<div class="container-flex pending">
+<div class="container-flex pending d-flex flex-column vh-100 fix">
     <!-- Pending title   -->
     <div class="container pending-top">
-        <div class="row align-items-center">
+        <div class="row align-items-center mb-1">
             <div class="col-10">
                 <h2 class="attend-title">Paso 1: Acepta los pedidos que deseas atender</h2>
             </div>
@@ -53,112 +53,120 @@
         </div>
     </div>
     <!-- / Pending title   -->
-    <!--  Pending subtitle  -->
-    <div class="pending-subtitle pending-bgGray">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <div class="mtb-16">
-                        <p class="text-14">@solicitud.Cliente</p>
+    
+    <div class="overflow-y auto">
+        <!--  Pending subtitle  -->
+        <div class="pending-subtitle pending-bgGray">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <div class="mtb-16">
+                            <p class="text-14">@solicitud.Cliente</p>
+                        </div>
                     </div>
-                </div>
-                <div class="col">
-                    <div class="vc-box--content contact-info mt-2 text-right">
-                        <img src="~/Content/Images/Shared/svg/a-icon-call.svg">
-                        <a href="tel:@solicitud.Telefono" onclick="return (navigator.userAgent.match(/Android|iPhone|iPad|iPod|Mobile/i))!=null;">
-                            <p style="margin-bottom: 16px;">@solicitud.Telefono</p>
-                        </a>
+                    <div class="col">
+                        <div class="vc-box--content contact-info mt-2 text-right">
+                            <img src="~/Content/Images/Shared/svg/a-icon-call.svg">
+                            <a href="tel:@solicitud.Telefono" onclick="return (navigator.userAgent.match(/Android|iPhone|iPad|iPod|Mobile/i))!=null;">
+                                <p style="margin-bottom: 16px;">@solicitud.Telefono</p>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+        <!-- / Pending subtitle    -->
 
-    <!-- / Pending subtitle    -->
-    <!--  Orders  -->
-    <div class="container">
-        @foreach (var item in Model.ListaDetalle2)
-        {
-            <div id="vc_pedido_@item.CUV" class="container vc-box vc-box--shadow pedidos">
-                <!--   Order title   -->
+        <!--  Orders  -->
+        <div class="container">
+            @foreach (var item in Model.ListaDetalle2)
+            {
+                <div id="vc_pedido_@item.CUV" class="container vc-box vc-box--shadow pedidos">
+                    <!--   Order title   -->
 
-                <div class="row align-items-start">
-                    <div class="col-9">
-                        <div class=" vc-box">
-                            <div class="vc-box--header">
-                                <span class="vc-box--title">@item.Producto</span>
-                            </div>
-                            <div class="vc-box--content">
-                                <p style="margin-bottom: 16px;">@item.Tono</p>
-                            </div>
+                    <div class="row align-items-start">
+                        <div class="col-9">
+                            <div class=" vc-box">
+                                <div class="vc-box--header">
+                                    <span class="vc-box--title">@item.Producto</span>
+                                </div>
+                                <div class="vc-box--content">
+                                    <p style="margin-bottom: 16px;">@item.Tono</p>
+                                </div>
 
-                            <input type="hidden" class="pedidoId" value="@item.PedidoId" />
-                            <input type="hidden" class="cuv" value="@item.CUV" />
-                            <input type="hidden" class="cantidad" value="@item.Cantidad" />
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <div class="vc-box">
-                            <div class="vc-box--action attend-delete">
-                                <img class="attend-img_30" onclick="MostrarMensajedeRechazoPedido('@item.CUV')" src="https://i.ibb.co/jTXwndP/trash-3x.png" alt="Borrar">
+                                <input type="hidden" class="pedidoId" value="@item.PedidoId" />
+                                <input type="hidden" class="cuv" value="@item.CUV" />
+                                <input type="hidden" class="cantidad" value="@item.Cantidad" />
                             </div>
                         </div>
-                    </div>
-                </div>
-                <!--  /Order title   -->
-                <!--   Order Action   -->
-                <div class="row align-items-center">
-                    <div class="col-4">
-                        <div class="vc-box ipt-tel">
-                            <input data-cantNew="@item.Cantidad" type="tel" maxlength="2" value="@item.Cantidad" placeholder="1" class="text-center text-14 text-700 ValidaNumeral ValidaPasteNumeral ValidaValor">
-                        </div>
-                    </div>
-
-                    <div class="col-8">
-                        <div id="texto_@item.CUV" class="vc-box text-white text-14 text-700">
-                            <a id="aceptar_@item.CUV" href="javascript:;" onclick="AceptarPedidoProducto('@item.CUV')" class="action-btn action-btn_border active">Aceptar</a>
-                        </div>
-
-                        @*<div class="vc-box text-700 text-14 text-black" style:none>
-                                <a class="action-btn action-btn_border">Aceptado</a>
-                            </div>*@
-                    </div>
-
-                </div>
-
-                <!--   /Order Action   -->
-                <!--  Order Delete Popup      -->
-
-                <div id=@item.CUV class="row align-items-center" style="display:none;">
-                    <div class="col mt-16">
-                        <div class="tooltip-primary tooltip-arrow_top ptb-16 ">
-                            <div class="col-12">
-                                <h6 class="text-14 text-black">¿Quieres eliminar este pedido?</h6>
+                        <div class="col-3">
+                            <div class="vc-box">
+                                <div class="vc-box--action attend-delete">
+                                    <img class="attend-img_30" onclick="MostrarMensajedeRechazoPedido('@item.CUV')" src="https://i.ibb.co/jTXwndP/trash-3x.png" alt="Borrar">
+                                </div>
                             </div>
-                            <div class="col-12">
-                                <div class="row">
-                                    <div class="col text-14 text-700">
-                                        <a href="javascript:;" onclick="OcultarMensajedeRechazoPedido('@item.CUV')" class="action-btn action-btn_refuse no-border">No, gracias</a>
-                                    </div>
-                                    <div class="col text-14 text-700">
-                                        <a href="javascript:;" onclick="EliminarSolicitudDetalle('@solicitud.PedidoId', '@item.CUV','C')" class="action-btn action-btn_continue active">Sí, eliminar</a>
+                        </div>
+                    </div>
+                    <!--  /Order title   -->
+                    <!--   Order Action   -->
+                    <div class="row align-items-center">
+                        <div class="col-4">
+                            <div class="vc-box ipt-tel">
+                                <input data-cantNew="@item.Cantidad" type="tel" maxlength="2" value="@item.Cantidad" placeholder="1" class="text-center text-14 text-700 ValidaNumeral ValidaPasteNumeral ValidaValor">
+                            </div>
+                        </div>
 
+                        <div class="col-8">
+                            <div id="texto_@item.CUV" class="vc-box text-white text-14 text-700">
+                                <a id="aceptar_@item.CUV" href="javascript:;" onclick="AceptarPedidoProducto('@item.CUV')" class="action-btn action-btn_border active">Aceptar</a>
+                            </div>
+
+                            @*<div class="vc-box text-700 text-14 text-black" style:none>
+                                    <a class="action-btn action-btn_border">Aceptado</a>
+                                </div>*@
+                        </div>
+
+                    </div>
+
+                    <!--   /Order Action   -->
+                    <!--  Order Delete Popup      -->
+
+                    <div id=@item.CUV class="row align-items-center" style="display:none;">
+                        <div class="col mt-16">
+                            <div class="tooltip-primary tooltip-arrow_top ptb-16 ">
+                                <div class="col-12">
+                                    <h6 class="text-14 text-black">¿Quieres eliminar este pedido?</h6>
+                                </div>
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col text-14 text-700">
+                                            <a href="javascript:;" onclick="OcultarMensajedeRechazoPedido('@item.CUV')" class="action-btn action-btn_refuse no-border">No, gracias</a>
+                                        </div>
+                                        <div class="col text-14 text-700">
+                                            <a href="javascript:;" onclick="EliminarSolicitudDetalle('@solicitud.PedidoId', '@item.CUV','C')" class="action-btn action-btn_continue active">Sí, eliminar</a>
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <!--  / Order Delete Popup      -->
                 </div>
-                <!--  / Order Delete Popup      -->
-            </div>
-        }
+            }
 
+        </div>
+        <!-- / Orders    -->
+        
     </div>
-    <!-- / Orders    -->
-    <div id="mensajepedido" class="container position-absolute" style="display:none;">
+    
+    
+    
+    
+    <div id="mensajepedido" class="container position-absolute" style="display:none; bottom:0;">
         <!--   Tooltip bottom     -->
-        <div class="row align-items-center position-relative action-continue">
-            <div class="col mb-16">
+        <div class="row align-items-center position-relative action-continue" style="padding-right:16px;">
+            <div class="col mb-1">
                 <div class="tooltip-secondary tooltip-arrow_bottom ptb-16 ">
                     <div class="col-12">
                         <h6 class="text-14 text-black text-700 tooltip-info">Debes aceptar mínimo un pedido para continuar.</h6>
@@ -169,8 +177,8 @@
         <!--  / Tooltip bottom      -->
     </div>
     <!--  / Action buttons  -->
-    <div class="bt-1 ptb-8 mt-32">
-        <div class="container">
+    <div class="bt-1 mt-auto ">
+        <div class="container pt-3 pb-3">
             <div class="row">
                 <div class="col">
                     <div class="vc-box text-14 text-700">
