@@ -320,6 +320,9 @@ namespace Portal.Consultoras.Common
         public static class PersonalizacionOdd
         {
             public const int TablaLogicaId = 93;
+
+            public static int ColorFondoBanner = 9301;
+            public static int ColorFondoDisplay = 9302;
         }
 
         public static class OrdernamientoFav
@@ -345,7 +348,7 @@ namespace Portal.Consultoras.Common
         public static class Plan20
         {
             public const int TablaLogicaId = 98;
-            
+
             public const string ImageUrlCode = "bar_in_img";
             public const string RedirectCode = "bar_in_url";
             public const string EnabledCode = "bar_in_act";
@@ -447,7 +450,7 @@ namespace Portal.Consultoras.Common
             public const int Habilitar_App = 12213;
             public const int Habilitar_App_PBI_ExternalApp = 12214;
             public const int Acplica3porciento = 12215;
-            
+
             public const string Habilitar_Comision_Cero = "DESACTIVA_COMISION_VISA";
         }
 
@@ -560,7 +563,7 @@ namespace Portal.Consultoras.Common
         {
             public const int TablaLogicaId = 159;
         }
-        
+
         public static class EscalaDescuento
         {
             public const int TablaLogicaId = 160;
@@ -593,7 +596,8 @@ namespace Portal.Consultoras.Common
             public const int TablaLogicaId = 181;
         }
 
-        public static class CaminoBrillante {
+        public static class CaminoBrillante
+        {
             public const short CaminoBrillanteInfoComercial = 165;
             public const short CaminoBrillanteLogros = 166;
             public const short CaminoBrillanteIndicadores = 167;

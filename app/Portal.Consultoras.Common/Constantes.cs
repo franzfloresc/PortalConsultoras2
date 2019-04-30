@@ -202,11 +202,11 @@ namespace Portal.Consultoras.Common
 
             public const int TablaLogicaestadoPopupInformativoID = 191;
 
-            public static class PersonalizacionOdd
-            {
-                public static readonly int ColorFondoBanner = 9301;
-                public static readonly int ColorFondoDisplay = 9302;
-            }
+            //public static class PersonalizacionOdd
+            //{
+            //    public static readonly int ColorFondoBanner = 9301;
+            //    public static readonly int ColorFondoDisplay = 9302;
+            //}
 
             public const int ActualizaEscalaDescuentoDestokp = 7201;
             public const int ActualizaEscalaDescuentoMobile = 7301;
