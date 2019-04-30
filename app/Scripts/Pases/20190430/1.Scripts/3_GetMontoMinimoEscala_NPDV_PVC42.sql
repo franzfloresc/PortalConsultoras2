@@ -12,7 +12,8 @@ AS
 BEGIN
     SELECT ISNULL(MontoMinimoPedido, 0) AS MontoMinimoEscala
 	FROM ods.consultora WITH (NOLOCK)
-	WHERE ConsultoraID = @ConsultoraID;
+	WHERE ConsultoraID = @ConsultoraID AND MontoMaximoPedido  
+		  IN ( 0.00,99999999.00,999999999.00, 9999999999.00, 99999999999.00, 999999999999.00 );
 END
 GO
 
@@ -30,7 +31,8 @@ AS
 BEGIN
     SELECT ISNULL(MontoMinimoPedido, 0) AS MontoMinimoEscala
 	FROM ods.consultora WITH (NOLOCK)
-	WHERE ConsultoraID = @ConsultoraID;
+	WHERE ConsultoraID = @ConsultoraID AND MontoMaximoPedido  
+		  IN ( 0.00,99999999.00,999999999.00, 9999999999.00, 99999999999.00, 999999999999.00 );
 END
 GO
 
@@ -48,7 +50,8 @@ AS
 BEGIN
     SELECT ISNULL(MontoMinimoPedido, 0) AS MontoMinimoEscala
 	FROM ods.consultora WITH (NOLOCK)
-	WHERE ConsultoraID = @ConsultoraID;
+	WHERE ConsultoraID = @ConsultoraID AND MontoMaximoPedido  
+		  IN ( 0.00,99999999.00,999999999.00, 9999999999.00, 99999999999.00, 999999999999.00 );
 END
 GO
 
@@ -66,7 +69,8 @@ AS
 BEGIN
     SELECT ISNULL(MontoMinimoPedido, 0) AS MontoMinimoEscala
 	FROM ods.consultora WITH (NOLOCK)
-	WHERE ConsultoraID = @ConsultoraID;
+	WHERE ConsultoraID = @ConsultoraID AND MontoMaximoPedido  
+		  IN ( 0.00,99999999.00,999999999.00, 9999999999.00, 99999999999.00, 999999999999.00 );
 END
 GO
 
@@ -84,7 +88,8 @@ AS
 BEGIN
     SELECT ISNULL(MontoMinimoPedido, 0) AS MontoMinimoEscala
 	FROM ods.consultora WITH (NOLOCK)
-	WHERE ConsultoraID = @ConsultoraID;
+	WHERE ConsultoraID = @ConsultoraID AND MontoMaximoPedido  
+		  IN ( 0.00,99999999.00,999999999.00, 9999999999.00, 99999999999.00, 999999999999.00 );
 END
 GO
 
@@ -102,7 +107,8 @@ AS
 BEGIN
     SELECT ISNULL(MontoMinimoPedido, 0) AS MontoMinimoEscala
 	FROM ods.consultora WITH (NOLOCK)
-	WHERE ConsultoraID = @ConsultoraID;
+	WHERE ConsultoraID = @ConsultoraID AND MontoMaximoPedido  
+		  IN ( 0.00,99999999.00,999999999.00, 9999999999.00, 99999999999.00, 999999999999.00 );
 END
 GO
 
@@ -120,7 +126,8 @@ AS
 BEGIN
     SELECT ISNULL(MontoMinimoPedido, 0) AS MontoMinimoEscala
 	FROM ods.consultora WITH (NOLOCK)
-	WHERE ConsultoraID = @ConsultoraID;
+	WHERE ConsultoraID = @ConsultoraID AND MontoMaximoPedido  
+		  IN ( 0.00,99999999.00,999999999.00, 9999999999.00, 99999999999.00, 999999999999.00 );
 END
 GO
 
@@ -138,7 +145,8 @@ AS
 BEGIN
     SELECT ISNULL(MontoMinimoPedido, 0) AS MontoMinimoEscala
 	FROM ods.consultora WITH (NOLOCK)
-	WHERE ConsultoraID = @ConsultoraID;
+	WHERE ConsultoraID = @ConsultoraID AND MontoMaximoPedido  
+		  IN ( 0.00,99999999.00,999999999.00, 9999999999.00, 99999999999.00, 999999999999.00 );
 END
 GO
 
@@ -156,7 +164,8 @@ AS
 BEGIN
     SELECT ISNULL(MontoMinimoPedido, 0) AS MontoMinimoEscala
 	FROM ods.consultora WITH (NOLOCK)
-	WHERE ConsultoraID = @ConsultoraID;
+	WHERE ConsultoraID = @ConsultoraID AND MontoMaximoPedido  
+		  IN ( 0.00,99999999.00,999999999.00, 9999999999.00, 99999999999.00, 999999999999.00 );
 END
 GO
 
@@ -174,7 +183,8 @@ AS
 BEGIN
     SELECT ISNULL(MontoMinimoPedido, 0) AS MontoMinimoEscala
 	FROM ods.consultora WITH (NOLOCK)
-	WHERE ConsultoraID = @ConsultoraID;
+	WHERE ConsultoraID = @ConsultoraID AND MontoMaximoPedido  
+		  IN ( 0.00,99999999.00,999999999.00, 9999999999.00, 99999999999.00, 999999999999.00 );
 END
 GO
 
@@ -192,7 +202,8 @@ AS
 BEGIN
     SELECT ISNULL(MontoMinimoPedido, 0) AS MontoMinimoEscala
 	FROM ods.consultora WITH (NOLOCK)
-	WHERE ConsultoraID = @ConsultoraID;
+	WHERE ConsultoraID = @ConsultoraID AND MontoMaximoPedido  
+		  IN ( 0.00,99999999.00,999999999.00, 9999999999.00, 99999999999.00, 999999999999.00 );
 END
 GO
 
@@ -210,7 +221,8 @@ AS
 BEGIN
     SELECT ISNULL(MontoMinimoPedido, 0) AS MontoMinimoEscala
 	FROM ods.consultora WITH (NOLOCK)
-	WHERE ConsultoraID = @ConsultoraID;
+	WHERE ConsultoraID = @ConsultoraID AND MontoMaximoPedido  
+		  IN ( 0.00,99999999.00,999999999.00, 9999999999.00, 99999999999.00, 999999999999.00 );
 END
 GO
 
