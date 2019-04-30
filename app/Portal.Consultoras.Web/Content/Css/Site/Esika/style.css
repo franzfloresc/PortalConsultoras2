@@ -28597,7 +28597,8 @@ div.motivoRechazo textarea {
 .opcion_cdr,
 .opcion_cdr_seleccionada_campo_busqueda,
 .validacion_datos_correo_electronico,
-.validacion_datos_celular_contacto {
+.validacion_datos_celular_contacto,
+.btn_agregar_mas_productos_a_cambiar span{
     display: inline-block;
 }
 
@@ -28625,7 +28626,9 @@ div.motivoRechazo textarea {
         }
 
 .opcion_cdr,
-.opcion_cdr_seleccionada_campo_busqueda {
+.opcion_cdr_seleccionada_campo_busqueda,
+.btn_eliminar_trueque,
+.btn_agregar_mas_productos_a_cambiar span{
     vertical-align: middle;
 }
 
@@ -28635,22 +28638,23 @@ div.motivoRechazo textarea {
     border-radius: 4px;
     margin-right: 16px;
     border: 1px solid #808080;
-    -moz-transition: all 0.3s ease;
-    -o-transition: all 0.3s ease;
-    -webkit-transition: all 0.3s ease;
-    transition: all 0.3s ease;
+    -moz-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
 }
 
     .opcion_cdr:last-child{
         margin-right:0;
     }
 
-.opcion_cdr_seleccionada {
-    border: 2px solid #000;
-    -moz-box-shadow: 1px 1px 10px -2px rgba(0,0,0,.7);
-    -webkit-box-shadow: 1px 1px 10px -2px rgba(0,0,0,.7);
-    box-shadow: 1px 1px 10px -2px rgba(0,0,0,.7);
-}
+    .opcion_cdr:hover,
+    .opcion_cdr_seleccionada {
+        border: 2px solid #000;
+        -moz-box-shadow: 1px 1px 10px -2px rgba(0,0,0,.7);
+        -webkit-box-shadow: 1px 1px 10px -2px rgba(0,0,0,.7);
+        box-shadow: 1px 1px 10px -2px rgba(0,0,0,.7);
+    }
 
 .opcion_cdr_enlace,
 .opcion_cdr_seleccionada_terminos_entrega_producto_wrapper,
@@ -28769,6 +28773,10 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     width: 130px;
 }
 
+.opcion_cdr_seleccionada_campo_busqueda--precio{
+    margin-right:6px;
+}
+
 .opcion_cdr_seleccionada_campo_busqueda--descripcion {
     width: 261px;
 }
@@ -28837,6 +28845,35 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .menos img {
         left: -1.5px;
     }
+
+.btn_agregar_mas_productos_a_cambiar {
+    width: 249px!important;
+    border: 0!important;
+    background-color: #FFF!important;
+    color:#000!important;
+}
+
+    .btn_agregar_mas_productos_a_cambiar:hover span:last-child{
+        text-decoration:underline;
+    }
+
+    .btn_agregar_mas_productos_a_cambiar span:first-child {
+        margin-right: 8px;
+        height: 30px;
+    }
+
+        .btn_agregar_mas_productos_a_cambiar img {
+            width: 95%;
+        }
+
+.btn_eliminar_trueque {
+    /*border: 1px solid #909094;*/
+    border: 0;
+    background-color: #FFF;
+    width: 40px;
+    height: 40px;
+    margin-left: -4px;
+}
 
 .opcion_cdr_seleccionada_info--devolucionCasoSetProducto{
     margin-bottom:8px;
