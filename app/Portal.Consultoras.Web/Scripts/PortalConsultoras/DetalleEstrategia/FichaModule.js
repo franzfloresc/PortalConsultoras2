@@ -520,7 +520,7 @@ var FichaModule = (function (config) {
         else {
             estrategia = _modeloFicha;
 
-            if (!estrategia || !estrategia.EstrategiaID) {
+            if (typeof estrategia === "undefined" || estrategia == null || typeof estrategia.EstrategiaID === "undefined" || estrategia.EstrategiaID == 0) {
                 _redireccionar('_getEstrategia, no obtiene oferta desde api');
                 return false;
             }
