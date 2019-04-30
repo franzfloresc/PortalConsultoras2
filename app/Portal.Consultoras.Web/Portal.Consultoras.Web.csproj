@@ -1484,6 +1484,7 @@
     <Content Include="Content\Css\Site\Images\gif_de_ofertas_3.gif" />
     <Content Include="Content\Css\Site\Menu\MenuGeneral.css" />
     <Content Include="Content\Css\Site\Menu\MenuContenedorResponsive.css" />
+    <Content Include="Content\Images\icono_confirmacion.svg" />
     <Content Include="Content\Images\icono_party_popper.png" />
     <Content Include="Content\Images\flecha_despliegue_opcion_mi_perfil.svg" />
     <Content Include="Content\Images\Esika\icono_campos_select_mi_perfil.svg" />
@@ -1494,6 +1495,7 @@
     <Content Include="Content\Images\icono_localizacion.svg" />
     <Content Include="Content\Images\icono_localizacion_disabled.svg" />
     <Content Include="Content\Images\icono_mis_datos.svg" />
+    <Content Include="Content\Images\icono_pendiente_confirmacion.svg" />
     <Content Include="Content\Images\icono_plus.svg" />
     <Content Include="Content\Images\icono_ubicacion_blanco.svg" />
     <Content Include="Content\Images\icono_ubicacion.svg" />
