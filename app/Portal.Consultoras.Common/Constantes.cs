@@ -213,9 +213,9 @@ namespace Portal.Consultoras.Common
 
             public static class PagoEnLinea
             {
-                public const int Habilitar_App = 12213;
-                public const int Habilitar_App_PBI_ExternalApp = 12214;
-                public const string Habilitar_Comision_Cero = "DESACTIVA_COMISION_VISA";
+                //public const int Habilitar_App = 12213;
+                //public const int Habilitar_App_PBI_ExternalApp = 12214;
+                //public const string Habilitar_Comision_Cero = "DESACTIVA_COMISION_VISA";
                 public const decimal MontoMinimoPago = 0.50m;
             }
 

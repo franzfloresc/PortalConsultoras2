@@ -429,7 +429,7 @@ namespace Portal.Consultoras.Common
             public const int HeightMedium = 12104;
         }
 
-        public static class ValoresPagoLinea
+        public static class PagoLinea
         {
             public const int TablaLogicaId = 122;
 
@@ -444,7 +444,11 @@ namespace Portal.Consultoras.Common
             public const int UrlLogoPasarelaPago = 12209;
             public const int ColorBotonPagarPasarelaPago = 12210;
             public const int MensajeInformacionPagoExitoso = 12211;
+            public const int Habilitar_App = 12213;
+            public const int Habilitar_App_PBI_ExternalApp = 12214;
             public const int Acplica3porciento = 12215;
+            
+            public const string Habilitar_Comision_Cero = "DESACTIVA_COMISION_VISA";
         }
 
         public static class CuponCodigosOferta
