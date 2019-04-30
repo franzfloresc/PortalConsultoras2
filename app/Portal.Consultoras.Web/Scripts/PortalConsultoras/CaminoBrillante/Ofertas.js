@@ -23,7 +23,13 @@ $("#Demostradores").on('click', '.boton_agregar_ofertas', function (e) {
     var obj = JSON.parse($(this).parents('[data-item="BuscadorFichasProductos"]').find('div [data-demostrador]').attr("data-demostrador"));
     var cantidad = $(contenedor).find("#txtCantidad").val();
     var tab = $("#Demostradores").attr('id');
-    AgregarProducto(obj, cantidad, contenedor, tab, false);
+    if (cantidad <= 0) {
+        AbrirMensaje("La cantidad ingresada debe ser un número mayor que cero, verifique");
+        CerrarSplash();
+         } else {
+            AgregarProducto(obj, cantidad, contenedor, tab, false);
+        }
+    
 });
 
 $("#kits").on('click', '.boton_agregar_ofertas', function (e) {
