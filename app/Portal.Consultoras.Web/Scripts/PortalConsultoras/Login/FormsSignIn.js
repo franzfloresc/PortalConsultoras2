@@ -174,11 +174,11 @@ $(document).ready(function () {
     });
 
     Inicializar();
-    
+
     $('#frmLogin').on('submit', function (e) {
         if ($('#popupRestaurarClave').is(':visible')) {
             return false;
-        }       
+        }
         // validation code here
         var valid = true;
         CodigoISO = $('#ddlPais').val();
@@ -707,7 +707,7 @@ function AbrirMensajeLogin(tipo, close) {
 
 function ValidarFormulario() {
     $('#hdfContrasenia').val($('#txtContrasenia').val());
-$('#SubmitButton').click();
+    $('#SubmitButton').click();
 }
 
 function AsignarHojaEstilos() {
@@ -851,7 +851,7 @@ function login2() {
     $('#hdeKey').val(dataToSend.key);
     $('#hdeIv').val(dataToSend.iv);
 
-    waitingDialog();    
+    waitingDialog();
 
     var form = $('#frmLogin');
     var postData = form.serialize() + "&returlUrl=" + $('#returnUrl').val();
@@ -863,15 +863,20 @@ function login2() {
         dataType: 'json',
         //contentType: 'application/json; charset=utf-8',
         success: function (response) {
+            
             var resul = "";
-            if (response.data != null) {
+            if (response.data != null) {        
+                analytics.invocarCompleteRegistrationPixel();
+
                 var datos = response.data;
                 $('#popupAsociarUsuarioExt').hide()
                 MostrarPopupPin(datos);
                 limpiar_local_storage();
                 closeWaitingDialog();
 
-            } else if (response.success) {
+
+            } else if (response.success) {   
+                analytics.invocarCompleteRegistrationPixel();
                 if (response.redirectTo !== "") {
                     analytics.invocarEventoPixel("FacebookLoginLogin");
                     limpiar_local_storage();
@@ -1007,18 +1012,18 @@ function Fondofestivo(id) {
 }
 
 function RecuperarContrasenia() {
-   PaisID = $("#cboPaisCambioClave").val();
-   if (PaisID == '0') {
-   alert("Debe seleccionar un pais.");
-   return false;
-   }
+    PaisID = $("#cboPaisCambioClave").val();
+    if (PaisID == '0') {
+        alert("Debe seleccionar un pais.");
+        return false;
+    }
 
-   var nombreDato = $(".cboPaisCambioClave option:selected").attr("data-campoclave");
-   CodigoUsuario = $("#txtCorreoElectronico").val();
-   if (CodigoUsuario == "") {
-   alert("Debe ingresar " + nombreDato)
-   return false;
-   }       
+    var nombreDato = $(".cboPaisCambioClave option:selected").attr("data-campoclave");
+    CodigoUsuario = $("#txtCorreoElectronico").val();
+    if (CodigoUsuario == "") {
+        alert("Debe ingresar " + nombreDato)
+        return false;
+    }
 
     waitingDialog();
 
@@ -1027,7 +1032,7 @@ function RecuperarContrasenia() {
         url: urlGetRestaurarClave,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify({ paisID: PaisID, valorRestaurar: CodigoUsuario, prioridad: tipoOpcion}),
+        data: JSON.stringify({ paisID: PaisID, valorRestaurar: CodigoUsuario, prioridad: tipoOpcion }),
         async: true,
         success: function (response) {
             if (response.success) {
@@ -1047,19 +1052,18 @@ function RecuperarContrasenia() {
                 var tituloPopup = "CAMBIO DE <b>CONTRASEÑA</b>"
                 $("#tituloPopup").empty();
                 $("#tituloPopup").append(tituloPopup);
-                var nomConsultora = "<b>" + primerNombre + ", </b>no te preocupes."                 
+                var nomConsultora = "<b>" + primerNombre + ", </b>no te preocupes."
 
                 $("#spnNombreConsultora").append(nomConsultora);
 
-                $("#linkvolverInicio").hide();  
+                $("#linkvolverInicio").hide();
                 $("#vermasopciones1").hide();
 
                 $(".MenCorreoEnviado_Pin").hide()
                 $(".pMenCorreoEnviado_RC").show();
                 correoRecuperar = datos.CorreoEnmascarado;
 
-                if (datos.Correo != "")
-                {
+                if (datos.Correo != "") {
                     if (datos.OpcionCorreoDesabilitado == "1") {
 
                         BloqueaOpcionCorreo(datos.HoraRestanteCorreo);
@@ -1069,8 +1073,7 @@ function RecuperarContrasenia() {
                     }
                 }
 
-                if (datos.Celular != "")
-                {
+                if (datos.Celular != "") {
                     if (datos.OpcionSmsDesabilitado == "1") {
 
                         BloqueaOpcionSms(datos.HoraRestanteSms);
@@ -1079,9 +1082,8 @@ function RecuperarContrasenia() {
                         ActivaOpcionSms();
                     }
                 }
-                
-                switch (datos.MostrarOpcion)
-                {
+
+                switch (datos.MostrarOpcion) {
                     case 1:
                         {
                             $(".EmailEmascarado").html(datos.CorreoEnmascarado);
@@ -1124,7 +1126,7 @@ function RecuperarContrasenia() {
                         } break;
 
                     case 4:
-                        {                
+                        {
                             //set variables nuevo chat
                             emt_client_type = datos.IdEstadoActividad;
                             emt_country = datos.CodigoIso;
@@ -1134,7 +1136,7 @@ function RecuperarContrasenia() {
                             emt_type = '1';
                             emt_device = ' ';
                             //fin set variables nuevo chat
-                        
+
                             $("#hdCodigoConsultora").val(datos.CodigoUsuario);
                             $("#divHoraiosAtencion").html(datos.descripcionHorario);
 
@@ -1143,10 +1145,10 @@ function RecuperarContrasenia() {
                             $("#menPrioridad2_chat").show();
                             $("#prioridad2_chat").show();
                             $("#vermasopciones1").hide();
-                        } break;                        
+                        } break;
 
                     case 5:
-                        {     
+                        {
                             if (datos.EsMobile) {
                                 $(".fonoMobile").remove();
                                 var htmlFono = "<a class='central_telefonica fonoMobile' href='tel:#CELULAR#' onclick='return (navigator.userAgent.match(/Android|iPhone|iPad|iPod|Mobile/i))!=null;'>";
@@ -1203,7 +1205,7 @@ function RecuperarContrasenia() {
                             $("#prioridad3").show();
                             $("#vermasopciones1").hide();
                         }
-                        break;                                            
+                        break;
                 }
 
                 $("#popup1").hide();
@@ -1364,7 +1366,7 @@ function ProcesaEnvioSMS() {
                 $("#1cDigito").focus();
             }
             else {
-                nroIntentosSms = nroIntentosSms - 1;                
+                nroIntentosSms = nroIntentosSms - 1;
                 setTimeout(function () { alert("No se ha podido enviar el mensaje de texto. Intentelo mas tarde."); }, 1000);
             }
             closeWaitingDialog();
@@ -1400,8 +1402,7 @@ function Regresar() {
     $("#popupRestaurarClave").show();
 }
 
-function OcultarContenidoPopup()
-{
+function OcultarContenidoPopup() {
     $("#menPrioridad1").hide();
     $("#menPrioridad1_correo").hide();
     $("#menPrioridad1_sms").hide();

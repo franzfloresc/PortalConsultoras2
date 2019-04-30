@@ -1,4 +1,4 @@
-using AutoMapper;
+﻿using AutoMapper;
 using ClosedXML.Excel;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.PublicService.Cryptography;
@@ -870,11 +870,10 @@ namespace Portal.Consultoras.Web.Controllers
                         return RedirectToUniqueRoute("ConsultoraOnline", "Pendientes");
                     case Constantes.IngresoExternoPagina.Notificaciones:
                         return RedirectToUniqueRoute("Notificaciones", "IndexExterno", new { IdOrigen = model.OrigenPedido });
-                    case Constantes.IngresoExternoPagina.MasGanadoras:
+                    case Constantes.IngresoExternoPagina.MasGanadoras: 
                         return RedirectToUniqueRoute("MasGanadoras", "Index");
                     case Constantes.IngresoExternoPagina.ArmaTuPack:
                         return RedirectToUniqueRoute("ArmaTuPack", "Detalle");
-
                 }
             }
             catch (Exception ex)
@@ -1002,9 +1001,9 @@ namespace Portal.Consultoras.Web.Controllers
             pasoLog = "Login.GetUserData";
             sessionManager.SetIsContrato(1);
             sessionManager.SetIsOfertaPack(1);
-            var pseudoParamNotif = (DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds;//SALUD-58       
+            double pseudoParamNotif = (DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds;//SALUD-58     
 
-            var usuarioModel = (UsuarioModel)null;
+            UsuarioModel usuarioModel = (UsuarioModel)null;
 
             try
             {
@@ -1350,8 +1349,8 @@ namespace Portal.Consultoras.Web.Controllers
                         var lista = linkPaisTask.Result;
                         if (lista.Count > 0)
                         {
-                            usuarioModel.UrlAyuda = lista.Find(x => x.TipoLinkID == 301) != null
-                                ? lista.Find(x => x.TipoLinkID == 301).Url
+                            usuarioModel.UrlAyuda = lista.Find(x => x.TipoLinkID == 301) != null 
+                                ? lista.Find(x => x.TipoLinkID == 301).Url 
                                 : null;
                             usuarioModel.UrlCapedevi = lista.Find(x => x.TipoLinkID == 302) != null
                                 ? lista.Find(x => x.TipoLinkID == 302).Url
@@ -1400,8 +1399,9 @@ namespace Portal.Consultoras.Web.Controllers
                                 msPersonalizacionModel.PaisHabilitado = usuarioModel.CodigoISO;
                             }
 
-                            msPersonalizacionModel.GuardaDataEnLocalStorage = configuracionPaisDatos.Where(config => config.Codigo == Constantes.CodigoConfiguracionMSPersonalizacion.GuardaDataEnLocalStorage).Select(config => config.Valor1).FirstOrDefault() ?? string.Empty; ;
-                            msPersonalizacionModel.GuardaDataEnSession = configuracionPaisDatos.Where(config => config.Codigo == Constantes.CodigoConfiguracionMSPersonalizacion.GuardaDataEnSession).Select(config => config.Valor1).FirstOrDefault() ?? string.Empty; ;
+                            msPersonalizacionModel.GuardaDataEnLocalStorage = configuracionPaisDatos.Where(config => config.Codigo == Constantes.CodigoConfiguracionMSPersonalizacion.GuardaDataEnLocalStorage).Select(config => config.Valor1).FirstOrDefault() ?? string.Empty;
+                            msPersonalizacionModel.GuardaDataEnSession = configuracionPaisDatos.Where(config => config.Codigo == Constantes.CodigoConfiguracionMSPersonalizacion.GuardaDataEnSession).Select(config => config.Valor1).FirstOrDefault() ?? string.Empty;
+                            msPersonalizacionModel.EstrategiaDisponibleParaFicha = configuracionPaisDatos.Where(config => config.Codigo == Constantes.CodigoConfiguracionMSPersonalizacion.EstrategiaDisponibleParaFicha).Select(config => config.Valor1).FirstOrDefault() ?? string.Empty;
                         }
                         catch (Exception ex)
                         {
@@ -1409,6 +1409,7 @@ namespace Portal.Consultoras.Web.Controllers
                             msPersonalizacionModel.EstrategiaHabilitado = WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion;
                             msPersonalizacionModel.GuardaDataEnLocalStorage = string.Empty;
                             msPersonalizacionModel.GuardaDataEnSession = string.Empty;
+                            msPersonalizacionModel.EstrategiaDisponibleParaFicha = string.Empty;
 
                             Common.LogManager.SaveLog(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
                         }
@@ -1419,6 +1420,7 @@ namespace Portal.Consultoras.Web.Controllers
                             msPersonalizacionModel.PaisHabilitado = string.Empty;
                             msPersonalizacionModel.GuardaDataEnLocalStorage = string.Empty;
                             msPersonalizacionModel.GuardaDataEnSession = string.Empty;
+                            msPersonalizacionModel.EstrategiaDisponibleParaFicha = string.Empty;
                             Common.LogManager.SaveLog(new Exception("La configuración MSPersonalizacion se encuentra deshabilitado en la tabla configuracionpais.", null), usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
                         }
 
@@ -1461,6 +1463,11 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.DiaFacturacion = GetDiaFacturacion(usuarioModel.PaisID, usuarioModel.CampaniaID, usuarioModel.ConsultoraID, usuarioModel.ZonaID, usuarioModel.RegionID);
                     usuarioModel.NuevasDescripcionesBuscador = getNuevasDescripcionesBuscador(usuarioModel.PaisID);
 
+                    /*HD-3777*/
+                    usuarioModel.CodigoClasificacion = usuario.CodigoClasificacion;
+                    usuarioModel.CodigoSubClasificacion = usuario.CodigoSubClasificacion;
+                    usuarioModel.DescripcionSubclasificacion = usuario.DescripcionSubClasificacion;
+                    /*Fin*/
                 }
 
                 sessionManager.SetUserData(usuarioModel);
@@ -3103,8 +3110,5 @@ namespace Portal.Consultoras.Web.Controllers
 
             return result;
         }
-
-
-
     }
 }
