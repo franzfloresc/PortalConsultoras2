@@ -519,18 +519,20 @@ var FichaModule = (function (config) {
         }
         else {
             estrategia = _modeloFicha;
-            _esMultimarca = estrategia.EsMultimarca;
-
-            estrategia.esCampaniaSiguiente = estrategia.CampaniaID !== _obtenerCampaniaActual();
-            $.each(estrategia.Hermanos, function (idx, hermano) {
-                hermano = estrategia.Hermanos[idx];
-                hermano.esCampaniaSiguiente = estrategia.esCampaniaSiguiente;
-            });
 
             if (!estrategia || !estrategia.EstrategiaID) {
                 _redireccionar('_getEstrategia, no obtiene oferta desde api');
                 return false;
             }
+
+            _esMultimarca = estrategia.EsMultimarca;
+
+            estrategia.esCampaniaSiguiente = estrategia.CampaniaID !== _obtenerCampaniaActual();
+
+            $.each(estrategia.Hermanos, function (idx, hermano) {
+                hermano = estrategia.Hermanos[idx];
+                hermano.esCampaniaSiguiente = estrategia.esCampaniaSiguiente;
+            });            
         }
 
         _actualizarCodigoVariante(estrategia);
@@ -555,7 +557,7 @@ var FichaModule = (function (config) {
 
         var estrategia = getEstrategia();
 
-        if (estrategia == null) {
+        if (estrategia == null || estrategia === false) {
             _redireccionar("_construirSeccionEstrategia, sin estrategia");
             return false;
         }
