@@ -343,7 +343,7 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
 
                 //Notificar Pago Via Email
                 var listaConfiguracion = _tablaLogicaDatosBusinessLogic.GetListCache(usuario.PaisID, ConsTablaLogica.ValoresPagoLinea.TablaLogicaId);
-                var mensajeExitoso = listaConfiguracion.Where(p => p.TablaLogicaDatosID == Constantes.TablaLogicaDato.MensajeInformacionPagoExitoso).Select(p => p.Codigo)
+                var mensajeExitoso = listaConfiguracion.Where(p => p.TablaLogicaDatosID == ConsTablaLogica.ValoresPagoLinea.MensajeInformacionPagoExitoso).Select(p => p.Codigo)
                                                        .SingleOrDefault() ?? string.Empty;
                 if (!string.IsNullOrEmpty(usuario.EMail) && pagoEnLineaVisa.Data != null)
                 {

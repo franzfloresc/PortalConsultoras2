@@ -176,18 +176,18 @@ namespace Portal.Consultoras.Common
             //public const int ValoresImagenesResizeWitdhMaxMedium = 12103;
             //public const int ValoresImagenesResizeHeightMedium = 12104;
 
-            public const int MerchantId = 12201;
-            public const int AccessKeyId = 12202;
-            public const int SecretAccessKey = 12203;
-            public const int UrlSessionBotonPago = 12204;
-            public const int UrlGenerarNumeroPedido = 12205;
-            public const int PorcentajeGastosAdministrativos = 12206;
-            public const int UrlLibreriaPagoVisa = 12207;
-            public const int UrlAutorizacionBotonPago = 12208;
-            public const int UrlLogoPasarelaPago = 12209;
-            public const int ColorBotonPagarPasarelaPago = 12210;
-            public const int MensajeInformacionPagoExitoso = 12211;
-            public const int Acplica3porciento = 12215;
+            //public const int MerchantId = 12201;
+            //public const int AccessKeyId = 12202;
+            //public const int SecretAccessKey = 12203;
+            //public const int UrlSessionBotonPago = 12204;
+            //public const int UrlGenerarNumeroPedido = 12205;
+            //public const int PorcentajeGastosAdministrativos = 12206;
+            //public const int UrlLibreriaPagoVisa = 12207;
+            //public const int UrlAutorizacionBotonPago = 12208;
+            //public const int UrlLogoPasarelaPago = 12209;
+            //public const int ColorBotonPagarPasarelaPago = 12210;
+            //public const int MensajeInformacionPagoExitoso = 12211;
+            //public const int Acplica3porciento = 12215;
 
             public const int CantidadCuvMasivo_NuevoMasivo = 13701;
             public const int EstrategiaImagen_NuevoMasivo = 13702;
