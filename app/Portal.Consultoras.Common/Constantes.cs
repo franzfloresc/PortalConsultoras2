@@ -162,8 +162,8 @@ namespace Portal.Consultoras.Common
         public static class TablaLogicaDato
         {
             // PackNuevas-PedidoAsociado.
-            public const int TablaLogicaPackNuevasPedidoAsociadoID = 72;
-            public const int TablaLogicaDatosPackNuevasPedidoAsociadoID = 7201;
+            //public const int TablaLogicaPackNuevasPedidoAsociadoID = 72;
+            //public const int TablaLogicaDatosPackNuevasPedidoAsociadoID = 7201;
             //public const int PersonalizacionShowroom = 9850;
             //public const int BusquedaNemotecnicoMatriz = 9851;
             //public const int BusquedaNemotecnicoOfertaLiquidacion = 9852;
@@ -197,10 +197,10 @@ namespace Portal.Consultoras.Common
             //public const int MensajeActualizarEmailSms = 1001;
             //public const int MensajeActualizarSms = 1002;
             //public const int MensajeActualizarEmail = 1003;
-            public const int CaminoBrillanteTablaLogica = 165;
+            //public const int CaminoBrillanteTablaLogica = 165;
             public const int MensajeActualizarFijo = 16261;
 
-            public const int TablaLogicaestadoPopupInformativoID = 191;
+            //public const int TablaLogicaestadoPopupInformativoID = 191;
 
             //public static class PersonalizacionOdd
             //{
@@ -219,30 +219,30 @@ namespace Portal.Consultoras.Common
                 public const decimal MontoMinimoPago = 0.50m;
             }
 
-            public static class ArmaTuPack
-            {
-                public const string ListCuv = "ListCuv";
-            }
+            //public static class ArmaTuPack
+            //{
+            //    public const string ListCuv = "ListCuv";
+            //}
 
-            public static class CaminoBrillante
-            {
-                /// <summary>
-                /// Url para conexion a informacionComercialServices
-                /// </summary>
-                public const string UrlInformacionComercial = "url_inf_com";
-                /// <summary>
-                /// Usuario para autenticarse en el servicio
-                /// </summary>
-                public const string UsuarioInformacionComercial = "usu_inf_com";
-                /// <summary>
-                /// Clave para autenticarse en el servicio
-                /// </summary>
-                public const string ClaveInformacionComercial = "cla_inf_com";
-                /// <summary>
-                /// Número de campanias a obtener en cada periodo
-                /// </summary>
-                public const string NumeroCampaniasEnPeriodo = "num_cam_per";
-            }
+            //public static class CaminoBrillante
+            //{
+            //    /// <summary>
+            //    /// Url para conexion a informacionComercialServices
+            //    /// </summary>
+            //    public const string UrlInformacionComercial = "url_inf_com";
+            //    /// <summary>
+            //    /// Usuario para autenticarse en el servicio
+            //    /// </summary>
+            //    public const string UsuarioInformacionComercial = "usu_inf_com";
+            //    /// <summary>
+            //    /// Clave para autenticarse en el servicio
+            //    /// </summary>
+            //    public const string ClaveInformacionComercial = "cla_inf_com";
+            //    /// <summary>
+            //    /// Número de campanias a obtener en cada periodo
+            //    /// </summary>
+            //    public const string NumeroCampaniasEnPeriodo = "num_cam_per";
+            //}
         }
 
         public static class ParametrosNames
