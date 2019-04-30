@@ -2447,5 +2447,10 @@ namespace Portal.Consultoras.Service
         {
             return _pedidoBusinessLogic.ListaRegalosApp(pedidoDetalle);
         }
+
+        public void UpdDatoRecogerPor(BEPedidoWeb pedidowebdetalle)
+        {
+            _pedidoWebBusinessLogic.UpdDatoRecogerPor(pedidowebdetalle);
+        }
     }
 }

@@ -129,6 +129,8 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool TieneArmaTuPack { get; set; }
 
+        public string RecogerPor { get; set; }
+
         public BEPedidoWeb() { }
 
         public BEPedidoWeb(IDataRecord row)
@@ -171,6 +173,7 @@ namespace Portal.Consultoras.Entities
             ModificaPedidoReservado = row.ToBoolean("ModificaPedidoReservado");
             ValidacionAbierta = row.ToBoolean("ValidacionAbierta");
             FechaFacturado = row.ToString("FechaFacturado");
+            RecogerPor = row.ToString("RecogerPor");
         }
     }
 }
