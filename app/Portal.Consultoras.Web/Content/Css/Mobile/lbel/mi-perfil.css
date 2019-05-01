@@ -438,18 +438,33 @@ a{
 }
 
 .grupo_form_cambio_datos,
-.contenedor_campos_num_adicional {
+.contenedor_campos_num_adicional,
+.grupo_form_cambio_datos > div,
+.contenedor_campos_num_adicional > div {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-around;
+}
+
+.grupo_form_cambio_datos,
+.contenedor_campos_num_adicional,
+.contenedor_campos_num_adicional > div{
+    flex-direction: row!important;
+    flex-wrap: wrap!important;
+    justify-content: space-around!important;
+    align-items: center!important;
+}
+
+.grupo_form_cambio_datos > div{
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
     align-items: center;
 }
 
 .grupo_form_cambio_datos {
     position: relative;
     min-height: 32px;
-    padding: 14px 16px 8px 8px;
+    padding: 14px 8px 8px 8px;
     border-bottom: 1px solid #d8d8d8;
 }
 
@@ -495,7 +510,6 @@ a{
         font-size:13px;
         font-weight:400;
         height:auto;
-        background-color:rgba(255,255,255,1);
         z-index:2;
     }
 
@@ -624,6 +638,7 @@ a{
     .icono_cambiar_dato{
         width:16px;
         height:16px;
+        margin-top: -2px;
         margin-right:2px;
     }
 
@@ -631,6 +646,16 @@ a{
             width: 100%;
             height: auto;
         }
+
+    .btn_confirmar_dato {
+        margin-top: 5px;
+        margin-bottom: 6px;
+        width: 82px;
+        height: 32px;
+        font-size: 12.6px;
+        color: #FFF;
+        letter-spacing: 1px;
+    }
 
 .enlace_agregar_num_adicional {
     position: absolute;
@@ -659,6 +684,7 @@ a{
     margin-right:3px;
     position:relative;
     top:2px;
+    right:8px;
 }
 
 .linea_separadora{

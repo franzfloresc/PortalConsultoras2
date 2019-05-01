@@ -170,7 +170,8 @@ else
                                 </div>
                                 <div class="grupo_form_cambio_datos grupo_form_cambio_datos--confirmacionPendiente">
                                     <span class="d-block icono_estado_confirmacion_campo">
-                                        <img src="@Url.Content("~/Content/Images/icono_confirmacion.svg")" alt="Confirmado" />
+                                        <img src="@Url.Content("~/Content/Images/icono_pendiente_confirmacion.svg")" alt="Pendiente de confirmación" />
+                                        <img src="@Url.Content("~/Content/Images/icono_confirmacion.svg")" alt="Confirmado" style="display:none;" />
                                     </span>
                                     <div>
                                         <input id="txtEMailMD" name="txtEMailMD" class="w-100" type="text" value="@Model.EMail" readonly />
@@ -183,12 +184,15 @@ else
                                         </label>
                                     </div>
                                     <div>
-                                        <a href="@Url.Action("ActualizarCorreo", "MiPerfil", new { area = "Mobile" })" title="Cambiar" class="d-block w-100 enlace_cambiar_dato text-right">
+                                        <a href="@Url.Action("ActualizarCorreo", "MiPerfil", new { area = "Mobile" })" title="Cambiar" class="d-block w-100 enlace_cambiar_dato text-center">
                                             <span class="icono_cambiar_dato">
                                                 <img src="@Url.Content("~/Content/Images/icono_cambiar_dato.svg")" alt="Editar" />
                                             </span>
                                             <span class="text-bold">Editar</span>
                                         </a>
+                                        <button type="button" class="d-block text-bold border-radius-4 multimarca-background-color btn_confirmar_dato">
+                                            Confirmar
+                                        </button>
                                     </div>
                                     @*<div class="tooltip_info_revision_correo toolTipCorreo" style="display:none;">
                                         <div class="icono_info_alerta"></div>
@@ -204,6 +208,7 @@ else
                                 </div>
                                 <div class="grupo_form_cambio_datos">
                                     <span class="d-block icono_estado_confirmacion_campo">
+                                        <img src="@Url.Content("~/Content/Images/icono_pendiente_confirmacion.svg")" alt="Pendiente de confirmación" style="display:none;" />
                                         <img src="@Url.Content("~/Content/Images/icono_confirmacion.svg")" alt="Confirmado" />
                                     </span>
                                     <div>
@@ -211,12 +216,15 @@ else
                                         <label for="txtCelularMD" class="w-100">Celular <span class="asteriscos">*</span></label>
                                     </div>
                                     <div>
-                                        <a id="btnCambiarCelular" href="@Url.Action("ActualizarCelular", "MiPerfil", new { area = "Mobile" })" title="Cambiar" class="d-block w-100 enlace_cambiar_dato text-right">
+                                        <a id="btnCambiarCelular" href="@Url.Action("ActualizarCelular", "MiPerfil", new { area = "Mobile" })" title="Cambiar" class="d-block w-100 enlace_cambiar_dato text-center">
                                             <span class="icono_cambiar_dato">
                                                 <img src="@Url.Content("~/Content/Images/icono_cambiar_dato.svg")" alt="Editar" />
                                             </span>
                                             <span class="text-bold">Editar</span>
                                         </a>
+                                        <button type="button" class="d-block text-bold border-radius-4 multimarca-background-color btn_confirmar_dato" style="display:none;">
+                                            Confirmar
+                                        </button>
                                     </div>
                                     @*<div class="tooltip_info_revision_correo toolTipCelular" style="display:none;">
                                         <div class="icono_info_alerta"></div>
