@@ -54,6 +54,14 @@ $(document).ready((function (cerrarRechazado) {
                         var _CantidadRechazados = $(elemento).find(me.Variables.cdrweb_CantidadRechazados).val();
 
                         if (_Estado === "1") {
+                            //if (mensajeCdrFueraDeFechaCompleto !== "") {
+                            //    messageInfoValidado(mensajeCdrFueraDeFechaCompleto);
+                            //    return false;
+                            //}
+                            if (mensajeGestionCdrInhabilitada !== "") {
+                                messageInfoValidado(mensajeGestionCdrInhabilitada);
+                                return false;
+                            }
                             window.location.href = urlReclamo + "?p=" + _PedidoID + "&c=" + _CDRWebID;
                         } else {
                             var obj = {
@@ -121,15 +129,19 @@ $(document).ready((function (cerrarRechazado) {
 
             me.Funciones = {
                 NuevaSolicitud: function () {
-                    var nroSolicitudes = $("#hdNroSolicitudes").val() == "" ? 0 : parseInt($("#hdNroSolicitudes").val());
-                    if (mensajeGestionCdrInhabilitada.length > 0) {
-                        messageInfo(mensajeGestionCdrInhabilitada);
+                    //if (mensajeCdrFueraDeFechaCompleto !== "") {
+                    //    messageInfoValidado(mensajeCdrFueraDeFechaCompleto);
+                    //    return false;
+                    //}
+                    if (mensajeGestionCdrInhabilitada !== "") {
+                        messageInfoValidado(mensajeGestionCdrInhabilitada);
                         return false;
-                    } else {
-                        var flagMostrarTab = nroSolicitudes > 0 ? "1" : "0";
-                        var url = urlReclamo + "?t=" + flagMostrarTab;
-                        window.location.href = url;
                     }
+                    var nroSolicitudes = $("#hdNroSolicitudes").val() == "" ? 0 : parseInt($("#hdNroSolicitudes").val());
+                    var flagMostrarTab = nroSolicitudes > 0 ? "1" : "0";
+                    var url = urlReclamo + "?t=" + flagMostrarTab;
+                    window.location.href = url;
+
                 },
 
                 CargarMisReclamosDetalle: function (el) {
@@ -144,6 +156,15 @@ $(document).ready((function (cerrarRechazado) {
                     var _CantidadRechazados = $(elemento).find(me.Variables.cdrweb_CantidadRechazados).val();
 
                     if (_Estado === "1") {
+                        //if (mensajeCdrFueraDeFechaCompleto !== "") {
+                        //    messageInfoValidado(mensajeCdrFueraDeFechaCompleto);
+                        //    return false;
+                        //}
+                        if (mensajeGestionCdrInhabilitada !== "") {
+                            messageInfoValidado(mensajeGestionCdrInhabilitada);
+                            return false;
+                        }
+
                         window.location.href = urlReclamo + "?p=" + _PedidoID + "&c=" + _CDRWebID;
                     } else {
                         var obj = {

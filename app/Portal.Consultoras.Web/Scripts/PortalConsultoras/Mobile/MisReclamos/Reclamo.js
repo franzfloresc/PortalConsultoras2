@@ -11,7 +11,7 @@ var tipoDespacho = false;
 var dataCdrDevolucion = {};
 var flagSetsOrPack = false;
 var flagSolicitudEnviada = false;
-
+var flagAgregarNuevo = false;
 
 $(document).ready(function () {
     'use strict';
@@ -232,21 +232,20 @@ $(document).ready(function () {
 
                 // Agregar otro producto.
                 $(me.Variables.IrSolicitudInicial).click(function () {
-
-                    if (mensajeGestionCdrInhabilitada != '') {
+                    if (mensajeGestionCdrInhabilitada !== "") {
                         messageInfoValidado(mensajeGestionCdrInhabilitada);
                         return false;
                     }
 
                     //El if se hizo con !() para considerar posibles valores null o undefined de $('#ddlCampania').val()
-                    if (!($(me.Variables.ComboCampania).val() > 0)) {
-                        messageInfoValidado(mensajeCdrFueraDeFechaCompleto);
-                        return false;
-                    }
-
+                    //if (!($(me.Variables.ComboCampania).val() > 0)) {
+                    //    messageInfoValidado(mensajeCdrFueraDeFechaCompleto);
+                    //    return false;
+                    //}
                     $(me.Variables.txtNumPedido).val("N° " + $(me.Variables.hdNumeroPedido).val());
                     $(me.Variables.txtNumPedido).show();
                     $(me.Variables.txtNumPedido).attr("readonly", "readonly");
+
                     $(me.Variables.hdCuvCodigo).val("");
                     $(me.Variables.txtDescripcionCuv).html("");
                     $(me.Variables.txtCantidad1).val("1");
@@ -268,7 +267,11 @@ $(document).ready(function () {
 
                     $(me.Variables.DescripcionCuv2).hide();
                     $(me.Variables.txtCuvMobile2).fadeIn();
+                    $(me.Variables.txtCuvMobile).removeClass(me.Variables.deshabilitarControl);
                     $(me.Variables.ComboCampania).attr("disabled", "disabled");
+                    $.when(me.Funciones.BuscarCUV()).then(function () {
+                        $(me.Variables.txtCuvMobile).focus();
+                    });
 
                 });
 
@@ -469,11 +472,22 @@ $(document).ready(function () {
 
                 $(me.Variables.Enlace_regresar).click(function (e) {
                     var arrHide = [me.Variables.Registro2, me.Variables.Registro3, me.Variables.Registro4, me.Variables.Enlace_regresar, me.Variables.btnAceptarSolucion,
-                    me.Variables.btnCambioProducto, me.Variables.txtNumPedido, me.Variables.ddlnumPedido, me.Variables.DescripcionCuv, me.Variables.DescripcionCuv2,
-                    me.Variables.infoOpcionesDeCambio, "#MensajeTenerEncuenta"
-                    ];
+                    me.Variables.btnCambioProducto, me.Variables.txtNumPedido, me.Variables.DescripcionCuv, me.Variables.DescripcionCuv2,
+                    me.Variables.infoOpcionesDeCambio, "#MensajeTenerEncuenta"];
                     me.Funciones.HideTags(arrHide);
                     me.Funciones.CambiarEstadoBarraProgreso(me.Variables.pasos.uno_seleccion_de_producto);
+
+                    if (!flagAgregarNuevo) {
+                        $(me.Variables.txtNumPedido).val("N° " + $(me.Variables.hdNumeroPedido).val());
+                        $(me.Variables.txtNumPedido).show();
+                        $(me.Variables.txtNumPedido).attr("readonly", "readonly");
+                    }
+
+                    if ($(me.Variables.ddlnumPedido + " option").length > 0) {
+                        $(me.Variables.ddlnumPedido).show();
+                    } else {
+                        $(me.Variables.ddlnumPedido).hide();
+                    }
 
                     $(me.Variables.hdCuvCodigo).val("");
                     $(me.Variables.txtCantidad1).val("1");
@@ -482,8 +496,8 @@ $(document).ready(function () {
                     $(me.Variables.txtCantidad2).val("1");
                     //$(me.Variables.ComboCampania).val(0);
                     $(me.Variables.txtCuvMobile).val("");
-                    $(me.Variables.txtNumPedido).val("");
-                    $(me.Variables.ddlnumPedido).val(0);
+                    //$(me.Variables.txtNumPedido).val("");
+
                     $(me.Variables.txtCuvMobile).fadeIn();
                     $(me.Variables.txtCuvMobile2).fadeIn();
                     $(me.Variables.btnSiguiente1).show();
@@ -608,12 +622,27 @@ $(document).ready(function () {
                     }
                 });
                 $(me.Variables.IrPaso1).on("click", function () {
+                    if (mensajeGestionCdrInhabilitada !== "") {
+                        messageInfoValidado(mensajeGestionCdrInhabilitada);
+                        return false;
+                    }
+
+
+                    //if (mensajeCdrFueraDeFechaCompleto !== "") {
+                    //    messageInfoValidado(mensajeCdrFueraDeFechaCompleto);
+                    //    return false;
+                    //}
+
+                    flagAgregarNuevo = true;
+                    console.log("IrPaso1");
                     $(me.Variables.Registro2).hide();
                     $(me.Variables.Registro3).hide();
                     $(me.Variables.txtCantidad1).val("1");
                     $(me.Variables.txtCuvMobile).val("");
                     $(me.Variables.txtCuvMobile).addClass(me.Variables.deshabilitarControl);
                     $(me.Variables.ComboCampania).val("0");
+                    $(me.Variables.ComboCampania).prop("disabled", false);
+                    $(me.Variables.txtNumPedido).val("").hide();
                     $(me.Variables.hdPedidoID).val(0);
                     $(me.Variables.hdNumeroPedido).val(0);
                     $("#VistaPaso3").hide();
@@ -642,7 +671,7 @@ $(document).ready(function () {
                                 me.Funciones.CargarMisReclamosDetalle(this);
                             });
                         })).done(function () {
-                           
+
                             CloseLoading();
                         });
 
@@ -913,6 +942,7 @@ $(document).ready(function () {
             },
 
             AsignarCUV: function (pedido) {
+                console.log("AsignarCUV");
                 var EstadosConteo = 0;
                 var CDRWebID = 0;
                 pedido = pedido || new Object();
@@ -1932,9 +1962,12 @@ $(document).ready(function () {
 
             AgregarEventoMostrarBotonSiguiente: function () {
                 $("#listaMotivos input[name=motivo-cdr]").on('click', function () {
-                    if ($(me.Variables.btnSiguiente1).hasClass(me.Variables.deshabilitarBoton)) {
-                        $(me.Variables.btnSiguiente1).removeClass(me.Variables.deshabilitarBoton);
-                        $(me.Variables.btnSiguiente1).removeClass("CampoDeshabilitado");
+                    var $btnSiguiente = $(me.Variables.btnSiguiente1);
+
+                    if ($btnSiguiente.hasClass(me.Variables.deshabilitarBoton)) {
+                        $btnSiguiente.removeClass(me.Variables.deshabilitarBoton);
+                        $btnSiguiente.removeClass("CampoDeshabilitado");
+                        $btnSiguiente.fadeIn(100);
                     }
                 });
             },
@@ -2056,6 +2089,14 @@ $(document).ready(function () {
                 var _CantidadRechazados = $(elemento).find(me.Variables.cdrweb_CantidadRechazados).val();
 
                 if (_Estado === "1") {
+                    //if (mensajeCdrFueraDeFechaCompleto !== "") {
+                    //    messageInfoValidado(mensajeCdrFueraDeFechaCompleto);
+                    //    return false;
+                    //}
+                    if (mensajeGestionCdrInhabilitada !== "") {
+                        messageInfoValidado(mensajeGestionCdrInhabilitada);
+                        return false;
+                    }
                     window.location.href = urlReclamo + "?p=" + _PedidoID + "&c=" + _CDRWebID;
                 } else {
                     var obj = {
@@ -2083,7 +2124,7 @@ $(document).ready(function () {
                             }
                         },
                         error: function (data, error) {
-                            CloseLoading();                            
+                            CloseLoading();
                         }
                     });
                 }

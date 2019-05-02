@@ -174,12 +174,11 @@ $(document).ready(function () {
             alert_msg(mensajeGestionCdrInhabilitada);
             return false;
         }
-
         //El if se hizo con !() para colnsiderar posibles valores null o undefined de $('#ddCampania').val()
-        if (!($("#ddlCampania").val() > 0)) {
-            alert_msg(mensajeCdrFueraDeFechaCompleto);
-            return false;
-        }
+        //if (!($("#ddlCampania").val() > 0)) {
+        //    alert_msg(mensajeCdrFueraDeFechaCompleto);
+        //    return false;
+        //}
         $("#hdfCUVDescripcion").val("");
         $("#txtCantidad").val("1");
         $("#divMotivo").html('');
@@ -189,7 +188,6 @@ $(document).ready(function () {
         $("#hdImporteTotal2").val(0);
         $("#txtCUVDescripcion2").val("");
         $("#txtCantidad2").val("1");
-        //CambioPaso(-100);
         CambiarVistaPaso(reclamo.pasos.uno_seleccion_de_producto);
         $('#ddlnumPedido').append($('<option></option>').val($("#txtPedidoID").val()).html("N° " + $("#txtNumeroPedido").val()));
         $("#ddlnumPedido").show();

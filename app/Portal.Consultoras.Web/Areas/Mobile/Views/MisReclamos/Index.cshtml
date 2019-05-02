@@ -1,4 +1,5 @@
-﻿@using Portal.Consultoras.Web.Areas.Mobile.Models;
+﻿@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Areas.Mobile.Models;
 @using Portal.Consultoras.Web.CustomHelpers
 @model Portal.Consultoras.Web.Models.MisReclamosModel
 @{
@@ -59,21 +60,22 @@
             <input id="hdNroSolicitudes" type="hidden" value="@Cantidad" />
             <div class="grilla_registros_solicitud_cdr">
                 <h4 class="tipografia_lato_bold titulo_solicitudes_registradas">Mis solicitudes registradas</h4>
-                @if(Cantidad > 6) {
+                @if (Cantidad > 6)
+                {
                     //Este filtro se muestra cuando la cantidad de solicitudes excede a 6
-                <div class="campo_orden_solicitudes_cdr_wrapper">
-                    <label id="lblTextoSeleccionado">Filtrar por :</label>
-                    <select id="OrdenarSolicitudesRegistradasPor" class="border-radius-4 campo_ordenar_solicitudes_por">
-                        <option value="0">Todos</option>
-                        <option value="1">Pendientes</option>
-                        <option value="2">Enviados</option>
-                        <option value="3">Aceptados</option>
-                        <option value="4">Observados</option>
-                        @*<option value="4">Rechazados</option>*@
+                    <div class="campo_orden_solicitudes_cdr_wrapper">
+                        <label id="lblTextoSeleccionado">Filtrar por :</label>
+                        <select id="OrdenarSolicitudesRegistradasPor" class="border-radius-4 campo_ordenar_solicitudes_por">
+                            <option value="0">Todos</option>
+                            <option value="1">Pendientes</option>
+                            <option value="2">Enviados</option>
+                            <option value="3">Aceptados</option>
+                            <option value="4">Observados</option>
+                            @*<option value="4">Rechazados</option>*@
 
-                    </select>
-                </div>
-                    //Fin - Este filtro se muestra cuando la cantidad de solicitudes excede a 6 
+                        </select>
+                    </div>
+                    //Fin - Este filtro se muestra cuando la cantidad de solicitudes excede a 6
                 }
                 <div id="divMisReclamos">
                     @Html.Partial("~/Areas/Mobile/Views/MisReclamos/_ListaMisReclamos.cshtml", listaCdr)
@@ -115,6 +117,7 @@
 
 <script type="text/javascript">
     var mensajeGestionCdrInhabilitada = '@Html.Raw(Model.MensajeGestionCdrInhabilitada)';
+    var mensajeCdrFueraDeFechaCompleto = '@Html.Raw(Constantes.CdrWebMensajes.FueraDeFecha)';
     var urlReclamo = '@Url.Action("Reclamo", "MisReclamos", new { area = "Mobile" } )';
     var UrlGetMisReclamos = '@Url.Action("GetReclamos","MisReclamos", new { area = "mobile"})';
     var urlValidarCargaDetalle = '@Url.Action("ValidarCargaDetalle", "MisReclamos", new { area = "Mobile" })';
