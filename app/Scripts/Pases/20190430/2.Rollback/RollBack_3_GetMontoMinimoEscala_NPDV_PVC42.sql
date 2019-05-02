@@ -48,7 +48,7 @@ GO
 
 If Exists(select 1 from SYSOBJECTS where type = 'P' and id = OBJECT_ID('dbo.GetMontoMinimoEscala'))
 Begin
-	DROP PROCEDURE [dbo].[GetGetMontoMinimoEscala]
+	DROP PROCEDURE [dbo].[GetMontoMinimoEscala]
 end
 GO
 
@@ -93,7 +93,7 @@ GO
 
 If Exists(select 1 from SYSOBJECTS where type = 'P' and id = OBJECT_ID('dbo.GetMontoMinimoEscala'))
 Begin
-	DROP PROCEDURE [dbo].[GetGetMontoMinimoEscala]
+	DROP PROCEDURE [dbo].[GetMontoMinimoEscala]
 end
 GO
 
