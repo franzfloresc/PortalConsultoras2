@@ -4152,6 +4152,7 @@
     <Content Include="Scripts\PortalConsultoras\Campania\CampaniaModule.js" />
     <Content Include="Scripts\PortalConsultoras\CatalogoPersonalizado\catalogoPersonalizado.js" />
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\FichaPresenter.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\Ficha\CarruselModule.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\Ficha\ComponenteDetalleModule.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\DetalleEstrategiaProvider.js" />
@@ -4313,6 +4314,7 @@
     <Content Include="Scripts\tests\PortalConsultoras\ArmaTuPack\Detalle\Grupos\GruposPresenterSpec.js" />
     <Content Include="Scripts\tests\PortalConsultoras\ArmaTuPack\Detalle\Seleccionados\SeleccionadosPresenterSpec.js" />
     <Content Include="Scripts\tests\PortalConsultoras\DetalleEstrategia\FichaModuleSpec.js" />
+    <Content Include="Scripts\tests\PortalConsultoras\DetalleEstrategia\FichaResponsive\FichaPresenterSpec.js" />
     <Content Include="Scripts\tests\PortalConsultoras\TusClientes\TusClientesModuleSpec.js" />
     <Content Include="Scripts\tests\TestHelpersModule.js" />
     <Content Include="Scripts\trans-banner.js" />
