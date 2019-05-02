@@ -464,7 +464,7 @@ a{
 .grupo_form_cambio_datos {
     position: relative;
     min-height: 32px;
-    padding: 14px 8px 8px 8px;
+    padding: 14px 8px 8px 32px;
     border-bottom: 1px solid #d8d8d8;
 }
 
@@ -472,24 +472,32 @@ a{
         background-color:#f5f5f5;
     }
 
+        .grupo_form_cambio_datos--confirmacionPendiente label:before,
+        .grupo_form_cambio_datos--confirmado label:before {
+            display: block;
+            content: "";
+            position: absolute;
+            top: 2px;
+            left: -24px;
+            width: 16px;
+            height: 16px;
+            background-repeat: no-repeat;
+            background-size: 100%;
+        }
+
+        .grupo_form_cambio_datos--confirmacionPendiente label:before {
+            background-image: url(/Content/Images/icono_pendiente_confirmacion.svg);
+        }
+
+        .grupo_form_cambio_datos--confirmado label:before{
+            background-image: url(/Content/Images/icono_confirmacion.svg);
+        }
+
     .grupo_form_cambio_datos > div,
     .contenedor_campos_num_adicional > div{
         position:relative;
         flex-grow:1;
     }
-
-    .icono_estado_confirmacion_campo {
-        width: 16px;
-        height: 20px;
-        align-self: flex-start;
-        margin-top: 5px;
-        margin-right:8px;
-    }
-
-        .icono_estado_confirmacion_campo img {
-            width: 100%;
-            height: auto;
-        }
 
     .grupo_form_cambio_datos:last-child{
         margin-bottom:16px;
@@ -516,7 +524,7 @@ a{
     .grupo_form_cambio_datos_btn_guardar_wrapper{
         margin-left: -20px;
         margin-right: -20px;
-        margin-bottom: -18px!important;
+        padding:0;
     }
 
     @media screen and (max-width:350px){
@@ -632,14 +640,14 @@ a{
 }
 
 .enlace_cambiar_dato {
+    width: 93px;
     color: #B9007E;
 }
 
     .icono_cambiar_dato{
         width:16px;
         height:16px;
-        margin-top: -2px;
-        margin-right:2px;
+        margin-top: -1.5px;
     }
 
         .icono_cambiar_dato img {
