@@ -2,6 +2,7 @@
 var showDisplayODD = 0;
 var ventanaChat = null;
 
+
 $(document).ready(function () {
 
     LayoutHeader();
@@ -220,11 +221,11 @@ $(document).ready(function () {
         draggable: true,
         title: "Comunidad SomosBelcorp",
         buttons:
-            {
-                "Aceptar": function () {
-                    HideDialog("DialogMensajesCom");
-                }
+        {
+            "Aceptar": function () {
+                HideDialog("DialogMensajesCom");
             }
+        }
     });
 
     $('#divMensajeConfirmacion').dialog({
@@ -412,11 +413,12 @@ function CargarResumenCampaniaHeader(showPopup) {
 }
 
 function CargarCantidadNotificacionesSinLeer() {
-    jQuery.ajax({
-        type: 'POST',
-        url: baseUrl + "Notificaciones/GetNotificacionesSinLeer",
-        data: '',
-        cache: false,
+    var sparam = localStorage.getItem('KeyPseudoParam'); //SALUD-58
+    $.ajax({
+        type: 'GET',
+        url: baseUrl + "Notificaciones/GetNotificacionesSinLeer?pseudoParam=" + sparam + "&codigoUsuario=" + codigoConsultora + "",
+        data: {},
+        cache: true,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
@@ -443,7 +445,7 @@ function CargarCantidadNotificacionesSinLeer() {
             }
         },
         error: function (data, error) { }
-    });
+    })
 }
 
 function AbrirModalFeErratas() {
@@ -493,7 +495,7 @@ function SeparadorMiles(pnumero) {
 
     if (numero.indexOf(",") >= 0) nuevoNumero = nuevoNumero.substring(0, nuevoNumero.indexOf(","));
 
-    for (var i = nuevoNumero.length - 1, j = 0; i >= 0; i--, j++)
+    for (var i = nuevoNumero.length - 1, j = 0; i >= 0; i-- , j++)
         resultado = nuevoNumero.charAt(i) + ((j > 0) && (j % 3 == 0) ? "." : "") + resultado;
 
     if (numero.indexOf(",") >= 0) resultado += numero.substring(numero.indexOf(","));

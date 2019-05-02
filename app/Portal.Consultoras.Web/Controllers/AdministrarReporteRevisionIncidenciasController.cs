@@ -159,12 +159,16 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     List<ReporteRevisionIncidenciasMDbAdapterModel> lst = new List<ReporteRevisionIncidenciasMDbAdapterModel>();
 
+                    var codigoISOPais = userData.CodigoISO;
                     using (var sv = new PedidoServiceClient())
                     {
                         var tmpReporteLst = sv.GetReporteCuvDetallado(userData.PaisID, CampaniaID, CUV).ToList();
 
                         foreach (var itemReporte in tmpReporteLst)
                         {
+                            itemReporte.RutaImagenTipos = string.Format(_configuracionManagerProvider.GetRutaImagenesAppCatalogo(), codigoISOPais, CampaniaID, DevolverInicialMarca(itemReporte.CodigoMarca), itemReporte.ImagenTipos);
+                            itemReporte.RutaImagenTonos = string.Format(_configuracionManagerProvider.GetRutaImagenesAppCatalogoBulk(), codigoISOPais, CampaniaID, DevolverInicialMarca(itemReporte.CodigoMarca), itemReporte.ImagenTonos);
+
                             lst.Add(new ReporteRevisionIncidenciasMDbAdapterModel { BEReporteCuvDetallado = itemReporte });
                         }
                     }
@@ -181,8 +185,6 @@ namespace Portal.Consultoras.Web.Controllers
                     items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
                     var pag = Util.PaginadorGenerico(grid, lst);
-                    
-                    var codigoISOPais = userData.CodigoISO;
 
                     var data = new
                     {
@@ -212,8 +214,8 @@ namespace Portal.Consultoras.Web.Controllers
                                         a.BEReporteCuvDetallado.ImagenTonos,
                                         a.BEReporteCuvDetallado.NombreBulk,
                                         a.BEReporteCuvDetallado.FactorRepeticion.ToString(),
-                                        a.BEReporteCuvDetallado.RutaImagenTipos = string.Format(_configuracionManagerProvider.GetRutaImagenesAppCatalogo(), codigoISOPais, CampaniaID, DevolverInicialMarca(a.BEReporteCuvDetallado.CodigoMarca), a.BEReporteCuvDetallado.ImagenTipos),
-                                        a.BEReporteCuvDetallado.RutaImagenTonos = string.Format(_configuracionManagerProvider.GetRutaImagenesAppCatalogoBulk(), codigoISOPais, CampaniaID, DevolverInicialMarca(a.BEReporteCuvDetallado.CodigoMarca), a.BEReporteCuvDetallado.ImagenTonos)
+                                        a.BEReporteCuvDetallado.RutaImagenTipos,
+                                        a.BEReporteCuvDetallado.RutaImagenTonos
                                    }
                                }
                     };
