@@ -735,7 +735,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                 var response = PedidoDetalleRespuesta(transactionExitosa ? Constantes.PedidoValidacion.Code.SUCCESS : Constantes.PedidoValidacion.Code.ERROR_GRABAR, mensajeObs);
                 response.ModificoBackOrder = modificoBackOrder;
-                ListaMensajeCondicional.ForEach(x => { response.ListaMensajeCondicional.Add(x); });
+                response.ListaMensajeCondicional.AddRange(ListaMensajeCondicional);
                 return response;
             }
             catch (Exception ex)
