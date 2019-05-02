@@ -1333,6 +1333,6 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEEscalaDescuento> ListarEscalaDescuentoZona(int paisID, int campaniaID, string region, string zona);
 
         [OperationContract]
-        void UpdDatoRecogerPor(int paisID, int PedidoId, string RecogerPor);
+        void UpdDatoRecogerPor(BEPedidoWeb pedidowebdetalle);
     }
 }

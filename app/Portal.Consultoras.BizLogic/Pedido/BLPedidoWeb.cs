@@ -2433,16 +2433,15 @@ namespace Portal.Consultoras.BizLogic
             return line;
         }
 
-        public void UpdDatoRecogerPor(BEPedidoWeb pedidowebdetalle)
+        public void UpdDatoRecogerPor(BEPedidoWeb pedidoWebDetalle)
         {
-            DAPedidoWeb daPedidoWeb = new DAPedidoWeb(pedidowebdetalle.PaisID);
-            if (pedidowebdetalle.PedidoID == 0)
+            DAPedidoWeb daPedidoWeb = new DAPedidoWeb(pedidoWebDetalle.PaisID);
+            if (pedidoWebDetalle.PedidoID == 0)
             {
-                pedidowebdetalle.PedidoID = daPedidoWeb.InsPedidoWeb(pedidowebdetalle);
+                pedidoWebDetalle.PedidoID = daPedidoWeb.InsPedidoWeb(pedidoWebDetalle);
             }
-
             
-            daPedidoWeb.UpdDatoRecogerPor(pedidowebdetalle.PedidoID, pedidowebdetalle.RecogerPor);
+            daPedidoWeb.UpdDatoRecogerPor(pedidoWebDetalle);
         }
     }
 

@@ -129,6 +129,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool TieneArmaTuPack { get; set; }
 
+        [DataMember]
         public string RecogerPor { get; set; }
 
         public BEPedidoWeb() { }

@@ -950,12 +950,12 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        public void UpdDatoRecogerPor(int PedidoId, string RecogerPor)
+        public void UpdDatoRecogerPor(BEPedidoWeb pedidoWebDetalle)
         {
             using (var command = Context.Database.GetStoredProcCommand("dbo.ActualizaDatoRecogerPor"))
             {
-                Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, PedidoId);
-                Context.Database.AddInParameter(command, "@Documento", DbType.String, RecogerPor);
+                Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, pedidoWebDetalle.PedidoID);
+                Context.Database.AddInParameter(command, "@Documento", DbType.String, pedidoWebDetalle.RecogerPor);
 
                 Context.ExecuteNonQuery(command);
             }
