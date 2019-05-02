@@ -1,5 +1,5 @@
 GO
-USE BelcorpPeru
+USE [BelcorpBolivia]
 GO
 ALTER PROCEDURE [dbo].[GetSesionUsuario_SB2]
 	@CodigoUsuario varchar(25)
@@ -202,6 +202,9 @@ BEGIN
 			ISNULL(c.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
 			@IndicadorConsultoraDigital as IndicadorConsultoraDigital
+			,ISNULL(cl.CodigoClasificacion,'') AS CodigoClasificacion /*HD-3777*/
+			,ISNULL(cl.CodigoSubClasificacion, '') AS CodigoSubClasificacion /*HD-3777*/
+			,ISNULL(scl.DescripcionSubClasificacion, '') AS DescripcionSubClasificacion /*HD-3777*/
 			,ISNULL(c.AutorizaPedido, 0) AS AutorizaPedido /*HD-3693*/
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
@@ -226,6 +229,8 @@ BEGIN
 		left join ods.NivelLider nl with(nolock) on cl.CodigoNivelLider = nl.CodigoNivel -- R2469
 		left join ods.Identificacion I with(nolock) on i.ConsultoraId = c.ConsultoraId and i.DocumentoPrincipal = 1 --EPD-2993
 		LEFT JOIN CertificadoTributarioDetalle ctd ON ctd.Cedula = u.CodigoUsuario AND ctd.Anio = (YEAR(GETDATE()) - 1) /*HD-2192*/
+		LEFT JOIN [ods].[SubClasificacionLider] scl
+		ON cl.CodigoClasificacion = scl.codigoClasificacion AND cl.CodigoSubClasificacion = scl.CodigoSubClasificacion /*HD-3777*/
 	WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 	ELSE
@@ -333,6 +338,9 @@ BEGIN
 			ISNULL(cons.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
 			@IndicadorConsultoraDigital as IndicadorConsultoraDigital
+			,ISNULL(cl.CodigoClasificacion,'') AS CodigoClasificacion /*HD-3777*/
+			,ISNULL(cl.CodigoSubClasificacion, '') AS CodigoSubClasificacion /*HD-3777*/
+			,ISNULL(scl.DescripcionSubClasificacion, '') AS DescripcionSubClasificacion /*HD-3777*/
 			,ISNULL(c.AutorizaPedido, 0) AS AutorizaPedido /*HD-3693*/
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
@@ -352,13 +360,14 @@ BEGIN
 		left join ods.ConsultoraLider cl with(nolock) on up.CodigoConsultoraAsociada = cl.CodigoConsultora
 		left join ods.Identificacion I with(nolock) on i.ConsultoraId = cons.ConsultoraId and i.DocumentoPrincipal = 1 --EPD-2993
 		LEFT JOIN CertificadoTributarioDetalle ctd ON ctd.Cedula = u.CodigoUsuario AND ctd.Anio = (YEAR(GETDATE()) - 1) /*HD-2192*/
+		LEFT JOIN [ods].[SubClasificacionLider] scl
+		ON cl.CodigoClasificacion = scl.codigoClasificacion AND cl.CodigoSubClasificacion = scl.CodigoSubClasificacion /*HD-3777*/
 		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 END
 
-
 GO
-USE BelcorpMexico
+USE [BelcorpChile]
 GO
 ALTER PROCEDURE [dbo].[GetSesionUsuario_SB2]
 	@CodigoUsuario varchar(25)
@@ -561,6 +570,9 @@ BEGIN
 			ISNULL(c.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
 			@IndicadorConsultoraDigital as IndicadorConsultoraDigital
+			,ISNULL(cl.CodigoClasificacion,'') AS CodigoClasificacion /*HD-3777*/
+			,ISNULL(cl.CodigoSubClasificacion, '') AS CodigoSubClasificacion /*HD-3777*/
+			,ISNULL(scl.DescripcionSubClasificacion, '') AS DescripcionSubClasificacion /*HD-3777*/
 			,ISNULL(c.AutorizaPedido, 0) AS AutorizaPedido /*HD-3693*/
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
@@ -585,6 +597,8 @@ BEGIN
 		left join ods.NivelLider nl with(nolock) on cl.CodigoNivelLider = nl.CodigoNivel -- R2469
 		left join ods.Identificacion I with(nolock) on i.ConsultoraId = c.ConsultoraId and i.DocumentoPrincipal = 1 --EPD-2993
 		LEFT JOIN CertificadoTributarioDetalle ctd ON ctd.Cedula = u.CodigoUsuario AND ctd.Anio = (YEAR(GETDATE()) - 1) /*HD-2192*/
+		LEFT JOIN [ods].[SubClasificacionLider] scl
+		ON cl.CodigoClasificacion = scl.codigoClasificacion AND cl.CodigoSubClasificacion = scl.CodigoSubClasificacion /*HD-3777*/
 	WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 	ELSE
@@ -692,6 +706,9 @@ BEGIN
 			ISNULL(cons.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
 			@IndicadorConsultoraDigital as IndicadorConsultoraDigital
+			,ISNULL(cl.CodigoClasificacion,'') AS CodigoClasificacion /*HD-3777*/
+			,ISNULL(cl.CodigoSubClasificacion, '') AS CodigoSubClasificacion /*HD-3777*/
+			,ISNULL(scl.DescripcionSubClasificacion, '') AS DescripcionSubClasificacion /*HD-3777*/
 			,ISNULL(c.AutorizaPedido, 0) AS AutorizaPedido /*HD-3693*/
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
@@ -711,13 +728,14 @@ BEGIN
 		left join ods.ConsultoraLider cl with(nolock) on up.CodigoConsultoraAsociada = cl.CodigoConsultora
 		left join ods.Identificacion I with(nolock) on i.ConsultoraId = cons.ConsultoraId and i.DocumentoPrincipal = 1 --EPD-2993
 		LEFT JOIN CertificadoTributarioDetalle ctd ON ctd.Cedula = u.CodigoUsuario AND ctd.Anio = (YEAR(GETDATE()) - 1) /*HD-2192*/
+		LEFT JOIN [ods].[SubClasificacionLider] scl
+		ON cl.CodigoClasificacion = scl.codigoClasificacion AND cl.CodigoSubClasificacion = scl.CodigoSubClasificacion /*HD-3777*/
 		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 END
 
-
 GO
-USE BelcorpColombia
+USE [BelcorpColombia]
 GO
 ALTER PROCEDURE [dbo].[GetSesionUsuario_SB2]
 	@CodigoUsuario varchar(25)
@@ -920,6 +938,9 @@ BEGIN
 			ISNULL(c.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
 			@IndicadorConsultoraDigital as IndicadorConsultoraDigital
+			,ISNULL(cl.CodigoClasificacion,'') AS CodigoClasificacion /*HD-3777*/
+			,ISNULL(cl.CodigoSubClasificacion, '') AS CodigoSubClasificacion /*HD-3777*/
+			,ISNULL(scl.DescripcionSubClasificacion, '') AS DescripcionSubClasificacion /*HD-3777*/
 			,ISNULL(c.AutorizaPedido, 0) AS AutorizaPedido /*HD-3693*/
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
@@ -944,6 +965,8 @@ BEGIN
 		left join ods.NivelLider nl with(nolock) on cl.CodigoNivelLider = nl.CodigoNivel -- R2469
 		left join ods.Identificacion I with(nolock) on i.ConsultoraId = c.ConsultoraId and i.DocumentoPrincipal = 1 --EPD-2993
 		LEFT JOIN CertificadoTributarioDetalle ctd ON ctd.Cedula = u.CodigoUsuario AND ctd.Anio = (YEAR(GETDATE()) - 1) /*HD-2192*/
+		LEFT JOIN [ods].[SubClasificacionLider] scl
+		ON cl.CodigoClasificacion = scl.codigoClasificacion AND cl.CodigoSubClasificacion = scl.CodigoSubClasificacion /*HD-3777*/
 	WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 	ELSE
@@ -1051,6 +1074,9 @@ BEGIN
 			ISNULL(cons.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
 			@IndicadorConsultoraDigital as IndicadorConsultoraDigital
+			,ISNULL(cl.CodigoClasificacion,'') AS CodigoClasificacion /*HD-3777*/
+			,ISNULL(cl.CodigoSubClasificacion, '') AS CodigoSubClasificacion /*HD-3777*/
+			,ISNULL(scl.DescripcionSubClasificacion, '') AS DescripcionSubClasificacion /*HD-3777*/
 			,ISNULL(c.AutorizaPedido, 0) AS AutorizaPedido /*HD-3693*/
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
@@ -1070,13 +1096,14 @@ BEGIN
 		left join ods.ConsultoraLider cl with(nolock) on up.CodigoConsultoraAsociada = cl.CodigoConsultora
 		left join ods.Identificacion I with(nolock) on i.ConsultoraId = cons.ConsultoraId and i.DocumentoPrincipal = 1 --EPD-2993
 		LEFT JOIN CertificadoTributarioDetalle ctd ON ctd.Cedula = u.CodigoUsuario AND ctd.Anio = (YEAR(GETDATE()) - 1) /*HD-2192*/
+		LEFT JOIN [ods].[SubClasificacionLider] scl
+		ON cl.CodigoClasificacion = scl.codigoClasificacion AND cl.CodigoSubClasificacion = scl.CodigoSubClasificacion /*HD-3777*/
 		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 END
 
-
 GO
-USE BelcorpSalvador
+USE [BelcorpCostaRica]
 GO
 ALTER PROCEDURE [dbo].[GetSesionUsuario_SB2]
 	@CodigoUsuario varchar(25)
@@ -1279,6 +1306,9 @@ BEGIN
 			ISNULL(c.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
 			@IndicadorConsultoraDigital as IndicadorConsultoraDigital
+			,ISNULL(cl.CodigoClasificacion,'') AS CodigoClasificacion /*HD-3777*/
+			,ISNULL(cl.CodigoSubClasificacion, '') AS CodigoSubClasificacion /*HD-3777*/
+			,ISNULL(scl.DescripcionSubClasificacion, '') AS DescripcionSubClasificacion /*HD-3777*/
 			,ISNULL(c.AutorizaPedido, 0) AS AutorizaPedido /*HD-3693*/
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
@@ -1303,6 +1333,8 @@ BEGIN
 		left join ods.NivelLider nl with(nolock) on cl.CodigoNivelLider = nl.CodigoNivel -- R2469
 		left join ods.Identificacion I with(nolock) on i.ConsultoraId = c.ConsultoraId and i.DocumentoPrincipal = 1 --EPD-2993
 		LEFT JOIN CertificadoTributarioDetalle ctd ON ctd.Cedula = u.CodigoUsuario AND ctd.Anio = (YEAR(GETDATE()) - 1) /*HD-2192*/
+		LEFT JOIN [ods].[SubClasificacionLider] scl
+		ON cl.CodigoClasificacion = scl.codigoClasificacion AND cl.CodigoSubClasificacion = scl.CodigoSubClasificacion /*HD-3777*/
 	WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 	ELSE
@@ -1410,6 +1442,9 @@ BEGIN
 			ISNULL(cons.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
 			@IndicadorConsultoraDigital as IndicadorConsultoraDigital
+			,ISNULL(cl.CodigoClasificacion,'') AS CodigoClasificacion /*HD-3777*/
+			,ISNULL(cl.CodigoSubClasificacion, '') AS CodigoSubClasificacion /*HD-3777*/
+			,ISNULL(scl.DescripcionSubClasificacion, '') AS DescripcionSubClasificacion /*HD-3777*/
 			,ISNULL(c.AutorizaPedido, 0) AS AutorizaPedido /*HD-3693*/
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
@@ -1429,13 +1464,14 @@ BEGIN
 		left join ods.ConsultoraLider cl with(nolock) on up.CodigoConsultoraAsociada = cl.CodigoConsultora
 		left join ods.Identificacion I with(nolock) on i.ConsultoraId = cons.ConsultoraId and i.DocumentoPrincipal = 1 --EPD-2993
 		LEFT JOIN CertificadoTributarioDetalle ctd ON ctd.Cedula = u.CodigoUsuario AND ctd.Anio = (YEAR(GETDATE()) - 1) /*HD-2192*/
+		LEFT JOIN [ods].[SubClasificacionLider] scl
+		ON cl.CodigoClasificacion = scl.codigoClasificacion AND cl.CodigoSubClasificacion = scl.CodigoSubClasificacion /*HD-3777*/
 		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 END
 
-
 GO
-USE BelcorpPuertoRico
+USE [BelcorpDominicana]
 GO
 ALTER PROCEDURE [dbo].[GetSesionUsuario_SB2]
 	@CodigoUsuario varchar(25)
@@ -1638,6 +1674,9 @@ BEGIN
 			ISNULL(c.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
 			@IndicadorConsultoraDigital as IndicadorConsultoraDigital
+			,ISNULL(cl.CodigoClasificacion,'') AS CodigoClasificacion /*HD-3777*/
+			,ISNULL(cl.CodigoSubClasificacion, '') AS CodigoSubClasificacion /*HD-3777*/
+			,ISNULL(scl.DescripcionSubClasificacion, '') AS DescripcionSubClasificacion /*HD-3777*/
 			,ISNULL(c.AutorizaPedido, 0) AS AutorizaPedido /*HD-3693*/
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
@@ -1662,6 +1701,8 @@ BEGIN
 		left join ods.NivelLider nl with(nolock) on cl.CodigoNivelLider = nl.CodigoNivel -- R2469
 		left join ods.Identificacion I with(nolock) on i.ConsultoraId = c.ConsultoraId and i.DocumentoPrincipal = 1 --EPD-2993
 		LEFT JOIN CertificadoTributarioDetalle ctd ON ctd.Cedula = u.CodigoUsuario AND ctd.Anio = (YEAR(GETDATE()) - 1) /*HD-2192*/
+		LEFT JOIN [ods].[SubClasificacionLider] scl
+		ON cl.CodigoClasificacion = scl.codigoClasificacion AND cl.CodigoSubClasificacion = scl.CodigoSubClasificacion /*HD-3777*/
 	WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 	ELSE
@@ -1769,6 +1810,9 @@ BEGIN
 			ISNULL(cons.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
 			@IndicadorConsultoraDigital as IndicadorConsultoraDigital
+			,ISNULL(cl.CodigoClasificacion,'') AS CodigoClasificacion /*HD-3777*/
+			,ISNULL(cl.CodigoSubClasificacion, '') AS CodigoSubClasificacion /*HD-3777*/
+			,ISNULL(scl.DescripcionSubClasificacion, '') AS DescripcionSubClasificacion /*HD-3777*/
 			,ISNULL(c.AutorizaPedido, 0) AS AutorizaPedido /*HD-3693*/
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
@@ -1788,13 +1832,14 @@ BEGIN
 		left join ods.ConsultoraLider cl with(nolock) on up.CodigoConsultoraAsociada = cl.CodigoConsultora
 		left join ods.Identificacion I with(nolock) on i.ConsultoraId = cons.ConsultoraId and i.DocumentoPrincipal = 1 --EPD-2993
 		LEFT JOIN CertificadoTributarioDetalle ctd ON ctd.Cedula = u.CodigoUsuario AND ctd.Anio = (YEAR(GETDATE()) - 1) /*HD-2192*/
+		LEFT JOIN [ods].[SubClasificacionLider] scl
+		ON cl.CodigoClasificacion = scl.codigoClasificacion AND cl.CodigoSubClasificacion = scl.CodigoSubClasificacion /*HD-3777*/
 		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 END
 
-
 GO
-USE BelcorpPanama
+USE [BelcorpEcuador]
 GO
 ALTER PROCEDURE [dbo].[GetSesionUsuario_SB2]
 	@CodigoUsuario varchar(25)
@@ -1997,6 +2042,9 @@ BEGIN
 			ISNULL(c.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
 			@IndicadorConsultoraDigital as IndicadorConsultoraDigital
+			,ISNULL(cl.CodigoClasificacion,'') AS CodigoClasificacion /*HD-3777*/
+			,ISNULL(cl.CodigoSubClasificacion, '') AS CodigoSubClasificacion /*HD-3777*/
+			,ISNULL(scl.DescripcionSubClasificacion, '') AS DescripcionSubClasificacion /*HD-3777*/
 			,ISNULL(c.AutorizaPedido, 0) AS AutorizaPedido /*HD-3693*/
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
@@ -2021,6 +2069,8 @@ BEGIN
 		left join ods.NivelLider nl with(nolock) on cl.CodigoNivelLider = nl.CodigoNivel -- R2469
 		left join ods.Identificacion I with(nolock) on i.ConsultoraId = c.ConsultoraId and i.DocumentoPrincipal = 1 --EPD-2993
 		LEFT JOIN CertificadoTributarioDetalle ctd ON ctd.Cedula = u.CodigoUsuario AND ctd.Anio = (YEAR(GETDATE()) - 1) /*HD-2192*/
+		LEFT JOIN [ods].[SubClasificacionLider] scl
+		ON cl.CodigoClasificacion = scl.codigoClasificacion AND cl.CodigoSubClasificacion = scl.CodigoSubClasificacion /*HD-3777*/
 	WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 	ELSE
@@ -2128,6 +2178,9 @@ BEGIN
 			ISNULL(cons.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
 			@IndicadorConsultoraDigital as IndicadorConsultoraDigital
+			,ISNULL(cl.CodigoClasificacion,'') AS CodigoClasificacion /*HD-3777*/
+			,ISNULL(cl.CodigoSubClasificacion, '') AS CodigoSubClasificacion /*HD-3777*/
+			,ISNULL(scl.DescripcionSubClasificacion, '') AS DescripcionSubClasificacion /*HD-3777*/
 			,ISNULL(c.AutorizaPedido, 0) AS AutorizaPedido /*HD-3693*/
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
@@ -2147,13 +2200,14 @@ BEGIN
 		left join ods.ConsultoraLider cl with(nolock) on up.CodigoConsultoraAsociada = cl.CodigoConsultora
 		left join ods.Identificacion I with(nolock) on i.ConsultoraId = cons.ConsultoraId and i.DocumentoPrincipal = 1 --EPD-2993
 		LEFT JOIN CertificadoTributarioDetalle ctd ON ctd.Cedula = u.CodigoUsuario AND ctd.Anio = (YEAR(GETDATE()) - 1) /*HD-2192*/
+		LEFT JOIN [ods].[SubClasificacionLider] scl
+		ON cl.CodigoClasificacion = scl.codigoClasificacion AND cl.CodigoSubClasificacion = scl.CodigoSubClasificacion /*HD-3777*/
 		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 END
 
-
 GO
-USE BelcorpGuatemala
+USE [BelcorpGuatemala]
 GO
 ALTER PROCEDURE [dbo].[GetSesionUsuario_SB2]
 	@CodigoUsuario varchar(25)
@@ -2356,6 +2410,9 @@ BEGIN
 			ISNULL(c.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
 			@IndicadorConsultoraDigital as IndicadorConsultoraDigital
+			,ISNULL(cl.CodigoClasificacion,'') AS CodigoClasificacion /*HD-3777*/
+			,ISNULL(cl.CodigoSubClasificacion, '') AS CodigoSubClasificacion /*HD-3777*/
+			,ISNULL(scl.DescripcionSubClasificacion, '') AS DescripcionSubClasificacion /*HD-3777*/
 			,ISNULL(c.AutorizaPedido, 0) AS AutorizaPedido /*HD-3693*/
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
@@ -2380,6 +2437,8 @@ BEGIN
 		left join ods.NivelLider nl with(nolock) on cl.CodigoNivelLider = nl.CodigoNivel -- R2469
 		left join ods.Identificacion I with(nolock) on i.ConsultoraId = c.ConsultoraId and i.DocumentoPrincipal = 1 --EPD-2993
 		LEFT JOIN CertificadoTributarioDetalle ctd ON ctd.Cedula = u.CodigoUsuario AND ctd.Anio = (YEAR(GETDATE()) - 1) /*HD-2192*/
+		LEFT JOIN [ods].[SubClasificacionLider] scl
+		ON cl.CodigoClasificacion = scl.codigoClasificacion AND cl.CodigoSubClasificacion = scl.CodigoSubClasificacion /*HD-3777*/
 	WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 	ELSE
@@ -2487,6 +2546,9 @@ BEGIN
 			ISNULL(cons.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
 			@IndicadorConsultoraDigital as IndicadorConsultoraDigital
+			,ISNULL(cl.CodigoClasificacion,'') AS CodigoClasificacion /*HD-3777*/
+			,ISNULL(cl.CodigoSubClasificacion, '') AS CodigoSubClasificacion /*HD-3777*/
+			,ISNULL(scl.DescripcionSubClasificacion, '') AS DescripcionSubClasificacion /*HD-3777*/
 			,ISNULL(c.AutorizaPedido, 0) AS AutorizaPedido /*HD-3693*/
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
@@ -2506,12 +2568,14 @@ BEGIN
 		left join ods.ConsultoraLider cl with(nolock) on up.CodigoConsultoraAsociada = cl.CodigoConsultora
 		left join ods.Identificacion I with(nolock) on i.ConsultoraId = cons.ConsultoraId and i.DocumentoPrincipal = 1 --EPD-2993
 		LEFT JOIN CertificadoTributarioDetalle ctd ON ctd.Cedula = u.CodigoUsuario AND ctd.Anio = (YEAR(GETDATE()) - 1) /*HD-2192*/
+		LEFT JOIN [ods].[SubClasificacionLider] scl
+		ON cl.CodigoClasificacion = scl.codigoClasificacion AND cl.CodigoSubClasificacion = scl.CodigoSubClasificacion /*HD-3777*/
 		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 END
 
 GO
-USE BelcorpEcuador
+USE [BelcorpMexico]
 GO
 ALTER PROCEDURE [dbo].[GetSesionUsuario_SB2]
 	@CodigoUsuario varchar(25)
@@ -2714,6 +2778,9 @@ BEGIN
 			ISNULL(c.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
 			@IndicadorConsultoraDigital as IndicadorConsultoraDigital
+			,ISNULL(cl.CodigoClasificacion,'') AS CodigoClasificacion /*HD-3777*/
+			,ISNULL(cl.CodigoSubClasificacion, '') AS CodigoSubClasificacion /*HD-3777*/
+			,ISNULL(scl.DescripcionSubClasificacion, '') AS DescripcionSubClasificacion /*HD-3777*/
 			,ISNULL(c.AutorizaPedido, 0) AS AutorizaPedido /*HD-3693*/
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
@@ -2738,6 +2805,8 @@ BEGIN
 		left join ods.NivelLider nl with(nolock) on cl.CodigoNivelLider = nl.CodigoNivel -- R2469
 		left join ods.Identificacion I with(nolock) on i.ConsultoraId = c.ConsultoraId and i.DocumentoPrincipal = 1 --EPD-2993
 		LEFT JOIN CertificadoTributarioDetalle ctd ON ctd.Cedula = u.CodigoUsuario AND ctd.Anio = (YEAR(GETDATE()) - 1) /*HD-2192*/
+		LEFT JOIN [ods].[SubClasificacionLider] scl
+		ON cl.CodigoClasificacion = scl.codigoClasificacion AND cl.CodigoSubClasificacion = scl.CodigoSubClasificacion /*HD-3777*/
 	WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 	ELSE
@@ -2845,6 +2914,9 @@ BEGIN
 			ISNULL(cons.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
 			@IndicadorConsultoraDigital as IndicadorConsultoraDigital
+			,ISNULL(cl.CodigoClasificacion,'') AS CodigoClasificacion /*HD-3777*/
+			,ISNULL(cl.CodigoSubClasificacion, '') AS CodigoSubClasificacion /*HD-3777*/
+			,ISNULL(scl.DescripcionSubClasificacion, '') AS DescripcionSubClasificacion /*HD-3777*/
 			,ISNULL(c.AutorizaPedido, 0) AS AutorizaPedido /*HD-3693*/
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
@@ -2864,13 +2936,14 @@ BEGIN
 		left join ods.ConsultoraLider cl with(nolock) on up.CodigoConsultoraAsociada = cl.CodigoConsultora
 		left join ods.Identificacion I with(nolock) on i.ConsultoraId = cons.ConsultoraId and i.DocumentoPrincipal = 1 --EPD-2993
 		LEFT JOIN CertificadoTributarioDetalle ctd ON ctd.Cedula = u.CodigoUsuario AND ctd.Anio = (YEAR(GETDATE()) - 1) /*HD-2192*/
+		LEFT JOIN [ods].[SubClasificacionLider] scl
+		ON cl.CodigoClasificacion = scl.codigoClasificacion AND cl.CodigoSubClasificacion = scl.CodigoSubClasificacion /*HD-3777*/
 		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 END
 
-
 GO
-USE BelcorpDominicana
+USE [BelcorpPanama]
 GO
 ALTER PROCEDURE [dbo].[GetSesionUsuario_SB2]
 	@CodigoUsuario varchar(25)
@@ -3073,6 +3146,9 @@ BEGIN
 			ISNULL(c.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
 			@IndicadorConsultoraDigital as IndicadorConsultoraDigital
+			,ISNULL(cl.CodigoClasificacion,'') AS CodigoClasificacion /*HD-3777*/
+			,ISNULL(cl.CodigoSubClasificacion, '') AS CodigoSubClasificacion /*HD-3777*/
+			,ISNULL(scl.DescripcionSubClasificacion, '') AS DescripcionSubClasificacion /*HD-3777*/
 			,ISNULL(c.AutorizaPedido, 0) AS AutorizaPedido /*HD-3693*/
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
@@ -3097,6 +3173,8 @@ BEGIN
 		left join ods.NivelLider nl with(nolock) on cl.CodigoNivelLider = nl.CodigoNivel -- R2469
 		left join ods.Identificacion I with(nolock) on i.ConsultoraId = c.ConsultoraId and i.DocumentoPrincipal = 1 --EPD-2993
 		LEFT JOIN CertificadoTributarioDetalle ctd ON ctd.Cedula = u.CodigoUsuario AND ctd.Anio = (YEAR(GETDATE()) - 1) /*HD-2192*/
+		LEFT JOIN [ods].[SubClasificacionLider] scl
+		ON cl.CodigoClasificacion = scl.codigoClasificacion AND cl.CodigoSubClasificacion = scl.CodigoSubClasificacion /*HD-3777*/
 	WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 	ELSE
@@ -3204,6 +3282,9 @@ BEGIN
 			ISNULL(cons.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
 			@IndicadorConsultoraDigital as IndicadorConsultoraDigital
+			,ISNULL(cl.CodigoClasificacion,'') AS CodigoClasificacion /*HD-3777*/
+			,ISNULL(cl.CodigoSubClasificacion, '') AS CodigoSubClasificacion /*HD-3777*/
+			,ISNULL(scl.DescripcionSubClasificacion, '') AS DescripcionSubClasificacion /*HD-3777*/
 			,ISNULL(c.AutorizaPedido, 0) AS AutorizaPedido /*HD-3693*/
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
@@ -3223,13 +3304,14 @@ BEGIN
 		left join ods.ConsultoraLider cl with(nolock) on up.CodigoConsultoraAsociada = cl.CodigoConsultora
 		left join ods.Identificacion I with(nolock) on i.ConsultoraId = cons.ConsultoraId and i.DocumentoPrincipal = 1 --EPD-2993
 		LEFT JOIN CertificadoTributarioDetalle ctd ON ctd.Cedula = u.CodigoUsuario AND ctd.Anio = (YEAR(GETDATE()) - 1) /*HD-2192*/
+		LEFT JOIN [ods].[SubClasificacionLider] scl
+		ON cl.CodigoClasificacion = scl.codigoClasificacion AND cl.CodigoSubClasificacion = scl.CodigoSubClasificacion /*HD-3777*/
 		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 END
 
-
 GO
-USE BelcorpCostaRica
+USE [BelcorpPeru]
 GO
 ALTER PROCEDURE [dbo].[GetSesionUsuario_SB2]
 	@CodigoUsuario varchar(25)
@@ -3432,6 +3514,9 @@ BEGIN
 			ISNULL(c.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
 			@IndicadorConsultoraDigital as IndicadorConsultoraDigital
+			,ISNULL(cl.CodigoClasificacion,'') AS CodigoClasificacion /*HD-3777*/
+			,ISNULL(cl.CodigoSubClasificacion, '') AS CodigoSubClasificacion /*HD-3777*/
+			,ISNULL(scl.DescripcionSubClasificacion, '') AS DescripcionSubClasificacion /*HD-3777*/
 			,ISNULL(c.AutorizaPedido, 0) AS AutorizaPedido /*HD-3693*/
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
@@ -3456,6 +3541,8 @@ BEGIN
 		left join ods.NivelLider nl with(nolock) on cl.CodigoNivelLider = nl.CodigoNivel -- R2469
 		left join ods.Identificacion I with(nolock) on i.ConsultoraId = c.ConsultoraId and i.DocumentoPrincipal = 1 --EPD-2993
 		LEFT JOIN CertificadoTributarioDetalle ctd ON ctd.Cedula = u.CodigoUsuario AND ctd.Anio = (YEAR(GETDATE()) - 1) /*HD-2192*/
+		LEFT JOIN [ods].[SubClasificacionLider] scl
+		ON cl.CodigoClasificacion = scl.codigoClasificacion AND cl.CodigoSubClasificacion = scl.CodigoSubClasificacion /*HD-3777*/
 	WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 	ELSE
@@ -3563,6 +3650,9 @@ BEGIN
 			ISNULL(cons.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
 			@IndicadorConsultoraDigital as IndicadorConsultoraDigital
+			,ISNULL(cl.CodigoClasificacion,'') AS CodigoClasificacion /*HD-3777*/
+			,ISNULL(cl.CodigoSubClasificacion, '') AS CodigoSubClasificacion /*HD-3777*/
+			,ISNULL(scl.DescripcionSubClasificacion, '') AS DescripcionSubClasificacion /*HD-3777*/
 			,ISNULL(c.AutorizaPedido, 0) AS AutorizaPedido /*HD-3693*/
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
@@ -3582,13 +3672,14 @@ BEGIN
 		left join ods.ConsultoraLider cl with(nolock) on up.CodigoConsultoraAsociada = cl.CodigoConsultora
 		left join ods.Identificacion I with(nolock) on i.ConsultoraId = cons.ConsultoraId and i.DocumentoPrincipal = 1 --EPD-2993
 		LEFT JOIN CertificadoTributarioDetalle ctd ON ctd.Cedula = u.CodigoUsuario AND ctd.Anio = (YEAR(GETDATE()) - 1) /*HD-2192*/
+		LEFT JOIN [ods].[SubClasificacionLider] scl
+		ON cl.CodigoClasificacion = scl.codigoClasificacion AND cl.CodigoSubClasificacion = scl.CodigoSubClasificacion /*HD-3777*/
 		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 END
 
-
 GO
-USE BelcorpChile
+USE [BelcorpPuertoRico]
 GO
 ALTER PROCEDURE [dbo].[GetSesionUsuario_SB2]
 	@CodigoUsuario varchar(25)
@@ -3791,6 +3882,9 @@ BEGIN
 			ISNULL(c.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
 			@IndicadorConsultoraDigital as IndicadorConsultoraDigital
+			,ISNULL(cl.CodigoClasificacion,'') AS CodigoClasificacion /*HD-3777*/
+			,ISNULL(cl.CodigoSubClasificacion, '') AS CodigoSubClasificacion /*HD-3777*/
+			,ISNULL(scl.DescripcionSubClasificacion, '') AS DescripcionSubClasificacion /*HD-3777*/
 			,ISNULL(c.AutorizaPedido, 0) AS AutorizaPedido /*HD-3693*/
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
@@ -3815,6 +3909,8 @@ BEGIN
 		left join ods.NivelLider nl with(nolock) on cl.CodigoNivelLider = nl.CodigoNivel -- R2469
 		left join ods.Identificacion I with(nolock) on i.ConsultoraId = c.ConsultoraId and i.DocumentoPrincipal = 1 --EPD-2993
 		LEFT JOIN CertificadoTributarioDetalle ctd ON ctd.Cedula = u.CodigoUsuario AND ctd.Anio = (YEAR(GETDATE()) - 1) /*HD-2192*/
+		LEFT JOIN [ods].[SubClasificacionLider] scl
+		ON cl.CodigoClasificacion = scl.codigoClasificacion AND cl.CodigoSubClasificacion = scl.CodigoSubClasificacion /*HD-3777*/
 	WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 	ELSE
@@ -3922,6 +4018,9 @@ BEGIN
 			ISNULL(cons.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
 			@IndicadorConsultoraDigital as IndicadorConsultoraDigital
+			,ISNULL(cl.CodigoClasificacion,'') AS CodigoClasificacion /*HD-3777*/
+			,ISNULL(cl.CodigoSubClasificacion, '') AS CodigoSubClasificacion /*HD-3777*/
+			,ISNULL(scl.DescripcionSubClasificacion, '') AS DescripcionSubClasificacion /*HD-3777*/
 			,ISNULL(c.AutorizaPedido, 0) AS AutorizaPedido /*HD-3693*/
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
@@ -3941,13 +4040,14 @@ BEGIN
 		left join ods.ConsultoraLider cl with(nolock) on up.CodigoConsultoraAsociada = cl.CodigoConsultora
 		left join ods.Identificacion I with(nolock) on i.ConsultoraId = cons.ConsultoraId and i.DocumentoPrincipal = 1 --EPD-2993
 		LEFT JOIN CertificadoTributarioDetalle ctd ON ctd.Cedula = u.CodigoUsuario AND ctd.Anio = (YEAR(GETDATE()) - 1) /*HD-2192*/
+		LEFT JOIN [ods].[SubClasificacionLider] scl
+		ON cl.CodigoClasificacion = scl.codigoClasificacion AND cl.CodigoSubClasificacion = scl.CodigoSubClasificacion /*HD-3777*/
 		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 END
 
-
 GO
-USE BelcorpBolivia
+USE [BelcorpSalvador]
 GO
 ALTER PROCEDURE [dbo].[GetSesionUsuario_SB2]
 	@CodigoUsuario varchar(25)
@@ -4150,6 +4250,9 @@ BEGIN
 			ISNULL(c.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
 			@IndicadorConsultoraDigital as IndicadorConsultoraDigital
+			,ISNULL(cl.CodigoClasificacion,'') AS CodigoClasificacion /*HD-3777*/
+			,ISNULL(cl.CodigoSubClasificacion, '') AS CodigoSubClasificacion /*HD-3777*/
+			,ISNULL(scl.DescripcionSubClasificacion, '') AS DescripcionSubClasificacion /*HD-3777*/
 			,ISNULL(c.AutorizaPedido, 0) AS AutorizaPedido /*HD-3693*/
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
@@ -4174,6 +4277,8 @@ BEGIN
 		left join ods.NivelLider nl with(nolock) on cl.CodigoNivelLider = nl.CodigoNivel -- R2469
 		left join ods.Identificacion I with(nolock) on i.ConsultoraId = c.ConsultoraId and i.DocumentoPrincipal = 1 --EPD-2993
 		LEFT JOIN CertificadoTributarioDetalle ctd ON ctd.Cedula = u.CodigoUsuario AND ctd.Anio = (YEAR(GETDATE()) - 1) /*HD-2192*/
+		LEFT JOIN [ods].[SubClasificacionLider] scl
+		ON cl.CodigoClasificacion = scl.codigoClasificacion AND cl.CodigoSubClasificacion = scl.CodigoSubClasificacion /*HD-3777*/
 	WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 	ELSE
@@ -4281,6 +4386,9 @@ BEGIN
 			ISNULL(cons.promedioVenta, 0) PromedioVenta,
 			ISNULL(u.NovedadBuscador, 0) NovedadBuscador,
 			@IndicadorConsultoraDigital as IndicadorConsultoraDigital
+			,ISNULL(cl.CodigoClasificacion,'') AS CodigoClasificacion /*HD-3777*/
+			,ISNULL(cl.CodigoSubClasificacion, '') AS CodigoSubClasificacion /*HD-3777*/
+			,ISNULL(scl.DescripcionSubClasificacion, '') AS DescripcionSubClasificacion /*HD-3777*/
 			,ISNULL(c.AutorizaPedido, 0) AS AutorizaPedido /*HD-3693*/
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
@@ -4300,9 +4408,9 @@ BEGIN
 		left join ods.ConsultoraLider cl with(nolock) on up.CodigoConsultoraAsociada = cl.CodigoConsultora
 		left join ods.Identificacion I with(nolock) on i.ConsultoraId = cons.ConsultoraId and i.DocumentoPrincipal = 1 --EPD-2993
 		LEFT JOIN CertificadoTributarioDetalle ctd ON ctd.Cedula = u.CodigoUsuario AND ctd.Anio = (YEAR(GETDATE()) - 1) /*HD-2192*/
+		LEFT JOIN [ods].[SubClasificacionLider] scl
+		ON cl.CodigoClasificacion = scl.codigoClasificacion AND cl.CodigoSubClasificacion = scl.CodigoSubClasificacion /*HD-3777*/
 		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 END
 
-
-GO
