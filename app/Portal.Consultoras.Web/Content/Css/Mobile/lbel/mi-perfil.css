@@ -4,6 +4,14 @@ a{
     cursor:pointer!important;
 }
 
+.d-block {
+    display: block;
+}
+
+.d-inline-block {
+    display: block;
+}
+
 .text-uppercase{
     text-transform:uppercase;
 }
@@ -190,7 +198,7 @@ a{
 
 .datos_usuario_iniciales{
     background-color: #FFF;
-    min-height: 267px;
+    min-height: 100px;
     padding-top: 26px;
     padding-bottom: 8px;
     font-weight: 400;
@@ -244,8 +252,8 @@ a{
 }
 
 .wrapper_content_mi_perfil{
-    padding-left:20px;
-    padding-right:20px;
+    padding-left:16px;
+    padding-right:16px;
 }
 
 .foto_consultora,
@@ -448,7 +456,7 @@ a{
 .contenedor_campos_num_adicional,
 .contenedor_campos_num_adicional > div{
     flex-direction: row!important;
-    flex-wrap: wrap!important;
+    flex-wrap: nowrap!important;
     justify-content: space-around!important;
     align-items: center!important;
 }
@@ -456,15 +464,14 @@ a{
 .grupo_form_cambio_datos > div{
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     flex-wrap: nowrap;
-    align-items: center;
 }
 
 .grupo_form_cambio_datos {
     position: relative;
     min-height: 32px;
-    padding: 14px 8px 8px 32px;
+    padding: 14px 8px 14px 32px;
     border-bottom: 1px solid #d8d8d8;
 }
 
@@ -493,7 +500,7 @@ a{
             background-image: url(/Content/Images/icono_confirmacion.svg);
         }
 
-    .grupo_form_cambio_datos > div,
+    .grupo_form_cambio_datos > div:first-child,
     .contenedor_campos_num_adicional > div{
         position:relative;
         flex-grow:1;
@@ -504,15 +511,10 @@ a{
         border-bottom:0;
     }
 
-    .opcion_mis_datos .grupo_form_cambio_datos:last-child{
-        margin-top:34px;
-    }
-    
     .grupo_form_cambio_datos label{
         width:90%;
         cursor:default;
         position:absolute;
-        width:90%;
         top:18px;
         left:0;
         font-size:13px;
@@ -525,6 +527,13 @@ a{
         margin-left: -20px;
         margin-right: -20px;
         padding:0;
+    }
+
+    .mensaje_validacion_campo {
+        color: #e81c36;
+        font-size:13px;
+        position:relative;
+        top:-2px;
     }
 
     @media screen and (max-width:350px){
@@ -562,12 +571,12 @@ a{
     .grupo_form_cambio_datos select{
         background-color:transparent;
         margin-top:18px;
-        font-size: 13px;
+        font-size: 14px;
         font-weight: 400;
         color: #808080;
         border:0;
         height:40px;
-        padding-right:25px;
+        padding-right:8px;
         position:relative;
         z-index:2;
     }
@@ -615,8 +624,8 @@ a{
     .grupo_form_cambio_datos select:focus + label,
     .campo_con_datos + label
     {
-        top:4px;
-        font-size:13px;
+        top:6px;
+        font-size:12.5px;
         background-color:transparent;
         color:#000;
         font-weight:bold;
@@ -634,13 +643,16 @@ a{
     font-size:13px;
     margin-right:-3px;
     vertical-align:bottom;
-    padding-bottom:9px;
     position:relative;
     z-index:3;
 }
 
+.enlace_cambiar_dato,
+.btn_confirmar_dato {
+    width:82px;
+}
+
 .enlace_cambiar_dato {
-    width: 93px;
     color: #B9007E;
 }
 
@@ -656,9 +668,7 @@ a{
         }
 
     .btn_confirmar_dato {
-        margin-top: 5px;
-        margin-bottom: 6px;
-        width: 82px;
+        margin-top: 16px;
         height: 32px;
         font-size: 12.6px;
         color: #FFF;
@@ -712,11 +722,13 @@ a{
 }
 
 .permisos_cuenta_titulo,
-.checkbox_condiciones_descripcion,
-.checkbox_condiciones_descripcion a,
-.terminos_y_condiciones_wrapper ~ .datos_obligatorios
-{
+.terminos_y_condiciones_wrapper ~ .datos_obligatorios{
     color:#808080;
+}
+
+.checkbox_condiciones_descripcion,
+.checkbox_condiciones_descripcion a{
+    color:#000;
 }
 
 .terminos_y_condiciones_wrapper ~ .datos_obligatorios{
@@ -724,21 +736,18 @@ a{
 }
 
 .grupo_input_actualizarMisDatos .checkbox_condiciones_wrapper,
-.permiso_cuenta_opcion
-{
+.permiso_cuenta_opcion{
     display:flex;
-    justify-content:space-between;
+    justify-content:flex-start;
 }
 
 .checkbox_condiciones_checkbox,
-.permiso_cuenta_opcion_checkbox
-{
+.permiso_cuenta_opcion_checkbox{
     display:none;
 }
 
 .checkbox_condiciones_label,
-.permiso_cuenta_opcion_label
-{
+.permiso_cuenta_opcion_label{
     background-color:#FFF;
     border:1px solid #808080;
     width:18px;
@@ -753,6 +762,11 @@ a{
     background-position:center;
 }
 
+.checkbox_condiciones_label {
+    margin-top: 3px;
+    margin-right: 8px;
+}
+
 .checkbox_condiciones_checkbox:checked + .checkbox_condiciones_label,
 .permiso_cuenta_opcion_checkbox:checked + .permiso_cuenta_opcion_label
 {
@@ -763,6 +777,7 @@ a{
 .grupo_input_actualizarMisDatos .checkbox_condiciones_descripcion{
     width:89%;
     margin-bottom:4px;
+    order:1;
 }
 
 .btn_guardar_datos_nuevos,
@@ -854,6 +869,17 @@ a{
 .enlace_no_cambiar_correo{
     text-decoration: underline;
     margin-top: 11px;
+}
+
+.btn_cta_miPerfil {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    height: 40px;
+    line-height: 40px;
+    color: #FFF;
+    z-index: 2000;
+    background-color: #b9007e;
 }
 
 /* POPUP MAPA UBICACIÓN DIRECCIÓN ENTREGA */
@@ -1012,7 +1038,6 @@ a{
 
 /* CAMBIA TU CONTRASEÑA, ACTUALIZA TU CORREO ELECTRÓNICO, ACTUALIZA TU CELULAR, CAMBIAR FOTO DE PERFIL */
 
-
 .vista_cambiar_contrasenia,
 .vista_actualizar_correo,
 .vista_actualizar_celular,
@@ -1022,9 +1047,53 @@ a{
     padding:20px;
 }
 
-.enlace_volver_a_mi_perfil{
-    margin-bottom:11px;
+.grupo_form_cambio_datos--vistaActualizacionCorreo,
+.grupo_form_cambio_datos--vistaActualizacionCelular {
+    padding: 0;
+    border-bottom: 0;
 }
+
+    .grupo_form_cambio_datos--vistaActualizacionCorreo input,
+    .grupo_form_cambio_datos--vistaActualizacionCelular input{
+        border-bottom: 1px solid #979797;
+    }
+
+.enlace_volver_a_mi_perfil {
+    margin-bottom: 11px;
+}
+
+    .enlace_volver_a_mi_perfil--vistaActualizarCorreo,
+    .enlace_volver_a_mi_perfil--vistaActualizarCelular{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        width: 100px;
+        height: 45px;
+        margin-top: -8px;
+        margin-left:-8px;
+    }
+
+    .enlace_volver_a_mi_perfil--vistaActualizarCorreo{
+        margin-bottom: 40px;
+    }
+
+    .enlace_volver_a_mi_perfil--vistaActualizarCelular{
+        margin-bottom:16px;
+    }
+
+    .enlace_volver_a_mi_perfil_icono{
+        width:24px;
+        height:24px;
+    }
+
+        .enlace_volver_a_mi_perfil_icono img{
+            width:100%;
+            height:auto;
+        }
+
+    .enlace_volver_a_mi_perfil_texto{
+        font-size:13px;
+    }
 
 .icono_back_arrow,
 .icono_cerrar{
@@ -1159,8 +1228,10 @@ a{
     width:119px;
 }
 
-.form_actualizar_correo{
-    margin-top:7px;
+.form_actualizar_correo {
+    margin-top: 7px;
+    padding-left: 9px;
+    padding-right: 9px;
 }
 
 .correo_electronico_actual,
@@ -1177,16 +1248,13 @@ a{
     font-size:11px;
 }
 
-.envio_instrucciones_info span:last-child,
 .correo_electronico_actual span:last-child,
-.celular_actual span:last-child
-{
+.celular_actual span:last-child{
     font-size:15px;
 }
 
 .correo_electronico_actual span:last-child,
-.celular_actual span:last-child
-{
+.celular_actual span:last-child{
     color:rgba(0,0,0,0.6);
 }
 
@@ -1211,27 +1279,42 @@ a{
 }
 
 .icono_mensaje_sms{
-    width:71px;
-    height:50px;
-    background-image:url('/Content/Images/Lbel/icono_sms.svg');
+    width:64px;
+    height:64px;
+    background-image:url('/Content/Images/icono_celular.svg');
 }
 
-.envio_instrucciones_info{
-    margin-bottom:50px;
+.actualizacion_celular_titulo,
+.envio_instrucciones_info span:first-child {
+    margin-bottom: 8px;
 }
 
-.envio_instrucciones_info span:first-child{
-    margin-bottom:7px;
+.actualizacion_celular_titulo {
+    margin-top: 0;
+    font-size: 20px;
+}
+
+.num_celular_actual {
+    font-size: 16px;
 }
 
 .enlace_reenviar_instrucciones,
-.enlace_cambiar_correo
-{
-    text-decoration:underline;
+.enlace_cambiar_correo,
+.enlace_cambiar_numero_celular {
+    text-decoration: underline;
 }
 
-.enlace_reenviar_instrucciones{
-    font-size:13px;
+.enlace_cambiar_numero_celular{
+    margin-left:11px;
+}
+
+.codigo_sms_caducidad,
+.enlace_reenviar_instrucciones {
+    font-size: 14px;
+}
+
+.codigo_sms_caducidad span {
+    color: #ad1f78;
 }
 
 .correo_pendiente_de_confirmar > div{
@@ -1261,9 +1344,28 @@ a{
     margin-bottom: 34px;
 }
 
-.texto_ingreso_codigo{
-    font-size:14px;
+.area_ingreso_codigo_sms {
+    background-color: #f5f5f5;
+    padding: 29px;
+    height: 50vh;
+    margin-left: -20px;
+    margin-right: -20px;
 }
+
+.texto_ingreso_codigo{
+    font-size:18px;
+    margin-bottom:16px;
+}
+
+.wrapper_campo_ingreso_codigo_sms {
+    display: inline-block;
+    position: relative;
+    margin-right: 4px;
+}
+
+    .wrapper_campo_ingreso_codigo_sms:last-child {
+        margin-right: 0;
+    }
 
 .campos_ingreso_codigo_sms{
     margin-bottom:15px;
@@ -1277,28 +1379,22 @@ a{
 .campo_ingreso_codigo_sms {
     width: 35px;
     height: 37px;
+    padding-bottom: 9px;
     font-family: 'Lato', sans-serif;
-    font-size: 24px;
-    font-weight: 400;
-    color: #000;
+    font-size: 26px;
+    color: #ad1f78;
     border-top: none;
     border-left: none;
     border-right: none;
-    border-bottom: 2px solid #000;
+    background-color:transparent;
 }
 
-.wrapper_campo_ingreso_codigo_sms{
-    display:inline-block;
-    position:relative;
-    margin-right:4px;
-}
-
-    .wrapper_campo_ingreso_codigo_sms:last-child{
-        margin-right:0;
-    }
-
-.codigo_sms_caducidad{
-    margin-bottom:35.4px;
+.campo_ingreso_codigo_sms_borde_inferior {
+    height: 5px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    border-radius: 70px;
 }
 
 .icono_validacion_codigo_sms{
@@ -1324,9 +1420,7 @@ a{
     background-image:url("/Content/Images/icono_validacion_codigo_sms_correcto.svg");
 }
 
-.revisa_tu_correo,
-.revisa_tu_celular
-{
+.revisa_tu_correo{
     margin-bottom:40px;
 }
 
