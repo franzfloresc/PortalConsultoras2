@@ -79,7 +79,7 @@ var CodigoUbigeoPortal = (function () {
             Ganadoras: '14',
             Grilla: '15',
             ArmatuPack: '16',
-            ResumenBelcorp = "17"
+            ResumenBelcorp : "17"
         },
         Seccion: {
             Carrusel: '01',
