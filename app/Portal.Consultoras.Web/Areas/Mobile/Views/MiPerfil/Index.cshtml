@@ -30,6 +30,9 @@ else
         .asteriscos {
             color: #e81c36;
         }
+        .footer-page {
+            display: none;
+        }
     </style>
 }
 <!-- TÍTULO -->
@@ -52,6 +55,7 @@ else
 }
 <div class="pestana_esika"></div>
 <div class="pestana_lbel"></div>
+
 <!-- FIN - TÍTULO -->
 
 <div class="content_belcorp">
@@ -362,27 +366,20 @@ else
             {
 
                 @*<div class="datos_obligatorios" style="margin-bottom: 20px;">
-                        Modifica tus datos comunicándote al 5948060 en Bogotá y 018000937452 a nivel nacional.
-                    </div>*@
-
-                <div class="contenedor_boton_actualizar">
-                    <button type="button" class="btn_actualizarMisDatos" id="btnActualizarMD">
-                        ACEPTAR
-                    </button>
-                </div>
+                Modifica tus datos comunicándote al 5948060 en Bogotá y 018000937452 a nivel nacional.
+            </div>*@
+                <button type="button" class="d-block w-100 border-radius-4 text-bold btn_deshabilitado btn_cta_miPerfil" id="btnActualizarMD">
+                    Aceptar
+                </button>
             }
             else
             {
                 <div class="datos_obligatorios" style="margin-bottom: 42px;">
                     <span class="asterisco_actualizar_datos">(*)&nbsp;</span>Datos obligatorios
                 </div>
-                <fieldset class="grupo_form_cambio_datos text-uppercase grupo_form_cambio_datos_btn_guardar_wrapper">
-                    <div class="w-100 text-right">
-                        <button id="btnGuardar" type="button" class="btn_guardar_datos_nuevos default-background-color text-uppercase text-bold w-100">
-                            Guardar
-                        </button>
-                    </div>
-                </fieldset>
+                <button id="btnGuardar" type="button" class="d-block w-100 border-radius-4 text-bold btn_deshabilitado btn_cta_miPerfil">
+                    Guardar
+                </button>
             }
         </div>
 
