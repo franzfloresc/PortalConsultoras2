@@ -4656,7 +4656,7 @@ body {
     position: relative
 }
 
-    .tooltip-info:before {
+    .tooltip-info li:first-child:before {
         content: "";
         background: url(https://i.ibb.co/4jKbTqS/error-outline-3x.png) no-repeat 50% 50%;
         background-size: cover;
@@ -4666,6 +4666,12 @@ body {
         height: 24px;
         left: 0;
         bottom: 5px
+    }
+
+    .tooltip-info li:last-child{
+        font-weight:bold;
+        font-size: 13px;
+        line-height: normal;
     }
 
 .tooltip-validate {
@@ -5415,4 +5421,21 @@ img.icon-80 {
     position: fixed;
     height: 100vh;
     top: 0;
+}
+
+
+.col .card--content:last-child{
+    margin-bottom: 80px;
+}
+
+.row.align-items-start .col {
+    padding-top: 176px;
+}
+.header_fixed {
+    position: fixed;
+    z-index: 1;
+}
+
+#vpcpContent{
+    margin-bottom: 60px;
 }

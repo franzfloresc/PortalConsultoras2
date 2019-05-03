@@ -87,6 +87,7 @@ function AceptarPedidoPendiente() {
                             //$('#modal-confirmacion').addClass('on');
                             $("#contenedor-paso-2").hide();
                             $("#modal-confirmacion").show();
+                            $("body").css('overflow', 'hidden');
                         }
                         else {
                             $('#popuplink').click();
@@ -145,6 +146,7 @@ function cargarGaleria() {
 
 function DetallePedidoPendienteClientes(cuv) {
     console.log(JSON.stringify(cuv));
+    $("body").css('overflow', 'hidden');
     var obj = {
         cuv: cuv
     }
@@ -176,6 +178,7 @@ function DetallePedidoPendienteClientes(cuv) {
             }
         },
         error: function (error) {
+            modal - confirmacion
             //CloseLoading();
             //messageInfo("Ocurrió un Error pedido pendiente cliente");
             console.log(error);
