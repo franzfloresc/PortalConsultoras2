@@ -831,12 +831,15 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string GetUrlCatalogoPiloto()
         {
-            var queryString = string.Format(Constantes.CatalogoPiloto.UrlParamEncrip, userData.CodigoISO, userData.CodigoConsultora);
-            byte[] encbuff = Encoding.UTF8.GetBytes(queryString);
+            /* INI HD-4015 */
+
+            byte[] encbuff = Encoding.UTF8.GetBytes(userData.CodigoConsultora);
             var encripParams = Convert.ToBase64String(encbuff);
+            var queryString = string.Format(Constantes.CatalogoPiloto.UrlParamEncrip, userData.CodigoISO.ToLower(), encripParams);
+            /* FIN HD-4015 */
 
             var urlBase = _configuracionManagerProvider.GetConfiguracionManager(Constantes.CatalogoPiloto.UrlCatalogoPiloto);
-            return string.Format(Constantes.CatalogoPiloto.UrlCatalogo, urlBase, encripParams);
+            return string.Format(Constantes.CatalogoPiloto.UrlCatalogo, urlBase, queryString);
         }
 
         private string GetTienePiloto(int paisId)
