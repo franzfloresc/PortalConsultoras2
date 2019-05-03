@@ -791,6 +791,10 @@ function PedidoUpdate(item, PROL, detalleObj, elementRow) {
             }
             CargarPedido();
 
+            if (data.mensajeCondicional) {
+	            AbrirMensaje(data.mensajeCondicional);
+            }
+
             if (data.modificoBackOrder) {
                 messageInfo('Recuerda que debes volver a validar tu pedido.');
             }
@@ -892,6 +896,10 @@ function EjecutarServicioPROL() {
             if (!response.success) {
                 messageInfoMalo(mensajeErrorReserva);
                 return;
+            }
+
+            if (response.mensajeCondicional) {
+	            AbrirMensaje(response.mensajeCondicional);
             }
 
             RespuestaEjecutarServicioPROL(response, function () { return CumpleOfertaFinalMostrar(response); });
