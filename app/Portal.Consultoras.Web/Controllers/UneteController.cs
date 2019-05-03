@@ -2515,6 +2515,15 @@ namespace Portal.Consultoras.Web.Controllers
             return rpta;
         }
 
+        public string EnviarContrasenia(string numerocelular, string tipoDocumento, string numeroDocumento, string correoElectronico, string nombre, string codigoconsultora, string numeroanterior, string correoanterior)
+        {
+            string rpta = "";
+            PortalServiceClient oservice = new PortalServiceClient();
+            rpta = oservice.EnviarContrasenia(CodigoISO, numerocelular, tipoDocumento, numeroDocumento, correoElectronico, nombre, codigoconsultora, numeroanterior, correoanterior);
+            oservice.Close();
+            return rpta;
+        }
+
         public string getHTMLSACUnete(string action, string urlParams)
         {
             string urlSacUente = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UneteURL);

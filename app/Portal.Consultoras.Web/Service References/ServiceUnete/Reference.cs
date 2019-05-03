@@ -9459,7 +9459,10 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ShowConsultarUbicacionField;
-        
+
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ShowContraseniaField;
+
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ShowDocsField;
         
@@ -10153,7 +10156,24 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 }
             }
         }
-        
+
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ShowContrasenia
+        {
+            get
+            {
+                return this.ShowContraseniaField;
+            }
+            set
+            {
+                if ((object.ReferenceEquals(this.ShowContraseniaField, value) != true))
+                {
+                    this.ShowContraseniaField = value;
+                    this.RaisePropertyChanged("ShowContrasenia");
+                }
+            }
+        }
+
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string ShowDocs {
             get {
@@ -14835,7 +14855,13 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ListarDocumentoExcepcion", ReplyAction="http://tempuri.org/IPortalService/ListarDocumentoExcepcionResponse")]
         System.Threading.Tasks.Task<string> ListarDocumentoExcepcionAsync(string CodigoISO, string data);
-        
+
+        [System.ServiceModel.OperationContractAttribute(Action = "http://tempuri.org/IPortalService/EnviarContrasenia", ReplyAction = "http://tempuri.org/IPortalService/EnviarContraseniaResponse")]
+        string EnviarContrasenia(string p, string numerocelular, string tipoDocumento, string numeroDocumento, string correoElectronico, string nombre, string codigoconsultora, string numeroanterior, string correoanterior);
+
+        [System.ServiceModel.OperationContractAttribute(Action = "http://tempuri.org/IPortalService/EnviarContrasenia", ReplyAction = "http://tempuri.org/IPortalService/EnviarContraseniaResponse")]
+        System.Threading.Tasks.Task<string> EnviarContraseniaAsync(string p, string numerocelular, string tipoDocumento, string numeroDocumento, string correoElectronico, string nombre, string codigoconsultora, string numeroanterior, string correoanterior);
+
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ActualizarReferenciaEntregaSAC", ReplyAction="http://tempuri.org/IPortalService/ActualizarReferenciaEntregaSACResponse")]
         void ActualizarReferenciaEntregaSAC(Portal.Consultoras.Web.ServiceUnete.SolicitudPostulante solicitudPostulante);
         
@@ -15557,7 +15583,15 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         public System.Threading.Tasks.Task<string> ListarDocumentoExcepcionAsync(string CodigoISO, string data) {
             return base.Channel.ListarDocumentoExcepcionAsync(CodigoISO, data);
         }
-        
+
+        public string EnviarContrasenia(string p, string numerocelular, string tipoDocumento, string numeroDocumento, string correoElectronico, string nombre, string codigoconsultora, string numeroanterior, string correoanterior){
+            return base.Channel.EnviarContrasenia(p, numerocelular, tipoDocumento, numeroDocumento, correoElectronico, nombre, codigoconsultora, numeroanterior, correoanterior);
+        }
+
+        public System.Threading.Tasks.Task<string> EnviarContraseniaAsync(string p, string numerocelular, string tipoDocumento, string numeroDocumento, string correoElectronico, string nombre, string codigoconsultora, string numeroanterior, string correoanterior){
+            return base.Channel.EnviarContraseniaAsync(p, numerocelular, tipoDocumento, numeroDocumento, correoElectronico, nombre, codigoconsultora, numeroanterior, correoanterior);
+        }
+
         public void ActualizarReferenciaEntregaSAC(Portal.Consultoras.Web.ServiceUnete.SolicitudPostulante solicitudPostulante) {
             base.Channel.ActualizarReferenciaEntregaSAC(solicitudPostulante);
         }
