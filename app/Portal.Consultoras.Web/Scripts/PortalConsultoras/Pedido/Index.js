@@ -61,15 +61,12 @@ $(document).ready(function () {
     });
 
     $('body').on('keypress', 'input[attrKey="PreValidarCUV"]', function (event) {
-
         if (event.keyCode == 13) {
-
             if ($("#btnAgregar")[0].disabled == false) {
-                AgregarProductoListado();
+                PedidoRegistroModule.AgregarProductoListadoPasePedido();
             }
         }
     })
-
 
     $("body").click(function (e) {
         if (!$(e.target).closest(".ui-dialog").length) {
@@ -226,6 +223,15 @@ $(document).ready(function () {
                 .append("<a>" + item.CUV + "</a>")
                 .appendTo(ul);
     };
+
+    $("#txtCUV").on('input', function () {        
+        if (isNaN($("#txtCUV").val()) == true) {
+            $("#txtCUV").val("");
+            //document.getElementById('divObservaciones').style.display = 'block';
+            //$("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'><span class='icono_advertencia_notificacion'></span>El codigo CUV debe ser un número</div></div>");
+            return false;
+        }
+    });
 
     $(".ValidaAlfanumerico").keypress(function (evt) {
         var charCode = (evt.which) ? evt.which : (window.event ? window.event.keyCode : null);
