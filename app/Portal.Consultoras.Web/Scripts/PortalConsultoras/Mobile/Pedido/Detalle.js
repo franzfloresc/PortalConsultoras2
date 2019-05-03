@@ -475,7 +475,9 @@ function ConfigurarFnEliminarProducto(CampaniaID, PedidoID, PedidoDetalleID, Tip
             EsBackOrder: esBackOrder == 'true',
             SetId: setId
         });
-
+        //INI HD-3908
+        var campaniaId = CampaniaID;
+        //FIN HD-3908
         ShowLoading();
         jQuery.ajax({
             type: 'POST',
@@ -515,6 +517,12 @@ function ConfigurarFnEliminarProducto(CampaniaID, PedidoID, PedidoDetalleID, Tip
                 cuponModule.actualizarContenedorCupon();
                 messageDelete('El producto fue eliminado.');
 
+                //INI HD-3908
+                if (!data.EsAgregado) {
+                    var localStorageModule = new LocalStorageModule();
+                    localStorageModule.ActualizarCheckAgregado($.trim(data.data.EstrategiaId), campaniaId, data.data.TipoEstrategiaCodigo, false);
+                }
+                //FIN HD-3908
                 ActualizarLocalStoragePalancas(data.data.CUV, false);
             },
             error: function (data, error) {

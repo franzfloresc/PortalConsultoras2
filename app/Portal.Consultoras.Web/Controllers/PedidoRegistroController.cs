@@ -311,7 +311,7 @@ namespace Portal.Consultoras.Web.Controllers
                         formatoTotal = FormatoTotal,
                         listCuvEliminar = pedidoDetalleResult.ListCuvEliminar.ToList(),
                         mensajeCondicional
-                    }, JsonRequestBehavior.AllowGet);
+                }, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {

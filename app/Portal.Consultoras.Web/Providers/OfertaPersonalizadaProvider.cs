@@ -1174,31 +1174,54 @@ namespace Portal.Consultoras.Web.Providers
 
             listaProducto.ForEach(x =>
             {
-                if (palanca == Constantes.TipoEstrategiaCodigo.RevistaDigital)
-                {
-                    x.CodigoPalanca = Constantes.ConfiguracionPais.RevistaDigital;
-                }
-                else if (palanca == Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada)
-                {
-                    x.CodigoPalanca = Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada;
-                }
-                else if (palanca == Constantes.TipoEstrategiaCodigo.Lanzamiento)
-                {
-                    x.CodigoPalanca = Constantes.ConfiguracionPais.Lanzamiento;
-                }
-                else if (palanca == Constantes.TipoEstrategiaCodigo.HerramientasVenta)
-                {
-                    x.CodigoPalanca = Constantes.ConfiguracionPais.HerramientasVenta;
-                }
-                else if (palanca == Constantes.TipoEstrategiaCodigo.MasGanadoras)
-                {
-                    x.CodigoPalanca = Constantes.ConfiguracionPais.MasGanadoras;
-                }
+                //if (palanca == Constantes.TipoEstrategiaCodigo.RevistaDigital)
+                //{
+                //    x.CodigoPalanca = Constantes.ConfiguracionPais.RevistaDigital;
+                //}
+                //else if (palanca == Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada)
+                //{
+                //    x.CodigoPalanca = Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada;
+                //}
+                //else if (palanca == Constantes.TipoEstrategiaCodigo.Lanzamiento)
+                //{
+                //    x.CodigoPalanca = Constantes.ConfiguracionPais.Lanzamiento;
+                //}
+                //else if (palanca == Constantes.TipoEstrategiaCodigo.HerramientasVenta)
+                //{
+                //    x.CodigoPalanca = Constantes.ConfiguracionPais.HerramientasVenta;
+                //}
+                //else if (palanca == Constantes.TipoEstrategiaCodigo.MasGanadoras)
+                //{
+                //    x.CodigoPalanca = Constantes.ConfiguracionPais.MasGanadoras;
+                //}
+                //INI HD-3908
+                x.CodigoPalanca = getCodigoPalanca(palanca);
+                //FIN HD-3908
             });
 
             return listaProducto;
         }
-
+        //INI HD-3908
+        public string getCodigoPalanca(string Codigo)
+        {
+            string CodPalanca = "";
+            switch (Codigo)
+            {
+                case Constantes.TipoEstrategiaCodigo.RevistaDigital:CodPalanca = Constantes.ConfiguracionPais.RevistaDigital;break;
+                case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada: CodPalanca = Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada; break;
+                case Constantes.TipoEstrategiaCodigo.Lanzamiento: CodPalanca = Constantes.ConfiguracionPais.Lanzamiento; break;
+                case Constantes.TipoEstrategiaCodigo.HerramientasVenta: CodPalanca = Constantes.ConfiguracionPais.HerramientasVenta; break;
+                case Constantes.TipoEstrategiaCodigo.MasGanadoras: CodPalanca = Constantes.ConfiguracionPais.MasGanadoras; break;
+                case Constantes.TipoEstrategiaCodigo.PackNuevas:
+                    CodPalanca= (_programaNuevasProvider.TieneDuoPerfecto()) ? Constantes.ConfiguracionPais.ElecMultiple: Constantes.ConfiguracionPais.ProgramaNuevas;
+                    break;
+                default:
+                    CodPalanca = "";
+                    break;
+            }
+            return CodPalanca;
+        }
+        //FIN HD-3908
         public List<EstrategiaPersonalizadaProductoModel> FormatearModelo1ToPersonalizado(List<EstrategiaPedidoModel> listaProductoModel, List<BEPedidoWebDetalle> listaPedido, string codigoISO, int campaniaID, int tipo, bool esConsultoraLider, string simbolo)
         {
             var listaRetorno = new List<EstrategiaPersonalizadaProductoModel>();
@@ -1228,6 +1251,9 @@ namespace Portal.Consultoras.Web.Providers
                     || tipo == 1
                     || tipo == 2
                     ? "revistadigital-landing" : "";
+                //INI HD-3908
+                prodModel.CodigoPalanca = getCodigoPalanca(estrategia.TipoEstrategia.Codigo);
+                //FIN HD-3908
                 prodModel.FotoProducto01 = estrategia.FotoProducto01;
                 prodModel.ImagenURL = estrategia.ImagenURL;
                 prodModel.DescripcionMarca = estrategia.DescripcionMarca;

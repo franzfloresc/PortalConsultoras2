@@ -1080,6 +1080,18 @@ var PedidoRegistroModule = function () {
                 }
 
                 CloseLoading();
+
+                //INI HD-3908
+                if (_flagNueva && IsNullOrEmpty(data.mensajeAviso)) {
+                    try {
+                        var $AgregadoTooltip = $("[data-agregado=\"tooltip\"]");
+                        $AgregadoTooltip.show();
+                        setTimeout(function () { $AgregadoTooltip.hide(); }, 4000);
+                    } catch (e) {
+                        console.error(e);
+                    }
+                }
+                //FIN HD-3908
                 var prevTotal = mtoLogroBarra || 0;
                 MostrarBarra(data);
                 var existeError = $(data).filter("input[id=hdErrorInsertarProducto]").val();
@@ -1138,6 +1150,17 @@ var PedidoRegistroModule = function () {
 
                 var seccionProductosRecomendados = $('.divProductosRecomendados');
                 seccionProductosRecomendados.slideUp(200);
+
+                //INI HD-3908
+                if (data.listCuvEliminar != null) {
+                    $.each(data.listCuvEliminar, function (i, cuvElem) {
+
+                        ActualizarLocalStoragePalancas(cuvElem, false);
+                    })
+                }
+                var localStorageModule = new LocalStorageModule();
+                localStorageModule.ActualizarCheckAgregado($.trim($("#hdfEstrategiaId").val()), $("#hdfCampaniaID").val(), $("#hdfCodigoPalanca").val(), true);
+                //FIN HD-3908
             },
             error: function (data, error) {
                 CloseLoading();
@@ -1195,10 +1218,35 @@ var PedidoRegistroModule = function () {
 
                 $("#hdErrorInsertarProducto").val(data.errorInsertarProducto);
 
+                //INI HD-3908
+                if (_flagNueva && IsNullOrEmpty(data.mensajeAviso)) {
+                    try {
+                        var $AgregadoTooltip = $("[data-agregado=\"tooltip\"]");
+                        $AgregadoTooltip.show();
+                        setTimeout(function () { $AgregadoTooltip.hide(); }, 4000);
+                    } catch (e) {
+                        console.error(e);
+                    }
+                }
+                //FIN HD-3908
                 cierreCarouselEstrategias();
                 CargarCarouselEstrategias();
                 HideDialog("divVistaPrevia");
                 PedidoOnSuccess();
+
+
+
+                //INI HD-3908
+                if (data.listCuvEliminar != null) {
+                    $.each(data.listCuvEliminar, function (i, cuvElem) {
+
+                        ActualizarLocalStoragePalancas(cuvElem, false);
+                    })
+                }
+                var localStorageModule = new LocalStorageModule();
+                localStorageModule.ActualizarCheckAgregado($.trim($("#hdfEstrategiaId").val()), $("#hdfCampaniaID").val(), $("#hdfCodigoPalanca").val(), true);
+                //FIN HD-3908
+                   
                 if (data.modificoBackOrder) showDialog("divBackOrderModificado");
                 CargarDetallePedido();
                 MostrarBarra(data);
@@ -1286,6 +1334,7 @@ var PedidoRegistroModule = function () {
                             }
                         }
                     });
+
                 }
                 else {
                     var errorCliente = response.errorCliente || false;

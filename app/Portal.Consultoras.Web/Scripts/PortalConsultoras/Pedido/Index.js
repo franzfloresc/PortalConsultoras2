@@ -23,7 +23,9 @@ var listaMensajeMeta = listaMensajeMeta;
 var listaParametriaOfertaFinal = listaParametriaOfertaFinal || {};
 var cuvbuscado = "";
 var cuvEsCuponNuevas = false;
-
+//INI HD-3908
+var _flagNueva = false;
+//FIN HD-3908
 var pedidoProvider = PedidoProvider();
 
 $(document).ready(function () {
@@ -1206,7 +1208,11 @@ function BuscarByCUV(CUV) {
                 if (data[0].ObservacionCUV != null && data[0].ObservacionCUV != "") {
                     $("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>" + data[0].ObservacionCUV + "</div></div>");
                 }
-
+                //INI HD-3908
+                _flagNueva = (data[0].FlagNueva == "1") ? true : false;
+                $("#hdfCodigoPalanca").val(data[0].CodigoPalanca);
+                $("#hdfCampaniaID").val(data[0].CampaniaID);
+                //FIN HD-3908
                 CargarProductosRecomendados(data[0]);
 
             } else {

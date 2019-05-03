@@ -31,7 +31,11 @@ var ConstantesModule = (function () {
         HerramientasVenta: "HVLista",
         Lanzamiento: "LANLista",
         RevistaDigital: "RDLista",
-        Ganadoras: "MGLista"
+        Ganadoras: "MGLista",
+        //INI HD-3908
+        PackNuevas: "PNLista",
+        DuoPerfecto: "DPLista"
+        //FIN HD-3908
     }
 
     var _codigoVariedad = {
@@ -105,9 +109,11 @@ var ConstantesModule = (function () {
         LAN: "LAN",
         MG: "MG",
         SR: "SR",
-        ATP: "ATP",
-        PN: "PN",
-        DP: "DP"
+		ATP: "ATP",
+        DP: "DP",
+        //INI HD-3908
+        PN:"PN"
+        //FIN HD-3908
     };
 
 

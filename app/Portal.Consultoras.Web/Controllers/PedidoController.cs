@@ -1028,6 +1028,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var revistaGana = ValidarDesactivaRevistaGana(userModel);
 
+               
+
                 productosModel.Add(new ProductoModel()
                 {
                     CUV = producto.CUV.Trim(),
@@ -1058,7 +1060,12 @@ namespace Portal.Consultoras.Web.Controllers
                     EstrategiaID = producto.EstrategiaID,
                     EsCuponNuevas = esCuponNuevas,
                     CodigoCatalago = producto.CodigoCatalogo,
-                    EstrategiaIDSicc = producto.EstrategiaIDSicc
+                    EstrategiaIDSicc = producto.EstrategiaIDSicc,
+                    //INI HD-3908
+                    CodigoPalanca= (new OfertaPersonalizadaProvider()).getCodigoPalanca(producto.TipoEstrategiaCodigo),
+                    CampaniaID= userModel.CampaniaID
+                    //FIN HD-3908
+                    
                 });
             }
             catch (Exception ex)
