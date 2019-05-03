@@ -3915,20 +3915,26 @@ namespace Portal.Consultoras.Common
         public static string GetTipoPersonalizacionByCodigoEstrategia(string codigoEstrategia)
         {
             var tipoPersonalizacion = string.Empty;
-
+            
             switch (codigoEstrategia)
             {
-                case Constantes.TipoEstrategiaCodigo.Lanzamiento:
-                    tipoPersonalizacion = Constantes.TipoPersonalizacion.Lanzamiento;
-                    break;
                 case Constantes.TipoEstrategiaCodigo.OfertaParaTi:
                     tipoPersonalizacion = Constantes.TipoPersonalizacion.OfertaParaTi;
+                    break;
+                case Constantes.TipoEstrategiaCodigo.ArmaTuPack:
+                    tipoPersonalizacion = Constantes.TipoPersonalizacion.ArmaTuPack;
+                    break;
+                case Constantes.TipoEstrategiaCodigo.Lanzamiento:
+                    tipoPersonalizacion = Constantes.TipoPersonalizacion.Lanzamiento;
                     break;
                 case Constantes.TipoEstrategiaCodigo.OfertasParaMi:
                     tipoPersonalizacion = Constantes.TipoPersonalizacion.OfertasParaMi;
                     break;
                 case Constantes.TipoEstrategiaCodigo.PackAltoDesembolso:
                     tipoPersonalizacion = Constantes.TipoPersonalizacion.PackAltoDesembolso;
+                    break;
+                case Constantes.TipoEstrategiaCodigo.OfertaDelDia:
+                    tipoPersonalizacion = Constantes.TipoPersonalizacion.OfertaDelDia;
                     break;
                 case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
                     tipoPersonalizacion = Constantes.TipoPersonalizacion.GuiaDeNegocioDigitalizada;
@@ -3939,11 +3945,8 @@ namespace Portal.Consultoras.Common
                 case Constantes.TipoEstrategiaCodigo.ShowRoom:
                     tipoPersonalizacion = Constantes.TipoPersonalizacion.ShowRoom;
                     break;
-                case Constantes.TipoEstrategiaCodigo.OfertaDelDia:
-                    tipoPersonalizacion = Constantes.TipoPersonalizacion.OfertaDelDia;
-                    break; 
-                case Constantes.TipoEstrategiaCodigo.ArmaTuPack:
-                    tipoPersonalizacion = Constantes.TipoPersonalizacion.ArmaTuPack;
+                case Constantes.TipoEstrategiaCodigo.RevistaDigital:
+                    tipoPersonalizacion = Constantes.ConfiguracionPais.RevistaDigital;
                     break;
                 default:
                     break;

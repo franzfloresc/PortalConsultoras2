@@ -28,7 +28,7 @@ node {
                 }
             }
             stage('Linting') {
-                bat "yarn install"
+                bat "yarn install --ignore-engines"
                 try {
                     bat "npm run jslint"
                 } 
