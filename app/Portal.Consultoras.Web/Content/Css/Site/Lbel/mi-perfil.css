@@ -29,7 +29,7 @@ a{
 }
 
 .text-bold{
-    font-weight:bold;
+    font-weight:bold!important;
 }
 
 .mt-9{
@@ -1167,28 +1167,48 @@ input.permiso_cuenta_opcion_checkbox
     background-image:url('/Content/Images/Lbel/icono_envelope.svg');
 }
 
-.icono_mensaje_sms{
-    width:71px;
-    height:50px;
-    background-image:url('/Content/Images/Lbel/icono_sms.svg');
+.icono_mensaje_sms {
+    width: 64px;
+    height: 64px;
+    background-image: url('/Content/Images/icono_celular.svg');
 }
 
-.envio_instrucciones_info{
-    margin-bottom:50px;
+.actualizacion_celular_titulo,
+.envio_instrucciones_info span:first-child {
+    margin-bottom: 8px;
 }
 
-.envio_instrucciones_info span:first-child{
-    margin-bottom:7px;
+.actualizacion_celular_titulo {
+    margin-top: 0;
+    font-size: 20px;
+    color:#000;
+}
+
+.num_celular_actual {
+    font-size: 16px;
 }
 
 .enlace_reenviar_instrucciones,
-.enlace_cambiar_correo
-{
-    text-decoration:underline;
+.enlace_cambiar_correo,
+.enlace_cambiar_numero_celular {
+    text-decoration: underline;
 }
 
-.enlace_reenviar_instrucciones{
-    font-size:13px;
+.enlace_cambiar_numero_celular {
+    margin-left: 11px;
+}
+
+.codigo_sms_caducidad,
+.enlace_reenviar_instrucciones {
+    font-size: 14px;
+}
+
+.codigo_sms_caducidad{
+    margin-bottom:35px;
+}
+
+.codigo_sms_caducidad span {
+    color: #ad1f78;
 }
 
 .titulo_correo_pendiente_confirmacion{
@@ -1211,44 +1231,49 @@ input.permiso_cuenta_opcion_checkbox
     margin-bottom: 34px;
 }
 
-.texto_ingreso_codigo{
-    font-size:14px;
+.texto_ingreso_codigo {
+    font-size: 18px;
+    margin-bottom: 16px;
 }
 
-.campos_ingreso_codigo_sms{
-    margin-bottom:15px;
-    position:relative;
+.wrapper_campo_ingreso_codigo_sms {
+    display: inline-block;
+    position: relative;
+    margin-right: 4px;
+}
+
+    .wrapper_campo_ingreso_codigo_sms:last-child {
+        margin-right: 0;
+    }
+
+.campos_ingreso_codigo_sms {
+    margin-bottom: 15px;
+    position: relative;
     width: 100%;
     text-align: center;
     padding-left: 0;
     padding-right: 0;
 }
 
-.campo_ingreso_codigo_sms{
-    width:35px;
-    height:37px;
-    font-family:'Lato', sans-serif;
-    font-size:24px;
-    font-weight:400;
-    color:#000;
-    border-top:none;
-    border-left:none;
-    border-right:none;
-    border-bottom:2px solid #000;
+.campo_ingreso_codigo_sms {
+    width: 35px;
+    height: 37px;
+    padding-bottom: 9px;
+    font-family: 'Lato', sans-serif;
+    font-size: 26px;
+    color: #ad1f78;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    background-color: transparent;
 }
 
-.wrapper_campo_ingreso_codigo_sms{
-    display:inline-block;
-    position:relative;
-    margin-right:4px;
-}
-
-    .wrapper_campo_ingreso_codigo_sms:last-child{
-        margin-right:0;
-    }
-
-.codigo_sms_caducidad{
-    margin-bottom:35.4px;
+.campo_ingreso_codigo_sms_borde_inferior {
+    height: 5px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    border-radius: 70px;
 }
 
 .icono_validacion_codigo_sms{

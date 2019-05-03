@@ -60,52 +60,54 @@ else
                 </div>
             </div>
             <div class="revisa_tu_celular text-center" style="display:none;">
-                <h1 class="titulo_revisa_tu_celular text-uppercase">
-                    Revisa <span class="text-bold">tu celular</span>
-                </h1>
                 <div class="icono_mensaje_sms"></div>
+                <h3 class="d-block text-bold actualizacion_celular_titulo">Código de confirmación</h3>
                 <p class="w-100 envio_instrucciones_info">
-                    <span class="w-100">Te hemos enviado un código SMS al:</span>
-                    <span class="w-100 text-bold" id="NumeroMensajeEnviado"></span>
+                    <span class="d-block w-100">Te hemos enviado un código SMS al:</span>
+                    <span class="d-inline-block text-bold num_celular_actual" id="NumeroMensajeEnviado"></span>
+                    <a href="#" class="d-inline-block enlace_cambiar_numero_celular" title="Cambiar número">Cambiar número</a>
                 </p>
                 <div class="area_ingreso_codigo_sms">
-                    <div class="texto_ingreso_codigo text-uppercase text-bold">Ingresa el código aquí</div>
-                    <fieldset class="campos_ingreso_codigo_sms">
+                    <div class="d-block texto_ingreso_codigo text-bold">Ingresa el código aquí</div>
+                    <div class="campos_ingreso_codigo_sms">
                         <div class="wrapper_campo_ingreso_codigo_sms">
-                            <input class="campo_ingreso_codigo_sms text-center" type="text" value="" maxlength="1" />
+                            <input class="text-bold campo_ingreso_codigo_sms text-center" type="text" value="" maxlength="1" />
+                            <span class="d-block w-100 multimarca-background-color campo_ingreso_codigo_sms_borde_inferior"></span>
                         </div>
                         <div class="wrapper_campo_ingreso_codigo_sms">
-                            <input class="campo_ingreso_codigo_sms text-center" type="text" value="" maxlength="1" />
+                            <input class="text-bold campo_ingreso_codigo_sms text-center" type="text" value="" maxlength="1" />
+                            <span class="d-block w-100 multimarca-background-color campo_ingreso_codigo_sms_borde_inferior"></span>
                         </div>
                         <div class="wrapper_campo_ingreso_codigo_sms">
-                            <input class="campo_ingreso_codigo_sms text-center" type="text" value="" maxlength="1" />
+                            <input class="text-bold campo_ingreso_codigo_sms text-center" type="text" value="" maxlength="1" />
+                            <span class="d-block w-100 multimarca-background-color campo_ingreso_codigo_sms_borde_inferior"></span>
                         </div>
                         <div class="wrapper_campo_ingreso_codigo_sms">
-                            <input class="campo_ingreso_codigo_sms text-center" type="text" value="" maxlength="1" />
+                            <input class="text-bold campo_ingreso_codigo_sms text-center" type="text" value="" maxlength="1" />
+                            <span class="d-block w-100 multimarca-background-color campo_ingreso_codigo_sms_borde_inferior"></span>
                         </div>
                         <div class="wrapper_campo_ingreso_codigo_sms">
-                            <input class="campo_ingreso_codigo_sms text-center" type="text" value="" maxlength="1" />
+                            <input class="text-bold campo_ingreso_codigo_sms text-center" type="text" value="" maxlength="1" />
+                            <span class="d-block w-100 multimarca-background-color campo_ingreso_codigo_sms_borde_inferior"></span>
                         </div>
                         <div class="wrapper_campo_ingreso_codigo_sms">
-                            <input class="campo_ingreso_codigo_sms text-center" type="text" value="" maxlength="1" />
+                            <input class="text-bold campo_ingreso_codigo_sms text-center" type="text" value="" maxlength="1" />
+                            <span class="d-block w-100 multimarca-background-color campo_ingreso_codigo_sms_borde_inferior"></span>
                             <div class="icono_validacion_codigo_sms validacion_erronea"></div>
                         </div>
-                    </fieldset>
-                    <div class="codigo_sms_caducidad text-uppercase">El código caduca en <span class="default-color" id="time_counter">03:00</span></div>
+                    </div>
+                    <div class="w-100 codigo_sms_caducidad" style="display:none;">
+                        Puedes solicitar un código nuevo en<br /><span class="text-bold" id="time_counter">3</span><span class="text-bold"> segundos</span>
+                    </div>
+                    <div class="w-100 envio_instrucciones_info">
+                        <a href="#" title="Reenvíenme las instrucciones" class="enlace_reenviar_instrucciones w-100">
+                            Reenviar nuevamente el código
+                        </a>
+                    </div>
+                    <button type="button" class="d-inline-block border-radius-4 text-bold btn_deshabilitado btn_cta_miPerfil">
+                        Validar código
+                    </button>
                 </div>
-                <p class="w-100 envio_instrucciones_info">
-                    <a href="#"
-                       title="Reenvíenme las instrucciones"
-                       class="enlace_reenviar_instrucciones w-100 text-uppercase text-bold">
-                        Reenvíenme el código
-                    </a>
-                </p>
-                <p class="w-100 cambiar_correo_info">
-                    <span>¿Este no es tu número?</span>
-                    <a href="#"
-                       title="Cambia tu correo"
-                       class="enlace_cambiar_correo text-bold">Cambia tu número</a>
-                </p>
             </div>
         </div>
         <div class="celular_actualizado text-center" style="display:none;">
