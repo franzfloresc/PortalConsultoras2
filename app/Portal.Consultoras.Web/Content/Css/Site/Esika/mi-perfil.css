@@ -4,6 +4,14 @@ a{
     cursor:pointer!important;
 }
 
+.d-block {
+    display: block;
+}
+
+.d-inline-block {
+    display: inline-block;
+}
+
 .text-uppercase{
     text-transform:uppercase;
 }
@@ -14,6 +22,10 @@ a{
 
 .text-right{
     text-align:right;
+}
+
+.text-center {
+    text-align: center;
 }
 
 .text-bold{
@@ -30,6 +42,10 @@ a{
 
 .mt-23{
     margin-top:23px;
+}
+
+.mt-27{
+    margin-top:27px;
 }
 
 .mt-31{
@@ -187,7 +203,6 @@ input:focus{
 .foto_consultora,
 .datos_consultora_mi_perfil,
 .icono_cambio_password,
-.grupo_form_cambio_datos > div,
 .icono_cambiar_dato,
 .icono_ver_password,
 .enlace_texto,
@@ -315,25 +330,25 @@ input:focus{
     margin-bottom:79px;
 }
 
-.opcion_mi_perfil{
+.opcion_mi_perfil {
     border: 1px solid #808080;
-    padding-left: 14px;
-    padding-right: 13px;
     border-radius: 4px;
     min-height: 60px;
-    margin-bottom:20px;
+    margin-bottom: 20px;
 }
 
 .opcion_mi_perfil:last-child{
     margin-bottom:0;
 }
 
-.opcion_mi_perfil_titulo{
+.opcion_mi_perfil_titulo {
     height: 60px;
     padding-top: 20px;
+    padding-left: 16px;
+    padding-right: 16px;
     padding-bottom: 12px;
-    cursor:pointer;
-    position:relative;
+    cursor: pointer;
+    position: relative;
 }
 
 .icono_mis_datos{
@@ -348,7 +363,7 @@ input:focus{
     margin: auto 0;
     top: 0;
     bottom: 0;
-    right: 7px;
+    right: 10px;
     -moz-transition: all 0.15s ease;
     -o-transition: all 0.15s ease;
     -webkit-transition: all 0.15s ease;
@@ -391,15 +406,12 @@ input:focus{
     padding-left:15px;
 }
 
-.opcion_mi_perfil_titulo,
-.opcion_mi_perfil_contenido
-{
+.opcion_mi_perfil_titulo{
     padding-left:15px;
     padding-right:15px;
 }
 
 .opcion_mi_perfil_contenido{
-    padding-top:23px;
     border-top: 1px solid #808080;
 }
 
@@ -412,14 +424,70 @@ input:focus{
     padding-bottom:30px;
 }
 
-.grupo_form_cambio_datos{
-    margin-bottom:20px;
-    position:relative;
-    min-height:64px;
+.grupo_form_cambio_datos,
+.contenedor_campos_num_adicional,
+.grupo_form_cambio_datos > div,
+.contenedor_campos_num_adicional > div {
+    display: flex;
 }
 
+    .grupo_form_cambio_datos,
+    .contenedor_campos_num_adicional,
+    .contenedor_campos_num_adicional > div {
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        justify-content: space-around !important;
+        align-items: center !important;
+    }
+
+        .grupo_form_cambio_datos > div {
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            flex-wrap: nowrap;
+        }
+
+.grupo_form_cambio_datos {
+    position: relative;
+    min-height: 32px;
+    padding: 14px 14px 14px 32px;
+    border-bottom: 1px solid #d8d8d8;
+}
+
+    .grupo_form_cambio_datos--confirmacionPendiente {
+        background-color: #f5f5f5;
+    }
+
+        .grupo_form_cambio_datos--confirmacionPendiente label:before,
+        .grupo_form_cambio_datos--confirmado label:before {
+            display: block;
+            content: "";
+            position: absolute;
+            top: 2px;
+            left: -24px;
+            width: 16px;
+            height: 16px;
+            background-repeat: no-repeat;
+            background-size: 100%;
+        }
+
+        .grupo_form_cambio_datos--confirmacionPendiente label:before {
+            background-image: url(/Content/Images/icono_pendiente_confirmacion.svg);
+        }
+
+        .grupo_form_cambio_datos--confirmado label:before{
+            background-image: url(/Content/Images/icono_confirmacion.svg);
+        }
+
+    .grupo_form_cambio_datos > div:first-child,
+    .contenedor_campos_num_adicional > div{
+        position:relative;
+        flex-grow:1;
+    }
+
     .grupo_form_cambio_datos:last-child{
-        margin-bottom:35px;
+        margin-bottom:16px;
+        border-bottom:0;
     }
 
     .grupo_form_cambio_datos > div{
@@ -427,16 +495,28 @@ input:focus{
     }
     
     .grupo_form_cambio_datos label{
+        width:90%;
         cursor:default;
         position:absolute;
-        width:90%;
-        top:22px;
+        top:18px;
         left:0;
-        font-size:14px;
+        font-size:13px;
         font-weight:400;
-        height:25px;
-        background-color:rgba(255,255,255,1);
+        height:auto;
         z-index:2;
+    }
+
+    .grupo_form_cambio_datos_btn_guardar_wrapper{
+        margin-left: -20px;
+        margin-right: -20px;
+        padding:0;
+    }
+
+    .mensaje_validacion_campo {
+        color: #e81c36;
+        font-size:13px;
+        position:relative;
+        top:-2px;
     }
 
     .grupo_form_cambio_datos label,
@@ -453,7 +533,6 @@ input:focus{
     .grupo_form_cambio_datos input,
     .grupo_form_cambio_datos select
     {
-        padding-left: 5px;
         font-family:'Lato', sans-serif;
         -moz-transition: all 0.2s ease;
         -o-transition: all 0.2s ease;
@@ -462,22 +541,17 @@ input:focus{
     }
 
     .grupo_form_cambio_datos input,
-    .grupo_form_cambio_datos select
-    {
-        background-color:transparent;
-        margin-top:18px;
+    .grupo_form_cambio_datos select {
+        background-color: transparent;
+        margin-top: 18px;
         font-size: 14px;
         font-weight: 400;
-        border-top: none;
-        border-left: none;
-        border-right: none;
-        color: #000;
-        border-bottom: 1px solid #808080;
-        padding-top: 12px;
-        padding-bottom: 9px;
-        padding-right:40px;
-        position:relative;
-        z-index:2;
+        color: #808080;
+        border: 0;
+        height: 40px;
+        padding-right: 8px;
+        position: relative;
+        z-index: 2;
     }
 
     .grupo_form_cambio_datos select,
@@ -509,25 +583,19 @@ input:focus{
 
     .grupo_form_cambio_datos input:focus + label,
     .grupo_form_cambio_datos select:focus + label,
-    .campo_con_datos + label
-    {
-        top:0;
-        font-size:14px;
-        background-color: rgba(255,255,255,0);
+    .campo_con_datos + label{
+        top:6px;
+        font-size:12.5px;
+        background-color:transparent;
         color:#000;
         font-weight:bold;
     }
 
-    .grupo_form_cambio_datos input:focus + label,
-    .grupo_form_cambio_datos select:focus + label
-    {
-        color:rgba(0,0,0,1);
-    }
-
     .grupo_form_cambio_datos input:focus,
-    .grupo_form_cambio_datos select:focus
-    {
-        border-bottom:1px solid rgba(0,0,0,1);
+    .grupo_form_cambio_datos select:focus,
+    .grupo_form_cambio_datos input:focus + label,
+    .grupo_form_cambio_datos select:focus + label{
+        color:rgba(0,0,0,1);
     }
 
 .enlace_ubicacion_actual{
@@ -555,29 +623,46 @@ input:focus{
 }
 
 .enlace_cambiar_dato,
-.enlace_eliminar_numero_adicional
-{
-    margin-left:17px;
-    margin-right:-3px;
-    vertical-align:bottom;
-    padding-bottom:7px;
-    position:relative;
-    z-index:3;
+.enlace_eliminar_numero_adicional {
+    font-size: 13px;
+    position: relative;
+    z-index: 3;
 }
 
-.icono_cambiar_dato{
-    width:16px;
-    height:16px;
-    background-image:url("/Content/Images/icono_cambiar_dato.svg");
-    margin-right:5px;
-    background-size:100%;
+.enlace_cambiar_dato,
+.btn_confirmar_dato {
+    width: 82px;
 }
 
-.enlace_agregar_num_adicional{
-    position:absolute;
-    top:0;
-    left:0;
-    font-size:14px;
+.enlace_cambiar_dato {
+    color: #B9007E;
+}
+
+    .icono_cambiar_dato {
+        width: 16px;
+        height: 16px;
+        margin-top: 0.5px;
+    }
+
+        .icono_cambiar_dato img {
+            width: 100%;
+            height: auto;
+        }
+
+    .btn_confirmar_dato {
+        margin-top: 16px;
+        height: 32px;
+        font-size: 12.6px;
+        color: #FFF;
+        letter-spacing: 1px;
+        border:0;
+    }
+
+.enlace_agregar_num_adicional {
+    position: absolute;
+    top: 13px;
+    left: 16px;
+    font-size: 14px;
 }
 
 .grupo_form_cambio_datos .label_num_adicional{
@@ -614,35 +699,46 @@ input:focus{
 .permisos_cuenta_titulo,
 .permiso_cuenta_opcion,
 .checkbox_condiciones_descripcion,
-.datos_obligatorios
-{
-    font-size:14px;
+.datos_obligatorios{
+    font-size:13px;
 }
 
 .permisos_cuenta_titulo,
-.permiso_cuenta_opcion
-{
-    margin-bottom:33px;
+.permiso_cuenta_opcion {
+    margin-bottom: 33px;
 }
 
 .permisos_cuenta_titulo,
+.terminos_y_condiciones_wrapper .datos_obligatorios {
+    color: #808080;
+}
+
 .checkbox_condiciones_descripcion,
-.checkbox_condiciones_descripcion a,
-.terminos_y_condiciones_wrapper + .grupo_form_cambio_datos .datos_obligatorios
-{
-    color:#808080;
+.checkbox_condiciones_descripcion a {
+    color: #000;
 }
 
-.grupo_form_checkbox_condiciones .checkbox_condiciones_label{
-    margin-top:4px!important;
-    margin-bottom:0!important;
+.terminos_y_condiciones_wrapper ~ .grupo_form_cambio_datos{
+    padding-left:0;
+    padding-right:0;
+    margin-bottom:0;
+}
+
+.grupo_form_checkbox_condiciones .checkbox_condiciones_label {
+    margin-top: 3px !important;
+    margin-bottom: 0 !important;
+    margin-right: 8px;
 }
 
 .grupo_input_actualizarMisDatos .checkbox_condiciones_wrapper,
-.permiso_cuenta_opcion
-{
+.permiso_cuenta_opcion{
     display:flex;
-    justify-content:space-between;
+    justify-content:flex-start;
+}
+
+.grupo_input_actualizarMisDatos .checkbox_condiciones_wrapper,
+.grupo_input_actualizarMisDatos .checkbox_condiciones_descripcion {
+    margin-right: 0!important;
 }
 
 input.checkbox_condiciones_checkbox,
@@ -676,9 +772,10 @@ input.permiso_cuenta_opcion_checkbox
     border: 1px solid #b9007e;
 }
 
-.grupo_input_actualizarMisDatos .checkbox_condiciones_descripcion{
-    width:89%;
-    margin-bottom:4px;
+.grupo_input_actualizarMisDatos .checkbox_condiciones_descripcion {
+    width: 89%;
+    margin-bottom: 4px;
+    order: 1;
 }
 
 .btn_guardar_datos_nuevos,
@@ -788,6 +885,19 @@ input.permiso_cuenta_opcion_checkbox
     margin-top: 11px;
 }
 
+.btn_cta_miPerfil {
+    width: 100%;
+    max-width: 180px;
+    height: 40px;
+    line-height: 40px;
+    margin-top:17px;
+    font-size: 14px;
+    color: #FFF;
+    z-index: 2000;
+    background-color: #b9007e;
+    border:0;
+}
+
 /*  FIN - MI PERFIL */
 
 /* CAMBIA TU CONTRASEÑA, ACTUALIZA TU CORREO ELECTRÓNICO, ACTUALIZA TU CELULAR, CAMBIAR FOTO DE PERFIL */
@@ -809,10 +919,45 @@ input.permiso_cuenta_opcion_checkbox
     padding:37px;
 }
 
-.enlace_volver_a_mi_perfil {
-    margin-bottom: 11px;
-    width: 80px;
+.grupo_form_cambio_datos--vistaActualizacionCorreo,
+.grupo_form_cambio_datos--vistaActualizacionCelular{
+    padding: 0;
+    border-bottom: 0;
 }
+
+    .grupo_form_cambio_datos--vistaActualizacionCorreo input,
+    .grupo_form_cambio_datos--vistaActualizacionCelular input {
+        border-bottom: 1px solid #979797;
+    }
+
+.enlace_volver_a_mi_perfil{
+    margin-bottom:11px;
+}
+
+    .enlace_volver_a_mi_perfil--vistaActualizarCorreo,
+    .enlace_volver_a_mi_perfil--vistaActualizarCelular{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        width: 100px;
+        height: 45px;
+        margin-top: -8px;
+        margin-left:-8px;
+    }
+
+    .enlace_volver_a_mi_perfil_icono{
+        width:24px;
+        height:24px;
+    }
+
+        .enlace_volver_a_mi_perfil_icono img {
+            width: 100%;
+            height: auto;
+        }
+
+    .enlace_volver_a_mi_perfil_texto{
+        font-size:13px;
+    }
 
 .icono_back_arrow,
 .icono_cerrar{
@@ -843,7 +988,7 @@ input.permiso_cuenta_opcion_checkbox
 {
     background-color:#FFF;
     min-height:355px;
-    padding:50px 80px;
+    padding:50px 77px;
 }
 
 .enlace_cancelar{

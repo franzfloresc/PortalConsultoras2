@@ -9,7 +9,7 @@ a{
 }
 
 .d-inline-block {
-    display: block;
+    display: inline-block;
 }
 
 .text-uppercase{
@@ -22,6 +22,10 @@ a{
 
 .text-right{
     text-align:right;
+}
+
+.text-center {
+    text-align: center;
 }
 
 .text-bold{
@@ -641,8 +645,6 @@ a{
 .enlace_cambiar_dato,
 .enlace_eliminar_numero_adicional{
     font-size:13px;
-    margin-right:-3px;
-    vertical-align:bottom;
     position:relative;
     z-index:3;
 }
@@ -729,6 +731,10 @@ a{
 .checkbox_condiciones_descripcion,
 .checkbox_condiciones_descripcion a{
     color:#000;
+}
+
+.grupo_input_actualizarMisDatos .grupo_form_checkbox_condiciones {
+    width: auto;
 }
 
 .terminos_y_condiciones_wrapper ~ .datos_obligatorios{
@@ -877,9 +883,11 @@ a{
     bottom: 0;
     height: 40px;
     line-height: 40px;
+    font-size: 14px;
     color: #FFF;
     z-index: 2000;
     background-color: #b9007e;
+    border:0;
 }
 
 /* POPUP MAPA UBICACIÓN DIRECCIÓN ENTREGA */

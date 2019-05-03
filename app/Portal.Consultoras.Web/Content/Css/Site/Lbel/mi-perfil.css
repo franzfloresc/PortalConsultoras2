@@ -4,6 +4,14 @@ a{
     cursor:pointer!important;
 }
 
+.d-block {
+    display: block;
+}
+
+.d-inline-block {
+    display: block;
+}
+
 .text-uppercase{
     text-transform:uppercase;
 }
@@ -654,9 +662,10 @@ input:focus{
     color:#808080;
 }
 
-.grupo_form_checkbox_condiciones .checkbox_condiciones_label{
-    margin-top:4px!important;
-    margin-bottom:0!important;
+.grupo_form_checkbox_condiciones .checkbox_condiciones_label {
+    margin-top: 3px !important;
+    margin-bottom: 0 !important;
+    margin-right: 8px;
 }
 
 .grupo_input_actualizarMisDatos .checkbox_condiciones_wrapper,
@@ -868,7 +877,7 @@ input.permiso_cuenta_opcion_checkbox
 {
     background-color:#FFF;
     min-height:355px;
-    padding:50px 80px;
+    padding:50px 77px;
 }
 
 .enlace_cancelar{
