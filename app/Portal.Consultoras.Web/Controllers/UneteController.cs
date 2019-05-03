@@ -1411,6 +1411,77 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.HTMLSACUnete = getHTMLSACUnete("GestionParametros", null);
             return View("GestionParametros");
         }
+        public ActionResult ConfiguracionValidacionZona()
+        {
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("ConfiguracionValidacionZona", null);
+            return View("ConfiguracionValidacionZona");
+        }
+
+        [HttpPost]
+        public JsonResult ActualizarEstadoZona(ConfiguracionZonaModel model)
+        {
+            try
+            {
+                HojaInscripcionBelcorpPais.ParametroUneteBE parametroUnete = new HojaInscripcionBelcorpPais.ParametroUneteBE();
+                using (BelcorpPaisServiceClient sv = new BelcorpPaisServiceClient())
+                {
+                    if (model.ListaZonasValidacionActivas != null)
+                    {
+                        foreach (var item in model.ListaZonasValidacionActivas)
+                        {
+                                parametroUnete.IdParametroUnete = item.IdParametroUnete;
+                                parametroUnete.Estado = 1;
+                                sv.ActualizarEstadoParametroUnete(CodigoISO, parametroUnete);
+                            
+                        }
+                    }
+
+                    if (model.ListaZonasValidacionInactivas != null)
+                    {
+                        foreach (var item in model.ListaZonasValidacionInactivas)
+                        {
+                            parametroUnete.IdParametroUnete = item.IdParametroUnete;
+                            parametroUnete.Estado = 0;
+                            sv.ActualizarEstadoParametroUnete(CodigoISO, parametroUnete);
+
+                        }
+                    }
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    message = "La configuración de zonas fue realizada de manera satisfactoria.",
+                    extra = ""
+                });
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    extra = ""
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    extra = ""
+                });
+            }
+        }
+
+        public JsonResult GetConfiguracionValidacionZona(string filtroZonaId)
+        {
+            var response = getHTMLSACUnete("GetConfiguracionValidacionZona", "&filtroZonaId="+ filtroZonaId + "&codigoISO=" + CodigoISO);
+            return Json(response, JsonRequestBehavior.AllowGet);
+        }
 
         public ActionResult DevolverSolicitud(int id)
         {
@@ -2177,6 +2248,37 @@ namespace Portal.Consultoras.Web.Controllers
 
             return result;
         }
+        
+        public List<ServiceUnete.ParametroUneteBE> GetReporteZonas(int IdTipoParametroUnete)
+        {
+            ServiceUnete.ParametroUneteBE parametroUnete= new ServiceUnete.ParametroUneteBE();
+            List<ServiceUnete.ParametroUneteBE> result = new List<ServiceUnete.ParametroUneteBE>();
+            try
+            {
+                using (var sv = new PortalServiceClient())
+                {
+                    
+                    parametroUnete.IdParametroUnetePadre = IdTipoParametroUnete;
+                    parametroUnete.Estado = 1;
+                    foreach (var item in sv.ObtenerParametrosUneteFinal(CodigoISO, parametroUnete))
+                    {
+                        result.Add(item);
+                    }
+                    parametroUnete.Estado = 0;
+                    foreach (var item in sv.ObtenerParametrosUneteFinal(CodigoISO, parametroUnete))
+                    {
+                        result.Add(item);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorUtilities.AddLog(ex);
+
+            }
+
+            return result;
+        }
 
         public ActionResult ExportarExcelFunnel(string CampaniaInicio, string CampaniaFin, string ReporteNombre)
         {
@@ -2197,6 +2299,18 @@ namespace Portal.Consultoras.Web.Controllers
         {
             ViewBag.ipRequest = Request.UserHostAddress;
             ViewBag.HTMLSACUnete = getHTMLSACUnete("ReporteFunnel", null);
+            return View();
+        }
+
+        public ActionResult ExportarExcelValidacionZona(string ReporteNombre, int idTipoParametroUnete)
+        {
+            List<ServiceUnete.ParametroUneteBE> result = GetReporteZonas(idTipoParametroUnete);
+            Dictionary<string, string> dic;
+            using (var sv = new PortalServiceClient())
+            {
+                dic = sv.GetDictionaryReporteZonas();
+            }
+            Util.ExportToExcel(ReporteNombre, result.Select(p => new { p.Nombre, p.Estado }).ToList(), dic);
             return View();
         }
 
