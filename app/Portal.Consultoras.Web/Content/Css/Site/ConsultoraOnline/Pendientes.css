@@ -5428,7 +5428,7 @@ img.icon-80 {
     margin-bottom: 80px;
 }
 
-.row.align-items-start .col {
+.row.align-items-start > .col {
     padding-top: 176px;
 }
 .header_fixed {
