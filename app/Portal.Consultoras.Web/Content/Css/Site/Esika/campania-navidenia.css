@@ -365,6 +365,7 @@
         position: relative;
         top: -3px;
         margin-left:3%;
+        padding-left:0;
         padding-right:17px;
         float:right;
     }

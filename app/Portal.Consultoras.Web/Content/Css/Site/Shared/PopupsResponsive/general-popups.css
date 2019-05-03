@@ -1,5 +1,4 @@
-﻿
-/* ESTILOS GENERALES POPUPS SOMOS BELCORP */
+﻿/* ESTILOS GENERALES POPUPS SOMOS BELCORP */
 
 .popup__wrapper {
     display: none;
@@ -14,7 +13,8 @@
 
 .popup__somos__belcorp,
 .popup__somos__belcorp__icono,
-.popup__somos__belcorp__btn {
+.popup__somos__belcorp__btn,
+.popup__somos__belcorp__enlace--noVolverAMostrar {
     margin: 0 auto;
 }
 
@@ -70,7 +70,7 @@
 
 .popup__somos__belcorp__titulo {
     display: block;
-    margin-bottom: 0;
+    margin-bottom: 0 !important;
     line-height: 25px;
 }
 
@@ -94,6 +94,7 @@
 }
 
 .popup__somos__belcorp__btn {
+    width:100%;
     border: 0;
 }
 
@@ -121,12 +122,14 @@
     }
 
 @media screen and (max-width:991px) {
+
     .popup__somos__belcorp {
         width: 90%;
         position: relative;
         top: 70px;
         margin-bottom: 70px;
     }
+
 }
 
 /* FIN - ESTILOS GENERALES POPUPS SOMOS BELCORP */

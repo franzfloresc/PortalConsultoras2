@@ -1198,6 +1198,8 @@ namespace Portal.Consultoras.Web.Controllers
             if (j >= 0) ViewBag.NombreConsultora = ViewBag.NombreConsultora.Substring(0, j).Trim();
 
             ViewBag.HabilitarChatEmtelco = _chatEmtelcoProvider.HabilitarChatEmtelco(userData.PaisID, esMobile);
+            ViewBag.NoReservoPedido = userData.EsDiasFacturacion && _pedidoWebProvider.RequiereCierreSessionValidado(_tablaLogicaProvider, userData.PaisID) && !_pedidoWebProvider.TienePedidoReservado(userData) && ObtenerPedidoWebDetalle().Count > 0;
+            ViewBag.SessionTimeout = HttpContext.Session.Timeout;
 
             ViewBag.MostrarBuscadorYFiltros = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.MostrarBuscador).ToBool();
             ViewBag.CaracteresBuscador = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.CaracteresBuscador);

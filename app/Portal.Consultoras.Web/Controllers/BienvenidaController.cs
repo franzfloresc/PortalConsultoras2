@@ -2334,5 +2334,10 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public ActionResult KeepAlive()
+        {
+            return Content("OK");
+        }
     }
 } 

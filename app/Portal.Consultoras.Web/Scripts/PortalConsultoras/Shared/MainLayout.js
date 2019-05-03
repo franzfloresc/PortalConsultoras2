@@ -81,6 +81,11 @@ $(document).ready(function () {
                 $('#dialog_SesionMainLayout').hide();
                 window.location.href = "Login";
             }
+
+            if ($('#PopupCierreSesion').is(':visible')) {
+                $('#PopupCierreSesion').hide();
+                window.location.href = "Login";
+            }
         }
     });
 

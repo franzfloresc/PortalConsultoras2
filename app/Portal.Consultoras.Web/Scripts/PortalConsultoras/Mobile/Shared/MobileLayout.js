@@ -1160,9 +1160,14 @@ function CloseDialog(pop) {
     pop = pop || "box-pop-up";
     $("#" + pop).hide();
 } 
+
+function CerrarSesion() {
+    location.href = baseUrl + 'Login/LogOut';
+}
 //INI HD-3693
 function alert_msg_bloqueadas(message) {
     $('#PopupBloqueoPorSistema .message_text_bloqueada').html(message);
     $('#PopupBloqueoPorSistema').show();
 }
 //FIN HD-3693
+

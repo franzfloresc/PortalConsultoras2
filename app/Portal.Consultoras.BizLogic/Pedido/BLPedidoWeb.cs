@@ -1973,6 +1973,7 @@ namespace Portal.Consultoras.BizLogic
         {
             var errorMessage = string.Empty;
             var url = string.Empty;
+
             try
             {
                 var input = new
@@ -1983,12 +1984,15 @@ namespace Portal.Consultoras.BizLogic
                     Campana = campania,
                     NumeroPedido = numeroPedido
                 };
+
                 var urlService = ConfigurationManager.AppSettings["WS_RV_PDF_NEW"];
                 var wrapper = ConsumirServicio<DEWrapperPDF>(input, urlService);
                 var result = (wrapper ?? new DEWrapperPDF()).GET_URLResult;
+
                 if (result != null)
                 {
                     if (result.errorCode != "00000" && result.errorMessage != "OK") errorMessage = result.errorMessage;
+
                     if (string.IsNullOrEmpty(errorMessage) && result.objeto != null)
                     {
                         if (result.objeto.Count > 0) url = result.objeto[0].url;
@@ -2000,6 +2004,7 @@ namespace Portal.Consultoras.BizLogic
                 LogManager.SaveLog(ex, codigoConsultora, paisIso);
                 throw new BizLogicException("No se pudo obtener la ruta de paquete documentario.", ex);
             }
+
             return new BEPedidoWeb()
             {
                 RutaPaqueteDocumentario = url,
@@ -2012,18 +2017,24 @@ namespace Portal.Consultoras.BizLogic
         {
             var serializer = new JavaScriptSerializer();
             var request = WebRequest.Create(metodo);
+
             request.Method = "POST";
             request.ContentType = "application/json; charset=utf-8";
+
             var inputJson = serializer.Serialize(input);
+
             using (var writer = new StreamWriter(request.GetRequestStream()))
             {
                 writer.Write(inputJson);
             }
+
             var outputJson = string.Empty;
+
             using (StreamReader reader = new StreamReader(request.GetResponse().GetResponseStream()))
             {
                 outputJson = reader.ReadToEnd();
             }
+
             return serializer.Deserialize<T>(outputJson);
         }
         #endregion
@@ -2172,7 +2183,7 @@ namespace Portal.Consultoras.BizLogic
                             Mensaje = "Estamos facturando tu pedido."
                         };
                     }
-                    if (validarReservado && configuracion.EstadoPedido == Constantes.EstadoPedido.Procesado && !configuracion.ModificaPedidoReservado && !configuracion.ValidacionAbierta)
+                    if (validarReservado && EsPedidoReservado(configuracion))
                     {
                         return new BEValidacionModificacionPedido
                         {
@@ -2201,6 +2212,23 @@ namespace Portal.Consultoras.BizLogic
                 LogManager.SaveLog(ex, consultoraID, paisID);
                 throw new BizLogicException("Error en BLPedidoWeb.ValidacionModificarPedido", ex);
             }
+        }
+
+        public bool GetEsPedidoReservado(int paisId, int campaniId, long consultoraId)
+        {
+            BEConfiguracionCampania configuracion = null;
+            using (var reader = new DAPedidoWeb(paisId).GetEstadoPedido(campaniId, consultoraId))
+            {
+                configuracion =  reader.MapToObject<BEConfiguracionCampania>(true); 
+            }
+
+            return configuracion != null && EsPedidoReservado(configuracion);
+        }
+
+        private bool EsPedidoReservado(BEConfiguracionCampania configuracion)
+        {
+            return configuracion.EstadoPedido == Constantes.EstadoPedido.Procesado &&
+                   !configuracion.ModificaPedidoReservado && !configuracion.ValidacionAbierta;
         }
 
         private string ValidarHorarioRestringido(BEUsuario usuario, int campania)

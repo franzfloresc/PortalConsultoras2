@@ -223,6 +223,8 @@ namespace Portal.Consultoras.Common
             {
                 public const string ListCuv = "ListCuv";
             }
+
+            public const short CierreSessionValidado = 15301;
             
             public static class CaminoBrillante
             {
@@ -1933,6 +1935,7 @@ namespace Portal.Consultoras.Common
             public const short EscalaDescuentoMobile = 73;
             public const short ListaOrdenamientoFiltros = 147;
             public const short ArmaTuPack = 14;
+            public const short CierreSessionValidado = 153;
             public const short PilotoCatalogoDigital = 155;
             public const short GanaMasNativo = 159;
             public const short ResizeImagenesAppGanaMas = 162;
