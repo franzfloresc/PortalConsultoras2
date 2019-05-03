@@ -1938,6 +1938,9 @@ namespace Portal.Consultoras.Common
             public const short ResizeImagenesAppGanaMas = 162;
             public const short SegPedidoRegionZona = 169;//HD-3606 EINCA
             public const short TiempoMaximoSP = 180;
+            //INI HD-3693
+            public const int MsjPopupBloqueadas = 230;
+            //FIN HD-3693
             #region Camino Brillante
             public const short CaminoBrillanteInfoComercial = 165;
             public const short CaminoBrillanteLogros = 166;
@@ -2547,7 +2550,6 @@ namespace Portal.Consultoras.Common
 
                 public const string ERROR_AGREGAR_BACKORDER_NO_PERMITIDO = "2201";
                 public const string ERROR_AGREGAR_BACKORDER = "2202";
-
             }
 
             public static Dictionary<string, PedidoValidacionConfiguracion> Configuracion
@@ -2612,7 +2614,6 @@ namespace Portal.Consultoras.Common
 
                             {Code.ERROR_AGREGAR_BACKORDER_NO_PERMITIDO , new PedidoValidacionConfiguracion(){ Mensaje ="No se puede agregar un set como BackOrder." } },
                             {Code.ERROR_AGREGAR_BACKORDER , new PedidoValidacionConfiguracion(){ Mensaje ="No se encuentra el detalle en el pedido para agregarlo como BackOrder." } }
-
                         });
                 }
             }

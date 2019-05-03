@@ -203,6 +203,9 @@ function UpdateLiquidacionSegunTipoOfertaSis(obj, elementRow) {
         if (ReservadoOEnHorarioRestringido()) {
             obj.Cantidad = obj.CantidadTemporal;
             belcorp.mobile.pedido.setDetalleById(obj);
+            //INI HD-3693
+            $(elementRow).find(".Cantidad").val(obj.Cantidad);
+            //FIN HD-3693
             CloseLoading();
             return false;
         }
@@ -637,7 +640,12 @@ function PedidoDetalleEliminarTodo() {
             }
 
             if (data.success != true) {
-                messageInfoError(data.message);
+                //INI HD-3693
+                //messageInfoError(data.message);
+                var msjBloq = validarpopupBloqueada(data.message);
+                if (msjBloq != "") alert_msg_bloqueadas(msjBloq);
+                else messageInfoError(data.message);
+                //FIN HD-3693
                 CloseLoading();
                 return false;
             }

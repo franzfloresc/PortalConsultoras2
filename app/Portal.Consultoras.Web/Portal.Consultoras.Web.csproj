@@ -1511,6 +1511,10 @@
     <Content Include="Content\Css\Site\Menu\MenuGeneral.css" />
     <Content Include="Content\Images\CaminoBrillante\medalla.PNG" />
     <Content Include="Content\Css\Site\Menu\MenuContenedorResponsive.css" />
+    <Content Include="Content\Css\Site\Shared\PopupsResponsive\general-popups.css" />
+    <Content Include="Content\Css\Site\Shared\PopupsResponsive\popup-bloqueo-sistema.css" />
+    <Content Include="Content\Images\icono_cerrar_popup.svg" />
+    <Content Include="Content\Images\icono_notificacion_negativa.svg" />
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\popup-actualizacion-correo.css" />
     <Content Include="Content\Images\icono_cerrar_popup.svg" />
     <Content Include="Content\Images\icono_correo.svg" />
@@ -5834,6 +5838,7 @@
     <Content Include="Views\MisReclamos\ReporteDetalle.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-bannerInteractivo.cshtml" />
     <Content Include="Views\Bonificaciones\IndexExterno.cshtml" />
+    <Content Include="Views\Shared\PopupsResponsive\_PopupBloqueoPorSistema.cshtml" />
     <Content Include="Views\MisCertificados\CAM_NoAdeudoPdf.cshtml" />
     <Content Include="Views\Unete\_ConsultarEstadoTelefonico.cshtml" />
     <Content Include="Views\DetalleEstrategia\ComponenteDetalleIndividualTemplate.cshtml" />
