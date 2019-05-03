@@ -7,8 +7,13 @@ using System.Runtime.Serialization;
 namespace Portal.Consultoras.Entities
 {
     [DataContract]
-    public class BEMisPedidos
+    public class BEMisPedidos : ICloneable
     {
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
+
         [DataMember]
         public long PedidoId { get; set; }
 
@@ -115,8 +120,13 @@ namespace Portal.Consultoras.Entities
     }
 
     [DataContract]
-    public class BEMisPedidosDetalle
+    public class BEMisPedidosDetalle : ICloneable
     {
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
+
         [DataMember]
         public long PedidoDetalleId { get; set; }
 

@@ -550,6 +550,7 @@ function ContinuarPedido() {
     else {
         CloseLoading();
         $('#mensajepedido').show();
+        setTimeout(function () { $('#mensajepedido').hide(); }, 2000);
     }
 }
 
@@ -557,7 +558,10 @@ function EliminarSolicitudDetalle(pedidoId, cuv, origen) {
     var obj = {
         pedidoId: pedidoId,
         cuv: cuv
-    }
+    };
+
+    var pedidos = [];
+    var cuvs = [];
 
     ShowLoading();
     $.ajax({
@@ -569,12 +573,24 @@ function EliminarSolicitudDetalle(pedidoId, cuv, origen) {
         success: function (response) {
             CloseLoading();
             if (response.success) {
+
+                var Pendientes = JSON.parse(response.Pendientes) || [];
+                $.each(Pendientes.ListaPedidos, function (index, value) {
+                    pedidos.push(value.PedidoId.toString());
+                    $.each(value.DetallePedido, function (index, value) {
+                        cuvs.push(value.CUV.toString());
+                    });
+                });
                 // ocultar div
+                var id = "";
                 if (origen == 'C') {
-                    var id = '#vc_pedido_' + cuv;
+                    id = '#vc_pedido_' + cuv;
                     $(id).hide();
+                    if ($("#contentmobile").find('.pedidos').length == 1) {
+                        window.location.href = "/Mobile/ConsultoraOnline/Pendientes";
+                    }
                 } else if (origen == 'P') {
-                    var id = '#vp_pedido_' + pedidoId;
+                    id = '#vp_pedido_' + pedidoId;
                     $(id).hide();
                 }
             }
@@ -589,3 +605,13 @@ function EliminarSolicitudDetalle(pedidoId, cuv, origen) {
     });
 
 }
+
+$("body").on('change', ".ValidaValor", function (e) {
+    var $input = $(this);
+    var previousVal = $input.val();
+
+    if (previousVal == 0) {
+
+        $input.val(1);
+    }
+});

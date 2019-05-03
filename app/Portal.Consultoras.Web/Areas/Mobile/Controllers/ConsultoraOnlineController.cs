@@ -1063,6 +1063,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public ActionResult DetallePedidoPendienteClientes(string cuv)
         {
             MisPedidosModel model = new MisPedidosModel();
+            var producton = "";
 
             try
             {
@@ -1083,6 +1084,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     var detalles = cab.DetallePedido.Where(x => x.CUV == cuv);
                     if (detalles.Any())
                     {
+                        producton = detalles.ToList()[0].Producto;
                         arrIds.Add(cab.PedidoId.ToString());
                     }
                 }
@@ -1108,6 +1110,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 SessionManager.SetobjMisPedidos(model);
                 //SessionManager.SetobjMisPedidosDetalle(lstdetalle);
                 ViewBag.CUVx = cuv;
+                ViewBag.Productox = producton;
             }
             catch (Exception ex)
             {

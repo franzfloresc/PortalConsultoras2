@@ -231,6 +231,7 @@ namespace Portal.Consultoras.Web.Controllers
         public virtual List<BEPedidoWebDetalle> ObtenerPedidoWebDetalle()
         {
             return _pedidoWebProvider.ObtenerPedidoWebDetalle(EsOpt());
+            
         }
 
         public virtual List<BEPedidoWebDetalle> ObtenerPedidoWebSetDetalleAgrupado(bool noSession = false)
@@ -1371,12 +1372,11 @@ namespace Portal.Consultoras.Web.Controllers
             return ControllerContext.RouteData.Values["controller"].ToString();
         }
 
-        public VariablesGeneralEstrategiaModel GetVariableEstrategia()
+        public VariablesGeneralEstrategiaModel GetEstrategiaHabilitado()
         {
-            var variableEstrategia = new VariablesGeneralEstrategiaModel
+            VariablesGeneralEstrategiaModel variableEstrategia = new VariablesGeneralEstrategiaModel
             {
-                PaisHabilitado = SessionManager.GetConfigMicroserviciosPersonalizacion().PaisHabilitado, //WebConfig.PaisesMicroservicioPersonalizacion,
-                TipoEstrategiaHabilitado = SessionManager.GetConfigMicroserviciosPersonalizacion().EstrategiaHabilitado //WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion
+                TipoEstrategiaHabilitado = SessionManager.GetConfigMicroserviciosPersonalizacion().GuardaDataEnLocalStorage
             };
             return variableEstrategia;
         }

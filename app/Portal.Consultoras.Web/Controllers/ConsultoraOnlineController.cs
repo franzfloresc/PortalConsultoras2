@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Providers;
@@ -952,6 +953,8 @@ namespace Portal.Consultoras.Web.Controllers
                     model.Pagina = "0";
                     model.PaginaDe = "0";
                 }
+
+                model.TipoPaginador = Constantes.ClasificadorPedido.PedidoDetallePendiente;
 
                 return Json(new
                 {
@@ -2113,6 +2116,12 @@ namespace Portal.Consultoras.Web.Controllers
                     else if (marcaID == Constantes.Marca.Esika) origenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopPedidoCatalogoEsikaCatalogoDigitalPendienteDeAprobar;
                     else if (marcaID == Constantes.Marca.Cyzone) origenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopPedidoCatalogoCyzoneCatalogoDigitalPendienteDeAprobar;
                 }
+                else if (flagMedio == Constantes.SolicitudCliente.FlagMedio.MaquilladorVirtual)
+                {
+                    if (marcaID == Constantes.Marca.LBel) origenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopPedidoCatalogoLbelMaquilladorPendienteDeAprobar;
+                    else if (marcaID == Constantes.Marca.Esika) origenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopPedidoCatalogoEsikaMaquilladorPendienteDeAprobar;
+                    else if (marcaID == Constantes.Marca.Cyzone) origenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopPedidoCatalogoCyzoneMaquilladorPendienteDeAprobar;
+                }
             }
             else if (Dispositivo == 2) //MOBILE
             {
@@ -2127,6 +2136,12 @@ namespace Portal.Consultoras.Web.Controllers
                     if (marcaID == Constantes.Marca.LBel) origenPedidoWeb = Constantes.OrigenPedidoWeb.MobilePedidoCatalogoLbelCatalogoDigitalPendienteDeAprobar;
                     else if (marcaID == Constantes.Marca.Esika) origenPedidoWeb = Constantes.OrigenPedidoWeb.MobilePedidoCatalogoEsikaCatalogoDigitalPendienteDeAprobar;
                     else if (marcaID == Constantes.Marca.Cyzone) origenPedidoWeb = Constantes.OrigenPedidoWeb.MobilePedidoCatalogoCyzoneCatalogoDigitalPendienteDeAprobar;
+                }
+                else if (flagMedio == Constantes.SolicitudCliente.FlagMedio.MaquilladorVirtual)
+                {
+                    if (marcaID == Constantes.Marca.LBel) origenPedidoWeb = Constantes.OrigenPedidoWeb.MobilePedidoCatalogoLbelMaquilladorPendienteDeAprobar;
+                    else if (marcaID == Constantes.Marca.Esika) origenPedidoWeb = Constantes.OrigenPedidoWeb.MobilePedidoCatalogoEsikaMaquilladorPendienteDeAprobar;
+                    else if (marcaID == Constantes.Marca.Cyzone) origenPedidoWeb = Constantes.OrigenPedidoWeb.MobilePedidoCatalogoCyzoneMaquilladorPendienteDeAprobar;
                 }
             }
             else if (Dispositivo == 3) //APP
@@ -2155,6 +2170,21 @@ namespace Portal.Consultoras.Web.Controllers
         {
             MisPedidosModel model = new MisPedidosModel();
             ViewBag.PaisISOx = userData.CodigoISO;
+
+            model = GetPendientes();
+
+            if (model.ListaPedidos.Count == 0)
+            {
+                model.RegistrosTotal = "0";
+                return RedirectToAction("Index", "Pedido", new { area = "" });
+            }
+            return View(model);
+        }
+
+        public MisPedidosModel GetPendientes()
+        {
+            MisPedidosModel model = new MisPedidosModel();
+
             try
             {
                 var lstPedidos = new List<BEMisPedidos>();
@@ -2165,59 +2195,58 @@ namespace Portal.Consultoras.Web.Controllers
 
                 // quitar los que ya fueron atendidos
                 lstPedidos.RemoveAll(x => x.Estado.Trim().Length > 0);
-                if (lstPedidos.Count > 0)
+
+                lstPedidos.ForEach(x => x.FormartoFechaSolicitud = x.FechaSolicitud.ToString("dd") + " de " + x.FechaSolicitud.ToString("MMMM", new CultureInfo("es-ES")));
+                lstPedidos.ForEach(x => x.FormatoPrecioTotal = Util.DecimalToStringFormat(x.PrecioTotal, userData.CodigoISO));
+
+                // obtener todo los detalles de los pedidos hechos
+                var lstPedidosDetalleAll = new List<BEMisPedidosDetalle>();
+                using (UsuarioServiceClient svc = new UsuarioServiceClient())
                 {
-                    lstPedidos.ForEach(x => x.FormartoFechaSolicitud = x.FechaSolicitud.ToString("dd") + " de " + x.FechaSolicitud.ToString("MMMM", new CultureInfo("es-ES")));
-                    lstPedidos.ForEach(x => x.FormatoPrecioTotal = Util.DecimalToStringFormat(x.PrecioTotal, userData.CodigoISO));
-
-                    // obtener todo los detalles de los pedidos hechos
-                    var lstPedidosDetalleAll = new List<BEMisPedidosDetalle>();
-                    using (UsuarioServiceClient svc = new UsuarioServiceClient())
-                    {
-                        lstPedidosDetalleAll = svc.GetMisPedidosDetallePendientesAll(userData.PaisID, userData.CampaniaID, userData.ConsultoraID).ToList();
-                    }
-
-                    foreach (var cab in lstPedidos)
-                    {
-                        var detalles = lstPedidosDetalleAll.Where(x => x.PedidoId == cab.PedidoId);
-                        if (detalles.Any()) cab.DetallePedido = detalles.ToArray();
-                    }
-
-                    model.ListaPedidos = lstPedidos;
-                    var lstByProductos = new List<BEMisPedidosDetalle>();
-                    var grpListCuv = lstPedidosDetalleAll.Select(x => x.CUV).Distinct().ToList();
-
-                    foreach (var cuv in grpListCuv)
-                    {
-                        var lstCuv = lstPedidosDetalleAll.Where(x => x.CUV == cuv);
-                        var det = lstPedidosDetalleAll.First(x => x.CUV == cuv);
-                        var ids = lstCuv.Where(x => x.CUV == cuv).Select(x => x.PedidoId.ToString()).ToArray();
-                        //item.Cantidad = lst1.Count();
-                        det.CantidadTotal = lstCuv.Sum(x => x.Cantidad);
-                        //det.PrecioTotal = (lstCuv.Sum(x => x.PrecioUnitario) * lstCuv.Sum(x => x.Cantidad));
-                        det.PrecioTotal = (det.CantidadTotal * det.PrecioUnitario);
-                        det.FormatoPrecioTotal = Util.DecimalToStringFormat(det.PrecioTotal.ToDecimal(), userData.CodigoISO);
-                        det.ListaClientes = lstPedidos.Where(x => ids.Contains(x.PedidoId.ToString())).ToArray();
-                        lstByProductos.Add(det);
-                    }
-
-                    model.ListaProductos = lstByProductos;
-                    objMisPedidos = model;
-                    SessionManager.SetobjMisPedidos(objMisPedidos);
-                    //model.RegistrosTotal = model.ListaPedidos.Count.ToString();
+                    lstPedidosDetalleAll = svc.GetMisPedidosDetallePendientesAll(userData.PaisID, userData.CampaniaID, userData.ConsultoraID).ToList();
                 }
-                else
+
+                foreach (var cab in lstPedidos)
                 {
-                    model.RegistrosTotal = "0";
-                    return RedirectToAction("Detalle", "Pedido", new { area = "" });
+                    var detalles = lstPedidosDetalleAll.Where(x => x.PedidoId == cab.PedidoId);
+                    if (detalles.Any()) cab.DetallePedido = detalles.ToArray();
                 }
+
+                model.ListaPedidos = lstPedidos;
+                var lstByProductos = new List<BEMisPedidosDetalle>();
+                var grpListCuv = lstPedidosDetalleAll.Select(x => x.CUV).Distinct().ToList();
+
+                foreach (var cuv in grpListCuv)
+                {
+                    var lstCuv = lstPedidosDetalleAll.Where(x => x.CUV == cuv);
+                    var det = lstPedidosDetalleAll.First(x => x.CUV == cuv);
+                    var ids = lstCuv.Where(x => x.CUV == cuv).Select(x => x.PedidoId.ToString()).ToArray();
+                    //item.Cantidad = lst1.Count();
+                    det.CantidadTotal = lstCuv.Sum(x => x.Cantidad);
+                    //det.PrecioTotal = (lstCuv.Sum(x => x.PrecioUnitario) * lstCuv.Sum(x => x.Cantidad));
+                    det.PrecioTotal = (det.CantidadTotal * det.PrecioUnitario);
+                    det.FormatoPrecioTotal = Util.DecimalToStringFormat(det.PrecioTotal.ToDecimal(), userData.CodigoISO);
+                    det.ListaClientes = lstPedidos.Where(x => ids.Contains(x.PedidoId.ToString())).ToArray();
+
+                    if (det.ListaClientes == null || det.ListaClientes.Count() == 0)
+                    {
+                        continue;
+                    }
+                    lstByProductos.Add(det);
+                }
+
+                model.ListaProductos = lstByProductos;
+                objMisPedidos = model;
+                SessionManager.SetobjMisPedidos(objMisPedidos);
+                //model.RegistrosTotal = model.ListaPedidos.Count.ToString();
+
+                return model;
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return new MisPedidosModel();
             }
-
-            return View(model);
         }
 
         [HttpPost]
@@ -2308,6 +2337,7 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult DetallePedidoPendienteClientes(string cuv)
         {
             MisPedidosModel model = new MisPedidosModel();
+            string producton = "";
 
             try
             {
@@ -2328,6 +2358,7 @@ namespace Portal.Consultoras.Web.Controllers
                     var detalles = cab.DetallePedido.Where(x => x.CUV == cuv);
                     if (detalles.Any())
                     {
+                        producton = detalles.ToList()[0].Producto;
                         arrIds.Add(cab.PedidoId.ToString());
                     }
                 }
@@ -2345,13 +2376,13 @@ namespace Portal.Consultoras.Web.Controllers
                 foreach (var cab in lstPedidos)
                 {
                     cab.CantidadTotal = cab.DetallePedido.Where(x => x.CUV == cuv).Sum(x => x.Cantidad);
-                    foreach(var det in cab.DetallePedido)
+                    foreach (var det in cab.DetallePedido)
                     {
                         det.ListaClientes = null;
                     }
                 }
 
-               //var model1 = Mapper.Map<ClienteOnlineModel>(lstPedidos);
+                //var model1 = Mapper.Map<ClienteOnlineModel>(lstPedidos);
                 model.ListaPedidos = lstPedidos.ToList();
                 //model.ListaPedidos[0].DetallePedido = lstdetalle.ToArray();
                 //model.RegistrosTotal = model.ListaPedidos.Count.ToString();
@@ -2362,7 +2393,9 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = true,
-                    data = model
+                    data = model,
+                    CUVx = cuv,
+                    Productox = producton
                 }, JsonRequestBehavior.AllowGet);
 
             }
@@ -2456,6 +2489,35 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
+        public JsonResult ActualizarPendientes()
+        {
+            try
+            {
+                var model = GetPendientes();
+
+                var PendientesJson = JsonConvert.SerializeObject(model, Formatting.Indented, new JsonSerializerSettings
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                });
+
+                return Json(new
+                {
+                    success = true,
+                    Pendientes = PendientesJson,
+                    message = "OK"
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
         public JsonResult RechazarSolicitudCliente(string pedidoId)
         {
             try
@@ -2486,9 +2548,18 @@ namespace Portal.Consultoras.Web.Controllers
                     svc.UpdSolicitudClienteRechazar(userData.PaisID, pedido.PedidoId);
                 }
 
+                MisPedidosModel model = new MisPedidosModel();
+                model = GetPendientes();
+
+                var PendientesJson = JsonConvert.SerializeObject(model, Formatting.Indented, new JsonSerializerSettings
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                });
+
                 return Json(new
                 {
                     success = true,
+                    Pendientes = PendientesJson,
                     message = "OK"
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -2608,9 +2679,18 @@ namespace Portal.Consultoras.Web.Controllers
                     SessionManager.SetobjMisPedidos(pedidos);
                 }
 
+                MisPedidosModel model = new MisPedidosModel();
+                model = GetPendientes();
+
+                var PendientesJson = JsonConvert.SerializeObject(model, Formatting.Indented, new JsonSerializerSettings
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                });
+
                 return Json(new
                 {
                     success = true,
+                    Pendientes = PendientesJson,
                     message = "OK"
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -2669,9 +2749,11 @@ namespace Portal.Consultoras.Web.Controllers
                 model.RegistrosTotal = model.ListaPedidos.Count.ToString();
                 SessionManager.SetobjMisPedidos(model);
                 //SessionManager.SetobjMisPedidosDetalle(Listadetalle);
+                var modelList = PendientesMedioDeCompra();
 
                 return Json(new
                 {
+                    result = modelList,
                     success = true,
                     message = "OK"
                 }, JsonRequestBehavior.AllowGet);
@@ -2706,9 +2788,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
 
-
-            List<BEMisPedidos> pedidosSesion;
-            pedidosSesion = SessionManager.GetobjMisPedidos().ListaPedidos;
+            var pedidosSesion = SessionManager.GetobjMisPedidos().ListaPedidos;
 
             #region Logica Cliente existe
 
@@ -2765,7 +2845,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                                 pedido.DetallePedido.Where(i => i.Elegido).Each(detalle =>
                                 {
-
                                     var beSolicitudDetalle = new ServiceSAC.BESolicitudClienteDetalle
                                     {
                                         SolicitudClienteDetalleID = detalle.PedidoDetalleId,
@@ -2778,7 +2857,6 @@ namespace Portal.Consultoras.Web.Controllers
                                 });
                             }
                         });
-
                     }
 
                     parametros.ListaGana.ForEach(model =>
@@ -2934,257 +3012,9 @@ namespace Portal.Consultoras.Web.Controllers
 
             #endregion
 
-            #region email
+            #region Email
 
-            string emailDe = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.ConsultoraOnlineEmailDe);
-
-            pedidosSesion.ForEach(pedidoAux =>
-            {
-                int tipo;
-                string marcaPedido;
-
-                // 0=App Catalogos, >0=Portal Marca
-                if (pedidoAux.MarcaID == 0)
-                {
-                    tipo = 1;
-                    marcaPedido = pedidoAux.MedioContacto;
-                }
-                else
-                {
-                    tipo = 2;
-                    marcaPedido = pedidoAux.Marca;
-                }
-
-                if (pedidoAux.DetallePedido.Any(i => i.Elegido == true) && pedidoAux.FlagMedio == "01")
-                {
-                    double totalPedido = 0;
-
-                    String titulocliente = "Tu pedido ha sido CONFIRMADO por " + userData.PrimerNombre + " " +
-                                           userData.PrimerApellido + " - App de Catálogos Ésika, L'Bel y Cyzone";
-                    StringBuilder mensajecliente = new StringBuilder();
-                    mensajecliente.Append(
-                        "<table width='100%' border='0' bgcolor='#ffffff' cellspacing='0' cellpadding='0' border-spacing='0' style='margin: 0; border: 0; border-collapse: collapse!important;'>");
-                    mensajecliente.Append("<tbody><tr>");
-                    mensajecliente.Append("<td align='center' valign='middle'>");
-                    mensajecliente.Append(
-                        "<table width='600' border='0' cellspacing='0' cellpadding='0' border-spacing='0' align='center' style='border-collapse: collapse!important;'>");
-                    mensajecliente.Append("<tbody><tr>");
-                    mensajecliente.Append("<td valign='middle' style='width: 15%'>");
-                    mensajecliente.Append(
-                        "<img src='https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/mailing/cabecera_email.jpg' border='0' height='70' width='70' alt='Catálogos Esika, LBel y Cyzone'>");
-                    mensajecliente.Append("</td>");
-                    mensajecliente.Append("<td valign='middle'>");
-                    mensajecliente.Append(
-                        "<span style='display: block; color: #7f7f7f; font-size: 18px; text-align: left; font-family: Arial, Helvetica, sans-serif; margin: 0.4em 0 0 0em;'>");
-                    mensajecliente.Append("Catálogos Esika, LBel, Cyzone");
-                    mensajecliente.Append("</span>");
-                    mensajecliente.Append("</td>");
-                    mensajecliente.Append("</tr>");
-                    mensajecliente.Append("</tbody></table>");
-                    mensajecliente.Append("</td>");
-                    mensajecliente.Append("</tr>");
-                    mensajecliente.Append("<tr>");
-                    mensajecliente.Append("<td>");
-                    mensajecliente.Append(
-                        "<table width='600' border='0' cellspacing='0' cellpadding='0' border-spacing='0' align='center' style='border-collapse: collapse!important;'>");
-                    mensajecliente.Append("<tbody><tr>");
-                    mensajecliente.Append(
-                        "<td align='center' valign='middle' style='border-top-width: 1px; border-top-color: #DDDDDD; border-top-style: solid; height: 10px;'></td>");
-                    mensajecliente.Append("</tr>");
-                    mensajecliente.Append("</tbody></table>");
-                    mensajecliente.Append("</td>");
-                    mensajecliente.Append("</tr>");
-                    mensajecliente.Append("<br>");
-                    mensajecliente.Append("<tr>");
-                    mensajecliente.Append("<td align='center' valign='middle'>");
-                    mensajecliente.Append(
-                        "<table width='600' border='0' cellspacing='0' cellpadding='0' border-spacing='0' align='center' style='border-collapse: collapse!important;'>");
-                    mensajecliente.Append("<tbody>");
-
-                    mensajecliente.Append("<tr>");
-                    mensajecliente.Append("<td align='center' valign='middle'>");
-                    mensajecliente.Append(
-                        "<table width='600' border='0' cellspacing='0' cellpadding='0' border-spacing='0' style='border-collapse: collapse!important;' align='center'>");
-
-                    mensajecliente.Append("<tbody><tr>");
-                    mensajecliente.Append("<td colspan='2'>");
-                    mensajecliente.Append(
-                        "<span style='display: block; color: #7f7f7f; font-size: 16px; text-align: left; font-family: Arial, Helvetica, sans-serif; margin: 0.4em 0 0 0em;'>Hola " +
-                        pedidoAux.Cliente.Split(' ').First() + "</span>");
-                    mensajecliente.Append(
-                        "<p style='display: block; color: #7f7f7f; font-size: 14px; text-align: left; font-family: Arial, Helvetica, sans-serif; margin: 0.4em 0 0 0em;'>Tu Consultora " +
-                        userData.PrimerNombre + " " + userData.PrimerApellido + " ha confirmado tu pedido.</p>");
-                    mensajecliente.Append(
-                        "<p style='display: block; color: #7f7f7f; font-size: 14px; text-align: left; font-family: Arial, Helvetica, sans-serif; margin: 0.4em 0 0 0em;'>En seguida se pondrá en contacto contigo para coordinar la hora y lugar de entrega.</p><br>");
-                    mensajecliente.Append("</td>");
-                    mensajecliente.Append("</tr>");
-
-                    mensajecliente.Append("<tr>");
-                    mensajecliente.Append(
-                        "<td><span style='display: block; color: #7f7f7f; font-size: 17px; text-align: left; font-family: Arial, Helvetica, sans-serif; margin: 0.4em 0 0 0em;'>RESUMEN DE TU PEDIDO</span></td>");
-                    mensajecliente.Append("</tr>");
-
-                    mensajecliente.Append("<tr>");
-                    mensajecliente.Append("<td style='width: 65%;' align='top' valign='middle'>");
-                    mensajecliente.Append("<span style='display: block; margin: 0.6em 0 0.6em;'>");
-                    mensajecliente.Append(
-                        "<span style='color: #7f7f7f; font-size: 15px; text-align: left; font-family: Arial, Helvetica, sans-serif;'>CLIENTE:");
-                    mensajecliente.Append("</span>");
-                    mensajecliente.Append("<br>");
-                    mensajecliente.Append(
-                        "<span style='color: #7f7f7f; font-size: 14px; text-align: left; font-family: Arial, Helvetica, sans-serif;'> " +
-                        pedidoAux.Cliente + "<br>");
-                    mensajecliente.Append(pedidoAux.Email + "<br>");
-                    mensajecliente.Append(pedidoAux.Telefono);
-                    mensajecliente.Append("</span>");
-                    mensajecliente.Append("</span>");
-                    mensajecliente.Append("</td>");
-                    mensajecliente.Append("<td style='width: 35%;' align='top' valign='middle'>");
-                    mensajecliente.Append("<span style='display: block; margin: 0.6em 0 0 0.6em;'>");
-                    mensajecliente.Append(
-                        "<span style='color: #7f7f7f; font-size: 11px; text-align: left; font-family: Arial, Helvetica, sans-serif; line-height: 1em'>FECHA: " +
-                        String.Format("{0:dd/MM/yyyy}", pedidoAux.FechaSolicitud) + "<br>");
-                    mensajecliente.Append("CAMPAÑA: " + pedidoAux.Campania + "<br>");
-                    mensajecliente.Append("</span>");
-                    mensajecliente.Append("</span>");
-                    mensajecliente.Append("</td>");
-                    mensajecliente.Append("</tr>");
-                    mensajecliente.Append("</tbody></table>");
-                    mensajecliente.Append("</td>");
-                    mensajecliente.Append("</tr>");
-                    mensajecliente.Append("<tr>");
-                    mensajecliente.Append("<td align='center' valign='middle'>");
-                    mensajecliente.Append(
-                        " <table width='600' border='0' cellspacing='0' cellpadding='10' border-spacing='0' align='center' style='border-collapse: collapse!important;'>");
-                    mensajecliente.Append("<tbody><tr>");
-                    mensajecliente.Append("<td valign='middle' colspan='3'>");
-                    mensajecliente.Append(
-                        "<span style='display: block; color:#7f7f7f; font-size: 16px; text-align: left; font-family: Arial, Helvetica, sans-serif; text-decoration: underline; margin: 0.6em 0 0em;'>");
-                    mensajecliente.Append("Listado de Productos</span>");
-                    mensajecliente.Append("</td>");
-                    mensajecliente.Append("</tr>");
-                    int cntfila = 0;
-
-                    foreach (var item in pedidoAux.DetallePedido.Where(x => x.Elegido))
-                    {
-                        totalPedido += item.PrecioTotal;
-                        cntfila = cntfila + 1;
-
-                        if (cntfila % 2 == 0)
-                        {
-                            mensajecliente.Append("<tr>");
-                            mensajecliente.Append(
-                                "<td><span style='display: block; color: #000000; font-size: 14px; text-align: left; font-family: Arial, Helvetica, sans-serif; margin: 0.4em;'>" +
-                                item.CUV + "</span></td>");
-                            mensajecliente.Append(
-                                "<td><span style='display: block; color: #000000; font-size: 14px; text-align: left; font-family: Arial, Helvetica, sans-serif; margin: 0.4em;'>" +
-                                item.Marca + "</span></td>");
-                            mensajecliente.Append(
-                                "<td><span style='display: block; color: #000000; font-size: 14px; text-align: left; font-family: Arial, Helvetica, sans-serif; margin: 0.4em;'>" +
-                                item.Producto + "</span></td>");
-                            mensajecliente.Append(
-                                "<td><span style='display: block; color: #000000; font-size: 14px; text-align: left; font-family: Arial, Helvetica, sans-serif; margin: 0.4em;'>Precio: " +
-                                userData.Simbolo + " " + item.PrecioUnitario.ToString("N2") + "</span></td>");
-                            mensajecliente.Append(
-                                "<td><span style='width:90px;display: block; color: #000000; font-size: 14px; text-align: left; font-family: Arial, Helvetica, sans-serif; margin: 0.4em;'>Cantidad: " +
-                                item.Cantidad + "</span></td>");
-                            mensajecliente.Append("</tr>");
-                        }
-                        else
-                        {
-                            mensajecliente.Append("<tr style = 'background: #cccccc;'>");
-                            mensajecliente.Append(
-                                "<td><span style='display: block; color: #000000; font-size: 14px; text-align: left; font-family: Arial, Helvetica, sans-serif; margin: 0.4em;'>" +
-                                item.CUV + "</span></td>");
-                            mensajecliente.Append(
-                                "<td><span style='display: block; color: #000000; font-size: 14px; text-align: left; font-family: Arial, Helvetica, sans-serif; margin: 0.4em;'>" +
-                                item.Marca + "</span></td>");
-                            mensajecliente.Append(
-                                "<td><span style='display: block; color: #000000; font-size: 14px; text-align: left; font-family: Arial, Helvetica, sans-serif; margin: 0.4em;'>" +
-                                item.Producto + "</span></td>");
-                            mensajecliente.Append(
-                                "<td><span style='display: block; color: #000000; font-size: 14px; text-align: left; font-family: Arial, Helvetica, sans-serif; margin: 0.4em;'>Precio: " +
-                                userData.Simbolo + " " + item.PrecioUnitario.ToString("N2") + "</span></td>");
-                            mensajecliente.Append(
-                                "<td><span style='width:90px;display: block; color: #000000; font-size: 14px; text-align: left; font-family: Arial, Helvetica, sans-serif; margin: 0.4em;'>Cantidad: " +
-                                item.Cantidad + "</span></td>");
-                            mensajecliente.Append("</tr>");
-                        }
-                    }
-
-                    mensajecliente.Append("</tbody></table>");
-                    mensajecliente.Append("</td>");
-                    mensajecliente.Append("</tr>");
-                    mensajecliente.Append("<tr>");
-                    mensajecliente.Append("<td align='center' valign='middle' style='height: 15px;'></td>");
-                    mensajecliente.Append("</tr>");
-                    mensajecliente.Append("<tr>");
-                    mensajecliente.Append("<td align='left' valign='top'>");
-                    mensajecliente.Append(
-                        "<span style='display: inline-block; font-size: 18px; text-align: left; font-family: Arial, Helvetica, sans-serif; color: #7f7f7f; display: block; margin: 0.6em 0 0 0.6em;'>PRECIO TOTAL: " +
-                        userData.Simbolo + " " + totalPedido.ToString("N2") + "");
-                    mensajecliente.Append(" </span>");
-                    mensajecliente.Append("</td>");
-                    mensajecliente.Append("</tr>");
-
-                    mensajecliente.Append("<tr>");
-                    mensajecliente.Append("<td style='height: 70px;'>&nbsp;</td>");
-                    mensajecliente.Append("</tr>");
-                    mensajecliente.Append("</tbody></table>");
-                    mensajecliente.Append("</td>");
-                    mensajecliente.Append("</tr>");
-                    mensajecliente.Append("</tbody></table>");
-
-                    //try
-                    //{
-                    //    if (parametros.Accion == 1)
-                    //    {
-                    //        Util.EnviarMail3(emailDe, pedidoAux.Email, titulocliente, mensajecliente.ToString(), true,
-                    //            pedidoAux.Email);
-                    //    }
-                    //    else
-                    //    {
-                    //        Util.EnviarMail3Mobile(emailDe, pedidoAux.Email, titulocliente, mensajecliente.ToString(),
-                    //            true, pedidoAux.Email);
-                    //    }
-                    //}
-                    //catch (Exception ex)
-                    //{
-                    //    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                    //}
-                }
-                else
-                {
-                    String titulo = "(" + userData.CodigoISO + ") Consultora que atenderá tu pedido de " +
-                                    HttpUtility.HtmlDecode(marcaPedido);
-                    StringBuilder mensaje = new StringBuilder();
-                    mensaje.AppendFormat("<p>Hola {0},</br><br /><br />", HttpUtility.HtmlDecode(pedidoAux.Cliente));
-                    mensaje.AppendFormat("{0}</p><br/>", mensajeaCliente);
-                    mensaje.Append("<br/>Saludos,<br/><br />");
-                    mensaje.Append("<table><tr><td><img src=\"cid:{0}\" /></td>");
-                    mensaje.AppendFormat(
-                        "<td><p style='text-align: center;'><strong>{0}<br/>{1}<br/>Consultora</strong></p></td></tr></table>",
-                        userData.NombreConsultora, userData.EMail);
-
-                    //try
-                    //{
-                    //    if (parametros.Accion == 1)
-                    //    {
-                    //        Util.EnviarMail3(emailDe, pedidoAux.Email, titulo, mensaje.ToString(), true, string.Empty);
-                    //    }
-                    //    else
-                    //    {
-                    //        Util.EnviarMail3Mobile(emailDe, pedidoAux.Email, titulo, mensaje.ToString(), true,
-                    //            string.Empty);
-                    //    }
-                    //}
-                    //catch (Exception ex)
-                    //{
-                    //    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                    //}
-                }
-
-            });
+            //EnviarEmail(pedidosSesion, mensajeaCliente);
 
             #endregion
 
@@ -3208,13 +3038,268 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        #endregion
+        [Obsolete("Revisar ya no se usa")]
+        public void EnviarEmail(List<BEMisPedidos> pedidosSesion, string mensajeaCliente)
+        {
+            try
+            {
+                string emailDe = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.ConsultoraOnlineEmailDe);
 
+                pedidosSesion.ForEach(pedidoAux =>
+                {
+                    int tipo;
+                    string marcaPedido;
 
+                    // 0=App Catalogos, >0=Portal Marca
+                    if (pedidoAux.MarcaID == 0)
+                    {
+                        tipo = 1;
+                        marcaPedido = pedidoAux.MedioContacto;
+                    }
+                    else
+                    {
+                        tipo = 2;
+                        marcaPedido = pedidoAux.Marca;
+                    }
 
+                    if (pedidoAux.DetallePedido.Any(i => i.Elegido == true) && pedidoAux.FlagMedio == "01")
+                    {
+                        double totalPedido = 0;
 
-        [HttpPost]
-        public JsonResult PendientesMedioDeCompra()
+                        String titulocliente = "Tu pedido ha sido CONFIRMADO por " + userData.PrimerNombre + " " +
+                                               userData.PrimerApellido + " - App de Catálogos Ésika, L'Bel y Cyzone";
+                        StringBuilder mensajecliente = new StringBuilder();
+                        mensajecliente.Append(
+                            "<table width='100%' border='0' bgcolor='#ffffff' cellspacing='0' cellpadding='0' border-spacing='0' style='margin: 0; border: 0; border-collapse: collapse!important;'>");
+                        mensajecliente.Append("<tbody><tr>");
+                        mensajecliente.Append("<td align='center' valign='middle'>");
+                        mensajecliente.Append(
+                            "<table width='600' border='0' cellspacing='0' cellpadding='0' border-spacing='0' align='center' style='border-collapse: collapse!important;'>");
+                        mensajecliente.Append("<tbody><tr>");
+                        mensajecliente.Append("<td valign='middle' style='width: 15%'>");
+                        mensajecliente.Append(
+                            "<img src='https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/mailing/cabecera_email.jpg' border='0' height='70' width='70' alt='Catálogos Esika, LBel y Cyzone'>");
+                        mensajecliente.Append("</td>");
+                        mensajecliente.Append("<td valign='middle'>");
+                        mensajecliente.Append(
+                            "<span style='display: block; color: #7f7f7f; font-size: 18px; text-align: left; font-family: Arial, Helvetica, sans-serif; margin: 0.4em 0 0 0em;'>");
+                        mensajecliente.Append("Catálogos Esika, LBel, Cyzone");
+                        mensajecliente.Append("</span>");
+                        mensajecliente.Append("</td>");
+                        mensajecliente.Append("</tr>");
+                        mensajecliente.Append("</tbody></table>");
+                        mensajecliente.Append("</td>");
+                        mensajecliente.Append("</tr>");
+                        mensajecliente.Append("<tr>");
+                        mensajecliente.Append("<td>");
+                        mensajecliente.Append(
+                            "<table width='600' border='0' cellspacing='0' cellpadding='0' border-spacing='0' align='center' style='border-collapse: collapse!important;'>");
+                        mensajecliente.Append("<tbody><tr>");
+                        mensajecliente.Append(
+                            "<td align='center' valign='middle' style='border-top-width: 1px; border-top-color: #DDDDDD; border-top-style: solid; height: 10px;'></td>");
+                        mensajecliente.Append("</tr>");
+                        mensajecliente.Append("</tbody></table>");
+                        mensajecliente.Append("</td>");
+                        mensajecliente.Append("</tr>");
+                        mensajecliente.Append("<br>");
+                        mensajecliente.Append("<tr>");
+                        mensajecliente.Append("<td align='center' valign='middle'>");
+                        mensajecliente.Append(
+                            "<table width='600' border='0' cellspacing='0' cellpadding='0' border-spacing='0' align='center' style='border-collapse: collapse!important;'>");
+                        mensajecliente.Append("<tbody>");
+
+                        mensajecliente.Append("<tr>");
+                        mensajecliente.Append("<td align='center' valign='middle'>");
+                        mensajecliente.Append(
+                            "<table width='600' border='0' cellspacing='0' cellpadding='0' border-spacing='0' style='border-collapse: collapse!important;' align='center'>");
+
+                        mensajecliente.Append("<tbody><tr>");
+                        mensajecliente.Append("<td colspan='2'>");
+                        mensajecliente.Append(
+                            "<span style='display: block; color: #7f7f7f; font-size: 16px; text-align: left; font-family: Arial, Helvetica, sans-serif; margin: 0.4em 0 0 0em;'>Hola " +
+                            pedidoAux.Cliente.Split(' ').First() + "</span>");
+                        mensajecliente.Append(
+                            "<p style='display: block; color: #7f7f7f; font-size: 14px; text-align: left; font-family: Arial, Helvetica, sans-serif; margin: 0.4em 0 0 0em;'>Tu Consultora " +
+                            userData.PrimerNombre + " " + userData.PrimerApellido + " ha confirmado tu pedido.</p>");
+                        mensajecliente.Append(
+                            "<p style='display: block; color: #7f7f7f; font-size: 14px; text-align: left; font-family: Arial, Helvetica, sans-serif; margin: 0.4em 0 0 0em;'>En seguida se pondrá en contacto contigo para coordinar la hora y lugar de entrega.</p><br>");
+                        mensajecliente.Append("</td>");
+                        mensajecliente.Append("</tr>");
+
+                        mensajecliente.Append("<tr>");
+                        mensajecliente.Append(
+                            "<td><span style='display: block; color: #7f7f7f; font-size: 17px; text-align: left; font-family: Arial, Helvetica, sans-serif; margin: 0.4em 0 0 0em;'>RESUMEN DE TU PEDIDO</span></td>");
+                        mensajecliente.Append("</tr>");
+
+                        mensajecliente.Append("<tr>");
+                        mensajecliente.Append("<td style='width: 65%;' align='top' valign='middle'>");
+                        mensajecliente.Append("<span style='display: block; margin: 0.6em 0 0.6em;'>");
+                        mensajecliente.Append(
+                            "<span style='color: #7f7f7f; font-size: 15px; text-align: left; font-family: Arial, Helvetica, sans-serif;'>CLIENTE:");
+                        mensajecliente.Append("</span>");
+                        mensajecliente.Append("<br>");
+                        mensajecliente.Append(
+                            "<span style='color: #7f7f7f; font-size: 14px; text-align: left; font-family: Arial, Helvetica, sans-serif;'> " +
+                            pedidoAux.Cliente + "<br>");
+                        mensajecliente.Append(pedidoAux.Email + "<br>");
+                        mensajecliente.Append(pedidoAux.Telefono);
+                        mensajecliente.Append("</span>");
+                        mensajecliente.Append("</span>");
+                        mensajecliente.Append("</td>");
+                        mensajecliente.Append("<td style='width: 35%;' align='top' valign='middle'>");
+                        mensajecliente.Append("<span style='display: block; margin: 0.6em 0 0 0.6em;'>");
+                        mensajecliente.Append(
+                            "<span style='color: #7f7f7f; font-size: 11px; text-align: left; font-family: Arial, Helvetica, sans-serif; line-height: 1em'>FECHA: " +
+                            String.Format("{0:dd/MM/yyyy}", pedidoAux.FechaSolicitud) + "<br>");
+                        mensajecliente.Append("CAMPAÑA: " + pedidoAux.Campania + "<br>");
+                        mensajecliente.Append("</span>");
+                        mensajecliente.Append("</span>");
+                        mensajecliente.Append("</td>");
+                        mensajecliente.Append("</tr>");
+                        mensajecliente.Append("</tbody></table>");
+                        mensajecliente.Append("</td>");
+                        mensajecliente.Append("</tr>");
+                        mensajecliente.Append("<tr>");
+                        mensajecliente.Append("<td align='center' valign='middle'>");
+                        mensajecliente.Append(
+                            " <table width='600' border='0' cellspacing='0' cellpadding='10' border-spacing='0' align='center' style='border-collapse: collapse!important;'>");
+                        mensajecliente.Append("<tbody><tr>");
+                        mensajecliente.Append("<td valign='middle' colspan='3'>");
+                        mensajecliente.Append(
+                            "<span style='display: block; color:#7f7f7f; font-size: 16px; text-align: left; font-family: Arial, Helvetica, sans-serif; text-decoration: underline; margin: 0.6em 0 0em;'>");
+                        mensajecliente.Append("Listado de Productos</span>");
+                        mensajecliente.Append("</td>");
+                        mensajecliente.Append("</tr>");
+                        int cntfila = 0;
+
+                        foreach (var item in pedidoAux.DetallePedido.Where(x => x.Elegido))
+                        {
+                            totalPedido += item.PrecioTotal;
+                            cntfila = cntfila + 1;
+
+                            if (cntfila % 2 == 0)
+                            {
+                                mensajecliente.Append("<tr>");
+                                mensajecliente.Append(
+                                    "<td><span style='display: block; color: #000000; font-size: 14px; text-align: left; font-family: Arial, Helvetica, sans-serif; margin: 0.4em;'>" +
+                                    item.CUV + "</span></td>");
+                                mensajecliente.Append(
+                                    "<td><span style='display: block; color: #000000; font-size: 14px; text-align: left; font-family: Arial, Helvetica, sans-serif; margin: 0.4em;'>" +
+                                    item.Marca + "</span></td>");
+                                mensajecliente.Append(
+                                    "<td><span style='display: block; color: #000000; font-size: 14px; text-align: left; font-family: Arial, Helvetica, sans-serif; margin: 0.4em;'>" +
+                                    item.Producto + "</span></td>");
+                                mensajecliente.Append(
+                                    "<td><span style='display: block; color: #000000; font-size: 14px; text-align: left; font-family: Arial, Helvetica, sans-serif; margin: 0.4em;'>Precio: " +
+                                    userData.Simbolo + " " + item.PrecioUnitario.ToString("N2") + "</span></td>");
+                                mensajecliente.Append(
+                                    "<td><span style='width:90px;display: block; color: #000000; font-size: 14px; text-align: left; font-family: Arial, Helvetica, sans-serif; margin: 0.4em;'>Cantidad: " +
+                                    item.Cantidad + "</span></td>");
+                                mensajecliente.Append("</tr>");
+                            }
+                            else
+                            {
+                                mensajecliente.Append("<tr style = 'background: #cccccc;'>");
+                                mensajecliente.Append(
+                                    "<td><span style='display: block; color: #000000; font-size: 14px; text-align: left; font-family: Arial, Helvetica, sans-serif; margin: 0.4em;'>" +
+                                    item.CUV + "</span></td>");
+                                mensajecliente.Append(
+                                    "<td><span style='display: block; color: #000000; font-size: 14px; text-align: left; font-family: Arial, Helvetica, sans-serif; margin: 0.4em;'>" +
+                                    item.Marca + "</span></td>");
+                                mensajecliente.Append(
+                                    "<td><span style='display: block; color: #000000; font-size: 14px; text-align: left; font-family: Arial, Helvetica, sans-serif; margin: 0.4em;'>" +
+                                    item.Producto + "</span></td>");
+                                mensajecliente.Append(
+                                    "<td><span style='display: block; color: #000000; font-size: 14px; text-align: left; font-family: Arial, Helvetica, sans-serif; margin: 0.4em;'>Precio: " +
+                                    userData.Simbolo + " " + item.PrecioUnitario.ToString("N2") + "</span></td>");
+                                mensajecliente.Append(
+                                    "<td><span style='width:90px;display: block; color: #000000; font-size: 14px; text-align: left; font-family: Arial, Helvetica, sans-serif; margin: 0.4em;'>Cantidad: " +
+                                    item.Cantidad + "</span></td>");
+                                mensajecliente.Append("</tr>");
+                            }
+                        }
+
+                        mensajecliente.Append("</tbody></table>");
+                        mensajecliente.Append("</td>");
+                        mensajecliente.Append("</tr>");
+                        mensajecliente.Append("<tr>");
+                        mensajecliente.Append("<td align='center' valign='middle' style='height: 15px;'></td>");
+                        mensajecliente.Append("</tr>");
+                        mensajecliente.Append("<tr>");
+                        mensajecliente.Append("<td align='left' valign='top'>");
+                        mensajecliente.Append(
+                            "<span style='display: inline-block; font-size: 18px; text-align: left; font-family: Arial, Helvetica, sans-serif; color: #7f7f7f; display: block; margin: 0.6em 0 0 0.6em;'>PRECIO TOTAL: " +
+                            userData.Simbolo + " " + totalPedido.ToString("N2") + "");
+                        mensajecliente.Append(" </span>");
+                        mensajecliente.Append("</td>");
+                        mensajecliente.Append("</tr>");
+
+                        mensajecliente.Append("<tr>");
+                        mensajecliente.Append("<td style='height: 70px;'>&nbsp;</td>");
+                        mensajecliente.Append("</tr>");
+                        mensajecliente.Append("</tbody></table>");
+                        mensajecliente.Append("</td>");
+                        mensajecliente.Append("</tr>");
+                        mensajecliente.Append("</tbody></table>");
+
+                        //try
+                        //{
+                        //    if (parametros.Accion == 1)
+                        //    {
+                        //        Util.EnviarMail3(emailDe, pedidoAux.Email, titulocliente, mensajecliente.ToString(), true,
+                        //            pedidoAux.Email);
+                        //    }
+                        //    else
+                        //    {
+                        //        Util.EnviarMail3Mobile(emailDe, pedidoAux.Email, titulocliente, mensajecliente.ToString(),
+                        //            true, pedidoAux.Email);
+                        //    }
+                        //}
+                        //catch (Exception ex)
+                        //{
+                        //    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                        //}
+                    }
+                    else
+                    {
+                        String titulo = "(" + userData.CodigoISO + ") Consultora que atenderá tu pedido de " +
+                                        HttpUtility.HtmlDecode(marcaPedido);
+                        StringBuilder mensaje = new StringBuilder();
+                        mensaje.AppendFormat("<p>Hola {0},</br><br /><br />", HttpUtility.HtmlDecode(pedidoAux.Cliente));
+                        mensaje.AppendFormat("{0}</p><br/>", mensajeaCliente);
+                        mensaje.Append("<br/>Saludos,<br/><br />");
+                        mensaje.Append("<table><tr><td><img src=\"cid:{0}\" /></td>");
+                        mensaje.AppendFormat(
+                            "<td><p style='text-align: center;'><strong>{0}<br/>{1}<br/>Consultora</strong></p></td></tr></table>",
+                            userData.NombreConsultora, userData.EMail);
+
+                        //try
+                        //{
+                        //    if (parametros.Accion == 1)
+                        //    {
+                        //        Util.EnviarMail3(emailDe, pedidoAux.Email, titulo, mensaje.ToString(), true, string.Empty);
+                        //    }
+                        //    else
+                        //    {
+                        //        Util.EnviarMail3Mobile(emailDe, pedidoAux.Email, titulo, mensaje.ToString(), true,
+                        //            string.Empty);
+                        //    }
+                        //}
+                        //catch (Exception ex)
+                        //{
+                        //    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                        //}
+                    }
+
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+        }
+
+        public PedidosPendientesMedioPagoModel PendientesMedioDeCompra()
         {
             try
             {
@@ -3224,12 +3309,6 @@ namespace Portal.Consultoras.Web.Controllers
                 var productosSolicitados = new List<ProductoSolicitado>();
 
                 var pedidosSesion = SessionManager.GetobjMisPedidos().ListaPedidos;
-
-
-                ///////////////////////////////
-                pedidosSesion.ForEach(x=> { x.DetallePedido.FirstOrDefault().Elegido = true; });
-                //////////////////////////////////
-
 
                 pedidosSesion.ForEach(pedido =>
                 {
@@ -3289,27 +3368,19 @@ namespace Portal.Consultoras.Web.Controllers
                 model.ListaGana = oListaGana;
                 model.TotalGana = oListaGana.Sum(x => x.Cantidad * x.Precio2);
                 model.GananciaGana = model.TotalCatalogo - model.TotalGana;
-               // ViewBag.PaisISOx = userData.CodigoISO;
-               
+                // ViewBag.PaisISOx = userData.CodigoISO;
 
-                return Json(new
-                {
-                    result= model,
-                    success = true,
-                    message = "OK",
-                }, JsonRequestBehavior.AllowGet);
+                return model;
             }
             catch (FaultException e)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(e, userData.CodigoConsultora, userData.CodigoISO);
 
-                return Json(new
-                {
-                    success = false,
-                    message = e.Message
-                }, JsonRequestBehavior.AllowGet);
+                return new PedidosPendientesMedioPagoModel();
             }
         }
+
+        #endregion
 
     }
 }

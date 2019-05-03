@@ -203,9 +203,10 @@ button {
 }
 .pending-top {
     padding-top: 8px;
+    border-bottom: 1px solid #d1d1d4;
 }
 .pending-subtitle {
-  border-top: 1px solid #d1d1d4;
+  /* border-top: 1px solid #d1d1d4; */
   border-bottom: 1px solid #d1d1d4;
 }
 .pending-bgGray {
@@ -502,6 +503,9 @@ button {
 }
 
 /* Paso 2 */
+.b-top{
+  border-top: 1px solid #d1d1d4;
+}
 
 /* Para agregar a los utilitarios */
 .brokenBox {
@@ -577,3 +581,24 @@ button {
 }
 /* ---------------------------- */
 
+/* Estilos reescritos */
+
+.btn{
+  text-transform: unset;
+}
+#new-header, footer.footer-page {
+    display: none;
+}
+#contentmobile{
+    margin-top: 0 !important;
+}
+.vh-100{
+  height: 100vh;
+}
+
+.vh-100.fix{
+  height: calc(100vh - 50px);
+}
+.overflow-y.auto{
+  overflow-y: auto;
+}

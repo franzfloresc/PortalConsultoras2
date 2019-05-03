@@ -1,65 +1,41 @@
-﻿var urlDetallePedidoPendiente = "/ConsultoraOnline/DetallePedidoPendiente"
+﻿var urlDetallePedidoPendiente = "/ConsultoraOnline/DetallePedidoPendiente";
 var urlDetallePedidoPendienteClientes = "/ConsultoraOnline/DetallePedidoPendienteClientes";
+var listaGana = [];
 
 $(document).ready(function () {
-    //  debugger;
-    // CargarPaso2();            
-    // debugger;
-    //  SetHandlebars("#template-paso-2", null, "#contenedor-paso-2");
+
 });
 
-function CargarPaso2() {
-    //ShowLoading({});
-    $.ajax({
-        type: 'POST',
-        url: '/ConsultoraOnline/PendientesMedioDeCompra',
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        async: true,
-        success: function (response) {
-            // CloseLoading();
-            if (checkTimeout(response)) {
-                if (response.success) {
-                    debugger;
-                    SetHandlebars("#template-paso-2", response.result, "#contenedor-paso-2");
-                    cargarGaleria()
-                    bindElments();
-                    return false;
-                }
 
-            }
-        },
-        error: function (data, error) {
-            CloseLoading();
-            if (checkTimeout(data)) {
-                AbrirMensaje("Ocurrió un error inesperado al momento de aceptar el pedido. Consulte con su administrador del sistema para obtener mayor información");
-            }
-        }
-    });
-}
 
 function bindElments() {
 
     $('.btnAccion').click(function (e) {
-        debugger;
 
-        if (!$(e.target).hasClass('active')) {
-            $(e.target).addClass('active');
-            $(e.target).html('Elegir');
-        }
-        else {
-            $('.btnAccion').find('span').addClass('active');
-            $(e.target).removeClass('active');
+
+        if (!$(e.target).hasClass('ghost')) {
+            $('.btnAccion').find('a').removeClass('ghost');
+            $('.btnAccion').find('a').html('Elegir');
+            $(e.target).addClass('ghost');
             $(e.target).html('Elegido');
-        }
 
-        if ($('.btnAccion span.active').length == $('.btnAccion span').length) {
-            $('#btnAceptarPedido a').removeClass('active');
-            $('#btnAceptarPedido a').html('Elegido');
         }
         else {
-            $('#btnAceptarPedido a').addClass('active');
-            $('#btnAceptarPedido a').html('Elegir');
+            // $('.btnAccion').find('a').addClass('ghost');
+            $(e.target).removeClass('ghost');
+            $(e.target).html('Elegir');
+
+        }
+
+        if ($('.btnAccion a.ghost').length == $('.ghost a').length) {
+            $('#btnAceptarPedido span').removeClass('second-color');
+            $('#btnAceptarPedido span').addClass('disabled');
+            $('#btnAceptarPedido span').html('Aceptar Pedido');
+        }
+        else {
+            $('#btnAceptarPedido span').addClass('second-color');
+            $('#btnAceptarPedido span').removeClass('disabled');
+            $('#btnAceptarPedido span').html('Aceptar Pedido');
         }
 
         e.preventDefault();
@@ -78,6 +54,71 @@ function bindElments() {
     //    document.location.href = urlPedido;
     //});
 }
+
+
+function AceptarPedidoPendiente() {
+
+
+
+    var btn = $('.btnAccion a.ghost')[0];
+
+    if (btn) {
+        var pedido = {
+            Accion: 2,
+            Dispositivo: glbDispositivo,
+            AccionTipo: $(btn).parent().data('accion'),
+            ListaGana: $(btn).parent().data('accion') == 'ingrgana' ? listaGana : []
+        }
+
+        waitingDialog();
+        $.ajax({
+            type: 'POST',
+            url: '/ConsultoraOnline/AceptarPedidoPendiente',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(pedido),
+            async: true,
+            success: function (response) {
+                closeWaitingDialog();
+                if (checkTimeout(response)) {
+                    if (response.success) {
+
+                        if ($('#modal-confirmacion')[0]) {
+                            //$('#modal-confirmacion').addClass('on');
+                            $("#contenedor-paso-2").hide();
+                            $("#modal-confirmacion").show();
+                            $("body").css('overflow', 'hidden');
+                        }
+                        else {
+                            $('#popuplink').click();
+                        }
+                        return false;
+                    }
+                    else {
+                        if (response.code == 1) {
+                            AbrirMensaje(response.message);
+                        }
+                        else if (response.code == 2) {
+                            $('#MensajePedidoReservado').text(response.message);
+                            $('#AlertaPedidoReservado').show();
+                        }
+                    }
+                }
+            },
+            error: function (data, error) {
+                closeWaitingDialog();
+                if (checkTimeout(data)) {
+                    AbrirMensaje("Ocurrió un error inesperado al momento de aceptar el pedido. Consulte con su administrador del sistema para obtener mayor información");
+                }
+            }
+        });
+
+    }
+
+
+}
+
+
 
 function cargarGaleria() {
     $('.conGanaMas').slick({
@@ -118,6 +159,7 @@ function DetallePedidoPendienteClientesVerMas(cuv) {
 }
 
 function DetallePedidoPendienteClientesService(Cuv) {
+    $("body").css('overflow', 'hidden');
     var obj = {
         cuv: cuv
     }
@@ -132,13 +174,24 @@ function DetallePedidoPendienteClientesService(Cuv) {
 
             console.log(response);
             if (response.success) {
-                debugger;
                 console.log(response);
-                SetHandlebars("#template-paso-1-Clientes", response.data, "#Paso1-Clientes");
+
+                $.each(response.data.ListaPedidos, function (index, value) {
+                    value.CUVx = response.CUVx || "";
+                });
+
+                var objenviar = {
+                    ListaPedidos: response.data.ListaPedidos,
+                    Productox: response.Productox
+                }
+                SetHandlebars("#template-paso-1-Clientes", objenviar, "#Paso1-Clientes");
+                $(".modal-fondo").show();
                 $('#Paso1-Clientes').show();
+
             }
         },
         error: function (error) {
+            modal - confirmacion
             //CloseLoading();
             //messageInfo("Ocurrió un Error pedido pendiente cliente");
             console.log(error);
@@ -147,9 +200,9 @@ function DetallePedidoPendienteClientesService(Cuv) {
 }
 
 function DetallePedidoPendiente(ids) {
-    debugger;
     console.log(JSON.stringify(ids));
     //console.log(JSON.stringify(cuv));
+    $("body").css('overflow', 'hidden');
     var obj = {
         ids: ids
     }
@@ -162,10 +215,10 @@ function DetallePedidoPendiente(ids) {
         async: true,
         success: function (response) {
             if (response.success) {
-                debugger;
                 console.log(response);
                 SetHandlebars("#template-paso-1-Producto", response.data, "#Paso1-Productos");
                 $('#Paso1-Productos').show();
+                $('.modal-fondo').show();
             }
         },
         error: function (error) {
@@ -189,7 +242,6 @@ function OcultarMensajedeRechazoPedido(cuv) {
 }
 
 function AceptarPedidoProducto(id) {
-    debugger;
     //var texto = '#texto_' + id;
     var aceptado = '#aceptar_' + id;
     if ($(aceptado).hasClass("ghost")) {
@@ -208,12 +260,26 @@ function AceptarPedidoProducto(id) {
 
 }
 
+function RenderizarPendientes(Pendientes) {
+
+    $.each(Pendientes.ListaProductos, function (index, value) {
+        value.MasDeDosClientes = false;
+        if (value.ListaClientes.length > 2) {
+            value.MasDeDosClientes = true;
+            value.ListaClientes = value.ListaClientes.slice(0, 1);
+        }
+    });
+
+    SetHandlebars("#template-vpcpContent", Pendientes, "#vpcpContent");
+}
+
 function RechazarSolicitudCliente(pedidoId) {
     var obj = {
         pedidoId: pedidoId,
     };
 
     //ShowLoading();
+    AbrirLoad();
     $.ajax({
         type: "POST",
         url: "/ConsultoraOnline/RechazarSolicitudCliente",
@@ -222,9 +288,49 @@ function RechazarSolicitudCliente(pedidoId) {
         data: JSON.stringify(obj),
         success: function (response) {
             //CloseLoading();
-
+            CerrarLoad();
             if (response.success) {
+                $('#rechazarTodop').addClass('hide');
+                $("#Paso1-Productos").hide();
+                $('body').removeClass('visible');
+                $(".modal-fondo").hide();
                 //document.location.href = '/ConsultoraOnline/Pendientes';
+
+                var Pendientes = JSON.parse(response.Pendientes) || [];
+                RenderizarPendientes(Pendientes);
+
+            }
+            else {
+                alert(response.message);
+            }
+        },
+        error: function (err) {
+            //CloseLoading();
+            console.log(err);
+        }
+    });
+}
+
+function ActualizarPendientes() {
+    //ShowLoading();
+    AbrirLoad();
+    $.ajax({
+        type: "POST",
+        url: "/ConsultoraOnline/ActualizarPendientes",
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        success: function (response) {
+            //CloseLoading();
+            CerrarLoad();
+            if (response.success) {
+
+                //document.location.href = '/ConsultoraOnline/Pendientes';
+
+                var Pendientes = JSON.parse(response.Pendientes) || [];
+
+                RenderizarPendientes(Pendientes);
+                cambiaTabs();
+
             }
             else {
                 alert(response.message);
@@ -250,9 +356,24 @@ function RechazarSolicitudClientePorCuv(cuv) {
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify(obj),
         success: function (response) {
-                    /*CloseLoading*/
+            /*CloseLoading*/
             if (response.success) {
+                $('#rechazarTodo').addClass('hide');
+                $('#Paso1-Clientes').hide();
+                $('body').removeClass('visible');
                 //document.location.href = '/ConsultoraOnline/Pendientes';
+
+                //var Pendientes = JSON.parse(response.Pendientes) || [];
+
+                //$.each(Pendientes.ListaProductos, function (index, value) {
+                //    value.MasDeDosClientes = false;
+                //    if (value.ListaClientes.length > 2) {
+                //        value.MasDeDosClientes = true;
+                //        value.ListaClientes = value.ListaClientes.slice(0, 1);
+                //    }
+                //});
+
+                //SetHandlebars("#template-vpcpContent", Pendientes, "#vpcpContent");
             }
             else {
                 alert(response.message);
@@ -272,7 +393,7 @@ function ContinuarPedido() {
 
     $('.pedidos').each(function () {
 
-        if ($(this).find('a[id*="aceptar_"]').hasClass('active') == false) {
+        if ($(this).find('a[id*="aceptar_"]').hasClass('ghost')) {
             //$(aceptado).addClass('active');
             var pedidoId = $(this).find(".pedidoId").val();
             var cuv = $(this).find(".cuv").val();
@@ -288,6 +409,7 @@ function ContinuarPedido() {
         }
     });
 
+
     if (lstDetalle.length > 0) {
         $.ajax({
             type: "POST",
@@ -296,16 +418,26 @@ function ContinuarPedido() {
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(lstDetalle),
             success: function (response) {
-                CloseLoading();
+                //CloseLoading();
                 if (response.success) {
-                    //document.location.href = '/ConsultoraOnline/PendientesMedioDeCompra';
+                    $('#Paso1-Clientes').hide();
+                    $('#Paso1-Productos').hide();
+
+                    SetHandlebars("#template-paso-2", response.result, "#contenedor-paso-2");
+                    if (response.result.ListaGana.length == 0 || response.result.GananciaGana <= 0) {
+                        $('.porGanaMas').hide();
+                    }
+                    $('#contenedor-paso-2').show();
+                    cargarGaleria()
+                    bindElments();
+                    return false;
                 }
                 else {
                     alert(response.message);
                 }
             },
             error: function (err) {
-                CloseLoading();
+                //CloseLoading();
                 console.log(err);
             }
         });
@@ -322,6 +454,9 @@ function EliminarSolicitudDetalle(pedidoId, cuv, origen) {
         cuv: cuv
     }
 
+    var pedidos = [];
+    var cuvs = [];
+
     //ShowLoading();
     $.ajax({
         type: "POST",
@@ -333,13 +468,37 @@ function EliminarSolicitudDetalle(pedidoId, cuv, origen) {
             //CloseLoading();
             if (response.success) {
                 // ocultar div
+                var Pendientes = JSON.parse(response.Pendientes) || [];
+                $.each(Pendientes.ListaPedidos, function (index, value) {
+                    pedidos.push(value.PedidoId.toString());
+                    $.each(value.DetallePedido, function (index, value) {
+                        cuvs.push(value.CUV.toString());
+                    });
+                });
                 if (origen == 'C') {
                     var id = '#vc_pedido_' + cuv;
-                    $(id).hide();
+                    if (pedidos.indexOf(pedidoId) < 0) {
+                        $('#Paso1-Productos').hide();
+                        $('body').removeClass('visible');
+                    }
+                    else {
+                        $(id).hide();
+                    }
+
+
                 } else if (origen == 'P') {
                     var id = '#vp_pedido_' + pedidoId;
-                    $(id).hide();
+                    if (cuvs.indexOf(cuv) < 0) {
+                        $('#Paso1-Clientes').hide();
+                        $('body').removeClass('visible');
+                    }
+                    else {
+                        $(id).hide();
+                    }
                 }
+
+
+                RenderizarPendientes(Pendientes);
             }
             else {
                 alert(response.message);
@@ -351,6 +510,56 @@ function EliminarSolicitudDetalle(pedidoId, cuv, origen) {
         }
     });
 
+}
+
+function CerrarPopupConfirmacion() {
+
+    //$("#modal-confirmacion").removeClass("on");
+    //$("#modal-confirmacion").addClass("isHide");
+    $("#modal-confirmacion").hide();
+    $("#Paso1-Productos").hide();
+    $("#Paso1-Clientes").hide();
+    $("#rechazarTodop").hide();
+    $("#contenedor-paso-2").hide();
+    $(".modal-fondo").hide();
+    $("body").css('overflow', 'auto');
+    ActualizarPendientes();
+
+}
+
+$("body").on('change', ".ValidaValor", function (e) {
+    var $input = $(this);
+    var previousVal = $input.val();
+
+    if (previousVal == 0) {
+
+        $input.val(1);
+    }
+});
+
+function cambiaTabs() {
+    $(".tab-panel").hide();
+    var SelectorOpen = $("#vpcp").find(".active").attr('href');
+    $(SelectorOpen).show();
+};
+
+$("#vpcp li a").click(function () {
+    $("#vpcp li a").removeClass('active');
+    $(this).addClass('active');
+
+    $(".tab-panel").hide();
+    var activeTab = $(this).attr('href');
+    console.log(activeTab);
+    $(activeTab).fadeIn();
+    return false;
+});
+
+
+//Renzo
+$(document).ready(function () {
+
+    cambiaTabs();
+});
 }
 
 function PedidosPendientesVistaCliente() {

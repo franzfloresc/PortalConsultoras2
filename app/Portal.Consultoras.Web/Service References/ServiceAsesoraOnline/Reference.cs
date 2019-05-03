@@ -257,6 +257,9 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         private string ClaveSecretaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoClasificacionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigoConsultoraField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -267,6 +270,9 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigoProgramaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoSubClasificacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigoTerritorioField;
@@ -342,6 +348,9 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DescripcionNivelField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescripcionSubClasificacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DestinatariosFeedbackField;
@@ -1148,6 +1157,19 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoClasificacion {
+            get {
+                return this.CodigoClasificacionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoClasificacionField, value) != true)) {
+                    this.CodigoClasificacionField = value;
+                    this.RaisePropertyChanged("CodigoClasificacion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string CodigoConsultora {
             get {
                 return this.CodigoConsultoraField;
@@ -1195,6 +1217,19 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
                 if ((object.ReferenceEquals(this.CodigoProgramaField, value) != true)) {
                     this.CodigoProgramaField = value;
                     this.RaisePropertyChanged("CodigoPrograma");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoSubClasificacion {
+            get {
+                return this.CodigoSubClasificacionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoSubClasificacionField, value) != true)) {
+                    this.CodigoSubClasificacionField = value;
+                    this.RaisePropertyChanged("CodigoSubClasificacion");
                 }
             }
         }
@@ -1520,6 +1555,19 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
                 if ((object.ReferenceEquals(this.DescripcionNivelField, value) != true)) {
                     this.DescripcionNivelField = value;
                     this.RaisePropertyChanged("DescripcionNivel");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DescripcionSubClasificacion {
+            get {
+                return this.DescripcionSubClasificacionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescripcionSubClasificacionField, value) != true)) {
+                    this.DescripcionSubClasificacionField = value;
+                    this.RaisePropertyChanged("DescripcionSubClasificacion");
                 }
             }
         }

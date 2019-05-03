@@ -1,7 +1,7 @@
 ﻿@using Portal.Consultoras.Common
 
 <script id="paginador-template" type="text/x-handlebars-template">
-    <ul class="paginador_notificaciones" data-paginacion="block">
+    <ul class="paginador_notificaciones info_cant_productos" data-paginacion="block">
         {{#if footer}}
         <li class="productos_agregados_usuario">
             Has agregado
@@ -9,7 +9,7 @@
             &nbsp;productos
         </li>
         <li class="seleccion_pagina">
-            <select data-paginacion="rows" style="height: 24px;" data-val="{{PageSize}}">
+            <select data-paginacion="rows" style="height: 24px;" data-val="{{PageSize}}" data-tipo="{{TipoPaginador}}">
                 <option value="10">ver 10 filas</option>
                 <option value="20">ver 20 filas</option>
                 <option value="30">ver 30 filas</option>
