@@ -186,6 +186,7 @@ function DetallePedidoPendienteClientes(cuv) {
 function DetallePedidoPendiente(ids) {
     console.log(JSON.stringify(ids));
     //console.log(JSON.stringify(cuv));
+    $("body").css('overflow', 'hidden');
     var obj = {
         ids: ids
     }
@@ -253,9 +254,6 @@ function RenderizarPendientes(Pendientes) {
         }
     });
 
-    $("#por-producto-tab").removeClass("active");
-    $("#por-cliente-tab").addClass("active");
-
     SetHandlebars("#template-vpcpContent", Pendientes, "#vpcpContent");
 }
 
@@ -315,6 +313,7 @@ function ActualizarPendientes() {
                 var Pendientes = JSON.parse(response.Pendientes) || [];
 
                 RenderizarPendientes(Pendientes);
+                cambiaTabs();
 
             }
             else {
@@ -508,8 +507,9 @@ function CerrarPopupConfirmacion() {
     $("#rechazarTodop").hide();
     $("#contenedor-paso-2").hide();
     $(".modal-fondo").hide();
-
+    $("body").css('overflow', 'auto');
     ActualizarPendientes();
+
 }
 
 $("body").on('change', ".ValidaValor", function (e) {
@@ -522,19 +522,26 @@ $("body").on('change', ".ValidaValor", function (e) {
     }
 });
 
+function cambiaTabs() {
+    $(".tab-panel").hide();
+    var SelectorOpen = $("#vpcp").find(".active").attr('href');
+    $(SelectorOpen).show();
+};
+
+$("#vpcp li a").click(function () {
+    $("#vpcp li a").removeClass('active');
+    $(this).addClass('active');
+
+    $(".tab-panel").hide();
+    var activeTab = $(this).attr('href');
+    console.log(activeTab);
+    $(activeTab).fadeIn();
+    return false;
+});
+
 
 //Renzo
 $(document).ready(function () {
 
-    $("#vpcp li a").click(function () {
-        $("#vpcp li a").removeClass('active');
-        $(this).addClass('active');
-
-        $(".tab-panel").hide();
-        var activeTab = $(this).attr('href');
-        console.log(activeTab);
-        $(activeTab).fadeIn();
-        return false;
-    });
-
+    cambiaTabs();
 });
