@@ -1,11 +1,11 @@
-GO
+锘縂O
 USE BelcorpPeru
 GO
 BEGIN
 	DECLARE @varTablaLogicaDatosID INT=23001
 	DECLARE @varTablaLogicaID INT=LEFT(CAST(@varTablaLogicaDatosID AS VARCHAR(5)),3)
 
-	/*Tabla L骻ica */
+	/*Tabla L贸gica */
     IF  EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID=@varTablaLogicaID)
 	BEGIN
 		 DELETE FROM TablaLogica WHERE TablaLogicaID=@varTablaLogicaID
@@ -20,7 +20,7 @@ BEGIN
 	DECLARE @varTablaLogicaDatosID INT=23001
 	DECLARE @varTablaLogicaID INT=LEFT(CAST(@varTablaLogicaDatosID AS VARCHAR(5)),3)
 
-	/*Tabla L骻ica */
+	/*Tabla L贸gica */
     IF  EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID=@varTablaLogicaID)
 	BEGIN
 		 DELETE FROM TablaLogica WHERE TablaLogicaID=@varTablaLogicaID
@@ -35,7 +35,7 @@ BEGIN
 	DECLARE @varTablaLogicaDatosID INT=23001
 	DECLARE @varTablaLogicaID INT=LEFT(CAST(@varTablaLogicaDatosID AS VARCHAR(5)),3)
 
-	/*Tabla L骻ica */
+	/*Tabla L贸gica */
     IF  EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID=@varTablaLogicaID)
 	BEGIN
 		 DELETE FROM TablaLogica WHERE TablaLogicaID=@varTablaLogicaID
@@ -50,7 +50,7 @@ BEGIN
 	DECLARE @varTablaLogicaDatosID INT=23001
 	DECLARE @varTablaLogicaID INT=LEFT(CAST(@varTablaLogicaDatosID AS VARCHAR(5)),3)
 
-	/*Tabla L骻ica */
+	/*Tabla L贸gica */
     IF  EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID=@varTablaLogicaID)
 	BEGIN
 		 DELETE FROM TablaLogica WHERE TablaLogicaID=@varTablaLogicaID
@@ -65,7 +65,7 @@ BEGIN
 	DECLARE @varTablaLogicaDatosID INT=23001
 	DECLARE @varTablaLogicaID INT=LEFT(CAST(@varTablaLogicaDatosID AS VARCHAR(5)),3)
 
-	/*Tabla L骻ica */
+	/*Tabla L贸gica */
     IF  EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID=@varTablaLogicaID)
 	BEGIN
 		 DELETE FROM TablaLogica WHERE TablaLogicaID=@varTablaLogicaID
@@ -80,7 +80,7 @@ BEGIN
 	DECLARE @varTablaLogicaDatosID INT=23001
 	DECLARE @varTablaLogicaID INT=LEFT(CAST(@varTablaLogicaDatosID AS VARCHAR(5)),3)
 
-	/*Tabla L骻ica */
+	/*Tabla L贸gica */
     IF  EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID=@varTablaLogicaID)
 	BEGIN
 		 DELETE FROM TablaLogica WHERE TablaLogicaID=@varTablaLogicaID
@@ -95,7 +95,7 @@ BEGIN
 	DECLARE @varTablaLogicaDatosID INT=23001
 	DECLARE @varTablaLogicaID INT=LEFT(CAST(@varTablaLogicaDatosID AS VARCHAR(5)),3)
 
-	/*Tabla L骻ica */
+	/*Tabla L贸gica */
     IF  EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID=@varTablaLogicaID)
 	BEGIN
 		 DELETE FROM TablaLogica WHERE TablaLogicaID=@varTablaLogicaID
@@ -110,7 +110,7 @@ BEGIN
 	DECLARE @varTablaLogicaDatosID INT=23001
 	DECLARE @varTablaLogicaID INT=LEFT(CAST(@varTablaLogicaDatosID AS VARCHAR(5)),3)
 
-	/*Tabla L骻ica */
+	/*Tabla L贸gica */
     IF  EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID=@varTablaLogicaID)
 	BEGIN
 		 DELETE FROM TablaLogica WHERE TablaLogicaID=@varTablaLogicaID
@@ -125,7 +125,7 @@ BEGIN
 	DECLARE @varTablaLogicaDatosID INT=23001
 	DECLARE @varTablaLogicaID INT=LEFT(CAST(@varTablaLogicaDatosID AS VARCHAR(5)),3)
 
-	/*Tabla L骻ica */
+	/*Tabla L贸gica */
     IF  EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID=@varTablaLogicaID)
 	BEGIN
 		 DELETE FROM TablaLogica WHERE TablaLogicaID=@varTablaLogicaID
@@ -140,7 +140,7 @@ BEGIN
 	DECLARE @varTablaLogicaDatosID INT=23001
 	DECLARE @varTablaLogicaID INT=LEFT(CAST(@varTablaLogicaDatosID AS VARCHAR(5)),3)
 
-	/*Tabla L骻ica */
+	/*Tabla L贸gica */
     IF  EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID=@varTablaLogicaID)
 	BEGIN
 		 DELETE FROM TablaLogica WHERE TablaLogicaID=@varTablaLogicaID
@@ -155,7 +155,7 @@ BEGIN
 	DECLARE @varTablaLogicaDatosID INT=23001
 	DECLARE @varTablaLogicaID INT=LEFT(CAST(@varTablaLogicaDatosID AS VARCHAR(5)),3)
 
-	/*Tabla L骻ica */
+	/*Tabla L贸gica */
     IF  EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID=@varTablaLogicaID)
 	BEGIN
 		 DELETE FROM TablaLogica WHERE TablaLogicaID=@varTablaLogicaID
@@ -170,7 +170,7 @@ BEGIN
 	DECLARE @varTablaLogicaDatosID INT=23001
 	DECLARE @varTablaLogicaID INT=LEFT(CAST(@varTablaLogicaDatosID AS VARCHAR(5)),3)
 
-	/*Tabla L骻ica */
+	/*Tabla L贸gica */
     IF  EXISTS (SELECT 1 FROM TablaLogica WHERE TablaLogicaID=@varTablaLogicaID)
 	BEGIN
 		 DELETE FROM TablaLogica WHERE TablaLogicaID=@varTablaLogicaID

@@ -1,4 +1,4 @@
-DECLARE @TablaLogicaID int = 153;
+﻿DECLARE @TablaLogicaID int = 153;
 DELETE FROM TablaLogicaDatos where TablaLogicaID = @TablaLogicaID;
 DELETE FROM TablaLogica where TablaLogicaID = @TablaLogicaID;
 

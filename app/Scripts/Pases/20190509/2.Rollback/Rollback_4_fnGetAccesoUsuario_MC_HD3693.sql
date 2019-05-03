@@ -1,4 +1,4 @@
-Use [BelcorpPeru]
+﻿Use [BelcorpPeru]
 GO
 ALTER FUNCTION [dbo].[fnGetAccesoUsuario]
 (
@@ -62,7 +62,7 @@ BEGIN
 						DECLARE @CampaniaActual INT
 						SET @CampaniaActual = ISNULL((SELECT TOP 1 CampaniaID FROM dbo.GetCampaniaPreLogin(@PaisID,@ZonaID,@RegionID,@ConsultoraID)),0)
 
-						-- validar las campa�as que no ha ingresado
+						-- validar las campañas que no ha ingresado
 						IF (LEN(@UltimaCampanaFacturada) = 6 AND LEN(@CampaniaActual) = 6)
 						BEGIN
 							DECLARE @ca VARCHAR(10)
@@ -121,11 +121,11 @@ BEGIN
 	ELSE IF (@Result = 1)
 		SET @Mensaje = 'Usuario No es del Portal'
 	ELSE IF (@Result = 2)
-		SET @Mensaje = 'No est�s autorizada para pasar pedido'
+		SET @Mensaje = 'No estás autorizada para pasar pedido'
 	ELSE IF (@Result = 3)
 		SET @Mensaje = 'Usuario OK'
 	ELSE IF (@Result = 4)
-		SET @Mensaje = 'Usuario o Contrase�a Incorrectas'
+		SET @Mensaje = 'Usuario o Contraseña Incorrectas'
 
 	INSERT INTO @TB (Result,Mensaje) VALUES (@Result,@Mensaje)
 
@@ -197,7 +197,7 @@ BEGIN
 						DECLARE @CampaniaActual INT
 						SET @CampaniaActual = ISNULL((SELECT TOP 1 CampaniaID FROM dbo.GetCampaniaPreLogin(@PaisID,@ZonaID,@RegionID,@ConsultoraID)),0)
 
-						-- validar las campa�as que no ha ingresado
+						-- validar las campañas que no ha ingresado
 						IF (LEN(@UltimaCampanaFacturada) = 6 AND LEN(@CampaniaActual) = 6)
 						BEGIN
 							DECLARE @ca VARCHAR(10)
@@ -256,11 +256,11 @@ BEGIN
 	ELSE IF (@Result = 1)
 		SET @Mensaje = 'Usuario No es del Portal'
 	ELSE IF (@Result = 2)
-		SET @Mensaje = 'No est�s autorizada para pasar pedido'
+		SET @Mensaje = 'No estás autorizada para pasar pedido'
 	ELSE IF (@Result = 3)
 		SET @Mensaje = 'Usuario OK'
 	ELSE IF (@Result = 4)
-		SET @Mensaje = 'Usuario o Contrase�a Incorrectas'
+		SET @Mensaje = 'Usuario o Contraseña Incorrectas'
 
 	INSERT INTO @TB (Result,Mensaje) VALUES (@Result,@Mensaje)
 
@@ -332,7 +332,7 @@ BEGIN
 						DECLARE @CampaniaActual INT
 						SET @CampaniaActual = ISNULL((SELECT TOP 1 CampaniaID FROM dbo.GetCampaniaPreLogin(@PaisID,@ZonaID,@RegionID,@ConsultoraID)),0)
 
-						-- validar las campa�as que no ha ingresado
+						-- validar las campañas que no ha ingresado
 						IF (LEN(@UltimaCampanaFacturada) = 6 AND LEN(@CampaniaActual) = 6)
 						BEGIN
 							DECLARE @ca VARCHAR(10)
@@ -391,11 +391,11 @@ BEGIN
 	ELSE IF (@Result = 1)
 		SET @Mensaje = 'Usuario No es del Portal'
 	ELSE IF (@Result = 2)
-		SET @Mensaje = 'No est�s autorizada para pasar pedido'
+		SET @Mensaje = 'No estás autorizada para pasar pedido'
 	ELSE IF (@Result = 3)
 		SET @Mensaje = 'Usuario OK'
 	ELSE IF (@Result = 4)
-		SET @Mensaje = 'Usuario o Contrase�a Incorrectas'
+		SET @Mensaje = 'Usuario o Contraseña Incorrectas'
 
 	INSERT INTO @TB (Result,Mensaje) VALUES (@Result,@Mensaje)
 
@@ -467,7 +467,7 @@ BEGIN
 						DECLARE @CampaniaActual INT
 						SET @CampaniaActual = ISNULL((SELECT TOP 1 CampaniaID FROM dbo.GetCampaniaPreLogin(@PaisID,@ZonaID,@RegionID,@ConsultoraID)),0)
 
-						-- validar las campa�as que no ha ingresado
+						-- validar las campañas que no ha ingresado
 						IF (LEN(@UltimaCampanaFacturada) = 6 AND LEN(@CampaniaActual) = 6)
 						BEGIN
 							DECLARE @ca VARCHAR(10)
@@ -526,11 +526,11 @@ BEGIN
 	ELSE IF (@Result = 1)
 		SET @Mensaje = 'Usuario No es del Portal'
 	ELSE IF (@Result = 2)
-		SET @Mensaje = 'No est�s autorizada para pasar pedido'
+		SET @Mensaje = 'No estás autorizada para pasar pedido'
 	ELSE IF (@Result = 3)
 		SET @Mensaje = 'Usuario OK'
 	ELSE IF (@Result = 4)
-		SET @Mensaje = 'Usuario o Contrase�a Incorrectas'
+		SET @Mensaje = 'Usuario o Contraseña Incorrectas'
 
 	INSERT INTO @TB (Result,Mensaje) VALUES (@Result,@Mensaje)
 
@@ -602,7 +602,7 @@ BEGIN
 						DECLARE @CampaniaActual INT
 						SET @CampaniaActual = ISNULL((SELECT TOP 1 CampaniaID FROM dbo.GetCampaniaPreLogin(@PaisID,@ZonaID,@RegionID,@ConsultoraID)),0)
 
-						-- validar las campa�as que no ha ingresado
+						-- validar las campañas que no ha ingresado
 						IF (LEN(@UltimaCampanaFacturada) = 6 AND LEN(@CampaniaActual) = 6)
 						BEGIN
 							DECLARE @ca VARCHAR(10)
@@ -661,11 +661,11 @@ BEGIN
 	ELSE IF (@Result = 1)
 		SET @Mensaje = 'Usuario No es del Portal'
 	ELSE IF (@Result = 2)
-		SET @Mensaje = 'No est�s autorizada para pasar pedido'
+		SET @Mensaje = 'No estás autorizada para pasar pedido'
 	ELSE IF (@Result = 3)
 		SET @Mensaje = 'Usuario OK'
 	ELSE IF (@Result = 4)
-		SET @Mensaje = 'Usuario o Contrase�a Incorrectas'
+		SET @Mensaje = 'Usuario o Contraseña Incorrectas'
 
 	INSERT INTO @TB (Result,Mensaje) VALUES (@Result,@Mensaje)
 
@@ -737,7 +737,7 @@ BEGIN
 						DECLARE @CampaniaActual INT
 						SET @CampaniaActual = ISNULL((SELECT TOP 1 CampaniaID FROM dbo.GetCampaniaPreLogin(@PaisID,@ZonaID,@RegionID,@ConsultoraID)),0)
 
-						-- validar las campa�as que no ha ingresado
+						-- validar las campañas que no ha ingresado
 						IF (LEN(@UltimaCampanaFacturada) = 6 AND LEN(@CampaniaActual) = 6)
 						BEGIN
 							DECLARE @ca VARCHAR(10)
@@ -796,11 +796,11 @@ BEGIN
 	ELSE IF (@Result = 1)
 		SET @Mensaje = 'Usuario No es del Portal'
 	ELSE IF (@Result = 2)
-		SET @Mensaje = 'No est�s autorizada para pasar pedido'
+		SET @Mensaje = 'No estás autorizada para pasar pedido'
 	ELSE IF (@Result = 3)
 		SET @Mensaje = 'Usuario OK'
 	ELSE IF (@Result = 4)
-		SET @Mensaje = 'Usuario o Contrase�a Incorrectas'
+		SET @Mensaje = 'Usuario o Contraseña Incorrectas'
 
 	INSERT INTO @TB (Result,Mensaje) VALUES (@Result,@Mensaje)
 
@@ -872,7 +872,7 @@ BEGIN
 						DECLARE @CampaniaActual INT
 						SET @CampaniaActual = ISNULL((SELECT TOP 1 CampaniaID FROM dbo.GetCampaniaPreLogin(@PaisID,@ZonaID,@RegionID,@ConsultoraID)),0)
 
-						-- validar las campa�as que no ha ingresado
+						-- validar las campañas que no ha ingresado
 						IF (LEN(@UltimaCampanaFacturada) = 6 AND LEN(@CampaniaActual) = 6)
 						BEGIN
 							DECLARE @ca VARCHAR(10)
@@ -931,11 +931,11 @@ BEGIN
 	ELSE IF (@Result = 1)
 		SET @Mensaje = 'Usuario No es del Portal'
 	ELSE IF (@Result = 2)
-		SET @Mensaje = 'No est�s autorizada para pasar pedido'
+		SET @Mensaje = 'No estás autorizada para pasar pedido'
 	ELSE IF (@Result = 3)
 		SET @Mensaje = 'Usuario OK'
 	ELSE IF (@Result = 4)
-		SET @Mensaje = 'Usuario o Contrase�a Incorrectas'
+		SET @Mensaje = 'Usuario o Contraseña Incorrectas'
 
 	INSERT INTO @TB (Result,Mensaje) VALUES (@Result,@Mensaje)
 
@@ -1007,7 +1007,7 @@ BEGIN
 						DECLARE @CampaniaActual INT
 						SET @CampaniaActual = ISNULL((SELECT TOP 1 CampaniaID FROM dbo.GetCampaniaPreLogin(@PaisID,@ZonaID,@RegionID,@ConsultoraID)),0)
 
-						-- validar las campa�as que no ha ingresado
+						-- validar las campañas que no ha ingresado
 						IF (LEN(@UltimaCampanaFacturada) = 6 AND LEN(@CampaniaActual) = 6)
 						BEGIN
 							DECLARE @ca VARCHAR(10)
@@ -1066,11 +1066,11 @@ BEGIN
 	ELSE IF (@Result = 1)
 		SET @Mensaje = 'Usuario No es del Portal'
 	ELSE IF (@Result = 2)
-		SET @Mensaje = 'No est�s autorizada para pasar pedido'
+		SET @Mensaje = 'No estás autorizada para pasar pedido'
 	ELSE IF (@Result = 3)
 		SET @Mensaje = 'Usuario OK'
 	ELSE IF (@Result = 4)
-		SET @Mensaje = 'Usuario o Contrase�a Incorrectas'
+		SET @Mensaje = 'Usuario o Contraseña Incorrectas'
 
 	INSERT INTO @TB (Result,Mensaje) VALUES (@Result,@Mensaje)
 
@@ -1142,7 +1142,7 @@ BEGIN
 						DECLARE @CampaniaActual INT
 						SET @CampaniaActual = ISNULL((SELECT TOP 1 CampaniaID FROM dbo.GetCampaniaPreLogin(@PaisID,@ZonaID,@RegionID,@ConsultoraID)),0)
 
-						-- validar las campa�as que no ha ingresado
+						-- validar las campañas que no ha ingresado
 						IF (LEN(@UltimaCampanaFacturada) = 6 AND LEN(@CampaniaActual) = 6)
 						BEGIN
 							DECLARE @ca VARCHAR(10)
@@ -1201,11 +1201,11 @@ BEGIN
 	ELSE IF (@Result = 1)
 		SET @Mensaje = 'Usuario No es del Portal'
 	ELSE IF (@Result = 2)
-		SET @Mensaje = 'No est�s autorizada para pasar pedido'
+		SET @Mensaje = 'No estás autorizada para pasar pedido'
 	ELSE IF (@Result = 3)
 		SET @Mensaje = 'Usuario OK'
 	ELSE IF (@Result = 4)
-		SET @Mensaje = 'Usuario o Contrase�a Incorrectas'
+		SET @Mensaje = 'Usuario o Contraseña Incorrectas'
 
 	INSERT INTO @TB (Result,Mensaje) VALUES (@Result,@Mensaje)
 
@@ -1277,7 +1277,7 @@ BEGIN
 						DECLARE @CampaniaActual INT
 						SET @CampaniaActual = ISNULL((SELECT TOP 1 CampaniaID FROM dbo.GetCampaniaPreLogin(@PaisID,@ZonaID,@RegionID,@ConsultoraID)),0)
 
-						-- validar las campa�as que no ha ingresado
+						-- validar las campañas que no ha ingresado
 						IF (LEN(@UltimaCampanaFacturada) = 6 AND LEN(@CampaniaActual) = 6)
 						BEGIN
 							DECLARE @ca VARCHAR(10)
@@ -1336,11 +1336,11 @@ BEGIN
 	ELSE IF (@Result = 1)
 		SET @Mensaje = 'Usuario No es del Portal'
 	ELSE IF (@Result = 2)
-		SET @Mensaje = 'No est�s autorizada para pasar pedido'
+		SET @Mensaje = 'No estás autorizada para pasar pedido'
 	ELSE IF (@Result = 3)
 		SET @Mensaje = 'Usuario OK'
 	ELSE IF (@Result = 4)
-		SET @Mensaje = 'Usuario o Contrase�a Incorrectas'
+		SET @Mensaje = 'Usuario o Contraseña Incorrectas'
 
 	INSERT INTO @TB (Result,Mensaje) VALUES (@Result,@Mensaje)
 
@@ -1412,7 +1412,7 @@ BEGIN
 						DECLARE @CampaniaActual INT
 						SET @CampaniaActual = ISNULL((SELECT TOP 1 CampaniaID FROM dbo.GetCampaniaPreLogin(@PaisID,@ZonaID,@RegionID,@ConsultoraID)),0)
 
-						-- validar las campa�as que no ha ingresado
+						-- validar las campañas que no ha ingresado
 						IF (LEN(@UltimaCampanaFacturada) = 6 AND LEN(@CampaniaActual) = 6)
 						BEGIN
 							DECLARE @ca VARCHAR(10)
@@ -1471,11 +1471,11 @@ BEGIN
 	ELSE IF (@Result = 1)
 		SET @Mensaje = 'Usuario No es del Portal'
 	ELSE IF (@Result = 2)
-		SET @Mensaje = 'No est�s autorizada para pasar pedido'
+		SET @Mensaje = 'No estás autorizada para pasar pedido'
 	ELSE IF (@Result = 3)
 		SET @Mensaje = 'Usuario OK'
 	ELSE IF (@Result = 4)
-		SET @Mensaje = 'Usuario o Contrase�a Incorrectas'
+		SET @Mensaje = 'Usuario o Contraseña Incorrectas'
 
 	INSERT INTO @TB (Result,Mensaje) VALUES (@Result,@Mensaje)
 
@@ -1547,7 +1547,7 @@ BEGIN
 						DECLARE @CampaniaActual INT
 						SET @CampaniaActual = ISNULL((SELECT TOP 1 CampaniaID FROM dbo.GetCampaniaPreLogin(@PaisID,@ZonaID,@RegionID,@ConsultoraID)),0)
 
-						-- validar las campa�as que no ha ingresado
+						-- validar las campañas que no ha ingresado
 						IF (LEN(@UltimaCampanaFacturada) = 6 AND LEN(@CampaniaActual) = 6)
 						BEGIN
 							DECLARE @ca VARCHAR(10)
@@ -1606,11 +1606,11 @@ BEGIN
 	ELSE IF (@Result = 1)
 		SET @Mensaje = 'Usuario No es del Portal'
 	ELSE IF (@Result = 2)
-		SET @Mensaje = 'No est�s autorizada para pasar pedido'
+		SET @Mensaje = 'No estás autorizada para pasar pedido'
 	ELSE IF (@Result = 3)
 		SET @Mensaje = 'Usuario OK'
 	ELSE IF (@Result = 4)
-		SET @Mensaje = 'Usuario o Contrase�a Incorrectas'
+		SET @Mensaje = 'Usuario o Contraseña Incorrectas'
 
 	INSERT INTO @TB (Result,Mensaje) VALUES (@Result,@Mensaje)
 

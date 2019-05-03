@@ -1,11 +1,11 @@
-GO
+ÔªøGO
 USE BelcorpPeru
 GO
 BEGIN
 	DECLARE @varTablaLogicaDatosID INT=23001
 	DECLARE @varTablaLogicaID INT=LEFT(CAST(@varTablaLogicaDatosID AS VARCHAR(5)),3)
 
-	/*Tabla LÛgica Datos */
+	/*Tabla L√≥gica Datos */
 	IF NOT EXISTS (SELECT 1 FROM TablaLogicaDatos WHERE TablaLogicaDatosID=@varTablaLogicaDatosID)
 	BEGIN
 		INSERT INTO TablaLogicaDatos
@@ -19,7 +19,7 @@ BEGIN
 		 @varTablaLogicaID,
 		 '01',
 		 'Mensaje en Pop-up Bloqueo para consultoras bloqueadas.',
-		 'Si deseas mayor informaciÛn cont·ctate con el call center: 080 -11-3030 Provincias Û al 2113614 Lima')
+		 'Si deseas mayor informaci√≥n cont√°ctate con el call center: 080 -11-3030 Provincias √≥ al 2113614 Lima')
 	END
 END
 
@@ -30,7 +30,7 @@ BEGIN
 	DECLARE @varTablaLogicaDatosID INT=23001
 	DECLARE @varTablaLogicaID INT=LEFT(CAST(@varTablaLogicaDatosID AS VARCHAR(5)),3)
 
-	/*Tabla LÛgica Datos */
+	/*Tabla L√≥gica Datos */
 	IF NOT EXISTS (SELECT 1 FROM TablaLogicaDatos WHERE TablaLogicaDatosID=@varTablaLogicaDatosID)
 	BEGIN
 		INSERT INTO TablaLogicaDatos
@@ -44,7 +44,7 @@ BEGIN
 		 @varTablaLogicaID,
 		 '01',
 		 'Mensaje en Pop-up Bloqueo para consultoras bloqueadas.',
-		 'Si deseas mayor informaciÛn cont·ctate con el call center: 01-800-2352677')
+		 'Si deseas mayor informaci√≥n cont√°ctate con el call center: 01-800-2352677')
 	END
 END
 
@@ -55,7 +55,7 @@ BEGIN
 	DECLARE @varTablaLogicaDatosID INT=23001
 	DECLARE @varTablaLogicaID INT=LEFT(CAST(@varTablaLogicaDatosID AS VARCHAR(5)),3)
 
-	/*Tabla LÛgica Datos */
+	/*Tabla L√≥gica Datos */
 	IF NOT EXISTS (SELECT 1 FROM TablaLogicaDatos WHERE TablaLogicaDatosID=@varTablaLogicaDatosID)
 	BEGIN
 		INSERT INTO TablaLogicaDatos
@@ -69,7 +69,7 @@ BEGIN
 		 @varTablaLogicaID,
 		 '01',
 		 'Mensaje en Pop-up Bloqueo para consultoras bloqueadas.',
-		 'Si deseas mayor informaciÛn cont·ctate con el call center: 01-8000-9-37452 Û al 5948060 (Bogot·)')
+		 'Si deseas mayor informaci√≥n cont√°ctate con el call center: 01-8000-9-37452 √≥ al 5948060 (Bogot√°)')
 	END
 END
 
@@ -80,7 +80,7 @@ BEGIN
 	DECLARE @varTablaLogicaDatosID INT=23001
 	DECLARE @varTablaLogicaID INT=LEFT(CAST(@varTablaLogicaDatosID AS VARCHAR(5)),3)
 
-	/*Tabla LÛgica Datos */
+	/*Tabla L√≥gica Datos */
 	IF NOT EXISTS (SELECT 1 FROM TablaLogicaDatos WHERE TablaLogicaDatosID=@varTablaLogicaDatosID)
 	BEGIN
 		INSERT INTO TablaLogicaDatos
@@ -94,7 +94,7 @@ BEGIN
 		 @varTablaLogicaID,
 		 '01',
 		 'Mensaje en Pop-up Bloqueo para consultoras bloqueadas.',
-		 'Si deseas mayor informaciÛn cont·ctate con el call center: 800-37452-000 Û al 25101198 o 25101199 locales')
+		 'Si deseas mayor informaci√≥n cont√°ctate con el call center: 800-37452-000 √≥ al 25101198 o 25101199 locales')
 	END
 END
 
@@ -105,7 +105,7 @@ BEGIN
 	DECLARE @varTablaLogicaDatosID INT=23001
 	DECLARE @varTablaLogicaID INT=LEFT(CAST(@varTablaLogicaDatosID AS VARCHAR(5)),3)
 
-	/*Tabla LÛgica Datos */
+	/*Tabla L√≥gica Datos */
 	IF NOT EXISTS (SELECT 1 FROM TablaLogicaDatos WHERE TablaLogicaDatosID=@varTablaLogicaDatosID)
 	BEGIN
 		INSERT INTO TablaLogicaDatos
@@ -119,7 +119,7 @@ BEGIN
 		 @varTablaLogicaID,
 		 '01',
 		 'Mensaje en Pop-up Bloqueo para consultoras bloqueadas.',
-		 'Si deseas mayor informaciÛn cont·ctate con el call center: 1-866-366-3235 (Isla) Û al 622-3235 (¡rea Metropolitana)')
+		 'Si deseas mayor informaci√≥n cont√°ctate con el call center: 1-866-366-3235 (Isla) √≥ al 622-3235 (√Årea Metropolitana)')
 	END
 END
 
@@ -130,7 +130,7 @@ BEGIN
 	DECLARE @varTablaLogicaDatosID INT=23001
 	DECLARE @varTablaLogicaID INT=LEFT(CAST(@varTablaLogicaDatosID AS VARCHAR(5)),3)
 
-	/*Tabla LÛgica Datos */
+	/*Tabla L√≥gica Datos */
 	IF NOT EXISTS (SELECT 1 FROM TablaLogicaDatos WHERE TablaLogicaDatosID=@varTablaLogicaDatosID)
 	BEGIN
 		INSERT INTO TablaLogicaDatos
@@ -144,7 +144,7 @@ BEGIN
 		 @varTablaLogicaID,
 		 '01',
 		 'Mensaje en Pop-up Bloqueo para consultoras bloqueadas.',
-		 'Si deseas mayor informaciÛn cont·ctate con el call center: 800-5235 LÌnea Gratuita Û al 377-9399 (LÌnea local)')
+		 'Si deseas mayor informaci√≥n cont√°ctate con el call center: 800-5235 L√≠nea Gratuita √≥ al 377-9399 (L√≠nea local)')
 	END
 END
 
@@ -155,7 +155,7 @@ BEGIN
 	DECLARE @varTablaLogicaDatosID INT=23001
 	DECLARE @varTablaLogicaID INT=LEFT(CAST(@varTablaLogicaDatosID AS VARCHAR(5)),3)
 
-	/*Tabla LÛgica Datos */
+	/*Tabla L√≥gica Datos */
 	IF NOT EXISTS (SELECT 1 FROM TablaLogicaDatos WHERE TablaLogicaDatosID=@varTablaLogicaDatosID)
 	BEGIN
 		INSERT INTO TablaLogicaDatos
@@ -169,7 +169,7 @@ BEGIN
 		 @varTablaLogicaID,
 		 '01',
 		 'Mensaje en Pop-up Bloqueo para consultoras bloqueadas.',
-		 'Si deseas mayor informaciÛn cont·ctate con el call center: 1-801-81-37452 Û al 22856185 o 23843795 Locales')
+		 'Si deseas mayor informaci√≥n cont√°ctate con el call center: 1-801-81-37452 √≥ al 22856185 o 23843795 Locales')
 	END
 END
 
@@ -180,7 +180,7 @@ BEGIN
 	DECLARE @varTablaLogicaDatosID INT=23001
 	DECLARE @varTablaLogicaID INT=LEFT(CAST(@varTablaLogicaDatosID AS VARCHAR(5)),3)
 
-	/*Tabla LÛgica Datos */
+	/*Tabla L√≥gica Datos */
 	IF NOT EXISTS (SELECT 1 FROM TablaLogicaDatos WHERE TablaLogicaDatosID=@varTablaLogicaDatosID)
 	BEGIN
 		INSERT INTO TablaLogicaDatos
@@ -194,7 +194,7 @@ BEGIN
 		 @varTablaLogicaID,
 		 '01',
 		 'Mensaje en Pop-up Bloqueo para consultoras bloqueadas.',
-		 'Si deseas mayor informaciÛn cont·ctate con el call center: 1800-766672')
+		 'Si deseas mayor informaci√≥n cont√°ctate con el call center: 1800-766672')
 	END
 END
 
@@ -205,7 +205,7 @@ BEGIN
 	DECLARE @varTablaLogicaDatosID INT=23001
 	DECLARE @varTablaLogicaID INT=LEFT(CAST(@varTablaLogicaDatosID AS VARCHAR(5)),3)
 
-	/*Tabla LÛgica Datos */
+	/*Tabla L√≥gica Datos */
 	IF NOT EXISTS (SELECT 1 FROM TablaLogicaDatos WHERE TablaLogicaDatosID=@varTablaLogicaDatosID)
 	BEGIN
 		INSERT INTO TablaLogicaDatos
@@ -219,7 +219,7 @@ BEGIN
 		 @varTablaLogicaID,
 		 '01',
 		 'Mensaje en Pop-up Bloqueo para consultoras bloqueadas.',
-		 'Si deseas mayor informaciÛn cont·ctate con el call center: 1-809-200-5235 Û al 809-620-5235 (Santo Domingo)')
+		 'Si deseas mayor informaci√≥n cont√°ctate con el call center: 1-809-200-5235 √≥ al 809-620-5235 (Santo Domingo)')
 	END
 END
 
@@ -230,7 +230,7 @@ BEGIN
 	DECLARE @varTablaLogicaDatosID INT=23001
 	DECLARE @varTablaLogicaID INT=LEFT(CAST(@varTablaLogicaDatosID AS VARCHAR(5)),3)
 
-	/*Tabla LÛgica Datos */
+	/*Tabla L√≥gica Datos */
 	IF NOT EXISTS (SELECT 1 FROM TablaLogicaDatos WHERE TablaLogicaDatosID=@varTablaLogicaDatosID)
 	BEGIN
 		INSERT INTO TablaLogicaDatos
@@ -244,7 +244,7 @@ BEGIN
 		 @varTablaLogicaID,
 		 '01',
 		 'Mensaje en Pop-up Bloqueo para consultoras bloqueadas.',
-		 'Si deseas mayor informaciÛn cont·ctate con el call center: 800-000-5235 Û al 22019601 o 22019602')
+		 'Si deseas mayor informaci√≥n cont√°ctate con el call center: 800-000-5235 √≥ al 22019601 o 22019602')
 	END
 END
 
@@ -255,7 +255,7 @@ BEGIN
 	DECLARE @varTablaLogicaDatosID INT=23001
 	DECLARE @varTablaLogicaID INT=LEFT(CAST(@varTablaLogicaDatosID AS VARCHAR(5)),3)
 
-	/*Tabla LÛgica Datos */
+	/*Tabla L√≥gica Datos */
 	IF NOT EXISTS (SELECT 1 FROM TablaLogicaDatos WHERE TablaLogicaDatosID=@varTablaLogicaDatosID)
 	BEGIN
 		INSERT INTO TablaLogicaDatos
@@ -269,7 +269,7 @@ BEGIN
 		 @varTablaLogicaID,
 		 '01',
 		 'Mensaje en Pop-up Bloqueo para consultoras bloqueadas.',
-		 'Si deseas mayor informaciÛn cont·ctate con el call center:  800-210-207 Û al 02-28762100 (desde un celular)')
+		 'Si deseas mayor informaci√≥n cont√°ctate con el call center:  800-210-207 √≥ al 02-28762100 (desde un celular)')
 	END
 END
 
@@ -280,7 +280,7 @@ BEGIN
 	DECLARE @varTablaLogicaDatosID INT=23001
 	DECLARE @varTablaLogicaID INT=LEFT(CAST(@varTablaLogicaDatosID AS VARCHAR(5)),3)
 
-	/*Tabla LÛgica Datos */
+	/*Tabla L√≥gica Datos */
 	IF NOT EXISTS (SELECT 1 FROM TablaLogicaDatos WHERE TablaLogicaDatosID=@varTablaLogicaDatosID)
 	BEGIN
 		INSERT INTO TablaLogicaDatos
@@ -294,7 +294,7 @@ BEGIN
 		 @varTablaLogicaID,
 		 '01',
 		 'Mensaje en Pop-up Bloqueo para consultoras bloqueadas.',
-		 'Si deseas mayor informaciÛn cont·ctate con el call center: 3-3150600 (Fijo de Santa Cruz) Û al 800-10-5678 (desde un celular)')
+		 'Si deseas mayor informaci√≥n cont√°ctate con el call center: 3-3150600 (Fijo de Santa Cruz) √≥ al 800-10-5678 (desde un celular)')
 	END
 END
 

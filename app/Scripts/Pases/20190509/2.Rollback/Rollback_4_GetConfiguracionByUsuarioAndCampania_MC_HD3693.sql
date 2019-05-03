@@ -1,4 +1,4 @@
-Use [BelcorpPeru]
+ï»¿Use [BelcorpPeru]
 GO
 ALTER PROCEDURE [dbo].[GetConfiguracionByUsuarioAndCampania]
   @PaisID tinyint,
@@ -21,8 +21,8 @@ BEGIN
     
   select top 1
     @EsPostulante = 1,
-    @ZonaID = CP.ZonaID, -- ¿Siempre está lleno este campo o hago join con el Zona de UsuarioPostulante?
-    @RegionID = CP.RegionID, -- ¿Siempre está lleno este campo o hago join con la Region de UsuarioPostulante?
+    @ZonaID = CP.ZonaID, -- Â¿Siempre estÃ¡ lleno este campo o hago join con el Zona de UsuarioPostulante?
+    @RegionID = CP.RegionID, -- Â¿Siempre estÃ¡ lleno este campo o hago join con la Region de UsuarioPostulante?
     @CodigoUsuario = CP.Codigo,
     @PrimerNombre = CP.PrimerNombre
   from ConsultoraPostulante CP (nolock)
@@ -217,8 +217,8 @@ BEGIN
     
   select top 1
     @EsPostulante = 1,
-    @ZonaID = CP.ZonaID, -- ¿Siempre está lleno este campo o hago join con el Zona de UsuarioPostulante?
-    @RegionID = CP.RegionID, -- ¿Siempre está lleno este campo o hago join con la Region de UsuarioPostulante?
+    @ZonaID = CP.ZonaID, -- Â¿Siempre estÃ¡ lleno este campo o hago join con el Zona de UsuarioPostulante?
+    @RegionID = CP.RegionID, -- Â¿Siempre estÃ¡ lleno este campo o hago join con la Region de UsuarioPostulante?
     @CodigoUsuario = CP.Codigo,
     @PrimerNombre = CP.PrimerNombre
   from ConsultoraPostulante CP (nolock)
@@ -407,8 +407,8 @@ BEGIN
     
   select top 1
     @EsPostulante = 1,
-    @ZonaID = CP.ZonaID, -- ¿Siempre está lleno este campo o hago join con el Zona de UsuarioPostulante?
-    @RegionID = CP.RegionID, -- ¿Siempre está lleno este campo o hago join con la Region de UsuarioPostulante?
+    @ZonaID = CP.ZonaID, -- Â¿Siempre estÃ¡ lleno este campo o hago join con el Zona de UsuarioPostulante?
+    @RegionID = CP.RegionID, -- Â¿Siempre estÃ¡ lleno este campo o hago join con la Region de UsuarioPostulante?
     @CodigoUsuario = CP.Codigo,
     @PrimerNombre = CP.PrimerNombre
   from ConsultoraPostulante CP (nolock)
@@ -605,8 +605,8 @@ BEGIN
     
   select top 1
     @EsPostulante = 1,
-    @ZonaID = CP.ZonaID, -- ¿Siempre está lleno este campo o hago join con el Zona de UsuarioPostulante?
-    @RegionID = CP.RegionID, -- ¿Siempre está lleno este campo o hago join con la Region de UsuarioPostulante?
+    @ZonaID = CP.ZonaID, -- Â¿Siempre estÃ¡ lleno este campo o hago join con el Zona de UsuarioPostulante?
+    @RegionID = CP.RegionID, -- Â¿Siempre estÃ¡ lleno este campo o hago join con la Region de UsuarioPostulante?
     @CodigoUsuario = CP.Codigo,
     @PrimerNombre = CP.PrimerNombre
   from ConsultoraPostulante CP (nolock)
@@ -804,8 +804,8 @@ BEGIN
     
   select top 1
     @EsPostulante = 1,
-    @ZonaID = CP.ZonaID, -- ¿Siempre está lleno este campo o hago join con el Zona de UsuarioPostulante?
-    @RegionID = CP.RegionID, -- ¿Siempre está lleno este campo o hago join con la Region de UsuarioPostulante?
+    @ZonaID = CP.ZonaID, -- Â¿Siempre estÃ¡ lleno este campo o hago join con el Zona de UsuarioPostulante?
+    @RegionID = CP.RegionID, -- Â¿Siempre estÃ¡ lleno este campo o hago join con la Region de UsuarioPostulante?
     @CodigoUsuario = CP.Codigo,
     @PrimerNombre = CP.PrimerNombre
   from ConsultoraPostulante CP (nolock)
@@ -1003,8 +1003,8 @@ BEGIN
     
   select top 1
     @EsPostulante = 1,
-    @ZonaID = CP.ZonaID, -- ¿Siempre está lleno este campo o hago join con el Zona de UsuarioPostulante?
-    @RegionID = CP.RegionID, -- ¿Siempre está lleno este campo o hago join con la Region de UsuarioPostulante?
+    @ZonaID = CP.ZonaID, -- Â¿Siempre estÃ¡ lleno este campo o hago join con el Zona de UsuarioPostulante?
+    @RegionID = CP.RegionID, -- Â¿Siempre estÃ¡ lleno este campo o hago join con la Region de UsuarioPostulante?
     @CodigoUsuario = CP.Codigo,
     @PrimerNombre = CP.PrimerNombre
   from ConsultoraPostulante CP (nolock)
@@ -1202,8 +1202,8 @@ BEGIN
     
   select top 1
     @EsPostulante = 1,
-    @ZonaID = CP.ZonaID, -- ¿Siempre está lleno este campo o hago join con el Zona de UsuarioPostulante?
-    @RegionID = CP.RegionID, -- ¿Siempre está lleno este campo o hago join con la Region de UsuarioPostulante?
+    @ZonaID = CP.ZonaID, -- Â¿Siempre estÃ¡ lleno este campo o hago join con el Zona de UsuarioPostulante?
+    @RegionID = CP.RegionID, -- Â¿Siempre estÃ¡ lleno este campo o hago join con la Region de UsuarioPostulante?
     @CodigoUsuario = CP.Codigo,
     @PrimerNombre = CP.PrimerNombre
   from ConsultoraPostulante CP (nolock)
@@ -1400,8 +1400,8 @@ BEGIN
     
   select top 1
     @EsPostulante = 1,
-    @ZonaID = CP.ZonaID, -- ¿Siempre está lleno este campo o hago join con el Zona de UsuarioPostulante?
-    @RegionID = CP.RegionID, -- ¿Siempre está lleno este campo o hago join con la Region de UsuarioPostulante?
+    @ZonaID = CP.ZonaID, -- Â¿Siempre estÃ¡ lleno este campo o hago join con el Zona de UsuarioPostulante?
+    @RegionID = CP.RegionID, -- Â¿Siempre estÃ¡ lleno este campo o hago join con la Region de UsuarioPostulante?
     @CodigoUsuario = CP.Codigo,
     @PrimerNombre = CP.PrimerNombre
   from ConsultoraPostulante CP (nolock)
@@ -1600,8 +1600,8 @@ BEGIN
     
   select top 1
     @EsPostulante = 1,
-    @ZonaID = CP.ZonaID, -- ¿Siempre está lleno este campo o hago join con el Zona de UsuarioPostulante?
-    @RegionID = CP.RegionID, -- ¿Siempre está lleno este campo o hago join con la Region de UsuarioPostulante?
+    @ZonaID = CP.ZonaID, -- Â¿Siempre estÃ¡ lleno este campo o hago join con el Zona de UsuarioPostulante?
+    @RegionID = CP.RegionID, -- Â¿Siempre estÃ¡ lleno este campo o hago join con la Region de UsuarioPostulante?
     @CodigoUsuario = CP.Codigo,
     @PrimerNombre = CP.PrimerNombre
   from ConsultoraPostulante CP (nolock)
@@ -1798,8 +1798,8 @@ BEGIN
     
   select top 1
     @EsPostulante = 1,
-    @ZonaID = CP.ZonaID, -- ¿Siempre está lleno este campo o hago join con el Zona de UsuarioPostulante?
-    @RegionID = CP.RegionID, -- ¿Siempre está lleno este campo o hago join con la Region de UsuarioPostulante?
+    @ZonaID = CP.ZonaID, -- Â¿Siempre estÃ¡ lleno este campo o hago join con el Zona de UsuarioPostulante?
+    @RegionID = CP.RegionID, -- Â¿Siempre estÃ¡ lleno este campo o hago join con la Region de UsuarioPostulante?
     @CodigoUsuario = CP.Codigo,
     @PrimerNombre = CP.PrimerNombre
   from ConsultoraPostulante CP (nolock)
@@ -1998,8 +1998,8 @@ BEGIN
     
   select top 1
     @EsPostulante = 1,
-    @ZonaID = CP.ZonaID, -- ¿Siempre está lleno este campo o hago join con el Zona de UsuarioPostulante?
-    @RegionID = CP.RegionID, -- ¿Siempre está lleno este campo o hago join con la Region de UsuarioPostulante?
+    @ZonaID = CP.ZonaID, -- Â¿Siempre estÃ¡ lleno este campo o hago join con el Zona de UsuarioPostulante?
+    @RegionID = CP.RegionID, -- Â¿Siempre estÃ¡ lleno este campo o hago join con la Region de UsuarioPostulante?
     @CodigoUsuario = CP.Codigo,
     @PrimerNombre = CP.PrimerNombre
   from ConsultoraPostulante CP (nolock)
@@ -2198,8 +2198,8 @@ BEGIN
     
   select top 1
     @EsPostulante = 1,
-    @ZonaID = CP.ZonaID, -- ¿Siempre está lleno este campo o hago join con el Zona de UsuarioPostulante?
-    @RegionID = CP.RegionID, -- ¿Siempre está lleno este campo o hago join con la Region de UsuarioPostulante?
+    @ZonaID = CP.ZonaID, -- Â¿Siempre estÃ¡ lleno este campo o hago join con el Zona de UsuarioPostulante?
+    @RegionID = CP.RegionID, -- Â¿Siempre estÃ¡ lleno este campo o hago join con la Region de UsuarioPostulante?
     @CodigoUsuario = CP.Codigo,
     @PrimerNombre = CP.PrimerNombre
   from ConsultoraPostulante CP (nolock)
