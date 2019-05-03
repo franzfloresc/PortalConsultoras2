@@ -585,6 +585,9 @@ function EliminarSolicitudDetalle(pedidoId, cuv, origen) {
                 if (origen == 'C') {
                     var id = '#vc_pedido_' + cuv;
                     $(id).hide();
+                    if ($("#contentmobile").find('.pedidos').length == 1) {
+                        window.location.href = "/Mobile/ConsultoraOnline/Pendientes";
+                    }
                 } else if (origen == 'P') {
                     var id = '#vp_pedido_' + pedidoId;
                     $(id).hide();
