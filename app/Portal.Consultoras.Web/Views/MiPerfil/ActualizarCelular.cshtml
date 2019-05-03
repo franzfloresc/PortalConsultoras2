@@ -25,55 +25,39 @@ else
 <section class="vista_actualizar_celular">
     <div class="wrapper_content_actualizar_celular">
         <div>
-            <a href="@Url.Action("Index")" title="Volver" class="enlace_volver_a_mi_perfil text-uppercase text-bold">
-                <span class="icono_back_arrow">
-                    <img src="@Url.Content("~/Content/Images/icono_volver.svg")" alt="Volver" />
+            <a id="btnVolver" class="d-block enlace_volver_a_mi_perfil enlace_volver_a_mi_perfil--vistaActualizarCorreo" title="Volver">
+                <span class="d-inline-block enlace_volver_a_mi_perfil_icono">
+                    <img src="@Url.Content("~/Content/Images/icono_enlace_volver.svg")" alt="Volver" />
                 </span>
-                <span class="enlace_texto">Volver</span>
+                <span class="d-inline-block text-bold enlace_volver_a_mi_perfil_texto">
+                    Volver
+                </span>
             </a>
             <div class="form_actualizar_celular">
-                @if (string.IsNullOrWhiteSpace(ViewBag.Celular))
-                {
-                    <div class="sin_numero_celular_registrado">
-                        <span>Aún no has registrado un celular. Llena el siguiente campo para añadirlo.</span>
-                    </div>
-                }
-                else
-                {
-                    <div class="celular_actual">
-                        <span class="w-100 text-uppercase">Tu número actual es :</span>
-                        <span class="w-100">@ViewBag.Celular</span>
-                    </div>
-                }
-                <fieldset class="grupo_form_cambio_datos text-uppercase">
+                <div class="grupo_form_cambio_datos grupo_form_cambio_datos--vistaActualizacionCelular">
                     <div class="w-100">
                         <input id="NuevoCelular" name="NuevoCelular" class="w-100" type="text" value="" />
                         <label for="NuevoCelular" class="w-100">Ingresa tu nuevo número</label>
                     </div>
                     <div class="text-error"></div>
-                </fieldset>
-                <div class="grupo_input_actualizarMisDatos campos_actualizarDatos mt-27">
-                    <div class="checkbox_condiciones">
-                        <input type="checkbox" name="chkAceptoContratoMD" id="chkAceptoContratoMD" />
-                        <label for="chkAceptoContratoMD" class="texto_terminosCondiciones">
-                            <span>
-                                Estoy de acuerdo con los <span><a href="javascript:;" id="hrefTerminosMD" target="_blank">términos y condiciones</a></span> sobre Protección de datos personales
-
-                            </span>
-                        </label>
+                </div>
+                <div class="grupo_input_actualizarMisDatos campos_actualizarDatos terminos_y_condiciones_wrapper pt-31">
+                    <div class="checkbox_condiciones_wrapper w-100">
+                        <div class="checkbox_condiciones_descripcion">
+                            <span class="asterisco_actualizar_datos">(*)&nbsp;</span>
+                            Estoy de acuerdo con los <span><a href="javascript:;" id="hrefTerminosMD" target="_blank">términos y condiciones</a></span> sobre Protección de datos personales
+                        </div>
+                        <div class="grupo_form_checkbox_condiciones">
+                            <input class="checkbox_condiciones_checkbox" type="checkbox" name="chkAceptoContratoMD" id="chkAceptoContratoMD" />
+                            <label for="chkAceptoContratoMD" class="checkbox_condiciones_label"></label>
+                        </div>
                     </div>
                 </div>
-                <fieldset class="grupo_form_cambio_datos text-uppercase">
-                    <div class="w-50 text-left v-alignMiddle">
-                        <a href="@Url.Action("Index")" title="Cancelar" class="enlace_cancelar">Cancelar</a>
-                    </div>
-                    <div class="w-50 text-right v-alignMiddle">
-                        <button type="button"
-                                class="btn_continuar text-uppercase text-bold default-background-color mt-31">
-                            Continuar
-                        </button>
-                    </div>
-                </fieldset>
+                <div class="grupo_form_cambio_datos grupo_form_cambio_datos--vistaActualizacionCelular">
+                    <button type="button" class="d-inline-block border-radius-4 text-bold btn_deshabilitado btn_cta_miPerfil">
+                        Guardar
+                    </button>
+                </div>
             </div>
             <div class="revisa_tu_celular text-center" style="display:none;">
                 <h1 class="titulo_revisa_tu_celular text-uppercase">
