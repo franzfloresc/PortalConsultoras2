@@ -1,5 +1,6 @@
 using Portal.Consultoras.BizLogic.Reserva;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Common.Exceptions;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Pedido;
@@ -171,6 +172,9 @@ namespace Portal.Consultoras.BizLogic
                     Constantes.ConfiguracionOferta.Accesorizate,
                     pedidowebdetalle.CampaniaID, pedidowebdetalle.CUV, pedidowebdetalle.Cantidad);
 
+            string message = string.Format("OrigenSolicitud:{0}, InsPedidoWebDetalleTransaction", pedidowebdetalle.OrigenSolicitud ?? string.Empty);
+            LogManager.SaveLog( new ClientInformationException (message), pedidowebdetalle.CodigoUsuarioCreacion, pedidowebdetalle.PaisID);
+
             if (pedidowebdetalle.IndicadorPedidoAutentico != null)
             {
                 try
@@ -178,7 +182,7 @@ namespace Portal.Consultoras.BizLogic
                     var indPedidoAutentico = pedidowebdetalle.IndicadorPedidoAutentico;
                     indPedidoAutentico.PedidoID = pedidowebdetalle.PedidoID;
                     indPedidoAutentico.PedidoDetalleID = bePedidoWebDetalle.PedidoDetalleID;
-                    indPedidoAutentico.IndicadorToken = string.IsNullOrEmpty(indPedidoAutentico.IndicadorToken) ? string.Empty :  AESAlgorithm.Decrypt(indPedidoAutentico.IndicadorToken);
+                    indPedidoAutentico.IndicadorToken = AESAlgorithm.Decrypt(indPedidoAutentico.IndicadorToken);
 
                     daPedidoWeb.InsIndicadorPedidoAutentico(indPedidoAutentico);
                 }
@@ -215,7 +219,8 @@ namespace Portal.Consultoras.BizLogic
                             new DAOfertaProducto(pedidowebdetalle.PaisID).UpdOfertaProductoStockActualizar(pedidowebdetalle.TipoOfertaSisID, pedidowebdetalle.CampaniaID, pedidowebdetalle.CUV, pedidowebdetalle.Stock, pedidowebdetalle.Flag);
                             break;
                     }
-
+                    string message = string.Format("OrigenSolicitud:{0}, InsPedidoWebDetalleTransaction", pedidowebdetalle.OrigenSolicitud ?? string.Empty);
+                    LogManager.SaveLog(new ClientInformationException(message), pedidowebdetalle.CodigoUsuarioCreacion, pedidowebdetalle.PaisID);
                     if (pedidowebdetalle.IndicadorPedidoAutentico != null)
                     {
                         try
