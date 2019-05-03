@@ -32,7 +32,7 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/ui.jqgrid/ui.jqgrid.css"
 
             ));
-             
+
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/JQueryJs").Include(
                "~/Scripts/jquery-1.11.2.js",
@@ -586,7 +586,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/TagManager/Home-Pedido.js",
                 "~/Scripts/PortalConsultoras/Cupon/Cupon.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/Descargables.js"
-                //"~/Scripts/PortalConsultoras/EstrategiaPersonalizada/BannerInteractivo.js"
+            //"~/Scripts/PortalConsultoras/EstrategiaPersonalizada/BannerInteractivo.js"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/Ofertas").Include(
@@ -619,7 +619,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Cupon/Cupon.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/CajaProducto.js"
-                //"~/Scripts/PortalConsultoras/EstrategiaPersonalizada/BannerInteractivo.js"
+            //"~/Scripts/PortalConsultoras/EstrategiaPersonalizada/BannerInteractivo.js"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/Ofertas").Include(
@@ -1008,7 +1008,7 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/Ficha/PopoverTooltip.css"
             ));
 
-            bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/EsikaPageResponsive").Include(               
+            bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/EsikaPageResponsive").Include(
                 "~/Content/Css/Site/Esika/marca-pais-responsive.css",
                 "~/Content/Css/Site/Esika/styleDefault.css"
             ));

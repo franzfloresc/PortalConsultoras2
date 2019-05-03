@@ -3,15 +3,15 @@ var urlDetallePedidoPendienteClientes = "/ConsultoraOnline/DetallePedidoPendient
 var listaGana = [];
 
 $(document).ready(function () {
- 
+
 });
 
- 
+
 
 function bindElments() {
 
     $('.btnAccion').click(function (e) {
-        
+
 
         if (!$(e.target).hasClass('ghost')) {
             $('.btnAccion').find('a').removeClass('ghost');
@@ -21,10 +21,10 @@ function bindElments() {
 
         }
         else {
-           // $('.btnAccion').find('a').addClass('ghost');
+            // $('.btnAccion').find('a').addClass('ghost');
             $(e.target).removeClass('ghost');
             $(e.target).html('Elegir');
-       
+
         }
 
         if ($('.btnAccion a.ghost').length == $('.ghost a').length) {
@@ -58,7 +58,7 @@ function bindElments() {
 
 function AceptarPedidoPendiente() {
 
-    
+
 
     var btn = $('.btnAccion a.ghost')[0];
 
@@ -82,7 +82,7 @@ function AceptarPedidoPendiente() {
                 closeWaitingDialog();
                 if (checkTimeout(response)) {
                     if (response.success) {
-                      
+
                         if ($('#modal-confirmacion')[0]) {
                             //$('#modal-confirmacion').addClass('on');
                             $("#contenedor-paso-2").hide();
@@ -90,7 +90,7 @@ function AceptarPedidoPendiente() {
                         }
                         else {
                             $('#popuplink').click();
-                        }                      
+                        }
                         return false;
                     }
                     else {
@@ -164,7 +164,7 @@ function DetallePedidoPendienteClientes(cuv) {
                 $.each(response.data.ListaPedidos, function (index, value) {
                     value.CUVx = response.CUVx || "";
                 });
-                
+
                 var objenviar = {
                     ListaPedidos: response.data.ListaPedidos,
                     Productox: response.Productox
@@ -172,7 +172,7 @@ function DetallePedidoPendienteClientes(cuv) {
                 SetHandlebars("#template-paso-1-Clientes", objenviar, "#Paso1-Clientes");
                 $(".modal-fondo").show();
                 $('#Paso1-Clientes').show();
-                
+
             }
         },
         error: function (error) {
@@ -307,7 +307,7 @@ function ActualizarPendientes() {
             //CloseLoading();
             CerrarLoad();
             if (response.success) {
-                
+
                 //document.location.href = '/ConsultoraOnline/Pendientes';
 
                 var Pendientes = JSON.parse(response.Pendientes) || [];
@@ -340,7 +340,7 @@ function RechazarSolicitudClientePorCuv(cuv) {
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify(obj),
         success: function (response) {
-                    /*CloseLoading*/
+            /*CloseLoading*/
             if (response.success) {
                 $('#rechazarTodo').addClass('hide');
                 $('#Paso1-Clientes').hide();
@@ -406,10 +406,9 @@ function ContinuarPedido() {
                 if (response.success) {
                     $('#Paso1-Clientes').hide();
                     $('#Paso1-Productos').hide();
-                    
+
                     SetHandlebars("#template-paso-2", response.result, "#contenedor-paso-2");
-                    if (response.result.ListaGana.length == 0 || response.result.GananciaGana<= 0 )
-                    {
+                    if (response.result.ListaGana.length == 0 || response.result.GananciaGana <= 0) {
                         $('.porGanaMas').hide();
                     }
                     $('#contenedor-paso-2').show();
@@ -470,7 +469,7 @@ function EliminarSolicitudDetalle(pedidoId, cuv, origen) {
                         $(id).hide();
                     }
 
-                  
+
                 } else if (origen == 'P') {
                     var id = '#vp_pedido_' + pedidoId;
                     if (cuvs.indexOf(cuv) < 0) {
@@ -482,7 +481,7 @@ function EliminarSolicitudDetalle(pedidoId, cuv, origen) {
                     }
                 }
 
-                
+
                 RenderizarPendientes(Pendientes);
             }
             else {
