@@ -2526,6 +2526,155 @@ namespace Portal.Consultoras.Web.Controllers
             return rpta;
         }
 
+        [HttpPost]
+        public string ZonasValidacionTelefonicaInsertar(HttpPostedFileBase uplArchivo, ZonaValidacionTelefonicaModel model)
+        {
+            model.CodigoISO = CodigoISO;
+            try
+            {
+                if (uplArchivo == null)
+                {
+                    return "El archivo especificado no existe.";
+                }
+
+                if (!Util.IsFileExtension(uplArchivo.FileName, Enumeradores.TypeDocExtension.Excel))
+                {
+                    return "El archivo especificado no es un documento de tipo MS-Excel.";
+                }
+
+                string fileextension = Util.Trim(Path.GetExtension(uplArchivo.FileName));
+
+                if (!fileextension.ToLower().Equals(".xlsx"))
+                {
+                    return "Sólo se permiten archivos MS-Excel versiones 2007-2012.";
+                }
+
+                string fileName = Guid.NewGuid().ToString();
+                string pathfaltante = Server.MapPath("~/Content/ArchivoZonaValidacion");
+                if (!Directory.Exists(pathfaltante)) Directory.CreateDirectory(pathfaltante);
+
+                var finalPath = Path.Combine(pathfaltante, fileName + fileextension);
+                uplArchivo.SaveAs(finalPath);
+
+                bool isCorrect = false;
+                ZonaValidacionTelefonicaModel prod = new ZonaValidacionTelefonicaModel();
+
+                IList<ZonaValidacionTelefonicaModel> lista = Util.ReadXmlFile(finalPath, prod, false, ref isCorrect);
+
+                foreach (var item in lista.ToList())
+                {
+                    if (item.ZonaSeccion == null)
+                    {
+                        lista.Remove(item);
+                    }
+                }
+
+                if (lista.Count == 0)
+                {
+                    isCorrect = false;
+                }
+
+                System.IO.File.Delete(finalPath);
+                List<ParametroUnete> listafinal = new List<ParametroUnete>();
+                if (isCorrect)
+                {
+                    var nivel = 0;
+                    using (var sv = new PortalServiceClient())
+                    {
+                        var parametros = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.Validaciones, default(int));
+                        var telefonoRequeridoParametro = parametros.FirstOrDefault(p => p.Nombre == "TelefonoRequerido");
+                        nivel = telefonoRequeridoParametro.IdParametroUnete;
+                    }
+                    foreach (var item in lista)
+                    {
+                        var parametroTodos = new ParametroUnete
+                        {
+                            Nombre = item.ZonaSeccion,
+                            Descripcion = item.PasoLimite,
+                            Valor = 1,
+                            FK_IdTipoParametro = EnumsTipoParametro.Validaciones.ToInt(),
+                            FK_IdParametroUnete = nivel,
+                            Estado = 1
+                        };
+                        listafinal.Add(parametroTodos);
+                    }
+
+                    if (listafinal.Any())
+                    {
+                        using (var sv = new PortalServiceClient())
+                        {
+                            sv.InsertarZonaValidacionTelefonica(model.CodigoISO, listafinal.ToArray());
+                        }
+
+                        return "Se realizo satisfactoriamente la carga de datos.";
+                    }
+
+                    return "No se Guardo ningun registro";
+
+                }
+                else
+                {
+                    return "Ocurrió un problema al cargar el documento o tal vez se encuentra vacío.";
+                }
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return "Verifique el formato del Documento, posiblemente no sea igual al de la Plantilla.";
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return "Verifique el formato del Documento, posiblemente no sea igual al de la Plantilla.";
+            }
+        }
+
+        public ActionResult ZonaValidacionTelefonica()
+        {
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("ZonaValidacionTelefonica", null);
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult ConsultarZonaValidacionTelefonica(ZonaValidacionTelefonicaModelSAC model)
+        {
+            model.CodigoISO = CodigoISO;
+            using (var sv = new PortalServiceClient())
+            {
+                var data = sv.ConsultarZonaValidacionTelefonica(model);
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
+        public ActionResult ExportarExcelZonaValidacionTelefonica()
+        {
+            ServiceUnete.ParametroUneteCollection lstSelect;
+            using (var sv = new PortalServiceClient())
+            {
+                var parametros = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.Validaciones, default(int));
+                var telefonoRequeridoParametro = parametros.FirstOrDefault(p => p.Nombre == "TelefonoRequerido");
+                lstSelect = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.Validaciones, telefonoRequeridoParametro.IdParametroUnete);
+            }
+
+            List<ZonaValidacionTelefonicaModel> items = new List<ZonaValidacionTelefonicaModel>();
+            foreach (var item in lstSelect)
+            {
+                var objNivel = new ZonaValidacionTelefonicaModel
+                {
+                    PasoLimite = item.Descripcion,
+                    ZonaSeccion = item.Nombre
+                };
+                items.Add(objNivel);
+            }
+
+            Dictionary<string, string> dic =
+                new Dictionary<string, string> { { "ZonaSeccion", "ZonaSeccion" }, { "PasoLimite", "PasoLimite" } };
+
+            Util.ExportToExcel("ReporteZonasValidacionTelefonica", items, dic);
+            return View();
+        }
+
         public string getHTMLSACUnete(string action, string urlParams)
         {
             string urlSacUente = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UneteURL);

@@ -306,6 +306,7 @@
     <Compile Include="Models\AdministrarEstrategia\EstrategiaGrupoModel.cs" />
     <Compile Include="Models\ArmaTuPackModel.cs" />
     <Compile Include="Models\BuscadorYFiltrosCategoriaModel.cs" />
+    <Compile Include="Models\ZonaValidacionTelefonicaModel.cs" />
     <Compile Include="Models\PremioNuevaModel.cs" />
     <Compile Include="Models\AdministracionPoput\ComunicadoModel.cs" />
     <Compile Include="Models\AdministracionPoput\SegmentacionComunicado.cs" />
@@ -5783,6 +5784,7 @@
     <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-bannerInteractivo.cshtml" />
     <Content Include="Views\Bonificaciones\IndexExterno.cshtml" />
     <Content Include="Views\MisCertificados\CAM_NoAdeudoPdf.cshtml" />
+    <Content Include="Views\Unete\ZonaValidacionTelefonica.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
