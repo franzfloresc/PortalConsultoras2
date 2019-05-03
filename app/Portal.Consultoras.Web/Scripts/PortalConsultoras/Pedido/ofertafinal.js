@@ -21,30 +21,10 @@ var dataAgregarOF = null;
 $(document).ready(function () {
     $("body").on("click", ".agregarOfertaFinal", function () {
         PedidoRegistroModule.AgregarOfertaFinalClick(this);
-        //var divPadre = $(this).parents("[data-item='ofertaFinal']").eq(0);
-        //var objCantidad = $(this).parent().find('[data-input="cantidad"]');
-
-        //if (tipoOrigen == "1")
-        //    DesktopPedidoOfertaFinal = $(this).data("origenpedidoweb") == undefined ? DesktopPedidoOfertaFinal : $(this).data("origenpedidoweb");
-        //else
-        //    MobilePedidoOfertaFinal = $(this).data("origenpedidoweb") == undefined ? MobilePedidoOfertaFinal : $(this).data("origenpedidoweb");
-
-        //ValidarAgregarOfertaFinal($(divPadre), objCantidad, null);
     });
 
     $("body").on("click", ".agregarOfertaFinalVerDetalle", function () {
         PedidoRegistroModule.AgregarOfertaFinalDetalleClick(this);
-        //var prodId = $(this).attr("data-popup-verdetalle");
-        //var divPadre = $("#divCarruselOfertaFinal").find("[data-popup-id=" + prodId + "]").eq(0);
-        //var objCantidad = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-input='cantidad']");
-        //var fnFinal = function () { $("#contenedor_popup_ofertaFinalVerDetalle").hide(); };
-
-        //if (tipoOrigen == "1")
-        //    DesktopPedidoOfertaFinal = $(this).data("origenpedidoweb") == undefined ? DesktopPedidoOfertaFinal : $(this).data("origenpedidoweb");
-        //else
-        //    MobilePedidoOfertaFinal = $(this).data("origenpedidoweb") == undefined ? MobilePedidoOfertaFinal : $(this).data("origenpedidoweb");
-
-        //ValidarAgregarOfertaFinal($(divPadre), objCantidad, fnFinal);
     });
 
     $("body").on("click", '.btnNoGraciasOfertaFinal', function (e) {
@@ -61,43 +41,6 @@ $(document).ready(function () {
 
     if (cuvOfertaProl != "") EjecutarPROL(cuvOfertaProl);
 });
-
-//function ValidarAgregarOfertaFinal(objDivPadre, objCantidad, fnFinal) {
-//    OpenLoadingOF();
-//    //Se usa SetTimeout, para que se muestre el loading y no haya problemas con los ajax no async.
-//    setTimeout(function () {
-//        var model = {
-//            CUV: objDivPadre.find(".hdOfertaFinalCuv").val(),
-//            Cantidad: objCantidad.val(),
-//            PrecioUnidad: objDivPadre.find(".hdOfertaFinalPrecioUnidad").val(),
-//            TipoEstrategiaID: objDivPadre.find(".hdOfertaFinalTipoEstrategiaID").val(),
-//            OrigenPedidoWeb: tipoOrigen == "1" ? DesktopPedidoOfertaFinal : MobilePedidoOfertaFinal,
-//            MarcaID: objDivPadre.find(".hdOfertaFinalMarcaID").val(),
-//            DescripcionProd: objDivPadre.find(".hdOfertaFinalDescripcionProd").val(),
-//            TipoOfertaSisID: objDivPadre.find(".hdOfertaFinalTipoOfertaSisID").val(),
-//            IndicadorMontoMinimo: objDivPadre.find(".hdOfertaFinalIndicadorMontoMinimo").val(),
-//            ConfiguracionOfertaID: objDivPadre.find(".hdOfertaFinalConfiguracionOfertaID").val()
-//        }
-
-//        var message = !isInt(model.Cantidad) ? 'La cantidad ingresada debe ser un número mayor que cero, verifique' :
-//            model.Cantidad <= 0 ? 'La cantidad ingresada debe ser mayor que cero, verifique' : '';
-//        if (message != '') {
-//            alert_msg(message);
-//            objCantidad.val(1);
-//            CloseLoadingOF();
-//            return false;
-//        }
-
-//        dataAgregarOF = AgregarOfertaFinal(model);
-//        if (dataAgregarOF.success) {
-//            AgregarOfertaFinalLog(model.CUV, model.Cantidad, tipoOfertaFinal_Log, gap_Log, 1, 'Producto Agregado');
-//            ActualizarValoresPopupOfertaFinal(dataAgregarOF);
-//            objDivPadre.find('.agregado').show();
-//            if ($.isFunction(fnFinal)) fnFinal();
-//        }
-//        CloseLoadingOF();
-//    }, 1);
-//}
 
 function ActValPopupOFByRegaloNuevas() {
     if (dataAgregarOF != null) {
@@ -116,24 +59,6 @@ function CloseLoadingOF() {
     if (tipoOrigen == "1") CerrarSplash();
     else CloseLoading();
 }
-
-//function AgregarOfertaFinal(model) {
-//    if (reservaResponse.data.Reserva && !agregoOfertaFinal) {
-//        if (!DesvalidarPedido()) return false;
-//    }
-
-//    var add;
-//    if (tipoOrigen == "1") add = AgregarProducto('PedidoInsertarOF', model, "", false, false);
-//    else add = InsertarProducto(model, false, 'PedidoInsertarOF');
-//    OpenLoadingOF();
-
-//    if (add == null) {
-//        add = {};
-//        add.success = false;
-//    }
-//    agregoOfertaFinal = true;
-//    return add;
-//}
 
 function DesvalidarPedido() {
     var success = false;
