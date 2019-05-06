@@ -11,7 +11,9 @@
 <div class="fondo_f9f9f9">
     <div class="content_belcorp">
         <div class="fondo_negro_lateral"></div>
-        <div class="titulo_interiores"> <span>CAMBIOS</span> Y DEVOLUCIONES</div>
+        <div class="titulo_interiores">
+            <span>CAMBIOS</span> Y DEVOLUCIONES
+        </div>
     </div>
     <hr class="clear">
     <div class="linea_separadora" style="margin-top:-1px"></div>
@@ -19,7 +21,8 @@
 <div class="content_belcorp" style="min-height:600px;">
     <div class="pestana_lbel"></div>
     <div class="texto_titulo_reclamos" id="TituloReclamo">
-        Queremos verte siempre satisfecha con nuestros productos y servicio <br />
+        Queremos verte siempre satisfecha con nuestros productos y servicio
+        <br />
         <span>
             Si tuviste inconvenientes con algún producto y estás dentro del
             <a href="@Model.UrlPoliticaCdr" style="text-decoration: underline; font-weight: bold; display: inline;" target="_blank">plazo permitido</a>
@@ -89,9 +92,14 @@
                     <div id="OpcionCambioPorOtroProducto" class="opcion_cdr_seleccionada_info_wrapper" style="display:none;">
                         <!-- INFORMACIÓN CUANDO SE SELECCIONA LA OPCIÓN DE CAMBIAR POR OTRO PRODUCTO -->
                         <div class="opcion_cdr_seleccionada_info opcion_cdr_seleccionada_info--cambiarPorOtroProducto">
-                            <p>Puedes cambiarlo por otro producto(s) cuyo monto sea mayor o igual al que reclamas (<span id="spnSimboloMonedaReclamo">S/.</span><span id="spnMontoMinimoReclamoFormato">15</span>)</p>
+                            <p>
+                                Puedes cambiarlo por otro producto(s) cuyo monto sea mayor o igual al que reclamas (
+                                <span id="spnSimboloMonedaReclamo">S/.</span>
+                                <span id="spnMontoMinimoReclamoFormato">15</span>)
+                            </p>
                             <p class="text-bold">
-                                Búscalo en tus catálogos de Campaña <span id="spnNumeroCampaniaReclamo">15</span>:
+                                Búscalo en tus catálogos de Campaña
+                                <span id="spnNumeroCampaniaReclamo">15</span>:
                             </p>
                             @*<div class="text-center opcion_cdr_seleccionada_campos_busqueda_producto_a_cambiar">
                                     <input type="text" class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--codigo" value="" id="txtCUV2" placeholder="Código" />
@@ -111,7 +119,12 @@
                                     </div>
                                 </div>*@
                             <div id="contenedorCuvTrueque">
-
+                                @*Valores de la parametría*@
+                                <input type="hidden" id="hdMontoMinimoReclamo" />
+                                <input type="hidden" id="hdCuvPrecio2">
+                                <input type="hidden" id="hdParametriaCdr" value="0">
+                                <input type="hidden" id="hdParametriaAbsCdr" value="1">
+                                <input type="hidden" id="hdCdrWebDatos_Ssic">
                             </div>
                             <button type="button" name="Agregar" class="d-block border-radius-4 text-bold text-uppercase btn_cdr btn_agregar_mas_productos_a_cambiar" onclick="AgregarCUVTrueque();">
                                 <span><img src="@Url.Content("~/Content/Images/icono_plus.svg")" alt="Agregar productos" /></span>
@@ -119,7 +132,8 @@
                             </button>
                             <div id="MontoTotalProductoACambiar" class="text-bold total_precio_reclamo" style="display:none;">
                                 <input type="hidden" id="hdImporteTotal2" />
-                                Total: <span id="spnImporteTotal2"></span>
+                                Total:
+                                <span id="spnImporteTotal2"></span>
                             </div>
                         </div>
                         <!-- FIN - INFORMACIÓN CUANDO SE SELECCIONA LA OPCIÓN DE CAMBIAR POR OTRO PRODUCTO -->
@@ -177,7 +191,8 @@
             <div class="content_reclamo" id="Paso3" style="display: none;">
                 <div class="subtitulo_reclamo" style="margin-bottom: 0">Revisa el resumen, finaliza y envía tu solicitud</div>
                 <div class="texto_reclamo" style="font-size: 13px; margin-top: 0;">
-                    Asegúrate tener todos los incovenientes registrados porque <b>sólo puedes hacer @Model.CantidadReclamosPorPedido solicitud web por pedido</b>
+                    Asegúrate tener todos los incovenientes registrados porque
+                    <b>sólo puedes hacer @Model.CantidadReclamosPorPedido solicitud web por pedido</b>
                 </div>
                 <div>
                     <div class="content_listado_reclamo content_listado_reclamo--header">
@@ -206,9 +221,11 @@
                                 <div id="divDespachoExpress" class="cdr_tipo_despacho_contenido">
                                     <span style="font-weight:bold;">@Model.MensajesExpress.ExpressPrincipal</span>
                                     @if (!string.IsNullOrEmpty(Model.MensajesExpress.ExpressFlete))
-                                    {<span>@Model.MensajesExpress.ExpressFlete</span>}
+                                    {
+                                        <span>@Model.MensajesExpress.ExpressFlete</span>}
                                     @if (Model.EsConsultoraNueva)
-                                    {<span style="color:red;">@Model.MensajesExpress.Nuevas</span>}
+                                    {
+                                        <span style="color:red;">@Model.MensajesExpress.Nuevas</span>}
                                     <br />
                                     <span>@Model.MensajesExpress.ExpressAdicional</span>
                                 </div>
@@ -267,7 +284,9 @@
         </div>
         <div class="UltimasSolicitudes" id="divUltimasSolicitudes" style="display: none; overflow: auto; max-height: 550px;">
             <div class="titulo_ultimo_soli">Mi solicitud</div>
-            <div class="texto_solicitud_ultima"><span id="spnCantidadUltimasSolicitadas">3</span> productos agregados:</div>
+            <div class="texto_solicitud_ultima">
+                <span id="spnCantidadUltimasSolicitadas">3</span> productos agregados:
+            </div>
             <br />
             <div id="divDetalleUltimasSolicitudes" class="detalle_solicitudes_wrapper">
             </div>
@@ -277,12 +296,18 @@
     </div>
 
     <div class="content_reclamo" id="SolicitudEnviada" style="display:none;  margin-right: auto;">
-        <br /><br />
+        <br />
+        <br />
         <div class="icono_mensaje_alerta icono_check_alerta icono_check_alerta--paso3"></div>
-        <div class="texto_mensaje_alerta" id="mensaje_exclamacion_titulo">¡SOLICITUD<b> ENVIADA</b>!</div>
+        <div class="texto_mensaje_alerta" id="mensaje_exclamacion_titulo">
+            ¡SOLICITUD
+            <b> ENVIADA</b>!
+        </div>
         <div class="sub_texto_alerta" id="mensaje_exclamacion_texto">Vamos a evaluarla y en un plazo de 30 minutos te enviaremos una respuesta a tu correo electrónico</div>
         <div class="content_btn_imprimir">
-            <a class="btn_imprimir_reclamo" href="javascript:printElement('.content_sombra_reclamo')"> <div class="icono_imprimir_reclamo"></div>IMPRIMIR SOLICITUD</a>
+            <a class="btn_imprimir_reclamo" href="javascript:printElement('.content_sombra_reclamo')">
+                <div class="icono_imprimir_reclamo"></div>IMPRIMIR SOLICITUD
+            </a>
         </div>
         <hr class="clear" />
         <br />
@@ -290,9 +315,18 @@
             <div class="subtitulo_reclamo" style="font-weight:400; font-size:21px;">Solicitud de Cambios y Devoluciones</div>
             <hr class="clear" />
             <div style="text-align:center;">
-                <div class="detalle_estado_reclamo">Fecha:<b> <span id="spnSolicitudFechaCulminado">10 Oct 2016</span> </b></div>
-                <div class="detalle_estado_reclamo">Solicitud:<b> Nº <span id="spnSolicitudNumeroSolicitud">12345678</span></b></div>
-                <div class="detalle_estado_reclamo">Campaña:<b> <span id="spnSolicitudCampania">2016-15</span></b></div>
+                <div class="detalle_estado_reclamo">
+                    Fecha:
+                    <b> <span id="spnSolicitudFechaCulminado">10 Oct 2016</span> </b>
+                </div>
+                <div class="detalle_estado_reclamo">
+                    Solicitud:
+                    <b> Nº <span id="spnSolicitudNumeroSolicitud">12345678</span></b>
+                </div>
+                <div class="detalle_estado_reclamo">
+                    Campaña:
+                    <b> <span id="spnSolicitudCampania">2016-15</span></b>
+                </div>
             </div>
             <div id="spnTipoDespacho" class="detalle_estado_reclamo" style="width:100%;text-align:center;border-right: 0px solid black; margin-bottom: 10px;">
             </div>
@@ -316,7 +350,10 @@
         <a class="btn_cerrar_alerta" href="javascript:;" onclick="javascript: $('#divPopupPedido').hide();"><img src="/Content/Images/cerrar_04.png"></a>
         <hr class="clear">
         <div class="icono_mensaje_alerta icono_exclamacion_alerta"></div>
-        <div class="texto_mensaje_alerta" id="mensaje_exclamacion_titulo02">ELIGE UN <b>PEDIDO</b> </div>
+        <div class="texto_mensaje_alerta" id="mensaje_exclamacion_titulo02">
+            ELIGE UN
+            <b>PEDIDO</b>
+        </div>
         <div class="sub_texto_alerta" id="mensaje_exclamacion_texto02">Selecciona el pedido en el cual deseas aplicar la solicitud</div>
         <div class="content_botones_pedido" id="divPedido">
         </div>
@@ -352,11 +389,31 @@
 <div id="template-cuv-cambio" style="display:none;">
     <div class="item-producto-cambio">
         <div class="text-center opcion_cdr_seleccionada_campos_busqueda_producto_a_cambiar">
-            <input type="text" onblur="BuscarInfoCUV(this);" class="cls-producto-codigo border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--codigo" name="codigo" placeholder="Código" />
-            <input type="text" class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--descripcion" name="descripcion" readonly placeholder="Descripción del producto" />
-            <input type="text" class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--precio" name="precio" readonly placeholder="Precio" />
-            <div class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad" data-cantidad-contenedor="">
-                <input type="text" name="cantidad" value="1" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid">
+            <input type="text"
+                   onblur="BuscarInfoCUV(event);"
+                   class="cls-producto-codigo border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--codigo"
+                   data-codigo=""
+                   name="codigo"
+                   placeholder="Código" />
+            <input type="text"
+                   class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--descripcion"
+                   name="descripcion"
+                   readonly
+                   placeholder="Descripción del producto" />
+            <input type="text"
+                   class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--precio"
+                   name="precio"
+                   data-precio=""
+                   readonly
+                   placeholder="Precio" />
+            <div class="contenedor-cantidad border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad" data-cantidad-contenedor="">
+                <input type="text"
+                       name="cantidad"
+                       data-input="cantidad"
+                       data-cantidad=""
+                       value="1"
+                       maxlength="2"
+                       class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid">
                 <div class="liquidacion_rango_right_pedido">
                     <a class="mas modificarPrecioMas" onclick="AgregarODisminuirCantidad(event,1)"><img src="/Content/Images/Esika/mas.png" alt=""></a>
                     <a class="menos modificarPrecioMenos" onclick="AgregarODisminuirCantidad(event,2)"><img src="/Content/Images/Esika/menos.png" alt=""></a>
@@ -428,8 +485,10 @@
             {{/iff}}
             <div class="titulo_resumen">{{DescripcionConfirma}}:</div>
             <div class="descri_producto_reclamo">
-                {{CUV}} <br />
-                <b>{{DescripcionProd}}</b><br />
+                {{CUV}}
+                <br />
+                <b>{{DescripcionProd}}</b>
+                <br />
                 x{{Cantidad}} unidades
             </div>
         </div>
@@ -438,8 +497,10 @@
         <div class="content_resumen_cambio">
             <div class="titulo_resumen">{{DescripcionConfirma2}}:</div>
             <div class="descri_producto_reclamo">
-                {{CUV2}} <br />
-                <b>{{DescripcionProd2}}</b><br />
+                {{CUV2}}
+                <br />
+                <b>{{DescripcionProd2}}</b>
+                <br />
                 x{{Cantidad2}} unidades
             </div>
         </div>
@@ -454,13 +515,17 @@
         </div>
         <div class="listado_producto_reclamo">
             {{#iff item.GrupoID '!=' ''}}
-            <div class="text-bold text-center tag_sb tag_sb--standard">Set o Pack</div><br />
+            <div class="text-bold text-center tag_sb tag_sb--standard">Set o Pack</div>
+            <br />
             {{else}}
 
             {{/iff}}
-            {{item.CUV}}<br />
-            <b>{{item.Descripcion}}</b> <br />
-            {{item.Cantidad}} unidades<br />
+            {{item.CUV}}
+            <br />
+            <b>{{item.Descripcion}}</b>
+            <br />
+            {{item.Cantidad}} unidades
+            <br />
             Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio}}
         </div>
         <div class="listado_solicitud_reclamo text-center">
@@ -491,9 +556,12 @@
             {{else if_eq CodigoOperacion 'G'}}
             {{item.SolucionSolicitada}}
             {{else if_eq CodigoOperacion 'T'}}
-            {{item.CUV2}}<br />
-            <b>{{item.Descripcion2}}</b> <br />
-            {{item.Cantidad2}} unidades<br />
+            {{item.CUV2}}
+            <br />
+            <b>{{item.Descripcion2}}</b>
+            <br />
+            {{item.Cantidad2}} unidades
+            <br />
             Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio2}}
             {{else}}
 
@@ -519,12 +587,17 @@
             <input type="hidden" name="id" value="{{item.CDRWebDetalleID}}" />
         </div>
         <div class="listado_producto_reclamo">
-            {{item.CUV}}<br />
-            <b>{{item.Descripcion}}</b> <br />
-            {{item.Cantidad}} unidades<br />
+            {{item.CUV}}
+            <br />
+            <b>{{item.Descripcion}}</b>
+            <br />
+            {{item.Cantidad}} unidades
+            <br />
             Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio}}
         </div>
-        <div class="listado_solicitud_reclamo"><b>{{item.Solicitud}}</b></div>
+        <div class="listado_solicitud_reclamo">
+            <b>{{item.Solicitud}}</b>
+        </div>
         <div class="listado_solicitada_reclamo">
             {{#if_eq CodigoOperacion 'C'}}
             {{item.SolucionSolicitada}}
@@ -535,9 +608,12 @@
             {{else if_eq CodigoOperacion 'G'}}
             {{item.SolucionSolicitada}}
             {{else if_eq CodigoOperacion 'T'}}
-            {{item.CUV2}}<br />
-            <b>{{item.Descripcion2}}</b> <br />
-            {{item.Cantidad2}} unidades<br />
+            {{item.CUV2}}
+            <br />
+            <b>{{item.Descripcion2}}</b>
+            <br />
+            {{item.Cantidad2}} unidades
+            <br />
             Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio2}}
             {{else}}
 
@@ -551,8 +627,10 @@
     <div class="content_ultima_soli">
         <div class="float_left" style="width:88%;padding-right:5px;">
             <div class="texto_solicitud_ultima">
-                {{item.CUV}}<br />
-                {{item.Descripcion}}<br />
+                {{item.CUV}}
+                <br />
+                {{item.Descripcion}}
+                <br />
                 {{item.Cantidad}} unidades
             </div>
         </div>
@@ -567,7 +645,10 @@
 <script id="template-opcion-devolucion" type="text/x-handlebars-template">
     <div>
         {{#if DataRespuestaServicio}}
-        <p class="text-bold">El producto <span class="text-bold producto_set_nom">{{ProductoSeleccionado.CUV}} - {{ProductoSeleccionado.Descripcion}} (<span id="spnCantidadDVarios">x Unidades</span> </span>) pertenece al pack:</p>
+        <p class="text-bold">
+            El producto
+            <span class="text-bold producto_set_nom">{{ProductoSeleccionado.CUV}} - {{ProductoSeleccionado.Descripcion}} (<span id="spnCantidadDVarios">x Unidades</span> </span>) pertenece al pack:
+        </p>
         <p class="text-left producto_set_lista">
             {{#each DataRespuestaServicio as |item|}}
             <span class="text-bold">{{item.cuv}} - {{item.descripcion}}</span>

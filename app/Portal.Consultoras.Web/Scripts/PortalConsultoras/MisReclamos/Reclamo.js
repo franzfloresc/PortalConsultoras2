@@ -9,6 +9,7 @@ var reclamo = {
     form: {
         resultadosBusquedaCuv: "#ResultadosBusquedaCUV",
         txtCuv: "#ddlCuv",
+
     },
     pasos: {
         uno_seleccion_de_producto: "#Paso1",
@@ -1791,12 +1792,17 @@ function AgregarODisminuirCantidad(event, opcion) {
     if (opcion === 2) {
         EstrategiaAgregarModule.DisminuirCantidad(event);
     }
-    var precio = $("#hdCuvPrecio2").val() == "" ? 0 : parseFloat($("#hdCuvPrecio2").val());
-    var cantidad = parseInt($("#txtCantidad2").val());
-    cantidad = cantidad == 99 ? 99 : cantidad; //+ 1;
-    var importeTotal = precio * cantidad;
-    $("#hdImporteTotal2").val(importeTotal);
-    $("#spnImporteTotal2").html(DecimalToStringFormat(importeTotal));
+
+    CalcularTotal();
+    //var precio = parent.attr("data-precio");
+    //var cantidad = parent
+
+    //var precio = $("#hdCuvPrecio2").val() == "" ? 0 : parseFloat($("#hdCuvPrecio2").val());
+    //var cantidad = parseInt($("#txtCantidad2").val());
+    //cantidad = cantidad == 99 ? 99 : cantidad; //+ 1;
+    //var importeTotal = precio * cantidad;
+    //$("#hdImporteTotal2").val(importeTotal);
+    //$("#spnImporteTotal2").html(DecimalToStringFormat(importeTotal));
 }
 
 //HD-3703 EINCA
@@ -1896,18 +1902,32 @@ function AgregarCUVTrueque() {
     $("#contenedorCuvTrueque").append($("#template-cuv-cambio").html());
 }
 
-function BuscarInfoCUV(el) {
-    var $el = $(el);
-    var parent = $el.parent();
-    var $parent = $(parent)
-    if ($el.val().length !== 5) {
-        $($parent[0]).find($("input[type=text]")).val("");
-        $($parent[0]).find("input[name=cantidad]").val("1");
+function BuscarInfoCUV(e) {
+    var $this = $(e.target);
+    var $elements = $this.parent();
+
+    var dataValue = $this.attr("data-codigo");
+
+    if (dataValue === $this.val())
+        return false;
+
+    if ($this.val().length !== 5) {
+        //Limpiar controles
+        $elements.children("input").val("");
+        $elements.children(".contenedor-cantidad").find("input[name=cantidad]").val("1");
         return false;
     }
 
-    BuscarCUVCambiarServer($el.val(), function (data) {
+    BuscarCUVCambiarServer($this.val(), function (data) {
         if (!data.success) {
+            //Limpiar controles
+            $elements.children("input").val("").end()
+            .children(".contenedor-cantidad").find("input[name=cantidad]").val("1");
+
+            $this.attr("data-codigo", $this.val());
+            $elements.children("input[name=descripcion]").val("").end()
+            .children("input[name=precio]").val("").end()
+            .children("input[name=precio]").attr("data-precio", "");
             alert_msg(data.message);
             return false;
         }
@@ -1915,17 +1935,38 @@ function BuscarInfoCUV(el) {
 
         //obtener los elementos a setear 
         if (datosCUV.MarcaID != 0) {
-            $($parent[0]).find($("input[name=descripcion]")).val(datosCUV.Descripcion);
-            $($parent[0]).find($("input[name=precio]")).val(datosCUV.PrecioCatalogo);
-            $($parent[0]).find($("input[name=cantidad]")).val("1");
+            $this.attr("data-codigo", datosCUV.CUV);
+            $elements.children("input[name=descripcion]").val(datosCUV.Descripcion).end()
+            .children("input[name=precio]").val(DecimalToStringFormat(datosCUV.PrecioCatalogo)).end()
+            .children("input[name=precio]").attr("data-precio", datosCUV.PrecioCatalogo);
+            CalcularTotal();
         }
     });
+
+
 }
 
 //HD-4017 EINCA
 function EliminarCUVTrueque(el) {
     $(el).parent().parent().remove();
 }
+
+function CalcularTotal() {
+    var precioTotal = 0;
+    var items = $(".item-producto-cambio");
+    items.each(function (i, el) {
+        var $el = $(el);
+        var precio = $($el).find("input[name=precio]").attr("data-precio");
+        var cantidad = $($el).find("input[name=cantidad]").val();
+        if (precio !== "" && cantidad !== "") {
+            precioTotal = precioTotal + parseFloat(precio) * parseInt(cantidad);
+        }
+    });
+    $("#spnImporteTotal2").text(DecimalToStringFormat(precioTotal));
+    $("#hdImporteTotal2").val(precioTotal);
+    $("#MontoTotalProductoACambiar").fadeIn(100);
+}
+
 
 function BuscarCUVCambiarServer(cuv, callbackWhenFinish) {
     var CampaniaId = $.trim($("#ddlCampania").val()) || 0;
@@ -1969,3 +2010,4 @@ function BuscarCUVCambiarServer(cuv, callbackWhenFinish) {
         }
     });
 }
+
