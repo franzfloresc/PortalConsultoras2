@@ -2657,7 +2657,8 @@ namespace Portal.Consultoras.Web.Controllers
             if (producto.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.ArmaTuPack
                 || producto.EsKitNueva
                 || producto.FlagNueva
-                || producto.EsPremioElectivo)
+                || producto.EsPremioElectivo
+                || producto.EsKitCaminoBrillante)
             {
                 flag = false;
             }
@@ -2667,7 +2668,7 @@ namespace Portal.Consultoras.Web.Controllers
         private bool FlagVerCuv(PedidoWebDetalleModel producto)
         {
             bool flag = true;
-            if (producto.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.ArmaTuPack)
+            if (producto.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.ArmaTuPack || producto.EsKitCaminoBrillante)
             {
                 flag = false;
             }

@@ -42,6 +42,7 @@ FROM @CuvsKits AS KIT
 	LEFT JOIN ods.productocomercial AS PROD WITH (NOLOCK) ON PROD.CUV = KIT.Cuv AND PROD.AnoCampania= @Campania
 	LEFT JOIN Marca MAR WITH (NOLOCK) ON MAR.MarcaID = PROD.MarcaID
 	LEFT JOIN EstrategiaImagenKit ik WITH (NOLOCK) on PROD.AnoCampania = ik.CampaniaID and PROD.CUV = ik.CUV	
+WHERE PROD.NumeroPagina IN (204, 205, 206, 207)
 END
 GO
 
@@ -89,6 +90,7 @@ FROM @CuvsKits AS KIT
 	LEFT JOIN ods.productocomercial AS PROD WITH (NOLOCK) ON PROD.CUV = KIT.Cuv AND PROD.AnoCampania= @Campania
 	LEFT JOIN Marca MAR WITH (NOLOCK) ON MAR.MarcaID = PROD.MarcaID
 	LEFT JOIN EstrategiaImagenKit ik WITH (NOLOCK) on PROD.AnoCampania = ik.CampaniaID and PROD.CUV = ik.CUV	
+WHERE PROD.NumeroPagina IN (204, 205, 206, 207)
 END
 GO
 
@@ -136,6 +138,7 @@ FROM @CuvsKits AS KIT
 	LEFT JOIN ods.productocomercial AS PROD WITH (NOLOCK) ON PROD.CUV = KIT.Cuv AND PROD.AnoCampania= @Campania
 	LEFT JOIN Marca MAR WITH (NOLOCK) ON MAR.MarcaID = PROD.MarcaID
 	LEFT JOIN EstrategiaImagenKit ik WITH (NOLOCK) on PROD.AnoCampania = ik.CampaniaID and PROD.CUV = ik.CUV	
+WHERE PROD.NumeroPagina IN (204, 205, 206, 207)
 END
 GO
 
@@ -183,6 +186,7 @@ FROM @CuvsKits AS KIT
 	LEFT JOIN ods.productocomercial AS PROD WITH (NOLOCK) ON PROD.CUV = KIT.Cuv AND PROD.AnoCampania= @Campania
 	LEFT JOIN Marca MAR WITH (NOLOCK) ON MAR.MarcaID = PROD.MarcaID
 	LEFT JOIN EstrategiaImagenKit ik WITH (NOLOCK) on PROD.AnoCampania = ik.CampaniaID and PROD.CUV = ik.CUV	
+WHERE PROD.NumeroPagina IN (204, 205, 206, 207)
 END
 GO
 
@@ -230,6 +234,7 @@ FROM @CuvsKits AS KIT
 	LEFT JOIN ods.productocomercial AS PROD WITH (NOLOCK) ON PROD.CUV = KIT.Cuv AND PROD.AnoCampania= @Campania
 	LEFT JOIN Marca MAR WITH (NOLOCK) ON MAR.MarcaID = PROD.MarcaID
 	LEFT JOIN EstrategiaImagenKit ik WITH (NOLOCK) on PROD.AnoCampania = ik.CampaniaID and PROD.CUV = ik.CUV	
+WHERE PROD.NumeroPagina IN (204, 205, 206, 207)
 END
 GO
 
@@ -277,6 +282,7 @@ FROM @CuvsKits AS KIT
 	LEFT JOIN ods.productocomercial AS PROD WITH (NOLOCK) ON PROD.CUV = KIT.Cuv AND PROD.AnoCampania= @Campania
 	LEFT JOIN Marca MAR WITH (NOLOCK) ON MAR.MarcaID = PROD.MarcaID
 	LEFT JOIN EstrategiaImagenKit ik WITH (NOLOCK) on PROD.AnoCampania = ik.CampaniaID and PROD.CUV = ik.CUV	
+WHERE PROD.NumeroPagina IN (204, 205, 206, 207)
 END
 GO
 
@@ -324,6 +330,7 @@ FROM @CuvsKits AS KIT
 	LEFT JOIN ods.productocomercial AS PROD WITH (NOLOCK) ON PROD.CUV = KIT.Cuv AND PROD.AnoCampania= @Campania
 	LEFT JOIN Marca MAR WITH (NOLOCK) ON MAR.MarcaID = PROD.MarcaID
 	LEFT JOIN EstrategiaImagenKit ik WITH (NOLOCK) on PROD.AnoCampania = ik.CampaniaID and PROD.CUV = ik.CUV	
+WHERE PROD.NumeroPagina IN (204, 205, 206, 207)
 END
 GO
 
@@ -371,6 +378,7 @@ FROM @CuvsKits AS KIT
 	LEFT JOIN ods.productocomercial AS PROD WITH (NOLOCK) ON PROD.CUV = KIT.Cuv AND PROD.AnoCampania= @Campania
 	LEFT JOIN Marca MAR WITH (NOLOCK) ON MAR.MarcaID = PROD.MarcaID
 	LEFT JOIN EstrategiaImagenKit ik WITH (NOLOCK) on PROD.AnoCampania = ik.CampaniaID and PROD.CUV = ik.CUV	
+WHERE PROD.NumeroPagina IN (204, 205, 206, 207)
 END
 GO
 
@@ -418,6 +426,7 @@ FROM @CuvsKits AS KIT
 	LEFT JOIN ods.productocomercial AS PROD WITH (NOLOCK) ON PROD.CUV = KIT.Cuv AND PROD.AnoCampania= @Campania
 	LEFT JOIN Marca MAR WITH (NOLOCK) ON MAR.MarcaID = PROD.MarcaID
 	LEFT JOIN EstrategiaImagenKit ik WITH (NOLOCK) on PROD.AnoCampania = ik.CampaniaID and PROD.CUV = ik.CUV	
+WHERE PROD.NumeroPagina IN (204, 205, 206, 207)
 END
 GO
 
@@ -465,6 +474,7 @@ FROM @CuvsKits AS KIT
 	LEFT JOIN ods.productocomercial AS PROD WITH (NOLOCK) ON PROD.CUV = KIT.Cuv AND PROD.AnoCampania= @Campania
 	LEFT JOIN Marca MAR WITH (NOLOCK) ON MAR.MarcaID = PROD.MarcaID
 	LEFT JOIN EstrategiaImagenKit ik WITH (NOLOCK) on PROD.AnoCampania = ik.CampaniaID and PROD.CUV = ik.CUV	
+WHERE PROD.NumeroPagina IN (204, 205, 206, 207)
 END
 GO
 
@@ -512,6 +522,7 @@ FROM @CuvsKits AS KIT
 	LEFT JOIN ods.productocomercial AS PROD WITH (NOLOCK) ON PROD.CUV = KIT.Cuv AND PROD.AnoCampania= @Campania
 	LEFT JOIN Marca MAR WITH (NOLOCK) ON MAR.MarcaID = PROD.MarcaID
 	LEFT JOIN EstrategiaImagenKit ik WITH (NOLOCK) on PROD.AnoCampania = ik.CampaniaID and PROD.CUV = ik.CUV	
+WHERE PROD.NumeroPagina IN (204, 205, 206, 207)
 END
 GO
 
@@ -559,6 +570,7 @@ FROM @CuvsKits AS KIT
 	LEFT JOIN ods.productocomercial AS PROD WITH (NOLOCK) ON PROD.CUV = KIT.Cuv AND PROD.AnoCampania= @Campania
 	LEFT JOIN Marca MAR WITH (NOLOCK) ON MAR.MarcaID = PROD.MarcaID
 	LEFT JOIN EstrategiaImagenKit ik WITH (NOLOCK) on PROD.AnoCampania = ik.CampaniaID and PROD.CUV = ik.CUV	
+WHERE PROD.NumeroPagina IN (204, 205, 206, 207)
 END
 GO
 
