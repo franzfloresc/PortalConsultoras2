@@ -425,11 +425,6 @@ input:focus{
     padding-left:15px;
 }
 
-.opcion_mi_perfil_titulo{
-    padding-left:15px;
-    padding-right:15px;
-}
-
 .opcion_mi_perfil_contenido{
     border-top: 1px solid #808080;
 }
@@ -457,7 +452,7 @@ input:focus{
     .contenedor_campos_num_adicional > div {
         flex-direction: row !important;
         flex-wrap: wrap!important;
-        justify-content: space-between !important;
+        justify-content: space-around!important;
         align-items: center !important;
     }
 
@@ -634,11 +629,11 @@ input:focus{
 }
 
 .grupo_form_cambio_datos--mapa {
+    padding-top:30px;
     padding-right: 32px;
 }
 
 .w-100.mapa_wrapper{
-    margin-top:25px;
     height:250px;
 }
 
@@ -915,16 +910,16 @@ input.permiso_cuenta_opcion_checkbox
 }
 
 .btn_cta_miPerfil {
-    width: 100%;
-    max-width: 180px;
+    min-width: 180px;
     height: 40px;
     line-height: 40px;
-    margin-top:17px;
+    margin-top: 17px;
     font-size: 14px;
     color: #FFF;
     z-index: 2000;
     background-color: #b9007e;
-    border:0;
+    border: 0;
+    letter-spacing: 0.5px;
 }
 
 /*  FIN - MI PERFIL */
