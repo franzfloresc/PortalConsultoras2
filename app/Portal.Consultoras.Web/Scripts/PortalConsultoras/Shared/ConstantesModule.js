@@ -116,28 +116,6 @@ var ConstantesModule = (function () {
         //FIN HD-3908
     };
 
-
-    /// los que no tienen TipoPersonalizacion se pone texto
-    var _TipoEstrategiaTipoPersonalizacion = [
-        { TipoEstrategia: "001", TipoPersonalizacion: "OPT", Nombre: "" },
-        { TipoEstrategia: "002", TipoPersonalizacion: "", Nombre: "PackNueva" },
-        { TipoEstrategia: "003", TipoPersonalizacion: "" },
-        { TipoEstrategia: "004", TipoPersonalizacion: "ATP" },
-        { TipoEstrategia: "005", TipoPersonalizacion: "LAN" },
-        { TipoEstrategia: "006", TipoPersonalizacion: "" },
-        { TipoEstrategia: "007", TipoPersonalizacion: "OPM" },
-        { TipoEstrategia: "008", TipoPersonalizacion: "PAD" },
-        { TipoEstrategia: "009", TipoPersonalizacion: "ODD" },
-        { TipoEstrategia: "010", TipoPersonalizacion: "GND" },
-        { TipoEstrategia: "011", TipoPersonalizacion: "HV" },
-        { TipoEstrategia: "020", TipoPersonalizacion: "", Nombre: "MasVendidos" },
-        { TipoEstrategia: "021", TipoPersonalizacion: "", Nombre: "ProgramaNuevas" },
-        { TipoEstrategia: "022", TipoPersonalizacion: "", Nombre: "Incentivos" },
-        { TipoEstrategia: "030", TipoPersonalizacion: "SR" },
-        { TipoEstrategia: "101", TipoPersonalizacion: "", Nombre: "RevistaDigital" },
-        { TipoEstrategia: "201", TipoPersonalizacion: "", Nombre: "MasGanadoras" }
-    ];
-
     var _urlObtenerEstrategia = {
         OfertaParaTi: "/Estrategia/OPTObtenerProductos",
         OfertasParaMi: "/Estrategia/RDObtenerProductos",
