@@ -431,7 +431,9 @@ function ContinuarPedido() {
     }
     else {
         //CloseLoading();
-        $('#mensajepedido').show();
+        var $MensajeTolTip = $("[data-tooltip=\"mensajepedido\"]");
+        $MensajeTolTip.show();
+        setTimeout(function () { $MensajeTolTip.hide(); }, 2000);
     }
 }
 
