@@ -81,13 +81,12 @@ namespace Portal.Consultoras.Common
             get { return Guion + Pagina.Contenedor + SeccionFuncional.ArmaTuPack + Guion; }
         }
          /// <summary>
-         /// Ubigeo Arma tu Pack para Landing0
+         /// Ubigeo Arma tu Pack para Landing
          /// </summary>
         public static string GuionContenedorArmaTuPack
         {
             get { return Guion + Pagina.ArmaTuPack + Guion + Guion; }
         }
-
          
         #region RevistaDigitalMobileCatalogoSeccion
         //Antes: RevistaDigitalMobileCatalogoSeccion = 2401 RedireccionarContenedorComprar, RedireccionarContenedorInformativa

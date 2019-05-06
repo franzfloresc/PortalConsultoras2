@@ -7,6 +7,7 @@ var CodigoUbigeoPortal = (function () {
         contenedor: "Contenedor",
         contenedorHome: "Contenedor - Inicio"
     };
+
     var estructuraUbigeo = {
         Guion: '--',
         Dispositivo: {
