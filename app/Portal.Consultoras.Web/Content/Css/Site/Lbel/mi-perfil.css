@@ -12,6 +12,11 @@ a{
     display: inline-block;
 }
 
+.center-block {
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .text-uppercase{
     text-transform:uppercase;
 }
@@ -405,12 +410,7 @@ input:focus{
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
     top:6px;
-}
-
-.opcion_mi_perfil_titulo_texto,
-.permiso_cuenta_opcion_descripcion
-{
-    width:92%;
+    right:14px;
 }
 
 .permiso_cuenta_opcion_descripcion span:first-child{
@@ -1383,6 +1383,35 @@ input.permiso_cuenta_opcion_checkbox
     position: absolute;
     z-index: -1;
 }
+
+.icono_success {
+    margin-bottom: 16px;
+}
+
+    .icono_success img {
+        width: 100%;
+        height: auto;
+        margin-left:9px;
+        border:0;
+    }
+
+    .icono_success--miPerfil {
+        margin-top:24px;
+        width: 82px;
+        height: 82px;
+    }
+
+.mensaje_success {
+    margin-top:0;
+    margin-bottom:0;
+    color: #b9007e;
+    line-height:24px;
+    letter-spacing:0.8px;
+}
+
+    .mensaje_success--miPerfil{
+        font-size:20px;
+    }
 
 @media screen and (max-width:991px){
 
