@@ -1290,23 +1290,20 @@ var AnalyticsPortalModule = (function () {
 
     }
 
-    var marcaClicVideoBienvenida = function () {
-        try {
-            if (_constantes.isTest)
-                alert("Marcación Clic seguimiento pedido.");
-
-            dataLayer.push({
-                'event': 'virtualEvent',
-                'category': 'Home',
-                'action': 'Video de Bienvenida: Iniciar Video',
-                'label': 'SomosBelcorp.com ¡se renueva para ti!'
-            });
-
-        } catch (e) {
-            console.log(_texto.excepcion + e);
-        }
-
-    }
+    //var marcaClicVideoBienvenida = function () {
+    //    try {
+    //        if (_constantes.isTest)
+    //            alert("Marcación Clic seguimiento pedido.");
+    //        dataLayer.push({
+    //            'event': 'virtualEvent',
+    //            'category': 'Home',
+    //            'action': 'Video de Bienvenida: Iniciar Video',
+    //            'label': 'SomosBelcorp.com ¡se renueva para ti!'
+    //        });
+    //    } catch (e) {
+    //        console.log(_texto.excepcion + e);
+    //    }
+    //}
 
     var marcaClicFacturacionElectronica = function (url) {
         try {
@@ -2718,7 +2715,7 @@ var AnalyticsPortalModule = (function () {
         MarcaVerLanzamientos: marcaVerLanzamientos,
         MarcaVerMasLiquidaciones: marcaVerMasLiquidaciones,
         MarcaClicFechaLiquidacion: marcaClicFechaLiquidacion,
-        MarcaClicVideoBienvenida: marcaClicVideoBienvenida,
+        //MarcaClicVideoBienvenida: marcaClicVideoBienvenida,
         MarcaVerOtrasOfertasHome: marcaVerOtrasOfertasHome,
         MarcaFlechaHome: marcaFlechaHome,
         MarcaAnadirCarritoLiquidacion: marcaAnadirCarritoLiquidacion,
@@ -2768,7 +2765,6 @@ var AnalyticsPortalModule = (function () {
         MarcaBotonAplicarFiltro: marcaBotonAplicarFiltro,
         MarcaFichaDetalleRecomendado: marcaFichaDetalleRecomendado,
         GetCurrencyCode: _getCurrencyCodes,
-
         MarcaFichaResumidaClickDetalleProducto: marcaFichaResumidaClickDetalleProducto,
         MarcaFichaResumidaClickDetalleCliente: marcaFichaResumidaClickDetalleCliente,
         MarcaFichaResumidaClickModificar: marcaFichaResumidaClickModificar,
