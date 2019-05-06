@@ -1,6 +1,4 @@
 ﻿var RedesSociales = (function () {
-  
-
 
     var _variables = {
         clickDataCompartir: "[data-compartir]",
@@ -225,7 +223,7 @@
         }
     }
 
-  
+
     // catalogo compartir por Facebook actual
     var CompartirMessengerActual = function (/*catalogo,*/ campaniaCatalogo/*, texto, isMovil, FBAppId*/) {
         dataLayer.push({

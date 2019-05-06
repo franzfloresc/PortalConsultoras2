@@ -3616,6 +3616,14 @@ namespace Portal.Consultoras.Common
             }
         }
 
+        
+        public static string Base64Encode(string plainText)
+        {
+            var plainTextBytes = Encoding.UTF8.GetBytes(plainText);
+            return System.Convert.ToBase64String(plainTextBytes);
+        }
+        
+
         //Validación de la descripción del producto
         public static string obtenerNuevaDescripcionProducto(Dictionary<string, string> lista,
             bool suscripcion,
@@ -3705,12 +3713,14 @@ namespace Portal.Consultoras.Common
 
         public static string obtenerNuevaDescripcionProductoDetalle(int ofertaId, bool pedidoValidado,
             bool consultoraOnline, int origenPedido, Dictionary<string, string> lista, bool suscripcion, string tipoEstrategiaCodigo,
-            int marcaId, int codigoCatalogo, string descripcion, bool esCuponNuevas, bool EsElecMultipleNuevas, bool esPremioElec, bool esCuponIndependiente)
+            int marcaId, int codigoCatalogo, string descripcion, bool esCuponNuevas, bool EsElecMultipleNuevas, bool esPremioElec, bool esCuponIndependiente, int? OrigenPedidoWeb = null,
+            bool esCaminoBrillante = false)
         {
             if (esPremioElec) return lista[Constantes.NuevoCatalogoProducto.ESPREMIOELEC];
             if (esCuponIndependiente) return lista[Constantes.NuevoCatalogoProducto.ESCUPONINDEPENDIENTE];
             if (EsElecMultipleNuevas) return lista[Constantes.NuevoCatalogoProducto.ESELECMULTIPLENUEVAS];
             if (esCuponNuevas) return lista[Constantes.NuevoCatalogoProducto.ESCUPONNUEVAS];
+            if (esCaminoBrillante) return "CAMINO BRILLANTE";
 
             var result = "";
             if (pedidoValidado)
@@ -4326,4 +4336,6 @@ namespace Portal.Consultoras.Common
             }
         }
     }
+
+
 }

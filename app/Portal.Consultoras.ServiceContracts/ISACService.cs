@@ -443,6 +443,10 @@ namespace Portal.Consultoras.ServiceContracts
             string CodigoZona, int IdEstadoActividad);
 
         [OperationContract]
+        List<BEComunicado> ObtenerSegmentacionInformativaPorConsultora(int PaisID, string CodigoConsultora, short TipoDispositivo, string CodigoRegion,
+         string CodigoZona, int IdEstadoActividad);
+
+        [OperationContract]
         List<BEPopupPais> ObtenerOrdenPopUpMostrar(int PaisID);
         [OperationContract]
         void UpdComunicadoByConsultora(int paisID, string CodigoConsultora);

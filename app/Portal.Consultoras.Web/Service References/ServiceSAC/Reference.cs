@@ -17183,6 +17183,12 @@ namespace Portal.Consultoras.Web.ServiceSAC {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceSAC.ISACService")]
     public interface ISACService {
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/EnviarSolicitudClienteaGZ", ReplyAction="http://tempuri.org/ISACService/EnviarSolicitudClienteaGZResponse")]
+        int EnviarSolicitudClienteaGZ(int paisID, Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente entidadSolicitudCliente);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/EnviarSolicitudClienteaGZ", ReplyAction="http://tempuri.org/ISACService/EnviarSolicitudClienteaGZResponse")]
+        System.Threading.Tasks.Task<int> EnviarSolicitudClienteaGZAsync(int paisID, Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente entidadSolicitudCliente);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/BuscarSolicitudAnuladasRechazadas", ReplyAction="http://tempuri.org/ISACService/BuscarSolicitudAnuladasRechazadasResponse")]
         Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente[] BuscarSolicitudAnuladasRechazadas(int paisID, Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente entidadSolicitudCliente);
         
@@ -17787,6 +17793,14 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/ObtenerComunicadoPorConsultora", ReplyAction="http://tempuri.org/ISACService/ObtenerComunicadoPorConsultoraResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEComunicado[]> ObtenerComunicadoPorConsultoraAsync(int PaisID, string CodigoConsultora, short TipoDispositivo, string CodigoRegion, string CodigoZona, int IdEstadoActividad);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/ObtenerSegmentacionInformativaPorConsultora", ReplyAction="http://tempuri.org/ISACService/ObtenerSegmentacionInformativaPorConsultoraRespons" +
+            "e")]
+        Portal.Consultoras.Web.ServiceSAC.BEComunicado[] ObtenerSegmentacionInformativaPorConsultora(int PaisID, string CodigoConsultora, short TipoDispositivo, string CodigoRegion, string CodigoZona, int IdEstadoActividad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/ObtenerSegmentacionInformativaPorConsultora", ReplyAction="http://tempuri.org/ISACService/ObtenerSegmentacionInformativaPorConsultoraRespons" +
+            "e")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEComunicado[]> ObtenerSegmentacionInformativaPorConsultoraAsync(int PaisID, string CodigoConsultora, short TipoDispositivo, string CodigoRegion, string CodigoZona, int IdEstadoActividad);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/ObtenerOrdenPopUpMostrar", ReplyAction="http://tempuri.org/ISACService/ObtenerOrdenPopUpMostrarResponse")]
         Portal.Consultoras.Web.ServiceSAC.BEPopupPais[] ObtenerOrdenPopUpMostrar(int PaisID);
         
@@ -18082,12 +18096,6 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetMotivosRechazo", ReplyAction="http://tempuri.org/ISACService/GetMotivosRechazoResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEMotivoSolicitud[]> GetMotivosRechazoAsync(int paisID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/EnviarSolicitudClienteaGZ", ReplyAction="http://tempuri.org/ISACService/EnviarSolicitudClienteaGZResponse")]
-        int EnviarSolicitudClienteaGZ(int paisID, Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente entidadSolicitudCliente);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/EnviarSolicitudClienteaGZ", ReplyAction="http://tempuri.org/ISACService/EnviarSolicitudClienteaGZResponse")]
-        System.Threading.Tasks.Task<int> EnviarSolicitudClienteaGZAsync(int paisID, Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente entidadSolicitudCliente);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetCronogramaByCampania", ReplyAction="http://tempuri.org/ISACService/GetCronogramaByCampaniaResponse")]
         Portal.Consultoras.Web.ServiceSAC.BECronograma[] GetCronogramaByCampania(int paisID, int campaniaID, int ZonaID, short TipoCronogramaID);
@@ -18625,6 +18633,14 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         
         public SACServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
+        }
+        
+        public int EnviarSolicitudClienteaGZ(int paisID, Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente entidadSolicitudCliente) {
+            return base.Channel.EnviarSolicitudClienteaGZ(paisID, entidadSolicitudCliente);
+        }
+        
+        public System.Threading.Tasks.Task<int> EnviarSolicitudClienteaGZAsync(int paisID, Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente entidadSolicitudCliente) {
+            return base.Channel.EnviarSolicitudClienteaGZAsync(paisID, entidadSolicitudCliente);
         }
         
         public Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente[] BuscarSolicitudAnuladasRechazadas(int paisID, Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente entidadSolicitudCliente) {
@@ -19427,6 +19443,14 @@ namespace Portal.Consultoras.Web.ServiceSAC {
             return base.Channel.ObtenerComunicadoPorConsultoraAsync(PaisID, CodigoConsultora, TipoDispositivo, CodigoRegion, CodigoZona, IdEstadoActividad);
         }
         
+        public Portal.Consultoras.Web.ServiceSAC.BEComunicado[] ObtenerSegmentacionInformativaPorConsultora(int PaisID, string CodigoConsultora, short TipoDispositivo, string CodigoRegion, string CodigoZona, int IdEstadoActividad) {
+            return base.Channel.ObtenerSegmentacionInformativaPorConsultora(PaisID, CodigoConsultora, TipoDispositivo, CodigoRegion, CodigoZona, IdEstadoActividad);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEComunicado[]> ObtenerSegmentacionInformativaPorConsultoraAsync(int PaisID, string CodigoConsultora, short TipoDispositivo, string CodigoRegion, string CodigoZona, int IdEstadoActividad) {
+            return base.Channel.ObtenerSegmentacionInformativaPorConsultoraAsync(PaisID, CodigoConsultora, TipoDispositivo, CodigoRegion, CodigoZona, IdEstadoActividad);
+        }
+        
         public Portal.Consultoras.Web.ServiceSAC.BEPopupPais[] ObtenerOrdenPopUpMostrar(int PaisID) {
             return base.Channel.ObtenerOrdenPopUpMostrar(PaisID);
         }
@@ -19817,14 +19841,6 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEMotivoSolicitud[]> GetMotivosRechazoAsync(int paisID) {
             return base.Channel.GetMotivosRechazoAsync(paisID);
-        }
-        
-        public int EnviarSolicitudClienteaGZ(int paisID, Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente entidadSolicitudCliente) {
-            return base.Channel.EnviarSolicitudClienteaGZ(paisID, entidadSolicitudCliente);
-        }
-        
-        public System.Threading.Tasks.Task<int> EnviarSolicitudClienteaGZAsync(int paisID, Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente entidadSolicitudCliente) {
-            return base.Channel.EnviarSolicitudClienteaGZAsync(paisID, entidadSolicitudCliente);
         }
         
         public Portal.Consultoras.Web.ServiceSAC.BECronograma[] GetCronogramaByCampania(int paisID, int campaniaID, int ZonaID, short TipoCronogramaID) {

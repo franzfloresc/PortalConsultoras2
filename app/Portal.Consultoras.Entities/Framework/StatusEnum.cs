@@ -6,7 +6,7 @@ namespace Portal.Consultoras.Entities.Framework
     /// Accion/Estado del objeto
     /// </summary>
     [DataContract(Name = "Status")]
-    public enum StatusEnum : int
+    public enum StatusEnum
     {
         /// <summary>
         /// Elimina

@@ -1,6 +1,7 @@
 ﻿using Portal.Consultoras.Web.Controllers;
 using Portal.Consultoras.Web.CustomFilters;
 using Portal.Consultoras.Web.Infraestructure;
+using System;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
@@ -15,11 +16,17 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult Index()
         {
-            var sessionMg = SessionManager.MasGanadoras.GetModel();
-            if (sessionMg.TieneLanding && revistaDigital.EsActiva)
-                return MasGanadorasViewLanding();
-            else
-                return RedirectToAction("Index", "Ofertas");
+            try
+            {
+                var sessionMg = SessionManager.MasGanadoras.GetModel();
+                if (sessionMg.TieneLanding && revistaDigital.EsActiva)
+                    return MasGanadorasViewLanding();
+            }
+            catch (Exception ex)
+            {
+                logManager.LogErrorWebServicesBusWrap(ex, userData.CodigoConsultora, userData.CodigoISO, "Mobile.Controllers.MasGanadorasController.Index");
+            }
+            return RedirectToAction("Index", "Ofertas");
         }
     }
 }
