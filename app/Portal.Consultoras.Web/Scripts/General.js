@@ -957,6 +957,13 @@ function checkTimeout(data) {
 }
 
 function checkUserSession() {
+
+    if (isSessionExpired()) {
+        window.location.href = '/Login/SesionExpirada';
+    }
+}
+
+function isSessionExpired() {
     var res = -1;
 
     $.ajax({
@@ -970,9 +977,7 @@ function checkUserSession() {
         }
     });
 
-    if (res == 0) {
-        window.location.href = '/Login/SesionExpirada';
-    }
+    return res == 0;
 }
 
 function paginadorAccionGenerico(obj) {
