@@ -1816,15 +1816,15 @@ namespace Portal.Consultoras.BizLogic
 
                 foreach (var item in listaPedidosFacturados)
                 {
-                    if (item.EstadoPedidoDesc.ToUpper() == "INGRESADO")
+                    if (item.EstadoPedidoDesc.ToUpper() == Constantes.EstadoPedido.PedidoIngresado)
                     {
                         var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
                         {
                             PaisId = paisID,
                             CampaniaId = item.CampaniaID,
                             ConsultoraId = item.ConsultoraID,
-                            Consultora = "",
-                            CodigoPrograma = "",
+                            Consultora = string.Empty,
+                            CodigoPrograma = string.Empty,
                             NumeroPedido = 0,
                             AgruparSet = true
                         };
