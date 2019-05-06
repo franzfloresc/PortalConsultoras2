@@ -122,14 +122,12 @@ else
                 </div>
             </div>
             <div class="celular_actualizado text-center" style="display:none;">
-                <div class="icono_actualizacion_celular_exitoso"></div>
-                <h1 class="titulo_correo_actualizado text-uppercase">
-                    ¡Actualizaste <span class="text-bold">tu celular</span>!
-                </h1>
-                <p class="mensaje_celular_actualizado">
-                    Continúa visitando somosbelcorp.com<br />y descubre todas la ofertas que tenemos para ti.
-                </p>
-                <a href="@Url.Action("Index", "MiPerfil", new {area = "Mobile"})" style="line-height: 45px" class="btn_acept text-uppercase text-bold default-background-color">Ok</a>
+                <div class="center-block icono_success icono_success--miPerfil">
+                    <img class="d-block" src="@Url.Content("~/Content/Images/success_icon.svg")" alt="¡El cambio de número fue exitoso!" />
+                </div>
+                <h6 class="center-block text-bold text-center mensaje_success mensaje_success--miPerfil">
+                    ¡El cambio de<br />número fue exitoso!
+                </h6>
             </div>
         </div>
     </section>

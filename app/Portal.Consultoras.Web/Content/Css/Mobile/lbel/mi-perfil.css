@@ -1432,8 +1432,9 @@ a{
     background-image:url("/Content/Images/icono_validacion_codigo_sms_correcto.svg");
 }
 
-.revisa_tu_correo{
-    margin-bottom:40px;
+.revisa_tu_correo {
+    padding-top: 40px;
+    padding-bottom: 40px;
 }
 
 .correo_actualizado,
@@ -1512,5 +1513,32 @@ a{
 .icono_eliminar_foto{
     height:45px;
 }
+
+.icono_success {
+    margin-bottom: 16px;
+}
+
+    .icono_success img {
+        width: 100%;
+        height: auto;
+        margin-left: 9px;
+        border: 0;
+    }
+
+    .icono_success--miPerfil {
+        width: 82px;
+        height: 82px;
+    }
+
+.mensaje_success {
+    margin-top: 0;
+    margin-bottom: 0;
+    color: #b9007e;
+    line-height: 24px;
+}
+
+    .mensaje_success--miPerfil {
+        font-size: 20px;
+    }
 
 /* FIN - CAMBIA TU CONTRASEÑA, ACTUALIZA TU CORREO ELECTRÓNICO, ACTUALIZA TU CELULAR, CAMBIAR FOTO DE PERFIL */
