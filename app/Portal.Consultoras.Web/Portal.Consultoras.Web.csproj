@@ -4152,7 +4152,7 @@
     <Content Include="Scripts\PortalConsultoras\Campania\CampaniaModule.js" />
     <Content Include="Scripts\PortalConsultoras\CatalogoPersonalizado\catalogoPersonalizado.js" />
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
-    <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\FichaPresenter.js" />
+    <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\FichaResponsivePresenter.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\Ficha\CarruselModule.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\Ficha\ComponenteDetalleModule.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\DetalleEstrategiaProvider.js" />

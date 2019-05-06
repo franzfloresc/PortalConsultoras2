@@ -4,9 +4,9 @@
 /// <reference path="../../../../PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js" />
 /// <reference path="../../../../PortalConsultoras/DetalleEstrategia/DetalleEstrategiaProvider.js" />
 
-/// <reference path="../../../../PortalConsultoras/DetalleEstrategia/FichaResponsive/FichaPresenter.js" />
+/// <reference path="../../../../PortalConsultoras/DetalleEstrategia/FichaResponsive/FichaResponsivePresenter.js" />
 
-describe("DetalleEstrategia - FichaResponsive - FichaPresenter", function () {
+describe("DetalleEstrategia - FichaResponsive - FichaResponsivePresenter", function () {
     describe("Constructor", function () {
         var errorMsg = '';
 
@@ -17,7 +17,7 @@ describe("DetalleEstrategia - FichaResponsive - FichaPresenter", function () {
         it("throw an exception when config is undefined", function () {
 
             try {
-                FichaPresenter(undefined);
+                FichaResponsivePresenter(undefined);
             } catch (error) {
                 errorMsg = error;
             }

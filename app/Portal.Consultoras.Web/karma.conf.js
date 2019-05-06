@@ -58,7 +58,7 @@ module.exports = function (config) {
 
             // FichaResponsive
             'Scripts/PortalConsultoras/DetalleEstrategia/DetalleEstrategiaProvider.js',
-            'Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/FichaPresenter.js',
+            'Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/FichaResponsivePresenter.js',
 
             // Specs
             'Scripts/tests/PortalConsultoras/DetalleEstrategia/FichaModuleSpec.js',
@@ -70,7 +70,7 @@ module.exports = function (config) {
             'Scripts/tests/PortalConsultoras/ArmaTuPack/Detalle/Seleccionados/SeleccionadosPresenterSpec.js',
             'Scripts/tests/PortalConsultoras/ArmaTuPack/Detalle/DetallePresenterSpec.js',
             //
-            'Scripts/tests/PortalConsultoras/DetalleEstrategia/FichaResponsive/FichaPresenterSpec.js',
+            'Scripts/tests/PortalConsultoras/DetalleEstrategia/FichaResponsive/FichaResponsivePresenterSpec.js',
         ],
 
 
