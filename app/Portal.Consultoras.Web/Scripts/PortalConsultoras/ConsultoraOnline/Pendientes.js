@@ -6,8 +6,6 @@ $(document).ready(function () {
 
 });
 
-
-
 function bindElments() {
 
     $('.btnAccion').click(function (e) {
@@ -54,7 +52,6 @@ function bindElments() {
     //    document.location.href = urlPedido;
     //});
 }
-
 
 function AceptarPedidoPendiente() {
 
@@ -117,8 +114,6 @@ function AceptarPedidoPendiente() {
 
 
 }
-
-
 
 function cargarGaleria() {
     $('.conGanaMas').slick({
@@ -352,7 +347,7 @@ function RechazarSolicitudClientePorCuv(cuv) {
                 $('#Paso1-Clientes').hide();
 
                 CerrarPopupConfirmacion();
-                
+
                 //document.location.href = '/ConsultoraOnline/Pendientes';
 
                 //var Pendientes = JSON.parse(response.Pendientes) || [];
@@ -547,7 +542,6 @@ $("#vpcp li a").click(function () {
     $(activeTab).fadeIn();
     return false;
 });
-
 
 //Renzo
 $(document).ready(function () {
