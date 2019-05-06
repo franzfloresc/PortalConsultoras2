@@ -216,11 +216,11 @@ $(document).ready(function () {
         draggable: true,
         title: "Comunidad SomosBelcorp",
         buttons:
-        {
-            "Aceptar": function () {
-                HideDialog("DialogMensajesCom");
+            {
+                "Aceptar": function () {
+                    HideDialog("DialogMensajesCom");
+                }
             }
-        }
     });
 
     $('#divMensajeConfirmacion').dialog({
@@ -436,7 +436,7 @@ function CargarCantidadNotificacionesSinLeer() {
                     $(document).find(".js-notificaciones").removeClass("notificaciones_activas");
                     $(document).find("#mensajeNotificaciones").html("No tienes notificaciones. ");
                 }
-             
+
                 data.mensaje = data.mensaje || "";
             }
         },
@@ -1144,7 +1144,7 @@ function getQtyPedidoDetalleByCuvODD(cuv2, tipoEstrategiaID) {
     return qty;
 }
 
-function messageConfirmacion(title, message, fnAceptar) {
+function messageConfirmacion(title, message, fnAceptar, fnCancelar) {
     title = $.trim(title);
     if (title == "")
         title = "MENSAJE";
@@ -1160,6 +1160,10 @@ function messageConfirmacion(title, message, fnAceptar) {
     if ($.isFunction(fnAceptar)) {
         $('#divMensajeConfirmacion .btnMensajeAceptar').off('click');
         $('#divMensajeConfirmacion .btnMensajeAceptar').on('click', fnAceptar);
+    }
+    if ($.isFunction(fnCancelar)) {
+        $('#divMensajeConfirmacion .btnMensajeCancelar').off('click');
+        $('#divMensajeConfirmacion .btnMensajeCancelar').on('click', fnCancelar);
     }
 }
 

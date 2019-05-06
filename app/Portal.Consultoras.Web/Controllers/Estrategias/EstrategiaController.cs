@@ -98,7 +98,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                     : "ENCUENTRA LOS PRODUCTOS QUE TUS CLIENTES BUSCAN HASTA 65% DE DSCTO.");
 
                 model.OrigenPedidoWeb = HomePedidoObtenerProductos_OrigenPedidoWeb(model, tipoOrigenEstrategia, isMobile);
-                var listaPedido = _pedidoWebProvider.ObtenerPedidoWebSetDetalleAgrupado(0);
+                var listaPedido = _pedidoWebProvider.ObtenerPedidoWebSetDetalleAgrupado();
 
                 var bloquearBannerNuevas = (tipoOrigenEstrategia == "11" || tipoOrigenEstrategia == "21") && revistaDigital.TieneRDC && !revistaDigital.EsSuscrita;
                 var listEstrategias = _ofertaPersonalizadaProvider.ValidBannerNuevas(isMobile, userData, listModel.Where(l => l.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList(), bloquearBannerNuevas);
@@ -291,7 +291,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
                     var tipo = _ofertaPersonalizadaProvider.ConsultarOfertasTipoPerdio(model, tipoConsulta);
 
-                    var listaPedido = _pedidoWebProvider.ObtenerPedidoWebSetDetalleAgrupado(0);
+                    var listaPedido = _pedidoWebProvider.ObtenerPedidoWebSetDetalleAgrupado();
 
                     listModel = _ofertaPersonalizadaProvider.FormatearModelo1ToPersonalizado(listaFinal1, listaPedido, userData.CodigoISO, userData.CampaniaID, tipo, userData.esConsultoraLider, userData.Simbolo);
                 }
@@ -463,7 +463,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             var respuesta = false;
             if (tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.ATPObtenerProductos)
             {
-                var listaPedido = _pedidoWebProvider.ObtenerPedidoWebSetDetalleAgrupado(0);
+                var listaPedido = _pedidoWebProvider.ObtenerPedidoWebSetDetalleAgrupado();
                 respuesta = listaPedido.Any(p => p.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.ArmaTuPack);
             }
             return respuesta;

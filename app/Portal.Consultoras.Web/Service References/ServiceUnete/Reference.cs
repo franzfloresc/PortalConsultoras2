@@ -3896,6 +3896,9 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         private string UsuarioCreacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ValidacionTelefonicaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string VieneDeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -5772,6 +5775,19 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 if ((object.ReferenceEquals(this.UsuarioCreacionField, value) != true)) {
                     this.UsuarioCreacionField = value;
                     this.RaisePropertyChanged("UsuarioCreacion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ValidacionTelefonica {
+            get {
+                return this.ValidacionTelefonicaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ValidacionTelefonicaField, value) != true)) {
+                    this.ValidacionTelefonicaField = value;
+                    this.RaisePropertyChanged("ValidacionTelefonica");
                 }
             }
         }
@@ -8710,6 +8726,18 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         private string FechaHastaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int FlagValTelField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int FlagValidacionCrediticiaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int FlagValidacionTelefonicaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int FlagValidacionUbicacionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string FuenteIngresoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -8852,6 +8880,58 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 if ((object.ReferenceEquals(this.FechaHastaField, value) != true)) {
                     this.FechaHastaField = value;
                     this.RaisePropertyChanged("FechaHasta");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int FlagValTel {
+            get {
+                return this.FlagValTelField;
+            }
+            set {
+                if ((this.FlagValTelField.Equals(value) != true)) {
+                    this.FlagValTelField = value;
+                    this.RaisePropertyChanged("FlagValTel");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int FlagValidacionCrediticia {
+            get {
+                return this.FlagValidacionCrediticiaField;
+            }
+            set {
+                if ((this.FlagValidacionCrediticiaField.Equals(value) != true)) {
+                    this.FlagValidacionCrediticiaField = value;
+                    this.RaisePropertyChanged("FlagValidacionCrediticia");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int FlagValidacionTelefonica {
+            get {
+                return this.FlagValidacionTelefonicaField;
+            }
+            set {
+                if ((this.FlagValidacionTelefonicaField.Equals(value) != true)) {
+                    this.FlagValidacionTelefonicaField = value;
+                    this.RaisePropertyChanged("FlagValidacionTelefonica");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int FlagValidacionUbicacion {
+            get {
+                return this.FlagValidacionUbicacionField;
+            }
+            set {
+                if ((this.FlagValidacionUbicacionField.Equals(value) != true)) {
+                    this.FlagValidacionUbicacionField = value;
+                    this.RaisePropertyChanged("FlagValidacionUbicacion");
                 }
             }
         }
@@ -9387,7 +9467,7 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         private string ShowEnviarAFFVVField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string ShowEvaliuacionTelefonicaField;
+        private string ShowEvaluacionTelefonicaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ShowPendienteConfirmacionField;
@@ -9397,6 +9477,9 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ShowReactivarField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ShowValidacionTelefonicaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int SolicitudPostulanteIDField;
@@ -9427,6 +9510,9 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string UsuarioModificacionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ValidacionTelefonicaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ZonaOrigenField;
@@ -10095,14 +10181,14 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string ShowEvaliuacionTelefonica {
+        public string ShowEvaluacionTelefonica {
             get {
-                return this.ShowEvaliuacionTelefonicaField;
+                return this.ShowEvaluacionTelefonicaField;
             }
             set {
-                if ((object.ReferenceEquals(this.ShowEvaliuacionTelefonicaField, value) != true)) {
-                    this.ShowEvaliuacionTelefonicaField = value;
-                    this.RaisePropertyChanged("ShowEvaliuacionTelefonica");
+                if ((object.ReferenceEquals(this.ShowEvaluacionTelefonicaField, value) != true)) {
+                    this.ShowEvaluacionTelefonicaField = value;
+                    this.RaisePropertyChanged("ShowEvaluacionTelefonica");
                 }
             }
         }
@@ -10142,6 +10228,19 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 if ((object.ReferenceEquals(this.ShowReactivarField, value) != true)) {
                     this.ShowReactivarField = value;
                     this.RaisePropertyChanged("ShowReactivar");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ShowValidacionTelefonica {
+            get {
+                return this.ShowValidacionTelefonicaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ShowValidacionTelefonicaField, value) != true)) {
+                    this.ShowValidacionTelefonicaField = value;
+                    this.RaisePropertyChanged("ShowValidacionTelefonica");
                 }
             }
         }
@@ -10272,6 +10371,19 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 if ((object.ReferenceEquals(this.UsuarioModificacionField, value) != true)) {
                     this.UsuarioModificacionField = value;
                     this.RaisePropertyChanged("UsuarioModificacion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ValidacionTelefonica {
+            get {
+                return this.ValidacionTelefonicaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ValidacionTelefonicaField, value) != true)) {
+                    this.ValidacionTelefonicaField = value;
+                    this.RaisePropertyChanged("ValidacionTelefonica");
                 }
             }
         }
@@ -12572,6 +12684,163 @@ namespace Portal.Consultoras.Web.ServiceUnete {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ValidacionTelefonicaSolicitudPostulanteBE", Namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE")]
+    [System.SerializableAttribute()]
+    public partial class ValidacionTelefonicaSolicitudPostulanteBE : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoIsoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CodigoVerificacionIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NombreCompletoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NumeroCelularField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NumeroDocumentoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RespuestaEnvioField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int TiempoDuracionField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Codigo {
+            get {
+                return this.CodigoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoField, value) != true)) {
+                    this.CodigoField = value;
+                    this.RaisePropertyChanged("Codigo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoIso {
+            get {
+                return this.CodigoIsoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoIsoField, value) != true)) {
+                    this.CodigoIsoField = value;
+                    this.RaisePropertyChanged("CodigoIso");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CodigoVerificacionId {
+            get {
+                return this.CodigoVerificacionIdField;
+            }
+            set {
+                if ((this.CodigoVerificacionIdField.Equals(value) != true)) {
+                    this.CodigoVerificacionIdField = value;
+                    this.RaisePropertyChanged("CodigoVerificacionId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string NombreCompleto {
+            get {
+                return this.NombreCompletoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NombreCompletoField, value) != true)) {
+                    this.NombreCompletoField = value;
+                    this.RaisePropertyChanged("NombreCompleto");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string NumeroCelular {
+            get {
+                return this.NumeroCelularField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NumeroCelularField, value) != true)) {
+                    this.NumeroCelularField = value;
+                    this.RaisePropertyChanged("NumeroCelular");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string NumeroDocumento {
+            get {
+                return this.NumeroDocumentoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NumeroDocumentoField, value) != true)) {
+                    this.NumeroDocumentoField = value;
+                    this.RaisePropertyChanged("NumeroDocumento");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string RespuestaEnvio {
+            get {
+                return this.RespuestaEnvioField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RespuestaEnvioField, value) != true)) {
+                    this.RespuestaEnvioField = value;
+                    this.RaisePropertyChanged("RespuestaEnvio");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TiempoDuracion {
+            get {
+                return this.TiempoDuracionField;
+            }
+            set {
+                if ((this.TiempoDuracionField.Equals(value) != true)) {
+                    this.TiempoDuracionField = value;
+                    this.RaisePropertyChanged("TiempoDuracion");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.CollectionDataContractAttribute(Name="StringCollection", Namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collect" +
         "ions", ItemName="string")]
     [System.SerializableAttribute()]
@@ -14509,6 +14778,12 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/EnviarCodigoVerificacion", ReplyAction="http://tempuri.org/IPortalService/EnviarCodigoVerificacionResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.CodigoVerificacionSolicitudPostulanteBE> EnviarCodigoVerificacionAsync(string codigoIso, Portal.Consultoras.Web.ServiceUnete.CodigoVerificacionSolicitudPostulanteBE entidad);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/EnviarCodigoVerificacionTelefonica", ReplyAction="http://tempuri.org/IPortalService/EnviarCodigoVerificacionTelefonicaResponse")]
+        Portal.Consultoras.Web.ServiceUnete.ValidacionTelefonicaSolicitudPostulanteBE EnviarCodigoVerificacionTelefonica(string codigoIso, Portal.Consultoras.Web.ServiceUnete.ValidacionTelefonicaSolicitudPostulanteBE entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/EnviarCodigoVerificacionTelefonica", ReplyAction="http://tempuri.org/IPortalService/EnviarCodigoVerificacionTelefonicaResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.ValidacionTelefonicaSolicitudPostulanteBE> EnviarCodigoVerificacionTelefonicaAsync(string codigoIso, Portal.Consultoras.Web.ServiceUnete.ValidacionTelefonicaSolicitudPostulanteBE entidad);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/EnviarSmsFelicitacion", ReplyAction="http://tempuri.org/IPortalService/EnviarSmsFelicitacionResponse")]
         Portal.Consultoras.Web.ServiceUnete.CodigoVerificacionSolicitudPostulanteBE EnviarSmsFelicitacion(string codigoIso, int solicitudPostulanteID, string celular, string NumeroDocumento);
         
@@ -14632,6 +14907,12 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/GetZonasDigitales", ReplyAction="http://tempuri.org/IPortalService/GetZonasDigitalesResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.StringCollection> GetZonasDigitalesAsync(string CodigoIso);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ValidarCodigoVerificacionTelefonica", ReplyAction="http://tempuri.org/IPortalService/ValidarCodigoVerificacionTelefonicaResponse")]
+        int ValidarCodigoVerificacionTelefonica(string codigoIso, string numeroDocumento, int pin, string fuente);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ValidarCodigoVerificacionTelefonica", ReplyAction="http://tempuri.org/IPortalService/ValidarCodigoVerificacionTelefonicaResponse")]
+        System.Threading.Tasks.Task<int> ValidarCodigoVerificacionTelefonicaAsync(string codigoIso, string numeroDocumento, int pin, string fuente);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -15205,6 +15486,14 @@ namespace Portal.Consultoras.Web.ServiceUnete {
             return base.Channel.EnviarCodigoVerificacionAsync(codigoIso, entidad);
         }
         
+        public Portal.Consultoras.Web.ServiceUnete.ValidacionTelefonicaSolicitudPostulanteBE EnviarCodigoVerificacionTelefonica(string codigoIso, Portal.Consultoras.Web.ServiceUnete.ValidacionTelefonicaSolicitudPostulanteBE entidad) {
+            return base.Channel.EnviarCodigoVerificacionTelefonica(codigoIso, entidad);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.ValidacionTelefonicaSolicitudPostulanteBE> EnviarCodigoVerificacionTelefonicaAsync(string codigoIso, Portal.Consultoras.Web.ServiceUnete.ValidacionTelefonicaSolicitudPostulanteBE entidad) {
+            return base.Channel.EnviarCodigoVerificacionTelefonicaAsync(codigoIso, entidad);
+        }
+        
         public Portal.Consultoras.Web.ServiceUnete.CodigoVerificacionSolicitudPostulanteBE EnviarSmsFelicitacion(string codigoIso, int solicitudPostulanteID, string celular, string NumeroDocumento) {
             return base.Channel.EnviarSmsFelicitacion(codigoIso, solicitudPostulanteID, celular, NumeroDocumento);
         }
@@ -15363,6 +15652,14 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.StringCollection> GetZonasDigitalesAsync(string CodigoIso) {
             return base.Channel.GetZonasDigitalesAsync(CodigoIso);
+        }
+        
+        public int ValidarCodigoVerificacionTelefonica(string codigoIso, string numeroDocumento, int pin, string fuente) {
+            return base.Channel.ValidarCodigoVerificacionTelefonica(codigoIso, numeroDocumento, pin, fuente);
+        }
+        
+        public System.Threading.Tasks.Task<int> ValidarCodigoVerificacionTelefonicaAsync(string codigoIso, string numeroDocumento, int pin, string fuente) {
+            return base.Channel.ValidarCodigoVerificacionTelefonicaAsync(codigoIso, numeroDocumento, pin, fuente);
         }
     }
 }

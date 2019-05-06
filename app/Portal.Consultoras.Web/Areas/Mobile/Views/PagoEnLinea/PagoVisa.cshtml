@@ -12,13 +12,13 @@
     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
     {
 
-        <link rel="stylesheet" href="@Url.Content("~/Content/Css/Mobile/Esika/pago-en-linea.css")?v=1">
+        <link rel="stylesheet" href="@Url.Content("~/Content/Css/Mobile/Esika/pago-en-linea.css")?v=2">
 
     }
     else
     {
 
-        <link rel="stylesheet" href="@Url.Content("~/Content/Css/Mobile/Lbel/pago-en-linea.css")?v=1">
+        <link rel="stylesheet" href="@Url.Content("~/Content/Css/Mobile/Lbel/pago-en-linea.css")?v=2">
 
     }
 
@@ -68,9 +68,9 @@
                     <span>Monto:</span>
                     <span>@Model.Simbolo @Model.MontoDeudaString</span>
                 </div>
-                <div class="monto_gastos_administrativos">
+                <div class="monto_gastos_administrativos @(Model.AplicaPorcentaje == 0 ? "childs-tachado" : "")">
                     <span>Cargo plataforma online (@Model.PorcentajeGastosAdministrativos%):</span>
-                    <span>@Model.Simbolo @Model.MontoGastosAdministrativosString</span>
+                    <span>@Model.Simbolo @Model.MontoGastosAdministrativosBrutoString</span>
                 </div>
                 <div class="total_monto_pagado">
                     <span>Total por pagar:</span>

@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.SessionManager;
+using Portal.Consultoras.Web.Models.DetalleEstrategia;
+using System.Linq;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -26,6 +28,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
         }
 
+        [HttpGet]
         public override ActionResult Ficha(string palanca, int campaniaId, string cuv, string origen)
         {
             try
@@ -46,15 +49,16 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return base.Ficha(palanca, campaniaId, cuv, origen);
-            
+
         }
 
+        [HttpPost]
         public JsonResult ObtenerModelo(string palanca, int campaniaId, string cuv, string origen, bool esEditable = false)
         {
             try
             {
                 var modelo = FichaModelo(palanca, campaniaId, cuv, origen, esEditable);
-               
+
                 if (modelo != null)
                 {
                     return Json(new
@@ -76,6 +80,7 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
         public JsonResult ObtenerComponentes(string estrategiaId, string cuv2, string campania, string codigoVariante, string codigoEstrategia = "", List<EstrategiaComponenteModel> lstHermanos = null)
         {
             try
@@ -92,13 +97,13 @@ namespace Portal.Consultoras.Web.Controllers
                 bool esMultimarca = false;
                 string mensaje = "";
                 var componentes = _estrategiaComponenteProvider.GetListaComponentes(estrategiaModelo, codigoEstrategia, out esMultimarca, out mensaje);
-
+   
                 return Json(new
                 {
                     success = true,
                     esMultimarca,
                     componentes,
-                    mensaje
+                    mensaje,
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -112,6 +117,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
         }
-        
+
     }
 }

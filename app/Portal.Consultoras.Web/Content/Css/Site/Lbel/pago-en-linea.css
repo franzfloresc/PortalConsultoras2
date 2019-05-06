@@ -1707,3 +1707,7 @@
     background-color: #F2F1F1;
     color: currentColor;
 }
+
+.childs-tachado > * {
+    text-decoration: line-through;
+}

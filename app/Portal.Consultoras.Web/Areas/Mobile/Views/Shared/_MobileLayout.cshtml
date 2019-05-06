@@ -517,7 +517,7 @@
             @if (TempData.ContainsKey("PixelCodigoIso"))
             {
                 @:pixelAnalytics.invocarEventoPixelById('@(TempData["PixelMarcacion"])', '@(TempData["PixelId"])');
-                @TempData.Remove("PixelCodigoIso");
+                TempData.Remove("PixelCodigoIso");
             }
         pixelAnalytics.invocarPageViewPixelById();
     </script>

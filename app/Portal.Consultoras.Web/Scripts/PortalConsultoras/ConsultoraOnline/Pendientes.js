@@ -176,13 +176,15 @@ function DetallePedidoPendienteClientesService(Cuv) {
             if (response.success) {
                 console.log(response);
 
+                var cuvx = response.CUVx || "";
                 $.each(response.data.ListaPedidos, function (index, value) {
-                    value.CUVx = response.CUVx || "";
+                    value.CUVx = cuvx;
                 });
 
                 var objenviar = {
                     ListaPedidos: response.data.ListaPedidos,
-                    Productox: response.Productox
+                    Productox: response.Productox,
+                    CUVx: cuvx
                 }
                 SetHandlebars("#template-paso-1-Clientes", objenviar, "#Paso1-Clientes");
                 $(".modal-fondo").show();
@@ -298,6 +300,7 @@ function RechazarSolicitudCliente(pedidoId) {
 
                 var Pendientes = JSON.parse(response.Pendientes) || [];
                 RenderizarPendientes(Pendientes);
+                cambiaTabs();
 
             }
             else {
@@ -360,7 +363,9 @@ function RechazarSolicitudClientePorCuv(cuv) {
             if (response.success) {
                 $('#rechazarTodo').addClass('hide');
                 $('#Paso1-Clientes').hide();
-                $('body').removeClass('visible');
+
+                CerrarPopupConfirmacion();
+                
                 //document.location.href = '/ConsultoraOnline/Pendientes';
 
                 //var Pendientes = JSON.parse(response.Pendientes) || [];
@@ -444,7 +449,9 @@ function ContinuarPedido() {
     }
     else {
         //CloseLoading();
-        $('#mensajepedido').show();
+        var $MensajeTolTip = $("[data-tooltip=\"mensajepedido\"]");
+        $MensajeTolTip.show();
+        setTimeout(function () { $MensajeTolTip.hide(); }, 2000);
     }
 }
 
@@ -479,7 +486,7 @@ function EliminarSolicitudDetalle(pedidoId, cuv, origen) {
                     var id = '#vc_pedido_' + cuv;
                     if (pedidos.indexOf(pedidoId) < 0) {
                         $('#Paso1-Productos').hide();
-                        $('body').removeClass('visible');
+                        $(".modal-fondo").hide();
                     }
                     else {
                         $(id).hide();
@@ -490,15 +497,15 @@ function EliminarSolicitudDetalle(pedidoId, cuv, origen) {
                     var id = '#vp_pedido_' + pedidoId;
                     if (cuvs.indexOf(cuv) < 0) {
                         $('#Paso1-Clientes').hide();
-                        $('body').removeClass('visible');
+                        $(".modal-fondo").hide();
                     }
                     else {
                         $(id).hide();
                     }
                 }
 
-
                 RenderizarPendientes(Pendientes);
+                cambiaTabs();
             }
             else {
                 alert(response.message);

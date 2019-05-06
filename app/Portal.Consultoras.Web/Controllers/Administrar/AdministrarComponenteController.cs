@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.Models.AdministrarEstrategia;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceGestionWebPROL;
 using Portal.Consultoras.Web.ServicePedido;
@@ -10,12 +9,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.ServiceModel;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class AdministrarComponenteController : BaseController
+    public class AdministrarComponenteController : BaseAdmController
     {
         protected OfertaBaseProvider _ofertaBaseProvider;
         protected readonly EstrategiaGrupoProvider estrategiaGrupoProvider;

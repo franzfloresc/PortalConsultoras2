@@ -51,15 +51,15 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 SessionManager.SetListaCDRWebCargaInicial(null);
                 SessionManager.SetCDRPedidoFacturado(null);
-                List<CDRWebModel> listaCdrWebModel = _cdrProvider.ObtenerCDRWebCargaInicial(userData.ConsultoraID,userData.PaisID);
+                List<CDRWebModel> listaCdrWebModel = _cdrProvider.ObtenerCDRWebCargaInicial(userData.ConsultoraID, userData.PaisID);
                 var ObtenerCampaniaPedidosFacturados = _cdrProvider.CDRObtenerPedidoFacturadoCargaInicial(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
-                
+
                 string urlPoliticaCdr = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlPoliticasCDR) ?? "{0}";
                 model.UrlPoliticaCdr = string.Format(urlPoliticaCdr, userData.CodigoISO);
                 model.ListaCDRWeb = listaCdrWebModel.FindAll(p => p.CantidadDetalle > 0);
-                model.CantidadReclamosPorPedido = _cdrProvider.GetNroSolicitudesReclamoPorPedido(userData.PaisID,userData.CodigoConsultora,userData.CodigoISO);
+                model.CantidadReclamosPorPedido = _cdrProvider.GetNroSolicitudesReclamoPorPedido(userData.PaisID, userData.CodigoConsultora, userData.CodigoISO);
                 if (listaCdrWebModel.Any())
-                {   
+                {
                     var resultado = _cdrProvider.ValidarCantidadSolicitudesPerPedido(model.ListaCDRWeb, ObtenerCampaniaPedidosFacturados, model.CantidadReclamosPorPedido);
                     if (resultado)
                     {
@@ -78,7 +78,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return View(model);
         }
-        
+
         #region Reclamo
         public ActionResult Reclamo(int p = 0, int c = 0)
         {
@@ -100,7 +100,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (p != 0)
             {
                 var listaCdr = _cdrProvider.CargarBECDRWeb(new MisReclamosModel { PedidoID = p }, userData.PaisID, userData.ConsultoraID);
-                if (listaCdr.Count == 0) return RedirectToAction("Index"); 
+                if (listaCdr.Count == 0) return RedirectToAction("Index");
                 var listacdrweb = listaCdr.Where(a => a.CDRWebID == c).ToArray();
                 if (listacdrweb.Count() == 1)
                 {
@@ -888,7 +888,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 RegistraLogDynamoCDR(model);
-                
+
                 var user = SessionManager.GetUserData();
                 user.EMail = model.Email;
                 user.Celular = model.Telefono;
@@ -1489,26 +1489,19 @@ namespace Portal.Consultoras.Web.Controllers
             return htmlTemplate;
         }
 
-        private List<BETablaLogicaDatos> GetListMensajeCDRExpress()
+        private List<TablaLogicaDatosModel> GetListMensajeCDRExpress()
         {
-            if (SessionManager.GetCDRExpressMensajes() != null)
-            {
-                return SessionManager.GetCDRExpressMensajes();
-            }
 
-            var listMensaje = new List<BETablaLogicaDatos>();
+            var listMensaje = new List<TablaLogicaDatosModel>();
             try
             {
-                using (SACServiceClient sv = new SACServiceClient())
-                {
-                    listMensaje = sv.GetTablaLogicaDatos(userData.PaisID, Constantes.TablaLogica.CDRExpress).ToList();
-                }
+                listMensaje = _tablaLogicaProvider.GetTablaLogicaDatos(userData.PaisID, ConsTablaLogica.CdrExpress.TablaLogicaId, true);
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
-            SessionManager.SetCDRExpressMensajes(listMensaje);
+
             return listMensaje;
         }
 
@@ -1516,7 +1509,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var listMensaje = GetListMensajeCDRExpress();
             var item = listMensaje.FirstOrDefault(i => i.Codigo == key);
-            return (item ?? new BETablaLogicaDatos()).Descripcion;
+            return (item ?? new TablaLogicaDatosModel()).Descripcion;
         }
 
         private decimal GetValorFleteExpress()
@@ -1544,6 +1537,6 @@ namespace Portal.Consultoras.Web.Controllers
             var textoFlete = GetMensajeCDRExpress(Constantes.MensajesCDRExpress.ExpressFlete);
             return string.Format(textoFlete, userData.Simbolo, Util.DecimalToStringFormat(flete, userData.CodigoISO));
         }
-       
+
     }
 }

@@ -22,7 +22,7 @@ namespace Portal.Consultoras.Web.Controllers
         #region Configuracion de Paginado
         private readonly ConsultoraOnlineProvider _consultoraOnlineProvider;
         MisPedidosModel objMisPedidos;
-        readonly int registrosPagina = 5;
+        readonly int registrosPagina;
         int indiceActualPagina = 0;
         int indiceUltimaPagina;
         readonly bool isEsika = false;

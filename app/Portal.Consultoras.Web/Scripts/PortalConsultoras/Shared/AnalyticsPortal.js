@@ -150,6 +150,7 @@ var AnalyticsPortalModule = (function () {
         // Ini - Analytics Ofertas
         campania: "Campaña ",
         IdBannerGanadorasVerMas: "000123",
+        IdBannerArmaTuPack: "000124",
         // Fin - Analytics Ofertas
         IdBennerDuoPerfecto: "347301"
     };
@@ -586,7 +587,7 @@ var AnalyticsPortalModule = (function () {
             var pagina = _constantes.paginas.find(function (element) {
                 return element.CodigoPagina == codigoPagina;
             });
-            
+
             var esVerMas = typeof seccion !== "undefined" ? seccion.Seccion == "Carrusel Ver Más" : false;
             var esFicha = typeof seccion !== "undefined" ? seccion.Seccion == "Ficha" : false;
             var esCarrusel = false;
@@ -1971,7 +1972,7 @@ var AnalyticsPortalModule = (function () {
         try {
             dataLayer.push({
                 'event': _evento.virtualEvent,
-                'category': 'Contenedor - Pop up Elige 1 opción',
+                'category': "Contenedor - Pop up Elige 1 opción",
                 'action': 'Elígelo',
                 'label': estrategia.DescripcionCompleta + '-' + componentes.HermanosSeleccionados[0].NombreBulk
             });
@@ -1993,9 +1994,10 @@ var AnalyticsPortalModule = (function () {
     }
     var marcarEliminarOpcionSeleccionada = function (estrategia, nombreComponentes) {
         try {
+            var textoCategory = "Contenedor - Pop up Elige 1 opción";
             dataLayer.push({
                 'event': _evento.virtualEvent,
-                'category': 'Contenedor - Pop up Elige 1 opción',
+                'category': textoCategory,
                 'action': 'Desenmarcar Producto',
                 'label': estrategia.DescripcionCompleta + '-' + nombreComponentes
             });
@@ -2004,15 +2006,34 @@ var AnalyticsPortalModule = (function () {
         }
     }
     var marcarCambiarOpcion = function (opcion) {
-        try {
-            dataLayer.push({
-                'event': _evento.virtualEvent,
-                'category': _texto.contenedorfichaProducto,
-                'action': 'Cambiar opción',
-                'label': opcion.DescripcionCompleta
-            });
-        } catch (e) {
-            console.log(_texto.excepcion + e);
+
+        var codUbigeo = opcion.CodigoUbigeoPortal || "";
+        if (codUbigeo !== "") {
+            if (codUbigeo === ConstantesModule.CodigoUbigeoPortal.GuionCarritoComprasGuionFichaResumida) {
+                var textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(codUbigeo); //using new function
+                try {
+                    dataLayer.push({
+                        'event': _evento.virtualEvent,
+                        'category': textoCategory,
+                        'action': 'Ver Popup Cambiar opciones',
+                        'label': opcion.DescripcionCompleta
+                    });
+                } catch (e) {
+                    console.log(_texto.excepcion + e);
+                }
+            }
+
+        } else {  //Cambia Opcione normal
+            try {
+                dataLayer.push({
+                    'event': _evento.virtualEvent,
+                    'category': _texto.contenedorfichaProducto,
+                    'action': 'Cambiar opción',
+                    'label': opcion.DescripcionCompleta
+                });
+            } catch (e) {
+                console.log(_texto.excepcion + e);
+            }
         }
     }
     var marcarPopupEligeXOpciones = function (opcion) {
@@ -2065,9 +2086,11 @@ var AnalyticsPortalModule = (function () {
     }
     var marcarEliminarOpcionSeleccionadaVariasOpciones = function (estrategia, nombreComponentes) {
         try {
+
+            var textoCategory = "Contenedor - Pop up Elige más de una opción";
             dataLayer.push({
                 'event': _evento.virtualEvent,
-                'category': 'Contenedor - Pop up Elige más de una opción',
+                'category': textoCategory,
                 'action': 'Desenmarcar opción',
                 'label': estrategia.DescripcionCompleta + ' - ' + nombreComponentes
             });
@@ -2088,13 +2111,33 @@ var AnalyticsPortalModule = (function () {
         }
     }
     var marcarCambiarOpcionVariasOpciones = function (opcion) {
+
         try {
-            dataLayer.push({
-                'event': _evento.virtualEvent,
-                'category': 'Contenedor - Ficha de producto',
-                'action': 'Cambiar opciones',
-                'label': opcion.DescripcionCompleta
-            });
+            var codUbigeo = opcion.CodigoUbigeoPortal || "";
+            //var origenPedido = opcion.OrigenPedidoEditar || 0;
+            if (codUbigeo !== "") {
+                if (codUbigeo === ConstantesModule.CodigoUbigeoPortal.GuionCarritoComprasGuionFichaResumida) {
+                    var textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(codUbigeo); //using new function
+                    try {
+                        dataLayer.push({
+                            'event': _evento.virtualEvent,
+                            'category': textoCategory,
+                            'action': 'Ver Popup Cambiar opciones',
+                            'label': opcion.DescripcionCompleta
+                        });
+                    } catch (e) {
+                        console.log(_texto.excepcion + e);
+                    }
+                }
+
+            } else { //Cambia Opcione normal
+                dataLayer.push({
+                    'event': _evento.virtualEvent,
+                    'category': 'Contenedor - Ficha de producto',
+                    'action': 'Cambiar opciones',
+                    'label': opcion.DescripcionCompleta
+                });
+            }
         } catch (e) {
             console.log(_texto.excepcion + e);
         }
@@ -2440,6 +2483,207 @@ var AnalyticsPortalModule = (function () {
     // Fin - Analytics Buscador
     ////////////////////////////////////////////////////////////////////////////////////////
 
+    ////////////////////////////////////////////////////////////////////////////////////////
+    // Inicio - Analytics Ficha Resumida
+    ////////////////////////////////////////////////////////////////////////////////////////
+    var marcaFichaResumidaClickDetalleProducto = function (producto) {
+        dataLayer.push({
+            "event": _evento.virtualEvent,
+            "category": _texto.CarritoCompras,
+            "action": 'Visualizar Producto',
+            "label": producto
+        });
+    }
+    var marcaFichaResumidaClickDetalleCliente = function (nombreBoton) {
+        dataLayer.push({
+            "event": _evento.virtualEvent,
+            "category": _texto.CarritoCompras + " - Ficha Resumida",
+            "action": 'Click Botón',
+            "label": nombreBoton
+        });
+    }
+    var marcaFichaResumidaClickModificar = function (origenPedido, isChangeTono, isChangeCantidad, isChangeCliente) {
+        origenPedido = origenPedido || "";
+        var textoCategory = "";
+
+        if (origenPedido != "") {
+            //if (origenPedido == ConstantesModule.CodigoUbigeoPortal.GuionPedidoGuionFichaResumida) {
+            if (origenPedido == ConstantesModule.CodigoUbigeoPortal.GuionCarritoComprasGuionFichaResumida) {
+                textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(origenPedido);  //using new function
+
+                var label = isChangeTono ? "Tono " : "";
+                label += (isChangeCliente ? ((label === "" ? "" : "- ") + "Cliente ") : "");
+                label += (isChangeCantidad ? ((label === "" ? "" : "- ") + "Cantidad") : "");
+                dataLayer.push({
+                    "event": _evento.virtualEvent,
+                    "category": textoCategory,
+                    "action": 'Modificar',
+                    "label": label
+                });
+            }
+        }
+
+    }
+    var marcaPromotionViewArmaTuPack = function (origenPedido, esInPedido, isClick) {
+
+        isClick = isClick || false;
+
+        if (origenPedido !== "") {
+            if (origenPedido == ConstantesModule.CodigoUbigeoPortal.GuionContenedorArmaTuPackGuion) {
+                var textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(origenPedido) + ""; //using new function
+                dataLayer.push({
+                    'event': !isClick ? _evento.promotionView : _evento.promotionClick,
+                    'ecommerce': {
+                        'promoView': {
+                            'promotions': [
+                                {
+                                    'id': _constantes.IdBannerArmaTuPack,
+                                    'name': 'Arma tu Pack - ' + (esInPedido ? "Modifica" : "Comienza"),
+                                    'position': textoCategory,
+                                    'creative': "Banner"
+                                }
+                            ]
+                        }
+                    }
+                });
+            }
+        }
+    }
+    var marcaPromotionClickArmaTuPack = function (origenPedido, textoLabel, actionText) {
+
+        if (origenPedido !== "") {
+            if (origenPedido == ConstantesModule.CodigoUbigeoPortal.GuionContenedorArmaTuPack ||
+                origenPedido == ConstantesModule.CodigoUbigeoPortal.GuionContenedorArmaTuPackGuion) {
+                var textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(origenPedido) + ""; //using new function
+                dataLayer.push({
+                    'event': _evento.virtualEvent,
+                    "category": textoCategory,
+                    "action": actionText,
+                    "label": textoLabel + ""
+                });
+            }
+        }
+    }
+    var marcaEligeloClickArmaTuPack = function (origenPedido, estrategia) {
+        //var item = JSON.parse($("#data-estrategia").attr("data-estrategia"));
+        var item = estrategia;
+
+        try {
+            if (origenPedido !== "") {
+
+                if (origenPedido === ConstantesModule.CodigoUbigeoPortal.GuionContenedorArmaTuPack) {
+                    //var textoCategory = "Contenedor - Arma tu Pack";
+                    var textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(origenPedido) + ""; //using new function
+                    dataLayer.push({
+                        'event': _evento.productClick,
+                        'ecommerce': {
+                            'currencyCode': _getCurrencyCodes(),
+                            'click': {
+                                'actionField': { 'list': textoCategory },
+                                'products': [{
+                                    'name': item.DescripcionCompleta,
+                                    'id': item.CUV2,
+                                    'price': item.Precio2,
+                                    'brand': item.DescripcionMarca,
+                                    'category': _texto.notavaliable,
+                                    'variant': _texto.estandar,
+                                    'position': item.Posicion
+                                }]
+                            }
+                        }
+                    });
+                }
+            }
+
+
+
+
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+
+    }
+
+    var marcaEliminaClickArmaTuPack = function (origenPedido, estrategia) {
+
+        if (origenPedido !== "") {
+            if (origenPedido === ConstantesModule.CodigoUbigeoPortal.GuionContenedorArmaTuPack) {
+                var textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(origenPedido) + ""; //using new function
+                dataLayer.push({
+                    'event': _evento.virtualEvent,
+                    "category": textoCategory,
+                    "action": 'Eliminar Producto',
+                    "label": estrategia.DescripcionCompleta + ""
+                });
+            }
+        }
+    }
+    function marcarAddCarArmaTuPack(codigoubigeoportal, estrategia) {
+        try {
+
+            var textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(codigoubigeoportal) + ""; //using new function
+
+            var products = [];
+            $.each(estrategia, function (index) {
+                var item = estrategia[index];
+                var product = {
+                    "name": item.NombreComercial,
+                    "price": item.PrecioCatalogo,
+                    "brand": item.DescripcionMarca,
+                    "id": item.Cuv,
+                    category: _texto.notavaliable,
+                    variant: item.NombreBulk,
+                    quantity: item.Cantidad
+                };
+                products.push(product);
+            });
+
+            dataLayer.push({
+                'event': _evento.addToCart,
+                'ecommerce': {
+                    'currencyCode': _getCurrencyCodes(),
+                    'add': {
+                        'actionField': { 'list': textoCategory },
+                        'products': products
+                    }
+                }
+            });
+
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+    }
+    var marcaClickAgregarArmaTuPack = function (codigoubigeoportal, textoLabel, actionText) {
+
+        if (codigoubigeoportal !== "") {
+            if (codigoubigeoportal == ConstantesModule.CodigoUbigeoPortal.GuionContenedorArmaTuPack) {
+                var textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(codigoubigeoportal) + ""; //using new function
+                dataLayer.push({
+                    'event': _evento.virtualEvent,
+                    "category": textoCategory,
+                    "action": actionText,
+                    "label": textoLabel + ""
+                });
+            }
+        }
+    }
+    var marcaClickCerrarPopupArmaTuPack = function (codigoubigeoportal, textoLabel, actionText) {
+
+        if (codigoubigeoportal !== "") {
+            if (codigoubigeoportal == ConstantesModule.CodigoUbigeoPortal.GuionCarritoComprasGuionFichaResumida) {
+                var textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(codigoubigeoportal) + ""; //using new function
+                dataLayer.push({
+                    'event': _evento.virtualEvent,
+                    "category": textoCategory,
+                    "action": actionText,
+                    "label": textoLabel + ""
+                });
+            }
+        }
+    }
+    ////////////////////////////////////////////////////////////////////////////////////////
+    // Fin - Analytics Ficha Resumida
+    ////////////////////////////////////////////////////////////////////////////////////////
 
     ////////////////////////////////////////////////////////////////////////////////////////
     // Inicio - Analytics PedidoPendientes
@@ -2584,6 +2828,16 @@ var AnalyticsPortalModule = (function () {
         MarcaBotonFiltro: marcaBotonFiltro,
         MarcaBotonAplicarFiltro: marcaBotonAplicarFiltro,
         MarcaFichaDetalleRecomendado: marcaFichaDetalleRecomendado,
-        GetCurrencyCode: _getCurrencyCodes
+        GetCurrencyCode: _getCurrencyCodes,
+        MarcaFichaResumidaClickDetalleProducto: marcaFichaResumidaClickDetalleProducto,
+        MarcaFichaResumidaClickDetalleCliente: marcaFichaResumidaClickDetalleCliente,
+        MarcaFichaResumidaClickModificar: marcaFichaResumidaClickModificar,
+        MarcaPromotionViewArmaTuPack: marcaPromotionViewArmaTuPack,
+        MarcaPromotionClickArmaTuPack: marcaPromotionClickArmaTuPack,
+        MarcaEligeloClickArmaTuPack: marcaEligeloClickArmaTuPack,
+        MarcaEliminaClickArmaTuPack: marcaEliminaClickArmaTuPack,
+        MarcarAddCarArmaTuPack: marcarAddCarArmaTuPack,
+        MarcaClickAgregarArmaTuPack: marcaClickAgregarArmaTuPack,
+        MarcaClickCerrarPopupArmaTuPack: marcaClickCerrarPopupArmaTuPack
     }
 })();

@@ -21,7 +21,7 @@ jQuery(document).ready(function () {
     UpdateGrillaPalanca();
     IniDialogs();
     IniDialogOfertasHome();
-    
+
     $("#ddlTipoEstrategia").change(function () {
 
     });
@@ -133,10 +133,10 @@ function ConfigSeccionApp(configuracionPaisID) {
             if (result.data.AppOfertasHomeImgAlto !== "") $("#nombre-fondo-app").attr("imageheight", result.data.AppOfertasHomeImgAlto);
             if (result.data.AppOfertasHomeMsjMedida !== "") $("#nombre-fondo-app").attr("messageSize", result.data.AppOfertasHomeMsjMedida);
             if (result.data.AppOfertasHomeMsjFormato !== "") $("#nombre-fondo-app").attr("messageFormat", result.data.AppOfertasHomeMsjFormato);
-    
+
             var palanca = $("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo");
             if (palanca === _palanca.pn || palanca === _palanca.dp) {
-                    $("#AdministrarOfertasHomeAppModel_AppColorFondo").parent().parent().hide();
+                $("#AdministrarOfertasHomeAppModel_AppColorFondo").parent().parent().hide();
                 $("#AdministrarOfertasHomeAppModel_AppColorTexto").parent().parent().hide();
                 $("#AdministrarOfertasHomeAppModel_AppCantidadProductos").parent().parent().hide();
 
@@ -176,12 +176,12 @@ function ConfigSeccionApp(configuracionPaisID) {
             UploadFilePalancaApp("fondo-app");
         },
         error: function (request, status, error) {
-                    closeWaitingDialog();
-                _toastHelper.error("Error al procesar la Solicitud.");
-            }
-        });
-    }
-    
+            closeWaitingDialog();
+            _toastHelper.error("Error al procesar la Solicitud.");
+        }
+    });
+}
+
 function Modificar(idConfiguracionPais, event) {
     $.ajax({
         url: baseUrl + "AdministrarPalanca/GetPalanca",
@@ -248,8 +248,8 @@ function Modificar(idConfiguracionPais, event) {
         error: function (request, status, error) { }
     });
 }
-                
-                
+
+
 function IniDialogs() {
     $("#DialogMantenimientoPalanca").dialog({
         autoOpen: false,
@@ -266,16 +266,15 @@ function IniDialogs() {
             HideDialog("DialogMantenimientoPalanca");
         },
         buttons:
-        {
-            "Guardar": function () {
-                //valores para enviar al actualizar la palanca
-                if (isNaN($("#Orden").val())) {
-                    _toastHelper.error("El valor del orden tiene que ser numerico.");
-                    return false;
-                }
-                    
-                /*INIT AGANA 159 */
-                var esATP = $.trim($("#Codigo").val()) === ConstantesModule.CodigoPalanca.ATP;
+            {
+                "Guardar": function () {
+                    //valores para enviar al actualizar la palanca
+                    if (isNaN($("#Orden").val())) {
+                        _toastHelper.error("El valor del orden tiene que ser numerico.");
+                        return false;
+                    }
+
+                    var esATP = $.trim($("#Codigo").val()) === ConstantesModule.CodigoPalanca.ATP;
 
                 if (esATP) {
                     //valores a replicar
@@ -285,66 +284,62 @@ function IniDialogs() {
                     $("#MobileTituloMenu").val($("#DesktopTituloMenu").val());
                 }
 
-                /*END AGANA 159 */
 
-                var params = {
-                    ConfiguracionPaisID: $("#ConfiguracionPaisID").val(),
-                    Codigo: $("#ddlConfiguracionPais").val(),
-                    Excluyente: $("input[name='Excluyente']:checked").val(),
-                    Estado: $("#Estado").is(":checked"),
-                    Logo: $("#nombre-icono").val(),
-                    Orden: $("#Orden").val(),
-                    DesdeCampania: $("#ddlCampania").val(),
-                    DesktopTituloMenu: $("#DesktopTituloMenu").val(),
-                    MobileTituloMenu: $("#MobileTituloMenu").val(),
-                    DesktopSubTituloMenu: $("#DesktopSubTituloMenu").val(),
-                    MobileSubTituloMenu: $("#MobileSubTituloMenu").val(),
-                    DesktopTituloBanner: $("#DesktopTituloBanner").val(),
-                    DesktopSubTituloBanner: $("#DesktopSubTituloBanner").val(),
-                    MobileTituloBanner: $("#MobileTituloBanner").val(),
-                    MobileSubTituloBanner: $("#MobileSubTituloBanner").val(),
-                    DesktopFondoBanner: $("#nombre-desktop-fondo-banner").val(),
-                    DesktopLogoBanner: $("#nombre-desktop-logo-banner").val(),
-                    MobileFondoBanner: $("#nombre-mobile-fondo-banner").val(),
-                    MobileLogoBanner: $("#nombre-mobile-logo-banner").val(),
-                    UrlMenu: $("#UrlMenu").val(),
-                    OrdenBpt: $("#OrdenBpt").val(),
-                    MobileOrden: $("#DialogMantenimientoPalanca #MobileOrden").val(),
-                    MobileOrdenBpt: $("#DialogMantenimientoPalanca #MobileOrdenBpt").val()
-                };
-                jQuery.ajax({
-                    type: "POST",
-                    url: baseUrl + "AdministrarPalanca/Update",
-                    dataType: "json",
-                    contentType: "application/json; charset=utf-8",
-                    data: JSON.stringify(params),
-                    async: true,
-                    success: function (data) {
-                        if (data.success) {
-                            HideDialog("DialogMantenimientoPalanca");
-                            //_toastHelper.error("Solicitud realizada sin problemas.");
-                            showDialogMensaje("Solicitud realizada sin problemas.", '');
-                            UpdateGrillaPalanca();
-                        } else {
-                            //_toastHelper.error("Error al procesar la Solicitud.");
+                    var params = {
+                        ConfiguracionPaisID: $("#ConfiguracionPaisID").val(),
+                        Codigo: $("#ddlConfiguracionPais").val(),
+                        Excluyente: $("input[name='Excluyente']:checked").val(),
+                        Estado: $("#Estado").is(":checked"),
+                        Logo: $("#nombre-icono").val(),
+                        Orden: $("#Orden").val(),
+                        DesdeCampania: $("#ddlCampania").val(),
+                        DesktopTituloMenu: $("#DesktopTituloMenu").val(),
+                        MobileTituloMenu: $("#MobileTituloMenu").val(),
+                        DesktopSubTituloMenu: $("#DesktopSubTituloMenu").val(),
+                        MobileSubTituloMenu: $("#MobileSubTituloMenu").val(),
+                        DesktopTituloBanner: $("#DesktopTituloBanner").val(),
+                        DesktopSubTituloBanner: $("#DesktopSubTituloBanner").val(),
+                        MobileTituloBanner: $("#MobileTituloBanner").val(),
+                        MobileSubTituloBanner: $("#MobileSubTituloBanner").val(),
+                        DesktopFondoBanner: $("#nombre-desktop-fondo-banner").val(),
+                        DesktopLogoBanner: $("#nombre-desktop-logo-banner").val(),
+                        MobileFondoBanner: $("#nombre-mobile-fondo-banner").val(),
+                        MobileLogoBanner: $("#nombre-mobile-logo-banner").val(),
+                        UrlMenu: $("#UrlMenu").val(),
+                        OrdenBpt: $("#OrdenBpt").val(),
+                        MobileOrden: $("#DialogMantenimientoPalanca #MobileOrden").val(),
+                        MobileOrdenBpt: $("#DialogMantenimientoPalanca #MobileOrdenBpt").val()
+                    };
+                    jQuery.ajax({
+                        type: "POST",
+                        url: baseUrl + "AdministrarPalanca/Update",
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify(params),
+                        async: true,
+                        success: function (data) {
+                            if (data.success) {
+                                HideDialog("DialogMantenimientoPalanca");
+                                showDialogMensaje("Solicitud realizada sin problemas.", '');
+                                UpdateGrillaPalanca();
+                            } else {
+                                showDialogMensaje("Error al procesar la Solicitud.", '');
+                            }
+                        },
+                        error: function (data, error) {
                             showDialogMensaje("Error al procesar la Solicitud.", '');
                         }
-                    },
-                    error: function (data, error) {
-                        //_toastHelper.error("Error al procesar la Solicitud.");
-                        showDialogMensaje("Error al procesar la Solicitud.", '');
-                    }
-                });
+                    });
 
-            },
-            "Salir": function () {
-                $("#ddlTipoEstrategia").val($("#hdEstrategiaIDConsulta").val());
-                HideDialog("DialogMantenimientoPalanca");
+                },
+                "Salir": function () {
+                    $("#ddlTipoEstrategia").val($("#hdEstrategiaIDConsulta").val());
+                    HideDialog("DialogMantenimientoPalanca");
+                }
             }
-        }
     });
 }
-                
+
 function UpdateGrillaPalanca() {
     $("#list").jqGrid("GridUnload");
 
@@ -357,36 +352,36 @@ function UpdateGrillaPalanca() {
         multiselect: false,
         colNames: ["ConfiguracionPaisID", "Orden", "Código", "Descripción", "Acción"],
         colModel: [
-        {
+            {
                 name: "ConfiguracionPaisID",
-            index: "ConfiguracionPaisID",
-            width: 20,
-            editable: true,
-            resizable: false,
-            hidden: true
+                index: "ConfiguracionPaisID",
+                width: 20,
+                editable: true,
+                resizable: false,
+                hidden: true
 
-        },
-        {
+            },
+            {
                 name: "Orden",
-            index: "Orden",
-            width: 40,
-            ConfiguracionPaisID: true,
-            resizable: false,
-            hidden: false,
-            sortable: false
-        },
-        {name: "Codigo", index: "Codigo", width: 40, editable: true, hidden: false, sortable: false },
-        {name: "Descripcion", index: "Descripcion", width: 280, editable: true, hidden: false, sortable: false },
-        {
+                index: "Orden",
+                width: 40,
+                ConfiguracionPaisID: true,
+                resizable: false,
+                hidden: false,
+                sortable: false
+            },
+            { name: "Codigo", index: "Codigo", width: 40, editable: true, hidden: false, sortable: false },
+            { name: "Descripcion", index: "Descripcion", width: 280, editable: true, hidden: false, sortable: false },
+            {
                 name: "Activo",
-            index: "Activo",
-            width: 30,
-            align: "center",
-            editable: true,
-            resizable: false,
-            sortable: false,
-            formatter: ShowActions
-        }
+                index: "Activo",
+                width: 30,
+                align: "center",
+                editable: true,
+                resizable: false,
+                sortable: false,
+                formatter: ShowActions
+            }
         ],
         pager: false,
         loadtext: "Cargando datos...",
@@ -405,9 +400,9 @@ function UpdateGrillaPalanca() {
         pgtext: "",
         pginput: false
     });
-    jQuery("#list").jqGrid("navGrid", "#pager", {edit: false, add: false, refresh: false, del: false, search: false });
+    jQuery("#list").jqGrid("navGrid", "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
 }
-            
+
 function ShowActions(cellvalue, options, rowObject) {
     var des = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + rowObject[0] + "',event);\" >" + "<img src='" + rutaImagenEdit + "' alt='Editar' title='Editar' border='0' /></a>";
     if (rowObject[10] === "1") {
@@ -418,8 +413,8 @@ function ShowActions(cellvalue, options, rowObject) {
 
 function ShowActionsOfertas(cellvalue, options, rowObject) {
 
-            var des = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listOfertas').EditarOfertas('" + rowObject[0] + "');\" >" + "<img src='" + rutaImagenEdit + "' alt='Editar' title='Editar' border='0' /></a>";
-            if(rowObject[10] === "1") {
+    var des = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listOfertas').EditarOfertas('" + rowObject[0] + "');\" >" + "<img src='" + rutaImagenEdit + "' alt='Editar' title='Editar' border='0' /></a>";
+    if (rowObject[10] === "1") {
         des += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + rowObject[0] + "');\" >" + "<img src='" + rutaImagenDelete + "' alt='Deshabilitar' title='Deshabilitar' border='0' /></a>";
     }
     return des;
@@ -525,239 +520,237 @@ function IniDialogOfertasHome() {
             DialogOfertasHomeOpen(event, ui);
         },
         buttons:
-        {
-            "Guardar": function () {
-                //valores para seccion de home del contenedor de ofertas
+            {
+                "Guardar": function () {
+                    //valores para seccion de home del contenedor de ofertas
 
-                if ($("#ddlConfiguracionIdOfertas").val() == "" || isNaN($("#ddlConfiguracionIdOfertas").val())) {
-                    _toastHelper.error("Selecione una Configuracion Oferta.");
-                    return false;
-                }
-                if ($("#ddlCampaniaOfertas").val() == "" || isNaN($("#ddlCampaniaOfertas").val())) {
-                    _toastHelper.error("Seleccione una campaña.");
-                    return false;
-                }
-                if (isNaN($("#DesktopOrden").val())) {
-                    _toastHelper.error("El valor del orden tiene que ser numérico.");
-                    return false;
-                }
-                if (isNaN($("#DesktopCantidadProductos").val())) {
-                    _toastHelper.error("El valor de cantidad de productos debe ser numérico.");
-                    return false;
-                }
-                if (isNaN($("#MobileCantidadProductos").val())) {
-                    _toastHelper.error("El valor de cantidad de productos debe ser numérico.");
-                    return false;
-                }
-
-                if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") === _palanca.odd &&
-                    $("#DesktopUsarImagenFondo").prop("checked") && $("#nombre-fondo-desktop").val() === "") {
-                    _toastHelper.error("Se dede seleccionar una imagen para usar como fondo en desktop.");
-                    return false;
-                }
-
-                if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") === _palanca.odd &&
-                    $("#MobileUsarImagenFondo").prop("checked") && $("#nombre-fondo-mobile").val() === "") {
-                    _toastHelper.error("Se dede seleccionar una imagen para usar como fondo en móvil.");
-                    return false;
-                }
-
-                var desktopTipoPresentacion = $("#ddlDesktopTipoPresentacionOfertas").val();
-                var mobileTipoPresentacion = $("#ddlMobileTipoPresentacionOfertas").val();
-                var desktopColorFondo = $("#DesktopColorFondo").val();
-                var mobileColorFondo = $("#MobileColorFondo").val();
-                var desktopColorTexto = $("#DesktopColorTexto").val();
-                var mobileColorTexto = $("#MobileColorTexto").val();
-                var desktopUsarImagenFondo = $("#DesktopUsarImagenFondo").prop("checked");
-                var mobileUsarImagenFondo = $("#MobileUsarImagenFondo").prop("checked");
-                var botonColor = $("#BotonColor").val();
-                var botonColorTexto = $("#BotonColorTexto").val();
-                var desktopActivo = $("#DesktopActivo").is(":checked");
-                var mobileActivo = $("#MobileActivo").is(":checked");
-
-                var regExpColorHex = /^#+([a-fA-F0-9]{6})/;
-                if (!regExpColorHex.test(desktopColorFondo) && desktopColorFondo !== "") {
-                    _toastHelper.error("El color de fondo para desktop debe tener un código hexadecimal válido.");
-                    return false;
-                }
-
-                if (!regExpColorHex.test(mobileColorFondo) && mobileColorFondo !== "") {
-                    _toastHelper.error("El color de fondo para móvil debe tener un código hexadecimal válido.");
-                    return false;
-                }
-
-                if (!regExpColorHex.test(desktopColorTexto) && desktopColorTexto !== "") {
-                    _toastHelper.error("El color de texto para desktop debe tener un código hexadecimal válido.");
-                    return false;
-                }
-
-                if (!regExpColorHex.test(mobileColorTexto) && mobileColorTexto !== "") {
-                    _toastHelper.error("El color de texto para móvil debe tener un código hexadecimal válido.");
-                    return false;
-                }
-
-                var esATP = $.trim($("#Codigo").val()) === ConstantesModule.CodigoPalanca.ATP;
-
-                if (esATP) {
-                    if (!regExpColorHex.test(botonColor) && botonColor !== "") {
-                        _toastHelper.error("El color del botón debe tener un código hexadecimal válido.");
+                    if ($("#ddlConfiguracionIdOfertas").val() == "" || isNaN($("#ddlConfiguracionIdOfertas").val())) {
+                        _toastHelper.error("Selecione una Configuracion Oferta.");
+                        return false;
+                    }
+                    if ($("#ddlCampaniaOfertas").val() == "" || isNaN($("#ddlCampaniaOfertas").val())) {
+                        _toastHelper.error("Seleccione una campaña.");
+                        return false;
+                    }
+                    if (isNaN($("#DesktopOrden").val())) {
+                        _toastHelper.error("El valor del orden tiene que ser numérico.");
+                        return false;
+                    }
+                    if (isNaN($("#DesktopCantidadProductos").val())) {
+                        _toastHelper.error("El valor de cantidad de productos debe ser numérico.");
+                        return false;
+                    }
+                    if (isNaN($("#MobileCantidadProductos").val())) {
+                        _toastHelper.error("El valor de cantidad de productos debe ser numérico.");
                         return false;
                     }
 
-                    if (!regExpColorHex.test(botonColorTexto) && botonColorTexto !== "") {
-                        _toastHelper.error("El color del mensaje del botón debe tener un código hexadecimal válido.");
-                        return false;
-                    }
-                }
-
-                if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") === _palanca.odd) {
-                    desktopTipoPresentacion = _tipopresentacion.odd;
-                    mobileTipoPresentacion = _tipopresentacion.odd;
-                } else {
-                    desktopColorFondo = "";
-                    mobileColorFondo = "";
-                    desktopColorTexto = "";
-                    mobileColorTexto = "";
-                    desktopUsarImagenFondo = false;
-                    mobileUsarImagenFondo = false;
-                }
-
-                /*Inicio Agana 186 - Setear valores por defecto*/
-
-                if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") == ConstantesModule.CodigoPalanca.ATP) {
-                    desktopColorFondo = $("#DesktopColorFondo").val();
-                    mobileColorFondo = desktopColorFondo;
-                    desktopColorTexto = $("#DesktopColorTexto").val();
-                    mobileColorTexto = desktopColorTexto;
-                    desktopUsarImagenFondo = $("#DesktopUsarImagenFondo").prop("checked");
-                    mobileUsarImagenFondo = desktopUsarImagenFondo;
-                    mobileActivo = desktopActivo;
-
-                    mobileTipoPresentacion = desktopTipoPresentacion;
-
-                    $("#DesktopOrdenBpt").val($("#DesktopOrden").val());
-                    $("#MobileOrden").val($("#DesktopOrden").val());
-                    $("#MobileOrdenBpt").val($("#DesktopOrden").val());
-                    $("#nombre-fondo-mobile").val($("#nombre-fondo-desktop").val());
-                    $("#src-fondo-mobile").attr("src", $("#src-fondo-desktop").attr("src"));
-                    $("#MobileTitulo").val($("#DesktopTitulo").val());
-                    $("#MobileSubTitulo").val($("#DesktopSubTitulo").val());
-
-                    if (!regExpColorHex.test(botonColor) && botonColor !== "") {
-                        _toastHelper.error("El color del botón debe tener un código hexadecimal válido.");
+                    if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") === _palanca.odd &&
+                        $("#DesktopUsarImagenFondo").prop("checked") && $("#nombre-fondo-desktop").val() === "") {
+                        _toastHelper.error("Se dede seleccionar una imagen para usar como fondo en desktop.");
                         return false;
                     }
 
-                    if (!regExpColorHex.test(botonColorTexto) && botonColorTexto !== "") {
-                        _toastHelper.error("El color del mensaje del botón debe tener un código hexadecimal válido.");
+                    if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") === _palanca.odd &&
+                        $("#MobileUsarImagenFondo").prop("checked") && $("#nombre-fondo-mobile").val() === "") {
+                        _toastHelper.error("Se dede seleccionar una imagen para usar como fondo en móvil.");
                         return false;
                     }
-                }
 
-                /*Fin Agana 186*/
+                    var desktopTipoPresentacion = $("#ddlDesktopTipoPresentacionOfertas").val();
+                    var mobileTipoPresentacion = $("#ddlMobileTipoPresentacionOfertas").val();
+                    var desktopColorFondo = $("#DesktopColorFondo").val();
+                    var mobileColorFondo = $("#MobileColorFondo").val();
+                    var desktopColorTexto = $("#DesktopColorTexto").val();
+                    var mobileColorTexto = $("#MobileColorTexto").val();
+                    var desktopUsarImagenFondo = $("#DesktopUsarImagenFondo").prop("checked");
+                    var mobileUsarImagenFondo = $("#MobileUsarImagenFondo").prop("checked");
+                    var botonColor = $("#BotonColor").val();
+                    var botonColorTexto = $("#BotonColorTexto").val();
+                    var desktopActivo = $("#DesktopActivo").is(":checked");
+                    var mobileActivo = $("#MobileActivo").is(":checked");
 
-                if (isNaN($("#AdministrarOfertasHomeAppModel_AppOrden").val())) {
-                    _toastHelper.error("El valor del orden app tiene que ser numérico.");
-                    return false;
-                }
-                if (isNaN($("#AdministrarOfertasHomeAppModel_AppCantidadProductos").val())) {
-                    _toastHelper.error("El valor de cantidad de productos app debe ser numérico.");
-                    return false;
-                }
-                var AppColorFondo = $("#AdministrarOfertasHomeAppModel_AppColorFondo").val();
-                var AppColorTexto = $("#AdministrarOfertasHomeAppModel_AppColorTexto").val();
-                if (!regExpColorHex.test(AppColorFondo) && AppColorFondo !== "") {
-                    _toastHelper.error("El color de fondo para app debe tener un código hexadecimal válido.");
-                    return false;
-                }
-                if (!regExpColorHex.test(AppColorTexto) && AppColorTexto !== "") {
-                    _toastHelper.error("El color de texto para app debe tener un código hexadecimal válido.");
-                    return false;
-                }
+                    var regExpColorHex = /^#+([a-fA-F0-9]{6})/;
+                    if (!regExpColorHex.test(desktopColorFondo) && desktopColorFondo !== "") {
+                        _toastHelper.error("El color de fondo para desktop debe tener un código hexadecimal válido.");
+                        return false;
+                    }
 
-                var params = {
-                    ConfiguracionOfertasHomeID: $("#ConfiguracionOfertasHomeID").val(),
-                    ConfiguracionPaisID: $("#ddlConfiguracionIdOfertas").val(),
-                    Codigo: $("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo"),
-                    CampaniaID: $("#ddlCampaniaOfertas").val(),
-                    DesktopOrden: $("#DesktopOrden").val(),
-                    MobileOrden: $("#DialogMantenimientoOfertasHome #MobileOrden").val(),
-                    DesktopColorFondo: desktopColorFondo,
-                    MobileColorFondo: mobileColorFondo,
-                    DesktopUsarImagenFondo: desktopUsarImagenFondo,
-                    MobileUsarImagenFondo: mobileUsarImagenFondo,
-                    DesktopImagenFondo: $("#nombre-fondo-desktop").val(),
-                    MobileImagenFondo: $("#nombre-fondo-mobile").val(),
-                    DesktopColorTexto: desktopColorTexto,
-                    MobileColorTexto: mobileColorTexto,
-                    DesktopTitulo: $("#DesktopTitulo").val(),
-                    MobileTitulo: $("#MobileTitulo").val(),
-                    DesktopSubTitulo: $("#DesktopSubTitulo").val(),
-                    MobileSubTitulo: $("#MobileSubTitulo").val(),
-                    DesktopTipoPresentacion: desktopTipoPresentacion,
-                    MobileTipoPresentacion: mobileTipoPresentacion,
-                    DesktopTipoEstrategia: GetStringEstrategia("desktop-tipo-estrategia"),
-                    MobileTipoEstrategia: GetStringEstrategia("mobile-tipo-estrategia"),
-                    DesktopCantidadProductos: $("#DesktopCantidadProductos").val(),
-                    MobileCantidadProductos: $("#MobileCantidadProductos").val(),
-                    DesktopActivo: desktopActivo,
-                    MobileActivo: mobileActivo,
-                    UrlSeccion: $("#UrlSeccion").val(),
-                    DesktopOrdenBpt: $("#DesktopOrdenBpt").val(),
-                    MobileOrdenBpt: $("#DialogMantenimientoOfertasHome #MobileOrdenBpt").val(),
-                    AdministrarOfertasHomeAppModel:
-                    {
-                        ConfiguracionOfertasHomeAppID: $("#AdministrarOfertasHomeAppModel_ConfiguracionOfertasHomeAppID").val(),
-                        AppActivo: $("#AdministrarOfertasHomeAppModel_AppActivo").is(":checked"),
-                        AppTitulo: $("#AdministrarOfertasHomeAppModel_AppTitulo").val(),
-                        AppSubTitulo: $("#AdministrarOfertasHomeAppModel_AppSubTitulo").val(),
-                        AppColorFondo: $("#AdministrarOfertasHomeAppModel_AppColorFondo").val(),
-                        AppColorTexto: $("#AdministrarOfertasHomeAppModel_AppColorTexto").val(),
-                        AppBannerInformativo: $("#nombre-fondo-app").val(),
-                        AppOrden: $("#AdministrarOfertasHomeAppModel_AppOrden").val(),
-                        AppCantidadProductos: $("#AdministrarOfertasHomeAppModel_AppCantidadProductos").val(),
-                    },
-                    BotonTexto1: $("#BotonTexto1").val(),
-                    BotonTexto2: $("#BotonTexto2").val(),
-                    BotonColor: $("#BotonColor").val(),
-                    BotonColorTexto: $("#BotonColorTexto").val(),
-                    Codigo: $("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo")
-                };
+                    if (!regExpColorHex.test(mobileColorFondo) && mobileColorFondo !== "") {
+                        _toastHelper.error("El color de fondo para móvil debe tener un código hexadecimal válido.");
+                        return false;
+                    }
 
-                waitingDialog({});
+                    if (!regExpColorHex.test(desktopColorTexto) && desktopColorTexto !== "") {
+                        _toastHelper.error("El color de texto para desktop debe tener un código hexadecimal válido.");
+                        return false;
+                    }
 
-                jQuery.ajax({
-                    type: "POST",
-                    url: baseUrl + "AdministrarPalanca/UpdateOfertasHome",
-                    dataType: "json",
-                    contentType: "application/json; charset=utf-8",
-                    data: JSON.stringify(params),
-                    async: true,
-                    success: function (data) {
-                        closeWaitingDialog();
+                    if (!regExpColorHex.test(mobileColorTexto) && mobileColorTexto !== "") {
+                        _toastHelper.error("El color de texto para móvil debe tener un código hexadecimal válido.");
+                        return false;
+                    }
 
-                        if (data.success) {
-                            HideDialog("DialogMantenimientoOfertasHome");
-                            //_toastHelper.success("Solicitud realizada sin problemas.");
-                            showDialogMensaje(data.message, '');
-                            UpdateGrillaOfertas();
-                        } else {
-                            showDialogMensaje(data.message, '');
-                            //_toastHelper.error("Error al procesar la Solicitud.");
+                    var esATP = $.trim($("#Codigo").val()) === ConstantesModule.CodigoPalanca.ATP;
+
+                    if (esATP) {
+                        if (!regExpColorHex.test(botonColor) && botonColor !== "") {
+                            _toastHelper.error("El color del botón debe tener un código hexadecimal válido.");
+                            return false;
                         }
-                    },
-                    error: function (data, error) {
-                        closeWaitingDialog();
-                        console.log(data);
-                        _toastHelper.error("Error al procesar la Solicitud.");
-                    }
-                });
 
-            },
-            "Salir": function () {
-                HideDialog("DialogMantenimientoOfertasHome");
+                        if (!regExpColorHex.test(botonColorTexto) && botonColorTexto !== "") {
+                            _toastHelper.error("El color del mensaje del botón debe tener un código hexadecimal válido.");
+                            return false;
+                        }
+                    }
+
+                    if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") === _palanca.odd) {
+                        desktopTipoPresentacion = _tipopresentacion.odd;
+                        mobileTipoPresentacion = _tipopresentacion.odd;
+                    } else {
+                        desktopColorFondo = "";
+                        mobileColorFondo = "";
+                        desktopColorTexto = "";
+                        mobileColorTexto = "";
+                        desktopUsarImagenFondo = false;
+                        mobileUsarImagenFondo = false;
+                    }
+
+                    /*Inicio Agana 186 - Setear valores por defecto*/
+
+                    if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") == ConstantesModule.CodigoPalanca.ATP) {
+                        desktopColorFondo = $("#DesktopColorFondo").val();
+                        mobileColorFondo = desktopColorFondo;
+                        desktopColorTexto = $("#DesktopColorTexto").val();
+                        mobileColorTexto = desktopColorTexto;
+                        desktopUsarImagenFondo = $("#DesktopUsarImagenFondo").prop("checked");
+                        mobileUsarImagenFondo = desktopUsarImagenFondo;
+                        mobileActivo = desktopActivo;
+
+                        mobileTipoPresentacion = desktopTipoPresentacion;
+
+                        $("#DesktopOrdenBpt").val($("#DesktopOrden").val());
+                        $("#MobileOrden").val($("#DesktopOrden").val());
+                        $("#MobileOrdenBpt").val($("#DesktopOrden").val());
+                        $("#nombre-fondo-mobile").val($("#nombre-fondo-desktop").val());
+                        $("#src-fondo-mobile").attr("src", $("#src-fondo-desktop").attr("src"));
+                        $("#MobileTitulo").val($("#DesktopTitulo").val());
+                        $("#MobileSubTitulo").val($("#DesktopSubTitulo").val());
+
+                        if (!regExpColorHex.test(botonColor) && botonColor !== "") {
+                            _toastHelper.error("El color del botón debe tener un código hexadecimal válido.");
+                            return false;
+                        }
+
+                        if (!regExpColorHex.test(botonColorTexto) && botonColorTexto !== "") {
+                            _toastHelper.error("El color del mensaje del botón debe tener un código hexadecimal válido.");
+                            return false;
+                        }
+                    }
+
+                    /*Fin Agana 186*/
+
+                    if (isNaN($("#AdministrarOfertasHomeAppModel_AppOrden").val())) {
+                        _toastHelper.error("El valor del orden app tiene que ser numérico.");
+                        return false;
+                    }
+                    if (isNaN($("#AdministrarOfertasHomeAppModel_AppCantidadProductos").val())) {
+                        _toastHelper.error("El valor de cantidad de productos app debe ser numérico.");
+                        return false;
+                    }
+                    var AppColorFondo = $("#AdministrarOfertasHomeAppModel_AppColorFondo").val();
+                    var AppColorTexto = $("#AdministrarOfertasHomeAppModel_AppColorTexto").val();
+                    if (!regExpColorHex.test(AppColorFondo) && AppColorFondo !== "") {
+                        _toastHelper.error("El color de fondo para app debe tener un código hexadecimal válido.");
+                        return false;
+                    }
+                    if (!regExpColorHex.test(AppColorTexto) && AppColorTexto !== "") {
+                        _toastHelper.error("El color de texto para app debe tener un código hexadecimal válido.");
+                        return false;
+                    }
+
+                    var params = {
+                        ConfiguracionOfertasHomeID: $("#ConfiguracionOfertasHomeID").val(),
+                        ConfiguracionPaisID: $("#ddlConfiguracionIdOfertas").val(),
+                        Codigo: $("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo"),
+                        CampaniaID: $("#ddlCampaniaOfertas").val(),
+                        DesktopOrden: $("#DesktopOrden").val(),
+                        MobileOrden: $("#DialogMantenimientoOfertasHome #MobileOrden").val(),
+                        DesktopColorFondo: desktopColorFondo,
+                        MobileColorFondo: mobileColorFondo,
+                        DesktopUsarImagenFondo: desktopUsarImagenFondo,
+                        MobileUsarImagenFondo: mobileUsarImagenFondo,
+                        DesktopImagenFondo: $("#nombre-fondo-desktop").val(),
+                        MobileImagenFondo: $("#nombre-fondo-mobile").val(),
+                        DesktopColorTexto: desktopColorTexto,
+                        MobileColorTexto: mobileColorTexto,
+                        DesktopTitulo: $("#DesktopTitulo").val(),
+                        MobileTitulo: $("#MobileTitulo").val(),
+                        DesktopSubTitulo: $("#DesktopSubTitulo").val(),
+                        MobileSubTitulo: $("#MobileSubTitulo").val(),
+                        DesktopTipoPresentacion: desktopTipoPresentacion,
+                        MobileTipoPresentacion: mobileTipoPresentacion,
+                        DesktopTipoEstrategia: GetStringEstrategia("desktop-tipo-estrategia"),
+                        MobileTipoEstrategia: GetStringEstrategia("mobile-tipo-estrategia"),
+                        DesktopCantidadProductos: $("#DesktopCantidadProductos").val(),
+                        MobileCantidadProductos: $("#MobileCantidadProductos").val(),
+                        DesktopActivo: desktopActivo,
+                        MobileActivo: mobileActivo,
+                        UrlSeccion: $("#UrlSeccion").val(),
+                        DesktopOrdenBpt: $("#DesktopOrdenBpt").val(),
+                        MobileOrdenBpt: $("#DialogMantenimientoOfertasHome #MobileOrdenBpt").val(),
+                        AdministrarOfertasHomeAppModel:
+                            {
+                                ConfiguracionOfertasHomeAppID: $("#AdministrarOfertasHomeAppModel_ConfiguracionOfertasHomeAppID").val(),
+                                AppActivo: $("#AdministrarOfertasHomeAppModel_AppActivo").is(":checked"),
+                                AppTitulo: $("#AdministrarOfertasHomeAppModel_AppTitulo").val(),
+                                AppSubTitulo: $("#AdministrarOfertasHomeAppModel_AppSubTitulo").val(),
+                                AppColorFondo: $("#AdministrarOfertasHomeAppModel_AppColorFondo").val(),
+                                AppColorTexto: $("#AdministrarOfertasHomeAppModel_AppColorTexto").val(),
+                                AppBannerInformativo: $("#nombre-fondo-app").val(),
+                                AppOrden: $("#AdministrarOfertasHomeAppModel_AppOrden").val(),
+                                AppCantidadProductos: $("#AdministrarOfertasHomeAppModel_AppCantidadProductos").val(),
+                            },
+                        BotonTexto1: $("#BotonTexto1").val(),
+                        BotonTexto2: $("#BotonTexto2").val(),
+                        BotonColor: $("#BotonColor").val(),
+                        BotonColorTexto: $("#BotonColorTexto").val(),
+                        Codigo: $("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo")
+                    };
+
+                    waitingDialog({});
+
+                    jQuery.ajax({
+                        type: "POST",
+                        url: baseUrl + "AdministrarPalanca/UpdateOfertasHome",
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify(params),
+                        async: true,
+                        success: function (data) {
+                            closeWaitingDialog();
+
+                            if (data.success) {
+                                HideDialog("DialogMantenimientoOfertasHome");
+                                showDialogMensaje(data.message, '');
+                                UpdateGrillaOfertas();
+                            } else {
+                                showDialogMensaje(data.message, '');
+                            }
+                        },
+                        error: function (data, error) {
+                            closeWaitingDialog();
+                            console.log(data);
+                            _toastHelper.error("Error al procesar la Solicitud.");
+                        }
+                    });
+
+                },
+                "Salir": function () {
+                    HideDialog("DialogMantenimientoOfertasHome");
+                }
             }
-        }
     });
 }
 
@@ -854,15 +847,15 @@ function UpdateGrillaOfertas() {
             }
         ],
         jsonReader:
-        {
-            root: "rows",
-            page: "page",
-            total: "total",
-            records: "records",
-            repeatitems: true,
-            cell: "cell",
-            id: "id"
-        },
+            {
+                root: "rows",
+                page: "page",
+                total: "total",
+                records: "records",
+                repeatitems: true,
+                cell: "cell",
+                id: "id"
+            },
         pager: jQuery("#pager"),
         loadtext: "Cargando datos...",
         recordtext: "{0} - {1} de {2} Registros",
@@ -958,7 +951,7 @@ function OfertasHomeMostrarCampos() {
     $("#divMantApp").show();
 
     $(".divHomeUsarImagenFondo").hide(); // caso odd
-    
+
     if (codigoConfiguracionPais == ConstantesModule.CodigoPalanca.ATP) {
         $("#divTituloMobile").hide();
         $("#divContenidoMobile").hide();

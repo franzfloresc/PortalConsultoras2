@@ -51,6 +51,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.UrlCatalogoPiloto = GetUrlCatalogoPiloto();
             ViewBag.EsConsultoraNueva = userData.EsConsultoraNueva;
             ViewBag.FBAppId = _configuracionManagerProvider.GetConfiguracionManager(Constantes.Facebook.FB_AppId);
+            ViewBag.TieneSeccionRevista = !revistaDigital.TieneRDC || !revistaDigital.EsActiva;
 
             return View(clienteModel);
         }
