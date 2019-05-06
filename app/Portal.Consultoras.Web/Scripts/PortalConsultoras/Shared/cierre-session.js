@@ -78,9 +78,7 @@ function closeCierreSession() {
 function callKeepAlive() {
     var urlKeepAlive = baseUrl + 'Bienvenida/KeepAlive';
 
-    return $.get(urlKeepAlive).then(function(result, textStatus, request) {
-        console.log(request);
-        console.log(request.getResponseHeader('Location'));
+    return $.get(urlKeepAlive).then(function(result) {
         checkTimeout(result);
     });
 }
