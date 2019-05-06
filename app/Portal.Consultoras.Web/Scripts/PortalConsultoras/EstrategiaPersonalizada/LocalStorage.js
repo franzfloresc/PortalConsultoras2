@@ -159,6 +159,12 @@
                 localStorageItem.response = data;
                 localStorageItem.UrlCargarProductos = urlEstrategia;
                 localStorageItem.VarListaStorage = nombreKey;
+
+                if (palanca == _tipoEstrategiaTexto.Lanzamiento) {
+                    localStorageItem.response.listaLan = localStorageItem.response.lista || localStorageItem.response.listaLan;
+                    localStorageItem.response.lista = [];
+                }
+
                 localStorage.setItem(nombreKey, JSON.stringify(localStorageItem));
             }
 

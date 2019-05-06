@@ -334,6 +334,26 @@ jQuery(document).ready(function () {
                 return new Handlebars.SafeString(cadena);
             });
 
+            Handlebars.registerHelper('SubstrResponsive', function (cadena, length, length2) {
+                cadena = cadena || "";
+                cadena = $.trim(cadena);
+                length2 = length2 || 0;
+
+                if (window.innerWidth > 750) {
+                    if (cadena.length > length) {
+                        cadena = cadena.substring(0, length) + "...";
+                    }
+                } else {
+                    if (length2 > 0) {
+                        if (cadena.length > length2) {
+                            cadena = cadena.substring(0, length2) + "...";
+                        }
+                    }
+                }
+
+                return new Handlebars.SafeString(cadena);
+            });
+
             Handlebars.registerHelper('JSON2string', function (context) {
                 return JSON.stringify(context);
             });
@@ -384,6 +404,12 @@ jQuery(document).ready(function () {
             Handlebars.registerHelper('Multiplicar', function (a, b) {
                 return a * b;
             });
+
+            //EAAR
+            Handlebars.registerHelper('json', function (context) {
+                return JSON.stringify(context).replace(/"/g, '&quot;');
+            });
+             
         }
     };
 
@@ -2016,7 +2042,7 @@ var GeneralModule = (function () {
         if (typeof url === "undefined" || url === null || $.trim(url) === "") return false;
 
         var destinationUrl = "/";
-        if (isMobile) destinationUrl += "Mobile/";
+        if (_isMobile()) destinationUrl = destinationUrl + "Mobile/";
         destinationUrl += url;
 
         window.location.href = destinationUrl;

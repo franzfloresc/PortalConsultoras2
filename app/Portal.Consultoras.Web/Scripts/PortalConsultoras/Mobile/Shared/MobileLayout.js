@@ -24,9 +24,6 @@ $(function () {
     }
 
     LayoutHeader();
-    //if (typeof menuModule !== "undefined") {
-    //    menuModule.Resize();
-    //}
 
     OcultarChatEmtelco();
 
@@ -771,7 +768,7 @@ function messageInfo(message, fnAceptar) {
     $('#popupInformacion .btn-aceptar').off('click');
     $('#popupInformacion .cerrar_popMobile').off('click');
 
-    $('#popupInformacion .btn-aceptar').on('click', function (e) {        
+    $('#popupInformacion .btn-aceptar').on('click', function (e) {
         $('#popupInformacion').hide();
         if ($.isFunction(fnAceptar)) fnAceptar(e);
     });
@@ -832,7 +829,7 @@ function messageInfoValidado(message, fnAceptar) {
     }
 }
 
-function messageConfirmacion(title, message, fnAceptar) {
+function messageConfirmacion(title, message, fnAceptar, fnCancelar) {
     $('#mensajeInformacionConfirmacion').html(message);
     $('#popupInformacionConfirmacion').show();
     title = $.trim(title);
@@ -841,6 +838,11 @@ function messageConfirmacion(title, message, fnAceptar) {
     if ($.isFunction(fnAceptar)) {
         $('#popupInformacionConfirmacion .aceptar-mobile').off('click');
         $('#popupInformacionConfirmacion .aceptar-mobile').on('click', fnAceptar);
+    }
+
+    if ($.isFunction(fnCancelar)) {
+        $('#popupInformacionConfirmacion .cancelar-mobile').off('click');
+        $('#popupInformacionConfirmacion .cancelar-mobile').on('click', fnCancelar);
     }
 }
 
@@ -854,8 +856,8 @@ function messageConfirmacionDuoPerfecto(message, fnAceptar) {
 }
 
 function CargarCantidadProductosPedidos(noMostrarEfecto) {
-    noMostrarEfecto = noMostrarEfecto || false;    
-    
+    noMostrarEfecto = noMostrarEfecto || false;
+
     jQuery.ajax({
         type: 'POST',
         url: urlGetCantidadProductos,
