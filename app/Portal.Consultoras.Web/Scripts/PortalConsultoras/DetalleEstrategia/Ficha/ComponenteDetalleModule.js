@@ -104,20 +104,20 @@
             $(id).slick({
                 infinite: false,
                 speed: 300,
-                slidesToShow: 3,
                 centerMode: false,
                 variableWidth: true,
+                slidesToShow: 3,
                 responsive: [
                     {
                         breakpoint: 1024,
                         settings: {
-                            slidesToShow: 3,
+                            slidesToShow: 3
                         }
                     },
                     {
                         breakpoint: 700,
                         settings: {
-                            slidesToShow: 1,
+                            slidesToShow: 1 
                         }
                     },
                 ],
