@@ -151,10 +151,22 @@
                         </div>
                     </div>
                     <div class="container-flex border mt-2 position-sticky bottom boton_continuar">
-                        <div class="container position-absolute top-50" style="display:none;">
+                        @*<div id="mensajepedido" class="container position-absolute top-50" style="display:none;">
                             <div class="row align-items-center position-relative">
                                 <div class="col">
                                     <div class="tooltip-secondary tooltip-arrow_bottom tooltip-validate p-3"><span class="tooltip-info medium t-w700">Debes aceptar mínimo un pedido para continuar.</span></div>
+                                </div>
+                            </div>
+                        </div>*@
+                        <div data-tooltip="mensajepedido" class="container position-absolute top-50" style="display:none;">
+                            <div class="row align-items-center position-relative">
+                                <div class="col">
+                                    <div class="tooltip-secondary tooltip-arrow_bottom p-3">
+                                        <ul class="tooltip-info">
+                                            <li></li>
+                                            <li>Debes aceptar mínimo un pedido para continuar.</li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -289,7 +301,7 @@
                 </div>
             </div>
             <div class="container-flex border mt-2 position-sticky bottom boton_continuar">
-                <div id="mensajepedido" class="container position-absolute top-50" style="display:none;">
+                <div data-tooltip="mensajepedido"  class="container position-absolute top-50" style="display:none;">
                     <div class="row align-items-center position-relative">
                         <div class="col">
                             <div class="tooltip-secondary tooltip-arrow_bottom p-3">
@@ -530,7 +542,7 @@
                                 <div class="col-2">@ViewBag.Simbolo @item2.FormatoPrecioTotal</div>
                                 <div class="col-2">@item2.MedioContacto</div>
                                 <div class="col">
-                                    <div class="card--box t-black open-modal" onclick="DetallePedidoPendienteClientes(@item2.CUV)">
+                                    <div class="card--box t-black open-modal" onclick="DetallePedidoPendienteClientes('@item2.CUV')">
                                         @foreach (var item3 in item2.ListaClientes.Take(2).ToList())
                                         {
                                             <span class="card--box__info">@item3.Cliente</span>
