@@ -1111,6 +1111,12 @@ namespace Portal.Consultoras.Service
             return _comunicadoBusinessLogic.ObtenerComunicadoPorConsultora(PaisID, CodigoConsultora, TipoDispositivo, CodigoRegion, CodigoZona, IdEstadoActividad);
         }
 
+        public List<BEComunicado> ObtenerSegmentacionInformativaPorConsultora(int PaisID, string CodigoConsultora, short TipoDispositivo, string CodigoRegion,
+          string CodigoZona, int IdEstadoActividad)
+        {
+            return _comunicadoBusinessLogic.ObtenerSegmentacionInformativaPorConsultora(PaisID, CodigoConsultora, TipoDispositivo, CodigoRegion, CodigoZona, IdEstadoActividad);
+        }
+
         public List<BEPopupPais> ObtenerOrdenPopUpMostrar(int PaisID)
         {
             return BLPopupPais.ObtenerOrdenPopUpMostrar(PaisID).ToList();

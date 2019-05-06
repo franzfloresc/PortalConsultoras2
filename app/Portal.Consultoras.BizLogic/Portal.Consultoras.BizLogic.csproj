@@ -105,6 +105,14 @@
     <Compile Include="BLPremiosProgramaNuevas.cs" />
     <Compile Include="BLReporteRevisionIncidencias.cs" />
     <Compile Include="Cache\BLCache.cs" />
+    <Compile Include="CaminoBrillante\BLCaminoBrillante.cs" />
+    <Compile Include="CaminoBrillante\CaminoBrillanteProvider.cs" />
+    <Compile Include="CaminoBrillante\ICaminoBrillanteBusinessLogic.cs" />
+    <Compile Include="CaminoBrillante\Rest\KitsHistoricoConsultora.cs" />
+    <Compile Include="CaminoBrillante\Rest\NivelCaminoBrillante.cs" />
+    <Compile Include="CaminoBrillante\Rest\NivelConsultoraCaminoBrillante.cs" />
+    <Compile Include="CaminoBrillante\Rest\OfertaCaminoBrillante.cs" />
+    <Compile Include="CaminoBrillante\Rest\PeriodoCaminoBrillante.cs" />
     <Compile Include="Cliente\BLClienteDB.cs" />
     <Compile Include="Cliente\IClienteBusinessLogic.cs" />
     <Compile Include="Comunicado\IComunicadoBusinessLogic.cs" />
@@ -112,7 +120,9 @@
     <Compile Include="Configuracion\IConfiguracionPaisBusinessLogic.cs" />
     <Compile Include="Configuracion\IConfiguracionPaisDatosBusinessLogic.cs" />
     <Compile Include="Contenido\BLBelcorpResponde.cs" />
+    <Compile Include="Contenido\BLContenidoApp.cs" />
     <Compile Include="Contenido\IBelcorpRespondeBusinessLogic.cs" />
+    <Compile Include="Contenido\IContenidoAppResumenBusinessLogic.cs" />
     <Compile Include="Contrato\BLContratoAceptacion.cs" />
     <Compile Include="Contrato\IContratoAceptacionBusinessLogic.cs" />
     <Compile Include="Cupon\ICuponConsultoraBusinessLogic.cs" />

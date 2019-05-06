@@ -4,7 +4,10 @@ namespace Portal.Consultoras.Web.Models.Search.ResponseOferta.Estructura
 {
     public class Componente
     {
+        public EstrategiaComponenteCabecera Cabecera { get; set; }
+        public List<EstrategiaComponenteSeccion> Secciones { get; set; }
         public List<Componente> Hermanos { get; set; }
+         
         public string _id { get; set; }
         public string CuvPadre { get; set; }
         public string CampaniaId { get; set; }

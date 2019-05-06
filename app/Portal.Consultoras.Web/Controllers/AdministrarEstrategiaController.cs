@@ -65,9 +65,7 @@ namespace Portal.Consultoras.Web.Controllers
                     TipoVistaEstrategia = TipoVistaEstrategia,
                     PaisID = userData.PaisID
                 };
-                //Enviar listado de palancas c/microservicios y si el país está configurado para ser evaluados en grilla. (Reemplazado por variablesPortal)
-                //ViewBag.MsEstrategias = SessionManager.GetConfigMicroserviciosPersonalizacion().EstrategiaHabilitado; //WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion;
-                //ViewBag.MsPaises = SessionManager.GetConfigMicroserviciosPersonalizacion().PaisHabilitado; //WebConfig.PaisesMicroservicioPersonalizacion;
+
             }
             catch (Exception ex)
             {
@@ -895,7 +893,7 @@ namespace Portal.Consultoras.Web.Controllers
                     success = false,
                     message = ex.Message,
                     extra = "",
-                    msjError = error
+                    msjError = error.ToString()
                 });
             }
             catch (Exception ex)
@@ -907,7 +905,7 @@ namespace Portal.Consultoras.Web.Controllers
                     success = false,
                     message = ex.Message,
                     extra = "",
-                    msjError = error
+                    msjError = error.ToString()
                 });
             }
         }

@@ -7,8 +7,7 @@
 /// <reference path="cabecera/cabeceraview.js" />
 /// <reference path="cabecera/cabecerapresenter.js" />
 
-/// <reference path="grupos/gruposdesktopview.js" />
-/// <reference path="grupos/gruposmobileview.js" />
+/// <reference path="grupos/GruposView.js" />
 /// <reference path="grupos/grupospresenter.js" />
 
 /// <reference path="seleccionados/seleccionadosview.js" />
@@ -28,7 +27,16 @@ var detallePresenter = DetallePresenter({
     armaTuPackDetalleEvents: armaTuPackDetalleEvents
 });
 
-var gruposDesktopView = GruposDesktopView({
+var cabeceraView = CabeceraView({});
+var cabeceraPresenter = CabeceraPresenter({
+    cabeceraView: cabeceraView,
+    armaTuPackProvider: armaTuPackProvider,
+    generalModule: generalModule,
+    armaTuPackDetalleEvents: armaTuPackDetalleEvents
+});
+//cabeceraView.setPresenter(cabeceraPresenter);
+
+var gruposDesktopView = GruposView({
     generalModule: generalModule,
     gruposContainerId: "#grupos"
 });
@@ -57,6 +65,7 @@ $(document).ready(function () {
 
 
 armaTuPackDetalleEvents.subscribe(armaTuPackDetalleEvents.eventName.onGruposLoaded, function (packComponents) {
+    cabeceraPresenter.onGruposLoaded(packComponents);
     gruposDesktopPresenter.onGruposLoaded(packComponents);
     seleccionadosPresenter.onGruposLoaded(packComponents);
 });

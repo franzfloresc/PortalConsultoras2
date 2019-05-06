@@ -12,10 +12,12 @@ namespace Portal.Consultoras.Web.Providers
     public class CdrProvider
     {
         protected readonly ISessionManager sessionManager;
+        protected TablaLogicaProvider _tablaLogicaProvider;
 
         public CdrProvider()
         {
             sessionManager = SessionManager.SessionManager.Instance;
+            _tablaLogicaProvider = new TablaLogicaProvider();
         }
 
         public List<ServiceCDR.BECDRWeb> CargarBECDRWeb(MisReclamosModel model, int paisId, long consultoraId)
@@ -135,9 +137,9 @@ namespace Portal.Consultoras.Web.Providers
         {
             sessionManager.SetCDRWebDetalle(null);
             sessionManager.SetCdrWeb(null);
-            
+
             List<BEPedidoWeb> listaPedidoFacturados = CDRObtenerPedidoFacturadoCargaInicial(paisId, campaniaId, consultoraId);
-            
+
             var listaCampanias = new List<CampaniaModel>();
             var campania = new CampaniaModel
             {
@@ -444,7 +446,7 @@ namespace Portal.Consultoras.Web.Providers
             var listaPedidoFacturados = CargarPedidosFacturados(paisId, campaniaId, consultoraId, maxDias);
             return (listaPedidoFacturados.Count > 0).ToInt();
         }
-        
+
         public bool ValidarCantidadSolicitudesPerPedido(List<CDRWebModel> ListaCDRWeb, List<BEPedidoWeb> ListaCampaniaPedido, int? CantidadPedidosConfig)
         {
             bool result = true;
@@ -494,7 +496,7 @@ namespace Portal.Consultoras.Web.Providers
             }
             return result;
         }
-        
+
         public List<CDRWebModel> ObtenerCDRWebCargaInicial(long consultoraID, int paisID)
         {
             if (sessionManager.GetListaCDRWebCargaInicial() != null)
@@ -516,7 +518,7 @@ namespace Portal.Consultoras.Web.Providers
             sessionManager.SetListaCDRWebCargaInicial(listaCdrWebModel);
             return listaCdrWebModel;
         }
-        
+
         public int? GetNroSolicitudesReclamoPorPedido(int paisID, string codigoConsultora, string codigoISO)
         {
             int result = 0;
@@ -528,12 +530,8 @@ namespace Portal.Consultoras.Web.Providers
                     return sessionManager.GetNroPedidosCDRConfig();
                 }
 
-                using (var sv = new ServiceSAC.SACServiceClient())
-                {
-                    var serviceResult = sv.GetTablaLogicaDatos(paisID, Constantes.TablaLogica.NroReclamosPorPedidoCDR).ToList();
-                    var cantidad = serviceResult.FirstOrDefault(a => a.Codigo == "01").Valor;
-                    int.TryParse(cantidad, out result);
-                }
+                result = _tablaLogicaProvider.GetTablaLogicaDatoValorInt(paisID, ConsTablaLogica.NroSolicitudePedido.TablaLogicaId, ConsTablaLogica.NroSolicitudePedido.Cod01);
+
             }
             catch (Exception ex)
             {

@@ -586,7 +586,10 @@ button {
 .btn{
   text-transform: unset;
 }
-#new-header, footer.footer-page {
+/* Titulo mobile : Texto Pendientes, 
+   New Header : Breadcrumb
+   Footer : El footer */
+.titulo_mobile, #new-header, footer.footer-page {
     display: none;
 }
 #contentmobile{
@@ -596,9 +599,6 @@ button {
   height: 100vh;
 }
 
-.vh-100.fix{
-  height: calc(100vh - 50px);
-}
 .overflow-y.auto{
   overflow-y: auto;
 }

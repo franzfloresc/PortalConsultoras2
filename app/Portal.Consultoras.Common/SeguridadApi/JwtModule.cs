@@ -14,7 +14,7 @@ namespace Portal.Consultoras.Common
         static SemaphoreSlim semaphoreSlim = new SemaphoreSlim(1, 1);
         public void Dispose()
         {
-
+            //
         }
 
         public void Init(HttpApplication context)

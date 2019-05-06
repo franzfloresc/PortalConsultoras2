@@ -5,11 +5,21 @@
         //Landing: '/ArmaTuPack/Detalle'
     };
 
+    var fnCancelar = function () {
+        
+        var codigoubigeoPortal = $('#ATP').attr('data-codigoubigeoportal') + "";
+        if (!(typeof AnalyticsPortalModule === 'undefined')) 
+            if (codigoubigeoPortal === ConstantesModule.CodigoUbigeoPortal.GuionContenedorArmaTuPackGuion) 
+                AnalyticsPortalModule.MarcaPromotionClickArmaTuPack(codigoubigeoPortal, "Cancelar", "Pop up Modifica tu Pack" );
+        
+    };
+
     var _fnMensaje = function (fn) {
+         
         messageConfirmacion(
             '¿Quieres eliminar el pack que tienes y empezar de nuevo?',
             'Recuerda que solo puedes armar 1 pack',
-            fn
+            fn, fnCancelar
         );
     }
     var _fnValidaExisteTipoEstrategiaEnPedido = function () {
@@ -36,9 +46,21 @@
         var popup = $(objeto).data('popup');
         var landing = $(objeto).data('landing');
         var url = baseUrl + landing;
-
+        
+        fnLunchAnalytics($(objeto));
         if (popup) {
             _fnMensaje(function () {
+
+                
+                //**ANALYTICS**//
+                //console.log('analytic2-aceptar [banner interactivo] ANT');
+                var codigoubigeoPortal = $('#ATP').attr('data-codigoubigeoportal') + "";
+                if (!(typeof AnalyticsPortalModule === 'undefined'))
+                    if (codigoubigeoPortal === ConstantesModule.CodigoUbigeoPortal.GuionContenedorArmaTuPackGuion)
+                        AnalyticsPortalModule.MarcaPromotionClickArmaTuPack(codigoubigeoPortal, "Aceptar", "Pop up Modifica tu Pack");
+
+
+
                 window.location.href = url;
             });
         }
@@ -46,6 +68,19 @@
             window.location.href = url;
         }
     };
+    var fnLunchAnalytics = function (obj) {
+        
+        var codigoubigeoPortal = $('#ATP').attr('data-codigoubigeoportal')+ "";
+        
+        if (codigoubigeoPortal !== "")
+            if (!(typeof AnalyticsPortalModule === 'undefined')) {
+                if (codigoubigeoPortal === ConstantesModule.CodigoUbigeoPortal.GuionContenedorArmaTuPackGuion) {
+                    var textButton = $('button.atp_button').text();
+                    AnalyticsPortalModule.MarcaPromotionClickArmaTuPack(codigoubigeoPortal, textButton, "Click Botón");
+                    AnalyticsPortalModule.MarcaPromotionViewArmaTuPack(codigoubigeoPortal, textButton == "Comienza", true);
+                }
+            }
+    }
     var fnConsultaAjaxRedireccionaLanding = function (fn) {
         var promesa = _fnValidaExisteTipoEstrategiaEnPedido();
 
