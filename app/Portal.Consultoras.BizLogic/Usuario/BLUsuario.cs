@@ -28,6 +28,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Transactions;
 using System.ServiceModel;
+using Portal.Consultoras.Data.CaminoBrillante;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -739,6 +740,69 @@ namespace Portal.Consultoras.BizLogic
             }
 
             return consultora;
+        }
+
+        public int ActualizarFijo(int paisID, string codigoConsultora, string tipoEnvio, string telefonoAnterior, string telefonoActual)
+        {
+            var daUsuario = new DAUsuario(paisID);
+            return daUsuario.ActualizarFijo(codigoConsultora, tipoEnvio, telefonoAnterior, telefonoActual);
+        }
+
+        public int ActualizarSMS(int paisID, string codigoConsultora, string tipoEnvio, string celularAnterior, string celularActual)
+        {
+            var daUsuario = new DAUsuario(paisID);
+            return daUsuario.ActualizarSMS(codigoConsultora, tipoEnvio, celularAnterior, celularActual);
+        }
+
+     
+
+        public int ValidaEstadoPopup(int paisID)
+        {
+            int estado = 0;
+            var daUsuario = new DAUsuario(paisID);
+            using (IDataReader reader = daUsuario.CargaEstadoValidadorDatos())
+            {
+                while (reader.Read())
+                {
+                    estado = reader[0] == DBNull.Value ? 0 : int.Parse(reader[0].ToString());
+                }
+            }
+            return estado;
+        }
+
+
+        public List<BEValidacionDatos> ListarValidacionDatos(BEValidacionDatos beValidacionDatos)
+        {
+            var daUsuario = new DAUsuario(beValidacionDatos.PaisID);
+            using (IDataReader reader = daUsuario.ListarValidacionDatos(beValidacionDatos))
+                return reader.MapToCollection<BEValidacionDatos>();
+        }
+       public List<BEValidacionDatos> GetTipoEnvioActivos(int paisID, string codigoUsuario)
+        {
+            List<BEValidacionDatos> lista = new List<BEValidacionDatos>();
+            var daUsuario = new DAUsuario(paisID);
+
+            using (IDataReader reader = daUsuario.GetTipoEnvioActivos(codigoUsuario))
+            {
+                while (reader.Read())
+                {
+                    lista.Add(new BEValidacionDatos()
+                    {
+                        TipoEnvio = reader[0] == DBNull.Value ? string.Empty: reader[0].ToString(),
+                        DatoNuevo = reader[1] == DBNull.Value ? string.Empty : reader[1].ToString(),
+                        DatoAntiguo = reader[2] == DBNull.Value ? string.Empty: reader[2].ToString(),
+                        Estado = reader[3] == DBNull.Value ? string.Empty : reader[3].ToString(),
+                    });
+                }
+
+            return lista;
+        }
+        }
+
+        public int ActualizarValidacionDatos(bool isMobile, string ipDispositivo, string codigoConsultora,  int paisID, string CodigoUsuario, string tipoEnvio1, string tipoEnvio2)
+        {
+            var daUsuario = new DAUsuario(paisID);
+            return daUsuario.ActualizarValidacionDatos(isMobile, codigoConsultora, ipDispositivo, CodigoUsuario, tipoEnvio1, tipoEnvio2);
         }
 
         private BEUsuario GetUsuario(int paisID, string codigoUsuario)
@@ -2799,17 +2863,6 @@ namespace Portal.Consultoras.BizLogic
         {
             var DAUsuario = new DAUsuario(paisID);
             DAUsuario.GetOpcionHabilitada(oDatos.CodigoUsuario, origenID);
-            //using (IDataReader rd = DAUsuario.GetOpcionHabilitada(oDatos.CodigoUsuario, origenID))
-            //{
-            //    if (rd.Read())
-            //    {
-            //        oDatos.OpcionCorreoDesabilitado = rd.GetString(0);
-            //        oDatos.OpcionSmsDesabilitado = rd.GetString(1);
-            //        oDatos.HoraRestanteCorreo = rd.GetInt32(2);
-            //        oDatos.HoraRestanteSms = rd.GetInt32(3);
-            //    }
-            //}
-            //return oDatos;
         }
 
         private bool GetHorarioByCodigo(int paisID, string origen, out string descripcion)
@@ -3624,6 +3677,7 @@ namespace Portal.Consultoras.BizLogic
             oMensaje.MensajeAmbos = tablaLogica.Where(a => a.TablaLogicaDatosID == Constantes.TablaLogicaDato.MensajeActualizarEmailSms).Select(b => b.Valor).FirstOrDefault();
             oMensaje.MensajeCelular = tablaLogica.Where(a => a.TablaLogicaDatosID == Constantes.TablaLogicaDato.MensajeActualizarSms).Select(b => b.Valor).FirstOrDefault();
             oMensaje.MensajeEmail = tablaLogica.Where(a => a.TablaLogicaDatosID == Constantes.TablaLogicaDato.MensajeActualizarEmail).Select(b => b.Valor).FirstOrDefault();
+            oMensaje.MensajeFijo = tablaLogica.Where(a => a.TablaLogicaDatosID == Constantes.TablaLogicaDato.MensajeActualizarFijo).Select(b => b.Valor).FirstOrDefault();
 
             return oMensaje;
         }
@@ -3950,5 +4004,6 @@ namespace Portal.Consultoras.BizLogic
                 if (conTransaccion) ts.Dispose();
             }
         }
+
     }
 }

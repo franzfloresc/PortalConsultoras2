@@ -108,7 +108,7 @@ var ConstantesModule = (function () {
         ATP: "ATP",
         PN: "PN",
         DP: "DP"
-    }
+    };
 
 
     /// los que no tienen TipoPersonalizacion se pone texto
@@ -139,7 +139,62 @@ var ConstantesModule = (function () {
         GuiaDeNegocioDigitalizada: "/Estrategia/GNDObtenerProductos",
         HerrameintasVenta: "/Estrategia/HVObtenerProductos",
         MasGanadoras: "/Estrategia/MGObtenerProductos"
-    }
+    };
+
+    // en AnaluticsPortal.js tambiar actualizar los valores
+    var _origenPedidoWebEstructura = {
+        Dimension: 7,
+        Dispositivo: {
+            Desktop: '1',
+            Mobile: '2'
+        },
+        Pagina: {
+            LandingHerramientasVenta: '00',
+            Home: '01',
+            Pedido: '02',
+            LandingLiquidacion: '03',
+            Buscador: '04',
+            LandingShowroom: '05',
+            LandingGnd: '06',
+            LandingOfertasParaTi: '07',
+            Contenedor: '08',
+            Otras: '09',
+            LandingBuscador: '10',
+            LandingGanadoras: '11',
+            ArmaTuPackDetalle: '13',
+            LandingDuoPerfecto: '14',
+            LandingPackNuevas: '15'
+        },
+        Palanca: {
+            OfertasParaTi: '00',
+            Showroom: '01',
+            Lanzamientos: '02',
+            OfertaDelDia: '03',
+            OfertaFinal: '04',
+            GND: '05',
+            Liquidacion: '06',
+            ProductoSugerido: '07',
+            HerramientasVenta: '08',
+            Banners: '09',
+            Digitado: '10',
+            CatalogoLbel: '11',
+            CatalogoEsika: '12',
+            CatalogoCyzone: '13',
+            Ganadoras: '14',
+            ArmaTuPack: '15',
+            DuoPerfecto: '16',
+            PackNuevas: '17'
+        },
+        Seccion: {
+            Carrusel: '01',
+            Ficha: '02',
+            Banner: '03',
+            DesplegableBuscador: '04',
+            CarruselVerMas: '05',
+            BannerSuperior: '06',
+            SubCampania: '07'
+        }
+    };
 
     var _origenPedidoWeb = {
         //OfertaDelDiaDesktopHomeBanner: "1191",
@@ -165,61 +220,17 @@ var ConstantesModule = (function () {
         DesktopBuscadorGanadorasCarrusel: "1101401",
         MobileBuscadorGanadorasCarrusel: "2101401",
         DesktopLandingBuscadorGanadorasFicha: "1101402",
-        MobileLandingBuscadorGanadorasFicha: "2101402"
-    }
+        MobileLandingBuscadorGanadorasFicha: "2101402",
 
-    // en AnaluticsPortal.js tambiar actualizar los valores
-    var _origenPedidoWebEstructura = {
-        Dimension: 7,
-        Dispositivo: {
-            Desktop: '1',
-            Mobile: '2'
-        },
-        Pagina: {
-            LandingHerramientasVenta: '00',
-            Home: '01',
-            Pedido: '02',
-            LandingLiquidacion: '03',
-            Buscador: '04',
-            LandingShowroom: '05',
-            LandingGnd: '06',
-            LandingOfertasParaTi: '07',
-            Contenedor: '08',
-            Otras: '09',
-            LandingBuscador: '10',
-            LandingGanadoras: '11',
-            LandingDuoPerfecto: '14',
-            LandingPackNuevas: '15'
-        },
-        Palanca: {
-            OfertasParaTi: '00',
-            Showroom: '01',
-            Lanzamientos: '02',
-            OfertaDelDia: '03',
-            OfertaFinal: '04',
-            GND: '05',
-            Liquidacion: '06',
-            ProductoSugerido: '07',
-            HerramientasVenta: '08',
-            Banners: '09',
-            Digitado: '10',
-            CatalogoLbel: '11',
-            CatalogoEsika: '12',
-            CatalogoCyzone: '13',
-            Ganadoras: '14',
-            DuoPerfecto: '16',
-            PackNuevas: '17'
-        },
-        Seccion: {
-            Carrusel: '01',
-            Ficha: '02',
-            Banner: '03',
-            DesplegableBuscador: '04',
-            CarruselVerMas: '05',
-            BannerSuperior: '06',
-            SubCampania: '07'
-        }
-    }
+        MobileArmaTuPackFicha: _origenPedidoWebEstructura.Dispositivo.Mobile
+            + _origenPedidoWebEstructura.Pagina.ArmaTuPackDetalle
+            + _origenPedidoWebEstructura.Palanca.ArmaTuPack
+            + _origenPedidoWebEstructura.Seccion.Ficha,
+        DesktopArmaTuPackFicha: _origenPedidoWebEstructura.Dispositivo.Desktop
+            + _origenPedidoWebEstructura.Pagina.ArmaTuPackDetalle
+            + _origenPedidoWebEstructura.Palanca.ArmaTuPack
+            + _origenPedidoWebEstructura.Seccion.Ficha,
+    };
 
     var _tipoAccionNavegar = {
         BreadCrumbs: 1,

@@ -1046,6 +1046,20 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/TusClientes/TusClientes_Responsive.css"
             ));
 
+            #region CaminoBrillante
+            bundles.Add(new StyleBundle("~/Bundle/Css/CaminoBrillante").Include(
+                "~/Content/Css/ui.jquery/jquery-ui.css",
+                "~/Content/CaminoBrillante/css/estilos.css",
+                "~/Scripts/owl.carousel.2.0.0-beta.2.4/assets/owl.carousel.css"));
+
+
+            bundles.Add(new ScriptBundle("~/Bundle/Js/CaminoBrillante").Include(
+                "~/Scripts/jquery-1.11.2.min.js",
+                "~/Scripts/bootstrap.min.js",
+                "~/Scripts/owl.carousel.js",
+                "~/Scripts/PortalConsultoras/CaminoBrillante/index.js"));
+
+            #endregion
             #region ArmaTuPack
             
             bundles.Add(new StyleBundle("~/Bundle/Css/Responsive/ArmaTuPack").Include(
@@ -1057,8 +1071,7 @@ namespace Portal.Consultoras.Web
                  "~/Scripts/PortalConsultoras/ArmaTuPack/ArmaTuPackProvider.js",
                  "~/Scripts/PortalConsultoras/ArmaTuPack/Detalle/Cabecera/CabeceraView.js",
                  "~/Scripts/PortalConsultoras/ArmaTuPack/Detalle/Cabecera/CabeceraPresenter.js",
-                 "~/Scripts/PortalConsultoras/ArmaTuPack/Detalle/Grupos/GruposDesktopView.js",
-                 "~/Scripts/PortalConsultoras/ArmaTuPack/Detalle/Grupos/GruposMobileView.js",
+                 "~/Scripts/PortalConsultoras/ArmaTuPack/Detalle/Grupos/GruposView.js",
                  "~/Scripts/PortalConsultoras/ArmaTuPack/Detalle/Grupos/GruposPresenter.js",
                  "~/Scripts/PortalConsultoras/ArmaTuPack/Detalle/Seleccionados/SeleccionadosView.js",
                  "~/Scripts/PortalConsultoras/ArmaTuPack/Detalle/Seleccionados/SeleccionadosPresenter.js",

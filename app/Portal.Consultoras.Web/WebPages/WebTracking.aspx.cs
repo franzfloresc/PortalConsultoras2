@@ -23,18 +23,15 @@ namespace Portal.Consultoras.Web.WebPages
                 Response.Redirect("~/WebPages/UserUnknownLogin.aspx");
                 return;
             }
-
             if (!CargarSessionConsultora(dataQueryString)) return;
 
             var campania = Request.QueryString["campania"];
             var nroPedido = Request.QueryString["nroPedido"];
-
+            
             if (campania == null) CargarTablasMaestras();
             else CargarPedidoEspecifico(campania, nroPedido);
 
             lnkPoliticasVenta.NavigateUrl = Globals.RutaCdn + "/SeguimientoPedido/" + Convert.ToString(ViewState["PAISISO"]) + "/Politica.pdf";
-
-
         }
 
         protected void gridPedidos_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -98,7 +95,7 @@ namespace Portal.Consultoras.Web.WebPages
             if (boton == null)
                 return;
 
-            BETracking tracking = e.Row.DataItem as BETracking;
+            Models.Pedido.PedidoSeguimientoModel tracking = e.Row.DataItem as Models.Pedido.PedidoSeguimientoModel;
 
             if (tracking == null) return;
 
@@ -194,7 +191,6 @@ namespace Portal.Consultoras.Web.WebPages
                     botonNo.Visible = false;
                     break;
             }
-
         }
 
         protected void BtnCancel1_Click(object sender, EventArgs e)
@@ -236,7 +232,7 @@ namespace Portal.Consultoras.Web.WebPages
                 string cadenaDesencriptada = Util.DesencriptarQueryString(encriptado);
                 string[] query = cadenaDesencriptada.Split(';');
 
-                if (query.Length != 6)
+                if (query.Length != 8)
                 {
                     lblMensaje.Visible = true;
                     lblMensaje.Text = "El medio que envie la informacion en modo seguro, esta enviando de forma incorrecta. Notifique al área de tecnologia correspondiente. Gracias + Error: len de los datos=" + query.Length.ToString();
@@ -248,12 +244,18 @@ namespace Portal.Consultoras.Web.WebPages
                 int mostrarAyuda = Convert.ToInt32(query[2]);
                 string paisIso = query[3];
                 int campanhaId = int.Parse(query[4]);
+                int zonaID, regionID;
+                int.TryParse(query[5].ToString(), out zonaID);
+                int.TryParse(query[6].ToString(), out regionID);
 
                 ViewState["CODIGO"] = codigoConsultora;
                 ViewState["PAIS"] = paisId;
                 ViewState["PAISISO"] = paisIso;
                 ViewState["CAMPANHAID"] = campanhaId;
                 ViewState["MOSTRARAYUDA"] = mostrarAyuda;
+                ViewState["ZONAID"] = zonaID;
+                ViewState["REGIONID"] = regionID;
+
                 return true;
             }
             catch (Exception ex)
@@ -383,10 +385,13 @@ namespace Portal.Consultoras.Web.WebPages
 
                 IList<BENovedadTracking> novedades = new List<BENovedadTracking>();
                 BENovedadFacturacion obeNovedadFacturacion;
-                IList<BETracking> tracking;
+                List<BETracking> tracking;
+                List<Models.Pedido.PedidoSeguimientoModel> listaPedidoSeguimientoModel;
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    tracking = sv.GetTrackingByPedido(paisID, codigo, campana, nropedido);
+                    tracking = sv.GetTrackingByPedido(paisID, codigo, campana, nropedido).ToList();
+
+                    listaPedidoSeguimientoModel = AutoMapper.Mapper.Map<List<BETracking>, List<Models.Pedido.PedidoSeguimientoModel>>(tracking);
 
                     if (ConfigurationManager.AppSettings["WebTrackingConfirmacion"].Contains(paisISO))
                     {
@@ -417,14 +422,34 @@ namespace Portal.Consultoras.Web.WebPages
                     }
                 }
 
-                if (tracking.Count == 0)
+                if (listaPedidoSeguimientoModel.Count == 0)
                 {
-                    tracking = AgregarTracking(codigo, fecha);
+                    listaPedidoSeguimientoModel = AgregarTracking(codigo, fecha);
                 }
                 else
                 {
-                    foreach (var item in tracking)
+
+
+                    var horaEstimadaEntregaDesde = string.Empty;
+                    var horaEstimadaEntregaHasta = string.Empty;
+                    var desde = listaPedidoSeguimientoModel.FirstOrDefault(a => a.Etapa == Constantes.SegPedidoSituacion.HoraEstimadaEntregaDesde);
+                    var hasta = listaPedidoSeguimientoModel.FirstOrDefault(a => a.Etapa == Constantes.SegPedidoSituacion.HoraEstimadaEntregaHasta);
+
+                    //INI HD-3606 
+                    if (desde != null && hasta != null)
                     {
+                        if (desde.Fecha.HasValue) horaEstimadaEntregaDesde = desde.Fecha.Value.TimeOfDay.TotalHours.Equals(0) ? desde.Fecha.Value.ToString() : desde.Fecha.Value.ToString("HH:mm tt");
+                        if (hasta.Fecha.HasValue) horaEstimadaEntregaHasta = hasta.Fecha.Value.TimeOfDay.TotalHours.Equals(0) ? hasta.Fecha.Value.ToString() : hasta.Fecha.Value.ToString("HH:mm tt");
+                    }
+                    //FIN HD-3606 
+
+                    //Obtener si la zona y region permite los valores configurados
+
+
+                    foreach (var item in listaPedidoSeguimientoModel)
+                    {
+                        if (item.Etapa > Constantes.SegPedidoSituacion.Entregado) break;
+
                         string strFecha = string.Empty;
                         string strTexto = string.Empty;
 
@@ -459,8 +484,9 @@ namespace Portal.Consultoras.Web.WebPages
                         item.CodigoConsultora = strFecha;
                         item.NumeroPedido = strTexto;
 
-                        if (item.Etapa == 6 && !string.IsNullOrEmpty(item.ValorTurno))
+                        if ((item.Etapa == Constantes.SegPedidoSituacion.FechaEstimadaEntrega && !string.IsNullOrEmpty(item.ValorTurno)))
                         {
+
                             if (item.ValorTurno.ToUpper() == "AM")
                             {
                                 item.ValorTurno = "<b>En la mañana</b>";
@@ -474,6 +500,14 @@ namespace Portal.Consultoras.Web.WebPages
                                 item.ValorTurno = string.Empty;
                             }
                         }
+                        //HD-3606 EINCA
+
+                        var flag = (horaEstimadaEntregaDesde != string.Empty && horaEstimadaEntregaHasta != string.Empty);
+
+                        if (item.Etapa == Constantes.SegPedidoSituacion.FechaEstimadaEntrega && flag)
+                        {
+                            item.HoraEstimadaDesdeHasta = ValidarZonaRegion() ? string.Format("{0} - {1}", horaEstimadaEntregaDesde, horaEstimadaEntregaHasta) : "";
+                        }
                     }
 
                     lblNovCampania.Text = campana;
@@ -482,7 +516,7 @@ namespace Portal.Consultoras.Web.WebPages
                     lblNovNroPedido.Text = nropedido;
                 }
 
-                gridDatos.DataSource = tracking;
+                gridDatos.DataSource = listaPedidoSeguimientoModel.Where(a => a.Etapa != Constantes.SegPedidoSituacion.HoraEstimadaEntregaDesde && a.Etapa != Constantes.SegPedidoSituacion.HoraEstimadaEntregaHasta);
                 gridDatos.DataBind();
 
                 gvNovedades.DataSource = novedades;
@@ -494,6 +528,50 @@ namespace Portal.Consultoras.Web.WebPages
             {
                 lblMensaje.Visible = true;
                 lblMensaje.Text = ex.Message;
+            }
+        }
+
+
+        public bool ValidarZonaRegion()
+        {
+
+            try
+            {
+                using (var sv = new ServiceSAC.SACServiceClient())
+                {
+                    int paisid, zonaid, regionid;
+
+                    int.TryParse(ViewState["PAIS"].ToString(), out paisid);
+
+                    int.TryParse(ViewState["ZONAID"].ToString(), out zonaid);
+                    int.TryParse(ViewState["REGIONID"].ToString(), out regionid);
+
+                    var resultado = sv.GetTablaLogicaDatos(paisid, Constantes.TablaLogica.SegPedidoRegionZona).FirstOrDefault();
+                    if (resultado == null) return true; // si no hay registros mostrar
+                    if (resultado.Valor.IsNullOrEmptyTrim()) return false;
+                    string[] arrZonaRegion = resultado.Valor.Split(';');
+                    foreach (var item in arrZonaRegion)
+                    {
+                        //Extraer la zona y la region
+                        string[] arrItem = item.Split(',');
+                        int nzonaid, nregionid;
+
+                        int.TryParse(arrItem[1], out nzonaid);
+                        int.TryParse(arrItem[0], out nregionid);
+
+                        if (zonaid == nzonaid && regionid == nregionid) return true;
+
+                    }
+
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                lblMensaje.Visible = true;
+                lblMensaje.Text = ex.Message;
+                return false;
             }
         }
 
@@ -533,47 +611,47 @@ namespace Portal.Consultoras.Web.WebPages
             }
         }
 
-        private IList<BETracking> AgregarTracking(string codigo, DateTime fecha)
+        private List<Models.Pedido.PedidoSeguimientoModel> AgregarTracking(string codigo, DateTime fecha)
         {
-            List<BETracking> lista = new List<BETracking>();
-            BETracking beTracking = new BETracking();
+            List<Models.Pedido.PedidoSeguimientoModel> lista = new List<Models.Pedido.PedidoSeguimientoModel>();
+            Models.Pedido.PedidoSeguimientoModel beTracking = new Models.Pedido.PedidoSeguimientoModel();
             beTracking.CodigoConsultora = codigo;
             beTracking.Etapa = 1;
             beTracking.Situacion = "Pedido Recibido";
             beTracking.Fecha = fecha;
             lista.Add(beTracking);
 
-            beTracking = new BETracking();
+            beTracking = new Models.Pedido.PedidoSeguimientoModel();
             beTracking.Etapa = 2;
             beTracking.Situacion = "Facturado";
             beTracking.Fecha = null;
             lista.Add(beTracking);
 
-            beTracking = new BETracking();
+            beTracking = new Models.Pedido.PedidoSeguimientoModel();
             beTracking.Etapa = 3;
             beTracking.Situacion = "Inicio de Armado";
             beTracking.Fecha = null;
             lista.Add(beTracking);
 
-            beTracking = new BETracking();
+            beTracking = new Models.Pedido.PedidoSeguimientoModel();
             beTracking.Etapa = 4;
             beTracking.Situacion = "Chequeado";
             beTracking.Fecha = null;
             lista.Add(beTracking);
 
-            beTracking = new BETracking();
+            beTracking = new Models.Pedido.PedidoSeguimientoModel();
             beTracking.Etapa = 5;
             beTracking.Situacion = "Puesto en transporte";
             beTracking.Fecha = null;
             lista.Add(beTracking);
 
-            beTracking = new BETracking();
+            beTracking = new Models.Pedido.PedidoSeguimientoModel();
             beTracking.Etapa = 6;
             beTracking.Situacion = "Fecha Estimada de Entrega";
             beTracking.Fecha = null;
             lista.Add(beTracking);
 
-            beTracking = new BETracking();
+            beTracking = new Models.Pedido.PedidoSeguimientoModel();
             beTracking.Etapa = 7;
             beTracking.Situacion = "Entregado";
             beTracking.Fecha = null;

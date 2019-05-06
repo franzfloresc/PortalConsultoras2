@@ -20,6 +20,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Portal.Consultoras.Web.Models.Search.ResponseOferta.Estructura;
 using Portal.Consultoras.Web.Models.DetalleEstrategia;
+using Portal.Consultoras.Web.Models.CaminoBrillante;
+using Portal.Consultoras.Web.ServiceUsuario;
 
 namespace Portal.Consultoras.Web.Models.AutoMapper
 {
@@ -299,6 +301,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
 
             Mapper.CreateMap<ServiceUsuario.BEEventoFestivo, EventoFestivoModel>();
             Mapper.CreateMap<BETracking, SeguimientoMobileModel>();
+            Mapper.CreateMap<BETracking, PedidoSeguimientoModel>(); //HD-3606 EINCA
 
 
             Mapper.CreateMap<ServiceCliente.BECliente, ClienteModel>();
@@ -707,6 +710,18 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.DescripcionMarca, f => f.MapFrom(c => c.MarcaDescripcion))
                 .ForMember(t => t.CodigoEstrategia, f => f.MapFrom(c => c.CodigoTipoEstrategia))
                 .ForMember(t => t.CodigoPalanca, f => f.MapFrom(c => c.TipoPersonalizacion));
+
+            #region Camino Brillante
+
+            Mapper.CreateMap<BEKitCaminoBrillante, KitCaminoBrillanteModel>();
+            Mapper.CreateMap<BEDesmostradoresCaminoBrillante, DemostradorCaminoBrillanteModel>();
+            Mapper.CreateMap<BENivelCaminoBrillante, NivelCaminoBrillanteModel>();
+            Mapper.CreateMap<BENivelCaminoBrillante.BEBeneficioCaminoBrillante, NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel>();
+            Mapper.CreateMap<BELogroCaminoBrillante, LogroCaminoBrillanteModel>();
+            Mapper.CreateMap<BELogroCaminoBrillante.BEIndicadorCaminoBrillante, LogroCaminoBrillanteModel.IndicadorCaminoBrillanteModel>();
+            Mapper.CreateMap<BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante, LogroCaminoBrillanteModel.IndicadorCaminoBrillanteModel.MedallaCaminoBrillanteModel>();
+
+            #endregion
         }
     }
 }

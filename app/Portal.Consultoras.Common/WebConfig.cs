@@ -10,6 +10,21 @@ namespace Portal.Consultoras.Common
 
         #region Propiedades
 
+        public static string RutaCDN
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["RutaCDN"] ?? string.Empty;
+            }
+        }
+
+        public static string JsonWebTokenSecret
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["JsonWebTokenSecretKey"] ?? string.Empty;
+            }
+        }
         public static string PaisesEsika
         {
             get

@@ -1,5 +1,4 @@
 ﻿
-
 if (!jQuery) { throw new Error("AnalyticsPortal.js requires jQuery"); }
 
 +function ($) {
@@ -1976,7 +1975,7 @@ var AnalyticsPortalModule = (function () {
     }
     var marcarEliminarOpcionSeleccionada = function (estrategia, nombreComponentes) {
         try {
-            textoCategory = "Contenedor - Pop up Elige 1 opción";
+            var textoCategory = "Contenedor - Pop up Elige 1 opción";
             dataLayer.push({
                 'event': _evento.virtualEvent,
                 'category': textoCategory,          
@@ -2032,7 +2031,7 @@ var AnalyticsPortalModule = (function () {
     }
     var marcarPopupCerrarEligeXOpciones = function (opcion) {
         try {
-            dataLayer.push({                                            
+            dataLayer.push({
                 'event': _evento.virtualEvent,
                 'category': 'Contenedor - Pop up Elige más de una opción',
                 'action': 'Cerrar pop up Elige más de una opción',
@@ -2069,7 +2068,7 @@ var AnalyticsPortalModule = (function () {
     var marcarEliminarOpcionSeleccionadaVariasOpciones = function (estrategia, nombreComponentes) {
         try {
 
-            textoCategory = "Contenedor - Pop up Elige más de una opción";
+            var textoCategory = "Contenedor - Pop up Elige más de una opción";
             dataLayer.push({
                 'event': _evento.virtualEvent,
                 'category': textoCategory,
@@ -2095,7 +2094,7 @@ var AnalyticsPortalModule = (function () {
     var marcarCambiarOpcionVariasOpciones = function (opcion) {
 
         try {
-            codUbigeo = opcion.CodigoUbigeoPortal || "";
+            var codUbigeo = opcion.CodigoUbigeoPortal || "";
             //var origenPedido = opcion.OrigenPedidoEditar || 0;
             if (codUbigeo !== "") {
                 if (codUbigeo === CodigoUbigeoPortal.MaestroCodigoUbigeo.GuionCarritoComprasGuionFichaResumida) {
@@ -2485,7 +2484,7 @@ var AnalyticsPortalModule = (function () {
         });
     }
     var marcaFichaResumidaClickModificar = function (origenPedido, isChangeTono, isChangeCantidad, isChangeCliente) {
-        var origenPedido = origenPedido || "";
+        origenPedido = origenPedido || "";
         var textoCategory = "";
 
         if (origenPedido != "") {
@@ -2511,7 +2510,7 @@ var AnalyticsPortalModule = (function () {
 
         if (origenPedido !== "") {
             if (origenPedido == CodigoUbigeoPortal.MaestroCodigoUbigeo.GuionContenedorArmaTuPackGuion) {
-                textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(origenPedido) + ""; //using new function
+                var textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(origenPedido) + ""; //using new function
                 dataLayer.push({
                     'event': !isClick ? _evento.promotionView : _evento.promotionClick,
                     'ecommerce': {

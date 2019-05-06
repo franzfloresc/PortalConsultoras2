@@ -78,8 +78,8 @@ var EstrategiaAgregarModule = (function () {
     }
 
     var _OrigenPedido = {
-        MobileContenedorArmaTuPack: "2131502",
-        DesktopContenedorArmaTuPack: "1131502"
+        MobileContenedorArmaTuPack: ConstantesModule.OrigenPedidoWeb.MobileArmaTuPackFicha,
+        DesktopContenedorArmaTuPack: ConstantesModule.OrigenPedidoWeb.DesktopArmaTuPackFicha
     }
 
     var getEstrategia = function ($btnAgregar, origenPedidoWebEstrategia) {
@@ -259,32 +259,31 @@ var EstrategiaAgregarModule = (function () {
         _config.CampaniaCodigo = $(elementosDiv.hdCampaniaCodigo).val() || _config.CampaniaCodigo;
 
         var $btnAgregar = $(event.target);
-        //console.log($btnAgregar);
         var origenPedidoWebEstrategia = getOrigenPedidoWeb($btnAgregar);
 
         //*****ANALYTICS ******
         if (AnalyticsPortalModule != 'undefined') {
+            var estrategiaAnalytics;
             if (typeof (fichaModule) != "undefined") {
                 if (typeof (fichaModule.GetEstrategia) != "undefined") {
-                    var estrategia = fichaModule.GetEstrategia();
-                    AnalyticsPortalModule.MarcaFichaResumidaClickModificar(estrategia.CodigoUbigeoPortal, isChangeTono, isChangeCantidad, isChangeCliente);
+                    estrategiaAnalytics = fichaModule.GetEstrategia();
+                    var objChangeFicha = fichaModule.GetChangeFichaAnalytics();
+                    AnalyticsPortalModule.MarcaFichaResumidaClickModificar(estrategiaAnalytics.CodigoUbigeoPortal, objChangeFicha.isChangeTono, objChangeFicha.isChangeCantidad, objChangeFicha.isChangeCliente);
                 }
             }
 
             if (typeof (seleccionadosPresenter) !== 'undefined') {
                 if (seleccionadosPresenter.packComponents() !== 'undefined') {
                     var seleccionados = seleccionadosPresenter.packComponents().componentesSeleccionados;
-                    var estrategia = JSON.parse($("#data-estrategia").attr("data-estrategia"));
-                    var codigoubigeoportal = estrategia.CodigoUbigeoPortal + "";
+                    estrategiaAnalytics = JSON.parse($("#data-estrategia").attr("data-estrategia"));
+                    var codigoubigeoportal = estrategiaAnalytics.CodigoUbigeoPortal;
 
                     if (codigoubigeoportal !== "") {
                         AnalyticsPortalModule.MarcarAddCarArmaTuPack(codigoubigeoportal, seleccionados);
                         AnalyticsPortalModule.MarcaClickAgregarArmaTuPack(codigoubigeoportal, "Agregar", "Click Botón");
                     }
                 }
-
             }
-
         }
         //**FIN ANALYTICS *****
 
@@ -649,7 +648,7 @@ var EstrategiaAgregarModule = (function () {
                 var estrategia = fichaModule.GetEstrategia();
                 if (estrategia.esEditable) { //todos menos la 2003 (tipos&tonos)
                     EstrategiaAgregarModule.HabilitarBoton();
-                    isChangeCantidad = true; //para hacer seguimiento al marcar analytics
+                    fichaModule.SetChangeFichaAnalytics(null, true, null);//para hacer seguimiento al marcar analytics
                 }
             }
         }

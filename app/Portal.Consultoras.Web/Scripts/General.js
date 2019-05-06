@@ -334,6 +334,26 @@ jQuery(document).ready(function () {
                 return new Handlebars.SafeString(cadena);
             });
 
+            Handlebars.registerHelper('SubstrResponsive', function (cadena, length, length2) {
+                cadena = cadena || "";
+                cadena = $.trim(cadena);
+                length2 = length2 || 0;
+
+                if (window.innerWidth > 750) {
+                    if (cadena.length > length) {
+                        cadena = cadena.substring(0, length) + "...";
+                    }
+                } else {
+                    if (length2 > 0) {
+                        if (cadena.length > length2) {
+                            cadena = cadena.substring(0, length2) + "...";
+                        }
+                    }
+                }
+
+                return new Handlebars.SafeString(cadena);
+            });
+
             Handlebars.registerHelper('JSON2string', function (context) {
                 return JSON.stringify(context);
             });

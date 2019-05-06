@@ -29,6 +29,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using BEPedidoWeb = Portal.Consultoras.Web.ServicePedido.BEPedidoWeb;
 using BEPedidoWebDetalle = Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle;
+ 
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -44,22 +45,24 @@ namespace Portal.Consultoras.Web.Controllers
         private readonly OfertaBaseProvider _ofertaBaseProvider;
         protected ProductoFaltanteProvider _productoFaltanteProvider;
         private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatosProvider;
+        private readonly CaminoBrillanteProvider _caminoBrillanteProvider;
 
         public PedidoController()
             : this(new PedidoSetProvider(),
                   new ProductoFaltanteProvider(),
-                  new ConfiguracionPaisDatosProvider(), new OfertaBaseProvider())
+                  new ConfiguracionPaisDatosProvider(), new OfertaBaseProvider(), new CaminoBrillanteProvider())
         {
         }
 
         public PedidoController(PedidoSetProvider pedidoSetProvider,
             ProductoFaltanteProvider productoFaltanteProvider,
-            ConfiguracionPaisDatosProvider configuracionPaisDatosProvider, OfertaBaseProvider ofertaBaseProvider)
+            ConfiguracionPaisDatosProvider configuracionPaisDatosProvider, OfertaBaseProvider ofertaBaseProvider, CaminoBrillanteProvider caminoBrillanteProvider)
         {
             _pedidoSetProvider = pedidoSetProvider;
             _ofertaBaseProvider = ofertaBaseProvider;
             _productoFaltanteProvider = productoFaltanteProvider;
             _configuracionPaisDatosProvider = configuracionPaisDatosProvider;
+            _caminoBrillanteProvider = caminoBrillanteProvider;
         }
 
         public ActionResult Index(bool lanzarTabConsultoraOnline = false, string cuv = "", int campana = 0)
@@ -350,6 +353,19 @@ namespace Portal.Consultoras.Web.Controllers
 
                 ViewBag.ActivarRecomendaciones = ObtenerFlagActivacionRecomendaciones();
                 ViewBag.MaxCaracteresRecomendaciones = ObtenerNumeroMaximoCaracteresRecomendaciones(false);
+
+                #region Camino Brillante 
+
+                ViewBag.KitsCaminoBrillante = _caminoBrillanteProvider.GetKitsCaminoBrillante().ToList();
+                var consultoraNivel = SessionManager.GetConsultoraCaminoBrillante();
+                var nivelConsultora = consultoraNivel.NivelConsultora.FirstOrDefault(e => e.EsActual);
+                int nivel = 0;
+                int periodo = 0;
+                int.TryParse(nivelConsultora.Nivel ?? string.Empty, out nivel);
+                int.TryParse(nivelConsultora.PeriodoCae ?? string.Empty, out periodo);
+
+                #endregion
+
             }
             catch (FaultException ex)
             {
@@ -619,7 +635,7 @@ namespace Portal.Consultoras.Web.Controllers
                 extra = ""
             }, JsonRequestBehavior.AllowGet);
         }
-        
+
         [HttpPost]
         public JsonResult AceptarBackOrder(int campaniaID, int pedidoID, short pedidoDetalleID, string clienteID)
         {
@@ -673,7 +689,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-        
+
         #endregion
 
         #region Ofertas Flexipago
@@ -1923,7 +1939,7 @@ namespace Portal.Consultoras.Web.Controllers
 
 
                 var pedidoWeb = ObtenerPedidoWeb();
-                
+
                 pedidoModelo.ListaDetalle = lstPedidoWebDetalle;
 
                 var pedidoWebDetalleModel = Mapper.Map<List<BEPedidoWebDetalle>, List<PedidoWebDetalleModel>>(pedidoModelo.ListaDetalle);
@@ -2204,7 +2220,7 @@ namespace Portal.Consultoras.Web.Controllers
             SessionManager.SetUserData(userData);
             return "";
         }
-        
+
         #endregion
 
         private List<BEPedidoWebDetalle> PedidoJerarquico(List<BEPedidoWebDetalle> listadoPedidos)
@@ -2221,7 +2237,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return result;
         }
-        
+
         private void CalcularMasivo(List<BEPedidoWebDetalle> pedido, List<BEPedidoWebDetalle> actualizar, out int clientes, out decimal importe)
         {
             var tempPedido = new List<BEPedidoWebDetalle>(pedido);
@@ -2379,7 +2395,7 @@ namespace Portal.Consultoras.Web.Controllers
                 DiaPROL = userData.DiaPROL
             }, JsonRequestBehavior.AllowGet);
         }
-        
+
         [HttpPost]
         public JsonResult ConsultarBannerPedido()
         {
@@ -2450,7 +2466,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return Json(new { success = true });
         }
-        
+
         [HttpPost]
         public JsonResult CargarDetallePedido(string sidx, string sord, int page, int rows, int clienteId, bool mobil = false)
         {
@@ -2585,6 +2601,9 @@ namespace Portal.Consultoras.Web.Controllers
                 p.CodigoIso = userData.CodigoISO;
                 p.DescripcionCortadaProd = Util.SubStrCortarNombre(p.DescripcionProd, 73);
                 p.TipoAccion = TipoAccionPedido(p, pedidoEditable);
+                p.FlagModificaCantidad = FlagModificaCantidad(p);
+                p.FlagModificaCliente = p.FlagModificaCantidad;
+                p.FlagVerCuv = FlagVerCuv(p);
                 p.LockPremioElectivo = p.EsPremioElectivo && string.IsNullOrEmpty(p.Mensaje);
             });
 
@@ -2599,18 +2618,20 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (!valorConfi) return 0;
 
-            if ((producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoProductoSugeridoCarrusel ||
-                producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoProductoSugeridoCarrusel) ||
-                (producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalCarrusel ||
-                 producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalFicha ||
-                 producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalCarrusel ||
-                 producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalFicha ||
-                 producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppConsultoraPedidoOfertaFinalCarrusel ||
-                 producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppConsultoraPedidoOfertaFinalFicha)
+            if (
+                (producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoProductoSugeridoCarrusel
+                || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoProductoSugeridoCarrusel)
+                || (producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalCarrusel
+                || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalFicha
+                || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalCarrusel
+                || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalFicha
+                || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppConsultoraPedidoOfertaFinalCarrusel
+                || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppConsultoraPedidoOfertaFinalFicha)
                 || (producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppConsultoraLandingShowroomShowroomSubCampania
-                    || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopLandingShowroomShowroomSubCampania
-                    || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobileLandingShowroomShowroomSubCampania)
-                || producto.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.PackNuevas)
+                || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopLandingShowroomShowroomSubCampania
+                || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobileLandingShowroomShowroomSubCampania)
+                || producto.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.PackNuevas
+                )
                 return 0;
 
             switch (producto.TipoEstrategiaCodigo)
@@ -2623,10 +2644,35 @@ namespace Portal.Consultoras.Web.Controllers
                 case Constantes.TipoEstrategiaCodigo.OfertaDelDia:
                 case Constantes.TipoEstrategiaCodigo.HerramientasVenta:
                 case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
+                case Constantes.TipoEstrategiaCodigo.ArmaTuPack:
                     return 1;
                 default:
                     return 0;
             }
+        }
+
+        private bool FlagModificaCantidad(PedidoWebDetalleModel producto)
+        {
+            bool flag = true;
+            if (producto.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.ArmaTuPack
+                || producto.EsKitNueva
+                || producto.FlagNueva
+                || producto.EsPremioElectivo
+                || producto.EsKitCaminoBrillante)
+            {
+                flag = false;
+            }
+            return flag;
+        }
+
+        private bool FlagVerCuv(PedidoWebDetalleModel producto)
+        {
+            bool flag = true;
+            if (producto.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.ArmaTuPack || producto.EsKitCaminoBrillante)
+            {
+                flag = false;
+            }
+            return flag;
         }
 
         private List<BEPedidoWebDetalle> GetPedidoWebDetalle(bool isMobile)
@@ -3066,9 +3112,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-        
+
         #region Nuevo AgregarProducto
-       
+
         private string ValidarStockEstrategiaMensaje(string cuv, int cantidad, int tipoOferta)
         {
             var mensaje = "";
@@ -3193,7 +3239,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return "";
         }
-        
+
         private int GetCantidadCuvPedidoWeb(string cuvIngresado)
         {
             List<BEPedidoWebDetalle> lstPedidoDetalle = ObtenerPedidoWebDetalle();
