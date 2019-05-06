@@ -712,6 +712,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.CodigoPalanca, f => f.MapFrom(c => c.TipoPersonalizacion))
                 .ForMember(t => t.ImagenURL, f => f.MapFrom(c => c.ImagenEtiqueta));
 
+
             #region Camino Brillante
 
             Mapper.CreateMap<BEKitCaminoBrillante, KitCaminoBrillanteModel>();
