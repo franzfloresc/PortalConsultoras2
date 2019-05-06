@@ -230,7 +230,8 @@ function CambiarOferta() {
         $("#divresultadosKit").show();
         document.body.scrollTop = TabUno;
         $(window).scrollTop(TabUno);
-        LinkCargarOfertasToScroll();
+        if (contadorkit == 0) { CargarKits(); }
+        else { LinkCargarOfertasToScroll();}        
     });
 
     $('#Tab-Demostradores').click(function () {
@@ -242,7 +243,8 @@ function CambiarOferta() {
         $("#divresultadosDemostradores").show();
         document.body.scrollTop = TabDos;
         $(window).scrollTop(TabDos);
-        LinkCargarOfertasToScroll();
+        if (contadordemo == 0) { CargarDemostradores(); }
+        else { LinkCargarOfertasToScroll();}
     });
 }
 
