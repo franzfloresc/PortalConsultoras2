@@ -78,7 +78,6 @@ a{
 
 .w-50{
     width:50%;
-    margin-right:-2px;
 }
 
 .w-82{
@@ -447,16 +446,18 @@ input:focus{
 .grupo_form_cambio_datos,
 .contenedor_campos_num_adicional,
 .grupo_form_cambio_datos > div,
-.contenedor_campos_num_adicional > div {
+.contenedor_campos_num_adicional > div,
+.opcion_direccion_entrega .opcion_mi_perfil_contenido > div {
     display: flex;
 }
 
+    .opcion_direccion_entrega .opcion_mi_perfil_contenido > div,
     .grupo_form_cambio_datos,
     .contenedor_campos_num_adicional,
     .contenedor_campos_num_adicional > div {
         flex-direction: row !important;
-        flex-wrap: nowrap !important;
-        justify-content: space-around !important;
+        flex-wrap: wrap!important;
+        justify-content: space-between !important;
         align-items: center !important;
     }
 
@@ -522,8 +523,9 @@ input:focus{
         left:0;
         font-size:13px;
         font-weight:400;
-        height:auto;
-        z-index:2;
+        min-height:32px;
+        background-color:#FFF;
+        z-index:3;
     }
 
     .grupo_form_cambio_datos_btn_guardar_wrapper{
@@ -540,19 +542,17 @@ input:focus{
     }
 
     .grupo_form_cambio_datos label,
-    .campo_con_datos label,
+    .campo_con_datos + label,
     .correo_electronico_actual span:first-child,
     .celular_actual span:first-child,
-    .grupo_form_cambio_datos select
-    {
+    .grupo_form_cambio_datos select{
         color:#808080;
         letter-spacing:0.2px;
     }
 
     .grupo_form_cambio_datos label,
     .grupo_form_cambio_datos input,
-    .grupo_form_cambio_datos select
-    {
+    .grupo_form_cambio_datos select{
         font-family:'Lato', sans-serif;
         -moz-transition: all 0.2s ease;
         -o-transition: all 0.2s ease;
@@ -575,8 +575,7 @@ input:focus{
     }
 
     .grupo_form_cambio_datos select,
-    .enlace_ubicacion_actual
-    {
+    .enlace_ubicacion_actual{
         background-repeat:no-repeat;
         background-position:98.5% center;
     }
@@ -596,8 +595,7 @@ input:focus{
     }
 
     .grupo_form_cambio_datos_campo_direccion,
-    .grupo_form_cambio_datos_campo_direccion > div
-    {
+    .grupo_form_cambio_datos_campo_direccion > div{
         position:relative;
     }
 
@@ -618,6 +616,10 @@ input:focus{
         color:rgba(0,0,0,1);
     }
 
+    .campo_con_datos + label{
+        z-index:2;
+    }
+
 .enlace_ubicacion_actual{
     position: absolute;
     margin: auto 0;
@@ -629,6 +631,10 @@ input:focus{
     background-position: center;
     background-image: url(/Content/Images/icono_localizacion.svg);
     z-index: 3000;
+}
+
+.grupo_form_cambio_datos--mapa {
+    padding-right: 32px;
 }
 
 .w-100.mapa_wrapper{
@@ -744,7 +750,8 @@ input:focus{
     margin-bottom:0;
 }
 
-.grupo_form_checkbox_condiciones .checkbox_condiciones_label {
+.grupo_form_checkbox_condiciones .checkbox_condiciones_label,
+.grupo_form_permiso_cuenta {
     margin-top: 1px !important;
     margin-bottom: 0 !important;
     margin-right: 8px;
@@ -768,8 +775,7 @@ input.permiso_cuenta_opcion_checkbox
 }
 
 .checkbox_condiciones_label,
-.permiso_cuenta_opcion_label
-{
+.permiso_cuenta_opcion_label{
     background-color: #FFF;
     border: 1px solid #808080;
     width: 18px;
@@ -786,14 +792,13 @@ input.permiso_cuenta_opcion_checkbox
 }
 
 .checkbox_condiciones_checkbox:checked + .checkbox_condiciones_label,
-.permiso_cuenta_opcion_checkbox:checked + .permiso_cuenta_opcion_label
-{
+.permiso_cuenta_opcion_checkbox:checked + .permiso_cuenta_opcion_label{
     background-color:#b9007e;
     border: 1px solid #b9007e;
 }
 
-.grupo_input_actualizarMisDatos .checkbox_condiciones_descripcion {
-    width: 89%;
+.grupo_input_actualizarMisDatos .checkbox_condiciones_descripcion,
+.permiso_cuenta_opcion_descripcion{
     margin-bottom: 4px;
     order: 1;
 }
