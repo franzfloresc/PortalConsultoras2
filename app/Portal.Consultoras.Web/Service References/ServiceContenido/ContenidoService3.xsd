@@ -1059,6 +1059,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q58="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="itmFilter" nillable="true" type="q58:BEUsuario" />
+        <xs:element minOccurs="0" name="codigoBanner" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

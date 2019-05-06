@@ -3676,6 +3676,9 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         private string NivelField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int NivelCaminoBrillanteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int NivelEducacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -5741,6 +5744,19 @@ namespace Portal.Consultoras.Web.ServiceContenido {
                 if ((object.ReferenceEquals(this.NivelField, value) != true)) {
                     this.NivelField = value;
                     this.RaisePropertyChanged("Nivel");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int NivelCaminoBrillante {
+            get {
+                return this.NivelCaminoBrillanteField;
+            }
+            set {
+                if ((this.NivelCaminoBrillanteField.Equals(value) != true)) {
+                    this.NivelCaminoBrillanteField = value;
+                    this.RaisePropertyChanged("NivelCaminoBrillante");
                 }
             }
         }
@@ -10789,10 +10805,10 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         System.Threading.Tasks.Task<string> ObtenerCorreoEmisorAsync(int PaisID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/GetContenidoApp", ReplyAction="http://tempuri.org/IContenidoService/GetContenidoAppResponse")]
-        Portal.Consultoras.Web.ServiceContenido.BEContenidoApp[] GetContenidoApp(Portal.Consultoras.Web.ServiceContenido.BEUsuario itmFilter);
+        Portal.Consultoras.Web.ServiceContenido.BEContenidoApp[] GetContenidoApp(Portal.Consultoras.Web.ServiceContenido.BEUsuario itmFilter, string codigoBanner);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/GetContenidoApp", ReplyAction="http://tempuri.org/IContenidoService/GetContenidoAppResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceContenido.BEContenidoApp[]> GetContenidoAppAsync(Portal.Consultoras.Web.ServiceContenido.BEUsuario itmFilter);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceContenido.BEContenidoApp[]> GetContenidoAppAsync(Portal.Consultoras.Web.ServiceContenido.BEUsuario itmFilter, string codigoBanner);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/GetContenidoAppHistoria", ReplyAction="http://tempuri.org/IContenidoService/GetContenidoAppHistoriaResponse")]
         Portal.Consultoras.Web.ServiceContenido.BEContenidoAppHistoria GetContenidoAppHistoria(string Codigo);
@@ -11534,12 +11550,12 @@ namespace Portal.Consultoras.Web.ServiceContenido {
             return base.Channel.ObtenerCorreoEmisorAsync(PaisID);
         }
         
-        public Portal.Consultoras.Web.ServiceContenido.BEContenidoApp[] GetContenidoApp(Portal.Consultoras.Web.ServiceContenido.BEUsuario itmFilter) {
-            return base.Channel.GetContenidoApp(itmFilter);
+        public Portal.Consultoras.Web.ServiceContenido.BEContenidoApp[] GetContenidoApp(Portal.Consultoras.Web.ServiceContenido.BEUsuario itmFilter, string codigoBanner) {
+            return base.Channel.GetContenidoApp(itmFilter, codigoBanner);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceContenido.BEContenidoApp[]> GetContenidoAppAsync(Portal.Consultoras.Web.ServiceContenido.BEUsuario itmFilter) {
-            return base.Channel.GetContenidoAppAsync(itmFilter);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceContenido.BEContenidoApp[]> GetContenidoAppAsync(Portal.Consultoras.Web.ServiceContenido.BEUsuario itmFilter, string codigoBanner) {
+            return base.Channel.GetContenidoAppAsync(itmFilter, codigoBanner);
         }
         
         public Portal.Consultoras.Web.ServiceContenido.BEContenidoAppHistoria GetContenidoAppHistoria(string Codigo) {

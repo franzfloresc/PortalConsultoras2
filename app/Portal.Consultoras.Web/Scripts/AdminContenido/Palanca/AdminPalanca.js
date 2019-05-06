@@ -22,10 +22,6 @@ jQuery(document).ready(function () {
     IniDialogs();
     IniDialogOfertasHome();
 
-    //$("#btnBuscar").click(function () {
-    //    UpdateGrillaOfertas();
-    //});
-
 
     $("#ddlTipoEstrategia").change(function () {
 
@@ -132,12 +128,13 @@ function ConfigSeccionApp(configuracionPaisID) {
             if (result.data.AppOfertasHomeActivo === "1") $("#divMantApp").show();
             else $("#divMantApp").hide();
 
+
             if (result.data.AppOfertasHomeImgExtension !== "") $("#nombre-fondo-app").attr("imageextension", result.data.AppOfertasHomeImgExtension);
             if (result.data.AppOfertasHomeImgAncho !== "") $("#nombre-fondo-app").attr("imagewidth", result.data.AppOfertasHomeImgAncho);
             if (result.data.AppOfertasHomeImgAlto !== "") $("#nombre-fondo-app").attr("imageheight", result.data.AppOfertasHomeImgAlto);
             if (result.data.AppOfertasHomeMsjMedida !== "") $("#nombre-fondo-app").attr("messageSize", result.data.AppOfertasHomeMsjMedida);
             if (result.data.AppOfertasHomeMsjFormato !== "") $("#nombre-fondo-app").attr("messageFormat", result.data.AppOfertasHomeMsjFormato);
-    
+
             var palanca = $("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo");
             if (palanca === _palanca.pn || palanca === _palanca.dp) {
                 $("#AdministrarOfertasHomeAppModel_AppColorFondo").parent().parent().hide();
@@ -198,10 +195,12 @@ function ConfigSeccionApp(configuracionPaisID) {
 
                     $("#AdministrarOfertasHomeAppModel_AppCantidadProductos").parent().parent().show();
 
+
                     $("#divAppComplementoDerecha").hide();
 
                     if ($("#AdministrarOfertasHomeAppModel_AppColorFondo").val() === "") $("#AdministrarOfertasHomeAppModel_AppColorFondo").val("#000000");
                     if ($("#AdministrarOfertasHomeAppModel_AppColorTexto").val() === "") $("#AdministrarOfertasHomeAppModel_AppColorTexto").val("#ffffff");
+
                 }
             }
 
@@ -211,12 +210,12 @@ function ConfigSeccionApp(configuracionPaisID) {
             UploadFilePalancaApp("fondo-app");
         },
         error: function (request, status, error) {
-                    closeWaitingDialog();
-                _toastHelper.error("Error al procesar la Solicitud.");
-            }
-        });
-    }
-    
+            closeWaitingDialog();
+            _toastHelper.error("Error al procesar la Solicitud.");
+        }
+    });
+}
+
 function Modificar(idConfiguracionPais, event) {
     $.ajax({
         url: baseUrl + "AdministrarPalanca/GetPalanca",
@@ -260,7 +259,7 @@ function Modificar(idConfiguracionPais, event) {
                 $("#divDesktopTituloBanner").hide();
                 $("#divDesktopSubTituloBanner").hide();
             } else {
-                $("#lblDesktop").html('Desktop');//Default
+                $("#lblDesktop").html('Desktop');
                 $("#divUrlMenu").show();
                 $("#divUrlMenuTxt").show();
 
@@ -283,8 +282,8 @@ function Modificar(idConfiguracionPais, event) {
         error: function (request, status, error) { }
     });
 }
-                
-                
+
+
 function IniDialogs() {
     $("#DialogMantenimientoPalanca").dialog({
         autoOpen: false,
@@ -295,7 +294,7 @@ function IniDialogs() {
         draggable: false,
         title: "Menú",
         open: function (event, ui) {
-            //(".ui-dialog-titlebar-close", ui.dialog).hide(); //eaar tiene bug
+
         },
         close: function () {
             HideDialog("DialogMantenimientoPalanca");
@@ -309,7 +308,7 @@ function IniDialogs() {
                     return false;
                 }
 
-                /*INIT AGANA 159 */
+
                 var esATP = $.trim($("#Codigo").val()) === ConstantesModule.CodigoPalanca.ATP;
 
                 if (esATP) {
@@ -319,7 +318,7 @@ function IniDialogs() {
                     $("#DialogMantenimientoPalanca #MobileOrdenBpt").val($("#Orden").val());
                     $("#MobileTituloMenu").val($("#DesktopTituloMenu").val());
                 }
-                /*END AGANA 159 */
+
 
                 var params = {
                     ConfiguracionPaisID: $("#ConfiguracionPaisID").val(),
@@ -356,16 +355,16 @@ function IniDialogs() {
                     success: function (data) {
                         if (data.success) {
                             HideDialog("DialogMantenimientoPalanca");
-                            //_toastHelper.error("Solicitud realizada sin problemas.");
+
                             showDialogMensaje("Solicitud realizada sin problemas.", '');
                             UpdateGrillaPalanca();
                         } else {
-                            //_toastHelper.error("Error al procesar la Solicitud.");
+
                             showDialogMensaje("Error al procesar la Solicitud.", '');
                         }
                     },
                     error: function (data, error) {
-                        //_toastHelper.error("Error al procesar la Solicitud.");
+
                         showDialogMensaje("Error al procesar la Solicitud.", '');
                     }
                 });
@@ -378,7 +377,7 @@ function IniDialogs() {
         }
     });
 }
-                
+
 function UpdateGrillaPalanca() {
     $("#list").jqGrid("GridUnload");
 
@@ -391,36 +390,36 @@ function UpdateGrillaPalanca() {
         multiselect: false,
         colNames: ["ConfiguracionPaisID", "Orden", "Código", "Descripción", "Acción"],
         colModel: [
-        {
+            {
                 name: "ConfiguracionPaisID",
-            index: "ConfiguracionPaisID",
-            width: 20,
-            editable: true,
-            resizable: false,
-            hidden: true
+                index: "ConfiguracionPaisID",
+                width: 20,
+                editable: true,
+                resizable: false,
+                hidden: true
 
-        },
-        {
+            },
+            {
                 name: "Orden",
-            index: "Orden",
-            width: 40,
-            ConfiguracionPaisID: true,
-            resizable: false,
-            hidden: false,
-            sortable: false
-        },
-        {name: "Codigo", index: "Codigo", width: 40, editable: true, hidden: false, sortable: false },
-        {name: "Descripcion", index: "Descripcion", width: 280, editable: true, hidden: false, sortable: false },
-        {
+                index: "Orden",
+                width: 40,
+                ConfiguracionPaisID: true,
+                resizable: false,
+                hidden: false,
+                sortable: false
+            },
+            { name: "Codigo", index: "Codigo", width: 40, editable: true, hidden: false, sortable: false },
+            { name: "Descripcion", index: "Descripcion", width: 280, editable: true, hidden: false, sortable: false },
+            {
                 name: "Activo",
-            index: "Activo",
-            width: 30,
-            align: "center",
-            editable: true,
-            resizable: false,
-            sortable: false,
-            formatter: ShowActions
-        }
+                index: "Activo",
+                width: 30,
+                align: "center",
+                editable: true,
+                resizable: false,
+                sortable: false,
+                formatter: ShowActions
+            }
         ],
         pager: false,
         loadtext: "Cargando datos...",
@@ -439,9 +438,9 @@ function UpdateGrillaPalanca() {
         pgtext: "",
         pginput: false
     });
-    jQuery("#list").jqGrid("navGrid", "#pager", {edit: false, add: false, refresh: false, del: false, search: false });
+    jQuery("#list").jqGrid("navGrid", "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
 }
-            
+
 function ShowActions(cellvalue, options, rowObject) {
     var des = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + rowObject[0] + "',event);\" >" + "<img src='" + rutaImagenEdit + "' alt='Editar' title='Editar' border='0' /></a>";
     if (rowObject[10] === "1") {
@@ -452,8 +451,8 @@ function ShowActions(cellvalue, options, rowObject) {
 
 function ShowActionsOfertas(cellvalue, options, rowObject) {
 
-            var des = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listOfertas').EditarOfertas('" + rowObject[0] + "');\" >" + "<img src='" + rutaImagenEdit + "' alt='Editar' title='Editar' border='0' /></a>";
-            if(rowObject[10] === "1") {
+    var des = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listOfertas').EditarOfertas('" + rowObject[0] + "');\" >" + "<img src='" + rutaImagenEdit + "' alt='Editar' title='Editar' border='0' /></a>";
+    if (rowObject[10] === "1") {
         des += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + rowObject[0] + "');\" >" + "<img src='" + rutaImagenDelete + "' alt='Deshabilitar' title='Deshabilitar' border='0' /></a>";
     }
     return des;
@@ -786,12 +785,12 @@ function IniDialogOfertasHome() {
 
                         if (data.success) {
                             HideDialog("DialogMantenimientoOfertasHome");
-                            //_toastHelper.success("Solicitud realizada sin problemas.");
+
                             showDialogMensaje(data.message, '');
                             UpdateGrillaOfertas();
                         } else {
                             showDialogMensaje(data.message, '');
-                            //_toastHelper.error("Error al procesar la Solicitud.");
+
                         }
                     },
                     error: function (data, error) {
@@ -1006,7 +1005,7 @@ function OfertasHomeMostrarCampos() {
     $("#divMantApp").show();
 
     $(".divHomeUsarImagenFondo").hide(); // caso odd
-    /*Inicia Agana 186 */
+
     if (codigoConfiguracionPais == ConstantesModule.CodigoPalanca.ATP) {
         $("#divTituloMobile").hide();
         $("#divContenidoMobile").hide();
