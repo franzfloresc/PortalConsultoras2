@@ -596,7 +596,7 @@ input:focus{
 
     .grupo_form_cambio_datos input:focus + label,
     .grupo_form_cambio_datos select:focus + label,
-    .campo_con_datos + label{
+    .grupo_form_cambio_datos .campo_con_datos + label{
         top:6px;
         font-size:12.5px;
         background-color:transparent;
@@ -909,17 +909,13 @@ input.permiso_cuenta_opcion_checkbox
     overflow:initial;
 }
 
-.btn_cta_miPerfil {
-    min-width: 180px;
-    height: 40px;
-    line-height: 40px;
-    margin-top: 17px;
-    font-size: 14px;
-    color: #FFF;
+.btn_secundario--cancelar,
+.btn_primario--miPerfil {
+    min-width: 160px;
+}
+
+.btn_primario--miPerfil {
     z-index: 2000;
-    background-color: #b9007e;
-    border: 0;
-    letter-spacing: 0.5px;
 }
 
 /*  FIN - MI PERFIL */
@@ -942,7 +938,8 @@ input.permiso_cuenta_opcion_checkbox
 }
 
 .grupo_form_cambio_datos--vistaActualizacionCorreo,
-.grupo_form_cambio_datos--vistaActualizacionCelular{
+.grupo_form_cambio_datos--vistaActualizacionCelular,
+.grupo_form_cambio_datos--ctasCambioContrasenia{
     padding: 0;
     border-bottom: 0;
 }
@@ -951,6 +948,19 @@ input.permiso_cuenta_opcion_checkbox
     .grupo_form_cambio_datos--vistaActualizacionCelular input {
         border-bottom: 1px solid #979797;
     }
+
+.grupo_form_cambio_datos--cambioContrasenia {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+    .grupo_form_cambio_datos--cambioContrasenia label{
+        top:24px;
+    }
+
+.grupo_form_cambio_datos--ctasCambioContrasenia{
+    margin-top:40px;
+}
 
 .enlace_volver_a_mi_perfil{
     margin-bottom:11px;

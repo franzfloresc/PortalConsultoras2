@@ -880,17 +880,11 @@ a{
     margin-top: 11px;
 }
 
-.btn_cta_miPerfil {
+.btn_primario--miPerfil {
     position: fixed;
     left: 0;
     bottom: 0;
-    height: 40px;
-    line-height: 40px;
-    font-size:14px;
-    color: #FFF;
-    z-index: 2000;
-    background-color: #b9007e;
-    border:0;
+    z-index:2000;
 }
 
 /* POPUP MAPA UBICACIÓN DIRECCIÓN ENTREGA */

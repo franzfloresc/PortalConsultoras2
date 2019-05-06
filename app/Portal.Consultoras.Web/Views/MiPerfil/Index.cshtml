@@ -194,7 +194,7 @@ else
                             </div>*@
                             <div class="grupo_form_cambio_datos grupo_form_cambio_datos--confirmado">
                                 <div>
-                                    <input id="txtCelularMD" name="txtCelularMD" class="w-100" type="text" value="@Model.Celular" maxlength="@Model.limiteMaximoTelef" />
+                                    <input id="txtCelularMD" name="txtCelularMD" class="w-100" type="text" value="@Model.Celular" maxlength="@Model.limiteMaximoTelef" readonly />
                                     <label for="txtCelularMD" class="w-100">Celular <span class="asteriscos">*</span></label>
                                     <span class="d-block text-bold mensaje_validacion_campo">Aún falta confirmar tu número</span>
                                 </div>
@@ -388,7 +388,7 @@ else
                 @*FIN EINCA HD-3180 Y HD-3304 15-01-2019*@
             </div>
             <div class="text-right text-uppercase">
-                <button id="btnGuardar" type="button" class="d-block border-radius-4 text-bold w-100 btn_cta_miPerfil mt-31">
+                <button id="btnGuardar" type="button" class="d-block border-radius-4 text-bold w-100 btn_primario btn_primario--miPerfil mt-31">
                     Guardar
                 </button>
             </div>
