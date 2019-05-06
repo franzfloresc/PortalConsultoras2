@@ -409,7 +409,12 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                 else fnRedireccionar();
             }
             else if (mostrarAlerta == true) {
-                AbrirMensaje(data.message);
+                //INI HD-3693
+                //AbrirMensaje(data.message);
+                var msjBloq = validarpopupBloqueada(data.message);
+                if (msjBloq != "") alert_msg_bloqueadas(msjBloq);
+                else AbrirMensaje(data.message);
+                //FIN HD-3693
             }
         },
         error: function (error) {
@@ -1155,3 +1160,14 @@ function CloseDialog(pop) {
     pop = pop || "box-pop-up";
     $("#" + pop).hide();
 } 
+
+function CerrarSesion() {
+    location.href = baseUrl + 'Login/LogOut';
+}
+//INI HD-3693
+function alert_msg_bloqueadas(message) {
+    $('#PopupBloqueoPorSistema .message_text_bloqueada').html(message);
+    $('#PopupBloqueoPorSistema').show();
+}
+//FIN HD-3693
+

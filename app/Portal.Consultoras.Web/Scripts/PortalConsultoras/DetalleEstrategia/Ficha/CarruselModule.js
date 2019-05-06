@@ -570,7 +570,7 @@ var CarruselModule = (function (config) {
 ////////////////////////////////////////////////////////////////////
 //// Ini - Home y Pedido
 ////////////////////////////////////////////////////////////////////
-function ArmarCarouselEstrategias(data) {
+function ArmarCarouselEstrategias(data) {    
     $("#divListaEstrategias").hide();
     $(".js-slick-prev").remove();
     $(".js-slick-next").remove();

@@ -201,6 +201,7 @@
             }
         }
 
+    @{ Html.RenderPartial("~/Views/Shared/PopupsResponsive/_PopupCierreSesion.cshtml");}
 
         <div class="content_responsive" data-layout="body">
             @RenderBody()
@@ -256,6 +257,8 @@
         var NovedadBuscadorVisitasUsuario = '@ViewBag.NovedadBuscador';
         var AplicarLogicaCantidadBotonVerTodos = '@ViewBag.AplicarLogicaCantidadBotonVerTodos'.toLowerCase();
         var MostrarPalabrasMenoresACuatro = '@ViewBag.MostrarPalabrasMenoresACuatro';
+        var NoReservoPedido = '@ViewBag.NoReservoPedido' === 'True';
+        var SessionTimeout = '@ViewBag.SessionTimeout';
 
         function ShowLoading() {
             $("#loading-spin").css('visibility', 'visible').fadeIn();

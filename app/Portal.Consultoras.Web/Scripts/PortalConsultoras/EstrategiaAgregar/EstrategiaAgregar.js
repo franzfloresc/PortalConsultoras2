@@ -386,8 +386,16 @@ var EstrategiaAgregarModule = (function () {
                 }
 
                 if (data.success === false) {
+                    //INI HD-3693
+                    //if (!IsNullOrEmpty(data.mensajeAviso)) AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
+                    //else abrirMensajeEstrategia(data.message, esFicha);
                     if (!IsNullOrEmpty(data.mensajeAviso)) AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
-                    else abrirMensajeEstrategia(data.message, esFicha);
+                    else {
+                        var msjBloq = validarpopupBloqueada(data.message);
+                        if (msjBloq != "") alert_msg_bloqueadas(msjBloq);
+                        else abrirMensajeEstrategia(data.message, esFicha);
+                    }
+                    //FIN HD-3693
 
                     CerrarLoad();
                     return false;
@@ -434,6 +442,27 @@ var EstrategiaAgregarModule = (function () {
                     }
                 }
 
+
+                //INI HD-3908
+
+                ////Tooltip de agregado
+                //if (esFicha) {
+                //    try {
+                //        var $AgregadoTooltip = $(dataProperties.tooltip);
+                //        if (params.EsEditable) {
+                //            $AgregadoTooltip.find(dataProperties.tooltipMensaje1).html("¡Listo! ");
+                //            $AgregadoTooltip.find(dataProperties.tooltipMensaje2).html(" Modificaste tu pedido");
+                //        }
+                //        $AgregadoTooltip.show();
+                //        setTimeout(function () { $AgregadoTooltip.hide(); }, 4000);
+                //        ResumenOpcionesModule.LimpiarOpciones();
+                //    } catch (e) {
+                //        console.error(e);
+                //    }
+
+                //}
+                var esFicha = ((estrategia.FlagNueva == 1 ? true : false) && IsNullOrEmpty(data.mensajeAviso)) || esFicha;
+
                 //Tooltip de agregado
                 if (esFicha) {
                     try {
@@ -459,7 +488,7 @@ var EstrategiaAgregarModule = (function () {
                             }
                         }, 2500);
                         if (!(origenPedidoWebEstrategia === _OrigenPedido.DesktopContenedorArmaTuPack || origenPedidoWebEstrategia === _OrigenPedido.MobileContenedorArmaTuPack)) {
-                            ResumenOpcionesModule.LimpiarOpciones();
+                            if (typeof ResumenOpcionesModule != 'undefined') { ResumenOpcionesModule.LimpiarOpciones() };
                         }
                         else {
                             return;
@@ -469,6 +498,8 @@ var EstrategiaAgregarModule = (function () {
                     }
 
                 }
+                //FIN HD-3908
+               
                 var barraJsLoaded = typeof MostrarBarra === 'function';
 
                 if (barraJsLoaded) {

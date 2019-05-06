@@ -266,12 +266,6 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
                 #endregion
-
-                #region bonificaciones 
-
-                ViewBag.esConsultoraDigital = IndicadorConsultoraDigital();
-
-                #endregion
             }
             catch (FaultException ex)
             {
@@ -2339,6 +2333,11 @@ namespace Portal.Consultoras.Web.Controllers
                     message = "Error al obtener el estado del contrato."
                 }, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        public ActionResult KeepAlive()
+        {
+            return Content("OK");
         }
     }
 } 

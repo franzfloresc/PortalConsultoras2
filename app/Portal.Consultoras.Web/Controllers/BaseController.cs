@@ -969,6 +969,13 @@ namespace Portal.Consultoras.Web.Controllers
         private void GetUserDataViewBag()
         {
             var esMobile = IsMobile();
+
+            #region bonificaciones 
+
+            ViewBag.esConsultoraDigital = IndicadorConsultoraDigital();
+
+            #endregion
+
             ViewBag.PseudoParamNotif = userData.PseudoParamNotif;
             ViewBag.EstadoInscripcionEpm = revistaDigital.EstadoRdcAnalytics;
             ViewBag.UsuarioNombre = (Util.Trim(userData.Sobrenombre) == "" ? userData.NombreConsultora : userData.Sobrenombre);
@@ -1191,6 +1198,8 @@ namespace Portal.Consultoras.Web.Controllers
             if (j >= 0) ViewBag.NombreConsultora = ViewBag.NombreConsultora.Substring(0, j).Trim();
 
             ViewBag.HabilitarChatEmtelco = _chatEmtelcoProvider.HabilitarChatEmtelco(userData.PaisID, esMobile);
+            ViewBag.NoReservoPedido = userData.EsDiasFacturacion && _pedidoWebProvider.RequiereCierreSessionValidado(_tablaLogicaProvider, userData.PaisID) && !_pedidoWebProvider.TienePedidoReservado(userData) && ObtenerPedidoWebDetalle().Count > 0;
+            ViewBag.SessionTimeout = HttpContext.Session.Timeout;
 
             ViewBag.MostrarBuscadorYFiltros = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.MostrarBuscador).ToBool();
             ViewBag.CaracteresBuscador = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.CaracteresBuscador);
@@ -1453,21 +1462,27 @@ namespace Portal.Consultoras.Web.Controllers
             bool r = false;
             try
             {
-                string region = ConfigurationManager.AppSettings.Get(Constantes.ConfiguracionManager.BonificacionesRegiones);
-                List<string> ListRegion = region == null ? new List<string>() : region.Split(new char[] { ',' }).ToList();
-                var validaRegion = ListRegion.Where(x => x.Contains(userData.CodigorRegion));
-
-                if (validaRegion.Any())
+                if (SessionManager.GetConsultoraDigital() == null)
                 {
-                    using (var sv = new ServiceUsuario.UsuarioServiceClient())
+                    string region = ConfigurationManager.AppSettings.Get(Constantes.ConfiguracionManager.BonificacionesRegiones);
+                    List<string> ListRegion = region == null ? new List<string>() : region.Split(new char[] { ',' }).ToList();
+                    var validaRegion = ListRegion.Where(x => x.Contains(userData.CodigorRegion));
+
+                    if (validaRegion.Any())
                     {
-                        ServiceUsuario.BEUsuario beusuario = sv.Select(userData.PaisID, userData.CodigoUsuario);
-                        if (beusuario != null)
+                        using (var sv = new ServiceUsuario.UsuarioServiceClient())
                         {
-                            r = beusuario.IndicadorConsultoraDigital > 0;
+                            ServiceUsuario.BEUsuario beusuario = sv.Select(userData.PaisID, userData.CodigoUsuario);
+                            if (beusuario != null)
+                            {
+                                r = beusuario.IndicadorConsultoraDigital > 0;
+                                SessionManager.SetConsultoraDigital(r);
+                            }
                         }
                     }
                 }
+                else
+                    r = SessionManager.GetConsultoraDigital().Value;
             }
             catch (Exception e)
             {

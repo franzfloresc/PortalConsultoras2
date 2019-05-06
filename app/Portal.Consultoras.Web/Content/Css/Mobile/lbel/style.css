@@ -4449,6 +4449,21 @@ table > thead > tr > th {
     font-size: 11px;
 }
 
+
+.rango_cantidad_pedido_fijo {
+    -webkit-appearance: none;
+    border-radius: 0;
+    width: 100%;
+    height: 48px;
+    line-height: 48px;
+    background: transparent;
+    float: left;
+    text-align: center;
+    font-weight: 700;
+    border: 1px solid #b0b0b0;
+    color: rgb(84, 84, 84);
+}
+
 .cantidad_mas_home {
     float: left;
     width: 30%;
@@ -5486,6 +5501,7 @@ body {
     color: #000000;
     margin-top: 30px;
     margin-bottom: 15px;
+    text-align: center;
 }
 
 .contet_alert {
@@ -5861,6 +5877,7 @@ input[type='checkbox']:checked + span:after {
     .titulo_compartir {
         font-size: 16px;
         line-height: 28px;
+        text-align: center;
     }
 }
 /*CAMBIO FOOTER*/
@@ -9528,6 +9545,14 @@ span.icon-advertencia {
     float: left;
 }
 
+.content_cantidad_ficha_producto_fijo {
+    width: 48px;
+    margin-right: 5%;
+    background: white;
+    overflow: hidden;
+    float: left;
+}
+
 .btn_desactivado_general {
     background: #e5e5e5;
     border: 1px solid #d2d2d2;
@@ -9536,6 +9561,20 @@ span.icon-advertencia {
 
 .btn_agregar_ficha_producto {
     width: 50%;
+    height: 48px;
+    font-family: 'Lato';
+    font-size: 14px;
+    color: white;
+    font-weight: 700;
+    display: block;
+    float: left;
+    text-align: center;
+    line-height: 47px;
+    background: black;
+}
+
+.btn_agregar_ficha_producto_fijo {
+    width: 70%;
     height: 48px;
     font-family: 'Lato';
     font-size: 14px;
