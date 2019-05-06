@@ -1,4 +1,6 @@
-﻿$(function() {
+﻿var expiredSession = false;
+
+$(function() {
     //if (noPedidoReservado()) {
     //    registerCloseEvent();
     //}
@@ -60,14 +62,25 @@ function registerCloseEvent() {
 }
 
 function continuarSession() {
-    window.idleTimeout.reset();
-    callKeepAlive();
+    callKeepAlive().then(function () {
+        window.idleTimeout.reset();
+    });
+}
+
+function closeCierreSession() {
+    if (expiredSession) {
+        CerrarSesion();
+    } else {
+        continuarSession();
+    }
 }
 
 function callKeepAlive() {
     var urlKeepAlive = baseUrl + 'Bienvenida/KeepAlive';
 
-    return $.get(urlKeepAlive).then(function(result) {
+    return $.get(urlKeepAlive).then(function(result, textStatus, request) {
+        console.log(request);
+        console.log(request.getResponseHeader('Location'));
         checkTimeout(result);
     });
 }
@@ -108,6 +121,7 @@ function forceCloseSession() {
 }
 
 function showPopupFinSesion() {
+    expiredSession = true;
     showPopupCierreSesion(4);
 }
 
