@@ -973,6 +973,21 @@ function DetalleGuardar(operacionId, callbackWhenFinish) {
 
         }
     }
+    var Reemplazo = [];
+    if (operacionId === reclamo.operacion.trueque) {
+        //obtener los valores del cada cuv para el trueque
+        var items = $("#contenedorCuvTrueque .item-producto-cambio");
+        items.each(function (i, el) {
+            var $el = $(el);
+            var obj = {
+                cuv: $($el).find("input[name=codigo]").attr("data-codigo"),
+                cantidad: $($el).find("input[name=cantidad]").val(),
+                descripcion: $($el).find("input[name=descripcion]").attr("data-descripcion")
+            };
+
+            Reemplazo.push(obj);
+        });
+    }
 
     var item = {
         CDRWebID: $("#CDRWebID").val() || 0,
@@ -985,7 +1000,8 @@ function DetalleGuardar(operacionId, callbackWhenFinish) {
         Cantidad: $("#txtCantidad").val(),
         CUV2: $("#txtCUV2").val(),
         Cantidad2: $("#txtCantidad2").val(),
-        Complemento: Complemento
+        Complemento: Complemento,
+        Reemplazo: operacionId === reclamo.operacion.trueque ? Reemplazo : null
     };
 
     $.ajax({
@@ -1057,40 +1073,51 @@ function ValidarPasoDosFaltante(codigoSsic) {
 }
 
 
-function ValidarPaso2Faltante(codigoSsic) {
-    var esCantidadPermitidaValida = ValidarCantidadMaximaPermitida(codigoSsic);
+//function ValidarPaso2Faltante(codigoSsic) {
+//    var esCantidadPermitidaValida = ValidarCantidadMaximaPermitida(codigoSsic);
 
-    if (esCantidadPermitidaValida) {
-        var montoTotalPedido = $("#hdImporteTotalPedido").val();
-        var montoProductosFaltanteActual = ObtenerMontoProductosDevolver(codigoSsic);
-        var montoCuvActual = (parseFloat($("#txtPrecioUnidad").val()) || 0) * (parseInt($("#txtCantidad").val()) || 0);
-        var montoDevolver = montoProductosFaltanteActual + montoCuvActual;
+//    if (esCantidadPermitidaValida) {
+//        var montoTotalPedido = $("#hdImporteTotalPedido").val();
+//        var montoProductosFaltanteActual = ObtenerMontoProductosDevolver(codigoSsic);
+//        var montoCuvActual = (parseFloat($("#txtPrecioUnidad").val()) || 0) * (parseInt($("#txtCantidad").val()) || 0);
+//        var montoDevolver = montoProductosFaltanteActual + montoCuvActual;
 
-        ObtenerValorParametria(codigoSsic);
-        var valorParametria = $("#hdParametriaCdr").val() || 0;
+//        ObtenerValorParametria(codigoSsic);
+//        var valorParametria = $("#hdParametriaCdr").val() || 0;
 
-        valorParametria = parseFloat(valorParametria);
+//        valorParametria = parseFloat(valorParametria);
 
-        var montoMaximoDevolver = montoTotalPedido * valorParametria / 100;
+//        var montoMaximoDevolver = montoTotalPedido * valorParametria / 100;
 
-        if (montoMaximoDevolver < montoDevolver) {
-            alert_msg("Por favor, selecciona otra solución, ya que superas el porcentaje de faltante permitido en tu pedido facturado");
-            return false;
-        }
+//        if (montoMaximoDevolver < montoDevolver) {
+//            alert_msg("Por favor, selecciona otra solución, ya que superas el porcentaje de faltante permitido en tu pedido facturado");
+//            return false;
+//        }
 
-        return true;
-    } else
-        return false;
-}
+//        return true;
+//    } else
+//        return false;
+//}
 
 function ValidarPasoDosFaltanteAbono(codigoSsic) {
     return ValidarCantidadMaximaPermitida(codigoSsic);
 }
 
 function ValidarPasoDosTrueque() {
-    if ($.trim($("#txtCUV2").val()) == "") {
+    //agregar aquí
+    var $cuvs = $("#contenedorCuvTrueque .item-producto-cambio").find("input[name=codigo]");
+
+    var ok = true;
+    $.each($cuvs, function (i, el) {
+        var $el = $(el);
+        if ($el.attr("data-codigo") === "" || ($el.attr("data-codigo") !== "" & $el.attr("data-codigo").length !== 5)) {
+            ok = false;
+            return false;
+        }
+    });
+
+    if (!ok) {
         alert_msg("Por favor, ingrese el CUV con el que desea cambiar.");
-        $('#txtCUV2').focus();
         return false;
     }
 
@@ -1126,44 +1153,44 @@ function ValidarPasoDosTrueque() {
     return true;
 }
 
-function ValidarPasoDosTruequeServer(callbackWhenFinish) {
-    var item = {
-        PedidoID: $("#txtPedidoID").val(),
-        CUV: $.trim($("#txtCUV2").val()),
-        Cantidad: $.trim($("#txtCantidad2").val()),
-        Motivo: $.trim($("#divMotivo [data-check='1']").attr("id")),
-        CampaniaID: $("#ddlCampania").val()
-    };
+//function ValidarPasoDosTruequeServer(callbackWhenFinish) {
+//    var item = {
+//        PedidoID: $("#txtPedidoID").val(),
+//        CUV: $.trim($("#txtCUV2").val()),
+//        Cantidad: $.trim($("#txtCantidad2").val()),
+//        Motivo: $.trim($("#divMotivo [data-check='1']").attr("id")),
+//        CampaniaID: $("#ddlCampania").val()
+//    };
 
 
-    $.ajaxSetup({
-        global: false,
-        cache: false,
-        type: "POST",
-        url: baseUrl + 'MisReclamos/ValidarNoPack',
-        beforeSend: function () {
-            waitingDialog();
-        },
-        complete: function () {
-            closeWaitingDialog();
-        }
-    });
+//    $.ajaxSetup({
+//        global: false,
+//        cache: false,
+//        type: "POST",
+//        url: baseUrl + 'MisReclamos/ValidarNoPack',
+//        beforeSend: function () {
+//            waitingDialog();
+//        },
+//        complete: function () {
+//            closeWaitingDialog();
+//        }
+//    });
 
-    $.ajax({
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(item),
-        async: true,
-        success: function (data) {
-            if (callbackWhenFinish && typeof callbackWhenFinish === "function") {
-                callbackWhenFinish(data.success, data.message);
-            }
-        },
-        error: function (data, error) {
-            closeWaitingDialog();
-        }
-    });
-}
+//    $.ajax({
+//        dataType: 'json',
+//        contentType: 'application/json; charset=utf-8',
+//        data: JSON.stringify(item),
+//        async: true,
+//        success: function (data) {
+//            if (callbackWhenFinish && typeof callbackWhenFinish === "function") {
+//                callbackWhenFinish(data.success, data.message);
+//            }
+//        },
+//        error: function (data, error) {
+//            closeWaitingDialog();
+//        }
+//    });
+//}
 
 function ValidarCantidadMaximaPermitida(codigoSsic) {
     ObtenerValorCDRWebDatos(codigoSsic);
@@ -1231,27 +1258,27 @@ function DetalleCargar() {
     });
 }
 
-function DetalleAccion(obj) {
-    var accion = $.trim($(obj).attr("data-accion"));
-    if (accion == "") {
-        return false;
-    }
+//function DetalleAccion(obj) {
+//    var accion = $.trim($(obj).attr("data-accion"));
+//    if (accion == "") {
+//        return false;
+//    }
 
-    if (accion == "x") {
-        var pedidodetalleid = $.trim($(obj).attr("data-pedidodetalleid"));
+//    if (accion == "x") {
+//        var pedidodetalleid = $.trim($(obj).attr("data-pedidodetalleid"));
 
-        var item = {
-            CDRWebDetalleID: pedidodetalleid
-        };
+//        var item = {
+//            CDRWebDetalleID: pedidodetalleid
+//        };
 
 
-        var functionEliminar = function () {
-            DetalleEliminar(item);
-        };
-        messageConfirmacion("", "Se eliminará el registro seleccionado. <br/>¿Deseas continuar?", functionEliminar);
+//        var functionEliminar = function () {
+//            DetalleEliminar(item);
+//        };
+//        messageConfirmacion("", "Se eliminará el registro seleccionado. <br/>¿Deseas continuar?", functionEliminar);
 
-    }
-}
+//    }
+//}
 
 function DetalleEliminar(objItem) {
     waitingDialog();
@@ -1740,6 +1767,9 @@ function EscogerSolucion(opcion, event) {
     //en base al id, mostramos la capa correspondiente
     if (id == reclamo.operacion.trueque) {
         $.when(ObtenerValorParametria(id)).then(function () {
+            var $contenedor = $("#contenedorCuvTrueque");
+            $contenedor.empty();
+            $contenedor.append($("#template-cuv-cambio").html());
             $('#OpcionCambioPorOtroProducto').fadeIn(200);
             SetMontoCampaniaTotal();
         });
@@ -1913,8 +1943,9 @@ function BuscarInfoCUV(e) {
 
     if ($this.val().length !== 5) {
         //Limpiar controles
-        $elements.children("input").val("");
-        $elements.children(".contenedor-cantidad").find("input[name=cantidad]").val("1");
+        $this.attr("data-codigo", "");
+        $elements.children("input").val("").end()
+            .children(".contenedor-cantidad").find("input[name=cantidad]").val("1");
         return false;
     }
 
@@ -1922,12 +1953,14 @@ function BuscarInfoCUV(e) {
         if (!data.success) {
             //Limpiar controles
             $elements.children("input").val("").end()
-            .children(".contenedor-cantidad").find("input[name=cantidad]").val("1");
+                .children(".contenedor-cantidad").find("input[name=cantidad]").val("1");
 
             $this.attr("data-codigo", $this.val());
-            $elements.children("input[name=descripcion]").val("").end()
-            .children("input[name=precio]").val("").end()
-            .children("input[name=precio]").attr("data-precio", "");
+            $elements
+                .children("input[name=descripcion]").val("").end()
+                .children("input[name=descripcion]").attr("").end()
+                .children("input[name=precio]").val("").end()
+                .children("input[name=precio]").attr("data-precio", "");
             alert_msg(data.message);
             return false;
         }
@@ -1936,9 +1969,11 @@ function BuscarInfoCUV(e) {
         //obtener los elementos a setear 
         if (datosCUV.MarcaID != 0) {
             $this.attr("data-codigo", datosCUV.CUV);
-            $elements.children("input[name=descripcion]").val(datosCUV.Descripcion).end()
-            .children("input[name=precio]").val(DecimalToStringFormat(datosCUV.PrecioCatalogo)).end()
-            .children("input[name=precio]").attr("data-precio", datosCUV.PrecioCatalogo);
+            $elements
+                .children("input[name=descripcion]").val(datosCUV.Descripcion).end()
+                .children("input[name=descripcion]").attr("data-descripcion",datosCUV.Descripcion).end()
+                .children("input[name=precio]").val(DecimalToStringFormat(datosCUV.PrecioCatalogo)).end()
+                .children("input[name=precio]").attr("data-precio", datosCUV.PrecioCatalogo);
             CalcularTotal();
         }
     });
@@ -1948,12 +1983,15 @@ function BuscarInfoCUV(e) {
 
 //HD-4017 EINCA
 function EliminarCUVTrueque(el) {
-    $(el).parent().parent().remove();
+    if ($("#contenedorCuvTrueque .item-producto-cambio").length > 1)
+        $(el).parent().parent().remove();
+    else
+        return false;
 }
 
 function CalcularTotal() {
     var precioTotal = 0;
-    var items = $(".item-producto-cambio");
+    var items = $("#contenedorCuvTrueque .item-producto-cambio");
     items.each(function (i, el) {
         var $el = $(el);
         var precio = $($el).find("input[name=precio]").attr("data-precio");

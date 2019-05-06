@@ -118,13 +118,14 @@
                                         </div>
                                     </div>
                                 </div>*@
+                            @*Valores de la parametría*@
+                            <input type="hidden" id="hdMontoMinimoReclamo" />
+                            <input type="hidden" id="hdCuvPrecio2">
+                            <input type="hidden" id="hdParametriaCdr" value="0">
+                            <input type="hidden" id="hdParametriaAbsCdr" value="1">
+                            <input type="hidden" id="hdCdrWebDatos_Ssic">
                             <div id="contenedorCuvTrueque">
-                                @*Valores de la parametría*@
-                                <input type="hidden" id="hdMontoMinimoReclamo" />
-                                <input type="hidden" id="hdCuvPrecio2">
-                                <input type="hidden" id="hdParametriaCdr" value="0">
-                                <input type="hidden" id="hdParametriaAbsCdr" value="1">
-                                <input type="hidden" id="hdCdrWebDatos_Ssic">
+
                             </div>
                             <button type="button" name="Agregar" class="d-block border-radius-4 text-bold text-uppercase btn_cdr btn_agregar_mas_productos_a_cambiar" onclick="AgregarCUVTrueque();">
                                 <span><img src="@Url.Content("~/Content/Images/icono_plus.svg")" alt="Agregar productos" /></span>
@@ -398,6 +399,7 @@
             <input type="text"
                    class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--descripcion"
                    name="descripcion"
+                   data-descripcion=""
                    readonly
                    placeholder="Descripción del producto" />
             <input type="text"

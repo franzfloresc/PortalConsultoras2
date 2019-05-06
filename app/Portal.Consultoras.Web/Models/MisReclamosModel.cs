@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -7,6 +8,7 @@ namespace Portal.Consultoras.Web.Models
         public MisReclamosModel()
         {
             Complemento = new HashSet<ProductoComplementarioModel>();
+            Reemplazo = new HashSet<ProductoComplementarioModel>();
             flagLimiteReclamo = false;
         }
         public int CDRWebID { get; set; }
@@ -48,7 +50,7 @@ namespace Portal.Consultoras.Web.Models
 
         public bool TieneCDRExpress { get; set; }
         public bool EsConsultoraNueva { get; set; }
-        public bool? TipoDespacho { get; set; }
+      public bool? TipoDespacho { get; set; }
         public decimal FleteDespacho { get; set; }
         public string MensajeDespacho { get; set; }
         public bool EsMovilOrigen { get; set; }
@@ -56,6 +58,32 @@ namespace Portal.Consultoras.Web.Models
         public MensajesCDRExpressModel MensajesExpress { get; set; }
         public int? CantidadReclamosPorPedido { get; set; }
         public ICollection<ProductoComplementarioModel> Complemento { get; set; }
+        public ICollection<ProductoComplementarioModel> Reemplazo { get; set; }
+        public static string ToXML(List<ProductoComplementarioModel> lista)
+        {
+            string strOut = string.Empty;
+            if (lista == null)
+                return strOut;
+            if (lista.Count > 0)
+            {
+                StringBuilder sb = new StringBuilder();
+
+                sb.Append("<reemplazos>");
+                foreach (var item in lista)
+                {
+                    sb.AppendFormat("<reemplazo>" +
+                        "<cuv>{0}</cuv>" +
+                        "<cantidad>{1}</cantidad>" +
+                        "<descripcion>{2}</descripcion>" +
+                        "<estado>{3}</estado>" +
+                        "</reemplazo>", item.CUV, item.Cantidad, item.Descripcion, 1);
+                }
+                sb.Append("</reemplazos>");
+                strOut = sb.ToString();
+
+            }
+            return strOut;
+        }
         public int MostrarTab { get; set; }
         public bool flagLimiteReclamo { get; set; }
     }

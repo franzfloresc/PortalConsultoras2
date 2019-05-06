@@ -444,15 +444,15 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (ODSServiceClient sv = new ODSServiceClient())
                 {
-                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(userData.PaisID, 
-                        model.CampaniaID, 
-                        model.CUV, 
-                        userData.RegionID, 
-                        userData.ZonaID, 
-                        userData.CodigorRegion, 
-                        userData.CodigoZona, 
+                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(userData.PaisID,
+                        model.CampaniaID,
+                        model.CUV,
+                        userData.RegionID,
+                        userData.ZonaID,
+                        userData.CodigorRegion,
+                        userData.CodigoZona,
                         1,
-                        1, 
+                        1,
                         false).ToList();
                 }
 
@@ -495,7 +495,8 @@ namespace Portal.Consultoras.Web.Controllers
                     LimiteVenta = 99
                 });
 
-                return Json(new {
+                return Json(new
+                {
                     success = true,
                     producto,
                     message = "",
@@ -832,8 +833,7 @@ namespace Portal.Consultoras.Web.Controllers
                 bool? IsSetsOrPack = false;
                 var arrComplemento = new ServiceCDR.BECDRWebDetalle[] { };
                 model.Accion = "I";
-                var rpta = ValidarDetalleGuardar(ref model);
-
+                var rpta = ValidarDetalleGuardar(ref model);                
                 if (!rpta)
                 {
                     return Json(new
@@ -847,7 +847,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (SessionManager.GetFlagIsSetsOrPack() != null)
                     IsSetsOrPack = SessionManager.GetFlagIsSetsOrPack();
 
-                if (IsSetsOrPack == true && model.Operacion == Constantes.CodigoOperacionCDR.Devolucion)
+                if (model.Operacion == Constantes.CodigoOperacionCDR.Devolucion && IsSetsOrPack == true)
                 {
                     if (model.Complemento.Any())
                     {
