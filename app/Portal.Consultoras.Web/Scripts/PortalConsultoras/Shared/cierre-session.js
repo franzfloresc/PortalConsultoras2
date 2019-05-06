@@ -62,9 +62,8 @@ function registerCloseEvent() {
 }
 
 function continuarSession() {
-    callKeepAlive().then(function () {
-        window.idleTimeout.reset();
-    });
+	window.idleTimeout.reset();
+    callKeepAlive();
 }
 
 function closeCierreSession() {
