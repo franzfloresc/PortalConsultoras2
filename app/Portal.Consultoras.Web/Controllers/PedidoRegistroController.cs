@@ -50,8 +50,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 var producto = olstProducto[0];
-
-                //var strCuv = CUV;
+                
                 int outVal;
 
                 var pedidoCrudModel = new PedidoCrudModel();
@@ -142,7 +141,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                string mensaje = "", urlRedireccionar = "";//, CuvSet = string.Empty;
+                string mensaje = "", urlRedireccionar = "";
                 BEPedidoDetalle pedidoDetalle = new BEPedidoDetalle();
                 pedidoDetalle.Producto = new ServicePedido.BEProducto();
                 model.CuvTonos = Util.Trim(model.CuvTonos);
@@ -181,7 +180,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     var tonos = model.CuvTonos.Split('|');
                     var cuvTonos = new StringBuilder();
-                    //string cuvTonos = "";
+                    
                     foreach (var tono in tonos)
                     {
                         var listSp = tono.Split(';');
@@ -225,8 +224,18 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
+                var esCaminoBrillante = false;
+                #region Camino Brillante
+                if (model.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido ||
+                    model.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido)
+                {
+                    esCaminoBrillante = true;                    
+                    SessionManager.SetDemostradoresCaminoBrillante(null);
+                }
+                #endregion
+
                 #region OfertaFinal/LiquidacionWeb
-                if (model.EstrategiaID <= 0 && !pedidoDetalle.EsVirtualCoach)
+                if (model.EstrategiaID <= 0 && !pedidoDetalle.EsVirtualCoach && !esCaminoBrillante)
                 {
                     pedidoDetalle.Estrategia = new ServicePedido.BEEstrategia();
                     pedidoDetalle.Estrategia.Cantidad = Convert.ToInt32(model.Cantidad);
@@ -328,7 +337,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public async Task<JsonResult> AgergarPremioDefault()
         {
-            var premios =_programaNuevasProvider.GetListPremioElectivo();
+            var premios = _programaNuevasProvider.GetListPremioElectivo();
             var premioSelected = GetPremioSelected(premios);
 
             if (premioSelected != null) return Json(false);
@@ -390,8 +399,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult UpdateTransaction(PedidoWebDetalleModel model)
         {
-            //string tipo = string.Empty;
-            //string totalFormato = string.Empty;
             var txtBuildCliente = new StringBuilder();
 
 
@@ -527,10 +534,6 @@ namespace Portal.Consultoras.Web.Controllers
             var total = olstPedidoWebDetalle.Sum(p => p.ImporteTotal);
             var formatoTotal = Util.DecimalToStringFormat(total, userData.CodigoISO);
 
-            //var formatoTotalCliente = "";
-            //if (olstPedidoWebDetalle.Any()) formatoTotalCliente = PedidoWebTotalClienteFormato(ClienteID, olstPedidoWebDetalle);
-            //var listaCliente = ListarClienteSegunPedido("", olstPedidoWebDetalle);
-
             SessionManager.SetBEEstrategia(Constantes.ConstSession.ListaEstrategia, null);
 
             var message = !errorServer ? "OK"
@@ -545,8 +548,6 @@ namespace Portal.Consultoras.Web.Controllers
                 message,
                 formatoTotal,
                 total,
-                //formatoTotalCliente,
-                //listaCliente,
                 tipo,
                 EsAgregado,
                 DataBarra = !errorServer ? GetDataBarra() : new BarraConsultoraModel(),

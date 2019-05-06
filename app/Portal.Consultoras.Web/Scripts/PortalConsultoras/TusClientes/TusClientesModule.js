@@ -6,7 +6,7 @@ var TusClientesModule = function (config) {
     "use strict";
 
     var _config = {
-        tusClientesProvider: config.tusClientesProvider /*|| TusClientesProvider()*/,
+        tusClientesProvider: config.tusClientesProvider,
         checkTimeout: checkTimeout
     };
 
@@ -15,9 +15,7 @@ var TusClientesModule = function (config) {
         btnExportarClientes: "#btnExportarClientes",
         divClientes: "#divClientes",
         hbsClientes: "#hbsClientes",
-        //
         divPopupEditarCliente: "#divPopupEditarCliente",
-        //
         divConfirmarEliminarCliente: "#divConfirmarEliminarCliente",
         btnConfirmarEliminarCliente: "#btnConfirmarEliminarCliente",
         btnCancelarEliminarCliente: "#btnCancelarEliminarCliente",
@@ -27,13 +25,11 @@ var TusClientesModule = function (config) {
 
     var _buscarClientes = function () {
         var nombreCliente = $.trim($(_elements.txtNombreCliente).val());
-        //$(_elements.btnExportarClientes).hide();
 
         if (!checkTimeout()) return false;
         _config.tusClientesProvider
             .consultarPromise(nombreCliente)
             .done(function (result) {
-                //if (result.miData.length > 0) $(_elements.btnExportarClientes).show();
                 SetHandlebars(_elements.hbsClientes, result, _elements.divClientes);
             })
             .fail(function (data, error) {
@@ -49,7 +45,7 @@ var TusClientesModule = function (config) {
     };
 
     var _ocultarEditarCliente = function () {
-        
+
         $(_elements.divPopupEditarCliente).removeClass("show_PopupEditarCliente");
         setTimeout(function () {
             $(_elements.divPopupEditarCliente).hide();
@@ -124,9 +120,6 @@ var TusClientesModule = function (config) {
         });
 
         $(_elements.btnExportarClientes).click(function (e) {
-            //if (!checkTimeout()) {
-            //    return false;
-            //}
 
             var content = "/TusClientes/ExportarExcelMisClientes";
             var iframe_ = document.createElement("iframe");

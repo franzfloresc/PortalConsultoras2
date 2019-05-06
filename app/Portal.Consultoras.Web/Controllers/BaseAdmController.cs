@@ -11,10 +11,12 @@ namespace Portal.Consultoras.Web.Controllers
     public partial class BaseAdmController : BaseController
     {
         public readonly ZonificacionProvider _zonificacionProvider;
+        protected readonly AdministrarEstrategiaProvider administrarEstrategiaProvider;
 
         public BaseAdmController()
         {
             _zonificacionProvider = new ZonificacionProvider();
+            administrarEstrategiaProvider = new AdministrarEstrategiaProvider();
         }
 
         public IEnumerable<PaisModel> DropDowListPaises(int rolId = 0)

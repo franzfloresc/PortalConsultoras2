@@ -6723,8 +6723,8 @@ input[type='checkbox']:checked + span:after {
 
 .popup_comunicado {
     position: relative;
-    top: 80px;
-    margin: 0 auto;
+    top: 70px;
+    margin: 0 auto 49px auto;
     background: #fff;
     box-sizing: border-box;
     font-family: 'Lato';
@@ -6766,7 +6766,7 @@ input[type='checkbox']:checked + span:after {
         width: 100%;
         position: absolute;
         color: #fff;
-        padding-top: 5px;
+        padding-top: 0;
     }
 
         .popup_comunicado .pie_popup_comunicado input[type='checkbox'] {
@@ -6783,10 +6783,34 @@ input[type='checkbox']:checked + span:after {
         }
 
         .popup_comunicado .pie_popup_comunicado .check_text {
-            padding-left: 4px;
+            padding-left: 0;
             vertical-align: top;
             display: table-cell;
+            font-size: 13px;
+            letter-spacing: 0.2px;
         }
+
+.popup_comunicado .pie_popup_comunicado .check_text,
+.enlace_no_volver_a_mostrar_comunicado{
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.enlace_no_volver_a_mostrar_comunicado,
+.enlace_no_volver_a_mostrar_comunicado:hover {
+    padding:0!important;
+    width:240px;
+    height:45px;
+    line-height:45px;
+    color: #FFF;
+    font-size: 11px;
+    font-weight: 300 !important;
+    letter-spacing: 0.5px;
+    text-decoration: underline;
+    text-transform: uppercase;
+    text-align: center;
+}
 
 /* POPUP AGREGAR CLIENTE */
 

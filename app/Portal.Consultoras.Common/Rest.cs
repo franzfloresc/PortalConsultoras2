@@ -9,7 +9,6 @@ namespace Portal.Consultoras.Common
 {
     public class Rest
     {
-        private const string _mediaType = "application/json";
         private readonly string _serviceUrl = ConfigurationManager.AppSettings["UrlLogDynamo"].ToString();
 
         public Rest()

@@ -162,13 +162,13 @@ namespace Portal.Consultoras.Web.Providers
             var wMax = 0;
             if (tipoImg == Constantes.ConfiguracionImagenResize.TipoImagenSmall)
             {
-                hBase = _tablaLogicaProvider.GetTablaLogicaDatoCodigoInt(Constantes.PaisID.Peru, Constantes.TablaLogica.ValoresImagenesResize, Constantes.TablaLogicaDato.ValoresImagenesResizeHeightSmall, true);
-                wMax = _tablaLogicaProvider.GetTablaLogicaDatoCodigoInt(Constantes.PaisID.Peru, Constantes.TablaLogica.ValoresImagenesResize, Constantes.TablaLogicaDato.ValoresImagenesResizeWitdhMaxSmall, true);
+                hBase = _tablaLogicaProvider.GetTablaLogicaDatoCodigoInt(Constantes.PaisID.Peru, ConsTablaLogica.ImagenesResize.TablaLogicaId, Constantes.TablaLogicaDato.ValoresImagenesResizeHeightSmall, true);
+                wMax = _tablaLogicaProvider.GetTablaLogicaDatoCodigoInt(Constantes.PaisID.Peru,  ConsTablaLogica.ImagenesResize.TablaLogicaId, Constantes.TablaLogicaDato.ValoresImagenesResizeWitdhMaxSmall, true);
             }
             else if (tipoImg == Constantes.ConfiguracionImagenResize.TipoImagenMedium)
             {
-                hBase = _tablaLogicaProvider.GetTablaLogicaDatoCodigoInt(Constantes.PaisID.Peru, Constantes.TablaLogica.ValoresImagenesResize, Constantes.TablaLogicaDato.ValoresImagenesResizeHeightMedium, true);
-                wMax = _tablaLogicaProvider.GetTablaLogicaDatoCodigoInt(Constantes.PaisID.Peru, Constantes.TablaLogica.ValoresImagenesResize, Constantes.TablaLogicaDato.ValoresImagenesResizeWitdhMaxMedium, true);
+                hBase = _tablaLogicaProvider.GetTablaLogicaDatoCodigoInt(Constantes.PaisID.Peru, ConsTablaLogica.ImagenesResize.TablaLogicaId, Constantes.TablaLogicaDato.ValoresImagenesResizeHeightMedium, true);
+                wMax = _tablaLogicaProvider.GetTablaLogicaDatoCodigoInt(Constantes.PaisID.Peru, ConsTablaLogica.ImagenesResize.TablaLogicaId, Constantes.TablaLogicaDato.ValoresImagenesResizeWitdhMaxMedium, true);
             }
 
             if (hBase == 0 && wMax == 0)

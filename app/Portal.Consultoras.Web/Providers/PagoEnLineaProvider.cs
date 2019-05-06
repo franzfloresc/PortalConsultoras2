@@ -6,6 +6,7 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.PagoEnLinea;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.SessionManager;
+using Portal.Consultoras.Web.ServiceUsuario;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -37,6 +38,7 @@ namespace Portal.Consultoras.Web.Providers
             model.Simbolo = userData.Simbolo;
             model.MontoDeuda = userData.MontoDeuda;
             model.FechaVencimiento = userData.FechaLimPago;
+            model.AplicaPorcentaje = ObtenerAplicaPorcentaje(userData, model) ? 1 : 0;
 
             var porcentajeGastosAdministrativosString = _tablaLogica.GetTablaLogicaDatoCodigo(userData.PaisID, Constantes.TablaLogica.ValoresPagoEnLinea, Constantes.TablaLogicaDato.PorcentajeGastosAdministrativos,true);
             decimal porcentajeGastosAdministrativos;
@@ -284,9 +286,9 @@ namespace Portal.Consultoras.Web.Providers
 
                 var bePagoEnLinea = GenerarEntidadPagoEnLineaVisa(respuestaVisa, model);
 
-                var bEUsuario = Mapper.Map<BEUsuario>(userData);                
+                var bEUsuario = Mapper.Map<ServicePedido.BEUsuario>(userData);
 
-                BERespuestaServicio result = null;
+                ServicePedido.BERespuestaServicio result = null;
 
                 using (PedidoServiceClient ps = new PedidoServiceClient())
                 {
@@ -606,6 +608,23 @@ namespace Portal.Consultoras.Web.Providers
         public IEnumerable<string> ObtenerAnios()
         {
             return Enumerable.Range(DateTime.Now.Year, MaxYearCard).Select(i => i.ToString());
+        }
+
+        private bool ObtenerAplicaPorcentaje(UsuarioModel userData, PagoEnLineaModel model)
+        {
+            ServiceUsuario.BEUsuario beusuario;
+            using (UsuarioServiceClient sv = new UsuarioServiceClient())
+            {
+                beusuario = sv.Select(userData.PaisID, userData.CodigoUsuario);
+            }
+
+            var flag3Porciento = _tablaLogica.GetTablaLogicaDatoCodigo(userData.PaisID, Constantes.TablaLogica.ValoresPagoEnLinea, Constantes.TablaLogicaDato.Acplica3porciento, true);
+
+           var noAplica = model.FechaVencimiento >= DateTime.Today &&
+                          beusuario.IndicadorConsultoraDigital == 1 &&
+                          flag3Porciento == "1";
+
+           return !noAplica;
         }
     }
 }
