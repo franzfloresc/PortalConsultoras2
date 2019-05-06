@@ -758,26 +758,9 @@ namespace Portal.Consultoras.Common
 
             StringBuilder body = new StringBuilder();
             body.Append("<HTML>" + head + "<body topmargin='0' leftmargin='0' marginheight='0' marginwidth='0' style='font-family:Lato, Arial, Helvetica, Arial, sans-serif;'> ");
-            body.Append("<div style='display:block;margin-left:auto;margin-right:auto;width:100%; height:596px;'>");
-            body.Append("<table align='center' border='0' cellpadding='0' cellspacing='0' width='600'>");
-            body.Append("<tr>");
-            body.Append("<td height='70' style='background:#b11437; background:linear-gradient(to right, #b11437, #55046d);'>");
-            body.Append("<table align='center' border='0' cellpadding='0' cellspacing='0'>");
-            body.Append("<tr>");
-            body.Append("<td width='108' height='70'>&nbsp;</td><td width = '84' height = '70' ><img src = 'https://somosbelcorpqa.s3.amazonaws.com/Correo/PedidoE-Catalog/logo-esika.png' style = 'display:block; width:85.67px; height:37.73px;' alt = '&Eacute;sika' ></td>");
-            body.Append("<td width='56' height='70'>&nbsp;</td><td width = '107' height = '70' ><img src = 'https://somosbelcorpqa.s3.amazonaws.com/Correo/PedidoE-Catalog/logo-lbel.png' style = 'display:block; width:105.92px; height:22.27px;' alt = 'Lbel' > </td> ");
-            body.Append("<td width='40' height='70'>&nbsp;</td><td width = '116' height = '70' ><img src = 'https://somosbelcorpqa.s3.amazonaws.com/Correo/PedidoE-Catalog/logo-cyzone.png' style = 'display:block; width:100.91px; height:31.75px;margin-top:4px;' alt = 'Cyzone' ></td><td width = '89' height = '70' > &nbsp;</td>");
-            body.Append("</tr>");
-            body.Append("</table>");
-            body.Append("</td>");
-            body.Append("</tr>");
-            body.Append("<tr>");
-            body.Append("<td>");
+
             body.Append(String.Format(strMensaje, logo.ContentId));
-            body.Append("</td>");
-            body.Append("</tr>");
-            body.Append("</table>");
-            body.Append("</div>");        
+ 
             body.Append("</body></HTML>");
 
 

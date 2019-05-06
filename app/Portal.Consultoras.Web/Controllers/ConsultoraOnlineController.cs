@@ -1353,6 +1353,22 @@ namespace Portal.Consultoras.Web.Controllers
                                            userData.PrimerApellido + " - App de Catálogos Ésika, L'Bel y Cyzone";
                     StringBuilder mensajecliente = new StringBuilder();
 
+                    mensajecliente.Append("<div style='display:block;margin-left:auto;margin-right:auto;width:100%; height:596px;'>");
+                    mensajecliente.Append("<table align='center' border='0' cellpadding='0' cellspacing='0' width='600'>");
+                    mensajecliente.Append("<tr>");
+                    mensajecliente.Append("<td height='70' style='background:#b11437; background:linear-gradient(to right, #b11437, #55046d);'>");
+                    mensajecliente.Append("<table align='center' border='0' cellpadding='0' cellspacing='0'>");
+                    mensajecliente.Append("<tr>");
+                    mensajecliente.Append("<td width='108' height='70'>&nbsp;</td><td width = '84' height = '70' ><img src = 'https://somosbelcorpqa.s3.amazonaws.com/Correo/PedidoE-Catalog/logo-esika.png' style = 'display:block; width:85.67px; height:37.73px;' alt = '&Eacute;sika' ></td>");
+                    mensajecliente.Append("<td width='56' height='70'>&nbsp;</td><td width = '107' height = '70' ><img src = 'https://somosbelcorpqa.s3.amazonaws.com/Correo/PedidoE-Catalog/logo-lbel.png' style = 'display:block; width:105.92px; height:22.27px;' alt = 'Lbel' > </td> ");
+                    mensajecliente.Append("<td width='40' height='70'>&nbsp;</td><td width = '116' height = '70' ><img src = 'https://somosbelcorpqa.s3.amazonaws.com/Correo/PedidoE-Catalog/logo-cyzone.png' style = 'display:block; width:100.91px; height:31.75px;margin-top:4px;' alt = 'Cyzone' ></td><td width = '89' height = '70' > &nbsp;</td>");
+                    mensajecliente.Append("</tr>");
+                    mensajecliente.Append("</table>");
+                    mensajecliente.Append("</td>");
+                    mensajecliente.Append("</tr>");
+                    mensajecliente.Append("<tr>");
+                    mensajecliente.Append("<td>");
+
                     mensajecliente.Append("<table align='center' border='0' cellpadding='0' cellspacing='0'>");
                     mensajecliente.Append("<tr><td width = '100%' height = '64' colspan = '3' > &nbsp;</td></tr>");
                     mensajecliente.Append("<tr><td width = '256' height = '88' > &nbsp;</td><td width = '88' height = '88'><img src = 'https://somosbelcorpqa.s3.amazonaws.com/Correo/PedidoE-Catalog/icono-notificacion-positiva.png' style = 'display:block; width:88px; height:88px;' alt = 'Pedido rechazado' ></td><td width = '256' height = '88' > &nbsp;</td></tr>");
@@ -1373,7 +1389,10 @@ namespace Portal.Consultoras.Web.Controllers
                     mensajecliente.Append("</tr>");
                     mensajecliente.Append("</table>");
 
-
+                    mensajecliente.Append("</td>");
+                    mensajecliente.Append("</tr>");
+                    mensajecliente.Append("</table>");
+                    mensajecliente.Append("</div>");
 
                     //mensajecliente.Append(
                     //    "<table width='100%' border='0' bgcolor='#ffffff' cellspacing='0' cellpadding='0' border-spacing='0' style='margin: 0; border: 0; border-collapse: collapse!important;'>");
@@ -1870,9 +1889,25 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         double totalPedido = 0;
 
-                        String titulocliente = "Tu pedido ha sido CONFIRMADO por " + userData.PrimerNombre + " " +
+                        String titulocliente = "Tu pedido ha sido RECHAZADO por " + userData.PrimerNombre + " " +
                                                userData.PrimerApellido + " - App de Catálogos Ésika, L'Bel y Cyzone";
                         StringBuilder mensajecliente = new StringBuilder();
+
+                        mensajecliente.Append("<div style='display:block;margin-left:auto;margin-right:auto;width:100%; height:596px;'>");
+                        mensajecliente.Append("<table align='center' border='0' cellpadding='0' cellspacing='0' width='600'>");
+                        mensajecliente.Append("<tr>");
+                        mensajecliente.Append("<td height='70' style='background:#b11437; background:linear-gradient(to right, #b11437, #55046d);'>");
+                        mensajecliente.Append("<table align='center' border='0' cellpadding='0' cellspacing='0'>");
+                        mensajecliente.Append("<tr>");
+                        mensajecliente.Append("<td width='108' height='70'>&nbsp;</td><td width = '84' height = '70' ><img src = 'https://somosbelcorpqa.s3.amazonaws.com/Correo/PedidoE-Catalog/logo-esika.png' style = 'display:block; width:85.67px; height:37.73px;' alt = '&Eacute;sika' ></td>");
+                        mensajecliente.Append("<td width='56' height='70'>&nbsp;</td><td width = '107' height = '70' ><img src = 'https://somosbelcorpqa.s3.amazonaws.com/Correo/PedidoE-Catalog/logo-lbel.png' style = 'display:block; width:105.92px; height:22.27px;' alt = 'Lbel' > </td> ");
+                        mensajecliente.Append("<td width='40' height='70'>&nbsp;</td><td width = '116' height = '70' ><img src = 'https://somosbelcorpqa.s3.amazonaws.com/Correo/PedidoE-Catalog/logo-cyzone.png' style = 'display:block; width:100.91px; height:31.75px;margin-top:4px;' alt = 'Cyzone' ></td><td width = '89' height = '70' > &nbsp;</td>");
+                        mensajecliente.Append("</tr>");
+                        mensajecliente.Append("</table>");
+                        mensajecliente.Append("</td>");
+                        mensajecliente.Append("</tr>");
+                        mensajecliente.Append("<tr>");
+                        mensajecliente.Append("<td>");
 
                         mensajecliente.Append("<table align='center' border='0' cellpadding='0' cellspacing='0'>");
                         mensajecliente.Append("<tr><td width = '100%' height = '64' colspan = '3' > &nbsp;</td></tr>");
@@ -1893,6 +1928,11 @@ namespace Portal.Consultoras.Web.Controllers
                         mensajecliente.Append("</td>");
                         mensajecliente.Append("</tr>");
                         mensajecliente.Append("</table>");
+
+                        mensajecliente.Append("</td>");
+                        mensajecliente.Append("</tr>");
+                        mensajecliente.Append("</table>");
+                        mensajecliente.Append("</div>");
 
                         try
                         {
@@ -1947,9 +1987,25 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         else  // no devolvió consultora
                         {
-                            String titulocliente = "Tu pedido ha sido CONFIRMADO por " + userData.PrimerNombre + " " +
+                            String titulocliente = "Tu pedido ha sido RECHAZADO por " + userData.PrimerNombre + " " +
                                               userData.PrimerApellido + " - App de Catálogos Ésika, L'Bel y Cyzone";
                             StringBuilder mensajecliente = new StringBuilder();
+
+                            mensajecliente.Append("<div style='display:block;margin-left:auto;margin-right:auto;width:100%; height:596px;'>");
+                            mensajecliente.Append("<table align='center' border='0' cellpadding='0' cellspacing='0' width='600'>");
+                            mensajecliente.Append("<tr>");
+                            mensajecliente.Append("<td height='70' style='background:#b11437; background:linear-gradient(to right, #b11437, #55046d);'>");
+                            mensajecliente.Append("<table align='center' border='0' cellpadding='0' cellspacing='0'>");
+                            mensajecliente.Append("<tr>");
+                            mensajecliente.Append("<td width='108' height='70'>&nbsp;</td><td width = '84' height = '70' ><img src = 'https://somosbelcorpqa.s3.amazonaws.com/Correo/PedidoE-Catalog/logo-esika.png' style = 'display:block; width:85.67px; height:37.73px;' alt = '&Eacute;sika' ></td>");
+                            mensajecliente.Append("<td width='56' height='70'>&nbsp;</td><td width = '107' height = '70' ><img src = 'https://somosbelcorpqa.s3.amazonaws.com/Correo/PedidoE-Catalog/logo-lbel.png' style = 'display:block; width:105.92px; height:22.27px;' alt = 'Lbel' > </td> ");
+                            mensajecliente.Append("<td width='40' height='70'>&nbsp;</td><td width = '116' height = '70' ><img src = 'https://somosbelcorpqa.s3.amazonaws.com/Correo/PedidoE-Catalog/logo-cyzone.png' style = 'display:block; width:100.91px; height:31.75px;margin-top:4px;' alt = 'Cyzone' ></td><td width = '89' height = '70' > &nbsp;</td>");
+                            mensajecliente.Append("</tr>");
+                            mensajecliente.Append("</table>");
+                            mensajecliente.Append("</td>");
+                            mensajecliente.Append("</tr>");
+                            mensajecliente.Append("<tr>");
+                            mensajecliente.Append("<td>");
 
                             mensajecliente.Append("<table align='center' border='0' cellpadding='0' cellspacing='0'>");
                             mensajecliente.Append("<tr><td width = '100%' height = '64' colspan = '3' > &nbsp;</td></tr>");
@@ -1970,6 +2026,13 @@ namespace Portal.Consultoras.Web.Controllers
                             mensajecliente.Append("</td>");
                             mensajecliente.Append("</tr>");
                             mensajecliente.Append("</table>");
+
+                            mensajecliente.Append("</td>");
+                            mensajecliente.Append("</tr>");
+                            mensajecliente.Append("</table>");
+                            mensajecliente.Append("</div>");
+
+
 
                             try
                             {
