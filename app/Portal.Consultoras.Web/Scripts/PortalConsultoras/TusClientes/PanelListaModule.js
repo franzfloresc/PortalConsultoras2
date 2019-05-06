@@ -78,7 +78,7 @@
     };
 
     var _seleccionarRegistro = function (paisId, clienteId, codigoCliente, nombreCliente, nombre) {
-
+        
         paisId = paisId || "";
 
         $(_elements.hfPaisID).val(paisId);
@@ -93,6 +93,7 @@
         }
 
         $("#btnPanelListaAceptar").click();
+        
     };
 
     var _renderLayoutPanel = function () {

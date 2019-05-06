@@ -117,7 +117,7 @@
             @if (ViewBag.TieneBotones)
             {
                 <div>
-                    {{#iff TipoAccionAgregarTipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.AgregaloPackNuevas'}}
+                    {{#iff TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.AgregaloPackNuevas'}}
                     <div class="texto_elige_tono">&nbsp;</div>
                     {{#if TieneStock}}
                     <div class="producto_nombre_descripcion">

@@ -1,9 +1,11 @@
 ﻿using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.Estrategia;
 using Portal.Consultoras.Web.Models.Layout;
 using Portal.Consultoras.Web.Models.MisCertificados;
 using Portal.Consultoras.Web.Models.PagoEnLinea;
 using Portal.Consultoras.Web.Models.ProgramaNuevas;
+using Portal.Consultoras.Web.Models.Recomendaciones;
 using Portal.Consultoras.Web.ServiceCDR;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
@@ -14,8 +16,7 @@ using Portal.Consultoras.Web.SessionManager.OfertaDelDia;
 using Portal.Consultoras.Web.SessionManager.ShowRoom;
 using System;
 using System.Collections.Generic;
-using Portal.Consultoras.Web.Models.Recomendaciones;
-using Portal.Consultoras.Web.Models.Estrategia;
+using Portal.Consultoras.Web.Models.CaminoBrillante;
 
 namespace Portal.Consultoras.Web.SessionManager
 {
@@ -277,7 +278,7 @@ namespace Portal.Consultoras.Web.SessionManager
         List<PremioElectivoModel> GetListPremioElectivo();
         void SetListPremioElectivo(List<PremioElectivoModel> listPremioElectivo);
         Dictionary<string, PremioProgNuevasOFModel> GetDictPremioProgNuevasOF();
-        void SetDictPremioProgNuevasOF(Dictionary<string, PremioProgNuevasOFModel> listPremioProgNuevasOF);
+        void SetDictPremioProgNuevasOF(Dictionary<string, PremioProgNuevasOFModel> dictPremioProgNuevasOF);
 
         void SetBuscadorYFiltrosConfig(BuscadorYFiltrosConfiguracionModel buscadorYFiltrosModel);
 
@@ -471,10 +472,6 @@ namespace Portal.Consultoras.Web.SessionManager
 
         int GetMisPedidosDetallePorCampaniaPedidoId();
 
-        void SetCDRExpressMensajes(List<BETablaLogicaDatos> val);
-
-        List<BETablaLogicaDatos> GetCDRExpressMensajes();
-
         void SetOcultarBannerTop(bool val);
 
         bool GetOcultarBannerTop();
@@ -507,5 +504,14 @@ namespace Portal.Consultoras.Web.SessionManager
         string GetJwtApiSomosBelcorp();
         void SetUsuarioOpciones(List<UsuarioOpcionesModel> val);
         List<UsuarioOpcionesModel> GetUsuarioOpciones();
+        
+        void SetConsultoraCaminoBrillante(BEConsultoraCaminoBrillante val);
+        BEConsultoraCaminoBrillante GetConsultoraCaminoBrillante();
+
+        void SetKitCaminoBrillante(List<BEKitCaminoBrillante> val);
+        List<BEKitCaminoBrillante> GetKitCaminoBrillante();
+
+        void SetDemostradoresCaminoBrillante(List<BEDesmostradoresCaminoBrillante> val);
+        List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillante();
     }
 }

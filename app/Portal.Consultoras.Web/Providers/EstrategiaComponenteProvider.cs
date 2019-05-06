@@ -1,5 +1,7 @@
+using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.DetalleEstrategia;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.SessionManager;
 using System;
@@ -66,15 +68,22 @@ namespace Portal.Consultoras.Web.Providers
 
             var userData = SessionManager.GetUserData();
             List<EstrategiaComponenteModel> listaEstrategiaComponente;
-            if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, codigoTipoEstrategia)
-                && codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.ArmaTuPack)
+
+            if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, codigoTipoEstrategia))
             {
                 mensaje += "SiMongo|";
                 estrategiaModelo.CodigoEstrategia = Util.GetTipoPersonalizacionByCodigoEstrategia(codigoTipoEstrategia);
-                EstrategiaPersonalizadaProductoModel estrategia = _ofertaBaseProvider.ObtenerModeloOfertaDesdeApi(estrategiaModelo, userData.CodigoISO);
+                var estrategia = _ofertaBaseProvider.ObtenerModeloOfertaDesdeApi(estrategiaModelo, userData.CodigoISO);
 
                 listaEstrategiaComponente = estrategia.Hermanos;
-                mensaje += "ObtenerModeloOfertaDesdeApi = " + listaEstrategiaComponente.Count + "|";
+                esMultimarca = estrategia.EsMultimarca;
+
+                listaEstrategiaComponente.ForEach(c =>
+                {
+                    c.TieneDetalleSeccion = (c.Secciones ?? new List<EstrategiaComponenteSeccionModel>()).Any() && c.Cabecera != null;
+                });
+
+                mensaje += "ObtenerModeloOfertaDesdeApi = " + listaEstrategiaComponente.Count;
             }
             else
             {
@@ -105,13 +114,14 @@ namespace Portal.Consultoras.Web.Providers
 
             if (listaEstrategiaComponente.Any())
             {
-                listaEstrategiaComponente.ForEach(x => {
+                listaEstrategiaComponente.ForEach(x =>
+                {
                     x.TieneStock = true;
                     if (x.Hermanos != null && x.Hermanos.Any())
                     {
                         x.Hermanos.ForEach(y => y.TieneStock = true);
-                        
-                        if(esApiFicha)
+
+                        if (esApiFicha)
                         {
                             //Temporal mientras se utiliza el Grupo como identificador en vez del Cuv
                             x.Cuv = x.Hermanos[0].Cuv;
@@ -179,7 +189,7 @@ namespace Portal.Consultoras.Web.Providers
 
             return listaProducto;
         }
-        
+
         private List<EstrategiaComponenteModel> GetEstrategiaDetalleCompuesta(EstrategiaPersonalizadaProductoModel estrategiaModelo,
                                                                     List<BEEstrategiaProducto> listaBeEstrategiaProductos)
         {
@@ -234,21 +244,26 @@ namespace Portal.Consultoras.Web.Providers
                 default:
                     var listaComponentes = new List<EstrategiaComponenteModel>();
                     EstrategiaComponenteModel hermano;
+
+                    var grupos = new List<EstrategiaComponenteModel>();
                     foreach (var item in listaEstrategiaComponenteProductos)
+                    {
+                        hermano = (EstrategiaComponenteModel)item.Clone();
+                        if (!grupos.Any(g => g.Grupo == hermano.Grupo))
+                        {
+                            grupos.Add(hermano);
+                        }
+                    }
+
+                    foreach (var item in grupos)
                     {
                         hermano = (EstrategiaComponenteModel)item.Clone();
                         hermano.Hermanos = new List<EstrategiaComponenteModel>();
                         if (hermano.Digitable == 1)
                         {
-                            var existe = false;
-                            foreach (var itemR in listaComponentes)
-                            {
-                                existe = itemR.Hermanos.Any(h => h.Cuv == hermano.Cuv || h.Grupo == hermano.Grupo);
-                                if (existe) break;
-                            }
-                            if (existe) continue;
-
-                            hermano.Hermanos = listaEstrategiaComponenteProductos.Where(p => p.Grupo == hermano.Grupo && p.NombreBulk != "").OrderBy(p => p.Orden).ToList();
+                            hermano.Hermanos = listaEstrategiaComponenteProductos
+                                .Where(p => p.Grupo == hermano.Grupo && p.NombreBulk != "" && p.Digitable == 1)
+                                .OrderBy(p => p.Orden).ToList();
                         }
 
                         if (hermano.Hermanos.Any())

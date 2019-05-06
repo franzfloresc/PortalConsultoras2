@@ -19,7 +19,7 @@ namespace Portal.Consultoras.Web.Controllers
             var IdCurso = 0;
             var FlagVideo = 0;
             var parametrosSap = "";
-            
+
             try
             {
                 IdCurso = SessionManager.GetMiAcademia();
@@ -38,11 +38,9 @@ namespace Portal.Consultoras.Web.Controllers
                 string nivelProyectado = "";
                 DataSet parametros;
 
-                /*HD-3777*/
                 string codigoClasificacion = userData.CodigoClasificacion;
                 string codigoSubClasificacion = userData.CodigoSubClasificacion;
                 string descripcionSubClasificacion = userData.DescripcionSubclasificacion;
-                /*Fin*/
 
                 using (ContenidoServiceClient csv = new ContenidoServiceClient())
                 {
@@ -83,7 +81,6 @@ namespace Portal.Consultoras.Web.Controllers
                 var exito = !(getUser.codigo == "003" || getUser.codigo == "004" || getUser.codigo == "005" ||
                               createUser.codigo == "002" || createUser.codigo == "003" || createUser.codigo == "004");
 
-                /*HD-3777*/
                 if (parametrosSap.Length > 1 && parametrosSap.Contains("SAP"))
                 {
                     urlLms = IdCurso == 0 ? String.Format(urlLms, isoUsuario, token, codigoClasificacion, codigoSubClasificacion, descripcionSubClasificacion) : String.Format(urlLms, isoUsuario, token, codigoClasificacion, codigoSubClasificacion, descripcionSubClasificacion, IdCurso);
@@ -96,7 +93,6 @@ namespace Portal.Consultoras.Web.Controllers
                     urlLms = IdCurso == 0 ? String.Format(urlLms, isoUsuario, token, codigoClasificacion, codigoSubClasificacion, descripcionSubClasificacion) : String.Format(urlLms, isoUsuario, token, userData.CodigoClasificacion, codigoClasificacion, codigoSubClasificacion, descripcionSubClasificacion, IdCurso);
                     UrlCursoMiAcademiaVideo = IdCurso == 0 ? String.Format(urlLms, isoUsuario, token, codigoClasificacion, codigoSubClasificacion, descripcionSubClasificacion) : String.Format(UrlCursoMiAcademiaVideo, isoUsuario, token, codigoClasificacion, codigoSubClasificacion, descripcionSubClasificacion, IdCurso);
                 }
-                /*Fin*/
 
                 if (exito)
                 {

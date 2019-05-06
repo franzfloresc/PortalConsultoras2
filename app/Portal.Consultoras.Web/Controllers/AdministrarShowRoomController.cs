@@ -4,7 +4,6 @@ using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using Portal.Consultoras.Web.Providers;
-using Portal.Consultoras.Web.ServiceGestionWebPROL;
 using Portal.Consultoras.Web.ServicePedido;
 using System;
 using System.Collections.Generic;
@@ -17,7 +16,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class AdministrarShowRoomController : BaseController
+    public class AdministrarShowRoomController : BaseAdmController
     {
         protected OfertaBaseProvider _ofertaBaseProvider;
 
@@ -507,7 +506,7 @@ namespace Portal.Consultoras.Web.Controllers
                 else
                 {
                     listaPersonalizacionModel = configEstrategiaSR.ListaPersonalizacionConsultora.Where(
-                            p => p.TipoPersonalizacion == Constantes.ShowRoomPersonalizacion.TipoPersonalizacion.Evento).ToList();
+                            p => p.TipoPersonalizacion == Constantes.ShowRoomPersonalizacion.TipoPersonalizacionSr.Evento).ToList();
 
                     List<ServicePedido.BEShowRoomPersonalizacionNivel> listaPersonalizacionNivel;
 

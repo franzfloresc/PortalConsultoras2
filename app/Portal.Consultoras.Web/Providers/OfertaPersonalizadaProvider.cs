@@ -13,7 +13,6 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 using BEEstrategia = Portal.Consultoras.Web.ServiceOferta.BEEstrategia;
 
@@ -208,8 +207,8 @@ namespace Portal.Consultoras.Web.Providers
                         if (revistaDigital.TieneRDCR)
                         {
                             var datos = _tablaLogicaProvider.GetTablaLogicaDatos(userData.PaisID, Constantes.ConfiguracionManager.RevistaCatalogoTablaLogicaId);
-                            var keyvalor =_tablaLogicaProvider.GetValueByCode(datos, Constantes.ConfiguracionManager.RevistaPiloto_Zonas_RDR_2 + userData.CodigoISO);
-    
+                            var keyvalor = _tablaLogicaProvider.GetValueByCode(datos, Constantes.ConfiguracionManager.RevistaPiloto_Zonas_RDR_2 + userData.CodigoISO);
+
                             if (keyvalor.Contains(userData.CodigoZona))
                             {
                                 listaFinal1 = listaFinal1.Where(e => e.FlagRevista == Constantes.FlagRevista.Valor1 || e.FlagRevista == Constantes.FlagRevista.Valor3).ToList();
@@ -492,7 +491,7 @@ namespace Portal.Consultoras.Web.Providers
                 filtrarNuevasAgregadas = tipo == Constantes.TipoEstrategiaCodigo.PackNuevas && filtrarNuevasAgregadas;
 
                 if (tipo != Constantes.TipoEstrategiaCodigo.OfertaParaTi || _ofertaBaseProvider.UsarSession(Constantes.TipoEstrategiaCodigo.OfertaParaTi)) //Omitir OPT de uso de sesiones dependiendo del switch
-                {   
+                {
                     listEstrategia = SessionManager.GetBEEstrategia(varSession);
                     if (listEstrategia != null && campaniaId == userData.CampaniaID)
                     {
@@ -514,14 +513,14 @@ namespace Portal.Consultoras.Web.Providers
                     CodigoTipoEstrategia = tipo,
                     MaterialGanancia = materialGanancia
                 };
-
                 if (tipo == Constantes.TipoEstrategiaCodigo.LosMasVendidos)
                 {
                     entidad.ConsultoraID = userData.GetConsultoraId().ToString();
                 }
 
                 listEstrategia = GetEstrategiasService(entidad);
-  
+                JoinListEstrategiaWithExternData(listEstrategia, tipo, userData);
+                
                 if (tipo == Constantes.TipoEstrategiaCodigo.PackNuevas)
                 {
                     var listProdEstraProgNuevas = _programaNuevasProvider.GetListCuvEstrategia();
@@ -530,12 +529,7 @@ namespace Portal.Consultoras.Web.Providers
                         return e;
                     }).ToList();
                 }
-                //else if (listEstrategia.Any())
-                //{
-                //    var validarDias = GetValidarDiasAntesStock(userData);
-                //    listEstrategia = _consultaProlProvider.ActualizarEstrategiaStockPROL(listEstrategia, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora, validarDias);
-                //}
-
+                
                 if (campaniaId == userData.CampaniaID)
                 {
                     SetSessionEstrategia(tipo, varSession, listEstrategia);
@@ -552,6 +546,30 @@ namespace Portal.Consultoras.Web.Providers
             return listEstrategia;
         }
 
+        public List<BEEstrategia> JoinListEstrategiaWithExternData(List<BEEstrategia> listEstrategia, string tipo, UsuarioModel userData)
+        {
+            if (!listEstrategia.Any()) return listEstrategia;            
+            listEstrategia.ForEach(x => { x.TieneStock = true; });
+
+            if (tipo == Constantes.TipoEstrategiaCodigo.PackNuevas)
+            {
+                var listProdEstraProgNuevas = _programaNuevasProvider.GetListCuvEstrategia();
+                return listEstrategia.Join(listProdEstraProgNuevas, e => e.CUV2, pen => pen.Cuv, (e, pen) =>
+                {
+                    e.EsOfertaIndependiente = pen.EsCuponIndependiente;
+                    return e;
+                }).ToList();
+            }
+
+            //var validarDias = GetValidarDiasAntesStock(userData);
+            //if (validarDias)
+            //{
+            //    listEstrategia = _consultaProlProvider.ActualizarEstrategiaStockPROL(listEstrategia, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora);
+            //}
+            listEstrategia = ActualizarEstrategiaStockPROL(listEstrategia, userData);
+            return listEstrategia;
+        }
+
         private List<ServiceOferta.BEEstrategia> GetEstrategiasService(ServiceOferta.BEEstrategia entidad)
         {
             string tipo = entidad.CodigoTipoEstrategia;
@@ -563,7 +581,7 @@ namespace Portal.Consultoras.Web.Providers
                 int campaniaId = entidad.CampaniaID;
                 int materialGanancia = entidad.MaterialGanancia;
                 string tipoPersonalizacion = Util.GetTipoPersonalizacionByCodigoEstrategia(tipo);
-                
+
                 string pathMS = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertas,
                     userData.CodigoISO,
                     tipoPersonalizacion,
@@ -575,9 +593,7 @@ namespace Portal.Consultoras.Web.Providers
                     userData.CodigoZona
                     );
 
-                var taskApi = Task.Run(() => OfertaBaseProvider.ObtenerOfertasDesdeApi(pathMS, userData.CodigoISO));
-                Task.WhenAll(taskApi);
-                listEstrategia = taskApi.Result;
+                listEstrategia = _ofertaBaseProvider.ObtenerEntidadOfertasDesdeApi(pathMS, userData.CodigoISO);
 
             }
             else
@@ -602,7 +618,7 @@ namespace Portal.Consultoras.Web.Providers
         private void SetSessionEstrategia(string tipo, string varSession, List<ServiceOferta.BEEstrategia> listEstrategia)
         {
             if (tipo == Constantes.TipoEstrategiaCodigo.PackNuevas
-                        || tipo == Constantes.TipoEstrategiaCodigo.OfertaWeb 
+                        || tipo == Constantes.TipoEstrategiaCodigo.OfertaWeb
                         || (tipo == Constantes.TipoEstrategiaCodigo.OfertaParaTi && _ofertaBaseProvider.UsarSession(Constantes.TipoEstrategiaCodigo.OfertaParaTi))) //Removió OPT de uso de sesiones + switch
             {
                 SessionManager.SetBEEstrategia(varSession, listEstrategia);
@@ -912,7 +928,7 @@ namespace Portal.Consultoras.Web.Providers
                 Simbolo = usuarioModel.Simbolo,
                 CodigoTipoEstrategia = Constantes.TipoEstrategiaCodigo.ShowRoom
             };
-            
+
             var listEstrategia = GetEstrategiasService(entidad);
             return listEstrategia;
         }
@@ -986,7 +1002,7 @@ namespace Portal.Consultoras.Web.Providers
                         x.Hermanos = ObtenerListaTonos(
                             listaProducto.FirstOrDefault(c => c.CUV2 == x.CUV2 && c.CampaniaID == x.CampaniaID).EstrategiaProducto.ToList());
                 });
-            var listaPedido = _pedidoWeb.ObtenerPedidoWebSetDetalleAgrupado(0);
+            var listaPedido = _pedidoWeb.ObtenerPedidoWebSetDetalleAgrupado();
             var listaEstrategiaPedidoModel = ConsultarEstrategiasFormatoModelo1(listaProductoModel, listaPedido, codigoISO, campaniaID);
             return listaEstrategiaPedidoModel;
         }
@@ -1376,7 +1392,7 @@ namespace Portal.Consultoras.Web.Providers
 
             if (SessionManager.OfertaDelDia.Estrategia != null)
             {
-                if (_ofertaBaseProvider.UsarSession(Constantes.TipoEstrategiaCodigo.OfertaDelDia) && SessionManager.OfertaDelDia.Estrategia.ListaOferta != null) 
+                if (_ofertaBaseProvider.UsarSession(Constantes.TipoEstrategiaCodigo.OfertaDelDia) && SessionManager.OfertaDelDia.Estrategia.ListaOferta != null)
                 {
                     return SessionManager.OfertaDelDia.Estrategia.ListaOferta;
                 }
@@ -1423,7 +1439,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 if (tipoOferta != 3)
                 {
-                    var listaPedidoDetalle = _pedidoWeb.ObtenerPedidoWebSetDetalleAgrupado(0);
+                    var listaPedidoDetalle = _pedidoWeb.ObtenerPedidoWebSetDetalleAgrupado();
                     listaProductoRetorno.Update(x =>
                     {
                         x.IsAgregado = listaPedidoDetalle.Any(p => p.EstrategiaId == x.EstrategiaID);
@@ -1636,7 +1652,7 @@ namespace Portal.Consultoras.Web.Providers
             if (revisarLista != null)
             {
                 if (!revisarLista.Any()) return new List<EstrategiaPersonalizadaProductoModel>();
-                var listaPedido = _pedidoWeb.ObtenerPedidoWebSetDetalleAgrupado(0);
+                var listaPedido = _pedidoWeb.ObtenerPedidoWebSetDetalleAgrupado();
                 revisarLista.Update(x =>
                 {
                     x.IsAgregado = listaPedido.Any(p => p.EstrategiaId == x.EstrategiaID);
