@@ -589,7 +589,7 @@ button {
 /* Titulo mobile : Texto Pendientes, 
    New Header : Breadcrumb
    Footer : El footer */
-.titulo_mobile, #new-header, footer.footer-page {
+#new-header, footer.footer-page {
     display: none;
 }
 #contentmobile{
