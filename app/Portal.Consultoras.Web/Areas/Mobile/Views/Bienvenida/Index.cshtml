@@ -501,22 +501,42 @@
     </div>
 </div>
 
+
 @if (esDigital)
 {
+    /* INI HD-4086 */
+    if(Model.CodigoISO == Constantes.CodigosISOPais.Peru) { 
+    <div class="wrapper_resumen_mobile">
+        <div class="comartir_home_mobile">
+            INCENTIVOS
+            <a role="link" region="Central" parent="Comparte tus Catálogos" title="Comparte tus Catálogos"
+               class="btn_compartelos" href="@Url.Action("IndexExterno", "Incentivos", new { area = "Mobile" })">VER MAS</a>
+        </div>
+        <a role="link" region="Central" parent="Comparte tus Catálogos" title="Comparte tus Catálogos"
+           class="btn_compartelos" href="@Url.Action("IndexExterno", "Incentivos", new { area = "Mobile" })">
+            <div class="imagen_catalogo bonificaciones_digital"></div>
+        </a>
+        <hr class="clear" />
+        <div class="linea_separadora_mobile"></div>
+    </div>
+   /* FIN HD-4086 */
+  } else{
     <div class="wrapper_resumen_mobile">
         <div class="comartir_home_mobile">
             BONIFICACIONES
             <a role="link" region="Central" parent="Comparte tus Catálogos" title="Comparte tus Catálogos"
                class="btn_compartelos" href="@Url.Action("IndexExterno", "Bonificaciones", new { area = "Mobile" })">VER MAS</a>
         </div>
-        <a role="link" region="Central" parent="Comparte tus Catálogos" title="Comparte tus Catálogos"
+        <a role = "link" region= "Central" parent= "Comparte tus Catálogos" title= "Comparte tus Catálogos"
            class="btn_compartelos" href="@Url.Action("IndexExterno", "Bonificaciones", new { area = "Mobile" })">
             <div class="imagen_catalogo bonificaciones_digital"></div>
         </a>
         <hr class="clear" />
         <div class="linea_separadora_mobile"></div>
     </div>
+    }
 }
+
 
 <input type="hidden" id="hdTipoEstrategiaID" value="0" />
 <input type="hidden" id="hdPosicion" value="0" />
