@@ -210,7 +210,7 @@ else
                                     </button>
                                 </div>
                             </div>
-                            <div class="tooltip_info_revision_correo toolTipCelular" style="display:none;">
+                            @*<div class="tooltip_info_revision_correo toolTipCelular" style="display:none;">
                                 <div class="icono_info_alerta"></div>
                                 <div class="tooltip_texto">
                                     <p>
@@ -220,7 +220,7 @@ else
                                         Ya no quiero cambiar mi celular
                                     </a>
                                 </div>
-                            </div>
+                            </div>*@
                             <div class="grupo_form_cambio_datos">
                                 <div class="w-82">
                                     <input id="txtTelefonoMD" name="txtTelefonoMD" class="w-100" type="text" value="@Model.Telefono" maxlength="@Model.limiteMaximoTelef" />
@@ -283,7 +283,7 @@ else
                     </div>
                     <div class="grupo_form_cambio_datos grupo_form_cambio_datos_campo_direccion">
                         <div class="w-100">
-                                    @Html.TextBoxFor(x => x.DireccionEntrega.Direccion, new { @class = "w-100", id = "Direccion", placeholder = "Ingresa y selecciona tu dirección" })
+                            @Html.TextBoxFor(x => x.DireccionEntrega.Direccion, new { @class = "w-100", id = "Direccion", placeholder = "Ingresa y selecciona tu dirección" })
                             <label for="Direccion" class="w-100">
                                 Dirección <span class="asteriscos">*</span>
                             </label>
@@ -293,13 +293,13 @@ else
                     </div>
                     <div class="grupo_form_cambio_datos">
                         <div class="w-100">
-                                    @Html.TextBoxFor(x => x.DireccionEntrega.Zona, new { @class = "w-100", id = "Zona", placeholder = "Ejm: Edificio San Ramón" })
+                            @Html.TextBoxFor(x => x.DireccionEntrega.Zona, new { @class = "w-100", id = "Zona", placeholder = "Ejm: Edificio San Ramón" })
                             <label for="Zona" class="w-100">
-                                        Zona / N° de Departamento / Calle / Interior 
-                                        @if (Model.PaisID != 3)
-                                        {
-                                            <span class="asteriscos">*</span>
-                                        }                                        
+                                Zona / N° de Departamento / Calle / Interior 
+                                @if (Model.PaisID != 3)
+                                {
+                                    <span class="asteriscos">*</span>
+                                }                                        
                             </label>
                         </div>
                     </div>
@@ -339,10 +339,10 @@ else
                             <div class="permiso_cuenta_opcion_descripcion">@item.Opcion
                                 <span class="d-block">@item.Descripcion</span>
                             </div>
-                            <fieldset class="grupo_form_permiso_cuenta">
+                            <div class="grupo_form_permiso_cuenta">
                                 <input class="permiso_cuenta_opcion_checkbox" type="checkbox" data-tipoOpcion="@item.OpcionesUsuarioId" name="@item.Codigo" id="@item.Codigo" checked="@item.CheckBox" />
                                 <label for="@item.Codigo" class="permiso_cuenta_opcion_label"></label>
-                            </fieldset>
+                            </div>
                         </div>
                     }
                 </div>
@@ -354,10 +354,10 @@ else
                     <span class="asterisco_actualizar_datos">(*)&nbsp;</span>
                     Estoy de acuerdo con los <span><a href="javascript:;" id="hrefTerminosMD" target="_blank">términos y condiciones</a></span> sobre Protección de datos personales
                 </div>
-                <fieldset class="grupo_form_checkbox_condiciones">
+                <div class="grupo_form_checkbox_condiciones">
                     <input class="checkbox_condiciones_checkbox" type="checkbox" name="chkAceptoContratoMD" id="chkAceptoContratoMD" />
                     <label for="chkAceptoContratoMD" class="checkbox_condiciones_label"></label>
-                </fieldset>
+                </div>
             </div>
             @*<div class="checkbox_condiciones">
                 <input type="checkbox" name="chkAceptoContratoMD" id="chkAceptoContratoMD" />

@@ -482,6 +482,10 @@ a{
         background-color: #f5f5f5;
     }
 
+        .grupo_form_cambio_datos--confirmacionPendiente label{
+            background-color:transparent;
+        }
+
         .grupo_form_cambio_datos--confirmacionPendiente label:before,
         .grupo_form_cambio_datos--confirmado label:before {
             display: block;
@@ -515,15 +519,15 @@ a{
     }
 
     .grupo_form_cambio_datos label{
-        width:90%;
         cursor:default;
         position:absolute;
         top:18px;
         left:0;
         font-size:13px;
         font-weight:400;
-        height:auto;
-        z-index:2;
+        min-height:32px;
+        background-color:#FFF;
+        z-index:3;
     }
 
     .grupo_form_cambio_datos_btn_guardar_wrapper{
@@ -552,11 +556,10 @@ a{
     }
 
     .grupo_form_cambio_datos label,
-    .campo_con_datos label,
+    .campo_con_datos + label,
     .correo_electronico_actual span:first-child,
     .celular_actual span:first-child,
-    .grupo_form_cambio_datos select
-    {
+    .grupo_form_cambio_datos select{
         color:#808080;
     }
 
@@ -573,7 +576,7 @@ a{
     .grupo_form_cambio_datos input,
     .grupo_form_cambio_datos select{
         background-color: transparent;
-        margin-top: 18px;
+        margin-top: 19px;
         font-size: 14px;
         font-weight: 400;
         color: #808080;
@@ -585,8 +588,7 @@ a{
     }
 
     .grupo_form_cambio_datos select,
-    .enlace_abrir_mapa
-    {
+    .enlace_abrir_mapa{
         background-repeat:no-repeat;
         background-position:97.5% center;
     }
@@ -611,7 +613,7 @@ a{
         height: 40px;
         background-position: center;
         background-image: url(/Content/Images/icono_localizacion.svg);
-        z-index: 999;
+        z-index: 2;
         cursor:pointer;
         -moz-transition: all 0.3s ease;
         -o-transition: all 0.3s ease;
@@ -625,8 +627,7 @@ a{
 
     .grupo_form_cambio_datos input:focus + label,
     .grupo_form_cambio_datos select:focus + label,
-    .campo_con_datos + label
-    {
+    .campo_con_datos + label{
         top:6px;
         font-size:12.5px;
         background-color:transparent;
@@ -639,6 +640,10 @@ a{
     .grupo_form_cambio_datos input:focus + label,
     .grupo_form_cambio_datos select:focus + label{
         color:rgba(0,0,0,1);
+    }
+
+    .campo_con_datos + label{
+        z-index:2;
     }
 
 .enlace_cambiar_dato,
@@ -752,37 +757,36 @@ a{
 }
 
 .checkbox_condiciones_label,
-.permiso_cuenta_opcion_label{
+.permiso_cuenta_opcion_label {
     background-color: #FFF;
     border: 1px solid #808080;
     width: 18px;
     height: 18px;
     border-radius: 4px;
+    margin-top: 3px;
+    margin-right: 8px;
     -moz-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
     -webkit-transition: all 0.3s ease;
     transition: all 0.3s ease;
-    background-image:url(/Content/Images/icono_check_mi_perfil.svg);
-    background-repeat:no-repeat;
-    background-position:center;
-}
-
-.checkbox_condiciones_label{
-    margin-top:3px;
-    margin-right:8px;
+    background-image: url(/Content/Images/icono_check_mi_perfil.svg);
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .checkbox_condiciones_checkbox:checked + .checkbox_condiciones_label,
-.permiso_cuenta_opcion_checkbox:checked + .permiso_cuenta_opcion_label
-{
+.permiso_cuenta_opcion_checkbox:checked + .permiso_cuenta_opcion_label{
     background-color:#b9007e;
     border: 1px solid #b9007e;
 }
 
-.grupo_input_actualizarMisDatos .checkbox_condiciones_descripcion{
-    width:89%;
-    margin-bottom:4px;
-    order:1;
+.grupo_input_actualizarMisDatos .checkbox_condiciones_descripcion,
+.permiso_cuenta_opcion_descripcion {
+    order: 1;
+}
+
+.grupo_input_actualizarMisDatos .checkbox_condiciones_descripcion {
+    margin-bottom: 4px;
 }
 
 .btn_guardar_datos_nuevos,
