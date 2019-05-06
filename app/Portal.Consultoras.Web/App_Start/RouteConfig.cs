@@ -23,7 +23,7 @@ namespace Portal.Consultoras.Web
             //Ejm: ~/DetalleResponsive/GanaMas/2018010/0006/1101
             routes.MapRoute(
                 name: "DetalleEstrategiaFichaResponsive",
-                url: "DetalleResponsive/{palanca}/{campaniaId}/{cuv}/{origen}",
+                url: "Detalles/{palanca}/{campaniaId}/{cuv}/{origen}",
                 defaults: new { controller = "DetalleEstrategia", action = "FichaResponsive", origen = UrlParameter.Optional },
                 namespaces: new[] { "Portal.Consultoras.Web.Controllers" }
             );

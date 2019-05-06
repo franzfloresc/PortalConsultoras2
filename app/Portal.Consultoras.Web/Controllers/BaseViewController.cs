@@ -723,6 +723,12 @@ namespace Portal.Consultoras.Web.Controllers
                             ConsTablaLogica.FlagFuncional.FichaEnriquecida,
                             true
                             );
+            modelo.MostrarFichaResponsive = !esEditar && _tablaLogicaProvider.GetTablaLogicaDatoValorBool(
+                            userData.PaisID,
+                            ConsTablaLogica.FlagFuncional.TablaLogicaId,
+                            ConsTablaLogica.FlagFuncional.FichaResponsive,
+                            true
+                            );
             return modelo;
         }
 

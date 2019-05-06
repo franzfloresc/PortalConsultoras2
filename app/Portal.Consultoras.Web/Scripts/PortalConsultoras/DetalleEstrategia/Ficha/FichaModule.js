@@ -1081,6 +1081,14 @@ var FichaModule = (function (config) {
         //}
         _modeloFicha(modeloFicha);
 
+        if (_modeloFicha().MostrarFichaResponsive &&
+            _modeloFicha().CodigoVariante == _codigoVariedad.ComuestaFija) {
+            var urlResponsive = _config.generalModule.getLocationPathname()/*.toLowerCase()*/;
+            urlResponsive = urlResponsive.replace("Detalle", "Detalles");
+            urlResponsive = urlResponsive.substr(1);
+            _config.generalModule.redirectTo(urlResponsive);
+            return;
+        }
 
         _construirSeccionFicha();
         _construirSeccionEstrategia();
