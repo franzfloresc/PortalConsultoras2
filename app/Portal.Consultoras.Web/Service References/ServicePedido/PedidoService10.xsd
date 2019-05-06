@@ -737,6 +737,7 @@
       <xs:element minOccurs="0" name="MostrarAyudaWebTraking" type="xs:boolean" />
       <xs:element minOccurs="0" name="MostrarBotonValidar" type="xs:boolean" />
       <xs:element minOccurs="0" name="Nivel" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NivelCaminoBrillante" type="xs:int" />
       <xs:element minOccurs="0" name="NivelEducacion" type="xs:int" />
       <xs:element minOccurs="0" name="NivelLider" type="xs:int" />
       <xs:element minOccurs="0" name="NivelProyectado" nillable="true" type="xs:string" />
@@ -992,8 +993,10 @@
       <xs:element minOccurs="0" name="EsCompraPorCompra" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsCuponIndependiente" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsCuponNuevas" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EsDemCaminoBrillante" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsDuoPerfecto" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsElecMultipleNuevas" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EsKitCaminoBrillante" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsKitNueva" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsOfertaIndependiente" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsPremioElectivo" type="xs:boolean" />
@@ -1206,6 +1209,7 @@
       <xs:element minOccurs="0" name="Consultora" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ConsultoraId" type="xs:long" />
       <xs:element minOccurs="0" name="EsBpt" type="xs:boolean" />
+      <xs:element minOccurs="0" name="NivelCaminoBrillante" type="xs:int" />
       <xs:element minOccurs="0" name="NumeroPedido" type="xs:int" />
       <xs:element minOccurs="0" name="PaisId" type="xs:int" />
     </xs:sequence>

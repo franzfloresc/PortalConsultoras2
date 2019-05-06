@@ -2,7 +2,6 @@ using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Controllers;
 using Portal.Consultoras.Web.CustomHelpers;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using System;
 using System.Collections.Generic;
 using System.Linq;

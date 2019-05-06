@@ -173,7 +173,7 @@ fieldset {
 }
 
     fieldset:first-child {
-        padding-right: 35px;
+        padding-right: 56px;
     }
 
     fieldset p {
@@ -671,6 +671,10 @@ div.accountInfo {
 
 .margin_25 {
     padding-top: 25px;
+}
+
+.width_43{
+    width:43%;
 }
 
 .width_50 {

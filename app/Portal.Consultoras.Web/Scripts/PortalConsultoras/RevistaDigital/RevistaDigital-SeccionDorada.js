@@ -4,12 +4,8 @@
     var EsOPT = $divProductosShowRoom.length > 0 ? false : true;
     if (isMobile()) {
         var cabecera_mobil = $('header').outerHeight(true);
-        //var tabs_mobil = $('#seccion-menu-mobile').outerHeight(true);
         var cont_prod_mobil = EsOPT ? $divOfertaProductos.outerHeight(true) : $divProductosShowRoom.outerHeight(true);
-        //var menu_para_ti = $('.bc_para_ti-menu-opciones').outerHeight(true);
-        //var total_head_sin = menu_para_ti + cabecera_mobil;
         var total_head_mobil = cabecera_mobil + cont_prod_mobil;
-        //var total_sin_head = $('.contenido_zona_dorada_contenedor_desktop').outerHeight(true);
 
         if ($(this).scrollTop() >= total_head_mobil) {
             $('.contenido_zona_dorada_contenedor_desktop .logo-dorado-desktop').addClass('dorado_esconde_imagen');

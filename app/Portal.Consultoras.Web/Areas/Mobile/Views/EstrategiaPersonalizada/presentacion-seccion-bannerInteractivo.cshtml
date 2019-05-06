@@ -1,19 +1,9 @@
 ﻿@model Portal.Consultoras.Web.Models.ConfiguracionSeccionHomeModel
 
 @{
-    //List<string> lStyleBoton = new List<string>();
     List<string> lStylePanel = new List<string>();
-    //List<string> lStyleText = new List<string>();
 
     #region Diseño de boton
-    //if (!String.IsNullOrEmpty(Model.BotonColor) && Model.BotonColor.Replace("#", "").Trim().Length > 0)
-    //{
-    //    lStyleBoton.Add("background-color: " + Model.BotonColor + ";");
-    //}
-    //if (!String.IsNullOrEmpty(Model.BotonColorTexto) && Model.BotonColorTexto.Replace("#", "").Trim().Length > 0)
-    //{
-    //    lStyleBoton.Add("color: " + Model.BotonColorTexto + ";");
-    //}
     #endregion
     #region Diseño de panel
     if (!String.IsNullOrEmpty(Model.ImagenFondo) && Model.ImagenFondo.Trim().Length > 0)
@@ -31,12 +21,6 @@
     lStylePanel.Add("height: auto;");
     lStylePanel.Add("padding: 20px 0;");
     #endregion
-    //#region Diseño de texto en panel
-    //if (!String.IsNullOrEmpty(Model.ColorTexto) && Model.ColorTexto.Replace("#", "").Trim().Length > 0)
-    //{
-    //    lStyleText.Add("color: " + Model.ColorTexto + ";");
-    //}
-    //#endregion
 }
 
 <div class="container-flex atp_container" style="@Html.Raw(String.Join("", lStylePanel))">
