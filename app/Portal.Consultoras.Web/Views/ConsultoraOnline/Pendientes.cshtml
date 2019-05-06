@@ -537,9 +537,9 @@
                                         }
                                         @if (item2.ListaClientes.Count() > 2)
                                         {
-                                            <span class="card--box__info" onclick="DetallePedidoPendienteClientesVerMas(@item2.CUV)">Ver más...</span>
+                                            <span class="card--box__info" onclick="javascript: DetallePedidoPendienteClientesVerMas(@item2.CUV);">Ver más...</span>
                                         }
-                                        <a class="btn--arrow btn--arrow__right" onclick="DetallePedidoPendienteClientes(@item2.CUV)">Confirmar productos</a>
+                                        <a class="btn--arrow btn--arrow__right" onclick="javascript: DetallePedidoPendienteClientes(@item2.CUV);">Confirmar productos</a>
                                     </div>
                                 </div>
                             </div>

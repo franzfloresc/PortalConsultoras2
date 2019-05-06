@@ -5389,7 +5389,7 @@ img.icon-80 {
 .btn--arrow,
 .card--box__info,
 .no-pointer {
-    pointer-events: none
+    /*pointer-events: none*/
 }
 
 

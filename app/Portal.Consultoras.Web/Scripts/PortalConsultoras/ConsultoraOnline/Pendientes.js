@@ -145,6 +145,7 @@ function cargarGaleria() {
 }
 
 function DetallePedidoPendienteClientes(cuv) {
+	
     if (!(typeof AnalyticsPortalModule === 'undefined')) {
         AnalyticsPortalModule.ClickBotonTabVistaProducto('In Tab Vista Producto - Click Botón', 'Confirmar Clientes');
     }
@@ -152,13 +153,14 @@ function DetallePedidoPendienteClientes(cuv) {
 }
 
 function DetallePedidoPendienteClientesVerMas(cuv) {
+    
     if (!(typeof AnalyticsPortalModule === 'undefined')) {
         AnalyticsPortalModule.ClickBotonTabVistaProducto('In Tab Vista Producto - Click Botón', 'Ver más');
     }
     DetallePedidoPendienteClientesService(cuv);
 }
 
-function DetallePedidoPendienteClientesService(Cuv) {
+function DetallePedidoPendienteClientesService(cuv) {
     $("body").css('overflow', 'hidden');
     var obj = {
         cuv: cuv
@@ -514,8 +516,6 @@ function EliminarSolicitudDetalle(pedidoId, cuv, origen) {
 
 function CerrarPopupConfirmacion() {
 
-    //$("#modal-confirmacion").removeClass("on");
-    //$("#modal-confirmacion").addClass("isHide");
     $("#modal-confirmacion").hide();
     $("#Paso1-Productos").hide();
     $("#Paso1-Clientes").hide();
@@ -523,6 +523,10 @@ function CerrarPopupConfirmacion() {
     $("#contenedor-paso-2").hide();
     $(".modal-fondo").hide();
     $("body").css('overflow', 'auto');
+    var textAction = isTabClienteSelected() ? "Vista por Cliente - Pop up Paso 1" : "Vista por Producto - Pop up Paso 1" ;
+    if (!(typeof AnalyticsPortalModule === 'undefined')) {
+	    AnalyticsPortalModule.ClickTabPedidosPendientes(textAction, "Cerrar Pop up");
+    }
     ActualizarPendientes();
 
 }
@@ -542,6 +546,10 @@ function cambiaTabs() {
     var SelectorOpen = $("#vpcp").find(".active").attr('href');
     $(SelectorOpen).show();
 };
+function isTabClienteSelected() {
+    var SelectorOpen = $("#vpcp").find(".active").attr('href');
+    return SelectorOpen.indexOf("cliente") > 0;
+}
 
 $("#vpcp li a").click(function () {
     $("#vpcp li a").removeClass('active');
@@ -560,18 +568,17 @@ $(document).ready(function () {
 
     cambiaTabs();
 });
-}
 
 function PedidosPendientesVistaCliente() {
 
     if (!(typeof AnalyticsPortalModule === 'undefined')) {
-        AnalyticsPortalModule.clickTabPedidosPendientes('Click Tab', 'Vista por Cliente');
+        AnalyticsPortalModule.ClickTabPedidosPendientes('Click Tab', 'Vista por Cliente');
     }
 }
 
 function PedidosPendientesVistaProducto() {
 
     if (!(typeof AnalyticsPortalModule === 'undefined')) {
-        AnalyticsPortalModule.clickTabPedidosPendientes('Click Tab', 'Vista por Producto');
+        AnalyticsPortalModule.ClickTabPedidosPendientes('Click Tab', 'Vista por Producto');
     }
 }
