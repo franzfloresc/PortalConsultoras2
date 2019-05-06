@@ -139,8 +139,13 @@ var store = (function () {
           if (!currentConfig.enableDialog) { // warning dialog is disabled
             logoutUser(); // immediately log out user when user is idle for idleTimeLimit
           } else if (currentConfig.enableDialog && isDialogOpen() !== true) {
-            openWarningDialog();
-            startDialogTimer(); // start timing the warning dialog
+
+              if (isSessionExpired()) {
+                  logoutUser();
+              } else {
+                  openWarningDialog();
+                  startDialogTimer(); // start timing the warning dialog
+              }
           }
         } else {
             if (currentConfig.enableDialog && isDialogOpen() === true && !isPopupEndSession()) {

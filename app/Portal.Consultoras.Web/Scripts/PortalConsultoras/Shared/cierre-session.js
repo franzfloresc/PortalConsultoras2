@@ -1,4 +1,6 @@
-﻿$(function() {
+﻿var expiredSession = false;
+
+$(function() {
     //if (noPedidoReservado()) {
     //    registerCloseEvent();
     //}
@@ -60,8 +62,16 @@ function registerCloseEvent() {
 }
 
 function continuarSession() {
-    window.idleTimeout.reset();
+	window.idleTimeout.reset();
     callKeepAlive();
+}
+
+function closeCierreSession() {
+    if (expiredSession) {
+        CerrarSesion();
+    } else {
+        continuarSession();
+    }
 }
 
 function callKeepAlive() {
@@ -108,6 +118,7 @@ function forceCloseSession() {
 }
 
 function showPopupFinSesion() {
+    expiredSession = true;
     showPopupCierreSesion(4);
 }
 
