@@ -104,8 +104,23 @@
             $(id).slick({
                 infinite: false,
                 speed: 300,
+                slidesToShow: 3,
                 centerMode: false,
                 variableWidth: true,
+                responsive: [
+                    {
+                        breakpoint: 1024,
+                        settings: {
+                            slidesToShow: 3,
+                        }
+                    },
+                    {
+                        breakpoint: 700,
+                        settings: {
+                            slidesToShow: 1,
+                        }
+                    },
+                ],
                 prevArrow:
                     "<a id=\"opciones-seleccionadas-prev\" class=\"flecha_ofertas-tipo prev\" style=\"left:-5%; text-align:left;display:none;\">" +
                     "<img src=\"" + baseUrl + "Content/Images/Esika/previous_ofertas_home.png\")\" alt=\"\" />" +
