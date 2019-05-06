@@ -531,8 +531,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
             string mensajeObs = "";
             string TituloMensaje = "";
             var modificoBackOrder = false;
-            var ListaMensajeCondicional = (List<BEMensajeProl>)null;
-
+            var ListaMensajeCondicional = new  List<BEMensajeProl>();
+        
             var transactionExitosa = AdministradorPedido(usuario, pedidoDetalle, pedidowebdetalles, estrategia, Componentes, Constantes.PedidoAccion.INSERT, out mensajeObs, out listCuvEliminar, out TituloMensaje, out modificoBackOrder, out ListaMensajeCondicional);
 
             var response = PedidoDetalleRespuesta(transactionExitosa ? Constantes.PedidoValidacion.Code.SUCCESS : Constantes.PedidoValidacion.Code.ERROR_GRABAR, mensajeObs);
@@ -760,7 +760,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
         public async Task<BEPedidoDetalleResult> PedidoDeleteProductoTransaction(BEPedidoDetalle pedidoDetalle)
         {
-            var ListaMensajeCondicional = (List<BEMensajeProl>)null;
+            var ListaMensajeCondicional = new List<BEMensajeProl>();
 
             try
             {
@@ -941,7 +941,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             string mensajeObs = "";
             string TituloMensaje = "";
             var modificoBackOrder = false;
-            var ListaMensajeCondicional = (List<BEMensajeProl>)null;
+            var ListaMensajeCondicional = new List<BEMensajeProl>();
 
             var result = AdministradorPedido(usuario, null, lista, null, null, Constantes.PedidoAccion.DELETE, out mensajeObs, out listCuvEliminar, out TituloMensaje, out modificoBackOrder, out ListaMensajeCondicional);
             if (result) responseCode = Constantes.PedidoValidacion.Code.SUCCESS;
@@ -1266,7 +1266,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         Cantidad = 1,
                         ClienteID = 0
                     });
-                    var ListMensajeCondicional = (List<BEMensajeProl>)null;
+                    var ListMensajeCondicional = new List<BEMensajeProl>();
 
                     UpdateProl(usuario, lstDetalle, out ListMensajeCondicional);
 
@@ -1497,7 +1497,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     });
                 }
 
-                var ListaMensajeCondicional = (List<BEMensajeProl>)null;
+                var ListaMensajeCondicional = new List<BEMensajeProl>();
 
                 UpdateProl(usuario, lstDetalle, out ListaMensajeCondicional);
 
