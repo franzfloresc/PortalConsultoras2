@@ -1856,13 +1856,15 @@ namespace Portal.Consultoras.Web.Controllers
                 var numIteracionMaximo =
                     Convert.ToInt32(tablalogicaDatos.First(x => x.TablaLogicaDatosID == 5601).Codigo);
 
+                BEMisPedidos pedido =
+                    consultoraOnlineMisPedidos.ListaPedidos.FirstOrDefault(p => p.PedidoId == SolicitudId) ??
+                    new BEMisPedidos();
+
                 if (NumIteracion == numIteracionMaximo)
                 {
                     sv.RechazarSolicitudCliente(paisId, SolicitudId, true, OpcionRechazo, RazonMotivoRechazo);
 
-                    BEMisPedidos pedido =
-                        consultoraOnlineMisPedidos.ListaPedidos.FirstOrDefault(p => p.PedidoId == SolicitudId) ??
-                        new BEMisPedidos();
+
 
                     if (pedido.FlagMedio == "01")
                     {
@@ -1936,6 +1938,54 @@ namespace Portal.Consultoras.Web.Controllers
                                 Util.EnviarMail("no-responder@somosbelcorp.com", nuevaConsultora.Email,
                                     "Un nuevo cliente te eligió como Consultora Online", mensaje, true,
                                     "Consultora Online Belcorp");
+                            }
+                            catch (Exception ex)
+                            {
+                                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora,
+                                    userData.CodigoISO);
+                            }
+                        }
+                        else  // no devolvió consultora
+                        {
+                            String titulocliente = "Tu pedido ha sido CONFIRMADO por " + userData.PrimerNombre + " " +
+                                              userData.PrimerApellido + " - App de Catálogos Ésika, L'Bel y Cyzone";
+                            StringBuilder mensajecliente = new StringBuilder();
+
+                            mensajecliente.Append("<table align='center' border='0' cellpadding='0' cellspacing='0'>");
+                            mensajecliente.Append("<tr><td width = '100%' height = '64' colspan = '3' > &nbsp;</td></tr>");
+                            mensajecliente.Append("<tr><td width = '256' height = '88' > &nbsp;</td><td width = '88' height = '88'><img src = 'https://somosbelcorpqa.s3.amazonaws.com/Correo/PedidoE-Catalog/icono-notificacion-negativa.png' style = 'display:block; width:88px; height:88px;' alt = 'Pedido rechazado' ></td><td width = '256' height = '88' > &nbsp;</td></tr>");
+                            mensajecliente.Append("<tr><td width = '100%' height = '32' colspan = '3' > &nbsp;</td></tr>");
+                            mensajecliente.Append("<tr>");
+                            mensajecliente.Append("<td align='center' width='100%' colspan='3'>");
+                            mensajecliente.Append("<h5 style='display:block; text-align:center; margin-top:0; margin-bottom:0; font-family:Lato, Arial, Helvetica, Arial, sans-serif; font-size:16px; font-weight:bold; color:#000;'>");
+                            mensajecliente.Append(pedido.Cliente.Split(' ').First() + ", tu pedido ha sido rechazado.");
+                            mensajecliente.Append("</h5>");
+                            mensajecliente.Append("</td>");
+                            mensajecliente.Append("</tr>");
+                            mensajecliente.Append("<tr>");
+                            mensajecliente.Append("<td align='center' width='100%' colspan='3'>");
+                            mensajecliente.Append("<p style='display:block; text-align:center; margin-top:0; margin-bottom:0; padding-top:15px; font-family:Lato, Arial, Helvetica, Arial, sans-serif; font-size:14px; font-weight:400; line-height:20px; color:#000;'>");
+                            mensajecliente.Append("Para m&aacute;s informaci&oacute;n comun&iacute;cate<br/>con nuestro(a) consultor(a) " + userData.PrimerNombre + " " + userData.PrimerApellido);
+                            mensajecliente.Append("</p>");
+                            mensajecliente.Append("</td>");
+                            mensajecliente.Append("</tr>");
+                            mensajecliente.Append("</table>");
+
+                            try
+                            {
+                                string emailDe =
+                                    _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.ConsultoraOnlineEmailDe);
+                                if (typeAction == "1")
+                                {
+                                    Util.EnviarMailPedidoPendienteRechazado(emailDe, pedido.Email, titulocliente, mensajecliente.ToString(), true,
+                                        pedido.Email);
+                                }
+                                else
+                                {
+                                    //mobile
+                                    Util.EnviarMailPedidoPendienteRechazado(emailDe, pedido.Email, titulocliente, mensajecliente.ToString(),
+                                        true, pedido.Email);
+                                }
                             }
                             catch (Exception ex)
                             {
