@@ -4158,8 +4158,8 @@
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\Componentes\ComponentesView.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\Estrategia\EstrategiaPresenter.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\Estrategia\EstrategiaView.js" />
-    <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\FichaResponsivEvents.js" />
-    <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\FichaResponsivePresenter.js" />
+    <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\FichaResponsiveEvents.js" />
+    <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\FichaResponsive.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\Ficha\CarruselModule.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\Ficha\ComponenteDetalleModule.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\DetalleEstrategiaProvider.js" />
@@ -4324,7 +4324,6 @@
     <Content Include="Scripts\tests\PortalConsultoras\DetalleEstrategia\FichaResponsive\Cliente\ClientePresenterSpec.js" />
     <Content Include="Scripts\tests\PortalConsultoras\DetalleEstrategia\FichaResponsive\Componentes\ComponentesPresenterSpec.js" />
     <Content Include="Scripts\tests\PortalConsultoras\DetalleEstrategia\FichaResponsive\Estrategia\EstrategiaPresenterSpec.js" />
-    <Content Include="Scripts\tests\PortalConsultoras\DetalleEstrategia\FichaResponsive\FichaResponsivePresenterSpec.js" />
     <Content Include="Scripts\tests\PortalConsultoras\TusClientes\TusClientesModuleSpec.js" />
     <Content Include="Scripts\tests\TestHelpersModule.js" />
     <Content Include="Scripts\trans-banner.js" />
