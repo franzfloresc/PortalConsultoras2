@@ -848,7 +848,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string GetTienePiloto(int paisId)
         {
-            var listDato = _tablaLogicaProvider.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.PilotoCatalogoDigital);
+            var listDato = _tablaLogicaProvider.GetTablaLogicaDatos(paisId, ConsTablaLogica.PilotoCatalogoDigital.TablaLogicaId);
             if (listDato.Count == 0) return "0";
 
             return listDato[0].Valor;

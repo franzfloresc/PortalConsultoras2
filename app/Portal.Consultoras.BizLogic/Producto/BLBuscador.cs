@@ -79,7 +79,7 @@ namespace Portal.Consultoras.BizLogic.Producto
 
                 if (rst == null)
                 {
-                    using (IDataReader reader = new DATablaLogicaDatos(paisID).GetTablaLogicaDatos(Constantes.TablaLogica.ListaOrdenamientoFiltros))
+                    using (IDataReader reader = new DATablaLogicaDatos(paisID).GetTablaLogicaDatos(ConsTablaLogica.BfOpcionesOrdenamiento.TablaLogicaId))
                     {
                         rst = reader.MapToCollection<BETablaLogicaDatos>();
                     }

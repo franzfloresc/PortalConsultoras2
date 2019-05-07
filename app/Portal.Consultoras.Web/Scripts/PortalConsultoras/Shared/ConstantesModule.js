@@ -215,12 +215,6 @@ var ConstantesModule = (function () {
             + _origenPedidoWebEstructura.Palanca.ArmaTuPack
             + _origenPedidoWebEstructura.Seccion.Ficha,
     };
-    var _codigoUbigeoPortal = {
-        GuionPedidoGuionFichaResumida: "--02--00",
-        GuionContenedorArmaTuPackGuion: "--0816--",
-        GuionContenedorArmaTuPack: "--12----",
-        GuionCarritoComprasGuionFichaResumida: "--02--09"
-    }; 
 
     var _tipoAccionNavegar = {
         BreadCrumbs: 1,
@@ -274,7 +268,6 @@ var ConstantesModule = (function () {
         UrlDetalleEstrategia: _urlDetalleEstrategia,
         UrlPedido: _urlPedido,
         DiccionarioTipoEstrategia: _diccionarioTipoEstrategia,
-        GetTipoPersonalizacionByTipoEstrategia: _getTipoPersonalizacionByTipoEstrategia,
-        CodigoUbigeoPortal: _codigoUbigeoPortal
+        GetTipoPersonalizacionByTipoEstrategia: _getTipoPersonalizacionByTipoEstrategia
     }
 })();

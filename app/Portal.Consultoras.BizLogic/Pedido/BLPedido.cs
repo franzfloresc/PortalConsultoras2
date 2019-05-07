@@ -1954,7 +1954,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             var listaDescripcionesDic = new Dictionary<string, string>();
             var suscripcionActiva = RDEsSuscrita && RDEsActiva;
 
-            var listaDescripciones = _tablaLogicaDatosBusinessLogic.GetListCache(paisID, Constantes.TablaLogica.NuevaDescripcionProductos);
+            var listaDescripciones = _tablaLogicaDatosBusinessLogic.GetListCache(paisID, ConsTablaLogica.DescripcionProducto.TablaLogicaId);
 
             foreach (var item in listaDescripciones)
             {
@@ -2814,7 +2814,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
         {
             var lista = new Dictionary<string, string>();
 
-            var result = _tablaLogicaDatosBusinessLogic.GetList(PaisID, Constantes.TablaLogica.NuevaDescripcionProductos);
+            var result = _tablaLogicaDatosBusinessLogic.GetList(PaisID, ConsTablaLogica.DescripcionProducto.TablaLogicaId);
 
             foreach (var item in result)
             {

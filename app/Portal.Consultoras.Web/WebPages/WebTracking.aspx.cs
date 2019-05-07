@@ -546,7 +546,7 @@ namespace Portal.Consultoras.Web.WebPages
                     int.TryParse(ViewState["ZONAID"].ToString(), out zonaid);
                     int.TryParse(ViewState["REGIONID"].ToString(), out regionid);
 
-                    var resultado = sv.GetTablaLogicaDatos(paisid, Constantes.TablaLogica.SegPedidoRegionZona).FirstOrDefault();
+                    var resultado = sv.GetTablaLogicaDatos(paisid, ConsTablaLogica.SegPedidoRegionZona.TablaLogicaId).FirstOrDefault();
                     if (resultado == null) return true; // si no hay registros mostrar
                     if (resultado.Valor.IsNullOrEmptyTrim()) return false;
                     string[] arrZonaRegion = resultado.Valor.Split(';');
