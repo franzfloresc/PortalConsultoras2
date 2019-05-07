@@ -313,6 +313,7 @@
     <Compile Include="Models\CaminoBrillante\LogroCaminoBrillanteModel.cs" />
     <Compile Include="Models\CaminoBrillante\NivelCaminoBrillanteModel.cs" />
     <Compile Include="Models\ConfiguracionCaminoBrillanteModel.cs" />
+    <Compile Include="Models\MiAcademia\ParamUrlMiAcademiaModel.cs" />
     <Compile Include="Models\PremioNuevaModel.cs" />
     <Compile Include="Models\AdministracionPoput\ComunicadoModel.cs" />
     <Compile Include="Models\AdministracionPoput\SegmentacionComunicado.cs" />
@@ -873,6 +874,7 @@
     <Compile Include="Providers\RenderImgProvider.cs" />
     <Compile Include="Providers\RevistaDigitalProvider.cs" />
     <Compile Include="Providers\ShowRoomProvider.cs" />
+    <Compile Include="Providers\MiAcademiaProvider.cs" />
     <Compile Include="Providers\TablaLogicaProvider.cs" />
     <Compile Include="Providers\TipoEstrategiaProvider.cs" />
     <Compile Include="Providers\UpSellingProvider.cs" />
