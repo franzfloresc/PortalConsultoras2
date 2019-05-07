@@ -35,26 +35,23 @@ namespace Portal.Consultoras.Web.Controllers
                 campaniaId <= 0 ||
                 string.IsNullOrWhiteSpace(cuv)) return Redirect("/Ofertas");
 
-            
-            //try
-            //{
-            //    var url = (Request.Url.Query).Split('?');
-            //    if (EsDispositivoMovil()
-            //        && url.Length > 1
-            //        && url[1].Contains("sap")
-            //        && url[1].Contains("VC"))
-            //    {
-            //        string sap = "&" + url[1].Substring(3);
-            //        return RedirectToAction("Ficha", "DetalleEstrategia", new { area = "Mobile", palanca, campaniaId, cuv, origen, sap });
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-            //}
-            //return base.Ficha(palanca, campaniaId, cuv, origen);
+            var modelo = FichaModelo(palanca, campaniaId, cuv, origen, false);
 
-            return View();
+
+            var estrategiaModelo = new EstrategiaPersonalizadaProductoModel
+            {
+                EstrategiaID = modelo.EstrategiaID,
+                CUV2 = modelo.CUV2,
+                CampaniaID = modelo.CampaniaID,
+                CodigoVariante = modelo.CodigoEstrategia,
+                Hermanos = modelo.Hermanos
+            };
+            bool esMultimarca = false;
+            string mensaje = "";
+
+            modelo.Hermanos = _estrategiaComponenteProvider.GetListaComponentes(estrategiaModelo, modelo.CodigoEstrategia, out esMultimarca, out mensaje);
+
+            return View(modelo);
 
         }
 
