@@ -1356,7 +1356,7 @@ namespace Portal.Consultoras.Web.Controllers
                     mensajecliente.Append("<div style='display:block;margin-left:auto;margin-right:auto;width:100%; height:596px;'>");
                     mensajecliente.Append("<table align='center' border='0' cellpadding='0' cellspacing='0' width='600'>");
                     mensajecliente.Append("<tr>");
-                    mensajecliente.Append("<td height='70' style='background:#b11437; background:linear-gradient(to right, #b11437, #55046d);'>");
+                    mensajecliente.Append("<td height='70' style='background:linear-gradient(to right, #b11437, #55046d);'>");
                     mensajecliente.Append("<table align='center' border='0' cellpadding='0' cellspacing='0'>");
                     mensajecliente.Append("<tr>");
                     mensajecliente.Append("<td width='108' height='70'>&nbsp;</td><td width = '84' height = '70' ><img src = 'https://somosbelcorpqa.s3.amazonaws.com/Correo/PedidoE-Catalog/logo-esika.png' style = 'display:block; width:85.67px; height:37.73px;' alt = '&Eacute;sika' ></td>");
@@ -1896,7 +1896,7 @@ namespace Portal.Consultoras.Web.Controllers
                         mensajecliente.Append("<div style='display:block;margin-left:auto;margin-right:auto;width:100%; height:596px;'>");
                         mensajecliente.Append("<table align='center' border='0' cellpadding='0' cellspacing='0' width='600'>");
                         mensajecliente.Append("<tr>");
-                        mensajecliente.Append("<td height='70' style='background:#b11437; background:linear-gradient(to right, #b11437, #55046d);'>");
+                        mensajecliente.Append("<td height='70' style='background:linear-gradient(to right, #b11437, #55046d);'>");
                         mensajecliente.Append("<table align='center' border='0' cellpadding='0' cellspacing='0'>");
                         mensajecliente.Append("<tr>");
                         mensajecliente.Append("<td width='108' height='70'>&nbsp;</td><td width = '84' height = '70' ><img src = 'https://somosbelcorpqa.s3.amazonaws.com/Correo/PedidoE-Catalog/logo-esika.png' style = 'display:block; width:85.67px; height:37.73px;' alt = '&Eacute;sika' ></td>");
@@ -1994,7 +1994,7 @@ namespace Portal.Consultoras.Web.Controllers
                             mensajecliente.Append("<div style='display:block;margin-left:auto;margin-right:auto;width:100%; height:596px;'>");
                             mensajecliente.Append("<table align='center' border='0' cellpadding='0' cellspacing='0' width='600'>");
                             mensajecliente.Append("<tr>");
-                            mensajecliente.Append("<td height='70' style='background:#b11437; background:linear-gradient(to right, #b11437, #55046d);'>");
+                            mensajecliente.Append("<td height='70' style='background:linear-gradient(to right, #b11437, #55046d);'>");
                             mensajecliente.Append("<table align='center' border='0' cellpadding='0' cellspacing='0'>");
                             mensajecliente.Append("<tr>");
                             mensajecliente.Append("<td width='108' height='70'>&nbsp;</td><td width = '84' height = '70' ><img src = 'https://somosbelcorpqa.s3.amazonaws.com/Correo/PedidoE-Catalog/logo-esika.png' style = 'display:block; width:85.67px; height:37.73px;' alt = '&Eacute;sika' ></td>");
