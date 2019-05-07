@@ -65,8 +65,18 @@ function AceptarPedidoPendiente(id, tipo) {
                 CloseLoading();
                 if (checkTimeout(response)) {
                     if (response.success) {
-
                         $('#popuplink').click();
+                        if (!response.continuarExpPendientes) {
+                            $("#btnIrPEdidoAprobar").hide();
+                            $("#btnIrPedido").removeClass("action-btn_refuse");
+                            $("#btnIrPedido").addClass("action-btn_continue");
+                            $("#btnIrPedido").addClass("active");
+                        }else {
+                            $("#btnIrPEdidoAprobar").show();
+                            $("#btnIrPedido").removeClass("action-btn_continue");
+                            $("#btnIrPedido").removeClass("active");
+                            $("#btnIrPedido").addClass("action-btn_refuse");
+                        }
                         return false;
                     }
                     else {

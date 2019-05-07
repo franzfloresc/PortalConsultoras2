@@ -3018,12 +3018,20 @@ namespace Portal.Consultoras.Web.Controllers
 
             #endregion
 
+            var pedidos = GetPendientes();
+            var ContinuarExpPendientes = true;
+            if(pedidos.ListaPedidos == null || pedidos.ListaPedidos.Count == 0)
+            {
+                ContinuarExpPendientes = false;
+            }
+
             try
             {
                 return Json(new
                 {
                     success = true,
                     message = "OK",
+                    continuarExpPendientes = ContinuarExpPendientes,
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (FaultException e)

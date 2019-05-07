@@ -85,6 +85,17 @@ function AceptarPedidoPendiente() {
                             $("#contenedor-paso-2").hide();
                             $("#modal-confirmacion").show();
                             $("body").css('overflow', 'hidden');
+                            if (!response.continuarExpPendientes) {
+                                $("#btnIrPEdidoAprobar").hide();
+                                $("#btnIrPedido").removeClass("ghost");
+                                $("#btnIrPedido").removeClass("color-dark");
+                                $("#btnIrPedido").addClass("second-color");
+                            }else {
+                                $("#btnIrPEdidoAprobar").show();
+                                $("#btnIrPedido").removeClass("second-color");
+                                $("#btnIrPedido").addClass("ghost");
+                                $("#btnIrPedido").addClass("color-dark");
+                            }
                         }
                         else {
                             $('#popuplink').click();
