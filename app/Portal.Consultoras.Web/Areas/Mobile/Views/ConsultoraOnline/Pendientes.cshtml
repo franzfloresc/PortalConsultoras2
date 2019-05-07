@@ -2,6 +2,7 @@
 @model Portal.Consultoras.Web.Models.MisPedidosModel
 
 @{
+
     var layout = ViewContext.MobileLayout();
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
     var mobileConfiguracion = Html.MobileAppConfiguracion();
@@ -89,7 +90,6 @@
                     }
                 </div>
                 <!-- / Vista por cliente -->
-
                 <!-- Vista por producto -->
                 <div class="tab-pane fade" id="producto" role="tabpanel" aria-labelledby="producto-tab">
                     <!--   Productos   -->
