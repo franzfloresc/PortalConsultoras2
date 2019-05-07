@@ -877,7 +877,21 @@ namespace Portal.Consultoras.Web.Controllers
                 else
                 {
                     //Productos individuales
+                    var xmlReemplazo = string.Empty;
                     Array.Resize(ref arrComplemento, 1);
+                    if (model.Operacion == Constantes.CodigoOperacionCDR.Trueque)
+                    {
+                        if (model.Reemplazo.Any())
+                        {
+                            if (model.Reemplazo.Count > 1)
+                                xmlReemplazo = MisReclamosModel.ToXML(model.Reemplazo.ToList());
+                            else
+                            {
+                                model.CUV2 = model.Reemplazo.FirstOrDefault().CUV;
+                                model.Cantidad2 = model.Reemplazo.FirstOrDefault().Cantidad;
+                            }
+                        }
+                    }
                     arrComplemento[0] = new ServiceCDR.BECDRWebDetalle()
                     {
                         CDRWebID = model.CDRWebID,
@@ -886,7 +900,7 @@ namespace Portal.Consultoras.Web.Controllers
                         CUV = model.CUV,
                         Cantidad = model.Cantidad,
                         GrupoID = null,
-                        XMLReemplazo = (model.Operacion == Constantes.CodigoOperacionCDR.Trueque) ? MisReclamosModel.ToXML(model.Reemplazo.ToList()) : null
+                        XMLReemplazo = xmlReemplazo
                     };
 
                     if (model.Operacion == Constantes.CodigoOperacionCDR.Canje)
