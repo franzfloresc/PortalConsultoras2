@@ -2542,14 +2542,12 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     return "El archivo especificado no existe.";
                 }
-
                 if (!Util.IsFileExtension(uplArchivo.FileName, Enumeradores.TypeDocExtension.Excel))
                 {
                     return "El archivo especificado no es un documento de tipo MS-Excel.";
                 }
 
                 string fileextension = Util.Trim(Path.GetExtension(uplArchivo.FileName));
-
                 if (!fileextension.ToLower().Equals(".xlsx"))
                 {
                     return "Sólo se permiten archivos MS-Excel versiones 2007-2012.";
@@ -2564,64 +2562,51 @@ namespace Portal.Consultoras.Web.Controllers
 
                 bool isCorrect = false;
                 ZonaValidacionTelefonicaModel prod = new ZonaValidacionTelefonicaModel();
-
                 IList<ZonaValidacionTelefonicaModel> lista = Util.ReadXmlFile(finalPath, prod, false, ref isCorrect);
 
                 foreach (var item in lista.ToList())
                 {
-                    if (item.ZonaSeccion == null)
-                    {
-                        lista.Remove(item);
-                    }
+                    if (item.ZonaSeccion == null) lista.Remove(item);
                 }
-
-                if (lista.Count == 0)
-                {
-                    isCorrect = false;
-                }
+                if (lista.Count == 0) isCorrect = false;
 
                 System.IO.File.Delete(finalPath);
-                List<ParametroUnete> listafinal = new List<ParametroUnete>();
-                if (isCorrect)
+                if (!isCorrect) return "Ocurrió un problema al cargar el documento o tal vez se encuentra vacío.";
+
+                var nivel = 0;
+                using (var sv = new PortalServiceClient())
                 {
-                    var nivel = 0;
+                    var parametros = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.Validaciones, default(int));
+                    var telefonoRequeridoParametro = parametros.FirstOrDefault(p => p.Nombre == "TelefonoRequerido");
+                    nivel = telefonoRequeridoParametro.IdParametroUnete;
+                }
+
+                List<ParametroUnete> listafinal = new List<ParametroUnete>();
+                foreach (var item in lista)
+                {
+                    var parametroTodos = new ParametroUnete
+                    {
+                        Nombre = item.ZonaSeccion,
+                        Descripcion = item.PasoLimite,
+                        Valor = 1,
+                        FK_IdTipoParametro = EnumsTipoParametro.Validaciones.ToInt(),
+                        FK_IdParametroUnete = nivel,
+                        Estado = 1
+                    };
+                    listafinal.Add(parametroTodos);
+                }
+
+                if (listafinal.Any())
+                {
                     using (var sv = new PortalServiceClient())
                     {
-                        var parametros = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.Validaciones, default(int));
-                        var telefonoRequeridoParametro = parametros.FirstOrDefault(p => p.Nombre == "TelefonoRequerido");
-                        nivel = telefonoRequeridoParametro.IdParametroUnete;
-                    }
-                    foreach (var item in lista)
-                    {
-                        var parametroTodos = new ParametroUnete
-                        {
-                            Nombre = item.ZonaSeccion,
-                            Descripcion = item.PasoLimite,
-                            Valor = 1,
-                            FK_IdTipoParametro = EnumsTipoParametro.Validaciones.ToInt(),
-                            FK_IdParametroUnete = nivel,
-                            Estado = 1
-                        };
-                        listafinal.Add(parametroTodos);
+                        sv.InsertarZonaValidacionTelefonica(model.CodigoISO, listafinal.ToArray());
                     }
 
-                    if (listafinal.Any())
-                    {
-                        using (var sv = new PortalServiceClient())
-                        {
-                            sv.InsertarZonaValidacionTelefonica(model.CodigoISO, listafinal.ToArray());
-                        }
-
-                        return "Se realizo satisfactoriamente la carga de datos.";
-                    }
-
-                    return "No se Guardo ningun registro";
-
+                    return "Se realizo satisfactoriamente la carga de datos.";
                 }
-                else
-                {
-                    return "Ocurrió un problema al cargar el documento o tal vez se encuentra vacío.";
-                }
+
+                return "No se Guardo ningun registro";
             }
             catch (FaultException ex)
             {
