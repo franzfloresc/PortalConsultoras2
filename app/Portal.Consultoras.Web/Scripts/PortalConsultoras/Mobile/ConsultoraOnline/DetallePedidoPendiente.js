@@ -467,10 +467,18 @@ function AceptarPedidoProducto(id, option) {
 
 }
 
-function RechazarSolicitudCliente(pedidoId) {
+function RechazarSolicitudCliente(pedidoId, option) {
     var obj = {
         pedidoId: pedidoId,
     };
+    if (option === "P") //Producto
+    {
+        MarcaAnalyticsClienteProducto("Vista por Producto - Pop up Paso 1", '¿Desea Rechazar todos los pedidos de tus clientes? - Sí, gracias');
+    }
+    if (option === "C") //Cliente
+    {
+        MarcaAnalyticsClienteProducto("Vista por Cliente - Pop up Paso 1", '¿Desea Rechazar todos los pedidos de tus clientes? - Sí, gracias');
+    }
 
     ShowLoading();
     $.ajax({
@@ -496,11 +504,19 @@ function RechazarSolicitudCliente(pedidoId) {
     });
 }
 
-function RechazarSolicitudClientePorCuv(cuv) {
+function RechazarSolicitudClientePorCuv(cuv, option) {
+	
     var obj = {
         cuv: cuv,
     };
-
+    if (option === "P") //Producto
+    {
+	    MarcaAnalyticsClienteProducto("Vista por Producto - Pop up Paso 1", '¿Desea Rechazar todos los pedidos de tus clientes? - Sí, gracias');
+    }
+    if (option === "C") //Cliente
+    {
+	    MarcaAnalyticsClienteProducto("Vista por Cliente - Pop up Paso 1", '¿Desea Rechazar todos los pedidos de tus clientes? - Sí, gracias');
+    }
     ShowLoading();
     $.ajax({
         type: "POST",
@@ -525,7 +541,7 @@ function RechazarSolicitudClientePorCuv(cuv) {
 
 }
 
-function ContinuarPedido() {
+function ContinuarPedido(option) {
     var lstDetalle = [];
     ShowLoading();
 
@@ -570,10 +586,44 @@ function ContinuarPedido() {
         });
     }
     else {
+        debugger;
+        if (option === "P") //Producto
+        {
+            MarcaAnalyticsClienteProducto("Vista por Producto - Pop up Paso 1", 'Alerta: Debes aceptar un pedido mínimo');
+        }
+        if (option === "C") //Cliente
+        {
+            MarcaAnalyticsClienteProducto("Vista por Cliente - Pop up Paso 1", 'Alerta: Debes aceptar un pedido mínimo');
+        }
+	    
         CloseLoading();
         $('#mensajepedido').show();
         setTimeout(function () { $('#mensajepedido').hide(); }, 2000);
     }
+}
+
+function RechazarTodo(option) {
+	
+	if (option === "P") //Producto
+	{
+        MarcaAnalyticsClienteProducto("Vista por Producto - Pop up Paso 1", "Rechazar Todo");
+	}
+	if (option === "C") //Cliente
+	{
+        MarcaAnalyticsClienteProducto("Vista por Cliente - Pop up Paso 1", "Rechazar Todo");
+	}
+}
+
+function RechazarTodoConfirmacion(option) {
+	
+	if (option === "P") //Producto
+	{
+        MarcaAnalyticsClienteProducto("Vista por Producto - Pop up Paso 1", '¿Desea Rechazar todos los pedidos de tus clientes? - No, gracias');
+	}
+	if (option === "C") //Cliente
+	{
+        MarcaAnalyticsClienteProducto("Vista por Cliente - Pop up Paso 1", '¿Desea Rechazar todos los pedidos de tus clientes? - No, gracias');
+	}
 }
 
 function cerrandoPopupMobileProducto() {

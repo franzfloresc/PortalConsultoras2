@@ -182,12 +182,12 @@
             <div class="row">
                 <div class="col">
                     <div class="vc-box text-14 text-700">
-                        <a href="#" class="action-btn action-btn_refuse" data-toggle="modal" data-target="#rechazarTodo">Rechazar todo</a>
+                        <a href="#" class="action-btn action-btn_refuse" data-toggle="modal"  onclick="RechazarTodo('C')" data-target="#rechazarTodo">Rechazar todo</a>
                     </div>
                 </div>
                 <div class="col">
                     <div class="vc-box text-14 text-700">
-                        <a href="javascript:;" onclick="ContinuarPedido()" class="action-btn action-btn_continue active">Continuar</a>
+                        <a href="javascript:;" onclick="ContinuarPedido('C')" class="action-btn action-btn_continue active">Continuar</a>
                     </div>
                 </div>
             </div>
@@ -223,10 +223,10 @@
                 </div>
                 <p style="text-align: center; font-size: 18px; font-weight:700; width: 85%; margin: 0 auto;">¿Deseas rechazar todos los pedidos de tus clientes?</p>
                 <div style="font-size: 14px; letter-spacing: 1px; font-weight:700; margin: 24px 0; display: flex; justify-content: center; width:100%">
-                    <button class="btn btn-default" data-dismiss="modal" aria-label="Close" style="font-size: 14px; letter-spacing: 1px;font-weight:700;text-decoration:underline;">
+                    <button class="btn btn-default" data-dismiss="modal" onclick="RechazarTodoConfirmacion('C')" aria-label="Close" style="font-size: 14px; letter-spacing: 1px;font-weight:700;text-decoration:underline;">
                         No, gracias
                     </button>
-                    <button onclick="RechazarSolicitudCliente('@solicitud.PedidoId')" class="btn btn-primary" style="font-size: 14px; letter-spacing: 1px;font-weight:700; background-color: #b9007e; border: #b9007e; color: white;">
+                    <button onclick="RechazarSolicitudCliente('@solicitud.PedidoId', 'C')" class="btn btn-primary" style="font-size: 14px; letter-spacing: 1px;font-weight:700; background-color: #b9007e; border: #b9007e; color: white;">
                         Sí, Rechazar
                     </button>
                 </div>

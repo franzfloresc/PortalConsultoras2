@@ -286,6 +286,8 @@ function RechazarSolicitudCliente(pedidoId) {
         pedidoId: pedidoId,
     };
 
+    MarcaAnalyticsClienteProducto('¿Desea Rechazar todos los pedidos de tus clientes? - Sí, rechazar');
+
     //ShowLoading();
     AbrirLoad();
     $.ajax({
@@ -354,9 +356,10 @@ function ActualizarPendientes() {
 
 function RechazarSolicitudClientePorCuv(cuv) {
     var obj = {
-        cuv: cuv,
+        cuv: cuv
     };
 
+    MarcaAnalyticsClienteProducto('¿Desea Rechazar todos los pedidos de tus clientes? - Sí, rechazar');
     //ShowLoading();
     $.ajax({
         type: "POST",
@@ -452,9 +455,13 @@ function ContinuarPedido() {
                 console.log(err);
             }
         });
+
     }
     else {
         //CloseLoading();
+        //Lanzar analytics cuando se muestra este mensaje.
+        MarcaAnalyticsClienteProducto('Alerta: Debes aceptar un pedido mínimo');
+
         var $MensajeTolTip = $("[data-tooltip=\"mensajepedido\"]");
         $MensajeTolTip.show();
         setTimeout(function () { $MensajeTolTip.hide(); }, 2000);
@@ -527,7 +534,14 @@ function EliminarSolicitudDetalle(pedidoId, cuv, origen) {
 
 function RechazarTodo() {
     $('#rechazarTodop').removeClass('hide');
+    $('#rechazarTodo').removeClass('hide');
     MarcaAnalyticsClienteProducto("Rechazar Todo");
+}
+function RechazarTodoConfirmado() {
+    $('#rechazarTodop').addClass('hide');
+    $('#rechazarTodo').addClass('hide');
+    MarcaAnalyticsClienteProducto('¿Desea Rechazar todos los pedidos de tus clientes? - No, gracias');
+
 }
 function MarcaAnalyticsClienteProducto(label) {
 	var textAction = isTabOptionSelected() == 1
