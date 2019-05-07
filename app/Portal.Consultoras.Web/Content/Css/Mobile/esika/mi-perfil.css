@@ -627,7 +627,7 @@ a{
 
     .grupo_form_cambio_datos input:focus + label,
     .grupo_form_cambio_datos select:focus + label,
-    .campo_con_datos + label{
+    .grupo_form_cambio_datos .campo_con_datos + label{
         top:6px;
         font-size:12.5px;
         background-color:transparent;
@@ -1045,14 +1045,19 @@ a{
 .vista_cambiar_contrasenia,
 .vista_actualizar_correo,
 .vista_actualizar_celular,
-.vista_cambiar_foto_perfil
-{
+.vista_cambiar_foto_perfil{
     background-color:#FFF;
     padding:20px;
 }
 
+.wrapper_content_cambiar_contrasenia{
+    padding-left:9px;
+    padding-right:9px;
+}
+
 .grupo_form_cambio_datos--vistaActualizacionCorreo,
-.grupo_form_cambio_datos--vistaActualizacionCelular{
+.grupo_form_cambio_datos--vistaActualizacionCelular,
+.grupo_form_cambio_datos--ctasCambioContrasenia {
     padding: 0;
     border-bottom: 0;
 }
@@ -1061,6 +1066,34 @@ a{
     .grupo_form_cambio_datos--vistaActualizacionCelular input {
         border-bottom: 1px solid #979797;
     }
+
+.grupo_form_cambio_datos--cambioContrasenia {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+    .grupo_form_cambio_datos--ctasCambioContrasenia > div {
+        flex: 0 0 50%;
+        max-width: 50%;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+        .grupo_form_cambio_datos--ctasCambioContrasenia > div:first-child {
+            padding-right: 8px;
+        }
+
+        .grupo_form_cambio_datos--ctasCambioContrasenia > div:last-child {
+            padding-left: 8px;
+        }
+
+    .grupo_form_cambio_datos--cambioContrasenia label {
+        top: 24px;
+    }
+
+.grupo_form_cambio_datos--ctasCambioContrasenia {
+    margin-top: 40px;
+}
 
 .enlace_volver_a_mi_perfil{
     margin-bottom:11px;

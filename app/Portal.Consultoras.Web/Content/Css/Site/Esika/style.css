@@ -17253,6 +17253,7 @@ label.checkpop.c_on {
     -webkit-transition-property: color;
     transition-property: color;
     transition-duration: .3s;
+    overflow:hidden;
 }
 
     .boton_home_guardar:hover {
