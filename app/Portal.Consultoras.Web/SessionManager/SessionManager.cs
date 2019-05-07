@@ -1376,7 +1376,7 @@ namespace Portal.Consultoras.Web.SessionManager
             if (val == null) { return null; }
             return (bool)val;
         }
-        
+
         #region CaminoBrillante
 
         public void SetConsultoraCaminoBrillante(BEConsultoraCaminoBrillante val)
