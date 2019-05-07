@@ -3,7 +3,9 @@ var urlDetallePedidoPendienteClientes = "/ConsultoraOnline/DetallePedidoPendient
 var listaGana = [];
 
 $(document).ready(function () {
-
+    $("#contenedor-paso-2").css("display", "none");
+    $("#Paso1-Clientes").css("display", "none");
+    $("#Paso1-Productos").css("display", "none");
 });
 
 
@@ -236,7 +238,7 @@ function DetallePedidoPendiente(ids) {
 function MostrarMensajedeRechazoPedido(cuv) {
     var mensaje = '#' + cuv;
     $(mensaje).show();
-    //document.location.href = urlPedido;
+    MarcaAnalyticsClienteProducto("Eliminar");
 }
 
 function OcultarMensajedeRechazoPedido(cuv) {
@@ -259,7 +261,9 @@ function AceptarPedidoProducto(id) {
         //$(texto).addClass('text-white');
         $(aceptado).addClass('ghost');
         $(aceptado).text('Aceptado');
-        //document.location.href = urlPedido;
+
+        //Marca Analytics
+        MarcaAnalyticsClienteProducto("Aceptado");
     }
 
 }
@@ -521,8 +525,24 @@ function EliminarSolicitudDetalle(pedidoId, cuv, origen) {
 
 }
 
+function RechazarTodo() {
+    $('#rechazarTodop').removeClass('hide');
+    MarcaAnalyticsClienteProducto("Rechazar Todo");
+}
+function MarcaAnalyticsClienteProducto(label) {
+	var textAction = isTabOptionSelected() == 1
+		? "Vista por Cliente - Pop up Paso 1" : isTabOptionSelected() == 2 ? "Vista por Producto - Pop up Paso 1" : "";
+
+	if (textAction !== "") {
+		if (!(typeof AnalyticsPortalModule === 'undefined')) {
+            AnalyticsPortalModule.ClickTabPedidosPendientes(textAction, label);
+		}
+	}
+}
 function CerrarPopupConfirmacion() {
 
+	MarcaAnalyticsClienteProducto("Cerrar Pop up");
+    
     $("#modal-confirmacion").hide();
     $("#Paso1-Productos").hide();
     $("#Paso1-Clientes").hide();
@@ -530,10 +550,6 @@ function CerrarPopupConfirmacion() {
     $("#contenedor-paso-2").hide();
     $(".modal-fondo").hide();
     $("body").css('overflow', 'auto');
-    var textAction = isTabClienteSelected() ? "Vista por Cliente - Pop up Paso 1" : "Vista por Producto - Pop up Paso 1" ;
-    if (!(typeof AnalyticsPortalModule === 'undefined')) {
-	    AnalyticsPortalModule.ClickTabPedidosPendientes(textAction, "Cerrar Pop up");
-    }
     ActualizarPendientes();
 
 }
@@ -553,9 +569,20 @@ function cambiaTabs() {
     var SelectorOpen = $("#vpcp").find(".active").attr('href');
     $(SelectorOpen).show();
 };
-function isTabClienteSelected() {
-    var SelectorOpen = $("#vpcp").find(".active").attr('href');
-    return SelectorOpen.indexOf("cliente") > 0;
+function isTabOptionSelected() {
+    //return 0 cuando no debe, 1 cuando es cliente y 2 cuando es producto.
+    var isShowPopup = $(".modal-fondo").css("display") === "block" ? true : false; //Verifica si esta en el Popup
+
+    if (isShowPopup) {
+        //Verifica que este seleccinado el tab Cliente o Producto
+        var isClienteOrProducto = $("#Paso1-Productos").css("Display") == "block" ? true : $("#Paso1-Clientes").css("Display") === "block" ? true : false; 
+        if (isClienteOrProducto) {
+	        var SelectorOpen = $("#vpcp").find(".active").attr('href');
+	        return SelectorOpen.indexOf("cliente") > 0 ? 1 : 2;
+        }
+	    
+    }
+    return 0;
 }
 
 $("#vpcp li a").click(function () {

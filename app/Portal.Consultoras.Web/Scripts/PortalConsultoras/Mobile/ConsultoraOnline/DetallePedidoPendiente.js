@@ -5,6 +5,7 @@ var ClienteDetalleOK = null;
 $(document).ready(function () {
 
     $('.opcion_rechazo').on('click', function () {
+	    
         $('.opcion_rechazo').removeClass('opcion_rechazo_select');
         $(this).addClass('opcion_rechazo_select');
         if ($(this).data('id') == 11) {
@@ -18,6 +19,7 @@ $(document).ready(function () {
 });
 
 function RechazarPedido(id, origenBoton) {
+	
     var opcionRechazo = ($('.opcion_rechazo_select').text()) ? $('.opcion_rechazo_select').text() : "";
     if (origenBoton) {
         switch (origenBoton) {
@@ -393,7 +395,7 @@ function RechazoPedidosPendientes() {
 }
 
 function AceptoTodoElPedidoTipoAtencion() {
-    var tipoAtencion = ""
+	var tipoAtencion = "";
 
     if ($('.ddlAtenderPedidosPend').prop('selectedIndex') > 0) {
         tipoAtencion = $('.ddlAtenderPedidosPend').text();
@@ -414,10 +416,19 @@ function PedidoAceptado() {
 
 }
 
-function MostrarMensajedeRechazoPedido(cuv) {
+function MostrarMensajedeRechazoPedido(cuv, option) {
     var mensaje = '#' + cuv;
     $(mensaje).show();
-    //document.location.href = urlPedido;
+    
+    if (option === "P") //Producto
+    {
+	    MarcaAnalyticsClienteProducto("Vista por Producto - Pop up Paso 1", "Eliminar");
+    }
+    if (option === "C") //Cliente
+    {
+	    MarcaAnalyticsClienteProducto("Vista por Cliente - Pop up Paso 1", "Eliminar");
+    }
+    
 }
 
 function OcultarMensajedeRechazoPedido(cuv) {
@@ -426,7 +437,8 @@ function OcultarMensajedeRechazoPedido(cuv) {
     //document.location.href = urlPedido;
 }
 
-function AceptarPedidoProducto(id) {
+function AceptarPedidoProducto(id, option) {
+
     var texto = '#texto_' + id;
     var aceptado = '#aceptar_' + id;
     if ($(aceptado).hasClass("active")) {
@@ -434,6 +446,15 @@ function AceptarPedidoProducto(id) {
         $(texto).addClass('text-black');
         $(aceptado).removeClass('active');
         $(aceptado).text('Aceptado');
+
+        if (option === "P") //Producto
+        {
+	        MarcaAnalyticsClienteProducto("Vista por Producto - Pop up Paso 1", "Aceptado");
+        }
+        if (option === "C") //Cliente
+        {
+	        MarcaAnalyticsClienteProducto("Vista por Cliente - Pop up Paso 1", "Aceptado");
+        }
     }
     else {
         $(texto).removeClass('text-black');
@@ -441,6 +462,7 @@ function AceptarPedidoProducto(id) {
         $(aceptado).addClass('active');
         $(aceptado).text('Aceptar');
         //document.location.href = urlPedido;
+        
     }
 
 }
@@ -552,6 +574,20 @@ function ContinuarPedido() {
         $('#mensajepedido').show();
         setTimeout(function () { $('#mensajepedido').hide(); }, 2000);
     }
+}
+
+function cerrandoPopupMobileProducto() {
+    MarcaAnalyticsClienteProducto("Vista por Producto - Pop up Paso 1", "Cerrar Pop up");
+}
+function cerrandoPopupMobileCliente() {
+    MarcaAnalyticsClienteProducto("Vista por Cliente - Pop up Paso 1", "Cerrar Pop up");
+}
+function MarcaAnalyticsClienteProducto(action, label) {
+	var textAction = action;
+	if (!(typeof AnalyticsPortalModule === 'undefined')) {
+			AnalyticsPortalModule.ClickTabPedidosPendientes(textAction, label);
+		}
+	
 }
 
 function EliminarSolicitudDetalle(pedidoId, cuv, origen) {
