@@ -31,6 +31,11 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpGet]
         public ActionResult FichaResponsive(string palanca, int campaniaId, string cuv, string origen)
         {
+            if (string.IsNullOrWhiteSpace(palanca) ||
+                campaniaId <= 0 ||
+                string.IsNullOrWhiteSpace(cuv)) return Redirect("/Ofertas");
+
+            
             //try
             //{
             //    var url = (Request.Url.Query).Split('?');
