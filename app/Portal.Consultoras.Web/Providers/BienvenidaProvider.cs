@@ -373,7 +373,7 @@ namespace Portal.Consultoras.Web.Providers
 
         public bool ValidarContratoPopup()
         {
-            return userData.EsConsultora() && userData.CambioClave == 0 && userData.IndicadorContrato == 0 &&
+            return userData.EsConsultora() && userData.IndicadorContrato == 0 &&
                 userData.CodigoISO.Equals(Constantes.CodigosISOPais.Colombia) &&
                 sessionManager.GetIsContrato() == 1 && !sessionManager.GetAceptoContrato();
         }
