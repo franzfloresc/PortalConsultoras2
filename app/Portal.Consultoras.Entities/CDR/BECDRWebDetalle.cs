@@ -65,6 +65,9 @@ namespace Portal.Consultoras.Entities.CDR
         [DataMember]
         public string CUVReemplazo { get; set; } //HD-3703 EINCA
 
+        [DataMember]
+        public string XMLReemplazo { get; set; } //HD-4017 EINCA
+
         public BECDRWebDetalle()
         { }
 

@@ -25,6 +25,7 @@ namespace Portal.Consultoras.Data.CDR
             Context.Database.AddInParameter(command, "CUV2", DbType.String, entity.CUV2);
             Context.Database.AddInParameter(command, "Cantidad2", DbType.Int32, entity.Cantidad2);
             Context.Database.AddInParameter(command, "GrupoID", DbType.String, entity.GrupoID);//HD-3703 EINCA
+            Context.Database.AddInParameter(command, "DetalleXML", DbType.Xml, entity.XMLReemplazo);//HD-3703 EINCA
             Context.Database.AddOutParameter(command, "RetornoID", DbType.Int32, 10);
 
             Context.ExecuteNonQuery(command);

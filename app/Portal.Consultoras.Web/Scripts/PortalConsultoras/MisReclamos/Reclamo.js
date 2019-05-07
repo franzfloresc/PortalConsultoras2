@@ -866,7 +866,7 @@ function CargarPropuesta(codigoSsic) {
 }
 
 
-function DetalleGuardar(operacionId, callbackWhenFinish) {   
+function DetalleGuardar(operacionId, callbackWhenFinish) {
     var Complemento = [];
     var cantidad = 0;
     if (dataCdrDevolucion !== null) {
@@ -1233,7 +1233,7 @@ function ValidarCorreoDuplicadoServer(correo, callbackWhenFinish) {
     });
 }
 
-function SolicitudCDREnviar(callbackWhenFinish) {   
+function SolicitudCDREnviar(callbackWhenFinish) {
     var url = baseUrl + 'MisReclamos/SolicitudEnviar';
     var sendData = {
         CDRWebID: $("#CDRWebID").val() || 0,
@@ -1252,46 +1252,46 @@ function SolicitudCDREnviar(callbackWhenFinish) {
         sendData.MensajeDespacho = $(!tipoDespacho ? '#divDespachoNormal' : '#divDespachoExpress').CleanWhitespace().html();
     }
 
-     setTimeout(function () {
-         callAjax(url, sendData, function (data) {
-             if (!checkTimeout(data)) {
-                 return false;
-             }
+    setTimeout(function () {
+        callAjax(url, sendData, function (data) {
+            if (!checkTimeout(data)) {
+                return false;
+            }
 
-             if (data.success) {
-                 var formatoFechaCulminado = "";
-                 var numeroSolicitud = 0;
-                 var formatoCampania = "";
-                 var mensajeDespacho = IfNull(data.cdrWeb.MensajeDespacho, '');
-                 if (data.cdrWeb.CDRWebID > 0) {
-                     if (data.cdrWeb.FechaCulminado != 'null' || data.cdrWeb.FechaCulminado != "" || data.cdrWeb.FechaCulminado != undefined) {
-                         var dateString = data.cdrWeb.FechaCulminado.substr(6);
-                         var currentTime = new Date(parseInt(dateString));
-                         var month = currentTime.getMonth() + 1;
-                         var day = currentTime.getDate();
-                         var year = currentTime.getFullYear();
-                         formatoFechaCulminado = (day < 10 ? "0" + day : day) + "/" + (month < 10 ? "0" + month : month) + "/" + year;
-                     }
-                     numeroSolicitud = data.cdrWeb.CDRWebID;
-                     if (data.cdrWeb.CampaniaID.toString().length == 6) {
-                         formatoCampania = data.cdrWeb.CampaniaID.toString().substring(0, 4) + "-" + data.cdrWeb.CampaniaID.toString().substring(4);
-                     }
-                 }
+            if (data.success) {
+                var formatoFechaCulminado = "";
+                var numeroSolicitud = 0;
+                var formatoCampania = "";
+                var mensajeDespacho = IfNull(data.cdrWeb.MensajeDespacho, '');
+                if (data.cdrWeb.CDRWebID > 0) {
+                    if (data.cdrWeb.FechaCulminado != 'null' || data.cdrWeb.FechaCulminado != "" || data.cdrWeb.FechaCulminado != undefined) {
+                        var dateString = data.cdrWeb.FechaCulminado.substr(6);
+                        var currentTime = new Date(parseInt(dateString));
+                        var month = currentTime.getMonth() + 1;
+                        var day = currentTime.getDate();
+                        var year = currentTime.getFullYear();
+                        formatoFechaCulminado = (day < 10 ? "0" + day : day) + "/" + (month < 10 ? "0" + month : month) + "/" + year;
+                    }
+                    numeroSolicitud = data.cdrWeb.CDRWebID;
+                    if (data.cdrWeb.CampaniaID.toString().length == 6) {
+                        formatoCampania = data.cdrWeb.CampaniaID.toString().substring(0, 4) + "-" + data.cdrWeb.CampaniaID.toString().substring(4);
+                    }
+                }
 
-                 $("#spnSolicitudFechaCulminado").html(formatoFechaCulminado);
-                 $("#spnSolicitudNumeroSolicitud").html(numeroSolicitud);
-                 $("#spnSolicitudCampania").html(formatoCampania);
-                 if (mensajeDespacho == '') $("#spnTipoDespacho").hide();
-                 else $("#spnTipoDespacho").show().html(mensajeDespacho);
-                 $("#divProcesoReclamo").hide();
-                 $("#divUltimasSolicitudes").hide();
-                 $("#TituloReclamo").hide();
-                 $("#SolicitudEnviada").show();
-             }
-             if (callbackWhenFinish && typeof callbackWhenFinish === "function") {
-                 callbackWhenFinish(data);
-             }
-         });
+                $("#spnSolicitudFechaCulminado").html(formatoFechaCulminado);
+                $("#spnSolicitudNumeroSolicitud").html(numeroSolicitud);
+                $("#spnSolicitudCampania").html(formatoCampania);
+                if (mensajeDespacho == '') $("#spnTipoDespacho").hide();
+                else $("#spnTipoDespacho").show().html(mensajeDespacho);
+                $("#divProcesoReclamo").hide();
+                $("#divUltimasSolicitudes").hide();
+                $("#TituloReclamo").hide();
+                $("#SolicitudEnviada").show();
+            }
+            if (callbackWhenFinish && typeof callbackWhenFinish === "function") {
+                callbackWhenFinish(data);
+            }
+        });
     }, 0);
 }
 
@@ -1741,7 +1741,7 @@ function BuscarInfoCUV(e) {
             $this.attr("data-codigo", $this.val());
             $elements
                 .children("input[name=descripcion]").val("").end()
-                .children("input[name=descripcion]").attr("").end()
+                .children("input[name=descripcion]").attr("data-descripcion", "").end()
                 .children("input[name=precio]").val("").end()
                 .children("input[name=precio]").attr("data-precio", "");
             alert_msg(data.message);
@@ -1754,7 +1754,7 @@ function BuscarInfoCUV(e) {
             $this.attr("data-codigo", datosCUV.CUV);
             $elements
                 .children("input[name=descripcion]").val(datosCUV.Descripcion).end()
-                .children("input[name=descripcion]").attr("data-descripcion",datosCUV.Descripcion).end()
+                .children("input[name=descripcion]").attr("data-descripcion", datosCUV.Descripcion).end()
                 .children("input[name=precio]").val(DecimalToStringFormat(datosCUV.PrecioCatalogo)).end()
                 .children("input[name=precio]").attr("data-precio", datosCUV.PrecioCatalogo);
             CalcularTotal();
@@ -1795,40 +1795,22 @@ function BuscarCUVCambiarServer(cuv, callbackWhenFinish) {
         return false;
 
     var PedidoId = $.trim($("#txtPedidoID").val()) || 0;
-
-    var item = {
+    var url = baseUrl + 'MisReclamos/BuscarCuvCambiar';
+    var sendData = {
         CampaniaID: CampaniaId,
         PedidoID: PedidoId,
         CDRWebID: $("#CDRWebID").val(),
         CUV: cuv
     };
 
-    $.ajaxSetup({
-        global: false,
-        type: "POST",
-        url: baseUrl + 'MisReclamos/BuscarCuvCambiar',
-        beforeSend: function () {
-            waitingDialog();
-        },
-        complete: function () {
-            closeWaitingDialog();
-        }
-    });
+    callAjax(url, sendData, function (data) {
+        if (!checkTimeout(data))
+            return false;
 
-    $.ajax({
-        data: JSON.stringify(item),
-        cache: true,
-        async: true,
-        success: function (data) {
-            if (checkTimeout(data)) {
-                if (callbackWhenFinish && typeof callbackWhenFinish === "function") {
-                    callbackWhenFinish(data);
-                }
-            }
-        },
-        error: function (data, error) {
-            closeWaitingDialog();
+        if (callbackWhenFinish && typeof callbackWhenFinish === "function") {
+            callbackWhenFinish(data);
         }
+
     });
 }
 

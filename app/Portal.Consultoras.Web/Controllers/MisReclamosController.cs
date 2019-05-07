@@ -833,7 +833,7 @@ namespace Portal.Consultoras.Web.Controllers
                 bool? IsSetsOrPack = false;
                 var arrComplemento = new ServiceCDR.BECDRWebDetalle[] { };
                 model.Accion = "I";
-                var rpta = ValidarDetalleGuardar(ref model);                
+                var rpta = ValidarDetalleGuardar(ref model);
                 if (!rpta)
                 {
                     return Json(new
@@ -885,8 +885,8 @@ namespace Portal.Consultoras.Web.Controllers
                         CodigoOperacion = model.Operacion,
                         CUV = model.CUV,
                         Cantidad = model.Cantidad,
-                        GrupoID = null
-
+                        GrupoID = null,
+                        XMLReemplazo = (model.Operacion == Constantes.CodigoOperacionCDR.Trueque) ? MisReclamosModel.ToXML(model.Reemplazo.ToList()) : null
                     };
 
                     if (model.Operacion == Constantes.CodigoOperacionCDR.Canje)
