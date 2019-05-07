@@ -314,14 +314,26 @@ namespace Portal.Consultoras.BizLogic
 
                 if (Common.Util.IsUrl(usuario.FotoPerfil))
                 {
-                    if (Common.Util.ExisteUrlRemota(imagenS3))
+                    using (var response = Common.Util.Http.GetHttpWebResponse(imagenS3))
                     {
-                        usuario.FotoPerfilAncha = Common.Util.EsImagenAncha(imagenS3);
-                    }
-                    else
-                    {
-                        usuario.FotoPerfil = "../../Content/Images/icono_avatar.svg";
-                        usuario.FotoOriginalSinModificar = null;
+                        if (response != null)
+                        {
+                            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                            {
+                                var imagenConsultada = System.Drawing.Image.FromStream(response.GetResponseStream());
+                                usuario.FotoPerfilAncha = imagenConsultada.Width > imagenConsultada.Height;
+                            }
+                            else
+                            {
+                                usuario.FotoPerfil = "../../Content/Images/icono_avatar.svg";
+                                usuario.FotoOriginalSinModificar = null;
+                            }
+                        }
+                        else
+                        {
+                            usuario.FotoPerfil = "../../Content/Images/icono_avatar.svg";
+                            usuario.FotoOriginalSinModificar = null;
+                        }
                     }
                 }
 

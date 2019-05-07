@@ -3347,7 +3347,7 @@ namespace Portal.Consultoras.Common
             }
 
             return result;
-        }
+        }        
 
         public static string GenerarRutaImagenResizeMedium(string rutaImagen)
         {
@@ -3613,6 +3613,22 @@ namespace Portal.Consultoras.Common
                 HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
                 return response.GetResponseStream();
+            }
+
+            public static HttpWebResponse GetHttpWebResponse(string url)
+            {
+                HttpWebResponse response = null;
+                try
+                {
+                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                    request.Credentials = System.Net.CredentialCache.DefaultCredentials;
+                    response = (HttpWebResponse)request.GetResponse();
+                }
+                catch (WebException)
+                {
+                    LogManager.SaveLog(new Exception("URL " + url + " no encontrada"), "", "");
+                }
+                return response;
             }
         }
 
