@@ -1474,6 +1474,10 @@ h4.re3 {
     position: relative;
 }
 
+    .block-seguimiento-content--mobile{
+        margin-left: -15px;
+        margin-right: -15px;
+    }
 
     .block-seguimiento strong {
         color: black;
@@ -1615,6 +1619,15 @@ h4.re3 {
     .block-seguimiento-content .seg-active .seg-hora {
         color: black;
     }
+
+.seg-hora--entregaProyectada {
+    width: 100%;
+    max-width: 81px;
+    position: relative;
+    margin: 0 auto;
+    left: -21px;
+    white-space: nowrap;
+}
 
 .alert .close {
     color: #fff;
