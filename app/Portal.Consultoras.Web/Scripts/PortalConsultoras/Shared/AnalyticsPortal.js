@@ -43,9 +43,9 @@ var AnalyticsPortalModule = (function () {
         CarritoCompras: "Carrito de compras",
         siguiente: "Ver siguiente",
         anterior: "Ver anterior",
-        duoPerfecto: "Dúo Perfecto", //HD-3473 EINCA
+        duoPerfecto: "Dúo Perfecto",
         palancaLasMasGandoras: "Más Ganadoras",
-        armaTuDuoPerfecto: ' Arma tu Dúo Perfecto - Dúo Perfecto' //HD-3473 EINCA
+        armaTuDuoPerfecto: ' Arma tu Dúo Perfecto - Dúo Perfecto'
 
         // Fin - Analytics Ofertas (Miguel)
     };
@@ -60,13 +60,13 @@ var AnalyticsPortalModule = (function () {
         GND: "GND",
         MG: "MG",
         Ficha: "FICHA",
-        DP: "DP" //HD-3473 EINCA
+        DP: "DP"
     };
     // Fin - Analytics Home 1 (Miguel)
 
     var _constantes = {
         // Ini - Analytics Buscador Miguel
-        isTest: false, //Desactivar HD-3473 EINCA
+        isTest: false, //Desactivar
         currencyCodes: [
             { "CountryCode": "BO", "Code": "BOB" },
             { "CountryCode": "CL", "Code": "CLP" },
@@ -84,7 +84,7 @@ var AnalyticsPortalModule = (function () {
         seccionesPalanca: [
             { "CodigoSeccion": "ODD", "Palanca": "Oferta Del Día" },
             { "CodigoSeccion": "SR", "Palanca": "Showroom" },
-            { "CodigoSeccion": "DP", "Palanca": "Dúo Perfecto" }//HD-3473 EINCA
+            { "CodigoSeccion": "DP", "Palanca": "Dúo Perfecto" }
         ],
         origenpedidoWeb: [
             { "CodigoPalanca": "00", "Palanca": "Ofertas Para Ti" },
@@ -277,8 +277,6 @@ var AnalyticsPortalModule = (function () {
             }
         }
 
-        //console.log("_getEstructuraOrigenPedidoWeb", origen, origenEstructura);
-
         return origenEstructura;
     }
 
@@ -407,8 +405,6 @@ var AnalyticsPortalModule = (function () {
         texto += texto != ""
             ? ((palanca != "" ? separador : "") + palanca)
             : palanca;
-
-        //console.log("_getParametroListSegunOrigen = " + texto, origenEstructura, url);
 
         return texto;
     }
@@ -1144,8 +1140,7 @@ var AnalyticsPortalModule = (function () {
             console.log(_texto.excepcion + e);
         }
     }
-
-    //HD-3473 EINCA 
+    
     var marcaPromotionViewBanner = function (pos) {
         try {
             dataLayer.push({
@@ -1167,8 +1162,7 @@ var AnalyticsPortalModule = (function () {
         }
 
     }
-
-    //HD-3473 EINCA 
+    
     var marcaPromotionClicBanner = function (OrigenPedidoWeb, texto, url) {
         try {
             var pos = _getParametroListSegunOrigen(OrigenPedidoWeb, url);
@@ -1568,7 +1562,7 @@ var AnalyticsPortalModule = (function () {
             });
         }
 
-        //HD-3473 EINCA para duo solo se registra uno
+        //para duo solo se registra uno
         if (codigoSeccion == _codigoSeccion.DP) {
             element = {
                 'id': _constantes.IdBennerDuoPerfecto,
@@ -2113,7 +2107,7 @@ var AnalyticsPortalModule = (function () {
 
         try {
             var codUbigeo = opcion.CodigoUbigeoPortal || "";
-            //var origenPedido = opcion.OrigenPedidoEditar || 0;
+
             if (codUbigeo !== "") {
                 if (codUbigeo === ConstantesModule.CodigoUbigeoPortal.GuionCarritoComprasGuionFichaResumida) {
                     var textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(codUbigeo); //using new function
@@ -2295,7 +2289,6 @@ var AnalyticsPortalModule = (function () {
                     return false;
                 var item = lista[index];
                 var impression = {
-                    //'id': item.CUV
                     'name': item.DescripcionCompleta,
                     'id': item.CUV,
                     'price': parseFloat(item.Precio).toFixed(2).toString(),
@@ -2332,7 +2325,6 @@ var AnalyticsPortalModule = (function () {
             var item = lista[index];
 
             var impression = {
-                //'id': item.CUV
                 'name': item.DescripcionCompleta,
                 'id': item.CUV,
                 'price': parseFloat(item.Precio).toFixed(2).toString(),
@@ -2371,7 +2363,6 @@ var AnalyticsPortalModule = (function () {
             var item = lista[index];
 
             var impression = {
-                //'id': item.CUV
                 'name': item.DescripcionCompleta,
                 'id': item.CUV,
                 'price': parseFloat(item.Precio).toFixed(2).toString(),
@@ -2506,7 +2497,7 @@ var AnalyticsPortalModule = (function () {
         var textoCategory = "";
 
         if (origenPedido != "") {
-            //if (origenPedido == ConstantesModule.CodigoUbigeoPortal.GuionPedidoGuionFichaResumida) {
+
             if (origenPedido == ConstantesModule.CodigoUbigeoPortal.GuionCarritoComprasGuionFichaResumida) {
                 textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(origenPedido);  //using new function
 
@@ -2564,7 +2555,7 @@ var AnalyticsPortalModule = (function () {
         }
     }
     var marcaEligeloClickArmaTuPack = function (origenPedido, estrategia) {
-        //var item = JSON.parse($("#data-estrategia").attr("data-estrategia"));
+
         var item = estrategia;
 
         try {
@@ -2777,8 +2768,8 @@ var AnalyticsPortalModule = (function () {
         MarcaRecomendacionesFlechaSiguiente: marcaRecomendacionesFlechaSiguiente,
         MarcaRecomendacionesFlechaAnterior: marcaRecomendacionesFlechaAnterior,
         MarcaOcultarRecomendaciones: marcaOcultarRecomendaciones,
-        MarcaPromotionViewBanner: marcaPromotionViewBanner,//HD-3473 EINCA 
-        MarcaPromotionClicBanner: marcaPromotionClicBanner,//HD-3473 EINCA 
+        MarcaPromotionViewBanner: marcaPromotionViewBanner,
+        MarcaPromotionClicBanner: marcaPromotionClicBanner,
         MarcaCategoria: marcaCategoria,
         MarcaAnadirCarritoRecomendaciones: marcaAnadirCarritoRecomendaciones,
         MarcaFiltroPorSeccion: marcaFiltroPorSeccion,

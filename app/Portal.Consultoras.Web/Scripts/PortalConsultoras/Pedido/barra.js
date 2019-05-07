@@ -575,13 +575,6 @@ function MostrarBarra(datax, destino) {
             wLogro = wLimiteAnterior;
         }
     }
-    //SALUD-125 EINCA
-    //if (destino == "1") {
-    //    if (indPuntoLimite <= 0 && mn > 0  ) {
-    //        wLimite = 0;
-    //        wLogro = 0;
-    //    }
-    //}
 
     if (listaLimite.length == 1) {
         if (vLogro > vLimite) {
