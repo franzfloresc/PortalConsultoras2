@@ -454,6 +454,10 @@ input:focus{
         background-color: #f5f5f5;
     }
 
+        .grupo_form_cambio_datos--confirmacionPendiente label {
+            background-color: transparent !important;
+        }
+
         .grupo_form_cambio_datos--confirmacionPendiente label:before,
         .grupo_form_cambio_datos--confirmado label:before {
             display: block;
