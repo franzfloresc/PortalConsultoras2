@@ -62,9 +62,11 @@ var PedidoRegistroModule = function () {
         //INI HD-3693
         var msjBloq = validarpopupBloqueada(data.message);
         if (msjBloq != "") {
+            CerrarLoad();
             alert_msg_bloqueadas(msjBloq);
-            return false;
+            return true;
         }
+        //FIN HD-3693
         data.message = data.message || 'Error al realizar proceso, inténtelo más tarde.';
         messageInfoError(data.message);
         CerrarLoad();
@@ -1212,7 +1214,6 @@ var PedidoRegistroModule = function () {
                 }
 
                 if (_mensajeRespuestaError(data)) {
-                    CerrarSplash();
                     return false;
                 }
 
@@ -1252,6 +1253,7 @@ var PedidoRegistroModule = function () {
                 MostrarBarra(data);
                 if (!IsNullOrEmpty(data.mensajeAviso)) AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
                 TrackingJetloreAdd(param2.Cantidad, $("#hdCampaniaCodigo").val(), param2.CUV);
+                
                 dataLayer.push({
                     'event': "addToCart",
                     'label': $("#hdMetodoBusqueda").val(),
@@ -1271,7 +1273,7 @@ var PedidoRegistroModule = function () {
                         }
                     }
                 });
-                CerrarSplash();
+                CerrarSplash(); 
             },
             error: function (data, error) {
                 CerrarSplash();
