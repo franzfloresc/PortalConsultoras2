@@ -72,11 +72,11 @@ namespace Portal.Consultoras.Web.Providers
         /// <returns>Configuracion de Banner inferior</returns>
         public IBannerInferiorConfiguracion ObtenerBannerConfiguracion(int paisId)
         {
-            var pl50configs = _tablaLogicaProvider.GetTablaLogicaDatos(paisId, ConsTablaLogica.Plan20Activacion.TablaLogicaId);
-            var enabledObject = _tablaLogicaProvider.GatCampoValorBool(pl50configs, ConsTablaLogica.Plan20Activacion.EnabledCode);
-            var redirectUrlObject = _tablaLogicaProvider.GetValueByCode(pl50configs, ConsTablaLogica.Plan20Activacion.RedirectCode);
-            var imageUrlObject = _tablaLogicaProvider.GetValueByCode(pl50configs, ConsTablaLogica.Plan20Activacion.ImageUrlCode);
-            var NoUrlPermitidasObject = _tablaLogicaProvider.GetValueByCode(pl50configs, ConsTablaLogica.Plan20Activacion.NoUrlAllowed);
+            var pl50configs = _tablaLogicaProvider.GetTablaLogicaDatos(paisId, ConsTablaLogica.Plan20.TablaLogicaId);
+            var enabledObject = _tablaLogicaProvider.GatCampoValorBool(pl50configs, ConsTablaLogica.Plan20.EnabledCode);
+            var redirectUrlObject = _tablaLogicaProvider.GetValueByCode(pl50configs, ConsTablaLogica.Plan20.RedirectCode);
+            var imageUrlObject = _tablaLogicaProvider.GetValueByCode(pl50configs, ConsTablaLogica.Plan20.ImageUrlCode);
+            var NoUrlPermitidasObject = _tablaLogicaProvider.GetValueByCode(pl50configs, ConsTablaLogica.Plan20.NoUrlAllowed);
 
             return new BannerInferiorConfiguracion
             {

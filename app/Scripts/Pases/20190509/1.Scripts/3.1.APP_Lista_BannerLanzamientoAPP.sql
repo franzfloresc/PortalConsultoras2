@@ -22,15 +22,14 @@ BEGIN
 
 	SELECT CP.IdContenido,CP.Codigo,CP.UrlMiniatura,CP.DesdeCampania,CP.Estado,RutaImagen
 	FROM dbo.ContenidoApp CP
-	WHERE CP.Estado=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR  @Capania BETWEEN CP.DesdeCampania AND CP.HastaCampania)
+	WHERE CP.Estado=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR  @Capania BETWEEN ISNULL(CP.DesdeCampania,@Capania) AND ISNULL(CP.HastaCampania,@Capania))
 	ORDER BY CP.IdContenido
 	
 	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CodigoDetalle,RutaContenido,Accion,Orden,Tipo,CAD.Estado EstadoDetalle
 	FROM dbo.ContenidoApp CP LEFT JOIN
 		 dbo.ContenidoAppDeta CAD ON CAD.IdContenido=CP.IdContenido	LEFT JOIN
 		 dbo.VistoContenidoConsultora VC ON VC.IdContenidoDeta=CAD.IdContenidoDeta AND VC.CodigoConsultora=@CodigoConsultora
-	WHERE CP.Estado=1 and CAD.ESTADO=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR CAD.Campania=@Capania) AND 
-		(@Zona='' OR CAD.Zona=@Zona) AND (@Region='' OR CAD.Region=@Region) AND (@Region='' OR CAD.Seccion=@Seccion)
+	WHERE CP.Estado=1 and CAD.ESTADO=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR CAD.Campania=@Capania) 
 	ORDER BY CP.IdContenido,CAD.Orden	
 END
 
@@ -60,15 +59,14 @@ BEGIN
 
 	SELECT CP.IdContenido,CP.Codigo,CP.UrlMiniatura,CP.DesdeCampania,CP.Estado,RutaImagen
 	FROM dbo.ContenidoApp CP
-	WHERE CP.Estado=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR  @Capania BETWEEN CP.DesdeCampania AND CP.HastaCampania)
+	WHERE CP.Estado=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR  @Capania BETWEEN ISNULL(CP.DesdeCampania,@Capania) AND ISNULL(CP.HastaCampania,@Capania))
 	ORDER BY CP.IdContenido
 	
 	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CodigoDetalle,RutaContenido,Accion,Orden,Tipo,CAD.Estado EstadoDetalle
 	FROM dbo.ContenidoApp CP LEFT JOIN
 		 dbo.ContenidoAppDeta CAD ON CAD.IdContenido=CP.IdContenido	LEFT JOIN
 		 dbo.VistoContenidoConsultora VC ON VC.IdContenidoDeta=CAD.IdContenidoDeta AND VC.CodigoConsultora=@CodigoConsultora
-	WHERE CP.Estado=1 and CAD.ESTADO=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR CAD.Campania=@Capania) AND 
-		(@Zona='' OR CAD.Zona=@Zona) AND (@Region='' OR CAD.Region=@Region) AND (@Region='' OR CAD.Seccion=@Seccion)
+	WHERE CP.Estado=1 and CAD.ESTADO=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR CAD.Campania=@Capania) 
 	ORDER BY CP.IdContenido,CAD.Orden	
 END
 
@@ -98,15 +96,14 @@ BEGIN
 
 	SELECT CP.IdContenido,CP.Codigo,CP.UrlMiniatura,CP.DesdeCampania,CP.Estado,RutaImagen
 	FROM dbo.ContenidoApp CP
-	WHERE CP.Estado=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR  @Capania BETWEEN CP.DesdeCampania AND CP.HastaCampania)
+	WHERE CP.Estado=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR  @Capania BETWEEN ISNULL(CP.DesdeCampania,@Capania) AND ISNULL(CP.HastaCampania,@Capania))
 	ORDER BY CP.IdContenido
 	
 	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CodigoDetalle,RutaContenido,Accion,Orden,Tipo,CAD.Estado EstadoDetalle
 	FROM dbo.ContenidoApp CP LEFT JOIN
 		 dbo.ContenidoAppDeta CAD ON CAD.IdContenido=CP.IdContenido	LEFT JOIN
 		 dbo.VistoContenidoConsultora VC ON VC.IdContenidoDeta=CAD.IdContenidoDeta AND VC.CodigoConsultora=@CodigoConsultora
-	WHERE CP.Estado=1 and CAD.ESTADO=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR CAD.Campania=@Capania) AND 
-		(@Zona='' OR CAD.Zona=@Zona) AND (@Region='' OR CAD.Region=@Region) AND (@Region='' OR CAD.Seccion=@Seccion)
+	WHERE CP.Estado=1 and CAD.ESTADO=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR CAD.Campania=@Capania) 
 	ORDER BY CP.IdContenido,CAD.Orden	
 END
 
@@ -136,7 +133,7 @@ BEGIN
 
 	SELECT CP.IdContenido,CP.Codigo,CP.UrlMiniatura,CP.DesdeCampania,CP.Estado,RutaImagen
 	FROM dbo.ContenidoApp CP
-	WHERE CP.Estado=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR  @Capania BETWEEN CP.DesdeCampania AND CP.HastaCampania)
+	WHERE CP.Estado=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR  @Capania BETWEEN ISNULL(CP.DesdeCampania,@Capania) AND ISNULL(CP.HastaCampania,@Capania))
 	ORDER BY CP.IdContenido
 	
 	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CodigoDetalle,RutaContenido,Accion,Orden,Tipo,CAD.Estado EstadoDetalle
@@ -174,15 +171,14 @@ BEGIN
 
 	SELECT CP.IdContenido,CP.Codigo,CP.UrlMiniatura,CP.DesdeCampania,CP.Estado,RutaImagen
 	FROM dbo.ContenidoApp CP
-	WHERE CP.Estado=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR  @Capania BETWEEN CP.DesdeCampania AND CP.HastaCampania)
+	WHERE CP.Estado=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR  @Capania BETWEEN ISNULL(CP.DesdeCampania,@Capania) AND ISNULL(CP.HastaCampania,@Capania))
 	ORDER BY CP.IdContenido
 	
 	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CodigoDetalle,RutaContenido,Accion,Orden,Tipo,CAD.Estado EstadoDetalle
 	FROM dbo.ContenidoApp CP LEFT JOIN
 		 dbo.ContenidoAppDeta CAD ON CAD.IdContenido=CP.IdContenido	LEFT JOIN
 		 dbo.VistoContenidoConsultora VC ON VC.IdContenidoDeta=CAD.IdContenidoDeta AND VC.CodigoConsultora=@CodigoConsultora
-	WHERE CP.Estado=1 and CAD.ESTADO=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR CAD.Campania=@Capania) AND 
-		(@Zona='' OR CAD.Zona=@Zona) AND (@Region='' OR CAD.Region=@Region) AND (@Region='' OR CAD.Seccion=@Seccion)
+	WHERE CP.Estado=1 and CAD.ESTADO=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR CAD.Campania=@Capania) 
 	ORDER BY CP.IdContenido,CAD.Orden	
 END
 
@@ -212,15 +208,14 @@ BEGIN
 
 	SELECT CP.IdContenido,CP.Codigo,CP.UrlMiniatura,CP.DesdeCampania,CP.Estado,RutaImagen
 	FROM dbo.ContenidoApp CP
-	WHERE CP.Estado=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR  @Capania BETWEEN CP.DesdeCampania AND CP.HastaCampania)
+	WHERE CP.Estado=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR  @Capania BETWEEN ISNULL(CP.DesdeCampania,@Capania) AND ISNULL(CP.HastaCampania,@Capania))
 	ORDER BY CP.IdContenido
 	
 	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CodigoDetalle,RutaContenido,Accion,Orden,Tipo,CAD.Estado EstadoDetalle
 	FROM dbo.ContenidoApp CP LEFT JOIN
 		 dbo.ContenidoAppDeta CAD ON CAD.IdContenido=CP.IdContenido	LEFT JOIN
 		 dbo.VistoContenidoConsultora VC ON VC.IdContenidoDeta=CAD.IdContenidoDeta AND VC.CodigoConsultora=@CodigoConsultora
-	WHERE CP.Estado=1 and CAD.ESTADO=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR CAD.Campania=@Capania) AND 
-		(@Zona='' OR CAD.Zona=@Zona) AND (@Region='' OR CAD.Region=@Region) AND (@Region='' OR CAD.Seccion=@Seccion)
+	WHERE CP.Estado=1 and CAD.ESTADO=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR CAD.Campania=@Capania) 
 	ORDER BY CP.IdContenido,CAD.Orden	
 END
 
@@ -250,15 +245,14 @@ BEGIN
 
 	SELECT CP.IdContenido,CP.Codigo,CP.UrlMiniatura,CP.DesdeCampania,CP.Estado,RutaImagen
 	FROM dbo.ContenidoApp CP
-	WHERE CP.Estado=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR  @Capania BETWEEN CP.DesdeCampania AND CP.HastaCampania)
+	WHERE CP.Estado=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR  @Capania BETWEEN ISNULL(CP.DesdeCampania,@Capania) AND ISNULL(CP.HastaCampania,@Capania))
 	ORDER BY CP.IdContenido
 	
 	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CodigoDetalle,RutaContenido,Accion,Orden,Tipo,CAD.Estado EstadoDetalle
 	FROM dbo.ContenidoApp CP LEFT JOIN
 		 dbo.ContenidoAppDeta CAD ON CAD.IdContenido=CP.IdContenido	LEFT JOIN
 		 dbo.VistoContenidoConsultora VC ON VC.IdContenidoDeta=CAD.IdContenidoDeta AND VC.CodigoConsultora=@CodigoConsultora
-	WHERE CP.Estado=1 and CAD.ESTADO=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR CAD.Campania=@Capania) AND 
-		(@Zona='' OR CAD.Zona=@Zona) AND (@Region='' OR CAD.Region=@Region) AND (@Region='' OR CAD.Seccion=@Seccion)
+	WHERE CP.Estado=1 and CAD.ESTADO=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR CAD.Campania=@Capania) 
 	ORDER BY CP.IdContenido,CAD.Orden	
 END
 
@@ -288,15 +282,14 @@ BEGIN
 
 	SELECT CP.IdContenido,CP.Codigo,CP.UrlMiniatura,CP.DesdeCampania,CP.Estado,RutaImagen
 	FROM dbo.ContenidoApp CP
-	WHERE CP.Estado=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR  @Capania BETWEEN CP.DesdeCampania AND CP.HastaCampania)
+	WHERE CP.Estado=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR  @Capania BETWEEN ISNULL(CP.DesdeCampania,@Capania) AND ISNULL(CP.HastaCampania,@Capania))
 	ORDER BY CP.IdContenido
 	
 	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CodigoDetalle,RutaContenido,Accion,Orden,Tipo,CAD.Estado EstadoDetalle
 	FROM dbo.ContenidoApp CP LEFT JOIN
 		 dbo.ContenidoAppDeta CAD ON CAD.IdContenido=CP.IdContenido	LEFT JOIN
 		 dbo.VistoContenidoConsultora VC ON VC.IdContenidoDeta=CAD.IdContenidoDeta AND VC.CodigoConsultora=@CodigoConsultora
-	WHERE CP.Estado=1 and CAD.ESTADO=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR CAD.Campania=@Capania) AND 
-		(@Zona='' OR CAD.Zona=@Zona) AND (@Region='' OR CAD.Region=@Region) AND (@Region='' OR CAD.Seccion=@Seccion)
+	WHERE CP.Estado=1 and CAD.ESTADO=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR CAD.Campania=@Capania) 
 	ORDER BY CP.IdContenido,CAD.Orden	
 END
 
@@ -326,15 +319,14 @@ BEGIN
 
 	SELECT CP.IdContenido,CP.Codigo,CP.UrlMiniatura,CP.DesdeCampania,CP.Estado,RutaImagen
 	FROM dbo.ContenidoApp CP
-	WHERE CP.Estado=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR  @Capania BETWEEN CP.DesdeCampania AND CP.HastaCampania)
+	WHERE CP.Estado=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR  @Capania BETWEEN ISNULL(CP.DesdeCampania,@Capania) AND ISNULL(CP.HastaCampania,@Capania))
 	ORDER BY CP.IdContenido
 	
 	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CodigoDetalle,RutaContenido,Accion,Orden,Tipo,CAD.Estado EstadoDetalle
 	FROM dbo.ContenidoApp CP LEFT JOIN
 		 dbo.ContenidoAppDeta CAD ON CAD.IdContenido=CP.IdContenido	LEFT JOIN
 		 dbo.VistoContenidoConsultora VC ON VC.IdContenidoDeta=CAD.IdContenidoDeta AND VC.CodigoConsultora=@CodigoConsultora
-	WHERE CP.Estado=1 and CAD.ESTADO=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR CAD.Campania=@Capania) AND 
-		(@Zona='' OR CAD.Zona=@Zona) AND (@Region='' OR CAD.Region=@Region) AND (@Region='' OR CAD.Seccion=@Seccion)
+	WHERE CP.Estado=1 and CAD.ESTADO=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR CAD.Campania=@Capania)
 	ORDER BY CP.IdContenido,CAD.Orden	
 END
 
@@ -364,15 +356,14 @@ BEGIN
 
 	SELECT CP.IdContenido,CP.Codigo,CP.UrlMiniatura,CP.DesdeCampania,CP.Estado,RutaImagen
 	FROM dbo.ContenidoApp CP
-	WHERE CP.Estado=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR  @Capania BETWEEN CP.DesdeCampania AND CP.HastaCampania)
+	WHERE CP.Estado=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR  @Capania BETWEEN ISNULL(CP.DesdeCampania,@Capania) AND ISNULL(CP.HastaCampania,@Capania))
 	ORDER BY CP.IdContenido
 	
 	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CodigoDetalle,RutaContenido,Accion,Orden,Tipo,CAD.Estado EstadoDetalle
 	FROM dbo.ContenidoApp CP LEFT JOIN
 		 dbo.ContenidoAppDeta CAD ON CAD.IdContenido=CP.IdContenido	LEFT JOIN
 		 dbo.VistoContenidoConsultora VC ON VC.IdContenidoDeta=CAD.IdContenidoDeta AND VC.CodigoConsultora=@CodigoConsultora
-	WHERE CP.Estado=1 and CAD.ESTADO=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR CAD.Campania=@Capania) AND 
-		(@Zona='' OR CAD.Zona=@Zona) AND (@Region='' OR CAD.Region=@Region) AND (@Region='' OR CAD.Seccion=@Seccion)
+	WHERE CP.Estado=1 and CAD.ESTADO=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR CAD.Campania=@Capania) 
 	ORDER BY CP.IdContenido,CAD.Orden	
 END
 
@@ -402,15 +393,14 @@ BEGIN
 
 	SELECT CP.IdContenido,CP.Codigo,CP.UrlMiniatura,CP.DesdeCampania,CP.Estado,RutaImagen
 	FROM dbo.ContenidoApp CP
-	WHERE CP.Estado=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR  @Capania BETWEEN CP.DesdeCampania AND CP.HastaCampania)
+	WHERE CP.Estado=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR  @Capania BETWEEN ISNULL(CP.DesdeCampania,@Capania) AND ISNULL(CP.HastaCampania,@Capania))
 	ORDER BY CP.IdContenido
 	
 	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CodigoDetalle,RutaContenido,Accion,Orden,Tipo,CAD.Estado EstadoDetalle
 	FROM dbo.ContenidoApp CP LEFT JOIN
 		 dbo.ContenidoAppDeta CAD ON CAD.IdContenido=CP.IdContenido	LEFT JOIN
 		 dbo.VistoContenidoConsultora VC ON VC.IdContenidoDeta=CAD.IdContenidoDeta AND VC.CodigoConsultora=@CodigoConsultora
-	WHERE CP.Estado=1 and CAD.ESTADO=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR CAD.Campania=@Capania) AND 
-		(@Zona='' OR CAD.Zona=@Zona) AND (@Region='' OR CAD.Region=@Region) AND (@Region='' OR CAD.Seccion=@Seccion)
+	WHERE CP.Estado=1 and CAD.ESTADO=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR CAD.Campania=@Capania)
 	ORDER BY CP.IdContenido,CAD.Orden	
 END
 
@@ -440,15 +430,14 @@ BEGIN
 
 	SELECT CP.IdContenido,CP.Codigo,CP.UrlMiniatura,CP.DesdeCampania,CP.Estado,RutaImagen
 	FROM dbo.ContenidoApp CP
-	WHERE CP.Estado=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR  @Capania BETWEEN CP.DesdeCampania AND CP.HastaCampania)
+	WHERE CP.Estado=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR  @Capania BETWEEN ISNULL(CP.DesdeCampania,@Capania) AND ISNULL(CP.HastaCampania,@Capania))
 	ORDER BY CP.IdContenido
 	
 	SELECT CP.IdContenido,CAD.IdContenidoDeta,CP.Codigo,CodigoDetalle,RutaContenido,Accion,Orden,Tipo,CAD.Estado EstadoDetalle
 	FROM dbo.ContenidoApp CP LEFT JOIN
 		 dbo.ContenidoAppDeta CAD ON CAD.IdContenido=CP.IdContenido	LEFT JOIN
 		 dbo.VistoContenidoConsultora VC ON VC.IdContenidoDeta=CAD.IdContenidoDeta AND VC.CodigoConsultora=@CodigoConsultora
-	WHERE CP.Estado=1 and CAD.ESTADO=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR CAD.Campania=@Capania) AND 
-		(@Zona='' OR CAD.Zona=@Zona) AND (@Region='' OR CAD.Region=@Region) AND (@Region='' OR CAD.Seccion=@Seccion)
+	WHERE CP.Estado=1 and CAD.ESTADO=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR CAD.Campania=@Capania)
 	ORDER BY CP.IdContenido,CAD.Orden	
 END
 
