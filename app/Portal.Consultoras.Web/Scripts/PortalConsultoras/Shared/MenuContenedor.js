@@ -118,9 +118,9 @@ var menuModule = (function () {
             var listaMenu = $(elementos.menu2Li);
             var anchoTotal = 0;
             $.each(listaMenu, function (ind, menuCont) {
-                anchoTotal = anchoTotal + $(menuCont).innerWidth();
+                anchoTotal = anchoTotal + $(menuCont).innerWidth() + 1;
             });
-            var anchoMain = $(_elem.layout.header).innerWidth();
+            var anchoMain = $(_elem.layout.header).innerWidth() - 100;
             if (anchoTotal > anchoMain) {
                 return true;
             }

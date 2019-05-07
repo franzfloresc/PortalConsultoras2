@@ -261,8 +261,8 @@ namespace Portal.Consultoras.Web.Providers
                 //switch uso Session ODD
                 if (!UsarSession(Constantes.TipoEstrategiaCodigo.OfertaDelDia)) tempDataManager.SetListODD(oddSession.ListaOferta);
 
-                var colorFondoBanner = personalizacionesOdd.FirstOrDefault(x => x.TablaLogicaDatosID == Constantes.TablaLogicaDato.PersonalizacionOdd.ColorFondoBanner) ?? new TablaLogicaDatosModel();
-                var coloFondoDisplay = personalizacionesOdd.FirstOrDefault(x => x.TablaLogicaDatosID == Constantes.TablaLogicaDato.PersonalizacionOdd.ColorFondoDisplay) ?? new TablaLogicaDatosModel();
+                var colorFondoBanner = personalizacionesOdd.FirstOrDefault(x => x.TablaLogicaDatosID == ConsTablaLogica.PersonalizacionOdd.ColorFondoBanner) ?? new TablaLogicaDatosModel();
+                var coloFondoDisplay = personalizacionesOdd.FirstOrDefault(x => x.TablaLogicaDatosID == ConsTablaLogica.PersonalizacionOdd.ColorFondoDisplay) ?? new TablaLogicaDatosModel();
 
                 oddSession.TextoVerDetalle = oddSession.ListaOferta.Any() ? oddSession.ListaOferta.Count > 1 ? "VER MÁS OFERTAS" : "VER OFERTA" : "";
 
@@ -346,7 +346,7 @@ namespace Portal.Consultoras.Web.Providers
         private bool GetValidarDiasAntesStock(UsuarioModel userData)
         {
             var validar = false;
-            var lstTablaLogicaDatos = _tablaLogicaProvider.GetTablaLogicaDatos(userData.PaisID, Constantes.TablaLogica.StockDiasAntes, true);
+            var lstTablaLogicaDatos = _tablaLogicaProvider.GetTablaLogicaDatos(userData.PaisID, ConsTablaLogica.OfertasConsultora.TablaLogicaId, true);
             if (lstTablaLogicaDatos.Any())
             {
                 var diasAntesStock = lstTablaLogicaDatos.FirstOrDefault().Valor;

@@ -29,7 +29,7 @@ namespace Portal.Consultoras.BizLogic.Producto
 
             try
             {
-                var listaDescripciones = _tablaLogicaDatosBusinessLogic.GetListCache(paisID, Constantes.TablaLogica.NuevaDescripcionProductos);
+                var listaDescripciones = _tablaLogicaDatosBusinessLogic.GetListCache(paisID, ConsTablaLogica.DescripcionProducto.TablaLogicaId);
 
                 foreach (var item in listaDescripciones)
                 {
@@ -65,7 +65,7 @@ namespace Portal.Consultoras.BizLogic.Producto
 
                 if (rst == null)
                 {
-                    using (IDataReader reader = new DATablaLogicaDatos(paisID).GetTablaLogicaDatos(Constantes.TablaLogica.ListaOrdenamientoFiltros))
+                    using (IDataReader reader = new DATablaLogicaDatos(paisID).GetTablaLogicaDatos(ConsTablaLogica.BfOpcionesOrdenamiento.TablaLogicaId))
                     {
                         rst = reader.MapToCollection<BETablaLogicaDatos>();
                     }

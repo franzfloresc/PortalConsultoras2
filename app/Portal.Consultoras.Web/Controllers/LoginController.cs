@@ -3069,7 +3069,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (var svc = new SACServiceClient())
             {
-                DataLogica = svc.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.HabilitarChatEmtelco);
+                DataLogica = svc.GetTablaLogicaDatos(paisId, ConsTablaLogica.ChatEmtelco.TablaLogicaId);
 
             }
             if (DataLogica.Any())
@@ -3108,7 +3108,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (var tablaLogica = new SACServiceClient())
             {
-                listaDescripciones = tablaLogica.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.NuevaDescripcionProductos).ToList();
+                listaDescripciones = tablaLogica.GetTablaLogicaDatos(paisId, ConsTablaLogica.DescripcionProducto.TablaLogicaId).ToList();
             }
 
             foreach (var item in listaDescripciones)
