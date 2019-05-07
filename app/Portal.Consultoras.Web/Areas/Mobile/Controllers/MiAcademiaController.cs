@@ -34,67 +34,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 var idCurso = SessionManager.GetMiAcademia();
                 if (idCurso > 0) SessionManager.SetMiAcademia(0);
 
-                string key = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.secret_key);
-                string isoUsuario = userData.CodigoISO + '-' + userData.CodigoConsultora;
-                string eMailNoExiste = userData.CodigoConsultora + "@notengocorreo.com";
-                string eMail = userData.EMail.Trim() == string.Empty ? eMailNoExiste : userData.EMail;
+                var isoUsuario = userData.CodigoISO + '-' + userData.CodigoConsultora;
+                var resultToken = _miAcademiaProvider.GetToken(userData, isoUsuario);
 
-                string nivelProyectado = "";
-                DataSet parametros;
-
-                string codigoClasificacion = userData.CodigoClasificacion;
-                string codigoSubClasificacion = userData.CodigoSubClasificacion;
-                string descripcionSubClasificacion = userData.DescripcionSubclasificacion;
-
-                using (ContenidoServiceClient csv = new ContenidoServiceClient())
+                if (resultToken.Success)
                 {
-                    parametros = csv.ObtenerParametrosSuperateLider(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
-                }
-
-                if (parametros != null && parametros.Tables.Count > 0)
-                {
-                    nivelProyectado = parametros.Tables[0].Rows[0][1].ToString();
-                }
-
-                ws_server svcLms = new ws_server();
-                result createUser = new result();
-
-                var getUser = svcLms.ws_serverget_user(isoUsuario, userData.CampaniaID.ToString(), key);
-                var token = getUser.token;
-
-                if (getUser.codigo == "002")
-                {
-                    createUser = svcLms.ws_servercreate_user(
-                        isoUsuario,
-                        userData.NombreConsultora,
-                        eMail,
-                        userData.CampaniaID.ToString(),
-                        userData.CodigorRegion,
-                        userData.CodigoZona,
-                        userData.SegmentoConstancia,
-                        userData.SeccionAnalytics,
-                        userData.Lider.ToString(),
-                        userData.NivelLider.ToString(),
-                        userData.CampaniaInicioLider,
-                        userData.SeccionGestionLider,
-                        nivelProyectado,
-                        key);
-                    token = createUser.token;
-                }
-
-                var exito = !(getUser.codigo == "003" || getUser.codigo == "004" || getUser.codigo == "005" ||
-                              createUser.codigo == "002" || createUser.codigo == "003" || createUser.codigo == "004");
-                if (exito)
-                {
-                    var parametroUrl = new ParamUrlMiAcademiaModel
-                    {
-                        IsoUsuario = isoUsuario,
-                        Token = token,
-                        CodigoClasificacion = codigoClasificacion,
-                        CodigoSubClasificacion = codigoSubClasificacion,
-                        DescripcionSubClasificacion = descripcionSubClasificacion,
-                        IdCurso = idCurso
-                    };
+                    var parametroUrl = _miAcademiaProvider.NewParametroUrl(userData, isoUsuario, resultToken.Data, idCurso);
                     return Redirect(_miAcademiaProvider.GetUrl(Enumeradores.MiAcademiaUrl.Cursos, parametroUrl));
                 }
             }
@@ -112,60 +57,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 var idCurso = SessionManager.GetMiAcademia();
                 if (idCurso > 0) SessionManager.SetMiAcademia(0);
 
-                string key = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.secret_key);
-                string isoUsuario = userData.CodigoISO + '-' + userData.CodigoConsultora;
-                string eMailNoExiste = userData.CodigoConsultora + "@notengocorreo.com";
-                string eMail = userData.EMail.Trim() == string.Empty ? eMailNoExiste : userData.EMail;
+                var isoUsuario = userData.CodigoISO + '-' + userData.CodigoConsultora;
+                var resultToken = _miAcademiaProvider.GetToken(userData, isoUsuario);
 
-                string nivelProyectado = "";
-                DataSet parametros;
-
-                using (ContenidoServiceClient csv = new ContenidoServiceClient())
+                if (resultToken.Success)
                 {
-                    parametros = csv.ObtenerParametrosSuperateLider(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
-                }
-
-                if (parametros != null && parametros.Tables.Count > 0)
-                {
-                    nivelProyectado = parametros.Tables[0].Rows[0][1].ToString();
-                }
-
-                ws_server svcLms = new ws_server();
-                result createUser = new result();
-
-                var getUser = svcLms.ws_serverget_user(isoUsuario, userData.CampaniaID.ToString(), key);
-                var token = getUser.token;
-
-                if (getUser.codigo == "002")
-                {
-                    createUser = svcLms.ws_servercreate_user(
-                        isoUsuario,
-                        userData.NombreConsultora,
-                        eMail,
-                        userData.CampaniaID.ToString(),
-                        userData.CodigorRegion,
-                        userData.CodigoZona,
-                        userData.SegmentoConstancia,
-                        userData.SeccionAnalytics,
-                        userData.Lider.ToString(),
-                        userData.NivelLider.ToString(),
-                        userData.CampaniaInicioLider,
-                        userData.SeccionGestionLider,
-                        nivelProyectado,
-                        key);
-                    token = createUser.token;
-                }
-
-                var exito = !(getUser.codigo == "003" || getUser.codigo == "004" || getUser.codigo == "005" ||
-                              createUser.codigo == "002" || createUser.codigo == "003" || createUser.codigo == "004");
-                if (exito)
-                {
-                    var parametroUrl = new ParamUrlMiAcademiaModel
-                    {
-                        IsoUsuario = isoUsuario,
-                        Token = token,
-                        IdCurso = idCurso
-                    };
+                    var parametroUrl = _miAcademiaProvider.NewParametroUrl(userData, isoUsuario, resultToken.Data, idCurso);
                     return Redirect(_miAcademiaProvider.GetUrl(Enumeradores.MiAcademiaUrl.Cursos, parametroUrl));
                 }
             }
@@ -177,65 +74,17 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.origen = IdOrigen;
             return View("Index");
         }
+
         public ActionResult Cursos(int idcurso)
         {
             try
             {
-                string key = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.secret_key);
-                string isoUsuario = userData.CodigoISO + '-' + userData.CodigoConsultora;
-                string eMailNoExiste = userData.CodigoConsultora + "@notengocorreo.com";
-                string eMail = userData.EMail.Trim() == string.Empty ? eMailNoExiste : userData.EMail;
+                var isoUsuario = userData.CodigoISO + '-' + userData.CodigoConsultora;
+                var resultToken = _miAcademiaProvider.GetToken(userData, isoUsuario);
 
-                string nivelProyectado = "";
-                DataSet parametros;
-
-                using (ContenidoServiceClient csv = new ContenidoServiceClient())
+                if (resultToken.Success)
                 {
-                    parametros = csv.ObtenerParametrosSuperateLider(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
-                }
-
-                if (parametros != null && parametros.Tables.Count > 0)
-                {
-                    nivelProyectado = parametros.Tables[0].Rows[0][1].ToString();
-                }
-
-                ws_server svcLms = new ws_server();
-                result createUser = new result();
-
-                var getUser = svcLms.ws_serverget_user(isoUsuario, userData.CampaniaID.ToString(), key);
-                var token = getUser.token;
-
-                if (getUser.codigo == "002")
-                {
-                    createUser = svcLms.ws_servercreate_user(
-                        isoUsuario,
-                        userData.NombreConsultora,
-                        eMail,
-                        userData.CampaniaID.ToString(),
-                        userData.CodigorRegion,
-                        userData.CodigoZona,
-                        userData.SegmentoConstancia,
-                        userData.SeccionAnalytics,
-                        userData.Lider.ToString(),
-                        userData.NivelLider.ToString(),
-                        userData.CampaniaInicioLider,
-                        userData.SeccionGestionLider,
-                        nivelProyectado,
-                        key);
-                    token = createUser.token;
-                }
-
-                var exito = !(getUser.codigo == "003" || getUser.codigo == "004" || getUser.codigo == "005" ||
-                              createUser.codigo == "002" || createUser.codigo == "003" || createUser.codigo == "004");
-
-                if (exito)
-                {
-                    var parametroUrl = new ParamUrlMiAcademiaModel
-                    {
-                        IsoUsuario = isoUsuario,
-                        Token = token,
-                        IdCurso = idcurso
-                    };
+                    var parametroUrl = _miAcademiaProvider.NewParametroUrl(userData, isoUsuario, resultToken.Data, idcurso);
                     return Redirect(_miAcademiaProvider.GetUrl(Enumeradores.MiAcademiaUrl.Cursos, parametroUrl));
                 }
             }
