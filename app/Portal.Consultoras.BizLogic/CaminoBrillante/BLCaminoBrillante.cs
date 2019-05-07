@@ -333,18 +333,18 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
         private BELogroCaminoBrillante.BEIndicadorCaminoBrillante GetConsultoraLogrosCrecimiento_CambioEscalaDescuento(int paisId, BEUsuario entidad, NivelConsultoraCaminoBrillante nivelConsultora)
         {
-            var escalasDescuento = _escalaDescuentoBusinessLogic.GetEscalaDescuento(paisId, entidad.CampaniaID, entidad.Region, entidad.Zona) ?? new List<BEEscalaDescuento>();
+            var escalasDescuento = GetEscalaDescuento(paisId, entidad);
             var configsMedalla = (GetGetConfiguracionMedallaCaminoBrillanteCache(paisId) ?? new List<BEConfiguracionMedallaCaminoBrillante>())
                                  .Where(e => e.Logro == Constantes.CaminoBrillante.Logros.CRECIMIENTO && e.Indicador == Constantes.CaminoBrillante.Logros.Indicadores.ESCALA);
-
+            var TieneEscalaValida = !escalasDescuento.Any(e => e.MontoDesde == 0);
             var idx = 0;
             var medallaEscalas = escalasDescuento.Select(e => new BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante()
             {
                 Orden = idx++,
                 Tipo = Constantes.CaminoBrillante.Logros.Indicadores.Medallas.Codes.CIRC,
-                Estado = (e.PorDescuento <= nivelConsultora.CambioEscala),
+                Estado = TieneEscalaValida && (e.PorDescuento <= nivelConsultora.CambioEscala),
                 Valor = e.PorDescuento + string.Empty,
-                MontoSuperior = e.MontoHasta,
+                MontoSuperior = e.MontoDesde,
             }).ToList();
 
             medallaEscalas.ForEach(e =>
@@ -352,16 +352,13 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 var configMedalla = configsMedalla.FirstOrDefault(p => p.Codigo == e.Valor);
                 if (configMedalla != null)
                 {
-                    e.Subtitulo = e.Estado ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo;
                     e.Valor = string.Format(configMedalla.Valor ?? string.Empty, e.Valor);
-                    e.ModalTitulo = configMedalla.ComoLograrlo_Estado ? configMedalla.ComoLograrlo_Titulo.Replace("{0}", e.Valor) : string.Empty;
-                    e.ModalDescripcion = configMedalla.ComoLograrlo_Estado ? (configMedalla.ComoLograrlo_Descripcion).Replace("{0}", string.Format("<b>{0} {1}</b>", entidad.Simbolo, Util.DecimalToStringFormat(Convert.ToDecimal(e.MontoSuperior), entidad.CodigoISO))) : string.Empty;
+                    e.ModalTitulo = configMedalla.ComoLograrlo_Estado && TieneEscalaValida ? configMedalla.ComoLograrlo_Titulo.Replace("{0}", e.Valor) : string.Empty;
+                    e.ModalDescripcion = configMedalla.ComoLograrlo_Estado && TieneEscalaValida ? (configMedalla.ComoLograrlo_Descripcion).Replace("{0}", string.Format("<b>{0} {1}</b>", entidad.Simbolo, Util.DecimalToStringFormat(Convert.ToDecimal(e.MontoSuperior), entidad.CodigoISO))) : string.Empty;
                 }
-                else
-                {
-                    e.Valor = string.Format("{0}%", e.Valor);
-                    e.Subtitulo = e.Estado ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo;
-                }
+                else e.Valor = string.Format("{0}%", e.Valor);
+
+                e.Subtitulo = e.Estado ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo;
             });
 
             var tablaLogicaDatos = (GetDatosTablaLogica(paisId, ConsTablaLogica.CaminoBrillante.CaminoBrillanteIndicadores) ?? new List<BETablaLogicaDatos>())
@@ -373,6 +370,19 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 Titulo = tablaLogicaDatos.Valor,
                 Medallas = medallaEscalas.ToList()
             };
+        }
+
+        private List<BEEscalaDescuento> GetEscalaDescuento(int paisId, BEUsuario entidad) {
+            var escalas = _escalaDescuentoBusinessLogic.GetEscalaDescuento(paisId, entidad.CampaniaID, entidad.Region, entidad.Zona) ?? new List<BEEscalaDescuento>();
+            if (escalas.Any()) {
+                var montoMinimo = (new DACaminoBrillante(paisId)).GetMontoMinimoEscala(entidad.ConsultoraID);
+                foreach (var item in escalas)
+                {
+                    item.MontoDesde = montoMinimo;
+                    montoMinimo = item.MontoHasta;
+                }
+            }
+            return escalas;
         }
 
         private BELogroCaminoBrillante.BEIndicadorCaminoBrillante GetConsultoraLogrosCrecimiento_CambioNivel(int paisId, BEUsuario entidad, NivelConsultoraCaminoBrillante nivelConsultora, List<BENivelCaminoBrillante> nivelesCaminoBrillantes)
@@ -395,12 +405,11 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             medallaNiveles.ForEach(e =>
             {
                 var configMedalla = configsMedalla.FirstOrDefault(p => p.Codigo == e.Valor);
-                if (configMedalla != null)
-                {
-                    e.Subtitulo = e.Estado ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo;
-                    e.ModalTitulo = configMedalla.ComoLograrlo_Estado ? configMedalla.ComoLograrlo_Titulo.Replace("{0}", e.DescripcionNivel) : string.Empty;
-                    e.ModalDescripcion = configMedalla.ComoLograrlo_Estado ? configMedalla.ComoLograrlo_Descripcion.Replace("{0}", e.DescripcionNivel).Replace("{1}", string.Format("<b>{0} {1}</b>", entidad.Simbolo, Util.DecimalToStringFormat(Convert.ToDecimal(e.MontoAcumulado), entidad.CodigoISO))) : string.Empty;
-                }
+                if (configMedalla == null) return;
+
+                e.Subtitulo = e.Estado ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo;
+                e.ModalTitulo = configMedalla.ComoLograrlo_Estado ? configMedalla.ComoLograrlo_Titulo.Replace("{0}", e.DescripcionNivel) : string.Empty;
+                e.ModalDescripcion = configMedalla.ComoLograrlo_Estado ? configMedalla.ComoLograrlo_Descripcion.Replace("{0}", e.DescripcionNivel).Replace("{1}", string.Format("<b>{0} {1}</b>", entidad.Simbolo, Util.DecimalToStringFormat(Convert.ToDecimal(e.MontoAcumulado), entidad.CodigoISO))) : string.Empty;
             });
 
             var tablaLogicaDatos = (GetDatosTablaLogica(paisId, ConsTablaLogica.CaminoBrillante.CaminoBrillanteIndicadores) ?? new List<BETablaLogicaDatos>())
@@ -766,8 +775,8 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 FotoProductoMedium = e.FotoProductoMedium,
                 FotoProductoSmall = e.FotoProductoSmall,
                 MarcaID = e.MarcaID,
-                PrecioCatalogo = Util.DecimalToStringFormat(e.PrecioCatalogo, paisISO).ToDecimal(),
-                PrecioValorizado = Util.DecimalToStringFormat(e.PrecioValorizado, paisISO).ToDecimal(),
+                PrecioCatalogo = e.PrecioCatalogo,
+                PrecioValorizado = e.PrecioValorizado,
                 TipoEstrategiaID = e.TipoEstrategiaID,
                 FlagSeleccionado = demostradoresEnPedido.Any(h => h.CUV == e.CUV)
             }).ToList();

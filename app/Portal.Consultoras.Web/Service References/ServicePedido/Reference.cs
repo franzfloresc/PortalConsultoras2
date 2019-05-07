@@ -45981,10 +45981,10 @@ namespace Portal.Consultoras.Web.ServicePedido {
         System.Threading.Tasks.Task<int> ObtenerPagoEnLineaNumeroOrdenAsync(int paisId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaConfiguracion", ReplyAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaConfiguracionResponse")]
-        Portal.Consultoras.Web.ServicePedido.BEPagoEnLinea ObtenerPagoEnLineaConfiguracion(int paisId, long consultoraId, string codigoUsuario);
+        Portal.Consultoras.Web.ServicePedido.BEPagoEnLinea ObtenerPagoEnLineaConfiguracion(int paisId, long consultoraId, string codigoUsuario, int esDigital, System.DateTime fechaVencimientoPago);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaConfiguracion", ReplyAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaConfiguracionResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPagoEnLinea> ObtenerPagoEnLineaConfiguracionAsync(int paisId, long consultoraId, string codigoUsuario);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPagoEnLinea> ObtenerPagoEnLineaConfiguracionAsync(int paisId, long consultoraId, string codigoUsuario, int esDigital, System.DateTime fechaVencimientoPago);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaVisaConfiguracion", ReplyAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaVisaConfiguracionResponse")]
         Portal.Consultoras.Web.ServicePedido.BEPagoEnLineaVisa ObtenerPagoEnLineaVisaConfiguracion(int paisId, string codigoConsutora);
@@ -48686,12 +48686,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.ObtenerPagoEnLineaNumeroOrdenAsync(paisId);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEPagoEnLinea ObtenerPagoEnLineaConfiguracion(int paisId, long consultoraId, string codigoUsuario) {
-            return base.Channel.ObtenerPagoEnLineaConfiguracion(paisId, consultoraId, codigoUsuario);
+        public Portal.Consultoras.Web.ServicePedido.BEPagoEnLinea ObtenerPagoEnLineaConfiguracion(int paisId, long consultoraId, string codigoUsuario, int esDigital, System.DateTime fechaVencimientoPago) {
+            return base.Channel.ObtenerPagoEnLineaConfiguracion(paisId, consultoraId, codigoUsuario, esDigital, fechaVencimientoPago);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPagoEnLinea> ObtenerPagoEnLineaConfiguracionAsync(int paisId, long consultoraId, string codigoUsuario) {
-            return base.Channel.ObtenerPagoEnLineaConfiguracionAsync(paisId, consultoraId, codigoUsuario);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPagoEnLinea> ObtenerPagoEnLineaConfiguracionAsync(int paisId, long consultoraId, string codigoUsuario, int esDigital, System.DateTime fechaVencimientoPago) {
+            return base.Channel.ObtenerPagoEnLineaConfiguracionAsync(paisId, consultoraId, codigoUsuario, esDigital, fechaVencimientoPago);
         }
         
         public Portal.Consultoras.Web.ServicePedido.BEPagoEnLineaVisa ObtenerPagoEnLineaVisaConfiguracion(int paisId, string codigoConsutora) {

@@ -5,6 +5,12 @@ namespace Portal.Consultoras.Common
 {
     public class Constantes
     {
+        public static class TipoSeccion
+        {
+            public const string Video = "01";
+            public const string Texto = "02";
+        }
+
         public static class TipoLink
         {
             public const int Ayuda = 301;
@@ -92,7 +98,18 @@ namespace Portal.Consultoras.Common
             public const int EstadosUnidos = 16;
         }
 
-        public static class CodigosISOPais
+
+        public static class TipoEnvio
+        {
+            public const string SMS = "SMS";
+            public const string FIJO = "FIJO";
+            public const string EMAIL = "Email";    
+            public const string TODO = "todo";
+        }
+
+
+
+            public static class CodigosISOPais
         {
             public const string Peru = "PE";
             public const string Chile = "CL";
@@ -170,6 +187,7 @@ namespace Portal.Consultoras.Common
             public const int UrlLogoPasarelaPago = 12209;
             public const int ColorBotonPagarPasarelaPago = 12210;
             public const int MensajeInformacionPagoExitoso = 12211;
+            public const int Acplica3porciento = 12215;
 
             public const int CantidadCuvMasivo_NuevoMasivo = 13701;
             public const int EstrategiaImagen_NuevoMasivo = 13702;
@@ -180,6 +198,9 @@ namespace Portal.Consultoras.Common
             public const int MensajeActualizarSms = 1002;
             public const int MensajeActualizarEmail = 1003;
             public const int CaminoBrillanteTablaLogica = 165;
+            public const int MensajeActualizarFijo = 16261;
+
+            public const int TablaLogicaestadoPopupInformativoID = 191;
 
             public static class PersonalizacionOdd
             {
@@ -194,6 +215,7 @@ namespace Portal.Consultoras.Common
             {
                 public const int Habilitar_App = 12213;
                 public const int Habilitar_App_PBI_ExternalApp = 12214;
+                public const string Habilitar_Comision_Cero = "DESACTIVA_COMISION_VISA";
                 public const decimal MontoMinimoPago = 0.50m;
             }
 
@@ -201,9 +223,7 @@ namespace Portal.Consultoras.Common
             {
                 public const string ListCuv = "ListCuv";
             }
-
-
-
+            
             public static class CaminoBrillante
             {
                 /// <summary>
@@ -223,7 +243,6 @@ namespace Portal.Consultoras.Common
                 /// </summary>
                 public const string NumeroCampaniasEnPeriodo = "num_cam_per";
             }
-
         }
 
         public static class ParametrosNames
@@ -617,7 +636,7 @@ namespace Portal.Consultoras.Common
             public const string PaisesCancelarSuscripcionRDUnete = "PaisesCancelarSuscripcionRDUnete";
             public const string PaisesCancelarSuscripcionRDNuevas = "PaisesCancelarSuscripcionRDNuevas";
 
-            public const int RevistaCatalogoTablaLogicaId = 24; 
+            public const int RevistaCatalogoTablaLogicaId = 24;
             public const string RevistaPiloto_Escenario = "ESC";
             public const string RevistaPiloto_Zonas = "RevistaPiloto_Zonas_";
             public const string RevistaPiloto_Grupos = "RevistaPiloto_Grupos_";
@@ -1046,9 +1065,6 @@ namespace Portal.Consultoras.Common
             public const int DesktopPedidoProductoRecomendadoOpmFicha = 1020009;
             public const int DesktopPedidoProductoRecomendadoShowRoomFicha = 1020109;
 
-            public const int MobileContenedorArmaTuPack = 2131502;
-            public const int DesktopContenedorArmaTuPack = 1131502;
-
             public const int AppConsultoraContenedorShowroomFicha = 4080102;
             public const int DesktopPedidoProductoRecomendadoLanFicha = 1020209;
             public const int DesktopPedidoProductoRecomendadoOddFicha = 1020309;
@@ -1084,6 +1100,9 @@ namespace Portal.Consultoras.Common
             public const int AppConsultoraPedidoCatalogoCyzoneCatalogoDigitalPendienteDeAprobar = 4021311;
             #endregion
 
+            public const int MobileArmaTuPackFicha = 2131502;
+            public const int DesktopArmaTuPackFicha = 1131502;
+            
             #region CaminoBrillante
             public const int CaminoBrillanteDesktopPedido = 1181901;
             public const int CaminoBrillanteMobilePedido = 2181901;
@@ -1160,7 +1179,7 @@ namespace Portal.Consultoras.Common
             public const string SinPedidosDisponibles = "Lo sentimos, en estos momentos no cuentas con pedidos disponibles para reclamar.";
             public const string FueraDeFecha = "Tu solicitud se encuentra fuera de fecha para poder ser atendida.";
             public const string ContactateChatEnLinea = "Por favor, contáctate con nuestro <span class=\"enlace_chat belcorpChat\"><a>Chat en Línea</a></span>.";
-            public const string ExcedioLimiteReclamo = "Lo sentimos, usted ha excedido el límite de reclamos por pedido"; //HD-3412 EINCA
+            public const string ExcedioLimiteReclamo = "Lo sentimos, usted ha excedido el límite de reclamos por pedido";
         }
 
         public static class CodigoOperacionCDR
@@ -1289,7 +1308,7 @@ namespace Portal.Consultoras.Common
                 public const string Mobile = "Mobile";
             }
 
-            public static class TipoPersonalizacion
+            public static class TipoPersonalizacionSr
             {
                 public const string Evento = "EVENTO";
                 public const string Categoria = "CATEGORIA";
@@ -1526,7 +1545,6 @@ namespace Portal.Consultoras.Common
 
         public static class MensajesError
         {
-            //public const string InsertarDesglose = "Ocurrió un error al procesar la reserva.";
             public const string CargarProductosShowRoom = "Error al cargar los productos.";
             public const string DeletePedido_CuvNoExiste = "El producto que deseas eliminar ya no se encuentra en tu pedido. Por favor, vuelva a carga la página (F5).";
             public const string RecuperarContrasenia = "Error en la respuesta del servicio de Recuperar Contraseña.";
@@ -1876,15 +1894,8 @@ namespace Portal.Consultoras.Common
         [Obsolete("Use ConsTablaLogica")]
         public struct TablaLogica
         {
-            public const int NroReclamosPorPedidoCDR = 161;
-            public const int PersonalizacionODD = 93;
             public const int Plan20 = 98;
-            public const int CDRExpress = 104;
             public const int StockDiasAntes = 181;
-            public const int CorreoFeedbackAppConsultora = 105;
-
-            public const int EscalaDescuentoMensajeImportante = 160;
-
 
             /// <summary>
             /// Variables configurables del app
@@ -1910,15 +1921,7 @@ namespace Portal.Consultoras.Common
             }
 
             public const short RevistaDigital = 131;
-            public const short CodigoRevistaFisica = 132;
-            public const short Palanca = 135;
-            public const int ValoresImagenesResize = 121;
-            public const short ExtensionBannerGanaMasApp = 136;
-            public const short MontoLimiteCupon = 103;
             public const int ValoresPagoEnLinea = 122;
-            public const int CantidadCuvMasivo = 137;
-            public const short ProlObsCod = 5;
-            public const int ActualizaDatosEnabled = 143;
             public const short HabilitarChatEmtelco = 144;
             public const short OrdenamientoShowRoom = 99;
             public const short NuevaDescripcionProductos = 145;
@@ -1930,6 +1933,7 @@ namespace Portal.Consultoras.Common
             public const short PilotoCatalogoDigital = 155;
             public const short GanaMasNativo = 159;
             public const short ResizeImagenesAppGanaMas = 162;
+            public const short SegPedidoRegionZona = 169;//HD-3606 EINCA
             public const short TiempoMaximoSP = 180;
             #region Camino Brillante
             public const short CaminoBrillanteInfoComercial = 165;
@@ -2265,8 +2269,15 @@ namespace Portal.Consultoras.Common
             public const string ProgramaNuevas = "/programanuevas";
             public const string ProgramaNuevasIndex = "/programanuevas/index";
             public const string DetalleMasGanadoras = "/detalle/ganadoras";
-
         }
+
+        public static class UrlDatsoPendientes
+        {
+            public const string MiPerfilDesktop = "/MiPerfil";
+            public const string MiPerfilMobile = "/Mobile/MiPerfil";
+        }
+
+
 
         public static class TipoVistaEstrategia
         {
@@ -2379,7 +2390,7 @@ namespace Portal.Consultoras.Common
             public const string AppConsultora = "App Consultora";
             public const string BannerDescargarAppNuevas = "BannerDescargarAppNuevas";
             public const string Extraordinarios = "App Consultora,BannerDescargarAppNuevas";
-            //HD-3550 EINCA
+
             public static class TipoComunicado
             {
                 public const int Banner = 1;
@@ -3619,9 +3630,22 @@ namespace Portal.Consultoras.Common
             public const int Reingreso = 9;
         }
 
+        //HD-3606 EINCA
+        public static class SegPedidoSituacion
+        {
+            public const int PedidoRecibido = 1;
+            public const int Facturado = 2;
+            public const int InicioArmado = 3;
+            public const int Chequeado = 4;
+            public const int PuestoTransporte = 5;
+            public const int FechaEstimadaEntrega = 6;
+            public const int Entregado = 7;
+            public const int HoraEstimadaEntregaDesde = 8;
+            public const int HoraEstimadaEntregaHasta = 9;
+        }
+
         public static class CaminoBrillante
         {
-
             public static class ServicioComercial
             {
                 public const string GetPeriodo = "GetPeriodo/";
@@ -3791,7 +3815,6 @@ namespace Portal.Consultoras.Common
 
             public static class Niveles
             {
-
                 public const int OfertasEspeciales_TablaLogicaDatos = 16800;
 
                 private static Dictionary<string, string[]> _Iconos;
@@ -3811,8 +3834,7 @@ namespace Portal.Consultoras.Common
                         });
                     }
                 }
-
-
+                
                 private static Dictionary<string, string[]> _Etiquetas;
                 private static string path_etiquetas = "CAMINOBRILLANTE/NIVELES/TAG/Etiqueta_Nivel_0{0}_{1}.png";
 
@@ -3831,7 +3853,11 @@ namespace Portal.Consultoras.Common
                     }
                 }
             }
+        }
 
+        public static class CodigoContenido
+        {
+            public const string Lanzamiento = "BONIFICACIONES_RESUMEN";
         }
 
         #region
@@ -3839,9 +3865,6 @@ namespace Portal.Consultoras.Common
         {
             public const string Menu = "Menu";
         }
-
         #endregion
-
-
     }
 }

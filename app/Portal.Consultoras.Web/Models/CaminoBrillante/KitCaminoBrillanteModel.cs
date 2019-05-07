@@ -34,6 +34,15 @@ namespace Portal.Consultoras.Web.Models.CaminoBrillante
                 return null;
             }
         }
+        public string PrecioValorizadoFormat
+        {
+            get
+            {
+                if (PaisISO != null)
+                    return Util.DecimalToStringFormat(PrecioValorizado, PaisISO);
+                return PrecioValorizado.ToString();
+            }
+        }
         public string PrecioCatalogoFormat
         {
             get

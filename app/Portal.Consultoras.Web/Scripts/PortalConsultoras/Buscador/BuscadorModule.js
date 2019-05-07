@@ -210,7 +210,7 @@ var BuscadorModule = (function () {
                 }
             } else {
                 $(".seccion_categorias_productos_busqueda_wrapper").fadeOut(150);
-            } 
+            }
         },
         EsAlfanumericoLetras: function (valorBusqueda) {
             var letras = "abcdefghyjklmnñopqrstuvwxyzáéíóú";
@@ -374,7 +374,7 @@ var BuscadorModule = (function () {
 
                 if (!(typeof FlagBuscarPorCategoria === 'undefined') && FlagBuscarPorCategoria == true) {
                     $(".seccion_categorias_productos_busqueda_wrapper").fadeIn(150);
-                }                
+                }
             }
         },
         LimpiarCampoBusqueda: function (e) {
@@ -385,12 +385,11 @@ var BuscadorModule = (function () {
             $("#CampoBuscadorProductos").focus();
             $("#ResultadoBuscador").html("");
 
-            if (!(typeof FlagBuscarPorCategoria === 'undefined') && FlagBuscarPorCategoria == true) { 
+            if (!(typeof FlagBuscarPorCategoria === 'undefined') && FlagBuscarPorCategoria == true) {
                 $(".seccion_categorias_productos_busqueda_wrapper").fadeIn(150);
-            }            
+            }
         },
         CerrarResultadosBusqueda: function (e) {
-            //e.preventDefault();
             var buscadorProductos = $(".buscador_productos");
             var seMuestraListaResultadosBusqueda = $(".lista_resultados_busqueda_productos").css("display") == "block";
             if (seMuestraListaResultadosBusqueda) {
@@ -426,7 +425,7 @@ var BuscadorModule = (function () {
             var codigo = ["030", "005", "001", "007", "008", "009", "010", "011"];
 
             if (textoBusqueda != "")
-                localStorage.setItem('valorBuscador', textoBusqueda);            
+                localStorage.setItem('valorBuscador', textoBusqueda);
 
             if (codigo.indexOf(codigoEstrategia) >= 0) {
                 var UrlDetalle = GetPalanca(codigoEstrategia, OrigenPedidoWeb);

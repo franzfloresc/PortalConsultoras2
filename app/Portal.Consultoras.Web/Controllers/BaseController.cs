@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.IO;
-using System.Linq;
-using System.Web.Mvc;
-using System.Web.Security;
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.CustomHelpers;
 using Portal.Consultoras.Web.Infraestructure.Excel;
@@ -17,9 +10,16 @@ using Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia;
 using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServicePedido;
-using Portal.Consultoras.Web.ServicesCalculosPROL;
 using Portal.Consultoras.Web.ServiceSAC;
+using Portal.Consultoras.Web.ServicesCalculosPROL;
 using Portal.Consultoras.Web.SessionManager;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
+using System.Linq;
+using System.Web.Mvc;
+using System.Web.Security;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -79,7 +79,6 @@ namespace Portal.Consultoras.Web.Controllers
         protected readonly EstrategiaComponenteProvider _estrategiaComponenteProvider;
         protected readonly ConfiguracionPaisProvider _configuracionPaisProvider;
         protected readonly ConfiguracionManagerProvider _configuracionManagerProvider;
-        protected readonly AdministrarEstrategiaProvider administrarEstrategiaProvider;
         protected readonly MenuProvider _menuProvider;
         protected readonly ChatEmtelcoProvider _chatEmtelcoProvider;
         protected readonly ComunicadoProvider _comunicadoProvider;
@@ -114,7 +113,6 @@ namespace Portal.Consultoras.Web.Controllers
         public BaseController() : this(Web.SessionManager.SessionManager.Instance, LogManager.LogManager.Instance)
         {
             _tablaLogicaProvider = new TablaLogicaProvider();
-            administrarEstrategiaProvider = new AdministrarEstrategiaProvider();
             _showRoomProvider = new ShowRoomProvider(_tablaLogicaProvider);
             _baseProvider = new BaseProvider();
             _guiaNegocioProvider = new GuiaNegocioProvider();
@@ -186,13 +184,6 @@ namespace Portal.Consultoras.Web.Controllers
                 configEstrategiaSR = SessionManager.GetEstrategiaSR() ?? new ConfigModel();
                 buscadorYFiltro = SessionManager.GetBuscadorYFiltrosConfig();
 
-
-                //if (!configEstrategiaSR.CargoEntidadesShowRoom)
-                //{
-                //    _showRoomProvider.CargarEntidadesShowRoom(userData);
-                //    configEstrategiaSR = SessionManager.GetEstrategiaSR();
-                //}
-
                 if (Request.IsAjaxRequest())
                 {
                     base.OnActionExecuting(filterContext);
@@ -203,7 +194,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ObtenerPedidoWebDetalle();
 
                 bool esMobile = EsDispositivoMovil();
-                
+
                 GetUserDataViewBag();
 
                 var controllerName = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
@@ -249,7 +240,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public virtual List<BEPedidoWebDetalle> ObtenerPedidoWebSetDetalleAgrupado(bool noSession = false)
         {
-            return _pedidoWebProvider.ObtenerPedidoWebSetDetalleAgrupado(EsOpt(), noSession);
+            return _pedidoWebProvider.ObtenerPedidoWebSetDetalleAgrupado(noSession);
         }
 
         public virtual List<BEPedidoWebDetalle> GetDetallePedidoAgrupadoByCampania(int campaniaId)
@@ -591,7 +582,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
                 else
-                { 
+                {
                     string controlador = GetControllerActual();
 
                     if (!Constantes.Controlador.ActualizacionODD.Contains(controlador))
@@ -601,16 +592,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                     switch (controlador)
                     {
-                        //case "Ofertas":
-                        //    if (_tempData.ExistTDListODD())
-                        //    {
-                        //        actualizaBaseODD = false;
-                        //    }
-                        //    break;
                         case "DetalleEstrategia":
                             string accion = (ControllerContext.RouteData.Values["action"] ?? "").ToString();
                             string palanca = (ControllerContext.RouteData.Values["palanca"] ?? "").ToString();
-                            if(accion == "Ficha" && palanca != Constantes.NombrePalanca.OfertaDelDia)
+                            if (accion == "Ficha" && palanca != Constantes.NombrePalanca.OfertaDelDia)
                             {
                                 actualizaBaseODD = false;
                             }
@@ -636,7 +621,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var listMontosProl = ServicioProl_CalculoMontosProl(userData.EjecutaProl);
                 userData.EjecutaProl = true;
                 if (!listMontosProl.Any()) return objR;
-                
+
                 var montosProl = listMontosProl[0];
                 SetBarraConsultoraMontosTotales(objR, montosProl, Agrupado);
 
@@ -769,7 +754,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected bool ValidarContratoPopup()
         {
-            return userData.EsConsultora() && userData.CambioClave == 0 && userData.IndicadorContrato == 0 &&
+            return userData.EsConsultora() && userData.IndicadorContrato == 0 &&
                 userData.CodigoISO.Equals(Constantes.CodigosISOPais.Colombia) &&
                 SessionManager.GetIsContrato() == 1 && !SessionManager.GetAceptoContrato();
         }
@@ -984,7 +969,7 @@ namespace Portal.Consultoras.Web.Controllers
         private void GetUserDataViewBag()
         {
             var esMobile = IsMobile();
-            ViewBag.PseudoParamNotif = userData.PseudoParamNotif; //SALUD-58
+            ViewBag.PseudoParamNotif = userData.PseudoParamNotif;
             ViewBag.EstadoInscripcionEpm = revistaDigital.EstadoRdcAnalytics;
             ViewBag.UsuarioNombre = (Util.Trim(userData.Sobrenombre) == "" ? userData.NombreConsultora : userData.Sobrenombre);
             ViewBag.Usuario = "Hola, " + userData.UsuarioNombre;
