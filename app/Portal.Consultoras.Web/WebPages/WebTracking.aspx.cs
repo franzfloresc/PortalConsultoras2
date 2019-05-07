@@ -438,8 +438,8 @@ namespace Portal.Consultoras.Web.WebPages
                     //INI HD-3606 
                     if (desde != null && hasta != null)
                     {
-                        if (desde.Fecha.HasValue) horaEstimadaEntregaDesde = desde.Fecha.Value.TimeOfDay.TotalHours.Equals(0) ? desde.Fecha.Value.ToString() : desde.Fecha.Value.ToString("HH:mm tt");
-                        if (hasta.Fecha.HasValue) horaEstimadaEntregaHasta = hasta.Fecha.Value.TimeOfDay.TotalHours.Equals(0) ? hasta.Fecha.Value.ToString() : hasta.Fecha.Value.ToString("HH:mm tt");
+                        if (desde.Fecha.HasValue) horaEstimadaEntregaDesde = desde.Fecha.Value.TimeOfDay.TotalHours.Equals(0) ? string.Empty : desde.Fecha.Value.ToString("HH:mm tt");
+                        if (hasta.Fecha.HasValue) horaEstimadaEntregaHasta = hasta.Fecha.Value.TimeOfDay.TotalHours.Equals(0) ? string.Empty : hasta.Fecha.Value.ToString("HH:mm tt");
                     }
                     //FIN HD-3606 
 
