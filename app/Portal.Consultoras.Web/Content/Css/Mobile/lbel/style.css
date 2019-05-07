@@ -1622,12 +1622,19 @@ h4.re3 {
     }
 
 .seg-hora--entregaProyectada {
-    width: 100%;
-    max-width: 81px;
+    width: auto;
     position: relative;
     margin: 0 auto;
-    left: -21px;
+    left: -13px;
+    right: 0;
     white-space: nowrap;
+}
+
+@media screen and (min-width:400px) and (max-width:991px) {
+
+    .seg-hora--entregaProyectada {
+        left: 2px;
+    }
 }
 
 .alert .close {

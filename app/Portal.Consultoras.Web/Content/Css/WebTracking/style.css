@@ -700,3 +700,7 @@ div.accountInfo {
 .grilla_seguimiento_pedido fieldset{
     padding-right:0;
 }
+
+.tabla2 tr td:nth-child(5){
+    white-space:nowrap;
+}
