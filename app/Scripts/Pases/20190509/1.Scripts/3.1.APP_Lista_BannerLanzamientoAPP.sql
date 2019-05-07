@@ -29,8 +29,7 @@ BEGIN
 	FROM dbo.ContenidoApp CP LEFT JOIN
 		 dbo.ContenidoAppDeta CAD ON CAD.IdContenido=CP.IdContenido	LEFT JOIN
 		 dbo.VistoContenidoConsultora VC ON VC.IdContenidoDeta=CAD.IdContenidoDeta AND VC.CodigoConsultora=@CodigoConsultora
-	WHERE CP.Estado=1 and CAD.ESTADO=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR CAD.Campania=@Capania) AND 
-		(@Zona='' OR CAD.Zona=@Zona) AND (@Region='' OR CAD.Region=@Region) AND (@Region='' OR CAD.Seccion=@Seccion)
+	WHERE CP.Estado=1 and CAD.ESTADO=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR CAD.Campania=@Capania) 
 	ORDER BY CP.IdContenido,CAD.Orden	
 END
 
@@ -67,8 +66,7 @@ BEGIN
 	FROM dbo.ContenidoApp CP LEFT JOIN
 		 dbo.ContenidoAppDeta CAD ON CAD.IdContenido=CP.IdContenido	LEFT JOIN
 		 dbo.VistoContenidoConsultora VC ON VC.IdContenidoDeta=CAD.IdContenidoDeta AND VC.CodigoConsultora=@CodigoConsultora
-	WHERE CP.Estado=1 and CAD.ESTADO=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR CAD.Campania=@Capania) AND 
-		(@Zona='' OR CAD.Zona=@Zona) AND (@Region='' OR CAD.Region=@Region) AND (@Region='' OR CAD.Seccion=@Seccion)
+	WHERE CP.Estado=1 and CAD.ESTADO=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR CAD.Campania=@Capania) 
 	ORDER BY CP.IdContenido,CAD.Orden	
 END
 
@@ -105,8 +103,7 @@ BEGIN
 	FROM dbo.ContenidoApp CP LEFT JOIN
 		 dbo.ContenidoAppDeta CAD ON CAD.IdContenido=CP.IdContenido	LEFT JOIN
 		 dbo.VistoContenidoConsultora VC ON VC.IdContenidoDeta=CAD.IdContenidoDeta AND VC.CodigoConsultora=@CodigoConsultora
-	WHERE CP.Estado=1 and CAD.ESTADO=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR CAD.Campania=@Capania) AND 
-		(@Zona='' OR CAD.Zona=@Zona) AND (@Region='' OR CAD.Region=@Region) AND (@Region='' OR CAD.Seccion=@Seccion)
+	WHERE CP.Estado=1 and CAD.ESTADO=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR CAD.Campania=@Capania) 
 	ORDER BY CP.IdContenido,CAD.Orden	
 END
 
@@ -181,8 +178,7 @@ BEGIN
 	FROM dbo.ContenidoApp CP LEFT JOIN
 		 dbo.ContenidoAppDeta CAD ON CAD.IdContenido=CP.IdContenido	LEFT JOIN
 		 dbo.VistoContenidoConsultora VC ON VC.IdContenidoDeta=CAD.IdContenidoDeta AND VC.CodigoConsultora=@CodigoConsultora
-	WHERE CP.Estado=1 and CAD.ESTADO=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR CAD.Campania=@Capania) AND 
-		(@Zona='' OR CAD.Zona=@Zona) AND (@Region='' OR CAD.Region=@Region) AND (@Region='' OR CAD.Seccion=@Seccion)
+	WHERE CP.Estado=1 and CAD.ESTADO=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR CAD.Campania=@Capania) 
 	ORDER BY CP.IdContenido,CAD.Orden	
 END
 
@@ -219,8 +215,7 @@ BEGIN
 	FROM dbo.ContenidoApp CP LEFT JOIN
 		 dbo.ContenidoAppDeta CAD ON CAD.IdContenido=CP.IdContenido	LEFT JOIN
 		 dbo.VistoContenidoConsultora VC ON VC.IdContenidoDeta=CAD.IdContenidoDeta AND VC.CodigoConsultora=@CodigoConsultora
-	WHERE CP.Estado=1 and CAD.ESTADO=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR CAD.Campania=@Capania) AND 
-		(@Zona='' OR CAD.Zona=@Zona) AND (@Region='' OR CAD.Region=@Region) AND (@Region='' OR CAD.Seccion=@Seccion)
+	WHERE CP.Estado=1 and CAD.ESTADO=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR CAD.Campania=@Capania) 
 	ORDER BY CP.IdContenido,CAD.Orden	
 END
 
@@ -257,8 +252,7 @@ BEGIN
 	FROM dbo.ContenidoApp CP LEFT JOIN
 		 dbo.ContenidoAppDeta CAD ON CAD.IdContenido=CP.IdContenido	LEFT JOIN
 		 dbo.VistoContenidoConsultora VC ON VC.IdContenidoDeta=CAD.IdContenidoDeta AND VC.CodigoConsultora=@CodigoConsultora
-	WHERE CP.Estado=1 and CAD.ESTADO=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR CAD.Campania=@Capania) AND 
-		(@Zona='' OR CAD.Zona=@Zona) AND (@Region='' OR CAD.Region=@Region) AND (@Region='' OR CAD.Seccion=@Seccion)
+	WHERE CP.Estado=1 and CAD.ESTADO=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR CAD.Campania=@Capania) 
 	ORDER BY CP.IdContenido,CAD.Orden	
 END
 
@@ -295,8 +289,7 @@ BEGIN
 	FROM dbo.ContenidoApp CP LEFT JOIN
 		 dbo.ContenidoAppDeta CAD ON CAD.IdContenido=CP.IdContenido	LEFT JOIN
 		 dbo.VistoContenidoConsultora VC ON VC.IdContenidoDeta=CAD.IdContenidoDeta AND VC.CodigoConsultora=@CodigoConsultora
-	WHERE CP.Estado=1 and CAD.ESTADO=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR CAD.Campania=@Capania) AND 
-		(@Zona='' OR CAD.Zona=@Zona) AND (@Region='' OR CAD.Region=@Region) AND (@Region='' OR CAD.Seccion=@Seccion)
+	WHERE CP.Estado=1 and CAD.ESTADO=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR CAD.Campania=@Capania) 
 	ORDER BY CP.IdContenido,CAD.Orden	
 END
 
@@ -333,8 +326,7 @@ BEGIN
 	FROM dbo.ContenidoApp CP LEFT JOIN
 		 dbo.ContenidoAppDeta CAD ON CAD.IdContenido=CP.IdContenido	LEFT JOIN
 		 dbo.VistoContenidoConsultora VC ON VC.IdContenidoDeta=CAD.IdContenidoDeta AND VC.CodigoConsultora=@CodigoConsultora
-	WHERE CP.Estado=1 and CAD.ESTADO=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR CAD.Campania=@Capania) AND 
-		(@Zona='' OR CAD.Zona=@Zona) AND (@Region='' OR CAD.Region=@Region) AND (@Region='' OR CAD.Seccion=@Seccion)
+	WHERE CP.Estado=1 and CAD.ESTADO=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR CAD.Campania=@Capania)
 	ORDER BY CP.IdContenido,CAD.Orden	
 END
 
@@ -371,8 +363,7 @@ BEGIN
 	FROM dbo.ContenidoApp CP LEFT JOIN
 		 dbo.ContenidoAppDeta CAD ON CAD.IdContenido=CP.IdContenido	LEFT JOIN
 		 dbo.VistoContenidoConsultora VC ON VC.IdContenidoDeta=CAD.IdContenidoDeta AND VC.CodigoConsultora=@CodigoConsultora
-	WHERE CP.Estado=1 and CAD.ESTADO=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR CAD.Campania=@Capania) AND 
-		(@Zona='' OR CAD.Zona=@Zona) AND (@Region='' OR CAD.Region=@Region) AND (@Region='' OR CAD.Seccion=@Seccion)
+	WHERE CP.Estado=1 and CAD.ESTADO=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR CAD.Campania=@Capania) 
 	ORDER BY CP.IdContenido,CAD.Orden	
 END
 
@@ -409,8 +400,7 @@ BEGIN
 	FROM dbo.ContenidoApp CP LEFT JOIN
 		 dbo.ContenidoAppDeta CAD ON CAD.IdContenido=CP.IdContenido	LEFT JOIN
 		 dbo.VistoContenidoConsultora VC ON VC.IdContenidoDeta=CAD.IdContenidoDeta AND VC.CodigoConsultora=@CodigoConsultora
-	WHERE CP.Estado=1 and CAD.ESTADO=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR CAD.Campania=@Capania) AND 
-		(@Zona='' OR CAD.Zona=@Zona) AND (@Region='' OR CAD.Region=@Region) AND (@Region='' OR CAD.Seccion=@Seccion)
+	WHERE CP.Estado=1 and CAD.ESTADO=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR CAD.Campania=@Capania)
 	ORDER BY CP.IdContenido,CAD.Orden	
 END
 
@@ -447,8 +437,7 @@ BEGIN
 	FROM dbo.ContenidoApp CP LEFT JOIN
 		 dbo.ContenidoAppDeta CAD ON CAD.IdContenido=CP.IdContenido	LEFT JOIN
 		 dbo.VistoContenidoConsultora VC ON VC.IdContenidoDeta=CAD.IdContenidoDeta AND VC.CodigoConsultora=@CodigoConsultora
-	WHERE CP.Estado=1 and CAD.ESTADO=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR CAD.Campania=@Capania) AND 
-		(@Zona='' OR CAD.Zona=@Zona) AND (@Region='' OR CAD.Region=@Region) AND (@Region='' OR CAD.Seccion=@Seccion)
+	WHERE CP.Estado=1 and CAD.ESTADO=1 AND (@Codigo='' OR CP.Codigo=@Codigo) AND (@Capania=0 OR CAD.Campania=@Capania)
 	ORDER BY CP.IdContenido,CAD.Orden	
 END
 
