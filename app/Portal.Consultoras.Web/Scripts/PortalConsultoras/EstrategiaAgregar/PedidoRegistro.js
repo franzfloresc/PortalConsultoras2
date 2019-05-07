@@ -66,8 +66,9 @@ var PedidoRegistroModule = function () {
         var msjBloq = validarpopupBloqueada(data.message);
         if (msjBloq != "") {
             alert_msg_bloqueadas(msjBloq);
-            return false;
+            return true;
         }
+        //FIN HD-3693
         data.message = data.message || 'Error al realizar proceso, inténtelo más tarde.';
         messageInfoError(data.message);
         CerrarLoad();
