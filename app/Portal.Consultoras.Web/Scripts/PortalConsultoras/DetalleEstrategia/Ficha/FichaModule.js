@@ -500,11 +500,10 @@ var FichaModule = (function (config) {
         }
         else {
             mensajeError += "\n _fichaServicioApi no";
-            estrategia = _modeloFicha;
+            estrategia = modeloFicha;
 
             if (typeof estrategia === "undefined" || estrategia == null || typeof estrategia.EstrategiaID === "undefined" || estrategia.EstrategiaID == 0) {
-                _redireccionar('_getEstrategia, no obtiene oferta desde api');
-                return false;
+                throw '_getEstrategia, no obtiene oferta desde api';
             }
 
             _esMultimarca = estrategia.EsMultimarca;
