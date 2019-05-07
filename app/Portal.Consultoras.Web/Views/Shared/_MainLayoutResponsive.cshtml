@@ -5,58 +5,60 @@
 <!DOCTYPE html>
 <html lang="es" class="no-js">
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-	<meta name="description" content="Portal de consultoras" />
-	<meta name="author" content="Belcorp" />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="description" content="Portal de consultoras" />
+    <meta name="author" content="Belcorp" />
 
-	<title>Belcorp | Portal Consultoras</title>
+    <title>Belcorp | Portal Consultoras</title>
 
 
-	@Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManagerHeader.cshtml")
-	@Html.Partial("~/Views/Shared/VistaParcialMainLayout/_GoogleOptimize.cshtml")
-	@Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManager.cshtml")
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManagerHeader.cshtml")
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_GoogleOptimize.cshtml")
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManager.cshtml")
+    @*INI HD-3693*@
+    @Html.Partial("~/Views/Shared/PopupsResponsive/_PopupBloqueoPorSistema.cshtml")
+    @*FIN HD-3693*@
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
 
-	<link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+    @Styles.Render("~/Bundle/Css/Mixto/Bootstrap")
+    @Styles.Render("~/Bundle/Css/Mixto/LayoutResponsive")
+    @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
+    {
+        <link href="@Url.Content("~/Content/Images/Esika/favicon.ico")" rel="shortcut icon" type="image/x-icon" />
+        @Styles.Render("~/Bundle/Css/Mixto/EsikaPageResponsive")
+    }
+    else
+    {
+        <link href="@Url.Content("~/Content/Images/icons/favicon_lbel.ico")" rel="shortcut icon" type="image/x-icon" />
+        @Styles.Render("~/Bundle/Css/Mixto/LebelPageResponsive")
+    }
 
-	@Styles.Render("~/Bundle/Css/Mixto/Bootstrap")
-	@Styles.Render("~/Bundle/Css/Mixto/LayoutResponsive")
-	@if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
-	{
-		<link href="@Url.Content("~/Content/Images/Esika/favicon.ico")" rel="shortcut icon" type="image/x-icon" />
-		@Styles.Render("~/Bundle/Css/Mixto/EsikaPageResponsive")
-	}
-	else
-	{
-		<link href="@Url.Content("~/Content/Images/icons/favicon_lbel.ico")" rel="shortcut icon" type="image/x-icon" />
-		@Styles.Render("~/Bundle/Css/Mixto/LebelPageResponsive")
-	}
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpVariablesGeneralesPortal.cshtml")
 
-	@Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpVariablesGeneralesPortal.cshtml")
+    @if (ViewContext.EsIngresoUnico())
+    {
+        <style type="text/css">
+            .content_responsive {
+                margin-top: 0 !important;
+            }
 
-	@if (ViewContext.EsIngresoUnico())
-	{
-		<style type="text/css">
-			.content_responsive {
-				margin-top: 0 !important;
-			}
+            body {
+                margin-top: 0 !important;
+            }
 
-			body {
-				margin-top: 0 !important;
-			}
+            .Select_fixed {
+                top: 0 !important;
+            }
+        </style>
 
-			.Select_fixed {
-				top: 0 !important;
-			}
-		</style>
+        <script>
+            var esAppMobile = true;
+        </script>
+    }
 
-		<script>
-			var esAppMobile = true;
-		</script>
-	}
-
-	<script type="text/javascript">
+    <script type="text/javascript">
         var baseUrl = "@Url.Content("~")";
         var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))' == "True";
         var trackingJetloreAccessToken = '@System.Configuration.ConfigurationManager.AppSettings.Get("TrackingJetloreAccessToken")';
@@ -120,7 +122,7 @@
 
 		var revistaDigital = @Html.Raw(Json.Encode(ViewBag.revistaDigital));
 
-	</script>
+    </script>
 </head>
 <body>
 	@Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManagerBody.cshtml")
