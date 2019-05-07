@@ -3,7 +3,7 @@ var urlDetallePedidoPendienteClientes = "/ConsultoraOnline/DetallePedidoPendient
 var listaGana = [];
 
 $(document).ready(function () {
-
+    cambiaTabs();
 });
 
 function bindElments() {
@@ -545,8 +545,3 @@ $("#vpcp li a").click(function () {
     return false;
 });
 
-//Renzo
-$(document).ready(function () {
-
-    cambiaTabs();
-});
