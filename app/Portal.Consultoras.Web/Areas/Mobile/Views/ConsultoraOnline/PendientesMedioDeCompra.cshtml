@@ -3,6 +3,7 @@
 @model Portal.Consultoras.Web.Models.PedidosPendientesMedioPagoModel
 
 @{
+
     var layout = ViewContext.MobileLayout();
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
     var mobileConfiguracion = Html.MobileAppConfiguracion();
@@ -36,101 +37,101 @@
 
     <div class="overflow-y auto">
 
-    @if (Model.ListaGana.Any() && Model.GananciaGana >0)
-    {
-        <!--  Con Gana+  -->
-        <div class="container  containBox">
-            <div class="porGanaMas">
-                <div class="row align-items-center">
-                    <div class="col-8 pr-0">
-                        <h3 class="title-small text-700 text-gray">Por Gana+ @ViewBag.Simbolo @Model.TotalGana</h3>
-                        <span class="text-purple text-14">Gana @ViewBag.Simbolo @Model.GananciaGana</span>
-                    </div>
-                    <div class="col">
-                        <div data-accion="ingrgana" class="btnAccion vc-box text-black text-14 text-700">
-                            <span style="cursor:pointer" class="action-btn action-btn_border active">Elegir</span>
+        @if (Model.ListaGana.Any() && Model.GananciaGana > 0)
+        {
+            <!--  Con Gana+  -->
+            <div class="container  containBox">
+                <div class="porGanaMas">
+                    <div class="row align-items-center">
+                        <div class="col-8 pr-0">
+                            <h3 class="title-small text-700 text-gray">Por Gana+ @ViewBag.Simbolo @Model.TotalGana</h3>
+                            <span class="text-purple text-14">Gana @ViewBag.Simbolo @Model.GananciaGana</span>
+                        </div>
+                        <div class="col">
+                            <div data-accion="ingrgana" class="btnAccion vc-box text-black text-14 text-700">
+                                <span style="cursor:pointer" class="action-btn action-btn_border active">Elegir</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row conGanaMas vc-box vc-box--shadow  @if (Model.ListaGana.Count > 2){ <text>brokenBox</text> } " data-listagana="@Json.Encode(Model.ListaGana)">
-                    @foreach (var itemGana in Model.ListaGana)
-                    {
-                        <div class="col products-item">
-                            <img src="@itemGana.ImagenURL" class="img-fluid products-img" alt="Producto">
-                            <p class="text-12 text-gray"> @itemGana.DescripcionCUV2</p>
-                            <span class="text-12 text-gray">@ViewBag.Simbolo @itemGana.PrecioString</span>
-                        </div>
-                    }
-                </div>
-                @*<span class="text-12 text-purple">* Incluye productos extras</span>*@
-            </div>
-        </div>
-
-        <hr>
-
-        <!-- / Con Gana+    -->
-    }
-
-
-    
-
-
-    @if (Model.ListaCatalogo.Any())
-    {
-        <!--  Con Catálogo  -->
-        <div class="container containBox">
-            <div class="porCatalogo">
-                <div class="row align-items-center">
-                    <div class="col-8 pr-0">
-                        <h3 class="title-small text-700 text-gray">Por Catálogo</h3>
-                        <span class="title-small text-700 text-gray"> @ViewBag.Simbolo @Model.TotalCatalogo</span>
-                    </div>
-                    <div class="col">
-                        <div data-accion="ingrped" class="btnAccion vc-box text-black text-14 text-700">
-                            <span style="cursor:pointer" class="action-btn action-btn_border active">Elegir</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row conCatalogo vc-box vc-box--shadow  @if (Model.ListaGana.Count > 2){ <text>brokenBox</text> } ">
-
-                    @foreach (var x in Model.ListaCatalogo)
-                    {
-                        for (int i = 0; i < x.Cantidad; i++)
+                    <div class="row conGanaMas vc-box vc-box--shadow  @if (Model.ListaGana.Count > 2){ <text>brokenBox</text> } " data-listagana="@Json.Encode(Model.ListaGana)">
+                        @foreach (var itemGana in Model.ListaGana)
                         {
-                            <div class="col">
-                                <img src="@x.Url" class="img-fluid products-img" alt="Producto">
-                                <p class="text-12 text-gray"> @x.Producto</p>
-                               
-                                <span class="text-12 text-gray">@Util.DecimalToStringFormat(x.PrecioUnitario, ViewBag.PaisISOx)</span>
+                            <div class="col products-item">
+                                <img src="@itemGana.ImagenURL" class="img-fluid products-img" alt="Producto">
+                                <p class="text-12 text-gray"> @itemGana.DescripcionCUV2</p>
+                                <span class="text-12 text-gray">@ViewBag.Simbolo @itemGana.PrecioString</span>
                             </div>
                         }
-                    }
-
+                    </div>
+                    @*<span class="text-12 text-purple">* Incluye productos extras</span>*@
                 </div>
             </div>
-        </div>
-        <!-- / Con Catálogo    -->
-        
-    }
+
+            <hr>
+
+            <!-- / Con Gana+    -->
+        }
+
+
+
+
+
+        @if (Model.ListaCatalogo.Any())
+        {
+            <!--  Con Catálogo  -->
+            <div class="container containBox">
+                <div class="porCatalogo">
+                    <div class="row align-items-center">
+                        <div class="col-8 pr-0">
+                            <h3 class="title-small text-700 text-gray">Por Catálogo</h3>
+                            <span class="title-small text-700 text-gray"> @ViewBag.Simbolo @Model.TotalCatalogo</span>
+                        </div>
+                        <div class="col">
+                            <div data-accion="ingrped" class="btnAccion vc-box text-black text-14 text-700">
+                                <span style="cursor:pointer" class="action-btn action-btn_border active">Elegir</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row conCatalogo vc-box vc-box--shadow  @if (Model.ListaGana.Count > 2){ <text>brokenBox</text> } ">
+
+                        @foreach (var x in Model.ListaCatalogo)
+                        {
+                            for (int i = 0; i < x.Cantidad; i++)
+                            {
+                                <div class="col">
+                                    <img src="@x.Url" class="img-fluid products-img" alt="Producto">
+                                    <p class="text-12 text-gray"> @x.Producto</p>
+
+                                    <span class="text-12 text-gray">@Util.DecimalToStringFormat(x.PrecioUnitario, ViewBag.PaisISOx)</span>
+                                </div>
+                            }
+                        }
+
+                    </div>
+                </div>
+            </div>
+            <!-- / Con Catálogo    -->
+
+        }
     </div>
 
 
     <!--  Con Stock  -->
-    @*<hr> 
-    <div class="container">
-            <div class="yaLoTengo">
-                <div class="row align-items-center">
-                    <div class="col-8">
-                        <h3 class="title-small text-700 text-gray">Ya lo tengo en stock</h3>
-                    </div>
-                    <div class="col">
-                        <div data-accion="ingrten" class="btnAccion vc-box text-black text-14 text-700">
-                            <a href="#" class="action-btn action-btn_border active">Elegir</a>
+    @*<hr>
+        <div class="container">
+                <div class="yaLoTengo">
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <h3 class="title-small text-700 text-gray">Ya lo tengo en stock</h3>
+                        </div>
+                        <div class="col">
+                            <div data-accion="ingrten" class="btnAccion vc-box text-black text-14 text-700">
+                                <a href="#" class="action-btn action-btn_border active">Elegir</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>*@
+            </div>*@
     <!-- / Con Stock    -->
     @*<hr>*@
 

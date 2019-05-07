@@ -6,9 +6,8 @@ $(document).ready(function () {
     $("#contenedor-paso-2").css("display", "none");
     $("#Paso1-Clientes").css("display", "none");
     $("#Paso1-Productos").css("display", "none");
+    cambiaTabs();
 });
-
-
 
 function bindElments() {
 
@@ -56,7 +55,6 @@ function bindElments() {
     //    document.location.href = urlPedido;
     //});
 }
-
 
 function AceptarPedidoPendiente() {
 
@@ -119,8 +117,6 @@ function AceptarPedidoPendiente() {
 
 
 }
-
-
 
 function cargarGaleria() {
     $('.conGanaMas').slick({
@@ -374,7 +370,7 @@ function RechazarSolicitudClientePorCuv(cuv) {
                 $('#Paso1-Clientes').hide();
 
                 CerrarPopupConfirmacion();
-                
+
                 //document.location.href = '/ConsultoraOnline/Pendientes';
 
                 //var Pendientes = JSON.parse(response.Pendientes) || [];
@@ -500,6 +496,7 @@ function EliminarSolicitudDetalle(pedidoId, cuv, origen) {
                     if (pedidos.indexOf(pedidoId) < 0) {
                         $('#Paso1-Productos').hide();
                         $(".modal-fondo").hide();
+                        $("body").css('overflow', 'auto');
                     }
                     else {
                         $(id).hide();
@@ -511,6 +508,7 @@ function EliminarSolicitudDetalle(pedidoId, cuv, origen) {
                     if (cuvs.indexOf(cuv) < 0) {
                         $('#Paso1-Clientes').hide();
                         $(".modal-fondo").hide();
+                        $("body").css('overflow', 'auto');
                     }
                     else {
                         $(id).hide();
@@ -608,13 +606,6 @@ $("#vpcp li a").click(function () {
     console.log(activeTab);
     $(activeTab).fadeIn();
     return false;
-});
-
-
-//Renzo
-$(document).ready(function () {
-
-    cambiaTabs();
 });
 
 function PedidosPendientesVistaCliente() {
