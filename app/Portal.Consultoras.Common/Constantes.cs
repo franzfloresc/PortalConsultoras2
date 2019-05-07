@@ -795,16 +795,16 @@ namespace Portal.Consultoras.Common
             public const int DesktopPedidoOfertaFinal = 1261; // se mantiene para el metodo obtenerNuevaDescripcionProductoDetalle, grilla pedido
             public const int MobilePedidoOfertaFinal = 2261; // se mantiene para el metodo obtenerNuevaDescripcionProductoDetalle, grilla pedido
 
-            #region RevistaDigital
-            public const int RevistaDigitalDesktopHomeSeccion = 1101; // para rediccecionar metodo RedireccionarContenedorComprar
-            public const int RevistaDigitalMobileHomeSeccion = 2101; // para rediccecionar metodo RedireccionarContenedorComprar
-            public const int RevistaDigitalDesktopPedidoSeccion = 1201; // para rediccecionar metodo RedireccionarContenedorComprar
-            public const int RevistaDigitalMobilePedidoSeccion = 2201; // para rediccecionar metodo RedireccionarContenedorComprar
-            public const int RevistaDigitalDesktopHomeLanzamiento = 1103; // para rediccecionar metodo RedireccionarContenedorComprar
-            public const int RevistaDigitalMobileHomeLanzamiento = 2103; // para rediccecionar metodo RedireccionarContenedorComprar
-            public const int RevistaDigitalDesktopCatalogoSeccion = 1401; // para rediccecionar metodo RedireccionarContenedorComprar, RedireccionarContenedorInformativa
-            public const int RevistaDigitalMobileCatalogoSeccion = 2401; // para rediccecionar metodo RedireccionarContenedorComprar, RedireccionarContenedorInformativa
-            #endregion
+            //#region RevistaDigital
+            //public const int RevistaDigitalDesktopHomeSeccion = 1101; // para rediccecionar metodo RedireccionarContenedorComprar
+            //public const int RevistaDigitalMobileHomeSeccion = 2101; // para rediccecionar metodo RedireccionarContenedorComprar
+            //public const int RevistaDigitalDesktopPedidoSeccion = 1201; // para rediccecionar metodo RedireccionarContenedorComprar
+            //public const int RevistaDigitalMobilePedidoSeccion = 2201; // para rediccecionar metodo RedireccionarContenedorComprar
+            //public const int RevistaDigitalDesktopHomeLanzamiento = 1103; // para rediccecionar metodo RedireccionarContenedorComprar
+            //public const int RevistaDigitalMobileHomeLanzamiento = 2103; // para rediccecionar metodo RedireccionarContenedorComprar
+            //public const int RevistaDigitalDesktopCatalogoSeccion = 1401; // para rediccecionar metodo RedireccionarContenedorComprar, RedireccionarContenedorInformativa
+            //public const int RevistaDigitalMobileCatalogoSeccion = 2401; // para rediccecionar metodo RedireccionarContenedorComprar, RedireccionarContenedorInformativa
+            //#endregion
 
             #region MasVendidos
             public const int MasVendidosDesktopHomeCarrusel = 1151;

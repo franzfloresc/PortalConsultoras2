@@ -9,7 +9,7 @@
         
         var codigoubigeoPortal = $('#ATP').attr('data-codigoubigeoportal') + "";
         if (!(typeof AnalyticsPortalModule === 'undefined')) 
-            if (codigoubigeoPortal === ConstantesModule.CodigoUbigeoPortal.GuionContenedorArmaTuPackGuion) 
+            if (codigoubigeoPortal === CodigoUbigeoPortal.MaestroCodigoUbigeo.GuionContenedorArmaTuPackGuion) 
                 AnalyticsPortalModule.MarcaPromotionClickArmaTuPack(codigoubigeoPortal, "Cancelar", "Pop up Modifica tu Pack" );
         
     };
@@ -50,13 +50,12 @@
         fnLunchAnalytics($(objeto));
         if (popup) {
             _fnMensaje(function () {
-
-                
+                           
                 //**ANALYTICS**//
                 //console.log('analytic2-aceptar [banner interactivo] ANT');
                 var codigoubigeoPortal = $('#ATP').attr('data-codigoubigeoportal') + "";
                 if (!(typeof AnalyticsPortalModule === 'undefined'))
-                    if (codigoubigeoPortal === ConstantesModule.CodigoUbigeoPortal.GuionContenedorArmaTuPackGuion)
+                    if (codigoubigeoPortal === CodigoUbigeoPortal.MaestroCodigoUbigeo.GuionContenedorArmaTuPackGuion) 
                         AnalyticsPortalModule.MarcaPromotionClickArmaTuPack(codigoubigeoPortal, "Aceptar", "Pop up Modifica tu Pack");
 
 
@@ -74,7 +73,7 @@
         
         if (codigoubigeoPortal !== "")
             if (!(typeof AnalyticsPortalModule === 'undefined')) {
-                if (codigoubigeoPortal === ConstantesModule.CodigoUbigeoPortal.GuionContenedorArmaTuPackGuion) {
+                if (codigoubigeoPortal === CodigoUbigeoPortal.MaestroCodigoUbigeo.GuionContenedorArmaTuPackGuion) {
                     var textButton = $('button.atp_button').text();
                     AnalyticsPortalModule.MarcaPromotionClickArmaTuPack(codigoubigeoPortal, textButton, "Click Botón");
                     AnalyticsPortalModule.MarcaPromotionViewArmaTuPack(codigoubigeoPortal, textButton == "Comienza", true);

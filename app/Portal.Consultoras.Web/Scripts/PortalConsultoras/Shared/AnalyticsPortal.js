@@ -1265,24 +1265,6 @@ var AnalyticsPortalModule = (function () {
             document.location = url;
             console.log(_texto.excepcion + e);
         }
-
-        var marcaClicVideoBienvenida = function () {
-            try {
-                if (_constantes.isTest)
-                    alert("Marcación Clic seguimiento pedido.");
-
-                dataLayer.push({
-                    'event': 'virtualEvent',
-                    'category': 'Home',
-                    'action': 'Video de Bienvenida: Iniciar Video',
-                    'label': 'SomosBelcorp.com ¡se renueva para ti!'
-                });
-
-            } catch (e) {
-                console.log(_texto.excepcion + e);
-            }
-
-        }
     }
 
     var marcaClicPagarLinea = function (url) {
@@ -1308,23 +1290,20 @@ var AnalyticsPortalModule = (function () {
 
     }
 
-    var marcaClicVideoBienvenida = function () {
-        try {
-            if (_constantes.isTest)
-                alert("Marcación Clic seguimiento pedido.");
-
-            dataLayer.push({
-                'event': 'virtualEvent',
-                'category': 'Home',
-                'action': 'Video de Bienvenida: Iniciar Video',
-                'label': 'SomosBelcorp.com ¡se renueva para ti!'
-            });
-
-        } catch (e) {
-            console.log(_texto.excepcion + e);
-        }
-
-    }
+    //var marcaClicVideoBienvenida = function () {
+    //    try {
+    //        if (_constantes.isTest)
+    //            alert("Marcación Clic seguimiento pedido.");
+    //        dataLayer.push({
+    //            'event': 'virtualEvent',
+    //            'category': 'Home',
+    //            'action': 'Video de Bienvenida: Iniciar Video',
+    //            'label': 'SomosBelcorp.com ¡se renueva para ti!'
+    //        });
+    //    } catch (e) {
+    //        console.log(_texto.excepcion + e);
+    //    }
+    //}
 
     var marcaClicFacturacionElectronica = function (url) {
         try {
@@ -1996,7 +1975,7 @@ var AnalyticsPortalModule = (function () {
             var textoCategory = "Contenedor - Pop up Elige 1 opción";
             dataLayer.push({
                 'event': _evento.virtualEvent,
-                'category': textoCategory,
+                'category': textoCategory,          
                 'action': 'Desenmarcar Producto',
                 'label': estrategia.DescripcionCompleta + '-' + nombreComponentes
             });
@@ -2008,7 +1987,7 @@ var AnalyticsPortalModule = (function () {
 
         var codUbigeo = opcion.CodigoUbigeoPortal || "";
         if (codUbigeo !== "") {
-            if (codUbigeo === ConstantesModule.CodigoUbigeoPortal.GuionCarritoComprasGuionFichaResumida) {
+            if (codUbigeo === CodigoUbigeoPortal.MaestroCodigoUbigeo.GuionCarritoComprasGuionFichaResumida) {
                 var textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(codUbigeo); //using new function
                 try {
                     dataLayer.push({
@@ -2115,7 +2094,7 @@ var AnalyticsPortalModule = (function () {
             var codUbigeo = opcion.CodigoUbigeoPortal || "";
             //var origenPedido = opcion.OrigenPedidoEditar || 0;
             if (codUbigeo !== "") {
-                if (codUbigeo === ConstantesModule.CodigoUbigeoPortal.GuionCarritoComprasGuionFichaResumida) {
+                if (codUbigeo === CodigoUbigeoPortal.MaestroCodigoUbigeo.GuionCarritoComprasGuionFichaResumida) {
                     var textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(codUbigeo); //using new function
                     try {
                         dataLayer.push({
@@ -2506,8 +2485,7 @@ var AnalyticsPortalModule = (function () {
         var textoCategory = "";
 
         if (origenPedido != "") {
-            //if (origenPedido == ConstantesModule.CodigoUbigeoPortal.GuionPedidoGuionFichaResumida) {
-            if (origenPedido == ConstantesModule.CodigoUbigeoPortal.GuionCarritoComprasGuionFichaResumida) {
+            if (origenPedido == CodigoUbigeoPortal.MaestroCodigoUbigeo.GuionCarritoComprasGuionFichaResumida) {
                 textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(origenPedido);  //using new function
 
                 var label = isChangeTono ? "Tono " : "";
@@ -2528,7 +2506,7 @@ var AnalyticsPortalModule = (function () {
         isClick = isClick || false;
 
         if (origenPedido !== "") {
-            if (origenPedido == ConstantesModule.CodigoUbigeoPortal.GuionContenedorArmaTuPackGuion) {
+            if (origenPedido == CodigoUbigeoPortal.MaestroCodigoUbigeo.GuionContenedorArmaTuPackGuion) {
                 var textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(origenPedido) + ""; //using new function
                 dataLayer.push({
                     'event': !isClick ? _evento.promotionView : _evento.promotionClick,
@@ -2551,8 +2529,8 @@ var AnalyticsPortalModule = (function () {
     var marcaPromotionClickArmaTuPack = function (origenPedido, textoLabel, actionText) {
 
         if (origenPedido !== "") {
-            if (origenPedido == ConstantesModule.CodigoUbigeoPortal.GuionContenedorArmaTuPack ||
-                origenPedido == ConstantesModule.CodigoUbigeoPortal.GuionContenedorArmaTuPackGuion) {
+            if (origenPedido == CodigoUbigeoPortal.MaestroCodigoUbigeo.GuionContenedorArmaTuPack ||
+                origenPedido == CodigoUbigeoPortal.MaestroCodigoUbigeo.GuionContenedorArmaTuPackGuion) {
                 var textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(origenPedido) + ""; //using new function
                 dataLayer.push({
                     'event': _evento.virtualEvent,
@@ -2569,9 +2547,8 @@ var AnalyticsPortalModule = (function () {
 
         try {
             if (origenPedido !== "") {
-
-                if (origenPedido === ConstantesModule.CodigoUbigeoPortal.GuionContenedorArmaTuPack) {
-                    //var textoCategory = "Contenedor - Arma tu Pack";
+                
+                if (origenPedido === CodigoUbigeoPortal.MaestroCodigoUbigeo.GuionContenedorArmaTuPack) {
                     var textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(origenPedido) + ""; //using new function
                     dataLayer.push({
                         'event': _evento.productClick,
@@ -2606,7 +2583,7 @@ var AnalyticsPortalModule = (function () {
     var marcaEliminaClickArmaTuPack = function (origenPedido, estrategia) {
 
         if (origenPedido !== "") {
-            if (origenPedido === ConstantesModule.CodigoUbigeoPortal.GuionContenedorArmaTuPack) {
+            if (origenPedido === CodigoUbigeoPortal.MaestroCodigoUbigeo.GuionContenedorArmaTuPack) {
                 var textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(origenPedido) + ""; //using new function
                 dataLayer.push({
                     'event': _evento.virtualEvent,
@@ -2655,7 +2632,7 @@ var AnalyticsPortalModule = (function () {
     var marcaClickAgregarArmaTuPack = function (codigoubigeoportal, textoLabel, actionText) {
 
         if (codigoubigeoportal !== "") {
-            if (codigoubigeoportal == ConstantesModule.CodigoUbigeoPortal.GuionContenedorArmaTuPack) {
+            if (codigoubigeoportal == CodigoUbigeoPortal.MaestroCodigoUbigeo.GuionContenedorArmaTuPack) {
                 var textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(codigoubigeoportal) + ""; //using new function
                 dataLayer.push({
                     'event': _evento.virtualEvent,
@@ -2669,7 +2646,7 @@ var AnalyticsPortalModule = (function () {
     var marcaClickCerrarPopupArmaTuPack = function (codigoubigeoportal, textoLabel, actionText) {
 
         if (codigoubigeoportal !== "") {
-            if (codigoubigeoportal == ConstantesModule.CodigoUbigeoPortal.GuionCarritoComprasGuionFichaResumida) {
+            if (codigoubigeoportal == CodigoUbigeoPortal.MaestroCodigoUbigeo.GuionCarritoComprasGuionFichaResumida) {
                 var textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(codigoubigeoportal) + ""; //using new function
                 dataLayer.push({
                     'event': _evento.virtualEvent,
@@ -2738,7 +2715,7 @@ var AnalyticsPortalModule = (function () {
         MarcaVerLanzamientos: marcaVerLanzamientos,
         MarcaVerMasLiquidaciones: marcaVerMasLiquidaciones,
         MarcaClicFechaLiquidacion: marcaClicFechaLiquidacion,
-        MarcaClicVideoBienvenida: marcaClicVideoBienvenida,
+        //MarcaClicVideoBienvenida: marcaClicVideoBienvenida,
         MarcaVerOtrasOfertasHome: marcaVerOtrasOfertasHome,
         MarcaFlechaHome: marcaFlechaHome,
         MarcaAnadirCarritoLiquidacion: marcaAnadirCarritoLiquidacion,
