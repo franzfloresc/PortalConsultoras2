@@ -441,7 +441,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 var MarcaID = (listSp.Length > 1 && !string.IsNullOrEmpty(listSp[1])) ? Convert.ToInt32(listSp[1]) : estrategia.MarcaID;
                 var Precio2 = listSp.Length > 2 ? Convert.ToDecimal(listSp[2]) : estrategia.Precio2;
                 var descTono = listSp.Length > 3 ? listSp[3] : pedidoDetalle.Producto.Descripcion;
-                var digitable = listSp.Length > 4 ? listSp[4] : "0";
+                var digitable = listSp.Length > 4 ? listSp[4] : (estrategia.CodigoEstrategia == "2001" ? "1" : "0");
                 var grupo = listSp.Length > 5 ? listSp[5] : "0";
 
                 ListaComponentes.Add(new BEEstrategiaProducto
