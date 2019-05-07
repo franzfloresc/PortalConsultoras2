@@ -693,6 +693,37 @@ $(document).ready(function () {
 
         me.Funciones = {
 
+            callAjax: function (pUrl, pSendData, callbackSuccessful, callbackError) {
+                var sendData = typeof pSendData === "undefined" ? {} : pSendData;
+                $.ajax({
+                    type: "POST",
+                    url: pUrl,
+                    beforeSend: function () {
+                        ShowLoading();
+                    },
+                    complete: function () {
+                        CloseLoading();
+                    },
+                    data: JSON.stringify(sendData),
+                    contentType: "application/json; charset=utf-8",
+                    async: true,
+                    dataType: "json",
+                    success: function (result) {
+                        if (callbackSuccessful && typeof callbackSuccessful === "function") {
+                            callbackSuccessful(result);
+                        }
+                    },
+                    error: function (msg) {
+                        if (callbackError && typeof callbackError === "function") {
+                            callbackError(msg);
+                        } else {
+                            CloseLoading();
+                        }
+                    }
+                });
+            },
+
+
             SeccionTabsFijoSegunAltoHeader: function () {
                 $('.fijarTituloMobile').css('top', $('#new-header').outerHeight());
                 $(me.Variables.tabs_vista_cdr_wrapper).css('top', $('#new-header').outerHeight() + 50);
@@ -795,8 +826,8 @@ $(document).ready(function () {
             },
             //HD-3412 EINCA
             ValidarPasoDosTruequeServer: function (callbackWhenFinish) {
-
-                var item = {
+                var url = UrlValidarNoPack;
+                var sendData = {
                     PedidoID: $(me.Variables.hdPedidoID).val(),
                     CUV: $.trim($(me.Variables.txtCuvMobile2).val()),
                     Cantidad: $.trim($(me.Variables.txtCantidad2).val()),
@@ -804,28 +835,11 @@ $(document).ready(function () {
                     CampaniaID: $(me.Variables.ComboCampania).val()
                 };
 
-
-                $.ajaxSetup({
-                    global: false,
-                    type: "POST",
-                    dataType: 'json',
-                    async: true,
-                    cache: false,
-                    contentType: 'application/json; charset=utf-8',
-                    url: UrlValidarNoPack,
-                    beforeSend: function () { ShowLoading(); },
-                    complete: function () { CloseLoading(); }
-                });
-
-                $.ajax({
-                    data: JSON.stringify(item),
-                    success: function (data) {
-                        if (callbackWhenFinish && typeof callbackWhenFinish === "function") {
-                            callbackWhenFinish(data.success, data.message);
-                        }
-                    },
-                    error: function (data, error) {
-                        CloseLoading();
+                me.Funciones.callAjax(url, sendData, function (data) {
+                    if (!checkTimeout(data))
+                        return false;
+                    if (callbackWhenFinish && typeof callbackWhenFinish === "function") {
+                        callbackWhenFinish(data.success, data.message);
                     }
                 });
             },
@@ -1144,7 +1158,8 @@ $(document).ready(function () {
             },
             //HD-3412 EINCA
             ValidarPasoUnoServer: function (callbackWhenFinish) {
-                var item = {
+                var url = UrlValidarPaso1;
+                var sendData = {
                     PedidoID: $(me.Variables.hdPedidoID).val(),
                     CUV: $(me.Variables.hdCuvCodigo).val(),
                     Cantidad: $.trim($(me.Variables.txtCantidad1).val()),
@@ -1152,30 +1167,11 @@ $(document).ready(function () {
                     CampaniaID: $(me.Variables.ComboCampania).val()
                 };
 
-                $.ajaxSetup({
-                    global: false,
-                    type: "POST",
-                    async: true,
-                    cache: false,
-                    url: UrlValidarPaso1,
-                    dataType: 'json',
-                    contentType: 'application/json; charset=utf-8',
-                    beforeSend: function () { ShowLoading(); },
-                    complete: function () { CloseLoading(); }
-                });
-
-
-                $.ajax({
-                    data: JSON.stringify(item),
-                    success: function (data) {
-                        if (checkTimeout(data)) {
-                            if (callbackWhenFinish && typeof callbackWhenFinish === "function") {
-                                callbackWhenFinish(data);
-                            }
-                        }
-                    },
-                    error: function (data, error) {
-                        CloseLoading();
+                me.Funciones.callAjax(url, sendData, function (data) {
+                    if (!checkTimeout(data))
+                        return false;
+                    if (callbackWhenFinish && typeof callbackWhenFinish === "function") {
+                        callbackWhenFinish(data);
                     }
                 });
             },
@@ -1380,20 +1376,7 @@ $(document).ready(function () {
             },
 
             DetalleGuardar: function (operacion, callbackWhenFinish) {
-                $.ajaxSetup({
-                    global: false,
-                    type: "POST",
-                    url: UrlDetalleGuardar,
-                    dataType: 'json',
-                    contentType: 'application/json; charset=utf-8',
-                    cache: false,
-                    beforeSend: function () {
-                        ShowLoading();
-                    },
-                    complete: function () {
-                        CloseLoading();
-                    }
-                });
+                var url = UrlDetalleGuardar;
 
 
                 var Complemento = [];
@@ -1416,7 +1399,7 @@ $(document).ready(function () {
                     }
                 }
 
-                var item = {
+                var sendData = {
                     CDRWebID: $(me.Variables.hdCDRID).val() || 0,
                     PedidoID: $(me.Variables.hdPedidoID).val() || 0,
                     NumeroPedido: $(me.Variables.hdNumeroPedido).val() || 0,
@@ -1431,21 +1414,12 @@ $(document).ready(function () {
                     Complemento: Complemento
                 };
 
-
-
-                $.ajax({
-                    data: JSON.stringify(item),
-                    async: true,
-                    success: function (data) {
-                        if (!checkTimeout(data)) {
-                            return false;
-                        }
-                        if (callbackWhenFinish && typeof callbackWhenFinish === "function") {
-                            callbackWhenFinish(data);
-                        }
-                    },
-                    error: function (data, error) {
-                        CloseLoading();
+                me.Funciones.callAjax(url, sendData, function (data) {
+                    if (!checkTimeout(data)) {
+                        return false;
+                    }
+                    if (callbackWhenFinish && typeof callbackWhenFinish === "function") {
+                        callbackWhenFinish(data);
                     }
                 });
             },
@@ -1565,38 +1539,18 @@ $(document).ready(function () {
 
             },
             ValidarCorreoDuplicadoServer: function (correo, callbackWhenFinish) {
-                $.ajaxSetup({
-                    global: false,
-                    type: "POST",
-                    dataType: 'json',
-                    contentType: 'application/json; charset=utf-8',
-                    async: true,
-                    cache: false,
-                    url: UrlValidarCorreoDuplicado,
-                    beforeSend: function () {
-                        ShowLoading();
-                    },
-                    complete: function () {
-                        CloseLoading();
+                var url = UrlValidarCorreoDuplicado;
+                var sendData = {
+                    correo: correo
+                };
+                me.Funciones.callAjax(url, sendData, function (data) {
+                    if (!checkTimeout(data))
+                        return false;
+                    if (callbackWhenFinish && typeof callbackWhenFinish === "function") {
+                        callbackWhenFinish(data);
                     }
                 });
-
-                $.ajax({
-                    data: JSON.stringify({ correo: correo }),
-                    success: function (data) {
-                        if (checkTimeout(data)) {
-                            if (callbackWhenFinish && typeof callbackWhenFinish === "function") {
-                                callbackWhenFinish(data);
-                            }
-                        }
-                    },
-                    error: function (data, error) {
-                        CloseLoading();
-                    }
-                });
-
-
-            },
+             },
             ValidarSolicitudCDREnvio: function (validarCorreoVacio, validarCelularVacio) {
                 var ok = true;
                 var correo = $.trim($(me.Variables.txtEmail).val());
@@ -1632,116 +1586,86 @@ $(document).ready(function () {
             },
             //HD-3412 EINCA
             SolicitudCDREnviar: function (callbackWhenFinish) {
+                var url = UrlSolicitudEnviar;
+                var sendData = {
+                    CDRWebID: $(me.Variables.hdCDRID).val() || 0,
+                    PedidoID: $(me.Variables.hdPedidoID).val() || 0,
+                    Email: $(me.Variables.txtEmail).val(),
+                    Telefono: $(me.Variables.txtTelefono).val(),
+                    TipoDespacho: false,
+                    FleteDespacho: 0,
+                    MensajeDespacho: '',
+                    EsMovilFin: OrigenCDR
+                };
+
+                if ($(me.Variables.hdTieneCDRExpress).val() == '1') {
+                    sendData.TipoDespacho = tipoDespacho;
+                    sendData.FleteDespacho = !tipoDespacho ? 0 : $("#hdFleteDespacho").val();
+                    sendData.MensajeDespacho = ($(!tipoDespacho ? '#divDespachoNormal' : '#divDespachoExpress').CleanWhitespace().html()).trim();
+                }
+
                 setTimeout(function () {
-                    var item = {
-                        CDRWebID: $(me.Variables.hdCDRID).val() || 0,
-                        PedidoID: $(me.Variables.hdPedidoID).val() || 0,
-                        Email: $(me.Variables.txtEmail).val(),
-                        Telefono: $(me.Variables.txtTelefono).val(),
-                        TipoDespacho: false,
-                        FleteDespacho: 0,
-                        MensajeDespacho: '',
-                        EsMovilFin: OrigenCDR
-                    };
+                    me.Funciones.callAjax(url, sendData, function (data) {
+                        if (!checkTimeout(data))
+                            return false;
 
-                    if ($(me.Variables.hdTieneCDRExpress).val() == '1') {
-                        item.TipoDespacho = tipoDespacho;
-                        item.FleteDespacho = !tipoDespacho ? 0 : $("#hdFleteDespacho").val();
-                        item.MensajeDespacho = ($(!tipoDespacho ? '#divDespachoNormal' : '#divDespachoExpress').CleanWhitespace().html()).trim();
-                    }
-
-                    $.ajaxSetup({
-                        global: false,
-                        type: "POST",
-                        async: true,
-                        cache: false,
-                        url: UrlSolicitudEnviar,
-                        dataType: 'json',
-                        contentType: 'application/json; charset=utf-8',
-                        beforeSend: function () {
-                            ShowLoading();
-                        },
-                        complete: function () {
-                            CloseLoading();
-                            $(me.Variables.btnSiguiente4).removeClass('btn_deshabilitado');
-                        }
-                    });
-
-                    $.ajax({
-                        data: JSON.stringify(item),
-                        success: function (data) {
-                            if (data.success) {
-                                var formatoFechaCulminado = "";
-                                var numeroSolicitud = 0;
-                                var formatoCampania = "";
-                                if (data.cdrWeb.CDRWebID > 0) {
-                                    if (data.cdrWeb.FechaCulminado != 'null' || data.cdrWeb.FechaCulminado != "" || data.cdrWeb.FechaCulminado != undefined) {
-                                        var dateString = data.cdrWeb.FechaCulminado.substr(6);
-                                        var currentTime = new Date(parseInt(dateString));
-                                        var month = currentTime.getMonth() + 1;
-                                        var day = currentTime.getDate();
-                                        var year = currentTime.getFullYear();
-                                        formatoFechaCulminado = (day < 10 ? "0" + day : day) + "/" + (month < 10 ? "0" + month : month) + "/" + year;
-                                    }
-
-                                    numeroSolicitud = data.cdrWeb.CDRWebID;
-
-                                    if (data.cdrWeb.CampaniaID.toString().length == 6) {
-                                        formatoCampania = data.cdrWeb.CampaniaID.toString().substring(0, 4) + "-" + data.cdrWeb.CampaniaID.toString().substring(4);
-                                    }
+                        if (data.success) {
+                            var formatoFechaCulminado = "";
+                            var numeroSolicitud = 0;
+                            var formatoCampania = "";
+                            if (data.cdrWeb.CDRWebID > 0) {
+                                if (data.cdrWeb.FechaCulminado != 'null' || data.cdrWeb.FechaCulminado != "" || data.cdrWeb.FechaCulminado != undefined) {
+                                    var dateString = data.cdrWeb.FechaCulminado.substr(6);
+                                    var currentTime = new Date(parseInt(dateString));
+                                    var month = currentTime.getMonth() + 1;
+                                    var day = currentTime.getDate();
+                                    var year = currentTime.getFullYear();
+                                    formatoFechaCulminado = (day < 10 ? "0" + day : day) + "/" + (month < 10 ? "0" + month : month) + "/" + year;
                                 }
 
-                                $(me.Variables.spnSolicitudFechaCulminado).html(formatoFechaCulminado);
-                                $(me.Variables.spnSolicitudNumeroSolicitud).html(numeroSolicitud);
-                                $(me.Variables.spnSolicitudCampania).html(formatoCampania);
-                                $(me.Variables.divProcesoReclamo).hide();
-                                $(me.Variables.divUltimasSolicitudes).hide();
-                                $(me.Variables.btnSiguiente4).hide();
-                                $(me.Variables.btnSiguiente1).hide();
-                                $(me.Variables.TituloReclamo).hide();
-                                $(me.Variables.RegistroAceptarSolucion).hide();
-                                $(me.Variables.textoMensajeCDR).hide();
-                                $(me.Variables.SolicitudEnviada).show();
-                                $(me.Variables.tabs_vista_cdr_wrapper).show();
-                                flagSolicitudEnviada = true;
-                                mostrarTab = 1;
-                                if (callbackWhenFinish && typeof callbackWhenFinish === "function") {
-                                    callbackWhenFinish(data);
+                                numeroSolicitud = data.cdrWeb.CDRWebID;
+
+                                if (data.cdrWeb.CampaniaID.toString().length == 6) {
+                                    formatoCampania = data.cdrWeb.CampaniaID.toString().substring(0, 4) + "-" + data.cdrWeb.CampaniaID.toString().substring(4);
                                 }
                             }
-                        },
-                        error: function (data, error) {
-                            CloseLoading();
+
+                            $(me.Variables.spnSolicitudFechaCulminado).html(formatoFechaCulminado);
+                            $(me.Variables.spnSolicitudNumeroSolicitud).html(numeroSolicitud);
+                            $(me.Variables.spnSolicitudCampania).html(formatoCampania);
+                            $(me.Variables.divProcesoReclamo).hide();
+                            $(me.Variables.divUltimasSolicitudes).hide();
+                            $(me.Variables.btnSiguiente4).hide();
+                            $(me.Variables.btnSiguiente1).hide();
+                            $(me.Variables.TituloReclamo).hide();
+                            $(me.Variables.RegistroAceptarSolucion).hide();
+                            $(me.Variables.textoMensajeCDR).hide();
+                            $(me.Variables.SolicitudEnviada).show();
+                            $(me.Variables.tabs_vista_cdr_wrapper).show();
+                            flagSolicitudEnviada = true;
+                            mostrarTab = 1;
                         }
+
+                        if (callbackWhenFinish && typeof callbackWhenFinish === "function") {
+                            callbackWhenFinish(data);
+                        }
+
                     });
                 }, 0);
             },
-            ValidarTelefonoServer: function (celular, callbackWhenFinish) {
-                $.ajaxSetup({
-                    global: false,
-                    type: "POST",
-                    async: true,
-                    cache: false,
-                    url: UrlValidaTelefono,
-                    dataType: 'json',
-                    contentType: 'application/json; charset=utf-8',
-                    beforeSend: function () { ShowLoading(); $(me.Variables.btnSiguiente4).addClass('btn_deshabilitado'); },
-                    complete: function () { CloseLoading(); }
-                });
+            ValidarTelefonoServer: function (celular, callbackWhenFinish) {             
+                var url = UrlValidaTelefono;
+                var sendData = {
+                    Telefono: celular
+                };
 
-                $.ajax({
-                    data: JSON.stringify({ Telefono: celular }),
-                    success: function (data) {
-                        if (checkTimeout(data)) {
-                            if (callbackWhenFinish && typeof callbackWhenFinish === "function") {
-                                callbackWhenFinish(data);
-                            }
-                        }
-                    },
-                    error: function (data, error) {
-                        CloseLoading();
+                me.Funciones.callAjax(url, sendData, function (data) {
+                    if (!checkTimeout(data))
+                        return false;
+                    if (callbackWhenFinish && typeof callbackWhenFinish === "function") {
+                        callbackWhenFinish(data);
                     }
-                });
+                })
             },
 
             ControlSetError: function (inputId, spanId, message) {

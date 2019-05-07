@@ -629,11 +629,12 @@
     <div class="content_solicitud_cdr tipografia_lato">
         <div class="contenedor_info_cdr">
             <div class="listado_producto_reclamo">
-                {{#iff item.GrupoID '!=' ''}}
-                <div class="text-bold text-center tag_sb tag_sb--standard">Set o Pack</div><br />
-                {{else}}
+                {{#if_eq item.GrupoID ''}}
 
-                {{/iff}}
+                {{else}}
+                <div class="text-bold text-center tag_sb tag_sb--standard">Set o Pack</div><br />
+
+                {{/if_eq}}
                 <b>{{item.SolucionSolicitada}}</b><br />
                 {{item.CUV}} - {{item.Descripcion}}<br />
                 {{item.Cantidad}} unidades<br />
