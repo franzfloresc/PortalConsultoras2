@@ -1,6 +1,7 @@
 ﻿var urlDetallePedidoPendiente = "/ConsultoraOnline/DetallePedidoPendiente";
 var urlDetallePedidoPendienteClientes = "/ConsultoraOnline/DetallePedidoPendienteClientes";
 var listaGana = [];
+var gTipoVista = 0;
 
 $(document).ready(function () {
     cambiaTabs();
@@ -55,8 +56,6 @@ function bindElments() {
 
 function AceptarPedidoPendiente() {
 
-
-
     var btn = $('.btnAccion a.ghost')[0];
 
     if (btn) {
@@ -64,7 +63,8 @@ function AceptarPedidoPendiente() {
             Accion: 2,
             Dispositivo: glbDispositivo,
             AccionTipo: $(btn).parent().data('accion'),
-            ListaGana: $(btn).parent().data('accion') == 'ingrgana' ? listaGana : []
+            ListaGana: $(btn).parent().data('accion') == 'ingrgana' ? listaGana : [],
+            OrigenTipoVista: gTipoVista
         }
 
         waitingDialog();
@@ -92,7 +92,7 @@ function AceptarPedidoPendiente() {
                                 $("#btnIrPedido").addClass("second-color");
                                 $("#btnIrPedido").parent().addClass("mx-auto");
 
-                            }else {
+                            } else {
                                 $("#btnIrPEdidoAprobar").parent().show();
                                 $("#btnIrPedido").removeClass("second-color");
                                 $("#btnIrPedido").parent().removeClass("mx-auto");
@@ -125,7 +125,6 @@ function AceptarPedidoPendiente() {
         });
 
     }
-
 
 }
 
@@ -185,7 +184,7 @@ function DetallePedidoPendienteClientes(cuv) {
                 SetHandlebars("#template-paso-1-Clientes", objenviar, "#Paso1-Clientes");
                 $(".modal-fondo").show();
                 $('#Paso1-Clientes').show();
-
+                gTipoVista = 2;
             }
         },
         error: function (error) {
@@ -217,6 +216,7 @@ function DetallePedidoPendiente(ids) {
                 SetHandlebars("#template-paso-1-Producto", response.data, "#Paso1-Productos");
                 $('#Paso1-Productos').show();
                 $('.modal-fondo').show();
+                gTipoVista = 1;
             }
         },
         error: function (error) {
@@ -396,7 +396,7 @@ function ContinuarPedido() {
     if ($('#Paso1-Clientes').css('display') == 'block') {
         $paso1 = $('#Paso1-Clientes');
     } else {
-        $paso1 = $('#Paso1-Productos'); 
+        $paso1 = $('#Paso1-Productos');
     }
 
     $paso1.find('.pedidos').each(function () {
@@ -417,6 +417,10 @@ function ContinuarPedido() {
         }
     });
 
+    var obj = {
+        lstDetalle: lstDetalle,
+        tipoVista: gTipoVista
+    };
 
     if (lstDetalle.length > 0) {
         $.ajax({
@@ -424,7 +428,8 @@ function ContinuarPedido() {
             url: "/ConsultoraOnline/ContinuarPedidos",
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(lstDetalle),
+            //data: JSON.stringify(lstDetalle),
+            data: JSON.stringify(obj),
             success: function (response) {
                 //CloseLoading();
                 if (response.success) {
@@ -434,7 +439,7 @@ function ContinuarPedido() {
                     var newListaCatalogo = [];
                     if (response.result.ListaCatalogo && response.result.ListaCatalogo.length > 0) {
                         $.each(response.result.ListaCatalogo, function (index, item) {
-                            for (var i = 0; i < item.Cantidad; i++){
+                            for (var i = 0; i < item.Cantidad; i++) {
                                 newListaCatalogo.push(item);
                             }
                         });
