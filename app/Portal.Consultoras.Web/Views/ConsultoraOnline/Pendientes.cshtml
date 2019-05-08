@@ -152,12 +152,12 @@
                     </div>
                     <div class="container-flex border mt-2 position-sticky bottom boton_continuar">
                         @*<div id="mensajepedido" class="container position-absolute top-50" style="display:none;">
-                            <div class="row align-items-center position-relative">
-                                <div class="col">
-                                    <div class="tooltip-secondary tooltip-arrow_bottom tooltip-validate p-3"><span class="tooltip-info medium t-w700">Debes aceptar mínimo un pedido para continuar.</span></div>
+                                <div class="row align-items-center position-relative">
+                                    <div class="col">
+                                        <div class="tooltip-secondary tooltip-arrow_bottom tooltip-validate p-3"><span class="tooltip-info medium t-w700">Debes aceptar mínimo un pedido para continuar.</span></div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>*@
+                            </div>*@
                         <div data-tooltip="mensajepedido" class="container position-absolute top-50" style="display:none;">
                             <div class="row align-items-center position-relative">
                                 <div class="col">
@@ -220,6 +220,7 @@
 
 
 </script>
+
 <script id="template-paso-1-Producto" type="text/x-handlebars-template">
 
     <article id="Paso_1" class="mobile">
@@ -301,7 +302,7 @@
                 </div>
             </div>
             <div class="container-flex border mt-2 position-sticky bottom boton_continuar">
-                <div data-tooltip="mensajepedido"  class="container position-absolute top-50" style="display:none;">
+                <div data-tooltip="mensajepedido" class="container position-absolute top-50" style="display:none;">
                     <div class="row align-items-center position-relative">
                         <div class="col">
                             <div class="tooltip-secondary tooltip-arrow_bottom p-3">
@@ -361,8 +362,8 @@
             <div class="text-right mb-3"><a class="close-modal" href="#" onclick="javascript: CerrarPopupConfirmacion();" alt="Cerrar">Cerrar</a></div>
         </div><img class="img-fluid mb-3" src="https://i.ibb.co/n6p5vcB/check-circle-outline-3x.png" alt="Aprobado"><span class="font-big t-w700 dark-color mb-3">¡Pedido aprobado!</span><span class="small mb-4 dark-color">Has atendido el pedido por Gana+.</span>
         <div class="position-relative container-btn">
-            <div class="position-relative btn-left"><a class="btn full ghost color-dark" href="/Pedido/Index">Ir a mi pedido</a></div>
-            <div class="position-relative btn-right"><a class="btn full second-color" href="#" onclick="javascript: CerrarPopupConfirmacion();">Ver pedidos por aprobar</a></div>
+            <div class="position-relative btn-left"><a id="btnIrPedido" class="btn full ghost color-dark" href="/Pedido/Index">Ir a mi pedido</a></div>
+            <div class="position-relative btn-right"><a id="btnIrPEdidoAprobar" class="btn full second-color" href="#" onclick="javascript: CerrarPopupConfirmacion();">Ver pedidos por aprobar</a></div>
         </div>
     </div>
 </div>
@@ -580,7 +581,7 @@
                         </div>
                         <div class="row align-items-center">
                             <div class="col">
-                                <h3 class="mt-2 mb-1">Paso 2: Elige cómo atender</h3><span class="smaller mb-3">Delineador Líquido Punta Plumón Marrón otoño</span>
+                                <h3 class="mt-2 mb-1">Paso 2: Elige cómo atender</h3><span class="smaller mb-3">Podrás vender todo a @ViewBag.Simbolo {{this.TotalCatalogo}}</span>
                             </div>
                         </div>
                     </div>
@@ -714,7 +715,7 @@
                             <div class="col-2">@ViewBag.Simbolo {{item2.FormatoPrecioTotal}}</div>
                             <div class="col-2">{{item2.MedioContacto}}</div>
                             <div class="col">
-                                <div class="card--box t-black open-modal" onclick="DetallePedidoPendienteClientes({{ item2.CUV }})">
+                                <div class="card--box t-black open-modal" onclick="DetallePedidoPendienteClientes('{{ item2.CUV }}')">
                                     {{#each item2.ListaClientes as |item3|}}
                                     <span class="card--box__info">{{item3.Cliente}}</span>
                                     {{/each}}
@@ -740,5 +741,5 @@
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/SugerenciaPendientes")
 }
 <script>
-    var glbDispositivo = 3;
+    var glbDispositivo = 1;
 </script>

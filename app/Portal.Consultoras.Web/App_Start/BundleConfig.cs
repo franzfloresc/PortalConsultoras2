@@ -1051,6 +1051,8 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Mobile/ConsultoraOnline/Pendientes.css"
             ));
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mobile/SugerenciaPendientes").Include(
+                "~/Scripts/PortalConsultoras/Mobile/ConsultoraOnline/PedidoPendienteMedioCompra.js",
+                "~/Scripts/PortalConsultoras/Mobile/ConsultoraOnline/Pendientes.js",
                "~/Scripts/slick.js"
             ));
 
