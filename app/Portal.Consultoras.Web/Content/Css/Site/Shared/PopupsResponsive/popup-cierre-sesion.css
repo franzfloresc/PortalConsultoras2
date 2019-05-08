@@ -2,7 +2,7 @@
 /* MC - HD-3159 - POPUP CIERRE DE SESIÓN */
 
 .popup__wrapper--cierreSesion {
-    z-index: 9999992 !important;
+    z-index: 99999999 !important;
 }
 
 .popup__somos__belcorp--cierreSesion {
