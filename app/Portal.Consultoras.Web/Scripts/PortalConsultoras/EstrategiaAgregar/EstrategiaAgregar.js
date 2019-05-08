@@ -310,13 +310,13 @@ var EstrategiaAgregarModule = (function () {
         var cantidad = (limite > 0) ? limite : ($btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataInputCantidad).val());
 
         if (!$.isNumeric(cantidad)) {
-            abrirMensajeEstrategia("Ingrese un valor numérico.", esFicha);
+            abrirMensajeEstrategia("Ingrese un valor numérico.", _config.esFicha);
             $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataInputCantidad).val("1");
             CerrarLoad();
             return false;
         }
         if (parseInt(cantidad) <= 0) {
-            abrirMensajeEstrategia("La cantidad debe ser mayor a cero.", esFicha);
+            abrirMensajeEstrategia("La cantidad debe ser mayor a cero.", _config.esFicha);
             $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataInputCantidad).val("1");
             CerrarLoad();
             return false;
@@ -393,7 +393,7 @@ var EstrategiaAgregarModule = (function () {
                     else {
                         var msjBloq = validarpopupBloqueada(data.message);
                         if (msjBloq != "") alert_msg_bloqueadas(msjBloq);
-                        else abrirMensajeEstrategia(data.message, esFicha);
+                        else abrirMensajeEstrategia(data.message, _config.esFicha);
                     }
                     //FIN HD-3693
 
@@ -461,10 +461,10 @@ var EstrategiaAgregarModule = (function () {
                 //    }
 
                 //}
-                var esFicha = ((estrategia.FlagNueva == 1 ? true : false) && IsNullOrEmpty(data.mensajeAviso)) || esFicha;
-
+                var esFichaT = ((estrategia.FlagNueva == 1 ? true : false) && IsNullOrEmpty(data.mensajeAviso)) || _config.esFicha;
+                console.log('estrategiaAgregar - pedidoAgregarProductoPromise', _config.esFicha, esFichaT, estrategia.FlagNueva, data.mensajeAviso);
                 //Tooltip de agregado
-                if (esFicha) {
+                if (esFichaT) {
                     try {
                         var $AgregadoTooltip = $(dataProperties.tooltip);
                         if (params.EsEditable) {
