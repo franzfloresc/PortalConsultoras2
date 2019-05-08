@@ -567,6 +567,8 @@
             Precio: {{SimboloMoneda}} {{DecimalToStringFormat subItem.Precio}}
             <br />
             {{/each}}
+            <br />
+             Total: {{SimboloMoneda}} {{DecimalToStringFormat item.Total}}
             {{else}}
             {{item.CUV2}}
             <br />
@@ -574,10 +576,9 @@
             <br />
             {{item.Cantidad2}} unidades
             <br />
-            {{/if}}
             <br />
-            <br />
-            Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Total}}
+            Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio2}}
+            {{/if}}            
             {{else}}
 
             {{/if_eq}}
@@ -623,7 +624,7 @@
             {{else if_eq CodigoOperacion 'G'}}
             {{item.SolucionSolicitada}}
             {{else if_eq CodigoOperacion 'T'}}
-            {{#if item.DetalleReemplazo}}
+             {{#if item.DetalleReemplazo}}
             {{#each item.DetalleReemplazo as |subItem|}}
             {{subItem.CUV}}
             <br />
@@ -634,6 +635,8 @@
             Precio: {{SimboloMoneda}} {{DecimalToStringFormat subItem.Precio}}
             <br />
             {{/each}}
+            <br />
+             Total: {{SimboloMoneda}} {{DecimalToStringFormat item.Total}}
             {{else}}
             {{item.CUV2}}
             <br />
@@ -641,10 +644,9 @@
             <br />
             {{item.Cantidad2}} unidades
             <br />
-            {{/if}}
             <br />
-            <br />
-            Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Total}}
+            Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio2}}
+            {{/if}}            
             {{else}}
 
             {{/if_eq}}

@@ -891,7 +891,7 @@ namespace Portal.Consultoras.Web.Controllers
                             else
                             {
                                 model.CUV2 = model.Reemplazo.FirstOrDefault().CUV;
-                                model.Cantidad2 = model.Reemplazo.FirstOrDefault().Cantidad;
+                                model.Cantidad2 = model.Reemplazo.FirstOrDefault().Cantidad;                                
                             }
                         }
                     }
