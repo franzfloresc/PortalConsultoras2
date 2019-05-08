@@ -1,4 +1,4 @@
-USE BelcorpBolivia_MC
+USE BelcorpBolivia
 GO
 
 ALTER PROCEDURE [dbo].[GetCDRWebDetalle] (
@@ -93,7 +93,7 @@ BEGIN
 END
 GO
 
-USE BelcorpChile_MC
+USE BelcorpChile
 GO
 
 ALTER PROCEDURE [dbo].[GetCDRWebDetalle] (
@@ -188,7 +188,7 @@ BEGIN
 END
 GO
 
-USE BelcorpColombia_MC
+USE BelcorpColombia
 GO
 
 ALTER PROCEDURE [dbo].[GetCDRWebDetalle] (
@@ -283,7 +283,7 @@ BEGIN
 END
 GO
 
-USE BelcorpCostaRica_MC
+USE BelcorpCostaRica
 GO
 
 ALTER PROCEDURE [dbo].[GetCDRWebDetalle] (
@@ -378,7 +378,7 @@ BEGIN
 END
 GO
 
-USE BelcorpDominicana_MC
+USE BelcorpDominicana
 GO
 
 ALTER PROCEDURE [dbo].[GetCDRWebDetalle] (
@@ -474,7 +474,7 @@ BEGIN
 END
 GO
 
-USE BelcorpEcuador_MC
+USE BelcorpEcuador
 GO
 
 ALTER PROCEDURE [dbo].[GetCDRWebDetalle] (
@@ -569,7 +569,7 @@ BEGIN
 END
 GO
 
-USE BelcorpGuatemala_MC
+USE BelcorpGuatemala
 GO
 
 ALTER PROCEDURE [dbo].[GetCDRWebDetalle] (
@@ -664,7 +664,7 @@ BEGIN
 END
 GO
 
-USE BelcorpMexico_MC
+USE BelcorpMexico
 GO
 
 ALTER PROCEDURE [dbo].[GetCDRWebDetalle] (
@@ -759,7 +759,7 @@ BEGIN
 END
 GO
 
-USE BelcorpPanama_MC
+USE BelcorpPanama
 GO
 
 ALTER PROCEDURE [dbo].[GetCDRWebDetalle] (
@@ -854,7 +854,7 @@ BEGIN
 END
 GO
 
-USE BelcorpPeru_MC
+USE BelcorpPeru
 GO
 
 ALTER PROCEDURE [dbo].[GetCDRWebDetalle] (
@@ -949,7 +949,7 @@ BEGIN
 END
 GO
 
-USE BelcorpPuertoRico_MC
+USE BelcorpPuertoRico
 GO
 
 ALTER PROCEDURE [dbo].[GetCDRWebDetalle] (
@@ -1044,7 +1044,7 @@ BEGIN
 END
 GO
 
-USE BelcorpSalvador_MC
+USE BelcorpSalvador
 GO
 
 ALTER PROCEDURE [dbo].[GetCDRWebDetalle] (
