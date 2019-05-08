@@ -44104,6 +44104,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private decimal ImporteTotalMMField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string IndicadorConsultoraDigitalField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string IndicadorEnviadoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -44400,6 +44403,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.ImporteTotalMMField.Equals(value) != true)) {
                     this.ImporteTotalMMField = value;
                     this.RaisePropertyChanged("ImporteTotalMM");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string IndicadorConsultoraDigital {
+            get {
+                return this.IndicadorConsultoraDigitalField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.IndicadorConsultoraDigitalField, value) != true)) {
+                    this.IndicadorConsultoraDigitalField = value;
+                    this.RaisePropertyChanged("IndicadorConsultoraDigital");
                 }
             }
         }

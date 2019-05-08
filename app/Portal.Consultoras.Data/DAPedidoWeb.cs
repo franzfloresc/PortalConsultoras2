@@ -346,6 +346,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@EsRechazado", DbType.AnsiString, BEPedidoDDWeb.EsRechazado);
             Context.Database.AddInParameter(command, "@FechaRegistroInicio", DbType.Date, BEPedidoDDWeb.FechaRegistroInicio);
             Context.Database.AddInParameter(command, "@FechaRegistroFin", DbType.Date, BEPedidoDDWeb.FechaRegistroFin);
+            Context.Database.AddInParameter(command, "@IndicadorConsultoraDigital", DbType.Int32,Convert.ToInt32( BEPedidoDDWeb.IndicadorConsultoraDigital));
 
             return Context.ExecuteReader(command);
         }
