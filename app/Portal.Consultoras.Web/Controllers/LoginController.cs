@@ -100,33 +100,21 @@ namespace Portal.Consultoras.Web.Controllers
 
                 model.ListaPaises = ObtenerPaises();
                 model.ListaEventos = await ObtenerEventoFestivo(0, Constantes.EventoFestivoAlcance.LOGIN, 0);
-
-                if (model.ListaEventos.Count == 0)
-                    model.NombreClase = "fondo_estandar";
-                else
-                {
-                    model.NombreClase = "fondo_festivo";
-
-                    model.RutaEventoEsika =
-                    (from g in model.ListaEventos
-                     where g.Nombre == Constantes.EventoFestivoNombre.FONDO_ESIKA
-                     select g.Personalizacion).FirstOrDefault();
-
-                    model.RutaEventoLBel =
-                    (from g in model.ListaEventos
-                     where g.Nombre == Constantes.EventoFestivoNombre.FONDO_LBEL
-                     select g.Personalizacion).FirstOrDefault();
-                }
-
+                
+                model = IndexEvento(model);
+                
                 if (EstaActivoBuscarIsoPorIp())
                 {
-                    ip = GetIpCliente();
                     iso = Util.GetISObyIPAddress(ip);
 
                     if (string.IsNullOrEmpty(iso))
                     {
                         ip = IP_DEFECTO;
                         iso = ISO_DEFECTO;
+                    }
+                    else
+                    {
+                        ip = GetIpCliente();
                     }
                 }
 
@@ -148,6 +136,7 @@ namespace Portal.Consultoras.Web.Controllers
             
             return View(model);
         }
+
         private void MisCursos()
         {
             TempData["MiAcademia"] = 0;
@@ -196,7 +185,29 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
         }
+        
+        private LoginModel IndexEvento(LoginModel model)
+        {
+            model.ListaEventos = model.ListaEventos ?? new List<EventoFestivoModel>();
+            if (model.ListaEventos.Count == 0)
+                model.NombreClase = "fondo_estandar";
+            else
+            {
+                model.NombreClase = "fondo_festivo";
 
+                model.RutaEventoEsika =
+                (from g in model.ListaEventos
+                 where g.Nombre == Constantes.EventoFestivoNombre.FONDO_ESIKA
+                 select g.Personalizacion).FirstOrDefault();
+
+                model.RutaEventoLBel =
+                (from g in model.ListaEventos
+                 where g.Nombre == Constantes.EventoFestivoNombre.FONDO_LBEL
+                 select g.Personalizacion).FirstOrDefault();
+            }
+
+            return model;
+        }
 
         [AllowAnonymous]
         [HttpGet]
@@ -214,6 +225,9 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 if (model.PaisID == 0)
+                    model.PaisID = Util.GetPaisID(model.CodigoISO);
+
+                if (model.PaisID == 0)
                 {
                     TempData["errorLogin"] = "Debe seleccionar el Pais";
                     return RedirectToAction("Index", "Login");
@@ -222,14 +236,8 @@ namespace Portal.Consultoras.Web.Controllers
                 TempData["serverPaisId"] = model.PaisID;
                 TempData["serverPaisISO"] = model.CodigoISO;
                 TempData["serverCodigoUsuario"] = model.CodigoUsuario;
-
-                if (model.PaisID == 0)
-                    model.PaisID = Util.GetPaisID(model.CodigoISO);
-
-                #region DesencriptarClaveSecreta
-                var PasswordCjs = ConfigurationManager.AppSettings.Get("CryptoJSPassword");
-                model.ClaveSecreta = Util.DecryptCryptoJs(model.ClaveSecreta, PasswordCjs, model.Salt, model.Key, model.Iv);
-                #endregion
+                
+                model.ClaveSecreta = DecryptCryptoClaveSecreta(model);
 
                 var resultadoInicioSesion = await ObtenerResultadoInicioSesion(model);
 
@@ -263,6 +271,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     else
                     {
+                        var returnSi = false;
                         using (var svc = new UsuarioServiceClient())
                         {
                             var userExt = svc.GetUsuarioExternoByCodigoUsuario(model.PaisID, model.CodigoUsuario);
@@ -294,14 +303,19 @@ namespace Portal.Consultoras.Web.Controllers
                                 };
                                 svc.InsertUsuarioExterno(model.PaisID, beUsuarioExterno);
 
-                                return usuarioExterno.Redireccionar
-                                    ? await Redireccionar(model.PaisID, resultadoInicioSesion.CodigoUsuario, returnUrl, true)
-                                    : Json(new
-                                    {
-                                        success = true,
-                                        message = "El codigo de consultora se asoció con su cuenta de Facebook"
-                                    });
+                                returnSi = true;
                             }
+                        }
+
+                        if (returnSi)
+                        {
+                            return usuarioExterno.Redireccionar
+                                ? await Redireccionar(model.PaisID, resultadoInicioSesion.CodigoUsuario, returnUrl, true)
+                                : Json(new
+                                {
+                                    success = true,
+                                    message = "El codigo de consultora se asoció con su cuenta de Facebook"
+                                });
                         }
                     }
 
@@ -365,6 +379,13 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
             return RedirectToAction("Index", "Login");
+        }
+
+
+        private string DecryptCryptoClaveSecreta(LoginModel model)
+        {
+            var passwordCjs = ConfigurationManager.AppSettings.Get("CryptoJSPassword");
+            return Util.DecryptCryptoJs(model.ClaveSecreta, passwordCjs, model.Salt, model.Key, model.Iv);
         }
 
         [AllowAnonymous]
