@@ -166,8 +166,8 @@ function ConfigSeccionApp(configuracionPaisID) {
                     $("#AdministrarOfertasHomeAppModel_AppColorFondoBoton").parent().parent().show();
                     $("#AdministrarOfertasHomeAppModel_AppColorTextoBoton").parent().parent().show();
 
-                    $("#AdministrarOfertasHomeAppModel_AppTextoBotonInicial").val("Comenzar");
-                    $("#AdministrarOfertasHomeAppModel_AppTextoBotonFinal").val("Modificar");
+                    if ($("#AdministrarOfertasHomeAppModel_AppTextoBotonInicial").val() === "") $("#AdministrarOfertasHomeAppModel_AppTextoBotonInicial").val("Comenzar");
+                    if ($("#AdministrarOfertasHomeAppModel_AppTextoBotonFinal").val() === "") $("#AdministrarOfertasHomeAppModel_AppTextoBotonFinal").val("Modificar");
 
                     $("#AdministrarOfertasHomeAppModel_AppCantidadProductos").parent().parent().hide();
                     $("#AdministrarOfertasHomeAppModel_AppCantidadProductos").val("");
