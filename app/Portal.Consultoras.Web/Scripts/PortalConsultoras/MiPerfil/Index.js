@@ -5,6 +5,7 @@ var directionsService;
 var searchBox;
 var _googleMap;
 var OperacionDb = { Insertar: "0", Editar: "1" };
+var Ubigeos = Ubigeos || [];
 
 $(document).ready(function () {
 
