@@ -3614,22 +3614,6 @@ namespace Portal.Consultoras.Common
 
                 return response.GetResponseStream();
             }
-
-            public static HttpWebResponse GetHttpWebResponse(string url)
-            {
-                HttpWebResponse response = null;
-                try
-                {
-                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-                    request.Credentials = System.Net.CredentialCache.DefaultCredentials;
-                    response = (HttpWebResponse)request.GetResponse();
-                }
-                catch (WebException)
-                {
-                    LogManager.SaveLog(new Exception("URL " + url + " no encontrada"), "", "");
-                }
-                return response;
-            }
         }
 
         
