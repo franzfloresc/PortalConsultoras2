@@ -285,7 +285,10 @@ namespace Portal.Consultoras.Web.Providers
             {
                 using (var svc = new UsuarioServiceClient())
                 {
-                    resumen = svc.GetConsultoraNivelCaminoBrillante(Mapper.Map<ServiceUsuario.BEUsuario>(usuarioModel));
+                    var beUsuario = Mapper.Map<ServiceUsuario.BEUsuario>(usuarioModel);
+                    beUsuario.Zona = usuarioModel.CodigoZona;
+                    beUsuario.Region = usuarioModel.CodigorRegion;
+                    resumen = svc.GetConsultoraNivelCaminoBrillante(beUsuario);
                 }                
                 sessionManager.SetConsultoraCaminoBrillante(resumen);                
             }
