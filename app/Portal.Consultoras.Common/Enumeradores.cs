@@ -330,5 +330,11 @@
             Reemplazar,
             NoAgregarExcedioLimite
         }
+
+        public enum MiAcademiaUrl
+        {
+            Cursos,
+            Video
+        }
     }
 }
