@@ -28,12 +28,12 @@ function bindElments() {
         if ($('.btnAccion a.ghost').length == $('.ghost a').length) {
             $('#btnAceptarPedido span').removeClass('second-color');
             $('#btnAceptarPedido span').addClass('disabled');
-            $('#btnAceptarPedido span').html('Aceptar Pedido');
+            //$('#btnAceptarPedido span').html('Aceptar Pedido');
         }
         else {
             $('#btnAceptarPedido span').addClass('second-color');
             $('#btnAceptarPedido span').removeClass('disabled');
-            $('#btnAceptarPedido span').html('Aceptar Pedido');
+            //$('#btnAceptarPedido span').html('Aceptar Pedido');
         }
 
         e.preventDefault();
@@ -392,7 +392,14 @@ function ContinuarPedido() {
     var lstDetalle = [];
     //ShowLoading();
 
-    $('.pedidos').each(function () {
+    var $paso1 = "";
+    if ($('#Paso1-Clientes').css('display') == 'block') {
+        $paso1 = $('#Paso1-Clientes');
+    } else {
+        $paso1 = $('#Paso1-Productos'); 
+    }
+
+    $paso1.find('.pedidos').each(function () {
 
         if ($(this).find('a[id*="aceptar_"]').hasClass('ghost')) {
             //$(aceptado).addClass('active');
@@ -423,6 +430,17 @@ function ContinuarPedido() {
                 if (response.success) {
                     $('#Paso1-Clientes').hide();
                     $('#Paso1-Productos').hide();
+
+                    var newListaCatalogo = [];
+                    if (response.result.ListaCatalogo && response.result.ListaCatalogo.length > 0) {
+                        $.each(response.result.ListaCatalogo, function (index, item) {
+                            for (var i = 0; i < item.Cantidad; i++){
+                                newListaCatalogo.push(item);
+                            }
+                        });
+                    }
+
+                    response.result.ListaCatalogo = newListaCatalogo;
 
                     SetHandlebars("#template-paso-2", response.result, "#contenedor-paso-2");
                     if (response.result.ListaGana.length == 0 || response.result.GananciaGana <= 0) {

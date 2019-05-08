@@ -3753,9 +3753,9 @@ namespace Portal.Consultoras.Common
             }
             else
             {
-                if (consultoraOnline) result = "CLIENTE ONLINE";
-                else
-                {
+                //if (consultoraOnline) result = "CLIENTE ONLINE";
+                //else
+                //{
                     switch (origenPedido)
                     {
                         case Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinal:
@@ -3789,7 +3789,7 @@ namespace Portal.Consultoras.Common
 
                             break;
                     }
-                }
+                //}
             }
 
             return result;
