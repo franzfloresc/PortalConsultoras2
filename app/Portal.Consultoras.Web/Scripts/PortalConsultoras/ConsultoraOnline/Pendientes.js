@@ -124,6 +124,10 @@ function AceptarPedidoPendiente() {
             }
         });
 
+    } else {
+        var $MensajeTolTip = $("[data-tooltip=\"mensajepedidopaso2\"]");
+        $MensajeTolTip.show();
+        setTimeout(function () { $MensajeTolTip.hide(); }, 2000);
     }
 
 }
