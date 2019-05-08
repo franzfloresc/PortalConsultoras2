@@ -1473,6 +1473,12 @@ namespace Portal.Consultoras.Common
             public const string RevistaDigital = "RevistaDigital";
         }
 
+        //INI HD-3693
+        public static class TipoPopupAlert
+        {
+            public const string Bloqueado = "HD3693~";
+        }
+        //FIN HD-3693
         public static class IngresoExternoPagina
         {
             public const string EstadoCuenta = "ESTADOCUENTA";
@@ -2583,6 +2589,9 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_UNIDAD_SINSALDO = "2117";
                 public const string ERROR_UNIDAD_CONSALDO = "2118";
                 public const string ERROR_UNIDAD_SOBREPASA_STOCK = "2119";
+                //INI HD-3693
+                public const string ERROR_CONSULTORA_BLOQUEADA = "3693";
+                //FIN HD-3693
 
                 public const string ERROR_RESERVA_NINGUNO = "2010";
                 public const string SUCCESS_RESERVA = "2011";
