@@ -311,12 +311,14 @@
     <Compile Include="Models\AdministrarEstrategia\EstrategiaGrupoModel.cs" />
     <Compile Include="Models\ArmaTuPackModel.cs" />
     <Compile Include="Models\BuscadorYFiltrosCategoriaModel.cs" />
+    <Compile Include="Models\ZonaValidacionTelefonicaModel.cs" />
     <Compile Include="Models\DetalleEstrategia\EstrategiaComponenteSeccionModel.cs" />
     <Compile Include="Models\CaminoBrillante\DemostradorCaminoBrillanteModel.cs" />
     <Compile Include="Models\CaminoBrillante\KitCaminoBrillanteModel.cs" />
     <Compile Include="Models\CaminoBrillante\LogroCaminoBrillanteModel.cs" />
     <Compile Include="Models\CaminoBrillante\NivelCaminoBrillanteModel.cs" />
     <Compile Include="Models\ConfiguracionCaminoBrillanteModel.cs" />
+    <Compile Include="Models\MiAcademia\ParamUrlMiAcademiaModel.cs" />
     <Compile Include="Models\PremioNuevaModel.cs" />
     <Compile Include="Models\AdministracionPoput\ComunicadoModel.cs" />
     <Compile Include="Models\AdministracionPoput\SegmentacionComunicado.cs" />
@@ -877,6 +879,7 @@
     <Compile Include="Providers\RenderImgProvider.cs" />
     <Compile Include="Providers\RevistaDigitalProvider.cs" />
     <Compile Include="Providers\ShowRoomProvider.cs" />
+    <Compile Include="Providers\MiAcademiaProvider.cs" />
     <Compile Include="Providers\TablaLogicaProvider.cs" />
     <Compile Include="Providers\TipoEstrategiaProvider.cs" />
     <Compile Include="Providers\UpSellingProvider.cs" />
@@ -5845,6 +5848,8 @@
     <Content Include="Views\AdministrarHistorias\Partials\MantenimientoEstado.cshtml" />
     <Content Include="Views\AdministrarHistorias\Partials\MantenimientoDetalle.cshtml" />
     <Content Include="Views\AdministrarHistorias\Partials\PopupImagen.cshtml" />
+    <Content Include="Views\Unete\ZonaValidacionTelefonica.cshtml" />
+    <Content Include="Views\Unete\_ConsultarEstadoTelefonico.cshtml" />
     <Content Include="Views\DetalleEstrategia\ComponenteDetalleIndividualTemplate.cshtml" />
     <Content Include="Views\DetalleEstrategia\ComponenteDetalleTemplate.cshtml" />
     <Content Include="Views\AdministracionMedallaBrillante\Index.cshtml" />
