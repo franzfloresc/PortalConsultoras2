@@ -312,30 +312,30 @@ namespace Portal.Consultoras.BizLogic
                     usuario.FotoPerfil = string.Concat(ConfigCdn.GetUrlCdn(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
                 }
 
-                if (Common.Util.IsUrl(usuario.FotoPerfil))
-                {
-                    using (var response = Common.Util.Http.GetHttpWebResponse(imagenS3))
-                    {
-                        if (response != null)
-                        {
-                            if (response.StatusCode == System.Net.HttpStatusCode.OK)
-                            {
-                                var imagenConsultada = System.Drawing.Image.FromStream(response.GetResponseStream());
-                                usuario.FotoPerfilAncha = imagenConsultada.Width > imagenConsultada.Height;
-                            }
-                            else
-                            {
-                                usuario.FotoPerfil = "../../Content/Images/icono_avatar.svg";
-                                usuario.FotoOriginalSinModificar = null;
-                            }
-                        }
-                        else
-                        {
-                            usuario.FotoPerfil = "../../Content/Images/icono_avatar.svg";
-                            usuario.FotoOriginalSinModificar = null;
-                        }
-                    }
-                }
+                //if (Common.Util.IsUrl(usuario.FotoPerfil))
+                //{
+                //    using (var response = Common.Util.Http.GetHttpWebResponse(imagenS3))
+                //    {
+                //        if (response != null)
+                //        {
+                //            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                //            {
+                //                var imagenConsultada = System.Drawing.Image.FromStream(response.GetResponseStream());
+                //                usuario.FotoPerfilAncha = imagenConsultada.Width > imagenConsultada.Height;
+                //            }
+                //            else
+                //            {
+                //                usuario.FotoPerfil = "../../Content/Images/icono_avatar.svg";
+                //                usuario.FotoOriginalSinModificar = null;
+                //            }
+                //        }
+                //        else
+                //        {
+                //            usuario.FotoPerfil = "../../Content/Images/icono_avatar.svg";
+                //            usuario.FotoOriginalSinModificar = null;
+                //        }
+                //    }
+                //}
 
                 if (string.IsNullOrEmpty(usuario.FotoPerfil))
                 {
