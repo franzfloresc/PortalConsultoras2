@@ -92,7 +92,7 @@ function AceptarPedidoPendiente() {
                                 $("#btnIrPedido").addClass("second-color");
                                 $("#btnIrPedido").parent().addClass("mx-auto");
 
-                            }else {
+                            } else {
                                 $("#btnIrPEdidoAprobar").parent().show();
                                 $("#btnIrPedido").removeClass("second-color");
                                 $("#btnIrPedido").parent().removeClass("mx-auto");
@@ -124,6 +124,10 @@ function AceptarPedidoPendiente() {
             }
         });
 
+    } else {
+        var $MensajeTolTip = $("[data-tooltip=\"mensajepedidopaso2\"]");
+        $MensajeTolTip.show();
+        setTimeout(function () { $MensajeTolTip.hide(); }, 2000);
     }
 
 
