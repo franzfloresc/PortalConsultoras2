@@ -895,9 +895,13 @@ button:focus{
 
     /* VISTA BREADCRUMBS Y TITULO DE VISTA (VERSIÓN MOBILE) */
 
+    .layout__view__breadcrumbs__wrapper{
+        display:none;
+    }
+
     .layout__view__title,
-    .layout__view__title__text{
-        max-width:none;
+    .layout__view__title__text {
+        max-width: none;
     }
 
     .layout__view__title,
