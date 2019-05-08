@@ -431,10 +431,17 @@ function MostrarMensajedeRechazoPedido(cuv, option) {
     
 }
 
-function OcultarMensajedeRechazoPedido(cuv) {
+function OcultarMensajedeRechazoPedido(cuv, option) {
     var mensaje = '#' + cuv;
     $(mensaje).hide();
-    //document.location.href = urlPedido;
+    if (option === "P") //Producto
+    {
+	    MarcaAnalyticsClienteProducto("Vista por Producto - Pop up Paso 1", "¿Quieres eliminar este pedido? - No, gracias");
+    }
+    if (option === "C") //Cliente
+    {
+        MarcaAnalyticsClienteProducto("Vista por Cliente - Pop up Paso 1", "¿Quieres eliminar este pedido? - No, gracias");
+    }
 }
 
 function AceptarPedidoProducto(id, option) {
@@ -571,9 +578,18 @@ function ContinuarPedido(option) {
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(lstDetalle),
             success: function (response) {
+	            //marcacion analytics de Continuar
+	            if (option === "P") //Producto
+	            {
+		            MarcaAnalyticsClienteProducto("Vista por Producto - Pop up Paso 1", 'Continuar');
+	            }
+	            if (option === "C") //Cliente
+	            {
+                    MarcaAnalyticsClienteProducto("Vista por Cliente - Pop up Paso 1", 'Continuar');
+	            }
                 CloseLoading();
                 if (response.success) {
-                    document.location.href = '/Mobile/ConsultoraOnline/PendientesMedioDeCompra';
+                    document.location.href = '/Mobile/ConsultoraOnline/PendientesMedioDeCompra?option=' + option;
                 }
                 else {
                     alert(response.message);
@@ -586,7 +602,7 @@ function ContinuarPedido(option) {
         });
     }
     else {
-        debugger;
+        
         if (option === "P") //Producto
         {
             MarcaAnalyticsClienteProducto("Vista por Producto - Pop up Paso 1", 'Alerta: Debes aceptar un pedido mínimo');
@@ -659,6 +675,16 @@ function EliminarSolicitudDetalle(pedidoId, cuv, origen) {
         success: function (response) {
             CloseLoading();
             if (response.success) {
+	            
+                //Analytics
+                if (origen === "P") //Producto
+                {
+                    MarcaAnalyticsClienteProducto("Vista por Producto - Pop up Paso 1", "¿Quieres eliminar este pedido? - Sí, eliminar");
+                }
+                if (origen === "C") //Cliente
+                {
+                    MarcaAnalyticsClienteProducto("Vista por Cliente - Pop up Paso 1", "¿Quieres eliminar este pedido? - Sí, eliminar");
+                }
 
                 var Pendientes = JSON.parse(response.Pendientes) || [];
                 $.each(Pendientes.ListaPedidos, function (index, value) {
