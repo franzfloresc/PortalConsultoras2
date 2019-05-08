@@ -121,56 +121,6 @@ namespace Portal.Consultoras.Web.Controllers
             return Mapper.Map<IList<BEOfertaProducto>, List<OfertaProductoModel>>(lst);
         }
 
-        //[HttpPost]
-        //public JsonResult InsertOfertaWebPortal(PedidoDetalleModel model)
-        //{
-        //    try
-        //    {
-        //        BEPedidoWebDetalle entidad = Mapper.Map<PedidoDetalleModel, BEPedidoWebDetalle>(model);
-        //        using (PedidoServiceClient sv = new PedidoServiceClient())
-        //        {
-        //            entidad.PaisID = userData.PaisID;
-        //            entidad.ConsultoraID = userData.ConsultoraID;
-        //            entidad.CampaniaID = userData.CampaniaID;
-        //            entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.Accesorizate;
-        //            entidad.IPUsuario = userData.IPUsuario;
-
-        //            entidad.CodigoUsuarioCreacion = userData.CodigoConsultora;
-        //            entidad.CodigoUsuarioModificacion = entidad.CodigoUsuarioCreacion;
-        //            entidad.OrigenPedidoWeb = ProcesarOrigenPedido(entidad.OrigenPedidoWeb);
-
-        //            sv.InsPedidoWebDetalleOferta(entidad);
-        //        }
-
-        //        return Json(new
-        //        {
-        //            success = true,
-        //            message = "Se agregó la Oferta Web satisfactoriamente.",
-        //            extra = ""
-        //        });
-        //    }
-        //    catch (FaultException ex)
-        //    {
-        //        LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
-        //        return Json(new
-        //        {
-        //            success = false,
-        //            message = ex.Message,
-        //            extra = ""
-        //        });
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-        //        return Json(new
-        //        {
-        //            success = false,
-        //            message = ex.Message,
-        //            extra = ""
-        //        });
-        //    }
-        //}
-
         [HttpPost]
         public JsonResult UpdateOfertaWebPortal(PedidoDetalleModel model)
         {
@@ -333,7 +283,7 @@ namespace Portal.Consultoras.Web.Controllers
             };
             return View(cronogramaModel);
         }
-        
+
         public JsonResult ObtenerDatosAdministracionCorreo(int paisID)
         {
             List<BEAdministracionOfertaProducto> lst = new List<BEAdministracionOfertaProducto>();
@@ -401,7 +351,7 @@ namespace Portal.Consultoras.Web.Controllers
                 lista = lst
             }, JsonRequestBehavior.AllowGet);
         }
-        
+
         public JsonResult ObtenerOrdenPriorizacion(int paisID, int ConfiguracionOfertaID, int CampaniaID)
         {
             int orden;

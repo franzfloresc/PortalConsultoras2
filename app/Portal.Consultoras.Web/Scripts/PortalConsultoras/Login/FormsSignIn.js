@@ -722,7 +722,7 @@ function AsignarHojaEstilos() {
         document.title = ' ÉSIKA ';
         $("link[data-id='iconPagina']").attr("href", "/Content/Images/Esika/favicon.ico");
 
-        $currentLink.attr('href', UrlStyles.esika/*$currentBelcorpStyle.data("srcesika")*/);
+        $currentLink.attr('href', UrlStyles.esika);
 
         Fondofestivo("hddFondoFestivoEsika");
 
@@ -734,7 +734,7 @@ function AsignarHojaEstilos() {
         document.title = " L'BEL ";
         $("link[data-id='iconPagina']").attr("href", "/Content/Images/Lbel/favicon.ico");
 
-        $currentLink.attr('href', UrlStyles.lbel /*$currentBelcorpStyle.data("srclbel")*/);
+        $currentLink.attr('href', UrlStyles.lbel);
 
         Fondofestivo("hddFondoFestivoLebel");
 
@@ -745,7 +745,7 @@ function AsignarHojaEstilos() {
         document.title = ' ÉSIKA ';
         $("link[data-id='iconPagina']").attr("href", "/Content/Images/Esika/favicon.ico");
 
-        $currentLink.attr('href', UrlStyles.esika/*$currentBelcorpStyle.data("srcesika")*/);
+        $currentLink.attr('href', UrlStyles.esika);
 
         Fondofestivo("hddFondoFestivoEsika");
 

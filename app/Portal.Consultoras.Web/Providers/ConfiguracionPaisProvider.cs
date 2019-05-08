@@ -61,8 +61,8 @@ namespace Portal.Consultoras.Web.Providers
                 ImgUrlBase = ConfigCdn.GetUrlCdnMatriz(CodigoISO),
                 SimboloMoneda = Simbolo,
                 PaisISO = CodigoISO,
-                MsTiposEstrategias = _sessionManager.GetConfigMicroserviciosPersonalizacion().EstrategiaHabilitado, //WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion;
-                MsPais = _sessionManager.GetConfigMicroserviciosPersonalizacion().PaisHabilitado, //WebConfig.PaisesMicroservicioPersonalizacion;
+                MsTiposEstrategias = _sessionManager.GetConfigMicroserviciosPersonalizacion().EstrategiaHabilitado,
+                MsPais = _sessionManager.GetConfigMicroserviciosPersonalizacion().PaisHabilitado,
                 MsFichaEstrategias = _sessionManager.GetConfigMicroserviciosPersonalizacion().EstrategiaDisponibleParaFicha
             };
 

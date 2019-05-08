@@ -682,6 +682,9 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         private decimal SaldoDeudaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool TieneArmaTuPackField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal TippingPointField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1232,6 +1235,19 @@ namespace Portal.Consultoras.Web.ServiceCliente {
                 if ((this.SaldoDeudaField.Equals(value) != true)) {
                     this.SaldoDeudaField = value;
                     this.RaisePropertyChanged("SaldoDeuda");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool TieneArmaTuPack {
+            get {
+                return this.TieneArmaTuPackField;
+            }
+            set {
+                if ((this.TieneArmaTuPackField.Equals(value) != true)) {
+                    this.TieneArmaTuPackField = value;
+                    this.RaisePropertyChanged("TieneArmaTuPack");
                 }
             }
         }
@@ -1793,6 +1809,9 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         private bool EliminadoTemporalField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsArmaTuPackField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EsBackOrderField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -2275,6 +2294,19 @@ namespace Portal.Consultoras.Web.ServiceCliente {
                 if ((this.EliminadoTemporalField.Equals(value) != true)) {
                     this.EliminadoTemporalField = value;
                     this.RaisePropertyChanged("EliminadoTemporal");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsArmaTuPack {
+            get {
+                return this.EsArmaTuPackField;
+            }
+            set {
+                if ((this.EsArmaTuPackField.Equals(value) != true)) {
+                    this.EsArmaTuPackField = value;
+                    this.RaisePropertyChanged("EsArmaTuPack");
                 }
             }
         }

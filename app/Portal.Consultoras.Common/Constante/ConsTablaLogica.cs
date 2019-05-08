@@ -19,6 +19,7 @@ namespace Portal.Consultoras.Common
         {
             public const int TablaLogicaId = 158;
             public const string MisClientes = "MisClientes";
+            public const string FichaEnriquecida = "FichaEnriquecida";
         }
 
         public static class MotivoFlexipago
@@ -340,6 +341,11 @@ namespace Portal.Consultoras.Common
         public static class Plan20Activacion
         {
             public const int TablaLogicaId = 98;
+            
+            public const string ImageUrlCode = "bar_in_img";
+            public const string RedirectCode = "bar_in_url";
+            public const string EnabledCode = "bar_in_act";
+            public const string NoUrlAllowed = "bar_in_no";
         }
 
         public static class OrdenamientoShowRoom
@@ -385,6 +391,11 @@ namespace Portal.Consultoras.Common
         public static class TipoPresentacionCarrusel
         {
             public const int TablaLogicaId = 120;
+        }
+
+        public static class ImagenesResize
+        {
+            public const int TablaLogicaId = 121;
         }
 
         public static class ValoresPagoLinea
@@ -496,10 +507,17 @@ namespace Portal.Consultoras.Common
         {
             public const int TablaLogicaId = 159;
         }
+        
+        public static class EscalaDescuento
+        {
+            public const int TablaLogicaId = 160;
+            public const string Cod01 = "01";
+        }
 
         public static class NroSolicitudePedido
         {
             public const int TablaLogicaId = 161;
+            public const string Cod01 = "01";
         }
 
         public static class ResizeImagenesAppGana
@@ -515,6 +533,13 @@ namespace Portal.Consultoras.Common
         public static class OfertasConsultora
         {
             public const int TablaLogicaId = 181;
+        }
+
+        public static class CaminoBrillante {
+            public const short CaminoBrillanteInfoComercial = 165;
+            public const short CaminoBrillanteLogros = 166;
+            public const short CaminoBrillanteIndicadores = 167;
+            public const short CaminoBrillanteOfertasEspeciales = 168;
         }
 
     }
