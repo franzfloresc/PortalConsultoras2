@@ -74,32 +74,30 @@ namespace Portal.Consultoras.Web.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> Index(string returnUrl = null)
         {
-            MisCursos();
-
-
-
-            if (EsUsuarioAutenticado())
-            {
-                if (misCursos > 0)
-                {
-                    sessionManager.SetMiAcademia(misCursos);
-                    sessionManager.SetMiAcademiaVideo(flagMiAcademiaVideo);
-                    sessionManager.SetMiAcademiaParametro(urlSapParametro);
-
-                    return RedirectToAction("Index", "MiAcademia");
-                }
-
-                return EsDispositivoMovil()
-                    ? RedirectToAction("Index", "Bienvenida", new { area = "Mobile" })
-                    : RedirectToAction("Index", "Bienvenida");
-            }
-
             var ip = string.Empty;
             var iso = string.Empty;
             var model = new LoginModel();
 
             try
             {
+                MisCursos();
+                
+                if (EsUsuarioAutenticado())
+                {
+                    if (misCursos > 0)
+                    {
+                        sessionManager.SetMiAcademia(misCursos);
+                        sessionManager.SetMiAcademiaVideo(flagMiAcademiaVideo);
+                        sessionManager.SetMiAcademiaParametro(urlSapParametro);
+
+                        return RedirectToAction("Index", "MiAcademia");
+                    }
+
+                    return EsDispositivoMovil()
+                        ? RedirectToAction("Index", "Bienvenida", new { area = "Mobile" })
+                        : RedirectToAction("Index", "Bienvenida");
+                }
+
                 model.ListaPaises = ObtenerPaises();
                 model.ListaEventos = await ObtenerEventoFestivo(0, Constantes.EventoFestivoAlcance.LOGIN, 0);
 
@@ -147,19 +145,9 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             ViewBag.FBAppId = ConfigurationManager.AppSettings["FB_AppId"];
-
-
-
+            
             return View(model);
         }
-        [AllowAnonymous]
-        [HttpGet]
-        [Route("Login/Login/{param?}")]
-        public ActionResult Login(string param)
-        {
-            return RedirectToAction("Index", "Login");
-        }
-
         private void MisCursos()
         {
             TempData["MiAcademia"] = 0;
@@ -207,6 +195,15 @@ namespace Portal.Consultoras.Web.Controllers
 
                 }
             }
+        }
+
+
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("Login/Login/{param?}")]
+        public ActionResult Login(string param)
+        {
+            return RedirectToAction("Index", "Login");
         }
 
         [AllowAnonymous]
