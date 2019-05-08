@@ -1512,6 +1512,11 @@ h4.re3 {
     padding: 30px 0;
 }
 
+    .block-seguimiento-content--mobile{
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+
     .block-seguimiento-content .seg-item {
         position: relative;
         text-align: center;
@@ -1615,6 +1620,22 @@ h4.re3 {
     .block-seguimiento-content .seg-active .seg-hora {
         color: black;
     }
+
+.seg-hora--entregaProyectada {
+    width: auto;
+    position: relative;
+    margin: 0 auto;
+    left: -13px;
+    right: 0;
+    white-space: nowrap;
+}
+
+@media screen and (min-width:400px) and (max-width:991px) {
+
+    .seg-hora--entregaProyectada {
+        left: 2px;
+    }
+}
 
 .alert .close {
     color: #fff;

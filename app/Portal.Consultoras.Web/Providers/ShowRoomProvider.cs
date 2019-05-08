@@ -120,9 +120,10 @@ namespace Portal.Consultoras.Web.Providers
             try
             {
 
-                bool eventoConsultoraNull = false;
+                
                 if (UsarMsPersonalizacion(model.CodigoISO, Constantes.TipoEstrategiaCodigo.ShowRoom))
                 {
+                    bool eventoConsultoraNull = false;
                     ShowRoomEventoConsultoraModel eventoConsultora = ObtenerEventoConsultoraApi(model.CodigoISO, model.CampaniaID, model.GetCodigoConsultora(), out eventoConsultoraNull);
                     if (eventoConsultoraNull)
                     {
@@ -413,7 +414,7 @@ namespace Portal.Consultoras.Web.Providers
                 _sessionManager.SetEsShowRoom("0");
                 _sessionManager.SetMostrarShowRoomProductos("0");
                 _sessionManager.SetMostrarShowRoomProductosExpiro("0");
-
+                  
                 if (UsarMsPersonalizacion(model.CodigoISO, Constantes.TipoEstrategiaCodigo.ShowRoom))
                 {
                     OutputEvento eventoPersonalizacions = ApiEventoPersonalizacion(model);
@@ -421,7 +422,7 @@ namespace Portal.Consultoras.Web.Providers
                     configEstrategiaSR.BeShowRoom = ObtieneEventoModel(eventoPersonalizacions.Result);
                         
                     IList<Evento> eventos = eventoPersonalizacions.Result ?? new List<Evento>();
-                    Evento personalizacionNivel = eventos.Any() ? eventos.FirstOrDefault() : new Evento();
+                    Evento personalizacionNivel = eventos.FirstOrDefault() ?? new Evento();
                     configEstrategiaSR.ListaPersonalizacionConsultora = ObtienePersonalizacionesModel(personalizacionNivel.PersonalizacionNivel);
                 }
                 else
@@ -906,7 +907,7 @@ namespace Portal.Consultoras.Web.Providers
         public ShowRoomEventoConsultoraModel ObtenerEventoConsultoraApi(string pais, int codigoCampania, string codigoConsultora , out bool eventoConsultoraNull)
         {
             UsuarioModel userData = _sessionManager.GetUserData();
-
+            eventoConsultoraNull = false;
             try
             {
 
@@ -920,20 +921,17 @@ namespace Portal.Consultoras.Web.Providers
 
                 Task.WhenAll(taskApi);
                 string jsonString = taskApi.Result;
-                eventoConsultoraNull = true;
                 OutputEventoConsultora respuesta = JsonConvert.DeserializeObject<OutputEventoConsultora>(jsonString);
 
                 if (respuesta == null)
                 {
                     Common.LogManager.SaveLog(new Exception("Servicio no responde"), userData.CodigoConsultora, pais);
-                    eventoConsultoraNull = false;
                     return null;
                 }
 
                 if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
                 {
                     Common.LogManager.SaveLog(new Exception(respuesta.Message), userData.CodigoConsultora, pais);
-                    eventoConsultoraNull = false;
                     return null;
                 }
 
@@ -951,19 +949,18 @@ namespace Portal.Consultoras.Web.Providers
                         modelo.MostrarPopup = eventoConsultora.MostrarPopup;
                         modelo.MostrarPopupVenta = eventoConsultora.MostrarPopupVenta;
                     }
-                    eventoConsultoraNull = false;
                     return modelo;
                 }
-
-                return null;
 
             }
             catch (Exception ex)
             {
-                eventoConsultoraNull = false;
                 Common.LogManager.SaveLog(ex, string.Empty, pais);
                 return null;
             }
+
+            eventoConsultoraNull = true;
+            return null;
         }
 
         public List<ShowRoomNivelModel> ObtenerNivelApi(string pais)
