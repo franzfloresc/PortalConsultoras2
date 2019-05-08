@@ -226,9 +226,6 @@ namespace Portal.Consultoras.Web.Controllers
                 TempData["serverPaisISO"] = model.CodigoISO;
                 TempData["serverCodigoUsuario"] = model.CodigoUsuario;
 
-                if (model.PaisID == 0)
-                    model.PaisID = Util.GetPaisID(model.CodigoISO);
-
                 #region DesencriptarClaveSecreta
                 var PasswordCjs = ConfigurationManager.AppSettings.Get("CryptoJSPassword");
                 model.ClaveSecreta = Util.DecryptCryptoJs(model.ClaveSecreta, PasswordCjs, model.Salt, model.Key, model.Iv);
