@@ -79,26 +79,13 @@
             }
         },
         setCarrusel: function (id) {
+            var cantSlides = _config.generalModule.isMobile() ? 1 : 3;
             $(id).slick({
                 infinite: false,
                 speed: 300,
                 centerMode: false,
                 variableWidth: true,
-                //slidesToShow: 3,
-                responsive: [
-                    {
-                        breakpoint: 1024,
-                        settings: {
-                            slidesToShow: 3
-                        }
-                    },
-                    {
-                        breakpoint: 700,
-                        settings: {
-                            slidesToShow: 1 
-                        }
-                    },
-                ],
+                slidesToShow: cantSlides,
                 prevArrow:
                     "<a id=\"opciones-seleccionadas-prev\" class=\"flecha_ofertas-tipo prev\" style=\"left:-5%; text-align:left;display:none;\">" +
                     "<img src=\"" + baseUrl + "Content/Images/Esika/previous_ofertas_home.png\")\" alt=\"\" />" +
