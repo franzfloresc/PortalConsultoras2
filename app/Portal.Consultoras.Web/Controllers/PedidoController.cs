@@ -3304,6 +3304,13 @@ namespace Portal.Consultoras.Web.Controllers
                         mensaje = result.Mensaje;
                         estado = true;
                     }
+                    //INI HD-3693
+                    if (result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Bloqueado)
+                    {
+                        mensaje = Constantes.TipoPopupAlert.Bloqueado + result.Mensaje;
+                        estado = true;
+                    }
+                    //FIN HD-3693
                 }
 
                 return Json(new
@@ -3349,7 +3356,9 @@ namespace Portal.Consultoras.Web.Controllers
                 var pedidoReservado = result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Reservado;
                 var estado = result.MotivoPedidoLock != Enumeradores.MotivoPedidoLock.Ninguno;
                 var mensaje = result.Mensaje;
-
+                //INI HD-3693
+                if (result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Bloqueado) mensaje = Constantes.TipoPopupAlert.Bloqueado + result.Mensaje;
+                //FIN HD-3693
                 return Json(new
                 {
                     success = estado,

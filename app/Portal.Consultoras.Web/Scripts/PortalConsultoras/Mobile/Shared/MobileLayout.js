@@ -769,7 +769,14 @@ function messageInfo(message, fnAceptar) {
     if (message == "") {
         return false;
     }
-
+    //INI HD-3693
+    var msjBloq = validarpopupBloqueada(message);
+    if (msjBloq != "") {
+        CerrarLoad();
+        alert_msg_bloqueadas(msjBloq);
+        return true;
+    }
+        //FIN HD-3693
     $('#mensajeInformacion').html(message);
     $('#popupInformacion').show();
 

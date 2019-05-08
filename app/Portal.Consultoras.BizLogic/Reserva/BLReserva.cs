@@ -67,7 +67,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
         public string DeshacerPedidoValidado(BEUsuario usuario, string tipo)
         {
             //INI HD-3693
-            if (usuario.AutorizaPedido == "0") return "HD3693~" + _tablaLogicaDatosBusinessLogic.GetList(usuario.PaisID, Constantes.TablaLogica.MsjPopupBloqueadas).FirstOrDefault(a => a.Codigo == "01").Valor;
+            if (usuario.AutorizaPedido == "0") return Constantes.TipoPopupAlert.Bloqueado + _tablaLogicaDatosBusinessLogic.GetList(usuario.PaisID, Constantes.TablaLogica.MsjPopupBloqueadas).FirstOrDefault(a => a.Codigo == "01").Valor;
           
             //FIN HD-3693
 
