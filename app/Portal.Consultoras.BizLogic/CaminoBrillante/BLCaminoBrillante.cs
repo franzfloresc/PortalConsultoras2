@@ -490,7 +490,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
                 var periodoCaminoBrillante = periodos.FirstOrDefault(e => e.Periodo == _periodo);
                 if (periodoCaminoBrillante == null) return;
-                
+
                 var valor = string.Format("{0}-{1}-{2}", periodoCaminoBrillante.Periodo, periodoCaminoBrillante.NroCampana, constancia);
                 if (medallaConstancia.Any(e => e.Valor == valor)) return;
                 
@@ -501,8 +501,8 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                     Estado = true,
                     Titulo = string.Format(configMedalla.Valor ?? string.Empty, (periodoCaminoBrillante.CampanaInicial % 100), (periodoCaminoBrillante.CampanaFinal % 100)),
                     Subtitulo = Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo,
-                    ModalTitulo = estado ? configMedalla.ComoLograrlo_Titulo : string.Empty,
-                    ModalDescripcion = estado ? configMedalla.ComoLograrlo_Descripcion : string.Empty,
+                    ModalTitulo = configMedalla.ComoLograrlo_Estado && estado ? configMedalla.ComoLograrlo_Titulo : string.Empty,
+                    ModalDescripcion = configMedalla.ComoLograrlo_Estado && estado ? configMedalla.ComoLograrlo_Descripcion : string.Empty,
                     Valor = valor,
                 });
             };
