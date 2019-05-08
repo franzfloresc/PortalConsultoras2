@@ -1,5 +1,7 @@
 ﻿
-function tooltipDelete(pedidoDetalleID, sedId) {
+function tooltipDelete(event, pedidoDetalleID, sedId) {
+    event.stopPropagation();
+    
     var id = "#tlpDelete_" + pedidoDetalleID + "_" + sedId;
     $(id + " [data-mensaje-eliminar]").hide();
 
@@ -12,28 +14,23 @@ function tooltipDelete(pedidoDetalleID, sedId) {
 
     $(id).show();
 
-    //AGANA36
     var id2 = "#tlpObservaciones_" + pedidoDetalleID + "_" + sedId;
-    //console.log($(id2).length);
     console.log($(id2).length);
     if ($(id2).length > 0) {
         $(id2).hide();
     }
-    //AGANA36 END
 }
 
-function btnSalirTlpDelete(PedidoDetalleID, sedId) {
+function btnSalirTlpDelete(event, PedidoDetalleID, sedId) {
+    event.stopPropagation();
     var id = "#tlpDelete_" + PedidoDetalleID + "_" + sedId;
     $(id + " [data-mensaje-eliminar]").hide();
     $(id).hide();
 
-    //AGANA36
     var id2 = "#tlpObservaciones_" + PedidoDetalleID + "_" + sedId;
-    //console.log($(id2).length);
     if ($(id2).length > 0) {
         $(id2).show();
     }
-    //AGANA36 END
 }
 
 function ValidarTieneRegalo() {

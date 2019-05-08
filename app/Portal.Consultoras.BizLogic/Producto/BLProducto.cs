@@ -119,7 +119,7 @@ namespace Portal.Consultoras.BizLogic
 
         public IList<BEProducto> SelectProductoByCodigoDescripcionSearchRegionZona(int paisID, int campaniaID, string codigoDescripcion, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona, int criterio, int rowCount, bool validarOpt)
         {
-            var productos = new List<BEProducto>();
+           var productos = new List<BEProducto>();
 
 
             using (IDataReader reader = new DAProducto(paisID).GetProductoComercialByCampaniaBySearchRegionZona(campaniaID, rowCount, criterio, codigoDescripcion, RegionID, ZonaID, CodigoRegion, CodigoZona, validarOpt))
@@ -324,10 +324,17 @@ namespace Portal.Consultoras.BizLogic
             return productos;
         }
 
-        public int InsProductoCompartido(BEProductoCompartido ProComp)
+        public BEProductoCompartidoResult InsProductoCompartido(BEProductoCompartido ProComp)
         {
             var daProducto = new DAProducto(ProComp.PaisID);
-            return daProducto.InsProductoCompartido(ProComp);
+            var id = daProducto.InsProductoCompartido(ProComp);
+            var codigoISO = Util.GetPaisISO(ProComp.PaisID);
+            var urlCompartir = Util.GetUrlCompartirFB(codigoISO, id);
+            return new BEProductoCompartidoResult()
+            {
+                Id = id,
+                UrlCompartir = urlCompartir
+            };
         }
 
         public BEProductoCompartido GetProductoCompartido(int paisID, int ProCompID)

@@ -1,5 +1,6 @@
 ﻿namespace Portal.Consultoras.Entities
 {
+    using Portal.Consultoras.Common;
     using System;
     using System.Collections.Generic;
     using System.Data;
@@ -293,307 +294,230 @@
                 switch (column)
                 {
                     case "SolicitudCreditoID":
-                        if (row["SolicitudCreditoID"] != DBNull.Value)
-                            SolicitudCreditoID = Convert.ToInt32(row["SolicitudCreditoID"]);
+                        SolicitudCreditoID = row.ToInt32("SolicitudCreditoID");
                         break;
                     case "PaisID":
-                        if (row["PaisID"] != DBNull.Value)
-                            PaisID = Convert.ToInt32(row["PaisID"]);
+                        PaisID = row.ToInt32("PaisID");
                         break;
                     case "TipoSolicitud":
-                        if (row["TipoSolicitud"] != DBNull.Value)
-                            TipoSolicitud = Convert.ToString(row["TipoSolicitud"]);
+                        TipoSolicitud = row.ToString("TipoSolicitud");
                         break;
                     case "FuenteIngreso":
-                        if (row["FuenteIngreso"] != DBNull.Value)
-                            FuenteIngreso = Convert.ToString(row["FuenteIngreso"]);
+                        FuenteIngreso = row.ToString("FuenteIngreso");
                         break;
                     case "NumeroPreimpreso":
-                        if (row["NumeroPreimpreso"] != DBNull.Value)
-                            NumeroPreimpreso = Convert.ToString(row["NumeroPreimpreso"]);
+                        NumeroPreimpreso = row.ToString("NumeroPreimpreso");
                         break;
                     case "CodigoIso":
-                        if (row["CodigoIso"] != DBNull.Value)
-                            CodigoIso = Convert.ToString(row["CodigoIso"]);
+                        CodigoIso = row.ToString("CodigoIso");
                         break;
                     case "CodigoZona":
-                        if (row["CodigoZona"] != DBNull.Value)
-                            CodigoZona = Convert.ToString(row["CodigoZona"]);
+                        CodigoZona = row.ToString("CodigoZona");
                         break;
                     case "CodigoTerritorio":
-                        if (row["CodigoTerritorio"] != DBNull.Value)
-                            CodigoTerritorio = Convert.ToString(row["CodigoTerritorio"]);
+                        CodigoTerritorio = row.ToString("CodigoTerritorio");
                         break;
                     case "TipoContacto":
-                        if (row["TipoContacto"] != DBNull.Value)
-                            TipoContacto = Convert.ToInt32(row["TipoContacto"]);
+                        TipoContacto = row.ToInt32("TipoContacto");
                         break;
                     case "CampaniaID":
-                        if (row["CampaniaID"] != DBNull.Value)
-                            CampaniaID = Convert.ToInt32(row["CampaniaID"]);
+                        CampaniaID = row.ToInt32("CampaniaID");
                         break;
                     case "CodigoConsultoraRecomienda":
-                        if (row["CodigoConsultoraRecomienda"] != DBNull.Value)
-                            CodigoConsultoraRecomienda = Convert.ToString(row["CodigoConsultoraRecomienda"]);
+                        CodigoConsultoraRecomienda = row.ToString("CodigoConsultoraRecomienda");
                         break;
                     case "NombreConsultoraRecomienda":
-                        if (row["NombreConsultoraRecomienda"] != DBNull.Value)
-                            NombreConsultoraRecomienda = Convert.ToString(row["NombreConsultoraRecomienda"]);
+                        NombreConsultoraRecomienda = row.ToString("NombreConsultoraRecomienda");
                         break;
                     case "CodigoConsultora":
-                        if (row["CodigoConsultora"] != DBNull.Value)
-                            CodigoConsultora = Convert.ToString(row["CodigoConsultora"]);
+                        CodigoConsultora = row.ToString("CodigoConsultora");
                         break;
                     case "CodigoPremio":
-                        if (row["CodigoPremio"] != DBNull.Value)
-                            CodigoPremio = Convert.ToString(row["CodigoPremio"]);
+                        CodigoPremio = row.ToString("CodigoPremio");
                         break;
                     case "ApellidoPaterno":
-                        if (row["ApellidoPaterno"] != DBNull.Value)
-                            ApellidoPaterno = Convert.ToString(row["ApellidoPaterno"]);
+                        ApellidoPaterno = row.ToString("ApellidoPaterno");
                         break;
                     case "ApellidoMaterno":
-                        if (row["ApellidoMaterno"] != DBNull.Value)
-                            ApellidoMaterno = Convert.ToString(row["ApellidoMaterno"]);
+                        ApellidoMaterno = row.ToString("ApellidoMaterno");
                         break;
                     case "PrimerNombre":
-                        if (row["PrimerNombre"] != DBNull.Value)
-                            PrimerNombre = Convert.ToString(row["PrimerNombre"]);
+                        PrimerNombre = row.ToString("PrimerNombre");
                         break;
                     case "SegundoNombre":
-                        if (row["SegundoNombre"] != DBNull.Value)
-                            SegundoNombre = Convert.ToString(row["SegundoNombre"]);
+                        SegundoNombre = row.ToString("SegundoNombre");
                         break;
                     case "TipoDocumento":
-                        if (row["TipoDocumento"] != DBNull.Value)
-                            TipoDocumento = Convert.ToString(row["TipoDocumento"]);
+                        TipoDocumento = row.ToString("TipoDocumento");
                         break;
                     case "NumeroDocumento":
-                        if (row["NumeroDocumento"] != DBNull.Value)
-                            NumeroDocumento = Convert.ToString(row["NumeroDocumento"]);
+                        NumeroDocumento = row.ToString("NumeroDocumento");
                         break;
                     case "Sexo":
-                        if (row["Sexo"] != DBNull.Value)
-                            Sexo = Convert.ToString(row["Sexo"]);
+                        Sexo = row.ToString("Sexo");
                         break;
                     case "FechaNacimiento":
-                        if (row["FechaNacimiento"] != DBNull.Value)
-                            FechaNacimiento = Convert.ToDateTime(row["FechaNacimiento"]);
+                        FechaNacimiento = row.ToDateTime("FechaNacimiento");
                         break;
                     case "EstadoCivil":
-                        if (row["EstadoCivil"] != DBNull.Value)
-                            EstadoCivil = Convert.ToString(row["EstadoCivil"]);
+                        EstadoCivil = row.ToString("EstadoCivil");
                         break;
                     case "NivelEducativo":
-                        if (row["NivelEducativo"] != DBNull.Value)
-                            NivelEducativo = Convert.ToString(row["NivelEducativo"]);
+                        NivelEducativo = row.ToString("NivelEducativo");
                         break;
                     case "CodigoOtrasMarcas":
-                        if (row["CodigoOtrasMarcas"] != DBNull.Value)
-                            CodigoOtrasMarcas = Convert.ToInt32(row["CodigoOtrasMarcas"]);
+                        CodigoOtrasMarcas = row.ToInt32("CodigoOtrasMarcas");
                         break;
                     case "TipoNacionalidad":
-                        if (row["TipoNacionalidad"] != DBNull.Value)
-                            TipoNacionalidad = Convert.ToString(row["TipoNacionalidad"]);
+                        TipoNacionalidad = row.ToString("TipoNacionalidad");
                         break;
                     case "Telefono":
-                        if (row["Telefono"] != DBNull.Value)
-                            Telefono = Convert.ToString(row["Telefono"]);
+                        Telefono = row.ToString("Telefono");
                         break;
                     case "Celular":
-                        if (row["Celular"] != DBNull.Value)
-                            Celular = Convert.ToString(row["Celular"]);
+                        Celular = row.ToString("Celular");
                         break;
                     case "CorreoElectronico":
-                        if (row["CorreoElectronico"] != DBNull.Value)
-                            CorreoElectronico = Convert.ToString(row["CorreoElectronico"]);
+                        CorreoElectronico = row.ToString("CorreoElectronico");
                         break;
                     case "Direccion":
-                        if (row["Direccion"] != DBNull.Value)
-                            Direccion = Convert.ToString(row["Direccion"]);
+                        Direccion = row.ToString("Direccion");
                         break;
                     case "Referencia":
-                        if (row["Referencia"] != DBNull.Value)
-                            Referencia = Convert.ToString(row["Referencia"]);
+                        Referencia = row.ToString("Referencia");
                         break;
                     case "CodigoUbigeo":
-                        if (row["CodigoUbigeo"] != DBNull.Value)
-                            CodigoUbigeo = Convert.ToString(row["CodigoUbigeo"]);
+                        CodigoUbigeo = row.ToString("CodigoUbigeo");
                         break;
                     case "Ciudad":
-                        if (row["Ciudad"] != DBNull.Value)
-                            Ciudad = Convert.ToString(row["Ciudad"]);
+                        Ciudad = row.ToString("Ciudad");
                         break;
                     case "TipoVia":
-                        if (row["TipoVia"] != DBNull.Value)
-                            TipoVia = Convert.ToString(row["TipoVia"]);
+                        TipoVia = row.ToString("TipoVia");
                         break;
                     case "PoblacionVilla":
-                        if (row["PoblacionVilla"] != DBNull.Value)
-                            PoblacionVilla = Convert.ToString(row["PoblacionVilla"]);
+                        PoblacionVilla = row.ToString("PoblacionVilla");
                         break;
                     case "CodigoPostal":
-                        if (row["CodigoPostal"] != DBNull.Value)
-                            CodigoPostal = Convert.ToString(row["CodigoPostal"]);
+                        CodigoPostal = row.ToString("CodigoPostal");
                         break;
                     case "DireccionEntrega":
-                        if (row["DireccionEntrega"] != DBNull.Value)
-                            DireccionEntrega = Convert.ToString(row["DireccionEntrega"]);
+                        DireccionEntrega = row.ToString("DireccionEntrega");
                         break;
                     case "ReferenciaEntrega":
-                        if (row["ReferenciaEntrega"] != DBNull.Value)
-                            ReferenciaEntrega = Convert.ToString(row["ReferenciaEntrega"]);
+                        ReferenciaEntrega = row.ToString("ReferenciaEntrega");
                         break;
                     case "TelefonoEntrega":
-                        if (row["TelefonoEntrega"] != DBNull.Value)
-                            TelefonoEntrega = Convert.ToString(row["TelefonoEntrega"]);
+                        TelefonoEntrega = row.ToString("TelefonoEntrega");
                         break;
                     case "CelularEntrega":
-                        if (row["CelularEntrega"] != DBNull.Value)
-                            CelularEntrega = Convert.ToString(row["CelularEntrega"]);
+                        CelularEntrega = row.ToString("CelularEntrega");
                         break;
                     case "ObservacionEntrega":
-                        if (row["ObservacionEntrega"] != DBNull.Value)
-                            ObservacionEntrega = Convert.ToString(row["ObservacionEntrega"]);
+                        ObservacionEntrega = row.ToString("ObservacionEntrega");
                         break;
                     case "ApellidoFamiliar":
-                        if (row["ApellidoFamiliar"] != DBNull.Value)
-                            ApellidoFamiliar = Convert.ToString(row["ApellidoFamiliar"]);
+                        ApellidoFamiliar = row.ToString("ApellidoFamiliar");
                         break;
                     case "NombreFamiliar":
-                        if (row["NombreFamiliar"] != DBNull.Value)
-                            NombreFamiliar = Convert.ToString(row["NombreFamiliar"]);
+                        NombreFamiliar = row.ToString("NombreFamiliar");
                         break;
                     case "DireccionFamiliar":
-                        if (row["DireccionFamiliar"] != DBNull.Value)
-                            DireccionFamiliar = Convert.ToString(row["DireccionFamiliar"]);
+                        DireccionFamiliar = row.ToString("DireccionFamiliar");
                         break;
                     case "TelefonoFamiliar":
-                        if (row["TelefonoFamiliar"] != DBNull.Value)
-                            TelefonoFamiliar = Convert.ToString(row["TelefonoFamiliar"]);
+                        TelefonoFamiliar = row.ToString("TelefonoFamiliar");
                         break;
                     case "CelularFamiliar":
-                        if (row["CelularFamiliar"] != DBNull.Value)
-                            CelularFamiliar = Convert.ToString(row["CelularFamiliar"]);
+                        CelularFamiliar = row.ToString("CelularFamiliar");
                         break;
                     case "TipoVinculoFamiliar":
-                        if (row["TipoVinculoFamiliar"] != DBNull.Value)
-                            TipoVinculoFamiliar = Convert.ToInt32(row["TipoVinculoFamiliar"]);
+                        TipoVinculoFamiliar = row.ToInt32("TipoVinculoFamiliar");
                         break;
                     case "ApellidoNoFamiliar":
-                        if (row["ApellidoNoFamiliar"] != DBNull.Value)
-                            ApellidoNoFamiliar = Convert.ToString(row["ApellidoNoFamiliar"]);
+                        ApellidoNoFamiliar = row.ToString("ApellidoNoFamiliar");
                         break;
                     case "NombreNoFamiliar":
-                        if (row["NombreNoFamiliar"] != DBNull.Value)
-                            NombreNoFamiliar = Convert.ToString(row["NombreNoFamiliar"]);
+                        NombreNoFamiliar = row.ToString("NombreNoFamiliar");
                         break;
                     case "DireccionNoFamiliar":
-                        if (row["DireccionNoFamiliar"] != DBNull.Value)
-                            DireccionNoFamiliar = Convert.ToString(row["DireccionNoFamiliar"]);
+                        DireccionNoFamiliar = row.ToString("DireccionNoFamiliar");
                         break;
                     case "TelefonoNoFamiliar":
-                        if (row["TelefonoNoFamiliar"] != DBNull.Value)
-                            TelefonoNoFamiliar = Convert.ToString(row["TelefonoNoFamiliar"]);
+                        TelefonoNoFamiliar = row.ToString("TelefonoNoFamiliar");
                         break;
                     case "CelularNoFamiliar":
-                        if (row["CelularNoFamiliar"] != DBNull.Value)
-                            CelularNoFamiliar = Convert.ToString(row["CelularNoFamiliar"]);
+                        CelularNoFamiliar = row.ToString("CelularNoFamiliar");
                         break;
                     case "TipoVinculoNoFamiliar":
-                        if (row["TipoVinculoNoFamiliar"] != DBNull.Value)
-                            TipoVinculoNoFamiliar = Convert.ToInt32(row["TipoVinculoNoFamiliar"]);
+                        TipoVinculoNoFamiliar = row.ToInt32("TipoVinculoNoFamiliar");
                         break;
                     case "ApellidoPaternoAval":
-                        if (row["ApellidoPaternoAval"] != DBNull.Value)
-                            ApellidoPaternoAval = Convert.ToString(row["ApellidoPaternoAval"]);
+                        ApellidoPaternoAval = row.ToString("ApellidoPaternoAval");
                         break;
                     case "ApellidoMaternoAval":
-                        if (row["ApellidoMaternoAval"] != DBNull.Value)
-                            ApellidoMaternoAval = Convert.ToString(row["ApellidoMaternoAval"]);
+                        ApellidoMaternoAval = row.ToString("ApellidoMaternoAval");
                         break;
                     case "PrimerNombreAval":
-                        if (row["PrimerNombreAval"] != DBNull.Value)
-                            PrimerNombreAval = Convert.ToString(row["PrimerNombreAval"]);
+                        PrimerNombreAval = row.ToString("PrimerNombreAval");
                         break;
                     case "SegundoNombreAval":
-                        if (row["SegundoNombreAval"] != DBNull.Value)
-                            SegundoNombreAval = Convert.ToString(row["SegundoNombreAval"]);
+                        SegundoNombreAval = row.ToString("SegundoNombreAval");
                         break;
                     case "DireccionAval":
-                        if (row["DireccionAval"] != DBNull.Value)
-                            DireccionAval = Convert.ToString(row["DireccionAval"]);
+                        DireccionAval = row.ToString("DireccionAval");
                         break;
                     case "TelefonoAval":
-                        if (row["TelefonoAval"] != DBNull.Value)
-                            TelefonoAval = Convert.ToString(row["TelefonoAval"]);
+                        TelefonoAval = row.ToString("TelefonoAval");
                         break;
                     case "CelularAval":
-                        if (row["CelularAval"] != DBNull.Value)
-                            CelularAval = Convert.ToString(row["CelularAval"]);
+                        CelularAval = row.ToString("CelularAval");
                         break;
                     case "TipoDocumentoAval":
-                        if (row["TipoDocumentoAval"] != DBNull.Value)
-                            TipoDocumentoAval = Convert.ToString(row["TipoDocumentoAval"]);
+                        TipoDocumentoAval = row.ToString("TipoDocumentoAval");
                         break;
                     case "NumeroDocumentoAval":
-                        if (row["NumeroDocumentoAval"] != DBNull.Value)
-                            NumeroDocumentoAval = Convert.ToString(row["NumeroDocumentoAval"]);
+                        NumeroDocumentoAval = row.ToString("NumeroDocumentoAval");
                         break;
                     case "TipoVinculoAval":
-                        if (row["TipoVinculoAval"] != DBNull.Value)
-                            TipoVinculoAval = Convert.ToInt32(row["TipoVinculoAval"]);
+                        TipoVinculoAval = row.ToInt32("TipoVinculoAval");
                         break;
                     case "MontoMeta":
-                        if (row["MontoMeta"] != DBNull.Value)
-                            MontoMeta = Convert.ToDecimal(row["MontoMeta"]);
+                        MontoMeta = row.ToDecimal("MontoMeta");
                         break;
                     case "TipoMeta":
-                        if (row["TipoMeta"] != DBNull.Value)
-                            TipoMeta = Convert.ToString(row["TipoMeta"]);
+                        TipoMeta = row.ToString("TipoMeta");
                         break;
                     case "DescripcionMeta":
-                        if (row["DescripcionMeta"] != DBNull.Value)
-                            DescripcionMeta = Convert.ToString(row["DescripcionMeta"]);
+                        DescripcionMeta = row.ToString("DescripcionMeta");
                         break;
                     case "IndicadorActivo":
-                        if (row["IndicadorActivo"] != DBNull.Value)
-                            IndicadorActivo = Convert.ToBoolean(row["IndicadorActivo"]);
+                        IndicadorActivo = row.ToBoolean("IndicadorActivo");
                         break;
                     case "UsuarioCreacion":
-                        if (row["UsuarioCreacion"] != DBNull.Value)
-                            UsuarioCreacion = Convert.ToString(row["UsuarioCreacion"]);
+                        UsuarioCreacion = row.ToString("UsuarioCreacion");
                         break;
                     case "FechaCreacion":
-                        if (row["FechaCreacion"] != DBNull.Value)
-                            FechaCreacion = Convert.ToDateTime(row["FechaCreacion"]);
+                        FechaCreacion = row.ToDateTime("FechaCreacion");
                         break;
                     case "CodigoLote":
-                        if (row["CodigoLote"] != DBNull.Value)
-                            CodigoLote = Convert.ToInt32(row["CodigoLote"]);
+                        CodigoLote = row.ToInt32("CodigoLote");
                         break;
                     case "Estado":
-                        if (row["Estado"] != DBNull.Value)
-                            Estado = Convert.ToString(row["Estado"]);
+                        Estado = row.ToString("Estado");
                         break;
-
                     case "DescripcionRechazo":
-                        if (row["DescripcionRechazo"] != DBNull.Value)
-                            DescripcionRechazo = Convert.ToString(row["DescripcionRechazo"]);
+                        DescripcionRechazo = row.ToString("DescripcionRechazo");
                         break;
                     case "Municipio":
-                        if (row["Municipio"] != DBNull.Value)
-                            Municipio = Convert.ToString(row["Municipio"]);
+                        Municipio = row.ToString("Municipio");
                         break;
                     case "Localidad":
-                        if (row["Localidad"] != DBNull.Value)
-                            Localidad = Convert.ToString(row["Localidad"]);
+                        Localidad = row.ToString("Localidad");
                         break;
                     case "Colonia":
-                        if (row["Colonia"] != DBNull.Value)
-                            Colonia = Convert.ToString(row["Colonia"]);
+                        Colonia = row.ToString("Colonia");
                         break;
-
                     default:
                         break;
                 }

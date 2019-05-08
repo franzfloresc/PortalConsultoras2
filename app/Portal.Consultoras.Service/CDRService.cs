@@ -161,5 +161,11 @@ namespace Portal.Consultoras.Service
         {
             return BLCDRWeb.GetMontoFletePorZonaId(paisId, entity.ZonaID);
         }
+
+        public int ValCUVEnProcesoReclamo(int paisId, int pedidoId, string cuv)
+        {
+            return BLCDRWebDetalle.ValCUVEnProcesoReclamo(paisId, pedidoId,cuv);
+        }
+
     }
 }

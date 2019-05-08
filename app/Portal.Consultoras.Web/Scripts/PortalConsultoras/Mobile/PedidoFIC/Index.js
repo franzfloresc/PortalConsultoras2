@@ -246,8 +246,6 @@ $(document).ready(function () {
         showClienteDetalle(null);
     });
 
-    //CargarCarouselEstrategias();
-
     var CuvEnSession = $.trim($("#hdCuvEnSession").val());
     if (CuvEnSession != "") {
         $("#txtCodigoProducto").val(CuvEnSession);
@@ -639,8 +637,7 @@ function InsertarProductoSugerido(model) {
             $('#PopSugerido').hide();
 
             var cuv = cuv || "" ;
-
-            //CargarCarouselEstrategias();
+            
             $("#txtCodigoProducto").val("");
             $("#hdCuvEnSession").val("");
             if (data.modificoBackOrder) messageInfo('Recuerda que debes volver a validar tu pedido.');
@@ -670,7 +667,7 @@ function AgregarProductoListado() {
         PrecioUnidad: $("#hdfPrecioUnidad").val(),
         Cantidad: Cantidad,
         TipoOferta: $("#hdTipoEstrategiaID").val(),
-        enRangoProgNuevas: false
+        esCuponNuevas: false
     });
 
     jQuery.ajax({
@@ -704,7 +701,8 @@ function AgregarProductoListado() {
 function InsertarProducto() {
     
     var esOfertaNueva = $("#hdfValorFlagNueva").val() === "1";
-    var urlInsertar = esOfertaNueva ? urlPedidoInsertZe : urlPedidoInsert;
+
+    var urlInsertar = urlPedidoInsert;
     var model = {};
     if ($("#hdTipoOfertaSisID").val() === "0") {
         $("#hdTipoOfertaSisID").val($("#hdTipoEstrategiaID").val());

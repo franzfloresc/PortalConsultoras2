@@ -161,61 +161,20 @@ namespace Portal.Consultoras.BizLogic.OfertaPersonalizada
         {
             var estrategiasResult = new List<BEEstrategia>();
             var codigoIso = Util.GetPaisISO(entidad.PaisID);
-            var esFacturacion = false;
-            if (entidad.ValidarPeriodoFacturacion)
+            var listaSinPrecio2 = new List<string>();
+
+            if (lista.Count > 0)
             {
-                var fechaHoy = DateTime.Now.AddHours(entidad.ZonaHoraria).Date;
-                esFacturacion = fechaHoy >= entidad.FechaInicioFacturacion.Date;
+                listaSinPrecio2.AddRange(lista.Where(e => e.Precio2 <= 0).Select(e => e.CUV2));
+                estrategiasResult = lista.Where(e => e.Precio2 > 0).ToList();
             }
 
-            var listaCuvPrecio0 = new List<string>();
 
-            if (esFacturacion)
-            {
-                var listaTieneStock = new List<Lista>();
-                try
-                {
-                    var codigoSap = string.Join("|", lista.Where(e => !string.IsNullOrEmpty(e.CodigoProducto)).Select(e => e.CodigoProducto));
-                    if (!string.IsNullOrEmpty(codigoSap))
-                    {
-                        using (var sv = new wsConsulta())
-                        {
-                            sv.Url = ConfigurationManager.AppSettings["RutaServicePROLConsultas"];
-                            listaTieneStock = sv.ConsultaStock(codigoSap, codigoIso).ToList();
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    LogManager.SaveLog(ex, entidad.ConsultoraID, entidad.PaisID.ToString());
-                    listaTieneStock = new List<Lista>();
-                }
-
-                lista.ForEach(estrategia =>
-                {
-                    if (estrategia.Precio2 > 0)
-                    {
-                        var add = true;
-                        if (estrategia.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.OfertaParaTi)
-                            add = listaTieneStock.Any(p => p.Codsap.ToString() == estrategia.CodigoProducto && p.estado == 1);
-
-                        if (!add) return;
-
-                        estrategiasResult.Add(estrategia);
-                    }
-                    else
-                    {
-                        listaCuvPrecio0.Add(estrategia.CUV2);
-                    }
-                });
-            }
-            else estrategiasResult.AddRange(lista.Where(e => e.Precio2 > 0));
-
-            if (listaCuvPrecio0.Any())
+            if (listaSinPrecio2.Any())
             {
                 try
                 {
-                    string logPrecio0 = string.Format("Log Precios0 => Fecha:{0} /Palanca:{1} /CodCampania:{2} /CUV(s):{3}", DateTime.Now, entidad.CodigoTipoEstrategia, entidad.CampaniaID, string.Join("|", listaCuvPrecio0));
+                    string logPrecio0 = string.Format("Log Precios0 => Fecha:{0} /Palanca:{1} /CodCampania:{2} /CUV(s):{3}", DateTime.Now, entidad.CodigoTipoEstrategia, entidad.CampaniaID, string.Join("|", listaSinPrecio2));
                     LogManager.SaveLog(new Exception(logPrecio0), "", entidad.PaisID);
                 }
                 catch (Exception)

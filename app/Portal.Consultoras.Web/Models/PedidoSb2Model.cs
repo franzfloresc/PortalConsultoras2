@@ -138,6 +138,7 @@ namespace Portal.Consultoras.Web.Models
         public string Pagina { get; set; }
 
         public string PaginaDe { get; set; }
+        public string TipoPaginador { get; set; }
 
         public List<BECliente> ListaCliente { get; set; }
 
@@ -287,5 +288,7 @@ namespace Portal.Consultoras.Web.Models
         public bool MostrarPopupPrecargados { get; set; }
 
         public string MensajeKitNuevas { get; set; }
+
+        public bool EsConsultoraOficina { get; set; }
     }
 }

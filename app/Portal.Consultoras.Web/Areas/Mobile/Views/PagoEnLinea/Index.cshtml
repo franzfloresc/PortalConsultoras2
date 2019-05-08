@@ -1,26 +1,32 @@
 ﻿@using Portal.Consultoras.Common;
 @using Portal.Consultoras.Web.Models.PagoEnLinea;
 @model PagoEnLineaModel
-
 @{
     ViewBag.Title = "Pago En Línea";
-    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
     var metodoPago = Model.MetodoPagoSeleccionado;
     metodoPago.MontoMinimoPago = metodoPago.MontoMinimoPago ?? (decimal)0.5;
+    if (Model.origen == int.Parse(Constantes.IngresoExternoOrigen.ChatBot))
+    {
+        Layout = "~/Areas/Mobile/Views/Shared/_ChatboMobileLayout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+    }
 }
 
 @section styles{
 
     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
-    { 
+    {
 
-        <link rel="stylesheet" href="@Url.Content("~/Content/Css/Mobile/Esika/pago-en-linea.css")?v=1">
+        <link rel="stylesheet" href="@Url.Content("~/Content/Css/Mobile/Esika/pago-en-linea.css")?v=2">
 
     }
     else
     {
 
-        <link rel="stylesheet" href="@Url.Content("~/Content/Css/Mobile/Lbel/pago-en-linea.css")?v=1">
+        <link rel="stylesheet" href="@Url.Content("~/Content/Css/Mobile/Lbel/pago-en-linea.css")?v=2">
 
     }
 
@@ -33,11 +39,17 @@
 
 }
 
-<div class="cabecera_vista_pago_en_linea">
-    <a href="@Request.UrlReferrer" class="enlace_regresar ajustePosicionFlecha" style="display:block" title="Regresar"></a>
-    PAGO EN LÍNEA
-</div>
-
+@if (Model.origen == int.Parse(Constantes.IngresoExternoOrigen.ChatBot))
+{
+    <div class="titulo_mobile">PAGO EN LÍNEA</div>
+}
+else
+{
+    <div class="cabecera_vista_pago_en_linea">
+        <a href="@Request.UrlReferrer" class="enlace_regresar ajustePosicionFlecha" style="display:block" title="Regresar"></a>
+        PAGO EN LÍNEA
+    </div>
+}
 <div class="content_belcorp">
     <div class="pestana_lbel"></div>
 
@@ -58,6 +70,7 @@
 
             <input type="hidden" id="hdMontoDeuda" value="@Model.MontoDeuda" name="MontoDeuda" />
             <input type="hidden" id="hdPorcentajeGastosAdministrativos" value="@Model.PorcentajeGastosAdministrativos" name="PorcentajeGastosAdministrativos" />
+            <input type="hidden" id="hdAplicaPorciento" value="@Model.AplicaPorcentaje" name="hdAplicaPorciento" />
 
             <ul class="lista_opciones_pago">
                 @foreach (var item in Model.ListaTipoPago)
@@ -92,9 +105,9 @@
                                     <div class="w-53 text-left">Monto :</div>
                                     <div class="w-45 text-right">@Model.MontoDeudaString</div>
                                 </div>
-                                <div class="opcion_pago_gastos_administrativos">
+                                <div class="opcion_pago_gastos_administrativos @(Model.AplicaPorcentaje == 0 ? "childs-tachado" : "")">
                                     <div class="w-53 text-left">@ViewBag.PagoEnLineaGastosLabel (@Model.PorcentajeGastosAdministrativos%) :</div>
-                                    <div class="w-45 text-right">@Model.MontoGastosAdministrativosString</div>
+                                    <div class="w-45 text-right">@Model.MontoGastosAdministrativosBrutoString</div>
                                 </div>
                                 <hr class="linea_separacion_montos_y_total" />
                                 <div class="opcion_pago_total_a_pagar">
@@ -154,7 +167,7 @@
                                         @Util.DecimalToStringFormat(0, Model.CodigoIso)
                                     </div>
                                 </div>
-                                <div class="opcion_pago_gastos_administrativos">
+                                <div class="opcion_pago_gastos_administrativos @(Model.AplicaPorcentaje == 0 ? "childs-tachado" : "")">
                                     <div class="w-53 text-left">@ViewBag.PagoEnLineaGastosLabel (@Model.PorcentajeGastosAdministrativos%) :</div>
                                     <div class="w-45 text-right" id="spnMontoGastosAdministrativos">
                                         @Util.DecimalToStringFormat(0, Model.CodigoIso)
@@ -172,17 +185,17 @@
                                     <div class="descripcion_opcion_activacion">
                                         Al presionar continuar aceptas los
                                         @if (metodoPago.TipoVisualizacionTyC == Constantes.PagoEnLineaMetodoPagoVisualizacionTyC.Popup)
-            {
-                            <a class="ver_terminos_y_condiciones" data-tipovisualizacion="">
-                                términos y condiciones
-                            </a>
-}
+                                        {
+                                            <a class="ver_terminos_y_condiciones" data-tipovisualizacion="">
+                                                términos y condiciones
+                                            </a>
+                                        }
                                         @if (metodoPago.TipoVisualizacionTyC == Constantes.PagoEnLineaMetodoPagoVisualizacionTyC.Archivo)
-            {
-                            <a class="ver_terminos_y_condiciones" target="_blank" href="@metodoPago.TerminosCondiciones">
-                                términos y condiciones
-                            </a>
-}
+                                        {
+                                            <a class="ver_terminos_y_condiciones" target="_blank" href="@metodoPago.TerminosCondiciones">
+                                                términos y condiciones
+                                            </a>
+                                        }
 
                                     </div>
                                 </div>
@@ -219,7 +232,7 @@
 </div>
 
 @section scripts{
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/PagoEnLinea/Index.js")?v=2"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/PagoEnLinea/Index.js")?v=3"></script>
     <script type="text/javascript">
         var pasarelaActual = '@metodoPago.TipoPasarelaCodigoPlataforma';
         var metodoPagoPasarelaVisa = '@Constantes.PagoEnLineaMetodoPago.PasarelaVisa';

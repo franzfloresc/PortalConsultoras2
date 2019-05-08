@@ -1,0 +1,41 @@
+1.Microservicio Search - Archivo Config
+
+**** El cambio debe agregarse en el json "Config" debajo de la configuracion de "elasticLogging". ****
+
+Add:
+	imagenes: {
+        rutaAppCatalogo: 'https://s3-sa-east-1.amazonaws.com/appcatalogo/{0}/{1}/{2}/productos/{3}',
+        rutaAppCatalogoBulk: 'https://s3-sa-east-1.amazonaws.com/appcatalogo/{0}/{1}/{2}/productos/bulk/{3}',
+        appCatalogo: {
+            DO: 'CO',
+            GT: 'CO',
+            PA: 'CR',
+            PR: 'CR',
+            SV: 'CO'
+        },
+        urlSinImagenTiposyTonos: 'https://somosbelcorpqa.s3.amazonaws.com/ImagenesPortal/SinImagenTonosyTipos.jpg'
+    },
+    paises: {
+        Esika: ['EC', 'PE', 'CO', 'CL', 'BO', 'GT', 'SV', 'DO', 'VE'],
+        LBel: ['CR', 'PA', 'MX', 'PR']
+    },
+    componentes: {
+        orden: {
+            fichaEsika: [2, 1, 3],
+            fichaLBel: [1, 2, 3]
+        }
+    }
+	
+Update: ***  Agregar 'ATP' al listado ***
+		Personalizacion: ['GND', 'LAN', 'ODD', 'OPM', 'OPT', 'PAD', 'SR', 'LIQ', 'CAT', 'HV', 'ATP']
+
+		
+		
+		
+2.Microservicio Sync - Archivo appsettings.json
+
+
+**** El cambio debe agregarse en el "appsettings.json". agregar al listado ATP en Palancas ****
+
+	Palancas: "...., ATP"
+	

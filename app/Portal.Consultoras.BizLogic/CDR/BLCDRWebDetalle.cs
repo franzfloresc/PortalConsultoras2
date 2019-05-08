@@ -131,6 +131,18 @@ namespace Portal.Consultoras.BizLogic.CDR
 
             return resultado;
         }
-
+        
+        public int ValCUVEnProcesoReclamo(int paisId, int pedidoId, string cuv)
+        {
+            try
+            {
+                var daCdrWebDetalle = new DACDRWebDetalle(paisId);
+                return daCdrWebDetalle.ValCUVEnProcesoReclamo(pedidoId, cuv);
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
     }
 }

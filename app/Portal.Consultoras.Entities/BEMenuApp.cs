@@ -43,5 +43,8 @@ namespace Portal.Consultoras.Entities
         public int ZonaID { get; set; }
         [DataMember]
         public int CampaniaID { get; set; }
+        [DataMember]
+        [Column("FlagMenuNuevo")]
+        public int FlagMenuNuevo { get; set; }
     }
 }

@@ -55,9 +55,9 @@ function ValidarLoginNormal(fnFinal) {
     var password = $('#txtPassword').val();
 
     var arrayMessage = [];
-    if (IsNullOrEmpty(paisISO)) arrayMessage.push('Seleccione un pais');
-    if (IsNullOrEmpty(user)) arrayMessage.push('Ingrese su código de usuario');
-    if (IsNullOrEmpty(password)) arrayMessage.push('Ingrese su password');
+    if (IsNullOrEmpty(paisISO)) arrayMessage.push('Seleccione un país');
+    if (IsNullOrEmpty(user)) arrayMessage.push('Ingrese el usuario');
+    if (IsNullOrEmpty(password)) arrayMessage.push('Ingrese su contraseña');
 
     if (arrayMessage.length > 0) MostrarArrayMensaje(arrayMessage);
     else if ($.isFunction(fnFinal)) {

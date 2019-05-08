@@ -234,12 +234,14 @@ namespace Portal.Consultoras.BizLogic
 
         private void SetCatalogoRevistaCodigoIssuu(string codigoZona, BECatalogoRevista catalogoRevista)
         {
-            string codigo = null;
+            string codigo;
             bool esRevistaPiloto = false;
-            var Grupos = ConfigurationManager.AppSettings[Constantes.ConfiguracionManager.RevistaPiloto_Grupos + catalogoRevista.PaisISO + catalogoRevista.CampaniaID];
             string codeGrupo = null;
             string nroCampania = string.Empty;
             string anioCampania = string.Empty;
+            var datos = new BLTablaLogicaDatos().GetListCache(Util.GetPaisID(catalogoRevista.PaisISO),
+                Constantes.ConfiguracionManager.RevistaCatalogoTablaLogicaId);
+            var Grupos = GetValueByCode(datos, Constantes.ConfiguracionManager.RevistaPiloto_Grupos + catalogoRevista.PaisISO + catalogoRevista.CampaniaID);
 
             if (catalogoRevista.CampaniaID.ToString().Length >= 6)
                 nroCampania = catalogoRevista.CampaniaID.Substring(4, 2);
@@ -253,11 +255,11 @@ namespace Portal.Consultoras.BizLogic
 
                     foreach (var grupo in Grupos.Split(','))
                     {
-                        var zonas = ConfigurationManager.AppSettings[Constantes.ConfiguracionManager.RevistaPiloto_Zonas + catalogoRevista.PaisISO + catalogoRevista.CampaniaID + "_" + grupo];
-                        esRevistaPiloto = zonas.Split(new char[1] { ',' }).Select(zona => zona.Trim()).Contains(codigoZona);
+                        var zonas = GetValueByCode(datos,Constantes.ConfiguracionManager.RevistaPiloto_Zonas + catalogoRevista.PaisISO + catalogoRevista.CampaniaID + "_" + grupo);
+                        esRevistaPiloto = zonas.Split(',').Select(zona => zona.Trim()).Contains(codigoZona);
                         if (esRevistaPiloto)
                         {
-                            codeGrupo = grupo.Trim().ToString();
+                            codeGrupo = grupo.Trim();
                             break;
                         }
                     }
@@ -286,11 +288,13 @@ namespace Portal.Consultoras.BizLogic
             string nombreCatalogoIssuu = null;
             string nombreCatalogoConfig = null;
             string CodeGrup = null;
-            string requestUrl = null;
+            string requestUrl;
             bool esRevistaPiloto = false;
-            string Grupos = null;
-            string marcas = ConfigurationManager.AppSettings[Constantes.ConfiguracionManager.Catalogo_Marca_Piloto + CodigoISO + campania] ?? "";
-            bool esMarcaEspecial = false;
+            string Grupos;
+            bool esMarcaEspecial;
+            var datos = new BLTablaLogicaDatos().GetListCache(Util.GetPaisID(CodigoISO),
+                Constantes.ConfiguracionManager.RevistaCatalogoTablaLogicaId);
+            string marcas = GetValueByCode(datos, Constantes.ConfiguracionManager.Catalogo_Marca_Piloto + CodigoISO + campania);
 
             switch (idMarcaCatalogo)
             {
@@ -311,19 +315,19 @@ namespace Portal.Consultoras.BizLogic
                     break;
             }
 
-            Grupos = ConfigurationManager.AppSettings[Constantes.ConfiguracionManager.Catalogo_Piloto_Grupos + nombreCatalogoConfig + Constantes.ConfiguracionManager.SubGuion + CodigoISO + campania] ?? "";
-            esMarcaEspecial = marcas.Split(new char[1] { ',' }).Select(marca => marca.Trim()).Contains(nombreCatalogoConfig);
+            Grupos = GetValueByCode(datos, Constantes.ConfiguracionManager.Catalogo_Piloto_Grupos + nombreCatalogoConfig + Constantes.ConfiguracionManager.SubGuion + CodigoISO + campania);
+            esMarcaEspecial = marcas.Split(',').Select(marca => marca.Trim()).Contains(nombreCatalogoConfig);
 
 
             if (!string.IsNullOrEmpty(Grupos))
             {
                 foreach (var grupo in Grupos.Split(','))
                 {
-                    var zonas = ConfigurationManager.AppSettings[Constantes.ConfiguracionManager.Catalogo_Piloto_Zonas + nombreCatalogoConfig + Constantes.ConfiguracionManager.SubGuion + CodigoISO + campania + Constantes.ConfiguracionManager.SubGuion + grupo] ?? "";
-                    esRevistaPiloto = zonas.Split(new char[1] { ',' }).Select(zona => zona.Trim()).Contains(CodigoZona);
+                    var zonas = GetValueByCode(datos, Constantes.ConfiguracionManager.Catalogo_Piloto_Zonas + nombreCatalogoConfig + Constantes.ConfiguracionManager.SubGuion + CodigoISO + campania + Constantes.ConfiguracionManager.SubGuion + grupo);
+                    esRevistaPiloto = zonas.Split(',').Select(zona => zona.Trim()).Contains(CodigoZona);
                     if (esRevistaPiloto)
                     {
-                        CodeGrup = grupo.Trim().ToString();
+                        CodeGrup = grupo.Trim();
                         break;
                     }
                 }
@@ -332,10 +336,12 @@ namespace Portal.Consultoras.BizLogic
                 esRevistaPiloto = false;
 
             if (esRevistaPiloto && esMarcaEspecial)
-                requestUrl = string.Format(codigo, nombreCatalogoIssuu, GetPaisNombreByISO(CodigoISO), nroCampania, anioCampania, CodeGrup.Replace(Constantes.ConfiguracionManager.Catalogo_Piloto_Escenario, ""));
+            {
+                requestUrl = string.Format(codigo, nombreCatalogoIssuu, Util.GetPaisNombreByISO(CodigoISO), nroCampania, anioCampania, CodeGrup.Replace(Constantes.ConfiguracionManager.Catalogo_Piloto_Escenario, ""));
+            }
             else
             {
-                requestUrl = string.Format(codigo, nombreCatalogoIssuu, GetPaisNombreByISO(CodigoISO), campania.Substring(4, 2), campania.Substring(0, 4), "");
+                requestUrl = string.Format(codigo, nombreCatalogoIssuu, Util.GetPaisNombreByISO(CodigoISO), campania.Substring(4, 2), campania.Substring(0, 4), "");
                 requestUrl = Util.Trim(requestUrl.Substring(requestUrl.Length - 1)) == "." ? requestUrl.Substring(0, requestUrl.Length - 1) : requestUrl;
             }
 
@@ -414,7 +420,11 @@ namespace Portal.Consultoras.BizLogic
             if (doc == null) return;
 
             var ndoc = doc["document"];
+            string titutlo = ndoc.Value<string>("title");
+            string Descripcion = ndoc.Value<string>("name");
 
+            catalogoRevista.CatalogoTitulo = titutlo;
+            catalogoRevista.CatalogoDescripcion = Descripcion;
             catalogoRevista.UrlVisor = string.Format(ServiceSettings.Instance.UrlIssuu, catalogoRevista.CodigoIssuu);
             catalogoRevista.UrlImagen = string.Format("https://image.issuu.com/{0}/jpg/page_1_thumb_medium.jpg", ndoc["documentId"]);
         }
@@ -448,26 +458,13 @@ namespace Portal.Consultoras.BizLogic
             }
         }
 
-        private string GetPaisNombreByISO(string paisISO)
+        public string GetValueByCode(List<BETablaLogicaDatos> datos, string codigo)
         {
-            switch (paisISO)
-            {
-                case Constantes.CodigosISOPais.Argentina: return "argentina";
-                case Constantes.CodigosISOPais.Bolivia: return "bolivia";
-                case Constantes.CodigosISOPais.Chile: return "chile";
-                case Constantes.CodigosISOPais.Colombia: return "colombia";
-                case Constantes.CodigosISOPais.CostaRica: return "costarica";
-                case Constantes.CodigosISOPais.Dominicana: return "republicadominicana";
-                case Constantes.CodigosISOPais.Ecuador: return "ecuador";
-                case Constantes.CodigosISOPais.Guatemala: return "guatemala";
-                case Constantes.CodigosISOPais.Mexico: return "mexico";
-                case Constantes.CodigosISOPais.Panama: return "panama";
-                case Constantes.CodigosISOPais.Peru: return "peru";
-                case Constantes.CodigosISOPais.PuertoRico: return "puertorico";
-                case Constantes.CodigosISOPais.Salvador: return "elsalvador";
-                case Constantes.CodigosISOPais.Venezuela: return "venezuela";
-                default: return "sinpais";
-            }
+            datos = datos ?? new List<BETablaLogicaDatos>();
+
+            var par = datos.FirstOrDefault(d => d.Codigo == codigo) ?? new BETablaLogicaDatos();
+
+            return Util.Trim(par.Valor);
         }
         #endregion
 

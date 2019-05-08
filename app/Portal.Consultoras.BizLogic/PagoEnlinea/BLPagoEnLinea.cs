@@ -9,6 +9,7 @@ using System.Data;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Portal.Consultoras.BizLogic.RevistaDigital;
 
 namespace Portal.Consultoras.BizLogic.PagoEnlinea
 {
@@ -145,10 +146,12 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
 
         private void CargarConfiguracion_MedioPagoDetalle(int paisId, List<BEPagoEnLineaMedioPagoDetalle> pagoEnLineaMedioPagoDetalles)
         {
-            pagoEnLineaMedioPagoDetalles.ForEach(item => {
-                switch (item.TipoPasarelaCodigoPlataforma) {
+            pagoEnLineaMedioPagoDetalles.ForEach(item =>
+            {
+                switch (item.TipoPasarelaCodigoPlataforma)
+                {
                     case Constantes.PagoEnLineaMetodoPago.PasarelaVisa:
-                        if(item.TipoTarjeta == Constantes.PagoEnLineaTipoTarjeta.Credito) CargarConfiguracion_MedioPagoDetalle_Visa(paisId, item);
+                        if (item.TipoTarjeta == Constantes.PagoEnLineaTipoTarjeta.Credito) CargarConfiguracion_MedioPagoDetalle_Visa(paisId, item);
                         break;
                     case Constantes.PagoEnLineaMetodoPago.PasarelaBelcorpPayU:
                         CargarConfiguracion_MedioPagoDetalle_Payu(paisId, item);
@@ -238,7 +241,7 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
             return new BLResumenCampania().GetMontoDeuda(paisId, 0, (int)consultoraId, codigoUsuario, true);
         }
 
-        public BEPagoEnLinea ObtenerPagoEnLineaConfiguracion(int paisId, long consultoraId, string codigoUsuario)
+        public BEPagoEnLinea ObtenerPagoEnLineaConfiguracion(int paisId, long consultoraId, string codigoUsuario, int esDigital, DateTime fechaVencimiento)
         {
             var result = new BEPagoEnLinea();
             List<BETablaLogicaDatos> listaConfiguracion = null;
@@ -261,6 +264,21 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
             {
                 var pagoBancaPorInternet = result.ListaMedioPago.FirstOrDefault(e => e.Codigo == Constantes.PagoEnLineaPasarela.PBI && e.Estado);
                 if (pagoBancaPorInternet != null) pagoBancaPorInternet.Estado = false;
+            }
+
+            //Paises con comision 0 para consultora digital y que no pasen su fecha de vencimiento
+            var comision = listaConfiguracion.FirstOrDefault(e => e.Codigo == Constantes.TablaLogicaDato.PagoEnLinea.Habilitar_Comision_Cero);
+
+            comision = comision ?? new BETablaLogicaDatos();
+
+            var evaluacion = esDigital == 1 && fechaVencimiento >= DateTime.Now.Date && !string.IsNullOrEmpty(comision.Valor) && comision.Valor=="1";
+
+            if (evaluacion)
+            {
+                result.ListaMetodoPago.ForEach(e =>
+                {
+                    e.PorcentajeGastosAdministrativos = evaluacion ? 0 : e.PorcentajeGastosAdministrativos;
+                });
             }
 
             result.ListaMedioPago.ForEach(e =>
@@ -289,9 +307,9 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
             if (listaConfiguracionPasarelaVisa != null)
             {
                 result.EndPointURL = ObtenerValoresTipoPasarela(listaConfiguracionPasarelaVisa, pasarela, Constantes.PagoEnLineaPasarelaVisa.UrlAutorizacionPagoApp);
-                result.MerchantId = ObtenerValoresTipoPasarela(listaConfiguracionPasarelaVisa, pasarela, Constantes.PagoEnLineaPasarelaVisa.MerchantId);
-                result.AccessKeyId = ObtenerValoresTipoPasarela(listaConfiguracionPasarelaVisa, pasarela, Constantes.PagoEnLineaPasarelaVisa.AccessKeyId);
-                result.SecretAccessKey = ObtenerValoresTipoPasarela(listaConfiguracionPasarelaVisa, pasarela, Constantes.PagoEnLineaPasarelaVisa.SecretAccessKey);
+                result.MerchantId = ObtenerValoresTipoPasarela(listaConfiguracionPasarelaVisa, pasarela, Constantes.PagoEnLineaPasarelaVisa.MerchantIdApp);
+                result.AccessKeyId = ObtenerValoresTipoPasarela(listaConfiguracionPasarelaVisa, pasarela, Constantes.PagoEnLineaPasarelaVisa.AccessKeyIdApp);
+                result.SecretAccessKey = ObtenerValoresTipoPasarela(listaConfiguracionPasarelaVisa, pasarela, Constantes.PagoEnLineaPasarelaVisa.SecretAccessKeyApp);
                 result.NextCounterURL = ObtenerValoresTipoPasarela(listaConfiguracionPasarelaVisa, pasarela, Constantes.PagoEnLineaPasarelaVisa.UrlGenerarNumeroPedido);
                 result.TerminosUsoURL = ObtenerValoresTipoPasarela(listaConfiguracionPasarelaVisa, pasarela, Constantes.PagoEnLineaPasarelaVisa.UrlTerminosUsoApp);
                 result.Recurrence = Constantes.PagoEnLineaPasarelaVisa.Recurrence;

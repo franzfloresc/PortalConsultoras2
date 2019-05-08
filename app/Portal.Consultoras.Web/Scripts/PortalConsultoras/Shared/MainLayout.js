@@ -2,10 +2,12 @@
 var showDisplayODD = 0;
 var ventanaChat = null;
 
+
 $(document).ready(function () {
+
     LayoutHeader();
     LayoutMenu();
-
+    CargarCantidadNotificacionesSinLeer();
     OcultarChatEmtelco();
 
     $(document).on('click', function () {
@@ -155,7 +157,7 @@ $(document).ready(function () {
     HandlebarsRegisterHelper();
     SetFormatDecimalPais(formatDecimalPaisMain);
     CargarResumenCampaniaHeader();
-    CargarCantidadNotificacionesSinLeer();
+
 
     $('#alertDialogMensajes').dialog({
         autoOpen: false,
@@ -406,22 +408,29 @@ function CargarResumenCampaniaHeader(showPopup) {
 }
 
 function CargarCantidadNotificacionesSinLeer() {
-    jQuery.ajax({
-        type: 'POST',
-        url: baseUrl + "Notificaciones/GetNotificacionesSinLeer",
-        data: '',
-        cache: false,
+    var sparam = localStorage.getItem('KeyPseudoParam'); //SALUD-58
+    $.ajax({
+        type: 'GET',
+        url: baseUrl + "Notificaciones/GetNotificacionesSinLeer?pseudoParam=" + sparam + "&codigoUsuario=" + codigoConsultora + "",
+        data: {},
+        cache: true,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
             if (checkTimeout(data)) {
+
                 if (data.cantidadNotificaciones > 0) {
+                    $('#mensajeSinNotificaciones').hide();
+                    $('#mensajeNotificaciones').show();
+
                     $(document).find(".js-notificaciones2").html(data.cantidadNotificaciones);
                     $(document).find(".js-notificaciones").html(data.cantidadNotificaciones);
                     $(document).find(".js-notificaciones").addClass("notificaciones_activas");
                     $(document).find(".js-cantidad_notificaciones").html(data.cantidadNotificaciones);
                 } else {
-                    $(document).find(".aviso_mensajes").html('NO <b>TIENES MENSAJES SIN LEER</b>');
+                    $('#mensajeSinNotificaciones').show();
+                    $('#mensajeNotificaciones').hide();
+                    $(document).find(".aviso_mensajes").html('No <b>tienes notificaciones nuevas</b>');
                     $(document).find(".js-notificaciones").html(0);
                     $(document).find(".js-notificaciones").removeClass("notificaciones_activas");
                     $(document).find("#mensajeNotificaciones").html("No tienes notificaciones. ");
@@ -431,7 +440,7 @@ function CargarCantidadNotificacionesSinLeer() {
             }
         },
         error: function (data, error) { }
-    });
+    })
 }
 
 function AbrirModalFeErratas() {
@@ -481,7 +490,7 @@ function SeparadorMiles(pnumero) {
 
     if (numero.indexOf(",") >= 0) nuevoNumero = nuevoNumero.substring(0, nuevoNumero.indexOf(","));
 
-    for (var i = nuevoNumero.length - 1, j = 0; i >= 0; i--, j++)
+    for (var i = nuevoNumero.length - 1, j = 0; i >= 0; i-- , j++)
         resultado = nuevoNumero.charAt(i) + ((j > 0) && (j % 3 == 0) ? "." : "") + resultado;
 
     if (numero.indexOf(",") >= 0) resultado += numero.substring(numero.indexOf(","));
@@ -1134,7 +1143,7 @@ function getQtyPedidoDetalleByCuvODD(cuv2, tipoEstrategiaID) {
     return qty;
 }
 
-function messageConfirmacion(title, message, fnAceptar) {
+function messageConfirmacion(title, message, fnAceptar, fnCancelar) {
     title = $.trim(title);
     if (title == "")
         title = "MENSAJE";
@@ -1150,6 +1159,10 @@ function messageConfirmacion(title, message, fnAceptar) {
     if ($.isFunction(fnAceptar)) {
         $('#divMensajeConfirmacion .btnMensajeAceptar').off('click');
         $('#divMensajeConfirmacion .btnMensajeAceptar').on('click', fnAceptar);
+    }
+    if ($.isFunction(fnCancelar)) {
+        $('#divMensajeConfirmacion .btnMensajeCancelar').off('click');
+        $('#divMensajeConfirmacion .btnMensajeCancelar').on('click', fnCancelar);
     }
 }
 

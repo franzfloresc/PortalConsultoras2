@@ -1,15 +1,13 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
-using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
-using Portal.Consultoras.Web.Providers;
-using Portal.Consultoras.Web.Models;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -18,11 +16,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatosProvider;
         private readonly BienvenidaProvider _bienvenidaProvider;
         protected TablaLogicaProvider _tablaLogica;
+        private readonly CaminoBrillanteProvider _caminoBrillanteProvider;
         public BienvenidaController()
         {
             _configuracionPaisDatosProvider = new ConfiguracionPaisDatosProvider();
             _tablaLogica = new TablaLogicaProvider();
             _bienvenidaProvider = new BienvenidaProvider();
+            _caminoBrillanteProvider = new CaminoBrillanteProvider();
         }
 
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
@@ -95,7 +95,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.TieneMasVendidos = userData.TieneMasVendidos;
                 model.TieneAsesoraOnline = userData.TieneAsesoraOnline;
                 model.ActivacionAppCatalogoWhastUp = ObtenerActivacionAppCatalogoWhastUp();
-                model.ShowRoomMostrarLista = ValidarPermiso(Constantes.MenuCodigo.CatalogoPersonalizado) ? 0 : 1;
+                model.ShowRoomMostrarLista = (!ValidarPermiso(Constantes.MenuCodigo.CatalogoPersonalizado)).ToInt();
 
                 ViewBag.paisISO = userData.CodigoISO;
                 ViewBag.Ambiente = _configuracionManagerProvider.GetBucketNameFromConfig();
@@ -121,17 +121,31 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
 
                 ViewBag.VerSeccion = verSeccion;
-                
+
                 model.TipoPopUpMostrar = _bienvenidaProvider.ObtenerTipoPopUpMostrar(EsDispositivoMovil());
 
                 model.TienePagoEnLinea = userData.TienePagoEnLinea;
                 model.ConsultoraNuevaBannerAppMostrar = SessionManager.GetConsultoraNuevaBannerAppMostrar();
                 model.MostrarPagoEnLinea = (userData.MontoDeuda > 0);
 
+                #region Camino Brillante
+                if (userData.CaminoBrillante)
+                {
+                    model.TieneCaminoBrillante = userData.CaminoBrillante;
+
+                    _caminoBrillanteProvider.LoadCaminoBrillante();
+                    var nivelConsultoraCaminoBrillante = _caminoBrillanteProvider.GetNivelActual();
+                    if (nivelConsultoraCaminoBrillante != null)
+                    {
+                        model.CaminoBrillanteMsg = userData.CaminoBrillanteMsg.Replace("{0}", "<b>" + nivelConsultoraCaminoBrillante.DescripcionNivel + "</b>");
+                        model.UrlLogoCaminoBrillante = nivelConsultoraCaminoBrillante.UrlImagenNivelFull;
+                    }
+                }
+                #endregion
 
                 #region Camino al Exito
 
-                var LogicaCaminoExisto = _tablaLogica.ObtenerConfiguracion(userData.PaisID, Constantes.TablaLogica.EscalaDescuentoMobile);
+                var LogicaCaminoExisto = _tablaLogica.GetTablaLogicaDatos(userData.PaisID, Constantes.TablaLogica.EscalaDescuentoMobile);
                 if (LogicaCaminoExisto.Any())
                 {
                     var CaminoExistoFirst = LogicaCaminoExisto.FirstOrDefault(x => x.TablaLogicaDatosID == Constantes.TablaLogicaDato.ActualizaEscalaDescuentoMobile) ?? new TablaLogicaDatosModel();
@@ -146,6 +160,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 #endregion
 
+                #region bonificaciones 
+
+                ViewBag.esConsultoraDigital = IndicadorConsultoraDigital();
+
+                #endregion
             }
             catch (FaultException ex)
             {
@@ -223,11 +242,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private int ObtenerActivacionAppCatalogoWhastUp()
         {
-            string paisesCatalogoWhatsUp = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesCatalogoWhatsUp);
+            bool paisesCatalogoWhatsUp = _configuracionManagerProvider.GetConfiguracionManagerContains(Constantes.ConfiguracionManager.PaisesCatalogoWhatsUp, userData.CodigoISO);
 
-            var activacionAppCatalogoWhastUp = paisesCatalogoWhatsUp.Contains(userData.CodigoISO) ? 1 : 0;
-
-            return activacionAppCatalogoWhastUp;
+            return paisesCatalogoWhatsUp.ToInt();
         }
 
         private string ObtenerNombreConsultoraFav()
@@ -236,7 +253,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             nombreConsultoraFav = Util.SubStr(nombreConsultoraFav, 0, 1).ToUpper() + Util.SubStr(nombreConsultoraFav.ToLower(), 1);
             return nombreConsultoraFav;
         }
-        
+
         [HttpPost]
         public JsonResult ValidacionConsultoraDA()
         {
@@ -325,7 +342,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             try
             {
                 var lstComunicados = _comunicadoProvider.ObtenerComunicadoPorConsultora(userData, EsDispositivoMovil());
-                lstComunicados = lstComunicados.Where(x => Constantes.Comunicado.Extraordinarios.IndexOf(x.Descripcion) == -1).ToList();
+                lstComunicados = lstComunicados.Where(x => x.TipoComunicado == Constantes.Comunicado.TipoComunicado.PopUp).ToList();
+
                 if (lstComunicados != null) oComunicados = lstComunicados.FirstOrDefault();
 
                 return Json(new
@@ -461,6 +479,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-        
+
     }
 }
