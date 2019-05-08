@@ -48,6 +48,7 @@
       <xs:element minOccurs="0" name="CodigoReclamo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Descripcion2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DetalleReemplazo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Eliminado" type="xs:boolean" />
       <xs:element minOccurs="0" name="Estado" type="xs:int" />
       <xs:element minOccurs="0" name="FechaRegistro" type="xs:dateTime" />

@@ -469,6 +469,9 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         private string Descripcion2Field;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DetalleReemplazoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EliminadoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -659,6 +662,19 @@ namespace Portal.Consultoras.Web.ServiceCDR {
                 if ((object.ReferenceEquals(this.Descripcion2Field, value) != true)) {
                     this.Descripcion2Field = value;
                     this.RaisePropertyChanged("Descripcion2");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DetalleReemplazo {
+            get {
+                return this.DetalleReemplazoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DetalleReemplazoField, value) != true)) {
+                    this.DetalleReemplazoField = value;
+                    this.RaisePropertyChanged("DetalleReemplazo");
                 }
             }
         }

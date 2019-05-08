@@ -556,13 +556,28 @@
             {{else if_eq CodigoOperacion 'G'}}
             {{item.SolucionSolicitada}}
             {{else if_eq CodigoOperacion 'T'}}
+            {{#if item.DetalleReemplazo}}
+            {{#each item.DetalleReemplazo as |subItem|}}
+            {{subItem.CUV}}
+            <br />
+            <b>{{subItem.Descripcion}}</b>
+            <br />
+            {{subItem.Cantidad}} unidades
+            <br />
+            Precio: {{SimboloMoneda}} {{DecimalToStringFormat subItem.Precio}}
+            <br />
+            {{/each}}
+            {{else}}
             {{item.CUV2}}
             <br />
             <b>{{item.Descripcion2}}</b>
             <br />
             {{item.Cantidad2}} unidades
             <br />
-            Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio2}}
+            {{/if}}
+            <br />
+            <br />
+            Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Total}}
             {{else}}
 
             {{/if_eq}}
@@ -608,13 +623,28 @@
             {{else if_eq CodigoOperacion 'G'}}
             {{item.SolucionSolicitada}}
             {{else if_eq CodigoOperacion 'T'}}
+            {{#if item.DetalleReemplazo}}
+            {{#each item.DetalleReemplazo as |subItem|}}
+            {{subItem.CUV}}
+            <br />
+            <b>{{subItem.Descripcion}}</b>
+            <br />
+            {{subItem.Cantidad}} unidades
+            <br />
+            Precio: {{SimboloMoneda}} {{DecimalToStringFormat subItem.Precio}}
+            <br />
+            {{/each}}
+            {{else}}
             {{item.CUV2}}
             <br />
             <b>{{item.Descripcion2}}</b>
             <br />
             {{item.Cantidad2}} unidades
             <br />
-            Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio2}}
+            {{/if}}
+            <br />
+            <br />
+            Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Total}}
             {{else}}
 
             {{/if_eq}}

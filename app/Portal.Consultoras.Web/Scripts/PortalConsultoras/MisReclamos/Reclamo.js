@@ -408,19 +408,19 @@ function CUV2Cambio() {
     return cambio;
 }
 
-function EvaluarCUV2() {
+//function EvaluarCUV2() {
 
-    if (!CUV2Cambio()) return false;
+//    if (!CUV2Cambio()) return false;
 
-    if (cuv2PrevVal.length == 5) BuscarCUVCambiar(cuv2PrevVal);
-    else {
-        $("#txtCUVDescripcion2").val("");
-        $("#txtCUVPrecio2").val("");
-        $("#hdImporteTotal2").val(0);
-        $("#spnImporteTotal2").html("");
-        $("#MontoTotalProductoACambiar").fadeOut(100);
-    }
-}
+//    if (cuv2PrevVal.length == 5) BuscarCUVCambiar(cuv2PrevVal);
+//    else {
+//        $("#txtCUVDescripcion2").val("");
+//        $("#txtCUVPrecio2").val("");
+//        $("#hdImporteTotal2").val(0);
+//        $("#spnImporteTotal2").html("");
+//        $("#MontoTotalProductoACambiar").fadeOut(100);
+//    }
+//}
 
 function alertEMail_msg(message, titulo) {
     titulo = titulo || "MENSAJE";
@@ -538,58 +538,58 @@ function SeleccionarCUVBusqueda(tag) {
     ObtenerDatosCuv();
 }
 
-function BuscarCUVCambiar(cuv) {
-    cuv = $.trim(cuv) || $.trim($("#txtCUV2").val());
-    var CampaniaId = $.trim($("#ddlCampania").val()) || 0;
-    if (CampaniaId <= 0 || cuv.length < 5)
-        return false;
+//function BuscarCUVCambiar(cuv) {
+//    cuv = $.trim(cuv) || $.trim($("#txtCUV2").val());
+//    var CampaniaId = $.trim($("#ddlCampania").val()) || 0;
+//    if (CampaniaId <= 0 || cuv.length < 5)
+//        return false;
 
-    var PedidoId = $.trim($("#txtPedidoID").val()) || 0;
+//    var PedidoId = $.trim($("#txtPedidoID").val()) || 0;
 
-    var item = {
-        CampaniaID: CampaniaId,
-        PedidoID: PedidoId,
-        CDRWebID: $("#CDRWebID").val(),
-        CUV: cuv
-    };
+//    var item = {
+//        CampaniaID: CampaniaId,
+//        PedidoID: PedidoId,
+//        CDRWebID: $("#CDRWebID").val(),
+//        CUV: cuv
+//    };
 
-    waitingDialog();
-    jQuery.ajax({
-        type: 'POST',
-        url: baseUrl + 'MisReclamos/BuscarCuvCambiar',
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(item),
-        cache: false,
-        success: function (data) {
-            closeWaitingDialog();
-            if (!checkTimeout(data))
-                return false;
-            if (data[0].MarcaID != 0) {
-                var descripcion = data[0].Descripcion;
-                var precio = data[0].PrecioCatalogo;
+//    waitingDialog();
+//    jQuery.ajax({
+//        type: 'POST',
+//        url: baseUrl + 'MisReclamos/BuscarCuvCambiar',
+//        dataType: 'json',
+//        contentType: 'application/json; charset=utf-8',
+//        data: JSON.stringify(item),
+//        cache: false,
+//        success: function (data) {
+//            closeWaitingDialog();
+//            if (!checkTimeout(data))
+//                return false;
+//            if (data[0].MarcaID != 0) {
+//                var descripcion = data[0].Descripcion;
+//                var precio = data[0].PrecioCatalogo;
 
-                $("#txtCUVDescripcion2").val(descripcion);
-                $("#txtCUVPrecio2").val(DecimalToStringFormat(precio));
-                $("#hdCuvPrecio2").val(precio);
+//                $("#txtCUVDescripcion2").val(descripcion);
+//                $("#txtCUVPrecio2").val(DecimalToStringFormat(precio));
+//                $("#hdCuvPrecio2").val(precio);
 
-                var cantidad = $("#txtCantidad2").val();
-                $("#hdImporteTotal2").val(precio * cantidad);
-                $("#spnImporteTotal2").html(DecimalToStringFormat(precio * cantidad));
-                $("#MontoTotalProductoACambiar").fadeIn(100);
-            } else {
-                $("#txtCUVDescripcion2").val("");
-                $("#txtCUVPrecio2").val("");
-                $("#hdImporteTotal2").val(0);
-                $("#spnImporteTotal2").html("");
-                alert_msg(data[0].CUV);
-            }
-        },
-        error: function (data, error) {
-            closeWaitingDialog();
-        }
-    });
-}
+//                var cantidad = $("#txtCantidad2").val();
+//                $("#hdImporteTotal2").val(precio * cantidad);
+//                $("#spnImporteTotal2").html(DecimalToStringFormat(precio * cantidad));
+//                $("#MontoTotalProductoACambiar").fadeIn(100);
+//            } else {
+//                $("#txtCUVDescripcion2").val("");
+//                $("#txtCUVPrecio2").val("");
+//                $("#hdImporteTotal2").val(0);
+//                $("#spnImporteTotal2").html("");
+//                alert_msg(data[0].CUV);
+//            }
+//        },
+//        error: function (data, error) {
+//            closeWaitingDialog();
+//        }
+//    });
+//}
 
 function ValidarVisualizacionBannerResumen() {
     var cantidadDetalles = $("#spnCantidadUltimasSolicitadas").html();
@@ -893,9 +893,11 @@ function DetalleGuardar(operacionId, callbackWhenFinish) {
         items.each(function (i, el) {
             var $el = $(el);
             var obj = {
-                cuv: $($el).find("input[name=codigo]").attr("data-codigo"),
-                cantidad: $($el).find("input[name=cantidad]").val(),
-                descripcion: $($el).find("input[name=descripcion]").attr("data-descripcion")
+                cuv: $el.find("input[name=codigo]").attr("data-codigo"),
+                precio: $el.find("input[name=precio]").attr("data-precio"),
+                simbolo: variablesPortal.SimboloMoneda,
+                cantidad: $el.find("input[name=cantidad]").val(),
+                descripcion: $el.find("input[name=descripcion]").attr("data-descripcion")
             };
 
             Reemplazo.push(obj);
@@ -1125,6 +1127,7 @@ function DetalleCargar() {
         }
 
         $("#spnCantidadUltimasSolicitadas").html(data.detalle.length);
+        ObtenerDetalleReemplazo(data);
         SetHandlebars("#template-detalle-banner", data.detalle, "#divDetalleUltimasSolicitudes");
         ValidarVisualizacionBannerResumen();
 
@@ -1134,6 +1137,59 @@ function DetalleCargar() {
         if (data.esCDRExpress) $("#TipoDespacho").show();
         else $("#TipoDespacho").hide();
     });
+
+
+}
+
+function ObtenerDetalleReemplazo(data) {
+    try {
+        if (data.detalle.length > 0) {
+            $.each(data.detalle, function (index, v) {
+                if (v.XMLReemplazo.length > 0) {
+
+                    var xml;
+                    if (window.DOMParser) {
+                        parser = new DOMParser();
+                        xml = parser.parseFromString(v.XMLReemplazo, "text/xml");
+                    }
+                    else //IE
+                    {
+                        xml = new ActiveXObject("Microsoft.XMLDOM");
+                        xml.async = false;
+                        xml.loadXML(v.XMLReemplazo);
+                    }
+                    var arrReemplazo = [];
+                    var rows = xml.getElementsByTagName("reemplazo");
+                    var total = 0;
+                    for (var i = 0; i < rows.length; i++) {
+                        var precio = rows[i].getElementsByTagName("precio")[0].textContent;
+
+                        var obj = {
+                            CUV: rows[i].getElementsByTagName("cuv")[0].textContent,
+                            Cantidad: rows[i].getElementsByTagName("cantidad")[0].textContent,
+                            Descripcion: rows[i].getElementsByTagName("descripcion")[0].textContent,
+                            Precio: precio,
+                            Simbolo: rows[i].getElementsByTagName("simbolo")[0].textContent,
+                            Estado: rows[i].getElementsByTagName("estado")[0].textContent
+                        };
+                        total = total + parseFloat(precio);
+
+                        arrReemplazo.push(obj);
+                    }
+                    data.detalle[index].DetalleReemplazo = arrReemplazo;
+                    data.detalle[index].Total = total;
+
+                }
+                else {
+                    data.detalle[index].DetalleReemplazo = [];
+                    data.detalle[index].Total = 0;
+                }
+            });
+        }
+    } catch (e) {
+        console.log(e.message);
+    }
+
 }
 
 function DetalleEliminar(objItem) {
@@ -1813,4 +1869,3 @@ function BuscarCUVCambiarServer(cuv, callbackWhenFinish) {
 
     });
 }
-

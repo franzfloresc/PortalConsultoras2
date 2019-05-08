@@ -251,8 +251,24 @@
             {{item.Cantidad}} unidades<br>
             Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio}}
         </div>
+
         <div class="pop_solicitud_tipo">
-            <b>{{item.Solicitud}}</b>
+            <div class="listado_solicitud_reclamo_icono_solucion">
+                {{#if_eq item.CodigoOperacion 'D'}}
+                <img src="@Url.Content("~/Content/Images/opcion_devolucion_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
+                {{else if_eq item.CodigoOperacion 'T'}}
+                <img src="@Url.Content("~/Content/Images/opcion_cambio_otro_producto_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
+                {{else if_eq item.CodigoOperacion 'C' }}
+                <img src="@Url.Content("~/Content/Images/opcion_cambio_mismo_producto_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
+                {{else if_eq item.CodigoOperacion 'F' }}
+                <img src="@Url.Content("~/Content/Images/opcion_cambio_mismo_producto_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
+                {{else if_eq item.CodigoOperacion 'G' }}
+                <img src="@Url.Content("~/Content/Images/opcion_devolucion_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
+                {{/if_eq}}
+            </div>
+            <div style="text-align:center;">
+                <b>{{item.Solicitud}}</b>
+            </div>
         </div>
         <div class="pop_solicitud_solucion">
             {{#if_eq CodigoOperacion 'C'}}
@@ -264,11 +280,30 @@
             {{else if_eq CodigoOperacion 'G'}}
             {{item.SolucionSolicitada}}
             {{else if_eq CodigoOperacion 'T'}}
-            {{item.CUV2}}<br />
-            <b>{{item.Descripcion2}}</b> <br />
-            {{item.Cantidad2}} unidades<br />
-            Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio2}}
+            {{#if item.DetalleReemplazo}}
+            {{#each item.DetalleReemplazo as |subItem|}}
+            {{subItem.CUV}}
+            <br />
+            <b>{{subItem.Descripcion}}</b>
+            <br />
+            {{subItem.Cantidad}} unidades
+            <br />
+            Precio: {{SimboloMoneda}} {{DecimalToStringFormat subItem.Precio}}
+            <br />
+            {{/each}}
             {{else}}
+            {{item.CUV2}}
+            <br />
+            <b>{{item.Descripcion2}}</b>
+            <br />
+            {{item.Cantidad2}} unidades
+            <br />
+            {{/if}}
+            <br />
+            <br />
+            Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Total}}
+            {{else}}
+
             {{/if_eq}}
         </div>
         <div class="pop_solicitud_resolucion">
@@ -303,7 +338,22 @@
             Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio}}
         </div>
         <div class="pop_solicitud_tipo">
-            <b>{{item.Solicitud}}</b>
+            <div class="listado_solicitud_reclamo_icono_solucion">
+                {{#if_eq item.CodigoOperacion 'D'}}
+                <img src="@Url.Content("~/Content/Images/opcion_devolucion_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
+                {{else if_eq item.CodigoOperacion 'T'}}
+                <img src="@Url.Content("~/Content/Images/opcion_cambio_otro_producto_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
+                {{else if_eq item.CodigoOperacion 'C' }}
+                <img src="@Url.Content("~/Content/Images/opcion_cambio_mismo_producto_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
+                {{else if_eq item.CodigoOperacion 'F' }}
+                <img src="@Url.Content("~/Content/Images/opcion_cambio_mismo_producto_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
+                {{else if_eq item.CodigoOperacion 'G' }}
+                <img src="@Url.Content("~/Content/Images/opcion_devolucion_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
+                {{/if_eq}}
+            </div>
+            <div style="text-align:center;">
+                <b>{{item.Solicitud}}</b>
+            </div>
         </div>
         <div class="pop_solicitud_solucion">
             {{#if_eq CodigoOperacion 'C'}}
@@ -315,11 +365,30 @@
             {{else if_eq CodigoOperacion 'G'}}
             {{item.SolucionSolicitada}}
             {{else if_eq CodigoOperacion 'T'}}
-            {{item.CUV2}}<br />
-            <b>{{item.Descripcion2}}</b> <br />
-            {{item.Cantidad2}} unidades<br />
-            Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio2}}
+            {{#if item.DetalleReemplazo}}
+            {{#each item.DetalleReemplazo as |subItem|}}
+            {{subItem.CUV}}
+            <br />
+            <b>{{subItem.Descripcion}}</b>
+            <br />
+            {{subItem.Cantidad}} unidades
+            <br />
+            Precio: {{SimboloMoneda}} {{DecimalToStringFormat subItem.Precio}}
+            <br />
+            {{/each}}
             {{else}}
+            {{item.CUV2}}
+            <br />
+            <b>{{item.Descripcion2}}</b>
+            <br />
+            {{item.Cantidad2}} unidades
+            <br />
+            {{/if}}
+            <br />
+            <br />
+            Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Total}}
+            {{else}}
+
             {{/if_eq}}
         </div>
         <div class="pop_solicitud_resolucion">
@@ -380,7 +449,22 @@
             Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio}}
         </div>
         <div class="pop_solicitud_tipo">
-            <b>{{item.Solicitud}}</b>
+            <div class="listado_solicitud_reclamo_icono_solucion">
+                {{#if_eq item.CodigoOperacion 'D'}}
+                <img src="@Url.Content("~/Content/Images/opcion_devolucion_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
+                {{else if_eq item.CodigoOperacion 'T'}}
+                <img src="@Url.Content("~/Content/Images/opcion_cambio_otro_producto_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
+                {{else if_eq item.CodigoOperacion 'C' }}
+                <img src="@Url.Content("~/Content/Images/opcion_cambio_mismo_producto_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
+                {{else if_eq item.CodigoOperacion 'F' }}
+                <img src="@Url.Content("~/Content/Images/opcion_cambio_mismo_producto_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
+                {{else if_eq item.CodigoOperacion 'G' }}
+                <img src="@Url.Content("~/Content/Images/opcion_devolucion_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
+                {{/if_eq}}
+            </div>
+            <div style="text-align:center;">
+                <b>{{item.Solicitud}}</b>
+            </div>
         </div>
         <div class="pop_solicitud_solucion">
             {{#if_eq CodigoOperacion 'C'}}
@@ -392,11 +476,30 @@
             {{else if_eq CodigoOperacion 'G'}}
             {{item.SolucionSolicitada}}
             {{else if_eq CodigoOperacion 'T'}}
-            {{item.CUV2}}<br />
-            <b>{{item.Descripcion2}}</b> <br />
-            {{item.Cantidad2}} unidades<br />
-            Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio2}}
+            {{#if item.DetalleReemplazo}}
+            {{#each item.DetalleReemplazo as |subItem|}}
+            {{subItem.CUV}}
+            <br />
+            <b>{{subItem.Descripcion}}</b>
+            <br />
+            {{subItem.Cantidad}} unidades
+            <br />
+            Precio: {{SimboloMoneda}} {{DecimalToStringFormat subItem.Precio}}
+            <br />
+            {{/each}}
             {{else}}
+            {{item.CUV2}}
+            <br />
+            <b>{{item.Descripcion2}}</b>
+            <br />
+            {{item.Cantidad2}} unidades
+            <br />
+            {{/if}}
+            <br />
+            <br />
+            Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Total}}
+            {{else}}
+
             {{/if_eq}}
         </div>
         <div class="pop_solicitud_resolucion"><span class="estado_texto EstadoAceptado">APROBADO</span></div>
@@ -412,7 +515,7 @@
         var imgFoco = '@Url.Content("~/Content/Images/Esika/foco1.png")';
         var imgCarta = '@Url.Content("~/Content/Images/Esika/carta1.png")';
         var urlReclamo = '@Url.Action("Reclamo")';
-        var mensajeGestionCdrInhabilitada = '@Html.Raw(Model.MensajeGestionCdrInhabilitada)';        
+        var mensajeGestionCdrInhabilitada = '@Html.Raw(Model.MensajeGestionCdrInhabilitada)';
     </script>
     <script src="@Url.Content("~/Scripts/PortalConsultoras/MisReclamos/Index.js")?v1"></script>
     <script src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js")"></script>

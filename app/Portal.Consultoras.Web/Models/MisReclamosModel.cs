@@ -50,7 +50,7 @@ namespace Portal.Consultoras.Web.Models
 
         public bool TieneCDRExpress { get; set; }
         public bool EsConsultoraNueva { get; set; }
-      public bool? TipoDespacho { get; set; }
+        public bool? TipoDespacho { get; set; }
         public decimal FleteDespacho { get; set; }
         public string MensajeDespacho { get; set; }
         public bool EsMovilOrigen { get; set; }
@@ -75,8 +75,10 @@ namespace Portal.Consultoras.Web.Models
                         "<cuv>{0}</cuv>" +
                         "<cantidad>{1}</cantidad>" +
                         "<descripcion>{2}</descripcion>" +
-                        "<estado>{3}</estado>" +
-                        "</reemplazo>", item.CUV, item.Cantidad, item.Descripcion, 1);
+                        "<simbolo>{3}</simbolo>" +
+                        "<precio>{4}</precio>" +
+                        "<estado>{5}</estado>" +
+                        "</reemplazo>", item.CUV, item.Cantidad, item.Descripcion, item.Simbolo, item.Precio, 1);
                 }
                 sb.Append("</reemplazos>");
                 strOut = sb.ToString();

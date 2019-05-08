@@ -94,6 +94,7 @@ namespace Portal.Consultoras.Entities.CDR
             TipoMotivoRechazo = row.ToInt32("TipoMotivoRechazo");
             GrupoID = row.ToString("GrupoID");//HD-3703 EINCA
             CUVReemplazo = row.ToString("CUVReemplazo");//HD-3703 EINCA
+            XMLReemplazo = row.ToString("DetalleReemplazo"); //HD-3703 EINCA            
         }
     }
 

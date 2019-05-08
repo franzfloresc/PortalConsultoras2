@@ -10,10 +10,13 @@ using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
 using System.Web.Mvc;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -987,13 +990,12 @@ namespace Portal.Consultoras.Web.Controllers
             };
             return TieneDetalleCDRExpress(_cdrProvider.CargarDetalle(reclamoFiltro, userData.PaisID, userData.CodigoISO));
         }
-
+      
         public JsonResult DetalleCargar(MisReclamosModel model)
         {
 
             SessionManager.SetCDRWebDetalle(null);
-            var lista = _cdrProvider.CargarDetalle(model, userData.PaisID, userData.CodigoISO);
-
+            var lista = _cdrProvider.CargarDetalle(model, userData.PaisID, userData.CodigoISO);           
             return Json(new
             {
                 success = true,

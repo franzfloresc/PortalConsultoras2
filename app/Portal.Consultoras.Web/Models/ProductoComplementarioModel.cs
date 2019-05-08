@@ -16,5 +16,7 @@ namespace Portal.Consultoras.Web.Models
         public string Descripcion { get; set; }
         public int Cantidad { get; set; }
         public int Estado { get; set; }
+        public string Simbolo { get; set; }
+        public decimal? Precio { get; set; }
     }
 }
