@@ -10,20 +10,32 @@ function bindElments() {
 
     $('.btnAccion').click(function (e) {
 
-
-        if (!$(e.target).hasClass('ghost')) {
-            $('.btnAccion').find('a').removeClass('ghost');
-            $('.btnAccion').find('a').html('Elegir');
-            $(e.target).addClass('ghost');
-            $(e.target).html('Elegido');
-
+        var btn = $(this).find('.dark-color');
+        if (btn) {
+            if (!btn.hasClass('ghost')) {
+                $('.btnAccion').find('a').removeClass('ghost');
+                $('.btnAccion').find('a').html('Elegir');
+                btn.addClass('ghost');
+                btn.html('Elegido');
+            } else {
+                btn.removeClass('ghost');
+                btn.html('Elegir');
+            }
         }
-        else {
-            // $('.btnAccion').find('a').addClass('ghost');
-            $(e.target).removeClass('ghost');
-            $(e.target).html('Elegir');
 
-        }
+        //if (!$(e.target).hasClass('ghost')) {
+        //    $('.btnAccion').find('a').removeClass('ghost');
+        //    $('.btnAccion').find('a').html('Elegir');
+        //    $(e.target).addClass('ghost');
+        //    $(e.target).html('Elegido');
+
+        //}
+        //else {
+        //    // $('.btnAccion').find('a').addClass('ghost');
+        //    $(e.target).removeClass('ghost');
+        //    $(e.target).html('Elegir');
+
+        //}
 
         if ($('.btnAccion a.ghost').length == $('.ghost a').length) {
             $('#btnAceptarPedido span').removeClass('second-color');
