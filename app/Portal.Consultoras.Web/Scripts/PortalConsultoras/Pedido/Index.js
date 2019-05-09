@@ -974,16 +974,16 @@ function ValidarDescripcion() {
     }
 }
 
-function PreValidarCUV(event) {
+//function PreValidarCUV(event) {
 
-    event = event || window.event;
+//    event = event || window.event;
 
-    if (event.keyCode == 13) {
-        if ($("#btnAgregar")[0].disabled == false) {
-            PedidoRegistroModule.AgregarProductoListadoPasePedido();
-        }
-    }
-}
+//    if (event.keyCode == 13) {
+//        if ($("#btnAgregar")[0].disabled == false) {
+//            PedidoRegistroModule.AgregarProductoListadoPasePedido();
+//        }
+//    }
+//}
 
 function SeleccionarContenido(control) {
     control.select();
