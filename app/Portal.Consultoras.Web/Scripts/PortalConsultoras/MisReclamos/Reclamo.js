@@ -306,35 +306,35 @@ $(document).ready(function () {
 });
 
 function callAjax(pUrl, pSendData, callbackSuccessful, callbackError) {
-    setTimeout(function () {
-        var sendData = typeof pSendData === "undefined" ? {} : pSendData;
-        $.ajax({
-            type: "POST",
-            url: pUrl,
-            beforeSend: function () {
-                waitingDialog();
-            },
-            complete: function () {
-                closeWaitingDialog();
-            },
-            data: JSON.stringify(sendData),
-            contentType: "application/json; charset=utf-8",
-            async: true,
-            dataType: "json",
-            success: function (result) {
-                if (callbackSuccessful && typeof callbackSuccessful === "function") {
-                    callbackSuccessful(result);
-                }
-            },
-            error: function (msg) {
-                if (callbackError && typeof callbackError === "function") {
-                    callbackError(msg);
-                } else {
-                    closeWaitingDialog();
-                }
+    //setTimeout(function () {
+    var sendData = typeof pSendData === "undefined" ? {} : pSendData;
+    $.ajax({
+        type: "POST",
+        url: pUrl,
+        beforeSend: function () {
+            waitingDialog();
+        },
+        complete: function () {
+            closeWaitingDialog();
+        },
+        data: JSON.stringify(sendData),
+        contentType: "application/json; charset=utf-8",
+        async: true,
+        dataType: "json",
+        success: function (result) {
+            if (callbackSuccessful && typeof callbackSuccessful === "function") {
+                callbackSuccessful(result);
             }
-        });
-    }, 0);
+        },
+        error: function (msg) {
+            if (callbackError && typeof callbackError === "function") {
+                callbackError(msg);
+            } else {
+                closeWaitingDialog();
+            }
+        }
+    });
+    //}, 0);
 
 }
 

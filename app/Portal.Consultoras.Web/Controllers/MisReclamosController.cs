@@ -891,7 +891,7 @@ namespace Portal.Consultoras.Web.Controllers
                             else
                             {
                                 model.CUV2 = model.Reemplazo.FirstOrDefault().CUV;
-                                model.Cantidad2 = model.Reemplazo.FirstOrDefault().Cantidad;                                
+                                model.Cantidad2 = model.Reemplazo.FirstOrDefault().Cantidad;
                             }
                         }
                     }
@@ -990,12 +990,12 @@ namespace Portal.Consultoras.Web.Controllers
             };
             return TieneDetalleCDRExpress(_cdrProvider.CargarDetalle(reclamoFiltro, userData.PaisID, userData.CodigoISO));
         }
-      
+
         public JsonResult DetalleCargar(MisReclamosModel model)
         {
 
             SessionManager.SetCDRWebDetalle(null);
-            var lista = _cdrProvider.CargarDetalle(model, userData.PaisID, userData.CodigoISO);           
+            var lista = _cdrProvider.CargarDetalle(model, userData.PaisID, userData.CodigoISO);
             return Json(new
             {
                 success = true,
@@ -1094,6 +1094,10 @@ namespace Portal.Consultoras.Web.Controllers
                 //userData.EMail = model.Email;
                 //userData.Celular = model.Telefono;
                 //SessionManager.SetUserData(userData);
+
+#if DEBUG
+                model.Email = "carlos.ramos@hundred.com.pe";
+                    #endif
 
                 if (!string.IsNullOrWhiteSpace(model.Email))
                 {
