@@ -20,6 +20,15 @@ namespace Portal.Consultoras.BizLogic.Reserva
 {
     public class BLReserva : IReservaBusinessLogic
     {
+        //INI HD-3693
+        private readonly ITablaLogicaDatosBusinessLogic _tablaLogicaDatosBusinessLogic;
+        public BLReserva() : this(new BLTablaLogicaDatos())
+        { }
+        public BLReserva(ITablaLogicaDatosBusinessLogic tablaLogicaDatosBusinessLogic)
+        {
+            _tablaLogicaDatosBusinessLogic = tablaLogicaDatosBusinessLogic;
+        }
+        //FIN HD-3693
         #region Public Functions
 
         public string CargarSesionAndDeshacerPedidoValidado(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, string tipo)
@@ -57,8 +66,13 @@ namespace Portal.Consultoras.BizLogic.Reserva
         
         public string DeshacerPedidoValidado(BEUsuario usuario, string tipo)
         {
+            //INI HD-3693
+            if (usuario.AutorizaPedido == "0") return  _tablaLogicaDatosBusinessLogic.GetList(usuario.PaisID, Constantes.TablaLogica.MsjPopupBloqueadas).FirstOrDefault(a => a.Codigo == "01").Valor;
+          
+            //FIN HD-3693
+
             if (usuario.IndicadorGPRSB == 1) return string.Format("En este momento nos encontramos facturando tu pedido de C{0}, inténtalo más tarde", usuario.CampaniaID.Substring(4, 2));
-            
+
             var codigoUsuario = usuario.UsuarioPrueba == 1 ? usuario.ConsultoraAsociada : usuario.CodigoUsuario;
             bool validacionAbierta = tipo == "PV";
             short estado = validacionAbierta ? Constantes.EstadoPedido.Procesado : Constantes.EstadoPedido.Pendiente;
