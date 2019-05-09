@@ -955,7 +955,8 @@ namespace Portal.Consultoras.Data
             using (var command = Context.Database.GetStoredProcCommand("dbo.ActualizaDatoRecogerPor"))
             {
                 Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, pedidoWebDetalle.PedidoID);
-                Context.Database.AddInParameter(command, "@Documento", DbType.String, pedidoWebDetalle.RecogerPor);
+                Context.Database.AddInParameter(command, "@Documento", DbType.String, pedidoWebDetalle.RecogerDNI);
+                Context.Database.AddInParameter(command, "@RecogerNombre", DbType.String, pedidoWebDetalle.RecogerNombre);
 
                 Context.ExecuteNonQuery(command);
             }

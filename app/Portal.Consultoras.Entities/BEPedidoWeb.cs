@@ -130,7 +130,10 @@ namespace Portal.Consultoras.Entities
         public bool TieneArmaTuPack { get; set; }
 
         [DataMember]
-        public string RecogerPor { get; set; }
+        public string RecogerDNI { get; set; }
+
+        [DataMember]
+        public string RecogerNombre { get; set; }
 
         public BEPedidoWeb() { }
 
@@ -174,7 +177,8 @@ namespace Portal.Consultoras.Entities
             ModificaPedidoReservado = row.ToBoolean("ModificaPedidoReservado");
             ValidacionAbierta = row.ToBoolean("ValidacionAbierta");
             FechaFacturado = row.ToString("FechaFacturado");
-            RecogerPor = row.ToString("RecogerPor");
+            RecogerDNI = row.ToString("RecogerDNI");
+            RecogerNombre = row.ToString("RecogerNombre");
         }
     }
 }
