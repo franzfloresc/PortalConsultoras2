@@ -166,7 +166,7 @@ namespace Portal.Consultoras.Web.Providers
                         CodigoConsultora = usuarioModel.CodigoConsultora,
                         NivelCaminoBrillante = usuarioModel.NivelCaminoBrillante,
                     };
-                    kits = svc.GetKitsCaminoBrillante(usuario).ToList();
+                    kits = (svc.GetKitsCaminoBrillante(usuario) ?? new BEKitCaminoBrillante[] { }).ToList();
                 }
                 if (kits != null && kits.Any(e => e.FlagHistorico))
                 {
