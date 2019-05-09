@@ -99,6 +99,16 @@ namespace Portal.Consultoras.Web.Providers
                 permisos.Remove(permisos.FirstOrDefault(p => p.UrlItem.ToLower() == "catalogopersonalizado/index"));
             }
 
+            #region Camino Brillante
+
+            if ((!userSession.CaminoBrillante || userSession.TipoUsuario == Constantes.TipoUsuario.Postulante) 
+                && permisos.Where(e => e.Codigo != null).Any(p => p.Codigo == Constantes.CaminoBrillante.Menu.Permiso_CaminoBrillante)) {
+                permisos.Remove(permisos.Where(e => e.Codigo != null)
+                    .FirstOrDefault(p => p.Codigo == Constantes.CaminoBrillante.Menu.Permiso_CaminoBrillante));
+            }
+
+            #endregion
+
             var lstMenuModel = new List<PermisoModel>();
 
             foreach (var permiso in permisos)
@@ -286,8 +296,7 @@ namespace Portal.Consultoras.Web.Providers
         public UsuarioModel GetMenuMobileModel(UsuarioModel userSession, RevistaDigitalModel revistaDigital, HttpRequestBase request, bool tieneTituloCatalogo)
         {
             var lstMenuMobileModel = GetMenuMobileModelService(userSession.PaisID);
-            //
-
+           
             userSession.ConsultoraOnlineMenuResumen = new ConsultoraOnlineMenuResumenModel();
 
             if ((userSession.CatalogoPersonalizado == 0 || !userSession.EsCatalogoPersonalizadoZonaValida) &&
@@ -420,7 +429,7 @@ namespace Portal.Consultoras.Web.Providers
                     lstModel = lstModel.OrderBy(p => p.OrdenItem).ToList();
                 }
             }
-            //
+
             userSession.MenuMobile = lstModel;
             sessionManager.SetUserData(userSession);
             return userSession;

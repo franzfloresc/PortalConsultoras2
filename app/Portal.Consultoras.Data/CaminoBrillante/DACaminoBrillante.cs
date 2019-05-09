@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Data.Common;
 
 namespace Portal.Consultoras.Data.CaminoBrillante
@@ -45,6 +46,13 @@ namespace Portal.Consultoras.Data.CaminoBrillante
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
             Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, consultoraId);
             return Context.ExecuteReader(command);
+        }
+
+        public decimal GetMontoMinimoEscala(long consultoraId)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetMontoMinimoEscala");
+            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, consultoraId);
+            return Convert.ToDecimal(Context.ExecuteScalar(command) ?? 0.0);
         }
 
     }

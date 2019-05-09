@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.MiAcademia;
+using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceContenido;
 using Portal.Consultoras.Web.ServiceLMS;
 using System;
@@ -14,19 +16,25 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
     public class MiAcademiaController : BaseMobileController
     {
+        private readonly MiAcademiaProvider _miAcademiaProvider;
+
+        public MiAcademiaController()
+        {
+            _miAcademiaProvider = new MiAcademiaProvider(_configuracionManagerProvider);
+        }
+        public MiAcademiaController(MiAcademiaProvider miAcademiaProvider)
+        {
+            _miAcademiaProvider = miAcademiaProvider;
+        }
+
         public ActionResult Index()
         {
             try
             {
-                var IdCurso = SessionManager.GetMiAcademia();
-
-                if (IdCurso > 0)
-                {
-                    SessionManager.SetMiAcademia(0);
-                }
+                var idCurso = SessionManager.GetMiAcademia();
+                if (idCurso > 0) SessionManager.SetMiAcademia(0);
 
                 string key = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.secret_key);
-                string urlLms = _configuracionManagerProvider.GetConfiguracionManager(IdCurso == 0 ? Constantes.ConfiguracionManager.UrlLMS : Constantes.ConfiguracionManager.CursosMarquesina);
                 string isoUsuario = userData.CodigoISO + '-' + userData.CodigoConsultora;
                 string eMailNoExiste = userData.CodigoConsultora + "@notengocorreo.com";
                 string eMail = userData.EMail.Trim() == string.Empty ? eMailNoExiste : userData.EMail;
@@ -34,11 +42,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 string nivelProyectado = "";
                 DataSet parametros;
 
-                /*HD-3777*/
                 string codigoClasificacion = userData.CodigoClasificacion;
                 string codigoSubClasificacion = userData.CodigoSubClasificacion;
                 string descripcionSubClasificacion = userData.DescripcionSubclasificacion;
-                /*Fin*/
 
                 using (ContenidoServiceClient csv = new ContenidoServiceClient())
                 {
@@ -78,14 +84,18 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 var exito = !(getUser.codigo == "003" || getUser.codigo == "004" || getUser.codigo == "005" ||
                               createUser.codigo == "002" || createUser.codigo == "003" || createUser.codigo == "004");
-
-                /*HD-3777*/
-                urlLms = IdCurso == 0 ? String.Format(urlLms, isoUsuario, token, codigoClasificacion, codigoSubClasificacion, descripcionSubClasificacion) : String.Format(urlLms, isoUsuario, token, userData.CodigoClasificacion, codigoClasificacion, codigoSubClasificacion, descripcionSubClasificacion, IdCurso);
-                /*Fin*/
-
                 if (exito)
                 {
-                    return Redirect(urlLms);
+                    var parametroUrl = new ParamUrlMiAcademiaModel
+                    {
+                        IsoUsuario = isoUsuario,
+                        Token = token,
+                        CodigoClasificacion = codigoClasificacion,
+                        CodigoSubClasificacion = codigoSubClasificacion,
+                        DescripcionSubClasificacion = descripcionSubClasificacion,
+                        IdCurso = idCurso
+                    };
+                    return Redirect(_miAcademiaProvider.GetUrl(Enumeradores.MiAcademiaUrl.Cursos, parametroUrl));
                 }
             }
             catch (Exception ex)
@@ -99,15 +109,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                var IdCurso = SessionManager.GetMiAcademia();
-
-                if (IdCurso > 0)
-                {
-                    SessionManager.SetMiAcademia(0);
-                }
+                var idCurso = SessionManager.GetMiAcademia();
+                if (idCurso > 0) SessionManager.SetMiAcademia(0);
 
                 string key = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.secret_key);
-                string urlLms = _configuracionManagerProvider.GetConfiguracionManager(IdCurso == 0 ? Constantes.ConfiguracionManager.UrlLMS : Constantes.ConfiguracionManager.CursosMarquesina);
                 string isoUsuario = userData.CodigoISO + '-' + userData.CodigoConsultora;
                 string eMailNoExiste = userData.CodigoConsultora + "@notengocorreo.com";
                 string eMail = userData.EMail.Trim() == string.Empty ? eMailNoExiste : userData.EMail;
@@ -153,12 +158,15 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 var exito = !(getUser.codigo == "003" || getUser.codigo == "004" || getUser.codigo == "005" ||
                               createUser.codigo == "002" || createUser.codigo == "003" || createUser.codigo == "004");
-
-                urlLms = IdCurso == 0 ? String.Format(urlLms, isoUsuario, token) : String.Format(urlLms, isoUsuario, token, IdCurso);
-
                 if (exito)
                 {
-                    return Redirect(urlLms);
+                    var parametroUrl = new ParamUrlMiAcademiaModel
+                    {
+                        IsoUsuario = isoUsuario,
+                        Token = token,
+                        IdCurso = idCurso
+                    };
+                    return Redirect(_miAcademiaProvider.GetUrl(Enumeradores.MiAcademiaUrl.Cursos, parametroUrl));
                 }
             }
             catch (Exception ex)
@@ -167,7 +175,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
 
             ViewBag.origen = IdOrigen;
-
             return View("Index");
         }
         public ActionResult Cursos(int idcurso)
@@ -175,7 +182,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             try
             {
                 string key = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.secret_key);
-                string urlLms = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.CursosMarquesina);
                 string isoUsuario = userData.CodigoISO + '-' + userData.CodigoConsultora;
                 string eMailNoExiste = userData.CodigoConsultora + "@notengocorreo.com";
                 string eMail = userData.EMail.Trim() == string.Empty ? eMailNoExiste : userData.EMail;
@@ -222,16 +228,22 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 var exito = !(getUser.codigo == "003" || getUser.codigo == "004" || getUser.codigo == "005" ||
                               createUser.codigo == "002" || createUser.codigo == "003" || createUser.codigo == "004");
 
-                urlLms = String.Format(urlLms, isoUsuario, token, idcurso);
-
-                if (HttpContext.Request.UrlReferrer != null)
-                    return Redirect(exito ? urlLms : HttpContext.Request.UrlReferrer.AbsoluteUri);
+                if (exito)
+                {
+                    var parametroUrl = new ParamUrlMiAcademiaModel
+                    {
+                        IsoUsuario = isoUsuario,
+                        Token = token,
+                        IdCurso = idcurso
+                    };
+                    return Redirect(_miAcademiaProvider.GetUrl(Enumeradores.MiAcademiaUrl.Cursos, parametroUrl));
+                }
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
             }
-            return View();
+            return View("Index");
         }
 
         private List<MiCurso> ValidadCursosMA()

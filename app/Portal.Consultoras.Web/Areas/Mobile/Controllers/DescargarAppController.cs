@@ -13,8 +13,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public async Task<ActionResult> Index()
         {
             var lstComunicados = await ObtenerComunicadoPorConsultoraAsync();
-            //HD-3550 EINCA
-            //var oComunicado = lstComunicados.FirstOrDefault(x => x.Descripcion == Constantes.Comunicado.BannerDescargarAppNuevas);
             var oComunicado = lstComunicados.FirstOrDefault(x => x.TipoComunicado == Constantes.Comunicado.TipoComunicado.Banner);
 
             if (oComunicado != null) ViewBag.Url = oComunicado.DescripcionAccion;

@@ -39,5 +39,7 @@ namespace Portal.Consultoras.Web.Models
         public string BotonColorTexto { get; set; }
         public string BotonTexto1 { get; set; }
         public string BotonTexto2 { get; set; }
+        public string CodigoUbigeoPortal { get; set; }
+        
     }
 }

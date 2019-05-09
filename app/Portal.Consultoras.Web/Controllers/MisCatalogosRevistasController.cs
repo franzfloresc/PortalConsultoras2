@@ -10,6 +10,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.ServiceModel;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
@@ -48,9 +49,14 @@ namespace Portal.Consultoras.Web.Controllers
             clienteModel.PartialSectionBpt = _configuracionPaisDatosProvider.GetPartialSectionBptModel(Constantes.OrigenPedidoWeb.SectionBptDesktopCatalogo);
                         
             ViewBag.Piloto = GetTienePiloto(userData.PaisID);
+            /* INI HD-3693 */
+            ViewBag.Piloto = (ViewBag.Piloto=="1")?((ViewBag.Piloto == userData.AutorizaPedido) ?"1":"0"):"0";
+            /* FIN HD-3693 */
+            ViewBag.ConsultoraBloqueada = userData.AutorizaPedido;
             ViewBag.UrlCatalogoPiloto = GetUrlCatalogoPiloto();
             ViewBag.EsConsultoraNueva = userData.EsConsultoraNueva;
             ViewBag.FBAppId = _configuracionManagerProvider.GetConfiguracionManager(Constantes.Facebook.FB_AppId);
+            ViewBag.TieneSeccionRevista = !revistaDigital.TieneRDC || !revistaDigital.EsActiva;
 
             return View(clienteModel);
         }
@@ -829,20 +835,56 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string GetUrlCatalogoPiloto()
         {
-            var queryString = string.Format(Constantes.CatalogoPiloto.UrlParamEncrip, userData.CodigoISO, userData.CodigoConsultora);
-            byte[] encbuff = Encoding.UTF8.GetBytes(queryString);
+            /* INI HD-4015 */
+
+            byte[] encbuff = Encoding.UTF8.GetBytes(userData.CodigoConsultora);
             var encripParams = Convert.ToBase64String(encbuff);
+            var queryString = string.Format(Constantes.CatalogoPiloto.UrlParamEncrip, userData.CodigoISO.ToLower(), encripParams);
+            /* FIN HD-4015 */
 
             var urlBase = _configuracionManagerProvider.GetConfiguracionManager(Constantes.CatalogoPiloto.UrlCatalogoPiloto);
-            return string.Format(Constantes.CatalogoPiloto.UrlCatalogo, urlBase, encripParams);
+            return string.Format(Constantes.CatalogoPiloto.UrlCatalogo, urlBase, queryString);
         }
 
         private string GetTienePiloto(int paisId)
         {
-            var listDato = _tablaLogicaProvider.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.PilotoCatalogoDigital);
+            var listDato = _tablaLogicaProvider.GetTablaLogicaDatos(paisId, ConsTablaLogica.PilotoCatalogoDigital.TablaLogicaId);
             if (listDato.Count == 0) return "0";
 
             return listDato[0].Valor;
+        }
+
+        [HttpPost]
+        public JsonResult ObtenerPortadaRevista(string codigoCampania)
+        {
+            string url;
+            try
+            {
+                url = GetStringIssuRevista(codigoCampania);
+            }
+            catch (FaultException faulException)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(faulException, userData.CodigoConsultora, userData.CodigoISO + " - " + "ObtenerPortadaRevista");
+                url = Constantes.CatalogoImagenDefault.Revista;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO + " - " + "ObtenerPortadaRevista");
+                url = Constantes.CatalogoImagenDefault.Revista;
+            }
+
+            return Json(url);
+        }
+        private string GetStringIssuRevista(string codigoCampania)
+        {            
+            var lista = new BECatalogoRevista();
+            using (ClienteServiceClient sv = new ClienteServiceClient())
+            {
+                lista = sv.GetListCatalogoRevistaPublicadoWithTitulo(userData.CodigoISO, userData.CodigoZona, Convert.ToInt32(codigoCampania)).FirstOrDefault(l => l.MarcaDescripcion == "Revista");
+            }
+            if (string.IsNullOrEmpty(lista.UrlImagen)) return Constantes.CatalogoImagenDefault.Revista;
+
+            return lista.UrlImagen;
         }
     }
 }

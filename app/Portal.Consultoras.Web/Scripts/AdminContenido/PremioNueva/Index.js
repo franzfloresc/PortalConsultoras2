@@ -228,8 +228,6 @@ function LoadMantenedor(rowId) {
 
             $("#divAgregar").html(data);
             showDialog("divAgregar");
-
-            //$("#CampaniaFin").focus();
         },
         error: function (xhr, ajaxOptions, error) {
             closeWaitingDialog();

@@ -1,6 +1,6 @@
 ﻿(function () {
-        var url = window.location;      
-        var pais = url.href.substring(url.href.indexOf("pais=")+5, url.href.indexOf("pais=") + 7);
+    var url = window.location;
+    var pais = url.href.substring(url.href.indexOf("pais=") + 5, url.href.indexOf("pais=") + 7);
     if (pais == 'CR' || pais == 'PA' || pais == 'MX' || pais == 'PR') {
         var css = document.createElement('link');
         css.setAttribute("rel", "stylesheet");
@@ -9,7 +9,7 @@
     } else {
         var css = document.createElement('link');
         css.setAttribute("rel", "stylesheet");
-        css.setAttribute("href", "/Content/Css/Site/Esika/unsubscribe.css");     
+        css.setAttribute("href", "/Content/Css/Site/Esika/unsubscribe.css");
         document.getElementsByTagName('head')[0].appendChild(css);
     }
 }());
@@ -25,11 +25,11 @@ window.onload = function () {
     window.localStorage.setItem("Pais", pais);
     window.localStorage.setItem("CodConsultora", codConsultora);
 
-    if (document.getElementById("Resultado").value!="" ) {
+    if (document.getElementById("Resultado").value != "") {
         document.getElementById('divContent').style.display = 'Block';
-    } 
+    }
 
-    if (document.getElementById('linkRegresarAqui')!=null) {
+    if (document.getElementById('linkRegresarAqui') != null) {
         document.getElementById('linkRegresarAqui').onclick = function () {
             this.href = urlBase + "AsesoraOnline/VolverSuscripcion?pais=" + pais + "&codConsultora=" + codConsultora;
         }

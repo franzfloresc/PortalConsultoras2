@@ -746,7 +746,7 @@ button:focus{
 /* VISTA BREADCRUMBS Y TITULO DE VISTA (VERSIÓN DESKTOP) */
 
 .layout__view__breadcrumbs__wrapper{
-    margin-top:80px;
+    margin-top:60px;
 }
 
 .layout__view__title__wrapper{
@@ -760,9 +760,9 @@ button:focus{
 }
 
 .layout__view__lista__breadcrumbs {
-    /*height: 58px;*/
+    min-height: 58px;
     margin-bottom: 6px;
-    margin-left: 21px !important;
+    /*margin-left: 21px !important;*/
 }
 
 .layout__view__breadcrumb {
@@ -895,9 +895,13 @@ button:focus{
 
     /* VISTA BREADCRUMBS Y TITULO DE VISTA (VERSIÓN MOBILE) */
 
+    .layout__view__breadcrumbs__wrapper{
+        display:none!important;
+    }
+
     .layout__view__title,
-    .layout__view__title__text{
-        max-width:none;
+    .layout__view__title__text {
+        max-width: none;
     }
 
     .layout__view__title,

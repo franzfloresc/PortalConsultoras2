@@ -23,7 +23,13 @@ $("#Demostradores").on('click', '.boton_agregar_ofertas', function (e) {
     var obj = JSON.parse($(this).parents('[data-item="BuscadorFichasProductos"]').find('div [data-demostrador]').attr("data-demostrador"));
     var cantidad = $(contenedor).find("#txtCantidad").val();
     var tab = $("#Demostradores").attr('id');
-    AgregarProducto(obj, cantidad, contenedor, tab, false);
+    if (cantidad <= 0) {
+        AbrirMensaje("La cantidad ingresada debe ser un número mayor que cero, verifique");
+        CerrarSplash();
+         } else {
+            AgregarProducto(obj, cantidad, contenedor, tab, false);
+        }
+    
 });
 
 $("#kits").on('click', '.boton_agregar_ofertas', function (e) {
@@ -99,7 +105,6 @@ function ArmarOfertaKits(data) {
 }
 
 function CargarDemostradores() {
-    var contador = 0;
     $.ajax({
         type: 'GET',
         url: urlGetDemostradores,
@@ -119,7 +124,6 @@ function CargarDemostradores() {
         },
         error: function (data, error) { },
         complete: function (data) {
-            //closeWaitingDialog();
             cargandoRegistros = false;
         }
     });
@@ -178,6 +182,7 @@ function AgregarProducto(data, cantidad, contenedor, tab, isKit) {
                 if (isKit) {
                     $(".ficha__producto__kit").addClass("producto_desactivado");
                     $('.ficha__producto__tag_enable').hide();
+                    $('.ficha__producto__tag_disable').removeClass("hide");
                     $('.ficha__producto__tag_disable').show();
                 }
                 CerrarSplash();

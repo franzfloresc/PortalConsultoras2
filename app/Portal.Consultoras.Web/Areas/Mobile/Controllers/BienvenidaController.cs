@@ -1,16 +1,13 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
-using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
-using Portal.Consultoras.Web.Providers;
-using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.Models.CaminoBrillante;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -19,7 +16,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatosProvider;
         private readonly BienvenidaProvider _bienvenidaProvider;
         protected TablaLogicaProvider _tablaLogica;
-        protected CaminoBrillanteProvider _caminoBrillanteProvider;
+        private readonly CaminoBrillanteProvider _caminoBrillanteProvider;
         public BienvenidaController()
         {
             _configuracionPaisDatosProvider = new ConfiguracionPaisDatosProvider();
@@ -131,26 +128,27 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.ConsultoraNuevaBannerAppMostrar = SessionManager.GetConsultoraNuevaBannerAppMostrar();
                 model.MostrarPagoEnLinea = (userData.MontoDeuda > 0);
 
-                #region Camino al Exito                
+                #region Camino Brillante
                 if (userData.CaminoBrillante)
                 {
                     model.TieneCaminoBrillante = userData.CaminoBrillante;
+
                     _caminoBrillanteProvider.LoadCaminoBrillante();
                     var nivelConsultoraCaminoBrillante = _caminoBrillanteProvider.GetNivelActual();
                     if (nivelConsultoraCaminoBrillante != null)
                     {
                         model.CaminoBrillanteMsg = userData.CaminoBrillanteMsg.Replace("{0}", "<b>" + nivelConsultoraCaminoBrillante.DescripcionNivel + "</b>");
-                        model.UrlLogoCaminoBrillante = nivelConsultoraCaminoBrillante.UrlImagenNivelFull;                        
+                        model.UrlLogoCaminoBrillante = nivelConsultoraCaminoBrillante.UrlImagenNivelFull;
                     }
                 }
                 #endregion
 
+                #region Camino al Exito
 
-                #region Camino al Exito 
-                var LogicaCaminoExisto = _tablaLogica.GetTablaLogicaDatos(userData.PaisID, Constantes.TablaLogica.EscalaDescuentoMobile);
+                var LogicaCaminoExisto = _tablaLogica.GetTablaLogicaDatos(userData.PaisID, ConsTablaLogica.CaminoAlExitoMobile.TablaLogicaId);
                 if (LogicaCaminoExisto.Any())
                 {
-                    var CaminoExistoFirst = LogicaCaminoExisto.FirstOrDefault(x => x.TablaLogicaDatosID == Constantes.TablaLogicaDato.ActualizaEscalaDescuentoMobile) ?? new TablaLogicaDatosModel();
+                    var CaminoExistoFirst = LogicaCaminoExisto.FirstOrDefault(x => x.TablaLogicaDatosID == ConsTablaLogica.CaminoAlExitoMobile.ActualizaEscalaDescuentoMobile) ?? new TablaLogicaDatosModel();
                     bool caminiExitoActive = (CaminoExistoFirst.Valor != null) && CaminoExistoFirst.Valor.Equals("1");
                     if (caminiExitoActive)
                     {
@@ -159,11 +157,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         model.urlCaminoExito = accesoCaminoExito.Item2 ?? "";
                     }
                 }
-                #endregion
-
-                #region bonificaciones 
-
-                ViewBag.esConsultoraDigital = IndicadorConsultoraDigital();
 
                 #endregion
             }
@@ -343,8 +336,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             try
             {
                 var lstComunicados = _comunicadoProvider.ObtenerComunicadoPorConsultora(userData, EsDispositivoMovil());
-                //HD-3550 EINCA
-                //lstComunicados = lstComunicados.Where(x => Constantes.Comunicado.Extraordinarios.IndexOf(x.Descripcion) == -1).ToList();
                 lstComunicados = lstComunicados.Where(x => x.TipoComunicado == Constantes.Comunicado.TipoComunicado.PopUp).ToList();
 
                 if (lstComunicados != null) oComunicados = lstComunicados.FirstOrDefault();

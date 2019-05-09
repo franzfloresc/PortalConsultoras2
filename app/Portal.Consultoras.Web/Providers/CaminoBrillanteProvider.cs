@@ -166,7 +166,7 @@ namespace Portal.Consultoras.Web.Providers
                         CodigoConsultora = usuarioModel.CodigoConsultora,
                         NivelCaminoBrillante = usuarioModel.NivelCaminoBrillante,
                     };
-                    kits = svc.GetKitsCaminoBrillante(usuario).ToList();
+                    kits = (svc.GetKitsCaminoBrillante(usuario) ?? new BEKitCaminoBrillante[] { }).ToList();
                 }
                 if (kits != null && kits.Any(e => e.FlagHistorico))
                 {
@@ -258,8 +258,8 @@ namespace Portal.Consultoras.Web.Providers
         public bool ValidacionCaminoBrillante()
         {
             var informacion = GetConsultoraNivelCaminoBrillante();
-            if (informacion == null || informacion.NivelConsultora == null || !informacion.NivelConsultora.Any()) return false;
-            return true;
+            if (informacion == null || informacion.NivelConsultora == null || usuarioModel == null || !informacion.NivelConsultora.Any()) return false;
+            return usuarioModel.CaminoBrillante;
         }
 
         public bool LoadCaminoBrillante() {
@@ -272,6 +272,7 @@ namespace Portal.Consultoras.Web.Providers
             }
             catch (Exception ex)
             {
+                //DesactivarCaminoBrillante();
                 LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
                 return false;
             }
@@ -285,7 +286,10 @@ namespace Portal.Consultoras.Web.Providers
             {
                 using (var svc = new UsuarioServiceClient())
                 {
-                    resumen = svc.GetConsultoraNivelCaminoBrillante(Mapper.Map<ServiceUsuario.BEUsuario>(usuarioModel));
+                    var beUsuario = Mapper.Map<ServiceUsuario.BEUsuario>(usuarioModel);
+                    beUsuario.Zona = usuarioModel.CodigoZona;
+                    beUsuario.Region = usuarioModel.CodigorRegion;
+                    resumen = svc.GetConsultoraNivelCaminoBrillante(beUsuario);
                 }                
                 sessionManager.SetConsultoraCaminoBrillante(resumen);                
             }

@@ -662,9 +662,6 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         int ValidarCUVsRecomendados(BEEstrategia entidad);
 
-        //[OperationContract]
-        //List<BEEstrategia> FiltrarEstrategiaPedido(BEEstrategia entidad);
-
         [OperationContract]
         string ValidarStockEstrategia(BEEstrategia entidad);
 
@@ -981,6 +978,9 @@ namespace Portal.Consultoras.ServiceContracts
         BEValidacionModificacionPedido ValidacionModificarPedido(int paisID, long consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA);
 
         [OperationContract]
+        bool GetEsPedidoReservado(int paisId, int campaniId, long consultoraId);
+
+        [OperationContract]
         BEValidacionModificacionPedido ValidacionModificarPedidoSelectiva(int paisID, long consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA, bool validarGPR, bool validarReservado, bool validarHorario);
 
         [OperationContract]
@@ -1021,9 +1021,6 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         BERevistaDigitalSuscripcion RDGetSuscripcionActiva(BERevistaDigitalSuscripcion entidad);
-
-        //[OperationContract]
-        //int InsertarDesglose(BEInputReservaProl input);
 
         [OperationContract]
         string CargarSesionAndDeshacerPedidoValidado(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, string tipo);
@@ -1208,7 +1205,7 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         BEUsuario GetConfiguracionOfertaFinalCarrusel(BEUsuario usuario);
         [OperationContract]
-        Task<BEProducto> GetRegaloOfertaFinal(BEUsuario usuario);
+        BEProducto GetRegaloOfertaFinal(BEUsuario usuario);
         [OperationContract]
         BEPedidoDetalleResult ValidaRegaloPedido(BEPedidoDetalle pedidoDetalle);
         [OperationContract]
@@ -1273,7 +1270,7 @@ namespace Portal.Consultoras.ServiceContracts
         int ObtenerPagoEnLineaNumeroOrden(int paisId);
 
         [OperationContract]
-        BEPagoEnLinea ObtenerPagoEnLineaConfiguracion(int paisId, long consultoraId, string codigoUsuario);
+        BEPagoEnLinea ObtenerPagoEnLineaConfiguracion(int paisId, long consultoraId, string codigoUsuario, int esDigital, DateTime fechaVencimientoPago);
 
         [OperationContract]
         BEPagoEnLineaVisa ObtenerPagoEnLineaVisaConfiguracion(int paisId, string codigoConsutora);
