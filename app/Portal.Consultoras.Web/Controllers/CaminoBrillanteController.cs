@@ -19,7 +19,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (!_caminoBrillanteProvider.ValidacionCaminoBrillante()) return RedirectToAction("Index", "Bienvenida");
+                if (!_caminoBrillanteProvider.ValidacionCaminoBrillante()) return _RedirectToAction("Index", "Bienvenida");
 
                 ViewBag.Niveles = _caminoBrillanteProvider.GetNivelesCaminoBrillante(true);
                 ViewBag.NivelActual = (_caminoBrillanteProvider.GetNivelActualConsultora() ??
@@ -33,24 +33,24 @@ namespace Portal.Consultoras.Web.Controllers
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return RedirectToAction("Index", "Bienvenida");
+                return _RedirectToAction("Index", "Bienvenida");
             }
 
         }
 
         public ActionResult Logros(string opcion)
         {
-            if (!_caminoBrillanteProvider.ValidacionCaminoBrillante()) return RedirectToAction("Index", "Bienvenida");
-            if (string.IsNullOrEmpty(opcion)) return RedirectToAction("Index", "Bienvenida");
+            if (!_caminoBrillanteProvider.ValidacionCaminoBrillante()) return _RedirectToAction("Index", "Bienvenida");
+            if (string.IsNullOrEmpty(opcion)) return _RedirectToAction("Index", "Bienvenida");
 
             var opcionUpper = opcion.ToUpper();
             if (opcionUpper != Constantes.CaminoBrillante.Logros.CRECIMIENTO && opcionUpper != Constantes.CaminoBrillante.Logros.COMPROMISO)
             {
-                return RedirectToAction("Index", "Bienvenida");
+                return _RedirectToAction("Index", "Bienvenida");
             }
 
             var informacion = SessionManager.GetConsultoraCaminoBrillante() ?? new ServiceUsuario.BEConsultoraCaminoBrillante();
-            if (informacion.Logros == null) return RedirectToAction("Index", "Bienvenida");
+            if (informacion.Logros == null) return _RedirectToAction("Index", "Bienvenida");
 
             var esCrecimiento = opcionUpper == Constantes.CaminoBrillante.Logros.CRECIMIENTO;
             ViewBag.Informacion = esCrecimiento ? informacion.Logros[0] : informacion.Logros[1];
@@ -61,7 +61,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Ofertas()
         {
-            if (!_caminoBrillanteProvider.ValidacionCaminoBrillante()) return RedirectToAction("Index", "Bienvenida");
+            if (!_caminoBrillanteProvider.ValidacionCaminoBrillante()) return _RedirectToAction("Index", "Bienvenida");
             if(!_caminoBrillanteProvider.TieneOfertasEspeciales()) return RedirectToAction("Index", "CaminoBrillante");
 
             var lstKit = _caminoBrillanteProvider.GetKitsCaminoBrillante();
@@ -201,6 +201,11 @@ namespace Portal.Consultoras.Web.Controllers
                 lista = lstDemostrador.Skip(offset).Take(cantidadRegistros).ToList(),
                 verMas = lstDemostrador.Count > (offset + cantidadRegistros)
             }, JsonRequestBehavior.AllowGet);
+        }
+
+        private RedirectToRouteResult _RedirectToAction(string actionName, string controllerName) {
+            var area = (IsMobile() || EsDispositivoMovil()) ? "Mobile/" : ""; 
+            return RedirectToAction(actionName, string.Format("{0}{1}", area, controllerName));
         }
 
     }
