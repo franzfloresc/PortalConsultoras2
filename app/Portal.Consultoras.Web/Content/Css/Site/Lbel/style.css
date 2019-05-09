@@ -28369,7 +28369,16 @@ div.motivoRechazo textarea {
     min-height: 80px;
     padding-left: 15px;
     padding-right: 15px;
+    cursor: pointer;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
 }
+
+    .resultado_busqueda_por_cuv_enlace:hover {
+        background-color: #f3f3f3;
+    }
 
 .resultado_busqueda_por_cuv_datos_imagen,
 .resultado_busqueda_por_cuv_datos_prod {
