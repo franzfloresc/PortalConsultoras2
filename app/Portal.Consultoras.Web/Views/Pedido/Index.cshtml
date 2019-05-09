@@ -1055,7 +1055,7 @@
 @Html.Partial("~/Areas/Mobile/Views/Pedido/_PopupEleccionRegalo.cshtml")
 @Html.Partial("~/Areas/Mobile/Views/Pedido/_PopupPremio.cshtml")
 @Html.Partial("~/Areas/Mobile/Views/Pedido/_PopupDescuento.cshtml")
-@Html.Partial("~/Views/Shared/PopupsResponsive/_PopupInformacionRegalo.cshtml")
+@{ Html.RenderPartial("~/Views/Shared/PopupsResponsive/_PopupInformacionRegalo.cshtml");}
 
 @if (Model.MostrarPopupPrecargados)
 {
