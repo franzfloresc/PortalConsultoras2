@@ -3,6 +3,25 @@
 .popup__somos__belcorp--informacionRegalo {
     max-width: 688px;
     min-height: 312px;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    -moz-transform: translate(0, -70px);
+    -ms-transform: translate(0, -70px);
+    -o-transform: translate(0, -70px);
+    -webkit-transform: translate(0, -70px);
+    transform: translate(0, -70px);
+    opacity: 0;
+}
+
+.mostrarPopup {
+    -moz-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    -o-transform: translate(0, 0);
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0);
+    opacity:1;
 }
 
 .popup__somos__belcorp__icono__cerrar--informacionRegalo {
@@ -83,6 +102,14 @@
                 .popup__somos__belcorp__imagen img {
                     height: 270px;
                 }
+
+}
+
+@media screen and (max-width:991px) and (orientation:landscape) {
+
+    .popup__somos__belcorp--informacionRegalo{
+        margin-bottom:32px;
+    }
 
 }
 
