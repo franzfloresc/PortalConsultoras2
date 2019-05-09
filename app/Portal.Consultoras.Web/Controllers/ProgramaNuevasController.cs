@@ -14,7 +14,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     ? Constantes.ConfiguracionPais.ElecMultiple
                                     : Constantes.ConfiguracionPais.ProgramaNuevas;
 
-            RevistaDigitalLandingModel model = GetLandingModel(1);
+            RevistaDigitalLandingModel model = GetLandingModel(1, Constantes.ConfiguracionPais.ProgramaNuevas);
 
             return View(model);
         }

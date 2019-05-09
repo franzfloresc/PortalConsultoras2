@@ -6,7 +6,7 @@ $(document).ready(function () {
     var clickabrir = 1;
 
     if (isMobile()) {
-        
+
         $(".preguntas-frecuentes-cont-sus ul.preg-frecuentes li a.abrir-preg-frecuente").click(function () {
             $(".preguntas-frecuentes-cont-sus ul.preg-frecuentes ul").slideToggle();
 
@@ -15,8 +15,7 @@ $(document).ready(function () {
                 $(".preguntas-frecuentes-cont-sus .contenedor-mobile-fix span.nodespliegue").css("display", "block");
                 clickabrir = 0;
             }
-            else
-            {
+            else {
                 $(".preguntas-frecuentes-cont-sus .contenedor-mobile-fix span.nodespliegue").css("display", "none");
                 $(".preguntas-frecuentes-cont-sus .contenedor-mobile-fix span.despliegue").css("display", "block");
                 clickabrir = 1;
@@ -32,15 +31,14 @@ $(document).ready(function () {
                 $(this).find("span.nodespliegue").css("display", "block");
                 clickabrir = 0;
             }
-            else
-            {
+            else {
                 $(this).find("span.despliegue").css("display", "block");
                 $(this).find("span.nodespliegue").css("display", "none");
                 clickabrir = 1;
             }
         });
     }
-  
+
 });
 
 //function ScrollUser(anchor, alto) {
@@ -98,17 +96,17 @@ function RDSuscripcion() {
                 RDActualizarTipoAccionAgregar(data.revistaDigital, key);
             }
 
-			if (typeof esAppMobile == 'undefined') {
+            if (typeof esAppMobile == 'undefined') {
 
-				$("#PopRDSuscripcion").css("display", "block"); // Confirmar datos
-				$(".popup_confirmacion_datos .form-datos input").keyup(); //to update button 
+                $("#PopRDSuscripcion").css("display", "block"); // Confirmar datos
+                $(".popup_confirmacion_datos .form-datos input").keyup(); //to update button 
 
-			} else if (esAppMobile){
-				window.location = (isMobile() ? "/Mobile" : "") + "/RevistaDigital/ConfirmacionAPP";
-			}
-            
-			return false;
-           
+            } else if (esAppMobile) {
+                window.location = (isMobile() ? "/Mobile" : "") + "/RevistaDigital/ConfirmacionAPP";
+            }
+
+            return false;
+
         },
         function (xhr, status, error) {
             CerrarLoad();
@@ -127,7 +125,7 @@ function RDSuscripcionPromise() {
         async: true
     });
 
-    promise.done(function(response) {
+    promise.done(function (response) {
         d.resolve(response);
     });
 
@@ -138,7 +136,7 @@ function RDSuscripcionPromise() {
 
 
 function RDDesuscripcion_pregunta() {
-    //Marca Analitycs
+
     rdAnalyticsModule.CancelarSuscripcion();
     $('#alerta_cancelar_suscripcion').show();
     $('#pregunta').show();
@@ -176,31 +174,31 @@ function RDDesuscripcion_cerrar(e) {
     if (!revistaDigital.EsSuscrita) {
         window.location.href = (isMobile() ? "/Mobile" : "") + "/Ofertas";
     }
-    $('#alerta_cancelar_suscripcion').hide();   
+    $('#alerta_cancelar_suscripcion').hide();
 }
 
- 
 
 
-function RDDesuscripcion_check() {   
+
+function RDDesuscripcion_check() {
 
     if ($('#frmMotivoDesuscripcion').find('input:checked ~ .checkmark_desuscrita')[0])
-         $('#btnDesuscrita').removeClass('disable');
+        $('#btnDesuscrita').removeClass('disable');
     else
         $('#btnDesuscrita').addClass('disable');
 }
 
-function RDDesuscripcion_motivos(e) {   
+function RDDesuscripcion_motivos(e) {
     rdAnalyticsModule.DesuscripcionPopup(e.innerHTML);
     RDDesuscripcion(e);
 }
 
 
 
-function RDDesuscripcion(e) {    
+function RDDesuscripcion(e) {
 
     AbrirLoad();
-    //rdAnalyticsModule.CancelarSuscripcion();
+
     $.ajax({
         type: "POST",
         url: baseUrl + "RevistaDigital/Desuscripcion",
@@ -227,7 +225,7 @@ function RDDesuscripcion(e) {
             $('#opciones').show();
 
         },
-        error: function (data, error) {            
+        error: function (data, error) {
             CerrarLoad();
         }
     });
@@ -240,7 +238,6 @@ function MostrarTerminos() {
         win.focus();
     } else {
         //Browser has blocked it
-        //console.log("Habilitar mostrar popup");
     }
 }
 

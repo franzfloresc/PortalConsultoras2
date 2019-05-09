@@ -176,8 +176,7 @@ namespace Portal.Consultoras.Web.Models
         public List<EstrategiaPedidoModel> ListaOfertas { get; set; }
 
         public ConfiguracionSeccionHomeModel ConfiguracionContenedor { get; set; }
-
-        // TODO: liberar comentario
+        
         /// <summary>
         /// Calculo del factor cuadre
         /// </summary>
