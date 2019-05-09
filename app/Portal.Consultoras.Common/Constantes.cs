@@ -3853,6 +3853,19 @@ namespace Portal.Consultoras.Common
                     }
                 }
             }
+
+            public static class CodigosOrdenamiento
+            {
+                public const string porCatalogo = "1";
+                public const string porNombre = "2";
+            }
+
+            public static class CodigoFiltros
+            {
+                public const string lbel = "01";
+                public const string esika = "02";
+                public const string cyzone = "03";
+            }
         }
 
         public static class CodigoContenido

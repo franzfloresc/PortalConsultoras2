@@ -1247,6 +1247,8 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q98="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q98:BEUsuario" />
+        <xs:element minOccurs="0" name="ordenar" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="filtro" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

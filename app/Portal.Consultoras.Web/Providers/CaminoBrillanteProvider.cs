@@ -209,7 +209,7 @@ namespace Portal.Consultoras.Web.Providers
                         NivelCaminoBrillante = usuarioModel.NivelCaminoBrillante,
                     };
 
-                    demostradores = svc.GetDemostradoresCaminoBrillante(usuario).ToList();
+                    demostradores = svc.GetDemostradoresCaminoBrillante(usuario, "2", "").ToList();
                 }
 
                 sessionManager.SetDemostradoresCaminoBrillante(demostradores);
