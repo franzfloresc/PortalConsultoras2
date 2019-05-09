@@ -486,30 +486,26 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
             Action<string, int> builderMedallaConstancia = (periodo, constancia) =>
             {
-                if (int.TryParse(periodo, out _periodo))
-                {
-                    var periodoCaminoBrillante = periodos.FirstOrDefault(e => e.Periodo == _periodo);
-                    if (periodoCaminoBrillante != null)
-                    {
-                        var valor = string.Format("{0}-{1}-{2}", periodoCaminoBrillante.Periodo, periodoCaminoBrillante.NroCampana, constancia);
-                        if (!medallaConstancia.Any(e => e.Valor == valor))
-                        {
-                            var estado = _periodoActual.Periodo == _periodo;
-                            medallaConstancia.Add(new BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante()
-                            {
-                                Tipo = Constantes.CaminoBrillante.Logros.Indicadores.Medallas.Codes.PIE,
-                                Estado = true,
-                                Titulo = string.Format(configMedalla.Valor ?? string.Empty, (periodoCaminoBrillante.CampanaInicial % 100), (periodoCaminoBrillante.CampanaFinal % 100)),
-                                Subtitulo = Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo,
-                                ModalTitulo = configMedalla.ComoLograrlo_Estado && estado ? configMedalla.ComoLograrlo_Titulo : string.Empty,
-                                ModalDescripcion = configMedalla.ComoLograrlo_Estado && estado ? configMedalla.ComoLograrlo_Descripcion : string.Empty,
-                                Valor = valor,
-                            });
-                        }
-                    }
-                }
-            };
+                if (!int.TryParse(periodo, out _periodo)) return;
 
+                var periodoCaminoBrillante = periodos.FirstOrDefault(e => e.Periodo == _periodo);
+                if (periodoCaminoBrillante == null) return;
+
+                var valor = string.Format("{0}-{1}-{2}", periodoCaminoBrillante.Periodo, periodoCaminoBrillante.NroCampana, constancia);
+                if (medallaConstancia.Any(e => e.Valor == valor)) return;
+                
+                var estado = (configMedalla.ComoLograrlo_Estado && _periodoActual.Periodo == _periodo);
+                medallaConstancia.Add(new BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante()
+                {
+                    Tipo = Constantes.CaminoBrillante.Logros.Indicadores.Medallas.Codes.PIE,
+                    Estado = true,
+                    Titulo = string.Format(configMedalla.Valor ?? string.Empty, (periodoCaminoBrillante.CampanaInicial % 100), (periodoCaminoBrillante.CampanaFinal % 100)),
+                    Subtitulo = Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo,
+                    ModalTitulo = configMedalla.ComoLograrlo_Estado && estado ? configMedalla.ComoLograrlo_Titulo : string.Empty,
+                    ModalDescripcion = configMedalla.ComoLograrlo_Estado && estado ? configMedalla.ComoLograrlo_Descripcion : string.Empty,
+                    Valor = valor,
+                });
+            };
             return builderMedallaConstancia;
         }
 
