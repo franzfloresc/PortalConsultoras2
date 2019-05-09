@@ -39,5 +39,17 @@ namespace Portal.Consultoras.Entities.Oferta
         [Column("Codigo")]
         [DataMember]
         public string Codigo { get; set; }
+        [Column("AppTextoBotonInicial")]
+        [DataMember]
+        public string AppTextoBotonInicial { get; set; }
+        [Column("AppTextoBotonFinal")]
+        [DataMember]
+        public string AppTextoBotonFinal { get; set; }
+        [Column("AppColorFondoBoton")]
+        [DataMember]
+        public string AppColorFondoBoton { get; set; }
+        [Column("AppColorTextoBoton")]
+        [DataMember]
+        public string AppColorTextoBoton { get; set; }
     }
 }

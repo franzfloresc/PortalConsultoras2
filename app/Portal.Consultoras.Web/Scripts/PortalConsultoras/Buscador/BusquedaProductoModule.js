@@ -122,10 +122,10 @@
 
             _config.cargandoProductos = true;
             var modelo = _funciones.ConstruirModeloBusqueda();
-            
+
             _provider.BusquedaProductoPromise(modelo)
                 .done(function (data) {
-                    
+
                     $(_elementos.spanTotalProductos).html(data.total);
                     $(_elementos.divCantidadProductoMobile).html(data.total + ' Resultados');
                     _funciones.ProcesarListaProductos(data.productos);
@@ -502,9 +502,6 @@
                 $(_elementos.preCargaFiltros).css({ 'width': '', 'max-width': '' });
             }
 
-            //if (!(typeof AnalyticsPortalModule === 'undefined'))
-            //    AnalyticsPortalModule.MarcaBotonAplicarFiltro();
-
             $(_elementos.backgroundAlMostrarFiltrosMobile).fadeOut(100);
             setTimeout(function () {
                 $(_elementos.layoutContent).css({ 'z-index': '2' });
@@ -527,7 +524,7 @@
                         });
                     }
                     opcionesFiltros = opcionesFiltros.substr(0, opcionesFiltros.length - 3);
-                    opcionesFiltros += " | ";                    
+                    opcionesFiltros += " | ";
                 });
                 opcionesFiltros = opcionesFiltros.substr(0, opcionesFiltros.length - 3);
 
@@ -556,9 +553,6 @@
         LimpiarFiltros: function () {
             $(_elementos.filtroCheckbox).removeAttr('checked');
 
-            //if (!(typeof AnalyticsPortalModule === 'undefined'))
-            //    AnalyticsPortalModule.MarcaLimpiarFiltros();
-
         },
         ScrollCargarProductos: function () {
             _config.cargandoProductos = true;
@@ -580,7 +574,7 @@
             e.preventDefault();
             AbrirLoad();
             var divPadre = $(this).parents("[data-item='BuscadorFichasProductos']").eq(0);
-            PedidoRegistroModule.RegistroProductoBuscador(divPadre, _elementos.valueJSON, "Resultados");            
+            PedidoRegistroModule.RegistroProductoBuscador(divPadre, _elementos.valueJSON, "Resultados");
         },
         RedireccionarAFichaDeFotoYDescripcion: function (e) {
             e.preventDefault();
@@ -688,7 +682,7 @@
                 if (!(typeof AnalyticsPortalModule === 'undefined')) {
                     AnalyticsPortalModule.MarcaFiltroPorSeccion(nombreSeccion, nombreFiltro);
                 }
-                    
+
             }
             _funciones.accionFiltrosCriterio();
         }
