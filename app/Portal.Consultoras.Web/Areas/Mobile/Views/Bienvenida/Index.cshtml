@@ -243,7 +243,7 @@
 <br />
 
 <div class="wrapper_resumen_mobile">
-    @if (Model.TieneCaminoBrillante)
+    @if (Model.TieneCaminoBrillante && !string.IsNullOrEmpty(Model.UrlLogoCaminoBrillante))
     {
         <div class="items_belcorp cam-exito">
             @{ if (!string.IsNullOrEmpty(Model.UrlLogoCaminoBrillante))
