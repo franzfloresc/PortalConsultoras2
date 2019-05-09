@@ -75,7 +75,7 @@ function AceptarPedidoPendiente() {
             Accion: 2,
             Dispositivo: glbDispositivo,
             AccionTipo: $(btn).parent().data('accion'),
-            ListaGana: $(btn).parent().data('accion') == 'ingrgana' ? listaGana : [],
+            ListaGana: $(btn).parent().data('accion') == 'ingrgana' ? $(".conGanaMas").data('listagana') : [],
             OrigenTipoVista: gTipoVista
         }
 
