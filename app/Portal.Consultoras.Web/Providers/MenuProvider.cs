@@ -342,6 +342,17 @@ namespace Portal.Consultoras.Web.Providers
                 }
             }
 
+            #region Camino Brillante
+
+            if ((!userSession.CaminoBrillante || userSession.TipoUsuario == Constantes.TipoUsuario.Postulante)
+                && lstMenuMobileModel.Where(e => e.Codigo != null).Any(p => p.Codigo == Constantes.CaminoBrillante.Menu.Permiso_CaminoBrillante))
+            {
+                lstMenuMobileModel.Remove(lstMenuMobileModel.Where(e => e.Codigo != null)
+                    .FirstOrDefault(p => p.Codigo == Constantes.CaminoBrillante.Menu.Permiso_CaminoBrillante));
+            }
+
+            #endregion
+
             var listadoMenuFinal = new List<MenuMobileModel>();
             foreach (var menu in lstMenuMobileModel)
             {
