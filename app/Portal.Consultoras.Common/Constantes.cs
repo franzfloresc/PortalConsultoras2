@@ -3646,6 +3646,12 @@ namespace Portal.Consultoras.Common
 
         public static class CaminoBrillante
         {
+            public static class Menu {
+
+                public static string Permiso_CaminoBrillante = "CaminoBrillante";
+
+            }
+
             public static class ServicioComercial
             {
                 public const string GetPeriodo = "GetPeriodo/";
