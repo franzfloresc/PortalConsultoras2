@@ -29,7 +29,8 @@
         UrlGrilla: baseUrl + 'AdministrarHistorias/ComponenteListar?IdContenido=' + $('#IdContenido').val(),
         UrlGrillaEditar: baseUrl + 'AdministrarHistorias/ComponenteObtenerViewDatos',
         UrlGrillaVerImagen: baseUrl + 'AdministrarHistorias/ComponenteObtenerVerImagen',
-        UrlComponenteDatosGuardar: baseUrl + 'AdministrarHistorias/ComponenteDatosGuardar'
+        UrlComponenteDatosGuardar: baseUrl + 'AdministrarHistorias/ComponenteDatosGuardar',
+        UrlGrillaEditarContenedor: baseUrl + 'AdministrarHistorias/ComponenteObtenerContenedorViewDatos',
     };
 
     var _accion = {
@@ -44,7 +45,10 @@
     };
 
     var _GrillaAcciones = function (cellvalue, options, rowObject) {
-        var act = "&nbsp;<a href='javascript:;' onclick=\'return admHistoriaDatos.Editar(event);\' >"
+        var act = "&nbsp;<a href='javascript:;' onclick=\'return admHistoriaDatos.EditarContenedor(event);\' >"
+            + "<img src='" + rutaImagenEdit + "' alt='Editar' title='Editar' border='0' /></a>";
+       
+        act  += "&nbsp;<a href='javascript:;' onclick=\'return admHistoriaDatos.Editar(event);\' >"
             + "<img src='" + rutaImagenDelete + "' alt='Eliminar' title='Eliminar' border='0' /></a>";
         return act;
     };
@@ -131,7 +135,7 @@
             loadtext: _texto.Cargando,
             recordtext: _texto.RegistroPaginar,
             emptyrecords: _texto.SinResultados,
-            rowNum: 20,
+            rowNum: rowNumList,
             scrollOffset: 0,
             rowList: [15, 20, 30, 40, 50],
             viewrecords: true,
@@ -313,11 +317,81 @@
         });
     };
 
+    var _DialogEditarContenedor = function () {
+        $('#DialogEditarContenedor').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 600,
+            height: 400,
+            close: function () {
+                HideDialog("DialogEditarContenedor");
+            },
+            draggable: false,
+            title: "Editar",
+            open: function (event, ui) { },
+            buttons:
+            {
+                'Guardar': function () {
+                    // _GuardarDatos(this);
+                },
+                'Salir': function () {
+                    HideDialog("DialogEditarContenedor");
+                }
+            }
+        });
+    };
+
+    var GrillaEditarContenedor = function (event) {
+
+        var rowId = $(event.path[1]).parents('tr').attr('id');
+        var row = jQuery(_elemento.TablaId).getRowData(rowId);
+        console.log("rowId", row);
+        //console.log("row",row);
+        //return;
+        var entidad = {
+            IdContenidoDeta: row['IdContenidoDeta'],
+            IdContenido: row['IdContenido'],
+            Accion: _accion.Editar
+        };
+        _RegistroObternerContenedor(entidad);
+    }
+    var _RegistroObternerContenedor = function (modelo) {
+        //console.log(modelo);
+        //return;
+        waitingDialog();
+        $.ajax({
+            url: _url.UrlGrillaEditarContenedor,
+            type: 'GET',
+            dataType: 'html',
+            data: modelo,
+            contentType: 'application/json; charset=utf-8',
+            success: function (result) {
+
+                closeWaitingDialog();
+
+                $("#dialog-editar-contenedor").empty();
+                $("#dialog-editar-contenedor").html(result),
+
+                showDialog("DialogEditarContenedor");
+
+                //$(_elemento.DialogRegistroHtml).empty();
+                //$(_elemento.DialogRegistroHtml)
+                //    .html(result);
+
+                //showDialog(_elemento.DialogRegistro);
+
+            },
+            error: function (request, status, error) { closeWaitingDialog(); _toastHelper.error("Error al cargar la ventana."); }
+        });
+    };
  
     var _initializar = function (param) {
         _evento();
         _DialogCrear();
         _DialogImagen();
+        _DialogEditarContenedor();
     };
 
    
@@ -327,6 +401,7 @@
         },
         Editar: GrillaEditar,
         VerImagen: GrillaVerImagen,
+        EditarContenedor: GrillaEditarContenedor
     };
 
 })();

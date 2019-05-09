@@ -438,5 +438,24 @@ namespace Portal.Consultoras.Web.Controllers
             return newfilename;
         }
 
+        public ActionResult ComponenteObtenerContenedorViewDatos(AdministrarHistorialDetaUpdModel entidad)
+        {
+            AdministrarHistorialDetaUpdModel modelo;
+            try
+            {
+                modelo = new AdministrarHistorialDetaUpdModel
+                {
+                    IdContenidoDeta = entidad.IdContenidoDeta,
+                    IdContenido = entidad.IdContenido
+                };
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                modelo = new AdministrarHistorialDetaUpdModel();
+            }
+            return PartialView("Partials/MantenimientoEditarContenedor", modelo);
+        }
+
     }
 }
