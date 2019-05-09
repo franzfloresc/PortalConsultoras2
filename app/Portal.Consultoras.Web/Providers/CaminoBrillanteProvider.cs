@@ -258,8 +258,8 @@ namespace Portal.Consultoras.Web.Providers
         public bool ValidacionCaminoBrillante()
         {
             var informacion = GetConsultoraNivelCaminoBrillante();
-            if (informacion == null || informacion.NivelConsultora == null || !informacion.NivelConsultora.Any()) return false;
-            return true;
+            if (informacion == null || informacion.NivelConsultora == null || usuarioModel == null || !informacion.NivelConsultora.Any()) return false;
+            return usuarioModel.CaminoBrillante;
         }
 
         public bool LoadCaminoBrillante() {
@@ -272,6 +272,7 @@ namespace Portal.Consultoras.Web.Providers
             }
             catch (Exception ex)
             {
+                //DesactivarCaminoBrillante();
                 LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
                 return false;
             }
