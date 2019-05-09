@@ -796,23 +796,24 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
         public List<BEDesmostradoresCaminoBrillante> GetFiltrarDemostradores(List<BEDesmostradoresCaminoBrillante> demostradores, string filtro)
         {
-            var lstFiltrada = new List<BEDesmostradoresCaminoBrillante>();
-            var array = filtro.Split('|');
-            lstFiltrada = demostradores.Where(x => In)
+            //var lstFiltrada = new List<BEDesmostradoresCaminoBrillante>();
+            //var array = filtro.Split('|');
+            //lstFiltrada = demostradores.Where(x => In)
 
 
 
-            switch (filtro)
-            {
-                case Constantes.CaminoBrillante.CodigoFiltros.lbel:
-                    return demostradores;
-                case Constantes.CaminoBrillante.CodigoFiltros.esika:
-                    return demostradores;
-                case Constantes.CaminoBrillante.CodigoFiltros.cyzone:
-                    return demostradores;
-                default:
-                    return demostradores;
-            }
+            //switch (filtro)
+            //{
+            //    case Constantes.CaminoBrillante.CodigoFiltros.lbel:
+            //        return demostradores;
+            //    case Constantes.CaminoBrillante.CodigoFiltros.esika:
+            //        return demostradores;
+            //    case Constantes.CaminoBrillante.CodigoFiltros.cyzone:
+            //        return demostradores;
+            //    default:
+            //        return demostradores;
+            //}
+            return null;
         }
 
         public List<BEDesmostradoresCaminoBrillante> GetDemostradores(int paisId, int campaniaId, int nivelId)
