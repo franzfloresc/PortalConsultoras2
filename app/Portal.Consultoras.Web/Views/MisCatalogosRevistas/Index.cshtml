@@ -50,18 +50,24 @@ else
     <!-- FIN - TITULO DE VISTA CATÁLOGOS -->
     <!-- TABS PARA MOSTRAR SECCIÓN CATÁLOGOS O REVISTAS -->
     <ul class="row flex-row justify-content-between ml-0 mr-0 mb-0 tabs__catalogos__revistas mostrarEnMobile">
-        <li class="col-6 pl-0 pr-0 tab__catalogos__revistas tab__catalogos">
+        <li id="catalog" class="col-6 pl-0 pr-0 tab__catalogos__revistas tab__catalogos">
             <a class="d-block text-uppercase text-center" title="Catálogos">
                 Catálogos
             </a>
             <div class="col-12 pl-0 pr-0 d-block indicador__catalogos__revistas indicador__catalogos__revistas--activo"></div>
         </li>
-        <li class="col-6 pl-0 pr-0 tab__catalogos__revistas tab__revistas">
-            <a class="d-block text-uppercase text-center" title="Revistas">
-                Revistas
-            </a>
-            <div class="col-12 pl-0 pr-0 d-block indicador__catalogos__revistas"></div>
-        </li>
+
+        @if (ViewBag.TieneSeccionRevista)
+        {
+            <li class="col-6 pl-0 pr-0 tab__catalogos__revistas tab__revistas">
+                <a class="d-block text-uppercase text-center" title="Revistas">
+                    Revistas
+                </a>
+                <div class="col-12 pl-0 pr-0 d-block indicador__catalogos__revistas"></div>
+            </li>
+        }
+
+
     </ul>
     <!-- FIN - TABS PARA MOSTRAR SECCIÓN CATÁLOGOS O REVISTAS -->
 
@@ -379,13 +385,22 @@ else
     <script type="text/javascript" id="js-ready-Catalogo">
         var urlCatalogoPiloto = '@Html.Raw(ViewBag.UrlCatalogoPiloto)';
         var piloto = '@ViewBag.Piloto';
+        var TieneSeccionRevista =  ('@ViewBag.TieneSeccionRevista').toLocaleLowerCase();
+         if (!JSON.parse(TieneSeccionRevista)) {
+             $('#catalog').css('max-width', '100%');
+             $('#catalog').css('flex', '0 0 100%');
+            
+            
+        };
+           
+
 
         var imgNoDisponible = '@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")';
         var imgIssuu = '@Constantes.CatalogoUrlParameters.UrlPart01' +
             '{img}' +
             '@Constantes.CatalogoUrlParameters.UrlPart02Alternativo';
         imgIssuu = imgIssuu.startsWith("https") ? imgIssuu.replace("https://", "http://") : imgIssuu;
-        var urlObtenerPortadaRevista = '@Url.Action("ObtenerPortadaRevista", "Catalogo", new { area = "Mobile" })';
+        var urlObtenerPortadaRevista = '@Url.Action("ObtenerPortadaRevista", "MisCatalogosRevistas", new { area = "" })';
         var defaultImageRevista = '@Url.Content("~/Content/Images/revista_no_disponible.jpg")';
         var urlIconoClienteAutoCompletar = '@Url.Content("~/Content/Images/Esika/user.jpg")';
         var valContenidoCorreoDefecto = '@Html.Raw(Constantes.CatalogoMensajesDefault.SaludoCorreo)';
