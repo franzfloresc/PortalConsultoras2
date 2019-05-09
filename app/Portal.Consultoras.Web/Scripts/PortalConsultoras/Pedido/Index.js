@@ -1933,7 +1933,7 @@ function EjecutarServicioPROL() {
             }
 
             if (response.mensajeCondicional) {
-	            AbrirMensaje(response.mensajeCondicional);
+                AbrirMensajeImagen(response.mensajeCondicional);
             }
 
             //Marcación Analytics
@@ -2468,7 +2468,7 @@ function UpdateCliente(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CU
             }
 
             if (data.mensajeCondicional) {
-	            AbrirMensaje(data.mensajeCondicional);
+                AbrirMensajeImagen(data.mensajeCondicional);
             }
 
             CargarDetallePedido();

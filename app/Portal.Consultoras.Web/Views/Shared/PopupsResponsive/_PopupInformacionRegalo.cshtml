@@ -12,10 +12,10 @@
         <div class="popup__somos__belcorp__contenido popup__somos__belcorp__contenido--informacionRegalo">
             <div class="popup__somos__belcorp__imagen">
                 <img src="@Url.Content("~/Content/Images/olla.jpg")" alt="Olla Tramontina" />
+                @*@(ViewBag.UrlRaizS3)Images/MiNegocio/@(ViewBag.codigoISOMenu)/olla.png*@
             </div>
             <div>
-                <div id="mensaje" class="popup__somos__belcorp__mensaje popup__somos__belcorp__mensaje--informacionRegalo">
-                    No olvides incluir en tu pedido un <span>Labial Radiance</span> o algún pack que incluya este labial y <span>podrás ganar una espectacular Olla Tramontina con tu pedido de C09.</span>
+                <div class="mensaje_regalo popup__somos__belcorp__mensaje popup__somos__belcorp__mensaje--informacionRegalo">
                 </div>
                 <button onclick="javascript: $('#PopupInformacionRegalo').fadeOut(100); $(this).parents('.popup__somos__belcorp--informacionRegalo').removeClass('mostrarPopup');" class="multimarca-background-color popup__somos__belcorp__btn popup__somos__belcorp__btn--aceptar" title="Aceptar">
                     Aceptar

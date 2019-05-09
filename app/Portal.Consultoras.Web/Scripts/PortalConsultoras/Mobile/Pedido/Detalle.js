@@ -800,7 +800,7 @@ function PedidoUpdate(item, PROL, detalleObj, elementRow) {
             CargarPedido();
 
             if (data.mensajeCondicional) {
-	            AbrirMensaje(data.mensajeCondicional);
+	            AbrirMensajeImagen(data.mensajeCondicional);
             }
 
             if (data.modificoBackOrder) {
@@ -907,7 +907,7 @@ function EjecutarServicioPROL() {
             }
 
             if (response.mensajeCondicional) {
-	            AbrirMensaje(response.mensajeCondicional);
+                AbrirMensajeImagen(response.mensajeCondicional);
             }
 
             RespuestaEjecutarServicioPROL(response, function () { return CumpleOfertaFinalMostrar(response); });

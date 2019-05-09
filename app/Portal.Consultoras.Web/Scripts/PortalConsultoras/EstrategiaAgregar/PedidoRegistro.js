@@ -962,7 +962,7 @@ var PedidoRegistroModule = function () {
                 }
 
                 if (data.mensajeCondicional) {
-	                AbrirMensaje(data.mensajeCondicional);
+                    AbrirMensajeImagen(data.mensajeCondicional);
                 }
 
                 if (model != null && model != undefined)
@@ -1122,7 +1122,7 @@ var PedidoRegistroModule = function () {
                 else if (!IsNullOrEmpty(data.mensajeAviso)) AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
 
                 if (data.mensajeCondicional) {
-	                AbrirMensaje(data.mensajeCondicional);
+                    AbrirMensajeImagen(data.mensajeCondicional);
                 }
 
                 $("#hdCuvEnSession").val("");
@@ -1314,7 +1314,7 @@ var PedidoRegistroModule = function () {
                     microefectoPedidoGuardado();
                     if (!IsNullOrEmpty(response.mensajeAviso)) AbrirMensaje(response.mensajeAviso, response.tituloMensaje);
                     if (response.mensajeCondicional) {
-	                    AbrirMensaje(response.mensajeCondicional);
+                        AbrirMensajeImagen(response.mensajeCondicional);
                     }
                     TrackingJetloreAdd(form.data.Cantidad, $("#hdCampaniaCodigo").val(), form.data.CUV);
                     dataLayer.push({
@@ -1588,7 +1588,7 @@ function UpdateTransaction(CantidadActual, CampaniaID, PedidoID, PedidoDetalleID
             }
 
             if (data.mensajeCondicional) {
-	            AbrirMensaje(data.mensajeCondicional);
+                AbrirMensajeImagen(data.mensajeCondicional);
             }
 
             CargarDetallePedido();
