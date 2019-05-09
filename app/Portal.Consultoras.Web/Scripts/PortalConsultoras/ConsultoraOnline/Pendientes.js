@@ -115,6 +115,7 @@ function AceptarPedidoPendiente() {
                         else {
                             $('#popuplink').click();
                         }
+                        CargarResumenCampaniaHeader(true);
                         return false;
                     }
                     else {
