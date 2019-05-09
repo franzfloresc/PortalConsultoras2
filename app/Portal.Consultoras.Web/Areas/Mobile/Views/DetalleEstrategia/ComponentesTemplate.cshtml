@@ -1,4 +1,8 @@
 ﻿@using Portal.Consultoras.Common
+
+
+
+
 <script id="componentes-template" type="text/x-handlebars-template">
     {{#iff CodigoVariante '==' '@Constantes.TipoEstrategiaSet.IndividualConTonos'}}
     {{#each this.Hermanos as |componente|}}
@@ -81,7 +85,11 @@
     <div class="content_producto_compuesto">
         <div class="row">
             {{#each this.Hermanos as |componente|}}
-            <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="col-md-12 col-sm-12 col-xs-12" data-componente-grupo="{{componente.Grupo}}">
+                <div style="display:none" >
+                    <div data-componente="{{{json this}}}"></div>
+                </div>
+
                 {{#ifVerificarMarcaLast componente.DescripcionMarca}}
                 <div style="border-bottom: 1px solid #ccc; margin:14px 0px;"></div>
                 {{/ifVerificarMarcaLast}}
@@ -105,6 +113,17 @@
                             {{/if}}
                         </div>
                         <br class="clear" />
+                    </div>
+                    <div class="row">
+                        {{#iff ../MostrarFichaEnriquecida '==' true }}
+                        {{#iff ../Hermanos.length '>' 1}}
+                        {{#iff componente.TieneDetalleSeccion '==' true}}
+                        <div id="btnVerDetalle" onclick="javascript:componenteDetalleModule.VerDetalle(event)" class="col-md-12 text-right">
+                            <a class="btn_detalle" data-toggle="modal">Ver detalle <img src="/Content/Images/General/Icons/arrow_down.svg"></a>
+                        </div>
+                        {{/iff}}
+                        {{/iff}}
+                        {{/iff}}
                     </div>
                     <div class="clear"></div>
                     {{#iff componente.Digitable '==' '1'}}

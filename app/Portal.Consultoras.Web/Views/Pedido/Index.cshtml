@@ -4,12 +4,36 @@
 
 @{
     ViewBag.Title = "Ingresa tu Pedido";
+    
 }
 
 @section styles{
     @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/Site-CssPedido")
 
+   
+
 }
+<style>
+    .desactive-mas-menos {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 100%;
+        background: gray;
+        opacity: 0.6;
+        cursor: not-allowed;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 10;
+    }
+    .desactivo {
+        pointer-events: none;
+        cursor:none;
+        text-decoration:none; 
+        opacity: 0.4;
+    }
+</style>
 
 <div class="franja_negra" style="background: #000 url(@ViewBag.UrlFranjaNegra) no-repeat center bottom;"></div>
 <div class="envolvente_pop_up">
@@ -69,11 +93,15 @@
             <input type="hidden" id="hdfOrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.DesktopPedidoDigitado" name="OrigenPedidoWeb" />
             <input type="hidden" id="hdfEsBusquedaSR" />
             <input type="hidden" id="hdfEstrategiaId" value="0" />
-
+            @*INI HD-3908 *@
+            <input type="hidden" id="hdfCodigoPalanca" />
+            <input type="hidden" id="hdfCampaniaID" />
+            @*FIN HD-3908 *@
             <div id="divObservaciones" class="pedidos_no_existe" style="position:relative;"></div>
 
             <div class="pedido_ingreso_datos campo_codigo">
                 <br />
+
                 <input type="text" name="CUV" id="txtCUV" maxlength="5" class="ValidaNumeral default-border-hover" placeholder="Código" />
             </div>
 
@@ -90,8 +118,8 @@
                 <!-- FIN - MENSAJE CUANDO LA DESCRIPCIÓN DE PRODUCTO INGRESADA NO EXISTA -->
                 <br />
                 <input type="text" name="DescripcionProd" id="txtDescripcionProd" maxlength="250" onblur="ValidarDescripcion();" class="ValidaAlfanumerico default-border-hover"
-                       @*onkeyup="PreValidarCUV(event);"*@
-                       attrKey="PreValidarCUV"
+                       @*onkeyup="PreValidarCUV(event);"
+                       attrKey="PreValidarCUV"*@
                        placeholder="Descripción producto" />
             </div>
 
@@ -531,6 +559,9 @@
             @if (ViewBag.MostrarPedidosPendientes == "1")
             {
                 <div id="infoPendientes" style="background:white; display: none;">
+
+                    <div id="paginadorCabPend" class="cant_productos_y_paginador_wrapper_top">
+                    </div>
                     <div class="content_datos_pendientes">
                         <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Tipo y nombre de Cliente</div>
                         <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Origen</div>
@@ -542,6 +573,8 @@
                     <div class="linea_separadora" style="margin-top:-1px"></div>
                     <div>
                         <div id="divPedidosPend"> </div>
+                    </div>
+                    <div id="paginadorPiePend" class="cant_productos_y_paginador_wrapper_bottom">
                     </div>
                     <div class="revision_pedidosAceptados">
                         <span class="texto_revisaPedidos">Revisa tus pedidos aceptados en:</span>
@@ -1979,6 +2012,12 @@
         var activarRecomendaciones = '@ViewBag.ActivarRecomendaciones';
         var maxCaracteresRecomendaciones = '@ViewBag.MaxCaracteresRecomendaciones';
         var ClasPedidoPopupPedidoPend = '@Constantes.ClasificadorPedido.PedidoDetallePoputPendiente';
+        var ClasPedidoDetalle = '@Constantes.ClasificadorPedido.PedidoDetalle';
+        var ClasPedidoDetallePendiente = '@Constantes.ClasificadorPedido.PedidoDetallePendiente';
+        var kitsCaminoBrillante = '@ViewBag.KitsCaminoBrillante';
+
+        
+
     </script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/SB2-Pedido")
     @if (HttpContext.Current.Request.Browser.IsMobileDevice)
