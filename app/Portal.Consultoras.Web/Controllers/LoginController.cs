@@ -271,41 +271,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     else
                     {
-                        var returnSi = false;
-                        using (var svc = new UsuarioServiceClient())
-                        {
-                            var userExt = svc.GetUsuarioExternoByCodigoUsuario(model.PaisID, model.CodigoUsuario);
-                            if (userExt == null)
-                            {
-                                var beUserExtPais = new BEUsuarioExternoPais
-                                {
-                                    Proveedor = usuarioExterno.Proveedor,
-                                    IdAplicacion = usuarioExterno.IdAplicacion,
-                                    PaisID = model.PaisID,
-                                    CodigoISO = Util.GetPaisISO(model.PaisID)
-                                };
-                                svc.InsUsuarioExternoPais(11, beUserExtPais);
-
-                                var beUsuarioExterno = new BEUsuarioExterno
-                                {
-                                    CodigoUsuario = resultadoInicioSesion.CodigoUsuario,
-                                    Proveedor = usuarioExterno.Proveedor,
-                                    IdAplicacion = usuarioExterno.IdAplicacion,
-                                    Login = usuarioExterno.Login,
-                                    Nombres = usuarioExterno.Nombres,
-                                    Apellidos = usuarioExterno.Apellidos,
-                                    FechaNacimiento = usuarioExterno.FechaNacimiento,
-                                    Correo = usuarioExterno.Correo,
-                                    Genero = usuarioExterno.Genero,
-                                    Ubicacion = usuarioExterno.Ubicacion,
-                                    LinkPerfil = usuarioExterno.LinkPerfil,
-                                    FotoPerfil = usuarioExterno.FotoPerfil
-                                };
-                                svc.InsertUsuarioExterno(model.PaisID, beUsuarioExterno);
-
-                                returnSi = true;
-                            }
-                        }
+                        var returnSi = LoginUsuarioExterno(model, resultadoInicioSesion);
 
                         if (returnSi)
                         {
@@ -386,6 +352,48 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var passwordCjs = ConfigurationManager.AppSettings.Get("CryptoJSPassword");
             return Util.DecryptCryptoJs(model.ClaveSecreta, passwordCjs, model.Salt, model.Key, model.Iv);
+        }
+
+        private bool LoginUsuarioExterno(LoginModel model, BEValidaLoginSB2 resultadoInicioSesion)
+        {
+            var returnSi = false;
+            var usuarioExterno = model.UsuarioExterno;
+            using (var svc = new UsuarioServiceClient())
+            {
+                var userExt = svc.GetUsuarioExternoByCodigoUsuario(model.PaisID, model.CodigoUsuario);
+                if (userExt == null)
+                {
+                    var beUserExtPais = new BEUsuarioExternoPais
+                    {
+                        Proveedor = usuarioExterno.Proveedor,
+                        IdAplicacion = usuarioExterno.IdAplicacion,
+                        PaisID = model.PaisID,
+                        CodigoISO = Util.GetPaisISO(model.PaisID)
+                    };
+                    svc.InsUsuarioExternoPais(Constantes.PaisID.Peru, beUserExtPais);
+
+                    var beUsuarioExterno = new BEUsuarioExterno
+                    {
+                        CodigoUsuario = resultadoInicioSesion.CodigoUsuario,
+                        Proveedor = usuarioExterno.Proveedor,
+                        IdAplicacion = usuarioExterno.IdAplicacion,
+                        Login = usuarioExterno.Login,
+                        Nombres = usuarioExterno.Nombres,
+                        Apellidos = usuarioExterno.Apellidos,
+                        FechaNacimiento = usuarioExterno.FechaNacimiento,
+                        Correo = usuarioExterno.Correo,
+                        Genero = usuarioExterno.Genero,
+                        Ubicacion = usuarioExterno.Ubicacion,
+                        LinkPerfil = usuarioExterno.LinkPerfil,
+                        FotoPerfil = usuarioExterno.FotoPerfil
+                    };
+                    svc.InsertUsuarioExterno(model.PaisID, beUsuarioExterno);
+
+                    returnSi = true;
+                }
+            }
+            return returnSi;
+
         }
 
         [AllowAnonymous]
