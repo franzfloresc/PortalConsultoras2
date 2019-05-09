@@ -71,6 +71,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region ActionResult
 
+        #region Index
         [AllowAnonymous]
         public async Task<ActionResult> Index(string returnUrl = null)
         {
@@ -90,12 +91,15 @@ namespace Portal.Consultoras.Web.Controllers
                         sessionManager.SetMiAcademiaVideo(flagMiAcademiaVideo);
                         sessionManager.SetMiAcademiaParametro(urlSapParametro);
 
-                        return RedirectToAction("Index", "MiAcademia");
+                        //return RedirectToAction("Index", "MiAcademia");
                     }
 
-                    return EsDispositivoMovil()
-                        ? RedirectToAction("Index", "Bienvenida", new { area = "Mobile" })
-                        : RedirectToAction("Index", "Bienvenida");
+                    //return EsDispositivoMovil()
+                    //    ? RedirectToAction("Index", "Bienvenida", new { area = "Mobile" })
+                    //    : RedirectToAction("Index", "Bienvenida");
+
+                    var esMobile = EsDispositivoMovil();
+                    return IndexRedireccionar(misCursos, esMobile);
                 }
 
                 model.ListaPaises = ObtenerPaises();
@@ -135,6 +139,18 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.FBAppId = ConfigurationManager.AppSettings["FB_AppId"];
 
             return View(model);
+        }
+
+        public RedirectToRouteResult IndexRedireccionar(int cantCursos, bool esMobile)
+        {
+            if (cantCursos > 0)
+            {
+                return RedirectToAction("Index", "MiAcademia");
+            }
+
+            return esMobile
+                ? RedirectToAction("Index", "Bienvenida", new { area = "Mobile" })
+                : RedirectToAction("Index", "Bienvenida");
         }
 
         private void MisCursos()
@@ -208,6 +224,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             return model;
         }
+        
+        #endregion
 
         [AllowAnonymous]
         [HttpGet]
