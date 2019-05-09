@@ -306,24 +306,24 @@ function MostrarBarra(datax, destino) {
         htmlTippintPoint = htmlTippintPoint
             .replace('{barra_tooltip_class}', dataTP.ActiveTooltip ? 'contenedor_tippingPoint' : '')
             .replace('{barra_tooltip}',
-            dataTP.ActiveTooltip ?
-                '<div class="tooltip_regalo_meta_tippingPoint">'
-                + '<div class="tooltip_producto_regalo_img">'
-                + '<img src="' + dataTP.LinkURL + '" alt="Producto de regalo"/>'
-                + '</div>'
-                + '{barra_tooltip_descripcion}'
-                + '</div>' :
-                ''
+                dataTP.ActiveTooltip ?
+                    '<div class="tooltip_regalo_meta_tippingPoint">'
+                    + '<div class="tooltip_producto_regalo_img">'
+                    + '<img src="' + dataTP.LinkURL + '" alt="Producto de regalo"/>'
+                    + '</div>'
+                    + '{barra_tooltip_descripcion}'
+                    + '</div>' :
+                    ''
             )
             .replace('{barra_monto}',
-            dataTP.ActiveMonto ?
-                '<div class="monto_meta_tippingPoint">' + variablesPortal.SimboloMoneda + ' ' + dataBarra.TippingPointStr + '</div>' :
-                ''
+                dataTP.ActiveMonto ?
+                    '<div class="monto_meta_tippingPoint">' + variablesPortal.SimboloMoneda + ' ' + dataBarra.TippingPointStr + '</div>' :
+                    ''
             )
             .replace('{barra_tooltip_descripcion}',
-            dataTP.ActiveMonto ?
-                '<div class="tooltip_producto_regalo_descripcion">Llega a <span>' + variablesPortal.SimboloMoneda + ' ' + dataBarra.TippingPointStr + '</span><br>y llévate de regalo<br><strong>' + dataTP.DescripcionCUV2 + '</strong></div>' :
-                '<div class="tooltip_producto_regalo_descripcion"><br> Llévate de regalo<br><strong>' + dataTP.DescripcionCUV2 + '</strong></div>'
+                dataTP.ActiveMonto ?
+                    '<div class="tooltip_producto_regalo_descripcion">Llega a <span>' + variablesPortal.SimboloMoneda + ' ' + dataBarra.TippingPointStr + '</span><br>y llévate de regalo<br><strong>' + dataTP.DescripcionCUV2 + '</strong></div>' :
+                    '<div class="tooltip_producto_regalo_descripcion"><br> Llévate de regalo<br><strong>' + dataTP.DescripcionCUV2 + '</strong></div>'
             );
     }
 
@@ -575,13 +575,6 @@ function MostrarBarra(datax, destino) {
             wLogro = wLimiteAnterior;
         }
     }
-    //SALUD-125 EINCA
-    //if (destino == "1") {
-    //    if (indPuntoLimite <= 0 && mn > 0  ) {
-    //        wLimite = 0;
-    //        wLogro = 0;
-    //    }
-    //}
 
     if (listaLimite.length == 1) {
         if (vLogro > vLimite) {
@@ -1517,11 +1510,11 @@ function CalculoPosicionMinimoMaximo() {
     var montoTipipoing = dataBarra.TippingPoint;
     var montoActual = mtoLogroBarra;
     var montoMinimo = dataBarra.MontoMinimo;
-    
+
     if (dataBarra.TippingPointBarra.InMinimo != null) {
         ConfiguradoRegalo = dataBarra.TippingPointBarra.InMinimo;
     }
-    
+
     var PosicionMontoMinimo = 0;
     if (TieneMontoMaximo()) { // se trata como tipinpoing
         if (ConfiguradoRegalo == true) {

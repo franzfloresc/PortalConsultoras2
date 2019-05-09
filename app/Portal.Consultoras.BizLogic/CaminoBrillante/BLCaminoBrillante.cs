@@ -941,6 +941,8 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             var usuario = datosTablaLogica.Where(a => a.Codigo == Constantes.CaminoBrillante.ServicioComercial.TablaLogicaDatosKey.UsuarioInformacionComercial).Select(e => e.Valor).FirstOrDefault();
             var clave = datosTablaLogica.Where(a => a.Codigo == Constantes.CaminoBrillante.ServicioComercial.TablaLogicaDatosKey.ClaveInformacionComercial).Select(e => e.Valor).FirstOrDefault();
 
+            if (string.IsNullOrEmpty(url)) return null;
+
             return new CaminoBrillanteProvider(url, usuario, clave);
         }
 
