@@ -1490,6 +1490,7 @@
     <Content Include="Content\Images\icono_celular.svg" />
     <Content Include="Content\Images\icono_confirmacion.svg" />
     <Content Include="Content\Images\icono_enlace_volver.svg" />
+    <Content Include="Content\Images\icono_mail.svg" />
     <Content Include="Content\Images\icono_party_popper.png" />
     <Content Include="Content\Images\flecha_despliegue_opcion_mi_perfil.svg" />
     <Content Include="Content\Images\Esika\icono_campos_select_mi_perfil.svg" />

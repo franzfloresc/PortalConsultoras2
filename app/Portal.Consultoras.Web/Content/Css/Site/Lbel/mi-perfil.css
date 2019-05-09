@@ -1175,10 +1175,10 @@ input.permiso_cuenta_opcion_checkbox
     background-size:100%;
 }
 
-.icono_correo_sobre{
-    width:78px;
-    height:46px;
-    background-image:url('/Content/Images/Lbel/icono_envelope.svg');
+.icono_correo_sobre {
+    width: 64px;
+    height: 64px;
+    background-image: url('/Content/Images/icono_mail.svg');
 }
 
 .icono_mensaje_sms {

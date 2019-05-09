@@ -66,12 +66,30 @@ else
             </div>
         </div>
         <div vista-id="2" class="revisa_tu_correo text-center" style="display:none;">
-            <div class="center-block icono_success icono_success--miPerfil">
-                <img class="d-block" src="@Url.Content("~/Content/Images/success_icon.svg")" alt="¡El cambio de correo fue exitoso!" />
+            <div class="icono_correo_sobre"></div>
+            <h3 class="d-block text-bold actualizacion_celular_titulo">Confirmación de correo</h3>
+            <p class="w-100 envio_instrucciones_info">
+                <span class="d-block w-100">
+                    Te hemos enviado un correo de confirmación a:
+                </span>
+                <span class="d-block w-100 text-bold num_celular_actual" id="txtCorreoEnviado">
+                    cambiodecorreo@example.com
+                </span>
+                <a href="#" class="d-block enlace_cambiar_numero_celular" title="Cambia de correo">
+                    Cambia de correo
+                </a>
+            </p>
+            <div class="text-center">
+                <div class="w-100 envio_instrucciones_info">
+                    <span class="w-100">¿Aún no recibes nuestro correo?</span>
+                    <a id="btnReenviameInstruciones" title="Reenviar el correo" class="enlace_reenviar_instrucciones w-100">
+                        Reenviar el correo
+                    </a>
+                </div>
+                <button type="button" class="d-block center-block border-radius-4 text-bold mt-23 btn_deshabilitado btn_primario btn_primario--miPerfil">
+                    Ir a ver mis datos
+                </button>
             </div>
-            <h6 class="center-block text-bold text-center mensaje_success mensaje_success--miPerfil">
-                ¡El cambio de<br />correo fue exitoso!
-            </h6>
             @*<h1 class="titulo_revisa_tu_correo text-uppercase">
                 Revisa <span class="text-bold">tu correo</span>
             </h1>
@@ -90,6 +108,14 @@ else
                 <span>¿Este no es tu correo?</span>
                 <a id="btnReescribirCorreo" title="Cambia tu correo" class="enlace_cambiar_correo text-bold">Cambia tu correo</a>
             </p>*@
+        </div>
+        <div vista-id="3" style="display:none;">
+            <div class="center-block icono_success icono_success--miPerfil">
+                <img class="d-block" src="@Url.Content("~/Content/Images/success_icon.svg")" alt="¡El cambio de correo fue exitoso!" />
+            </div>
+            <h6 class="center-block text-bold text-center mensaje_success mensaje_success--miPerfil">
+                ¡El cambio de<br />correo fue exitoso!
+            </h6>
         </div>
     </div>
 </section>
