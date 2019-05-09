@@ -12,10 +12,18 @@ var reservaResponse = {
 };
 var contadorkit = 0
 var contadordemo = 0
+var codOrdenar = "00";
 
 $(document).ready(function () {    
     CambiarOferta();
     Inicializar();
+
+    $("#ddlOrdenar").on("change", function () {
+        debugger
+        codOrdenar = $("#ddlOrdenar").val();
+        $("#Demostradores").empty();
+        CargarDemostradores();
+    });
 });
 
 $("#Demostradores").on('click', '.boton_agregar_ofertas', function (e) {
@@ -108,7 +116,7 @@ function CargarDemostradores() {
     $.ajax({
         type: 'GET',
         url: urlGetDemostradores,
-        data: { offset: offsetRegistrosDemo, cantidadregistros: nroRegistrosDemostradores },
+        data: { offset: offsetRegistrosDemo, cantidadregistros: nroRegistrosDemostradores, codigoOrden: codOrdenar},
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
@@ -234,6 +242,7 @@ function CambiarOferta() {
     });
 
     $('#Tab-Demostradores').click(function () {
+        $('#ddlOrdenar').show();
         $('#Demostradores').show();
         $('#kits').hide();
         $("#Tab-kits").removeClass("activado-dorado");

@@ -761,7 +761,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             var paisISO = Util.GetPaisISO(entidad.PaisID);
 
             demostradores = GetOrdenarDemostradores(demostradores, ordenar);
-            demostradores = GetFiltrarDemostradores(demostradores, filtro);
+            //demostradores = GetFiltrarDemostradores(demostradores, filtro);
 
             return demostradores.Select(e => new BEDesmostradoresCaminoBrillante()
             {

@@ -3856,8 +3856,8 @@ namespace Portal.Consultoras.Common
 
             public static class CodigosOrdenamiento
             {
-                public const string porCatalogo = "1";
-                public const string porNombre = "2";
+                public const string porCatalogo = "01";
+                public const string porNombre = "02";
             }
 
             public static class CodigoFiltros
