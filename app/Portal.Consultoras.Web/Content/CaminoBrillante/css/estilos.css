@@ -1937,7 +1937,11 @@ div .cartbtn {
     text-align: left;
     margin-bottom: 6px
 }
-
+.clearboth:after {
+    content:"";
+    display:block;
+    clear:both !important;
+}
 @media (max-width:950px) {
     .op-menu-horizontal .subnavegador li {
         padding: 0 15px
