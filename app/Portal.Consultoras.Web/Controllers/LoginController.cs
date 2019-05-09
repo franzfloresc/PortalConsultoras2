@@ -81,7 +81,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 MisCursos();
-                
+
                 if (EsUsuarioAutenticado())
                 {
                     if (misCursos > 0)
@@ -100,9 +100,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 model.ListaPaises = ObtenerPaises();
                 model.ListaEventos = await ObtenerEventoFestivo(0, Constantes.EventoFestivoAlcance.LOGIN, 0);
-                
+
                 model = IndexEvento(model);
-                
+
                 if (EstaActivoBuscarIsoPorIp())
                 {
                     iso = Util.GetISObyIPAddress(ip);
@@ -133,7 +133,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             ViewBag.FBAppId = ConfigurationManager.AppSettings["FB_AppId"];
-            
+
             return View(model);
         }
 
@@ -185,7 +185,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
         }
-        
+
         private LoginModel IndexEvento(LoginModel model)
         {
             model.ListaEventos = model.ListaEventos ?? new List<EventoFestivoModel>();
@@ -222,6 +222,7 @@ namespace Portal.Consultoras.Web.Controllers
         public async Task<ActionResult> Login(LoginModel model, string returnUrl = null)
         {
             pasoLog = "Login.POST.Index";
+            string errorMensaje = "";
             try
             {
                 if (model.PaisID == 0)
@@ -236,7 +237,7 @@ namespace Portal.Consultoras.Web.Controllers
                 TempData["serverPaisId"] = model.PaisID;
                 TempData["serverPaisISO"] = model.CodigoISO;
                 TempData["serverCodigoUsuario"] = model.CodigoUsuario;
-                
+
                 model.ClaveSecreta = DecryptCryptoClaveSecreta(model);
 
                 var resultadoInicioSesion = await ObtenerResultadoInicioSesion(model);
@@ -275,20 +276,25 @@ namespace Portal.Consultoras.Web.Controllers
 
                         if (returnSi)
                         {
-                            return usuarioExterno.Redireccionar
-                                ? await Redireccionar(model.PaisID, resultadoInicioSesion.CodigoUsuario, returnUrl, true)
-                                : Json(new
+                            if (usuarioExterno.Redireccionar)
+                            {
+                                return await Redireccionar(model.PaisID, resultadoInicioSesion.CodigoUsuario, returnUrl, true);
+                            }
+                            else
+                            {
+                                return Json(new
                                 {
                                     success = true,
                                     message = "El codigo de consultora se asoció con su cuenta de Facebook"
                                 });
+                            }
                         }
                     }
 
                     return await Redireccionar(model.PaisID, resultadoInicioSesion.CodigoUsuario, returnUrl);
                 }
 
-                var mensaje = resultadoInicioSesion != null
+                errorMensaje = resultadoInicioSesion != null
                     ? resultadoInicioSesion.Mensaje
                     : "Error al procesar la solicitud";
 
@@ -297,54 +303,55 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(new
                     {
                         success = false,
-                        message = mensaje
+                        message = errorMensaje
                     });
                 }
 
-                TempData["errorLogin"] = mensaje;
+                TempData["errorLogin"] = errorMensaje;
                 return RedirectToAction("Index", "Login");
             }
             catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, model.CodigoUsuario, model.CodigoISO);
-
+                errorMensaje = "Error al procesar la solicitud";
                 if (Request.IsAjaxRequest())
                 {
                     return Json(new
                     {
                         success = false,
-                        message = "Error al procesar la solicitud"
+                        message = errorMensaje
                     });
                 }
 
-                TempData["errorLogin"] = "Error al procesar la solicitud";
+                TempData["errorLogin"] = errorMensaje;
+                return RedirectToAction("Index", "Login");
             }
             catch (Exception ex)
             {
                 logManager.LogErrorWebServicesBusWrap(ex, model.CodigoUsuario, model.CodigoISO, pasoLog);
-
+                errorMensaje = "Error al procesar la solicitud";
                 if (Request.IsAjaxRequest())
                 {
                     return Json(new
                     {
                         success = false,
-                        message = "Error al procesar la solicitud"
+                        message = errorMensaje
                     });
                 }
 
-                TempData["errorLogin"] = "Error al procesar la solicitud";
+                TempData["errorLogin"] = errorMensaje;
                 return RedirectToAction("Index", "Login");
             }
 
-            if (Request.IsAjaxRequest())
-            {
-                return Json(new
-                {
-                    success = true,
-                    redirectTo = Url.Action("Index", "Login")
-                });
-            }
-            return RedirectToAction("Index", "Login");
+            //if (Request.IsAjaxRequest())
+            //{
+            //    return Json(new
+            //    {
+            //        success = true,
+            //        redirectTo = Url.Action("Index", "Login")
+            //    });
+            //}
+            //return RedirectToAction("Index", "Login");
         }
 
 
@@ -1042,7 +1049,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (usuario != null)
                 {
-                    if(nivelCaminoBrillante != 0) usuario.NivelCaminoBrillante = nivelCaminoBrillante;
+                    if (nivelCaminoBrillante != 0) usuario.NivelCaminoBrillante = nivelCaminoBrillante;
 
                     #region
                     usuarioModel = new UsuarioModel();
@@ -1494,7 +1501,7 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.CodigoSubClasificacion = usuario.CodigoSubClasificacion;
                     usuarioModel.DescripcionSubclasificacion = usuario.DescripcionSubClasificacion;
                     usuarioModel.NivelCaminoBrillante = usuario.NivelCaminoBrillante;
-                    
+
                 }
 
                 sessionManager.SetUserData(usuarioModel);
