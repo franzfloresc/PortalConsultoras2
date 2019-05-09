@@ -22,7 +22,7 @@ $(document).ready(function () {
             btn_ver_solicitudes: "#btn_ver_solicitudes",
             btnAceptarSolucion: "[data-cambiopaso]",
             btnCambioProducto: "#btnCambioProducto",
-            btnSiguiente0: '#btnSiguiente0',//HD-3412 EINCA
+            btnSiguiente0: '#btnSiguiente0',
             btnSiguiente1: "#btnSiguiente1",
             btnSiguiente4: "#btnSiguiente4",
             Cambio3: "#Cambio3",
@@ -121,8 +121,8 @@ $(document).ready(function () {
             hdCuvCodigo: "#hdCuvCodigo",
             EleccionTipoEnvio: "#EleccionTipoEnvio",
             hdTieneCDRExpress: "#hdTieneCDRExpress",
-            divConfirmEnviarSolicitudCDR: '#divConfirmEnviarSolicitudCDR', //HD-3412 EINCA
-            txtCantidadPedidoConfig: '#txtCantidadPedidoConfig'//HD-3412 EINCA
+            divConfirmEnviarSolicitudCDR: '#divConfirmEnviarSolicitudCDR',
+            txtCantidadPedidoConfig: '#txtCantidadPedidoConfig'
         };
 
         me.Eventos = {
@@ -154,8 +154,7 @@ $(document).ready(function () {
                         messageInfoValidado(mensajeGestionCdrInhabilitada);
                         return false;
                     }
-
-                    //El if se hizo con !() para considerar posibles valores null o undefined de $('#ddlCampania').val()
+                    
                     if (!($(me.Variables.ComboCampania).val() > 0)) {
                         messageInfoValidado(mensajeCdrFueraDeFechaCompleto);
                         return false;
@@ -267,7 +266,7 @@ $(document).ready(function () {
 
                 $(me.Variables.UltimasSolicitudes).on('click', 'a[data-accion]', function (e) {
 
-                    e.preventDefault(); // prevents the <a> from navigating                  
+                    e.preventDefault();                
                     me.Funciones.DetalleAccion(this);
                 });
 
@@ -357,7 +356,7 @@ $(document).ready(function () {
                         $(me.Variables.txtDescripcionCuv2).val('');
                         $(me.Variables.txtCuv2).html('');
                         $(me.Variables.txtPrecioCuv2).html('');
-                        //HD-3412 EINCA
+
                         if (me.Funciones.ValidarPasoUno()) {
                             me.Funciones.ValidarPasoUnoServer(function (result, msg) {
                                 if (!result && msg != "") {
@@ -451,7 +450,7 @@ $(document).ready(function () {
                     }
 
                     $(me.Variables.ComboCampania).removeAttr("disabled");
-                    //HD-3412 EINCA
+
                     if (me.Funciones.ValidarSolicitudCDREnvio(false, true)) {
                         $(me.Variables.txtCantidadPedidoConfig).text(CantidadReclamosPorPedidoConfig);
                         $(me.Variables.divConfirmEnviarSolicitudCDR).show();
@@ -559,7 +558,7 @@ $(document).ready(function () {
                     if (oID == "TipoEnvioExpress") tipoDespacho = true;
                     else tipoDespacho = false;
                 });
-                //HD-3412 EINCA
+
                 $(me.Variables.txtTelefono).keypress(function (evt) {
                     var charCode = (evt.which) ? evt.which : window.event.keyCode;
                     if (charCode <= 13) {
@@ -640,78 +639,7 @@ $(document).ready(function () {
                     }
                 });
             },
-
-
-
-            //ValidarPaso2Trueque: function () {
-            //    var ok = true;
-            //    ok = $.trim($(me.Variables.txtCuvMobile2).val()).length == "5" ? ok : false;
-            //    ok = $.trim($(me.Variables.txtDescripcionCuv2).html()) != "" ? ok : false;
-            //    ok = $.trim($(me.Variables.txtPrecioCuv2).html()) != "" ? ok : false;
-
-            //    var montoMinimoReclamo = $(me.Variables.hdMontoMinimoReclamo).val();
-            //    var montoPedidoTrueque = $(me.Variables.hdImporteTotal2).val();
-
-            //    ShowLoading();
-
-            //    var item = {
-            //        PedidoID: $(me.Variables.hdPedidoID).val(),
-            //        CUV: $.trim($(me.Variables.txtCuvMobile2).val()),
-            //        Cantidad: $.trim($(me.Variables.txtCantidad2).val()),
-            //        Motivo: $(".lista_opciones_motivo_cdr input[name='motivo-cdr']:checked").attr("id"),
-            //        CampaniaID: $(me.Variables.ComboCampania).val()
-            //    };
-
-            //    jQuery.ajax({
-            //        type: 'POST',
-            //        url: UrlValidarNoPack,
-            //        dataType: 'json',
-            //        contentType: 'application/json; charset=utf-8',
-            //        data: JSON.stringify(item),
-            //        async: false,
-            //        cache: false,
-            //        success: function (data) {
-            //            CloseLoading();
-
-            //            ok = data.success;
-
-            //            if (!data.success && data.message != "") {
-            //                messageInfoValidado(data.message);
-            //                return false;
-            //            }
-            //        },
-            //        error: function (data, error) {
-            //            CloseLoading();
-            //        }
-            //    });
-            //    var valorParametria = $(me.Variables.hdParametriaCdr).val();
-            //    var valorParametriaAbs = $(me.Variables.hdParametriaAbsCdr).val();
-
-            //    if (valorParametriaAbs == "1") {
-            //        var diferencia = parseFloat(montoMinimoReclamo) - parseFloat(montoPedidoTrueque);
-            //        if (diferencia > parseInt(valorParametria)) {
-            //            messageInfoValidado("Diferencia en trueques excede lo permitido");
-            //            return false;
-            //        }
-            //    } else {
-            //        if (valorParametriaAbs == "2") {
-            //            if (montoPedidoTrueque < montoMinimoReclamo) {
-            //                messageInfoValidado("Está devolviendo menos de lo permitido");
-            //                return false;
-            //            }
-            //        } else {
-            //            var diferencia2 = parseFloat(montoMinimoReclamo) - parseFloat(montoPedidoTrueque);
-            //            diferencia2 = Math.abs(diferencia2);
-
-            //            if (diferencia2 > parseInt(valorParametria)) {
-            //                messageInfoValidado("Diferencia en trueques excede lo permitido");
-            //                return false;
-            //            }
-            //        }
-            //    }
-            //    return ok;
-            //},
-            //HD-3412 EINCA
+            
             ValidarPasoDosTrueque: function () {
                 var ok = true;
                 ok = $.trim($(me.Variables.txtCuvMobile2).val()).length == "5" ? ok : false;
@@ -747,7 +675,7 @@ $(document).ready(function () {
                 }
                 return ok;
             },
-            //HD-3412 EINCA
+
             ValidarPasoDosTruequeServer: function (callbackWhenFinish) {
 
                 var item = {
@@ -886,7 +814,7 @@ $(document).ready(function () {
                     if (item.Estado === 3 || item.Estado === 2) {
                         EstadosConteo++;
                     }
-                    //obtener el cdr en estado pendiente
+
                     if (item.Estado === 1) { CDRWebID = item.CDRWebID; }
                 });
                 var cantidad = CantidadReclamosPorPedidoConfig != null && CantidadReclamosPorPedidoConfig != '' ? parseInt(CantidadReclamosPorPedidoConfig) : 0;
@@ -1066,63 +994,6 @@ $(document).ready(function () {
                 $(me.Variables.Registro1).show();
             },
 
-            //ValidarPaso1: function () {
-            //    var ok = true;
-            //    ok = $.trim($(me.Variables.hdPedidoID).val()) > 0 ? ok : false;
-            //    ok = $(me.Variables.ComboCampania).val() > 0 ? ok : false;
-            //    ok = $.trim($(me.Variables.hdCuvCodigo/*me.Variables.txtCuvMobile*/).val()) != "" ? ok : false;
-
-            //    ok = $(".lista_opciones_motivo_cdr input[name='motivo-cdr']:checked").size() == 0 ? false : ok;
-
-            //    if (!ok) {
-            //        messageInfoValidado("Datos incorrectos");
-            //        me.Funciones.RegresarRegistro1();
-            //        return false;
-            //    }
-
-            //    if (!(parseInt($(me.Variables.txtCantidad1).val()) > 0 && parseInt($(me.Variables.txtCantidad1).val()) <= parseInt($(me.Variables.txtCantidad1).attr("data-maxvalue")))) {
-            //        messageInfoValidado("Lamentablemente la cantidad ingresada supera a la cantidad facturada en tu pedido (" +
-            //            $.trim($(me.Variables.txtCantidad1).attr("data-maxvalue")) + ")");
-            //        me.Funciones.RegresarRegistro1();
-            //        return false;
-            //    }
-
-            //    var item = {
-            //        PedidoID: $(me.Variables.hdPedidoID).val(),
-            //        CUV: $(me.Variables.hdCuvCodigo).val(),
-            //        Cantidad: $.trim($(me.Variables.txtCantidad1).val()),
-            //        Motivo: $(".lista_opciones_motivo_cdr input[name='motivo-cdr']:checked").attr("id"),
-            //        CampaniaID: $(me.Variables.ComboCampania).val()
-            //    };
-
-            //    jQuery.ajax({
-            //        type: 'POST',
-            //        url: UrlValidarPaso1,
-            //        dataType: 'json',
-            //        contentType: 'application/json; charset=utf-8',
-            //        data: JSON.stringify(item),
-            //        async: false,
-            //        cache: false,
-            //        success: function (data) {
-            //            CloseLoading();
-            //            if (checkTimeout(data)) {
-            //                ok = data.success;
-
-            //                if (!data.success && data.message != "") {
-            //                    me.Funciones.RegresarRegistro1();
-            //                    messageInfoValidado(data.message);
-            //                }
-            //            }
-            //        },
-            //        error: function (data, error) {
-            //            CloseLoading()
-            //        }
-            //    });
-
-            //    return ok;
-
-            //},
-
             ValidarPasoUno: function () {
 
                 if ($(".lista_opciones_motivo_cdr input[name='motivo-cdr']:checked").size() == 0) {
@@ -1131,7 +1002,7 @@ $(document).ready(function () {
                 }
                 return true;
             },
-            //HD-3412 EINCA
+
             ValidarPasoUnoServer: function (callbackWhenFinish) {
                 var item = {
                     PedidoID: $(me.Variables.hdPedidoID).val(),
@@ -1659,28 +1530,7 @@ $(document).ready(function () {
                 return resultado;
 
             },
-
-            //ValidarCorreoDuplicado: function (correo) {
-            //    var resultado = false;
-            //    jQuery.ajax({
-            //        type: 'POST',
-            //        url: UrlValidarCorreoDuplicado,
-            //        dataType: 'json',
-            //        contentType: 'application/json; charset=utf-8',
-            //        data: JSON.stringify({ correo: correo }),
-            //        async: false,
-            //        cache: false,
-            //        success: function (data) {
-            //            if (!checkTimeout(data))
-            //                resultado = false;
-            //            else
-            //                resultado = data.success;
-            //        },
-            //        error: function (data, error) { }
-            //    });
-            //    return resultado;
-            //},
-            //HD-3412 EINCA
+            
             ValidarCorreoDuplicadoServer: function (correo, callbackWhenFinish) {
                 $.ajaxSetup({
                     global: false,
@@ -1714,134 +1564,7 @@ $(document).ready(function () {
 
 
             },
-
-            //SolicitudEnviar: function (validarCorreoVacio, validarCelularVacio) {
-            //    var ok = true;
-            //    var correo = $.trim($(me.Variables.txtEmail).val());
-            //    var celular = $.trim($(me.Variables.txtTelefono).val());
-
-            //    if (IfNull(validarCorreoVacio, true) && correo == "") {
-            //        me.Funciones.ControlSetError(me.Variables.txtEmail, me.Variables.spnEmailError, '*Correo Electrónico incorrecto');
-            //        ok = false;
-            //    }
-            //    if (IfNull(validarCelularVacio, true) && celular == "") {
-            //        me.Funciones.ControlSetError(me.Variables.txtTelefono, me.Variables.spnTelefonoError, '*Celular incorrecto');
-            //        ok = false;
-            //    }
-            //    if (!ok) {
-            //        messageInfoError(me.Constantes.DebeAceptarSeccionValidaTusDatos);
-            //        return false;
-            //    }
-            //    if (correo != "" && !validateEmail(correo)) {
-            //        me.Funciones.ControlSetError(me.Variables.txtEmail, me.Variables.spnEmailError, '*Correo Electrónico incorrecto');
-            //        ok = false;
-            //    }
-            //    if (celular != "" && celular.length < 6) {
-            //        me.Funciones.ControlSetError(me.Variables.txtTelefono, me.Variables.spnTelefonoError, '*Celular incorrecto');
-            //        ok = false;
-            //    }
-            //    if (!ok) return false;
-
-            //    if (celular != "" && !me.Funciones.ValidarTelefono(celular)) {
-            //        me.Funciones.ControlSetError(me.Variables.txtTelefono, me.Variables.spnTelefonoError, '*Este número de celular ya está siendo utilizado. Intenta con otro.');
-            //        return false;
-            //    }
-
-            //    var correoActual = $.trim($(me.Variables.Email).val());
-            //    if (correo != "" && correo != correoActual && !me.Funciones.ValidarCorreoDuplicado(correo)) {
-            //        me.Funciones.ControlSetError(me.Variables.txtEmail, me.Variables.spnEmailError, '*Este correo ya está siendo utilizado. Intenta con otro');
-            //        return false;
-            //    }
-
-            //    if ($(me.Variables.politica_devolucion).prop("checked") == false) {
-            //        messageInfoError(me.Constantes.DebeAceptarPoliticaCambios);
-            //        return false;
-            //    }
-
-            //    var item = {
-            //        CDRWebID: $(me.Variables.hdCDRID).val() || 0,
-            //        PedidoID: $(me.Variables.hdPedidoID).val() || 0,
-            //        Email: $(me.Variables.txtEmail).val(),
-            //        Telefono: $(me.Variables.txtTelefono).val(),
-            //        TipoDespacho: false,
-            //        FleteDespacho: 0,
-            //        MensajeDespacho: '',
-            //        EsMovilFin: OrigenCDR
-            //    };
-
-            //    if ($(me.Variables.hdTieneCDRExpress).val() == '1') {
-            //        item.TipoDespacho = tipoDespacho;
-            //        item.FleteDespacho = !tipoDespacho ? 0 : $("#hdFleteDespacho").val();
-            //        item.MensajeDespacho = ($(!tipoDespacho ? '#divDespachoNormal' : '#divDespachoExpress').CleanWhitespace().html()).trim();
-            //    }
-
-            //    ShowLoading();
-            //    jQuery.ajax({
-            //        type: 'POST',
-            //        url: UrlSolicitudEnviar,
-            //        dataType: 'json',
-            //        contentType: 'application/json; charset=utf-8',
-            //        data: JSON.stringify(item),
-            //        cache: false,
-            //        success: function (data) {
-            //            CloseLoading();
-            //            if (!checkTimeout(data)) return false;
-
-            //            if (data.success != true) {
-            //                var mensajeInfo = "";
-            //                if ((data.message.indexOf(mensajeChatEnLinea) > -1) && (flagAppMobile == 1)) {
-            //                    mensajeInfo = data.message.replace(mensajeChatEnLinea, "").trim();
-            //                } else mensajeInfo = data.message;
-
-            //                messageInfo(mensajeInfo);
-
-            //                return false;
-            //            }
-
-            //            var formatoFechaCulminado = "";
-            //            var numeroSolicitud = 0;
-            //            var formatoCampania = "";
-            //            if (data.cdrWeb.CDRWebID > 0) {
-            //                if (data.cdrWeb.FechaCulminado != 'null' || data.cdrWeb.FechaCulminado != "" || data.cdrWeb.FechaCulminado != undefined) {
-            //                    var dateString = data.cdrWeb.FechaCulminado.substr(6);
-            //                    var currentTime = new Date(parseInt(dateString));
-            //                    var month = currentTime.getMonth() + 1;
-            //                    var day = currentTime.getDate();
-            //                    var year = currentTime.getFullYear();
-            //                    formatoFechaCulminado = (day < 10 ? "0" + day : day) + "/" + (month < 10 ? "0" + month : month) + "/" + year;
-            //                }
-
-            //                numeroSolicitud = data.cdrWeb.CDRWebID;
-
-            //                if (data.cdrWeb.CampaniaID.toString().length == 6) {
-            //                    formatoCampania = data.cdrWeb.CampaniaID.toString().substring(0, 4) + "-" + data.cdrWeb.CampaniaID.toString().substring(4);
-            //                }
-            //            }
-
-            //            $(me.Variables.spnSolicitudFechaCulminado).html(formatoFechaCulminado);
-            //            $(me.Variables.spnSolicitudNumeroSolicitud).html(numeroSolicitud);
-            //            $(me.Variables.spnSolicitudCampania).html(formatoCampania);
-            //            $(me.Variables.divProcesoReclamo).hide();
-            //            $(me.Variables.divUltimasSolicitudes).hide();
-            //            $(me.Variables.btnSiguiente4).hide();
-            //            $(me.Variables.btnSiguiente1).hide();
-            //            $(me.Variables.TituloReclamo).hide();
-
-            //            if (data.Cantidad == 1) messageInfoValidado(data.message, "MENSAJE");
-
-            //            $(me.Variables.RegistroAceptarSolucion).hide();
-            //            $(me.Variables.textoMensajeCDR).hide();
-
-            //            $(me.Variables.SolicitudEnviada).show();
-
-            //        },
-            //        error: function (data, error) {
-            //            CloseLoading();
-            //        }
-            //    });
-            //},
-
-            //HD-3412 EINCA
+            
             ValidarSolicitudCDREnvio: function (validarCorreoVacio, validarCelularVacio) {
                 var ok = true;
                 var correo = $.trim($(me.Variables.txtEmail).val());
@@ -1869,17 +1592,6 @@ $(document).ready(function () {
                 }
                 if (!ok) return false;
 
-                //if (celular != "" && !me.Funciones.ValidarTelefono(celular)) {
-                //    me.Funciones.ControlSetError(me.Variables.txtTelefono, me.Variables.spnTelefonoError, '*Este número de celular ya está siendo utilizado. Intenta con otro.');
-                //    return false;
-                //}
-
-                //var correoActual = $.trim($(me.Variables.Email).val());
-                //if (correo != "" && correo != correoActual && !me.Funciones.ValidarCorreoDuplicado(correo)) {
-                //    me.Funciones.ControlSetError(me.Variables.txtEmail, me.Variables.spnEmailError, '*Este correo ya está siendo utilizado. Intenta con otro');
-                //    return false;
-                //}
-
                 if ($(me.Variables.politica_devolucion).prop("checked") == false) {
                     messageInfoError(me.Constantes.DebeAceptarPoliticaCambios);
                     return false;
@@ -1887,7 +1599,7 @@ $(document).ready(function () {
 
                 return true;
             },
-            //HD-3412 EINCA
+
             SolicitudCDREnviar: function (callbackWhenFinish) {
                 setTimeout(function () {
                     var item = {
@@ -1970,30 +1682,7 @@ $(document).ready(function () {
                     });
                 }, 0);
             },
-
-            //ValidarTelefono: function () {
-            //    ShowLoading();
-            //    var resultado = false;
-            //    jQuery.ajax({
-            //        type: 'POST',
-            //        url: UrlValidaTelefono,
-            //        dataType: 'json',
-            //        contentType: 'application/json; charset=utf-8',
-            //        data: JSON.stringify({ Telefono: $("#txtTelefono").val() }),
-            //        async: false,
-            //        cache: false,
-            //        success: function (data) {
-            //            CloseLoading();
-            //            if (!checkTimeout(data)) resultado = false;
-            //            else resultado = data.success;
-            //        },
-            //        error: function (data, error) {
-            //            CloseLoading();
-            //        }
-            //    });
-            //    return resultado;
-            //},
-            //HD-3412 EINCA
+            
             ValidarTelefonoServer: function (celular, callbackWhenFinish) {
                 $.ajaxSetup({
                     global: false,
@@ -2100,14 +1789,14 @@ $(document).ready(function () {
                 var id = objPedido.attr("data-pedido-id");
                 var pedidos = listaPedidos.Find("PedidoID", id);
                 var pedido = pedidos.length > 0 ? pedidos[0] : new Object();
-                $/*("#divPopupPedido").hide();*/
+               
                 me.Funciones.AsignarCUV(pedido);
             },
-            //HD-3412 EINCA 
+
             CancelarConfirmEnvioSolicitudCDR: function () {
                 $(me.Variables.divConfirmEnviarSolicitudCDR).hide();
             },
-            //HD-3412 EINCA
+
             ContinuarConfirmEnvioSolicitudCDR: function () {
                 $.when(me.Funciones.CancelarConfirmEnvioSolicitudCDR()).then(function () {
                     me.Funciones.ValidarTelefonoServer($.trim($(me.Variables.txtTelefono).val()), function (data) {

@@ -133,10 +133,7 @@ namespace Portal.Consultoras.Web.Controllers
                     using (var image = System.Drawing.Image.FromStream(new MemoryStream(fileBytes)))
                     {
                         var noCumpleDimension = image.Height != height || image.Width != width;
-                        image.Dispose();
-
-                        if (noCumpleDimension)
-                            return Json(new { success = false, message = messageSize }, "text/html");
+                        if (noCumpleDimension) return Json(new { success = false, message = messageSize }, "text/html");
                     }
                 }
 

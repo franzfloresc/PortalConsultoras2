@@ -24,6 +24,14 @@
     color:rgba(128, 128, 128, 0.5)!important;
 }
 
+.multimarca-background-color {
+    background-color: #b9007e;
+}
+
+.bg__popups__default {
+    background-color: rgba(0,0,0,.8);
+}
+
 /* POPUP GENERAL (ACCIONES ACEPTAR Y CANCELAR) */
 
 .contenedor_popup_general {
@@ -230,6 +238,7 @@
 }
 
 /* FIN - POPUP GENERAL (ACCIONES ACEPTAR Y CANCELAR) */
-.multimarca-background-color {
-    background-color: #b9007e;
+
+.bg__popups__default{
+    background-color:rgba(0,0,0,.8);
 }

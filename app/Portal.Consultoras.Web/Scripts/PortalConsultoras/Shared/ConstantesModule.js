@@ -22,7 +22,8 @@ var ConstantesModule = (function () {
         Ganadoras: "Ganadoras",
         LiquidacionWeb: "OfertasLiquidacion",
         GuiaNegocio: "GuiaNegocio",
-        SR: "ShowRoom"
+        SR: "ShowRoom",
+        DuoPerfecto: "DuoPerfecto" //HD-3473 EINCA
     }
 
     var _keysLocalStorage = {
@@ -30,7 +31,11 @@ var ConstantesModule = (function () {
         HerramientasVenta: "HVLista",
         Lanzamiento: "LANLista",
         RevistaDigital: "RDLista",
-        Ganadoras: "MGLista"
+        Ganadoras: "MGLista",
+        //INI HD-3908
+        PackNuevas: "PNLista",
+        DuoPerfecto: "DPLista"
+        //FIN HD-3908
     }
 
     var _codigoVariedad = {
@@ -63,8 +68,26 @@ var ConstantesModule = (function () {
 
         ProgramaNuevasRegalo: "044",
         ParticipaProgramaNuevas: "1",
-        NotParticipaProgramaNuevas: "0"
+        NotParticipaProgramaNuevas: "0",
+        DuoPerfecto: "034"//HD-3473 EINCA
     }
+
+    var _diccionarioTipoEstrategia = [
+        { codigo: _codigoTipoEstrategia.OfertaParaTi, texto: _codigoTipoEstrategiaTexto.OfertaParaTi },
+        { codigo: _codigoTipoEstrategia.PackNuevas, texto: _codigoTipoEstrategiaTexto.PackNuevas },
+        { codigo: _codigoTipoEstrategia.OfertaWeb, texto: _codigoTipoEstrategiaTexto.OfertaWeb },
+
+        { codigo: _codigoTipoEstrategia.Lanzamiento, texto: _codigoTipoEstrategiaTexto.Lanzamiento },
+        { codigo: _codigoTipoEstrategia.OfertasParaMi, texto: _codigoTipoEstrategiaTexto.OfertasParaMi },
+        { codigo: _codigoTipoEstrategia.PackAltoDesembolso, texto: _codigoTipoEstrategiaTexto.PackAltoDesembolso },
+        { codigo: _codigoTipoEstrategia.OfertaDelDia, texto: _codigoTipoEstrategiaTexto.OfertaDelDia },
+        { codigo: _codigoTipoEstrategia.GuiaDeNegocioDigitalizada, texto: _codigoTipoEstrategiaTexto.GuiaDeNegocioDigitalizada },
+        { codigo: _codigoTipoEstrategia.GuiaDeNegocioDigitalizada, texto: _codigoTipoEstrategiaTexto.GuiaNegocio },
+        { codigo: _codigoTipoEstrategia.HerramientasVenta, texto: _codigoTipoEstrategiaTexto.HerramientasVenta },
+        { codigo: _codigoTipoEstrategia.ShowRoom, texto: _codigoTipoEstrategiaTexto.ShowRoom },
+        { codigo: _codigoTipoEstrategia.RevistaDigital, texto: _codigoTipoEstrategiaTexto.RevistaDigital },
+        { codigo: _codigoTipoEstrategia.MasGanadoras, texto: _codigoTipoEstrategiaTexto.Ganadoras },
+    ];
 
     var _configuracionOferta = {
         Web: 1701,
@@ -86,8 +109,12 @@ var ConstantesModule = (function () {
         LAN: "LAN",
         MG: "MG",
         SR: "SR",
-        ATP: "ATP"
-    }
+		ATP: "ATP",
+        DP: "DP",
+        //INI HD-3908
+        PN:"PN"
+        //FIN HD-3908
+    };
 
     var _urlObtenerEstrategia = {
         OfertaParaTi: "/Estrategia/OPTObtenerProductos",
@@ -96,7 +123,62 @@ var ConstantesModule = (function () {
         GuiaDeNegocioDigitalizada: "/Estrategia/GNDObtenerProductos",
         HerrameintasVenta: "/Estrategia/HVObtenerProductos",
         MasGanadoras: "/Estrategia/MGObtenerProductos"
-    }
+    };
+
+    // en AnaluticsPortal.js tambiar actualizar los valores
+    var _origenPedidoWebEstructura = {
+        Dimension: 7,
+        Dispositivo: {
+            Desktop: '1',
+            Mobile: '2'
+        },
+        Pagina: {
+            LandingHerramientasVenta: '00',
+            Home: '01',
+            Pedido: '02',
+            LandingLiquidacion: '03',
+            Buscador: '04',
+            LandingShowroom: '05',
+            LandingGnd: '06',
+            LandingOfertasParaTi: '07',
+            Contenedor: '08',
+            Otras: '09',
+            LandingBuscador: '10',
+            LandingGanadoras: '11',
+            ArmaTuPackDetalle: '13',
+            LandingDuoPerfecto: '14',
+            LandingPackNuevas: '15'
+        },
+        Palanca: {
+            OfertasParaTi: '00',
+            Showroom: '01',
+            Lanzamientos: '02',
+            OfertaDelDia: '03',
+            OfertaFinal: '04',
+            GND: '05',
+            Liquidacion: '06',
+            ProductoSugerido: '07',
+            HerramientasVenta: '08',
+            Banners: '09',
+            Digitado: '10',
+            CatalogoLbel: '11',
+            CatalogoEsika: '12',
+            CatalogoCyzone: '13',
+            Ganadoras: '14',
+            ArmaTuPack: '15',
+            DuoPerfecto: '16',
+            PackNuevas: '17'
+        },
+        Seccion: {
+            Carrusel: '01',
+            Ficha: '02',
+            Banner: '03',
+            DesplegableBuscador: '04',
+            CarruselVerMas: '05',
+            BannerSuperior: '06',
+            SubCampania: '07'
+        }
+    };
 
     var _origenPedidoWeb = {
         //OfertaDelDiaDesktopHomeBanner: "1191",
@@ -122,58 +204,17 @@ var ConstantesModule = (function () {
         DesktopBuscadorGanadorasCarrusel: "1101401",
         MobileBuscadorGanadorasCarrusel: "2101401",
         DesktopLandingBuscadorGanadorasFicha: "1101402",
-        MobileLandingBuscadorGanadorasFicha: "2101402"
+        MobileLandingBuscadorGanadorasFicha: "2101402",
 
-    }
-
-    // en AnaluticsPortal.js tambiar actualizar los valores
-    var _origenPedidoWebEstructura = {
-        Dimension: 7,
-        Dispositivo: {
-            Desktop: '1',
-            Mobile: '2'
-        },
-        Pagina: {
-            LandingHerramientasVenta: '00',
-            Home: '01',
-            Pedido: '02',
-            LandingLiquidacion: '03',
-            Buscador: '04',
-            LandingShowroom: '05',
-            LandingGnd: '06',
-            LandingOfertasParaTi: '07',
-            Contenedor: '08',
-            Otras: '09',
-            LandingBuscador: '10',
-            LandingGanadoras: '11'
-        },
-        Palanca: {
-            OfertasParaTi: '00',
-            Showroom: '01',
-            Lanzamientos: '02',
-            OfertaDelDia: '03',
-            OfertaFinal: '04',
-            GND: '05',
-            Liquidacion: '06',
-            ProductoSugerido: '07',
-            HerramientasVenta: '08',
-            Banners: '09',
-            Digitado: '10',
-            CatalogoLbel: '11',
-            CatalogoEsika: '12',
-            CatalogoCyzone: '13',
-            Ganadoras: '14'
-        },
-        Seccion: {
-            Carrusel: '01',
-            Ficha: '02',
-            Banner: '03',
-            DesplegableBuscador: '04',
-            CarruselVerMas: '05',
-            BannerSuperior: '06',
-            SubCampania: '07'
-        }
-    }
+        MobileArmaTuPackFicha: _origenPedidoWebEstructura.Dispositivo.Mobile
+            + _origenPedidoWebEstructura.Pagina.ArmaTuPackDetalle
+            + _origenPedidoWebEstructura.Palanca.ArmaTuPack
+            + _origenPedidoWebEstructura.Seccion.Ficha,
+        DesktopArmaTuPackFicha: _origenPedidoWebEstructura.Dispositivo.Desktop
+            + _origenPedidoWebEstructura.Pagina.ArmaTuPackDetalle
+            + _origenPedidoWebEstructura.Palanca.ArmaTuPack
+            + _origenPedidoWebEstructura.Seccion.Ficha,
+    };
 
     var _tipoAccionNavegar = {
         BreadCrumbs: 1,
@@ -187,15 +228,30 @@ var ConstantesModule = (function () {
 
     var _urlDetalleEstrategia = {
         obtenerComponentes: '/DetalleEstrategia/ObtenerComponentes',
+        obtenerComponenteDetalle: '/DetalleEstrategia/ObtenerComponenteDetalle',
         obtenerModelo: '/DetalleEstrategia/ObtenerModelo',
-        obtenerPedidoWebSetDetalle: '/Pedido/ObtenerPedidoWebSetDetalle'
+        obtenerPedidoWebSetDetalle: '/Pedido/ObtenerPedidoWebSetDetalle',
+        obtenerEstrategiaFicha: '/Estrategia/ObtenerOfertaFicha'
     }
 
     var _urlPedido = {
         cargarDetallePedido: '/Pedido/CargarDetallePedido',
         ejecutarServicioProl: '/Pedido/EjecutarServicioPROL',
-        updatePostulanteMensaje:'/Pedido/UpdatePostulanteMensaje'
+        updatePostulanteMensaje: '/Pedido/UpdatePostulanteMensaje'
     }
+
+    var _getTipoPersonalizacionByTipoEstrategia = function (codigoTipoEstrategia) {
+
+        var valor = _TipoEstrategiaTipoPersonalizacion.find(function (element) {
+            return element.TipoEstrategia == codigoTipoEstrategia;
+        });
+
+        if (valor == undefined) {
+            return "";
+        }
+
+        valor.TipoPersonalizacion || valor.Nombre || "";
+    };
 
     return {
         CodigoPalanca: _codigoPalanca,
@@ -210,6 +266,8 @@ var ConstantesModule = (function () {
         EditarItemPedido: _editarItemPedido,
         UrlObtenerEstrategia: _urlObtenerEstrategia,
         UrlDetalleEstrategia: _urlDetalleEstrategia,
-        UrlPedido: _urlPedido
+        UrlPedido: _urlPedido,
+        DiccionarioTipoEstrategia: _diccionarioTipoEstrategia,
+        GetTipoPersonalizacionByTipoEstrategia: _getTipoPersonalizacionByTipoEstrategia
     }
 })();

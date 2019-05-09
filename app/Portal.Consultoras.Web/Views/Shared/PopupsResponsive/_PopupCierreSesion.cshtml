@@ -1,0 +1,34 @@
+﻿
+<link href="@Url.Content("~/Content/Css/Site/Shared/PopupsResponsive/general-popups.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/Css/Site/Shared/PopupsResponsive/popup-cierre-sesion.css")" rel="stylesheet" />
+
+<div class="popup__wrapper popup__wrapper--cierreSesion bg__popups__default" id="PopupCierreSesion" style="display: none;">
+    <div class="popup__somos__belcorp popup__somos__belcorp--cierreSesion">
+        <div class="popup__somos__belcorp__cabecera">
+            <a onclick="javascript: closeCierreSession();" title="Cerrar" class="popup__somos__belcorp__icono__cerrar popup__somos__belcorp__icono__cerrar--cierreSesion">
+                <img src="@Url.Content("~/Content/Images/icono_cerrar_popup.svg")" alt="Cerrar Popup" />
+            </a>
+        </div>
+        <div class="popup__somos__belcorp__contenido text-center">
+            <div class="popup__somos__belcorp__icono popup__somos__belcorp__icono--cierreSesion center-block">
+            </div>
+            <p class="text-center popup__somos__belcorp__mensaje popup__somos__belcorp__mensaje--cierreSesion"></p>
+            <button class="text-center text-bold popup__somos__belcorp__btn popup__somos__belcorp__btn--cerrarSesion" sb-cerrar
+                    onclick="CerrarSesion()">
+                Cerrar sesión
+            </button>
+            <button class="center-block text-center text-bold multimarca-background-color popup__somos__belcorp__btn popup__somos__belcorp__btn--ingresar" sb-ingresar
+                    onclick="CerrarSesion()">
+                Ingresar
+            </button>
+            <button class="text-center text-bold multimarca-background-color popup__somos__belcorp__btn popup__somos__belcorp__btn--continuar"
+                    onclick="javascript: continuarSession();">
+                Continuar
+            </button>
+            <button class="text-center text-bold multimarca-background-color popup__somos__belcorp__btn popup__somos__belcorp__btn--reservarPedido"
+                    onclick="irReservarPedido()">
+                Ir a pedido
+            </button>
+        </div>
+    </div>
+</div>
