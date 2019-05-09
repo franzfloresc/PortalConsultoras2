@@ -14,6 +14,22 @@ namespace Portal.Consultoras.Data
 
         }
 
+        public IDataReader GetBannerCodigo(string codigo, BEUsuario itmFilter)
+        {
+
+            using (var command = Context.Database.GetStoredProcCommand("[dbo].Lista_BannerLanzamientoAPP"))
+            {
+                Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, itmFilter.CodigoConsultora);
+                Context.Database.AddInParameter(command, "@Codigo", DbType.String, codigo);
+                Context.Database.AddInParameter(command, "@Capania", DbType.String, itmFilter.CampaniaID);
+                Context.Database.AddInParameter(command, "@Zona", DbType.String, itmFilter.CodigoZona);
+                Context.Database.AddInParameter(command, "@Region", DbType.String, itmFilter.CodigorRegion);
+                Context.Database.AddInParameter(command, "@Seccion", DbType.String, itmFilter.Seccion);
+
+                return Context.ExecuteReader(command);
+            }
+        }
+
         public IDataReader GetContenidoApp(string CodigoConsultora)
         {
 

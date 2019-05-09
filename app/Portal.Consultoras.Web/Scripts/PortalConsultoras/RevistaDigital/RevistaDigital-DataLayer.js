@@ -37,14 +37,14 @@ var rdAnalyticsModule = (function () {
     },
 
     _origenWeb = {
-        home: "1101", // solo para RedireccionarContenedorComprar
-        homeLan: "1103", // solo para RedireccionarContenedorComprar
-        catalogo: "1401", // solo para RedireccionarContenedorComprar
-        pedido: "1201", // solo para RedireccionarContenedorComprar
-        homeMobile: "2101", // solo para RedireccionarContenedorComprar
-        homeLanMobile: "2103", // solo para RedireccionarContenedorComprar
-        catalogoMobile: "2401", // solo para RedireccionarContenedorComprar
-        pedidoMobile: "2201", // solo para RedireccionarContenedorComprar
+        //home: "1101", // solo para RedireccionarContenedorComprar
+        //homeLan: "1103", // solo para RedireccionarContenedorComprar
+        //catalogo: "1401", // solo para RedireccionarContenedorComprar
+        //pedido: "1201", // solo para RedireccionarContenedorComprar
+        //homeMobile: "2101", // solo para RedireccionarContenedorComprar
+        //homeLanMobile: "2103", // solo para RedireccionarContenedorComprar
+        //catalogoMobile: "2401", // solo para RedireccionarContenedorComprar
+        //pedidoMobile: "2201", // solo para RedireccionarContenedorComprar
         rdLan: "1070001", // anterior "1721",
         rdOfertas: "1070001", // anterior "1711",
         rdDetalle: "1080202", // anterior "1731",
@@ -281,30 +281,59 @@ var rdAnalyticsModule = (function () {
         try {
             var origenWebString = origenWeb.toString();
             switch (origenWebString) {
-                case _origenWeb.home:
-                    _virtualEventPush(_seccionWeb.home, _text.epm, _action.verMas);
-                    break;
-                case _origenWeb.catalogo:
+                //case _origenWeb.home:
+                //    _virtualEventPush(_seccionWeb.home, _text.epm, _action.verMas);
+                //    break;
+                //case _origenWeb.catalogo:
+                //    _virtualEventPush(_seccionWeb.catalogo, _text.epm, _action.clickBanner);
+                //    break;
+                //case _origenWeb.pedido:
+                //    _virtualEventPush(_seccionWeb.pedido, _text.epm, _action.verMas);
+                //    break;
+                //case _origenWeb.homeLan:
+                //    _virtualEventPush(_seccionWeb.home, _text.epm, _action.verLan);
+                //    break;
+                //case _origenWeb.homeLanMobile:
+                //    _virtualEventPush(_seccionWeb.home, _text.epm, _action.verLan);
+                //    break;
+                //case _origenWeb.homeMobile:
+                //    _virtualEventPush(_seccionWeb.home, _text.epm, _action.verMas);
+                //    break;
+                //case _origenWeb.catalogoMobile:
+                //    _virtualEventPush(_seccionWeb.catalogoMobile, _text.epm, _action.clickBanner);
+                //    break;
+                //case _origenWeb.pedidoMobile:
+                //    _virtualEventPush(_seccionWeb.pedido, _text.epm, _action.verMas);
+                //    break;
+                 
+                case CodigoUbigeoPortal.MaestroCodigoUbigeo.MobileRevistaDigitalMobileCatalogoSeccion:
                     _virtualEventPush(_seccionWeb.catalogo, _text.epm, _action.clickBanner);
                     break;
-                case _origenWeb.pedido:
-                    _virtualEventPush(_seccionWeb.pedido, _text.epm, _action.verMas);
+                case CodigoUbigeoPortal.MaestroCodigoUbigeo.DesktopRevistaDigitalMobileCatalogoSeccion:
+                    _virtualEventPush(_seccionWeb.catalogo, _text.epm, _action.clickBanner);
                     break;
-                case _origenWeb.homeLan:
-                    _virtualEventPush(_seccionWeb.home, _text.epm, _action.verLan);
-                    break;
-                case _origenWeb.homeLanMobile:
-                    _virtualEventPush(_seccionWeb.home, _text.epm, _action.verLan);
-                    break;
-                case _origenWeb.homeMobile:
+                    
+                case CodigoUbigeoPortal.MaestroCodigoUbigeo.MobileRevistaDigitalHomeSeccion:
                     _virtualEventPush(_seccionWeb.home, _text.epm, _action.verMas);
                     break;
-                case _origenWeb.catalogoMobile:
-                    _virtualEventPush(_seccionWeb.catalogoMobile, _text.epm, _action.clickBanner);
+                case CodigoUbigeoPortal.MaestroCodigoUbigeo.DesktopRevistaDigitalHomeSeccion:
+                    _virtualEventPush(_seccionWeb.home, _text.epm, _action.verMas);
                     break;
-                case _origenWeb.pedidoMobile:
+
+                case CodigoUbigeoPortal.MaestroCodigoUbigeo.MobileRevistaDigitalResumenBelcorp:
+                    _virtualEventPush(_seccionWeb.home, _text.epm, _action.verMas);
+                    break;
+                case CodigoUbigeoPortal.MaestroCodigoUbigeo.DesktopRevistaDigitalResumenBelcorp:
+                    _virtualEventPush(_seccionWeb.home, _text.epm, _action.verMas);
+                    break;
+                  
+                case CodigoUbigeoPortal.MaestroCodigoUbigeo.MobilePedidoRevistaDigital:
                     _virtualEventPush(_seccionWeb.pedido, _text.epm, _action.verMas);
                     break;
+                case CodigoUbigeoPortal.MaestroCodigoUbigeo.DesktopPedidoRevistaDigital:
+                    _virtualEventPush(_seccionWeb.pedido, _text.epm, _action.verMas);
+                    break;
+               
             }
         } catch (e) {
             console.log(_text.exception + e);

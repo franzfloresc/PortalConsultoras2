@@ -1411,6 +1411,77 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.HTMLSACUnete = getHTMLSACUnete("GestionParametros", null);
             return View("GestionParametros");
         }
+        public ActionResult ConfiguracionValidacionZona()
+        {
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("ConfiguracionValidacionZona", null);
+            return View("ConfiguracionValidacionZona");
+        }
+
+        [HttpPost]
+        public JsonResult ActualizarEstadoZona(ConfiguracionZonaModel model)
+        {
+            try
+            {
+                HojaInscripcionBelcorpPais.ParametroUneteBE parametroUnete = new HojaInscripcionBelcorpPais.ParametroUneteBE();
+                using (BelcorpPaisServiceClient sv = new BelcorpPaisServiceClient())
+                {
+                    if (model.ListaZonasValidacionActivas != null)
+                    {
+                        foreach (var item in model.ListaZonasValidacionActivas)
+                        {
+                                parametroUnete.IdParametroUnete = item.IdParametroUnete;
+                                parametroUnete.Estado = 1;
+                                sv.ActualizarEstadoParametroUnete(CodigoISO, parametroUnete);
+                            
+                        }
+                    }
+
+                    if (model.ListaZonasValidacionInactivas != null)
+                    {
+                        foreach (var item in model.ListaZonasValidacionInactivas)
+                        {
+                            parametroUnete.IdParametroUnete = item.IdParametroUnete;
+                            parametroUnete.Estado = 0;
+                            sv.ActualizarEstadoParametroUnete(CodigoISO, parametroUnete);
+
+                        }
+                    }
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    message = "La configuración de zonas fue realizada de manera satisfactoria.",
+                    extra = ""
+                });
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    extra = ""
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    extra = ""
+                });
+            }
+        }
+
+        public JsonResult GetConfiguracionValidacionZona(string filtroZonaId)
+        {
+            var response = getHTMLSACUnete("GetConfiguracionValidacionZona", "&filtroZonaId="+ filtroZonaId + "&codigoISO=" + CodigoISO);
+            return Json(response, JsonRequestBehavior.AllowGet);
+        }
 
         public ActionResult DevolverSolicitud(int id)
         {
@@ -1592,7 +1663,8 @@ namespace Portal.Consultoras.Web.Controllers
             return PartialView("_ConsultarEstadoTelefonico");
         }
 
-        public ActionResult MostrarMensajeBuro(string respuestaBuro) {
+        public ActionResult MostrarMensajeBuro(string respuestaBuro)
+		{
             ViewBag.HTMLSACUnete = getHTMLSACUnete("MensajeRespuestaBuro", "&respuestaBuro=" + respuestaBuro);
             return PartialView("~/Views/Unete/_MensajeRespuestaBuro.cshtml");
         }
@@ -1606,18 +1678,6 @@ namespace Portal.Consultoras.Web.Controllers
                 actualizado = sv.ActualizarEstado(CodigoISO, id, EnumsTipoParametro.EstadoBurocrediticio, idEstado);
             }
             RegistrarLogGestionSacUnete(id.ToString(), "CONSULTA CREDITICIA", "ASIGNAR");
-            return Json(actualizado, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpPost]
-        public JsonResult ConsultarEstadoTelefonico(int id, int idEstado)
-        {
-            bool actualizado;
-            using (var sv = new PortalServiceClient())
-            {
-                actualizado = sv.ActualizarEstado(CodigoISO, id, EnumsTipoParametro.EstadoTelefonico, idEstado);
-            }
-            RegistrarLogGestionSacUnete(id.ToString(), "CONSULTA TELEFONICA", "ASIGNAR");
             return Json(actualizado, JsonRequestBehavior.AllowGet);
         }
 
@@ -2079,6 +2139,7 @@ namespace Portal.Consultoras.Web.Controllers
                                    a.TipoTarjeta ?? "",
                                    a.TarjetaNumero ?? "" ,
                                    a.PagoDeKitLogId.ToString(),
+                                   a.CodigoCIP ?? "",
                                    a.EstatusDetalle?? ""  ,
                                    a.Estatus ?? "",
                                    a.FechaProceso ==  null  ? "" : a.FechaProceso.Value.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture),
@@ -2134,6 +2195,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {"Tarjeta", "TipoTarjeta"},
                     {"Número de Trajeta", "TarjetaNumero"},
                     {"Número de Operación", "PagoDeKitLogId"},
+                    {"Código CIP", "CodigoCIP"},
                     {"Descripción de Transacción", "EstatusDetalle"},
                     {"Estado Transacción", "Estatus"},
                     {"Fecha Envio Sicc", "FechaProceso"},
@@ -2192,6 +2254,37 @@ namespace Portal.Consultoras.Web.Controllers
 
             return result;
         }
+        
+        public List<ServiceUnete.ParametroUneteBE> GetReporteZonas(int IdTipoParametroUnete)
+        {
+            ServiceUnete.ParametroUneteBE parametroUnete= new ServiceUnete.ParametroUneteBE();
+            List<ServiceUnete.ParametroUneteBE> result = new List<ServiceUnete.ParametroUneteBE>();
+            try
+            {
+                using (var sv = new PortalServiceClient())
+                {
+                    
+                    parametroUnete.IdParametroUnetePadre = IdTipoParametroUnete;
+                    parametroUnete.Estado = 1;
+                    foreach (var item in sv.ObtenerParametrosUneteFinal(CodigoISO, parametroUnete))
+                    {
+                        result.Add(item);
+                    }
+                    parametroUnete.Estado = 0;
+                    foreach (var item in sv.ObtenerParametrosUneteFinal(CodigoISO, parametroUnete))
+                    {
+                        result.Add(item);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorUtilities.AddLog(ex);
+
+            }
+
+            return result;
+        }
 
         public ActionResult ExportarExcelFunnel(string CampaniaInicio, string CampaniaFin, string ReporteNombre)
         {
@@ -2212,6 +2305,18 @@ namespace Portal.Consultoras.Web.Controllers
         {
             ViewBag.ipRequest = Request.UserHostAddress;
             ViewBag.HTMLSACUnete = getHTMLSACUnete("ReporteFunnel", null);
+            return View();
+        }
+
+        public ActionResult ExportarExcelValidacionZona(string ReporteNombre, int idTipoParametroUnete)
+        {
+            List<ServiceUnete.ParametroUneteBE> result = GetReporteZonas(idTipoParametroUnete);
+            Dictionary<string, string> dic;
+            using (var sv = new PortalServiceClient())
+            {
+                dic = sv.GetDictionaryReporteZonas();
+            }
+            Util.ExportToExcel(ReporteNombre, result.Select(p => new { p.Nombre, p.Estado }).ToList(), dic);
             return View();
         }
 
@@ -2664,6 +2769,15 @@ namespace Portal.Consultoras.Web.Controllers
 
             Util.ExportToExcel("ReporteZonasValidacionTelefonica", items, dic);
             return View();
+        }
+
+        public string EnviarContrasenia(string numerocelular, string tipoDocumento, string numeroDocumento, string correoElectronico, string nombre, string codigoconsultora, string numeroanterior, string correoanterior)
+        {
+            string rpta = "";
+            PortalServiceClient oservice = new PortalServiceClient();
+            rpta = oservice.EnviarContrasenia(CodigoISO, numerocelular, tipoDocumento, numeroDocumento, correoElectronico, nombre, codigoconsultora, numeroanterior, correoanterior);
+            oservice.Close();
+            return rpta;
         }
 
         public string getHTMLSACUnete(string action, string urlParams)

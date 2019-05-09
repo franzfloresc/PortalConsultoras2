@@ -414,5 +414,8 @@ namespace Portal.Consultoras.Web.Models
         public int NivelCaminoBrillante { get; set; }
         #endregion
 
+        //INI HD-3693
+        public string AutorizaPedido { get; set; }
+        //FIN HD-3693
     }
 }
