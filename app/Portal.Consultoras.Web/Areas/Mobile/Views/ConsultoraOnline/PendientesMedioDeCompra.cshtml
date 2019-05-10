@@ -136,7 +136,7 @@
     @*<hr>*@
 
     <!--  Tooltip  -->
-    <div class="container position-absolute" style="display:none; bottom:0;">
+    <div data-tooltip="mensajepedidopaso2" class="container position-absolute" style="display:none; bottom:0;">
         <!--   Tooltip bottom     -->
         <div class="row align-items-center position-relative action-continue" style="padding-right:16px;">
             <div class="col mb-16">
@@ -234,7 +234,7 @@
 
     </script>
 
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/ConsultoraOnline/PedidoPendienteMedioCompra.js")"></script>
+    @*<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/ConsultoraOnline/PedidoPendienteMedioCompra.js")"></script>*@
 
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mobile/SugerenciaPendientes")
 
@@ -255,17 +255,7 @@
             slidesToShow: 2.3
         });
 
+        var glbDispositivo = 2;
+        var gTipoVista = '@ViewBag.TipoVista';
     </script>
-}
-<script>
-    var glbDispositivo = 3;
-</script>
-
-@{
-    if (!mobileConfiguracion.EsAppMobile)
-    {
-        <script>
-            glbDispositivo = 2;
-        </script>
-    }
 }

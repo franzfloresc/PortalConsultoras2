@@ -27,7 +27,6 @@
         return false;
     });
 
-
     $(".btn_verMiPedido").on("click", function () {
         window.location.href = baseUrl + "Mobile/Pedido/Detalle";
     });
@@ -61,14 +60,24 @@ function AceptarPedidoPendiente(id, tipo) {
     var btn = $('.btnAccion span').not('.active')[0];
 
     if (btn) {
-	    var pedido = {
-		    Accion: 2,
-		    Dispositivo: glbDispositivo,
-		    AccionTipo: $(btn).parent().data('accion'),
-		    ListaGana: $(btn).parent().data('accion') == 'ingrgana' ? $('.conGanaMas').data('listagana') : []
+        var pedido = {
+            Accion: 2,
+            Dispositivo: glbDispositivo,
+            AccionTipo: $(btn).parent().data('accion'),
+            ListaGana: $(btn).parent().data('accion') == 'ingrgana' ? $('.conGanaMas').data('listagana') : [],
+            OrigenTipoVista: gTipoVista
         }
 	    var AccionTipo = pedido.AccionTipo;
 
+        ShowLoading({});
+        $.ajax({
+            type: 'POST',
+            url: '/ConsultoraOnline/AceptarPedidoPendiente',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(pedido),
+            async: true,
+            success: function (response) {
 	    ShowLoading({});
 	    $.ajax({
 		    type: 'POST',
@@ -88,36 +97,53 @@ function AceptarPedidoPendiente(id, tipo) {
                     MarcaAnalyticsClienteProducto("Vista por Cliente - Pop up Paso 2", textoAccionTipo);
 				/** Fin Analytics **/
 
-			    CloseLoading();
-			    if (checkTimeout(response)) {
-				    if (response.success) {
-
-					    $('#popuplink').click();
-					    return false;
-				    } else {
-					    if (response.code == 1) {
-						    AbrirMensaje(response.message);
-					    } else if (response.code == 2) {
-						    $('#MensajePedidoReservado').text(response.message);
-						    $('#AlertaPedidoReservado').show();
-					    }
-				    }
-			    }
-		    },
-		    error: function(data, error) {
-			    CloseLoading();
-			    if (checkTimeout(data)) {
-				    AbrirMensaje(
-					    "Ocurrió un error inesperado al momento de aceptar el pedido. Consulte con su administrador del sistema para obtener mayor información");
-			    }
-		    }
-	    });
+                CloseLoading();
+                if (checkTimeout(response)) {
+                    if (response.success) {
+                        $('#popuplink').click();
+                        if (!response.continuarExpPendientes) {
+                            $("#btnIrPEdidoAprobar").hide();
+                            $("#btnIrPedido").removeClass("action-btn_refuse");
+                            $("#btnIrPedido").addClass("action-btn_continue");
+                            $("#btnIrPedido").addClass("active");
+                        } else {
+                            $("#btnIrPEdidoAprobar").show();
+                            $("#btnIrPedido").removeClass("action-btn_continue");
+                            $("#btnIrPedido").removeClass("active");
+                            $("#btnIrPedido").addClass("action-btn_refuse");
+                        }
+                        return false;
+                    }
+                    else {
+                        if (response.code == 1) {
+                            AbrirMensaje(response.message);
+                        }
+                        else if (response.code == 2) {
+                            $('#MensajePedidoReservado').text(response.message);
+                            $('#AlertaPedidoReservado').show();
+                        }
+                    }
+                }
+            },
+            error: function (data, error) {
+                CloseLoading();
+                if (checkTimeout(data)) {
+                    AbrirMensaje("Ocurrió un error inesperado al momento de aceptar el pedido. Consulte con su administrador del sistema para obtener mayor información");
+                }
+            }
+        });
 
     } else {
+        var $MensajeTolTip = $("[data-tooltip=\"mensajepedidopaso2\"]");
+        $MensajeTolTip.show();
+
+        setTimeout(function () { $MensajeTolTip.hide(); }, 2000);
+        var option = location.search.split('option=')[1];
+        if (option === "P") //Producto
 	    var option = location.search.split('option=')[1];
 	    if (option === "P") //Producto
             MarcaAnalyticsClienteProducto("Vista por Producto - Pop up Paso 2", "Alerta: Debes elegir como atender el pedido para aprobarlo");
-	    if (option === "C") //Cliente
+        if (option === "C") //Cliente
             MarcaAnalyticsClienteProducto("Vista por Cliente - Pop up Paso 2", "Alerta: Debes elegir como atender el pedido para aprobarlo");
     }
 
