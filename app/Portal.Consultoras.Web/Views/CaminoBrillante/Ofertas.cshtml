@@ -44,8 +44,7 @@
 </section>
 
 <div class="ml-0 mr-0 mx-auto layout__content__fichaProductos clearboth">
-    <div  style="float:right;">
-
+    @*<div  style="float:right;">
         <div class="filtros_derecha_SHOWROOM">
             <select id="ddlOrdenar" class="select_filtros_fav" style="min-width:220px; margin-left:0; height:33px; border:0;box-shadow:inset 0 0 0 1px #b8b8b8; display:none;">
                 <option value="00">ORDENAR POR</option>
@@ -54,6 +53,20 @@
                 @*<option value="03">Mayor a menor precio</option>*@
             </select>
         </div>
+    </div>*@
+    <div>
+        <select class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="marca">
+            <option value="-">FILTRAR POR</option>
+            <option value="CYZONE">CYZONE</option>
+            <option value="ÉSIKA">ÉSIKA</option>
+            <option value="LBEL">LBEL</option>
+        </select>
+        <select class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="precio" data-filtro-accion="orden">
+            <option value="01">ORDENAR POR</option>
+            <option value="02">MENOR A MAYOR PRECIO</option>
+            <option value="03">MAYOR A MENOR PRECIO</option>
+        </select>
+
     </div>
 </div>
 
@@ -93,10 +106,10 @@
         <div class="row flex-row justify-content-center ml-0 mr-0">
             <figure class="col-12 pl-0 pr-0 row flex-row ml-0 mr-0 justify-content-center align-items-end ficha__producto__imagen text-center">
                 {{#IsNullOrEmpty FotoProductoMedium '!='}}
-                <img class="lazy redireccionarFicha" src="{{FotoProductoMedium}}">
+                <img class="" src="{{FotoProductoMedium}}">
                 {{/IsNullOrEmpty}}
                 {{#IsNullOrEmpty FotoProductoMedium '=='}}
-                <img class="lazy redireccionarFicha" src="@ViewBag.RutaImagenNoDisponible">
+                <img class="" src="@ViewBag.RutaImagenNoDisponible">
                 {{/IsNullOrEmpty}}
             </figure>
             <div style="display:none;">
@@ -157,14 +170,14 @@
 
 <script id="template-Demostradores" type="text/x-handlebars-template">
     {{#each this}}
-    <article class="ficha__producto " data-item="BuscadorFichasProductos">
+    <article class="ficha__producto " data-item="">
         <div class="row flex-row justify-content-center ml-0 mr-0">
             <figure class="col-12 pl-0 pr-0 row flex-row ml-0 mr-0 justify-content-center align-items-end ficha__producto__imagen text-center">
                 {{#IsNullOrEmpty FotoProductoMedium '!='}}
-                <img class="lazy redireccionarFicha" src="{{FotoProductoMedium}}">
+                <img class="" src="{{FotoProductoMedium}}">
                 {{/IsNullOrEmpty}}
                 {{#IsNullOrEmpty FotoProductoMedium '=='}}
-                <img class="lazy redireccionarFicha" src="@ViewBag.RutaImagenNoDisponible">
+                <img class="" src="@ViewBag.RutaImagenNoDisponible">
                 {{/IsNullOrEmpty}}
             </figure>
             <div style="display:none;">
