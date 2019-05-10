@@ -1333,8 +1333,13 @@ a{
     font-size: 20px;
 }
 
+.correo_actual,
 .num_celular_actual {
     font-size: 16px;
+}
+
+.correo_actual {
+    margin-bottom: 8px;
 }
 
 .enlace_reenviar_instrucciones,
@@ -1460,7 +1465,7 @@ a{
 }
 
 .revisa_tu_correo {
-    padding-top: 40px;
+    margin-top: -24px;
     padding-bottom: 40px;
 }
 

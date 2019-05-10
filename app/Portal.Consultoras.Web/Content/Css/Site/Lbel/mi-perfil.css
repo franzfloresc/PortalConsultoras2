@@ -1198,8 +1198,13 @@ input.permiso_cuenta_opcion_checkbox
     color:#000;
 }
 
+.correo_actual,
 .num_celular_actual {
     font-size: 16px;
+}
+
+.correo_actual {
+    margin-bottom: 8px;
 }
 
 .enlace_reenviar_instrucciones,
