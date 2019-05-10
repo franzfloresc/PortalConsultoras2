@@ -573,7 +573,14 @@ function ProcesarAceptarPedido(pedido) {
 
                 }
                 else {
-                    alert_msg(response.message);
+                    //INI HD-3693
+                    //alert_msg(response.message);
+                    var msjBloq = validarpopupBloqueada(response.message);
+                    if (msjBloq != "") alert_msg_bloqueadas(msjBloq);
+                    else alert_msg(response.message);
+                    //FIN HD-3693
+
+
                 }
             }
         },

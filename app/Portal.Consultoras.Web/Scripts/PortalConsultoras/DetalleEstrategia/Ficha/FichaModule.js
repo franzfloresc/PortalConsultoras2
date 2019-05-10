@@ -603,14 +603,16 @@ var FichaModule = (function (config) {
     };
 
     var _renderImgFin = function () {
+        var widthDefault = 490;
+        var heightDefault = 300;
 
         var proObj = $(_seccionesFichaProducto.ImagenProducto);
         var proImg = proObj.find("img");
 
         var proM = proImg.innerHeight();
         var proObjH = proObj.innerHeight();
-        if (proObjH == 0) {
-            proObjH = 300;
+        if (proObjH < heightDefault) {
+            proObjH = heightDefault;
         }
 
         $(proImg).css("max-height", "");
@@ -631,8 +633,8 @@ var FichaModule = (function (config) {
         // medida segun ancho
         proObj = $(_seccionesFichaProducto.SeccionIzquierdo);
         var proObjW = proObj.innerWidth();
-        if (proObjW == 0) {
-            proObjW = 490;
+        if (proObjW < widthDefault) {
+            proObjW = widthDefault;
         }
         proM = proImg.innerWidth();
         if (proM > proObjW || proM == 0) {

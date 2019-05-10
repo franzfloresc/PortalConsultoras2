@@ -67,7 +67,7 @@ namespace Portal.Consultoras.Web.Controllers
             return PartialView("template-landing", model);
         }
 
-        protected RevistaDigitalLandingModel GetLandingModel(int tipo)
+        protected RevistaDigitalLandingModel GetLandingModel(int tipo, string TipoPalanca = "")
         {
             var id = tipo == 1 ? userData.CampaniaID : Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias);
 
@@ -89,7 +89,16 @@ namespace Portal.Consultoras.Web.Controllers
 
             model.PerdioLogo = revistaDigital.DLogoComercialActiva;
 
-            model.MostrarFiltros = !model.ProductosPerdio && !(revistaDigital.TieneRDC && !revistaDigital.EsActiva);
+            switch (TipoPalanca)
+            {
+                case Constantes.ConfiguracionPais.ProgramaNuevas:
+                    model.MostrarFiltros = true;
+                    break;
+                default:
+                    model.MostrarFiltros = !model.ProductosPerdio && !(revistaDigital.TieneRDC && !revistaDigital.EsActiva);
+                    break;
+            }
+
             return model;
         }
 

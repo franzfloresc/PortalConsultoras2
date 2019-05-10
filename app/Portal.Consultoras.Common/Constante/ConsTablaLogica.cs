@@ -598,6 +598,7 @@ namespace Portal.Consultoras.Common
         public static class OfertasConsultora
         {
             public const int TablaLogicaId = 181;
+            public const string DiasAntesStock = "01";
         }
 
         public static class CaminoBrillante

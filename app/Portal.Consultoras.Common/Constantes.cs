@@ -76,6 +76,7 @@ namespace Portal.Consultoras.Common
             public const short Facturado = 2;
 
             public const string PedidoValidado = "PV";
+            public const string PedidoIngresado = "INGRESADO";
         }
 
         public static class PaisID
@@ -224,6 +225,8 @@ namespace Portal.Consultoras.Common
             //    public const string ListCuv = "ListCuv";
             //}
 
+            public const short CierreSessionValidado = 15301;
+            
             //public static class CaminoBrillante
             //{
             //    /// <summary>
@@ -796,16 +799,16 @@ namespace Portal.Consultoras.Common
             public const int DesktopPedidoOfertaFinal = 1261; // se mantiene para el metodo obtenerNuevaDescripcionProductoDetalle, grilla pedido
             public const int MobilePedidoOfertaFinal = 2261; // se mantiene para el metodo obtenerNuevaDescripcionProductoDetalle, grilla pedido
 
-            #region RevistaDigital
-            public const int RevistaDigitalDesktopHomeSeccion = 1101; // para rediccecionar metodo RedireccionarContenedorComprar
-            public const int RevistaDigitalMobileHomeSeccion = 2101; // para rediccecionar metodo RedireccionarContenedorComprar
-            public const int RevistaDigitalDesktopPedidoSeccion = 1201; // para rediccecionar metodo RedireccionarContenedorComprar
-            public const int RevistaDigitalMobilePedidoSeccion = 2201; // para rediccecionar metodo RedireccionarContenedorComprar
-            public const int RevistaDigitalDesktopHomeLanzamiento = 1103; // para rediccecionar metodo RedireccionarContenedorComprar
-            public const int RevistaDigitalMobileHomeLanzamiento = 2103; // para rediccecionar metodo RedireccionarContenedorComprar
-            public const int RevistaDigitalDesktopCatalogoSeccion = 1401; // para rediccecionar metodo RedireccionarContenedorComprar, RedireccionarContenedorInformativa
-            public const int RevistaDigitalMobileCatalogoSeccion = 2401; // para rediccecionar metodo RedireccionarContenedorComprar, RedireccionarContenedorInformativa
-            #endregion
+            //#region RevistaDigital
+            //public const int RevistaDigitalDesktopHomeSeccion = 1101; // para rediccecionar metodo RedireccionarContenedorComprar
+            //public const int RevistaDigitalMobileHomeSeccion = 2101; // para rediccecionar metodo RedireccionarContenedorComprar
+            //public const int RevistaDigitalDesktopPedidoSeccion = 1201; // para rediccecionar metodo RedireccionarContenedorComprar
+            //public const int RevistaDigitalMobilePedidoSeccion = 2201; // para rediccecionar metodo RedireccionarContenedorComprar
+            //public const int RevistaDigitalDesktopHomeLanzamiento = 1103; // para rediccecionar metodo RedireccionarContenedorComprar
+            //public const int RevistaDigitalMobileHomeLanzamiento = 2103; // para rediccecionar metodo RedireccionarContenedorComprar
+            //public const int RevistaDigitalDesktopCatalogoSeccion = 1401; // para rediccecionar metodo RedireccionarContenedorComprar, RedireccionarContenedorInformativa
+            //public const int RevistaDigitalMobileCatalogoSeccion = 2401; // para rediccecionar metodo RedireccionarContenedorComprar, RedireccionarContenedorInformativa
+            //#endregion
 
             #region MasVendidos
             public const int MasVendidosDesktopHomeCarrusel = 1151;
@@ -1101,6 +1104,59 @@ namespace Portal.Consultoras.Common
             public const int AppConsultoraPedidoCatalogoCyzoneCatalogoDigitalPendienteDeAprobar = 4021311;
             #endregion
 
+            #region Buscador App
+            public const int AppBuscadorLiquidacionDesplegable = 4040604;
+            public const int AppBuscadorLiquidacionLanding = 4100601;
+
+            public const int AppBuscadorCatalogoLbelDesplegable = 4041104;
+            public const int AppBuscadorCatalogoLbelLanding = 4101101;
+            public const int AppBuscadorCatalogoEsikaDesplegable = 4041204;
+            public const int AppBuscadorCatalogoEsikaLanding = 4101201;
+            public const int AppBuscadorCatalogoCyzoneDesplegable = 4041304;
+            public const int AppBuscadorCatalogoCyzoneLanding = 4101301;
+
+            public const int AppBuscadorSRDesplegable = 4040104;
+            public const int AppBuscadorSRLanding = 4100101;
+            public const int AppBuscadorSRDesplegableFicha = 4040102;
+            public const int AppBuscadorSRLandingFicha = 4100102;
+            public const int AppBuscadorSRDesplegableFichaCarrusel = 4040105;
+            public const int AppBuscadorSRLandingFichaCarrusel = 4100105;
+
+            public const int AppBuscadorLANDesplegable = 4040204;
+            public const int AppBuscadorLANLanding = 4100201;
+            public const int AppBuscadorLANDesplegableFicha = 4040202;
+            public const int AppBuscadorLANLandingFicha = 4100202;
+            public const int AppBuscadorLANDesplegableFichaCarrusel = 4040205;
+            public const int AppBuscadorLANLandingFichaCarrusel = 4100205;
+
+            public const int AppBuscadorODDDesplegable = 4040304;
+            public const int AppBuscadorODDLanding = 4100301;
+            public const int AppBuscadorODDDesplegableFicha = 4040302;
+            public const int AppBuscadorODDLandingFicha = 4100302;
+            public const int AppBuscadorODDDesplegableFichaCarrusel = 4040305;
+            public const int AppBuscadorODDLandingFichaCarrusel = 4100305;
+
+            public const int AppBuscadorGNDDesplegable = 4040504;
+            public const int AppBuscadorGNDLanding = 4100501;
+            public const int AppBuscadorGNDDesplegableFicha = 4040502;
+            public const int AppBuscadorGNDLandingFicha = 4100502;
+
+            public const int AppBuscadorHVDesplegable = 4040804;
+            public const int AppBuscadorHVLanding = 4100801;
+            public const int AppBuscadorHVDesplegableFicha = 4040802;
+            public const int AppBuscadorHVLandingFicha = 4100802;
+
+            public const int AppBuscadorMGDesplegable = 4041404;
+            public const int AppBuscadorMGLanding = 4101401;
+            public const int AppBuscadorMGDesplegableFicha = 4041402;
+            public const int AppBuscadorMGLandingFicha = 4101402;
+
+            public const int AppBuscadorOPTDesplegable = 4040004;
+            public const int AppBuscadorOPTLanding = 4100001;
+            public const int AppBuscadorOPTDesplegableFicha = 4040002;
+            public const int AppBuscadorOPTLandingFicha = 4100002;
+            #endregion
+
             public const int MobileArmaTuPackFicha = 2131502;
             public const int DesktopArmaTuPackFicha = 1131502;
 
@@ -1109,7 +1165,6 @@ namespace Portal.Consultoras.Common
             public const int CaminoBrillanteMobilePedido = 2181901;
             public const int CaminoBrillanteAppConsultorasPedido = 4181901;
             #endregion
-
         }
 
         public static class TipoTutorial
@@ -1418,6 +1473,12 @@ namespace Portal.Consultoras.Common
             public const string RevistaDigital = "RevistaDigital";
         }
 
+        //INI HD-3693
+        public static class TipoPopupAlert
+        {
+            public const string Bloqueado = "HD3693~";
+        }
+        //FIN HD-3693
         public static class IngresoExternoPagina
         {
             public const string EstadoCuenta = "ESTADOCUENTA";
@@ -1502,8 +1563,11 @@ namespace Portal.Consultoras.Common
             public const string UrlBase = "https://catalogodigital.somosbelcorp.com/";
             public const string UrlBaseQA = "http://ecatalogoqa.somosbelcorp.com/";
             public const string UrlCatalogoPiloto = "UrlCatalogoPiloto";
-            public const string UrlParamEncrip = "iso={0}&consultant={1}";
-            public const string UrlCatalogo = "{0}?cod={1}";
+            /* INI HD-4015 */
+            public const string UrlParamEncrip = "{0}?consultant={1}";
+            public const string UrlCatalogo = "{0}{1}";
+            /* FIN HD-4015 */
+
         }
 
         public static class Facebook
@@ -1931,12 +1995,17 @@ namespace Portal.Consultoras.Common
             //public const short EscalaDescuentoMobile = 73;
             //public const short ListaOrdenamientoFiltros = 147;
             //public const short ArmaTuPack = 14;
+            public const short CierreSessionValidado = 153;
             //public const short PilotoCatalogoDigital = 155;
             //public const short GanaMasNativo = 159;
             //public const short ResizeImagenesAppGanaMas = 162;
             //public const short SegPedidoRegionZona = 169;//HD-3606 EINCA
             //public const short TiempoMaximoSP = 180;
             //#region Camino Brillante
+            //INI HD-3693
+            public const int MsjPopupBloqueadas = 230;
+            //FIN HD-3693
+            public const short ResizeImagenesAppHistorias = 162;
             //public const short CaminoBrillanteInfoComercial = 165;
             //public const short CaminoBrillanteLogros = 166;
             //public const short CaminoBrillanteIndicadores = 167;
@@ -2520,6 +2589,9 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_UNIDAD_SINSALDO = "2117";
                 public const string ERROR_UNIDAD_CONSALDO = "2118";
                 public const string ERROR_UNIDAD_SOBREPASA_STOCK = "2119";
+                //INI HD-3693
+                public const string ERROR_CONSULTORA_BLOQUEADA = "3693";
+                //FIN HD-3693
 
                 public const string ERROR_RESERVA_NINGUNO = "2010";
                 public const string SUCCESS_RESERVA = "2011";
@@ -2545,7 +2617,6 @@ namespace Portal.Consultoras.Common
 
                 public const string ERROR_AGREGAR_BACKORDER_NO_PERMITIDO = "2201";
                 public const string ERROR_AGREGAR_BACKORDER = "2202";
-
             }
 
             public static Dictionary<string, PedidoValidacionConfiguracion> Configuracion
@@ -2610,7 +2681,6 @@ namespace Portal.Consultoras.Common
 
                             {Code.ERROR_AGREGAR_BACKORDER_NO_PERMITIDO , new PedidoValidacionConfiguracion(){ Mensaje ="No se puede agregar un set como BackOrder." } },
                             {Code.ERROR_AGREGAR_BACKORDER , new PedidoValidacionConfiguracion(){ Mensaje ="No se encuentra el detalle en el pedido para agregarlo como BackOrder." } }
-
                         });
                 }
             }
@@ -3867,5 +3937,15 @@ namespace Portal.Consultoras.Common
             public const string Menu = "Menu";
         }
         #endregion
+
+        public static class OrigenPedidoBuscadorApp
+        {
+            public const string OrigenPedidoWebDesplegable = "OrigenPedidoWebDesplegable";
+            public const string OrigenPedidoWebLanding = "OrigenPedidoWebLanding";
+            public const string OrigenPedidoWebDesplegableFicha = "OrigenPedidoWebDesplegableFicha";
+            public const string OrigenPedidoWebLandingFicha = "OrigenPedidoWebLandingFicha";
+            public const string OrigenPedidoWebLandingFichaCarrusel = "OrigenPedidoWebLandingFichaCarrusel";
+            public const string OrigenPedidoWebDesplegableFichaCarrusel = "OrigenPedidoWebDesplegableFichaCarrusel";
+        }
     }
 }

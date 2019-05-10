@@ -83,13 +83,12 @@ namespace Portal.Consultoras.Web.Providers
                 ofertasDelDia = new List<ServiceOferta.BEEstrategia>();
             }
 
+            // validar stock PROL
             if (ofertasDelDia.Any())
             {
                 ofertasDelDia.ForEach(x => x.TieneStock = true);
-                if (GetValidarDiasAntesStock(model))
-                {
-                    ofertasDelDia = _consultaProlProvider.ActualizarEstrategiaStockPROL(ofertasDelDia, model.CodigoISO, model.CampaniaID, model.CodigoConsultora);
-                }
+                var validarDias = _consultaProlProvider.GetValidarDiasAntesStock(model);
+                ofertasDelDia = _consultaProlProvider.ActualizarEstrategiaStockPROL(ofertasDelDia, model.CodigoISO, model.CampaniaID, model.CodigoConsultora, validarDias);
             }
 
             return ofertasDelDia;
@@ -342,24 +341,6 @@ namespace Portal.Consultoras.Web.Providers
 
             return result;
         }
-
-        private bool GetValidarDiasAntesStock(UsuarioModel userData)
-        {
-            var validar = false;
-            var lstTablaLogicaDatos = _tablaLogicaProvider.GetTablaLogicaDatos(userData.PaisID, ConsTablaLogica.OfertasConsultora.TablaLogicaId, true);
-            if (lstTablaLogicaDatos.Any())
-            {
-                var diasAntesStock = lstTablaLogicaDatos.FirstOrDefault().Valor;
-                if (!string.IsNullOrEmpty(diasAntesStock))
-                {
-                    var iDiasAntesStock = int.Parse(diasAntesStock);
-                    if (DateTime.Now.Date >= userData.FechaInicioCampania.AddDays(iDiasAntesStock))
-                    {
-                        validar = true;
-                    }
-                }
-            }
-            return validar;
-        }
+    
     }
 }

@@ -7,6 +7,9 @@ var mensajeParametrizableCuv = '';
 var cuvbuscado = "";
 var precioCuvBuscado = "";
 var cuvEsCuponNuevas = false;
+//INI HD-3908
+var _flagNueva = false;
+//FIN HD-3908
 var productoEcontrado;
 
 var belcorp = belcorp || {};
@@ -450,7 +453,11 @@ function BuscarByCUV(cuv) {
             
             CloseLoading();
             ObservacionesProducto(item);
-
+            //INI HD-3908
+            _flagNueva = (item.FlagNueva == "1") ? true : false;
+            $("#hdfCodigoPalanca").val(item.CodigoPalanca);
+            $("#hdfCampaniaID").val(item.CampaniaID);
+            //FIN HD-3908
             CargarProductosRecomendados(productoEcontrado);
         },
         error: function (data, error) {

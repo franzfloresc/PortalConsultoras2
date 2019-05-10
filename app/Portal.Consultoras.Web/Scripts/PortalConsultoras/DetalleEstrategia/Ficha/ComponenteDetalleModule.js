@@ -59,7 +59,7 @@
             //Este método asigna los datos del componente individual a _template.componenteDetalleIndividual
 
             //estrategia.Hermanos por default es solo 1
-            console.log(estrategia);
+            console.log('mostrarDetalleIndividual', estrategia);
 
             if (estrategia.Hermanos.length == 1) {
                 if (estrategia.MostrarFichaEnriquecida) {
@@ -79,11 +79,13 @@
             }
         },
         setCarrusel: function (id) {
+            var cantSlides = _config.generalModule.isMobile() ? 1 : 3;
             $(id).slick({
                 infinite: false,
                 speed: 300,
                 centerMode: false,
                 variableWidth: true,
+                slidesToShow: cantSlides,
                 prevArrow:
                     "<a id=\"opciones-seleccionadas-prev\" class=\"flecha_ofertas-tipo prev\" style=\"left:-5%; text-align:left;display:none;\">" +
                     "<img src=\"" + baseUrl + "Content/Images/Esika/previous_ofertas_home.png\")\" alt=\"\" />" +
@@ -99,11 +101,9 @@
             $("body").on("click", "[data-tab-header]", function (e) {
                 console.log('click setTabDetalleComponente');
                 e.preventDefault();
-                var numTab = $(e.target).data("num-tab");
                 $("[data-tab-header]").removeClass("active");
-                if ($("[data-tab-header][data-num-tab]").length > 1) {
-                    $("[data-tab-header][data-num-tab=" + numTab + "]").addClass("active");
-                }
+                var numTab = $(e.target).data("num-tab");
+                $("[data-tab-header][data-num-tab=" + numTab + "]").addClass("active");
                 $("[data-tab-body]").hide();
                 $("[data-tab-body][data-num-tab=" + numTab + "]").show();
             });
