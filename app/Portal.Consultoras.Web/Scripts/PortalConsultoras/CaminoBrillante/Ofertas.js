@@ -172,6 +172,8 @@ function CargarDemostradores() {
                 if (!verMasDemostradores) UnlinkCargarOfertasToScroll();
                 offsetRegistrosDemo += nroRegistrosDemostradores;
                 $("#divresultadosDemostradores").html("Mostrando " + contadordemo + " de " + data.total);
+
+                /*
                 dataLayer.push({
                     'event': 'productImpression',
                     'ecommerce': {
@@ -190,6 +192,31 @@ function CargarDemostradores() {
                         }
                     }
                 })
+                */
+
+                for (i = 0; i < data.lista.length; i++) {
+                    var product = data.lista[i];
+                    dataLayer.push({
+                    //console.log({
+                        'event': 'productImpression',
+                        'ecommerce': {
+                            'currencyCode': moneda,
+                            'impressions': {
+                                'actionField': { 'list': categoria },
+                                'products': [{
+                                    'name': product.DescripcionCUV,
+                                    'id': product.CUV,
+                                    'price': product.PrecioCatalogo,
+                                    'brand': product.DescripcionMarca,
+                                    'category': categoria,
+                                    'variant': categoria,
+                                    'position': contadordemo,
+                                }]
+                            }
+                        }
+                    })
+                } 
+
             }
         },
         error: function (data, error) { },
