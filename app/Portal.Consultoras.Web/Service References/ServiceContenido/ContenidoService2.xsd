@@ -427,6 +427,7 @@
       <xs:element minOccurs="0" name="ActualizarClave" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="AniosPermanencia" type="xs:int" />
       <xs:element minOccurs="0" name="AnoCampaniaIngreso" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AutorizaPedido" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="BanderaImagen" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="BuscadorYFiltrosConfiguracion" nillable="true" type="tns:BEBuscadorYFiltrosConfiguracion" />
       <xs:element minOccurs="0" name="CambioClave" type="xs:boolean" />
@@ -865,6 +866,7 @@
   <xs:complexType name="BEContenidoAppDeta">
     <xs:sequence>
       <xs:element minOccurs="0" name="Accion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ActivaBoton" type="xs:boolean" />
       <xs:element minOccurs="0" name="CodigoDetalle" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Estado" type="xs:int" />

@@ -16,6 +16,8 @@ namespace Portal.Consultoras.Web.Models
         public bool Estado { get; set; }
         public string Ancho{ get; set; }
         public string Alto { get; set; }
+        public bool ActivaBoton { get; set; }
+
 
         public object Clone()
         {

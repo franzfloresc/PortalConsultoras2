@@ -40,5 +40,8 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int Estado { get; set; }
 
+        [DataMember]
+        public bool ActivaBoton { get; set; }
+
     }
 }

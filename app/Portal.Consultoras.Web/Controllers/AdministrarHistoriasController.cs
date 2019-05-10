@@ -338,6 +338,7 @@ namespace Portal.Consultoras.Web.Controllers
             model.IdContenido = IdContenido;
             model.Ancho = arrHistAnchoAlto[0];
             model.Alto = arrHistAnchoAlto[1];
+            model.ActivaBoton = false;
 
             return PartialView("Partials/MantenimientoDetalle", model);
         }
@@ -356,9 +357,12 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         IdContenido = model.IdContenido,
                         RutaContenido = model.RutaContenido,
-                        Tipo = "IMAGEN"
+                        Tipo = "IMAGEN",
+                        ActivaBoton = model.ActivaBoton
+                        
+                        
                     };
-                    sv.InsertContenidoAppDeta(entidad);
+                   sv.InsertContenidoAppDeta(entidad);
                 }
 
                 return Json(new

@@ -56,6 +56,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@IdContenido", DbType.Int32, p.IdContenido);
             Context.Database.AddInParameter(command, "@RutaContenido", DbType.AnsiString, p.RutaContenido);
             Context.Database.AddInParameter(command, "@tipo", DbType.AnsiString, p.Tipo);
+            Context.Database.AddInParameter(command, "@ActivaBoton", DbType.String, p.ActivaBoton);
 
             try
             {

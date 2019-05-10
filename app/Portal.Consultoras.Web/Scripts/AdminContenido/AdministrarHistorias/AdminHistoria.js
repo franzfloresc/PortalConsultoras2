@@ -47,8 +47,17 @@ function IniDialogDetalle() {
                 
                     var params = {
                         RutaContenido: $("#nombre-desktop-detalle").val(),
-                        IdContenido: $("#IdContenido").val()                      
+                        IdContenido: $("#IdContenido").val(),
+                        ActivaBoton: $("#ActivaBoton").is(':checked')
                 };
+                //if ($("#ActivaBoton").is(':checked')) {
+                //    alert("Está activado");
+                //} else {
+                //    alert("No está activado");
+                //}
+
+                console.log(params);
+               // return;
           
                     waitingDialog({});
 

@@ -3289,6 +3289,9 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         private string AnoCampaniaIngresoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AutorizaPedidoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string BanderaImagenField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -4067,6 +4070,19 @@ namespace Portal.Consultoras.Web.ServiceContenido {
                 if ((object.ReferenceEquals(this.AnoCampaniaIngresoField, value) != true)) {
                     this.AnoCampaniaIngresoField = value;
                     this.RaisePropertyChanged("AnoCampaniaIngreso");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AutorizaPedido {
+            get {
+                return this.AutorizaPedidoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AutorizaPedidoField, value) != true)) {
+                    this.AutorizaPedidoField = value;
+                    this.RaisePropertyChanged("AutorizaPedido");
                 }
             }
         }
@@ -9705,6 +9721,9 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         private string AccionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool ActivaBotonField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigoDetalleField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -9747,6 +9766,19 @@ namespace Portal.Consultoras.Web.ServiceContenido {
                 if ((object.ReferenceEquals(this.AccionField, value) != true)) {
                     this.AccionField = value;
                     this.RaisePropertyChanged("Accion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool ActivaBoton {
+            get {
+                return this.ActivaBotonField;
+            }
+            set {
+                if ((this.ActivaBotonField.Equals(value) != true)) {
+                    this.ActivaBotonField = value;
+                    this.RaisePropertyChanged("ActivaBoton");
                 }
             }
         }
