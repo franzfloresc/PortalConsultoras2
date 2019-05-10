@@ -28340,8 +28340,8 @@ div.motivoRechazo textarea {
     transition: all 0.3s ease;
 }
 
-    .resultado_busqueda_por_cuv_enlace:hover{
-        background-color:#F5F5F5;
+    .resultado_busqueda_por_cuv_enlace:hover {
+        background-color: #f3f3f3;
     }
 
 .resultado_busqueda_por_cuv_datos_imagen,
