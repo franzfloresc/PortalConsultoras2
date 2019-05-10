@@ -14,6 +14,7 @@ namespace Portal.Consultoras.Web.CustomFilters
 
         public void OnAuthentication(AuthenticationContext filterContext)
         {
+            //
         }
 
         public void OnAuthenticationChallenge(AuthenticationChallengeContext filterContext)
