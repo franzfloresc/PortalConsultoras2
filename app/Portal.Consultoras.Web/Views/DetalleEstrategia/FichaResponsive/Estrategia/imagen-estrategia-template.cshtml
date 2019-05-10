@@ -9,9 +9,24 @@
         <p>* Foto Referencial</p>
         {{/iff}}
     </div>
-  
+
     <!--compartir-->
     {{#if TieneCompartir}}
+    <div data-item="">
+        <div data-compartir-campos="" style="display:none;">
+            <input type="hidden" class="CUV" value="{{CUV2}}" />
+            <input type="hidden" class="rsFBMensaje" value="" />
+            <input type="hidden" class="rsWAMensaje" value="" />
+            <input type="hidden" class="rsFBRutaImagen" value="{{ImgUrl FotoProducto01}}" />
+            <input type="hidden" class="rsWARutaImagen" value="{{ImgUrl FotoProducto01}}" />
+            <input type="hidden" class="MarcaID" value="{{MarcaID}}" />
+            <input type="hidden" class="MarcaNombre" value="{{DescripcionMarca}}" />
+            <input type="hidden" class="Nombre" value="{{DescripcionCompleta}}" />
+            <input type="hidden" class="ProductoDescripcion" value="" />
+            <input type="hidden" class="Volumen" value="" />
+            <input type="hidden" class="Palanca" value="{{TipoPersonalizacion}}" />
+        </div>
+    </div>
     <div class="redes_sociales">
         Comparte este producto con tus clientes
         <a class="btn_compartir_facebook" href="javascript:;" data-compartir="FB">
