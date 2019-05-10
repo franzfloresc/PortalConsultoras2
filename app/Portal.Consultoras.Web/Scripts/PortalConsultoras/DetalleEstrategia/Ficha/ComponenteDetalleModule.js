@@ -12,11 +12,8 @@
 
     if (config.generalModule === null || typeof config.generalModule === "undefined")
         throw "config.generalModule is null or undefined";
-
-    //var _urlComponenteDetalle = ConstantesModule.UrlDetalleEstrategia;
-    //var _codigoVariedad = ConstantesModule.CodigoVariedad;
+    
     var _tipoEstrategiaTexto = ConstantesModule.TipoEstrategiaTexto;
-    //var _constantePalanca = ConstantesModule.ConstantesPalanca;
 
     var _config = {
         localStorageModule: config.localStorageModule,
@@ -34,30 +31,11 @@
         },
         componenteDetalle: "componenteDetalle-template",
         componenteDetalleIndividual: "componenteDetalleIndividual-template",
-        //ContenidoProducto: "#ContenidoProducto",
-        //BotonVerDetalle: "[id='btnVerDetalle']",
         MenuDetalleComponente: "#mnuDetalleComponente li a",
         CarruselVideo: '#carouselVideo',
         CarruselIndividualVideo: '#carouselIndividualVideo',
         ModalProductoDetalle: "#modal_producto_detalle"
     };
-
-    //var _validator = {
-    //    mostrarBotoneraVerDetalle: function (valor) {
-    //        if (valor) {
-    //            $(_template.BotonVerDetalle).each(function () { $(this).show(); });
-    //        } else {
-    //            $(_template.BotonVerDetalle).each(function () { $(this).hide(); });
-    //        }
-    //    },
-    //    mostrarContenidoProducto: function (valor) {
-    //        if (valor) {
-    //            $(_template.ContenidoProducto).show();
-    //        } else {
-    //            $(_template.ContenidoProducto).hide();
-    //        }
-    //    }
-    //};
 
     var _util = {
         mostrarDetalleModal: function (data) {
@@ -81,7 +59,7 @@
             //Este método asigna los datos del componente individual a _template.componenteDetalleIndividual
 
             //estrategia.Hermanos por default es solo 1
-            console.log(estrategia);
+            console.log('mostrarDetalleIndividual', estrategia);
 
             if (estrategia.Hermanos.length == 1) {
                 if (estrategia.MostrarFichaEnriquecida) {
@@ -101,11 +79,13 @@
             }
         },
         setCarrusel: function (id) {
+            var cantSlides = _config.generalModule.isMobile() ? 1 : 3;
             $(id).slick({
                 infinite: false,
                 speed: 300,
                 centerMode: false,
                 variableWidth: true,
+                slidesToShow: cantSlides,
                 prevArrow:
                     "<a id=\"opciones-seleccionadas-prev\" class=\"flecha_ofertas-tipo prev\" style=\"left:-5%; text-align:left;display:none;\">" +
                     "<img src=\"" + baseUrl + "Content/Images/Esika/previous_ofertas_home.png\")\" alt=\"\" />" +
@@ -121,11 +101,9 @@
             $("body").on("click", "[data-tab-header]", function (e) {
                 console.log('click setTabDetalleComponente');
                 e.preventDefault();
-                var numTab = $(e.target).data("num-tab");
                 $("[data-tab-header]").removeClass("active");
-                if ($("[data-tab-header][data-num-tab]").length > 1) {
-                    $("[data-tab-header][data-num-tab=" + numTab + "]").addClass("active");
-                }
+                var numTab = $(e.target).data("num-tab");
+                $("[data-tab-header][data-num-tab=" + numTab + "]").addClass("active");
                 $("[data-tab-body]").hide();
                 $("[data-tab-body][data-num-tab=" + numTab + "]").show();
             });
@@ -174,32 +152,7 @@
     var _VerDetalleIndividual = function (estrategia) {
         _util.mostrarDetalleIndividual(estrategia);
     };
-
-    //var _OcultarControles = function (variante) {
-    //    console.log(variante);
-    //    if (_tipoEstrategiaTexto.Ganadoras === _config.palanca ||
-    //        _tipoEstrategiaTexto.ShowRoom === _config.palanca || /*Especiales*/
-    //        _tipoEstrategiaTexto.Lanzamiento === _config.palanca || /*Lo nuevo nuevo*/
-    //        _tipoEstrategiaTexto.OfertasParaMi === _config.palanca ||
-    //        _tipoEstrategiaTexto.OfertaParaTi === _config.palanca ||
-    //        _tipoEstrategiaTexto.GuiaNegocio === _config.palanca ||
-    //        _tipoEstrategiaTexto.GuiaDeNegocioDigitalizada === _config.palanca) {
-
-    //        _validator.mostrarContenidoProducto(true);
-
-    //        if (variante != ConstantesModule.CodigoVariedad.IndividualVariable) {
-    //            _validator.mostrarBotoneraVerDetalle(true);
-    //            _validator.mostrarContenidoProducto(false);
-    //        } else {
-    //            _validator.mostrarBotoneraVerDetalle(false);
-    //        }
-    //    }
-    //    else {
-    //        _validator.mostrarContenidoProducto(false);
-    //        _validator.mostrarBotoneraVerDetalle(false);
-    //    }
-    //};
-
+    
     var _events = {
         bindClosePopup: function () {
             $("body").off("click", "[data-close-product-detail-popup]");

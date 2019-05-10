@@ -392,7 +392,7 @@ namespace Portal.Consultoras.Web.Controllers
             var respuestaServiceCdr = new List<RptProductoEstrategia>();
             try
             {
-                var codigo = _tablaLogicaProvider.GetTablaLogicaDatoCodigo(userData.PaisID, Constantes.TablaLogica.Plan20, Constantes.TablaLogicaDato.Tonos, true);
+                var codigo = _tablaLogicaProvider.GetTablaLogicaDatoCodigo(userData.PaisID, ConsTablaLogica.Plan20.TablaLogicaId, ConsTablaLogica.Plan20.Tonos, true);
 
                 if (Convert.ToInt32(codigo) <= entidad.CampaniaID)
                 {

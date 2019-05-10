@@ -251,13 +251,13 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
             var listaTipoPagoTask = Task.Run(() => result.ListaTipoPago = ObtenerPagoEnLineaTipoPago(paisId));
             var montoDeudaTask = Task.Run(() => result.MontoDeuda = ObtenerDeuda(paisId, consultoraId, codigoUsuario));
             var listaBancoTask = Task.Run(() => result.ListaBanco = ObtenerPagoEnLineaBancos(paisId) ?? new List<BEPagoEnLineaBanco>());
-            var listaConfiguracionTask = Task.Run(() => listaConfiguracion = _tablaLogicaDatosBusinessLogic.GetListCache(paisId, Constantes.TablaLogica.ValoresPagoEnLinea));
+            var listaConfiguracionTask = Task.Run(() => listaConfiguracion = _tablaLogicaDatosBusinessLogic.GetListCache(paisId, ConsTablaLogica.PagoLinea.TablaLogicaId));
 
             Task.WaitAll(listaMetodoPagoTask, listaMedioPagoTask, listaTipoPagoTask, montoDeudaTask, listaBancoTask, listaConfiguracionTask);
 
             if (listaConfiguracion != null)
             {
-                var enableExternalApp_String = listaConfiguracion.Where(e => e.TablaLogicaDatosID == Constantes.TablaLogicaDato.PagoEnLinea.Habilitar_App_PBI_ExternalApp).Select(e => e.Valor).FirstOrDefault();
+                var enableExternalApp_String = listaConfiguracion.Where(e => e.TablaLogicaDatosID == ConsTablaLogica.PagoLinea.Habilitar_App_PBI_ExternalApp).Select(e => e.Valor).FirstOrDefault();
                 if (enableExternalApp_String != "1") result.ListaBanco.ForEach(e => e.URIExternalApp = null);
             }
             if (!result.ListaBanco.Any(e => e.Estado))
@@ -267,7 +267,7 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
             }
 
             //Paises con comision 0 para consultora digital y que no pasen su fecha de vencimiento
-            var comision = listaConfiguracion.FirstOrDefault(e => e.Codigo == Constantes.TablaLogicaDato.PagoEnLinea.Habilitar_Comision_Cero);
+            var comision = listaConfiguracion.FirstOrDefault(e => e.Codigo == ConsTablaLogica.PagoLinea.Habilitar_Comision_Cero);
 
             comision = comision ?? new BETablaLogicaDatos();
 
@@ -342,8 +342,8 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
                 UpdateMontoDeudaConsultora(usuario.PaisID, usuario.CodigoConsultora, saldoPendiente);
 
                 //Notificar Pago Via Email
-                var listaConfiguracion = _tablaLogicaDatosBusinessLogic.GetListCache(usuario.PaisID, Constantes.TablaLogica.ValoresPagoEnLinea);
-                var mensajeExitoso = listaConfiguracion.Where(p => p.TablaLogicaDatosID == Constantes.TablaLogicaDato.MensajeInformacionPagoExitoso).Select(p => p.Codigo)
+                var listaConfiguracion = _tablaLogicaDatosBusinessLogic.GetListCache(usuario.PaisID, ConsTablaLogica.PagoLinea.TablaLogicaId);
+                var mensajeExitoso = listaConfiguracion.Where(p => p.TablaLogicaDatosID == ConsTablaLogica.PagoLinea.MensajeInformacionPagoExitoso).Select(p => p.Codigo)
                                                        .SingleOrDefault() ?? string.Empty;
                 if (!string.IsNullOrEmpty(usuario.EMail) && pagoEnLineaVisa.Data != null)
                 {

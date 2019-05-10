@@ -1708,7 +1708,7 @@ function PreValidarCUV(event) {
 
     if (event.keyCode == 13) {
         if ($("#btnAgregar")[0].disabled == false) {
-            AgregarProductoListado();
+            PedidoRegistroModule.AgregarProductoListadoPasePedido();
         }
     }
 }
@@ -1768,7 +1768,7 @@ $('body').on('keypress', 'input[attrKey="PreValidarCUV"]', function (event) {
 
     if (event.keyCode == 13) {
         if ($("#btnAgregar")[0].disabled == false) {
-            AgregarProductoListado();
+            PedidoRegistroModule.AgregarProductoListadoPasePedido();
         }
     }
 })
