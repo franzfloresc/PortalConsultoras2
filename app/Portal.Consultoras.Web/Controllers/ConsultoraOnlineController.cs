@@ -1230,7 +1230,7 @@ namespace Portal.Consultoras.Web.Controllers
                                         CUV = pedidoDetalle.CUV,
                                         DescripcionProd = pedidoDetalle.Producto,
                                         ClienteDescripcion = pedidoAux.Cliente,
-                                        OrigenPedidoWeb = GetOrigenPedidoWeb(pedidoAux.FlagMedio, pedidoDetalle.MarcaID, pedido.Dispositivo)
+                                        OrigenPedidoWeb = GetOrigenPedidoWeb(pedidoAux.FlagMedio, pedidoDetalle.MarcaID, pedido.Dispositivo, 1)
                                     };
 
                                     var olstPedidoWebDetalle = AgregarDetallePedido(model);
@@ -2098,11 +2098,11 @@ namespace Portal.Consultoras.Web.Controllers
             return new EmptyResult();
         }
 
-        private int GetOrigenPedidoWeb(string flagMedio, int marcaID, int Dispositivo)
+        private int GetOrigenPedidoWeb(string flagMedio, int marcaID, int dispositivo, int tipoVista)
         {
             var origenPedidoWeb = 0;
 
-            if (Dispositivo == 1) //DESKTOP
+            if (dispositivo == 1) //DESKTOP
             {
                 if (flagMedio == Constantes.SolicitudCliente.FlagMedio.AppCatalogos)
                 {
@@ -2112,18 +2112,36 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else if (flagMedio == Constantes.SolicitudCliente.FlagMedio.CatalogoDigital)
                 {
-                    if (marcaID == Constantes.Marca.LBel) origenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopPedidoCatalogoLbelCatalogoDigitalPendienteDeAprobar;
-                    else if (marcaID == Constantes.Marca.Esika) origenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopPedidoCatalogoEsikaCatalogoDigitalPendienteDeAprobar;
-                    else if (marcaID == Constantes.Marca.Cyzone) origenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopPedidoCatalogoCyzoneCatalogoDigitalPendienteDeAprobar;
+                    if (tipoVista == 1) // por cliente
+                    {
+                        if (marcaID == Constantes.Marca.LBel) origenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopPedidoCatalogoLbelCatalogoDigitalPendienteDeAprobar;
+                        else if (marcaID == Constantes.Marca.Esika) origenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopPedidoCatalogoEsikaCatalogoDigitalPendienteDeAprobar;
+                        else if (marcaID == Constantes.Marca.Cyzone) origenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopPedidoCatalogoCyzoneCatalogoDigitalPendienteDeAprobar;
+                    }
+                    else
+                    {
+                        if (marcaID == Constantes.Marca.LBel) origenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopPedidoCatalogoLbelCatalogoDigitalPendienteDeAprobarProducto;
+                        else if (marcaID == Constantes.Marca.Esika) origenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopPedidoCatalogoEsikaCatalogoDigitalPendienteDeAprobarProducto;
+                        else if (marcaID == Constantes.Marca.Cyzone) origenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopPedidoCatalogoCyzoneCatalogoDigitalPendienteDeAprobarProducto;
+                    }
                 }
                 else if (flagMedio == Constantes.SolicitudCliente.FlagMedio.MaquilladorVirtual)
                 {
-                    if (marcaID == Constantes.Marca.LBel) origenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopPedidoCatalogoLbelMaquilladorPendienteDeAprobar;
-                    else if (marcaID == Constantes.Marca.Esika) origenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopPedidoCatalogoEsikaMaquilladorPendienteDeAprobar;
-                    else if (marcaID == Constantes.Marca.Cyzone) origenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopPedidoCatalogoCyzoneMaquilladorPendienteDeAprobar;
+                    if (tipoVista == 1) // por cliente
+                    {
+                        if (marcaID == Constantes.Marca.LBel) origenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopPedidoCatalogoLbelMaquilladorPendienteDeAprobar;
+                        else if (marcaID == Constantes.Marca.Esika) origenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopPedidoCatalogoEsikaMaquilladorPendienteDeAprobar;
+                        else if (marcaID == Constantes.Marca.Cyzone) origenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopPedidoCatalogoCyzoneMaquilladorPendienteDeAprobar;
+                    }
+                    else
+                    {
+                        if (marcaID == Constantes.Marca.LBel) origenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopPedidoCatalogoLbelMaquilladorPendienteDeAprobarProducto;
+                        else if (marcaID == Constantes.Marca.Esika) origenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopPedidoCatalogoEsikaMaquilladorPendienteDeAprobarProducto;
+                        else if (marcaID == Constantes.Marca.Cyzone) origenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopPedidoCatalogoCyzoneMaquilladorPendienteDeAprobarProducto;
+                    }
                 }
             }
-            else if (Dispositivo == 2) //MOBILE
+            else if (dispositivo == 2) //MOBILE
             {
                 if (flagMedio == Constantes.SolicitudCliente.FlagMedio.AppCatalogos)
                 {
@@ -2133,18 +2151,36 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else if (flagMedio == Constantes.SolicitudCliente.FlagMedio.CatalogoDigital)
                 {
-                    if (marcaID == Constantes.Marca.LBel) origenPedidoWeb = Constantes.OrigenPedidoWeb.MobilePedidoCatalogoLbelCatalogoDigitalPendienteDeAprobar;
-                    else if (marcaID == Constantes.Marca.Esika) origenPedidoWeb = Constantes.OrigenPedidoWeb.MobilePedidoCatalogoEsikaCatalogoDigitalPendienteDeAprobar;
-                    else if (marcaID == Constantes.Marca.Cyzone) origenPedidoWeb = Constantes.OrigenPedidoWeb.MobilePedidoCatalogoCyzoneCatalogoDigitalPendienteDeAprobar;
+                    if (tipoVista == 1) // por cliente
+                    {
+                        if (marcaID == Constantes.Marca.LBel) origenPedidoWeb = Constantes.OrigenPedidoWeb.MobilePedidoCatalogoLbelCatalogoDigitalPendienteDeAprobar;
+                        else if (marcaID == Constantes.Marca.Esika) origenPedidoWeb = Constantes.OrigenPedidoWeb.MobilePedidoCatalogoEsikaCatalogoDigitalPendienteDeAprobar;
+                        else if (marcaID == Constantes.Marca.Cyzone) origenPedidoWeb = Constantes.OrigenPedidoWeb.MobilePedidoCatalogoCyzoneCatalogoDigitalPendienteDeAprobar;
+                    }
+                    else
+                    {
+                        if (marcaID == Constantes.Marca.LBel) origenPedidoWeb = Constantes.OrigenPedidoWeb.MobilePedidoCatalogoLbelCatalogoDigitalPendienteDeAprobarProducto;
+                        else if (marcaID == Constantes.Marca.Esika) origenPedidoWeb = Constantes.OrigenPedidoWeb.MobilePedidoCatalogoEsikaCatalogoDigitalPendienteDeAprobarProducto;
+                        else if (marcaID == Constantes.Marca.Cyzone) origenPedidoWeb = Constantes.OrigenPedidoWeb.MobilePedidoCatalogoCyzoneCatalogoDigitalPendienteDeAprobarProducto;
+                    }
                 }
                 else if (flagMedio == Constantes.SolicitudCliente.FlagMedio.MaquilladorVirtual)
                 {
-                    if (marcaID == Constantes.Marca.LBel) origenPedidoWeb = Constantes.OrigenPedidoWeb.MobilePedidoCatalogoLbelMaquilladorPendienteDeAprobar;
-                    else if (marcaID == Constantes.Marca.Esika) origenPedidoWeb = Constantes.OrigenPedidoWeb.MobilePedidoCatalogoEsikaMaquilladorPendienteDeAprobar;
-                    else if (marcaID == Constantes.Marca.Cyzone) origenPedidoWeb = Constantes.OrigenPedidoWeb.MobilePedidoCatalogoCyzoneMaquilladorPendienteDeAprobar;
+                    if (tipoVista == 1) // por cliente
+                    {
+                        if (marcaID == Constantes.Marca.LBel) origenPedidoWeb = Constantes.OrigenPedidoWeb.MobilePedidoCatalogoLbelMaquilladorPendienteDeAprobar;
+                        else if (marcaID == Constantes.Marca.Esika) origenPedidoWeb = Constantes.OrigenPedidoWeb.MobilePedidoCatalogoEsikaMaquilladorPendienteDeAprobar;
+                        else if (marcaID == Constantes.Marca.Cyzone) origenPedidoWeb = Constantes.OrigenPedidoWeb.MobilePedidoCatalogoCyzoneMaquilladorPendienteDeAprobar;
+                    }
+                    else
+                    {
+                        if (marcaID == Constantes.Marca.LBel) origenPedidoWeb = Constantes.OrigenPedidoWeb.MobilePedidoCatalogoLbelMaquilladorPendienteDeAprobarProducto;
+                        else if (marcaID == Constantes.Marca.Esika) origenPedidoWeb = Constantes.OrigenPedidoWeb.MobilePedidoCatalogoEsikaMaquilladorPendienteDeAprobarProducto;
+                        else if (marcaID == Constantes.Marca.Cyzone) origenPedidoWeb = Constantes.OrigenPedidoWeb.MobilePedidoCatalogoCyzoneMaquilladorPendienteDeAprobarProducto;
+                    }
                 }
             }
-            else if (Dispositivo == 3) //APP
+            else if (dispositivo == 3) //APP
             {
                 if (flagMedio == Constantes.SolicitudCliente.FlagMedio.AppCatalogos)
                 {
@@ -2706,7 +2742,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult ContinuarPedidos(List<BEMisPedidosDetalle> lstDetalle)
+        public JsonResult ContinuarPedidos(List<BEMisPedidosDetalle> lstDetalle, string tipoVista)
         {
             try
             {
@@ -2750,6 +2786,7 @@ namespace Portal.Consultoras.Web.Controllers
                 SessionManager.SetobjMisPedidos(model);
                 //SessionManager.SetobjMisPedidosDetalle(Listadetalle);
                 var modelList = PendientesMedioDeCompra();
+                Session["OrigenTipoVista"] = tipoVista;
 
                 return Json(new
                 {
@@ -2876,6 +2913,7 @@ namespace Portal.Consultoras.Web.Controllers
                         pedidoDetalle.PaisID = userData.PaisID;
                         pedidoDetalle.IPUsuario = GetIPCliente();
                         //pedidoDetalle.OrigenPedidoWeb = GetOrigenPedidoWeb("", 0, 1);
+                        pedidoDetalle.OrigenPedidoWeb = GetOrigenPedidoWeb(Constantes.SolicitudCliente.FlagMedio.MaquilladorVirtual, model.MarcaID, parametros.Dispositivo, parametros.OrigenTipoVista);
                         //pedidoDetalle.ClienteID = string.IsNullOrEmpty(model.ClienteID) ? (short)0 : Convert.ToInt16(model.ClienteID);
                         pedidoDetalle.Identifier = SessionManager.GetTokenPedidoAutentico() != null ? SessionManager.GetTokenPedidoAutentico().ToString() : string.Empty;
                         //pedidoDetalle.EsCuponNuevas = model.EsCuponNuevas || model.FlagNueva == 1;
@@ -2932,7 +2970,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     CUV = detalle.CUV,
                                     DescripcionProd = detalle.Producto,
                                     ClienteDescripcion = pedido.Cliente,
-                                    OrigenPedidoWeb = GetOrigenPedidoWeb(pedido.FlagMedio, detalle.MarcaID, parametros.Dispositivo)
+                                    OrigenPedidoWeb = GetOrigenPedidoWeb(pedido.FlagMedio, detalle.MarcaID, parametros.Dispositivo, parametros.OrigenTipoVista)
                                 };
 
                                 var olstPedidoWebDetalle = AgregarDetallePedido(model);
@@ -3018,12 +3056,20 @@ namespace Portal.Consultoras.Web.Controllers
 
             #endregion
 
+            var pedidos = GetPendientes();
+            var ContinuarExpPendientes = true;
+            if (pedidos.ListaPedidos == null || pedidos.ListaPedidos.Count == 0)
+            {
+                ContinuarExpPendientes = false;
+            }
+
             try
             {
                 return Json(new
                 {
                     success = true,
                     message = "OK",
+                    continuarExpPendientes = ContinuarExpPendientes,
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (FaultException e)

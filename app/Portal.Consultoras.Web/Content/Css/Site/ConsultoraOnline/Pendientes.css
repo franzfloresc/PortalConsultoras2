@@ -5424,12 +5424,9 @@ img.icon-80 {
 }
 
 
-.col .card--content:last-child{
-    margin-bottom: 80px;
-}
-
 .row.align-items-start > .col {
     padding-top: 176px;
+    margin-bottom: 80px;
 }
 .header_fixed {
     position: fixed;
@@ -5438,4 +5435,8 @@ img.icon-80 {
 
 #vpcpContent{
     margin-bottom: 60px;
+}
+
+.porGanaMas{
+    padding: 0 15px;
 }

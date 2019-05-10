@@ -570,13 +570,19 @@ function ContinuarPedido(option) {
         }
     });
 
+    var obj = {
+        lstDetalle: lstDetalle,
+        tipoVista: gTipoVista
+    };
+
     if (lstDetalle.length > 0) {
         $.ajax({
             type: "POST",
             url: "/ConsultoraOnline/ContinuarPedidos",
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(lstDetalle),
+            //data: JSON.stringify(lstDetalle),
+            data: JSON.stringify(obj),
             success: function (response) {
 	            //marcacion analytics de Continuar
 	            if (option === "P") //Producto

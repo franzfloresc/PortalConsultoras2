@@ -1258,6 +1258,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.TotalGana = oListaGana.Sum(x => x.Cantidad * x.Precio2);
             model.GananciaGana = model.TotalCatalogo - model.TotalGana;
             ViewBag.PaisISOx = userData.CodigoISO;
+            ViewBag.TipoVista = (Session["OrigenTipoVista"] != null) ? Session["OrigenTipoVista"].ToString() : "1";
 
             return View(model);
         }
