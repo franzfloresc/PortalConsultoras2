@@ -8,8 +8,8 @@ namespace Portal.Consultoras.Common.UnitTest.Cryptography
     {
         [TestMethod]
         [DataTestMethod]
-        [DataRow("36882", "654321ba", DisplayName = "Esika Hash")]
-        [DataRow("36947", "765432dc", DisplayName = "Lbel Hash")]
+        [DataRow("36882|name|last|email", "6334234", DisplayName = "Esika Hash")]
+        [DataRow("36947|name|last|email", "7223423", DisplayName = "Lbel Hash")]
         public void GetHashTest(string textTohash, string key)
         {
             var hash = HmacShaAlgorithm.GetHash(textTohash, key);
