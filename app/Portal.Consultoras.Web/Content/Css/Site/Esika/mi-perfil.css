@@ -1152,10 +1152,10 @@ input.permiso_cuenta_opcion_checkbox
     background-size:100%;
 }
 
-.icono_correo_sobre{
-    width:78px;
-    height:46px;
-    background-image:url('/Content/Images/Esika/icono_envelope.svg');
+.icono_correo_sobre {
+    width: 64px;
+    height: 64px;
+    background-image: url('/Content/Images/icono_mail.svg');
 }
 
 .icono_mensaje_sms {
@@ -1175,8 +1175,13 @@ input.permiso_cuenta_opcion_checkbox
     color:#000;
 }
 
+.correo_actual,
 .num_celular_actual {
     font-size: 16px;
+}
+
+.correo_actual {
+    margin-bottom: 8px;
 }
 
 .enlace_reenviar_instrucciones,

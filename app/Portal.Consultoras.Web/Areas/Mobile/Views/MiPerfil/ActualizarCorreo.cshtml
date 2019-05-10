@@ -71,6 +71,32 @@ else
                     </button>
                 </div>
                 <div vista-id="2" class="revisa_tu_correo text-center" style="display:none;">
+                    <div class="icono_correo_sobre"></div>
+                    <h3 class="d-block text-bold actualizacion_celular_titulo">Confirmación de correo</h3>
+                    <p class="w-100 envio_instrucciones_info">
+                        <span class="d-block w-100">
+                            Te hemos enviado un correo de confirmación a:
+                        </span>
+                        <span class="d-block w-100 text-bold correo_actual" id="txtCorreoEnviado">
+                            cambiodecorreo@example.com
+                        </span>
+                        <a href="#" class="d-block enlace_cambiar_correo" title="Cambia de correo">
+                            Cambia de correo
+                        </a>
+                    </p>
+                    <div class="text-center">
+                        <div class="w-100 envio_instrucciones_info">
+                            <span class="w-100">¿Aún no recibes nuestro correo?</span>
+                            <a id="btnReenviameInstruciones" title="Reenviar el correo" class="enlace_reenviar_instrucciones w-100">
+                                Reenviar el correo
+                            </a>
+                        </div>
+                        <button type="button" class="w-100 border-radius-4 text-bold btn_primario btn_primario--miPerfil">
+                            Ir a ver mis datos
+                        </button>
+                    </div>
+                </div>
+                <div vista-id="3" class="text-center" style="display:none;">
                     <div class="center-block icono_success icono_success--miPerfil">
                         <img class="d-block" src="@Url.Content("~/Content/Images/success_icon.svg")" alt="¡El cambio de correo fue exitoso!" />
                     </div>
