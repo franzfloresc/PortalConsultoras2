@@ -1092,7 +1092,6 @@ namespace Portal.Consultoras.Web.Controllers
                 //userData.Celular = model.Telefono;
                 //SessionManager.SetUserData(userData);
 
-#endif
                 if (!string.IsNullOrWhiteSpace(model.Email))
                 {
                     string contenidoMailCulminado = CrearEmailReclamoCulminado(cdrWebMailConfirmacion);
@@ -1671,68 +1670,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (cdrWebDetalle.CodigoOperacion == Constantes.CodigoOperacionCDR.Trueque && !string.IsNullOrEmpty(cdrWebDetalle.XMLReemplazo))
                 {
-                    var listaDetalleCambio =  MisReclamosModel.XMLToList(cdrWebDetalle.XMLReemplazo);
-
-                if (!string.IsNullOrEmpty(cdrWebDetalle.XMLReemplazo))
-                {
-                    XmlDocument XMLDetalleReemplazo = new XmlDocument();
-                    XMLDetalleReemplazo.LoadXml(cdrWebDetalle.XMLReemplazo);
-
-                    XmlNode nodoReemplazos = XMLDetalleReemplazo.SelectSingleNode("reemplazos");
-
-                    //Display all the book titles.
-                    XmlNodeList elemList = nodoReemplazos.SelectNodes("reemplazo");
-
-                    if (elemList.Count > 0)
-                    {
-                        string htmlTrueque = String.Empty;
-                        short contador = 0;
-                        decimal totalTrueque = 0;
-                        foreach (XmlNode item in elemList)
-                        {
-                            htmlOperacion = htmlTemplateDetalleOperacion.Clone().ToString();
-
-                            if (contador == 0)
-                            {
-                                htmlOperacion = htmlOperacion.Replace("#FORMATO_DESCRIPCIONCUV1#", cdrWebDetalle.Descripcion);
-                                htmlOperacion = htmlOperacion.Replace("#FORMATO_CANTIDAD1#", cdrWebDetalle.Cantidad.ToString() + " unidades");
-                                htmlOperacion = htmlOperacion.Replace("#FORMATO_PRECIO1#", "Costo: " + simbolo + " " + precio);
-                                htmlOperacion = htmlOperacion.Replace("#FORMATO_SOLICITUD#", cdrWebDetalle.Solicitud);
-                            }
-                            else
-                            {
-                                htmlTemplateDetalleOperacion = FileManager.GetContenido(templateUrlDetalleOperacionMultipleTruequePath);
-                                htmlOperacion = htmlTemplateDetalleOperacion.Clone().ToString();
-
-                            }
-
-
-
-                            htmlOperacion = htmlOperacion.Replace("#FORMATO_CUV2#", item.SelectSingleNode("cuv").InnerText);
-                            htmlOperacion = htmlOperacion.Replace("#FORMATO_DESCRIPCIONCUV2#", item.SelectSingleNode("descripcion").InnerText);
-                            htmlOperacion = htmlOperacion.Replace("#FORMATO_CANTIDAD2#", item.SelectSingleNode("cantidad").InnerText + " unidades");
-                            htmlOperacion = htmlOperacion.Replace("#FORMATO_PRECIO2#", "Costo: " + simbolo + " " + item.SelectSingleNode("precio").InnerText);
-                            totalTrueque = totalTrueque + Convert.ToDecimal(item.SelectSingleNode("precio").InnerText);
-
-                            htmlTrueque = htmlTrueque + htmlOperacion;
-
-                            contador++;
-                        }
-
-                        //string HTMLtotalTrueque = "<tr><td></td><td style='width: 44%; text-align: left; font-family:\'Calibri\'; font-size: 16px; vertical-align:top; color: black;'>Subtotal: " + simbolo + totalTrueque + "</td></tr>";
-                        string HTMLtotalTrueque = "<tr><td></td><td style=\"width: 44%; text-align: left; font-family:'Calibri'; font-size: 18px; vertical-align: top; color: black;\">Subtotal: " + simbolo + totalTrueque + "</td></tr>";
-                        htmlTrueque = htmlTrueque + HTMLtotalTrueque;
-
-
-                        html = html.Replace("#FORMATO_DETALLE_TIPO_OPERACION#", htmlTrueque);
-                        txtBuil.Append(html);
-                    }
-
-
-                }
-                else
-                {
-
+                    var listaDetalleCambio = MisReclamosModel.XMLToList(cdrWebDetalle.XMLReemplazo);
                     htmlOperacion = htmlOperacion.Replace("#FORMATO_DESCRIPCIONCUV1#", cdrWebDetalle.Descripcion);
                     htmlOperacion = htmlOperacion.Replace("#FORMATO_SOLICITUD#", cdrWebDetalle.Solicitud);
                     htmlOperacion = htmlOperacion.Replace("#FORMATO_CANTIDAD1#", cdrWebDetalle.Cantidad.ToString());
@@ -1749,7 +1687,7 @@ namespace Portal.Consultoras.Web.Controllers
                             htmlOperacion = htmlOperacion.Replace("#FORMATO_CUV2#", item.CUV);
                             htmlOperacion = htmlOperacion.Replace("#FORMATO_DESCRIPCIONCUV2#", item.Descripcion);
                             htmlOperacion = htmlOperacion.Replace("#FORMATO_CANTIDAD2#", item.Cantidad.ToString());
-                            htmlOperacion = htmlOperacion.Replace("#FORMATO_PRECIO2#",string.Format("{0} {1}",simbolo, Util.DecimalToStringFormat( (decimal)item.Precio, isoPais)));
+                            htmlOperacion = htmlOperacion.Replace("#FORMATO_PRECIO2#", string.Format("{0} {1}", simbolo, Util.DecimalToStringFormat((decimal)item.Precio, isoPais)));
                             primeraFila = true;
                         }
                         else
@@ -1774,18 +1712,16 @@ namespace Portal.Consultoras.Web.Controllers
                     htmlOperacion = htmlOperacion.Replace("#FORMATO_CANTIDAD2#", cdrWebDetalle.Cantidad2.ToString());
                     htmlOperacion = htmlOperacion.Replace("#FORMATO_PRECIO2#", string.Format("{0} {1}", simbolo, Util.DecimalToStringFormat(cdrWebDetalle.Precio2, isoPais)));
                 }
-                    html = html.Replace("#FORMATO_DETALLE_TIPO_OPERACION#", htmlOperacion);
-                    txtBuil.Append(html);
-                }
-
-
+                html = html.Replace("#FORMATO_DETALLE_TIPO_OPERACION#", htmlOperacion);
+                txtBuil.Append(html);
             }
-            htmlTemplate = htmlTemplate.Replace("#FORMATO_DETALLECDR#", txtBuil.ToString());
 
             #endregion
 
+            htmlTemplate = htmlTemplate.Replace("#FORMATO_DETALLECDR#", txtBuil.ToString());
             return htmlTemplate;
         }
+
 
         private List<BETablaLogicaDatos> GetListMensajeCDRExpress()
         {
