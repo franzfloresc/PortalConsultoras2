@@ -3,9 +3,11 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceCDR;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.SessionManager;
+using Portal.Consultoras.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Linq;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -559,7 +561,7 @@ namespace Portal.Consultoras.Web.Providers
             sessionManager.SetNroPedidosCDRConfig(result);
             return result;
         }
-        //HD-3412 EINCA
+        
         private class PedidosEstadoCDRWeb
         {
             public int CampaniaID { get; set; }
