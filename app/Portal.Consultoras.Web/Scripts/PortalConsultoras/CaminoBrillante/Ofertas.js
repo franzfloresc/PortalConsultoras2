@@ -288,7 +288,8 @@ function CambiarOferta() {
         $("#divresultadosKit").show();
         document.body.scrollTop = TabUno;
         $(window).scrollTop(TabUno);
-        if (!verMasKits) CargarKits();
+        if (contadorkit == 0) { CargarKits(); }
+        else { LinkCargarOfertasToScroll();}        
     });
 
     $('#Tab-Demostradores').click(function () {
@@ -300,7 +301,8 @@ function CambiarOferta() {
         $("#divresultadosDemostradores").show();
         document.body.scrollTop = TabDos;
         $(window).scrollTop(TabDos);
-        if (verMasDemostradores) CargarDemostradores();
+        if (contadordemo == 0) { CargarDemostradores(); }
+        else { LinkCargarOfertasToScroll();}
     });
 }
 
