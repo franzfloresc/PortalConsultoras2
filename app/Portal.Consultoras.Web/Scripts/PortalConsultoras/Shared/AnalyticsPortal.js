@@ -24,32 +24,33 @@ var AnalyticsPortalModule = (function () {
     };
 
     var _texto = {
-        excepcion: "Excepción en AnalyticsPortal.js > ",
-        estandar: "Estándar",
-        fichaProducto: "Ficha de Producto",
-        iniciarVideo: "Iniciar Video",
-        migajaPan: "Breadcrumb",
-        // Ini - Analytics Buscador Miguel
-        notavaliable: "(not available)",
-        // Fin - Analytics Buscador Miguel
-        // Ini - Analytics Ofertas (Miguel)
-        contenedor: "Contenedor",
-        contenedorHome: "Contenedor - Inicio",
-        contenedorDetalle: "Contenedor - Detalle de Producto",
-        contenedorDetalleSets: "Contenedor - Detalle de Producto - Ver más Sets",
-        contenedorRevisar: "Contenedor - Revisar",
-        contenedorMasGanadoras: "Más Ganadoras",
-        contenedorfichaProducto: "Contenedor - Ficha de producto",
-        CarritoCompras: "Carrito de compras",
-        CarritoComprasPedidosPendientes: "Carrito de Compras - Pedidos Pendientes",
-        siguiente: "Ver siguiente",
-        anterior: "Ver anterior",
-        duoPerfecto: "Dúo Perfecto", //HD-3473 EINCA
-        palancaLasMasGandoras: "Más Ganadoras",
-        armaTuDuoPerfecto: ' Arma tu Dúo Perfecto - Dúo Perfecto' //HD-3473 EINCA
+	    excepcion: "Excepción en AnalyticsPortal.js > ",
+	    estandar: "Estándar",
+	    fichaProducto: "Ficha de Producto",
+	    iniciarVideo: "Iniciar Video",
+	    migajaPan: "Breadcrumb",
+	    // Ini - Analytics Buscador Miguel
+	    notavaliable: "(not available)",
+	    // Fin - Analytics Buscador Miguel
+	    // Ini - Analytics Ofertas (Miguel)
+	    contenedor: "Contenedor",
+	    contenedorHome: "Contenedor - Inicio",
+	    contenedorDetalle: "Contenedor - Detalle de Producto",
+	    contenedorDetalleSets: "Contenedor - Detalle de Producto - Ver más Sets",
+	    contenedorRevisar: "Contenedor - Revisar",
+	    contenedorMasGanadoras: "Más Ganadoras",
+	    contenedorfichaProducto: "Contenedor - Ficha de producto",
+	    CarritoCompras: "Carrito de compras",
+	    CarritoComprasPedidosPendientes: "Carrito de Compras - Pedidos Pendientes",
+	    siguiente: "Ver siguiente",
+	    anterior: "Ver anterior",
+	    duoPerfecto: "Dúo Perfecto", //HD-3473 EINCA
+	    palancaLasMasGandoras: "Más Ganadoras",
+	    armaTuDuoPerfecto: ' Arma tu Dúo Perfecto - Dúo Perfecto', //HD-3473 EINCA
+	    // Fin - Analytics Ofertas (Miguel)
 
-        // Fin - Analytics Ofertas (Miguel)
-    };
+	    PedidoPendienteAceptado: 'Pedidos Pendientes - Pedidos Aceptados '
+};
 
     // Inicio - Analytics Home 1 (Miguel)
     var _codigoSeccion = {
@@ -2715,6 +2716,22 @@ var AnalyticsPortalModule = (function () {
             "label": label
         });
     }
+    var clickVistaAddToCardPedidoPendiente = function (action, product) {
+
+        //var products = [];
+        //products.push(product);
+
+        dataLayer.push({
+		    'event': _evento.addToCart,
+		    'ecommerce': {
+			    'currencyCode': _getCurrencyCodes(),
+			    'add': {
+                    'actionField': { 'list': _texto.PedidoPendienteAceptado + action },
+                    'products': product
+			    }
+		    }
+	    });
+    }
     ////////////////////////////////////////////////////////////////////////////////////////
     // Fin - Analytics PedidoPendientes
     ////////////////////////////////////////////////////////////////////////////////////////
@@ -2810,6 +2827,7 @@ var AnalyticsPortalModule = (function () {
         ClickBotonPedidosPendientes: clickBotonPedidosPendientes,
         ClickTabPedidosPendientes: clickTabPedidosPendientes,
         ClickBotonTabVistaProducto: clickBotonTabVistaProducto,
+        ClickVistaAddToCardPedidoPendiente: clickVistaAddToCardPedidoPendiente,
         // Fin - Analytics PedidoPendientes
 
         MarcaProductImpressionRecomendaciones: marcaProductImpressionRecomendaciones,

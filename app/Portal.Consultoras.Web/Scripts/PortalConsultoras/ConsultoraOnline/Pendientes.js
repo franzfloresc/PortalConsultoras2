@@ -58,10 +58,10 @@ function bindElments() {
 
 function AceptarPedidoPendiente() {
 
-	debugger;
+	
 
     var btn = $('.btnAccion a.ghost')[0];
-
+     
     if (btn) {
 	    var pedido = {
 		    Accion: 2,
@@ -69,6 +69,7 @@ function AceptarPedidoPendiente() {
 		    AccionTipo: $(btn).parent().data('accion'),
 		    ListaGana: $(btn).parent().data('accion') == 'ingrgana' ? listaGana : []
 	    }
+        var AccionTipo = pedido.AccionTipo;
 
 	    waitingDialog();
 	    $.ajax({
@@ -78,15 +79,43 @@ function AceptarPedidoPendiente() {
 		    contentType: 'application/json; charset=utf-8',
 		    data: JSON.stringify(pedido),
 		    async: true,
-		    success: function(response) {
+            success: function (response) {
+            /** Analytics **/
+                MarcaAnalyticsClienteProducto(AccionTipo === "ingrgana" ? "Acepto Todo el Pedido - Por Gana+" :  "Acepto Todo el Pedido - Por catálogo");
+			/** Fin Analytics **/
+                
 			    closeWaitingDialog();
 			    if (checkTimeout(response)) {
 				    if (response.success) {
-
+					    
 					    if ($('#modal-confirmacion')[0]) {
 						    //$('#modal-confirmacion').addClass('on');
+
 						    $("#contenedor-paso-2").hide();
-						    $("#modal-confirmacion").show();
+                            $("#modal-confirmacion").show();
+                            
+                        /**  Al visualizar el popup de la confirmación debe enviar los siguiente eventos **/
+                            var product = {};
+                            var listProductos = [];
+                            if (response.PedidosSesion) {
+	                            listProductos = response.PedidosSesion[0].DetallePedido || [];
+                            } else {
+	                            listProductos = response.ListaGana || [];
+                            }
+                            if (listProductos.length > 0) {
+	                            listProductos.forEach(function(e) {
+		                            var product = {
+			                            "id": listProductos.DetallePedido[0].CUV,
+			                            "name": listProductos.DetallePedido[0].Producto,
+			                            "price": listProductos.DetallePedido[0].FormatoPrecioTotal,
+			                            "brand": listProductos.DetallePedido[0].Marca,
+			                            "category": "(not available)",
+			                            "variant": "Estándar"
+		                            };
+	                            });
+	                            
+	                            AnalyticsMarcacionPopupConfirmacion(AccionTipo === "ingrgana" ? "Por Gana+" : "Por catálogo", product);
+                            }
 						    $("body").css('overflow', 'hidden');
 					    } else {
 						    $('#popuplink').click();
@@ -117,7 +146,15 @@ function AceptarPedidoPendiente() {
     }
 
 }
-
+function AnalyticsMarcacionPopupConfirmacion(strTipo, prod) {
+	if (!(typeof AnalyticsPortalModule === 'undefined')) {
+        AnalyticsPortalModule.ClickTabPedidosPendientes("Pop up Pedido Aprobado", strTipo);
+        
+        //var products = [];
+        
+        AnalyticsPortalModule.ClickVistaAddToCardPedidoPendiente(strTipo, prod);
+	}
+}
 function cargarGaleria() {
     $('.conGanaMas').slick({
         arrows: true,

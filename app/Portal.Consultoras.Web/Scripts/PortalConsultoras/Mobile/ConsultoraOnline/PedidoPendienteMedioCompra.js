@@ -66,7 +66,8 @@ function AceptarPedidoPendiente(id, tipo) {
 		    Dispositivo: glbDispositivo,
 		    AccionTipo: $(btn).parent().data('accion'),
 		    ListaGana: $(btn).parent().data('accion') == 'ingrgana' ? $('.conGanaMas').data('listagana') : []
-	    }
+        }
+	    var AccionTipo = pedido.AccionTipo;
 
 	    ShowLoading({});
 	    $.ajax({
@@ -76,7 +77,17 @@ function AceptarPedidoPendiente(id, tipo) {
 		    contentType: 'application/json; charset=utf-8',
 		    data: JSON.stringify(pedido),
 		    async: true,
-		    success: function(response) {
+            success: function (response) {
+	            
+            /** Analytics **/
+            var textoAccionTipo = AccionTipo === "ingrgana" ? "Acepto Todo el Pedido - Por Gana +" : "Acepto Todo el Pedido - Por catálogo";
+	            var option = location.search.split('option=')[1];
+	            if (option === "P") //Producto
+                    MarcaAnalyticsClienteProducto("Vista por Producto - Pop up Paso 2", textoAccionTipo);
+	            if (option === "C") //Cliente
+                    MarcaAnalyticsClienteProducto("Vista por Cliente - Pop up Paso 2", textoAccionTipo);
+				/** Fin Analytics **/
+
 			    CloseLoading();
 			    if (checkTimeout(response)) {
 				    if (response.success) {
