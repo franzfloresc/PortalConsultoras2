@@ -1,5 +1,4 @@
 ﻿$(document).ready(function () {
-    
     Carusel();
 
     var nivelactual = $("#hfNivelActual").val();
@@ -12,15 +11,14 @@
         TagClickBotonVerOfertas();
     });
 
+    $('#btnCerrarNiveles').click(function () {
+        TagCerrarBeneficios($("#btnCerrarNiveles").val());
+    });
 
     $('#loadingScreen').hide();
+
+
 });
-
-
-$('#btnCerrarNiveles').click(function () {
-    CerrarBeneficios();
-});
-
 
 function Carusel() {
     var owl = $('.owl-crec');
@@ -64,6 +62,15 @@ function Carusel() {
     })
 }
 
+function TagVerTodos(MisLogros) {
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Nivel y beneficios – Mis Logros',
+        'action': 'Detalle ' + MisLogros ,
+        'label': '(not available)'
+    });
+}
+
 
 function TagClickSeleccionNivel(nivelConsultora) {
     dataLayer.push({
@@ -92,13 +99,12 @@ function TagClickBotonVerOfertas() {
     });
 }
 
-function CerrarBeneficios() {
-    var nivelconsultora = $("#hfNivelActual").val();
+function TagCerrarBeneficios(nivelConsultora) {
     dataLayer.push({
         'event': 'virtualEvent',
         'category': 'Nivel y beneficios',
         'action': 'Cerrar Pop-up del nivel',
-        'label': 'Nivel: ' + nivelconsultora
+        'label': 'Nivel: ' + nivelConsultora
     });
 }
 
