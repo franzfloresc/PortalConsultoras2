@@ -1,15 +1,15 @@
-﻿var ArmaTuPackDetalleEvents = function (){
+﻿var FichaResponsiveEvents = function (){
     var self = {};
     
     self.eventName = {
-        onGruposLoaded: "onGruposLoaded",
-        onSelectedComponentsChanged: "onSelectedComponentsChanged",
-        onShowWarnings: "onShowWarnings",
+        //onGruposLoaded: "onGruposLoaded",
+        //onSelectedComponentsChanged: "onSelectedComponentsChanged",
+        //onShowWarnings: "onShowWarnings",
     };
 
-    registerEvent.call(self, self.eventName.onGruposLoaded);
-    registerEvent.call(self, self.eventName.onSelectedComponentsChanged);
-    registerEvent.call(self, self.eventName.onShowWarnings);
+    //registerEvent.call(self, self.eventName.onGruposLoaded);
+    //registerEvent.call(self, self.eventName.onSelectedComponentsChanged);
+    //registerEvent.call(self, self.eventName.onShowWarnings);
 
     return self;
 };

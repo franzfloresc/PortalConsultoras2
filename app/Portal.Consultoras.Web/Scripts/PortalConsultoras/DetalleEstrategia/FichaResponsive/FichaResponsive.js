@@ -1,5 +1,15 @@
-﻿$(document).ready(function () {
+﻿/// <reference path="estrategia/estrategiapresenter.js" />
+/// <reference path="../../../admincontenido/general.js" />
 
+var fichaResponsiveEvents = FichaResponsiveEvents();
+var estrategiaView = EstrategiaView();
+var estrategiaPresenter = EstrategiaPresenter({
+    estrategiaView: estrategiaView,
+    generalModule: GeneralModule,
+    fichaResponsiveEvents: fichaResponsiveEvents
+});
+
+$(document).ready(function () {
     function modal_lateral(id, disparador) {
 
         if ($("body").find(".modal-fondo").length == 0) {
@@ -91,7 +101,7 @@
     modal_lateral("#popup_tonos", ".tono_select_opt");
 
     modal_lateral("#popup_ficha_enriquecida", ".button_ver_detalle");
-
-
-
+    
+    var estrategia = $("#data-estrategia").data("estrategia");
+    estrategiaPresenter.onEstrategiaModelLoaded(estrategia);
 });

@@ -5806,6 +5806,11 @@
     <Content Include="Views\DetalleEstrategia\ComponenteDetalleIndividualTemplate.cshtml" />
     <Content Include="Views\DetalleEstrategia\ComponenteDetalleTemplate.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaResponsive.cshtml" />
+    <Content Include="Views\DetalleEstrategia\FichaResponsive\Estrategia\imagen-estrategia-template.cshtml" />
+    <Content Include="Views\DetalleEstrategia\FichaResponsive\Estrategia\estrategia-template.cshtml" />
+    <Content Include="Views\DetalleEstrategia\FichaResponsive\Estrategia\compartir-estrategia-template.cshtml" />
+    <Content Include="Views\DetalleEstrategia\FichaResponsive\FichaEnriquecida\tabs-ficha-enriquecida-template.cshtml" />
+    <Content Include="Views\DetalleEstrategia\FichaResponsive\Estrategia\breadcrumbs-template.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
