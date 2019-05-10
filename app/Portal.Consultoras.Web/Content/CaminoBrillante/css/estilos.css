@@ -1935,7 +1935,9 @@ div .cartbtn {
     display: block;
     margin-right: auto;
     text-align: left;
-    margin-bottom: 6px
+    margin-bottom: 6px;
+    float: left;
+    margin-top: 11px;
 }
 .clearboth:after {
     content:"";
