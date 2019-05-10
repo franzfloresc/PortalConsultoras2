@@ -5775,6 +5775,7 @@
     <Content Include="Views\Shared\PopupsResponsive\_PopupActualizacionCorreo.cshtml" />
     <Content Include="Views\Bienvenida\ReporteValidacionDatos.cshtml" />
     <Content Include="Views\ArmaTuPack\Detalle.cshtml" />
+    <Content Include="Views\Unete\KitInicio.cshtml" />
     <Content Include="Views\AdministrarEstrategia\EstrategiaGrupoDialog.cshtml" />
     <Content Include="Views\CaminoBrillante\Ofertas.cshtml" />
     <Content Include="Views\CaminoBrillante\Logros.cshtml" />
