@@ -91,7 +91,7 @@ function CargarKits() {
                 if (!verMasKits) UnlinkCargarOfertasToScroll();
                 offsetRegistrosKits += nroRegistrosKits;
                 $("#divresultadosKit").html("Mostrando " + contadorkit + " de " + data.total);
-                TagListado(data);
+               // TagListado(data);
             }
         },
         
