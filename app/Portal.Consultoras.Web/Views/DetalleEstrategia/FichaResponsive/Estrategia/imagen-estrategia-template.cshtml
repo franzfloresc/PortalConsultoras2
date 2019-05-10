@@ -9,10 +9,15 @@
         <p>* Foto Referencial</p>
         {{/iff}}
     </div>
+  
+    <!--compartir-->
+    {{#if TieneCompartir}}
     <div class="redes_sociales">
         Comparte este producto con tus clientes
-        <a href="#">
-            <img src="/Content/Images/Esika/facebook.png" />
+        <a class="btn_compartir_facebook" href="javascript:;" data-compartir="FB">
+            <img class="contenedor_img" src="/Content/Images/Esika/facebook.png">
         </a>
     </div>
+    {{/if}}
+    <!--fin compartir-->
 </script>
