@@ -1466,6 +1466,9 @@ namespace Portal.Consultoras.Common
         {
             public static readonly int CatalogosYRevistas = 1002;
             public static readonly int NecesitasAyuda = 1039;
+            /* INI HD-4086 */
+            public static readonly int Bonificaciones = 1049;
+            /* FIN HD-4086 */
         }
 
         public static class BannerCodigo
