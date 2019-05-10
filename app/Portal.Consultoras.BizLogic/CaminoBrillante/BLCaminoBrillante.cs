@@ -757,14 +757,15 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
         #region Demostradores
 
-        public List<BEDesmostradoresCaminoBrillante> GetDemostradores(BEUsuario entidad, string ordenar, string filtro)
+        public List<BEDesmostradoresCaminoBrillante> GetDemostradores(BEUsuario entidad, string ordenar, string filtro, int cantMostrados, int cantidad)
         {
             var demostradores = GetDemostradoresCaminoBrillanteCache(entidad.PaisID, entidad.CampaniaID, entidad.NivelCaminoBrillante);
             var demostradoresEnPedido = new DACaminoBrillante(entidad.PaisID).GetPedidoWebDetalleCaminoBrillante(entidad.CampaniaID, entidad.CampaniaID, entidad.ConsultoraID).MapToCollection<BEKitsHistoricoConsultora>(closeReaderFinishing: true) ?? new List<BEKitsHistoricoConsultora>();
             var paisISO = Util.GetPaisISO(entidad.PaisID);
 
             demostradores = GetOrdenarDemostradores(demostradores, ordenar);
-            //demostradores = GetFiltrarDemostradores(demostradores, filtro);
+            if(filtro != "") demostradores = GetFiltrarDemostradores(demostradores, filtro);
+            if(cantidad != 0) demostradores = GetDesmostradoresByCantidad(demostradores, cantMostrados, cantidad);
 
             return demostradores.Select(e => new BEDesmostradoresCaminoBrillante()
             {
@@ -817,6 +818,11 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             //        return demostradores;
             //}
             return null;
+        }
+
+        private List<BEDesmostradoresCaminoBrillante> GetDesmostradoresByCantidad(List<BEDesmostradoresCaminoBrillante> demostradores, int cantMostrados, int cantidad)
+        {
+            return demostradores.Skip(cantMostrados).Take(cantidad).ToList();
         }
 
         public List<BEDesmostradoresCaminoBrillante> GetDemostradores(int paisId, int campaniaId, int nivelId)

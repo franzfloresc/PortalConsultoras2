@@ -46101,10 +46101,10 @@ namespace Portal.Consultoras.Web.ServicePedido {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEKitCaminoBrillante[]> GetKitsCaminoBrillanteAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetDemostradoresCaminoBrillante", ReplyAction="http://tempuri.org/IPedidoService/GetDemostradoresCaminoBrillanteResponse")]
-        Portal.Consultoras.Web.ServicePedido.BEDesmostradoresCaminoBrillante[] GetDemostradoresCaminoBrillante(Portal.Consultoras.Web.ServicePedido.BEUsuario entidad, string ordenar, string filtro);
+        Portal.Consultoras.Web.ServicePedido.BEDesmostradoresCaminoBrillante[] GetDemostradoresCaminoBrillante(Portal.Consultoras.Web.ServicePedido.BEUsuario entidad, string ordenar, string filtro, int cantMostrados, int cantidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetDemostradoresCaminoBrillante", ReplyAction="http://tempuri.org/IPedidoService/GetDemostradoresCaminoBrillanteResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEDesmostradoresCaminoBrillante[]> GetDemostradoresCaminoBrillanteAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario entidad, string ordenar, string filtro);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEDesmostradoresCaminoBrillante[]> GetDemostradoresCaminoBrillanteAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario entidad, string ordenar, string filtro, int cantMostrados, int cantidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetProductosShowRoomDetalle", ReplyAction="http://tempuri.org/IPedidoService/GetProductosShowRoomDetalleResponse")]
         Portal.Consultoras.Web.ServicePedido.BEShowRoomOfertaDetalle[] GetProductosShowRoomDetalle(int paisID, int campaniaId, string cuv);
@@ -48846,12 +48846,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.GetKitsCaminoBrillanteAsync(entidad);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEDesmostradoresCaminoBrillante[] GetDemostradoresCaminoBrillante(Portal.Consultoras.Web.ServicePedido.BEUsuario entidad, string ordenar, string filtro) {
-            return base.Channel.GetDemostradoresCaminoBrillante(entidad, ordenar, filtro);
+        public Portal.Consultoras.Web.ServicePedido.BEDesmostradoresCaminoBrillante[] GetDemostradoresCaminoBrillante(Portal.Consultoras.Web.ServicePedido.BEUsuario entidad, string ordenar, string filtro, int cantMostrados, int cantidad) {
+            return base.Channel.GetDemostradoresCaminoBrillante(entidad, ordenar, filtro, cantMostrados, cantidad);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEDesmostradoresCaminoBrillante[]> GetDemostradoresCaminoBrillanteAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario entidad, string ordenar, string filtro) {
-            return base.Channel.GetDemostradoresCaminoBrillanteAsync(entidad, ordenar, filtro);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEDesmostradoresCaminoBrillante[]> GetDemostradoresCaminoBrillanteAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario entidad, string ordenar, string filtro, int cantMostrados, int cantidad) {
+            return base.Channel.GetDemostradoresCaminoBrillanteAsync(entidad, ordenar, filtro, cantMostrados, cantidad);
         }
         
         public Portal.Consultoras.Web.ServicePedido.BEShowRoomOfertaDetalle[] GetProductosShowRoomDetalle(int paisID, int campaniaId, string cuv) {

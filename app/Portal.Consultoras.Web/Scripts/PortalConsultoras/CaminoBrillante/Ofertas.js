@@ -148,7 +148,7 @@ function CargarDemostradores() {
     $.ajax({
         type: 'GET',
         url: urlGetDemostradores,
-        data: { offset: offsetRegistrosDemo, cantidadregistros: nroRegistrosDemostradores, codigoOrden: codOrdenar},
+        data: { cantidadMostrados: offsetRegistrosDemo, cantidadregistros: nroRegistrosDemostradores, codigoOrden: codOrdenar, codigoFiltro: ""},
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
@@ -299,7 +299,7 @@ function CambiarOferta() {
     });
 
     $('#Tab-Demostradores').click(function () {
-        $('#ddlOrdenar').show();
+        $('.opOrdenar').show();
         $('#Demostradores').show();
         $('#kits').hide();
         $("#Tab-kits").removeClass("activado-dorado");

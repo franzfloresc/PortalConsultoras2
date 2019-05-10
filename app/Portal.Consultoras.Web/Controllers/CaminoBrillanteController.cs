@@ -65,7 +65,7 @@ namespace Portal.Consultoras.Web.Controllers
             if(!_caminoBrillanteProvider.TieneOfertasEspeciales()) return RedirectToAction("Index", "CaminoBrillante");
 
             var lstKit = _caminoBrillanteProvider.GetKitsCaminoBrillante();
-            var lstDemo = _caminoBrillanteProvider.GetDesmostradoresCaminoBrillante("");            
+            var lstDemo = _caminoBrillanteProvider.GetDesmostradoresCaminoBrillante("", "", 0, 0);            
             ViewBag.Moneda = userData.Simbolo;
             ViewBag.RutaImagenNoDisponible = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.urlSinImagenTiposyTonos);
             ViewBag.CaminoBrillante = true;
@@ -116,11 +116,11 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetDemostradores(int offset, int cantidadRegistros, string codigoOrden)
+        public JsonResult GetDemostradores(int cantidadMostrados, int cantidadRegistros, string codigoOrden, string codigoFiltro)
         {
-            var lstDemostrador = _caminoBrillanteProvider.GetDesmostradoresCaminoBrillante(codigoOrden);
+            var lstDemostrador = _caminoBrillanteProvider.GetDesmostradoresCaminoBrillante(codigoOrden, codigoFiltro, cantidadMostrados, cantidadRegistros);
             int total = lstDemostrador.Count;
-            lstDemostrador = lstDemostrador.Skip(offset).Take(cantidadRegistros).ToList();
+            //lstDemostrador = lstDemostrador.Skip(offset).Take(cantidadRegistros).ToList();
 
             var estado = true;
             try
@@ -196,7 +196,7 @@ namespace Portal.Consultoras.Web.Controllers
                 //No alowed
                 return Json(new { }, JsonRequestBehavior.AllowGet);
             }
-            var lstDemostrador = _caminoBrillanteProvider.GetDesmostradoresCaminoBrillante(codOrden);
+            var lstDemostrador = _caminoBrillanteProvider.GetDesmostradoresCaminoBrillante(codOrden, "", 0, 0);
             return Json(new {
                 lista = lstDemostrador.Skip(offset).Take(cantidadRegistros).ToList(),
                 verMas = lstDemostrador.Count > (offset + cantidadRegistros)
