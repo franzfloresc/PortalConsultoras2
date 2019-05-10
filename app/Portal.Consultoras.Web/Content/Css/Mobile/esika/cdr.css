@@ -1062,8 +1062,6 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 
 .lista_productos_a_cambiar{
     list-style-type:none;
-    padding-left:10px;
-    padding-right:10px;
     max-width:312px;
 }
 
@@ -1128,6 +1126,8 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
         background-color: #FFF;
         width: 40px;
         height: 40px;
+        position: relative;
+        right: -12px;
     }
 
 .opcion_cdr_seleccionada_info--devolucionCasoSetProducto {
