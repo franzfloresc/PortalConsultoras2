@@ -851,6 +851,7 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
+
         public IDataReader GetConsultoraRegaloProgramaNuevas(int campaniaId, string codigoConsultora, string codigoRegion, string codigoZona)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetConsultoraRegaloProgramaNuevas");
