@@ -2077,8 +2077,10 @@ div.ui-dialog.ui-widget-content {
     color: #000;
     font-family: 'Lato';
     padding-left: 7px;
-    font-size: 12px;
+    font-size: 11px;
     float: right;
     letter-spacing: .3px;
     margin-left: 10px;
+    border-radius: 0px;
+    border-color: rgb(169, 169, 169);
 }
