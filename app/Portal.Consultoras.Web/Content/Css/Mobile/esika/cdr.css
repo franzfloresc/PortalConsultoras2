@@ -1064,6 +1064,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     list-style-type:none;
     padding-left:10px;
     padding-right:10px;
+    max-width:312px;
 }
 
     .producto_a_cambiar,
