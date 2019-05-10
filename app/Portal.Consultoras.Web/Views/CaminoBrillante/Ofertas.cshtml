@@ -116,10 +116,10 @@
         <div class="row flex-row justify-content-center ml-0 mr-0">
             <figure class="col-12 pl-0 pr-0 row flex-row ml-0 mr-0 justify-content-center align-items-end ficha__producto__imagen text-center">
                 {{#IsNullOrEmpty FotoProductoMedium '!='}}
-                <img class="lazy redireccionarFicha" src="{{FotoProductoMedium}}">
+                <img class="" src="{{FotoProductoMedium}}">
                 {{/IsNullOrEmpty}}
                 {{#IsNullOrEmpty FotoProductoMedium '=='}}
-                <img class="lazy redireccionarFicha" src="@ViewBag.RutaImagenNoDisponible">
+                <img class="" src="@ViewBag.RutaImagenNoDisponible">
                 {{/IsNullOrEmpty}}
             </figure>
             <div style="display:none;">
@@ -180,14 +180,14 @@
 
 <script id="template-Demostradores" type="text/x-handlebars-template">
     {{#each this}}
-    <article class="ficha__producto " data-item="BuscadorFichasProductos">
+    <article class="ficha__producto " data-item="">
         <div class="row flex-row justify-content-center ml-0 mr-0">
             <figure class="col-12 pl-0 pr-0 row flex-row ml-0 mr-0 justify-content-center align-items-end ficha__producto__imagen text-center">
                 {{#IsNullOrEmpty FotoProductoMedium '!='}}
-                <img class="lazy redireccionarFicha" src="{{FotoProductoMedium}}">
+                <img class="" src="{{FotoProductoMedium}}">
                 {{/IsNullOrEmpty}}
                 {{#IsNullOrEmpty FotoProductoMedium '=='}}
-                <img class="lazy redireccionarFicha" src="@ViewBag.RutaImagenNoDisponible">
+                <img class="" src="@ViewBag.RutaImagenNoDisponible">
                 {{/IsNullOrEmpty}}
             </figure>
             <div style="display:none;">
