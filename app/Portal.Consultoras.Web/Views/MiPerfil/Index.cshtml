@@ -72,13 +72,18 @@ else
                 }
                 <input type="hidden" id="hdn_TienedireccionEntrega" value="@TieneDireEntrega" />
                 <input type="hidden" id="hdn_TienePermisosCuenta" value="@TienePermiCuenta" />
+                @*INI HD-3897*@
+                <input type="hidden" id="hdn_FlgCheckSMS" value="@Model.FlgCheckSMS" />
+                <input type="hidden" id="hdn_FlgCheckEMAIL" value="@Model.FlgCheckEMAIL" />
+                @*FIN HD-3897*@
                 <div class="datos_codigo">
                     <span class="text-bold">Código : </span>
                     @if (Model.DigitoVerificador != null && ViewBag.PaisesDigitoControl.Contains(Model.PaisISO))
-                        { <span class="text-bold">@Model.CodigoUsuario - <span class="text-bold">@Model.DigitoVerificador</span></span>}
-                    else{ <span class="text-bold">@Model.CodigoUsuario</span>}
-                 </div>
-                
+                    {<span class="text-bold">@Model.CodigoUsuario - <span class="text-bold">@Model.DigitoVerificador</span></span>}
+                else
+                { <span class="text-bold">@Model.CodigoUsuario</span>}
+                </div>
+
                 <div class="datos_zona">
                     <span class="text-bold">Zona : </span>
                     <span class="text-bold">@Model.Zona</span>
@@ -157,12 +162,15 @@ else
                                     </a>
                                 </div>
                             </div>
+
+                            <!-- INI HD-3897 -->
+
                             <!-- INICIO
                                 Cuando la consultora no tenga registrado o esté pendiente de confirmación un correo electrónico agregar clase grupo_form_cambio_datos--confirmacionPendiente,
                                 si el campo ya está confirmado quitar clase grupo_form_cambio_datos--confirmacionPendiente
                                 y agregar clase grupo_form_cambio_datos--confirmado
                             -->
-                            <div class="grupo_form_cambio_datos grupo_form_cambio_datos--confirmacionPendiente">
+                            <div id="grupo_form_cambio_datos_email" class="grupo_form_cambio_datos">
                                 <div>
                                     <input id="txtEMailMD" name="txtEMailMD" class="w-100" type="text" value="@Model.EMail" readonly />
                                     <label for="txtEMailMD" class="w-100">
@@ -184,13 +192,15 @@ else
                                         <span class="text-bold">Editar</span>
                                     </a>
                                     <!-- INICIO - Este botón aparece cuando la consultora tiene pendiente confirmar su correo electrónico -->
-                                    <button type="button" class="d-block text-bold border-radius-4 multimarca-background-color btn_confirmar_dato">
+                                    <button id="btn_confirmar_dato_email" type="button" class="d-block text-bold border-radius-4 multimarca-background-color btn_confirmar_dato">
                                         Confirmar
                                     </button>
                                     <!-- FIN - Este botón aparece cuando la consultora tiene pendiente confirmar su correo electrónico -->
                                 </div>
                             </div>
                             <!-- FIN -->
+
+                            <!-- FIN HD-3897 -->
 
                             @*<div class="tooltip_info_revision_correo toolTipCorreo" style="display:none;">
                                 <div class="icono_info_alerta"></div>
@@ -204,17 +214,19 @@ else
                                 </div>
                             </div>*@
 
+                            <!-- INI HD-3897 -->
+
                             <!-- INICIO
                                 Cuando la consultora no tenga registrado o esté pendiente de confirmación un número de celular agregar clase grupo_form_cambio_datos--confirmacionPendiente,
                                 si el campo ya está confirmado quitar clase grupo_form_cambio_datos--confirmacionPendiente
                                 y agregar clase grupo_form_cambio_datos--confirmado
                             -->
-                            <div class="grupo_form_cambio_datos grupo_form_cambio_datos--confirmado">
+                            <div id="grupo_form_cambio_datos_sms" class="grupo_form_cambio_datos">
                                 <div>
                                     <input id="txtCelularMD" name="txtCelularMD" class="w-100" type="text" value="@Model.Celular" maxlength="@Model.limiteMaximoTelef" readonly />
                                     <label for="txtCelularMD" class="w-100">Celular <span class="asteriscos">*</span></label>
                                     <!-- INICIO - Este el mensaje de validación que se muestra si la consultora no tiene registrado o está pendiente de confirmación un número de celular -->
-                                    <span class="d-block text-bold mensaje_validacion_campo" style="display:none;">Aún falta confirmar tu número</span>
+                                    <span  class="d-block text-bold mensaje_validacion_campo" style="display:none;">Aún falta confirmar tu número</span>
                                     <!-- FIN - Este el mensaje de validación que se muestra si la consultora no tiene registrado o está pendiente de confirmación un número de celular -->
                                 </div>
                                 <div>
@@ -225,13 +237,15 @@ else
                                         <span class="text-bold">Editar</span>
                                     </a>
                                     <!-- INICIO - Este botón aparece cuando la consultora tiene pendiente confirmar su celular -->
-                                    <button type="button" style="display:none;" class="d-block text-bold border-radius-4 multimarca-background-color btn_confirmar_dato" style="display:none;">
+                                    <button id="btn_confirmar_dato_sms" type="button" style="display:none;" class="d-block text-bold border-radius-4 multimarca-background-color btn_confirmar_dato" style="display:none;">
                                         Confirmar
                                     </button>
                                     <!-- FIN - Este botón aparece cuando la consultora tiene pendiente confirmar su celular -->
                                 </div>
                             </div>
                             <!-- FIN -->
+
+                            <!-- FIN HD-3897 -->
                             @*<div class="tooltip_info_revision_correo toolTipCelular" style="display:none;">
                                 <div class="icono_info_alerta"></div>
                                 <div class="tooltip_texto">
@@ -248,10 +262,12 @@ else
                                     <input id="txtTelefonoMD" name="txtTelefonoMD" class="w-100" type="text" value="@Model.Telefono" maxlength="@Model.limiteMaximoTelef" />
                                     <label for="txtTelefonoMD" class="w-100">
                                         Número fijo
-                                        @if (Model.PaisID != 3)
+                                        <!-- INI HD-3897 -->
+                                        @*@if (Model.PaisID != 3)
                                         {
                                             <span class="asteriscos">*</span>
-                                        }
+                                        }*@
+                                        <!-- FIN HD-3897 -->
                                     </label>
                                 </div>
                             </div>

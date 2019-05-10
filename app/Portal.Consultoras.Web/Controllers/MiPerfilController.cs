@@ -64,6 +64,10 @@ namespace Portal.Consultoras.Web.Controllers
             model.UsuarioPrueba = userData.UsuarioPrueba;
             model.NombreArchivoContrato = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.Contrato_ActualizarDatos + userData.CodigoISO);
             model.IndicadorConsultoraDigital = beusuario.IndicadorConsultoraDigital;
+            //INI HD-3897
+            model.FlgCheckSMS = beusuario.FlgCheckSMS;
+            model.FlgCheckEMAIL = beusuario.FlgCheckEMAIL;
+            //FIN HD-3897
 
             var bezona = _zonificacionProvider.GetZonaById(userData.PaisID, userData.ZonaID);
 

@@ -64,12 +64,18 @@ $(document).ready(function () {
                     $('#btnCambiarEmail').bind('click', false);
                     $('#btnAgregarOtroNumero').bind('click', false);
                     $('#btnGuardar').prop('disabled', true);
+                    //INI HD-3897
+                    $('.btn_confirmar_dato').bind('click', false);
+                    //FIN HD-3897
                 }
             },
             PuedeCambiarTelefono: function () {
                 var smsFlag = $('#hdn_ServicioSMS').val();
                 if (smsFlag == '0' || smsFlag == false) {
                     $('#btnCambiarCelular').hide();
+                    //INI HD-3897
+                    $('#grupo_form_cambio_datos_sms ').hide();
+                    //FIN HD-3897
                 } else {
                     $('#txtCelularMD').prop('readonly', true);
                 }
@@ -82,6 +88,36 @@ $(document).ready(function () {
                     }
                 });
             },
+            //INI HD-3897
+            ValidacionCheck: function () {
+
+                //SMS
+                if ($("#hdn_FlgCheckSMS").val()) {
+                    $("#grupo_form_cambio_datos_sms").addClass("grupo_form_cambio_datos--confirmado");
+                    $("#grupo_form_cambio_datos_sms .mensaje_validacion_campo").hide();
+                    $("#btn_confirmar_dato_sms").hide();
+
+                } else {
+                    $("#grupo_form_cambio_datos_sms").addClass("grupo_form_cambio_datos--confirmacionPendiente");
+                    $("#grupo_form_cambio_datos_sms .mensaje_validacion_campo").show();
+                    $("#btn_confirmar_dato_sms").show();
+                    
+                }
+
+                //EMAIL
+                if ($("#hdn_FlgCheckEMAIL").val()) {
+                    $("#grupo_form_cambio_datos_email").addClass("grupo_form_cambio_datos--confirmado");
+                    $("#grupo_form_cambio_datos_email .mensaje_validacion_campo").hide();
+                    $("#btn_confirmar_dato_email").hide();
+
+                } else {
+                    $("#grupo_form_cambio_datos_email").addClass("grupo_form_cambio_datos--confirmacionPendiente");
+                    $("#grupo_form_cambio_datos_email .mensaje_validacion_campo").show();
+                    $("#btn_confirmar_dato_email").show();
+
+                }
+            },
+            //FIN HD-3897
             EvitandoCopiarPegar: function () {
                 FuncionesGenerales.AvoidingCopyingAndPasting('txtTelefonoMD');
                 FuncionesGenerales.AvoidingCopyingAndPasting('txtTelefonoTrabajoMD');
@@ -346,6 +382,9 @@ $(document).ready(function () {
                  
                 me.Funciones.InicializarEventos();
                 me.Funciones.CamposFormularioConDatos();
+                //INI HD-3897
+                me.Funciones.ValidacionCheck();
+                //FIN HD-3897
                 me.Funciones.mostrarTelefono();
                 me.Funciones.PuedeActualizar();
                 me.Funciones.PuedeCambiarTelefono();
@@ -411,12 +450,13 @@ function actualizarDatos() {
         alert('Debe ingresar un número de celular. \n');
         return false;
     }
-
-    if ((txtTelefonoMD == null || txtTelefonoMD == "") && hdn_PaisID != 3 ) {
-        $('#btnGuardar')[0].disabled = false;
-        alert('Debe ingresar un número de teléfono. \n');
-        return false;
-    }
+    //INI HD-3897
+    //if ((txtTelefonoMD == null || txtTelefonoMD == "") && hdn_PaisID != 3 ) {
+    //    $('#btnGuardar')[0].disabled = false;
+    //    alert('Debe ingresar un número de teléfono. \n');
+    //    return false;
+    //}
+    //FIN HD-3897
 
     if (txtCelularMD != "") {
         if (!isInt(txtCelularMD)) {

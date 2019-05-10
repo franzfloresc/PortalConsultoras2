@@ -36,7 +36,14 @@ namespace Portal.Consultoras.Entities
 
         [Column("TieneLoginExterno")]
         public int tieneLoginExterno { get; set; }
-         
+
+        //INI HD-3897
+        [DataMember]
+        public bool FlgCheckSMS { get; set; }
+        [DataMember]
+        public bool FlgCheckEMAIL { get; set; }
+        //FIN HD-3897
+
         [Obsolete("Use MapUtil.MapToCollection")]
         public BEUsuario(IDataRecord row)
         {
@@ -75,6 +82,10 @@ namespace Portal.Consultoras.Entities
             TieneCDRExpress = row.ToBoolean("TieneCDRExpress");
             EsConsecutivoNueva = row.ToBoolean("EsConsecutivoNueva");
             IndicadorConsultoraDigital = row.ToInt32("IndicadorConsultoraDigital");
+            //INI HD-3897
+            FlgCheckSMS = (row.HasColumn("FlgCheckSMS") ? row.ToBoolean("FlgCheckSMS") : false);
+            FlgCheckEMAIL = (row.HasColumn("FlgCheckEMAIL") ? row.ToBoolean("FlgCheckEMAIL") : false);
+            //FIN HD-3897
         }
 
         [Obsolete("Use MapUtil.MapToCollection")]

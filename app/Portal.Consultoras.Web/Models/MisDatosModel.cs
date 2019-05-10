@@ -52,5 +52,9 @@ namespace Portal.Consultoras.Web.Models
         public dynamic DatosExtra { get; set; }
         public bool TieneDireccionEntrega { get; set; }
         public bool TienePermisosCuenta { get; set; }
+        //INI HD-3897
+        public bool FlgCheckSMS { get; set; }
+        public bool FlgCheckEMAIL { get; set; }
+        //FIN HD-3897
     }
 }
