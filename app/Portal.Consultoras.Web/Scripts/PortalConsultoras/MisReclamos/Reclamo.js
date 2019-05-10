@@ -519,7 +519,7 @@ function BuscarCUV() {
                 $(reclamo.form.resultadosBusquedaCuv).empty();
                 var divPadre = $(reclamo.form.resultadosBusquedaCuv);
                 $(data.detalle).each(function (index, item) {
-                    divPadre.append('<li class="resultado_busqueda_por_cuv" data-value-cantidad="' + item.Cantidad + '"  data-value-producto="' + item.DescripcionProd + '" data-value-cuv="' + item.CUV + '"><a onclick="SeleccionarCUVBusqueda($(this).parent());" class="resultado_busqueda_por_cuv_enlace" title="' + item.DescripcionProd + '"><div class="resultado_busqueda_por_cuv_datos_imagen"><img src="/Content/Images/oferta-sin-imagen.svg" alt="' + item.DescripcionProd + '" /></div><div class="resultado_busqueda_por_cuv_datos_prod">' + '<div class="resultado_busqueda_por_cuv_codigo_prod">' + item.CUV + '</div>' + '<div class="resultado_busqueda_por_cuv_descrip_prod">' + item.DescripcionProd + '</div>' + '</div></a></li>');
+                    divPadre.append('<li class="resultado_busqueda_por_cuv" data-value-cantidad="' + item.Cantidad + '"  data-value-producto="' + item.DescripcionProd + '" data-value-cuv="' + item.CUV + '"><div onclick="SeleccionarCUVBusqueda($(this).parent());" class="resultado_busqueda_por_cuv_enlace" title="' + item.DescripcionProd + '"><div class="resultado_busqueda_por_cuv_datos_imagen"><img src="/Content/Images/oferta-sin-imagen.svg" alt="' + item.DescripcionProd + '" /></div><div class="resultado_busqueda_por_cuv_datos_prod">' + '<div class="resultado_busqueda_por_cuv_codigo_prod">' + item.CUV + '</div>' + '<div class="resultado_busqueda_por_cuv_descrip_prod">' + item.DescripcionProd + '</div>' + '</div></div></li>');
                 });
             }
         },
@@ -896,7 +896,7 @@ function DetalleGuardar(operacionId, callbackWhenFinish) {
             var $el = $(el);
             var obj = {
                 cuv: $el.find("input[name=codigo]").attr("data-codigo"),
-                precio: $el.find("input[name=precio]").attr("data-precio"),
+                precio: $el.find("input[name=precio]").attr("data-precio") !== "" ? parseFloat($el.find("input[name=precio]").attr("data-precio")).toFixed(2) : 0,
                 simbolo: variablesPortal.SimboloMoneda,
                 cantidad: $el.find("input[name=cantidad]").val(),
                 descripcion: $el.find("input[name=descripcion]").attr("data-descripcion")

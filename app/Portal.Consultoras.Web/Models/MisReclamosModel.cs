@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
+using System.Xml;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -59,7 +61,7 @@ namespace Portal.Consultoras.Web.Models
         public int? CantidadReclamosPorPedido { get; set; }
         public ICollection<ProductoComplementarioModel> Complemento { get; set; }
         public ICollection<ProductoComplementarioModel> Reemplazo { get; set; }
-        public static string ToXML(List<ProductoComplementarioModel> lista)
+        public static string ListToXML(List<ProductoComplementarioModel> lista)
         {
             string strOut = string.Empty;
             if (lista == null)
@@ -85,6 +87,35 @@ namespace Portal.Consultoras.Web.Models
 
             }
             return strOut;
+        }
+
+        public static List<ProductoComplementarioModel> XMLToList(string xml)
+        {
+            if (string.IsNullOrEmpty(xml))
+                return null;
+            var lista = new List<ProductoComplementarioModel>();
+            try
+            {
+                XmlDocument xmlDocument = new XmlDocument();
+                xmlDocument.LoadXml(xml);
+                XmlNodeList xmlNodeList = xmlDocument.SelectNodes("/reemplazos/reemplazo");
+                foreach (XmlNode xmlNode in xmlNodeList)
+                {
+                    ProductoComplementarioModel obj = new ProductoComplementarioModel();
+                    obj.CUV = xmlNode["cuv"].InnerText;
+                    obj.Descripcion = xmlNode["descripcion"].InnerText;
+                    obj.Cantidad = xmlNode["cantidad"].InnerText != "" ? 0 : Convert.ToInt32(xmlNode["cantidad"].InnerText);
+                    obj.Precio = xmlNode["precio"].InnerText != "" ? 0 : Convert.ToDecimal(xmlNode["precio"].InnerText);
+                    obj.Simbolo = xmlNode["simbolo"].InnerText;
+                    obj.Estado = xmlNode["estado"].InnerText != "" ? 0 : Convert.ToInt32(xmlNode["estado"].InnerText);
+                    lista.Add(obj);
+                }
+            }
+            catch (Exception)
+            {
+                lista = null;
+            }
+            return lista;
         }
         public int MostrarTab { get; set; }
         public bool flagLimiteReclamo { get; set; }

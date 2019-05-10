@@ -10,13 +10,10 @@ using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
 using System.Web.Mvc;
-using System.Xml;
-using System.Xml.Serialization;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -887,7 +884,7 @@ namespace Portal.Consultoras.Web.Controllers
                         if (model.Reemplazo.Any())
                         {
                             if (model.Reemplazo.Count > 1)
-                                xmlReemplazo = MisReclamosModel.ToXML(model.Reemplazo.ToList());
+                                xmlReemplazo = MisReclamosModel.ListToXML(model.Reemplazo.ToList());
                             else
                             {
                                 model.CUV2 = model.Reemplazo.FirstOrDefault().CUV;
@@ -1095,10 +1092,7 @@ namespace Portal.Consultoras.Web.Controllers
                 //userData.Celular = model.Telefono;
                 //SessionManager.SetUserData(userData);
 
-#if DEBUG
-                model.Email = "carlos.ramos@hundred.com.pe";
-                    #endif
-
+#endif
                 if (!string.IsNullOrWhiteSpace(model.Email))
                 {
                     string contenidoMailCulminado = CrearEmailReclamoCulminado(cdrWebMailConfirmacion);
@@ -1655,6 +1649,7 @@ namespace Portal.Consultoras.Web.Controllers
             string templateDetalleOperacionFaltantePath = AppDomain.CurrentDomain.BaseDirectory + "Content\\Template\\mailing_detalle_codigo_operacion_faltante.html";
             string templateDetalleOperacionFaltanteAbonoPath = AppDomain.CurrentDomain.BaseDirectory + "Content\\Template\\mailing_detalle_codigo_operacion_faltanteAbono.html";
             string templateUrlDetalleOperacionTruequePath = AppDomain.CurrentDomain.BaseDirectory + "Content\\Template\\mailing_detalle_codigo_operacion_trueque.html";
+            string templateUrlDetalleOperacionTruequeMultiplePath = AppDomain.CurrentDomain.BaseDirectory + "Content\\Template\\mailing_detalle_codigo_operacion_trueque_multiple.html";
 
             var txtBuil = new StringBuilder();
             foreach (var cdrWebDetalle in cdrWeb.CDRWebDetalle)
@@ -1671,22 +1666,119 @@ namespace Portal.Consultoras.Web.Controllers
 
                 string htmlTemplateDetalleOperacion = FileManager.GetContenido(templateUrlDetalleOperacionBase);
                 string htmlOperacion = htmlTemplateDetalleOperacion.Clone().ToString();
-
-                var precio = decimal.Round(cdrWebDetalle.Precio, 2);
-                var precio2 = decimal.Round(cdrWebDetalle.Precio2, 2);
                 var simbolo = userData.Simbolo;
+                var isoPais = userData.CodigoISO;
 
-                htmlOperacion = htmlOperacion.Replace("#FORMATO_DESCRIPCIONCUV1#", cdrWebDetalle.Descripcion);
-                htmlOperacion = htmlOperacion.Replace("#FORMATO_SOLICITUD#", cdrWebDetalle.Solicitud);
-                htmlOperacion = htmlOperacion.Replace("#FORMATO_CANTIDAD1#", cdrWebDetalle.Cantidad.ToString());
-                htmlOperacion = htmlOperacion.Replace("#FORMATO_CUV2#", cdrWebDetalle.CUV2);
-                htmlOperacion = htmlOperacion.Replace("#FORMATO_PRECIO1#", simbolo + " " + precio);
-                htmlOperacion = htmlOperacion.Replace("#FORMATO_DESCRIPCIONCUV2#", cdrWebDetalle.Descripcion2);
-                htmlOperacion = htmlOperacion.Replace("#FORMATO_CANTIDAD2#", cdrWebDetalle.Cantidad2.ToString());
-                htmlOperacion = htmlOperacion.Replace("#FORMATO_PRECIO2#", simbolo + " " + precio2);
+                if (cdrWebDetalle.CodigoOperacion == Constantes.CodigoOperacionCDR.Trueque && !string.IsNullOrEmpty(cdrWebDetalle.XMLReemplazo))
+                {
+                    var listaDetalleCambio =  MisReclamosModel.XMLToList(cdrWebDetalle.XMLReemplazo);
 
-                html = html.Replace("#FORMATO_DETALLE_TIPO_OPERACION#", htmlOperacion);
-                txtBuil.Append(html);
+                if (!string.IsNullOrEmpty(cdrWebDetalle.XMLReemplazo))
+                {
+                    XmlDocument XMLDetalleReemplazo = new XmlDocument();
+                    XMLDetalleReemplazo.LoadXml(cdrWebDetalle.XMLReemplazo);
+
+                    XmlNode nodoReemplazos = XMLDetalleReemplazo.SelectSingleNode("reemplazos");
+
+                    //Display all the book titles.
+                    XmlNodeList elemList = nodoReemplazos.SelectNodes("reemplazo");
+
+                    if (elemList.Count > 0)
+                    {
+                        string htmlTrueque = String.Empty;
+                        short contador = 0;
+                        decimal totalTrueque = 0;
+                        foreach (XmlNode item in elemList)
+                        {
+                            htmlOperacion = htmlTemplateDetalleOperacion.Clone().ToString();
+
+                            if (contador == 0)
+                            {
+                                htmlOperacion = htmlOperacion.Replace("#FORMATO_DESCRIPCIONCUV1#", cdrWebDetalle.Descripcion);
+                                htmlOperacion = htmlOperacion.Replace("#FORMATO_CANTIDAD1#", cdrWebDetalle.Cantidad.ToString() + " unidades");
+                                htmlOperacion = htmlOperacion.Replace("#FORMATO_PRECIO1#", "Costo: " + simbolo + " " + precio);
+                                htmlOperacion = htmlOperacion.Replace("#FORMATO_SOLICITUD#", cdrWebDetalle.Solicitud);
+                            }
+                            else
+                            {
+                                htmlTemplateDetalleOperacion = FileManager.GetContenido(templateUrlDetalleOperacionMultipleTruequePath);
+                                htmlOperacion = htmlTemplateDetalleOperacion.Clone().ToString();
+
+                            }
+
+
+
+                            htmlOperacion = htmlOperacion.Replace("#FORMATO_CUV2#", item.SelectSingleNode("cuv").InnerText);
+                            htmlOperacion = htmlOperacion.Replace("#FORMATO_DESCRIPCIONCUV2#", item.SelectSingleNode("descripcion").InnerText);
+                            htmlOperacion = htmlOperacion.Replace("#FORMATO_CANTIDAD2#", item.SelectSingleNode("cantidad").InnerText + " unidades");
+                            htmlOperacion = htmlOperacion.Replace("#FORMATO_PRECIO2#", "Costo: " + simbolo + " " + item.SelectSingleNode("precio").InnerText);
+                            totalTrueque = totalTrueque + Convert.ToDecimal(item.SelectSingleNode("precio").InnerText);
+
+                            htmlTrueque = htmlTrueque + htmlOperacion;
+
+                            contador++;
+                        }
+
+                        //string HTMLtotalTrueque = "<tr><td></td><td style='width: 44%; text-align: left; font-family:\'Calibri\'; font-size: 16px; vertical-align:top; color: black;'>Subtotal: " + simbolo + totalTrueque + "</td></tr>";
+                        string HTMLtotalTrueque = "<tr><td></td><td style=\"width: 44%; text-align: left; font-family:'Calibri'; font-size: 18px; vertical-align: top; color: black;\">Subtotal: " + simbolo + totalTrueque + "</td></tr>";
+                        htmlTrueque = htmlTrueque + HTMLtotalTrueque;
+
+
+                        html = html.Replace("#FORMATO_DETALLE_TIPO_OPERACION#", htmlTrueque);
+                        txtBuil.Append(html);
+                    }
+
+
+                }
+                else
+                {
+
+                    htmlOperacion = htmlOperacion.Replace("#FORMATO_DESCRIPCIONCUV1#", cdrWebDetalle.Descripcion);
+                    htmlOperacion = htmlOperacion.Replace("#FORMATO_SOLICITUD#", cdrWebDetalle.Solicitud);
+                    htmlOperacion = htmlOperacion.Replace("#FORMATO_CANTIDAD1#", cdrWebDetalle.Cantidad.ToString());
+                    htmlOperacion = htmlOperacion.Replace("#FORMATO_PRECIO1#", string.Format("{0} {1}", simbolo, Util.DecimalToStringFormat(cdrWebDetalle.Precio, isoPais)));
+
+                    bool primeraFila = false;
+                    foreach (var item in listaDetalleCambio)
+                    {
+                        string template = FileManager.GetContenido(templateUrlDetalleOperacionTruequeMultiplePath);
+                        string htmlTemplateMultiple = template.Clone().ToString();
+                        var p = decimal.Round((decimal)item.Precio, 2);
+                        if (!primeraFila)
+                        {
+                            htmlOperacion = htmlOperacion.Replace("#FORMATO_CUV2#", item.CUV);
+                            htmlOperacion = htmlOperacion.Replace("#FORMATO_DESCRIPCIONCUV2#", item.Descripcion);
+                            htmlOperacion = htmlOperacion.Replace("#FORMATO_CANTIDAD2#", item.Cantidad.ToString());
+                            htmlOperacion = htmlOperacion.Replace("#FORMATO_PRECIO2#",string.Format("{0} {1}",simbolo, Util.DecimalToStringFormat( (decimal)item.Precio, isoPais)));
+                            primeraFila = true;
+                        }
+                        else
+                        {
+                            htmlTemplateMultiple = htmlTemplateMultiple.Replace("#FORMATO_CUV#", item.CUV);
+                            htmlTemplateMultiple = htmlTemplateMultiple.Replace("#FORMATO_DESCRIPCIONCUV#", item.Descripcion);
+                            htmlTemplateMultiple = htmlTemplateMultiple.Replace("#FORMATO_CANTIDAD#", item.Cantidad.ToString());
+                            htmlTemplateMultiple = htmlTemplateMultiple.Replace("#FORMATO_PRECIO#", string.Format("{0} {1}", simbolo, Util.DecimalToStringFormat((decimal)item.Precio, isoPais)));
+                            htmlOperacion = htmlOperacion + htmlTemplateMultiple;
+                        }
+                    }
+                }
+                else
+                {
+                    htmlOperacion = htmlOperacion.Replace("#FORMATO_DESCRIPCIONCUV1#", cdrWebDetalle.Descripcion);
+                    htmlOperacion = htmlOperacion.Replace("#FORMATO_SOLICITUD#", cdrWebDetalle.Solicitud);
+                    htmlOperacion = htmlOperacion.Replace("#FORMATO_CANTIDAD1#", cdrWebDetalle.Cantidad.ToString());
+                    htmlOperacion = htmlOperacion.Replace("#FORMATO_PRECIO1#", string.Format("{0} {1}", simbolo, Util.DecimalToStringFormat(cdrWebDetalle.Precio, isoPais)));
+
+                    htmlOperacion = htmlOperacion.Replace("#FORMATO_CUV2#", cdrWebDetalle.CUV2);
+                    htmlOperacion = htmlOperacion.Replace("#FORMATO_DESCRIPCIONCUV2#", cdrWebDetalle.Descripcion2);
+                    htmlOperacion = htmlOperacion.Replace("#FORMATO_CANTIDAD2#", cdrWebDetalle.Cantidad2.ToString());
+                    htmlOperacion = htmlOperacion.Replace("#FORMATO_PRECIO2#", string.Format("{0} {1}", simbolo, Util.DecimalToStringFormat(cdrWebDetalle.Precio2, isoPais)));
+                }
+                    html = html.Replace("#FORMATO_DETALLE_TIPO_OPERACION#", htmlOperacion);
+                    txtBuil.Append(html);
+                }
+
+
             }
             htmlTemplate = htmlTemplate.Replace("#FORMATO_DETALLECDR#", txtBuil.ToString());
 
@@ -1750,6 +1842,8 @@ namespace Portal.Consultoras.Web.Controllers
             var textoFlete = GetMensajeCDRExpress(Constantes.MensajesCDRExpress.ExpressFlete);
             return string.Format(textoFlete, userData.Simbolo, Util.DecimalToStringFormat(flete, userData.CodigoISO));
         }
+
+
 
     }
 }
