@@ -106,7 +106,7 @@ function CargarKits() {
                     }
                     productos.push(productoAnalicits);
                 }
-                console.log(productos);
+              
                 dataLayer.push({
                     'event': 'productImpression',
                     'ecommerce': {
@@ -168,7 +168,6 @@ function CargarDemostradores() {
                     }
                     productos.push(productoAnalicits);
                 }
-                console.log(productos);
                 dataLayer.push({
                     'event': 'productImpression',
                     'ecommerce': {
