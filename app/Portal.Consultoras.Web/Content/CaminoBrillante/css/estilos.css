@@ -2070,3 +2070,13 @@ ul li .menu__link--pedido {
 div.ui-dialog.ui-widget-content {
     z-index: 9999999900 !important
 }
+.marca_ept {
+    height: 40px;
+    color: #000;
+    font-family: 'Lato';
+    padding-left: 7px;
+    font-size: 12px;
+    float: right;
+    letter-spacing: .3px;
+    margin-left: 10px;
+}
