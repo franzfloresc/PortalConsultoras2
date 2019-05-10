@@ -1060,6 +1060,75 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
         left: -1.5px;
     }
 
+.lista_productos_a_cambiar{
+    list-style-type:none;
+    padding-left:10px;
+    padding-right:10px;
+}
+
+    .producto_a_cambiar,
+    .producto_a_cambiar > div{
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: row;
+        flex-direction: row;
+        align-items: flex-start;
+    }
+
+    .producto_a_cambiar{
+        -ms-flex-wrap:nowrap;
+        flex-wrap: nowrap;
+        border-bottom:1px solid #808080;
+    }
+
+        .producto_a_cambiar:last-child{
+            border-bottom:0;
+        }
+
+        .producto_a_cambiar > div {
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+            align-content: space-between;
+            min-height: 130px;
+            padding-top: 16px;
+            padding-bottom: 16px;
+        }
+
+            .producto_a_cambiar > div:first-child{
+                justify-content:flex-start;
+            }
+
+            .producto_a_cambiar > div:last-child {
+                justify-content: flex-end;
+            }
+
+        .producto_a_cambiar_cuv_y_descripcion_wrapper,
+        .producto_a_cambiar_precio{
+            flex:0 0 100%;
+            max-width:100%;
+        }
+
+        .producto_a_cambiar_precio{
+            font-size:15px;
+        }
+
+        .producto_a_cambiar .contenedor_campo_cantidad_productos {
+            flex: 0 0 106px;
+            max-width: 106px;
+        }
+
+        .producto_a_cambiar .contenedor_campo_cantidad_productos,
+        .producto_a_cambiar .contenedor_campo_cantidad_productos div{
+            margin:0;
+        }
+
+    .btn_eliminar_trueque {
+        border: 0;
+        background-color: #FFF;
+        width: 40px;
+        height: 40px;
+    }
+
 .opcion_cdr_seleccionada_info--devolucionCasoSetProducto {
     margin-bottom: 8px;
 }

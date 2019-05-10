@@ -1062,6 +1062,28 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
         left: -1.5px;
     }
 
+.lista_productos_a_cambiar {
+    list-style-type: none;
+}
+
+    .producto_a_cambiar{
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: row;
+        flex-direction: row;
+        -ms-flex-wrap:wrap;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        border-bottom:1px solid #808080;
+    }
+
+    .btn_eliminar_trueque {
+        border: 0;
+        background-color: #FFF;
+        width: 40px;
+        height: 40px;
+    }
+
 .opcion_cdr_seleccionada_info--devolucionCasoSetProducto {
     margin-bottom: 8px;
 }
