@@ -1,9 +1,13 @@
-﻿<script id="imagen-estrategia-template" type="text/x-handlebars-template">
+﻿@using Portal.Consultoras.Common
+
+<script id="imagen-estrategia-template" type="text/x-handlebars-template">
     <div class="contenedor_imagen">
         <div>
             <img src="{{ImgUrl FotoProducto01}}" />
         </div>
+        {{#iff CodigoVariante 'ContainsArray' '[@Constantes.TipoEstrategiaSet.IndividualConTonos,@Constantes.TipoEstrategiaSet.CompuestaVariable]'}}
         <p>* Foto Referencial</p>
+        {{/iff}}
     </div>
     <div class="redes_sociales">
         Comparte este producto con tus clientes
