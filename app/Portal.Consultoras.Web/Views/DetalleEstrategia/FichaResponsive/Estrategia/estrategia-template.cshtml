@@ -1,21 +1,59 @@
-﻿<script id="estrategia-template" type="text/x-handlebars-template">
+﻿@using Portal.Consultoras.Common
+
+<script id="estrategia-template" type="text/x-handlebars-template">
     <div class="col-md-8">
         <div class="nombre_marca">
-            Ésika
+            {{#iff EsMultimarca '==' false}}
+            {{DescripcionMarca}}
+            {{/iff}}
         </div>
-        <div class="descripcion">EAU DE PARFUM VALENTÍA</div>
-        <div class="descripcion_item">200.0 Ml</div>
-        <div class="descripcion_item">200.0 Ml</div>
+        <div class="descripcion">{{DescripcionCompleta}}</div>
+        <!--INI AGANA 456 -->
+        {{#iff MostrarFichaEnriquecida '==' true }}
+        {{#iff this.Hermanos.length '==' 1}}
+        {{#each this.Hermanos as |componente|}}
+        <div class="descripcion_item">
+            {{componente.Cabecera.ContenidoNeto}}
+        </div>
+        <div class="descripcion_item">
+            {{componente.Cabecera.Dimensiones}}
+        </div>
+        <div class="descripcion_item">
+            {{componente.Cabecera.TallaMedidas}}
+        </div>
+        {{/each}}
+        {{/iff}}
+        {{/iff}}
+        <!--END AGANA 456 -->
     </div>
     <div class="col-md-4 text-md-right">
         <div class="precio_venta_oferta">
-            Precio para ti <span>S/. 16.90</span>
+            Precio para ti 
+            <span data-precio_venta_oferta="">
+                {{#IsNullOrEmpty this.ListaPrecioNiveles '!='}}1x {{/IsNullOrEmpty}}{{SimboloMoneda}} {{PrecioVenta}}
+            </span>
+            {{#each ListaPrecioNiveles as |itemNivel|}}
+            <span class="subprecio">{{itemNivel}}</span>
+            {{/each}}
         </div>
+
+        {{#iff Precio '>' 0}}
         <div class="precio_valorizado">
-            Para tu cliente: <span>S/. 26.90</span>
+            Para tu cliente : <span data-precio_valorizado="">{{SimboloMoneda}} {{PrecioTachado}}</span>
         </div>
+        {{/iff}}
+
+        {{#iff Ganancia '>' 0}}
         <div class="ganancia">
-            Gana hasta: <span>S/. 10.00</span>
+            {{#iff CodigoVariante '!=' '@Constantes.TipoEstrategiaSet.CompuestaVariable'}}
+            GANA
+            {{/iff}}
+            {{#iff CodigoVariante '==' '@Constantes.TipoEstrategiaSet.CompuestaVariable'}}
+            GANA HASTA
+            {{/iff}}
+            <span data-ganancia="">{{SimboloMoneda}} {{GananciaString}}</span>
         </div>
+        {{/iff}}
+
     </div>
 </script>
