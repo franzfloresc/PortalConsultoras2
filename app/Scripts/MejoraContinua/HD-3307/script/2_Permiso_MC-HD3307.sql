@@ -1,60 +1,48 @@
-USE BelcorpMexico
+﻿USE [BelcorpBolivia];
 GO
-
-update Permiso set Descripcion = 'TU VOZ ONLINE', UrlItem = 'https://esikatuvozonline.questionpro.com' where PermisoID = 1005
+update Permiso set Descripcion = 'TU VOZ ONLINE', UrlItem = '/TuVozOnline/Index', PaginaNueva=0 where PermisoID = 1005;
 GO
-
-USE BelcorpSalvador
+USE [BelcorpChile];
 GO
-
-update Permiso set Descripcion = 'TU VOZ ONLINE', UrlItem = 'https://esikatuvozonline.questionpro.com' where PermisoID = 1005
+update Permiso set Descripcion = 'TU VOZ ONLINE', UrlItem = '/TuVozOnline/Index', PaginaNueva=0 where PermisoID = 1005;
 GO
-
-USE BelcorpPuertoRico
+USE [BelcorpColombia];
 GO
-
-update Permiso set Descripcion = 'TU VOZ ONLINE', UrlItem = 'https://esikatuvozonline.questionpro.com' where PermisoID = 1005
+update Permiso set Descripcion = 'TU VOZ ONLINE', UrlItem = '/TuVozOnline/Index', PaginaNueva=0 where PermisoID = 1005;
 GO
-
-USE BelcorpPanama
+USE [BelcorpCostaRica];
 GO
-
-update Permiso set Descripcion = 'TU VOZ ONLINE', UrlItem = 'https://esikatuvozonline.questionpro.com' where PermisoID = 1005
+update Permiso set Descripcion = 'TU VOZ ONLINE', UrlItem = '/TuVozOnline/Index', PaginaNueva=0 where PermisoID = 1005;
 GO
-
-USE BelcorpGuatemala
+USE [BelcorpDominicana];
 GO
-
-update Permiso set Descripcion = 'TU VOZ ONLINE', UrlItem = 'https://esikatuvozonline.questionpro.com' where PermisoID = 1005
+update Permiso set Descripcion = 'TU VOZ ONLINE', UrlItem = '/TuVozOnline/Index', PaginaNueva=0 where PermisoID = 1005;
 GO
-
-USE BelcorpEcuador
+USE [BelcorpEcuador];
 GO
-
-update Permiso set Descripcion = 'TU VOZ ONLINE', UrlItem = 'https://esikatuvozonline.questionpro.com' where PermisoID = 1005
+update Permiso set Descripcion = 'TU VOZ ONLINE', UrlItem = '/TuVozOnline/Index', PaginaNueva=0 where PermisoID = 1005;
 GO
-
-USE BelcorpDominicana
+USE [BelcorpGuatemala];
 GO
-
-update Permiso set Descripcion = 'TU VOZ ONLINE', UrlItem = 'https://esikatuvozonline.questionpro.com' where PermisoID = 1005
+update Permiso set Descripcion = 'TU VOZ ONLINE', UrlItem = '/TuVozOnline/Index', PaginaNueva=0 where PermisoID = 1005;
 GO
-
-USE BelcorpCostaRica
+USE [BelcorpMexico];
 GO
-
-update Permiso set Descripcion = 'TU VOZ ONLINE', UrlItem = 'https://esikatuvozonline.questionpro.com' where PermisoID = 1005
+update Permiso set Descripcion = 'TU VOZ ONLINE', UrlItem = '/TuVozOnline/Index', PaginaNueva=0 where PermisoID = 1005;
 GO
-
-USE BelcorpChile
+USE [BelcorpPanama];
 GO
-
-update Permiso set Descripcion = 'TU VOZ ONLINE', UrlItem = 'https://esikatuvozonline.questionpro.com' where PermisoID = 1005
+update Permiso set Descripcion = 'TU VOZ ONLINE', UrlItem = '/TuVozOnline/Index', PaginaNueva=0 where PermisoID = 1005;
 GO
-
-USE BelcorpBolivia
+USE [BelcorpPeru];
 GO
-
-update Permiso set Descripcion = 'TU VOZ ONLINE', UrlItem = 'https://esikatuvozonline.questionpro.com' where PermisoID = 1005
+update Permiso set Descripcion = 'TU VOZ ONLINE', UrlItem = '/TuVozOnline/Index', PaginaNueva=0 where PermisoID = 1005;
 GO
-
+USE [BelcorpPuertoRico];
+GO
+update Permiso set Descripcion = 'TU VOZ ONLINE', UrlItem = '/TuVozOnline/Index', PaginaNueva=0 where PermisoID = 1005;
+GO
+USE [BelcorpSalvador];
+GO
+update Permiso set Descripcion = 'TU VOZ ONLINE', UrlItem = '/TuVozOnline/Index', PaginaNueva=0 where PermisoID = 1005;
+GO

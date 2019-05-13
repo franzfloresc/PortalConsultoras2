@@ -1,60 +1,48 @@
-USE BelcorpMexico
+﻿USE [BelcorpBolivia];
 GO
-
-Update MenuMobile set Descripcion = 'Tu Voz Online', UrlItem = 'https://esikatuvozonline.questionpro.com' where MenuMobileID = 1005 
+Update MenuMobile set Descripcion = 'Tu Voz Online', UrlItem = '/TuVozOnline/Index', PaginaNueva=0 where MenuMobileID = 1005;
 GO
-
-USE BelcorpSalvador
+USE [BelcorpChile];
 GO
-
-Update MenuMobile set Descripcion = 'Tu Voz Online', UrlItem = 'https://esikatuvozonline.questionpro.com' where MenuMobileID = 1005 
+Update MenuMobile set Descripcion = 'Tu Voz Online', UrlItem = '/TuVozOnline/Index', PaginaNueva=0 where MenuMobileID = 1005;
 GO
-
-USE BelcorpPuertoRico
+USE [BelcorpColombia];
 GO
-
-Update MenuMobile set Descripcion = 'Tu Voz Online', UrlItem = 'https://esikatuvozonline.questionpro.com' where MenuMobileID = 1005 
+Update MenuMobile set Descripcion = 'Tu Voz Online', UrlItem = '/TuVozOnline/Index', PaginaNueva=0 where MenuMobileID = 1005;
 GO
-
-USE BelcorpPanama
+USE [BelcorpCostaRica];
 GO
-
-Update MenuMobile set Descripcion = 'Tu Voz Online', UrlItem = 'https://esikatuvozonline.questionpro.com' where MenuMobileID = 1005 
+Update MenuMobile set Descripcion = 'Tu Voz Online', UrlItem = '/TuVozOnline/Index', PaginaNueva=0 where MenuMobileID = 1005;
 GO
-
-USE BelcorpGuatemala
+USE [BelcorpDominicana];
 GO
-
-Update MenuMobile set Descripcion = 'Tu Voz Online', UrlItem = 'https://esikatuvozonline.questionpro.com' where MenuMobileID = 1005 
+Update MenuMobile set Descripcion = 'Tu Voz Online', UrlItem = '/TuVozOnline/Index', PaginaNueva=0 where MenuMobileID = 1005;
 GO
-
-USE BelcorpEcuador
+USE [BelcorpEcuador];
 GO
-
-Update MenuMobile set Descripcion = 'Tu Voz Online', UrlItem = 'https://esikatuvozonline.questionpro.com' where MenuMobileID = 1005 
+Update MenuMobile set Descripcion = 'Tu Voz Online', UrlItem = '/TuVozOnline/Index', PaginaNueva=0 where MenuMobileID = 1005;
 GO
-
-USE BelcorpDominicana
+USE [BelcorpGuatemala];
 GO
-
-Update MenuMobile set Descripcion = 'Tu Voz Online', UrlItem = 'https://esikatuvozonline.questionpro.com' where MenuMobileID = 1005 
+Update MenuMobile set Descripcion = 'Tu Voz Online', UrlItem = '/TuVozOnline/Index', PaginaNueva=0 where MenuMobileID = 1005;
 GO
-
-USE BelcorpCostaRica
+USE [BelcorpMexico];
 GO
-
-Update MenuMobile set Descripcion = 'Tu Voz Online', UrlItem = 'https://esikatuvozonline.questionpro.com' where MenuMobileID = 1005 
+Update MenuMobile set Descripcion = 'Tu Voz Online', UrlItem = '/TuVozOnline/Index', PaginaNueva=0 where MenuMobileID = 1005;
 GO
-
-USE BelcorpChile
+USE [BelcorpPanama];
 GO
-
-Update MenuMobile set Descripcion = 'Tu Voz Online', UrlItem = 'https://esikatuvozonline.questionpro.com' where MenuMobileID = 1005 
+Update MenuMobile set Descripcion = 'Tu Voz Online', UrlItem = '/TuVozOnline/Index', PaginaNueva=0 where MenuMobileID = 1005;
 GO
-
-USE BelcorpBolivia
+USE [BelcorpPeru];
 GO
-
-Update MenuMobile set Descripcion = 'Tu Voz Online', UrlItem = 'https://esikatuvozonline.questionpro.com' where MenuMobileID = 1005 
+Update MenuMobile set Descripcion = 'Tu Voz Online', UrlItem = '/TuVozOnline/Index', PaginaNueva=0 where MenuMobileID = 1005;
 GO
-
+USE [BelcorpPuertoRico];
+GO
+Update MenuMobile set Descripcion = 'Tu Voz Online', UrlItem = '/TuVozOnline/Index', PaginaNueva=0 where MenuMobileID = 1005;
+GO
+USE [BelcorpSalvador];
+GO
+Update MenuMobile set Descripcion = 'Tu Voz Online', UrlItem = '/TuVozOnline/Index', PaginaNueva=0 where MenuMobileID = 1005;
+GO
