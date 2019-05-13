@@ -1028,6 +1028,16 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 }
                 #endregion
 
+                //Validación de cuvs en Camino Brillante
+                #region Camino Brillante
+                var valCaminoBrillante = _bLCaminoBrillante.ValidarBusquedaCaminoBrillante(usuario.PaisID, usuario.CampaniaID, productoBuscar.CodigoDescripcion);
+                if (valCaminoBrillante == Enumeradores.ValidacionCaminoBrillante.CuvPerteneceProgramaCaminoBrillante)
+                {
+                    //productosModel.Add(GetValidacionProgramaNuevas("CUV Pertenece al Programa de Camino Brillante"));
+                    return ProductoBuscarRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_NONUEVA, "CUV Pertenece al Programa de Camino Brillante");
+                }
+                #endregion
+
                 //Validación producto no existe
                 var lstProducto = _productoBusinessLogic.SelectProductoByCodigoDescripcionSearchRegionZona(
                                     productoBuscar.PaisID,

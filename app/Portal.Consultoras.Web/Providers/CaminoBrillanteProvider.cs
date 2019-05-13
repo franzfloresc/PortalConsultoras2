@@ -8,6 +8,7 @@ using AutoMapper;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models.CaminoBrillante;
+using Portal.Consultoras.Web.HojaInscripcionODS;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -184,12 +185,14 @@ namespace Portal.Consultoras.Web.Providers
         /// <summary>
         /// Obtiene Demostradores disponibles para la consultora
         /// </summary>
-        public List<DemostradorCaminoBrillanteModel> GetDesmostradoresCaminoBrillante()
+        public List<DemostradorCaminoBrillanteModel> GetDesmostradoresCaminoBrillante(string codOrden, string codFiltro, int cantMostrados, int cantidad)
         {
             try
             {
-                var demostradores = sessionManager.GetDemostradoresCaminoBrillante();
-                if (demostradores != null) return Format(Mapper.Map<List<DemostradorCaminoBrillanteModel>>(demostradores));
+                //var demostradores = sessionManager.GetDemostradoresCaminoBrillante();
+                //if (demostradores != null) return Format(Mapper.Map<List<DemostradorCaminoBrillanteModel>>(demostradores));
+
+                var demostradores = new List<BEDesmostradoresCaminoBrillante>();
 
                 int nivel = 0;
                 var nivelConsultora = GetNivelActualConsultora();
@@ -209,11 +212,10 @@ namespace Portal.Consultoras.Web.Providers
                         NivelCaminoBrillante = usuarioModel.NivelCaminoBrillante,
                     };
 
-                    demostradores = svc.GetDemostradoresCaminoBrillante(usuario).ToList();
+                    demostradores = svc.GetDemostradoresCaminoBrillante(usuario, codOrden, codFiltro, cantMostrados, cantidad).ToList();
                 }
 
-                sessionManager.SetDemostradoresCaminoBrillante(demostradores);
-
+                //sessionManager.SetDemostradoresCaminoBrillante(demostradores);
                 return Format(Mapper.Map<List<DemostradorCaminoBrillanteModel>>(demostradores));
             }
             catch (Exception ex)
@@ -294,6 +296,25 @@ namespace Portal.Consultoras.Web.Providers
                 sessionManager.SetConsultoraCaminoBrillante(resumen);                
             }
             return resumen;
+        }
+
+        /// <summary>
+        /// Validación CUV Camino Brillante
+        /// </summary>
+        public Enumeradores.ValidacionCaminoBrillante ValidarBusquedaCaminoBrillante(string cuv)
+        {
+            try
+            {
+                using (var svc = new ServiceODS.ODSServiceClient())
+                {                    
+                    return svc.ValidarBusquedaCaminoBrillante(usuarioModel.PaisID, usuarioModel.CampaniaID, cuv);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
+                return Enumeradores.ValidacionCaminoBrillante.ProductoNoExiste;
+            }
         }
 
     }
