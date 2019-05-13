@@ -997,10 +997,12 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #region Camino Brillante
                 var valCaminoBrillante = _caminoBrillanteProvider.ValidarBusquedaCaminoBrillante(model.CUV);
-                if (valCaminoBrillante == Enumeradores.ValidacionCaminoBrillante.CuvPerteneceProgramaCaminoBrillante) {
-                    productosModel.Add(GetValidacionProgramaNuevas("CUV Pertenece al Programa de Camino Brillante"));
+                
+                if (valCaminoBrillante.Validacion != Enumeradores.ValidacionCaminoBrillante.ProductoNoExiste) {
+                    productosModel.Add(GetValidacionProgramaNuevas(valCaminoBrillante.Mensaje));
                     return Json(productosModel, JsonRequestBehavior.AllowGet);
                 }
+                
                 #endregion
 
                 var userModel = userData;
