@@ -348,8 +348,7 @@ namespace Portal.Consultoras.Service
 
         #region ProgramaNuevas
         public Enumeradores.ValidacionCaminoBrillante ValidarBusquedaCaminoBrillante(int paisID, int campaniaID, string cuv) {
-            return caminoBrillanteBusinessLogic.EsCuvCaminoBrillante(paisID, campaniaID, cuv) ? Enumeradores.ValidacionCaminoBrillante.CuvPerteneceProgramaCaminoBrillante 
-                : Enumeradores.ValidacionCaminoBrillante.ProductoNoExiste;
+            return caminoBrillanteBusinessLogic.ValidarBusquedaCaminoBrillante(paisID, campaniaID, cuv);
         }
         #endregion
 

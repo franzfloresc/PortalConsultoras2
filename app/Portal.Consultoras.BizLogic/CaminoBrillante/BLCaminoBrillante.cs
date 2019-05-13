@@ -855,13 +855,18 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
         #endregion
 
-        #region Cuvs
+        #region Validar Busqueda de Cuvs
 
-        public bool EsCuvCaminoBrillante(int PaisID, int CampaniaID, string cuv) {
+        public Enumeradores.ValidacionCaminoBrillante ValidarBusquedaCaminoBrillante(int paisID, int campaniaID, string cuv) {
+            return EsCuvCaminoBrillante(paisID, campaniaID, cuv) ? Enumeradores.ValidacionCaminoBrillante.CuvPerteneceProgramaCaminoBrillante
+                : Enumeradores.ValidacionCaminoBrillante.ProductoNoExiste;
+        }
+
+        private bool EsCuvCaminoBrillante(int PaisID, int CampaniaID, string cuv) {
             return  GetCuvsCaminoBrillante(PaisID, CampaniaID).Any(e => e.CUV == cuv);
         }
 
-        public List<BEProductoCaminoBrillante> GetCuvsCaminoBrillante(int PaisID, int CampaniaID)
+        private List<BEProductoCaminoBrillante> GetCuvsCaminoBrillante(int PaisID, int CampaniaID)
         {
             return GetCuvsCaminoBrillanteCache(PaisID, CampaniaID);
         }
