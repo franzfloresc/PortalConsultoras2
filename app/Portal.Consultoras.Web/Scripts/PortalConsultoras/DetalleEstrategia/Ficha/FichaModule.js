@@ -388,7 +388,7 @@ var FichaModule = (function (config) {
         }
         else {
             mensajeError += "\n _fichaServicioApi no";
-            estrategia = _modeloFicha;
+            estrategia = _modeloFicha();
             _esMultimarca = estrategia.EsMultimarca;
 
             estrategia.esCampaniaSiguiente = estrategia.CampaniaID !== _obtenerCampaniaActual();
@@ -696,7 +696,8 @@ var FichaModule = (function (config) {
     ////// Ini - Construir Estructura Ficha
 
     var _construirSeccionFicha = function () {
-        var modeloFicha = _getModelo();
+        console.log('Ficha - construir Seccion Ficha');
+        var modeloFicha = _modeloFicha();
 
         if (!_validaOfertaDelDia(true)) {
             setTimeout(function () {
@@ -717,7 +718,7 @@ var FichaModule = (function (config) {
     var _getModelo = function () {
 
         var modeloFicha = {};
-
+        Console.log('Ficha - promise Obterner Modelo');
         _config.detalleEstrategiaProvider
             .promiseObternerModelo({
                 palanca: _config.palanca,
@@ -816,7 +817,8 @@ var FichaModule = (function (config) {
         if (typeof _config.analyticsPortalModule === 'undefined')
             return;
 
-        _config.analyticsPortalModule.MarcaVisualizarDetalleProducto(_getModelo());
+        console.log('Ficha - analytics - Marca Visualizar Detalle Producto');
+        _config.analyticsPortalModule.MarcaVisualizarDetalleProducto(_modeloFicha());
 
     };
 
@@ -851,6 +853,7 @@ var FichaModule = (function (config) {
     function _init() {
         _config.esMobile = _config.generalModule.isMobile();
 
+        console.log('Ficha - init');
         var modeloFicha = _getModelo();
 
         _config.tieneSession = modeloFicha.TieneSession;
@@ -861,10 +864,12 @@ var FichaModule = (function (config) {
         modeloFicha = _getEstrategia(modeloFicha);
         _modeloFicha(modeloFicha);
 
+        console.log('Ficha - init - construirSeccionFicha');
         _construirSeccionFicha();
         _construirSeccionEstrategia();
         _initCliente();
         _initCarrusel();
+        console.log('Ficha - init - analytics');
         _analytics();
     }
 
