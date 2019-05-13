@@ -1,6 +1,4 @@
-
-
-USE BelcorpBolivia
+﻿USE BelcorpBolivia
 GO
 
 ALTER PROCEDURE [dbo].[GetSolicitudesPedido_SB2] @ConsultoraId BIGINT

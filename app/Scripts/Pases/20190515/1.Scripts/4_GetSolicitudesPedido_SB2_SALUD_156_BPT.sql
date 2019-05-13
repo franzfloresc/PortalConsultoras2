@@ -40,17 +40,17 @@ BEGIN
 		FechaModificacion,
 		--isnull(FlagConsultora,0) as FlagConsultora,
 		case
-			when exists(SELECT TOP 1 a.ClienteID FROM dbo.Cliente a WHERE ConsultoraID = @ConsultoraId AND a.Nombre = sc.NombreCompleto AND a.Activo = 1) then 1
+			when exists(SELECT 1 FROM dbo.Cliente a WHERE ConsultoraID = @ConsultoraId AND a.Nombre = sc.NombreCompleto AND a.Activo = 1) then 1
 			else 0
 		end FlagConsultora,
 		FlagMedio,
 		(select isnull(tld.Descripcion,'') from TablaLogicaDatos tld where tld.tablalogicaid = 85 AND tld.Codigo = flagmedio) as MContacto ,
 		(select sum((Precio*Cantidad)) from SolicitudClienteDetalle where SolicitudClienteID = sc.SolicitudClienteID) as PrecioTotal,
 		m.Descripcion as Marca,
-		case isnull(FlagConsultora,0)
-			when 1 then '00:00:00'
-			else dbo.CaclSaldoHorasSolicitudPedido(FechaSolicitud)
-		end SaldoHoras,
+		--case isnull(FlagConsultora,0)
+		--	when 1 then '00:00:00'
+		--	else dbo.CaclSaldoHorasSolicitudPedido(FechaSolicitud)
+		--end SaldoHoras,
 		isnull(PedidoWebID,0) as PedidoWebID
 	from SolicitudCliente sc left join Marca m on sc.MarcaID = m.MarcaID
 	where
@@ -116,7 +116,7 @@ BEGIN
 		FechaModificacion,
 		--isnull(FlagConsultora,0) as FlagConsultora,
 		case
-			when exists(SELECT TOP 1 a.ClienteID FROM dbo.Cliente a WHERE ConsultoraID = @ConsultoraId AND a.Nombre = sc.NombreCompleto AND a.Activo = 1) then 1
+			when exists(SELECT 1 FROM dbo.Cliente a WHERE ConsultoraID = @ConsultoraId AND a.Nombre = sc.NombreCompleto AND a.Activo = 1) then 1
 			else 0
 		end FlagConsultora,
 		FlagMedio,
@@ -192,7 +192,7 @@ BEGIN
 		FechaModificacion,
 		--isnull(FlagConsultora,0) as FlagConsultora,
 		case
-			when exists(SELECT TOP 1 a.ClienteID FROM dbo.Cliente a WHERE ConsultoraID = @ConsultoraId AND a.Nombre = sc.NombreCompleto AND a.Activo = 1) then 1
+			when exists(SELECT 1 FROM dbo.Cliente a WHERE ConsultoraID = @ConsultoraId AND a.Nombre = sc.NombreCompleto AND a.Activo = 1) then 1
 			else 0
 		end FlagConsultora,
 		FlagMedio,
@@ -268,7 +268,7 @@ BEGIN
 		FechaModificacion,
 		--isnull(FlagConsultora,0) as FlagConsultora,
 		case
-			when exists(SELECT TOP 1 a.ClienteID FROM dbo.Cliente a WHERE ConsultoraID = @ConsultoraId AND a.Nombre = sc.NombreCompleto AND a.Activo = 1) then 1
+			when exists(SELECT 1 FROM dbo.Cliente a WHERE ConsultoraID = @ConsultoraId AND a.Nombre = sc.NombreCompleto AND a.Activo = 1) then 1
 			else 0
 		end FlagConsultora,
 		FlagMedio,
@@ -344,7 +344,7 @@ BEGIN
 		FechaModificacion,
 		--isnull(FlagConsultora,0) as FlagConsultora,
 		case
-			when exists(SELECT TOP 1 a.ClienteID FROM dbo.Cliente a WHERE ConsultoraID = @ConsultoraId AND a.Nombre = sc.NombreCompleto AND a.Activo = 1) then 1
+			when exists(SELECT 1 FROM dbo.Cliente a WHERE ConsultoraID = @ConsultoraId AND a.Nombre = sc.NombreCompleto AND a.Activo = 1) then 1
 			else 0
 		end FlagConsultora,
 		FlagMedio,
@@ -420,7 +420,7 @@ BEGIN
 		FechaModificacion,
 		--isnull(FlagConsultora,0) as FlagConsultora,
 		case
-			when exists(SELECT TOP 1 a.ClienteID FROM dbo.Cliente a WHERE ConsultoraID = @ConsultoraId AND a.Nombre = sc.NombreCompleto AND a.Activo = 1) then 1
+			when exists(SELECT 1 FROM dbo.Cliente a WHERE ConsultoraID = @ConsultoraId AND a.Nombre = sc.NombreCompleto AND a.Activo = 1) then 1
 			else 0
 		end FlagConsultora,
 		FlagMedio,
@@ -496,7 +496,7 @@ BEGIN
 		FechaModificacion,
 		--isnull(FlagConsultora,0) as FlagConsultora,
 		case
-			when exists(SELECT TOP 1 a.ClienteID FROM dbo.Cliente a WHERE ConsultoraID = @ConsultoraId AND a.Nombre = sc.NombreCompleto AND a.Activo = 1) then 1
+			when exists(SELECT 1 FROM dbo.Cliente a WHERE ConsultoraID = @ConsultoraId AND a.Nombre = sc.NombreCompleto AND a.Activo = 1) then 1
 			else 0
 		end FlagConsultora,
 		FlagMedio,
@@ -572,7 +572,7 @@ BEGIN
 		FechaModificacion,
 		--isnull(FlagConsultora,0) as FlagConsultora,
 		case
-			when exists(SELECT TOP 1 a.ClienteID FROM dbo.Cliente a WHERE ConsultoraID = @ConsultoraId AND a.Nombre = sc.NombreCompleto AND a.Activo = 1) then 1
+			when exists(SELECT 1 FROM dbo.Cliente a WHERE ConsultoraID = @ConsultoraId AND a.Nombre = sc.NombreCompleto AND a.Activo = 1) then 1
 			else 0
 		end FlagConsultora,
 		FlagMedio,
@@ -648,7 +648,7 @@ BEGIN
 		FechaModificacion,
 		--isnull(FlagConsultora,0) as FlagConsultora,
 		case
-			when exists(SELECT TOP 1 a.ClienteID FROM dbo.Cliente a WHERE ConsultoraID = @ConsultoraId AND a.Nombre = sc.NombreCompleto AND a.Activo = 1) then 1
+			when exists(SELECT 1 FROM dbo.Cliente a WHERE ConsultoraID = @ConsultoraId AND a.Nombre = sc.NombreCompleto AND a.Activo = 1) then 1
 			else 0
 		end FlagConsultora,
 		FlagMedio,
@@ -724,7 +724,7 @@ BEGIN
 		FechaModificacion,
 		--isnull(FlagConsultora,0) as FlagConsultora,
 		case
-			when exists(SELECT TOP 1 a.ClienteID FROM dbo.Cliente a WHERE ConsultoraID = @ConsultoraId AND a.Nombre = sc.NombreCompleto AND a.Activo = 1) then 1
+			when exists(SELECT 1 FROM dbo.Cliente a WHERE ConsultoraID = @ConsultoraId AND a.Nombre = sc.NombreCompleto AND a.Activo = 1) then 1
 			else 0
 		end FlagConsultora,
 		FlagMedio,
@@ -800,7 +800,7 @@ BEGIN
 		FechaModificacion,
 		--isnull(FlagConsultora,0) as FlagConsultora,
 		case
-			when exists(SELECT TOP 1 a.ClienteID FROM dbo.Cliente a WHERE ConsultoraID = @ConsultoraId AND a.Nombre = sc.NombreCompleto AND a.Activo = 1) then 1
+			when exists(SELECT 1 FROM dbo.Cliente a WHERE ConsultoraID = @ConsultoraId AND a.Nombre = sc.NombreCompleto AND a.Activo = 1) then 1
 			else 0
 		end FlagConsultora,
 		FlagMedio,
@@ -876,7 +876,7 @@ BEGIN
 		FechaModificacion,
 		--isnull(FlagConsultora,0) as FlagConsultora,
 		case
-			when exists(SELECT TOP 1 a.ClienteID FROM dbo.Cliente a WHERE ConsultoraID = @ConsultoraId AND a.Nombre = sc.NombreCompleto AND a.Activo = 1) then 1
+			when exists(SELECT 1 FROM dbo.Cliente a WHERE ConsultoraID = @ConsultoraId AND a.Nombre = sc.NombreCompleto AND a.Activo = 1) then 1
 			else 0
 		end FlagConsultora,
 		FlagMedio,

@@ -1,13 +1,11 @@
-
-
-USE BelcorpBolivia
+﻿USE BelcorpBolivia
 GO
 
 IF EXISTS(SELECT 1 FROM sys.columns
 	WHERE Name = N'Estado' AND OBJECT_ID = OBJECT_ID(N'SolicitudClienteDetalle'))
 BEGIN
 	ALTER TABLE dbo.SolicitudClienteDetalle
-	DROP Estado 
+	DROP COLUMN Estado
 END  
 GO
 
@@ -15,7 +13,7 @@ IF EXISTS(SELECT 1 FROM sys.columns
 	WHERE Name = N'CantOriginal' AND OBJECT_ID = OBJECT_ID(N'SolicitudClienteDetalle'))
 BEGIN
 	ALTER TABLE dbo.SolicitudClienteDetalle
-	DROP CantOriginal 
+	DROP COLUMN CantOriginal 
 END
 GO
 
@@ -32,7 +30,7 @@ IF EXISTS(SELECT 1 FROM sys.columns
 	WHERE Name = N'Estado' AND OBJECT_ID = OBJECT_ID(N'SolicitudClienteDetalle'))
 BEGIN
 	ALTER TABLE dbo.SolicitudClienteDetalle
-	DROP Estado 
+	DROP COLUMN Estado 
 END  
 GO
 
@@ -40,7 +38,7 @@ IF EXISTS(SELECT 1 FROM sys.columns
 	WHERE Name = N'CantOriginal' AND OBJECT_ID = OBJECT_ID(N'SolicitudClienteDetalle'))
 BEGIN
 	ALTER TABLE dbo.SolicitudClienteDetalle
-	DROP CantOriginal 
+	DROP COLUMN CantOriginal 
 END
 GO
 
@@ -57,7 +55,7 @@ IF EXISTS(SELECT 1 FROM sys.columns
 	WHERE Name = N'Estado' AND OBJECT_ID = OBJECT_ID(N'SolicitudClienteDetalle'))
 BEGIN
 	ALTER TABLE dbo.SolicitudClienteDetalle
-	DROP Estado 
+	DROP COLUMN Estado 
 END  
 GO
 
@@ -65,7 +63,7 @@ IF EXISTS(SELECT 1 FROM sys.columns
 	WHERE Name = N'CantOriginal' AND OBJECT_ID = OBJECT_ID(N'SolicitudClienteDetalle'))
 BEGIN
 	ALTER TABLE dbo.SolicitudClienteDetalle
-	DROP CantOriginal 
+	DROP COLUMN CantOriginal 
 END
 GO
 
@@ -82,7 +80,7 @@ IF EXISTS(SELECT 1 FROM sys.columns
 	WHERE Name = N'Estado' AND OBJECT_ID = OBJECT_ID(N'SolicitudClienteDetalle'))
 BEGIN
 	ALTER TABLE dbo.SolicitudClienteDetalle
-	DROP Estado 
+	DROP COLUMN Estado 
 END  
 GO
 
@@ -90,7 +88,7 @@ IF EXISTS(SELECT 1 FROM sys.columns
 	WHERE Name = N'CantOriginal' AND OBJECT_ID = OBJECT_ID(N'SolicitudClienteDetalle'))
 BEGIN
 	ALTER TABLE dbo.SolicitudClienteDetalle
-	DROP CantOriginal 
+	DROP COLUMN CantOriginal 
 END
 GO
 
@@ -107,7 +105,7 @@ IF EXISTS(SELECT 1 FROM sys.columns
 	WHERE Name = N'Estado' AND OBJECT_ID = OBJECT_ID(N'SolicitudClienteDetalle'))
 BEGIN
 	ALTER TABLE dbo.SolicitudClienteDetalle
-	DROP Estado 
+	DROP COLUMN Estado 
 END  
 GO
 
@@ -115,7 +113,7 @@ IF EXISTS(SELECT 1 FROM sys.columns
 	WHERE Name = N'CantOriginal' AND OBJECT_ID = OBJECT_ID(N'SolicitudClienteDetalle'))
 BEGIN
 	ALTER TABLE dbo.SolicitudClienteDetalle
-	DROP CantOriginal 
+	DROP COLUMN CantOriginal 
 END
 GO
 
@@ -132,7 +130,7 @@ IF EXISTS(SELECT 1 FROM sys.columns
 	WHERE Name = N'Estado' AND OBJECT_ID = OBJECT_ID(N'SolicitudClienteDetalle'))
 BEGIN
 	ALTER TABLE dbo.SolicitudClienteDetalle
-	DROP Estado 
+	DROP COLUMN Estado 
 END  
 GO
 
@@ -140,7 +138,7 @@ IF EXISTS(SELECT 1 FROM sys.columns
 	WHERE Name = N'CantOriginal' AND OBJECT_ID = OBJECT_ID(N'SolicitudClienteDetalle'))
 BEGIN
 	ALTER TABLE dbo.SolicitudClienteDetalle
-	DROP CantOriginal 
+	DROP COLUMN CantOriginal 
 END
 GO
 
@@ -157,7 +155,7 @@ IF EXISTS(SELECT 1 FROM sys.columns
 	WHERE Name = N'Estado' AND OBJECT_ID = OBJECT_ID(N'SolicitudClienteDetalle'))
 BEGIN
 	ALTER TABLE dbo.SolicitudClienteDetalle
-	DROP Estado 
+	DROP COLUMN Estado 
 END  
 GO
 
@@ -165,7 +163,7 @@ IF EXISTS(SELECT 1 FROM sys.columns
 	WHERE Name = N'CantOriginal' AND OBJECT_ID = OBJECT_ID(N'SolicitudClienteDetalle'))
 BEGIN
 	ALTER TABLE dbo.SolicitudClienteDetalle
-	DROP CantOriginal 
+	DROP COLUMN CantOriginal 
 END
 GO
 
@@ -182,7 +180,7 @@ IF EXISTS(SELECT 1 FROM sys.columns
 	WHERE Name = N'Estado' AND OBJECT_ID = OBJECT_ID(N'SolicitudClienteDetalle'))
 BEGIN
 	ALTER TABLE dbo.SolicitudClienteDetalle
-	DROP Estado 
+	DROP COLUMN Estado 
 END  
 GO
 
@@ -190,7 +188,7 @@ IF EXISTS(SELECT 1 FROM sys.columns
 	WHERE Name = N'CantOriginal' AND OBJECT_ID = OBJECT_ID(N'SolicitudClienteDetalle'))
 BEGIN
 	ALTER TABLE dbo.SolicitudClienteDetalle
-	DROP CantOriginal 
+	DROP COLUMN CantOriginal 
 END
 GO
 
@@ -207,7 +205,7 @@ IF EXISTS(SELECT 1 FROM sys.columns
 	WHERE Name = N'Estado' AND OBJECT_ID = OBJECT_ID(N'SolicitudClienteDetalle'))
 BEGIN
 	ALTER TABLE dbo.SolicitudClienteDetalle
-	DROP Estado 
+	DROP COLUMN Estado 
 END  
 GO
 
@@ -215,7 +213,7 @@ IF EXISTS(SELECT 1 FROM sys.columns
 	WHERE Name = N'CantOriginal' AND OBJECT_ID = OBJECT_ID(N'SolicitudClienteDetalle'))
 BEGIN
 	ALTER TABLE dbo.SolicitudClienteDetalle
-	DROP CantOriginal 
+	DROP COLUMN CantOriginal 
 END
 GO
 
@@ -232,7 +230,7 @@ IF EXISTS(SELECT 1 FROM sys.columns
 	WHERE Name = N'Estado' AND OBJECT_ID = OBJECT_ID(N'SolicitudClienteDetalle'))
 BEGIN
 	ALTER TABLE dbo.SolicitudClienteDetalle
-	DROP Estado 
+	DROP COLUMN Estado 
 END  
 GO
 
@@ -240,7 +238,7 @@ IF EXISTS(SELECT 1 FROM sys.columns
 	WHERE Name = N'CantOriginal' AND OBJECT_ID = OBJECT_ID(N'SolicitudClienteDetalle'))
 BEGIN
 	ALTER TABLE dbo.SolicitudClienteDetalle
-	DROP CantOriginal 
+	DROP COLUMN CantOriginal 
 END
 GO
 
@@ -257,7 +255,7 @@ IF EXISTS(SELECT 1 FROM sys.columns
 	WHERE Name = N'Estado' AND OBJECT_ID = OBJECT_ID(N'SolicitudClienteDetalle'))
 BEGIN
 	ALTER TABLE dbo.SolicitudClienteDetalle
-	DROP Estado 
+	DROP COLUMN Estado 
 END  
 GO
 
@@ -265,7 +263,7 @@ IF EXISTS(SELECT 1 FROM sys.columns
 	WHERE Name = N'CantOriginal' AND OBJECT_ID = OBJECT_ID(N'SolicitudClienteDetalle'))
 BEGIN
 	ALTER TABLE dbo.SolicitudClienteDetalle
-	DROP CantOriginal 
+	DROP COLUMN CantOriginal 
 END
 GO
 
@@ -282,7 +280,7 @@ IF EXISTS(SELECT 1 FROM sys.columns
 	WHERE Name = N'Estado' AND OBJECT_ID = OBJECT_ID(N'SolicitudClienteDetalle'))
 BEGIN
 	ALTER TABLE dbo.SolicitudClienteDetalle
-	DROP Estado 
+	DROP COLUMN Estado 
 END  
 GO
 
@@ -290,7 +288,7 @@ IF EXISTS(SELECT 1 FROM sys.columns
 	WHERE Name = N'CantOriginal' AND OBJECT_ID = OBJECT_ID(N'SolicitudClienteDetalle'))
 BEGIN
 	ALTER TABLE dbo.SolicitudClienteDetalle
-	DROP CantOriginal 
+	DROP COLUMN CantOriginal 
 END
 GO
 
