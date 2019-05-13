@@ -222,54 +222,33 @@
                             <div data-detalle-confirma=""></div>
                         </div>
                         <div class="formulario_inscripcion_cdr">
-                            <input id="cuvmobile2" class="border-radius-4 tipografia_lato tipografia_lato_regular ValidaNumeral ValidaPasteNumeral" type="text" value="" placeholder="Código del producto" />
+                            <input id="cuvmobile2"
+                                   class="border-radius-4 tipografia_lato tipografia_lato_regular ValidaNumeral ValidaPasteNumeral"
+                                   type="text"
+                                   value=""
+                                   data-codigo=""
+                                   name="codigo"
+                                   placeholder="Código del producto" />
                             <input type="hidden" id="hdImporteTotal2" />
                             @*<div class="contenedor_cantidadProductos contenedor_campo_cantidad_productos">
-                                <span class="texto_cantidad_productos tipografia_lato tipografia_lato_regular">Cantidad:</span>
-                                <div id="divCantidad2">
-                                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad2" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
-                                           data-input="cantidad" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
-                                    <a class="cantidad_menos_home modificarPrecioMenos"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                                    <a class="cantidad_mas_home modificarPrecioMas"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                                    <span class="texto_cantidad_productos tipografia_lato tipografia_lato_regular">Cantidad:</span>
+                                    <div id="divCantidad2">
+                                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad2" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
+                                               data-input="cantidad" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
+                                        <a class="cantidad_menos_home modificarPrecioMenos"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                                        <a class="cantidad_mas_home modificarPrecioMas"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                                    </div>
                                 </div>
-                            </div>
-                            <div id="DescripcionCuv2" class="producto_cdr" style="font-size:15px; display:none;">
-                                <span id="txtCuv2" class="codigo_producto_cdr tipografia_lato_bold">00411</span>
-                                - <span id="txtDescripcionCuv2" class="nom_producto_cdr tipografia_lato_bold">Berrylicious shampoo rojo 375ml</span><br />
-                                <span id="spnSimboloMonedaCuv2"></span> <span id="txtPrecioCuv2">0.00</span>
-                                <a id="aCambiarProducto2" class="enlace_cambiar_producto tipografia_lato_regular" title="Cambiar producto">MODIFICAR PRODUCTO</a>
-                            </div>*@
+                                <div id="DescripcionCuv2" class="producto_cdr" style="font-size:15px; display:none;">
+                                    <span id="txtCuv2" class="codigo_producto_cdr tipografia_lato_bold">00411</span>
+                                    - <span id="txtDescripcionCuv2" class="nom_producto_cdr tipografia_lato_bold">Berrylicious shampoo rojo 375ml</span><br />
+                                    <span id="spnSimboloMonedaCuv2"></span> <span id="txtPrecioCuv2">0.00</span>
+                                    <a id="aCambiarProducto2" class="enlace_cambiar_producto tipografia_lato_regular" title="Cambiar producto">MODIFICAR PRODUCTO</a>
+                                </div>*@
                         </div>
-                        <ul class="d-block center-block lista_productos_a_cambiar">
-                            <li class="producto_a_cambiar">
-                                <div>
-                                    <div class="text-left producto_a_cambiar_cuv_y_descripcion_wrapper">
-                                        <div class="producto_a_cambiar_cuv">
-                                            06113
-                                        </div>
-                                        <div class="producto_a_cambiar_descripcion">
-                                            ES FASCINA EDP 50ml
-                                        </div>
-                                    </div>
-                                    <div class="contenedor_cantidadProductos contenedor_campo_cantidad_productos">
-                                        <div id="divCantidad2">
-                                            <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad2" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
-                                                   data-input="cantidad" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
-                                            <a class="cantidad_menos_home modificarPrecioMenos"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                                            <a class="cantidad_mas_home modificarPrecioMas"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <button type="button" name="Eliminar" class="border-radius-4 btn_eliminar_trueque" onclick="EliminarCUVTrueque(this);">
-                                        <img src="/Content/Images/Esika/icons-trash.svg" alt="Eliminar Cuv Trueque" />
-                                    </button>
-                                    <div class="text-right text-bold producto_a_cambiar_precio">
-                                        S/ 106.90
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
+                        <div id="contenedorCuvTrueque">
+
+                        </div>
                     </div>
                     <div id="OpcionCambioMismoProducto" class="opcion_cdr_seleccionada_info_wrapper" style="display:none;">
                         <div class="opcion_cdr_seleccionada_info opcion_cdr_seleccionada_info--cambioMismoProducto">
@@ -578,6 +557,83 @@
         </div>
     </div>
 </div>
+
+<div id="template-cuv-cambio" style="display:none;">
+    <div class="item-producto-cambio producto_a_cambiar">
+        <div class="text-left producto_a_cambiar_cuv_y_descripcion_wrapper">
+            <div class="producto_a_cambiar_cuv">
+                <span data-codigo="" name="codigo">06113</span>
+            </div>
+            <div class="producto_a_cambiar_descripcion">
+                <span data-descripcion="" name="descripcion"> ES FASCINA EDP 50ml</span>
+            </div>
+        </div>
+        <div class="contenedor_cantidadProductos contenedor_campo_cantidad_productos">
+            <div data-cantidad-contenedor="">
+                <input type="text"
+                       value="1"
+                       size="2"
+                       maxlength="2"
+                       data-cantidad=""
+                       class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
+                       data-input="cantidad"
+                       onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
+                <a class="cantidad_menos_home modificarPrecioMenos"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                <a class="cantidad_mas_home modificarPrecioMas"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+            </div>
+        </div>
+        <div>
+            <button type="button" name="Eliminar" class="border-radius-4 btn_eliminar_trueque" onclick="EliminarCUVTrueque(this);">
+                <img src="/Content/Images/Esika/icons-trash.svg" alt="Eliminar Cuv Trueque" />
+            </button>
+            <div class="text-right text-bold producto_a_cambiar_precio">
+                <span data-precio=""> S/ 106.90</span>>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<div id="template-cuv-cambio" style="display:none;">
+        <div class="item-producto-cambio">
+            <ul class="d-block center-block lista_productos_a_cambiar">
+                <li class="producto_a_cambiar">
+                    <div>
+                        <div class="text-left producto_a_cambiar_cuv_y_descripcion_wrapper">
+                            <div class="producto_a_cambiar_cuv">
+                                <span data-codigo="" name="codigo">06113</span>
+                            </div>
+                            <div class="producto_a_cambiar_descripcion">
+                                <span data-descripcion="" name="descripcion"> ES FASCINA EDP 50ml</span>
+                            </div>
+                        </div>
+                        <div class="contenedor_cantidadProductos contenedor_campo_cantidad_productos">
+                            <div data-cantidad-contenedor="">
+                                <input type="text"
+                                       value="1"
+                                       size="2"
+                                       maxlength="2"
+                                       data-cantidad=""
+                                       class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
+                                       data-input="cantidad"
+                                       onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
+                                <a class="cantidad_menos_home modificarPrecioMenos"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                                <a class="cantidad_mas_home modificarPrecioMas"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="button" name="Eliminar" class="border-radius-4 btn_eliminar_trueque" onclick="EliminarCUVTrueque(this);">
+                            <img src="/Content/Images/Esika/icons-trash.svg" alt="Eliminar Cuv Trueque" />
+                        </button>
+                        <div class="text-right text-bold producto_a_cambiar_precio">
+                            S/ 106.90
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>*@
+
 
 <script id="template-pedido" type="text/x-handlebars-template">
     {{#each this as |item|}}

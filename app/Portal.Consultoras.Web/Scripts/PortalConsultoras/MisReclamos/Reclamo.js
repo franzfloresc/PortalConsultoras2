@@ -1818,8 +1818,6 @@ function BuscarInfoCUV(e) {
             CalcularTotal();
         }
     });
-
-
 }
 
 //HD-4017 EINCA
