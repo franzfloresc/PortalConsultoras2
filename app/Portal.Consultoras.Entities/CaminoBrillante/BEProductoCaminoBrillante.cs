@@ -17,7 +17,7 @@ namespace Portal.Consultoras.Entities.CaminoBrillante
         public string Descripcion { get; set; }
         [DataMember]
         [Column("IndicadorDigitable")]
-        public int? IndicadorDigitable { get; set; }
+        public bool? IndicadorDigitable { get; set; }
         [DataMember]
         [Column("Tipo")]
         public int Tipo { get; set; }

@@ -339,5 +339,11 @@
             Cursos,
             Video
         }
+
+        public enum ValidacionCaminoBrillante
+        {
+            ProductoNoExiste = 1,
+            CuvPerteneceProgramaCaminoBrillante = 2
+        }
     }
 }

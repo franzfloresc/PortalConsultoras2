@@ -814,7 +814,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         #region Cuvs
 
         public bool EsCuvCaminoBrillante(int PaisID, int CampaniaID, string cuv) {
-            return GetCuvsCaminoBrillante(PaisID, CampaniaID).Any(e => e.CUV == cuv);
+            return  GetCuvsCaminoBrillante(PaisID, CampaniaID).Any(e => e.CUV == cuv);
         }
 
         public List<BEProductoCaminoBrillante> GetCuvsCaminoBrillante(int PaisID, int CampaniaID)
@@ -829,7 +829,50 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
         private List<BEProductoCaminoBrillante> GetCuvsCaminoBrillanteBD(int PaisID, int CampaniaID)
         {
-            return new DACaminoBrillante(PaisID).GetCuvsCaminoBrillante(CampaniaID).MapToCollection<BEProductoCaminoBrillante>(closeReaderFinishing: true) ?? new List<BEProductoCaminoBrillante>();
+            var productos = new DACaminoBrillante(PaisID).GetCuvsCaminoBrillante(CampaniaID).MapToCollection<BEProductoCaminoBrillante>(closeReaderFinishing: true) ?? new List<BEProductoCaminoBrillante>();
+
+            try
+            {
+                var valProducto = ValProductoInList(productos);
+                var kits = GetKitsCache(PaisID, 0, CampaniaID) ?? new List<BEKitCaminoBrillante>();
+                kits.ForEach(e => valProducto(e, 1));
+            }
+            catch (Exception ex) {
+
+            }
+
+            return productos;
+        }
+
+        private Action<BEKitCaminoBrillante, int> ValProductoInList(List<BEProductoCaminoBrillante> productos)
+        {
+            int nivel = 0;
+
+            Action<BEKitCaminoBrillante, int> validatorProductoInList = (kit, tipo) =>
+            {
+                if (!productos.Any(e => e.CUV == kit.CUV))
+                {
+                    productos.Add(new BEProductoCaminoBrillante()
+                    {
+                        CUV = kit.CUV,
+                        Descripcion = kit.DescripcionCUV,
+                        IndicadorDigitable = true,
+                        Nivel = int.TryParse(kit.CodigoNivel, out nivel) ? nivel : 0,
+                        Tipo = 1
+                    });
+                }
+                else
+                {
+                    productos.Where(e => e.CUV == kit.CUV)
+                        .Update(e => {
+                            e.Descripcion = kit.DescripcionCUV;
+                            e.IndicadorDigitable = true;
+                            e.Nivel = int.TryParse(kit.CodigoNivel, out nivel) ? nivel : 0;
+                            e.Tipo = 1;
+                        });
+                }
+            };
+            return validatorProductoInList;
         }
 
         #endregion
