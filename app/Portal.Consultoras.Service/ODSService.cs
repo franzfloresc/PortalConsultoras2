@@ -4,6 +4,7 @@ using Portal.Consultoras.BizLogic.CaminoBrillante;
 using Portal.Consultoras.BizLogic.LimiteVenta;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.CaminoBrillante;
 using Portal.Consultoras.Entities.LimiteVenta;
 using Portal.Consultoras.Entities.ProgramaNuevas;
 using Portal.Consultoras.ServiceContracts;
@@ -347,8 +348,8 @@ namespace Portal.Consultoras.Service
         }
 
         #region ProgramaNuevas
-        public Enumeradores.ValidacionCaminoBrillante ValidarBusquedaCaminoBrillante(int paisID, int campaniaID, string cuv) {
-            return caminoBrillanteBusinessLogic.ValidarBusquedaCaminoBrillante(paisID, campaniaID, cuv);
+        public BEValidacionCaminoBrillante ValidarBusquedaCaminoBrillante(BEUsuario entidad, string cuv) {
+            return caminoBrillanteBusinessLogic.ValidarBusquedaCaminoBrillante(entidad, cuv);
         }
         #endregion
 

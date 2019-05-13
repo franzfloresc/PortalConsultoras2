@@ -857,13 +857,48 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
         #region Validar Busqueda de Cuvs
 
-        public Enumeradores.ValidacionCaminoBrillante ValidarBusquedaCaminoBrillante(int paisID, int campaniaID, string cuv) {
-            return EsCuvCaminoBrillante(paisID, campaniaID, cuv) ? Enumeradores.ValidacionCaminoBrillante.CuvPerteneceProgramaCaminoBrillante
-                : Enumeradores.ValidacionCaminoBrillante.ProductoNoExiste;
+        public BEValidacionCaminoBrillante ValidarBusquedaCaminoBrillante(BEUsuario entidad, string cuv)
+        {
+            var producto = GetCuvsCaminoBrillante(entidad.PaisID, entidad.CampaniaID).SingleOrDefault(e => e.CUV == cuv);
+            if (producto == null) return new BEValidacionCaminoBrillante() { Validacion = Enumeradores.ValidacionCaminoBrillante.ProductoNoExiste };
+                        
+            //Validación por Nivel
+            Func<Enumeradores.ValidacionCaminoBrillante, int?, BEValidacionCaminoBrillante> buildMessage = (validacion, nivel) => {
+                if (nivel.HasValue) 
+                    return BuildBEValidacionCaminoBrillante(validacion, Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_BLOQUEADO_NIVEL_CAMINO_BRILLANTE, GetNiveles(entidad.PaisID).Where(n => n.CodigoNivel == nivel.ToString()).Select(e => e.DescripcionNivel).FirstOrDefault());
+                return BuildBEValidacionCaminoBrillante(validacion, Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_BLOQUEADO_CAMINO_BRILLANTE);
+            };
+
+            if (producto.Nivel.HasValue) {
+                if (entidad.NivelCaminoBrillante < producto.Nivel.Value)
+                    return buildMessage(Enumeradores.ValidacionCaminoBrillante.CuvBloqueadoNivel, producto.Nivel.Value);
+            }
+
+            if (producto.Tipo == 1) {
+                var kits = GetKits(entidad);
+                if(kits.Any(e => e.FlagHistorico || e.FlagSeleccionado))
+                    return BuildBEValidacionCaminoBrillante(Enumeradores.ValidacionCaminoBrillante.CuvYaAgregadoEnPeriodo, Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_USADO_CAMINO_BRILLANTE);
+                if (producto.Nivel.HasValue) {
+                    var kit = kits.Where(e => e.CodigoNivel == producto.Nivel.Value.ToString()).FirstOrDefault();
+                    if (kit == null)
+                        return BuildBEValidacionCaminoBrillante(Enumeradores.ValidacionCaminoBrillante.ProductoNoExiste);
+                    if (!kit.FlagHabilitado)
+                        buildMessage(Enumeradores.ValidacionCaminoBrillante.CuvBloqueadoNivel, producto.Nivel.Value);
+                }
+            }
+
+            return BuildBEValidacionCaminoBrillante(Enumeradores.ValidacionCaminoBrillante.CuvPertenecePrograma, Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_IR_CAMINO_BRILLANTE);
         }
 
-        private bool EsCuvCaminoBrillante(int PaisID, int CampaniaID, string cuv) {
-            return  GetCuvsCaminoBrillante(PaisID, CampaniaID).Any(e => e.CUV == cuv);
+        private BEValidacionCaminoBrillante BuildBEValidacionCaminoBrillante(Enumeradores.ValidacionCaminoBrillante validacion, string code = null, string param = null) {
+            return new BEValidacionCaminoBrillante() {
+                Validacion = validacion,
+                Code = code,
+                Mensaje = Constantes.PedidoValidacion.Configuracion.ContainsKey(code) ? ( 
+                    param != null ? string.Format(Constantes.PedidoValidacion.Configuracion[code].Mensaje, param) 
+                                    : Constantes.PedidoValidacion.Configuracion[code].Mensaje
+                ) : string.Empty
+            };
         }
 
         private List<BEProductoCaminoBrillante> GetCuvsCaminoBrillante(int PaisID, int CampaniaID)

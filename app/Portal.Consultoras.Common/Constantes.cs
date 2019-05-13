@@ -2570,7 +2570,11 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_PRODUCTO_NOPERTENECE_VENTAEXCLUSIVA = "1113";
                 public const string ERROR_PRODUCTO_LIMITE_VENTA = "1114";
                 public const string ERROR_PRODUCTO_DUO_COMPLETO_COMPLETO = "1115";
-                public const string ERROR_PRODUCTO_KIT_CAMINO_BRILLANTE_USADO = "1116";
+                public const string ERROR_PRODUCTO_KIT_CAMINO_BRILLANTE_USADO = "1116";                
+                public const string ERROR_PRODUCTO_BLOQUEADO_CAMINO_BRILLANTE = "1117";
+                public const string ERROR_PRODUCTO_BLOQUEADO_NIVEL_CAMINO_BRILLANTE = "1118";
+                public const string ERROR_PRODUCTO_USADO_CAMINO_BRILLANTE = "1119";
+                public const string ERROR_PRODUCTO_IR_CAMINO_BRILLANTE = "1120";
 
                 public const string ERROR_RESERVADO_HORARIO_RESTRINGIDO = "2101";
                 public const string ERROR_STOCK_ESTRATEGIA = "2102";
@@ -2639,6 +2643,10 @@ namespace Portal.Consultoras.Common
                             {Code.ERROR_PRODUCTO_NUEVA_NOPERTENECE_TUPROGRAMA, new PedidoValidacionConfiguracion(){ Mensaje = ProgNuevas.Mensaje.CuvNoPerteneceASuPrograma } },
                             {Code.ERROR_PRODUCTO_NOPERTENECE_VENTAEXCLUSIVA, new PedidoValidacionConfiguracion(){ Mensaje = VentaExclusiva.CuvNoEsVentaExclusiva } },
                             {Code.ERROR_PRODUCTO_KIT_CAMINO_BRILLANTE_USADO, new PedidoValidacionConfiguracion(){ Mensaje = "Ya agregaste tu kit." } },
+                            {Code.ERROR_PRODUCTO_BLOQUEADO_CAMINO_BRILLANTE, new PedidoValidacionConfiguracion(){ Mensaje = "Esta oferta no está habilitada para tu nivel." } },
+                            {Code.ERROR_PRODUCTO_BLOQUEADO_NIVEL_CAMINO_BRILLANTE, new PedidoValidacionConfiguracion(){ Mensaje = "Esta oferta está habilitada para el nivel {0}." } },
+                            {Code.ERROR_PRODUCTO_USADO_CAMINO_BRILLANTE, new PedidoValidacionConfiguracion(){ Mensaje = "¡Ya disfrutaste de este beneficio! Solo puedes adquirir un kit por periodo." } },
+                            {Code.ERROR_PRODUCTO_IR_CAMINO_BRILLANTE, new PedidoValidacionConfiguracion(){ Mensaje = "Ingresa a Camino Brillante y encuentra las ofertas de tu nivel." } },
 
                             {Code.ERROR_RESERVADO_HORARIO_RESTRINGIDO, new PedidoValidacionConfiguracion()},
                             {Code.ERROR_STOCK_ESTRATEGIA, new PedidoValidacionConfiguracion()},

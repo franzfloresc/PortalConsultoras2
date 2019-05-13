@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ServiceModel;
 using Portal.Consultoras.Entities.ProgramaNuevas;
 using Portal.Consultoras.Entities.LimiteVenta;
+using Portal.Consultoras.Entities.CaminoBrillante;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -206,7 +207,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         #region ProgramaNuevas
         [OperationContract]
-        Enumeradores.ValidacionCaminoBrillante ValidarBusquedaCaminoBrillante(int paisID, int campaniaID, string cuv);
+        BEValidacionCaminoBrillante ValidarBusquedaCaminoBrillante(BEUsuario entidad, string cuv);
         #endregion
 
     }
