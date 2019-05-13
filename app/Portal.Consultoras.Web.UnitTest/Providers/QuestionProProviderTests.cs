@@ -8,7 +8,7 @@ namespace Portal.Consultoras.Web.UnitTest.Providers
     [TestClass]
     public class QuestionProProviderTests
     {
-        private readonly QuestionProProvider _provider = new QuestionProProvider
+        private readonly TuVozOnlineProvider _provider = new TuVozOnlineProvider
         {
             BasePath = "https://www.questionpro.com/a/panelsso"
         };

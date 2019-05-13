@@ -609,7 +609,7 @@ namespace Portal.Consultoras.Common
             public const short CaminoBrillanteOfertasEspeciales = 168;
         }
 
-        public static class QuestionPro
+        public static class TuVozOnline
         {
             public const short Id = 172;
             public const string PanelId = "PANEL_ID";

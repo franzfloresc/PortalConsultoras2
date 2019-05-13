@@ -3,6 +3,7 @@
 @model Portal.Consultoras.Web.Models.MisDatosModel
 @{
     ViewBag.Title = "Mi Perfil";
+    var msg = TempData[Constantes.TempDataKey.MsgValidation] as Portal.Consultoras.Web.Models.Common.ResultModel<string>;
 
     int _origen = ViewBag.origen == null ? 0 : (int)ViewBag.origen;
     if (_origen == int.Parse(Constantes.IngresoExternoOrigen.ChatBot))
@@ -420,11 +421,9 @@ else
         var EsMobile = '@ViewBag.EsMobile' == 'True' ? '1' : '0';
         var UrlDrop = '@Url.Action("ObtenerUbigeoDependiente")';
         var Ubigeos = { Ubigeo1: '@Model.DireccionEntrega.Ubigeo1', Ubigeo2: '@Model.DireccionEntrega.Ubigeo2', Ubigeo3 :'@Model.DireccionEntrega.Ubigeo3'};
-        @if (TempData.ContainsKey("MSG_BODY"))
+        @if (msg != null)
         {
-            @:$(function() { AbrirMensaje('@TempData["MSG_BODY"]', '@TempData["MSG_TITLE"]'); });
-            TempData.Remove("MSG_TITLE");
-            TempData.Remove("MSG_BODY");
+            @:$(function() { AbrirMensaje('@msg.Message', '@msg.Data'); });
         }
     </script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?client=gme-cetcosa&v=weekly&callback=initMapa&libraries=places,directions"></script>

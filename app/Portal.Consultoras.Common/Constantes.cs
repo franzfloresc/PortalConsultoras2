@@ -3948,5 +3948,10 @@ namespace Portal.Consultoras.Common
             public const string OrigenPedidoWebLandingFichaCarrusel = "OrigenPedidoWebLandingFichaCarrusel";
             public const string OrigenPedidoWebDesplegableFichaCarrusel = "OrigenPedidoWebDesplegableFichaCarrusel";
         }
+
+        public static class TempDataKey
+        {
+            public const string MsgValidation = "MSG_VALIDATION";
+        }
     }
 }

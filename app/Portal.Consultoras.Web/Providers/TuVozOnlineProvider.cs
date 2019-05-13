@@ -10,7 +10,7 @@ using Portal.Consultoras.Web.ServiceUsuario;
 
 namespace Portal.Consultoras.Web.Providers
 {
-    public class QuestionProProvider
+    public class TuVozOnlineProvider
     {
         public string BasePath { get; set; }
 
@@ -55,11 +55,11 @@ namespace Portal.Consultoras.Web.Providers
 
         public KeyValuePair<string, string> GetPanelConfig(TablaLogicaProvider provider, int paisId)
         {
-            var datos = provider.GetTablaLogicaDatos(paisId, ConsTablaLogica.QuestionPro.Id);
-            var dato = datos.FirstOrDefault(r => r.Codigo == ConsTablaLogica.QuestionPro.PanelId);
+            var datos = provider.GetTablaLogicaDatos(paisId, ConsTablaLogica.TuVozOnline.Id);
+            var dato = datos.FirstOrDefault(r => r.Codigo == ConsTablaLogica.TuVozOnline.PanelId);
             var panelId = dato != null ? dato.Valor : string.Empty;
 
-            dato = datos.FirstOrDefault(r => r.Codigo == ConsTablaLogica.QuestionPro.PanelKey);
+            dato = datos.FirstOrDefault(r => r.Codigo == ConsTablaLogica.TuVozOnline.PanelKey);
             var panelKey = dato != null ? dato.Valor : string.Empty;
 
             return new KeyValuePair<string, string>(panelKey, panelId);
