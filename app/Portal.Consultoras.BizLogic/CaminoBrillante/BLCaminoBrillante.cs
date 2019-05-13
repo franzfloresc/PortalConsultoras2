@@ -811,6 +811,29 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
         #endregion
 
+        #region Cuvs
+
+        public bool EsCuvCaminoBrillante(int PaisID, int CampaniaID, string cuv) {
+            return GetCuvsCaminoBrillante(PaisID, CampaniaID).Any(e => e.CUV == cuv);
+        }
+
+        public List<BEProductoCaminoBrillante> GetCuvsCaminoBrillante(int PaisID, int CampaniaID)
+        {
+            return GetCuvsCaminoBrillanteCache(PaisID, CampaniaID);
+        }
+
+        private List<BEProductoCaminoBrillante> GetCuvsCaminoBrillanteCache(int PaisID, int CampaniaID)
+        {
+            return CacheManager<List<BEProductoCaminoBrillante>>.ValidateDataElement(PaisID, ECacheItem.CaminoBrillanteCuvs, string.Format("{0}", CampaniaID), () => GetCuvsCaminoBrillanteBD(PaisID, CampaniaID));
+        }
+
+        private List<BEProductoCaminoBrillante> GetCuvsCaminoBrillanteBD(int PaisID, int CampaniaID)
+        {
+            return new DACaminoBrillante(PaisID).GetCuvsCaminoBrillante(CampaniaID).MapToCollection<BEProductoCaminoBrillante>(closeReaderFinishing: true) ?? new List<BEProductoCaminoBrillante>();
+        }
+
+        #endregion
+
         #region Medallas
 
         private List<BEConfiguracionMedallaCaminoBrillante> GetGetConfiguracionMedallaCaminoBrillanteCache(int paisId)
