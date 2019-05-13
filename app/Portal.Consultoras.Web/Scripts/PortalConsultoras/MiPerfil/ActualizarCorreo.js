@@ -6,8 +6,24 @@ var MiPerfil_ActualizarCorreo = function (_config) {
         UrlActualizarEnviarCorreo: _config.UrlActualizarEnviarCorreo || '',
         MensajeError: _config.MensajeError || '',
         MensajeReenvioExitoso: _config.MensajeReenvioExitoso || '',
-        VistaActual: 1
+        VistaActual: 1,
+        CorreoActual: _config.CorreoActual,
+        IsConfirmar: _config.IsConfirmar
     };
+    //INI HD-3897
+    var activaGuardar = function () {
+        var btn = $("#btnActualizarCorreo");
+        btn.removeClass('btn_deshabilitado')
+        if (getDataArrayError(getData()).length > 0 || !$('#chkAceptoContratoMD').prop('checked')) btn.addClass('btn_deshabilitado');
+
+    };
+    var mensajeError = function () {
+        var obj = getData().correoNuevo;
+        if (obj!="" && !validateEmail(obj)) $("#ValidateCorreo").show();
+        else $("#ValidateCorreo").hide();
+
+    };
+    //FIN HD-3897
 
     var showSuccess = function (message) { AbrirMensaje(message, 'Mensaje', '', 2); };
     var showError = function (error) { AbrirMensaje(error, 'Error', '', 1); };
@@ -49,12 +65,13 @@ var MiPerfil_ActualizarCorreo = function (_config) {
             .always(CerrarLoad);
     };
     var actualizarEnviarCorreo = function (fnSuccess) {
-        var data = getData();
-        var arrayError = getDataArrayError(data);
+        //INI HD-3897
+        var arrayError = getDataArrayError(getData());
         if (arrayError.length > 0) {
             showArrayError(arrayError);
             return;
         }
+        //FIN HD-3897
         if (document.getElementById('chkAceptoContratoMD').checked == false) {
             alert('Debe aceptar los términos y condiciones para poder actualizar sus datos');
             return false;
@@ -79,7 +96,7 @@ var MiPerfil_ActualizarCorreo = function (_config) {
 
     var asignarEventos = function () {
         $('#btnVolver').on('click', function () {
-            if (config.VistaActual == 1) irPaginaPrevia();
+            if (config.VistaActual == 1 || config.IsConfirmar==1) irPaginaPrevia();
             else if (config.VistaActual == 2) irVista(1);
         });
         $('#btnCancelar').on('click', irPaginaPrevia);
@@ -89,13 +106,24 @@ var MiPerfil_ActualizarCorreo = function (_config) {
         $('#btnActualizarCorreo').on('click', function () { actualizarEnviarCorreo(function (data) { irVista2(data.correoNuevo); }); });
         $('#hrefTerminosMD').on('click', function () { enlaceTerminosCondiciones(); });
 
+        //INI HD-3897
+        $('#tabVistas div[vista-id=1] input').on('keyup change', function () { activaGuardar(); return $(this).val() });
+        $('#NuevoCorreo').on('focusout', function () { mensajeError(); });
+        //FIN HD-3897
+
         FuncionesGenerales.AvoidingCopyingAndPasting('NuevoCorreo');
     };
 
     return {
         Inicializar: function () {
-            irVista(config.VistaActual);
             asignarEventos();
+                //INI HD-3897
+            if (config.IsConfirmar==1) {
+                postActualizarEnviarCorreo({ correoNuevo: config.CorreoActual }, irVista2(config.CorreoActual));
+            } else{
+                irVista(config.VistaActual); 
+            }
+              //FIN HD-3897
         }
     }
 }

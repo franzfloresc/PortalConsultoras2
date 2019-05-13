@@ -40,7 +40,6 @@ $(document).ready(function () {
                 $('body').on('click', '.enlace_abrir_mapa', me.Eventos.AbrirPopupUbicacionDireccionEntrega);
                 $('body').on('click', '#CerrarPopupUbicacionDireccionEntrega', me.Eventos.CerrarPopupUbicacionDireccionEntrega);
                 $('body').on('click', '#btnConfirmarUbicacionDireccionEntrega', me.Eventos.ConfirmarUbicacionDireccionEntrega);
-
                 $('body').on('change', '#Ubigeo1,#Ubigeo2', me.Eventos.UbigeoChanged);
                 //$('body').on('click', '#Ubigeo2', me.Eventos.UbigeoChanged);
 
@@ -341,7 +340,7 @@ $(document).ready(function () {
                     $('.fondo_popup_ubicacion_direccion_entrega').fadeOut(150);
                     $('.popup_ubicacion_direccion_entrega').fadeOut(150);
                 },
-              
+                
             UbigeoChanged: function () {
                 var context = this;
                 var IdName = $(context).attr('id');

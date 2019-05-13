@@ -192,7 +192,8 @@ else
                                         <span class="text-bold">Editar</span>
                                     </a>
                                     <!-- INICIO - Este botón aparece cuando la consultora tiene pendiente confirmar su correo electrónico -->
-                                    <button id="btn_confirmar_dato_email" type="button" class="d-block text-bold border-radius-4 multimarca-background-color btn_confirmar_dato">
+                                    <button id="btn_confirmar_dato_email" type="button" class="d-block text-bold border-radius-4 multimarca-background-color btn_confirmar_dato"
+                                             onclick="location.href='@Url.Action("ConfirmarCorreo", "MiPerfil")'">
                                         Confirmar
                                     </button>
                                     <!-- FIN - Este botón aparece cuando la consultora tiene pendiente confirmar su correo electrónico -->
@@ -237,7 +238,8 @@ else
                                         <span class="text-bold">Editar</span>
                                     </a>
                                     <!-- INICIO - Este botón aparece cuando la consultora tiene pendiente confirmar su celular -->
-                                    <button id="btn_confirmar_dato_sms" type="button" style="display:none;" class="d-block text-bold border-radius-4 multimarca-background-color btn_confirmar_dato" style="display:none;">
+                                    <button id="btn_confirmar_dato_sms" type="button" style="display:none;" class="d-block text-bold border-radius-4 multimarca-background-color btn_confirmar_dato" style="display:none;"
+                                            onclick="location.href='@Url.Action("ConfirmarCelular", "MiPerfil")'">
                                         Confirmar
                                     </button>
                                     <!-- FIN - Este botón aparece cuando la consultora tiene pendiente confirmar su celular -->

@@ -156,10 +156,20 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult ActualizarCorreo()
         {
+            ViewBag.IsConfirmarCel = 0;
             ViewBag.CorreoActual = userData.EMail;
             ViewBag.UrlPdfTerminosyCondiciones = _revistaDigitalProvider.GetUrlTerminosCondicionesDatosUsuario(userData.CodigoISO);
             return View();
         }
+        //INI HD-3897
+        public ActionResult ConfirmarCorreo()
+        {
+            ViewBag.IsConfirmarCel = 1;
+            ViewBag.CorreoActual = userData.EMail;
+            ViewBag.UrlPdfTerminosyCondiciones = _revistaDigitalProvider.GetUrlTerminosCondicionesDatosUsuario(userData.CodigoISO);
+            return View("ActualizarCorreo");
+        }
+        //FIN HD-3897
 
         public JsonResult ActualizarEnviarCorreo(string correoNuevo)
         {
@@ -229,7 +239,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 return RedirectToAction("Index");
             }
-
+            ViewBag.IsConfirmarCel = 0;
             ViewBag.Celular = userData.Celular;
 
             var numero = 0;
@@ -239,7 +249,24 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.UrlPdfTerminosyCondiciones = _revistaDigitalProvider.GetUrlTerminosCondicionesDatosUsuario(userData.CodigoISO);
             return View();
         }
+        //INI HD-3897
+        public ActionResult ConfirmarCelular()
+        {
+            if (!userData.PuedeActualizar || !userData.PuedeEnviarSMS)
+            {
+                return RedirectToAction("Index");
+            }
+            ViewBag.IsConfirmarCel = 1;
+            ViewBag.Celular = userData.Celular;
 
+            var numero = 0;
+            var valida = false;
+            Util.ObtenerIniciaNumeroCelular(userData.PaisID, out valida, out numero);
+            ViewBag.IniciaNumeroCelular = valida ? numero : -1;
+            ViewBag.UrlPdfTerminosyCondiciones = _revistaDigitalProvider.GetUrlTerminosCondicionesDatosUsuario(userData.CodigoISO);
+            return View("ActualizarCelular");
+        }
+        //FIN HD-3897
         public ActionResult CambiarFotoPerfil()
         {
             return View();

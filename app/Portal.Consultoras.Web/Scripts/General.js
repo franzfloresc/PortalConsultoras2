@@ -1196,6 +1196,12 @@ function autoCompleteByCharacters(inp, arr, car) {
                 b.innerHTML += "<input type='hidden' value='" + valueInput + arr[i] + "'>";
                 b.addEventListener("click", function (e) {
                     inp.value = this.getElementsByTagName("input")[0].value;
+                    //INI HD-3897
+                    if ($(inp).hasClass("eventActPerfil_Auto")) {
+                        $(inp).trigger("change");
+                        $(inp).trigger("focusout");
+                    }
+                    //FIN HD-3897
                     closeAllLists();
                 });
                 a.appendChild(b);
