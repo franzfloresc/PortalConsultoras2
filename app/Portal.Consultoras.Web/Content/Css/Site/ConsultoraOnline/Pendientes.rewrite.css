@@ -1,0 +1,71 @@
+﻿.btn {
+    /* float: inherit;
+    width: inherit;
+    height: inherit;
+    line-height: inherit;
+    padding: inherit;
+    background: inherit;
+    color: inherit;
+    font-size: inherit;
+    border: inherit;
+    margin-top: inherit; */
+    float: unset;
+    margin-top: inherit;
+    height: unset;
+    background-image: none;
+    width: unset;
+}
+[class^='btn-']{
+    position: relative;
+    display: initial;
+    overflow: unset;
+    border: unset;
+}
+.CMXD-btn-help{
+    position : relative !important;
+    display:none;
+}
+.mobile{
+    top: -61px;
+}
+
+footer, .SubHeader{
+    display : none;
+}
+body{
+    background-color: var(--color-body-bg)
+}
+.nav > li > a{
+    border-radius: 0;
+    color: var(--color);
+}
+.nav > li > a:hover{
+    background-image: none;
+    color: var(--color);
+    
+}
+.nav a {
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+#CampoBuscadorProductos{
+    border : 0 solid var(--border-color)
+}
+
+*::before, *::after{
+    z-index: unset;
+}
+
+.img-fluid {
+    max-width: 100% !important;
+    height: auto;
+  }
+.info {
+    border: unset;
+    background-color: unset;
+    color: unset;
+}
+[data-action="not-reject"]{
+    text-decoration: underline;
+}
+

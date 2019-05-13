@@ -77,7 +77,7 @@ $(document).ready(function () {
         $('.popupPendientesPORTAL').hide();
     });
 
-    CargarPedidosPend();
+    //CargarPedidosPend();
 });
 
 function CargarPedidosPend(page, rows) {
@@ -98,7 +98,7 @@ function CargarPedidosPend(page, rows) {
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(obj),
         async: true,
-        success: function (response) {            
+        success: function (response) {
             if (checkTimeout(response)) {
                 if (response.success) {
                     var data = response.data;
@@ -127,27 +127,27 @@ function CargarPedidosPend(page, rows) {
 
                         $('#penmostreo').show();
 
-                        if (lanzarTabConsultoraOnline == '1') {
-                            $('.content_T_T').addClass("fondo_lateral");
-                            $(".fondo_pendiente").fadeIn();
-                            $(".bloque_left").fadeIn();
-                            $('#pedmostreo').removeClass('bordespacive');
-                            $('#penmostreo').addClass('bordespacive');
-                            $('#penmostreo').removeClass('tab_pendiente_es');
-                            $('#infoPedido').hide();
-                            $('#infoPendientes').show();
-                            $('.paginador_pedidos.mostrarPaginadorPedidos.inferior').hide();
-                            $('ul.paginador_notificaciones').hide();
-                            $('.caja_guardar_pedido').hide();
-                            $('.contenedor_eliminacion_pedido').hide();
-                            $('.contenedor_banners').hide();
-                            $('.info_tiempo_oportunidad.inicial').hide();
-                            $('#pedmostreo').addClass('cambio_bk_pendientes');
-                            $('.datos_para_movil').hide();
+                        //if (lanzarTabConsultoraOnline == '1') {
+                        //    $('.content_T_T').addClass("fondo_lateral");
+                        //    $(".fondo_pendiente").fadeIn();
+                        //    $(".bloque_left").fadeIn();
+                        //    $('#pedmostreo').removeClass('bordespacive');
+                        //    $('#penmostreo').addClass('bordespacive');
+                        //    $('#penmostreo').removeClass('tab_pendiente_es');
+                        //    $('#infoPedido').hide();
+                        //    $('#infoPendientes').show();
+                        //    $('.paginador_pedidos.mostrarPaginadorPedidos.inferior').hide();
+                        //    $('ul.paginador_notificaciones').hide();
+                        //    $('.caja_guardar_pedido').hide();
+                        //    $('.contenedor_eliminacion_pedido').hide();
+                        //    $('.contenedor_banners').hide();
+                        //    $('.info_tiempo_oportunidad.inicial').hide();
+                        //    $('#pedmostreo').addClass('cambio_bk_pendientes');
+                        //    $('.datos_para_movil').hide();
 
-                            $('#penmostreo').attr("data-tab-activo", '1');
-                            $('#pedmostreo').attr("data-tab-activo", '0');
-                        }
+                        //    $('#penmostreo').attr("data-tab-activo", '1');
+                        //    $('#pedmostreo').attr("data-tab-activo", '0');
+                        //}
                     }
                     else {
 
@@ -510,6 +510,16 @@ function AceptarPedido(pedidoId, tipo) {
             var marca = data[i].Marca;
             var opcion = data[i].OptAtender === null ? '' : data[i].OptAtender.split('|')[2];
 
+        var nodes = $(container).find('> div');
+        $(nodes).each(function () {
+            var id = $(this).find(":nth-child(1)").val();
+            var opt = $(this).find(":nth-child(7) select").val();
+            var cant = $(this).find("#pedpend-deta2-cantidad").text();
+            var cuv = $(this).find("#pedpend-deta2-cuv").text();
+            var nombre = $(this).find("#pedpend-deta2-nombre").text();
+            var precio = $(this).find("#pedpend-deta2-precio").val();
+            var marca = $(this).find("#pedpend-deta2-marca").val();
+            var opcion = $(this).find(":nth-child(7) select option[value='" + opt + "']").text();
             var k = 0;
 
             opciones = (opciones.length) ? (opciones + ", ") : opciones;
@@ -518,7 +528,7 @@ function AceptarPedido(pedidoId, tipo) {
             if (typeof opt !== 'undefined') {
                 if (opt == "") {
                     $('#dialog_mensajeComoAtender').show();
-                    isOk = false;                    
+                    isOk = false;
                     return false;
                 }
                 else {
@@ -533,7 +543,7 @@ function AceptarPedido(pedidoId, tipo) {
                 var d = {
                     PedidoDetalleId: id,
                     OpcionAcepta: k,
-                    Accion: 1,      
+                    Accion: 1,
                     Nombre: nombre,
                     Precio: precio,
                     Marca: marca,
@@ -545,8 +555,11 @@ function AceptarPedido(pedidoId, tipo) {
                     OpcionString: opcion
                 }
                 detalle.push(d);
-            }            
-        };
+            }
+
+
+
+        });
         DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras - PopUp Pedidos Pendientes', 'Click Botón', 'Acepto Todo el Pedido - ' + opciones);
 
 
@@ -554,7 +567,7 @@ function AceptarPedido(pedidoId, tipo) {
             var key = (tipo == 1) ? '#sc-d1' : '#sc-d2';
             var name = $(popup).find(key + '-nombre').text();
             var email = $(popup).find(key + '-correo').text();
-            var telefono = $(popup).find(key + '-telefono').text();            
+            var telefono = $(popup).find(key + '-telefono').text();
 
             var cliente = {
                 ConsultoraId: 0,
@@ -571,7 +584,7 @@ function AceptarPedido(pedidoId, tipo) {
                 contentType: 'application/json; charset=utf-8',
                 data: JSON.stringify(cliente),
                 async: true,
-                success: function (response) {                    
+                success: function (response) {
                     if (response.success) {
                         var pedido = {
                             PedidoId: pedidoId,
@@ -613,7 +626,7 @@ function AceptarPedidoRegistraClienteOK(obj) {
 function AceptarPedidoRegistraClienteCancel(obj) {
 }
 
-function ProcesarAceptarPedido(pedido) {    
+function ProcesarAceptarPedido(pedido) {
     waitingDialog({});
     $.ajax({
         type: 'POST',
@@ -629,12 +642,12 @@ function ProcesarAceptarPedido(pedido) {
                     if (pedido.Tipo == 1) {
                         $('#popup_pendientes').hide();
                         $('#msgPedidoAceptado1').text('Se han agregado ' + pedido.Ingresos.toString() + ' productos a tu pedido')
-                        $('#dialog_aceptasPendientes').show();                       
+                        $('#dialog_aceptasPendientes').show();
                     }
                     else {
                         $('#popup2_pendientes').hide();
                         $('#dialog2_aceptasPendientes').show();
-                    }                    
+                    }
 
                     var opciones = "";
                     $.each(pedido.ListaDetalleModel, function (i, item) {
@@ -647,7 +660,7 @@ function ProcesarAceptarPedido(pedido) {
                         return n.OpcionCod === 'ingrped';
                     });
 
-                    
+
                     if (PedidosIngresarAMiPedido.length) {
                         var productos = [];
 
