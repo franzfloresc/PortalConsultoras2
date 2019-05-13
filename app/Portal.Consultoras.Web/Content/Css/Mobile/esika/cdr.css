@@ -1078,6 +1078,8 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
         -ms-flex-wrap:nowrap;
         flex-wrap: nowrap;
         border-bottom:1px solid #808080;
+        padding-top: 24px;
+        padding-bottom: 24px;
     }
 
         .producto_a_cambiar:last-child{
@@ -1088,9 +1090,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
             -ms-flex-wrap: wrap;
             flex-wrap: wrap;
             align-content: space-between;
-            min-height: 130px;
-            padding-top: 16px;
-            padding-bottom: 16px;
+            min-height: 100px;
         }
 
             .producto_a_cambiar > div:first-child{

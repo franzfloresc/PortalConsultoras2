@@ -240,7 +240,7 @@
                                 <a id="aCambiarProducto2" class="enlace_cambiar_producto tipografia_lato_regular" title="Cambiar producto">MODIFICAR PRODUCTO</a>
                             </div>*@
                         </div>
-                        <ul class="center-block lista_productos_a_cambiar">
+                        @*<ul class="center-block lista_productos_a_cambiar">
                             <li class="producto_a_cambiar">
                                 <div>
                                     <div class="text-left producto_a_cambiar_cuv_y_descripcion_wrapper">
@@ -269,7 +269,43 @@
                                     </div>
                                 </div>
                             </li>
-                        </ul>
+                        </ul>*@
+                        <div id="template-cuv-cambio" class="center-block lista_productos_a_cambiar">
+                           <div class="item-producto-cambio producto_a_cambiar">
+                               <div>
+                                   <div class="text-left producto_a_cambiar_cuv_y_descripcion_wrapper">
+                                       <div class="producto_a_cambiar_cuv">
+                                           <span data-codigo="" name="codigo">06113</span>
+                                       </div>
+                                       <div class="producto_a_cambiar_descripcion">
+                                           <span data-descripcion="" name="descripcion"> ES FASCINA EDP 50ml</span>
+                                       </div>
+                                   </div>
+                                   <div class="contenedor_cantidadProductos contenedor_campo_cantidad_productos">
+                                       <div data-cantidad-contenedor="">
+                                           <input type="text"
+                                                  value="1"
+                                                  size="2"
+                                                  maxlength="2"
+                                                  data-cantidad=""
+                                                  class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
+                                                  data-input="cantidad"
+                                                  onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
+                                           <a class="cantidad_menos_home modificarPrecioMenos"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                                           <a class="cantidad_mas_home modificarPrecioMas"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                                       </div>
+                                   </div>
+                               </div>
+                               <div>
+                                   <button type="button" name="Eliminar" class="border-radius-4 btn_eliminar_trueque" onclick="EliminarCUVTrueque(this);">
+                                       <img src="/Content/Images/Esika/icons-trash.svg" alt="Eliminar Cuv Trueque" />
+                                   </button>
+                                   <div class="text-right text-bold producto_a_cambiar_precio">
+                                       S/ 106.90
+                                   </div>
+                               </div>
+                           </div>
+                        </div>
                     </div>
                     <div id="OpcionCambioMismoProducto" class="opcion_cdr_seleccionada_info_wrapper" style="display:none;">
                         <div class="opcion_cdr_seleccionada_info opcion_cdr_seleccionada_info--cambioMismoProducto">
