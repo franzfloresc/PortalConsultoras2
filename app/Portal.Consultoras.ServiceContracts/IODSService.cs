@@ -203,5 +203,11 @@ namespace Portal.Consultoras.ServiceContracts
         BEPremioNuevas Insertar(BEPremioNuevas premio);
         [OperationContract]
         BEPremioNuevas Editar(BEPremioNuevas premio);
+
+        #region ProgramaNuevas
+        [OperationContract]
+        Enumeradores.ValidacionCaminoBrillante ValidarBusquedaCaminoBrillante(int paisID, int campaniaID, string cuv);
+        #endregion
+
     }
 }

@@ -245,6 +245,9 @@ namespace Portal.Consultoras.Entities
             EsConsultoraOficina = row.ToInt32("IndicadorConsultoraOficina") == 1;
             PromedioVenta = row.ToDouble("PromedioVenta");
             NovedadBuscador = row.ToInt32("NovedadBuscador");
+            //INI HD-3693
+            AutorizaPedido = row.ToString("AutorizaPedido");
+            //FIN HD-3693
             CodigoClasificacion = row.ToString("CodigoClasificacion");
             CodigoSubClasificacion = row.ToString("CodigoSubClasificacion");
             DescripcionSubClasificacion = row.ToString("DescripcionSubClasificacion");
@@ -946,6 +949,10 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool GanaMasNativo { get; set; }
 
+        //INI HD-3693
+        [DataMember]
+        public string AutorizaPedido { get; set; }
+        //FIN HD-3693
         public BEUsuario(IDataRecord row, bool Tipo, bool ValidaHorario)
         {
             ConsultoraID = row.ToInt64("ConsultoraID");
@@ -958,6 +965,9 @@ namespace Portal.Consultoras.Entities
             EsZonaDemAnti = row.ToInt32("EsZonaDemAnti");
             if (DataRecord.HasColumn(row, "HoraCierreZonaDemAnti")) HoraCierreZonaDemAnti = DbConvert.ToTimeSpan(row["HoraCierreZonaDemAnti"]);
             if (DataRecord.HasColumn(row, "HoraCierreZonaNormal")) HoraCierreZonaNormal = DbConvert.ToTimeSpan(row["HoraCierreZonaNormal"]);
+            //INI HD-3693
+            AutorizaPedido = row.ToString("AutorizaPedido");
+            //FIN HD-3693
         }
 
         [DataMember]

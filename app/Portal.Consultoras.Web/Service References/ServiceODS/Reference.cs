@@ -4542,6 +4542,12 @@ namespace Portal.Consultoras.Web.ServiceODS {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/Editar", ReplyAction="http://tempuri.org/IODSService/EditarResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BEPremioNuevas> EditarAsync(Portal.Consultoras.Web.ServiceODS.BEPremioNuevas premio);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/ValidarBusquedaCaminoBrillante", ReplyAction="http://tempuri.org/IODSService/ValidarBusquedaCaminoBrillanteResponse")]
+        Portal.Consultoras.Common.Enumeradores.ValidacionCaminoBrillante ValidarBusquedaCaminoBrillante(int paisID, int campaniaID, string cuv);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/ValidarBusquedaCaminoBrillante", ReplyAction="http://tempuri.org/IODSService/ValidarBusquedaCaminoBrillanteResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Common.Enumeradores.ValidacionCaminoBrillante> ValidarBusquedaCaminoBrillanteAsync(int paisID, int campaniaID, string cuv);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -4985,6 +4991,14 @@ namespace Portal.Consultoras.Web.ServiceODS {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BEPremioNuevas> EditarAsync(Portal.Consultoras.Web.ServiceODS.BEPremioNuevas premio) {
             return base.Channel.EditarAsync(premio);
+        }
+        
+        public Portal.Consultoras.Common.Enumeradores.ValidacionCaminoBrillante ValidarBusquedaCaminoBrillante(int paisID, int campaniaID, string cuv) {
+            return base.Channel.ValidarBusquedaCaminoBrillante(paisID, campaniaID, cuv);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Common.Enumeradores.ValidacionCaminoBrillante> ValidarBusquedaCaminoBrillanteAsync(int paisID, int campaniaID, string cuv) {
+            return base.Channel.ValidarBusquedaCaminoBrillanteAsync(paisID, campaniaID, cuv);
         }
     }
 }

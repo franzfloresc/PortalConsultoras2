@@ -145,10 +145,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 #region Camino al Exito
 
-                var LogicaCaminoExisto = _tablaLogica.GetTablaLogicaDatos(userData.PaisID, Constantes.TablaLogica.EscalaDescuentoMobile);
+                var LogicaCaminoExisto = _tablaLogica.GetTablaLogicaDatos(userData.PaisID, ConsTablaLogica.CaminoAlExitoMobile.TablaLogicaId);
                 if (LogicaCaminoExisto.Any())
                 {
-                    var CaminoExistoFirst = LogicaCaminoExisto.FirstOrDefault(x => x.TablaLogicaDatosID == Constantes.TablaLogicaDato.ActualizaEscalaDescuentoMobile) ?? new TablaLogicaDatosModel();
+                    var CaminoExistoFirst = LogicaCaminoExisto.FirstOrDefault(x => x.TablaLogicaDatosID == ConsTablaLogica.CaminoAlExitoMobile.ActualizaEscalaDescuentoMobile) ?? new TablaLogicaDatosModel();
                     bool caminiExitoActive = (CaminoExistoFirst.Valor != null) && CaminoExistoFirst.Valor.Equals("1");
                     if (caminiExitoActive)
                     {
@@ -157,12 +157,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         model.urlCaminoExito = accesoCaminoExito.Item2 ?? "";
                     }
                 }
-
-                #endregion
-
-                #region bonificaciones 
-
-                ViewBag.esConsultoraDigital = IndicadorConsultoraDigital();
 
                 #endregion
             }
