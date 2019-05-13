@@ -458,6 +458,8 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         int ValidaEstadoPopup(int PaisID);
 
+        [OperationContract]
+        string ObtenerEstadoValidacionDatos(int paisId, string codigoUsuario, string tipo);
 
         [OperationContract]
         List<BEValidacionDatos> GetTipoEnvioActivos(int PaisID, string CodigoUsuario);

@@ -672,6 +672,7 @@ namespace Portal.Consultoras.Common
             public const string BonificacionesURL = "BonificacionesURL";
             public const string BonificacionesRegiones = "BonificacionesRegiones";
             public const string JsonWebTokenSecretKey = "JsonWebTokenSecretKey";
+            public const string QuestionProUrl = "QuestionProUrl";
         }
 
         public static class TipoOfertaFinalCatalogoPersonalizado

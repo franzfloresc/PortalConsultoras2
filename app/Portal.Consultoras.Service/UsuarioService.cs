@@ -982,6 +982,11 @@ namespace Portal.Consultoras.Service
             return BLUsuario.ValidaEstadoPopup(PaisID);
         }
 
+        public string ObtenerEstadoValidacionDatos(int paisId, string codigoUsuario, string tipo)
+        {
+            return _usuarioBusinessLogic.ObtenerEstadoValidacionDatos(paisId, codigoUsuario, tipo);
+        }
+
         public List<BEValidacionDatos> GetTipoEnvioActivos(int PaisID, string CodigoUsuario)
         {
             var BLUsuario = new BLUsuario();

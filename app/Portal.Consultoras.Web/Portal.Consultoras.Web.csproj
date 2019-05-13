@@ -244,6 +244,7 @@
     <Compile Include="Controllers\ArmaTuPackController.cs" />
     <Compile Include="Controllers\TusClientesController.cs" />
     <Compile Include="Controllers\PremioNuevasController.cs" />
+    <Compile Include="Controllers\TuVozOnlineController.cs" />
     <Compile Include="CustomHelpers\StringsHelper.cs" />
     <Compile Include="Areas\Mobile\MobileAreaRegistration.cs" />
     <Compile Include="Areas\Mobile\Models\BienvenidaModel.cs" />
@@ -878,6 +879,7 @@
     <Compile Include="Providers\PedidoSetProvider.cs" />
     <Compile Include="Providers\PedidoWebProvider.cs" />
     <Compile Include="Providers\ProductoRecomendadoProvider.cs" />
+    <Compile Include="Providers\QuestionProProvider.cs" />
     <Compile Include="Providers\RenderImgProvider.cs" />
     <Compile Include="Providers\RevistaDigitalProvider.cs" />
     <Compile Include="Providers\ShowRoomProvider.cs" />
@@ -1808,7 +1810,6 @@
     <Content Include="Content\Images\icono_carrito.svg" />
     <Content Include="Content\Images\icono_catalogos.svg" />
     <Content Include="Content\Images\icono_cerrar_menu_mobile.png" />
-    <Content Include="Content\Images\icono_comunidad_virtual.svg" />
     <Content Include="Content\Images\icono_editar.svg" />
     <Content Include="Content\Images\icono_esika_responde.png" />
     <Content Include="Content\Images\icono_infoImportante.svg" />
@@ -6108,6 +6109,7 @@
     <Folder Include="Views\EstrategiaProductoComentario\" />
     <Folder Include="Views\FakeError\" />
     <Folder Include="Views\PremioNuevas\Partial\" />
+    <Folder Include="Views\TuVozOnline\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

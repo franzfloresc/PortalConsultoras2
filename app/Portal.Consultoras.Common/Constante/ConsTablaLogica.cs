@@ -609,5 +609,11 @@ namespace Portal.Consultoras.Common
             public const short CaminoBrillanteOfertasEspeciales = 168;
         }
 
+        public static class QuestionPro
+        {
+            public const short Id = 172;
+            public const string PanelId = "PANEL_ID";
+            public const string PanelKey = "PANEL_KEY";
+        }
     }
 }
