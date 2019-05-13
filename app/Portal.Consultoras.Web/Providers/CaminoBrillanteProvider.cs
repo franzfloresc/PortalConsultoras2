@@ -185,12 +185,14 @@ namespace Portal.Consultoras.Web.Providers
         /// <summary>
         /// Obtiene Demostradores disponibles para la consultora
         /// </summary>
-        public List<DemostradorCaminoBrillanteModel> GetDesmostradoresCaminoBrillante()
+        public List<DemostradorCaminoBrillanteModel> GetDesmostradoresCaminoBrillante(string codOrden, string codFiltro, int cantMostrados, int cantidad)
         {
             try
             {
-                var demostradores = sessionManager.GetDemostradoresCaminoBrillante();
-                if (demostradores != null) return Format(Mapper.Map<List<DemostradorCaminoBrillanteModel>>(demostradores));
+                //var demostradores = sessionManager.GetDemostradoresCaminoBrillante();
+                //if (demostradores != null) return Format(Mapper.Map<List<DemostradorCaminoBrillanteModel>>(demostradores));
+
+                var demostradores = new List<BEDesmostradoresCaminoBrillante>();
 
                 int nivel = 0;
                 var nivelConsultora = GetNivelActualConsultora();
@@ -210,11 +212,10 @@ namespace Portal.Consultoras.Web.Providers
                         NivelCaminoBrillante = usuarioModel.NivelCaminoBrillante,
                     };
 
-                    demostradores = svc.GetDemostradoresCaminoBrillante(usuario).ToList();
+                    demostradores = svc.GetDemostradoresCaminoBrillante(usuario, codOrden, codFiltro, cantMostrados, cantidad).ToList();
                 }
 
-                sessionManager.SetDemostradoresCaminoBrillante(demostradores);
-
+                //sessionManager.SetDemostradoresCaminoBrillante(demostradores);
                 return Format(Mapper.Map<List<DemostradorCaminoBrillanteModel>>(demostradores));
             }
             catch (Exception ex)

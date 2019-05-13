@@ -757,11 +757,15 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
         #region Demostradores
 
-        public List<BEDesmostradoresCaminoBrillante> GetDemostradores(BEUsuario entidad)
+        public List<BEDesmostradoresCaminoBrillante> GetDemostradores(BEUsuario entidad, string ordenar, string filtro, int cantMostrados, int cantidad)
         {
             var demostradores = GetDemostradoresCaminoBrillanteCache(entidad.PaisID, entidad.CampaniaID, entidad.NivelCaminoBrillante);
             var demostradoresEnPedido = new DACaminoBrillante(entidad.PaisID).GetPedidoWebDetalleCaminoBrillante(entidad.CampaniaID, entidad.CampaniaID, entidad.ConsultoraID).MapToCollection<BEKitsHistoricoConsultora>(closeReaderFinishing: true) ?? new List<BEKitsHistoricoConsultora>();
             var paisISO = Util.GetPaisISO(entidad.PaisID);
+
+            demostradores = GetOrdenarDemostradores(demostradores, ordenar);
+            if(filtro != "") demostradores = GetFiltrarDemostradores(demostradores, filtro);
+            if(cantidad != 0) demostradores = GetDesmostradoresByCantidad(demostradores, cantMostrados, cantidad);
 
             return demostradores.Select(e => new BEDesmostradoresCaminoBrillante()
             {
@@ -779,6 +783,46 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 TipoEstrategiaID = e.TipoEstrategiaID,
                 FlagSeleccionado = demostradoresEnPedido.Any(h => h.CUV == e.CUV)
             }).ToList();
+        }
+
+        public List<BEDesmostradoresCaminoBrillante> GetOrdenarDemostradores(List<BEDesmostradoresCaminoBrillante> demostradores, string ordenar)
+        {
+            switch (ordenar)
+            {
+                case Constantes.CaminoBrillante.CodigosOrdenamiento.porCatalogo:
+                    return demostradores;
+                case Constantes.CaminoBrillante.CodigosOrdenamiento.porNombre:
+                    return demostradores.OrderBy(a => a.DescripcionCUV).ToList();
+                default:
+                     return demostradores;
+            }
+        }
+
+        public List<BEDesmostradoresCaminoBrillante> GetFiltrarDemostradores(List<BEDesmostradoresCaminoBrillante> demostradores, string filtro)
+        {
+            //var lstFiltrada = new List<BEDesmostradoresCaminoBrillante>();
+            //var array = filtro.Split('|');
+            //lstFiltrada = demostradores.Where(x => In)
+
+
+
+            //switch (filtro)
+            //{
+            //    case Constantes.CaminoBrillante.CodigoFiltros.lbel:
+            //        return demostradores;
+            //    case Constantes.CaminoBrillante.CodigoFiltros.esika:
+            //        return demostradores;
+            //    case Constantes.CaminoBrillante.CodigoFiltros.cyzone:
+            //        return demostradores;
+            //    default:
+            //        return demostradores;
+            //}
+            return null;
+        }
+
+        private List<BEDesmostradoresCaminoBrillante> GetDesmostradoresByCantidad(List<BEDesmostradoresCaminoBrillante> demostradores, int cantMostrados, int cantidad)
+        {
+            return demostradores.Skip(cantMostrados).Take(cantidad).ToList();
         }
 
         public List<BEDesmostradoresCaminoBrillante> GetDemostradores(int paisId, int campaniaId, int nivelId)
