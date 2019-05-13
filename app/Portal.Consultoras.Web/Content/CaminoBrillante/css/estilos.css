@@ -2084,3 +2084,25 @@ div.ui-dialog.ui-widget-content {
     border-radius: 0px;
     border-color: rgb(169, 169, 169);
 }
+.box-enterate {
+    display: block;
+    margin: 0 auto;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #d6d6d6;
+    max-width: 210px;
+}
+    .box-enterate a {
+        text-align: center;
+        color: white;
+        position: relative;
+        display: block;
+        color: #fff !important;
+        border-radius: 5px;
+        border: 0;
+        padding: 10px 20px;
+        max-width: 205px;
+        text-align: center;
+        margin: 25px auto;
+        text-decoration: none;
+        background: #000;
+    }
