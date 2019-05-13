@@ -511,7 +511,7 @@
 </script>
 <script id="template-detalle-paso3" type="text/x-handlebars-template">
     {{#each detalle as |item|}}
-    <div class="content_listado_reclamo content_listado_reclamo--content" data-item="{{item.CUV}}">
+    <div class="content_listado_reclamo content_listado_reclamo--contenido" data-item="{{item.CUV}}">
         <div style="display:none;">
             <input type="hidden" name="id" value="{{item.CDRWebDetalleID}}" />
         </div>
@@ -558,17 +558,18 @@
             {{else if_eq CodigoOperacion 'T'}}
             {{#if item.DetalleReemplazo}}
             {{#each item.DetalleReemplazo as |subItem|}}
-            {{subItem.CUV}}
-            <br />
-            <b>{{subItem.Descripcion}}</b>
-            <br />
-            {{subItem.Cantidad}} unidades
-            <br />
-            Precio: {{SimboloMoneda}} {{DecimalToStringFormat subItem.Precio}}
-            <br />
+            <div>
+                {{subItem.CUV}}
+                <br />
+                <b>{{subItem.Descripcion}}</b>
+                <br />
+                {{subItem.Cantidad}} unidades
+                <br />
+                Precio: {{SimboloMoneda}} {{DecimalToStringFormat subItem.Precio}}
+                <br />
+            </div>
             {{/each}}
-            <br />
-             Total: {{SimboloMoneda}} {{DecimalToStringFormat item.Total}}
+            <div class="text-bold">Total: {{SimboloMoneda}} {{DecimalToStringFormat item.Total}}</div>
             {{else}}
             {{item.CUV2}}
             <br />
@@ -584,7 +585,7 @@
             {{/if_eq}}
         </div>
         <div class="listado_eliminar_reclamo">
-            <a data-pedidodetalleid="{{item.CDRWebDetalleID}}" data-detalle-grupoid="{{item.GrupoID}}" href="javascript:void(0);" onclick="EliminarDetalle(this);" style="background-image: url('/Content/Images/Esika/tacho-copy.png'); background-repeat:no-repeat; width: 17px; height: 22px; margin: 0 auto;" title="Eliminar"></a>
+            <a data-pedidodetalleid="{{item.CDRWebDetalleID}}" data-detalle-grupoid="{{item.GrupoID}}" href="javascript:void(0);" onclick="EliminarDetalle(this);" style="background-image: url('/Content/Images/Esika/icons-trash.svg'); background-repeat:no-repeat; width: 22px; height: 22px; margin: 0 auto;" title="Eliminar"></a>
         </div>
         <div class="border-radius-4 tooltip_confirmacion_eliminacion_producto_grilla">
             <p id="EliminarProductoMsg" class="tooltip_informacion_eliminacion_producto_texto">¿Quieres eliminar este producto de tu solicitud?</p>

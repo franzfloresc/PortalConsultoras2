@@ -29310,13 +29310,12 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 }
 
 .listado_producto_reclamo {
-    width: 37%;
-    padding-right: 15px;
+    width: 26%;
 }
 
 .listado_solicitud_reclamo {
     width: 17%;
-    margin-right: 100px;
+    margin-right: 117px;
 }
 
 .listado_solicitud_reclamo--paso3 {
@@ -29342,8 +29341,17 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 }
 
 .listado_solicitada_reclamo {
-    width: 26%;
+    width: 36%;
 }
+
+    .listado_solicitada_reclamo div {
+        margin-bottom: 16px;
+    }
+
+        .listado_solicitada_reclamo div:last-child {
+            margin-bottom:4px;
+            font-size: 18px;
+        }
 
 .listado_eliminar_reclamo {
     width: 11%;
