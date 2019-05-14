@@ -1,4 +1,6 @@
-﻿USE BelcorpBolivia
+﻿
+
+USE BelcorpBolivia
 GO
 
 DELETE FROM dbo.TablaLogicaDatos WHERE TablaLogicaID = 85 AND Codigo = '04'
