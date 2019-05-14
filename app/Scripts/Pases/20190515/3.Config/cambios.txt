@@ -4,7 +4,7 @@
 
 
 2.Microservicio Search - Archivo Config
-	Agregar dentro de config.app.endpoint (Diferente valor en PRD):
+	Agregar dentro de config.app.endpoint:
 		recomendacion: "/recomendaciones"
 	
 	Agregar dentro de config, debajo del campo elasticLogging (Diferente valor en PRD), ajustar el valor de pattern al ambiente en que este:
