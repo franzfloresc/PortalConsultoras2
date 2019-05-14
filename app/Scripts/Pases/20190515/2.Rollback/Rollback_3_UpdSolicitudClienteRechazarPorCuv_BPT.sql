@@ -1,5 +1,4 @@
-﻿
-USE BelcorpBolivia
+﻿USE BelcorpBolivia
 GO
 
 IF OBJECT_ID(N'dbo.UpdSolicitudClienteRechazarPorCuv', N'P') IS NOT NULL
