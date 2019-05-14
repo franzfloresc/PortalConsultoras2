@@ -70,6 +70,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         {
             //var bETablaLogicaDato = bETablaLogicaDatos.FirstOrDefault(e => e.Codigo == codNivel);
             //return bETablaLogicaDato != null ? "1".Equals(bETablaLogicaDato.Valor) : defValor;
+            //
 
             beNivelCaminoBrillante.EnterateMas = 1; //MI ACADEMIA
             //beNivelCaminoBrillante.EnterateMasParam = "682";
