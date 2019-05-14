@@ -612,7 +612,7 @@ $(document).ready(function () {
                                 .find("span[name=descripcion]").attr("data-descripcion", datosCUV.Descripcion).end()
                                 .find("span[name=descripcion]").text(datosCUV.Descripcion).end()
                                 .find("span[name=precio]").attr("data-precio", datosCUV.PrecioCatalogo).end()
-                                .find("span[name=precio]").text(DecimalToStringFormat(datosCUV.PrecioCatalogo));
+                                .find("span[name=precio]").text(variablesPortal.SimboloMoneda + DecimalToStringFormat(datosCUV.PrecioCatalogo));
                             $("#contenedorCuvTrueque").append($template.html());
                             $this.val("");
                         }
@@ -2056,7 +2056,7 @@ $(document).ready(function () {
                 $(el).parent().parent().remove();
             },
 
-            CalcularTotal = function () {
+            CalcularTotal : function () {
             var precioTotal = 0;
             var items = $("#contenedorCuvTrueque .item-producto-cambio");
             items.each(function (i, el) {
