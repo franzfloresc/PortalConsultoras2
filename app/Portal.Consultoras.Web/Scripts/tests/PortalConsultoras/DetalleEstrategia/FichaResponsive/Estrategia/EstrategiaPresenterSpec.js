@@ -9,7 +9,7 @@
         it("throw an exception when config is undefined", function () {
 
             try {
-                GruposPresenter(undefined);
+                EstrategiaPresenter(undefined);
             } catch (error) {
                 errorMsg = error;
             }
@@ -20,7 +20,7 @@
         it("throw an exception when config is null", function () {
 
             try {
-                GruposPresenter(null);
+                EstrategiaPresenter(null);
             } catch (error) {
                 errorMsg = error;
             }
@@ -28,38 +28,37 @@
             expect(errorMsg).to.have.string("config is null or undefined");
         });
 
-        it("throw an exception when config.gruposView is undefined", function () {
+        it("throw an exception when config.estrategiaView is undefined", function () {
 
             try {
-                GruposPresenter({
-                    gruposView: undefined
+                EstrategiaPresenter({
+                    estrategiaView: undefined
                 });
             } catch (error) {
                 errorMsg = error;
             }
 
-            expect(errorMsg).to.have.string("config.gruposView is null or undefined");
+            expect(errorMsg).to.have.string("config.estrategiaView is null or undefined");
         });
 
-        it("throw an exception when config.gruposView is null", function () {
+        it("throw an exception when config.estrategiaView is null", function () {
 
             try {
-                GruposPresenter({
-                    gruposView: null
+                EstrategiaPresenter({
+                    estrategiaView: null
                 });
             } catch (error) {
                 errorMsg = error;
             }
 
-            expect(errorMsg).to.have.string("config.gruposView is null or undefined");
+            expect(errorMsg).to.have.string("config.estrategiaView is null or undefined");
         });
 
         it("throw an exception when config.generalModule is undefined", function () {
 
             try {
-                GruposPresenter({
-                    gruposView: {},
-                    armaTuPackProvider: {},
+                EstrategiaPresenter({
+                    estrategiaView: {},
                     generalModule: undefined
                 });
             } catch (error) {
@@ -72,9 +71,8 @@
         it("throw an exception when config.generalModule is null", function () {
 
             try {
-                GruposPresenter({
-                    gruposView: {},
-                    armaTuPackProvider: {},
+                EstrategiaPresenter({
+                    estrategiaView: {},
                     generalModule: null
                 });
             } catch (error) {
@@ -84,36 +82,36 @@
             expect(errorMsg).to.have.string("config.generalModule is null or undefined");
         });
 
-        it("throw an exception when config.armaTuPackDetalleEvents is undefined", function () {
+        // it("throw an exception when config.armaTuPackDetalleEvents is undefined", function () {
 
-            try {
-                GruposPresenter({
-                    gruposView: {},
-                    armaTuPackProvider: {},
-                    generalModule: {},
-                    armaTuPackDetalleEvents: undefined
-                });
-            } catch (error) {
-                errorMsg = error;
-            }
+        //     try {
+        //         GruposPresenter({
+        //             gruposView: {},
+        //             armaTuPackProvider: {},
+        //             generalModule: {},
+        //             armaTuPackDetalleEvents: undefined
+        //         });
+        //     } catch (error) {
+        //         errorMsg = error;
+        //     }
 
-            expect(errorMsg).to.have.string("config.armaTuPackDetalleEvents is null or undefined");
-        });
+        //     expect(errorMsg).to.have.string("config.armaTuPackDetalleEvents is null or undefined");
+        // });
 
-        it("throw an exception when config.armaTuPackDetalleEvents is null", function () {
+        // it("throw an exception when config.armaTuPackDetalleEvents is null", function () {
 
-            try {
-                GruposPresenter({
-                    gruposView: {},
-                    armaTuPackProvider: {},
-                    generalModule: {},
-                    armaTuPackDetalleEvents: null
-                });
-            } catch (error) {
-                errorMsg = error;
-            }
+        //     try {
+        //         GruposPresenter({
+        //             gruposView: {},
+        //             armaTuPackProvider: {},
+        //             generalModule: {},
+        //             armaTuPackDetalleEvents: null
+        //         });
+        //     } catch (error) {
+        //         errorMsg = error;
+        //     }
 
-            expect(errorMsg).to.have.string("config.armaTuPackDetalleEvents is null or undefined");
-        });
+        //     expect(errorMsg).to.have.string("config.armaTuPackDetalleEvents is null or undefined");
+        // });
     });
 });
