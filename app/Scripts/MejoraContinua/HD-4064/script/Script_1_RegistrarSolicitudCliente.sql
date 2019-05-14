@@ -14,7 +14,8 @@ ALTER PROCEDURE dbo.RegistrarSolicitudCliente
  @NumIteracion  INT,
  @Direccion varchar(800),
  @SolicitudDetalle dbo.SolicitudDetalleType READONLY,
- @SolicitudClienteOrigen BIGINT = null
+ @SolicitudClienteOrigen BIGINT = null,
+ @FlagMedio VARCHAR(10) = null
 AS
 BEGIN
 /*------------------------------------------------------------------------------------------------------------------------------------------------
@@ -152,9 +153,9 @@ BEGIN TRY
 
 
   INSERT INTO SolicitudCliente
-  (ConsultoraID, CodigoUbigeo, NombreCompleto, Email, Telefono, Mensaje, Campania, MarcaID, FechaSolicitud, Leido, NumIteracion,UnidadGeografica1, UnidadGeografica2, UnidadGeografica3, TipoDistribucion, SolicitudClienteOrigen, Direccion)
+  (ConsultoraID, CodigoUbigeo, NombreCompleto, Email, Telefono, Mensaje, Campania, MarcaID, FechaSolicitud, Leido, NumIteracion,UnidadGeografica1, UnidadGeografica2, UnidadGeografica3, TipoDistribucion, SolicitudClienteOrigen, Direccion,FlagMedio)
   VALUES
-  (@ConsultoraID, @CodigoUbigeo, @NombreCompleto, @Email, @Telefono, @Mensaje, @Campania, @MarcaID, GETDATE(), 0, @NumIteracion, @UnidGeo1, @UnidGeo2, @UnidGeo3, @TipoDistribucion,isnull(@SolicitudClienteOrigen,0),@Direccion)
+  (@ConsultoraID, @CodigoUbigeo, @NombreCompleto, @Email, @Telefono, @Mensaje, @Campania, @MarcaID, GETDATE(), 0, @NumIteracion, @UnidGeo1, @UnidGeo2, @UnidGeo3, @TipoDistribucion,isnull(@SolicitudClienteOrigen,0),@Direccion, @FlagMedio)
 
   SET @SolicitudClienteID = @@IDENTITY
   SET @MensajeResultado = 'Acción ejecutada satisfactoriamente.'
@@ -296,7 +297,8 @@ ALTER PROCEDURE dbo.RegistrarSolicitudCliente
  @NumIteracion  INT,
  @Direccion varchar(800),
  @SolicitudDetalle dbo.SolicitudDetalleType READONLY,
- @SolicitudClienteOrigen BIGINT = null
+ @SolicitudClienteOrigen BIGINT = null,
+ @FlagMedio VARCHAR(10) = null
 AS
 BEGIN
 /*------------------------------------------------------------------------------------------------------------------------------------------------
@@ -434,9 +436,9 @@ BEGIN TRY
 
 
   INSERT INTO SolicitudCliente
-  (ConsultoraID, CodigoUbigeo, NombreCompleto, Email, Telefono, Mensaje, Campania, MarcaID, FechaSolicitud, Leido, NumIteracion,UnidadGeografica1, UnidadGeografica2, UnidadGeografica3, TipoDistribucion, SolicitudClienteOrigen, Direccion)
+  (ConsultoraID, CodigoUbigeo, NombreCompleto, Email, Telefono, Mensaje, Campania, MarcaID, FechaSolicitud, Leido, NumIteracion,UnidadGeografica1, UnidadGeografica2, UnidadGeografica3, TipoDistribucion, SolicitudClienteOrigen, Direccion,FlagMedio)
   VALUES
-  (@ConsultoraID, @CodigoUbigeo, @NombreCompleto, @Email, @Telefono, @Mensaje, @Campania, @MarcaID, GETDATE(), 0, @NumIteracion, @UnidGeo1, @UnidGeo2, @UnidGeo3, @TipoDistribucion,isnull(@SolicitudClienteOrigen,0),@Direccion)
+  (@ConsultoraID, @CodigoUbigeo, @NombreCompleto, @Email, @Telefono, @Mensaje, @Campania, @MarcaID, GETDATE(), 0, @NumIteracion, @UnidGeo1, @UnidGeo2, @UnidGeo3, @TipoDistribucion,isnull(@SolicitudClienteOrigen,0),@Direccion, @FlagMedio)
 
   SET @SolicitudClienteID = @@IDENTITY
   SET @MensajeResultado = 'Acción ejecutada satisfactoriamente.'
@@ -578,7 +580,8 @@ ALTER PROCEDURE dbo.RegistrarSolicitudCliente
  @NumIteracion  INT,
  @Direccion varchar(800),
  @SolicitudDetalle dbo.SolicitudDetalleType READONLY,
- @SolicitudClienteOrigen BIGINT = null
+ @SolicitudClienteOrigen BIGINT = null,
+ @FlagMedio VARCHAR(10) = null
 AS
 BEGIN
 /*------------------------------------------------------------------------------------------------------------------------------------------------
@@ -716,9 +719,9 @@ BEGIN TRY
 
 
   INSERT INTO SolicitudCliente
-  (ConsultoraID, CodigoUbigeo, NombreCompleto, Email, Telefono, Mensaje, Campania, MarcaID, FechaSolicitud, Leido, NumIteracion,UnidadGeografica1, UnidadGeografica2, UnidadGeografica3, TipoDistribucion, SolicitudClienteOrigen, Direccion)
+  (ConsultoraID, CodigoUbigeo, NombreCompleto, Email, Telefono, Mensaje, Campania, MarcaID, FechaSolicitud, Leido, NumIteracion,UnidadGeografica1, UnidadGeografica2, UnidadGeografica3, TipoDistribucion, SolicitudClienteOrigen, Direccion,FlagMedio)
   VALUES
-  (@ConsultoraID, @CodigoUbigeo, @NombreCompleto, @Email, @Telefono, @Mensaje, @Campania, @MarcaID, GETDATE(), 0, @NumIteracion, @UnidGeo1, @UnidGeo2, @UnidGeo3, @TipoDistribucion,isnull(@SolicitudClienteOrigen,0),@Direccion)
+  (@ConsultoraID, @CodigoUbigeo, @NombreCompleto, @Email, @Telefono, @Mensaje, @Campania, @MarcaID, GETDATE(), 0, @NumIteracion, @UnidGeo1, @UnidGeo2, @UnidGeo3, @TipoDistribucion,isnull(@SolicitudClienteOrigen,0),@Direccion, @FlagMedio)
 
   SET @SolicitudClienteID = @@IDENTITY
   SET @MensajeResultado = 'Acción ejecutada satisfactoriamente.'
@@ -860,7 +863,8 @@ ALTER PROCEDURE dbo.RegistrarSolicitudCliente
  @NumIteracion  INT,
  @Direccion varchar(800),
  @SolicitudDetalle dbo.SolicitudDetalleType READONLY,
- @SolicitudClienteOrigen BIGINT = null
+ @SolicitudClienteOrigen BIGINT = null,
+ @FlagMedio VARCHAR(10) = null
 AS
 BEGIN
 /*------------------------------------------------------------------------------------------------------------------------------------------------
@@ -998,9 +1002,9 @@ BEGIN TRY
 
 
   INSERT INTO SolicitudCliente
-  (ConsultoraID, CodigoUbigeo, NombreCompleto, Email, Telefono, Mensaje, Campania, MarcaID, FechaSolicitud, Leido, NumIteracion,UnidadGeografica1, UnidadGeografica2, UnidadGeografica3, TipoDistribucion, SolicitudClienteOrigen, Direccion)
+  (ConsultoraID, CodigoUbigeo, NombreCompleto, Email, Telefono, Mensaje, Campania, MarcaID, FechaSolicitud, Leido, NumIteracion,UnidadGeografica1, UnidadGeografica2, UnidadGeografica3, TipoDistribucion, SolicitudClienteOrigen, Direccion,FlagMedio)
   VALUES
-  (@ConsultoraID, @CodigoUbigeo, @NombreCompleto, @Email, @Telefono, @Mensaje, @Campania, @MarcaID, GETDATE(), 0, @NumIteracion, @UnidGeo1, @UnidGeo2, @UnidGeo3, @TipoDistribucion,isnull(@SolicitudClienteOrigen,0),@Direccion)
+  (@ConsultoraID, @CodigoUbigeo, @NombreCompleto, @Email, @Telefono, @Mensaje, @Campania, @MarcaID, GETDATE(), 0, @NumIteracion, @UnidGeo1, @UnidGeo2, @UnidGeo3, @TipoDistribucion,isnull(@SolicitudClienteOrigen,0),@Direccion, @FlagMedio)
 
   SET @SolicitudClienteID = @@IDENTITY
   SET @MensajeResultado = 'Acción ejecutada satisfactoriamente.'
@@ -1142,7 +1146,8 @@ ALTER PROCEDURE dbo.RegistrarSolicitudCliente
  @NumIteracion  INT,
  @Direccion varchar(800),
  @SolicitudDetalle dbo.SolicitudDetalleType READONLY,
- @SolicitudClienteOrigen BIGINT = null
+ @SolicitudClienteOrigen BIGINT = null,
+ @FlagMedio VARCHAR(10) = null
 AS
 BEGIN
 /*------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1280,9 +1285,9 @@ BEGIN TRY
 
 
   INSERT INTO SolicitudCliente
-  (ConsultoraID, CodigoUbigeo, NombreCompleto, Email, Telefono, Mensaje, Campania, MarcaID, FechaSolicitud, Leido, NumIteracion,UnidadGeografica1, UnidadGeografica2, UnidadGeografica3, TipoDistribucion, SolicitudClienteOrigen, Direccion)
+  (ConsultoraID, CodigoUbigeo, NombreCompleto, Email, Telefono, Mensaje, Campania, MarcaID, FechaSolicitud, Leido, NumIteracion,UnidadGeografica1, UnidadGeografica2, UnidadGeografica3, TipoDistribucion, SolicitudClienteOrigen, Direccion,FlagMedio)
   VALUES
-  (@ConsultoraID, @CodigoUbigeo, @NombreCompleto, @Email, @Telefono, @Mensaje, @Campania, @MarcaID, GETDATE(), 0, @NumIteracion, @UnidGeo1, @UnidGeo2, @UnidGeo3, @TipoDistribucion,isnull(@SolicitudClienteOrigen,0),@Direccion)
+  (@ConsultoraID, @CodigoUbigeo, @NombreCompleto, @Email, @Telefono, @Mensaje, @Campania, @MarcaID, GETDATE(), 0, @NumIteracion, @UnidGeo1, @UnidGeo2, @UnidGeo3, @TipoDistribucion,isnull(@SolicitudClienteOrigen,0),@Direccion, @FlagMedio)
 
   SET @SolicitudClienteID = @@IDENTITY
   SET @MensajeResultado = 'Acción ejecutada satisfactoriamente.'
@@ -1424,7 +1429,8 @@ ALTER PROCEDURE dbo.RegistrarSolicitudCliente
  @NumIteracion  INT,
  @Direccion varchar(800),
  @SolicitudDetalle dbo.SolicitudDetalleType READONLY,
- @SolicitudClienteOrigen BIGINT = null
+ @SolicitudClienteOrigen BIGINT = null,
+ @FlagMedio VARCHAR(10) = null
 AS
 BEGIN
 /*------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1562,9 +1568,9 @@ BEGIN TRY
 
 
   INSERT INTO SolicitudCliente
-  (ConsultoraID, CodigoUbigeo, NombreCompleto, Email, Telefono, Mensaje, Campania, MarcaID, FechaSolicitud, Leido, NumIteracion,UnidadGeografica1, UnidadGeografica2, UnidadGeografica3, TipoDistribucion, SolicitudClienteOrigen, Direccion)
+  (ConsultoraID, CodigoUbigeo, NombreCompleto, Email, Telefono, Mensaje, Campania, MarcaID, FechaSolicitud, Leido, NumIteracion,UnidadGeografica1, UnidadGeografica2, UnidadGeografica3, TipoDistribucion, SolicitudClienteOrigen, Direccion,FlagMedio)
   VALUES
-  (@ConsultoraID, @CodigoUbigeo, @NombreCompleto, @Email, @Telefono, @Mensaje, @Campania, @MarcaID, GETDATE(), 0, @NumIteracion, @UnidGeo1, @UnidGeo2, @UnidGeo3, @TipoDistribucion,isnull(@SolicitudClienteOrigen,0),@Direccion)
+  (@ConsultoraID, @CodigoUbigeo, @NombreCompleto, @Email, @Telefono, @Mensaje, @Campania, @MarcaID, GETDATE(), 0, @NumIteracion, @UnidGeo1, @UnidGeo2, @UnidGeo3, @TipoDistribucion,isnull(@SolicitudClienteOrigen,0),@Direccion, @FlagMedio)
 
   SET @SolicitudClienteID = @@IDENTITY
   SET @MensajeResultado = 'Acción ejecutada satisfactoriamente.'
@@ -1706,7 +1712,8 @@ ALTER PROCEDURE dbo.RegistrarSolicitudCliente
  @NumIteracion  INT,
  @Direccion varchar(800),
  @SolicitudDetalle dbo.SolicitudDetalleType READONLY,
- @SolicitudClienteOrigen BIGINT = null
+ @SolicitudClienteOrigen BIGINT = null,
+ @FlagMedio VARCHAR(10) = null
 AS
 BEGIN
 /*------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1844,9 +1851,9 @@ BEGIN TRY
 
 
   INSERT INTO SolicitudCliente
-  (ConsultoraID, CodigoUbigeo, NombreCompleto, Email, Telefono, Mensaje, Campania, MarcaID, FechaSolicitud, Leido, NumIteracion,UnidadGeografica1, UnidadGeografica2, UnidadGeografica3, TipoDistribucion, SolicitudClienteOrigen, Direccion)
+  (ConsultoraID, CodigoUbigeo, NombreCompleto, Email, Telefono, Mensaje, Campania, MarcaID, FechaSolicitud, Leido, NumIteracion,UnidadGeografica1, UnidadGeografica2, UnidadGeografica3, TipoDistribucion, SolicitudClienteOrigen, Direccion,FlagMedio)
   VALUES
-  (@ConsultoraID, @CodigoUbigeo, @NombreCompleto, @Email, @Telefono, @Mensaje, @Campania, @MarcaID, GETDATE(), 0, @NumIteracion, @UnidGeo1, @UnidGeo2, @UnidGeo3, @TipoDistribucion,isnull(@SolicitudClienteOrigen,0),@Direccion)
+  (@ConsultoraID, @CodigoUbigeo, @NombreCompleto, @Email, @Telefono, @Mensaje, @Campania, @MarcaID, GETDATE(), 0, @NumIteracion, @UnidGeo1, @UnidGeo2, @UnidGeo3, @TipoDistribucion,isnull(@SolicitudClienteOrigen,0),@Direccion, @FlagMedio)
 
   SET @SolicitudClienteID = @@IDENTITY
   SET @MensajeResultado = 'Acción ejecutada satisfactoriamente.'
@@ -1988,7 +1995,8 @@ ALTER PROCEDURE dbo.RegistrarSolicitudCliente
  @NumIteracion  INT,
  @Direccion varchar(800),
  @SolicitudDetalle dbo.SolicitudDetalleType READONLY,
- @SolicitudClienteOrigen BIGINT = null
+ @SolicitudClienteOrigen BIGINT = null,
+ @FlagMedio VARCHAR(10) = null
 AS
 BEGIN
 /*------------------------------------------------------------------------------------------------------------------------------------------------
@@ -2126,9 +2134,9 @@ BEGIN TRY
 
 
   INSERT INTO SolicitudCliente
-  (ConsultoraID, CodigoUbigeo, NombreCompleto, Email, Telefono, Mensaje, Campania, MarcaID, FechaSolicitud, Leido, NumIteracion,UnidadGeografica1, UnidadGeografica2, UnidadGeografica3, TipoDistribucion, SolicitudClienteOrigen, Direccion)
+  (ConsultoraID, CodigoUbigeo, NombreCompleto, Email, Telefono, Mensaje, Campania, MarcaID, FechaSolicitud, Leido, NumIteracion,UnidadGeografica1, UnidadGeografica2, UnidadGeografica3, TipoDistribucion, SolicitudClienteOrigen, Direccion,FlagMedio)
   VALUES
-  (@ConsultoraID, @CodigoUbigeo, @NombreCompleto, @Email, @Telefono, @Mensaje, @Campania, @MarcaID, GETDATE(), 0, @NumIteracion, @UnidGeo1, @UnidGeo2, @UnidGeo3, @TipoDistribucion,isnull(@SolicitudClienteOrigen,0),@Direccion)
+  (@ConsultoraID, @CodigoUbigeo, @NombreCompleto, @Email, @Telefono, @Mensaje, @Campania, @MarcaID, GETDATE(), 0, @NumIteracion, @UnidGeo1, @UnidGeo2, @UnidGeo3, @TipoDistribucion,isnull(@SolicitudClienteOrigen,0),@Direccion, @FlagMedio)
 
   SET @SolicitudClienteID = @@IDENTITY
   SET @MensajeResultado = 'Acción ejecutada satisfactoriamente.'
@@ -2270,7 +2278,8 @@ ALTER PROCEDURE dbo.RegistrarSolicitudCliente
  @NumIteracion  INT,
  @Direccion varchar(800),
  @SolicitudDetalle dbo.SolicitudDetalleType READONLY,
- @SolicitudClienteOrigen BIGINT = null
+ @SolicitudClienteOrigen BIGINT = null,
+ @FlagMedio VARCHAR(10) = null
 AS
 BEGIN
 /*------------------------------------------------------------------------------------------------------------------------------------------------
@@ -2408,9 +2417,9 @@ BEGIN TRY
 
 
   INSERT INTO SolicitudCliente
-  (ConsultoraID, CodigoUbigeo, NombreCompleto, Email, Telefono, Mensaje, Campania, MarcaID, FechaSolicitud, Leido, NumIteracion,UnidadGeografica1, UnidadGeografica2, UnidadGeografica3, TipoDistribucion, SolicitudClienteOrigen, Direccion)
+  (ConsultoraID, CodigoUbigeo, NombreCompleto, Email, Telefono, Mensaje, Campania, MarcaID, FechaSolicitud, Leido, NumIteracion,UnidadGeografica1, UnidadGeografica2, UnidadGeografica3, TipoDistribucion, SolicitudClienteOrigen, Direccion,FlagMedio)
   VALUES
-  (@ConsultoraID, @CodigoUbigeo, @NombreCompleto, @Email, @Telefono, @Mensaje, @Campania, @MarcaID, GETDATE(), 0, @NumIteracion, @UnidGeo1, @UnidGeo2, @UnidGeo3, @TipoDistribucion,isnull(@SolicitudClienteOrigen,0),@Direccion)
+  (@ConsultoraID, @CodigoUbigeo, @NombreCompleto, @Email, @Telefono, @Mensaje, @Campania, @MarcaID, GETDATE(), 0, @NumIteracion, @UnidGeo1, @UnidGeo2, @UnidGeo3, @TipoDistribucion,isnull(@SolicitudClienteOrigen,0),@Direccion, @FlagMedio)
 
   SET @SolicitudClienteID = @@IDENTITY
   SET @MensajeResultado = 'Acción ejecutada satisfactoriamente.'
@@ -2552,7 +2561,8 @@ ALTER PROCEDURE dbo.RegistrarSolicitudCliente
  @NumIteracion  INT,
  @Direccion varchar(800),
  @SolicitudDetalle dbo.SolicitudDetalleType READONLY,
- @SolicitudClienteOrigen BIGINT = null
+ @SolicitudClienteOrigen BIGINT = null,
+ @FlagMedio VARCHAR(10) = null
 AS
 BEGIN
 /*------------------------------------------------------------------------------------------------------------------------------------------------
@@ -2690,9 +2700,9 @@ BEGIN TRY
 
 
   INSERT INTO SolicitudCliente
-  (ConsultoraID, CodigoUbigeo, NombreCompleto, Email, Telefono, Mensaje, Campania, MarcaID, FechaSolicitud, Leido, NumIteracion,UnidadGeografica1, UnidadGeografica2, UnidadGeografica3, TipoDistribucion, SolicitudClienteOrigen, Direccion)
+  (ConsultoraID, CodigoUbigeo, NombreCompleto, Email, Telefono, Mensaje, Campania, MarcaID, FechaSolicitud, Leido, NumIteracion,UnidadGeografica1, UnidadGeografica2, UnidadGeografica3, TipoDistribucion, SolicitudClienteOrigen, Direccion,FlagMedio)
   VALUES
-  (@ConsultoraID, @CodigoUbigeo, @NombreCompleto, @Email, @Telefono, @Mensaje, @Campania, @MarcaID, GETDATE(), 0, @NumIteracion, @UnidGeo1, @UnidGeo2, @UnidGeo3, @TipoDistribucion,isnull(@SolicitudClienteOrigen,0),@Direccion)
+  (@ConsultoraID, @CodigoUbigeo, @NombreCompleto, @Email, @Telefono, @Mensaje, @Campania, @MarcaID, GETDATE(), 0, @NumIteracion, @UnidGeo1, @UnidGeo2, @UnidGeo3, @TipoDistribucion,isnull(@SolicitudClienteOrigen,0),@Direccion, @FlagMedio)
 
   SET @SolicitudClienteID = @@IDENTITY
   SET @MensajeResultado = 'Acción ejecutada satisfactoriamente.'
@@ -2834,7 +2844,8 @@ ALTER PROCEDURE dbo.RegistrarSolicitudCliente
  @NumIteracion  INT,
  @Direccion varchar(800),
  @SolicitudDetalle dbo.SolicitudDetalleType READONLY,
- @SolicitudClienteOrigen BIGINT = null
+ @SolicitudClienteOrigen BIGINT = null,
+ @FlagMedio VARCHAR(10) = null
 AS
 BEGIN
 /*------------------------------------------------------------------------------------------------------------------------------------------------
@@ -2972,9 +2983,9 @@ BEGIN TRY
 
 
   INSERT INTO SolicitudCliente
-  (ConsultoraID, CodigoUbigeo, NombreCompleto, Email, Telefono, Mensaje, Campania, MarcaID, FechaSolicitud, Leido, NumIteracion,UnidadGeografica1, UnidadGeografica2, UnidadGeografica3, TipoDistribucion, SolicitudClienteOrigen, Direccion)
+  (ConsultoraID, CodigoUbigeo, NombreCompleto, Email, Telefono, Mensaje, Campania, MarcaID, FechaSolicitud, Leido, NumIteracion,UnidadGeografica1, UnidadGeografica2, UnidadGeografica3, TipoDistribucion, SolicitudClienteOrigen, Direccion,FlagMedio)
   VALUES
-  (@ConsultoraID, @CodigoUbigeo, @NombreCompleto, @Email, @Telefono, @Mensaje, @Campania, @MarcaID, GETDATE(), 0, @NumIteracion, @UnidGeo1, @UnidGeo2, @UnidGeo3, @TipoDistribucion,isnull(@SolicitudClienteOrigen,0),@Direccion)
+  (@ConsultoraID, @CodigoUbigeo, @NombreCompleto, @Email, @Telefono, @Mensaje, @Campania, @MarcaID, GETDATE(), 0, @NumIteracion, @UnidGeo1, @UnidGeo2, @UnidGeo3, @TipoDistribucion,isnull(@SolicitudClienteOrigen,0),@Direccion, @FlagMedio)
 
   SET @SolicitudClienteID = @@IDENTITY
   SET @MensajeResultado = 'Acción ejecutada satisfactoriamente.'
@@ -3116,7 +3127,8 @@ ALTER PROCEDURE dbo.RegistrarSolicitudCliente
  @NumIteracion  INT,
  @Direccion varchar(800),
  @SolicitudDetalle dbo.SolicitudDetalleType READONLY,
- @SolicitudClienteOrigen BIGINT = null
+ @SolicitudClienteOrigen BIGINT = null,
+ @FlagMedio VARCHAR(10) = null
 AS
 BEGIN
 /*------------------------------------------------------------------------------------------------------------------------------------------------
@@ -3254,9 +3266,9 @@ BEGIN TRY
 
 
   INSERT INTO SolicitudCliente
-  (ConsultoraID, CodigoUbigeo, NombreCompleto, Email, Telefono, Mensaje, Campania, MarcaID, FechaSolicitud, Leido, NumIteracion,UnidadGeografica1, UnidadGeografica2, UnidadGeografica3, TipoDistribucion, SolicitudClienteOrigen, Direccion)
+  (ConsultoraID, CodigoUbigeo, NombreCompleto, Email, Telefono, Mensaje, Campania, MarcaID, FechaSolicitud, Leido, NumIteracion,UnidadGeografica1, UnidadGeografica2, UnidadGeografica3, TipoDistribucion, SolicitudClienteOrigen, Direccion,FlagMedio)
   VALUES
-  (@ConsultoraID, @CodigoUbigeo, @NombreCompleto, @Email, @Telefono, @Mensaje, @Campania, @MarcaID, GETDATE(), 0, @NumIteracion, @UnidGeo1, @UnidGeo2, @UnidGeo3, @TipoDistribucion,isnull(@SolicitudClienteOrigen,0),@Direccion)
+  (@ConsultoraID, @CodigoUbigeo, @NombreCompleto, @Email, @Telefono, @Mensaje, @Campania, @MarcaID, GETDATE(), 0, @NumIteracion, @UnidGeo1, @UnidGeo2, @UnidGeo3, @TipoDistribucion,isnull(@SolicitudClienteOrigen,0),@Direccion, @FlagMedio)
 
   SET @SolicitudClienteID = @@IDENTITY
   SET @MensajeResultado = 'Acción ejecutada satisfactoriamente.'

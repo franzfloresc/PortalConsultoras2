@@ -1,7 +1,6 @@
 GO
 USE BelcorpPeru
 GO
-
 ALTER proc [dbo].[ReasignarSolicitudCliente]
 (
 @SolicitudId bigint,
@@ -38,7 +37,8 @@ declare @TmpConsultorasAsignadas table ( CodigoConsultora VARCHAR(30), MarcaID I
     @Campania   VARCHAR(10),
     @MarcaIDSC   INT,
     @Estado    CHAR(1),
-	@Direccion VARCHAR(800)
+	@Direccion VARCHAR(800),
+	@FlagMedio VARCHAR(10)
 
 SELECT @CodigoUbigeoSC = CodigoUbigeo,
      @NombreCompleto = NombreCompleto,
@@ -50,7 +50,8 @@ SELECT @CodigoUbigeoSC = CodigoUbigeo,
      @MarcaIDSC = MarcaID,
      @ConsultoraID = ConsultoraID  ,
      @Estado = Estado ,
-	 @Direccion = Direccion
+	 @Direccion = Direccion,
+	 @FlagMedio = FlagMedio
    FROM SolicitudCliente with(nolock)
    WHERE SolicitudClienteID = @SolicitudID
 
@@ -73,7 +74,7 @@ begin
   SELECT CUV, Producto, Cantidad, Precio, Tono FROM SolicitudClienteDetalle WHERE SolicitudClienteID = @SolicitudID
 
   INSERT INTO @TmpResultadoCliente
-  EXEC RegistrarSolicitudCliente  @ConsultoraReasignada, @ConsultoraReasignadaID, @CodigoUbigeoSC, @NombreCompleto, @Email, @Telefono, @Mensaje, @Campania, @MarcaIDSC, @numIteracion, @Direccion, @SolicitudDetalle
+  EXEC RegistrarSolicitudCliente  @ConsultoraReasignada, @ConsultoraReasignadaID, @CodigoUbigeoSC, @NombreCompleto, @Email, @Telefono, @Mensaje, @Campania, @MarcaIDSC, @numIteracion, @Direccion, @SolicitudDetalle, null,@FlagMedio
 
   Declare @Resultado varchar(100)
   Select top 1 @Resultado = Mensaje + ' / '+ Cast( t.Resultado as varchar(50)) from @TmpResultadoCliente t
@@ -97,7 +98,7 @@ exec  UpdRechazarSolicitud @SolicitudId,@Definitivo,@MotivoSolicitudId,@RazonMot
 
  SELECT
   C.Codigo,
-  C.PrimerNombre AS Nombre,
+  CONCAT (C.PrimerNombre , ' ', C.PrimerApellido) AS Nombre,
   U.Email,
   M.Descripcion AS MarcaNombre
  FROM @TmpConsultorasAsignadas TCON
@@ -111,7 +112,6 @@ end
 GO
 USE BelcorpMexico
 GO
-
 ALTER proc [dbo].[ReasignarSolicitudCliente]
 (
 @SolicitudId bigint,
@@ -148,7 +148,8 @@ declare @TmpConsultorasAsignadas table ( CodigoConsultora VARCHAR(30), MarcaID I
     @Campania   VARCHAR(10),
     @MarcaIDSC   INT,
     @Estado    CHAR(1),
-	@Direccion VARCHAR(800)
+	@Direccion VARCHAR(800),
+	@FlagMedio VARCHAR(10)
 
 SELECT @CodigoUbigeoSC = CodigoUbigeo,
      @NombreCompleto = NombreCompleto,
@@ -160,7 +161,8 @@ SELECT @CodigoUbigeoSC = CodigoUbigeo,
      @MarcaIDSC = MarcaID,
      @ConsultoraID = ConsultoraID  ,
      @Estado = Estado ,
-	 @Direccion = Direccion
+	 @Direccion = Direccion,
+	 @FlagMedio = FlagMedio
    FROM SolicitudCliente with(nolock)
    WHERE SolicitudClienteID = @SolicitudID
 
@@ -183,7 +185,7 @@ begin
   SELECT CUV, Producto, Cantidad, Precio, Tono FROM SolicitudClienteDetalle WHERE SolicitudClienteID = @SolicitudID
 
   INSERT INTO @TmpResultadoCliente
-  EXEC RegistrarSolicitudCliente  @ConsultoraReasignada, @ConsultoraReasignadaID, @CodigoUbigeoSC, @NombreCompleto, @Email, @Telefono, @Mensaje, @Campania, @MarcaIDSC, @numIteracion, @Direccion, @SolicitudDetalle
+  EXEC RegistrarSolicitudCliente  @ConsultoraReasignada, @ConsultoraReasignadaID, @CodigoUbigeoSC, @NombreCompleto, @Email, @Telefono, @Mensaje, @Campania, @MarcaIDSC, @numIteracion, @Direccion, @SolicitudDetalle, null,@FlagMedio
 
   Declare @Resultado varchar(100)
   Select top 1 @Resultado = Mensaje + ' / '+ Cast( t.Resultado as varchar(50)) from @TmpResultadoCliente t
@@ -207,7 +209,7 @@ exec  UpdRechazarSolicitud @SolicitudId,@Definitivo,@MotivoSolicitudId,@RazonMot
 
  SELECT
   C.Codigo,
-  C.PrimerNombre AS Nombre,
+  CONCAT (C.PrimerNombre , ' ', C.PrimerApellido) AS Nombre,
   U.Email,
   M.Descripcion AS MarcaNombre
  FROM @TmpConsultorasAsignadas TCON
@@ -221,7 +223,6 @@ end
 GO
 USE BelcorpColombia
 GO
-
 ALTER proc [dbo].[ReasignarSolicitudCliente]
 (
 @SolicitudId bigint,
@@ -258,7 +259,8 @@ declare @TmpConsultorasAsignadas table ( CodigoConsultora VARCHAR(30), MarcaID I
     @Campania   VARCHAR(10),
     @MarcaIDSC   INT,
     @Estado    CHAR(1),
-	@Direccion VARCHAR(800)
+	@Direccion VARCHAR(800),
+	@FlagMedio VARCHAR(10)
 
 SELECT @CodigoUbigeoSC = CodigoUbigeo,
      @NombreCompleto = NombreCompleto,
@@ -270,7 +272,8 @@ SELECT @CodigoUbigeoSC = CodigoUbigeo,
      @MarcaIDSC = MarcaID,
      @ConsultoraID = ConsultoraID  ,
      @Estado = Estado ,
-	 @Direccion = Direccion
+	 @Direccion = Direccion,
+	 @FlagMedio = FlagMedio
    FROM SolicitudCliente with(nolock)
    WHERE SolicitudClienteID = @SolicitudID
 
@@ -293,7 +296,7 @@ begin
   SELECT CUV, Producto, Cantidad, Precio, Tono FROM SolicitudClienteDetalle WHERE SolicitudClienteID = @SolicitudID
 
   INSERT INTO @TmpResultadoCliente
-  EXEC RegistrarSolicitudCliente  @ConsultoraReasignada, @ConsultoraReasignadaID, @CodigoUbigeoSC, @NombreCompleto, @Email, @Telefono, @Mensaje, @Campania, @MarcaIDSC, @numIteracion, @Direccion, @SolicitudDetalle
+  EXEC RegistrarSolicitudCliente  @ConsultoraReasignada, @ConsultoraReasignadaID, @CodigoUbigeoSC, @NombreCompleto, @Email, @Telefono, @Mensaje, @Campania, @MarcaIDSC, @numIteracion, @Direccion, @SolicitudDetalle, null,@FlagMedio
 
   Declare @Resultado varchar(100)
   Select top 1 @Resultado = Mensaje + ' / '+ Cast( t.Resultado as varchar(50)) from @TmpResultadoCliente t
@@ -317,7 +320,7 @@ exec  UpdRechazarSolicitud @SolicitudId,@Definitivo,@MotivoSolicitudId,@RazonMot
 
  SELECT
   C.Codigo,
-  C.PrimerNombre AS Nombre,
+  CONCAT (C.PrimerNombre , ' ', C.PrimerApellido) AS Nombre,
   U.Email,
   M.Descripcion AS MarcaNombre
  FROM @TmpConsultorasAsignadas TCON
@@ -331,7 +334,6 @@ end
 GO
 USE BelcorpSalvador
 GO
-
 ALTER proc [dbo].[ReasignarSolicitudCliente]
 (
 @SolicitudId bigint,
@@ -368,7 +370,8 @@ declare @TmpConsultorasAsignadas table ( CodigoConsultora VARCHAR(30), MarcaID I
     @Campania   VARCHAR(10),
     @MarcaIDSC   INT,
     @Estado    CHAR(1),
-	@Direccion VARCHAR(800)
+	@Direccion VARCHAR(800),
+	@FlagMedio VARCHAR(10)
 
 SELECT @CodigoUbigeoSC = CodigoUbigeo,
      @NombreCompleto = NombreCompleto,
@@ -380,7 +383,8 @@ SELECT @CodigoUbigeoSC = CodigoUbigeo,
      @MarcaIDSC = MarcaID,
      @ConsultoraID = ConsultoraID  ,
      @Estado = Estado ,
-	 @Direccion = Direccion
+	 @Direccion = Direccion,
+	 @FlagMedio = FlagMedio
    FROM SolicitudCliente with(nolock)
    WHERE SolicitudClienteID = @SolicitudID
 
@@ -403,7 +407,7 @@ begin
   SELECT CUV, Producto, Cantidad, Precio, Tono FROM SolicitudClienteDetalle WHERE SolicitudClienteID = @SolicitudID
 
   INSERT INTO @TmpResultadoCliente
-  EXEC RegistrarSolicitudCliente  @ConsultoraReasignada, @ConsultoraReasignadaID, @CodigoUbigeoSC, @NombreCompleto, @Email, @Telefono, @Mensaje, @Campania, @MarcaIDSC, @numIteracion, @Direccion, @SolicitudDetalle
+  EXEC RegistrarSolicitudCliente  @ConsultoraReasignada, @ConsultoraReasignadaID, @CodigoUbigeoSC, @NombreCompleto, @Email, @Telefono, @Mensaje, @Campania, @MarcaIDSC, @numIteracion, @Direccion, @SolicitudDetalle, null,@FlagMedio
 
   Declare @Resultado varchar(100)
   Select top 1 @Resultado = Mensaje + ' / '+ Cast( t.Resultado as varchar(50)) from @TmpResultadoCliente t
@@ -427,7 +431,7 @@ exec  UpdRechazarSolicitud @SolicitudId,@Definitivo,@MotivoSolicitudId,@RazonMot
 
  SELECT
   C.Codigo,
-  C.PrimerNombre AS Nombre,
+  CONCAT (C.PrimerNombre , ' ', C.PrimerApellido) AS Nombre,
   U.Email,
   M.Descripcion AS MarcaNombre
  FROM @TmpConsultorasAsignadas TCON
@@ -441,7 +445,6 @@ end
 GO
 USE BelcorpPuertoRico
 GO
-
 ALTER proc [dbo].[ReasignarSolicitudCliente]
 (
 @SolicitudId bigint,
@@ -478,7 +481,8 @@ declare @TmpConsultorasAsignadas table ( CodigoConsultora VARCHAR(30), MarcaID I
     @Campania   VARCHAR(10),
     @MarcaIDSC   INT,
     @Estado    CHAR(1),
-	@Direccion VARCHAR(800)
+	@Direccion VARCHAR(800),
+	@FlagMedio VARCHAR(10)
 
 SELECT @CodigoUbigeoSC = CodigoUbigeo,
      @NombreCompleto = NombreCompleto,
@@ -490,7 +494,8 @@ SELECT @CodigoUbigeoSC = CodigoUbigeo,
      @MarcaIDSC = MarcaID,
      @ConsultoraID = ConsultoraID  ,
      @Estado = Estado ,
-	 @Direccion = Direccion
+	 @Direccion = Direccion,
+	 @FlagMedio = FlagMedio
    FROM SolicitudCliente with(nolock)
    WHERE SolicitudClienteID = @SolicitudID
 
@@ -513,7 +518,7 @@ begin
   SELECT CUV, Producto, Cantidad, Precio, Tono FROM SolicitudClienteDetalle WHERE SolicitudClienteID = @SolicitudID
 
   INSERT INTO @TmpResultadoCliente
-  EXEC RegistrarSolicitudCliente  @ConsultoraReasignada, @ConsultoraReasignadaID, @CodigoUbigeoSC, @NombreCompleto, @Email, @Telefono, @Mensaje, @Campania, @MarcaIDSC, @numIteracion, @Direccion, @SolicitudDetalle
+  EXEC RegistrarSolicitudCliente  @ConsultoraReasignada, @ConsultoraReasignadaID, @CodigoUbigeoSC, @NombreCompleto, @Email, @Telefono, @Mensaje, @Campania, @MarcaIDSC, @numIteracion, @Direccion, @SolicitudDetalle, null,@FlagMedio
 
   Declare @Resultado varchar(100)
   Select top 1 @Resultado = Mensaje + ' / '+ Cast( t.Resultado as varchar(50)) from @TmpResultadoCliente t
@@ -537,7 +542,7 @@ exec  UpdRechazarSolicitud @SolicitudId,@Definitivo,@MotivoSolicitudId,@RazonMot
 
  SELECT
   C.Codigo,
-  C.PrimerNombre AS Nombre,
+  CONCAT (C.PrimerNombre , ' ', C.PrimerApellido) AS Nombre,
   U.Email,
   M.Descripcion AS MarcaNombre
  FROM @TmpConsultorasAsignadas TCON
@@ -551,7 +556,6 @@ end
 GO
 USE BelcorpPanama
 GO
-
 ALTER proc [dbo].[ReasignarSolicitudCliente]
 (
 @SolicitudId bigint,
@@ -588,7 +592,8 @@ declare @TmpConsultorasAsignadas table ( CodigoConsultora VARCHAR(30), MarcaID I
     @Campania   VARCHAR(10),
     @MarcaIDSC   INT,
     @Estado    CHAR(1),
-	@Direccion VARCHAR(800)
+	@Direccion VARCHAR(800),
+	@FlagMedio VARCHAR(10)
 
 SELECT @CodigoUbigeoSC = CodigoUbigeo,
      @NombreCompleto = NombreCompleto,
@@ -600,7 +605,8 @@ SELECT @CodigoUbigeoSC = CodigoUbigeo,
      @MarcaIDSC = MarcaID,
      @ConsultoraID = ConsultoraID  ,
      @Estado = Estado ,
-	 @Direccion = Direccion
+	 @Direccion = Direccion,
+	 @FlagMedio = FlagMedio
    FROM SolicitudCliente with(nolock)
    WHERE SolicitudClienteID = @SolicitudID
 
@@ -623,7 +629,7 @@ begin
   SELECT CUV, Producto, Cantidad, Precio, Tono FROM SolicitudClienteDetalle WHERE SolicitudClienteID = @SolicitudID
 
   INSERT INTO @TmpResultadoCliente
-  EXEC RegistrarSolicitudCliente  @ConsultoraReasignada, @ConsultoraReasignadaID, @CodigoUbigeoSC, @NombreCompleto, @Email, @Telefono, @Mensaje, @Campania, @MarcaIDSC, @numIteracion, @Direccion, @SolicitudDetalle
+  EXEC RegistrarSolicitudCliente  @ConsultoraReasignada, @ConsultoraReasignadaID, @CodigoUbigeoSC, @NombreCompleto, @Email, @Telefono, @Mensaje, @Campania, @MarcaIDSC, @numIteracion, @Direccion, @SolicitudDetalle, null,@FlagMedio
 
   Declare @Resultado varchar(100)
   Select top 1 @Resultado = Mensaje + ' / '+ Cast( t.Resultado as varchar(50)) from @TmpResultadoCliente t
@@ -647,7 +653,7 @@ exec  UpdRechazarSolicitud @SolicitudId,@Definitivo,@MotivoSolicitudId,@RazonMot
 
  SELECT
   C.Codigo,
-  C.PrimerNombre AS Nombre,
+  CONCAT (C.PrimerNombre , ' ', C.PrimerApellido) AS Nombre,
   U.Email,
   M.Descripcion AS MarcaNombre
  FROM @TmpConsultorasAsignadas TCON
@@ -661,7 +667,6 @@ end
 GO
 USE BelcorpGuatemala
 GO
-
 ALTER proc [dbo].[ReasignarSolicitudCliente]
 (
 @SolicitudId bigint,
@@ -698,7 +703,8 @@ declare @TmpConsultorasAsignadas table ( CodigoConsultora VARCHAR(30), MarcaID I
     @Campania   VARCHAR(10),
     @MarcaIDSC   INT,
     @Estado    CHAR(1),
-	@Direccion VARCHAR(800)
+	@Direccion VARCHAR(800),
+	@FlagMedio VARCHAR(10)
 
 SELECT @CodigoUbigeoSC = CodigoUbigeo,
      @NombreCompleto = NombreCompleto,
@@ -710,7 +716,8 @@ SELECT @CodigoUbigeoSC = CodigoUbigeo,
      @MarcaIDSC = MarcaID,
      @ConsultoraID = ConsultoraID  ,
      @Estado = Estado ,
-	 @Direccion = Direccion
+	 @Direccion = Direccion,
+	 @FlagMedio = FlagMedio
    FROM SolicitudCliente with(nolock)
    WHERE SolicitudClienteID = @SolicitudID
 
@@ -733,7 +740,7 @@ begin
   SELECT CUV, Producto, Cantidad, Precio, Tono FROM SolicitudClienteDetalle WHERE SolicitudClienteID = @SolicitudID
 
   INSERT INTO @TmpResultadoCliente
-  EXEC RegistrarSolicitudCliente  @ConsultoraReasignada, @ConsultoraReasignadaID, @CodigoUbigeoSC, @NombreCompleto, @Email, @Telefono, @Mensaje, @Campania, @MarcaIDSC, @numIteracion, @Direccion, @SolicitudDetalle
+  EXEC RegistrarSolicitudCliente  @ConsultoraReasignada, @ConsultoraReasignadaID, @CodigoUbigeoSC, @NombreCompleto, @Email, @Telefono, @Mensaje, @Campania, @MarcaIDSC, @numIteracion, @Direccion, @SolicitudDetalle, null,@FlagMedio
 
   Declare @Resultado varchar(100)
   Select top 1 @Resultado = Mensaje + ' / '+ Cast( t.Resultado as varchar(50)) from @TmpResultadoCliente t
@@ -757,7 +764,7 @@ exec  UpdRechazarSolicitud @SolicitudId,@Definitivo,@MotivoSolicitudId,@RazonMot
 
  SELECT
   C.Codigo,
-  C.PrimerNombre AS Nombre,
+  CONCAT (C.PrimerNombre , ' ', C.PrimerApellido) AS Nombre,
   U.Email,
   M.Descripcion AS MarcaNombre
  FROM @TmpConsultorasAsignadas TCON
@@ -771,7 +778,6 @@ end
 GO
 USE BelcorpEcuador
 GO
-
 ALTER proc [dbo].[ReasignarSolicitudCliente]
 (
 @SolicitudId bigint,
@@ -808,7 +814,8 @@ declare @TmpConsultorasAsignadas table ( CodigoConsultora VARCHAR(30), MarcaID I
     @Campania   VARCHAR(10),
     @MarcaIDSC   INT,
     @Estado    CHAR(1),
-	@Direccion VARCHAR(800)
+	@Direccion VARCHAR(800),
+	@FlagMedio VARCHAR(10)
 
 SELECT @CodigoUbigeoSC = CodigoUbigeo,
      @NombreCompleto = NombreCompleto,
@@ -820,7 +827,8 @@ SELECT @CodigoUbigeoSC = CodigoUbigeo,
      @MarcaIDSC = MarcaID,
      @ConsultoraID = ConsultoraID  ,
      @Estado = Estado ,
-	 @Direccion = Direccion
+	 @Direccion = Direccion,
+	 @FlagMedio = FlagMedio
    FROM SolicitudCliente with(nolock)
    WHERE SolicitudClienteID = @SolicitudID
 
@@ -843,7 +851,7 @@ begin
   SELECT CUV, Producto, Cantidad, Precio, Tono FROM SolicitudClienteDetalle WHERE SolicitudClienteID = @SolicitudID
 
   INSERT INTO @TmpResultadoCliente
-  EXEC RegistrarSolicitudCliente  @ConsultoraReasignada, @ConsultoraReasignadaID, @CodigoUbigeoSC, @NombreCompleto, @Email, @Telefono, @Mensaje, @Campania, @MarcaIDSC, @numIteracion, @Direccion, @SolicitudDetalle
+  EXEC RegistrarSolicitudCliente  @ConsultoraReasignada, @ConsultoraReasignadaID, @CodigoUbigeoSC, @NombreCompleto, @Email, @Telefono, @Mensaje, @Campania, @MarcaIDSC, @numIteracion, @Direccion, @SolicitudDetalle, null,@FlagMedio
 
   Declare @Resultado varchar(100)
   Select top 1 @Resultado = Mensaje + ' / '+ Cast( t.Resultado as varchar(50)) from @TmpResultadoCliente t
@@ -867,7 +875,7 @@ exec  UpdRechazarSolicitud @SolicitudId,@Definitivo,@MotivoSolicitudId,@RazonMot
 
  SELECT
   C.Codigo,
-  C.PrimerNombre AS Nombre,
+  CONCAT (C.PrimerNombre , ' ', C.PrimerApellido) AS Nombre,
   U.Email,
   M.Descripcion AS MarcaNombre
  FROM @TmpConsultorasAsignadas TCON
@@ -881,7 +889,6 @@ end
 GO
 USE BelcorpDominicana
 GO
-
 ALTER proc [dbo].[ReasignarSolicitudCliente]
 (
 @SolicitudId bigint,
@@ -918,7 +925,8 @@ declare @TmpConsultorasAsignadas table ( CodigoConsultora VARCHAR(30), MarcaID I
     @Campania   VARCHAR(10),
     @MarcaIDSC   INT,
     @Estado    CHAR(1),
-	@Direccion VARCHAR(800)
+	@Direccion VARCHAR(800),
+	@FlagMedio VARCHAR(10)
 
 SELECT @CodigoUbigeoSC = CodigoUbigeo,
      @NombreCompleto = NombreCompleto,
@@ -930,7 +938,8 @@ SELECT @CodigoUbigeoSC = CodigoUbigeo,
      @MarcaIDSC = MarcaID,
      @ConsultoraID = ConsultoraID  ,
      @Estado = Estado ,
-	 @Direccion = Direccion
+	 @Direccion = Direccion,
+	 @FlagMedio = FlagMedio
    FROM SolicitudCliente with(nolock)
    WHERE SolicitudClienteID = @SolicitudID
 
@@ -953,7 +962,7 @@ begin
   SELECT CUV, Producto, Cantidad, Precio, Tono FROM SolicitudClienteDetalle WHERE SolicitudClienteID = @SolicitudID
 
   INSERT INTO @TmpResultadoCliente
-  EXEC RegistrarSolicitudCliente  @ConsultoraReasignada, @ConsultoraReasignadaID, @CodigoUbigeoSC, @NombreCompleto, @Email, @Telefono, @Mensaje, @Campania, @MarcaIDSC, @numIteracion, @Direccion, @SolicitudDetalle
+  EXEC RegistrarSolicitudCliente  @ConsultoraReasignada, @ConsultoraReasignadaID, @CodigoUbigeoSC, @NombreCompleto, @Email, @Telefono, @Mensaje, @Campania, @MarcaIDSC, @numIteracion, @Direccion, @SolicitudDetalle, null,@FlagMedio
 
   Declare @Resultado varchar(100)
   Select top 1 @Resultado = Mensaje + ' / '+ Cast( t.Resultado as varchar(50)) from @TmpResultadoCliente t
@@ -977,7 +986,7 @@ exec  UpdRechazarSolicitud @SolicitudId,@Definitivo,@MotivoSolicitudId,@RazonMot
 
  SELECT
   C.Codigo,
-  C.PrimerNombre AS Nombre,
+  CONCAT (C.PrimerNombre , ' ', C.PrimerApellido) AS Nombre,
   U.Email,
   M.Descripcion AS MarcaNombre
  FROM @TmpConsultorasAsignadas TCON
@@ -991,7 +1000,6 @@ end
 GO
 USE BelcorpCostaRica
 GO
-
 ALTER proc [dbo].[ReasignarSolicitudCliente]
 (
 @SolicitudId bigint,
@@ -1028,7 +1036,8 @@ declare @TmpConsultorasAsignadas table ( CodigoConsultora VARCHAR(30), MarcaID I
     @Campania   VARCHAR(10),
     @MarcaIDSC   INT,
     @Estado    CHAR(1),
-	@Direccion VARCHAR(800)
+	@Direccion VARCHAR(800),
+	@FlagMedio VARCHAR(10)
 
 SELECT @CodigoUbigeoSC = CodigoUbigeo,
      @NombreCompleto = NombreCompleto,
@@ -1040,7 +1049,8 @@ SELECT @CodigoUbigeoSC = CodigoUbigeo,
      @MarcaIDSC = MarcaID,
      @ConsultoraID = ConsultoraID  ,
      @Estado = Estado ,
-	 @Direccion = Direccion
+	 @Direccion = Direccion,
+	 @FlagMedio = FlagMedio
    FROM SolicitudCliente with(nolock)
    WHERE SolicitudClienteID = @SolicitudID
 
@@ -1063,7 +1073,7 @@ begin
   SELECT CUV, Producto, Cantidad, Precio, Tono FROM SolicitudClienteDetalle WHERE SolicitudClienteID = @SolicitudID
 
   INSERT INTO @TmpResultadoCliente
-  EXEC RegistrarSolicitudCliente  @ConsultoraReasignada, @ConsultoraReasignadaID, @CodigoUbigeoSC, @NombreCompleto, @Email, @Telefono, @Mensaje, @Campania, @MarcaIDSC, @numIteracion, @Direccion, @SolicitudDetalle
+  EXEC RegistrarSolicitudCliente  @ConsultoraReasignada, @ConsultoraReasignadaID, @CodigoUbigeoSC, @NombreCompleto, @Email, @Telefono, @Mensaje, @Campania, @MarcaIDSC, @numIteracion, @Direccion, @SolicitudDetalle, null,@FlagMedio
 
   Declare @Resultado varchar(100)
   Select top 1 @Resultado = Mensaje + ' / '+ Cast( t.Resultado as varchar(50)) from @TmpResultadoCliente t
@@ -1087,7 +1097,7 @@ exec  UpdRechazarSolicitud @SolicitudId,@Definitivo,@MotivoSolicitudId,@RazonMot
 
  SELECT
   C.Codigo,
-  C.PrimerNombre AS Nombre,
+  CONCAT (C.PrimerNombre , ' ', C.PrimerApellido) AS Nombre,
   U.Email,
   M.Descripcion AS MarcaNombre
  FROM @TmpConsultorasAsignadas TCON
@@ -1101,7 +1111,6 @@ end
 GO
 USE BelcorpChile
 GO
-
 ALTER proc [dbo].[ReasignarSolicitudCliente]
 (
 @SolicitudId bigint,
@@ -1138,7 +1147,8 @@ declare @TmpConsultorasAsignadas table ( CodigoConsultora VARCHAR(30), MarcaID I
     @Campania   VARCHAR(10),
     @MarcaIDSC   INT,
     @Estado    CHAR(1),
-	@Direccion VARCHAR(800)
+	@Direccion VARCHAR(800),
+	@FlagMedio VARCHAR(10)
 
 SELECT @CodigoUbigeoSC = CodigoUbigeo,
      @NombreCompleto = NombreCompleto,
@@ -1150,7 +1160,8 @@ SELECT @CodigoUbigeoSC = CodigoUbigeo,
      @MarcaIDSC = MarcaID,
      @ConsultoraID = ConsultoraID  ,
      @Estado = Estado ,
-	 @Direccion = Direccion
+	 @Direccion = Direccion,
+	 @FlagMedio = FlagMedio
    FROM SolicitudCliente with(nolock)
    WHERE SolicitudClienteID = @SolicitudID
 
@@ -1173,7 +1184,7 @@ begin
   SELECT CUV, Producto, Cantidad, Precio, Tono FROM SolicitudClienteDetalle WHERE SolicitudClienteID = @SolicitudID
 
   INSERT INTO @TmpResultadoCliente
-  EXEC RegistrarSolicitudCliente  @ConsultoraReasignada, @ConsultoraReasignadaID, @CodigoUbigeoSC, @NombreCompleto, @Email, @Telefono, @Mensaje, @Campania, @MarcaIDSC, @numIteracion, @Direccion, @SolicitudDetalle
+  EXEC RegistrarSolicitudCliente  @ConsultoraReasignada, @ConsultoraReasignadaID, @CodigoUbigeoSC, @NombreCompleto, @Email, @Telefono, @Mensaje, @Campania, @MarcaIDSC, @numIteracion, @Direccion, @SolicitudDetalle, null,@FlagMedio
 
   Declare @Resultado varchar(100)
   Select top 1 @Resultado = Mensaje + ' / '+ Cast( t.Resultado as varchar(50)) from @TmpResultadoCliente t
@@ -1197,7 +1208,7 @@ exec  UpdRechazarSolicitud @SolicitudId,@Definitivo,@MotivoSolicitudId,@RazonMot
 
  SELECT
   C.Codigo,
-  C.PrimerNombre AS Nombre,
+  CONCAT (C.PrimerNombre , ' ', C.PrimerApellido) AS Nombre,
   U.Email,
   M.Descripcion AS MarcaNombre
  FROM @TmpConsultorasAsignadas TCON
@@ -1211,7 +1222,6 @@ end
 GO
 USE BelcorpBolivia
 GO
-
 ALTER proc [dbo].[ReasignarSolicitudCliente]
 (
 @SolicitudId bigint,
@@ -1248,7 +1258,8 @@ declare @TmpConsultorasAsignadas table ( CodigoConsultora VARCHAR(30), MarcaID I
     @Campania   VARCHAR(10),
     @MarcaIDSC   INT,
     @Estado    CHAR(1),
-	@Direccion VARCHAR(800)
+	@Direccion VARCHAR(800),
+	@FlagMedio VARCHAR(10)
 
 SELECT @CodigoUbigeoSC = CodigoUbigeo,
      @NombreCompleto = NombreCompleto,
@@ -1260,7 +1271,8 @@ SELECT @CodigoUbigeoSC = CodigoUbigeo,
      @MarcaIDSC = MarcaID,
      @ConsultoraID = ConsultoraID  ,
      @Estado = Estado ,
-	 @Direccion = Direccion
+	 @Direccion = Direccion,
+	 @FlagMedio = FlagMedio
    FROM SolicitudCliente with(nolock)
    WHERE SolicitudClienteID = @SolicitudID
 
@@ -1283,7 +1295,7 @@ begin
   SELECT CUV, Producto, Cantidad, Precio, Tono FROM SolicitudClienteDetalle WHERE SolicitudClienteID = @SolicitudID
 
   INSERT INTO @TmpResultadoCliente
-  EXEC RegistrarSolicitudCliente  @ConsultoraReasignada, @ConsultoraReasignadaID, @CodigoUbigeoSC, @NombreCompleto, @Email, @Telefono, @Mensaje, @Campania, @MarcaIDSC, @numIteracion, @Direccion, @SolicitudDetalle
+  EXEC RegistrarSolicitudCliente  @ConsultoraReasignada, @ConsultoraReasignadaID, @CodigoUbigeoSC, @NombreCompleto, @Email, @Telefono, @Mensaje, @Campania, @MarcaIDSC, @numIteracion, @Direccion, @SolicitudDetalle, null,@FlagMedio
 
   Declare @Resultado varchar(100)
   Select top 1 @Resultado = Mensaje + ' / '+ Cast( t.Resultado as varchar(50)) from @TmpResultadoCliente t
@@ -1307,7 +1319,7 @@ exec  UpdRechazarSolicitud @SolicitudId,@Definitivo,@MotivoSolicitudId,@RazonMot
 
  SELECT
   C.Codigo,
-  C.PrimerNombre AS Nombre,
+  CONCAT (C.PrimerNombre , ' ', C.PrimerApellido) AS Nombre,
   U.Email,
   M.Descripcion AS MarcaNombre
  FROM @TmpConsultorasAsignadas TCON
