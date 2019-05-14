@@ -504,12 +504,13 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var listaPedidoFacturados = SessionManager.GetCDRPedidoFacturado();
 
-                //lista de cuvs con cantidad 0 y son reemplazados
-                var cuvReemplazados = listaPedidoFacturados
+                var cuvsPedido = listaPedidoFacturados
                     .Where(a => a.CampaniaID == model.CampaniaID && a.PedidoID == model.PedidoID)
                     .FirstOrDefault()
-                    .olstBEPedidoWebDetalle
-                    .Where(a => a.Cantidad == 0 && a.CUVReemplazo != null);
+                    .olstBEPedidoWebDetalle;
+
+                //lista de cuvs con cantidad 0 y son reemplazados
+                var cuvReemplazados = cuvsPedido.Where(a => a.Cantidad == 0 && a.CUVReemplazo != null);
 
                 //si el cambio es por el cuv que se reemplazò, enviamos el cuv original
                 var reemplazo = cuvReemplazados.Where(a => a.CUVReemplazo == model.CUV).FirstOrDefault();
@@ -530,26 +531,23 @@ namespace Portal.Consultoras.Web.Controllers
                 //reemplazar si tiene cuv reemplazo
                 if (respuestaServiceCdr.Any() && isSetsOrPack)
                 {
-
+                    var cantidad = respuestaServiceCdr[0].LProductosComplementos.Count();
+                    var arrComplementarios = new ProductosComplementos[cantidad];
 
                     if (cuvReemplazados.Any())
                     {
-
                         //lista de cuvs en la factura
                         var cuvFacturados = listaPedidoFacturados
                             .Where(a => a.CampaniaID == model.CampaniaID && a.PedidoID == model.PedidoID)
                             .FirstOrDefault()
                             .olstBEPedidoWebDetalle.ToList();
 
-                        var cantidad = respuestaServiceCdr[0].LProductosComplementos.Count();
-
-                        var ComplementariosReemplazados = new ProductosComplementos[cantidad];
+                        
                         int i = 0;
                         foreach (var item in respuestaServiceCdr[0].LProductosComplementos)
                         {
                             var obj = cuvReemplazados.Where(a => a.CUV == item.cuv).FirstOrDefault();
                             var objReemplazo = new ProductosComplementos();
-
                             if (obj != null)
                             {
                                 //obtener los datos del cuv facturado 
@@ -568,15 +566,23 @@ namespace Portal.Consultoras.Web.Controllers
                                 objReemplazo.digitable = item.digitable;
                                 objReemplazo.precio = item.precio;
                             }
-
-                            ComplementariosReemplazados[i] = objReemplazo;
+                            arrComplementarios[i] = objReemplazo;
                             i += 1;
                         }
-                        respuestaServiceCdr[0].LProductosComplementos = ComplementariosReemplazados;
+
+                        respuestaServiceCdr[0].LProductosComplementos = (from c in cuvsPedido
+                                                                         join d in arrComplementarios on c.CUV equals d.cuv
+                                                                         where c.Cantidad > 0
+                                                                         select d).ToArray();
+                    }
+                    else
+                    {
+                        respuestaServiceCdr[0].LProductosComplementos = (from c in respuestaServiceCdr[0].LProductosComplementos
+                                            join d in cuvsPedido on c.cuv equals d.CUV
+                                            where d.Cantidad > 0
+                                            select c).ToArray();
                     }
                 }
-
-
             }
             catch (Exception ex)
             {
