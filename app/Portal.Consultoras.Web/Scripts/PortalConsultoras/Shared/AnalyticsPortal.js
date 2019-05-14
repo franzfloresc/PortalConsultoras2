@@ -422,25 +422,6 @@ var AnalyticsPortalModule = (function () {
         }
     }
 
-    //Impresiones por productos en el carrusel
-    var _marcarImpresionSetProductos = function (arrayItems) {
-
-        try {
-
-            var tipoMoneda = _getCurrencyCodes();
-            dataLayer.push({
-                'event': _evento.productImpression,
-                'ecommerce': {
-                    'currencyCode': tipoMoneda,
-                    'impressions': arrayItems
-                }
-            });
-        } catch (e) {
-            console.log("_marcarImpresionSetProductos - " + _texto.excepcion + e);
-        }
-
-    }
-
     var _marcarProductImpresionSegunLista = function (data) {
         try {
             if (_constantes.isTest)
@@ -494,6 +475,145 @@ var AnalyticsPortalModule = (function () {
 
     ////////////////////////////////////////////////////////////////////////////////////////
     // Fin - Metodos Iniciales
+    ////////////////////////////////////////////////////////////////////////////////////////
+    // Ini - Analytics Evento Product Impression
+    ////////////////////////////////////////////////////////////////////////////////////////
+
+    //Impresiones por productos en el carrusel
+    var _marcarImpresionSetProductos = function (arrayItems) {
+
+        try {
+
+            var tipoMoneda = _getCurrencyCodes();
+            dataLayer.push({
+                'event': _evento.productImpression,
+                'ecommerce': {
+                    'currencyCode': tipoMoneda,
+                    'impressions': arrayItems
+                }
+            });
+        } catch (e) {
+            console.log("_marcarImpresionSetProductos - " + _texto.excepcion + e);
+        }
+
+    }
+
+    var marcaProductImpressionRecomendaciones = function (data, isMobile) {
+        try {
+
+            var cantidadMostrar = isMobile ? 1 : (data.Total >= 3) ? 3 : data.Total;
+
+            var lista = data.Productos;
+
+            var impressions = [];
+
+            $.each(lista, function (index) {
+                if (index == cantidadMostrar)
+                    return false;
+                var item = lista[index];
+                var impression = {
+                    'name': item.DescripcionCompleta,
+                    'id': item.CUV,
+                    'price': parseFloat(item.Precio).toFixed(2).toString(),
+                    'brand': _getMarca(item.MarcaId),
+                    'category': _texto.notavaliable,
+                    'variant': _texto.estandar,
+                    'list': 'Pedido - Ofertas Relacionadas',
+                    'position': index + 1
+                };
+                impressions.push(impression);
+            });
+
+            dataLayer.push({
+                'event': _evento.productImpression,
+                'ecommerce': {
+                    'currencyCode': _getCurrencyCodes(),
+                    'impressions': impressions
+                }
+            });
+
+
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+    }
+
+    var marcaProductImpressionViewRecomendaciones = function (data, index) {
+        try {
+
+            var lista = data.Productos;
+
+            var impressions = [];
+
+            var item = lista[index];
+
+            var impression = {
+                'name': item.DescripcionCompleta,
+                'id': item.CUV,
+                'price': parseFloat(item.Precio).toFixed(2).toString(),
+                'brand': _getMarca(item.MarcaId),
+                'category': _texto.notavaliable,
+                'variant': _texto.estandar,
+                'list': 'Pedido - Ofertas Relacionadas',
+                'position': index + 1
+            };
+            impressions.push(impression);
+
+
+            dataLayer.push({
+                'event': _evento.productImpression,
+                'ecommerce': {
+                    'currencyCode': _getCurrencyCodes(),
+                    'impressions': impressions
+                }
+            });
+
+
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+    }
+
+    var marcaProductImpressionViewRecomendacionesMobile = function (data, index) {
+        try {
+
+            var lista = data.Productos;
+
+            var impressions = [];
+
+            index = index + 1;
+
+            var item = lista[index];
+
+            var impression = {
+                'name': item.DescripcionCompleta,
+                'id': item.CUV,
+                'price': parseFloat(item.Precio).toFixed(2).toString(),
+                'brand': _getMarca(item.MarcaId),
+                'category': _texto.notavaliable,
+                'variant': _texto.estandar,
+                'list': 'Pedido - Ofertas Relacionadas',
+                'position': index + 1
+            };
+            impressions.push(impression);
+
+
+            dataLayer.push({
+                'event': _evento.productImpression,
+                'ecommerce': {
+                    'currencyCode': _getCurrencyCodes(),
+                    'impressions': impressions
+                }
+            });
+
+
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////
+    // Fin -Analytics Evento Product Impression
     ////////////////////////////////////////////////////////////////////////////////////////
     // Ini - Analytics Buscador Miguel
     ////////////////////////////////////////////////////////////////////////////////////////
@@ -1088,7 +1208,7 @@ var AnalyticsPortalModule = (function () {
 
     var marcaGenericaLista = function (seccion, data, pos) {
         try {
-            //console.log('marcaGenericaLista- ini', seccion, data, pos);
+            console.log('marcaGenericaLista- ini', seccion, data, pos);
             // mantener la seccion para LAN, luego ponerlo dentro de data como origen
             if (typeof seccion === "undefined")
                 return false;
@@ -1102,7 +1222,7 @@ var AnalyticsPortalModule = (function () {
                     _marcarProductImpresionSegunLista(data); break;
             }
         } catch (e) {
-            console.log('marcaGenericaLista - ' + _texto.excepcion + e, e);
+            console.log('marcaGenericaLista - ' + _texto.excepcion, e);
         }
 
     }
@@ -1140,7 +1260,7 @@ var AnalyticsPortalModule = (function () {
             console.log(_texto.excepcion + e);
         }
     }
-    
+
     var marcaPromotionViewBanner = function (pos) {
         try {
             dataLayer.push({
@@ -1162,7 +1282,7 @@ var AnalyticsPortalModule = (function () {
         }
 
     }
-    
+
     var marcaPromotionClicBanner = function (OrigenPedidoWeb, texto, url) {
         try {
             var pos = _getParametroListSegunOrigen(OrigenPedidoWeb, url);
@@ -1969,7 +2089,7 @@ var AnalyticsPortalModule = (function () {
             var textoCategory = "Contenedor - Pop up Elige 1 opción";
             dataLayer.push({
                 'event': _evento.virtualEvent,
-                'category': textoCategory,          
+                'category': textoCategory,
                 'action': 'Desenmarcar Producto',
                 'label': estrategia.DescripcionCompleta + '-' + nombreComponentes
             });
@@ -2254,120 +2374,6 @@ var AnalyticsPortalModule = (function () {
     // Inicio - Analytics Buscador
     ////////////////////////////////////////////////////////////////////////////////////////
 
-    var marcaProductImpressionRecomendaciones = function (data, isMobile) {
-        try {
-
-            var cantidadMostrar = isMobile ? 1 : (data.Total >= 3) ? 3 : data.Total;
-
-            var lista = data.Productos;
-
-            var impressions = [];
-
-            $.each(lista, function (index) {
-                if (index == cantidadMostrar)
-                    return false;
-                var item = lista[index];
-                var impression = {
-                    'name': item.DescripcionCompleta,
-                    'id': item.CUV,
-                    'price': parseFloat(item.Precio).toFixed(2).toString(),
-                    'brand': _getMarca(item.MarcaId),
-                    'category': _texto.notavaliable,
-                    'variant': _texto.estandar,
-                    'list': 'Pedido - Ofertas Relacionadas',
-                    'position': index + 1
-                };
-                impressions.push(impression);
-            });
-
-            dataLayer.push({
-                'event': _evento.productImpression,
-                'ecommerce': {
-                    'currencyCode': _getCurrencyCodes(),
-                    'impressions': impressions
-                }
-            });
-
-
-        } catch (e) {
-            console.log(_texto.excepcion + e);
-        }
-    }
-
-    var marcaProductImpressionViewRecomendaciones = function (data, index) {
-        try {
-
-            var lista = data.Productos;
-
-            var impressions = [];
-
-            var item = lista[index];
-
-            var impression = {
-                'name': item.DescripcionCompleta,
-                'id': item.CUV,
-                'price': parseFloat(item.Precio).toFixed(2).toString(),
-                'brand': _getMarca(item.MarcaId),
-                'category': _texto.notavaliable,
-                'variant': _texto.estandar,
-                'list': 'Pedido - Ofertas Relacionadas',
-                'position': index + 1
-            };
-            impressions.push(impression);
-
-
-            dataLayer.push({
-                'event': _evento.productImpression,
-                'ecommerce': {
-                    'currencyCode': _getCurrencyCodes(),
-                    'impressions': impressions
-                }
-            });
-
-
-        } catch (e) {
-            console.log(_texto.excepcion + e);
-        }
-    }
-
-    var marcaProductImpressionViewRecomendacionesMobile = function (data, index) {
-        try {
-
-            var lista = data.Productos;
-
-            var impressions = [];
-
-            index = index + 1;
-
-            var item = lista[index];
-
-            var impression = {
-                'name': item.DescripcionCompleta,
-                'id': item.CUV,
-                'price': parseFloat(item.Precio).toFixed(2).toString(),
-                'brand': _getMarca(item.MarcaId),
-                'category': _texto.notavaliable,
-                'variant': _texto.estandar,
-                'list': 'Pedido - Ofertas Relacionadas',
-                'position': index + 1
-            };
-            impressions.push(impression);
-
-
-            dataLayer.push({
-                'event': _evento.productImpression,
-                'ecommerce': {
-                    'currencyCode': _getCurrencyCodes(),
-                    'impressions': impressions
-                }
-            });
-
-
-        } catch (e) {
-            console.log(_texto.excepcion + e);
-        }
-    }
-
     var marcaRecomendacionesFlechaSiguiente = function () {
         dataLayer.push({
             "event": _evento.virtualEvent,
@@ -2538,7 +2544,7 @@ var AnalyticsPortalModule = (function () {
 
         try {
             if (origenPedido !== "") {
-                
+
                 if (origenPedido === CodigoUbigeoPortal.MaestroCodigoUbigeo.GuionContenedorArmaTuPack) {
                     var textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(origenPedido) + ""; //using new function
                     dataLayer.push({
