@@ -3941,15 +3941,15 @@ namespace Portal.Consultoras.Common
 
             public static class CodigosOrdenamiento
             {
-                public const string porCatalogo = "01";
+                public const string porCategoria = "01";
                 public const string porNombre = "02";
             }
 
             public static class CodigoFiltros
             {
-                public const string lbel = "01";
-                public const string esika = "02";
-                public const string cyzone = "03";
+                public const int lbel = 1;
+                public const int esika = 2;
+                public const int cyzone = 3;
             }
         }
 
