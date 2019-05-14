@@ -50,8 +50,9 @@ else
                 <div vista-id="1" class="form_actualizar_correo" style="display: none;">
                     <div class="grupo_form_cambio_datos grupo_form_cambio_datos--vistaActualizacionCorreo">
                         <div class="w-100">
-                            <input id="NuevoCorreo" name="NuevoCorreo" class="w-100" type="text" value="" />
+                            <input id="NuevoCorreo" name="NuevoCorreo" class="w-100 eventActPerfil_Auto" type="text" value=""  />
                             <label for="NuevoCorreo" class="w-100">Correo electrónico</label>
+                            <span id="ValidateCorreo" style="display:none">Correo inválido</span>
                         </div>
                     </div>
                     <div class="grupo_input_actualizarMisDatos campos_actualizarDatos terminos_y_condiciones_wrapper pt-31">
@@ -91,7 +92,8 @@ else
                                 Reenviar el correo
                             </a>
                         </div>
-                        <button type="button" class="w-100 border-radius-4 text-bold btn_primario btn_primario--miPerfil">
+                        <button type="button" class="w-100 border-radius-4 text-bold btn_primario btn_primario--miPerfil"
+                                 onclick="location.href='@Url.Action("Index")'">
                             Ir a ver mis datos
                         </button>
                     </div>
@@ -110,7 +112,6 @@ else
 </div>
 
 <input type="hidden" id="hdn_enlaceTerminosCondiciones" value="@ViewBag.UrlPdfTerminosyCondiciones" />
-
 @section scripts{
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/MiPerfil/Base.js")?v=3"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/MiPerfil/ActualizarCorreo.js")"></script>
@@ -120,7 +121,9 @@ else
                 UrlPaginaPrevia: '@Url.Action("Index", "MiPerfil", new { area = "Mobile" })',
                 UrlActualizarEnviarCorreo: '@Url.Action("ActualizarEnviarCorreo", "MiPerfil", new { area = "" })',
                 MensajeError: '@Html.Raw(Constantes.MensajesError.ActivacionCorreo)',
-                MensajeReenvioExitoso: '@Html.Raw(Constantes.MensajesExito.UpdCorreoConsultora_Reenvio)'
+                MensajeReenvioExitoso: '@Html.Raw(Constantes.MensajesExito.UpdCorreoConsultora_Reenvio)',
+                CorreoActual: '@ViewBag.CorreoActual',
+                IsConfirmar: @ViewBag.IsConfirmar
             }).Inicializar();
         });
 

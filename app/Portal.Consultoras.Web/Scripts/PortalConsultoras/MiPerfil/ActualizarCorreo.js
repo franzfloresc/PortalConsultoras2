@@ -65,8 +65,9 @@ var MiPerfil_ActualizarCorreo = function (_config) {
             .always(CerrarLoad);
     };
     var actualizarEnviarCorreo = function (fnSuccess) {
+        var data = getData();
         //INI HD-3897
-        var arrayError = getDataArrayError(getData());
+        var arrayError = getDataArrayError(data);
         if (arrayError.length > 0) {
             showArrayError(arrayError);
             return;
@@ -118,10 +119,11 @@ var MiPerfil_ActualizarCorreo = function (_config) {
         Inicializar: function () {
             asignarEventos();
                 //INI HD-3897
-            if (config.IsConfirmar==1) {
+            if (config.IsConfirmar == 1) {
                 postActualizarEnviarCorreo({ correoNuevo: config.CorreoActual }, irVista2(config.CorreoActual));
             } else{
-                irVista(config.VistaActual); 
+                irVista(config.VistaActual);
+
             }
               //FIN HD-3897
         }

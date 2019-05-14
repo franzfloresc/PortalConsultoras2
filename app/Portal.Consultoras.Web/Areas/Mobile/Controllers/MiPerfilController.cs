@@ -101,10 +101,20 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult ActualizarCorreo()
         {
+            ViewBag.IsConfirmar = 0;
             ViewBag.CorreoActual = userData.EMail;
             ViewBag.UrlPdfTerminosyCondiciones = _revistaDigitalProvider.GetUrlTerminosCondicionesDatosUsuario(userData.CodigoISO);
             return View();
         }
+        //INI HD-3897
+        public ActionResult ConfirmarCorreo()
+        {
+            ViewBag.IsConfirmar = 1;
+            ViewBag.CorreoActual = userData.EMail;
+            ViewBag.UrlPdfTerminosyCondiciones = _revistaDigitalProvider.GetUrlTerminosCondicionesDatosUsuario(userData.CodigoISO);
+            return View("ActualizarCorreo");
+        }
+        //FIN HD-3897
 
         public ActionResult ActualizarCelular()
         {
@@ -112,7 +122,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 return RedirectToAction("Index");
             }
-
+            ViewBag.IsConfirmarCel = 0;
             ViewBag.Celular = userData.Celular;
 
             var numero = 0;
@@ -122,7 +132,24 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.UrlPdfTerminosyCondiciones = _revistaDigitalProvider.GetUrlTerminosCondicionesDatosUsuario(userData.CodigoISO);
             return View();
         }
+        //INI HD-3897
+        public ActionResult ConfirmarCelular()
+        {
+            if (!userData.PuedeActualizar || !userData.PuedeEnviarSMS)
+            {
+                return RedirectToAction("Index");
+            }
+            ViewBag.IsConfirmarCel = 1;
+            ViewBag.Celular = userData.Celular;
 
+            var numero = 0;
+            var valida = false;
+            Util.ObtenerIniciaNumeroCelular(userData.PaisID, out valida, out numero);
+            ViewBag.IniciaNumeroCelular = valida ? numero : -1;
+            ViewBag.UrlPdfTerminosyCondiciones = _revistaDigitalProvider.GetUrlTerminosCondicionesDatosUsuario(userData.CodigoISO);
+            return View("ActualizarCelular");
+        }
+        //FIN HD-3897
         private async Task<MisDatosModel>  GetCargaInicial(BEUsuario beusuario)
         {
             var model = new MisDatosModel();
@@ -145,7 +172,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.UsuarioPrueba = userData.UsuarioPrueba;
                 model.NombreArchivoContrato = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.Contrato_ActualizarDatos + userData.CodigoISO);
                 model.IndicadorConsultoraDigital = beusuario.IndicadorConsultoraDigital;
-
+                //INI HD-3897
+                model.FlgCheckSMS = beusuario.FlgCheckSMS;
+                model.FlgCheckEMAIL = beusuario.FlgCheckEMAIL;
+                //FIN HD-3897
                 var bezona = _zonificacionProvider.GetZonaById(userData.PaisID, userData.ZonaID);
 
                 model.NombreGerenteZonal = bezona.NombreGerenteZona;

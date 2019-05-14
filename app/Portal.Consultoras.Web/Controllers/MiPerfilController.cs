@@ -156,7 +156,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult ActualizarCorreo()
         {
-            ViewBag.IsConfirmarCel = 0;
+            ViewBag.IsConfirmar = 0;
             ViewBag.CorreoActual = userData.EMail;
             ViewBag.UrlPdfTerminosyCondiciones = _revistaDigitalProvider.GetUrlTerminosCondicionesDatosUsuario(userData.CodigoISO);
             return View();
@@ -164,7 +164,7 @@ namespace Portal.Consultoras.Web.Controllers
         //INI HD-3897
         public ActionResult ConfirmarCorreo()
         {
-            ViewBag.IsConfirmarCel = 1;
+            ViewBag.IsConfirmar = 1;
             ViewBag.CorreoActual = userData.EMail;
             ViewBag.UrlPdfTerminosyCondiciones = _revistaDigitalProvider.GetUrlTerminosCondicionesDatosUsuario(userData.CodigoISO);
             return View("ActualizarCorreo");

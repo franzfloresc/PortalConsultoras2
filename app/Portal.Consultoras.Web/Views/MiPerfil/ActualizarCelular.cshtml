@@ -105,9 +105,9 @@ else
                             Reenviar nuevamente el código
                         </a>
                     </div>
-                    <button type="button" class="d-block border-radius-4 text-bold mt-23 btn_deshabilitado btn_primario btn_primario--miPerfil">
+                    @*<button type="button" class="d-block border-radius-4 text-bold mt-23 btn_deshabilitado btn_primario btn_primario--miPerfil">
                         Validar código
-                    </button>
+                    </button>*@
                 </div>
             </div>
         </div>
@@ -148,6 +148,13 @@ else
         }
 
         };
+        var listaIconoLluvia = new Array();
+        listaIconoLluvia[0] = '@Url.Content("~/Content/Images/confetti-rombo.svg")';
+        listaIconoLluvia[1] = '@Url.Content("~/Content/Images/confetti-estrella.svg")';
+        listaIconoLluvia[2] = '@Url.Content("~/Content/Images/confetti-circulo.svg")';
+        listaIconoLluvia[3] = '@Url.Content("~/Content/Images/confetti-ondas.svg")';
+        var noIniciarLluvia = true;
+        var lluviaContainerId = "#celular_actualizado";
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/MiPerfil/Base.js")?v=3"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/MiPerfil/ActualizarCelular.js?v=2")"></script>

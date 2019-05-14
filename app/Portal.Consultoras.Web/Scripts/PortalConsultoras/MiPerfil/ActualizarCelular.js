@@ -334,7 +334,8 @@
                 me.Funciones.MarkSmsCodeStatus(true);
                 setTimeout(function() {
                     me.Funciones.NavigatePanel(2);
-
+                    
+                    mostrarLluvia();
                     },
                     1000);
                 setTimeout(function () {
@@ -445,8 +446,6 @@
                 me.Elements.getCelularNuevoText().text(localData.CelularNuevo);
                 $(".form_actualizar_celular").show();
                 me.Funciones.NavigatePanel(1);
-                lluviaContainerId = "#celular_actualizado";
-                mostrarLluvia();
 
                 me.Funciones.ShowError('');
                 me.Funciones.InitCounter();

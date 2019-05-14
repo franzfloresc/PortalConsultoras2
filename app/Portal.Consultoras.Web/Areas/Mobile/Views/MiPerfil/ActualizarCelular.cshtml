@@ -38,7 +38,7 @@ else
     <section class="vista_actualizar_celular">
         <div class="wrapper_content_actualizar_celular">
             <div>
-                <a href="#" class="d-block enlace_volver_a_mi_perfil enlace_volver_a_mi_perfil--vistaActualizarCelular" title="Volver">
+                <a id="btnVolver" class="d-block enlace_volver_a_mi_perfil enlace_volver_a_mi_perfil--vistaActualizarCelular" title="Volver">
                     <span class="d-inline-block enlace_volver_a_mi_perfil_icono">
                         <img src="@Url.Content("~/Content/Images/icono_enlace_volver.svg")" alt="Volver" />
                     </span>
@@ -66,11 +66,11 @@ else
                             </div>
                         </div>
                     </div>
-                    <button type="button" class="w-100 border-radius-4 text-bold btn_deshabilitado btn_primario btn_primario--miPerfil">
+                    <button id="btn_continuar" type="button" class="w-100 border-radius-4 text-bold btn_deshabilitado btn_primario btn_primario--miPerfil">
                         Guardar
                     </button>
                 </div>
-                <div class="revisa_tu_celular text-center mb-15">
+                <div class="revisa_tu_celular text-center mb-15" style="display:none;">
                     <div class="icono_mensaje_sms"></div>
                     <h3 class="d-block text-bold actualizacion_celular_titulo">Código de confirmación</h3>
                     <p class="w-100 envio_instrucciones_info">
@@ -116,12 +116,12 @@ else
                             </a>
                         </div>
                     </div>
-                    <button type="button" class="w-100 border-radius-4 text-bold btn_deshabilitado btn_primario btn_primario--miPerfil">
-                        Validar código
-                    </button>
+                    @*<button type="button" class="w-100 border-radius-4 text-bold btn_deshabilitado btn_primario btn_primario--miPerfil">
+                            Validar código
+                        </button>*@
                 </div>
             </div>
-            <div class="celular_actualizado text-center" style="display:none;">
+            <div id="celular_actualizado" class="celular_actualizado text-center" style="display:none;">
                 <div class="center-block icono_success icono_success--miPerfil">
                     <img class="d-block" src="@Url.Content("~/Content/Images/success_icon.svg")" alt="¡El cambio de número fue exitoso!" />
                 </div>
@@ -138,14 +138,25 @@ else
 @section scripts{
     <script>
         var actualizaCelularData = {
+            UrlPaginaPrevia:'@Url.Action("Index", "MiPerfil", new { area = "Mobile" })',
             celular: '@ViewBag.Celular',
             iniciaNumero: @ViewBag.IniciaNumeroCelular,
+            IsConfirmar:@ViewBag.IsConfirmarCel,
             urlProvider: {
                 enviarSmsCodigo: '@Url.Action("EnviarSmsCodigo", "MiPerfil", new { area = "" })',
                 confirmarSmsCode: '@Url.Action("ConfirmarSmsCode", "MiPerfil", new { area = "" })'
             }
         };
+       var listaIconoLluvia = new Array();
+        listaIconoLluvia[0] = '@Url.Content("~/Content/Images/confetti-rombo.svg")';
+        listaIconoLluvia[1] = '@Url.Content("~/Content/Images/confetti-estrella.svg")';
+        listaIconoLluvia[2] = '@Url.Content("~/Content/Images/confetti-circulo.svg")';
+        listaIconoLluvia[3] = '@Url.Content("~/Content/Images/confetti-ondas.svg")';
+        var noIniciarLluvia = true;
+        var lluviaContainerId = "#celular_actualizado";
+
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/MiPerfil/Base.js")?v=3"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/MiPerfil/ActualizarCelular.js")?v3"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/nieve.js")"></script>
 }

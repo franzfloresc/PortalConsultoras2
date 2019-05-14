@@ -98,11 +98,16 @@ else
                     }
                     <input type="hidden" id="hdn_TienedireccionEntrega" value="@TieneDireEntrega" />
                     <input type="hidden" id="hdn_TienePermisosCuenta" value="@TienePermiCuenta" />
+                    @*INI HD-3897*@
+                    <input type="hidden" id="hdn_FlgCheckSMS" value="@Model.FlgCheckSMS" />
+                    <input type="hidden" id="hdn_FlgCheckEMAIL" value="@Model.FlgCheckEMAIL" />
+                    @*FIN HD-3897*@
                     <div class="datos_codigo w-50 text-left">
                         <span class="text-left text-bold">Código : </span>
                         @if (Model.DigitoVerificador != null && ViewBag.PaisesDigitoControl.Contains(Model.PaisISO))
-                            {<span class="text-right text-bold">@Model.CodigoUsuario - <span class="text-bold">@Model.DigitoVerificador</span></span>}
-                         else{ <span class="text-bold">@Model.CodigoUsuario</span>}
+                        {<span class="text-right text-bold">@Model.CodigoUsuario - <span class="text-bold">@Model.DigitoVerificador</span></span>}
+                    else
+                    { <span class="text-bold">@Model.CodigoUsuario</span>}
                     </div>
 
                     <div class="datos_zona w-50 text-right">
@@ -189,7 +194,7 @@ else
                                     si el campo ya está confirmado quitar clase grupo_form_cambio_datos--confirmacionPendiente
                                     y agregar clase grupo_form_cambio_datos--confirmado
                                 -->
-                                <div class="grupo_form_cambio_datos grupo_form_cambio_datos--confirmacionPendiente">
+                                <div id="grupo_form_cambio_datos_email" class="grupo_form_cambio_datos">
                                     <div>
                                         <input id="txtEMailMD" name="txtEMailMD" class="w-100" type="text" value="@Model.EMail" readonly />
                                         <label for="txtEMailMD" class="w-100">
@@ -211,7 +216,8 @@ else
                                             <span class="text-bold">Editar</span>
                                         </a>
                                         <!-- INICIO - Este botón aparece cuando la consultora tiene pendiente confirmar su correo electrónico -->
-                                        <button type="button" class="d-block text-bold border-radius-4 multimarca-background-color btn_confirmar_dato">
+                                        <button id="btn_confirmar_dato_email" type="button" class="d-block text-bold border-radius-4 multimarca-background-color btn_confirmar_dato"
+                                                 onclick="location.href='@Url.Action("ConfirmarCorreo", "MiPerfil", new { area = "Mobile" })'">
                                             Confirmar
                                         </button>
                                         <!-- FIN - Este botón aparece cuando la consultora tiene pendiente confirmar su correo electrónico -->
@@ -223,7 +229,7 @@ else
                                     si el campo ya está confirmado quitar clase grupo_form_cambio_datos--confirmacionPendiente
                                     y agregar clase grupo_form_cambio_datos--confirmado
                                 -->
-                                <div class="grupo_form_cambio_datos grupo_form_cambio_datos--confirmado">
+                                <div id="grupo_form_cambio_datos_sms" class="grupo_form_cambio_datos">
                                     <div>
                                         <input id="txtCelularMD" name="txtCelularMD" class="w-100" type="tel" value="@Model.Celular" maxlength="@Model.limiteMaximoTelef" readonly />
                                         <label for="txtCelularMD" class="w-100">Celular <span class="asteriscos">*</span></label>
@@ -239,7 +245,8 @@ else
                                             <span class="text-bold">Editar</span>
                                         </a>
                                         <!-- INICIO - Este botón aparece cuando la consultora tiene pendiente confirmar su celular -->
-                                        <button type="button" style="display:none;" class="d-block text-bold border-radius-4 multimarca-background-color btn_confirmar_dato" style="display:none;">
+                                        <button id="btn_confirmar_dato_sms"  type="button" style="display:none;" class="d-block text-bold border-radius-4 multimarca-background-color btn_confirmar_dato"
+                                                onclick="location.href='@Url.Action("ConfirmarCelular", "MiPerfil", new { area = "Mobile" })'">
                                             Confirmar
                                         </button>
                                         <!-- FIN - Este botón aparece cuando la consultora tiene pendiente confirmar su celular -->
@@ -250,11 +257,13 @@ else
                                     <div>
                                         <input id="txtTelefonoMD" name="txtTelefonoMD" class="w-100" type="tel" value="@Model.Telefono" maxlength="@Model.limiteMaximoTelef" />
                                         <label for="txtTelefonoMD" class="w-100">
-                                            Número fijo
-                                            @if (Model.PaisID != 3)
-                                            {
-                                                <span class="asteriscos">*</span>
-                                            }
+                                        Número fijo
+                                        <!-- INI HD-3897 -->
+                                        @*@if (Model.PaisID != 3)
+                                        {
+                                            <span class="asteriscos">*</span>
+                                        }*@
+                                        <!-- FIN HD-3897 -->
                                         </label>
                                     </div>
                                 </div>
