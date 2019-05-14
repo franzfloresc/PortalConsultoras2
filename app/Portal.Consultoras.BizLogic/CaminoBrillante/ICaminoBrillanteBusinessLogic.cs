@@ -9,7 +9,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
     {
         List<BENivelCaminoBrillante> GetNiveles(int paisId);
         BEConsultoraCaminoBrillante GetConsultoraNivel(BEUsuario entidad);
-        BEDemostradoresPaginado GetDemostradores(BEUsuario entidad, string ordenar, int filtro, int cantMostrados, int cantidad);
+        BEDemostradoresPaginado GetDemostradores(BEUsuario entidad, int cantRegistros, int regMostrados, string codOrdenar, string codFiltro);
         List<BEKitCaminoBrillante> GetKits(BEUsuario entidad);
         void UpdFlagsKitsOrDemostradores(BEPedidoWebDetalle bEPedidoWebDetalle, int paisId, int campaniaId, int nivelId);
         bool UpdEstragiaCaminiBrillante(BEEstrategia estrategia, int paisId, int campaniaId, int nivelId, string cuv);

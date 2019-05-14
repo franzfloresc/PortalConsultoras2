@@ -186,7 +186,7 @@ namespace Portal.Consultoras.Web.Providers
         /// <summary>
         /// Obtiene Demostradores disponibles para la consultora
         /// </summary>
-        public DemostradoresPaginadoModel GetDesmostradoresCaminoBrillante(string codOrden, int codFiltro, int cantMostrados, int cantidad)
+        public DemostradoresPaginadoModel GetDesmostradoresCaminoBrillante(int cantRegistros, int regMostrados, string codOrdenar, string codFiltro)
         {
             try
             {
@@ -213,7 +213,7 @@ namespace Portal.Consultoras.Web.Providers
                         NivelCaminoBrillante = usuarioModel.NivelCaminoBrillante,
                     };
 
-                    demostradores = svc.GetDemostradoresCaminoBrillante(usuario, codOrden, codFiltro, cantMostrados, cantidad);
+                    demostradores = svc.GetDemostradoresCaminoBrillante(usuario, cantRegistros, regMostrados, codOrdenar, codFiltro);
                 }
 
                 //sessionManager.SetDemostradoresCaminoBrillante(demostradores);
