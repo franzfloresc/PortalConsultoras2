@@ -307,6 +307,7 @@
     <Compile Include="Infraestructure\Excel\ExcelProtectionProcessor.cs" />
     <Compile Include="Models\AdministrarHistorialDetaUpdModel.cs" />
     <Compile Include="Models\AdministrarHistorialDetaListModel.cs" />
+    <Compile Include="Models\AdministrarHistorialDetaActModel.cs" />
     <Compile Include="Models\AdministrarHistorialModel.cs" />
     <Compile Include="Models\BonificacionesModel.cs" />
     <Compile Include="Models\AdministrarEstrategia\EstrategiaGrupoModel.cs" />

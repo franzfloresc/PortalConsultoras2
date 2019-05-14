@@ -601,6 +601,12 @@ namespace Portal.Consultoras.Service
            return bl.UpdateContenidoAppDeta(p);
         }
 
+        public List<BEContenidoAppDetaAct> GetContenidoAppDetaActList()
+        {
+            var bl = new BLContenidoAppHistoria();
+            return bl.GetContenidoAppDetaActList();
+        }
+
 
     }
 }

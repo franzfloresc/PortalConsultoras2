@@ -44,19 +44,25 @@ function IniDialogDetalle() {
         buttons:
             {
             "Guardar": function () {
-                
-                    var params = {
-                        RutaContenido: $("#nombre-desktop-detalle").val(),
-                        IdContenido: $("#IdContenido").val(),
-                        ActivaBoton: $("#ActivaBoton").is(':checked')
-                };
-                //if ($("#ActivaBoton").is(':checked')) {
-                //    alert("Está activado");
-                //} else {
-                //    alert("No está activado");
-                //}
 
-                console.log(params);
+               var CodigoDetalle = "";
+                if ($("#ddlAccion").val() == "VER_MAS") {
+                    CodigoDetalle = $("#ddlCodigoDetalle").val();
+                }
+                else if ($("#ddlAccion").val() == "AGR_CAR") {
+                    CodigoDetalle = $("#txtCUV").val();
+                }       
+                   
+                var params = {
+                    RutaContenido: $("#nombre-desktop-detalle").val(),
+                    IdContenido: $("#IdContenido").val(),
+                    Campania: $("#ddlCampaniaDetalle").val(),
+                    Accion: $("#ddlAccion").val(),
+                    CodigoDetalle: CodigoDetalle,
+                       
+                 };
+              
+                console.log("params=>",params);
                // return;
           
                     waitingDialog({});

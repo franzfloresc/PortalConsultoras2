@@ -41,7 +41,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.UrlS3 = GetUrlS3();
                 ViewBag.UrlDetalleS3 = GetUrlDetalleS3();
                 model.ListaCampanias = _zonificacionProvider.GetCampanias(userData.PaisID, true);
-
+              
                 string HistAnchoAlto = ConfigurationManager.AppSettings["HistAnchoAlto"];
                 arrHistAnchoAlto = HistAnchoAlto.Split(',');
                 model.Ancho = arrHistAnchoAlto[0];
@@ -50,6 +50,7 @@ namespace Portal.Consultoras.Web.Controllers
                 BEContenidoAppHistoria entidad;
                 using (var sv = new ServiceContenido.ContenidoServiceClient())
                 {
+                    
                     entidad = sv.GetContenidoAppHistoria(Globals.CodigoHistoriasResumen);
                     
 
@@ -338,9 +339,14 @@ namespace Portal.Consultoras.Web.Controllers
             model.IdContenido = IdContenido;
             model.Ancho = arrHistAnchoAlto[0];
             model.Alto = arrHistAnchoAlto[1];
-            model.ActivaBoton = false;
+           // model.Campania = 0;
+            model.ListaCampanias = _zonificacionProvider.GetCampanias(userData.PaisID, true);
+            model.ListaAccion = GetContenidoAppDetaActService(0);     
+            model.ListaCodigoDetalle = GetContenidoAppDetaActService(1);
+
 
             return PartialView("Partials/MantenimientoDetalle", model);
+
         }
 
         [HttpPost]
@@ -353,12 +359,15 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (ContenidoServiceClient sv = new ContenidoServiceClient())
                 {
+
                     var entidad = new BEContenidoAppDeta
                     {
                         IdContenido = model.IdContenido,
-                        RutaContenido = model.RutaContenido,
-                        Tipo = "IMAGEN",
-                        ActivaBoton = model.ActivaBoton
+                        RutaContenido = model.RutaContenido,                      
+                        Campania = model.Campania,
+                        Accion = model.Accion,
+                        CodigoDetalle = model.CodigoDetalle,
+                        Tipo = "IMAGEN"
                         
                         
                     };
@@ -459,6 +468,37 @@ namespace Portal.Consultoras.Web.Controllers
                 modelo = new AdministrarHistorialDetaUpdModel();
             }
             return PartialView("Partials/MantenimientoEditarContenedor", modelo);
+        }
+
+        private IEnumerable<AdministrarHistorialDetaActModel> GetContenidoAppDetaActService(int Parent)
+        {
+           
+            List<AdministrarHistorialDetaActModel> listaEntidad;
+
+            try
+            {
+                List<BEContenidoAppDetaAct> listaDatos;
+                using (var sv = new ContenidoServiceClient())
+                {
+                    listaDatos = sv.GetContenidoAppDetaActList().ToList();
+                }
+                var lista = from a in listaDatos
+                            where a.Parent == Parent
+                            select a;
+                listaEntidad = Mapper.Map<IList<BEContenidoAppDetaAct>, List<AdministrarHistorialDetaActModel>>(lista.ToList());
+
+            }
+            catch (Exception ex)
+            {
+                listaEntidad = new List<AdministrarHistorialDetaActModel>();
+                logManager.LogErrorWebServicesBusWrap(ex, userData.CodigoUsuario, userData.PaisID.ToString(),
+                    "AdministrarHistoriasController.GetContenidoAppDetaActService");
+            }
+            return listaEntidad;
+            //return listaEntidad.Where(p => p.Parent == 0);
+
+
+
         }
 
     }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -16,7 +17,11 @@ namespace Portal.Consultoras.Web.Models
         public bool Estado { get; set; }
         public string Ancho{ get; set; }
         public string Alto { get; set; }
-        public bool ActivaBoton { get; set; }
+        public string CUV { get; set; }
+        public int Campania { set; get; }
+        public IEnumerable<CampaniaModel> ListaCampanias { set; get; }
+        public IEnumerable<AdministrarHistorialDetaActModel> ListaAccion { set; get; }
+        public IEnumerable<AdministrarHistorialDetaActModel> ListaCodigoDetalle { set; get; }
 
 
         public object Clone()

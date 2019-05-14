@@ -41,7 +41,7 @@ namespace Portal.Consultoras.Entities
         public int Estado { get; set; }
 
         [DataMember]
-        public bool ActivaBoton { get; set; }
+        public int Campania { get; set; }
 
     }
 }

@@ -87,5 +87,25 @@ namespace Portal.Consultoras.BizLogic
         {
            return DAContenidoApp.UpdContenidoAppDeta(p);
         }
+
+        public List<BEContenidoAppDetaAct> GetContenidoAppDetaActList()
+        {
+            List<BEContenidoAppDetaAct> lista;
+
+            try
+            {
+                var da = new DAContenidoApp();
+                using (var reader = da.GetContenidoAppDetaActList())
+                {
+                    lista = reader.MapToCollection<BEContenidoAppDetaAct>(true);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, "", "");
+                lista = new List<BEContenidoAppDetaAct>();
+            }
+            return lista;
+        }
     }
 }
