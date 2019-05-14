@@ -576,7 +576,7 @@
 <script id="template-operacion" type="text/x-handlebars-template">
     <ul class="text-center lista_opciones_cdr">
         {{#each this as |item|}}
-        <li class="border-radius-4 opcion_cdr">
+        <li class="border-radius-4 opcion_cdr {{#if_eq item.CodigoOperacion 'D'}}opcion_cdr--devolucion{{/if_eq}}">
             <a title="{{item.CDRTipoOperacion.DescripcionOperacion}}" data-tipo="{{item.Tipo}}" class="text-center opcion_cdr_enlace">
                 <div class="opcion_cdr_icono_wrapper">
                     {{#if_eq item.CodigoOperacion 'D'}}
