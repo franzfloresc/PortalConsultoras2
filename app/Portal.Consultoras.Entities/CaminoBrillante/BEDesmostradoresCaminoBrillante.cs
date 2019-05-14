@@ -23,8 +23,8 @@ namespace Portal.Consultoras.Entities.CaminoBrillante
         [Column("DescripcionCortaCUV")]
         public string DescripcionCortaCUV { get; set; }
         [DataMember]
-        [Column("MarcaID")]
-        public int MarcaID { get; set; }
+        [Column("CodigoMarca")]
+        public string CodigoMarca { get; set; }
         [DataMember]
         [Column("DescripcionMarca")]
         public string DescripcionMarca { get; set; }

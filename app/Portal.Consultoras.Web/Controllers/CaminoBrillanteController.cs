@@ -117,16 +117,13 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetDemostradores(int cantidadMostrados, int cantidadRegistros, string codigoOrden, int codigoFiltro)
+        public JsonResult GetDemostradores(int cantRegistros, int regMostrados, string codOrdenar, string codFiltro)
         {
-            var oDemostrador = _caminoBrillanteProvider.GetDesmostradoresCaminoBrillante(codigoOrden, codigoFiltro, cantidadMostrados, cantidadRegistros);
-            //int _total = lstDemostrador.Count;
-            //lstDemostrador = lstDemostrador.Skip(offset).Take(cantidadRegistros).ToList();
-
+            var oDemostrador = _caminoBrillanteProvider.GetDesmostradoresCaminoBrillante(cantRegistros, regMostrados, codOrdenar, codFiltro);
             var estado = true;
             try
             {
-                if (oDemostrador.LstDemostradores.Count < cantidadRegistros) estado = false;
+                if (oDemostrador.LstDemostradores.Count < cantRegistros) estado = false;
             }
             catch (Exception ex)
             {
@@ -189,20 +186,20 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        [HttpPost]
-        public JsonResult ObtenerDemostradores(int offset, int cantidadRegistros, string codOrden)
-        {
-            if (!_caminoBrillanteProvider.ValidacionCaminoBrillante())
-            {
-                //No alowed
-                return Json(new { }, JsonRequestBehavior.AllowGet);
-            }
-            var oDemostrador = _caminoBrillanteProvider.GetDesmostradoresCaminoBrillante(codOrden, 0, 0, 0);
-            return Json(new {
-                lista = oDemostrador.LstDemostradores.Skip(offset).Take(cantidadRegistros).ToList(),
-                verMas = oDemostrador.LstDemostradores.Count > (offset + cantidadRegistros)
-            }, JsonRequestBehavior.AllowGet);
-        }
+        //[HttpPost]
+        //public JsonResult ObtenerDemostradores(int cantRegistros, int regMostrados, string codOrdenar, string codFiltro)
+        //{
+        //    if (!_caminoBrillanteProvider.ValidacionCaminoBrillante())
+        //    {
+        //        //No alowed
+        //        return Json(new { }, JsonRequestBehavior.AllowGet);
+        //    }
+        //    var oDemostrador = _caminoBrillanteProvider.GetDesmostradoresCaminoBrillante(cantRegistros, regMostrados, codOrdenar, codFiltro);
+        //    return Json(new {
+        //        lista = oDemostrador.LstDemostradores.Skip(regMostrados).Take(cantRegistros).ToList(),
+        //        verMas = oDemostrador.LstDemostradores.Count > (regMostrados + cantRegistros)
+        //    }, JsonRequestBehavior.AllowGet);
+        //}
 
         private RedirectToRouteResult _RedirectToAction(string actionName, string controllerName) {
             var area = (IsMobile() || EsDispositivoMovil()) ? "Mobile/" : ""; 

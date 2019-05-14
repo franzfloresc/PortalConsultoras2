@@ -25,17 +25,15 @@ $(document).ready(function () {
         codOrdenar = $("#ddlOrdenar").val();
         $("#Demostradores").empty();
         contadordemo = 0;
-        //offsetRegistrosDemo = 0;
         CargarDemostradores();
     });
 
-    //$("#ddlfiltros").on("change", function () {
-    //    codFiltro = $("#ddlfiltros").val();
-    //    $("#Demostradores").empty();
-    //    contadordemo = 0;
-    //    //offsetRegistrosDemo = 0;
-    //    CargarDemostradores();
-    //});
+    $("#ddlfiltros").on("change", function () {
+        codFiltro = $("#ddlfiltros").val();
+        $("#Demostradores").empty();
+        contadordemo = 0;
+        CargarDemostradores();
+    });
 });
 
 $("#Demostradores").on('click', '.boton_agregar_ofertas', function (e) {
@@ -158,7 +156,7 @@ function CargarDemostradores() {
     $.ajax({
         type: 'GET',
         url: urlGetDemostradores,
-        data: { cantidadMostrados: offsetRegistrosDemo, cantidadregistros: nroRegistrosDemostradores, codigoOrden: codOrdenar, codigoFiltro: codFiltro},
+        data: { cantRegistros: nroRegistrosDemostradores, regMostrados: offsetRegistrosDemo, codOrdenar: codOrdenar, codFiltro: codFiltro},
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (data) {

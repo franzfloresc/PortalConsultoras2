@@ -757,18 +757,19 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
         #region Demostradores
 
-        public BEDemostradoresPaginado GetDemostradores(BEUsuario entidad, string ordenar, int filtro, int cantMostrados, int cantidad)
+        public BEDemostradoresPaginado GetDemostradores(BEUsuario entidad, int cantRegistros, int regMostrados, string codOrdenar, string codFiltro)
         {
             var objDemostradores = new BEDemostradoresPaginado();
             var demostradores = GetDemostradoresCaminoBrillanteCache(entidad.PaisID, entidad.CampaniaID, entidad.NivelCaminoBrillante);
             var demostradoresEnPedido = new DACaminoBrillante(entidad.PaisID).GetPedidoWebDetalleCaminoBrillante(entidad.CampaniaID, entidad.CampaniaID, entidad.ConsultoraID).MapToCollection<BEKitsHistoricoConsultora>(closeReaderFinishing: true) ?? new List<BEKitsHistoricoConsultora>();
-            var paisISO = Util.GetPaisISO(entidad.PaisID);
-            objDemostradores.Total = demostradores.Count();
+            var paisISO = Util.GetPaisISO(entidad.PaisID);            
 
-            if (string.IsNullOrEmpty(ordenar) || ordenar == "00") ordenar = Constantes.CaminoBrillante.CodigosOrdenamiento.porCategoria;
-            demostradores = GetOrdenarDemostradores(demostradores, ordenar);
-            //if(filtro != 0) demostradores = GetFiltrarDemostradores(demostradores, filtro);
-            if(cantidad != 0) demostradores = GetDesmostradoresByCantidad(demostradores, cantMostrados, cantidad);
+            if (string.IsNullOrEmpty(codOrdenar) || codOrdenar == "00") codOrdenar = Constantes.CaminoBrillante.CodigosOrdenamiento.porCategoria;
+            demostradores = GetOrdenarDemostradores(demostradores, codOrdenar);
+            if (codFiltro != "00") demostradores = GetFiltrarDemostradores(demostradores, codFiltro);
+            objDemostradores.Total = demostradores.Count();
+            if (cantRegistros != 0) demostradores = GetDesmostradoresByCantidad(demostradores, regMostrados, cantRegistros);
+            
 
             objDemostradores.LstDemostradores = demostradores.Select(e => new BEDemostradoresCaminoBrillante()
             {
@@ -780,7 +781,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 EstrategiaID = e.EstrategiaID,
                 FotoProductoMedium = e.FotoProductoMedium,
                 FotoProductoSmall = e.FotoProductoSmall,
-                MarcaID = e.MarcaID,
+                CodigoMarca = e.CodigoMarca,
                 PrecioCatalogo = e.PrecioCatalogo,
                 PrecioValorizado = e.PrecioValorizado,
                 TipoEstrategiaID = e.TipoEstrategiaID,
@@ -803,16 +804,16 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             }
         }
 
-        public List<BEDemostradoresCaminoBrillante> GetFiltrarDemostradores(List<BEDemostradoresCaminoBrillante> demostradores, int filtro)
+        public List<BEDemostradoresCaminoBrillante> GetFiltrarDemostradores(List<BEDemostradoresCaminoBrillante> demostradores, string codFiltro)
         {
-            switch (filtro)
+            switch (codFiltro)
             {
                 case Constantes.CaminoBrillante.CodigoFiltros.lbel:
-                    return demostradores.Where(x => x.MarcaID == Constantes.CaminoBrillante.CodigoFiltros.lbel).ToList();
+                    return demostradores.Where(x => x.CodigoMarca == Constantes.CaminoBrillante.CodigoFiltros.lbel).ToList();
                 case Constantes.CaminoBrillante.CodigoFiltros.esika:
-                    return demostradores.Where(x => x.MarcaID == Constantes.CaminoBrillante.CodigoFiltros.esika).ToList();
+                    return demostradores.Where(x => x.CodigoMarca == Constantes.CaminoBrillante.CodigoFiltros.esika).ToList();
                 case Constantes.CaminoBrillante.CodigoFiltros.cyzone:
-                    return demostradores.Where(x => x.MarcaID == Constantes.CaminoBrillante.CodigoFiltros.cyzone).ToList();
+                    return demostradores.Where(x => x.CodigoMarca == Constantes.CaminoBrillante.CodigoFiltros.cyzone).ToList();
                 default:
                     return demostradores;
             }
