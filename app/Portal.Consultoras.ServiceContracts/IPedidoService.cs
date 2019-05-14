@@ -1331,13 +1331,11 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEEscalaDescuento> ListarEscalaDescuentoZona(int paisID, int campaniaID, string region, string zona);
 
         #region Camino Brillante
-
         [OperationContract]
         List<BEKitCaminoBrillante> GetKitsCaminoBrillante(BEUsuario entidad);
 
         [OperationContract]
-        List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillante(BEUsuario entidad, string ordenar, string filtro, int cantMostrados, int cantidad);        
+        BEDemostradoresPaginado GetDemostradoresCaminoBrillante(BEUsuario entidad, string ordenar, int filtro, int cantMostrados, int cantidad);        
         #endregion
-
     }
 }
