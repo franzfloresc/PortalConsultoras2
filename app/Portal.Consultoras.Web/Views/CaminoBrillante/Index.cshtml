@@ -91,39 +91,37 @@
                                             <p id="m_montoFaltante"><b>Te falta:</b><span style='float: right'>@ViewBag.SimboloMoneda @Util.DecimalToStringFormat(Convert.ToDecimal(nivel.MontoFaltante), @ViewBag.CodigoISODL)</span></p>
                                         }
                                     </div>
-                                    @if (nivel.EnterateMas == 1 || nivel.EnterateMas == 2) {
-                                        <a href="@Url.Action("EnterateMas", "CaminoBrillante", new { nivel = nivel.CodigoNivel  })"  >Enterate más</a>
+                                    @if (nivel.EnterateMas == 1 || nivel.EnterateMas == 2)
+                                    {
+                                        <div class="box-enterate">
+                                            <a href="@Url.Action("EnterateMas", "CaminoBrillante", new { nivel = nivel.CodigoNivel  })">Enterate más</a>
+                                        </div>
                                     }
                                 </div>
                             </div>
-
-                            <div class="box-enterate">
-                                <a href="#">Entérate más</a>
-                            </div>
-
-                                <h4 class="subtitle text-center">Conoce los beneficios:</h4>
-                                <ul class="box-beneficios two-colums" id="ListaBeneficios">
-                                    @foreach (var beneficio in nivel.Beneficios as List<NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel>)
-                                    {
-                                        <li>
-                                            <img src='@beneficio.UrlIcono'>
-                                            <div class="txt-benf">
-                                                <p class="text-bold">
-                                                    @if (string.IsNullOrEmpty(beneficio.Descripcion))
-                                                    {
-                                                        <span>@beneficio.NombreBeneficio</span>
-                                                    }
-                                                    else
-                                                    {
-                                                        @beneficio.NombreBeneficio<span>@beneficio.Descripcion</span>
-                                                    }
-                                                </p>
-                                            </div>
-                                        </li>
-                                    }
-                                </ul>
-                            </div>
+                            <h4 class="subtitle text-center">Conoce los beneficios:</h4>
+                            <ul class="box-beneficios two-colums" id="ListaBeneficios">
+                                @foreach (var beneficio in nivel.Beneficios as List<NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel>)
+                                {
+                                    <li>
+                                        <img src='@beneficio.UrlIcono'>
+                                        <div class="txt-benf">
+                                            <p class="text-bold">
+                                                @if (string.IsNullOrEmpty(beneficio.Descripcion))
+                                                {
+                                                    <span>@beneficio.NombreBeneficio</span>
+                                                }
+                                                else
+                                                {
+                                                    @beneficio.NombreBeneficio<span>@beneficio.Descripcion</span>
+                                                }
+                                            </p>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
                         </div>
+                    </div>
                 </div>
             </div>
         }
@@ -133,7 +131,7 @@
     {
         <a id="OfertasEspeciales" href="@Url.Action("Ofertas", "CaminoBrillante")" class="btn-principal">Ver ofertas</a>
     }
-   
+
     @if (ViewBag.ResumenLogros != null)
     {
         var logro = ViewBag.ResumenLogros as LogroCaminoBrillanteModel;
@@ -182,7 +180,7 @@
 
 @section scripts{
 
-    <script src="~/Scripts/bootstrap.min.js"></script>
+    <!--<script src="~/Scripts/bootstrap.min.js"></script>-->
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante")
 
 }
