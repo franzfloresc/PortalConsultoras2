@@ -13,6 +13,7 @@ var reservaResponse = {
 var contadorkit = 0
 var contadordemo = 0
 var codOrdenar = "00";
+var codFiltro = 0;
 
 var moneda = ($('#moneda').val());
 
@@ -21,11 +22,20 @@ $(document).ready(function () {
     Inicializar();
 
     $("#ddlOrdenar").on("change", function () {
-        debugger
         codOrdenar = $("#ddlOrdenar").val();
         $("#Demostradores").empty();
+        contadordemo = 0;
+        //offsetRegistrosDemo = 0;
         CargarDemostradores();
     });
+
+    //$("#ddlfiltros").on("change", function () {
+    //    codFiltro = $("#ddlfiltros").val();
+    //    $("#Demostradores").empty();
+    //    contadordemo = 0;
+    //    //offsetRegistrosDemo = 0;
+    //    CargarDemostradores();
+    //});
 });
 
 $("#Demostradores").on('click', '.boton_agregar_ofertas', function (e) {
@@ -148,7 +158,7 @@ function CargarDemostradores() {
     $.ajax({
         type: 'GET',
         url: urlGetDemostradores,
-        data: { cantidadMostrados: offsetRegistrosDemo, cantidadregistros: nroRegistrosDemostradores, codigoOrden: codOrdenar, codigoFiltro: ""},
+        data: { cantidadMostrados: offsetRegistrosDemo, cantidadregistros: nroRegistrosDemostradores, codigoOrden: codOrdenar, codigoFiltro: codFiltro},
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
