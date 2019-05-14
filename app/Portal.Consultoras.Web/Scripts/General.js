@@ -2063,7 +2063,7 @@ var GeneralModule = (function () {
         if (typeof validateIsMobile === "undefined") validateIsMobile = true;
 
         var destinationUrl = "/";
-        if (validateIsMobile && _isMobile()) destinationUrl = destinationUrl + "Mobile/";
+        if (validateIsMobile && _isMobile() && url.indexOf('Mobile/') == -1) destinationUrl = destinationUrl + "Mobile/";
         destinationUrl += url;
 
         window.location.href = destinationUrl;

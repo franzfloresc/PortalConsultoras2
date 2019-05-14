@@ -851,7 +851,6 @@ var FichaModule = (function (config) {
     };
 
     function _init() {
-        debugger;
         _config.esMobile = _config.generalModule.isMobile();
 
         console.log('Ficha - init');
@@ -870,7 +869,7 @@ var FichaModule = (function (config) {
             var urlResponsive = _config.generalModule.getLocationPathname()/*.toLowerCase()*/;
             urlResponsive = urlResponsive.replace("Detalle", "Detalles");
             urlResponsive = urlResponsive.substr(1);
-            _config.generalModule.redirectTo(urlResponsive);
+            _config.generalModule.redirectTo(urlResponsive, _config.esMobile);
             return;
         }
 

@@ -29,7 +29,6 @@
     };
 
     var _render = function (estrategia) {
-        debugger;
         console.log(estrategia);
         SetHandlebars(_elements.breadcrumbs.templateId, estrategia, _elements.breadcrumbs.id);
         SetHandlebars(_elements.imagenEstrategia.templateId, estrategia, _elements.imagenEstrategia.id);
