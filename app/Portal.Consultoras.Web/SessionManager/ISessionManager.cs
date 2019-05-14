@@ -514,7 +514,7 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetKitCaminoBrillante(List<BEKitCaminoBrillante> val);
         List<BEKitCaminoBrillante> GetKitCaminoBrillante();
 
-        void SetDemostradoresCaminoBrillante(List<BEDesmostradoresCaminoBrillante> val);
-        List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillante();
+        void SetDemostradoresCaminoBrillante(List<BEDemostradoresCaminoBrillante> val);
+        List<BEDemostradoresCaminoBrillante> GetDemostradoresCaminoBrillante();
     }
 }

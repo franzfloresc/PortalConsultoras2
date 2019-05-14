@@ -2,7 +2,7 @@
 @{
     ViewBag.CaminoBrillante = true;
     Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
-    var Demostradores = ViewBag.Demostradores;
+    //var Demostradores = ViewBag.Demostradores;
     var origenPedido = ViewBag.EsMobile ? Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido : Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido;
 }
 
@@ -45,16 +45,16 @@
 
 <div class="ml-0 mr-0 mx-auto layout__content__fichaProductos clearboth opOrdenar" style="display:none">
     <div>
-        <select class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="marca">
-            <option value="00">FILTRAR POR</option>
-            <option value="03">CYZONE</option>
-            <option value="02">ÉSIKA</option>
-            <option value="01">LBEL</option>
+        <select id="ddlfiltros" class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="marca">
+            <option value="0">FILTRAR POR</option>
+            <option value="3">CYZONE</option>
+            <option value="2">ÉSIKA</option>
+            <option value="1">LBEL</option>
         </select>
         <select id="ddlOrdenar" class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="precio" data-filtro-accion="orden">
             <option value="00">ORDENAR POR</option>
             <option value="01">CATEGORIA</option>
-            <option value="02">ALFABETICAMENTE</option>
+            <option value="02">NOMBRE</option>
         </select>
     </div>
 </div>
