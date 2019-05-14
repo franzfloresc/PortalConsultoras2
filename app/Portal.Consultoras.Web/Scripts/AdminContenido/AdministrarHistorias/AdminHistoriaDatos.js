@@ -30,7 +30,7 @@
         UrlGrillaEditar: baseUrl + 'AdministrarHistorias/ComponenteObtenerViewDatos',
         UrlGrillaVerImagen: baseUrl + 'AdministrarHistorias/ComponenteObtenerVerImagen',
         UrlComponenteDatosGuardar: baseUrl + 'AdministrarHistorias/ComponenteDatosGuardar',
-        UrlGrillaEditarContenedor: baseUrl + 'AdministrarHistorias/ComponenteObtenerContenedorViewDatos',
+        UrlGrillaEditarContenedor: baseUrl + 'AdministrarHistorias/ComponenteDetalleEditarViewDatos',
     };
 
     var _accion = {
@@ -75,7 +75,7 @@
             mtype: 'GET',
             contentType: 'application/json; charset=utf-8',
             multiselect: false,
-            colNames: ['ID', 'Tipo', 'Orden', 'Contenido', 'IdContenido', 'Acción'],
+            colNames: ['ID', 'Tipo', 'Orden', 'Contenido', 'IdContenido', 'Campania', 'Region', 'Zona', 'Seccion', 'AccionTb', 'CodigoDetalle', 'Acción'],
             colModel: [
                 {
                     name: 'IdContenidoDeta',
@@ -110,18 +110,16 @@
                     align: 'center',
                     formatter: _GrillaImagen
                 },
+                { name: 'IdContenido', index: 'IdContenido', hidden: true },
+                { name: 'Campania', index: 'Campania', hidden: true },
+                { name: 'Region', index: 'Region', hidden: true },
+                { name: 'Zona', index: 'Zona', hidden: true },
+                { name: 'Seccion', index: 'Seccion', hidden: true },
+                { name: 'Accion', index: 'Accion', hidden: true },
+                { name: 'CodigoDetalle', index: 'CodigoDetalle', hidden: true },                
                 {
-                    name: 'IdContenido',
-                    index: 'IdContenido',
-                    width: 40,
-                    align: 'center',
-                    resizable: false,
-                    sortable: false,
-                    hidden: true
-                },
-                {
-                    name: 'Accion',
-                    index: 'Accion',
+                    name: 'Opciones',
+                    index: 'Opciones',
                     width: 20,
                     align: 'center',
                     resizable: false,
@@ -317,47 +315,28 @@
         });
     };
 
-    var _DialogEditarContenedor = function () {
-        $('#DialogEditarContenedor').dialog({
-            autoOpen: false,
-            resizable: false,
-            modal: true,
-            closeOnEscape: true,
-            width: 600,
-            height: 400,
-            close: function () {
-                HideDialog("DialogEditarContenedor");
-            },
-            draggable: false,
-            title: "Editar",
-            open: function (event, ui) { },
-            buttons:
-            {
-                'Guardar': function () {
-                    // _GuardarDatos(this);
-                },
-                'Salir': function () {
-                    HideDialog("DialogEditarContenedor");
-                }
-            }
-        });
-    };
-
+   
     var GrillaEditarContenedor = function (event) {
 
         var rowId = $(event.path[1]).parents('tr').attr('id');
         var row = jQuery(_elemento.TablaId).getRowData(rowId);
         console.log("rowId", row);
-        //console.log("row",row);
+        console.log("row=>",row);
         //return;
         var entidad = {
+            Proc: 2,
             IdContenidoDeta: row['IdContenidoDeta'],
             IdContenido: row['IdContenido'],
-            Accion: _accion.Editar
+            Campania: row['Campania'],
+            Region: row['Region'],
+            Zona: row['Zona'],
+            Seccion: row['Seccion'],
+            Accion: row['Accion'],
+            CodigoDetalle: row['CodigoDetalle'],
         };
-        _RegistroObternerContenedor(entidad);
+        _RegistroObternerDetalle(entidad);
     }
-    var _RegistroObternerContenedor = function (modelo) {
+    var _RegistroObternerDetalle = function (modelo) {
         //console.log(modelo);
         //return;
         waitingDialog();
@@ -371,16 +350,12 @@
 
                 closeWaitingDialog();
 
-                $("#dialog-editar-contenedor").empty();
-                $("#dialog-editar-contenedor").html(result),
+                $("#dialog-content-detalle").empty();
+                $("#dialog-content-detalle").html(result).ready(function () {
+                   // UploadFileDetalle("desktop-detalle");
+                });
 
-                showDialog("DialogEditarContenedor");
-
-                //$(_elemento.DialogRegistroHtml).empty();
-                //$(_elemento.DialogRegistroHtml)
-                //    .html(result);
-
-                //showDialog(_elemento.DialogRegistro);
+                showDialog("DialogMantenimientoDetalle");
 
             },
             error: function (request, status, error) { closeWaitingDialog(); _toastHelper.error("Error al cargar la ventana."); }
@@ -391,9 +366,7 @@
         _evento();
         _DialogCrear();
         _DialogImagen();
-        _DialogEditarContenedor();
-
-
+    
     };
 
    

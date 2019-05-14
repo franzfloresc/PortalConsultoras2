@@ -44,7 +44,7 @@ function IniDialogDetalle() {
         buttons:
             {
             "Guardar": function () {
-
+               var Proc = $("#Proc").val();    
                var CodigoDetalle = "";
                 if ($("#ddlAccion").val() == "VER_MAS") {
                     CodigoDetalle = $("#ddlCodigoDetalle").val();
@@ -54,7 +54,9 @@ function IniDialogDetalle() {
                 }       
                    
                 var params = {
+                    Proc: Proc,
                     RutaContenido: $("#nombre-desktop-detalle").val(),
+                    IdContenidoDeta: $("#IdContenidoDeta").val(),
                     IdContenido: $("#IdContenido").val(),
                     Campania: $("#ddlCampaniaDetalle").val(),
                     Accion: $("#ddlAccion").val(),
@@ -102,10 +104,10 @@ function IniDialogDetalle() {
 }
 
 function NuevoDetalle(IdContenido) {
-    ModificarDetalle(0, IdContenido);
+    ModificarDetalle(1, IdContenido);
 }
 
-function ModificarDetalle(id, IdContenido) {
+function ModificarDetalle(Proc, IdContenido) {
 
     waitingDialog();
     $.ajax({
@@ -113,7 +115,7 @@ function ModificarDetalle(id, IdContenido) {
         type: "GET",
         dataType: "html",
         data: {
-            id: id,
+            Proc: Proc,
             IdContenido: IdContenido 
         },
         contentType: "application/json; charset=utf-8",

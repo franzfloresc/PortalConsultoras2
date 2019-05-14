@@ -225,7 +225,13 @@ namespace Portal.Consultoras.Web.Controllers
                                     a.Tipo,
                                     a.Orden.ToString(),
                                     a.RutaContenido,
-                                    a.IdContenido.ToString()
+                                    a.IdContenido.ToString(),
+                                    a.Campania.ToString(),
+                                    a.Region,
+                                    a.Zona,
+                                    a.Seccion,
+                                    a.Accion,
+                                    a.CodigoDetalle                                    
                                 }
                            }
                 };
@@ -328,18 +334,18 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public ActionResult GetDetalle(int id, int IdContenido)
+        public ActionResult GetDetalle(int Proc, int IdContenido)
         {
-
             string HistAnchoAlto = ConfigurationManager.AppSettings["HistAnchoAltoDetalle"];
             string[] arrHistAnchoAlto;
             arrHistAnchoAlto = HistAnchoAlto.Split(',');
 
             var model = new AdministrarHistorialDetaListModel();
+            model.Proc = Proc;
             model.IdContenido = IdContenido;
             model.Ancho = arrHistAnchoAlto[0];
             model.Alto = arrHistAnchoAlto[1];
-           // model.Campania = 0;
+
             model.ListaCampanias = _zonificacionProvider.GetCampanias(userData.PaisID, true);
             model.ListaAccion = GetContenidoAppDetaActService(0);     
             model.ListaCodigoDetalle = GetContenidoAppDetaActService(1);
@@ -359,19 +365,22 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (ContenidoServiceClient sv = new ContenidoServiceClient())
                 {
+                    
+                        var entidad = new BEContenidoAppDeta
+                        {
+                            Proc = model.Proc,
+                            IdContenidoDeta = model.IdContenidoDeta,
+                            IdContenido = model.IdContenido,
+                            RutaContenido = model.RutaContenido,
+                            Campania = model.Campania,
+                            Accion = model.Accion,
+                            CodigoDetalle = model.CodigoDetalle,
+                            Tipo = "IMAGEN"
 
-                    var entidad = new BEContenidoAppDeta
-                    {
-                        IdContenido = model.IdContenido,
-                        RutaContenido = model.RutaContenido,                      
-                        Campania = model.Campania,
-                        Accion = model.Accion,
-                        CodigoDetalle = model.CodigoDetalle,
-                        Tipo = "IMAGEN"
-                        
-                        
-                    };
-                   sv.InsertContenidoAppDeta(entidad);
+                        };
+
+                        sv.InsertContenidoAppDeta(entidad);
+                                      
                 }
 
                 return Json(new
@@ -451,25 +460,7 @@ namespace Portal.Consultoras.Web.Controllers
             return newfilename;
         }
 
-        public ActionResult ComponenteObtenerContenedorViewDatos(AdministrarHistorialDetaUpdModel entidad)
-        {
-            AdministrarHistorialDetaUpdModel modelo;
-            try
-            {
-                modelo = new AdministrarHistorialDetaUpdModel
-                {
-                    IdContenidoDeta = entidad.IdContenidoDeta,
-                    IdContenido = entidad.IdContenido
-                };
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                modelo = new AdministrarHistorialDetaUpdModel();
-            }
-            return PartialView("Partials/MantenimientoEditarContenedor", modelo);
-        }
-
+     
         private IEnumerable<AdministrarHistorialDetaActModel> GetContenidoAppDetaActService(int Parent)
         {
            
@@ -501,5 +492,37 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
 
+        public ActionResult ComponenteDetalleEditarViewDatos(AdministrarHistorialDetaListModel entidad)
+        {
+            AdministrarHistorialDetaListModel model = new AdministrarHistorialDetaListModel();
+
+            string HistAnchoAlto = ConfigurationManager.AppSettings["HistAnchoAltoDetalle"];
+            string[] arrHistAnchoAlto;
+            arrHistAnchoAlto = HistAnchoAlto.Split(',');
+            model.Ancho = arrHistAnchoAlto[0];
+            model.Alto = arrHistAnchoAlto[1];
+
+            try
+            {
+                model.Proc = entidad.Proc;
+                model.ListaCampanias = _zonificacionProvider.GetCampanias(userData.PaisID, true);
+                model.ListaAccion = GetContenidoAppDetaActService(0);
+                model.ListaCodigoDetalle = GetContenidoAppDetaActService(1);
+
+                model.IdContenidoDeta = entidad.IdContenidoDeta;
+                model.IdContenido = entidad.IdContenido;
+                model.Campania = entidad.Campania;
+                model.Accion = entidad.Accion;
+                model.CodigoDetalle = entidad.CodigoDetalle;
+                model.CUV = entidad.CodigoDetalle;             
+                
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                model = new AdministrarHistorialDetaListModel();
+            }
+            return PartialView("Partials/MantenimientoDetalle", model);
+        }
     }
 }

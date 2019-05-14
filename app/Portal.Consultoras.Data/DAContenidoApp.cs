@@ -53,6 +53,8 @@ namespace Portal.Consultoras.Data
         public void InsertContenidoAppDeta(BEContenidoAppDeta p)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ContenidoAppDetaInsert");
+            Context.Database.AddInParameter(command, "@Proc", DbType.Int32, p.Proc);
+            Context.Database.AddInParameter(command, "@IdContenidoDeta", DbType.Int32, p.IdContenidoDeta);
             Context.Database.AddInParameter(command, "@IdContenido", DbType.Int32, p.IdContenido);
             Context.Database.AddInParameter(command, "@RutaContenido", DbType.AnsiString, p.RutaContenido);
             Context.Database.AddInParameter(command, "@Campania", DbType.Int32, p.Campania);

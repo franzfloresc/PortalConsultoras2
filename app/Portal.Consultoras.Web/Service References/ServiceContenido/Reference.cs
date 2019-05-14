@@ -8897,6 +8897,9 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         private string AccionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CampaniaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigoDetalleField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -8915,10 +8918,19 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         private int OrdenField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RegionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string RutaContenidoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SeccionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TipoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ZonaField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string Accion {
@@ -8929,6 +8941,19 @@ namespace Portal.Consultoras.Web.ServiceContenido {
                 if ((object.ReferenceEquals(this.AccionField, value) != true)) {
                     this.AccionField = value;
                     this.RaisePropertyChanged("Accion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Campania {
+            get {
+                return this.CampaniaField;
+            }
+            set {
+                if ((this.CampaniaField.Equals(value) != true)) {
+                    this.CampaniaField = value;
+                    this.RaisePropertyChanged("Campania");
                 }
             }
         }
@@ -9012,6 +9037,19 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Region {
+            get {
+                return this.RegionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RegionField, value) != true)) {
+                    this.RegionField = value;
+                    this.RaisePropertyChanged("Region");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string RutaContenido {
             get {
                 return this.RutaContenidoField;
@@ -9025,6 +9063,19 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Seccion {
+            get {
+                return this.SeccionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SeccionField, value) != true)) {
+                    this.SeccionField = value;
+                    this.RaisePropertyChanged("Seccion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string Tipo {
             get {
                 return this.TipoField;
@@ -9033,6 +9084,19 @@ namespace Portal.Consultoras.Web.ServiceContenido {
                 if ((object.ReferenceEquals(this.TipoField, value) != true)) {
                     this.TipoField = value;
                     this.RaisePropertyChanged("Tipo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Zona {
+            get {
+                return this.ZonaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ZonaField, value) != true)) {
+                    this.ZonaField = value;
+                    this.RaisePropertyChanged("Zona");
                 }
             }
         }
@@ -9830,6 +9894,9 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         private int OrdenField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ProcField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string RutaContenidoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -9945,6 +10012,19 @@ namespace Portal.Consultoras.Web.ServiceContenido {
                 if ((this.OrdenField.Equals(value) != true)) {
                     this.OrdenField = value;
                     this.RaisePropertyChanged("Orden");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Proc {
+            get {
+                return this.ProcField;
+            }
+            set {
+                if ((this.ProcField.Equals(value) != true)) {
+                    this.ProcField = value;
+                    this.RaisePropertyChanged("Proc");
                 }
             }
         }

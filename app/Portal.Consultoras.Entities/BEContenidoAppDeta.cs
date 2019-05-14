@@ -12,6 +12,8 @@ namespace Portal.Consultoras.Entities
         {
 
         }
+        [DataMember]
+        public int Proc { set; get; }
 
         [DataMember]
         public int IdContenidoDeta { get; set; }

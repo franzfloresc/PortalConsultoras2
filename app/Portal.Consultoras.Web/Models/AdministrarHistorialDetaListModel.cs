@@ -6,6 +6,7 @@ namespace Portal.Consultoras.Web.Models
     [Serializable]
     public class AdministrarHistorialDetaListModel : ICloneable
     {
+        public int Proc { set; get; }
         public int IdContenidoDeta { get; set; }
         public int IdContenido { get; set; }
         public string CodigoDetalle { get; set; }        

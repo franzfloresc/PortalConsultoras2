@@ -844,14 +844,18 @@
       <xs:extension base="tns:BaseEntidad">
         <xs:sequence>
           <xs:element minOccurs="0" name="Accion" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Campania" type="xs:int" />
           <xs:element minOccurs="0" name="CodigoDetalle" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="Estado" type="xs:boolean" />
           <xs:element minOccurs="0" name="IdContenido" type="xs:int" />
           <xs:element minOccurs="0" name="IdContenidoDeta" type="xs:int" />
           <xs:element minOccurs="0" name="Orden" type="xs:int" />
+          <xs:element minOccurs="0" name="Region" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="RutaContenido" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Seccion" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="Tipo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Zona" nillable="true" type="xs:string" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -873,6 +877,7 @@
       <xs:element minOccurs="0" name="IdContenido" type="xs:int" />
       <xs:element minOccurs="0" name="IdContenidoDeta" type="xs:int" />
       <xs:element minOccurs="0" name="Orden" type="xs:int" />
+      <xs:element minOccurs="0" name="Proc" type="xs:int" />
       <xs:element minOccurs="0" name="RutaContenido" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Tipo" nillable="true" type="xs:string" />
     </xs:sequence>
