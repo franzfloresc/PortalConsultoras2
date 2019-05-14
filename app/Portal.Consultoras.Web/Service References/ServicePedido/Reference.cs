@@ -28054,7 +28054,7 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private int FactorRepeticionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string GrupoField;
+        private int GrupoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NombreProductoField;
@@ -28140,12 +28140,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Grupo {
+        public int Grupo {
             get {
                 return this.GrupoField;
             }
             set {
-                if ((object.ReferenceEquals(this.GrupoField, value) != true)) {
+                if ((this.GrupoField.Equals(value) != true)) {
                     this.GrupoField = value;
                     this.RaisePropertyChanged("Grupo");
                 }
@@ -29204,6 +29204,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string CodigoEstrategiaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoMarcaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DescripcionCUVField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -29223,9 +29226,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string FotoProductoSmallField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int MarcaIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal PrecioCatalogoField;
@@ -29268,6 +29268,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.CodigoEstrategiaField, value) != true)) {
                     this.CodigoEstrategiaField = value;
                     this.RaisePropertyChanged("CodigoEstrategia");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoMarca {
+            get {
+                return this.CodigoMarcaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoMarcaField, value) != true)) {
+                    this.CodigoMarcaField = value;
+                    this.RaisePropertyChanged("CodigoMarca");
                 }
             }
         }
@@ -29359,19 +29372,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.FotoProductoSmallField, value) != true)) {
                     this.FotoProductoSmallField = value;
                     this.RaisePropertyChanged("FotoProductoSmall");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int MarcaID {
-            get {
-                return this.MarcaIDField;
-            }
-            set {
-                if ((this.MarcaIDField.Equals(value) != true)) {
-                    this.MarcaIDField = value;
-                    this.RaisePropertyChanged("MarcaID");
                 }
             }
         }
@@ -46281,10 +46281,10 @@ namespace Portal.Consultoras.Web.ServicePedido {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEKitCaminoBrillante[]> GetKitsCaminoBrillanteAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetDemostradoresCaminoBrillante", ReplyAction="http://tempuri.org/IPedidoService/GetDemostradoresCaminoBrillanteResponse")]
-        Portal.Consultoras.Web.ServicePedido.BEDemostradoresPaginado GetDemostradoresCaminoBrillante(Portal.Consultoras.Web.ServicePedido.BEUsuario entidad, string ordenar, int filtro, int cantMostrados, int cantidad);
+        Portal.Consultoras.Web.ServicePedido.BEDemostradoresPaginado GetDemostradoresCaminoBrillante(Portal.Consultoras.Web.ServicePedido.BEUsuario entidad, int cantRegistros, int regMostrados, string codOrdenar, string codFiltro);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetDemostradoresCaminoBrillante", ReplyAction="http://tempuri.org/IPedidoService/GetDemostradoresCaminoBrillanteResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEDemostradoresPaginado> GetDemostradoresCaminoBrillanteAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario entidad, string ordenar, int filtro, int cantMostrados, int cantidad);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEDemostradoresPaginado> GetDemostradoresCaminoBrillanteAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario entidad, int cantRegistros, int regMostrados, string codOrdenar, string codFiltro);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetProductosShowRoomDetalle", ReplyAction="http://tempuri.org/IPedidoService/GetProductosShowRoomDetalleResponse")]
         Portal.Consultoras.Web.ServicePedido.BEShowRoomOfertaDetalle[] GetProductosShowRoomDetalle(int paisID, int campaniaId, string cuv);
@@ -49034,12 +49034,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.GetKitsCaminoBrillanteAsync(entidad);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEDemostradoresPaginado GetDemostradoresCaminoBrillante(Portal.Consultoras.Web.ServicePedido.BEUsuario entidad, string ordenar, int filtro, int cantMostrados, int cantidad) {
-            return base.Channel.GetDemostradoresCaminoBrillante(entidad, ordenar, filtro, cantMostrados, cantidad);
+        public Portal.Consultoras.Web.ServicePedido.BEDemostradoresPaginado GetDemostradoresCaminoBrillante(Portal.Consultoras.Web.ServicePedido.BEUsuario entidad, int cantRegistros, int regMostrados, string codOrdenar, string codFiltro) {
+            return base.Channel.GetDemostradoresCaminoBrillante(entidad, cantRegistros, regMostrados, codOrdenar, codFiltro);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEDemostradoresPaginado> GetDemostradoresCaminoBrillanteAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario entidad, string ordenar, int filtro, int cantMostrados, int cantidad) {
-            return base.Channel.GetDemostradoresCaminoBrillanteAsync(entidad, ordenar, filtro, cantMostrados, cantidad);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEDemostradoresPaginado> GetDemostradoresCaminoBrillanteAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario entidad, int cantRegistros, int regMostrados, string codOrdenar, string codFiltro) {
+            return base.Channel.GetDemostradoresCaminoBrillanteAsync(entidad, cantRegistros, regMostrados, codOrdenar, codFiltro);
         }
         
         public Portal.Consultoras.Web.ServicePedido.BEShowRoomOfertaDetalle[] GetProductosShowRoomDetalle(int paisID, int campaniaId, string cuv) {
