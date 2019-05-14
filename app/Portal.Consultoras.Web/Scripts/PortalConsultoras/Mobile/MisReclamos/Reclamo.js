@@ -2053,24 +2053,29 @@ $(document).ready(function () {
             },
 
             EliminarCUVTrueque: function (el) {
-                $(el).parent().parent().remove();
+                ShowLoading();
+                setTimeout(function () {
+                    $(el).parent().parent().remove();
+                    me.Funciones.CalcularTotal();
+                }, 100);
+                CloseLoading();
             },
 
-            CalcularTotal : function () {
-            var precioTotal = 0;
-            var items = $("#contenedorCuvTrueque .item-producto-cambio");
-            items.each(function (i, el) {
-                var $el = $(el);
-                var precio = $($el).find("input[name=precio]").attr("data-precio");
-                var cantidad = $($el).find("input[name=cantidad]").val();
-                if (precio !== "" && cantidad !== "") {
-                    precioTotal = precioTotal + parseFloat(precio) * parseInt(cantidad);
-                }
-            });
-            $("#spnImporteTotal2").text(DecimalToStringFormat(precioTotal));
-            $("#hdImporteTotal2").val(precioTotal);
-            $("#MontoTotalProductoACambiar").fadeIn(100);
-        }
+            CalcularTotal: function () {
+                var precioTotal = 0;
+                var items = $("#contenedorCuvTrueque .item-producto-cambio");
+                items.each(function (i, el) {
+                    var $el = $(el);
+                    var precio = $($el).find("span[name=precio]").attr("data-precio");
+                    var cantidad = $($el).find("input[name=cantidad]").val();
+                    if (precio !== "" && cantidad !== "") {
+                        precioTotal = precioTotal + parseFloat(precio) * parseInt(cantidad);
+                    }
+                });
+                $("#spnImporteTotal2").text(DecimalToStringFormat(precioTotal));
+                $("#hdImporteTotal2").val(precioTotal);
+                $("#MontoTotalProductoACambiar").fadeIn(100);
+            }
 
         };
 
