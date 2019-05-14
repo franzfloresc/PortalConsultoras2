@@ -101,7 +101,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 string key = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.secret_key);
-                string urlLms = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.CursosMarquesina);
+                //string urlLms = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.CursosMarquesina);
                 string isoUsuario = userData.CodigoISO + '-' + userData.CodigoConsultora;
                 string eMailNoExiste = userData.CodigoConsultora + "@notengocorreo.com";
                 string eMail = userData.EMail.Trim() == string.Empty ? eMailNoExiste : userData.EMail;

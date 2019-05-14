@@ -416,25 +416,31 @@
             var dpwOrdenar = $('#dpw-ordenar');
 
             evt = evt || window.event;
-            var isEscape = false;
-            if ("key" in evt) {
-                isEscape = (evt.key == "Escape" || evt.key == "Esc");
-            } else {
-                isEscape = (evt.keyCode == 27);
+
+            if ((!dpwOrdenar.is(evt.target) && dpwOrdenar.has(evt.target).length === 0)) {
+                $('#dpw-ordenar').removeClass('opcion__ordenamiento__dropdown--desplegado');
+                $('#ul-ordenar').addClass('d-none');
             }
 
-            if (isEscape) {
-                if ((!dpwOrdenar.is(evt.target) && dpwOrdenar.has(evt.target).length === 0)) {
-                    $('#dpw-ordenar').removeClass('opcion__ordenamiento__dropdown--desplegado');
-                    $('#ul-ordenar').addClass('d-none');
-                }
-            }
-            else {
-                if ((!dpwOrdenar.is(evt.target) && dpwOrdenar.has(evt.target).length === 0)) {
-                    $('#dpw-ordenar').removeClass('opcion__ordenamiento__dropdown--desplegado');
-                    $('#ul-ordenar').addClass('d-none');
-                }
-            }
+            //var isEscape = false;
+            //if ("key" in evt) {
+            //    isEscape = (evt.key == "Escape" || evt.key == "Esc");
+            //} else {
+            //    isEscape = (evt.keyCode == 27);
+            //}
+
+            //if (isEscape) {
+            //    if ((!dpwOrdenar.is(evt.target) && dpwOrdenar.has(evt.target).length === 0)) {
+            //        $('#dpw-ordenar').removeClass('opcion__ordenamiento__dropdown--desplegado');
+            //        $('#ul-ordenar').addClass('d-none');
+            //    }
+            //}
+            //else {
+            //    if ((!dpwOrdenar.is(evt.target) && dpwOrdenar.has(evt.target).length === 0)) {
+            //        $('#dpw-ordenar').removeClass('opcion__ordenamiento__dropdown--desplegado');
+            //        $('#ul-ordenar').addClass('d-none');
+            //    }
+            //}
 
         },
         ClickItemOrdenar: function () {

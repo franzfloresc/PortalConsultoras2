@@ -767,8 +767,7 @@ function IniDialogOfertasHome() {
                     BotonTexto1: $("#BotonTexto1").val(),
                     BotonTexto2: $("#BotonTexto2").val(),
                     BotonColor: $("#BotonColor").val(),
-                    BotonColorTexto: $("#BotonColorTexto").val(),
-                    Codigo: $("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo")
+                    BotonColorTexto: $("#BotonColorTexto").val()
                 };
 
                 waitingDialog({});

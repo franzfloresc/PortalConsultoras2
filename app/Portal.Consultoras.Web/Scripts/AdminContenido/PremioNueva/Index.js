@@ -1,5 +1,5 @@
 ﻿jQuery(document).ready(function () {
-   
+
     LoadGrilla();
     RegistrarConstrains();
     RegistrarEventos();
@@ -28,7 +28,7 @@ function LoadGrilla() {
         mtype: 'GET',
         contentType: "application/json; charset=utf-8",
         multiselect: false,
-        colNames: ["", "#", "Cod. Programa", "Campaña Inicio", "Campaña Fin", "Nivel", "Premio Auto", "Activar Monto", "Premio Electivo", "Activar Tooltip", "", "", "", "","",""],
+        colNames: ["", "#", "Cod. Programa", "Campaña Inicio", "Campaña Fin", "Nivel", "Premio Auto", "Activar Monto", "Premio Electivo", "Activar Tooltip", "", "", "", "", "", ""],
         colModel: [
             { name: 'IdActivarPremioNuevas', index: 'IdActivarPremioNuevas', hidden: true },
             { name: 'ID', index: 'ID', width: 50, sortable: false, align: 'center' },
@@ -36,10 +36,10 @@ function LoadGrilla() {
             { name: 'AnoCampanaIni', index: 'AnoCampanaIni', width: 80, sortable: true, align: 'center' },
             { name: 'AnoCampanaFin', index: 'AnoCampanaFin', width: 80, sortable: true, align: 'center' },
             { name: 'Nivel', index: 'Nivel', width: 100, sortable: true, align: 'center' },
-            { name: 'ActiveDesc', index: 'ActiveDesc', width: 80, hidden: false, sortable: false ,align: 'center' },
-            { name: 'ActiveTooltipMontoDesc', index: 'ActiveTooltipMontoDesc', width: 80, sortable: false, align: 'center'  },
-            { name: 'Ind_Cup_ElecDesc', index: 'Ind_Cup_ElecDesc', align: 'center', width: 80, sortable: false, align: 'center' },
-            { name: 'ActiveTooltipDesc', index: 'ActiveTooltipDesc', align: 'center', width: 80, sortable: false, align: 'center' },
+            { name: 'ActiveDesc', index: 'ActiveDesc', width: 80, hidden: false, sortable: false, align: 'center' },
+            { name: 'ActiveTooltipMontoDesc', index: 'ActiveTooltipMontoDesc', width: 80, sortable: false, align: 'center' },
+            { name: 'Ind_Cup_ElecDesc', index: 'Ind_Cup_ElecDesc', align: 'center', width: 80, sortable: false },
+            { name: 'ActiveTooltipDesc', index: 'ActiveTooltipDesc', align: 'center', width: 80, sortable: false },
             { name: 'Editar', index: 'Editar', width: 30, align: 'center', sortable: false, formatter: ShowActionsEdit },
             { name: 'Eliminar', index: 'Eliminar', width: 30, align: 'center', sortable: false, formatter: ShowActionsDelete },
             { name: 'ActiveTooltip', index: 'Precio', hidden: true },
@@ -71,7 +71,7 @@ function LoadGrilla() {
         pgtext: 'Pág: {0} de {1}',
         altRows: false,
         onCellSelect: function (rowId, iCol, content, event) {
-           
+
             if (iCol == 10) LoadMantenedor(rowId);
             else if (iCol == 11) DesactivarPremio(rowId)
         }
@@ -79,7 +79,7 @@ function LoadGrilla() {
     jQuery("#list").jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
 }
 function ShowActionsEdit(cellvalue, options, rowObject) {
-   
+
     var Des = "<img src='" + rutaImagenEdit + "' alt='Editar Premio' title='Editar Premio' border='0' style='cursor:pointer' /></a>";
     return Des;
 }
@@ -93,7 +93,7 @@ function RegistrarConstrains() {
 
     $("#txtPrograma").on('keypress', function (evt) {
         var charCode = (evt.which) ? evt.which : window.event.keyCode;
-        var inputVal = $(this).val();
+        //var inputVal = $(this).val();
         var keyChar = String.fromCharCode(charCode);
         var re = /[0-9]/;
         return re.test(keyChar);
@@ -109,11 +109,11 @@ function RegistrarConstrains() {
 function ReloadGrid() {
     $('#list').jqGrid('clearGridData');
     $("#list").jqGrid('setGridParam',
-    {
-     datatype: 'json',
-     postData: getParams()
-    })
-    $("#list").trigger('reloadGrid'); 
+        {
+            datatype: 'json',
+            postData: getParams()
+        })
+    $("#list").trigger('reloadGrid');
 }
 function RegistrarEventos() {
 
@@ -123,7 +123,7 @@ function RegistrarEventos() {
         e.preventDefault();
 
         if ($("#ddlCampania").val() == "") {
-           
+
             alert("Debe seleccionar la Campaña, verifique.");
             return false;
         }
@@ -166,12 +166,12 @@ function DesactivarPremio(rowId) {
     var premio = {};
     var rowData = $("#list").jqGrid('getRowData', rowId);
     Premio = rowData;
-    
+
     if (Premio.ActivePremioAuto == 'false' && Premio.ActivePremioElectivo == 'false') return;
     var elimina = confirm('¿Está seguro que desea deshabilitar el premio?');
     if (!elimina) return;
 
-    
+
     Premio.ActivePremioAuto = 0;
     Premio.ActivePremioElectivo = 0;
     Premio['Operacion'] = 1;
@@ -194,23 +194,23 @@ function DesactivarPremio(rowId) {
             closeWaitingDialog();
         }
     });
-   
+
 
 }
 function LoadMantenedor(rowId) {
-    var url =UrlCRUD;
+    var url = UrlCRUD;
 
     waitingDialog({});
 
     var Premio = {};
 
     if (rowId == 0) {
-       
+
         Premio.AnoCampanaIni = $("#ddlCampania").val();
         Premio.Operacion = 0;
     }
     else {
-       
+
         var rowData = $("#list").jqGrid('getRowData', rowId);
         Premio = rowData;
         Premio['Operacion'] = 1;

@@ -1,4 +1,3 @@
-using Microsoft.Practices.EnterpriseLibrary.Common.Utility;
 using Portal.Consultoras.BizLogic.ArmaTuPack;
 using Portal.Consultoras.BizLogic.CaminoBrillante;
 using Portal.Consultoras.BizLogic.LimiteVenta;
@@ -532,11 +531,11 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 Componentes = listComponentes.Serialize();
             }
 
-            var listCuvEliminar = new List<string>();
+            List<string> listCuvEliminar;
             string mensajeObs = "";
             string TituloMensaje = "";
             var modificoBackOrder = false;
-            var ListaMensajeCondicional = new  List<BEMensajeProl>();
+            List<BEMensajeProl> ListaMensajeCondicional;
         
             var transactionExitosa = AdministradorPedido(usuario, pedidoDetalle, pedidowebdetalles, estrategia, Componentes, Constantes.PedidoAccion.INSERT, out mensajeObs, out listCuvEliminar, out TituloMensaje, out modificoBackOrder, out ListaMensajeCondicional);
 
@@ -742,11 +741,11 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                 }
 
-                var listCuvEliminar = new List<string>();
+                List<string> listCuvEliminar;
                 string mensajeObs = "";
                 string TituloMensaje = "";
                 var modificoBackOrder = false;
-                var ListaMensajeCondicional = new List<BEMensajeProl>();
+                List<BEMensajeProl> ListaMensajeCondicional;
 
                 var transactionExitosa = AdministradorPedido(usuario, pedidoDetalle, pedidoWebDetalles, null, "", Constantes.PedidoAccion.UPDATE, out mensajeObs, out listCuvEliminar, out TituloMensaje, out modificoBackOrder, out ListaMensajeCondicional);
 
@@ -855,7 +854,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             var usuario = pedidoDetalle.Usuario;
             usuario.PaisID = pedidoDetalle.PaisID;
 
-            var responseCode = Constantes.PedidoValidacion.Code.SUCCESS;
+            string responseCode;
 
             var lista = new List<BEPedidoWebDetalle>();
 
@@ -946,7 +945,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             string mensajeObs = "";
             string TituloMensaje = "";
             var modificoBackOrder = false;
-            var ListaMensajeCondicional = new List<BEMensajeProl>();
+            List<BEMensajeProl> ListaMensajeCondicional;
 
             var result = AdministradorPedido(usuario, null, lista, null, null, Constantes.PedidoAccion.DELETE, out mensajeObs, out listCuvEliminar, out TituloMensaje, out modificoBackOrder, out ListaMensajeCondicional);
             if (result) responseCode = Constantes.PedidoValidacion.Code.SUCCESS;
@@ -1271,7 +1270,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         Cantidad = 1,
                         ClienteID = 0
                     });
-                    var ListMensajeCondicional = new List<BEMensajeProl>();
+                    List<BEMensajeProl> ListMensajeCondicional;
 
                     UpdateProl(usuario, lstDetalle, out ListMensajeCondicional);
 
@@ -1502,7 +1501,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     });
                 }
 
-                var ListaMensajeCondicional = new List<BEMensajeProl>();
+                List<BEMensajeProl> ListaMensajeCondicional;
 
                 UpdateProl(usuario, lstDetalle, out ListaMensajeCondicional);
 
@@ -2928,11 +2927,11 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
         private void UpdateProl(BEUsuario usuario, List<BEPedidoWebDetalle> lstDetalle, out List<BEMensajeProl> ListMensajeCondicional)
         {
+            ListMensajeCondicional = new List<BEMensajeProl>();
             decimal montoAhorroCatalogo = 0, montoAhorroRevista = 0, montoDescuento = 0, montoEscala = 0;
             string codigoConcursosProl = string.Empty, puntajes = string.Empty, puntajesExigidos = string.Empty;
 
             var lista = ServicioProl_CalculoMontosProl(usuario, lstDetalle);
-            ListMensajeCondicional = new List<BEMensajeProl>();
             if (lista.Any())
             {
                 var oRespuestaProl = lista[0];
@@ -3460,7 +3459,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             };
             var lstDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
             pedidoDetalle.PedidoID = pedidoID;
-            var ListMensajeCondicional = new List<BEMensajeProl>();
+            List<BEMensajeProl> ListMensajeCondicional;
 
             UpdateProl(usuario, lstDetalle, out ListMensajeCondicional);
 
@@ -3585,7 +3584,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 });
             }
 
-            var ListMensajeCondicional = new List<BEMensajeProl>();
+            List<BEMensajeProl> ListMensajeCondicional;
 
             UpdateProl(usuario, lstDetalle, out ListMensajeCondicional);
 
