@@ -42,14 +42,14 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             _providerCaminoBrillante = _providerCaminoBrillante ?? GetCaminoBrillanteProvider(paisId);
             if (_providerCaminoBrillante == null) return null;
 
-            var lstBeneficios = GetBeneficiosCaminoBrillante(paisId) ?? new List<BENivelCaminoBrillante.BEBeneficioCaminoBrillante>();
+            var lstBeneficios = GetBeneficiosCaminoBrillante(paisId) ?? new List<BEBeneficioCaminoBrillante>();
             var lstNiveles = _providerCaminoBrillante.GetNivel(Util.GetPaisIsoHanna(paisId)).Result;
 
             var tablaLogicaDatos = (GetDatosTablaLogica(paisId, ConsTablaLogica.CaminoBrillante.CaminoBrillanteOfertasEspeciales) ?? new List<BETablaLogicaDatos>());
             var tablaLogicaDatosDV = tablaLogicaDatos.FirstOrDefault(e => e.TablaLogicaDatosID == Constantes.CaminoBrillante.Niveles.OfertasEspeciales_TablaLogicaDatos) ?? new BETablaLogicaDatos();
             var TieneOfertasEspecialesDV = "1".Equals(tablaLogicaDatosDV.Valor);
 
-            return lstNiveles.Select(e => new BENivelCaminoBrillante()
+            return lstNiveles.Select(e => Niveles_EnterateMas(new BENivelCaminoBrillante()
             {
                 CodigoNivel = e.CodigoNivel,
                 DescripcionNivel = e.DescripcionNivel,
@@ -57,7 +57,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 MontoMinimo = e.MontoMinimo,
                 TieneOfertasEspeciales = Niveles_TIeneOfertasEspeciales(tablaLogicaDatos, e.CodigoNivel, TieneOfertasEspecialesDV),
                 Beneficios = lstBeneficios.Where(b => b.CodigoNivel == e.CodigoNivel && !(string.IsNullOrEmpty(b.NombreBeneficio) && string.IsNullOrEmpty(b.Descripcion))).ToList()
-            }).ToList();
+            }, tablaLogicaDatos, e.CodigoNivel)).ToList();
         }
 
         private bool Niveles_TIeneOfertasEspeciales(List<BETablaLogicaDatos> bETablaLogicaDatos, string codNivel, bool defValor)
@@ -66,14 +66,34 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             return bETablaLogicaDato != null ? "1".Equals(bETablaLogicaDato.Valor) : defValor;
         }
 
+        private BENivelCaminoBrillante Niveles_EnterateMas(BENivelCaminoBrillante beNivelCaminoBrillante, List<BETablaLogicaDatos> bETablaLogicaDatos, string codNivel, string defValor = null)
+        {
+            //var bETablaLogicaDato = bETablaLogicaDatos.FirstOrDefault(e => e.Codigo == codNivel);
+            //return bETablaLogicaDato != null ? "1".Equals(bETablaLogicaDato.Valor) : defValor;
+            //
+
+            beNivelCaminoBrillante.EnterateMas = 1; //MI ACADEMIA
+            //beNivelCaminoBrillante.EnterateMasParam = "682";
+            beNivelCaminoBrillante.EnterateMasParam = "222";
+
+            if (codNivel == "06")
+            {
+                beNivelCaminoBrillante.EnterateMas = 2; //ISSUE
+                beNivelCaminoBrillante.EnterateMasParam = "esika.peru.c07.2019";
+
+            }
+
+            return beNivelCaminoBrillante;
+        }
+
         private List<BENivelCaminoBrillante> GetNivelesCache(int paisId)
         {
             return CacheManager<List<BENivelCaminoBrillante>>.ValidateDataElement(paisId, ECacheItem.CaminoBrillanteNiveles, () => GetNivelesProvider(paisId));
         }
 
-        private List<BENivelCaminoBrillante.BEBeneficioCaminoBrillante> GetBeneficiosCaminoBrillante(int paisId)
+        private List<BEBeneficioCaminoBrillante> GetBeneficiosCaminoBrillante(int paisId)
         {
-            return new DACaminoBrillante(paisId).GetBeneficiosCaminoBrillante().MapToCollection<BENivelCaminoBrillante.BEBeneficioCaminoBrillante>(closeReaderFinishing: true);
+            return new DACaminoBrillante(paisId).GetBeneficiosCaminoBrillante().MapToCollection<BEBeneficioCaminoBrillante>(closeReaderFinishing: true);
         }
 
         #endregion
