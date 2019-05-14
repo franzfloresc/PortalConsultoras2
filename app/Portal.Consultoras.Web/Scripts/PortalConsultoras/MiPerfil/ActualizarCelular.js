@@ -88,8 +88,12 @@
             var body = $('body');
             //INI HD-3897
             body.on('click', '#btn_continuar', me.Eventos.Continuar);
+            if (localData.IsConfirmar == 1) {
+                $('#NuevoCelular').val(localData.CelularActual);
+                $('#NuevoCelular').addClass('campo_con_datos');
+            }
             //FIN HD-3897
-            body.on('click', '.enlace_cambiar_correo', me.Eventos.BackEdiNumber);
+            body.on('click', '.enlace_cambiar_numero_celular', me.Eventos.BackEdiNumber);
             body.on('click', '.enlace_reenviar_instrucciones', me.Eventos.SendSmsCode);
             body.on('keyup', '.campo_ingreso_codigo_sms', me.Eventos.ChangeCodeSms);
             body.on('keydown', '.campo_ingreso_codigo_sms', me.Eventos.OnlyNumberCodeSms);
@@ -541,7 +545,7 @@ $(document).ready(function () {
     actualizarCelularModule.Funciones.SetIsoPais(IsoPais);
     actualizarCelularModule.Inicializar();
     //INI HD-3897
-    if (actualizarCelularModule.Elements.getIsConfirmar()==1) {
+    if (actualizarCelularModule.Elements.getIsConfirmar() == 1) {
         actualizarCelularModule.Eventos.Confirmar();
     }
     //FIN HD-3897

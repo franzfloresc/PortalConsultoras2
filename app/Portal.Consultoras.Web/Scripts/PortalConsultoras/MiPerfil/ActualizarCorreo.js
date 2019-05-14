@@ -96,14 +96,27 @@ var MiPerfil_ActualizarCorreo = function (_config) {
     }
 
     var asignarEventos = function () {
+   
+
         $('#btnVolver').on('click', function () {
             if (config.VistaActual == 1 || config.IsConfirmar==1) irPaginaPrevia();
             else if (config.VistaActual == 2) irVista(1);
         });
         $('#btnCancelar').on('click', irPaginaPrevia);
-        $('#btnReescribirCorreo').on('click', function () { irVista(1); });
+        $('#btnReescribirCorreo').on('click', function () {
+            if (config.IsConfirmar == 1) {
+                $('#NuevoCorreo').val(config.CorreoActual);
+                $('#NuevoCorreo').addClass('campo_con_datos');
+            }irVista(1);
+        });
 
-        $('#btnReenviameInstruciones').on('click', function () { actualizarEnviarCorreo(function () { showSuccess(config.MensajeReenvioExitoso); }); });
+        $('#btnReenviameInstruciones').on('click', function () {
+            if (config.IsConfirmar == 1) {
+                 postActualizarEnviarCorreo({ correoNuevo: config.CorreoActual }, showSuccess(config.MensajeReenvioExitoso));
+            } else {
+                actualizarEnviarCorreo(function () { showSuccess(config.MensajeReenvioExitoso) });
+            }
+        });
         $('#btnActualizarCorreo').on('click', function () { actualizarEnviarCorreo(function (data) { irVista2(data.correoNuevo); }); });
         $('#hrefTerminosMD').on('click', function () { enlaceTerminosCondiciones(); });
 
