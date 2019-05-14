@@ -78,8 +78,8 @@ var EstrategiaAgregarModule = (function () {
     }
 
     var _OrigenPedido = {
-        MobileContenedorArmaTuPack: "2131502",
-        DesktopContenedorArmaTuPack: "1131502"
+        MobileContenedorArmaTuPack: ConstantesModule.OrigenPedidoWeb.MobileArmaTuPackFicha,
+        DesktopContenedorArmaTuPack: ConstantesModule.OrigenPedidoWeb.DesktopArmaTuPackFicha
     }
 
     var getEstrategia = function ($btnAgregar, origenPedidoWebEstrategia) {
@@ -259,32 +259,31 @@ var EstrategiaAgregarModule = (function () {
         _config.CampaniaCodigo = $(elementosDiv.hdCampaniaCodigo).val() || _config.CampaniaCodigo;
 
         var $btnAgregar = $(event.target);
-        //console.log($btnAgregar);
         var origenPedidoWebEstrategia = getOrigenPedidoWeb($btnAgregar);
 
         //*****ANALYTICS ******
         if (AnalyticsPortalModule != 'undefined') {
+            var estrategiaAnalytics;
             if (typeof (fichaModule) != "undefined") {
                 if (typeof (fichaModule.GetEstrategia) != "undefined") {
-                    var estrategia = fichaModule.GetEstrategia();
-                    AnalyticsPortalModule.MarcaFichaResumidaClickModificar(estrategia.CodigoUbigeoPortal, isChangeTono, isChangeCantidad, isChangeCliente);
+                    estrategiaAnalytics = fichaModule.GetEstrategia();
+                    var objChangeFicha = fichaModule.GetChangeFichaAnalytics();
+                    AnalyticsPortalModule.MarcaFichaResumidaClickModificar(estrategiaAnalytics.CodigoUbigeoPortal, objChangeFicha.isChangeTono, objChangeFicha.isChangeCantidad, objChangeFicha.isChangeCliente);
                 }
             }
 
             if (typeof (seleccionadosPresenter) !== 'undefined') {
                 if (seleccionadosPresenter.packComponents() !== 'undefined') {
                     var seleccionados = seleccionadosPresenter.packComponents().componentesSeleccionados;
-                    var estrategia = JSON.parse($("#data-estrategia").attr("data-estrategia"));
-                    var codigoubigeoportal = estrategia.CodigoUbigeoPortal + "";
+                    estrategiaAnalytics = JSON.parse($("#data-estrategia").attr("data-estrategia"));
+                    var codigoubigeoportal = estrategiaAnalytics.CodigoUbigeoPortal;
 
                     if (codigoubigeoportal !== "") {
                         AnalyticsPortalModule.MarcarAddCarArmaTuPack(codigoubigeoportal, seleccionados);
                         AnalyticsPortalModule.MarcaClickAgregarArmaTuPack(codigoubigeoportal, "Agregar", "Click Botón");
                     }
                 }
-
             }
-
         }
         //**FIN ANALYTICS *****
 
@@ -311,13 +310,13 @@ var EstrategiaAgregarModule = (function () {
         var cantidad = (limite > 0) ? limite : ($btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataInputCantidad).val());
 
         if (!$.isNumeric(cantidad)) {
-            abrirMensajeEstrategia("Ingrese un valor numérico.", esFicha);
+            abrirMensajeEstrategia("Ingrese un valor numérico.", _config.esFicha);
             $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataInputCantidad).val("1");
             CerrarLoad();
             return false;
         }
         if (parseInt(cantidad) <= 0) {
-            abrirMensajeEstrategia("La cantidad debe ser mayor a cero.", esFicha);
+            abrirMensajeEstrategia("La cantidad debe ser mayor a cero.", _config.esFicha);
             $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataInputCantidad).val("1");
             CerrarLoad();
             return false;
@@ -387,8 +386,16 @@ var EstrategiaAgregarModule = (function () {
                 }
 
                 if (data.success === false) {
+                    //INI HD-3693
+                    //if (!IsNullOrEmpty(data.mensajeAviso)) AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
+                    //else abrirMensajeEstrategia(data.message, esFicha);
                     if (!IsNullOrEmpty(data.mensajeAviso)) AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
-                    else abrirMensajeEstrategia(data.message, esFicha);
+                    else {
+                        var msjBloq = validarpopupBloqueada(data.message);
+                        if (msjBloq != "") alert_msg_bloqueadas(msjBloq);
+                        else abrirMensajeEstrategia(data.message, _config.esFicha);
+                    }
+                    //FIN HD-3693
 
                     CerrarLoad();
                     return false;
@@ -435,8 +442,29 @@ var EstrategiaAgregarModule = (function () {
                     }
                 }
 
+
+                //INI HD-3908
+
+                ////Tooltip de agregado
+                //if (esFicha) {
+                //    try {
+                //        var $AgregadoTooltip = $(dataProperties.tooltip);
+                //        if (params.EsEditable) {
+                //            $AgregadoTooltip.find(dataProperties.tooltipMensaje1).html("¡Listo! ");
+                //            $AgregadoTooltip.find(dataProperties.tooltipMensaje2).html(" Modificaste tu pedido");
+                //        }
+                //        $AgregadoTooltip.show();
+                //        setTimeout(function () { $AgregadoTooltip.hide(); }, 4000);
+                //        ResumenOpcionesModule.LimpiarOpciones();
+                //    } catch (e) {
+                //        console.error(e);
+                //    }
+
+                //}
+                var esFichaT = ((estrategia.FlagNueva == 1 ? true : false) && IsNullOrEmpty(data.mensajeAviso)) || _config.esFicha;
+                console.log('estrategiaAgregar - pedidoAgregarProductoPromise', _config.esFicha, esFichaT, estrategia.FlagNueva, data.mensajeAviso);
                 //Tooltip de agregado
-                if (esFicha) {
+                if (esFichaT) {
                     try {
                         var $AgregadoTooltip = $(dataProperties.tooltip);
                         if (params.EsEditable) {
@@ -460,7 +488,7 @@ var EstrategiaAgregarModule = (function () {
                             }
                         }, 2500);
                         if (!(origenPedidoWebEstrategia === _OrigenPedido.DesktopContenedorArmaTuPack || origenPedidoWebEstrategia === _OrigenPedido.MobileContenedorArmaTuPack)) {
-                            ResumenOpcionesModule.LimpiarOpciones();
+                            if (typeof ResumenOpcionesModule != 'undefined') { ResumenOpcionesModule.LimpiarOpciones() };
                         }
                         else {
                             return;
@@ -470,6 +498,8 @@ var EstrategiaAgregarModule = (function () {
                     }
 
                 }
+                //FIN HD-3908
+               
                 var barraJsLoaded = typeof MostrarBarra === 'function';
 
                 if (barraJsLoaded) {
@@ -649,7 +679,7 @@ var EstrategiaAgregarModule = (function () {
                 var estrategia = fichaModule.GetEstrategia();
                 if (estrategia.esEditable) { //todos menos la 2003 (tipos&tonos)
                     EstrategiaAgregarModule.HabilitarBoton();
-                    isChangeCantidad = true; //para hacer seguimiento al marcar analytics
+                    fichaModule.SetChangeFichaAnalytics(null, true, null);//para hacer seguimiento al marcar analytics
                 }
             }
         }

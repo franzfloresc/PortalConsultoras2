@@ -44,8 +44,6 @@ namespace Portal.Consultoras.Web.Models
         public decimal Ganancia { get; set; }
         public string GananciaString { get; set; }
         public List<EstrategiaComponenteModel> Hermanos { get; set; }
-        //public EstrategiaComponenteCabeceraModel Cabecera { get; set; }
-        //public List<EstrategiaComponenteSeccionModel> Secciones { get; set; }
 
         // se usa para filtrar los productos por categoria en ShowRoom
         public string ImagenProductoMini { get; set; }

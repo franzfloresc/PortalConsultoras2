@@ -100,7 +100,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 };
 
-                int validarEstrategiaImagen = _tablaLogicaProvider.GetTablaLogicaDatoCodigoInt(userData.PaisID, ConsTablaLogica.CantidadCuvMasivo.TablaLogicaId, Constantes.TablaLogicaDato.EstrategiaImagen_NuevoMasivo, true);
+                int validarEstrategiaImagen = _tablaLogicaProvider.GetTablaLogicaDatoCodigoInt(userData.PaisID, ConsTablaLogica.NuevoMasivo.TablaLogicaId, ConsTablaLogica.NuevoMasivo.EstrategiaImagen, true);
 
                 if ((validarEstrategiaImagen == 1) && (codigoEstrategia != Constantes.TipoEstrategiaCodigo.ArmaTuPack))
                 {
@@ -569,7 +569,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (entidadMasivo.CantidadCuv <= 0)
             {
-                entidadMasivo.CantidadCuv = _tablaLogicaProvider.GetTablaLogicaDatoCodigoInt(userData.PaisID, ConsTablaLogica.CantidadCuvMasivo.TablaLogicaId, Constantes.TablaLogicaDato.CantidadCuvMasivo_NuevoMasivo, true);
+                entidadMasivo.CantidadCuv = _tablaLogicaProvider.GetTablaLogicaDatoCodigoInt(userData.PaisID, ConsTablaLogica.NuevoMasivo.TablaLogicaId, ConsTablaLogica.NuevoMasivo.CantidadCuvMasivo, true);
             }
             return entidadMasivo.CantidadCuv;
         }
@@ -667,7 +667,7 @@ namespace Portal.Consultoras.Web.Controllers
             bool rpta = false;
             try
             {
-                var codigo = _tablaLogicaProvider.GetTablaLogicaDatoCodigoInt(userData.PaisID, Constantes.TablaLogica.Plan20, Constantes.TablaLogicaDato.Tonos, true);
+                var codigo = _tablaLogicaProvider.GetTablaLogicaDatoCodigoInt(userData.PaisID, ConsTablaLogica.Plan20.TablaLogicaId, ConsTablaLogica.Plan20.Tonos, true);
                 if (codigo > entidadMasivo.CampaniaId)
                     return rpta;
 
@@ -690,7 +690,7 @@ namespace Portal.Consultoras.Web.Controllers
             bool rpta = false;
             try
             {
-                int validarEstrategiaImagen = _tablaLogicaProvider.GetTablaLogicaDatoCodigoInt(userData.PaisID, ConsTablaLogica.CantidadCuvMasivo.TablaLogicaId, Constantes.TablaLogicaDato.EstrategiaImagen_NuevoMasivo, true);
+                int validarEstrategiaImagen = _tablaLogicaProvider.GetTablaLogicaDatoCodigoInt(userData.PaisID, ConsTablaLogica.NuevoMasivo.TablaLogicaId, ConsTablaLogica.NuevoMasivo.EstrategiaImagen, true);
 
                 if (validarEstrategiaImagen == 1)
                 {

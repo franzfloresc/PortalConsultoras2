@@ -21,6 +21,7 @@
       <xs:element minOccurs="0" name="MensajeAmbos" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MensajeCelular" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MensajeEmail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MensajeFijo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="oDatosPerfil" nillable="true" type="tns:ArrayOfBEUsuarioPerfil" />
     </xs:sequence>
   </xs:complexType>

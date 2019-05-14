@@ -66,6 +66,10 @@ namespace Portal.Consultoras.Common
         public static class MensajesTooltipPerfil
         {
             public const int TablaLogicaId = 10;
+
+            public const int MensajeActualizarEmailSms = 1001;
+            public const int MensajeActualizarSms = 1002;
+            public const int MensajeActualizarEmail = 1003;
         }
 
         public static class TipoFormulario
@@ -278,14 +282,18 @@ namespace Portal.Consultoras.Common
             public const int TablaLogicaId = 71;
         }
 
-        public static class CaminoAlExitoDestokp
+        public static class CaminoAlExitoDesktop
         {
             public const int TablaLogicaId = 72;
+
+            public const int ActualizaEscalaDescuentoDesktop = 7201;
         }
 
         public static class CaminoAlExitoMobile
         {
             public const int TablaLogicaId = 73;
+
+            public const int ActualizaEscalaDescuentoMobile = 7301;
         }
 
         public static class MedioPedido
@@ -317,6 +325,9 @@ namespace Portal.Consultoras.Common
         public static class PersonalizacionOdd
         {
             public const int TablaLogicaId = 93;
+
+            public static int ColorFondoBanner = 9301;
+            public static int ColorFondoDisplay = 9302;
         }
 
         public static class OrdernamientoFav
@@ -339,14 +350,21 @@ namespace Portal.Consultoras.Common
             public const int TablaLogicaId = 97;
         }
 
-        public static class Plan20Activacion
+        public static class Plan20
         {
             public const int TablaLogicaId = 98;
-            
+
             public const string ImageUrlCode = "bar_in_img";
             public const string RedirectCode = "bar_in_url";
             public const string EnabledCode = "bar_in_act";
             public const string NoUrlAllowed = "bar_in_no";
+
+            public const int Tonos = 9802;
+            public const int PersonalizacionShowroom = 9850;
+            public const int BusquedaNemotecnicoMatriz = 9851;
+            public const int BusquedaNemotecnicoOfertaLiquidacion = 9852;
+            public const int BusquedaNemotecnicoProductoSugerido = 9853;
+            public const int BusquedaNemotecnicoZonaEstrategia = 9854;
         }
 
         public static class OrdenamientoShowRoom
@@ -387,6 +405,21 @@ namespace Portal.Consultoras.Common
         public static class SbApp
         {
             public const int TablaLogicaId = 106;
+
+            /// <summary>
+            /// Codigo de cantidad Maxima de Movimientos
+            /// </summary>
+            public const string MovimientoCantidadMaxima = "mov_max_c";
+
+            /// <summary>
+            /// Codigo de movimientos de meses anteriores a procesar
+            /// </summary>
+            public const string MovimientoHistoricoMes = "mov_max_m";
+
+            /// <summary>
+            /// Codigo de cantidad maxima de Notas
+            /// </summary>
+            public const string NotaCantidadMaxima = "not_max_c";
         }
 
         public static class TipoPresentacionCarrusel
@@ -397,11 +430,33 @@ namespace Portal.Consultoras.Common
         public static class ImagenesResize
         {
             public const int TablaLogicaId = 121;
+
+            public const int WitdhMaxSmall = 12101;
+            public const int HeightSmall = 12102;
+            public const int WitdhMaxMedium = 12103;
+            public const int HeightMedium = 12104;
         }
 
-        public static class ValoresPagoLinea
+        public static class PagoLinea
         {
             public const int TablaLogicaId = 122;
+
+            public const int MerchantId = 12201;
+            public const int AccessKeyId = 12202;
+            public const int SecretAccessKey = 12203;
+            public const int UrlSessionBotonPago = 12204;
+            public const int UrlGenerarNumeroPedido = 12205;
+            public const int PorcentajeGastosAdministrativos = 12206;
+            public const int UrlLibreriaPagoVisa = 12207;
+            public const int UrlAutorizacionBotonPago = 12208;
+            public const int UrlLogoPasarelaPago = 12209;
+            public const int ColorBotonPagarPasarelaPago = 12210;
+            public const int MensajeInformacionPagoExitoso = 12211;
+            public const int Habilitar_App = 12213;
+            public const int Habilitar_App_PBI_ExternalApp = 12214;
+            public const int Acplica3porciento = 12215;
+
+            public const string Habilitar_Comision_Cero = "DESACTIVA_COMISION_VISA";
         }
 
         public static class CuponCodigosOferta
@@ -434,9 +489,12 @@ namespace Portal.Consultoras.Common
             public const int TablaLogicaId = 136;
         }
 
-        public static class CantidadCuvMasivo
+        public static class NuevoMasivo
         {
             public const int TablaLogicaId = 137;
+
+            public const int CantidadCuvMasivo = 13701;
+            public const int EstrategiaImagen = 13702;
         }
 
         public static class LogDynamoPaises
@@ -462,9 +520,11 @@ namespace Portal.Consultoras.Common
         public static class ActualizacionDatosEnabled
         {
             public const int TablaLogicaId = 143;
+
+            public const int ActualizaDatosEnabled = 14301;
         }
 
-        public static class ActivarChatEmtelco
+        public static class ChatEmtelco
         {
             public const int TablaLogicaId = 144;
         }
@@ -508,7 +568,7 @@ namespace Portal.Consultoras.Common
         {
             public const int TablaLogicaId = 159;
         }
-        
+
         public static class EscalaDescuento
         {
             public const int TablaLogicaId = 160;
@@ -526,6 +586,11 @@ namespace Portal.Consultoras.Common
             public const int TablaLogicaId = 162;
         }
 
+        public static class SegPedidoRegionZona
+        {
+            public const int TablaLogicaId = 169;
+        }
+
         public static class TiempoMaximoDemoraSp
         {
             public const int TablaLogicaId = 180;
@@ -534,6 +599,15 @@ namespace Portal.Consultoras.Common
         public static class OfertasConsultora
         {
             public const int TablaLogicaId = 181;
+            public const string DiasAntesStock = "01";
+        }
+
+        public static class CaminoBrillante
+        {
+            public const short CaminoBrillanteInfoComercial = 165;
+            public const short CaminoBrillanteLogros = 166;
+            public const short CaminoBrillanteIndicadores = 167;
+            public const short CaminoBrillanteOfertasEspeciales = 168;
         }
 
     }

@@ -106,6 +106,83 @@ namespace Portal.Consultoras.BizLogic
             return lstComunicadoFinal;
         }
 
+
+        /// <summary>
+        /// Obtener los segmentos para el popup de validación
+        /// </summary>
+        /// <param name="PaisID"></param>
+        /// <param name="CodigoConsultora"></param>
+        /// <param name="TipoDispositivo"></param>
+        /// <returns></returns>
+        public List<BEComunicado> ObtenerSegmentacionInformativaPorConsultora(int paisID, string CodigoConsultora, short TipoDispositivo, string CodigoRegion,
+            string CodigoZona, int IdEstadoActividad)
+        {
+            List<BEComunicado> lstComunicado;
+            var lstComunicadoSegmentacion = new List<BEComunicadoSegmentacion>();
+
+            using (var reader = new DAComunicado(paisID).ObtenerSegmentacionInformativaPorConsultora())
+            {
+                lstComunicado = reader.MapToCollection<BEComunicado>();
+
+                if (reader.NextResult()) lstComunicadoSegmentacion = reader.MapToCollection<BEComunicadoSegmentacion>();
+            }
+
+            var lstComunicadoFinal = new List<BEComunicado>();
+
+            foreach (var item in lstComunicado)
+            {
+                var Segmentaciones = lstComunicadoSegmentacion.Where(x => x.ComunicadoId == item.ComunicadoId).ToList();
+
+                if (item.SegmentacionID == null)
+                {
+                    lstComunicadoFinal.Add(item);
+                    continue;
+                }
+
+                if (item.SegmentacionConsultora)
+                {
+                    if (Segmentaciones.Any(x => x.CodigoConsultora == CodigoConsultora))
+                    {
+                        lstComunicadoFinal.Add(item);
+                    }
+                    continue;
+                }
+
+                if (!item.SegmentacionRegionZona && !item.SegmentacionEstadoActividad)
+                {
+                    lstComunicadoFinal.Add(item);
+                    continue;
+                }
+
+                if (item.SegmentacionRegionZona && item.SegmentacionEstadoActividad)
+                {
+                    if (Segmentaciones.Any(x => x.CodigoRegion == CodigoRegion && (string.IsNullOrEmpty(x.CodigoZona) ? CodigoZona : x.CodigoZona) == CodigoZona)
+                        && Segmentaciones.Any(x => x.IdEstadoActividad == IdEstadoActividad))
+                    {
+                        lstComunicadoFinal.Add(item);
+                    }
+                    continue;
+                }
+
+                if (item.SegmentacionRegionZona && !item.SegmentacionEstadoActividad)
+                {
+                    if (Segmentaciones.Any(x => x.CodigoRegion == CodigoRegion && (string.IsNullOrEmpty(x.CodigoZona) ? CodigoZona : x.CodigoZona) == CodigoZona))
+                    {
+                        lstComunicadoFinal.Add(item);
+                    }
+                    continue;
+                }
+
+                if (!item.SegmentacionRegionZona && item.SegmentacionEstadoActividad
+                    && Segmentaciones.Any(x => x.IdEstadoActividad == IdEstadoActividad))
+                {
+                    lstComunicadoFinal.Add(item);
+                }
+            }
+
+            return lstComunicadoFinal;
+        }
+
         public void InsertarComunicadoVisualizado(int PaisID, string CodigoConsultora, int ComunicadoID)
         {
             DAComunicado daComunicado = new DAComunicado(PaisID);

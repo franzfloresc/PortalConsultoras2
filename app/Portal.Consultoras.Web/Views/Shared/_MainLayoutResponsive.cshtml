@@ -17,7 +17,9 @@
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManagerHeader.cshtml")
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_GoogleOptimize.cshtml")
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManager.cshtml")
-
+    @*INI HD-3693*@
+    @Html.Partial("~/Views/Shared/PopupsResponsive/_PopupBloqueoPorSistema.cshtml")
+    @*FIN HD-3693*@
     <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
 
     @Styles.Render("~/Bundle/Css/Mixto/Bootstrap")
@@ -201,6 +203,7 @@
             }
         }
 
+    @{ Html.RenderPartial("~/Views/Shared/PopupsResponsive/_PopupCierreSesion.cshtml");}
 
         <div class="content_responsive" data-layout="body">
             @RenderBody()
@@ -256,6 +259,8 @@
         var NovedadBuscadorVisitasUsuario = '@ViewBag.NovedadBuscador';
         var AplicarLogicaCantidadBotonVerTodos = '@ViewBag.AplicarLogicaCantidadBotonVerTodos'.toLowerCase();
         var MostrarPalabrasMenoresACuatro = '@ViewBag.MostrarPalabrasMenoresACuatro';
+        var NoReservoPedido = '@ViewBag.NoReservoPedido' === 'True';
+        var SessionTimeout = '@ViewBag.SessionTimeout';
 
         function ShowLoading() {
             $("#loading-spin").css('visibility', 'visible').fadeIn();
@@ -300,7 +305,7 @@
             @if (TempData.ContainsKey("PixelCodigoIso"))
             {
                 @:pixelAnalytics.invocarEventoPixelById('@(TempData["PixelMarcacion"])', '@(TempData["PixelId"])');
-                @TempData.Remove("PixelCodigoIso");
+                TempData.Remove("PixelCodigoIso");
             }
         pixelAnalytics.invocarPageViewPixelById();
     </script>

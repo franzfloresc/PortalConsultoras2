@@ -334,6 +334,26 @@ jQuery(document).ready(function () {
                 return new Handlebars.SafeString(cadena);
             });
 
+            Handlebars.registerHelper('SubstrResponsive', function (cadena, length, length2) {
+                cadena = cadena || "";
+                cadena = $.trim(cadena);
+                length2 = length2 || 0;
+
+                if (window.innerWidth > 750) {
+                    if (cadena.length > length) {
+                        cadena = cadena.substring(0, length) + "...";
+                    }
+                } else {
+                    if (length2 > 0) {
+                        if (cadena.length > length2) {
+                            cadena = cadena.substring(0, length2) + "...";
+                        }
+                    }
+                }
+
+                return new Handlebars.SafeString(cadena);
+            });
+
             Handlebars.registerHelper('JSON2string', function (context) {
                 return JSON.stringify(context);
             });
@@ -732,6 +752,14 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
             CerrarLoad();
             return false;
         }
+        //INI HD-3693
+        var msjBloq = validarpopupBloqueada(mensaje);
+        if (msjBloq != "") {
+            CerrarLoad();
+            alert_msg_bloqueadas(msjBloq);
+            return true;
+        }
+        //FIN HD-3693
         titulo = titulo || "MENSAJE";
         var CONS_TIPO_ICONO = { ALERTA: 1, CHECK: 2 };
         var isUrlMobile = isMobile();
@@ -914,15 +942,20 @@ function checkTimeout(data) {
 
         if (!thereIsStillTime) {
 
-            var message = "Tu sesión ha finalizado por inactividad. Por favor, ingresa nuevamente.";
-            if (ViewBagEsMobile == 1) {/*1 Desktop, 2 Mobile*/
-                $('#dialog_SesionMainLayout #mensajeSesionSB2_Error').html(message);
-                $('#dialog_SesionMainLayout').show();
+            if (typeof showPopupFinSesion === 'function') {
+                showPopupFinSesion();
+            } else {
+                var message = "Tu sesión ha finalizado por inactividad. Por favor, ingresa nuevamente.";
+                if (ViewBagEsMobile == 1) {/*1 Desktop, 2 Mobile*/
+                    $('#dialog_SesionMainLayout #mensajeSesionSB2_Error').html(message);
+                    $('#dialog_SesionMainLayout').show();
+                }
+                else {
+                    $('#popupInformacionSB2SesionFinalizada').find('#mensajeInformacionSB2_SesionFinalizada').text(message);
+                    $('#popupInformacionSB2SesionFinalizada').show();
+                }
             }
-            else {
-                $('#popupInformacionSB2SesionFinalizada').find('#mensajeInformacionSB2_SesionFinalizada').text(message);
-                $('#popupInformacionSB2SesionFinalizada').show();
-            }
+
         }
     }
     else {
@@ -932,6 +965,13 @@ function checkTimeout(data) {
 }
 
 function checkUserSession() {
+
+    if (isSessionExpired()) {
+        window.location.href = '/Login/SesionExpirada';
+    }
+}
+
+function isSessionExpired() {
     var res = -1;
 
     $.ajax({
@@ -945,9 +985,7 @@ function checkUserSession() {
         }
     });
 
-    if (res == 0) {
-        window.location.href = '/Login/SesionExpirada';
-    }
+    return res == 0;
 }
 
 function paginadorAccionGenerico(obj) {
@@ -2150,3 +2188,11 @@ var GeneralModule = (function () {
         getLocationPathname: _getLocationPathname
     };
 }());
+//INI HD-3693
+function validarpopupBloqueada(message) {
+    if (message.indexOf("HD3693~")!=-1) return message.split("~")[1];
+    else return "";
+    
+}
+//FIN HD-3693
+

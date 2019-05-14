@@ -155,7 +155,13 @@ function MostrarBarra(datax, destino) {
             listaEscala[listaEscala.length - 1].MontoHastaStr = data.MontoMaximoStr;
         }
 
-        var textoPunto2 = '<div style="font-weight: bold;">{titulo}</div><div style="font-size: 11px;">{detalle}</div>';
+        var textoPunto2;
+        if (destino == "1" && caminoBrillante == "True") {
+            if (data.TotalPedido < mn) textoPunto2 = '<div style="font-weight: bold;">{titulo}</div><div style="font-size: 11px;">DSCTO</div>';
+            else textoPunto2 = '<div style="font-weight: bold;">{titulo}</div><div style="font-size: 11px;"></div>';
+        }
+        else textoPunto2 = '<div style="font-weight: bold;">{titulo}</div><div style="font-size: 11px;">{detalle}</div>';
+
         var textoApp = '<div>{titulo}</div><div>{detalle}</div>';
         $.each(listaEscala, function (ind, monto) {
             var montox = ind == 0 ? monto : listaEscala[ind - 1];
@@ -275,9 +281,8 @@ function MostrarBarra(datax, destino) {
                 + '</div>'
                 + '</div>'
                 + '</div>';
-            + '<div class="linea_indicador_barra" id="barra_{punto}" {style}></div>';
         }
-        else
+        else {
             htmlTippintPoint =
                 '<div id="punto_{punto}" data-punto="{select}" style="position: relative; top: -51px; z-index: 200;">'
                 + '<div class="monto_minimo_barra">'
@@ -296,61 +301,51 @@ function MostrarBarra(datax, destino) {
                 + '<div class="linea_indicador_barra_vista_bienvenida"></div>'
                 + '</div>'
                 + '</div>';
-
-
-
-
-
-
+        }
 
         htmlTippintPoint = htmlTippintPoint
             .replace('{barra_tooltip_class}', dataTP.ActiveTooltip ? 'contenedor_tippingPoint' : '')
             .replace('{barra_tooltip}',
-            dataTP.ActiveTooltip ?
-                '<div class="tooltip_regalo_meta_tippingPoint">'
-                + '<div class="tooltip_producto_regalo_img">'
-                + '<img src="' + dataTP.LinkURL + '" alt="Producto de regalo"/>'
-                + '</div>'
-                + '{barra_tooltip_descripcion}'
-                + '</div>' :
-                ''
+                dataTP.ActiveTooltip ?
+                    '<div class="tooltip_regalo_meta_tippingPoint">'
+                    + '<div class="tooltip_producto_regalo_img">'
+                    + '<img src="' + dataTP.LinkURL + '" alt="Producto de regalo"/>'
+                    + '</div>'
+                    + '{barra_tooltip_descripcion}'
+                    + '</div>' :
+                    ''
             )
             .replace('{barra_monto}',
-            dataTP.ActiveMonto ?
-                '<div class="monto_meta_tippingPoint">' + variablesPortal.SimboloMoneda + ' ' + dataBarra.TippingPointStr + '</div>' :
-                ''
+                dataTP.ActiveMonto ?
+                    '<div class="monto_meta_tippingPoint">' + variablesPortal.SimboloMoneda + ' ' + dataBarra.TippingPointStr + '</div>' :
+                    ''
             )
             .replace('{barra_tooltip_descripcion}',
-            dataTP.ActiveMonto ?
-                '<div class="tooltip_producto_regalo_descripcion">Llega a <span>' + variablesPortal.SimboloMoneda + ' ' + dataBarra.TippingPointStr + '</span><br>y llévate de regalo<br><strong>' + dataTP.DescripcionCUV2 + '</strong></div>' :
-                '<div class="tooltip_producto_regalo_descripcion"><br> Llévate de regalo<br><strong>' + dataTP.DescripcionCUV2 + '</strong></div>'
+                dataTP.ActiveMonto ?
+                    '<div class="tooltip_producto_regalo_descripcion">Llega a <span>' + variablesPortal.SimboloMoneda + ' ' + dataBarra.TippingPointStr + '</span><br>y llévate de regalo<br><strong>' + dataTP.DescripcionCUV2 + '</strong></div>' :
+                    '<div class="tooltip_producto_regalo_descripcion"><br> Llévate de regalo<br><strong>' + dataTP.DescripcionCUV2 + '</strong></div>'
             );
     }
 
     var htmlPuntoLimite = "";
-
-    if (destino == '2')
-
+    if (destino == '2') {
         htmlPuntoLimite = '<div id="punto_{punto}" data-punto="{select}">'
             + '<div class="monto_minimo_barra">'
             + '<div style="width: {wText}px;position: absolute; color:#808080;" data-texto>{texto}</div>'
             + '</div>'
             + '</div>'
             + '<div class="linea_indicador_barra" id="barra_{punto}" {style}></div>';
-
-    else
+    }
+    else {
         htmlPuntoLimite = '<div id="punto_{punto}" data-punto="{select}">'
             + '<div class="monto_minimo_barra">'
             + '<div style="width: {wText}px;position: absolute; color:#808080;" data-texto>{texto}</div>'
             + '<div class="linea_indicador_barra_vista_bienvenida"></div>'
             + '</div>'
-            + '</div>'
+            + '</div>';
+    }
 
-
-
-    if (mx > 0 || destino == '1')
-        htmlPuntoLimite = htmlPunto;
-
+    if (mx > 0 || destino == '1') htmlPuntoLimite = htmlPunto;
     var wTotalPunto = 0;
     $("#divBarra #divBarraLimite").html("");
 
@@ -441,7 +436,6 @@ function MostrarBarra(datax, destino) {
             }
         }
         wTotalPunto += wPunto;
-
     });
     $("#divBarra #divBarraLimite").append("<div class='clear'></div>");
 
@@ -581,13 +575,6 @@ function MostrarBarra(datax, destino) {
             wLogro = wLimiteAnterior;
         }
     }
-    //SALUD-125 EINCA
-    //if (destino == "1") {
-    //    if (indPuntoLimite <= 0 && mn > 0  ) {
-    //        wLimite = 0;
-    //        wLogro = 0;
-    //    }
-    //}
 
     if (listaLimite.length == 1) {
         if (vLogro > vLimite) {
@@ -1524,21 +1511,14 @@ function CalculoPosicionMinimoMaximo() {
     var montoActual = mtoLogroBarra;
     var montoMinimo = dataBarra.MontoMinimo;
 
-
     if (dataBarra.TippingPointBarra.InMinimo != null) {
         ConfiguradoRegalo = dataBarra.TippingPointBarra.InMinimo;
     }
 
-
-    var montoActual = mtoLogroBarra;
-
-    var anchoBarraPorcentaje = 91.25;
     var PosicionMontoMinimo = 0;
-
     if (TieneMontoMaximo()) { // se trata como tipinpoing
         if (ConfiguradoRegalo == true) {
             if (montoActual < montoMinimo) {
-
                 PosicionMontoMinimo = montoMinimo * 100 / montoMinimo;
                 PosicionMontoTipinpoing = montoTipipoing * 100 / montoTipipoing;
 

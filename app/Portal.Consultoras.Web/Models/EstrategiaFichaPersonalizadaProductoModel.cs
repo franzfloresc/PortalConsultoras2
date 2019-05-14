@@ -47,4 +47,12 @@ namespace Portal.Consultoras.Web.Models
 
         public bool MostrarFichaResponsive { get; set; }
     }
+
+    public class DetalleEstrategiaFichaDisenoModel : DetalleEstrategiaFichaModel
+    {
+        public string ImagenFondo { get; set; }
+        public string ColorFondo { get; set; }
+        public string SubTitulo { get; set; }
+        public string ColorTexto { get; set; }
+    }
 }

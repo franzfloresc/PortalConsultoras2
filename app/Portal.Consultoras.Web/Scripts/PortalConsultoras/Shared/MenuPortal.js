@@ -29,9 +29,6 @@ function LayoutMenu() {
 
 function LayoutMenuFin() {
 
-    //if (typeof menuModule !== "undefined")
-    //    menuModule.Resize();
-
     // validar si sale en dos lineas
     var idMenus = "#ulNavPrincipal-0 > li";
 
@@ -103,9 +100,6 @@ function LayoutMenuFin() {
     }
 
     LayoutHeader();
-
-    //if (typeof menuModule !== "undefined")
-    //    menuModule.Resize();
 }
 
 function OcultarMenu(codigo) {

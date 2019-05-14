@@ -120,6 +120,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/General.js",
                 "~/Scripts/PortalConsultoras/Mobile/Shared/MobileLayout.js",
                 "~/Scripts/PortalConsultoras/Shared/MenuPortal.js",
+                "~/Scripts/PortalConsultoras/Shared/idle.js",
+                "~/Scripts/PortalConsultoras/Shared/cierre-session.js",
                 "~/Scripts/PortalConsultoras/Shared/MenuContenedor.js",
                 "~/Scripts/PortalConsultoras/Shared/ConstantesModule.js",
                 "~/Scripts/PortalConsultoras/Shared/CodigoUbigeoPortal.js",
@@ -148,6 +150,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Shared/General/RedesSociales.js",
                 "~/Scripts/General.js",
                 "~/Scripts/PortalConsultoras/Mobile/Shared/MobileLayout.js",
+                "~/Scripts/PortalConsultoras/Shared/idle.js",
+                "~/Scripts/PortalConsultoras/Shared/cierre-session.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js",
                 "~/Scripts/PortalConsultoras/Shared/MenuPortal.js",
                 "~/Scripts/PortalConsultoras/Shared/MenuContenedor.js",
@@ -181,6 +185,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/OfertaDelDia.js",
                 "~/Scripts/PortalConsultoras/Shared/MainLayout.js",
+                "~/Scripts/PortalConsultoras/Shared/idle.js",
+                "~/Scripts/PortalConsultoras/Shared/cierre-session.js",
                 "~/Scripts/PortalConsultoras/Shared/TrackingJetlore.js",
                 "~/Scripts/PortalConsultoras/Shared/CodigoUbigeoPortal.js",
                 "~/Scripts/PortalConsultoras/Shared/AnalyticsPortal.js",
@@ -338,6 +344,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/handlebars.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/OfertaDelDia.js",
                 "~/Scripts/PortalConsultoras/Shared/MainLayout.js",
+                "~/Scripts/PortalConsultoras/Shared/idle.js",
+                "~/Scripts/PortalConsultoras/Shared/cierre-session.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
                 "~/Scripts/PortalConsultoras/Shared/Menu.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js",
@@ -1046,6 +1054,20 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/TusClientes/TusClientes_Responsive.css"
             ));
 
+            #region CaminoBrillante
+            bundles.Add(new StyleBundle("~/Bundle/Css/CaminoBrillante").Include(
+                "~/Content/Css/ui.jquery/jquery-ui.css",
+                "~/Content/CaminoBrillante/css/estilos.css",
+                "~/Scripts/owl.carousel.2.0.0-beta.2.4/assets/owl.carousel.css"));
+
+
+            bundles.Add(new ScriptBundle("~/Bundle/Js/CaminoBrillante").Include(
+                "~/Scripts/jquery-1.11.2.min.js",
+                "~/Scripts/bootstrap.min.js",
+                "~/Scripts/owl.carousel.js",
+                "~/Scripts/PortalConsultoras/CaminoBrillante/index.js"));
+
+            #endregion
             #region ArmaTuPack
             
             bundles.Add(new StyleBundle("~/Bundle/Css/Responsive/ArmaTuPack").Include(
@@ -1057,8 +1079,7 @@ namespace Portal.Consultoras.Web
                  "~/Scripts/PortalConsultoras/ArmaTuPack/ArmaTuPackProvider.js",
                  "~/Scripts/PortalConsultoras/ArmaTuPack/Detalle/Cabecera/CabeceraView.js",
                  "~/Scripts/PortalConsultoras/ArmaTuPack/Detalle/Cabecera/CabeceraPresenter.js",
-                 "~/Scripts/PortalConsultoras/ArmaTuPack/Detalle/Grupos/GruposDesktopView.js",
-                 "~/Scripts/PortalConsultoras/ArmaTuPack/Detalle/Grupos/GruposMobileView.js",
+                 "~/Scripts/PortalConsultoras/ArmaTuPack/Detalle/Grupos/GruposView.js",
                  "~/Scripts/PortalConsultoras/ArmaTuPack/Detalle/Grupos/GruposPresenter.js",
                  "~/Scripts/PortalConsultoras/ArmaTuPack/Detalle/Seleccionados/SeleccionadosView.js",
                  "~/Scripts/PortalConsultoras/ArmaTuPack/Detalle/Seleccionados/SeleccionadosPresenter.js",
