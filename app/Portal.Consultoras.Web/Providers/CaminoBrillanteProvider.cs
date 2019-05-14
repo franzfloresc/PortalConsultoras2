@@ -9,6 +9,7 @@ using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models.CaminoBrillante;
 using Portal.Consultoras.Web.HojaInscripcionODS;
+using Portal.Consultoras.Web.ServiceODS;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -301,19 +302,28 @@ namespace Portal.Consultoras.Web.Providers
         /// <summary>
         /// Validación CUV Camino Brillante
         /// </summary>
-        public Enumeradores.ValidacionCaminoBrillante ValidarBusquedaCaminoBrillante(string cuv)
+        public BEValidacionCaminoBrillante ValidarBusquedaCaminoBrillante(string cuv)
         {
             try
             {
                 using (var svc = new ServiceODS.ODSServiceClient())
-                {                    
-                    return svc.ValidarBusquedaCaminoBrillante(usuarioModel.PaisID, usuarioModel.CampaniaID, cuv);
+                {
+                    var usuario = new ServiceODS.BEUsuario()
+                    {
+                        PaisID = usuarioModel.PaisID,
+                        CampaniaID = usuarioModel.CampaniaID,
+                        ConsultoraID = usuarioModel.ConsultoraID,
+                        CodigoConsultora = usuarioModel.CodigoConsultora,
+                        NivelCaminoBrillante = usuarioModel.NivelCaminoBrillante,
+                    };
+
+                    return svc.ValidarBusquedaCaminoBrillante(usuario, cuv);
                 }
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
-                return Enumeradores.ValidacionCaminoBrillante.ProductoNoExiste;
+                return new BEValidacionCaminoBrillante() { Validacion = Enumeradores.ValidacionCaminoBrillante.ProductoNoExiste };
             }
         }
 

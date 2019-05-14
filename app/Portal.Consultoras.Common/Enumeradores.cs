@@ -343,7 +343,9 @@
         public enum ValidacionCaminoBrillante
         {
             ProductoNoExiste = 1,
-            CuvPerteneceProgramaCaminoBrillante = 2
+            CuvPertenecePrograma = 2,
+            CuvYaAgregadoEnPeriodo = 3,
+            CuvBloqueadoNivel = 4
         }
     }
 }
