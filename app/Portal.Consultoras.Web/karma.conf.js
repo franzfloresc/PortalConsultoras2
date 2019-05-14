@@ -57,6 +57,13 @@ module.exports = function (config) {
 
             // FichaResponsive
             'Scripts/PortalConsultoras/DetalleEstrategia/DetalleEstrategiaProvider.js',
+            'Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Estrategia/EstrategiaView.js',
+            'Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Estrategia/EstrategiaPresenter.js',
+            'Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Componentes/ComponentesView.js',
+            'Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Componentes/ComponentesPresenter.js',
+            'Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Cliente/ClienteView.js',
+            'Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Cliente/ClientePresenter.js',
+            'Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/FichaResponsiveEvents.js',
             'Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/FichaResponsive.js',
 
             // Specs
