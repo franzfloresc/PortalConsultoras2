@@ -11,6 +11,8 @@ namespace Portal.Consultoras.Web.Models.CaminoBrillante
         public string MontoMaximo { get; set; }
         public decimal? MontoFaltante { get; set; }
         public bool TieneOfertasEspeciales { get; set; }
+        public int EnterateMas { get; set; }
+        public string EnterateMasParam { get; set; }
         public List<BeneficioCaminoBrillanteModel> Beneficios { get; set; }
         public bool EsPasado { get; set; }
         public bool EsActual { get; set; }
