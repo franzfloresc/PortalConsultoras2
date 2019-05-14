@@ -2296,10 +2296,10 @@ namespace Portal.Consultoras.Web.Controllers
                 MisPedidosModel pedidos = SessionManager.GetobjMisPedidos();
                 if (string.IsNullOrEmpty(ids))
                 {
-                    //if (pedidos.ListaPedidos.Any())
-                    //    return RedirectToAction("Pendientes", "ConsultoraOnline", new { area = "Mobile" });
-                    //else
-                    //    return RedirectToAction("Home", "Bienvenida", new { area = "Mobile" });
+                    return Json(new
+                    {
+                        success = false
+                    }, JsonRequestBehavior.AllowGet);
                 }
 
                 var arrIds = ids.Split(',');
@@ -2307,11 +2307,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (!lstPedidos.Any())
                 {
-                    //if (consultoraOnlineMisPedidos.ListaPedidos.Count > 0)
-                    //if (pedidos.ListaPedidos.Any())
-                    //    return RedirectToAction("Pendientes", "ConsultoraOnline", new { area = "Mobile" });
-                    //else
-                    //    return RedirectToAction("Home", "Bienvenida", new { area = "Mobile" });
+                    return Json(new
+                    {
+                        success = false
+                    }, JsonRequestBehavior.AllowGet);
                 }
 
                 pedidos.ListaPedidos = lstPedidos.ToList();
@@ -2381,10 +2380,10 @@ namespace Portal.Consultoras.Web.Controllers
                 MisPedidosModel pedidos = SessionManager.GetobjMisPedidos();
                 if (string.IsNullOrEmpty(cuv))
                 {
-                    //if (pedidos.ListaPedidos.Any())
-                    //    return RedirectToAction("Pendientes", "ConsultoraOnline", new { area = "Mobile" });
-                    //else
-                    //    return RedirectToAction("Home", "Bienvenida", new { area = "Mobile" });
+                    return Json(new
+                    {
+                        success = false,
+                    }, JsonRequestBehavior.AllowGet);
                 }
 
                 var arrIds = new List<string>();
@@ -2402,11 +2401,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (!arrIds.Any())
                 {
-                    //if (consultoraOnlineMisPedidos.ListaPedidos.Count > 0)
-                    //if (pedidos.ListaPedidos.Any())
-                    //    return RedirectToAction("Pendientes", "ConsultoraOnline", new { area = "Mobile" });
-                    //else
-                    //    return RedirectToAction("Home", "Bienvenida", new { area = "Mobile" });
+                    return Json(new
+                    {
+                        success = false,
+                    }, JsonRequestBehavior.AllowGet);
                 }
 
                 var lstPedidos = pedidos.ListaPedidos.Where(x => arrIds.Contains(x.PedidoId.ToString()));
@@ -2710,7 +2708,6 @@ namespace Portal.Consultoras.Web.Controllers
                         var tmp = cab.DetallePedido.ToList();
                         tmp.RemoveAll(x => x.CUV == cuv);
                         cab.DetallePedido = tmp.ToArray();
-                        break;
                     }
 
                     SessionManager.SetobjMisPedidos(pedidos);

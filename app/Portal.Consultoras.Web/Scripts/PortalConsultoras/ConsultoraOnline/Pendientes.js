@@ -202,10 +202,13 @@ function DetallePedidoPendienteClientes(cuv) {
                 $(".modal-fondo").show();
                 $('#Paso1-Clientes').show();
                 gTipoVista = 2;
+            } else {
+                $("body").css('overflow', 'auto');
             }
         },
         error: function (error) {
-            modal - confirmacion
+            $("body").css('overflow', 'auto');
+            //modal - confirmacion
             //CloseLoading();
             //messageInfo("Ocurrió un Error pedido pendiente cliente");
             console.log(error);
@@ -234,9 +237,12 @@ function DetallePedidoPendiente(ids) {
                 $('#Paso1-Productos').show();
                 $('.modal-fondo').show();
                 gTipoVista = 1;
+            } else {
+                $("body").css('overflow', 'auto');
             }
         },
         error: function (error) {
+            $("body").css('overflow', 'auto');
             //CloseLoading();
             //messageInfo("Ocurrió un Error pedido pendiente cliente");
             console.log(error);
