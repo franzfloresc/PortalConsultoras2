@@ -436,7 +436,7 @@ $(document).ready(function () {
                                             return false;
                                         }
                                         if (data.detalle.length === 0) {
-                                            messageInfoError("Lo sentimos, no encontramos opciones para el inconveniento seleccionado.");
+                                            messageInfoError("Lo sentimos, no encontramos opciones para el inconveniente seleccionado.");
                                             return false;
                                         }
                                         $(me.Variables.Registro1).hide();

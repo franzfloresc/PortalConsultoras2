@@ -133,7 +133,7 @@ $(document).ready(function () {
                         }
 
                         if (data.detalle.length === 0) {
-                            alert_msg("Lo sentimos, no encontramos opciones para el inconveniento seleccionado");
+                            alert_msg("Lo sentimos, no encontramos opciones para el inconveniente seleccionado.");
                             return false;
                         }
 
