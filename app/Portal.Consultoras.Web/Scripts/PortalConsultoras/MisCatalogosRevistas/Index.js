@@ -1037,7 +1037,8 @@ function getUrlImagenPortadaRevistaPromise(codigoCampania) {
     var defered = jQuery.Deferred();
 
     var data = JSON.stringify({
-        codigoRevista: RevistaCodigoIssuu[codigoCampania]
+        //codigoRevista: RevistaCodigoIssuu[codigoCampania],
+        codigoCampania: codigoCampania
     });
     jQuery.ajax({
         type: 'POST',
@@ -1092,16 +1093,6 @@ function MonstrarAlerta(texto) {
 
 function MarcarCompartirFbExitoso() {
     
-    //if (window.location.search.includes("catalogo_compartido_fb")) {        
-    //    dataLayer.push({
-    //        'event': 'virtualEvent',
-    //        'category': 'Catálogos y revistas',
-    //        'action': 'Catálogo Digital - Compartir FB',
-    //        'label' : campaniaCodigo
-    //    });
-
-    //    window.close();
-    //}
     if (window.location.search.includes("catalogo_compartido_fb_messenger")) {
         dataLayer.push({
             'event': 'virtualEvent',

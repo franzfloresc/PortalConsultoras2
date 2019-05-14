@@ -471,7 +471,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<ShowRoomEventoConsultoraModel, ServicePedido.BEShowRoomEventoConsultora>();
             
             Mapper.CreateMap<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaModel>();
-
+            Mapper.CreateMap<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaDisenoModel>();
             Mapper.CreateMap<UsuarioModel, ServicePedido.BEConsultoraProgramaNuevas>();
             Mapper.CreateMap<UsuarioModel, ServiceODS.BEConsultoraProgramaNuevas>();
 

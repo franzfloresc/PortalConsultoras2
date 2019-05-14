@@ -1512,6 +1512,11 @@ h4.re3 {
     padding: 30px 0;
 }
 
+    .block-seguimiento-content--mobile{
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+
     .block-seguimiento-content .seg-item {
         position: relative;
         text-align: center;
@@ -1615,6 +1620,22 @@ h4.re3 {
     .block-seguimiento-content .seg-active .seg-hora {
         color: black;
     }
+
+.seg-hora--entregaProyectada {
+    width: auto;
+    position: relative;
+    margin: 0 auto;
+    left: -13px;
+    right: 0;
+    white-space: nowrap;
+}
+
+@media screen and (min-width:400px) and (max-width:991px) {
+
+    .seg-hora--entregaProyectada {
+        left: 2px;
+    }
+}
 
 .alert .close {
     color: #fff;
@@ -4449,6 +4470,21 @@ table > thead > tr > th {
     font-size: 11px;
 }
 
+
+.rango_cantidad_pedido_fijo {
+    -webkit-appearance: none;
+    border-radius: 0;
+    width: 100%;
+    height: 48px;
+    line-height: 48px;
+    background: transparent;
+    float: left;
+    text-align: center;
+    font-weight: 700;
+    border: 1px solid #b0b0b0;
+    color: rgb(84, 84, 84);
+}
+
 .cantidad_mas_home {
     float: left;
     width: 30%;
@@ -5486,6 +5522,7 @@ body {
     color: #000000;
     margin-top: 30px;
     margin-bottom: 15px;
+    text-align: center;
 }
 
 .contet_alert {
@@ -5861,6 +5898,7 @@ input[type='checkbox']:checked + span:after {
     .titulo_compartir {
         font-size: 16px;
         line-height: 28px;
+        text-align: center;
     }
 }
 /*CAMBIO FOOTER*/
@@ -6717,8 +6755,8 @@ input[type='checkbox']:checked + span:after {
 
 .popup_comunicado {
     position: relative;
-    top: 80px;
-    margin: 0 auto;
+    top: 70px;
+    margin: 0 auto 49px auto;
     background: #fff;
     box-sizing: border-box;
     font-family: 'Lato';
@@ -6760,7 +6798,7 @@ input[type='checkbox']:checked + span:after {
         width: 100%;
         position: absolute;
         color: #fff;
-        padding-top: 5px;
+        padding-top: 0;
     }
 
         .popup_comunicado .pie_popup_comunicado input[type='checkbox'] {
@@ -6777,10 +6815,34 @@ input[type='checkbox']:checked + span:after {
         }
 
         .popup_comunicado .pie_popup_comunicado .check_text {
-            padding-left: 4px;
+            padding-left: 0;
             vertical-align: top;
             display: table-cell;
+            font-size: 13px;
+            letter-spacing: 0.2px;
         }
+
+.popup_comunicado .pie_popup_comunicado .check_text,
+.enlace_no_volver_a_mostrar_comunicado {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.enlace_no_volver_a_mostrar_comunicado,
+.enlace_no_volver_a_mostrar_comunicado:hover {
+    padding: 0 !important;
+    width: 240px;
+    height: 45px;
+    line-height: 45px;
+    color: #FFF;
+    font-size: 11px;
+    font-weight: 300 !important;
+    letter-spacing: 0.5px;
+    text-decoration: underline;
+    text-transform: uppercase;
+    text-align: center;
+}
 
 /* POPUP AGREGAR CLIENTE */
 
@@ -9504,6 +9566,14 @@ span.icon-advertencia {
     float: left;
 }
 
+.content_cantidad_ficha_producto_fijo {
+    width: 48px;
+    margin-right: 5%;
+    background: white;
+    overflow: hidden;
+    float: left;
+}
+
 .btn_desactivado_general {
     background: #e5e5e5;
     border: 1px solid #d2d2d2;
@@ -9512,6 +9582,20 @@ span.icon-advertencia {
 
 .btn_agregar_ficha_producto {
     width: 50%;
+    height: 48px;
+    font-family: 'Lato';
+    font-size: 14px;
+    color: white;
+    font-weight: 700;
+    display: block;
+    float: left;
+    text-align: center;
+    line-height: 47px;
+    background: black;
+}
+
+.btn_agregar_ficha_producto_fijo {
+    width: 70%;
     height: 48px;
     font-family: 'Lato';
     font-size: 14px;

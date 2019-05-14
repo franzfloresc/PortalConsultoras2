@@ -356,7 +356,7 @@ namespace Portal.Consultoras.Web.Controllers
                 simbolo = userData.Simbolo,
                 Origen = TipoOrigen,
                 mGanancia = Util.DecimalToStringFormat(
-                    lstObservacionesPedido.Any()?
+                    lstObservacionesPedido.Any() ?
                     lstObservacionesPedido[0].MontoAhorroCatalogo + lstObservacionesPedido[0].MontoAhorroRevista
                     : 0,
                     userData.CodigoISO)
@@ -542,7 +542,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpGet]
-        [OutputCache(Duration = 1800, Location = System.Web.UI.OutputCacheLocation.Client, VaryByParam = "pseudoParam;codigoUsuario")] //SALUD-58 30-01-2019
+        [OutputCache(Duration = 1800, Location = System.Web.UI.OutputCacheLocation.Client, VaryByParam = "pseudoParam;codigoUsuario")]
         public JsonResult GetNotificacionesSinLeer(string pseudoParam, string codigoUsuario = "")
         {
             int cantidadNotificaciones = -1;
@@ -557,7 +557,7 @@ namespace Portal.Consultoras.Web.Controllers
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                mensaje = ex.Message;
+                mensaje = Common.LogManager.GetMensajeError(ex);
             }
             return Json(new { mensaje, cantidadNotificaciones }, JsonRequestBehavior.AllowGet);
         }

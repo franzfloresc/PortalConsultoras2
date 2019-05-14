@@ -236,8 +236,7 @@ $(document).ready(function () {
                         messageInfoValidado(mensajeGestionCdrInhabilitada);
                         return false;
                     }
-
-                    //El if se hizo con !() para considerar posibles valores null o undefined de $('#ddlCampania').val()
+                    
                     //if (!($(me.Variables.ComboCampania).val() > 0)) {
                     //    messageInfoValidado(mensajeCdrFueraDeFechaCompleto);
                     //    return false;
@@ -333,7 +332,7 @@ $(document).ready(function () {
 
                 $(me.Variables.UltimasSolicitudes).on('click', 'a[data-accion]', function (e) {
 
-                    e.preventDefault(); // prevents the <a> from navigating                  
+                    e.preventDefault();                
                     me.Funciones.DetalleAccion(this);
                 });
 
@@ -534,7 +533,7 @@ $(document).ready(function () {
                     }
 
                     $(me.Variables.ComboCampania).removeAttr("disabled");
-                    //HD-3412 EINCA
+
                     if (me.Funciones.ValidarSolicitudCDREnvio(false, true)) {
                         $(me.Variables.txtCantidadPedidoConfig).text(CantidadReclamosPorPedidoConfig);
                         $(me.Variables.divConfirmEnviarSolicitudCDR).show();
@@ -619,7 +618,7 @@ $(document).ready(function () {
                     if (oID == "TipoEnvioExpress") tipoDespacho = true;
                     else tipoDespacho = false;
                 });
-                //HD-3412 EINCA
+
                 $(me.Variables.txtTelefono).keypress(function (evt) {
                     var charCode = (evt.which) ? evt.which : window.event.keyCode;
                     if (charCode <= 13) {
@@ -792,7 +791,6 @@ $(document).ready(function () {
                     }
                 });
             },
-            //HD-3412 EINCA
             ValidarPasoDosTrueque: function () {
                 var $val = $(me.Variables.txtCantidad2).val();
                 var cantidad = $.trim($val) !== "" && !isNaN($val) ? parseInt($val) : 0;
@@ -834,7 +832,7 @@ $(document).ready(function () {
                 }
                 return true;
             },
-            //HD-3412 EINCA
+
             ValidarPasoDosTruequeServer: function (callbackWhenFinish) {
                 var url = UrlValidarNoPack;
                 var sendData = {
@@ -974,7 +972,7 @@ $(document).ready(function () {
                     if (item.Estado === 3 || item.Estado === 2) {
                         EstadosConteo++;
                     }
-                    //obtener el cdr en estado pendiente
+
                     if (item.Estado === 1) { CDRWebID = item.CDRWebID; }
                 });
                 var cantidad = CantidadReclamosPorPedidoConfig != null && CantidadReclamosPorPedidoConfig != '' ? parseInt(CantidadReclamosPorPedidoConfig) : 0;
@@ -1166,7 +1164,7 @@ $(document).ready(function () {
                 }
                 return true;
             },
-            //HD-3412 EINCA
+
             ValidarPasoUnoServer: function (callbackWhenFinish) {
                 var url = UrlValidarPaso1;
                 var sendData = {
@@ -1592,7 +1590,7 @@ $(document).ready(function () {
 
                 return true;
             },
-            //HD-3412 EINCA
+
             SolicitudCDREnviar: function (callbackWhenFinish) {
                 var url = UrlSolicitudEnviar;
                 var sendData = {
@@ -1748,7 +1746,7 @@ $(document).ready(function () {
                 var id = objPedido.attr("data-pedido-id");
                 var pedidos = listaPedidos.Find("PedidoID", id);
                 var pedido = pedidos.length > 0 ? pedidos[0] : new Object();
-                $/*("#divPopupPedido").hide();*/
+               
                 me.Funciones.AsignarCUV(pedido);
             },
 
