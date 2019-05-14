@@ -33,15 +33,17 @@ footer, .SubHeader{
     display : none;
 }
 body{
-    background-color: var(--color-body-bg)
+    background-color: white;
 }
-.nav > li > a{
+.nav > li > a {
     border-radius: 0;
-    color: var(--color);
+    color: #000;
 }
 .nav > li > a:hover{
     background-image: none;
-    color: var(--color);
+    color: #000;
+   
+    
     
 }
 .nav a {
@@ -49,7 +51,7 @@ body{
     padding-bottom: 16px;
 }
 #CampoBuscadorProductos{
-    border : 0 solid var(--border-color)
+    border : 0 solid transparent;
 }
 
 *::before, *::after{
@@ -69,3 +71,6 @@ body{
     text-decoration: underline;
 }
 
+h3.mt-2.mb-2, h3.mt-2.mb-1 {
+    font-weight: 700 !important;
+}
