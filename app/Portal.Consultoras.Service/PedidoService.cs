@@ -2456,9 +2456,9 @@ namespace Portal.Consultoras.Service
             return _caminoBrillanteBusinessLogic.GetKits(entidad);
         }
 
-        public BEDemostradoresPaginado GetDemostradoresCaminoBrillante(BEUsuario entidad, string ordenar, int filtro, int cantMostrados, int cantidad)
+        public BEDemostradoresPaginado GetDemostradoresCaminoBrillante(BEUsuario entidad, int cantRegistros, int regMostrados, string codOrdenar, string codFiltro)
         {
-            return _caminoBrillanteBusinessLogic.GetDemostradores(entidad, ordenar, filtro, cantMostrados, cantidad);
+            return _caminoBrillanteBusinessLogic.GetDemostradores(entidad, cantRegistros, regMostrados, codOrdenar, codFiltro);
         }
 
         #endregion
