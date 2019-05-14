@@ -176,10 +176,10 @@
         </div>
         <div class="content_pop_grilla">
             <div class="content_listado_reclamo">
-                <div class="pop_solicitud_producto text_gris_reclamo">Producto</div>
-                <div class="pop_solicitud_tipo text_gris_reclamo">Tipo de solicitud</div>
-                <div class="pop_solicitud_solucion text_gris_reclamo">Solución solicitada:</div>
-                <div class="pop_solicitud_resolucion text_gris_reclamo">Resolución:</div>
+                <div class="pop_solicitud_producto pop_solicitud_producto--nom text_gris_reclamo">Producto</div>
+                <div class="pop_solicitud_tipo pop_solicitud_tipo--nomSolucion text_gris_reclamo">Tipo de solicitud</div>
+                <div class="pop_solicitud_solucion pop_solicitud_solucion--listadoProductos text_gris_reclamo">Solución solicitada:</div>
+                <div class="pop_solicitud_resolucion pop_solicitud_resolucion--estado text_gris_reclamo">Resolución:</div>
             </div>
             <div class="linea_separadora"></div>
             <div id="divDetallePedidoCDR">
@@ -239,7 +239,7 @@
 <script id="template-detalle-1" type="text/x-handlebars-template">
     {{#each detalle as |item|}}
     <div class="content_listado_reclamo">
-        <div class="pop_solicitud_producto">
+        <div class="pop_solicitud_producto pop_solicitud_producto--nom">
             {{#if_eq item.GrupoID ''}}
 
             {{else}}
@@ -252,7 +252,7 @@
             Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio}}
         </div>
 
-        <div class="pop_solicitud_tipo">
+        <div class="pop_solicitud_tipo pop_solicitud_tipo--nomSolucion">
             <div class="listado_solicitud_reclamo_icono_solucion">
                 {{#if_eq item.CodigoOperacion 'D'}}
                 <img src="@Url.Content("~/Content/Images/opcion_devolucion_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
@@ -270,7 +270,7 @@
                 <b>{{item.Solicitud}}</b>
             </div>
         </div>
-        <div class="pop_solicitud_solucion">
+        <div class="pop_solicitud_solucion pop_solicitud_solucion--listadoProductos">
             {{#if_eq CodigoOperacion 'C'}}
             {{item.SolucionSolicitada}}
             {{else if_eq CodigoOperacion 'D'}}
@@ -282,17 +282,17 @@
             {{else if_eq CodigoOperacion 'T'}}
             {{#if item.DetalleReemplazo}}
             {{#each item.DetalleReemplazo as |subItem|}}
-            {{subItem.CUV}}
-            <br />
-            <b>{{subItem.Descripcion}}</b>
-            <br />
-            {{subItem.Cantidad}} unidades
-            <br />
-            Precio: {{SimboloMoneda}} {{DecimalToStringFormat subItem.Precio}}
-            <br />
+            <div>
+                {{subItem.CUV}}
+                <br />
+                <b>{{subItem.Descripcion}}</b>
+                <br />
+                {{subItem.Cantidad}} unidades
+                <br />
+                Precio: {{SimboloMoneda}} {{DecimalToStringFormat subItem.Precio}}
+            </div>
             {{/each}}
-            <br />
-            Total: {{SimboloMoneda}} {{DecimalToStringFormat item.Total}}
+            <div class="text-bold">Total: {{SimboloMoneda}} {{DecimalToStringFormat item.Total}}</div>
             {{else}}
             {{item.CUV2}}
             <br />
@@ -300,14 +300,13 @@
             <br />
             {{item.Cantidad2}} unidades
             <br />
-            <br />
             Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio2}}
             {{/if}}
             {{else}}
 
             {{/if_eq}}
         </div>
-        <div class="pop_solicitud_resolucion">
+        <div class="pop_solicitud_resolucion pop_solicitud_resolucion--estado">
             {{#if_eq Estado '3'}}
             <span class="estado_texto EstadoAceptado">APROBADO</span>
             {{else}}

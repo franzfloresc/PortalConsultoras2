@@ -511,7 +511,7 @@
 </script>
 <script id="template-detalle-paso3" type="text/x-handlebars-template">
     {{#each detalle as |item|}}
-    <div class="content_listado_reclamo content_listado_reclamo--contenido" data-item="{{item.CUV}}">
+    <div class="content_listado_reclamo content_listado_reclamo--content" data-item="{{item.CUV}}">
         <div style="display:none;">
             <input type="hidden" name="id" value="{{item.CDRWebDetalleID}}" />
         </div>
@@ -566,7 +566,6 @@
                 {{subItem.Cantidad}} unidades
                 <br />
                 Precio: {{SimboloMoneda}} {{DecimalToStringFormat subItem.Precio}}
-                <br />
             </div>
             {{/each}}
             <div class="text-bold">Total: {{SimboloMoneda}} {{DecimalToStringFormat item.Total}}</div>
@@ -576,7 +575,6 @@
             <b>{{item.Descripcion2}}</b>
             <br />
             {{item.Cantidad2}} unidades
-            <br />
             <br />
             Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio2}}
             {{/if}}            
