@@ -1,12 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities.CaminoBrillante
 {
     [DataContract]
-    public class BEDesmostradoresCaminoBrillante
+    public class BEDemostradoresCaminoBrillante
     {
-
         [DataMember]
         [Column("EstrategiaID")]
         public int EstrategiaID { get; set; }
@@ -45,5 +45,15 @@ namespace Portal.Consultoras.Entities.CaminoBrillante
         public int TipoEstrategiaID { get; set; }
         [DataMember]
         public bool FlagSeleccionado { get; set; }
+    }
+
+    public class BEDemostradoresPaginado
+    {
+        [DataMember]
+        [Column("LstDemostradores")]
+        public List<BEDemostradoresCaminoBrillante> LstDemostradores { get; set; }
+        [DataMember]
+        [Column("Total")]
+        public int Total { get; set; } 
     }
 }

@@ -184,14 +184,14 @@ namespace Portal.Consultoras.Web.Providers
         /// <summary>
         /// Obtiene Demostradores disponibles para la consultora
         /// </summary>
-        public List<DemostradorCaminoBrillanteModel> GetDesmostradoresCaminoBrillante(string codOrden, string codFiltro, int cantMostrados, int cantidad)
+        public DemostradoresPaginadoModel GetDesmostradoresCaminoBrillante(string codOrden, int codFiltro, int cantMostrados, int cantidad)
         {
             try
             {
                 //var demostradores = sessionManager.GetDemostradoresCaminoBrillante();
                 //if (demostradores != null) return Format(Mapper.Map<List<DemostradorCaminoBrillanteModel>>(demostradores));
 
-                var demostradores = new List<BEDesmostradoresCaminoBrillante>();
+                var demostradores = new BEDemostradoresPaginado();
 
                 int nivel = 0;
                 var nivelConsultora = GetNivelActualConsultora();
@@ -211,16 +211,19 @@ namespace Portal.Consultoras.Web.Providers
                         NivelCaminoBrillante = usuarioModel.NivelCaminoBrillante,
                     };
 
-                    demostradores = svc.GetDemostradoresCaminoBrillante(usuario, codOrden, codFiltro, cantMostrados, cantidad).ToList();
+                    demostradores = svc.GetDemostradoresCaminoBrillante(usuario, codOrden, codFiltro, cantMostrados, cantidad);
                 }
 
                 //sessionManager.SetDemostradoresCaminoBrillante(demostradores);
-                return Format(Mapper.Map<List<DemostradorCaminoBrillanteModel>>(demostradores));
+                var oDemostradores = new DemostradoresPaginadoModel();
+                oDemostradores.LstDemostradores = Format(Mapper.Map<List<DemostradorCaminoBrillanteModel>>(demostradores.LstDemostradores));
+                oDemostradores.Total = demostradores.Total;
+                return oDemostradores;
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
-                return new List<DemostradorCaminoBrillanteModel>();
+                return new DemostradoresPaginadoModel();
             }
         }
 

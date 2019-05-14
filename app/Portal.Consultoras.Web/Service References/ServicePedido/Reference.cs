@@ -23840,8 +23840,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServicePedido.BETrackingDetalle))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServicePedido.BEKitCaminoBrillante[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServicePedido.BEKitCaminoBrillante))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServicePedido.BEDesmostradoresCaminoBrillante[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServicePedido.BEDesmostradoresCaminoBrillante))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServicePedido.BEDemostradoresPaginado))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServicePedido.BEDemostradoresCaminoBrillante[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServicePedido.BEDemostradoresCaminoBrillante))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(string[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.Dictionary<string, string>))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(int[]))]
@@ -28906,10 +28907,72 @@ namespace Portal.Consultoras.Web.ServicePedido {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BEDesmostradoresCaminoBrillante", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CaminoBrillan" +
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEDemostradoresPaginado", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CaminoBrillan" +
         "te")]
     [System.SerializableAttribute()]
-    public partial class BEDesmostradoresCaminoBrillante : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+    public partial class BEDemostradoresPaginado : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Portal.Consultoras.Web.ServicePedido.BEDemostradoresCaminoBrillante[] LstDemostradoresField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int TotalField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Portal.Consultoras.Web.ServicePedido.BEDemostradoresCaminoBrillante[] LstDemostradores {
+            get {
+                return this.LstDemostradoresField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.LstDemostradoresField, value) != true)) {
+                    this.LstDemostradoresField = value;
+                    this.RaisePropertyChanged("LstDemostradores");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Total {
+            get {
+                return this.TotalField;
+            }
+            set {
+                if ((this.TotalField.Equals(value) != true)) {
+                    this.TotalField = value;
+                    this.RaisePropertyChanged("Total");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEDemostradoresCaminoBrillante", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CaminoBrillan" +
+        "te")]
+    [System.SerializableAttribute()]
+    public partial class BEDemostradoresCaminoBrillante : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
@@ -46101,10 +46164,10 @@ namespace Portal.Consultoras.Web.ServicePedido {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEKitCaminoBrillante[]> GetKitsCaminoBrillanteAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetDemostradoresCaminoBrillante", ReplyAction="http://tempuri.org/IPedidoService/GetDemostradoresCaminoBrillanteResponse")]
-        Portal.Consultoras.Web.ServicePedido.BEDesmostradoresCaminoBrillante[] GetDemostradoresCaminoBrillante(Portal.Consultoras.Web.ServicePedido.BEUsuario entidad, string ordenar, string filtro, int cantMostrados, int cantidad);
+        Portal.Consultoras.Web.ServicePedido.BEDemostradoresPaginado GetDemostradoresCaminoBrillante(Portal.Consultoras.Web.ServicePedido.BEUsuario entidad, string ordenar, int filtro, int cantMostrados, int cantidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetDemostradoresCaminoBrillante", ReplyAction="http://tempuri.org/IPedidoService/GetDemostradoresCaminoBrillanteResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEDesmostradoresCaminoBrillante[]> GetDemostradoresCaminoBrillanteAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario entidad, string ordenar, string filtro, int cantMostrados, int cantidad);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEDemostradoresPaginado> GetDemostradoresCaminoBrillanteAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario entidad, string ordenar, int filtro, int cantMostrados, int cantidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetProductosShowRoomDetalle", ReplyAction="http://tempuri.org/IPedidoService/GetProductosShowRoomDetalleResponse")]
         Portal.Consultoras.Web.ServicePedido.BEShowRoomOfertaDetalle[] GetProductosShowRoomDetalle(int paisID, int campaniaId, string cuv);
@@ -48846,11 +48909,11 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.GetKitsCaminoBrillanteAsync(entidad);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEDesmostradoresCaminoBrillante[] GetDemostradoresCaminoBrillante(Portal.Consultoras.Web.ServicePedido.BEUsuario entidad, string ordenar, string filtro, int cantMostrados, int cantidad) {
+        public Portal.Consultoras.Web.ServicePedido.BEDemostradoresPaginado GetDemostradoresCaminoBrillante(Portal.Consultoras.Web.ServicePedido.BEUsuario entidad, string ordenar, int filtro, int cantMostrados, int cantidad) {
             return base.Channel.GetDemostradoresCaminoBrillante(entidad, ordenar, filtro, cantMostrados, cantidad);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEDesmostradoresCaminoBrillante[]> GetDemostradoresCaminoBrillanteAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario entidad, string ordenar, string filtro, int cantMostrados, int cantidad) {
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEDemostradoresPaginado> GetDemostradoresCaminoBrillanteAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario entidad, string ordenar, int filtro, int cantMostrados, int cantidad) {
             return base.Channel.GetDemostradoresCaminoBrillanteAsync(entidad, ordenar, filtro, cantMostrados, cantidad);
         }
         
