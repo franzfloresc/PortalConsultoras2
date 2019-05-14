@@ -43,6 +43,7 @@
         <hr class="clear" />
         <div class="linea_separadora" style="margin-top:-10px"></div>
     </div>
+
     @{ 
         var OpcionSms = true;
         var OpcionEmail = true;
@@ -70,51 +71,61 @@
                         </h2>
                     </div>
                     <div class="block center-block lista_opciones_verificacion_autenticidad">
-                        @{
-                            if (OpcionSms)
-                            {
-                                <div class="block opcion_verificacion_autenticidad opcion_verificacion_autenticidad--pendiente">
-                                    <div class="datos_verificacion_autenticidad">
-                                        <div class="block text-bold">Número de celular <span class="asteriscos">*</span></div>
-                                        <div class="block">@Model.CelularEnmascarado</div>
-                                    </div>
-                                    <div>
-                                        <a href="" title="Editar" class="inline-block text-right enlace_cambiar_dato RecuperarPorSms">
-                                            <span class="inline-block icono_cambiar_dato">
-                                                <img src="@Url.Content("~/Content/Images/icono_cambiar_dato.svg")" alt="Editar">
-                                            </span>
-                                            <span class="inline-block text-bold">Editar</span>
-                                        </a>
-                                    </div>
-                                    <span class="block text-bold mensaje_validacion_campo">Aún falta confirmar tu número</span>
-                                    <div class="divTiempoRestanteSms" style="display:none; margin-top: 15px; font-size: 12px; text-align:center;">@ViewBag.MensajeOpcionCelular</div>
-                                </div>
-                            }
-                            if (OpcionEmail)
-                            {
-                                <div class="block opcion_verificacion_autenticidad opcion_verificacion_autenticidad--pendiente">
-                                    <div class="datos_verificacion_autenticidad">
-                                        <div class="block text-bold">Correo Electrónico <span class="asteriscos">*</span></div>
-                                        <div class="block">@Model.CorreoEnmascarado</div>
-                                    </div>
-                                    <div>
-                                        <a href="" title="Editar" class="inline-block text-right enlace_cambiar_dato RecuperarPorCorreo">
-                                            <span class="inline-block icono_cambiar_dato">
-                                                <img src="@Url.Content("~/Content/Images/icono_cambiar_dato.svg")" alt="Editar">
-                                            </span>
-                                            <span class="inline-block text-bold">Editar</span>
-                                        </a>
-                                    </div>
-                                    <span class="d-block text-bold mensaje_validacion_campo">Aún falta confirmar tu correo</span>
-                                    <div class="divTiempoRestanteCorreo" style="display:none; margin-top: 15px; font-size: 12px; text-align:center;">@ViewBag.MensajeOpcionCorreo</div>
-                                </div>
-                            }
+                    @{
+                        if (OpcionSms)
+                        {
+                        <div class="block opcion_verificacion_autenticidad opcion_verificacion_autenticidad--pendiente">
+                            <div class="datos_verificacion_autenticidad">
+                                <div class="block text-bold">Número de celular <span class="asteriscos">*</span></div>
+                                <div class="block">@Model.CelularEnmascarado</div>
+                                <span class="block text-bold mensaje_validacion_campo">Aún falta confirmar tu número</span>
+                            </div>
+                            <div>
+                                <a href="" title="Editar" class="inline-block text-center enlace_cambiar_dato RecuperarPorSms">
+                                    <span class="inline-block icono_cambiar_dato">
+                                        <img src="@Url.Content("~/Content/Images/icono_cambiar_dato.svg")" alt="Editar">
+                                    </span>
+                                    <span class="inline-block text-bold">Editar</span>
+                                </a>
+                                <!-- INICIO - Este botón aparece cuando la consultora tiene pendiente confirmar su correo electrónico -->
+                                <button id="btn_confirmar_dato_email" type="button" class="block text-bold border-radius-4 multimarca-background-color btn_confirmar_dato">
+                                    Confirmar
+                                </button>
+                                <!-- FIN - Este botón aparece cuando la consultora tiene pendiente confirmar su correo electrónico -->
+                            </div>
+                            <div class="divTiempoRestanteSms" style="display:none; margin-top: 15px; font-size: 12px; text-align:center;">@ViewBag.MensajeOpcionCelular</div>
+                        </div>
                         }
-                        <button type="button" class="block w-100 center-block border-radius-4 text-bold btn_deshabilitado btn_primario btn_primario--miPerfil ContinuarBienvenida">
+                        if (OpcionEmail)
+                        {
+                            <div class="block opcion_verificacion_autenticidad opcion_verificacion_autenticidad--pendiente">
+                                <div class="datos_verificacion_autenticidad">
+                                    <div class="block text-bold">Correo Electrónico <span class="asteriscos">*</span></div>
+                                    <div class="block">@Model.CorreoEnmascarado</div>
+                                    <span class="d-block text-bold mensaje_validacion_campo">Aún falta confirmar tu correo</span>
+                                </div>
+                                <div>
+                                    <a href="" title="Editar" class="inline-block text-center enlace_cambiar_dato RecuperarPorCorreo">
+                                        <span class="inline-block icono_cambiar_dato">
+                                            <img src="@Url.Content("~/Content/Images/icono_cambiar_dato.svg")" alt="Editar">
+                                        </span>
+                                        <span class="inline-block text-bold">Editar</span>
+                                    </a>
+                                    <!-- INICIO - Este botón aparece cuando la consultora tiene pendiente confirmar su correo electrónico -->
+                                    <button id="btn_confirmar_dato_sms" type="button" class="block text-bold border-radius-4 multimarca-background-color btn_confirmar_dato">
+                                        Confirmar
+                                    </button>
+                                    <!-- FIN - Este botón aparece cuando la consultora tiene pendiente confirmar su correo electrónico -->
+                                </div>
+                                <div class="divTiempoRestanteCorreo" style="display:none; margin-top: 15px; font-size: 12px; text-align:center;">@ViewBag.MensajeOpcionCorreo</div>
+                            </div>
+                        }
+                    }
+                        <button type="button" class="block w-100 center-block border-radius-4 mt-35 text-bold btn_deshabilitado btn_primario btn_primario--miPerfil ContinuarBienvenida">
                             Ir a somos belcorp
                         </button>
                     </div>
-                    @{ 
+                    @{
                         if (Model.OpcionChat)
                         {
                             <div class="block">
@@ -129,6 +140,34 @@
                     }
                 </div>
                 <!-- FIN - OPCIONES DE VERIFICACIÓN DE AUTENTICIDAD -->
+                <!-- ACTUALIZACIÓN DE NÚMERO DE CELULAR -->
+                <div id="ActualizarCelular" class="block text-center form_actualizar_celular" style="display:none;">
+                    <div class="block grupo_form_cambio_datos grupo_form_cambio_datos--vistaActualizacionCelular">
+                        <div class="w-100">
+                            <input id="NuevoCelular" name="NuevoCelular" class="w-100" type="tel" value="" />
+                            <label for="NuevoCelular" class="w-100 text-left">Número de celular</label>
+                            <span id="ValidateCelular" style="display:none">Número inválido</span>
+                        </div>
+                    </div>
+                    <div class="block pt-31 mb-15">
+                        <div class="checkbox_condiciones_wrapper w-100">
+                            <div class="text-left checkbox_condiciones_descripcion">
+                                <span class="asteriscos">(*)&nbsp;</span>
+                                Estoy de acuerdo con los <span><a href="javascript:;" id="hrefTerminosMD" target="_blank">términos y condiciones</a></span> sobre Protección de datos personales
+                            </div>
+                            <div class="grupo_form_checkbox_condiciones">
+                                <input class="checkbox_condiciones_checkbox" type="checkbox" name="chkAceptoContratoMD" id="chkAceptoContratoMD" />
+                                <label for="chkAceptoContratoMD" class="block border-radius-4 checkbox_condiciones_label"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grupo_form_cambio_datos grupo_form_cambio_datos--vistaActualizacionCorreo">
+                        <button type="button" class="w-100 border-radius-4 text-bold mt-23 btn_deshabilitado btn_primario btn_primario--miPerfil">
+                            Guardar
+                        </button>
+                    </div>
+                </div>
+                <!-- FIN - ACTUALIZACIÓN DE NÚMERO DE CELULAR -->
                 <!-- VERIFICACIÓN POR CÓDIGO SMS -->
                 <div id="divPaso2sms" class="block revisa_tu_celular text-center" style="display:none;">
                     <div class="block center-block icono_mensaje_sms"></div>
@@ -175,8 +214,8 @@
                                 Reenviar nuevamente el código
                             </a>
                         </div>
-                        @*<div class="block codigo_sms_caducidad text-uppercase">El código caduca en <span class="spnMin default-color">03</span>:<span class="spnSeg default-color">00</span></div>
-                        <div class="reenvios agotasteIntentos" style="display:none;"><b>Agotaste tus dos intentos de reenvío</b></div>*@
+                        @*<div class="block codigo_sms_caducidad text-uppercase">El código caduca en <span class="spnMin default-color">03</span>:<span class="spnSeg default-color">00</span></div>*@
+                        <div class="reenvios agotasteIntentos" style="display:none;"><b>Agotaste tus dos intentos de reenvío</b></div>
                     </div>
                     @*<p class="w-100 envio_instrucciones_info block mb-35 mb-20-mobile">
                         <span class="w-100 block mb-13">¿Aún no recibes el mensaje de texto?</span>
@@ -186,7 +225,7 @@
                         <a title="Escoger otra opción" style="display:none;color:red;cursor:pointer;" class="block escogeOtraOpcion default-color enlace_reenviar_instrucciones w-100 text-uppercase text-bold">
                             Escoger otra opción
                         </a>
-                    </p>*@
+                    </div>*@
                     <button type="button" class="block w-100 center-block border-radius-4 text-bold btn_deshabilitado btn_primario btn_primario--miPerfil">
                         Validar código
                     </button>
@@ -206,6 +245,34 @@
                     <a title="Actualizar contraseña" class="block enlace_actualizar_contrasenia text-bold VerCambioClave">Actualizar contraseña</a>
                 </div>
                 <!-- FIN - VERIFICACIÓN POR CÓDIGO SMS -->
+                <!-- ACTUALIZACIÓN DE CORREO ELECTRÓNICO -->
+                <div id="ActualizarCorreo" class="block text-center form_actualizar_correo" style="display:none;">
+                    <div class="block grupo_form_cambio_datos grupo_form_cambio_datos--vistaActualizacionCelular">
+                        <div class="w-100">
+                            <input id="NuevoCorreo" name="NuevoCorreo" class="w-100" type="tel" value="" />
+                            <label for="NuevoCorreo" class="w-100 text-left">Correo electrónico</label>
+                            <span id="ValidateCorreo" style="display:none;">Correo inválido</span>
+                        </div>
+                    </div>
+                    <div class="block pt-31 mb-15">
+                        <div class="checkbox_condiciones_wrapper w-100">
+                            <div class="text-left checkbox_condiciones_descripcion">
+                                <span class="asteriscos">(*)&nbsp;</span>
+                                Estoy de acuerdo con los <span><a href="javascript:;" id="hrefTerminosMD" target="_blank">términos y condiciones</a></span> sobre Protección de datos personales
+                            </div>
+                            <div class="grupo_form_checkbox_condiciones">
+                                <input class="checkbox_condiciones_checkbox" type="checkbox" name="chkAceptoContratoMD" id="chkAceptoContratoMD" />
+                                <label for="chkAceptoContratoMD" class="block border-radius-4 checkbox_condiciones_label"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grupo_form_cambio_datos grupo_form_cambio_datos--vistaActualizacionCorreo">
+                        <button type="button" class="w-100 border-radius-4 text-bold mt-23 btn_deshabilitado btn_primario btn_primario--miPerfil">
+                            Guardar
+                        </button>
+                    </div>
+                </div>
+                <!-- FIN - ACTUALIZACIÓN DE CORREO ELECTRÓNICO -->
                 <!-- VERIFICACIÓN POR CORREO ELECTRÓNICO -->
                 <div id="divPaso2Email" class="revisa_tu_correo block text-center" style="display:none;">
                     <div class="block center-block icono_correo_sobre"></div>
