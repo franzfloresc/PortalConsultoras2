@@ -45,10 +45,12 @@
             {
                 if (item.Descripcion != "¿Necesitas ayuda?")
                 {
-                    if (!esDigital && item.Descripcion == "Bonificaciones")
+                    /* INI HD-4086 */
+                    if (!esDigital && item.MenuMobileID == Constantes.MenuMobileId.Bonificaciones)
                     {
                         continue;
                     }
+                    /* FIN HD-4086 */
                     <a role="menu" region="Menú Lateral" parent="@item.MenuPadreDescripcion" title="@item.Descripcion"
                        class="menu_mobile_belcorp @item.ClaseMenu @item.ClaseMenuItem" target="@item.PageTarget"
                        href="@item.UrlItem" @item.OnClickFunt data-orden="@item.OrdenItem"
