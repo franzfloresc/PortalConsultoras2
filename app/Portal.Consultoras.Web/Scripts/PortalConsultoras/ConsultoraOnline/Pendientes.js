@@ -66,7 +66,7 @@ function AceptarPedidoPendiente() {
             ListaGana: $(btn).parent().data('accion') == 'ingrgana' ? $("#list-ofertas-ganamas").data('listagana') : [],
             OrigenTipoVista: gTipoVista
         }
-
+        
         waitingDialog();
         $.ajax({
             type: 'POST',
@@ -77,7 +77,8 @@ function AceptarPedidoPendiente() {
             async: true,
             success: function (response) {
             /** Analytics **/
-                MarcaAnalyticsClienteProducto(AccionTipo === "ingrgana" ? "Acepto Todo el Pedido - Por Gana+" :  "Acepto Todo el Pedido - Por catálogo");
+            
+                MarcaAnalyticsClienteProducto($(btn).parent().data('accion') == "ingrgana" ? "Acepto Todo el Pedido - Por Gana+" :  "Acepto Todo el Pedido - Por catálogo");
 			/** Fin Analytics **/
                 
 			    closeWaitingDialog();
@@ -109,26 +110,40 @@ function AceptarPedidoPendiente() {
                         
                             var lstproduct = [];
                             var listProductos = [];
-                            if (response.PedidosSesion) {
-	                            listProductos = response.PedidosSesion[0].DetallePedido || [];
+                            if (response.ListaGana !== null) {
+                                listProductos = response.ListaGana || [];
                             } else {
-	                            listProductos = response.ListaGana || [];
+	                            listProductos = response.PedidosSesion[0].DetallePedido || [];
                             }
                             if (listProductos.length > 0) {
-	                            listProductos.forEach(function(product) {
-		                            var itemProduct = {
-                                        "id": product.CUV,
-                                        "name": product.Producto,
-                                        "price": product.FormatoPrecioTotal,
-                                        "brand": product.Marca,
-			                            "category": "(not available)",
-                                        "variant": "Estándar",
-                                        "quantity": product.Cantidad
-                                    };
-		                            lstproduct.push(itemProduct);
+                                listProductos.forEach(function (product) {
+                                    if ($(btn).parent().data('accion') == "ingrgana") {  //por Gana+
+	                                    var itemProduct = {
+                                            "id": product.CUV2,
+                                            "name": product.DescripcionCUV2,
+                                            "price": product.PrecioString,
+                                            "brand": product.DescripcionMarca,
+		                                    "category": "(not available)",
+		                                    "variant": "Estándar",
+                                            "quantity": product.Cantidad
+	                                    };
+	                                    lstproduct.push(itemProduct);
+                                    } else {        //Por Catálogo
+	                                    var itemProduct = {
+		                                    "id": product.CUV,
+		                                    "name": product.Producto,
+                                            "price": product.PrecioTotal.toFixed(2),
+		                                    "brand": product.Marca,
+		                                    "category": "(not available)",
+		                                    "variant": "Estándar",
+		                                    "quantity": product.Cantidad
+	                                    };
+	                                    lstproduct.push(itemProduct);
+                                    }
+		                           
 	                            });
 	                            
-                                AnalyticsMarcacionPopupConfirmacion(AccionTipo === "ingrgana" ? "Por Gana+" : "Por catálogo", lstproduct );
+                                AnalyticsMarcacionPopupConfirmacion($(btn).parent().data('accion') === "ingrgana" ? "Por Gana+" : "Por catálogo", lstproduct );
                             }
 					    } else {
 						    $('#popuplink').click();

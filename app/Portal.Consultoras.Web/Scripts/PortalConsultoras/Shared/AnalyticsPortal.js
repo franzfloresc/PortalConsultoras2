@@ -45,8 +45,7 @@ var AnalyticsPortalModule = (function () {
         anterior: "Ver anterior",
         duoPerfecto: "Dúo Perfecto",
         palancaLasMasGandoras: "Más Ganadoras",
-        armaTuDuoPerfecto: ' Arma tu Dúo Perfecto - Dúo Perfecto'
-
+        armaTuDuoPerfecto: ' Arma tu Dúo Perfecto - Dúo Perfecto',
 	    PedidoPendienteAceptado: 'Pedidos Pendientes - Pedidos Aceptados '
 };
 

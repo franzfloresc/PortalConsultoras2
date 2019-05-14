@@ -44,6 +44,8 @@ namespace Portal.Consultoras.Web.Providers
                             IndicadorMontoMinimo = item.IndicadorMontoMinimo,
                             FlagNueva = item.FlagNueva,
                             Cantidad = 1,
+                            CUV2 = item.CUV2 ,
+                            DescripcionMarca = item.DescripcionMarca
                             //OrigenPedidoWeb = x.OrigenPedidoWeb
                             //EsCuponNuevas = x.EsCuponNuevas
                             //pedidoDetalle.EsSugerido = model.EsSugerido;
