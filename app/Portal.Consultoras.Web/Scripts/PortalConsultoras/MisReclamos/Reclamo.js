@@ -129,10 +129,23 @@ $(document).ready(function () {
                         dataCdrDevolucion.DataRespuestaServicio = d.data[0].LProductosComplementos;
                         flagSetsOrPack = d.flagSetsOrPack;
                     }
-                    $.when(CambiarVistaPaso(reclamo.pasos.dos_seleccion_de_solucion)).then(function () {
-                        CargarOperacion();
-                    });
 
+                    CargarOperacion(function (data) {
+                        if (data.success == false) {
+                            alert_msg(data.message);
+                            return false;
+                        }
+
+                        if (data.detalle.length === 0) {
+                            alert_msg("Lo sentimos, no encontramos opciones para el inconveniento seleccionado");
+                            return false;
+                        }
+
+                        $.when(CambiarVistaPaso(reclamo.pasos.dos_seleccion_de_solucion)).then(function () {
+                            $("#divOperacion input[type=checkbox]").prop('checked', false);
+                            SetHandlebars("#template-operacion", data.detalle, "#divOperacion");
+                        });
+                    });
                 }
             });
         }
@@ -790,7 +803,7 @@ function ValidarPasoUnoServer(callbackWhenFinish) {
 }
 
 
-function CargarOperacion() {
+function CargarOperacion(callbackWhenFinish) {
     var sendData = {
         CampaniaID: $.trim($("#ddlCampania").val()),
         PedidoID: $("#txtPedidoID").val(),
@@ -802,12 +815,9 @@ function CargarOperacion() {
         if (!checkTimeout(data))
             return false;
 
-        if (data.success == false) {
-            alert_msg(data.message);
-            return false;
+        if (callbackWhenFinish && typeof callbackWhenFinish === "function") {
+            callbackWhenFinish(data);
         }
-        $("#divOperacion input[type=checkbox]").prop('checked', false);
-        SetHandlebars("#template-operacion", data.detalle, "#divOperacion");
     });
 }
 

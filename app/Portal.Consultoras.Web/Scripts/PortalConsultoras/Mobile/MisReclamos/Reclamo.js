@@ -429,13 +429,23 @@ $(document).ready(function () {
                                         dataCdrDevolucion.DataRespuestaServicio = d.data[0].LProductosComplementos;
                                         flagSetsOrPack = d.flagSetsOrPack;
                                     }
-                                    $.when(me.Funciones.CargarOperacion()).then(function () {
+
+                                    me.Funciones.CargarOperacion(function (data) {
+                                        if (!data.success) {
+                                            messageInfoError(data.message);
+                                            return false;
+                                        }
+                                        if (data.detalle.length === 0) {
+                                            messageInfoError("Lo sentimos, no encontramos opciones para el inconveniento seleccionado.");
+                                            return false;
+                                        }
                                         $(me.Variables.Registro1).hide();
                                         $(me.Variables.Registro2).hide();
                                         $(me.Variables.Registro3).show();
                                         $(me.Variables.Enlace_regresar).show();
                                         $(me.Variables.btnSiguiente1).addClass(me.Variables.deshabilitarBoton);
                                         me.Funciones.CambiarEstadoBarraProgreso(me.Variables.pasos.dos_seleccion_de_solucion);
+                                        SetHandlebars("#template-operacion", data.detalle, me.Variables.divlistado_soluciones_cdr);
                                     });
                                 }
                             });
@@ -1399,7 +1409,7 @@ $(document).ready(function () {
                 });
             },
 
-            CargarOperacion: function () {
+            CargarOperacion: function (callbackWhenFinish) {
                 var item = {
                     CampaniaID: $.trim($(me.Variables.ComboCampania).val()),
                     PedidoID: $(me.Variables.hdPedidoID).val(),
@@ -1419,11 +1429,9 @@ $(document).ready(function () {
                         if (!checkTimeout(data))
                             return false;
 
-                        if (data.success == false) {
-                            messageInfoError(data.message);
-                            return false;
+                        if (callbackWhenFinish && typeof callbackWhenFinish === "function") {
+                            callbackWhenFinish(data);
                         }
-                        SetHandlebars("#template-operacion", data.detalle, me.Variables.divlistado_soluciones_cdr);
                     },
                     error: function (data, error) {
                         CloseLoading();
@@ -1744,18 +1752,15 @@ $(document).ready(function () {
                     CDRWebDetalleID: pedidodetalleid,
                     GrupoID: grupoid
                 };
-
-                var functionEliminar = function () {
-                    me.Funciones.DetalleEliminar(item);
-                };
-
                 var msg = "";
                 if (grupoid.length > 0) {
                     msg = "Se eliminaran todos los registros relacionados al producto(Sets o Packs). ¿Deseas continuar?";
                 } else {
                     msg = "Se eliminará el registro seleccionado. ¿Deseas continuar ?";
                 }
-                messageConfirmacion(msg, functionEliminar);
+                messageConfirmacion("confirmación", msg, function () {
+                    me.Funciones.DetalleEliminar(item);
+                });
             },
 
             DetalleEliminar: function (objItem) {
