@@ -111,10 +111,11 @@ var MiPerfil_ActualizarCorreo = function (_config) {
         });
 
         $('#btnReenviameInstruciones').on('click', function () {
+            var MsjSuccess = function () { $("#spnReenviarInstrucciones").show(); };
             if (config.IsConfirmar == 1) {
-                 postActualizarEnviarCorreo({ correoNuevo: config.CorreoActual }, showSuccess(config.MensajeReenvioExitoso));
+                postActualizarEnviarCorreo({ correoNuevo: config.CorreoActual }, MsjSuccess);
             } else {
-                actualizarEnviarCorreo(function () { showSuccess(config.MensajeReenvioExitoso) });
+                actualizarEnviarCorreo(MsjSuccess);
             }
         });
         $('#btnActualizarCorreo').on('click', function () { actualizarEnviarCorreo(function (data) { irVista2(data.correoNuevo); }); });
