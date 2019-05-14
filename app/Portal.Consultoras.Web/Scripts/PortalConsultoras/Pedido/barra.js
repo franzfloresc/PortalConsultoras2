@@ -125,6 +125,8 @@ function MostrarBarra(datax, destino) {
         });
 
         //HD-4066
+        var valTopTotal = destino == '2' && dataBarra.TippingPointBarra.Active && tp > 0 ? tp : mn;
+        if (vLogro > valTopTotal) vLogro = valTopTotal > me ? valTopTotal : me;
         listaEscalaDescuento = listaEscalaDescuento || new Array();
         var listaEscala = new Array();
         var indDesde = -1;
