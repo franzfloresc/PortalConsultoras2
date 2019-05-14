@@ -201,8 +201,10 @@
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpDialogMensajes.cshtml")
 
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpDialogErrorMainLayout.cshtml")
-
+    
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpDialogSesionMainLayout.cshtml")
+
+    @{ Html.RenderPartial("~/Views/Shared/PopupsResponsive/_PopupCierreSesion.cshtml");}
 
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpDialogMensajePostulante.cshtml")
 
@@ -214,6 +216,9 @@
 
     @Html.Partial("~/Views/Shared/_template-ofertadeldia-style.cshtml")
 
+    @*INI HD-3693*@
+    @Html.Partial("~/Views/Shared/PopupsResponsive/_PopupBloqueoPorSistema.cshtml")
+    @*FIN HD-3693*@
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/JQueryJs")
 
     <script type="text/javascript">
@@ -241,6 +246,8 @@
         var TotalResultadosBuscador = '@ViewBag.TotalListadorBuscador';
         var AplicarLogicaCantidadBotonVerTodos = '@ViewBag.AplicarLogicaCantidadBotonVerTodos'.toLowerCase();
         var MostrarPalabrasMenoresACuatro = '@ViewBag.MostrarPalabrasMenoresACuatro';
+        var NoReservoPedido = '@ViewBag.NoReservoPedido' === 'True';
+        var SessionTimeout = '@ViewBag.SessionTimeout';
     </script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/SB2")
     <script type='text/javascript'>

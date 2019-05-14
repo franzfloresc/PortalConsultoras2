@@ -226,9 +226,6 @@ namespace Portal.Consultoras.Web.Controllers
                 TempData["serverPaisISO"] = model.CodigoISO;
                 TempData["serverCodigoUsuario"] = model.CodigoUsuario;
 
-                if (model.PaisID == 0)
-                    model.PaisID = Util.GetPaisID(model.CodigoISO);
-
                 #region DesencriptarClaveSecreta
                 var PasswordCjs = ConfigurationManager.AppSettings.Get("CryptoJSPassword");
                 model.ClaveSecreta = Util.DecryptCryptoJs(model.ClaveSecreta, PasswordCjs, model.Salt, model.Key, model.Iv);
@@ -1447,6 +1444,10 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.PuedeActualizar = usuario.PuedeActualizar;
                     usuarioModel.PuedeEnviarSMS = usuario.PuedeEnviarSMS;
                     usuarioModel.FotoPerfilAncha = usuario.FotoPerfilAncha;
+
+                    //INI HD-3693
+                    usuarioModel.AutorizaPedido = usuario.AutorizaPedido;
+                    //FIN HD-3693
 
                     sessionManager.SetFlagLogCargaOfertas(HabilitarLogCargaOfertas(usuarioModel.PaisID));
                     sessionManager.SetTieneLan(true);
@@ -3069,7 +3070,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (var svc = new SACServiceClient())
             {
-                DataLogica = svc.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.HabilitarChatEmtelco);
+                DataLogica = svc.GetTablaLogicaDatos(paisId, ConsTablaLogica.ChatEmtelco.TablaLogicaId);
 
             }
             if (DataLogica.Any())
@@ -3108,7 +3109,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (var tablaLogica = new SACServiceClient())
             {
-                listaDescripciones = tablaLogica.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.NuevaDescripcionProductos).ToList();
+                listaDescripciones = tablaLogica.GetTablaLogicaDatos(paisId, ConsTablaLogica.DescripcionProducto.TablaLogicaId).ToList();
             }
 
             foreach (var item in listaDescripciones)

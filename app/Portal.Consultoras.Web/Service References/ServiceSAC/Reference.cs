@@ -5735,13 +5735,25 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         private string AppColorFondoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AppColorFondoBotonField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string AppColorTextoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AppColorTextoBotonField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int AppOrdenField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string AppSubTituloField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AppTextoBotonFinalField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AppTextoBotonInicialField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string AppTituloField;
@@ -5818,6 +5830,19 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AppColorFondoBoton {
+            get {
+                return this.AppColorFondoBotonField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AppColorFondoBotonField, value) != true)) {
+                    this.AppColorFondoBotonField = value;
+                    this.RaisePropertyChanged("AppColorFondoBoton");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string AppColorTexto {
             get {
                 return this.AppColorTextoField;
@@ -5826,6 +5851,19 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 if ((object.ReferenceEquals(this.AppColorTextoField, value) != true)) {
                     this.AppColorTextoField = value;
                     this.RaisePropertyChanged("AppColorTexto");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AppColorTextoBoton {
+            get {
+                return this.AppColorTextoBotonField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AppColorTextoBotonField, value) != true)) {
+                    this.AppColorTextoBotonField = value;
+                    this.RaisePropertyChanged("AppColorTextoBoton");
                 }
             }
         }
@@ -5852,6 +5890,32 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 if ((object.ReferenceEquals(this.AppSubTituloField, value) != true)) {
                     this.AppSubTituloField = value;
                     this.RaisePropertyChanged("AppSubTitulo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AppTextoBotonFinal {
+            get {
+                return this.AppTextoBotonFinalField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AppTextoBotonFinalField, value) != true)) {
+                    this.AppTextoBotonFinalField = value;
+                    this.RaisePropertyChanged("AppTextoBotonFinal");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AppTextoBotonInicial {
+            get {
+                return this.AppTextoBotonInicialField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AppTextoBotonInicialField, value) != true)) {
+                    this.AppTextoBotonInicialField = value;
+                    this.RaisePropertyChanged("AppTextoBotonInicial");
                 }
             }
         }
@@ -8542,6 +8606,9 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         private string OrigenPedidoWebFichaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Portal.Consultoras.Web.ServiceSAC.BEBuscadorResponseOrigen[] OrigenesPedidoWebField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private double PrecioCatalogoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -8726,6 +8793,19 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public Portal.Consultoras.Web.ServiceSAC.BEBuscadorResponseOrigen[] OrigenesPedidoWeb {
+            get {
+                return this.OrigenesPedidoWebField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.OrigenesPedidoWebField, value) != true)) {
+                    this.OrigenesPedidoWebField = value;
+                    this.RaisePropertyChanged("OrigenesPedidoWeb");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public double PrecioCatalogo {
             get {
                 return this.PrecioCatalogoField;
@@ -8799,6 +8879,67 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 if ((object.ReferenceEquals(this.TipoPersonalizacionField, value) != true)) {
                     this.TipoPersonalizacionField = value;
                     this.RaisePropertyChanged("TipoPersonalizacion");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEBuscadorResponseOrigen", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Producto")]
+    [System.SerializableAttribute()]
+    public partial class BEBuscadorResponseOrigen : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ValorField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Codigo {
+            get {
+                return this.CodigoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoField, value) != true)) {
+                    this.CodigoField = value;
+                    this.RaisePropertyChanged("Codigo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Valor {
+            get {
+                return this.ValorField;
+            }
+            set {
+                if ((this.ValorField.Equals(value) != true)) {
+                    this.ValorField = value;
+                    this.RaisePropertyChanged("Valor");
                 }
             }
         }

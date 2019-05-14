@@ -280,6 +280,11 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 var pedidoDetalleResult = _pedidoWebProvider.InsertPedidoDetalle(pedidoDetalle);
+                
+                //INI HD-3693
+                if (pedidoDetalleResult.CodigoRespuesta == Constantes.PedidoValidacion.Code.ERROR_CONSULTORA_BLOQUEADA)
+                    pedidoDetalleResult.MensajeRespuesta = Constantes.TipoPopupAlert.Bloqueado + pedidoDetalleResult.MensajeRespuesta;
+                //FIN HD-3693
 
                 if (pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS))
                 {
@@ -294,6 +299,7 @@ namespace Portal.Consultoras.Web.Controllers
                     var CantidadTotalProductos = pedidoWebDetalle.Sum(dp => dp.Cantidad);
                     var Total = pedidoWebDetalle.Sum(p => p.ImporteTotal);
                     var FormatoTotal = Util.DecimalToStringFormat(Total, userData.CodigoISO);
+                    var mensajeCondicional = pedidoDetalleResult.ListaMensajeCondicional != null && pedidoDetalleResult.ListaMensajeCondicional.Any() ? pedidoDetalleResult.ListaMensajeCondicional[0].MensajeRxP: null;
 
                     ObtenerPedidoWeb();
                     return Json(new
@@ -308,8 +314,9 @@ namespace Portal.Consultoras.Web.Controllers
                         cantidadTotalProductos = CantidadTotalProductos,
                         total = Total,
                         formatoTotal = FormatoTotal,
-                        listCuvEliminar = pedidoDetalleResult.ListCuvEliminar.ToList()
-                    }, JsonRequestBehavior.AllowGet);
+                        listCuvEliminar = pedidoDetalleResult.ListCuvEliminar.ToList(),
+                        mensajeCondicional
+                }, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
@@ -434,6 +441,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var CantidadTotalProductos = pedidoWebDetalle.Sum(dp => dp.Cantidad);
                 var total = pedidoWebDetalle.Sum(p => p.ImporteTotal);
                 var FormatoTotal = Util.DecimalToStringFormat(total, userData.CodigoISO);
+                var mensajeCondicional = pedidoDetalleResult.ListaMensajeCondicional != null && pedidoDetalleResult.ListaMensajeCondicional.Any() ? pedidoDetalleResult.ListaMensajeCondicional[0].MensajeRxP: null;
 
                 txtBuildCliente.Append(PedidoWebTotalClienteFormato(model.ClienteID_, pedidoWebDetalle));
 
@@ -452,7 +460,8 @@ namespace Portal.Consultoras.Web.Controllers
                     tipo = "U",
                     modificoBackOrder = pedidoDetalleResult.ModificoBackOrder,
                     DataBarra = GetDataBarra(),
-                    cantidadTotalProductos = CantidadTotalProductos
+                    cantidadTotalProductos = CantidadTotalProductos,
+                    mensajeCondicional
                 }, JsonRequestBehavior.AllowGet);
 
             }
