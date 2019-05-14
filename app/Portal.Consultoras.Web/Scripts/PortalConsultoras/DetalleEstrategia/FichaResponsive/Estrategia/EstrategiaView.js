@@ -36,11 +36,12 @@
         // todo : validar si tiene un solo componente
         SetHandlebars(_elements.tabsComponente.templateId, estrategia, _elements.tabsComponente.id);
         SetHandlebars(_elements.compartirEstrategia.templateId, estrategia, _elements.compartirEstrategia.id);
-
+        //
+        return true;
     };
 
     return {
         setPresenter: _setPresenter,
         render: _render
-    }
+    };
 };

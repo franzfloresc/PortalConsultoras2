@@ -23,9 +23,14 @@
     };
 
     var _onEstrategiaModelLoaded = function (estrategiaModel) {
+        if (typeof estrategiaModel === "undefined" || estrategiaModel === null) throw "estrategiaModel is null or undefined";
+
         _estrategiaModel(estrategiaModel);
-        _config.estrategiaView.render(_estrategiaModel());
-    }
+        
+        if(!_config.estrategiaView.render(_estrategiaModel())) throw "estrategiaView do not render model";
+
+        return true;
+    };
 
     return {
         onEstrategiaModelLoaded: _onEstrategiaModelLoaded,

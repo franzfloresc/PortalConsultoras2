@@ -1,4 +1,8 @@
-﻿describe("DetalleEstrategia - FichaResponsive - Estrategia - EstrategiaPresenter", function () {
+﻿/// <reference path="../../../../../portalconsultoras/detalleestrategia/ficharesponsive/estrategia/estrategiapresenter.js" />
+/// <reference path="../../../../../portalconsultoras/detalleestrategia/ficharesponsive/estrategia/estrategiaview.js" />
+/// <reference path="../../../../../portalconsultoras/detalleestrategia/ficharesponsive/ficharesponsiveevents.js" />
+
+describe("DetalleEstrategia - FichaResponsive - Estrategia - EstrategiaPresenter", function () {
     describe("Constructor", function () {
         var errorMsg = '';
 
@@ -113,5 +117,81 @@
 
         //     expect(errorMsg).to.have.string("config.armaTuPackDetalleEvents is null or undefined");
         // });
+    });
+
+    describe("onEstrategiaModelLoaded",function(){
+        var errorMsg = '';
+        //
+        var generalModule = null;
+        //
+        var fichaResponsiveEvents = null;
+        var estrategiaView = null;
+        var estrategiaPresenter = null;
+
+        beforeEach(function () {
+            generalModule = sinon.stub(GeneralModule);
+            //
+            fichaResponsiveEvents = sinon.stub(FichaResponsiveEvents());
+            estrategiaView = sinon.stub(EstrategiaView());
+            estrategiaPresenter = EstrategiaPresenter({
+                estrategiaView: estrategiaView,
+                generalModule: generalModule,
+                fichaResponsiveEvents : fichaResponsiveEvents
+            });
+        });
+        
+        afterEach(function () {
+            sinon.restore();
+        });
+
+        it("throw an exception when estrategiaModel is undefined", function () {
+            
+            try {
+                estrategiaPresenter.onEstrategiaModelLoaded(undefined);
+            } catch (error) {
+                errorMsg = error;
+            }
+
+            expect(errorMsg).to.have.string("estrategiaModel is null or undefined");
+        });
+
+        it("throw an exception when estrategiaModel is null", function () {
+            
+            try {
+                estrategiaPresenter.onEstrategiaModelLoaded(null);
+            } catch (error) {
+                errorMsg = error;
+            }
+
+            expect(errorMsg).to.have.string("estrategiaModel is null or undefined");
+        });
+
+        it("throw an exception when estrategiaView do not render model", function () {
+            // Arrange
+            var estrategiaModel = {};
+            estrategiaView.render.returns(false);
+
+            // Act
+            try {
+                estrategiaPresenter.onEstrategiaModelLoaded(estrategiaModel);
+            } catch (error) {
+                errorMsg = error;
+            }
+
+            // Assert
+            expect(errorMsg).to.have.string("estrategiaView do not render model");
+        });
+
+        it("return true when estrategiaView render model", function () {
+            // Arrange
+            var estrategiaModel = {};
+            estrategiaView.render.returns(true);
+
+            // Act
+            var result =  estrategiaPresenter.onEstrategiaModelLoaded(estrategiaModel);
+            
+            // Assert
+            expect(result).to.be.eql(true);
+        });
     });
 });
