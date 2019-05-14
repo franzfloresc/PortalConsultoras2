@@ -718,7 +718,7 @@ var FichaModule = (function (config) {
     var _getModelo = function () {
 
         var modeloFicha = {};
-        Console.log('Ficha - promise Obterner Modelo');
+        console.log('Ficha - promise Obterner Modelo');
         _config.detalleEstrategiaProvider
             .promiseObternerModelo({
                 palanca: _config.palanca,
@@ -851,6 +851,7 @@ var FichaModule = (function (config) {
     };
 
     function _init() {
+        debugger;
         _config.esMobile = _config.generalModule.isMobile();
 
         console.log('Ficha - init');
