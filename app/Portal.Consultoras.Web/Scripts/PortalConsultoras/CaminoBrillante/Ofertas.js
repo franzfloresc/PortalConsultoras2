@@ -12,12 +12,30 @@ var reservaResponse = {
 };
 var contadorkit = 0
 var contadordemo = 0
+var codOrdenar = "00";
+var codFiltro = "00";
 
 var moneda = ($('#moneda').val());
 
 $(document).ready(function () {    
     CambiarOferta();
     Inicializar();
+
+    $("#ddlOrdenar").on("change", function () {
+        codOrdenar = $("#ddlOrdenar").val();
+        $("#Demostradores").empty();
+        contadordemo = 0;
+        offsetRegistrosDemo = 0;
+        CargarDemostradores();
+    });
+
+    $("#ddlfiltros").on("change", function () {
+        codFiltro = $("#ddlfiltros").val();
+        $("#Demostradores").empty();
+        contadordemo = 0;
+        offsetRegistrosDemo = 0;
+        CargarDemostradores();
+    });
 });
 
 $("#Demostradores").on('click', '.boton_agregar_ofertas', function (e) {
@@ -137,11 +155,10 @@ function ArmarOfertaKits(data) {
 }
 
 function CargarDemostradores() {
-   
     $.ajax({
         type: 'GET',
         url: urlGetDemostradores,
-        data: { offset: offsetRegistrosDemo, cantidadregistros: nroRegistrosDemostradores },
+        data: { cantRegistros: nroRegistrosDemostradores, regMostrados: offsetRegistrosDemo, codOrdenar: codOrdenar, codFiltro: codFiltro},
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
@@ -293,6 +310,7 @@ function CambiarOferta() {
     });
 
     $('#Tab-Demostradores').click(function () {
+        $('.opOrdenar').show();
         $('#Demostradores').show();
         $('#kits').hide();
         $("#Tab-kits").removeClass("activado-dorado");

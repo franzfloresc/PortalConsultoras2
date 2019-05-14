@@ -504,6 +504,9 @@ namespace Portal.Consultoras.Web.SessionManager
         string GetJwtApiSomosBelcorp();
         void SetUsuarioOpciones(List<UsuarioOpcionesModel> val);
         List<UsuarioOpcionesModel> GetUsuarioOpciones();
+
+        void SetConsultoraDigital(bool val);
+        bool? GetConsultoraDigital();
         
         void SetConsultoraCaminoBrillante(BEConsultoraCaminoBrillante val);
         BEConsultoraCaminoBrillante GetConsultoraCaminoBrillante();
@@ -511,7 +514,7 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetKitCaminoBrillante(List<BEKitCaminoBrillante> val);
         List<BEKitCaminoBrillante> GetKitCaminoBrillante();
 
-        void SetDemostradoresCaminoBrillante(List<BEDesmostradoresCaminoBrillante> val);
-        List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillante();
+        void SetDemostradoresCaminoBrillante(List<BEDemostradoresCaminoBrillante> val);
+        List<BEDemostradoresCaminoBrillante> GetDemostradoresCaminoBrillante();
     }
 }

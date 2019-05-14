@@ -978,6 +978,9 @@ namespace Portal.Consultoras.ServiceContracts
         BEValidacionModificacionPedido ValidacionModificarPedido(int paisID, long consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA);
 
         [OperationContract]
+        bool GetEsPedidoReservado(int paisId, int campaniId, long consultoraId);
+
+        [OperationContract]
         BEValidacionModificacionPedido ValidacionModificarPedidoSelectiva(int paisID, long consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA, bool validarGPR, bool validarReservado, bool validarHorario);
 
         [OperationContract]
@@ -1328,14 +1331,11 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEEscalaDescuento> ListarEscalaDescuentoZona(int paisID, int campaniaID, string region, string zona);
 
         #region Camino Brillante
-
         [OperationContract]
         List<BEKitCaminoBrillante> GetKitsCaminoBrillante(BEUsuario entidad);
 
         [OperationContract]
-        List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillante(BEUsuario entidad);
-        
+        BEDemostradoresPaginado GetDemostradoresCaminoBrillante(BEUsuario entidad, int cantRegistros, int regMostrados, string codOrdenar, string codFiltro);        
         #endregion
-
     }
 }

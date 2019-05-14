@@ -474,6 +474,10 @@ ul.breadcumbs li:last-child a {
     border-radius: 4px;
 }
 
+.btn_agregar_ficha_producto_fijo {
+    width: 70% !important;
+}
+
 .cantidad_menos_home {
     border-radius: 4px 0px 0px 4px;
 }

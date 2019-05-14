@@ -1818,6 +1818,11 @@ namespace Portal.Consultoras.Service
             return BLPedidoWeb.ValidacionModificarPedido(paisID, consultoraID, campania, usuarioPrueba, aceptacionConsultoraDA);
         }
 
+        public bool GetEsPedidoReservado(int paisId, int campaniId, long consultoraId)
+        {
+            return BLPedidoWeb.GetEsPedidoReservado(paisId, campaniId, consultoraId);
+        }
+
         public BEValidacionModificacionPedido ValidacionModificarPedidoSelectiva(int paisID, long consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA, bool validarGPR, bool validarReservado, bool validarHorario)
         {
             return BLPedidoWeb.ValidacionModificarPedido(paisID, consultoraID, campania, usuarioPrueba, aceptacionConsultoraDA, validarGPR, validarReservado, validarHorario);
@@ -2451,9 +2456,9 @@ namespace Portal.Consultoras.Service
             return _caminoBrillanteBusinessLogic.GetKits(entidad);
         }
 
-        public List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillante(BEUsuario entidad)
+        public BEDemostradoresPaginado GetDemostradoresCaminoBrillante(BEUsuario entidad, int cantRegistros, int regMostrados, string codOrdenar, string codFiltro)
         {
-            return _caminoBrillanteBusinessLogic.GetDemostradores(entidad);
+            return _caminoBrillanteBusinessLogic.GetDemostradores(entidad, cantRegistros, regMostrados, codOrdenar, codFiltro);
         }
 
         #endregion
