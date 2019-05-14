@@ -1,6 +1,4 @@
-﻿
-
-USE BelcorpBolivia
+﻿USE BelcorpBolivia
 GO
 
 IF NOT EXISTS (SELECT 1 FROM dbo.TablaLogicaDatos WHERE TablaLogicaID = 85 AND Codigo = '04')
