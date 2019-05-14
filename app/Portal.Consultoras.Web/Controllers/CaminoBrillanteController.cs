@@ -209,5 +209,24 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction(actionName, string.Format("{0}{1}", area, controllerName));
         }
 
+        [HttpGet]
+        public ActionResult EnterateMas(string nivel) {
+            if (!_caminoBrillanteProvider.ValidacionCaminoBrillante()) return _RedirectToAction("Index", "Bienvenida");
+            if (string.IsNullOrEmpty(nivel)) return _RedirectToAction("Index", "Bienvenida");
+
+            var niveles = _caminoBrillanteProvider.GetNivelesCaminoBrillante();
+            var nivelCB = niveles.Where(e => e.CodigoNivel == nivel).FirstOrDefault();
+
+            if(nivelCB == null) return _RedirectToAction("Index", "Bienvenida");
+            switch (nivelCB.EnterateMas ) {
+                case 1:
+                    return Redirect("");
+                case 2:
+                    return Redirect("");
+            }
+
+            return _RedirectToAction("Index", "Bienvenida");
+        }
+
     }
 }
