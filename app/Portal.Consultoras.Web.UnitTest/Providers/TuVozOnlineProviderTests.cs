@@ -6,7 +6,7 @@ using Portal.Consultoras.Web.Providers;
 namespace Portal.Consultoras.Web.UnitTest.Providers
 {
     [TestClass]
-    public class QuestionProProviderTests
+    public class TuVozOnlineProviderTests
     {
         private readonly TuVozOnlineProvider _provider = new TuVozOnlineProvider
         {
