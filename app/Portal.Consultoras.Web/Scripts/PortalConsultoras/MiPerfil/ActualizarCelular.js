@@ -26,7 +26,7 @@
         }
 
         function getErrorText() {
-            return $('.text-error');
+            return $('#ValidateCelular');
         }
 
         function getInputsCodeSms() {
@@ -134,8 +134,9 @@
         function mensajeError() {
             var obj = $.trim(IfNull($('#NuevoCelular').val(), ''));
 
-            if (obj != "" && !me.Funciones.ValidarCelular(obj).Success) $("#ValidateCelular").show();
-            else $("#ValidateCelular").hide();
+            var result = me.Funciones.ValidarCelular(obj);
+            if (obj != "" && !result.Success) me.Funciones.ShowError(result.Messages.join('<br>'));
+            else me.Funciones.ShowError("");
 
         };
        //FIN HD-3897
