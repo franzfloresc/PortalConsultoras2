@@ -869,7 +869,7 @@
     margin-bottom: 9px;
 }
 
-    .opcion_cdr:last-child .opcion_cdr_icono_wrapper{
+    .opcion_cdr--devolucion .opcion_cdr_icono_wrapper{
         margin-bottom:23px;
     }
 
