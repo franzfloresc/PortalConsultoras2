@@ -17,7 +17,23 @@
 
     $('#loadingScreen').hide();
 
+});
 
+$(window).scroll(function () {
+
+    var windowHeight = $(window).scrollTop() ;
+
+    if (windowHeight >= $('#hfNivelActual').offset().top && windowHeight <= $('#hfNivelActual').offset().top) {
+        TagNivelBeneficios('Mi Nivel');
+    }
+
+    if (windowHeight >= $('#BeneficiosPrincipal').offset().top && windowHeight < $('#cont-logros').offset().top) {
+        TagNivelBeneficios('Mis Beneficios');
+    }
+
+    if (windowHeight + 100  >= $('#cont-logros').offset().top) {
+        TagNivelBeneficios('Mis Logros');
+    }
 });
 
 function Carusel() {
@@ -108,3 +124,10 @@ function TagCerrarBeneficios(nivelConsultora) {
     });
 }
 
+function TagNivelBeneficios(pagina) {
+        dataLayer.push({
+            'event': 'virtualPage',
+            'pageUrl': 'CaminoBrillante/pv/nivel-y-beneficios/' + pagina,
+            'pageName': 'Nivel y beneficios - ' + pagina
+        });
+}
