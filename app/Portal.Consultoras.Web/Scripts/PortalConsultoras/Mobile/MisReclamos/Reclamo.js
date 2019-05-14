@@ -572,8 +572,10 @@ $(document).ready(function () {
                     var $this = $(this);
                     //aquí
                     var dataValue = $this.attr("data-codigo");
-                    if (dataValue === $this.val())
+                    if (dataValue === $this.val()) {
+                        $this.val("");
                         return false;
+                    }
 
                     var CampaniaId = $.trim($(me.Variables.ComboCampania).val()) || 0;
                     if (CampaniaId <= 0) return false;
@@ -595,6 +597,7 @@ $(document).ready(function () {
                     me.Funciones.BuscarCUVCambiarServer(sendData, function (data) {
                         if (!data.success) {
                             //limpiar control
+                            $this.val("");
                             $this.attr("data-codigo", "").end().val("");
                             messageInfoValidado(data.message);
                             return false;
@@ -602,20 +605,19 @@ $(document).ready(function () {
                         var datosCUV = data.producto[0];
                         if (datosCUV.MarcaID !== 0) {
                             $this.attr("data-codigo", datosCUV.CUV);
+                            var $template = $("#template-cuv-cambio");
 
-                            var template = $("#template-cuv-cambio");
-
-
-                            $("#contenedorCuvTrueque")
-                                .append($("#template-cuv-cambio").html());
+                            $template.find("span[name=codigo]").attr("data-codigo", datosCUV.CUV).end()
+                                .find("span[name=codigo]").text(datosCUV.CUV).end()
+                                .find("span[name=descripcion]").attr("data-descripcion", datosCUV.Descripcion).end()
+                                .find("span[name=descripcion]").text(datosCUV.Descripcion).end()
+                                .find("span[name=precio]").attr("data-precio", datosCUV.PrecioCatalogo).end()
+                                .find("span[name=precio]").text(DecimalToStringFormat(datosCUV.PrecioCatalogo));
+                            $("#contenedorCuvTrueque").append($template.html());
+                            $this.val("");
                         }
 
                     });
-
-
-                    //cuv2KeyUp = true;
-                    //me.Funciones.EvaluarCUV2();
-                    
                 });
 
                 $(me.Variables.modificarPrecioMas).click(function (evt) {
@@ -1041,95 +1043,30 @@ $(document).ready(function () {
                 }
             },
 
-            EvaluarCUV2: function () {
+            //EvaluarCUV2: function () {
 
-                if (!me.Funciones.CUV2Cambio()) return false;
+            //    if (!me.Funciones.CUV2Cambio()) return false;
 
-                if (cuv2PrevVal.length == 5) me.Funciones.BuscarCUVCambiar(cuv2PrevVal);
-                else {
-                    $(me.Variables.txtDescripcionCuv2).html("");
-                    $(me.Variables.txtPrecioCuv2).html("");
-                    $(me.Variables.hdImporteTotal2).val(0);
-                    $(me.Variables.btnCambioProducto).addClass("disabledClick");
-                }
-            },
+            //    if (cuv2PrevVal.length == 5) me.Funciones.BuscarCUVCambiar(cuv2PrevVal);
+            //    else {
+            //        $(me.Variables.txtDescripcionCuv2).html("");
+            //        $(me.Variables.txtPrecioCuv2).html("");
+            //        $(me.Variables.hdImporteTotal2).val(0);
+            //        $(me.Variables.btnCambioProducto).addClass("disabledClick");
+            //    }
+            //},
 
-            CUV2Cambio: function () {
-                var cuv2Val = $(me.Variables.txtCuvMobile2).val();
-                if (cuv2Val == null) cuv2Val = '';
-                if (cuv2Val.length > 5) {
-                    cuv2Val = cuv2Val.substr(0, 5);
-                    $(me.Variables.txtCuvMobile2).val(cuv2Val);
-                }
+            //CUV2Cambio: function () {
+            //    var cuv2Val = $(me.Variables.txtCuvMobile2).val();
+            //    if (cuv2Val == null) cuv2Val = '';
+            //    if (cuv2Val.length > 5) {
+            //        cuv2Val = cuv2Val.substr(0, 5);
+            //        $(me.Variables.txtCuvMobile2).val(cuv2Val);
+            //    }
 
-                var cambio = (cuv2Val != cuv2PrevVal);
-                cuv2PrevVal = cuv2Val;
-                return cambio;
-            },
-
-            //BuscarCUVCambiar: function (cuv) {
-
-            //    cuv = $.trim(cuv) || $.trim(me.Variables.txtCuvMobile2).val();
-            //    var CampaniaId = $.trim($(me.Variables.ComboCampania).val()) || 0;
-            //    if (CampaniaId <= 0 || cuv.length < 5)
-            //        return false;
-
-            //    var PedidoId = $.trim($(me.Variables.hdPedidoID).val()) || 0;
-
-            //    var item = {
-            //        CampaniaID: CampaniaId,
-            //        PedidoID: PedidoId,
-            //        CDRWebID: $(me.Variables.hdCDRID).val(),
-            //        CUV: cuv
-            //    };
-
-            //    ShowLoading();
-
-            //    jQuery.ajax({
-            //        type: 'POST',
-            //        url: UrlBuscarCuvCambiar,
-            //        dataType: 'json',
-            //        contentType: 'application/json; charset=utf-8',
-            //        data: JSON.stringify(item),
-            //        cache: false,
-            //        success: function (data) {
-            //            CloseLoading();
-            //            if (!checkTimeout(data))
-            //                return false;
-
-            //            if (data[0].MarcaID != 0) {
-            //                /*Seteando cuv y descripcion*/
-
-            //                var descripcion = data[0].Descripcion;
-            //                var precio = data[0].PrecioCatalogo;
-            //                var cuv2 = data[0].CUV;
-
-            //                $(me.Variables.txtCuv2).html(cuv2);
-            //                $(me.Variables.txtDescripcionCuv2).html(descripcion);
-            //                $(me.Variables.spnSimboloMonedaCuv2).html(variablesPortal.SimboloMoneda);
-            //                $(me.Variables.txtPrecioCuv2).html(DecimalToStringFormat(precio));
-            //                $(me.Variables.hdCuvPrecio2).val(precio);
-
-            //                $(me.Variables.txtCuvMobile2).hide();
-            //                $(me.Variables.DescripcionCuv2).fadeIn();
-
-            //                var cantidad = $(me.Variables.txtCantidad2).val();
-            //                $(me.Variables.hdImporteTotal2).val(precio * cantidad);
-            //            } else {
-            //                $(me.Variables.txtDescripcionCuv2).html("");
-            //                $(me.Variables.txtPrecioCuv2).val("");
-            //                $(me.Variables.hdImporteTotal2).val(0);
-            //                messageInfoValidado(data[0].CUV, function () {
-            //                    $(me.Variables.txtCuvMobile2).val("");
-            //                    $(me.Variables.txtCuvMobile2).focus();
-            //                });
-
-            //            }
-            //        },
-            //        error: function (data, error) {
-            //            CloseLoading();
-            //        }
-            //    });
+            //    var cambio = (cuv2Val != cuv2PrevVal);
+            //    cuv2PrevVal = cuv2Val;
+            //    return cambio;
             //},
 
             BuscarCUVCambiarServer: function (sendData, callbackWhenFinish) {
@@ -2113,7 +2050,28 @@ $(document).ready(function () {
                         }
                     });
                 }
-            }
+            },
+
+            EliminarCUVTrueque: function (el) {
+                $(el).parent().parent().remove();
+            },
+
+            CalcularTotal = function () {
+            var precioTotal = 0;
+            var items = $("#contenedorCuvTrueque .item-producto-cambio");
+            items.each(function (i, el) {
+                var $el = $(el);
+                var precio = $($el).find("input[name=precio]").attr("data-precio");
+                var cantidad = $($el).find("input[name=cantidad]").val();
+                if (precio !== "" && cantidad !== "") {
+                    precioTotal = precioTotal + parseFloat(precio) * parseInt(cantidad);
+                }
+            });
+            $("#spnImporteTotal2").text(DecimalToStringFormat(precioTotal));
+            $("#hdImporteTotal2").val(precioTotal);
+            $("#MontoTotalProductoACambiar").fadeIn(100);
+        }
+
         };
 
         me.Inicializar = function () {
