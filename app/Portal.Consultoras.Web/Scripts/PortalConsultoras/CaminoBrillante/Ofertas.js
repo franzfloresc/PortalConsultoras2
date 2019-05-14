@@ -13,7 +13,7 @@ var reservaResponse = {
 var contadorkit = 0
 var contadordemo = 0
 var codOrdenar = "00";
-var codFiltro = 0;
+var codFiltro = "00";
 
 var moneda = ($('#moneda').val());
 
@@ -25,6 +25,7 @@ $(document).ready(function () {
         codOrdenar = $("#ddlOrdenar").val();
         $("#Demostradores").empty();
         contadordemo = 0;
+        offsetRegistrosDemo = 0;
         CargarDemostradores();
     });
 
@@ -32,6 +33,7 @@ $(document).ready(function () {
         codFiltro = $("#ddlfiltros").val();
         $("#Demostradores").empty();
         contadordemo = 0;
+        offsetRegistrosDemo = 0;
         CargarDemostradores();
     });
 });
@@ -152,7 +154,6 @@ function ArmarOfertaKits(data) {
 }
 
 function CargarDemostradores() {
-   
     $.ajax({
         type: 'GET',
         url: urlGetDemostradores,
