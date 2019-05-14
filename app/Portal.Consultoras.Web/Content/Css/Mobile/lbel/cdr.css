@@ -2,6 +2,27 @@
 
 /* INICIO VISTA LISTA DE SOLICITUDES CDR */
 
+.fijarTituloMobileLbel {
+    z-index: 1000!important;
+    overflow: initial;
+}
+
+    .fijarTituloMobileLbel:after {
+        display: block;
+        background: url(/Content/Images/Mobile/Lbel/pestana_lbel.png) no-repeat top center;
+        width: 290px;
+        margin: 0 auto;
+        top: 101%;
+        left: 0;
+        right: 0;
+        height: 20px;
+        margin-top: -3px;
+        position: absolute;
+        margin-bottom: 9px;
+        z-index: 999;
+        content: "";
+    }
+
 .mensaje_sin_solicitudes_registradas_wrapper {
     margin-top: 50px;
 }
