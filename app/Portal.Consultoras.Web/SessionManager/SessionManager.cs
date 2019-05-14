@@ -1366,6 +1366,17 @@ namespace Portal.Consultoras.Web.SessionManager
             return (List<UsuarioOpcionesModel>)HttpContext.Current.Session[Constantes.ConstSession.UsuarioPedidos];
         }
 
+        void ISessionManager.SetConsultoraDigital(bool val)
+        {
+            HttpContext.Current.Session["esConsultoraDigital"] = val;
+        }
+        bool? ISessionManager.GetConsultoraDigital()
+        {
+            var val = HttpContext.Current.Session["esConsultoraDigital"];
+            if (val == null) { return null; }
+            return (bool)val;
+        }
+
         #region CaminoBrillante
 
         public void SetConsultoraCaminoBrillante(BEConsultoraCaminoBrillante val)

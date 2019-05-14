@@ -504,6 +504,9 @@ namespace Portal.Consultoras.Web.SessionManager
         string GetJwtApiSomosBelcorp();
         void SetUsuarioOpciones(List<UsuarioOpcionesModel> val);
         List<UsuarioOpcionesModel> GetUsuarioOpciones();
+
+        void SetConsultoraDigital(bool val);
+        bool? GetConsultoraDigital();
         
         void SetConsultoraCaminoBrillante(BEConsultoraCaminoBrillante val);
         BEConsultoraCaminoBrillante GetConsultoraCaminoBrillante();

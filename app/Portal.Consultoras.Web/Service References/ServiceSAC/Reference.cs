@@ -4973,13 +4973,25 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         private string AppColorFondoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AppColorFondoBotonField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string AppColorTextoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AppColorTextoBotonField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int AppOrdenField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string AppSubTituloField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AppTextoBotonFinalField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AppTextoBotonInicialField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string AppTituloField;
@@ -5056,6 +5068,19 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AppColorFondoBoton {
+            get {
+                return this.AppColorFondoBotonField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AppColorFondoBotonField, value) != true)) {
+                    this.AppColorFondoBotonField = value;
+                    this.RaisePropertyChanged("AppColorFondoBoton");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string AppColorTexto {
             get {
                 return this.AppColorTextoField;
@@ -5064,6 +5089,19 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 if ((object.ReferenceEquals(this.AppColorTextoField, value) != true)) {
                     this.AppColorTextoField = value;
                     this.RaisePropertyChanged("AppColorTexto");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AppColorTextoBoton {
+            get {
+                return this.AppColorTextoBotonField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AppColorTextoBotonField, value) != true)) {
+                    this.AppColorTextoBotonField = value;
+                    this.RaisePropertyChanged("AppColorTextoBoton");
                 }
             }
         }
@@ -5090,6 +5128,32 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 if ((object.ReferenceEquals(this.AppSubTituloField, value) != true)) {
                     this.AppSubTituloField = value;
                     this.RaisePropertyChanged("AppSubTitulo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AppTextoBotonFinal {
+            get {
+                return this.AppTextoBotonFinalField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AppTextoBotonFinalField, value) != true)) {
+                    this.AppTextoBotonFinalField = value;
+                    this.RaisePropertyChanged("AppTextoBotonFinal");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AppTextoBotonInicial {
+            get {
+                return this.AppTextoBotonInicialField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AppTextoBotonInicialField, value) != true)) {
+                    this.AppTextoBotonInicialField = value;
+                    this.RaisePropertyChanged("AppTextoBotonInicial");
                 }
             }
         }

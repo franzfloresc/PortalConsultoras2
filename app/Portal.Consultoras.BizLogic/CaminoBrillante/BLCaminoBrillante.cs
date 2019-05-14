@@ -853,6 +853,112 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
         #endregion
 
+        #region Validar Busqueda de Cuvs
+
+        public BEValidacionCaminoBrillante ValidarBusquedaCaminoBrillante(BEUsuario entidad, string cuv)
+        {
+            var producto = GetCuvsCaminoBrillante(entidad.PaisID, entidad.CampaniaID).SingleOrDefault(e => e.CUV == cuv);
+            if (producto == null) return new BEValidacionCaminoBrillante() { Validacion = Enumeradores.ValidacionCaminoBrillante.ProductoNoExiste };
+                        
+            //Validación por Nivel
+            Func<Enumeradores.ValidacionCaminoBrillante, int?, BEValidacionCaminoBrillante> buildMessage = (validacion, nivel) => {
+                if (nivel.HasValue) 
+                    return BuildBEValidacionCaminoBrillante(validacion, Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_BLOQUEADO_NIVEL_CAMINO_BRILLANTE, GetNiveles(entidad.PaisID).Where(n => n.CodigoNivel == nivel.ToString()).Select(e => e.DescripcionNivel).FirstOrDefault());
+                return BuildBEValidacionCaminoBrillante(validacion, Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_BLOQUEADO_CAMINO_BRILLANTE);
+            };
+
+            if (producto.Nivel.HasValue) {
+                if (entidad.NivelCaminoBrillante < producto.Nivel.Value)
+                    return buildMessage(Enumeradores.ValidacionCaminoBrillante.CuvBloqueadoNivel, producto.Nivel.Value);
+            }
+
+            if (producto.Tipo == 1) {
+                var kits = GetKits(entidad);
+                if(kits.Any(e => e.FlagHistorico || e.FlagSeleccionado))
+                    return BuildBEValidacionCaminoBrillante(Enumeradores.ValidacionCaminoBrillante.CuvYaAgregadoEnPeriodo, Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_USADO_CAMINO_BRILLANTE);
+                if (producto.Nivel.HasValue) {
+                    var kit = kits.Where(e => e.CodigoNivel == producto.Nivel.Value.ToString()).FirstOrDefault();
+                    if (kit == null)
+                        return BuildBEValidacionCaminoBrillante(Enumeradores.ValidacionCaminoBrillante.ProductoNoExiste);
+                    if (!kit.FlagHabilitado)
+                        buildMessage(Enumeradores.ValidacionCaminoBrillante.CuvBloqueadoNivel, producto.Nivel.Value);
+                }
+            }
+
+            return BuildBEValidacionCaminoBrillante(Enumeradores.ValidacionCaminoBrillante.CuvPertenecePrograma, Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_IR_CAMINO_BRILLANTE);
+        }
+
+        private BEValidacionCaminoBrillante BuildBEValidacionCaminoBrillante(Enumeradores.ValidacionCaminoBrillante validacion, string code = null, string param = null) {
+            return new BEValidacionCaminoBrillante() {
+                Validacion = validacion,
+                Code = code,
+                Mensaje = Constantes.PedidoValidacion.Configuracion.ContainsKey(code) ? ( 
+                    param != null ? string.Format(Constantes.PedidoValidacion.Configuracion[code].Mensaje, param) 
+                                    : Constantes.PedidoValidacion.Configuracion[code].Mensaje
+                ) : string.Empty
+            };
+        }
+
+        private List<BEProductoCaminoBrillante> GetCuvsCaminoBrillante(int PaisID, int CampaniaID)
+        {
+            return GetCuvsCaminoBrillanteCache(PaisID, CampaniaID);
+        }
+
+        private List<BEProductoCaminoBrillante> GetCuvsCaminoBrillanteCache(int PaisID, int CampaniaID)
+        {
+            return CacheManager<List<BEProductoCaminoBrillante>>.ValidateDataElement(PaisID, ECacheItem.CaminoBrillanteCuvs, string.Format("{0}", CampaniaID), () => GetCuvsCaminoBrillanteBD(PaisID, CampaniaID));
+        }
+
+        private List<BEProductoCaminoBrillante> GetCuvsCaminoBrillanteBD(int PaisID, int CampaniaID)
+        {
+            var productos = new DACaminoBrillante(PaisID).GetCuvsCaminoBrillante(CampaniaID).MapToCollection<BEProductoCaminoBrillante>(closeReaderFinishing: true) ?? new List<BEProductoCaminoBrillante>();
+
+            try
+            {
+                var valProducto = ValProductoInList(productos);
+                var kits = GetKitsCache(PaisID, 0, CampaniaID) ?? new List<BEKitCaminoBrillante>();
+                kits.ForEach(e => valProducto(e, 1));
+            }
+            catch (Exception ex) {
+
+            }
+
+            return productos;
+        }
+
+        private Action<BEKitCaminoBrillante, int> ValProductoInList(List<BEProductoCaminoBrillante> productos)
+        {
+            int nivel = 0;
+
+            Action<BEKitCaminoBrillante, int> validatorProductoInList = (kit, tipo) =>
+            {
+                if (!productos.Any(e => e.CUV == kit.CUV))
+                {
+                    productos.Add(new BEProductoCaminoBrillante()
+                    {
+                        CUV = kit.CUV,
+                        Descripcion = kit.DescripcionCUV,
+                        IndicadorDigitable = true,
+                        Nivel = int.TryParse(kit.CodigoNivel, out nivel) ? nivel : 0,
+                        Tipo = 1
+                    });
+                }
+                else
+                {
+                    productos.Where(e => e.CUV == kit.CUV)
+                        .Update(e => {
+                            e.Descripcion = kit.DescripcionCUV;
+                            e.IndicadorDigitable = true;
+                            e.Nivel = int.TryParse(kit.CodigoNivel, out nivel) ? nivel : 0;
+                            e.Tipo = 1;
+                        });
+                }
+            };
+            return validatorProductoInList;
+        }
+
+        #endregion
+
         #region Medallas
 
         private List<BEConfiguracionMedallaCaminoBrillante> GetGetConfiguracionMedallaCaminoBrillanteCache(int paisId)
@@ -980,6 +1086,8 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             var url = datosTablaLogica.Where(a => a.Codigo == Constantes.CaminoBrillante.ServicioComercial.TablaLogicaDatosKey.UrlInformacionComercial).Select(e => e.Valor).FirstOrDefault();
             var usuario = datosTablaLogica.Where(a => a.Codigo == Constantes.CaminoBrillante.ServicioComercial.TablaLogicaDatosKey.UsuarioInformacionComercial).Select(e => e.Valor).FirstOrDefault();
             var clave = datosTablaLogica.Where(a => a.Codigo == Constantes.CaminoBrillante.ServicioComercial.TablaLogicaDatosKey.ClaveInformacionComercial).Select(e => e.Valor).FirstOrDefault();
+
+            if (string.IsNullOrEmpty(url)) return null;
 
             return new CaminoBrillanteProvider(url, usuario, clave);
         }
