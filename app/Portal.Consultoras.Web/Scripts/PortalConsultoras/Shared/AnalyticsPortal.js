@@ -2718,8 +2718,8 @@ var AnalyticsPortalModule = (function () {
     }
     var clickVistaAddToCardPedidoPendiente = function (action, product) {
 
-        //var products = [];
-        //products.push(product);
+	    var products = [];
+        products.push(product);
 
         dataLayer.push({
 		    'event': _evento.addToCart,
@@ -2727,7 +2727,7 @@ var AnalyticsPortalModule = (function () {
 			    'currencyCode': _getCurrencyCodes(),
 			    'add': {
                     'actionField': { 'list': _texto.PedidoPendienteAceptado + action },
-                    'products': product
+                    'products': products
 			    }
 		    }
 	    });
