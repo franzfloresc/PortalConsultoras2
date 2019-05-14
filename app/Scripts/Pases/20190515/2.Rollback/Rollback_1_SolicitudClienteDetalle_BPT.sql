@@ -1,11 +1,13 @@
-﻿USE BelcorpBolivia
+﻿
+
+USE BelcorpBolivia
 GO
 
 IF EXISTS(SELECT 1 FROM sys.columns
 	WHERE Name = N'Estado' AND OBJECT_ID = OBJECT_ID(N'SolicitudClienteDetalle'))
 BEGIN
 	ALTER TABLE dbo.SolicitudClienteDetalle
-	DROP COLUMN Estado
+	DROP COLUMN Estado 
 END  
 GO
 

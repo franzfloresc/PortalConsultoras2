@@ -1,4 +1,6 @@
-﻿USE BelcorpBolivia
+﻿
+
+USE BelcorpBolivia
 GO
 
 IF OBJECT_ID(N'dbo.UpdSolicitudClienteDetalleEstado', N'P') IS NOT NULL
