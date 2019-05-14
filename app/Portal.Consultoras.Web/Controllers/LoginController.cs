@@ -71,64 +71,54 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region ActionResult
 
+        #region Index
         [AllowAnonymous]
         public async Task<ActionResult> Index(string returnUrl = null)
         {
-            MisCursos();
-
-
-
-            if (EsUsuarioAutenticado())
-            {
-                if (misCursos > 0)
-                {
-                    sessionManager.SetMiAcademia(misCursos);
-                    sessionManager.SetMiAcademiaVideo(flagMiAcademiaVideo);
-                    sessionManager.SetMiAcademiaParametro(urlSapParametro);
-
-                    return RedirectToAction("Index", "MiAcademia");
-                }
-
-                return EsDispositivoMovil()
-                    ? RedirectToAction("Index", "Bienvenida", new { area = "Mobile" })
-                    : RedirectToAction("Index", "Bienvenida");
-            }
-
             var ip = string.Empty;
             var iso = string.Empty;
             var model = new LoginModel();
 
             try
             {
+                MisCursos();
+
+                if (EsUsuarioAutenticado())
+                {
+                    if (misCursos > 0)
+                    {
+                        sessionManager.SetMiAcademia(misCursos);
+                        sessionManager.SetMiAcademiaVideo(flagMiAcademiaVideo);
+                        sessionManager.SetMiAcademiaParametro(urlSapParametro);
+
+                        //return RedirectToAction("Index", "MiAcademia");
+                    }
+
+                    //return EsDispositivoMovil()
+                    //    ? RedirectToAction("Index", "Bienvenida", new { area = "Mobile" })
+                    //    : RedirectToAction("Index", "Bienvenida");
+
+                    var esMobile = EsDispositivoMovil();
+                    return IndexRedireccionar(misCursos, esMobile);
+                }
+
                 model.ListaPaises = ObtenerPaises();
                 model.ListaEventos = await ObtenerEventoFestivo(0, Constantes.EventoFestivoAlcance.LOGIN, 0);
 
-                if (model.ListaEventos.Count == 0)
-                    model.NombreClase = "fondo_estandar";
-                else
-                {
-                    model.NombreClase = "fondo_festivo";
-
-                    model.RutaEventoEsika =
-                    (from g in model.ListaEventos
-                     where g.Nombre == Constantes.EventoFestivoNombre.FONDO_ESIKA
-                     select g.Personalizacion).FirstOrDefault();
-
-                    model.RutaEventoLBel =
-                    (from g in model.ListaEventos
-                     where g.Nombre == Constantes.EventoFestivoNombre.FONDO_LBEL
-                     select g.Personalizacion).FirstOrDefault();
-                }
+                model = IndexEvento(model);
 
                 if (EstaActivoBuscarIsoPorIp())
                 {
-                    ip = GetIpCliente();
                     iso = Util.GetISObyIPAddress(ip);
 
                     if (string.IsNullOrEmpty(iso))
                     {
                         ip = IP_DEFECTO;
                         iso = ISO_DEFECTO;
+                    }
+                    else
+                    {
+                        ip = GetIpCliente();
                     }
                 }
 
@@ -148,16 +138,19 @@ namespace Portal.Consultoras.Web.Controllers
 
             ViewBag.FBAppId = ConfigurationManager.AppSettings["FB_AppId"];
 
-
-
             return View(model);
         }
-        [AllowAnonymous]
-        [HttpGet]
-        [Route("Login/Login/{param?}")]
-        public ActionResult Login(string param)
+
+        public RedirectToRouteResult IndexRedireccionar(int cantCursos, bool esMobile)
         {
-            return RedirectToAction("Index", "Login");
+            if (cantCursos > 0)
+            {
+                return RedirectToAction("Index", "MiAcademia");
+            }
+
+            return esMobile
+                ? RedirectToAction("Index", "Bienvenida", new { area = "Mobile" })
+                : RedirectToAction("Index", "Bienvenida");
         }
 
         private void MisCursos()
@@ -209,13 +202,50 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        private LoginModel IndexEvento(LoginModel model)
+        {
+            model.ListaEventos = model.ListaEventos ?? new List<EventoFestivoModel>();
+            if (model.ListaEventos.Count == 0)
+                model.NombreClase = "fondo_estandar";
+            else
+            {
+                model.NombreClase = "fondo_festivo";
+
+                model.RutaEventoEsika =
+                (from g in model.ListaEventos
+                 where g.Nombre == Constantes.EventoFestivoNombre.FONDO_ESIKA
+                 select g.Personalizacion).FirstOrDefault();
+
+                model.RutaEventoLBel =
+                (from g in model.ListaEventos
+                 where g.Nombre == Constantes.EventoFestivoNombre.FONDO_LBEL
+                 select g.Personalizacion).FirstOrDefault();
+            }
+
+            return model;
+        }
+        
+        #endregion
+
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("Login/Login/{param?}")]
+        public ActionResult Login(string param)
+        {
+            return RedirectToAction("Index", "Login");
+        }
+
         [AllowAnonymous]
         [HttpPost]
         public async Task<ActionResult> Login(LoginModel model, string returnUrl = null)
         {
             pasoLog = "Login.POST.Index";
+            string errorMensaje = "";
             try
             {
+                if (model.PaisID == 0)
+                    model.PaisID = Util.GetPaisID(model.CodigoISO);
+
                 if (model.PaisID == 0)
                 {
                     TempData["errorLogin"] = "Debe seleccionar el Pais";
@@ -226,10 +256,7 @@ namespace Portal.Consultoras.Web.Controllers
                 TempData["serverPaisISO"] = model.CodigoISO;
                 TempData["serverCodigoUsuario"] = model.CodigoUsuario;
 
-                #region DesencriptarClaveSecreta
-                var PasswordCjs = ConfigurationManager.AppSettings.Get("CryptoJSPassword");
-                model.ClaveSecreta = Util.DecryptCryptoJs(model.ClaveSecreta, PasswordCjs, model.Salt, model.Key, model.Iv);
-                #endregion
+                model.ClaveSecreta = DecryptCryptoClaveSecreta(model);
 
                 var resultadoInicioSesion = await ObtenerResultadoInicioSesion(model);
 
@@ -263,44 +290,21 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     else
                     {
-                        using (var svc = new UsuarioServiceClient())
+                        var returnSi = LoginUsuarioExterno(model, resultadoInicioSesion);
+
+                        if (returnSi)
                         {
-                            var userExt = svc.GetUsuarioExternoByCodigoUsuario(model.PaisID, model.CodigoUsuario);
-                            if (userExt == null)
+                            if (usuarioExterno.Redireccionar)
                             {
-                                var beUserExtPais = new BEUsuarioExternoPais
+                                return await Redireccionar(model.PaisID, resultadoInicioSesion.CodigoUsuario, returnUrl, true);
+                            }
+                            else
+                            {
+                                return Json(new
                                 {
-                                    Proveedor = usuarioExterno.Proveedor,
-                                    IdAplicacion = usuarioExterno.IdAplicacion,
-                                    PaisID = model.PaisID,
-                                    CodigoISO = Util.GetPaisISO(model.PaisID)
-                                };
-                                svc.InsUsuarioExternoPais(11, beUserExtPais);
-
-                                var beUsuarioExterno = new BEUsuarioExterno
-                                {
-                                    CodigoUsuario = resultadoInicioSesion.CodigoUsuario,
-                                    Proveedor = usuarioExterno.Proveedor,
-                                    IdAplicacion = usuarioExterno.IdAplicacion,
-                                    Login = usuarioExterno.Login,
-                                    Nombres = usuarioExterno.Nombres,
-                                    Apellidos = usuarioExterno.Apellidos,
-                                    FechaNacimiento = usuarioExterno.FechaNacimiento,
-                                    Correo = usuarioExterno.Correo,
-                                    Genero = usuarioExterno.Genero,
-                                    Ubicacion = usuarioExterno.Ubicacion,
-                                    LinkPerfil = usuarioExterno.LinkPerfil,
-                                    FotoPerfil = usuarioExterno.FotoPerfil
-                                };
-                                svc.InsertUsuarioExterno(model.PaisID, beUsuarioExterno);
-
-                                return usuarioExterno.Redireccionar
-                                    ? await Redireccionar(model.PaisID, resultadoInicioSesion.CodigoUsuario, returnUrl, true)
-                                    : Json(new
-                                    {
-                                        success = true,
-                                        message = "El codigo de consultora se asoció con su cuenta de Facebook"
-                                    });
+                                    success = true,
+                                    message = "El codigo de consultora se asoció con su cuenta de Facebook"
+                                });
                             }
                         }
                     }
@@ -308,7 +312,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return await Redireccionar(model.PaisID, resultadoInicioSesion.CodigoUsuario, returnUrl);
                 }
 
-                var mensaje = resultadoInicioSesion != null
+                errorMensaje = resultadoInicioSesion != null
                     ? resultadoInicioSesion.Mensaje
                     : "Error al procesar la solicitud";
 
@@ -317,54 +321,104 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(new
                     {
                         success = false,
-                        message = mensaje
+                        message = errorMensaje
                     });
                 }
 
-                TempData["errorLogin"] = mensaje;
+                TempData["errorLogin"] = errorMensaje;
                 return RedirectToAction("Index", "Login");
             }
             catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, model.CodigoUsuario, model.CodigoISO);
-
+                errorMensaje = "Error al procesar la solicitud";
                 if (Request.IsAjaxRequest())
                 {
                     return Json(new
                     {
                         success = false,
-                        message = "Error al procesar la solicitud"
+                        message = errorMensaje
                     });
                 }
 
-                TempData["errorLogin"] = "Error al procesar la solicitud";
+                TempData["errorLogin"] = errorMensaje;
+                return RedirectToAction("Index", "Login");
             }
             catch (Exception ex)
             {
                 logManager.LogErrorWebServicesBusWrap(ex, model.CodigoUsuario, model.CodigoISO, pasoLog);
-
+                errorMensaje = "Error al procesar la solicitud";
                 if (Request.IsAjaxRequest())
                 {
                     return Json(new
                     {
                         success = false,
-                        message = "Error al procesar la solicitud"
+                        message = errorMensaje
                     });
                 }
 
-                TempData["errorLogin"] = "Error al procesar la solicitud";
+                TempData["errorLogin"] = errorMensaje;
                 return RedirectToAction("Index", "Login");
             }
 
-            if (Request.IsAjaxRequest())
+            //if (Request.IsAjaxRequest())
+            //{
+            //    return Json(new
+            //    {
+            //        success = true,
+            //        redirectTo = Url.Action("Index", "Login")
+            //    });
+            //}
+            //return RedirectToAction("Index", "Login");
+        }
+
+
+        private string DecryptCryptoClaveSecreta(LoginModel model)
+        {
+            var passwordCjs = ConfigurationManager.AppSettings.Get("CryptoJSPassword");
+            return Util.DecryptCryptoJs(model.ClaveSecreta, passwordCjs, model.Salt, model.Key, model.Iv);
+        }
+
+        private bool LoginUsuarioExterno(LoginModel model, BEValidaLoginSB2 resultadoInicioSesion)
+        {
+            var returnSi = false;
+            var usuarioExterno = model.UsuarioExterno;
+            using (var svc = new UsuarioServiceClient())
             {
-                return Json(new
+                var userExt = svc.GetUsuarioExternoByCodigoUsuario(model.PaisID, model.CodigoUsuario);
+                if (userExt == null)
                 {
-                    success = true,
-                    redirectTo = Url.Action("Index", "Login")
-                });
+                    var beUserExtPais = new BEUsuarioExternoPais
+                    {
+                        Proveedor = usuarioExterno.Proveedor,
+                        IdAplicacion = usuarioExterno.IdAplicacion,
+                        PaisID = model.PaisID,
+                        CodigoISO = Util.GetPaisISO(model.PaisID)
+                    };
+                    svc.InsUsuarioExternoPais(Constantes.PaisID.Peru, beUserExtPais);
+
+                    var beUsuarioExterno = new BEUsuarioExterno
+                    {
+                        CodigoUsuario = resultadoInicioSesion.CodigoUsuario,
+                        Proveedor = usuarioExterno.Proveedor,
+                        IdAplicacion = usuarioExterno.IdAplicacion,
+                        Login = usuarioExterno.Login,
+                        Nombres = usuarioExterno.Nombres,
+                        Apellidos = usuarioExterno.Apellidos,
+                        FechaNacimiento = usuarioExterno.FechaNacimiento,
+                        Correo = usuarioExterno.Correo,
+                        Genero = usuarioExterno.Genero,
+                        Ubicacion = usuarioExterno.Ubicacion,
+                        LinkPerfil = usuarioExterno.LinkPerfil,
+                        FotoPerfil = usuarioExterno.FotoPerfil
+                    };
+                    svc.InsertUsuarioExterno(model.PaisID, beUsuarioExterno);
+
+                    returnSi = true;
+                }
             }
-            return RedirectToAction("Index", "Login");
+            return returnSi;
+
         }
 
         [AllowAnonymous]
@@ -1013,7 +1067,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (usuario != null)
                 {
-                    if(nivelCaminoBrillante != 0) usuario.NivelCaminoBrillante = nivelCaminoBrillante;
+                    if (nivelCaminoBrillante != 0) usuario.NivelCaminoBrillante = nivelCaminoBrillante;
 
                     #region
                     usuarioModel = new UsuarioModel();
@@ -1469,7 +1523,7 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.CodigoSubClasificacion = usuario.CodigoSubClasificacion;
                     usuarioModel.DescripcionSubclasificacion = usuario.DescripcionSubClasificacion;
                     usuarioModel.NivelCaminoBrillante = usuario.NivelCaminoBrillante;
-                    
+
                 }
 
                 sessionManager.SetUserData(usuarioModel);

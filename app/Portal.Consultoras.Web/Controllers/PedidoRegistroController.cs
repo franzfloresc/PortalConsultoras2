@@ -488,8 +488,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         private async Task<Tuple<bool, JsonResult>> DeleteTransactionInternal(int pedidoId, short pedidoDetalleId, int tipoOfertaSisId, string cuv, int cantidad, string clienteId, bool esBackOrder, int setId)
         {
-            var lastResult = new Tuple<bool, JsonResult>(false, Json(new { }));
-
             BEPedidoDetalle pedidoDetalle = new BEPedidoDetalle();
             pedidoDetalle.SetID = setId;
             pedidoDetalle.PedidoDetalleID = pedidoDetalleId;
@@ -550,8 +548,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             //Validar si el cuv sigue agregado
             var EsAgregado = ValidarEsAgregado(pedidoAgrupado);
-
-            lastResult = new Tuple<bool, JsonResult>(!errorServer, Json(new
+            
+            var lastResult = new Tuple<bool, JsonResult>(!errorServer, Json(new
             {
                 success = !errorServer,
                 message,

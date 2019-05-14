@@ -31,16 +31,8 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@UrlMiniatura", DbType.AnsiString, p.UrlMiniatura);
             Context.Database.AddInParameter(command, "@DesdeCampania", DbType.Int32, p.DesdeCampania);
 
-            try
-            {
-                bool iresult = Context.ExecuteNonQuery(command) == 1 ? true : false;
-            }
-            catch (Exception ex)
-            {
+            Context.ExecuteNonQuery(command);
 
-                throw ex;
-            }
-            
         }
 
         public IDataReader GetList(BEContenidoAppList p)
@@ -57,21 +49,12 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@RutaContenido", DbType.AnsiString, p.RutaContenido);
             Context.Database.AddInParameter(command, "@tipo", DbType.AnsiString, p.Tipo);
 
-            try
-            {
-                bool iresult = Context.ExecuteNonQuery(command) == 1 ? true : false;
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-
+            Context.ExecuteNonQuery(command);
         }
 
         public int UpdContenidoAppDeta(BEContenidoAppDeta p)
         {
-          
+
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ContenidoAppDetaUpd");
             Context.Database.AddInParameter(command, "@IdContenidoDeta", DbType.Int32, p.IdContenidoDeta);
             Context.Database.AddInParameter(command, "@IdContenido", DbType.Int32, p.IdContenido);

@@ -40,16 +40,10 @@ function RedirectMenu(ActionName, ControllerName, Flag, Descripcion, parametros)
             });
         }
     }
-    else if (ControllerName == "JavaScript")
-    {
-        if (ActionName == "PopUpPrivacidadDatos")
-        {
+    else if (ControllerName == "JavaScript") {
+        if (ActionName == "PopUpPrivacidadDatos") {
             $("#box-pop-up").show();
             $("#pop-up-body").customScrollbar();
-        }
-        else
-        {
-
         }
         return false;
     }
@@ -62,8 +56,7 @@ function RedirectMenu(ActionName, ControllerName, Flag, Descripcion, parametros)
         $('#dialog_ErrorMainLayout').show();
         return false;
     }
-    else
-    {
+    else {
         if (ControllerName == '') URL = ActionName;
         else {
             if (ActionName == "Index") URL = location.protocol + "//" + location.host + "/" + ControllerName;

@@ -48,8 +48,7 @@ namespace Portal.Consultoras.Web.Providers
             var taskApi = Task.Run(() => ObtenerOfertaDesdeApi(cuv, campania, tipoEstrategia, codigoIso));
             Task.WhenAll(taskApi);
             Estrategia estrategia = taskApi.Result ?? new Estrategia();
-            var modeloEstrategia = new DetalleEstrategiaFichaModel();
-            modeloEstrategia = Mapper.Map<Estrategia, DetalleEstrategiaFichaModel>(estrategia ?? new Estrategia());
+            var modeloEstrategia = Mapper.Map<Estrategia, DetalleEstrategiaFichaModel>(estrategia ?? new Estrategia());
             return modeloEstrategia;
         }
 
@@ -74,15 +73,15 @@ namespace Portal.Consultoras.Web.Providers
 
             string jsonString = await httpResponse.Content.ReadAsStringAsync();
             httpResponse.Dispose();
-            if (Util.Trim(jsonString) == string.Empty)
-            {
-                return estrategia;
-            }
 
-            OutputOferta respuesta = new OutputOferta();
             try
             {
-                respuesta = JsonConvert.DeserializeObject<OutputOferta>(jsonString);
+                if (Util.Trim(jsonString) == string.Empty)
+                {
+                    return estrategia;
+                }
+
+                OutputOferta respuesta = JsonConvert.DeserializeObject<OutputOferta>(jsonString);
                 estrategia = respuesta.Result ?? new Estrategia();
             }
             catch (Exception ex)
@@ -111,8 +110,7 @@ namespace Portal.Consultoras.Web.Providers
                 return estrategias;
             }
 
-            var respuesta = new OutputOfertaLista();
-            var listaSinPrecio2 = new List<string>();
+            OutputOfertaLista respuesta;
             try
             {
                 respuesta = JsonConvert.DeserializeObject<OutputOfertaLista>(jsonString);
@@ -129,13 +127,14 @@ namespace Portal.Consultoras.Web.Providers
                 return estrategias;
             }
 
-            string codTipoEstrategia = string.Empty, codCampania = string.Empty;
             respuesta.Result = respuesta.Result ?? new List<Models.Search.ResponseOferta.Estructura.Estrategia>();
-            if (respuesta.Result == null)
+            if (respuesta.Result.Count == 0)
             {
                 return estrategias;
             }
 
+            var listaSinPrecio2 = new List<string>();
+            string codTipoEstrategia = string.Empty, codCampania = string.Empty;
             foreach (Models.Search.ResponseOferta.Estructura.Estrategia item in respuesta.Result)
             {
                 try

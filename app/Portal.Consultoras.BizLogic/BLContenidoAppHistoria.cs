@@ -1,14 +1,9 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
-using Portal.Consultoras.Entities.Oferta;
-
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Transactions;
 using System.Threading.Tasks;
-using System.Linq;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -29,19 +24,20 @@ namespace Portal.Consultoras.BizLogic
             try
             {
                 var da = new DAContenidoApp();
-                    
+
                 var task1 = Task.Run(() =>
                 {
                     var entidad = new BEContenidoAppHistoria();
                     using (var reader = da.Get(Codigo))
                     {
-                        if (reader.Read()) {
+                        if (reader.Read())
+                        {
                             entidad = new BEContenidoAppHistoria(reader);
-                        } 
+                        }
                     }
                     return entidad;
                 });
-                
+
                 contenidoApp = task1.Result;
             }
             catch (Exception ex)
@@ -54,9 +50,16 @@ namespace Portal.Consultoras.BizLogic
 
         public void UpdateContenidoApp(BEContenidoAppHistoria p)
         {
-            DAContenidoApp.UpdContenidoApp(p);
+            try
+            {
+                DAContenidoApp.UpdContenidoApp(p);
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, "", "");
+                throw new Exception("Exception BLContenidoAppHistoria - UpdateContenidoApp", ex);
+            }
         }
-
 
         public List<BEContenidoAppList> GetList(BEContenidoAppList entidad)
         {
@@ -80,12 +83,20 @@ namespace Portal.Consultoras.BizLogic
 
         public void InsertContenidoAppDeta(BEContenidoAppDeta p)
         {
-            DAContenidoApp.InsertContenidoAppDeta(p);
+            try
+            {
+                DAContenidoApp.InsertContenidoAppDeta(p);
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, "", "");
+                throw new Exception("Exception BLContenidoAppHistoria - InsertContenidoAppDeta", ex);
+            }
         }
 
         public int UpdateContenidoAppDeta(BEContenidoAppDeta p)
         {
-           return DAContenidoApp.UpdContenidoAppDeta(p);
+            return DAContenidoApp.UpdContenidoAppDeta(p);
         }
     }
 }

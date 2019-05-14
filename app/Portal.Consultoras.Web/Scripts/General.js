@@ -32,13 +32,13 @@ jQuery(document).ready(function () {
         }
     }
 
-    document.onkeydown = function (evt) {
-        evt = evt || window.event;
-        if (evt.keyCode == 27) {
-            if ($('.resultado_busqueda_producto').is(':visible')) {
-            }
-        }
-    };
+    //document.onkeydown = function (evt) {
+    //    evt = evt || window.event;
+    //    if (evt.keyCode == 27) {
+    //        if ($('.resultado_busqueda_producto').is(':visible')) {
+    //        }
+    //    }
+    //};
 });
 
 (function ($) {
@@ -83,8 +83,10 @@ jQuery(document).ready(function () {
 
     $.fn.CleanWhitespace = function () {
         var textNodes = this.contents().filter(
-            function () { return (this.nodeType == 3 && !/\S/.test(this.nodeValue)); })
-            .remove();
+            function () {
+                return (this.nodeType == 3 && !/\S/.test(this.nodeValue));
+            }
+        ).remove();
         return this;
     };
 
@@ -409,7 +411,7 @@ jQuery(document).ready(function () {
             Handlebars.registerHelper('json', function (context) {
                 return JSON.stringify(context).replace(/"/g, '&quot;');
             });
-             
+
         }
     };
 
@@ -1699,22 +1701,22 @@ function odd_google_analytics_product_click(name, id, price, brand, variant, pos
     dataLayer.push({
         'event': 'productClick',
         'ecommerce':
-        {
-            'click':
             {
-                'actionField': { 'list': listName },
-                'products':
-                    [{
-                        'name': name,
-                        'id': id,
-                        'price': price,
-                        'brand': brand,
-                        'category': 'No disponible',
-                        'variant': variant,
-                        'position': position
-                    }]
+                'click':
+                    {
+                        'actionField': { 'list': listName },
+                        'products':
+                            [{
+                                'name': name,
+                                'id': id,
+                                'price': price,
+                                'brand': brand,
+                                'category': 'No disponible',
+                                'variant': variant,
+                                'position': position
+                            }]
+                    }
             }
-        }
     });
 }
 
@@ -2036,15 +2038,15 @@ var GeneralModule = (function () {
     "use strict";
 
     var _elements = {
-        loading :{
-            spin : {
-                id : "loading-spin"
+        loading: {
+            spin: {
+                id: "loading-spin"
             },
-            loadingScreen:{
-                id : "loadingScreen",
-                class : {
-                    titulo : "loadingScreen-titulo",
-                    mensaje : "loadingScreen-mensaje"
+            loadingScreen: {
+                id: "loadingScreen",
+                class: {
+                    titulo: "loadingScreen-titulo",
+                    mensaje: "loadingScreen-mensaje"
                 }
             }
         }
@@ -2078,10 +2080,10 @@ var GeneralModule = (function () {
     var _createLoading = function () {
         if ($("#" + _elements.loading.loadingScreen.id).find("." + _elements.loading.loadingScreen.class.titulo).length !== 0 ||
             $("#" + _elements.loading.loadingScreen.id).find("." + _elements.loading.loadingScreen.class.mensaje).length !== 0) return false;
-    
+
         $("#" + _elements.loading.loadingScreen.id).append("<div class=\"" + _elements.loading.loadingScreen.class.titulo + "\"></div>");
         $("#" + _elements.loading.loadingScreen.id).append("<div class=\"" + _elements.loading.loadingScreen.class.mensaje + "\"></div>");
-    
+
         $("#" + _elements.loading.loadingScreen.id).dialog({
             autoOpen: false,
             dialogClass: "loadingScreenWindow",
@@ -2099,7 +2101,7 @@ var GeneralModule = (function () {
     var waitingDialog = function (params) {
         try {
             if (!$("#" + _elements.loading.loadingScreen.id)) {
-                $(document.body).append("<div id=\"" +_elements.loading.loadingScreen.id + "\"></div>");
+                $(document.body).append("<div id=\"" + _elements.loading.loadingScreen.id + "\"></div>");
             }
 
             if (!$("#" + _elements.loading.loadingScreen.id).hasClass('ui-dialog-content')) {
@@ -2120,7 +2122,7 @@ var GeneralModule = (function () {
 
     var _hideDialog = function (dialogId) {
         try {
-    
+
             dialogId = (dialogId || "").trim();
             if (dialogId != "") {
                 dialogId = dialogId[0] == "#" ? dialogId : ("#" + dialogId);
@@ -2130,7 +2132,7 @@ var GeneralModule = (function () {
         catch (err) {
             console.log('HideDialog - log - ', err);
         }
-    
+
         $("body").css("overflow", "auto");
         return false;
     };
@@ -2190,9 +2192,9 @@ var GeneralModule = (function () {
 }());
 //INI HD-3693
 function validarpopupBloqueada(message) {
-    if (message.indexOf("HD3693~")!=-1) return message.split("~")[1];
+    if (message.indexOf("HD3693~") != -1) return message.split("~")[1];
     else return "";
-    
+
 }
 //FIN HD-3693
 

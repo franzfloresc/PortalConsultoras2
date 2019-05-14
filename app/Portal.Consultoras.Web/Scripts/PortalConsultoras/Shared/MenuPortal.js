@@ -97,6 +97,7 @@ function LayoutMenuFin() {
     // caso no entre en el menu
     // poner en dos renglones
     if ($(idnMenuHeader).height() > 61) {
+        //
     }
 
     LayoutHeader();
