@@ -3,16 +3,21 @@ using System.Linq;
 using Portal.Consultoras.Common;
 using System;
 using Portal.Consultoras.Web.Providers;
+using Portal.Consultoras.Web.ServiceLMS;
 
 namespace Portal.Consultoras.Web.Controllers
 {
     public class CaminoBrillanteController : BaseController
     {
         private readonly CaminoBrillanteProvider _caminoBrillanteProvider;
+        private readonly MiAcademiaProvider _miAcademiaProvider;
+        private readonly ConfiguracionManagerProvider _configuracionManagerProvider;
 
         public CaminoBrillanteController()
         {
             _caminoBrillanteProvider = new CaminoBrillanteProvider();
+            _configuracionManagerProvider = new ConfiguracionManagerProvider();
+            _miAcademiaProvider = new MiAcademiaProvider(_configuracionManagerProvider);
         }
 
         public ActionResult Index()
@@ -217,9 +222,27 @@ namespace Portal.Consultoras.Web.Controllers
             if(nivelCB == null) return _RedirectToAction("Index", "Bienvenida");
             switch (nivelCB.EnterateMas ) {
                 case 1:
-                    return Redirect("");
+
+                    string key = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.secret_key);
+                    string isoUsuario = userData.CodigoISO + '-' + userData.CodigoConsultora;
+                    var svcLms = new ws_server();
+                    var getUser = svcLms.ws_serverget_user(isoUsuario, userData.CampaniaID.ToString(), key);
+                    var token = getUser.token;
+
+                    var paramMiAcademia = new Models.MiAcademia.ParamUrlMiAcademiaModel()
+                    {
+                        Token = token,
+                        IsoUsuario = isoUsuario
+                    };
+                    
+                    if (!string.IsNullOrEmpty(nivelCB.EnterateMasParam))
+                    {
+                        paramMiAcademia.IdCurso = int.Parse(nivelCB.EnterateMasParam);
+                    }
+                                       
+                    return Redirect(_miAcademiaProvider.GetUrl(Enumeradores.MiAcademiaUrl.Cursos, paramMiAcademia));
                 case 2:
-                    return Redirect("");
+                    return Redirect("https://issuu.com/somosbelcorp/docs/"+ nivelCB.EnterateMasParam);
             }
 
             return _RedirectToAction("Index", "Bienvenida");
