@@ -171,7 +171,7 @@ var EstrategiaAgregarModule = (function () {
         var $btnAgregarTmp = $btnAgregar;
         var $divMsgProductoBloqueado = null;
         var dataItemHtml = null;
-        var estrategiaTmp = estrategia;
+        //var estrategiaTmp = estrategia;
         return {
             getDivMsgProductoBloqueado: function () {
                 $divMsgProductoBloqueado = $(elementosDiv.divMensajeBloqueada);
@@ -241,9 +241,10 @@ var EstrategiaAgregarModule = (function () {
         var clientId = 0;
 
         var $divFichaReumida = $('#DivPopupFichaResumida');
-        if ((typeof $divFichaReumida !== "undefined" || $divFichaReumida !== null) &&
-            $divFichaReumida.find("#hfClienteId").length > 0) {
-            clientId = $($divFichaReumida.find("#hfClienteId")[0]).val();
+        if (typeof $divFichaReumida !== "undefined" || $divFichaReumida !== null) {
+            if ($divFichaReumida.find("#hfClienteId").length > 0) {
+                clientId = $($divFichaReumida.find("#hfClienteId")[0]).val();
+            }
         }
 
         return clientId;
@@ -499,7 +500,7 @@ var EstrategiaAgregarModule = (function () {
 
                 }
                 //FIN HD-3908
-               
+
                 var barraJsLoaded = typeof MostrarBarra === 'function';
 
                 if (barraJsLoaded) {
@@ -628,7 +629,7 @@ var EstrategiaAgregarModule = (function () {
                                 $.each(listaCuvs,
                                     function (i, item) {
                                         if (!(item.hasAttribute('data-tono-digitable')))
-                                            var cuv = $(item).attr("data-tono-select", "");
+                                            $(item).attr("data-tono-select", "");
                                     });
                             }
 

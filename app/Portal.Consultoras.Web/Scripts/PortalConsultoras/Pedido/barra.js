@@ -306,24 +306,24 @@ function MostrarBarra(datax, destino) {
         htmlTippintPoint = htmlTippintPoint
             .replace('{barra_tooltip_class}', dataTP.ActiveTooltip ? 'contenedor_tippingPoint' : '')
             .replace('{barra_tooltip}',
-                dataTP.ActiveTooltip ?
-                    '<div class="tooltip_regalo_meta_tippingPoint">'
-                    + '<div class="tooltip_producto_regalo_img">'
-                    + '<img src="' + dataTP.LinkURL + '" alt="Producto de regalo"/>'
-                    + '</div>'
-                    + '{barra_tooltip_descripcion}'
-                    + '</div>' :
-                    ''
+            dataTP.ActiveTooltip ?
+                '<div class="tooltip_regalo_meta_tippingPoint">'
+                + '<div class="tooltip_producto_regalo_img">'
+                + '<img src="' + dataTP.LinkURL + '" alt="Producto de regalo"/>'
+                + '</div>'
+                + '{barra_tooltip_descripcion}'
+                + '</div>' :
+                ''
             )
             .replace('{barra_monto}',
-                dataTP.ActiveMonto ?
-                    '<div class="monto_meta_tippingPoint">' + variablesPortal.SimboloMoneda + ' ' + dataBarra.TippingPointStr + '</div>' :
-                    ''
+            dataTP.ActiveMonto ?
+                '<div class="monto_meta_tippingPoint">' + variablesPortal.SimboloMoneda + ' ' + dataBarra.TippingPointStr + '</div>' :
+                ''
             )
             .replace('{barra_tooltip_descripcion}',
-                dataTP.ActiveMonto ?
-                    '<div class="tooltip_producto_regalo_descripcion">Llega a <span>' + variablesPortal.SimboloMoneda + ' ' + dataBarra.TippingPointStr + '</span><br>y llévate de regalo<br><strong>' + dataTP.DescripcionCUV2 + '</strong></div>' :
-                    '<div class="tooltip_producto_regalo_descripcion"><br> Llévate de regalo<br><strong>' + dataTP.DescripcionCUV2 + '</strong></div>'
+            dataTP.ActiveMonto ?
+                '<div class="tooltip_producto_regalo_descripcion">Llega a <span>' + variablesPortal.SimboloMoneda + ' ' + dataBarra.TippingPointStr + '</span><br>y llévate de regalo<br><strong>' + dataTP.DescripcionCUV2 + '</strong></div>' :
+                '<div class="tooltip_producto_regalo_descripcion"><br> Llévate de regalo<br><strong>' + dataTP.DescripcionCUV2 + '</strong></div>'
             );
     }
 
@@ -780,10 +780,7 @@ function calcMtoLogro(data, destino) {
 
     var vLogro = mt - md;
 
-    if (mx > 0 && destino == '2') {
-
-    }
-    else {
+    if (!(mx > 0 && destino == '2')) {
         var valTopTotal = destino == '2' && barra.TippingPointBarra.Active && tp > 0 ? tp : mn;
         if (vLogro > valTopTotal) vLogro = valTopTotal > me ? valTopTotal : me;
     }
@@ -1410,9 +1407,7 @@ function CalculoLlenadoBarra() {
                 AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMinimo);
             }
             else {
-
                 AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMaximo);
-
             }
 
         } else {
@@ -1421,24 +1416,31 @@ function CalculoLlenadoBarra() {
                 if (montoActual < montoTipipoing) {
                     AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoTipipoing);
                 }
-                else
+                else {
                     AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMaximo);
+                }
             }
             else {
-                if (ConfiguradoRegalo == true) {
-
-                    if (montoActual < montoMinimo) {
-                        AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMinimo);
-                    } else
-                        AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMaximo);
+                if (montoActual < montoMinimo) {
+                    AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMinimo);
+                } else {
+                    AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMaximo);
                 }
-                else {
-                    if (montoActual < montoMinimo) {
-                        AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMinimo);
-                    } else
-                        AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMaximo);
 
-                }
+                //if (ConfiguradoRegalo == true) {
+                //    if (montoActual < montoMinimo) {
+                //        AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMinimo);
+                //    } else {
+                //        AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMaximo);
+                //    }
+                //}
+                //else {
+                //    if (montoActual < montoMinimo) {
+                //        AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMinimo);
+                //    } else {
+                //        AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMaximo);
+                //    }
+                //}
             }
 
         }
@@ -1546,7 +1548,7 @@ function CalculoPosicionMinimoMaximo() {
             else {
 
                 PosicionMontoMinimo = montoMinimo * 100 / montoMaximo;
-                PosicionMontoTipipoing = montoMinimo * 100 / montoMaximo;
+                var PosicionMontoTipipoing = montoMinimo * 100 / montoMaximo;
 
                 document.getElementById('hrefIconoRegalo').className = document.getElementById('hrefIconoRegalo').className.replace('regalo_tippingPointInicio', 'regalo_tippingPoint');
 
@@ -1646,7 +1648,7 @@ function CalculoPosicionMinimoMaximo() {
                     else {
 
                         var PosicionMontoMinimo = montoMinimo * 100 / montoMaximo;
-                        var PosicionMontoTipipoing = montoTipipoing * 100 / montoMaximo;
+                        //var PosicionMontoTipipoing = montoTipipoing * 100 / montoMaximo;
 
                         document.getElementById('hrefIconoRegalo').className = document.getElementById('hrefIconoRegalo').className.replace('regalo_tippingPointInicio', 'regalo_tippingPoint');
 
@@ -1690,7 +1692,7 @@ function CalculoPosicionMinimoMaximo() {
 
 
                         PosicionMontoMinimo = montoMinimo * 100 / montoMaximo;
-                        PosicionMontoTipipoing = montoTipipoing * 100 / montoMaximo;
+                        //PosicionMontoTipipoing = montoTipipoing * 100 / montoMaximo;
 
                         document.getElementById('MontoMinimoBloque').style.right = '';
                         document.getElementById('lineaPosicionMontoMinimo').style.display = 'block';
@@ -2064,7 +2066,7 @@ function CalculoPosicionMinimoMaximoDestokp() {
             var AvancePorcentaje0 = CalculoPorcentajeAvance(montoMinimo, montoMaximo);
             document.getElementById('barra_0').style.left = AvancePorcentaje0;
 
-            var AvancePorcentajeP0 = (AvancePorcentaje0.substring(0, AvancePorcentaje0.length - 1) * 1 - 7) + '%'
+            var AvancePorcentajeP0 = (AvancePorcentaje0.substring(0, AvancePorcentaje0.length - 1) * 1 - 7) + '%';
             document.getElementById('punto_0').style.left = AvancePorcentajeP0;
 
 
@@ -2072,17 +2074,14 @@ function CalculoPosicionMinimoMaximoDestokp() {
             if (document.getElementById('barra_1') != null) document.getElementById('barra_1').style.left = AvancePorcentaje1;
 
             if (document.getElementById('divBarra').style.width.substring(0, document.getElementById('divBarra').style.width.length - 2) * 1 > 1000) {
-                var AvancePorcentajeP1 = (AvancePorcentaje1.substring(0, AvancePorcentaje1.length - 1) * 1 - 3.5) + '%'
+                var AvancePorcentajeP1 = (AvancePorcentaje1.substring(0, AvancePorcentaje1.length - 1) * 1 - 3.5) + '%';
             }
-            else
-                var AvancePorcentajeP1 = (AvancePorcentaje1.substring(0, AvancePorcentaje1.length - 1) * 1 - 5) + '%'
-
-
-
+            else {
+                var AvancePorcentajeP1 = (AvancePorcentaje1.substring(0, AvancePorcentaje1.length - 1) * 1 - 5) + '%';
+            }
+            
             document.getElementById('punto_1').style.left = AvancePorcentajeP1;
             document.getElementById('punto_1').firstChild.firstChild.style = "width:90px;position: absolute;";
-
-
             document.getElementById('punto_2').style.left = '94%';
             document.getElementById('barra_2').style.left = '99.9%';
 
@@ -2093,51 +2092,42 @@ function CalculoPosicionMinimoMaximoDestokp() {
                 var AvancePorcentaje1 = CalculoPorcentajeAvance(montoMinimo, montoMaximo);
                 document.getElementById('barra_0').style.left = AvancePorcentaje1;
 
-                var AvancePorcentajeP1 = (AvancePorcentaje1.substring(0, AvancePorcentaje1.length - 1) * 1 - 7) + '%'
+                var AvancePorcentajeP1 = (AvancePorcentaje1.substring(0, AvancePorcentaje1.length - 1) * 1 - 7) + '%';
                 document.getElementById('punto_0').style.left = AvancePorcentajeP1;
-
-
 
                 var AvancePorcentaje2 = CalculoPorcentajeAvance(montoTipipoing, montoMaximo);
                 if (document.getElementById('barra_1') != null) document.getElementById('barra_1').style.left = AvancePorcentaje2;
 
-                var AvancePorcentajeP2 = (AvancePorcentaje2.substring(0, AvancePorcentaje2.length - 1) * 1 - 6) + '%'
+                var AvancePorcentajeP2 = (AvancePorcentaje2.substring(0, AvancePorcentaje2.length - 1) * 1 - 6) + '%';
                 document.getElementById('punto_1').style.left = AvancePorcentajeP2;
-
-
-
                 document.getElementById('punto_2').style.left = '94%';
                 document.getElementById('barra_2').style.left = '99.9%';
-
-
             }
             else {
-                if (ConfiguradoRegalo == true) {
-                    var AvancePorcentaje1 = CalculoPorcentajeAvance(montoMinimo, montoMaximo);
-                    document.getElementById('barra_0').style.left = AvancePorcentaje1;
 
-                    var AvancePorcentajeP1 = (AvancePorcentaje1.substring(0, AvancePorcentaje1.length - 1) * 1 - 7) + '%'
-                    document.getElementById('punto_0').style.left = AvancePorcentajeP1;
+                var AvancePorcentaje1 = CalculoPorcentajeAvance(montoMinimo, montoMaximo);
+                document.getElementById('barra_0').style.left = AvancePorcentaje1;
+                var AvancePorcentajeP1 = (AvancePorcentaje1.substring(0, AvancePorcentaje1.length - 1) * 1 - 7) + '%';
+                document.getElementById('punto_0').style.left = AvancePorcentajeP1;
+                document.getElementById('punto_1').style.left = '94%';
+                document.getElementById('barra_1').style.left = '99.9%';
 
-
-                    document.getElementById('punto_1').style.left = '94%';
-                    document.getElementById('barra_1').style.left = '99.9%';
-
-
-                }
-                else {
-
-                    var AvancePorcentaje1 = CalculoPorcentajeAvance(montoMinimo, montoMaximo);
-                    document.getElementById('barra_0').style.left = AvancePorcentaje1;
-
-                    var AvancePorcentajeP1 = (AvancePorcentaje1.substring(0, AvancePorcentaje1.length - 1) * 1 - 7) + '%'
-                    document.getElementById('punto_0').style.left = AvancePorcentajeP1;
-
-
-                    document.getElementById('punto_1').style.left = '94%';
-                    document.getElementById('barra_1').style.left = '99.9%';
-
-                }
+                //if (ConfiguradoRegalo == true) {
+                //    var AvancePorcentaje1 = CalculoPorcentajeAvance(montoMinimo, montoMaximo);
+                //    document.getElementById('barra_0').style.left = AvancePorcentaje1;
+                //    var AvancePorcentajeP1 = (AvancePorcentaje1.substring(0, AvancePorcentaje1.length - 1) * 1 - 7) + '%'
+                //    document.getElementById('punto_0').style.left = AvancePorcentajeP1;
+                //    document.getElementById('punto_1').style.left = '94%';
+                //    document.getElementById('barra_1').style.left = '99.9%';
+                //}
+                //else {
+                //    var AvancePorcentaje1 = CalculoPorcentajeAvance(montoMinimo, montoMaximo);
+                //    document.getElementById('barra_0').style.left = AvancePorcentaje1;
+                //    var AvancePorcentajeP1 = (AvancePorcentaje1.substring(0, AvancePorcentaje1.length - 1) * 1 - 7) + '%'
+                //    document.getElementById('punto_0').style.left = AvancePorcentajeP1;
+                //    document.getElementById('punto_1').style.left = '94%';
+                //    document.getElementById('barra_1').style.left = '99.9%';
+                //}
             }
         }
     }
@@ -2176,29 +2166,29 @@ function CalculoPosicionMinimoMaximoDestokp() {
                     for (var j = 0; j < limite; j++) {
 
                         if (j == 0) {
-                            var montoMaximo1 = dataBarra.ListaEscalaDescuento[j].MontoDesde
+                            var montoMaximo1 = dataBarra.ListaEscalaDescuento[j].MontoDesde;
                             var AvancePorcentaje1 = CalculoPorcentajeAvance(montoMaximo1, montoMaximo);
                             document.getElementById('barra_0').style.left = AvancePorcentaje1;
 
-                            var AvancePorcentajeP1 = (AvancePorcentaje1.substring(0, AvancePorcentaje1.length - 1) * 1 - 7) + '%'
+                            var AvancePorcentajeP1 = (AvancePorcentaje1.substring(0, AvancePorcentaje1.length - 1) * 1 - 7) + '%';
                             document.getElementById('punto_0').style.left = AvancePorcentajeP1;
 
                         } else if (j == 1) {
 
-                            var montoMaximo2 = dataBarra.ListaEscalaDescuento[1].MontoDesde
+                            var montoMaximo2 = dataBarra.ListaEscalaDescuento[1].MontoDesde;
                             var AvancePorcentaje2 = CalculoPorcentajeAvance(montoMaximo2, montoMaximo);
                             document.getElementById('barra_1').style.left = AvancePorcentaje2;
 
-                            var AvancePorcentajeP2 = (AvancePorcentaje2.substring(0, AvancePorcentaje2.length - 1) * 1 - 8) + '%'
+                            var AvancePorcentajeP2 = (AvancePorcentaje2.substring(0, AvancePorcentaje2.length - 1) * 1 - 8) + '%';
                             document.getElementById('punto_1').style.left = AvancePorcentajeP2;
                         }
                         else {
-                            var montoMaximo3 = dataBarra.ListaEscalaDescuento[j].MontoDesde
+                            var montoMaximo3 = dataBarra.ListaEscalaDescuento[j].MontoDesde;
                             var AvancePorcentaje3 = CalculoPorcentajeAvance(montoMaximo3, montoMaximo);
                             document.getElementById('barra_' + j.toString()).style.left = AvancePorcentaje3;
 
 
-                            var AvancePorcentajeP3 = (AvancePorcentaje3.substring(0, AvancePorcentaje3.length - 1) * 1 - 5) + '%'
+                            var AvancePorcentajeP3 = (AvancePorcentaje3.substring(0, AvancePorcentaje3.length - 1) * 1 - 5) + '%';
                             document.getElementById('punto_' + j.toString()).style.left = AvancePorcentajeP3;
 
                         }
@@ -2212,29 +2202,29 @@ function CalculoPosicionMinimoMaximoDestokp() {
                     for (var j = 0; j < limite; j++) {
 
                         if (j == 0) {
-                            var montoMaximo1 = dataBarra.ListaEscalaDescuento[j + 1].MontoDesde
+                            var montoMaximo1 = dataBarra.ListaEscalaDescuento[j + 1].MontoDesde;
                             var AvancePorcentaje1 = CalculoPorcentajeAvance(montoMaximo1, montoMaximo);
                             document.getElementById('barra_0').style.left = AvancePorcentaje1;
 
-                            var AvancePorcentajeP1 = (AvancePorcentaje1.substring(0, AvancePorcentaje1.length - 1) * 1 - 7) + '%'
+                            var AvancePorcentajeP1 = (AvancePorcentaje1.substring(0, AvancePorcentaje1.length - 1) * 1 - 7) + '%';
                             document.getElementById('punto_0').style.left = AvancePorcentajeP1;
 
                         } else if (j == 1) {
 
-                            var montoMaximo2 = dataBarra.ListaEscalaDescuento[1 + 1].MontoDesde
+                            var montoMaximo2 = dataBarra.ListaEscalaDescuento[1 + 1].MontoDesde;
                             var AvancePorcentaje2 = CalculoPorcentajeAvance(montoMaximo2, montoMaximo);
                             document.getElementById('barra_1').style.left = AvancePorcentaje2;
 
-                            var AvancePorcentajeP2 = (AvancePorcentaje2.substring(0, AvancePorcentaje2.length - 1) * 1 - 8) + '%'
+                            var AvancePorcentajeP2 = (AvancePorcentaje2.substring(0, AvancePorcentaje2.length - 1) * 1 - 8) + '%';
                             document.getElementById('punto_1').style.left = AvancePorcentajeP2;
                         }
                         else {
-                            var montoMaximo3 = dataBarra.ListaEscalaDescuento[j + 1].MontoDesde
+                            var montoMaximo3 = dataBarra.ListaEscalaDescuento[j + 1].MontoDesde;
                             var AvancePorcentaje3 = CalculoPorcentajeAvance(montoMaximo3, montoMaximo);
                             document.getElementById('barra_' + j.toString()).style.left = AvancePorcentaje3;
 
 
-                            var AvancePorcentajeP3 = (AvancePorcentaje3.substring(0, AvancePorcentaje3.length - 1) * 1 - 5) + '%'
+                            var AvancePorcentajeP3 = (AvancePorcentaje3.substring(0, AvancePorcentaje3.length - 1) * 1 - 5) + '%';
                             document.getElementById('punto_' + j.toString()).style.left = AvancePorcentajeP3;
 
                         }
@@ -2251,29 +2241,29 @@ function CalculoPosicionMinimoMaximoDestokp() {
                 for (var j = 0; j < dataBarra.ListaEscalaDescuento.length; j++) {
 
                     if (j == 0) {
-                        var montoMaximo1 = dataBarra.ListaEscalaDescuento[j].MontoDesde
+                        var montoMaximo1 = dataBarra.ListaEscalaDescuento[j].MontoDesde;
                         var AvancePorcentaje1 = CalculoPorcentajeAvance(montoMaximo1, montoMaximo);
                         document.getElementById('barra_0').style.left = AvancePorcentaje1;
 
-                        var AvancePorcentajeP1 = (AvancePorcentaje1.substring(0, AvancePorcentaje1.length - 1) * 1 - 7) + '%'
+                        var AvancePorcentajeP1 = (AvancePorcentaje1.substring(0, AvancePorcentaje1.length - 1) * 1 - 7) + '%';
                         document.getElementById('punto_0').style.left = AvancePorcentajeP1;
 
                     } else if (j == 1) {
 
-                        var montoMaximo2 = dataBarra.ListaEscalaDescuento[1].MontoDesde
+                        var montoMaximo2 = dataBarra.ListaEscalaDescuento[1].MontoDesde;
                         var AvancePorcentaje2 = CalculoPorcentajeAvance(montoMaximo2, montoMaximo);
                         document.getElementById('barra_1').style.left = AvancePorcentaje2;
 
-                        var AvancePorcentajeP2 = (AvancePorcentaje2.substring(0, AvancePorcentaje2.length - 1) * 1 - 8) + '%'
+                        var AvancePorcentajeP2 = (AvancePorcentaje2.substring(0, AvancePorcentaje2.length - 1) * 1 - 8) + '%';
                         document.getElementById('punto_1').style.left = AvancePorcentajeP2;
                     }
                     else {
-                        var montoMaximo3 = dataBarra.ListaEscalaDescuento[j].MontoDesde
+                        var montoMaximo3 = dataBarra.ListaEscalaDescuento[j].MontoDesde;
                         var AvancePorcentaje3 = CalculoPorcentajeAvance(montoMaximo3, montoMaximo);
                         document.getElementById('barra_' + j.toString()).style.left = AvancePorcentaje3;
 
 
-                        var AvancePorcentajeP3 = (AvancePorcentaje3.substring(0, AvancePorcentaje3.length - 1) * 1 - 5) + '%'
+                        var AvancePorcentajeP3 = (AvancePorcentaje3.substring(0, AvancePorcentaje3.length - 1) * 1 - 5) + '%';
                         document.getElementById('punto_' + j.toString()).style.left = AvancePorcentajeP3;
 
                     }
@@ -2303,19 +2293,19 @@ function CalculoPosicionMinimoMaximoDestokp() {
                     for (var i = 0; i < limite; i++) {
 
                         if (i == 0) {
-                            var montoMaximo1 = dataBarra.ListaEscalaDescuento[i].MontoDesde
+                            var montoMaximo1 = dataBarra.ListaEscalaDescuento[i].MontoDesde;
                             var AvancePorcentaje1 = CalculoPorcentajeAvance(montoMaximo1, montoMaximo);
                             document.getElementById('barra_0').style.left = AvancePorcentaje1;
 
-                            var AvancePorcentajeP1 = (AvancePorcentaje1.substring(0, AvancePorcentaje1.length - 1) * 1 - 7) + '%'
+                            var AvancePorcentajeP1 = (AvancePorcentaje1.substring(0, AvancePorcentaje1.length - 1) * 1 - 7) + '%';
                             document.getElementById('punto_0').style.left = AvancePorcentajeP1;
 
                         } else {
-                            var montoMaximo2 = dataBarra.ListaEscalaDescuento[i].MontoDesde
+                            var montoMaximo2 = dataBarra.ListaEscalaDescuento[i].MontoDesde;
                             var AvancePorcentaje2 = CalculoPorcentajeAvance(montoMaximo2, montoMaximo);
                             document.getElementById('barra_' + i.toString()).style.left = AvancePorcentaje2;
 
-                            var AvancePorcentajeP2 = (AvancePorcentaje2.substring(0, AvancePorcentaje2.length - 1) * 1 - 5) + '%'
+                            var AvancePorcentajeP2 = (AvancePorcentaje2.substring(0, AvancePorcentaje2.length - 1) * 1 - 5) + '%';
                             document.getElementById('punto_' + i.toString()).style.left = AvancePorcentajeP2;
 
                         }
@@ -2331,19 +2321,19 @@ function CalculoPosicionMinimoMaximoDestokp() {
                     for (var i = 0; i < limite; i++) {
 
                         if (i == 0) {
-                            var montoMaximo1 = dataBarra.ListaEscalaDescuento[i + 1].MontoDesde
+                            var montoMaximo1 = dataBarra.ListaEscalaDescuento[i + 1].MontoDesde;
                             var AvancePorcentaje1 = CalculoPorcentajeAvance(montoMaximo1, montoMaximo);
                             document.getElementById('barra_0').style.left = AvancePorcentaje1;
 
-                            var AvancePorcentajeP1 = (AvancePorcentaje1.substring(0, AvancePorcentaje1.length - 1) * 1 - 7) + '%'
+                            var AvancePorcentajeP1 = (AvancePorcentaje1.substring(0, AvancePorcentaje1.length - 1) * 1 - 7) + '%';
                             document.getElementById('punto_0').style.left = AvancePorcentajeP1;
 
                         } else {
-                            var montoMaximo2 = dataBarra.ListaEscalaDescuento[i + 1].MontoDesde
+                            var montoMaximo2 = dataBarra.ListaEscalaDescuento[i + 1].MontoDesde;
                             var AvancePorcentaje2 = CalculoPorcentajeAvance(montoMaximo2, montoMaximo);
                             document.getElementById('barra_' + i.toString()).style.left = AvancePorcentaje2;
 
-                            var AvancePorcentajeP2 = (AvancePorcentaje2.substring(0, AvancePorcentaje2.length - 1) * 1 - 5) + '%'
+                            var AvancePorcentajeP2 = (AvancePorcentaje2.substring(0, AvancePorcentaje2.length - 1) * 1 - 5) + '%';
                             document.getElementById('punto_' + i.toString()).style.left = AvancePorcentajeP2;
 
                         }
@@ -2361,20 +2351,20 @@ function CalculoPosicionMinimoMaximoDestokp() {
                 for (var i = 0; i < limite; i++) {
 
                     if (i == 0) {
-                        var montoMaximo1 = dataBarra.ListaEscalaDescuento[i].MontoDesde
+                        var montoMaximo1 = dataBarra.ListaEscalaDescuento[i].MontoDesde;
                         var AvancePorcentaje1 = CalculoPorcentajeAvance(montoMaximo1, montoMaximo);
 
                         document.getElementById('barra_0').style.left = AvancePorcentaje1;
 
-                        var AvancePorcentajeP1 = (AvancePorcentaje1.substring(0, AvancePorcentaje1.length - 1) * 1 - 7) + '%'
+                        var AvancePorcentajeP1 = (AvancePorcentaje1.substring(0, AvancePorcentaje1.length - 1) * 1 - 7) + '%';
                         document.getElementById('punto_0').style.left = AvancePorcentajeP1;
 
                     } else {
-                        var montoMaximo2 = dataBarra.ListaEscalaDescuento[i].MontoDesde
+                        var montoMaximo2 = dataBarra.ListaEscalaDescuento[i].MontoDesde;
                         var AvancePorcentaje2 = CalculoPorcentajeAvance(montoMaximo2, montoMaximo);
                         if (document.getElementById('barra_' + i.toString())) document.getElementById('barra_' + i.toString()).style.left = AvancePorcentaje2;
 
-                        var AvancePorcentajeP2 = (AvancePorcentaje2.substring(0, AvancePorcentaje2.length - 1) * 1 - 5) + '%'
+                        var AvancePorcentajeP2 = (AvancePorcentaje2.substring(0, AvancePorcentaje2.length - 1) * 1 - 5) + '%';
                         if (document.getElementById('punto_' + i.toString())) document.getElementById('punto_' + i.toString()).style.left = AvancePorcentajeP2;
 
                     }
@@ -2585,22 +2575,22 @@ function ReordenarMontosBarra() {
         if (diferencia1 <= monto && (diferencia2 <= monto && diferencia2 != 0)) {
 
             if (IsoPais == 'CO') {
-                if (document.getElementById('punto_' + i.toString()) != null) document.getElementById('punto_' + i.toString()).style.left = (document.getElementById('punto_' + i.toString()).style.left.substring(0, document.getElementById('punto_' + i.toString()).style.left.length - 1) * 1 + 2.5) + '%'
-                if (document.getElementById('punto_' + (i - 1).toString()) != null) document.getElementById('punto_' + (i - 1).toString()).style.left = (document.getElementById('punto_' + (i - 1).toString()).style.left.substring(0, document.getElementById('punto_' + (i - 1).toString()).style.left.length - 1) * 1 + 2) + '%'
-                if (document.getElementById('punto_' + (i - 2).toString()) != null) document.getElementById('punto_' + (i - 2).toString()).style.left = (document.getElementById('punto_' + (i - 2).toString()).style.left.substring(0, document.getElementById('punto_' + (i - 2).toString()).style.left.length - 1) * 1 - 3) + '%'
+                if (document.getElementById('punto_' + i.toString()) != null) document.getElementById('punto_' + i.toString()).style.left = (document.getElementById('punto_' + i.toString()).style.left.substring(0, document.getElementById('punto_' + i.toString()).style.left.length - 1) * 1 + 2.5) + '%';
+                if (document.getElementById('punto_' + (i - 1).toString()) != null) document.getElementById('punto_' + (i - 1).toString()).style.left = (document.getElementById('punto_' + (i - 1).toString()).style.left.substring(0, document.getElementById('punto_' + (i - 1).toString()).style.left.length - 1) * 1 + 2) + '%';
+                if (document.getElementById('punto_' + (i - 2).toString()) != null) document.getElementById('punto_' + (i - 2).toString()).style.left = (document.getElementById('punto_' + (i - 2).toString()).style.left.substring(0, document.getElementById('punto_' + (i - 2).toString()).style.left.length - 1) * 1 - 3) + '%';
 
 
             }
             else if (IsoPais == 'CR') {
-                if (document.getElementById('punto_' + i.toString()) != null) document.getElementById('punto_' + i.toString()).style.left = (document.getElementById('punto_' + i.toString()).style.left.substring(0, document.getElementById('punto_' + i.toString()).style.left.length - 1) * 1 + 2) + '%'
-                if (document.getElementById('punto_' + (i - 1).toString()) != null) document.getElementById('punto_' + (i - 1).toString()).style.left = (document.getElementById('punto_' + (i - 1).toString()).style.left.substring(0, document.getElementById('punto_' + (i - 1).toString()).style.left.length - 1) * 1 + 2) + '%'
-                if (document.getElementById('punto_' + (i - 2).toString()) != null) document.getElementById('punto_' + (i - 2).toString()).style.left = (document.getElementById('punto_' + (i - 2).toString()).style.left.substring(0, document.getElementById('punto_' + (i - 2).toString()).style.left.length - 1) * 1 - 3) + '%'
+                if (document.getElementById('punto_' + i.toString()) != null) document.getElementById('punto_' + i.toString()).style.left = (document.getElementById('punto_' + i.toString()).style.left.substring(0, document.getElementById('punto_' + i.toString()).style.left.length - 1) * 1 + 2) + '%';
+                if (document.getElementById('punto_' + (i - 1).toString()) != null) document.getElementById('punto_' + (i - 1).toString()).style.left = (document.getElementById('punto_' + (i - 1).toString()).style.left.substring(0, document.getElementById('punto_' + (i - 1).toString()).style.left.length - 1) * 1 + 2) + '%';
+                if (document.getElementById('punto_' + (i - 2).toString()) != null) document.getElementById('punto_' + (i - 2).toString()).style.left = (document.getElementById('punto_' + (i - 2).toString()).style.left.substring(0, document.getElementById('punto_' + (i - 2).toString()).style.left.length - 1) * 1 - 3) + '%';
 
             }
             else if (IsoPais != 'CO' && IsoPais != 'CR') {//CHILE
-                if (document.getElementById('punto_' + i.toString()) != null) document.getElementById('punto_' + i.toString()).style.left = (document.getElementById('punto_' + i.toString()).style.left.substring(0, document.getElementById('punto_' + i.toString()).style.left.length - 1) * 1 + 2) + '%'
-                if (document.getElementById('punto_' + (i - 1).toString()) != null) document.getElementById('punto_' + (i - 1).toString()).style.left = (document.getElementById('punto_' + (i - 1).toString()).style.left.substring(0, document.getElementById('punto_' + (i - 1).toString()).style.left.length - 1) * 1 + 2) + '%'
-                if (document.getElementById('punto_' + (i - 2).toString()) != null) document.getElementById('punto_' + (i - 2).toString()).style.left = (document.getElementById('punto_' + (i - 2).toString()).style.left.substring(0, document.getElementById('punto_' + (i - 2).toString()).style.left.length - 1) * 1 - 3) + '%'
+                if (document.getElementById('punto_' + i.toString()) != null) document.getElementById('punto_' + i.toString()).style.left = (document.getElementById('punto_' + i.toString()).style.left.substring(0, document.getElementById('punto_' + i.toString()).style.left.length - 1) * 1 + 2) + '%';
+                if (document.getElementById('punto_' + (i - 1).toString()) != null) document.getElementById('punto_' + (i - 1).toString()).style.left = (document.getElementById('punto_' + (i - 1).toString()).style.left.substring(0, document.getElementById('punto_' + (i - 1).toString()).style.left.length - 1) * 1 + 2) + '%';
+                if (document.getElementById('punto_' + (i - 2).toString()) != null) document.getElementById('punto_' + (i - 2).toString()).style.left = (document.getElementById('punto_' + (i - 2).toString()).style.left.substring(0, document.getElementById('punto_' + (i - 2).toString()).style.left.length - 1) * 1 - 3) + '%';
 
 
             }
@@ -2634,20 +2624,20 @@ function ReordenarMontosBarra() {
         else if (diferencia1 <= monto) {
 
             if (IsoPais == 'CO') {
-                if (document.getElementById('punto_' + i.toString()) != null) document.getElementById('punto_' + i.toString()).style.left = (document.getElementById('punto_' + i.toString()).style.left.substring(0, document.getElementById('punto_' + i.toString()).style.left.length - 1) * 1 + 2) + '%'
-                if (document.getElementById('punto_' + (i - 1).toString()) != null) document.getElementById('punto_' + (i - 1).toString()).style.left = (document.getElementById('punto_' + (i - 1).toString()).style.left.substring(0, document.getElementById('punto_' + (i - 1).toString()).style.left.length - 1) * 1 - 3.5) + '%'
-                if (document.getElementById('punto_' + (i + 1).toString()) != null) document.getElementById('punto_' + (i + 1).toString()).style.left = (document.getElementById('punto_' + (i + 1).toString()).style.left.substring(0, document.getElementById('punto_' + (i + 1).toString()).style.left.length - 1) * 1 + 1) + '%'
+                if (document.getElementById('punto_' + i.toString()) != null) document.getElementById('punto_' + i.toString()).style.left = (document.getElementById('punto_' + i.toString()).style.left.substring(0, document.getElementById('punto_' + i.toString()).style.left.length - 1) * 1 + 2) + '%';
+                if (document.getElementById('punto_' + (i - 1).toString()) != null) document.getElementById('punto_' + (i - 1).toString()).style.left = (document.getElementById('punto_' + (i - 1).toString()).style.left.substring(0, document.getElementById('punto_' + (i - 1).toString()).style.left.length - 1) * 1 - 3.5) + '%';
+                if (document.getElementById('punto_' + (i + 1).toString()) != null) document.getElementById('punto_' + (i + 1).toString()).style.left = (document.getElementById('punto_' + (i + 1).toString()).style.left.substring(0, document.getElementById('punto_' + (i + 1).toString()).style.left.length - 1) * 1 + 1) + '%';
 
             }
             else if (IsoPais == 'CR') {
-                if (document.getElementById('punto_' + i.toString()) != null) document.getElementById('punto_' + i.toString()).style.left = (document.getElementById('punto_' + i.toString()).style.left.substring(0, document.getElementById('punto_' + i.toString()).style.left.length - 1) * 1 + 2) + '%'
-                if (document.getElementById('punto_' + (i - 1).toString()) != null) document.getElementById('punto_' + (i - 1).toString()).style.left = (document.getElementById('punto_' + (i - 1).toString()).style.left.substring(0, document.getElementById('punto_' + (i - 1).toString()).style.left.length - 1) * 1 - 3.7) + '%'
-                if (document.getElementById('punto_' + (i + 1).toString()) != null) document.getElementById('punto_' + (i + 1).toString()).style.left = (document.getElementById('punto_' + (i + 1).toString()).style.left.substring(0, document.getElementById('punto_' + (i + 1).toString()).style.left.length - 1) * 1 + 1) + '%'
+                if (document.getElementById('punto_' + i.toString()) != null) document.getElementById('punto_' + i.toString()).style.left = (document.getElementById('punto_' + i.toString()).style.left.substring(0, document.getElementById('punto_' + i.toString()).style.left.length - 1) * 1 + 2) + '%';
+                if (document.getElementById('punto_' + (i - 1).toString()) != null) document.getElementById('punto_' + (i - 1).toString()).style.left = (document.getElementById('punto_' + (i - 1).toString()).style.left.substring(0, document.getElementById('punto_' + (i - 1).toString()).style.left.length - 1) * 1 - 3.7) + '%';
+                if (document.getElementById('punto_' + (i + 1).toString()) != null) document.getElementById('punto_' + (i + 1).toString()).style.left = (document.getElementById('punto_' + (i + 1).toString()).style.left.substring(0, document.getElementById('punto_' + (i + 1).toString()).style.left.length - 1) * 1 + 1) + '%';
             }
             else if (IsoPais != 'CO' && IsoPais != 'CR') {
-                if (document.getElementById('punto_' + i.toString()) != null) document.getElementById('punto_' + i.toString()).style.left = (document.getElementById('punto_' + i.toString()).style.left.substring(0, document.getElementById('punto_' + i.toString()).style.left.length - 1) * 1 + 2) + '%'
-                if (document.getElementById('punto_' + (i - 1).toString()) != null) document.getElementById('punto_' + (i - 1).toString()).style.left = (document.getElementById('punto_' + (i - 1).toString()).style.left.substring(0, document.getElementById('punto_' + (i - 1).toString()).style.left.length - 1) * 1 - 3) + '%'
-                if (document.getElementById('punto_' + (i + 1).toString()) != null) document.getElementById('punto_' + (i + 1).toString()).style.left = (document.getElementById('punto_' + (i + 1).toString()).style.left.substring(0, document.getElementById('punto_' + (i + 1).toString()).style.left.length - 1) * 1 + 1) + '%'
+                if (document.getElementById('punto_' + i.toString()) != null) document.getElementById('punto_' + i.toString()).style.left = (document.getElementById('punto_' + i.toString()).style.left.substring(0, document.getElementById('punto_' + i.toString()).style.left.length - 1) * 1 + 2) + '%';
+                if (document.getElementById('punto_' + (i - 1).toString()) != null) document.getElementById('punto_' + (i - 1).toString()).style.left = (document.getElementById('punto_' + (i - 1).toString()).style.left.substring(0, document.getElementById('punto_' + (i - 1).toString()).style.left.length - 1) * 1 - 3) + '%';
+                if (document.getElementById('punto_' + (i + 1).toString()) != null) document.getElementById('punto_' + (i + 1).toString()).style.left = (document.getElementById('punto_' + (i + 1).toString()).style.left.substring(0, document.getElementById('punto_' + (i + 1).toString()).style.left.length - 1) * 1 + 1) + '%';
             }
 
             for (var x = 0; x < barra.length; x++) {

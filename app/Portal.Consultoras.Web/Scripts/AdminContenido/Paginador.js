@@ -19,7 +19,7 @@ var Paginador = function (config) {
 
     var _getItemBlock = function (disabled, current, label) {
         var classes = disabled ? 'item-disabled' : '';
-        classes = classes += (current ? ' current' : '');
+        classes += (current ? ' current' : '');
         return '<div class="item ' + classes + '"><a href= "#">' + label + '</a></div>';
     };
 

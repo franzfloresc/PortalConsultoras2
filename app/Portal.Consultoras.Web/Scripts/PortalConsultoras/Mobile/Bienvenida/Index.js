@@ -34,7 +34,7 @@ $(document).ready(function () {
     });
     $(".ver_video_introductorio").click(function () {
         $('#VideoIntroductorio').show();
-        
+
         var player = oYTPlayers['ytMobileBienvenidaIndex'].instance;
         setTimeout(function () { playVideo(); }, 500);
 
@@ -92,7 +92,7 @@ $(document).ready(function () {
 
         CargarCarouselMasVendidos('mobile');
     }
-    
+
     if (consultoraNuevaBannerAppMostrar == "False") CargarPopupsConsultora();
     else MostrarPopupAceptacionContratoGet();
 
@@ -103,11 +103,11 @@ $(document).ready(function () {
             'ecommerce': {
                 'promoClick': {
                     'promotions': [
-                    {
-                        'id': '1',
-                        'name': 'Favoritos',
-                        'position': 'Home-inferior-1'
-                    }]
+                        {
+                            'id': '1',
+                            'name': 'Favoritos',
+                            'position': 'Home-inferior-1'
+                        }]
                 }
             }
         });
@@ -250,12 +250,12 @@ function AgregarTagManagerShowRoomPopup(nombreEvento, esHoy) {
         'ecommerce': {
             'promoView': {
                 'promotions': [
-                {
-                    'id': $("#hdEventoIDShowRoom").val(),
-                    'name': name,
-                    'position': 'Home pop-up - 1',
-                    'creative': 'Banner'
-                }]
+                    {
+                        'id': $("#hdEventoIDShowRoom").val(),
+                        'name': name,
+                        'position': 'Home pop-up - 1',
+                        'creative': 'Banner'
+                    }]
             }
         }
     });
@@ -413,13 +413,11 @@ function MostrarPopupActualizarCorreo() {
     $("#popupVerificacionCorreoElectronicoPendiente").show();
 }
 
-function MostrarPopupAceptacionContratoGet()
-{
-    if (TipoPopUpMostrar == popupAceptacionContrato)
-    {
+function MostrarPopupAceptacionContratoGet() {
+    if (TipoPopUpMostrar == popupAceptacionContrato) {
         $("#fondoPopup_aceptacionTerminosYCondicionesContrato").show();
     } else if (TipoPopUpMostrar == popupActualizarCorreo) {
-            MostrarPopupActualizarCorreo();
+        MostrarPopupActualizarCorreo();
     }
 }
 
@@ -502,11 +500,11 @@ function TagManagerCatalogosPersonalizados() {
             'ecommerce': {
                 'promoView': {
                     'promotions': [
-                    {
-                        'id': '1',
-                        'name': 'Favoritos',
-                        'position': 'Home-inferior-1'
-                    }]
+                        {
+                            'id': '1',
+                            'name': 'Favoritos',
+                            'position': 'Home-inferior-1'
+                        }]
                 }
             }
         });
@@ -571,12 +569,12 @@ function ObtenerComunicadosPopup() {
             'ecommerce': {
                 'promoView': {
                     'promotions': [
-                    {
-                        'id': ComunicadoId,
-                        'name': 'App Consultora -  Incentivo descarga',
-                        'position': 'Home pop-up - 1',
-                        'creative': 'Banner'
-                    }]
+                        {
+                            'id': ComunicadoId,
+                            'name': 'App Consultora -  Incentivo descarga',
+                            'position': 'Home pop-up - 1',
+                            'creative': 'Banner'
+                        }]
                 }
             }
         });
@@ -635,12 +633,12 @@ function armarComunicadosPopup(comunicado) {
         'ecommerce': {
             'promoView': {
                 'promotions': [
-                {
-                    'id': ComunicadoId,
-                    'name': 'App Consultora -  Incentivo descarga',
-                    'position': 'Home pop-up - 1',
-                    'creative': 'Banner'
-                }]
+                    {
+                        'id': ComunicadoId,
+                        'name': 'App Consultora -  Incentivo descarga',
+                        'position': 'Home pop-up - 1',
+                        'creative': 'Banner'
+                    }]
             }
         }
     });
@@ -683,8 +681,7 @@ function ActualizarVisualizoComunicado(comunicadoId) {
         data: JSON.stringify(params),
         contentType: 'application/json',
         success: function (data) {
-            if (checkTimeout(data)) {
-            }
+            //
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
@@ -809,7 +806,7 @@ var bannerFunc = (function () {
             }
 
             var campaniaPrefix = 'C' + numeroCampania;
-            var keyExpoOferta = campaniaPrefix+ '_EXPOFERTAS_' + IsoPais;
+            var keyExpoOferta = campaniaPrefix + '_EXPOFERTAS_' + IsoPais;
             var keyExpoOferta2 = campaniaPrefix + '_EXPOFERTA_' + IsoPais;
             var len = dataResult.data.length;
             for (var i = 0; i < len; i++) {
@@ -844,7 +841,7 @@ var bannerFunc = (function () {
             }
 
             var titleComment = banner.TituloComentario || 'APROVÉCHALAS';
-                
+
             var dvExpoOferta = $('#dvExpoOferta');
             var links = dvExpoOferta.find('a');
 
@@ -856,7 +853,7 @@ var bannerFunc = (function () {
     }
 })();
 
-function AceptarContrato() { 
+function AceptarContrato() {
     appVersion = appVersion == undefined ? "" : appVersion;
 
     var parameter = { checkAceptar: 1, origenAceptacion: OrigenAceptacionContrato, AppVersion: appVersion };

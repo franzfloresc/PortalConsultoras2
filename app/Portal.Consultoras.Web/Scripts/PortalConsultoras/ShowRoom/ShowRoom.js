@@ -216,8 +216,6 @@ $(document).ready(function () {
         });
 
     }
-    else if (tipoOrigenPantalla == 2) {
-    }
 
     $("#btn_descubre_mobile").on("click", function () {
         $('body').css({ 'overflow-y': 'hidden' });

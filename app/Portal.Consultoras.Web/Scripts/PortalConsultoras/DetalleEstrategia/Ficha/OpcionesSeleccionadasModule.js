@@ -24,11 +24,11 @@ var OpcionesSeleccionadasModule = (function () {
     var _componente = {};
 
     var _elements = {
-        divContenedorOpcionesSeleccionadas : {
+        divContenedorOpcionesSeleccionadas: {
             id: "#contenedor-opciones-seleccionadas",
             templateId: "#opciones-seleccionadas-template"
         },
-        divOpcionesSeleccionadas : {
+        divOpcionesSeleccionadas: {
             id: "#opciones-seleccionadas",
             templateId: "#opciones-seleccionadas-template"
         }
@@ -37,7 +37,7 @@ var OpcionesSeleccionadasModule = (function () {
     var CargarOpcionesSeleccionadas = function (componente) {
         if (typeof componente === "undefined" ||
             componente === null) throw "param componente is not defined or null";
-        
+
         _componente = componente || {};
         var cantidadSeleccionados = _componente.HermanosSeleccionados.length;
         if (cantidadSeleccionados > 0) {
@@ -51,7 +51,7 @@ var OpcionesSeleccionadasModule = (function () {
                 autoplaySpeed: 2000,
                 fade: false,
                 arrows: false,
-                infinite : false
+                infinite: false
             };
 
             if (!isMobile()) {
@@ -92,12 +92,11 @@ var OpcionesSeleccionadasModule = (function () {
         return false;
     }
 
-    var GetCantidadOpcionesSeleccionadas = function () {
-        if (typeof _componente.Hermanos === "undefined" ||
-            typeof _componente.Hermanos.length === "undefined") return 0;
-
-        return _componente.Hermanos.length;
-    };
+    //var GetCantidadOpcionesSeleccionadas = function () {
+    //    if (typeof _componente.Hermanos === "undefined" ||
+    //        typeof _componente.Hermanos.length === "undefined") return 0;
+    //    return _componente.Hermanos.length;
+    //};
 
     return {
         CargarOpcionesSeleccionadas: CargarOpcionesSeleccionadas

@@ -12,8 +12,8 @@
 
     if (config.generalModule === null || typeof config.generalModule === "undefined")
         throw "config.generalModule is null or undefined";
-    
-    var _tipoEstrategiaTexto = ConstantesModule.TipoEstrategiaTexto;
+
+    //var _tipoEstrategiaTexto = ConstantesModule.TipoEstrategiaTexto;
 
     var _config = {
         localStorageModule: config.localStorageModule,
@@ -152,7 +152,7 @@
     var _VerDetalleIndividual = function (estrategia) {
         _util.mostrarDetalleIndividual(estrategia);
     };
-    
+
     var _events = {
         bindClosePopup: function () {
             $("body").off("click", "[data-close-product-detail-popup]");
