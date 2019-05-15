@@ -6,9 +6,10 @@
     position: relative;
     letter-spacing: 1px;
     display: inherit;
+    text-align: right;
 }
 
-    .button_ver_detalle img {
+    .btn_texto img {
         top: -1px;
         width: 10px;
         right: 8px;

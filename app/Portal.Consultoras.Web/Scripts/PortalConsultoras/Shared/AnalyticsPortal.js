@@ -1395,7 +1395,7 @@ var AnalyticsPortalModule = (function () {
                 }
             });
         } catch (e) {
-            console.log("marca Promotion View - "_texto.excepcion + e);
+            console.log("marca Promotion View - " + _texto.excepcion + e);
         }
     }
 
