@@ -19,7 +19,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var listaPedidos = new List<MisPedidosCampaniaModel>();
             var top = 6;
             var campaniaMarcada = false;
-          
+
             try
             {
                 var mobileConfiguracion = this.GetUniqueSession<MobileAppConfiguracionModel>("MobileAppConfiguracion");
@@ -45,7 +45,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     }
                 }
 
-                if (!listaPedidos.Any(p => p.EsCampaniaMarcarda)) listaPedidos[0].EsCampaniaMarcarda =  true;
+                if (!listaPedidos.Any(p => p.EsCampaniaMarcarda)) listaPedidos[0].EsCampaniaMarcarda = true;
             }
             catch (FaultException ex)
             {
@@ -59,7 +59,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return View(listaPedidos);
         }
 
-        //decimal descuento = 0;
         [HttpGet]
         public PartialViewResult IngresadoDetalle()
         {
@@ -67,36 +66,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             try
             {
-                //var mobileConfiguracion = this.GetUniqueSession<MobileAppConfiguracionModel>("MobileAppConfiguracion");
-
                 using (var service = new PedidoServiceClient())
                 {
-                    //var result = service.GetMisPedidosIngresados(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, mobileConfiguracion.ClienteID, userData.NombreConsultora);
-
-                    //var totalPedido = result.Sum(x => x.ImportePedido);
-                    //ViewBag.TotalPedido = Util.DecimalToStringFormat(totalPedido, userData.CodigoISO, userData.Simbolo);
-
-                    //foreach (var item in result)
-                    //{
-                    //    listaPedidos.Add(new MisPedidosIngresadosModel()
-                    //    {
-                    //        CampaniaID = item.CampaniaID,
-                    //        ClienteID = item.ClienteID,
-                    //        NombreCliente = item.NombreCliente,
-                    //        CantidadPedido = item.CantidadPedido,
-                    //        ImportePedido = Util.DecimalToStringFormat(item.ImportePedido, userData.CodigoISO, userData.Simbolo),
-                    //        Detalle = item.Detalle.Select(x => new MisPedidosIngresadosDetalleModel()
-                    //        {
-                    //            ClienteID = x.ClienteID,
-                    //            CUV = x.CUV,
-                    //            DescripcionProducto = x.DescripcionProducto,
-                    //            Cantidad = x.Cantidad,
-                    //            PrecioUnidad = Util.DecimalToStringFormat(x.PrecioUnidad, userData.CodigoISO, userData.Simbolo),
-                    //            ImporteTotal = Util.DecimalToStringFormat(x.ImporteTotal, userData.CodigoISO, userData.Simbolo)
-                    //        }).ToList()
-                    //    });
-                    //}
-
                     var detallePedido = ObtenerPedidoWebSetDetalleAgrupado(true) ?? new List<BEPedidoWebDetalle>();
 
                     var totalImportePedido = detallePedido.Sum(x => x.ImporteTotal);
@@ -110,7 +81,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                     var clientes = detallePedido.GroupBy(x => x.ClienteID).Select(x => x.First()).ToList();
 
-                    foreach(var cliente in clientes)
+                    foreach (var cliente in clientes)
                     {
                         var detalleCliente = detallePedido.Where(x => x.ClienteID == cliente.ClienteID).ToList();
 
@@ -123,8 +94,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                             ImportePedido = Util.DecimalToStringFormat(detalleCliente.Sum(x => x.ImporteTotal), userData.CodigoISO, userData.Simbolo),
                             Detalle = new List<MisPedidosIngresadosDetalleModel>()
                         };
-                        
-                        foreach(var detalle in detalleCliente)
+
+                        foreach (var detalle in detalleCliente)
                         {
                             clientePedido.Detalle.Add(new MisPedidosIngresadosDetalleModel()
                             {

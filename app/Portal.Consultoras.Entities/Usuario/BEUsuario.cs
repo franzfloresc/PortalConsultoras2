@@ -1,5 +1,4 @@
 ﻿using OpenSource.Library.DataAccess;
-
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities.Pedido;
 using Portal.Consultoras.Entities.Usuario;
@@ -22,12 +21,12 @@ namespace Portal.Consultoras.Entities
         public string msSobrenombre { get; set; }
         [Column("PrimerNombre")]
         public string msPrimerNombre { get; set; }
-        
+
         [Column("ESCONSULTORALIDER")]
         public int mesConsultoraLider { get; set; }
- 
+
         private readonly bool bEsquemaDAConsultora;
-       
+
         [Column("TIENEHANA")]
         public bool tieneHana { get; set; }
 
@@ -36,7 +35,7 @@ namespace Portal.Consultoras.Entities
 
         [Column("TieneLoginExterno")]
         public int tieneLoginExterno { get; set; }
-         
+
         [Obsolete("Use MapUtil.MapToCollection")]
         public BEUsuario(IDataRecord row)
         {
@@ -90,7 +89,7 @@ namespace Portal.Consultoras.Entities
             CodigoConsultora = row.ToString("CodigoConsultora", "");
             CodigoUsuario = row.ToString("CodigoUsuario", "");
             Nombre = row.ToString("NombreCompleto", "");
-           RolID = row.ToInt16("RolID");
+            RolID = row.ToInt16("RolID");
             EMail = row.ToString("EMail", "");
             Simbolo = row.ToString("Simbolo", "");
             TerritorioID = row.ToInt32("TerritorioID");
@@ -246,11 +245,12 @@ namespace Portal.Consultoras.Entities
             EsConsultoraOficina = row.ToInt32("IndicadorConsultoraOficina") == 1;
             PromedioVenta = row.ToDouble("PromedioVenta");
             NovedadBuscador = row.ToInt32("NovedadBuscador");
-            /*HD-3777*/
+            //INI HD-3693
+            AutorizaPedido = row.ToString("AutorizaPedido");
+            //FIN HD-3693
             CodigoClasificacion = row.ToString("CodigoClasificacion");
             CodigoSubClasificacion = row.ToString("CodigoSubClasificacion");
             DescripcionSubClasificacion = row.ToString("DescripcionSubClasificacion");
-            /*Fin*/
         }
 
         [Column("ConsultoraAsociadoID")]
@@ -942,13 +942,17 @@ namespace Portal.Consultoras.Entities
         public List<BEConfiguracionPaisDatos> RecomendacionesConfiguracion { get; set; }
         [DataMember]
         public string SegmentoDatami { get; set; }
-	    [DataMember]
+        [DataMember]
         public string CorreoAnterior { get; set; }
         [DataMember]
         public List<BEUsuarioOpciones> UsuarioOpciones { get; set; }
         [DataMember]
         public bool GanaMasNativo { get; set; }
 
+        //INI HD-3693
+        [DataMember]
+        public string AutorizaPedido { get; set; }
+        //FIN HD-3693
         public BEUsuario(IDataRecord row, bool Tipo, bool ValidaHorario)
         {
             ConsultoraID = row.ToInt64("ConsultoraID");
@@ -961,9 +965,11 @@ namespace Portal.Consultoras.Entities
             EsZonaDemAnti = row.ToInt32("EsZonaDemAnti");
             if (DataRecord.HasColumn(row, "HoraCierreZonaDemAnti")) HoraCierreZonaDemAnti = DbConvert.ToTimeSpan(row["HoraCierreZonaDemAnti"]);
             if (DataRecord.HasColumn(row, "HoraCierreZonaNormal")) HoraCierreZonaNormal = DbConvert.ToTimeSpan(row["HoraCierreZonaNormal"]);
+            //INI HD-3693
+            AutorizaPedido = row.ToString("AutorizaPedido");
+            //FIN HD-3693
         }
 
-        /*HD-3777*/
         [DataMember]
         public string CodigoClasificacion { get; set; }
 
@@ -972,6 +978,8 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public string DescripcionSubClasificacion { get; set; }
-        /*Fin*/
+
+        [DataMember]
+        public int NivelCaminoBrillante { get; set; }
     }
 }

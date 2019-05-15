@@ -90,8 +90,7 @@
                 emptyrecords: "No hay resultados",
                  
                 afterSaveCell: function (rowid, name, val, iRow, iCol) {
-
-                    //console.log(rowid, name, val, iRow, iCol);
+                    
                     if (name == 'DescripcionSingular') {
                         _EstrategiaGrupoData[rowid - 1].DescripcionSingular = val;
                     }

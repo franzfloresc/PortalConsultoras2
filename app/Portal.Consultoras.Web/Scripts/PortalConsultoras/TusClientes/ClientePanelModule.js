@@ -6,13 +6,13 @@
     var PanelContenedorId = "#" + config.panelContenedorId;
 
     var _config = {
-        tusClientesProvider: config.tusClientesProvider /*|| TusClientesProvider()*/,
-        panelListaModule: config.panelListaModule /*|| PanelListaModule()*/,
-        panelMantenerModule: config.panelMantenerModule /*|| PanelMantenerModule()*/,
+        tusClientesProvider: config.tusClientesProvider,
+        panelListaModule: config.panelListaModule,
+        panelMantenerModule: config.panelMantenerModule
     };
 
     var _abrir = function () {
-        //$(PanelId).css("width", "400px");
+
         $('.modal-fondo').css('opacity', '.7');
         $('.modal-fondo').show();
         $(PanelId).show();
