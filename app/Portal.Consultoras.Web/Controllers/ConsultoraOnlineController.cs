@@ -1867,7 +1867,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     try
                     {
-                        String estadoPedido = "RECHAZADO por";
+                        String estadoPedido = "RECHAZADO por ";
 
                         ServiceSAC.BESolicitudNuevaConsultora nuevaConsultora = sv.ReasignarSolicitudCliente(paisId,
                             SolicitudId, CodigoUbigeo, Campania, MarcaId, OpcionRechazo, RazonMotivoRechazo);
