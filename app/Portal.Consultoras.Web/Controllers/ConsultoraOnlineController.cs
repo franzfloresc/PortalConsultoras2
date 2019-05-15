@@ -1005,9 +1005,6 @@ namespace Portal.Consultoras.Web.Controllers
                     BEGrid grid = new BEGrid(sidx, sord, page, rows);
                     BEPager pag = Util.PaginadorGenerico(grid, model.ListaDetalle);
 
-                    //model.ListaDetalle = model.ListaDetalle.Skip((grid.CurrentPage - 1) * grid.PageSize)
-                    //    .Take(grid.PageSize).ToList();
-
                     model.Registros = grid.PageSize.ToString();
                     model.RegistrosTotal = pag.RecordCount.ToString();
                     model.Pagina = pag.CurrentPage.ToString();
