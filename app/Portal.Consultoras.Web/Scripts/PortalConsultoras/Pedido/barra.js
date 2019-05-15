@@ -5,7 +5,6 @@ var belcorp = belcorp || {};
 var mtoLogroBarra = 0;
 var ConfiguradoRegalo = false;
 var avance = 0;
-var moverBandera = false; 
 
 var tpElectivos = {
     premioSelected: null,
@@ -585,13 +584,6 @@ function MostrarBarra(datax, destino) {
             wLogro = wLimiteAnterior;
         }
     }
-    //SALUD-125 EINCA
-    //if (destino == "1") {
-    //    if (indPuntoLimite <= 0 && mn > 0  ) {
-    //        wLimite = 0;
-    //        wLogro = 0;
-    //    }
-    //}
 
     if (listaLimite.length == 1) {
         if (vLogro > vLimite) {
@@ -608,9 +600,9 @@ function MostrarBarra(datax, destino) {
         else {
             wLogro = CalculoLlenadoBarraDestokp();
             wLimite = CalculoLlenadoBarraEspacioLimiteDestokp();
-            if (moverBandera) {
-                wLogro = (wLogro.substring(0, wLogro.length - 1) * 1 + 1.5) + '%';
-                wLimite = (wLimite.substring(0, wLimite.length - 1) * 1 + 1.5) + '%';
+            if (IsoPais == 'CL' && wLogro !== '0%' && mt > mn && vDiferencia <= 15000) {
+                wLogro = (wLogro.substring(0, wLogro.length - 1) * 1 + 1.6) + '%';
+                wLimite = (wLimite.substring(0, wLimite.length - 1) * 1 + 1.6) + '%';
             }
         }
     }
@@ -2208,6 +2200,7 @@ function CalculoPosicionMinimoMaximoDestokp() {
                             var AvancePorcentaje3 = CalculoPorcentajeAvance(montoMaximo3, montoMaximo);
                             document.getElementById('barra_' + j.toString()).style.left = AvancePorcentaje3;
 
+
                             var AvancePorcentajeP3 = (AvancePorcentaje3.substring(0, AvancePorcentaje3.length - 1) * 1 - 5) + '%'
                             document.getElementById('punto_' + j.toString()).style.left = AvancePorcentajeP3;
 
@@ -2373,26 +2366,34 @@ function CalculoPosicionMinimoMaximoDestokp() {
                     } else {
                         var montoMaximo2 = dataBarra.ListaEscalaDescuento[i].MontoDesde
                         var AvancePorcentaje2 = CalculoPorcentajeAvance(montoMaximo2, montoMaximo);
-                        avance = (dataBarra.ListaEscalaDescuento[i].MontoDesde - dataBarra.ListaEscalaDescuento[i - 1].MontoDesde)
+                        if (IsoPais == 'CL') {
+                            avance = (dataBarra.ListaEscalaDescuento[i].MontoDesde - dataBarra.ListaEscalaDescuento[i - 1].MontoDesde)
 
+                            if (avance <= 5000) {
+                                if (document.getElementById('barra_' + i.toString())) document.getElementById('barra_' + i.toString()).style.left =
+                                    (AvancePorcentaje2.substring(0, AvancePorcentaje2.length - 1) * 1 + 1.5) + '%';
+                            } else if (avance >= 5001 && avance <= 9999) {
+                                if (document.getElementById('barra_' + i.toString())) document.getElementById('barra_' + i.toString()).style.left =
+                                    (AvancePorcentaje2.substring(0, AvancePorcentaje2.length - 1) * 1 + 0.5) + '%';
+                            } else if (avance >= 10000 && avance <= 15000) {
+                                if (document.getElementById('barra_' + i.toString())) document.getElementById('barra_' + i.toString()).style.left =
+                                    (AvancePorcentaje2.substring(0, AvancePorcentaje2.length - 1) * 1 + 2) + '%';
+                            } else 
+                                if (document.getElementById('barra_' + i.toString())) document.getElementById('barra_' + i.toString()).style.left = AvancePorcentaje2;
+                                var AvancePorcentajeP2 = (AvancePorcentaje2.substring(0, AvancePorcentaje2.length - 1) * 1 - 5) + '%'
+                                if (document.getElementById('punto_' + i.toString())) document.getElementById('punto_' + i.toString()).style.left = AvancePorcentajeP2;
 
-                        if (avance >= 4000 && avance <= 5000) {
-                            if (document.getElementById('barra_' + i.toString())) document.getElementById('barra_' + i.toString()).style.left = (AvancePorcentaje2.substring(0, AvancePorcentaje2.length - 1) * 1 + 1.5) + '%';
-                            moverBandera = true;
-                        } else if (avance >= 5001 && avance <= 9999) {
-                            if (document.getElementById('barra_' + i.toString())) document.getElementById('barra_' + i.toString()).style.left = (AvancePorcentaje2.substring(0, AvancePorcentaje2.length - 1) * 1 + 0.5) + '%';
-                            moverBandera = true;
-                        } else if (avance >= 10000 && avance <= 15000) {
-                            if (document.getElementById('barra_' + i.toString())) document.getElementById('barra_' + i.toString()).style.left = (AvancePorcentaje2.substring(0, AvancePorcentaje2.length - 1) * 1 + 2) + '%';
-                            moverBandera = true;
                         } else {
 
                             if (document.getElementById('barra_' + i.toString())) document.getElementById('barra_' + i.toString()).style.left = AvancePorcentaje2;
                             var AvancePorcentajeP2 = (AvancePorcentaje2.substring(0, AvancePorcentaje2.length - 1) * 1 - 5) + '%'
                             if (document.getElementById('punto_' + i.toString())) document.getElementById('punto_' + i.toString()).style.left = AvancePorcentajeP2;
+
                         }
+                        
                     }
                 }
+
             }
 
             if (montoTipipoing != 0) {
