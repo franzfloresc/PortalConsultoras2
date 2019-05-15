@@ -1095,6 +1095,16 @@ namespace Portal.Consultoras.Web
              ));
             #endregion
 
+            #region FichaResponsive
+
+            bundles.Add(new StyleBundle("~/Bundle/Css/Responsive/Ficha").Include(
+                "~/Content/Css/Site/styleBase.css",
+                "~/Content/Css/Site/Ficha/FichaRensponsive.css",
+                "~/Content/Css/Site/Ficha/SeleccionarTipoResponsive.css",
+                "~/Content/Css/Site/Ficha/FichaEnriquecidaResponsive.css"
+            ));
+            #endregion
+
 
 #if DEBUG
             BundleTable.EnableOptimizations = false;

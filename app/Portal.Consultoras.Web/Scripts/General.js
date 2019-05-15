@@ -2058,11 +2058,12 @@ var GeneralModule = (function () {
         return isUrlMobile;
     };
 
-    var _redirectTo = function (url) {
+    var _redirectTo = function (url, validateIsMobile) {
         if (typeof url === "undefined" || url === null || $.trim(url) === "") return false;
+        if (typeof validateIsMobile === "undefined") validateIsMobile = true;
 
         var destinationUrl = "/";
-        if (_isMobile()) destinationUrl = destinationUrl + "Mobile/";
+        if (validateIsMobile && _isMobile()) destinationUrl = destinationUrl + "Mobile/";
         destinationUrl += url;
 
         window.location.href = destinationUrl;
@@ -2175,11 +2176,18 @@ var GeneralModule = (function () {
         }
     };
 
+    var _getLocationPathname = function (value) {
+        if (typeof value === "undefined") {
+            return window.location.pathname;
+        }
+    };
+
     return {
         isMobile: _isMobile,
         redirectTo: _redirectTo,
         abrirLoad: _abrirLoad,
-        cerrarLoad: _cerrarLoad
+        cerrarLoad: _cerrarLoad,
+        getLocationPathname: _getLocationPathname
     };
 }());
 //INI HD-3693
