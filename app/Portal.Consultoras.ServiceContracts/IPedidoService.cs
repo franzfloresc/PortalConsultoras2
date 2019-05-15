@@ -1,4 +1,5 @@
 ﻿using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.CaminoBrillante;
 using Portal.Consultoras.Entities.Cupon;
 using Portal.Consultoras.Entities.Estrategia;
 using Portal.Consultoras.Entities.PagoEnLinea;
@@ -977,6 +978,9 @@ namespace Portal.Consultoras.ServiceContracts
         BEValidacionModificacionPedido ValidacionModificarPedido(int paisID, long consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA);
 
         [OperationContract]
+        bool GetEsPedidoReservado(int paisId, int campaniId, long consultoraId);
+
+        [OperationContract]
         BEValidacionModificacionPedido ValidacionModificarPedidoSelectiva(int paisID, long consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA, bool validarGPR, bool validarReservado, bool validarHorario);
 
         [OperationContract]
@@ -1201,7 +1205,7 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         BEUsuario GetConfiguracionOfertaFinalCarrusel(BEUsuario usuario);
         [OperationContract]
-        Task<BEProducto> GetRegaloOfertaFinal(BEUsuario usuario);
+        BEProducto GetRegaloOfertaFinal(BEUsuario usuario);
         [OperationContract]
         BEPedidoDetalleResult ValidaRegaloPedido(BEPedidoDetalle pedidoDetalle);
         [OperationContract]
@@ -1266,7 +1270,7 @@ namespace Portal.Consultoras.ServiceContracts
         int ObtenerPagoEnLineaNumeroOrden(int paisId);
 
         [OperationContract]
-        BEPagoEnLinea ObtenerPagoEnLineaConfiguracion(int paisId, long consultoraId, string codigoUsuario);
+        BEPagoEnLinea ObtenerPagoEnLineaConfiguracion(int paisId, long consultoraId, string codigoUsuario, int esDigital, DateTime fechaVencimientoPago);
 
         [OperationContract]
         BEPagoEnLineaVisa ObtenerPagoEnLineaVisaConfiguracion(int paisId, string codigoConsutora);
@@ -1325,6 +1329,16 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEEscalaDescuento> ListarEscalaDescuentoZona(int paisID, int campaniaID, string region, string zona);
+
+        #region Camino Brillante
+
+        [OperationContract]
+        List<BEKitCaminoBrillante> GetKitsCaminoBrillante(BEUsuario entidad);
+
+        [OperationContract]
+        List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillante(BEUsuario entidad);
+        
+        #endregion
 
     }
 }

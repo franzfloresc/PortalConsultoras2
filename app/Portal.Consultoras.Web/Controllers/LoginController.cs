@@ -226,9 +226,6 @@ namespace Portal.Consultoras.Web.Controllers
                 TempData["serverPaisISO"] = model.CodigoISO;
                 TempData["serverCodigoUsuario"] = model.CodigoUsuario;
 
-                if (model.PaisID == 0)
-                    model.PaisID = Util.GetPaisID(model.CodigoISO);
-
                 #region DesencriptarClaveSecreta
                 var PasswordCjs = ConfigurationManager.AppSettings.Get("CryptoJSPassword");
                 model.ClaveSecreta = Util.DecryptCryptoJs(model.ClaveSecreta, PasswordCjs, model.Salt, model.Key, model.Iv);
@@ -756,7 +753,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     TempData["LimpiarLocalStorage"] = true;
                     Session.Clear();
-                    userData = await GetUserData(Util.GetPaisID(model.Pais), model.CodigoUsuario, 0, true);
+                    userData = await GetUserData(Util.GetPaisID(model.Pais), model.CodigoUsuario, 0, true, model.NivelCaminoBrillante);
                 }
 
                 var guid = Session.TryGetUniqueIdenfier("MobileAppConfiguracion");
@@ -995,12 +992,12 @@ namespace Portal.Consultoras.Web.Controllers
             return resultadoInicioSesion;
         }
 
-        public async Task<UsuarioModel> GetUserData(int paisId, string codigoUsuario, int refrescarDatos = 0, bool esAppMobile = false)
+        public async Task<UsuarioModel> GetUserData(int paisId, string codigoUsuario, int refrescarDatos = 0, bool esAppMobile = false, int nivelCaminoBrillante = 0)
         {
             pasoLog = "Login.GetUserData";
             sessionManager.SetIsContrato(1);
             sessionManager.SetIsOfertaPack(1);
-            double pseudoParamNotif = (DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds;//SALUD-58     
+            double pseudoParamNotif = (DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds;
 
             UsuarioModel usuarioModel = (UsuarioModel)null;
 
@@ -1016,9 +1013,11 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (usuario != null)
                 {
+                    if(nivelCaminoBrillante != 0) usuario.NivelCaminoBrillante = nivelCaminoBrillante;
+
                     #region
                     usuarioModel = new UsuarioModel();
-                    usuarioModel.PseudoParamNotif = pseudoParamNotif.ToString().Replace("-", ""); //SALUD-58
+                    usuarioModel.PseudoParamNotif = pseudoParamNotif.ToString().Replace("-", "");
                     usuarioModel.NovedadBuscador = usuario.NovedadBuscador;
                     usuarioModel.CompraVDirectaCer = usuario.CompraVDirecta;
                     usuarioModel.IVACompraVDirectaCer = usuario.IVACompraVDirecta;
@@ -1446,6 +1445,10 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.PuedeEnviarSMS = usuario.PuedeEnviarSMS;
                     usuarioModel.FotoPerfilAncha = usuario.FotoPerfilAncha;
 
+                    //INI HD-3693
+                    usuarioModel.AutorizaPedido = usuario.AutorizaPedido;
+                    //FIN HD-3693
+
                     sessionManager.SetFlagLogCargaOfertas(HabilitarLogCargaOfertas(usuarioModel.PaisID));
                     sessionManager.SetTieneLan(true);
                     sessionManager.SetTieneLanX1(true);
@@ -1462,11 +1465,11 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.DiaFacturacion = GetDiaFacturacion(usuarioModel.PaisID, usuarioModel.CampaniaID, usuarioModel.ConsultoraID, usuarioModel.ZonaID, usuarioModel.RegionID);
                     usuarioModel.NuevasDescripcionesBuscador = getNuevasDescripcionesBuscador(usuarioModel.PaisID);
 
-                    /*HD-3777*/
                     usuarioModel.CodigoClasificacion = usuario.CodigoClasificacion;
                     usuarioModel.CodigoSubClasificacion = usuario.CodigoSubClasificacion;
                     usuarioModel.DescripcionSubclasificacion = usuario.DescripcionSubClasificacion;
-                    /*Fin*/
+                    usuarioModel.NivelCaminoBrillante = usuario.NivelCaminoBrillante;
+                    
                 }
 
                 sessionManager.SetUserData(usuarioModel);
@@ -2026,6 +2029,15 @@ namespace Portal.Consultoras.Web.Controllers
                                 break;
                             case Constantes.ConfiguracionPais.DireccionEntrega:
                                 usuarioModel.TieneDireccionEntrega = c.Estado;
+                                break;
+                            case Constantes.ConfiguracionPais.CaminoBrillante:
+                                usuarioModel.CaminoBrillante = c.Estado;
+                                var listas = configuracionPaisDatos.Where(n => n.Codigo == Constantes.ConfiguracionPais.CaminoBrillanteMsg).ToList();
+                                if (listas.Any())
+                                {
+                                    usuarioModel.CaminoBrillanteMsg = listas[0].Valor1;
+                                }
+
                                 break;
                         }
 
@@ -3058,7 +3070,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (var svc = new SACServiceClient())
             {
-                DataLogica = svc.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.HabilitarChatEmtelco);
+                DataLogica = svc.GetTablaLogicaDatos(paisId, ConsTablaLogica.ChatEmtelco.TablaLogicaId);
 
             }
             if (DataLogica.Any())
@@ -3097,7 +3109,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (var tablaLogica = new SACServiceClient())
             {
-                listaDescripciones = tablaLogica.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.NuevaDescripcionProductos).ToList();
+                listaDescripciones = tablaLogica.GetTablaLogicaDatos(paisId, ConsTablaLogica.DescripcionProducto.TablaLogicaId).ToList();
             }
 
             foreach (var item in listaDescripciones)

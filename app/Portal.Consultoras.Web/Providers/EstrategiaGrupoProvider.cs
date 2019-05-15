@@ -70,7 +70,7 @@ namespace Portal.Consultoras.Web.Providers
             }
             catch (Exception ex)
             {
-                Common.LogManager.SaveLog(ex, string.Empty, codigoIso);
+                Common.LogManager.SaveLog(ex, string.Empty, codigoIso, jsonString);
             }
 
             if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
@@ -128,7 +128,7 @@ namespace Portal.Consultoras.Web.Providers
             }
             catch (Exception ex)
             {
-                Common.LogManager.SaveLog(ex, string.Empty, codigoIso);
+                Common.LogManager.SaveLog(ex, string.Empty, codigoIso, jsonString);
                 return respuesta;
             }
 

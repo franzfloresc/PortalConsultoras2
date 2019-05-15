@@ -23,7 +23,9 @@ var listaMensajeMeta = listaMensajeMeta;
 var listaParametriaOfertaFinal = listaParametriaOfertaFinal || {};
 var cuvbuscado = "";
 var cuvEsCuponNuevas = false;
-
+//INI HD-3908
+var _flagNueva = false;
+//FIN HD-3908
 var pedidoProvider = PedidoProvider();
 
 $(document).ready(function () {
@@ -61,15 +63,12 @@ $(document).ready(function () {
     });
 
     $('body').on('keypress', 'input[attrKey="PreValidarCUV"]', function (event) {
-
         if (event.keyCode == 13) {
-
             if ($("#btnAgregar")[0].disabled == false) {
-                AgregarProductoListado();
+                PedidoRegistroModule.AgregarProductoListadoPasePedido();
             }
         }
     })
-
 
     $("body").click(function (e) {
         if (!$(e.target).closest(".ui-dialog").length) {
@@ -226,6 +225,15 @@ $(document).ready(function () {
                 .append("<a>" + item.CUV + "</a>")
                 .appendTo(ul);
     };
+
+    $("#txtCUV").on('input', function () {        
+        if (isNaN($("#txtCUV").val()) == true) {
+            $("#txtCUV").val("");
+            //document.getElementById('divObservaciones').style.display = 'block';
+            //$("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'><span class='icono_advertencia_notificacion'></span>El codigo CUV debe ser un número</div></div>");
+            return false;
+        }
+    });
 
     $(".ValidaAlfanumerico").keypress(function (evt) {
         var charCode = (evt.which) ? evt.which : (window.event ? window.event.keyCode : null);
@@ -616,6 +624,40 @@ function CargarDetallePedido(page, rows, asyncrono) {
                         $("ul.paginador_notificaciones").hide();
                     }
                 }
+                // camino brillante
+                
+                var filas = document.getElementById('tbListaPedido').children[1].getElementsByClassName('contenido_ingresoPedido mouse_encima');
+
+                
+                var Eskits = false;
+                if (filas != null) {
+
+                    for (var i = 0; i < filas.length; i++) {
+
+                        if (filas[i].children[0].getElementsByClassName('texto_pedidos_ofertas')[0].firstElementChild.innerHTML == 'CAMINOBRILLANTE') {
+
+                            for (var j = 0; j < kitsCaminoBrillante.length; j++) {
+                                if (filas[i].getAttribute('data-cuv') == kitsCaminoBrillante[j].Cuv) {
+                                    Eskits = true;
+                                }
+                            }
+
+                            if (Eskits == true) {
+                                filas[i].children[1].children[1].children[1].children[0].className = 'desactivo';
+                                filas[i].children[1].children[1].children[1].children[0].onclick = function (e) {
+                                    e.preventDefault();
+                                }
+                                filas[i].children[1].children[1].children[1].children[1].className = 'desactivo';
+                                filas[i].children[1].children[1].children[1].children[1].onclick = function (e) {
+                                    e.preventDefault();
+                                }
+
+                                filas[0].children[1].children[1].children[0].disabled = 'disabled';
+                            }
+                        }
+                    }
+                }
+                
             }
         })
         .fail(function (response, error) {
@@ -1166,7 +1208,11 @@ function BuscarByCUV(CUV) {
                 if (data[0].ObservacionCUV != null && data[0].ObservacionCUV != "") {
                     $("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>" + data[0].ObservacionCUV + "</div></div>");
                 }
-
+                //INI HD-3908
+                _flagNueva = (data[0].FlagNueva == "1") ? true : false;
+                $("#hdfCodigoPalanca").val(data[0].CodigoPalanca);
+                $("#hdfCampaniaID").val(data[0].CampaniaID);
+                //FIN HD-3908
                 CargarProductosRecomendados(data[0]);
 
             } else {
@@ -1240,25 +1286,6 @@ function ObtenerProductosSugeridos(CUV) {
                     descripcionNueva = descripcionNueva + "...";
                     selector.html(descripcionNueva);
                 }
-                //var h = $(obj).find(".nombre_producto").height();
-                //if (h > 40) {
-                //    var txt = $(obj).find(".nombre_producto b").html();
-                //    var splits = txt.split(" ");
-                //    var lent = splits.length;
-                //    var cont = false;
-                //    for (var i = lent; i > 0; i--) {
-                //        if (cont) continue;
-                //        splits.splice(i - 1, 1);
-                //        $(obj).find(".nombre_producto b").html(splits.join(" "));
-                //        var hx = $(obj).find(".nombre_producto").height();
-                //        if (hx <= 40) {
-                //            var txtF = splits.join(" ");
-                //            txtF = txtF.substr(0, txtF.length - 3);
-                //            $(obj).find(".nombre_producto b").html(txtF + "...");
-                //            cont = true;
-                //        }
-                //    }
-                //}
             });
 
             $("#divObservaciones").html("");
@@ -1904,6 +1931,11 @@ function EjecutarServicioPROL() {
                 MostrarPopupErrorReserva(mensajeErrorReserva, false);
                 return;
             }
+
+            if (response.mensajeCondicional) {
+	            AbrirMensaje(response.mensajeCondicional);
+            }
+
             //Marcación Analytics
             arrayProductosGuardadoExito = response;
             AnalyticsPortalModule.MarcarGuardaTuPedido();
@@ -2111,8 +2143,17 @@ function EliminarPedido() {
             }
 
             if (data.success != true) {
-                messageInfoError(data.message);
-                CerrarSplash();
+
+                //INI HD-3693
+                //messageInfoError(data.message);
+                //CerrarSplash();
+                var msjBloq = validarpopupBloqueada(data.message);
+                if (msjBloq != "") { alert_msg_bloqueadas(msjBloq); }
+                else {
+                    messageInfoError(data.message);
+                    CerrarSplash();
+                }
+                //FIN HD-3693
                 return false;
             }
 
@@ -2424,6 +2465,10 @@ function UpdateCliente(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CU
             showPopupNivelSuperado(data.DataBarra, prevTotal);
             if (data.modificoBackOrder) {
                 showDialog("divBackOrderModificado");
+            }
+
+            if (data.mensajeCondicional) {
+	            AbrirMensaje(data.mensajeCondicional);
             }
 
             CargarDetallePedido();
@@ -2804,7 +2849,14 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                     location.href = urlValidadoPedido;
                 }
             }
-            else if (mostrarAlerta == true) AbrirMensaje(data.message);
+            //INI HD-3693
+            //else if (mostrarAlerta == true) AbrirMensaje(data.message);
+            else if (mostrarAlerta == true) {
+                var msjBloq = validarpopupBloqueada(data.message);
+                if (msjBloq != "") { alert_msg_bloqueadas(msjBloq); }
+                else AbrirMensaje(data.message);
+            }
+            //FIN HD-3693
         },
         error: function (error, x) {
             AbrirMensaje("Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.");

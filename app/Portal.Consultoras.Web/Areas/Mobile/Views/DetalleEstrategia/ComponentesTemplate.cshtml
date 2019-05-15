@@ -116,10 +116,12 @@
                     </div>
                     <div class="row">
                         {{#iff ../MostrarFichaEnriquecida '==' true }}
+                        {{#iff ../Hermanos.length '>' 1}}
                         {{#iff componente.TieneDetalleSeccion '==' true}}
                         <div id="btnVerDetalle" onclick="javascript:componenteDetalleModule.VerDetalle(event)" class="col-md-12 text-right">
                             <a class="btn_detalle" data-toggle="modal">Ver detalle <img src="/Content/Images/General/Icons/arrow_down.svg"></a>
                         </div>
+                        {{/iff}}
                         {{/iff}}
                         {{/iff}}
                     </div>
