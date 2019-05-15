@@ -51,6 +51,7 @@ node {
 }
 
 def notifyBuild(String buildStatus = 'STARTED') {
+    
     // default build status in case is not passed as parameter
     buildStatus = buildStatus ?: 'SUCCESS'
 
@@ -75,12 +76,12 @@ def notifyBuild(String buildStatus = 'STARTED') {
     }
 
     // send notifications
-    slackSend (
-        color: colorCode,
-        message: summary,
-        channel: '#jenkins',
-        teamDomain: 'arquitectura-td',
-        tokenCredentialId: 'arquitecturatd_slack_credentials')
+    //slackSend (
+        //color: colorCode,
+        //message: summary,
+        //channel: '#jenkins',
+        //teamDomain: 'arquitectura-td',
+        //tokenCredentialId: 'arquitecturatd_slack_credentials')
     		
 	 slackSend (
         color: colorCode,
@@ -89,12 +90,23 @@ def notifyBuild(String buildStatus = 'STARTED') {
         teamDomain: 'hubconsultorasbelcorp',
         tokenCredentialId: 'hubconsultorasbelcorp_slack_credentials')
     
-    hipchatSend (
-        color: color,
-        message: details,
-        notify: true,
-        room: 'Jenkins-Consultoras',
-        credentialId: 'belcorp_hipchat_credentials')
+    //hipchatSend (
+        //color: color,
+        //message: details,
+        //notify: true,
+        //room: 'Jenkins-Consultoras',
+        //credentialId: 'belcorp_hipchat_credentials')
+
+    office365ConnectorSend (
+        color: colorCode, 
+        message: """
+            <b><font style="font-size: 14px;">Git Branch</font></b> <br />
+            <font style="font-size: 14px;">${env.GIT_BRANCH}</font> <br /> <br />
+            <b><font style="font-size: 14px;">Git Commit</font></b> <br />
+            <font style="font-size: 14px;">${env.GIT_COMMIT}</font> <br />
+        """,
+        status: buildStatus,
+        webhookUrl:'https://outlook.office.com/webhook/dd5fc7a8-3175-499d-aa3b-f0fccf4379a7@e1fd30ac-0226-49d7-9516-edd8d1e0b18d/JenkinsCI/295eb91b2a494ce3a72e5f458289e3fe/de686be7-b5fb-44ff-ba7e-2dbd6e742f03')
     
     // send email in case of failure
     if (buildStatus == 'FAILURE') {
