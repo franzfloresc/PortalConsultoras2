@@ -232,19 +232,23 @@ $(document).ready(function () {
 
                 // Agregar otro producto.
                 $(me.Variables.IrSolicitudInicial).click(function () {
+                    console.log("me.Variables.IrSolicitudInicial");
                     if (mensajeGestionCdrInhabilitada !== "") {
                         messageInfoValidado(mensajeGestionCdrInhabilitada);
                         return false;
                     }
-                    
-                    //if (!($(me.Variables.ComboCampania).val() > 0)) {
-                    //    messageInfoValidado(mensajeCdrFueraDeFechaCompleto);
-                    //    return false;
-                    //}
-                    $(me.Variables.txtNumPedido).val("N° " + $(me.Variables.hdNumeroPedido).val());
-                    $(me.Variables.txtNumPedido).show();
-                    $(me.Variables.txtNumPedido).attr("readonly", "readonly");
 
+                    if (!flagAgregarNuevo && $(me.Variables.hdCDRID).val() !== "0") {
+                        $(me.Variables.txtNumPedido).val("N° " + $(me.Variables.hdNumeroPedido).val());
+                        $(me.Variables.txtNumPedido).show();
+                        $(me.Variables.txtNumPedido).attr("readonly", "readonly");
+                    }
+
+                    if ($(me.Variables.ddlnumPedido + " option").length > 0 && $(me.Variables.hdCDRID).val() === "0") {
+                        $(me.Variables.ddlnumPedido).show();
+                    } else {
+                        $(me.Variables.ddlnumPedido).hide();
+                    }
                     $(me.Variables.hdCuvCodigo).val("");
                     $(me.Variables.txtDescripcionCuv).html("");
                     $(me.Variables.txtCantidad1).val("1");
@@ -332,7 +336,7 @@ $(document).ready(function () {
 
                 $(me.Variables.UltimasSolicitudes).on('click', 'a[data-accion]', function (e) {
 
-                    e.preventDefault();                
+                    e.preventDefault();
                     me.Funciones.DetalleAccion(this);
                 });
 
@@ -400,7 +404,6 @@ $(document).ready(function () {
                 });
 
                 $(me.Variables.aCambiarProducto2).click(function (e) {
-
                     $(me.Variables.DescripcionCuv2).hide();
                     $(me.Variables.txtCuvMobile2).fadeIn();
                     $(me.Variables.txtCuvMobile2).focus();
@@ -480,19 +483,21 @@ $(document).ready(function () {
                 });
 
                 $(me.Variables.Enlace_regresar).click(function (e) {
+                    console.log("me.Variables.Enlace_regresar");
+
                     var arrHide = [me.Variables.Registro2, me.Variables.Registro3, me.Variables.Registro4, me.Variables.Enlace_regresar, me.Variables.btnAceptarSolucion,
                     me.Variables.btnCambioProducto, me.Variables.txtNumPedido, me.Variables.DescripcionCuv, me.Variables.DescripcionCuv2,
                     me.Variables.infoOpcionesDeCambio, "#MensajeTenerEncuenta"];
                     me.Funciones.HideTags(arrHide);
                     me.Funciones.CambiarEstadoBarraProgreso(me.Variables.pasos.uno_seleccion_de_producto);
 
-                    if (!flagAgregarNuevo) {
+                    if (!flagAgregarNuevo && $(me.Variables.hdCDRID).val() !== "0") {
                         $(me.Variables.txtNumPedido).val("N° " + $(me.Variables.hdNumeroPedido).val());
                         $(me.Variables.txtNumPedido).show();
                         $(me.Variables.txtNumPedido).attr("readonly", "readonly");
                     }
 
-                    if ($(me.Variables.ddlnumPedido + " option").length > 0) {
+                    if ($(me.Variables.ddlnumPedido + " option").length > 0 && $(me.Variables.hdCDRID).val() === "0") {
                         $(me.Variables.ddlnumPedido).show();
                     } else {
                         $(me.Variables.ddlnumPedido).hide();
@@ -635,15 +640,9 @@ $(document).ready(function () {
                         messageInfoValidado(mensajeGestionCdrInhabilitada);
                         return false;
                     }
-
-
-                    //if (mensajeCdrFueraDeFechaCompleto !== "") {
-                    //    messageInfoValidado(mensajeCdrFueraDeFechaCompleto);
-                    //    return false;
-                    //}
-
                     flagAgregarNuevo = true;
-                    console.log("IrPaso1");
+                    $(me.Variables.hdCDRID).val("0");
+                    console.log("me.Variables.IrPaso1");
                     $(me.Variables.Registro2).hide();
                     $(me.Variables.Registro3).hide();
                     $(me.Variables.txtCantidad1).val("1");
@@ -966,8 +965,8 @@ $(document).ready(function () {
             AsignarCUV: function (pedido) {
                 console.log("AsignarCUV");
                 var EstadosConteo = 0;
-                var CDRWebID = 0;
-                pedido = pedido || new Object();
+                var CDRWebID = $(me.Variables.hdCDRID).val() || 0;
+                pedido = pedido || {};
                 $.each(pedido.BECDRWeb, function (i, item) {
                     if (item.Estado === 3 || item.Estado === 2) {
                         EstadosConteo++;
@@ -979,7 +978,7 @@ $(document).ready(function () {
                 if (cantidad === EstadosConteo && EstadosConteo > 0) {
                     messageInfoError("Lo sentimos, usted a excedido el límite de reclamos por pedido");
                 } else {
-                    pedido.olstBEPedidoWebDetalle = pedido.olstBEPedidoWebDetalle || new Array();
+                    pedido.olstBEPedidoWebDetalle = pedido.olstBEPedidoWebDetalle || [];
                     var detalle = pedido.olstBEPedidoWebDetalle.Find("CUV", $(me.Variables.hdCuvCodigo).val() || "");
                     var data = detalle.length > 0 ? detalle[0] : new Object();
 
@@ -1740,15 +1739,15 @@ $(document).ready(function () {
                 }
             },
 
-            PopupPedidoSeleccionar: function (obj) {
+            //PopupPedidoSeleccionar: function (obj) {
 
-                var objPedido = $(obj);
-                var id = objPedido.attr("data-pedido-id");
-                var pedidos = listaPedidos.Find("PedidoID", id);
-                var pedido = pedidos.length > 0 ? pedidos[0] : new Object();
-               
-                me.Funciones.AsignarCUV(pedido);
-            },
+            //    var objPedido = $(obj);
+            //    var id = objPedido.attr("data-pedido-id");
+            //    var pedidos = listaPedidos.Find("PedidoID", id);
+            //    var pedido = pedidos.length > 0 ? pedidos[0] : new Object();
+
+            //    me.Funciones.AsignarCUV(pedido);
+            //},
 
             CancelarConfirmEnvioSolicitudCDR: function () {
                 $(me.Variables.divConfirmEnviarSolicitudCDR).hide();
