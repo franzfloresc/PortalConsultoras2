@@ -31,7 +31,7 @@ module.exports = function (config) {
             'Scripts/General.js',
             
             // shared
-            'Scripts/shared/AnalyticsPortal.js',
+            'Scripts/PortalConsultoras/Shared/AnalyticsPortal.js',
 
             // FichaModule
             'Scripts/PortalConsultoras/Shared/ConstantesModule.js',
@@ -68,7 +68,7 @@ module.exports = function (config) {
             'Scripts/tests/PortalConsultoras/ArmaTuPack/Detalle/Seleccionados/SeleccionadosPresenterSpec.js',
             'Scripts/tests/PortalConsultoras/ArmaTuPack/Detalle/DetallePresenterSpec.js',
             // shared
-            'Scripts/shared/AnalyticsPortalSpec.js',
+            'Scripts/tests/PortalConsultoras/Shared/AnalyticsPortalSpec.js',
 
         ],
 
