@@ -4,6 +4,8 @@ var belcorp = belcorp || {};
 belcorp.settings = belcorp.settings || {};
 belcorp.settings.uniquePrefix = "/g/";
 
+var _ultimaMarca = "";
+
 jQuery(document).ready(function () {
 
     CreateLoading();
@@ -412,6 +414,25 @@ jQuery(document).ready(function () {
                 return JSON.stringify(context).replace(/"/g, '&quot;');
             });
 
+            Handlebars.registerHelper("ifVerificarMarcaLast", function (marca, esMultiMarca, options) {
+                if (esMultiMarca) {
+                    if (_ultimaMarca === "" || _ultimaMarca === marca) {
+                        _ultimaMarca = marca;
+                        return options.inverse(this);
+                    }
+                    else {
+                        _ultimaMarca = marca;
+                        return options.fn(this);
+                    }
+                }
+                else {
+                    if (_ultimaMarca === "") {
+                        _ultimaMarca = marca;
+                        return options.inverse(this);
+                    }
+                    else return options.fn(this);
+                }
+            });
         }
     };
 
