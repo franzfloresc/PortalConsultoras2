@@ -236,7 +236,6 @@ var CompartirFacebookActual = function (catalogo, campaniaCatalogo, texto) {
         'label': campaniaCatalogo,
         'value': 0
     });
-    InsertarLogCatalogoDynamo('Facebook', campaniaCatalogo, catalogo, 1);
 
     FB.ui({
         method: 'share',
@@ -276,19 +275,6 @@ function getNumeroCampania(codigoCampania) {
 function getAnioCampania(codigoCampania) {
     codigoCampania = codigoCampania || '';
     return codigoCampania.substring(0, 4);
-}
-
-function InsertarLogCatalogoDynamo(opcionAccion, campaniaCatalogo, marca, cantidad) {
-    InsertarLogDymnamo(
-        'Catalogo-Compartir',
-        opcionAccion,
-        false,
-        [
-            { 'key': 'CampaniaCatalogo', 'value': campaniaCatalogo },
-            { 'key': 'Marca', 'value': marca },
-            { 'key': 'Cantidad', 'value': cantidad }
-        ]
-    );
 }
 
 function configurarContenedorExpoOfertas() {
@@ -817,7 +803,6 @@ function CatalogoEnviarEmail() {
             'label': 'Lbel',
             'value': clientes.length
         });
-        InsertarLogCatalogoDynamo('Email', campaniaEmail, 'Lbel', clientes.length);
     }
     if (_Flagchkesika == "1") {
         dataLayer.push({
@@ -827,7 +812,6 @@ function CatalogoEnviarEmail() {
             'label': 'Esika',
             'value': clientes.length
         });
-        InsertarLogCatalogoDynamo('Email', campaniaEmail, 'Esika', clientes.length);
     }
     if (_Flagchkcyzone == "1") {
         dataLayer.push({
@@ -837,7 +821,6 @@ function CatalogoEnviarEmail() {
             'label': 'Cyzone',
             'value': clientes.length
         });
-        InsertarLogCatalogoDynamo('Email', campaniaEmail, 'Cyzone', clientes.length);
     }
 
     jQuery.ajax({
@@ -901,7 +884,6 @@ function CatalogoEnviarEmailPiloto() {
         'label': campaniaEmail,
         'value': clientes.length
     });
-    InsertarLogCatalogoDynamo('Email', campaniaEmail, campaniaEmail, clientes.length);
 
     var mensaje = $("#comentarios").val();
     jQuery.ajax({

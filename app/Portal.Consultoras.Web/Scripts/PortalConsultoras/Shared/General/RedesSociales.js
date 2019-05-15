@@ -171,7 +171,6 @@
             'label': catalogo,
             'value': 0
         });
-        InsertarLogCatalogoDynamo('Facebook', campaniaCatalogo, catalogo, 1);
 
         var u = $(btn).parents("[data-cat='" + catalogo + "']").find("#txtUrl" + catalogo).val();
 
@@ -302,7 +301,6 @@
             'label': campania,
             'value': 0
         });
-        InsertarLogCatalogoDynamo('Whatsapp', campania, catalogo, 1);
 
         texto = _variables.mensajeURLws + texto;
         texto = texto.ReplaceAll("/", "%2F");
@@ -324,7 +322,6 @@
             'label': catalogo,
             'value': 0
         });
-        InsertarLogCatalogoDynamo('Whatsapp', campaniaCatalogo, catalogo, 1);
     }
 
     var _bindingEvents = function () {

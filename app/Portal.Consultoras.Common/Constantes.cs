@@ -1286,10 +1286,7 @@ namespace Portal.Consultoras.Common
         public static class LogDynamoDB
         {
             public const string AplicacionPortalConsultoras = "PORTALCONSULTORAS";
-            public const string AplicacionPortalLideres = "PORTALLIDERES";
-
             public const string RolConsultora = "CO";
-            public const string RolSociaEmpresaria = "SE";
         }
 
         public static class MensajeEstaEnRevista

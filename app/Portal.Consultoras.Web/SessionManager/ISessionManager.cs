@@ -303,10 +303,6 @@ namespace Portal.Consultoras.Web.SessionManager
 
         dynamic GetPrimeraVezSessionMobile();
 
-        void SetIngresoPortalConsultoras(bool val);
-
-        dynamic GetIngresoPortalConsultoras();
-
         void SetConsultoraNuevaBannerAppMostrar(dynamic val);
 
         bool GetConsultoraNuevaBannerAppMostrar();
@@ -416,10 +412,6 @@ namespace Portal.Consultoras.Web.SessionManager
 
         List<BEShowRoomOferta> GetListaProductoShowRoomCpc();
 
-        void SetActualizarDatosConsultora(bool val);
-
-        bool GetActualizarDatosConsultora();
-
         void SetSuenioNavidad(int val);
 
         int GetSuenioNavidad();
@@ -447,10 +439,6 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetZonaCodigoEliminar(string val);
 
         string GetZonaCodigoEliminar();
-
-        void SetIngresoPortalLideres(bool val);
-
-        bool GetIngresoPortalLideres();
 
         void Seterrores(List<MatrizCampaniaModel> val);
 

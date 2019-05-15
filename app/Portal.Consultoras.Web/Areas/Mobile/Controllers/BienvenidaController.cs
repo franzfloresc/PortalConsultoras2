@@ -107,11 +107,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 model.CambioClave = userData.CambioClave;
 
-                if (SessionManager.GetIngresoPortalConsultoras() == null)
-                {
-                    SessionManager.SetIngresoPortalConsultoras(true);
-                }
-
                 model.PrimeraVezSession = 0;
                 if (SessionManager.GetPrimeraVezSessionMobile() == null)
                 {
