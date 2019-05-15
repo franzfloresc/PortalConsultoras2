@@ -142,11 +142,9 @@ else
             celular: '@ViewBag.Celular',
             iniciaNumero: @ViewBag.IniciaNumeroCelular,
             IsConfirmar:@ViewBag.IsConfirmarCel,
-            IsValidateCode:1,
             urlProvider: {
                 enviarSmsCodigo: '@Url.Action("EnviarSmsCodigo")',
-                confirmarSmsCode: '@Url.Action("ConfirmarSmsCode")',
-                updateCelular: '@Url.Action("UpdateCelular")'
+                confirmarSmsCode: '@Url.Action("ConfirmarSmsCode")'
         }
 
         };

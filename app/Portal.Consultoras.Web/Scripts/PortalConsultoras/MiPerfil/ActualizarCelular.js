@@ -12,7 +12,6 @@
         Expired: true,
         IsoPais: IsoPais,
         IsConfirmar: globalData.IsConfirmar,
-        IsValidateCode: globalData.IsValidateCode,
         UrlPaginaPrevia:globalData.UrlPaginaPrevia
     };
 
@@ -69,21 +68,9 @@
                 }
             });
         };
-        //INI HD-3897
-        function updateCelular(celular) {
-            return $.ajax({
-                url: urls.updateCelular,
-                method: 'POST',
-                data: {
-                    celularNuevo: celular
-                }
-            });
-        };
-        //FIN HD-3897
         return {
             enviarSmsCode: enviarSmsCode,
-            confirmarSmsCode: confirmarSmsCode,
-            updateCelular: updateCelular
+            confirmarSmsCode: confirmarSmsCode
         };
     })();
     me.Funciones = (function() {
@@ -428,40 +415,25 @@
             me.Funciones.ResetSmsCode();
             AbrirLoad();
             //INI HD-3897
-            if (localData.IsValidateCode == 1) {
-                var successEnviarSmsCode = function (r) {
-                    $('#celularNuevo').text(nuevoCelular);
-                    CerrarLoad();
-                    if (!r.Success) {
-                        me.Funciones.ShowError(r.Message);
-                        return;
-                    }
-                    me.Elements.getCelularNuevoText().text(nuevoCelular);
-                    me.Funciones.NavigatePanel(1);
-                    me.Funciones.ShowError('');
-                    me.Funciones.InitCounter();
-                };
-
-                me.Services.enviarSmsCode(nuevoCelular)
-                    .then(successEnviarSmsCode, function (er) {
-                        CerrarLoad();
-                        me.Funciones.HandleError(er);
-                    });
-            }
-            else {
-                me.Services.updateCelular(localData.CelularNuevo);
+            var successEnviarSmsCode = function (r) {
+                $('#celularNuevo').text(nuevoCelular);
                 CerrarLoad();
-                setTimeout(function () {
-                    me.Funciones.NavigatePanel(2);
+                if (!r.Success) {
+                    me.Funciones.ShowError(r.Message);
+                    return;
+                }
+                me.Elements.getCelularNuevoText().text(nuevoCelular);
+                me.Funciones.NavigatePanel(1);
+                me.Funciones.ShowError('');
+                me.Funciones.InitCounter();
+            };
 
-                    mostrarLluvia();
-                },
-                    1000);
-                setTimeout(function () {
-                    window.location.href = localData.UrlPaginaPrevia;
-                },
-                    3000);
-            }
+            me.Services.enviarSmsCode(nuevoCelular)
+                .then(successEnviarSmsCode, function (er) {
+                    CerrarLoad();
+                    me.Funciones.HandleError(er);
+                });
+            
             //FIN HD-3897
         }
         //INI HD-3897
@@ -470,43 +442,27 @@
             AbrirLoad();
             $(".form_actualizar_celular").hide();
 
-            if (localData.IsValidateCode == 1) {
-                var successEnviarSmsCode = function (r) {
-                    $('#celularNuevo').text(localData.CelularNuevo);
-                    CerrarLoad();
-                    if (!r.Success) {
-                        me.Funciones.ShowError(r.Message);
-                        return;
-                    }
-                    me.Elements.getCelularNuevoText().text(localData.CelularNuevo);
-                    $(".form_actualizar_celular").show();
-                    me.Funciones.NavigatePanel(1);
-
-                    me.Funciones.ShowError('');
-                    me.Funciones.InitCounter();
-                };
-
-                me.Services.enviarSmsCode(localData.CelularNuevo)
-                    .then(successEnviarSmsCode, function (er) {
-                        CerrarLoad();
-                        me.Funciones.HandleError(er);
-                    });
-
-            }
-            else {
-                me.Services.updateCelular(localData.CelularNuevo);
+            var successEnviarSmsCode = function (r) {
+                $('#celularNuevo').text(localData.CelularNuevo);
                 CerrarLoad();
-                setTimeout(function () {
-                    me.Funciones.NavigatePanel(2);
+                if (!r.Success) {
+                    me.Funciones.ShowError(r.Message);
+                    return;
+                }
+                me.Elements.getCelularNuevoText().text(localData.CelularNuevo);
+                $(".form_actualizar_celular").show();
+                me.Funciones.NavigatePanel(1);
 
-                    mostrarLluvia();
-                },
-                    1000);
-                setTimeout(function () {
-                    window.location.href = localData.UrlPaginaPrevia;
-                },
-                    3000);
-            }
+                me.Funciones.ShowError('');
+                me.Funciones.InitCounter();
+            };
+
+            me.Services.enviarSmsCode(localData.CelularNuevo)
+                .then(successEnviarSmsCode, function (er) {
+                    CerrarLoad();
+                    me.Funciones.HandleError(er);
+                });
+
         }
         //FIN HD-3897
         function enlaceTerminosCondiciones() {

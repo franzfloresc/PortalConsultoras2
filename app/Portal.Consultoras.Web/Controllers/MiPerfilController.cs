@@ -439,16 +439,6 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(new { Success = true });
         }
 
-        //INI HD-3897 **PENDIENTE
-        [HttpPost]
-        public  ActionResult UpdateCelular(string celularNuevo)
-        {
-            //UpdateCelularLogDynamo(celularNuevo);
-
-            return Json(new { Success = true });
-        }
-        //FIN HD-3897
-
         [HttpPost]
         public JsonResult ActualizarDatos(MisDatosModel model)
         {

@@ -142,11 +142,9 @@ else
             celular: '@ViewBag.Celular',
             iniciaNumero: @ViewBag.IniciaNumeroCelular,
             IsConfirmar:@ViewBag.IsConfirmarCel,
-            IsValidateCode: 1,
             urlProvider: {
                 enviarSmsCodigo: '@Url.Action("EnviarSmsCodigo", "MiPerfil", new { area = "" })',
-                confirmarSmsCode: '@Url.Action("ConfirmarSmsCode", "MiPerfil", new { area = "" })',
-                updateCelular: '@Url.Action("UpdateCelular", "MiPerfil", new { area = "" })'
+                confirmarSmsCode: '@Url.Action("ConfirmarSmsCode", "MiPerfil", new { area = "" })'
             }
         };
         var listaIconoLluvia = [

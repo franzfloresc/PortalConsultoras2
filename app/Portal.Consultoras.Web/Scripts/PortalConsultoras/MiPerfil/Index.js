@@ -73,7 +73,7 @@ $(document).ready(function () {
                 if (smsFlag == '0' || smsFlag == false) {
                     $('#btnCambiarCelular').hide();
                     //INI HD-3897
-                    $('#grupo_form_cambio_datos_sms ').hide();
+                    $('#grupo_form_cambio_datos_sms_opcionsms').hide();
                     //FIN HD-3897
                 } else {
                     $('#txtCelularMD').prop('readonly', true);
@@ -381,12 +381,13 @@ $(document).ready(function () {
                  
                 me.Funciones.InicializarEventos();
                 me.Funciones.CamposFormularioConDatos();
-                //INI HD-3897
-                me.Funciones.ValidacionCheck();
-                //FIN HD-3897
+
                 me.Funciones.mostrarTelefono();
                 me.Funciones.PuedeActualizar();
                 me.Funciones.PuedeCambiarTelefono();
+                //INI HD-3897
+                me.Funciones.ValidacionCheck();
+                //FIN HD-3897
                 me.Funciones.EvitandoCopiarPegar();
                 me.Funciones.ValidacionSoloLetras();
                 me.Funciones.ValidacionDireccion();
