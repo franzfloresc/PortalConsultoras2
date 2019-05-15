@@ -717,7 +717,7 @@ var FichaModule = (function (config) {
     var _getModelo = function () {
 
         var modeloFicha = {};
-        Console.log('Ficha - promise Obterner Modelo');
+        console.log('Ficha - promise Obterner Modelo');
         _config.detalleEstrategiaProvider
             .promiseObternerModelo({
                 palanca: _config.palanca,
