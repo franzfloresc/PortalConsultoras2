@@ -9,14 +9,14 @@ namespace Portal.Consultoras.Common.Cryptography
     {
         public struct DesKeyPack
         {
-            public byte[] Key, IV;
+            public byte[] Key, Iv;
 
             public DesKeyPack(byte[] data)
             {
                 Key = new byte[8];
                 Buffer.BlockCopy(data, 0, Key, 0, 8);
-                IV = new byte[8];
-                Buffer.BlockCopy(data, 8, IV, 0, 8);
+                Iv = new byte[8];
+                Buffer.BlockCopy(data, 8, Iv, 0, 8);
             }
         }
 
@@ -42,15 +42,20 @@ namespace Portal.Consultoras.Common.Cryptography
         /// <returns></returns>
         public static string Encrypt(string rawString, string keyString)
         {
-            DesKeyPack dkp = GenKeyPack(keyString);
-            DESCryptoServiceProvider des = new DESCryptoServiceProvider();
-            ICryptoTransform trans = des.CreateEncryptor(dkp.Key, dkp.IV);
-            MemoryStream ms = new MemoryStream();
-            CryptoStream cs = new CryptoStream(ms, trans, CryptoStreamMode.Write);
-            byte[] rawData = Encoding.UTF8.GetBytes(rawString);
-            cs.Write(rawData, 0, rawData.Length);
-            cs.Close();
-            return Convert.ToBase64String(ms.ToArray());
+            var dkp = GenKeyPack(keyString);
+            using (var des = new DESCryptoServiceProvider())
+            {
+                var trans = des.CreateEncryptor(dkp.Key, dkp.Iv);
+                using (var ms = new MemoryStream())
+                {
+                    using (var cs = new CryptoStream(ms, trans, CryptoStreamMode.Write))
+                    {
+                        byte[] rawData = Encoding.UTF8.GetBytes(rawString);
+                        cs.Write(rawData, 0, rawData.Length);
+                        return Convert.ToBase64String(ms.ToArray());  
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -64,15 +69,14 @@ namespace Portal.Consultoras.Common.Cryptography
             var dkp = GenKeyPack(keyString);
             using (var des = new DESCryptoServiceProvider())
             {
-                ICryptoTransform trans = des.CreateDecryptor(dkp.Key, dkp.IV);
+                var trans = des.CreateDecryptor(dkp.Key, dkp.Iv);
 
-                using (MemoryStream ms = new MemoryStream())
+                using (var ms = new MemoryStream())
                 {
-                    using (CryptoStream cs = new CryptoStream(ms, trans, CryptoStreamMode.Write))
+                    using (var cs = new CryptoStream(ms, trans, CryptoStreamMode.Write))
                     {
                         byte[] rawData = Convert.FromBase64String(encString);
                         cs.Write(rawData, 0, rawData.Length);
-                        cs.Close();
                     }
                     return Encoding.UTF8.GetString(ms.ToArray());
                 } 
