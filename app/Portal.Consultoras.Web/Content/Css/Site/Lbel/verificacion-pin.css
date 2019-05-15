@@ -450,10 +450,12 @@ a{
             background-size: 100%;
         }
 
+        .grupo_form_cambio_datos--validacionErronea label:before,
         .opcion_verificacion_autenticidad--pendiente .datos_verificacion_autenticidad:before {
             background-image: url(/Content/Images/icono_pendiente_confirmacion.svg);
         }
 
+        .grupo_form_cambio_datos--validacionExitosa label:before,
         .opcion_verificacion_autenticidad--confirmado .datos_verificacion_autenticidad:before {
             background-image: url(/Content/Images/icono_confirmacion.svg);
         }
@@ -556,6 +558,11 @@ a{
     font-size: 13px;
     position: relative;
 }
+
+    .mensaje_validacion_campo--vistasActualizacion{
+        margin-top: 4px;
+        font-size: 13px;
+    }
 
 .titulo_revisa_tu_celular{
     font-size:21px;
@@ -789,8 +796,8 @@ a{
 
 .grupo_form_cambio_datos--vistaActualizacionCorreo,
 .grupo_form_cambio_datos--vistaActualizacionCelular {
-    padding: 0!important;
-    border-bottom: 0!important;
+    padding: 0 !important;
+    border-bottom: 0 !important;
 }
 
 .grupo_form_cambio_datos {
@@ -832,6 +839,19 @@ a{
         background-color: #FFF;
         z-index: 3;
     }
+
+        .grupo_form_cambio_datos--validacionErronea label:before,
+        .grupo_form_cambio_datos--validacionExitosa label:before{
+            display: block;
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -22px;
+            width: 16px;
+            height: 16px;
+            background-repeat: no-repeat;
+            background-size: 100%;
+        }
 
     .grupo_form_cambio_datos label,
     .campo_con_datos + label {
