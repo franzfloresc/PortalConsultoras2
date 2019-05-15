@@ -1544,6 +1544,15 @@ function UpdateTransaction(CantidadActual, CampaniaID, PedidoID, PedidoDetalleID
                 }
                 return false;
             }
+            //Tentativa de poner aqui el nuevo mensaje para TESLA-07
+            var strMsgListo = '¡Listo! Tu pedido ha sido modificado';
+            if (esMobile) {
+                messageInfo(strMsgListo);
+            }
+            else {
+                AbrirMensaje(strMsgListo, "");
+	            //CerrarLoad();
+            }
 
             var tooltip = $('[data-agregado="tooltip"]');
             if (typeof tooltip !== 'undefined') {
@@ -1606,7 +1615,7 @@ function UpdateTransaction(CantidadActual, CampaniaID, PedidoID, PedidoDetalleID
 
 
 function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi, setId, esCuponNuevas) {
-
+	
     var rowElement = $(event.target).closest(".contenido_ingresoPedido");
     var txtLPCant = $(rowElement).find(".txtLPCant");
     var txtLPTempCant = $(rowElement).find(".txtLPTempCant");
