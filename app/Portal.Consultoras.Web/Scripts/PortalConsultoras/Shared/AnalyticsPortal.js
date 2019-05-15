@@ -1231,7 +1231,9 @@ var AnalyticsPortalModule = (function () {
 
             var list = _getParametroListSegunOrigen(codigoOrigenPedido, url, estoyEnLaFicha);
 
-            var item = $(element).parents("[data-item-cuv]").find("div [data-estrategia]").data("estrategia");
+            var item = $(element).parents("[data-item-cuv]").find("div [data-estrategia]").data("estrategia")
+                || $(element).parents("[data-item-cuv]").find("div[data-estrategia]").data("estrategia")
+                || {};
 
             dataLayer.push({
                 'event': _evento.productClick,
