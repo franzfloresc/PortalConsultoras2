@@ -499,10 +499,12 @@ a{
             background-size: 100%;
         }
 
+        .grupo_form_cambio_datos--validacionErronea label:before,
         .grupo_form_cambio_datos--confirmacionPendiente label:before {
             background-image: url(/Content/Images/icono_pendiente_confirmacion.svg);
         }
 
+        .grupo_form_cambio_datos--validacionExitosa label:before,
         .grupo_form_cambio_datos--confirmado label:before{
             background-image: url(/Content/Images/icono_confirmacion.svg);
         }
@@ -530,6 +532,19 @@ a{
         z-index:3;
     }
 
+        .grupo_form_cambio_datos--validacionErronea label:before,
+        .grupo_form_cambio_datos--validacionExitosa label:before{
+            display: block;
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -22px;
+            width: 16px;
+            height: 16px;
+            background-repeat: no-repeat;
+            background-size: 100%;
+        }
+
     .grupo_form_cambio_datos_btn_guardar_wrapper{
         margin-left: -20px;
         margin-right: -20px;
@@ -546,6 +561,7 @@ a{
         .mensaje_validacion_campo--vistasActualizacion {
             margin-top: 4px;
             font-size: 13px;
+            top:0;
         }
 
     @media screen and (max-width:350px){
@@ -1052,12 +1068,21 @@ a{
 .vista_actualizar_celular,
 .vista_cambiar_foto_perfil{
     background-color:#FFF;
-    padding:20px;
 }
 
-.wrapper_content_cambiar_contrasenia{
-    padding-left:9px;
-    padding-right:9px;
+.vista_cambiar_contrasenia,
+.vista_cambiar_foto_perfil {
+    padding: 20px;
+}
+
+.vista_actualizar_correo,
+.vista_actualizar_celular{
+    padding:20px 30px 20px 30px;
+}
+
+.wrapper_content_cambiar_contrasenia {
+    padding-left: 9px;
+    padding-right: 9px;
 }
 
 .grupo_form_cambio_datos--vistaActualizacionCorreo,
@@ -1075,6 +1100,8 @@ a{
 .grupo_form_cambio_datos--cambioContrasenia {
     padding-left: 0;
     padding-right: 0;
+    padding-bottom:0;
+    margin-bottom:8px;
 }
 
     .grupo_form_cambio_datos--ctasCambioContrasenia > div {
@@ -1097,7 +1124,7 @@ a{
     }
 
 .grupo_form_cambio_datos--ctasCambioContrasenia {
-    margin-top: 40px;
+    margin-top: 48px;
 }
 
 .enlace_volver_a_mi_perfil{
@@ -1112,7 +1139,7 @@ a{
         width: 100px;
         height: 45px;
         margin-top: -8px;
-        margin-left:-8px;
+        margin-left:-17px;
         margin-bottom: 40px;
     }
 

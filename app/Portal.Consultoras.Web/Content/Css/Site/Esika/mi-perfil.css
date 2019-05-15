@@ -522,6 +522,7 @@ input:focus{
         .mensaje_validacion_campo--vistasActualizacion{
             margin-top: 4px;
             font-size: 13px;
+            top:0;
         }
 
     .grupo_form_cambio_datos label,
