@@ -29,6 +29,9 @@ module.exports = function (config) {
 
             // General
             'Scripts/General.js',
+            
+            // shared
+            'Scripts/shared/AnalyticsPortal.js',
 
             // FichaModule
             'Scripts/PortalConsultoras/Shared/ConstantesModule.js',
@@ -63,7 +66,10 @@ module.exports = function (config) {
             'Scripts/tests/PortalConsultoras/ArmaTuPack/Detalle/Cabecera/CabeceraPresenterSpec.js',
             'Scripts/tests/PortalConsultoras/ArmaTuPack/Detalle/Grupos/GruposPresenterSpec.js',
             'Scripts/tests/PortalConsultoras/ArmaTuPack/Detalle/Seleccionados/SeleccionadosPresenterSpec.js',
-            'Scripts/tests/PortalConsultoras/ArmaTuPack/Detalle/DetallePresenterSpec.js'
+            'Scripts/tests/PortalConsultoras/ArmaTuPack/Detalle/DetallePresenterSpec.js',
+            // shared
+            'Scripts/shared/AnalyticsPortalSpec.js',
+
         ],
 
 
@@ -90,7 +96,7 @@ module.exports = function (config) {
 
         coverageReporter: {
             type: 'text'
-        },      
+        },
 
         // web server port
         port: 9876,
@@ -125,7 +131,7 @@ module.exports = function (config) {
         },
 
         browserNoActivityTimeout: 100000,
-        
+
         // Continuous Integration mode
         // if true, Karma captures browsers, runs the tests and exits
         singleRun: false,
