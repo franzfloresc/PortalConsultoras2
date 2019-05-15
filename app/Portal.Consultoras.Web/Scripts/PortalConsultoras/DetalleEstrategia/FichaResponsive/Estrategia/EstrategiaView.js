@@ -28,20 +28,33 @@
         }
     };
 
-    var _render = function (estrategia) {
-        console.log(estrategia);
+    // var _render = function (estrategia) {
+    //     console.log(estrategia);
+    //     SetHandlebars(_elements.breadcrumbs.templateId, estrategia, _elements.breadcrumbs.id);
+    //     SetHandlebars(_elements.imagenEstrategia.templateId, estrategia, _elements.imagenEstrategia.id);
+    //     SetHandlebars(_elements.estrategia.templateId, estrategia, _elements.estrategia.id);
+    //     // todo : validar si tiene un solo componente
+    //     SetHandlebars(_elements.tabsComponente.templateId, estrategia, _elements.tabsComponente.id);
+    //     //SetHandlebars(_elements.compartirEstrategia.templateId, estrategia, _elements.compartirEstrategia.id);
+    //     //
+    //     return true;
+    // };
+
+    var _renderBreadcrumbs = function (estrategia) {
         SetHandlebars(_elements.breadcrumbs.templateId, estrategia, _elements.breadcrumbs.id);
+        return true;
+    };
+
+    var _renderEstrategia = function (estrategia) {
         SetHandlebars(_elements.imagenEstrategia.templateId, estrategia, _elements.imagenEstrategia.id);
         SetHandlebars(_elements.estrategia.templateId, estrategia, _elements.estrategia.id);
-        // todo : validar si tiene un solo componente
-        SetHandlebars(_elements.tabsComponente.templateId, estrategia, _elements.tabsComponente.id);
-        //SetHandlebars(_elements.compartirEstrategia.templateId, estrategia, _elements.compartirEstrategia.id);
-        //
         return true;
     };
 
     return {
         setPresenter: _setPresenter,
-        render: _render
+        //render: _render,
+        renderBreadcrumbs : _renderBreadcrumbs,
+        renderEstrategia : _renderEstrategia,
     };
 };

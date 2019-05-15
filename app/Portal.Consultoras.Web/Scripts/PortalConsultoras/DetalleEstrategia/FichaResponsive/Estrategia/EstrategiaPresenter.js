@@ -26,8 +26,11 @@
         if (typeof estrategiaModel === "undefined" || estrategiaModel === null) throw "estrategiaModel is null or undefined";
 
         _estrategiaModel(estrategiaModel);
+
+        var model = _estrategiaModel();
         
-        if(!_config.estrategiaView.render(_estrategiaModel())) throw "estrategiaView do not render model";
+        if (!_config.estrategiaView.renderBreadcrumbs(model) ||
+            !_config.estrategiaView.renderEstrategia(model)) throw "estrategiaView do not render model";
 
         return true;
     };

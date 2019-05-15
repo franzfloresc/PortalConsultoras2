@@ -166,10 +166,26 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - EstrategiaPresenter
             expect(errorMsg).to.have.string("estrategiaModel is null or undefined");
         });
 
-        it("throw an exception when estrategiaView do not render model", function () {
+        it("throw an exception when estrategiaView do not render breadcrumbs", function () {
             // Arrange
             var estrategiaModel = {};
-            estrategiaView.render.returns(false);
+            estrategiaView.renderBreadcrumbs.returns(false);
+
+            // Act
+            try {
+                estrategiaPresenter.onEstrategiaModelLoaded(estrategiaModel);
+            } catch (error) {
+                errorMsg = error;
+            }
+
+            // Assert
+            expect(errorMsg).to.have.string("estrategiaView do not render model");
+        });
+
+        it("throw an exception when estrategiaView do not render estrategia information", function () {
+            // Arrange
+            var estrategiaModel = {};
+            estrategiaView.renderEstrategia.returns(false);
 
             // Act
             try {
@@ -185,7 +201,9 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - EstrategiaPresenter
         it("return true when estrategiaView render model", function () {
             // Arrange
             var estrategiaModel = {};
-            estrategiaView.render.returns(true);
+            estrategiaView.renderBreadcrumbs.returns(true);
+            estrategiaView.renderEstrategia.returns(true);
+            // estrategiaView.render.returns(true);
 
             // Act
             var result =  estrategiaPresenter.onEstrategiaModelLoaded(estrategiaModel);
