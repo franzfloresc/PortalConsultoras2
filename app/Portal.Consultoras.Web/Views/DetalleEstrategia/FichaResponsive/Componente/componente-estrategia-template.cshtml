@@ -2,7 +2,7 @@
 
 <script id="producto-componente-template" type="text/x-handlebars-template">
     <h3 class="contenido_titulo">CONTENIDO:</h3>
-    {{#iff CodigoVariante 'ContainsArray' '[@Constantes.TipoEstrategiaSet.CompuestaFija,@Constantes.TipoEstrategiaSet.CompuestaVariable]'}}
+    {{#iff CodigoVariante 'ContainsArray' '[@Constantes.TipoEstrategiaSet.CompuestaFija]'}}
         {{#each this.Hermanos as |componente|}}
             {{#ifVerificarMarcaLast componente.DescripcionMarca EsMultimarca}}
                 <hr class="componentes_separador" />
