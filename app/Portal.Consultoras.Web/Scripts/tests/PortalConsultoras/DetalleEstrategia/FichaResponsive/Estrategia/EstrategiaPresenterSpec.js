@@ -1,6 +1,8 @@
 ﻿/// <reference path="../../../../../portalconsultoras/detalleestrategia/ficharesponsive/estrategia/estrategiapresenter.js" />
 /// <reference path="../../../../../portalconsultoras/detalleestrategia/ficharesponsive/estrategia/estrategiaview.js" />
+/// <reference path="../../../../../portalconsultoras/shared/constantesmodule.js" />
 /// <reference path="../../../../../portalconsultoras/detalleestrategia/ficharesponsive/ficharesponsiveevents.js" />
+
 
 describe("DetalleEstrategia - FichaResponsive - Estrategia - EstrategiaPresenter", function () {
     describe("Constructor", function () {
@@ -185,6 +187,7 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - EstrategiaPresenter
         it("throw an exception when estrategiaView do not render estrategia information", function () {
             // Arrange
             var estrategiaModel = {};
+            estrategiaView.renderBreadcrumbs.returns(true);
             estrategiaView.renderEstrategia.returns(false);
 
             // Act
@@ -196,6 +199,26 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - EstrategiaPresenter
 
             // Assert
             expect(errorMsg).to.have.string("estrategiaView do not render model");
+        });
+
+        it("throw an exception when estrategiaView do not render lan background and stamp for lan", function () {
+            // Arrange
+            var estrategiaModel = {
+                codigoEstrategia : ConstantesModule.TipoEstrategia.Lanzamiento
+            };
+            estrategiaView.renderBreadcrumbs.returns(true);
+            estrategiaView.renderEstrategia.returns(true);
+            estrategiaView.renderBackgroundAndStamp.returns(false);
+
+            // Act
+            try {
+                estrategiaPresenter.onEstrategiaModelLoaded(estrategiaModel);
+            } catch (error) {
+                errorMsg = error;
+            }
+
+            // Assert
+            expect(errorMsg).to.have.string("estrategiaView do not render background and stamp");
         });
 
         it("return true when estrategiaView render model", function () {

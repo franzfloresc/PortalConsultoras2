@@ -1,4 +1,6 @@
-﻿var EstrategiaPresenter = function (config) {
+﻿/// <reference path="../../../shared/constantesmodule.js" />
+
+var EstrategiaPresenter = function (config) {
     if (typeof config === "undefined" || config === null) throw "config is null or undefined";
     if (typeof config.estrategiaView === "undefined" || config.estrategiaView === null) throw "config.estrategiaView is null or undefined";
     if (typeof config.generalModule === "undefined" || config.generalModule === null) throw "config.generalModule is null or undefined";
@@ -28,9 +30,15 @@
         _estrategiaModel(estrategiaModel);
 
         var model = _estrategiaModel();
-        
+
+        console.log(model);
+
         if (!_config.estrategiaView.renderBreadcrumbs(model) ||
             !_config.estrategiaView.renderEstrategia(model)) throw "estrategiaView do not render model";
+
+        if (model.codigoEstrategia == ConstantesModule.TipoEstrategia.Lanzamiento &&
+            !_config.estrategiaView.renderBackgroundAndStamp(model)) 
+            throw "estrategiaView do not render background and stamp";
 
         return true;
     };
